@@ -146,6 +146,8 @@ export default function NoSQLExplorerPage() {
             page: 1,
             limit: 50,
             query: "{}",
+            sortField: null,
+            sortDirection: 'asc',
             loading: true,
             error: null,
         };
@@ -160,11 +162,15 @@ export default function NoSQLExplorerPage() {
         updateTab(tab.id, { loading: true, error: null });
         try {
             const skip = (tab.page - 1) * tab.limit;
-            const res = await fetch(
-                `/api/nosql/documents?connectionString=${encodeURIComponent(
-                    connectionString
-                )}&dbName=${tab.dbName}&collectionName=${tab.collectionName}&query=${encodeURIComponent(tab.query)}&limit=${tab.limit}&skip=${skip}`
-            );
+            let url = `/api/nosql/documents?connectionString=${encodeURIComponent(
+                connectionString
+            )}&dbName=${tab.dbName}&collectionName=${tab.collectionName}&query=${encodeURIComponent(tab.query)}&limit=${tab.limit}&skip=${skip}`;
+
+            if (tab.sortField) {
+                url += `&sortField=${encodeURIComponent(tab.sortField)}&sortDirection=${tab.sortDirection || 'asc'}`;
+            }
+
+            const res = await fetch(url);
             const data = await res.json();
 
             if (!res.ok) throw new Error(data.error);
@@ -356,6 +362,14 @@ export default function NoSQLExplorerPage() {
         }
     };
 
+    const handleSortChange = (field: string, direction: 'asc' | 'desc') => {
+        if (activeTab) {
+            const updatedTab = { ...activeTab, sortField: field, sortDirection: direction, page: 1 };
+            updateTab(activeTab.id, updatedTab);
+            performFetch(updatedTab);
+        }
+    };
+
     const performFetch = async (tab: ExplorerTab) => {
         if (user) {
             const connections = await getConnections(user.uid);
@@ -477,6 +491,8 @@ export default function NoSQLExplorerPage() {
                             total={activeTab.total}
                             page={activeTab.page}
                             limit={activeTab.limit}
+                            sortField={activeTab.sortField}
+                            sortDirection={activeTab.sortDirection}
                             loading={activeTab.loading}
                             onRefresh={handleRefresh}
                             onInsert={handleInsert}
@@ -485,6 +501,7 @@ export default function NoSQLExplorerPage() {
                             onSearch={handleSearch}
                             onPageChange={handlePageChange}
                             onLimitChange={handleLimitChange}
+                            onSortChange={handleSortChange}
                         />
                     ) : (
                         <div className="flex flex-col items-center justify-center h-full text-muted-foreground p-8 animate-in fade-in zoom-in duration-300">

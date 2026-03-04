@@ -9,6 +9,8 @@ export async function GET(request: Request) {
     const limit = parseInt(searchParams.get('limit') || '20');
     const skip = parseInt(searchParams.get('skip') || '0');
     const queryStr = searchParams.get('query') || '{}';
+    const sortField = searchParams.get('sortField');
+    const sortDirection = searchParams.get('sortDirection') === 'desc' ? -1 : 1;
 
     if (!connectionString || !dbName || !collectionName) {
         return NextResponse.json(
@@ -62,15 +64,23 @@ export async function GET(request: Request) {
             const countResult = await collection.aggregate(countPipeline).toArray();
             total = countResult.length > 0 ? countResult[0].total : 0;
 
-            const paginationPipeline = [
-                ...query,
-                { $skip: skip },
-                { $limit: limit }
+            const paginationPipeline: any[] = [
+                ...query
             ];
+
+            if (sortField) {
+                paginationPipeline.push({ $sort: { [sortField]: sortDirection } });
+            }
+
+            paginationPipeline.push({ $skip: skip }, { $limit: limit });
             documents = await collection.aggregate(paginationPipeline).toArray();
         } else {
             // Standard Find
-            documents = await collection.find(query).skip(skip).limit(limit).toArray();
+            let cursor = collection.find(query);
+            if (sortField) {
+                cursor = cursor.sort({ [sortField]: sortDirection });
+            }
+            documents = await cursor.skip(skip).limit(limit).toArray();
             total = await collection.countDocuments(query);
         }
 

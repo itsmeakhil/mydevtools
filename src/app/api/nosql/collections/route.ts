@@ -18,11 +18,23 @@ export async function GET(request: Request) {
         await client.connect();
 
         const db = client.db(dbName);
-        const collections = await db.listCollections().toArray();
+        const collectionsList = await db.listCollections().toArray();
+
+        // Get document counts for each collection
+        const collectionsWithCounts = await Promise.all(
+            collectionsList.map(async (col) => {
+                try {
+                    const count = await db.collection(col.name).estimatedDocumentCount();
+                    return { ...col, documentCount: count };
+                } catch {
+                    return { ...col, documentCount: null };
+                }
+            })
+        );
 
         await client.close();
 
-        return NextResponse.json({ collections });
+        return NextResponse.json({ collections: collectionsWithCounts });
     } catch (error: any) {
         return NextResponse.json(
             { error: error.message || 'Failed to list collections' },

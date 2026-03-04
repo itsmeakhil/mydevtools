@@ -19,6 +19,7 @@ export interface Collection {
         };
         name: string;
     };
+    documentCount?: number | null;
 }
 
 export interface Document {
@@ -59,6 +60,8 @@ export interface ExplorerTab {
     page: number;
     limit: number;
     query: string;
+    sortField?: string | null;
+    sortDirection?: 'asc' | 'desc';
     loading: boolean;
     error: string | null;
 }

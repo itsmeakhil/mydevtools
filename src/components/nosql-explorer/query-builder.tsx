@@ -14,6 +14,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Editor from "@monaco-editor/react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { IconSearch, IconHistory, IconX, IconPlus, IconTrash, IconCheck, IconFilter, IconMaximize, IconBraces, IconPlayerPlay } from "@tabler/icons-react";
+import { useTheme } from "next-themes";
 
 interface QueryBuilderProps {
     query: string;
@@ -47,6 +48,7 @@ export function QueryBuilder({
     const [queryHistory, setQueryHistory] = useState<string[]>([]);
     const [builderOpen, setBuilderOpen] = useState(false);
     const [user] = useAuthState(auth);
+    const { theme } = useTheme();
     const [historyDocId, setHistoryDocId] = useState<string | null>(null);
     const [advancedOpen, setAdvancedOpen] = useState(false);
 
@@ -546,13 +548,24 @@ export function QueryBuilder({
                             </Button>
                         </div>
                     </div>
-                    <div className="flex-1 min-h-0 bg-[#1e1e1e]">
+                    <div className={cn("flex-1 min-h-0", theme === 'dark' ? 'bg-[#1e1e1e]' : 'bg-white')}>
                         <Editor
                             height="100%"
                             defaultLanguage="json"
-                            theme="vs-dark"
+                            theme={theme === 'dark' ? 'vs-dark' : 'light'}
                             value={textQuery}
                             onChange={(value) => setTextQuery(value || "")}
+                            onMount={(editor) => {
+                                // Cmd/Ctrl+Enter to run query
+                                editor.addCommand(
+                                    // Monaco.KeyMod.CtrlCmd | Monaco.KeyCode.Enter
+                                    2048 | 3, // CtrlCmd = 2048, Enter = 3
+                                    () => {
+                                        handleTextSearch();
+                                        setAdvancedOpen(false);
+                                    }
+                                );
+                            }}
                             options={{
                                 minimap: { enabled: false },
                                 fontSize: 13,

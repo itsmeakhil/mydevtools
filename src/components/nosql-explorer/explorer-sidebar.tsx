@@ -538,6 +538,15 @@ export function ExplorerSidebar({
                                                                                 >
                                                                                     <IconFolder className="h-3 w-3 text-yellow-500 shrink-0" />
                                                                                     <span className="truncate">{col.name}</span>
+                                                                                    {col.documentCount !== undefined && col.documentCount !== null && (
+                                                                                        <span className="ml-auto text-[10px] text-muted-foreground bg-muted px-1.5 py-0.5 rounded-full shrink-0">
+                                                                                            {col.documentCount >= 1000000
+                                                                                                ? `${(col.documentCount / 1000000).toFixed(1)}M`
+                                                                                                : col.documentCount >= 1000
+                                                                                                    ? `${(col.documentCount / 1000).toFixed(1)}K`
+                                                                                                    : col.documentCount}
+                                                                                        </span>
+                                                                                    )}
                                                                                 </Button>
                                                                                 <DropdownMenu>
                                                                                     <DropdownMenuTrigger asChild>

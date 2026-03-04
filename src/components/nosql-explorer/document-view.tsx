@@ -17,6 +17,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { ExportDialog } from "./export-dialog";
 import { QueryBuilder } from "./query-builder";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
 
 
 
@@ -37,6 +38,9 @@ interface DocumentViewProps {
     onSearch: (query: string) => void;
     onPageChange: (page: number) => void;
     onLimitChange: (limit: number) => void;
+    sortField?: string | null;
+    sortDirection?: 'asc' | 'desc';
+    onSortChange: (field: string, direction: 'asc' | 'desc') => void;
 }
 
 export function DocumentView({
@@ -55,6 +59,9 @@ export function DocumentView({
     onSearch,
     onPageChange,
     onLimitChange,
+    sortField,
+    sortDirection,
+    onSortChange,
 }: DocumentViewProps) {
     const [viewMode, setViewMode] = useState<"table" | "json" | "tree">("table");
     const [searchQuery, setSearchQuery] = useState("");
@@ -66,6 +73,7 @@ export function DocumentView({
     const [viewValue, setViewValue] = useState<string>("");
     const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
     const [jsonViewContent, setJsonViewContent] = useState("");
+    const { theme } = useTheme();
 
     useEffect(() => {
         setJsonViewContent(JSON.stringify(documents, null, 2));
@@ -134,6 +142,30 @@ export function DocumentView({
     const openInsertDialog = () => {
         setEditorContent("{\n  \n}");
         setIsInsertDialogOpen(true);
+    };
+
+    const handleDuplicate = (doc: Document) => {
+        const docCopy: any = { ...doc };
+        delete docCopy._id;
+        setEditorContent(JSON.stringify(docCopy, null, 2));
+        setIsInsertDialogOpen(true);
+    };
+
+    const handleCopyDocument = (doc: Document) => {
+        navigator.clipboard.writeText(JSON.stringify(doc, null, 2));
+        toast.success("Document copied to clipboard");
+    };
+
+    const handleSort = (field: string) => {
+        if (sortField === field) {
+            if (sortDirection === 'asc') {
+                onSortChange(field, 'desc');
+            } else {
+                onSortChange('', 'asc'); // Clear sort
+            }
+        } else {
+            onSortChange(field, 'asc');
+        }
     };
 
     const fields = Array.from(new Set(documents.flatMap(Object.keys))).filter(key => key !== "_id");
@@ -323,11 +355,11 @@ export function DocumentView({
                             {documents.map((doc, index) => (
                                 <div key={doc._id} className="border rounded-lg p-2 bg-card relative group">
                                     <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2 z-10">
-                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => {
-                                            navigator.clipboard.writeText(JSON.stringify(doc, null, 2));
-                                            toast.success("Document copied to clipboard");
-                                        }}>
+                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyDocument(doc)} title="Copy JSON">
                                             <IconCopy className="h-3 w-3" />
+                                        </Button>
+                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)} title="Duplicate">
+                                            <IconPlus className="h-3 w-3 text-blue-500" />
                                         </Button>
                                         <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleEdit(doc)}>
                                             <IconPencil className="h-3 w-3" />
@@ -351,11 +383,16 @@ export function DocumentView({
                                         .filter(key => key !== "_id")
                                         .reduce((acc, key) => [...acc, key], ["_id"])
                                         .map((key) => (
-                                            <th key={key} className="px-4 py-3 whitespace-nowrap font-medium sticky top-0 z-20 bg-muted">
-                                                {key}
+                                            <th key={key} className="px-4 py-3 whitespace-nowrap font-medium sticky top-0 z-20 bg-muted group/th cursor-pointer hover:bg-muted/80 transition-colors" onClick={() => handleSort(key)}>
+                                                <div className="flex items-center gap-1 group/th">
+                                                    {key}
+                                                    <span className={cn("text-muted-foreground w-3 h-3 flex items-center justify-center text-[10px]", sortField !== key && "opacity-0 group-hover/th:opacity-50")}>
+                                                        {sortField === key ? (sortDirection === 'asc' ? '▲' : '▼') : '↕'}
+                                                    </span>
+                                                </div>
                                             </th>
                                         ))}
-                                    <th className="px-4 py-3 w-[100px] bg-muted whitespace-nowrap font-medium sticky top-0 z-20">Actions</th>
+                                    <th className="px-4 py-3 w-[120px] bg-muted whitespace-nowrap font-medium sticky top-0 z-20">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -384,11 +421,17 @@ export function DocumentView({
                                                 </td>
                                             ))}
                                         <td className="px-4 py-3 align-top">
-                                            <div className="flex gap-1">
-                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleEdit(doc)}>
+                                            <div className="flex gap-1 opacity-50 group-hover:opacity-100 transition-opacity">
+                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyDocument(doc)} title="Copy JSON">
+                                                    <IconCopy className="h-3 w-3" />
+                                                </Button>
+                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)} title="Duplicate Document">
+                                                    <IconPlus className="h-3 w-3 text-blue-500" />
+                                                </Button>
+                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleEdit(doc)} title="Edit Document">
                                                     <IconPencil className="h-3 w-3" />
                                                 </Button>
-                                                <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => onDelete(doc._id)}>
+                                                <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => onDelete(doc._id)} title="Delete Document">
                                                     <IconTrash className="h-3 w-3" />
                                                 </Button>
                                             </div>
@@ -414,7 +457,7 @@ export function DocumentView({
                             defaultLanguage="json"
                             value={editorContent}
                             onChange={(value) => setEditorContent(value || "")}
-                            theme="vs-dark"
+                            theme={theme === 'dark' ? 'vs-dark' : 'light'}
                             options={{
                                 minimap: { enabled: false },
                                 fontSize: 14,
@@ -439,7 +482,7 @@ export function DocumentView({
                             defaultLanguage="json"
                             value={editorContent}
                             onChange={(value) => setEditorContent(value || "")}
-                            theme="vs-dark"
+                            theme={theme === 'dark' ? 'vs-dark' : 'light'}
                             options={{
                                 minimap: { enabled: false },
                                 fontSize: 14,
@@ -463,7 +506,7 @@ export function DocumentView({
                             height="100%"
                             defaultLanguage="json"
                             value={viewValue}
-                            theme="vs-dark"
+                            theme={theme === 'dark' ? 'vs-dark' : 'light'}
                             options={{
                                 minimap: { enabled: false },
                                 fontSize: 14,
