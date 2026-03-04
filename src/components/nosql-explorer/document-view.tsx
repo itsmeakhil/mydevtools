@@ -5,7 +5,7 @@ import { Document } from "./types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { IconPlus, IconRefresh, IconSearch, IconTrash, IconPencil, IconCode, IconTable, IconCopy, IconAlignLeft, IconMinimize, IconJson, IconBinaryTree, IconHistory, IconX, IconDownload } from "@tabler/icons-react";
+import { IconPlus, IconRefresh, IconSearch, IconTrash, IconPencil, IconCode, IconTable, IconCopy, IconAlignLeft, IconMinimize, IconJson, IconBinaryTree, IconHistory, IconX, IconDownload, IconMaximize } from "@tabler/icons-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
@@ -73,6 +73,7 @@ export function DocumentView({
     const [viewValue, setViewValue] = useState<string>("");
     const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
     const [jsonViewContent, setJsonViewContent] = useState("");
+    const [columnWidths, setColumnWidths] = useState<Record<string, number>>({});
     const { theme } = useTheme();
 
     useEffect(() => {
@@ -169,6 +170,29 @@ export function DocumentView({
     };
 
     const fields = Array.from(new Set(documents.flatMap(Object.keys))).filter(key => key !== "_id");
+
+    const handleColumnResize = (key: string, e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const startX = e.pageX;
+        const th = (e.currentTarget as HTMLElement).parentElement;
+        const initialWidth = th ? th.getBoundingClientRect().width : (columnWidths[key] || 300);
+
+        const onMouseMove = (moveEvent: MouseEvent) => {
+            const newWidth = Math.max(50, initialWidth + (moveEvent.pageX - startX));
+            setColumnWidths(prev => ({ ...prev, [key]: newWidth }));
+        };
+
+        const onMouseUp = () => {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+            document.body.style.cursor = 'default';
+        };
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+        document.body.style.cursor = 'col-resize';
+    };
 
     return (
         <div className="flex flex-col h-full">
@@ -383,13 +407,24 @@ export function DocumentView({
                                         .filter(key => key !== "_id")
                                         .reduce((acc, key) => [...acc, key], ["_id"])
                                         .map((key) => (
-                                            <th key={key} className="px-4 py-3 whitespace-nowrap font-medium sticky top-0 z-20 bg-muted group/th cursor-pointer hover:bg-muted/80 transition-colors" onClick={() => handleSort(key)}>
-                                                <div className="flex items-center gap-1 group/th">
+                                            <th
+                                                key={key}
+                                                className="px-4 py-3 whitespace-nowrap font-medium sticky top-0 z-20 bg-muted pr-6 group/th hover:bg-muted/80 transition-colors border-r"
+                                                style={{
+                                                    width: columnWidths[key] ? `${columnWidths[key]}px` : 'auto',
+                                                    maxWidth: columnWidths[key] ? `${columnWidths[key]}px` : '300px',
+                                                }}
+                                            >
+                                                <div className="flex items-center gap-1 cursor-pointer truncate" onClick={() => handleSort(key)}>
                                                     {key}
                                                     <span className={cn("text-muted-foreground w-3 h-3 flex items-center justify-center text-[10px]", sortField !== key && "opacity-0 group-hover/th:opacity-50")}>
                                                         {sortField === key ? (sortDirection === 'asc' ? '▲' : '▼') : '↕'}
                                                     </span>
                                                 </div>
+                                                <div
+                                                    className="absolute right-0 top-0 bottom-0 w-2 bg-transparent hover:bg-primary/30 cursor-col-resize z-50 flex items-center justify-center after:content-[''] after:w-[1px] after:h-4 after:bg-border group-hover/th:after:bg-muted-foreground/30"
+                                                    onMouseDown={(e) => handleColumnResize(key, e)}
+                                                />
                                             </th>
                                         ))}
                                     <th className="px-4 py-3 w-[120px] bg-muted whitespace-nowrap font-medium sticky top-0 z-20">Actions</th>
@@ -405,16 +440,36 @@ export function DocumentView({
                                             .filter(key => key !== "_id")
                                             .reduce((acc, key) => [...acc, key], ["_id"])
                                             .map((key) => (
-                                                <td key={key} className="px-4 py-3 font-mono text-xs align-top max-w-[300px] truncate" title={typeof doc[key] === 'object' ? JSON.stringify(doc[key]) : String(doc[key])}>
+                                                <td
+                                                    key={key}
+                                                    className="px-4 py-3 font-mono text-xs align-top truncate border-r relative overflow-hidden"
+                                                    style={{
+                                                        maxWidth: columnWidths[key] ? `${columnWidths[key]}px` : '300px',
+                                                        width: columnWidths[key] ? `${columnWidths[key]}px` : 'auto'
+                                                    }}
+                                                    title={typeof doc[key] === 'object' ? JSON.stringify(doc[key]) : String(doc[key])}
+                                                >
                                                     {doc[key] === undefined ? (
                                                         ""
                                                     ) : typeof doc[key] === 'object' && doc[key] !== null ? (
-                                                        <button
-                                                            onClick={() => handleViewValue(doc[key])}
-                                                            className="text-blue-500 hover:underline focus:outline-none"
-                                                        >
-                                                            {Array.isArray(doc[key]) ? `Array(${doc[key].length})` : '{...}'}
-                                                        </button>
+                                                        <Popover>
+                                                            <PopoverTrigger className="text-blue-500 hover:underline focus:outline-none outline-none">
+                                                                {Array.isArray(doc[key]) ? `Array(${doc[key].length})` : '{...}'}
+                                                            </PopoverTrigger>
+                                                            <PopoverContent className="w-[350px] p-0 shadow-lg" align="start" side="bottom">
+                                                                <div className="max-h-[300px] overflow-auto bg-card rounded-md">
+                                                                    <div className="p-2 border-b bg-muted/50 text-xs font-semibold flex justify-between items-center sticky top-0 z-10">
+                                                                        <span className="truncate pr-2 font-mono text-muted-foreground">{key}</span>
+                                                                        <Button variant="ghost" size="icon" className="h-5 w-5 bg-background shadow-sm" onClick={(e) => { e.stopPropagation(); handleViewValue(doc[key]); }} title="Open in full editor">
+                                                                            <IconMaximize className="h-3 w-3" />
+                                                                        </Button>
+                                                                    </div>
+                                                                    <div className="p-2">
+                                                                        <JsonTree data={doc[key]} label="Root" defaultExpanded={true} />
+                                                                    </div>
+                                                                </div>
+                                                            </PopoverContent>
+                                                        </Popover>
                                                     ) : (
                                                         String(doc[key])
                                                     )}

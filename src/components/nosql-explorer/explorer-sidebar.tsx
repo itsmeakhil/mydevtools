@@ -6,7 +6,7 @@ import { IconDatabase, IconFolder, IconChevronRight, IconChevronDown, IconRefres
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import useAuth from "@/utils/useAuth";
-import { getConnections, updateConnectionName } from "./connection-service";
+import { getConnections, updateConnectionName, deleteConnection } from "./connection-service";
 import { toast } from "sonner";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import {
@@ -232,6 +232,20 @@ export function ExplorerSidebar({
         }
     };
 
+    const handleDeleteConnection = async (index: number) => {
+        const node = connections[index];
+        if (!user || !node.connection.id) return;
+        if (!confirm(`Are you sure you want to delete connection "${node.connection.name}"?`)) return;
+
+        try {
+            await deleteConnection(user.uid, node.connection.id);
+            setConnections(prev => prev.filter((_, i) => i !== index));
+            toast.success("Connection deleted");
+        } catch (error) {
+            toast.error("Failed to delete connection");
+        }
+    };
+
     const handleDropDatabase = async (connIndex: number, dbName: string) => {
         if (!confirm(`Are you sure you want to drop database "${dbName}"? This action cannot be undone.`)) return;
 
@@ -430,11 +444,36 @@ export function ExplorerSidebar({
                                                         <IconServer className="h-4 w-4 text-purple-500 shrink-0" />
                                                         <span className="truncate flex-1 text-left text-sm">{node.connection.name}</span>
 
-                                                        <div
-                                                            className="opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity absolute right-1 bg-background/80 rounded-sm p-1"
-                                                            onClick={(e) => startEditing(e, node.connection)}
-                                                        >
-                                                            <IconPencil className="h-3.5 w-3.5 text-muted-foreground hover:text-foreground" />
+                                                        <div className="absolute right-1 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
+                                                            <DropdownMenu>
+                                                                <DropdownMenuTrigger asChild>
+                                                                    <div
+                                                                        className="bg-background/80 hover:bg-muted rounded-sm p-1 cursor-pointer"
+                                                                        onClick={(e) => e.stopPropagation()}
+                                                                    >
+                                                                        <IconDotsVertical className="h-3.5 w-3.5 text-muted-foreground hover:text-foreground" />
+                                                                    </div>
+                                                                </DropdownMenuTrigger>
+                                                                <DropdownMenuContent align="start" onClick={(e) => e.stopPropagation()}>
+                                                                    <DropdownMenuItem onClick={(e) => startEditing(e as any, node.connection)}>
+                                                                        <IconEdit className="h-3 w-3 mr-2" /> Rename
+                                                                    </DropdownMenuItem>
+                                                                    <DropdownMenuItem onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        navigator.clipboard.writeText(node.connection.connectionString);
+                                                                        toast.success("Connection string copied!");
+                                                                    }}>
+                                                                        <IconCopy className="h-3 w-3 mr-2" /> Copy Connection String
+                                                                    </DropdownMenuItem>
+                                                                    <DropdownMenuSeparator />
+                                                                    <DropdownMenuItem className="text-destructive focus:bg-destructive/10 focus:text-destructive" onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        handleDeleteConnection(index);
+                                                                    }}>
+                                                                        <IconTrash className="h-3 w-3 mr-2" /> Delete Connection
+                                                                    </DropdownMenuItem>
+                                                                </DropdownMenuContent>
+                                                            </DropdownMenu>
                                                         </div>
                                                     </Button>
                                                 </TooltipTrigger>
