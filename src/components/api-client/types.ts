@@ -13,10 +13,13 @@ export interface RequestBody {
 }
 
 export interface RequestAuth {
-    type: "none" | "bearer" | "basic"
+    type: "none" | "bearer" | "basic" | "api-key"
     token?: string
     username?: string
     password?: string
+    apiKeyKey?: string
+    apiKeyValue?: string
+    apiKeyLocation?: "header" | "query"
 }
 
 export interface ApiResponse {
@@ -24,6 +27,7 @@ export interface ApiResponse {
     statusText: string
     headers: Record<string, string>
     body: string
+    isBase64?: boolean
     time: number
     size: number
     error?: string
@@ -59,4 +63,9 @@ export interface Collection {
     id: string
     name: string
     items: (CollectionFolder | CollectionRequest)[]
+}
+
+export interface HistoryRequest extends CollectionRequest {
+    timestamp: number
+    status?: number
 }

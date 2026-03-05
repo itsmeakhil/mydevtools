@@ -3,9 +3,10 @@
 import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Collection, CollectionFolder, CollectionRequest } from "../types"
+import { Collection, CollectionFolder, CollectionRequest, HistoryRequest } from "../types"
 import { CollectionItem } from "./collection-item"
-import { FolderPlus, ChevronRight, ChevronLeft } from "lucide-react"
+import { FolderPlus, ChevronRight, ChevronLeft, Trash2, Pencil, MoreHorizontal } from "lucide-react"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
 import {
     Dialog,
@@ -18,8 +19,6 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-
-import { MoreHorizontal, Trash2, Pencil } from "lucide-react"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -35,6 +34,9 @@ interface CollectionsSidebarProps {
     onLoadRequest: (request: CollectionRequest) => void
     onCreateCollection: (name: string) => void
     onRenameCollection: (id: string, name: string) => void
+    history?: HistoryRequest[]
+    onClearHistory?: () => void
+    onDeleteHistoryItem?: (id: string) => void
 }
 
 export function CollectionsSidebar({
@@ -45,6 +47,9 @@ export function CollectionsSidebar({
     onLoadRequest,
     onCreateCollection,
     onRenameCollection,
+    history,
+    onClearHistory,
+    onDeleteHistoryItem,
 }: CollectionsSidebarProps) {
     const [collapsed, setCollapsed] = React.useState(false)
     const [newFolderDialogOpen, setNewFolderDialogOpen] = React.useState(false)
@@ -109,76 +114,125 @@ export function CollectionsSidebar({
                 {collapsed ? <ChevronLeft className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
             </Button>
 
-            <div className={cn("flex-1 flex flex-col min-w-[300px]", collapsed && "invisible")}>
-                <div className="p-4 border-b flex items-center justify-between">
-                    <h3 className="font-semibold">Collections</h3>
-                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setNewCollectionDialogOpen(true)}>
-                        <FolderPlus className="h-4 w-4" />
-                    </Button>
-                </div>
-                <ScrollArea className="flex-1">
-                    <div className="p-2">
-                        {collections.map((collection) => (
-                            <div key={collection.id} className="mb-4">
-                                <div className="flex items-center justify-between px-2 py-1 mb-1 group">
-                                    <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider truncate flex-1 mr-2">
-                                        {collection.name}
-                                    </span>
-                                    <div className="flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="h-5 w-5"
-                                            onClick={() => openAddFolderDialog(collection.id)}
-                                        >
-                                            <FolderPlus className="h-3 w-3" />
-                                        </Button>
-                                        <DropdownMenu>
-                                            <DropdownMenuTrigger asChild>
+            <div className={cn("flex-1 flex flex-col min-w-[300px] h-full", collapsed && "invisible")}>
+                <Tabs defaultValue="collections" className="flex-1 flex flex-col h-full min-h-0">
+                    <div className="p-4 border-b flex flex-col gap-4 shrink-0">
+                        <div className="flex items-center justify-between">
+                            <h3 className="font-semibold">Sidebar</h3>
+                            <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setNewCollectionDialogOpen(true)} title="New Collection">
+                                <FolderPlus className="h-4 w-4" />
+                            </Button>
+                        </div>
+                        <TabsList className="w-full grid grid-cols-2">
+                            <TabsTrigger value="collections">Collections</TabsTrigger>
+                            <TabsTrigger value="history">History</TabsTrigger>
+                        </TabsList>
+                    </div>
+
+                    <TabsContent value="collections" className="flex-1 flex flex-col min-h-0 m-0 data-[state=inactive]:hidden">
+                        <ScrollArea className="flex-1">
+                            <div className="p-2">
+                                {collections.map((collection) => (
+                                    <div key={collection.id} className="mb-4">
+                                        <div className="flex items-center justify-between px-2 py-1 mb-1 group">
+                                            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider truncate flex-1 mr-2">
+                                                {collection.name}
+                                            </span>
+                                            <div className="flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
                                                 <Button
                                                     variant="ghost"
                                                     size="icon"
                                                     className="h-5 w-5"
+                                                    onClick={() => openAddFolderDialog(collection.id)}
                                                 >
-                                                    <MoreHorizontal className="h-3 w-3" />
+                                                    <FolderPlus className="h-3 w-3" />
                                                 </Button>
-                                            </DropdownMenuTrigger>
-                                            <DropdownMenuContent align="end">
-                                                <DropdownMenuItem onClick={() => openRenameCollectionDialog(collection)}>
-                                                    <Pencil className="h-4 w-4 mr-2" />
-                                                    Rename
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem
-                                                    className="text-destructive focus:text-destructive"
-                                                    onClick={() => onDelete(collection.id)}
-                                                >
-                                                    <Trash2 className="h-4 w-4 mr-2" />
-                                                    Delete
-                                                </DropdownMenuItem>
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
+                                                <DropdownMenu>
+                                                    <DropdownMenuTrigger asChild>
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="icon"
+                                                            className="h-5 w-5"
+                                                        >
+                                                            <MoreHorizontal className="h-3 w-3" />
+                                                        </Button>
+                                                    </DropdownMenuTrigger>
+                                                    <DropdownMenuContent align="end">
+                                                        <DropdownMenuItem onClick={() => openRenameCollectionDialog(collection)}>
+                                                            <Pencil className="h-4 w-4 mr-2" />
+                                                            Rename
+                                                        </DropdownMenuItem>
+                                                        <DropdownMenuItem
+                                                            className="text-destructive focus:text-destructive"
+                                                            onClick={() => onDelete(collection.id)}
+                                                        >
+                                                            <Trash2 className="h-4 w-4 mr-2" />
+                                                            Delete
+                                                        </DropdownMenuItem>
+                                                    </DropdownMenuContent>
+                                                </DropdownMenu>
+                                            </div>
+                                        </div>
+                                        {collection.items.map((item) => (
+                                            <CollectionItem
+                                                key={item.id}
+                                                item={item}
+                                                level={0}
+                                                onToggle={onToggle}
+                                                onDelete={onDelete}
+                                                onAddFolder={openAddFolderDialog}
+                                                onLoadRequest={onLoadRequest}
+                                            />
+                                        ))}
+                                        {collection.items.length === 0 && (
+                                            <div className="text-xs text-muted-foreground px-2 italic">
+                                                No items
+                                            </div>
+                                        )}
                                     </div>
-                                </div>
-                                {collection.items.map((item) => (
-                                    <CollectionItem
-                                        key={item.id}
-                                        item={item}
-                                        level={0}
-                                        onToggle={onToggle}
-                                        onDelete={onDelete}
-                                        onAddFolder={openAddFolderDialog}
-                                        onLoadRequest={onLoadRequest}
-                                    />
                                 ))}
-                                {collection.items.length === 0 && (
-                                    <div className="text-xs text-muted-foreground px-2 italic">
-                                        No items
+                            </div>
+                        </ScrollArea>
+                    </TabsContent>
+
+                    <TabsContent value="history" className="flex-1 flex flex-col min-h-0 m-0 data-[state=inactive]:hidden">
+                        <div className="flex items-center justify-end p-2 border-b shrink-0">
+                            <Button variant="ghost" size="sm" onClick={onClearHistory} className="text-destructive h-8 text-xs">
+                                <Trash2 className="h-3 w-3 mr-2" />
+                                Clear All
+                            </Button>
+                        </div>
+                        <ScrollArea className="flex-1">
+                            <div className="p-2 flex flex-col gap-1">
+                                {history?.map((item) => (
+                                    <div key={item.id} className="group flex items-center justify-between p-2 hover:bg-muted/50 rounded-md cursor-pointer border border-transparent hover:border-border transition-colors text-sm" onClick={() => onLoadRequest(item)}>
+                                        <div className="flex flex-col min-w-0 flex-1 mr-2">
+                                            <div className="flex items-center gap-2">
+                                                <span className={cn("text-xs font-bold", item.method === "GET" ? "text-green-500" : item.method === "POST" ? "text-yellow-500" : item.method === "PUT" ? "text-blue-500" : item.method === "DELETE" ? "text-red-500" : "text-muted-foreground")}>{item.method}</span>
+                                                <span className="font-medium truncate">{item.name || item.url}</span>
+                                            </div>
+                                            <div className="text-xs text-muted-foreground flex items-center justify-between mt-1">
+                                                <span>{new Date(item.timestamp).toLocaleTimeString()}</span>
+                                                {item.status && <span className={item.status >= 200 && item.status < 300 ? "text-green-500" : "text-destructive"}>{item.status}</span>}
+                                            </div>
+                                        </div>
+                                        <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <Button variant="ghost" size="icon" className="h-6 w-6 text-muted-foreground hover:text-destructive" onClick={(e) => {
+                                                e.stopPropagation()
+                                                onDeleteHistoryItem?.(item.id)
+                                            }}>
+                                                <Trash2 className="h-3 w-3" />
+                                            </Button>
+                                        </div>
                                     </div>
+                                ))}
+                                {!history?.length && (
+                                    <div className="text-center p-4 text-sm text-muted-foreground italic">No history yet</div>
                                 )}
                             </div>
-                        ))}
-                    </div>
-                </ScrollArea>
+                        </ScrollArea>
+                    </TabsContent>
+                </Tabs>
             </div>
 
             <Dialog open={newFolderDialogOpen} onOpenChange={setNewFolderDialogOpen}>

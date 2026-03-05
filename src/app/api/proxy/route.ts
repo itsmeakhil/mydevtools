@@ -38,14 +38,26 @@ export async function POST(req: NextRequest) {
             responseHeaders[key] = value
         })
 
-        const responseBody = await response.text()
-        const size = Number(response.headers.get("content-length")) || responseBody.length
+        const contentType = response.headers.get("content-type") || ""
+        let responseBody: string
+        let isBase64 = false
+
+        if (contentType.includes("image/") || contentType.includes("application/pdf") || contentType.includes("audio/") || contentType.includes("video/")) {
+            const buffer = await response.arrayBuffer()
+            responseBody = Buffer.from(buffer).toString("base64")
+            isBase64 = true
+        } else {
+            responseBody = await response.text()
+        }
+
+        const size = Number(response.headers.get("content-length")) || (isBase64 ? Buffer.from(responseBody, "base64").length : responseBody.length)
 
         return NextResponse.json({
             status: response.status,
             statusText: response.statusText,
             headers: responseHeaders,
             body: responseBody,
+            isBase64,
             time,
             size,
         })

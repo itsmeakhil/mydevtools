@@ -92,6 +92,7 @@ export function RequestTabs({
                                 <SelectItem value="none">None</SelectItem>
                                 <SelectItem value="bearer">Bearer Token</SelectItem>
                                 <SelectItem value="basic">Basic Auth</SelectItem>
+                                <SelectItem value="api-key">API Key</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
@@ -126,6 +127,42 @@ export function RequestTabs({
                                     onChange={(e) => setAuth({ ...auth, password: e.target.value })}
                                     placeholder="Password"
                                 />
+                            </div>
+                        </div>
+                    )}
+                    {auth.type === "api-key" && (
+                        <div className="space-y-4 max-w-md">
+                            <div className="space-y-2">
+                                <Label>Key</Label>
+                                <Input
+                                    value={auth.apiKeyKey || ""}
+                                    onChange={(e) => setAuth({ ...auth, apiKeyKey: e.target.value })}
+                                    placeholder="Key Name (e.g. X-Api-Key)"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <Label>Value</Label>
+                                <Input
+                                    type="password"
+                                    value={auth.apiKeyValue || ""}
+                                    onChange={(e) => setAuth({ ...auth, apiKeyValue: e.target.value })}
+                                    placeholder="Value"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <Label>Add to</Label>
+                                <Select
+                                    value={auth.apiKeyLocation || "header"}
+                                    onValueChange={(v) => setAuth({ ...auth, apiKeyLocation: v as any })}
+                                >
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Add to" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="header">Header</SelectItem>
+                                        <SelectItem value="query">Query Params</SelectItem>
+                                    </SelectContent>
+                                </Select>
                             </div>
                         </div>
                     )}

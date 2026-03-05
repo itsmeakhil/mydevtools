@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Card } from "@/components/ui/card"
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable"
 import { RequestPanel } from "./request-panel"
 import { RequestTabs } from "./request-tabs"
 import { ResponsePanel } from "./response-panel"
@@ -10,6 +11,7 @@ import { ImportCurlDialog } from "./import-curl-dialog"
 import { parseCurlCommand } from "@/utils/curl-parser"
 import { CollectionsSidebar } from "./collections/collections-sidebar"
 import { useCollections } from "./collections/use-collections"
+import { useHistory } from "./use-history"
 import { useEnvironments } from "./use-environments"
 import { EnvironmentManager } from "./environment-manager"
 import { CodeGenerator } from "./code-generator"
@@ -49,6 +51,7 @@ export function ApiClient() {
     const [activeTabId, setActiveTabId] = React.useState<string>(tabs[0].id)
     const [isInitialized, setIsInitialized] = React.useState(false)
     const { collections, addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection } = useCollections()
+    const { history, addHistoryItem, clearHistory, deleteHistoryItem } = useHistory()
     const {
         environments,
         activeEnvId,
@@ -203,6 +206,14 @@ export function ApiClient() {
             } else if (activeTab.auth.type === "basic" && activeTab.auth.username && activeTab.auth.password) {
                 const credentials = btoa(`${substituteVariables(activeTab.auth.username)}:${substituteVariables(activeTab.auth.password)}`)
                 headersObj["Authorization"] = `Basic ${credentials}`
+            } else if (activeTab.auth.type === "api-key" && activeTab.auth.apiKeyKey && activeTab.auth.apiKeyValue) {
+                const key = substituteVariables(activeTab.auth.apiKeyKey)
+                const val = substituteVariables(activeTab.auth.apiKeyValue)
+                if (activeTab.auth.apiKeyLocation === "query") {
+                    urlObj.searchParams.append(key, val)
+                } else {
+                    headersObj[key] = val
+                }
             }
 
             // Prepare body
@@ -246,7 +257,7 @@ export function ApiClient() {
 
             let formattedBody = proxyData.body
             try {
-                if (formattedBody) {
+                if (formattedBody && !proxyData.isBase64) {
                     formattedBody = JSON.stringify(JSON.parse(formattedBody), null, 2)
                 }
             } catch {
@@ -259,12 +270,23 @@ export function ApiClient() {
                     statusText: proxyData.statusText,
                     headers: proxyData.headers,
                     body: formattedBody,
+                    isBase64: proxyData.isBase64,
                     time: proxyData.time,
                     size: proxyData.size,
                     error: proxyData.error,
                 },
                 isLoading: false,
             })
+
+            addHistoryItem({
+                method: activeTab.method,
+                url: activeTab.url,
+                params: activeTab.params,
+                headers: activeTab.headers,
+                body: activeTab.body,
+                auth: activeTab.auth,
+            }, activeTab.name !== "New Request" ? activeTab.name : activeTab.url, proxyData.status)
+
         } catch (error) {
             console.error(error)
             toast.error("Request failed: " + (error as Error).message)
@@ -280,6 +302,15 @@ export function ApiClient() {
                 },
                 isLoading: false,
             })
+
+            addHistoryItem({
+                method: activeTab.method,
+                url: activeTab.url,
+                params: activeTab.params,
+                headers: activeTab.headers,
+                body: activeTab.body,
+                auth: activeTab.auth,
+            }, activeTab.name !== "New Request" ? activeTab.name : activeTab.url, 0)
         }
     }
 
@@ -323,6 +354,9 @@ export function ApiClient() {
                                     }}
                                     onCreateCollection={createCollection}
                                     onRenameCollection={renameCollection}
+                                    history={history}
+                                    onClearHistory={clearHistory}
+                                    onDeleteHistoryItem={deleteHistoryItem}
                                 />
                             </SheetContent>
                         </Sheet>
@@ -348,30 +382,41 @@ export function ApiClient() {
                         onTabClose={handleCloseTab}
                         onTabAdd={handleAddTab}
                     />
-                    <div className="p-4 md:p-6 space-y-4 md:space-y-6 flex-1 overflow-y-auto">
-                        <RequestPanel
-                            method={activeTab.method}
-                            setMethod={(method) => updateActiveTab({ method })}
-                            url={activeTab.url}
-                            setUrl={(url) => updateActiveTab({ url, name: url || "New Request" })}
-                            onSend={handleSend}
-                            isLoading={activeTab.isLoading}
-                            collections={collections}
-                            onSave={handleSaveRequest}
-                            saveDefaultName={activeTab.name !== "New Request" ? activeTab.name : ""}
-                            onPaste={handleCurlPaste}
-                        />
-                        <RequestTabs
-                            params={activeTab.params}
-                            setParams={(params) => updateActiveTab({ params })}
-                            headers={activeTab.headers}
-                            setHeaders={(headers) => updateActiveTab({ headers })}
-                            body={activeTab.body}
-                            setBody={(body) => updateActiveTab({ body })}
-                            auth={activeTab.auth}
-                            setAuth={(auth) => updateActiveTab({ auth })}
-                        />
-                        <ResponsePanel response={activeTab.response} />
+                    <div className="flex-1 overflow-hidden min-h-0">
+                        <ResizablePanelGroup direction={isMobile ? "vertical" : "horizontal"} className="h-full w-full">
+                            <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col h-full bg-card">
+                                <div className="p-4 md:p-6 space-y-4 md:space-y-6 flex-1 overflow-y-auto min-h-0">
+                                    <RequestPanel
+                                        method={activeTab.method}
+                                        setMethod={(method) => updateActiveTab({ method })}
+                                        url={activeTab.url}
+                                        setUrl={(url) => updateActiveTab({ url, name: url || "New Request" })}
+                                        onSend={handleSend}
+                                        isLoading={activeTab.isLoading}
+                                        collections={collections}
+                                        onSave={handleSaveRequest}
+                                        saveDefaultName={activeTab.name !== "New Request" ? activeTab.name : ""}
+                                        onPaste={handleCurlPaste}
+                                    />
+                                    <RequestTabs
+                                        params={activeTab.params}
+                                        setParams={(params) => updateActiveTab({ params })}
+                                        headers={activeTab.headers}
+                                        setHeaders={(headers) => updateActiveTab({ headers })}
+                                        body={activeTab.body}
+                                        setBody={(body) => updateActiveTab({ body })}
+                                        auth={activeTab.auth}
+                                        setAuth={(auth) => updateActiveTab({ auth })}
+                                    />
+                                </div>
+                            </ResizablePanel>
+                            <ResizableHandle withHandle className="bg-border" />
+                            <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col h-full bg-card">
+                                <div className="p-4 md:p-6 flex-1 overflow-y-auto min-h-0 h-full">
+                                    <ResponsePanel response={activeTab.response} />
+                                </div>
+                            </ResizablePanel>
+                        </ResizablePanelGroup>
                     </div>
                 </Card>
             </div>
@@ -385,6 +430,9 @@ export function ApiClient() {
                     onLoadRequest={handleLoadRequest}
                     onCreateCollection={createCollection}
                     onRenameCollection={renameCollection}
+                    history={history}
+                    onClearHistory={clearHistory}
+                    onDeleteHistoryItem={deleteHistoryItem}
                 />
             )}
         </div>
