@@ -27,12 +27,12 @@ export default function PasswordManagerPage() {
 
     return (
         <div className={isMobile
-            ? "min-h-screen bg-background"
-            : "container mx-auto py-6 px-4 md:px-6 lg:px-8 space-y-6"
+            ? "h-full bg-background"
+            : "h-full flex flex-col container mx-auto px-4 md:px-6 lg:px-8"
         }>
             {/* Desktop header - hidden on mobile */}
             {!isMobile && (
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center py-6 shrink-0">
                     <h1 className="text-3xl font-bold tracking-tight">Password Manager</h1>
                     <AddPasswordDialog />
                 </div>

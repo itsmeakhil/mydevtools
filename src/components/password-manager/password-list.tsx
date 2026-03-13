@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
+import { useInfiniteScroll } from "@/hooks/use-infinite-scroll"
 import { usePasswordStore } from "@/store/password-store"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -39,13 +40,40 @@ export function PasswordList() {
     const [editingPassword, setEditingPassword] = useState<PasswordEntry | null>(null)
     const isMobile = useIsMobile()
 
-    // Force grid view on mobile logic removed to allow toggling
-
     const filteredPasswords = passwords.filter(p =>
         p.service.toLowerCase().includes(searchTerm.toLowerCase()) ||
         p.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
         p.tags?.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
     )
+
+    // Each scroll context has its own container ref + infinite scroll hook instance.
+    // This is required because app-content.tsx uses overflow-hidden on the outer wrapper,
+    // so IntersectionObserver needs to use each list's own scrollable div as the root.
+    const mobileScrollerRef = useRef<HTMLDivElement>(null)
+    const desktopScrollerRef = useRef<HTMLDivElement>(null)
+
+    const {
+        displayCount: mobileDisplayCount,
+        sentinelRef: mobileSentinelRef,
+        hasMore: mobileHasMore,
+    } = useInfiniteScroll({
+        totalCount: filteredPasswords.length,
+        resetKey: searchTerm,
+        scrollContainerRef: mobileScrollerRef,
+    })
+
+    const {
+        displayCount: desktopDisplayCount,
+        sentinelRef: desktopSentinelRef,
+        hasMore: desktopHasMore,
+    } = useInfiniteScroll({
+        totalCount: filteredPasswords.length,
+        resetKey: searchTerm,
+        scrollContainerRef: desktopScrollerRef,
+    })
+
+    const mobilePasswords = filteredPasswords.slice(0, mobileDisplayCount)
+    const desktopPasswords = filteredPasswords.slice(0, desktopDisplayCount)
 
     const toggleVisibility = (id: string) => {
         const newVisible = new Set(visiblePasswords)
@@ -140,16 +168,14 @@ export function PasswordList() {
 
     return (
         <div className={cn(
-            isMobile ? "pb-24" : "space-y-6 mobile-nav-offset"
+            isMobile ? "flex flex-col h-full" : "flex-1 flex flex-col min-h-0"
         )}>
             {/* Mobile Header */}
             {isMobile && (
-                <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-xl border-b pb-4 pt-2">
+                <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-xl border-b pb-4 pt-2 shrink-0">
                     <div className="flex items-center gap-2 px-4 py-2">
-                        {/* Menu Icon / Sidebar Trigger */}
                         <SidebarTrigger className="-ml-2 h-10 w-10 text-muted-foreground/80 hover:bg-transparent hover:text-foreground" />
 
-                        {/* Search Bar */}
                         <div className="relative flex-1 h-10">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground" />
                             <Input
@@ -160,7 +186,6 @@ export function PasswordList() {
                             />
                         </div>
 
-                        {/* Grid/List View Toggle */}
                         <Button
                             variant="ghost"
                             size="icon"
@@ -170,7 +195,6 @@ export function PasswordList() {
                             {viewMode === "grid" ? <List className="h-5 w-5" /> : <LayoutGrid className="h-5 w-5" />}
                         </Button>
 
-                        {/* Kebab Menu */}
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" size="icon" className="h-10 w-10 text-muted-foreground/80">
@@ -188,10 +212,8 @@ export function PasswordList() {
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
-
                     </div>
 
-                    {/* Title Section */}
                     <div className="px-4 mt-2 mb-1 flex items-center gap-2">
                         <div className="flex-1">
                             <h1 className="text-2xl font-bold tracking-tight text-foreground">All Passwords</h1>
@@ -218,7 +240,7 @@ export function PasswordList() {
 
             {/* Desktop Search Bar */}
             {!isMobile && (
-                <div className="flex gap-2 items-center z-40 transition-all duration-200">
+                <div className="flex gap-2 items-center z-40 transition-all duration-200 shrink-0 pb-4">
                     <div className="relative flex-1">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                         <Input
@@ -253,156 +275,189 @@ export function PasswordList() {
                     <p className="text-sm">No passwords found matching "{searchTerm}"</p>
                 </div>
             ) : isMobile ? (
-                // Mobile View
-                viewMode === "grid" ? (
-                    <div className="grid grid-cols-2 gap-3 px-4 pt-2">
-                        {filteredPasswords.map(entry => (
-                            <PasswordCard
-                                key={entry.id}
-                                entry={entry}
-                                isVisible={visiblePasswords.has(entry.id)}
-                                onToggleVisibility={toggleVisibility}
-                                onCopy={copyToClipboard}
-                                onDelete={handleDeleteClick}
-                                onEdit={setEditingPassword}
-                            />
-                        ))}
-                    </div>
-                ) : (
-                    <div className="px-4 pt-2 space-y-3">
-                        {filteredPasswords.map((entry) => (
-                            <PasswordItemSwipeable
-                                key={entry.id}
-                                entry={entry}
-                                onCopy={(text) => copyToClipboard(text)}
-                                onDelete={(id) => handleDeleteClick(id)}
-                                onEdit={(entry) => setEditingPassword(entry)}
-                                onToggleVisibility={(id) => toggleVisibility(id)}
-                                isVisible={visiblePasswords.has(entry.id)}
-                            />
-                        ))}
-                    </div>
-                )
+                /* ── Mobile: single scrollable container as IntersectionObserver root ── */
+                <div
+                    ref={mobileScrollerRef}
+                    className="flex-1 overflow-y-auto pb-24"
+                >
+                    {viewMode === "grid" ? (
+                        <div className="grid grid-cols-2 gap-3 px-4 pt-2">
+                            {mobilePasswords.map(entry => (
+                                <PasswordCard
+                                    key={entry.id}
+                                    entry={entry}
+                                    isVisible={visiblePasswords.has(entry.id)}
+                                    onToggleVisibility={toggleVisibility}
+                                    onCopy={copyToClipboard}
+                                    onDelete={handleDeleteClick}
+                                    onEdit={setEditingPassword}
+                                />
+                            ))}
+                            {/* sentinel — callback ref re-attaches when view mode changes */}
+                            <div ref={mobileSentinelRef} className="col-span-2" />
+                            {mobileHasMore && (
+                                <div className="col-span-2 flex justify-center py-4">
+                                    <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        <div className="px-4 pt-2 space-y-3">
+                            {mobilePasswords.map((entry) => (
+                                <PasswordItemSwipeable
+                                    key={entry.id}
+                                    entry={entry}
+                                    onCopy={(text) => copyToClipboard(text)}
+                                    onDelete={(id) => handleDeleteClick(id)}
+                                    onEdit={(entry) => setEditingPassword(entry)}
+                                    onToggleVisibility={(id) => toggleVisibility(id)}
+                                    isVisible={visiblePasswords.has(entry.id)}
+                                />
+                            ))}
+                            <div ref={mobileSentinelRef} />
+                            {mobileHasMore && (
+                                <div className="flex justify-center py-4">
+                                    <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
             ) : (
-                // Desktop View
-                viewMode === "grid" ? (
-                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                        {filteredPasswords.map((entry) => (
-                            <PasswordCard
-                                key={entry.id}
-                                entry={entry}
-                                isVisible={visiblePasswords.has(entry.id)}
-                                onToggleVisibility={toggleVisibility}
-                                onCopy={copyToClipboard}
-                                onDelete={handleDeleteClick}
-                                onEdit={setEditingPassword}
-                            />
-                        ))}
-                    </div>
-                ) : (
-                    <div className="rounded-md border bg-card/50 backdrop-blur-sm overflow-hidden">
-                        <Table>
-                            <TableHeader>
-                                <TableRow className="hover:bg-transparent">
-                                    <TableHead className="w-[250px]">Service</TableHead>
-                                    <TableHead className="w-[200px]">Username</TableHead>
-                                    <TableHead className="w-[250px]">Password</TableHead>
-                                    <TableHead>URL</TableHead>
-                                    <TableHead className="text-right">Actions</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {filteredPasswords.map((entry) => (
-                                    <TableRow key={entry.id} className="group hover:bg-muted/30 transition-colors">
-                                        <TableCell className="font-medium">
-                                            <div className="flex items-center gap-3">
-                                                <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm select-none overflow-hidden">
-                                                    {entry.url && getFaviconUrl(entry.url) ? (
-                                                        <img
-                                                            src={getFaviconUrl(entry.url)!}
-                                                            alt={entry.service}
-                                                            className="h-5 w-5 object-contain"
-                                                            onError={(e) => {
-                                                                (e.target as HTMLImageElement).style.display = 'none';
-                                                                (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
-                                                            }}
-                                                        />
-                                                    ) : null}
-                                                    <span className={cn(entry.url && getFaviconUrl(entry.url) ? "hidden" : "")}>
-                                                        {entry.service.charAt(0).toUpperCase()}
-                                                    </span>
-                                                </div>
-                                                <div className="flex flex-col">
-                                                    <span className="truncate font-medium">{entry.service}</span>
-                                                    {entry.tags && entry.tags.length > 0 && (
-                                                        <div className="flex gap-1 mt-0.5">
-                                                            {entry.tags.slice(0, 2).map(tag => (
-                                                                <span key={tag} className="text-[10px] text-muted-foreground bg-muted px-1 rounded">
-                                                                    {tag}
-                                                                </span>
-                                                            ))}
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell className="font-mono text-xs text-muted-foreground">
-                                            <div className="flex items-center gap-2 group/username">
-                                                {entry.username}
-                                                <Button variant="ghost" size="icon" className="h-4 w-4 opacity-0 group-hover/username:opacity-100 transition-opacity" onClick={() => copyToClipboard(entry.username, "Username")}>
-                                                    <Copy className="h-3 w-3" />
-                                                </Button>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center gap-2 max-w-[200px]">
-                                                <div className="font-mono text-sm truncate flex-1 bg-muted/30 px-2 py-1 rounded border border-border/50">
-                                                    {visiblePasswords.has(entry.id) ? entry.password : "••••••••••••"}
-                                                </div>
-                                                <Button variant="ghost" size="icon" className="h-6 w-6 hover:bg-background shrink-0" onClick={() => toggleVisibility(entry.id)}>
-                                                    {visiblePasswords.has(entry.id) ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
-                                                </Button>
-                                                <Button variant="ghost" size="icon" className="h-6 w-6 hover:bg-background shrink-0" onClick={() => copyToClipboard(entry.password)}>
-                                                    <Copy className="h-3 w-3" />
-                                                </Button>
-                                                <div className={cn("w-1.5 h-1.5 rounded-full", getStrengthColor(calculatePasswordStrength(entry.password)))} title="Password Strength" />
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            {entry.url ? (
-                                                <a href={entry.url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline truncate max-w-[150px] block">
-                                                    {entry.url.replace(/^https?:\/\//, '')}
-                                                </a>
-                                            ) : (
-                                                <span className="text-xs text-muted-foreground">-</span>
-                                            )}
-                                        </TableCell>
-                                        <TableCell className="text-right">
-                                            <DropdownMenu>
-                                                <DropdownMenuTrigger asChild>
-                                                    <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-muted">
-                                                        <MoreVertical className="h-4 w-4" />
-                                                    </Button>
-                                                </DropdownMenuTrigger>
-                                                <DropdownMenuContent align="end">
-                                                    <DropdownMenuItem onClick={() => setEditingPassword(entry)}>
-                                                        <Pencil className="mr-2 h-4 w-4" />
-                                                        Edit
-                                                    </DropdownMenuItem>
-                                                    <DropdownMenuSeparator />
-                                                    <DropdownMenuItem onClick={() => handleDeleteClick(entry.id)} className="text-destructive focus:text-destructive">
-                                                        <Trash2 className="mr-2 h-4 w-4" />
-                                                        Delete
-                                                    </DropdownMenuItem>
-                                                </DropdownMenuContent>
-                                            </DropdownMenu>
-                                        </TableCell>
+                /* ── Desktop: own scrollable container as IntersectionObserver root ── */
+                <div ref={desktopScrollerRef} className="flex-1 overflow-y-auto min-h-0">
+                    {viewMode === "grid" ? (
+                        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                            {desktopPasswords.map((entry) => (
+                                <PasswordCard
+                                    key={entry.id}
+                                    entry={entry}
+                                    isVisible={visiblePasswords.has(entry.id)}
+                                    onToggleVisibility={toggleVisibility}
+                                    onCopy={copyToClipboard}
+                                    onDelete={handleDeleteClick}
+                                    onEdit={setEditingPassword}
+                                />
+                            ))}
+                            <div ref={desktopSentinelRef} className="col-span-full" />
+                            {desktopHasMore && (
+                                <div className="col-span-full flex justify-center py-6">
+                                    <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        <div className="rounded-md border bg-card/50 backdrop-blur-sm overflow-hidden">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="hover:bg-transparent">
+                                        <TableHead className="w-[250px]">Service</TableHead>
+                                        <TableHead className="w-[200px]">Username</TableHead>
+                                        <TableHead className="w-[250px]">Password</TableHead>
+                                        <TableHead>URL</TableHead>
+                                        <TableHead className="text-right">Actions</TableHead>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </div>
-                )
+                                </TableHeader>
+                                <TableBody>
+                                    {desktopPasswords.map((entry) => (
+                                        <TableRow key={entry.id} className="group hover:bg-muted/30 transition-colors">
+                                            <TableCell className="font-medium">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm select-none overflow-hidden">
+                                                        {entry.url && getFaviconUrl(entry.url) ? (
+                                                            <img
+                                                                src={getFaviconUrl(entry.url)!}
+                                                                alt={entry.service}
+                                                                className="h-5 w-5 object-contain"
+                                                                onError={(e) => {
+                                                                    (e.target as HTMLImageElement).style.display = 'none';
+                                                                    (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
+                                                                }}
+                                                            />
+                                                        ) : null}
+                                                        <span className={cn(entry.url && getFaviconUrl(entry.url) ? "hidden" : "")}>
+                                                            {entry.service.charAt(0).toUpperCase()}
+                                                        </span>
+                                                    </div>
+                                                    <div className="flex flex-col">
+                                                        <span className="truncate font-medium">{entry.service}</span>
+                                                        {entry.tags && entry.tags.length > 0 && (
+                                                            <div className="flex gap-1 mt-0.5">
+                                                                {entry.tags.slice(0, 2).map(tag => (
+                                                                    <span key={tag} className="text-[10px] text-muted-foreground bg-muted px-1 rounded">
+                                                                        {tag}
+                                                                    </span>
+                                                                ))}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </TableCell>
+                                            <TableCell className="font-mono text-xs text-muted-foreground">
+                                                <div className="flex items-center gap-2 group/username">
+                                                    {entry.username}
+                                                    <Button variant="ghost" size="icon" className="h-4 w-4 opacity-0 group-hover/username:opacity-100 transition-opacity" onClick={() => copyToClipboard(entry.username, "Username")}>
+                                                        <Copy className="h-3 w-3" />
+                                                    </Button>
+                                                </div>
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="flex items-center gap-2 max-w-[200px]">
+                                                    <div className="font-mono text-sm truncate flex-1 bg-muted/30 px-2 py-1 rounded border border-border/50">
+                                                        {visiblePasswords.has(entry.id) ? entry.password : "••••••••••••"}
+                                                    </div>
+                                                    <Button variant="ghost" size="icon" className="h-6 w-6 hover:bg-background shrink-0" onClick={() => toggleVisibility(entry.id)}>
+                                                        {visiblePasswords.has(entry.id) ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
+                                                    </Button>
+                                                    <Button variant="ghost" size="icon" className="h-6 w-6 hover:bg-background shrink-0" onClick={() => copyToClipboard(entry.password)}>
+                                                        <Copy className="h-3 w-3" />
+                                                    </Button>
+                                                    <div className={cn("w-1.5 h-1.5 rounded-full", getStrengthColor(calculatePasswordStrength(entry.password)))} title="Password Strength" />
+                                                </div>
+                                            </TableCell>
+                                            <TableCell>
+                                                {entry.url ? (
+                                                    <a href={entry.url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline truncate max-w-[150px] block">
+                                                        {entry.url.replace(/^https?:\/\//, '')}
+                                                    </a>
+                                                ) : (
+                                                    <span className="text-xs text-muted-foreground">-</span>
+                                                )}
+                                            </TableCell>
+                                            <TableCell className="text-right">
+                                                <DropdownMenu>
+                                                    <DropdownMenuTrigger asChild>
+                                                        <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-muted">
+                                                            <MoreVertical className="h-4 w-4" />
+                                                        </Button>
+                                                    </DropdownMenuTrigger>
+                                                    <DropdownMenuContent align="end">
+                                                        <DropdownMenuItem onClick={() => setEditingPassword(entry)}>
+                                                            <Pencil className="mr-2 h-4 w-4" />
+                                                            Edit
+                                                        </DropdownMenuItem>
+                                                        <DropdownMenuSeparator />
+                                                        <DropdownMenuItem onClick={() => handleDeleteClick(entry.id)} className="text-destructive focus:text-destructive">
+                                                            <Trash2 className="mr-2 h-4 w-4" />
+                                                            Delete
+                                                        </DropdownMenuItem>
+                                                    </DropdownMenuContent>
+                                                </DropdownMenu>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                            {/* Infinite scroll sentinel for table view */}
+                            <div ref={desktopSentinelRef} />
+                            {desktopHasMore && (
+                                <div className="flex justify-center py-4 border-t">
+                                    <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
             )}
 
             <AlertDialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
