@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Database, Collection, SavedConnection } from "./types";
-import { IconDatabase, IconFolder, IconChevronRight, IconChevronDown, IconRefresh, IconSearch, IconPlus, IconServer, IconPencil, IconCheck, IconX, IconDotsVertical, IconTrash, IconEdit, IconCopy } from "@tabler/icons-react";
+import { IconDatabase, IconFolder, IconChevronRight, IconChevronDown, IconRefresh, IconSearch, IconPlus, IconServer, IconPencil, IconCheck, IconX, IconDotsVertical, IconTrash, IconEdit, IconCopy, IconAlertCircle } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import useAuth from "@/utils/useAuth";
@@ -371,19 +371,30 @@ export function ExplorerSidebar({
                 <div className="flex items-center justify-between">
                     <span className="font-semibold text-sm">Explorer</span>
                     <div className="flex items-center gap-1">
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-8 md:h-6 px-2 text-xs gap-1"
-                            onClick={onAddConnection}
-                            title="Manage Connections"
-                        >
-                            <IconPlus className="h-3 w-3" />
-                            <span>Manage</span>
-                        </Button>
-                        <Button variant="ghost" size="icon" className="h-8 w-8 md:h-6 md:w-6" onClick={loadConnections} title="Refresh">
-                            <IconRefresh className="h-4 w-4" />
-                        </Button>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        className="h-8 md:h-6 px-2 text-xs gap-1"
+                                        onClick={onAddConnection}
+                                    >
+                                        <IconPlus className="h-3 w-3" />
+                                        <span>Add</span>
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>Add new connection</TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button variant="ghost" size="icon" className="h-8 w-8 md:h-6 md:w-6" onClick={loadConnections}>
+                                        <IconRefresh className="h-4 w-4" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>Refresh connections</TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
                     </div>
                 </div>
                 <div className="relative">
@@ -441,7 +452,17 @@ export function ExplorerSidebar({
                                                         ) : (
                                                             <IconChevronRight className="h-4 w-4 text-muted-foreground shrink-0" />
                                                         )}
-                                                        <IconServer className="h-4 w-4 text-purple-500 shrink-0" />
+                                                        <div className="relative shrink-0">
+                                                            <IconServer className="h-4 w-4 text-purple-500" />
+                                                            {/* Status dot */}
+                                                            <span className={cn(
+                                                                "absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full border border-background",
+                                                                node.error ? "bg-red-500" :
+                                                                    node.isLoading ? "bg-yellow-400 animate-pulse" :
+                                                                        node.databases.length > 0 ? "bg-green-500" :
+                                                                            "bg-muted-foreground/40"
+                                                            )} />
+                                                        </div>
                                                         <span className="truncate flex-1 text-left text-sm">{node.connection.name}</span>
 
                                                         <div className="absolute right-1 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
@@ -479,6 +500,7 @@ export function ExplorerSidebar({
                                                 </TooltipTrigger>
                                                 <TooltipContent side="right">
                                                     <p className="font-mono text-xs">{node.connection.connectionString}</p>
+                                                    {node.error && <p className="text-destructive text-xs mt-1">{node.error}</p>}
                                                 </TooltipContent>
                                             </Tooltip>
                                         </TooltipProvider>
@@ -488,9 +510,24 @@ export function ExplorerSidebar({
                                 {node.isExpanded && (
                                     <div className="ml-4 border-l pl-2 mt-1 space-y-1">
                                         {node.isLoading ? (
-                                            <div className="text-xs text-muted-foreground px-2 py-1">Connecting...</div>
+                                            <div className="text-xs text-muted-foreground px-2 py-1 flex items-center gap-1.5">
+                                                <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
+                                                Connecting...
+                                            </div>
                                         ) : node.error ? (
-                                            <div className="text-xs text-destructive px-2 py-1">{node.error}</div>
+                                            <TooltipProvider>
+                                                <Tooltip>
+                                                    <TooltipTrigger asChild>
+                                                        <div className="text-xs text-destructive px-2 py-1 flex items-center gap-1.5 cursor-default">
+                                                            <IconAlertCircle className="h-3 w-3 shrink-0" />
+                                                            <span className="truncate">Connection failed</span>
+                                                        </div>
+                                                    </TooltipTrigger>
+                                                    <TooltipContent side="right" className="max-w-[240px]">
+                                                        <p className="text-xs">{node.error}</p>
+                                                    </TooltipContent>
+                                                </Tooltip>
+                                            </TooltipProvider>
                                         ) : node.databases.length === 0 ? (
                                             <div className="text-xs text-muted-foreground px-2 py-1">No databases</div>
                                         ) : (

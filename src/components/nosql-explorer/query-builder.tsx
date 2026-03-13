@@ -289,18 +289,34 @@ export function QueryBuilder({
         <div className="flex items-center w-full">
             <div className="relative flex-1 group">
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                    <IconSearch className="h-4 w-4" />
+                    <IconBraces className="h-3.5 w-3.5" />
                 </div>
                 <Input
                     value={textQuery}
                     onChange={(e) => setTextQuery(e.target.value)}
-                    placeholder='Query (e.g. { "status": "active" })'
-                    className="pl-9 pr-[150px] font-mono text-xs h-9 bg-background"
+                    placeholder='e.g. { "status": "active" }'
+                    className="pl-8 pr-[175px] font-mono text-xs h-9 bg-background"
                     onKeyDown={(e) => {
                         if (e.key === "Enter") handleTextSearch();
                     }}
                 />
                 <div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                    {/* Clear button — visible when query is non-empty/non-default */}
+                    {textQuery && textQuery !== "{}" && (
+                        <>
+                            <button
+                                className="h-5 w-5 flex items-center justify-center rounded-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                                onClick={() => {
+                                    setTextQuery("{}");
+                                    onSearch("{}");
+                                }}
+                                title="Clear query"
+                            >
+                                <IconX className="h-3 w-3" />
+                            </button>
+                            <div className="w-[1px] h-4 bg-border" />
+                        </>
+                    )}
                     <Button
                         variant="ghost"
                         size="icon"
@@ -316,11 +332,16 @@ export function QueryBuilder({
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                className={cn("h-7 w-7 text-muted-foreground hover:text-foreground", rules.length > 0 && "text-primary")}
+                                className={cn("h-7 w-7 text-muted-foreground hover:text-foreground relative", rules.length > 0 && "text-primary")}
                                 onClick={openBuilder}
                                 title="Visual Query Builder"
                             >
                                 <IconFilter className="h-4 w-4" />
+                                {rules.length > 0 && (
+                                    <span className="absolute -top-1 -right-1 min-w-[14px] h-[14px] rounded-full bg-primary text-primary-foreground text-[9px] font-bold flex items-center justify-center px-0.5">
+                                        {rules.length}
+                                    </span>
+                                )}
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent align="end" className="w-[600px] p-4">
