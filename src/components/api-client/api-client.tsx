@@ -330,38 +330,40 @@ export function ApiClient() {
 
     return (
         <div className="flex flex-col lg:flex-row h-[calc(100vh-4rem)] gap-4 mobile-nav-offset">
-            <div className="flex-1 flex flex-col gap-4 md:gap-6 min-w-0">
-                <div className="flex flex-wrap justify-between gap-2">
+            <div className="flex-1 flex flex-col gap-4 min-w-0 h-full">
+                <div className="flex flex-wrap justify-between items-center gap-2">
                     {/* Mobile Collections Button */}
                     {isMobile && (
                         <Sheet open={collectionsOpen} onOpenChange={setCollectionsOpen}>
                             <SheetTrigger asChild>
-                                <Button variant="outline" size="sm" className="touch-target-sm">
+                                <Button variant="outline" size="sm" className="touch-target-sm rounded-lg bg-background/50 shadow-sm">
                                     <FolderOpen className="h-4 w-4 mr-2" />
                                     Collections
                                 </Button>
                             </SheetTrigger>
-                            <SheetContent side="bottom" className="h-[70vh] bottom-sheet">
-                                <div className="bottom-sheet-handle" />
-                                <CollectionsSidebar
-                                    collections={collections}
-                                    onAddFolder={addFolder}
-                                    onDelete={deleteItem}
-                                    onToggle={toggleFolder}
-                                    onLoadRequest={(request) => {
-                                        handleLoadRequest(request)
-                                        setCollectionsOpen(false)
-                                    }}
-                                    onCreateCollection={createCollection}
-                                    onRenameCollection={renameCollection}
-                                    history={history}
-                                    onClearHistory={clearHistory}
-                                    onDeleteHistoryItem={deleteHistoryItem}
-                                />
+                            <SheetContent side="bottom" className="h-[75vh] bottom-sheet rounded-t-3xl border-t shadow-2xl">
+                                <div className="bottom-sheet-handle w-12 h-1.5 bg-muted rounded-full mx-auto my-3" />
+                                <div className="px-4 h-full overflow-hidden">
+                                    <CollectionsSidebar
+                                        collections={collections}
+                                        onAddFolder={addFolder}
+                                        onDelete={deleteItem}
+                                        onToggle={toggleFolder}
+                                        onLoadRequest={(request) => {
+                                            handleLoadRequest(request)
+                                            setCollectionsOpen(false)
+                                        }}
+                                        onCreateCollection={createCollection}
+                                        onRenameCollection={renameCollection}
+                                        history={history}
+                                        onClearHistory={clearHistory}
+                                        onDeleteHistoryItem={deleteHistoryItem}
+                                    />
+                                </div>
                             </SheetContent>
                         </Sheet>
                     )}
-                    <div className="flex flex-wrap gap-2 ml-auto">
+                    <div className="flex flex-wrap items-center gap-2 ml-auto">
                         <EnvironmentManager
                             environments={environments}
                             activeEnvId={activeEnvId}
@@ -370,11 +372,13 @@ export function ApiClient() {
                             updateEnvironment={updateEnvironment}
                             deleteEnvironment={deleteEnvironment}
                         />
+                        <div className="h-6 w-px bg-border/50 mx-1" />
                         <CodeGenerator request={activeTab} />
                         <ImportCurlDialog onImport={handleImportCurl} />
                     </div>
                 </div>
-                <Card className="overflow-hidden flex-1 flex flex-col">
+
+                <Card className="flex-1 flex flex-col overflow-hidden border rounded-2xl shadow-xl shadow-primary/[0.02] bg-background/50 backdrop-blur-sm">
                     <TabBar
                         tabs={tabs}
                         activeTabId={activeTabId}
@@ -382,10 +386,10 @@ export function ApiClient() {
                         onTabClose={handleCloseTab}
                         onTabAdd={handleAddTab}
                     />
-                    <div className="flex-1 overflow-hidden min-h-0">
+                    <div className="flex-1 overflow-hidden min-h-0 bg-card/30">
                         <ResizablePanelGroup direction={isMobile ? "vertical" : "horizontal"} className="h-full w-full">
-                            <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col h-full bg-card">
-                                <div className="p-4 md:p-6 space-y-4 md:space-y-6 flex-1 overflow-y-auto min-h-0">
+                            <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col h-full">
+                                <div className="p-4 md:p-6 lg:p-8 space-y-6 flex-1 overflow-y-auto min-h-0 custom-scrollbar">
                                     <RequestPanel
                                         method={activeTab.method}
                                         setMethod={(method) => updateActiveTab({ method })}
@@ -410,9 +414,11 @@ export function ApiClient() {
                                     />
                                 </div>
                             </ResizablePanel>
-                            <ResizableHandle withHandle className="bg-border" />
-                            <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col h-full bg-card">
-                                <div className="p-4 md:p-6 flex-1 overflow-y-auto min-h-0 h-full">
+
+                            <ResizableHandle withHandle className="w-1.5 bg-border/40 hover:bg-primary/20 transition-colors" />
+
+                            <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col h-full bg-muted/[0.02]">
+                                <div className="p-4 md:p-6 lg:p-8 flex-1 overflow-y-auto min-h-0 custom-scrollbar">
                                     <ResponsePanel response={activeTab.response} />
                                 </div>
                             </ResizablePanel>
@@ -420,20 +426,23 @@ export function ApiClient() {
                     </div>
                 </Card>
             </div>
+
             {/* Desktop Collections Sidebar */}
             {!isMobile && (
-                <CollectionsSidebar
-                    collections={collections}
-                    onAddFolder={addFolder}
-                    onDelete={deleteItem}
-                    onToggle={toggleFolder}
-                    onLoadRequest={handleLoadRequest}
-                    onCreateCollection={createCollection}
-                    onRenameCollection={renameCollection}
-                    history={history}
-                    onClearHistory={clearHistory}
-                    onDeleteHistoryItem={deleteHistoryItem}
-                />
+                <div className="w-80 shrink-0 h-full border rounded-2xl bg-card/50 backdrop-blur-sm shadow-lg shadow-primary/[0.01] overflow-hidden">
+                    <CollectionsSidebar
+                        collections={collections}
+                        onAddFolder={addFolder}
+                        onDelete={deleteItem}
+                        onToggle={toggleFolder}
+                        onLoadRequest={handleLoadRequest}
+                        onCreateCollection={createCollection}
+                        onRenameCollection={renameCollection}
+                        history={history}
+                        onClearHistory={clearHistory}
+                        onDeleteHistoryItem={deleteHistoryItem}
+                    />
+                </div>
             )}
         </div>
     )
