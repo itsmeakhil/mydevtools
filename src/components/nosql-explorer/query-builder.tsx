@@ -25,13 +25,15 @@ interface QueryBuilderProps {
     collectionName: string;
 }
 
-type FilterOperator = "$eq" | "$gt" | "$lt" | "$gte" | "$lte" | "$ne" | "$in" | "$regex" | "$exists";
+type FilterOperator = "$eq" | "$gt" | "$lt" | "$gte" | "$lte" | "$ne" | "$in" | "$nin" | "$regex" | "$exists";
+type DataType = "auto" | "string" | "number" | "boolean" | "date" | "objectid";
 
 interface FilterRule {
     id: string;
     field: string;
     operator: FilterOperator;
     value: string;
+    type: DataType;
 }
 
 export function QueryBuilder({
@@ -196,28 +198,47 @@ export function QueryBuilder({
     };
 
     const handleBuilderSearch = () => {
+        const parseValue = (val: string, type: DataType) => {
+            if (val === undefined || val === null) return val;
+            const strVal = String(val).trim();
+            if (type === "string") return strVal;
+            if (type === "number") {
+                const num = Number(strVal);
+                return isNaN(num) || strVal === "" ? strVal : num;
+            }
+            if (type === "boolean") return strVal === "true";
+            if (type === "date") return strVal;
+            if (type === "objectid") return { $oid: strVal };
+            
+            // Auto
+            if (!isNaN(Number(strVal)) && strVal !== "") return Number(strVal);
+            if (strVal === "true") return true;
+            if (strVal === "false") return false;
+            return strVal;
+        };
+
         const builtQuery: any = {};
         rules.forEach(rule => {
             if (!rule.field) return;
 
-            let value: any = rule.value;
-            // Try to parse number or boolean
-            if (!isNaN(Number(value)) && value.trim() !== "") {
-                value = Number(value);
-            } else if (value === "true") {
-                value = true;
-            } else if (value === "false") {
-                value = false;
+            let finalValue: any;
+
+            if (rule.operator === "$exists") {
+                finalValue = rule.value === "true";
+            } else if (rule.operator === "$in" || rule.operator === "$nin") {
+                finalValue = rule.value.split(',').map(v => parseValue(v, rule.type));
+            } else {
+                finalValue = parseValue(rule.value, rule.type);
             }
 
             if (rule.operator === "$eq") {
-                builtQuery[rule.field] = value;
+                builtQuery[rule.field] = finalValue;
             } else if (rule.operator === "$regex") {
                 builtQuery[rule.field] = { $regex: rule.value, $options: "i" };
             } else if (rule.operator === "$exists") {
-                builtQuery[rule.field] = { $exists: value === true || value === "true" };
+                builtQuery[rule.field] = { $exists: finalValue };
             } else {
-                builtQuery[rule.field] = { [rule.operator]: value };
+                builtQuery[rule.field] = { [rule.operator]: finalValue };
             }
         });
 
@@ -229,7 +250,7 @@ export function QueryBuilder({
     };
 
     const addRule = () => {
-        setRules([...rules, { id: Math.random().toString(36).substr(2, 9), field: "", operator: "$eq", value: "" }]);
+        setRules([...rules, { id: Math.random().toString(36).substr(2, 9), field: "", operator: "$eq", value: "", type: "auto" }]);
     };
 
     const removeRule = (id: string) => {
@@ -246,26 +267,50 @@ export function QueryBuilder({
             const parsed = JSON.parse(textQuery);
             const newRules: FilterRule[] = [];
 
+            const determineType = (v: any): DataType => {
+                if (typeof v === "number") return "number";
+                if (typeof v === "boolean") return "boolean";
+                if (typeof v === "string") return "string";
+                if (typeof v === "object" && v !== null && v.$oid) return "objectid";
+                return "auto";
+            };
+
             Object.entries(parsed).forEach(([key, value]: [string, any]) => {
                 if (typeof value === "object" && value !== null && !Array.isArray(value)) {
                     // Handle operators like {$gt: 10}
                     Object.entries(value).forEach(([op, val]: [string, any]) => {
-                        if (["$gt", "$lt", "$gte", "$lte", "$ne", "$in", "$regex", "$exists"].includes(op)) {
+                        if (["$gt", "$lt", "$gte", "$lte", "$ne", "$in", "$nin", "$regex", "$exists"].includes(op)) {
+                            let ruleValue = String(val);
+                            let ruleType: DataType = "auto";
+                            if (Array.isArray(val)) {
+                                ruleValue = val.map(v => typeof v === 'object' && v !== null && v.$oid ? v.$oid : String(v)).join(', ');
+                                if (val.length > 0) ruleType = determineType(val[0]);
+                            } else {
+                                ruleType = determineType(val);
+                                if (ruleType === "objectid") ruleValue = val.$oid;
+                            }
+                            
                             newRules.push({
                                 id: Math.random().toString(36).substr(2, 9),
                                 field: key,
                                 operator: op as FilterOperator,
-                                value: String(val)
+                                value: ruleValue,
+                                type: ruleType
                             });
                         }
                     });
                 } else {
                     // Simple equality
+                    let ruleValue = String(value);
+                    let ruleType = determineType(value);
+                    if (ruleType === "objectid") ruleValue = value.$oid;
+
                     newRules.push({
                         id: Math.random().toString(36).substr(2, 9),
                         field: key,
                         operator: "$eq",
-                        value: String(value)
+                        value: ruleValue,
+                        type: ruleType
                     });
                 }
             });
@@ -390,7 +435,22 @@ export function QueryBuilder({
                                                         <SelectItem value="$lte">&lt;=</SelectItem>
                                                         <SelectItem value="$regex">Regex</SelectItem>
                                                         <SelectItem value="$in">In</SelectItem>
+                                                        <SelectItem value="$nin">Not In</SelectItem>
                                                         <SelectItem value="$exists">Exists</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+
+                                                <Select value={rule.type} onValueChange={(val) => updateRule(rule.id, { type: val as DataType })}>
+                                                    <SelectTrigger className="h-8 text-xs w-[100px]">
+                                                        <SelectValue placeholder="Type" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem value="auto">Auto</SelectItem>
+                                                        <SelectItem value="string">String</SelectItem>
+                                                        <SelectItem value="number">Number</SelectItem>
+                                                        <SelectItem value="boolean">Boolean</SelectItem>
+                                                        <SelectItem value="date">Date</SelectItem>
+                                                        <SelectItem value="objectid">ObjectId</SelectItem>
                                                     </SelectContent>
                                                 </Select>
 
@@ -411,7 +471,7 @@ export function QueryBuilder({
                                                     <Input
                                                         value={rule.value}
                                                         onChange={(e) => updateRule(rule.id, { value: e.target.value })}
-                                                        placeholder="Value"
+                                                        placeholder={rule.operator === "$in" || rule.operator === "$nin" ? "value1, value2" : "Value"}
                                                         className="h-8 text-xs flex-1"
                                                     />
                                                 )}
@@ -423,7 +483,16 @@ export function QueryBuilder({
                                         ))}
                                     </div>
                                 </ScrollArea>
-                                <div className="flex justify-end pt-2 border-t">
+                                <div className="flex justify-end gap-2 pt-2 border-t">
+                                    <Button variant="outline" size="sm" onClick={() => {
+                                        setRules([]);
+                                        setTextQuery("{}");
+                                        onSearch("{}");
+                                        setBuilderOpen(false);
+                                    }}>
+                                        <IconX className="h-3 w-3 mr-1" />
+                                        Clear Filters
+                                    </Button>
                                     <Button size="sm" onClick={handleBuilderSearch}>
                                         <IconCheck className="h-3 w-3 mr-1" />
                                         Apply Filters
