@@ -6,6 +6,30 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC)
 ![Shadcn UI](https://img.shields.io/badge/Shadcn_UI-Latest-000000)
 
+**MyDevTools.tech** is a comprehensive, modern suite of developer tools built **entirely by an AI coding agent** (Antigravity) using **Next.js** and **Firebase**. It offers everything from code formatters and converters to secure password management and productivity utilities, all with a premium UI and rich animations.
+
+![License](https://img.shields.io/badge/license-GPL_3.0-blue.svg)
+![Next.js](https://img.shields.io/badge/Next.js-15-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC)
+![Shadcn UI](https://img.shields.io/badge/Shadcn_UI-Latest-000000)
+
+**MyDevTools.tech** is a comprehensive, modern suite of developer tools built **entirely by an AI coding agent** (Antigravity) using **Next.js** and **Firebase**. It offers everything from code formatters and converters to secure password management and productivity utilities, all with a premium UI and rich animations.
+
+![License](https://img.shields.io/badge/license-GPL_3.0-blue.svg)
+![Next.js](https://img.shields.io/badge/Next.js-15-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC)
+![Shadcn UI](https://img.shields.io/badge/Shadcn_UI-Latest-000000)
+
+**MyDevTools.tech** is a comprehensive, modern suite of developer tools built **entirely by an AI coding agent** (Antigravity) using **Next.js** and **Firebase**. It offers everything from code formatters and converters to secure password management and productivity utilities, all with a premium UI and rich animations.
+
+![License](https://img.shields.io/badge/license-GPL_3.0-blue.svg)
+![Next.js](https://img.shields.io/badge/Next.js-15-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC)
+![Shadcn UI](https://img.shields.io/badge/Shadcn_UI-Latest-000000)
+
 **MyDevTools.tech** is a comprehensive, modern suite of developer tools designed to streamline your workflow. Built with performance and privacy in mind, it offers everything from code formatters and converters to secure password management and productivity utilities.
 
 ---
