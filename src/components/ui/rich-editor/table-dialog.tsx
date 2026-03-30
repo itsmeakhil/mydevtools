@@ -57,13 +57,17 @@ export function TableDialog({
         setError(null)
       } else if (!result.success) {
         const { errorKey, params } = result
-        setError(
-          tParse(errorKey, {
-            row: params?.row,
-            got: params?.got,
-            expected: params?.expected,
-          })
-        )
+        if (errorKey === "rowColumnMismatch" && params) {
+          setError(
+            tParse(errorKey, {
+              row: params.row!,
+              got: params.got!,
+              expected: params.expected!,
+            })
+          )
+        } else {
+          setError(tParse(errorKey))
+        }
       }
     } else {
       // Create empty table

@@ -709,7 +709,7 @@ export function Editor({
             const { uploadImage } = await import("./utils/image-upload")
             const result = await uploadImage(file)
             if (!result.success || !result.url) {
-              throw new Error(result.error || "Upload failed")
+              throw new Error(result.error || tToasts("uploadFailed"))
             }
             return result.url
           }
@@ -1012,7 +1012,6 @@ export function Editor({
     container,
   ])
 
-  console.log("Editor re-rendered")
   return (
     <div className="bg-background flex flex-1 flex-col transition-colors duration-300">
       {/* Editor with integrated toolbar */}

@@ -2,7 +2,8 @@
   "Navigation": {
     "dashboard": "Dashboard",
     "settings": "Settings",
-    "apiClient": "API Client"
+    "apiClient": "API Client",
+    "passwordManager": "Password Manager"
   },
   "Settings": {
     "title": "Settings",

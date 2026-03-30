@@ -1,6 +1,7 @@
 "use client"
 
-import React from "react"
+import React, { useMemo } from "react"
+import { useTranslations } from "next-intl"
 import {
   Code,
   Heading1,
@@ -57,7 +58,6 @@ interface ElementSelectorProps {
   onValueChange: (value: ElementType) => void
   elements?: ElementOption[]
   variant?: "default" | "compact" | "icon-only"
-  placeholder?: string
   className?: string
   disabled?: boolean
   showDescription?: boolean
@@ -69,15 +69,29 @@ export function ElementSelector({
   onValueChange,
   elements = ELEMENT_OPTIONS,
   variant = "default",
-  placeholder = "Select element",
   className,
   disabled = false,
   showDescription = true,
   showIcon = true,
 }: ElementSelectorProps) {
+  const tCmd = useTranslations("RichEditor.command")
+
+  const localizedElements = useMemo(
+    () =>
+      elements.map((el) => ({
+        ...el,
+        label: tCmd(`${el.value}.label`),
+        description: el.description
+          ? tCmd(`${el.value}.description`)
+          : undefined,
+      })),
+    [elements, tCmd]
+  )
+
   // Get the current element option
   const currentElement =
-    elements.find((el) => el.value === value) || elements[0]
+    localizedElements.find((el) => el.value === value) ||
+    localizedElements[0]
 
   // Variant-specific styling
   const triggerClassName = cn(
@@ -119,7 +133,7 @@ export function ElementSelector({
         </SelectValue>
       </SelectTrigger>
       <SelectContent>
-        {elements.map((element) => (
+        {localizedElements.map((element) => (
           <SelectItem
             key={element.value}
             value={element.value}
