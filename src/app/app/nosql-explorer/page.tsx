@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import { ConnectionForm } from "@/components/nosql-explorer/connection-form";
 import { ExplorerSidebar } from "@/components/nosql-explorer/explorer-sidebar";
 import { DocumentView } from "@/components/nosql-explorer/document-view";
@@ -28,6 +29,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export default function NoSQLExplorerPage() {
+    const t = useTranslations("NoSqlExplorer.page");
     const { user } = useAuth();
     // We still keep some state for the "active" context if needed, but mostly driven by tabs now
     const [state, setState] = useState<ConnectionState>({
@@ -182,7 +184,7 @@ export default function NoSQLExplorerPage() {
             });
         } catch (error: any) {
             updateTab(tab.id, { loading: false, error: error.message });
-            toast.error(`Failed to fetch documents for ${tab.collectionName}`);
+            toast.error(t("toastFetchFailed", { collection: tab.collectionName }));
         }
     };
 
@@ -324,7 +326,7 @@ export default function NoSQLExplorerPage() {
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
-            toast.success("Document deleted");
+            toast.success(t("toastDocDeleted"));
             handleRefresh();
         } catch (error: any) {
             toast.error(error.message);
@@ -511,9 +513,9 @@ export default function NoSQLExplorerPage() {
                                         <div className="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center mx-auto mb-6">
                                             <IconDatabase className="w-10 h-10 text-primary" />
                                         </div>
-                                        <h2 className="text-3xl font-bold tracking-tight text-foreground">NoSQL Explorer</h2>
+                                        <h2 className="text-3xl font-bold tracking-tight text-foreground">{t("heroTitle")}</h2>
                                         <p className="text-lg text-muted-foreground max-w-lg mx-auto">
-                                            Connect to your databases to manage collections, execute queries, and visualize your data.
+                                            {t("heroSubtitle")}
                                         </p>
                                     </div>
 
@@ -522,32 +524,32 @@ export default function NoSQLExplorerPage() {
                                             <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center mb-3">
                                                 <IconServer className="w-4 h-4 text-blue-500" />
                                             </div>
-                                            <h3 className="font-semibold text-foreground mb-1">Multi-Connection</h3>
-                                            <p className="text-xs text-muted-foreground">Manage multiple database connections simultaneously.</p>
+                                            <h3 className="font-semibold text-foreground mb-1">{t("featureMultiTitle")}</h3>
+                                            <p className="text-xs text-muted-foreground">{t("featureMultiDesc")}</p>
                                         </div>
                                         <div className="p-4 rounded-xl bg-card border shadow-sm hover:shadow-md transition-all">
                                             <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center mb-3">
                                                 <IconBrandMongodb className="w-4 h-4 text-green-500" />
                                             </div>
-                                            <h3 className="font-semibold text-foreground mb-1">MongoDB Support</h3>
-                                            <p className="text-xs text-muted-foreground">Native support for MongoDB with advanced filtering.</p>
+                                            <h3 className="font-semibold text-foreground mb-1">{t("featureMongoTitle")}</h3>
+                                            <p className="text-xs text-muted-foreground">{t("featureMongoDesc")}</p>
                                         </div>
                                         <div className="p-4 rounded-xl bg-card border shadow-sm hover:shadow-md transition-all">
                                             <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center mb-3">
                                                 <IconSearch className="w-4 h-4 text-orange-500" />
                                             </div>
-                                            <h3 className="font-semibold text-foreground mb-1">Smart Query</h3>
-                                            <p className="text-xs text-muted-foreground">Powerful query builder with syntax highlighting.</p>
+                                            <h3 className="font-semibold text-foreground mb-1">{t("featureQueryTitle")}</h3>
+                                            <p className="text-xs text-muted-foreground">{t("featureQueryDesc")}</p>
                                         </div>
                                     </div>
 
                                     <div className="pt-4">
                                         <Button size="lg" onClick={() => setIsConnectionDialogOpen(true)} className="gap-2 shadow-lg hover:shadow-primary/25 transition-all">
                                             <IconPlus className="w-5 h-5" />
-                                            Connect to MongoDB
+                                            {t("connectCta")}
                                         </Button>
                                         <p className="text-xs text-muted-foreground mt-4">
-                                            Currently supports <span className="font-medium text-foreground">MongoDB</span>. More databases coming soon.
+                                            {t("footerNote", { db: t("footerDb") })}
                                         </p>
                                     </div>
                                 </div>
@@ -557,9 +559,9 @@ export default function NoSQLExplorerPage() {
                                         <IconArrowLeft className="w-8 h-8 text-muted-foreground" />
                                     </div>
                                     <div>
-                                        <h3 className="text-lg font-semibold text-foreground">Select a Collection</h3>
+                                        <h3 className="text-lg font-semibold text-foreground">{t("selectCollectionTitle")}</h3>
                                         <p className="text-sm text-muted-foreground max-w-xs mx-auto mt-2">
-                                            Choose a collection from the sidebar to view documents and start exploring your data.
+                                            {t("selectCollectionDesc")}
                                         </p>
                                     </div>
                                 </div>
@@ -572,7 +574,7 @@ export default function NoSQLExplorerPage() {
             <Dialog open={isConnectionDialogOpen} onOpenChange={setIsConnectionDialogOpen}>
                 <DialogContent className="max-w-5xl w-[95vw] md:w-full max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
-                        <DialogTitle>Add Connection</DialogTitle>
+                        <DialogTitle>{t("dialogAddConnection")}</DialogTitle>
                     </DialogHeader>
                     <ConnectionForm
                         onConnect={async (connStr) => {
@@ -590,7 +592,7 @@ export default function NoSQLExplorerPage() {
                             // We might need to trigger sidebar refresh. 
                             // We can pass a refresh trigger to sidebar or use a context.
                             // For now, user can manually refresh sidebar.
-                            toast.success("Connection added");
+                            toast.success(t("toastConnectionAdded"));
                         }}
                         loading={false}
                         error={null}
@@ -601,15 +603,15 @@ export default function NoSQLExplorerPage() {
             <AlertDialog open={deleteConfirmation.isOpen} onOpenChange={(open) => setDeleteConfirmation(prev => ({ ...prev, isOpen: open }))}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogTitle>{t("deleteDocTitle")}</AlertDialogTitle>
                         <AlertDialogDescription>
-                            This action cannot be undone. This will permanently delete the document from your collection.
+                            {t("deleteDocDescription")}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
                         <AlertDialogAction onClick={confirmDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-                            Delete
+                            {t("delete")}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
@@ -618,15 +620,15 @@ export default function NoSQLExplorerPage() {
             <AlertDialog open={isCloseAllDialogOpen} onOpenChange={setIsCloseAllDialogOpen}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Close all tabs?</AlertDialogTitle>
+                        <AlertDialogTitle>{t("closeAllTitle")}</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Are you sure you want to close all tabs? Any unsaved changes in query filters will be lost.
+                            {t("closeAllDescription")}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
                         <AlertDialogAction onClick={confirmCloseAll} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-                            Close All
+                            {t("closeAllConfirm")}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

@@ -13,6 +13,8 @@ import { toast } from "sonner";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatDistanceToNow } from "date-fns";
 import { cn } from "@/lib/utils";
+import { useTranslations, useLocale } from "next-intl";
+import { enUS, es } from "date-fns/locale";
 
 interface ConnectionFormProps {
     onConnect: (connectionString: string) => Promise<void>;
@@ -21,6 +23,9 @@ interface ConnectionFormProps {
 }
 
 export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProps) {
+    const t = useTranslations("NoSqlExplorer.connection");
+    const locale = useLocale();
+    const dateLocale = locale === "es" ? es : enUS;
     const [connectionString, setConnectionString] = useState("");
     const [name, setName] = useState("My Connection");
     const [savedConnections, setSavedConnections] = useState<SavedConnection[]>([]);
@@ -59,9 +64,9 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
-            toast.success("Connection successful!");
+            toast.success(t("toastTestOk"));
         } catch (error: any) {
-            toast.error(`Connection failed: ${error.message}`);
+            toast.error(t("toastTestFail", { message: error.message }));
         } finally {
             setIsTesting(false);
         }
@@ -74,7 +79,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                 try {
                     if (editingId) {
                         await updateConnectionDetails(user.uid, editingId, { name, connectionString });
-                        toast.success("Connection updated");
+                        toast.success(t("toastUpdated"));
                     } else {
                         await saveConnection(user.uid, connectionString, name);
                     }
@@ -110,15 +115,15 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
     const handleDeleteConnection = async (e: React.MouseEvent, id: string) => {
         e.stopPropagation();
         if (!user) return;
-        if (!confirm("Are you sure you want to delete this saved connection?")) return;
+        if (!confirm(t("confirmDelete"))) return;
 
         try {
             await deleteConnection(user.uid, id);
-            toast.success("Connection deleted");
+            toast.success(t("toastDeletedConn"));
             if (editingId === id) handleCancelEdit();
             loadConnections();
         } catch (error) {
-            toast.error("Failed to delete connection");
+            toast.error(t("toastDeleteFail"));
         }
     };
 
@@ -128,10 +133,10 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                 <div className="space-y-2">
                     <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
                         <IconBrandMongodb className="w-8 h-8 text-green-500" />
-                        {editingId ? "Edit Connection" : "Connect to MongoDB"}
+                        {editingId ? t("titleEdit") : t("titleConnect")}
                     </h2>
                     <p className="text-muted-foreground">
-                        {editingId ? "Update your connection details below." : "Enter your MongoDB connection string to start exploring your data."}
+                        {editingId ? t("subtitleEdit") : t("subtitleConnect")}
                     </p>
                 </div>
 
@@ -139,10 +144,10 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                     <CardContent className="pt-6">
                         <form onSubmit={handleSubmit} className="space-y-5">
                             <div className="space-y-2">
-                                <Label htmlFor="connection-name" className="text-xs font-medium uppercase text-muted-foreground">Name</Label>
+                                <Label htmlFor="connection-name" className="text-xs font-medium uppercase text-muted-foreground">{t("labelName")}</Label>
                                 <Input
                                     id="connection-name"
-                                    placeholder="e.g. Production DB"
+                                    placeholder={t("placeholderName")}
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     disabled={loading}
@@ -150,11 +155,11 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="connection-string" className="text-xs font-medium uppercase text-muted-foreground">Connection String</Label>
+                                <Label htmlFor="connection-string" className="text-xs font-medium uppercase text-muted-foreground">{t("labelConnectionString")}</Label>
                                 <div className="relative">
                                     <Input
                                         id="connection-string"
-                                        placeholder="mongodb://localhost:27017"
+                                        placeholder={t("placeholderConnectionString")}
                                         value={connectionString}
                                         onChange={(e) => setConnectionString(e.target.value)}
                                         disabled={loading}
@@ -163,7 +168,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                                     <IconDatabase className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                 </div>
                                 <p className="text-[10px] text-muted-foreground">
-                                    Format: mongodb://username:password@host:port/database
+                                    {t("hintFormat")}
                                 </p>
                             </div>
 
@@ -183,16 +188,16 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                                     disabled={loading || isTesting || !connectionString}
                                 >
                                     {isTesting ? <IconHistory className="w-4 h-4 animate-spin mr-2" /> : <IconPlugConnected className="w-4 h-4 mr-2" />}
-                                    Test Connection
+                                    {t("testConnection")}
                                 </Button>
                                 <Button type="submit" className="flex-1" disabled={loading || !connectionString}>
-                                    {loading ? "Connecting..." : (editingId ? "Update & Connect" : "Connect")}
+                                    {loading ? t("connecting") : (editingId ? t("updateConnect") : t("connect"))}
                                 </Button>
                             </div>
 
                             {editingId && (
                                 <Button type="button" variant="ghost" size="sm" className="w-full text-muted-foreground hover:text-foreground" onClick={handleCancelEdit}>
-                                    Cancel Edit
+                                    {t("cancelEdit")}
                                 </Button>
                             )}
                         </form>
@@ -204,7 +209,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                 <div className="flex items-center justify-between flex-shrink-0">
                     <div className="flex items-center gap-2 font-semibold">
                         <IconHistory className="w-5 h-5 text-primary" />
-                        Saved Connections
+                        {t("savedConnections")}
                     </div>
                     <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
                         {savedConnections.length}
@@ -217,7 +222,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                             {savedConnections.length === 0 ? (
                                 <div className="flex flex-col items-center justify-center h-full text-muted-foreground py-12 gap-2">
                                     <IconServer className="w-10 h-10 opacity-20" />
-                                    <p className="text-sm">No saved connections yet.</p>
+                                    <p className="text-sm">{t("emptySaved")}</p>
                                 </div>
                             ) : (
                                 <div className="space-y-3">
@@ -248,16 +253,21 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                                                         onClick={(e) => {
                                                             e.stopPropagation();
                                                             navigator.clipboard.writeText(conn.connectionString);
-                                                            toast.success("Connection string copied!");
+                                                            toast.success(t("toastStringCopied"));
                                                         }}
-                                                        title="Copy connection string"
+                                                        title={t("copyStringTitle")}
                                                     >
                                                         <IconCopy className="h-3 w-3" />
                                                     </Button>
                                                 </div>
                                                 <div className="text-[10px] text-muted-foreground pt-1 flex items-center gap-1">
                                                     <IconHistory className="w-3 h-3" />
-                                                    Last used {formatDistanceToNow(conn.lastUsedAt?.toDate ? conn.lastUsedAt.toDate() : new Date())} ago
+                                                    {t("lastUsed", {
+                                                        time: formatDistanceToNow(
+                                                            conn.lastUsedAt?.toDate ? conn.lastUsedAt.toDate() : new Date(),
+                                                            { addSuffix: true, locale: dateLocale }
+                                                        ),
+                                                    })}
                                                 </div>
                                             </div>
 
@@ -267,7 +277,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                                                     size="icon"
                                                     className="h-7 w-7 hover:text-primary"
                                                     onClick={(e) => handleEditConnection(e, conn)}
-                                                    title="Edit"
+                                                    title={t("editTitle")}
                                                 >
                                                     <IconPencil className="h-3.5 w-3.5" />
                                                 </Button>
@@ -276,7 +286,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                                                     size="icon"
                                                     className="h-7 w-7 hover:text-destructive hover:bg-destructive/10"
                                                     onClick={(e) => handleDeleteConnection(e, conn.id)}
-                                                    title="Delete"
+                                                    title={t("deleteTitle")}
                                                 >
                                                     <IconTrash className="h-3.5 w-3.5" />
                                                 </Button>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
@@ -16,6 +17,7 @@ interface TabBarProps {
 }
 
 export function TabBar({ tabs, activeTabId, onTabChange, onTabClose, onCloseAll }: TabBarProps) {
+    const t = useTranslations("NoSqlExplorer.tabs");
     const hasActiveQuery = (tab: ExplorerTab) => {
         try {
             const q = tab.query?.trim();
@@ -58,7 +60,7 @@ export function TabBar({ tabs, activeTabId, onTabChange, onTabClose, onCloseAll 
                                             {isFiltered && (
                                                 <span
                                                     className="w-1.5 h-1.5 rounded-full bg-primary shrink-0"
-                                                    title="Active filter applied"
+                                                    title={t("filterActive")}
                                                 />
                                             )}
                                             <Button
@@ -80,7 +82,7 @@ export function TabBar({ tabs, activeTabId, onTabChange, onTabClose, onCloseAll 
                                     <TooltipContent side="bottom" className="text-xs">
                                         <div className="font-medium">{tab.collectionName}</div>
                                         <div className="text-muted-foreground">{tab.connectionName} › {tab.dbName}</div>
-                                        {isFiltered && <div className="text-primary mt-0.5">Filter active</div>}
+                                        {isFiltered && <div className="text-primary mt-0.5">{t("filterActiveTooltip")}</div>}
                                     </TooltipContent>
                                 </Tooltip>
                             </TooltipProvider>
@@ -92,7 +94,7 @@ export function TabBar({ tabs, activeTabId, onTabChange, onTabClose, onCloseAll 
             {tabs.length > 0 && onCloseAll && (
                 <div className="border-l px-2 shrink-0">
                     <Button variant="ghost" size="sm" className="h-7 text-xs text-muted-foreground hover:text-destructive" onClick={onCloseAll}>
-                        Close All
+                        {t("closeAll")}
                     </Button>
                 </div>
             )}

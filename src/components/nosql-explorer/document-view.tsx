@@ -24,6 +24,7 @@ import { ExportDialog } from "./export-dialog";
 import { QueryBuilder } from "./query-builder";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
+import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 
 interface DocumentViewProps {
@@ -49,6 +50,7 @@ interface DocumentViewProps {
 
 // Typed cell renderer for table view
 function CellValue({ value, onViewClick }: { value: any; onViewClick: (v: any) => void }) {
+    const t = useTranslations("NoSqlExplorer.document");
     if (value === undefined) return null;
 
     if (value === null) {
@@ -76,15 +78,15 @@ function CellValue({ value, onViewClick }: { value: any; onViewClick: (v: any) =
         return (
             <Popover>
                 <PopoverTrigger className="text-blue-500 hover:underline focus:outline-none outline-none text-xs font-mono">
-                    {Array.isArray(value) ? `Array(${value.length})` : '{...}'}
+                    {Array.isArray(value) ? t("cellArray", { length: value.length }) : "{...}"}
                 </PopoverTrigger>
                 <PopoverContent className="w-[350px] p-0 shadow-lg" align="start" side="bottom">
                     <div className="max-h-[300px] overflow-auto bg-card rounded-md">
                         <div className="p-2 border-b bg-muted/50 text-xs font-semibold flex justify-between items-center sticky top-0 z-10">
                             <span className="truncate pr-2 font-mono text-muted-foreground">
-                                {Array.isArray(value) ? `Array[${value.length}]` : 'Object'}
+                                {Array.isArray(value) ? t("cellArrayBracket", { length: value.length }) : t("cellObject")}
                             </span>
-                            <Button variant="ghost" size="icon" className="h-5 w-5 bg-background shadow-sm" onClick={(e) => { e.stopPropagation(); onViewClick(value); }} title="Open in full editor">
+                            <Button variant="ghost" size="icon" className="h-5 w-5 bg-background shadow-sm" onClick={(e) => { e.stopPropagation(); onViewClick(value); }} title={t("openFullEditor")}>
                                 <IconMaximize className="h-3 w-3" />
                             </Button>
                         </div>
@@ -143,6 +145,7 @@ export function DocumentView({
     sortDirection,
     onSortChange,
 }: DocumentViewProps) {
+    const t = useTranslations("NoSqlExplorer.document");
     const [viewMode, setViewMode] = useState<"table" | "json" | "tree">("table");
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedDoc, setSelectedDoc] = useState<Document | null>(null);
@@ -166,7 +169,7 @@ export function DocumentView({
             const parsed = JSON.parse(jsonViewContent);
             setJsonViewContent(JSON.stringify(parsed, null, 2));
         } catch (e) {
-            toast.error("Invalid JSON content");
+            toast.error(t("invalidJson"));
         }
     };
 
@@ -175,13 +178,13 @@ export function DocumentView({
             const parsed = JSON.parse(jsonViewContent);
             setJsonViewContent(JSON.stringify(parsed));
         } catch (e) {
-            toast.error("Invalid JSON content");
+            toast.error(t("invalidJson"));
         }
     };
 
     const handleCopy = () => {
         navigator.clipboard.writeText(jsonViewContent);
-        toast.success("Copied to clipboard");
+        toast.success(t("copiedClipboard"));
     };
 
     const handleViewValue = (value: any) => {
@@ -201,11 +204,11 @@ export function DocumentView({
             if (selectedDoc) {
                 await onUpdate(selectedDoc._id, updatedDoc);
                 setIsEditDialogOpen(false);
-                toast.success("Document updated successfully");
+                toast.success(t("docUpdated"));
                 onRefresh();
             }
         } catch (e) {
-            toast.error("Invalid JSON");
+            toast.error(t("invalidJsonShort"));
         }
     };
 
@@ -214,10 +217,10 @@ export function DocumentView({
             const newDoc = JSON.parse(editorContent);
             await onInsert(newDoc);
             setIsInsertDialogOpen(false);
-            toast.success("Document inserted successfully");
+            toast.success(t("docInserted"));
             onRefresh();
         } catch (e) {
-            toast.error("Invalid JSON");
+            toast.error(t("invalidJsonShort"));
         }
     };
 
@@ -235,7 +238,7 @@ export function DocumentView({
 
     const handleCopyDocument = (doc: Document) => {
         navigator.clipboard.writeText(JSON.stringify(doc, null, 2));
-        toast.success("Document copied to clipboard");
+        toast.success(t("docCopied"));
     };
 
     const handleSort = (field: string) => {
@@ -304,7 +307,9 @@ export function DocumentView({
                     <>
                         <span className="text-border ml-auto shrink-0">·</span>
                         <span className="shrink-0 ml-1">
-                            {total >= 1_000_000 ? `${(total / 1_000_000).toFixed(1)}M` : total >= 1_000 ? `${(total / 1_000).toFixed(1)}K` : total} docs
+                            {t("docsBreadcrumb", {
+                                n: total >= 1_000_000 ? `${(total / 1_000_000).toFixed(1)}M` : total >= 1_000 ? `${(total / 1_000).toFixed(1)}K` : String(total),
+                            })}
                         </span>
                     </>
                 )}
@@ -338,10 +343,10 @@ export function DocumentView({
                                         onClick={() => setViewMode("table")}
                                     >
                                         <IconTable className="h-3.5 w-3.5 md:mr-1.5" />
-                                        <span className="hidden md:inline">Table</span>
+                                        <span className="hidden md:inline">{t("table")}</span>
                                     </Button>
                                 </TooltipTrigger>
-                                <TooltipContent>Table View</TooltipContent>
+                                <TooltipContent>{t("tooltipTable")}</TooltipContent>
                             </Tooltip>
                             <Tooltip>
                                 <TooltipTrigger asChild>
@@ -352,10 +357,10 @@ export function DocumentView({
                                         onClick={() => setViewMode("json")}
                                     >
                                         <IconJson className="h-3.5 w-3.5 md:mr-1.5" />
-                                        <span className="hidden md:inline">JSON</span>
+                                        <span className="hidden md:inline">{t("json")}</span>
                                     </Button>
                                 </TooltipTrigger>
-                                <TooltipContent>JSON View</TooltipContent>
+                                <TooltipContent>{t("tooltipJson")}</TooltipContent>
                             </Tooltip>
                             <Tooltip>
                                 <TooltipTrigger asChild>
@@ -366,10 +371,10 @@ export function DocumentView({
                                         onClick={() => setViewMode("tree")}
                                     >
                                         <IconBinaryTree className="h-3.5 w-3.5 md:mr-1.5" />
-                                        <span className="hidden md:inline">Tree</span>
+                                        <span className="hidden md:inline">{t("tree")}</span>
                                     </Button>
                                 </TooltipTrigger>
-                                <TooltipContent>Tree View</TooltipContent>
+                                <TooltipContent>{t("tooltipTree")}</TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
                     </div>
@@ -380,10 +385,10 @@ export function DocumentView({
                             className="h-full bg-transparent text-[10px] font-mono text-muted-foreground border-none outline-none cursor-pointer"
                             value={limit}
                             onChange={(e) => onLimitChange(Number(e.target.value))}
-                            title="Items per page"
+                            title={t("itemsPerPage")}
                         >
                             {[50, 100, 200, 500, 1000, 2000].map((val) => (
-                                <option key={val} value={val}>{val} / page</option>
+                                <option key={val} value={val}>{t("perPage", { n: val })}</option>
                             ))}
                         </select>
                         <div className="w-[1px] h-3 bg-border mx-1" />
@@ -393,7 +398,7 @@ export function DocumentView({
                             className="h-5 w-5 rounded-sm"
                             onClick={() => onPageChange(page - 1)}
                             disabled={page <= 1}
-                            title="Previous Page"
+                            title={t("prevPage")}
                         >
                             <IconChevronLeft className="h-3.5 w-3.5" />
                         </Button>
@@ -406,7 +411,7 @@ export function DocumentView({
                             className="h-5 w-5 rounded-sm"
                             onClick={() => onPageChange(page + 1)}
                             disabled={page >= totalPages}
-                            title="Next Page"
+                            title={t("nextPage")}
                         >
                             <IconChevronRight className="h-3.5 w-3.5" />
                         </Button>
@@ -425,7 +430,7 @@ export function DocumentView({
                                                 <IconArrowsMaximize className="h-4 w-4" />
                                             </Button>
                                         </TooltipTrigger>
-                                        <TooltipContent>Expand All</TooltipContent>
+                                        <TooltipContent>{t("expandAll")}</TooltipContent>
                                     </Tooltip>
                                     <Tooltip>
                                         <TooltipTrigger asChild>
@@ -433,7 +438,7 @@ export function DocumentView({
                                                 <IconArrowsMinimize className="h-4 w-4" />
                                             </Button>
                                         </TooltipTrigger>
-                                        <TooltipContent>Collapse All</TooltipContent>
+                                        <TooltipContent>{t("collapseAll")}</TooltipContent>
                                     </Tooltip>
                                 </>
                             )}
@@ -443,17 +448,17 @@ export function DocumentView({
                                         <IconRefresh className={cn("h-4 w-4", loading && "animate-spin")} />
                                     </Button>
                                 </TooltipTrigger>
-                                <TooltipContent>Refresh Data</TooltipContent>
+                                <TooltipContent>{t("refreshData")}</TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
 
                         <Button size="sm" onClick={openInsertDialog} className="h-9 px-2 md:px-4">
                             <IconPlus className="h-4 w-4 md:mr-1.5" />
-                            <span className="hidden md:inline">Insert</span>
+                            <span className="hidden md:inline">{t("insert")}</span>
                         </Button>
                         <Button size="sm" variant="outline" onClick={() => setIsExportDialogOpen(true)} className="h-9 px-2 md:px-4">
                             <IconDownload className="h-4 w-4 md:mr-1.5" />
-                            <span className="hidden md:inline">Export</span>
+                            <span className="hidden md:inline">{t("export")}</span>
                         </Button>
                     </div>
                 </div>
@@ -473,7 +478,7 @@ export function DocumentView({
                                             <div className="h-3 w-16 bg-muted-foreground/20 rounded animate-pulse" />
                                         </th>
                                     ))}
-                                    <th className="px-4 py-3 w-[120px]">Actions</th>
+                                    <th className="px-4 py-3 w-[120px]">{t("actions")}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -492,8 +497,8 @@ export function DocumentView({
                         {isFilterActive ? (
                             <>
                                 <div>
-                                    <p className="font-medium text-foreground">No documents match your query</p>
-                                    <p className="text-sm text-muted-foreground mt-1">Try adjusting your filter or clearing the query.</p>
+                                    <p className="font-medium text-foreground">{t("emptyFilterTitle")}</p>
+                                    <p className="text-sm text-muted-foreground mt-1">{t("emptyFilterHint")}</p>
                                 </div>
                                 <Button
                                     variant="outline"
@@ -504,18 +509,18 @@ export function DocumentView({
                                     }}
                                 >
                                     <IconX className="h-3.5 w-3.5 mr-1.5" />
-                                    Clear Filter
+                                    {t("clearFilter")}
                                 </Button>
                             </>
                         ) : (
                             <>
                                 <div>
-                                    <p className="font-medium text-foreground">This collection is empty</p>
-                                    <p className="text-sm text-muted-foreground mt-1">Insert a document to get started.</p>
+                                    <p className="font-medium text-foreground">{t("emptyCollectionTitle")}</p>
+                                    <p className="text-sm text-muted-foreground mt-1">{t("emptyCollectionHint")}</p>
                                 </div>
                                 <Button size="sm" onClick={openInsertDialog}>
                                     <IconPlus className="h-3.5 w-3.5 mr-1.5" />
-                                    Insert Document
+                                    {t("insertDocument")}
                                 </Button>
                             </>
                         )}
@@ -530,7 +535,7 @@ export function DocumentView({
                                             <IconAlignLeft className="h-4 w-4" />
                                         </Button>
                                     </TooltipTrigger>
-                                    <TooltipContent>Format JSON</TooltipContent>
+                                    <TooltipContent>{t("formatJson")}</TooltipContent>
                                 </Tooltip>
                                 <Tooltip>
                                     <TooltipTrigger asChild>
@@ -538,7 +543,7 @@ export function DocumentView({
                                             <IconMinimize className="h-4 w-4" />
                                         </Button>
                                     </TooltipTrigger>
-                                    <TooltipContent>Compact JSON</TooltipContent>
+                                    <TooltipContent>{t("compactJson")}</TooltipContent>
                                 </Tooltip>
                                 <Tooltip>
                                     <TooltipTrigger asChild>
@@ -546,7 +551,7 @@ export function DocumentView({
                                             <IconCopy className="h-4 w-4" />
                                         </Button>
                                     </TooltipTrigger>
-                                    <TooltipContent>Copy to Clipboard</TooltipContent>
+                                    <TooltipContent>{t("copyClipboard")}</TooltipContent>
                                 </Tooltip>
                             </TooltipProvider>
                         </div>
@@ -566,10 +571,10 @@ export function DocumentView({
                             {documents.map((doc, index) => (
                                 <div key={doc._id} className="border rounded-lg p-2 bg-card relative group">
                                     <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2 z-10">
-                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyDocument(doc)} title="Copy JSON">
+                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyDocument(doc)} title={t("copyJson")}>
                                             <IconCopy className="h-3 w-3" />
                                         </Button>
-                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)} title="Duplicate">
+                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)} title={t("duplicate")}>
                                             <IconPlus className="h-3 w-3 text-blue-500" />
                                         </Button>
                                         <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleEdit(doc)}>
@@ -582,7 +587,7 @@ export function DocumentView({
                                     <JsonTree
                                         key={`${doc._id}-${treeExpandAll}`}
                                         data={doc}
-                                        label={`Document ${index + 1 + (page - 1) * limit}`}
+                                        label={t("documentLabel", { n: index + 1 + (page - 1) * limit })}
                                         defaultExpanded={treeExpandAll}
                                     />
                                 </div>
@@ -617,7 +622,7 @@ export function DocumentView({
                                             />
                                         </th>
                                     ))}
-                                    <th className="px-4 py-3 w-[120px] bg-muted whitespace-nowrap font-medium sticky top-0 z-20">Actions</th>
+                                    <th className="px-4 py-3 w-[120px] bg-muted whitespace-nowrap font-medium sticky top-0 z-20">{t("actions")}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -640,16 +645,16 @@ export function DocumentView({
                                         ))}
                                         <td className="px-4 py-3 align-top">
                                             <div className="flex gap-1 opacity-50 group-hover:opacity-100 transition-opacity">
-                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyDocument(doc)} title="Copy JSON">
+                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyDocument(doc)} title={t("copyJson")}>
                                                     <IconCopy className="h-3 w-3" />
                                                 </Button>
-                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)} title="Duplicate Document">
+                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)} title={t("duplicate")}>
                                                     <IconPlus className="h-3 w-3 text-blue-500" />
                                                 </Button>
-                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleEdit(doc)} title="Edit Document">
+                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleEdit(doc)} title={t("editDoc")}>
                                                     <IconPencil className="h-3 w-3" />
                                                 </Button>
-                                                <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => onDelete(doc._id)} title="Delete Document">
+                                                <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => onDelete(doc._id)} title={t("deleteDoc")}>
                                                     <IconTrash className="h-3 w-3" />
                                                 </Button>
                                             </div>
@@ -666,7 +671,7 @@ export function DocumentView({
             <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
                 <DialogContent className="max-w-3xl h-[80vh] flex flex-col">
                     <DialogHeader>
-                        <DialogTitle>Edit Document</DialogTitle>
+                        <DialogTitle>{t("editDialogTitle")}</DialogTitle>
                     </DialogHeader>
                     <div className="flex-1 border rounded-md overflow-hidden">
                         <Editor
@@ -679,8 +684,8 @@ export function DocumentView({
                         />
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>Cancel</Button>
-                        <Button onClick={handleSaveEdit}>Save Changes</Button>
+                        <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>{t("cancel")}</Button>
+                        <Button onClick={handleSaveEdit}>{t("saveChanges")}</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
@@ -688,7 +693,7 @@ export function DocumentView({
             <Dialog open={isInsertDialogOpen} onOpenChange={setIsInsertDialogOpen}>
                 <DialogContent className="max-w-3xl h-[80vh] flex flex-col">
                     <DialogHeader>
-                        <DialogTitle>Insert Document</DialogTitle>
+                        <DialogTitle>{t("insertDialogTitle")}</DialogTitle>
                     </DialogHeader>
                     <div className="flex-1 border rounded-md overflow-hidden">
                         <Editor
@@ -701,8 +706,8 @@ export function DocumentView({
                         />
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setIsInsertDialogOpen(false)}>Cancel</Button>
-                        <Button onClick={handleInsert}>Insert</Button>
+                        <Button variant="outline" onClick={() => setIsInsertDialogOpen(false)}>{t("cancel")}</Button>
+                        <Button onClick={handleInsert}>{t("insertButton")}</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
@@ -710,7 +715,7 @@ export function DocumentView({
             <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>
                 <DialogContent className="max-w-3xl h-[80vh] flex flex-col">
                     <DialogHeader>
-                        <DialogTitle>View Value</DialogTitle>
+                        <DialogTitle>{t("viewValueTitle")}</DialogTitle>
                     </DialogHeader>
                     <div className="flex-1 border rounded-md overflow-hidden">
                         <Editor
@@ -729,7 +734,7 @@ export function DocumentView({
                         />
                     </div>
                     <DialogFooter>
-                        <Button onClick={() => setIsViewDialogOpen(false)}>Close</Button>
+                        <Button onClick={() => setIsViewDialogOpen(false)}>{t("close")}</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>

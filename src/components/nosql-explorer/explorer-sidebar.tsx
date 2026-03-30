@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -18,6 +20,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { useTranslations } from "next-intl";
 
 interface ExplorerSidebarProps {
     onSelectCollection: (connection: SavedConnection, dbName: string, collectionName: string) => void;
@@ -42,6 +45,7 @@ export function ExplorerSidebar({
     onAddConnection,
     width = 256,
 }: ExplorerSidebarProps) {
+    const t = useTranslations("NoSqlExplorer.sidebar");
     const { user } = useAuth();
     const [connections, setConnections] = useState<ConnectionNode[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
@@ -94,7 +98,7 @@ export function ExplorerSidebar({
             });
 
         } catch (error) {
-            toast.error("Failed to load connections");
+            toast.error(t("toastLoadFail"));
         } finally {
             setLoading(false);
         }
@@ -152,7 +156,7 @@ export function ExplorerSidebar({
                 isLoading: false,
                 error: error.message
             } : c));
-            toast.error(`Failed to connect to ${connection.name}`);
+            toast.error(t("toastConnectFail", { name: connection.name }));
         }
     };
 
@@ -202,7 +206,7 @@ export function ExplorerSidebar({
                 dbCollections: { ...c.dbCollections, [dbName]: data.collections }
             } : c));
         } catch (error) {
-            toast.error(`Failed to fetch collections for ${dbName}`);
+            toast.error(t("toastCollectionsFail", { name: dbName }));
         }
     };
 
@@ -225,29 +229,29 @@ export function ExplorerSidebar({
         try {
             await updateConnectionName(user.uid, conn.id, editName);
             setConnections(prev => prev.map(c => c.connection.id === conn.id ? { ...c, connection: { ...c.connection, name: editName } } : c));
-            toast.success("Connection renamed");
+            toast.success(t("toastRenamed"));
             setEditingConnectionId(null);
         } catch (error) {
-            toast.error("Failed to rename connection");
+            toast.error(t("toastRenameFail"));
         }
     };
 
     const handleDeleteConnection = async (index: number) => {
         const node = connections[index];
         if (!user || !node.connection.id) return;
-        if (!confirm(`Are you sure you want to delete connection "${node.connection.name}"?`)) return;
+        if (!confirm(t("confirmDeleteConnection", { name: node.connection.name }))) return;
 
         try {
             await deleteConnection(user.uid, node.connection.id);
             setConnections(prev => prev.filter((_, i) => i !== index));
-            toast.success("Connection deleted");
+            toast.success(t("toastDeleted"));
         } catch (error) {
-            toast.error("Failed to delete connection");
+            toast.error(t("toastDeleteConnFail"));
         }
     };
 
     const handleDropDatabase = async (connIndex: number, dbName: string) => {
-        if (!confirm(`Are you sure you want to drop database "${dbName}"? This action cannot be undone.`)) return;
+        if (!confirm(t("confirmDropDb", { name: dbName }))) return;
 
         const node = connections[connIndex];
         try {
@@ -259,7 +263,7 @@ export function ExplorerSidebar({
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
 
-            toast.success(`Database ${dbName} dropped`);
+            toast.success(t("toastDbDropped", { name: dbName }));
             refreshDatabases(connIndex);
         } catch (error: any) {
             toast.error(error.message);
@@ -267,7 +271,7 @@ export function ExplorerSidebar({
     };
 
     const handleDropCollection = async (connIndex: number, dbName: string, collectionName: string) => {
-        if (!confirm(`Are you sure you want to drop collection "${collectionName}"? This action cannot be undone.`)) return;
+        if (!confirm(t("confirmDropCollection", { name: collectionName }))) return;
 
         const node = connections[connIndex];
         try {
@@ -279,7 +283,7 @@ export function ExplorerSidebar({
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
 
-            toast.success(`Collection ${collectionName} dropped`);
+            toast.success(t("toastCollectionDropped", { name: collectionName }));
             refreshCollections(connIndex, dbName);
         } catch (error: any) {
             toast.error(error.message);
@@ -304,7 +308,7 @@ export function ExplorerSidebar({
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
 
-            toast.success(`Collection renamed to ${newName}`);
+            toast.success(t("toastCollectionRenamed", { name: newName }));
             setRenameCollectionDialog({ ...renameCollectionDialog, open: false });
 
             // Find connection index to refresh
@@ -334,7 +338,7 @@ export function ExplorerSidebar({
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
 
-            toast.success(`Database renamed to ${newName}`);
+            toast.success(t("toastDatabaseRenamed", { name: newName }));
             setRenameDatabaseDialog({ ...renameDatabaseDialog, open: false });
 
             // Find connection index to refresh
@@ -369,7 +373,7 @@ export function ExplorerSidebar({
         >
             <div className="p-4 border-b space-y-2">
                 <div className="flex items-center justify-between">
-                    <span className="font-semibold text-sm">Explorer</span>
+                    <span className="font-semibold text-sm">{t("explorer")}</span>
                     <div className="flex items-center gap-1">
                         <TooltipProvider>
                             <Tooltip>
@@ -381,10 +385,10 @@ export function ExplorerSidebar({
                                         onClick={onAddConnection}
                                     >
                                         <IconPlus className="h-3 w-3" />
-                                        <span>Add</span>
+                                        <span>{t("add")}</span>
                                     </Button>
                                 </TooltipTrigger>
-                                <TooltipContent>Add new connection</TooltipContent>
+                                <TooltipContent>{t("tooltipAdd")}</TooltipContent>
                             </Tooltip>
                             <Tooltip>
                                 <TooltipTrigger asChild>
@@ -392,7 +396,7 @@ export function ExplorerSidebar({
                                         <IconRefresh className="h-4 w-4" />
                                     </Button>
                                 </TooltipTrigger>
-                                <TooltipContent>Refresh connections</TooltipContent>
+                                <TooltipContent>{t("tooltipRefresh")}</TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
                     </div>
@@ -400,7 +404,7 @@ export function ExplorerSidebar({
                 <div className="relative">
                     <IconSearch className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground" />
                     <Input
-                        placeholder="Search..."
+                        placeholder={t("searchPlaceholder")}
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="h-9 pl-7 text-xs"
@@ -410,9 +414,9 @@ export function ExplorerSidebar({
             <ScrollArea className="flex-1">
                 <div className="p-2 space-y-1">
                     {loading ? (
-                        <div className="text-xs text-muted-foreground text-center p-4">Loading connections...</div>
+                        <div className="text-xs text-muted-foreground text-center p-4">{t("loadingConnections")}</div>
                     ) : filteredConnections.length === 0 ? (
-                        <div className="text-xs text-muted-foreground text-center p-4">No connections found</div>
+                        <div className="text-xs text-muted-foreground text-center p-4">{t("noConnectionsFound")}</div>
                     ) : (
                         filteredConnections.map((node, index) => (
                             <div key={node.connection.id}>
@@ -477,21 +481,21 @@ export function ExplorerSidebar({
                                                                 </DropdownMenuTrigger>
                                                                 <DropdownMenuContent align="start" onClick={(e) => e.stopPropagation()}>
                                                                     <DropdownMenuItem onClick={(e) => startEditing(e as any, node.connection)}>
-                                                                        <IconEdit className="h-3 w-3 mr-2" /> Rename
+                                                                        <IconEdit className="h-3 w-3 mr-2" /> {t("menuRename")}
                                                                     </DropdownMenuItem>
                                                                     <DropdownMenuItem onClick={(e) => {
                                                                         e.stopPropagation();
                                                                         navigator.clipboard.writeText(node.connection.connectionString);
-                                                                        toast.success("Connection string copied!");
+                                                                        toast.success(t("toastSidebarStringCopied"));
                                                                     }}>
-                                                                        <IconCopy className="h-3 w-3 mr-2" /> Copy Connection String
+                                                                        <IconCopy className="h-3 w-3 mr-2" /> {t("menuCopyConnectionString")}
                                                                     </DropdownMenuItem>
                                                                     <DropdownMenuSeparator />
                                                                     <DropdownMenuItem className="text-destructive focus:bg-destructive/10 focus:text-destructive" onClick={(e) => {
                                                                         e.stopPropagation();
                                                                         handleDeleteConnection(index);
                                                                     }}>
-                                                                        <IconTrash className="h-3 w-3 mr-2" /> Delete Connection
+                                                                        <IconTrash className="h-3 w-3 mr-2" /> {t("menuDeleteConnection")}
                                                                     </DropdownMenuItem>
                                                                 </DropdownMenuContent>
                                                             </DropdownMenu>
@@ -512,7 +516,7 @@ export function ExplorerSidebar({
                                         {node.isLoading ? (
                                             <div className="text-xs text-muted-foreground px-2 py-1 flex items-center gap-1.5">
                                                 <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
-                                                Connecting...
+                                                {t("connecting")}
                                             </div>
                                         ) : node.error ? (
                                             <TooltipProvider>
@@ -520,7 +524,7 @@ export function ExplorerSidebar({
                                                     <TooltipTrigger asChild>
                                                         <div className="text-xs text-destructive px-2 py-1 flex items-center gap-1.5 cursor-default">
                                                             <IconAlertCircle className="h-3 w-3 shrink-0" />
-                                                            <span className="truncate">Connection failed</span>
+                                                            <span className="truncate">{t("connectionFailed")}</span>
                                                         </div>
                                                     </TooltipTrigger>
                                                     <TooltipContent side="right" className="max-w-[240px]">
@@ -529,7 +533,7 @@ export function ExplorerSidebar({
                                                 </Tooltip>
                                             </TooltipProvider>
                                         ) : node.databases.length === 0 ? (
-                                            <div className="text-xs text-muted-foreground px-2 py-1">No databases</div>
+                                            <div className="text-xs text-muted-foreground px-2 py-1">{t("noDatabases")}</div>
                                         ) : (
                                             node.databases
                                                 .filter(db => {
@@ -565,13 +569,13 @@ export function ExplorerSidebar({
                                                                 </DropdownMenuTrigger>
                                                                 <DropdownMenuContent align="end">
                                                                     <DropdownMenuItem onClick={() => refreshCollections(index, db.name)}>
-                                                                        <IconRefresh className="h-3 w-3 mr-2" /> Refresh
+                                                                        <IconRefresh className="h-3 w-3 mr-2" /> {t("refresh")}
                                                                     </DropdownMenuItem>
                                                                     <DropdownMenuItem onClick={() => {
                                                                         navigator.clipboard.writeText(db.name);
-                                                                        toast.success("Database name copied to clipboard");
+                                                                        toast.success(t("toastDbNameCopied"));
                                                                     }}>
-                                                                        <IconCopy className="h-3 w-3 mr-2" /> Copy DB Name
+                                                                        <IconCopy className="h-3 w-3 mr-2" /> {t("copyDbName")}
                                                                     </DropdownMenuItem>
                                                                     <DropdownMenuItem onClick={() => setRenameDatabaseDialog({
                                                                         open: true,
@@ -579,11 +583,11 @@ export function ExplorerSidebar({
                                                                         dbName: db.name,
                                                                         newName: db.name
                                                                     })}>
-                                                                        <IconEdit className="h-3 w-3 mr-2" /> Rename
+                                                                        <IconEdit className="h-3 w-3 mr-2" /> {t("menuRename")}
                                                                     </DropdownMenuItem>
                                                                     <DropdownMenuSeparator />
                                                                     <DropdownMenuItem className="text-destructive" onClick={() => handleDropDatabase(index, db.name)}>
-                                                                        <IconTrash className="h-3 w-3 mr-2" /> Drop Database
+                                                                        <IconTrash className="h-3 w-3 mr-2" /> {t("dropDatabase")}
                                                                     </DropdownMenuItem>
                                                                 </DropdownMenuContent>
                                                             </DropdownMenu>
@@ -592,9 +596,9 @@ export function ExplorerSidebar({
                                                         {node.expandedDbs.has(db.name) && (
                                                             <div className="ml-4 border-l pl-2 mt-1 space-y-1">
                                                                 {!node.dbCollections[db.name] ? (
-                                                                    <div className="text-xs text-muted-foreground px-2 py-1">Loading...</div>
+                                                                    <div className="text-xs text-muted-foreground px-2 py-1">{t("loading")}</div>
                                                                 ) : node.dbCollections[db.name].length === 0 ? (
-                                                                    <div className="text-xs text-muted-foreground px-2 py-1">No collections</div>
+                                                                    <div className="text-xs text-muted-foreground px-2 py-1">{t("noCollections")}</div>
                                                                 ) : (
                                                                     node.dbCollections[db.name]
                                                                         .filter(col => {
@@ -638,11 +642,11 @@ export function ExplorerSidebar({
                                                                                             collectionName: col.name,
                                                                                             newName: col.name
                                                                                         })}>
-                                                                                            <IconEdit className="h-3 w-3 mr-2" /> Rename
+                                                                                            <IconEdit className="h-3 w-3 mr-2" /> {t("menuRename")}
                                                                                         </DropdownMenuItem>
                                                                                         <DropdownMenuSeparator />
                                                                                         <DropdownMenuItem className="text-destructive" onClick={() => handleDropCollection(index, db.name, col.name)}>
-                                                                                            <IconTrash className="h-3 w-3 mr-2" /> Drop Collection
+                                                                                            <IconTrash className="h-3 w-3 mr-2" /> {t("dropCollection")}
                                                                                         </DropdownMenuItem>
                                                                                     </DropdownMenuContent>
                                                                                 </DropdownMenu>
@@ -665,18 +669,18 @@ export function ExplorerSidebar({
             <Dialog open={renameCollectionDialog.open} onOpenChange={(open) => setRenameCollectionDialog(prev => ({ ...prev, open }))}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Rename Collection</DialogTitle>
+                        <DialogTitle>{t("renameCollectionTitle")}</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-2 py-4">
                         <Input
                             value={renameCollectionDialog.newName}
                             onChange={(e) => setRenameCollectionDialog(prev => ({ ...prev, newName: e.target.value }))}
-                            placeholder="New collection name"
+                            placeholder={t("placeholderNewCollection")}
                         />
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setRenameCollectionDialog(prev => ({ ...prev, open: false }))}>Cancel</Button>
-                        <Button onClick={handleRenameCollection}>Rename</Button>
+                        <Button variant="outline" onClick={() => setRenameCollectionDialog(prev => ({ ...prev, open: false }))}>{t("cancel")}</Button>
+                        <Button onClick={handleRenameCollection}>{t("rename")}</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
@@ -684,18 +688,18 @@ export function ExplorerSidebar({
             <Dialog open={renameDatabaseDialog.open} onOpenChange={(open) => setRenameDatabaseDialog(prev => ({ ...prev, open }))}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Rename Database</DialogTitle>
+                        <DialogTitle>{t("renameDatabaseTitle")}</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-2 py-4">
                         <Input
                             value={renameDatabaseDialog.newName}
                             onChange={(e) => setRenameDatabaseDialog(prev => ({ ...prev, newName: e.target.value }))}
-                            placeholder="New database name"
+                            placeholder={t("placeholderNewDatabase")}
                         />
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setRenameDatabaseDialog(prev => ({ ...prev, open: false }))}>Cancel</Button>
-                        <Button onClick={handleRenameDatabase}>Rename</Button>
+                        <Button variant="outline" onClick={() => setRenameDatabaseDialog(prev => ({ ...prev, open: false }))}>{t("cancel")}</Button>
+                        <Button onClick={handleRenameDatabase}>{t("rename")}</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>

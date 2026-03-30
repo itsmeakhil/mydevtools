@@ -45,7 +45,9 @@ export function NavBar() {
         ? tNav("bookmarks")
         : matchedRoute === "/app/email-validator"
           ? tNav("emailValidator")
-          : config.title;
+          : matchedRoute === "/app/nosql-explorer"
+            ? tNav("nosqlExplorer")
+            : config.title;
 
   return (
     <header className="sticky top-0 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-20 hidden md:block">

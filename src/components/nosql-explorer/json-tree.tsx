@@ -1,4 +1,7 @@
+"use client";
+
 import React, { useState } from 'react';
+import { useTranslations } from "next-intl";
 import { IconChevronRight, IconChevronDown } from '@tabler/icons-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -13,6 +16,7 @@ interface JsonTreeProps {
 }
 
 export function JsonTree({ data, label, isLast = true, level = 0, defaultExpanded = false }: JsonTreeProps) {
+    const t = useTranslations("NoSqlExplorer.jsonTree");
     const [isExpanded, setIsExpanded] = useState(defaultExpanded || level < 1);
 
     const getType = (value: any) => {
@@ -51,7 +55,7 @@ export function JsonTree({ data, label, isLast = true, level = 0, defaultExpande
                         <span className="cursor-default">{content}</span>
                     </TooltipTrigger>
                     <TooltipContent>
-                        <p className="capitalize">Type: {type}</p>
+                        <p className="capitalize">{t("typeLabel", { type })}</p>
                     </TooltipContent>
                 </Tooltip>
             </TooltipProvider>
@@ -98,7 +102,7 @@ export function JsonTree({ data, label, isLast = true, level = 0, defaultExpande
 
                     {!isExpanded && !isEmpty && (
                         <span className="text-muted-foreground mx-1 italic text-xs">
-                            ... {itemCount} {itemCount === 1 ? 'item' : 'items'} ...
+                            ... {t("itemSummary", { count: itemCount })} ...
                         </span>
                     )}
 

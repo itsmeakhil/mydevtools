@@ -10,6 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { IconDownload } from "@tabler/icons-react";
 import * as XLSX from "xlsx";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 interface ExportDialogProps {
     open: boolean;
@@ -19,6 +20,7 @@ interface ExportDialogProps {
 }
 
 export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDialogProps) {
+    const t = useTranslations("NoSqlExplorer.export");
     const [selectedFields, setSelectedFields] = useState<string[]>(fields);
     const [format, setFormat] = useState<"xlsx" | "csv">("xlsx");
 
@@ -40,7 +42,7 @@ export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDi
 
     const handleExport = () => {
         if (selectedFields.length === 0) {
-            toast.error("Please select at least one field to export");
+            toast.error(t("selectFieldsError"));
             return;
         }
 
@@ -62,7 +64,7 @@ export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDi
 
             const worksheet = XLSX.utils.json_to_sheet(dataToExport);
             const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+            XLSX.utils.book_append_sheet(workbook, worksheet, t("sheetName"));
 
             const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
             const filename = `export_${timestamp}.${format}`;
@@ -73,11 +75,11 @@ export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDi
                 XLSX.writeFile(workbook, filename);
             }
 
-            toast.success(`Successfully exported to ${filename}`);
+            toast.success(t("success", { filename }));
             onOpenChange(false);
         } catch (error) {
             console.error("Export failed", error);
-            toast.error("Failed to export data");
+            toast.error(t("fail"));
         }
     };
 
@@ -85,34 +87,34 @@ export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDi
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="max-w-md">
                 <DialogHeader>
-                    <DialogTitle>Export Data</DialogTitle>
+                    <DialogTitle>{t("title")}</DialogTitle>
                 </DialogHeader>
 
                 <div className="space-y-4 py-2">
                     <div className="space-y-2">
-                        <Label className="text-sm font-medium">Export Format</Label>
+                        <Label className="text-sm font-medium">{t("formatLabel")}</Label>
                         <RadioGroup value={format} onValueChange={(v) => setFormat(v as "xlsx" | "csv")} className="flex gap-4">
                             <div className="flex items-center space-x-2">
                                 <RadioGroupItem value="xlsx" id="xlsx" />
-                                <Label htmlFor="xlsx">Excel (XLSX)</Label>
+                                <Label htmlFor="xlsx">{t("formatXlsx")}</Label>
                             </div>
                             <div className="flex items-center space-x-2">
                                 <RadioGroupItem value="csv" id="csv" />
-                                <Label htmlFor="csv">CSV</Label>
+                                <Label htmlFor="csv">{t("formatCsv")}</Label>
                             </div>
                         </RadioGroup>
                     </div>
 
                     <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                            <Label className="text-sm font-medium">Select Fields</Label>
+                            <Label className="text-sm font-medium">{t("selectFields")}</Label>
                             <div className="flex items-center space-x-2">
                                 <Checkbox
                                     id="select-all"
                                     checked={selectedFields.length === fields.length}
                                     onCheckedChange={(checked) => handleSelectAll(checked as boolean)}
                                 />
-                                <Label htmlFor="select-all" className="text-xs text-muted-foreground font-normal">Select All</Label>
+                                <Label htmlFor="select-all" className="text-xs text-muted-foreground font-normal">{t("selectAll")}</Label>
                             </div>
                         </div>
                         <div className="border rounded-md p-2">
@@ -134,16 +136,16 @@ export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDi
                             </ScrollArea>
                         </div>
                         <div className="text-xs text-muted-foreground text-right">
-                            {selectedFields.length} fields selected
+                            {t("fieldsSelected", { count: selectedFields.length })}
                         </div>
                     </div>
                 </div>
 
                 <DialogFooter>
-                    <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
+                    <Button variant="outline" onClick={() => onOpenChange(false)}>{t("cancel")}</Button>
                     <Button onClick={handleExport}>
                         <IconDownload className="h-4 w-4 mr-2" />
-                        Export
+                        {t("export")}
                     </Button>
                 </DialogFooter>
             </DialogContent>

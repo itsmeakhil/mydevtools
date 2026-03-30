@@ -206,7 +206,9 @@ const SidebarMenuLink = ({
       ? tNav("bookmarks")
       : itemUrl === "/app/email-validator"
         ? tNav("emailValidator")
-        : item.title;
+        : itemUrl === "/app/nosql-explorer"
+          ? tNav("nosqlExplorer")
+          : item.title;
 
   return (
     <SidebarMenuItem>

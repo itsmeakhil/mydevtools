@@ -15,6 +15,7 @@ import Editor from "@monaco-editor/react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { IconSearch, IconHistory, IconX, IconPlus, IconTrash, IconCheck, IconFilter, IconMaximize, IconBraces, IconPlayerPlay } from "@tabler/icons-react";
 import { useTheme } from "next-themes";
+import { useTranslations } from "next-intl";
 
 interface QueryBuilderProps {
     query: string;
@@ -44,6 +45,7 @@ export function QueryBuilder({
     dbName,
     collectionName,
 }: QueryBuilderProps) {
+    const t = useTranslations("NoSqlExplorer.query");
     const [textQuery, setTextQuery] = useState(query);
     const [rules, setRules] = useState<FilterRule[]>([]);
     const [historyOpen, setHistoryOpen] = useState(false);
@@ -132,7 +134,7 @@ export function QueryBuilder({
                         }
                         // Clear local storage
                         localStorage.removeItem(key);
-                        toast.success("Migrated query history to cloud");
+                        toast.success(t("migrateHistory"));
                     }
                 } catch (e) {
                     console.error("Migration failed", e);
@@ -166,7 +168,7 @@ export function QueryBuilder({
             }
         } catch (e) {
             console.error("Failed to save history", e);
-            toast.error("Failed to save query history");
+            toast.error(t("saveHistoryFail"));
         }
     };
 
@@ -183,7 +185,7 @@ export function QueryBuilder({
             });
         } catch (err) {
             console.error("Failed to delete from history", err);
-            toast.error("Failed to delete query");
+            toast.error(t("deleteQueryFail"));
         }
     };
 
@@ -193,7 +195,7 @@ export function QueryBuilder({
             saveQueryToHistory(textQuery);
             onSearch(textQuery);
         } catch (e) {
-            toast.error("Invalid JSON query");
+            toast.error(t("invalidJsonQuery"));
         }
     };
 
@@ -339,7 +341,7 @@ export function QueryBuilder({
                 <Input
                     value={textQuery}
                     onChange={(e) => setTextQuery(e.target.value)}
-                    placeholder='e.g. { "status": "active" }'
+                    placeholder={t("placeholder")}
                     className="pl-8 pr-[175px] font-mono text-xs h-9 bg-background"
                     onKeyDown={(e) => {
                         if (e.key === "Enter") handleTextSearch();
@@ -355,7 +357,7 @@ export function QueryBuilder({
                                     setTextQuery("{}");
                                     onSearch("{}");
                                 }}
-                                title="Clear query"
+                                title={t("clearQuery")}
                             >
                                 <IconX className="h-3 w-3" />
                             </button>
@@ -367,7 +369,7 @@ export function QueryBuilder({
                         size="icon"
                         className="h-7 w-7 text-muted-foreground hover:text-foreground"
                         onClick={() => setAdvancedOpen(true)}
-                        title="Open Advanced Editor"
+                        title={t("openAdvanced")}
                     >
                         <IconMaximize className="h-4 w-4" />
                     </Button>
@@ -379,7 +381,7 @@ export function QueryBuilder({
                                 size="icon"
                                 className={cn("h-7 w-7 text-muted-foreground hover:text-foreground relative", rules.length > 0 && "text-primary")}
                                 onClick={openBuilder}
-                                title="Visual Query Builder"
+                                title={t("visualBuilder")}
                             >
                                 <IconFilter className="h-4 w-4" />
                                 {rules.length > 0 && (
@@ -392,28 +394,28 @@ export function QueryBuilder({
                         <PopoverContent align="end" className="w-[600px] p-4">
                             <div className="space-y-4">
                                 <div className="flex items-center justify-between border-b pb-2">
-                                    <h4 className="font-medium text-sm">Filter Rules</h4>
+                                    <h4 className="font-medium text-sm">{t("filterRules")}</h4>
                                     <Button variant="ghost" size="sm" onClick={addRule} className="h-7 text-xs">
                                         <IconPlus className="h-3 w-3 mr-1" />
-                                        Add Rule
+                                        {t("addRule")}
                                     </Button>
                                 </div>
                                 <ScrollArea className="max-h-[300px]">
                                     <div className="space-y-2">
                                         {rules.length === 0 && (
                                             <div className="text-center text-xs text-muted-foreground py-4">
-                                                No filters applied. Add a rule to filter documents.
+                                                {t("noFilters")}
                                             </div>
                                         )}
                                         {rules.map((rule, index) => (
                                             <div key={rule.id} className="flex items-center gap-2 p-2 border rounded-md bg-card/50">
                                                 <div className="w-12 text-[10px] font-mono text-muted-foreground uppercase text-center">
-                                                    {index === 0 ? "WHERE" : "AND"}
+                                                    {index === 0 ? t("where") : t("and")}
                                                 </div>
 
                                                 <Select value={rule.field} onValueChange={(val) => updateRule(rule.id, { field: val })}>
                                                     <SelectTrigger className="h-8 text-xs w-[140px]">
-                                                        <SelectValue placeholder="Field" />
+                                                        <SelectValue placeholder={t("fieldPlaceholder")} />
                                                     </SelectTrigger>
                                                     <SelectContent>
                                                         {fields.map(f => (
@@ -424,7 +426,7 @@ export function QueryBuilder({
 
                                                 <Select value={rule.operator} onValueChange={(val) => updateRule(rule.id, { operator: val as FilterOperator })}>
                                                     <SelectTrigger className="h-8 text-xs w-[110px]">
-                                                        <SelectValue placeholder="Op" />
+                                                        <SelectValue placeholder={t("opPlaceholder")} />
                                                     </SelectTrigger>
                                                     <SelectContent>
                                                         <SelectItem value="$eq">=</SelectItem>
@@ -433,24 +435,24 @@ export function QueryBuilder({
                                                         <SelectItem value="$gte">&gt;=</SelectItem>
                                                         <SelectItem value="$lt">&lt;</SelectItem>
                                                         <SelectItem value="$lte">&lt;=</SelectItem>
-                                                        <SelectItem value="$regex">Regex</SelectItem>
-                                                        <SelectItem value="$in">In</SelectItem>
-                                                        <SelectItem value="$nin">Not In</SelectItem>
-                                                        <SelectItem value="$exists">Exists</SelectItem>
+                                                        <SelectItem value="$regex">{t("opRegex")}</SelectItem>
+                                                        <SelectItem value="$in">{t("opIn")}</SelectItem>
+                                                        <SelectItem value="$nin">{t("opNin")}</SelectItem>
+                                                        <SelectItem value="$exists">{t("opExists")}</SelectItem>
                                                     </SelectContent>
                                                 </Select>
 
                                                 <Select value={rule.type} onValueChange={(val) => updateRule(rule.id, { type: val as DataType })}>
                                                     <SelectTrigger className="h-8 text-xs w-[100px]">
-                                                        <SelectValue placeholder="Type" />
+                                                        <SelectValue placeholder={t("typePlaceholder")} />
                                                     </SelectTrigger>
                                                     <SelectContent>
-                                                        <SelectItem value="auto">Auto</SelectItem>
-                                                        <SelectItem value="string">String</SelectItem>
-                                                        <SelectItem value="number">Number</SelectItem>
-                                                        <SelectItem value="boolean">Boolean</SelectItem>
-                                                        <SelectItem value="date">Date</SelectItem>
-                                                        <SelectItem value="objectid">ObjectId</SelectItem>
+                                                        <SelectItem value="auto">{t("typeAuto")}</SelectItem>
+                                                        <SelectItem value="string">{t("typeString")}</SelectItem>
+                                                        <SelectItem value="number">{t("typeNumber")}</SelectItem>
+                                                        <SelectItem value="boolean">{t("typeBoolean")}</SelectItem>
+                                                        <SelectItem value="date">{t("typeDate")}</SelectItem>
+                                                        <SelectItem value="objectid">{t("typeObjectId")}</SelectItem>
                                                     </SelectContent>
                                                 </Select>
 
@@ -463,15 +465,15 @@ export function QueryBuilder({
                                                             <SelectValue />
                                                         </SelectTrigger>
                                                         <SelectContent>
-                                                            <SelectItem value="true">True</SelectItem>
-                                                            <SelectItem value="false">False</SelectItem>
+                                                            <SelectItem value="true">{t("true")}</SelectItem>
+                                                            <SelectItem value="false">{t("false")}</SelectItem>
                                                         </SelectContent>
                                                     </Select>
                                                 ) : (
                                                     <Input
                                                         value={rule.value}
                                                         onChange={(e) => updateRule(rule.id, { value: e.target.value })}
-                                                        placeholder={rule.operator === "$in" || rule.operator === "$nin" ? "value1, value2" : "Value"}
+                                                        placeholder={rule.operator === "$in" || rule.operator === "$nin" ? t("valueListPlaceholder") : t("valuePlaceholder")}
                                                         className="h-8 text-xs flex-1"
                                                     />
                                                 )}
@@ -491,11 +493,11 @@ export function QueryBuilder({
                                         setBuilderOpen(false);
                                     }}>
                                         <IconX className="h-3 w-3 mr-1" />
-                                        Clear Filters
+                                        {t("clearFilters")}
                                     </Button>
                                     <Button size="sm" onClick={handleBuilderSearch}>
                                         <IconCheck className="h-3 w-3 mr-1" />
-                                        Apply Filters
+                                        {t("applyFilters")}
                                     </Button>
                                 </div>
                             </div>
@@ -504,18 +506,18 @@ export function QueryBuilder({
 
                     <Popover open={historyOpen} onOpenChange={setHistoryOpen}>
                         <PopoverTrigger asChild>
-                            <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-foreground" title="Query History">
+                            <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-foreground" title={t("queryHistory")}>
                                 <IconHistory className="h-4 w-4" />
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent align="end" className="w-[400px] p-0">
                             <div className="p-2 border-b bg-muted/50 text-xs font-medium text-muted-foreground">
-                                Query History
+                                {t("queryHistory")}
                             </div>
                             <ScrollArea className="h-[300px]">
                                 {queryHistory.length === 0 ? (
                                     <div className="p-4 text-center text-xs text-muted-foreground">
-                                        No saved queries yet
+                                        {t("noSavedQueries")}
                                     </div>
                                 ) : (
                                     <div className="p-1">
@@ -553,7 +555,7 @@ export function QueryBuilder({
             <Dialog open={advancedOpen} onOpenChange={setAdvancedOpen}>
                 <DialogContent className="max-w-4xl w-[90vw] h-[80vh] flex flex-col p-0 gap-0 [&>button]:hidden">
                     <div className="flex items-center justify-between px-4 py-2 border-b">
-                        <DialogTitle className="text-sm font-medium">Advanced Query Editor</DialogTitle>
+                        <DialogTitle className="text-sm font-medium">{t("advancedEditorTitle")}</DialogTitle>
                         <div className="flex items-center gap-2">
                             <Select
                                 onValueChange={(val) => {
@@ -591,13 +593,13 @@ export function QueryBuilder({
                                 }}
                             >
                                 <SelectTrigger className="h-7 text-xs w-[130px]">
-                                    <SelectValue placeholder="Templates" />
+                                    <SelectValue placeholder={t("templatesPlaceholder")} />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="empty_agg">Empty Aggregation</SelectItem>
-                                    <SelectItem value="match">$match (Filter)</SelectItem>
-                                    <SelectItem value="lookup">$lookup (Join)</SelectItem>
-                                    <SelectItem value="group">$group (Count/Sum)</SelectItem>
+                                    <SelectItem value="empty_agg">{t("templateEmptyAgg")}</SelectItem>
+                                    <SelectItem value="match">{t("templateMatch")}</SelectItem>
+                                    <SelectItem value="lookup">{t("templateLookup")}</SelectItem>
+                                    <SelectItem value="group">{t("templateGroup")}</SelectItem>
                                 </SelectContent>
                             </Select>
                             <Button
@@ -608,14 +610,14 @@ export function QueryBuilder({
                                     try {
                                         const formatted = JSON.stringify(JSON.parse(textQuery), null, 2);
                                         setTextQuery(formatted);
-                                        toast.success("Formatted JSON");
+                                        toast.success(t("formattedJson"));
                                     } catch (e) {
-                                        toast.error("Invalid JSON");
+                                        toast.error(t("invalidJsonQuery"));
                                     }
                                 }}
                             >
                                 <IconBraces className="h-3 w-3 mr-1" />
-                                Format
+                                {t("format")}
                             </Button>
                             <Button
                                 size="sm"
@@ -626,7 +628,7 @@ export function QueryBuilder({
                                 }}
                             >
                                 <IconPlayerPlay className="h-3 w-3 mr-1" />
-                                Run Query
+                                {t("runQuery")}
                             </Button>
                             <Button
                                 variant="ghost"
