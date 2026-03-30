@@ -66,8 +66,64 @@
         "af": "Afrikaans (afrikánština)"
       }
     }
-  }
-  ,
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "Dobré ráno",
+      "afternoon": "Dobré odpoledne",
+      "evening": "Dobrý večer"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "Vítejte zpět",
+    "welcomeBackNamed": "Vítejte zpět, {name}",
+    "tagline": "Co byste dnes chtěli vytvořit?",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Nástroje",
+      "favorites": "Oblíbené"
+    },
+    "sections": {
+      "recentlyUsed": "Nedávno použité",
+      "favorites": "Oblíbené"
+    },
+    "groups": {
+      "apps": "Aplikace"
+    },
+    "toolCard": {
+      "defaultDescription": "Prozkoumejte tento nástroj pro lepší funkce.",
+      "launchTool": "Spustit nástroj"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Úkoly",
+        "description": "Efektivně spravujte své seznamy úkolů."
+      },
+      "notes": {
+        "title": "Poznámky",
+        "description": "Zaznamenávejte nápady a uspořádejte myšlenky."
+      },
+      "passwordManager": {
+        "title": "Správce hesel",
+        "description": "Bezpečně ukládejte a spravujte hesla."
+      },
+      "bookmarks": {
+        "title": "Záložky",
+        "description": "Spravujte a organizujte záložky."
+      },
+      "apiClient": {
+        "title": "API klient",
+        "description": "Testujte a laděte HTTP požadavky."
+      },
+      "nosqlExplorer": {
+        "title": "NoSQL průzkumník",
+        "description": "Prozkoumejte databáze MongoDB."
+      },
+      "emailValidator": {
+        "title": "Validátor e-mailu",
+        "description": "Ověřujte a validujte e-mailové adresy."
+      }
+    }
+  },
   "Tasks": {
     "page": {
       "loading": "Načítání...",
@@ -90,9 +146,18 @@
       "filterByStatusAria": "Filtrovat podle {status}"
     },
     "status": {
-      "not-started": { "label": "Nezahájeno", "description": "Úkoly, které ještě nebyly zahájeny" },
-      "ongoing": { "label": "Probíhá", "description": "Úkoly právě rozpracované" },
-      "completed": { "label": "Hotovo", "description": "Dokončené úkoly" }
+      "not-started": {
+        "label": "Nezahájeno",
+        "description": "Úkoly, které ještě nebyly zahájeny"
+      },
+      "ongoing": {
+        "label": "Probíhá",
+        "description": "Úkoly právě rozpracované"
+      },
+      "completed": {
+        "label": "Hotovo",
+        "description": "Dokončené úkoly"
+      }
     },
     "priorities": {
       "high": "Vysoká",
@@ -225,8 +290,7 @@
       "projectDeletedTitle": "Projekt byl smazán",
       "projectDeleteFailedTitle": "Projekt se nepodařilo smazat"
     }
-  }
-  ,
+  },
   "Notes": {
     "page": {
       "loading": "Načítání..."

@@ -66,8 +66,64 @@
         "af": "Afrikaans（南非荷兰语）"
       }
     }
-  }
-  ,
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "早上好",
+      "afternoon": "下午好",
+      "evening": "晚上好"
+    },
+    "commaName": "，{name}",
+    "welcomeBack": "欢迎回来",
+    "welcomeBackNamed": "欢迎回来，{name}",
+    "tagline": "今天想做什么？",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "工具",
+      "favorites": "收藏"
+    },
+    "sections": {
+      "recentlyUsed": "最近使用",
+      "favorites": "收藏"
+    },
+    "groups": {
+      "apps": "应用"
+    },
+    "toolCard": {
+      "defaultDescription": "使用此工具获得更强大的功能。",
+      "launchTool": "打开工具"
+    },
+    "tools": {
+      "toDo": {
+        "title": "任务",
+        "description": "高效管理待办列表。"
+      },
+      "notes": {
+        "title": "笔记",
+        "description": "记录想法并整理思路。"
+      },
+      "passwordManager": {
+        "title": "密码管理器",
+        "description": "安全保存和管理密码。"
+      },
+      "bookmarks": {
+        "title": "书签",
+        "description": "管理与整理书签。"
+      },
+      "apiClient": {
+        "title": "API 客户端",
+        "description": "测试与调试 HTTP 请求。"
+      },
+      "nosqlExplorer": {
+        "title": "NoSQL 浏览器",
+        "description": "浏览 MongoDB 数据库。"
+      },
+      "emailValidator": {
+        "title": "邮箱验证",
+        "description": "验证电子邮件地址。"
+      }
+    }
+  },
   "Tasks": {
     "page": {
       "loading": "加载中…",
@@ -90,9 +146,18 @@
       "filterByStatusAria": "按 {status} 筛选"
     },
     "status": {
-      "not-started": { "label": "未开始", "description": "尚未开始的任务" },
-      "ongoing": { "label": "进行中", "description": "正在进行的任务" },
-      "completed": { "label": "已完成", "description": "已完成的任务" }
+      "not-started": {
+        "label": "未开始",
+        "description": "尚未开始的任务"
+      },
+      "ongoing": {
+        "label": "进行中",
+        "description": "正在进行的任务"
+      },
+      "completed": {
+        "label": "已完成",
+        "description": "已完成的任务"
+      }
     },
     "priorities": {
       "high": "高",
@@ -225,8 +290,7 @@
       "projectDeletedTitle": "项目删除成功",
       "projectDeleteFailedTitle": "项目删除失败"
     }
-  }
-  ,
+  },
   "Notes": {
     "page": {
       "loading": "加载中…"

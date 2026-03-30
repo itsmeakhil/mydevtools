@@ -67,6 +67,63 @@
       }
     }
   },
+  "Dashboard": {
+    "greeting": {
+      "morning": "Καλημέρα",
+      "afternoon": "Καλό απόγευμα",
+      "evening": "Καλησπέρα"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "Καλώς ήρθατε πίσω",
+    "welcomeBackNamed": "Καλώς ήρθατε πίσω, {name}",
+    "tagline": "Τι θα θέλατε να δημιουργήσετε σήμερα;",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Εργαλεία",
+      "favorites": "Αγαπημένα"
+    },
+    "sections": {
+      "recentlyUsed": "Πρόσφατα",
+      "favorites": "Αγαπημένα"
+    },
+    "groups": {
+      "apps": "Εφαρμογές"
+    },
+    "toolCard": {
+      "defaultDescription": "Εξερευνήστε αυτό το εργαλείο για καλύτερη λειτουργικότητα.",
+      "launchTool": "Άνοιγμα εργαλείου"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Εργασίες",
+        "description": "Διαχειριστείτε τις λίστες εργασιών σας αποτελεσματικά."
+      },
+      "notes": {
+        "title": "Σημειώσεις",
+        "description": "Καταγράψτε ιδέες και οργανώστε τις σκέψεις σας."
+      },
+      "passwordManager": {
+        "title": "Διαχειριστής κωδικών",
+        "description": "Αποθηκεύστε και διαχειριστείτε τους κωδικούς με ασφάλεια."
+      },
+      "bookmarks": {
+        "title": "Σελιδοδείκτες",
+        "description": "Διαχειριστείτε και οργανώστε τους σελιδοδείκτες σας."
+      },
+      "apiClient": {
+        "title": "Πελάτης API",
+        "description": "Δοκιμάστε και αποσφαλματώστε αιτήματα HTTP."
+      },
+      "nosqlExplorer": {
+        "title": "Εξερευνητής NoSQL",
+        "description": "Εξερευνήστε βάσεις δεδομένων MongoDB."
+      },
+      "emailValidator": {
+        "title": "Επικύρωση email",
+        "description": "Επαληθεύστε και επικυρώστε διευθύνσεις email."
+      }
+    }
+  },
   "Tasks": {
     "page": {
       "loading": "Φόρτωση...",

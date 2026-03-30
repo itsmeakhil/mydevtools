@@ -66,8 +66,64 @@
         "af": "Afrikaans"
       }
     }
-  }
-  ,
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "Buenos días",
+      "afternoon": "Buenas tardes",
+      "evening": "Buenas noches"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "Bienvenido de nuevo",
+    "welcomeBackNamed": "Bienvenido de nuevo, {name}",
+    "tagline": "¿Qué te gustaría crear hoy?",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Herramientas",
+      "favorites": "Favoritos"
+    },
+    "sections": {
+      "recentlyUsed": "Usadas recientemente",
+      "favorites": "Favoritos"
+    },
+    "groups": {
+      "apps": "Aplicaciones"
+    },
+    "toolCard": {
+      "defaultDescription": "Explora esta herramienta para sacarle más partido.",
+      "launchTool": "Abrir herramienta"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Tareas",
+        "description": "Gestiona tus listas de tareas con eficacia."
+      },
+      "notes": {
+        "title": "Notas",
+        "description": "Captura ideas y organiza tus pensamientos."
+      },
+      "passwordManager": {
+        "title": "Gestor de contraseñas",
+        "description": "Almacena y gestiona tus contraseñas de forma segura."
+      },
+      "bookmarks": {
+        "title": "Marcadores",
+        "description": "Gestiona y organiza tus marcadores."
+      },
+      "apiClient": {
+        "title": "Cliente API",
+        "description": "Prueba y depura peticiones HTTP."
+      },
+      "nosqlExplorer": {
+        "title": "Explorador NoSQL",
+        "description": "Explora bases de datos MongoDB."
+      },
+      "emailValidator": {
+        "title": "Validador de correo",
+        "description": "Verifica y valida direcciones de correo."
+      }
+    }
+  },
   "Tasks": {
     "page": {
       "loading": "Cargando...",
@@ -90,9 +146,18 @@
       "filterByStatusAria": "Filtrar por {status}"
     },
     "status": {
-      "not-started": { "label": "Sin iniciar", "description": "Tareas que aún no han comenzado" },
-      "ongoing": { "label": "En curso", "description": "Tareas actualmente en progreso" },
-      "completed": { "label": "Completadas", "description": "Tareas que ya terminaron" }
+      "not-started": {
+        "label": "Sin iniciar",
+        "description": "Tareas que aún no han comenzado"
+      },
+      "ongoing": {
+        "label": "En curso",
+        "description": "Tareas actualmente en progreso"
+      },
+      "completed": {
+        "label": "Completadas",
+        "description": "Tareas que ya terminaron"
+      }
     },
     "priorities": {
       "high": "Alta",
@@ -225,8 +290,7 @@
       "projectDeletedTitle": "Proyecto eliminado correctamente",
       "projectDeleteFailedTitle": "No se pudo eliminar el proyecto"
     }
-  }
-  ,
+  },
   "Notes": {
     "page": {
       "loading": "Cargando..."

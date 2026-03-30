@@ -10,14 +10,29 @@ import { useToolUsage } from '@/hooks/use-tool-usage';
 import { motion } from 'framer-motion';
 import { useMediaQuery } from "@/hooks/use-media-query";
 import useAuth from "@/utils/useAuth";
+import { useTranslations } from 'next-intl';
 
-// Helper function to get time-based greeting
-const getGreeting = (): string => {
-  const hour = new Date().getHours();
-  if (hour < 12) return 'Good morning';
-  if (hour < 17) return 'Good afternoon';
-  return 'Good evening';
+const TOOL_URL_TO_KEY: Record<string, string> = {
+  '/app/to-do': 'toDo',
+  '/app/notes': 'notes',
+  '/app/password-manager': 'passwordManager',
+  '/app/bookmarks': 'bookmarks',
+  '/app/api-client': 'apiClient',
+  '/app/nosql-explorer': 'nosqlExplorer',
+  '/app/email-validator': 'emailValidator',
 };
+
+function dashboardGreeting(t: (key: string) => string): string {
+  const hour = new Date().getHours();
+  if (hour < 12) return t('greeting.morning');
+  if (hour < 17) return t('greeting.afternoon');
+  return t('greeting.evening');
+}
+
+function groupDisplayTitle(title: string, t: (key: string) => string): string {
+  if (title === 'Apps') return t('groups.apps');
+  return title;
+}
 
 // Define types for our items
 interface ToolItem {
@@ -73,6 +88,7 @@ const findItemById = (id: string | undefined | null): ToolItem | undefined => {
 };
 
 const DashboardPage: React.FC = () => {
+  const t = useTranslations('Dashboard');
   const { user, loading } = useAuth(false); // Dashboard shows for all users
   const { favorites, isFavorite, toggleFavorite } = useFavoriteTool();
   const { getRecentlyUsedTools } = useToolUsage();
@@ -150,6 +166,15 @@ const DashboardPage: React.FC = () => {
 
   // Component for rendering a tool card
   const ToolCard = ({ item, id, index }: { item: ToolItem, id: string, index: number }) => {
+    const tCard = useTranslations('Dashboard');
+    const tTools = useTranslations('Dashboard.tools');
+    const pathname = item.url?.toString().split('?')[0] ?? '';
+    const toolKey = TOOL_URL_TO_KEY[pathname];
+    const displayTitle = toolKey ? tTools(`${toolKey}.title` as Parameters<typeof tTools>[0]) : item.title;
+    const displayDescription = toolKey
+      ? tTools(`${toolKey}.description` as Parameters<typeof tTools>[0])
+      : item.description || tCard('toolCard.defaultDescription');
+
     const itemRequiresAuth = item.url ? requiresAuth(item.url.toString()) : false;
 
     const handleClick = (e: React.MouseEvent) => {
@@ -195,7 +220,7 @@ const DashboardPage: React.FC = () => {
               <div className="flex-1">
                 <div className="flex items-center gap-1.5 md:gap-2 mb-1">
                   <h3 className="text-sm md:text-base font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {item.title}
+                    {displayTitle}
                   </h3>
                   {item.badge && (
                     <span className="bg-gradient-to-r from-primary/20 to-primary/10 text-primary text-[9px] md:text-[10px] font-semibold px-1.5 md:px-2 py-0.5 rounded-full uppercase tracking-wider border border-primary/20">
@@ -204,12 +229,12 @@ const DashboardPage: React.FC = () => {
                   )}
                 </div>
                 <p className="text-muted-foreground/80 text-xs md:text-sm line-clamp-2 group-hover:text-muted-foreground transition-colors">
-                  {item.description || "Explore this tool for better functionality."}
+                  {displayDescription}
                 </p>
               </div>
 
               <div className="mt-2 md:mt-3 flex items-center text-[10px] md:text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-[-10px] group-hover:translate-x-0">
-                Launch Tool <ArrowRight size={10} className="md:w-3 md:h-3 ml-1 md:ml-1.5 group-hover:translate-x-1 transition-transform" />
+                {tCard('toolCard.launchTool')} <ArrowRight size={10} className="md:w-3 md:h-3 ml-1 md:ml-1.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </CardContent>
           </Card>
@@ -228,8 +253,11 @@ const DashboardPage: React.FC = () => {
               <Zap className="h-5 w-5 text-primary-foreground" strokeWidth={2.5} />
             </div>
             <div>
-              <h1 className="text-base font-bold tracking-tight">MyDevTools</h1>
-              <p className="text-[11px] text-muted-foreground">{getGreeting()}{user?.displayName ? `, ${user.displayName.split(' ')[0]}` : ''}</p>
+              <h1 className="text-base font-bold tracking-tight">{t('brandName')}</h1>
+              <p className="text-[11px] text-muted-foreground">
+                {dashboardGreeting(t)}
+                {user?.displayName ? t('commaName', { name: user.displayName.split(' ')[0] }) : ''}
+              </p>
             </div>
           </div>
           {/* Quick Stats in Header */}
@@ -253,13 +281,15 @@ const DashboardPage: React.FC = () => {
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div className="space-y-2">
                 <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-                  {getGreeting()}
+                  {dashboardGreeting(t)}
                 </p>
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight gradient-text-animated">
-                  Welcome back{user?.displayName ? `, ${user.displayName.split(' ')[0]}` : ''}
+                  {user?.displayName
+                    ? t('welcomeBackNamed', { name: user.displayName.split(' ')[0] })
+                    : t('welcomeBack')}
                 </h1>
                 <p className="text-muted-foreground">
-                  What would you like to build today?
+                  {t('tagline')}
                 </p>
               </div>
 
@@ -270,7 +300,7 @@ const DashboardPage: React.FC = () => {
                     <Layers size={14} className="md:w-4 md:h-4 text-primary" />
                   </div>
                   <div>
-                    <p className="text-[10px] md:text-xs text-muted-foreground">Tools</p>
+                    <p className="text-[10px] md:text-xs text-muted-foreground">{t('stats.tools')}</p>
                     <p className="text-xs md:text-sm font-semibold">{totalTools}</p>
                   </div>
                 </div>
@@ -279,7 +309,7 @@ const DashboardPage: React.FC = () => {
                     <Heart size={14} className="md:w-4 md:h-4 text-red-500" />
                   </div>
                   <div>
-                    <p className="text-[10px] md:text-xs text-muted-foreground">Favorites</p>
+                    <p className="text-[10px] md:text-xs text-muted-foreground">{t('stats.favorites')}</p>
                     <p className="text-xs md:text-sm font-semibold">{favorites.length}</p>
                   </div>
                 </div>
@@ -295,7 +325,7 @@ const DashboardPage: React.FC = () => {
                   <div className="p-2 rounded-xl bg-blue-500/10 text-blue-500">
                     <Clock size={18} strokeWidth={1.5} />
                   </div>
-                  <h2 className="text-xl font-semibold">Recently Used</h2>
+                  <h2 className="text-xl font-semibold">{t('sections.recentlyUsed')}</h2>
                   <span className="text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
                     {recentlyUsedItems.length}
                   </span>
@@ -327,7 +357,7 @@ const DashboardPage: React.FC = () => {
                   <div className="p-2 rounded-xl bg-red-500/10 text-red-500">
                     <Heart size={18} strokeWidth={1.5} />
                   </div>
-                  <h2 className="text-xl font-semibold">Favorites</h2>
+                  <h2 className="text-xl font-semibold">{t('sections.favorites')}</h2>
                   <span className="text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
                     {favoriteItems.length}
                   </span>
@@ -360,7 +390,7 @@ const DashboardPage: React.FC = () => {
                     <div className="p-2 rounded-xl bg-primary/10 text-primary">
                       {group.icon ? <group.icon size={18} strokeWidth={1.5} /> : <Sparkles size={18} strokeWidth={1.5} />}
                     </div>
-                    <h2 className="text-xl font-semibold">{group.title}</h2>
+                    <h2 className="text-xl font-semibold">{groupDisplayTitle(group.title, t)}</h2>
                     <span className="text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
                       {group.items.reduce((acc, item) => acc + (item.items ? item.items.length : 1), 0)}
                     </span>

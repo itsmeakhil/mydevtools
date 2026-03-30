@@ -66,8 +66,64 @@
         "af": "Afrikaans (الأفريكانية)"
       }
     }
-  }
-  ,
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "صباح الخير",
+      "afternoon": "مساء الخير",
+      "evening": "مساء الخير"
+    },
+    "commaName": "، {name}",
+    "welcomeBack": "مرحبًا بعودتك",
+    "welcomeBackNamed": "مرحبًا بعودتك، {name}",
+    "tagline": "ماذا تريد أن تنشئ اليوم؟",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "الأدوات",
+      "favorites": "المفضلة"
+    },
+    "sections": {
+      "recentlyUsed": "المستخدمة مؤخرًا",
+      "favorites": "المفضلة"
+    },
+    "groups": {
+      "apps": "التطبيقات"
+    },
+    "toolCard": {
+      "defaultDescription": "استكشف هذه الأداة لمزيد من الإمكانيات.",
+      "launchTool": "تشغيل الأداة"
+    },
+    "tools": {
+      "toDo": {
+        "title": "المهام",
+        "description": "أدر قوائم المهام بكفاءة."
+      },
+      "notes": {
+        "title": "الملاحظات",
+        "description": "دوّن الأفكار ونظّم أفكارك."
+      },
+      "passwordManager": {
+        "title": "مدير كلمات المرور",
+        "description": "خزّن كلمات المرور وأدرها بأمان."
+      },
+      "bookmarks": {
+        "title": "الإشارات المرجعية",
+        "description": "أدر ونظّم إشاراتك المرجعية."
+      },
+      "apiClient": {
+        "title": "عميل API",
+        "description": "اختبر طلبات HTTP وصححها."
+      },
+      "nosqlExplorer": {
+        "title": "مستكشف NoSQL",
+        "description": "استكشف قواعد بيانات MongoDB."
+      },
+      "emailValidator": {
+        "title": "التحقق من البريد",
+        "description": "تحقق من عناوين البريد الإلكتروني."
+      }
+    }
+  },
   "Tasks": {
     "page": {
       "loading": "جاري التحميل...",
@@ -90,9 +146,18 @@
       "filterByStatusAria": "تصفية حسب {status}"
     },
     "status": {
-      "not-started": { "label": "لم تبدأ", "description": "مهام لم تُبدأ بعد" },
-      "ongoing": { "label": "قيد التنفيذ", "description": "مهام قيد العمل حالياً" },
-      "completed": { "label": "مكتملة", "description": "مهام انتهت" }
+      "not-started": {
+        "label": "لم تبدأ",
+        "description": "مهام لم تُبدأ بعد"
+      },
+      "ongoing": {
+        "label": "قيد التنفيذ",
+        "description": "مهام قيد العمل حالياً"
+      },
+      "completed": {
+        "label": "مكتملة",
+        "description": "مهام انتهت"
+      }
     },
     "priorities": {
       "high": "عالية",
@@ -225,8 +290,7 @@
       "projectDeletedTitle": "تم حذف المشروع بنجاح",
       "projectDeleteFailedTitle": "فشل حذف المشروع"
     }
-  }
-  ,
+  },
   "Notes": {
     "page": {
       "loading": "جاري التحميل..."

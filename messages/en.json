@@ -66,8 +66,64 @@
         "af": "Afrikaans"
       }
     }
-  }
-  ,
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "Welcome back",
+    "welcomeBackNamed": "Welcome back, {name}",
+    "tagline": "What would you like to build today?",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Tools",
+      "favorites": "Favorites"
+    },
+    "sections": {
+      "recentlyUsed": "Recently Used",
+      "favorites": "Favorites"
+    },
+    "groups": {
+      "apps": "Apps"
+    },
+    "toolCard": {
+      "defaultDescription": "Explore this tool for better functionality.",
+      "launchTool": "Launch Tool"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Tasks",
+        "description": "Manage your to-do lists efficiently."
+      },
+      "notes": {
+        "title": "Notes",
+        "description": "Capture ideas and organize your thoughts."
+      },
+      "passwordManager": {
+        "title": "Password Manager",
+        "description": "Securely store and manage your passwords."
+      },
+      "bookmarks": {
+        "title": "Bookmarks",
+        "description": "Manage and organize your bookmarks."
+      },
+      "apiClient": {
+        "title": "API Client",
+        "description": "Test and debug HTTP requests."
+      },
+      "nosqlExplorer": {
+        "title": "NoSQL Explorer",
+        "description": "Explore MongoDB databases."
+      },
+      "emailValidator": {
+        "title": "Email Validator",
+        "description": "Verify and validate email addresses."
+      }
+    }
+  },
   "Tasks": {
     "page": {
       "loading": "Loading...",
@@ -90,9 +146,18 @@
       "filterByStatusAria": "Filter by {status}"
     },
     "status": {
-      "not-started": { "label": "Not Started", "description": "Tasks that haven't been started yet" },
-      "ongoing": { "label": "Ongoing", "description": "Tasks currently in progress" },
-      "completed": { "label": "Completed", "description": "Tasks that are finished" }
+      "not-started": {
+        "label": "Not Started",
+        "description": "Tasks that haven't been started yet"
+      },
+      "ongoing": {
+        "label": "Ongoing",
+        "description": "Tasks currently in progress"
+      },
+      "completed": {
+        "label": "Completed",
+        "description": "Tasks that are finished"
+      }
     },
     "priorities": {
       "high": "High",
@@ -225,8 +290,7 @@
       "projectDeletedTitle": "Project deleted successfully",
       "projectDeleteFailedTitle": "Failed to delete project"
     }
-  }
-  ,
+  },
   "Notes": {
     "page": {
       "loading": "Loading..."

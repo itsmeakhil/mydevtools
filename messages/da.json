@@ -67,6 +67,63 @@
       }
     }
   },
+  "Dashboard": {
+    "greeting": {
+      "morning": "God morgen",
+      "afternoon": "God eftermiddag",
+      "evening": "God aften"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "Velkommen tilbage",
+    "welcomeBackNamed": "Velkommen tilbage, {name}",
+    "tagline": "Hvad vil du bygge i dag?",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Værktøjer",
+      "favorites": "Favoritter"
+    },
+    "sections": {
+      "recentlyUsed": "Senest brugt",
+      "favorites": "Favoritter"
+    },
+    "groups": {
+      "apps": "Apps"
+    },
+    "toolCard": {
+      "defaultDescription": "Udforsk dette værktøj for bedre funktionalitet.",
+      "launchTool": "Åbn værktøj"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Opgaver",
+        "description": "Administrer dine to-do-lister effektivt."
+      },
+      "notes": {
+        "title": "Noter",
+        "description": "Fang idéer og organiser dine tanker."
+      },
+      "passwordManager": {
+        "title": "Adgangskodeadministrator",
+        "description": "Gem og administrer adgangskoder sikkert."
+      },
+      "bookmarks": {
+        "title": "Bogmærker",
+        "description": "Administrer og organiser bogmærker."
+      },
+      "apiClient": {
+        "title": "API-klient",
+        "description": "Test og fejlfind HTTP-anmodninger."
+      },
+      "nosqlExplorer": {
+        "title": "NoSQL-udforsker",
+        "description": "Udforsk MongoDB-databaser."
+      },
+      "emailValidator": {
+        "title": "E-mail-validator",
+        "description": "Bekræft og valider e-mailadresser."
+      }
+    }
+  },
   "Tasks": {
     "page": {
       "loading": "Indlæser...",

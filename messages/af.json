@@ -66,8 +66,64 @@
         "da": "Dansk (Deens)"
       }
     }
-  }
-  ,
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "Goeie more",
+      "afternoon": "Goeie middag",
+      "evening": "Goeie aand"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "Welkom terug",
+    "welcomeBackNamed": "Welkom terug, {name}",
+    "tagline": "Wat wil jy vandag bou?",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Nutsgoed",
+      "favorites": "Gunstelinge"
+    },
+    "sections": {
+      "recentlyUsed": "Onlangs gebruik",
+      "favorites": "Gunstelinge"
+    },
+    "groups": {
+      "apps": "Toeps"
+    },
+    "toolCard": {
+      "defaultDescription": "Verken hierdie nutsmiddel vir beter funksionaliteit.",
+      "launchTool": "Maak nutsmiddel oop"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Take",
+        "description": "Bestuur jou to-do-lyste doeltreffend."
+      },
+      "notes": {
+        "title": "Notas",
+        "description": "Vang idees en organiseer jou gedagtes."
+      },
+      "passwordManager": {
+        "title": "Wagwoordbestuurder",
+        "description": "Berg en bestuur wagwoorde veilig."
+      },
+      "bookmarks": {
+        "title": "Boekmerke",
+        "description": "Bestuur en organiseer jou boekmerke."
+      },
+      "apiClient": {
+        "title": "API-kliënt",
+        "description": "Toets en ontfout HTTP-versoeke."
+      },
+      "nosqlExplorer": {
+        "title": "NoSQL-verkenner",
+        "description": "Verken MongoDB-databasisse."
+      },
+      "emailValidator": {
+        "title": "E-posvalidator",
+        "description": "Verifieer en valideer e-posadresse."
+      }
+    }
+  },
   "Tasks": {
     "page": {
       "loading": "Besig om te laai...",
@@ -90,9 +146,18 @@
       "filterByStatusAria": "Filter volgens {status}"
     },
     "status": {
-      "not-started": { "label": "Nie begin nie", "description": "Take wat nog nie begin is nie" },
-      "ongoing": { "label": "Aan die gang", "description": "Take wat tans aan die gang is" },
-      "completed": { "label": "Voltooi", "description": "Take wat klaar is" }
+      "not-started": {
+        "label": "Nie begin nie",
+        "description": "Take wat nog nie begin is nie"
+      },
+      "ongoing": {
+        "label": "Aan die gang",
+        "description": "Take wat tans aan die gang is"
+      },
+      "completed": {
+        "label": "Voltooi",
+        "description": "Take wat klaar is"
+      }
     },
     "priorities": {
       "high": "Hoog",
@@ -225,8 +290,7 @@
       "projectDeletedTitle": "Projek suksesvol uitgevee",
       "projectDeleteFailedTitle": "Kon nie projek uitvee nie"
     }
-  }
-  ,
+  },
   "Notes": {
     "page": {
       "loading": "Besig om te laai..."

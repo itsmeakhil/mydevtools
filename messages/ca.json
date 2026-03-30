@@ -66,8 +66,64 @@
         "af": "Afrikaans"
       }
     }
-  }
-  ,
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "Bon dia",
+      "afternoon": "Bona tarda",
+      "evening": "Bona nit"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "Benvingut de nou",
+    "welcomeBackNamed": "Benvingut de nou, {name}",
+    "tagline": "Què t’agradaria crear avui?",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Eines",
+      "favorites": "Preferits"
+    },
+    "sections": {
+      "recentlyUsed": "Usades recentment",
+      "favorites": "Preferits"
+    },
+    "groups": {
+      "apps": "Aplicacions"
+    },
+    "toolCard": {
+      "defaultDescription": "Explora aquesta eina per treure’n més profit.",
+      "launchTool": "Obrir eina"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Tasques",
+        "description": "Gestiona les teves llistes de tasques amb eficàcia."
+      },
+      "notes": {
+        "title": "Notes",
+        "description": "Captura idees i organitza els teus pensaments."
+      },
+      "passwordManager": {
+        "title": "Gestor de contrasenyes",
+        "description": "Emmagatzema i gestiona les contrasenyes amb seguretat."
+      },
+      "bookmarks": {
+        "title": "Marcadors",
+        "description": "Gestiona i organitza els teus marcadors."
+      },
+      "apiClient": {
+        "title": "Client API",
+        "description": "Prova i depura sol·licituds HTTP."
+      },
+      "nosqlExplorer": {
+        "title": "Explorador NoSQL",
+        "description": "Explora bases de dades MongoDB."
+      },
+      "emailValidator": {
+        "title": "Validador de correu",
+        "description": "Verifica i valida adreces de correu."
+      }
+    }
+  },
   "Tasks": {
     "page": {
       "loading": "S'està carregant...",
@@ -90,9 +146,18 @@
       "filterByStatusAria": "Filtra per {status}"
     },
     "status": {
-      "not-started": { "label": "No iniciada", "description": "Tasques que encara no s'han començat" },
-      "ongoing": { "label": "En curs", "description": "Tasques en progrés" },
-      "completed": { "label": "Completada", "description": "Tasques finalitzades" }
+      "not-started": {
+        "label": "No iniciada",
+        "description": "Tasques que encara no s'han començat"
+      },
+      "ongoing": {
+        "label": "En curs",
+        "description": "Tasques en progrés"
+      },
+      "completed": {
+        "label": "Completada",
+        "description": "Tasques finalitzades"
+      }
     },
     "priorities": {
       "high": "Alta",
@@ -225,8 +290,7 @@
       "projectDeletedTitle": "Projecte eliminat correctament",
       "projectDeleteFailedTitle": "No s'ha pogut eliminar el projecte"
     }
-  }
-  ,
+  },
   "Notes": {
     "page": {
       "loading": "S'està carregant..."
