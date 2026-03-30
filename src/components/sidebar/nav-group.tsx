@@ -202,7 +202,11 @@ const SidebarMenuLink = ({
   const itemUrl =
     typeof item.url === "string" ? item.url : item.url.toString();
   const displayTitle =
-    itemUrl === "/app/bookmarks" ? tNav("bookmarks") : item.title;
+    itemUrl === "/app/bookmarks"
+      ? tNav("bookmarks")
+      : itemUrl === "/app/email-validator"
+        ? tNav("emailValidator")
+        : item.title;
 
   return (
     <SidebarMenuItem>

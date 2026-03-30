@@ -44,6 +44,7 @@ import {
 import { motion } from "framer-motion";
 import * as XLSX from "xlsx";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
+import { useTranslations } from "next-intl";
 
 interface EmailValidation {
     email: string;
@@ -88,6 +89,7 @@ export function EmailValidator() {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { toast } = useToast();
     const { copyToClipboard, isCopied } = useCopyToClipboard();
+    const t = useTranslations("EmailValidator");
 
     // Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -127,8 +129,8 @@ export function EmailValidator() {
     const handleValidate = async () => {
         if (!email) {
             toast({
-                title: "Error",
-                description: "Please enter an email address",
+                title: t("toasts.errorTitle"),
+                description: t("toasts.enterEmail"),
                 variant: "destructive",
             });
             return;
@@ -136,8 +138,8 @@ export function EmailValidator() {
 
         if (!isValidFormat) {
             toast({
-                title: "Invalid Email Format",
-                description: "Please enter a valid email address",
+                title: t("toasts.invalidFormatTitle"),
+                description: t("toasts.invalidFormatDescription"),
                 variant: "destructive",
             });
             return;
@@ -159,8 +161,8 @@ export function EmailValidator() {
             setResult(data);
         } catch (error) {
             toast({
-                title: "Error",
-                description: "An error occurred while validating the email",
+                title: t("toasts.errorTitle"),
+                description: t("toasts.validateFailedDescription"),
                 variant: "destructive",
             });
         } finally {
@@ -229,8 +231,8 @@ export function EmailValidator() {
 
                 if (emails.length === 0) {
                     toast({
-                        title: "No Emails Found",
-                        description: "Please ensure your Excel has an 'email' column.",
+                        title: t("toasts.noEmailsTitle"),
+                        description: t("toasts.noEmailsDescription"),
                         variant: "destructive",
                     });
                     setUploadedFileName(null);
@@ -239,8 +241,8 @@ export function EmailValidator() {
 
                 if (totalEmails > 4000) {
                     toast({
-                        title: "File Too Large",
-                        description: `Found ${totalEmails} emails. Only the first 4000 will be validated.`,
+                        title: t("toasts.fileTooLargeTitle"),
+                        description: t("toasts.fileTooLargeDescription", { total: totalEmails }),
                         variant: "destructive",
                     });
                 }
@@ -275,14 +277,14 @@ export function EmailValidator() {
                 }
 
                 toast({
-                    title: "Success",
-                    description: `Validated ${emails.length} emails successfully.`,
+                    title: t("toasts.successTitle"),
+                    description: t("toasts.successValidated", { count: emails.length }),
                 });
             } catch (error) {
                 console.error("Bulk validation error:", error);
                 toast({
-                    title: "Batch Validation Failed",
-                    description: "An error occurred while processing bulk validation.",
+                    title: t("toasts.batchFailedTitle"),
+                    description: t("toasts.batchFailedDescription"),
                     variant: "destructive",
                 });
             } finally {
@@ -321,35 +323,40 @@ export function EmailValidator() {
 
         if (dataToExport.length === 0) {
             toast({
-                title: "No Data to Export",
-                description: validOnly ? "No valid emails found to export." : "No results to export.",
+                title: t("toasts.noExportTitle"),
+                description: validOnly ? t("toasts.noExportValidOnly") : t("toasts.noExportAll"),
                 variant: "destructive",
             });
             return;
         }
 
+        const col = (key: "email" | "status" | "score" | "syntax" | "domain" | "mx" | "mailbox" | "disposable" | "roleBased") =>
+            t(`exportColumns.${key}`);
+
         const sheetData = validOnly
-            ? dataToExport.map((r) => ({ Email: r.email }))
+            ? dataToExport.map((r) => ({ [col("email")]: r.email }))
             : dataToExport.map((r) => ({
-                Email: r.email,
-                Status: r.status,
-                Score: r.score,
-                Syntax: r.validations.syntax ? "Valid" : "Invalid",
-                Domain: r.validations.domain_exists ? "Yes" : "No",
-                MX: r.validations.mx_records ? "Yes" : "No",
-                Mailbox: r.validations.mailbox_exists ? "Yes" : "No",
-                Disposable: r.validations.is_disposable ? "Yes" : "No",
-                RoleBased: r.validations.is_role_based ? "Yes" : "No",
+                [col("email")]: r.email,
+                [col("status")]: r.status,
+                [col("score")]: r.score,
+                [col("syntax")]: r.validations.syntax ? t("exportColumns.valid") : t("exportColumns.invalid"),
+                [col("domain")]: r.validations.domain_exists ? t("exportColumns.yes") : t("exportColumns.no"),
+                [col("mx")]: r.validations.mx_records ? t("exportColumns.yes") : t("exportColumns.no"),
+                [col("mailbox")]: r.validations.mailbox_exists ? t("exportColumns.yes") : t("exportColumns.no"),
+                [col("disposable")]: r.validations.is_disposable ? t("exportColumns.yes") : t("exportColumns.no"),
+                [col("roleBased")]: r.validations.is_role_based ? t("exportColumns.yes") : t("exportColumns.no"),
             }));
 
         const ws = XLSX.utils.json_to_sheet(sheetData);
         const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, validOnly ? "Valid Emails" : "Results");
+        XLSX.utils.book_append_sheet(wb, ws, validOnly ? t("sheets.validEmails") : t("sheets.results"));
         XLSX.writeFile(wb, validOnly ? "valid_emails.xlsx" : "email_validation_results.xlsx");
 
         toast({
-            title: "Export Successful",
-            description: `Exported ${dataToExport.length} ${validOnly ? "valid " : ""}email(s) to Excel.`,
+            title: t("toasts.exportSuccessTitle"),
+            description: validOnly
+                ? t("toasts.exportSuccessExcelValid", { count: dataToExport.length })
+                : t("toasts.exportSuccessExcelAll", { count: dataToExport.length }),
         });
     };
 
@@ -360,8 +367,8 @@ export function EmailValidator() {
 
         if (dataToExport.length === 0) {
             toast({
-                title: "No Data to Export",
-                description: validOnly ? "No valid emails found to export." : "No results to export.",
+                title: t("toasts.noExportTitle"),
+                description: validOnly ? t("toasts.noExportValidOnly") : t("toasts.noExportAll"),
                 variant: "destructive",
             });
             return;
@@ -370,26 +377,34 @@ export function EmailValidator() {
         // Create CSV content
         let csvRows: string[];
         if (validOnly) {
-            // Only email column for valid exports
             csvRows = [
-                "Email",
+                t("exportColumns.email"),
                 ...dataToExport.map(r => `"${r.email}"`)
             ];
         } else {
-            // Full details for all exports
-            const headers = ["Email", "Status", "Score", "Syntax", "Domain", "MX", "Mailbox", "Disposable", "RoleBased"];
+            const headers = [
+                t("exportColumns.email"),
+                t("exportColumns.status"),
+                t("exportColumns.score"),
+                t("exportColumns.syntax"),
+                t("exportColumns.domain"),
+                t("exportColumns.mx"),
+                t("exportColumns.mailbox"),
+                t("exportColumns.disposable"),
+                t("exportColumns.roleBased"),
+            ];
             csvRows = [
                 headers.join(","),
                 ...dataToExport.map(r => [
                     `"${r.email}"`,
                     r.status,
                     r.score,
-                    r.validations.syntax ? "Valid" : "Invalid",
-                    r.validations.domain_exists ? "Yes" : "No",
-                    r.validations.mx_records ? "Yes" : "No",
-                    r.validations.mailbox_exists ? "Yes" : "No",
-                    r.validations.is_disposable ? "Yes" : "No",
-                    r.validations.is_role_based ? "Yes" : "No",
+                    r.validations.syntax ? t("exportColumns.valid") : t("exportColumns.invalid"),
+                    r.validations.domain_exists ? t("exportColumns.yes") : t("exportColumns.no"),
+                    r.validations.mx_records ? t("exportColumns.yes") : t("exportColumns.no"),
+                    r.validations.mailbox_exists ? t("exportColumns.yes") : t("exportColumns.no"),
+                    r.validations.is_disposable ? t("exportColumns.yes") : t("exportColumns.no"),
+                    r.validations.is_role_based ? t("exportColumns.yes") : t("exportColumns.no"),
                 ].join(","))
             ];
         }
@@ -406,8 +421,10 @@ export function EmailValidator() {
         URL.revokeObjectURL(url);
 
         toast({
-            title: "Export Successful",
-            description: `Exported ${dataToExport.length} ${validOnly ? "valid " : ""}email(s) to CSV.`,
+            title: t("toasts.exportSuccessTitle"),
+            description: validOnly
+                ? t("toasts.exportSuccessCsvValid", { count: dataToExport.length })
+                : t("toasts.exportSuccessCsvAll", { count: dataToExport.length }),
         });
     };
 
@@ -415,7 +432,7 @@ export function EmailValidator() {
         const data = [{ email: "john.doe@example.com" }, { email: "support@mydevtools.tech" }];
         const ws = XLSX.utils.json_to_sheet(data);
         const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, "Template");
+        XLSX.utils.book_append_sheet(wb, ws, t("sheets.template"));
         XLSX.writeFile(wb, "email_validation_template.xlsx");
     };
 
@@ -465,31 +482,31 @@ export function EmailValidator() {
     return (
         <ToolWrapper toolId="email-validator" maxWidth="5xl">
             <ToolHeader
-                title="Email Validator"
-                description="Verify and validate email addresses for syntax, domain, and deliverability."
+                title={t("header.title")}
+                description={t("header.description")}
                 toolId="email-validator"
             />
 
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-6">
                 <div className="flex justify-center">
                     <TabsList className="grid w-full max-w-md grid-cols-2 p-1">
-                        <TabsTrigger value="single">Single Verification</TabsTrigger>
-                        <TabsTrigger value="bulk">Bulk Upload</TabsTrigger>
+                        <TabsTrigger value="single">{t("tabs.single")}</TabsTrigger>
+                        <TabsTrigger value="bulk">{t("tabs.bulk")}</TabsTrigger>
                     </TabsList>
                 </div>
 
                 <TabsContent value="single" className="space-y-6 focus-visible:outline-none">
                     <Card className="border-border/40 bg-background/50 backdrop-blur-sm shadow-sm">
                         <CardHeader>
-                            <CardTitle className="text-lg font-medium text-center">Single Email Verification</CardTitle>
-                            <CardDescription className="text-center">Enter an email address to check its deliverability and reputation.</CardDescription>
+                            <CardTitle className="text-lg font-medium text-center">{t("single.cardTitle")}</CardTitle>
+                            <CardDescription className="text-center">{t("single.cardDescription")}</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <div className="flex gap-3 max-w-xl mx-auto">
                                 <div className="relative flex-1">
                                     <Input
                                         type="email"
-                                        placeholder="Enter email address..."
+                                        placeholder={t("single.placeholder")}
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         onKeyDown={(e) => e.key === "Enter" && handleValidate()}
@@ -500,7 +517,7 @@ export function EmailValidator() {
                                         <button
                                             onClick={handleClear}
                                             className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-md hover:bg-muted transition-colors"
-                                            aria-label="Clear email"
+                                            aria-label={t("single.clearAria")}
                                         >
                                             <IconX className="h-4 w-4 text-muted-foreground" />
                                         </button>
@@ -508,11 +525,11 @@ export function EmailValidator() {
                                 </div>
                                 <Button onClick={handleValidate} disabled={loading || !email || isValidFormat === false} className="h-11 px-6">
                                     {loading ? <IconLoader2 className="h-4 w-4 animate-spin mr-2" /> : <IconCheck className="h-4 w-4 mr-2" />}
-                                    {loading ? "Validating..." : "Validate"}
+                                    {loading ? t("single.validating") : t("single.validate")}
                                 </Button>
                             </div>
                             {isValidFormat === false && (
-                                <p className="text-sm text-red-500 mt-2 text-center">Please enter a valid email address</p>
+                                <p className="text-sm text-red-500 mt-2 text-center">{t("single.formatError")}</p>
                             )}
                         </CardContent>
                     </Card>
@@ -528,10 +545,10 @@ export function EmailValidator() {
                                 <Alert variant="destructive" className="bg-yellow-500/10 border-yellow-500/20 text-yellow-700 dark:text-yellow-400">
                                     <IconAlertCircle className="h-5 w-5 !text-yellow-600 dark:!text-yellow-400" />
                                     <AlertTitle className="font-semibold flex items-center gap-2 text-base">
-                                        Disposable Email Detected
+                                        {t("disposableAlert.title")}
                                     </AlertTitle>
                                     <AlertDescription className="opacity-90">
-                                        This email address belongs to a disposable email provider. It may be temporary or unsafe.
+                                        {t("disposableAlert.description")}
                                     </AlertDescription>
                                 </Alert>
                             )}
@@ -539,7 +556,7 @@ export function EmailValidator() {
                             <div className="grid gap-6 md:grid-cols-12">
                                 <Card className="col-span-12 md:col-span-4 border-border/40 bg-background/50 backdrop-blur-sm h-full shadow-sm flex flex-col">
                                     <CardHeader>
-                                        <CardTitle className="text-base font-medium text-center text-muted-foreground">Reliability Score</CardTitle>
+                                        <CardTitle className="text-base font-medium text-center text-muted-foreground">{t("score.reliabilityTitle")}</CardTitle>
                                     </CardHeader>
                                     <CardContent className="flex flex-col items-center justify-center flex-1 pb-8">
                                         <div className="relative flex items-center justify-center">
@@ -556,7 +573,7 @@ export function EmailValidator() {
                                             </svg>
                                             <div className="absolute inset-0 flex flex-col items-center justify-center">
                                                 <span className="text-4xl font-bold tracking-tighter">{result.score}</span>
-                                                <span className="text-xs font-semibold text-muted-foreground uppercase">Score</span>
+                                                <span className="text-xs font-semibold text-muted-foreground uppercase">{t("score.scoreLabel")}</span>
                                             </div>
                                         </div>
                                         <div className="mt-6 flex flex-col items-center gap-2">
@@ -572,12 +589,12 @@ export function EmailValidator() {
                                                                 variant="ghost"
                                                                 size="icon"
                                                                 className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
-                                                                onClick={() => copyToClipboard(result.email, "Email copied!")}
+                                                                onClick={() => copyToClipboard(result.email, t("copy.emailCopied"))}
                                                             >
                                                                 <IconCopy className={`h-3.5 w-3.5 ${isCopied ? "text-green-500" : ""}`} />
                                                             </Button>
                                                         </TooltipTrigger>
-                                                        <TooltipContent>Copy email</TooltipContent>
+                                                        <TooltipContent>{t("copy.copyTooltip")}</TooltipContent>
                                                     </Tooltip>
                                                 </TooltipProvider>
                                             </div>
@@ -587,43 +604,43 @@ export function EmailValidator() {
 
                                 <Card className="col-span-12 md:col-span-8 border-border/40 bg-background/50 backdrop-blur-sm shadow-sm h-full">
                                     <CardHeader>
-                                        <CardTitle className="text-base font-medium">Validation Details</CardTitle>
+                                        <CardTitle className="text-base font-medium">{t("details.sectionTitle")}</CardTitle>
                                     </CardHeader>
                                     <CardContent>
                                         <div className="grid gap-3 sm:grid-cols-2">
                                             <ValidationItem
-                                                label="Syntax Valid"
+                                                label={t("validation.syntaxLabel")}
                                                 value={result.validations.syntax}
-                                                tooltip="Checks if the email address follows the correct format (e.g., user@domain.com)"
+                                                tooltip={t("validation.syntaxTooltip")}
                                             />
                                             <ValidationItem
-                                                label="Domain Exists"
+                                                label={t("validation.domainLabel")}
                                                 value={result.validations.domain_exists}
-                                                tooltip="Verifies that the domain name in the email address actually exists"
+                                                tooltip={t("validation.domainTooltip")}
                                             />
                                             <ValidationItem
-                                                label="MX Records Found"
+                                                label={t("validation.mxLabel")}
                                                 value={result.validations.mx_records}
-                                                tooltip="Checks if the domain has mail exchange (MX) records configured to receive emails"
+                                                tooltip={t("validation.mxTooltip")}
                                             />
                                             <ValidationItem
-                                                label="Mailbox Exists"
+                                                label={t("validation.mailboxLabel")}
                                                 value={result.validations.mailbox_exists}
-                                                tooltip="Verifies that the specific mailbox/account exists on the mail server"
+                                                tooltip={t("validation.mailboxTooltip")}
                                             />
                                             <ValidationItem
-                                                label="Disposable Email"
+                                                label={t("validation.disposableLabel")}
                                                 value={result.validations.is_disposable}
                                                 isWarning
                                                 warningCondition={result.validations.is_disposable}
-                                                tooltip="Indicates if this email belongs to a temporary/disposable email service (may be risky)"
+                                                tooltip={t("validation.disposableTooltip")}
                                             />
                                             <ValidationItem
-                                                label="Role Based Email"
+                                                label={t("validation.roleBasedLabel")}
                                                 value={result.validations.is_role_based}
                                                 isWarning
                                                 warningCondition={result.validations.is_role_based}
-                                                tooltip="Identifies if this is a role-based email (e.g., support@, info@) rather than a personal address"
+                                                tooltip={t("validation.roleBasedTooltip")}
                                             />
                                         </div>
                                     </CardContent>
@@ -645,24 +662,24 @@ export function EmailValidator() {
                                     <IconUpload className={`h-8 w-8 text-primary transition-transform ${dragActive ? "animate-bounce" : ""}`} />
                                 </div>
                                 <h3 className="text-lg font-semibold mb-2">
-                                    {dragActive ? "Drop your file here" : "Drag and drop your file here"}
+                                    {dragActive ? t("bulk.dropHere") : t("bulk.dragHere")}
                                 </h3>
                                 <p className="text-muted-foreground text-sm max-w-sm mb-6">
-                                    Upload a .xlsx, .xls, or .csv file containing an 'email' column to validate up to 4000 emails.
+                                    {t("bulk.uploadHint")}
                                 </p>
                                 {uploadedFileName && (
                                     <div className="mb-4 px-4 py-2 bg-muted rounded-md text-sm">
-                                        <span className="text-muted-foreground">File: </span>
+                                        <span className="text-muted-foreground">{t("bulk.filePrefix")} </span>
                                         <span className="font-medium">{uploadedFileName}</span>
                                     </div>
                                 )}
                                 <div className="flex gap-3 flex-wrap justify-center">
                                     <input type="file" ref={fileInputRef} onChange={handleFileUpload} accept=".xlsx,.xls,.csv" className="hidden" />
                                     <Button onClick={() => fileInputRef.current?.click()}>
-                                        Select File
+                                        {t("bulk.selectFile")}
                                     </Button>
                                     <Button variant="outline" onClick={downloadTemplate}>
-                                        <IconDownload className="mr-2 h-4 w-4" /> Download Template
+                                        <IconDownload className="mr-2 h-4 w-4" /> {t("bulk.downloadTemplate")}
                                     </Button>
                                 </div>
                             </CardContent>
@@ -677,8 +694,8 @@ export function EmailValidator() {
                                         <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full"></div>
                                         <IconLoader2 className="h-12 w-12 animate-spin text-primary relative z-10" />
                                     </div>
-                                    <h3 className="text-xl font-semibold">Validating Emails...</h3>
-                                    <p className="text-muted-foreground text-sm">Processing batch {Math.ceil((progress / 100) * totalBatches) || 1} of {totalBatches || 1}...</p>
+                                    <h3 className="text-xl font-semibold">{t("bulkLoading.title")}</h3>
+                                    <p className="text-muted-foreground text-sm">{t("bulkLoading.batchProgress", { current: Math.ceil((progress / 100) * totalBatches) || 1, total: totalBatches || 1 })}</p>
                                 </div>
                                 <Progress value={progress} className="h-2 w-full" />
                             </div>
@@ -689,19 +706,19 @@ export function EmailValidator() {
                         <div className="space-y-6">
                             <div className="grid gap-4 md:grid-cols-4">
                                 <Card className="bg-background/50 border-border/40 p-4 flex flex-col justify-between">
-                                    <span className="text-sm font-medium text-muted-foreground">Total Processed</span>
+                                    <span className="text-sm font-medium text-muted-foreground">{t("stats.totalProcessed")}</span>
                                     <span className="text-2xl font-bold">{bulkStats.total}</span>
                                 </Card>
                                 <Card className="bg-green-500/10 border-green-500/20 p-4 flex flex-col justify-between">
-                                    <span className="text-sm font-medium text-green-600 dark:text-green-400">Valid</span>
+                                    <span className="text-sm font-medium text-green-600 dark:text-green-400">{t("stats.valid")}</span>
                                     <span className="text-2xl font-bold text-green-700 dark:text-green-300">{bulkStats.valid}</span>
                                 </Card>
                                 <Card className="bg-yellow-500/10 border-yellow-500/20 p-4 flex flex-col justify-between">
-                                    <span className="text-sm font-medium text-yellow-600 dark:text-yellow-400">Risky</span>
+                                    <span className="text-sm font-medium text-yellow-600 dark:text-yellow-400">{t("stats.risky")}</span>
                                     <span className="text-2xl font-bold text-yellow-700 dark:text-yellow-300">{bulkStats.risky}</span>
                                 </Card>
                                 <Card className="bg-red-500/10 border-red-500/20 p-4 flex flex-col justify-between">
-                                    <span className="text-sm font-medium text-red-600 dark:text-red-400">Invalid</span>
+                                    <span className="text-sm font-medium text-red-600 dark:text-red-400">{t("stats.invalid")}</span>
                                     <span className="text-2xl font-bold text-red-700 dark:text-red-300">{bulkStats.invalid}</span>
                                 </Card>
                             </div>
@@ -709,12 +726,12 @@ export function EmailValidator() {
                             <Card className="border-border/40 bg-background/50 backdrop-blur-sm overflow-hidden">
                                 <div className="p-4 border-b border-border/40 bg-muted/20">
                                     <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
-                                        <h3 className="font-medium">Detailed Results</h3>
+                                        <h3 className="font-medium">{t("results.detailedTitle")}</h3>
                                         <div className="flex gap-2 w-full sm:w-auto">
                                             <div className="relative flex-1 sm:flex-initial sm:w-64">
                                                 <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                                 <Input
-                                                    placeholder="Search emails..."
+                                                    placeholder={t("results.searchPlaceholder")}
                                                     value={searchQuery}
                                                     onChange={(e) => setSearchQuery(e.target.value)}
                                                     className="pl-9 h-9"
@@ -726,37 +743,37 @@ export function EmailValidator() {
                                                 setUploadedFileName(null);
                                                 setActiveTab("single");
                                             }}>
-                                                New Verification
+                                                {t("results.newVerification")}
                                             </Button>
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger asChild>
                                                     <Button size="sm">
-                                                        <IconDownload className="mr-2 h-4 w-4" /> Export All
+                                                        <IconDownload className="mr-2 h-4 w-4" /> {t("results.exportAll")}
                                                         <IconChevronDown className="ml-2 h-3 w-3" />
                                                     </Button>
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent align="end">
                                                     <DropdownMenuItem onClick={() => exportToExcel(false)}>
-                                                        <IconFileSpreadsheet className="mr-2 h-4 w-4" /> Excel (.xlsx)
+                                                        <IconFileSpreadsheet className="mr-2 h-4 w-4" /> {t("results.exportExcel")}
                                                     </DropdownMenuItem>
                                                     <DropdownMenuItem onClick={() => exportToCsv(false)}>
-                                                        <IconFileTypeCsv className="mr-2 h-4 w-4" /> CSV (.csv)
+                                                        <IconFileTypeCsv className="mr-2 h-4 w-4" /> {t("results.exportCsv")}
                                                     </DropdownMenuItem>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger asChild>
                                                     <Button size="sm" variant="outline" disabled={bulkStats.valid === 0}>
-                                                        <IconCircleCheck className="mr-2 h-4 w-4 text-green-500" /> Export Valid ({bulkStats.valid})
+                                                        <IconCircleCheck className="mr-2 h-4 w-4 text-green-500" /> {t("results.exportValid", { count: bulkStats.valid })}
                                                         <IconChevronDown className="ml-2 h-3 w-3" />
                                                     </Button>
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent align="end">
                                                     <DropdownMenuItem onClick={() => exportToExcel(true)}>
-                                                        <IconFileSpreadsheet className="mr-2 h-4 w-4" /> Excel (.xlsx)
+                                                        <IconFileSpreadsheet className="mr-2 h-4 w-4" /> {t("results.exportExcel")}
                                                     </DropdownMenuItem>
                                                     <DropdownMenuItem onClick={() => exportToCsv(true)}>
-                                                        <IconFileTypeCsv className="mr-2 h-4 w-4" /> CSV (.csv)
+                                                        <IconFileTypeCsv className="mr-2 h-4 w-4" /> {t("results.exportCsv")}
                                                     </DropdownMenuItem>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
@@ -764,7 +781,7 @@ export function EmailValidator() {
                                     </div>
                                     {searchQuery && (
                                         <p className="text-sm text-muted-foreground mt-2">
-                                            Showing {filteredBulkResults.length} of {bulkResults.length} results
+                                            {t("showingResults", { shown: filteredBulkResults.length, total: bulkResults.length })}
                                         </p>
                                     )}
                                 </div>
@@ -772,17 +789,17 @@ export function EmailValidator() {
                                     <Table>
                                         <TableHeader className="sticky top-0 bg-background z-10">
                                             <TableRow>
-                                                <TableHead>Email</TableHead>
-                                                <TableHead>Status</TableHead>
-                                                <TableHead className="text-center">Score</TableHead>
-                                                <TableHead className="text-center">Checks</TableHead>
+                                                <TableHead>{t("table.email")}</TableHead>
+                                                <TableHead>{t("table.status")}</TableHead>
+                                                <TableHead className="text-center">{t("table.score")}</TableHead>
+                                                <TableHead className="text-center">{t("table.checks")}</TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
                                             {filteredBulkResults.length === 0 ? (
                                                 <TableRow>
                                                     <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">
-                                                        No results found matching "{searchQuery}"
+                                                        {t("noSearchResults", { query: searchQuery })}
                                                     </TableCell>
                                                 </TableRow>
                                             ) : (
@@ -812,10 +829,10 @@ export function EmailValidator() {
                                                                     </TooltipTrigger>
                                                                     <TooltipContent>
                                                                         <div className="text-xs space-y-1">
-                                                                            <div>Syntax: {r.validations.syntax ? "✓" : "✗"}</div>
-                                                                            <div>Domain: {r.validations.domain_exists ? "✓" : "✗"}</div>
-                                                                            <div>MX: {r.validations.mx_records ? "✓" : "✗"}</div>
-                                                                            <div>Mailbox: {r.validations.mailbox_exists ? "✓" : "✗"}</div>
+                                                                            <div>{t("checksTooltip.syntax")}: {r.validations.syntax ? "✓" : "✗"}</div>
+                                                                            <div>{t("checksTooltip.domain")}: {r.validations.domain_exists ? "✓" : "✗"}</div>
+                                                                            <div>{t("checksTooltip.mx")}: {r.validations.mx_records ? "✓" : "✗"}</div>
+                                                                            <div>{t("checksTooltip.mailbox")}: {r.validations.mailbox_exists ? "✓" : "✗"}</div>
                                                                         </div>
                                                                     </TooltipContent>
                                                                 </Tooltip>

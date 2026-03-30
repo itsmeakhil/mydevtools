@@ -4,7 +4,8 @@
     "settings": "Configuraciones",
     "apiClient": "Cliente API",
     "passwordManager": "Gestor de contraseñas",
-    "bookmarks": "Marcadores"
+    "bookmarks": "Marcadores",
+    "emailValidator": "Validador de correo"
   },
   "Settings": {
     "title": "Configuraciones",
@@ -534,6 +535,138 @@
       "toastRenamed": "Carpeta renombrada",
       "cancel": "Cancelar",
       "save": "Guardar"
+    }
+  },
+  "EmailValidator": {
+    "header": {
+      "title": "Validador de correo",
+      "description": "Verifica y valida direcciones de correo: sintaxis, dominio y entregabilidad."
+    },
+    "tabs": {
+      "single": "Verificación individual",
+      "bulk": "Carga masiva"
+    },
+    "single": {
+      "cardTitle": "Verificación de un correo",
+      "cardDescription": "Introduce una dirección para comprobar entregabilidad y reputación.",
+      "placeholder": "Introduce el correo...",
+      "clearAria": "Borrar correo",
+      "validate": "Validar",
+      "validating": "Validando...",
+      "formatError": "Introduce una dirección de correo válida"
+    },
+    "toasts": {
+      "errorTitle": "Error",
+      "enterEmail": "Introduce una dirección de correo",
+      "invalidFormatTitle": "Formato de correo no válido",
+      "invalidFormatDescription": "Introduce una dirección de correo válida",
+      "validateFailedDescription": "Ocurrió un error al validar el correo",
+      "noEmailsTitle": "No se encontraron correos",
+      "noEmailsDescription": "Asegúrate de que tu Excel tenga una columna «email».",
+      "fileTooLargeTitle": "Archivo demasiado grande",
+      "fileTooLargeDescription": "Se encontraron {total} correos. Solo se validarán los primeros 4000.",
+      "successTitle": "Correcto",
+      "successValidated": "Se validaron {count} correos correctamente.",
+      "batchFailedTitle": "Falló la validación masiva",
+      "batchFailedDescription": "Ocurrió un error al procesar la validación masiva.",
+      "noExportTitle": "No hay datos para exportar",
+      "noExportValidOnly": "No hay correos válidos para exportar.",
+      "noExportAll": "No hay resultados para exportar.",
+      "exportSuccessTitle": "Exportación correcta",
+      "exportSuccessExcelAll": "Se exportaron {count} correos a Excel.",
+      "exportSuccessExcelValid": "Se exportaron {count} correos válidos a Excel.",
+      "exportSuccessCsvAll": "Se exportaron {count} correos a CSV.",
+      "exportSuccessCsvValid": "Se exportaron {count} correos válidos a CSV."
+    },
+    "disposableAlert": {
+      "title": "Correo desechable detectado",
+      "description": "Esta dirección pertenece a un proveedor de correo temporal. Puede ser insegura o de un solo uso."
+    },
+    "score": {
+      "reliabilityTitle": "Puntuación de fiabilidad",
+      "scoreLabel": "Puntuación"
+    },
+    "details": {
+      "sectionTitle": "Detalles de validación"
+    },
+    "validation": {
+      "syntaxLabel": "Sintaxis válida",
+      "syntaxTooltip": "Comprueba si el correo tiene el formato correcto (p. ej. usuario@dominio.com)",
+      "domainLabel": "Dominio existe",
+      "domainTooltip": "Verifica que el dominio del correo exista",
+      "mxLabel": "Registros MX",
+      "mxTooltip": "Comprueba si el dominio tiene registros MX para recibir correo",
+      "mailboxLabel": "Buzón existe",
+      "mailboxTooltip": "Verifica que el buzón o cuenta exista en el servidor de correo",
+      "disposableLabel": "Correo desechable",
+      "disposableTooltip": "Indica si es un servicio de correo temporal (puede ser arriesgado)",
+      "roleBasedLabel": "Correo genérico",
+      "roleBasedTooltip": "Indica si es un correo de rol (p. ej. soporte@, info@) en lugar de una cuenta personal"
+    },
+    "copy": {
+      "emailCopied": "¡Correo copiado!",
+      "copyTooltip": "Copiar correo"
+    },
+    "bulk": {
+      "dropHere": "Suelta el archivo aquí",
+      "dragHere": "Arrastra y suelta el archivo aquí",
+      "uploadHint": "Sube un .xlsx, .xls o .csv con una columna «email» para validar hasta 4000 correos.",
+      "filePrefix": "Archivo:",
+      "selectFile": "Elegir archivo",
+      "downloadTemplate": "Descargar plantilla"
+    },
+    "bulkLoading": {
+      "title": "Validando correos...",
+      "batchProgress": "Procesando lote {current} de {total}..."
+    },
+    "stats": {
+      "totalProcessed": "Total procesados",
+      "valid": "Válidos",
+      "risky": "Riesgo",
+      "invalid": "No válidos"
+    },
+    "results": {
+      "detailedTitle": "Resultados detallados",
+      "searchPlaceholder": "Buscar correos...",
+      "newVerification": "Nueva verificación",
+      "exportAll": "Exportar todo",
+      "exportExcel": "Excel (.xlsx)",
+      "exportCsv": "CSV (.csv)",
+      "exportValid": "Exportar válidos ({count})"
+    },
+    "showingResults": "Mostrando {shown} de {total} resultados",
+    "table": {
+      "email": "Correo",
+      "status": "Estado",
+      "score": "Puntuación",
+      "checks": "Comprobaciones"
+    },
+    "noSearchResults": "No hay resultados para \"{query}\"",
+    "checksTooltip": {
+      "syntax": "Sintaxis",
+      "domain": "Dominio",
+      "mx": "MX",
+      "mailbox": "Buzón"
+    },
+    "exportColumns": {
+      "email": "Correo",
+      "status": "Estado",
+      "score": "Puntuación",
+      "syntax": "Sintaxis",
+      "domain": "Dominio",
+      "mx": "MX",
+      "mailbox": "Buzón",
+      "disposable": "Desechable",
+      "roleBased": "Rol",
+      "valid": "Válido",
+      "invalid": "No válido",
+      "yes": "Sí",
+      "no": "No"
+    },
+    "sheets": {
+      "validEmails": "Correos válidos",
+      "results": "Resultados",
+      "template": "Plantilla"
     }
   },
   "ApiClient": {

@@ -43,7 +43,9 @@ export function NavBar() {
       ? tNav("passwordManager")
       : matchedRoute === "/app/bookmarks"
         ? tNav("bookmarks")
-        : config.title;
+        : matchedRoute === "/app/email-validator"
+          ? tNav("emailValidator")
+          : config.title;
 
   return (
     <header className="sticky top-0 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-20 hidden md:block">

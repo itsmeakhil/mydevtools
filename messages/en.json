@@ -4,7 +4,8 @@
     "settings": "Settings",
     "apiClient": "API Client",
     "passwordManager": "Password Manager",
-    "bookmarks": "Bookmarks"
+    "bookmarks": "Bookmarks",
+    "emailValidator": "Email Validator"
   },
   "Settings": {
     "title": "Settings",
@@ -534,6 +535,138 @@
       "toastRenamed": "Folder renamed",
       "cancel": "Cancel",
       "save": "Save"
+    }
+  },
+  "EmailValidator": {
+    "header": {
+      "title": "Email Validator",
+      "description": "Verify and validate email addresses for syntax, domain, and deliverability."
+    },
+    "tabs": {
+      "single": "Single Verification",
+      "bulk": "Bulk Upload"
+    },
+    "single": {
+      "cardTitle": "Single Email Verification",
+      "cardDescription": "Enter an email address to check its deliverability and reputation.",
+      "placeholder": "Enter email address...",
+      "clearAria": "Clear email",
+      "validate": "Validate",
+      "validating": "Validating...",
+      "formatError": "Please enter a valid email address"
+    },
+    "toasts": {
+      "errorTitle": "Error",
+      "enterEmail": "Please enter an email address",
+      "invalidFormatTitle": "Invalid Email Format",
+      "invalidFormatDescription": "Please enter a valid email address",
+      "validateFailedDescription": "An error occurred while validating the email",
+      "noEmailsTitle": "No Emails Found",
+      "noEmailsDescription": "Please ensure your Excel has an 'email' column.",
+      "fileTooLargeTitle": "File Too Large",
+      "fileTooLargeDescription": "Found {total} emails. Only the first 4000 will be validated.",
+      "successTitle": "Success",
+      "successValidated": "Validated {count} emails successfully.",
+      "batchFailedTitle": "Batch Validation Failed",
+      "batchFailedDescription": "An error occurred while processing bulk validation.",
+      "noExportTitle": "No Data to Export",
+      "noExportValidOnly": "No valid emails found to export.",
+      "noExportAll": "No results to export.",
+      "exportSuccessTitle": "Export Successful",
+      "exportSuccessExcelAll": "Exported {count} emails to Excel.",
+      "exportSuccessExcelValid": "Exported {count} valid emails to Excel.",
+      "exportSuccessCsvAll": "Exported {count} emails to CSV.",
+      "exportSuccessCsvValid": "Exported {count} valid emails to CSV."
+    },
+    "disposableAlert": {
+      "title": "Disposable Email Detected",
+      "description": "This email address belongs to a disposable email provider. It may be temporary or unsafe."
+    },
+    "score": {
+      "reliabilityTitle": "Reliability Score",
+      "scoreLabel": "Score"
+    },
+    "details": {
+      "sectionTitle": "Validation Details"
+    },
+    "validation": {
+      "syntaxLabel": "Syntax Valid",
+      "syntaxTooltip": "Checks if the email address follows the correct format (e.g., user@domain.com)",
+      "domainLabel": "Domain Exists",
+      "domainTooltip": "Verifies that the domain name in the email address actually exists",
+      "mxLabel": "MX Records Found",
+      "mxTooltip": "Checks if the domain has mail exchange (MX) records configured to receive emails",
+      "mailboxLabel": "Mailbox Exists",
+      "mailboxTooltip": "Verifies that the specific mailbox/account exists on the mail server",
+      "disposableLabel": "Disposable Email",
+      "disposableTooltip": "Indicates if this email belongs to a temporary/disposable email service (may be risky)",
+      "roleBasedLabel": "Role Based Email",
+      "roleBasedTooltip": "Identifies if this is a role-based email (e.g., support@, info@) rather than a personal address"
+    },
+    "copy": {
+      "emailCopied": "Email copied!",
+      "copyTooltip": "Copy email"
+    },
+    "bulk": {
+      "dropHere": "Drop your file here",
+      "dragHere": "Drag and drop your file here",
+      "uploadHint": "Upload a .xlsx, .xls, or .csv file containing an 'email' column to validate up to 4000 emails.",
+      "filePrefix": "File:",
+      "selectFile": "Select File",
+      "downloadTemplate": "Download Template"
+    },
+    "bulkLoading": {
+      "title": "Validating Emails...",
+      "batchProgress": "Processing batch {current} of {total}..."
+    },
+    "stats": {
+      "totalProcessed": "Total Processed",
+      "valid": "Valid",
+      "risky": "Risky",
+      "invalid": "Invalid"
+    },
+    "results": {
+      "detailedTitle": "Detailed Results",
+      "searchPlaceholder": "Search emails...",
+      "newVerification": "New Verification",
+      "exportAll": "Export All",
+      "exportExcel": "Excel (.xlsx)",
+      "exportCsv": "CSV (.csv)",
+      "exportValid": "Export Valid ({count})"
+    },
+    "showingResults": "Showing {shown} of {total} results",
+    "table": {
+      "email": "Email",
+      "status": "Status",
+      "score": "Score",
+      "checks": "Checks"
+    },
+    "noSearchResults": "No results found matching \"{query}\"",
+    "checksTooltip": {
+      "syntax": "Syntax",
+      "domain": "Domain",
+      "mx": "MX",
+      "mailbox": "Mailbox"
+    },
+    "exportColumns": {
+      "email": "Email",
+      "status": "Status",
+      "score": "Score",
+      "syntax": "Syntax",
+      "domain": "Domain",
+      "mx": "MX",
+      "mailbox": "Mailbox",
+      "disposable": "Disposable",
+      "roleBased": "RoleBased",
+      "valid": "Valid",
+      "invalid": "Invalid",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "sheets": {
+      "validEmails": "Valid Emails",
+      "results": "Results",
+      "template": "Template"
     }
   },
   "ApiClient": {
