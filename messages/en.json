@@ -9,5 +9,42 @@
     "language": "Language",
     "spanish": "Spanish",
     "english": "English"
+  },
+  "SettingsPage": {
+    "title": "Settings",
+    "subtitle": "Manage your account settings and preferences.",
+    "userProfile": {
+      "title": "User Profile",
+      "description": "Your personal information and account details.",
+      "avatarAlt": "User",
+      "anonymousUser": "Anonymous User",
+      "noEmailProvided": "No email provided",
+      "notLoggedIn": "Not logged in."
+    },
+    "tools": {
+      "title": "Tools & Features",
+      "description": "Choose which tools appear in your navigation sidebar."
+    },
+    "appearance": {
+      "title": "Appearance",
+      "description": "Customize how the application looks on your device.",
+      "themePreference": "Theme Preference",
+      "themes": {
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System"
+      }
+    },
+    "language": {
+      "title": "Language",
+      "description": "Set the language used across the platform.",
+      "selectLanguage": "Select Language",
+      "selectPlaceholder": "Select a language",
+      "helpText": "Changing your language will update menus and labels across the platform.",
+      "languages": {
+        "en": "English",
+        "es": "Español (Spanish)"
+      }
+    }
   }
 }

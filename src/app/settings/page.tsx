@@ -13,17 +13,20 @@ import useAuth from '@/utils/useAuth'
 import { Switch } from '@/components/ui/switch'
 import { sidebarData } from '@/components/sidebar/data/sidebar-data'
 import { useToolVisibility } from '@/hooks/use-tool-visibility'
+import { useLocale, useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 
 export default function SettingsPage() {
+  const t = useTranslations('SettingsPage')
+  const locale = useLocale()
+  const router = useRouter()
   const { theme, setTheme } = useTheme()
   const { user } = useAuth()
   const { isToolEnabled, toggleTool } = useToolVisibility()
   const [mounted, setMounted] = useState(false)
-  const [language, setLanguage] = useState('en')
 
   useEffect(() => {
     setMounted(true)
-    // Here we'd typically load the language preference or read from standard browser APIs
   }, [])
 
   if (!mounted) {
@@ -31,17 +34,16 @@ export default function SettingsPage() {
   }
 
   const handleLanguageChange = (value: string) => {
-    setLanguage(value)
-    // Integrate true i18n/next-intl logic here in the future
-    console.log(`Language changed to ${value}`)
+    document.cookie = `NEXT_LOCALE=${value}; path=/; max-age=31536000; SameSite=Lax`
+    router.refresh()
   }
 
   return (
     <div className="flex-1 space-y-8 p-8 max-w-5xl mx-auto w-full pt-20 lg:pt-8 bg-background/50">
       <div className="flex items-center justify-between space-y-2">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">Settings</h2>
-          <p className="text-muted-foreground">Manage your account settings and preferences.</p>
+          <h2 className="text-3xl font-bold tracking-tight">{t('title')}</h2>
+          <p className="text-muted-foreground">{t('subtitle')}</p>
         </div>
       </div>
 
@@ -50,27 +52,27 @@ export default function SettingsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <User className="h-5 w-5 opacity-70" />
-              User Profile
+              {t('userProfile.title')}
             </CardTitle>
             <CardDescription>
-              Your personal information and account details.
+              {t('userProfile.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             {user ? (
               <div className="flex items-center gap-4">
                 <Avatar className="h-16 w-16">
-                  <AvatarImage src={user.photoURL || undefined} alt={user.displayName || 'User'} />
+                  <AvatarImage src={user.photoURL || undefined} alt={user.displayName || t('userProfile.avatarAlt')} />
                   <AvatarFallback>{user.displayName?.charAt(0) || 'U'}</AvatarFallback>
                 </Avatar>
                 <div>
-                  <h3 className="text-xl font-medium">{user.displayName || 'Anonymous User'}</h3>
-                  <p className="text-sm text-muted-foreground">{user.email || 'No email provided'}</p>
+                  <h3 className="text-xl font-medium">{user.displayName || t('userProfile.anonymousUser')}</h3>
+                  <p className="text-sm text-muted-foreground">{user.email || t('userProfile.noEmailProvided')}</p>
                 </div>
               </div>
             ) : (
               <div className="text-sm text-muted-foreground">
-                Not logged in.
+                {t('userProfile.notLoggedIn')}
               </div>
             )}
           </CardContent>
@@ -80,10 +82,10 @@ export default function SettingsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <List className="h-5 w-5 opacity-70" />
-              Tools & Features
+              {t('tools.title')}
             </CardTitle>
             <CardDescription>
-              Choose which tools appear in your navigation sidebar.
+              {t('tools.description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-3 sm:grid-cols-2">
@@ -113,15 +115,15 @@ export default function SettingsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Sun className="h-5 w-5 opacity-70" />
-              Appearance
+              {t('appearance.title')}
             </CardTitle>
             <CardDescription>
-              Customize how the application looks on your device.
+              {t('appearance.description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-4">
-              <Label>Theme Preference</Label>
+              <Label>{t('appearance.themePreference')}</Label>
               <div className="grid grid-cols-3 gap-4">
                 <Button
                   variant="outline"
@@ -132,7 +134,7 @@ export default function SettingsPage() {
                   onClick={() => setTheme('light')}
                 >
                   <Sun className="h-6 w-6" />
-                  <span>Light</span>
+                  <span>{t('appearance.themes.light')}</span>
                 </Button>
                 <Button
                   variant="outline"
@@ -143,7 +145,7 @@ export default function SettingsPage() {
                   onClick={() => setTheme('dark')}
                 >
                   <Moon className="h-6 w-6" />
-                  <span>Dark</span>
+                  <span>{t('appearance.themes.dark')}</span>
                 </Button>
                 <Button
                   variant="outline"
@@ -154,7 +156,7 @@ export default function SettingsPage() {
                   onClick={() => setTheme('system')}
                 >
                   <Monitor className="h-6 w-6" />
-                  <span>System</span>
+                  <span>{t('appearance.themes.system')}</span>
                 </Button>
               </div>
             </div>
@@ -165,30 +167,27 @@ export default function SettingsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Globe className="h-5 w-5 opacity-70" />
-              Language
+              {t('language.title')}
             </CardTitle>
             <CardDescription>
-              Set the language format used across the platform.
+              {t('language.description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-4 max-w-xs">
-              <Label>Select Language</Label>
-              <Select value={language} onValueChange={handleLanguageChange}>
+              <Label>{t('language.selectLanguage')}</Label>
+              <Select value={locale} onValueChange={handleLanguageChange}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a language" />
+                  <SelectValue placeholder={t('language.selectPlaceholder')} />
                 </SelectTrigger>
                 <SelectContent rounded-lg>
-                  <SelectItem value="en">English</SelectItem>
-                  <SelectItem value="es">Español (Spanish)</SelectItem>
-                  <SelectItem value="fr">Français (French)</SelectItem>
-                  <SelectItem value="de">Deutsch (German)</SelectItem>
-                  <SelectItem value="pt">Português (Portuguese)</SelectItem>
+                  <SelectItem value="en">{t('language.languages.en')}</SelectItem>
+                  <SelectItem value="es">{t('language.languages.es')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <p className="text-xs text-muted-foreground">
-              Changing your language will update application menus and labels to the selected format.
+              {t('language.helpText')}
             </p>
           </CardContent>
         </Card>
