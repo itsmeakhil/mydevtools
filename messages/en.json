@@ -14,7 +14,8 @@
     "spanish": "Spanish",
     "english": "English",
     "arabic": "عربى",
-    "catalan": "Catalan"
+    "catalan": "Catalan",
+    "chineseSimplified": "Chinese (Simplified)"
   },
   "SettingsPage": {
     "title": "Settings",
@@ -51,7 +52,8 @@
         "en": "English",
         "es": "Español (Spanish)",
         "ar": "عربى (Arabic)",
-        "ca": "Català"
+        "ca": "Català",
+        "zh": "简体中文"
       }
     }
   }
