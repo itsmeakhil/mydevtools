@@ -12,7 +12,9 @@
     "title": "Configuraciones",
     "language": "Idioma",
     "spanish": "Español",
-    "english": "Inglés"
+    "english": "Inglés",
+    "arabic": "Árabe",
+    "catalan": "Catalán"
   },
   "SettingsPage": {
     "title": "Configuraciones",
@@ -47,7 +49,9 @@
       "helpText": "Cambiar el idioma actualizará los menús y etiquetas en toda la plataforma.",
       "languages": {
         "en": "Inglés",
-        "es": "Español"
+        "es": "Español",
+        "ar": "عربى (Árabe)",
+        "ca": "Català"
       }
     }
   }

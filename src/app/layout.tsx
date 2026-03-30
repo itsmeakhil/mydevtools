@@ -99,9 +99,10 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale();
   const messages = await getMessages();
+  const dir = locale === 'ar' ? 'rtl' : 'ltr';
 
   return (
-    <html lang={locale} suppressHydrationWarning className={cn(
+    <html lang={locale} dir={dir} suppressHydrationWarning className={cn(
       geistMono.variable
     )}>
       <body suppressHydrationWarning className="min-h-screen bg-background font-sans antialiased">

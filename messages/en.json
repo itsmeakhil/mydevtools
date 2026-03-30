@@ -12,7 +12,9 @@
     "title": "Settings",
     "language": "Language",
     "spanish": "Spanish",
-    "english": "English"
+    "english": "English",
+    "arabic": "عربى",
+    "catalan": "Catalan"
   },
   "SettingsPage": {
     "title": "Settings",
@@ -47,7 +49,9 @@
       "helpText": "Changing your language will update menus and labels across the platform.",
       "languages": {
         "en": "English",
-        "es": "Español (Spanish)"
+        "es": "Español (Spanish)",
+        "ar": "عربى (Arabic)",
+        "ca": "Català"
       }
     }
   }
