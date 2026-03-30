@@ -11,6 +11,7 @@ import { useTranslations } from "next-intl";
 
 export default function NotionEditor() {
     const tEditor = useTranslations("Notes.editor");
+    const tCtx = useTranslations("Notes.context");
     const { notes, activeNoteId, updateNote } = useNotes();
     const activeNote = notes.find(n => n.id === activeNoteId);
     const { user } = useAuth();
@@ -73,7 +74,7 @@ export default function NotionEditor() {
     };
 
     const handleUploadImage = async (file: File): Promise<string> => {
-        if (!user) throw new Error("User not authenticated");
+        if (!user) throw new Error(tCtx("authRequiredError"));
 
         const timestamp = Date.now();
         const storageRef = ref(storage, `notes/${user.uid}/${activeNoteId}/${timestamp}_${file.name}`);

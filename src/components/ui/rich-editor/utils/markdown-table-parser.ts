@@ -1,5 +1,29 @@
 import { StructuralNode, TextNode } from "../types"
 
+export const MARKDOWN_TABLE_PARSE_ERROR_KEYS = [
+  "minRows",
+  "pipeFormat",
+  "headerMinCol",
+  "separatorRow",
+  "rowColumnMismatch",
+  "parseFailed",
+] as const
+
+export type MarkdownTableParseErrorKey =
+  (typeof MARKDOWN_TABLE_PARSE_ERROR_KEYS)[number]
+
+export type ParseMarkdownTableResult =
+  | { success: true; table: StructuralNode }
+  | {
+      success: false
+      errorKey: MarkdownTableParseErrorKey
+      params?: {
+        row?: number
+        got?: number
+        expected?: number
+      }
+    }
+
 /**
  * Parse markdown table string into table structure
  *
@@ -10,11 +34,7 @@ import { StructuralNode, TextNode } from "../types"
  * | Cell 1   | Cell 2   |
  * ```
  */
-export function parseMarkdownTable(markdown: string): {
-  success: boolean
-  table?: StructuralNode
-  error?: string
-} {
+export function parseMarkdownTable(markdown: string): ParseMarkdownTableResult {
   try {
     // Split into lines and remove empty lines
     const lines = markdown
@@ -26,7 +46,7 @@ export function parseMarkdownTable(markdown: string): {
     if (lines.length < 2) {
       return {
         success: false,
-        error: "Table must have at least a header row and separator row",
+        errorKey: "minRows",
       }
     }
 
@@ -35,7 +55,7 @@ export function parseMarkdownTable(markdown: string): {
     if (!headerLine.startsWith("|") || !headerLine.endsWith("|")) {
       return {
         success: false,
-        error: "Table rows must start and end with |",
+        errorKey: "pipeFormat",
       }
     }
 
@@ -47,7 +67,7 @@ export function parseMarkdownTable(markdown: string): {
     if (headerCells.length === 0) {
       return {
         success: false,
-        error: "Header row must have at least one column",
+        errorKey: "headerMinCol",
       }
     }
 
@@ -56,7 +76,7 @@ export function parseMarkdownTable(markdown: string): {
     if (!separatorLine.includes("---") && !separatorLine.includes("-")) {
       return {
         success: false,
-        error: "Second row must be a separator (e.g., |---|---|)",
+        errorKey: "separatorRow",
       }
     }
 
@@ -74,7 +94,12 @@ export function parseMarkdownTable(markdown: string): {
       if (cells.length !== numCols) {
         return {
           success: false,
-          error: `Row ${i + 3} has ${cells.length} columns, expected ${numCols}`,
+          errorKey: "rowColumnMismatch",
+          params: {
+            row: i + 3,
+            got: cells.length,
+            expected: numCols,
+          },
         }
       }
     }
@@ -147,13 +172,10 @@ export function parseMarkdownTable(markdown: string): {
       success: true,
       table,
     }
-  } catch (error) {
+  } catch {
     return {
       success: false,
-      error:
-        error instanceof Error
-          ? error.message
-          : "Failed to parse markdown table",
+      errorKey: "parseFailed",
     }
   }
 }

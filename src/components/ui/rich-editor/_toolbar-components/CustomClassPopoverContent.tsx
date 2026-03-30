@@ -2,6 +2,7 @@
 
 import React from "react"
 import { Code2, Search } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { Button } from "../../button"
 import { Input } from "../../input"
@@ -25,18 +26,19 @@ export function CustomClassPopoverContent({
   filteredClasses,
   onApplyClass,
 }: CustomClassPopoverContentProps) {
+  const t = useTranslations("RichEditor.customClass")
   return (
     <div className="space-y-3">
       {/* Dev Mode Toggle */}
       <div className="flex items-center justify-between border-b pb-2">
         <div className="flex items-center gap-2">
           <Code2 className="text-muted-foreground h-4 w-4" />
-          <span className="text-sm font-medium">Dev Mode</span>
+          <span className="text-sm font-medium">{t("devMode")}</span>
         </div>
         <Switch
           checked={devMode}
           onCheckedChange={setDevMode}
-          aria-label="Toggle dev mode"
+          aria-label={t("toggleDevModeAria")}
         />
       </div>
 
@@ -45,9 +47,7 @@ export function CustomClassPopoverContent({
         <Input
           autoFocus
           placeholder={
-            devMode
-              ? "Search classes... (e.g., 'text', 'bg', 'flex')"
-              : "Search styles... (e.g., 'red', 'bold', 'shadow')"
+            devMode ? t("searchPlaceholderDev") : t("searchPlaceholderUser")
           }
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -99,7 +99,9 @@ export function CustomClassPopoverContent({
                           size="sm"
                           onClick={() => onApplyClass(item.value)}
                           className="h-6 px-2 text-xs"
-                          title={`Applies: ${item.value}`}
+                          title={t("appliesTitle", {
+                            className: item.value,
+                          })}
                         >
                           {item.label}
                         </Button>
@@ -112,7 +114,7 @@ export function CustomClassPopoverContent({
           )}
           {filteredClasses.length === 0 && (
             <div className="text-muted-foreground py-8 text-center text-sm">
-              No classes found matching &quot;{searchQuery}&quot;
+              {t("noMatches", { query: searchQuery })}
             </div>
           )}
         </div>

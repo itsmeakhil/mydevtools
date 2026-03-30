@@ -85,6 +85,7 @@ import { TemplateSwitcherButton } from "./TemplateSwitcherButton"
 import { ContainerNode, isTextNode, type TextNode } from "./types"
 import { useDragAutoScroll } from "./utils/drag-auto-scroll"
 import { findNodeInTree } from "./utils/editor-helpers"
+import { useTranslations } from "next-intl"
 
 /**
  * Editor Component Props
@@ -118,6 +119,7 @@ export function Editor({
   const container = useContainer()
   const selectionManager = useSelectionManager()
   const { toast } = useToast()
+  const tToasts = useTranslations("RichEditor.toasts")
   const lastEnterTime = useRef<number>(0)
   const nodeRefs = useRef<Map<string, HTMLElement>>(new Map())
   const contentUpdateTimers = useRef<Map<string, NodeJS.Timeout>>(new Map())
@@ -414,8 +416,8 @@ export function Editor({
       }
 
       toast({
-        title: "Table Imported",
-        description: "Markdown table has been imported successfully",
+        title: tToasts("tableImported"),
+        description: tToasts("tableImportedDesc"),
       })
 
       // Smooth scroll to the newly created table
@@ -435,7 +437,7 @@ export function Editor({
         }
       }, 150)
     },
-    [container, dispatch, toast, editorContentRef, tableInsertionTargetId]
+    [container, dispatch, toast, editorContentRef, tableInsertionTargetId, tToasts]
   )
 
   const handleCopyHtml = useCallback(
@@ -767,25 +769,28 @@ export function Editor({
         ).length
         let description = ""
         if (videoCount > 0 && imageCount > 0) {
-          description = `${imageCount} image(s) and ${videoCount} video(s) pasted successfully.`
+          description = tToasts("pasteMixed", {
+            imageCount,
+            videoCount,
+          })
         } else if (videoCount > 0) {
-          description = `${videoCount} video(s) pasted successfully.`
+          description = tToasts("pasteVideos", { count: videoCount })
         } else {
-          description = `${imageCount} image(s) pasted successfully.`
+          description = tToasts("pasteImages", { count: imageCount })
         }
 
         toast({
-          title: "Media pasted",
+          title: tToasts("mediaPasted"),
           description,
         })
       } catch (error) {
         toast({
           variant: "destructive",
-          title: "Paste failed",
+          title: tToasts("pasteFailed"),
           description:
             error instanceof Error
               ? error.message
-              : "An unexpected error occurred",
+              : tToasts("unexpectedError"),
         })
       } finally {
         setIsUploading(false)
@@ -804,6 +809,7 @@ export function Editor({
     toast,
     onUploadImage,
     setIsUploading,
+    tToasts,
   ])
 
   // Handle global keyboard shortcuts

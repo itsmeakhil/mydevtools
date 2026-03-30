@@ -84,7 +84,7 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
         const docRef = await addDoc(collection(db, "notes"), newNote);
         setActiveNoteId(docRef.id);
         return docRef.id;
-    }, [user]);
+    }, [user, t]);
 
     const updateNote = useCallback(async (id: string, updates: Partial<Note>) => {
         if (!user) return;

@@ -1,8 +1,9 @@
 "use client"
 
 import React, { useMemo, useState } from "react"
-import { Church, PaintBucket } from "lucide-react"
+import { PaintBucket } from "lucide-react"
 import { useTheme } from "next-themes"
+import { useTranslations } from "next-intl"
 
 import { Button } from "../button"
 import {
@@ -36,36 +37,50 @@ interface BlockContextMenuProps {
   readOnly?: boolean
 }
 
+type ColorNameKey =
+  | "none"
+  | "red"
+  | "orange"
+  | "yellow"
+  | "green"
+  | "blue"
+  | "indigo"
+  | "purple"
+  | "pink"
+  | "teal"
+  | "cyan"
+  | "gray"
+
 // Light mode colors - subtle, light backgrounds
-const lightModeColors = [
-  { name: "None", hex: "transparent" },
-  { name: "Red", hex: "#fef2f2" },
-  { name: "Orange", hex: "#fff7ed" },
-  { name: "Yellow", hex: "#fefce8" },
-  { name: "Green", hex: "#f0fdf4" },
-  { name: "Blue", hex: "#eff6ff" },
-  { name: "Indigo", hex: "#eef2ff" },
-  { name: "Purple", hex: "#faf5ff" },
-  { name: "Pink", hex: "#fdf2f8" },
-  { name: "Teal", hex: "#f0fdfa" },
-  { name: "Cyan", hex: "#ecfeff" },
-  { name: "Gray", hex: "#f9fafb" },
+const lightModeColors: { nameKey: ColorNameKey; hex: string }[] = [
+  { nameKey: "none", hex: "transparent" },
+  { nameKey: "red", hex: "#fef2f2" },
+  { nameKey: "orange", hex: "#fff7ed" },
+  { nameKey: "yellow", hex: "#fefce8" },
+  { nameKey: "green", hex: "#f0fdf4" },
+  { nameKey: "blue", hex: "#eff6ff" },
+  { nameKey: "indigo", hex: "#eef2ff" },
+  { nameKey: "purple", hex: "#faf5ff" },
+  { nameKey: "pink", hex: "#fdf2f8" },
+  { nameKey: "teal", hex: "#f0fdfa" },
+  { nameKey: "cyan", hex: "#ecfeff" },
+  { nameKey: "gray", hex: "#f9fafb" },
 ]
 
 // Dark mode colors - darker, more saturated backgrounds
-const darkModeColors = [
-  { name: "None", hex: "transparent" },
-  { name: "Red", hex: "#450a0a" },
-  { name: "Orange", hex: "#431407" },
-  { name: "Yellow", hex: "#422006" },
-  { name: "Green", hex: "#052e16" },
-  { name: "Blue", hex: "#172554" },
-  { name: "Indigo", hex: "#1e1b4b" },
-  { name: "Purple", hex: "#2e1065" },
-  { name: "Pink", hex: "#500724" },
-  { name: "Teal", hex: "#042f2e" },
-  { name: "Cyan", hex: "#164e63" },
-  { name: "Gray", hex: "#1f2937" },
+const darkModeColors: { nameKey: ColorNameKey; hex: string }[] = [
+  { nameKey: "none", hex: "transparent" },
+  { nameKey: "red", hex: "#450a0a" },
+  { nameKey: "orange", hex: "#431407" },
+  { nameKey: "yellow", hex: "#422006" },
+  { nameKey: "green", hex: "#052e16" },
+  { nameKey: "blue", hex: "#172554" },
+  { nameKey: "indigo", hex: "#1e1b4b" },
+  { nameKey: "purple", hex: "#2e1065" },
+  { nameKey: "pink", hex: "#500724" },
+  { nameKey: "teal", hex: "#042f2e" },
+  { nameKey: "cyan", hex: "#164e63" },
+  { nameKey: "gray", hex: "#1f2937" },
 ]
 
 export function BlockContextMenu({
@@ -74,6 +89,8 @@ export function BlockContextMenu({
   currentBackgroundColor,
   readOnly = false,
 }: BlockContextMenuProps) {
+  const t = useTranslations("RichEditor.blockBackground")
+  const tColors = useTranslations("RichEditor.blockBackground.colors")
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [customColor, setCustomColor] = useState("#ffffff")
   const [displayColor, setDisplayColor] = useState("#ffffff")
@@ -134,7 +151,7 @@ export function BlockContextMenu({
               className="gap-2"
             >
               <PaintBucket className="size-4" />
-              <span>Change Background Color</span>
+              <span>{t("menuItem")}</span>
             </ContextMenuItem>
           </ContextMenuContent>
         </ContextMenu>
@@ -144,20 +161,18 @@ export function BlockContextMenu({
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogContent className="overflow-y-auto sm:max-w-[450px]">
             <DialogHeader>
-              <DialogTitle>Block Background Color</DialogTitle>
-              <DialogDescription>
-                Choose a background color for this block
-              </DialogDescription>
+              <DialogTitle>{t("dialogTitle")}</DialogTitle>
+              <DialogDescription>{t("dialogDescription")}</DialogDescription>
             </DialogHeader>
 
             <Tabs defaultValue="preset" className="w-full">
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="preset">Preset Colors</TabsTrigger>
-                <TabsTrigger value="custom">Custom Color</TabsTrigger>
+                <TabsTrigger value="preset">{t("tabPreset")}</TabsTrigger>
+                <TabsTrigger value="custom">{t("tabCustom")}</TabsTrigger>
               </TabsList>
 
               <TabsContent value="preset" className="space-y-3 pt-4">
-                <h4 className="text-sm font-medium">Background Colors</h4>
+                <h4 className="text-sm font-medium">{t("sectionHeading")}</h4>
                 <div className="grid grid-cols-4 gap-2">
                   {presetColors.map((color) => (
                     <button
@@ -168,7 +183,7 @@ export function BlockContextMenu({
                           ? "border-primary ring-primary ring-2 ring-offset-2"
                           : "border-border"
                       }`}
-                      title={color.name}
+                      title={tColors(color.nameKey)}
                       style={{
                         backgroundColor: color.hex,
                         backgroundImage:
@@ -184,7 +199,7 @@ export function BlockContextMenu({
                       }}
                     >
                       <span className="text-foreground/60 text-xs font-medium">
-                        {color.name}
+                        {tColors(color.nameKey)}
                       </span>
                     </button>
                   ))}
@@ -226,7 +241,7 @@ export function BlockContextMenu({
                     size="sm"
                     className="shrink-0"
                   >
-                    Apply
+                    {t("apply")}
                   </Button>
                 </div>
               </TabsContent>

@@ -119,6 +119,7 @@ const NoteItem = ({ note, level, onDeleteClick, parentTitle }: NoteItemProps) =>
                                 size="icon"
                                 className="h-6 w-6"
                                 onClick={(e) => e.stopPropagation()}
+                                aria-label={t("noteOptionsAria")}
                             >
                                 <MoreHorizontal className="h-3 w-3" />
                             </Button>

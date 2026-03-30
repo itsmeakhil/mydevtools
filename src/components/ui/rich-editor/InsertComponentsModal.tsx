@@ -2,6 +2,7 @@
 
 import React from "react"
 import { ImagePlus } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { cn } from "@/lib/utils"
 
@@ -37,6 +38,7 @@ export function InsertComponentsModal({
   onOpenChange,
   onSelect,
 }: InsertComponentsModalProps) {
+  const t = useTranslations("RichEditor.insertComponents")
   const handleSelect = (componentId: string) => {
     onSelect(componentId)
     onOpenChange(false)
@@ -50,10 +52,10 @@ export function InsertComponentsModal({
             <div className="bg-primary/10 rounded-lg p-2">
               <ImagePlus className="text-primary h-6 w-6" />
             </div>
-            Insert Component
+            {t("title")}
           </DialogTitle>
           <DialogDescription className="text-base">
-            Choose a component to insert into your document
+            {t("description")}
           </DialogDescription>
         </DialogHeader>
 
@@ -61,6 +63,14 @@ export function InsertComponentsModal({
         <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
           {INSERT_COMPONENTS.map((component) => {
             const Icon = componentIcons[component.id] || ImagePlus
+            const title =
+              component.id === "free-image"
+                ? t("freeImage.name")
+                : component.name
+            const description =
+              component.id === "free-image"
+                ? t("freeImage.description")
+                : component.description
 
             return (
               <button
@@ -85,16 +95,16 @@ export function InsertComponentsModal({
 
                 {/* Component Info */}
                 <h3 className="group-hover:text-primary mb-2 text-lg font-semibold transition-colors duration-200">
-                  {component.name}
+                  {title}
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  {component.description}
+                  {description}
                 </p>
 
                 {/* Category badge */}
                 <div className="mt-4">
                   <span className="bg-muted/80 text-muted-foreground inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium">
-                    {component.category}
+                    {t(`categories.${component.category}`)}
                   </span>
                 </div>
               </button>
@@ -106,7 +116,7 @@ export function InsertComponentsModal({
         {INSERT_COMPONENTS.length === 0 && (
           <div className="text-muted-foreground flex flex-col items-center justify-center py-16">
             <ImagePlus className="mb-4 h-12 w-12 opacity-50" />
-            <p className="text-base">No components available</p>
+            <p className="text-base">{t("noComponents")}</p>
           </div>
         )}
       </DialogContent>

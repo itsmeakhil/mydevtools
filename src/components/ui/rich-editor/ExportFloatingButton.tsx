@@ -26,6 +26,7 @@ import { Switch } from "../switch"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../tabs"
 import { type ContainerNode } from "./types"
 import { serializeToHtml } from "./utils/serialize-to-html"
+import { useTranslations } from "next-intl"
 
 interface ExportFloatingButtonProps {
   container: ContainerNode
@@ -46,6 +47,7 @@ export function ExportFloatingButton({
   enhanceSpaces,
   onEnhanceSpacesChange,
 }: ExportFloatingButtonProps) {
+  const t = useTranslations("RichEditor.export")
   const [isOpen, setIsOpen] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
 
@@ -57,6 +59,7 @@ export function ExportFloatingButton({
           onClick={() => setIsOpen(true)}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          aria-label={t("fabAria")}
           className={cn(
             "h-14 w-14 rounded-full shadow-2xl transition-all duration-300 ease-out",
             "from-primary via-primary to-primary/80 bg-gradient-to-br",
@@ -97,10 +100,10 @@ export function ExportFloatingButton({
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Download className="h-5 w-5" />
-              Export Code
+              {t("title")}
             </DialogTitle>
             <DialogDescription>
-              Copy the HTML or JSON output of your editor content
+              {t("description")}
             </DialogDescription>
           </DialogHeader>
 
@@ -111,27 +114,27 @@ export function ExportFloatingButton({
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="preview" className="gap-2">
                 <Eye className="h-4 w-4" />
-                Preview
+                {t("preview")}
               </TabsTrigger>
               <TabsTrigger value="html" className="gap-2">
                 <Code2 className="h-4 w-4" />
-                HTML
+                {t("html")}
               </TabsTrigger>
               <TabsTrigger value="json" className="gap-2">
                 <FileJson className="h-4 w-4" />
-                JSON
+                {t("json")}
               </TabsTrigger>
             </TabsList>
 
             {/* Enhance Spaces Toggle */}
             <div className="mt-4 flex items-center justify-between px-1">
-              <p className="text-muted-foreground text-sm">Preview Options</p>
+              <p className="text-muted-foreground text-sm">{t("previewOptions")}</p>
               <div className="flex items-center gap-2">
                 <Label
                   htmlFor="enhance-spaces"
                   className="cursor-pointer text-sm"
                 >
-                  Enhance Spaces
+                  {t("enhanceSpaces")}
                 </Label>
                 <Switch
                   id="enhance-spaces"
@@ -148,7 +151,7 @@ export function ExportFloatingButton({
             >
               <div className="mb-2 flex items-center justify-between">
                 <p className="text-muted-foreground text-sm">
-                  Live preview of rendered HTML
+                  {t("livePreview")}
                 </p>
               </div>
               <div
@@ -170,7 +173,7 @@ export function ExportFloatingButton({
             >
               <div className="mb-2 flex items-center justify-between">
                 <p className="text-muted-foreground text-sm">
-                  HTML with Tailwind CSS classes
+                  {t("htmlTailwind")}
                 </p>
                 <Button
                   variant="ghost"
@@ -181,12 +184,12 @@ export function ExportFloatingButton({
                   {copiedHtml ? (
                     <>
                       <Check className="h-4 w-4" />
-                      Copied!
+                      {t("copied")}
                     </>
                   ) : (
                     <>
                       <Copy className="h-4 w-4" />
-                      Copy HTML
+                      {t("copyHtml")}
                     </>
                   )}
                 </Button>
@@ -207,7 +210,7 @@ export function ExportFloatingButton({
             >
               <div className="mb-2 flex items-center justify-between">
                 <p className="text-muted-foreground text-sm">
-                  Editor state as JSON
+                  {t("editorJson")}
                 </p>
                 <Button
                   variant="ghost"
@@ -218,12 +221,12 @@ export function ExportFloatingButton({
                   {copiedJson ? (
                     <>
                       <Check className="h-4 w-4" />
-                      Copied!
+                      {t("copied")}
                     </>
                   ) : (
                     <>
                       <Copy className="h-4 w-4" />
-                      Copy JSON
+                      {t("copyJson")}
                     </>
                   )}
                 </Button>

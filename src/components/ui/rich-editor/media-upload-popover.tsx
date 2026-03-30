@@ -5,6 +5,7 @@ import { Image as ImageIcon, ImagePlus, LayoutGrid, Video } from "lucide-react"
 
 import { Button } from "../button"
 import { Popover, PopoverContent, PopoverTrigger } from "../popover"
+import { useTranslations } from "next-intl"
 
 interface MediaUploadPopoverProps {
   isUploading: boolean
@@ -19,6 +20,7 @@ export function MediaUploadPopover({
   onMultipleImagesUploadClick,
   onVideoUploadClick,
 }: MediaUploadPopoverProps) {
+  const t = useTranslations("RichEditor.media")
   const [open, setOpen] = React.useState(false)
 
   const handleOptionClick = (action: () => void) => {
@@ -34,7 +36,7 @@ export function MediaUploadPopover({
           size="icon"
           disabled={isUploading}
           className="h-7 w-7 md:h-8 md:w-8"
-          title="Add media"
+          title={t("popoverTitle")}
         >
           <ImageIcon className="size-3 md:size-3.5" />
         </Button>
@@ -49,9 +51,9 @@ export function MediaUploadPopover({
           >
             <ImagePlus className="size-4" />
             <div className="flex flex-col items-start">
-              <span className="text-sm font-medium">Single Image</span>
+              <span className="text-sm font-medium">{t("singleImage")}</span>
               <span className="text-muted-foreground text-xs">
-                Upload one image
+                {t("singleImageDesc")}
               </span>
             </div>
           </Button>
@@ -64,9 +66,9 @@ export function MediaUploadPopover({
           >
             <LayoutGrid className="size-4" />
             <div className="flex flex-col items-start">
-              <span className="text-sm font-medium">Multiple Images</span>
+              <span className="text-sm font-medium">{t("multipleImages")}</span>
               <span className="text-muted-foreground text-xs">
-                Upload image grid
+                {t("multipleImagesDesc")}
               </span>
             </div>
           </Button>
@@ -79,9 +81,9 @@ export function MediaUploadPopover({
           >
             <Video className="size-4" />
             <div className="flex flex-col items-start">
-              <span className="text-sm font-medium">Video</span>
+              <span className="text-sm font-medium">{t("video")}</span>
               <span className="text-muted-foreground text-xs">
-                Upload video file
+                {t("videoDesc")}
               </span>
             </div>
           </Button>

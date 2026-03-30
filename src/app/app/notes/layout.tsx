@@ -22,7 +22,7 @@ export default function NotesLayout({ children }: { children: React.ReactNode })
                         <div className="absolute top-3 left-4 z-50">
                             <Sheet>
                                 <SheetTrigger asChild>
-                                    <Button variant="ghost" size="icon" className="h-9 w-9"><Menu className="h-5 w-5" /></Button>
+                                    <Button variant="ghost" size="icon" className="h-9 w-9" aria-label={t("openMenuAria")}><Menu className="h-5 w-5" /></Button>
                                 </SheetTrigger>
                                 <SheetContent side="left" className="p-0 w-72">
                                     <SheetHeader className="sr-only">

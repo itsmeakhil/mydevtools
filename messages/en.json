@@ -212,7 +212,8 @@
       "loading": "Loading..."
     },
     "layout": {
-      "mobileNavTitle": "Notes Navigation"
+      "mobileNavTitle": "Notes Navigation",
+      "openMenuAria": "Open notes menu"
     },
     "sidebar": {
       "title": "Notes",
@@ -228,7 +229,8 @@
       "deleteConfirmTitle": "Delete note?",
       "deleteConfirmDescription": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
       "cancel": "Cancel",
-      "confirmDelete": "Delete"
+      "confirmDelete": "Delete",
+      "noteOptionsAria": "Note options"
     },
     "editor": {
       "emptyState": "Select a note or create a new one to get started.",
@@ -237,6 +239,233 @@
     "context": {
       "authRequiredError": "User not authenticated",
       "defaultTitle": "Untitled"
+    }
+  },
+  "RichEditor": {
+    "toolbar": {
+      "editMode": "Edit Mode",
+      "viewOnlyMode": "View Only Mode",
+      "insertComponent": "Insert component",
+      "addUnorderedList": "Add unordered list",
+      "addOrderedList": "Add ordered list",
+      "addTable": "Add table"
+    },
+    "addBlock": "Add block",
+    "media": {
+      "popoverTitle": "Add media",
+      "singleImage": "Single Image",
+      "singleImageDesc": "Upload one image",
+      "multipleImages": "Multiple Images",
+      "multipleImagesDesc": "Upload image grid",
+      "video": "Video",
+      "videoDesc": "Upload video file",
+      "uploadingAlt": "Uploading...",
+      "uploadFailedAlt": "Upload failed"
+    },
+    "export": {
+      "fabAria": "Export code",
+      "title": "Export Code",
+      "description": "Copy the HTML or JSON output of your editor content",
+      "preview": "Preview",
+      "html": "HTML",
+      "json": "JSON",
+      "previewOptions": "Preview Options",
+      "enhanceSpaces": "Enhance Spaces",
+      "livePreview": "Live preview of rendered HTML",
+      "htmlTailwind": "HTML with Tailwind CSS classes",
+      "editorJson": "Editor state as JSON",
+      "copyHtml": "Copy HTML",
+      "copyJson": "Copy JSON",
+      "copied": "Copied!"
+    },
+    "template": {
+      "fabTitle": "Switch Template",
+      "title": "Choose a Template",
+      "description": "Select a template to get started quickly with pre-built layouts and content",
+      "catAll": "All Templates",
+      "catProductivity": "Productivity",
+      "catCreative": "Creative",
+      "catBusiness": "Business",
+      "catPersonal": "Personal",
+      "noTemplates": "No templates found in this category",
+      "confirmTitle": "Replace Existing Content?",
+      "confirmDescription": "You have existing content in the editor. Applying this template will replace all current content.",
+      "cannotUndo": "This action cannot be undone.",
+      "cancel": "Cancel",
+      "replaceContent": "Replace Content"
+    },
+    "command": {
+      "searchPlaceholder": "Search commands...",
+      "noResults": "No commands found.",
+      "turnInto": "Turn into",
+      "h1": {
+        "label": "Heading 1",
+        "description": "Big section heading",
+        "keywords": "h1,heading,title,large"
+      },
+      "h2": {
+        "label": "Heading 2",
+        "description": "Medium section heading",
+        "keywords": "h2,heading,subtitle"
+      },
+      "h3": {
+        "label": "Heading 3",
+        "description": "Small section heading",
+        "keywords": "h3,heading,subheading"
+      },
+      "h4": {
+        "label": "Heading 4",
+        "description": "Tiny section heading",
+        "keywords": "h4,heading"
+      },
+      "h5": {
+        "label": "Heading 5",
+        "description": "Smaller heading",
+        "keywords": "h5,heading"
+      },
+      "h6": {
+        "label": "Heading 6",
+        "description": "Smallest heading",
+        "keywords": "h6,heading"
+      },
+      "p": {
+        "label": "Paragraph",
+        "description": "Regular text paragraph",
+        "keywords": "p,paragraph,text,normal"
+      },
+      "code": {
+        "label": "Code Block",
+        "description": "Code snippet",
+        "keywords": "code,codeblock,snippet,pre"
+      },
+      "blockquote": {
+        "label": "Quote",
+        "description": "Block quote",
+        "keywords": "quote,blockquote,citation"
+      },
+      "li": {
+        "label": "Bulleted List",
+        "description": "Simple list item with bullet",
+        "keywords": "list,bullet,unordered,ul,li"
+      },
+      "ol": {
+        "label": "Numbered List",
+        "description": "Numbered list item",
+        "keywords": "list,numbered,ordered,ol,li"
+      },
+      "img": {
+        "label": "Image",
+        "description": "Upload or embed an image",
+        "keywords": "image,img,picture,photo,upload"
+      },
+      "video": {
+        "label": "Video",
+        "description": "Upload or embed a video",
+        "keywords": "video,vid,movie,mp4,upload"
+      },
+      "table": {
+        "label": "Table",
+        "description": "Create a table",
+        "keywords": "table,grid,rows,columns,cells"
+      }
+    },
+    "toasts": {
+      "tableImported": "Table Imported",
+      "tableImportedDesc": "Markdown table has been imported successfully",
+      "mediaPasted": "Media pasted",
+      "pasteMixed": "{imageCount} image(s) and {videoCount} video(s) pasted successfully.",
+      "pasteImages": "{count} image(s) pasted successfully.",
+      "pasteVideos": "{count} video(s) pasted successfully.",
+      "pasteFailed": "Paste failed",
+      "unexpectedError": "An unexpected error occurred",
+      "uploadFailed": "Upload failed"
+    },
+    "blockBackground": {
+      "menuItem": "Change Background Color",
+      "dialogTitle": "Block Background Color",
+      "dialogDescription": "Choose a background color for this block",
+      "tabPreset": "Preset Colors",
+      "tabCustom": "Custom Color",
+      "sectionHeading": "Background Colors",
+      "apply": "Apply",
+      "colors": {
+        "none": "None",
+        "red": "Red",
+        "orange": "Orange",
+        "yellow": "Yellow",
+        "green": "Green",
+        "blue": "Blue",
+        "indigo": "Indigo",
+        "purple": "Purple",
+        "pink": "Pink",
+        "teal": "Teal",
+        "cyan": "Cyan",
+        "gray": "Gray"
+      }
+    },
+    "tableDialog": {
+      "title": "Create Table",
+      "description": "Create a new table or import from markdown",
+      "markdownCheckbox": "I have a markdown table",
+      "pasteMarkdownLabel": "Paste Markdown Table",
+      "markdownPlaceholder": "| Header 1 | Header 2 | Header 3 |\n|----------|----------|----------|\n| Cell 1   | Cell 2   | Cell 3   |\n| Cell 4   | Cell 5   | Cell 6   |",
+      "markdownHint": "Paste your markdown table above. Must include header and separator rows.",
+      "rows": "Rows",
+      "columns": "Columns",
+      "maxDimensions": "Maximum: 20 rows × 10 columns",
+      "cancel": "Cancel",
+      "importTable": "Import Table",
+      "createTable": "Create Table"
+    },
+    "tableParse": {
+      "errors": {
+        "minRows": "Table must have at least a header row and separator row",
+        "pipeFormat": "Table rows must start and end with |",
+        "headerMinCol": "Header row must have at least one column",
+        "separatorRow": "Second row must be a separator (e.g., |---|---|)",
+        "rowColumnMismatch": "Row {row} has {got} columns, expected {expected}",
+        "parseFailed": "Failed to parse markdown table"
+      }
+    },
+    "link": {
+      "editLink": "Edit Link",
+      "addLink": "Add Link",
+      "selectedText": "Selected text: \"{text}\"",
+      "linkUrl": "Link URL",
+      "urlPlaceholder": "https://example.com",
+      "update": "Update",
+      "addLinkButton": "Add Link",
+      "toastApplied": "Link Applied",
+      "toastLinkedTo": "Linked to: {url}",
+      "toastRemoved": "Link Removed",
+      "toastRemovedDesc": "Link has been removed from selection"
+    },
+    "customClass": {
+      "devMode": "Dev Mode",
+      "toggleDevModeAria": "Toggle dev mode",
+      "searchPlaceholderDev": "Search classes... (e.g., 'text', 'bg', 'flex')",
+      "searchPlaceholderUser": "Search styles... (e.g., 'red', 'bold', 'shadow')",
+      "appliesTitle": "Applies: {className}",
+      "noMatches": "No classes found matching \"{query}\"",
+      "toastClassReplaced": "Class Replaced",
+      "toastClassReplacedDesc": "Replaced \"{replaced}\" with \"{className}\"",
+      "toastCustomClassApplied": "Custom Class Applied",
+      "toastAppliedClass": "Applied class: {className}"
+    },
+    "insertComponents": {
+      "title": "Insert Component",
+      "description": "Choose a component to insert into your document",
+      "noComponents": "No components available",
+      "categories": {
+        "media": "Media",
+        "layout": "Layout",
+        "interactive": "Interactive",
+        "decoration": "Decoration"
+      },
+      "freeImage": {
+        "name": "Free Movement Image",
+        "description": "Add an image that can be positioned anywhere and resized freely"
+      }
     }
   }
 }

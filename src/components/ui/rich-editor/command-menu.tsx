@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useCallback, useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import {
   Code,
   Heading1,
@@ -29,6 +29,7 @@ import {
 } from "../command"
 import { Popover, PopoverAnchor, PopoverContent } from "../popover"
 import { useEditorDispatch } from "./store/editor-store"
+import { useTranslations } from "next-intl"
 
 export interface CommandOption {
   label: string
@@ -47,107 +48,6 @@ interface CommandMenuProps {
   onUploadImage?: (file: File) => Promise<string> // Custom image upload handler
 }
 
-const commands: CommandOption[] = [
-  {
-    label: "Heading 1",
-    value: "h1",
-    icon: <Heading1 className="h-4 w-4" />,
-    description: "Big section heading",
-    keywords: ["h1", "heading", "title", "large"],
-  },
-  {
-    label: "Heading 2",
-    value: "h2",
-    icon: <Heading2 className="h-4 w-4" />,
-    description: "Medium section heading",
-    keywords: ["h2", "heading", "subtitle"],
-  },
-  {
-    label: "Heading 3",
-    value: "h3",
-    icon: <Heading3 className="h-4 w-4" />,
-    description: "Small section heading",
-    keywords: ["h3", "heading", "subheading"],
-  },
-  {
-    label: "Heading 4",
-    value: "h4",
-    icon: <Heading4 className="h-4 w-4" />,
-    description: "Tiny section heading",
-    keywords: ["h4", "heading"],
-  },
-  {
-    label: "Heading 5",
-    value: "h5",
-    icon: <Heading5 className="h-4 w-4" />,
-    description: "Smaller heading",
-    keywords: ["h5", "heading"],
-  },
-  {
-    label: "Heading 6",
-    value: "h6",
-    icon: <Heading6 className="h-4 w-4" />,
-    description: "Smallest heading",
-    keywords: ["h6", "heading"],
-  },
-  {
-    label: "Paragraph",
-    value: "p",
-    icon: <Type className="h-4 w-4" />,
-    description: "Regular text paragraph",
-    keywords: ["p", "paragraph", "text", "normal"],
-  },
-  {
-    label: "Code Block",
-    value: "code",
-    icon: <Code className="h-4 w-4" />,
-    description: "Code snippet",
-    keywords: ["code", "codeblock", "snippet", "pre"],
-  },
-  {
-    label: "Quote",
-    value: "blockquote",
-    icon: <Quote className="h-4 w-4" />,
-    description: "Block quote",
-    keywords: ["quote", "blockquote", "citation"],
-  },
-  {
-    label: "Bulleted List",
-    value: "li",
-    icon: <List className="h-4 w-4" />,
-    description: "Simple list item with bullet",
-    keywords: ["list", "bullet", "unordered", "ul", "li"],
-  },
-  {
-    label: "Numbered List",
-    value: "ol",
-    icon: <ListOrdered className="h-4 w-4" />,
-    description: "Numbered list item",
-    keywords: ["list", "numbered", "ordered", "ol", "li"],
-  },
-  {
-    label: "Image",
-    value: "img",
-    icon: <Image className="h-4 w-4" />,
-    description: "Upload or embed an image",
-    keywords: ["image", "img", "picture", "photo", "upload"],
-  },
-  {
-    label: "Video",
-    value: "video",
-    icon: <Video className="h-4 w-4" />,
-    description: "Upload or embed a video",
-    keywords: ["video", "vid", "movie", "mp4", "upload"],
-  },
-  {
-    label: "Table",
-    value: "table",
-    icon: <Table className="h-4 w-4" />,
-    description: "Create a table",
-    keywords: ["table", "grid", "rows", "columns", "cells"],
-  },
-]
-
 export function CommandMenu({
   isOpen,
   onClose,
@@ -162,6 +62,113 @@ export function CommandMenu({
   const commandRef = useRef<HTMLDivElement>(null)
 
   const dispatch = useEditorDispatch()
+  const t = useTranslations("RichEditor")
+  const tMedia = useTranslations("RichEditor.media")
+  const tToasts = useTranslations("RichEditor.toasts")
+
+  const commands = useMemo<CommandOption[]>(
+    () => [
+      {
+        label: t("command.h1.label"),
+        value: "h1",
+        icon: <Heading1 className="h-4 w-4" />,
+        description: t("command.h1.description"),
+        keywords: t("command.h1.keywords").split(",").map((s) => s.trim()),
+      },
+      {
+        label: t("command.h2.label"),
+        value: "h2",
+        icon: <Heading2 className="h-4 w-4" />,
+        description: t("command.h2.description"),
+        keywords: t("command.h2.keywords").split(",").map((s) => s.trim()),
+      },
+      {
+        label: t("command.h3.label"),
+        value: "h3",
+        icon: <Heading3 className="h-4 w-4" />,
+        description: t("command.h3.description"),
+        keywords: t("command.h3.keywords").split(",").map((s) => s.trim()),
+      },
+      {
+        label: t("command.h4.label"),
+        value: "h4",
+        icon: <Heading4 className="h-4 w-4" />,
+        description: t("command.h4.description"),
+        keywords: t("command.h4.keywords").split(",").map((s) => s.trim()),
+      },
+      {
+        label: t("command.h5.label"),
+        value: "h5",
+        icon: <Heading5 className="h-4 w-4" />,
+        description: t("command.h5.description"),
+        keywords: t("command.h5.keywords").split(",").map((s) => s.trim()),
+      },
+      {
+        label: t("command.h6.label"),
+        value: "h6",
+        icon: <Heading6 className="h-4 w-4" />,
+        description: t("command.h6.description"),
+        keywords: t("command.h6.keywords").split(",").map((s) => s.trim()),
+      },
+      {
+        label: t("command.p.label"),
+        value: "p",
+        icon: <Type className="h-4 w-4" />,
+        description: t("command.p.description"),
+        keywords: t("command.p.keywords").split(",").map((s) => s.trim()),
+      },
+      {
+        label: t("command.code.label"),
+        value: "code",
+        icon: <Code className="h-4 w-4" />,
+        description: t("command.code.description"),
+        keywords: t("command.code.keywords").split(",").map((s) => s.trim()),
+      },
+      {
+        label: t("command.blockquote.label"),
+        value: "blockquote",
+        icon: <Quote className="h-4 w-4" />,
+        description: t("command.blockquote.description"),
+        keywords: t("command.blockquote.keywords").split(",").map((s) => s.trim()),
+      },
+      {
+        label: t("command.li.label"),
+        value: "li",
+        icon: <List className="h-4 w-4" />,
+        description: t("command.li.description"),
+        keywords: t("command.li.keywords").split(",").map((s) => s.trim()),
+      },
+      {
+        label: t("command.ol.label"),
+        value: "ol",
+        icon: <ListOrdered className="h-4 w-4" />,
+        description: t("command.ol.description"),
+        keywords: t("command.ol.keywords").split(",").map((s) => s.trim()),
+      },
+      {
+        label: t("command.img.label"),
+        value: "img",
+        icon: <Image className="h-4 w-4" />,
+        description: t("command.img.description"),
+        keywords: t("command.img.keywords").split(",").map((s) => s.trim()),
+      },
+      {
+        label: t("command.video.label"),
+        value: "video",
+        icon: <Video className="h-4 w-4" />,
+        description: t("command.video.description"),
+        keywords: t("command.video.keywords").split(",").map((s) => s.trim()),
+      },
+      {
+        label: t("command.table.label"),
+        value: "table",
+        icon: <Table className="h-4 w-4" />,
+        description: t("command.table.description"),
+        keywords: t("command.table.keywords").split(",").map((s) => s.trim()),
+      },
+    ],
+    [t]
+  )
 
   // Handle command selection - for image/video, we'll use dispatch directly here
   const handleSelect = useCallback(
@@ -193,7 +200,7 @@ export function CommandMenu({
                   content: "", // Empty caption initially
                   attributes: {
                     src: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2YzZjRmNiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM5Y2EzYWYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5VcGxvYWRpbmcuLi48L3RleHQ+PC9zdmc+",
-                    alt: "Uploading...",
+                    alt: tMedia("uploadingAlt"),
                     loading: "true", // Custom attribute to indicate loading
                   },
                 })
@@ -212,7 +219,7 @@ export function CommandMenu({
               const { uploadImage } = await import("./utils/image-upload")
               const result = await uploadImage(file)
               if (!result.success || !result.url) {
-                throw new Error(result.error || "Upload failed")
+                throw new Error(result.error || tToasts("uploadFailed"))
               }
               imageUrl = result.url
             }
@@ -243,7 +250,7 @@ export function CommandMenu({
                     content: "",
                     attributes: {
                       src: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2ZlZjJmMiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNlZjQ0NDQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5VcGxvYWQgRmFpbGVkPC90ZXh0Pjwvc3ZnPg==",
-                      alt: "Upload failed",
+                      alt: tMedia("uploadFailedAlt"),
                       error: "true",
                     },
                   })
@@ -290,7 +297,7 @@ export function CommandMenu({
                   content: "", // Empty caption initially
                   attributes: {
                     src: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2YzZjRmNiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM5Y2EzYWYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5VcGxvYWRpbmcuLi48L3RleHQ+PC9zdmc+",
-                    alt: "Uploading...",
+                    alt: tMedia("uploadingAlt"),
                     loading: "true", // Custom attribute to indicate loading
                   },
                 })
@@ -310,7 +317,7 @@ export function CommandMenu({
               const { uploadImage } = await import("./utils/image-upload")
               const result = await uploadImage(file)
               if (!result.success || !result.url) {
-                throw new Error(result.error || "Upload failed")
+                throw new Error(result.error || tToasts("uploadFailed"))
               }
               videoUrl = result.url
             }
@@ -341,7 +348,7 @@ export function CommandMenu({
                     content: "",
                     attributes: {
                       src: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2ZlZjJmMiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNlZjQ0NDQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5VcGxvYWQgRmFpbGVkPC90ZXh0Pjwvc3ZnPg==",
-                      alt: "Upload failed",
+                      alt: tMedia("uploadFailedAlt"),
                       error: "true",
                     },
                   })
@@ -372,7 +379,7 @@ export function CommandMenu({
       onClose()
       onSelect(commandValue)
     },
-    [dispatch, nodeId, onSelect, onClose, onUploadImage]
+    [dispatch, nodeId, onSelect, onClose, onUploadImage, tMedia, tToasts]
   )
 
   // Filter commands based on search
@@ -470,14 +477,14 @@ export function CommandMenu({
       >
         <Command ref={commandRef} shouldFilter={false}>
           <CommandInput
-            placeholder="Search commands..."
+            placeholder={t("command.searchPlaceholder")}
             value={search}
             onValueChange={setSearch}
             autoFocus
           />
           <CommandList>
-            <CommandEmpty>No commands found.</CommandEmpty>
-            <CommandGroup heading="Turn into">
+            <CommandEmpty>{t("command.noResults")}</CommandEmpty>
+            <CommandGroup heading={t("command.turnInto")}>
               {filteredCommands.map((command, index) => (
                 <CommandItem
                   key={command.value}

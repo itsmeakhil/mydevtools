@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import { Plus } from "lucide-react"
 
 import { Button } from "../button"
+import { useTranslations } from "next-intl"
 
 interface AddBlockButtonProps {
   onAdd: () => void
@@ -14,6 +15,7 @@ export function AddBlockButton({
   onAdd,
   position = "after",
 }: AddBlockButtonProps) {
+  const t = useTranslations("RichEditor")
   const [isHovered, setIsHovered] = useState(false)
 
   return (
@@ -40,7 +42,7 @@ export function AddBlockButton({
         }}
       >
         <Plus className="h-3 w-3" />
-        <span className="text-xs">Add block</span>
+        <span className="text-xs">{t("addBlock")}</span>
       </Button>
     </div>
   )

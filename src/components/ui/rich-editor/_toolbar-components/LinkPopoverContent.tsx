@@ -2,6 +2,7 @@
 
 import React from "react"
 import { Link as LinkIcon, Trash2 } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { Button } from "../../button"
 import { Input } from "../../input"
@@ -24,23 +25,24 @@ export function LinkPopoverContent({
   onApply,
   onRemove,
 }: LinkPopoverContentProps) {
+  const t = useTranslations("RichEditor.link")
   return (
     <div className="space-y-3">
       <div>
         <h4 className="mb-1 text-sm font-medium">
-          {hasExistingLink ? "Edit Link" : "Add Link"}
+          {hasExistingLink ? t("editLink") : t("addLink")}
         </h4>
         <p className="text-muted-foreground text-xs">
-          Selected text: "{selectedText}"
+          {t("selectedText", { text: selectedText })}
         </p>
       </div>
       <div className="space-y-2">
         <Label htmlFor="href-input" className="text-xs">
-          Link URL
+          {t("linkUrl")}
         </Label>
         <Input
           id="href-input"
-          placeholder="https://example.com"
+          placeholder={t("urlPlaceholder")}
           value={hrefInput}
           onChange={(e) => setHrefInput(e.target.value)}
           onKeyDown={(e) => {
@@ -61,7 +63,7 @@ export function LinkPopoverContent({
           className="flex-1"
         >
           <LinkIcon className="mr-1.5 size-3.5" />
-          {hasExistingLink ? "Update" : "Add Link"}
+          {hasExistingLink ? t("update") : t("addLinkButton")}
         </Button>
         {hasExistingLink && (
           <Button onClick={onRemove} variant="destructive" size="sm">

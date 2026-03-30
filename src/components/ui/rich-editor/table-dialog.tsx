@@ -2,6 +2,7 @@
 
 import React, { useState } from "react"
 import { AlertCircle, Table } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { Button } from "../button"
 import { Checkbox } from "../checkbox"
@@ -35,6 +36,8 @@ export function TableDialog({
   onCreateTable,
   onImportMarkdown,
 }: TableDialogProps) {
+  const t = useTranslations("RichEditor.tableDialog")
+  const tParse = useTranslations("RichEditor.tableParse.errors")
   const [rows, setRows] = useState(3)
   const [cols, setCols] = useState(3)
   const [useMarkdown, setUseMarkdown] = useState(false)
@@ -52,8 +55,15 @@ export function TableDialog({
         setMarkdownText("")
         setUseMarkdown(false)
         setError(null)
-      } else {
-        setError(result.error || "Failed to parse markdown table")
+      } else if (!result.success) {
+        const { errorKey, params } = result
+        setError(
+          tParse(errorKey, {
+            row: params?.row,
+            got: params?.got,
+            expected: params?.expected,
+          })
+        )
       }
     } else {
       // Create empty table
@@ -79,11 +89,9 @@ export function TableDialog({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Table className="h-5 w-5" />
-            Create Table
+            {t("title")}
           </DialogTitle>
-          <DialogDescription>
-            Create a new table or import from markdown
-          </DialogDescription>
+          <DialogDescription>{t("description")}</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           {/* Markdown checkbox */}
@@ -100,7 +108,7 @@ export function TableDialog({
               htmlFor="markdown"
               className="cursor-pointer text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
-              I have a markdown table
+              {t("markdownCheckbox")}
             </Label>
           </div>
 
@@ -108,20 +116,16 @@ export function TableDialog({
             <>
               {/* Markdown input */}
               <div className="grid gap-2">
-                <Label htmlFor="markdown-input">Paste Markdown Table</Label>
+                <Label htmlFor="markdown-input">{t("pasteMarkdownLabel")}</Label>
                 <Textarea
                   id="markdown-input"
-                  placeholder={`| Header 1 | Header 2 | Header 3 |
-|----------|----------|----------|
-| Cell 1   | Cell 2   | Cell 3   |
-| Cell 4   | Cell 5   | Cell 6   |`}
+                  placeholder={t("markdownPlaceholder")}
                   value={markdownText}
                   onChange={(e) => handleMarkdownChange(e.target.value)}
                   className="max-h-[400px] min-h-[150px] font-mono text-xs"
                 />
                 <div className="text-muted-foreground text-xs">
-                  Paste your markdown table above. Must include header and
-                  separator rows.
+                  {t("markdownHint")}
                 </div>
               </div>
 
@@ -138,7 +142,7 @@ export function TableDialog({
               {/* Manual input */}
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="rows" className="text-right">
-                  Rows
+                  {t("rows")}
                 </Label>
                 <Input
                   id="rows"
@@ -152,7 +156,7 @@ export function TableDialog({
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="cols" className="text-right">
-                  Columns
+                  {t("columns")}
                 </Label>
                 <Input
                   id="cols"
@@ -165,14 +169,14 @@ export function TableDialog({
                 />
               </div>
               <div className="text-muted-foreground px-1 text-xs">
-                Maximum: 20 rows × 10 columns
+                {t("maxDimensions")}
               </div>
             </>
           )}
         </div>
         <div className="flex justify-end gap-2">
           <Button variant="outline" onClick={() => onOpenChange(false)}>
-            Cancel
+            {t("cancel")}
           </Button>
           <Button
             onClick={handleCreate}
@@ -182,7 +186,7 @@ export function TableDialog({
                 : rows <= 0 || cols <= 0 || rows > 20 || cols > 10
             }
           >
-            {useMarkdown ? "Import Table" : "Create Table"}
+            {useMarkdown ? t("importTable") : t("createTable")}
           </Button>
         </div>
       </DialogContent>

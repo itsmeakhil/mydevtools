@@ -2,7 +2,8 @@
 
 import React, { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { Link as LinkIcon, MoreHorizontal, Type } from "lucide-react"
+import { Link as LinkIcon, Type } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { cn } from "@/lib/utils"
 import { useToast } from "@/hooks/use-toast"
@@ -49,6 +50,8 @@ export function SelectionToolbar({
   onColorSelect,
   onFontSizeSelect,
 }: SelectionToolbarProps) {
+  const tLink = useTranslations("RichEditor.link")
+  const tCustomClass = useTranslations("RichEditor.customClass")
   const state = useEditorState()
   const dispatch = useEditorDispatch()
   const { toast } = useToast()
@@ -156,8 +159,8 @@ export function SelectionToolbar({
       dispatch(EditorActions.applyLink(hrefInput.trim()))
 
       toast({
-        title: "Link Applied",
-        description: `Linked to: ${hrefInput}`,
+        title: tLink("toastApplied"),
+        description: tLink("toastLinkedTo", { url: hrefInput }),
       })
 
       setHrefInput("")
@@ -174,8 +177,8 @@ export function SelectionToolbar({
       dispatch(EditorActions.removeLink())
 
       toast({
-        title: "Link Removed",
-        description: "Link has been removed from selection",
+        title: tLink("toastRemoved"),
+        description: tLink("toastRemovedDesc"),
       })
 
       setHrefInput("")
@@ -218,15 +221,16 @@ export function SelectionToolbar({
         replacementInfo.replacedClasses.length > 0
       ) {
         toast({
-          title: "Class Replaced",
-          description: `Replaced "${replacementInfo.replacedClasses.join(
-            ", "
-          )}" with "${className}"`,
+          title: tCustomClass("toastClassReplaced"),
+          description: tCustomClass("toastClassReplacedDesc", {
+            replaced: replacementInfo.replacedClasses.join(", "),
+            className,
+          }),
         })
       } else {
         toast({
-          title: "Custom Class Applied",
-          description: `Applied class: ${className}`,
+          title: tCustomClass("toastCustomClassApplied"),
+          description: tCustomClass("toastAppliedClass", { className }),
         })
       }
 

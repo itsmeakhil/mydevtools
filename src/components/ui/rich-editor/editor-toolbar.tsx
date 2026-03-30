@@ -21,6 +21,7 @@ import {
   TooltipTrigger,
 } from "../tooltip"
 import { MediaUploadPopover } from "./media-upload-popover"
+import { useTranslations } from "next-intl"
 
 interface EditorToolbarProps {
   isUploading: boolean
@@ -45,6 +46,7 @@ export function EditorToolbar({
   onCreateList,
   onCreateTable,
 }: EditorToolbarProps) {
+  const t = useTranslations("RichEditor.toolbar")
   const toolbarRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -87,7 +89,7 @@ export function EditorToolbar({
                       size="icon"
                       onClick={() => onReadOnlyChange(!readOnly)}
                       className="h-7 w-7 md:h-8 md:w-8"
-                      title={readOnly ? "View Only Mode" : "Edit Mode"}
+                      title={readOnly ? t("viewOnlyMode") : t("editMode")}
                     >
                       {readOnly ? (
                         <Eye className="size-3 md:size-3.5" />
@@ -95,12 +97,12 @@ export function EditorToolbar({
                         <EyeOff className="size-3 md:size-3.5" />
                       )}
                       <span className="sr-only">
-                        {readOnly ? "View Only Mode" : "Edit Mode"}
+                        {readOnly ? t("viewOnlyMode") : t("editMode")}
                       </span>
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>{readOnly ? "View Only Mode" : "Edit Mode"}</p>
+                    <p>{readOnly ? t("viewOnlyMode") : t("editMode")}</p>
                   </TooltipContent>
                 </Tooltip>
 
@@ -130,7 +132,7 @@ export function EditorToolbar({
               size="icon"
               onClick={onInsertComponentClick}
               className="h-7 w-7 md:h-8 md:w-8"
-              title="Insert component"
+              title={t("insertComponent")}
               disabled={isUploading}
             >
               <Plus className="size-3 md:size-3.5" />
@@ -148,7 +150,7 @@ export function EditorToolbar({
                 size="icon"
                 onClick={() => onCreateList("ul")}
                 className="h-7 w-7 md:h-8 md:w-8"
-                title="Add unordered list"
+                title={t("addUnorderedList")}
               >
                 <List className="size-3 md:size-3.5" />
               </Button>
@@ -157,7 +159,7 @@ export function EditorToolbar({
                 size="icon"
                 onClick={() => onCreateList("ol")}
                 className="h-7 w-7 md:h-8 md:w-8"
-                title="Add ordered list"
+                title={t("addOrderedList")}
               >
                 <ListOrdered className="size-3 md:size-3.5" />
               </Button>
@@ -169,7 +171,7 @@ export function EditorToolbar({
               size="icon"
               onClick={onCreateTable}
               className="h-7 w-7 md:h-8 md:w-8"
-              title="Add table"
+              title={t("addTable")}
             >
               <TableIcon className="size-3 md:size-3.5" />
             </Button>

@@ -205,8 +205,6 @@
       "projectDeletedTitle": "Proyecto eliminado correctamente",
       "projectDeleteFailedTitle": "No se pudo eliminar el proyecto"
     }
-    }
-    }
   }
   ,
   "Notes": {
@@ -214,7 +212,8 @@
       "loading": "Cargando..."
     },
     "layout": {
-      "mobileNavTitle": "Navegación de notas"
+      "mobileNavTitle": "Navegación de notas",
+      "openMenuAria": "Abrir menú de notas"
     },
     "sidebar": {
       "title": "Notas",
@@ -230,7 +229,8 @@
       "deleteConfirmTitle": "¿Eliminar nota?",
       "deleteConfirmDescription": "¿Seguro que quieres eliminar \"{title}\"? Esta acción no se puede deshacer.",
       "cancel": "Cancelar",
-      "confirmDelete": "Eliminar"
+      "confirmDelete": "Eliminar",
+      "noteOptionsAria": "Opciones de la nota"
     },
     "editor": {
       "emptyState": "Selecciona una nota o crea una nueva para comenzar.",
@@ -239,6 +239,233 @@
     "context": {
       "authRequiredError": "Usuario no autenticado",
       "defaultTitle": "Sin título"
+    }
+  },
+  "RichEditor": {
+    "toolbar": {
+      "editMode": "Modo edición",
+      "viewOnlyMode": "Solo lectura",
+      "insertComponent": "Insertar componente",
+      "addUnorderedList": "Lista con viñetas",
+      "addOrderedList": "Lista numerada",
+      "addTable": "Agregar tabla"
+    },
+    "addBlock": "Agregar bloque",
+    "media": {
+      "popoverTitle": "Agregar multimedia",
+      "singleImage": "Una imagen",
+      "singleImageDesc": "Subir una imagen",
+      "multipleImages": "Varias imágenes",
+      "multipleImagesDesc": "Subir cuadrícula de imágenes",
+      "video": "Vídeo",
+      "videoDesc": "Subir archivo de vídeo",
+      "uploadingAlt": "Subiendo...",
+      "uploadFailedAlt": "Error al subir"
+    },
+    "export": {
+      "fabAria": "Exportar código",
+      "title": "Exportar código",
+      "description": "Copia la salida HTML o JSON del contenido del editor",
+      "preview": "Vista previa",
+      "html": "HTML",
+      "json": "JSON",
+      "previewOptions": "Opciones de vista previa",
+      "enhanceSpaces": "Mejorar espacios",
+      "livePreview": "Vista previa en vivo del HTML renderizado",
+      "htmlTailwind": "HTML con clases Tailwind CSS",
+      "editorJson": "Estado del editor como JSON",
+      "copyHtml": "Copiar HTML",
+      "copyJson": "Copiar JSON",
+      "copied": "¡Copiado!"
+    },
+    "template": {
+      "fabTitle": "Cambiar plantilla",
+      "title": "Elegir una plantilla",
+      "description": "Selecciona una plantilla para empezar rápido con diseños y contenido predefinidos",
+      "catAll": "Todas las plantillas",
+      "catProductivity": "Productividad",
+      "catCreative": "Creativo",
+      "catBusiness": "Negocios",
+      "catPersonal": "Personal",
+      "noTemplates": "No hay plantillas en esta categoría",
+      "confirmTitle": "¿Reemplazar el contenido existente?",
+      "confirmDescription": "Ya hay contenido en el editor. Aplicar esta plantilla reemplazará todo el contenido actual.",
+      "cannotUndo": "Esta acción no se puede deshacer.",
+      "cancel": "Cancelar",
+      "replaceContent": "Reemplazar contenido"
+    },
+    "command": {
+      "searchPlaceholder": "Buscar comandos...",
+      "noResults": "No se encontraron comandos.",
+      "turnInto": "Convertir en",
+      "h1": {
+        "label": "Título 1",
+        "description": "Título de sección grande",
+        "keywords": "h1,título,encabezado,grande"
+      },
+      "h2": {
+        "label": "Título 2",
+        "description": "Título de sección mediano",
+        "keywords": "h2,título,subtítulo"
+      },
+      "h3": {
+        "label": "Título 3",
+        "description": "Título de sección pequeño",
+        "keywords": "h3,título,subtítulo"
+      },
+      "h4": {
+        "label": "Título 4",
+        "description": "Título de sección muy pequeño",
+        "keywords": "h4,título"
+      },
+      "h5": {
+        "label": "Título 5",
+        "description": "Título más pequeño",
+        "keywords": "h5,título"
+      },
+      "h6": {
+        "label": "Título 6",
+        "description": "Título de sección mínimo",
+        "keywords": "h6,título"
+      },
+      "p": {
+        "label": "Párrafo",
+        "description": "Párrafo de texto normal",
+        "keywords": "p,párrafo,texto,normal"
+      },
+      "code": {
+        "label": "Bloque de código",
+        "description": "Fragmento de código",
+        "keywords": "código,codigo,snippet,pre"
+      },
+      "blockquote": {
+        "label": "Cita",
+        "description": "Cita en bloque",
+        "keywords": "cita,cita en bloque"
+      },
+      "li": {
+        "label": "Lista con viñetas",
+        "description": "Elemento de lista con viñeta",
+        "keywords": "lista,viñeta,desordenada,ul,li"
+      },
+      "ol": {
+        "label": "Lista numerada",
+        "description": "Elemento de lista numerada",
+        "keywords": "lista,numerada,ordenada,ol,li"
+      },
+      "img": {
+        "label": "Imagen",
+        "description": "Subir o insertar una imagen",
+        "keywords": "imagen,foto,subir"
+      },
+      "video": {
+        "label": "Vídeo",
+        "description": "Subir o insertar un vídeo",
+        "keywords": "vídeo,video,mp4,subir"
+      },
+      "table": {
+        "label": "Tabla",
+        "description": "Crear una tabla",
+        "keywords": "tabla,cuadrícula,filas,columnas"
+      }
+    },
+    "toasts": {
+      "tableImported": "Tabla importada",
+      "tableImportedDesc": "La tabla Markdown se importó correctamente",
+      "mediaPasted": "Multimedia pegada",
+      "pasteMixed": "{imageCount} imagen(es) y {videoCount} vídeo(s) pegados correctamente.",
+      "pasteImages": "{count} imagen(es) pegada(s) correctamente.",
+      "pasteVideos": "{count} vídeo(s) pegado(s) correctamente.",
+      "pasteFailed": "Error al pegar",
+      "unexpectedError": "Ocurrió un error inesperado",
+      "uploadFailed": "Error al subir"
+    },
+    "blockBackground": {
+      "menuItem": "Cambiar color de fondo",
+      "dialogTitle": "Color de fondo del bloque",
+      "dialogDescription": "Elige un color de fondo para este bloque",
+      "tabPreset": "Colores predefinidos",
+      "tabCustom": "Color personalizado",
+      "sectionHeading": "Colores de fondo",
+      "apply": "Aplicar",
+      "colors": {
+        "none": "Ninguno",
+        "red": "Rojo",
+        "orange": "Naranja",
+        "yellow": "Amarillo",
+        "green": "Verde",
+        "blue": "Azul",
+        "indigo": "Índigo",
+        "purple": "Morado",
+        "pink": "Rosa",
+        "teal": "Verde azulado",
+        "cyan": "Cian",
+        "gray": "Gris"
+      }
+    },
+    "tableDialog": {
+      "title": "Crear tabla",
+      "description": "Crea una tabla nueva o importa desde Markdown",
+      "markdownCheckbox": "Tengo una tabla en Markdown",
+      "pasteMarkdownLabel": "Pegar tabla Markdown",
+      "markdownPlaceholder": "| Encabezado 1 | Encabezado 2 | Encabezado 3 |\n|--------------|--------------|--------------|\n| Celda 1      | Celda 2      | Celda 3      |\n| Celda 4      | Celda 5      | Celda 6      |",
+      "markdownHint": "Pega tu tabla Markdown arriba. Debe incluir fila de encabezado y fila separadora.",
+      "rows": "Filas",
+      "columns": "Columnas",
+      "maxDimensions": "Máximo: 20 filas × 10 columnas",
+      "cancel": "Cancelar",
+      "importTable": "Importar tabla",
+      "createTable": "Crear tabla"
+    },
+    "tableParse": {
+      "errors": {
+        "minRows": "La tabla debe tener al menos una fila de encabezado y una fila separadora",
+        "pipeFormat": "Las filas deben empezar y terminar con |",
+        "headerMinCol": "La fila de encabezado debe tener al menos una columna",
+        "separatorRow": "La segunda fila debe ser un separador (p. ej., |---|---|)",
+        "rowColumnMismatch": "La fila {row} tiene {got} columnas; se esperaban {expected}",
+        "parseFailed": "No se pudo analizar la tabla Markdown"
+      }
+    },
+    "link": {
+      "editLink": "Editar enlace",
+      "addLink": "Añadir enlace",
+      "selectedText": "Texto seleccionado: \"{text}\"",
+      "linkUrl": "URL del enlace",
+      "urlPlaceholder": "https://ejemplo.com",
+      "update": "Actualizar",
+      "addLinkButton": "Añadir enlace",
+      "toastApplied": "Enlace aplicado",
+      "toastLinkedTo": "Enlazado a: {url}",
+      "toastRemoved": "Enlace eliminado",
+      "toastRemovedDesc": "Se ha quitado el enlace de la selección"
+    },
+    "customClass": {
+      "devMode": "Modo desarrollador",
+      "toggleDevModeAria": "Activar o desactivar modo desarrollador",
+      "searchPlaceholderDev": "Buscar clases... (p. ej. 'text', 'bg', 'flex')",
+      "searchPlaceholderUser": "Buscar estilos... (p. ej. 'rojo', 'negrita', 'sombra')",
+      "appliesTitle": "Aplica: {className}",
+      "noMatches": "No hay clases que coincidan con \"{query}\"",
+      "toastClassReplaced": "Clase reemplazada",
+      "toastClassReplacedDesc": "Se reemplazó \"{replaced}\" por \"{className}\"",
+      "toastCustomClassApplied": "Clase personalizada aplicada",
+      "toastAppliedClass": "Clase aplicada: {className}"
+    },
+    "insertComponents": {
+      "title": "Insertar componente",
+      "description": "Elige un componente para insertar en el documento",
+      "noComponents": "No hay componentes disponibles",
+      "categories": {
+        "media": "Multimedia",
+        "layout": "Diseño",
+        "interactive": "Interactivo",
+        "decoration": "Decoración"
+      },
+      "freeImage": {
+        "name": "Imagen libre",
+        "description": "Añade una imagen que puedes colocar y redimensionar libremente"
+      }
     }
   }
 }

@@ -38,6 +38,7 @@ import {
   type TemplateMetadata,
 } from "./templates"
 import type { EditorState } from "./types"
+import { useTranslations } from "next-intl"
 
 interface TemplateSwitcherButtonProps {
   onTemplateChange: (state: EditorState) => void
@@ -67,6 +68,7 @@ export function TemplateSwitcherButton({
   onTemplateChange,
   currentState,
 }: TemplateSwitcherButtonProps) {
+  const t = useTranslations("RichEditor.template")
   const [isOpen, setIsOpen] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<
@@ -97,11 +99,11 @@ export function TemplateSwitcherButton({
     value: "all" | TemplateMetadata["category"]
     label: string
   }> = [
-      { value: "all", label: "All Templates" },
-      { value: "productivity", label: "Productivity" },
-      { value: "creative", label: "Creative" },
-      { value: "business", label: "Business" },
-      { value: "personal", label: "Personal" },
+      { value: "all", label: t("catAll") },
+      { value: "productivity", label: t("catProductivity") },
+      { value: "creative", label: t("catCreative") },
+      { value: "business", label: t("catBusiness") },
+      { value: "personal", label: t("catPersonal") },
     ]
 
   // Check if there's existing content
@@ -230,7 +232,7 @@ export function TemplateSwitcherButton({
             "group"
           )}
           size="icon"
-          title="Switch Template"
+          title={t("fabTitle")}
         >
           <Plus
             className={cn(
@@ -249,11 +251,10 @@ export function TemplateSwitcherButton({
               <div className="bg-primary/10 rounded-lg p-2">
                 <FileText className="text-primary h-6 w-6" />
               </div>
-              Choose a Template
+              {t("title")}
             </DialogTitle>
             <DialogDescription className="text-base">
-              Select a template to get started quickly with pre-built layouts
-              and content
+              {t("description")}
             </DialogDescription>
           </DialogHeader>
 
@@ -349,7 +350,7 @@ export function TemplateSwitcherButton({
                 <div className="bg-muted/50 mb-4 rounded-full p-4">
                   <BookOpen className="h-12 w-12 opacity-50" />
                 </div>
-                <p className="text-base">No templates found in this category</p>
+                <p className="text-base">{t("noTemplates")}</p>
               </div>
             )}
           </div>
@@ -364,26 +365,25 @@ export function TemplateSwitcherButton({
               <div className="bg-destructive/10 rounded-lg p-2">
                 <FileText className="text-destructive h-5 w-5" />
               </div>
-              Replace Existing Content?
+              {t("confirmTitle")}
             </AlertDialogTitle>
             <AlertDialogDescription className="text-base leading-relaxed">
-              You have existing content in the editor. Applying this template
-              will replace all current content.
+              {t("confirmDescription")}
               <br />
               <span className="text-destructive font-semibold">
-                This action cannot be undone.
+                {t("cannotUndo")}
               </span>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel onClick={handleCancelReplace}>
-              Cancel
+              {t("cancel")}
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleConfirmReplace}
               className="bg-destructive hover:bg-destructive/90"
             >
-              Replace Content
+              {t("replaceContent")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
