@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { PasswordEntry } from "@/store/password-store"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -11,6 +10,7 @@ import { Badge } from "@/components/ui/badge"
 import { formatDistanceToNow } from "date-fns"
 import { cn } from "@/lib/utils"
 import { motion } from "framer-motion"
+import { useTranslations } from "next-intl"
 
 interface PasswordCardProps {
     entry: PasswordEntry
@@ -29,6 +29,8 @@ export function PasswordCard({
     onDelete,
     onEdit
 }: PasswordCardProps) {
+    const t = useTranslations("PasswordManager.card")
+    const tList = useTranslations("PasswordManager.list")
     const strength = calculatePasswordStrength(entry.password)
     const strengthColor = getStrengthColor(strength)
 
@@ -75,7 +77,7 @@ export function PasswordCard({
                                         size="icon"
                                         className="h-5 w-5 -ml-1 hover:bg-transparent hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100"
                                         onClick={() => onCopy(entry.username, "Username")}
-                                        title="Copy Username"
+                                        title={t("copyUsername")}
                                     >
                                         <Copy className="h-3 w-3" />
                                     </Button>
@@ -90,7 +92,7 @@ export function PasswordCard({
                                     size="icon"
                                     className="h-8 w-8 hover:bg-primary/10 hover:text-primary rounded-lg"
                                     onClick={() => window.open(entry.url, '_blank')}
-                                    title="Open URL"
+                                    title={t("openUrl")}
                                 >
                                     <ExternalLink className="h-4 w-4" />
                                 </Button>
@@ -104,12 +106,12 @@ export function PasswordCard({
                                 <DropdownMenuContent align="end" className="w-40">
                                     <DropdownMenuItem onClick={() => onEdit(entry)} className="cursor-pointer">
                                         <Pencil className="mr-2 h-4 w-4" />
-                                        Edit
+                                        {tList("edit")}
                                     </DropdownMenuItem>
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem onClick={() => onDelete(entry.id)} className="text-destructive focus:text-destructive cursor-pointer">
                                         <Trash2 className="mr-2 h-4 w-4" />
-                                        Delete
+                                        {tList("delete")}
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
@@ -145,7 +147,7 @@ export function PasswordCard({
 
                         <div className="space-y-1.5">
                             <div className="flex items-center justify-between text-[10px] text-muted-foreground px-1">
-                                <span>Strength</span>
+                                <span>{t("strength")}</span>
                                 <span>{formatDistanceToNow(entry.updatedAt, { addSuffix: true })}</span>
                             </div>
                             <div className="h-1.5 w-full bg-muted/50 rounded-full overflow-hidden">

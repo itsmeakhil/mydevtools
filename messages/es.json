@@ -350,7 +350,7 @@
     },
     "security": {
       "vaultHealth": "Estado de la bóveda",
-      "scoreStatus": "Estado: {label}",
+      "statusLabel": "Estado",
       "totalPasswords": "Contraseñas totales",
       "activeEntries": "Entradas activas en tu bóveda",
       "protected": "Protegidas",
@@ -424,6 +424,165 @@
       "separator": "Separador",
       "capitalization": "Mayúsculas",
       "includeNumber": "Incluir número"
+    }
+  },
+  "ApiClient": {
+    "defaults": {
+      "newRequest": "Nueva solicitud",
+      "importedRequest": "Solicitud importada",
+      "untitledRequest": "Sin título"
+    },
+    "toasts": {
+      "curlImported": "cURL importado correctamente",
+      "curlParseFailed": "No se pudo analizar el comando cURL",
+      "invalidJsonBody": "Cuerpo JSON no válido",
+      "requestFailed": "Error en la solicitud: {message}",
+      "curlPasted": "cURL pegado y analizado correctamente",
+      "responseCopied": "Respuesta copiada al portapapeles",
+      "codeCopied": "Código copiado al portapapeles"
+    },
+    "layout": {
+      "collections": "Colecciones",
+      "closeSidebar": "Cerrar barra lateral",
+      "openSidebar": "Abrir barra lateral"
+    },
+    "requestPanel": {
+      "methodPlaceholder": "Método",
+      "urlPlaceholder": "https://api.ejemplo.com/v1/...",
+      "sending": "Enviando...",
+      "send": "Enviar"
+    },
+    "requestTabs": {
+      "params": "Parámetros",
+      "headers": "Cabeceras",
+      "body": "Cuerpo",
+      "auth": "Autenticación",
+      "bodyType": "Tipo de cuerpo",
+      "selectType": "Seleccionar tipo",
+      "bodyNone": "Ninguno",
+      "bodyJson": "JSON",
+      "bodyText": "Texto",
+      "noBodyHint": "Sin cuerpo para esta solicitud",
+      "switchToJson": "Usar cuerpo JSON",
+      "authType": "Tipo de autenticación",
+      "noAuth": "Sin autenticación",
+      "bearerToken": "Token Bearer",
+      "basicAuth": "Autenticación básica",
+      "apiKey": "Clave API",
+      "labelToken": "Token",
+      "placeholderBearerToken": "Token Bearer",
+      "labelUsername": "Usuario",
+      "placeholderUsername": "Usuario",
+      "labelPassword": "Contraseña",
+      "placeholderPassword": "Contraseña",
+      "labelKey": "Clave",
+      "placeholderApiKeyName": "Nombre de la clave (p. ej. X-Api-Key)",
+      "labelValue": "Valor",
+      "placeholderValue": "Valor",
+      "addTo": "Añadir a",
+      "header": "Cabecera",
+      "queryParams": "Parámetros de consulta",
+      "noAuthHint": "Esta solicitud no usa autenticación."
+    },
+    "responsePanel": {
+      "emptyTitle": "¿Listo para explorar?",
+      "emptyHint": "Introduce una URL y pulsa Enviar para ver la respuesta aquí.",
+      "responsePreviewAlt": "Vista previa de la respuesta",
+      "previewUnavailable": "Vista previa no disponible para este tipo de contenido",
+      "status": "Estado",
+      "time": "Tiempo",
+      "size": "Tamaño",
+      "copyBody": "Copiar cuerpo",
+      "downloadResponse": "Descargar respuesta",
+      "bodyTab": "Cuerpo",
+      "previewTab": "Vista previa",
+      "headersTab": "Cabeceras",
+      "binaryRawView": "Los datos binarios no se pueden mostrar en vista en bruto.",
+      "errorStatusLabel": "Error"
+    },
+    "tabBar": {
+      "addTabAria": "Nueva pestaña"
+    },
+    "collectionsSidebar": {
+      "title": "Recursos API",
+      "newCollection": "Nueva colección",
+      "tabCollections": "Colecciones",
+      "tabHistory": "Historial",
+      "noCollectionsTitle": "Sin colecciones",
+      "noCollectionsHint": "Crea una colección para organizar tus solicitudes API.",
+      "createCollection": "Crear colección",
+      "newFolder": "Nueva carpeta",
+      "rename": "Renombrar",
+      "delete": "Eliminar",
+      "emptyCollection": "Colección vacía",
+      "recentRequests": "Solicitudes recientes",
+      "clearAll": "Borrar todo",
+      "noHistoryTitle": "Aún no hay historial",
+      "noHistoryHint": "Envía una solicitud para verla aquí.",
+      "dialogNewFolderTitle": "Nueva carpeta",
+      "dialogNewFolderDescription": "Crea una carpeta para organizar tus solicitudes.",
+      "labelFolderName": "Nombre de la carpeta",
+      "placeholderFolderName": "Mi carpeta",
+      "createFolder": "Crear carpeta",
+      "dialogNewCollectionTitle": "Nueva colección",
+      "dialogNewCollectionDescription": "Crea una colección de nivel superior.",
+      "labelCollectionName": "Nombre de la colección",
+      "placeholderCollectionName": "Mi colección",
+      "dialogRenameCollectionTitle": "Renombrar colección",
+      "dialogRenameCollectionDescription": "Introduce un nuevo nombre para la colección.",
+      "placeholderRenameCollection": "Nombre de la colección",
+      "renameAction": "Renombrar"
+    },
+    "collectionItem": {
+      "newFolder": "Nueva carpeta",
+      "delete": "Eliminar",
+      "emptyFolder": "Carpeta vacía"
+    },
+    "environmentManager": {
+      "noEnvironment": "Sin entorno",
+      "manageDialogTitle": "Gestionar entornos",
+      "placeholderNewEnv": "Nuevo entorno",
+      "variablesHeading": "Variables de {name}",
+      "addVariable": "Añadir variable",
+      "columnVariable": "Variable",
+      "columnValue": "Valor",
+      "placeholderKey": "Clave",
+      "placeholderValue": "Valor",
+      "selectEnvToEdit": "Selecciona un entorno para editar"
+    },
+    "codeGenerator": {
+      "triggerTitle": "Generar código",
+      "dialogTitle": "Generar código",
+      "languageCurl": "cURL",
+      "languageJavaScript": "JavaScript (fetch)",
+      "languagePython": "Python (requests)",
+      "languageGo": "Go",
+      "copy": "Copiar",
+      "errorGenerating": "Error al generar código"
+    },
+    "keyValueEditor": {
+      "columnKey": "Clave",
+      "columnValue": "Valor",
+      "placeholderKey": "Clave",
+      "placeholderValue": "Valor",
+      "addItem": "Añadir fila"
+    },
+    "importCurl": {
+      "trigger": "Importar cURL",
+      "dialogTitle": "Importar cURL",
+      "dialogDescription": "Pega tu comando cURL para importarlo como una nueva solicitud.",
+      "placeholder": "curl -X POST https://api.ejemplo.com/datos -d '...'",
+      "import": "Importar"
+    },
+    "saveRequest": {
+      "trigger": "Guardar",
+      "dialogTitle": "Guardar solicitud",
+      "dialogDescription": "Guarda esta solicitud en una carpeta de la colección.",
+      "labelName": "Nombre de la solicitud",
+      "placeholderName": "Mi solicitud",
+      "labelFolder": "Carpeta",
+      "placeholderFolder": "Selecciona una carpeta",
+      "save": "Guardar"
     }
   },
   "RichEditor": {

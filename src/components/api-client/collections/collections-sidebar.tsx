@@ -25,6 +25,8 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useTranslations } from "next-intl"
+import { getApiClientRequestDisplayName } from "../display-name"
 
 interface CollectionsSidebarProps {
     collections: Collection[]
@@ -51,6 +53,8 @@ export function CollectionsSidebar({
     onClearHistory,
     onDeleteHistoryItem,
 }: CollectionsSidebarProps) {
+    const t = useTranslations("ApiClient.collectionsSidebar")
+    const tRoot = useTranslations("ApiClient")
     const [collapsed, setCollapsed] = React.useState(false)
     const [newFolderDialogOpen, setNewFolderDialogOpen] = React.useState(false)
     const [newCollectionDialogOpen, setNewCollectionDialogOpen] = React.useState(false)
@@ -103,20 +107,20 @@ export function CollectionsSidebar({
             <Tabs defaultValue="collections" className="flex-1 flex flex-col h-full min-h-0">
                 <div className="px-4 py-3 border-b flex flex-col gap-3 shrink-0 bg-card/40 backdrop-blur-sm">
                     <div className="flex items-center justify-between">
-                        <h3 className="font-semibold text-sm tracking-tight">API Resources</h3>
+                        <h3 className="font-semibold text-sm tracking-tight">{t("title")}</h3>
                         <Button 
                             variant="ghost" 
                             size="icon" 
                             className="h-7 w-7 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors" 
                             onClick={() => setNewCollectionDialogOpen(true)} 
-                            title="New Collection"
+                            title={t("newCollection")}
                         >
                             <FolderPlus className="h-4 w-4" />
                         </Button>
                     </div>
                     <TabsList className="w-full grid grid-cols-2 p-1 bg-muted/50 rounded-lg">
-                        <TabsTrigger value="collections" className="rounded-md text-xs font-medium">Collections</TabsTrigger>
-                        <TabsTrigger value="history" className="rounded-md text-xs font-medium">History</TabsTrigger>
+                        <TabsTrigger value="collections" className="rounded-md text-xs font-medium">{t("tabCollections")}</TabsTrigger>
+                        <TabsTrigger value="history" className="rounded-md text-xs font-medium">{t("tabHistory")}</TabsTrigger>
                     </TabsList>
                 </div>
 
@@ -128,12 +132,12 @@ export function CollectionsSidebar({
                                     <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-3">
                                         <FolderPlus className="h-5 w-5 text-primary" />
                                     </div>
-                                    <h4 className="font-medium text-sm">No Collections</h4>
+                                    <h4 className="font-medium text-sm">{t("noCollectionsTitle")}</h4>
                                     <p className="text-xs text-muted-foreground mt-1 mb-4">
-                                        Create a collection to organize your API requests.
+                                        {t("noCollectionsHint")}
                                     </p>
                                     <Button size="sm" onClick={() => setNewCollectionDialogOpen(true)}>
-                                        Create Collection
+                                        {t("createCollection")}
                                     </Button>
                                 </div>
                             ) : (
@@ -149,7 +153,7 @@ export function CollectionsSidebar({
                                                     size="icon"
                                                     className="h-6 w-6 rounded-md hover:bg-background"
                                                     onClick={() => openAddFolderDialog(collection.id)}
-                                                    title="New Folder"
+                                                    title={t("newFolder")}
                                                 >
                                                     <FolderPlus className="h-3.5 w-3.5 text-muted-foreground" />
                                                 </Button>
@@ -166,15 +170,15 @@ export function CollectionsSidebar({
                                                     <DropdownMenuContent align="end" className="w-40 rounded-xl">
                                                         <DropdownMenuItem onClick={() => openRenameCollectionDialog(collection)}>
                                                             <Pencil className="h-4 w-4 mr-2" />
-                                                            Rename
-                                                        </DropdownMenuItem>
+                                                            {t("rename")}
+                        </DropdownMenuItem>
                                                         <DropdownMenuItem
                                                             className="text-destructive focus:text-destructive"
                                                             onClick={() => onDelete(collection.id)}
                                                         >
                                                             <Trash2 className="h-4 w-4 mr-2" />
-                                                            Delete
-                                                        </DropdownMenuItem>
+                                                            {t("delete")}
+                        </DropdownMenuItem>
                                                     </DropdownMenuContent>
                                                 </DropdownMenu>
                                             </div>
@@ -194,7 +198,7 @@ export function CollectionsSidebar({
                                             {collection.items.length === 0 && (
                                                 <div className="text-xs text-muted-foreground/60 px-3 py-2 italic flex items-center gap-2">
                                                     <div className="w-px h-3 bg-border/50" />
-                                                    Empty collection
+                                                    {t("emptyCollection")}
                                                 </div>
                                             )}
                                         </div>
@@ -207,10 +211,10 @@ export function CollectionsSidebar({
 
                 <TabsContent value="history" className="flex-1 flex flex-col min-h-0 m-0 data-[state=inactive]:hidden outline-none bg-muted/5">
                     <div className="flex items-center justify-between px-4 py-2 border-b shrink-0 bg-background/50 backdrop-blur-sm">
-                        <span className="text-xs font-medium text-muted-foreground">Recent Requests</span>
+                        <span className="text-xs font-medium text-muted-foreground">{t("recentRequests")}</span>
                         <Button variant="ghost" size="sm" onClick={onClearHistory} className="text-destructive hover:bg-destructive/10 hover:text-destructive h-7 text-[11px] rounded-md px-2">
                             <Trash2 className="h-3 w-3 mr-1.5" />
-                            Clear All
+                            {t("clearAll")}
                         </Button>
                     </div>
                     <ScrollArea className="flex-1">
@@ -236,7 +240,9 @@ export function CollectionsSidebar({
                                             >
                                                 {item.method}
                                             </span>
-                                            <span className="font-medium text-xs truncate max-w-[150px]">{item.name || item.url}</span>
+                                            <span className="font-medium text-xs truncate max-w-[150px]">
+                                                {item.name ? getApiClientRequestDisplayName(item.name, tRoot) : item.url}
+                                            </span>
                                         </div>
                                         <Button 
                                             variant="ghost" 
@@ -271,8 +277,8 @@ export function CollectionsSidebar({
                                     <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center mb-3">
                                         <FolderPlus className="h-5 w-5 text-muted-foreground/50" />
                                     </div>
-                                    <p className="text-sm font-medium">No history yet</p>
-                                    <p className="text-xs text-muted-foreground mt-1">Send a request to see it here.</p>
+                                    <p className="text-sm font-medium">{t("noHistoryTitle")}</p>
+                                    <p className="text-xs text-muted-foreground mt-1">{t("noHistoryHint")}</p>
                                 </div>
                             )}
                         </div>
@@ -283,19 +289,19 @@ export function CollectionsSidebar({
             <Dialog open={newFolderDialogOpen} onOpenChange={setNewFolderDialogOpen}>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>New Folder</DialogTitle>
+                        <DialogTitle>{t("dialogNewFolderTitle")}</DialogTitle>
                         <DialogDescription>
-                            Create a new folder to organize your requests.
+                            {t("dialogNewFolderDescription")}
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
-                            <Label htmlFor="folder-name">Folder Name</Label>
+                            <Label htmlFor="folder-name">{t("labelFolderName")}</Label>
                             <Input
                                 id="folder-name"
                                 value={newFolderName}
                                 onChange={(e) => setNewFolderName(e.target.value)}
-                                placeholder="My Folder"
+                                placeholder={t("placeholderFolderName")}
                                 autoFocus
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter') handleAddFolder()
@@ -304,7 +310,7 @@ export function CollectionsSidebar({
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button onClick={handleAddFolder}>Create Folder</Button>
+                        <Button onClick={handleAddFolder}>{t("createFolder")}</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
@@ -312,19 +318,19 @@ export function CollectionsSidebar({
             <Dialog open={newCollectionDialogOpen} onOpenChange={setNewCollectionDialogOpen}>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>New Collection</DialogTitle>
+                        <DialogTitle>{t("dialogNewCollectionTitle")}</DialogTitle>
                         <DialogDescription>
-                            Create a new top-level collection.
+                            {t("dialogNewCollectionDescription")}
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
-                            <Label htmlFor="collection-name">Collection Name</Label>
+                            <Label htmlFor="collection-name">{t("labelCollectionName")}</Label>
                             <Input
                                 id="collection-name"
                                 value={newCollectionName}
                                 onChange={(e) => setNewCollectionName(e.target.value)}
-                                placeholder="My Collection"
+                                placeholder={t("placeholderCollectionName")}
                                 autoFocus
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter') handleCreateCollection()
@@ -333,7 +339,7 @@ export function CollectionsSidebar({
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button onClick={handleCreateCollection}>Create Collection</Button>
+                        <Button onClick={handleCreateCollection}>{t("createCollection")}</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
@@ -341,19 +347,19 @@ export function CollectionsSidebar({
             <Dialog open={renameCollectionDialogOpen} onOpenChange={setRenameCollectionDialogOpen}>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>Rename Collection</DialogTitle>
+                        <DialogTitle>{t("dialogRenameCollectionTitle")}</DialogTitle>
                         <DialogDescription>
-                            Enter a new name for the collection.
+                            {t("dialogRenameCollectionDescription")}
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
-                            <Label htmlFor="rename-collection-name">Collection Name</Label>
+                            <Label htmlFor="rename-collection-name">{t("labelCollectionName")}</Label>
                             <Input
                                 id="rename-collection-name"
                                 value={renameCollectionName}
                                 onChange={(e) => setRenameCollectionName(e.target.value)}
-                                placeholder="Collection Name"
+                                placeholder={t("placeholderRenameCollection")}
                                 autoFocus
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter') handleRenameCollection()
@@ -362,7 +368,7 @@ export function CollectionsSidebar({
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button onClick={handleRenameCollection}>Rename</Button>
+                        <Button onClick={handleRenameCollection}>{t("renameAction")}</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>

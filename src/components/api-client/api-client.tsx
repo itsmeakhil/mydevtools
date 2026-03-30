@@ -23,7 +23,11 @@ import {
     ApiResponse,
     ApiRequestState,
     CollectionRequest,
+    API_CLIENT_DEFAULT_TAB_NAME,
+    API_CLIENT_IMPORTED_TAB_NAME,
+    API_CLIENT_ERROR_STATUS_TEXT,
 } from "./types"
+import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -33,7 +37,7 @@ import { cn } from "@/lib/utils"
 
 const createNewTab = (): ApiRequestState => ({
     id: crypto.randomUUID(),
-    name: "New Request",
+    name: API_CLIENT_DEFAULT_TAB_NAME,
     method: "GET",
     url: "",
     params: [{ id: "1", key: "", value: "", active: true }],
@@ -48,6 +52,7 @@ const TABS_STORAGE_KEY = "api-client-tabs"
 const ACTIVE_TAB_STORAGE_KEY = "api-client-active-tab"
 
 export function ApiClient() {
+    const t = useTranslations("ApiClient")
     const [tabs, setTabs] = React.useState<ApiRequestState[]>([createNewTab()])
     const [activeTabId, setActiveTabId] = React.useState<string>(tabs[0].id)
     const [isInitialized, setIsInitialized] = React.useState(false)
@@ -159,15 +164,15 @@ export function ApiClient() {
                 ...createNewTab(),
                 ...parsed,
                 url: resolvedUrl || "",
-                name: resolvedUrl || "Imported Request",
+                name: resolvedUrl || API_CLIENT_IMPORTED_TAB_NAME,
                 id: crypto.randomUUID(),
             }
             setTabs((prev) => [...prev, newTab])
             setActiveTabId(newTab.id)
-            toast.success("cURL imported successfully")
+            toast.success(t("toasts.curlImported"))
         } catch (error) {
             console.error(error)
-            toast.error("Failed to parse cURL command")
+            toast.error(t("toasts.curlParseFailed"))
         }
     }
 
@@ -251,7 +256,7 @@ export function ApiClient() {
                         bodyContent = substitutedBody
                         headersObj["Content-Type"] = "application/json"
                     } catch (e) {
-                        toast.error("Invalid JSON body")
+                        toast.error(t("toasts.invalidJsonBody"))
                         updateActiveTab({ isLoading: false })
                         return
                     }
@@ -309,15 +314,15 @@ export function ApiClient() {
                 headers: activeTab.headers,
                 body: activeTab.body,
                 auth: activeTab.auth,
-            }, activeTab.name !== "New Request" ? activeTab.name : activeTab.url, proxyData.status)
+            }, activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : activeTab.url, proxyData.status)
 
         } catch (error) {
             console.error(error)
-            toast.error("Request failed: " + (error as Error).message)
+            toast.error(t("toasts.requestFailed", { message: (error as Error).message }))
             updateActiveTab({
                 response: {
                     status: 0,
-                    statusText: "Error",
+                    statusText: API_CLIENT_ERROR_STATUS_TEXT,
                     headers: {},
                     body: (error as Error).message,
                     time: 0,
@@ -334,7 +339,7 @@ export function ApiClient() {
                 headers: activeTab.headers,
                 body: activeTab.body,
                 auth: activeTab.auth,
-            }, activeTab.name !== "New Request" ? activeTab.name : activeTab.url, 0)
+            }, activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : activeTab.url, 0)
         }
     }
 
@@ -348,10 +353,10 @@ export function ApiClient() {
                 url: resolvedUrl || activeTab.url,
                 name: resolvedUrl || activeTab.name,
             })
-            toast.success("cURL pasted and parsed successfully")
+            toast.success(t("toasts.curlPasted"))
         } catch (error) {
             console.error(error)
-            toast.error("Failed to parse cURL command")
+            toast.error(t("toasts.curlParseFailed"))
         }
     }
 
@@ -365,7 +370,7 @@ export function ApiClient() {
                             <SheetTrigger asChild>
                                 <Button variant="outline" size="sm" className="touch-target-sm rounded-lg bg-background/50 shadow-sm">
                                     <FolderOpen className="h-4 w-4 mr-2" />
-                                    Collections
+                                    {t("layout.collections")}
                                 </Button>
                             </SheetTrigger>
                             <SheetContent side="bottom" className="h-[75vh] bottom-sheet rounded-t-3xl border-t shadow-2xl">
@@ -410,7 +415,7 @@ export function ApiClient() {
                                     size="icon"
                                     className="h-8 w-8"
                                     onClick={() => setSidebarOpen(!sidebarOpen)}
-                                    title={sidebarOpen ? "Close Sidebar" : "Open Sidebar"}
+                                    title={sidebarOpen ? t("layout.closeSidebar") : t("layout.openSidebar")}
                                 >
                                     <PanelRight className="h-4 w-4 text-muted-foreground" />
                                 </Button>
@@ -435,12 +440,12 @@ export function ApiClient() {
                                         method={activeTab.method}
                                         setMethod={(method) => updateActiveTab({ method })}
                                         url={activeTab.url}
-                                        setUrl={(url) => updateActiveTab({ url, name: url || "New Request" })}
+                                        setUrl={(url) => updateActiveTab({ url, name: url || API_CLIENT_DEFAULT_TAB_NAME })}
                                         onSend={handleSend}
                                         isLoading={activeTab.isLoading}
                                         collections={collections}
                                         onSave={handleSaveRequest}
-                                        saveDefaultName={activeTab.name !== "New Request" ? activeTab.name : ""}
+                                        saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
                                         onPaste={handleCurlPaste}
                                     />
                                     <RequestTabs

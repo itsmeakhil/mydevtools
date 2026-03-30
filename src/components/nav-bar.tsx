@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   CheckSquare,
   FileText,
@@ -25,15 +26,22 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType }> = 
 
 export function NavBar() {
   const pathname = usePathname();
+  const tNav = useTranslations("Navigation");
 
   // Find matching route config
-  const config = Object.entries(routeConfig).find(([route]) =>
+  const match = Object.entries(routeConfig).find(([route]) =>
     pathname === route || pathname.startsWith(route + '/')
-  )?.[1];
+  );
+  const config = match?.[1];
+  const matchedRoute = match?.[0];
 
   if (!config) return null;
 
   const Icon = config.icon;
+  const title =
+    matchedRoute === "/app/password-manager"
+      ? tNav("passwordManager")
+      : config.title;
 
   return (
     <header className="sticky top-0 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-20 hidden md:block">
@@ -42,7 +50,7 @@ export function NavBar() {
           <div className="p-1.5 rounded-lg bg-primary/10">
             <Icon className="h-4 w-4 text-primary" strokeWidth={2} />
           </div>
-          <h1 className="text-sm font-semibold tracking-tight">{config.title}</h1>
+          <h1 className="text-sm font-semibold tracking-tight">{title}</h1>
         </div>
       </div>
     </header>

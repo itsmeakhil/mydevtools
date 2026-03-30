@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { ApiRequestState } from "./types"
+import { getApiClientRequestDisplayName } from "./display-name"
+import { useTranslations } from "next-intl"
 import { motion, AnimatePresence } from "framer-motion"
 
 interface TabBarProps {
@@ -34,6 +36,8 @@ export function TabBar({
     onTabClose,
     onTabAdd,
 }: TabBarProps) {
+    const t = useTranslations("ApiClient")
+    const tTab = useTranslations("ApiClient.tabBar")
     return (
         <div className="flex items-center border-b bg-muted/30 backdrop-blur-sm h-11">
             <ScrollArea className="flex-initial min-w-0 h-full">
@@ -71,7 +75,7 @@ export function TabBar({
                                 </span>
 
                                 <span className="truncate flex-1 text-xs">
-                                    {tab.name || "Untitled Request"}
+                                    {getApiClientRequestDisplayName(tab.name, t)}
                                 </span>
 
                                 <button
@@ -106,6 +110,8 @@ export function TabBar({
                 size="icon"
                 className="h-8 w-8 mx-1 rounded-md hover:bg-muted/60 shrink-0"
                 onClick={onTabAdd}
+                aria-label={tTab("addTabAria")}
+                title={tTab("addTabAria")}
             >
                 <Plus className="h-4 w-4" />
             </Button>

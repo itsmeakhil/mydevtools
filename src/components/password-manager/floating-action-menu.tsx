@@ -6,6 +6,7 @@ import { Plus, Lock, FileUp, FileDown, MoreVertical, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useIsMobile } from "@/components/hooks/use-mobile"
+import { useTranslations } from "next-intl"
 
 interface FloatingActionMenuProps {
     onLock: () => void
@@ -16,6 +17,7 @@ interface FloatingActionMenuProps {
 export function FloatingActionMenu({ onLock, onImportExport, onAdd }: FloatingActionMenuProps) {
     const [isOpen, setIsOpen] = useState(false)
     const isMobile = useIsMobile()
+    const t = useTranslations("PasswordManager.floatingMenu")
 
     if (!isMobile) return null
 
@@ -24,7 +26,7 @@ export function FloatingActionMenu({ onLock, onImportExport, onAdd }: FloatingAc
     const menuItems = [
         {
             icon: Lock,
-            label: "Lock Vault",
+            label: t("lockVault"),
             onClick: () => {
                 onLock()
                 setIsOpen(false)
@@ -34,7 +36,7 @@ export function FloatingActionMenu({ onLock, onImportExport, onAdd }: FloatingAc
         },
         {
             icon: FileUp,
-            label: "Import / Export",
+            label: t("importExport"),
             onClick: () => {
                 onImportExport()
                 setIsOpen(false)
@@ -47,7 +49,7 @@ export function FloatingActionMenu({ onLock, onImportExport, onAdd }: FloatingAc
     if (onAdd) {
         menuItems.unshift({
             icon: Plus,
-            label: "Add Password",
+            label: t("addPassword"),
             onClick: () => {
                 onAdd()
                 setIsOpen(false)

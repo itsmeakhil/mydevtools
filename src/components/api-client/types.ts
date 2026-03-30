@@ -1,5 +1,11 @@
 export type RequestMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "HEAD" | "OPTIONS"
 
+/** Persisted in localStorage; translate in UI with ApiClient.defaults */
+export const API_CLIENT_DEFAULT_TAB_NAME = "New Request"
+export const API_CLIENT_IMPORTED_TAB_NAME = "Imported Request"
+/** Stored on failed requests; translate in UI via responsePanel.errorStatusLabel */
+export const API_CLIENT_ERROR_STATUS_TEXT = "Error"
+
 export interface KeyValueItem {
     id: string
     key: string

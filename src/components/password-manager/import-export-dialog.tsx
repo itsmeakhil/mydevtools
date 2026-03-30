@@ -13,12 +13,15 @@ import { collection, addDoc } from "firebase/firestore"
 import { encryptData } from "@/lib/encryption"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { useTranslations } from "next-intl"
 
 interface ImportExportDialogProps {
     children?: React.ReactNode
 }
 
 export function ImportExportDialog({ children }: ImportExportDialogProps) {
+    const t = useTranslations("PasswordManager.importExport")
+    const tToast = useTranslations("PasswordManager.toasts")
     const { passwords, encryptionKey, addPassword } = usePasswordStore()
     const [open, setOpen] = useState(false)
     const [importData, setImportData] = useState("")
@@ -44,10 +47,10 @@ export function ImportExportDialog({ children }: ImportExportDialogProps) {
             a.click()
             document.body.removeChild(a)
             URL.revokeObjectURL(url)
-            toast.success("Vault exported successfully")
+            toast.success(t("toastExported"))
         } catch (error) {
             console.error("Export failed:", error)
-            toast.error("Failed to export vault")
+            toast.error(t("toastExportFailed"))
         }
     }
 
@@ -58,7 +61,7 @@ export function ImportExportDialog({ children }: ImportExportDialogProps) {
         setLoading(true)
         try {
             const parsed = JSON.parse(importData)
-            if (!Array.isArray(parsed)) throw new Error("Invalid format: expected an array")
+            if (!Array.isArray(parsed)) throw new Error("invalid_format")
 
             let successCount = 0
 
@@ -96,12 +99,12 @@ export function ImportExportDialog({ children }: ImportExportDialogProps) {
                 successCount++
             }
 
-            toast.success(`Successfully imported ${successCount} passwords`)
+            toast.success(tToast("importedCount", { count: successCount }))
             setOpen(false)
             setImportData("")
         } catch (error) {
             console.error("Import failed:", error)
-            toast.error("Failed to import: Invalid JSON format")
+            toast.error(t("toastImportFailed"))
         } finally {
             setLoading(false)
         }
@@ -112,62 +115,62 @@ export function ImportExportDialog({ children }: ImportExportDialogProps) {
             <DialogTrigger asChild>
                 {children || (
                     <Button variant="outline" className="gap-2">
-                        <FileJson className="h-4 w-4" /> Import / Export
+                        <FileJson className="h-4 w-4" /> {t("trigger")}
                     </Button>
                 )}
             </DialogTrigger>
             <DialogContent className="sm:max-w-[600px]">
                 <DialogHeader>
-                    <DialogTitle>Import / Export Vault</DialogTitle>
+                    <DialogTitle>{t("title")}</DialogTitle>
                     <DialogDescription>
-                        Manage your password data. You can export your vault to JSON or import from a JSON file.
+                        {t("description")}
                     </DialogDescription>
                 </DialogHeader>
 
                 <Tabs defaultValue="export" className="w-full">
                     <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="export">Export</TabsTrigger>
-                        <TabsTrigger value="import">Import</TabsTrigger>
+                        <TabsTrigger value="export">{t("tabExport")}</TabsTrigger>
+                        <TabsTrigger value="import">{t("tabImport")}</TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="export" className="space-y-4 py-4">
                         <Alert variant="destructive">
                             <AlertTriangle className="h-4 w-4" />
-                            <AlertTitle>Warning</AlertTitle>
+                            <AlertTitle>{t("warningTitle")}</AlertTitle>
                             <AlertDescription>
-                                Exported files contain your passwords in PLAIN TEXT. Keep this file safe and delete it after use.
+                                {t("warningBody")}
                             </AlertDescription>
                         </Alert>
 
                         <div className="flex flex-col items-center justify-center p-8 border-2 border-dashed rounded-lg bg-muted/10">
                             <FileJson className="h-12 w-12 text-muted-foreground mb-4" />
                             <p className="text-sm text-muted-foreground text-center mb-6 max-w-xs">
-                                Download your entire vault as a JSON file. This includes all services, usernames, passwords, and notes.
+                                {t("exportBlurb")}
                             </p>
                             <Button onClick={handleExport} className="w-full max-w-xs">
-                                <Download className="mr-2 h-4 w-4" /> Download JSON Export
+                                <Download className="mr-2 h-4 w-4" /> {t("downloadJson")}
                             </Button>
                         </div>
                     </TabsContent>
 
                     <TabsContent value="import" className="space-y-4 py-4">
                         <div className="space-y-2">
-                            <Label>Paste JSON Data</Label>
+                            <Label>{t("pasteLabel")}</Label>
                             <Textarea
-                                placeholder='[{"service": "Example", "username": "user", "password": "123", ...}]'
+                                placeholder={t("pastePlaceholder")}
                                 className="h-[200px] font-mono text-xs"
                                 value={importData}
                                 onChange={(e) => setImportData(e.target.value)}
                             />
                             <p className="text-xs text-muted-foreground">
-                                Paste the content of a previously exported JSON file here.
+                                {t("pasteHint")}
                             </p>
                         </div>
                         <DialogFooter>
                             <Button onClick={handleImport} disabled={loading || !importData}>
-                                {loading ? "Importing..." : (
+                                {loading ? t("importing") : (
                                     <>
-                                        <Upload className="mr-2 h-4 w-4" /> Import Passwords
+                                        <Upload className="mr-2 h-4 w-4" /> {t("importPasswords")}
                                     </>
                                 )}
                             </Button>

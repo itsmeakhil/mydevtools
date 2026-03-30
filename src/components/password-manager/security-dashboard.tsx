@@ -9,9 +9,10 @@ import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import { motion, AnimatePresence } from "framer-motion"
-import { Button } from "@/components/ui/button"
+import { useTranslations } from "next-intl"
 
 export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
+    const t = useTranslations("PasswordManager.security")
     const { passwords } = usePasswordStore()
     const isMobile = useIsMobile()
     const [expanded, setExpanded] = useState(false)
@@ -64,10 +65,10 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
     }
 
     const getScoreLabel = (score: number) => {
-        if (score >= 80) return "Excellent"
-        if (score >= 50) return "Good"
-        if (score >= 30) return "Fair"
-        return "Critical"
+        if (score >= 80) return t("scoreExcellent")
+        if (score >= 50) return t("scoreGood")
+        if (score >= 30) return t("scoreFair")
+        return t("scoreCritical")
     }
 
     const getScoreBg = (score: number) => {
@@ -116,7 +117,7 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
                         {/* Info */}
                         <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2">
-                                <h3 className="font-semibold">Vault Health</h3>
+                                <h3 className="font-semibold">{t("vaultHealth")}</h3>
                                 <span className={cn(
                                     "text-xs font-medium px-2 py-0.5 rounded-full",
                                     metrics.score >= 80 ? "bg-green-500/10 text-green-600" :
@@ -127,7 +128,7 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
                                 </span>
                             </div>
                             <p className="text-xs text-muted-foreground mt-0.5">
-                                {metrics.total} passwords • {metrics.weakCount > 0 ? `${metrics.weakCount} weak` : "All secure"}
+                                {t("totalCountLabel", { count: metrics.total })} • {metrics.weakCount > 0 ? t("weakCountLabel", { count: metrics.weakCount }) : t("allSecure")}
                             </p>
                         </div>
 
@@ -152,7 +153,7 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
                                 <div className="px-4 pb-4 pt-0 grid grid-cols-3 gap-3">
                                     <div className="bg-muted/30 rounded-xl p-3 text-center">
                                         <div className="text-lg font-bold">{metrics.total}</div>
-                                        <div className="text-[10px] text-muted-foreground uppercase tracking-wide">Total</div>
+                                        <div className="text-[10px] text-muted-foreground uppercase tracking-wide">{t("total")}</div>
                                     </div>
                                     <div className={cn(
                                         "rounded-xl p-3 text-center",
@@ -161,7 +162,7 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
                                         <div className={cn("text-lg font-bold", metrics.weakCount > 0 && "text-red-500")}>
                                             {metrics.weakCount}
                                         </div>
-                                        <div className="text-[10px] text-muted-foreground uppercase tracking-wide">Weak</div>
+                                        <div className="text-[10px] text-muted-foreground uppercase tracking-wide">{t("weak")}</div>
                                     </div>
                                     <div className={cn(
                                         "rounded-xl p-3 text-center",
@@ -170,7 +171,7 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
                                         <div className={cn("text-lg font-bold", metrics.reusedCount > 0 && "text-yellow-500")}>
                                             {metrics.reusedCount}
                                         </div>
-                                        <div className="text-[10px] text-muted-foreground uppercase tracking-wide">Reused</div>
+                                        <div className="text-[10px] text-muted-foreground uppercase tracking-wide">{t("reused")}</div>
                                     </div>
                                 </div>
                             </motion.div>
@@ -186,7 +187,7 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-6">
             <Card className="col-span-full lg:col-span-1 bg-card/50 backdrop-blur-sm border-muted/60">
                 <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium text-muted-foreground">Vault Health</CardTitle>
+                    <CardTitle className="text-sm font-medium text-muted-foreground">{t("vaultHealth")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="flex items-center justify-between">
@@ -203,7 +204,7 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
                         )}
                     </div>
                     <div className="mt-3 text-xs font-medium text-muted-foreground">
-                        Status: <span className={getScoreColor(metrics.score)}>{getScoreLabel(metrics.score)}</span>
+                        {t("statusLabel")}: <span className={getScoreColor(metrics.score)}>{getScoreLabel(metrics.score)}</span>
                     </div>
                     <Progress value={metrics.score} className={cn("h-1.5 mt-3",
                         metrics.score >= 80 ? "bg-green-100 dark:bg-green-900/20 [&>div]:bg-green-500" :
@@ -215,33 +216,33 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
 
             <Card className="bg-card/50 backdrop-blur-sm border-muted/60">
                 <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium text-muted-foreground">Total Passwords</CardTitle>
+                    <CardTitle className="text-sm font-medium text-muted-foreground">{t("totalPasswords")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="text-2xl font-bold">{metrics.total}</div>
                     <p className="text-xs text-muted-foreground mt-1">
-                        Active entries in your vault
+                        {t("activeEntries")}
                     </p>
                     <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
-                        <Lock className="h-3 w-3" /> Protected
+                        <Lock className="h-3 w-3" /> {t("protected")}
                     </div>
                 </CardContent>
             </Card>
 
             <Card className={cn("bg-card/50 backdrop-blur-sm border-muted/60", metrics.weakCount > 0 && "border-red-500/20 bg-red-500/5")}>
                 <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium text-muted-foreground">Weak Passwords</CardTitle>
+                    <CardTitle className="text-sm font-medium text-muted-foreground">{t("weakPasswords")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className={cn("text-2xl font-bold", metrics.weakCount > 0 ? "text-red-500" : "text-foreground")}>
                         {metrics.weakCount}
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">
-                        Passwords needing improvement
+                        {t("needingImprovement")}
                     </p>
                     {metrics.weakCount === 0 && (
                         <div className="mt-4 flex items-center gap-2 text-xs text-green-600 dark:text-green-400">
-                            <CheckCircle2 className="h-3 w-3" /> All good
+                            <CheckCircle2 className="h-3 w-3" /> {t("allGood")}
                         </div>
                     )}
                 </CardContent>
@@ -249,18 +250,18 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
 
             <Card className={cn("bg-card/50 backdrop-blur-sm border-muted/60", metrics.reusedCount > 0 && "border-yellow-500/20 bg-yellow-500/5")}>
                 <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium text-muted-foreground">Reused Passwords</CardTitle>
+                    <CardTitle className="text-sm font-medium text-muted-foreground">{t("reusedPasswords")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className={cn("text-2xl font-bold", metrics.reusedCount > 0 ? "text-yellow-500" : "text-foreground")}>
                         {metrics.reusedCount}
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">
-                        Passwords used multiple times
+                        {t("usedMultipleTimes")}
                     </p>
                     {metrics.reusedCount === 0 && (
                         <div className="mt-4 flex items-center gap-2 text-xs text-green-600 dark:text-green-400">
-                            <CheckCircle2 className="h-3 w-3" /> Unique
+                            <CheckCircle2 className="h-3 w-3" /> {t("unique")}
                         </div>
                     )}
                 </CardContent>

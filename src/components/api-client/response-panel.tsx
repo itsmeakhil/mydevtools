@@ -3,7 +3,8 @@
 import * as React from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import CodeEditor from "@/components/ui/code-editor"
-import { ApiResponse } from "./types"
+import { ApiResponse, API_CLIENT_ERROR_STATUS_TEXT } from "./types"
+import { useTranslations } from "next-intl"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -16,6 +17,8 @@ interface ResponsePanelProps {
 }
 
 export function ResponsePanel({ response }: ResponsePanelProps) {
+    const t = useTranslations("ApiClient.responsePanel")
+    const tApi = useTranslations("ApiClient")
     if (!response) {
         return (
             <div className="h-full flex flex-col items-center justify-center text-muted-foreground border-2 border-dashed rounded-xl min-h-0 bg-muted/5 p-8 text-center space-y-4">
@@ -23,8 +26,8 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
                     <Search className="h-6 w-6 text-muted-foreground/50" />
                 </div>
                 <div className="space-y-1">
-                    <p className="text-sm font-medium text-foreground">Ready to explore?</p>
-                    <p className="text-xs max-w-[200px]">Enter a URL and click Send to see the response data here.</p>
+                    <p className="text-sm font-medium text-foreground">{t("emptyTitle")}</p>
+                    <p className="text-xs max-w-[200px]">{t("emptyHint")}</p>
                 </div>
             </div>
         )
@@ -45,7 +48,7 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
     const handleCopy = () => {
         if (!response?.body) return
         navigator.clipboard.writeText(response.body)
-        toast.success("Response copied to clipboard")
+        toast.success(tApi("toasts.responseCopied"))
     }
 
     const handleDownload = () => {
@@ -66,7 +69,7 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
             if (contentType.includes("image/")) {
                 return (
                     <div className="flex items-center justify-center p-8 bg-muted/20 absolute inset-0 overflow-auto">
-                        <img src={`data:${contentType};base64,${response.body}`} alt="Response preview" className="max-w-full shadow-sm border" />
+                        <img src={`data:${contentType};base64,${response.body}`} alt={t("responsePreviewAlt")} className="max-w-full shadow-sm border" />
                     </div>
                 )
             }
@@ -83,7 +86,7 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
 
         return (
             <div className="flex items-center justify-center p-8 absolute inset-0 text-muted-foreground">
-                Preview not available for this content type
+                {t("previewUnavailable")}
             </div>
         )
     }
@@ -106,7 +109,7 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
                             <Info className="h-5 w-5 text-blue-500" />
                         )}
                         <div className="flex flex-col">
-                            <span className="text-[10px] uppercase font-bold text-muted-foreground leading-none mb-1">Status</span>
+                            <span className="text-[10px] uppercase font-bold text-muted-foreground leading-none mb-1">{t("status")}</span>
                             <div className="flex items-center gap-2">
                                 <span className={cn(
                                     "text-sm font-black tracking-tight",
@@ -114,7 +117,11 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
                                 )}>
                                     {response.status}
                                 </span>
-                                <span className="text-xs font-medium text-muted-foreground">{response.statusText}</span>
+                                <span className="text-xs font-medium text-muted-foreground">
+                                    {response.statusText === API_CLIENT_ERROR_STATUS_TEXT
+                                        ? t("errorStatusLabel")
+                                        : response.statusText}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -124,7 +131,7 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
                     <div className="flex items-center gap-3">
                         <Clock className="h-4 w-4 text-muted-foreground/60" />
                         <div className="flex flex-col">
-                            <span className="text-[10px] uppercase font-bold text-muted-foreground leading-none mb-1">Time</span>
+                            <span className="text-[10px] uppercase font-bold text-muted-foreground leading-none mb-1">{t("time")}</span>
                             <span className="text-sm font-mono font-bold">{response.time}ms</span>
                         </div>
                     </div>
@@ -134,17 +141,17 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
                     <div className="flex items-center gap-3">
                         <Database className="h-4 w-4 text-muted-foreground/60" />
                         <div className="flex flex-col">
-                            <span className="text-[10px] uppercase font-bold text-muted-foreground leading-none mb-1">Size</span>
+                            <span className="text-[10px] uppercase font-bold text-muted-foreground leading-none mb-1">{t("size")}</span>
                             <span className="text-sm font-mono font-bold">{(response.size / 1024).toFixed(2)} KB</span>
                         </div>
                     </div>
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <Button variant="outline" size="icon" className="h-8 w-8 rounded-lg" onClick={handleCopy} title="Copy Body">
+                    <Button variant="outline" size="icon" className="h-8 w-8 rounded-lg" onClick={handleCopy} title={t("copyBody")}>
                         <Copy className="h-4 w-4" />
                     </Button>
-                    <Button variant="outline" size="icon" className="h-8 w-8 rounded-lg" onClick={handleDownload} title="Download Response">
+                    <Button variant="outline" size="icon" className="h-8 w-8 rounded-lg" onClick={handleDownload} title={t("downloadResponse")}>
                         <Download className="h-4 w-4" />
                     </Button>
                 </div>
@@ -152,14 +159,14 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
 
             <Tabs defaultValue={hasPreview ? "preview" : "body"} className="flex-1 flex flex-col min-h-0">
                 <TabsList className="w-full justify-start h-10 p-1 bg-muted/50 border rounded-lg shrink-0">
-                    <TabsTrigger value="body" className="px-4">Body</TabsTrigger>
-                    {hasPreview && <TabsTrigger value="preview" className="px-4">Preview</TabsTrigger>}
-                    <TabsTrigger value="headers" className="px-4">Headers</TabsTrigger>
+                    <TabsTrigger value="body" className="px-4">{t("bodyTab")}</TabsTrigger>
+                    {hasPreview && <TabsTrigger value="preview" className="px-4">{t("previewTab")}</TabsTrigger>}
+                    <TabsTrigger value="headers" className="px-4">{t("headersTab")}</TabsTrigger>
                 </TabsList>
                 <div className="mt-4 border rounded-xl overflow-hidden flex-1 min-h-0 relative shadow-inner bg-card">
                     <TabsContent value="body" className="mt-0 h-full absolute inset-0">
                         <CodeEditor
-                            value={response.isBase64 ? "Binary data cannot be displayed in raw view." : response.body}
+                            value={response.isBase64 ? t("binaryRawView") : response.body}
                             language={getLanguage()}
                             readOnly
                         />

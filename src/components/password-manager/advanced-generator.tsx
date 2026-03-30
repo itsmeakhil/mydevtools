@@ -8,10 +8,11 @@ import { Switch } from "@/components/ui/switch"
 import { Copy, RefreshCw, Check } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
-import { calculatePasswordStrength, getStrengthColor, getStrengthLabel } from "@/lib/password-utils"
+import { calculatePasswordStrength, getStrengthColor } from "@/lib/password-utils"
 import { cn } from "@/lib/utils"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { WORDLIST } from "@/lib/wordlists"
+import { useTranslations } from "next-intl"
 
 interface AdvancedGeneratorProps {
     onPasswordChange?: (password: string) => void
@@ -21,6 +22,8 @@ interface AdvancedGeneratorProps {
 }
 
 export function AdvancedGenerator({ onPasswordChange, initialLength = 16, className, showInput = true }: AdvancedGeneratorProps) {
+    const t = useTranslations("PasswordManager.generator")
+    const tForm = useTranslations("PasswordManager.form")
     const [mode, setMode] = useState<"password" | "passphrase">("password")
     const [length, setLength] = useState(initialLength)
     const [password, setPassword] = useState("")
@@ -131,12 +134,21 @@ export function AdvancedGenerator({ onPasswordChange, initialLength = 16, classN
 
     const strengthScore = calculatePasswordStrength(password)
 
+    const strengthLabel =
+        strengthScore === 0
+            ? ""
+            : strengthScore <= 2
+              ? tForm("strengthWeak")
+              : strengthScore <= 3
+                ? tForm("strengthMedium")
+                : tForm("strengthStrong")
+
     return (
         <div className={cn("space-y-4", className)}>
             <Tabs value={mode} onValueChange={(v) => setMode(v as "password" | "passphrase")} className="w-full">
                 <TabsList className="grid w-full grid-cols-2 mb-4">
-                    <TabsTrigger value="password">Password</TabsTrigger>
-                    <TabsTrigger value="passphrase">Passphrase</TabsTrigger>
+                    <TabsTrigger value="password">{t("tabPassword")}</TabsTrigger>
+                    <TabsTrigger value="passphrase">{t("tabPassphrase")}</TabsTrigger>
                 </TabsList>
 
                 {showInput && (
@@ -158,9 +170,9 @@ export function AdvancedGenerator({ onPasswordChange, initialLength = 16, classN
 
                         <div className="space-y-1.5">
                             <div className="flex items-center justify-between text-xs">
-                                <span className="font-medium">Strength</span>
+                                <span className="font-medium">{t("strength")}</span>
                                 <Badge variant={strengthScore < 3 ? "destructive" : strengthScore < 4 ? "secondary" : "default"} className="text-xs h-5">
-                                    {getStrengthLabel(strengthScore)}
+                                    {strengthLabel}
                                 </Badge>
                             </div>
                             <div className="w-full bg-muted rounded-full h-1.5">
@@ -177,23 +189,23 @@ export function AdvancedGenerator({ onPasswordChange, initialLength = 16, classN
                     <div className="space-y-2">
                         <div className="flex items-center justify-between">
                             <Label htmlFor="length" className="text-xs">
-                                Length: {length} characters
+                                {t("lengthLabel", { length })}
                             </Label>
                             <Badge variant="secondary" className="text-xs h-5">
-                                {length} chars
+                                {t("lengthBadge", { length })}
                             </Badge>
                         </div>
                         <Slider id="length" min={4} max={64} step={1} value={[length]} onValueChange={(value) => setLength(value[0])} />
                     </div>
 
                     <div className="space-y-3">
-                        <Label className="text-sm font-semibold">Character Sets</Label>
+                        <Label className="text-sm font-semibold">{t("characterSets")}</Label>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                             {[
-                                { id: "uppercase", label: "Uppercase", sample: "ABC" },
-                                { id: "lowercase", label: "Lowercase", sample: "abc" },
-                                { id: "numbers", label: "Numbers", sample: "123" },
-                                { id: "symbols", label: "Symbols", sample: "!@#" },
+                                { id: "uppercase", labelKey: "uppercase" as const, sample: "ABC" },
+                                { id: "lowercase", labelKey: "lowercase" as const, sample: "abc" },
+                                { id: "numbers", labelKey: "numbers" as const, sample: "123" },
+                                { id: "symbols", labelKey: "symbols" as const, sample: "!@#" },
                             ].map((item) => (
                                 <div key={item.id} className="flex items-center justify-between p-2 bg-muted/50 rounded-lg border border-border">
                                     <div className="flex items-center gap-2">
@@ -201,7 +213,7 @@ export function AdvancedGenerator({ onPasswordChange, initialLength = 16, classN
                                             <span className="text-xs font-bold">{item.sample}</span>
                                         </div>
                                         <Label htmlFor={item.id} className="cursor-pointer text-xs">
-                                            {item.label}
+                                            {t(item.labelKey)}
                                         </Label>
                                     </div>
                                     <Switch
@@ -220,10 +232,10 @@ export function AdvancedGenerator({ onPasswordChange, initialLength = 16, classN
                     <div className="space-y-2">
                         <div className="flex items-center justify-between">
                             <Label htmlFor="wordCount" className="text-xs">
-                                Word Count: {passphraseOptions.wordCount}
+                                {t("wordCountLabel", { count: passphraseOptions.wordCount })}
                             </Label>
                             <Badge variant="secondary" className="text-xs h-5">
-                                {passphraseOptions.wordCount} words
+                                {t("wordCountBadge", { count: passphraseOptions.wordCount })}
                             </Badge>
                         </div>
                         <Slider
@@ -238,7 +250,7 @@ export function AdvancedGenerator({ onPasswordChange, initialLength = 16, classN
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
-                            <Label className="text-xs">Separator</Label>
+                            <Label className="text-xs">{t("separator")}</Label>
                             <div className="flex flex-wrap gap-2">
                                 {["-", "_", ".", " "].map((sep) => (
                                     <Button
@@ -255,7 +267,7 @@ export function AdvancedGenerator({ onPasswordChange, initialLength = 16, classN
                         </div>
 
                         <div className="space-y-2">
-                            <Label className="text-xs">Capitalization</Label>
+                            <Label className="text-xs">{t("capitalization")}</Label>
                             <div className="flex flex-wrap gap-2">
                                 <Button
                                     variant={passphraseOptions.capitalize === "none" ? "default" : "outline"}
@@ -287,7 +299,7 @@ export function AdvancedGenerator({ onPasswordChange, initialLength = 16, classN
 
                     <div className="flex items-center justify-between p-2 bg-muted/50 rounded-lg border border-border">
                         <Label htmlFor="includeNumber" className="cursor-pointer text-xs">
-                            Include Number
+                            {t("includeNumber")}
                         </Label>
                         <Switch
                             id="includeNumber"

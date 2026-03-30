@@ -19,8 +19,10 @@ import { cn } from "@/lib/utils"
 import { toast } from "sonner"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import { motion } from "framer-motion"
+import { useTranslations } from "next-intl"
 
 export function VaultLockScreen() {
+    const t = useTranslations("PasswordManager.vault")
     const { isUnlocked, setKey, setPasswords, setLoading: setPasswordsLoading } = usePasswordStore()
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
@@ -79,11 +81,11 @@ export function VaultLockScreen() {
 
             if (loadedPasswords.length === 0 && querySnapshot.docs.length > 0) {
                 console.warn("[Password Fetch] Warning: Found encrypted passwords but failed to decrypt any")
-                toast.error("Failed to decrypt passwords")
+                toast.error(t("toastDecryptFailed"))
             }
         } catch (error) {
             console.error("[Password Fetch] Failed to fetch passwords:", error)
-            toast.error("Failed to load passwords")
+            toast.error(t("toastLoadFailed"))
             throw error // Re-throw so calling code knows fetch failed
         } finally {
             setPasswordsLoading(false)
@@ -124,11 +126,11 @@ export function VaultLockScreen() {
                     setKey(savedKey)
                     await fetchAndSetPasswords(uid, savedKey)
                     console.log("[Auto-unlock] Auto-unlock completed successfully")
-                    toast.success("Vault unlocked automatically")
+                    toast.success(t("toastUnlockedAuto"))
                     return
                 } catch (e) {
                     console.error("[Auto-unlock] Auto-unlock failed with error:", e)
-                    toast.error("Auto-unlock failed. Please unlock manually.")
+                    toast.error(t("toastAutoUnlockFailed"))
                     // Clear potentially corrupted key
                     try {
                         await clearKey()
@@ -141,8 +143,8 @@ export function VaultLockScreen() {
             }
         } catch (err) {
             console.error("Error checking vault status:", err)
-            setError("Failed to connect to server.")
-            toast.error("Failed to connect to server")
+            setError(t("errorConnectFailed"))
+            toast.error(t("toastConnectFailed"))
         }
     }
 
@@ -173,7 +175,7 @@ export function VaultLockScreen() {
                     console.log("[Manual Unlock] Key saved successfully for auto-unlock")
                 } catch (saveErr) {
                     console.error("[Manual Unlock] Failed to save key (auto-unlock won't work on reload):", saveErr)
-                    toast.error("Vault unlocked, but auto-unlock may not work on reload")
+                    toast.error(t("toastAutoUnlockWarning"))
                 }
 
                 // Load passwords
@@ -189,12 +191,12 @@ export function VaultLockScreen() {
                 setPassword("")
             } else {
                 console.warn("[Manual Unlock] Invalid password")
-                setError("Incorrect Master Password")
+                setError(t("errorIncorrectPassword"))
                 triggerShake()
             }
         } catch (err) {
             console.error("[Manual Unlock] Unlock failed:", err)
-            setError("Failed to unlock vault")
+            setError(t("errorUnlockFailed"))
         } finally {
             setLoading(false)
         }
@@ -204,12 +206,12 @@ export function VaultLockScreen() {
         e.preventDefault()
         if (!password || !userId) return
         if (password !== confirmPassword) {
-            setError("Passwords do not match")
+            setError(t("errorPasswordsMismatch"))
             triggerShake()
             return
         }
         if (password.length < 8) {
-            setError("Password must be at least 8 characters")
+            setError(t("errorPasswordTooShort"))
             triggerShake()
             return
         }
@@ -234,7 +236,7 @@ export function VaultLockScreen() {
             setConfirmPassword("")
         } catch (err) {
             console.error(err)
-            setError("Failed to setup vault")
+            setError(t("errorSetupFailed"))
         } finally {
             setLoading(false)
         }
@@ -295,12 +297,12 @@ export function VaultLockScreen() {
 
                         {/* Title */}
                         <h1 className="text-2xl font-bold text-center">
-                            {mode === "setup" ? "Create Your Vault" : "Welcome Back"}
+                            {mode === "setup" ? t("mobileTitleCreate") : t("mobileTitleWelcome")}
                         </h1>
                         <p className="text-sm text-muted-foreground text-center mt-2 max-w-[280px]">
                             {mode === "setup"
-                                ? "Set a master password to protect your credentials"
-                                : "Enter your master password to unlock"}
+                                ? t("mobileSubtitleCreate")
+                                : t("mobileSubtitleUnlock")}
                         </p>
                     </motion.div>
                 </div>
@@ -319,7 +321,7 @@ export function VaultLockScreen() {
                             <Input
                                 id="password"
                                 type="password"
-                                placeholder="Master Password"
+                                placeholder={t("placeholderMasterPassword")}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 className="pl-12 h-14 text-base rounded-2xl bg-muted/50 border-0 focus-visible:ring-2"
@@ -335,7 +337,7 @@ export function VaultLockScreen() {
                                 <Input
                                     id="confirm-password"
                                     type="password"
-                                    placeholder="Confirm Password"
+                                    placeholder={t("placeholderConfirmPassword")}
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     className="pl-12 h-14 text-base rounded-2xl bg-muted/50 border-0 focus-visible:ring-2"
@@ -367,7 +369,7 @@ export function VaultLockScreen() {
                         ) : (
                             <Unlock className="mr-2 h-5 w-5" />
                         )}
-                        {mode === "setup" ? "Create Vault" : "Unlock"}
+                        {mode === "setup" ? t("buttonCreateVault") : t("buttonUnlock")}
                     </Button>
                 </motion.form>
 
@@ -375,8 +377,8 @@ export function VaultLockScreen() {
                 <div className="flex-1 flex items-end justify-center pt-8 pb-4">
                     <p className="text-xs text-muted-foreground text-center">
                         {mode === "setup"
-                            ? "Your password is never stored and cannot be recovered"
-                            : "Secured with end-to-end encryption"}
+                            ? t("footerCreate")
+                            : t("footerUnlock")}
                     </p>
                 </div>
             </div>
@@ -407,24 +409,24 @@ export function VaultLockScreen() {
                         )}
                     </div>
                     <CardTitle className="text-2xl font-bold">
-                        {mode === "setup" ? "Setup Password Vault" : "Unlock Vault"}
+                        {mode === "setup" ? t("desktopTitleSetup") : t("desktopTitleUnlock")}
                     </CardTitle>
                     <CardDescription className="text-base">
                         {mode === "setup"
-                            ? "Create a master password to secure your credentials. This password is never stored and cannot be recovered."
-                            : "Enter your master password to access your secured credentials."}
+                            ? t("desktopDescriptionSetup")
+                            : t("desktopDescriptionUnlock")}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={mode === "setup" ? handleSetup : handleUnlock} className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="password">Master Password</Label>
+                            <Label htmlFor="password">{t("labelMasterPassword")}</Label>
                             <div className="relative">
                                 <KeyRound className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                                 <Input
                                     id="password"
                                     type="password"
-                                    placeholder="Enter master password"
+                                    placeholder={t("placeholderEnterMaster")}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     className="pl-9"
@@ -435,13 +437,13 @@ export function VaultLockScreen() {
 
                         {mode === "setup" && (
                             <div className="space-y-2">
-                                <Label htmlFor="confirm-password">Confirm Password</Label>
+                                <Label htmlFor="confirm-password">{t("labelConfirmPassword")}</Label>
                                 <div className="relative">
                                     <KeyRound className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                                     <Input
                                         id="confirm-password"
                                         type="password"
-                                        placeholder="Confirm master password"
+                                        placeholder={t("placeholderConfirmMaster")}
                                         value={confirmPassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
                                         className="pl-9"
@@ -465,7 +467,7 @@ export function VaultLockScreen() {
                             ) : (
                                 <Unlock className="mr-2 h-4 w-4" />
                             )}
-                            {mode === "setup" ? "Create Vault" : "Unlock Vault"}
+                            {mode === "setup" ? t("buttonCreateVault") : t("buttonUnlockVault")}
                         </Button>
                     </form>
                 </CardContent>

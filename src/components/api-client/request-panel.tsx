@@ -14,6 +14,7 @@ import {
 import { RequestMethod, Collection } from "./types"
 import { SaveRequestDialog } from "./collections/save-request-dialog"
 import { cn } from "@/lib/utils"
+import { useTranslations } from "next-intl"
 
 interface RequestPanelProps {
     method: RequestMethod
@@ -64,6 +65,7 @@ export function RequestPanel({
     saveDefaultName,
     onPaste,
 }: RequestPanelProps) {
+    const t = useTranslations("ApiClient.requestPanel")
     return (
         <div className="flex flex-col gap-4">
             <div className="flex gap-2">
@@ -73,7 +75,7 @@ export function RequestPanel({
                         getMethodBg(method),
                         getMethodColor(method)
                     )}>
-                        <SelectValue placeholder="Method" />
+                        <SelectValue placeholder={t("methodPlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
                         {METHODS.map((m) => (
@@ -87,7 +89,7 @@ export function RequestPanel({
                 <div className="relative flex-1 group">
                     <Globe className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                     <Input
-                        placeholder="https://api.example.com/v1/..."
+                        placeholder={t("urlPlaceholder")}
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                         className="h-10 pl-9 pr-10 font-mono text-xs bg-muted/30 border-muted group-hover:border-border transition-colors"
@@ -124,7 +126,7 @@ export function RequestPanel({
                     ) : (
                         <Send className="h-4 w-4 mr-2" />
                     )}
-                    {isLoading ? "Sending..." : "Send"}
+                    {isLoading ? t("sending") : t("send")}
                 </Button>
 
                 <div className="border-l pl-2 flex items-center ml-1">

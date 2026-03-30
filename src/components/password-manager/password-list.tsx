@@ -29,8 +29,11 @@ import { SidebarTrigger } from "@/components/ui/sidebar"
 import { PasswordCard } from "./password-card"
 import { SecurityDashboard } from "./security-dashboard"
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer"
+import { useTranslations } from "next-intl"
 
 export function PasswordList() {
+    const t = useTranslations("PasswordManager.list")
+    const tToast = useTranslations("PasswordManager.toasts")
     const { passwords, deletePassword, lockVault, isLoading } = usePasswordStore()
     const [searchTerm, setSearchTerm] = useState("")
     const [visiblePasswords, setVisiblePasswords] = useState<Set<string>>(new Set())
@@ -87,7 +90,7 @@ export function PasswordList() {
 
     const copyToClipboard = (text: string, type: "Password" | "Username" = "Password") => {
         navigator.clipboard.writeText(text)
-        toast.success(`${type} copied to clipboard`)
+        toast.success(type === "Username" ? tToast("copiedUsername") : tToast("copiedPassword"))
     }
 
     const handleDeleteClick = (id: string) => {
@@ -101,10 +104,10 @@ export function PasswordList() {
         try {
             await deleteDoc(doc(db, "user_passwords", auth.currentUser.uid, "entries", passwordToDelete))
             deletePassword(passwordToDelete)
-            toast.success("Password deleted")
+            toast.success(tToast("passwordDeleted"))
         } catch (error) {
             console.error("Error deleting password:", error)
-            toast.error("Failed to delete password")
+            toast.error(tToast("deleteFailed"))
         } finally {
             setDeleteConfirmOpen(false)
             setPasswordToDelete(null)
@@ -114,7 +117,7 @@ export function PasswordList() {
     const handleLock = async () => {
         await clearKey()
         lockVault()
-        toast.success("Vault locked")
+        toast.success(tToast("vaultLocked"))
     }
 
     if (isLoading) {
@@ -124,7 +127,7 @@ export function PasswordList() {
                 isMobile ? "min-h-[60vh]" : "py-16"
             )}>
                 <div className="animate-spin rounded-full h-10 w-10 border-2 border-primary border-t-transparent"></div>
-                <p className="text-sm text-muted-foreground">Loading your passwords...</p>
+                <p className="text-sm text-muted-foreground">{t("loading")}</p>
             </div>
         )
     }
@@ -147,18 +150,17 @@ export function PasswordList() {
                     )} />
                 </div>
                 <div className="space-y-2">
-                    <h3 className={cn("font-semibold", isMobile ? "text-xl" : "text-lg")}>Vault is Empty</h3>
+                    <h3 className={cn("font-semibold", isMobile ? "text-xl" : "text-lg")}>{t("emptyTitle")}</h3>
                     <p className="text-muted-foreground text-sm max-w-[280px]">
                         {isMobile
-                            ? "Tap the + button to add your first password"
-                            : "You haven't stored any passwords yet. Click the \"Add Password\" button above to get started."
-                        }
+                            ? t("emptyHintMobile")
+                            : t("emptyHintDesktop")}
                     </p>
                 </div>
                 {isMobile && (
                     <AddPasswordDialog>
                         <Button size="lg" className="mt-4 rounded-xl">
-                            <Plus className="mr-2 h-5 w-5" /> Add Password
+                            <Plus className="mr-2 h-5 w-5" /> {t("addPassword")}
                         </Button>
                     </AddPasswordDialog>
                 )}
@@ -179,7 +181,7 @@ export function PasswordList() {
                         <div className="relative flex-1 h-10">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground" />
                             <Input
-                                placeholder="Search your..."
+                                placeholder={t("searchPlaceholderMobile")}
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className="pl-10 h-10 bg-muted/50 border-transparent rounded-lg focus-visible:ring-1 text-sm placeholder:text-muted-foreground/70"
@@ -204,11 +206,11 @@ export function PasswordList() {
                             <DropdownMenuContent align="end" className="w-56">
                                 <ImportExportDialog>
                                     <Button variant="ghost" className="w-full justify-start h-9 px-2 font-normal">
-                                        <FileJson className="mr-2 h-4 w-4" /> Import / Export
+                                        <FileJson className="mr-2 h-4 w-4" /> {t("importExport")}
                                     </Button>
                                 </ImportExportDialog>
                                 <DropdownMenuItem onClick={handleLock}>
-                                    <Lock className="mr-2 h-4 w-4" /> Lock Vault
+                                    <Lock className="mr-2 h-4 w-4" /> {t("lockVault")}
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -216,8 +218,8 @@ export function PasswordList() {
 
                     <div className="px-4 mt-2 mb-1 flex items-center gap-2">
                         <div className="flex-1">
-                            <h1 className="text-2xl font-bold tracking-tight text-foreground">All Passwords</h1>
-                            <p className="text-sm text-muted-foreground mt-0.5">{passwords.length} passwords</p>
+                            <h1 className="text-2xl font-bold tracking-tight text-foreground">{t("allPasswordsTitle")}</h1>
+                            <p className="text-sm text-muted-foreground mt-0.5">{t("passwordCount", { count: passwords.length })}</p>
                         </div>
                         <Drawer>
                             <DrawerTrigger asChild>
@@ -227,7 +229,7 @@ export function PasswordList() {
                             </DrawerTrigger>
                             <DrawerContent className="max-h-[85vh]">
                                 <DrawerHeader className="border-b pb-4 mb-4">
-                                    <DrawerTitle className="text-center font-bold text-lg">Vault Health Status</DrawerTitle>
+                                    <DrawerTitle className="text-center font-bold text-lg">{t("vaultHealthDrawerTitle")}</DrawerTitle>
                                 </DrawerHeader>
                                 <div className="px-4 pb-8 overflow-y-auto">
                                     <SecurityDashboard minimal={false} />
@@ -244,7 +246,7 @@ export function PasswordList() {
                     <div className="relative flex-1">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                         <Input
-                            placeholder="Search vault..."
+                            placeholder={t("searchPlaceholderDesktop")}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="pl-9 h-10 bg-background/50 backdrop-blur-sm"
@@ -252,16 +254,16 @@ export function PasswordList() {
                     </div>
                     <div className="flex items-center gap-2 border rounded-lg p-1 bg-muted/20">
                         <ToggleGroup type="single" value={viewMode} onValueChange={(value) => value && setViewMode(value as "grid" | "list")}>
-                            <ToggleGroupItem value="grid" size="sm" aria-label="Grid view">
+                            <ToggleGroupItem value="grid" size="sm" aria-label={t("gridViewAria")}>
                                 <LayoutGrid className="h-4 w-4" />
                             </ToggleGroupItem>
-                            <ToggleGroupItem value="list" size="sm" aria-label="List view">
+                            <ToggleGroupItem value="list" size="sm" aria-label={t("listViewAria")}>
                                 <List className="h-4 w-4" />
                             </ToggleGroupItem>
                         </ToggleGroup>
                     </div>
                     <ImportExportDialog />
-                    <Button variant="outline" size="icon" onClick={handleLock} title="Lock Vault" className="h-10 w-10">
+                    <Button variant="outline" size="icon" onClick={handleLock} title={t("lockVault")} className="h-10 w-10">
                         <Lock className="h-4 w-4" />
                     </Button>
                 </div>
@@ -272,7 +274,7 @@ export function PasswordList() {
                     "text-center text-muted-foreground",
                     isMobile ? "py-16 px-8" : "py-12"
                 )}>
-                    <p className="text-sm">No passwords found matching "{searchTerm}"</p>
+                    <p className="text-sm">{t("noResults", { query: searchTerm })}</p>
                 </div>
             ) : isMobile ? (
                 /* ── Mobile: single scrollable container as IntersectionObserver root ── */
@@ -351,11 +353,11 @@ export function PasswordList() {
                             <Table>
                                 <TableHeader>
                                     <TableRow className="hover:bg-transparent">
-                                        <TableHead className="w-[250px]">Service</TableHead>
-                                        <TableHead className="w-[200px]">Username</TableHead>
-                                        <TableHead className="w-[250px]">Password</TableHead>
-                                        <TableHead>URL</TableHead>
-                                        <TableHead className="text-right">Actions</TableHead>
+                                        <TableHead className="w-[250px]">{t("tableService")}</TableHead>
+                                        <TableHead className="w-[200px]">{t("tableUsername")}</TableHead>
+                                        <TableHead className="w-[250px]">{t("tablePassword")}</TableHead>
+                                        <TableHead>{t("tableUrl")}</TableHead>
+                                        <TableHead className="text-right">{t("tableActions")}</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -412,7 +414,7 @@ export function PasswordList() {
                                                     <Button variant="ghost" size="icon" className="h-6 w-6 hover:bg-background shrink-0" onClick={() => copyToClipboard(entry.password)}>
                                                         <Copy className="h-3 w-3" />
                                                     </Button>
-                                                    <div className={cn("w-1.5 h-1.5 rounded-full", getStrengthColor(calculatePasswordStrength(entry.password)))} title="Password Strength" />
+                                                    <div className={cn("w-1.5 h-1.5 rounded-full", getStrengthColor(calculatePasswordStrength(entry.password)))} title={t("passwordStrengthTitle")} />
                                                 </div>
                                             </TableCell>
                                             <TableCell>
@@ -434,12 +436,12 @@ export function PasswordList() {
                                                     <DropdownMenuContent align="end">
                                                         <DropdownMenuItem onClick={() => setEditingPassword(entry)}>
                                                             <Pencil className="mr-2 h-4 w-4" />
-                                                            Edit
+                                                            {t("edit")}
                                                         </DropdownMenuItem>
                                                         <DropdownMenuSeparator />
                                                         <DropdownMenuItem onClick={() => handleDeleteClick(entry.id)} className="text-destructive focus:text-destructive">
                                                             <Trash2 className="mr-2 h-4 w-4" />
-                                                            Delete
+                                                            {t("delete")}
                                                         </DropdownMenuItem>
                                                     </DropdownMenuContent>
                                                 </DropdownMenu>
@@ -463,15 +465,15 @@ export function PasswordList() {
             <AlertDialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Delete Password</AlertDialogTitle>
+                        <AlertDialogTitle>{t("deleteDialogTitle")}</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Are you sure you want to delete this password? This action cannot be undone.
+                            {t("deleteDialogDescription")}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
                         <AlertDialogAction onClick={handleDeleteConfirm} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-                            Delete
+                            {t("delete")}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

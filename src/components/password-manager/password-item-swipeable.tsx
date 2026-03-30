@@ -1,3 +1,5 @@
+"use client"
+
 import { motion, useMotionValue, useTransform, PanInfo } from "framer-motion"
 import { Copy, Trash2, Eye, EyeOff, ExternalLink, MoreVertical, Pencil, KeyRound, User } from "lucide-react"
 import { PasswordEntry } from "@/store/password-store"
@@ -6,6 +8,7 @@ import { cn } from "@/lib/utils"
 import { getFaviconUrl } from "@/lib/password-utils"
 import { useState } from "react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { useTranslations } from "next-intl"
 
 interface PasswordItemSwipeableProps {
     entry: PasswordEntry
@@ -24,6 +27,7 @@ export function PasswordItemSwipeable({
     onToggleVisibility,
     isVisible
 }: PasswordItemSwipeableProps) {
+    const t = useTranslations("PasswordManager.swipeable")
     const [expanded, setExpanded] = useState(false)
     const x = useMotionValue(0)
     const opacityRight = useTransform(x, [30, 80], [0, 1])
@@ -56,7 +60,7 @@ export function PasswordItemSwipeable({
                     <div className="h-10 w-10 rounded-full bg-green-500/20 flex items-center justify-center">
                         <Copy className="h-5 w-5 text-green-600" />
                     </div>
-                    <span className="text-xs font-medium text-green-600">Copy</span>
+                    <span className="text-xs font-medium text-green-600">{t("copy")}</span>
                 </motion.div>
             </motion.div>
             <motion.div
@@ -64,7 +68,7 @@ export function PasswordItemSwipeable({
                 className="absolute inset-y-0 right-0 w-full flex items-center justify-end pr-5 z-10 rounded-xl"
             >
                 <motion.div style={{ scale: scaleLeft }} className="flex items-center gap-2">
-                    <span className="text-xs font-medium text-red-600">Delete</span>
+                    <span className="text-xs font-medium text-red-600">{t("delete")}</span>
                     <div className="h-10 w-10 rounded-full bg-red-500/20 flex items-center justify-center">
                         <Trash2 className="h-5 w-5 text-red-600" />
                     </div>
@@ -124,17 +128,17 @@ export function PasswordItemSwipeable({
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-48">
                                 <DropdownMenuItem onClick={() => onCopy(entry.password)}>
-                                    <KeyRound className="mr-2 h-4 w-4" /> Copy Password
+                                    <KeyRound className="mr-2 h-4 w-4" /> {t("copyPassword")}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem onClick={() => onCopy(entry.username)}>
-                                    <User className="mr-2 h-4 w-4" /> Copy Username
+                                    <User className="mr-2 h-4 w-4" /> {t("copyUsername")}
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem onClick={() => onEdit(entry)}>
-                                    <Pencil className="mr-2 h-4 w-4" /> Edit
+                                    <Pencil className="mr-2 h-4 w-4" /> {t("edit")}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem onClick={() => onDelete(entry.id)} className="text-destructive focus:text-destructive">
-                                    <Trash2 className="mr-2 h-4 w-4" /> Delete
+                                    <Trash2 className="mr-2 h-4 w-4" /> {t("deleteAction")}
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>

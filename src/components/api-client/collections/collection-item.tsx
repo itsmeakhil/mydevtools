@@ -11,6 +11,8 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
+import { useTranslations } from "next-intl"
+import { getApiClientRequestDisplayName } from "../display-name"
 
 interface CollectionItemProps {
     item: CollectionFolder | CollectionRequest
@@ -29,6 +31,8 @@ export function CollectionItem({
     onAddFolder,
     onLoadRequest,
 }: CollectionItemProps) {
+    const t = useTranslations("ApiClient.collectionItem")
+    const tRoot = useTranslations("ApiClient")
     const isFolder = "type" in item && item.type === "folder"
     const paddingLeft = `${level * 12 + 12}px`
 
@@ -72,7 +76,7 @@ export function CollectionItem({
                             {(item as CollectionRequest).method}
                         </span>
                         <span className="truncate text-xs text-muted-foreground group-hover:text-foreground transition-colors">
-                            {item.name}
+                            {getApiClientRequestDisplayName((item as CollectionRequest).name, tRoot)}
                         </span>
                     </div>
                 )}
@@ -95,7 +99,7 @@ export function CollectionItem({
                                 onAddFolder(item.id)
                             }}>
                                 <FolderPlus className="h-4 w-4 mr-2" />
-                                New Folder
+                                {t("newFolder")}
                             </DropdownMenuItem>
                         )}
                         <DropdownMenuItem
@@ -106,7 +110,7 @@ export function CollectionItem({
                             }}
                         >
                             <Trash2 className="h-4 w-4 mr-2" />
-                            Delete
+                            {t("delete")}
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
@@ -132,7 +136,7 @@ export function CollectionItem({
                         ))}
                         {(item as CollectionFolder).items.length === 0 && (
                             <div className="text-[11px] text-muted-foreground/60 py-1.5 italic" style={{ paddingLeft: `${(level + 1) * 12 + 32}px` }}>
-                                Empty folder
+                                {t("emptyFolder")}
                             </div>
                         )}
                     </div>

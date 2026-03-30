@@ -2,19 +2,20 @@
 
 import { AddPasswordDialog } from "@/components/password-manager/add-password-dialog"
 import { PasswordList } from "@/components/password-manager/password-list"
-import { SecurityDashboard } from "@/components/password-manager/security-dashboard"
 import { VaultLockScreen } from "@/components/password-manager/master-password-modal"
 import { usePasswordStore } from "@/store/password-store"
 import useAuth from "@/utils/useAuth"
 import { useIsMobile } from "@/components/hooks/use-mobile"
+import { useTranslations } from "next-intl"
 
 export default function PasswordManagerPage() {
     const { user, loading } = useAuth(true);
     const { isUnlocked } = usePasswordStore()
     const isMobile = useIsMobile()
+    const t = useTranslations("PasswordManager.page")
 
     if (loading) {
-        return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+        return <div className="min-h-screen flex items-center justify-center">{t("loading")}</div>;
     }
 
     if (!user) {
@@ -33,7 +34,7 @@ export default function PasswordManagerPage() {
             {/* Desktop header - hidden on mobile */}
             {!isMobile && (
                 <div className="flex justify-between items-center py-6 shrink-0">
-                    <h1 className="text-3xl font-bold tracking-tight">Password Manager</h1>
+                    <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
                     <AddPasswordDialog />
                 </div>
             )}

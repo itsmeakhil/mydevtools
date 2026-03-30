@@ -18,8 +18,10 @@ import { auth, db } from "@/database/firebase"
 import { collection, addDoc } from "firebase/firestore"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
 
 export function AddPasswordDialog({ children }: { children?: React.ReactNode }) {
+    const t = useTranslations("PasswordManager.form")
     const { encryptionKey, addPassword } = usePasswordStore()
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -98,10 +100,10 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
             setFormData({ service: "", username: "", password: "", url: "", notes: "", tags: [] })
             setTagInput("")
             setShowGenerator(false)
-            toast.success("Password saved successfully")
+            toast.success(t("toastSaved"))
         } catch (error) {
             console.error("Failed to add password:", error)
-            toast.error("Failed to save password")
+            toast.error(t("toastSaveFailed"))
         } finally {
             setLoading(false)
         }
@@ -116,9 +118,9 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
 
     const getStrengthLabel = (score: number) => {
         if (score === 0) return ""
-        if (score <= 2) return "Weak"
-        if (score <= 3) return "Medium"
-        return "Strong"
+        if (score <= 2) return t("strengthWeak")
+        if (score <= 3) return t("strengthMedium")
+        return t("strengthStrong")
     }
 
     const handlePasswordChange = useCallback((pass: string) => {
@@ -131,10 +133,10 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
         <form onSubmit={handleSubmit} className="space-y-5 mt-2">
             <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                    <Label htmlFor="service">Service Name</Label>
+                    <Label htmlFor="service">{t("serviceName")}</Label>
                     <Input
                         id="service"
-                        placeholder="e.g. Netflix"
+                        placeholder={t("placeholderService")}
                         value={formData.service}
                         onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                         required
@@ -142,10 +144,10 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
                     />
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="username">Username / Email</Label>
+                    <Label htmlFor="username">{t("usernameEmail")}</Label>
                     <Input
                         id="username"
-                        placeholder="user@example.com"
+                        placeholder={t("placeholderUsername")}
                         value={formData.username}
                         onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                         required
@@ -154,7 +156,7 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
             </div>
 
             <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t("password")}</Label>
                 <div className="relative">
                     <Input
                         id="password"
@@ -163,14 +165,14 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                         required
                         className="font-mono"
-                        placeholder="Enter or generate password"
+                        placeholder={t("placeholderPassword")}
                     />
                 </div>
 
                 {formData.password && (
                     <div className="space-y-1">
                         <div className="flex justify-between text-xs">
-                            <span className="text-muted-foreground">Strength</span>
+                            <span className="text-muted-foreground">{t("strength")}</span>
                             <span className={cn("font-medium",
                                 strength <= 2 ? "text-red-500" :
                                     strength <= 3 ? "text-yellow-500" : "text-green-500"
@@ -190,7 +192,7 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
                 <Collapsible open={showGenerator} onOpenChange={setShowGenerator} className="border rounded-lg p-2 bg-muted/30">
                     <CollapsibleTrigger asChild>
                         <Button variant="ghost" size="sm" className="w-full flex justify-between items-center text-xs text-muted-foreground hover:text-primary">
-                            <span className="flex items-center gap-2"><Wand2 className="h-3 w-3" /> Advanced Generator</span>
+                            <span className="flex items-center gap-2"><Wand2 className="h-3 w-3" /> {t("advancedGenerator")}</span>
                             {showGenerator ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
                         </Button>
                     </CollapsibleTrigger>
@@ -205,21 +207,21 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
             </div>
 
             <div className="space-y-2">
-                <Label htmlFor="url">Website URL (Optional)</Label>
+                <Label htmlFor="url">{t("urlOptional")}</Label>
                 <Input
                     id="url"
                     type="url"
-                    placeholder="https://..."
+                    placeholder={t("placeholderUrl")}
                     value={formData.url}
                     onChange={(e) => setFormData({ ...formData, url: e.target.value })}
                 />
             </div>
 
             <div className="space-y-2">
-                <Label htmlFor="notes">Notes (Optional)</Label>
+                <Label htmlFor="notes">{t("notesOptional")}</Label>
                 <Textarea
                     id="notes"
-                    placeholder="Additional details..."
+                    placeholder={t("placeholderNotes")}
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                     className="min-h-[80px]"
@@ -227,7 +229,7 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
             </div>
 
             <div className="space-y-2">
-                <Label htmlFor="tags">Tags</Label>
+                <Label htmlFor="tags">{t("tags")}</Label>
                 <div className="flex flex-wrap gap-1.5 mb-2">
                     {formData.tags.map(tag => (
                         <Badge key={tag} variant="secondary" className="gap-1 pr-1">
@@ -238,7 +240,7 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
                 </div>
                 <Input
                     id="tags"
-                    placeholder="Add tags (press Enter or comma)"
+                    placeholder={t("placeholderTags")}
                     value={tagInput}
                     onChange={(e) => setTagInput(e.target.value)}
                     onKeyDown={handleAddTag}
@@ -248,11 +250,11 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
             <div className="flex justify-end gap-2 pt-2">
                 {!isMobile && (
                     <Button type="button" variant="outline" onClick={() => setOpen(false)}>
-                        Cancel
+                        {t("cancel")}
                     </Button>
                 )}
                 <Button type="submit" disabled={loading} className={cn(isMobile && "w-full h-12 rounded-xl text-base")}>
-                    {loading ? "Saving..." : "Save Password"}
+                    {loading ? t("saving") : t("savePassword")}
                 </Button>
             </div>
         </form>
@@ -268,14 +270,14 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
                             size="icon"
                         >
                             <Plus className="h-7 w-7" />
-                            <span className="sr-only">Add Password</span>
+                            <span className="sr-only">{t("addPasswordSrOnly")}</span>
                         </Button>
                     )}
                 </DrawerTrigger>
                 <DrawerContent className="max-h-[95vh]">
                     <div className="flex flex-col h-full max-h-[95vh]">
                         <DrawerHeader className="shrink-0 border-b pb-4">
-                            <DrawerTitle className="text-xl">Add New Password</DrawerTitle>
+                            <DrawerTitle className="text-xl">{t("addTitle")}</DrawerTitle>
                         </DrawerHeader>
                         <div className="flex-1 overflow-y-auto px-4 pb-8">
                             {FormContent}
@@ -291,13 +293,13 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
             <DialogTrigger asChild>
                 {children ? children : (
                     <Button className="shadow-lg hover:shadow-xl transition-all">
-                        <Plus className="mr-2 h-4 w-4" /> Add Password
+                        <Plus className="mr-2 h-4 w-4" /> {t("triggerAdd")}
                     </Button>
                 )}
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px]">
                 <DialogHeader>
-                    <DialogTitle className="text-xl">Add New Password</DialogTitle>
+                    <DialogTitle className="text-xl">{t("addTitle")}</DialogTitle>
                 </DialogHeader>
                 {FormContent}
             </DialogContent>
