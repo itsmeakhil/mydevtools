@@ -99,65 +99,71 @@ export function CollectionsSidebar({
     }
 
     return (
-        <div
-            className={cn(
-                "border-l bg-muted/10 flex flex-col transition-all duration-300 ease-in-out relative",
-                collapsed ? "w-[0px]" : "w-[300px]"
-            )}
-        >
-            <Button
-                variant="ghost"
-                size="icon"
-                className="absolute -left-3 top-2 h-6 w-6 rounded-full border bg-background shadow-sm z-10"
-                onClick={() => setCollapsed(!collapsed)}
-            >
-                {collapsed ? <ChevronLeft className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
-            </Button>
-
-            <div className={cn("flex-1 flex flex-col min-w-[300px] h-full", collapsed && "invisible")}>
-                <Tabs defaultValue="collections" className="flex-1 flex flex-col h-full min-h-0">
-                    <div className="p-4 border-b flex flex-col gap-4 shrink-0">
-                        <div className="flex items-center justify-between">
-                            <h3 className="font-semibold">Sidebar</h3>
-                            <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setNewCollectionDialogOpen(true)} title="New Collection">
-                                <FolderPlus className="h-4 w-4" />
-                            </Button>
-                        </div>
-                        <TabsList className="w-full grid grid-cols-2">
-                            <TabsTrigger value="collections">Collections</TabsTrigger>
-                            <TabsTrigger value="history">History</TabsTrigger>
-                        </TabsList>
+        <div className="flex flex-col w-full h-full bg-background/50">
+            <Tabs defaultValue="collections" className="flex-1 flex flex-col h-full min-h-0">
+                <div className="px-4 py-3 border-b flex flex-col gap-3 shrink-0 bg-card/40 backdrop-blur-sm">
+                    <div className="flex items-center justify-between">
+                        <h3 className="font-semibold text-sm tracking-tight">API Resources</h3>
+                        <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="h-7 w-7 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors" 
+                            onClick={() => setNewCollectionDialogOpen(true)} 
+                            title="New Collection"
+                        >
+                            <FolderPlus className="h-4 w-4" />
+                        </Button>
                     </div>
+                    <TabsList className="w-full grid grid-cols-2 p-1 bg-muted/50 rounded-lg">
+                        <TabsTrigger value="collections" className="rounded-md text-xs font-medium">Collections</TabsTrigger>
+                        <TabsTrigger value="history" className="rounded-md text-xs font-medium">History</TabsTrigger>
+                    </TabsList>
+                </div>
 
-                    <TabsContent value="collections" className="flex-1 flex flex-col min-h-0 m-0 data-[state=inactive]:hidden">
-                        <ScrollArea className="flex-1">
-                            <div className="p-2">
-                                {collections.map((collection) => (
+                <TabsContent value="collections" className="flex-1 flex flex-col min-h-0 m-0 data-[state=inactive]:hidden outline-none">
+                    <ScrollArea className="flex-1">
+                        <div className="p-3">
+                            {collections.length === 0 ? (
+                                <div className="flex flex-col items-center justify-center p-8 text-center border border-dashed rounded-xl bg-muted/30 mx-2 mt-4">
+                                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+                                        <FolderPlus className="h-5 w-5 text-primary" />
+                                    </div>
+                                    <h4 className="font-medium text-sm">No Collections</h4>
+                                    <p className="text-xs text-muted-foreground mt-1 mb-4">
+                                        Create a collection to organize your API requests.
+                                    </p>
+                                    <Button size="sm" onClick={() => setNewCollectionDialogOpen(true)}>
+                                        Create Collection
+                                    </Button>
+                                </div>
+                            ) : (
+                                collections.map((collection) => (
                                     <div key={collection.id} className="mb-4">
-                                        <div className="flex items-center justify-between px-2 py-1 mb-1 group">
-                                            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider truncate flex-1 mr-2">
+                                        <div className="flex items-center justify-between px-2 py-1.5 mb-1 group rounded-md hover:bg-muted/50 transition-colors">
+                                            <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider truncate flex-1 mr-2 px-1">
                                                 {collection.name}
                                             </span>
                                             <div className="flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
                                                 <Button
                                                     variant="ghost"
                                                     size="icon"
-                                                    className="h-5 w-5"
+                                                    className="h-6 w-6 rounded-md hover:bg-background"
                                                     onClick={() => openAddFolderDialog(collection.id)}
+                                                    title="New Folder"
                                                 >
-                                                    <FolderPlus className="h-3 w-3" />
+                                                    <FolderPlus className="h-3.5 w-3.5 text-muted-foreground" />
                                                 </Button>
                                                 <DropdownMenu>
                                                     <DropdownMenuTrigger asChild>
                                                         <Button
                                                             variant="ghost"
                                                             size="icon"
-                                                            className="h-5 w-5"
+                                                            className="h-6 w-6 rounded-md hover:bg-background"
                                                         >
-                                                            <MoreHorizontal className="h-3 w-3" />
+                                                            <MoreHorizontal className="h-3.5 w-3.5 text-muted-foreground" />
                                                         </Button>
                                                     </DropdownMenuTrigger>
-                                                    <DropdownMenuContent align="end">
+                                                    <DropdownMenuContent align="end" className="w-40 rounded-xl">
                                                         <DropdownMenuItem onClick={() => openRenameCollectionDialog(collection)}>
                                                             <Pencil className="h-4 w-4 mr-2" />
                                                             Rename
@@ -173,67 +179,106 @@ export function CollectionsSidebar({
                                                 </DropdownMenu>
                                             </div>
                                         </div>
-                                        {collection.items.map((item) => (
-                                            <CollectionItem
-                                                key={item.id}
-                                                item={item}
-                                                level={0}
-                                                onToggle={onToggle}
-                                                onDelete={onDelete}
-                                                onAddFolder={openAddFolderDialog}
-                                                onLoadRequest={onLoadRequest}
-                                            />
-                                        ))}
-                                        {collection.items.length === 0 && (
-                                            <div className="text-xs text-muted-foreground px-2 italic">
-                                                No items
-                                            </div>
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-                        </ScrollArea>
-                    </TabsContent>
-
-                    <TabsContent value="history" className="flex-1 flex flex-col min-h-0 m-0 data-[state=inactive]:hidden">
-                        <div className="flex items-center justify-end p-2 border-b shrink-0">
-                            <Button variant="ghost" size="sm" onClick={onClearHistory} className="text-destructive h-8 text-xs">
-                                <Trash2 className="h-3 w-3 mr-2" />
-                                Clear All
-                            </Button>
-                        </div>
-                        <ScrollArea className="flex-1">
-                            <div className="p-2 flex flex-col gap-1">
-                                {history?.map((item) => (
-                                    <div key={item.id} className="group flex items-center justify-between p-2 hover:bg-muted/50 rounded-md cursor-pointer border border-transparent hover:border-border transition-colors text-sm" onClick={() => onLoadRequest(item)}>
-                                        <div className="flex flex-col min-w-0 flex-1 mr-2">
-                                            <div className="flex items-center gap-2">
-                                                <span className={cn("text-xs font-bold", item.method === "GET" ? "text-green-500" : item.method === "POST" ? "text-yellow-500" : item.method === "PUT" ? "text-blue-500" : item.method === "DELETE" ? "text-red-500" : "text-muted-foreground")}>{item.method}</span>
-                                                <span className="font-medium truncate">{item.name || item.url}</span>
-                                            </div>
-                                            <div className="text-xs text-muted-foreground flex items-center justify-between mt-1">
-                                                <span>{new Date(item.timestamp).toLocaleTimeString()}</span>
-                                                {item.status && <span className={item.status >= 200 && item.status < 300 ? "text-green-500" : "text-destructive"}>{item.status}</span>}
-                                            </div>
+                                        <div className="pl-1">
+                                            {collection.items.map((item) => (
+                                                <CollectionItem
+                                                    key={item.id}
+                                                    item={item}
+                                                    level={0}
+                                                    onToggle={onToggle}
+                                                    onDelete={onDelete}
+                                                    onAddFolder={openAddFolderDialog}
+                                                    onLoadRequest={onLoadRequest}
+                                                />
+                                            ))}
+                                            {collection.items.length === 0 && (
+                                                <div className="text-xs text-muted-foreground/60 px-3 py-2 italic flex items-center gap-2">
+                                                    <div className="w-px h-3 bg-border/50" />
+                                                    Empty collection
+                                                </div>
+                                            )}
                                         </div>
-                                        <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <Button variant="ghost" size="icon" className="h-6 w-6 text-muted-foreground hover:text-destructive" onClick={(e) => {
+                                    </div>
+                                ))
+                            )}
+                        </div>
+                    </ScrollArea>
+                </TabsContent>
+
+                <TabsContent value="history" className="flex-1 flex flex-col min-h-0 m-0 data-[state=inactive]:hidden outline-none bg-muted/5">
+                    <div className="flex items-center justify-between px-4 py-2 border-b shrink-0 bg-background/50 backdrop-blur-sm">
+                        <span className="text-xs font-medium text-muted-foreground">Recent Requests</span>
+                        <Button variant="ghost" size="sm" onClick={onClearHistory} className="text-destructive hover:bg-destructive/10 hover:text-destructive h-7 text-[11px] rounded-md px-2">
+                            <Trash2 className="h-3 w-3 mr-1.5" />
+                            Clear All
+                        </Button>
+                    </div>
+                    <ScrollArea className="flex-1">
+                        <div className="p-2 space-y-1">
+                            {history?.map((item) => (
+                                <div 
+                                    key={item.id} 
+                                    className="group flex flex-col p-2.5 hover:bg-muted/60 rounded-lg cursor-pointer transition-all duration-200 text-sm" 
+                                    onClick={() => onLoadRequest(item)}
+                                >
+                                    <div className="flex items-center justify-between mb-1.5">
+                                        <div className="flex items-center gap-2 flex-1 min-w-0">
+                                            <span 
+                                                className={cn(
+                                                    "text-[10px] uppercase font-bold px-1.5 py-0.5 rounded-sm tracking-wide shrink-0",
+                                                    item.method === "GET" && "bg-blue-500/10 text-blue-500",
+                                                    item.method === "POST" && "bg-green-500/10 text-green-500",
+                                                    item.method === "PUT" && "bg-orange-500/10 text-orange-500",
+                                                    item.method === "DELETE" && "bg-red-500/10 text-red-500",
+                                                    item.method === "PATCH" && "bg-yellow-500/10 text-yellow-600",
+                                                    (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes(item.method)) && "bg-muted text-muted-foreground"
+                                                )}
+                                            >
+                                                {item.method}
+                                            </span>
+                                            <span className="font-medium text-xs truncate max-w-[150px]">{item.name || item.url}</span>
+                                        </div>
+                                        <Button 
+                                            variant="ghost" 
+                                            size="icon" 
+                                            className="h-6 w-6 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-md opacity-0 group-hover:opacity-100 transition-opacity shrink-0" 
+                                            onClick={(e) => {
                                                 e.stopPropagation()
                                                 onDeleteHistoryItem?.(item.id)
-                                            }}>
-                                                <Trash2 className="h-3 w-3" />
-                                            </Button>
+                                            }}
+                                        >
+                                            <Trash2 className="h-3.5 w-3.5" />
+                                        </Button>
+                                    </div>
+                                    <div className="flex items-center justify-between text-[11px] text-muted-foreground/80 pl-1">
+                                        <span className="truncate max-w-[160px]">{item.url}</span>
+                                        <div className="flex items-center gap-2 shrink-0">
+                                            <span>{new Date(item.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                                            {item.status && (
+                                                <span className={cn(
+                                                    "font-medium",
+                                                    item.status >= 200 && item.status < 300 ? "text-green-500" : "text-destructive"
+                                                )}>
+                                                    {item.status}
+                                                </span>
+                                            )}
                                         </div>
                                     </div>
-                                ))}
-                                {!history?.length && (
-                                    <div className="text-center p-4 text-sm text-muted-foreground italic">No history yet</div>
-                                )}
-                            </div>
-                        </ScrollArea>
-                    </TabsContent>
-                </Tabs>
-            </div>
+                                </div>
+                            ))}
+                            {!history?.length && (
+                                <div className="flex flex-col items-center justify-center p-8 text-center">
+                                    <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center mb-3">
+                                        <FolderPlus className="h-5 w-5 text-muted-foreground/50" />
+                                    </div>
+                                    <p className="text-sm font-medium">No history yet</p>
+                                    <p className="text-xs text-muted-foreground mt-1">Send a request to see it here.</p>
+                                </div>
+                            )}
+                        </div>
+                    </ScrollArea>
+                </TabsContent>
+            </Tabs>
 
             <Dialog open={newFolderDialogOpen} onOpenChange={setNewFolderDialogOpen}>
                 <DialogContent className="sm:max-w-[425px]">
@@ -251,6 +296,10 @@ export function CollectionsSidebar({
                                 value={newFolderName}
                                 onChange={(e) => setNewFolderName(e.target.value)}
                                 placeholder="My Folder"
+                                autoFocus
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') handleAddFolder()
+                                }}
                             />
                         </div>
                     </div>
@@ -259,6 +308,7 @@ export function CollectionsSidebar({
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
+
             <Dialog open={newCollectionDialogOpen} onOpenChange={setNewCollectionDialogOpen}>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
@@ -275,6 +325,10 @@ export function CollectionsSidebar({
                                 value={newCollectionName}
                                 onChange={(e) => setNewCollectionName(e.target.value)}
                                 placeholder="My Collection"
+                                autoFocus
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') handleCreateCollection()
+                                }}
                             />
                         </div>
                     </div>
@@ -283,6 +337,7 @@ export function CollectionsSidebar({
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
+
             <Dialog open={renameCollectionDialogOpen} onOpenChange={setRenameCollectionDialogOpen}>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
@@ -299,6 +354,10 @@ export function CollectionsSidebar({
                                 value={renameCollectionName}
                                 onChange={(e) => setRenameCollectionName(e.target.value)}
                                 placeholder="Collection Name"
+                                autoFocus
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') handleRenameCollection()
+                                }}
                             />
                         </div>
                     </div>

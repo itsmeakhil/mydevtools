@@ -28,7 +28,8 @@ import { toast } from "sonner"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
-import { FolderOpen } from "lucide-react"
+import { FolderOpen, PanelRight } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 const createNewTab = (): ApiRequestState => ({
     id: crypto.randomUUID(),
@@ -65,6 +66,7 @@ export function ApiClient() {
     const activeTab = tabs.find((t) => t.id === activeTabId) || tabs[0]
     const isMobile = useIsMobile()
     const [collectionsOpen, setCollectionsOpen] = React.useState(false)
+    const [sidebarOpen, setSidebarOpen] = React.useState(true)
 
     // Load state from localStorage
     React.useEffect(() => {
@@ -400,6 +402,20 @@ export function ApiClient() {
                         <div className="h-6 w-px bg-border/50 mx-1" />
                         <CodeGenerator request={activeTab} />
                         <ImportCurlDialog onImport={handleImportCurl} />
+                        {!isMobile && (
+                            <>
+                                <div className="h-6 w-px bg-border/50 mx-1" />
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-8 w-8"
+                                    onClick={() => setSidebarOpen(!sidebarOpen)}
+                                    title={sidebarOpen ? "Close Sidebar" : "Open Sidebar"}
+                                >
+                                    <PanelRight className="h-4 w-4 text-muted-foreground" />
+                                </Button>
+                            </>
+                        )}
                     </div>
                 </div>
 
@@ -454,7 +470,12 @@ export function ApiClient() {
 
             {/* Desktop Collections Sidebar */}
             {!isMobile && (
-                <div className="w-80 shrink-0 h-full border rounded-2xl bg-card/50 backdrop-blur-sm shadow-lg shadow-primary/[0.01] overflow-hidden">
+                <div 
+                    className={cn(
+                        "shrink-0 h-full border rounded-2xl bg-card/50 backdrop-blur-sm shadow-lg shadow-primary/[0.01] overflow-hidden transition-all duration-300 ease-in-out",
+                        sidebarOpen ? "w-80 opacity-100" : "w-0 opacity-0 border-transparent overflow-hidden"
+                    )}
+                >
                     <CollectionsSidebar
                         collections={collections}
                         onAddFolder={addFolder}

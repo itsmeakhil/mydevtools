@@ -36,7 +36,7 @@ export function CollectionItem({
         <div>
             <div
                 className={cn(
-                    "group flex items-center gap-2 py-1 pr-2 text-sm hover:bg-muted/50 cursor-pointer select-none",
+                    "group flex items-center gap-2 py-1.5 pr-2 my-0.5 text-sm hover:bg-muted/60 rounded-md cursor-pointer select-none transition-colors",
                     !isFolder && "hover:text-primary"
                 )}
                 style={{ paddingLeft }}
@@ -51,26 +51,27 @@ export function CollectionItem({
                 {isFolder ? (
                     <div className="flex items-center gap-2 flex-1 min-w-0">
                         {item.isOpen ? (
-                            <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" />
+                            <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground/70" />
                         ) : (
-                            <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+                            <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground/70" />
                         )}
                         <Folder className="h-4 w-4 shrink-0 text-blue-500 fill-blue-500/20" />
-                        <span className="truncate font-medium">{item.name}</span>
+                        <span className="truncate font-medium text-xs text-foreground/90">{item.name}</span>
                     </div>
                 ) : (
-                    <div className="flex items-center gap-2 flex-1 min-w-0">
+                    <div className="flex items-center gap-2.5 flex-1 min-w-0">
                         <span className={cn(
-                            "text-[10px] font-bold uppercase w-8 text-right shrink-0",
-                            (item as CollectionRequest).method === "GET" && "text-blue-500",
-                            (item as CollectionRequest).method === "POST" && "text-green-500",
-                            (item as CollectionRequest).method === "PUT" && "text-orange-500",
-                            (item as CollectionRequest).method === "DELETE" && "text-red-500",
-                            (item as CollectionRequest).method === "PATCH" && "text-yellow-500",
+                            "text-[10px] font-bold uppercase text-center shrink-0 px-1.5 py-0.5 rounded-sm tracking-wide w-[46px]",
+                            (item as CollectionRequest).method === "GET" && "bg-blue-500/10 text-blue-500",
+                            (item as CollectionRequest).method === "POST" && "bg-green-500/10 text-green-500",
+                            (item as CollectionRequest).method === "PUT" && "bg-orange-500/10 text-orange-500",
+                            (item as CollectionRequest).method === "DELETE" && "bg-red-500/10 text-red-500",
+                            (item as CollectionRequest).method === "PATCH" && "bg-yellow-500/10 text-yellow-600",
+                            (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes((item as CollectionRequest).method)) && "bg-muted text-muted-foreground"
                         )}>
                             {(item as CollectionRequest).method}
                         </span>
-                        <span className="truncate text-muted-foreground group-hover:text-foreground">
+                        <span className="truncate text-xs text-muted-foreground group-hover:text-foreground transition-colors">
                             {item.name}
                         </span>
                     </div>
@@ -81,13 +82,13 @@ export function CollectionItem({
                         <Button
                             variant="ghost"
                             size="icon"
-                            className="h-6 w-6 opacity-0 group-hover:opacity-100"
+                            className="h-6 w-6 rounded-md opacity-0 group-hover:opacity-100 hover:bg-background shrink-0"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <MoreHorizontal className="h-3 w-3" />
+                            <MoreHorizontal className="h-3.5 w-3.5 text-muted-foreground" />
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
+                    <DropdownMenuContent align="end" className="w-40 rounded-xl">
                         {isFolder && (
                             <DropdownMenuItem onClick={(e) => {
                                 e.stopPropagation()
@@ -112,23 +113,29 @@ export function CollectionItem({
             </div>
 
             {isFolder && (item as CollectionFolder).isOpen && (
-                <div>
-                    {(item as CollectionFolder).items.map((child) => (
-                        <CollectionItem
-                            key={child.id}
-                            item={child}
-                            level={level + 1}
-                            onToggle={onToggle}
-                            onDelete={onDelete}
-                            onAddFolder={onAddFolder}
-                            onLoadRequest={onLoadRequest}
-                        />
-                    ))}
-                    {(item as CollectionFolder).items.length === 0 && (
-                        <div className="text-xs text-muted-foreground py-1" style={{ paddingLeft: `${(level + 1) * 12 + 32}px` }}>
-                            Empty folder
-                        </div>
-                    )}
+                <div className="relative">
+                    <div 
+                        className="absolute left-0 top-0 bottom-0 w-px bg-border/50" 
+                        style={{ marginLeft: `${Number(paddingLeft.replace('px','')) + 6}px` }} 
+                    />
+                    <div className="py-0.5">
+                        {(item as CollectionFolder).items.map((child) => (
+                            <CollectionItem
+                                key={child.id}
+                                item={child}
+                                level={level + 1}
+                                onToggle={onToggle}
+                                onDelete={onDelete}
+                                onAddFolder={onAddFolder}
+                                onLoadRequest={onLoadRequest}
+                            />
+                        ))}
+                        {(item as CollectionFolder).items.length === 0 && (
+                            <div className="text-[11px] text-muted-foreground/60 py-1.5 italic" style={{ paddingLeft: `${(level + 1) * 12 + 32}px` }}>
+                                Empty folder
+                            </div>
+                        )}
+                    </div>
                 </div>
             )}
         </div>
