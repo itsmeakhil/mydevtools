@@ -133,7 +133,7 @@ export function EnvironmentManager({
                                     {environments.map(env => (
                                         <div
                                             key={env.id}
-                                            className={`flex items-center justify-between p-2 rounded-md cursor-pointer text-sm ${selectedEnvId === env.id ? "bg-secondary" : "hover:bg-muted"}`}
+                                            className={`group flex items-center justify-between p-2 rounded-md cursor-pointer text-sm ${selectedEnvId === env.id ? "bg-secondary" : "hover:bg-muted"}`}
                                             onClick={() => setSelectedEnvId(env.id)}
                                         >
                                             <span className="truncate">{env.name}</span>
@@ -159,7 +159,14 @@ export function EnvironmentManager({
                             {selectedEnv ? (
                                 <>
                                     <div className="flex items-center justify-between">
-                                        <h3 className="font-medium">{selectedEnv.name} Variables</h3>
+                                        <div className="flex items-center gap-2">
+                                            <Input
+                                                value={selectedEnv.name}
+                                                onChange={(e) => updateEnvironment(selectedEnv.id, { name: e.target.value })}
+                                                className="h-8 font-medium w-[200px] border-transparent hover:border-input focus:border-input focus:bg-background -ml-2 px-2"
+                                            />
+                                            <span className="text-sm text-muted-foreground font-medium hidden sm:inline-block">Variables</span>
+                                        </div>
                                         <Button size="sm" onClick={handleAddVariable}>
                                             <IconPlus className="h-4 w-4 mr-2" />
                                             Add Variable
