@@ -14,7 +14,13 @@
     "spanish": "Castellà",
     "english": "Anglès",
     "catalan": "Català",
-    "arabic": "Àrab"
+    "arabic": "Àrab",
+    "chineseSimplified": "Xinès simplificat",
+    "czech": "Txec",
+    "greek": "Ελληνικά",
+    "german": "Alemany",
+    "danish": "Danès",
+    "afrikaans": "Afrikaans"
   },
   "SettingsPage": {
     "title": "Configuració",
@@ -51,7 +57,13 @@
         "en": "Anglès (English)",
         "es": "Castellà (Español)",
         "ca": "Català",
-        "ar": "Àrab (عربى)"
+        "ar": "Àrab (عربى)",
+        "zh": "简体中文",
+        "cs": "Čeština (txec)",
+        "el": "Ελληνικά (Grec)",
+        "de": "Deutsch (Alemany)",
+        "da": "Dansk (Danès)",
+        "af": "Afrikaans"
       }
     }
   }

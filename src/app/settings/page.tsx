@@ -185,6 +185,12 @@ export default function SettingsPage() {
                   <SelectItem value="es">{t('language.languages.es')}</SelectItem>
                   <SelectItem value="ca">{t('language.languages.ca')}</SelectItem>
                   <SelectItem value="ar">{t('language.languages.ar')}</SelectItem>
+                  <SelectItem value="zh">{t('language.languages.zh')}</SelectItem>
+                  <SelectItem value="cs">{t('language.languages.cs')}</SelectItem>
+                  <SelectItem value="el">{t('language.languages.el')}</SelectItem>
+                  <SelectItem value="de">{t('language.languages.de')}</SelectItem>
+                  <SelectItem value="da">{t('language.languages.da')}</SelectItem>
+                  <SelectItem value="af">{t('language.languages.af')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>

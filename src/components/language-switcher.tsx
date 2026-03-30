@@ -42,6 +42,24 @@ export function LanguageSwitcher() {
         <DropdownMenuItem onClick={() => switchLanguage('ar')} className={locale === 'ar' ? 'font-bold' : ''}>
           {t('arabic')}
         </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('zh')} className={locale === 'zh' ? 'font-bold' : ''}>
+          {t('chineseSimplified')}
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('cs')} className={locale === 'cs' ? 'font-bold' : ''}>
+          {t('czech')}
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('el')} className={locale === 'el' ? 'font-bold' : ''}>
+          {t('greek')}
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('de')} className={locale === 'de' ? 'font-bold' : ''}>
+          {t('german')}
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('da')} className={locale === 'da' ? 'font-bold' : ''}>
+          {t('danish')}
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('af')} className={locale === 'af' ? 'font-bold' : ''}>
+          {t('afrikaans')}
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
