@@ -25,6 +25,7 @@ import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
 import { ProjectManagerDialog } from "./components/ProjectManagerDialog";
 import { Folder } from "lucide-react";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 interface TaskFormProps {
   onAddTask: (task: string, projectId?: string) => void;
@@ -32,6 +33,7 @@ interface TaskFormProps {
 }
 
 export default function TaskForm({ onAddTask, inputRef }: TaskFormProps) {
+  const t = useTranslations("Tasks.form");
   const [newTask, setNewTask] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [isMultiline, setIsMultiline] = useState(false);
@@ -69,7 +71,7 @@ export default function TaskForm({ onAddTask, inputRef }: TaskFormProps) {
     if (newTask.trim() === "") return;
 
     if (selectedProjectId === "none") {
-      toast.error("Please select a project or create a new one to add a task.");
+      toast.error(t("errorSelectProject"));
       return;
     }
 
@@ -131,7 +133,7 @@ export default function TaskForm({ onAddTask, inputRef }: TaskFormProps) {
           <div className="flex-1 space-y-2">
             <div className="relative">
               <Label htmlFor="task-input" className="sr-only">
-                Add new task
+                {t("addNewTaskLabel")}
               </Label>
               <Textarea
                 id="task-input"
@@ -141,7 +143,7 @@ export default function TaskForm({ onAddTask, inputRef }: TaskFormProps) {
                 onKeyDown={handleKeyDown}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
-                placeholder={isMultiline ? "Add task details... (Shift+Enter for new line)" : "What needs to be done? Press Enter to add"}
+                placeholder={isMultiline ? t("multilinePlaceholder") : t("singlelinePlaceholder")}
                 className={cn(
                   "min-h-[40px] max-h-[120px] resize-none text-sm transition-all pr-[150px]",
                   isFocused
@@ -149,7 +151,7 @@ export default function TaskForm({ onAddTask, inputRef }: TaskFormProps) {
                     : "border-border hover:border-primary/50"
                 )}
                 rows={1}
-                aria-label="Task input"
+                aria-label={t("taskInputAria")}
                 aria-describedby="task-hint"
               />
 
@@ -159,11 +161,11 @@ export default function TaskForm({ onAddTask, inputRef }: TaskFormProps) {
                   <SelectTrigger className="w-[140px] h-[32px] border-dashed text-xs bg-background/50 hover:bg-background shadow-none">
                     <div className="flex items-center gap-2 truncate">
                       <Folder className="h-3.5 w-3.5 text-muted-foreground" />
-                      <SelectValue placeholder="Project" />
+                      <SelectValue placeholder={t("projectPlaceholder")} />
                     </div>
                   </SelectTrigger>
                   <SelectContent align="end">
-                    <SelectItem value="none" className="text-xs text-muted-foreground">Select Project</SelectItem>
+                    <SelectItem value="none" className="text-xs text-muted-foreground">{t("selectProject")}</SelectItem>
                     {projects.length > 0 && <SelectSeparator />}
                     {projects.map((project) => (
                       <SelectItem key={project.id} value={project.id} className="text-xs">
@@ -189,26 +191,26 @@ export default function TaskForm({ onAddTask, inputRef }: TaskFormProps) {
                 className="text-xs text-muted-foreground flex items-center gap-2"
               >
                 <span className="hidden sm:inline">
-                  {isMultiline ? "Shift+Enter for new line, Enter to add" : "Enter to add"}
+                  {isMultiline ? t("hintMultiline") : t("hintSingleline")}
                 </span>
-                <span className="sm:hidden">Enter to add</span>
+                <span className="sm:hidden">{t("hintSingleline")}</span>
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <button
                         type="button"
                         className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
-                        aria-label="Keyboard shortcuts"
+                        aria-label={t("shortcutsAria")}
                       >
                         <Keyboard className="h-3 w-3" />
-                        <span className="hidden md:inline">Shortcuts</span>
+                        <span className="hidden md:inline">{t("shortcutsLabel")}</span>
                       </button>
                     </TooltipTrigger>
                     <TooltipContent side="right" className="text-xs">
                       <div className="space-y-1">
-                        <div><kbd className="px-1.5 py-0.5 bg-muted rounded text-xs">Enter</kbd> Add task</div>
-                        <div><kbd className="px-1.5 py-0.5 bg-muted rounded text-xs">Shift</kbd> + <kbd className="px-1.5 py-0.5 bg-muted rounded text-xs">Enter</kbd> New line</div>
-                        <div><kbd className="px-1.5 py-0.5 bg-muted rounded text-xs">Esc</kbd> Clear</div>
+                        <div><kbd className="px-1.5 py-0.5 bg-muted rounded text-xs">Enter</kbd> {t("shortcutAddTask")}</div>
+                        <div><kbd className="px-1.5 py-0.5 bg-muted rounded text-xs">Shift</kbd> + <kbd className="px-1.5 py-0.5 bg-muted rounded text-xs">Enter</kbd> {t("shortcutNewLine")}</div>
+                        <div><kbd className="px-1.5 py-0.5 bg-muted rounded text-xs">Esc</kbd> {t("shortcutClear")}</div>
                       </div>
                     </TooltipContent>
                   </Tooltip>
@@ -226,7 +228,7 @@ export default function TaskForm({ onAddTask, inputRef }: TaskFormProps) {
             aria-label="Add task"
           >
             <Plus className="h-4 w-4" />
-            <span className="hidden sm:inline">Add</span>
+            <span className="hidden sm:inline">{t("addButton")}</span>
           </Button>
         </div>
       </div>

@@ -7,6 +7,7 @@ import KanbanCard from "./KanbanCard";
 import { LucideIcon } from "lucide-react";
 import { STATUS_CONFIG } from "./config/constants";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface KanbanColumnProps {
   id: "not-started" | "ongoing" | "completed";
@@ -25,6 +26,8 @@ export default function KanbanColumn({
   onUpdateTask,
   onDeleteTask,
 }: KanbanColumnProps) {
+  const tKanban = useTranslations("Tasks.kanban");
+  const tStatus = useTranslations("Tasks.status");
   const { setNodeRef, isOver } = useDroppable({
     id,
   });
@@ -44,7 +47,7 @@ export default function KanbanColumn({
           : "hover:shadow-md"
       )}
       role="region"
-      aria-label={`${title} column with ${tasks.length} tasks`}
+      aria-label={tKanban("columnAria", { title, count: tasks.length })}
     >
       {/* Enhanced Column Header */}
       <div className="flex items-center gap-3 mb-4 pb-3 border-b border-border/50">
@@ -59,7 +62,7 @@ export default function KanbanColumn({
             "px-2.5 py-1 rounded-full text-xs font-bold bg-background/80 border border-border shadow-sm",
             config.color
           )}
-          aria-label={`${tasks.length} tasks in ${title}`}
+          aria-label={tKanban("countInColumnAria", { title, count: tasks.length })}
         >
           {tasks.length}
         </span>
@@ -77,7 +80,7 @@ export default function KanbanColumn({
                   : "border-border/50 hover:border-border"
               )}
               role="status"
-              aria-label="Empty column"
+              aria-label={tKanban("emptyColumnAria")}
             >
               <div className={cn(
                 "p-3 rounded-full mb-2 transition-colors",
@@ -92,11 +95,11 @@ export default function KanbanColumn({
                 "font-medium transition-colors",
                 isOver ? "text-primary" : "text-muted-foreground/70"
               )}>
-                {isOver ? "Drop task here" : "No tasks yet"}
+                {isOver ? tKanban("dropHere") : tKanban("noTasksYet")}
               </span>
               {!isOver && (
                 <p className="text-xs text-muted-foreground/50 mt-1">
-                  {config.description}
+                  {tStatus(`${id}.description` as any)}
                 </p>
               )}
             </div>

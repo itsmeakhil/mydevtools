@@ -14,6 +14,7 @@ import { Download, FileJson, FileSpreadsheet } from "lucide-react";
 import { Task } from "@/app/app/to-do/types/Task";
 import { Project } from "@/app/app/to-do/types/Project";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 interface ExportImportDialogProps {
   open: boolean;
@@ -28,6 +29,8 @@ export default function ExportImportDialog({
   tasks,
   projects,
 }: ExportImportDialogProps) {
+  const t = useTranslations("Tasks.export");
+  const tStatus = useTranslations("Tasks.status");
   // Filter states
   const [selectedProject, setSelectedProject] = useState<string>("all");
   const [selectedStatus, setSelectedStatus] = useState<string>("all");
@@ -41,7 +44,7 @@ export default function ExportImportDialog({
   // Helper to get project name
   const getProjectName = (projectId?: string) => {
     if (!projectId) return "";
-    return projects.find((p) => p.id === projectId)?.name || "Unknown Project";
+    return projects.find((p) => p.id === projectId)?.name || t("unknownProject");
   };
 
   // Filter tasks
@@ -68,13 +71,13 @@ export default function ExportImportDialog({
     link.download = `tasks-export-${new Date().toISOString().split("T")[0]}.json`;
     link.click();
     URL.revokeObjectURL(url);
-    toast.success(`Exported ${filteredTasks.length} tasks to JSON!`);
+    toast.success(t("toastExportedJson", { count: filteredTasks.length }));
   };
 
   const exportToCSV = () => {
     const filteredTasks = getFilteredTasks();
     if (filteredTasks.length === 0) {
-      toast.error("No tasks to export with current filters");
+      toast.error(t("toastNoTasks"));
       return;
     }
 
@@ -117,7 +120,7 @@ export default function ExportImportDialog({
     link.download = `tasks-export-${new Date().toISOString().split("T")[0]}.csv`;
     link.click();
     URL.revokeObjectURL(url);
-    toast.success(`Exported ${filteredTasks.length} tasks to CSV!`);
+    toast.success(t("toastExportedCsv", { count: filteredTasks.length }));
   };
 
   const exportToExcel = async () => {
@@ -126,7 +129,7 @@ export default function ExportImportDialog({
       const filteredTasks = getFilteredTasks();
 
       if (filteredTasks.length === 0) {
-        toast.error("No tasks to export with current filters");
+        toast.error(t("toastNoTasks"));
         return;
       }
 
@@ -150,10 +153,10 @@ export default function ExportImportDialog({
       XLSX.utils.book_append_sheet(workbook, worksheet, "Tasks");
 
       XLSX.writeFile(workbook, `tasks-export-${new Date().toISOString().split("T")[0]}.xlsx`);
-      toast.success(`Exported ${filteredTasks.length} tasks to Excel!`);
+      toast.success(t("toastExportedExcel", { count: filteredTasks.length }));
     } catch (error) {
       console.error("Excel export error:", error);
-      toast.error("Failed to export to Excel");
+      toast.error(t("toastFailedExcel"));
     }
   };
 
@@ -161,22 +164,22 @@ export default function ExportImportDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Export Tasks</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
           <DialogDescription>
-            Export your tasks to JSON, CSV, or Excel formats.
+            {t("description")}
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 py-4">
           <div className="grid grid-cols-3 gap-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium">Project</label>
+              <label className="text-sm font-medium">{t("projectLabel")}</label>
               <select
                 className="w-full p-2 rounded-md border bg-background"
                 value={selectedProject}
                 onChange={(e) => setSelectedProject(e.target.value)}
               >
-                <option value="all">All Projects</option>
+                <option value="all">{t("allProjects")}</option>
                 {projects.map((p) => (
                   <option key={p.id} value={p.id}>
                     {p.name}
@@ -185,26 +188,26 @@ export default function ExportImportDialog({
               </select>
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Status</label>
+              <label className="text-sm font-medium">{t("statusLabel")}</label>
               <select
                 className="w-full p-2 rounded-md border bg-background"
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
               >
-                <option value="all">All Statuses</option>
-                <option value="not-started">Not Started</option>
-                <option value="ongoing">Ongoing</option>
-                <option value="completed">Completed</option>
+                <option value="all">{t("allStatuses")}</option>
+                <option value="not-started">{tStatus("not-started.label")}</option>
+                <option value="ongoing">{tStatus("ongoing.label")}</option>
+                <option value="completed">{tStatus("completed.label")}</option>
               </select>
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Tag</label>
+              <label className="text-sm font-medium">{t("tagLabel")}</label>
               <select
                 className="w-full p-2 rounded-md border bg-background"
                 value={selectedTag}
                 onChange={(e) => setSelectedTag(e.target.value)}
               >
-                <option value="all">All Tags</option>
+                <option value="all">{t("allTags")}</option>
                 {uniqueTags.map((t) => (
                   <option key={t} value={t}>
                     {t}
@@ -220,13 +223,13 @@ export default function ExportImportDialog({
                 <FileJson className="h-5 w-5 text-primary" />
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold mb-1">Export as JSON</h3>
+                <h3 className="font-semibold mb-1">{t("exportAsJsonTitle")}</h3>
                 <p className="text-sm text-muted-foreground mb-3">
-                  Export task data including subtasks, tags, and metadata.
+                  {t("exportAsJsonDescription")}
                 </p>
                 <Button onClick={exportToJSON} className="gap-2">
                   <Download className="h-4 w-4" />
-                  Export JSON
+                  {t("exportJson")}
                 </Button>
               </div>
             </div>
@@ -238,18 +241,18 @@ export default function ExportImportDialog({
                 <FileSpreadsheet className="h-5 w-5 text-green-500" />
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold mb-1">Export as CSV / Excel</h3>
+                <h3 className="font-semibold mb-1">{t("exportAsCsvExcelTitle")}</h3>
                 <p className="text-sm text-muted-foreground mb-3">
-                  Export tasks for spreadsheet applications.
+                  {t("exportAsCsvExcelDescription")}
                 </p>
                 <div className="flex gap-2">
                   <Button onClick={exportToCSV} variant="outline" className="gap-2">
                     <Download className="h-4 w-4" />
-                    Export CSV
+                    {t("exportCsv")}
                   </Button>
                   <Button onClick={exportToExcel} variant="outline" className="gap-2">
                     <Download className="h-4 w-4" />
-                    Export Excel
+                    {t("exportExcel")}
                   </Button>
                 </div>
               </div>
@@ -259,7 +262,7 @@ export default function ExportImportDialog({
 
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
-            Close
+            {t("close")}
           </Button>
         </DialogFooter>
       </DialogContent>

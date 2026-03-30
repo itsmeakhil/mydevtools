@@ -47,4 +47,163 @@
       }
     }
   }
+  ,
+  "Tasks": {
+    "page": {
+      "loading": "Loading...",
+      "myTasksTitle": "My Tasks",
+      "statsLine": "{total} tasks • {percent}% complete",
+      "statsLineDesktop": "{total} total • {percent}% complete"
+    },
+    "filters": {
+      "all": "All",
+      "total": "Total",
+      "allProjects": "All Projects",
+      "export": "Export",
+      "kanban": "Kanban",
+      "list": "List",
+      "searchPlaceholder": "Search tasks...",
+      "searchAria": "Search tasks",
+      "clearSearchAria": "Clear search",
+      "foundTasks": "Found {count} {count, plural, one {task} other {tasks}}",
+      "filterByAllAria": "Filter by All",
+      "filterByStatusAria": "Filter by {status}"
+    },
+    "status": {
+      "not-started": { "label": "Not Started", "description": "Tasks that haven't been started yet" },
+      "ongoing": { "label": "Ongoing", "description": "Tasks currently in progress" },
+      "completed": { "label": "Completed", "description": "Tasks that are finished" }
+    },
+    "priorities": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "form": {
+      "addNewTaskLabel": "Add new task",
+      "multilinePlaceholder": "Add task details... (Shift+Enter for new line)",
+      "singlelinePlaceholder": "What needs to be done? Press Enter to add",
+      "taskInputAria": "Task input",
+      "projectPlaceholder": "Project",
+      "selectProject": "Select Project",
+      "errorSelectProject": "Please select a project or create a new one to add a task.",
+      "hintMultiline": "Shift+Enter for new line, Enter to add",
+      "hintSingleline": "Enter to add",
+      "shortcutsAria": "Keyboard shortcuts",
+      "shortcutsLabel": "Shortcuts",
+      "shortcutAddTask": "Add task",
+      "shortcutNewLine": "New line",
+      "shortcutClear": "Clear",
+      "addButton": "Add"
+    },
+    "list": {
+      "ariaLabel": "Task list",
+      "loading": "Loading your tasks...",
+      "emptyTitle": "No tasks found",
+      "emptyPrimary": "Get started by adding your first task above! Press Enter to quickly add tasks.",
+      "emptySecondary": "Try adjusting your filters or search query."
+    },
+    "mobileDrawer": {
+      "addTaskSrOnly": "Add Task",
+      "addNewTaskTitle": "Add New Task",
+      "addNewTaskDescription": "Create a new task to track your progress.",
+      "cancel": "Cancel"
+    },
+    "kanban": {
+      "ariaLabel": "Kanban board",
+      "loading": "Loading your tasks...",
+      "dropHere": "Drop task here",
+      "noTasksYet": "No tasks yet",
+      "emptyColumnAria": "Empty column",
+      "columnAria": "{title} column with {count} tasks",
+      "countInColumnAria": "{count} tasks in {title}"
+    },
+    "taskItem": {
+      "confirmDelete": "Are you sure you want to delete this task?",
+      "statusPlaceholder": "Status",
+      "changeStatusAria": "Change task status",
+      "taskOptionsAria": "Task options",
+      "editTask": "Edit Task",
+      "copyTask": "Copy Task",
+      "copied": "Copied!",
+      "deleteTask": "Delete Task",
+      "statusHeading": "Status",
+      "editTaskAria": "Edit task"
+    },
+    "editDialog": {
+      "title": "Edit Task",
+      "description": "Update task details, add subtasks, set priorities and more.",
+      "taskTitleLabel": "Task Title *",
+      "taskTitlePlaceholder": "What needs to be done?",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Add more details about this task...",
+      "statusLabel": "Status",
+      "priorityLabel": "Priority",
+      "dueDateLabel": "Due Date",
+      "pickDate": "Pick a date",
+      "clearDate": "Clear Date",
+      "projectLabel": "Project",
+      "selectProjectPlaceholder": "Select a project",
+      "noProject": "No Project",
+      "timeEstimateLabel": "Time Estimate (minutes)",
+      "timeEstimatePlaceholder": "How long will this take?",
+      "tagsLabel": "Tags",
+      "customTagNamePlaceholder": "Custom tag name",
+      "subtasksLabel": "Subtasks",
+      "addSubtaskPlaceholder": "Add a subtask...",
+      "cancel": "Cancel",
+      "saving": "Saving...",
+      "saveChanges": "Save Changes"
+    },
+    "export": {
+      "title": "Export Tasks",
+      "description": "Export your tasks to JSON, CSV, or Excel formats.",
+      "projectLabel": "Project",
+      "statusLabel": "Status",
+      "tagLabel": "Tag",
+      "allProjects": "All Projects",
+      "allStatuses": "All Statuses",
+      "allTags": "All Tags",
+      "exportAsJsonTitle": "Export as JSON",
+      "exportAsJsonDescription": "Export task data including subtasks, tags, and metadata.",
+      "exportJson": "Export JSON",
+      "exportAsCsvExcelTitle": "Export as CSV / Excel",
+      "exportAsCsvExcelDescription": "Export tasks for spreadsheet applications.",
+      "exportCsv": "Export CSV",
+      "exportExcel": "Export Excel",
+      "close": "Close",
+      "toastNoTasks": "No tasks to export with current filters",
+      "toastExportedJson": "Exported {count} tasks to JSON!",
+      "toastExportedCsv": "Exported {count} tasks to CSV!",
+      "toastExportedExcel": "Exported {count} tasks to Excel!",
+      "toastFailedJson": "Failed to export to JSON",
+      "toastFailedCsv": "Failed to export to CSV",
+      "toastFailedExcel": "Failed to export to Excel",
+      "unknownProject": "Unknown Project"
+    },
+    "ack": {
+      "taskAddedTitle": "Task added successfully",
+      "taskAddedFailedTitle": "Failed to add task",
+      "taskUpdatedTitle": "Task updated successfully",
+      "taskUpdatedFailedTitle": "Failed to update task",
+      "taskStatusUpdateFailedTitle": "Failed to update task status",
+      "taskMovedTitle": "Task moved to {status}",
+      "tryAgain": "Please try again.",
+      "taskDeletedTitle": "Task \"{text}\" deleted",
+      "undo": "Undo",
+      "taskRestoredTitle": "Task restored",
+      "taskRestoredSuccessTitle": "Task restored successfully",
+      "taskRestoreFailedTitle": "Failed to restore task. Please try again.",
+      "taskDeleteFailedTitle": "Failed to delete task. Please try again.",
+      "tasksImportedTitle": "Successfully imported {count} {count, plural, one {task} other {tasks}}!",
+      "tasksImportFailedTitle": "Failed to import tasks. Please try again.",
+      "unknownProject": "Unknown Project",
+      "projectCreatedTitle": "Project created successfully",
+      "projectCreateFailedTitle": "Failed to create project",
+      "projectUpdatedTitle": "Project updated successfully",
+      "projectUpdateFailedTitle": "Failed to update project",
+      "projectDeletedTitle": "Project deleted successfully",
+      "projectDeleteFailedTitle": "Failed to delete project"
+    }
+  }
 }

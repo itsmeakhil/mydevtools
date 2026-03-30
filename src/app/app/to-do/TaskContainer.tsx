@@ -16,6 +16,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { STATUS_CONFIG } from "./config/constants";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/components/hooks/use-mobile";
+import { useTranslations } from "next-intl";
 import {
   Drawer,
   DrawerContent,
@@ -37,6 +38,10 @@ import {
 } from "@/components/ui/select";
 
 export const TaskContainer = () => {
+  const tPage = useTranslations("Tasks.page");
+  const tFilters = useTranslations("Tasks.filters");
+  const tStatus = useTranslations("Tasks.status");
+  const tDrawer = useTranslations("Tasks.mobileDrawer");
   const isMobile = useIsMobile();
   const [viewMode, setViewMode] = useState<"list" | "kanban">("kanban");
 
@@ -133,7 +138,7 @@ export const TaskContainer = () => {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground" />
               <Input
                 ref={searchInputRef}
-                placeholder="Search tasks..."
+                placeholder={tFilters("searchPlaceholder")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 h-10 bg-muted/50 border-transparent rounded-lg focus-visible:ring-1 text-sm placeholder:text-muted-foreground/70"
@@ -153,9 +158,9 @@ export const TaskContainer = () => {
 
           {/* Title & Stats */}
           <div className="px-4 mt-1 mb-2">
-            <h1 className="text-2xl font-bold tracking-tight text-foreground">My Tasks</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-foreground">{tPage("myTasksTitle")}</h1>
             <p className="text-sm text-muted-foreground mt-0.5">
-              {allTaskStats.total} tasks • {completionRate}% complete
+              {tPage("statsLine", { total: allTaskStats.total, percent: completionRate })}
             </p>
           </div>
 
@@ -167,7 +172,7 @@ export const TaskContainer = () => {
               onClick={() => setFilterStatus("all")}
               className="h-8 rounded-full px-4 text-xs font-medium whitespace-nowrap flex-shrink-0"
             >
-              All
+              {tFilters("all")}
             </Button>
             {Object.values(STATUS_CONFIG).map((config) => (
               <Button
@@ -182,7 +187,7 @@ export const TaskContainer = () => {
               >
                 {/* Only show icon if active or if we want icons in chips */}
                 {filterStatus === config.id && <config.icon className="h-3 w-3" />}
-                {config.label}
+                {tStatus(`${config.id}.label` as any)}
                 <span className={cn(
                   "ml-1 text-[10px] opacity-70",
                 )}>
@@ -211,10 +216,10 @@ export const TaskContainer = () => {
                   </div>
                   <div>
                     <h1 className="text-lg md:text-xl font-bold tracking-tight text-foreground">
-                      My Tasks
+                      {tPage("myTasksTitle")}
                     </h1>
                     <p className="text-xs text-muted-foreground mt-0.5 hidden sm:block">
-                      {allTaskStats.total} total • {completionRate}% complete
+                      {tPage("statsLineDesktop", { total: allTaskStats.total, percent: completionRate })}
                     </p>
                   </div>
                 </div>
@@ -226,7 +231,7 @@ export const TaskContainer = () => {
                       <Circle className="h-3.5 w-3.5 text-muted-foreground" />
                       <span className="text-foreground">{allTaskStats.total}</span>
                     </div>
-                    <span className="text-[9px] text-muted-foreground">Total</span>
+                    <span className="text-[9px] text-muted-foreground">{tFilters("total")}</span>
                   </div>
 
                   {Object.values(STATUS_CONFIG).map((config) => {
@@ -249,7 +254,7 @@ export const TaskContainer = () => {
                           <config.icon className={cn("h-3.5 w-3.5", config.color)} />
                           <span className={config.color}>{count}</span>
                         </div>
-                        <span className="text-[9px] text-muted-foreground">{config.label}</span>
+                        <span className="text-[9px] text-muted-foreground">{tStatus(`${config.id}.label` as any)}</span>
                       </div>
                     );
                   })}
@@ -264,11 +269,11 @@ export const TaskContainer = () => {
                   <Input
                     ref={searchInputRef}
                     type="text"
-                    placeholder="Search tasks..."
+                    placeholder={tFilters("searchPlaceholder")}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-9 pr-9 h-9 text-sm border focus-visible:ring-2 focus-visible:ring-primary/20 transition-all w-full"
-                    aria-label="Search tasks"
+                    aria-label={tFilters("searchAria")}
                   />
                   {searchQuery && (
                     <Button
@@ -276,7 +281,7 @@ export const TaskContainer = () => {
                       size="sm"
                       className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0 hover:bg-muted"
                       onClick={() => setSearchQuery("")}
-                      aria-label="Clear search"
+                      aria-label={tFilters("clearSearchAria")}
                     >
                       <X className="h-4 w-4" />
                     </Button>
@@ -288,11 +293,11 @@ export const TaskContainer = () => {
                   <SelectTrigger className="w-[140px] h-9 text-xs">
                     <div className="flex items-center gap-2 truncate">
                       <Folder className="h-3.5 w-3.5 text-muted-foreground" />
-                      <SelectValue placeholder="All Projects" />
+                      <SelectValue placeholder={tFilters("allProjects")} />
                     </div>
                   </SelectTrigger>
                   <SelectContent align="end">
-                    <SelectItem value="all" className="text-xs">All Projects</SelectItem>
+                    <SelectItem value="all" className="text-xs">{tFilters("allProjects")}</SelectItem>
                     {projects.length > 0 && <SelectSeparator />}
                     {projects.map((project) => (
                       <SelectItem key={project.id} value={project.id} className="text-xs">
@@ -313,7 +318,7 @@ export const TaskContainer = () => {
                   className="h-9 px-3 gap-2"
                 >
                   <Folder className="h-3.5 w-3.5" />
-                  <span className="hidden sm:inline text-xs font-medium">Export</span>
+                  <span className="hidden sm:inline text-xs font-medium">{tFilters("export")}</span>
                 </Button>
 
                 {/* Enhanced View Toggle - Hidden on mobile since we force list view */}
@@ -328,21 +333,21 @@ export const TaskContainer = () => {
                   >
                     <ToggleGroupItem
                       value="kanban"
-                      aria-label="Kanban view"
+                      aria-label={tFilters("kanban")}
                       size="sm"
                       className="h-8 px-3 data-[state=on]:bg-background data-[state=on]:shadow-sm transition-all"
                     >
                       <LayoutGrid className="h-3.5 w-3.5" />
-                      <span className="hidden sm:inline ml-1.5 text-xs font-medium">Kanban</span>
+                      <span className="hidden sm:inline ml-1.5 text-xs font-medium">{tFilters("kanban")}</span>
                     </ToggleGroupItem>
                     <ToggleGroupItem
                       value="list"
-                      aria-label="List view"
+                      aria-label={tFilters("list")}
                       size="sm"
                       className="h-8 px-3 data-[state=on]:bg-background data-[state=on]:shadow-sm transition-all"
                     >
                       <List className="h-3.5 w-3.5" />
-                      <span className="hidden sm:inline ml-1.5 text-xs font-medium">List</span>
+                      <span className="hidden sm:inline ml-1.5 text-xs font-medium">{tFilters("list")}</span>
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
@@ -356,10 +361,10 @@ export const TaskContainer = () => {
                     size="sm"
                     onClick={() => setFilterStatus("all")}
                     className="h-7 px-2.5 text-xs whitespace-nowrap flex-shrink-0"
-                    aria-label="Filter by All"
+                    aria-label={tFilters("filterByAllAria")}
                   >
                     <ListTodo className="h-3 w-3 mr-1" />
-                    All
+                    {tFilters("all")}
                     <span className={cn(
                       "ml-1 px-1.5 py-0.5 rounded text-[9px]",
                       filterStatus === "all" ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
@@ -382,10 +387,10 @@ export const TaskContainer = () => {
                         size="sm"
                         onClick={() => setFilterStatus(config.id)}
                         className="h-7 px-2.5 text-xs whitespace-nowrap flex-shrink-0"
-                        aria-label={`Filter by ${config.label}`}
+                        aria-label={tFilters("filterByStatusAria", { status: tStatus(`${config.id}.label` as any) })}
                       >
                         <config.icon className={cn("h-3 w-3 mr-1", config.color)} />
-                        {config.label}
+                        {tStatus(`${config.id}.label` as any)}
                         <span className={cn(
                           "ml-1 px-1.5 py-0.5 rounded text-[9px]",
                           filterStatus === config.id ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
@@ -403,7 +408,16 @@ export const TaskContainer = () => {
                 <div className="flex items-center gap-2 mt-2 p-1.5 rounded-lg bg-muted/50 border">
                   <Search className="h-3.5 w-3.5 text-muted-foreground" />
                   <p className="text-xs text-muted-foreground">
-                    Found <span className="font-semibold text-foreground">{filteredTasks.length}</span> task{filteredTasks.length !== 1 ? 's' : ''}
+                    {tFilters("foundTasks", { count: filteredTasks.length }).split(String(filteredTasks.length)).map((part, idx) =>
+                      idx === 0 ? (
+                        <span key={idx}>
+                          {part}
+                          <span className="font-semibold text-foreground">{filteredTasks.length}</span>
+                        </span>
+                      ) : (
+                        <span key={idx}>{part}</span>
+                      )
+                    )}
                   </p>
                 </div>
               )}
@@ -484,21 +498,21 @@ export const TaskContainer = () => {
               className="fab fab-pulse h-14 w-14 bg-primary hover:bg-primary/90 text-primary-foreground transition-transform active:scale-95"
             >
               <Plus className="h-6 w-6" />
-              <span className="sr-only">Add Task</span>
+              <span className="sr-only">{tDrawer("addTaskSrOnly")}</span>
             </Button>
           </DrawerTrigger>
           <DrawerContent>
             <div className="mx-auto w-full max-w-sm">
               <DrawerHeader>
-                <DrawerTitle>Add New Task</DrawerTitle>
-                <DrawerDescription>Create a new task to track your progress.</DrawerDescription>
+                <DrawerTitle>{tDrawer("addNewTaskTitle")}</DrawerTitle>
+                <DrawerDescription>{tDrawer("addNewTaskDescription")}</DrawerDescription>
               </DrawerHeader>
               <div className="p-4 pb-0">
                 <TaskForm onAddTask={handleAddTask} />
               </div>
               <DrawerFooter>
                 <DrawerClose asChild>
-                  <Button variant="outline">Cancel</Button>
+                  <Button variant="outline">{tDrawer("cancel")}</Button>
                 </DrawerClose>
               </DrawerFooter>
             </div>

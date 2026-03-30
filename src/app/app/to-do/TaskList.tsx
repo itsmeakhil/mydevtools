@@ -6,6 +6,7 @@ import { FadeIn } from "@/components/ui/fade-in";
 import { Inbox, Loader2, CheckCircle2 } from "lucide-react";
 import { Task } from "@/app/app/to-do/types/Task";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface TaskListProps {
   tasks: Task[];
@@ -16,14 +17,16 @@ interface TaskListProps {
 }
 
 export default function TaskList({ tasks, isLoading, onUpdateStatus, onUpdateTask, onDeleteTask }: TaskListProps) {
+  const t = useTranslations("Tasks.list");
+
   return (
-    <ul className="space-y-3" role="list" aria-label="Task list">
+    <ul className="space-y-3" role="list" aria-label={t("ariaLabel")}>
       <FadeIn show={isLoading}>
         {isLoading && (
           <div className="flex items-center justify-center py-16">
             <div className="text-center space-y-4">
               <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto" />
-              <p className="text-sm text-muted-foreground font-medium">Loading your tasks...</p>
+              <p className="text-sm text-muted-foreground font-medium">{t("loading")}</p>
             </div>
           </div>
         )}
@@ -37,11 +40,11 @@ export default function TaskList({ tasks, isLoading, onUpdateStatus, onUpdateTas
                 <Inbox className="h-16 w-16 text-muted-foreground" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl font-bold text-foreground">No tasks found</h3>
+                <h3 className="text-xl font-bold text-foreground">{t("emptyTitle")}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {tasks.length === 0 
-                    ? "Get started by adding your first task above! Press Enter to quickly add tasks."
-                    : "Try adjusting your filters or search query."
+                    ? t("emptyPrimary")
+                    : t("emptySecondary")
                   }
                 </p>
               </div>

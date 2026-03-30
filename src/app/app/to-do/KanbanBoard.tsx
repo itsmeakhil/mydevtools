@@ -18,6 +18,7 @@ import { Clock, TrendingUp, CheckCircle2 } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../../../components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { STATUS_CONFIG } from "./config/constants";
+import { useTranslations } from "next-intl";
 
 interface KanbanBoardProps {
   tasks: Task[];
@@ -29,10 +30,10 @@ interface KanbanBoardProps {
 
 type Status = "not-started" | "ongoing" | "completed";
 
-const columns: { id: Status; title: string; icon: typeof Clock }[] = [
-  { id: "not-started", title: "Not Started", icon: Clock },
-  { id: "ongoing", title: "Ongoing", icon: TrendingUp },
-  { id: "completed", title: "Completed", icon: CheckCircle2 },
+const columns: { id: Status; icon: typeof Clock }[] = [
+  { id: "not-started", icon: Clock },
+  { id: "ongoing", icon: TrendingUp },
+  { id: "completed", icon: CheckCircle2 },
 ];
 
 export default function KanbanBoard({
@@ -42,6 +43,8 @@ export default function KanbanBoard({
   onDeleteTask,
   isLoading,
 }: KanbanBoardProps) {
+  const tKanban = useTranslations("Tasks.kanban");
+  const tStatus = useTranslations("Tasks.status");
   const [activeTab, setActiveTab] = useState<Status>("not-started");
 
   const sensors = useSensors(
@@ -116,7 +119,7 @@ export default function KanbanBoard({
       <div className="flex items-center justify-center py-12">
         <div className="text-center space-y-4">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto" />
-          <p className="text-muted-foreground">Loading your tasks...</p>
+          <p className="text-muted-foreground">{tKanban("loading")}</p>
         </div>
       </div>
     );
@@ -145,7 +148,7 @@ export default function KanbanBoard({
                     activeTab === col.id && config.color
                   )}
                 >
-                  <span className="truncate">{col.title}</span>
+                  <span className="truncate">{tStatus(`${col.id}.label` as any)}</span>
                   <span className={cn(
                     "ml-1.5 text-[10px] px-1.5 py-0.5 rounded-full transition-colors",
                     activeTab === col.id ? "bg-primary/10" : "bg-muted-foreground/10"
@@ -165,7 +168,7 @@ export default function KanbanBoard({
             >
               <KanbanColumn
                 id={column.id}
-                title={column.title}
+                title={tStatus(`${column.id}.label` as any)}
                 icon={column.icon}
                 tasks={tasksByStatus[column.id]}
                 onUpdateTask={onUpdateTask}
@@ -177,12 +180,12 @@ export default function KanbanBoard({
       </div>
 
       {/* Desktop View: Grid */}
-      <div className="hidden md:grid grid-cols-3 gap-4 lg:gap-6 h-full" role="main" aria-label="Kanban board">
+      <div className="hidden md:grid grid-cols-3 gap-4 lg:gap-6 h-full" role="main" aria-label={tKanban("ariaLabel")}>
         {columns.map((column) => (
           <KanbanColumn
             key={column.id}
             id={column.id}
-            title={column.title}
+            title={tStatus(`${column.id}.label` as any)}
             icon={column.icon}
             tasks={tasksByStatus[column.id]}
             onUpdateTask={onUpdateTask}

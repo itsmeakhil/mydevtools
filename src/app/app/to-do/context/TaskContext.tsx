@@ -27,6 +27,7 @@ import { Task, NewTask } from "@/app/app/to-do/types/Task";
 import { format } from "date-fns";
 import useAuth, { AuthState } from "@/utils/useAuth";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 // Helper function to safely convert Firestore timestamps to formatted strings
 const formatFirestoreDate = (dateValue: any): string | undefined => {
@@ -97,6 +98,8 @@ const TaskContext = createContext<TaskContextType | undefined>(undefined);
 
 export function TaskProvider({ children }: { children: React.ReactNode }) {
   const { user }: AuthState = useAuth(); // Single declaration of user
+  const tAck = useTranslations("Tasks.ack");
+  const tStatus = useTranslations("Tasks.status");
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [lastDoc, setLastDoc] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
@@ -576,13 +579,13 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
       }));
       setTotalTaskCount(prev => prev + 1);
 
-      toast.success("Task added successfully", {
+      toast.success(tAck("taskAddedTitle"), {
         description: newTaskText.length > 50 ? `${newTaskText.substring(0, 50)}...` : newTaskText,
       });
     } catch (error) {
       console.error("Failed to add task:", error);
-      toast.error("Failed to add task", {
-        description: "Please try again.",
+      toast.error(tAck("taskAddedFailedTitle"), {
+        description: tAck("tryAgain"),
       });
     }
   };
@@ -624,11 +627,11 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
       }
 
       await updateDoc(doc(db, "tasks", taskId), updateData);
-      toast.success("Task updated successfully");
+      toast.success(tAck("taskUpdatedTitle"));
     } catch (error) {
       console.error("Failed to update task:", error);
-      toast.error("Failed to update task", {
-        description: "Please try again.",
+      toast.error(tAck("taskUpdatedFailedTitle"), {
+        description: tAck("tryAgain"),
       });
       await refreshCurrentPage();
     }
@@ -646,12 +649,6 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
 
     if (newStatus in statusOrder) {
       const task = tasks.find(t => t.id === taskId);
-      const statusLabels = {
-        "not-started": "Not Started",
-        "ongoing": "Ongoing",
-        "completed": "Completed",
-      };
-
       const updates: Partial<Task> = {
         status: newStatus,
         statusOrder: statusOrder[newStatus],
@@ -685,13 +682,13 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
         }
 
         if (task) {
-          toast.success(`Task moved to ${statusLabels[newStatus]}`, {
+          toast.success(tAck("taskMovedTitle", { status: tStatus(`${newStatus}.label` as any) }), {
             description: task.text.length > 50 ? `${task.text.substring(0, 50)}...` : task.text,
           });
         }
       } catch (error) {
-        toast.error("Failed to update task status", {
-          description: "Please try again.",
+        toast.error(tAck("taskStatusUpdateFailedTitle"), {
+          description: tAck("tryAgain"),
         });
       }
     }
@@ -711,9 +708,9 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
     let deleteTimeout: NodeJS.Timeout;
 
     // Show toast with undo option
-    toast(`Task "${taskToDelete.text}" deleted`, {
+    toast(tAck("taskDeletedTitle", { text: taskToDelete.text }), {
       action: {
-        label: "Undo",
+        label: tAck("undo"),
         onClick: async () => {
           // Cancel the deletion
           clearTimeout(deleteTimeout);
@@ -734,13 +731,13 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
                 ...taskData,
                 createdAt: serverTimestamp(),
               });
-              toast.success("Task restored successfully");
+              toast.success(tAck("taskRestoredSuccessTitle"));
             } catch (error) {
               console.error("Failed to restore task:", error);
-              toast.error("Failed to restore task. Please try again.");
+              toast.error(tAck("taskRestoreFailedTitle"));
             }
           } else {
-            toast.success("Task restored");
+            toast.success(tAck("taskRestoredTitle"));
           }
         },
       },
@@ -772,7 +769,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
       } catch (error) {
         console.error("Failed to delete task:", error);
         await refreshCurrentPage();
-        toast.error("Failed to delete task. Please try again.");
+        toast.error(tAck("taskDeleteFailedTitle"));
       }
     }, 3000); // 3 second delay before permanent deletion
   };
@@ -796,10 +793,10 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
 
       await Promise.all(batch);
       await refreshCurrentPage();
-      toast.success(`Successfully imported ${importedTasks.length} tasks!`);
+      toast.success(tAck("tasksImportedTitle", { count: importedTasks.length }));
     } catch (error) {
       console.error("Failed to import tasks:", error);
-      toast.error("Failed to import tasks. Please try again.");
+      toast.error(tAck("tasksImportFailedTitle"));
       throw error;
     }
   };

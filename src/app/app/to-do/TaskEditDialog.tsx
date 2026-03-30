@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/components/hooks/use-mobile";
 import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
 import { Folder } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface TaskEditDialogProps {
   task: Task;
@@ -44,6 +45,9 @@ const predefinedTags = [
 ];
 
 export default function TaskEditDialog({ task, open, onOpenChange, onSave }: TaskEditDialogProps) {
+  const t = useTranslations("Tasks.editDialog");
+  const tStatus = useTranslations("Tasks.status");
+  const tPriorities = useTranslations("Tasks.priorities");
   const [editedTask, setEditedTask] = useState<Partial<Task>>({});
   const [newSubTask, setNewSubTask] = useState("");
   const [customTagName, setCustomTagName] = useState("");
@@ -135,24 +139,24 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
     <div className="space-y-6 py-4">
       {/* Task Title */}
       <div className="space-y-2">
-        <Label htmlFor="task-title">Task Title *</Label>
+        <Label htmlFor="task-title">{t("taskTitleLabel")}</Label>
         <Input
           id="task-title"
           value={editedTask.text || ""}
           onChange={(e) => setEditedTask({ ...editedTask, text: e.target.value })}
-          placeholder="What needs to be done?"
+          placeholder={t("taskTitlePlaceholder")}
           className="text-base"
         />
       </div>
 
       {/* Description */}
       <div className="space-y-2">
-        <Label htmlFor="task-description">Description</Label>
+        <Label htmlFor="task-description">{t("descriptionLabel")}</Label>
         <Textarea
           id="task-description"
           value={editedTask.description || ""}
           onChange={(e) => setEditedTask({ ...editedTask, description: e.target.value })}
-          placeholder="Add more details about this task..."
+          placeholder={t("descriptionPlaceholder")}
           className="min-h-[100px]"
         />
       </div>
@@ -161,7 +165,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Status */}
         <div className="space-y-2">
-          <Label>Status</Label>
+          <Label>{t("statusLabel")}</Label>
           <Select
             value={editedTask.status}
             onValueChange={(value: TaskStatus) => setEditedTask({ ...editedTask, status: value })}
@@ -173,19 +177,19 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
               <SelectItem value="not-started">
                 <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4" />
-                  Not Started
+                  {tStatus("not-started.label")}
                 </div>
               </SelectItem>
               <SelectItem value="ongoing">
                 <div className="flex items-center gap-2">
                   <TrendingUp className="h-4 w-4" />
-                  Ongoing
+                  {tStatus("ongoing.label")}
                 </div>
               </SelectItem>
               <SelectItem value="completed">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4" />
-                  Completed
+                  {tStatus("completed.label")}
                 </div>
               </SelectItem>
             </SelectContent>
@@ -194,7 +198,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
 
         {/* Priority */}
         <div className="space-y-2">
-          <Label>Priority</Label>
+          <Label>{t("priorityLabel")}</Label>
           <Select
             value={editedTask.priority || "medium"}
             onValueChange={(value: TaskPriority) => setEditedTask({ ...editedTask, priority: value })}
@@ -209,7 +213,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
                   <SelectItem key={key} value={key}>
                     <div className="flex items-center gap-2">
                       <Icon className={`h-4 w-4 ${config.color}`} />
-                      {config.label}
+                      {tPriorities(key as any)}
                     </div>
                   </SelectItem>
                 );
@@ -220,7 +224,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
 
         {/* Due Date */}
         <div className="space-y-2">
-          <Label>Due Date</Label>
+          <Label>{t("dueDateLabel")}</Label>
           <Popover>
             <PopoverTrigger asChild>
               <Button
@@ -231,7 +235,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
-                {selectedDate ? format(selectedDate, "PPP") : "Pick a date"}
+                {selectedDate ? format(selectedDate, "PPP") : t("pickDate")}
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
@@ -254,7 +258,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
                       setEditedTask({ ...editedTask, dueDate: undefined });
                     }}
                   >
-                    Clear Date
+                    {t("clearDate")}
                   </Button>
                 </div>
               )}
@@ -265,19 +269,19 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
 
       {/* Project Selection */}
       <div className="space-y-2">
-        <Label>Project</Label>
+        <Label>{t("projectLabel")}</Label>
         <Select
           value={editedTask.projectId || "none"}
           onValueChange={(value) => setEditedTask({ ...editedTask, projectId: value === "none" ? undefined : value })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Select a project" />
+            <SelectValue placeholder={t("selectProjectPlaceholder")} />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="none">
               <div className="flex items-center gap-2">
                 <Folder className="h-4 w-4 text-muted-foreground" />
-                No Project
+                {t("noProject")}
               </div>
             </SelectItem>
             {projects.map((project) => (
@@ -294,20 +298,20 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
 
       {/* Time Estimate */}
       <div className="space-y-2">
-        <Label htmlFor="time-estimate">Time Estimate (minutes)</Label>
+        <Label htmlFor="time-estimate">{t("timeEstimateLabel")}</Label>
         <Input
           id="time-estimate"
           type="number"
           min="0"
           value={editedTask.timeEstimate || ""}
           onChange={(e) => setEditedTask({ ...editedTask, timeEstimate: parseInt(e.target.value) || undefined })}
-          placeholder="How long will this take?"
+          placeholder={t("timeEstimatePlaceholder")}
         />
       </div>
 
       {/* Tags */}
       <div className="space-y-2">
-        <Label>Tags</Label>
+        <Label>{t("tagsLabel")}</Label>
         <div className="flex flex-wrap gap-2 mb-2">
           {(editedTask.tags || []).map((tag) => (
             <Badge
@@ -341,7 +345,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
           </div>
           <div className="flex gap-2">
             <Input
-              placeholder="Custom tag name"
+              placeholder={t("customTagNamePlaceholder")}
               value={customTagName}
               onChange={(e) => setCustomTagName(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && addCustomTag()}
@@ -361,7 +365,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
 
       {/* Subtasks */}
       <div className="space-y-2">
-        <Label>Subtasks</Label>
+        <Label>{t("subtasksLabel")}</Label>
         <div className="space-y-2">
           {(editedTask.subTasks || []).map((subTask) => (
             <div key={subTask.id} className="flex items-center gap-2 p-2 border rounded-md">
@@ -392,7 +396,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
           ))}
           <div className="flex gap-2">
             <Input
-              placeholder="Add a subtask..."
+              placeholder={t("addSubtaskPlaceholder")}
               value={newSubTask}
               onChange={(e) => setNewSubTask(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && addSubTask()}
@@ -411,18 +415,18 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Edit Task</DialogTitle>
+            <DialogTitle>{t("title")}</DialogTitle>
             <DialogDescription>
-              Update task details, add subtasks, set priorities and more.
+              {t("description")}
             </DialogDescription>
           </DialogHeader>
           {FormContent}
           <DialogFooter>
             <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isSaving}>
-              Cancel
+              {t("cancel")}
             </Button>
             <Button onClick={handleSave} disabled={!editedTask.text?.trim() || isSaving}>
-              {isSaving ? "Saving..." : "Save Changes"}
+              {isSaving ? t("saving") : t("saveChanges")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -435,9 +439,9 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
       <DrawerContent>
         <div className="mx-auto w-full max-w-3xl max-h-[90vh] overflow-y-auto">
           <DrawerHeader>
-            <DrawerTitle>Edit Task</DrawerTitle>
+            <DrawerTitle>{t("title")}</DrawerTitle>
             <DrawerDescription>
-              Update task details, add subtasks, set priorities and more.
+              {t("description")}
             </DrawerDescription>
           </DrawerHeader>
           <div className="px-4">
@@ -445,10 +449,10 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
           </div>
           <DrawerFooter>
             <Button onClick={handleSave} disabled={!editedTask.text?.trim() || isSaving}>
-              {isSaving ? "Saving..." : "Save Changes"}
+              {isSaving ? t("saving") : t("saveChanges")}
             </Button>
             <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline">{t("cancel")}</Button>
             </DrawerClose>
           </DrawerFooter>
         </div>

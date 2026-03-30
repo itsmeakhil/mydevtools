@@ -47,4 +47,165 @@
       }
     }
   }
+  ,
+  "Tasks": {
+    "page": {
+      "loading": "Cargando...",
+      "myTasksTitle": "Mis tareas",
+      "statsLine": "{total} tareas • {percent}% completadas",
+      "statsLineDesktop": "{total} en total • {percent}% completadas"
+    },
+    "filters": {
+      "all": "Todas",
+      "total": "Total",
+      "allProjects": "Todos los proyectos",
+      "export": "Exportar",
+      "kanban": "Kanban",
+      "list": "Lista",
+      "searchPlaceholder": "Buscar tareas...",
+      "searchAria": "Buscar tareas",
+      "clearSearchAria": "Borrar búsqueda",
+      "foundTasks": "Se encontraron {count} {count, plural, one {tarea} other {tareas}}",
+      "filterByAllAria": "Filtrar por Todas",
+      "filterByStatusAria": "Filtrar por {status}"
+    },
+    "status": {
+      "not-started": { "label": "Sin iniciar", "description": "Tareas que aún no han comenzado" },
+      "ongoing": { "label": "En curso", "description": "Tareas actualmente en progreso" },
+      "completed": { "label": "Completadas", "description": "Tareas que ya terminaron" }
+    },
+    "priorities": {
+      "high": "Alta",
+      "medium": "Media",
+      "low": "Baja"
+    },
+    "form": {
+      "addNewTaskLabel": "Agregar nueva tarea",
+      "multilinePlaceholder": "Agrega detalles de la tarea... (Shift+Enter para nueva línea)",
+      "singlelinePlaceholder": "¿Qué hay que hacer? Presiona Enter para agregar",
+      "taskInputAria": "Entrada de tarea",
+      "projectPlaceholder": "Proyecto",
+      "selectProject": "Seleccionar proyecto",
+      "errorSelectProject": "Selecciona un proyecto o crea uno nuevo para agregar una tarea.",
+      "hintMultiline": "Shift+Enter para nueva línea, Enter para agregar",
+      "hintSingleline": "Enter para agregar",
+      "shortcutsAria": "Atajos de teclado",
+      "shortcutsLabel": "Atajos",
+      "shortcutAddTask": "Agregar tarea",
+      "shortcutNewLine": "Nueva línea",
+      "shortcutClear": "Borrar",
+      "addButton": "Agregar"
+    },
+    "list": {
+      "ariaLabel": "Lista de tareas",
+      "loading": "Cargando tus tareas...",
+      "emptyTitle": "No se encontraron tareas",
+      "emptyPrimary": "Empieza agregando tu primera tarea arriba. Presiona Enter para agregarlas rápidamente.",
+      "emptySecondary": "Prueba ajustar tus filtros o tu búsqueda."
+    },
+    "mobileDrawer": {
+      "addTaskSrOnly": "Agregar tarea",
+      "addNewTaskTitle": "Agregar nueva tarea",
+      "addNewTaskDescription": "Crea una nueva tarea para seguir tu progreso.",
+      "cancel": "Cancelar"
+    },
+    "kanban": {
+      "ariaLabel": "Tablero Kanban",
+      "loading": "Cargando tus tareas...",
+      "dropHere": "Suelta la tarea aquí",
+      "noTasksYet": "Aún no hay tareas",
+      "emptyColumnAria": "Columna vacía",
+      "columnAria": "Columna {title} con {count} tareas",
+      "countInColumnAria": "{count} tareas en {title}"
+    },
+    "taskItem": {
+      "confirmDelete": "¿Seguro que quieres eliminar esta tarea?",
+      "statusPlaceholder": "Estado",
+      "changeStatusAria": "Cambiar estado de la tarea",
+      "taskOptionsAria": "Opciones de la tarea",
+      "editTask": "Editar tarea",
+      "copyTask": "Copiar tarea",
+      "copied": "¡Copiado!",
+      "deleteTask": "Eliminar tarea",
+      "statusHeading": "Estado",
+      "editTaskAria": "Editar tarea"
+    },
+    "editDialog": {
+      "title": "Editar tarea",
+      "description": "Actualiza detalles, agrega subtareas, define prioridades y más.",
+      "taskTitleLabel": "Título de la tarea *",
+      "taskTitlePlaceholder": "¿Qué hay que hacer?",
+      "descriptionLabel": "Descripción",
+      "descriptionPlaceholder": "Agrega más detalles sobre esta tarea...",
+      "statusLabel": "Estado",
+      "priorityLabel": "Prioridad",
+      "dueDateLabel": "Fecha límite",
+      "pickDate": "Elige una fecha",
+      "clearDate": "Quitar fecha",
+      "projectLabel": "Proyecto",
+      "selectProjectPlaceholder": "Selecciona un proyecto",
+      "noProject": "Sin proyecto",
+      "timeEstimateLabel": "Estimación de tiempo (minutos)",
+      "timeEstimatePlaceholder": "¿Cuánto tardará esto?",
+      "tagsLabel": "Etiquetas",
+      "customTagNamePlaceholder": "Nombre de etiqueta personalizada",
+      "subtasksLabel": "Subtareas",
+      "addSubtaskPlaceholder": "Agregar una subtarea...",
+      "cancel": "Cancelar",
+      "saving": "Guardando...",
+      "saveChanges": "Guardar cambios"
+    },
+    "export": {
+      "title": "Exportar tareas",
+      "description": "Exporta tus tareas a formatos JSON, CSV o Excel.",
+      "projectLabel": "Proyecto",
+      "statusLabel": "Estado",
+      "tagLabel": "Etiqueta",
+      "allProjects": "Todos los proyectos",
+      "allStatuses": "Todos los estados",
+      "allTags": "Todas las etiquetas",
+      "exportAsJsonTitle": "Exportar como JSON",
+      "exportAsJsonDescription": "Exporta datos de tareas incluyendo subtareas, etiquetas y metadatos.",
+      "exportJson": "Exportar JSON",
+      "exportAsCsvExcelTitle": "Exportar como CSV / Excel",
+      "exportAsCsvExcelDescription": "Exporta tareas para aplicaciones de hojas de cálculo.",
+      "exportCsv": "Exportar CSV",
+      "exportExcel": "Exportar Excel",
+      "close": "Cerrar",
+      "toastNoTasks": "No hay tareas para exportar con los filtros actuales",
+      "toastExportedJson": "¡Se exportaron {count} tareas a JSON!",
+      "toastExportedCsv": "¡Se exportaron {count} tareas a CSV!",
+      "toastExportedExcel": "¡Se exportaron {count} tareas a Excel!",
+      "toastFailedJson": "No se pudo exportar a JSON",
+      "toastFailedCsv": "No se pudo exportar a CSV",
+      "toastFailedExcel": "No se pudo exportar a Excel",
+      "unknownProject": "Proyecto desconocido"
+    },
+    "ack": {
+      "taskAddedTitle": "Tarea agregada correctamente",
+      "taskAddedFailedTitle": "No se pudo agregar la tarea",
+      "taskUpdatedTitle": "Tarea actualizada correctamente",
+      "taskUpdatedFailedTitle": "No se pudo actualizar la tarea",
+      "taskStatusUpdateFailedTitle": "No se pudo actualizar el estado de la tarea",
+      "taskMovedTitle": "Tarea movida a {status}",
+      "tryAgain": "Inténtalo de nuevo.",
+      "taskDeletedTitle": "Tarea \"{text}\" eliminada",
+      "undo": "Deshacer",
+      "taskRestoredTitle": "Tarea restaurada",
+      "taskRestoredSuccessTitle": "Tarea restaurada correctamente",
+      "taskRestoreFailedTitle": "No se pudo restaurar la tarea. Inténtalo de nuevo.",
+      "taskDeleteFailedTitle": "No se pudo eliminar la tarea. Inténtalo de nuevo.",
+      "tasksImportedTitle": "¡Se importaron {count} {count, plural, one {tarea} other {tareas}} correctamente!",
+      "tasksImportFailedTitle": "No se pudieron importar las tareas. Inténtalo de nuevo.",
+      "unknownProject": "Proyecto desconocido",
+      "projectCreatedTitle": "Proyecto creado correctamente",
+      "projectCreateFailedTitle": "No se pudo crear el proyecto",
+      "projectUpdatedTitle": "Proyecto actualizado correctamente",
+      "projectUpdateFailedTitle": "No se pudo actualizar el proyecto",
+      "projectDeletedTitle": "Proyecto eliminado correctamente",
+      "projectDeleteFailedTitle": "No se pudo eliminar el proyecto"
+    }
+    }
+    }
+  }
 }

@@ -34,6 +34,7 @@ import { cn } from "@/lib/utils";
 import { STATUS_CONFIG, PRIORITY_CONFIG } from "./config/constants";
 import { motion, useMotionValue, useTransform, PanInfo } from "framer-motion";
 import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
+import { useTranslations } from "next-intl";
 
 // Helper to safely parse and format dates
 const safeFormatDate = (dateString: string | undefined, formatStr: string): string => {
@@ -151,6 +152,8 @@ export default function TaskItem({
   onUpdateTask,
   onDeleteTask,
 }: TaskItemProps) {
+  const tItem = useTranslations("Tasks.taskItem");
+  const tStatus = useTranslations("Tasks.status");
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [justCompleted, setJustCompleted] = useState(false);
@@ -179,7 +182,7 @@ export default function TaskItem({
       handleQuickComplete();
     } else if (info.offset.x < -80) {
       // Swipe Left -> Delete
-      if (window.confirm("Are you sure you want to delete this task?")) {
+      if (window.confirm(tItem("confirmDelete"))) {
         onDeleteTask(task.id);
       }
     }
@@ -432,9 +435,9 @@ export default function TaskItem({
                 >
                   <SelectTrigger
                     className="w-[130px] h-8 text-xs focus:ring-2 focus:ring-primary"
-                    aria-label="Change task status"
+                    aria-label={tItem("changeStatusAria")}
                   >
-                    <SelectValue placeholder="Status" />
+                    <SelectValue placeholder={tItem("statusPlaceholder")} />
                   </SelectTrigger>
 
                   <SelectContent>
@@ -442,7 +445,7 @@ export default function TaskItem({
                       <SelectItem key={config.id} value={config.id}>
                         <div className="flex items-center gap-2">
                           <config.icon className={cn("h-3.5 w-3.5", config.color)} />
-                          <span>{config.label}</span>
+                          <span>{tStatus(`${config.id}.label` as any)}</span>
                         </div>
                       </SelectItem>
                     ))}
@@ -458,7 +461,7 @@ export default function TaskItem({
                       variant="ghost"
                       size="sm"
                       className="h-8 w-8 p-0"
-                      aria-label="Task options"
+                      aria-label={tItem("taskOptionsAria")}
                     >
                       <MoreVertical className="h-4 w-4" />
                     </Button>
@@ -466,24 +469,24 @@ export default function TaskItem({
                   <DropdownMenuContent align="end" className="w-48">
                     <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
                       <Edit className="h-4 w-4 mr-2" />
-                      Edit Task
+                      {tItem("editTask")}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={handleCopy}>
                       {copied ? (
                         <>
                           <Check className="h-4 w-4 mr-2" />
-                          Copied!
+                          {tItem("copied")}
                         </>
                       ) : (
                         <>
                           <Copy className="h-4 w-4 mr-2" />
-                          Copy Task
+                          {tItem("copyTask")}
                         </>
                       )}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <div className="p-2">
-                      <p className="text-xs font-semibold text-muted-foreground mb-2">Status</p>
+                      <p className="text-xs font-semibold text-muted-foreground mb-2">{tItem("statusHeading")}</p>
                       <div className="grid grid-cols-1 gap-1">
                         {Object.values(STATUS_CONFIG).map((config) => (
                           <Button
@@ -494,7 +497,7 @@ export default function TaskItem({
                             onClick={() => handleStatusChange(config.id as Task["status"])}
                           >
                             <config.icon className={cn("h-3.5 w-3.5 mr-2", config.color)} />
-                            {config.label}
+                            {tStatus(`${config.id}.label` as any)}
                           </Button>
                         ))}
                       </div>
@@ -505,7 +508,7 @@ export default function TaskItem({
                       className="text-red-500 focus:text-red-500 focus:bg-red-50 dark:focus:bg-red-950/20"
                     >
                       <Trash2 className="h-4 w-4 mr-2" />
-                      Delete Task
+                      {tItem("deleteTask")}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -521,7 +524,7 @@ export default function TaskItem({
                     "h-8 w-8 p-0 transition-opacity",
                     isHovered ? "opacity-100" : "opacity-0 group-hover:opacity-70"
                   )}
-                  aria-label="Edit task"
+                  aria-label={tItem("editTaskAria")}
                 >
                   <Edit className="h-4 w-4" />
                 </Button>

@@ -18,6 +18,7 @@ import { Project, NewProject } from "@/app/app/to-do/types/Project";
 import useAuth from "@/utils/useAuth";
 import { toast } from "sonner";
 import { format } from "date-fns";
+import { useTranslations } from "next-intl";
 
 interface ProjectContextType {
     projects: Project[];
@@ -31,6 +32,7 @@ const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
 
 export function ProjectProvider({ children }: { children: React.ReactNode }) {
     const { user } = useAuth();
+    const tAck = useTranslations("Tasks.ack");
     const [projects, setProjects] = useState<Project[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -81,10 +83,10 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
 
         try {
             await addDoc(collection(db, "projects"), newProject);
-            toast.success("Project created successfully");
+            toast.success(tAck("projectCreatedTitle"));
         } catch (error) {
             console.error("Failed to add project:", error);
-            toast.error("Failed to create project");
+            toast.error(tAck("projectCreateFailedTitle"));
         }
     };
 
@@ -94,10 +96,10 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
         try {
             const { id, created_by, createdAt, ...updateData } = updates as any;
             await updateDoc(doc(db, "projects", projectId), updateData);
-            toast.success("Project updated successfully");
+            toast.success(tAck("projectUpdatedTitle"));
         } catch (error) {
             console.error("Failed to update project:", error);
-            toast.error("Failed to update project");
+            toast.error(tAck("projectUpdateFailedTitle"));
         }
     };
 
@@ -106,10 +108,10 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
 
         try {
             await deleteDoc(doc(db, "projects", projectId));
-            toast.success("Project deleted successfully");
+            toast.success(tAck("projectDeletedTitle"));
         } catch (error) {
             console.error("Failed to delete project:", error);
-            toast.error("Failed to delete project");
+            toast.error(tAck("projectDeleteFailedTitle"));
         }
     };
 
