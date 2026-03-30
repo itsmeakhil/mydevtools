@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/select"
 import { Collection, CollectionFolder, CollectionRequest } from "../types"
 import { Save } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 interface SaveRequestDialogProps {
     collections: Collection[]
@@ -30,6 +31,7 @@ interface SaveRequestDialogProps {
 }
 
 export function SaveRequestDialog({ collections, onSave, defaultName }: SaveRequestDialogProps) {
+    const t = useTranslations("ApiClient.saveRequest")
     const [open, setOpen] = React.useState(false)
     const [name, setName] = React.useState(defaultName || "")
     const [selectedFolderId, setSelectedFolderId] = React.useState<string>("")
@@ -76,31 +78,31 @@ export function SaveRequestDialog({ collections, onSave, defaultName }: SaveRequ
             <DialogTrigger asChild>
                 <Button variant="outline" size="sm" className="gap-2">
                     <Save className="h-4 w-4" />
-                    Save
+                    {t("trigger")}
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Save Request</DialogTitle>
+                    <DialogTitle>{t("dialogTitle")}</DialogTitle>
                     <DialogDescription>
-                        Save this request to a collection folder.
+                        {t("dialogDescription")}
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                     <div className="grid gap-2">
-                        <Label htmlFor="name">Request Name</Label>
+                        <Label htmlFor="name">{t("labelName")}</Label>
                         <Input
                             id="name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="My Request"
+                            placeholder={t("placeholderName")}
                         />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="folder">Folder</Label>
+                        <Label htmlFor="folder">{t("labelFolder")}</Label>
                         <Select value={selectedFolderId} onValueChange={setSelectedFolderId}>
                             <SelectTrigger>
-                                <SelectValue placeholder="Select a folder" />
+                                <SelectValue placeholder={t("placeholderFolder")} />
                             </SelectTrigger>
                             <SelectContent>
                                 {allFolders.map((folder) => (
@@ -113,7 +115,7 @@ export function SaveRequestDialog({ collections, onSave, defaultName }: SaveRequ
                     </div>
                 </div>
                 <DialogFooter>
-                    <Button onClick={handleSave}>Save</Button>
+                    <Button onClick={handleSave}>{t("save")}</Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

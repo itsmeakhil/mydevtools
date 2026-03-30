@@ -20,6 +20,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { IconPlus, IconTrash, IconSettings, IconEye, IconEyeOff, IconEdit } from "@tabler/icons-react"
 import { Environment, EnvironmentVariable } from "./use-environments"
+import { useTranslations } from "next-intl"
 
 interface EnvironmentManagerProps {
     environments: Environment[]
@@ -38,6 +39,7 @@ export function EnvironmentManager({
     updateEnvironment,
     deleteEnvironment
 }: EnvironmentManagerProps) {
+    const t = useTranslations("ApiClient.environmentManager")
     const [isOpen, setIsOpen] = React.useState(false)
     const [selectedEnvId, setSelectedEnvId] = React.useState<string | null>(null)
     const [newEnvName, setNewEnvName] = React.useState("")
@@ -87,10 +89,10 @@ export function EnvironmentManager({
                 onValueChange={(val) => setActiveEnvId(val === "none" ? null : val)}
             >
                 <SelectTrigger className="w-[150px] h-8 text-xs">
-                    <SelectValue placeholder="No Environment" />
+                    <SelectValue placeholder={t("noEnvironment")} />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="none">No Environment</SelectItem>
+                    <SelectItem value="none">{t("noEnvironment")}</SelectItem>
                     {environments.map(env => (
                         <SelectItem key={env.id} value={env.id}>{env.name}</SelectItem>
                     ))}
@@ -105,14 +107,14 @@ export function EnvironmentManager({
                 </DialogTrigger>
                 <DialogContent className="max-w-3xl h-[600px] flex flex-col">
                     <DialogHeader>
-                        <DialogTitle>Manage Environments</DialogTitle>
+                        <DialogTitle>{t("manageDialogTitle")}</DialogTitle>
                     </DialogHeader>
                     <div className="flex flex-1 gap-4 min-h-0 pt-4">
                         {/* Sidebar */}
                         <div className="w-48 flex flex-col gap-2 border-r pr-4">
                             <div className="flex gap-2">
                                 <Input
-                                    placeholder="New Environment"
+                                    placeholder={t("placeholderNewEnv")}
                                     value={newEnvName}
                                     onChange={(e) => setNewEnvName(e.target.value)}
                                     className="h-8 text-xs"
@@ -200,16 +202,16 @@ export function EnvironmentManager({
                             {selectedEnv ? (
                                 <>
                                     <div className="flex items-center justify-between">
-                                        <h3 className="font-medium">{selectedEnv.name} Variables</h3>
+                                        <h3 className="font-medium">{t("variablesHeading", { name: selectedEnv.name })}</h3>
                                         <Button size="sm" onClick={handleAddVariable}>
                                             <IconPlus className="h-4 w-4 mr-2" />
-                                            Add Variable
+                                            {t("addVariable")}
                                         </Button>
                                     </div>
                                     <div className="flex-1 border rounded-md">
                                         <div className="grid grid-cols-[1fr_1fr_40px] gap-2 p-2 border-b bg-muted/50 text-xs font-medium text-muted-foreground">
-                                            <div>VARIABLE</div>
-                                            <div>VALUE</div>
+                                            <div>{t("columnVariable")}</div>
+                                            <div>{t("columnValue")}</div>
                                             <div></div>
                                         </div>
                                         <ScrollArea className="h-[400px]">
@@ -219,13 +221,13 @@ export function EnvironmentManager({
                                                         <Input
                                                             value={variable.key}
                                                             onChange={(e) => updateVariable(variable.id, { key: e.target.value })}
-                                                            placeholder="Key"
+                                                            placeholder={t("placeholderKey")}
                                                             className="h-8 font-mono text-xs"
                                                         />
                                                         <Input
                                                             value={variable.value}
                                                             onChange={(e) => updateVariable(variable.id, { value: e.target.value })}
-                                                            placeholder="Value"
+                                                            placeholder={t("placeholderValue")}
                                                             className="h-8 font-mono text-xs"
                                                         />
                                                         <Button
@@ -244,7 +246,7 @@ export function EnvironmentManager({
                                 </>
                             ) : (
                                 <div className="flex-1 flex items-center justify-center text-muted-foreground">
-                                    Select an environment to edit
+                                    {t("selectEnvToEdit")}
                                 </div>
                             )}
                         </div>

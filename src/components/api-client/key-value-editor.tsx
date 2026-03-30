@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { KeyValueItem } from "./types"
+import { useTranslations } from "next-intl"
 
 interface KeyValueEditorProps {
     items: KeyValueItem[]
@@ -13,6 +14,7 @@ interface KeyValueEditorProps {
 }
 
 export function KeyValueEditor({ items, onChange }: KeyValueEditorProps) {
+    const t = useTranslations("ApiClient.keyValueEditor")
     const addItem = () => {
         onChange([
             ...items,
@@ -36,8 +38,8 @@ export function KeyValueEditor({ items, onChange }: KeyValueEditorProps) {
         <div className="space-y-2">
             <div className="flex items-center font-medium text-sm text-muted-foreground mb-2">
                 <div className="w-8 text-center"></div>
-                <div className="flex-1 px-2">Key</div>
-                <div className="flex-1 px-2">Value</div>
+                <div className="flex-1 px-2">{t("columnKey")}</div>
+                <div className="flex-1 px-2">{t("columnValue")}</div>
                 <div className="w-10"></div>
             </div>
             {items.map((item) => (
@@ -51,13 +53,13 @@ export function KeyValueEditor({ items, onChange }: KeyValueEditorProps) {
                         />
                     </div>
                     <Input
-                        placeholder="Key"
+                        placeholder={t("placeholderKey")}
                         value={item.key}
                         onChange={(e) => updateItem(item.id, "key", e.target.value)}
                         className="flex-1"
                     />
                     <Input
-                        placeholder="Value"
+                        placeholder={t("placeholderValue")}
                         value={item.value}
                         onChange={(e) => updateItem(item.id, "value", e.target.value)}
                         className="flex-1"
@@ -79,7 +81,7 @@ export function KeyValueEditor({ items, onChange }: KeyValueEditorProps) {
                 className="mt-2"
             >
                 <Plus className="h-4 w-4 mr-2" />
-                Add Item
+                {t("addItem")}
             </Button>
         </div>
     )

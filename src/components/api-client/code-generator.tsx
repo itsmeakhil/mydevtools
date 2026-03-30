@@ -21,12 +21,15 @@ import { IconCode, IconCopy, IconCheck } from "@tabler/icons-react"
 import { ApiRequestState } from "./types"
 import { generateCode, CodeLanguage } from "./generate-code"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
 
 interface CodeGeneratorProps {
     request: ApiRequestState
 }
 
 export function CodeGenerator({ request }: CodeGeneratorProps) {
+    const t = useTranslations("ApiClient.codeGenerator")
+    const tApi = useTranslations("ApiClient")
     const [language, setLanguage] = React.useState<CodeLanguage>("curl")
     const [code, setCode] = React.useState("")
     const [copied, setCopied] = React.useState(false)
@@ -37,27 +40,27 @@ export function CodeGenerator({ request }: CodeGeneratorProps) {
             setCode(generated)
         } catch (e) {
             console.error("Failed to generate code", e)
-            setCode("Error generating code")
+            setCode(t("errorGenerating"))
         }
-    }, [request, language])
+    }, [request, language, t])
 
     const handleCopy = () => {
         navigator.clipboard.writeText(code)
         setCopied(true)
-        toast.success("Code copied to clipboard")
+        toast.success(tApi("toasts.codeCopied"))
         setTimeout(() => setCopied(false), 2000)
     }
 
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="ghost" size="icon" title="Generate Code">
+                <Button variant="ghost" size="icon" title={t("triggerTitle")}>
                     <IconCode className="h-4 w-4" />
                 </Button>
             </DialogTrigger>
             <DialogContent className="max-w-2xl">
                 <DialogHeader>
-                    <DialogTitle>Generate Code</DialogTitle>
+                    <DialogTitle>{t("dialogTitle")}</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
@@ -66,15 +69,15 @@ export function CodeGenerator({ request }: CodeGeneratorProps) {
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="curl">cURL</SelectItem>
-                                <SelectItem value="javascript">JavaScript (Fetch)</SelectItem>
-                                <SelectItem value="python">Python (Requests)</SelectItem>
-                                <SelectItem value="go">Go</SelectItem>
+                                <SelectItem value="curl">{t("languageCurl")}</SelectItem>
+                                <SelectItem value="javascript">{t("languageJavaScript")}</SelectItem>
+                                <SelectItem value="python">{t("languagePython")}</SelectItem>
+                                <SelectItem value="go">{t("languageGo")}</SelectItem>
                             </SelectContent>
                         </Select>
                         <Button variant="outline" size="sm" onClick={handleCopy}>
                             {copied ? <IconCheck className="h-4 w-4 mr-2" /> : <IconCopy className="h-4 w-4 mr-2" />}
-                            Copy
+                            {t("copy")}
                         </Button>
                     </div>
                     <div className="relative border rounded-md bg-muted/50 font-mono text-xs">
