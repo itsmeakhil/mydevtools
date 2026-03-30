@@ -1,0 +1,13 @@
+{
+  "Navigation": {
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "apiClient": "API Client"
+  },
+  "Settings": {
+    "title": "Settings",
+    "language": "Language",
+    "spanish": "Spanish",
+    "english": "English"
+  }
+}

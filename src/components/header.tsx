@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Github, Menu, X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./modeToggle";
+import { LanguageSwitcher } from "./language-switcher";
 import { Logo } from "./logo";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -116,6 +117,7 @@ export function Header() {
 
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-3">
+              <LanguageSwitcher />
               <ModeToggle />
               <Link href="https://github.com/itsmeakhil/mydevtools.tech" target="_blank" rel="noreferrer">
                 <Button
@@ -189,7 +191,7 @@ export function Header() {
                     </motion.div>
                   ))}
 
-                  {/* Theme Toggle in Mobile */}
+                  {/* Settings toggles in Mobile */}
                   <motion.div
                     custom={mobileNavLinks.length}
                     variants={menuItemVariants}
@@ -200,6 +202,10 @@ export function Header() {
                     <div className="flex items-center justify-between px-4 py-3">
                       <span className="text-sm font-medium text-muted-foreground">Theme</span>
                       <ModeToggle />
+                    </div>
+                    <div className="flex items-center justify-between px-4 py-3 border-t border-border/40">
+                      <span className="text-sm font-medium text-muted-foreground">Language</span>
+                      <LanguageSwitcher />
                     </div>
                   </motion.div>
                 </div>

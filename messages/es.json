@@ -1,0 +1,13 @@
+{
+  "Navigation": {
+    "dashboard": "Tablero",
+    "settings": "Configuraciones",
+    "apiClient": "Cliente API"
+  },
+  "Settings": {
+    "title": "Configuraciones",
+    "language": "Idioma",
+    "spanish": "Español",
+    "english": "Inglés"
+  }
+}

@@ -6,6 +6,9 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import { Geist_Mono as NextGeistMono } from 'next/font/google'
 
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
+
 import "./globals.css";
 
 const geistMono = NextGeistMono({
@@ -89,13 +92,16 @@ export const viewport = {
   viewportFit: 'cover',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en" suppressHydrationWarning className={cn(
+    <html lang={locale} suppressHydrationWarning className={cn(
       geistMono.variable
     )}>
       <body suppressHydrationWarning className="min-h-screen bg-background font-sans antialiased">
@@ -105,10 +111,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          <Analytics />
-          <SpeedInsights />
-          <Toaster />
+          <NextIntlClientProvider messages={messages}>
+            {children}
+            <Analytics />
+            <SpeedInsights />
+            <Toaster />
+          </NextIntlClientProvider>
         </ThemeProvider>
       </body>
     </html>
