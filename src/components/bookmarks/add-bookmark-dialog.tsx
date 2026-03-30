@@ -24,6 +24,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
 
 interface AddBookmarkDialogProps {
     open: boolean
@@ -32,6 +33,7 @@ interface AddBookmarkDialogProps {
 }
 
 export default function AddBookmarkDialog({ open, onOpenChange, editingId }: AddBookmarkDialogProps) {
+    const t = useTranslations("Bookmarks.addBookmark")
     const { bookmarks, folders, addBookmark, updateBookmark } = useBookmarkStore()
     const allTags = useAllTags()
 
@@ -72,7 +74,7 @@ export default function AddBookmarkDialog({ open, onOpenChange, editingId }: Add
 
         const normalizedUrl = normalizeUrl(url)
         if (!isValidUrl(normalizedUrl)) {
-            setUrlError("Please enter a valid URL")
+            setUrlError(t("urlInvalid"))
             return
         }
 
@@ -90,7 +92,7 @@ export default function AddBookmarkDialog({ open, onOpenChange, editingId }: Add
                 // Ignore errors
             }
         }
-    }, [url, title])
+    }, [url, title, t])
 
     const handleAddTag = useCallback(() => {
         const tag = tagInput.trim().toLowerCase()
@@ -115,12 +117,12 @@ export default function AddBookmarkDialog({ open, onOpenChange, editingId }: Add
         const normalizedUrl = normalizeUrl(url)
 
         if (!isValidUrl(normalizedUrl)) {
-            setUrlError("Please enter a valid URL")
+            setUrlError(t("urlInvalid"))
             return
         }
 
         if (!title.trim()) {
-            toast.error("Please enter a title")
+            toast.error(t("titleRequired"))
             return
         }
 
@@ -138,14 +140,14 @@ export default function AddBookmarkDialog({ open, onOpenChange, editingId }: Add
 
         if (editingId) {
             updateBookmark(bookmarkData)
-            toast.success("Bookmark updated")
+            toast.success(t("toastUpdated"))
         } else {
             addBookmark(bookmarkData)
-            toast.success("Bookmark added")
+            toast.success(t("toastAdded"))
         }
 
         onOpenChange(false)
-    }, [url, title, description, folderId, tags, editingId, bookmarks, addBookmark, updateBookmark, onOpenChange])
+    }, [url, title, description, folderId, tags, editingId, bookmarks, addBookmark, updateBookmark, onOpenChange, t])
 
     // Build folder options with hierarchy
     const buildFolderOptions = useCallback(() => {
@@ -170,14 +172,14 @@ export default function AddBookmarkDialog({ open, onOpenChange, editingId }: Add
             <DialogContent className="sm:max-w-[500px]">
                 <DialogHeader>
                     <DialogTitle>
-                        {editingId ? "Edit Bookmark" : "Add Bookmark"}
+                        {editingId ? t("titleEdit") : t("titleAdd")}
                     </DialogTitle>
                 </DialogHeader>
 
                 <div className="space-y-4 py-4">
                     {/* URL */}
                     <div className="space-y-2">
-                        <Label htmlFor="url">URL</Label>
+                        <Label htmlFor="url">{t("urlLabel")}</Label>
                         <div className="relative">
                             <IconLink className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                             <Input
@@ -185,7 +187,7 @@ export default function AddBookmarkDialog({ open, onOpenChange, editingId }: Add
                                 value={url}
                                 onChange={(e) => setUrl(e.target.value)}
                                 onBlur={handleUrlBlur}
-                                placeholder="https://example.com"
+                                placeholder={t("urlPlaceholder")}
                                 className="pl-9"
                             />
                         </div>
@@ -196,38 +198,38 @@ export default function AddBookmarkDialog({ open, onOpenChange, editingId }: Add
 
                     {/* Title */}
                     <div className="space-y-2">
-                        <Label htmlFor="title">Title</Label>
+                        <Label htmlFor="title">{t("titleLabel")}</Label>
                         <Input
                             id="title"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            placeholder="Bookmark title"
+                            placeholder={t("titlePlaceholder")}
                         />
                     </div>
 
                     {/* Description */}
                     <div className="space-y-2">
-                        <Label htmlFor="description">Description (optional)</Label>
+                        <Label htmlFor="description">{t("descriptionLabel")}</Label>
                         <Textarea
                             id="description"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            placeholder="Add a note about this bookmark"
+                            placeholder={t("descriptionPlaceholder")}
                             rows={2}
                         />
                     </div>
 
                     {/* Folder */}
                     <div className="space-y-2">
-                        <Label>Folder</Label>
+                        <Label>{t("folderLabel")}</Label>
                         <Select value={folderId} onValueChange={setFolderId}>
                             <SelectTrigger>
                                 <IconFolder className="h-4 w-4 mr-2 text-muted-foreground" />
-                                <SelectValue placeholder="Select folder" />
+                                <SelectValue placeholder={t("folderPlaceholder")} />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="none">
-                                    No folder
+                                    {t("noFolder")}
                                 </SelectItem>
                                 {folderOptions.map(option => (
                                     <SelectItem key={option.id} value={option.id}>
@@ -242,7 +244,7 @@ export default function AddBookmarkDialog({ open, onOpenChange, editingId }: Add
 
                     {/* Tags */}
                     <div className="space-y-2">
-                        <Label>Tags</Label>
+                        <Label>{t("tagsLabel")}</Label>
                         <div className="flex flex-wrap gap-2 mb-2">
                             {tags.map(tag => (
                                 <Badge key={tag} variant="secondary" className="gap-1">
@@ -264,7 +266,7 @@ export default function AddBookmarkDialog({ open, onOpenChange, editingId }: Add
                                 onChange={(e) => setTagInput(e.target.value)}
                                 onKeyDown={handleTagInputKeyDown}
                                 onBlur={handleAddTag}
-                                placeholder="Add tags (press Enter)"
+                                placeholder={t("tagsPlaceholder")}
                                 className="pl-9"
                                 list="tag-suggestions"
                             />
@@ -279,11 +281,11 @@ export default function AddBookmarkDialog({ open, onOpenChange, editingId }: Add
 
                 <DialogFooter>
                     <Button variant="outline" onClick={() => onOpenChange(false)}>
-                        Cancel
+                        {t("cancel")}
                     </Button>
                     <Button onClick={handleSubmit} disabled={isLoading}>
                         {isLoading && <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />}
-                        {editingId ? "Update" : "Add"} Bookmark
+                        {editingId ? t("submitUpdate") : t("submitAdd")}
                     </Button>
                 </DialogFooter>
             </DialogContent>

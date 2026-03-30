@@ -35,12 +35,14 @@ import {
 } from "@/components/ui/alert-dialog"
 import EditFolderDialog from "./edit-folder-dialog"
 import AddFolderDialog from "./add-folder-dialog"
+import { useTranslations } from "next-intl"
 
 interface FolderTreeProps {
     onSelectFolder: (id: string | null) => void
 }
 
 export default function FolderTree({ onSelectFolder }: FolderTreeProps) {
+    const t = useTranslations("Bookmarks.folderTree")
     const { selectedFolderId, bookmarks, folders } = useBookmarkStore()
     const [deleteConfirmFolder, setDeleteConfirmFolder] = useState<BookmarkFolder | null>(null)
     const [editingFolder, setEditingFolder] = useState<BookmarkFolder | null>(null)
@@ -55,7 +57,7 @@ export default function FolderTree({ onSelectFolder }: FolderTreeProps) {
             {/* All Bookmarks */}
             <FolderItem
                 icon={IconBookmarks}
-                label="All Bookmarks"
+                label={t("allBookmarks")}
                 count={totalBookmarks}
                 isSelected={selectedFolderId === null}
                 onClick={() => onSelectFolder(null)}
@@ -116,6 +118,8 @@ interface FolderNodeProps {
 }
 
 function FolderNode({ folder, depth, onSelectFolder }: FolderNodeProps) {
+    const t = useTranslations("Bookmarks.folderTree")
+    const tCard = useTranslations("Bookmarks.card")
     const { selectedFolderId, toggleFolderExpanded, deleteFolder } = useBookmarkStore()
     const childFolders = useChildFolders(folder.id)
     const bookmarkCount = useFolderBookmarkCount(folder.id)
@@ -195,11 +199,11 @@ function FolderNode({ folder, depth, onSelectFolder }: FolderNodeProps) {
                 <ContextMenuContent>
                     <ContextMenuItem onClick={() => setAddSubfolderOpen(true)}>
                         <IconFolderPlus className="h-4 w-4 mr-2" />
-                        Add Subfolder
+                        {t("addSubfolder")}
                     </ContextMenuItem>
                     <ContextMenuItem onClick={() => setEditDialogOpen(true)}>
                         <IconEdit className="h-4 w-4 mr-2" />
-                        Rename
+                        {t("rename")}
                     </ContextMenuItem>
                     <ContextMenuSeparator />
                     <ContextMenuItem
@@ -207,7 +211,7 @@ function FolderNode({ folder, depth, onSelectFolder }: FolderNodeProps) {
                         onClick={() => setDeleteConfirmOpen(true)}
                     >
                         <IconTrash className="h-4 w-4 mr-2" />
-                        Delete
+                        {tCard("delete")}
                     </ContextMenuItem>
                 </ContextMenuContent>
             </ContextMenu>
@@ -237,16 +241,15 @@ function FolderNode({ folder, depth, onSelectFolder }: FolderNodeProps) {
             <AlertDialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Delete folder "{folder.name}"?</AlertDialogTitle>
+                        <AlertDialogTitle>{t("deleteFolderTitle", { name: folder.name })}</AlertDialogTitle>
                         <AlertDialogDescription>
-                            This will delete the folder and all its subfolders.
-                            Bookmarks in these folders will be moved to Uncategorized.
+                            {t("deleteFolderDescription")}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel>{tCard("cancel")}</AlertDialogCancel>
                         <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground">
-                            Delete
+                            {tCard("delete")}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
@@ -308,6 +311,8 @@ interface DeleteFolderDialogProps {
 }
 
 function DeleteFolderDialog({ folder, onOpenChange }: DeleteFolderDialogProps) {
+    const t = useTranslations("Bookmarks.folderTree")
+    const tCard = useTranslations("Bookmarks.card")
     const { deleteFolder } = useBookmarkStore()
 
     const handleDelete = () => {
@@ -321,16 +326,15 @@ function DeleteFolderDialog({ folder, onOpenChange }: DeleteFolderDialogProps) {
         <AlertDialog open={folder !== null} onOpenChange={onOpenChange}>
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>Delete folder "{folder?.name}"?</AlertDialogTitle>
+                    <AlertDialogTitle>{t("deleteFolderTitle", { name: folder?.name ?? "" })}</AlertDialogTitle>
                     <AlertDialogDescription>
-                        This will delete the folder and all its subfolders.
-                        Bookmarks in these folders will be moved to Uncategorized.
+                        {t("deleteFolderDescription")}
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogCancel>{tCard("cancel")}</AlertDialogCancel>
                     <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground">
-                        Delete
+                        {tCard("delete")}
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

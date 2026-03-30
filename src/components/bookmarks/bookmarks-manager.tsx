@@ -1,7 +1,8 @@
 "use client"
 
-import { useState, useRef, useCallback } from "react"
+import { useState, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useTranslations } from "next-intl"
 import {
     IconSearch,
     IconPlus,
@@ -34,6 +35,7 @@ import {
 import { exportBookmarksToHTML, exportBookmarksToJSON } from "@/lib/bookmark-parser"
 
 export default function BookmarksManager() {
+    const t = useTranslations("Bookmarks.manager")
     const isMobile = useIsMobile()
     const [showSidebar, setShowSidebar] = useState(!isMobile)
     const [isAddBookmarkOpen, setIsAddBookmarkOpen] = useState(false)
@@ -88,10 +90,10 @@ export default function BookmarksManager() {
     }, [])
 
     const selectedFolderName = selectedFolderId === null
-        ? 'All Bookmarks'
+        ? t("allBookmarks")
         : selectedFolderId === 'uncategorized'
-            ? 'Uncategorized'
-            : folders.find(f => f.id === selectedFolderId)?.name || 'Unknown'
+            ? t("uncategorized")
+            : folders.find(f => f.id === selectedFolderId)?.name || t("unknownFolder")
 
     return (
         <div className="flex h-full w-full overflow-hidden bg-background mobile-nav-offset">
@@ -124,7 +126,7 @@ export default function BookmarksManager() {
                         >
                             {/* Sidebar Header */}
                             <div className="h-16 px-4 flex items-center justify-between border-b border-border/40 bg-background/50 backdrop-blur-sm">
-                                <h2 className="font-semibold text-base tracking-tight">Folders</h2>
+                                <h2 className="font-semibold text-base tracking-tight">{t("foldersHeading")}</h2>
                                 <div className="flex items-center gap-1">
                                     <Button
                                         variant="ghost"
@@ -162,7 +164,7 @@ export default function BookmarksManager() {
                                 <>
                                     <Separator />
                                     <div className="p-4">
-                                        <h3 className="text-sm font-medium text-muted-foreground mb-2">Tags</h3>
+                                        <h3 className="text-sm font-medium text-muted-foreground mb-2">{t("tagsHeading")}</h3>
                                         <div className="flex flex-wrap gap-1">
                                             {allTags.slice(0, 10).map(tag => (
                                                 <button
@@ -175,7 +177,7 @@ export default function BookmarksManager() {
                                             ))}
                                             {allTags.length > 10 && (
                                                 <span className="text-xs text-muted-foreground">
-                                                    +{allTags.length - 10} more
+                                                    {t("tagsMore", { count: allTags.length - 10 })}
                                                 </span>
                                             )}
                                         </div>
@@ -207,7 +209,7 @@ export default function BookmarksManager() {
                     <div className="relative flex-1 max-w-xl">
                         <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                         <Input
-                            placeholder="Search your bookmarks..."
+                            placeholder={t("searchPlaceholder")}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="pl-9 pr-9 bg-muted/40 border-transparent focus:bg-background focus:border-input transition-all"
@@ -256,7 +258,7 @@ export default function BookmarksManager() {
                             onClick={() => setIsImportOpen(true)}
                         >
                             <IconUpload className="h-4 w-4 mr-2 text-muted-foreground" />
-                            Import
+                            {t("import")}
                         </Button>
 
                         {/* Export */}
@@ -264,15 +266,15 @@ export default function BookmarksManager() {
                             <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" size="sm" className="h-9 hover:bg-muted/60">
                                     <IconDownload className="h-4 w-4 mr-2 text-muted-foreground" />
-                                    Export
+                                    {t("export")}
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
                                 <DropdownMenuItem onClick={handleExportHTML}>
-                                    Export as HTML
+                                    {t("exportAsHtml")}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem onClick={handleExportJSON}>
-                                    Export as JSON
+                                    {t("exportAsJson")}
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -280,7 +282,7 @@ export default function BookmarksManager() {
                         {/* Add Bookmark */}
                         <Button onClick={() => setIsAddBookmarkOpen(true)} className="ml-2 shadow-sm">
                             <IconPlus className="h-4 w-4 mr-2" />
-                            Add Bookmark
+                            {t("addBookmark")}
                         </Button>
                     </div>
 
@@ -309,15 +311,15 @@ export default function BookmarksManager() {
                             <DropdownMenuContent align="end" className="w-48">
                                 <DropdownMenuItem onClick={() => setIsImportOpen(true)}>
                                     <IconUpload className="h-4 w-4 mr-2" />
-                                    Import
+                                    {t("import")}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem onClick={handleExportHTML}>
                                     <IconDownload className="h-4 w-4 mr-2" />
-                                    Export as HTML
+                                    {t("exportAsHtml")}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem onClick={handleExportJSON}>
                                     <IconDownload className="h-4 w-4 mr-2" />
-                                    Export as JSON
+                                    {t("exportAsJson")}
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -339,10 +341,10 @@ export default function BookmarksManager() {
                         <div>
                             <h1 className="text-2xl font-bold tracking-tight text-foreground/90">{selectedFolderName}</h1>
                             <p className="text-sm text-muted-foreground mt-1 font-medium">
-                                {filteredBookmarks.length} bookmark{filteredBookmarks.length !== 1 ? 's' : ''}
+                                {t("bookmarkCount", { count: filteredBookmarks.length })}
                                 {searchQuery && (
                                     <span className="ml-1 inline-flex items-center px-1.5 py-0.5 rounded-md bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 text-xs">
-                                        matching "{searchQuery}"
+                                        {t("matchingQuery", { query: searchQuery })}
                                     </span>
                                 )}
                             </p>

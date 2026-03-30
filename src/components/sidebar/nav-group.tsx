@@ -33,6 +33,7 @@ import {
 } from "../ui/dropdown-menu";
 import { NavCollapsible, NavItem, NavLink } from "./types"; // Import types
 import useAuth from "@/utils/useAuth"; // Import useAuth
+import { useTranslations } from "next-intl";
 import { requiresAuth } from "@/lib/tool-config";
 import { useToolVisibility } from "@/hooks/use-tool-visibility";
 
@@ -197,13 +198,18 @@ const SidebarMenuLink = ({
   onClick: (e: React.MouseEvent) => void;
 }) => {
   const { setOpenMobile } = useSidebar();
+  const tNav = useTranslations("Navigation");
+  const itemUrl =
+    typeof item.url === "string" ? item.url : item.url.toString();
+  const displayTitle =
+    itemUrl === "/app/bookmarks" ? tNav("bookmarks") : item.title;
 
   return (
     <SidebarMenuItem>
       <SidebarMenuButton
         asChild
         isActive={checkIsActive(href, item)}
-        tooltip={item.title}
+        tooltip={displayTitle}
       >
         <Link
           href={item.url}
@@ -214,7 +220,7 @@ const SidebarMenuLink = ({
           className="relative flex items-center"
         >
           {item.icon && <item.icon />}
-          <span>{item.title}</span>
+          <span>{displayTitle}</span>
           {item.badge && <NavBadge>{item.badge}</NavBadge>}
         </Link>
       </SidebarMenuButton>

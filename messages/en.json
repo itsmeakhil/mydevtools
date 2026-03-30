@@ -3,7 +3,8 @@
     "dashboard": "Dashboard",
     "settings": "Settings",
     "apiClient": "API Client",
-    "passwordManager": "Password Manager"
+    "passwordManager": "Password Manager",
+    "bookmarks": "Bookmarks"
   },
   "Settings": {
     "title": "Settings",
@@ -424,6 +425,115 @@
       "separator": "Separator",
       "capitalization": "Capitalization",
       "includeNumber": "Include number"
+    }
+  },
+  "Bookmarks": {
+    "page": {
+      "loading": "Loading..."
+    },
+    "manager": {
+      "foldersHeading": "Folders",
+      "tagsHeading": "Tags",
+      "tagsMore": "+{count} more",
+      "searchPlaceholder": "Search your bookmarks...",
+      "import": "Import",
+      "export": "Export",
+      "exportAsHtml": "Export as HTML",
+      "exportAsJson": "Export as JSON",
+      "addBookmark": "Add Bookmark",
+      "matchingQuery": "matching \"{query}\"",
+      "bookmarkCount": "{count, plural, one {# bookmark} other {# bookmarks}}",
+      "allBookmarks": "All Bookmarks",
+      "uncategorized": "Uncategorized",
+      "unknownFolder": "Unknown"
+    },
+    "card": {
+      "urlCopied": "URL copied to clipboard",
+      "bookmarkDeleted": "Bookmark deleted",
+      "edit": "Edit",
+      "delete": "Delete",
+      "copyUrl": "Copy URL",
+      "deleteConfirmTitle": "Delete bookmark?",
+      "deleteConfirmDescription": "This will permanently delete \"{title}\".",
+      "cancel": "Cancel"
+    },
+    "grid": {
+      "emptyTitle": "No bookmarks yet",
+      "emptyDescription": "Add your first bookmark or import from your browser to get started."
+    },
+    "folderTree": {
+      "allBookmarks": "All Bookmarks",
+      "addSubfolder": "Add Subfolder",
+      "rename": "Rename",
+      "deleteFolderTitle": "Delete folder \"{name}\"?",
+      "deleteFolderDescription": "This will delete the folder and all its subfolders. Bookmarks in these folders will be moved to Uncategorized."
+    },
+    "import": {
+      "title": "Import Bookmarks",
+      "description": "Import bookmarks from your browser's exported file.",
+      "parseError": "Failed to parse bookmark file. Please make sure it's a valid bookmark export.",
+      "successToast": "Imported {bookmarks} bookmarks and {folders} folders",
+      "errorToast": "Failed to import bookmarks",
+      "chromeInstruction": "Menu → Bookmarks → Bookmark Manager → ⋮ → Export Bookmarks",
+      "firefoxInstruction": "Menu → Bookmarks → Manage Bookmarks → Import and Backup → Export",
+      "safariInstruction": "File → Export Bookmarks...",
+      "edgeInstruction": "Menu → Favorites → ⋯ → Export Favorites",
+      "dropZoneTitle": "Drop your bookmark file here",
+      "dropZoneHint": "or click to browse (HTML or JSON)",
+      "selectedFileHint": "Click to select a different file",
+      "errorTitle": "Error",
+      "previewTitle": "Import Preview",
+      "previewBookmarks": "{count, plural, one {# bookmark} other {# bookmarks}}",
+      "previewFolders": "{count, plural, one {# folder} other {# folders}}",
+      "importModeLabel": "Import Mode",
+      "modeMerge": "Merge with existing bookmarks",
+      "modeReplace": "Replace all existing bookmarks",
+      "cancel": "Cancel",
+      "importButton": "Import",
+      "importButtonWithCount": "Import {count, plural, one {# bookmark} other {# bookmarks}}"
+    },
+    "addBookmark": {
+      "titleAdd": "Add Bookmark",
+      "titleEdit": "Edit Bookmark",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://example.com",
+      "urlInvalid": "Please enter a valid URL",
+      "titleLabel": "Title",
+      "titlePlaceholder": "Bookmark title",
+      "titleRequired": "Please enter a title",
+      "descriptionLabel": "Description (optional)",
+      "descriptionPlaceholder": "Add a note about this bookmark",
+      "folderLabel": "Folder",
+      "folderPlaceholder": "Select folder",
+      "noFolder": "No folder",
+      "tagsLabel": "Tags",
+      "tagsPlaceholder": "Add tags (press Enter)",
+      "toastUpdated": "Bookmark updated",
+      "toastAdded": "Bookmark added",
+      "cancel": "Cancel",
+      "submitAdd": "Add Bookmark",
+      "submitUpdate": "Update Bookmark"
+    },
+    "addFolder": {
+      "title": "Create Folder",
+      "nameLabel": "Folder Name",
+      "namePlaceholder": "My Folder",
+      "nameRequired": "Please enter a folder name",
+      "parentLabel": "Parent Folder",
+      "parentPlaceholder": "Select parent folder",
+      "rootParent": "Root (No parent)",
+      "toastCreated": "Folder created",
+      "cancel": "Cancel",
+      "submit": "Create Folder"
+    },
+    "editFolder": {
+      "title": "Rename Folder",
+      "nameLabel": "Folder Name",
+      "namePlaceholder": "Folder name",
+      "nameRequired": "Please enter a folder name",
+      "toastRenamed": "Folder renamed",
+      "cancel": "Cancel",
+      "save": "Save"
     }
   },
   "ApiClient": {

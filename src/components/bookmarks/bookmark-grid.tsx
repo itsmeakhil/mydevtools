@@ -5,6 +5,7 @@ import BookmarkCard from "./bookmark-card"
 import { motion } from "framer-motion"
 import { IconBookmarkOff } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
+import { useTranslations } from "next-intl"
 
 interface BookmarkGridProps {
     bookmarks: Bookmark[]
@@ -13,6 +14,8 @@ interface BookmarkGridProps {
 }
 
 export default function BookmarkGrid({ bookmarks, viewMode, onEdit }: BookmarkGridProps) {
+    const tEmpty = useTranslations("Bookmarks.grid")
+
     if (bookmarks.length === 0) {
         return (
             <motion.div
@@ -23,9 +26,9 @@ export default function BookmarkGrid({ bookmarks, viewMode, onEdit }: BookmarkGr
                 <div className="h-16 w-16 rounded-full bg-muted/50 flex items-center justify-center mb-4">
                     <IconBookmarkOff className="h-8 w-8 text-muted-foreground" />
                 </div>
-                <h3 className="text-lg font-medium mb-1">No bookmarks yet</h3>
+                <h3 className="text-lg font-medium mb-1">{tEmpty("emptyTitle")}</h3>
                 <p className="text-sm text-muted-foreground max-w-sm">
-                    Add your first bookmark or import from your browser to get started.
+                    {tEmpty("emptyDescription")}
                 </p>
             </motion.div>
         )

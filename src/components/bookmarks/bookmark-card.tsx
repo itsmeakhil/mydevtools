@@ -34,6 +34,7 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
 
 import { useIsMobile } from "@/components/hooks/use-mobile"
 
@@ -45,6 +46,7 @@ interface BookmarkCardProps {
 }
 
 export default function BookmarkCard({ bookmark, viewMode, onEdit, index }: BookmarkCardProps) {
+    const t = useTranslations("Bookmarks.card")
     const { deleteBookmark, folders } = useBookmarkStore()
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
     const [imageError, setImageError] = useState(false)
@@ -60,14 +62,14 @@ export default function BookmarkCard({ bookmark, viewMode, onEdit, index }: Book
 
     const handleCopyUrl = useCallback(() => {
         navigator.clipboard.writeText(bookmark.url)
-        toast.success('URL copied to clipboard')
-    }, [bookmark.url])
+        toast.success(t("urlCopied"))
+    }, [bookmark.url, t])
 
     const handleDelete = useCallback(() => {
         deleteBookmark(bookmark.id)
         setDeleteConfirmOpen(false)
-        toast.success('Bookmark deleted')
-    }, [bookmark.id, deleteBookmark])
+        toast.success(t("bookmarkDeleted"))
+    }, [bookmark.id, deleteBookmark, t])
 
     if (viewMode === 'list') {
         return (
@@ -145,7 +147,7 @@ export default function BookmarkCard({ bookmark, viewMode, onEdit, index }: Book
                             <DropdownMenuContent align="end">
                                 <DropdownMenuItem onClick={() => onEdit(bookmark.id)}>
                                     <IconEdit className="h-4 w-4 mr-2" />
-                                    Edit
+                                    {t("edit")}
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem
@@ -153,7 +155,7 @@ export default function BookmarkCard({ bookmark, viewMode, onEdit, index }: Book
                                     onClick={() => setDeleteConfirmOpen(true)}
                                 >
                                     <IconTrash className="h-4 w-4 mr-2" />
-                                    Delete
+                                    {t("delete")}
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -163,15 +165,15 @@ export default function BookmarkCard({ bookmark, viewMode, onEdit, index }: Book
                 <AlertDialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
                     <AlertDialogContent>
                         <AlertDialogHeader>
-                            <AlertDialogTitle>Delete bookmark?</AlertDialogTitle>
+                            <AlertDialogTitle>{t("deleteConfirmTitle")}</AlertDialogTitle>
                             <AlertDialogDescription>
-                                This will permanently delete "{bookmark.title}".
+                                {t("deleteConfirmDescription", { title: bookmark.title })}
                             </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
                             <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground">
-                                Delete
+                                {t("delete")}
                             </AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
@@ -245,11 +247,11 @@ export default function BookmarkCard({ bookmark, viewMode, onEdit, index }: Book
                         <DropdownMenuContent align="end" className="w-40">
                             <DropdownMenuItem onClick={handleCopyUrl}>
                                 <IconCopy className="h-4 w-4 mr-2" />
-                                Copy URL
+                                {t("copyUrl")}
                             </DropdownMenuItem>
                             <DropdownMenuItem onClick={() => onEdit(bookmark.id)}>
                                 <IconEdit className="h-4 w-4 mr-2" />
-                                Edit
+                                {t("edit")}
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem
@@ -257,7 +259,7 @@ export default function BookmarkCard({ bookmark, viewMode, onEdit, index }: Book
                                 onClick={() => setDeleteConfirmOpen(true)}
                             >
                                 <IconTrash className="h-4 w-4 mr-2" />
-                                Delete
+                                {t("delete")}
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -297,15 +299,15 @@ export default function BookmarkCard({ bookmark, viewMode, onEdit, index }: Book
             <AlertDialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Delete bookmark?</AlertDialogTitle>
+                        <AlertDialogTitle>{t("deleteConfirmTitle")}</AlertDialogTitle>
                         <AlertDialogDescription>
-                            This will permanently delete "{bookmark.title}".
+                            {t("deleteConfirmDescription", { title: bookmark.title })}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
                         <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground">
-                            Delete
+                            {t("delete")}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

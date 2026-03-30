@@ -3,7 +3,8 @@
     "dashboard": "Tablero",
     "settings": "Configuraciones",
     "apiClient": "Cliente API",
-    "passwordManager": "Gestor de contraseñas"
+    "passwordManager": "Gestor de contraseñas",
+    "bookmarks": "Marcadores"
   },
   "Settings": {
     "title": "Configuraciones",
@@ -424,6 +425,115 @@
       "separator": "Separador",
       "capitalization": "Mayúsculas",
       "includeNumber": "Incluir número"
+    }
+  },
+  "Bookmarks": {
+    "page": {
+      "loading": "Cargando..."
+    },
+    "manager": {
+      "foldersHeading": "Carpetas",
+      "tagsHeading": "Etiquetas",
+      "tagsMore": "+{count} más",
+      "searchPlaceholder": "Buscar en tus marcadores...",
+      "import": "Importar",
+      "export": "Exportar",
+      "exportAsHtml": "Exportar como HTML",
+      "exportAsJson": "Exportar como JSON",
+      "addBookmark": "Añadir marcador",
+      "matchingQuery": "coinciden con \"{query}\"",
+      "bookmarkCount": "{count, plural, one {# marcador} other {# marcadores}}",
+      "allBookmarks": "Todos los marcadores",
+      "uncategorized": "Sin categoría",
+      "unknownFolder": "Desconocido"
+    },
+    "card": {
+      "urlCopied": "URL copiada al portapapeles",
+      "bookmarkDeleted": "Marcador eliminado",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "copyUrl": "Copiar URL",
+      "deleteConfirmTitle": "¿Eliminar marcador?",
+      "deleteConfirmDescription": "Se eliminará permanentemente \"{title}\".",
+      "cancel": "Cancelar"
+    },
+    "grid": {
+      "emptyTitle": "Aún no hay marcadores",
+      "emptyDescription": "Añade tu primer marcador o importa desde el navegador para empezar."
+    },
+    "folderTree": {
+      "allBookmarks": "Todos los marcadores",
+      "addSubfolder": "Añadir subcarpeta",
+      "rename": "Renombrar",
+      "deleteFolderTitle": "¿Eliminar carpeta \"{name}\"?",
+      "deleteFolderDescription": "Se eliminará la carpeta y todas sus subcarpetas. Los marcadores pasarán a Sin categoría."
+    },
+    "import": {
+      "title": "Importar marcadores",
+      "description": "Importa marcadores desde el archivo exportado por tu navegador.",
+      "parseError": "No se pudo analizar el archivo. Asegúrate de que sea una exportación de marcadores válida.",
+      "successToast": "Se importaron {bookmarks} marcadores y {folders} carpetas",
+      "errorToast": "No se pudieron importar los marcadores",
+      "chromeInstruction": "Menú → Marcadores → Administrador de marcadores → ⋮ → Exportar marcadores",
+      "firefoxInstruction": "Menú → Marcadores → Gestionar marcadores → Importar y respaldar → Exportar",
+      "safariInstruction": "Archivo → Exportar marcadores...",
+      "edgeInstruction": "Menú → Favoritos → ⋯ → Exportar favoritos",
+      "dropZoneTitle": "Suelta aquí tu archivo de marcadores",
+      "dropZoneHint": "o haz clic para buscar (HTML o JSON)",
+      "selectedFileHint": "Haz clic para elegir otro archivo",
+      "errorTitle": "Error",
+      "previewTitle": "Vista previa de importación",
+      "previewBookmarks": "{count, plural, one {# marcador} other {# marcadores}}",
+      "previewFolders": "{count, plural, one {# carpeta} other {# carpetas}}",
+      "importModeLabel": "Modo de importación",
+      "modeMerge": "Combinar con los marcadores existentes",
+      "modeReplace": "Reemplazar todos los marcadores existentes",
+      "cancel": "Cancelar",
+      "importButton": "Importar",
+      "importButtonWithCount": "Importar {count, plural, one {# marcador} other {# marcadores}}"
+    },
+    "addBookmark": {
+      "titleAdd": "Añadir marcador",
+      "titleEdit": "Editar marcador",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://ejemplo.com",
+      "urlInvalid": "Introduce una URL válida",
+      "titleLabel": "Título",
+      "titlePlaceholder": "Título del marcador",
+      "titleRequired": "Introduce un título",
+      "descriptionLabel": "Descripción (opcional)",
+      "descriptionPlaceholder": "Añade una nota sobre este marcador",
+      "folderLabel": "Carpeta",
+      "folderPlaceholder": "Seleccionar carpeta",
+      "noFolder": "Sin carpeta",
+      "tagsLabel": "Etiquetas",
+      "tagsPlaceholder": "Añadir etiquetas (pulsa Intro)",
+      "toastUpdated": "Marcador actualizado",
+      "toastAdded": "Marcador añadido",
+      "cancel": "Cancelar",
+      "submitAdd": "Añadir marcador",
+      "submitUpdate": "Actualizar marcador"
+    },
+    "addFolder": {
+      "title": "Crear carpeta",
+      "nameLabel": "Nombre de la carpeta",
+      "namePlaceholder": "Mi carpeta",
+      "nameRequired": "Introduce un nombre de carpeta",
+      "parentLabel": "Carpeta superior",
+      "parentPlaceholder": "Seleccionar carpeta superior",
+      "rootParent": "Raíz (sin superior)",
+      "toastCreated": "Carpeta creada",
+      "cancel": "Cancelar",
+      "submit": "Crear carpeta"
+    },
+    "editFolder": {
+      "title": "Renombrar carpeta",
+      "nameLabel": "Nombre de la carpeta",
+      "namePlaceholder": "Nombre de la carpeta",
+      "nameRequired": "Introduce un nombre de carpeta",
+      "toastRenamed": "Carpeta renombrada",
+      "cancel": "Cancelar",
+      "save": "Guardar"
     }
   },
   "ApiClient": {

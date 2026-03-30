@@ -21,6 +21,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
 
 interface AddFolderDialogProps {
     open: boolean
@@ -29,6 +30,7 @@ interface AddFolderDialogProps {
 }
 
 export default function AddFolderDialog({ open, onOpenChange, parentFolderId }: AddFolderDialogProps) {
+    const t = useTranslations("Bookmarks.addFolder")
     const { folders, addFolder } = useBookmarkStore()
 
     const [name, setName] = useState("")
@@ -36,7 +38,7 @@ export default function AddFolderDialog({ open, onOpenChange, parentFolderId }: 
 
     const handleSubmit = useCallback(() => {
         if (!name.trim()) {
-            toast.error("Please enter a folder name")
+            toast.error(t("nameRequired"))
             return
         }
 
@@ -49,11 +51,11 @@ export default function AddFolderDialog({ open, onOpenChange, parentFolderId }: 
         }
 
         addFolder(newFolder)
-        toast.success("Folder created")
+        toast.success(t("toastCreated"))
         onOpenChange(false)
         setName("")
         setSelectedParentId("none")
-    }, [name, selectedParentId, addFolder, onOpenChange])
+    }, [name, selectedParentId, addFolder, onOpenChange, t])
 
     // Build folder options with hierarchy
     const buildFolderOptions = useCallback(() => {
@@ -87,13 +89,13 @@ export default function AddFolderDialog({ open, onOpenChange, parentFolderId }: 
         <Dialog open={open} onOpenChange={handleOpenChange}>
             <DialogContent className="sm:max-w-[400px]">
                 <DialogHeader>
-                    <DialogTitle>Create Folder</DialogTitle>
+                    <DialogTitle>{t("title")}</DialogTitle>
                 </DialogHeader>
 
                 <div className="space-y-4 py-4">
                     {/* Folder Name */}
                     <div className="space-y-2">
-                        <Label htmlFor="folderName">Folder Name</Label>
+                        <Label htmlFor="folderName">{t("nameLabel")}</Label>
                         <div className="relative">
                             <IconFolder className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                             <Input
@@ -101,7 +103,7 @@ export default function AddFolderDialog({ open, onOpenChange, parentFolderId }: 
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
-                                placeholder="My Folder"
+                                placeholder={t("namePlaceholder")}
                                 className="pl-9"
                                 autoFocus
                             />
@@ -110,14 +112,14 @@ export default function AddFolderDialog({ open, onOpenChange, parentFolderId }: 
 
                     {/* Parent Folder */}
                     <div className="space-y-2">
-                        <Label>Parent Folder</Label>
+                        <Label>{t("parentLabel")}</Label>
                         <Select value={selectedParentId} onValueChange={setSelectedParentId}>
                             <SelectTrigger>
-                                <SelectValue placeholder="Select parent folder" />
+                                <SelectValue placeholder={t("parentPlaceholder")} />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="none">
-                                    Root (No parent)
+                                    {t("rootParent")}
                                 </SelectItem>
                                 {folderOptions.map(option => (
                                     <SelectItem key={option.id} value={option.id}>
@@ -133,10 +135,10 @@ export default function AddFolderDialog({ open, onOpenChange, parentFolderId }: 
 
                 <DialogFooter>
                     <Button variant="outline" onClick={() => handleOpenChange(false)}>
-                        Cancel
+                        {t("cancel")}
                     </Button>
                     <Button onClick={handleSubmit}>
-                        Create Folder
+                        {t("submit")}
                     </Button>
                 </DialogFooter>
             </DialogContent>

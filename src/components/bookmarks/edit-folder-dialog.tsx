@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
 
 interface EditFolderDialogProps {
     folder: BookmarkFolder | null
@@ -21,6 +22,7 @@ interface EditFolderDialogProps {
 }
 
 export default function EditFolderDialog({ folder, onOpenChange }: EditFolderDialogProps) {
+    const t = useTranslations("Bookmarks.editFolder")
     const { updateFolder } = useBookmarkStore()
 
     const [name, setName] = useState("")
@@ -35,7 +37,7 @@ export default function EditFolderDialog({ folder, onOpenChange }: EditFolderDia
         if (!folder) return
 
         if (!name.trim()) {
-            toast.error("Please enter a folder name")
+            toast.error(t("nameRequired"))
             return
         }
 
@@ -44,20 +46,20 @@ export default function EditFolderDialog({ folder, onOpenChange }: EditFolderDia
             name: name.trim()
         })
 
-        toast.success("Folder renamed")
+        toast.success(t("toastRenamed"))
         onOpenChange(false)
-    }, [folder, name, updateFolder, onOpenChange])
+    }, [folder, name, updateFolder, onOpenChange, t])
 
     return (
         <Dialog open={folder !== null} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-[400px]">
                 <DialogHeader>
-                    <DialogTitle>Rename Folder</DialogTitle>
+                    <DialogTitle>{t("title")}</DialogTitle>
                 </DialogHeader>
 
                 <div className="space-y-4 py-4">
                     <div className="space-y-2">
-                        <Label htmlFor="editFolderName">Folder Name</Label>
+                        <Label htmlFor="editFolderName">{t("nameLabel")}</Label>
                         <div className="relative">
                             <IconFolder className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                             <Input
@@ -65,7 +67,7 @@ export default function EditFolderDialog({ folder, onOpenChange }: EditFolderDia
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
-                                placeholder="Folder name"
+                                placeholder={t("namePlaceholder")}
                                 className="pl-9"
                                 autoFocus
                             />
@@ -75,10 +77,10 @@ export default function EditFolderDialog({ folder, onOpenChange }: EditFolderDia
 
                 <DialogFooter>
                     <Button variant="outline" onClick={() => onOpenChange(false)}>
-                        Cancel
+                        {t("cancel")}
                     </Button>
                     <Button onClick={handleSubmit}>
-                        Save
+                        {t("save")}
                     </Button>
                 </DialogFooter>
             </DialogContent>

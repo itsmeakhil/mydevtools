@@ -28,6 +28,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
+import { useTranslations } from "next-intl"
 
 interface ImportDialogProps {
     open: boolean
@@ -42,6 +43,7 @@ interface ImportPreview {
 }
 
 export default function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
+    const t = useTranslations("Bookmarks.import")
     const { importBookmarks, clearAll } = useBookmarkStore()
     const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -81,10 +83,10 @@ export default function ImportDialog({ open, onOpenChange }: ImportDialogProps) 
                 folderCount: result.folders.length
             })
         } catch (err) {
-            setError("Failed to parse bookmark file. Please make sure it's a valid bookmark export.")
+            setError(t("parseError"))
             setPreview(null)
         }
-    }, [])
+    }, [t])
 
     const handleDrop = useCallback(async (e: React.DragEvent) => {
         e.preventDefault()
@@ -122,15 +124,20 @@ export default function ImportDialog({ open, onOpenChange }: ImportDialogProps) 
             }
 
             importBookmarks(result.bookmarks, result.folders)
-            toast.success(`Imported ${result.bookmarks.length} bookmarks and ${result.folders.length} folders`)
+            toast.success(
+                t("successToast", {
+                    bookmarks: result.bookmarks.length,
+                    folders: result.folders.length,
+                })
+            )
             onOpenChange(false)
             resetState()
         } catch (err) {
-            toast.error("Failed to import bookmarks")
+            toast.error(t("errorToast"))
         } finally {
             setIsImporting(false)
         }
-    }, [selectedFile, importMode, clearAll, importBookmarks, onOpenChange])
+    }, [selectedFile, importMode, clearAll, importBookmarks, onOpenChange, t])
 
     const resetState = useCallback(() => {
         setSelectedFile(null)
@@ -150,9 +157,9 @@ export default function ImportDialog({ open, onOpenChange }: ImportDialogProps) 
         <Dialog open={open} onOpenChange={handleClose}>
             <DialogContent className="sm:max-w-[550px]">
                 <DialogHeader>
-                    <DialogTitle>Import Bookmarks</DialogTitle>
+                    <DialogTitle>{t("title")}</DialogTitle>
                     <DialogDescription>
-                        Import bookmarks from your browser's exported file.
+                        {t("description")}
                     </DialogDescription>
                 </DialogHeader>
 
@@ -160,10 +167,10 @@ export default function ImportDialog({ open, onOpenChange }: ImportDialogProps) 
                     {/* Browser Export Instructions */}
                     <div className="grid grid-cols-4 gap-2">
                         {[
-                            { icon: IconBrandChrome, name: 'Chrome', instruction: 'Menu → Bookmarks → Bookmark Manager → ⋮ → Export Bookmarks' },
-                            { icon: IconBrandFirefox, name: 'Firefox', instruction: 'Menu → Bookmarks → Manage Bookmarks → Import and Backup → Export' },
-                            { icon: IconBrandSafari, name: 'Safari', instruction: 'File → Export Bookmarks...' },
-                            { icon: IconBrandEdge, name: 'Edge', instruction: 'Menu → Favorites → ⋯ → Export Favorites' },
+                            { icon: IconBrandChrome, name: 'Chrome', instruction: t("chromeInstruction") },
+                            { icon: IconBrandFirefox, name: 'Firefox', instruction: t("firefoxInstruction") },
+                            { icon: IconBrandSafari, name: 'Safari', instruction: t("safariInstruction") },
+                            { icon: IconBrandEdge, name: 'Edge', instruction: t("edgeInstruction") },
                         ].map((browser) => (
                             <div
                                 key={browser.name}
@@ -203,7 +210,7 @@ export default function ImportDialog({ open, onOpenChange }: ImportDialogProps) 
                                 </div>
                                 <p className="font-medium">{selectedFile.name}</p>
                                 <p className="text-sm text-muted-foreground">
-                                    Click to select a different file
+                                    {t("selectedFileHint")}
                                 </p>
                             </div>
                         ) : (
@@ -211,9 +218,9 @@ export default function ImportDialog({ open, onOpenChange }: ImportDialogProps) 
                                 <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center">
                                     <IconFileImport className="h-6 w-6 text-muted-foreground" />
                                 </div>
-                                <p className="font-medium">Drop your bookmark file here</p>
+                                <p className="font-medium">{t("dropZoneTitle")}</p>
                                 <p className="text-sm text-muted-foreground">
-                                    or click to browse (HTML or JSON)
+                                    {t("dropZoneHint")}
                                 </p>
                             </div>
                         )}
@@ -223,7 +230,7 @@ export default function ImportDialog({ open, onOpenChange }: ImportDialogProps) 
                     {error && (
                         <Alert variant="destructive">
                             <IconAlertCircle className="h-4 w-4" />
-                            <AlertTitle>Error</AlertTitle>
+                            <AlertTitle>{t("errorTitle")}</AlertTitle>
                             <AlertDescription>{error}</AlertDescription>
                         </Alert>
                     )}
@@ -231,10 +238,10 @@ export default function ImportDialog({ open, onOpenChange }: ImportDialogProps) 
                     {/* Preview */}
                     {preview && (
                         <div className="p-4 rounded-lg bg-muted/30 border">
-                            <h4 className="font-medium mb-2">Import Preview</h4>
+                            <h4 className="font-medium mb-2">{t("previewTitle")}</h4>
                             <div className="flex gap-4 text-sm">
-                                <span>{preview.bookmarkCount} bookmarks</span>
-                                <span>{preview.folderCount} folders</span>
+                                <span>{t("previewBookmarks", { count: preview.bookmarkCount })}</span>
+                                <span>{t("previewFolders", { count: preview.folderCount })}</span>
                             </div>
                         </div>
                     )}
@@ -242,18 +249,18 @@ export default function ImportDialog({ open, onOpenChange }: ImportDialogProps) 
                     {/* Import Mode */}
                     {preview && (
                         <div className="space-y-2">
-                            <Label>Import Mode</Label>
+                            <Label>{t("importModeLabel")}</Label>
                             <RadioGroup value={importMode} onValueChange={(v) => setImportMode(v as ImportMode)}>
                                 <div className="flex items-center space-x-2">
                                     <RadioGroupItem value="merge" id="merge" />
                                     <Label htmlFor="merge" className="font-normal cursor-pointer">
-                                        Merge with existing bookmarks
+                                        {t("modeMerge")}
                                     </Label>
                                 </div>
                                 <div className="flex items-center space-x-2">
                                     <RadioGroupItem value="replace" id="replace" />
                                     <Label htmlFor="replace" className="font-normal cursor-pointer text-destructive">
-                                        Replace all existing bookmarks
+                                        {t("modeReplace")}
                                     </Label>
                                 </div>
                             </RadioGroup>
@@ -263,14 +270,16 @@ export default function ImportDialog({ open, onOpenChange }: ImportDialogProps) 
 
                 <DialogFooter>
                     <Button variant="outline" onClick={() => handleClose(false)}>
-                        Cancel
+                        {t("cancel")}
                     </Button>
                     <Button
                         onClick={handleImport}
                         disabled={!preview || isImporting}
                     >
                         {isImporting && <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />}
-                        Import {preview ? `${preview.bookmarkCount} Bookmarks` : ''}
+                        {preview
+                            ? t("importButtonWithCount", { count: preview.bookmarkCount })
+                            : t("importButton")}
                     </Button>
                 </DialogFooter>
             </DialogContent>
