@@ -34,6 +34,7 @@ import {
 import { NavCollapsible, NavItem, NavLink } from "./types"; // Import types
 import useAuth from "@/utils/useAuth"; // Import useAuth
 import { requiresAuth } from "@/lib/tool-config";
+import { useToolVisibility } from "@/hooks/use-tool-visibility";
 
 // Define the props interface for NavGroup
 interface NavGroupProps {
@@ -49,11 +50,38 @@ export function NavGroup({ title, items, collapsible, icon: Icon, hiddenOnMobile
   const { state, isMobile } = useSidebar();
   const pathname = usePathname();
   const { user, loading } = useAuth(false); // Check auth state with loading
+  const { isToolEnabled } = useToolVisibility();
 
-  // Filter items based on mobile state
-  const visibleItems = isMobile
-    ? items.filter((item) => !item.hiddenOnMobile)
-    : items;
+  // Filter items based on mobile state and tool availability
+  const visibleItems = items
+    .filter((item) => {
+      if (isMobile && item.hiddenOnMobile) return false;
+      
+      const itemUrl = typeof item.url === "string" ? item.url : item.url?.toString() || '';
+      if (itemUrl.startsWith('/app/') && !isToolEnabled(itemUrl)) {
+        return false;
+      }
+      return true;
+    })
+    .map((item) => {
+      if ("items" in item && Array.isArray((item as NavCollapsible).items)) {
+        return {
+          ...item,
+          items: (item as NavCollapsible).items.filter((sub) => {
+            const subUrl = typeof sub.url === "string" ? sub.url : sub.url?.toString() || '';
+            if (subUrl.startsWith('/app/') && !isToolEnabled(subUrl)) {
+              return false;
+            }
+            return true;
+          })
+        };
+      }
+      return item;
+    })
+    .filter((item) => {
+      if ("items" in item && Array.isArray((item as NavCollapsible).items) && (item as NavCollapsible).items.length === 0) return false;
+      return true;
+    });
 
   // If group is hidden on mobile or has no visible items, don't render
   if (isMobile && (hiddenOnMobile || visibleItems.length === 0)) {

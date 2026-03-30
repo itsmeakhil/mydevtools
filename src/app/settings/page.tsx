@@ -4,16 +4,20 @@ import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Moon, Sun, Monitor, Globe, User } from 'lucide-react'
+import { Moon, Sun, Monitor, Globe, User, List } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import useAuth from '@/utils/useAuth'
+import { Switch } from '@/components/ui/switch'
+import { sidebarData } from '@/components/sidebar/data/sidebar-data'
+import { useToolVisibility } from '@/hooks/use-tool-visibility'
 
 export default function SettingsPage() {
   const { theme, setTheme } = useTheme()
   const { user } = useAuth()
+  const { isToolEnabled, toggleTool } = useToolVisibility()
   const [mounted, setMounted] = useState(false)
   const [language, setLanguage] = useState('en')
 
@@ -69,6 +73,39 @@ export default function SettingsPage() {
                 Not logged in.
               </div>
             )}
+          </CardContent>
+        </Card>
+
+        <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <List className="h-5 w-5 opacity-70" />
+              Tools & Features
+            </CardTitle>
+            <CardDescription>
+              Choose which tools appear in your navigation sidebar.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-3 sm:grid-cols-2">
+            {sidebarData.navGroups.flatMap((group: any) => group.items).map((item: any) => {
+              const url = typeof item.url === 'string' ? item.url : item.url?.toString() || '';
+              if (!url.startsWith('/app/')) return null;
+              
+              const isEnabled = isToolEnabled(url);
+              
+              return (
+                <div key={url} className="flex items-center justify-between rounded-lg border p-3 bg-background/50 shadow-sm transition-colors hover:bg-accent/30">
+                  <Label className="text-sm font-medium flex items-center gap-2 cursor-pointer" onClick={() => toggleTool(url)}>
+                    {item.icon && <item.icon className="h-4 w-4 text-muted-foreground" />}
+                    {item.title}
+                  </Label>
+                  <Switch 
+                    checked={isEnabled} 
+                    onCheckedChange={() => toggleTool(url)} 
+                  />
+                </div>
+              )
+            })}
           </CardContent>
         </Card>
 
