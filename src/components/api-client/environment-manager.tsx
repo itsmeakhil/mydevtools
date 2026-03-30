@@ -18,7 +18,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { IconPlus, IconTrash, IconSettings, IconEye, IconEyeOff } from "@tabler/icons-react"
+import { IconPlus, IconTrash, IconSettings, IconEye, IconEyeOff, IconEdit } from "@tabler/icons-react"
 import { Environment, EnvironmentVariable } from "./use-environments"
 
 interface EnvironmentManagerProps {
@@ -41,6 +41,8 @@ export function EnvironmentManager({
     const [isOpen, setIsOpen] = React.useState(false)
     const [selectedEnvId, setSelectedEnvId] = React.useState<string | null>(null)
     const [newEnvName, setNewEnvName] = React.useState("")
+    const [editingEnvId, setEditingEnvId] = React.useState<string | null>(null)
+    const [editingName, setEditingName] = React.useState("")
 
     // Select the first environment by default when dialog opens
     React.useEffect(() => {
@@ -136,18 +138,57 @@ export function EnvironmentManager({
                                             className={`group flex items-center justify-between p-2 rounded-md cursor-pointer text-sm ${selectedEnvId === env.id ? "bg-secondary" : "hover:bg-muted"}`}
                                             onClick={() => setSelectedEnvId(env.id)}
                                         >
-                                            <span className="truncate">{env.name}</span>
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                className="h-6 w-6 opacity-0 group-hover:opacity-100"
-                                                onClick={(e) => {
-                                                    e.stopPropagation()
-                                                    deleteEnvironment(env.id)
-                                                }}
-                                            >
-                                                <IconTrash className="h-3 w-3" />
-                                            </Button>
+                                            {editingEnvId === env.id ? (
+                                                <Input
+                                                    value={editingName}
+                                                    onChange={e => setEditingName(e.target.value)}
+                                                    onBlur={() => {
+                                                        if (editingName.trim() && editingName !== env.name) {
+                                                            updateEnvironment(env.id, { name: editingName.trim() });
+                                                        }
+                                                        setEditingEnvId(null);
+                                                    }}
+                                                    onKeyDown={e => {
+                                                        if (e.key === 'Enter') {
+                                                            e.currentTarget.blur();
+                                                        } else if (e.key === 'Escape') {
+                                                            setEditingEnvId(null);
+                                                        }
+                                                    }}
+                                                    autoFocus
+                                                    className="h-6 text-xs w-full mr-2"
+                                                    onClick={e => e.stopPropagation()}
+                                                />
+                                            ) : (
+                                                <span className="truncate pr-2">{env.name}</span>
+                                            )}
+                                            {editingEnvId !== env.id && (
+                                                <div className="flex items-center shrink-0 opacity-0 group-hover:opacity-100">
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        className="h-6 w-6"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation()
+                                                            setEditingEnvId(env.id)
+                                                            setEditingName(env.name)
+                                                        }}
+                                                    >
+                                                        <IconEdit className="h-3 w-3" />
+                                                    </Button>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        className="h-6 w-6"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation()
+                                                            deleteEnvironment(env.id)
+                                                        }}
+                                                    >
+                                                        <IconTrash className="h-3 w-3" />
+                                                    </Button>
+                                                </div>
+                                            )}
                                         </div>
                                     ))}
                                 </div>
@@ -159,14 +200,7 @@ export function EnvironmentManager({
                             {selectedEnv ? (
                                 <>
                                     <div className="flex items-center justify-between">
-                                        <div className="flex items-center gap-2">
-                                            <Input
-                                                value={selectedEnv.name}
-                                                onChange={(e) => updateEnvironment(selectedEnv.id, { name: e.target.value })}
-                                                className="h-8 font-medium w-[200px] border-transparent hover:border-input focus:border-input focus:bg-background -ml-2 px-2"
-                                            />
-                                            <span className="text-sm text-muted-foreground font-medium hidden sm:inline-block">Variables</span>
-                                        </div>
+                                        <h3 className="font-medium">{selectedEnv.name} Variables</h3>
                                         <Button size="sm" onClick={handleAddVariable}>
                                             <IconPlus className="h-4 w-4 mr-2" />
                                             Add Variable

@@ -129,13 +129,35 @@ export function ApiClient() {
         }
     }
 
+    const replaceUrlWithEnvBaseUrl = React.useCallback((url: string | undefined) => {
+        if (!url || !activeEnvId) return url
+        const activeEnv = environments.find(e => e.id === activeEnvId)
+        if (!activeEnv) return url
+
+        let newUrl = url
+        const activeVars = activeEnv.variables
+            .filter(v => v.enabled && v.value)
+            .sort((a, b) => b.value.length - a.value.length)
+
+        for (const v of activeVars) {
+            if (newUrl.startsWith(v.value)) {
+                newUrl = newUrl.replace(v.value, `{{${v.key}}}`)
+                break
+            }
+        }
+        return newUrl
+    }, [environments, activeEnvId])
+
     const handleImportCurl = (curl: string) => {
         try {
             const parsed = parseCurlCommand(curl)
+            const resolvedUrl = replaceUrlWithEnvBaseUrl(parsed.url)
+            
             const newTab: ApiRequestState = {
                 ...createNewTab(),
                 ...parsed,
-                name: parsed.url || "Imported Request",
+                url: resolvedUrl || "",
+                name: resolvedUrl || "Imported Request",
                 id: crypto.randomUUID(),
             }
             setTabs((prev) => [...prev, newTab])
@@ -317,9 +339,12 @@ export function ApiClient() {
     const handleCurlPaste = (curl: string) => {
         try {
             const parsed = parseCurlCommand(curl)
+            const resolvedUrl = replaceUrlWithEnvBaseUrl(parsed.url)
+            
             updateActiveTab({
                 ...parsed,
-                name: parsed.url || activeTab.name,
+                url: resolvedUrl || activeTab.url,
+                name: resolvedUrl || activeTab.name,
             })
             toast.success("cURL pasted and parsed successfully")
         } catch (error) {
