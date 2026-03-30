@@ -208,4 +208,37 @@
     }
     }
   }
+  ,
+  "Notes": {
+    "page": {
+      "loading": "Cargando..."
+    },
+    "layout": {
+      "mobileNavTitle": "Navegación de notas"
+    },
+    "sidebar": {
+      "title": "Notas",
+      "createNoteAria": "Crear nota",
+      "searchPlaceholder": "Buscar notas...",
+      "loading": "Cargando...",
+      "noNotesFound": "No se encontraron notas.",
+      "noNotesYet": "Aún no hay notas. Haz clic en + para crear una.",
+      "inParent": "en {parentTitle}",
+      "untitled": "Sin título",
+      "addSubPage": "Agregar subpágina",
+      "delete": "Eliminar",
+      "deleteConfirmTitle": "¿Eliminar nota?",
+      "deleteConfirmDescription": "¿Seguro que quieres eliminar \"{title}\"? Esta acción no se puede deshacer.",
+      "cancel": "Cancelar",
+      "confirmDelete": "Eliminar"
+    },
+    "editor": {
+      "emptyState": "Selecciona una nota o crea una nueva para comenzar.",
+      "titlePlaceholder": "Sin título"
+    },
+    "context": {
+      "authRequiredError": "Usuario no autenticado",
+      "defaultTitle": "Sin título"
+    }
+  }
 }

@@ -31,6 +31,7 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Note } from "@/app/app/notes/types/Note";
+import { useTranslations } from "next-intl";
 
 interface NoteItemProps {
     note: Note;
@@ -40,6 +41,7 @@ interface NoteItemProps {
 }
 
 const NoteItem = ({ note, level, onDeleteClick, parentTitle }: NoteItemProps) => {
+    const t = useTranslations("Notes.sidebar");
     const { notes, activeNoteId, setActiveNoteId, createNote } = useNotes();
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -93,10 +95,10 @@ const NoteItem = ({ note, level, onDeleteClick, parentTitle }: NoteItemProps) =>
                 <div className="flex-1 min-w-0 overflow-hidden">
                     {parentTitle && (
                         <div className="text-[10px] text-muted-foreground truncate leading-tight">
-                            in {parentTitle}
+                            {t("inParent", { parentTitle })}
                         </div>
                     )}
-                    <div className="truncate text-sm font-medium leading-tight">{note.title || "Untitled"}</div>
+                    <div className="truncate text-sm font-medium leading-tight">{note.title || t("untitled")}</div>
                 </div>
 
                 <div className="flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
@@ -105,7 +107,7 @@ const NoteItem = ({ note, level, onDeleteClick, parentTitle }: NoteItemProps) =>
                         size="icon"
                         className="h-6 w-6"
                         onClick={handleCreateChild}
-                        title="Add sub-page"
+                        title={t("addSubPage")}
                     >
                         <Plus className="h-3 w-3" />
                     </Button>
@@ -124,7 +126,7 @@ const NoteItem = ({ note, level, onDeleteClick, parentTitle }: NoteItemProps) =>
                         <DropdownMenuContent side="right" align="start" className="w-48">
                             <DropdownMenuItem onClick={handleDeleteClick} className="text-red-500 focus:text-red-500 cursor-pointer">
                                 <Trash2 className="h-4 w-4 mr-2" />
-                                Delete
+                                {t("delete")}
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -143,6 +145,7 @@ const NoteItem = ({ note, level, onDeleteClick, parentTitle }: NoteItemProps) =>
 };
 
 export default function NotesSidebar() {
+    const t = useTranslations("Notes.sidebar");
     const { notes, createNote, deleteNote, isLoading } = useNotes();
     const [noteToDelete, setNoteToDelete] = useState<Note | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
@@ -173,16 +176,22 @@ export default function NotesSidebar() {
                             <span className="h-6 w-6 rounded-md bg-primary/10 flex items-center justify-center text-primary">
                                 📝
                             </span>
-                            Notes
+                            {t("title")}
                         </div>
-                        <Button variant="ghost" size="icon" onClick={() => createNote(null)} className="h-8 w-8">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => createNote(null)}
+                            className="h-8 w-8"
+                            aria-label={t("createNoteAria")}
+                        >
                             <Plus className="h-4 w-4" />
                         </Button>
                     </div>
                     <div className="relative">
                         <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                         <Input
-                            placeholder="Search notes..."
+                            placeholder={t("searchPlaceholder")}
                             className="pl-8 h-9 text-sm"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
@@ -193,10 +202,10 @@ export default function NotesSidebar() {
                 <ScrollArea className="flex-1">
                     <div className="p-2">
                         {isLoading ? (
-                            <div className="p-4 text-xs text-muted-foreground text-center">Loading...</div>
+                            <div className="p-4 text-xs text-muted-foreground text-center">{t("loading")}</div>
                         ) : filteredNotes.length === 0 ? (
                             <div className="p-4 text-xs text-muted-foreground text-center">
-                                {searchQuery ? "No notes found." : "No notes yet. Click + to create one."}
+                                {searchQuery ? t("noNotesFound") : t("noNotesYet")}
                             </div>
                         ) : (
                             filteredNotes.map(note => {
@@ -219,15 +228,15 @@ export default function NotesSidebar() {
             <AlertDialog open={!!noteToDelete} onOpenChange={(open) => !open && setNoteToDelete(null)}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Delete Note?</AlertDialogTitle>
+                        <AlertDialogTitle>{t("deleteConfirmTitle")}</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Are you sure you want to delete "{noteToDelete?.title || 'Untitled'}"? This action cannot be undone.
+                            {t("deleteConfirmDescription", { title: noteToDelete?.title || t("untitled") })}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
                         <AlertDialogAction onClick={handleDeleteConfirm} className="bg-destructive hover:bg-destructive/90">
-                            Delete
+                            {t("confirmDelete")}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

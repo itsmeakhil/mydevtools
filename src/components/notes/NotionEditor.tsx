@@ -7,8 +7,10 @@ import { ContainerNode, EditorState } from "@/components/ui/rich-editor/types";
 import { storage } from "@/database/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import useAuth from "@/utils/useAuth";
+import { useTranslations } from "next-intl";
 
 export default function NotionEditor() {
+    const tEditor = useTranslations("Notes.editor");
     const { notes, activeNoteId, updateNote } = useNotes();
     const activeNote = notes.find(n => n.id === activeNoteId);
     const { user } = useAuth();
@@ -105,7 +107,7 @@ export default function NotionEditor() {
     if (!activeNoteId) {
         return (
             <div className="flex-1 flex items-center justify-center text-muted-foreground">
-                Select a note or create a new one to get started.
+                {tEditor("emptyState")}
             </div>
         );
     }
@@ -121,7 +123,7 @@ export default function NotionEditor() {
                     value={title}
                     onChange={handleTitleChange}
                     className="text-3xl md:text-4xl font-bold border-none shadow-none focus-visible:ring-0 px-0 placeholder:text-muted-foreground/50 h-auto bg-transparent"
-                    placeholder="Untitled"
+                    placeholder={tEditor("titlePlaceholder")}
                 />
             </div>
 

@@ -206,4 +206,37 @@
       "projectDeleteFailedTitle": "Failed to delete project"
     }
   }
+  ,
+  "Notes": {
+    "page": {
+      "loading": "Loading..."
+    },
+    "layout": {
+      "mobileNavTitle": "Notes Navigation"
+    },
+    "sidebar": {
+      "title": "Notes",
+      "createNoteAria": "Create note",
+      "searchPlaceholder": "Search notes...",
+      "loading": "Loading...",
+      "noNotesFound": "No notes found.",
+      "noNotesYet": "No notes yet. Click + to create one.",
+      "inParent": "in {parentTitle}",
+      "untitled": "Untitled",
+      "addSubPage": "Add sub-page",
+      "delete": "Delete",
+      "deleteConfirmTitle": "Delete note?",
+      "deleteConfirmDescription": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirmDelete": "Delete"
+    },
+    "editor": {
+      "emptyState": "Select a note or create a new one to get started.",
+      "titlePlaceholder": "Untitled"
+    },
+    "context": {
+      "authRequiredError": "User not authenticated",
+      "defaultTitle": "Untitled"
+    }
+  }
 }

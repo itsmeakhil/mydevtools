@@ -6,8 +6,10 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 
 export default function NotesLayout({ children }: { children: React.ReactNode }) {
+    const t = useTranslations("Notes.layout");
     const isDesktop = useMediaQuery("(min-width: 768px)");
 
     return (
@@ -24,7 +26,7 @@ export default function NotesLayout({ children }: { children: React.ReactNode })
                                 </SheetTrigger>
                                 <SheetContent side="left" className="p-0 w-72">
                                     <SheetHeader className="sr-only">
-                                        <SheetTitle>Notes Navigation</SheetTitle>
+                                        <SheetTitle>{t("mobileNavTitle")}</SheetTitle>
                                     </SheetHeader>
                                     <NotesSidebar />
                                 </SheetContent>

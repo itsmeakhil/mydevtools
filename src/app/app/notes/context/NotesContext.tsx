@@ -17,6 +17,7 @@ import { db } from "@/database/firebase";
 import { Note } from "../types/Note";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/database/firebase";
+import { useTranslations } from "next-intl";
 
 interface NotesContextType {
     notes: Note[];
@@ -31,6 +32,7 @@ interface NotesContextType {
 const NotesContext = createContext<NotesContextType | undefined>(undefined);
 
 export function NotesProvider({ children }: { children: React.ReactNode }) {
+    const t = useTranslations("Notes.context");
     const [user] = useAuthState(auth);
     const [notes, setNotes] = useState<Note[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -67,10 +69,10 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     }, [user]);
 
     const createNote = useCallback(async (parentId: string | null = null) => {
-        if (!user) throw new Error("User not authenticated");
+        if (!user) throw new Error(t("authRequiredError"));
 
         const newNote = {
-            title: "Untitled",
+            title: t("defaultTitle"),
             content: {},
             parentId,
             userId: user.uid,
