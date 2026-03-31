@@ -1,0 +1,1382 @@
+{
+  "Navigation": {
+    "dashboard": "Instrumentpanel",
+    "settings": "Inställningar",
+    "apiClient": "API-klient",
+    "passwordManager": "Lösenordshanterare",
+    "bookmarks": "Bokmärken",
+    "emailValidator": "E-postvalidering",
+    "nosqlExplorer": "NoSQL-utforskare"
+  },
+  "Settings": {
+    "title": "Inställningar",
+    "language": "Språk",
+    "spanish": "Spanska",
+    "english": "Engelska",
+    "french": "Français",
+    "arabic": "عربى",
+    "catalan": "Katalanska",
+    "chineseSimplified": "Kinesiska (förenklad)",
+    "czech": "Čeština",
+    "greek": "Ελληνικά",
+    "german": "Tyska",
+    "danish": "Danska",
+    "afrikaans": "Afrikaans",
+    "persian": "فارسی",
+    "indonesian": "Bahasa Indonesia",
+    "japanese": "日本語",
+    "korean": "한국어",
+    "malay": "Bahasa Melayu",
+    "dutch": "Nederlands",
+    "polish": "Polska",
+    "vietnamese": "Tiếng Việt"
+  },
+  "SettingsPage": {
+    "title": "Inställningar",
+    "subtitle": "Hantera dina kontoinställningar och preferenser.",
+    "userProfile": {
+      "title": "Användarprofil",
+      "description": "Din personliga information och kontouppgifter.",
+      "avatarAlt": "Användare",
+      "anonymousUser": "Anonym användare",
+      "noEmailProvided": "Ingen e-post angiven",
+      "notLoggedIn": "Inte inloggad."
+    },
+    "tools": {
+      "title": "Verktyg och funktioner",
+      "description": "Välj vilka verktyg som visas i din navigeringspanel."
+    },
+    "appearance": {
+      "title": "Utseende",
+      "description": "Anpassa hur applikationen ser ut på din enhet.",
+      "themePreference": "Temainställning",
+      "themes": {
+        "light": "Ljust",
+        "dark": "Mörkt",
+        "system": "System"
+      }
+    },
+    "language": {
+      "title": "Språk",
+      "description": "Ställ in språket som används på plattformen.",
+      "selectLanguage": "Välj språk",
+      "selectPlaceholder": "Välj ett språk",
+      "helpText": "Att ändra språk uppdaterar menyer och etiketter på hela plattformen.",
+      "languages": {
+        "en": "English",
+        "fr": "Français",
+        "es": "Español (Spanska)",
+        "ar": "عربى (Arabiska)",
+        "ca": "Català",
+        "zh": "简体中文",
+        "cs": "Čeština",
+        "el": "Ελληνικά (Grekiska)",
+        "de": "Deutsch (Tyska)",
+        "da": "Dansk (Danska)",
+        "af": "Afrikaans",
+        "fa": "فارسی",
+        "id": "Bahasa Indonesia",
+        "nb": "Norsk",
+        "ja": "日本語",
+        "ko": "한국어",
+        "ms": "Bahasa Melayu",
+        "nl": "Nederlands",
+        "pl": "Polski (Polska)",
+        "pt": "Português",
+        "pt-BR": "Português (Brasil)",
+        "vi": "Tiếng Việt",
+        "ru": "Русский",
+        "sv": "Svenska",
+        "tr": "Türkçe"
+      }
+    }
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "God morgon",
+      "afternoon": "God eftermiddag",
+      "evening": "God kväll"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "Välkommen tillbaka",
+    "welcomeBackNamed": "Välkommen tillbaka, {name}",
+    "tagline": "Vad vill du bygga idag?",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Verktyg",
+      "favorites": "Favoriter"
+    },
+    "sections": {
+      "recentlyUsed": "Nyligen använda",
+      "favorites": "Favoriter"
+    },
+    "groups": {
+      "apps": "Appar"
+    },
+    "toolCard": {
+      "defaultDescription": "Utforska detta verktyg för bättre funktionalitet.",
+      "launchTool": "Starta verktyg"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Uppgifter",
+        "description": "Hantera dina att-göra-listor effektivt."
+      },
+      "notes": {
+        "title": "Anteckningar",
+        "description": "Fånga idéer och organisera dina tankar."
+      },
+      "passwordManager": {
+        "title": "Lösenordshanterare",
+        "description": "Lagra och hantera dina lösenord säkert."
+      },
+      "bookmarks": {
+        "title": "Bokmärken",
+        "description": "Hantera och organisera dina bokmärken."
+      },
+      "apiClient": {
+        "title": "API-klient",
+        "description": "Testa och felsök HTTP-förfrågningar."
+      },
+      "nosqlExplorer": {
+        "title": "NoSQL-utforskare",
+        "description": "Utforska MongoDB-databaser."
+      },
+      "emailValidator": {
+        "title": "E-postvalidering",
+        "description": "Verifiera och validera e-postadresser."
+      }
+    }
+  },
+  "Tasks": {
+    "page": {
+      "loading": "Laddar...",
+      "myTasksTitle": "Mina uppgifter",
+      "statsLine": "{total} uppgifter • {percent}% klart",
+      "statsLineDesktop": "{total} totalt • {percent}% klart"
+    },
+    "filters": {
+      "all": "Alla",
+      "total": "Totalt",
+      "allProjects": "Alla projekt",
+      "export": "Exportera",
+      "kanban": "Kanban",
+      "list": "Lista",
+      "searchPlaceholder": "Sök uppgifter...",
+      "searchAria": "Sök uppgifter",
+      "clearSearchAria": "Rensa sökning",
+      "foundTasks": "Hittade {count} {count, plural, one {uppgift} other {uppgifter}}",
+      "filterByAllAria": "Filtrera efter alla",
+      "filterByStatusAria": "Filtrera efter {status}"
+    },
+    "status": {
+      "not-started": {
+        "label": "Ej påbörjad",
+        "description": "Uppgifter som inte har påbörjats ännu"
+      },
+      "ongoing": {
+        "label": "Pågående",
+        "description": "Uppgifter som pågår just nu"
+      },
+      "completed": {
+        "label": "Avslutad",
+        "description": "Uppgifter som är klara"
+      }
+    },
+    "priorities": {
+      "high": "Hög",
+      "medium": "Medel",
+      "low": "Låg"
+    },
+    "form": {
+      "addNewTaskLabel": "Lägg till ny uppgift",
+      "multilinePlaceholder": "Lägg till uppgiftsdetaljer... (Shift+Enter för ny rad)",
+      "singlelinePlaceholder": "Vad behöver göras? Tryck Enter för att lägga till",
+      "taskInputAria": "Uppgiftsinmatning",
+      "projectPlaceholder": "Projekt",
+      "selectProject": "Välj projekt",
+      "errorSelectProject": "Välj ett projekt eller skapa ett nytt för att lägga till en uppgift.",
+      "hintMultiline": "Shift+Enter för ny rad, Enter för att lägga till",
+      "hintSingleline": "Enter för att lägga till",
+      "shortcutsAria": "Tangentbordsgenvägar",
+      "shortcutsLabel": "Genvägar",
+      "shortcutAddTask": "Lägg till uppgift",
+      "shortcutNewLine": "Ny rad",
+      "shortcutClear": "Rensa",
+      "addButton": "Lägg till"
+    },
+    "list": {
+      "ariaLabel": "Uppgiftslista",
+      "loading": "Laddar dina uppgifter...",
+      "emptyTitle": "Inga uppgifter hittades",
+      "emptyPrimary": "Kom igång genom att lägga till din första uppgift ovan! Tryck Enter för att snabbt lägga till uppgifter.",
+      "emptySecondary": "Prova att justera dina filter eller sökfråga."
+    },
+    "mobileDrawer": {
+      "addTaskSrOnly": "Lägg till uppgift",
+      "addNewTaskTitle": "Lägg till ny uppgift",
+      "addNewTaskDescription": "Skapa en ny uppgift för att spåra dina framsteg.",
+      "cancel": "Avbryt"
+    },
+    "kanban": {
+      "ariaLabel": "Kanban-tavla",
+      "loading": "Laddar dina uppgifter...",
+      "dropHere": "Släpp uppgift här",
+      "noTasksYet": "Inga uppgifter ännu",
+      "emptyColumnAria": "Tom kolumn",
+      "columnAria": "{title}-kolumn med {count} uppgifter",
+      "countInColumnAria": "{count} uppgifter i {title}"
+    },
+    "taskItem": {
+      "confirmDelete": "Är du säker på att du vill ta bort denna uppgift?",
+      "statusPlaceholder": "Status",
+      "changeStatusAria": "Ändra uppgiftsstatus",
+      "taskOptionsAria": "Uppgiftsalternativ",
+      "editTask": "Redigera uppgift",
+      "copyTask": "Kopiera uppgift",
+      "copied": "Kopierat!",
+      "deleteTask": "Ta bort uppgift",
+      "statusHeading": "Status",
+      "editTaskAria": "Redigera uppgift"
+    },
+    "editDialog": {
+      "title": "Redigera uppgift",
+      "description": "Uppdatera uppgiftsdetaljer, lägg till deluppgifter, ställ in prioriteter och mer.",
+      "taskTitleLabel": "Uppgiftstitel *",
+      "taskTitlePlaceholder": "Vad behöver göras?",
+      "descriptionLabel": "Beskrivning",
+      "descriptionPlaceholder": "Lägg till mer detaljer om denna uppgift...",
+      "statusLabel": "Status",
+      "priorityLabel": "Prioritet",
+      "dueDateLabel": "Förfallodatum",
+      "pickDate": "Välj ett datum",
+      "clearDate": "Rensa datum",
+      "projectLabel": "Projekt",
+      "selectProjectPlaceholder": "Välj ett projekt",
+      "noProject": "Inget projekt",
+      "timeEstimateLabel": "Tidsuppskattning (minuter)",
+      "timeEstimatePlaceholder": "Hur lång tid tar det?",
+      "tagsLabel": "Taggar",
+      "customTagNamePlaceholder": "Eget taggnamn",
+      "subtasksLabel": "Deluppgifter",
+      "addSubtaskPlaceholder": "Lägg till en deluppgift...",
+      "cancel": "Avbryt",
+      "saving": "Sparar...",
+      "saveChanges": "Spara ändringar"
+    },
+    "export": {
+      "title": "Exportera uppgifter",
+      "description": "Exportera dina uppgifter till JSON-, CSV- eller Excel-format.",
+      "projectLabel": "Projekt",
+      "statusLabel": "Status",
+      "tagLabel": "Tagg",
+      "allProjects": "Alla projekt",
+      "allStatuses": "Alla statusar",
+      "allTags": "Alla taggar",
+      "exportAsJsonTitle": "Exportera som JSON",
+      "exportAsJsonDescription": "Exportera uppgiftsdata inklusive deluppgifter, taggar och metadata.",
+      "exportJson": "Exportera JSON",
+      "exportAsCsvExcelTitle": "Exportera som CSV / Excel",
+      "exportAsCsvExcelDescription": "Exportera uppgifter för kalkylbladsprogram.",
+      "exportCsv": "Exportera CSV",
+      "exportExcel": "Exportera Excel",
+      "close": "Stäng",
+      "toastNoTasks": "Inga uppgifter att exportera med aktuella filter",
+      "toastExportedJson": "Exporterade {count} uppgifter till JSON!",
+      "toastExportedCsv": "Exporterade {count} uppgifter till CSV!",
+      "toastExportedExcel": "Exporterade {count} uppgifter till Excel!",
+      "toastFailedJson": "Misslyckades att exportera till JSON",
+      "toastFailedCsv": "Misslyckades att exportera till CSV",
+      "toastFailedExcel": "Misslyckades att exportera till Excel",
+      "unknownProject": "Okänt projekt"
+    },
+    "ack": {
+      "taskAddedTitle": "Uppgift tillagd",
+      "taskAddedFailedTitle": "Misslyckades att lägga till uppgift",
+      "taskUpdatedTitle": "Uppgift uppdaterad",
+      "taskUpdatedFailedTitle": "Misslyckades att uppdatera uppgift",
+      "taskStatusUpdateFailedTitle": "Misslyckades att uppdatera uppgiftsstatus",
+      "taskMovedTitle": "Uppgift flyttad till {status}",
+      "tryAgain": "Försök igen.",
+      "taskDeletedTitle": "Uppgift \"{text}\" borttagen",
+      "undo": "Ångra",
+      "taskRestoredTitle": "Uppgift återställd",
+      "taskRestoredSuccessTitle": "Uppgift återställd",
+      "taskRestoreFailedTitle": "Misslyckades att återställa uppgift. Försök igen.",
+      "taskDeleteFailedTitle": "Misslyckades att ta bort uppgift. Försök igen.",
+      "tasksImportedTitle": "Importerade {count} {count, plural, one {uppgift} other {uppgifter}}!",
+      "tasksImportFailedTitle": "Misslyckades att importera uppgifter. Försök igen.",
+      "unknownProject": "Okänt projekt",
+      "projectCreatedTitle": "Projekt skapat",
+      "projectCreateFailedTitle": "Misslyckades att skapa projekt",
+      "projectUpdatedTitle": "Projekt uppdaterat",
+      "projectUpdateFailedTitle": "Misslyckades att uppdatera projekt",
+      "projectDeletedTitle": "Projekt borttaget",
+      "projectDeleteFailedTitle": "Misslyckades att ta bort projekt"
+    }
+  },
+  "Notes": {
+    "page": {
+      "loading": "Laddar..."
+    },
+    "layout": {
+      "mobileNavTitle": "Anteckningsnavigering",
+      "openMenuAria": "Öppna anteckningsmeny"
+    },
+    "sidebar": {
+      "title": "Anteckningar",
+      "createNoteAria": "Skapa anteckning",
+      "searchPlaceholder": "Sök anteckningar...",
+      "loading": "Laddar...",
+      "noNotesFound": "Inga anteckningar hittades.",
+      "noNotesYet": "Inga anteckningar ännu. Klicka + för att skapa en.",
+      "inParent": "i {parentTitle}",
+      "untitled": "Namnlös",
+      "addSubPage": "Lägg till undersida",
+      "delete": "Ta bort",
+      "deleteConfirmTitle": "Ta bort anteckning?",
+      "deleteConfirmDescription": "Är du säker på att du vill ta bort \"{title}\"? Denna åtgärd kan inte ångras.",
+      "cancel": "Avbryt",
+      "confirmDelete": "Ta bort",
+      "noteOptionsAria": "Anteckningsalternativ"
+    },
+    "editor": {
+      "emptyState": "Välj en anteckning eller skapa en ny för att komma igång.",
+      "titlePlaceholder": "Namnlös"
+    },
+    "context": {
+      "authRequiredError": "Användaren är inte autentiserad",
+      "defaultTitle": "Namnlös"
+    }
+  },
+  "PasswordManager": {
+    "page": {
+      "loading": "Laddar...",
+      "title": "Lösenordshanterare"
+    },
+    "vault": {
+      "toastDecryptFailed": "Misslyckades att dekryptera lösenord",
+      "toastLoadFailed": "Misslyckades att ladda lösenord",
+      "toastUnlockedAuto": "Valvet låstes upp automatiskt",
+      "toastAutoUnlockFailed": "Automatisk upplåsning misslyckades. Lås upp manuellt.",
+      "toastConnectFailed": "Misslyckades att ansluta till servern",
+      "toastAutoUnlockWarning": "Valvet upplåst, men automatisk upplåsning kanske inte fungerar vid omladdning",
+      "errorIncorrectPassword": "Felaktigt huvudlösenord",
+      "errorUnlockFailed": "Misslyckades att låsa upp valvet",
+      "errorPasswordsMismatch": "Lösenorden matchar inte",
+      "errorPasswordTooShort": "Lösenordet måste vara minst 8 tecken",
+      "errorSetupFailed": "Misslyckades att konfigurera valvet",
+      "errorConnectFailed": "Misslyckades att ansluta till servern.",
+      "mobileTitleCreate": "Skapa ditt valv",
+      "mobileTitleWelcome": "Välkommen tillbaka",
+      "mobileSubtitleCreate": "Ange ett huvudlösenord för att skydda dina uppgifter",
+      "mobileSubtitleUnlock": "Ange ditt huvudlösenord för att låsa upp",
+      "placeholderMasterPassword": "Huvudlösenord",
+      "placeholderConfirmPassword": "Bekräfta lösenord",
+      "labelMasterPassword": "Huvudlösenord",
+      "labelConfirmPassword": "Bekräfta lösenord",
+      "placeholderEnterMaster": "Ange huvudlösenord",
+      "placeholderConfirmMaster": "Bekräfta huvudlösenord",
+      "buttonCreateVault": "Skapa valv",
+      "buttonUnlock": "Lås upp",
+      "buttonUnlockVault": "Lås upp valvet",
+      "footerCreate": "Ditt lösenord lagras aldrig och kan inte återställas",
+      "footerUnlock": "Säkrad med end-to-end-kryptering",
+      "desktopTitleSetup": "Konfigurera lösenordsvalv",
+      "desktopTitleUnlock": "Lås upp valvet",
+      "desktopDescriptionSetup": "Skapa ett huvudlösenord för att säkra dina uppgifter. Detta lösenord lagras aldrig och kan inte återställas.",
+      "desktopDescriptionUnlock": "Ange ditt huvudlösenord för att komma åt dina säkrade uppgifter."
+    },
+    "list": {
+      "loading": "Laddar dina lösenord...",
+      "emptyTitle": "Valvet är tomt",
+      "emptyHintMobile": "Tryck på +-knappen för att lägga till ditt första lösenord",
+      "emptyHintDesktop": "Du har inte lagrat några lösenord ännu. Klicka på knappen \"Lägg till lösenord\" ovan för att komma igång.",
+      "addPassword": "Lägg till lösenord",
+      "searchPlaceholderMobile": "Sök i ditt valv...",
+      "searchPlaceholderDesktop": "Sök i valvet...",
+      "importExport": "Importera / exportera",
+      "lockVault": "Lås valvet",
+      "allPasswordsTitle": "Alla lösenord",
+      "passwordCount": "{count, plural, one {# lösenord} other {# lösenord}}",
+      "vaultHealthDrawerTitle": "Valvhälsa",
+      "noResults": "Inga lösenord hittades som matchar \"{query}\"",
+      "tableService": "Tjänst",
+      "tableUsername": "Användarnamn",
+      "tablePassword": "Lösenord",
+      "tableUrl": "URL",
+      "tableActions": "Åtgärder",
+      "gridViewAria": "Rutnätsvy",
+      "listViewAria": "Listvy",
+      "passwordStrengthTitle": "Lösenordsstyrka",
+      "deleteDialogTitle": "Ta bort lösenord",
+      "deleteDialogDescription": "Är du säker på att du vill ta bort detta lösenord? Denna åtgärd kan inte ångras.",
+      "cancel": "Avbryt",
+      "delete": "Ta bort",
+      "edit": "Redigera"
+    },
+    "toasts": {
+      "copiedPassword": "Lösenord kopierat till urklipp",
+      "copiedUsername": "Användarnamn kopierat till urklipp",
+      "passwordDeleted": "Lösenord borttaget",
+      "deleteFailed": "Misslyckades att ta bort lösenord",
+      "vaultLocked": "Valvet låst",
+      "importedCount": "Importerade {count, plural, one {# lösenord} other {# lösenord}}"
+    },
+    "form": {
+      "addTitle": "Lägg till nytt lösenord",
+      "editTitle": "Redigera lösenord",
+      "serviceName": "Tjänstnamn",
+      "usernameEmail": "Användarnamn / e-post",
+      "password": "Lösenord",
+      "urlOptional": "Webbadress (valfritt)",
+      "notesOptional": "Anteckningar (valfritt)",
+      "tags": "Taggar",
+      "placeholderService": "t.ex. Netflix",
+      "placeholderUsername": "user@example.com",
+      "placeholderPassword": "Ange eller generera lösenord",
+      "placeholderUrl": "https://...",
+      "placeholderNotes": "Ytterligare detaljer...",
+      "placeholderTags": "Lägg till taggar (tryck Enter eller komma)",
+      "strength": "Styrka",
+      "strengthWeak": "Svagt",
+      "strengthMedium": "Medel",
+      "strengthStrong": "Starkt",
+      "advancedGenerator": "Avancerad generator",
+      "cancel": "Avbryt",
+      "saving": "Sparar...",
+      "savePassword": "Spara lösenord",
+      "updating": "Uppdaterar...",
+      "updatePassword": "Uppdatera lösenord",
+      "addPasswordSrOnly": "Lägg till lösenord",
+      "triggerAdd": "Lägg till lösenord",
+      "toastSaved": "Lösenord sparat",
+      "toastSaveFailed": "Misslyckades att spara lösenord",
+      "toastUpdated": "Lösenord uppdaterat",
+      "toastUpdateFailed": "Misslyckades att uppdatera lösenord"
+    },
+    "security": {
+      "vaultHealth": "Valvhälsa",
+      "statusLabel": "Status",
+      "totalPasswords": "Totalt antal lösenord",
+      "activeEntries": "Aktiva poster i ditt valv",
+      "protected": "Skyddat",
+      "weakPasswords": "Svaga lösenord",
+      "needingImprovement": "Lösenord som behöver förbättras",
+      "allGood": "Allt bra",
+      "reusedPasswords": "Återanvända lösenord",
+      "usedMultipleTimes": "Lösenord som används flera gånger",
+      "unique": "Unika",
+      "total": "Totalt",
+      "weak": "Svaga",
+      "reused": "Återanvända",
+      "totalCountLabel": "{count, plural, one {# lösenord} other {# lösenord}}",
+      "weakCountLabel": "{count} svaga",
+      "allSecure": "Alla säkra",
+      "scoreExcellent": "Utmärkt",
+      "scoreGood": "Bra",
+      "scoreFair": "Godtagbart",
+      "scoreCritical": "Kritiskt"
+    },
+    "importExport": {
+      "title": "Importera / exportera valv",
+      "description": "Hantera dina lösenordsdata. Du kan exportera ditt valv till JSON eller importera från en JSON-fil.",
+      "tabExport": "Exportera",
+      "tabImport": "Importera",
+      "warningTitle": "Varning",
+      "warningBody": "Exporterade filer innehåller dina lösenord i klartext. Förvara filen säkert och ta bort den efter användning.",
+      "exportBlurb": "Ladda ner hela ditt valv som en JSON-fil. Detta inkluderar alla tjänster, användarnamn, lösenord och anteckningar.",
+      "downloadJson": "Ladda ner JSON-export",
+      "pasteLabel": "Klistra in JSON-data",
+      "pastePlaceholder": "[{\"service\": \"Exempel\", \"username\": \"user\", \"password\": \"123\", ...}]",
+      "pasteHint": "Klistra in innehållet från en tidigare exporterad JSON-fil här.",
+      "importing": "Importerar...",
+      "importPasswords": "Importera lösenord",
+      "trigger": "Importera / exportera",
+      "toastExported": "Valvet exporterat",
+      "toastExportFailed": "Misslyckades att exportera valvet",
+      "toastImportFailed": "Misslyckades att importera: ogiltigt JSON-format"
+    },
+    "card": {
+      "copyUsername": "Kopiera användarnamn",
+      "openUrl": "Öppna URL",
+      "strength": "Styrka"
+    },
+    "swipeable": {
+      "copy": "Kopiera",
+      "delete": "Ta bort",
+      "copyPassword": "Kopiera lösenord",
+      "copyUsername": "Kopiera användarnamn",
+      "edit": "Redigera",
+      "deleteAction": "Ta bort"
+    },
+    "floatingMenu": {
+      "lockVault": "Lås valvet",
+      "importExport": "Importera / exportera",
+      "addPassword": "Lägg till lösenord"
+    },
+    "generator": {
+      "tabPassword": "Lösenord",
+      "tabPassphrase": "Lösenfras",
+      "strength": "Styrka",
+      "lengthLabel": "Längd: {length} tecken",
+      "lengthBadge": "{length} tecken",
+      "characterSets": "Teckenuppsättningar",
+      "uppercase": "Versaler",
+      "lowercase": "Gemener",
+      "numbers": "Siffror",
+      "symbols": "Symboler",
+      "wordCountLabel": "Antal ord: {count}",
+      "wordCountBadge": "{count, plural, one {# ord} other {# ord}}",
+      "separator": "Separator",
+      "capitalization": "Versalisering",
+      "includeNumber": "Inkludera siffra"
+    }
+  },
+  "Bookmarks": {
+    "page": {
+      "loading": "Laddar..."
+    },
+    "manager": {
+      "foldersHeading": "Mappar",
+      "tagsHeading": "Taggar",
+      "tagsMore": "+{count} fler",
+      "searchPlaceholder": "Sök bland dina bokmärken...",
+      "import": "Importera",
+      "export": "Exportera",
+      "exportAsHtml": "Exportera som HTML",
+      "exportAsJson": "Exportera som JSON",
+      "addBookmark": "Lägg till bokmärke",
+      "matchingQuery": "matchar \"{query}\"",
+      "bookmarkCount": "{count, plural, one {# bokmärke} other {# bokmärken}}",
+      "allBookmarks": "Alla bokmärken",
+      "uncategorized": "Okategoriserade",
+      "unknownFolder": "Okänd"
+    },
+    "card": {
+      "urlCopied": "URL kopierad till urklipp",
+      "bookmarkDeleted": "Bokmärke borttaget",
+      "edit": "Redigera",
+      "delete": "Ta bort",
+      "copyUrl": "Kopiera URL",
+      "deleteConfirmTitle": "Ta bort bokmärke?",
+      "deleteConfirmDescription": "Detta kommer permanent ta bort \"{title}\".",
+      "cancel": "Avbryt"
+    },
+    "grid": {
+      "emptyTitle": "Inga bokmärken ännu",
+      "emptyDescription": "Lägg till ditt första bokmärke eller importera från din webbläsare för att komma igång."
+    },
+    "folderTree": {
+      "allBookmarks": "Alla bokmärken",
+      "addSubfolder": "Lägg till undermapp",
+      "rename": "Byt namn",
+      "deleteFolderTitle": "Ta bort mapp \"{name}\"?",
+      "deleteFolderDescription": "Detta kommer ta bort mappen och alla undermappar. Bokmärken i dessa mappar flyttas till Okategoriserade."
+    },
+    "import": {
+      "title": "Importera bokmärken",
+      "description": "Importera bokmärken från din webbläsares exporterade fil.",
+      "parseError": "Misslyckades att tolka bokmärkesfil. Kontrollera att det är en giltig bokmärkesexport.",
+      "successToast": "Importerade {bookmarks} bokmärken och {folders} mappar",
+      "errorToast": "Misslyckades att importera bokmärken",
+      "chromeInstruction": "Meny → Bokmärken → Bokmärkeshanteraren → ⋮ → Exportera bokmärken",
+      "firefoxInstruction": "Meny → Bokmärken → Hantera bokmärken → Import och säkerhetskopiering → Exportera",
+      "safariInstruction": "Arkiv → Exportera bokmärken...",
+      "edgeInstruction": "Meny → Favoriter → ⋯ → Exportera favoriter",
+      "dropZoneTitle": "Släpp din bokmärkesfil här",
+      "dropZoneHint": "eller klicka för att bläddra (HTML eller JSON)",
+      "selectedFileHint": "Klicka för att välja en annan fil",
+      "errorTitle": "Fel",
+      "previewTitle": "Förhandsgranskning",
+      "previewBookmarks": "{count, plural, one {# bokmärke} other {# bokmärken}}",
+      "previewFolders": "{count, plural, one {# mapp} other {# mappar}}",
+      "importModeLabel": "Importläge",
+      "modeMerge": "Sammanfoga med befintliga bokmärken",
+      "modeReplace": "Ersätt alla befintliga bokmärken",
+      "cancel": "Avbryt",
+      "importButton": "Importera",
+      "importButtonWithCount": "Importera {count, plural, one {# bokmärke} other {# bokmärken}}"
+    },
+    "addBookmark": {
+      "titleAdd": "Lägg till bokmärke",
+      "titleEdit": "Redigera bokmärke",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://example.com",
+      "urlInvalid": "Ange en giltig URL",
+      "titleLabel": "Titel",
+      "titlePlaceholder": "Bokmärkestitel",
+      "titleRequired": "Ange en titel",
+      "descriptionLabel": "Beskrivning (valfritt)",
+      "descriptionPlaceholder": "Lägg till en anteckning om detta bokmärke",
+      "folderLabel": "Mapp",
+      "folderPlaceholder": "Välj mapp",
+      "noFolder": "Ingen mapp",
+      "tagsLabel": "Taggar",
+      "tagsPlaceholder": "Lägg till taggar (tryck Enter)",
+      "toastUpdated": "Bokmärke uppdaterat",
+      "toastAdded": "Bokmärke tillagt",
+      "cancel": "Avbryt",
+      "submitAdd": "Lägg till bokmärke",
+      "submitUpdate": "Uppdatera bokmärke"
+    },
+    "addFolder": {
+      "title": "Skapa mapp",
+      "nameLabel": "Mappnamn",
+      "namePlaceholder": "Min mapp",
+      "nameRequired": "Ange ett mappnamn",
+      "parentLabel": "Överordnad mapp",
+      "parentPlaceholder": "Välj överordnad mapp",
+      "rootParent": "Rot (ingen överordnad)",
+      "toastCreated": "Mapp skapad",
+      "cancel": "Avbryt",
+      "submit": "Skapa mapp"
+    },
+    "editFolder": {
+      "title": "Byt namn på mapp",
+      "nameLabel": "Mappnamn",
+      "namePlaceholder": "Mappnamn",
+      "nameRequired": "Ange ett mappnamn",
+      "toastRenamed": "Mapp omdöpt",
+      "cancel": "Avbryt",
+      "save": "Spara"
+    }
+  },
+  "EmailValidator": {
+    "header": {
+      "title": "E-postvalidering",
+      "description": "Verifiera och validera e-postadresser för syntax, domän och leveransbarhet."
+    },
+    "tabs": {
+      "single": "Enskild verifiering",
+      "bulk": "Massuppladdning"
+    },
+    "single": {
+      "cardTitle": "Enskild e-postverifiering",
+      "cardDescription": "Ange en e-postadress för att kontrollera leveransbarhet och rykte.",
+      "placeholder": "Ange e-postadress...",
+      "clearAria": "Rensa e-post",
+      "validate": "Validera",
+      "validating": "Validerar...",
+      "formatError": "Ange en giltig e-postadress"
+    },
+    "toasts": {
+      "errorTitle": "Fel",
+      "enterEmail": "Ange en e-postadress",
+      "invalidFormatTitle": "Ogiltigt e-postformat",
+      "invalidFormatDescription": "Ange en giltig e-postadress",
+      "validateFailedDescription": "Ett fel uppstod vid validering av e-postadressen",
+      "noEmailsTitle": "Inga e-postadresser hittades",
+      "noEmailsDescription": "Kontrollera att din Excel-fil har en 'email'-kolumn.",
+      "fileTooLargeTitle": "Filen är för stor",
+      "fileTooLargeDescription": "Hittade {total} e-postadresser. Bara de första 4000 kommer att valideras.",
+      "successTitle": "Lyckades",
+      "successValidated": "Validerade {count} e-postadresser.",
+      "batchFailedTitle": "Massvalidering misslyckades",
+      "batchFailedDescription": "Ett fel uppstod vid bearbetning av massvalidering.",
+      "noExportTitle": "Ingen data att exportera",
+      "noExportValidOnly": "Inga giltiga e-postadresser hittades att exportera.",
+      "noExportAll": "Inga resultat att exportera.",
+      "exportSuccessTitle": "Export lyckades",
+      "exportSuccessExcelAll": "Exporterade {count} e-postadresser till Excel.",
+      "exportSuccessExcelValid": "Exporterade {count} giltiga e-postadresser till Excel.",
+      "exportSuccessCsvAll": "Exporterade {count} e-postadresser till CSV.",
+      "exportSuccessCsvValid": "Exporterade {count} giltiga e-postadresser till CSV."
+    },
+    "disposableAlert": {
+      "title": "Engångs-e-post upptäckt",
+      "description": "Denna e-postadress tillhör en engångs-e-postleverantör. Den kan vara tillfällig eller osäker."
+    },
+    "score": {
+      "reliabilityTitle": "Tillförlitlighetspoäng",
+      "scoreLabel": "Poäng"
+    },
+    "details": {
+      "sectionTitle": "Valideringsdetaljer"
+    },
+    "validation": {
+      "syntaxLabel": "Syntax giltig",
+      "syntaxTooltip": "Kontrollerar om e-postadressen följer rätt format (t.ex. user@domain.com)",
+      "domainLabel": "Domän finns",
+      "domainTooltip": "Verifierar att domännamnet i e-postadressen faktiskt finns",
+      "mxLabel": "MX-poster hittade",
+      "mxTooltip": "Kontrollerar om domänen har MX-poster (mail exchange) konfigurerade för att ta emot e-post",
+      "mailboxLabel": "Brevlåda finns",
+      "mailboxTooltip": "Verifierar att den specifika brevlådan/kontot finns på e-postservern",
+      "disposableLabel": "Engångs-e-post",
+      "disposableTooltip": "Indikerar om denna e-post tillhör en tillfällig/engångs-e-posttjänst (kan vara riskabel)",
+      "roleBasedLabel": "Rollbaserad e-post",
+      "roleBasedTooltip": "Identifierar om detta är en rollbaserad e-post (t.ex. support@, info@) snarare än en personlig adress"
+    },
+    "copy": {
+      "emailCopied": "E-post kopierad!",
+      "copyTooltip": "Kopiera e-post"
+    },
+    "bulk": {
+      "dropHere": "Släpp din fil här",
+      "dragHere": "Dra och släpp din fil här",
+      "uploadHint": "Ladda upp en .xlsx-, .xls- eller .csv-fil med en 'email'-kolumn för att validera upp till 4000 e-postadresser.",
+      "filePrefix": "Fil:",
+      "selectFile": "Välj fil",
+      "downloadTemplate": "Ladda ner mall"
+    },
+    "bulkLoading": {
+      "title": "Validerar e-postadresser...",
+      "batchProgress": "Bearbetar batch {current} av {total}..."
+    },
+    "stats": {
+      "totalProcessed": "Totalt bearbetade",
+      "valid": "Giltiga",
+      "risky": "Riskfyllda",
+      "invalid": "Ogiltiga"
+    },
+    "results": {
+      "detailedTitle": "Detaljerade resultat",
+      "searchPlaceholder": "Sök e-postadresser...",
+      "newVerification": "Ny verifiering",
+      "exportAll": "Exportera alla",
+      "exportExcel": "Excel (.xlsx)",
+      "exportCsv": "CSV (.csv)",
+      "exportValid": "Exportera giltiga ({count})"
+    },
+    "showingResults": "Visar {shown} av {total} resultat",
+    "table": {
+      "email": "E-post",
+      "status": "Status",
+      "score": "Poäng",
+      "checks": "Kontroller"
+    },
+    "noSearchResults": "Inga resultat hittades som matchar \"{query}\"",
+    "checksTooltip": {
+      "syntax": "Syntax",
+      "domain": "Domän",
+      "mx": "MX",
+      "mailbox": "Brevlåda"
+    },
+    "exportColumns": {
+      "email": "E-post",
+      "status": "Status",
+      "score": "Poäng",
+      "syntax": "Syntax",
+      "domain": "Domän",
+      "mx": "MX",
+      "mailbox": "Brevlåda",
+      "disposable": "Engångs",
+      "roleBased": "Rollbaserad",
+      "valid": "Giltig",
+      "invalid": "Ogiltig",
+      "yes": "Ja",
+      "no": "Nej"
+    },
+    "sheets": {
+      "validEmails": "Giltiga e-postadresser",
+      "results": "Resultat",
+      "template": "Mall"
+    }
+  },
+  "NoSqlExplorer": {
+    "page": {
+      "heroTitle": "NoSQL-utforskare",
+      "heroSubtitle": "Anslut till dina databaser för att hantera samlingar, köra frågor och visualisera dina data.",
+      "featureMultiTitle": "Multi-anslutning",
+      "featureMultiDesc": "Hantera flera databasanslutningar samtidigt.",
+      "featureMongoTitle": "MongoDB-stöd",
+      "featureMongoDesc": "Inbyggt stöd för MongoDB med avancerad filtrering.",
+      "featureQueryTitle": "Smart fråga",
+      "featureQueryDesc": "Kraftfull frågebyggare med syntaxmarkering.",
+      "connectCta": "Anslut till MongoDB",
+      "footerNote": "Stöder för närvarande {db}. Fler databaser kommer snart.",
+      "footerDb": "MongoDB",
+      "selectCollectionTitle": "Välj en samling",
+      "selectCollectionDesc": "Välj en samling från sidofältet för att visa dokument och börja utforska dina data.",
+      "dialogAddConnection": "Lägg till anslutning",
+      "toastConnectionAdded": "Anslutning tillagd",
+      "toastFetchFailed": "Misslyckades att hämta dokument för {collection}",
+      "toastDocDeleted": "Dokument borttaget",
+      "deleteDocTitle": "Är du helt säker?",
+      "deleteDocDescription": "Denna åtgärd kan inte ångras. Dokumentet kommer permanent tas bort från din samling.",
+      "closeAllTitle": "Stäng alla flikar?",
+      "closeAllDescription": "Är du säker på att du vill stänga alla flikar? Osparade ändringar i frågefilter kommer att gå förlorade.",
+      "closeAllConfirm": "Stäng alla",
+      "cancel": "Avbryt",
+      "delete": "Ta bort"
+    },
+    "connection": {
+      "titleEdit": "Redigera anslutning",
+      "titleConnect": "Anslut till MongoDB",
+      "subtitleEdit": "Uppdatera dina anslutningsuppgifter nedan.",
+      "subtitleConnect": "Ange din MongoDB-anslutningssträng för att börja utforska dina data.",
+      "labelName": "Namn",
+      "placeholderName": "t.ex. Produktionsdatabas",
+      "labelConnectionString": "Anslutningssträng",
+      "placeholderConnectionString": "mongodb://localhost:27017",
+      "hintFormat": "Format: mongodb://username:password@host:port/database",
+      "testConnection": "Testa anslutning",
+      "connecting": "Ansluter...",
+      "updateConnect": "Uppdatera och anslut",
+      "connect": "Anslut",
+      "cancelEdit": "Avbryt redigering",
+      "savedConnections": "Sparade anslutningar",
+      "emptySaved": "Inga sparade anslutningar ännu.",
+      "lastUsed": "Senast använd {time}",
+      "toastTestOk": "Anslutning lyckades!",
+      "toastTestFail": "Anslutning misslyckades: {message}",
+      "toastUpdated": "Anslutning uppdaterad",
+      "confirmDelete": "Är du säker på att du vill ta bort denna sparade anslutning?",
+      "toastDeletedConn": "Anslutning borttagen",
+      "toastDeleteFail": "Misslyckades att ta bort anslutning",
+      "copyStringTitle": "Kopiera anslutningssträng",
+      "toastStringCopied": "Anslutningssträng kopierad!",
+      "editTitle": "Redigera",
+      "deleteTitle": "Ta bort"
+    },
+    "sidebar": {
+      "explorer": "Utforskare",
+      "add": "Lägg till",
+      "tooltipAdd": "Lägg till ny anslutning",
+      "tooltipRefresh": "Uppdatera anslutningar",
+      "searchPlaceholder": "Sök...",
+      "loadingConnections": "Laddar anslutningar...",
+      "noConnectionsFound": "Inga anslutningar hittades",
+      "toastLoadFail": "Misslyckades att ladda anslutningar",
+      "toastConnectFail": "Misslyckades att ansluta till {name}",
+      "toastCollectionsFail": "Misslyckades att hämta samlingar för {name}",
+      "toastRenamed": "Anslutning omdöpt",
+      "toastRenameFail": "Misslyckades att döpa om anslutning",
+      "confirmDeleteConnection": "Är du säker på att du vill ta bort anslutningen \"{name}\"?",
+      "toastDeleted": "Anslutning borttagen",
+      "toastDeleteConnFail": "Misslyckades att ta bort anslutning",
+      "confirmDropDb": "Är du säker på att du vill ta bort databasen \"{name}\"? Denna åtgärd kan inte ångras.",
+      "toastDbDropped": "Databas {name} borttagen",
+      "confirmDropCollection": "Är du säker på att du vill ta bort samlingen \"{name}\"? Denna åtgärd kan inte ångras.",
+      "toastCollectionDropped": "Samling {name} borttagen",
+      "toastCollectionRenamed": "Samling omdöpt till {name}",
+      "toastDatabaseRenamed": "Databas omdöpt till {name}",
+      "connecting": "Ansluter...",
+      "connectionFailed": "Anslutning misslyckades",
+      "noDatabases": "Inga databaser",
+      "loading": "Laddar...",
+      "noCollections": "Inga samlingar",
+      "renameCollectionTitle": "Byt namn på samling",
+      "renameDatabaseTitle": "Byt namn på databas",
+      "placeholderNewCollection": "Nytt samlingsnamn",
+      "placeholderNewDatabase": "Nytt databasnamn",
+      "rename": "Byt namn",
+      "refresh": "Uppdatera",
+      "copyDbName": "Kopiera DB-namn",
+      "toastDbNameCopied": "Databasnamn kopierat till urklipp",
+      "dropDatabase": "Ta bort databas",
+      "dropCollection": "Ta bort samling",
+      "menuRename": "Byt namn",
+      "menuCopyConnectionString": "Kopiera anslutningssträng",
+      "menuDeleteConnection": "Ta bort anslutning",
+      "toastSidebarStringCopied": "Anslutningssträng kopierad!",
+      "cancel": "Avbryt"
+    },
+    "document": {
+      "docsBreadcrumb": "{n} dok",
+      "table": "Tabell",
+      "json": "JSON",
+      "tree": "Träd",
+      "tooltipTable": "Tabellvy",
+      "tooltipJson": "JSON-vy",
+      "tooltipTree": "Trädvy",
+      "itemsPerPage": "Objekt per sida",
+      "perPage": "{n} / sida",
+      "prevPage": "Föregående sida",
+      "nextPage": "Nästa sida",
+      "expandAll": "Expandera alla",
+      "collapseAll": "Fäll ihop alla",
+      "refreshData": "Uppdatera data",
+      "insert": "Infoga",
+      "export": "Exportera",
+      "actions": "Åtgärder",
+      "invalidJson": "Ogiltigt JSON-innehåll",
+      "copiedClipboard": "Kopierat till urklipp",
+      "docUpdated": "Dokument uppdaterat",
+      "docInserted": "Dokument infogat",
+      "invalidJsonShort": "Ogiltig JSON",
+      "docCopied": "Dokument kopierat till urklipp",
+      "openFullEditor": "Öppna i fullständig redigerare",
+      "cellArray": "Array({length})",
+      "cellObject": "Objekt",
+      "cellArrayBracket": "Array[{length}]",
+      "emptyFilterTitle": "Inga dokument matchar din fråga",
+      "emptyFilterHint": "Prova att justera ditt filter eller rensa frågan.",
+      "clearFilter": "Rensa filter",
+      "emptyCollectionTitle": "Denna samling är tom",
+      "emptyCollectionHint": "Infoga ett dokument för att komma igång.",
+      "insertDocument": "Infoga dokument",
+      "formatJson": "Formatera JSON",
+      "compactJson": "Kompakt JSON",
+      "copyClipboard": "Kopiera till urklipp",
+      "copyJson": "Kopiera JSON",
+      "duplicate": "Duplicera",
+      "editDoc": "Redigera dokument",
+      "deleteDoc": "Ta bort dokument",
+      "documentLabel": "Dokument {n}",
+      "editDialogTitle": "Redigera dokument",
+      "insertDialogTitle": "Infoga dokument",
+      "viewValueTitle": "Visa värde",
+      "saveChanges": "Spara ändringar",
+      "close": "Stäng",
+      "cancel": "Avbryt",
+      "insertButton": "Infoga"
+    },
+    "tabs": {
+      "filterActive": "Aktivt filter tillämpat",
+      "filterActiveTooltip": "Filter aktivt",
+      "closeAll": "Stäng alla"
+    },
+    "query": {
+      "migrateHistory": "Migrerade frågehistorik till molnet",
+      "saveHistoryFail": "Misslyckades att spara frågehistorik",
+      "deleteQueryFail": "Misslyckades att ta bort fråga",
+      "invalidJsonQuery": "Ogiltig JSON-fråga",
+      "placeholder": "t.ex. { \"status\": \"active\" }",
+      "clearQuery": "Rensa fråga",
+      "openAdvanced": "Öppna avancerad redigerare",
+      "visualBuilder": "Visuell frågebyggare",
+      "filterRules": "Filterregler",
+      "addRule": "Lägg till regel",
+      "noFilters": "Inga filter tillämpade. Lägg till en regel för att filtrera dokument.",
+      "where": "DÄR",
+      "and": "OCH",
+      "fieldPlaceholder": "Fält",
+      "opPlaceholder": "Op",
+      "typePlaceholder": "Typ",
+      "opRegex": "Regex",
+      "opIn": "I",
+      "opNin": "Inte i",
+      "opExists": "Finns",
+      "typeAuto": "Auto",
+      "typeString": "Sträng",
+      "typeNumber": "Nummer",
+      "typeBoolean": "Boolean",
+      "typeDate": "Datum",
+      "typeObjectId": "ObjectId",
+      "true": "Sant",
+      "false": "Falskt",
+      "valuePlaceholder": "Värde",
+      "valueListPlaceholder": "värde1, värde2",
+      "clearFilters": "Rensa filter",
+      "applyFilters": "Tillämpa filter",
+      "queryHistory": "Frågehistorik",
+      "noSavedQueries": "Inga sparade frågor ännu",
+      "advancedEditorTitle": "Avancerad frågeredigerare",
+      "templatesPlaceholder": "Mallar",
+      "templateEmptyAgg": "Tom aggregering",
+      "templateMatch": "$match (Filter)",
+      "templateLookup": "$lookup (Join)",
+      "templateGroup": "$group (Antal/Summa)",
+      "format": "Formatera",
+      "formattedJson": "Formaterad JSON",
+      "runQuery": "Kör fråga"
+    },
+    "export": {
+      "selectFieldsError": "Välj minst ett fält att exportera",
+      "success": "Exporterade till {filename}",
+      "fail": "Misslyckades att exportera data",
+      "title": "Exportera data",
+      "formatLabel": "Exportformat",
+      "formatXlsx": "Excel (XLSX)",
+      "formatCsv": "CSV",
+      "selectFields": "Välj fält",
+      "selectAll": "Välj alla",
+      "fieldsSelected": "{count, plural, one {# fält valt} other {# fält valda}}",
+      "cancel": "Avbryt",
+      "export": "Exportera",
+      "sheetName": "Data"
+    },
+    "jsonTree": {
+      "typeLabel": "Typ: {type}",
+      "itemSummary": "{count, plural, one {# objekt} other {# objekt}}"
+    }
+  },
+  "ApiClient": {
+    "defaults": {
+      "newRequest": "Ny förfrågan",
+      "importedRequest": "Importerad förfrågan",
+      "untitledRequest": "Namnlös förfrågan"
+    },
+    "toasts": {
+      "curlImported": "cURL importerad",
+      "curlParseFailed": "Misslyckades att tolka cURL-kommando",
+      "invalidJsonBody": "Ogiltig JSON-kropp",
+      "requestFailed": "Förfrågan misslyckades: {message}",
+      "curlPasted": "cURL inklistrad och tolkad",
+      "responseCopied": "Svar kopierat till urklipp",
+      "codeCopied": "Kod kopierad till urklipp"
+    },
+    "layout": {
+      "collections": "Samlingar",
+      "closeSidebar": "Stäng sidofält",
+      "openSidebar": "Öppna sidofält"
+    },
+    "requestPanel": {
+      "methodPlaceholder": "Metod",
+      "urlPlaceholder": "https://api.example.com/v1/...",
+      "sending": "Skickar...",
+      "send": "Skicka"
+    },
+    "requestTabs": {
+      "params": "Parametrar",
+      "headers": "Rubriker",
+      "body": "Kropp",
+      "auth": "Auth",
+      "bodyType": "Kroppstyp",
+      "selectType": "Välj typ",
+      "bodyNone": "Ingen",
+      "bodyJson": "JSON",
+      "bodyText": "Text",
+      "noBodyHint": "Inget kroppinnehåll för denna förfrågan",
+      "switchToJson": "Byt till JSON-kropp",
+      "authType": "Auth-typ",
+      "noAuth": "Ingen auth",
+      "bearerToken": "Bearer-token",
+      "basicAuth": "Basic auth",
+      "apiKey": "API-nyckel",
+      "labelToken": "Token",
+      "placeholderBearerToken": "Bearer-token",
+      "labelUsername": "Användarnamn",
+      "placeholderUsername": "Användarnamn",
+      "labelPassword": "Lösenord",
+      "placeholderPassword": "Lösenord",
+      "labelKey": "Nyckel",
+      "placeholderApiKeyName": "Nyckelnamn (t.ex. X-Api-Key)",
+      "labelValue": "Värde",
+      "placeholderValue": "Värde",
+      "addTo": "Lägg till i",
+      "header": "Rubrik",
+      "queryParams": "Frågeparametrar",
+      "noAuthHint": "Denna förfrågan använder inte autentisering."
+    },
+    "responsePanel": {
+      "emptyTitle": "Redo att utforska?",
+      "emptyHint": "Ange en URL och klicka Skicka för att se svarsdata här.",
+      "responsePreviewAlt": "Förhandsgranskning av svar",
+      "previewUnavailable": "Förhandsgranskning ej tillgänglig för denna innehållstyp",
+      "status": "Status",
+      "time": "Tid",
+      "size": "Storlek",
+      "copyBody": "Kopiera kropp",
+      "downloadResponse": "Ladda ner svar",
+      "bodyTab": "Kropp",
+      "previewTab": "Förhandsgranskning",
+      "headersTab": "Rubriker",
+      "binaryRawView": "Binärdata kan inte visas i råvy.",
+      "errorStatusLabel": "Fel"
+    },
+    "tabBar": {
+      "addTabAria": "Ny flik"
+    },
+    "collectionsSidebar": {
+      "title": "API-resurser",
+      "newCollection": "Ny samling",
+      "tabCollections": "Samlingar",
+      "tabHistory": "Historik",
+      "noCollectionsTitle": "Inga samlingar",
+      "noCollectionsHint": "Skapa en samling för att organisera dina API-förfrågningar.",
+      "createCollection": "Skapa samling",
+      "newFolder": "Ny mapp",
+      "rename": "Byt namn",
+      "delete": "Ta bort",
+      "emptyCollection": "Tom samling",
+      "recentRequests": "Senaste förfrågningar",
+      "clearAll": "Rensa alla",
+      "noHistoryTitle": "Ingen historik ännu",
+      "noHistoryHint": "Skicka en förfrågan för att se den här.",
+      "dialogNewFolderTitle": "Ny mapp",
+      "dialogNewFolderDescription": "Skapa en ny mapp för att organisera dina förfrågningar.",
+      "labelFolderName": "Mappnamn",
+      "placeholderFolderName": "Min mapp",
+      "createFolder": "Skapa mapp",
+      "dialogNewCollectionTitle": "Ny samling",
+      "dialogNewCollectionDescription": "Skapa en ny toppnivåsamling.",
+      "labelCollectionName": "Samlingsnamn",
+      "placeholderCollectionName": "Min samling",
+      "dialogRenameCollectionTitle": "Byt namn på samling",
+      "dialogRenameCollectionDescription": "Ange ett nytt namn för samlingen.",
+      "placeholderRenameCollection": "Samlingsnamn",
+      "renameAction": "Byt namn"
+    },
+    "collectionItem": {
+      "newFolder": "Ny mapp",
+      "delete": "Ta bort",
+      "emptyFolder": "Tom mapp"
+    },
+    "environmentManager": {
+      "noEnvironment": "Ingen miljö",
+      "manageDialogTitle": "Hantera miljöer",
+      "placeholderNewEnv": "Ny miljö",
+      "variablesHeading": "{name}-variabler",
+      "addVariable": "Lägg till variabel",
+      "columnVariable": "Variabel",
+      "columnValue": "Värde",
+      "placeholderKey": "Nyckel",
+      "placeholderValue": "Värde",
+      "selectEnvToEdit": "Välj en miljö att redigera"
+    },
+    "codeGenerator": {
+      "triggerTitle": "Generera kod",
+      "dialogTitle": "Generera kod",
+      "languageCurl": "cURL",
+      "languageJavaScript": "JavaScript (fetch)",
+      "languagePython": "Python (requests)",
+      "languageGo": "Go",
+      "copy": "Kopiera",
+      "errorGenerating": "Fel vid kodgenerering"
+    },
+    "keyValueEditor": {
+      "columnKey": "Nyckel",
+      "columnValue": "Värde",
+      "placeholderKey": "Nyckel",
+      "placeholderValue": "Värde",
+      "addItem": "Lägg till objekt"
+    },
+    "importCurl": {
+      "trigger": "Importera cURL",
+      "dialogTitle": "Importera cURL",
+      "dialogDescription": "Klistra in ditt cURL-kommando nedan för att importera det som en ny förfrågan.",
+      "placeholder": "curl -X POST https://api.example.com/data -d '...'",
+      "import": "Importera"
+    },
+    "saveRequest": {
+      "trigger": "Spara",
+      "dialogTitle": "Spara förfrågan",
+      "dialogDescription": "Spara denna förfrågan till en samlingsmapp.",
+      "labelName": "Förfrågningsnamn",
+      "placeholderName": "Min förfrågan",
+      "labelFolder": "Mapp",
+      "placeholderFolder": "Välj en mapp",
+      "save": "Spara"
+    }
+  },
+  "RichEditor": {
+    "toolbar": {
+      "editMode": "Redigeringsläge",
+      "viewOnlyMode": "Skrivskyddat läge",
+      "insertComponent": "Infoga komponent",
+      "addUnorderedList": "Lägg till punktlista",
+      "addOrderedList": "Lägg till numrerad lista",
+      "addTable": "Lägg till tabell"
+    },
+    "addBlock": "Lägg till block",
+    "media": {
+      "popoverTitle": "Lägg till media",
+      "singleImage": "Enskild bild",
+      "singleImageDesc": "Ladda upp en bild",
+      "multipleImages": "Flera bilder",
+      "multipleImagesDesc": "Ladda upp bildrutnät",
+      "video": "Video",
+      "videoDesc": "Ladda upp videofil",
+      "uploadingAlt": "Laddar upp...",
+      "uploadFailedAlt": "Uppladdning misslyckades"
+    },
+    "export": {
+      "fabAria": "Exportera kod",
+      "title": "Exportera kod",
+      "description": "Kopiera HTML- eller JSON-utdata av ditt redigeringsinnehåll",
+      "preview": "Förhandsgranskning",
+      "html": "HTML",
+      "json": "JSON",
+      "previewOptions": "Förhandsgranskningsalternativ",
+      "enhanceSpaces": "Förbättra mellanrum",
+      "livePreview": "Liveförhandsgranskning av renderad HTML",
+      "htmlTailwind": "HTML med Tailwind CSS-klasser",
+      "editorJson": "Redigerarens tillstånd som JSON",
+      "copyHtml": "Kopiera HTML",
+      "copyJson": "Kopiera JSON",
+      "copied": "Kopierat!"
+    },
+    "template": {
+      "fabTitle": "Byt mall",
+      "title": "Välj en mall",
+      "description": "Välj en mall för att snabbt komma igång med förbyggda layouter och innehåll",
+      "catAll": "Alla mallar",
+      "catProductivity": "Produktivitet",
+      "catCreative": "Kreativt",
+      "catBusiness": "Företag",
+      "catPersonal": "Personligt",
+      "noTemplates": "Inga mallar hittades i denna kategori",
+      "confirmTitle": "Ersätt befintligt innehåll?",
+      "confirmDescription": "Du har befintligt innehåll i redigeraren. Att tillämpa denna mall kommer ersätta allt nuvarande innehåll.",
+      "cannotUndo": "Denna åtgärd kan inte ångras.",
+      "cancel": "Avbryt",
+      "replaceContent": "Ersätt innehåll"
+    },
+    "command": {
+      "searchPlaceholder": "Sök kommandon...",
+      "noResults": "Inga kommandon hittades.",
+      "turnInto": "Omvandla till",
+      "h1": {
+        "label": "Rubrik 1",
+        "description": "Stor sektionsrubrik",
+        "keywords": "h1,rubrik,titel,stor"
+      },
+      "h2": {
+        "label": "Rubrik 2",
+        "description": "Medelstor sektionsrubrik",
+        "keywords": "h2,rubrik,underrubrik"
+      },
+      "h3": {
+        "label": "Rubrik 3",
+        "description": "Liten sektionsrubrik",
+        "keywords": "h3,rubrik,underrubrik"
+      },
+      "h4": {
+        "label": "Rubrik 4",
+        "description": "Minsta sektionsrubrik",
+        "keywords": "h4,rubrik"
+      },
+      "h5": {
+        "label": "Rubrik 5",
+        "description": "Mindre rubrik",
+        "keywords": "h5,rubrik"
+      },
+      "h6": {
+        "label": "Rubrik 6",
+        "description": "Minsta rubrik",
+        "keywords": "h6,rubrik"
+      },
+      "p": {
+        "label": "Stycke",
+        "description": "Vanligt textstycke",
+        "keywords": "p,stycke,text,normal"
+      },
+      "code": {
+        "label": "Kodblock",
+        "description": "Kodsnutt",
+        "keywords": "kod,kodblock,snutt,pre"
+      },
+      "blockquote": {
+        "label": "Citat",
+        "description": "Blockcitat",
+        "keywords": "citat,blockcitat,citering"
+      },
+      "li": {
+        "label": "Punktlista",
+        "description": "Enkel listpunkt med punkt",
+        "keywords": "lista,punkt,oordnad,ul,li"
+      },
+      "ol": {
+        "label": "Numrerad lista",
+        "description": "Numrerad listpunkt",
+        "keywords": "lista,numrerad,ordnad,ol,li"
+      },
+      "img": {
+        "label": "Bild",
+        "description": "Ladda upp eller bädda in en bild",
+        "keywords": "bild,img,foto,uppladdning"
+      },
+      "video": {
+        "label": "Video",
+        "description": "Ladda upp eller bädda in en video",
+        "keywords": "video,vid,film,mp4,uppladdning"
+      },
+      "table": {
+        "label": "Tabell",
+        "description": "Skapa en tabell",
+        "keywords": "tabell,rutnät,rader,kolumner,celler"
+      }
+    },
+    "toasts": {
+      "tableImported": "Tabell importerad",
+      "tableImportedDesc": "Markdown-tabellen har importerats",
+      "mediaPasted": "Media inklistrad",
+      "pasteMixed": "{imageCount} bild(er) och {videoCount} video(s) inklistrade.",
+      "pasteImages": "{count} bild(er) inklistrade.",
+      "pasteVideos": "{count} video(s) inklistrade.",
+      "pasteFailed": "Inklistring misslyckades",
+      "unexpectedError": "Ett oväntat fel uppstod",
+      "uploadFailed": "Uppladdning misslyckades"
+    },
+    "blockBackground": {
+      "menuItem": "Ändra bakgrundsfärg",
+      "dialogTitle": "Blockbakgrundsfärg",
+      "dialogDescription": "Välj en bakgrundsfärg för detta block",
+      "tabPreset": "Förvalda färger",
+      "tabCustom": "Anpassad färg",
+      "sectionHeading": "Bakgrundsfärger",
+      "apply": "Tillämpa",
+      "colors": {
+        "none": "Ingen",
+        "red": "Röd",
+        "orange": "Orange",
+        "yellow": "Gul",
+        "green": "Grön",
+        "blue": "Blå",
+        "indigo": "Indigo",
+        "purple": "Lila",
+        "pink": "Rosa",
+        "teal": "Blågrön",
+        "cyan": "Cyan",
+        "gray": "Grå"
+      }
+    },
+    "tableDialog": {
+      "title": "Skapa tabell",
+      "description": "Skapa en ny tabell eller importera från markdown",
+      "markdownCheckbox": "Jag har en markdown-tabell",
+      "pasteMarkdownLabel": "Klistra in markdown-tabell",
+      "markdownPlaceholder": "| Rubrik 1 | Rubrik 2 | Rubrik 3 |\n|----------|----------|----------|\n| Cell 1   | Cell 2   | Cell 3   |\n| Cell 4   | Cell 5   | Cell 6   |",
+      "markdownHint": "Klistra in din markdown-tabell ovan. Måste innehålla rubrik- och separatorrader.",
+      "rows": "Rader",
+      "columns": "Kolumner",
+      "maxDimensions": "Maximum: 20 rader × 10 kolumner",
+      "cancel": "Avbryt",
+      "importTable": "Importera tabell",
+      "createTable": "Skapa tabell"
+    },
+    "tableParse": {
+      "errors": {
+        "minRows": "Tabellen måste ha minst en rubrikrad och separatorrad",
+        "pipeFormat": "Tabellrader måste börja och sluta med |",
+        "headerMinCol": "Rubrikraden måste ha minst en kolumn",
+        "separatorRow": "Andra raden måste vara en separator (t.ex. |---|---|)",
+        "rowColumnMismatch": "Rad {row} har {got} kolumner, förväntade {expected}",
+        "parseFailed": "Misslyckades att tolka markdown-tabell"
+      }
+    },
+    "link": {
+      "editLink": "Redigera länk",
+      "addLink": "Lägg till länk",
+      "selectedText": "Markerad text: \"{text}\"",
+      "linkUrl": "Länk-URL",
+      "urlPlaceholder": "https://example.com",
+      "update": "Uppdatera",
+      "addLinkButton": "Lägg till länk",
+      "toastApplied": "Länk tillämpad",
+      "toastLinkedTo": "Länkad till: {url}",
+      "toastRemoved": "Länk borttagen",
+      "toastRemovedDesc": "Länken har tagits bort från markeringen"
+    },
+    "customClass": {
+      "devMode": "Utvecklarläge",
+      "toggleDevModeAria": "Växla utvecklarläge",
+      "searchPlaceholderDev": "Sök klasser... (t.ex. 'text', 'bg', 'flex')",
+      "searchPlaceholderUser": "Sök stilar... (t.ex. 'röd', 'fet', 'skugga')",
+      "appliesTitle": "Tillämpar: {className}",
+      "noMatches": "Inga klasser hittades som matchar \"{query}\"",
+      "toastClassReplaced": "Klass ersatt",
+      "toastClassReplacedDesc": "Ersatte \"{replaced}\" med \"{className}\"",
+      "toastCustomClassApplied": "Anpassad klass tillämpad",
+      "toastAppliedClass": "Tillämpad klass: {className}"
+    },
+    "insertComponents": {
+      "title": "Infoga komponent",
+      "description": "Välj en komponent att infoga i ditt dokument",
+      "noComponents": "Inga komponenter tillgängliga",
+      "categories": {
+        "media": "Media",
+        "layout": "Layout",
+        "interactive": "Interaktivt",
+        "decoration": "Dekoration"
+      },
+      "freeImage": {
+        "name": "Fritt rörlig bild",
+        "description": "Lägg till en bild som kan placeras var som helst och storleksändras fritt"
+      }
+    }
+  }
+}

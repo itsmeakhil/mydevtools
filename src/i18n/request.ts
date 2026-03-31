@@ -10,7 +10,7 @@ export default getRequestConfig(async () => {
   const locale: AppLocale = locales.includes(raw as AppLocale)
     ? (raw as AppLocale)
     : 'en';
-  const messagesLocale = locale === 'ru' || locale === 'sv' || locale === 'pt' ? 'en' : locale;
+  const messagesLocale = locale === 'pt' ? 'en' : locale;
 
   return {
     locale,

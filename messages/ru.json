@@ -1,0 +1,1383 @@
+{
+  "Navigation": {
+    "dashboard": "Панель управления",
+    "settings": "Настройки",
+    "apiClient": "API-клиент",
+    "passwordManager": "Менеджер паролей",
+    "bookmarks": "Закладки",
+    "emailValidator": "Валидатор email",
+    "nosqlExplorer": "NoSQL-обозреватель"
+  },
+  "Settings": {
+    "title": "Настройки",
+    "language": "Язык",
+    "spanish": "Испанский",
+    "english": "English",
+    "french": "Français",
+    "arabic": "عربى",
+    "catalan": "Catalan",
+    "chineseSimplified": "Китайский (упрощённый)",
+    "czech": "Čeština",
+    "greek": "Ελληνικά",
+    "german": "Немецкий",
+    "danish": "Датский",
+    "afrikaans": "Afrikaans",
+    "persian": "فارسی",
+    "indonesian": "Bahasa Indonesia",
+    "japanese": "日本語",
+    "korean": "한국어",
+    "malay": "Bahasa Melayu",
+    "dutch": "Nederlands",
+    "polish": "Польский",
+    "vietnamese": "Tiếng Việt",
+    "norwegian": "Norsk"
+  },
+  "SettingsPage": {
+    "title": "Настройки",
+    "subtitle": "Управление настройками учётной записи и предпочтениями.",
+    "userProfile": {
+      "title": "Профиль пользователя",
+      "description": "Ваша личная информация и данные учётной записи.",
+      "avatarAlt": "Пользователь",
+      "anonymousUser": "Анонимный пользователь",
+      "noEmailProvided": "Email не указан",
+      "notLoggedIn": "Не авторизован."
+    },
+    "tools": {
+      "title": "Инструменты и функции",
+      "description": "Выберите, какие инструменты отображать в боковой панели навигации."
+    },
+    "appearance": {
+      "title": "Внешний вид",
+      "description": "Настройте внешний вид приложения на вашем устройстве.",
+      "themePreference": "Тема оформления",
+      "themes": {
+        "light": "Светлая",
+        "dark": "Тёмная",
+        "system": "Системная"
+      }
+    },
+    "language": {
+      "title": "Язык",
+      "description": "Установите язык, используемый на платформе.",
+      "selectLanguage": "Выберите язык",
+      "selectPlaceholder": "Выберите язык",
+      "helpText": "Смена языка обновит меню и надписи по всей платформе.",
+      "languages": {
+        "en": "English",
+        "fr": "Français",
+        "es": "Español (Испанский)",
+        "ar": "عربى (Арабский)",
+        "ca": "Català",
+        "zh": "简体中文",
+        "cs": "Čeština",
+        "el": "Ελληνικά (Греческий)",
+        "de": "Deutsch (Немецкий)",
+        "da": "Dansk (Датский)",
+        "af": "Afrikaans",
+        "fa": "فارسی",
+        "id": "Bahasa Indonesia",
+        "nb": "Norsk",
+        "ja": "日本語",
+        "ko": "한국어",
+        "ms": "Bahasa Melayu",
+        "nl": "Nederlands",
+        "pl": "Polski (Польский)",
+        "pt": "Português",
+        "pt-BR": "Português (Brasil)",
+        "vi": "Tiếng Việt",
+        "ru": "Русский",
+        "sv": "Svenska",
+        "tr": "Türkçe"
+      }
+    }
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "Доброе утро",
+      "afternoon": "Добрый день",
+      "evening": "Добрый вечер"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "С возвращением",
+    "welcomeBackNamed": "С возвращением, {name}",
+    "tagline": "Что вы хотите создать сегодня?",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Инструменты",
+      "favorites": "Избранное"
+    },
+    "sections": {
+      "recentlyUsed": "Недавно использованные",
+      "favorites": "Избранное"
+    },
+    "groups": {
+      "apps": "Приложения"
+    },
+    "toolCard": {
+      "defaultDescription": "Попробуйте этот инструмент для расширения возможностей.",
+      "launchTool": "Запустить"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Задачи",
+        "description": "Эффективно управляйте списками задач."
+      },
+      "notes": {
+        "title": "Заметки",
+        "description": "Фиксируйте идеи и систематизируйте мысли."
+      },
+      "passwordManager": {
+        "title": "Менеджер паролей",
+        "description": "Безопасно храните и управляйте паролями."
+      },
+      "bookmarks": {
+        "title": "Закладки",
+        "description": "Управляйте и систематизируйте закладки."
+      },
+      "apiClient": {
+        "title": "API-клиент",
+        "description": "Тестируйте и отлаживайте HTTP-запросы."
+      },
+      "nosqlExplorer": {
+        "title": "NoSQL-обозреватель",
+        "description": "Исследуйте базы данных MongoDB."
+      },
+      "emailValidator": {
+        "title": "Валидатор email",
+        "description": "Проверяйте и валидируйте адреса электронной почты."
+      }
+    }
+  },
+  "Tasks": {
+    "page": {
+      "loading": "Загрузка...",
+      "myTasksTitle": "Мои задачи",
+      "statsLine": "{total} задач • {percent}% выполнено",
+      "statsLineDesktop": "{total} всего • {percent}% выполнено"
+    },
+    "filters": {
+      "all": "Все",
+      "total": "Итого",
+      "allProjects": "Все проекты",
+      "export": "Экспорт",
+      "kanban": "Канбан",
+      "list": "Список",
+      "searchPlaceholder": "Поиск задач...",
+      "searchAria": "Поиск задач",
+      "clearSearchAria": "Очистить поиск",
+      "foundTasks": "Найдено {count} {count, plural, one {задача} few {задачи} other {задач}}",
+      "filterByAllAria": "Фильтр: Все",
+      "filterByStatusAria": "Фильтр по статусу: {status}"
+    },
+    "status": {
+      "not-started": {
+        "label": "Не начато",
+        "description": "Задачи, которые ещё не начаты"
+      },
+      "ongoing": {
+        "label": "В работе",
+        "description": "Задачи, которые сейчас выполняются"
+      },
+      "completed": {
+        "label": "Завершено",
+        "description": "Задачи, которые завершены"
+      }
+    },
+    "priorities": {
+      "high": "Высокий",
+      "medium": "Средний",
+      "low": "Низкий"
+    },
+    "form": {
+      "addNewTaskLabel": "Добавить новую задачу",
+      "multilinePlaceholder": "Добавьте описание задачи... (Shift+Enter для новой строки)",
+      "singlelinePlaceholder": "Что нужно сделать? Нажмите Enter для добавления",
+      "taskInputAria": "Ввод задачи",
+      "projectPlaceholder": "Проект",
+      "selectProject": "Выбрать проект",
+      "errorSelectProject": "Пожалуйста, выберите проект или создайте новый для добавления задачи.",
+      "hintMultiline": "Shift+Enter — новая строка, Enter — добавить",
+      "hintSingleline": "Enter для добавления",
+      "shortcutsAria": "Горячие клавиши",
+      "shortcutsLabel": "Горячие клавиши",
+      "shortcutAddTask": "Добавить задачу",
+      "shortcutNewLine": "Новая строка",
+      "shortcutClear": "Очистить",
+      "addButton": "Добавить"
+    },
+    "list": {
+      "ariaLabel": "Список задач",
+      "loading": "Загрузка задач...",
+      "emptyTitle": "Задачи не найдены",
+      "emptyPrimary": "Начните с добавления первой задачи выше! Нажмите Enter для быстрого добавления.",
+      "emptySecondary": "Попробуйте изменить фильтры или поисковый запрос."
+    },
+    "mobileDrawer": {
+      "addTaskSrOnly": "Добавить задачу",
+      "addNewTaskTitle": "Добавить новую задачу",
+      "addNewTaskDescription": "Создайте новую задачу для отслеживания прогресса.",
+      "cancel": "Отмена"
+    },
+    "kanban": {
+      "ariaLabel": "Канбан-доска",
+      "loading": "Загрузка задач...",
+      "dropHere": "Перетащите задачу сюда",
+      "noTasksYet": "Задач пока нет",
+      "emptyColumnAria": "Пустой столбец",
+      "columnAria": "Столбец {title} с {count} задачами",
+      "countInColumnAria": "{count} задач в {title}"
+    },
+    "taskItem": {
+      "confirmDelete": "Вы уверены, что хотите удалить эту задачу?",
+      "statusPlaceholder": "Статус",
+      "changeStatusAria": "Изменить статус задачи",
+      "taskOptionsAria": "Параметры задачи",
+      "editTask": "Редактировать задачу",
+      "copyTask": "Копировать задачу",
+      "copied": "Скопировано!",
+      "deleteTask": "Удалить задачу",
+      "statusHeading": "Статус",
+      "editTaskAria": "Редактировать задачу"
+    },
+    "editDialog": {
+      "title": "Редактировать задачу",
+      "description": "Обновите данные задачи, добавьте подзадачи, установите приоритеты и другое.",
+      "taskTitleLabel": "Название задачи *",
+      "taskTitlePlaceholder": "Что нужно сделать?",
+      "descriptionLabel": "Описание",
+      "descriptionPlaceholder": "Добавьте подробности о задаче...",
+      "statusLabel": "Статус",
+      "priorityLabel": "Приоритет",
+      "dueDateLabel": "Срок выполнения",
+      "pickDate": "Выберите дату",
+      "clearDate": "Очистить дату",
+      "projectLabel": "Проект",
+      "selectProjectPlaceholder": "Выберите проект",
+      "noProject": "Без проекта",
+      "timeEstimateLabel": "Оценка времени (минуты)",
+      "timeEstimatePlaceholder": "Сколько это займёт?",
+      "tagsLabel": "Теги",
+      "customTagNamePlaceholder": "Название тега",
+      "subtasksLabel": "Подзадачи",
+      "addSubtaskPlaceholder": "Добавить подзадачу...",
+      "cancel": "Отмена",
+      "saving": "Сохранение...",
+      "saveChanges": "Сохранить изменения"
+    },
+    "export": {
+      "title": "Экспорт задач",
+      "description": "Экспортируйте задачи в формате JSON, CSV или Excel.",
+      "projectLabel": "Проект",
+      "statusLabel": "Статус",
+      "tagLabel": "Тег",
+      "allProjects": "Все проекты",
+      "allStatuses": "Все статусы",
+      "allTags": "Все теги",
+      "exportAsJsonTitle": "Экспорт в JSON",
+      "exportAsJsonDescription": "Экспортируйте данные задач, включая подзадачи, теги и метаданные.",
+      "exportJson": "Экспорт JSON",
+      "exportAsCsvExcelTitle": "Экспорт в CSV / Excel",
+      "exportAsCsvExcelDescription": "Экспортируйте задачи для табличных приложений.",
+      "exportCsv": "Экспорт CSV",
+      "exportExcel": "Экспорт Excel",
+      "close": "Закрыть",
+      "toastNoTasks": "Нет задач для экспорта с текущими фильтрами",
+      "toastExportedJson": "Экспортировано {count} задач в JSON!",
+      "toastExportedCsv": "Экспортировано {count} задач в CSV!",
+      "toastExportedExcel": "Экспортировано {count} задач в Excel!",
+      "toastFailedJson": "Не удалось экспортировать в JSON",
+      "toastFailedCsv": "Не удалось экспортировать в CSV",
+      "toastFailedExcel": "Не удалось экспортировать в Excel",
+      "unknownProject": "Неизвестный проект"
+    },
+    "ack": {
+      "taskAddedTitle": "Задача успешно добавлена",
+      "taskAddedFailedTitle": "Не удалось добавить задачу",
+      "taskUpdatedTitle": "Задача успешно обновлена",
+      "taskUpdatedFailedTitle": "Не удалось обновить задачу",
+      "taskStatusUpdateFailedTitle": "Не удалось обновить статус задачи",
+      "taskMovedTitle": "Задача перемещена в {status}",
+      "tryAgain": "Пожалуйста, попробуйте снова.",
+      "taskDeletedTitle": "Задача «{text}» удалена",
+      "undo": "Отменить",
+      "taskRestoredTitle": "Задача восстановлена",
+      "taskRestoredSuccessTitle": "Задача успешно восстановлена",
+      "taskRestoreFailedTitle": "Не удалось восстановить задачу. Попробуйте снова.",
+      "taskDeleteFailedTitle": "Не удалось удалить задачу. Попробуйте снова.",
+      "tasksImportedTitle": "Успешно импортировано {count} {count, plural, one {задача} few {задачи} other {задач}}!",
+      "tasksImportFailedTitle": "Не удалось импортировать задачи. Попробуйте снова.",
+      "unknownProject": "Неизвестный проект",
+      "projectCreatedTitle": "Проект успешно создан",
+      "projectCreateFailedTitle": "Не удалось создать проект",
+      "projectUpdatedTitle": "Проект успешно обновлён",
+      "projectUpdateFailedTitle": "Не удалось обновить проект",
+      "projectDeletedTitle": "Проект успешно удалён",
+      "projectDeleteFailedTitle": "Не удалось удалить проект"
+    }
+  },
+  "Notes": {
+    "page": {
+      "loading": "Загрузка..."
+    },
+    "layout": {
+      "mobileNavTitle": "Навигация по заметкам",
+      "openMenuAria": "Открыть меню заметок"
+    },
+    "sidebar": {
+      "title": "Заметки",
+      "createNoteAria": "Создать заметку",
+      "searchPlaceholder": "Поиск заметок...",
+      "loading": "Загрузка...",
+      "noNotesFound": "Заметки не найдены.",
+      "noNotesYet": "Заметок пока нет. Нажмите +, чтобы создать.",
+      "inParent": "в {parentTitle}",
+      "untitled": "Без названия",
+      "addSubPage": "Добавить подстраницу",
+      "delete": "Удалить",
+      "deleteConfirmTitle": "Удалить заметку?",
+      "deleteConfirmDescription": "Вы уверены, что хотите удалить «{title}»? Это действие нельзя отменить.",
+      "cancel": "Отмена",
+      "confirmDelete": "Удалить",
+      "noteOptionsAria": "Параметры заметки"
+    },
+    "editor": {
+      "emptyState": "Выберите заметку или создайте новую, чтобы начать.",
+      "titlePlaceholder": "Без названия"
+    },
+    "context": {
+      "authRequiredError": "Пользователь не авторизован",
+      "defaultTitle": "Без названия"
+    }
+  },
+  "PasswordManager": {
+    "page": {
+      "loading": "Загрузка...",
+      "title": "Менеджер паролей"
+    },
+    "vault": {
+      "toastDecryptFailed": "Не удалось расшифровать пароли",
+      "toastLoadFailed": "Не удалось загрузить пароли",
+      "toastUnlockedAuto": "Хранилище разблокировано автоматически",
+      "toastAutoUnlockFailed": "Автоматическая разблокировка не удалась. Разблокируйте вручную.",
+      "toastConnectFailed": "Не удалось подключиться к серверу",
+      "toastAutoUnlockWarning": "Хранилище разблокировано, но автоматическая разблокировка может не работать при перезагрузке",
+      "errorIncorrectPassword": "Неверный мастер-пароль",
+      "errorUnlockFailed": "Не удалось разблокировать хранилище",
+      "errorPasswordsMismatch": "Пароли не совпадают",
+      "errorPasswordTooShort": "Пароль должен содержать не менее 8 символов",
+      "errorSetupFailed": "Не удалось настроить хранилище",
+      "errorConnectFailed": "Не удалось подключиться к серверу.",
+      "mobileTitleCreate": "Создайте хранилище",
+      "mobileTitleWelcome": "С возвращением",
+      "mobileSubtitleCreate": "Задайте мастер-пароль для защиты ваших данных",
+      "mobileSubtitleUnlock": "Введите мастер-пароль для разблокировки",
+      "placeholderMasterPassword": "Мастер-пароль",
+      "placeholderConfirmPassword": "Подтвердите пароль",
+      "labelMasterPassword": "Мастер-пароль",
+      "labelConfirmPassword": "Подтвердите пароль",
+      "placeholderEnterMaster": "Введите мастер-пароль",
+      "placeholderConfirmMaster": "Подтвердите мастер-пароль",
+      "buttonCreateVault": "Создать хранилище",
+      "buttonUnlock": "Разблокировать",
+      "buttonUnlockVault": "Разблокировать хранилище",
+      "footerCreate": "Ваш пароль не хранится и не может быть восстановлен",
+      "footerUnlock": "Защищено сквозным шифрованием",
+      "desktopTitleSetup": "Настройка хранилища паролей",
+      "desktopTitleUnlock": "Разблокировать хранилище",
+      "desktopDescriptionSetup": "Создайте мастер-пароль для защиты ваших данных. Этот пароль не хранится и не может быть восстановлен.",
+      "desktopDescriptionUnlock": "Введите мастер-пароль для доступа к защищённым данным."
+    },
+    "list": {
+      "loading": "Загрузка паролей...",
+      "emptyTitle": "Хранилище пусто",
+      "emptyHintMobile": "Нажмите кнопку +, чтобы добавить первый пароль",
+      "emptyHintDesktop": "У вас пока нет сохранённых паролей. Нажмите «Добавить пароль», чтобы начать.",
+      "addPassword": "Добавить пароль",
+      "searchPlaceholderMobile": "Поиск по хранилищу...",
+      "searchPlaceholderDesktop": "Поиск по хранилищу...",
+      "importExport": "Импорт / экспорт",
+      "lockVault": "Заблокировать хранилище",
+      "allPasswordsTitle": "Все пароли",
+      "passwordCount": "{count, plural, one {# пароль} few {# пароля} other {# паролей}}",
+      "vaultHealthDrawerTitle": "Состояние хранилища",
+      "noResults": "Пароли, соответствующие «{query}», не найдены",
+      "tableService": "Сервис",
+      "tableUsername": "Имя пользователя",
+      "tablePassword": "Пароль",
+      "tableUrl": "URL",
+      "tableActions": "Действия",
+      "gridViewAria": "Сетка",
+      "listViewAria": "Список",
+      "passwordStrengthTitle": "Надёжность пароля",
+      "deleteDialogTitle": "Удалить пароль",
+      "deleteDialogDescription": "Вы уверены, что хотите удалить этот пароль? Это действие нельзя отменить.",
+      "cancel": "Отмена",
+      "delete": "Удалить",
+      "edit": "Редактировать"
+    },
+    "toasts": {
+      "copiedPassword": "Пароль скопирован в буфер обмена",
+      "copiedUsername": "Имя пользователя скопировано в буфер обмена",
+      "passwordDeleted": "Пароль удалён",
+      "deleteFailed": "Не удалось удалить пароль",
+      "vaultLocked": "Хранилище заблокировано",
+      "importedCount": "Успешно импортировано {count, plural, one {# пароль} few {# пароля} other {# паролей}}"
+    },
+    "form": {
+      "addTitle": "Добавить новый пароль",
+      "editTitle": "Редактировать пароль",
+      "serviceName": "Название сервиса",
+      "usernameEmail": "Имя пользователя / email",
+      "password": "Пароль",
+      "urlOptional": "URL сайта (необязательно)",
+      "notesOptional": "Заметки (необязательно)",
+      "tags": "Теги",
+      "placeholderService": "напр. Netflix",
+      "placeholderUsername": "user@example.com",
+      "placeholderPassword": "Введите или сгенерируйте пароль",
+      "placeholderUrl": "https://...",
+      "placeholderNotes": "Дополнительные сведения...",
+      "placeholderTags": "Добавьте теги (Enter или запятая)",
+      "strength": "Надёжность",
+      "strengthWeak": "Слабый",
+      "strengthMedium": "Средний",
+      "strengthStrong": "Сильный",
+      "advancedGenerator": "Расширенный генератор",
+      "cancel": "Отмена",
+      "saving": "Сохранение...",
+      "savePassword": "Сохранить пароль",
+      "updating": "Обновление...",
+      "updatePassword": "Обновить пароль",
+      "addPasswordSrOnly": "Добавить пароль",
+      "triggerAdd": "Добавить пароль",
+      "toastSaved": "Пароль успешно сохранён",
+      "toastSaveFailed": "Не удалось сохранить пароль",
+      "toastUpdated": "Пароль успешно обновлён",
+      "toastUpdateFailed": "Не удалось обновить пароль"
+    },
+    "security": {
+      "vaultHealth": "Состояние хранилища",
+      "statusLabel": "Статус",
+      "totalPasswords": "Всего паролей",
+      "activeEntries": "Активные записи в хранилище",
+      "protected": "Защищено",
+      "weakPasswords": "Слабые пароли",
+      "needingImprovement": "Пароли, требующие улучшения",
+      "allGood": "Всё в порядке",
+      "reusedPasswords": "Повторяющиеся пароли",
+      "usedMultipleTimes": "Пароли, используемые несколько раз",
+      "unique": "Уникальные",
+      "total": "Всего",
+      "weak": "Слабые",
+      "reused": "Повторяющиеся",
+      "totalCountLabel": "{count, plural, one {# пароль} few {# пароля} other {# паролей}}",
+      "weakCountLabel": "{count} слабых",
+      "allSecure": "Все надёжные",
+      "scoreExcellent": "Отлично",
+      "scoreGood": "Хорошо",
+      "scoreFair": "Удовлетворительно",
+      "scoreCritical": "Критично"
+    },
+    "importExport": {
+      "title": "Импорт / экспорт хранилища",
+      "description": "Управляйте данными паролей. Вы можете экспортировать хранилище в JSON или импортировать из JSON-файла.",
+      "tabExport": "Экспорт",
+      "tabImport": "Импорт",
+      "warningTitle": "Предупреждение",
+      "warningBody": "Экспортированные файлы содержат пароли в открытом виде. Храните этот файл в безопасном месте и удалите после использования.",
+      "exportBlurb": "Скачайте всё хранилище как JSON-файл. Включает все сервисы, имена пользователей, пароли и заметки.",
+      "downloadJson": "Скачать JSON-экспорт",
+      "pasteLabel": "Вставьте JSON-данные",
+      "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
+      "pasteHint": "Вставьте содержимое ранее экспортированного JSON-файла.",
+      "importing": "Импорт...",
+      "importPasswords": "Импортировать пароли",
+      "trigger": "Импорт / экспорт",
+      "toastExported": "Хранилище успешно экспортировано",
+      "toastExportFailed": "Не удалось экспортировать хранилище",
+      "toastImportFailed": "Не удалось импортировать: неверный формат JSON"
+    },
+    "card": {
+      "copyUsername": "Копировать имя пользователя",
+      "openUrl": "Открыть URL",
+      "strength": "Надёжность"
+    },
+    "swipeable": {
+      "copy": "Копировать",
+      "delete": "Удалить",
+      "copyPassword": "Копировать пароль",
+      "copyUsername": "Копировать имя пользователя",
+      "edit": "Редактировать",
+      "deleteAction": "Удалить"
+    },
+    "floatingMenu": {
+      "lockVault": "Заблокировать хранилище",
+      "importExport": "Импорт / экспорт",
+      "addPassword": "Добавить пароль"
+    },
+    "generator": {
+      "tabPassword": "Пароль",
+      "tabPassphrase": "Парольная фраза",
+      "strength": "Надёжность",
+      "lengthLabel": "Длина: {length} символов",
+      "lengthBadge": "{length} симв.",
+      "characterSets": "Наборы символов",
+      "uppercase": "Заглавные",
+      "lowercase": "Строчные",
+      "numbers": "Цифры",
+      "symbols": "Символы",
+      "wordCountLabel": "Количество слов: {count}",
+      "wordCountBadge": "{count, plural, one {# слово} few {# слова} other {# слов}}",
+      "separator": "Разделитель",
+      "capitalization": "Заглавные буквы",
+      "includeNumber": "Включить число"
+    }
+  },
+  "Bookmarks": {
+    "page": {
+      "loading": "Загрузка..."
+    },
+    "manager": {
+      "foldersHeading": "Папки",
+      "tagsHeading": "Теги",
+      "tagsMore": "+{count} ещё",
+      "searchPlaceholder": "Поиск закладок...",
+      "import": "Импорт",
+      "export": "Экспорт",
+      "exportAsHtml": "Экспорт в HTML",
+      "exportAsJson": "Экспорт в JSON",
+      "addBookmark": "Добавить закладку",
+      "matchingQuery": "по запросу «{query}»",
+      "bookmarkCount": "{count, plural, one {# закладка} few {# закладки} other {# закладок}}",
+      "allBookmarks": "Все закладки",
+      "uncategorized": "Без категории",
+      "unknownFolder": "Неизвестно"
+    },
+    "card": {
+      "urlCopied": "URL скопирован в буфер обмена",
+      "bookmarkDeleted": "Закладка удалена",
+      "edit": "Редактировать",
+      "delete": "Удалить",
+      "copyUrl": "Копировать URL",
+      "deleteConfirmTitle": "Удалить закладку?",
+      "deleteConfirmDescription": "Закладка «{title}» будет удалена безвозвратно.",
+      "cancel": "Отмена"
+    },
+    "grid": {
+      "emptyTitle": "Закладок пока нет",
+      "emptyDescription": "Добавьте первую закладку или импортируйте из браузера, чтобы начать."
+    },
+    "folderTree": {
+      "allBookmarks": "Все закладки",
+      "addSubfolder": "Добавить подпапку",
+      "rename": "Переименовать",
+      "deleteFolderTitle": "Удалить папку «{name}»?",
+      "deleteFolderDescription": "Папка и все подпапки будут удалены. Закладки из этих папок будут перемещены в «Без категории»."
+    },
+    "import": {
+      "title": "Импорт закладок",
+      "description": "Импортируйте закладки из экспортированного файла браузера.",
+      "parseError": "Не удалось разобрать файл закладок. Убедитесь, что файл является корректным экспортом.",
+      "successToast": "Импортировано {bookmarks} закладок и {folders} папок",
+      "errorToast": "Не удалось импортировать закладки",
+      "chromeInstruction": "Меню → Закладки → Диспетчер закладок → ⋮ → Экспорт закладок",
+      "firefoxInstruction": "Меню → Закладки → Управление закладками → Импорт и резервные копии → Экспорт",
+      "safariInstruction": "Файл → Экспорт закладок...",
+      "edgeInstruction": "Меню → Избранное → ⋯ → Экспорт избранного",
+      "dropZoneTitle": "Перетащите файл закладок сюда",
+      "dropZoneHint": "или нажмите для выбора (HTML или JSON)",
+      "selectedFileHint": "Нажмите, чтобы выбрать другой файл",
+      "errorTitle": "Ошибка",
+      "previewTitle": "Предпросмотр импорта",
+      "previewBookmarks": "{count, plural, one {# закладка} few {# закладки} other {# закладок}}",
+      "previewFolders": "{count, plural, one {# папка} few {# папки} other {# папок}}",
+      "importModeLabel": "Режим импорта",
+      "modeMerge": "Объединить с существующими закладками",
+      "modeReplace": "Заменить все существующие закладки",
+      "cancel": "Отмена",
+      "importButton": "Импорт",
+      "importButtonWithCount": "Импортировать {count, plural, one {# закладку} few {# закладки} other {# закладок}}"
+    },
+    "addBookmark": {
+      "titleAdd": "Добавить закладку",
+      "titleEdit": "Редактировать закладку",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://example.com",
+      "urlInvalid": "Пожалуйста, введите корректный URL",
+      "titleLabel": "Название",
+      "titlePlaceholder": "Название закладки",
+      "titleRequired": "Пожалуйста, введите название",
+      "descriptionLabel": "Описание (необязательно)",
+      "descriptionPlaceholder": "Добавьте заметку об этой закладке",
+      "folderLabel": "Папка",
+      "folderPlaceholder": "Выберите папку",
+      "noFolder": "Без папки",
+      "tagsLabel": "Теги",
+      "tagsPlaceholder": "Добавьте теги (Enter)",
+      "toastUpdated": "Закладка обновлена",
+      "toastAdded": "Закладка добавлена",
+      "cancel": "Отмена",
+      "submitAdd": "Добавить закладку",
+      "submitUpdate": "Обновить закладку"
+    },
+    "addFolder": {
+      "title": "Создать папку",
+      "nameLabel": "Название папки",
+      "namePlaceholder": "Моя папка",
+      "nameRequired": "Пожалуйста, введите название папки",
+      "parentLabel": "Родительская папка",
+      "parentPlaceholder": "Выберите родительскую папку",
+      "rootParent": "Корень (без родителя)",
+      "toastCreated": "Папка создана",
+      "cancel": "Отмена",
+      "submit": "Создать папку"
+    },
+    "editFolder": {
+      "title": "Переименовать папку",
+      "nameLabel": "Название папки",
+      "namePlaceholder": "Название папки",
+      "nameRequired": "Пожалуйста, введите название папки",
+      "toastRenamed": "Папка переименована",
+      "cancel": "Отмена",
+      "save": "Сохранить"
+    }
+  },
+  "EmailValidator": {
+    "header": {
+      "title": "Валидатор email",
+      "description": "Проверяйте и валидируйте адреса электронной почты по синтаксису, домену и доставляемости."
+    },
+    "tabs": {
+      "single": "Одиночная проверка",
+      "bulk": "Массовая загрузка"
+    },
+    "single": {
+      "cardTitle": "Проверка одного email",
+      "cardDescription": "Введите адрес электронной почты для проверки доставляемости и репутации.",
+      "placeholder": "Введите адрес электронной почты...",
+      "clearAria": "Очистить email",
+      "validate": "Проверить",
+      "validating": "Проверка...",
+      "formatError": "Пожалуйста, введите корректный адрес электронной почты"
+    },
+    "toasts": {
+      "errorTitle": "Ошибка",
+      "enterEmail": "Пожалуйста, введите адрес электронной почты",
+      "invalidFormatTitle": "Неверный формат email",
+      "invalidFormatDescription": "Пожалуйста, введите корректный адрес электронной почты",
+      "validateFailedDescription": "Произошла ошибка при проверке электронной почты",
+      "noEmailsTitle": "Email не найдены",
+      "noEmailsDescription": "Убедитесь, что в вашем Excel есть столбец «email».",
+      "fileTooLargeTitle": "Файл слишком большой",
+      "fileTooLargeDescription": "Найдено {total} email. Будут проверены только первые 4000.",
+      "successTitle": "Успех",
+      "successValidated": "Успешно проверено {count} email.",
+      "batchFailedTitle": "Массовая проверка не удалась",
+      "batchFailedDescription": "Произошла ошибка при массовой проверке.",
+      "noExportTitle": "Нет данных для экспорта",
+      "noExportValidOnly": "Не найдено действительных email для экспорта.",
+      "noExportAll": "Нет результатов для экспорта.",
+      "exportSuccessTitle": "Экспорт выполнен",
+      "exportSuccessExcelAll": "Экспортировано {count} email в Excel.",
+      "exportSuccessExcelValid": "Экспортировано {count} действительных email в Excel.",
+      "exportSuccessCsvAll": "Экспортировано {count} email в CSV.",
+      "exportSuccessCsvValid": "Экспортировано {count} действительных email в CSV."
+    },
+    "disposableAlert": {
+      "title": "Обнаружен одноразовый email",
+      "description": "Этот адрес электронной почты принадлежит одноразовому сервису. Он может быть временным или ненадёжным."
+    },
+    "score": {
+      "reliabilityTitle": "Оценка надёжности",
+      "scoreLabel": "Оценка"
+    },
+    "details": {
+      "sectionTitle": "Детали проверки"
+    },
+    "validation": {
+      "syntaxLabel": "Синтаксис корректен",
+      "syntaxTooltip": "Проверяет, соответствует ли адрес электронной почты правильному формату (напр. user@domain.com)",
+      "domainLabel": "Домен существует",
+      "domainTooltip": "Проверяет, что доменное имя в адресе электронной почты действительно существует",
+      "mxLabel": "MX-записи найдены",
+      "mxTooltip": "Проверяет, настроены ли MX-записи домена для приёма электронной почты",
+      "mailboxLabel": "Почтовый ящик существует",
+      "mailboxTooltip": "Проверяет, что конкретный почтовый ящик/учётная запись существует на почтовом сервере",
+      "disposableLabel": "Одноразовый email",
+      "disposableTooltip": "Указывает, принадлежит ли email одноразовому сервису (может быть рискованным)",
+      "roleBasedLabel": "Ролевой email",
+      "roleBasedTooltip": "Определяет, является ли email ролевым (напр. support@, info@), а не персональным"
+    },
+    "copy": {
+      "emailCopied": "Email скопирован!",
+      "copyTooltip": "Копировать email"
+    },
+    "bulk": {
+      "dropHere": "Перетащите файл сюда",
+      "dragHere": "Перетащите файл сюда",
+      "uploadHint": "Загрузите файл .xlsx, .xls или .csv со столбцом «email» для проверки до 4000 адресов.",
+      "filePrefix": "Файл:",
+      "selectFile": "Выбрать файл",
+      "downloadTemplate": "Скачать шаблон"
+    },
+    "bulkLoading": {
+      "title": "Проверка email...",
+      "batchProgress": "Обработка пакета {current} из {total}..."
+    },
+    "stats": {
+      "totalProcessed": "Всего обработано",
+      "valid": "Действительные",
+      "risky": "Рискованные",
+      "invalid": "Недействительные"
+    },
+    "results": {
+      "detailedTitle": "Подробные результаты",
+      "searchPlaceholder": "Поиск email...",
+      "newVerification": "Новая проверка",
+      "exportAll": "Экспортировать всё",
+      "exportExcel": "Excel (.xlsx)",
+      "exportCsv": "CSV (.csv)",
+      "exportValid": "Экспортировать действительные ({count})"
+    },
+    "showingResults": "Показано {shown} из {total} результатов",
+    "table": {
+      "email": "Email",
+      "status": "Статус",
+      "score": "Оценка",
+      "checks": "Проверки"
+    },
+    "noSearchResults": "Результаты по запросу «{query}» не найдены",
+    "checksTooltip": {
+      "syntax": "Синтаксис",
+      "domain": "Домен",
+      "mx": "MX",
+      "mailbox": "Почтовый ящик"
+    },
+    "exportColumns": {
+      "email": "Email",
+      "status": "Статус",
+      "score": "Оценка",
+      "syntax": "Синтаксис",
+      "domain": "Домен",
+      "mx": "MX",
+      "mailbox": "Почтовый ящик",
+      "disposable": "Одноразовый",
+      "roleBased": "Ролевой",
+      "valid": "Действительный",
+      "invalid": "Недействительный",
+      "yes": "Да",
+      "no": "Нет"
+    },
+    "sheets": {
+      "validEmails": "Действительные email",
+      "results": "Результаты",
+      "template": "Шаблон"
+    }
+  },
+  "NoSqlExplorer": {
+    "page": {
+      "heroTitle": "NoSQL-обозреватель",
+      "heroSubtitle": "Подключайтесь к базам данных для управления коллекциями, выполнения запросов и визуализации данных.",
+      "featureMultiTitle": "Множественные подключения",
+      "featureMultiDesc": "Управляйте несколькими подключениями к базам данных одновременно.",
+      "featureMongoTitle": "Поддержка MongoDB",
+      "featureMongoDesc": "Встроенная поддержка MongoDB с расширенной фильтрацией.",
+      "featureQueryTitle": "Умные запросы",
+      "featureQueryDesc": "Мощный конструктор запросов с подсветкой синтаксиса.",
+      "connectCta": "Подключиться к MongoDB",
+      "footerNote": "В данный момент поддерживается {db}. Другие базы данных будут добавлены в будущем.",
+      "footerDb": "MongoDB",
+      "selectCollectionTitle": "Выберите коллекцию",
+      "selectCollectionDesc": "Выберите коллекцию в боковой панели для просмотра документов и начала работы с данными.",
+      "dialogAddConnection": "Добавить подключение",
+      "toastConnectionAdded": "Подключение добавлено",
+      "toastFetchFailed": "Не удалось загрузить документы для {collection}",
+      "toastDocDeleted": "Документ удалён",
+      "deleteDocTitle": "Вы уверены?",
+      "deleteDocDescription": "Это действие нельзя отменить. Документ будет безвозвратно удалён из коллекции.",
+      "closeAllTitle": "Закрыть все вкладки?",
+      "closeAllDescription": "Вы уверены, что хотите закрыть все вкладки? Несохранённые изменения в фильтрах запросов будут потеряны.",
+      "closeAllConfirm": "Закрыть все",
+      "cancel": "Отмена",
+      "delete": "Удалить"
+    },
+    "connection": {
+      "titleEdit": "Редактировать подключение",
+      "titleConnect": "Подключение к MongoDB",
+      "subtitleEdit": "Обновите параметры подключения.",
+      "subtitleConnect": "Введите строку подключения MongoDB для начала работы с данными.",
+      "labelName": "Название",
+      "placeholderName": "напр. Рабочая БД",
+      "labelConnectionString": "Строка подключения",
+      "placeholderConnectionString": "mongodb://localhost:27017",
+      "hintFormat": "Формат: mongodb://username:password@host:port/database",
+      "testConnection": "Тест подключения",
+      "connecting": "Подключение...",
+      "updateConnect": "Обновить и подключить",
+      "connect": "Подключить",
+      "cancelEdit": "Отменить редактирование",
+      "savedConnections": "Сохранённые подключения",
+      "emptySaved": "Нет сохранённых подключений.",
+      "lastUsed": "Последнее использование: {time}",
+      "toastTestOk": "Подключение успешно!",
+      "toastTestFail": "Подключение не удалось: {message}",
+      "toastUpdated": "Подключение обновлено",
+      "confirmDelete": "Вы уверены, что хотите удалить это сохранённое подключение?",
+      "toastDeletedConn": "Подключение удалено",
+      "toastDeleteFail": "Не удалось удалить подключение",
+      "copyStringTitle": "Копировать строку подключения",
+      "toastStringCopied": "Строка подключения скопирована!",
+      "editTitle": "Редактировать",
+      "deleteTitle": "Удалить"
+    },
+    "sidebar": {
+      "explorer": "Обозреватель",
+      "add": "Добавить",
+      "tooltipAdd": "Добавить новое подключение",
+      "tooltipRefresh": "Обновить подключения",
+      "searchPlaceholder": "Поиск...",
+      "loadingConnections": "Загрузка подключений...",
+      "noConnectionsFound": "Подключения не найдены",
+      "toastLoadFail": "Не удалось загрузить подключения",
+      "toastConnectFail": "Не удалось подключиться к {name}",
+      "toastCollectionsFail": "Не удалось загрузить коллекции для {name}",
+      "toastRenamed": "Подключение переименовано",
+      "toastRenameFail": "Не удалось переименовать подключение",
+      "confirmDeleteConnection": "Вы уверены, что хотите удалить подключение «{name}»?",
+      "toastDeleted": "Подключение удалено",
+      "toastDeleteConnFail": "Не удалось удалить подключение",
+      "confirmDropDb": "Вы уверены, что хотите удалить базу данных «{name}»? Это действие нельзя отменить.",
+      "toastDbDropped": "База данных {name} удалена",
+      "confirmDropCollection": "Вы уверены, что хотите удалить коллекцию «{name}»? Это действие нельзя отменить.",
+      "toastCollectionDropped": "Коллекция {name} удалена",
+      "toastCollectionRenamed": "Коллекция переименована в {name}",
+      "toastDatabaseRenamed": "База данных переименована в {name}",
+      "connecting": "Подключение...",
+      "connectionFailed": "Подключение не удалось",
+      "noDatabases": "Нет баз данных",
+      "loading": "Загрузка...",
+      "noCollections": "Нет коллекций",
+      "renameCollectionTitle": "Переименовать коллекцию",
+      "renameDatabaseTitle": "Переименовать базу данных",
+      "placeholderNewCollection": "Новое название коллекции",
+      "placeholderNewDatabase": "Новое название базы данных",
+      "rename": "Переименовать",
+      "refresh": "Обновить",
+      "copyDbName": "Копировать имя БД",
+      "toastDbNameCopied": "Имя базы данных скопировано",
+      "dropDatabase": "Удалить базу данных",
+      "dropCollection": "Удалить коллекцию",
+      "menuRename": "Переименовать",
+      "menuCopyConnectionString": "Копировать строку подключения",
+      "menuDeleteConnection": "Удалить подключение",
+      "toastSidebarStringCopied": "Строка подключения скопирована!",
+      "cancel": "Отмена"
+    },
+    "document": {
+      "docsBreadcrumb": "{n} док.",
+      "table": "Таблица",
+      "json": "JSON",
+      "tree": "Дерево",
+      "tooltipTable": "Табличное представление",
+      "tooltipJson": "JSON-представление",
+      "tooltipTree": "Древовидное представление",
+      "itemsPerPage": "Элементов на странице",
+      "perPage": "{n} / стр.",
+      "prevPage": "Предыдущая страница",
+      "nextPage": "Следующая страница",
+      "expandAll": "Развернуть все",
+      "collapseAll": "Свернуть все",
+      "refreshData": "Обновить данные",
+      "insert": "Вставить",
+      "export": "Экспорт",
+      "actions": "Действия",
+      "invalidJson": "Некорректное содержимое JSON",
+      "copiedClipboard": "Скопировано в буфер обмена",
+      "docUpdated": "Документ успешно обновлён",
+      "docInserted": "Документ успешно вставлен",
+      "invalidJsonShort": "Некорректный JSON",
+      "docCopied": "Документ скопирован в буфер обмена",
+      "openFullEditor": "Открыть в полном редакторе",
+      "cellArray": "Массив({length})",
+      "cellObject": "Объект",
+      "cellArrayBracket": "Массив[{length}]",
+      "emptyFilterTitle": "Документы по вашему запросу не найдены",
+      "emptyFilterHint": "Попробуйте изменить фильтр или очистить запрос.",
+      "clearFilter": "Очистить фильтр",
+      "emptyCollectionTitle": "Эта коллекция пуста",
+      "emptyCollectionHint": "Вставьте документ, чтобы начать.",
+      "insertDocument": "Вставить документ",
+      "formatJson": "Форматировать JSON",
+      "compactJson": "Компактный JSON",
+      "copyClipboard": "Копировать в буфер обмена",
+      "copyJson": "Копировать JSON",
+      "duplicate": "Дублировать",
+      "editDoc": "Редактировать документ",
+      "deleteDoc": "Удалить документ",
+      "documentLabel": "Документ {n}",
+      "editDialogTitle": "Редактировать документ",
+      "insertDialogTitle": "Вставить документ",
+      "viewValueTitle": "Просмотр значения",
+      "saveChanges": "Сохранить изменения",
+      "close": "Закрыть",
+      "cancel": "Отмена",
+      "insertButton": "Вставить"
+    },
+    "tabs": {
+      "filterActive": "Активный фильтр применён",
+      "filterActiveTooltip": "Фильтр активен",
+      "closeAll": "Закрыть все"
+    },
+    "query": {
+      "migrateHistory": "История запросов перенесена в облако",
+      "saveHistoryFail": "Не удалось сохранить историю запросов",
+      "deleteQueryFail": "Не удалось удалить запрос",
+      "invalidJsonQuery": "Некорректный JSON-запрос",
+      "placeholder": "напр. { \"status\": \"active\" }",
+      "clearQuery": "Очистить запрос",
+      "openAdvanced": "Открыть расширенный редактор",
+      "visualBuilder": "Визуальный конструктор запросов",
+      "filterRules": "Правила фильтрации",
+      "addRule": "Добавить правило",
+      "noFilters": "Фильтры не применены. Добавьте правило для фильтрации документов.",
+      "where": "ГДЕ",
+      "and": "И",
+      "fieldPlaceholder": "Поле",
+      "opPlaceholder": "Оп.",
+      "typePlaceholder": "Тип",
+      "opRegex": "Regex",
+      "opIn": "В списке",
+      "opNin": "Не в списке",
+      "opExists": "Существует",
+      "typeAuto": "Авто",
+      "typeString": "Строка",
+      "typeNumber": "Число",
+      "typeBoolean": "Логический",
+      "typeDate": "Дата",
+      "typeObjectId": "ObjectId",
+      "true": "Истина",
+      "false": "Ложь",
+      "valuePlaceholder": "Значение",
+      "valueListPlaceholder": "значение1, значение2",
+      "clearFilters": "Очистить фильтры",
+      "applyFilters": "Применить фильтры",
+      "queryHistory": "История запросов",
+      "noSavedQueries": "Сохранённых запросов пока нет",
+      "advancedEditorTitle": "Расширенный редактор запросов",
+      "templatesPlaceholder": "Шаблоны",
+      "templateEmptyAgg": "Пустая агрегация",
+      "templateMatch": "$match (Фильтрация)",
+      "templateLookup": "$lookup (Соединение)",
+      "templateGroup": "$group (Подсчёт/Сумма)",
+      "format": "Формат",
+      "formattedJson": "Форматированный JSON",
+      "runQuery": "Выполнить запрос"
+    },
+    "export": {
+      "selectFieldsError": "Пожалуйста, выберите хотя бы одно поле для экспорта",
+      "success": "Успешно экспортировано в {filename}",
+      "fail": "Не удалось экспортировать данные",
+      "title": "Экспорт данных",
+      "formatLabel": "Формат экспорта",
+      "formatXlsx": "Excel (XLSX)",
+      "formatCsv": "CSV",
+      "selectFields": "Выберите поля",
+      "selectAll": "Выбрать все",
+      "fieldsSelected": "{count, plural, one {# поле выбрано} few {# поля выбрано} other {# полей выбрано}}",
+      "cancel": "Отмена",
+      "export": "Экспорт",
+      "sheetName": "Данные"
+    },
+    "jsonTree": {
+      "typeLabel": "Тип: {type}",
+      "itemSummary": "{count, plural, one {# элемент} few {# элемента} other {# элементов}}"
+    }
+  },
+  "ApiClient": {
+    "defaults": {
+      "newRequest": "Новый запрос",
+      "importedRequest": "Импортированный запрос",
+      "untitledRequest": "Запрос без названия"
+    },
+    "toasts": {
+      "curlImported": "cURL успешно импортирован",
+      "curlParseFailed": "Не удалось разобрать команду cURL",
+      "invalidJsonBody": "Некорректное тело JSON",
+      "requestFailed": "Запрос не выполнен: {message}",
+      "curlPasted": "cURL вставлен и успешно разобран",
+      "responseCopied": "Ответ скопирован в буфер обмена",
+      "codeCopied": "Код скопирован в буфер обмена"
+    },
+    "layout": {
+      "collections": "Коллекции",
+      "closeSidebar": "Закрыть боковую панель",
+      "openSidebar": "Открыть боковую панель"
+    },
+    "requestPanel": {
+      "methodPlaceholder": "Метод",
+      "urlPlaceholder": "https://api.example.com/v1/...",
+      "sending": "Отправка...",
+      "send": "Отправить"
+    },
+    "requestTabs": {
+      "params": "Параметры",
+      "headers": "Заголовки",
+      "body": "Тело",
+      "auth": "Авторизация",
+      "bodyType": "Тип тела",
+      "selectType": "Выберите тип",
+      "bodyNone": "Нет",
+      "bodyJson": "JSON",
+      "bodyText": "Текст",
+      "noBodyHint": "В этом запросе нет тела",
+      "switchToJson": "Переключить на JSON-тело",
+      "authType": "Тип авторизации",
+      "noAuth": "Без авторизации",
+      "bearerToken": "Bearer-токен",
+      "basicAuth": "Basic-авторизация",
+      "apiKey": "API-ключ",
+      "labelToken": "Токен",
+      "placeholderBearerToken": "Bearer-токен",
+      "labelUsername": "Имя пользователя",
+      "placeholderUsername": "Имя пользователя",
+      "labelPassword": "Пароль",
+      "placeholderPassword": "Пароль",
+      "labelKey": "Ключ",
+      "placeholderApiKeyName": "Имя ключа (напр. X-Api-Key)",
+      "labelValue": "Значение",
+      "placeholderValue": "Значение",
+      "addTo": "Добавить в",
+      "header": "Заголовок",
+      "queryParams": "Параметры запроса",
+      "noAuthHint": "Этот запрос не использует авторизацию."
+    },
+    "responsePanel": {
+      "emptyTitle": "Готовы к работе?",
+      "emptyHint": "Введите URL и нажмите «Отправить», чтобы увидеть ответ.",
+      "responsePreviewAlt": "Предпросмотр ответа",
+      "previewUnavailable": "Предпросмотр недоступен для этого типа контента",
+      "status": "Статус",
+      "time": "Время",
+      "size": "Размер",
+      "copyBody": "Копировать тело",
+      "downloadResponse": "Скачать ответ",
+      "bodyTab": "Тело",
+      "previewTab": "Предпросмотр",
+      "headersTab": "Заголовки",
+      "binaryRawView": "Бинарные данные не могут быть отображены в режиме исходного текста.",
+      "errorStatusLabel": "Ошибка"
+    },
+    "tabBar": {
+      "addTabAria": "Новая вкладка"
+    },
+    "collectionsSidebar": {
+      "title": "API-ресурсы",
+      "newCollection": "Новая коллекция",
+      "tabCollections": "Коллекции",
+      "tabHistory": "История",
+      "noCollectionsTitle": "Нет коллекций",
+      "noCollectionsHint": "Создайте коллекцию для организации API-запросов.",
+      "createCollection": "Создать коллекцию",
+      "newFolder": "Новая папка",
+      "rename": "Переименовать",
+      "delete": "Удалить",
+      "emptyCollection": "Пустая коллекция",
+      "recentRequests": "Недавние запросы",
+      "clearAll": "Очистить все",
+      "noHistoryTitle": "Истории пока нет",
+      "noHistoryHint": "Отправьте запрос, чтобы он появился здесь.",
+      "dialogNewFolderTitle": "Новая папка",
+      "dialogNewFolderDescription": "Создайте новую папку для организации запросов.",
+      "labelFolderName": "Название папки",
+      "placeholderFolderName": "Моя папка",
+      "createFolder": "Создать папку",
+      "dialogNewCollectionTitle": "Новая коллекция",
+      "dialogNewCollectionDescription": "Создайте новую коллекцию верхнего уровня.",
+      "labelCollectionName": "Название коллекции",
+      "placeholderCollectionName": "Моя коллекция",
+      "dialogRenameCollectionTitle": "Переименовать коллекцию",
+      "dialogRenameCollectionDescription": "Введите новое имя для коллекции.",
+      "placeholderRenameCollection": "Название коллекции",
+      "renameAction": "Переименовать"
+    },
+    "collectionItem": {
+      "newFolder": "Новая папка",
+      "delete": "Удалить",
+      "emptyFolder": "Пустая папка"
+    },
+    "environmentManager": {
+      "noEnvironment": "Нет окружения",
+      "manageDialogTitle": "Управление окружениями",
+      "placeholderNewEnv": "Новое окружение",
+      "variablesHeading": "Переменные {name}",
+      "addVariable": "Добавить переменную",
+      "columnVariable": "Переменная",
+      "columnValue": "Значение",
+      "placeholderKey": "Ключ",
+      "placeholderValue": "Значение",
+      "selectEnvToEdit": "Выберите окружение для редактирования"
+    },
+    "codeGenerator": {
+      "triggerTitle": "Сгенерировать код",
+      "dialogTitle": "Сгенерировать код",
+      "languageCurl": "cURL",
+      "languageJavaScript": "JavaScript (fetch)",
+      "languagePython": "Python (requests)",
+      "languageGo": "Go",
+      "copy": "Копировать",
+      "errorGenerating": "Ошибка генерации кода"
+    },
+    "keyValueEditor": {
+      "columnKey": "Ключ",
+      "columnValue": "Значение",
+      "placeholderKey": "Ключ",
+      "placeholderValue": "Значение",
+      "addItem": "Добавить элемент"
+    },
+    "importCurl": {
+      "trigger": "Импорт cURL",
+      "dialogTitle": "Импорт cURL",
+      "dialogDescription": "Вставьте команду cURL для импорта в виде нового запроса.",
+      "placeholder": "curl -X POST https://api.example.com/data -d '...'",
+      "import": "Импорт"
+    },
+    "saveRequest": {
+      "trigger": "Сохранить",
+      "dialogTitle": "Сохранить запрос",
+      "dialogDescription": "Сохраните этот запрос в папку коллекции.",
+      "labelName": "Название запроса",
+      "placeholderName": "Мой запрос",
+      "labelFolder": "Папка",
+      "placeholderFolder": "Выберите папку",
+      "save": "Сохранить"
+    }
+  },
+  "RichEditor": {
+    "toolbar": {
+      "editMode": "Режим редактирования",
+      "viewOnlyMode": "Режим просмотра",
+      "insertComponent": "Вставить компонент",
+      "addUnorderedList": "Маркированный список",
+      "addOrderedList": "Нумерованный список",
+      "addTable": "Добавить таблицу"
+    },
+    "addBlock": "Добавить блок",
+    "media": {
+      "popoverTitle": "Добавить медиа",
+      "singleImage": "Одно изображение",
+      "singleImageDesc": "Загрузить одно изображение",
+      "multipleImages": "Несколько изображений",
+      "multipleImagesDesc": "Загрузить сетку изображений",
+      "video": "Видео",
+      "videoDesc": "Загрузить видеофайл",
+      "uploadingAlt": "Загрузка...",
+      "uploadFailedAlt": "Загрузка не удалась"
+    },
+    "export": {
+      "fabAria": "Экспорт кода",
+      "title": "Экспорт кода",
+      "description": "Скопируйте HTML или JSON вашего контента",
+      "preview": "Предпросмотр",
+      "html": "HTML",
+      "json": "JSON",
+      "previewOptions": "Параметры предпросмотра",
+      "enhanceSpaces": "Улучшить отступы",
+      "livePreview": "Предпросмотр отрендеренного HTML",
+      "htmlTailwind": "HTML с классами Tailwind CSS",
+      "editorJson": "Состояние редактора в JSON",
+      "copyHtml": "Копировать HTML",
+      "copyJson": "Копировать JSON",
+      "copied": "Скопировано!"
+    },
+    "template": {
+      "fabTitle": "Сменить шаблон",
+      "title": "Выберите шаблон",
+      "description": "Выберите шаблон для быстрого старта с готовыми макетами и контентом",
+      "catAll": "Все шаблоны",
+      "catProductivity": "Продуктивность",
+      "catCreative": "Творчество",
+      "catBusiness": "Бизнес",
+      "catPersonal": "Личное",
+      "noTemplates": "Шаблоны в этой категории не найдены",
+      "confirmTitle": "Заменить существующий контент?",
+      "confirmDescription": "В редакторе есть существующий контент. Применение этого шаблона заменит весь текущий контент.",
+      "cannotUndo": "Это действие нельзя отменить.",
+      "cancel": "Отмена",
+      "replaceContent": "Заменить контент"
+    },
+    "command": {
+      "searchPlaceholder": "Поиск команд...",
+      "noResults": "Команды не найдены.",
+      "turnInto": "Превратить в",
+      "h1": {
+        "label": "Заголовок 1",
+        "description": "Большой заголовок раздела",
+        "keywords": "h1,заголовок,название,большой"
+      },
+      "h2": {
+        "label": "Заголовок 2",
+        "description": "Средний заголовок раздела",
+        "keywords": "h2,заголовок,подзаголовок"
+      },
+      "h3": {
+        "label": "Заголовок 3",
+        "description": "Маленький заголовок раздела",
+        "keywords": "h3,заголовок,подзаголовок"
+      },
+      "h4": {
+        "label": "Заголовок 4",
+        "description": "Мелкий заголовок раздела",
+        "keywords": "h4,заголовок"
+      },
+      "h5": {
+        "label": "Заголовок 5",
+        "description": "Уменьшенный заголовок",
+        "keywords": "h5,заголовок"
+      },
+      "h6": {
+        "label": "Заголовок 6",
+        "description": "Наименьший заголовок",
+        "keywords": "h6,заголовок"
+      },
+      "p": {
+        "label": "Параграф",
+        "description": "Обычный текстовый абзац",
+        "keywords": "p,параграф,текст,обычный"
+      },
+      "code": {
+        "label": "Блок кода",
+        "description": "Фрагмент кода",
+        "keywords": "код,блоккода,фрагмент,pre"
+      },
+      "blockquote": {
+        "label": "Цитата",
+        "description": "Блочная цитата",
+        "keywords": "цитата,блокцитата,цитирование"
+      },
+      "li": {
+        "label": "Маркированный список",
+        "description": "Элемент списка с маркером",
+        "keywords": "список,маркер,ненумерованный,ul,li"
+      },
+      "ol": {
+        "label": "Нумерованный список",
+        "description": "Элемент нумерованного списка",
+        "keywords": "список,нумерованный,упорядоченный,ol,li"
+      },
+      "img": {
+        "label": "Изображение",
+        "description": "Загрузить или вставить изображение",
+        "keywords": "изображение,img,картинка,фото,загрузка"
+      },
+      "video": {
+        "label": "Видео",
+        "description": "Загрузить или вставить видео",
+        "keywords": "видео,vid,ролик,mp4,загрузка"
+      },
+      "table": {
+        "label": "Таблица",
+        "description": "Создать таблицу",
+        "keywords": "таблица,сетка,строки,столбцы,ячейки"
+      }
+    },
+    "toasts": {
+      "tableImported": "Таблица импортирована",
+      "tableImportedDesc": "Таблица из Markdown успешно импортирована",
+      "mediaPasted": "Медиа вставлено",
+      "pasteMixed": "Вставлено {imageCount} изображений и {videoCount} видео.",
+      "pasteImages": "Вставлено {count} изображений.",
+      "pasteVideos": "Вставлено {count} видео.",
+      "pasteFailed": "Вставка не удалась",
+      "unexpectedError": "Произошла непредвиденная ошибка",
+      "uploadFailed": "Загрузка не удалась"
+    },
+    "blockBackground": {
+      "menuItem": "Изменить цвет фона",
+      "dialogTitle": "Цвет фона блока",
+      "dialogDescription": "Выберите цвет фона для этого блока",
+      "tabPreset": "Предустановленные цвета",
+      "tabCustom": "Свой цвет",
+      "sectionHeading": "Цвета фона",
+      "apply": "Применить",
+      "colors": {
+        "none": "Без цвета",
+        "red": "Красный",
+        "orange": "Оранжевый",
+        "yellow": "Жёлтый",
+        "green": "Зелёный",
+        "blue": "Синий",
+        "indigo": "Индиго",
+        "purple": "Фиолетовый",
+        "pink": "Розовый",
+        "teal": "Бирюзовый",
+        "cyan": "Голубой",
+        "gray": "Серый"
+      }
+    },
+    "tableDialog": {
+      "title": "Создать таблицу",
+      "description": "Создайте новую таблицу или импортируйте из Markdown",
+      "markdownCheckbox": "У меня есть Markdown-таблица",
+      "pasteMarkdownLabel": "Вставьте Markdown-таблицу",
+      "markdownPlaceholder": "| Заголовок 1 | Заголовок 2 | Заголовок 3 |\n|----------|----------|----------|\n| Ячейка 1   | Ячейка 2   | Ячейка 3   |\n| Ячейка 4   | Ячейка 5   | Ячейка 6   |",
+      "markdownHint": "Вставьте Markdown-таблицу выше. Должны быть строки заголовка и разделителя.",
+      "rows": "Строки",
+      "columns": "Столбцы",
+      "maxDimensions": "Максимум: 20 строк × 10 столбцов",
+      "cancel": "Отмена",
+      "importTable": "Импортировать таблицу",
+      "createTable": "Создать таблицу"
+    },
+    "tableParse": {
+      "errors": {
+        "minRows": "Таблица должна содержать хотя бы строку заголовка и строку-разделитель",
+        "pipeFormat": "Строки таблицы должны начинаться и заканчиваться символом |",
+        "headerMinCol": "Строка заголовка должна содержать хотя бы один столбец",
+        "separatorRow": "Вторая строка должна быть разделителем (напр. |---|---|)",
+        "rowColumnMismatch": "Строка {row} содержит {got} столбцов, ожидалось {expected}",
+        "parseFailed": "Не удалось разобрать Markdown-таблицу"
+      }
+    },
+    "link": {
+      "editLink": "Редактировать ссылку",
+      "addLink": "Добавить ссылку",
+      "selectedText": "Выделенный текст: «{text}»",
+      "linkUrl": "URL ссылки",
+      "urlPlaceholder": "https://example.com",
+      "update": "Обновить",
+      "addLinkButton": "Добавить ссылку",
+      "toastApplied": "Ссылка применена",
+      "toastLinkedTo": "Ссылка на: {url}",
+      "toastRemoved": "Ссылка удалена",
+      "toastRemovedDesc": "Ссылка удалена из выделения"
+    },
+    "customClass": {
+      "devMode": "Режим разработчика",
+      "toggleDevModeAria": "Переключить режим разработчика",
+      "searchPlaceholderDev": "Поиск классов... (напр. «text», «bg», «flex»)",
+      "searchPlaceholderUser": "Поиск стилей... (напр. «red», «bold», «shadow»)",
+      "appliesTitle": "Применяет: {className}",
+      "noMatches": "Классы по запросу «{query}» не найдены",
+      "toastClassReplaced": "Класс заменён",
+      "toastClassReplacedDesc": "Заменён «{replaced}» на «{className}»",
+      "toastCustomClassApplied": "Пользовательский класс применён",
+      "toastAppliedClass": "Применён класс: {className}"
+    },
+    "insertComponents": {
+      "title": "Вставить компонент",
+      "description": "Выберите компонент для вставки в документ",
+      "noComponents": "Компоненты недоступны",
+      "categories": {
+        "media": "Медиа",
+        "layout": "Макет",
+        "interactive": "Интерактив",
+        "decoration": "Декорация"
+      },
+      "freeImage": {
+        "name": "Свободное изображение",
+        "description": "Добавьте изображение, которое можно свободно перемещать и масштабировать"
+      }
+    }
+  }
+}

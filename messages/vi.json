@@ -85,7 +85,10 @@
         "pl": "Polski (Tiếng Ba Lan)",
         "pt": "Português",
         "pt-BR": "Português (Brasil)",
-        "vi": "Tiếng Việt"
+        "vi": "Tiếng Việt",
+        "ru": "Русский",
+        "sv": "Svenska",
+        "tr": "Türkçe"
       }
     }
   },
