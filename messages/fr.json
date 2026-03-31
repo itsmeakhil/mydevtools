@@ -1379,5 +1379,8 @@
         "description": "Image repositionnable et redimensionnable librement"
       }
     }
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatter"
   }
 }

@@ -1379,5 +1379,8 @@
         "description": "Thêm ảnh có thể đặt vị trí bất kỳ và thay đổi kích thước tự do"
       }
     }
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatter"
   }
 }

@@ -1379,5 +1379,8 @@
         "description": "Voeg 'n beeld by wat oral geposisioneer en vrylik herskaal kan word"
       }
     }
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatter"
   }
 }

@@ -1380,5 +1380,8 @@
         "description": "Add an image that can be positioned anywhere and resized freely"
       }
     }
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatter"
   }
 }

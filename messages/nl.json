@@ -1378,5 +1378,8 @@
         "description": "Voeg een afbeelding toe die overal geplaatst en vrij vergroot of verkleind kan worden"
       }
     }
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatter"
   }
 }

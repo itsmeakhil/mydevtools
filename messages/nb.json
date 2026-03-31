@@ -1378,5 +1378,8 @@
         "description": "Legg til et bilde som kan plasseres hvor som helst og endres fritt"
       }
     }
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatter"
   }
 }

@@ -1379,5 +1379,8 @@
         "description": "Obrázek s libovolnou pozicí a velikostí"
       }
     }
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatter"
   }
 }

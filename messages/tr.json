@@ -1379,5 +1379,8 @@
         "description": "Herhangi bir yere konumlandırılabilen ve serbestçe yeniden boyutlandırılabilen bir görsel ekleyin"
       }
     }
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatter"
   }
 }
