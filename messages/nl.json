@@ -1,11 +1,13 @@
 {
   "Settings": {
-    "indonesian": "Bahasa Indonesia"
+    "indonesian": "Bahasa Indonesia",
+    "japanese": "日本語"
   },
   "SettingsPage": {
     "language": {
       "languages": {
-        "id": "Bahasa Indonesia"
+        "id": "Bahasa Indonesia",
+        "ja": "日本語"
       }
     }
   }

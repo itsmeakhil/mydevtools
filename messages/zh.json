@@ -23,7 +23,8 @@
     "danish": "丹麦语",
     "afrikaans": "南非荷兰语",
     "persian": "فارسی",
-    "indonesian": "Bahasa Indonesia"
+    "indonesian": "Bahasa Indonesia",
+    "japanese": "日本語"
   },
   "SettingsPage": {
     "title": "设置",
@@ -69,7 +70,8 @@
         "da": "Dansk（丹麦语）",
         "af": "Afrikaans（南非荷兰语）",
         "fa": "فارسی",
-        "id": "Bahasa Indonesia"
+        "id": "Bahasa Indonesia",
+        "ja": "日本語"
       }
     }
   },

@@ -23,7 +23,8 @@
     "german": "Duits",
     "danish": "Deens",
     "persian": "فارسی",
-    "indonesian": "Bahasa Indonesia"
+    "indonesian": "Bahasa Indonesia",
+    "japanese": "日本語"
   },
   "SettingsPage": {
     "title": "Instellings",
@@ -69,7 +70,8 @@
         "de": "Deutsch (Duits)",
         "da": "Dansk (Deens)",
         "fa": "فارسی",
-        "id": "Bahasa Indonesia"
+        "id": "Bahasa Indonesia",
+        "ja": "日本語"
       }
     }
   },

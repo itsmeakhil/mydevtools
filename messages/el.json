@@ -23,7 +23,8 @@
     "danish": "Δανικά",
     "afrikaans": "Αφρικάανς",
     "persian": "فارسی",
-    "indonesian": "Bahasa Indonesia"
+    "indonesian": "Bahasa Indonesia",
+    "japanese": "日本語"
   },
   "SettingsPage": {
     "title": "Ρυθμίσεις",
@@ -69,7 +70,8 @@
         "da": "Dansk (Δανικά)",
         "af": "Afrikaans (Αφρικάανς)",
         "fa": "فارسی",
-        "id": "Bahasa Indonesia"
+        "id": "Bahasa Indonesia",
+        "ja": "日本語"
       }
     }
   },
