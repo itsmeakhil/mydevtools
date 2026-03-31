@@ -1379,5 +1379,8 @@
         "description": "自由に配置やサイズ変更ができる画像を追加"
       }
     }
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatter"
   }
 }

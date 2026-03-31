@@ -1379,5 +1379,8 @@
         "description": "Adicione uma imagem que pode ser posicionada em qualquer lugar e redimensionada livremente"
       }
     }
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatter"
   }
 }

@@ -1379,5 +1379,8 @@
         "description": "Tilføj et billede, der kan placeres hvor som helst og frit kan ændre størrelsen"
       }
     }
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatter"
   }
 }

@@ -1379,5 +1379,8 @@
         "description": "Tambah imej yang boleh diletakkan di mana-mana dan diubah saiz dengan bebas"
       }
     }
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatter"
   }
 }

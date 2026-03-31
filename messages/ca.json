@@ -1379,5 +1379,8 @@
         "description": "Afegeix una imatge que es pot col·locar i redimensionar lliurement"
       }
     }
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatter"
   }
 }

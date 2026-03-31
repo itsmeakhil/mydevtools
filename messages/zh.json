@@ -1377,5 +1377,8 @@
         "description": "添加可任意放置与缩放的图片"
       }
     }
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatter"
   }
 }

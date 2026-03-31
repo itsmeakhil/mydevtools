@@ -1379,5 +1379,8 @@
         "description": "أضف صورة يمكن وضعها في أي مكان وتغيير حجمها بحرية"
       }
     }
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatter"
   }
 }

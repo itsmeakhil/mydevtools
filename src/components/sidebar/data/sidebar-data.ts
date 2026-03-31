@@ -44,8 +44,12 @@ export const sidebarData: SidebarData = {
           icon: IconBookmark,
           description: 'Manage and organize your bookmarks.'
         },
-
-
+        {
+          title: 'JSON Formatter',
+          url: '/app/json-formatter',
+          icon: IconJson,
+          description: 'Format, validate, and edit JSON data.',
+        },
         {
           title: 'API Client',
           url: '/app/api-client',

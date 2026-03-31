@@ -95,6 +95,7 @@
     "tiptap-markdown": "^0.8.10",
     "use-debounce": "^10.0.6",
     "uuid": "^13.0.0",
+    "vanilla-jsoneditor": "^0.23.8",
     "vaul": "^1.1.2",
     "xlsx": "^0.18.5",
     "zustand": "^5.0.8"

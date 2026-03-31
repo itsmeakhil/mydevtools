@@ -1379,5 +1379,8 @@
         "description": "Bild, das frei positioniert und in der Größe geändert werden kann"
       }
     }
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatter"
   }
 }

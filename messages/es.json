@@ -1379,5 +1379,8 @@
         "description": "Añade una imagen que puedes colocar y redimensionar libremente"
       }
     }
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatter"
   }
 }
