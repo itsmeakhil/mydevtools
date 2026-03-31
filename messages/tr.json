@@ -5,6 +5,7 @@
     "apiClient": "API İstemcisi",
     "passwordManager": "Şifre Yöneticisi",
     "bookmarks": "Yer İmleri",
+    "jsonFormatter": "JSON biçimleyici",
     "emailValidator": "E-posta Doğrulayıcı",
     "nosqlExplorer": "NoSQL Gezgini"
   },
@@ -77,6 +78,7 @@
         "af": "Afrikaans",
         "fa": "فارسی",
         "id": "Bahasa Indonesia",
+        "it": "İtalyanca (Italiano)",
         "nb": "Norsk",
         "ja": "日本語",
         "ko": "한국어",
@@ -1381,6 +1383,21 @@
     }
   },
   "JsonFormatter": {
-    "title": "JSON Formatter"
+    "title": "JSON biçimleyici",
+    "description": "JSON verilerini metin ve ağaç görünümünde biçimlendirin, doğrulayın ve düzenleyin.",
+    "documentNameText": "Metin belgesi {n}",
+    "documentNameTree": "Ağaç belgesi {n}",
+    "newDocument": "Yeni",
+    "copy": "Kopyala",
+    "save": "Kaydet",
+    "saving": "Kaydediliyor...",
+    "leftDocNameLabel": "Left document name",
+    "rightDocNameLabel": "Right document name",
+    "toastCopiedText": "Text pane copied",
+    "toastCopiedTree": "Tree pane copied",
+    "toastCopyFailed": "Failed to copy JSON",
+    "toastLoginRequired": "Please sign in to save documents",
+    "toastSaved": "Document saved",
+    "toastSaveFailed": "Failed to save document"
   }
 }

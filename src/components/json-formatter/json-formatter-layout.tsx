@@ -48,8 +48,12 @@ const createPaneState = (initialName: string): PaneState => ({
 export function JsonFormatterLayout() {
   const t = useTranslations('JsonFormatter')
   const { user } = useAuth(false)
-  const [leftPane, setLeftPane] = useState<PaneState>(createPaneState('Text document 1'))
-  const [rightPane, setRightPane] = useState<PaneState>(createPaneState('Tree document 1'))
+  const [leftPane, setLeftPane] = useState<PaneState>(() =>
+    createPaneState(t('documentNameText', { n: 1 }))
+  )
+  const [rightPane, setRightPane] = useState<PaneState>(() =>
+    createPaneState(t('documentNameTree', { n: 1 }))
+  )
 
   const updatePane = (pane: PaneKey, updater: (prev: PaneState) => PaneState) => {
     if (pane === 'left') {
@@ -84,7 +88,10 @@ export function JsonFormatterLayout() {
       return {
         ...prev,
         content: { json: {} },
-        documentName: `${pane === 'left' ? 'Text' : 'Tree'} document ${nextCount}`,
+        documentName:
+          pane === 'left'
+            ? t('documentNameText', { n: nextCount })
+            : t('documentNameTree', { n: nextCount }),
         documentId: null,
         newDocumentCount: nextCount,
       }
@@ -96,16 +103,18 @@ export function JsonFormatterLayout() {
     try {
       const textContent = toTextContent(paneState.content)
       await navigator.clipboard.writeText(textContent.text)
-      toast.success(`${pane === 'left' ? 'Text' : 'Tree'} pane copied`)
+      toast.success(
+        pane === 'left' ? t('toastCopiedText') : t('toastCopiedTree')
+      )
     } catch (error) {
       console.error('Failed to copy JSON:', error)
-      toast.error('Failed to copy JSON')
+      toast.error(t('toastCopyFailed'))
     }
   }
 
   const handleSave = async (pane: PaneKey) => {
     if (!user?.uid) {
-      toast.error('Please login to save document')
+      toast.error(t('toastLoginRequired'))
       return
     }
 
@@ -131,10 +140,10 @@ export function JsonFormatterLayout() {
         updatePane(pane, (prev) => ({ ...prev, documentId: docRef.id }))
       }
 
-      toast.success('Document saved')
+      toast.success(t('toastSaved'))
     } catch (error) {
       console.error('Failed to save JSON document:', error)
-      toast.error('Failed to save document')
+      toast.error(t('toastSaveFailed'))
     } finally {
       updatePane(pane, (prev) => ({ ...prev, isSaving: false }))
     }
@@ -149,9 +158,14 @@ export function JsonFormatterLayout() {
               <div className="rounded-xl bg-primary/10 p-2 shadow-sm transition-all hover:scale-105 hover:bg-primary/20">
                 <IconJson className="h-5 w-5 text-primary" aria-hidden />
               </div>
-              <h1 className="text-lg font-bold tracking-tight text-foreground md:text-xl">
-                {t('title')}
-              </h1>
+              <div className="flex flex-col gap-0.5">
+                <h1 className="text-lg font-bold tracking-tight text-foreground md:text-xl">
+                  {t('title')}
+                </h1>
+                <p className="text-xs text-muted-foreground md:text-sm">
+                  {t('description')}
+                </p>
+              </div>
             </div>
           </div>
         </CardHeader>
@@ -169,15 +183,15 @@ export function JsonFormatterLayout() {
                 value={leftPane.documentName}
                 onChange={(event) => handlePaneNameChange('left', event.target.value)}
                 className="h-8 w-[170px] rounded-md border border-input bg-background px-2.5 text-xs text-foreground outline-none ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                aria-label="Left document name"
+                aria-label={t('leftDocNameLabel')}
               />
               <Button variant="outline" size="sm" onClick={() => handleNewDocument('left')}>
                 <IconFilePlus className="mr-1.5 h-4 w-4" />
-                New
+                {t('newDocument')}
               </Button>
               <Button variant="outline" size="sm" onClick={() => handleCopy('left')}>
                 <IconCopy className="mr-1.5 h-4 w-4" />
-                Copy
+                {t('copy')}
               </Button>
               <Button
                 size="sm"
@@ -185,7 +199,7 @@ export function JsonFormatterLayout() {
                 disabled={leftPane.isSaving}
               >
                 <IconDeviceFloppy className="mr-1.5 h-4 w-4" />
-                {leftPane.isSaving ? 'Saving...' : 'Save'}
+                {leftPane.isSaving ? t('saving') : t('save')}
               </Button>
             </div>
             <div className="min-h-0 flex-1">
@@ -213,15 +227,15 @@ export function JsonFormatterLayout() {
                 value={rightPane.documentName}
                 onChange={(event) => handlePaneNameChange('right', event.target.value)}
                 className="h-8 w-[170px] rounded-md border border-input bg-background px-2.5 text-xs text-foreground outline-none ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                aria-label="Right document name"
+                aria-label={t('rightDocNameLabel')}
               />
               <Button variant="outline" size="sm" onClick={() => handleNewDocument('right')}>
                 <IconFilePlus className="mr-1.5 h-4 w-4" />
-                New
+                {t('newDocument')}
               </Button>
               <Button variant="outline" size="sm" onClick={() => handleCopy('right')}>
                 <IconCopy className="mr-1.5 h-4 w-4" />
-                Copy
+                {t('copy')}
               </Button>
               <Button
                 size="sm"
@@ -229,7 +243,7 @@ export function JsonFormatterLayout() {
                 disabled={rightPane.isSaving}
               >
                 <IconDeviceFloppy className="mr-1.5 h-4 w-4" />
-                {rightPane.isSaving ? 'Saving...' : 'Save'}
+                {rightPane.isSaving ? t('saving') : t('save')}
               </Button>
             </div>
             <div className="min-h-0 flex-1">

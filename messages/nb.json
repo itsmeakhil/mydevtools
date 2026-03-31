@@ -5,6 +5,7 @@
     "apiClient": "API-klient",
     "passwordManager": "Passordbehandler",
     "bookmarks": "Bokmerker",
+    "jsonFormatter": "JSON-formaterer",
     "emailValidator": "E-postvalidering",
     "nosqlExplorer": "NoSQL-utforsker"
   },
@@ -77,6 +78,7 @@
         "fa": "فارسی",
         "nb": "Norsk",
         "id": "Bahasa Indonesia",
+        "it": "Italiensk (Italiano)",
         "ja": "日本語",
         "ko": "한국어",
         "ms": "Bahasa Melayu",
@@ -1380,6 +1382,21 @@
     }
   },
   "JsonFormatter": {
-    "title": "JSON Formatter"
+    "title": "JSON-formaterer",
+    "description": "Formater, valider og rediger JSON i tekst- og trevisning.",
+    "documentNameText": "Tekstdokument {n}",
+    "documentNameTree": "Tredokument {n}",
+    "newDocument": "Ny",
+    "copy": "Kopier",
+    "save": "Lagre",
+    "saving": "Lagrer...",
+    "leftDocNameLabel": "Left document name",
+    "rightDocNameLabel": "Right document name",
+    "toastCopiedText": "Text pane copied",
+    "toastCopiedTree": "Tree pane copied",
+    "toastCopyFailed": "Failed to copy JSON",
+    "toastLoginRequired": "Please sign in to save documents",
+    "toastSaved": "Document saved",
+    "toastSaveFailed": "Failed to save document"
   }
 }

@@ -5,6 +5,7 @@
     "apiClient": "API Client",
     "passwordManager": "Quản lý mật khẩu",
     "bookmarks": "Dấu trang",
+    "jsonFormatter": "Trình định dạng JSON",
     "emailValidator": "Xác thực email",
     "nosqlExplorer": "NoSQL Explorer"
   },
@@ -77,6 +78,7 @@
         "af": "Afrikaans",
         "fa": "فارسی",
         "id": "Bahasa Indonesia",
+        "it": "Tiếng Ý (Italiano)",
         "nb": "Norsk",
         "ja": "日本語",
         "ko": "한국어",
@@ -1381,6 +1383,21 @@
     }
   },
   "JsonFormatter": {
-    "title": "JSON Formatter"
+    "title": "Trình định dạng JSON",
+    "description": "Định dạng, kiểm tra và chỉnh sửa JSON ở chế độ văn bản và cây.",
+    "documentNameText": "Tài liệu văn bản {n}",
+    "documentNameTree": "Tài liệu dạng cây {n}",
+    "newDocument": "Mới",
+    "copy": "Sao chép",
+    "save": "Lưu",
+    "saving": "Đang lưu...",
+    "leftDocNameLabel": "Left document name",
+    "rightDocNameLabel": "Right document name",
+    "toastCopiedText": "Text pane copied",
+    "toastCopiedTree": "Tree pane copied",
+    "toastCopyFailed": "Failed to copy JSON",
+    "toastLoginRequired": "Please sign in to save documents",
+    "toastSaved": "Document saved",
+    "toastSaveFailed": "Failed to save document"
   }
 }

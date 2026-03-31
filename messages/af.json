@@ -5,6 +5,7 @@
     "apiClient": "API-kliënt",
     "passwordManager": "Wagwoordbestuurder",
     "bookmarks": "Boekmerke",
+    "jsonFormatter": "JSON-formateerder",
     "emailValidator": "E-posvalidasie",
     "nosqlExplorer": "NoSQL-verkenner"
   },
@@ -77,6 +78,7 @@
         "da": "Dansk (Deens)",
         "fa": "فارسی",
         "id": "Bahasa Indonesia",
+        "it": "Italiaans (Italiano)",
         "nb": "Norsk",
         "ja": "日本語",
         "ko": "한국어",
@@ -1381,6 +1383,21 @@
     }
   },
   "JsonFormatter": {
-    "title": "JSON Formatter"
+    "title": "JSON-formateerder",
+    "description": "Formateer, valideer en wysig JSON in teks- en boom-aansig.",
+    "documentNameText": "Teksdokument {n}",
+    "documentNameTree": "Boomdokument {n}",
+    "newDocument": "Nuut",
+    "copy": "Kopieer",
+    "save": "Stoor",
+    "saving": "Stoor tans...",
+    "leftDocNameLabel": "Left document name",
+    "rightDocNameLabel": "Right document name",
+    "toastCopiedText": "Text pane copied",
+    "toastCopiedTree": "Tree pane copied",
+    "toastCopyFailed": "Failed to copy JSON",
+    "toastLoginRequired": "Please sign in to save documents",
+    "toastSaved": "Document saved",
+    "toastSaveFailed": "Failed to save document"
   }
 }

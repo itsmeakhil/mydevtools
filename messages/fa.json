@@ -5,6 +5,7 @@
     "apiClient": "سرویس گیرنده API",
     "passwordManager": "مدیر رمز عبور",
     "bookmarks": "نشانک ها",
+    "jsonFormatter": "قالب‌ده JSON",
     "emailValidator": "اعتبار سنجی ایمیل",
     "nosqlExplorer": "NoSQL Explorer"
   },
@@ -75,6 +76,7 @@
         "da": "Dansk (دانمارکی)",
         "af": "آفریقایی",
         "id": "Bahasa Indonesia",
+        "it": "ایتالیایی (Italiano)",
         "nb": "Norsk",
         "ja": "日本語",
         "ko": "한국어",
@@ -1379,6 +1381,21 @@
     }
   },
   "JsonFormatter": {
-    "title": "JSON Formatter"
+    "title": "قالب‌ده JSON",
+    "description": "JSON را در نمای متنی و درختی قالب‌بندی، اعتبارسنجی و ویرایش کنید.",
+    "documentNameText": "سند متنی {n}",
+    "documentNameTree": "سند درختی {n}",
+    "newDocument": "جدید",
+    "copy": "کپی",
+    "save": "ذخیره",
+    "saving": "در حال ذخیره...",
+    "leftDocNameLabel": "Left document name",
+    "rightDocNameLabel": "Right document name",
+    "toastCopiedText": "Text pane copied",
+    "toastCopiedTree": "Tree pane copied",
+    "toastCopyFailed": "Failed to copy JSON",
+    "toastLoginRequired": "Please sign in to save documents",
+    "toastSaved": "Document saved",
+    "toastSaveFailed": "Failed to save document"
   }
 }

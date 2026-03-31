@@ -5,6 +5,7 @@
     "apiClient": "API klient",
     "passwordManager": "Správce hesel",
     "bookmarks": "Záložky",
+    "jsonFormatter": "Formátovač JSON",
     "emailValidator": "Validátor e-mailů",
     "nosqlExplorer": "Průzkumník NoSQL"
   },
@@ -77,6 +78,7 @@
         "af": "Afrikaans (afrikánština)",
         "fa": "فارسی",
         "id": "Bahasa Indonesia",
+        "it": "Italština (Italiano)",
         "nb": "Norsk",
         "ja": "日本語",
         "ko": "한국어",
@@ -1381,6 +1383,21 @@
     }
   },
   "JsonFormatter": {
-    "title": "JSON Formatter"
+    "title": "Formátovač JSON",
+    "description": "Formátujte, validujte a upravujte JSON v textovém i stromovém zobrazení.",
+    "documentNameText": "Textový dokument {n}",
+    "documentNameTree": "Stromový dokument {n}",
+    "newDocument": "Nový",
+    "copy": "Kopírovat",
+    "save": "Uložit",
+    "saving": "Ukládání...",
+    "leftDocNameLabel": "Left document name",
+    "rightDocNameLabel": "Right document name",
+    "toastCopiedText": "Text pane copied",
+    "toastCopiedTree": "Tree pane copied",
+    "toastCopyFailed": "Failed to copy JSON",
+    "toastLoginRequired": "Please sign in to save documents",
+    "toastSaved": "Document saved",
+    "toastSaveFailed": "Failed to save document"
   }
 }

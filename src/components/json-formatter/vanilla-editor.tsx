@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { JSONEditor, JSONEditorPropsOptional } from 'vanilla-jsoneditor'
 import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
@@ -13,9 +13,14 @@ interface VanillaEditorProps extends JSONEditorPropsOptional {
 export function VanillaEditor({ className = '', ...props }: VanillaEditorProps) {
   const refContainer = useRef<HTMLDivElement>(null)
   const refEditor = useRef<JSONEditor | null>(null)
-  const { theme, systemTheme } = useTheme()
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
-  const currentTheme = theme === 'system' ? systemTheme : theme
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const isDarkTheme = mounted && resolvedTheme === 'dark'
 
   useEffect(() => {
     // create editor
@@ -47,8 +52,8 @@ export function VanillaEditor({ className = '', ...props }: VanillaEditorProps) 
     <div
       ref={refContainer}
       className={cn(
-        'jse-app-theme h-full w-full',
-        currentTheme === 'dark' && 'jse-theme-dark',
+        'jse-app-theme h-full w-full bg-card text-foreground',
+        isDarkTheme && 'jse-theme-dark',
         className
       )}
     />

@@ -5,6 +5,7 @@
     "apiClient": "API 客户端",
     "passwordManager": "密码管理器",
     "bookmarks": "书签",
+    "jsonFormatter": "JSON 格式化器",
     "emailValidator": "邮箱验证",
     "nosqlExplorer": "NoSQL 浏览器"
   },
@@ -77,6 +78,7 @@
         "af": "Afrikaans（南非荷兰语）",
         "fa": "فارسی",
         "id": "Bahasa Indonesia",
+        "it": "意大利语 (Italiano)",
         "nb": "Norsk",
         "ja": "日本語",
         "ko": "한국어",
@@ -1379,6 +1381,21 @@
     }
   },
   "JsonFormatter": {
-    "title": "JSON Formatter"
+    "title": "JSON 格式化器",
+    "description": "在文本和树形视图中格式化、校验并编辑 JSON。",
+    "documentNameText": "文本文档 {n}",
+    "documentNameTree": "树形文档 {n}",
+    "newDocument": "新建",
+    "copy": "复制",
+    "save": "保存",
+    "saving": "保存中...",
+    "leftDocNameLabel": "Left document name",
+    "rightDocNameLabel": "Right document name",
+    "toastCopiedText": "Text pane copied",
+    "toastCopiedTree": "Tree pane copied",
+    "toastCopyFailed": "Failed to copy JSON",
+    "toastLoginRequired": "Please sign in to save documents",
+    "toastSaved": "Document saved",
+    "toastSaveFailed": "Failed to save document"
   }
 }

@@ -46,6 +46,7 @@ export function QueryBuilder({
     collectionName,
 }: QueryBuilderProps) {
     const t = useTranslations("NoSqlExplorer.query");
+    const queryPlaceholder = String(t.raw("placeholder"));
     const [textQuery, setTextQuery] = useState(query);
     const [rules, setRules] = useState<FilterRule[]>([]);
     const [historyOpen, setHistoryOpen] = useState(false);
@@ -341,7 +342,7 @@ export function QueryBuilder({
                 <Input
                     value={textQuery}
                     onChange={(e) => setTextQuery(e.target.value)}
-                    placeholder={t("placeholder")}
+                    placeholder={queryPlaceholder}
                     className="pl-8 pr-[175px] font-mono text-xs h-9 bg-background"
                     onKeyDown={(e) => {
                         if (e.key === "Enter") handleTextSearch();

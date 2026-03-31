@@ -3,9 +3,11 @@
 import * as React from "react"
 import { ThemeProvider as NextThemesProvider, useTheme as useNextTheme } from "next-themes"
 import { SpacemanThemeProvider, ThemeAnimationType } from "@space-man/react-theme-animation"
+import { useColorTheme } from "@/hooks/use-color-theme"
 
 function ThemeSync({ children }: { children: React.ReactNode }) {
-  const { theme, setTheme } = useNextTheme()
+  const { theme } = useNextTheme()
+  useColorTheme()
   const [mounted, setMounted] = React.useState(false)
 
   React.useEffect(() => {
