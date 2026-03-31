@@ -13,6 +13,7 @@
     "language": "Sprache",
     "spanish": "Spanisch",
     "english": "Englisch",
+    "french": "Französisch",
     "arabic": "Arabisch",
     "catalan": "Katalanisch",
     "chineseSimplified": "Chinesisch (Vereinfacht)",
@@ -55,6 +56,7 @@
       "helpText": "Wenn Sie die Sprache ändern, werden Menüs und Beschriftungen auf der gesamten Plattform aktualisiert.",
       "languages": {
         "en": "English",
+        "fr": "Français",
         "es": "Español (Spanisch)",
         "ar": "عربى (Arabisch)",
         "ca": "Català",

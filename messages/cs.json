@@ -13,6 +13,7 @@
     "language": "Jazyk",
     "spanish": "Španělština",
     "english": "Angličtina",
+    "french": "Francouzština",
     "arabic": "Arabština",
     "catalan": "Katalánština",
     "chineseSimplified": "Čínština (zjednodušená)",
@@ -55,6 +56,7 @@
       "helpText": "Změna jazyka aktualizuje nabídky a popisky v celé aplikaci.",
       "languages": {
         "en": "English",
+        "fr": "Français (francouzština)",
         "es": "Español",
         "ar": "عربى (arabština)",
         "ca": "Català",

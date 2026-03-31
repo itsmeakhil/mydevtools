@@ -13,6 +13,7 @@
     "language": "Idioma",
     "spanish": "Castellà",
     "english": "Anglès",
+    "french": "Francès",
     "catalan": "Català",
     "arabic": "Àrab",
     "chineseSimplified": "Xinès simplificat",
@@ -55,6 +56,7 @@
       "helpText": "Canviar l'idioma actualitzarà els menús i les etiquetes a tota la plataforma.",
       "languages": {
         "en": "Anglès (English)",
+        "fr": "Français (Francès)",
         "es": "Castellà (Español)",
         "ca": "Català",
         "ar": "Àrab (عربى)",

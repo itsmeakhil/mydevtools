@@ -33,6 +33,9 @@ export function LanguageSwitcher() {
         <DropdownMenuItem onClick={() => switchLanguage('en')} className={locale === 'en' ? 'font-bold' : ''}>
           {t('english')}
         </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('fr')} className={locale === 'fr' ? 'font-bold' : ''}>
+          {t('french')}
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => switchLanguage('es')} className={locale === 'es' ? 'font-bold' : ''}>
           {t('spanish')}
         </DropdownMenuItem>

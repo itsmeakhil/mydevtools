@@ -182,6 +182,7 @@ export default function SettingsPage() {
                 </SelectTrigger>
                 <SelectContent rounded-lg>
                   <SelectItem value="en">{t('language.languages.en')}</SelectItem>
+                  <SelectItem value="fr">{t('language.languages.fr')}</SelectItem>
                   <SelectItem value="es">{t('language.languages.es')}</SelectItem>
                   <SelectItem value="ca">{t('language.languages.ca')}</SelectItem>
                   <SelectItem value="ar">{t('language.languages.ar')}</SelectItem>

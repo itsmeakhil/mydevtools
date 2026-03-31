@@ -13,6 +13,7 @@
     "language": "Sprog",
     "spanish": "Spansk",
     "english": "Engelsk",
+    "french": "Fransk",
     "arabic": "Arabisk",
     "catalan": "Catalansk",
     "chineseSimplified": "kinesisk (forenklet)",
@@ -55,6 +56,7 @@
       "helpText": "Ændring af dit sprog vil opdatere menuer og etiketter på tværs af platformen.",
       "languages": {
         "en": "Engelsk (English)",
+        "fr": "Français (Fransk)",
         "es": "Spansk (Español)",
         "ar": "عربى (Arabisk)",
         "ca": "Català (Catalan)",

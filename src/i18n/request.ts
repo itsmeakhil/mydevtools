@@ -1,7 +1,7 @@
 import {getRequestConfig} from 'next-intl/server';
 import { cookies } from 'next/headers';
 
-const locales = ['en', 'es', 'ar', 'ca', 'zh', 'cs', 'el', 'de', 'da', 'af'] as const;
+const locales = ['en', 'fr', 'es', 'ar', 'ca', 'zh', 'cs', 'el', 'de', 'da', 'af'] as const;
 type AppLocale = (typeof locales)[number];
 
 export default getRequestConfig(async () => {
