@@ -1,7 +1,7 @@
 import {getRequestConfig} from 'next-intl/server';
 import { cookies } from 'next/headers';
 
-const locales = ['en', 'fr', 'es', 'ar', 'ca', 'zh', 'cs', 'el', 'de', 'da', 'af', 'id', 'fa', 'ru', 'it', 'ja', 'ko', 'ms', 'nb', 'nl', 'sv', 'pl', 'tr', 'pt', 'pt-BR', 'vi'] as const;
+const locales = ['en', 'fr', 'es', 'ar', 'ca', 'zh', 'cs', 'el', 'de', 'da', 'af', 'id', 'fa', 'ru', 'it', 'ja', 'ko', 'ms', 'nb', 'nl', 'sv', 'pl', 'tr', 'pt', 'pt-BR', 'vi', 'uk'] as const;
 type AppLocale = (typeof locales)[number];
 
 export default getRequestConfig(async () => {
@@ -10,10 +10,8 @@ export default getRequestConfig(async () => {
   const locale: AppLocale = locales.includes(raw as AppLocale)
     ? (raw as AppLocale)
     : 'en';
-  const messagesLocale = locale === 'pt' ? 'en' : locale;
-
   return {
     locale,
-    messages: (await import(`../../messages/${messagesLocale}.json`)).default
+    messages: (await import(`../../messages/${locale}.json`)).default
   };
 });

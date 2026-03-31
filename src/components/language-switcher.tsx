@@ -108,6 +108,9 @@ export function LanguageSwitcher() {
         <DropdownMenuItem onClick={() => switchLanguage('vi')} className={locale === 'vi' ? 'font-bold' : ''}>
           Tiếng Việt
         </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('uk')} className={locale === 'uk' ? 'font-bold' : ''}>
+          Українська
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
