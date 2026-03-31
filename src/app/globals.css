@@ -100,48 +100,56 @@ body {
     --primary: 217.2 91.2% 59.8%;
     --primary-foreground: 0 0% 98%;
     --ring: 217.2 91.2% 59.8%;
+    --sidebar-primary: 217.2 91.2% 59.8%;
   }
 
   :root.purple {
     --primary: 258.3 89.5% 66.3%;
     --primary-foreground: 0 0% 98%;
     --ring: 258.3 89.5% 66.3%;
+    --sidebar-primary: 258.3 89.5% 66.3%;
   }
 
   :root.green {
     --primary: 142.1 76.2% 36.3%;
     --primary-foreground: 0 0% 98%;
     --ring: 142.1 76.2% 36.3%;
+    --sidebar-primary: 142.1 76.2% 36.3%;
   }
 
   :root.orange {
     --primary: 24.6 95% 53.1%;
     --primary-foreground: 0 0% 98%;
     --ring: 24.6 95% 53.1%;
+    --sidebar-primary: 24.6 95% 53.1%;
   }
 
   :root.red {
     --primary: 0 72.2% 50.6%;
     --primary-foreground: 0 0% 98%;
     --ring: 0 72.2% 50.6%;
+    --sidebar-primary: 0 72.2% 50.6%;
   }
 
   :root.pink {
     --primary: 340.7 82.1% 52.7%;
     --primary-foreground: 0 0% 98%;
     --ring: 340.7 82.1% 52.7%;
+    --sidebar-primary: 340.7 82.1% 52.7%;
   }
 
   :root.cyan {
     --primary: 199.1 89.1% 48.2%;
     --primary-foreground: 0 0% 98%;
     --ring: 199.1 89.1% 48.2%;
+    --sidebar-primary: 199.1 89.1% 48.2%;
   }
 
   :root.indigo {
     --primary: 239.4 83.9% 66.7%;
     --primary-foreground: 0 0% 98%;
     --ring: 239.4 83.9% 66.7%;
+    --sidebar-primary: 239.4 83.9% 66.7%;
   }
 
   /* Color Theme Overrides - Dark Mode */

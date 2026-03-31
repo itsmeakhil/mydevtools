@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Moon, Sun, Monitor, Globe, User, List } from 'lucide-react'
+import { Moon, Sun, Monitor, Globe, User, List, Palette, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
@@ -15,12 +15,25 @@ import { sidebarData } from '@/components/sidebar/data/sidebar-data'
 import { useToolVisibility } from '@/hooks/use-tool-visibility'
 import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
+import { COLOR_THEME_OPTIONS, type ColorTheme, useColorTheme } from '@/hooks/use-color-theme'
+
+const colorDisplay: Record<ColorTheme, { swatchClass: string; name: string }> = {
+  cyan: { swatchClass: 'bg-cyan-500', name: 'Teal' },
+  blue: { swatchClass: 'bg-blue-500', name: 'Blue' },
+  indigo: { swatchClass: 'bg-indigo-500', name: 'Indigo' },
+  purple: { swatchClass: 'bg-purple-500', name: 'Purple' },
+  green: { swatchClass: 'bg-green-500', name: 'Green' },
+  orange: { swatchClass: 'bg-orange-500', name: 'Orange' },
+  red: { swatchClass: 'bg-red-500', name: 'Red' },
+  pink: { swatchClass: 'bg-pink-500', name: 'Pink' },
+}
 
 export default function SettingsPage() {
   const t = useTranslations('SettingsPage')
   const locale = useLocale()
   const router = useRouter()
   const { theme, setTheme } = useTheme()
+  const { colorTheme, setColorTheme } = useColorTheme()
   const { user } = useAuth()
   const { isToolEnabled, toggleTool } = useToolVisibility()
   const [mounted, setMounted] = useState(false)
@@ -159,6 +172,46 @@ export default function SettingsPage() {
                   <span>{t('appearance.themes.system')}</span>
                 </Button>
               </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <Palette className="h-4 w-4 text-muted-foreground" />
+                <Label>Accent color</Label>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                {COLOR_THEME_OPTIONS.map((color) => {
+                  const isSelected = colorTheme === color
+                  const { swatchClass, name } = colorDisplay[color]
+
+                  return (
+                    <button
+                      key={color}
+                      type="button"
+                      onClick={() => setColorTheme(color)}
+                      className={cn(
+                        'relative h-10 w-10 rounded-full border-2 transition-all',
+                        isSelected
+                          ? 'border-primary scale-105 shadow-md shadow-primary/25'
+                          : 'border-transparent hover:border-border'
+                      )}
+                      aria-label={`Use ${name} accent color`}
+                      aria-pressed={isSelected}
+                      title={name}
+                    >
+                      <span className={cn('block h-full w-full rounded-full', swatchClass)} />
+                      {isSelected ? (
+                        <span className="absolute inset-0 flex items-center justify-center text-white">
+                          <Check className="h-4 w-4 drop-shadow-sm" />
+                        </span>
+                      ) : null}
+                    </button>
+                  )
+                })}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Selected: {colorDisplay[colorTheme].name}
+              </p>
             </div>
           </CardContent>
         </Card>

@@ -13,6 +13,16 @@ export type ColorTheme =
   | "indigo"
 
 const COLOR_THEME_KEY = "app-color-theme"
+export const COLOR_THEME_OPTIONS: ColorTheme[] = [
+  "cyan",
+  "blue",
+  "indigo",
+  "purple",
+  "green",
+  "orange",
+  "red",
+  "pink",
+]
 
 export function useColorTheme() {
   const [colorTheme, setColorThemeState] = useState<ColorTheme>("blue")
@@ -40,12 +50,12 @@ export function useColorTheme() {
 }
 
 function isValidColorTheme(theme: string): theme is ColorTheme {
-  return ["blue", "purple", "green", "orange", "red", "pink", "cyan", "indigo"].includes(theme)
+  return COLOR_THEME_OPTIONS.includes(theme as ColorTheme)
 }
 
 function applyColorTheme(theme: ColorTheme) {
   const root = document.documentElement
-  root.classList.remove("blue", "purple", "green", "orange", "red", "pink", "cyan", "indigo")
+  root.classList.remove(...COLOR_THEME_OPTIONS)
   root.classList.add(theme)
 }
 
