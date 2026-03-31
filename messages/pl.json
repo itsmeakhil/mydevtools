@@ -11,19 +11,19 @@
   "Settings": {
     "title": "Settings",
     "language": "Language",
-    "spanish": "Spanish",
-    "english": "English",
+    "spanish": "Hiszpański",
+    "english": "Angielski",
     "french": "Français",
     "arabic": "عربى",
-    "catalan": "Catalan",
-    "chineseSimplified": "Chinese (Simplified)",
+    "catalan": "Kataloński",
+    "chineseSimplified": "Chiński (uproszczony)",
     "czech": "Čeština",
     "greek": "Ελληνικά",
-    "german": "German",
-    "danish": "Danish",
+    "german": "Niemiecki",
+    "danish": "Duński",
     "afrikaans": "Afrikaans",
     "persian": "فارسی",
-    "indonesian": "Bahasa Indonesia"
+    "indonesian": "Indonezyjski"
   },
   "SettingsPage": {
     "title": "Settings",
@@ -57,19 +57,19 @@
       "selectPlaceholder": "Select a language",
       "helpText": "Changing your language will update menus and labels across the platform.",
       "languages": {
-        "en": "English",
+        "en": "English (angielski)",
         "fr": "Français",
-        "es": "Español (Spanish)",
+        "es": "Español (hiszpański)",
+        "id": "Bahasa Indonesia (indonezyjski)",
         "ar": "عربى (Arabic)",
         "ca": "Català",
         "zh": "简体中文",
         "cs": "Čeština",
-        "el": "Ελληνικά (Greek)",
-        "de": "Deutsch (German)",
-        "da": "Dansk (Danish)",
+        "el": "Ελληνικά (grecki)",
+        "de": "Deutsch (niemiecki)",
+        "da": "Dansk (duński)",
         "af": "Afrikaans",
-        "fa": "فارسی",
-        "id": "Bahasa Indonesia"
+        "fa": "فارسی"
       }
     }
   },

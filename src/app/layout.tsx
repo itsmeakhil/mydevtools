@@ -99,7 +99,7 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale();
   const messages = await getMessages();
-  const dir = locale === 'ar' ? 'rtl' : 'ltr';
+  const dir = locale === 'ar' || locale === 'fa' ? 'rtl' : 'ltr';
   const htmlLang = locale === 'zh' ? 'zh-Hans' : locale;
 
   return (

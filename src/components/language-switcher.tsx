@@ -39,6 +39,9 @@ export function LanguageSwitcher() {
         <DropdownMenuItem onClick={() => switchLanguage('es')} className={locale === 'es' ? 'font-bold' : ''}>
           {t('spanish')}
         </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('id')} className={locale === 'id' ? 'font-bold' : ''}>
+          {t('indonesian')}
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => switchLanguage('ca')} className={locale === 'ca' ? 'font-bold' : ''}>
           {t('catalan')}
         </DropdownMenuItem>
@@ -60,8 +63,44 @@ export function LanguageSwitcher() {
         <DropdownMenuItem onClick={() => switchLanguage('da')} className={locale === 'da' ? 'font-bold' : ''}>
           {t('danish')}
         </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('nb')} className={locale === 'nb' ? 'font-bold' : ''}>
+          Norsk
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('nl')} className={locale === 'nl' ? 'font-bold' : ''}>
+          Nederlands
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('sv')} className={locale === 'sv' ? 'font-bold' : ''}>
+          Svenska
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('tr')} className={locale === 'tr' ? 'font-bold' : ''}>
+          Türkçe
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('pt')} className={locale === 'pt' ? 'font-bold' : ''}>
+          Português
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => switchLanguage('af')} className={locale === 'af' ? 'font-bold' : ''}>
           {t('afrikaans')}
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('fa')} className={locale === 'fa' ? 'font-bold' : ''}>
+          {t('persian')}
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('ru')} className={locale === 'ru' ? 'font-bold' : ''}>
+          Русский
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('it')} className={locale === 'it' ? 'font-bold' : ''}>
+          Italiano
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('ja')} className={locale === 'ja' ? 'font-bold' : ''}>
+          日本語
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('ko')} className={locale === 'ko' ? 'font-bold' : ''}>
+          한국어
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('ms')} className={locale === 'ms' ? 'font-bold' : ''}>
+          Bahasa Melayu
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('pl')} className={locale === 'pl' ? 'font-bold' : ''}>
+          Polski
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

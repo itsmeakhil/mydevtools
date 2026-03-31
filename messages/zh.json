@@ -21,7 +21,9 @@
     "greek": "Ελληνικά",
     "german": "德语",
     "danish": "丹麦语",
-    "afrikaans": "南非荷兰语"
+    "afrikaans": "南非荷兰语",
+    "persian": "فارسی",
+    "indonesian": "Bahasa Indonesia"
   },
   "SettingsPage": {
     "title": "设置",
@@ -65,7 +67,9 @@
         "el": "Ελληνικά（希腊语）",
         "de": "Deutsch（德语）",
         "da": "Dansk（丹麦语）",
-        "af": "Afrikaans（南非荷兰语）"
+        "af": "Afrikaans（南非荷兰语）",
+        "fa": "فارسی",
+        "id": "Bahasa Indonesia"
       }
     }
   },

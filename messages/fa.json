@@ -1,0 +1,1360 @@
+{
+  "Navigation": {
+    "dashboard": "داشبورد",
+    "settings": "تنظیمات",
+    "apiClient": "سرویس گیرنده API",
+    "passwordManager": "مدیر رمز عبور",
+    "bookmarks": "نشانک ها",
+    "emailValidator": "اعتبار سنجی ایمیل",
+    "nosqlExplorer": "NoSQL Explorer"
+  },
+  "Settings": {
+    "title": "تنظیمات",
+    "language": "زبان",
+    "spanish": "اسپانیایی",
+    "english": "انگلیسی",
+    "french": "فرانسه",
+    "arabic": "عربی",
+    "catalan": "کاتالان",
+    "chineseSimplified": "چینی (ساده شده)",
+    "czech": "Čeština",
+    "greek": "زبان",
+    "german": "آلمانی",
+    "danish": "دانمارکی",
+    "afrikaans": "آفریقایی"
+  },
+  "SettingsPage": {
+    "title": "تنظیمات",
+    "subtitle": "تنظیمات و تنظیمات برگزیده حساب خود را مدیریت کنید.",
+    "userProfile": {
+      "title": "نمایه کاربر",
+      "description": "اطلاعات شخصی و جزئیات حساب شما.",
+      "avatarAlt": "کاربر",
+      "anonymousUser": "کاربر ناشناس",
+      "noEmailProvided": "ایمیلی ارائه نشده است",
+      "notLoggedIn": "وارد نشده اید."
+    },
+    "tools": {
+      "title": "ابزارها و ویژگی ها",
+      "description": "ابزارهایی را انتخاب کنید که در نوار کناری پیمایش شما ظاهر شوند."
+    },
+    "appearance": {
+      "title": "ظاهر",
+      "description": "نحوه ظاهر برنامه را در دستگاه خود سفارشی کنید.",
+      "themePreference": "اولویت تم",
+      "themes": {
+        "light": "نور",
+        "dark": "تاریک",
+        "system": "سیستم"
+      }
+    },
+    "language": {
+      "title": "زبان",
+      "description": "زبان مورد استفاده در پلتفرم را تنظیم کنید.",
+      "selectLanguage": "زبان را انتخاب کنید",
+      "selectPlaceholder": "یک زبان را انتخاب کنید",
+      "helpText": "با تغییر زبان، منوها و برچسب‌ها در سراسر پلتفرم به‌روزرسانی می‌شوند.",
+      "languages": {
+        "en": "انگلیسی",
+        "fr": "فرانسه",
+        "es": "اسپانیایی (اسپانیایی)",
+        "ar": "عربی (عربی)",
+        "ca": "کاتالا",
+        "zh": "简体中文",
+        "cs": "Čeština",
+        "el": "Ελληνικά (یونانی)",
+        "de": "دویچ (آلمانی)",
+        "da": "Dansk (دانمارکی)",
+        "af": "آفریقایی"
+      }
+    }
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "صبح بخیر",
+      "afternoon": "ظهر بخیر",
+      "evening": "عصر بخیر"
+    },
+    "commaName": "، {name}",
+    "welcomeBack": "خوش آمدید",
+    "welcomeBackNamed": "خوش آمدید، {name}",
+    "tagline": "دوست دارید امروز چه چیزی بسازید؟",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "ابزار",
+      "favorites": "موارد دلخواه"
+    },
+    "sections": {
+      "recentlyUsed": "اخیرا استفاده شده است",
+      "favorites": "موارد دلخواه"
+    },
+    "groups": {
+      "apps": "برنامه ها"
+    },
+    "toolCard": {
+      "defaultDescription": "برای عملکرد بهتر این ابزار را کاوش کنید.",
+      "launchTool": "راه اندازی ابزار"
+    },
+    "tools": {
+      "toDo": {
+        "title": "وظایف",
+        "description": "لیست کارهای خود را به طور موثر مدیریت کنید."
+      },
+      "notes": {
+        "title": "یادداشت ها",
+        "description": "ایده ها را جذب کنید و افکار خود را سازماندهی کنید."
+      },
+      "passwordManager": {
+        "title": "مدیر رمز عبور",
+        "description": "رمزهای عبور خود را ایمن ذخیره و مدیریت کنید."
+      },
+      "bookmarks": {
+        "title": "نشانک ها",
+        "description": "بوک مارک های خود را مدیریت و سازماندهی کنید."
+      },
+      "apiClient": {
+        "title": "سرویس گیرنده API",
+        "description": "درخواست های HTTP را تست و اشکال زدایی کنید."
+      },
+      "nosqlExplorer": {
+        "title": "NoSQL Explorer",
+        "description": "پایگاه داده های MongoDB را کاوش کنید."
+      },
+      "emailValidator": {
+        "title": "اعتبار سنجی ایمیل",
+        "description": "آدرس های ایمیل را تأیید و تأیید کنید."
+      }
+    }
+  },
+  "Tasks": {
+    "page": {
+      "loading": "در حال بارگیری...",
+      "myTasksTitle": "وظایف من",
+      "statsLine": "{total} وظایف • {percent}% کامل شده است",
+      "statsLineDesktop": "{total} کل • {percent}% کامل شده است"
+    },
+    "filters": {
+      "all": "همه",
+      "total": "مجموع",
+      "allProjects": "همه پروژه ها",
+      "export": "صادرات",
+      "kanban": "کانبان",
+      "list": "فهرست کنید",
+      "searchPlaceholder": "جستجوی وظایف...",
+      "searchAria": "جستجوی وظایف",
+      "clearSearchAria": "جستجو را پاک کنید",
+      "foundTasks": "پیدا شد {count} {count, plural, one {task} other {tasks}}",
+      "filterByAllAria": "فیلتر بر اساس همه",
+      "filterByStatusAria": "فیلتر بر اساس {status}"
+    },
+    "status": {
+      "not-started": {
+        "label": "شروع نشده است",
+        "description": "کارهایی که هنوز شروع نشده اند"
+      },
+      "ongoing": {
+        "label": "در حال انجام است",
+        "description": "وظایف در حال حاضر در حال انجام است"
+      },
+      "completed": {
+        "label": "تکمیل شد",
+        "description": "کارهایی که تمام شده اند"
+      }
+    },
+    "priorities": {
+      "high": "بالا",
+      "medium": "متوسط",
+      "low": "کم"
+    },
+    "form": {
+      "addNewTaskLabel": "کار جدید اضافه کنید",
+      "multilinePlaceholder": "افزودن جزئیات کار... (Shift+Enter برای خط جدید)",
+      "singlelinePlaceholder": "چه کاری باید انجام شود؟ برای افزودن اینتر را فشار دهید",
+      "taskInputAria": "ورودی وظیفه",
+      "projectPlaceholder": "پروژه",
+      "selectProject": "پروژه را انتخاب کنید",
+      "errorSelectProject": "لطفاً یک پروژه را انتخاب کنید یا یک پروژه جدید برای اضافه کردن یک کار ایجاد کنید.",
+      "hintMultiline": "Shift+Enter برای خط جدید، Enter برای افزودن",
+      "hintSingleline": "برای افزودن وارد کنید",
+      "shortcutsAria": "میانبرهای صفحه کلید",
+      "shortcutsLabel": "میانبرها",
+      "shortcutAddTask": "وظیفه اضافه کنید",
+      "shortcutNewLine": "خط جدید",
+      "shortcutClear": "پاک کردن",
+      "addButton": "اضافه کنید"
+    },
+    "list": {
+      "ariaLabel": "لیست وظایف",
+      "loading": "در حال بارگیری وظایف شما...",
+      "emptyTitle": "هیچ کاری پیدا نشد",
+      "emptyPrimary": "با اضافه کردن اولین کار خود در بالا شروع کنید! برای افزودن سریع وظایف، Enter را فشار دهید.",
+      "emptySecondary": "فیلترها یا عبارت جستجو را تنظیم کنید."
+    },
+    "mobileDrawer": {
+      "addTaskSrOnly": "Task را اضافه کنید",
+      "addNewTaskTitle": "کار جدید اضافه کنید",
+      "addNewTaskDescription": "یک کار جدید برای پیگیری پیشرفت خود ایجاد کنید.",
+      "cancel": "لغو کنید"
+    },
+    "kanban": {
+      "ariaLabel": "تابلوی کانبان",
+      "loading": "در حال بارگیری وظایف شما...",
+      "dropHere": "وظیفه را اینجا رها کنید",
+      "noTasksYet": "هنوز تکلیفی وجود ندارد",
+      "emptyColumnAria": "ستون خالی",
+      "columnAria": "ستون {title} با وظایف {count}",
+      "countInColumnAria": "{count} وظایف در {title}"
+    },
+    "taskItem": {
+      "confirmDelete": "آیا مطمئن هستید که می خواهید این کار را حذف کنید؟",
+      "statusPlaceholder": "وضعیت",
+      "changeStatusAria": "تغییر وضعیت کار",
+      "taskOptionsAria": "گزینه های وظیفه",
+      "editTask": "ویرایش وظیفه",
+      "copyTask": "وظیفه کپی کردن",
+      "copied": "کپی شده!",
+      "deleteTask": "Task را حذف کنید",
+      "statusHeading": "وضعیت",
+      "editTaskAria": "ویرایش کار"
+    },
+    "editDialog": {
+      "title": "ویرایش وظیفه",
+      "description": "جزئیات کار را به‌روزرسانی کنید، وظایف فرعی اضافه کنید، اولویت‌ها را تنظیم کنید و موارد دیگر.",
+      "taskTitleLabel": "عنوان وظیفه *",
+      "taskTitlePlaceholder": "چه کاری باید انجام شود؟",
+      "descriptionLabel": "توضیحات",
+      "descriptionPlaceholder": "جزئیات بیشتری در مورد این کار اضافه کنید...",
+      "statusLabel": "وضعیت",
+      "priorityLabel": "اولویت",
+      "dueDateLabel": "سررسید",
+      "pickDate": "یک تاریخ انتخاب کنید",
+      "clearDate": "تاریخ پاک کردن",
+      "projectLabel": "پروژه",
+      "selectProjectPlaceholder": "یک پروژه را انتخاب کنید",
+      "noProject": "بدون پروژه",
+      "timeEstimateLabel": "تخمین زمان (دقیقه)",
+      "timeEstimatePlaceholder": "چقدر طول می کشد؟",
+      "tagsLabel": "برچسب ها",
+      "customTagNamePlaceholder": "نام تگ سفارشی",
+      "subtasksLabel": "وظایف فرعی",
+      "addSubtaskPlaceholder": "اضافه کردن یک کار فرعی...",
+      "cancel": "لغو کنید",
+      "saving": "در حال ذخیره...",
+      "saveChanges": "ذخیره تغییرات"
+    },
+    "export": {
+      "title": "صادرات وظایف",
+      "description": "وظایف خود را به فرمت های JSON، CSV یا Excel صادر کنید.",
+      "projectLabel": "پروژه",
+      "statusLabel": "وضعیت",
+      "tagLabel": "برچسب بزنید",
+      "allProjects": "همه پروژه ها",
+      "allStatuses": "همه وضعیت ها",
+      "allTags": "همه برچسب ها",
+      "exportAsJsonTitle": "صادرات به عنوان JSON",
+      "exportAsJsonDescription": "داده های وظیفه شامل وظایف فرعی، برچسب ها و ابرداده ها را صادر کنید.",
+      "exportJson": "صادرات JSON",
+      "exportAsCsvExcelTitle": "صادرات به عنوان CSV / Excel",
+      "exportAsCsvExcelDescription": "وظایف را برای برنامه های صفحه گسترده صادر کنید.",
+      "exportCsv": "صادرات CSV",
+      "exportExcel": "صادرات اکسل",
+      "close": "بستن",
+      "toastNoTasks": "هیچ کاری برای صادرات با فیلترهای فعلی وجود ندارد",
+      "toastExportedJson": "{count} کار به JSON صادر شد!",
+      "toastExportedCsv": "{count} کار به CSV صادر شد!",
+      "toastExportedExcel": "{count} کار به اکسل صادر شد!",
+      "toastFailedJson": "صادر کردن به JSON انجام نشد",
+      "toastFailedCsv": "صادر کردن به CSV انجام نشد",
+      "toastFailedExcel": "صادر کردن به اکسل انجام نشد",
+      "unknownProject": "پروژه ناشناخته"
+    },
+    "ack": {
+      "taskAddedTitle": "کار با موفقیت اضافه شد",
+      "taskAddedFailedTitle": "کار اضافه نشد",
+      "taskUpdatedTitle": "کار با موفقیت به روز شد",
+      "taskUpdatedFailedTitle": "کار به روز نشد",
+      "taskStatusUpdateFailedTitle": "وضعیت کار به روز نشد",
+      "taskMovedTitle": "کار به {status} منتقل شد",
+      "tryAgain": "لطفا دوباره امتحان کنید.",
+      "taskDeletedTitle": "کار \"{text}\" حذف شد",
+      "undo": "واگرد",
+      "taskRestoredTitle": "وظیفه بازیابی شد",
+      "taskRestoredSuccessTitle": "کار با موفقیت بازیابی شد",
+      "taskRestoreFailedTitle": "کار بازیابی نشد. لطفا دوباره امتحان کنید.",
+      "taskDeleteFailedTitle": "وظیفه حذف نشد. لطفا دوباره امتحان کنید.",
+      "tasksImportedTitle": "{count} {count, plural, one {task} other {tasks}} با موفقیت وارد شد!",
+      "tasksImportFailedTitle": "وارد کردن وظایف ناموفق بود. لطفا دوباره امتحان کنید.",
+      "unknownProject": "پروژه ناشناخته",
+      "projectCreatedTitle": "پروژه با موفقیت ایجاد شد",
+      "projectCreateFailedTitle": "پروژه ایجاد نشد",
+      "projectUpdatedTitle": "پروژه با موفقیت به روز شد",
+      "projectUpdateFailedTitle": "پروژه به روز رسانی نشد",
+      "projectDeletedTitle": "پروژه با موفقیت حذف شد",
+      "projectDeleteFailedTitle": "پروژه حذف نشد"
+    }
+  },
+  "Notes": {
+    "page": {
+      "loading": "در حال بارگیری..."
+    },
+    "layout": {
+      "mobileNavTitle": "پیمایش یادداشت ها",
+      "openMenuAria": "منوی یادداشت ها را باز کنید"
+    },
+    "sidebar": {
+      "title": "یادداشت ها",
+      "createNoteAria": "یادداشت ایجاد کنید",
+      "searchPlaceholder": "جستجوی یادداشت ها...",
+      "loading": "در حال بارگیری...",
+      "noNotesFound": "هیچ یادداشتی یافت نشد",
+      "noNotesYet": "هنوز یادداشتی وجود ندارد. برای ایجاد یکی روی + کلیک کنید.",
+      "inParent": "در {parentTitle}",
+      "untitled": "بدون عنوان",
+      "addSubPage": "افزودن صفحه فرعی",
+      "delete": "حذف کنید",
+      "deleteConfirmTitle": "یادداشت حذف شود؟",
+      "deleteConfirmDescription": "آیا مطمئنید که می خواهید \"{title}\" را حذف کنید؟ این عمل قابل لغو نیست.",
+      "cancel": "لغو کنید",
+      "confirmDelete": "حذف کنید",
+      "noteOptionsAria": "گزینه های یادداشت"
+    },
+    "editor": {
+      "emptyState": "برای شروع یادداشتی را انتخاب کنید یا یادداشت جدیدی ایجاد کنید.",
+      "titlePlaceholder": "بدون عنوان"
+    },
+    "context": {
+      "authRequiredError": "کاربر احراز هویت نشده است",
+      "defaultTitle": "بدون عنوان"
+    }
+  },
+  "PasswordManager": {
+    "page": {
+      "loading": "در حال بارگیری...",
+      "title": "مدیر رمز عبور"
+    },
+    "vault": {
+      "toastDecryptFailed": "رمزگشایی رمز عبور ناموفق بود",
+      "toastLoadFailed": "بارگیری رمزهای عبور انجام نشد",
+      "toastUnlockedAuto": "قفل خرک به طور خودکار باز شد",
+      "toastAutoUnlockFailed": "باز کردن قفل خودکار انجام نشد. لطفا به صورت دستی قفل را باز کنید.",
+      "toastConnectFailed": "اتصال به سرور انجام نشد",
+      "toastAutoUnlockWarning": "قفل خرک باز شد، اما باز کردن قفل خودکار ممکن است در بارگیری مجدد کار نکند",
+      "errorIncorrectPassword": "رمز عبور اصلی اشتباه است",
+      "errorUnlockFailed": "باز کردن قفل طاق انجام نشد",
+      "errorPasswordsMismatch": "گذرواژه ها مطابقت ندارند",
+      "errorPasswordTooShort": "رمز عبور باید حداقل 8 کاراکتر باشد",
+      "errorSetupFailed": "طاق راه اندازی نشد",
+      "errorConnectFailed": "اتصال به سرور انجام نشد.",
+      "mobileTitleCreate": "طاق خود را ایجاد کنید",
+      "mobileTitleWelcome": "خوش آمدید",
+      "mobileSubtitleCreate": "یک رمز عبور اصلی برای محافظت از اعتبار خود تنظیم کنید",
+      "mobileSubtitleUnlock": "رمز اصلی خود را برای باز کردن قفل وارد کنید",
+      "placeholderMasterPassword": "رمز اصلی",
+      "placeholderConfirmPassword": "رمز عبور را تایید کنید",
+      "labelMasterPassword": "رمز اصلی",
+      "labelConfirmPassword": "رمز عبور را تایید کنید",
+      "placeholderEnterMaster": "رمز اصلی را وارد کنید",
+      "placeholderConfirmMaster": "رمز عبور اصلی را تأیید کنید",
+      "buttonCreateVault": "طاق ایجاد کنید",
+      "buttonUnlock": "باز کردن قفل",
+      "buttonUnlockVault": "قفل طاق را باز کنید",
+      "footerCreate": "رمز عبور شما هرگز ذخیره نمی شود و قابل بازیابی نیست",
+      "footerUnlock": "با رمزگذاری سرتاسر ایمن شده است",
+      "desktopTitleSetup": "طاق رمز عبور را راه اندازی کنید",
+      "desktopTitleUnlock": "قفل طاق را باز کنید",
+      "desktopDescriptionSetup": "یک رمز عبور اصلی برای ایمن کردن اعتبار خود ایجاد کنید. این رمز عبور هرگز ذخیره نمی شود و قابل بازیابی نیست.",
+      "desktopDescriptionUnlock": "رمز عبور اصلی خود را برای دسترسی به اطلاعات کاربری ایمن خود وارد کنید."
+    },
+    "list": {
+      "loading": "در حال بارگیری رمزهای عبور...",
+      "emptyTitle": "خزانه خالی است",
+      "emptyHintMobile": "روی دکمه + ضربه بزنید تا اولین رمز عبور خود را اضافه کنید",
+      "emptyHintDesktop": "شما هنوز هیچ رمز عبوری را ذخیره نکرده اید. برای شروع روی دکمه «افزودن رمز عبور» در بالا کلیک کنید.",
+      "addPassword": "اضافه کردن رمز عبور",
+      "searchPlaceholderMobile": "خزانه خود را جستجو کنید ...",
+      "searchPlaceholderDesktop": "صندوق جستجو...",
+      "importExport": "واردات / صادرات",
+      "lockVault": "طاق قفل",
+      "allPasswordsTitle": "همه پسوردها",
+      "passwordCount": "{count, plural, one {# password} other {# passwords}}",
+      "vaultHealthDrawerTitle": "سلامت خرک",
+      "noResults": "هیچ رمز عبوری مطابق با \"{query}\" یافت نشد",
+      "tableService": "خدمات",
+      "tableUsername": "نام کاربری",
+      "tablePassword": "رمز عبور",
+      "tableUrl": "URL",
+      "tableActions": "اقدامات",
+      "gridViewAria": "نمای شبکه ای",
+      "listViewAria": "نمای فهرستی",
+      "passwordStrengthTitle": "قدرت رمز عبور",
+      "deleteDialogTitle": "رمز عبور را حذف کنید",
+      "deleteDialogDescription": "آیا مطمئن هستید که می خواهید این رمز عبور را حذف کنید؟ این عمل قابل لغو نیست.",
+      "cancel": "لغو کنید",
+      "delete": "حذف کنید",
+      "edit": "ویرایش کنید"
+    },
+    "toasts": {
+      "copiedPassword": "رمز عبور در کلیپ بورد کپی شد",
+      "copiedUsername": "نام کاربری در کلیپ بورد کپی شد",
+      "passwordDeleted": "رمز عبور حذف شد",
+      "deleteFailed": "رمز عبور حذف نشد",
+      "vaultLocked": "طاق قفل شده",
+      "importedCount": "با موفقیت وارد شد {count, plural, one {# password} other {# passwords}}"
+    },
+    "form": {
+      "addTitle": "رمز عبور جدید اضافه کنید",
+      "editTitle": "ویرایش رمز عبور",
+      "serviceName": "نام سرویس",
+      "usernameEmail": "نام کاربری / ایمیل",
+      "password": "رمز عبور",
+      "urlOptional": "آدرس وب سایت (اختیاری)",
+      "notesOptional": "یادداشت ها (اختیاری)",
+      "tags": "برچسب ها",
+      "placeholderService": "به عنوان مثال نتفلیکس",
+      "placeholderUsername": "user@example.com",
+      "placeholderPassword": "رمز عبور را وارد یا ایجاد کنید",
+      "placeholderUrl": "https://...",
+      "placeholderNotes": "توضیحات تکمیلی...",
+      "placeholderTags": "اضافه کردن برچسب (Enter یا کاما را فشار دهید)",
+      "strength": "قدرت",
+      "strengthWeak": "ضعیف",
+      "strengthMedium": "متوسط",
+      "strengthStrong": "قوی",
+      "advancedGenerator": "ژنراتور پیشرفته",
+      "cancel": "لغو کنید",
+      "saving": "در حال ذخیره...",
+      "savePassword": "ذخیره رمز عبور",
+      "updating": "در حال به روز رسانی...",
+      "updatePassword": "رمز عبور را به روز کنید",
+      "addPasswordSrOnly": "اضافه کردن رمز عبور",
+      "triggerAdd": "اضافه کردن رمز عبور",
+      "toastSaved": "رمز عبور با موفقیت ذخیره شد",
+      "toastSaveFailed": "رمز عبور ذخیره نشد",
+      "toastUpdated": "رمز عبور با موفقیت به روز شد",
+      "toastUpdateFailed": "رمز عبور به روز نشد"
+    },
+    "security": {
+      "vaultHealth": "سلامت خرک",
+      "statusLabel": "وضعیت",
+      "totalPasswords": "کل رمزهای عبور",
+      "activeEntries": "ورودی های فعال در خزانه شما",
+      "protected": "محافظت شده است",
+      "weakPasswords": "رمزهای عبور ضعیف",
+      "needingImprovement": "رمزهای عبور نیاز به بهبود دارند",
+      "allGood": "همه خوبن",
+      "reusedPasswords": "پسوردهای استفاده مجدد",
+      "usedMultipleTimes": "رمزهای عبور چندین بار استفاده شده",
+      "unique": "منحصر به فرد",
+      "total": "مجموع",
+      "weak": "ضعیف",
+      "reused": "استفاده مجدد",
+      "totalCountLabel": "{count, plural, one {# password} other {# passwords}}",
+      "weakCountLabel": "{count} ضعیف",
+      "allSecure": "همه امن",
+      "scoreExcellent": "عالی",
+      "scoreGood": "خوب",
+      "scoreFair": "منصفانه",
+      "scoreCritical": "انتقادی"
+    },
+    "importExport": {
+      "title": "صندوق واردات / صادرات",
+      "description": "اطلاعات رمز عبور خود را مدیریت کنید می توانید صندوق خود را به JSON صادر کنید یا از یک فایل JSON وارد کنید.",
+      "tabExport": "صادرات",
+      "tabImport": "واردات",
+      "warningTitle": "هشدار",
+      "warningBody": "فایل های صادر شده حاوی رمزهای عبور شما به صورت متن ساده هستند. این فایل را ایمن نگه دارید و پس از استفاده آن را حذف کنید.",
+      "exportBlurb": "کل صندوق خود را به عنوان یک فایل JSON دانلود کنید. این شامل تمام خدمات، نام‌های کاربری، رمز عبور و یادداشت‌ها می‌شود.",
+      "downloadJson": "صادرات JSON را دانلود کنید",
+      "pasteLabel": "داده های JSON را جایگذاری کنید",
+      "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
+      "pasteHint": "محتوای یک فایل JSON قبلا صادر شده را در اینجا جای‌گذاری کنید.",
+      "importing": "واردات...",
+      "importPasswords": "وارد کردن رمزهای عبور",
+      "trigger": "واردات / صادرات",
+      "toastExported": "خرک با موفقیت صادر شد",
+      "toastExportFailed": "صندوق صادرات انجام نشد",
+      "toastImportFailed": "وارد کردن انجام نشد: قالب JSON نامعتبر است"
+    },
+    "card": {
+      "copyUsername": "نام کاربری را کپی کنید",
+      "openUrl": "URL را باز کنید",
+      "strength": "قدرت"
+    },
+    "swipeable": {
+      "copy": "کپی کنید",
+      "delete": "حذف کنید",
+      "copyPassword": "رمز عبور را کپی کنید",
+      "copyUsername": "نام کاربری را کپی کنید",
+      "edit": "ویرایش کنید",
+      "deleteAction": "حذف کنید"
+    },
+    "floatingMenu": {
+      "lockVault": "طاق قفل",
+      "importExport": "واردات / صادرات",
+      "addPassword": "اضافه کردن رمز عبور"
+    },
+    "generator": {
+      "tabPassword": "رمز عبور",
+      "tabPassphrase": "عبارت عبور",
+      "strength": "قدرت",
+      "lengthLabel": "طول: {length} کاراکتر",
+      "lengthBadge": "{length} کاراکتر",
+      "characterSets": "مجموعه شخصیت ها",
+      "uppercase": "حروف بزرگ",
+      "lowercase": "حروف کوچک",
+      "numbers": "اعداد",
+      "symbols": "نمادها",
+      "wordCountLabel": "تعداد کلمات: {count}",
+      "wordCountBadge": "{count, plural, one {# word} other {# words}}",
+      "separator": "جداکننده",
+      "capitalization": "حروف بزرگ",
+      "includeNumber": "شامل شماره"
+    }
+  },
+  "Bookmarks": {
+    "page": {
+      "loading": "در حال بارگیری..."
+    },
+    "manager": {
+      "foldersHeading": "پوشه ها",
+      "tagsHeading": "برچسب ها",
+      "tagsMore": "+{count} بیشتر",
+      "searchPlaceholder": "بوک مارک های خود را جستجو کنید...",
+      "import": "واردات",
+      "export": "صادرات",
+      "exportAsHtml": "صادرات به عنوان HTML",
+      "exportAsJson": "صادرات به عنوان JSON",
+      "addBookmark": "اضافه کردن نشانک",
+      "matchingQuery": "مطابق با \"{query}\"",
+      "bookmarkCount": "{count, plural, one {# bookmark} other {# bookmarks}}",
+      "allBookmarks": "همه نشانک ها",
+      "uncategorized": "دسته بندی نشده",
+      "unknownFolder": "ناشناس"
+    },
+    "card": {
+      "urlCopied": "URL در کلیپ بورد کپی شد",
+      "bookmarkDeleted": "نشانک حذف شد",
+      "edit": "ویرایش کنید",
+      "delete": "حذف کنید",
+      "copyUrl": "URL را کپی کنید",
+      "deleteConfirmTitle": "نشانک حذف شود؟",
+      "deleteConfirmDescription": "با این کار \"{title}\" برای همیشه حذف می شود.",
+      "cancel": "لغو کنید"
+    },
+    "grid": {
+      "emptyTitle": "هنوز هیچ نشانکی وجود ندارد",
+      "emptyDescription": "برای شروع، اولین نشانک خود را اضافه کنید یا از مرورگر خود وارد کنید."
+    },
+    "folderTree": {
+      "allBookmarks": "همه نشانک ها",
+      "addSubfolder": "افزودن زیر پوشه",
+      "rename": "تغییر نام دهید",
+      "deleteFolderTitle": "پوشه \"{name}\" حذف شود؟",
+      "deleteFolderDescription": "با این کار پوشه و تمام زیر پوشه های آن حذف می شود. نشانک‌های موجود در این پوشه‌ها به دسته‌بندی نشده منتقل می‌شوند."
+    },
+    "import": {
+      "title": "وارد کردن نشانک ها",
+      "description": "نشانک ها را از فایل صادر شده مرورگر خود وارد کنید.",
+      "parseError": "فایل نشانک تجزیه نشد. لطفاً مطمئن شوید که صادر کردن نشانک معتبر است.",
+      "successToast": "{bookmarks} نشانک و {folders} پوشه وارد شده است",
+      "errorToast": "وارد کردن نشانک ها انجام نشد",
+      "chromeInstruction": "منو → نشانک ها → مدیر نشانک → ⋮ → صادرات نشانک ها",
+      "firefoxInstruction": "منو → نشانک ها → مدیریت نشانک ها → وارد کردن و پشتیبان گیری → صادرات",
+      "safariInstruction": "فایل → صادرات نشانک‌ها...",
+      "edgeInstruction": "منو → موارد دلخواه → ⋯ → موارد دلخواه صادر کنید",
+      "dropZoneTitle": "فایل نشانک خود را اینجا رها کنید",
+      "dropZoneHint": "یا برای مرور کلیک کنید (HTML یا JSON)",
+      "selectedFileHint": "برای انتخاب فایل دیگری کلیک کنید",
+      "errorTitle": "خطا",
+      "previewTitle": "پیش نمایش واردات",
+      "previewBookmarks": "{count, plural, one {# bookmark} other {# bookmarks}}",
+      "previewFolders": "{count, plural, one {# folder} other {# folders}}",
+      "importModeLabel": "حالت واردات",
+      "modeMerge": "ادغام با نشانک های موجود",
+      "modeReplace": "همه نشانک های موجود را جایگزین کنید",
+      "cancel": "لغو کنید",
+      "importButton": "واردات",
+      "importButtonWithCount": "واردات {count, plural, one {# bookmark} other {# bookmarks}}"
+    },
+    "addBookmark": {
+      "titleAdd": "اضافه کردن نشانک",
+      "titleEdit": "ویرایش نشانک",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://example.com",
+      "urlInvalid": "لطفاً یک URL معتبر وارد کنید",
+      "titleLabel": "عنوان",
+      "titlePlaceholder": "عنوان نشانک",
+      "titleRequired": "لطفا یک عنوان وارد کنید",
+      "descriptionLabel": "توضیحات (اختیاری)",
+      "descriptionPlaceholder": "یک یادداشت در مورد این نشانک اضافه کنید",
+      "folderLabel": "پوشه",
+      "folderPlaceholder": "پوشه را انتخاب کنید",
+      "noFolder": "پوشه ای وجود ندارد",
+      "tagsLabel": "برچسب ها",
+      "tagsPlaceholder": "افزودن برچسب (Enter را فشار دهید)",
+      "toastUpdated": "نشانک به روز شد",
+      "toastAdded": "نشانک اضافه شد",
+      "cancel": "لغو کنید",
+      "submitAdd": "اضافه کردن نشانک",
+      "submitUpdate": "به روز رسانی نشانک"
+    },
+    "addFolder": {
+      "title": "پوشه ایجاد کنید",
+      "nameLabel": "نام پوشه",
+      "namePlaceholder": "پوشه من",
+      "nameRequired": "لطفا یک نام پوشه وارد کنید",
+      "parentLabel": "پوشه والد",
+      "parentPlaceholder": "پوشه والد را انتخاب کنید",
+      "rootParent": "ریشه (بدون والد)",
+      "toastCreated": "پوشه ایجاد شد",
+      "cancel": "لغو کنید",
+      "submit": "پوشه ایجاد کنید"
+    },
+    "editFolder": {
+      "title": "تغییر نام پوشه",
+      "nameLabel": "نام پوشه",
+      "namePlaceholder": "نام پوشه",
+      "nameRequired": "لطفا یک نام پوشه وارد کنید",
+      "toastRenamed": "پوشه تغییر نام داد",
+      "cancel": "لغو کنید",
+      "save": "ذخیره کنید"
+    }
+  },
+  "EmailValidator": {
+    "header": {
+      "title": "اعتبار سنجی ایمیل",
+      "description": "آدرس‌های ایمیل را برای نحو، دامنه و قابلیت تحویل تأیید و تأیید کنید."
+    },
+    "tabs": {
+      "single": "تایید تک",
+      "bulk": "آپلود انبوه"
+    },
+    "single": {
+      "cardTitle": "تایید تک ایمیل",
+      "cardDescription": "یک آدرس ایمیل برای بررسی قابلیت تحویل و شهرت آن وارد کنید.",
+      "placeholder": "آدرس ایمیل را وارد کنید...",
+      "clearAria": "ایمیل را پاک کنید",
+      "validate": "اعتبار سنجی",
+      "validating": "در حال اعتبارسنجی...",
+      "formatError": "لطفا یک آدرس ایمیل معتبر وارد کنید"
+    },
+    "toasts": {
+      "errorTitle": "خطا",
+      "enterEmail": "لطفا یک آدرس ایمیل وارد کنید",
+      "invalidFormatTitle": "قالب ایمیل نامعتبر است",
+      "invalidFormatDescription": "لطفا یک آدرس ایمیل معتبر وارد کنید",
+      "validateFailedDescription": "هنگام تأیید اعتبار ایمیل خطایی رخ داد",
+      "noEmailsTitle": "هیچ ایمیلی یافت نشد",
+      "noEmailsDescription": "لطفاً مطمئن شوید که اکسل شما دارای ستون \"ایمیل\" است.",
+      "fileTooLargeTitle": "فایل خیلی بزرگ است",
+      "fileTooLargeDescription": "{total} ایمیل پیدا شد. فقط 4000 مورد اول تایید خواهند شد.",
+      "successTitle": "موفقیت",
+      "successValidated": "{count} ایمیل با موفقیت تایید شد.",
+      "batchFailedTitle": "اعتبار سنجی دسته ای ناموفق بود",
+      "batchFailedDescription": "هنگام پردازش اعتبارسنجی انبوه خطایی روی داد.",
+      "noExportTitle": "داده ای برای صادرات وجود ندارد",
+      "noExportValidOnly": "هیچ ایمیل معتبری برای صادرات یافت نشد.",
+      "noExportAll": "هیچ نتیجه ای برای صادرات وجود ندارد.",
+      "exportSuccessTitle": "صادرات با موفقیت انجام شد",
+      "exportSuccessExcelAll": "{count} ایمیل به اکسل صادر شد.",
+      "exportSuccessExcelValid": "{count} ایمیل معتبر به اکسل صادر شد.",
+      "exportSuccessCsvAll": "{count} ایمیل به CSV صادر شد.",
+      "exportSuccessCsvValid": "{count} ایمیل معتبر به CSV صادر شد."
+    },
+    "disposableAlert": {
+      "title": "ایمیل یکبار مصرف شناسایی شد",
+      "description": "این آدرس ایمیل متعلق به یک ارائه دهنده ایمیل یکبار مصرف است. ممکن است موقت یا ناامن باشد."
+    },
+    "score": {
+      "reliabilityTitle": "امتیاز قابلیت اطمینان",
+      "scoreLabel": "امتیاز"
+    },
+    "details": {
+      "sectionTitle": "جزئیات اعتبار سنجی"
+    },
+    "validation": {
+      "syntaxLabel": "نحو معتبر",
+      "syntaxTooltip": "بررسی می کند که آیا آدرس ایمیل از قالب صحیح پیروی می کند (به عنوان مثال، user@domain.com)",
+      "domainLabel": "دامنه وجود دارد",
+      "domainTooltip": "تأیید می کند که نام دامنه در آدرس ایمیل واقعاً وجود دارد",
+      "mxLabel": "رکوردهای MX پیدا شد",
+      "mxTooltip": "بررسی می‌کند که آیا دامنه رکوردهای تبادل ایمیل (MX) برای دریافت ایمیل‌ها پیکربندی شده است یا خیر",
+      "mailboxLabel": "صندوق پستی موجود است",
+      "mailboxTooltip": "بررسی می کند که صندوق پستی/حساب خاص در سرور ایمیل وجود دارد",
+      "disposableLabel": "ایمیل یکبار مصرف",
+      "disposableTooltip": "نشان می دهد که آیا این ایمیل متعلق به یک سرویس ایمیل موقت/یکبار مصرف است (ممکن است خطرناک باشد)",
+      "roleBasedLabel": "ایمیل مبتنی بر نقش",
+      "roleBasedTooltip": "تشخیص می دهد که آیا این ایمیل مبتنی بر نقش است (به عنوان مثال، support@، info@) به جای یک آدرس شخصی"
+    },
+    "copy": {
+      "emailCopied": "ایمیل کپی شد!",
+      "copyTooltip": "ایمیل را کپی کنید"
+    },
+    "bulk": {
+      "dropHere": "فایل خود را اینجا رها کنید",
+      "dragHere": "فایل خود را در اینجا بکشید و رها کنید",
+      "uploadHint": "برای تأیید اعتبار حداکثر 4000 ایمیل، یک فایل xlsx.، .xls.، یا .csv. حاوی یک ستون «ایمیل» آپلود کنید.",
+      "filePrefix": "فایل:",
+      "selectFile": "فایل را انتخاب کنید",
+      "downloadTemplate": "دانلود قالب"
+    },
+    "bulkLoading": {
+      "title": "در حال تایید ایمیل ها...",
+      "batchProgress": "در حال پردازش دسته {current} از {total}..."
+    },
+    "stats": {
+      "totalProcessed": "کل پردازش شده",
+      "valid": "معتبر است",
+      "risky": "مخاطره آمیز",
+      "invalid": "نامعتبر است"
+    },
+    "results": {
+      "detailedTitle": "نتایج تفصیلی",
+      "searchPlaceholder": "جستجو در ایمیل ها...",
+      "newVerification": "تأیید جدید",
+      "exportAll": "صادرات همه",
+      "exportExcel": "Excel (xlsx.)",
+      "exportCsv": "CSV (csv.)",
+      "exportValid": "صادر کردن معتبر ({count})"
+    },
+    "showingResults": "نمایش {shown} از {total} نتایج",
+    "table": {
+      "email": "ایمیل",
+      "status": "وضعیت",
+      "score": "امتیاز",
+      "checks": "چک ها"
+    },
+    "noSearchResults": "هیچ نتیجه ای مطابق با \"{query}\" یافت نشد",
+    "checksTooltip": {
+      "syntax": "نحو",
+      "domain": "دامنه",
+      "mx": "MX",
+      "mailbox": "صندوق پستی"
+    },
+    "exportColumns": {
+      "email": "ایمیل",
+      "status": "وضعیت",
+      "score": "امتیاز",
+      "syntax": "نحو",
+      "domain": "دامنه",
+      "mx": "MX",
+      "mailbox": "صندوق پستی",
+      "disposable": "یکبار مصرف",
+      "roleBased": "مبتنی بر نقش",
+      "valid": "معتبر است",
+      "invalid": "نامعتبر است",
+      "yes": "بله",
+      "no": "خیر"
+    },
+    "sheets": {
+      "validEmails": "ایمیل های معتبر",
+      "results": "نتایج",
+      "template": "الگو"
+    }
+  },
+  "NoSqlExplorer": {
+    "page": {
+      "heroTitle": "NoSQL Explorer",
+      "heroSubtitle": "برای مدیریت مجموعه ها، اجرای پرس و جو و تجسم داده های خود به پایگاه داده خود متصل شوید.",
+      "featureMultiTitle": "چند اتصال",
+      "featureMultiDesc": "چندین اتصال پایگاه داده را به طور همزمان مدیریت کنید.",
+      "featureMongoTitle": "پشتیبانی MongoDB",
+      "featureMongoDesc": "پشتیبانی بومی برای MongoDB با فیلتر پیشرفته.",
+      "featureQueryTitle": "پرس و جو هوشمند",
+      "featureQueryDesc": "سازنده پرس و جو قدرتمند با برجسته سازی نحو.",
+      "connectCta": "به MongoDB متصل شوید",
+      "footerNote": "در حال حاضر از {db} پشتیبانی می کند. پایگاه داده های بیشتر به زودی.",
+      "footerDb": "MongoDB",
+      "selectCollectionTitle": "یک مجموعه را انتخاب کنید",
+      "selectCollectionDesc": "مجموعه ای را از نوار کناری برای مشاهده اسناد انتخاب کنید و شروع به کاوش در داده های خود کنید.",
+      "dialogAddConnection": "افزودن اتصال",
+      "toastConnectionAdded": "اتصال اضافه شد",
+      "toastFetchFailed": "اسناد برای {collection} واکشی نشد",
+      "toastDocDeleted": "سند حذف شد",
+      "deleteDocTitle": "آیا کاملا مطمئن هستید؟",
+      "deleteDocDescription": "این عمل قابل لغو نیست. با این کار سند برای همیشه از مجموعه شما حذف می شود.",
+      "closeAllTitle": "همه برگه ها را ببندید؟",
+      "closeAllDescription": "آیا مطمئن هستید که می خواهید همه برگه ها را ببندید؟ هر گونه تغییر ذخیره نشده در فیلترهای پرس و جو از بین خواهد رفت.",
+      "closeAllConfirm": "بستن همه",
+      "cancel": "لغو کنید",
+      "delete": "حذف کنید"
+    },
+    "connection": {
+      "titleEdit": "ویرایش اتصال",
+      "titleConnect": "به MongoDB متصل شوید",
+      "subtitleEdit": "جزئیات اتصال خود را در زیر به روز کنید.",
+      "subtitleConnect": "رشته اتصال MongoDB خود را وارد کنید تا کاوش داده های خود را شروع کنید.",
+      "labelName": "نام",
+      "placeholderName": "به عنوان مثال دی بی تولید",
+      "labelConnectionString": "رشته اتصال",
+      "placeholderConnectionString": "mongodb://localhost:27017",
+      "hintFormat": "قالب: mongodb://username:password@host:port/database",
+      "testConnection": "تست اتصال",
+      "connecting": "در حال اتصال...",
+      "updateConnect": "به روز رسانی و اتصال",
+      "connect": "اتصال",
+      "cancelEdit": "لغو ویرایش",
+      "savedConnections": "اتصالات ذخیره شده",
+      "emptySaved": "هنوز هیچ اتصال ذخیره شده ای وجود ندارد.",
+      "lastUsed": "آخرین استفاده {time}",
+      "toastTestOk": "اتصال موفق شد!",
+      "toastTestFail": "اتصال ناموفق بود: {message}",
+      "toastUpdated": "اتصال به روز شد",
+      "confirmDelete": "آیا مطمئنید که می خواهید این اتصال ذخیره شده را حذف کنید؟",
+      "toastDeletedConn": "اتصال حذف شد",
+      "toastDeleteFail": "اتصال حذف نشد",
+      "copyStringTitle": "رشته اتصال را کپی کنید",
+      "toastStringCopied": "رشته اتصال کپی شد!",
+      "editTitle": "ویرایش کنید",
+      "deleteTitle": "حذف کنید"
+    },
+    "sidebar": {
+      "explorer": "کاوشگر",
+      "add": "اضافه کنید",
+      "tooltipAdd": "افزودن اتصال جدید",
+      "tooltipRefresh": "اتصالات را تازه کنید",
+      "searchPlaceholder": "جستجو...",
+      "loadingConnections": "در حال بارگیری اتصالات...",
+      "noConnectionsFound": "هیچ اتصالی یافت نشد",
+      "toastLoadFail": "اتصالات بارگیری نشد",
+      "toastConnectFail": "اتصال به {name} انجام نشد",
+      "toastCollectionsFail": "واکشی مجموعه‌ها برای {name} انجام نشد",
+      "toastRenamed": "نام اتصال تغییر کرد",
+      "toastRenameFail": "تغییر نام اتصال انجام نشد",
+      "confirmDeleteConnection": "آیا مطمئن هستید که می خواهید اتصال \"{name}\" را حذف کنید؟",
+      "toastDeleted": "اتصال حذف شد",
+      "toastDeleteConnFail": "اتصال حذف نشد",
+      "confirmDropDb": "آیا مطمئن هستید که می خواهید پایگاه داده \"{name}\" را حذف کنید؟ این عمل قابل لغو نیست.",
+      "toastDbDropped": "پایگاه داده {name} حذف شد",
+      "confirmDropCollection": "آیا مطمئنید که می خواهید مجموعه \"{name}\" را رها کنید؟ این عمل قابل لغو نیست.",
+      "toastCollectionDropped": "مجموعه {name} حذف شد",
+      "toastCollectionRenamed": "مجموعه به {name} تغییر نام داد",
+      "toastDatabaseRenamed": "پایگاه داده به {name} تغییر نام داد",
+      "connecting": "در حال اتصال...",
+      "connectionFailed": "اتصال ناموفق بود",
+      "noDatabases": "بدون پایگاه داده",
+      "loading": "در حال بارگیری...",
+      "noCollections": "بدون مجموعه",
+      "renameCollectionTitle": "تغییر نام مجموعه",
+      "renameDatabaseTitle": "تغییر نام پایگاه داده",
+      "placeholderNewCollection": "نام مجموعه جدید",
+      "placeholderNewDatabase": "نام پایگاه داده جدید",
+      "rename": "تغییر نام دهید",
+      "refresh": "تازه کردن",
+      "copyDbName": "نام DB را کپی کنید",
+      "toastDbNameCopied": "نام پایگاه داده در کلیپ بورد کپی شد",
+      "dropDatabase": "پایگاه داده را رها کنید",
+      "dropCollection": "رها کردن مجموعه",
+      "menuRename": "تغییر نام دهید",
+      "menuCopyConnectionString": "رشته اتصال را کپی کنید",
+      "menuDeleteConnection": "اتصال را حذف کنید",
+      "toastSidebarStringCopied": "رشته اتصال کپی شد!",
+      "cancel": "لغو کنید"
+    },
+    "document": {
+      "docsBreadcrumb": "{n} اسناد",
+      "table": "جدول",
+      "json": "JSON",
+      "tree": "درخت",
+      "tooltipTable": "نمای جدول",
+      "tooltipJson": "نمایش JSON",
+      "tooltipTree": "نمای درخت",
+      "itemsPerPage": "موارد در هر صفحه",
+      "perPage": "{n} / صفحه",
+      "prevPage": "صفحه قبلی",
+      "nextPage": "صفحه بعدی",
+      "expandAll": "همه را گسترش دهید",
+      "collapseAll": "جمع کردن همه",
+      "refreshData": "Refresh Data",
+      "insert": "درج کنید",
+      "export": "صادرات",
+      "actions": "اقدامات",
+      "invalidJson": "محتوای JSON نامعتبر است",
+      "copiedClipboard": "در کلیپ بورد کپی شد",
+      "docUpdated": "سند با موفقیت به روز شد",
+      "docInserted": "سند با موفقیت درج شد",
+      "invalidJsonShort": "JSON نامعتبر است",
+      "docCopied": "سند در کلیپ بورد کپی شد",
+      "openFullEditor": "در ویرایشگر کامل باز کنید",
+      "cellArray": "آرایه ({length})",
+      "cellObject": "شیء",
+      "cellArrayBracket": "آرایه[{length}]",
+      "emptyFilterTitle": "هیچ سندی با درخواست شما مطابقت ندارد",
+      "emptyFilterHint": "سعی کنید فیلتر خود را تنظیم کنید یا درخواست را پاک کنید.",
+      "clearFilter": "فیلتر را پاک کنید",
+      "emptyCollectionTitle": "این مجموعه خالی است",
+      "emptyCollectionHint": "برای شروع یک سند وارد کنید.",
+      "insertDocument": "درج سند",
+      "formatJson": "فرمت JSON",
+      "compactJson": "JSON فشرده",
+      "copyClipboard": "در کلیپ بورد کپی کنید",
+      "copyJson": "JSON را کپی کنید",
+      "duplicate": "تکراری",
+      "editDoc": "ویرایش سند",
+      "deleteDoc": "حذف سند",
+      "documentLabel": "سند {n}",
+      "editDialogTitle": "ویرایش سند",
+      "insertDialogTitle": "درج سند",
+      "viewValueTitle": "مشاهده ارزش",
+      "saveChanges": "ذخیره تغییرات",
+      "close": "بستن",
+      "cancel": "لغو کنید",
+      "insertButton": "درج کنید"
+    },
+    "tabs": {
+      "filterActive": "فیلتر فعال اعمال شد",
+      "filterActiveTooltip": "فیلتر فعال است",
+      "closeAll": "بستن همه"
+    },
+    "query": {
+      "migrateHistory": "سابقه پرس و جو به ابر منتقل شد",
+      "saveHistoryFail": "تاریخچه پرس و جو ذخیره نشد",
+      "deleteQueryFail": "درخواست حذف نشد",
+      "invalidJsonQuery": "جستار JSON نامعتبر است",
+      "placeholder": "به عنوان مثال { \"status\": \"active\" }",
+      "clearQuery": "پرس و جو را پاک کنید",
+      "openAdvanced": "ویرایشگر پیشرفته را باز کنید",
+      "visualBuilder": "Visual Query Builder",
+      "filterRules": "قوانین فیلتر",
+      "addRule": "قانون اضافه کنید",
+      "noFilters": "هیچ فیلتری اعمال نشده است. یک قانون برای فیلتر کردن اسناد اضافه کنید.",
+      "where": "کجا",
+      "and": "و",
+      "fieldPlaceholder": "میدان",
+      "opPlaceholder": "Op",
+      "typePlaceholder": "تایپ کنید",
+      "opRegex": "Regex",
+      "opIn": "در",
+      "opNin": "نه در",
+      "opExists": "وجود دارد",
+      "typeAuto": "خودکار",
+      "typeString": "رشته",
+      "typeNumber": "شماره",
+      "typeBoolean": "بولی",
+      "typeDate": "تاریخ",
+      "typeObjectId": "ObjectId",
+      "true": "درست است",
+      "false": "نادرست",
+      "valuePlaceholder": "ارزش",
+      "valueListPlaceholder": "ارزش 1، ارزش 2",
+      "clearFilters": "پاک کردن فیلترها",
+      "applyFilters": "اعمال فیلترها",
+      "queryHistory": "تاریخچه پرس و جو",
+      "noSavedQueries": "هنوز درخواستی ذخیره نشده است",
+      "advancedEditorTitle": "ویرایشگر پرس و جو پیشرفته",
+      "templatesPlaceholder": "قالب ها",
+      "templateEmptyAgg": "تجمع خالی",
+      "templateMatch": "$match (فیلتر)",
+      "templateLookup": "$lookup (پیوستن)",
+      "templateGroup": "$group (Count/Sum)",
+      "format": "قالب",
+      "formattedJson": "JSON فرمت شده",
+      "runQuery": "Query را اجرا کنید"
+    },
+    "export": {
+      "selectFieldsError": "لطفاً حداقل یک فیلد را برای صادرات انتخاب کنید",
+      "success": "با موفقیت به {filename} صادر شد",
+      "fail": "داده‌ها صادر نشد",
+      "title": "صادرات داده ها",
+      "formatLabel": "فرمت صادرات",
+      "formatXlsx": "Excel (XLSX)",
+      "formatCsv": "CSV",
+      "selectFields": "فیلدها را انتخاب کنید",
+      "selectAll": "همه را انتخاب کنید",
+      "fieldsSelected": "{count, plural, one {# field selected} other {# fields selected}}",
+      "cancel": "لغو کنید",
+      "export": "صادرات",
+      "sheetName": "داده ها"
+    },
+    "jsonTree": {
+      "typeLabel": "نوع: {type}",
+      "itemSummary": "{count, plural, one {# item} other {# items}}"
+    }
+  },
+  "ApiClient": {
+    "defaults": {
+      "newRequest": "درخواست جدید",
+      "importedRequest": "درخواست وارداتی",
+      "untitledRequest": "درخواست بدون عنوان"
+    },
+    "toasts": {
+      "curlImported": "cURL با موفقیت وارد شد",
+      "curlParseFailed": "دستور cURL تجزیه نشد",
+      "invalidJsonBody": "متن JSON نامعتبر است",
+      "requestFailed": "درخواست ناموفق بود: {message}",
+      "curlPasted": "cURL با موفقیت جای‌گذاری و تجزیه شد",
+      "responseCopied": "پاسخ در کلیپ بورد کپی شد",
+      "codeCopied": "کد در کلیپ بورد کپی شد"
+    },
+    "layout": {
+      "collections": "مجموعه ها",
+      "closeSidebar": "نوار کناری را ببندید",
+      "openSidebar": "نوار کناری را باز کنید"
+    },
+    "requestPanel": {
+      "methodPlaceholder": "روش",
+      "urlPlaceholder": "https://api.example.com/v1/...",
+      "sending": "ارسال...",
+      "send": "ارسال کنید"
+    },
+    "requestTabs": {
+      "params": "پارامترها",
+      "headers": "سرصفحه ها",
+      "body": "بدن",
+      "auth": "احراز هویت",
+      "bodyType": "نوع بدن",
+      "selectType": "نوع را انتخاب کنید",
+      "bodyNone": "هیچ کدام",
+      "bodyJson": "JSON",
+      "bodyText": "متن",
+      "noBodyHint": "هیچ محتوایی برای این درخواست وجود ندارد",
+      "switchToJson": "به بدنه JSON بروید",
+      "authType": "نوع احراز هویت",
+      "noAuth": "بدون احراز هویت",
+      "bearerToken": "نشان حامل",
+      "basicAuth": "اعتبار پایه",
+      "apiKey": "کلید API",
+      "labelToken": "رمز",
+      "placeholderBearerToken": "نشان حامل",
+      "labelUsername": "نام کاربری",
+      "placeholderUsername": "نام کاربری",
+      "labelPassword": "رمز عبور",
+      "placeholderPassword": "رمز عبور",
+      "labelKey": "کلید",
+      "placeholderApiKeyName": "نام کلید (به عنوان مثال X-Api-Key)",
+      "labelValue": "ارزش",
+      "placeholderValue": "ارزش",
+      "addTo": "اضافه کردن به",
+      "header": "سربرگ",
+      "queryParams": "پارامترهای پرس و جو",
+      "noAuthHint": "این درخواست از احراز هویت استفاده نمی کند."
+    },
+    "responsePanel": {
+      "emptyTitle": "آماده کاوش هستید؟",
+      "emptyHint": "یک URL وارد کنید و روی Send کلیک کنید تا داده‌های پاسخ را در اینجا ببینید.",
+      "responsePreviewAlt": "پیش نمایش پاسخ",
+      "previewUnavailable": "پیش نمایش برای این نوع محتوا در دسترس نیست",
+      "status": "وضعیت",
+      "time": "زمان",
+      "size": "اندازه",
+      "copyBody": "کپی بدنه",
+      "downloadResponse": "پاسخ را دانلود کنید",
+      "bodyTab": "بدن",
+      "previewTab": "پیش نمایش",
+      "headersTab": "سرصفحه ها",
+      "binaryRawView": "داده های باینری را نمی توان در نمای خام نمایش داد.",
+      "errorStatusLabel": "خطا"
+    },
+    "tabBar": {
+      "addTabAria": "برگه جدید"
+    },
+    "collectionsSidebar": {
+      "title": "منابع API",
+      "newCollection": "مجموعه جدید",
+      "tabCollections": "مجموعه ها",
+      "tabHistory": "تاریخچه",
+      "noCollectionsTitle": "بدون مجموعه",
+      "noCollectionsHint": "مجموعه ای برای سازماندهی درخواست های API خود ایجاد کنید.",
+      "createCollection": "مجموعه ایجاد کنید",
+      "newFolder": "پوشه جدید",
+      "rename": "تغییر نام دهید",
+      "delete": "حذف کنید",
+      "emptyCollection": "مجموعه خالی",
+      "recentRequests": "درخواست های اخیر",
+      "clearAll": "پاک کردن همه",
+      "noHistoryTitle": "هنوز سابقه ندارد",
+      "noHistoryHint": "برای دیدن آن اینجا درخواست ارسال کنید.",
+      "dialogNewFolderTitle": "پوشه جدید",
+      "dialogNewFolderDescription": "یک پوشه جدید برای سازماندهی درخواست های خود ایجاد کنید.",
+      "labelFolderName": "نام پوشه",
+      "placeholderFolderName": "پوشه من",
+      "createFolder": "پوشه ایجاد کنید",
+      "dialogNewCollectionTitle": "مجموعه جدید",
+      "dialogNewCollectionDescription": "یک مجموعه جدید در سطح بالا ایجاد کنید.",
+      "labelCollectionName": "نام مجموعه",
+      "placeholderCollectionName": "مجموعه من",
+      "dialogRenameCollectionTitle": "تغییر نام مجموعه",
+      "dialogRenameCollectionDescription": "یک نام جدید برای مجموعه وارد کنید.",
+      "placeholderRenameCollection": "نام مجموعه",
+      "renameAction": "تغییر نام دهید"
+    },
+    "collectionItem": {
+      "newFolder": "پوشه جدید",
+      "delete": "حذف کنید",
+      "emptyFolder": "پوشه خالی"
+    },
+    "environmentManager": {
+      "noEnvironment": "بدون محیط",
+      "manageDialogTitle": "مدیریت محیط ها",
+      "placeholderNewEnv": "محیط جدید",
+      "variablesHeading": "{name} متغیرها",
+      "addVariable": "متغیر اضافه کنید",
+      "columnVariable": "متغیر",
+      "columnValue": "ارزش",
+      "placeholderKey": "کلید",
+      "placeholderValue": "ارزش",
+      "selectEnvToEdit": "محیطی را برای ویرایش انتخاب کنید"
+    },
+    "codeGenerator": {
+      "triggerTitle": "کد تولید کنید",
+      "dialogTitle": "کد تولید کنید",
+      "languageCurl": "CURL",
+      "languageJavaScript": "جاوا اسکریپت (واکشی)",
+      "languagePython": "پایتون (درخواست ها)",
+      "languageGo": "برو",
+      "copy": "کپی کنید",
+      "errorGenerating": "خطا در تولید کد"
+    },
+    "keyValueEditor": {
+      "columnKey": "کلید",
+      "columnValue": "ارزش",
+      "placeholderKey": "کلید",
+      "placeholderValue": "ارزش",
+      "addItem": "مورد را اضافه کنید"
+    },
+    "importCurl": {
+      "trigger": "وارد کردن cURL",
+      "dialogTitle": "وارد کردن cURL",
+      "dialogDescription": "دستور cURL خود را در زیر قرار دهید تا آن را به عنوان یک درخواست جدید وارد کنید.",
+      "placeholder": "curl -X POST https://api.example.com/data -d '...'",
+      "import": "واردات"
+    },
+    "saveRequest": {
+      "trigger": "ذخیره کنید",
+      "dialogTitle": "ذخیره درخواست",
+      "dialogDescription": "این درخواست را در یک پوشه مجموعه ذخیره کنید.",
+      "labelName": "درخواست نام",
+      "placeholderName": "درخواست من",
+      "labelFolder": "پوشه",
+      "placeholderFolder": "یک پوشه را انتخاب کنید",
+      "save": "ذخیره کنید"
+    }
+  },
+  "RichEditor": {
+    "toolbar": {
+      "editMode": "حالت ویرایش",
+      "viewOnlyMode": "مشاهده فقط حالت",
+      "insertComponent": "درج جزء",
+      "addUnorderedList": "لیست نامرتب را اضافه کنید",
+      "addOrderedList": "اضافه کردن لیست سفارش داده شده",
+      "addTable": "جدول اضافه کنید"
+    },
+    "addBlock": "اضافه کردن بلوک",
+    "media": {
+      "popoverTitle": "رسانه اضافه کنید",
+      "singleImage": "تک تصویر",
+      "singleImageDesc": "یک تصویر آپلود کنید",
+      "multipleImages": "تصاویر متعدد",
+      "multipleImagesDesc": "شبکه تصویر بارگذاری کنید",
+      "video": "ویدئو",
+      "videoDesc": "آپلود فایل ویدیویی",
+      "uploadingAlt": "در حال آپلود...",
+      "uploadFailedAlt": "آپلود انجام نشد"
+    },
+    "export": {
+      "fabAria": "کد صادراتی",
+      "title": "کد صادرات",
+      "description": "خروجی HTML یا JSON محتوای ویرایشگر خود را کپی کنید",
+      "preview": "پیش نمایش",
+      "html": "HTML",
+      "json": "JSON",
+      "previewOptions": "گزینه های پیش نمایش",
+      "enhanceSpaces": "افزایش فضاها",
+      "livePreview": "پیش نمایش زنده HTML ارائه شده",
+      "htmlTailwind": "HTML با کلاس های Tailwind CSS",
+      "editorJson": "حالت ویرایشگر به عنوان JSON",
+      "copyHtml": "HTML را کپی کنید",
+      "copyJson": "JSON را کپی کنید",
+      "copied": "کپی شده!"
+    },
+    "template": {
+      "fabTitle": "تغییر الگو",
+      "title": "یک الگو را انتخاب کنید",
+      "description": "برای شروع سریع با طرح‌بندی‌ها و محتوای از پیش ساخته شده، یک الگو انتخاب کنید",
+      "catAll": "همه قالب ها",
+      "catProductivity": "بهره وری",
+      "catCreative": "خلاق",
+      "catBusiness": "تجارت",
+      "catPersonal": "شخصی",
+      "noTemplates": "هیچ قالبی در این دسته یافت نشد",
+      "confirmTitle": "محتوای موجود جایگزین شود؟",
+      "confirmDescription": "شما محتوای موجود در ویرایشگر دارید. اعمال این الگو جایگزین تمام محتوای فعلی می شود.",
+      "cannotUndo": "این عمل قابل لغو نیست.",
+      "cancel": "لغو کنید",
+      "replaceContent": "جایگزینی محتوا"
+    },
+    "command": {
+      "searchPlaceholder": "دستورات جستجو...",
+      "noResults": "هیچ فرمانی یافت نشد",
+      "turnInto": "تبدیل به",
+      "h1": {
+        "label": "سرفصل 1",
+        "description": "عنوان بخش بزرگ",
+        "keywords": "h1، عنوان، عنوان، بزرگ"
+      },
+      "h2": {
+        "label": "سرفصل 2",
+        "description": "عنوان بخش متوسط",
+        "keywords": "h2، عنوان، زیرنویس"
+      },
+      "h3": {
+        "label": "سرفصل 3",
+        "description": "عنوان بخش کوچک",
+        "keywords": "h3، عنوان، عنوان فرعی"
+      },
+      "h4": {
+        "label": "سرفصل 4",
+        "description": "عنوان بخش کوچک",
+        "keywords": "h4، عنوان"
+      },
+      "h5": {
+        "label": "سرفصل 5",
+        "description": "عنوان کوچکتر",
+        "keywords": "h5، عنوان"
+      },
+      "h6": {
+        "label": "سرفصل 6",
+        "description": "کوچکترین عنوان",
+        "keywords": "h6، عنوان"
+      },
+      "p": {
+        "label": "پاراگراف",
+        "description": "پاراگراف متنی معمولی",
+        "keywords": "p، پاراگراف، متن، عادی"
+      },
+      "code": {
+        "label": "بلوک کد",
+        "description": "قطعه کد",
+        "keywords": "کد، بلوک کد، قطعه، پیش"
+      },
+      "blockquote": {
+        "label": "نقل قول",
+        "description": "بلوک نقل قول",
+        "keywords": "نقل قول، نقل قول، نقل قول"
+      },
+      "li": {
+        "label": "لیست گلوله شده",
+        "description": "آیتم لیست ساده با گلوله",
+        "keywords": "لیست، گلوله، نامرتب، اول، لی"
+      },
+      "ol": {
+        "label": "لیست شماره گذاری شده",
+        "description": "مورد فهرست شماره گذاری شده",
+        "keywords": "لیست، شماره گذاری شده، مرتب شده، ol،li"
+      },
+      "img": {
+        "label": "تصویر",
+        "description": "یک تصویر را آپلود یا جاسازی کنید",
+        "keywords": "تصویر، ایمگ، تصویر، عکس، آپلود"
+      },
+      "video": {
+        "label": "ویدئو",
+        "description": "یک ویدیو را آپلود یا جاسازی کنید",
+        "keywords": "ویدیو، ویدیو، فیلم، mp4، آپلود"
+      },
+      "table": {
+        "label": "جدول",
+        "description": "یک جدول ایجاد کنید",
+        "keywords": "جدول، شبکه، ردیف، ستون، سلول"
+      }
+    },
+    "toasts": {
+      "tableImported": "جدول وارد شده است",
+      "tableImportedDesc": "جدول Markdown با موفقیت وارد شد",
+      "mediaPasted": "رسانه چسبانده شد",
+      "pasteMixed": "{imageCount} تصویر(ها) و {videoCount} ویدئو(ها) با موفقیت جایگذاری شدند.",
+      "pasteImages": "{count} تصویر(های) با موفقیت جایگذاری شد.",
+      "pasteVideos": "{count} ویدیو(های) با موفقیت جایگذاری شد.",
+      "pasteFailed": "چسباندن ناموفق بود",
+      "unexpectedError": "یک خطای غیرمنتظره رخ داد",
+      "uploadFailed": "آپلود انجام نشد"
+    },
+    "blockBackground": {
+      "menuItem": "تغییر رنگ پس زمینه",
+      "dialogTitle": "بلوک رنگ پس زمینه",
+      "dialogDescription": "یک رنگ پس زمینه برای این بلوک انتخاب کنید",
+      "tabPreset": "رنگ های از پیش تعیین شده",
+      "tabCustom": "رنگ سفارشی",
+      "sectionHeading": "رنگ های پس زمینه",
+      "apply": "درخواست کنید",
+      "colors": {
+        "none": "هیچ کدام",
+        "red": "قرمز",
+        "orange": "نارنجی",
+        "yellow": "زرد",
+        "green": "سبز",
+        "blue": "آبی",
+        "indigo": "نیل",
+        "purple": "بنفش",
+        "pink": "صورتی",
+        "teal": "آبی رنگ",
+        "cyan": "فیروزه ای",
+        "gray": "خاکستری"
+      }
+    },
+    "tableDialog": {
+      "title": "جدول ایجاد کنید",
+      "description": "یک جدول جدید ایجاد کنید یا از علامت گذاری وارد کنید",
+      "markdownCheckbox": "من یک جدول علامت گذاری دارم",
+      "pasteMarkdownLabel": "جدول Markdown را بچسبانید",
+      "markdownPlaceholder": "| سربرگ 1 | سربرگ 2 | سربرگ 3 |\n|----------|----------|----------|\n| سلول 1 | سلول 2 | سلول 3 |\n| سلول 4 | سلول 5 | سلول 6 |",
+      "markdownHint": "جدول علامت گذاری خود را در بالا جایگذاری کنید. باید شامل ردیف‌های سرصفحه و جداکننده باشد.",
+      "rows": "ردیف ها",
+      "columns": "ستون ها",
+      "maxDimensions": "حداکثر: 20 سطر × 10 ستون",
+      "cancel": "لغو کنید",
+      "importTable": "جدول واردات",
+      "createTable": "جدول ایجاد کنید"
+    },
+    "tableParse": {
+      "errors": {
+        "minRows": "جدول باید حداقل یک ردیف سرصفحه و ردیف جداکننده داشته باشد",
+        "pipeFormat": "سطرهای جدول باید با | شروع و ختم شوند",
+        "headerMinCol": "ردیف سرصفحه باید حداقل یک ستون داشته باشد",
+        "separatorRow": "ردیف دوم باید جداکننده باشد (به عنوان مثال، |---|---|)",
+        "rowColumnMismatch": "ردیف {row} دارای {got} ستون است، مورد انتظار {expected}",
+        "parseFailed": "تجزیه جدول نشانه گذاری انجام نشد"
+      }
+    },
+    "link": {
+      "editLink": "ویرایش لینک",
+      "addLink": "پیوند اضافه کنید",
+      "selectedText": "متن انتخاب شده: \"{text}\"",
+      "linkUrl": "لینک URL",
+      "urlPlaceholder": "https://example.com",
+      "update": "به روز رسانی",
+      "addLinkButton": "پیوند اضافه کنید",
+      "toastApplied": "پیوند اعمال شد",
+      "toastLinkedTo": "پیوند به: {url}",
+      "toastRemoved": "پیوند حذف شد",
+      "toastRemovedDesc": "پیوند از قسمت انتخابی حذف شده است"
+    },
+    "customClass": {
+      "devMode": "حالت برنامه نویس",
+      "toggleDevModeAria": "حالت برنامه نویس را تغییر دهید",
+      "searchPlaceholderDev": "جستجوی کلاس‌ها... (به عنوان مثال، \"text\"، \"bg\"، \"flex\")",
+      "searchPlaceholderUser": "سبک های جستجو... (به عنوان مثال، \"قرمز\"، \"پررنگ\"، \"سایه\")",
+      "appliesTitle": "اعمال می شود: {className}",
+      "noMatches": "هیچ کلاسی مطابق با \"{query}\" یافت نشد",
+      "toastClassReplaced": "کلاس تعویض شد",
+      "toastClassReplacedDesc": "جایگزین \"{replaced}\" با \"{className}\" شد",
+      "toastCustomClassApplied": "کلاس سفارشی اعمال شد",
+      "toastAppliedClass": "کلاس کاربردی: {className}"
+    },
+    "insertComponents": {
+      "title": "درج کامپوننت",
+      "description": "یک جزء را برای درج در سند خود انتخاب کنید",
+      "noComponents": "هیچ مؤلفه ای در دسترس نیست",
+      "categories": {
+        "media": "رسانه ها",
+        "layout": "طرح بندی",
+        "interactive": "تعاملی",
+        "decoration": "دکوراسیون"
+      },
+      "freeImage": {
+        "name": "تصویر حرکت آزاد",
+        "description": "تصویری را اضافه کنید که بتوان آن را در هر جایی قرار داد و آزادانه اندازه آن را تغییر داد"
+      }
+    }
+  }
+}

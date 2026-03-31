@@ -14,7 +14,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatDistanceToNow } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useTranslations, useLocale } from "next-intl";
-import { af, ar, ca, cs as csLocale, da, de, el, enUS, es, fr as frLocale, zhCN } from "date-fns/locale";
+import { af, ar, ca, cs as csLocale, da, de, el, enUS, es, faIR, fr as frLocale, ms, nb, nl, pt, zhCN } from "date-fns/locale";
 
 interface ConnectionFormProps {
     onConnect: (connectionString: string) => Promise<void>;
@@ -46,6 +46,16 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                       ? da
                       : locale === "af"
                         ? af
+                        : locale === "fa"
+                          ? faIR
+                          : locale === "ms"
+                            ? ms
+                            : locale === "nb"
+                              ? nb
+                              : locale === "nl"
+                                ? nl
+                              : locale === "pt"
+                                ? pt
                         : enUS;
     const [connectionString, setConnectionString] = useState("");
     const [name, setName] = useState("My Connection");

@@ -21,7 +21,9 @@
     "greek": "Ελληνικά",
     "german": "الألمانية",
     "danish": "الدنماركية",
-    "afrikaans": "الأفريكانية"
+    "afrikaans": "الأفريكانية",
+    "persian": "فارسی",
+    "indonesian": "Bahasa Indonesia"
   },
   "SettingsPage": {
     "title": "الإعدادات",
@@ -65,7 +67,9 @@
         "el": "Ελληνικά (اليونانية)",
         "de": "Deutsch (الألمانية)",
         "da": "Dansk (الدنماركية)",
-        "af": "Afrikaans (الأفريكانية)"
+        "af": "Afrikaans (الأفريكانية)",
+        "fa": "فارسی",
+        "id": "Bahasa Indonesia"
       }
     }
   },
