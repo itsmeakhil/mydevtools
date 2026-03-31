@@ -235,30 +235,32 @@ export default function SettingsPage() {
                 </SelectTrigger>
                 <SelectContent rounded-lg>
                   <SelectItem value="en">{t('language.languages.en')}</SelectItem>
-                  <SelectItem value="fr">{t('language.languages.fr')}</SelectItem>
-                  <SelectItem value="es">{t('language.languages.es')}</SelectItem>
-                  <SelectItem value="id">{t('language.languages.id')}</SelectItem>
-                  <SelectItem value="ca">{t('language.languages.ca')}</SelectItem>
-                  <SelectItem value="ar">{t('language.languages.ar')}</SelectItem>
-                  <SelectItem value="zh">{t('language.languages.zh')}</SelectItem>
-                  <SelectItem value="cs">{t('language.languages.cs')}</SelectItem>
-                  <SelectItem value="el">{t('language.languages.el')}</SelectItem>
-                  <SelectItem value="de">{t('language.languages.de')}</SelectItem>
-                  <SelectItem value="da">{t('language.languages.da')}</SelectItem>
-                  <SelectItem value="nb">{t('language.languages.nb')}</SelectItem>
-                  <SelectItem value="nl">Nederlands</SelectItem>
-                  <SelectItem value="sv">Svenska</SelectItem>
-                  <SelectItem value="pt">Português</SelectItem>
-                  <SelectItem value="pt-BR">Português (Brasil)</SelectItem>
                   <SelectItem value="af">{t('language.languages.af')}</SelectItem>
+                  <SelectItem value="ar">{t('language.languages.ar')}</SelectItem>
+                  <SelectItem value="ca">{t('language.languages.ca')}</SelectItem>
+                  <SelectItem value="cs">{t('language.languages.cs')}</SelectItem>
+                  <SelectItem value="da">{t('language.languages.da')}</SelectItem>
+                  <SelectItem value="de">{t('language.languages.de')}</SelectItem>
+                  <SelectItem value="el">{t('language.languages.el')}</SelectItem>
+                  <SelectItem value="es">{t('language.languages.es')}</SelectItem>
                   <SelectItem value="fa">{t('language.languages.fa')}</SelectItem>
-                  <SelectItem value="ru">Русский</SelectItem>
-                  <SelectItem value="it">Italiano</SelectItem>
-                  <SelectItem value="ja">日本語</SelectItem>
-                  <SelectItem value="ko">한국어</SelectItem>
-                  <SelectItem value="ms">Bahasa Melayu</SelectItem>
-                  <SelectItem value="pl">Polski</SelectItem>
-                  <SelectItem value="vi">Tiếng Việt</SelectItem>
+                  <SelectItem value="fr">{t('language.languages.fr')}</SelectItem>
+                  <SelectItem value="id">{t('language.languages.id')}</SelectItem>
+                  <SelectItem value="it">{t('language.languages.it')}</SelectItem>
+                  <SelectItem value="ja">{t('language.languages.ja')}</SelectItem>
+                  <SelectItem value="ko">{t('language.languages.ko')}</SelectItem>
+                  <SelectItem value="ms">{t('language.languages.ms')}</SelectItem>
+                  <SelectItem value="nb">{t('language.languages.nb')}</SelectItem>
+                  <SelectItem value="nl">{t('language.languages.nl')}</SelectItem>
+                  <SelectItem value="pl">{t('language.languages.pl')}</SelectItem>
+                  <SelectItem value="pt">{t('language.languages.pt')}</SelectItem>
+                  <SelectItem value="pt-BR">{t('language.languages.pt-BR')}</SelectItem>
+                  <SelectItem value="ru">{t('language.languages.ru')}</SelectItem>
+                  <SelectItem value="sv">{t('language.languages.sv')}</SelectItem>
+                  <SelectItem value="tr">{t('language.languages.tr')}</SelectItem>
+                  <SelectItem value="uk">{t('language.languages.uk')}</SelectItem>
+                  <SelectItem value="vi">{t('language.languages.vi')}</SelectItem>
+                  <SelectItem value="zh">{t('language.languages.zh')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
