@@ -141,7 +141,7 @@ export function JsonFormatterLayout() {
   }
 
   return (
-    <div className="flex h-full min-h-0 w-full flex-col gap-3">
+    <div className="flex h-full min-h-0 w-full flex-col gap-3 overflow-hidden">
       <Card className="shrink-0 border shadow-lg bg-card/50 backdrop-blur-sm">
         <CardHeader className="p-3 md:pb-3">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
@@ -159,10 +159,10 @@ export function JsonFormatterLayout() {
 
       <ResizablePanelGroup
         direction="horizontal"
-        className="min-h-0 flex-1 rounded-lg border"
+        className="min-h-0 flex-1 rounded-lg border overflow-hidden"
       >
         {/* Left Pane - Text Mode */}
-        <ResizablePanel defaultSize={50} minSize={20}>
+        <ResizablePanel defaultSize={50} minSize={20} className="min-h-0">
           <div className="flex h-full min-h-0 flex-col">
             <div className="flex flex-wrap items-center gap-2 border-b p-2">
               <input
@@ -206,7 +206,7 @@ export function JsonFormatterLayout() {
         <ResizableHandle withHandle />
 
         {/* Right Pane - Tree Mode */}
-        <ResizablePanel defaultSize={50} minSize={20}>
+        <ResizablePanel defaultSize={50} minSize={20} className="min-h-0">
           <div className="flex h-full min-h-0 flex-col">
             <div className="flex flex-wrap items-center gap-2 border-b p-2">
               <input

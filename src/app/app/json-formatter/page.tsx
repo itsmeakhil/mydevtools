@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function JsonFormatterPage() {
   return (
-    <div className="h-[calc(100vh-3.5rem)] p-4">
+    <div className="h-full w-full min-h-0 p-4">
       <JsonFormatterLayout />
     </div>
   )
