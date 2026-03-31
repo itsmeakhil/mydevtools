@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { IconCopy, IconDeviceFloppy, IconFilePlus, IconJson } from '@tabler/icons-react'
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { toast } from 'sonner'
-import { toTextContent, type Content, type OnChangeStatus } from 'vanilla-jsoneditor'
+import { Mode, toTextContent, type Content, type OnChangeStatus } from 'vanilla-jsoneditor'
 import { Card, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { db } from '@/database/firebase'
@@ -190,7 +190,7 @@ export function JsonFormatterLayout() {
             </div>
             <div className="min-h-0 flex-1">
               <VanillaEditor
-                mode="text"
+                mode={Mode.text}
                 content={leftPane.content}
                 onChange={(updated, previous, status) =>
                   handlePaneChange('left', updated, previous, status)
@@ -234,7 +234,7 @@ export function JsonFormatterLayout() {
             </div>
             <div className="min-h-0 flex-1">
               <VanillaEditor
-                mode="tree"
+                mode={Mode.tree}
                 content={rightPane.content}
                 onChange={(updated, previous, status) =>
                   handlePaneChange('right', updated, previous, status)
