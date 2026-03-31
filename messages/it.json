@@ -1,0 +1,1364 @@
+{
+  "Navigation": {
+    "dashboard": "Pannello di controllo",
+    "settings": "Impostazioni",
+    "apiClient": "Cliente API",
+    "passwordManager": "Gestore delle password",
+    "bookmarks": "Segnalibri",
+    "emailValidator": "Validatore di posta elettronica",
+    "nosqlExplorer": "Esploratore NoSQL"
+  },
+  "Settings": {
+    "title": "Impostazioni",
+    "language": "Lingua",
+    "spanish": "spagnolo",
+    "english": "Inglese",
+    "french": "Francese",
+    "arabic": "عربى",
+    "catalan": "catalano",
+    "chineseSimplified": "Cinese (semplificato)",
+    "czech": "Čeština",
+    "greek": "Ελληνικά",
+    "german": "tedesco",
+    "danish": "danese",
+    "afrikaans": "afrikaans",
+    "persian": "فارسی",
+    "indonesian": "Bahasa Indonesia"
+  },
+  "SettingsPage": {
+    "title": "Impostazioni",
+    "subtitle": "Gestisci le impostazioni e le preferenze del tuo account.",
+    "userProfile": {
+      "title": "Profilo utente",
+      "description": "Le tue informazioni personali e i dettagli dell'account.",
+      "avatarAlt": "Utente",
+      "anonymousUser": "Utente anonimo",
+      "noEmailProvided": "Nessuna e-mail fornita",
+      "notLoggedIn": "Non effettuato l'accesso."
+    },
+    "tools": {
+      "title": "Strumenti e funzionalità",
+      "description": "Scegli quali strumenti visualizzare nella barra laterale di navigazione."
+    },
+    "appearance": {
+      "title": "Aspetto",
+      "description": "Personalizza l'aspetto dell'applicazione sul tuo dispositivo.",
+      "themePreference": "Preferenza tema",
+      "themes": {
+        "light": "Leggero",
+        "dark": "Buio",
+        "system": "Sistema"
+      }
+    },
+    "language": {
+      "title": "Lingua",
+      "description": "Imposta la lingua utilizzata sulla piattaforma.",
+      "selectLanguage": "Seleziona lingua",
+      "selectPlaceholder": "Seleziona una lingua",
+      "helpText": "La modifica della lingua aggiornerà i menu e le etichette su tutta la piattaforma.",
+      "languages": {
+        "en": "Inglese",
+        "fr": "Francese",
+        "es": "Español (spagnolo)",
+        "ar": "عربى (arabo)",
+        "ca": "Català",
+        "zh": "简体中文",
+        "cs": "Čeština",
+        "el": "Ελληνικά (greco)",
+        "de": "Deutsch (tedesco)",
+        "da": "Dansk (danese)",
+        "af": "afrikaans",
+        "fa": "فارسی",
+        "id": "Bahasa Indonesia"
+      }
+    }
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "Buongiorno",
+      "afternoon": "Buon pomeriggio",
+      "evening": "Buonasera"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "Bentornato",
+    "welcomeBackNamed": "Bentornato, {name}",
+    "tagline": "Cosa ti piacerebbe costruire oggi?",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Utensili",
+      "favorites": "Preferiti"
+    },
+    "sections": {
+      "recentlyUsed": "Usato di recente",
+      "favorites": "Preferiti"
+    },
+    "groups": {
+      "apps": "App"
+    },
+    "toolCard": {
+      "defaultDescription": "Esplora questo strumento per una migliore funzionalità.",
+      "launchTool": "Strumento di avvio"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Compiti",
+        "description": "Gestisci le tue liste di cose da fare in modo efficiente."
+      },
+      "notes": {
+        "title": "Note",
+        "description": "Capture ideas and organize your thoughts."
+      },
+      "passwordManager": {
+        "title": "Gestore delle password",
+        "description": "Archivia e gestisci in modo sicuro le tue password."
+      },
+      "bookmarks": {
+        "title": "Segnalibri",
+        "description": "Gestisci e organizza i tuoi segnalibri."
+      },
+      "apiClient": {
+        "title": "Cliente API",
+        "description": "Testare ed eseguire il debug delle richieste HTTP."
+      },
+      "nosqlExplorer": {
+        "title": "Esploratore NoSQL",
+        "description": "Esplora i database MongoDB."
+      },
+      "emailValidator": {
+        "title": "Validatore di posta elettronica",
+        "description": "Verificare e convalidare gli indirizzi e-mail."
+      }
+    }
+  },
+  "Tasks": {
+    "page": {
+      "loading": "Caricamento...",
+      "myTasksTitle": "I miei compiti",
+      "statsLine": "Attività {total} • {percent}% completate",
+      "statsLineDesktop": "{total} totale • {percent}% completato"
+    },
+    "filters": {
+      "all": "Tutto",
+      "total": "Totale",
+      "allProjects": "Tutti i progetti",
+      "export": "Esportare",
+      "kanban": "Kanban",
+      "list": "Lista",
+      "searchPlaceholder": "Cerca attività...",
+      "searchAria": "Compiti di ricerca",
+      "clearSearchAria": "Cancella ricerca",
+      "foundTasks": "Trovato {count} {count, plural, one {task} other {tasks}}",
+      "filterByAllAria": "Filtra per Tutti",
+      "filterByStatusAria": "Filtra per {status}"
+    },
+    "status": {
+      "not-started": {
+        "label": "Non iniziato",
+        "description": "Attività che non sono state ancora avviate"
+      },
+      "ongoing": {
+        "label": "In corso",
+        "description": "Attività attualmente in corso"
+      },
+      "completed": {
+        "label": "Completato",
+        "description": "Compiti finiti"
+      }
+    },
+    "priorities": {
+      "high": "Alto",
+      "medium": "Medio",
+      "low": "Basso"
+    },
+    "form": {
+      "addNewTaskLabel": "Aggiungi nuova attività",
+      "multilinePlaceholder": "Aggiungi dettagli attività... (Maiusc+Invio per una nuova riga)",
+      "singlelinePlaceholder": "Cosa bisogna fare? Premi Invio per aggiungere",
+      "taskInputAria": "Ingresso attività",
+      "projectPlaceholder": "Progetto",
+      "selectProject": "Seleziona Progetto",
+      "errorSelectProject": "Seleziona un progetto o creane uno nuovo per aggiungere un'attività.",
+      "hintMultiline": "Maiusc+Invio per una nuova riga, Invio per aggiungere",
+      "hintSingleline": "Inserisci per aggiungere",
+      "shortcutsAria": "Scorciatoie da tastiera",
+      "shortcutsLabel": "Scorciatoie",
+      "shortcutAddTask": "Aggiungi attività",
+      "shortcutNewLine": "Nuova linea",
+      "shortcutClear": "Chiaro",
+      "addButton": "Aggiungere"
+    },
+    "list": {
+      "ariaLabel": "Elenco attività",
+      "loading": "Caricamento delle tue attività...",
+      "emptyTitle": "Nessuna attività trovata",
+      "emptyPrimary": "Inizia aggiungendo la tua prima attività qui sopra! Premi Invio per aggiungere rapidamente attività.",
+      "emptySecondary": "Prova a modificare i filtri o la query di ricerca."
+    },
+    "mobileDrawer": {
+      "addTaskSrOnly": "Aggiungi attività",
+      "addNewTaskTitle": "Aggiungi nuova attività",
+      "addNewTaskDescription": "Crea una nuova attività per monitorare i tuoi progressi.",
+      "cancel": "Cancellare"
+    },
+    "kanban": {
+      "ariaLabel": "Tabellone Kanban",
+      "loading": "Caricamento delle tue attività...",
+      "dropHere": "Rilascia l'attività qui",
+      "noTasksYet": "Nessuna attività ancora",
+      "emptyColumnAria": "Colonna vuota",
+      "columnAria": "Colonna {title} con attività {count}",
+      "countInColumnAria": "{count} attività in {title}"
+    },
+    "taskItem": {
+      "confirmDelete": "Sei sicuro di voler eliminare questa attività?",
+      "statusPlaceholder": "Stato",
+      "changeStatusAria": "Modifica lo stato dell'attività",
+      "taskOptionsAria": "Opzioni attività",
+      "editTask": "Modifica attività",
+      "copyTask": "Copia attività",
+      "copied": "Copiato!",
+      "deleteTask": "Elimina attività",
+      "statusHeading": "Stato",
+      "editTaskAria": "Modifica attività"
+    },
+    "editDialog": {
+      "title": "Modifica attività",
+      "description": "Aggiorna i dettagli delle attività, aggiungi attività secondarie, imposta le priorità e altro ancora.",
+      "taskTitleLabel": "Titolo dell'attività *",
+      "taskTitlePlaceholder": "Cosa bisogna fare?",
+      "descriptionLabel": "Descrizione",
+      "descriptionPlaceholder": "Aggiungi ulteriori dettagli su questa attività...",
+      "statusLabel": "Stato",
+      "priorityLabel": "Priorità",
+      "dueDateLabel": "Scadenza",
+      "pickDate": "Scegli una data",
+      "clearDate": "Cancella data",
+      "projectLabel": "Progetto",
+      "selectProjectPlaceholder": "Seleziona un progetto",
+      "noProject": "Nessun progetto",
+      "timeEstimateLabel": "Tempo stimato (minuti)",
+      "timeEstimatePlaceholder": "Quanto tempo ci vorrà?",
+      "tagsLabel": "Tag",
+      "customTagNamePlaceholder": "Nome dell'etichetta personalizzata",
+      "subtasksLabel": "Attività secondarie",
+      "addSubtaskPlaceholder": "Aggiungi un'attività secondaria...",
+      "cancel": "Cancellare",
+      "saving": "Risparmio...",
+      "saveChanges": "Salva modifiche"
+    },
+    "export": {
+      "title": "Esporta attività",
+      "description": "Esporta le tue attività nei formati JSON, CSV o Excel.",
+      "projectLabel": "Progetto",
+      "statusLabel": "Stato",
+      "tagLabel": "Etichetta",
+      "allProjects": "Tutti i progetti",
+      "allStatuses": "Tutti gli stati",
+      "allTags": "Tutti i tag",
+      "exportAsJsonTitle": "Esporta come JSON",
+      "exportAsJsonDescription": "Esporta i dati delle attività, incluse attività secondarie, tag e metadati.",
+      "exportJson": "Esporta JSON",
+      "exportAsCsvExcelTitle": "Esporta come CSV/Excel",
+      "exportAsCsvExcelDescription": "Esporta attività per applicazioni di fogli di calcolo.",
+      "exportCsv": "Esporta CSV",
+      "exportExcel": "Esporta Excel",
+      "close": "Vicino",
+      "toastNoTasks": "Nessuna attività da esportare con i filtri attuali",
+      "toastExportedJson": "Attività {count} esportate in JSON!",
+      "toastExportedCsv": "Attività {count} esportate in CSV!",
+      "toastExportedExcel": "Attività {count} esportate in Excel!",
+      "toastFailedJson": "Impossibile esportare in JSON",
+      "toastFailedCsv": "Impossibile esportare in CSV",
+      "toastFailedExcel": "Impossibile esportare in Excel",
+      "unknownProject": "Progetto sconosciuto"
+    },
+    "ack": {
+      "taskAddedTitle": "Attività aggiunta correttamente",
+      "taskAddedFailedTitle": "Impossibile aggiungere attività",
+      "taskUpdatedTitle": "Attività aggiornata correttamente",
+      "taskUpdatedFailedTitle": "Impossibile aggiornare l'attività",
+      "taskStatusUpdateFailedTitle": "Impossibile aggiornare lo stato dell'attività",
+      "taskMovedTitle": "Attività spostata in {status}",
+      "tryAgain": "Per favore riprova.",
+      "taskDeletedTitle": "Attività \"{text}\" eliminata",
+      "undo": "Disfare",
+      "taskRestoredTitle": "Attività ripristinata",
+      "taskRestoredSuccessTitle": "Attività ripristinata correttamente",
+      "taskRestoreFailedTitle": "Impossibile ripristinare l'attività. Per favore riprova.",
+      "taskDeleteFailedTitle": "Impossibile eliminare l'attività. Per favore riprova.",
+      "tasksImportedTitle": "Importazione {count} {count, plural, one {task} other {tasks}} importata con successo!",
+      "tasksImportFailedTitle": "Impossibile importare le attività. Per favore riprova.",
+      "unknownProject": "Progetto sconosciuto",
+      "projectCreatedTitle": "Progetto creato con successo",
+      "projectCreateFailedTitle": "Impossibile creare il progetto",
+      "projectUpdatedTitle": "Progetto aggiornato con successo",
+      "projectUpdateFailedTitle": "Impossibile aggiornare il progetto",
+      "projectDeletedTitle": "Progetto eliminato correttamente",
+      "projectDeleteFailedTitle": "Impossibile eliminare il progetto"
+    }
+  },
+  "Notes": {
+    "page": {
+      "loading": "Caricamento..."
+    },
+    "layout": {
+      "mobileNavTitle": "Navigazione delle note",
+      "openMenuAria": "Apri il menu delle note"
+    },
+    "sidebar": {
+      "title": "Note",
+      "createNoteAria": "Crea nota",
+      "searchPlaceholder": "Cerca note...",
+      "loading": "Caricamento...",
+      "noNotesFound": "Nessuna nota trovata.",
+      "noNotesYet": "Nessuna nota ancora. Fare clic su + per crearne uno.",
+      "inParent": "tra {parentTitle}",
+      "untitled": "Senza titolo",
+      "addSubPage": "Aggiungi sottopagina",
+      "delete": "Eliminare",
+      "deleteConfirmTitle": "Eliminare la nota?",
+      "deleteConfirmDescription": "Sei sicuro di voler eliminare \"{title}\"? Questa azione non può essere annullata.",
+      "cancel": "Cancellare",
+      "confirmDelete": "Eliminare",
+      "noteOptionsAria": "Opzioni della nota"
+    },
+    "editor": {
+      "emptyState": "Seleziona una nota o creane una nuova per iniziare.",
+      "titlePlaceholder": "Senza titolo"
+    },
+    "context": {
+      "authRequiredError": "Utente non autenticato",
+      "defaultTitle": "Senza titolo"
+    }
+  },
+  "PasswordManager": {
+    "page": {
+      "loading": "Caricamento...",
+      "title": "Gestore delle password"
+    },
+    "vault": {
+      "toastDecryptFailed": "Impossibile decrittografare le password",
+      "toastLoadFailed": "Impossibile caricare le password",
+      "toastUnlockedAuto": "Vault sbloccato automaticamente",
+      "toastAutoUnlockFailed": "Sblocco automatico non riuscito. Si prega di sbloccare manualmente.",
+      "toastConnectFailed": "Impossibile connettersi al server",
+      "toastAutoUnlockWarning": "Vault sbloccato, ma lo sblocco automatico potrebbe non funzionare dopo la ricarica",
+      "errorIncorrectPassword": "Password principale errata",
+      "errorUnlockFailed": "Impossibile sbloccare il vault",
+      "errorPasswordsMismatch": "Le password non corrispondono",
+      "errorPasswordTooShort": "La password deve contenere almeno 8 caratteri",
+      "errorSetupFailed": "Impossibile impostare il vault",
+      "errorConnectFailed": "Impossibile connettersi al server.",
+      "mobileTitleCreate": "Crea la tua cassaforte",
+      "mobileTitleWelcome": "Bentornato",
+      "mobileSubtitleCreate": "Imposta una password principale per proteggere le tue credenziali",
+      "mobileSubtitleUnlock": "Inserisci la tua password principale per sbloccare",
+      "placeholderMasterPassword": "Parola d'ordine principale",
+      "placeholderConfirmPassword": "Conferma password",
+      "labelMasterPassword": "Parola d'ordine principale",
+      "labelConfirmPassword": "Conferma password",
+      "placeholderEnterMaster": "Inserisci la password principale",
+      "placeholderConfirmMaster": "Conferma la password principale",
+      "buttonCreateVault": "Crea cassaforte",
+      "buttonUnlock": "Sbloccare",
+      "buttonUnlockVault": "Sblocca il caveau",
+      "footerCreate": "La tua password non viene mai memorizzata e non può essere recuperata",
+      "footerUnlock": "Protetto con crittografia end-to-end",
+      "desktopTitleSetup": "Configura l'archivio password",
+      "desktopTitleUnlock": "Sblocca il caveau",
+      "desktopDescriptionSetup": "Crea una password principale per proteggere le tue credenziali. Questa password non viene mai memorizzata e non può essere recuperata.",
+      "desktopDescriptionUnlock": "Inserisci la tua password principale per accedere alle tue credenziali protette."
+    },
+    "list": {
+      "loading": "Caricamento delle tue password...",
+      "emptyTitle": "Il caveau è vuoto",
+      "emptyHintMobile": "Tocca il pulsante + per aggiungere la tua prima password",
+      "emptyHintDesktop": "Non hai ancora memorizzato alcuna password. Fai clic sul pulsante \"Aggiungi password\" qui sopra per iniziare.",
+      "addPassword": "Aggiungi password",
+      "searchPlaceholderMobile": "Cerca nel tuo caveau...",
+      "searchPlaceholderDesktop": "Cerca nel caveau...",
+      "importExport": "Importa/esporta",
+      "lockVault": "Bloccare il caveau",
+      "allPasswordsTitle": "Tutte le password",
+      "passwordCount": "{contare, plurale, uno {# password} altro {# passwords}}",
+      "vaultHealthDrawerTitle": "Salute del caveau",
+      "noResults": "Nessuna password trovata corrispondente a \"{query}\"",
+      "tableService": "Servizio",
+      "tableUsername": "Nome utente",
+      "tablePassword": "Password",
+      "tableUrl": "URL",
+      "tableActions": "Azioni",
+      "gridViewAria": "Visualizzazione griglia",
+      "listViewAria": "Visualizzazione elenco",
+      "passwordStrengthTitle": "Forza della password",
+      "deleteDialogTitle": "Elimina la password",
+      "deleteDialogDescription": "Sei sicuro di voler eliminare questa password? Questa azione non può essere annullata.",
+      "cancel": "Cancellare",
+      "delete": "Eliminare",
+      "edit": "Modificare"
+    },
+    "toasts": {
+      "copiedPassword": "Password copiata negli appunti",
+      "copiedUsername": "Nome utente copiato negli appunti",
+      "passwordDeleted": "Password cancellata",
+      "deleteFailed": "Impossibile eliminare la password",
+      "vaultLocked": "Deposito chiuso a chiave",
+      "importedCount": "Importazione riuscita di {count, plural, one {# password} other {# passwords}}"
+    },
+    "form": {
+      "addTitle": "Aggiungi nuova password",
+      "editTitle": "Modifica password",
+      "serviceName": "Nome del servizio",
+      "usernameEmail": "Nome utente/e-mail",
+      "password": "Password",
+      "urlOptional": "URL del sito web (facoltativo)",
+      "notesOptional": "Note (facoltativo)",
+      "tags": "Tag",
+      "placeholderService": "per esempio. Netflix",
+      "placeholderUsername": "utente@esempio.com",
+      "placeholderPassword": "Inserisci o genera una password",
+      "placeholderUrl": "https://...",
+      "placeholderNotes": "Ulteriori dettagli...",
+      "placeholderTags": "Aggiungi tag (premi Invio o virgola)",
+      "strength": "Forza",
+      "strengthWeak": "Debole",
+      "strengthMedium": "Medio",
+      "strengthStrong": "Forte",
+      "advancedGenerator": "Generatore avanzato",
+      "cancel": "Cancellare",
+      "saving": "Risparmio...",
+      "savePassword": "Salva password",
+      "updating": "Aggiornamento...",
+      "updatePassword": "Aggiorna password",
+      "addPasswordSrOnly": "Aggiungi password",
+      "triggerAdd": "Aggiungi password",
+      "toastSaved": "Password salvata con successo",
+      "toastSaveFailed": "Impossibile salvare la password",
+      "toastUpdated": "Password aggiornata con successo",
+      "toastUpdateFailed": "Impossibile aggiornare la password"
+    },
+    "security": {
+      "vaultHealth": "Salute del caveau",
+      "statusLabel": "Stato",
+      "totalPasswords": "Password totali",
+      "activeEntries": "Voci attive nel tuo caveau",
+      "protected": "Protetto",
+      "weakPasswords": "Password deboli",
+      "needingImprovement": "Password da migliorare",
+      "allGood": "Tutto bene",
+      "reusedPasswords": "Password riutilizzate",
+      "usedMultipleTimes": "Password utilizzate più volte",
+      "unique": "Unico",
+      "total": "Totale",
+      "weak": "Debole",
+      "reused": "Riutilizzato",
+      "totalCountLabel": "{contare, plurale, uno {# password} altro {# passwords}}",
+      "weakCountLabel": "{count} debole",
+      "allSecure": "Tutto sicuro",
+      "scoreExcellent": "Eccellente",
+      "scoreGood": "Bene",
+      "scoreFair": "Giusto",
+      "scoreCritical": "Critico"
+    },
+    "importExport": {
+      "title": "Importa/esporta caveau",
+      "description": "Gestisci i dati della tua password. Puoi esportare il tuo vault in JSON o importarlo da un file JSON.",
+      "tabExport": "Esportare",
+      "tabImport": "Importare",
+      "warningTitle": "Avvertimento",
+      "warningBody": "I file esportati contengono le tue password in testo semplice. Conserva questo file al sicuro ed eliminalo dopo l'uso.",
+      "exportBlurb": "Scarica l'intero vault come file JSON. Ciò include tutti i servizi, nomi utente, password e note.",
+      "downloadJson": "Scarica l'esportazione JSON",
+      "pasteLabel": "Incolla i dati JSON",
+      "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
+      "pasteHint": "Incolla qui il contenuto di un file JSON precedentemente esportato.",
+      "importing": "Importazione...",
+      "importPasswords": "Importa password",
+      "trigger": "Importa/esporta",
+      "toastExported": "Vault esportato correttamente",
+      "toastExportFailed": "Impossibile esportare il vault",
+      "toastImportFailed": "Impossibile importare: formato JSON non valido"
+    },
+    "card": {
+      "copyUsername": "Copia nome utente",
+      "openUrl": "Apri l'URL",
+      "strength": "Forza"
+    },
+    "swipeable": {
+      "copy": "Copia",
+      "delete": "Eliminare",
+      "copyPassword": "Copia la password",
+      "copyUsername": "Copia nome utente",
+      "edit": "Modificare",
+      "deleteAction": "Eliminare"
+    },
+    "floatingMenu": {
+      "lockVault": "Bloccare il caveau",
+      "importExport": "Importa/esporta",
+      "addPassword": "Aggiungi password"
+    },
+    "generator": {
+      "tabPassword": "Password",
+      "tabPassphrase": "Passphrase",
+      "strength": "Forza",
+      "lengthLabel": "Lunghezza: {length} caratteri",
+      "lengthBadge": "{length} caratteri",
+      "characterSets": "Set di caratteri",
+      "uppercase": "Maiuscolo",
+      "lowercase": "Minuscolo",
+      "numbers": "Numeri",
+      "symbols": "Simboli",
+      "wordCountLabel": "Conteggio parole: {count}",
+      "wordCountBadge": "{contare, plurale, uno {# word} altro {# words}}",
+      "separator": "Separatore",
+      "capitalization": "Capitalizzazione",
+      "includeNumber": "Includi numero"
+    }
+  },
+  "Bookmarks": {
+    "page": {
+      "loading": "Caricamento..."
+    },
+    "manager": {
+      "foldersHeading": "Cartelle",
+      "tagsHeading": "Tag",
+      "tagsMore": "+{count} altro",
+      "searchPlaceholder": "Cerca nei tuoi segnalibri...",
+      "import": "Importare",
+      "export": "Esportare",
+      "exportAsHtml": "Esporta come HTML",
+      "exportAsJson": "Esporta come JSON",
+      "addBookmark": "Aggiungi segnalibro",
+      "matchingQuery": "corrispondente a \"{query}\"",
+      "bookmarkCount": "{contare, plurale, uno {# bookmark} altro {# bookmarks}}",
+      "allBookmarks": "Tutti i segnalibri",
+      "uncategorized": "Senza categoria",
+      "unknownFolder": "Sconosciuto"
+    },
+    "card": {
+      "urlCopied": "URL copiato negli appunti",
+      "bookmarkDeleted": "Segnalibro eliminato",
+      "edit": "Modificare",
+      "delete": "Eliminare",
+      "copyUrl": "Copia l'URL",
+      "deleteConfirmTitle": "Eliminare il segnalibro?",
+      "deleteConfirmDescription": "Questa operazione eliminerà definitivamente \"{title}\".",
+      "cancel": "Cancellare"
+    },
+    "grid": {
+      "emptyTitle": "Nessun segnalibro ancora",
+      "emptyDescription": "Aggiungi il tuo primo segnalibro o importalo dal tuo browser per iniziare."
+    },
+    "folderTree": {
+      "allBookmarks": "Tutti i segnalibri",
+      "addSubfolder": "Aggiungi sottocartella",
+      "rename": "Rinominare",
+      "deleteFolderTitle": "Eliminare la cartella \"{name}\"?",
+      "deleteFolderDescription": "Ciò eliminerà la cartella e tutte le sue sottocartelle. I segnalibri in queste cartelle verranno spostati in Senza categoria."
+    },
+    "import": {
+      "title": "Importa segnalibri",
+      "description": "Importa i segnalibri dal file esportato del tuo browser.",
+      "parseError": "Impossibile analizzare il file dei segnalibri. Assicurati che si tratti di un'esportazione di segnalibri valida.",
+      "successToast": "Preferiti {bookmarks} e cartelle {folders} importati",
+      "errorToast": "Impossibile importare i segnalibri",
+      "chromeInstruction": "Menu → Segnalibri → Gestione segnalibri → ⋮ → Esporta segnalibri",
+      "firefoxInstruction": "Menu → Segnalibri → Gestisci segnalibri → Importa e backup → Esporta",
+      "safariInstruction": "File → Esporta segnalibri...",
+      "edgeInstruction": "Menu → Preferiti → ⋯ → Esporta preferiti",
+      "dropZoneTitle": "Trascina qui il file dei tuoi segnalibri",
+      "dropZoneHint": "oppure fai clic per navigare (HTML o JSON)",
+      "selectedFileHint": "Fare clic per selezionare un file diverso",
+      "errorTitle": "Errore",
+      "previewTitle": "Importa anteprima",
+      "previewBookmarks": "{contare, plurale, uno {# bookmark} altro {# bookmarks}}",
+      "previewFolders": "{contare, plurale, uno {# folder} altro {# folders}}",
+      "importModeLabel": "Modalità di importazione",
+      "modeMerge": "Unisci con i segnalibri esistenti",
+      "modeReplace": "Sostituisci tutti i segnalibri esistenti",
+      "cancel": "Cancellare",
+      "importButton": "Importare",
+      "importButtonWithCount": "Importa {count, plural, one {# bookmark} other {# bookmarks}}"
+    },
+    "addBookmark": {
+      "titleAdd": "Aggiungi segnalibro",
+      "titleEdit": "Modifica segnalibro",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://esempio.com",
+      "urlInvalid": "Inserisci un URL valido",
+      "titleLabel": "Titolo",
+      "titlePlaceholder": "Titolo del segnalibro",
+      "titleRequired": "Inserisci un titolo",
+      "descriptionLabel": "Descrizione (facoltativa)",
+      "descriptionPlaceholder": "Aggiungi una nota su questo segnalibro",
+      "folderLabel": "Cartella",
+      "folderPlaceholder": "Seleziona la cartella",
+      "noFolder": "Nessuna cartella",
+      "tagsLabel": "Tag",
+      "tagsPlaceholder": "Aggiungi tag (premi Invio)",
+      "toastUpdated": "Segnalibro aggiornato",
+      "toastAdded": "Segnalibro aggiunto",
+      "cancel": "Cancellare",
+      "submitAdd": "Aggiungi segnalibro",
+      "submitUpdate": "Aggiorna segnalibro"
+    },
+    "addFolder": {
+      "title": "Crea cartella",
+      "nameLabel": "Nome della cartella",
+      "namePlaceholder": "La mia cartella",
+      "nameRequired": "Inserisci il nome di una cartella",
+      "parentLabel": "Cartella principale",
+      "parentPlaceholder": "Seleziona la cartella principale",
+      "rootParent": "Radice (nessun genitore)",
+      "toastCreated": "Cartella creata",
+      "cancel": "Cancellare",
+      "submit": "Crea cartella"
+    },
+    "editFolder": {
+      "title": "Rinomina cartella",
+      "nameLabel": "Nome della cartella",
+      "namePlaceholder": "Nome della cartella",
+      "nameRequired": "Inserisci il nome di una cartella",
+      "toastRenamed": "Cartella rinominata",
+      "cancel": "Cancellare",
+      "save": "Salva"
+    }
+  },
+  "EmailValidator": {
+    "header": {
+      "title": "Validatore di posta elettronica",
+      "description": "Verifica e convalida gli indirizzi e-mail per sintassi, dominio e consegnabilità."
+    },
+    "tabs": {
+      "single": "Verifica unica",
+      "bulk": "Caricamento collettivo"
+    },
+    "single": {
+      "cardTitle": "Verifica e-mail singola",
+      "cardDescription": "Inserisci un indirizzo email per verificarne la consegnabilità e la reputazione.",
+      "placeholder": "Inserisci l'indirizzo e-mail...",
+      "clearAria": "Cancella e-mail",
+      "validate": "Convalidare",
+      "validating": "Convalida...",
+      "formatError": "Si prega di inserire un indirizzo email valido"
+    },
+    "toasts": {
+      "errorTitle": "Errore",
+      "enterEmail": "Inserisci un indirizzo email",
+      "invalidFormatTitle": "Formato e-mail non valido",
+      "invalidFormatDescription": "Si prega di inserire un indirizzo email valido",
+      "validateFailedDescription": "Si è verificato un errore durante la convalida dell'e-mail",
+      "noEmailsTitle": "Nessuna email trovata",
+      "noEmailsDescription": "Assicurati che il tuo Excel abbia una colonna \"e-mail\".",
+      "fileTooLargeTitle": "File troppo grande",
+      "fileTooLargeDescription": "Trovate {total} email. Verranno convalidati solo i primi 4000.",
+      "successTitle": "Successo",
+      "successValidated": "Email {count} convalidate correttamente.",
+      "batchFailedTitle": "Convalida batch non riuscita",
+      "batchFailedDescription": "Si è verificato un errore durante l'elaborazione della convalida in blocco.",
+      "noExportTitle": "Nessun dato da esportare",
+      "noExportValidOnly": "Nessuna email valida trovata da esportare.",
+      "noExportAll": "Nessun risultato da esportare.",
+      "exportSuccessTitle": "Esportazione riuscita",
+      "exportSuccessExcelAll": "E-mail {count} esportate in Excel.",
+      "exportSuccessExcelValid": "E-mail valide {count} esportate in Excel.",
+      "exportSuccessCsvAll": "Email {count} esportate in CSV.",
+      "exportSuccessCsvValid": "Esportate {count} email valide in CSV."
+    },
+    "disposableAlert": {
+      "title": "Rilevata e-mail usa e getta",
+      "description": "Questo indirizzo email appartiene a un provider di posta elettronica usa e getta. Potrebbe essere temporaneo o pericoloso."
+    },
+    "score": {
+      "reliabilityTitle": "Punteggio di affidabilità",
+      "scoreLabel": "Punto"
+    },
+    "details": {
+      "sectionTitle": "Dettagli di convalida"
+    },
+    "validation": {
+      "syntaxLabel": "Sintassi valida",
+      "syntaxTooltip": "Controlla se l'indirizzo email segue il formato corretto (ad esempio, utente@dominio.com)",
+      "domainLabel": "Il dominio esiste",
+      "domainTooltip": "Verifica che il nome di dominio nell'indirizzo email esista effettivamente",
+      "mxLabel": "Record MX trovati",
+      "mxTooltip": "Controlla se il dominio dispone di record Mail Exchange (MX) configurati per ricevere e-mail",
+      "mailboxLabel": "La casella di posta esiste",
+      "mailboxTooltip": "Verifica che la casella di posta/account specifica esista sul server di posta",
+      "disposableLabel": "E-mail usa e getta",
+      "disposableTooltip": "Indica se questa email appartiene a un servizio di posta elettronica temporaneo/usa e getta (potrebbe essere rischioso)",
+      "roleBasedLabel": "E-mail basata sui ruoli",
+      "roleBasedTooltip": "Identifica se si tratta di un'e-mail basata sul ruolo (ad esempio, supporto@, info@) anziché di un indirizzo personale"
+    },
+    "copy": {
+      "emailCopied": "E-mail copiata!",
+      "copyTooltip": "Copia e-mail"
+    },
+    "bulk": {
+      "dropHere": "Rilascia il tuo file qui",
+      "dragHere": "Trascina e rilascia il tuo file qui",
+      "uploadHint": "Carica un file .xlsx, .xls o .csv contenente una colonna \"email\" per convalidare fino a 4000 email.",
+      "filePrefix": "File:",
+      "selectFile": "Seleziona File",
+      "downloadTemplate": "Scarica modello"
+    },
+    "bulkLoading": {
+      "title": "Convalida e-mail...",
+      "batchProgress": "Lotto di elaborazione {current} di {total}..."
+    },
+    "stats": {
+      "totalProcessed": "Totale elaborato",
+      "valid": "Valido",
+      "risky": "Rischioso",
+      "invalid": "Non valido"
+    },
+    "results": {
+      "detailedTitle": "Risultati dettagliati",
+      "searchPlaceholder": "Cerca email...",
+      "newVerification": "Nuova verifica",
+      "exportAll": "Esporta tutto",
+      "exportExcel": "Excel (.xlsx)",
+      "exportCsv": "CSV (.csv)",
+      "exportValid": "Esportazione valida ({count})"
+    },
+    "showingResults": "Visualizzazione di {shown} di {total} risultati",
+    "table": {
+      "email": "E-mail",
+      "status": "Stato",
+      "score": "Punto",
+      "checks": "Controlli"
+    },
+    "noSearchResults": "Nessun risultato trovato corrispondente a \"{query}\"",
+    "checksTooltip": {
+      "syntax": "Sintassi",
+      "domain": "Dominio",
+      "mx": "MX",
+      "mailbox": "Cassetta postale"
+    },
+    "exportColumns": {
+      "email": "E-mail",
+      "status": "Stato",
+      "score": "Punto",
+      "syntax": "Sintassi",
+      "domain": "Dominio",
+      "mx": "MX",
+      "mailbox": "Cassetta postale",
+      "disposable": "Monouso",
+      "roleBased": "Basato sui ruoli",
+      "valid": "Valido",
+      "invalid": "Non valido",
+      "yes": "SÌ",
+      "no": "NO"
+    },
+    "sheets": {
+      "validEmails": "Email valide",
+      "results": "Risultati",
+      "template": "Modello"
+    }
+  },
+  "NoSqlExplorer": {
+    "page": {
+      "heroTitle": "Esploratore NoSQL",
+      "heroSubtitle": "Connettiti ai tuoi database per gestire raccolte, eseguire query e visualizzare i tuoi dati.",
+      "featureMultiTitle": "Connessione multipla",
+      "featureMultiDesc": "Gestisci più connessioni al database contemporaneamente.",
+      "featureMongoTitle": "Supporto MongoDB",
+      "featureMongoDesc": "Supporto nativo per MongoDB con filtraggio avanzato.",
+      "featureQueryTitle": "Domanda intelligente",
+      "featureQueryDesc": "Potente generatore di query con evidenziazione della sintassi.",
+      "connectCta": "Connettiti a MongoDB",
+      "footerNote": "Attualmente supporta {db}. Altri database in arrivo.",
+      "footerDb": "MongoDB",
+      "selectCollectionTitle": "Seleziona una raccolta",
+      "selectCollectionDesc": "Scegli una raccolta dalla barra laterale per visualizzare i documenti e iniziare a esplorare i tuoi dati.",
+      "dialogAddConnection": "Aggiungi connessione",
+      "toastConnectionAdded": "Connessione aggiunta",
+      "toastFetchFailed": "Impossibile recuperare i documenti per {collection}",
+      "toastDocDeleted": "Documento eliminato",
+      "deleteDocTitle": "Ne sei assolutamente sicuro?",
+      "deleteDocDescription": "Questa azione non può essere annullata. Ciò eliminerà definitivamente il documento dalla tua raccolta.",
+      "closeAllTitle": "Chiudere tutte le schede?",
+      "closeAllDescription": "Sei sicuro di voler chiudere tutte le schede? Eventuali modifiche non salvate nei filtri di query andranno perse.",
+      "closeAllConfirm": "Chiudi tutto",
+      "cancel": "Cancellare",
+      "delete": "Eliminare"
+    },
+    "connection": {
+      "titleEdit": "Modifica connessione",
+      "titleConnect": "Connettiti a MongoDB",
+      "subtitleEdit": "Aggiorna i dettagli della tua connessione di seguito.",
+      "subtitleConnect": "Inserisci la stringa di connessione MongoDB per iniziare a esplorare i tuoi dati.",
+      "labelName": "Nome",
+      "placeholderName": "per esempio. DB di produzione",
+      "labelConnectionString": "Stringa di connessione",
+      "placeholderConnectionString": "mongodb://localhost:27017",
+      "hintFormat": "Formato: mongodb://nomeutente:password@host:porta/database",
+      "testConnection": "Prova connessione",
+      "connecting": "Collegamento...",
+      "updateConnect": "Aggiorna e connetti",
+      "connect": "Collegare",
+      "cancelEdit": "Annulla modifica",
+      "savedConnections": "Connessioni salvate",
+      "emptySaved": "Nessuna connessione ancora salvata.",
+      "lastUsed": "Ultimo utilizzo {time}",
+      "toastTestOk": "Connessione riuscita!",
+      "toastTestFail": "Connessione non riuscita: {message}",
+      "toastUpdated": "Connessione aggiornata",
+      "confirmDelete": "Sei sicuro di voler eliminare questa connessione salvata?",
+      "toastDeletedConn": "Connessione eliminata",
+      "toastDeleteFail": "Impossibile eliminare la connessione",
+      "copyStringTitle": "Copia stringa di connessione",
+      "toastStringCopied": "Stringa di connessione copiata!",
+      "editTitle": "Modificare",
+      "deleteTitle": "Eliminare"
+    },
+    "sidebar": {
+      "explorer": "Esploratore",
+      "add": "Aggiungere",
+      "tooltipAdd": "Aggiungi nuova connessione",
+      "tooltipRefresh": "Aggiorna le connessioni",
+      "searchPlaceholder": "Ricerca...",
+      "loadingConnections": "Caricamento connessioni...",
+      "noConnectionsFound": "Nessuna connessione trovata",
+      "toastLoadFail": "Impossibile caricare le connessioni",
+      "toastConnectFail": "Impossibile connettersi a {name}",
+      "toastCollectionsFail": "Impossibile recuperare le raccolte per {name}",
+      "toastRenamed": "Connessione rinominata",
+      "toastRenameFail": "Impossibile rinominare la connessione",
+      "confirmDeleteConnection": "Sei sicuro di voler eliminare la connessione \"{name}\"?",
+      "toastDeleted": "Connessione eliminata",
+      "toastDeleteConnFail": "Impossibile eliminare la connessione",
+      "confirmDropDb": "Eliminare il database \"{name}\"? Questa azione non può essere annullata.",
+      "toastDbDropped": "Database {name} eliminato",
+      "confirmDropCollection": "Vuoi eliminare la raccolta \"{name}\"? Questa azione non può essere annullata.",
+      "toastCollectionDropped": "Raccolta {name} abbandonata",
+      "toastCollectionRenamed": "Raccolta rinominata {name}",
+      "toastDatabaseRenamed": "Database rinominato in {name}",
+      "connecting": "Collegamento...",
+      "connectionFailed": "Connessione non riuscita",
+      "noDatabases": "Nessun database",
+      "loading": "Caricamento...",
+      "noCollections": "Nessuna raccolta",
+      "renameCollectionTitle": "Rinomina raccolta",
+      "renameDatabaseTitle": "Rinominare la banca dati",
+      "placeholderNewCollection": "Nuovo nome della collezione",
+      "placeholderNewDatabase": "Nuovo nome del database",
+      "rename": "Rinominare",
+      "refresh": "Aggiorna",
+      "copyDbName": "Copia nome database",
+      "toastDbNameCopied": "Nome del database copiato negli appunti",
+      "dropDatabase": "Elimina database",
+      "dropCollection": "Raccolta gocce",
+      "menuRename": "Rinominare",
+      "menuCopyConnectionString": "Copia stringa di connessione",
+      "menuDeleteConnection": "Elimina connessione",
+      "toastSidebarStringCopied": "Stringa di connessione copiata!",
+      "cancel": "Cancellare"
+    },
+    "document": {
+      "docsBreadcrumb": "{n} documenti",
+      "table": "Tavolo",
+      "json": "JSON",
+      "tree": "Albero",
+      "tooltipTable": "Visualizzazione tabella",
+      "tooltipJson": "Vista JSON",
+      "tooltipTree": "Visualizzazione ad albero",
+      "itemsPerPage": "Articoli per pagina",
+      "perPage": "{n}/pagina",
+      "prevPage": "Pagina precedente",
+      "nextPage": "Pagina successiva",
+      "expandAll": "Espandi tutto",
+      "collapseAll": "Comprimi tutto",
+      "refreshData": "Aggiorna dati",
+      "insert": "Inserire",
+      "export": "Esportare",
+      "actions": "Azioni",
+      "invalidJson": "Contenuto JSON non valido",
+      "copiedClipboard": "Copiato negli appunti",
+      "docUpdated": "Documento aggiornato con successo",
+      "docInserted": "Documento inserito correttamente",
+      "invalidJsonShort": "JSON non valido",
+      "docCopied": "Documento copiato negli appunti",
+      "openFullEditor": "Apri nell'editor completo",
+      "cellArray": "Matrice({length})",
+      "cellObject": "Oggetto",
+      "cellArrayBracket": "Matrice[{length}]",
+      "emptyFilterTitle": "Nessun documento corrisponde alla tua query",
+      "emptyFilterHint": "Prova a modificare il filtro o a cancellare la query.",
+      "clearFilter": "Cancella filtro",
+      "emptyCollectionTitle": "Questa raccolta è vuota",
+      "emptyCollectionHint": "Inserisci un documento per iniziare.",
+      "insertDocument": "Inserisci documento",
+      "formatJson": "Formato JSON",
+      "compactJson": "JSON compatto",
+      "copyClipboard": "Copia negli appunti",
+      "copyJson": "Copia JSON",
+      "duplicate": "Duplicato",
+      "editDoc": "Modifica documento",
+      "deleteDoc": "Elimina documento",
+      "documentLabel": "Documento {n}",
+      "editDialogTitle": "Modifica documento",
+      "insertDialogTitle": "Inserisci documento",
+      "viewValueTitle": "Visualizza valore",
+      "saveChanges": "Salva modifiche",
+      "close": "Vicino",
+      "cancel": "Cancellare",
+      "insertButton": "Inserire"
+    },
+    "tabs": {
+      "filterActive": "Filtro attivo applicato",
+      "filterActiveTooltip": "Filtro attivo",
+      "closeAll": "Chiudi tutto"
+    },
+    "query": {
+      "migrateHistory": "Cronologia delle query migrata nel cloud",
+      "saveHistoryFail": "Impossibile salvare la cronologia delle query",
+      "deleteQueryFail": "Impossibile eliminare la query",
+      "invalidJsonQuery": "Query JSON non valida",
+      "placeholder": "per esempio. { \"status\": \"active\" }",
+      "clearQuery": "Cancella domanda",
+      "openAdvanced": "Apri Editor avanzato",
+      "visualBuilder": "Generatore di query visive",
+      "filterRules": "Regole di filtro",
+      "addRule": "Aggiungi regola",
+      "noFilters": "Nessun filtro applicato. Aggiungi una regola per filtrare i documenti.",
+      "where": "DOVE",
+      "and": "E",
+      "fieldPlaceholder": "Campo",
+      "opPlaceholder": "Op",
+      "typePlaceholder": "Tipo",
+      "opRegex": "Regex",
+      "opIn": "In",
+      "opNin": "Non dentro",
+      "opExists": "Esiste",
+      "typeAuto": "Auto",
+      "typeString": "Corda",
+      "typeNumber": "Numero",
+      "typeBoolean": "Booleano",
+      "typeDate": "Data",
+      "typeObjectId": "OggettoId",
+      "true": "VERO",
+      "false": "Falso",
+      "valuePlaceholder": "Valore",
+      "valueListPlaceholder": "valore1, valore2",
+      "clearFilters": "Cancella filtri",
+      "applyFilters": "Applica filtri",
+      "queryHistory": "Cronologia delle query",
+      "noSavedQueries": "Nessuna query ancora salvata",
+      "advancedEditorTitle": "Editor di query avanzato",
+      "templatesPlaceholder": "Modelli",
+      "templateEmptyAgg": "Aggregazione vuota",
+      "templateMatch": "$corrispondenza (filtro)",
+      "templateLookup": "$ ricerca (Iscriviti)",
+      "templateGroup": "$gruppo (Conteggio/Somma)",
+      "format": "Formato",
+      "formattedJson": "JSON formattato",
+      "runQuery": "Esegui interrogazione"
+    },
+    "export": {
+      "selectFieldsError": "Seleziona almeno un campo da esportare",
+      "success": "Esportazione riuscita in {filename}",
+      "fail": "Impossibile esportare i dati",
+      "title": "Esporta dati",
+      "formatLabel": "Formato di esportazione",
+      "formatXlsx": "Excel (XLSX)",
+      "formatCsv": "CSV",
+      "selectFields": "Seleziona Campi",
+      "selectAll": "Seleziona tutto",
+      "fieldsSelected": "{contare, plurale, uno {# field selected} altro {# fields selected}}",
+      "cancel": "Cancellare",
+      "export": "Esportare",
+      "sheetName": "Dati"
+    },
+    "jsonTree": {
+      "typeLabel": "Tipo: {type}",
+      "itemSummary": "{contare, plurale, uno {# item} altro {# items}}"
+    }
+  },
+  "ApiClient": {
+    "defaults": {
+      "newRequest": "Nuova richiesta",
+      "importedRequest": "Richiesta importata",
+      "untitledRequest": "Richiesta senza titolo"
+    },
+    "toasts": {
+      "curlImported": "cURL importato correttamente",
+      "curlParseFailed": "Impossibile analizzare il comando cURL",
+      "invalidJsonBody": "Corpo JSON non valido",
+      "requestFailed": "Richiesta non riuscita: {message}",
+      "curlPasted": "cURL incollato e analizzato correttamente",
+      "responseCopied": "Risposta copiata negli appunti",
+      "codeCopied": "Codice copiato negli appunti"
+    },
+    "layout": {
+      "collections": "Collezioni",
+      "closeSidebar": "Chiudi la barra laterale",
+      "openSidebar": "Apri la barra laterale"
+    },
+    "requestPanel": {
+      "methodPlaceholder": "Metodo",
+      "urlPlaceholder": "https://api.esempio.com/v1/...",
+      "sending": "Invio...",
+      "send": "Inviare"
+    },
+    "requestTabs": {
+      "params": "Param",
+      "headers": "Intestazioni",
+      "body": "Corpo",
+      "auth": "Aut",
+      "bodyType": "Tipo di corporatura",
+      "selectType": "Seleziona il tipo",
+      "bodyNone": "Nessuno",
+      "bodyJson": "JSON",
+      "bodyText": "Testo",
+      "noBodyHint": "Nessun contenuto del corpo per questa richiesta",
+      "switchToJson": "Passa al corpo JSON",
+      "authType": "Tipo di autenticazione",
+      "noAuth": "Nessuna autenticazione",
+      "bearerToken": "Gettone al portatore",
+      "basicAuth": "Aut. di base",
+      "apiKey": "Chiave API",
+      "labelToken": "Gettone",
+      "placeholderBearerToken": "Gettone al portatore",
+      "labelUsername": "Nome utente",
+      "placeholderUsername": "Nome utente",
+      "labelPassword": "Password",
+      "placeholderPassword": "Password",
+      "labelKey": "Chiave",
+      "placeholderApiKeyName": "Nome della chiave (ad esempio X-Api-Key)",
+      "labelValue": "Valore",
+      "placeholderValue": "Valore",
+      "addTo": "aggiungere a",
+      "header": "Intestazione",
+      "queryParams": "Parametri query",
+      "noAuthHint": "Questa richiesta non utilizza l'autenticazione."
+    },
+    "responsePanel": {
+      "emptyTitle": "Pronto per esplorare?",
+      "emptyHint": "Inserisci un URL e fai clic su Invia per visualizzare i dati della risposta qui.",
+      "responsePreviewAlt": "Anteprima della risposta",
+      "previewUnavailable": "Anteprima non disponibile per questo tipo di contenuto",
+      "status": "Stato",
+      "time": "Tempo",
+      "size": "Misurare",
+      "copyBody": "Copia corpo",
+      "downloadResponse": "Scarica la risposta",
+      "bodyTab": "Corpo",
+      "previewTab": "Anteprima",
+      "headersTab": "Intestazioni",
+      "binaryRawView": "I dati binari non possono essere visualizzati nella vista grezza.",
+      "errorStatusLabel": "Errore"
+    },
+    "tabBar": {
+      "addTabAria": "Nuova scheda"
+    },
+    "collectionsSidebar": {
+      "title": "Risorse API",
+      "newCollection": "Nuova collezione",
+      "tabCollections": "Collezioni",
+      "tabHistory": "Storia",
+      "noCollectionsTitle": "Nessuna raccolta",
+      "noCollectionsHint": "Crea una raccolta per organizzare le tue richieste API.",
+      "createCollection": "Crea raccolta",
+      "newFolder": "Nuova cartella",
+      "rename": "Rinominare",
+      "delete": "Eliminare",
+      "emptyCollection": "Raccolta vuota",
+      "recentRequests": "Richieste recenti",
+      "clearAll": "Cancella tutto",
+      "noHistoryTitle": "Nessuna storia ancora",
+      "noHistoryHint": "Invia una richiesta per vederlo qui.",
+      "dialogNewFolderTitle": "Nuova cartella",
+      "dialogNewFolderDescription": "Crea una nuova cartella per organizzare le tue richieste.",
+      "labelFolderName": "Nome della cartella",
+      "placeholderFolderName": "La mia cartella",
+      "createFolder": "Crea cartella",
+      "dialogNewCollectionTitle": "Nuova collezione",
+      "dialogNewCollectionDescription": "Crea una nuova raccolta di primo livello.",
+      "labelCollectionName": "Nome della raccolta",
+      "placeholderCollectionName": "La mia collezione",
+      "dialogRenameCollectionTitle": "Rinominare la raccolta",
+      "dialogRenameCollectionDescription": "Inserisci un nuovo nome per la raccolta.",
+      "placeholderRenameCollection": "Nome della raccolta",
+      "renameAction": "Rinominare"
+    },
+    "collectionItem": {
+      "newFolder": "Nuova cartella",
+      "delete": "Eliminare",
+      "emptyFolder": "Cartella vuota"
+    },
+    "environmentManager": {
+      "noEnvironment": "Nessun ambiente",
+      "manageDialogTitle": "Gestire gli ambienti",
+      "placeholderNewEnv": "Nuovo ambiente",
+      "variablesHeading": "{name} variabili",
+      "addVariable": "Aggiungi variabile",
+      "columnVariable": "Variabile",
+      "columnValue": "Valore",
+      "placeholderKey": "Chiave",
+      "placeholderValue": "Valore",
+      "selectEnvToEdit": "Seleziona un ambiente da modificare"
+    },
+    "codeGenerator": {
+      "triggerTitle": "Genera codice",
+      "dialogTitle": "Genera codice",
+      "languageCurl": "arricciare",
+      "languageJavaScript": "JavaScript (recupera)",
+      "languagePython": "Python (richieste)",
+      "languageGo": "Andare",
+      "copy": "Copia",
+      "errorGenerating": "Errore durante la generazione del codice"
+    },
+    "keyValueEditor": {
+      "columnKey": "Chiave",
+      "columnValue": "Valore",
+      "placeholderKey": "Chiave",
+      "placeholderValue": "Valore",
+      "addItem": "Aggiungi elemento"
+    },
+    "importCurl": {
+      "trigger": "Importa arricciatura",
+      "dialogTitle": "Importa arricciatura",
+      "dialogDescription": "Incolla il comando cURL di seguito per importarlo come nuova richiesta.",
+      "placeholder": "curl -X POST https://api.example.com/data -d '...'",
+      "import": "Importare"
+    },
+    "saveRequest": {
+      "trigger": "Salva",
+      "dialogTitle": "Salva richiesta",
+      "dialogDescription": "Salva questa richiesta in una cartella di raccolta.",
+      "labelName": "Richiedi nome",
+      "placeholderName": "La mia richiesta",
+      "labelFolder": "Cartella",
+      "placeholderFolder": "Seleziona una cartella",
+      "save": "Salva"
+    }
+  },
+  "RichEditor": {
+    "toolbar": {
+      "editMode": "Modalità Modifica",
+      "viewOnlyMode": "Modalità di sola visualizzazione",
+      "insertComponent": "Inserisci componente",
+      "addUnorderedList": "Aggiungi elenco non ordinato",
+      "addOrderedList": "Aggiungi elenco ordinato",
+      "addTable": "Aggiungi tabella"
+    },
+    "addBlock": "Aggiungi blocco",
+    "media": {
+      "popoverTitle": "Aggiungi contenuti multimediali",
+      "singleImage": "Immagine singola",
+      "singleImageDesc": "Carica un'immagine",
+      "multipleImages": "Immagini multiple",
+      "multipleImagesDesc": "Carica la griglia delle immagini",
+      "video": "Video",
+      "videoDesc": "Carica il file video",
+      "uploadingAlt": "Caricamento...",
+      "uploadFailedAlt": "Caricamento non riuscito"
+    },
+    "export": {
+      "fabAria": "Codice di esportazione",
+      "title": "Codice di esportazione",
+      "description": "Copia l'output HTML o JSON del contenuto dell'editor",
+      "preview": "Anteprima",
+      "html": "HTML",
+      "json": "JSON",
+      "previewOptions": "Opzioni di anteprima",
+      "enhanceSpaces": "Valorizzare gli spazi",
+      "livePreview": "Anteprima dal vivo dell'HTML renderizzato",
+      "htmlTailwind": "HTML con classi CSS Tailwind",
+      "editorJson": "Stato dell'editor come JSON",
+      "copyHtml": "Copia HTML",
+      "copyJson": "Copia JSON",
+      "copied": "Copiato!"
+    },
+    "template": {
+      "fabTitle": "Cambia modello",
+      "title": "Scegli un modello",
+      "description": "Seleziona un modello per iniziare rapidamente con layout e contenuti predefiniti",
+      "catAll": "Tutti i modelli",
+      "catProductivity": "Produttività",
+      "catCreative": "Creativo",
+      "catBusiness": "Attività commerciale",
+      "catPersonal": "Personale",
+      "noTemplates": "Nessun modello trovato in questa categoria",
+      "confirmTitle": "Sostituire il contenuto esistente?",
+      "confirmDescription": "Hai contenuti esistenti nell'editor. L'applicazione di questo modello sostituirà tutti i contenuti attuali.",
+      "cannotUndo": "Questa azione non può essere annullata.",
+      "cancel": "Cancellare",
+      "replaceContent": "Sostituisci contenuto"
+    },
+    "command": {
+      "searchPlaceholder": "Comandi di ricerca...",
+      "noResults": "Nessun comando trovato.",
+      "turnInto": "Trasformarsi in",
+      "h1": {
+        "label": "Rubrica 1",
+        "description": "Titolo di sezione grande",
+        "keywords": "h1,intestazione,titolo,grande"
+      },
+      "h2": {
+        "label": "Rubrica 2",
+        "description": "Titolo della sezione media",
+        "keywords": "h2,intestazione,sottotitolo"
+      },
+      "h3": {
+        "label": "Rubrica 3",
+        "description": "Titolo di piccola sezione",
+        "keywords": "h3,intestazione,sottointestazione"
+      },
+      "h4": {
+        "label": "Rubrica 4",
+        "description": "Titolo di sezione minuscolo",
+        "keywords": "h4,intestazione"
+      },
+      "h5": {
+        "label": "Rubrica 5",
+        "description": "Intestazione più piccola",
+        "keywords": "h5, direzione"
+      },
+      "h6": {
+        "label": "Rubrica 6",
+        "description": "Intestazione più piccola",
+        "keywords": "h6, direzione"
+      },
+      "p": {
+        "label": "Paragrafo",
+        "description": "Paragrafo di testo regolare",
+        "keywords": "p,paragrafo,testo,normale"
+      },
+      "code": {
+        "label": "Blocco codice",
+        "description": "Frammento di codice",
+        "keywords": "codice, blocco codice, snippet, pre"
+      },
+      "blockquote": {
+        "label": "Citazione",
+        "description": "Citazione in blocco",
+        "keywords": "citazione, citazione, citazione"
+      },
+      "li": {
+        "label": "Elenco puntato",
+        "description": "Elemento di elenco semplice con punto elenco",
+        "keywords": "elenco,punto,non ordinato,ul,li"
+      },
+      "ol": {
+        "label": "Elenco numerato",
+        "description": "Voce dell'elenco numerato",
+        "keywords": "elenco,numerato,ordinato,ol,li"
+      },
+      "img": {
+        "label": "Immagine",
+        "description": "Carica o incorpora un'immagine",
+        "keywords": "immagine,img,immagine,foto,carica"
+      },
+      "video": {
+        "label": "Video",
+        "description": "Carica o incorpora un video",
+        "keywords": "video, video, film, mp4, caricamento"
+      },
+      "table": {
+        "label": "Tavolo",
+        "description": "Crea una tabella",
+        "keywords": "tabella, griglia, righe, colonne, celle"
+      }
+    },
+    "toasts": {
+      "tableImported": "Tabella importata",
+      "tableImportedDesc": "La tabella Markdown è stata importata correttamente",
+      "mediaPasted": "Supporti incollati",
+      "pasteMixed": "{imageCount} immagini e {videoCount} video incollati correttamente.",
+      "pasteImages": "{count} immagine/i incollata/e correttamente.",
+      "pasteVideos": "{count} video incollati correttamente.",
+      "pasteFailed": "Incolla non riuscito",
+      "unexpectedError": "Si è verificato un errore imprevisto",
+      "uploadFailed": "Caricamento non riuscito"
+    },
+    "blockBackground": {
+      "menuItem": "Cambia colore di sfondo",
+      "dialogTitle": "Blocca il colore di sfondo",
+      "dialogDescription": "Scegli un colore di sfondo per questo blocco",
+      "tabPreset": "Colori preimpostati",
+      "tabCustom": "Colore personalizzato",
+      "sectionHeading": "Colori di sfondo",
+      "apply": "Fare domanda a",
+      "colors": {
+        "none": "Nessuno",
+        "red": "Rosso",
+        "orange": "Arancia",
+        "yellow": "Giallo",
+        "green": "Verde",
+        "blue": "Blu",
+        "indigo": "Indaco",
+        "purple": "Viola",
+        "pink": "Rosa",
+        "teal": "Verde acqua",
+        "cyan": "Ciano",
+        "gray": "Grigio"
+      }
+    },
+    "tableDialog": {
+      "title": "Crea tabella",
+      "description": "Crea una nuova tabella o importa dal markdown",
+      "markdownCheckbox": "Ho una tabella di ribasso",
+      "pasteMarkdownLabel": "Incolla la tabella di markdown",
+      "markdownPlaceholder": "| Intestazione 1 | Intestazione 2 | Intestazione 3 |\n|----------|----------|----------|\n| Cella 1 | Cella 2 | Cella 3 |\n| Cella 4 | Cella 5 | Cella 6 |",
+      "markdownHint": "Incolla la tabella dei ribassi sopra. Deve includere righe di intestazione e separatori.",
+      "rows": "Righe",
+      "columns": "Colonne",
+      "maxDimensions": "Massimo: 20 righe × 10 colonne",
+      "cancel": "Cancellare",
+      "importTable": "Tabella di importazione",
+      "createTable": "Crea tabella"
+    },
+    "tableParse": {
+      "errors": {
+        "minRows": "La tabella deve avere almeno una riga di intestazione e una riga di separatore",
+        "pipeFormat": "Le righe della tabella devono iniziare e terminare con |",
+        "headerMinCol": "La riga di intestazione deve avere almeno una colonna",
+        "separatorRow": "La seconda riga deve essere un separatore (ad esempio, |---|---|)",
+        "rowColumnMismatch": "La riga {row} ha {got} colonne, previste {expected}",
+        "parseFailed": "Impossibile analizzare la tabella di markdown"
+      }
+    },
+    "link": {
+      "editLink": "Modifica collegamento",
+      "addLink": "Aggiungi collegamento",
+      "selectedText": "Testo selezionato: \"{text}\"",
+      "linkUrl": "URL di collegamento",
+      "urlPlaceholder": "https://esempio.com",
+      "update": "Aggiornamento",
+      "addLinkButton": "Aggiungi collegamento",
+      "toastApplied": "Collegamento applicato",
+      "toastLinkedTo": "Collegato a: {url}",
+      "toastRemoved": "Collegamento rimosso",
+      "toastRemovedDesc": "Il collegamento è stato rimosso dalla selezione"
+    },
+    "customClass": {
+      "devMode": "Modalità sviluppatore",
+      "toggleDevModeAria": "Attiva/disattiva la modalità sviluppatore",
+      "searchPlaceholderDev": "Cerca classi... (ad esempio, 'text', 'bg', 'flex')",
+      "searchPlaceholderUser": "Stili di ricerca... (ad esempio, \"rosso\", \"grassetto\", \"ombra\")",
+      "appliesTitle": "Si applica: {className}",
+      "noMatches": "Nessuna classe trovata corrispondente a \"{query}\"",
+      "toastClassReplaced": "Classe sostituita",
+      "toastClassReplacedDesc": "Sostituito \"{replaced}\" con \"{className}\"",
+      "toastCustomClassApplied": "Classe personalizzata applicata",
+      "toastAppliedClass": "Classe applicata: {className}"
+    },
+    "insertComponents": {
+      "title": "Inserisci componente",
+      "description": "Scegli un componente da inserire nel documento",
+      "noComponents": "Nessun componente disponibile",
+      "categories": {
+        "media": "Media",
+        "layout": "Disposizione",
+        "interactive": "Interattivo",
+        "decoration": "Decorazione"
+      },
+      "freeImage": {
+        "name": "Immagine di libero movimento",
+        "description": "Aggiungi un'immagine che può essere posizionata ovunque e ridimensionata liberamente"
+      }
+    }
+  }
+}
