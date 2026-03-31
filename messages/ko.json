@@ -1,0 +1,1368 @@
+{
+  "Navigation": {
+    "dashboard": "대시보드",
+    "settings": "설정",
+    "apiClient": "API 클라이언트",
+    "passwordManager": "비밀번호 관리자",
+    "bookmarks": "북마크",
+    "emailValidator": "이메일 검증기",
+    "nosqlExplorer": "NoSQL 탐색기"
+  },
+  "Settings": {
+    "title": "설정",
+    "language": "언어",
+    "spanish": "Spanish",
+    "english": "English",
+    "french": "Français",
+    "arabic": "عربى",
+    "catalan": "Catalan",
+    "chineseSimplified": "Chinese (Simplified)",
+    "czech": "Čeština",
+    "greek": "Ελληνικά",
+    "german": "German",
+    "danish": "Danish",
+    "afrikaans": "Afrikaans",
+    "persian": "فارسی",
+    "indonesian": "Bahasa Indonesia",
+    "japanese": "日本語",
+    "korean": "한국어"
+  },
+  "SettingsPage": {
+    "title": "설정",
+    "subtitle": "계정 설정 및 환경설정을 관리하세요.",
+    "userProfile": {
+      "title": "사용자 프로필",
+      "description": "개인 정보 및 계정 세부 사항입니다.",
+      "avatarAlt": "사용자",
+      "anonymousUser": "익명 사용자",
+      "noEmailProvided": "이메일이 제공되지 않았습니다",
+      "notLoggedIn": "로그인되지 않았습니다."
+    },
+    "tools": {
+      "title": "도구 및 기능",
+      "description": "내비게이션 사이드바에 표시할 도구를 선택하세요."
+    },
+    "appearance": {
+      "title": "외관",
+      "description": "기기에서 애플리케이션의 모양을 사용자 지정하세요.",
+      "themePreference": "테마 설정",
+      "themes": {
+        "light": "라이트",
+        "dark": "다크",
+        "system": "시스템"
+      }
+    },
+    "language": {
+      "title": "언어",
+      "description": "플랫폼 전체에서 사용할 언어를 설정하세요.",
+      "selectLanguage": "언어 선택",
+      "selectPlaceholder": "언어를 선택하세요",
+      "helpText": "언어를 변경하면 플랫폼 전체의 메뉴와 레이블이 업데이트됩니다.",
+      "languages": {
+        "en": "English",
+        "fr": "Français",
+        "es": "Español (Spanish)",
+        "ar": "عربى (Arabic)",
+        "ca": "Català",
+        "zh": "简体中文",
+        "cs": "Čeština",
+        "el": "Ελληνικά (Greek)",
+        "de": "Deutsch (German)",
+        "da": "Dansk (Danish)",
+        "af": "Afrikaans",
+        "fa": "فارسی",
+        "id": "Bahasa Indonesia",
+        "ja": "日本語",
+        "ko": "한국어"
+      }
+    }
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "좋은 아침이에요",
+      "afternoon": "좋은 오후에요",
+      "evening": "좋은 저녁이에요"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "다시 오신 것을 환영합니다",
+    "welcomeBackNamed": "다시 오신 것을 환영합니다, {name}",
+    "tagline": "오늘은 무엇을 만들어 볼까요?",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "도구",
+      "favorites": "즐겨찾기"
+    },
+    "sections": {
+      "recentlyUsed": "최근 사용",
+      "favorites": "즐겨찾기"
+    },
+    "groups": {
+      "apps": "앱"
+    },
+    "toolCard": {
+      "defaultDescription": "더 나은 기능을 위해 이 도구를 탐색하세요.",
+      "launchTool": "도구 실행"
+    },
+    "tools": {
+      "toDo": {
+        "title": "할 일",
+        "description": "할 일 목록을 효율적으로 관리하세요."
+      },
+      "notes": {
+        "title": "메모",
+        "description": "아이디어를 기록하고 생각을 정리하세요."
+      },
+      "passwordManager": {
+        "title": "비밀번호 관리자",
+        "description": "비밀번호를 안전하게 저장하고 관리하세요."
+      },
+      "bookmarks": {
+        "title": "북마크",
+        "description": "북마크를 관리하고 정리하세요."
+      },
+      "apiClient": {
+        "title": "API 클라이언트",
+        "description": "HTTP 요청을 테스트하고 디버그하세요."
+      },
+      "nosqlExplorer": {
+        "title": "NoSQL 탐색기",
+        "description": "MongoDB 데이터베이스를 탐색하세요."
+      },
+      "emailValidator": {
+        "title": "이메일 검증기",
+        "description": "이메일 주소를 검증하세요."
+      }
+    }
+  },
+  "Tasks": {
+    "page": {
+      "loading": "로딩 중...",
+      "myTasksTitle": "내 할 일",
+      "statsLine": "{total}개 할 일 • {percent}% 완료",
+      "statsLineDesktop": "총 {total}개 • {percent}% 완료"
+    },
+    "filters": {
+      "all": "전체",
+      "total": "합계",
+      "allProjects": "모든 프로젝트",
+      "export": "내보내기",
+      "kanban": "칸반",
+      "list": "목록",
+      "searchPlaceholder": "할 일 검색...",
+      "searchAria": "할 일 검색",
+      "clearSearchAria": "검색 지우기",
+      "foundTasks": "{count}개의 할 일을 찾았습니다",
+      "filterByAllAria": "전체로 필터",
+      "filterByStatusAria": "{status}로 필터"
+    },
+    "status": {
+      "not-started": {
+        "label": "시작 안 함",
+        "description": "아직 시작하지 않은 할 일"
+      },
+      "ongoing": {
+        "label": "진행 중",
+        "description": "현재 진행 중인 할 일"
+      },
+      "completed": {
+        "label": "완료",
+        "description": "완료된 할 일"
+      }
+    },
+    "priorities": {
+      "high": "높음",
+      "medium": "보통",
+      "low": "낮음"
+    },
+    "form": {
+      "addNewTaskLabel": "새 할 일 추가",
+      "multilinePlaceholder": "할 일 세부 사항 입력... (Shift+Enter로 줄 바꿈)",
+      "singlelinePlaceholder": "무엇을 해야 하나요? Enter를 눌러 추가",
+      "taskInputAria": "할 일 입력",
+      "projectPlaceholder": "프로젝트",
+      "selectProject": "프로젝트 선택",
+      "errorSelectProject": "할 일을 추가하려면 프로젝트를 선택하거나 새로 만드세요.",
+      "hintMultiline": "Shift+Enter로 줄 바꿈, Enter로 추가",
+      "hintSingleline": "Enter로 추가",
+      "shortcutsAria": "키보드 단축키",
+      "shortcutsLabel": "단축키",
+      "shortcutAddTask": "할 일 추가",
+      "shortcutNewLine": "줄 바꿈",
+      "shortcutClear": "지우기",
+      "addButton": "추가"
+    },
+    "list": {
+      "ariaLabel": "할 일 목록",
+      "loading": "할 일을 불러오는 중...",
+      "emptyTitle": "할 일이 없습니다",
+      "emptyPrimary": "위에서 첫 번째 할 일을 추가하여 시작하세요! Enter를 눌러 빠르게 추가할 수 있습니다.",
+      "emptySecondary": "필터나 검색 조건을 조정해 보세요."
+    },
+    "mobileDrawer": {
+      "addTaskSrOnly": "할 일 추가",
+      "addNewTaskTitle": "새 할 일 추가",
+      "addNewTaskDescription": "진행 상황을 추적할 새 할 일을 만드세요.",
+      "cancel": "취소"
+    },
+    "kanban": {
+      "ariaLabel": "칸반 보드",
+      "loading": "할 일을 불러오는 중...",
+      "dropHere": "여기에 드롭하세요",
+      "noTasksYet": "아직 할 일이 없습니다",
+      "emptyColumnAria": "빈 열",
+      "columnAria": "{title} 열 ({count}개 할 일)",
+      "countInColumnAria": "{title}에 {count}개 할 일"
+    },
+    "taskItem": {
+      "confirmDelete": "이 할 일을 삭제하시겠습니까?",
+      "statusPlaceholder": "상태",
+      "changeStatusAria": "할 일 상태 변경",
+      "taskOptionsAria": "할 일 옵션",
+      "editTask": "할 일 수정",
+      "copyTask": "할 일 복사",
+      "copied": "복사됨!",
+      "deleteTask": "할 일 삭제",
+      "statusHeading": "상태",
+      "editTaskAria": "할 일 수정"
+    },
+    "editDialog": {
+      "title": "할 일 수정",
+      "description": "할 일 세부 사항을 업데이트하고, 하위 작업을 추가하고, 우선순위를 설정하세요.",
+      "taskTitleLabel": "할 일 제목 *",
+      "taskTitlePlaceholder": "무엇을 해야 하나요?",
+      "descriptionLabel": "설명",
+      "descriptionPlaceholder": "이 할 일에 대한 자세한 내용을 추가하세요...",
+      "statusLabel": "상태",
+      "priorityLabel": "우선순위",
+      "dueDateLabel": "마감일",
+      "pickDate": "날짜 선택",
+      "clearDate": "날짜 지우기",
+      "projectLabel": "프로젝트",
+      "selectProjectPlaceholder": "프로젝트를 선택하세요",
+      "noProject": "프로젝트 없음",
+      "timeEstimateLabel": "예상 소요 시간 (분)",
+      "timeEstimatePlaceholder": "얼마나 걸릴까요?",
+      "tagsLabel": "태그",
+      "customTagNamePlaceholder": "사용자 지정 태그 이름",
+      "subtasksLabel": "하위 작업",
+      "addSubtaskPlaceholder": "하위 작업 추가...",
+      "cancel": "취소",
+      "saving": "저장 중...",
+      "saveChanges": "변경 사항 저장"
+    },
+    "export": {
+      "title": "할 일 내보내기",
+      "description": "할 일을 JSON, CSV 또는 Excel 형식으로 내보내세요.",
+      "projectLabel": "프로젝트",
+      "statusLabel": "상태",
+      "tagLabel": "태그",
+      "allProjects": "모든 프로젝트",
+      "allStatuses": "모든 상태",
+      "allTags": "모든 태그",
+      "exportAsJsonTitle": "JSON으로 내보내기",
+      "exportAsJsonDescription": "하위 작업, 태그 및 메타데이터를 포함한 할 일 데이터를 내보내세요.",
+      "exportJson": "JSON 내보내기",
+      "exportAsCsvExcelTitle": "CSV / Excel로 내보내기",
+      "exportAsCsvExcelDescription": "스프레드시트 애플리케이션용으로 할 일을 내보내세요.",
+      "exportCsv": "CSV 내보내기",
+      "exportExcel": "Excel 내보내기",
+      "close": "닫기",
+      "toastNoTasks": "현재 필터로 내보낼 할 일이 없습니다",
+      "toastExportedJson": "{count}개의 할 일을 JSON으로 내보냈습니다!",
+      "toastExportedCsv": "{count}개의 할 일을 CSV로 내보냈습니다!",
+      "toastExportedExcel": "{count}개의 할 일을 Excel로 내보냈습니다!",
+      "toastFailedJson": "JSON 내보내기에 실패했습니다",
+      "toastFailedCsv": "CSV 내보내기에 실패했습니다",
+      "toastFailedExcel": "Excel 내보내기에 실패했습니다",
+      "unknownProject": "알 수 없는 프로젝트"
+    },
+    "ack": {
+      "taskAddedTitle": "할 일이 추가되었습니다",
+      "taskAddedFailedTitle": "할 일 추가에 실패했습니다",
+      "taskUpdatedTitle": "할 일이 업데이트되었습니다",
+      "taskUpdatedFailedTitle": "할 일 업데이트에 실패했습니다",
+      "taskStatusUpdateFailedTitle": "할 일 상태 업데이트에 실패했습니다",
+      "taskMovedTitle": "할 일이 {status}(으)로 이동되었습니다",
+      "tryAgain": "다시 시도해 주세요.",
+      "taskDeletedTitle": "할 일 \"{text}\"이(가) 삭제되었습니다",
+      "undo": "실행 취소",
+      "taskRestoredTitle": "할 일이 복원되었습니다",
+      "taskRestoredSuccessTitle": "할 일이 복원되었습니다",
+      "taskRestoreFailedTitle": "할 일 복원에 실패했습니다. 다시 시도해 주세요.",
+      "taskDeleteFailedTitle": "할 일 삭제에 실패했습니다. 다시 시도해 주세요.",
+      "tasksImportedTitle": "{count}개의 할 일을 가져왔습니다!",
+      "tasksImportFailedTitle": "할 일 가져오기에 실패했습니다. 다시 시도해 주세요.",
+      "unknownProject": "알 수 없는 프로젝트",
+      "projectCreatedTitle": "프로젝트가 생성되었습니다",
+      "projectCreateFailedTitle": "프로젝트 생성에 실패했습니다",
+      "projectUpdatedTitle": "프로젝트가 업데이트되었습니다",
+      "projectUpdateFailedTitle": "프로젝트 업데이트에 실패했습니다",
+      "projectDeletedTitle": "프로젝트가 삭제되었습니다",
+      "projectDeleteFailedTitle": "프로젝트 삭제에 실패했습니다"
+    }
+  },
+  "Notes": {
+    "page": {
+      "loading": "로딩 중..."
+    },
+    "layout": {
+      "mobileNavTitle": "메모 내비게이션",
+      "openMenuAria": "메모 메뉴 열기"
+    },
+    "sidebar": {
+      "title": "메모",
+      "createNoteAria": "메모 작성",
+      "searchPlaceholder": "메모 검색...",
+      "loading": "로딩 중...",
+      "noNotesFound": "메모를 찾을 수 없습니다.",
+      "noNotesYet": "아직 메모가 없습니다. +를 눌러 만드세요.",
+      "inParent": "{parentTitle} 안에",
+      "untitled": "제목 없음",
+      "addSubPage": "하위 페이지 추가",
+      "delete": "삭제",
+      "deleteConfirmTitle": "메모를 삭제하시겠습니까?",
+      "deleteConfirmDescription": "\"{title}\"을(를) 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+      "cancel": "취소",
+      "confirmDelete": "삭제",
+      "noteOptionsAria": "메모 옵션"
+    },
+    "editor": {
+      "emptyState": "메모를 선택하거나 새로 만들어 시작하세요.",
+      "titlePlaceholder": "제목 없음"
+    },
+    "context": {
+      "authRequiredError": "사용자가 인증되지 않았습니다",
+      "defaultTitle": "제목 없음"
+    }
+  },
+  "PasswordManager": {
+    "page": {
+      "loading": "로딩 중...",
+      "title": "비밀번호 관리자"
+    },
+    "vault": {
+      "toastDecryptFailed": "비밀번호 복호화에 실패했습니다",
+      "toastLoadFailed": "비밀번호 불러오기에 실패했습니다",
+      "toastUnlockedAuto": "볼트가 자동으로 잠금 해제되었습니다",
+      "toastAutoUnlockFailed": "자동 잠금 해제에 실패했습니다. 수동으로 잠금을 해제해 주세요.",
+      "toastConnectFailed": "서버 연결에 실패했습니다",
+      "toastAutoUnlockWarning": "볼트가 잠금 해제되었지만, 새로고침 시 자동 잠금 해제가 작동하지 않을 수 있습니다",
+      "errorIncorrectPassword": "마스터 비밀번호가 올바르지 않습니다",
+      "errorUnlockFailed": "볼트 잠금 해제에 실패했습니다",
+      "errorPasswordsMismatch": "비밀번호가 일치하지 않습니다",
+      "errorPasswordTooShort": "비밀번호는 최소 8자 이상이어야 합니다",
+      "errorSetupFailed": "볼트 설정에 실패했습니다",
+      "errorConnectFailed": "서버 연결에 실패했습니다.",
+      "mobileTitleCreate": "볼트 만들기",
+      "mobileTitleWelcome": "다시 오신 것을 환영합니다",
+      "mobileSubtitleCreate": "자격 증명을 보호할 마스터 비밀번호를 설정하세요",
+      "mobileSubtitleUnlock": "마스터 비밀번호를 입력하여 잠금을 해제하세요",
+      "placeholderMasterPassword": "마스터 비밀번호",
+      "placeholderConfirmPassword": "비밀번호 확인",
+      "labelMasterPassword": "마스터 비밀번호",
+      "labelConfirmPassword": "비밀번호 확인",
+      "placeholderEnterMaster": "마스터 비밀번호 입력",
+      "placeholderConfirmMaster": "마스터 비밀번호 확인",
+      "buttonCreateVault": "볼트 만들기",
+      "buttonUnlock": "잠금 해제",
+      "buttonUnlockVault": "볼트 잠금 해제",
+      "footerCreate": "비밀번호는 저장되지 않으며 복구할 수 없습니다",
+      "footerUnlock": "종단간 암호화로 보호됩니다",
+      "desktopTitleSetup": "비밀번호 볼트 설정",
+      "desktopTitleUnlock": "볼트 잠금 해제",
+      "desktopDescriptionSetup": "자격 증명을 보호할 마스터 비밀번호를 만드세요. 이 비밀번호는 저장되지 않으며 복구할 수 없습니다.",
+      "desktopDescriptionUnlock": "마스터 비밀번호를 입력하여 보안 자격 증명에 접근하세요."
+    },
+    "list": {
+      "loading": "비밀번호를 불러오는 중...",
+      "emptyTitle": "볼트가 비어 있습니다",
+      "emptyHintMobile": "+ 버튼을 눌러 첫 번째 비밀번호를 추가하세요",
+      "emptyHintDesktop": "아직 저장된 비밀번호가 없습니다. 위의 \"비밀번호 추가\" 버튼을 클릭하여 시작하세요.",
+      "addPassword": "비밀번호 추가",
+      "searchPlaceholderMobile": "볼트 검색...",
+      "searchPlaceholderDesktop": "볼트 검색...",
+      "importExport": "가져오기 / 내보내기",
+      "lockVault": "볼트 잠금",
+      "allPasswordsTitle": "모든 비밀번호",
+      "passwordCount": "{count, plural, one {#개 비밀번호} other {#개 비밀번호}}",
+      "vaultHealthDrawerTitle": "볼트 상태",
+      "noResults": "\"{query}\"와(과) 일치하는 비밀번호가 없습니다",
+      "tableService": "서비스",
+      "tableUsername": "사용자 이름",
+      "tablePassword": "비밀번호",
+      "tableUrl": "URL",
+      "tableActions": "작업",
+      "gridViewAria": "그리드 보기",
+      "listViewAria": "목록 보기",
+      "passwordStrengthTitle": "비밀번호 강도",
+      "deleteDialogTitle": "비밀번호 삭제",
+      "deleteDialogDescription": "이 비밀번호를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+      "cancel": "취소",
+      "delete": "삭제",
+      "edit": "수정"
+    },
+    "toasts": {
+      "copiedPassword": "비밀번호가 클립보드에 복사되었습니다",
+      "copiedUsername": "사용자 이름이 클립보드에 복사되었습니다",
+      "passwordDeleted": "비밀번호가 삭제되었습니다",
+      "deleteFailed": "비밀번호 삭제에 실패했습니다",
+      "vaultLocked": "볼트가 잠겼습니다",
+      "importedCount": "{count, plural, one {#개의 비밀번호를 가져왔습니다} other {#개의 비밀번호를 가져왔습니다}}"
+    },
+    "form": {
+      "addTitle": "새 비밀번호 추가",
+      "editTitle": "비밀번호 수정",
+      "serviceName": "서비스 이름",
+      "usernameEmail": "사용자 이름 / 이메일",
+      "password": "비밀번호",
+      "urlOptional": "웹사이트 URL (선택 사항)",
+      "notesOptional": "메모 (선택 사항)",
+      "tags": "태그",
+      "placeholderService": "예: Netflix",
+      "placeholderUsername": "user@example.com",
+      "placeholderPassword": "비밀번호를 입력하거나 생성하세요",
+      "placeholderUrl": "https://...",
+      "placeholderNotes": "추가 세부 사항...",
+      "placeholderTags": "태그 추가 (Enter 또는 쉼표를 누르세요)",
+      "strength": "강도",
+      "strengthWeak": "약함",
+      "strengthMedium": "보통",
+      "strengthStrong": "강함",
+      "advancedGenerator": "고급 생성기",
+      "cancel": "취소",
+      "saving": "저장 중...",
+      "savePassword": "비밀번호 저장",
+      "updating": "업데이트 중...",
+      "updatePassword": "비밀번호 업데이트",
+      "addPasswordSrOnly": "비밀번호 추가",
+      "triggerAdd": "비밀번호 추가",
+      "toastSaved": "비밀번호가 저장되었습니다",
+      "toastSaveFailed": "비밀번호 저장에 실패했습니다",
+      "toastUpdated": "비밀번호가 업데이트되었습니다",
+      "toastUpdateFailed": "비밀번호 업데이트에 실패했습니다"
+    },
+    "security": {
+      "vaultHealth": "볼트 상태",
+      "statusLabel": "상태",
+      "totalPasswords": "전체 비밀번호",
+      "activeEntries": "볼트의 활성 항목",
+      "protected": "보호됨",
+      "weakPasswords": "취약한 비밀번호",
+      "needingImprovement": "개선이 필요한 비밀번호",
+      "allGood": "모두 양호",
+      "reusedPasswords": "재사용된 비밀번호",
+      "usedMultipleTimes": "여러 번 사용된 비밀번호",
+      "unique": "고유",
+      "total": "전체",
+      "weak": "취약",
+      "reused": "재사용",
+      "totalCountLabel": "{count, plural, one {#개 비밀번호} other {#개 비밀번호}}",
+      "weakCountLabel": "{count}개 취약",
+      "allSecure": "모두 안전",
+      "scoreExcellent": "우수",
+      "scoreGood": "양호",
+      "scoreFair": "보통",
+      "scoreCritical": "위험"
+    },
+    "importExport": {
+      "title": "볼트 가져오기 / 내보내기",
+      "description": "비밀번호 데이터를 관리하세요. 볼트를 JSON으로 내보내거나 JSON 파일에서 가져올 수 있습니다.",
+      "tabExport": "내보내기",
+      "tabImport": "가져오기",
+      "warningTitle": "경고",
+      "warningBody": "내보낸 파일에는 비밀번호가 평문으로 포함되어 있습니다. 이 파일을 안전하게 보관하고 사용 후 삭제하세요.",
+      "exportBlurb": "전체 볼트를 JSON 파일로 다운로드하세요. 모든 서비스, 사용자 이름, 비밀번호 및 메모가 포함됩니다.",
+      "downloadJson": "JSON 내보내기 다운로드",
+      "pasteLabel": "JSON 데이터 붙여넣기",
+      "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
+      "pasteHint": "이전에 내보낸 JSON 파일의 내용을 여기에 붙여넣으세요.",
+      "importing": "가져오는 중...",
+      "importPasswords": "비밀번호 가져오기",
+      "trigger": "가져오기 / 내보내기",
+      "toastExported": "볼트가 내보내졌습니다",
+      "toastExportFailed": "볼트 내보내기에 실패했습니다",
+      "toastImportFailed": "가져오기 실패: 잘못된 JSON 형식"
+    },
+    "card": {
+      "copyUsername": "사용자 이름 복사",
+      "openUrl": "URL 열기",
+      "strength": "강도"
+    },
+    "swipeable": {
+      "copy": "복사",
+      "delete": "삭제",
+      "copyPassword": "비밀번호 복사",
+      "copyUsername": "사용자 이름 복사",
+      "edit": "수정",
+      "deleteAction": "삭제"
+    },
+    "floatingMenu": {
+      "lockVault": "볼트 잠금",
+      "importExport": "가져오기 / 내보내기",
+      "addPassword": "비밀번호 추가"
+    },
+    "generator": {
+      "tabPassword": "비밀번호",
+      "tabPassphrase": "암호문",
+      "strength": "강도",
+      "lengthLabel": "길이: {length}자",
+      "lengthBadge": "{length}자",
+      "characterSets": "문자 집합",
+      "uppercase": "대문자",
+      "lowercase": "소문자",
+      "numbers": "숫자",
+      "symbols": "기호",
+      "wordCountLabel": "단어 수: {count}",
+      "wordCountBadge": "{count, plural, one {#개 단어} other {#개 단어}}",
+      "separator": "구분자",
+      "capitalization": "대문자화",
+      "includeNumber": "숫자 포함"
+    }
+  },
+  "Bookmarks": {
+    "page": {
+      "loading": "로딩 중..."
+    },
+    "manager": {
+      "foldersHeading": "폴더",
+      "tagsHeading": "태그",
+      "tagsMore": "+{count}개 더",
+      "searchPlaceholder": "북마크 검색...",
+      "import": "가져오기",
+      "export": "내보내기",
+      "exportAsHtml": "HTML로 내보내기",
+      "exportAsJson": "JSON으로 내보내기",
+      "addBookmark": "북마크 추가",
+      "matchingQuery": "\"{query}\" 검색 결과",
+      "bookmarkCount": "{count, plural, one {#개 북마크} other {#개 북마크}}",
+      "allBookmarks": "모든 북마크",
+      "uncategorized": "미분류",
+      "unknownFolder": "알 수 없음"
+    },
+    "card": {
+      "urlCopied": "URL이 클립보드에 복사되었습니다",
+      "bookmarkDeleted": "북마크가 삭제되었습니다",
+      "edit": "수정",
+      "delete": "삭제",
+      "copyUrl": "URL 복사",
+      "deleteConfirmTitle": "북마크를 삭제하시겠습니까?",
+      "deleteConfirmDescription": "\"{title}\"을(를) 영구적으로 삭제합니다.",
+      "cancel": "취소"
+    },
+    "grid": {
+      "emptyTitle": "아직 북마크가 없습니다",
+      "emptyDescription": "첫 번째 북마크를 추가하거나 브라우저에서 가져와 시작하세요."
+    },
+    "folderTree": {
+      "allBookmarks": "모든 북마크",
+      "addSubfolder": "하위 폴더 추가",
+      "rename": "이름 변경",
+      "deleteFolderTitle": "\"{name}\" 폴더를 삭제하시겠습니까?",
+      "deleteFolderDescription": "이 폴더와 모든 하위 폴더가 삭제됩니다. 이 폴더의 북마크는 미분류로 이동됩니다."
+    },
+    "import": {
+      "title": "북마크 가져오기",
+      "description": "브라우저에서 내보낸 파일에서 북마크를 가져오세요.",
+      "parseError": "북마크 파일 분석에 실패했습니다. 유효한 북마크 내보내기 파일인지 확인하세요.",
+      "successToast": "{bookmarks}개 북마크와 {folders}개 폴더를 가져왔습니다",
+      "errorToast": "북마크 가져오기에 실패했습니다",
+      "chromeInstruction": "메뉴 → 북마크 → 북마크 관리자 → ⋮ → 북마크 내보내기",
+      "firefoxInstruction": "메뉴 → 북마크 → 북마크 관리 → 가져오기 및 백업 → 내보내기",
+      "safariInstruction": "파일 → 북마크 내보내기...",
+      "edgeInstruction": "메뉴 → 즐겨찾기 → ⋯ → 즐겨찾기 내보내기",
+      "dropZoneTitle": "여기에 북마크 파일을 드롭하세요",
+      "dropZoneHint": "또는 클릭하여 찾아보기 (HTML 또는 JSON)",
+      "selectedFileHint": "클릭하여 다른 파일 선택",
+      "errorTitle": "오류",
+      "previewTitle": "가져오기 미리보기",
+      "previewBookmarks": "{count, plural, one {#개 북마크} other {#개 북마크}}",
+      "previewFolders": "{count, plural, one {#개 폴더} other {#개 폴더}}",
+      "importModeLabel": "가져오기 모드",
+      "modeMerge": "기존 북마크와 병합",
+      "modeReplace": "기존 북마크 모두 교체",
+      "cancel": "취소",
+      "importButton": "가져오기",
+      "importButtonWithCount": "{count, plural, one {#개 북마크 가져오기} other {#개 북마크 가져오기}}"
+    },
+    "addBookmark": {
+      "titleAdd": "북마크 추가",
+      "titleEdit": "북마크 수정",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://example.com",
+      "urlInvalid": "유효한 URL을 입력해 주세요",
+      "titleLabel": "제목",
+      "titlePlaceholder": "북마크 제목",
+      "titleRequired": "제목을 입력해 주세요",
+      "descriptionLabel": "설명 (선택 사항)",
+      "descriptionPlaceholder": "이 북마크에 대한 메모 추가",
+      "folderLabel": "폴더",
+      "folderPlaceholder": "폴더 선택",
+      "noFolder": "폴더 없음",
+      "tagsLabel": "태그",
+      "tagsPlaceholder": "태그 추가 (Enter를 누르세요)",
+      "toastUpdated": "북마크가 업데이트되었습니다",
+      "toastAdded": "북마크가 추가되었습니다",
+      "cancel": "취소",
+      "submitAdd": "북마크 추가",
+      "submitUpdate": "북마크 업데이트"
+    },
+    "addFolder": {
+      "title": "폴더 만들기",
+      "nameLabel": "폴더 이름",
+      "namePlaceholder": "내 폴더",
+      "nameRequired": "폴더 이름을 입력해 주세요",
+      "parentLabel": "상위 폴더",
+      "parentPlaceholder": "상위 폴더 선택",
+      "rootParent": "루트 (상위 폴더 없음)",
+      "toastCreated": "폴더가 생성되었습니다",
+      "cancel": "취소",
+      "submit": "폴더 만들기"
+    },
+    "editFolder": {
+      "title": "폴더 이름 변경",
+      "nameLabel": "폴더 이름",
+      "namePlaceholder": "폴더 이름",
+      "nameRequired": "폴더 이름을 입력해 주세요",
+      "toastRenamed": "폴더 이름이 변경되었습니다",
+      "cancel": "취소",
+      "save": "저장"
+    }
+  },
+  "EmailValidator": {
+    "header": {
+      "title": "이메일 검증기",
+      "description": "이메일 주소의 구문, 도메인 및 전달 가능 여부를 검증하세요."
+    },
+    "tabs": {
+      "single": "단일 검증",
+      "bulk": "대량 업로드"
+    },
+    "single": {
+      "cardTitle": "단일 이메일 검증",
+      "cardDescription": "이메일 주소를 입력하여 전달 가능 여부와 평판을 확인하세요.",
+      "placeholder": "이메일 주소 입력...",
+      "clearAria": "이메일 지우기",
+      "validate": "검증",
+      "validating": "검증 중...",
+      "formatError": "유효한 이메일 주소를 입력해 주세요"
+    },
+    "toasts": {
+      "errorTitle": "오류",
+      "enterEmail": "이메일 주소를 입력해 주세요",
+      "invalidFormatTitle": "잘못된 이메일 형식",
+      "invalidFormatDescription": "유효한 이메일 주소를 입력해 주세요",
+      "validateFailedDescription": "이메일 검증 중 오류가 발생했습니다",
+      "noEmailsTitle": "이메일을 찾을 수 없습니다",
+      "noEmailsDescription": "Excel에 'email' 열이 있는지 확인해 주세요.",
+      "fileTooLargeTitle": "파일이 너무 큽니다",
+      "fileTooLargeDescription": "{total}개의 이메일이 발견되었습니다. 처음 4000개만 검증됩니다.",
+      "successTitle": "성공",
+      "successValidated": "{count}개의 이메일을 검증했습니다.",
+      "batchFailedTitle": "대량 검증 실패",
+      "batchFailedDescription": "대량 검증 처리 중 오류가 발생했습니다.",
+      "noExportTitle": "내보낼 데이터가 없습니다",
+      "noExportValidOnly": "내보낼 유효한 이메일이 없습니다.",
+      "noExportAll": "내보낼 결과가 없습니다.",
+      "exportSuccessTitle": "내보내기 성공",
+      "exportSuccessExcelAll": "{count}개의 이메일을 Excel로 내보냈습니다.",
+      "exportSuccessExcelValid": "{count}개의 유효한 이메일을 Excel로 내보냈습니다.",
+      "exportSuccessCsvAll": "{count}개의 이메일을 CSV로 내보냈습니다.",
+      "exportSuccessCsvValid": "{count}개의 유효한 이메일을 CSV로 내보냈습니다."
+    },
+    "disposableAlert": {
+      "title": "일회용 이메일 감지됨",
+      "description": "이 이메일 주소는 일회용 이메일 제공업체에 속합니다. 임시이거나 안전하지 않을 수 있습니다."
+    },
+    "score": {
+      "reliabilityTitle": "신뢰도 점수",
+      "scoreLabel": "점수"
+    },
+    "details": {
+      "sectionTitle": "검증 세부 사항"
+    },
+    "validation": {
+      "syntaxLabel": "구문 유효",
+      "syntaxTooltip": "이메일 주소가 올바른 형식(예: user@domain.com)을 따르는지 확인합니다",
+      "domainLabel": "도메인 존재",
+      "domainTooltip": "이메일 주소의 도메인 이름이 실제로 존재하는지 확인합니다",
+      "mxLabel": "MX 레코드 존재",
+      "mxTooltip": "도메인에 이메일을 수신하도록 구성된 메일 교환(MX) 레코드가 있는지 확인합니다",
+      "mailboxLabel": "메일함 존재",
+      "mailboxTooltip": "메일 서버에 특정 메일함/계정이 존재하는지 확인합니다",
+      "disposableLabel": "일회용 이메일",
+      "disposableTooltip": "이 이메일이 임시/일회용 이메일 서비스에 속하는지 나타냅니다 (위험할 수 있음)",
+      "roleBasedLabel": "역할 기반 이메일",
+      "roleBasedTooltip": "이것이 개인 주소가 아닌 역할 기반 이메일(예: support@, info@)인지 식별합니다"
+    },
+    "copy": {
+      "emailCopied": "이메일이 복사되었습니다!",
+      "copyTooltip": "이메일 복사"
+    },
+    "bulk": {
+      "dropHere": "여기에 파일을 드롭하세요",
+      "dragHere": "파일을 여기에 드래그 앤 드롭하세요",
+      "uploadHint": "최대 4000개의 이메일을 검증하려면 'email' 열이 포함된 .xlsx, .xls 또는 .csv 파일을 업로드하세요.",
+      "filePrefix": "파일:",
+      "selectFile": "파일 선택",
+      "downloadTemplate": "템플릿 다운로드"
+    },
+    "bulkLoading": {
+      "title": "이메일 검증 중...",
+      "batchProgress": "배치 {current}/{total} 처리 중..."
+    },
+    "stats": {
+      "totalProcessed": "총 처리",
+      "valid": "유효",
+      "risky": "위험",
+      "invalid": "무효"
+    },
+    "results": {
+      "detailedTitle": "상세 결과",
+      "searchPlaceholder": "이메일 검색...",
+      "newVerification": "새 검증",
+      "exportAll": "전체 내보내기",
+      "exportExcel": "Excel (.xlsx)",
+      "exportCsv": "CSV (.csv)",
+      "exportValid": "유효한 항목 내보내기 ({count})"
+    },
+    "showingResults": "{total}개 중 {shown}개 표시",
+    "table": {
+      "email": "이메일",
+      "status": "상태",
+      "score": "점수",
+      "checks": "검사"
+    },
+    "noSearchResults": "\"{query}\"와(과) 일치하는 결과가 없습니다",
+    "checksTooltip": {
+      "syntax": "구문",
+      "domain": "도메인",
+      "mx": "MX",
+      "mailbox": "메일함"
+    },
+    "exportColumns": {
+      "email": "이메일",
+      "status": "상태",
+      "score": "점수",
+      "syntax": "구문",
+      "domain": "도메인",
+      "mx": "MX",
+      "mailbox": "메일함",
+      "disposable": "일회용",
+      "roleBased": "역할 기반",
+      "valid": "유효",
+      "invalid": "무효",
+      "yes": "예",
+      "no": "아니오"
+    },
+    "sheets": {
+      "validEmails": "유효한 이메일",
+      "results": "결과",
+      "template": "템플릿"
+    }
+  },
+  "NoSqlExplorer": {
+    "page": {
+      "heroTitle": "NoSQL 탐색기",
+      "heroSubtitle": "데이터베이스에 연결하여 컬렉션을 관리하고, 쿼리를 실행하고, 데이터를 시각화하세요.",
+      "featureMultiTitle": "다중 연결",
+      "featureMultiDesc": "여러 데이터베이스 연결을 동시에 관리하세요.",
+      "featureMongoTitle": "MongoDB 지원",
+      "featureMongoDesc": "고급 필터링을 지원하는 네이티브 MongoDB 지원.",
+      "featureQueryTitle": "스마트 쿼리",
+      "featureQueryDesc": "구문 강조 기능을 갖춘 강력한 쿼리 빌더.",
+      "connectCta": "MongoDB에 연결",
+      "footerNote": "현재 {db}를 지원합니다. 더 많은 데이터베이스가 곧 추가됩니다.",
+      "footerDb": "MongoDB",
+      "selectCollectionTitle": "컬렉션을 선택하세요",
+      "selectCollectionDesc": "사이드바에서 컬렉션을 선택하여 문서를 보고 데이터 탐색을 시작하세요.",
+      "dialogAddConnection": "연결 추가",
+      "toastConnectionAdded": "연결이 추가되었습니다",
+      "toastFetchFailed": "{collection}의 문서를 가져오는 데 실패했습니다",
+      "toastDocDeleted": "문서가 삭제되었습니다",
+      "deleteDocTitle": "정말로 삭제하시겠습니까?",
+      "deleteDocDescription": "이 작업은 되돌릴 수 없습니다. 컬렉션에서 문서가 영구적으로 삭제됩니다.",
+      "closeAllTitle": "모든 탭을 닫으시겠습니까?",
+      "closeAllDescription": "모든 탭을 닫으시겠습니까? 쿼리 필터의 저장되지 않은 변경 사항이 손실됩니다.",
+      "closeAllConfirm": "모두 닫기",
+      "cancel": "취소",
+      "delete": "삭제"
+    },
+    "connection": {
+      "titleEdit": "연결 수정",
+      "titleConnect": "MongoDB에 연결",
+      "subtitleEdit": "아래에서 연결 세부 사항을 업데이트하세요.",
+      "subtitleConnect": "MongoDB 연결 문자열을 입력하여 데이터 탐색을 시작하세요.",
+      "labelName": "이름",
+      "placeholderName": "예: 운영 DB",
+      "labelConnectionString": "연결 문자열",
+      "placeholderConnectionString": "mongodb://localhost:27017",
+      "hintFormat": "형식: mongodb://username:password@host:port/database",
+      "testConnection": "연결 테스트",
+      "connecting": "연결 중...",
+      "updateConnect": "업데이트 및 연결",
+      "connect": "연결",
+      "cancelEdit": "편집 취소",
+      "savedConnections": "저장된 연결",
+      "emptySaved": "아직 저장된 연결이 없습니다.",
+      "lastUsed": "마지막 사용: {time}",
+      "toastTestOk": "연결 성공!",
+      "toastTestFail": "연결 실패: {message}",
+      "toastUpdated": "연결이 업데이트되었습니다",
+      "confirmDelete": "이 저장된 연결을 삭제하시겠습니까?",
+      "toastDeletedConn": "연결이 삭제되었습니다",
+      "toastDeleteFail": "연결 삭제에 실패했습니다",
+      "copyStringTitle": "연결 문자열 복사",
+      "toastStringCopied": "연결 문자열이 복사되었습니다!",
+      "editTitle": "수정",
+      "deleteTitle": "삭제"
+    },
+    "sidebar": {
+      "explorer": "탐색기",
+      "add": "추가",
+      "tooltipAdd": "새 연결 추가",
+      "tooltipRefresh": "연결 새로고침",
+      "searchPlaceholder": "검색...",
+      "loadingConnections": "연결을 불러오는 중...",
+      "noConnectionsFound": "연결을 찾을 수 없습니다",
+      "toastLoadFail": "연결 불러오기에 실패했습니다",
+      "toastConnectFail": "{name}에 연결하는 데 실패했습니다",
+      "toastCollectionsFail": "{name}의 컬렉션을 가져오는 데 실패했습니다",
+      "toastRenamed": "연결 이름이 변경되었습니다",
+      "toastRenameFail": "연결 이름 변경에 실패했습니다",
+      "confirmDeleteConnection": "\"{name}\" 연결을 삭제하시겠습니까?",
+      "toastDeleted": "연결이 삭제되었습니다",
+      "toastDeleteConnFail": "연결 삭제에 실패했습니다",
+      "confirmDropDb": "\"{name}\" 데이터베이스를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+      "toastDbDropped": "{name} 데이터베이스가 삭제되었습니다",
+      "confirmDropCollection": "\"{name}\" 컬렉션을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+      "toastCollectionDropped": "{name} 컬렉션이 삭제되었습니다",
+      "toastCollectionRenamed": "컬렉션 이름이 {name}(으)로 변경되었습니다",
+      "toastDatabaseRenamed": "데이터베이스 이름이 {name}(으)로 변경되었습니다",
+      "connecting": "연결 중...",
+      "connectionFailed": "연결 실패",
+      "noDatabases": "데이터베이스 없음",
+      "loading": "로딩 중...",
+      "noCollections": "컬렉션 없음",
+      "renameCollectionTitle": "컬렉션 이름 변경",
+      "renameDatabaseTitle": "데이터베이스 이름 변경",
+      "placeholderNewCollection": "새 컬렉션 이름",
+      "placeholderNewDatabase": "새 데이터베이스 이름",
+      "rename": "이름 변경",
+      "refresh": "새로고침",
+      "copyDbName": "DB 이름 복사",
+      "toastDbNameCopied": "데이터베이스 이름이 클립보드에 복사되었습니다",
+      "dropDatabase": "데이터베이스 삭제",
+      "dropCollection": "컬렉션 삭제",
+      "menuRename": "이름 변경",
+      "menuCopyConnectionString": "연결 문자열 복사",
+      "menuDeleteConnection": "연결 삭제",
+      "toastSidebarStringCopied": "연결 문자열이 복사되었습니다!",
+      "cancel": "취소"
+    },
+    "document": {
+      "docsBreadcrumb": "{n}개 문서",
+      "table": "테이블",
+      "json": "JSON",
+      "tree": "트리",
+      "tooltipTable": "테이블 보기",
+      "tooltipJson": "JSON 보기",
+      "tooltipTree": "트리 보기",
+      "itemsPerPage": "페이지당 항목",
+      "perPage": "{n} / 페이지",
+      "prevPage": "이전 페이지",
+      "nextPage": "다음 페이지",
+      "expandAll": "모두 펼치기",
+      "collapseAll": "모두 접기",
+      "refreshData": "데이터 새로고침",
+      "insert": "삽입",
+      "export": "내보내기",
+      "actions": "작업",
+      "invalidJson": "잘못된 JSON 콘텐츠",
+      "copiedClipboard": "클립보드에 복사되었습니다",
+      "docUpdated": "문서가 업데이트되었습니다",
+      "docInserted": "문서가 삽입되었습니다",
+      "invalidJsonShort": "잘못된 JSON",
+      "docCopied": "문서가 클립보드에 복사되었습니다",
+      "openFullEditor": "전체 편집기에서 열기",
+      "cellArray": "Array({length})",
+      "cellObject": "Object",
+      "cellArrayBracket": "Array[{length}]",
+      "emptyFilterTitle": "쿼리와 일치하는 문서가 없습니다",
+      "emptyFilterHint": "필터를 조정하거나 쿼리를 지워 보세요.",
+      "clearFilter": "필터 지우기",
+      "emptyCollectionTitle": "이 컬렉션은 비어 있습니다",
+      "emptyCollectionHint": "문서를 삽입하여 시작하세요.",
+      "insertDocument": "문서 삽입",
+      "formatJson": "JSON 포맷",
+      "compactJson": "JSON 압축",
+      "copyClipboard": "클립보드에 복사",
+      "copyJson": "JSON 복사",
+      "duplicate": "복제",
+      "editDoc": "문서 수정",
+      "deleteDoc": "문서 삭제",
+      "documentLabel": "문서 {n}",
+      "editDialogTitle": "문서 수정",
+      "insertDialogTitle": "문서 삽입",
+      "viewValueTitle": "값 보기",
+      "saveChanges": "변경 사항 저장",
+      "close": "닫기",
+      "cancel": "취소",
+      "insertButton": "삽입"
+    },
+    "tabs": {
+      "filterActive": "활성 필터 적용됨",
+      "filterActiveTooltip": "필터 활성",
+      "closeAll": "모두 닫기"
+    },
+    "query": {
+      "migrateHistory": "쿼리 기록이 클라우드로 마이그레이션되었습니다",
+      "saveHistoryFail": "쿼리 기록 저장에 실패했습니다",
+      "deleteQueryFail": "쿼리 삭제에 실패했습니다",
+      "invalidJsonQuery": "잘못된 JSON 쿼리",
+      "placeholder": "예: { \"status\": \"active\" }",
+      "clearQuery": "쿼리 지우기",
+      "openAdvanced": "고급 편집기 열기",
+      "visualBuilder": "비주얼 쿼리 빌더",
+      "filterRules": "필터 규칙",
+      "addRule": "규칙 추가",
+      "noFilters": "필터가 적용되지 않았습니다. 문서를 필터링하려면 규칙을 추가하세요.",
+      "where": "조건",
+      "and": "그리고",
+      "fieldPlaceholder": "필드",
+      "opPlaceholder": "연산자",
+      "typePlaceholder": "타입",
+      "opRegex": "정규식",
+      "opIn": "포함",
+      "opNin": "미포함",
+      "opExists": "존재",
+      "typeAuto": "자동",
+      "typeString": "문자열",
+      "typeNumber": "숫자",
+      "typeBoolean": "불리언",
+      "typeDate": "날짜",
+      "typeObjectId": "ObjectId",
+      "true": "참",
+      "false": "거짓",
+      "valuePlaceholder": "값",
+      "valueListPlaceholder": "값1, 값2",
+      "clearFilters": "필터 지우기",
+      "applyFilters": "필터 적용",
+      "queryHistory": "쿼리 기록",
+      "noSavedQueries": "아직 저장된 쿼리가 없습니다",
+      "advancedEditorTitle": "고급 쿼리 편집기",
+      "templatesPlaceholder": "템플릿",
+      "templateEmptyAgg": "빈 집계",
+      "templateMatch": "$match (필터)",
+      "templateLookup": "$lookup (조인)",
+      "templateGroup": "$group (카운트/합계)",
+      "format": "포맷",
+      "formattedJson": "포맷된 JSON",
+      "runQuery": "쿼리 실행"
+    },
+    "export": {
+      "selectFieldsError": "내보낼 필드를 하나 이상 선택해 주세요",
+      "success": "{filename}(으)로 내보내기 완료",
+      "fail": "데이터 내보내기에 실패했습니다",
+      "title": "데이터 내보내기",
+      "formatLabel": "내보내기 형식",
+      "formatXlsx": "Excel (XLSX)",
+      "formatCsv": "CSV",
+      "selectFields": "필드 선택",
+      "selectAll": "모두 선택",
+      "fieldsSelected": "{count, plural, one {#개 필드 선택됨} other {#개 필드 선택됨}}",
+      "cancel": "취소",
+      "export": "내보내기",
+      "sheetName": "데이터"
+    },
+    "jsonTree": {
+      "typeLabel": "타입: {type}",
+      "itemSummary": "{count, plural, one {#개 항목} other {#개 항목}}"
+    }
+  },
+  "ApiClient": {
+    "defaults": {
+      "newRequest": "새 요청",
+      "importedRequest": "가져온 요청",
+      "untitledRequest": "제목 없는 요청"
+    },
+    "toasts": {
+      "curlImported": "cURL을 가져왔습니다",
+      "curlParseFailed": "cURL 명령 파싱에 실패했습니다",
+      "invalidJsonBody": "잘못된 JSON 본문",
+      "requestFailed": "요청 실패: {message}",
+      "curlPasted": "cURL이 붙여넣기 및 파싱되었습니다",
+      "responseCopied": "응답이 클립보드에 복사되었습니다",
+      "codeCopied": "코드가 클립보드에 복사되었습니다"
+    },
+    "layout": {
+      "collections": "컬렉션",
+      "closeSidebar": "사이드바 닫기",
+      "openSidebar": "사이드바 열기"
+    },
+    "requestPanel": {
+      "methodPlaceholder": "메서드",
+      "urlPlaceholder": "https://api.example.com/v1/...",
+      "sending": "전송 중...",
+      "send": "전송"
+    },
+    "requestTabs": {
+      "params": "매개변수",
+      "headers": "헤더",
+      "body": "본문",
+      "auth": "인증",
+      "bodyType": "본문 유형",
+      "selectType": "유형 선택",
+      "bodyNone": "없음",
+      "bodyJson": "JSON",
+      "bodyText": "텍스트",
+      "noBodyHint": "이 요청에는 본문 콘텐츠가 없습니다",
+      "switchToJson": "JSON 본문으로 전환",
+      "authType": "인증 유형",
+      "noAuth": "인증 없음",
+      "bearerToken": "Bearer 토큰",
+      "basicAuth": "Basic 인증",
+      "apiKey": "API 키",
+      "labelToken": "토큰",
+      "placeholderBearerToken": "Bearer 토큰",
+      "labelUsername": "사용자 이름",
+      "placeholderUsername": "사용자 이름",
+      "labelPassword": "비밀번호",
+      "placeholderPassword": "비밀번호",
+      "labelKey": "키",
+      "placeholderApiKeyName": "키 이름 (예: X-Api-Key)",
+      "labelValue": "값",
+      "placeholderValue": "값",
+      "addTo": "추가 위치",
+      "header": "헤더",
+      "queryParams": "쿼리 매개변수",
+      "noAuthHint": "이 요청은 인증을 사용하지 않습니다."
+    },
+    "responsePanel": {
+      "emptyTitle": "탐색할 준비가 되셨나요?",
+      "emptyHint": "URL을 입력하고 전송을 클릭하여 여기에서 응답 데이터를 확인하세요.",
+      "responsePreviewAlt": "응답 미리보기",
+      "previewUnavailable": "이 콘텐츠 유형에 대한 미리보기를 사용할 수 없습니다",
+      "status": "상태",
+      "time": "시간",
+      "size": "크기",
+      "copyBody": "본문 복사",
+      "downloadResponse": "응답 다운로드",
+      "bodyTab": "본문",
+      "previewTab": "미리보기",
+      "headersTab": "헤더",
+      "binaryRawView": "이진 데이터는 원시 보기에서 표시할 수 없습니다.",
+      "errorStatusLabel": "오류"
+    },
+    "tabBar": {
+      "addTabAria": "새 탭"
+    },
+    "collectionsSidebar": {
+      "title": "API 리소스",
+      "newCollection": "새 컬렉션",
+      "tabCollections": "컬렉션",
+      "tabHistory": "기록",
+      "noCollectionsTitle": "컬렉션 없음",
+      "noCollectionsHint": "API 요청을 정리하기 위한 컬렉션을 만드세요.",
+      "createCollection": "컬렉션 만들기",
+      "newFolder": "새 폴더",
+      "rename": "이름 변경",
+      "delete": "삭제",
+      "emptyCollection": "빈 컬렉션",
+      "recentRequests": "최근 요청",
+      "clearAll": "모두 지우기",
+      "noHistoryTitle": "아직 기록이 없습니다",
+      "noHistoryHint": "요청을 전송하면 여기에 표시됩니다.",
+      "dialogNewFolderTitle": "새 폴더",
+      "dialogNewFolderDescription": "요청을 정리하기 위한 새 폴더를 만드세요.",
+      "labelFolderName": "폴더 이름",
+      "placeholderFolderName": "내 폴더",
+      "createFolder": "폴더 만들기",
+      "dialogNewCollectionTitle": "새 컬렉션",
+      "dialogNewCollectionDescription": "새 최상위 컬렉션을 만드세요.",
+      "labelCollectionName": "컬렉션 이름",
+      "placeholderCollectionName": "내 컬렉션",
+      "dialogRenameCollectionTitle": "컬렉션 이름 변경",
+      "dialogRenameCollectionDescription": "컬렉션의 새 이름을 입력하세요.",
+      "placeholderRenameCollection": "컬렉션 이름",
+      "renameAction": "이름 변경"
+    },
+    "collectionItem": {
+      "newFolder": "새 폴더",
+      "delete": "삭제",
+      "emptyFolder": "빈 폴더"
+    },
+    "environmentManager": {
+      "noEnvironment": "환경 없음",
+      "manageDialogTitle": "환경 관리",
+      "placeholderNewEnv": "새 환경",
+      "variablesHeading": "{name} 변수",
+      "addVariable": "변수 추가",
+      "columnVariable": "변수",
+      "columnValue": "값",
+      "placeholderKey": "키",
+      "placeholderValue": "값",
+      "selectEnvToEdit": "편집할 환경을 선택하세요"
+    },
+    "codeGenerator": {
+      "triggerTitle": "코드 생성",
+      "dialogTitle": "코드 생성",
+      "languageCurl": "cURL",
+      "languageJavaScript": "JavaScript (fetch)",
+      "languagePython": "Python (requests)",
+      "languageGo": "Go",
+      "copy": "복사",
+      "errorGenerating": "코드 생성 중 오류가 발생했습니다"
+    },
+    "keyValueEditor": {
+      "columnKey": "키",
+      "columnValue": "값",
+      "placeholderKey": "키",
+      "placeholderValue": "값",
+      "addItem": "항목 추가"
+    },
+    "importCurl": {
+      "trigger": "cURL 가져오기",
+      "dialogTitle": "cURL 가져오기",
+      "dialogDescription": "아래에 cURL 명령을 붙여넣어 새 요청으로 가져오세요.",
+      "placeholder": "curl -X POST https://api.example.com/data -d '...'",
+      "import": "가져오기"
+    },
+    "saveRequest": {
+      "trigger": "저장",
+      "dialogTitle": "요청 저장",
+      "dialogDescription": "이 요청을 컬렉션 폴더에 저장하세요.",
+      "labelName": "요청 이름",
+      "placeholderName": "내 요청",
+      "labelFolder": "폴더",
+      "placeholderFolder": "폴더를 선택하세요",
+      "save": "저장"
+    }
+  },
+  "RichEditor": {
+    "toolbar": {
+      "editMode": "편집 모드",
+      "viewOnlyMode": "보기 전용 모드",
+      "insertComponent": "구성 요소 삽입",
+      "addUnorderedList": "순서 없는 목록 추가",
+      "addOrderedList": "순서 있는 목록 추가",
+      "addTable": "테이블 추가"
+    },
+    "addBlock": "블록 추가",
+    "media": {
+      "popoverTitle": "미디어 추가",
+      "singleImage": "단일 이미지",
+      "singleImageDesc": "이미지 하나 업로드",
+      "multipleImages": "여러 이미지",
+      "multipleImagesDesc": "이미지 그리드 업로드",
+      "video": "비디오",
+      "videoDesc": "비디오 파일 업로드",
+      "uploadingAlt": "업로드 중...",
+      "uploadFailedAlt": "업로드 실패"
+    },
+    "export": {
+      "fabAria": "코드 내보내기",
+      "title": "코드 내보내기",
+      "description": "편집기 콘텐츠의 HTML 또는 JSON 출력을 복사하세요",
+      "preview": "미리보기",
+      "html": "HTML",
+      "json": "JSON",
+      "previewOptions": "미리보기 옵션",
+      "enhanceSpaces": "공백 향상",
+      "livePreview": "렌더링된 HTML 실시간 미리보기",
+      "htmlTailwind": "Tailwind CSS 클래스가 포함된 HTML",
+      "editorJson": "편집기 상태 (JSON)",
+      "copyHtml": "HTML 복사",
+      "copyJson": "JSON 복사",
+      "copied": "복사됨!"
+    },
+    "template": {
+      "fabTitle": "템플릿 전환",
+      "title": "템플릿 선택",
+      "description": "미리 만들어진 레이아웃과 콘텐츠로 빠르게 시작할 템플릿을 선택하세요",
+      "catAll": "모든 템플릿",
+      "catProductivity": "생산성",
+      "catCreative": "크리에이티브",
+      "catBusiness": "비즈니스",
+      "catPersonal": "개인",
+      "noTemplates": "이 카테고리에는 템플릿이 없습니다",
+      "confirmTitle": "기존 콘텐츠를 교체하시겠습니까?",
+      "confirmDescription": "편집기에 기존 콘텐츠가 있습니다. 이 템플릿을 적용하면 현재 콘텐츠가 모두 교체됩니다.",
+      "cannotUndo": "이 작업은 되돌릴 수 없습니다.",
+      "cancel": "취소",
+      "replaceContent": "콘텐츠 교체"
+    },
+    "command": {
+      "searchPlaceholder": "명령 검색...",
+      "noResults": "명령을 찾을 수 없습니다.",
+      "turnInto": "변환",
+      "h1": {
+        "label": "제목 1",
+        "description": "큰 섹션 제목",
+        "keywords": "h1,heading,title,large"
+      },
+      "h2": {
+        "label": "제목 2",
+        "description": "중간 섹션 제목",
+        "keywords": "h2,heading,subtitle"
+      },
+      "h3": {
+        "label": "제목 3",
+        "description": "작은 섹션 제목",
+        "keywords": "h3,heading,subheading"
+      },
+      "h4": {
+        "label": "제목 4",
+        "description": "아주 작은 섹션 제목",
+        "keywords": "h4,heading"
+      },
+      "h5": {
+        "label": "제목 5",
+        "description": "더 작은 제목",
+        "keywords": "h5,heading"
+      },
+      "h6": {
+        "label": "제목 6",
+        "description": "가장 작은 제목",
+        "keywords": "h6,heading"
+      },
+      "p": {
+        "label": "문단",
+        "description": "일반 텍스트 문단",
+        "keywords": "p,paragraph,text,normal"
+      },
+      "code": {
+        "label": "코드 블록",
+        "description": "코드 스니펫",
+        "keywords": "code,codeblock,snippet,pre"
+      },
+      "blockquote": {
+        "label": "인용문",
+        "description": "블록 인용문",
+        "keywords": "quote,blockquote,citation"
+      },
+      "li": {
+        "label": "글머리 기호 목록",
+        "description": "글머리 기호가 있는 간단한 목록 항목",
+        "keywords": "list,bullet,unordered,ul,li"
+      },
+      "ol": {
+        "label": "번호 매기기 목록",
+        "description": "번호가 매겨진 목록 항목",
+        "keywords": "list,numbered,ordered,ol,li"
+      },
+      "img": {
+        "label": "이미지",
+        "description": "이미지를 업로드하거나 삽입",
+        "keywords": "image,img,picture,photo,upload"
+      },
+      "video": {
+        "label": "비디오",
+        "description": "비디오를 업로드하거나 삽입",
+        "keywords": "video,vid,movie,mp4,upload"
+      },
+      "table": {
+        "label": "테이블",
+        "description": "테이블 만들기",
+        "keywords": "table,grid,rows,columns,cells"
+      }
+    },
+    "toasts": {
+      "tableImported": "테이블 가져오기 완료",
+      "tableImportedDesc": "마크다운 테이블이 가져와졌습니다",
+      "mediaPasted": "미디어 붙여넣기 완료",
+      "pasteMixed": "이미지 {imageCount}개와 비디오 {videoCount}개가 붙여넣기되었습니다.",
+      "pasteImages": "이미지 {count}개가 붙여넣기되었습니다.",
+      "pasteVideos": "비디오 {count}개가 붙여넣기되었습니다.",
+      "pasteFailed": "붙여넣기 실패",
+      "unexpectedError": "예기치 않은 오류가 발생했습니다",
+      "uploadFailed": "업로드 실패"
+    },
+    "blockBackground": {
+      "menuItem": "배경색 변경",
+      "dialogTitle": "블록 배경색",
+      "dialogDescription": "이 블록의 배경색을 선택하세요",
+      "tabPreset": "프리셋 색상",
+      "tabCustom": "사용자 지정 색상",
+      "sectionHeading": "배경색",
+      "apply": "적용",
+      "colors": {
+        "none": "없음",
+        "red": "빨강",
+        "orange": "주황",
+        "yellow": "노랑",
+        "green": "초록",
+        "blue": "파랑",
+        "indigo": "남색",
+        "purple": "보라",
+        "pink": "분홍",
+        "teal": "청록",
+        "cyan": "시안",
+        "gray": "회색"
+      }
+    },
+    "tableDialog": {
+      "title": "테이블 만들기",
+      "description": "새 테이블을 만들거나 마크다운에서 가져오기",
+      "markdownCheckbox": "마크다운 테이블이 있습니다",
+      "pasteMarkdownLabel": "마크다운 테이블 붙여넣기",
+      "markdownPlaceholder": "| Header 1 | Header 2 | Header 3 |\n|----------|----------|----------|\n| Cell 1   | Cell 2   | Cell 3   |\n| Cell 4   | Cell 5   | Cell 6   |",
+      "markdownHint": "위에 마크다운 테이블을 붙여넣으세요. 헤더와 구분자 행이 포함되어야 합니다.",
+      "rows": "행",
+      "columns": "열",
+      "maxDimensions": "최대: 20행 × 10열",
+      "cancel": "취소",
+      "importTable": "테이블 가져오기",
+      "createTable": "테이블 만들기"
+    },
+    "tableParse": {
+      "errors": {
+        "minRows": "테이블에는 최소 헤더 행과 구분자 행이 있어야 합니다",
+        "pipeFormat": "테이블 행은 |로 시작하고 끝나야 합니다",
+        "headerMinCol": "헤더 행에는 최소 하나의 열이 있어야 합니다",
+        "separatorRow": "두 번째 행은 구분자여야 합니다 (예: |---|---|)",
+        "rowColumnMismatch": "{row}행에 {got}개의 열이 있지만, {expected}개의 열이 예상됩니다",
+        "parseFailed": "마크다운 테이블 파싱에 실패했습니다"
+      }
+    },
+    "link": {
+      "editLink": "링크 수정",
+      "addLink": "링크 추가",
+      "selectedText": "선택한 텍스트: \"{text}\"",
+      "linkUrl": "링크 URL",
+      "urlPlaceholder": "https://example.com",
+      "update": "업데이트",
+      "addLinkButton": "링크 추가",
+      "toastApplied": "링크 적용됨",
+      "toastLinkedTo": "링크됨: {url}",
+      "toastRemoved": "링크 제거됨",
+      "toastRemovedDesc": "선택 영역에서 링크가 제거되었습니다"
+    },
+    "customClass": {
+      "devMode": "개발자 모드",
+      "toggleDevModeAria": "개발자 모드 전환",
+      "searchPlaceholderDev": "클래스 검색... (예: 'text', 'bg', 'flex')",
+      "searchPlaceholderUser": "스타일 검색... (예: 'red', 'bold', 'shadow')",
+      "appliesTitle": "적용: {className}",
+      "noMatches": "\"{query}\"와(과) 일치하는 클래스가 없습니다",
+      "toastClassReplaced": "클래스 교체됨",
+      "toastClassReplacedDesc": "\"{replaced}\"이(가) \"{className}\"(으)로 교체되었습니다",
+      "toastCustomClassApplied": "사용자 지정 클래스 적용됨",
+      "toastAppliedClass": "적용된 클래스: {className}"
+    },
+    "insertComponents": {
+      "title": "구성 요소 삽입",
+      "description": "문서에 삽입할 구성 요소를 선택하세요",
+      "noComponents": "사용 가능한 구성 요소가 없습니다",
+      "categories": {
+        "media": "미디어",
+        "layout": "레이아웃",
+        "interactive": "인터랙티브",
+        "decoration": "장식"
+      },
+      "freeImage": {
+        "name": "자유 이동 이미지",
+        "description": "어디든 배치하고 자유롭게 크기를 조절할 수 있는 이미지를 추가하세요"
+      }
+    }
+  }
+}

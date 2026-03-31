@@ -24,7 +24,8 @@
     "afrikaans": "Αφρικάανς",
     "persian": "فارسی",
     "indonesian": "Bahasa Indonesia",
-    "japanese": "日本語"
+    "japanese": "日本語",
+    "korean": "한국어"
   },
   "SettingsPage": {
     "title": "Ρυθμίσεις",
@@ -71,7 +72,8 @@
         "af": "Afrikaans (Αφρικάανς)",
         "fa": "فارسی",
         "id": "Bahasa Indonesia",
-        "ja": "日本語"
+        "ja": "日本語",
+        "ko": "한국어"
       }
     }
   },

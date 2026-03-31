@@ -23,7 +23,9 @@
     "danish": "Duński",
     "afrikaans": "Afrikaans",
     "persian": "فارسی",
-    "indonesian": "Indonezyjski"
+    "indonesian": "Indonezyjski",
+    "japanese": "日本語",
+    "korean": "한국어"
   },
   "SettingsPage": {
     "title": "Settings",
@@ -69,7 +71,9 @@
         "de": "Deutsch (niemiecki)",
         "da": "Dansk (duński)",
         "af": "Afrikaans",
-        "fa": "فارسی"
+        "fa": "فارسی",
+        "ja": "日本語",
+        "ko": "한국어"
       }
     }
   },
