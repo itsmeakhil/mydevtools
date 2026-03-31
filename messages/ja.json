@@ -5,6 +5,7 @@
     "apiClient": "APIクライアント",
     "passwordManager": "パスワードマネージャー",
     "bookmarks": "ブックマーク",
+    "jsonFormatter": "JSON フォーマッター",
     "emailValidator": "メールバリデーター",
     "nosqlExplorer": "NoSQLエクスプローラー"
   },
@@ -1381,6 +1382,21 @@
     }
   },
   "JsonFormatter": {
-    "title": "JSON Formatter"
+    "title": "JSON フォーマッター",
+    "description": "テキスト表示とツリー表示で JSON を整形・検証・編集します。",
+    "documentNameText": "テキストドキュメント {n}",
+    "documentNameTree": "ツリードキュメント {n}",
+    "newDocument": "新規",
+    "copy": "コピー",
+    "save": "保存",
+    "saving": "保存中...",
+    "leftDocNameLabel": "Left document name",
+    "rightDocNameLabel": "Right document name",
+    "toastCopiedText": "Text pane copied",
+    "toastCopiedTree": "Tree pane copied",
+    "toastCopyFailed": "Failed to copy JSON",
+    "toastLoginRequired": "Please sign in to save documents",
+    "toastSaved": "Document saved",
+    "toastSaveFailed": "Failed to save document"
   }
 }

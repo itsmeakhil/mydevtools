@@ -5,6 +5,7 @@
     "apiClient": "Klien api",
     "passwordManager": "Pengelola Kata Sandi",
     "bookmarks": "Penanda",
+    "jsonFormatter": "Pemformat JSON",
     "emailValidator": "Validator Email",
     "nosqlExplorer": "NoSQL Explorer"
   },
@@ -22,7 +23,7 @@
     "german": "German",
     "danish": "Bahasa Denmark",
     "afrikaans": "Afrikaans",
-    "persian": "",
+    "persian": "فارسی",
     "indonesian": "Bahasa Indonesia",
     "norwegian": "Norsk",
     "japanese": "日本語",
@@ -75,7 +76,7 @@
         "de": "Deutsch (Jerman)",
         "da": "Dansk (Denmark)",
         "af": "Afrikaans",
-        "fa": "",
+        "fa": "فارسی",
         "id": "Bahasa Indonesia",
         "nb": "Norsk",
         "ja": "日本語",
@@ -88,7 +89,8 @@
         "vi": "Tiếng Việt",
         "ru": "Русский",
         "sv": "Svenska",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "uk": "Українська"
       }
     }
   },
@@ -98,9 +100,9 @@
       "afternoon": "Good afternoon. ",
       "evening": "Selamat sore."
     },
-    "commaName": ", __ PH_0 __",
+    "commaName": ", {name}",
     "welcomeBack": "Selamat datang kembali. ",
-    "welcomeBackNamed": "Selamat datang kembali, __ PH_0__",
+    "welcomeBackNamed": "Selamat datang kembali, {name}",
     "tagline": "Apa yang ingin Anda bangun hari ini?",
     "brandName": "MyDevTools",
     "stats": {
@@ -153,8 +155,8 @@
     "page": {
       "loading": "Memuat...",
       "myTasksTitle": "Tugas Saya",
-      "statsLine": "__ PH_0 __ tugas •__PH_1 __% selesai",
-      "statsLineDesktop": "__ PH_0 __ total •__PH_1 __% selesai"
+      "statsLine": "{total} tugas • {percent}% selesai",
+      "statsLineDesktop": "{total} total • {percent}% selesai"
     },
     "filters": {
       "all": "Semua",
@@ -166,9 +168,9 @@
       "searchPlaceholder": "Cari tugas...",
       "searchAria": "Cari tugas",
       "clearSearchAria": "Bersihkan pencarian",
-      "foundTasks": "Ditemukan __ PH_0__ __PH_1 __",
+      "foundTasks": "Ditemukan {count, plural, one {# tugas} other {# tugas}}",
       "filterByAllAria": "Saring bedasarkan",
-      "filterByStatusAria": "Filter menurut __ PH_0__"
+      "filterByStatusAria": "Filter menurut {status}"
     },
     "status": {
       "not-started": {
@@ -225,8 +227,8 @@
       "dropHere": "Lepaskan tugas di sini",
       "noTasksYet": "Belum ada tugas",
       "emptyColumnAria": "Daftar kolom kosong",
-      "columnAria": "__ PH_0 __ kolom dengan __PH_1 __ tugas",
-      "countInColumnAria": "__ PH_0 __ tugas di __PH_1 __"
+      "columnAria": "Kolom {title} dengan {count} tugas",
+      "countInColumnAria": "{count} tugas di {title}"
     },
     "taskItem": {
       "confirmDelete": "Anda yakin ingin menghapus ini?",
@@ -283,9 +285,9 @@
       "exportExcel": "Ekspor excel",
       "close": "Tutup",
       "toastNoTasks": "Tidak ada tugas untuk diekspor dengan filter saat ini",
-      "toastExportedJson": "Mengekspor tugas __ PH_0__ ke JSON!",
-      "toastExportedCsv": "Mengekspor tugas __ PH_0__ ke CSV!",
-      "toastExportedExcel": "Mengekspor tugas __ PH_0__ ke Excel!",
+      "toastExportedJson": "Mengekspor {count} tugas ke JSON!",
+      "toastExportedCsv": "Mengekspor {count} tugas ke CSV!",
+      "toastExportedExcel": "Mengekspor {count} tugas ke Excel!",
       "toastFailedJson": "Gagal mengekspor ke JSON",
       "toastFailedCsv": "Gagal mengekspor CSV",
       "toastFailedExcel": "Gagal mengekspor ke Excel",
@@ -297,15 +299,15 @@
       "taskUpdatedTitle": "Iklan berhasil di perbarui.",
       "taskUpdatedFailedTitle": "Gagal memperbarui",
       "taskStatusUpdateFailedTitle": "Gagal memperbarui status tugas",
-      "taskMovedTitle": "Tugas dipindahkan ke __ PH_0__",
+      "taskMovedTitle": "Tugas dipindahkan ke {status}",
       "tryAgain": "Silakan coba lagi. ",
-      "taskDeletedTitle": "Tugas \"__ PH_0 __\" dihapus",
+      "taskDeletedTitle": "Tugas \"{text}\" dihapus",
       "undo": "Membatalkan",
       "taskRestoredTitle": "Tugas dipulihkan",
       "taskRestoredSuccessTitle": "Berhasil dipulihkan",
       "taskRestoreFailedTitle": "Gagal memulihkan tugas. Silakan coba lagi.",
       "taskDeleteFailedTitle": "Gagal menghapus tugas. Silakan coba lagi.",
-      "tasksImportedTitle": "Berhasil mengimpor __ PH_0__ __PH_1 __!",
+      "tasksImportedTitle": "Berhasil mengimpor {count, plural, one {# tugas} other {# tugas}}!",
       "tasksImportFailedTitle": "Gagal mengimpor tugas. Silakan coba lagi.",
       "unknownProject": "Proyek Tidak Dikenal",
       "projectCreatedTitle": "Proyek berhasil dibuat",
@@ -331,12 +333,12 @@
       "loading": "Memuat...",
       "noNotesFound": "Catatan tidak ditemukan.",
       "noNotesYet": "Belum ada catatan. Klik + untuk membuatnya.",
-      "inParent": "di __ PH_0 __",
+      "inParent": "di {parentTitle}",
       "untitled": "Tanpa judul",
       "addSubPage": "Tambahkan sub - halaman",
       "delete": "Hapus ",
       "deleteConfirmTitle": "Hapus catatan",
-      "deleteConfirmDescription": "Anda yakin ingin menghapus \"__ PH_0__ \"? Tindakan ini tidak dapat dibatalkan.",
+      "deleteConfirmDescription": "Anda yakin ingin menghapus \"{title}\"? Tindakan ini tidak dapat dibatalkan.",
       "cancel": "Batalkan",
       "confirmDelete": "Hapus ",
       "noteOptionsAria": "Opsi catatan"
@@ -399,9 +401,9 @@
       "importExport": "Impor/Ekspor",
       "lockVault": "Kunci brankas",
       "allPasswordsTitle": "Semua kata sandi",
-      "passwordCount": "__ PH_0 __",
+      "passwordCount": "{count, plural, one {# kata sandi} other {# kata sandi}}",
       "vaultHealthDrawerTitle": "Kesehatan lemari besi",
-      "noResults": "Tidak ditemukan kata sandi yang cocok dengan \"__ PH_0__\"",
+      "noResults": "Tidak ditemukan kata sandi yang cocok dengan \"{query}\"",
       "tableService": "Layanan",
       "tableUsername": "Nama pengguna",
       "tablePassword": "Kata sandi",
@@ -422,7 +424,7 @@
       "passwordDeleted": "Kata sandi dihapus",
       "deleteFailed": "Gagal menghapus kata sandi",
       "vaultLocked": "Kubah terkunci",
-      "importedCount": "Berhasil mengimpor __ PH_0__"
+      "importedCount": "Berhasil mengimpor {count, plural, one {# kata sandi} other {# kata sandi}}"
     },
     "form": {
       "addTitle": "Kata sandi baru",
@@ -471,8 +473,8 @@
       "total": "Total",
       "weak": "Lemah",
       "reused": "Digunakan kembali",
-      "totalCountLabel": "__ PH_0 __",
-      "weakCountLabel": "__ PH_0 __ lemah",
+      "totalCountLabel": "{count, plural, one {# kata sandi} other {# kata sandi}}",
+      "weakCountLabel": "{count} lemah",
       "allSecure": "Semua aman",
       "scoreExcellent": "Sempurna",
       "scoreGood": "Baik",
@@ -489,7 +491,7 @@
       "exportBlurb": "Unduh seluruh brankas Anda sebagai file JSON. Ini termasuk semua layanan, nama pengguna, kata sandi, dan catatan.",
       "downloadJson": "Unduh ekspor JSON",
       "pasteLabel": "Tempel data JSON",
-      "pastePlaceholder": "[__ PH_0 __]",
+      "pastePlaceholder": "[{\"service\": \"Contoh\", \"username\": \"pengguna\", \"password\": \"123\", ...}]",
       "pasteHint": "Tempel konten file JSON yang sebelumnya diekspor di sini.",
       "importing": "Mengimpor",
       "importPasswords": "Impor Kata Sandi",
@@ -520,15 +522,15 @@
       "tabPassword": "Kata sandi",
       "tabPassphrase": "Passphrase",
       "strength": "Kekuatan",
-      "lengthLabel": "Panjang: __ PH_0 __ karakter",
-      "lengthBadge": "__ PH_0 __ karakter",
+      "lengthLabel": "Panjang: {length} karakter",
+      "lengthBadge": "{length} karakter",
       "characterSets": "Kumpulan karakter",
       "uppercase": "Huruf besar",
       "lowercase": "Huruf kecil",
       "numbers": "Angka",
       "symbols": "Simbol",
-      "wordCountLabel": "Jumlah kata: __ PH_0__",
-      "wordCountBadge": "__ PH_0 __",
+      "wordCountLabel": "Jumlah kata: {count}",
+      "wordCountBadge": "{count, plural, one {# kata} other {# kata}}",
       "separator": "Magnetik",
       "capitalization": "Kapitalisasi",
       "includeNumber": "Sertakan nomor"
@@ -541,15 +543,15 @@
     "manager": {
       "foldersHeading": "Folder",
       "tagsHeading": "Tag",
-      "tagsMore": "+__ PH_0 __ lagi",
+      "tagsMore": "+{count} lagi",
       "searchPlaceholder": "Cari bookmark Anda...",
       "import": "Impor",
       "export": "Ekspor",
       "exportAsHtml": "Ekspor sebagai HTML",
       "exportAsJson": "Ekspor sebagai JSON",
       "addBookmark": "Tambah Markah",
-      "matchingQuery": "pencocokan \"__ PH_0 __\"",
-      "bookmarkCount": "__ PH_0 __",
+      "matchingQuery": "mencocokkan \"{query}\"",
+      "bookmarkCount": "{count, plural, one {# markah} other {# markah}}",
       "allBookmarks": "Semua Bookmark",
       "uncategorized": "Tidak Dikategorikan",
       "unknownFolder": "Tidak diketahui"
@@ -561,7 +563,7 @@
       "delete": "Hapus ",
       "copyUrl": "Salin URL",
       "deleteConfirmTitle": "Hapus markah",
-      "deleteConfirmDescription": "Ini akan menghapus \"__PH_0 __\" secara permanen.",
+      "deleteConfirmDescription": "Ini akan menghapus \"{title}\" secara permanen.",
       "cancel": "Batalkan"
     },
     "grid": {
@@ -572,14 +574,14 @@
       "allBookmarks": "Semua Bookmark",
       "addSubfolder": "Tambahkan Subfolder",
       "rename": "Ubah nama",
-      "deleteFolderTitle": "Hapus folder \"__ PH_0__ \"?",
+      "deleteFolderTitle": "Hapus folder \"{name}\"?",
       "deleteFolderDescription": "Ini akan menghapus folder dan semua subfoldernya. Bookmark di folder ini akan dipindahkan ke Uncategorized."
     },
     "import": {
       "title": "Impor Markah",
       "description": "Impor bookmark dari file yang diekspor browser Anda.",
       "parseError": "Gagal mengurai file bookmark. Pastikan itu adalah ekspor bookmark yang valid.",
-      "successToast": "Mengimpor __ PH_0 __ bookmark dan __PH_1 __ folder",
+      "successToast": "Mengimpor {bookmarks} markah dan {folders} folder",
       "errorToast": "Gagal mengimpor bookmark",
       "chromeInstruction": "Menu → Bookmarks → Bookmark Manager →  → Ekspor Bookmarks",
       "firefoxInstruction": "Menu → Bookmark → Mengelola → Impor Bookmark dan → Ekspor Cadangan",
@@ -590,14 +592,14 @@
       "selectedFileHint": "Klik untuk memilih file lain",
       "errorTitle": "ERROR",
       "previewTitle": "Impor Pratinjau",
-      "previewBookmarks": "__ PH_0 __",
-      "previewFolders": "__ PH_0 __",
+      "previewBookmarks": "{count, plural, one {# markah} other {# markah}}",
+      "previewFolders": "{count, plural, one {# folder} other {# folder}}",
       "importModeLabel": "Mode Impor",
       "modeMerge": "Gabungkan dengan bookmark yang ada",
       "modeReplace": "Ganti semua bookmark yang ada",
       "cancel": "Batalkan",
       "importButton": "Impor",
-      "importButtonWithCount": "Impor __ PH_0 __"
+      "importButtonWithCount": "Impor {count, plural, one {# markah} other {# markah}}"
     },
     "addBookmark": {
       "titleAdd": "Tambah Markah",
@@ -670,19 +672,19 @@
       "noEmailsTitle": "Tidak Ditemukan Email",
       "noEmailsDescription": "Pastikan Excel Anda memiliki kolom 'email '.",
       "fileTooLargeTitle": "Berkas terlalu besar",
-      "fileTooLargeDescription": "Ditemukan __ PH_0 __ email. Hanya 4000 pertama yang akan divalidasi.",
+      "fileTooLargeDescription": "Ditemukan {total} email. Hanya 4000 pertama yang akan divalidasi.",
       "successTitle": "Berhasil",
-      "successValidated": "Email __PH_0 __ yang divalidasi berhasil.",
+      "successValidated": "{count} email berhasil divalidasi.",
       "batchFailedTitle": "Validasi Batch Gagal",
       "batchFailedDescription": "Terjadi kesalahan saat memproses validasi massal.",
       "noExportTitle": "Tidak Ada Data untuk Diekspor",
       "noExportValidOnly": "Tidak ditemukan email yang valid untuk diekspor.",
       "noExportAll": "Tidak ada hasil untuk diekspor.",
       "exportSuccessTitle": "Ekspor Berhasil",
-      "exportSuccessExcelAll": "Mengekspor __ PH_0 __ email ke Excel.",
-      "exportSuccessExcelValid": "Mengekspor __PH_0 __ email yang valid ke Excel.",
-      "exportSuccessCsvAll": "Mengekspor __ PH_0 __ email ke CSV.",
-      "exportSuccessCsvValid": "Mengekspor __PH_0 __ email yang valid ke CSV."
+      "exportSuccessExcelAll": "Mengekspor {count} email ke Excel.",
+      "exportSuccessExcelValid": "Mengekspor {count} email valid ke Excel.",
+      "exportSuccessCsvAll": "Mengekspor {count} email ke CSV.",
+      "exportSuccessCsvValid": "Mengekspor {count} email valid ke CSV."
     },
     "disposableAlert": {
       "title": "Email Sekali Pakai Terdeteksi",
@@ -723,7 +725,7 @@
     },
     "bulkLoading": {
       "title": "Memvalidasi Email...",
-      "batchProgress": "Memproses batch __ PH_0__ dari __PH_1 __..."
+      "batchProgress": "Memproses batch {current} dari {total}..."
     },
     "stats": {
       "totalProcessed": "Total Diproses",
@@ -738,16 +740,16 @@
       "exportAll": "Ekspor Semua",
       "exportExcel": "Excel (.xlsx)",
       "exportCsv": "CSV (.csv)",
-      "exportValid": "Ekspor Berlaku (__ PH_0 __)"
+      "exportValid": "Ekspor valid ({count})"
     },
-    "showingResults": "Menampilkan __ PH_0 __ dari __PH_1 __ hasil",
+    "showingResults": "Menampilkan {shown} dari {total} hasil",
     "table": {
       "email": "Email",
       "status": "Status",
       "score": "Skor",
       "checks": "Pengecekan"
     },
-    "noSearchResults": "Tidak ada hasil yang cocok dengan \"__ PH_0__\"",
+    "noSearchResults": "Tidak ada hasil yang cocok dengan \"{query}\"",
     "checksTooltip": {
       "syntax": "Syntax",
       "domain": "Domain",
@@ -786,13 +788,13 @@
       "featureQueryTitle": "Smart Query",
       "featureQueryDesc": "Pembuat kueri yang kuat dengan penyorotan sintaks.",
       "connectCta": "Hubungkan ke MongoDB",
-      "footerNote": "Saat ini mendukung __ PH_0__. Database lainnya segera hadir.",
+      "footerNote": "Saat ini mendukung {db}. Database lainnya segera hadir.",
       "footerDb": "MongoDB",
       "selectCollectionTitle": "Pilih Koleksi",
       "selectCollectionDesc": "Pilih koleksi dari bilah sisi untuk melihat dokumen dan mulai menjelajahi data Anda.",
       "dialogAddConnection": "Tambah koneksi",
       "toastConnectionAdded": "Koneksi ditambahkan",
-      "toastFetchFailed": "Gagal mengambil dokumen untuk __ PH_0__",
+      "toastFetchFailed": "Gagal mengambil dokumen untuk {collection}",
       "toastDocDeleted": "Dokumen dihapus",
       "deleteDocTitle": "Apakah Anda benar yakin?",
       "deleteDocDescription": "Tindakan ini tidak dapat dibatalkan. Ini akan menghapus dokumen secara permanen dari koleksi Anda.",
@@ -819,9 +821,9 @@
       "cancelEdit": "Batalkan Edit",
       "savedConnections": "Koneksi Tersimpan",
       "emptySaved": "Belum ada koneksi yang tersimpan.",
-      "lastUsed": "Terakhir digunakan __ PH_0__",
+      "lastUsed": "Terakhir digunakan {time}",
       "toastTestOk": "Koneksi berhasil!",
-      "toastTestFail": "Koneksi gagal: __ PH_0__",
+      "toastTestFail": "Koneksi gagal: {message}",
       "toastUpdated": "Koneksi diperbarui",
       "confirmDelete": "Anda yakin ingin menghapus koneksi yang disimpan ini?",
       "toastDeletedConn": "Koneksi dihapus",
@@ -840,19 +842,19 @@
       "loadingConnections": "Memuat sambungan...",
       "noConnectionsFound": "Koneksi tidak ditemukan",
       "toastLoadFail": "Gagal memuat koneksi",
-      "toastConnectFail": "Gagal terhubung ke __ PH_0 __",
-      "toastCollectionsFail": "Gagal mengambil koleksi untuk __ PH_0__",
+      "toastConnectFail": "Gagal terhubung ke {name}",
+      "toastCollectionsFail": "Gagal mengambil koleksi untuk {name}",
       "toastRenamed": "Koneksi diganti namanya",
       "toastRenameFail": "Gagal mengganti nama koneksi",
-      "confirmDeleteConnection": "Anda yakin ingin menghapus koneksi \"__ PH_0__ \"?",
+      "confirmDeleteConnection": "Anda yakin ingin menghapus koneksi \"{name}\"?",
       "toastDeleted": "Koneksi dihapus",
       "toastDeleteConnFail": "Gagal menghapus koneksi",
-      "confirmDropDb": "Anda yakin ingin menghapus basis data \"__ PH_0__ \"? Tindakan ini tidak dapat dibatalkan.",
-      "toastDbDropped": "Basis data __ PH_0__ menurun",
-      "confirmDropCollection": "Anda yakin ingin menyerahkan koleksi \"__ PH_0__ \"? Tindakan ini tidak dapat dibatalkan.",
-      "toastCollectionDropped": "Koleksi __ PH_0 __ dijatuhkan",
-      "toastCollectionRenamed": "Koleksi diganti namanya menjadi __ PH_0__",
-      "toastDatabaseRenamed": "Basis data diubah namanya menjadi __ PH_0__",
+      "confirmDropDb": "Anda yakin ingin menghapus basis data \"{name}\"? Tindakan ini tidak dapat dibatalkan.",
+      "toastDbDropped": "Basis data {name} dihapus",
+      "confirmDropCollection": "Anda yakin ingin menghapus koleksi \"{name}\"? Tindakan ini tidak dapat dibatalkan.",
+      "toastCollectionDropped": "Koleksi {name} dihapus",
+      "toastCollectionRenamed": "Koleksi diganti namanya menjadi {name}",
+      "toastDatabaseRenamed": "Basis data diubah namanya menjadi {name}",
       "connecting": "Menghubungkan...",
       "connectionFailed": "Connection failed. ",
       "noDatabases": "Tidak ada basis data",
@@ -875,7 +877,7 @@
       "cancel": "Batalkan"
     },
     "document": {
-      "docsBreadcrumb": "__ PH_0 __ Documents",
+      "docsBreadcrumb": "{n} dokumen",
       "table": "Daftar",
       "json": "JSON",
       "tree": "Pohon",
@@ -883,7 +885,7 @@
       "tooltipJson": "Tampilan JSON",
       "tooltipTree": "Tampilan Pohon",
       "itemsPerPage": "Item Per Halaman",
-      "perPage": "__ PH_0 __ / halaman",
+      "perPage": "{n} / halaman",
       "prevPage": "Halaman Sebelumnya",
       "nextPage": "Halaman Berikutnya",
       "expandAll": "Tampikan Semua",
@@ -899,9 +901,9 @@
       "invalidJsonShort": "JSON tidak valid.",
       "docCopied": "Dokumen disalin ke clipboard",
       "openFullEditor": "Buka dalam T_erminal",
-      "cellArray": "Array(__ PH_0 __)",
+      "cellArray": "Array({length})",
       "cellObject": "Objek",
-      "cellArrayBracket": "Array[__ PH_0 __]",
+      "cellArrayBracket": "Array[{length}]",
       "emptyFilterTitle": "Tidak ada dokumen yang cocok dengan kueri Anda",
       "emptyFilterHint": "Coba sesuaikan filter Anda atau kosongkan kueri.",
       "clearFilter": "Hapus Filter",
@@ -915,7 +917,7 @@
       "duplicate": "Duplikat",
       "editDoc": "Edit Dokumen",
       "deleteDoc": "Hapus Dokumen",
-      "documentLabel": "Dokumen __ PH_0 __",
+      "documentLabel": "Dokumen {n}",
       "editDialogTitle": "Edit Dokumen",
       "insertDialogTitle": "Sisipkan Dokumen",
       "viewValueTitle": "Lihat Nilai",
@@ -934,7 +936,7 @@
       "saveHistoryFail": "Gagal menyimpan riwayat kueri",
       "deleteQueryFail": "Gagal menghapus kueri",
       "invalidJsonQuery": "Kueri JSON tidak valid",
-      "placeholder": "misalnya __ PH_0 __",
+      "placeholder": "mis. {\"status\": \"active\"}",
       "clearQuery": "Hapus kueri",
       "openAdvanced": "Buka Penyunting Lanjutan",
       "visualBuilder": "Pembuat Kueri Visual",
@@ -976,7 +978,7 @@
     },
     "export": {
       "selectFieldsError": "Pilih setidaknya satu bidang untuk diekspor",
-      "success": "Berhasil diekspor ke __ PH_0__",
+      "success": "Berhasil diekspor ke {filename}",
       "fail": "Gagal mengekspor",
       "title": "Ekspor data...",
       "formatLabel": "Format Ekspor",
@@ -984,14 +986,14 @@
       "formatCsv": "CSV",
       "selectFields": "Pilih Bidang",
       "selectAll": "Pilih Semua",
-      "fieldsSelected": "__ PH_0 __",
+      "fieldsSelected": "{count, plural, one {# bidang dipilih} other {# bidang dipilih}}",
       "cancel": "Batalkan",
       "export": "Ekspor",
       "sheetName": "Data"
     },
     "jsonTree": {
-      "typeLabel": "Tipe: __ PH_0__",
-      "itemSummary": "__ PH_0 __"
+      "typeLabel": "Tipe: {type}",
+      "itemSummary": "{count, plural, one {# item} other {# item}}"
     }
   },
   "ApiClient": {
@@ -1004,7 +1006,7 @@
       "curlImported": "Berhasil diimpor.",
       "curlParseFailed": "Gagal mengurai perintah cURL",
       "invalidJsonBody": "Isi JSON tidak valid",
-      "requestFailed": "Permohonan gagal: __ PH_0__",
+      "requestFailed": "Permintaan gagal: {message}",
       "curlPasted": "cURL berhasil ditempelkan dan diuraikan",
       "responseCopied": "Tanggapan disalin ke clipboard",
       "codeCopied": "Disalin ke papan klip"
@@ -1381,6 +1383,21 @@
     }
   },
   "JsonFormatter": {
-    "title": "JSON Formatter"
+    "title": "Pemformat JSON",
+    "description": "Format, validasi, dan edit JSON dalam tampilan teks dan pohon.",
+    "documentNameText": "Dokumen teks {n}",
+    "documentNameTree": "Dokumen pohon {n}",
+    "newDocument": "Baru",
+    "copy": "Salin",
+    "save": "Simpan",
+    "saving": "Menyimpan...",
+    "leftDocNameLabel": "Nama dokumen kiri",
+    "rightDocNameLabel": "Nama dokumen kanan",
+    "toastCopiedText": "Panel teks disalin",
+    "toastCopiedTree": "Panel pohon disalin",
+    "toastCopyFailed": "Gagal menyalin JSON",
+    "toastLoginRequired": "Masuk untuk menyimpan dokumen",
+    "toastSaved": "Dokumen disimpan",
+    "toastSaveFailed": "Gagal menyimpan dokumen"
   }
 }

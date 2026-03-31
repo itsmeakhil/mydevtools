@@ -5,6 +5,7 @@
     "apiClient": "API-клиент",
     "passwordManager": "Менеджер паролей",
     "bookmarks": "Закладки",
+    "jsonFormatter": "Форматировщик JSON",
     "emailValidator": "Валидатор email",
     "nosqlExplorer": "NoSQL-обозреватель"
   },
@@ -1381,6 +1382,21 @@
     }
   },
   "JsonFormatter": {
-    "title": "JSON Formatter"
+    "title": "Форматировщик JSON",
+    "description": "Форматируйте, проверяйте и редактируйте JSON в текстовом и древовидном режимах.",
+    "documentNameText": "Текстовый документ {n}",
+    "documentNameTree": "Древовидный документ {n}",
+    "newDocument": "Новый",
+    "copy": "Копировать",
+    "save": "Сохранить",
+    "saving": "Сохранение...",
+    "leftDocNameLabel": "Left document name",
+    "rightDocNameLabel": "Right document name",
+    "toastCopiedText": "Text pane copied",
+    "toastCopiedTree": "Tree pane copied",
+    "toastCopyFailed": "Failed to copy JSON",
+    "toastLoginRequired": "Please sign in to save documents",
+    "toastSaved": "Document saved",
+    "toastSaveFailed": "Failed to save document"
   }
 }

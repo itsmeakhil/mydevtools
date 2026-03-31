@@ -5,6 +5,7 @@
     "apiClient": "عميل API",
     "passwordManager": "مدير كلمات المرور",
     "bookmarks": "الإشارات المرجعية",
+    "jsonFormatter": "منسّق JSON",
     "emailValidator": "التحقق من البريد",
     "nosqlExplorer": "مستكشف NoSQL"
   },
@@ -1381,6 +1382,21 @@
     }
   },
   "JsonFormatter": {
-    "title": "JSON Formatter"
+    "title": "منسّق JSON",
+    "description": "نسّق JSON وتحقق منه وحرّره في عرض النص والشجرة.",
+    "documentNameText": "مستند نصي {n}",
+    "documentNameTree": "مستند شجري {n}",
+    "newDocument": "جديد",
+    "copy": "نسخ",
+    "save": "حفظ",
+    "saving": "جارٍ الحفظ...",
+    "leftDocNameLabel": "Left document name",
+    "rightDocNameLabel": "Right document name",
+    "toastCopiedText": "Text pane copied",
+    "toastCopiedTree": "Tree pane copied",
+    "toastCopyFailed": "Failed to copy JSON",
+    "toastLoginRequired": "Please sign in to save documents",
+    "toastSaved": "Document saved",
+    "toastSaveFailed": "Failed to save document"
   }
 }

@@ -5,6 +5,7 @@
     "apiClient": "API 클라이언트",
     "passwordManager": "비밀번호 관리자",
     "bookmarks": "북마크",
+    "jsonFormatter": "JSON 포맷터",
     "emailValidator": "이메일 검증기",
     "nosqlExplorer": "NoSQL 탐색기"
   },
@@ -1381,6 +1382,21 @@
     }
   },
   "JsonFormatter": {
-    "title": "JSON Formatter"
+    "title": "JSON 포맷터",
+    "description": "텍스트 및 트리 보기에서 JSON을 포맷, 검증, 편집하세요.",
+    "documentNameText": "텍스트 문서 {n}",
+    "documentNameTree": "트리 문서 {n}",
+    "newDocument": "새로 만들기",
+    "copy": "복사",
+    "save": "저장",
+    "saving": "저장 중...",
+    "leftDocNameLabel": "Left document name",
+    "rightDocNameLabel": "Right document name",
+    "toastCopiedText": "Text pane copied",
+    "toastCopiedTree": "Tree pane copied",
+    "toastCopyFailed": "Failed to copy JSON",
+    "toastLoginRequired": "Please sign in to save documents",
+    "toastSaved": "Document saved",
+    "toastSaveFailed": "Failed to save document"
   }
 }

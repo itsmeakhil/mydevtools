@@ -5,6 +5,7 @@
     "apiClient": "Cliente API",
     "passwordManager": "Gestor de contraseñas",
     "bookmarks": "Marcadores",
+    "jsonFormatter": "Formateador JSON",
     "emailValidator": "Validador de correo",
     "nosqlExplorer": "Explorador NoSQL"
   },
@@ -1381,6 +1382,21 @@
     }
   },
   "JsonFormatter": {
-    "title": "JSON Formatter"
+    "title": "Formateador JSON",
+    "description": "Formatea, valida y edita JSON en vista de texto y árbol.",
+    "documentNameText": "Documento de texto {n}",
+    "documentNameTree": "Documento en árbol {n}",
+    "newDocument": "Nuevo",
+    "copy": "Copiar",
+    "save": "Guardar",
+    "saving": "Guardando...",
+    "leftDocNameLabel": "Left document name",
+    "rightDocNameLabel": "Right document name",
+    "toastCopiedText": "Text pane copied",
+    "toastCopiedTree": "Tree pane copied",
+    "toastCopyFailed": "Failed to copy JSON",
+    "toastLoginRequired": "Please sign in to save documents",
+    "toastSaved": "Document saved",
+    "toastSaveFailed": "Failed to save document"
   }
 }
