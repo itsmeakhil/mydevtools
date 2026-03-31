@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { JSONEditor, JSONEditorPropsOptional } from 'vanilla-jsoneditor'
 import { useTheme } from 'next-themes'
+import { cn } from '@/lib/utils'
 import 'vanilla-jsoneditor/themes/jse-theme-dark.css'
 
 interface VanillaEditorProps extends JSONEditorPropsOptional {
@@ -45,7 +46,11 @@ export function VanillaEditor({ className = '', ...props }: VanillaEditorProps) 
   return (
     <div
       ref={refContainer}
-      className={`h-full w-full ${currentTheme === 'dark' ? 'jse-theme-dark' : ''} ${className}`}
+      className={cn(
+        'jse-app-theme h-full w-full',
+        currentTheme === 'dark' && 'jse-theme-dark',
+        className
+      )}
     />
   )
 }

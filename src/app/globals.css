@@ -221,6 +221,201 @@ body {
   }
 }
 
+/*
+ * vanilla-jsoneditor — map --jse-* tokens to app shadcn theme (light + dark).
+ * Loaded after base tokens; higher specificity than `.jse-theme-dark` alone.
+ */
+@layer components {
+  .jse-app-theme {
+    --jse-font-family: inherit;
+    --jse-font-family-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco,
+      Consolas, 'Liberation Mono', 'Courier New', monospace;
+    --jse-font-size: 14px;
+    --jse-font-size-mono: 13px;
+    --jse-error-color: hsl(var(--destructive));
+    --jse-warning-color: hsl(38 92% 50%);
+    --jse-info-color: hsl(var(--primary));
+    --jse-text-readonly: hsl(var(--muted-foreground));
+  }
+
+  /* Light / app background */
+  html:not(.dark) .jse-app-theme:not(.jse-theme-dark) {
+    --jse-theme: light;
+    --jse-theme-color: hsl(var(--primary));
+    --jse-theme-color-highlight: hsl(var(--ring));
+    --jse-background-color: hsl(var(--card));
+    --jse-text-color: hsl(var(--foreground));
+    --jse-text-color-inverse: hsl(var(--primary-foreground));
+    --jse-main-border: 1px solid hsl(var(--border));
+    --jse-menu-color: hsl(var(--primary-foreground));
+    --jse-modal-background: hsl(var(--popover));
+    --jse-modal-overlay-background: hsl(var(--foreground) / 0.25);
+    --jse-modal-code-background: hsl(var(--muted));
+    --jse-tooltip-color: hsl(var(--popover-foreground));
+    --jse-tooltip-background: hsl(var(--popover));
+    --jse-tooltip-border: 1px solid hsl(var(--border));
+    --jse-tooltip-action-button-color: hsl(var(--primary-foreground));
+    --jse-tooltip-action-button-background: hsl(var(--primary));
+    --jse-panel-background: hsl(var(--muted));
+    --jse-panel-background-border: 1px solid hsl(var(--border));
+    --jse-panel-color: hsl(var(--foreground));
+    --jse-panel-color-readonly: hsl(var(--muted-foreground));
+    --jse-panel-border: 1px solid hsl(var(--border));
+    --jse-panel-button-background-highlight: hsl(var(--secondary));
+    --jse-panel-button-color-highlight: hsl(var(--secondary-foreground));
+    --jse-navigation-bar-background: hsl(var(--muted));
+    --jse-navigation-bar-background-highlight: hsl(var(--accent));
+    --jse-navigation-bar-dropdown-color: hsl(var(--muted-foreground));
+    --jse-context-menu-background: hsl(var(--popover));
+    --jse-context-menu-background-highlight: hsl(var(--accent));
+    --jse-context-menu-color: hsl(var(--popover-foreground));
+    --jse-context-menu-color-disabled: hsl(var(--muted-foreground));
+    --jse-context-menu-separator-color: hsl(var(--border));
+    --jse-context-menu-pointer-background: hsl(var(--muted));
+    --jse-context-menu-pointer-background-highlight: hsl(var(--accent));
+    --jse-context-menu-pointer-color: hsl(var(--popover-foreground));
+    --jse-key-color: hsl(var(--primary));
+    --jse-value-color: hsl(var(--foreground));
+    --jse-value-color-number: hsl(142 76% 30%);
+    --jse-value-color-boolean: hsl(217 91% 45%);
+    --jse-value-color-null: hsl(var(--muted-foreground));
+    --jse-value-color-string: hsl(24 95% 38%);
+    --jse-value-color-url: hsl(217 91% 45%);
+    --jse-delimiter-color: hsl(var(--muted-foreground));
+    --jse-edit-outline: 2px solid hsl(var(--ring));
+    --jse-contents-background-color: transparent;
+    --jse-selection-background-color: hsl(var(--accent));
+    --jse-selection-background-inactive-color: hsl(var(--muted));
+    --jse-hover-background-color: hsl(var(--muted));
+    --jse-active-line-background-color: hsl(var(--muted) / 0.55);
+    --jse-search-match-background-color: hsl(var(--primary) / 0.12);
+    --jse-collapsed-items-background-color: hsl(var(--muted));
+    --jse-collapsed-items-selected-background-color: hsl(var(--accent));
+    --jse-collapsed-items-link-color: hsl(var(--muted-foreground));
+    --jse-collapsed-items-link-color-highlight: hsl(var(--destructive));
+    --jse-search-match-color: hsl(48 96% 53%);
+    --jse-search-match-outline: 1px solid hsl(var(--primary));
+    --jse-search-match-active-color: hsl(38 92% 50%);
+    --jse-search-match-active-outline: 1px solid hsl(var(--ring));
+    --jse-tag-background: hsl(var(--secondary));
+    --jse-tag-color: hsl(var(--secondary-foreground));
+    --jse-table-header-background: hsl(var(--muted));
+    --jse-table-header-background-highlight: hsl(var(--secondary));
+    --jse-table-row-odd-background: hsl(var(--muted) / 0.35);
+    --jse-input-background: hsl(var(--background));
+    --jse-input-border: 1px solid hsl(var(--input));
+    --jse-button-background: hsl(var(--primary));
+    --jse-button-background-highlight: hsl(var(--primary) / 0.88);
+    --jse-button-color: hsl(var(--primary-foreground));
+    --jse-button-secondary-background: hsl(var(--secondary));
+    --jse-button-secondary-background-highlight: hsl(var(--accent));
+    --jse-button-secondary-background-disabled: hsl(var(--muted));
+    --jse-button-secondary-color: hsl(var(--secondary-foreground));
+    --jse-a-color: hsl(var(--primary));
+    --jse-a-color-highlight: hsl(var(--ring));
+    --jse-svelte-select-background: hsl(var(--background));
+    --jse-svelte-select-border: 1px solid hsl(var(--border));
+    --list-background: hsl(var(--popover));
+    --item-hover-bg: hsl(var(--accent));
+    --input-color: hsl(var(--foreground));
+    --multi-item-bg: hsl(var(--secondary));
+    --multi-clear-bg: hsl(var(--muted-foreground));
+    --multi-item-clear-icon-color: hsl(var(--background));
+    --multi-item-outline: 1px solid hsl(var(--border));
+    --list-shadow: 0 4px 12px hsl(var(--foreground) / 0.08);
+    --jse-color-picker-background: hsl(var(--muted));
+    --jse-color-picker-border-box-shadow: hsl(var(--border)) 0 0 0 1px;
+  }
+
+  /* Dark — override bundled jse-theme-dark to match app .dark palette */
+  html.dark .jse-app-theme.jse-theme-dark {
+    --jse-theme: dark;
+    --jse-theme-color: hsl(var(--primary));
+    --jse-theme-color-highlight: hsl(var(--ring));
+    --jse-background-color: hsl(var(--card));
+    --jse-text-color: hsl(var(--foreground));
+    --jse-text-color-inverse: hsl(var(--primary-foreground));
+    --jse-main-border: 1px solid hsl(var(--border));
+    --jse-menu-color: hsl(var(--primary-foreground));
+    --jse-modal-background: hsl(var(--popover));
+    --jse-modal-overlay-background: hsl(0 0% 0% / 0.55);
+    --jse-modal-code-background: hsl(var(--muted));
+    --jse-tooltip-color: hsl(var(--popover-foreground));
+    --jse-tooltip-background: hsl(var(--popover));
+    --jse-tooltip-border: 1px solid hsl(var(--border));
+    --jse-tooltip-action-button-color: hsl(var(--primary-foreground));
+    --jse-tooltip-action-button-background: hsl(var(--primary));
+    --jse-panel-background: hsl(var(--muted));
+    --jse-panel-background-border: 1px solid hsl(var(--border));
+    --jse-panel-color: hsl(var(--foreground));
+    --jse-panel-color-readonly: hsl(var(--muted-foreground));
+    --jse-panel-border: 1px solid hsl(var(--border));
+    --jse-panel-button-color-highlight: hsl(var(--foreground));
+    --jse-panel-button-background-highlight: hsl(var(--secondary));
+    --jse-navigation-bar-background: hsl(var(--muted));
+    --jse-navigation-bar-background-highlight: hsl(var(--secondary));
+    --jse-navigation-bar-dropdown-color: hsl(var(--foreground));
+    --jse-context-menu-background: hsl(var(--popover));
+    --jse-context-menu-background-highlight: hsl(var(--accent));
+    --jse-context-menu-separator-color: hsl(var(--border));
+    --jse-context-menu-color: hsl(var(--popover-foreground));
+    --jse-context-menu-pointer-background: hsl(var(--muted));
+    --jse-context-menu-pointer-background-highlight: hsl(var(--accent));
+    --jse-context-menu-pointer-color: hsl(var(--popover-foreground));
+    --jse-key-color: hsl(199 89% 58%);
+    --jse-value-color: hsl(var(--foreground));
+    --jse-value-color-number: hsl(142 55% 55%);
+    --jse-value-color-boolean: hsl(var(--primary));
+    --jse-value-color-null: hsl(var(--primary));
+    --jse-value-color-string: hsl(24 95% 68%);
+    --jse-value-color-url: hsl(24 95% 68%);
+    --jse-delimiter-color: hsl(var(--muted-foreground));
+    --jse-edit-outline: 2px solid hsl(var(--ring));
+    --jse-contents-background-color: transparent;
+    --jse-selection-background-color: hsl(var(--accent));
+    --jse-selection-background-inactive-color: hsl(var(--muted));
+    --jse-hover-background-color: hsl(var(--secondary));
+    --jse-active-line-background-color: hsl(var(--primary) / 0.12);
+    --jse-search-match-background-color: hsl(var(--muted));
+    --jse-collapsed-items-background-color: hsl(var(--muted));
+    --jse-collapsed-items-selected-background-color: hsl(var(--accent));
+    --jse-collapsed-items-link-color: hsl(var(--muted-foreground));
+    --jse-collapsed-items-link-color-highlight: hsl(var(--destructive));
+    --jse-search-match-color: hsl(38 92% 45%);
+    --jse-search-match-outline: 1px solid hsl(var(--primary));
+    --jse-search-match-active-color: hsl(48 96% 55%);
+    --jse-search-match-active-outline: 1px solid hsl(var(--ring));
+    --jse-tag-background: hsl(var(--secondary));
+    --jse-tag-color: hsl(var(--secondary-foreground));
+    --jse-table-header-background: hsl(var(--muted));
+    --jse-table-header-background-highlight: hsl(var(--secondary));
+    --jse-table-row-odd-background: hsl(var(--foreground) / 0.04);
+    --jse-input-background: hsl(var(--background));
+    --jse-input-border: 1px solid hsl(var(--border));
+    --jse-button-background: hsl(var(--primary));
+    --jse-button-background-highlight: hsl(var(--ring));
+    --jse-button-color: hsl(var(--primary-foreground));
+    --jse-button-secondary-background: hsl(var(--secondary));
+    --jse-button-secondary-background-highlight: hsl(var(--accent));
+    --jse-button-secondary-background-disabled: hsl(var(--muted-foreground));
+    --jse-button-secondary-color: hsl(var(--secondary-foreground));
+    --jse-a-color: hsl(var(--primary));
+    --jse-a-color-highlight: hsl(var(--ring));
+    --jse-svelte-select-background: hsl(var(--card));
+    --jse-svelte-select-border: 1px solid hsl(var(--border));
+    --list-background: hsl(var(--popover));
+    --item-hover-bg: hsl(var(--accent));
+    --input-color: hsl(var(--foreground));
+    --multi-item-bg: hsl(var(--secondary));
+    --multi-clear-bg: hsl(var(--muted-foreground));
+    --multi-item-clear-icon-color: hsl(var(--background));
+    --multi-item-outline: 1px solid hsl(var(--border));
+    --list-shadow: 0 4px 16px hsl(0 0% 0% / 0.35);
+    --jse-color-picker-background: hsl(var(--muted));
+    --jse-color-picker-border-box-shadow: hsl(var(--border)) 0 0 0 1px;
+  }
+}
+
 /* Enhanced blue dark mode styling for elegant, modern visuals */
 @layer utilities {
   .dark {
