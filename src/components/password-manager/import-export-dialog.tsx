@@ -22,6 +22,7 @@ interface ImportExportDialogProps {
 export function ImportExportDialog({ children }: ImportExportDialogProps) {
     const t = useTranslations("PasswordManager.importExport")
     const tToast = useTranslations("PasswordManager.toasts")
+    const pastePlaceholder = String(t.raw("pastePlaceholder"))
     const { passwords, encryptionKey, addPassword } = usePasswordStore()
     const [open, setOpen] = useState(false)
     const [importData, setImportData] = useState("")
@@ -157,7 +158,7 @@ export function ImportExportDialog({ children }: ImportExportDialogProps) {
                         <div className="space-y-2">
                             <Label>{t("pasteLabel")}</Label>
                             <Textarea
-                                placeholder={t("pastePlaceholder")}
+                                placeholder={pastePlaceholder}
                                 className="h-[200px] font-mono text-xs"
                                 value={importData}
                                 onChange={(e) => setImportData(e.target.value)}
