@@ -64,7 +64,7 @@ export function LanguageSwitcher() {
           {t('danish')}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => switchLanguage('nb')} className={locale === 'nb' ? 'font-bold' : ''}>
-          Norsk
+          {t('norwegian')}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => switchLanguage('nl')} className={locale === 'nl' ? 'font-bold' : ''}>
           Nederlands
@@ -77,6 +77,9 @@ export function LanguageSwitcher() {
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => switchLanguage('pt')} className={locale === 'pt' ? 'font-bold' : ''}>
           Português
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('pt-BR')} className={locale === 'pt-BR' ? 'font-bold' : ''}>
+          Português (Brasil)
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => switchLanguage('af')} className={locale === 'af' ? 'font-bold' : ''}>
           {t('afrikaans')}
@@ -101,6 +104,9 @@ export function LanguageSwitcher() {
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => switchLanguage('pl')} className={locale === 'pl' ? 'font-bold' : ''}>
           Polski
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => switchLanguage('vi')} className={locale === 'vi' ? 'font-bold' : ''}>
+          Tiếng Việt
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

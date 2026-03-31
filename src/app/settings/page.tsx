@@ -192,10 +192,11 @@ export default function SettingsPage() {
                   <SelectItem value="el">{t('language.languages.el')}</SelectItem>
                   <SelectItem value="de">{t('language.languages.de')}</SelectItem>
                   <SelectItem value="da">{t('language.languages.da')}</SelectItem>
-                  <SelectItem value="nb">Norsk</SelectItem>
+                  <SelectItem value="nb">{t('language.languages.nb')}</SelectItem>
                   <SelectItem value="nl">Nederlands</SelectItem>
                   <SelectItem value="sv">Svenska</SelectItem>
                   <SelectItem value="pt">Português</SelectItem>
+                  <SelectItem value="pt-BR">Português (Brasil)</SelectItem>
                   <SelectItem value="af">{t('language.languages.af')}</SelectItem>
                   <SelectItem value="fa">{t('language.languages.fa')}</SelectItem>
                   <SelectItem value="ru">Русский</SelectItem>
@@ -204,6 +205,7 @@ export default function SettingsPage() {
                   <SelectItem value="ko">한국어</SelectItem>
                   <SelectItem value="ms">Bahasa Melayu</SelectItem>
                   <SelectItem value="pl">Polski</SelectItem>
+                  <SelectItem value="vi">Tiếng Việt</SelectItem>
                 </SelectContent>
               </Select>
             </div>

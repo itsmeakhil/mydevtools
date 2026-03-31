@@ -1,0 +1,1380 @@
+{
+  "Navigation": {
+    "dashboard": "Bảng điều khiển",
+    "settings": "Cài đặt",
+    "apiClient": "API Client",
+    "passwordManager": "Quản lý mật khẩu",
+    "bookmarks": "Dấu trang",
+    "emailValidator": "Xác thực email",
+    "nosqlExplorer": "NoSQL Explorer"
+  },
+  "Settings": {
+    "title": "Cài đặt",
+    "language": "Ngôn ngữ",
+    "spanish": "Tiếng Tây Ban Nha",
+    "english": "Tiếng Anh",
+    "french": "Français",
+    "arabic": "عربى",
+    "catalan": "Tiếng Catalan",
+    "chineseSimplified": "Tiếng Trung (Giản thể)",
+    "czech": "Čeština",
+    "greek": "Ελληνικά",
+    "german": "Tiếng Đức",
+    "danish": "Tiếng Đan Mạch",
+    "afrikaans": "Tiếng Afrikaans",
+    "persian": "فارسی",
+    "indonesian": "Bahasa Indonesia",
+    "japanese": "日本語",
+    "korean": "한국어",
+    "malay": "Bahasa Melayu",
+    "dutch": "Nederlands",
+    "polish": "Tiếng Ba Lan",
+    "vietnamese": "Tiếng Việt",
+    "norwegian": "Tiếng Na Uy"
+  },
+  "SettingsPage": {
+    "title": "Cài đặt",
+    "subtitle": "Quản lý cài đặt tài khoản và tùy chọn của bạn.",
+    "userProfile": {
+      "title": "Hồ sơ người dùng",
+      "description": "Thông tin cá nhân và chi tiết tài khoản của bạn.",
+      "avatarAlt": "Người dùng",
+      "anonymousUser": "Người dùng ẩn danh",
+      "noEmailProvided": "Chưa cung cấp email",
+      "notLoggedIn": "Chưa đăng nhập."
+    },
+    "tools": {
+      "title": "Công cụ & Tính năng",
+      "description": "Chọn công cụ hiển thị trên thanh điều hướng."
+    },
+    "appearance": {
+      "title": "Giao diện",
+      "description": "Tùy chỉnh giao diện ứng dụng trên thiết bị của bạn.",
+      "themePreference": "Tùy chọn giao diện",
+      "themes": {
+        "light": "Sáng",
+        "dark": "Tối",
+        "system": "Hệ thống"
+      }
+    },
+    "language": {
+      "title": "Ngôn ngữ",
+      "description": "Đặt ngôn ngữ sử dụng trên toàn nền tảng.",
+      "selectLanguage": "Chọn ngôn ngữ",
+      "selectPlaceholder": "Chọn một ngôn ngữ",
+      "helpText": "Thay đổi ngôn ngữ sẽ cập nhật menu và nhãn trên toàn nền tảng.",
+      "languages": {
+        "en": "English",
+        "fr": "Français",
+        "es": "Español (Tiếng Tây Ban Nha)",
+        "ar": "عربى (Tiếng Ả Rập)",
+        "ca": "Català",
+        "zh": "简体中文",
+        "cs": "Čeština",
+        "el": "Ελληνικά (Tiếng Hy Lạp)",
+        "de": "Deutsch (Tiếng Đức)",
+        "da": "Dansk (Tiếng Đan Mạch)",
+        "af": "Afrikaans",
+        "fa": "فارسی",
+        "id": "Bahasa Indonesia",
+        "nb": "Norsk",
+        "ja": "日本語",
+        "ko": "한국어",
+        "ms": "Bahasa Melayu",
+        "nl": "Nederlands",
+        "pl": "Polski (Tiếng Ba Lan)",
+        "pt": "Português",
+        "pt-BR": "Português (Brasil)",
+        "vi": "Tiếng Việt"
+      }
+    }
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "Chào buổi sáng",
+      "afternoon": "Chào buổi chiều",
+      "evening": "Chào buổi tối"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "Chào mừng trở lại",
+    "welcomeBackNamed": "Chào mừng trở lại, {name}",
+    "tagline": "Hôm nay bạn muốn xây dựng gì?",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Công cụ",
+      "favorites": "Yêu thích"
+    },
+    "sections": {
+      "recentlyUsed": "Dùng gần đây",
+      "favorites": "Yêu thích"
+    },
+    "groups": {
+      "apps": "Ứng dụng"
+    },
+    "toolCard": {
+      "defaultDescription": "Khám phá công cụ này để có chức năng tốt hơn.",
+      "launchTool": "Mở công cụ"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Công việc",
+        "description": "Quản lý danh sách công việc hiệu quả."
+      },
+      "notes": {
+        "title": "Ghi chú",
+        "description": "Ghi lại ý tưởng và sắp xếp suy nghĩ."
+      },
+      "passwordManager": {
+        "title": "Quản lý mật khẩu",
+        "description": "Lưu trữ và quản lý mật khẩu an toàn."
+      },
+      "bookmarks": {
+        "title": "Dấu trang",
+        "description": "Quản lý và sắp xếp dấu trang."
+      },
+      "apiClient": {
+        "title": "API Client",
+        "description": "Kiểm tra và gỡ lỗi các yêu cầu HTTP."
+      },
+      "nosqlExplorer": {
+        "title": "NoSQL Explorer",
+        "description": "Khám phá cơ sở dữ liệu MongoDB."
+      },
+      "emailValidator": {
+        "title": "Xác thực Email",
+        "description": "Xác minh và kiểm tra địa chỉ email."
+      }
+    }
+  },
+  "Tasks": {
+    "page": {
+      "loading": "Đang tải...",
+      "myTasksTitle": "Công việc của tôi",
+      "statsLine": "{total} công việc • Hoàn thành {percent}%",
+      "statsLineDesktop": "{total} tổng cộng • Hoàn thành {percent}%"
+    },
+    "filters": {
+      "all": "Tất cả",
+      "total": "Tổng",
+      "allProjects": "Tất cả dự án",
+      "export": "Xuất",
+      "kanban": "Kanban",
+      "list": "Danh sách",
+      "searchPlaceholder": "Tìm kiếm công việc...",
+      "searchAria": "Tìm kiếm công việc",
+      "clearSearchAria": "Xóa tìm kiếm",
+      "foundTasks": "Tìm thấy {count} {count, plural, one {công việc} other {công việc}}",
+      "filterByAllAria": "Lọc theo Tất cả",
+      "filterByStatusAria": "Lọc theo {status}"
+    },
+    "status": {
+      "not-started": {
+        "label": "Chưa bắt đầu",
+        "description": "Công việc chưa được bắt đầu"
+      },
+      "ongoing": {
+        "label": "Đang thực hiện",
+        "description": "Công việc đang được thực hiện"
+      },
+      "completed": {
+        "label": "Hoàn thành",
+        "description": "Công việc đã hoàn thành"
+      }
+    },
+    "priorities": {
+      "high": "Cao",
+      "medium": "Trung bình",
+      "low": "Thấp"
+    },
+    "form": {
+      "addNewTaskLabel": "Thêm công việc mới",
+      "multilinePlaceholder": "Thêm chi tiết công việc... (Shift+Enter để xuống dòng)",
+      "singlelinePlaceholder": "Cần làm gì? Nhấn Enter để thêm",
+      "taskInputAria": "Nhập công việc",
+      "projectPlaceholder": "Dự án",
+      "selectProject": "Chọn dự án",
+      "errorSelectProject": "Vui lòng chọn dự án hoặc tạo dự án mới để thêm công việc.",
+      "hintMultiline": "Shift+Enter để xuống dòng, Enter để thêm",
+      "hintSingleline": "Enter để thêm",
+      "shortcutsAria": "Phím tắt",
+      "shortcutsLabel": "Phím tắt",
+      "shortcutAddTask": "Thêm công việc",
+      "shortcutNewLine": "Dòng mới",
+      "shortcutClear": "Xóa",
+      "addButton": "Thêm"
+    },
+    "list": {
+      "ariaLabel": "Danh sách công việc",
+      "loading": "Đang tải công việc...",
+      "emptyTitle": "Không tìm thấy công việc",
+      "emptyPrimary": "Bắt đầu bằng cách thêm công việc đầu tiên ở trên! Nhấn Enter để thêm nhanh.",
+      "emptySecondary": "Thử điều chỉnh bộ lọc hoặc từ khóa tìm kiếm."
+    },
+    "mobileDrawer": {
+      "addTaskSrOnly": "Thêm công việc",
+      "addNewTaskTitle": "Thêm công việc mới",
+      "addNewTaskDescription": "Tạo công việc mới để theo dõi tiến độ.",
+      "cancel": "Hủy"
+    },
+    "kanban": {
+      "ariaLabel": "Bảng Kanban",
+      "loading": "Đang tải công việc...",
+      "dropHere": "Thả công việc vào đây",
+      "noTasksYet": "Chưa có công việc",
+      "emptyColumnAria": "Cột trống",
+      "columnAria": "Cột {title} với {count} công việc",
+      "countInColumnAria": "{count} công việc trong {title}"
+    },
+    "taskItem": {
+      "confirmDelete": "Bạn có chắc muốn xóa công việc này không?",
+      "statusPlaceholder": "Trạng thái",
+      "changeStatusAria": "Thay đổi trạng thái công việc",
+      "taskOptionsAria": "Tùy chọn công việc",
+      "editTask": "Sửa công việc",
+      "copyTask": "Sao chép công việc",
+      "copied": "Đã sao chép!",
+      "deleteTask": "Xóa công việc",
+      "statusHeading": "Trạng thái",
+      "editTaskAria": "Sửa công việc"
+    },
+    "editDialog": {
+      "title": "Sửa công việc",
+      "description": "Cập nhật chi tiết công việc, thêm công việc con, đặt mức ưu tiên và nhiều hơn nữa.",
+      "taskTitleLabel": "Tiêu đề công việc *",
+      "taskTitlePlaceholder": "Cần làm gì?",
+      "descriptionLabel": "Mô tả",
+      "descriptionPlaceholder": "Thêm chi tiết về công việc này...",
+      "statusLabel": "Trạng thái",
+      "priorityLabel": "Mức ưu tiên",
+      "dueDateLabel": "Hạn chót",
+      "pickDate": "Chọn ngày",
+      "clearDate": "Xóa ngày",
+      "projectLabel": "Dự án",
+      "selectProjectPlaceholder": "Chọn dự án",
+      "noProject": "Không có dự án",
+      "timeEstimateLabel": "Ước tính thời gian (phút)",
+      "timeEstimatePlaceholder": "Mất bao lâu?",
+      "tagsLabel": "Nhãn",
+      "customTagNamePlaceholder": "Tên nhãn tùy chỉnh",
+      "subtasksLabel": "Công việc con",
+      "addSubtaskPlaceholder": "Thêm công việc con...",
+      "cancel": "Hủy",
+      "saving": "Đang lưu...",
+      "saveChanges": "Lưu thay đổi"
+    },
+    "export": {
+      "title": "Xuất công việc",
+      "description": "Xuất công việc sang định dạng JSON, CSV hoặc Excel.",
+      "projectLabel": "Dự án",
+      "statusLabel": "Trạng thái",
+      "tagLabel": "Nhãn",
+      "allProjects": "Tất cả dự án",
+      "allStatuses": "Tất cả trạng thái",
+      "allTags": "Tất cả nhãn",
+      "exportAsJsonTitle": "Xuất dạng JSON",
+      "exportAsJsonDescription": "Xuất dữ liệu công việc bao gồm công việc con, nhãn và siêu dữ liệu.",
+      "exportJson": "Xuất JSON",
+      "exportAsCsvExcelTitle": "Xuất dạng CSV / Excel",
+      "exportAsCsvExcelDescription": "Xuất công việc cho ứng dụng bảng tính.",
+      "exportCsv": "Xuất CSV",
+      "exportExcel": "Xuất Excel",
+      "close": "Đóng",
+      "toastNoTasks": "Không có công việc để xuất với bộ lọc hiện tại",
+      "toastExportedJson": "Đã xuất {count} công việc sang JSON!",
+      "toastExportedCsv": "Đã xuất {count} công việc sang CSV!",
+      "toastExportedExcel": "Đã xuất {count} công việc sang Excel!",
+      "toastFailedJson": "Không thể xuất sang JSON",
+      "toastFailedCsv": "Không thể xuất sang CSV",
+      "toastFailedExcel": "Không thể xuất sang Excel",
+      "unknownProject": "Dự án không xác định"
+    },
+    "ack": {
+      "taskAddedTitle": "Đã thêm công việc thành công",
+      "taskAddedFailedTitle": "Không thể thêm công việc",
+      "taskUpdatedTitle": "Đã cập nhật công việc thành công",
+      "taskUpdatedFailedTitle": "Không thể cập nhật công việc",
+      "taskStatusUpdateFailedTitle": "Không thể cập nhật trạng thái công việc",
+      "taskMovedTitle": "Đã chuyển công việc sang {status}",
+      "tryAgain": "Vui lòng thử lại.",
+      "taskDeletedTitle": "Đã xóa công việc \"{text}\"",
+      "undo": "Hoàn tác",
+      "taskRestoredTitle": "Đã khôi phục công việc",
+      "taskRestoredSuccessTitle": "Đã khôi phục công việc thành công",
+      "taskRestoreFailedTitle": "Không thể khôi phục công việc. Vui lòng thử lại.",
+      "taskDeleteFailedTitle": "Không thể xóa công việc. Vui lòng thử lại.",
+      "tasksImportedTitle": "Đã nhập thành công {count} {count, plural, one {công việc} other {công việc}}!",
+      "tasksImportFailedTitle": "Không thể nhập công việc. Vui lòng thử lại.",
+      "unknownProject": "Dự án không xác định",
+      "projectCreatedTitle": "Đã tạo dự án thành công",
+      "projectCreateFailedTitle": "Không thể tạo dự án",
+      "projectUpdatedTitle": "Đã cập nhật dự án thành công",
+      "projectUpdateFailedTitle": "Không thể cập nhật dự án",
+      "projectDeletedTitle": "Đã xóa dự án thành công",
+      "projectDeleteFailedTitle": "Không thể xóa dự án"
+    }
+  },
+  "Notes": {
+    "page": {
+      "loading": "Đang tải..."
+    },
+    "layout": {
+      "mobileNavTitle": "Điều hướng ghi chú",
+      "openMenuAria": "Mở menu ghi chú"
+    },
+    "sidebar": {
+      "title": "Ghi chú",
+      "createNoteAria": "Tạo ghi chú",
+      "searchPlaceholder": "Tìm kiếm ghi chú...",
+      "loading": "Đang tải...",
+      "noNotesFound": "Không tìm thấy ghi chú.",
+      "noNotesYet": "Chưa có ghi chú. Nhấn + để tạo mới.",
+      "inParent": "trong {parentTitle}",
+      "untitled": "Không tiêu đề",
+      "addSubPage": "Thêm trang con",
+      "delete": "Xóa",
+      "deleteConfirmTitle": "Xóa ghi chú?",
+      "deleteConfirmDescription": "Bạn có chắc muốn xóa \"{title}\"? Hành động này không thể hoàn tác.",
+      "cancel": "Hủy",
+      "confirmDelete": "Xóa",
+      "noteOptionsAria": "Tùy chọn ghi chú"
+    },
+    "editor": {
+      "emptyState": "Chọn ghi chú hoặc tạo mới để bắt đầu.",
+      "titlePlaceholder": "Không tiêu đề"
+    },
+    "context": {
+      "authRequiredError": "Người dùng chưa xác thực",
+      "defaultTitle": "Không tiêu đề"
+    }
+  },
+  "PasswordManager": {
+    "page": {
+      "loading": "Đang tải...",
+      "title": "Quản lý mật khẩu"
+    },
+    "vault": {
+      "toastDecryptFailed": "Không thể giải mã mật khẩu",
+      "toastLoadFailed": "Không thể tải mật khẩu",
+      "toastUnlockedAuto": "Kho đã được mở khóa tự động",
+      "toastAutoUnlockFailed": "Mở khóa tự động thất bại. Vui lòng mở khóa thủ công.",
+      "toastConnectFailed": "Không thể kết nối đến máy chủ",
+      "toastAutoUnlockWarning": "Kho đã mở khóa, nhưng mở khóa tự động có thể không hoạt động khi tải lại",
+      "errorIncorrectPassword": "Mật khẩu chính không đúng",
+      "errorUnlockFailed": "Không thể mở khóa kho",
+      "errorPasswordsMismatch": "Mật khẩu không khớp",
+      "errorPasswordTooShort": "Mật khẩu phải có ít nhất 8 ký tự",
+      "errorSetupFailed": "Không thể thiết lập kho",
+      "errorConnectFailed": "Không thể kết nối đến máy chủ.",
+      "mobileTitleCreate": "Tạo kho của bạn",
+      "mobileTitleWelcome": "Chào mừng trở lại",
+      "mobileSubtitleCreate": "Đặt mật khẩu chính để bảo vệ thông tin đăng nhập",
+      "mobileSubtitleUnlock": "Nhập mật khẩu chính để mở khóa",
+      "placeholderMasterPassword": "Mật khẩu chính",
+      "placeholderConfirmPassword": "Xác nhận mật khẩu",
+      "labelMasterPassword": "Mật khẩu chính",
+      "labelConfirmPassword": "Xác nhận mật khẩu",
+      "placeholderEnterMaster": "Nhập mật khẩu chính",
+      "placeholderConfirmMaster": "Xác nhận mật khẩu chính",
+      "buttonCreateVault": "Tạo kho",
+      "buttonUnlock": "Mở khóa",
+      "buttonUnlockVault": "Mở khóa kho",
+      "footerCreate": "Mật khẩu của bạn không bao giờ được lưu trữ và không thể khôi phục",
+      "footerUnlock": "Được bảo mật bằng mã hóa đầu cuối",
+      "desktopTitleSetup": "Thiết lập kho mật khẩu",
+      "desktopTitleUnlock": "Mở khóa kho",
+      "desktopDescriptionSetup": "Tạo mật khẩu chính để bảo vệ thông tin đăng nhập. Mật khẩu này không bao giờ được lưu trữ và không thể khôi phục.",
+      "desktopDescriptionUnlock": "Nhập mật khẩu chính để truy cập thông tin đăng nhập được bảo mật."
+    },
+    "list": {
+      "loading": "Đang tải mật khẩu...",
+      "emptyTitle": "Kho trống",
+      "emptyHintMobile": "Nhấn nút + để thêm mật khẩu đầu tiên",
+      "emptyHintDesktop": "Bạn chưa lưu mật khẩu nào. Nhấn nút \"Thêm mật khẩu\" ở trên để bắt đầu.",
+      "addPassword": "Thêm mật khẩu",
+      "searchPlaceholderMobile": "Tìm trong kho...",
+      "searchPlaceholderDesktop": "Tìm trong kho...",
+      "importExport": "Nhập / xuất",
+      "lockVault": "Khóa kho",
+      "allPasswordsTitle": "Tất cả mật khẩu",
+      "passwordCount": "{count, plural, one {# mật khẩu} other {# mật khẩu}}",
+      "vaultHealthDrawerTitle": "Sức khỏe kho",
+      "noResults": "Không tìm thấy mật khẩu phù hợp \"{query}\"",
+      "tableService": "Dịch vụ",
+      "tableUsername": "Tên đăng nhập",
+      "tablePassword": "Mật khẩu",
+      "tableUrl": "URL",
+      "tableActions": "Hành động",
+      "gridViewAria": "Xem dạng lưới",
+      "listViewAria": "Xem dạng danh sách",
+      "passwordStrengthTitle": "Độ mạnh mật khẩu",
+      "deleteDialogTitle": "Xóa mật khẩu",
+      "deleteDialogDescription": "Bạn có chắc muốn xóa mật khẩu này? Hành động này không thể hoàn tác.",
+      "cancel": "Hủy",
+      "delete": "Xóa",
+      "edit": "Sửa"
+    },
+    "toasts": {
+      "copiedPassword": "Đã sao chép mật khẩu vào bộ nhớ tạm",
+      "copiedUsername": "Đã sao chép tên đăng nhập vào bộ nhớ tạm",
+      "passwordDeleted": "Đã xóa mật khẩu",
+      "deleteFailed": "Không thể xóa mật khẩu",
+      "vaultLocked": "Kho đã khóa",
+      "importedCount": "Đã nhập thành công {count, plural, one {# mật khẩu} other {# mật khẩu}}"
+    },
+    "form": {
+      "addTitle": "Thêm mật khẩu mới",
+      "editTitle": "Sửa mật khẩu",
+      "serviceName": "Tên dịch vụ",
+      "usernameEmail": "Tên đăng nhập / email",
+      "password": "Mật khẩu",
+      "urlOptional": "URL trang web (tùy chọn)",
+      "notesOptional": "Ghi chú (tùy chọn)",
+      "tags": "Nhãn",
+      "placeholderService": "vd: Netflix",
+      "placeholderUsername": "user@example.com",
+      "placeholderPassword": "Nhập hoặc tạo mật khẩu",
+      "placeholderUrl": "https://...",
+      "placeholderNotes": "Chi tiết bổ sung...",
+      "placeholderTags": "Thêm nhãn (nhấn Enter hoặc dấu phẩy)",
+      "strength": "Độ mạnh",
+      "strengthWeak": "Yếu",
+      "strengthMedium": "Trung bình",
+      "strengthStrong": "Mạnh",
+      "advancedGenerator": "Trình tạo nâng cao",
+      "cancel": "Hủy",
+      "saving": "Đang lưu...",
+      "savePassword": "Lưu mật khẩu",
+      "updating": "Đang cập nhật...",
+      "updatePassword": "Cập nhật mật khẩu",
+      "addPasswordSrOnly": "Thêm mật khẩu",
+      "triggerAdd": "Thêm mật khẩu",
+      "toastSaved": "Đã lưu mật khẩu thành công",
+      "toastSaveFailed": "Không thể lưu mật khẩu",
+      "toastUpdated": "Đã cập nhật mật khẩu thành công",
+      "toastUpdateFailed": "Không thể cập nhật mật khẩu"
+    },
+    "security": {
+      "vaultHealth": "Sức khỏe kho",
+      "statusLabel": "Trạng thái",
+      "totalPasswords": "Tổng mật khẩu",
+      "activeEntries": "Mục đang hoạt động trong kho",
+      "protected": "Được bảo vệ",
+      "weakPasswords": "Mật khẩu yếu",
+      "needingImprovement": "Mật khẩu cần cải thiện",
+      "allGood": "Tốt",
+      "reusedPasswords": "Mật khẩu trùng lặp",
+      "usedMultipleTimes": "Mật khẩu dùng nhiều lần",
+      "unique": "Duy nhất",
+      "total": "Tổng",
+      "weak": "Yếu",
+      "reused": "Trùng lặp",
+      "totalCountLabel": "{count, plural, one {# mật khẩu} other {# mật khẩu}}",
+      "weakCountLabel": "{count} yếu",
+      "allSecure": "Tất cả an toàn",
+      "scoreExcellent": "Xuất sắc",
+      "scoreGood": "Tốt",
+      "scoreFair": "Khá",
+      "scoreCritical": "Nguy hiểm"
+    },
+    "importExport": {
+      "title": "Nhập / xuất kho",
+      "description": "Quản lý dữ liệu mật khẩu. Bạn có thể xuất kho sang JSON hoặc nhập từ tệp JSON.",
+      "tabExport": "Xuất",
+      "tabImport": "Nhập",
+      "warningTitle": "Cảnh báo",
+      "warningBody": "Tệp xuất chứa mật khẩu ở dạng văn bản thuần. Hãy giữ tệp an toàn và xóa sau khi sử dụng.",
+      "exportBlurb": "Tải xuống toàn bộ kho dưới dạng tệp JSON. Bao gồm tất cả dịch vụ, tên đăng nhập, mật khẩu và ghi chú.",
+      "downloadJson": "Tải xuống JSON",
+      "pasteLabel": "Dán dữ liệu JSON",
+      "pastePlaceholder": "[{\"service\": \"Ví dụ\", \"username\": \"user\", \"password\": \"123\", ...}]",
+      "pasteHint": "Dán nội dung tệp JSON đã xuất trước đó vào đây.",
+      "importing": "Đang nhập...",
+      "importPasswords": "Nhập mật khẩu",
+      "trigger": "Nhập / xuất",
+      "toastExported": "Đã xuất kho thành công",
+      "toastExportFailed": "Không thể xuất kho",
+      "toastImportFailed": "Không thể nhập: định dạng JSON không hợp lệ"
+    },
+    "card": {
+      "copyUsername": "Sao chép tên đăng nhập",
+      "openUrl": "Mở URL",
+      "strength": "Độ mạnh"
+    },
+    "swipeable": {
+      "copy": "Sao chép",
+      "delete": "Xóa",
+      "copyPassword": "Sao chép mật khẩu",
+      "copyUsername": "Sao chép tên đăng nhập",
+      "edit": "Sửa",
+      "deleteAction": "Xóa"
+    },
+    "floatingMenu": {
+      "lockVault": "Khóa kho",
+      "importExport": "Nhập / xuất",
+      "addPassword": "Thêm mật khẩu"
+    },
+    "generator": {
+      "tabPassword": "Mật khẩu",
+      "tabPassphrase": "Cụm mật khẩu",
+      "strength": "Độ mạnh",
+      "lengthLabel": "Độ dài: {length} ký tự",
+      "lengthBadge": "{length} ký tự",
+      "characterSets": "Bộ ký tự",
+      "uppercase": "Chữ hoa",
+      "lowercase": "Chữ thường",
+      "numbers": "Số",
+      "symbols": "Ký hiệu",
+      "wordCountLabel": "Số từ: {count}",
+      "wordCountBadge": "{count, plural, one {# từ} other {# từ}}",
+      "separator": "Dấu phân cách",
+      "capitalization": "Viết hoa",
+      "includeNumber": "Bao gồm số"
+    }
+  },
+  "Bookmarks": {
+    "page": {
+      "loading": "Đang tải..."
+    },
+    "manager": {
+      "foldersHeading": "Thư mục",
+      "tagsHeading": "Nhãn",
+      "tagsMore": "+{count} thêm",
+      "searchPlaceholder": "Tìm kiếm dấu trang...",
+      "import": "Nhập",
+      "export": "Xuất",
+      "exportAsHtml": "Xuất dạng HTML",
+      "exportAsJson": "Xuất dạng JSON",
+      "addBookmark": "Thêm dấu trang",
+      "matchingQuery": "phù hợp \"{query}\"",
+      "bookmarkCount": "{count, plural, one {# dấu trang} other {# dấu trang}}",
+      "allBookmarks": "Tất cả dấu trang",
+      "uncategorized": "Chưa phân loại",
+      "unknownFolder": "Không xác định"
+    },
+    "card": {
+      "urlCopied": "Đã sao chép URL vào bộ nhớ tạm",
+      "bookmarkDeleted": "Đã xóa dấu trang",
+      "edit": "Sửa",
+      "delete": "Xóa",
+      "copyUrl": "Sao chép URL",
+      "deleteConfirmTitle": "Xóa dấu trang?",
+      "deleteConfirmDescription": "Hành động này sẽ xóa vĩnh viễn \"{title}\".",
+      "cancel": "Hủy"
+    },
+    "grid": {
+      "emptyTitle": "Chưa có dấu trang",
+      "emptyDescription": "Thêm dấu trang đầu tiên hoặc nhập từ trình duyệt để bắt đầu."
+    },
+    "folderTree": {
+      "allBookmarks": "Tất cả dấu trang",
+      "addSubfolder": "Thêm thư mục con",
+      "rename": "Đổi tên",
+      "deleteFolderTitle": "Xóa thư mục \"{name}\"?",
+      "deleteFolderDescription": "Hành động này sẽ xóa thư mục và tất cả thư mục con. Dấu trang trong các thư mục này sẽ được chuyển sang Chưa phân loại."
+    },
+    "import": {
+      "title": "Nhập dấu trang",
+      "description": "Nhập dấu trang từ tệp xuất của trình duyệt.",
+      "parseError": "Không thể phân tích tệp dấu trang. Vui lòng đảm bảo đó là tệp xuất dấu trang hợp lệ.",
+      "successToast": "Đã nhập {bookmarks} dấu trang và {folders} thư mục",
+      "errorToast": "Không thể nhập dấu trang",
+      "chromeInstruction": "Menu → Dấu trang → Trình quản lý dấu trang → ⋮ → Xuất dấu trang",
+      "firefoxInstruction": "Menu → Dấu trang → Quản lý dấu trang → Nhập và Sao lưu → Xuất",
+      "safariInstruction": "Tệp → Xuất dấu trang...",
+      "edgeInstruction": "Menu → Yêu thích → ⋯ → Xuất yêu thích",
+      "dropZoneTitle": "Thả tệp dấu trang vào đây",
+      "dropZoneHint": "hoặc nhấn để duyệt (HTML hoặc JSON)",
+      "selectedFileHint": "Nhấn để chọn tệp khác",
+      "errorTitle": "Lỗi",
+      "previewTitle": "Xem trước nhập",
+      "previewBookmarks": "{count, plural, one {# dấu trang} other {# dấu trang}}",
+      "previewFolders": "{count, plural, one {# thư mục} other {# thư mục}}",
+      "importModeLabel": "Chế độ nhập",
+      "modeMerge": "Gộp với dấu trang hiện có",
+      "modeReplace": "Thay thế tất cả dấu trang hiện có",
+      "cancel": "Hủy",
+      "importButton": "Nhập",
+      "importButtonWithCount": "Nhập {count, plural, one {# dấu trang} other {# dấu trang}}"
+    },
+    "addBookmark": {
+      "titleAdd": "Thêm dấu trang",
+      "titleEdit": "Sửa dấu trang",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://example.com",
+      "urlInvalid": "Vui lòng nhập URL hợp lệ",
+      "titleLabel": "Tiêu đề",
+      "titlePlaceholder": "Tiêu đề dấu trang",
+      "titleRequired": "Vui lòng nhập tiêu đề",
+      "descriptionLabel": "Mô tả (tùy chọn)",
+      "descriptionPlaceholder": "Thêm ghi chú về dấu trang này",
+      "folderLabel": "Thư mục",
+      "folderPlaceholder": "Chọn thư mục",
+      "noFolder": "Không có thư mục",
+      "tagsLabel": "Nhãn",
+      "tagsPlaceholder": "Thêm nhãn (nhấn Enter)",
+      "toastUpdated": "Đã cập nhật dấu trang",
+      "toastAdded": "Đã thêm dấu trang",
+      "cancel": "Hủy",
+      "submitAdd": "Thêm dấu trang",
+      "submitUpdate": "Cập nhật dấu trang"
+    },
+    "addFolder": {
+      "title": "Tạo thư mục",
+      "nameLabel": "Tên thư mục",
+      "namePlaceholder": "Thư mục của tôi",
+      "nameRequired": "Vui lòng nhập tên thư mục",
+      "parentLabel": "Thư mục cha",
+      "parentPlaceholder": "Chọn thư mục cha",
+      "rootParent": "Gốc (Không có thư mục cha)",
+      "toastCreated": "Đã tạo thư mục",
+      "cancel": "Hủy",
+      "submit": "Tạo thư mục"
+    },
+    "editFolder": {
+      "title": "Đổi tên thư mục",
+      "nameLabel": "Tên thư mục",
+      "namePlaceholder": "Tên thư mục",
+      "nameRequired": "Vui lòng nhập tên thư mục",
+      "toastRenamed": "Đã đổi tên thư mục",
+      "cancel": "Hủy",
+      "save": "Lưu"
+    }
+  },
+  "EmailValidator": {
+    "header": {
+      "title": "Xác thực Email",
+      "description": "Xác minh và kiểm tra địa chỉ email về cú pháp, tên miền và khả năng gửi."
+    },
+    "tabs": {
+      "single": "Xác minh đơn lẻ",
+      "bulk": "Tải lên hàng loạt"
+    },
+    "single": {
+      "cardTitle": "Xác minh Email đơn lẻ",
+      "cardDescription": "Nhập địa chỉ email để kiểm tra khả năng gửi và uy tín.",
+      "placeholder": "Nhập địa chỉ email...",
+      "clearAria": "Xóa email",
+      "validate": "Xác thực",
+      "validating": "Đang xác thực...",
+      "formatError": "Vui lòng nhập địa chỉ email hợp lệ"
+    },
+    "toasts": {
+      "errorTitle": "Lỗi",
+      "enterEmail": "Vui lòng nhập địa chỉ email",
+      "invalidFormatTitle": "Định dạng email không hợp lệ",
+      "invalidFormatDescription": "Vui lòng nhập địa chỉ email hợp lệ",
+      "validateFailedDescription": "Đã xảy ra lỗi khi xác thực email",
+      "noEmailsTitle": "Không tìm thấy email",
+      "noEmailsDescription": "Vui lòng đảm bảo tệp Excel có cột 'email'.",
+      "fileTooLargeTitle": "Tệp quá lớn",
+      "fileTooLargeDescription": "Tìm thấy {total} email. Chỉ 4000 email đầu tiên sẽ được xác thực.",
+      "successTitle": "Thành công",
+      "successValidated": "Đã xác thực {count} email thành công.",
+      "batchFailedTitle": "Xác thực hàng loạt thất bại",
+      "batchFailedDescription": "Đã xảy ra lỗi khi xử lý xác thực hàng loạt.",
+      "noExportTitle": "Không có dữ liệu để xuất",
+      "noExportValidOnly": "Không tìm thấy email hợp lệ để xuất.",
+      "noExportAll": "Không có kết quả để xuất.",
+      "exportSuccessTitle": "Xuất thành công",
+      "exportSuccessExcelAll": "Đã xuất {count} email sang Excel.",
+      "exportSuccessExcelValid": "Đã xuất {count} email hợp lệ sang Excel.",
+      "exportSuccessCsvAll": "Đã xuất {count} email sang CSV.",
+      "exportSuccessCsvValid": "Đã xuất {count} email hợp lệ sang CSV."
+    },
+    "disposableAlert": {
+      "title": "Phát hiện email dùng một lần",
+      "description": "Địa chỉ email này thuộc nhà cung cấp email dùng một lần. Có thể là tạm thời hoặc không an toàn."
+    },
+    "score": {
+      "reliabilityTitle": "Điểm tin cậy",
+      "scoreLabel": "Điểm"
+    },
+    "details": {
+      "sectionTitle": "Chi tiết xác thực"
+    },
+    "validation": {
+      "syntaxLabel": "Cú pháp hợp lệ",
+      "syntaxTooltip": "Kiểm tra xem địa chỉ email có đúng định dạng không (vd: user@domain.com)",
+      "domainLabel": "Tên miền tồn tại",
+      "domainTooltip": "Xác minh rằng tên miền trong địa chỉ email thực sự tồn tại",
+      "mxLabel": "Tìm thấy bản ghi MX",
+      "mxTooltip": "Kiểm tra xem tên miền có bản ghi trao đổi thư (MX) được cấu hình để nhận email không",
+      "mailboxLabel": "Hộp thư tồn tại",
+      "mailboxTooltip": "Xác minh rằng hộp thư/tài khoản cụ thể tồn tại trên máy chủ thư",
+      "disposableLabel": "Email dùng một lần",
+      "disposableTooltip": "Cho biết email này có thuộc dịch vụ email tạm thời/dùng một lần không (có thể rủi ro)",
+      "roleBasedLabel": "Email theo vai trò",
+      "roleBasedTooltip": "Xác định đây có phải email theo vai trò (vd: support@, info@) thay vì địa chỉ cá nhân"
+    },
+    "copy": {
+      "emailCopied": "Đã sao chép email!",
+      "copyTooltip": "Sao chép email"
+    },
+    "bulk": {
+      "dropHere": "Thả tệp vào đây",
+      "dragHere": "Kéo và thả tệp vào đây",
+      "uploadHint": "Tải lên tệp .xlsx, .xls hoặc .csv chứa cột 'email' để xác thực tối đa 4000 email.",
+      "filePrefix": "Tệp:",
+      "selectFile": "Chọn tệp",
+      "downloadTemplate": "Tải mẫu"
+    },
+    "bulkLoading": {
+      "title": "Đang xác thực email...",
+      "batchProgress": "Đang xử lý lô {current} / {total}..."
+    },
+    "stats": {
+      "totalProcessed": "Tổng đã xử lý",
+      "valid": "Hợp lệ",
+      "risky": "Rủi ro",
+      "invalid": "Không hợp lệ"
+    },
+    "results": {
+      "detailedTitle": "Kết quả chi tiết",
+      "searchPlaceholder": "Tìm kiếm email...",
+      "newVerification": "Xác minh mới",
+      "exportAll": "Xuất tất cả",
+      "exportExcel": "Excel (.xlsx)",
+      "exportCsv": "CSV (.csv)",
+      "exportValid": "Xuất hợp lệ ({count})"
+    },
+    "showingResults": "Hiển thị {shown} / {total} kết quả",
+    "table": {
+      "email": "Email",
+      "status": "Trạng thái",
+      "score": "Điểm",
+      "checks": "Kiểm tra"
+    },
+    "noSearchResults": "Không tìm thấy kết quả phù hợp \"{query}\"",
+    "checksTooltip": {
+      "syntax": "Cú pháp",
+      "domain": "Tên miền",
+      "mx": "MX",
+      "mailbox": "Hộp thư"
+    },
+    "exportColumns": {
+      "email": "Email",
+      "status": "Trạng thái",
+      "score": "Điểm",
+      "syntax": "Cú pháp",
+      "domain": "Tên miền",
+      "mx": "MX",
+      "mailbox": "Hộp thư",
+      "disposable": "Dùng một lần",
+      "roleBased": "Theo vai trò",
+      "valid": "Hợp lệ",
+      "invalid": "Không hợp lệ",
+      "yes": "Có",
+      "no": "Không"
+    },
+    "sheets": {
+      "validEmails": "Email hợp lệ",
+      "results": "Kết quả",
+      "template": "Mẫu"
+    }
+  },
+  "NoSqlExplorer": {
+    "page": {
+      "heroTitle": "NoSQL Explorer",
+      "heroSubtitle": "Kết nối cơ sở dữ liệu để quản lý bộ sưu tập, thực thi truy vấn và trực quan hóa dữ liệu.",
+      "featureMultiTitle": "Đa kết nối",
+      "featureMultiDesc": "Quản lý nhiều kết nối cơ sở dữ liệu đồng thời.",
+      "featureMongoTitle": "Hỗ trợ MongoDB",
+      "featureMongoDesc": "Hỗ trợ MongoDB gốc với bộ lọc nâng cao.",
+      "featureQueryTitle": "Truy vấn thông minh",
+      "featureQueryDesc": "Trình xây dựng truy vấn mạnh mẽ với đánh dấu cú pháp.",
+      "connectCta": "Kết nối MongoDB",
+      "footerNote": "Hiện hỗ trợ {db}. Thêm cơ sở dữ liệu sẽ sớm có.",
+      "footerDb": "MongoDB",
+      "selectCollectionTitle": "Chọn bộ sưu tập",
+      "selectCollectionDesc": "Chọn bộ sưu tập từ thanh bên để xem tài liệu và bắt đầu khám phá dữ liệu.",
+      "dialogAddConnection": "Thêm kết nối",
+      "toastConnectionAdded": "Đã thêm kết nối",
+      "toastFetchFailed": "Không thể lấy tài liệu cho {collection}",
+      "toastDocDeleted": "Đã xóa tài liệu",
+      "deleteDocTitle": "Bạn có chắc chắn không?",
+      "deleteDocDescription": "Hành động này không thể hoàn tác. Tài liệu sẽ bị xóa vĩnh viễn khỏi bộ sưu tập.",
+      "closeAllTitle": "Đóng tất cả tab?",
+      "closeAllDescription": "Bạn có chắc muốn đóng tất cả tab? Mọi thay đổi chưa lưu trong bộ lọc truy vấn sẽ bị mất.",
+      "closeAllConfirm": "Đóng tất cả",
+      "cancel": "Hủy",
+      "delete": "Xóa"
+    },
+    "connection": {
+      "titleEdit": "Sửa kết nối",
+      "titleConnect": "Kết nối MongoDB",
+      "subtitleEdit": "Cập nhật chi tiết kết nối bên dưới.",
+      "subtitleConnect": "Nhập chuỗi kết nối MongoDB để bắt đầu khám phá dữ liệu.",
+      "labelName": "Tên",
+      "placeholderName": "vd: Production DB",
+      "labelConnectionString": "Chuỗi kết nối",
+      "placeholderConnectionString": "mongodb://localhost:27017",
+      "hintFormat": "Định dạng: mongodb://username:password@host:port/database",
+      "testConnection": "Kiểm tra kết nối",
+      "connecting": "Đang kết nối...",
+      "updateConnect": "Cập nhật & Kết nối",
+      "connect": "Kết nối",
+      "cancelEdit": "Hủy sửa",
+      "savedConnections": "Kết nối đã lưu",
+      "emptySaved": "Chưa có kết nối nào được lưu.",
+      "lastUsed": "Sử dụng lần cuối {time}",
+      "toastTestOk": "Kết nối thành công!",
+      "toastTestFail": "Kết nối thất bại: {message}",
+      "toastUpdated": "Đã cập nhật kết nối",
+      "confirmDelete": "Bạn có chắc muốn xóa kết nối đã lưu này?",
+      "toastDeletedConn": "Đã xóa kết nối",
+      "toastDeleteFail": "Không thể xóa kết nối",
+      "copyStringTitle": "Sao chép chuỗi kết nối",
+      "toastStringCopied": "Đã sao chép chuỗi kết nối!",
+      "editTitle": "Sửa",
+      "deleteTitle": "Xóa"
+    },
+    "sidebar": {
+      "explorer": "Explorer",
+      "add": "Thêm",
+      "tooltipAdd": "Thêm kết nối mới",
+      "tooltipRefresh": "Làm mới kết nối",
+      "searchPlaceholder": "Tìm kiếm...",
+      "loadingConnections": "Đang tải kết nối...",
+      "noConnectionsFound": "Không tìm thấy kết nối",
+      "toastLoadFail": "Không thể tải kết nối",
+      "toastConnectFail": "Không thể kết nối đến {name}",
+      "toastCollectionsFail": "Không thể lấy bộ sưu tập cho {name}",
+      "toastRenamed": "Đã đổi tên kết nối",
+      "toastRenameFail": "Không thể đổi tên kết nối",
+      "confirmDeleteConnection": "Bạn có chắc muốn xóa kết nối \"{name}\"?",
+      "toastDeleted": "Đã xóa kết nối",
+      "toastDeleteConnFail": "Không thể xóa kết nối",
+      "confirmDropDb": "Bạn có chắc muốn xóa cơ sở dữ liệu \"{name}\"? Hành động này không thể hoàn tác.",
+      "toastDbDropped": "Đã xóa cơ sở dữ liệu {name}",
+      "confirmDropCollection": "Bạn có chắc muốn xóa bộ sưu tập \"{name}\"? Hành động này không thể hoàn tác.",
+      "toastCollectionDropped": "Đã xóa bộ sưu tập {name}",
+      "toastCollectionRenamed": "Đã đổi tên bộ sưu tập thành {name}",
+      "toastDatabaseRenamed": "Đã đổi tên cơ sở dữ liệu thành {name}",
+      "connecting": "Đang kết nối...",
+      "connectionFailed": "Kết nối thất bại",
+      "noDatabases": "Không có cơ sở dữ liệu",
+      "loading": "Đang tải...",
+      "noCollections": "Không có bộ sưu tập",
+      "renameCollectionTitle": "Đổi tên bộ sưu tập",
+      "renameDatabaseTitle": "Đổi tên cơ sở dữ liệu",
+      "placeholderNewCollection": "Tên bộ sưu tập mới",
+      "placeholderNewDatabase": "Tên cơ sở dữ liệu mới",
+      "rename": "Đổi tên",
+      "refresh": "Làm mới",
+      "copyDbName": "Sao chép tên DB",
+      "toastDbNameCopied": "Đã sao chép tên cơ sở dữ liệu",
+      "dropDatabase": "Xóa cơ sở dữ liệu",
+      "dropCollection": "Xóa bộ sưu tập",
+      "menuRename": "Đổi tên",
+      "menuCopyConnectionString": "Sao chép chuỗi kết nối",
+      "menuDeleteConnection": "Xóa kết nối",
+      "toastSidebarStringCopied": "Đã sao chép chuỗi kết nối!",
+      "cancel": "Hủy"
+    },
+    "document": {
+      "docsBreadcrumb": "{n} tài liệu",
+      "table": "Bảng",
+      "json": "JSON",
+      "tree": "Cây",
+      "tooltipTable": "Xem dạng bảng",
+      "tooltipJson": "Xem dạng JSON",
+      "tooltipTree": "Xem dạng cây",
+      "itemsPerPage": "Mục mỗi trang",
+      "perPage": "{n} / trang",
+      "prevPage": "Trang trước",
+      "nextPage": "Trang sau",
+      "expandAll": "Mở rộng tất cả",
+      "collapseAll": "Thu gọn tất cả",
+      "refreshData": "Làm mới dữ liệu",
+      "insert": "Chèn",
+      "export": "Xuất",
+      "actions": "Hành động",
+      "invalidJson": "Nội dung JSON không hợp lệ",
+      "copiedClipboard": "Đã sao chép vào bộ nhớ tạm",
+      "docUpdated": "Đã cập nhật tài liệu thành công",
+      "docInserted": "Đã chèn tài liệu thành công",
+      "invalidJsonShort": "JSON không hợp lệ",
+      "docCopied": "Đã sao chép tài liệu vào bộ nhớ tạm",
+      "openFullEditor": "Mở trong trình soạn thảo đầy đủ",
+      "cellArray": "Mảng({length})",
+      "cellObject": "Đối tượng",
+      "cellArrayBracket": "Mảng[{length}]",
+      "emptyFilterTitle": "Không có tài liệu phù hợp truy vấn",
+      "emptyFilterHint": "Thử điều chỉnh bộ lọc hoặc xóa truy vấn.",
+      "clearFilter": "Xóa bộ lọc",
+      "emptyCollectionTitle": "Bộ sưu tập trống",
+      "emptyCollectionHint": "Chèn tài liệu để bắt đầu.",
+      "insertDocument": "Chèn tài liệu",
+      "formatJson": "Định dạng JSON",
+      "compactJson": "Nén JSON",
+      "copyClipboard": "Sao chép vào bộ nhớ tạm",
+      "copyJson": "Sao chép JSON",
+      "duplicate": "Nhân đôi",
+      "editDoc": "Sửa tài liệu",
+      "deleteDoc": "Xóa tài liệu",
+      "documentLabel": "Tài liệu {n}",
+      "editDialogTitle": "Sửa tài liệu",
+      "insertDialogTitle": "Chèn tài liệu",
+      "viewValueTitle": "Xem giá trị",
+      "saveChanges": "Lưu thay đổi",
+      "close": "Đóng",
+      "cancel": "Hủy",
+      "insertButton": "Chèn"
+    },
+    "tabs": {
+      "filterActive": "Bộ lọc đang áp dụng",
+      "filterActiveTooltip": "Bộ lọc đang hoạt động",
+      "closeAll": "Đóng tất cả"
+    },
+    "query": {
+      "migrateHistory": "Đã chuyển lịch sử truy vấn lên đám mây",
+      "saveHistoryFail": "Không thể lưu lịch sử truy vấn",
+      "deleteQueryFail": "Không thể xóa truy vấn",
+      "invalidJsonQuery": "Truy vấn JSON không hợp lệ",
+      "placeholder": "vd: { \"status\": \"active\" }",
+      "clearQuery": "Xóa truy vấn",
+      "openAdvanced": "Mở trình soạn thảo nâng cao",
+      "visualBuilder": "Trình xây dựng truy vấn trực quan",
+      "filterRules": "Quy tắc lọc",
+      "addRule": "Thêm quy tắc",
+      "noFilters": "Chưa áp dụng bộ lọc. Thêm quy tắc để lọc tài liệu.",
+      "where": "WHERE",
+      "and": "AND",
+      "fieldPlaceholder": "Trường",
+      "opPlaceholder": "Toán tử",
+      "typePlaceholder": "Kiểu",
+      "opRegex": "Regex",
+      "opIn": "Trong",
+      "opNin": "Không trong",
+      "opExists": "Tồn tại",
+      "typeAuto": "Tự động",
+      "typeString": "Chuỗi",
+      "typeNumber": "Số",
+      "typeBoolean": "Boolean",
+      "typeDate": "Ngày",
+      "typeObjectId": "ObjectId",
+      "true": "Đúng",
+      "false": "Sai",
+      "valuePlaceholder": "Giá trị",
+      "valueListPlaceholder": "giá trị1, giá trị2",
+      "clearFilters": "Xóa bộ lọc",
+      "applyFilters": "Áp dụng bộ lọc",
+      "queryHistory": "Lịch sử truy vấn",
+      "noSavedQueries": "Chưa có truy vấn đã lưu",
+      "advancedEditorTitle": "Trình soạn thảo truy vấn nâng cao",
+      "templatesPlaceholder": "Mẫu",
+      "templateEmptyAgg": "Aggregation trống",
+      "templateMatch": "$match (Lọc)",
+      "templateLookup": "$lookup (Nối)",
+      "templateGroup": "$group (Đếm/Tổng)",
+      "format": "Định dạng",
+      "formattedJson": "JSON đã định dạng",
+      "runQuery": "Chạy truy vấn"
+    },
+    "export": {
+      "selectFieldsError": "Vui lòng chọn ít nhất một trường để xuất",
+      "success": "Đã xuất thành công sang {filename}",
+      "fail": "Không thể xuất dữ liệu",
+      "title": "Xuất dữ liệu",
+      "formatLabel": "Định dạng xuất",
+      "formatXlsx": "Excel (XLSX)",
+      "formatCsv": "CSV",
+      "selectFields": "Chọn trường",
+      "selectAll": "Chọn tất cả",
+      "fieldsSelected": "{count, plural, one {# trường đã chọn} other {# trường đã chọn}}",
+      "cancel": "Hủy",
+      "export": "Xuất",
+      "sheetName": "Dữ liệu"
+    },
+    "jsonTree": {
+      "typeLabel": "Kiểu: {type}",
+      "itemSummary": "{count, plural, one {# mục} other {# mục}}"
+    }
+  },
+  "ApiClient": {
+    "defaults": {
+      "newRequest": "Yêu cầu mới",
+      "importedRequest": "Yêu cầu đã nhập",
+      "untitledRequest": "Yêu cầu chưa đặt tên"
+    },
+    "toasts": {
+      "curlImported": "Đã nhập cURL thành công",
+      "curlParseFailed": "Không thể phân tích lệnh cURL",
+      "invalidJsonBody": "Body JSON không hợp lệ",
+      "requestFailed": "Yêu cầu thất bại: {message}",
+      "curlPasted": "Đã dán và phân tích cURL thành công",
+      "responseCopied": "Đã sao chép phản hồi vào bộ nhớ tạm",
+      "codeCopied": "Đã sao chép mã vào bộ nhớ tạm"
+    },
+    "layout": {
+      "collections": "Bộ sưu tập",
+      "closeSidebar": "Đóng thanh bên",
+      "openSidebar": "Mở thanh bên"
+    },
+    "requestPanel": {
+      "methodPlaceholder": "Phương thức",
+      "urlPlaceholder": "https://api.example.com/v1/...",
+      "sending": "Đang gửi...",
+      "send": "Gửi"
+    },
+    "requestTabs": {
+      "params": "Tham số",
+      "headers": "Headers",
+      "body": "Body",
+      "auth": "Xác thực",
+      "bodyType": "Loại body",
+      "selectType": "Chọn loại",
+      "bodyNone": "Không",
+      "bodyJson": "JSON",
+      "bodyText": "Text",
+      "noBodyHint": "Không có nội dung body cho yêu cầu này",
+      "switchToJson": "Chuyển sang body JSON",
+      "authType": "Loại xác thực",
+      "noAuth": "Không xác thực",
+      "bearerToken": "Bearer token",
+      "basicAuth": "Basic auth",
+      "apiKey": "API key",
+      "labelToken": "Token",
+      "placeholderBearerToken": "Bearer token",
+      "labelUsername": "Tên đăng nhập",
+      "placeholderUsername": "Tên đăng nhập",
+      "labelPassword": "Mật khẩu",
+      "placeholderPassword": "Mật khẩu",
+      "labelKey": "Khóa",
+      "placeholderApiKeyName": "Tên khóa (vd: X-Api-Key)",
+      "labelValue": "Giá trị",
+      "placeholderValue": "Giá trị",
+      "addTo": "Thêm vào",
+      "header": "Header",
+      "queryParams": "Tham số truy vấn",
+      "noAuthHint": "Yêu cầu này không sử dụng xác thực."
+    },
+    "responsePanel": {
+      "emptyTitle": "Sẵn sàng khám phá?",
+      "emptyHint": "Nhập URL và nhấn Gửi để xem dữ liệu phản hồi tại đây.",
+      "responsePreviewAlt": "Xem trước phản hồi",
+      "previewUnavailable": "Không thể xem trước loại nội dung này",
+      "status": "Trạng thái",
+      "time": "Thời gian",
+      "size": "Kích thước",
+      "copyBody": "Sao chép body",
+      "downloadResponse": "Tải phản hồi",
+      "bodyTab": "Body",
+      "previewTab": "Xem trước",
+      "headersTab": "Headers",
+      "binaryRawView": "Dữ liệu nhị phân không thể hiển thị ở chế độ raw.",
+      "errorStatusLabel": "Lỗi"
+    },
+    "tabBar": {
+      "addTabAria": "Tab mới"
+    },
+    "collectionsSidebar": {
+      "title": "Tài nguyên API",
+      "newCollection": "Bộ sưu tập mới",
+      "tabCollections": "Bộ sưu tập",
+      "tabHistory": "Lịch sử",
+      "noCollectionsTitle": "Chưa có bộ sưu tập",
+      "noCollectionsHint": "Tạo bộ sưu tập để sắp xếp các yêu cầu API.",
+      "createCollection": "Tạo bộ sưu tập",
+      "newFolder": "Thư mục mới",
+      "rename": "Đổi tên",
+      "delete": "Xóa",
+      "emptyCollection": "Bộ sưu tập trống",
+      "recentRequests": "Yêu cầu gần đây",
+      "clearAll": "Xóa tất cả",
+      "noHistoryTitle": "Chưa có lịch sử",
+      "noHistoryHint": "Gửi yêu cầu để xem tại đây.",
+      "dialogNewFolderTitle": "Thư mục mới",
+      "dialogNewFolderDescription": "Tạo thư mục mới để sắp xếp yêu cầu.",
+      "labelFolderName": "Tên thư mục",
+      "placeholderFolderName": "Thư mục của tôi",
+      "createFolder": "Tạo thư mục",
+      "dialogNewCollectionTitle": "Bộ sưu tập mới",
+      "dialogNewCollectionDescription": "Tạo bộ sưu tập cấp cao nhất mới.",
+      "labelCollectionName": "Tên bộ sưu tập",
+      "placeholderCollectionName": "Bộ sưu tập của tôi",
+      "dialogRenameCollectionTitle": "Đổi tên bộ sưu tập",
+      "dialogRenameCollectionDescription": "Nhập tên mới cho bộ sưu tập.",
+      "placeholderRenameCollection": "Tên bộ sưu tập",
+      "renameAction": "Đổi tên"
+    },
+    "collectionItem": {
+      "newFolder": "Thư mục mới",
+      "delete": "Xóa",
+      "emptyFolder": "Thư mục trống"
+    },
+    "environmentManager": {
+      "noEnvironment": "Không có môi trường",
+      "manageDialogTitle": "Quản lý môi trường",
+      "placeholderNewEnv": "Môi trường mới",
+      "variablesHeading": "Biến {name}",
+      "addVariable": "Thêm biến",
+      "columnVariable": "Biến",
+      "columnValue": "Giá trị",
+      "placeholderKey": "Khóa",
+      "placeholderValue": "Giá trị",
+      "selectEnvToEdit": "Chọn môi trường để chỉnh sửa"
+    },
+    "codeGenerator": {
+      "triggerTitle": "Tạo mã",
+      "dialogTitle": "Tạo mã",
+      "languageCurl": "cURL",
+      "languageJavaScript": "JavaScript (fetch)",
+      "languagePython": "Python (requests)",
+      "languageGo": "Go",
+      "copy": "Sao chép",
+      "errorGenerating": "Lỗi khi tạo mã"
+    },
+    "keyValueEditor": {
+      "columnKey": "Khóa",
+      "columnValue": "Giá trị",
+      "placeholderKey": "Khóa",
+      "placeholderValue": "Giá trị",
+      "addItem": "Thêm mục"
+    },
+    "importCurl": {
+      "trigger": "Nhập cURL",
+      "dialogTitle": "Nhập cURL",
+      "dialogDescription": "Dán lệnh cURL bên dưới để nhập như yêu cầu mới.",
+      "placeholder": "curl -X POST https://api.example.com/data -d '...'",
+      "import": "Nhập"
+    },
+    "saveRequest": {
+      "trigger": "Lưu",
+      "dialogTitle": "Lưu yêu cầu",
+      "dialogDescription": "Lưu yêu cầu này vào thư mục bộ sưu tập.",
+      "labelName": "Tên yêu cầu",
+      "placeholderName": "Yêu cầu của tôi",
+      "labelFolder": "Thư mục",
+      "placeholderFolder": "Chọn thư mục",
+      "save": "Lưu"
+    }
+  },
+  "RichEditor": {
+    "toolbar": {
+      "editMode": "Chế độ chỉnh sửa",
+      "viewOnlyMode": "Chế độ chỉ xem",
+      "insertComponent": "Chèn thành phần",
+      "addUnorderedList": "Thêm danh sách không thứ tự",
+      "addOrderedList": "Thêm danh sách có thứ tự",
+      "addTable": "Thêm bảng"
+    },
+    "addBlock": "Thêm khối",
+    "media": {
+      "popoverTitle": "Thêm phương tiện",
+      "singleImage": "Ảnh đơn",
+      "singleImageDesc": "Tải lên một ảnh",
+      "multipleImages": "Nhiều ảnh",
+      "multipleImagesDesc": "Tải lên lưới ảnh",
+      "video": "Video",
+      "videoDesc": "Tải lên tệp video",
+      "uploadingAlt": "Đang tải lên...",
+      "uploadFailedAlt": "Tải lên thất bại"
+    },
+    "export": {
+      "fabAria": "Xuất mã",
+      "title": "Xuất mã",
+      "description": "Sao chép đầu ra HTML hoặc JSON của nội dung trình soạn thảo",
+      "preview": "Xem trước",
+      "html": "HTML",
+      "json": "JSON",
+      "previewOptions": "Tùy chọn xem trước",
+      "enhanceSpaces": "Cải thiện khoảng cách",
+      "livePreview": "Xem trước trực tiếp HTML đã render",
+      "htmlTailwind": "HTML với lớp Tailwind CSS",
+      "editorJson": "Trạng thái trình soạn thảo dạng JSON",
+      "copyHtml": "Sao chép HTML",
+      "copyJson": "Sao chép JSON",
+      "copied": "Đã sao chép!"
+    },
+    "template": {
+      "fabTitle": "Đổi mẫu",
+      "title": "Chọn mẫu",
+      "description": "Chọn mẫu để bắt đầu nhanh với bố cục và nội dung sẵn có",
+      "catAll": "Tất cả mẫu",
+      "catProductivity": "Năng suất",
+      "catCreative": "Sáng tạo",
+      "catBusiness": "Kinh doanh",
+      "catPersonal": "Cá nhân",
+      "noTemplates": "Không tìm thấy mẫu trong danh mục này",
+      "confirmTitle": "Thay thế nội dung hiện tại?",
+      "confirmDescription": "Bạn có nội dung hiện tại trong trình soạn thảo. Áp dụng mẫu này sẽ thay thế toàn bộ nội dung hiện tại.",
+      "cannotUndo": "Hành động này không thể hoàn tác.",
+      "cancel": "Hủy",
+      "replaceContent": "Thay thế nội dung"
+    },
+    "command": {
+      "searchPlaceholder": "Tìm lệnh...",
+      "noResults": "Không tìm thấy lệnh.",
+      "turnInto": "Chuyển thành",
+      "h1": {
+        "label": "Tiêu đề 1",
+        "description": "Tiêu đề phần lớn",
+        "keywords": "h1,heading,title,large"
+      },
+      "h2": {
+        "label": "Tiêu đề 2",
+        "description": "Tiêu đề phần vừa",
+        "keywords": "h2,heading,subtitle"
+      },
+      "h3": {
+        "label": "Tiêu đề 3",
+        "description": "Tiêu đề phần nhỏ",
+        "keywords": "h3,heading,subheading"
+      },
+      "h4": {
+        "label": "Tiêu đề 4",
+        "description": "Tiêu đề phần rất nhỏ",
+        "keywords": "h4,heading"
+      },
+      "h5": {
+        "label": "Tiêu đề 5",
+        "description": "Tiêu đề nhỏ hơn",
+        "keywords": "h5,heading"
+      },
+      "h6": {
+        "label": "Tiêu đề 6",
+        "description": "Tiêu đề nhỏ nhất",
+        "keywords": "h6,heading"
+      },
+      "p": {
+        "label": "Đoạn văn",
+        "description": "Đoạn văn bản thường",
+        "keywords": "p,paragraph,text,normal"
+      },
+      "code": {
+        "label": "Khối mã",
+        "description": "Đoạn mã",
+        "keywords": "code,codeblock,snippet,pre"
+      },
+      "blockquote": {
+        "label": "Trích dẫn",
+        "description": "Khối trích dẫn",
+        "keywords": "quote,blockquote,citation"
+      },
+      "li": {
+        "label": "Danh sách có dấu đầu dòng",
+        "description": "Mục danh sách với dấu đầu dòng",
+        "keywords": "list,bullet,unordered,ul,li"
+      },
+      "ol": {
+        "label": "Danh sách đánh số",
+        "description": "Mục danh sách đánh số",
+        "keywords": "list,numbered,ordered,ol,li"
+      },
+      "img": {
+        "label": "Hình ảnh",
+        "description": "Tải lên hoặc nhúng ảnh",
+        "keywords": "image,img,picture,photo,upload"
+      },
+      "video": {
+        "label": "Video",
+        "description": "Tải lên hoặc nhúng video",
+        "keywords": "video,vid,movie,mp4,upload"
+      },
+      "table": {
+        "label": "Bảng",
+        "description": "Tạo bảng",
+        "keywords": "table,grid,rows,columns,cells"
+      }
+    },
+    "toasts": {
+      "tableImported": "Đã nhập bảng",
+      "tableImportedDesc": "Bảng markdown đã được nhập thành công",
+      "mediaPasted": "Đã dán phương tiện",
+      "pasteMixed": "Đã dán {imageCount} ảnh và {videoCount} video thành công.",
+      "pasteImages": "Đã dán {count} ảnh thành công.",
+      "pasteVideos": "Đã dán {count} video thành công.",
+      "pasteFailed": "Dán thất bại",
+      "unexpectedError": "Đã xảy ra lỗi không mong muốn",
+      "uploadFailed": "Tải lên thất bại"
+    },
+    "blockBackground": {
+      "menuItem": "Đổi màu nền",
+      "dialogTitle": "Màu nền khối",
+      "dialogDescription": "Chọn màu nền cho khối này",
+      "tabPreset": "Màu có sẵn",
+      "tabCustom": "Màu tùy chỉnh",
+      "sectionHeading": "Màu nền",
+      "apply": "Áp dụng",
+      "colors": {
+        "none": "Không",
+        "red": "Đỏ",
+        "orange": "Cam",
+        "yellow": "Vàng",
+        "green": "Xanh lá",
+        "blue": "Xanh dương",
+        "indigo": "Chàm",
+        "purple": "Tím",
+        "pink": "Hồng",
+        "teal": "Xanh mòng két",
+        "cyan": "Lục lam",
+        "gray": "Xám"
+      }
+    },
+    "tableDialog": {
+      "title": "Tạo bảng",
+      "description": "Tạo bảng mới hoặc nhập từ markdown",
+      "markdownCheckbox": "Tôi có bảng markdown",
+      "pasteMarkdownLabel": "Dán bảng Markdown",
+      "markdownPlaceholder": "| Cột 1 | Cột 2 | Cột 3 |\n|----------|----------|----------|\n| Ô 1   | Ô 2   | Ô 3   |\n| Ô 4   | Ô 5   | Ô 6   |",
+      "markdownHint": "Dán bảng markdown ở trên. Phải bao gồm hàng tiêu đề và hàng phân cách.",
+      "rows": "Hàng",
+      "columns": "Cột",
+      "maxDimensions": "Tối đa: 20 hàng × 10 cột",
+      "cancel": "Hủy",
+      "importTable": "Nhập bảng",
+      "createTable": "Tạo bảng"
+    },
+    "tableParse": {
+      "errors": {
+        "minRows": "Bảng phải có ít nhất hàng tiêu đề và hàng phân cách",
+        "pipeFormat": "Các hàng phải bắt đầu và kết thúc bằng |",
+        "headerMinCol": "Hàng tiêu đề phải có ít nhất một cột",
+        "separatorRow": "Hàng thứ hai phải là phân cách (vd: |---|---|)",
+        "rowColumnMismatch": "Hàng {row} có {got} cột, dự kiến {expected}",
+        "parseFailed": "Không thể phân tích bảng markdown"
+      }
+    },
+    "link": {
+      "editLink": "Sửa liên kết",
+      "addLink": "Thêm liên kết",
+      "selectedText": "Văn bản đã chọn: \"{text}\"",
+      "linkUrl": "URL liên kết",
+      "urlPlaceholder": "https://example.com",
+      "update": "Cập nhật",
+      "addLinkButton": "Thêm liên kết",
+      "toastApplied": "Đã áp dụng liên kết",
+      "toastLinkedTo": "Đã liên kết đến: {url}",
+      "toastRemoved": "Đã xóa liên kết",
+      "toastRemovedDesc": "Đã xóa liên kết khỏi vùng chọn"
+    },
+    "customClass": {
+      "devMode": "Chế độ nhà phát triển",
+      "toggleDevModeAria": "Bật/tắt chế độ nhà phát triển",
+      "searchPlaceholderDev": "Tìm lớp... (vd: 'text', 'bg', 'flex')",
+      "searchPlaceholderUser": "Tìm kiểu... (vd: 'red', 'bold', 'shadow')",
+      "appliesTitle": "Áp dụng: {className}",
+      "noMatches": "Không tìm thấy lớp phù hợp \"{query}\"",
+      "toastClassReplaced": "Đã thay thế lớp",
+      "toastClassReplacedDesc": "Đã thay thế \"{replaced}\" bằng \"{className}\"",
+      "toastCustomClassApplied": "Đã áp dụng lớp tùy chỉnh",
+      "toastAppliedClass": "Đã áp dụng lớp: {className}"
+    },
+    "insertComponents": {
+      "title": "Chèn thành phần",
+      "description": "Chọn thành phần để chèn vào tài liệu",
+      "noComponents": "Không có thành phần khả dụng",
+      "categories": {
+        "media": "Phương tiện",
+        "layout": "Bố cục",
+        "interactive": "Tương tác",
+        "decoration": "Trang trí"
+      },
+      "freeImage": {
+        "name": "Ảnh tự do",
+        "description": "Thêm ảnh có thể đặt vị trí bất kỳ và thay đổi kích thước tự do"
+      }
+    }
+  }
+}

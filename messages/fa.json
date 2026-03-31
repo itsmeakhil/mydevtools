@@ -22,9 +22,14 @@
     "german": "آلمانی",
     "danish": "دانمارکی",
     "afrikaans": "آفریقایی",
+    "indonesian": "Bahasa Indonesia",
+    "norwegian": "Norsk",
     "japanese": "日本語",
     "korean": "한국어",
-    "malay": "Bahasa Melayu"
+    "malay": "Bahasa Melayu",
+    "dutch": "Nederlands",
+    "polish": "Polski",
+    "vietnamese": "Tiếng Việt"
   },
   "SettingsPage": {
     "title": "تنظیمات",
@@ -69,9 +74,16 @@
         "de": "دویچ (آلمانی)",
         "da": "Dansk (دانمارکی)",
         "af": "آفریقایی",
+        "id": "Bahasa Indonesia",
+        "nb": "Norsk",
         "ja": "日本語",
         "ko": "한국어",
-        "ms": "Bahasa Melayu"
+        "ms": "Bahasa Melayu",
+        "nl": "Nederlands",
+        "pl": "Polski",
+        "pt": "Português",
+        "pt-BR": "Português (Brasil)",
+        "vi": "Tiếng Việt"
       }
     }
   },

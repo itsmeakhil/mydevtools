@@ -24,7 +24,12 @@
     "afrikaans": "Afrikaans",
     "persian": "فارسی",
     "indonesian": "Bahasa Indonesia",
-    "japanese": "日本語"
+    "norwegian": "Norsk",
+    "japanese": "日本語",
+    "korean": "한국어",
+    "malay": "Bahasa Melayu",
+    "dutch": "Nederlands",
+    "vietnamese": "Tiếng Việt"
   },
   "SettingsPage": {
     "title": "Settings",
@@ -71,7 +76,15 @@
         "af": "Afrikaans",
         "fa": "فارسی",
         "id": "Bahasa Indonesia",
-        "ja": "日本語"
+        "nb": "Norsk",
+        "ja": "日本語",
+        "ko": "한국어",
+        "ms": "Bahasa Melayu",
+        "nl": "Nederlands",
+        "pl": "Polski",
+        "pt": "Português",
+        "pt-BR": "Português (Brasil)",
+        "vi": "Tiếng Việt"
       }
     }
   },
