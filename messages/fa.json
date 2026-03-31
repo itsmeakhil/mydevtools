@@ -23,7 +23,8 @@
     "danish": "دانمارکی",
     "afrikaans": "آفریقایی",
     "japanese": "日本語",
-    "korean": "한국어"
+    "korean": "한국어",
+    "malay": "Bahasa Melayu"
   },
   "SettingsPage": {
     "title": "تنظیمات",
@@ -69,7 +70,8 @@
         "da": "Dansk (دانمارکی)",
         "af": "آفریقایی",
         "ja": "日本語",
-        "ko": "한국어"
+        "ko": "한국어",
+        "ms": "Bahasa Melayu"
       }
     }
   },

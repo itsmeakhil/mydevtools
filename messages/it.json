@@ -25,7 +25,8 @@
     "persian": "فارسی",
     "indonesian": "Bahasa Indonesia",
     "japanese": "日本語",
-    "korean": "한국어"
+    "korean": "한국어",
+    "malay": "Bahasa Melayu"
   },
   "SettingsPage": {
     "title": "Impostazioni",
@@ -73,7 +74,8 @@
         "fa": "فارسی",
         "id": "Bahasa Indonesia",
         "ja": "日本語",
-        "ko": "한국어"
+        "ko": "한국어",
+        "ms": "Bahasa Melayu"
       }
     }
   },

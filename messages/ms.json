@@ -1,0 +1,1370 @@
+{
+  "Navigation": {
+    "dashboard": "Papan Pemuka",
+    "settings": "Tetapan",
+    "apiClient": "Klien API",
+    "passwordManager": "Pengurus Kata Laluan",
+    "bookmarks": "Penanda Halaman",
+    "emailValidator": "Pengesah E-mel",
+    "nosqlExplorer": "Penjelajah NoSQL"
+  },
+  "Settings": {
+    "title": "Tetapan",
+    "language": "Bahasa",
+    "spanish": "Spanish",
+    "english": "English",
+    "french": "Français",
+    "arabic": "عربى",
+    "catalan": "Catalan",
+    "chineseSimplified": "Chinese (Simplified)",
+    "czech": "Čeština",
+    "greek": "Ελληνικά",
+    "german": "German",
+    "danish": "Danish",
+    "afrikaans": "Afrikaans",
+    "persian": "فارسی",
+    "indonesian": "Bahasa Indonesia",
+    "japanese": "日本語",
+    "korean": "한국어",
+    "malay": "Bahasa Melayu"
+  },
+  "SettingsPage": {
+    "title": "Tetapan",
+    "subtitle": "Urus tetapan akaun dan keutamaan anda.",
+    "userProfile": {
+      "title": "Profil Pengguna",
+      "description": "Maklumat peribadi dan butiran akaun anda.",
+      "avatarAlt": "Pengguna",
+      "anonymousUser": "Pengguna Tanpa Nama",
+      "noEmailProvided": "Tiada e-mel disediakan",
+      "notLoggedIn": "Belum log masuk."
+    },
+    "tools": {
+      "title": "Alat & Ciri",
+      "description": "Pilih alat yang dipaparkan di bar sisi navigasi anda."
+    },
+    "appearance": {
+      "title": "Penampilan",
+      "description": "Sesuaikan rupa aplikasi pada peranti anda.",
+      "themePreference": "Keutamaan Tema",
+      "themes": {
+        "light": "Cerah",
+        "dark": "Gelap",
+        "system": "Sistem"
+      }
+    },
+    "language": {
+      "title": "Bahasa",
+      "description": "Tetapkan bahasa yang digunakan di seluruh platform.",
+      "selectLanguage": "Pilih Bahasa",
+      "selectPlaceholder": "Pilih bahasa",
+      "helpText": "Menukar bahasa anda akan mengemas kini menu dan label di seluruh platform.",
+      "languages": {
+        "en": "English",
+        "fr": "Français",
+        "es": "Español (Spanish)",
+        "ar": "عربى (Arabic)",
+        "ca": "Català",
+        "zh": "简体中文",
+        "cs": "Čeština",
+        "el": "Ελληνικά (Greek)",
+        "de": "Deutsch (German)",
+        "da": "Dansk (Danish)",
+        "af": "Afrikaans",
+        "fa": "فارسی",
+        "id": "Bahasa Indonesia",
+        "ja": "日本語",
+        "ko": "한국어",
+        "ms": "Bahasa Melayu"
+      }
+    }
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "Selamat pagi",
+      "afternoon": "Selamat petang",
+      "evening": "Selamat malam"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "Selamat kembali",
+    "welcomeBackNamed": "Selamat kembali, {name}",
+    "tagline": "Apa yang ingin anda bina hari ini?",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Alat",
+      "favorites": "Kegemaran"
+    },
+    "sections": {
+      "recentlyUsed": "Baru Digunakan",
+      "favorites": "Kegemaran"
+    },
+    "groups": {
+      "apps": "Aplikasi"
+    },
+    "toolCard": {
+      "defaultDescription": "Terokai alat ini untuk fungsi yang lebih baik.",
+      "launchTool": "Lancar Alat"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Tugasan",
+        "description": "Urus senarai tugasan anda dengan cekap."
+      },
+      "notes": {
+        "title": "Nota",
+        "description": "Tangkap idea dan susun fikiran anda."
+      },
+      "passwordManager": {
+        "title": "Pengurus Kata Laluan",
+        "description": "Simpan dan urus kata laluan anda dengan selamat."
+      },
+      "bookmarks": {
+        "title": "Penanda Halaman",
+        "description": "Urus dan susun penanda halaman anda."
+      },
+      "apiClient": {
+        "title": "Klien API",
+        "description": "Uji dan nyahpepijat permintaan HTTP."
+      },
+      "nosqlExplorer": {
+        "title": "Penjelajah NoSQL",
+        "description": "Terokai pangkalan data MongoDB."
+      },
+      "emailValidator": {
+        "title": "Pengesah E-mel",
+        "description": "Sahkan dan pengesahan alamat e-mel."
+      }
+    }
+  },
+  "Tasks": {
+    "page": {
+      "loading": "Memuatkan...",
+      "myTasksTitle": "Tugasan Saya",
+      "statsLine": "{total} tugasan • {percent}% selesai",
+      "statsLineDesktop": "{total} jumlah • {percent}% selesai"
+    },
+    "filters": {
+      "all": "Semua",
+      "total": "Jumlah",
+      "allProjects": "Semua Projek",
+      "export": "Eksport",
+      "kanban": "Kanban",
+      "list": "Senarai",
+      "searchPlaceholder": "Cari tugasan...",
+      "searchAria": "Cari tugasan",
+      "clearSearchAria": "Kosongkan carian",
+      "foundTasks": "Dijumpai {count} {count, plural, one {tugasan} other {tugasan}}",
+      "filterByAllAria": "Tapis mengikut Semua",
+      "filterByStatusAria": "Tapis mengikut {status}"
+    },
+    "status": {
+      "not-started": {
+        "label": "Belum Dimulakan",
+        "description": "Tugasan yang belum dimulakan"
+      },
+      "ongoing": {
+        "label": "Sedang Berjalan",
+        "description": "Tugasan yang sedang dalam proses"
+      },
+      "completed": {
+        "label": "Selesai",
+        "description": "Tugasan yang telah siap"
+      }
+    },
+    "priorities": {
+      "high": "Tinggi",
+      "medium": "Sederhana",
+      "low": "Rendah"
+    },
+    "form": {
+      "addNewTaskLabel": "Tambah tugasan baharu",
+      "multilinePlaceholder": "Tambah butiran tugasan... (Shift+Enter untuk baris baharu)",
+      "singlelinePlaceholder": "Apa yang perlu dilakukan? Tekan Enter untuk tambah",
+      "taskInputAria": "Input tugasan",
+      "projectPlaceholder": "Projek",
+      "selectProject": "Pilih Projek",
+      "errorSelectProject": "Sila pilih projek atau cipta yang baharu untuk menambah tugasan.",
+      "hintMultiline": "Shift+Enter untuk baris baharu, Enter untuk tambah",
+      "hintSingleline": "Enter untuk tambah",
+      "shortcutsAria": "Pintasan papan kekunci",
+      "shortcutsLabel": "Pintasan",
+      "shortcutAddTask": "Tambah tugasan",
+      "shortcutNewLine": "Baris baharu",
+      "shortcutClear": "Kosongkan",
+      "addButton": "Tambah"
+    },
+    "list": {
+      "ariaLabel": "Senarai tugasan",
+      "loading": "Memuatkan tugasan anda...",
+      "emptyTitle": "Tiada tugasan dijumpai",
+      "emptyPrimary": "Mulakan dengan menambah tugasan pertama anda di atas! Tekan Enter untuk menambah tugasan dengan pantas.",
+      "emptySecondary": "Cuba laraskan penapis atau pertanyaan carian anda."
+    },
+    "mobileDrawer": {
+      "addTaskSrOnly": "Tambah Tugasan",
+      "addNewTaskTitle": "Tambah Tugasan Baharu",
+      "addNewTaskDescription": "Cipta tugasan baharu untuk menjejaki kemajuan anda.",
+      "cancel": "Batal"
+    },
+    "kanban": {
+      "ariaLabel": "Papan Kanban",
+      "loading": "Memuatkan tugasan anda...",
+      "dropHere": "Lepaskan tugasan di sini",
+      "noTasksYet": "Belum ada tugasan",
+      "emptyColumnAria": "Lajur kosong",
+      "columnAria": "Lajur {title} dengan {count} tugasan",
+      "countInColumnAria": "{count} tugasan dalam {title}"
+    },
+    "taskItem": {
+      "confirmDelete": "Adakah anda pasti mahu memadam tugasan ini?",
+      "statusPlaceholder": "Status",
+      "changeStatusAria": "Tukar status tugasan",
+      "taskOptionsAria": "Pilihan tugasan",
+      "editTask": "Edit Tugasan",
+      "copyTask": "Salin Tugasan",
+      "copied": "Disalin!",
+      "deleteTask": "Padam Tugasan",
+      "statusHeading": "Status",
+      "editTaskAria": "Edit tugasan"
+    },
+    "editDialog": {
+      "title": "Edit Tugasan",
+      "description": "Kemas kini butiran tugasan, tambah subtugasan, tetapkan keutamaan dan lain-lain.",
+      "taskTitleLabel": "Tajuk Tugasan *",
+      "taskTitlePlaceholder": "Apa yang perlu dilakukan?",
+      "descriptionLabel": "Penerangan",
+      "descriptionPlaceholder": "Tambah butiran lanjut tentang tugasan ini...",
+      "statusLabel": "Status",
+      "priorityLabel": "Keutamaan",
+      "dueDateLabel": "Tarikh Akhir",
+      "pickDate": "Pilih tarikh",
+      "clearDate": "Kosongkan Tarikh",
+      "projectLabel": "Projek",
+      "selectProjectPlaceholder": "Pilih projek",
+      "noProject": "Tiada Projek",
+      "timeEstimateLabel": "Anggaran Masa (minit)",
+      "timeEstimatePlaceholder": "Berapa lama ini akan mengambil masa?",
+      "tagsLabel": "Tag",
+      "customTagNamePlaceholder": "Nama tag tersuai",
+      "subtasksLabel": "Subtugasan",
+      "addSubtaskPlaceholder": "Tambah subtugasan...",
+      "cancel": "Batal",
+      "saving": "Menyimpan...",
+      "saveChanges": "Simpan Perubahan"
+    },
+    "export": {
+      "title": "Eksport Tugasan",
+      "description": "Eksport tugasan anda ke format JSON, CSV, atau Excel.",
+      "projectLabel": "Projek",
+      "statusLabel": "Status",
+      "tagLabel": "Tag",
+      "allProjects": "Semua Projek",
+      "allStatuses": "Semua Status",
+      "allTags": "Semua Tag",
+      "exportAsJsonTitle": "Eksport sebagai JSON",
+      "exportAsJsonDescription": "Eksport data tugasan termasuk subtugasan, tag, dan metadata.",
+      "exportJson": "Eksport JSON",
+      "exportAsCsvExcelTitle": "Eksport sebagai CSV / Excel",
+      "exportAsCsvExcelDescription": "Eksport tugasan untuk aplikasi hamparan.",
+      "exportCsv": "Eksport CSV",
+      "exportExcel": "Eksport Excel",
+      "close": "Tutup",
+      "toastNoTasks": "Tiada tugasan untuk dieksport dengan penapis semasa",
+      "toastExportedJson": "Dieksport {count} tugasan ke JSON!",
+      "toastExportedCsv": "Dieksport {count} tugasan ke CSV!",
+      "toastExportedExcel": "Dieksport {count} tugasan ke Excel!",
+      "toastFailedJson": "Gagal mengeksport ke JSON",
+      "toastFailedCsv": "Gagal mengeksport ke CSV",
+      "toastFailedExcel": "Gagal mengeksport ke Excel",
+      "unknownProject": "Projek Tidak Diketahui"
+    },
+    "ack": {
+      "taskAddedTitle": "Tugasan berjaya ditambah",
+      "taskAddedFailedTitle": "Gagal menambah tugasan",
+      "taskUpdatedTitle": "Tugasan berjaya dikemas kini",
+      "taskUpdatedFailedTitle": "Gagal mengemas kini tugasan",
+      "taskStatusUpdateFailedTitle": "Gagal mengemas kini status tugasan",
+      "taskMovedTitle": "Tugasan dipindahkan ke {status}",
+      "tryAgain": "Sila cuba lagi.",
+      "taskDeletedTitle": "Tugasan \"{text}\" dipadam",
+      "undo": "Buat Asal",
+      "taskRestoredTitle": "Tugasan dipulihkan",
+      "taskRestoredSuccessTitle": "Tugasan berjaya dipulihkan",
+      "taskRestoreFailedTitle": "Gagal memulihkan tugasan. Sila cuba lagi.",
+      "taskDeleteFailedTitle": "Gagal memadam tugasan. Sila cuba lagi.",
+      "tasksImportedTitle": "Berjaya mengimport {count} {count, plural, one {tugasan} other {tugasan}}!",
+      "tasksImportFailedTitle": "Gagal mengimport tugasan. Sila cuba lagi.",
+      "unknownProject": "Projek Tidak Diketahui",
+      "projectCreatedTitle": "Projek berjaya dicipta",
+      "projectCreateFailedTitle": "Gagal mencipta projek",
+      "projectUpdatedTitle": "Projek berjaya dikemas kini",
+      "projectUpdateFailedTitle": "Gagal mengemas kini projek",
+      "projectDeletedTitle": "Projek berjaya dipadam",
+      "projectDeleteFailedTitle": "Gagal memadam projek"
+    }
+  },
+  "Notes": {
+    "page": {
+      "loading": "Memuatkan..."
+    },
+    "layout": {
+      "mobileNavTitle": "Navigasi Nota",
+      "openMenuAria": "Buka menu nota"
+    },
+    "sidebar": {
+      "title": "Nota",
+      "createNoteAria": "Cipta nota",
+      "searchPlaceholder": "Cari nota...",
+      "loading": "Memuatkan...",
+      "noNotesFound": "Tiada nota dijumpai.",
+      "noNotesYet": "Belum ada nota. Klik + untuk mencipta satu.",
+      "inParent": "dalam {parentTitle}",
+      "untitled": "Tanpa Tajuk",
+      "addSubPage": "Tambah sub-halaman",
+      "delete": "Padam",
+      "deleteConfirmTitle": "Padam nota?",
+      "deleteConfirmDescription": "Adakah anda pasti mahu memadam \"{title}\"? Tindakan ini tidak boleh dibuat asal.",
+      "cancel": "Batal",
+      "confirmDelete": "Padam",
+      "noteOptionsAria": "Pilihan nota"
+    },
+    "editor": {
+      "emptyState": "Pilih nota atau cipta yang baharu untuk bermula.",
+      "titlePlaceholder": "Tanpa Tajuk"
+    },
+    "context": {
+      "authRequiredError": "Pengguna tidak disahkan",
+      "defaultTitle": "Tanpa Tajuk"
+    }
+  },
+  "PasswordManager": {
+    "page": {
+      "loading": "Memuatkan...",
+      "title": "Pengurus Kata Laluan"
+    },
+    "vault": {
+      "toastDecryptFailed": "Gagal menyahsulit kata laluan",
+      "toastLoadFailed": "Gagal memuatkan kata laluan",
+      "toastUnlockedAuto": "Peti besi dibuka secara automatik",
+      "toastAutoUnlockFailed": "Buka kunci automatik gagal. Sila buka kunci secara manual.",
+      "toastConnectFailed": "Gagal menyambung ke pelayan",
+      "toastAutoUnlockWarning": "Peti besi dibuka, tetapi buka kunci automatik mungkin tidak berfungsi semasa muat semula",
+      "errorIncorrectPassword": "Kata laluan induk tidak betul",
+      "errorUnlockFailed": "Gagal membuka kunci peti besi",
+      "errorPasswordsMismatch": "Kata laluan tidak sepadan",
+      "errorPasswordTooShort": "Kata laluan mestilah sekurang-kurangnya 8 aksara",
+      "errorSetupFailed": "Gagal menyediakan peti besi",
+      "errorConnectFailed": "Gagal menyambung ke pelayan.",
+      "mobileTitleCreate": "Cipta peti besi anda",
+      "mobileTitleWelcome": "Selamat kembali",
+      "mobileSubtitleCreate": "Tetapkan kata laluan induk untuk melindungi kelayakan anda",
+      "mobileSubtitleUnlock": "Masukkan kata laluan induk anda untuk membuka kunci",
+      "placeholderMasterPassword": "Kata laluan induk",
+      "placeholderConfirmPassword": "Sahkan kata laluan",
+      "labelMasterPassword": "Kata laluan induk",
+      "labelConfirmPassword": "Sahkan kata laluan",
+      "placeholderEnterMaster": "Masukkan kata laluan induk",
+      "placeholderConfirmMaster": "Sahkan kata laluan induk",
+      "buttonCreateVault": "Cipta peti besi",
+      "buttonUnlock": "Buka kunci",
+      "buttonUnlockVault": "Buka kunci peti besi",
+      "footerCreate": "Kata laluan anda tidak pernah disimpan dan tidak boleh dipulihkan",
+      "footerUnlock": "Dijamin dengan penyulitan hujung-ke-hujung",
+      "desktopTitleSetup": "Sediakan peti besi kata laluan",
+      "desktopTitleUnlock": "Buka kunci peti besi",
+      "desktopDescriptionSetup": "Cipta kata laluan induk untuk mengamankan kelayakan anda. Kata laluan ini tidak pernah disimpan dan tidak boleh dipulihkan.",
+      "desktopDescriptionUnlock": "Masukkan kata laluan induk anda untuk mengakses kelayakan yang dilindungi."
+    },
+    "list": {
+      "loading": "Memuatkan kata laluan anda...",
+      "emptyTitle": "Peti besi kosong",
+      "emptyHintMobile": "Ketik butang + untuk menambah kata laluan pertama anda",
+      "emptyHintDesktop": "Anda belum menyimpan sebarang kata laluan. Klik butang \"Tambah kata laluan\" di atas untuk bermula.",
+      "addPassword": "Tambah kata laluan",
+      "searchPlaceholderMobile": "Cari peti besi anda...",
+      "searchPlaceholderDesktop": "Cari peti besi...",
+      "importExport": "Import / eksport",
+      "lockVault": "Kunci peti besi",
+      "allPasswordsTitle": "Semua kata laluan",
+      "passwordCount": "{count, plural, one {# kata laluan} other {# kata laluan}}",
+      "vaultHealthDrawerTitle": "Kesihatan peti besi",
+      "noResults": "Tiada kata laluan dijumpai sepadan dengan \"{query}\"",
+      "tableService": "Perkhidmatan",
+      "tableUsername": "Nama Pengguna",
+      "tablePassword": "Kata Laluan",
+      "tableUrl": "URL",
+      "tableActions": "Tindakan",
+      "gridViewAria": "Paparan grid",
+      "listViewAria": "Paparan senarai",
+      "passwordStrengthTitle": "Kekuatan kata laluan",
+      "deleteDialogTitle": "Padam kata laluan",
+      "deleteDialogDescription": "Adakah anda pasti mahu memadam kata laluan ini? Tindakan ini tidak boleh dibuat asal.",
+      "cancel": "Batal",
+      "delete": "Padam",
+      "edit": "Edit"
+    },
+    "toasts": {
+      "copiedPassword": "Kata laluan disalin ke papan klip",
+      "copiedUsername": "Nama pengguna disalin ke papan klip",
+      "passwordDeleted": "Kata laluan dipadam",
+      "deleteFailed": "Gagal memadam kata laluan",
+      "vaultLocked": "Peti besi dikunci",
+      "importedCount": "Berjaya mengimport {count, plural, one {# kata laluan} other {# kata laluan}}"
+    },
+    "form": {
+      "addTitle": "Tambah kata laluan baharu",
+      "editTitle": "Edit kata laluan",
+      "serviceName": "Nama perkhidmatan",
+      "usernameEmail": "Nama pengguna / e-mel",
+      "password": "Kata laluan",
+      "urlOptional": "URL laman web (pilihan)",
+      "notesOptional": "Nota (pilihan)",
+      "tags": "Tag",
+      "placeholderService": "cth. Netflix",
+      "placeholderUsername": "pengguna@contoh.com",
+      "placeholderPassword": "Masukkan atau jana kata laluan",
+      "placeholderUrl": "https://...",
+      "placeholderNotes": "Butiran tambahan...",
+      "placeholderTags": "Tambah tag (tekan Enter atau koma)",
+      "strength": "Kekuatan",
+      "strengthWeak": "Lemah",
+      "strengthMedium": "Sederhana",
+      "strengthStrong": "Kuat",
+      "advancedGenerator": "Penjana lanjutan",
+      "cancel": "Batal",
+      "saving": "Menyimpan...",
+      "savePassword": "Simpan kata laluan",
+      "updating": "Mengemas kini...",
+      "updatePassword": "Kemas kini kata laluan",
+      "addPasswordSrOnly": "Tambah kata laluan",
+      "triggerAdd": "Tambah kata laluan",
+      "toastSaved": "Kata laluan berjaya disimpan",
+      "toastSaveFailed": "Gagal menyimpan kata laluan",
+      "toastUpdated": "Kata laluan berjaya dikemas kini",
+      "toastUpdateFailed": "Gagal mengemas kini kata laluan"
+    },
+    "security": {
+      "vaultHealth": "Kesihatan peti besi",
+      "statusLabel": "Status",
+      "totalPasswords": "Jumlah kata laluan",
+      "activeEntries": "Entri aktif dalam peti besi anda",
+      "protected": "Dilindungi",
+      "weakPasswords": "Kata laluan lemah",
+      "needingImprovement": "Kata laluan yang perlu diperbaiki",
+      "allGood": "Semua baik",
+      "reusedPasswords": "Kata laluan berulang",
+      "usedMultipleTimes": "Kata laluan yang digunakan berulang kali",
+      "unique": "Unik",
+      "total": "Jumlah",
+      "weak": "Lemah",
+      "reused": "Berulang",
+      "totalCountLabel": "{count, plural, one {# kata laluan} other {# kata laluan}}",
+      "weakCountLabel": "{count} lemah",
+      "allSecure": "Semua selamat",
+      "scoreExcellent": "Cemerlang",
+      "scoreGood": "Baik",
+      "scoreFair": "Sederhana",
+      "scoreCritical": "Kritikal"
+    },
+    "importExport": {
+      "title": "Import / eksport peti besi",
+      "description": "Urus data kata laluan anda. Anda boleh mengeksport peti besi ke JSON atau mengimport daripada fail JSON.",
+      "tabExport": "Eksport",
+      "tabImport": "Import",
+      "warningTitle": "Amaran",
+      "warningBody": "Fail yang dieksport mengandungi kata laluan anda dalam teks biasa. Simpan fail ini dengan selamat dan padam selepas digunakan.",
+      "exportBlurb": "Muat turun seluruh peti besi anda sebagai fail JSON. Ini termasuk semua perkhidmatan, nama pengguna, kata laluan, dan nota.",
+      "downloadJson": "Muat turun eksport JSON",
+      "pasteLabel": "Tampal data JSON",
+      "pastePlaceholder": "[{\"service\": \"Contoh\", \"username\": \"pengguna\", \"password\": \"123\", ...}]",
+      "pasteHint": "Tampal kandungan fail JSON yang telah dieksport sebelum ini di sini.",
+      "importing": "Mengimport...",
+      "importPasswords": "Import kata laluan",
+      "trigger": "Import / eksport",
+      "toastExported": "Peti besi berjaya dieksport",
+      "toastExportFailed": "Gagal mengeksport peti besi",
+      "toastImportFailed": "Gagal mengimport: format JSON tidak sah"
+    },
+    "card": {
+      "copyUsername": "Salin nama pengguna",
+      "openUrl": "Buka URL",
+      "strength": "Kekuatan"
+    },
+    "swipeable": {
+      "copy": "Salin",
+      "delete": "Padam",
+      "copyPassword": "Salin kata laluan",
+      "copyUsername": "Salin nama pengguna",
+      "edit": "Edit",
+      "deleteAction": "Padam"
+    },
+    "floatingMenu": {
+      "lockVault": "Kunci peti besi",
+      "importExport": "Import / eksport",
+      "addPassword": "Tambah kata laluan"
+    },
+    "generator": {
+      "tabPassword": "Kata Laluan",
+      "tabPassphrase": "Frasa Laluan",
+      "strength": "Kekuatan",
+      "lengthLabel": "Panjang: {length} aksara",
+      "lengthBadge": "{length} aksara",
+      "characterSets": "Set aksara",
+      "uppercase": "Huruf besar",
+      "lowercase": "Huruf kecil",
+      "numbers": "Nombor",
+      "symbols": "Simbol",
+      "wordCountLabel": "Bilangan perkataan: {count}",
+      "wordCountBadge": "{count, plural, one {# perkataan} other {# perkataan}}",
+      "separator": "Pemisah",
+      "capitalization": "Huruf besar",
+      "includeNumber": "Sertakan nombor"
+    }
+  },
+  "Bookmarks": {
+    "page": {
+      "loading": "Memuatkan..."
+    },
+    "manager": {
+      "foldersHeading": "Folder",
+      "tagsHeading": "Tag",
+      "tagsMore": "+{count} lagi",
+      "searchPlaceholder": "Cari penanda halaman anda...",
+      "import": "Import",
+      "export": "Eksport",
+      "exportAsHtml": "Eksport sebagai HTML",
+      "exportAsJson": "Eksport sebagai JSON",
+      "addBookmark": "Tambah Penanda Halaman",
+      "matchingQuery": "sepadan \"{query}\"",
+      "bookmarkCount": "{count, plural, one {# penanda halaman} other {# penanda halaman}}",
+      "allBookmarks": "Semua Penanda Halaman",
+      "uncategorized": "Tidak Dikategorikan",
+      "unknownFolder": "Tidak Diketahui"
+    },
+    "card": {
+      "urlCopied": "URL disalin ke papan klip",
+      "bookmarkDeleted": "Penanda halaman dipadam",
+      "edit": "Edit",
+      "delete": "Padam",
+      "copyUrl": "Salin URL",
+      "deleteConfirmTitle": "Padam penanda halaman?",
+      "deleteConfirmDescription": "Ini akan memadam \"{title}\" secara kekal.",
+      "cancel": "Batal"
+    },
+    "grid": {
+      "emptyTitle": "Belum ada penanda halaman",
+      "emptyDescription": "Tambah penanda halaman pertama anda atau import dari pelayar anda untuk bermula."
+    },
+    "folderTree": {
+      "allBookmarks": "Semua Penanda Halaman",
+      "addSubfolder": "Tambah Subfolder",
+      "rename": "Namakan Semula",
+      "deleteFolderTitle": "Padam folder \"{name}\"?",
+      "deleteFolderDescription": "Ini akan memadam folder dan semua subfoldernya. Penanda halaman dalam folder ini akan dipindahkan ke Tidak Dikategorikan."
+    },
+    "import": {
+      "title": "Import Penanda Halaman",
+      "description": "Import penanda halaman dari fail eksport pelayar anda.",
+      "parseError": "Gagal menghurai fail penanda halaman. Sila pastikan ia adalah eksport penanda halaman yang sah.",
+      "successToast": "Diimport {bookmarks} penanda halaman dan {folders} folder",
+      "errorToast": "Gagal mengimport penanda halaman",
+      "chromeInstruction": "Menu → Penanda Halaman → Pengurus Penanda Halaman → ⋮ → Eksport Penanda Halaman",
+      "firefoxInstruction": "Menu → Penanda Halaman → Urus Penanda Halaman → Import dan Sandaran → Eksport",
+      "safariInstruction": "Fail → Eksport Penanda Halaman...",
+      "edgeInstruction": "Menu → Kegemaran → ⋯ → Eksport Kegemaran",
+      "dropZoneTitle": "Lepaskan fail penanda halaman anda di sini",
+      "dropZoneHint": "atau klik untuk melayari (HTML atau JSON)",
+      "selectedFileHint": "Klik untuk memilih fail lain",
+      "errorTitle": "Ralat",
+      "previewTitle": "Pratonton Import",
+      "previewBookmarks": "{count, plural, one {# penanda halaman} other {# penanda halaman}}",
+      "previewFolders": "{count, plural, one {# folder} other {# folder}}",
+      "importModeLabel": "Mod Import",
+      "modeMerge": "Gabungkan dengan penanda halaman sedia ada",
+      "modeReplace": "Gantikan semua penanda halaman sedia ada",
+      "cancel": "Batal",
+      "importButton": "Import",
+      "importButtonWithCount": "Import {count, plural, one {# penanda halaman} other {# penanda halaman}}"
+    },
+    "addBookmark": {
+      "titleAdd": "Tambah Penanda Halaman",
+      "titleEdit": "Edit Penanda Halaman",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://contoh.com",
+      "urlInvalid": "Sila masukkan URL yang sah",
+      "titleLabel": "Tajuk",
+      "titlePlaceholder": "Tajuk penanda halaman",
+      "titleRequired": "Sila masukkan tajuk",
+      "descriptionLabel": "Penerangan (pilihan)",
+      "descriptionPlaceholder": "Tambah nota tentang penanda halaman ini",
+      "folderLabel": "Folder",
+      "folderPlaceholder": "Pilih folder",
+      "noFolder": "Tiada folder",
+      "tagsLabel": "Tag",
+      "tagsPlaceholder": "Tambah tag (tekan Enter)",
+      "toastUpdated": "Penanda halaman dikemas kini",
+      "toastAdded": "Penanda halaman ditambah",
+      "cancel": "Batal",
+      "submitAdd": "Tambah Penanda Halaman",
+      "submitUpdate": "Kemas Kini Penanda Halaman"
+    },
+    "addFolder": {
+      "title": "Cipta Folder",
+      "nameLabel": "Nama Folder",
+      "namePlaceholder": "Folder Saya",
+      "nameRequired": "Sila masukkan nama folder",
+      "parentLabel": "Folder Induk",
+      "parentPlaceholder": "Pilih folder induk",
+      "rootParent": "Akar (Tiada induk)",
+      "toastCreated": "Folder dicipta",
+      "cancel": "Batal",
+      "submit": "Cipta Folder"
+    },
+    "editFolder": {
+      "title": "Namakan Semula Folder",
+      "nameLabel": "Nama Folder",
+      "namePlaceholder": "Nama folder",
+      "nameRequired": "Sila masukkan nama folder",
+      "toastRenamed": "Folder dinamakan semula",
+      "cancel": "Batal",
+      "save": "Simpan"
+    }
+  },
+  "EmailValidator": {
+    "header": {
+      "title": "Pengesah E-mel",
+      "description": "Sahkan dan pengesahan alamat e-mel untuk sintaks, domain, dan kebolehhantaran."
+    },
+    "tabs": {
+      "single": "Pengesahan Tunggal",
+      "bulk": "Muat Naik Pukal"
+    },
+    "single": {
+      "cardTitle": "Pengesahan E-mel Tunggal",
+      "cardDescription": "Masukkan alamat e-mel untuk menyemak kebolehhantaran dan reputasinya.",
+      "placeholder": "Masukkan alamat e-mel...",
+      "clearAria": "Kosongkan e-mel",
+      "validate": "Sahkan",
+      "validating": "Mengesahkan...",
+      "formatError": "Sila masukkan alamat e-mel yang sah"
+    },
+    "toasts": {
+      "errorTitle": "Ralat",
+      "enterEmail": "Sila masukkan alamat e-mel",
+      "invalidFormatTitle": "Format E-mel Tidak Sah",
+      "invalidFormatDescription": "Sila masukkan alamat e-mel yang sah",
+      "validateFailedDescription": "Ralat berlaku semasa mengesahkan e-mel",
+      "noEmailsTitle": "Tiada E-mel Dijumpai",
+      "noEmailsDescription": "Sila pastikan Excel anda mempunyai lajur 'email'.",
+      "fileTooLargeTitle": "Fail Terlalu Besar",
+      "fileTooLargeDescription": "Dijumpai {total} e-mel. Hanya 4000 pertama yang akan disahkan.",
+      "successTitle": "Berjaya",
+      "successValidated": "Berjaya mengesahkan {count} e-mel.",
+      "batchFailedTitle": "Pengesahan Pukal Gagal",
+      "batchFailedDescription": "Ralat berlaku semasa memproses pengesahan pukal.",
+      "noExportTitle": "Tiada Data untuk Dieksport",
+      "noExportValidOnly": "Tiada e-mel sah dijumpai untuk dieksport.",
+      "noExportAll": "Tiada keputusan untuk dieksport.",
+      "exportSuccessTitle": "Eksport Berjaya",
+      "exportSuccessExcelAll": "Dieksport {count} e-mel ke Excel.",
+      "exportSuccessExcelValid": "Dieksport {count} e-mel sah ke Excel.",
+      "exportSuccessCsvAll": "Dieksport {count} e-mel ke CSV.",
+      "exportSuccessCsvValid": "Dieksport {count} e-mel sah ke CSV."
+    },
+    "disposableAlert": {
+      "title": "E-mel Pakai Buang Dikesan",
+      "description": "Alamat e-mel ini kepunyaan pembekal e-mel pakai buang. Ia mungkin sementara atau tidak selamat."
+    },
+    "score": {
+      "reliabilityTitle": "Skor Kebolehpercayaan",
+      "scoreLabel": "Skor"
+    },
+    "details": {
+      "sectionTitle": "Butiran Pengesahan"
+    },
+    "validation": {
+      "syntaxLabel": "Sintaks Sah",
+      "syntaxTooltip": "Menyemak sama ada alamat e-mel mengikut format yang betul (cth., pengguna@domain.com)",
+      "domainLabel": "Domain Wujud",
+      "domainTooltip": "Mengesahkan bahawa nama domain dalam alamat e-mel benar-benar wujud",
+      "mxLabel": "Rekod MX Dijumpai",
+      "mxTooltip": "Menyemak sama ada domain mempunyai rekod pertukaran mel (MX) yang dikonfigurasi untuk menerima e-mel",
+      "mailboxLabel": "Peti Mel Wujud",
+      "mailboxTooltip": "Mengesahkan bahawa peti mel/akaun tertentu wujud pada pelayan mel",
+      "disposableLabel": "E-mel Pakai Buang",
+      "disposableTooltip": "Menunjukkan sama ada e-mel ini kepunyaan perkhidmatan e-mel sementara/pakai buang (mungkin berisiko)",
+      "roleBasedLabel": "E-mel Berasaskan Peranan",
+      "roleBasedTooltip": "Mengenal pasti sama ada ini adalah e-mel berasaskan peranan (cth., sokongan@, info@) dan bukan alamat peribadi"
+    },
+    "copy": {
+      "emailCopied": "E-mel disalin!",
+      "copyTooltip": "Salin e-mel"
+    },
+    "bulk": {
+      "dropHere": "Lepaskan fail anda di sini",
+      "dragHere": "Seret dan lepaskan fail anda di sini",
+      "uploadHint": "Muat naik fail .xlsx, .xls, atau .csv yang mengandungi lajur 'email' untuk mengesahkan sehingga 4000 e-mel.",
+      "filePrefix": "Fail:",
+      "selectFile": "Pilih Fail",
+      "downloadTemplate": "Muat Turun Templat"
+    },
+    "bulkLoading": {
+      "title": "Mengesahkan E-mel...",
+      "batchProgress": "Memproses kumpulan {current} daripada {total}..."
+    },
+    "stats": {
+      "totalProcessed": "Jumlah Diproses",
+      "valid": "Sah",
+      "risky": "Berisiko",
+      "invalid": "Tidak Sah"
+    },
+    "results": {
+      "detailedTitle": "Keputusan Terperinci",
+      "searchPlaceholder": "Cari e-mel...",
+      "newVerification": "Pengesahan Baharu",
+      "exportAll": "Eksport Semua",
+      "exportExcel": "Excel (.xlsx)",
+      "exportCsv": "CSV (.csv)",
+      "exportValid": "Eksport Sah ({count})"
+    },
+    "showingResults": "Menunjukkan {shown} daripada {total} keputusan",
+    "table": {
+      "email": "E-mel",
+      "status": "Status",
+      "score": "Skor",
+      "checks": "Semakan"
+    },
+    "noSearchResults": "Tiada keputusan dijumpai sepadan dengan \"{query}\"",
+    "checksTooltip": {
+      "syntax": "Sintaks",
+      "domain": "Domain",
+      "mx": "MX",
+      "mailbox": "Peti Mel"
+    },
+    "exportColumns": {
+      "email": "E-mel",
+      "status": "Status",
+      "score": "Skor",
+      "syntax": "Sintaks",
+      "domain": "Domain",
+      "mx": "MX",
+      "mailbox": "Peti Mel",
+      "disposable": "Pakai Buang",
+      "roleBased": "Berasaskan Peranan",
+      "valid": "Sah",
+      "invalid": "Tidak Sah",
+      "yes": "Ya",
+      "no": "Tidak"
+    },
+    "sheets": {
+      "validEmails": "E-mel Sah",
+      "results": "Keputusan",
+      "template": "Templat"
+    }
+  },
+  "NoSqlExplorer": {
+    "page": {
+      "heroTitle": "Penjelajah NoSQL",
+      "heroSubtitle": "Sambung ke pangkalan data anda untuk mengurus koleksi, laksanakan pertanyaan, dan visualisasikan data anda.",
+      "featureMultiTitle": "Berbilang Sambungan",
+      "featureMultiDesc": "Urus berbilang sambungan pangkalan data secara serentak.",
+      "featureMongoTitle": "Sokongan MongoDB",
+      "featureMongoDesc": "Sokongan asli untuk MongoDB dengan penapisan lanjutan.",
+      "featureQueryTitle": "Pertanyaan Pintar",
+      "featureQueryDesc": "Pembina pertanyaan yang berkuasa dengan penyorotan sintaks.",
+      "connectCta": "Sambung ke MongoDB",
+      "footerNote": "Pada masa ini menyokong {db}. Lebih banyak pangkalan data akan datang.",
+      "footerDb": "MongoDB",
+      "selectCollectionTitle": "Pilih Koleksi",
+      "selectCollectionDesc": "Pilih koleksi dari bar sisi untuk melihat dokumen dan mula meneroka data anda.",
+      "dialogAddConnection": "Tambah Sambungan",
+      "toastConnectionAdded": "Sambungan ditambah",
+      "toastFetchFailed": "Gagal mengambil dokumen untuk {collection}",
+      "toastDocDeleted": "Dokumen dipadam",
+      "deleteDocTitle": "Adakah anda benar-benar pasti?",
+      "deleteDocDescription": "Tindakan ini tidak boleh dibuat asal. Ini akan memadam dokumen secara kekal dari koleksi anda.",
+      "closeAllTitle": "Tutup semua tab?",
+      "closeAllDescription": "Adakah anda pasti mahu menutup semua tab? Sebarang perubahan yang tidak disimpan dalam penapis pertanyaan akan hilang.",
+      "closeAllConfirm": "Tutup Semua",
+      "cancel": "Batal",
+      "delete": "Padam"
+    },
+    "connection": {
+      "titleEdit": "Edit Sambungan",
+      "titleConnect": "Sambung ke MongoDB",
+      "subtitleEdit": "Kemas kini butiran sambungan anda di bawah.",
+      "subtitleConnect": "Masukkan rentetan sambungan MongoDB anda untuk mula meneroka data anda.",
+      "labelName": "Nama",
+      "placeholderName": "cth. DB Pengeluaran",
+      "labelConnectionString": "Rentetan Sambungan",
+      "placeholderConnectionString": "mongodb://localhost:27017",
+      "hintFormat": "Format: mongodb://namapengguna:katalaluan@hos:port/pangkalandata",
+      "testConnection": "Uji Sambungan",
+      "connecting": "Menyambung...",
+      "updateConnect": "Kemas Kini & Sambung",
+      "connect": "Sambung",
+      "cancelEdit": "Batal Edit",
+      "savedConnections": "Sambungan Tersimpan",
+      "emptySaved": "Belum ada sambungan tersimpan.",
+      "lastUsed": "Terakhir digunakan {time}",
+      "toastTestOk": "Sambungan berjaya!",
+      "toastTestFail": "Sambungan gagal: {message}",
+      "toastUpdated": "Sambungan dikemas kini",
+      "confirmDelete": "Adakah anda pasti mahu memadam sambungan tersimpan ini?",
+      "toastDeletedConn": "Sambungan dipadam",
+      "toastDeleteFail": "Gagal memadam sambungan",
+      "copyStringTitle": "Salin rentetan sambungan",
+      "toastStringCopied": "Rentetan sambungan disalin!",
+      "editTitle": "Edit",
+      "deleteTitle": "Padam"
+    },
+    "sidebar": {
+      "explorer": "Penjelajah",
+      "add": "Tambah",
+      "tooltipAdd": "Tambah sambungan baharu",
+      "tooltipRefresh": "Segar semula sambungan",
+      "searchPlaceholder": "Cari...",
+      "loadingConnections": "Memuatkan sambungan...",
+      "noConnectionsFound": "Tiada sambungan dijumpai",
+      "toastLoadFail": "Gagal memuatkan sambungan",
+      "toastConnectFail": "Gagal menyambung ke {name}",
+      "toastCollectionsFail": "Gagal mengambil koleksi untuk {name}",
+      "toastRenamed": "Sambungan dinamakan semula",
+      "toastRenameFail": "Gagal menamakan semula sambungan",
+      "confirmDeleteConnection": "Adakah anda pasti mahu memadam sambungan \"{name}\"?",
+      "toastDeleted": "Sambungan dipadam",
+      "toastDeleteConnFail": "Gagal memadam sambungan",
+      "confirmDropDb": "Adakah anda pasti mahu menggugurkan pangkalan data \"{name}\"? Tindakan ini tidak boleh dibuat asal.",
+      "toastDbDropped": "Pangkalan data {name} digugurkan",
+      "confirmDropCollection": "Adakah anda pasti mahu menggugurkan koleksi \"{name}\"? Tindakan ini tidak boleh dibuat asal.",
+      "toastCollectionDropped": "Koleksi {name} digugurkan",
+      "toastCollectionRenamed": "Koleksi dinamakan semula kepada {name}",
+      "toastDatabaseRenamed": "Pangkalan data dinamakan semula kepada {name}",
+      "connecting": "Menyambung...",
+      "connectionFailed": "Sambungan gagal",
+      "noDatabases": "Tiada pangkalan data",
+      "loading": "Memuatkan...",
+      "noCollections": "Tiada koleksi",
+      "renameCollectionTitle": "Namakan Semula Koleksi",
+      "renameDatabaseTitle": "Namakan Semula Pangkalan Data",
+      "placeholderNewCollection": "Nama koleksi baharu",
+      "placeholderNewDatabase": "Nama pangkalan data baharu",
+      "rename": "Namakan Semula",
+      "refresh": "Segar Semula",
+      "copyDbName": "Salin Nama DB",
+      "toastDbNameCopied": "Nama pangkalan data disalin ke papan klip",
+      "dropDatabase": "Gugurkan Pangkalan Data",
+      "dropCollection": "Gugurkan Koleksi",
+      "menuRename": "Namakan Semula",
+      "menuCopyConnectionString": "Salin Rentetan Sambungan",
+      "menuDeleteConnection": "Padam Sambungan",
+      "toastSidebarStringCopied": "Rentetan sambungan disalin!",
+      "cancel": "Batal"
+    },
+    "document": {
+      "docsBreadcrumb": "{n} dokumen",
+      "table": "Jadual",
+      "json": "JSON",
+      "tree": "Pokok",
+      "tooltipTable": "Paparan Jadual",
+      "tooltipJson": "Paparan JSON",
+      "tooltipTree": "Paparan Pokok",
+      "itemsPerPage": "Item setiap halaman",
+      "perPage": "{n} / halaman",
+      "prevPage": "Halaman Sebelumnya",
+      "nextPage": "Halaman Seterusnya",
+      "expandAll": "Kembangkan Semua",
+      "collapseAll": "Kuncupkan Semua",
+      "refreshData": "Segar Semula Data",
+      "insert": "Sisipkan",
+      "export": "Eksport",
+      "actions": "Tindakan",
+      "invalidJson": "Kandungan JSON tidak sah",
+      "copiedClipboard": "Disalin ke papan klip",
+      "docUpdated": "Dokumen berjaya dikemas kini",
+      "docInserted": "Dokumen berjaya disisipkan",
+      "invalidJsonShort": "JSON tidak sah",
+      "docCopied": "Dokumen disalin ke papan klip",
+      "openFullEditor": "Buka dalam editor penuh",
+      "cellArray": "Tatasusunan({length})",
+      "cellObject": "Objek",
+      "cellArrayBracket": "Tatasusunan[{length}]",
+      "emptyFilterTitle": "Tiada dokumen sepadan dengan pertanyaan anda",
+      "emptyFilterHint": "Cuba laraskan penapis anda atau kosongkan pertanyaan.",
+      "clearFilter": "Kosongkan Penapis",
+      "emptyCollectionTitle": "Koleksi ini kosong",
+      "emptyCollectionHint": "Sisipkan dokumen untuk bermula.",
+      "insertDocument": "Sisipkan Dokumen",
+      "formatJson": "Format JSON",
+      "compactJson": "JSON Padat",
+      "copyClipboard": "Salin ke Papan Klip",
+      "copyJson": "Salin JSON",
+      "duplicate": "Gandakan",
+      "editDoc": "Edit Dokumen",
+      "deleteDoc": "Padam Dokumen",
+      "documentLabel": "Dokumen {n}",
+      "editDialogTitle": "Edit Dokumen",
+      "insertDialogTitle": "Sisipkan Dokumen",
+      "viewValueTitle": "Lihat Nilai",
+      "saveChanges": "Simpan Perubahan",
+      "close": "Tutup",
+      "cancel": "Batal",
+      "insertButton": "Sisipkan"
+    },
+    "tabs": {
+      "filterActive": "Penapis aktif digunakan",
+      "filterActiveTooltip": "Penapis aktif",
+      "closeAll": "Tutup Semua"
+    },
+    "query": {
+      "migrateHistory": "Sejarah pertanyaan dipindahkan ke awan",
+      "saveHistoryFail": "Gagal menyimpan sejarah pertanyaan",
+      "deleteQueryFail": "Gagal memadam pertanyaan",
+      "invalidJsonQuery": "Pertanyaan JSON tidak sah",
+      "placeholder": "cth. { \"status\": \"aktif\" }",
+      "clearQuery": "Kosongkan pertanyaan",
+      "openAdvanced": "Buka Editor Lanjutan",
+      "visualBuilder": "Pembina Pertanyaan Visual",
+      "filterRules": "Peraturan Penapis",
+      "addRule": "Tambah Peraturan",
+      "noFilters": "Tiada penapis digunakan. Tambah peraturan untuk menapis dokumen.",
+      "where": "DI MANA",
+      "and": "DAN",
+      "fieldPlaceholder": "Medan",
+      "opPlaceholder": "Op",
+      "typePlaceholder": "Jenis",
+      "opRegex": "Regex",
+      "opIn": "Dalam",
+      "opNin": "Tidak Dalam",
+      "opExists": "Wujud",
+      "typeAuto": "Auto",
+      "typeString": "Rentetan",
+      "typeNumber": "Nombor",
+      "typeBoolean": "Boolean",
+      "typeDate": "Tarikh",
+      "typeObjectId": "ObjectId",
+      "true": "Benar",
+      "false": "Palsu",
+      "valuePlaceholder": "Nilai",
+      "valueListPlaceholder": "nilai1, nilai2",
+      "clearFilters": "Kosongkan Penapis",
+      "applyFilters": "Gunakan Penapis",
+      "queryHistory": "Sejarah Pertanyaan",
+      "noSavedQueries": "Belum ada pertanyaan tersimpan",
+      "advancedEditorTitle": "Editor Pertanyaan Lanjutan",
+      "templatesPlaceholder": "Templat",
+      "templateEmptyAgg": "Pengagregatan Kosong",
+      "templateMatch": "$match (Penapis)",
+      "templateLookup": "$lookup (Cantum)",
+      "templateGroup": "$group (Kira/Jumlah)",
+      "format": "Format",
+      "formattedJson": "JSON Terformat",
+      "runQuery": "Jalankan Pertanyaan"
+    },
+    "export": {
+      "selectFieldsError": "Sila pilih sekurang-kurangnya satu medan untuk dieksport",
+      "success": "Berjaya dieksport ke {filename}",
+      "fail": "Gagal mengeksport data",
+      "title": "Eksport Data",
+      "formatLabel": "Format Eksport",
+      "formatXlsx": "Excel (XLSX)",
+      "formatCsv": "CSV",
+      "selectFields": "Pilih Medan",
+      "selectAll": "Pilih Semua",
+      "fieldsSelected": "{count, plural, one {# medan dipilih} other {# medan dipilih}}",
+      "cancel": "Batal",
+      "export": "Eksport",
+      "sheetName": "Data"
+    },
+    "jsonTree": {
+      "typeLabel": "Jenis: {type}",
+      "itemSummary": "{count, plural, one {# item} other {# item}}"
+    }
+  },
+  "ApiClient": {
+    "defaults": {
+      "newRequest": "Permintaan Baharu",
+      "importedRequest": "Permintaan Diimport",
+      "untitledRequest": "Permintaan Tanpa Tajuk"
+    },
+    "toasts": {
+      "curlImported": "cURL berjaya diimport",
+      "curlParseFailed": "Gagal menghurai arahan cURL",
+      "invalidJsonBody": "Badan JSON tidak sah",
+      "requestFailed": "Permintaan gagal: {message}",
+      "curlPasted": "cURL ditampal dan dihurai dengan berjaya",
+      "responseCopied": "Respons disalin ke papan klip",
+      "codeCopied": "Kod disalin ke papan klip"
+    },
+    "layout": {
+      "collections": "Koleksi",
+      "closeSidebar": "Tutup bar sisi",
+      "openSidebar": "Buka bar sisi"
+    },
+    "requestPanel": {
+      "methodPlaceholder": "Kaedah",
+      "urlPlaceholder": "https://api.contoh.com/v1/...",
+      "sending": "Menghantar...",
+      "send": "Hantar"
+    },
+    "requestTabs": {
+      "params": "Parameter",
+      "headers": "Pengepala",
+      "body": "Badan",
+      "auth": "Pengesahan",
+      "bodyType": "Jenis badan",
+      "selectType": "Pilih jenis",
+      "bodyNone": "Tiada",
+      "bodyJson": "JSON",
+      "bodyText": "Teks",
+      "noBodyHint": "Tiada kandungan badan untuk permintaan ini",
+      "switchToJson": "Tukar ke badan JSON",
+      "authType": "Jenis pengesahan",
+      "noAuth": "Tiada pengesahan",
+      "bearerToken": "Token Bearer",
+      "basicAuth": "Pengesahan asas",
+      "apiKey": "Kunci API",
+      "labelToken": "Token",
+      "placeholderBearerToken": "Token Bearer",
+      "labelUsername": "Nama pengguna",
+      "placeholderUsername": "Nama pengguna",
+      "labelPassword": "Kata laluan",
+      "placeholderPassword": "Kata laluan",
+      "labelKey": "Kunci",
+      "placeholderApiKeyName": "Nama kunci (cth. X-Api-Key)",
+      "labelValue": "Nilai",
+      "placeholderValue": "Nilai",
+      "addTo": "Tambah ke",
+      "header": "Pengepala",
+      "queryParams": "Parameter pertanyaan",
+      "noAuthHint": "Permintaan ini tidak menggunakan pengesahan."
+    },
+    "responsePanel": {
+      "emptyTitle": "Sedia untuk meneroka?",
+      "emptyHint": "Masukkan URL dan klik Hantar untuk melihat data respons di sini.",
+      "responsePreviewAlt": "Pratonton respons",
+      "previewUnavailable": "Pratonton tidak tersedia untuk jenis kandungan ini",
+      "status": "Status",
+      "time": "Masa",
+      "size": "Saiz",
+      "copyBody": "Salin badan",
+      "downloadResponse": "Muat turun respons",
+      "bodyTab": "Badan",
+      "previewTab": "Pratonton",
+      "headersTab": "Pengepala",
+      "binaryRawView": "Data binari tidak boleh dipaparkan dalam paparan mentah.",
+      "errorStatusLabel": "Ralat"
+    },
+    "tabBar": {
+      "addTabAria": "Tab baharu"
+    },
+    "collectionsSidebar": {
+      "title": "Sumber API",
+      "newCollection": "Koleksi baharu",
+      "tabCollections": "Koleksi",
+      "tabHistory": "Sejarah",
+      "noCollectionsTitle": "Tiada koleksi",
+      "noCollectionsHint": "Cipta koleksi untuk mengatur permintaan API anda.",
+      "createCollection": "Cipta koleksi",
+      "newFolder": "Folder baharu",
+      "rename": "Namakan semula",
+      "delete": "Padam",
+      "emptyCollection": "Koleksi kosong",
+      "recentRequests": "Permintaan terkini",
+      "clearAll": "Kosongkan semua",
+      "noHistoryTitle": "Belum ada sejarah",
+      "noHistoryHint": "Hantar permintaan untuk melihatnya di sini.",
+      "dialogNewFolderTitle": "Folder baharu",
+      "dialogNewFolderDescription": "Cipta folder baharu untuk mengatur permintaan anda.",
+      "labelFolderName": "Nama folder",
+      "placeholderFolderName": "Folder saya",
+      "createFolder": "Cipta folder",
+      "dialogNewCollectionTitle": "Koleksi baharu",
+      "dialogNewCollectionDescription": "Cipta koleksi peringkat atas baharu.",
+      "labelCollectionName": "Nama koleksi",
+      "placeholderCollectionName": "Koleksi saya",
+      "dialogRenameCollectionTitle": "Namakan semula koleksi",
+      "dialogRenameCollectionDescription": "Masukkan nama baharu untuk koleksi.",
+      "placeholderRenameCollection": "Nama koleksi",
+      "renameAction": "Namakan semula"
+    },
+    "collectionItem": {
+      "newFolder": "Folder baharu",
+      "delete": "Padam",
+      "emptyFolder": "Folder kosong"
+    },
+    "environmentManager": {
+      "noEnvironment": "Tiada persekitaran",
+      "manageDialogTitle": "Urus persekitaran",
+      "placeholderNewEnv": "Persekitaran baharu",
+      "variablesHeading": "Pembolehubah {name}",
+      "addVariable": "Tambah pembolehubah",
+      "columnVariable": "Pembolehubah",
+      "columnValue": "Nilai",
+      "placeholderKey": "Kunci",
+      "placeholderValue": "Nilai",
+      "selectEnvToEdit": "Pilih persekitaran untuk diedit"
+    },
+    "codeGenerator": {
+      "triggerTitle": "Jana kod",
+      "dialogTitle": "Jana kod",
+      "languageCurl": "cURL",
+      "languageJavaScript": "JavaScript (fetch)",
+      "languagePython": "Python (requests)",
+      "languageGo": "Go",
+      "copy": "Salin",
+      "errorGenerating": "Ralat menjana kod"
+    },
+    "keyValueEditor": {
+      "columnKey": "Kunci",
+      "columnValue": "Nilai",
+      "placeholderKey": "Kunci",
+      "placeholderValue": "Nilai",
+      "addItem": "Tambah item"
+    },
+    "importCurl": {
+      "trigger": "Import cURL",
+      "dialogTitle": "Import cURL",
+      "dialogDescription": "Tampal arahan cURL anda di bawah untuk mengimportnya sebagai permintaan baharu.",
+      "placeholder": "curl -X POST https://api.contoh.com/data -d '...'",
+      "import": "Import"
+    },
+    "saveRequest": {
+      "trigger": "Simpan",
+      "dialogTitle": "Simpan permintaan",
+      "dialogDescription": "Simpan permintaan ini ke folder koleksi.",
+      "labelName": "Nama permintaan",
+      "placeholderName": "Permintaan saya",
+      "labelFolder": "Folder",
+      "placeholderFolder": "Pilih folder",
+      "save": "Simpan"
+    }
+  },
+  "RichEditor": {
+    "toolbar": {
+      "editMode": "Mod Edit",
+      "viewOnlyMode": "Mod Lihat Sahaja",
+      "insertComponent": "Sisipkan komponen",
+      "addUnorderedList": "Tambah senarai tidak bertertib",
+      "addOrderedList": "Tambah senarai bertertib",
+      "addTable": "Tambah jadual"
+    },
+    "addBlock": "Tambah blok",
+    "media": {
+      "popoverTitle": "Tambah media",
+      "singleImage": "Imej Tunggal",
+      "singleImageDesc": "Muat naik satu imej",
+      "multipleImages": "Berbilang Imej",
+      "multipleImagesDesc": "Muat naik grid imej",
+      "video": "Video",
+      "videoDesc": "Muat naik fail video",
+      "uploadingAlt": "Memuat naik...",
+      "uploadFailedAlt": "Muat naik gagal"
+    },
+    "export": {
+      "fabAria": "Eksport kod",
+      "title": "Eksport Kod",
+      "description": "Salin output HTML atau JSON kandungan editor anda",
+      "preview": "Pratonton",
+      "html": "HTML",
+      "json": "JSON",
+      "previewOptions": "Pilihan Pratonton",
+      "enhanceSpaces": "Tingkatkan Ruang",
+      "livePreview": "Pratonton langsung HTML yang dirender",
+      "htmlTailwind": "HTML dengan kelas CSS Tailwind",
+      "editorJson": "Keadaan editor sebagai JSON",
+      "copyHtml": "Salin HTML",
+      "copyJson": "Salin JSON",
+      "copied": "Disalin!"
+    },
+    "template": {
+      "fabTitle": "Tukar Templat",
+      "title": "Pilih Templat",
+      "description": "Pilih templat untuk bermula dengan pantas menggunakan susun atur dan kandungan pra-bina",
+      "catAll": "Semua Templat",
+      "catProductivity": "Produktiviti",
+      "catCreative": "Kreatif",
+      "catBusiness": "Perniagaan",
+      "catPersonal": "Peribadi",
+      "noTemplates": "Tiada templat dijumpai dalam kategori ini",
+      "confirmTitle": "Gantikan Kandungan Sedia Ada?",
+      "confirmDescription": "Anda mempunyai kandungan sedia ada dalam editor. Menggunakan templat ini akan menggantikan semua kandungan semasa.",
+      "cannotUndo": "Tindakan ini tidak boleh dibuat asal.",
+      "cancel": "Batal",
+      "replaceContent": "Gantikan Kandungan"
+    },
+    "command": {
+      "searchPlaceholder": "Cari arahan...",
+      "noResults": "Tiada arahan dijumpai.",
+      "turnInto": "Tukar kepada",
+      "h1": {
+        "label": "Tajuk 1",
+        "description": "Tajuk bahagian besar",
+        "keywords": "h1,tajuk,heading,besar"
+      },
+      "h2": {
+        "label": "Tajuk 2",
+        "description": "Tajuk bahagian sederhana",
+        "keywords": "h2,tajuk,subtajuk"
+      },
+      "h3": {
+        "label": "Tajuk 3",
+        "description": "Tajuk bahagian kecil",
+        "keywords": "h3,tajuk,subtajuk"
+      },
+      "h4": {
+        "label": "Tajuk 4",
+        "description": "Tajuk bahagian sangat kecil",
+        "keywords": "h4,tajuk"
+      },
+      "h5": {
+        "label": "Tajuk 5",
+        "description": "Tajuk lebih kecil",
+        "keywords": "h5,tajuk"
+      },
+      "h6": {
+        "label": "Tajuk 6",
+        "description": "Tajuk terkecil",
+        "keywords": "h6,tajuk"
+      },
+      "p": {
+        "label": "Perenggan",
+        "description": "Perenggan teks biasa",
+        "keywords": "p,perenggan,teks,biasa"
+      },
+      "code": {
+        "label": "Blok Kod",
+        "description": "Coretan kod",
+        "keywords": "kod,blok kod,coretan,pre"
+      },
+      "blockquote": {
+        "label": "Petikan",
+        "description": "Petikan blok",
+        "keywords": "petikan,blockquote,kutipan"
+      },
+      "li": {
+        "label": "Senarai Berbulet",
+        "description": "Item senarai dengan bulet",
+        "keywords": "senarai,bulet,tidak bertertib,ul,li"
+      },
+      "ol": {
+        "label": "Senarai Bernombor",
+        "description": "Item senarai bernombor",
+        "keywords": "senarai,bernombor,bertertib,ol,li"
+      },
+      "img": {
+        "label": "Imej",
+        "description": "Muat naik atau benamkan imej",
+        "keywords": "imej,img,gambar,foto,muat naik"
+      },
+      "video": {
+        "label": "Video",
+        "description": "Muat naik atau benamkan video",
+        "keywords": "video,vid,filem,mp4,muat naik"
+      },
+      "table": {
+        "label": "Jadual",
+        "description": "Cipta jadual",
+        "keywords": "jadual,grid,baris,lajur,sel"
+      }
+    },
+    "toasts": {
+      "tableImported": "Jadual Diimport",
+      "tableImportedDesc": "Jadual markdown telah berjaya diimport",
+      "mediaPasted": "Media ditampal",
+      "pasteMixed": "{imageCount} imej dan {videoCount} video ditampal dengan berjaya.",
+      "pasteImages": "{count} imej ditampal dengan berjaya.",
+      "pasteVideos": "{count} video ditampal dengan berjaya.",
+      "pasteFailed": "Tampal gagal",
+      "unexpectedError": "Ralat tidak dijangka berlaku",
+      "uploadFailed": "Muat naik gagal"
+    },
+    "blockBackground": {
+      "menuItem": "Tukar Warna Latar Belakang",
+      "dialogTitle": "Warna Latar Belakang Blok",
+      "dialogDescription": "Pilih warna latar belakang untuk blok ini",
+      "tabPreset": "Warna Pratetap",
+      "tabCustom": "Warna Tersuai",
+      "sectionHeading": "Warna Latar Belakang",
+      "apply": "Guna",
+      "colors": {
+        "none": "Tiada",
+        "red": "Merah",
+        "orange": "Jingga",
+        "yellow": "Kuning",
+        "green": "Hijau",
+        "blue": "Biru",
+        "indigo": "Indigo",
+        "purple": "Ungu",
+        "pink": "Merah Jambu",
+        "teal": "Teal",
+        "cyan": "Sian",
+        "gray": "Kelabu"
+      }
+    },
+    "tableDialog": {
+      "title": "Cipta Jadual",
+      "description": "Cipta jadual baharu atau import dari markdown",
+      "markdownCheckbox": "Saya mempunyai jadual markdown",
+      "pasteMarkdownLabel": "Tampal Jadual Markdown",
+      "markdownPlaceholder": "| Pengepala 1 | Pengepala 2 | Pengepala 3 |\n|----------|----------|----------|\n| Sel 1   | Sel 2   | Sel 3   |\n| Sel 4   | Sel 5   | Sel 6   |",
+      "markdownHint": "Tampal jadual markdown anda di atas. Mesti termasuk baris pengepala dan pemisah.",
+      "rows": "Baris",
+      "columns": "Lajur",
+      "maxDimensions": "Maksimum: 20 baris × 10 lajur",
+      "cancel": "Batal",
+      "importTable": "Import Jadual",
+      "createTable": "Cipta Jadual"
+    },
+    "tableParse": {
+      "errors": {
+        "minRows": "Jadual mesti mempunyai sekurang-kurangnya baris pengepala dan baris pemisah",
+        "pipeFormat": "Baris jadual mesti bermula dan berakhir dengan |",
+        "headerMinCol": "Baris pengepala mesti mempunyai sekurang-kurangnya satu lajur",
+        "separatorRow": "Baris kedua mestilah pemisah (cth., |---|---|)",
+        "rowColumnMismatch": "Baris {row} mempunyai {got} lajur, dijangkakan {expected}",
+        "parseFailed": "Gagal menghurai jadual markdown"
+      }
+    },
+    "link": {
+      "editLink": "Edit Pautan",
+      "addLink": "Tambah Pautan",
+      "selectedText": "Teks dipilih: \"{text}\"",
+      "linkUrl": "URL Pautan",
+      "urlPlaceholder": "https://contoh.com",
+      "update": "Kemas Kini",
+      "addLinkButton": "Tambah Pautan",
+      "toastApplied": "Pautan Digunakan",
+      "toastLinkedTo": "Dipautkan ke: {url}",
+      "toastRemoved": "Pautan Dibuang",
+      "toastRemovedDesc": "Pautan telah dibuang dari pilihan"
+    },
+    "customClass": {
+      "devMode": "Mod Pembangun",
+      "toggleDevModeAria": "Togol mod pembangun",
+      "searchPlaceholderDev": "Cari kelas... (cth., 'text', 'bg', 'flex')",
+      "searchPlaceholderUser": "Cari gaya... (cth., 'merah', 'tebal', 'bayang')",
+      "appliesTitle": "Menggunakan: {className}",
+      "noMatches": "Tiada kelas dijumpai sepadan dengan \"{query}\"",
+      "toastClassReplaced": "Kelas Digantikan",
+      "toastClassReplacedDesc": "Digantikan \"{replaced}\" dengan \"{className}\"",
+      "toastCustomClassApplied": "Kelas Tersuai Digunakan",
+      "toastAppliedClass": "Kelas digunakan: {className}"
+    },
+    "insertComponents": {
+      "title": "Sisipkan Komponen",
+      "description": "Pilih komponen untuk disisipkan ke dalam dokumen anda",
+      "noComponents": "Tiada komponen tersedia",
+      "categories": {
+        "media": "Media",
+        "layout": "Susun Atur",
+        "interactive": "Interaktif",
+        "decoration": "Hiasan"
+      },
+      "freeImage": {
+        "name": "Imej Pergerakan Bebas",
+        "description": "Tambah imej yang boleh diletakkan di mana-mana dan diubah saiz dengan bebas"
+      }
+    }
+  }
+}

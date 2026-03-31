@@ -25,7 +25,8 @@
     "persian": "فارسی",
     "indonesian": "Indonezyjski",
     "japanese": "日本語",
-    "korean": "한국어"
+    "korean": "한국어",
+    "malay": "Bahasa Melayu"
   },
   "SettingsPage": {
     "title": "Settings",
@@ -73,7 +74,8 @@
         "af": "Afrikaans",
         "fa": "فارسی",
         "ja": "日本語",
-        "ko": "한국어"
+        "ko": "한국어",
+        "ms": "Bahasa Melayu"
       }
     }
   },
