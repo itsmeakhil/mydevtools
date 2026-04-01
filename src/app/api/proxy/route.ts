@@ -24,10 +24,36 @@ export async function POST(req: NextRequest) {
 
         const startTime = performance.now()
 
+        const requestHeaders = { ...(headers || {}) } as Record<string, string>
+        let requestBody: BodyInit | undefined = body || undefined
+
+        if (body && typeof body === "object" && body.mode === "form-data" && Array.isArray(body.entries)) {
+            const form = new FormData()
+
+            for (const entry of body.entries) {
+                if (!entry?.key) continue
+
+                if (entry.type === "file") {
+                    if (!entry.fileContentBase64) continue
+                    const fileBuffer = Buffer.from(entry.fileContentBase64, "base64")
+                    const blob = new Blob([fileBuffer], { type: entry.fileType || "application/octet-stream" })
+                    form.append(entry.key, blob, entry.fileName || "upload.bin")
+                } else {
+                    form.append(entry.key, entry.value || "")
+                }
+            }
+
+            requestBody = form
+            const contentTypeKey = Object.keys(requestHeaders).find((key) => key.toLowerCase() === "content-type")
+            if (contentTypeKey) {
+                delete requestHeaders[contentTypeKey]
+            }
+        }
+
         const response = await fetch(url, {
             method,
-            headers,
-            body: body || undefined,
+            headers: requestHeaders,
+            body: requestBody,
         })
 
         const endTime = performance.now()

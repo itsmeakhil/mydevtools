@@ -3,12 +3,14 @@
 import * as React from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { KeyValueEditor } from "./key-value-editor"
-import { KeyValueItem, RequestBody, RequestAuth } from "./types"
+import { KeyValueItem, RequestBody, RequestAuth, RequestFormDataItem } from "./types"
 import CodeEditor from "@/components/ui/code-editor"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Plus, Trash2 } from "lucide-react"
 import {
     Select,
     SelectContent,
@@ -43,9 +45,81 @@ export function RequestTabs({
     const t = useTranslations("ApiClient.requestTabs")
     const activeParamsCount = params.filter(p => p.active && (p.key || p.value)).length
     const activeHeadersCount = headers.filter(h => h.active && (h.key || h.value)).length
+    const normalizedBody = React.useMemo<RequestBody>(() => ({
+        ...body,
+        formData: body.formData ?? [{ id: crypto.randomUUID(), key: "", value: "", active: true, valueType: "text" }],
+        urlEncoded: body.urlEncoded ?? [{ id: crypto.randomUUID(), key: "", value: "", active: true }],
+    }), [body])
+
+    const updateBody = (updates: Partial<RequestBody>) => {
+        setBody({ ...normalizedBody, ...updates })
+    }
+
+    const addFormDataItem = () => {
+        updateBody({
+            formData: [
+                ...(normalizedBody.formData ?? []),
+                { id: crypto.randomUUID(), key: "", value: "", active: true, valueType: "text" },
+            ],
+        })
+    }
+
+    const updateFormDataItem = (id: string, updates: Partial<RequestFormDataItem>) => {
+        updateBody({
+            formData: (normalizedBody.formData ?? []).map((item) =>
+                item.id === id ? { ...item, ...updates } : item
+            ),
+        })
+    }
+
+    const deleteFormDataItem = (id: string) => {
+        updateBody({
+            formData: (normalizedBody.formData ?? []).filter((item) => item.id !== id),
+        })
+    }
+
+    const addUrlEncodedItem = () => {
+        updateBody({
+            urlEncoded: [
+                ...(normalizedBody.urlEncoded ?? []),
+                { id: crypto.randomUUID(), key: "", value: "", active: true },
+            ],
+        })
+    }
+
+    const updateUrlEncodedItem = (id: string, field: keyof KeyValueItem, value: string | boolean) => {
+        updateBody({
+            urlEncoded: (normalizedBody.urlEncoded ?? []).map((item) =>
+                item.id === id ? { ...item, [field]: value } : item
+            ),
+        })
+    }
+
+    const deleteUrlEncodedItem = (id: string) => {
+        updateBody({
+            urlEncoded: (normalizedBody.urlEncoded ?? []).filter((item) => item.id !== id),
+        })
+    }
+
+    const handleFileSelect = async (id: string, file: File | null) => {
+        if (!file) return
+        const buffer = await file.arrayBuffer()
+        const bytes = new Uint8Array(buffer)
+        let binary = ""
+        for (let i = 0; i < bytes.length; i++) {
+            binary += String.fromCharCode(bytes[i])
+        }
+        const base64 = btoa(binary)
+        updateFormDataItem(id, {
+            fileName: file.name,
+            fileType: file.type || "application/octet-stream",
+            fileContentBase64: base64,
+            value: file.name,
+        })
+    }
 
     return (
-        <Tabs defaultValue="params" className="w-full">
+        <Tabs defaultValue="params" className="w-full h-full flex flex-col min-h-0">
             <TabsList className="w-full justify-start h-10 p-1 bg-muted/50 border rounded-lg">
                 <TabsTrigger value="params" className="flex items-center gap-2 px-4">
                     {t("params")}
@@ -76,48 +150,178 @@ export function RequestTabs({
                     )}
                 </TabsTrigger>
             </TabsList>
-            <div className="mt-4 border rounded-xl p-6 bg-card shadow-inner min-h-[350px]">
-                <TabsContent value="params" className="mt-0">
+            <div className="mt-4 border rounded-xl p-6 bg-card shadow-inner flex-1 min-h-0 overflow-hidden">
+                <TabsContent value="params" className="mt-0 h-full overflow-auto custom-scrollbar">
                     <KeyValueEditor items={params} onChange={setParams} />
                 </TabsContent>
-                <TabsContent value="headers" className="mt-0">
+                <TabsContent value="headers" className="mt-0 h-full overflow-auto custom-scrollbar">
                     <KeyValueEditor items={headers} onChange={setHeaders} />
                 </TabsContent>
-                <TabsContent value="body" className="mt-0 h-[300px] flex flex-col gap-4">
+                <TabsContent value="body" className="mt-0 h-full flex flex-col gap-4 min-h-0">
                     <div className="flex items-center gap-4 bg-muted/30 p-3 rounded-lg border">
                         <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("bodyType")}</Label>
                         <Select
-                            value={body.type}
-                            onValueChange={(v) => setBody({ ...body, type: v as any })}
+                            value={normalizedBody.type}
+                            onValueChange={(v) => updateBody({ type: v as RequestBody["type"] })}
                         >
-                            <SelectTrigger className="w-[140px] h-8 text-xs">
+                            <SelectTrigger className="w-[220px] h-8 text-xs">
                                 <SelectValue placeholder={t("selectType")} />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="none">{t("bodyNone")}</SelectItem>
                                 <SelectItem value="json">{t("bodyJson")}</SelectItem>
                                 <SelectItem value="text">{t("bodyText")}</SelectItem>
+                                <SelectItem value="form-data">Form Data (multipart/form-data)</SelectItem>
+                                <SelectItem value="x-www-form-urlencoded">x-www-form-urlencoded</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
-                    {body.type !== "none" ? (
+                    {normalizedBody.type === "json" || normalizedBody.type === "text" ? (
                         <div className="flex-1 border rounded-lg overflow-hidden shadow-sm">
                             <CodeEditor
-                                value={body.content}
-                                onChange={(v) => setBody({ ...body, content: v })}
-                                language={body.type === "json" ? "json" : "plaintext"}
+                                value={normalizedBody.content}
+                                onChange={(v) => updateBody({ content: v })}
+                                language={normalizedBody.type === "json" ? "json" : "plaintext"}
                             />
+                        </div>
+                    ) : normalizedBody.type === "form-data" ? (
+                        <div className="rounded-lg border bg-background flex-1 min-h-0">
+                            <div className="grid grid-cols-[40px_1fr_160px_1fr_44px] gap-2 px-3 py-2 border-b text-xs font-semibold text-muted-foreground">
+                                <div />
+                                <div>Key</div>
+                                <div>Type</div>
+                                <div>Value</div>
+                                <div />
+                            </div>
+                            <div className="p-3 space-y-2 flex-1 min-h-0 overflow-auto custom-scrollbar">
+                                {(normalizedBody.formData ?? []).map((item) => (
+                                    <div key={item.id} className="grid grid-cols-[40px_1fr_160px_1fr_44px] gap-2 items-center">
+                                        <div className="flex justify-center">
+                                            <Checkbox
+                                                checked={item.active}
+                                                onCheckedChange={(checked) => updateFormDataItem(item.id, { active: Boolean(checked) })}
+                                            />
+                                        </div>
+                                        <Input
+                                            placeholder="Key"
+                                            value={item.key}
+                                            onChange={(e) => updateFormDataItem(item.id, { key: e.target.value })}
+                                        />
+                                        <Select
+                                            value={item.valueType}
+                                            onValueChange={(value) => updateFormDataItem(item.id, {
+                                                valueType: value as "text" | "file",
+                                                value: "",
+                                                fileName: undefined,
+                                                fileType: undefined,
+                                                fileContentBase64: undefined,
+                                            })}
+                                        >
+                                            <SelectTrigger className="h-9">
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="text">Text</SelectItem>
+                                                <SelectItem value="file">File</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                        {item.valueType === "file" ? (
+                                            <div className="flex items-center gap-2">
+                                                <Input
+                                                    readOnly
+                                                    value={item.fileName ?? ""}
+                                                    placeholder="No file chosen"
+                                                    className="truncate"
+                                                />
+                                                <label className="inline-flex">
+                                                    <input
+                                                        type="file"
+                                                        className="hidden"
+                                                        onChange={(e) => void handleFileSelect(item.id, e.target.files?.[0] ?? null)}
+                                                    />
+                                                    <Button type="button" variant="outline" size="sm">Choose</Button>
+                                                </label>
+                                            </div>
+                                        ) : (
+                                            <Input
+                                                placeholder="Value"
+                                                value={item.value}
+                                                onChange={(e) => updateFormDataItem(item.id, { value: e.target.value })}
+                                            />
+                                        )}
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            onClick={() => deleteFormDataItem(item.id)}
+                                            className="text-muted-foreground hover:text-destructive"
+                                        >
+                                            <Trash2 className="h-4 w-4" />
+                                        </Button>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="px-3 py-2 border-t">
+                                <Button variant="outline" size="sm" onClick={addFormDataItem}>
+                                    <Plus className="h-4 w-4 mr-2" />
+                                    Add Field
+                                </Button>
+                            </div>
+                        </div>
+                    ) : normalizedBody.type === "x-www-form-urlencoded" ? (
+                        <div className="rounded-lg border bg-background flex-1 min-h-0">
+                            <div className="grid grid-cols-[40px_1fr_1fr_44px] gap-2 px-3 py-2 border-b text-xs font-semibold text-muted-foreground">
+                                <div />
+                                <div>Key</div>
+                                <div>Value</div>
+                                <div />
+                            </div>
+                            <div className="p-3 space-y-2 flex-1 min-h-0 overflow-auto custom-scrollbar">
+                                {(normalizedBody.urlEncoded ?? []).map((item) => (
+                                    <div key={item.id} className="grid grid-cols-[40px_1fr_1fr_44px] gap-2 items-center">
+                                        <div className="flex justify-center">
+                                            <Checkbox
+                                                checked={item.active}
+                                                onCheckedChange={(checked) => updateUrlEncodedItem(item.id, "active", Boolean(checked))}
+                                            />
+                                        </div>
+                                        <Input
+                                            placeholder="Key"
+                                            value={item.key}
+                                            onChange={(e) => updateUrlEncodedItem(item.id, "key", e.target.value)}
+                                        />
+                                        <Input
+                                            placeholder="Value"
+                                            value={item.value}
+                                            onChange={(e) => updateUrlEncodedItem(item.id, "value", e.target.value)}
+                                        />
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            onClick={() => deleteUrlEncodedItem(item.id)}
+                                            className="text-muted-foreground hover:text-destructive"
+                                        >
+                                            <Trash2 className="h-4 w-4" />
+                                        </Button>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="px-3 py-2 border-t">
+                                <Button variant="outline" size="sm" onClick={addUrlEncodedItem}>
+                                    <Plus className="h-4 w-4 mr-2" />
+                                    Add Field
+                                </Button>
+                            </div>
                         </div>
                     ) : (
                         <div className="flex-1 flex flex-col items-center justify-center text-muted-foreground border-2 border-dashed rounded-lg bg-muted/5">
                             <p className="text-sm">{t("noBodyHint")}</p>
-                            <Button variant="link" size="sm" onClick={() => setBody({ ...body, type: "json" })}>
+                            <Button variant="link" size="sm" onClick={() => updateBody({ type: "json" })}>
                                 {t("switchToJson")}
                             </Button>
                         </div>
                     )}
                 </TabsContent>
-                <TabsContent value="auth" className="mt-0 space-y-6">
+                <TabsContent value="auth" className="mt-0 space-y-6 h-full overflow-auto custom-scrollbar">
                     <div className="flex items-center gap-4 bg-muted/30 p-3 rounded-lg border">
                         <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("authType")}</Label>
                         <Select

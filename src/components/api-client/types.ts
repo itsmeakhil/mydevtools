@@ -14,8 +14,21 @@ export interface KeyValueItem {
 }
 
 export interface RequestBody {
-    type: "json" | "text" | "none"
+    type: "json" | "text" | "none" | "form-data" | "x-www-form-urlencoded"
     content: string
+    formData?: RequestFormDataItem[]
+    urlEncoded?: KeyValueItem[]
+}
+
+export interface RequestFormDataItem {
+    id: string
+    key: string
+    value: string
+    active: boolean
+    valueType: "text" | "file"
+    fileName?: string
+    fileType?: string
+    fileContentBase64?: string
 }
 
 export interface RequestAuth {
