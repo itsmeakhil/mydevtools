@@ -72,6 +72,18 @@ export function ApiClient() {
     const isMobile = useIsMobile()
     const [collectionsOpen, setCollectionsOpen] = React.useState(false)
     const [sidebarOpen, setSidebarOpen] = React.useState(true)
+    const activeEnvironmentVariables = React.useMemo(() => {
+        if (!activeEnvId) return {}
+        const activeEnv = environments.find((env) => env.id === activeEnvId)
+        if (!activeEnv) return {}
+
+        return activeEnv.variables.reduce((acc, variable) => {
+            if (variable.enabled && variable.key) {
+                acc[variable.key] = variable.value
+            }
+            return acc
+        }, {} as Record<string, string>)
+    }, [environments, activeEnvId])
 
     // Load state from localStorage
     React.useEffect(() => {
@@ -447,6 +459,7 @@ export function ApiClient() {
                                         onSave={handleSaveRequest}
                                         saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
                                         onPaste={handleCurlPaste}
+                                        activeEnvironmentVariables={activeEnvironmentVariables}
                                     />
                                     <RequestTabs
                                         params={activeTab.params}

@@ -15,6 +15,7 @@ import { RequestMethod, Collection } from "./types"
 import { SaveRequestDialog } from "./collections/save-request-dialog"
 import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
 interface RequestPanelProps {
     method: RequestMethod
@@ -27,6 +28,7 @@ interface RequestPanelProps {
     onSave: (parentId: string, name: string) => void
     saveDefaultName?: string
     onPaste: (text: string) => void
+    activeEnvironmentVariables: Record<string, string>
 }
 
 const METHODS: RequestMethod[] = ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"]
@@ -64,8 +66,73 @@ export function RequestPanel({
     onSave,
     saveDefaultName,
     onPaste,
+    activeEnvironmentVariables,
 }: RequestPanelProps) {
     const t = useTranslations("ApiClient.requestPanel")
+    const urlInputRef = React.useRef<HTMLInputElement | null>(null)
+    const [hoveredVariable, setHoveredVariable] = React.useState<{
+        key: string
+        value?: string
+        status: "resolved" | "missing"
+        left: number
+    } | null>(null)
+
+    const variableTokens = React.useMemo(() => {
+        const tokens: Array<{ key: string; start: number; end: number; value?: string; status: "resolved" | "missing" }> = []
+        const regex = /\{\{(.+?)\}\}/g
+        let match: RegExpExecArray | null
+
+        while ((match = regex.exec(url)) !== null) {
+            const fullToken = match[0]
+            const key = match[1].trim()
+            const value = activeEnvironmentVariables[key]
+            tokens.push({
+                key,
+                start: match.index,
+                end: match.index + fullToken.length,
+                value,
+                status: value !== undefined ? "resolved" : "missing",
+            })
+        }
+
+        return tokens
+    }, [url, activeEnvironmentVariables])
+
+    const updateHoveredVariable = React.useCallback((clientX: number) => {
+        const input = urlInputRef.current
+        if (!input || variableTokens.length === 0) {
+            setHoveredVariable(null)
+            return
+        }
+
+        const rect = input.getBoundingClientRect()
+        const leftPadding = 36
+        const font = getComputedStyle(input).font || "12px monospace"
+        const canvas = document.createElement("canvas")
+        const context = canvas.getContext("2d")
+        if (!context) {
+            setHoveredVariable(null)
+            return
+        }
+        context.font = font
+        const charWidth = context.measureText("0").width || 7.2
+
+        const index = Math.floor((clientX - rect.left - leftPadding + input.scrollLeft) / charWidth)
+        const token = variableTokens.find((item) => index >= item.start && index < item.end)
+
+        if (!token) {
+            setHoveredVariable(null)
+            return
+        }
+
+        setHoveredVariable({
+            key: token.key,
+            value: token.value,
+            status: token.status,
+            left: leftPadding + token.start * charWidth - input.scrollLeft,
+        })
+    }, [variableTokens])
+
     return (
         <div className="flex flex-col gap-4">
             <div className="flex gap-2">
@@ -88,7 +155,25 @@ export function RequestPanel({
 
                 <div className="relative flex-1 group">
                     <Globe className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+                    {hoveredVariable && (
+                        <TooltipProvider>
+                            <Tooltip open>
+                                <TooltipTrigger asChild>
+                                    <span
+                                        className="absolute top-1/2 -translate-y-1/2 h-4 w-px pointer-events-none"
+                                        style={{ left: `${hoveredVariable.left}px` }}
+                                    />
+                                </TooltipTrigger>
+                                <TooltipContent side="top" className="max-w-xs break-all">
+                                    {hoveredVariable.status === "resolved"
+                                        ? `${hoveredVariable.key}: ${hoveredVariable.value}`
+                                        : `${hoveredVariable.key}: (not found in active environment)`}
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                    )}
                     <Input
+                        ref={urlInputRef}
                         placeholder={t("urlPlaceholder")}
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
@@ -105,6 +190,8 @@ export function RequestPanel({
                                 onPaste(text)
                             }
                         }}
+                        onMouseMove={(e) => updateHoveredVariable(e.clientX)}
+                        onMouseLeave={() => setHoveredVariable(null)}
                     />
                     {url && (
                         <button
