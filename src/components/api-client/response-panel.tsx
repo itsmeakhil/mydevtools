@@ -94,74 +94,55 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
 
     return (
         <div className="flex flex-col h-full space-y-4 min-h-0">
-            <div className={cn(
-                "flex items-center justify-between gap-4 p-4 border rounded-xl bg-card shrink-0 shadow-sm transition-all",
-                isSuccess ? "border-emerald-500/20 bg-emerald-500/[0.02]" : isError ? "border-rose-500/20 bg-rose-500/[0.02]" : ""
-            )}>
-                <div className="flex flex-wrap items-center gap-6">
-                    <div className="flex items-center gap-3">
-                        {isSuccess ? (
-                            <CheckCircle2 className="h-5 w-5 text-emerald-500" />
-                        ) : isError ? (
-                            <AlertCircle className="h-5 w-5 text-rose-500" />
-                        ) : (
-                            <Info className="h-5 w-5 text-blue-500" />
-                        )}
-                        <div className="flex flex-col">
-                            <span className="text-[10px] uppercase font-bold text-muted-foreground leading-none mb-1">{t("status")}</span>
-                            <div className="flex items-center gap-2">
-                                <span className={cn(
-                                    "text-sm font-black tracking-tight",
-                                    isSuccess ? "text-emerald-600" : isError ? "text-rose-600" : "text-foreground"
-                                )}>
-                                    {response.status}
-                                </span>
-                                <span className="text-xs font-medium text-muted-foreground">
-                                    {response.statusText === API_CLIENT_ERROR_STATUS_TEXT
-                                        ? t("errorStatusLabel")
-                                        : response.statusText}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="h-8 w-px bg-border/50 hidden sm:block" />
-
-                    <div className="flex items-center gap-3">
-                        <Clock className="h-4 w-4 text-muted-foreground/60" />
-                        <div className="flex flex-col">
-                            <span className="text-[10px] uppercase font-bold text-muted-foreground leading-none mb-1">{t("time")}</span>
-                            <span className="text-sm font-mono font-bold">{response.time}ms</span>
-                        </div>
-                    </div>
-
-                    <div className="h-8 w-px bg-border/50 hidden sm:block" />
-
-                    <div className="flex items-center gap-3">
-                        <Database className="h-4 w-4 text-muted-foreground/60" />
-                        <div className="flex flex-col">
-                            <span className="text-[10px] uppercase font-bold text-muted-foreground leading-none mb-1">{t("size")}</span>
-                            <span className="text-sm font-mono font-bold">{(response.size / 1024).toFixed(2)} KB</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-                    <Button variant="outline" size="icon" className="h-8 w-8 rounded-lg" onClick={handleCopy} title={t("copyBody")}>
-                        <Copy className="h-4 w-4" />
-                    </Button>
-                    <Button variant="outline" size="icon" className="h-8 w-8 rounded-lg" onClick={handleDownload} title={t("downloadResponse")}>
-                        <Download className="h-4 w-4" />
-                    </Button>
-                </div>
-            </div>
-
             <Tabs defaultValue={hasPreview ? "preview" : "body"} className="flex-1 flex flex-col min-h-0">
-                <TabsList className="w-full justify-start h-10 p-1 bg-muted/50 border rounded-lg shrink-0">
-                    <TabsTrigger value="body" className="px-4">{t("bodyTab")}</TabsTrigger>
-                    {hasPreview && <TabsTrigger value="preview" className="px-4">{t("previewTab")}</TabsTrigger>}
-                    <TabsTrigger value="headers" className="px-4">{t("headersTab")}</TabsTrigger>
-                </TabsList>
+                <div
+                    className={cn(
+                        "flex flex-wrap items-center justify-between gap-3 p-2 border rounded-xl bg-card shrink-0",
+                        isSuccess ? "border-emerald-500/20 bg-emerald-500/[0.02]" : isError ? "border-rose-500/20 bg-rose-500/[0.02]" : ""
+                    )}
+                >
+                    <TabsList className="h-9 p-1 bg-muted/50 border rounded-lg">
+                        <TabsTrigger value="body" className="px-4">{t("bodyTab")}</TabsTrigger>
+                        {hasPreview && <TabsTrigger value="preview" className="px-4">{t("previewTab")}</TabsTrigger>}
+                        <TabsTrigger value="headers" className="px-4">{t("headersTab")}</TabsTrigger>
+                    </TabsList>
+                    <div className="ml-auto flex items-center flex-wrap justify-end gap-2">
+                        <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md border bg-background/80">
+                            {isSuccess ? (
+                                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                            ) : isError ? (
+                                <AlertCircle className="h-3.5 w-3.5 text-rose-500" />
+                            ) : (
+                                <Info className="h-3.5 w-3.5 text-blue-500" />
+                            )}
+                            <span className={cn(
+                                "text-xs font-bold",
+                                isSuccess ? "text-emerald-600" : isError ? "text-rose-600" : "text-foreground"
+                            )}>
+                                {response.status}
+                            </span>
+                            <span className="text-xs text-muted-foreground hidden sm:inline">
+                                {response.statusText === API_CLIENT_ERROR_STATUS_TEXT
+                                    ? t("errorStatusLabel")
+                                    : response.statusText}
+                            </span>
+                        </div>
+                        <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md border bg-background/80">
+                            <Clock className="h-3.5 w-3.5 text-muted-foreground/70" />
+                            <span className="text-xs font-mono font-semibold">{response.time}ms</span>
+                        </div>
+                        <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md border bg-background/80">
+                            <Database className="h-3.5 w-3.5 text-muted-foreground/70" />
+                            <span className="text-xs font-mono font-semibold">{(response.size / 1024).toFixed(2)} KB</span>
+                        </div>
+                        <Button variant="outline" size="icon" className="h-8 w-8 rounded-lg" onClick={handleCopy} title={t("copyBody")}>
+                            <Copy className="h-4 w-4" />
+                        </Button>
+                        <Button variant="outline" size="icon" className="h-8 w-8 rounded-lg" onClick={handleDownload} title={t("downloadResponse")}>
+                            <Download className="h-4 w-4" />
+                        </Button>
+                    </div>
+                </div>
                 <div className="mt-4 border rounded-xl overflow-hidden flex-1 min-h-0 relative shadow-inner bg-card">
                     <TabsContent value="body" className="mt-0 h-full absolute inset-0">
                         <CodeEditor
