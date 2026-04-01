@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Toaster } from 'sonner'
 import { ThemeProvider } from "@/components/theme-provider"
+import { UserPreferencesSync } from "@/components/user-preferences-sync"
 import { cn } from "@/lib/utils"
 import { Geist_Mono as NextGeistMono } from 'next/font/google'
 
@@ -114,6 +115,7 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <NextIntlClientProvider messages={messages}>
+            <UserPreferencesSync />
             {children}
             <Analytics />
             <SpeedInsights />
