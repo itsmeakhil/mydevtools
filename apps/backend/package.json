@@ -1,0 +1,10 @@
+{
+  "name": "@mydevtools/backend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "echo \"Backend workspace ready. Add your backend framework here.\"",
+    "build": "echo \"No backend build configured yet.\"",
+    "lint": "echo \"No backend lint configured yet.\""
+  }
+}

@@ -100,21 +100,22 @@ pnpm install
 cp .env.example .env
 # Fill in your Firebase credentials
 
-# Start the development server
+# Start the web app development server
 pnpm dev
 ```
 
-The app will be running at **[http://localhost:3000](http://localhost:3000)** 🎉
+The web app will be running at **[http://localhost:3000](http://localhost:3000)** 🎉
 
 ### Build Commands
 
 | Command | Description |
 |---------|-------------|
-| `pnpm dev` | Start dev server with Turbopack |
-| `pnpm build` | Create production build |
-| `pnpm start` | Start production server |
-| `pnpm lint` | Run ESLint |
-| `pnpm clean-install` | Fresh install of dependencies |
+| `pnpm dev` | Start web app dev server (`apps/web`) |
+| `pnpm dev:backend` | Start backend workspace script (`apps/backend`) |
+| `pnpm build` | Build all workspaces that expose a build script |
+| `pnpm start` | Start web app production server |
+| `pnpm lint` | Run lint in all workspaces that expose lint |
+| `pnpm clean-install` | Fresh install for the monorepo |
 
 ---
 
@@ -122,25 +123,15 @@ The app will be running at **[http://localhost:3000](http://localhost:3000)** �
 
 ```
 mydevtools.tech/
-├── src/
-│   ├── app/                 # Next.js App Router pages
-│   │   ├── app/             # All tool pages
-│   │   │   ├── api-client/
-│   │   │   ├── bookmarks/
-│   │   │   ├── email-validator/
-│   │   │   ├── nosql-explorer/
-│   │   │   ├── notes/
-│   │   │   ├── password-manager/
-│   │   │   └── to-do/
-│   │   ├── dashboard/       # User dashboard
-│   │   └── login/           # Authentication
-│   ├── components/          # Reusable UI components
-│   ├── hooks/               # Custom React hooks
-│   ├── lib/                 # Utility libraries
-│   ├── store/               # Zustand state stores
-│   └── utils/               # Helper functions
-├── public/                  # Static assets
-└── components/              # Shadcn UI components
+├── apps/
+│   ├── web/                 # Next.js frontend app
+│   │   ├── src/             # App source code
+│   │   ├── public/          # Static assets
+│   │   ├── messages/        # next-intl locale messages
+│   │   └── package.json
+│   └── backend/             # Backend workspace (scaffold)
+├── pnpm-workspace.yaml      # Workspace package map
+└── package.json             # Root monorepo scripts
 ```
 
 ---
