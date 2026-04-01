@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect, useMemo, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useTranslations } from "next-intl"
 import {
@@ -12,7 +12,9 @@ import {
     IconDownload,
     IconFolderPlus,
     IconX,
-    IconDotsVertical
+    IconDotsVertical,
+    IconCheck,
+    IconTrash
 } from "@tabler/icons-react"
 import { useBookmarkStore, useFilteredBookmarks, useAllTags } from "@/store/bookmark-store"
 import { cn } from "@/lib/utils"
@@ -33,6 +35,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { exportBookmarksToHTML, exportBookmarksToJSON } from "@/lib/bookmark-parser"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 export default function BookmarksManager() {
     const t = useTranslations("Bookmarks.manager")
@@ -42,6 +45,10 @@ export default function BookmarksManager() {
     const [isImportOpen, setIsImportOpen] = useState(false)
     const [isAddFolderOpen, setIsAddFolderOpen] = useState(false)
     const [editingBookmark, setEditingBookmark] = useState<string | null>(null)
+    const [selectionMode, setSelectionMode] = useState(false)
+    const [selectedBookmarkIds, setSelectedBookmarkIds] = useState<Set<string>>(new Set())
+    const [sortBy, setSortBy] = useState<"recent" | "alphabetical">("recent")
+    const searchInputRef = useRef<HTMLInputElement>(null)
 
     const {
         searchQuery,
@@ -51,7 +58,8 @@ export default function BookmarksManager() {
         bookmarks,
         folders,
         selectedFolderId,
-        setSelectedFolder
+        setSelectedFolder,
+        deleteBookmark
     } = useBookmarkStore()
 
     const filteredBookmarks = useFilteredBookmarks()
@@ -94,6 +102,74 @@ export default function BookmarksManager() {
         : selectedFolderId === 'uncategorized'
             ? t("uncategorized")
             : folders.find(f => f.id === selectedFolderId)?.name || t("unknownFolder")
+
+    const displayedBookmarks = useMemo(() => {
+        const list = [...filteredBookmarks]
+        if (sortBy === "alphabetical") {
+            list.sort((a, b) => a.title.localeCompare(b.title))
+        } else {
+            list.sort((a, b) => b.updatedAt - a.updatedAt)
+        }
+        return list
+    }, [filteredBookmarks, sortBy])
+
+    const clearSelection = useCallback(() => {
+        setSelectedBookmarkIds(new Set())
+    }, [])
+
+    const toggleBookmarkSelected = useCallback((id: string) => {
+        setSelectedBookmarkIds((prev) => {
+            const next = new Set(prev)
+            if (next.has(id)) {
+                next.delete(id)
+            } else {
+                next.add(id)
+            }
+            return next
+        })
+    }, [])
+
+    const selectAllVisible = useCallback(() => {
+        setSelectedBookmarkIds(new Set(displayedBookmarks.map((bookmark) => bookmark.id)))
+    }, [displayedBookmarks])
+
+    const deleteSelected = useCallback(() => {
+        selectedBookmarkIds.forEach((id) => deleteBookmark(id))
+        setSelectedBookmarkIds(new Set())
+        setSelectionMode(false)
+    }, [deleteBookmark, selectedBookmarkIds])
+
+    useEffect(() => {
+        if (!selectionMode) {
+            setSelectedBookmarkIds(new Set())
+        }
+    }, [selectionMode])
+
+    useEffect(() => {
+        const onKeyDown = (event: KeyboardEvent) => {
+            const target = event.target as HTMLElement | null
+            const isTyping =
+                target?.tagName === "INPUT" ||
+                target?.tagName === "TEXTAREA" ||
+                target?.isContentEditable
+
+            if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+                event.preventDefault()
+                searchInputRef.current?.focus()
+            }
+
+            if (event.key === "Escape" && selectionMode) {
+                setSelectionMode(false)
+            }
+
+            if (event.key === "/" && !isTyping) {
+                event.preventDefault()
+                searchInputRef.current?.focus()
+            }
+        }
+        window.addEventListener("keydown", onKeyDown)
+        return () => window.removeEventListener("keydown", onKeyDown)
+    }, [selectionMode])
 
     return (
         <div className="flex h-full w-full overflow-hidden bg-background mobile-nav-offset">
@@ -209,6 +285,7 @@ export default function BookmarksManager() {
                     <div className="relative flex-1 max-w-xl">
                         <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                         <Input
+                            ref={searchInputRef}
                             placeholder={t("searchPlaceholder")}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
@@ -228,6 +305,16 @@ export default function BookmarksManager() {
 
                     {/* Desktop Actions - Visible on larger screens */}
                     <div className="hidden md:flex items-center gap-2 ml-auto">
+                        <Select value={sortBy} onValueChange={(value: "recent" | "alphabetical") => setSortBy(value)}>
+                            <SelectTrigger className="h-9 w-[150px] text-xs">
+                                <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="recent">Recently updated</SelectItem>
+                                <SelectItem value="alphabetical">A-Z title</SelectItem>
+                            </SelectContent>
+                        </Select>
+
                         {/* View Toggle */}
                         <div className="flex items-center p-1 bg-muted/40 rounded-lg border border-border/20">
                             <Button
@@ -249,6 +336,36 @@ export default function BookmarksManager() {
                         </div>
 
                         <Separator orientation="vertical" className="h-6 mx-1" />
+
+                        <Button
+                            variant={selectionMode ? "secondary" : "ghost"}
+                            size="sm"
+                            className="h-9"
+                            onClick={() => setSelectionMode((prev) => !prev)}
+                        >
+                            <IconCheck className="h-4 w-4 mr-2" />
+                            {selectionMode ? "Done" : "Select"}
+                        </Button>
+                        {selectionMode && (
+                            <>
+                                <Button variant="ghost" size="sm" className="h-9" onClick={selectAllVisible}>
+                                    Select all
+                                </Button>
+                                <Button variant="ghost" size="sm" className="h-9" onClick={clearSelection}>
+                                    Clear
+                                </Button>
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-9 text-destructive hover:text-destructive"
+                                    onClick={deleteSelected}
+                                    disabled={selectedBookmarkIds.size === 0}
+                                >
+                                    <IconTrash className="h-4 w-4 mr-2" />
+                                    Delete ({selectedBookmarkIds.size})
+                                </Button>
+                            </>
+                        )}
 
                         {/* Import */}
                         <Button
@@ -309,6 +426,28 @@ export default function BookmarksManager() {
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-48">
+                                <DropdownMenuItem onClick={() => setSelectionMode((prev) => !prev)}>
+                                    <IconCheck className="h-4 w-4 mr-2" />
+                                    {selectionMode ? "Done selecting" : "Select bookmarks"}
+                                </DropdownMenuItem>
+                                {selectionMode && (
+                                    <>
+                                        <DropdownMenuItem onClick={selectAllVisible}>
+                                            Select all visible
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onClick={clearSelection}>
+                                            Clear selection
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem
+                                            className="text-destructive focus:text-destructive"
+                                            onClick={deleteSelected}
+                                            disabled={selectedBookmarkIds.size === 0}
+                                        >
+                                            <IconTrash className="h-4 w-4 mr-2" />
+                                            Delete selected ({selectedBookmarkIds.size})
+                                        </DropdownMenuItem>
+                                    </>
+                                )}
                                 <DropdownMenuItem onClick={() => setIsImportOpen(true)}>
                                     <IconUpload className="h-4 w-4 mr-2" />
                                     {t("import")}
@@ -341,10 +480,15 @@ export default function BookmarksManager() {
                         <div>
                             <h1 className="text-2xl font-bold tracking-tight text-foreground/90">{selectedFolderName}</h1>
                             <p className="text-sm text-muted-foreground mt-1 font-medium">
-                                {t("bookmarkCount", { count: filteredBookmarks.length })}
+                                {t("bookmarkCount", { count: displayedBookmarks.length })}
                                 {searchQuery && (
                                     <span className="ml-1 inline-flex items-center px-1.5 py-0.5 rounded-md bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 text-xs">
                                         {t("matchingQuery", { query: searchQuery })}
+                                    </span>
+                                )}
+                                {selectionMode && (
+                                    <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded-md bg-primary/10 text-primary text-xs">
+                                        {selectedBookmarkIds.size} selected
                                     </span>
                                 )}
                             </p>
@@ -356,9 +500,12 @@ export default function BookmarksManager() {
                 <ScrollArea className="flex-1 min-h-0">
                     <div className="p-4">
                         <BookmarkGrid
-                            bookmarks={filteredBookmarks}
+                            bookmarks={displayedBookmarks}
                             viewMode={viewMode}
                             onEdit={handleEditBookmark}
+                            selectionMode={selectionMode}
+                            selectedBookmarkIds={selectedBookmarkIds}
+                            onToggleSelect={toggleBookmarkSelected}
                         />
                     </div>
                 </ScrollArea>

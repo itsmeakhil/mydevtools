@@ -1,9 +1,9 @@
 'use client';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { sidebarData } from "../../components/sidebar/data/sidebar-data";
 import Link, { LinkProps } from "next/link";
-import { Heart, Clock, ArrowRight, Sparkles, Layers, Zap } from 'lucide-react';
+import { Heart, Clock, ArrowRight, Sparkles, Layers, Zap, Search, X } from 'lucide-react';
 import { requiresAuth } from '@/lib/tool-config';
 import { useFavoriteTool } from '@/hooks/use-favorite-tool';
 import { useToolUsage } from '@/hooks/use-tool-usage';
@@ -11,6 +11,8 @@ import { motion } from 'framer-motion';
 import { useMediaQuery } from "@/hooks/use-media-query";
 import useAuth from "@/utils/useAuth";
 import { useTranslations } from 'next-intl';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 const TOOL_URL_TO_KEY: Record<string, string> = {
   '/app/to-do': 'toDo',
@@ -48,6 +50,17 @@ interface ToolItem {
 
 interface FavoriteItem extends ToolItem {
   id: string;
+}
+
+interface RenderToolItem extends ToolItem {
+  originalId?: string;
+}
+
+interface RenderGroup {
+  title: string;
+  icon?: React.ElementType;
+  items: RenderToolItem[];
+  originalGroupIndex: number;
 }
 
 // Helper function to create a unique ID for each item
@@ -94,7 +107,9 @@ const DashboardPage: React.FC = () => {
   const { getRecentlyUsedTools } = useToolUsage();
   const [favoriteItems, setFavoriteItems] = useState<FavoriteItem[]>([]);
   const [recentlyUsedItems, setRecentlyUsedItems] = useState<FavoriteItem[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Update favoriteItems whenever favorites change
   useEffect(() => {
@@ -126,23 +141,99 @@ const DashboardPage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile]);
 
-  // Filter tools based on search query
-  const filteredGroups = useMemo(() => {
-    // First filter by mobile visibility if needed
-    const mobileFilteredGroups = sidebarData.navGroups.map(group => {
+  // Cmd/Ctrl + K focuses search for fast navigation
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  // Filter tools based on search query and mobile visibility
+  const filteredGroups = useMemo<RenderGroup[]>(() => {
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+    const mobileFilteredGroups = sidebarData.navGroups.map((group, groupIndex) => {
       if (isMobile && group.hiddenOnMobile) return null;
 
-      const visibleItems = group.items.filter(item => !(isMobile && item.hiddenOnMobile));
-      if (visibleItems.length === 0) return null;
+      const visibleItems = group.items
+        .map((item, itemIndex) => ({ item, itemIndex }))
+        .filter(({ item }) => !(isMobile && item.hiddenOnMobile));
+
+      const searchableItems = visibleItems.flatMap<RenderToolItem>(({ item, itemIndex }) => {
+        if (item.items?.length) {
+          return item.items
+            .map((subItem, subIndex) => ({
+              ...subItem,
+              icon: subItem.icon || item.icon,
+              originalId: createItemId(groupIndex, itemIndex, subIndex),
+            }))
+            .filter((subItem) => {
+              if (!normalizedQuery) return true;
+              const title = (subItem.title || "").toLowerCase();
+              const description = (subItem.description || "").toLowerCase();
+              return title.includes(normalizedQuery) || description.includes(normalizedQuery);
+            });
+        }
+
+        const normalizedTitle = (item.title || "").toLowerCase();
+        const normalizedDescription = (item.description || "").toLowerCase();
+        if (
+          normalizedQuery &&
+          !normalizedTitle.includes(normalizedQuery) &&
+          !normalizedDescription.includes(normalizedQuery)
+        ) {
+          return [];
+        }
+        return [{
+          ...item,
+          originalId: createItemId(groupIndex, itemIndex),
+        }];
+      });
+
+      const groupMatches = normalizedQuery && group.title.toLowerCase().includes(normalizedQuery);
+      const finalItems =
+        groupMatches && searchableItems.length === 0
+          ? visibleItems
+              .filter(({ item }) => !item.items)
+              .map(({ item, itemIndex }) => ({
+                ...item,
+                originalId: createItemId(groupIndex, itemIndex),
+              }))
+          : searchableItems;
+
+      const dedupedItems = Array.from(
+        new Map(finalItems.map((item) => [item.originalId || item.title, item])).values()
+      );
+
+      const itemsToRender: RenderToolItem[] = normalizedQuery ? dedupedItems : visibleItems.map(({ item, itemIndex }) => {
+        if (item.items?.length) {
+          return {
+            ...item,
+            items: item.items.map((subItem, subIndex) => ({
+              ...subItem,
+              icon: subItem.icon || item.icon,
+              originalId: createItemId(groupIndex, itemIndex, subIndex),
+            })),
+            originalId: createItemId(groupIndex, itemIndex),
+          };
+        }
+        return { ...item, originalId: createItemId(groupIndex, itemIndex) };
+      });
+      if (itemsToRender.length === 0) return null;
 
       return {
         ...group,
-        items: visibleItems
+        items: itemsToRender,
+        originalGroupIndex: groupIndex,
       };
-    }).filter((group): group is typeof sidebarData.navGroups[0] => group !== null);
+    }).filter((group): group is RenderGroup => group !== null);
 
     return mobileFilteredGroups;
-  }, [isMobile]);
+  }, [isMobile, searchQuery]);
 
   // Calculate total tools count
   const totalTools = useMemo(() => {
@@ -317,8 +408,37 @@ const DashboardPage: React.FC = () => {
             </div>
           </div>
 
+          <div className="sticky top-[56px] md:top-0 z-30 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border border-border/40 rounded-xl px-3 py-2">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                ref={searchInputRef}
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder={`${t('stats.tools')}...`}
+                className="pl-9 pr-20 h-10"
+              />
+              <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                {searchQuery && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="h-7 w-7"
+                    onClick={() => setSearchQuery("")}
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                )}
+                <span className="hidden md:inline-flex items-center rounded-md border border-border/60 px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                  Ctrl/⌘ K
+                </span>
+              </div>
+            </div>
+          </div>
+
           {/* Recently Used Tools - Only show when no search query */}
-          {user && recentlyUsedItems.length > 0 && (
+          {user && recentlyUsedItems.length > 0 && !searchQuery && (
             <section className="space-y-3 md:space-y-5">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3 section-header-line pb-2">
@@ -350,7 +470,7 @@ const DashboardPage: React.FC = () => {
           )}
 
           {/* Favorites Section - Only show when no search query */}
-          {user && favorites.length > 0 && (
+          {user && favorites.length > 0 && !searchQuery && (
             <section className="space-y-3 md:space-y-5">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3 section-header-line pb-2">
@@ -384,7 +504,7 @@ const DashboardPage: React.FC = () => {
           {/* All Tools / Search Results */}
           <div className="space-y-5 md:space-y-8">
             {filteredGroups.map((group, groupIndex) => (
-              <section key={groupIndex} className="space-y-5">
+              <section key={`${group.title}-${group.originalGroupIndex}`} className="space-y-5">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3 section-header-line pb-2">
                     <div className="p-2 rounded-xl bg-primary/10 text-primary">
@@ -399,15 +519,6 @@ const DashboardPage: React.FC = () => {
                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
                   {group.items.map((item: any, itemIndex) => (
                     <React.Fragment key={`${groupIndex}-${itemIndex}`}>
-                      {/* Render top-level items */}
-                      {!item.items && !item.originalId && (
-                        <ToolCard
-                          item={item}
-                          id={createItemId(sidebarData.navGroups.indexOf(group), itemIndex)}
-                          index={itemIndex}
-                        />
-                      )}
-
                       {/* Render search result items (flattened) */}
                       {item.originalId && (
                         <ToolCard
@@ -422,7 +533,7 @@ const DashboardPage: React.FC = () => {
                         <ToolCard
                           key={`${groupIndex}-${itemIndex}-${subIndex}`}
                           item={{ ...subItem, icon: item.icon }}
-                          id={createItemId(sidebarData.navGroups.indexOf(group), itemIndex, subIndex)}
+                          id={createItemId(group.originalGroupIndex, itemIndex, subIndex)}
                           index={subIndex}
                         />
                       ))}
@@ -431,6 +542,12 @@ const DashboardPage: React.FC = () => {
                 </div>
               </section>
             ))}
+            {searchQuery && filteredGroups.length === 0 && (
+              <div className="rounded-xl border border-dashed border-border p-10 text-center">
+                <p className="text-sm font-medium text-foreground">{t('toolCard.defaultDescription')}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{searchQuery}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -11,9 +11,19 @@ interface BookmarkGridProps {
     bookmarks: Bookmark[]
     viewMode: 'grid' | 'list'
     onEdit: (id: string) => void
+    selectionMode: boolean
+    selectedBookmarkIds: Set<string>
+    onToggleSelect: (id: string) => void
 }
 
-export default function BookmarkGrid({ bookmarks, viewMode, onEdit }: BookmarkGridProps) {
+export default function BookmarkGrid({
+    bookmarks,
+    viewMode,
+    onEdit,
+    selectionMode,
+    selectedBookmarkIds,
+    onToggleSelect
+}: BookmarkGridProps) {
     const tEmpty = useTranslations("Bookmarks.grid")
 
     if (bookmarks.length === 0) {
@@ -49,6 +59,9 @@ export default function BookmarkGrid({ bookmarks, viewMode, onEdit }: BookmarkGr
                     viewMode={viewMode}
                     onEdit={onEdit}
                     index={index}
+                    selectionMode={selectionMode}
+                    isSelected={selectedBookmarkIds.has(bookmark.id)}
+                    onToggleSelect={onToggleSelect}
                 />
             ))}
         </div>

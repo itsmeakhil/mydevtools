@@ -1,12 +1,12 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useEffect, useMemo, useState, useRef } from "react"
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll"
 import { usePasswordStore } from "@/store/password-store"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Search, Copy, Eye, EyeOff, Trash2, ExternalLink, LayoutGrid, List, Lock, Pencil, MoreVertical, FileJson, Plus, ShieldCheck } from "lucide-react"
+import { Search, Copy, Eye, EyeOff, Trash2, ExternalLink, LayoutGrid, List, Lock, Pencil, MoreVertical, FileJson, Plus, ShieldCheck, AlertTriangle, Repeat, Link2Off, X } from "lucide-react"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { toast } from "sonner"
 import { doc, deleteDoc } from "firebase/firestore"
@@ -38,16 +38,59 @@ export function PasswordList() {
     const [searchTerm, setSearchTerm] = useState("")
     const [visiblePasswords, setVisiblePasswords] = useState<Set<string>>(new Set())
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
+    const [quickFilter, setQuickFilter] = useState<"all" | "weak" | "reused" | "no-url">("all")
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
     const [passwordToDelete, setPasswordToDelete] = useState<string | null>(null)
     const [editingPassword, setEditingPassword] = useState<PasswordEntry | null>(null)
     const isMobile = useIsMobile()
+    const searchInputRef = useRef<HTMLInputElement>(null)
 
-    const filteredPasswords = passwords.filter(p =>
-        p.service.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.tags?.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+    const reusedPasswordIds = useMemo(() => {
+        const passwordToIds = new Map<string, string[]>()
+        passwords.forEach((entry) => {
+            const list = passwordToIds.get(entry.password) || []
+            list.push(entry.id)
+            passwordToIds.set(entry.password, list)
+        })
+
+        const reusedIds = new Set<string>()
+        passwordToIds.forEach((ids) => {
+            if (ids.length > 1) {
+                ids.forEach((id) => reusedIds.add(id))
+            }
+        })
+        return reusedIds
+    }, [passwords])
+
+    const filteredPasswords = useMemo(() => {
+        const bySearch = passwords.filter(p =>
+            p.service.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            p.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            p.tags?.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+        )
+
+        if (quickFilter === "weak") {
+            return bySearch.filter((entry) => calculatePasswordStrength(entry.password) <= 2)
+        }
+        if (quickFilter === "reused") {
+            return bySearch.filter((entry) => reusedPasswordIds.has(entry.id))
+        }
+        if (quickFilter === "no-url") {
+            return bySearch.filter((entry) => !entry.url?.trim())
+        }
+        return bySearch
+    }, [passwords, searchTerm, quickFilter, reusedPasswordIds])
+
+    const weakCount = useMemo(
+        () => passwords.filter((entry) => calculatePasswordStrength(entry.password) <= 2).length,
+        [passwords]
     )
+    const noUrlCount = useMemo(
+        () => passwords.filter((entry) => !entry.url?.trim()).length,
+        [passwords]
+    )
+    const reusedCount = reusedPasswordIds.size
+    const hasActiveQuickFilter = quickFilter !== "all"
 
     // Each scroll context has its own container ref + infinite scroll hook instance.
     // This is required because app-content.tsx uses overflow-hidden on the outer wrapper,
@@ -61,7 +104,7 @@ export function PasswordList() {
         hasMore: mobileHasMore,
     } = useInfiniteScroll({
         totalCount: filteredPasswords.length,
-        resetKey: searchTerm,
+        resetKey: `${searchTerm}-${quickFilter}`,
         scrollContainerRef: mobileScrollerRef,
     })
 
@@ -71,7 +114,7 @@ export function PasswordList() {
         hasMore: desktopHasMore,
     } = useInfiniteScroll({
         totalCount: filteredPasswords.length,
-        resetKey: searchTerm,
+        resetKey: `${searchTerm}-${quickFilter}`,
         scrollContainerRef: desktopScrollerRef,
     })
 
@@ -86,6 +129,14 @@ export function PasswordList() {
             newVisible.add(id)
         }
         setVisiblePasswords(newVisible)
+    }
+
+    const showAllVisible = () => {
+        setVisiblePasswords(new Set(filteredPasswords.map((entry) => entry.id)))
+    }
+
+    const hideAllVisible = () => {
+        setVisiblePasswords(new Set())
     }
 
     const copyToClipboard = (text: string, type: "Password" | "Username" = "Password") => {
@@ -119,6 +170,39 @@ export function PasswordList() {
         lockVault()
         toast.success(tToast("vaultLocked"))
     }
+
+    const clearFilters = () => {
+        setSearchTerm("")
+        setQuickFilter("all")
+    }
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            const target = event.target as HTMLElement | null
+            const isTyping =
+                target?.tagName === "INPUT" ||
+                target?.tagName === "TEXTAREA" ||
+                target?.isContentEditable
+
+            if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+                event.preventDefault()
+                searchInputRef.current?.focus()
+            }
+
+            if ((event.metaKey || event.ctrlKey) && event.shiftKey && event.key.toLowerCase() === "l") {
+                event.preventDefault()
+                void handleLock()
+            }
+
+            if (event.key === "/" && !isTyping) {
+                event.preventDefault()
+                searchInputRef.current?.focus()
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+        return () => window.removeEventListener("keydown", handleKeyDown)
+    }, [handleLock])
 
     if (isLoading) {
         return (
@@ -181,21 +265,54 @@ export function PasswordList() {
                         <div className="relative flex-1 h-10">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground" />
                             <Input
+                                ref={searchInputRef}
                                 placeholder={t("searchPlaceholderMobile")}
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className="pl-10 h-10 bg-muted/50 border-transparent rounded-lg focus-visible:ring-1 text-sm placeholder:text-muted-foreground/70"
                             />
+                            {searchTerm && (
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="absolute right-1 top-1 h-8 w-8"
+                                    onClick={() => setSearchTerm("")}
+                                >
+                                    <X className="h-4 w-4" />
+                                </Button>
+                            )}
                         </div>
 
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-10 w-10 text-muted-foreground/80"
-                            onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
-                        >
-                            {viewMode === "grid" ? <List className="h-5 w-5" /> : <LayoutGrid className="h-5 w-5" />}
-                        </Button>
+                        <div className="flex items-center gap-1 border rounded-lg p-1 bg-muted/20">
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className={cn(
+                                    "h-8 w-8",
+                                    viewMode === "grid"
+                                        ? "bg-background text-primary shadow-sm"
+                                        : "text-muted-foreground hover:text-foreground"
+                                )}
+                                onClick={() => setViewMode("grid")}
+                                aria-label={t("gridViewAria")}
+                            >
+                                <LayoutGrid className="h-4.5 w-4.5" />
+                            </Button>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className={cn(
+                                    "h-8 w-8",
+                                    viewMode === "list"
+                                        ? "bg-background text-primary shadow-sm"
+                                        : "text-muted-foreground hover:text-foreground"
+                                )}
+                                onClick={() => setViewMode("list")}
+                                aria-label={t("listViewAria")}
+                            >
+                                <List className="h-4.5 w-4.5" />
+                            </Button>
+                        </div>
 
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
@@ -237,6 +354,20 @@ export function PasswordList() {
                             </DrawerContent>
                         </Drawer>
                     </div>
+                    <div className="px-4 pb-2 flex items-center gap-2 overflow-x-auto scrollbar-hide">
+                        <Button size="sm" variant={quickFilter === "all" ? "default" : "outline"} className="h-7 rounded-full text-xs" onClick={() => setQuickFilter("all")}>
+                            All
+                        </Button>
+                        <Button size="sm" variant={quickFilter === "weak" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5" onClick={() => setQuickFilter("weak")}>
+                            <AlertTriangle className="h-3 w-3" /> {weakCount}
+                        </Button>
+                        <Button size="sm" variant={quickFilter === "reused" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5" onClick={() => setQuickFilter("reused")}>
+                            <Repeat className="h-3 w-3" /> {reusedCount}
+                        </Button>
+                        <Button size="sm" variant={quickFilter === "no-url" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5" onClick={() => setQuickFilter("no-url")}>
+                            <Link2Off className="h-3 w-3" /> {noUrlCount}
+                        </Button>
+                    </div>
                 </div>
             )}
 
@@ -246,26 +377,78 @@ export function PasswordList() {
                     <div className="relative flex-1">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                         <Input
+                            ref={searchInputRef}
                             placeholder={t("searchPlaceholderDesktop")}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="pl-9 h-10 bg-background/50 backdrop-blur-sm"
                         />
+                        {searchTerm && (
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="absolute right-1 top-1 h-8 w-8"
+                                onClick={() => setSearchTerm("")}
+                            >
+                                <X className="h-4 w-4" />
+                            </Button>
+                        )}
                     </div>
                     <div className="flex items-center gap-2 border rounded-lg p-1 bg-muted/20">
                         <ToggleGroup type="single" value={viewMode} onValueChange={(value) => value && setViewMode(value as "grid" | "list")}>
-                            <ToggleGroupItem value="grid" size="sm" aria-label={t("gridViewAria")}>
+                            <ToggleGroupItem
+                                value="grid"
+                                size="sm"
+                                aria-label={t("gridViewAria")}
+                                className="data-[state=on]:bg-background data-[state=on]:text-primary data-[state=on]:shadow-sm text-muted-foreground"
+                            >
                                 <LayoutGrid className="h-4 w-4" />
                             </ToggleGroupItem>
-                            <ToggleGroupItem value="list" size="sm" aria-label={t("listViewAria")}>
+                            <ToggleGroupItem
+                                value="list"
+                                size="sm"
+                                aria-label={t("listViewAria")}
+                                className="data-[state=on]:bg-background data-[state=on]:text-primary data-[state=on]:shadow-sm text-muted-foreground"
+                            >
                                 <List className="h-4 w-4" />
                             </ToggleGroupItem>
                         </ToggleGroup>
                     </div>
                     <ImportExportDialog />
+                    <Button variant="outline" size="sm" onClick={showAllVisible} className="h-10 text-xs">
+                        <Eye className="h-3.5 w-3.5 mr-1.5" /> Show all
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={hideAllVisible} className="h-10 text-xs">
+                        <EyeOff className="h-3.5 w-3.5 mr-1.5" /> Hide all
+                    </Button>
                     <Button variant="outline" size="icon" onClick={handleLock} title={t("lockVault")} className="h-10 w-10">
                         <Lock className="h-4 w-4" />
                     </Button>
+                </div>
+            )}
+
+            {!isMobile && (
+                <div className="mb-4 flex items-center gap-2 flex-wrap">
+                    <Button size="sm" variant={quickFilter === "all" ? "default" : "outline"} className="h-7 rounded-full text-xs" onClick={() => setQuickFilter("all")}>
+                        All ({passwords.length})
+                    </Button>
+                    <Button size="sm" variant={quickFilter === "weak" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5" onClick={() => setQuickFilter("weak")}>
+                        <AlertTriangle className="h-3 w-3" /> Weak ({weakCount})
+                    </Button>
+                    <Button size="sm" variant={quickFilter === "reused" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5" onClick={() => setQuickFilter("reused")}>
+                        <Repeat className="h-3 w-3" /> Reused ({reusedCount})
+                    </Button>
+                    <Button size="sm" variant={quickFilter === "no-url" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5" onClick={() => setQuickFilter("no-url")}>
+                        <Link2Off className="h-3 w-3" /> No URL ({noUrlCount})
+                    </Button>
+                    {(hasActiveQuickFilter || searchTerm) && (
+                        <Button size="sm" variant="ghost" className="h-7 text-xs" onClick={clearFilters}>
+                            <X className="h-3.5 w-3.5 mr-1" /> Reset
+                        </Button>
+                    )}
+                    <div className="ml-auto text-[10px] text-muted-foreground border rounded px-1.5 py-0.5 hidden lg:block">
+                        Cmd/Ctrl+K search • Cmd/Ctrl+Shift+L lock
+                    </div>
                 </div>
             )}
 
@@ -289,6 +472,7 @@ export function PasswordList() {
                                     key={entry.id}
                                     entry={entry}
                                     isVisible={visiblePasswords.has(entry.id)}
+                                    isReused={reusedPasswordIds.has(entry.id)}
                                     onToggleVisibility={toggleVisibility}
                                     onCopy={copyToClipboard}
                                     onDelete={handleDeleteClick}
@@ -335,6 +519,7 @@ export function PasswordList() {
                                     key={entry.id}
                                     entry={entry}
                                     isVisible={visiblePasswords.has(entry.id)}
+                                    isReused={reusedPasswordIds.has(entry.id)}
                                     onToggleVisibility={toggleVisibility}
                                     onCopy={copyToClipboard}
                                     onDelete={handleDeleteClick}
