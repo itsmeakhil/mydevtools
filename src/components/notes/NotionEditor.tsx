@@ -8,6 +8,9 @@ import { storage } from "@/database/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import useAuth from "@/utils/useAuth";
 import { useTranslations } from "next-intl";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { CheckCircle2, Save } from "lucide-react";
 
 export default function NotionEditor() {
     const tEditor = useTranslations("Notes.editor");
@@ -18,6 +21,8 @@ export default function NotionEditor() {
 
     const [title, setTitle] = useState("");
     const [isMounted, setIsMounted] = useState(false);
+    const [saveState, setSaveState] = useState<"idle" | "saving" | "saved">("idle");
+    const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
 
     useEffect(() => {
         setIsMounted(true);
@@ -33,6 +38,12 @@ export default function NotionEditor() {
             setLastSyncedNoteId(activeNote.id);
         }
     }, [activeNoteId, activeNote, lastSyncedNoteId]);
+
+    useEffect(() => {
+        if (saveState !== "saved") return;
+        const timeout = setTimeout(() => setSaveState("idle"), 1600);
+        return () => clearTimeout(timeout);
+    }, [saveState]);
 
     const sanitizeForFirestore = (obj: any): any => {
         if (obj === null || obj === undefined) return null;
@@ -51,8 +62,11 @@ export default function NotionEditor() {
 
     const handleUpdate = useCallback(async (id: string, updates: any) => {
         if (id) {
+            setSaveState("saving");
             const sanitizedUpdates = sanitizeForFirestore(updates);
             await updateNote(id, sanitizedUpdates);
+            setLastSavedAt(new Date());
+            setSaveState("saved");
         }
     }, [updateNote]);
 
@@ -62,6 +76,7 @@ export default function NotionEditor() {
         const newTitle = e.target.value;
         setTitle(newTitle);
         if (activeNoteId) {
+            setSaveState("saving");
             debouncedUpdate(activeNoteId, { title: newTitle });
         }
     };
@@ -69,6 +84,7 @@ export default function NotionEditor() {
     const handleEditorChange = (state: EditorState) => {
         const currentContent = state.history[state.historyIndex];
         if (activeNoteId) {
+            setSaveState("saving");
             debouncedUpdate(activeNoteId, { content: currentContent });
         }
     };
@@ -105,6 +121,39 @@ export default function NotionEditor() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeNoteId]); // Only change when note ID changes, ignore content updates
 
+    const activePath = useMemo(() => {
+        if (!activeNote) return [];
+        const byId = new Map(notes.map((n) => [n.id, n]));
+        const path: typeof notes = [];
+        let cursor = activeNote;
+        const guard = new Set<string>();
+        while (cursor && !guard.has(cursor.id)) {
+            path.unshift(cursor);
+            guard.add(cursor.id);
+            if (!cursor.parentId) break;
+            const parent = byId.get(cursor.parentId);
+            if (!parent) break;
+            cursor = parent;
+        }
+        return path;
+    }, [activeNote, notes]);
+
+    const saveNow = useCallback(async () => {
+        if (!activeNoteId) return;
+        await debouncedUpdate.flush();
+    }, [activeNoteId, debouncedUpdate]);
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "s") {
+                event.preventDefault();
+                void saveNow();
+            }
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [saveNow]);
+
     if (!activeNoteId) {
         return (
             <div className="flex-1 flex items-center justify-center text-muted-foreground">
@@ -120,6 +169,36 @@ export default function NotionEditor() {
     return (
         <div className="flex-1 flex flex-col h-full overflow-hidden bg-background">
             <div className="p-4 md:p-6 pb-2 md:pb-4 max-w-6xl mx-auto w-full">
+                <div className="mb-2 flex items-center gap-1.5 text-xs text-muted-foreground overflow-x-auto no-scrollbar">
+                    {activePath.map((node, index) => (
+                        <React.Fragment key={node.id}>
+                            <span className={index === activePath.length - 1 ? "text-foreground font-medium" : ""}>
+                                {node.title || tEditor("titlePlaceholder")}
+                            </span>
+                            {index < activePath.length - 1 && <span>/</span>}
+                        </React.Fragment>
+                    ))}
+                </div>
+                <div className="mb-2 flex items-center gap-2">
+                    <Badge variant="secondary" className="text-[10px]">
+                        {saveState === "saving" ? "Saving..." : saveState === "saved" ? "Saved" : "Ready"}
+                    </Badge>
+                    {lastSavedAt && (
+                        <span className="text-[10px] text-muted-foreground">
+                            Last saved at {lastSavedAt.toLocaleTimeString()}
+                        </span>
+                    )}
+                    <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="ml-auto h-7 text-xs"
+                        onClick={() => void saveNow()}
+                    >
+                        {saveState === "saved" ? <CheckCircle2 className="mr-1.5 h-3.5 w-3.5" /> : <Save className="mr-1.5 h-3.5 w-3.5" />}
+                        Save now
+                    </Button>
+                </div>
                 <Input
                     value={title}
                     onChange={handleTitleChange}

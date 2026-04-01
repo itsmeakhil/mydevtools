@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNotes } from "@/app/app/notes/context/NotesContext";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,7 @@ import {
     MoreHorizontal,
     Trash2,
     Search,
+    X,
 } from "lucide-react";
 import {
     DropdownMenu,
@@ -38,30 +39,35 @@ interface NoteItemProps {
     level: number;
     onDeleteClick: (note: Note) => void;
     parentTitle?: string;
+    expandedIds: Set<string>;
+    onToggleExpand: (noteId: string) => void;
+    onExpandPath: (noteId: string) => void;
+    isSearching: boolean;
 }
 
-const NoteItem = ({ note, level, onDeleteClick, parentTitle }: NoteItemProps) => {
+const NoteItem = ({ note, level, onDeleteClick, parentTitle, expandedIds, onToggleExpand, onExpandPath, isSearching }: NoteItemProps) => {
     const t = useTranslations("Notes.sidebar");
     const { notes, activeNoteId, setActiveNoteId, createNote } = useNotes();
-    const [isExpanded, setIsExpanded] = useState(false);
 
     const children = notes.filter(n => n.parentId === note.id);
     const hasChildren = children.length > 0;
     const isActive = activeNoteId === note.id;
+    const isExpanded = isSearching || expandedIds.has(note.id);
 
     const handleExpand = (e: React.MouseEvent) => {
         e.stopPropagation();
-        setIsExpanded(!isExpanded);
+        onToggleExpand(note.id);
     };
 
     const handleSelect = () => {
         setActiveNoteId(note.id);
+        onExpandPath(note.id);
     };
 
     const handleCreateChild = async (e: React.MouseEvent) => {
         e.stopPropagation();
         await createNote(note.id);
-        setIsExpanded(true);
+        onExpandPath(note.id);
     };
 
     const handleDeleteClick = (e: React.MouseEvent) => {
@@ -137,7 +143,16 @@ const NoteItem = ({ note, level, onDeleteClick, parentTitle }: NoteItemProps) =>
             {isExpanded && hasChildren && (
                 <div>
                     {children.map(child => (
-                        <NoteItem key={child.id} note={child} level={level + 1} onDeleteClick={onDeleteClick} />
+                        <NoteItem
+                            key={child.id}
+                            note={child}
+                            level={level + 1}
+                            onDeleteClick={onDeleteClick}
+                            expandedIds={expandedIds}
+                            onToggleExpand={onToggleExpand}
+                            onExpandPath={onExpandPath}
+                            isSearching={isSearching}
+                        />
                     ))}
                 </div>
             )}
@@ -147,9 +162,11 @@ const NoteItem = ({ note, level, onDeleteClick, parentTitle }: NoteItemProps) =>
 
 export default function NotesSidebar() {
     const t = useTranslations("Notes.sidebar");
-    const { notes, createNote, deleteNote, isLoading } = useNotes();
+    const { notes, createNote, deleteNote, isLoading, activeNoteId } = useNotes();
     const [noteToDelete, setNoteToDelete] = useState<Note | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
+    const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
+    const searchInputRef = useRef<HTMLInputElement>(null);
 
     // Get top-level notes
     const rootNotes = notes.filter(n => !n.parentId);
@@ -160,6 +177,51 @@ export default function NotesSidebar() {
             (note.title || "").toLowerCase().includes(searchQuery.toLowerCase())
         )
         : rootNotes;
+
+    const noteById = useMemo(() => new Map(notes.map((note) => [note.id, note])), [notes]);
+
+    const expandPath = (noteId: string) => {
+        setExpandedIds((prev) => {
+            const next = new Set(prev);
+            let current = noteById.get(noteId);
+            const guard = new Set<string>();
+            while (current?.parentId && !guard.has(current.id)) {
+                next.add(current.parentId);
+                guard.add(current.id);
+                current = noteById.get(current.parentId);
+            }
+            return next;
+        });
+    };
+
+    const toggleExpand = (noteId: string) => {
+        setExpandedIds((prev) => {
+            const next = new Set(prev);
+            if (next.has(noteId)) {
+                next.delete(noteId);
+            } else {
+                next.add(noteId);
+            }
+            return next;
+        });
+    };
+
+    useEffect(() => {
+        if (!activeNoteId) return;
+        expandPath(activeNoteId);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeNoteId, notes]);
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+                event.preventDefault();
+                searchInputRef.current?.focus();
+            }
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, []);
 
     const handleDeleteConfirm = async () => {
         if (noteToDelete) {
@@ -192,11 +254,23 @@ export default function NotesSidebar() {
                     <div className="relative">
                         <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                         <Input
+                            ref={searchInputRef}
                             placeholder={t("searchPlaceholder")}
-                            className="pl-8 h-9 text-sm"
+                            className="pl-8 pr-8 h-9 text-sm"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
+                        {searchQuery && (
+                            <Button
+                                type="button"
+                                variant="ghost"
+                                size="icon"
+                                className="absolute right-1 top-1 h-7 w-7"
+                                onClick={() => setSearchQuery("")}
+                            >
+                                <X className="h-3.5 w-3.5" />
+                            </Button>
+                        )}
                     </div>
                 </div>
 
@@ -218,6 +292,10 @@ export default function NotesSidebar() {
                                         level={0}
                                         onDeleteClick={setNoteToDelete}
                                         parentTitle={parent?.title}
+                                        expandedIds={expandedIds}
+                                        onToggleExpand={toggleExpand}
+                                        onExpandPath={expandPath}
+                                        isSearching={!!searchQuery}
                                     />
                                 );
                             })

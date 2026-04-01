@@ -28,6 +28,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
@@ -125,6 +126,52 @@ export const TaskContainer = () => {
   };
 
   const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
+  const hasStatusFilter = filterStatus !== "all";
+  const hasProjectFilter = filterProject !== "all";
+  const hasSearchFilter = searchQuery.trim().length > 0;
+  const hasActiveFilters = hasStatusFilter || hasProjectFilter || hasSearchFilter;
+  const activeProject = projects.find((project) => project.id === filterProject);
+
+  const clearAllFilters = () => {
+    setSearchQuery("");
+    setFilterStatus("all");
+    setFilterProject("all");
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      const isTypingInField =
+        target?.tagName === "INPUT" ||
+        target?.tagName === "TEXTAREA" ||
+        target?.isContentEditable;
+
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        searchInputRef.current?.focus();
+        return;
+      }
+
+      if (event.key === "/" && !isTypingInField) {
+        event.preventDefault();
+        searchInputRef.current?.focus();
+        return;
+      }
+
+      if (event.key === "Escape" && hasSearchFilter) {
+        setSearchQuery("");
+        return;
+      }
+
+      if (!isMobile && event.key.toLowerCase() === "n" && !isTypingInField) {
+        event.preventDefault();
+        taskFormInputRef.current?.focus();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [hasSearchFilter, isMobile]);
 
   return (
     <div className="h-screen bg-background w-full flex flex-col overflow-hidden relative mobile-nav-offset">
@@ -198,6 +245,35 @@ export const TaskContainer = () => {
               </Button>
             ))}
           </div>
+          {hasActiveFilters && (
+            <div className="flex items-center gap-2 px-4 pb-2 overflow-x-auto scrollbar-hide">
+              {hasStatusFilter && (
+                <Badge variant="secondary" className="whitespace-nowrap">
+                  {tStatus(`${filterStatus}.label` as any)}
+                </Badge>
+              )}
+              {hasProjectFilter && activeProject && (
+                <Badge variant="secondary" className="whitespace-nowrap gap-1.5">
+                  <span className={cn("h-2 w-2 rounded-full", activeProject.color)} />
+                  {activeProject.name}
+                </Badge>
+              )}
+              {hasSearchFilter && (
+                <Badge variant="secondary" className="whitespace-nowrap">
+                  {searchQuery}
+                </Badge>
+              )}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={clearAllFilters}
+                className="h-7 px-2"
+                aria-label={tFilters("clearSearchAria")}
+              >
+                <X className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+          )}
         </div>
       )}
 
@@ -352,6 +428,39 @@ export const TaskContainer = () => {
                   </ToggleGroup>
                 </div>
               </div>
+              {hasActiveFilters && (
+                <div className="flex items-center gap-2 mt-2 flex-wrap">
+                  {hasStatusFilter && (
+                    <Badge variant="secondary" className="gap-1.5">
+                      {tStatus(`${filterStatus}.label` as any)}
+                    </Badge>
+                  )}
+                  {hasProjectFilter && activeProject && (
+                    <Badge variant="secondary" className="gap-1.5">
+                      <span className={cn("h-2 w-2 rounded-full", activeProject.color)} />
+                      {activeProject.name}
+                    </Badge>
+                  )}
+                  {hasSearchFilter && (
+                    <Badge variant="secondary">
+                      {searchQuery}
+                    </Badge>
+                  )}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={clearAllFilters}
+                    className="h-7 px-2 text-xs"
+                    aria-label={tFilters("clearSearchAria")}
+                  >
+                    <X className="h-3.5 w-3.5 mr-1" />
+                    {tFilters("all")}
+                  </Button>
+                  <span className="ml-auto hidden lg:inline-flex items-center rounded-md border border-border/70 px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                    / search, N add, Esc clear
+                  </span>
+                </div>
+              )}
 
               {/* Mobile Filter - Enhanced scrollable container */}
               {viewMode === "list" && (
