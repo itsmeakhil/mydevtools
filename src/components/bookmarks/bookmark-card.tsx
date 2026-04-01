@@ -37,15 +37,27 @@ import { toast } from "sonner"
 import { useTranslations } from "next-intl"
 
 import { useIsMobile } from "@/components/hooks/use-mobile"
+import { Checkbox } from "@/components/ui/checkbox"
 
 interface BookmarkCardProps {
     bookmark: Bookmark
     viewMode: 'grid' | 'list'
     onEdit: (id: string) => void
     index: number
+    selectionMode: boolean
+    isSelected: boolean
+    onToggleSelect: (id: string) => void
 }
 
-export default function BookmarkCard({ bookmark, viewMode, onEdit, index }: BookmarkCardProps) {
+export default function BookmarkCard({
+    bookmark,
+    viewMode,
+    onEdit,
+    index,
+    selectionMode,
+    isSelected,
+    onToggleSelect
+}: BookmarkCardProps) {
     const t = useTranslations("Bookmarks.card")
     const { deleteBookmark, folders } = useBookmarkStore()
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
@@ -71,6 +83,14 @@ export default function BookmarkCard({ bookmark, viewMode, onEdit, index }: Book
         toast.success(t("bookmarkDeleted"))
     }, [bookmark.id, deleteBookmark, t])
 
+    const handlePrimaryAction = useCallback(() => {
+        if (selectionMode) {
+            onToggleSelect(bookmark.id)
+            return
+        }
+        handleOpenLink()
+    }, [selectionMode, onToggleSelect, bookmark.id, handleOpenLink])
+
     if (viewMode === 'list') {
         return (
             <>
@@ -80,10 +100,19 @@ export default function BookmarkCard({ bookmark, viewMode, onEdit, index }: Book
                     transition={{ duration: 0.2, delay: index * 0.03 }}
                     className={cn(
                         "group flex items-center gap-4 p-3 rounded-lg border border-border/50",
-                        "hover:border-primary/30 hover:bg-muted/30 transition-all cursor-pointer"
+                        "hover:border-primary/30 hover:bg-muted/30 transition-all cursor-pointer",
+                        isSelected && "border-primary/40 bg-primary/5"
                     )}
-                    onClick={handleOpenLink}
+                    onClick={handlePrimaryAction}
                 >
+                    {selectionMode && (
+                        <Checkbox
+                            checked={isSelected}
+                            className="shrink-0"
+                            onClick={(e) => e.stopPropagation()}
+                            onCheckedChange={() => onToggleSelect(bookmark.id)}
+                        />
+                    )}
                     {/* Favicon */}
                     <div className="h-8 w-8 rounded-lg bg-muted flex items-center justify-center overflow-hidden shrink-0">
                         {!imageError ? (
@@ -193,12 +222,22 @@ export default function BookmarkCard({ bookmark, viewMode, onEdit, index }: Book
                     "group relative flex flex-col p-4 rounded-xl border border-border/40",
                     "bg-gradient-to-br from-background via-background to-muted/10",
                     "hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5",
-                    "transition-all duration-300 cursor-pointer overflow-hidden"
+                    "transition-all duration-300 cursor-pointer overflow-hidden",
+                    isSelected && "border-primary/50 bg-primary/5"
                 )}
-                onClick={handleOpenLink}
+                onClick={handlePrimaryAction}
             >
+                {selectionMode && (
+                    <div className="absolute left-3 top-3 z-20">
+                        <Checkbox
+                            checked={isSelected}
+                            onClick={(e) => e.stopPropagation()}
+                            onCheckedChange={() => onToggleSelect(bookmark.id)}
+                        />
+                    </div>
+                )}
                 {/* Header */}
-                <div className="flex items-start gap-3.5 mb-3">
+                <div className={cn("flex items-start gap-3.5 mb-3", selectionMode && "pl-6")}>
                     {/* Favicon */}
                     <div className={cn(
                         "rounded-xl bg-gradient-to-br from-muted/50 to-muted/80 flex items-center justify-center overflow-hidden shrink-0 ring-1 ring-border/50 shadow-sm group-hover:scale-105 transition-transform duration-300",
