@@ -15,6 +15,7 @@ import { useTranslations } from "next-intl"
 interface PasswordCardProps {
     entry: PasswordEntry
     isVisible: boolean
+    isReused?: boolean
     onToggleVisibility: (id: string) => void
     onCopy: (text: string, type?: "Password" | "Username") => void
     onDelete: (id: string) => void
@@ -24,6 +25,7 @@ interface PasswordCardProps {
 export function PasswordCard({
     entry,
     isVisible,
+    isReused = false,
     onToggleVisibility,
     onCopy,
     onDelete,
@@ -119,6 +121,16 @@ export function PasswordCard({
                     </div>
 
                     <div className="flex flex-wrap gap-1.5">
+                        {strength <= 2 && (
+                            <Badge variant="secondary" className="text-[10px] h-5 px-2 bg-red-500/10 text-red-600 dark:text-red-400">
+                                Weak
+                            </Badge>
+                        )}
+                        {isReused && (
+                            <Badge variant="secondary" className="text-[10px] h-5 px-2 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300">
+                                Reused
+                            </Badge>
+                        )}
                         {entry.tags?.map(tag => (
                             <Badge key={tag} variant="secondary" className="text-[10px] h-5 px-2 bg-muted/50 text-muted-foreground hover:bg-muted/80 transition-colors">
                                 {tag}
