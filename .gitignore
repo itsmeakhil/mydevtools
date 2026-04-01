@@ -2,7 +2,7 @@
 
 # Dependencies
 /node_modules
-# /apps/web/node_modules
+/apps/web/node_modules
 /.pnp
 .pnp.js
 .pnp.*
