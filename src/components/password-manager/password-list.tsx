@@ -283,14 +283,36 @@ export function PasswordList() {
                             )}
                         </div>
 
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-10 w-10 text-muted-foreground/80"
-                            onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
-                        >
-                            {viewMode === "grid" ? <List className="h-5 w-5" /> : <LayoutGrid className="h-5 w-5" />}
-                        </Button>
+                        <div className="flex items-center gap-1 border rounded-lg p-1 bg-muted/20">
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className={cn(
+                                    "h-8 w-8",
+                                    viewMode === "grid"
+                                        ? "bg-background text-primary shadow-sm"
+                                        : "text-muted-foreground hover:text-foreground"
+                                )}
+                                onClick={() => setViewMode("grid")}
+                                aria-label={t("gridViewAria")}
+                            >
+                                <LayoutGrid className="h-4.5 w-4.5" />
+                            </Button>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className={cn(
+                                    "h-8 w-8",
+                                    viewMode === "list"
+                                        ? "bg-background text-primary shadow-sm"
+                                        : "text-muted-foreground hover:text-foreground"
+                                )}
+                                onClick={() => setViewMode("list")}
+                                aria-label={t("listViewAria")}
+                            >
+                                <List className="h-4.5 w-4.5" />
+                            </Button>
+                        </div>
 
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
@@ -374,10 +396,20 @@ export function PasswordList() {
                     </div>
                     <div className="flex items-center gap-2 border rounded-lg p-1 bg-muted/20">
                         <ToggleGroup type="single" value={viewMode} onValueChange={(value) => value && setViewMode(value as "grid" | "list")}>
-                            <ToggleGroupItem value="grid" size="sm" aria-label={t("gridViewAria")}>
+                            <ToggleGroupItem
+                                value="grid"
+                                size="sm"
+                                aria-label={t("gridViewAria")}
+                                className="data-[state=on]:bg-background data-[state=on]:text-primary data-[state=on]:shadow-sm text-muted-foreground"
+                            >
                                 <LayoutGrid className="h-4 w-4" />
                             </ToggleGroupItem>
-                            <ToggleGroupItem value="list" size="sm" aria-label={t("listViewAria")}>
+                            <ToggleGroupItem
+                                value="list"
+                                size="sm"
+                                aria-label={t("listViewAria")}
+                                className="data-[state=on]:bg-background data-[state=on]:text-primary data-[state=on]:shadow-sm text-muted-foreground"
+                            >
                                 <List className="h-4 w-4" />
                             </ToggleGroupItem>
                         </ToggleGroup>
