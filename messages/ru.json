@@ -31,7 +31,8 @@
     "dutch": "Nederlands",
     "polish": "Польский",
     "vietnamese": "Tiếng Việt",
-    "norwegian": "Norsk"
+    "norwegian": "Norsk",
+    "ukrainian": "Украинский"
   },
   "SettingsPage": {
     "title": "Настройки",
@@ -90,7 +91,8 @@
         "vi": "Tiếng Việt",
         "ru": "Русский",
         "sv": "Svenska",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "uk": "Українська"
       }
     }
   },
@@ -1391,13 +1393,13 @@
     "copy": "Копировать",
     "save": "Сохранить",
     "saving": "Сохранение...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "Название левого документа",
+    "rightDocNameLabel": "Название правого документа",
+    "toastCopiedText": "Текстовая панель скопирована",
+    "toastCopiedTree": "Панель дерева скопирована",
+    "toastCopyFailed": "Не удалось скопировать JSON",
+    "toastLoginRequired": "Войдите, чтобы сохранять документы",
+    "toastSaved": "Документ сохранён",
+    "toastSaveFailed": "Не удалось сохранить документ"
   }
 }

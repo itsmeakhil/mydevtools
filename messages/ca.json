@@ -31,7 +31,8 @@
     "malay": "Bahasa Melayu",
     "dutch": "Nederlands",
     "polish": "Polski",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "Ucraïnès"
   },
   "SettingsPage": {
     "title": "Configuració",
@@ -90,7 +91,8 @@
         "vi": "Tiếng Việt",
         "ru": "Русский",
         "sv": "Svenska",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "uk": "Українська"
       }
     }
   },
@@ -1391,13 +1393,13 @@
     "copy": "Copiar",
     "save": "Desar",
     "saving": "Desant...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "Nom del document esquerre",
+    "rightDocNameLabel": "Nom del document dret",
+    "toastCopiedText": "Panell de text copiat",
+    "toastCopiedTree": "Panell d'arbre copiat",
+    "toastCopyFailed": "No s'ha pogut copiar el JSON",
+    "toastLoginRequired": "Inicia sessió per desar documents",
+    "toastSaved": "Document desat",
+    "toastSaveFailed": "No s'ha pogut desar el document"
   }
 }

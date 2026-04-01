@@ -30,7 +30,9 @@
     "malay": "Bahasa Melayu",
     "dutch": "Nederlands",
     "polish": "Polska",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "Ukrainska",
+    "norwegian": "Norsk"
   },
   "SettingsPage": {
     "title": "Inställningar",
@@ -89,7 +91,8 @@
         "vi": "Tiếng Việt",
         "ru": "Русский",
         "sv": "Svenska",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "uk": "Українська"
       }
     }
   },
@@ -1390,13 +1393,13 @@
     "copy": "Kopiera",
     "save": "Spara",
     "saving": "Sparar...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "Namn på vänstra dokumentet",
+    "rightDocNameLabel": "Namn på högra dokumentet",
+    "toastCopiedText": "Textpanelen kopierad",
+    "toastCopiedTree": "Trädpanelen kopierad",
+    "toastCopyFailed": "Kunde inte kopiera JSON",
+    "toastLoginRequired": "Logga in för att spara dokument",
+    "toastSaved": "Dokument sparat",
+    "toastSaveFailed": "Kunde inte spara dokument"
   }
 }

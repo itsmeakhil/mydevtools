@@ -31,7 +31,8 @@
     "dutch": "Nederlands",
     "polish": "Tiếng Ba Lan",
     "vietnamese": "Tiếng Việt",
-    "norwegian": "Tiếng Na Uy"
+    "norwegian": "Tiếng Na Uy",
+    "ukrainian": "Tiếng Ukraina"
   },
   "SettingsPage": {
     "title": "Cài đặt",
@@ -90,7 +91,8 @@
         "vi": "Tiếng Việt",
         "ru": "Русский",
         "sv": "Svenska",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "uk": "Українська"
       }
     }
   },
@@ -1391,13 +1393,13 @@
     "copy": "Sao chép",
     "save": "Lưu",
     "saving": "Đang lưu...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "Tên tài liệu bên trái",
+    "rightDocNameLabel": "Tên tài liệu bên phải",
+    "toastCopiedText": "Đã sao chép bảng văn bản",
+    "toastCopiedTree": "Đã sao chép bảng cây",
+    "toastCopyFailed": "Không thể sao chép JSON",
+    "toastLoginRequired": "Vui lòng đăng nhập để lưu tài liệu",
+    "toastSaved": "Đã lưu tài liệu",
+    "toastSaveFailed": "Không thể lưu tài liệu"
   }
 }

@@ -31,7 +31,8 @@
     "malay": "Bahasa Melayu",
     "dutch": "Nederlands",
     "polish": "Polski",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "Ukrajinština"
   },
   "SettingsPage": {
     "title": "Nastavení",
@@ -90,7 +91,8 @@
         "vi": "Tiếng Việt",
         "ru": "Русский",
         "sv": "Svenska",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "uk": "Українська"
       }
     }
   },
@@ -1391,13 +1393,13 @@
     "copy": "Kopírovat",
     "save": "Uložit",
     "saving": "Ukládání...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "Název levého dokumentu",
+    "rightDocNameLabel": "Název pravého dokumentu",
+    "toastCopiedText": "Textový panel zkopírován",
+    "toastCopiedTree": "Stromový panel zkopírován",
+    "toastCopyFailed": "Nepodařilo se zkopírovat JSON",
+    "toastLoginRequired": "Pro uložení dokumentů se přihlaste",
+    "toastSaved": "Dokument uložen",
+    "toastSaveFailed": "Nepodařilo se uložit dokument"
   }
 }

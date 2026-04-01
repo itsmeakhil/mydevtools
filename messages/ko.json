@@ -31,7 +31,8 @@
     "malay": "Bahasa Melayu",
     "dutch": "Nederlands",
     "polish": "Polski",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "우크라이나어"
   },
   "SettingsPage": {
     "title": "설정",
@@ -90,7 +91,8 @@
         "vi": "Tiếng Việt",
         "ru": "Русский",
         "sv": "Svenska",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "uk": "Українська"
       }
     }
   },
@@ -1391,13 +1393,13 @@
     "copy": "복사",
     "save": "저장",
     "saving": "저장 중...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "왼쪽 문서 이름",
+    "rightDocNameLabel": "오른쪽 문서 이름",
+    "toastCopiedText": "텍스트 패널 복사됨",
+    "toastCopiedTree": "트리 패널 복사됨",
+    "toastCopyFailed": "JSON 복사 실패",
+    "toastLoginRequired": "문서를 저장하려면 로그인하세요",
+    "toastSaved": "문서가 저장되었습니다",
+    "toastSaveFailed": "문서 저장에 실패했습니다"
   }
 }

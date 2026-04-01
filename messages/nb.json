@@ -30,7 +30,9 @@
     "korean": "한국어",
     "malay": "Bahasa Melayu",
     "dutch": "Nederlands",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "Ukrainsk",
+    "polish": "Polsk"
   },
   "SettingsPage": {
     "title": "Innstillinger",
@@ -89,7 +91,8 @@
         "vi": "Tiếng Việt",
         "ru": "Русский",
         "sv": "Svenska",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "uk": "Українська"
       }
     }
   },
@@ -1390,13 +1393,13 @@
     "copy": "Kopier",
     "save": "Lagre",
     "saving": "Lagrer...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "Navn på venstre dokument",
+    "rightDocNameLabel": "Navn på høyre dokument",
+    "toastCopiedText": "Tekstpanel kopiert",
+    "toastCopiedTree": "Trepanel kopiert",
+    "toastCopyFailed": "Kunne ikke kopiere JSON",
+    "toastLoginRequired": "Logg inn for å lagre dokumenter",
+    "toastSaved": "Dokument lagret",
+    "toastSaveFailed": "Kunne ikke lagre dokument"
   }
 }

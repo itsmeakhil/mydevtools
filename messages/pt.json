@@ -1393,13 +1393,13 @@
     "copy": "Copiar",
     "save": "Guardar",
     "saving": "A guardar...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "Nome do documento esquerdo",
+    "rightDocNameLabel": "Nome do documento direito",
+    "toastCopiedText": "Painel de texto copiado",
+    "toastCopiedTree": "Painel de árvore copiado",
+    "toastCopyFailed": "Falha ao copiar JSON",
+    "toastLoginRequired": "Inicie sessão para guardar documentos",
+    "toastSaved": "Documento guardado",
+    "toastSaveFailed": "Falha ao guardar documento"
   }
 }

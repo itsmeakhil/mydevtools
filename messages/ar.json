@@ -31,7 +31,8 @@
     "malay": "Bahasa Melayu",
     "dutch": "Nederlands",
     "polish": "Polski",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "الأوكرانية"
   },
   "SettingsPage": {
     "title": "الإعدادات",
@@ -90,7 +91,8 @@
         "vi": "Tiếng Việt",
         "ru": "Русский",
         "sv": "Svenska",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "uk": "Українська"
       }
     }
   },
@@ -1391,13 +1393,13 @@
     "copy": "نسخ",
     "save": "حفظ",
     "saving": "جارٍ الحفظ...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "اسم المستند الأيسر",
+    "rightDocNameLabel": "اسم المستند الأيمن",
+    "toastCopiedText": "تم نسخ لوحة النص",
+    "toastCopiedTree": "تم نسخ لوحة الشجرة",
+    "toastCopyFailed": "فشل نسخ JSON",
+    "toastLoginRequired": "يرجى تسجيل الدخول لحفظ المستندات",
+    "toastSaved": "تم حفظ المستند",
+    "toastSaveFailed": "فشل حفظ المستند"
   }
 }

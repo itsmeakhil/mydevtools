@@ -31,7 +31,8 @@
     "malay": "Bahasa Melayu",
     "dutch": "Nederlands",
     "polish": "Polski",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "Ουκρανικά"
   },
   "SettingsPage": {
     "title": "Ρυθμίσεις",
@@ -90,7 +91,8 @@
         "vi": "Tiếng Việt",
         "ru": "Русский",
         "sv": "Svenska",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "uk": "Українська"
       }
     }
   },
@@ -1391,13 +1393,13 @@
     "copy": "Αντιγραφή",
     "save": "Αποθήκευση",
     "saving": "Αποθήκευση...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "Όνομα αριστερού εγγράφου",
+    "rightDocNameLabel": "Όνομα δεξιού εγγράφου",
+    "toastCopiedText": "Το πάνελ κειμένου αντιγράφηκε",
+    "toastCopiedTree": "Το πάνελ δέντρου αντιγράφηκε",
+    "toastCopyFailed": "Αποτυχία αντιγραφής JSON",
+    "toastLoginRequired": "Συνδεθείτε για να αποθηκεύσετε έγγραφα",
+    "toastSaved": "Το έγγραφο αποθηκεύτηκε",
+    "toastSaveFailed": "Αποτυχία αποθήκευσης εγγράφου"
   }
 }
