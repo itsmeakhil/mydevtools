@@ -42,7 +42,12 @@ const createNewTab = (): ApiRequestState => ({
     url: "",
     params: [{ id: "1", key: "", value: "", active: true }],
     headers: [{ id: "1", key: "", value: "", active: true }],
-    body: { type: "none", content: "" },
+    body: {
+        type: "none",
+        content: "",
+        formData: [{ id: crypto.randomUUID(), key: "", value: "", active: true, valueType: "text" }],
+        urlEncoded: [{ id: crypto.randomUUID(), key: "", value: "", active: true }],
+    },
     auth: { type: "none" },
     response: null,
     isLoading: false,
@@ -259,6 +264,13 @@ export function ApiClient() {
 
             // Prepare body
             let bodyContent: string | null = null
+            let bodyPayload: unknown = null
+            const deleteContentTypeHeader = (headersMap: Record<string, string>) => {
+                const existingKey = Object.keys(headersMap).find((key) => key.toLowerCase() === "content-type")
+                if (existingKey) {
+                    delete headersMap[existingKey]
+                }
+            }
             if (activeTab.method !== "GET" && activeTab.method !== "HEAD" && activeTab.body.type !== "none") {
                 if (activeTab.body.type === "json") {
                     try {
@@ -266,14 +278,54 @@ export function ApiClient() {
                         // Validate JSON
                         JSON.parse(substitutedBody)
                         bodyContent = substitutedBody
+                        bodyPayload = substitutedBody
                         headersObj["Content-Type"] = "application/json"
                     } catch (e) {
                         toast.error(t("toasts.invalidJsonBody"))
                         updateActiveTab({ isLoading: false })
                         return
                     }
+                } else if (activeTab.body.type === "x-www-form-urlencoded") {
+                    const params = new URLSearchParams()
+                    ;(activeTab.body.urlEncoded ?? []).forEach((item) => {
+                        if (item.active && item.key) {
+                            params.append(substituteVariables(item.key), substituteVariables(item.value))
+                        }
+                    })
+                    bodyContent = params.toString()
+                    bodyPayload = bodyContent
+                    if (!Object.keys(headersObj).some((key) => key.toLowerCase() === "content-type")) {
+                        headersObj["Content-Type"] = "application/x-www-form-urlencoded"
+                    }
+                } else if (activeTab.body.type === "form-data") {
+                    const entries = (activeTab.body.formData ?? [])
+                        .filter((item) => item.active && item.key)
+                        .map((item) => {
+                            if (item.valueType === "file") {
+                                return {
+                                    key: substituteVariables(item.key),
+                                    type: "file" as const,
+                                    fileName: item.fileName || "upload.bin",
+                                    fileType: item.fileType || "application/octet-stream",
+                                    fileContentBase64: item.fileContentBase64 || "",
+                                }
+                            }
+
+                            return {
+                                key: substituteVariables(item.key),
+                                type: "text" as const,
+                                value: substituteVariables(item.value),
+                            }
+                        })
+
+                    bodyPayload = {
+                        mode: "form-data",
+                        entries,
+                    }
+                    deleteContentTypeHeader(headersObj)
                 } else {
                     bodyContent = substituteVariables(activeTab.body.content)
+                    bodyPayload = bodyContent
                     if (!headersObj["Content-Type"]) {
                         headersObj["Content-Type"] = "text/plain"
                     }
@@ -290,7 +342,7 @@ export function ApiClient() {
                     url: urlObj.toString(),
                     method: activeTab.method,
                     headers: headersObj,
-                    body: bodyContent,
+                    body: bodyPayload ?? bodyContent,
                 }),
             })
 
@@ -447,7 +499,7 @@ export function ApiClient() {
                     <div className="flex-1 overflow-hidden min-h-0 bg-card/30">
                         <ResizablePanelGroup direction={isMobile ? "vertical" : "horizontal"} className="h-full w-full">
                             <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col h-full">
-                                <div className="p-4 md:p-6 lg:p-8 space-y-6 flex-1 overflow-y-auto min-h-0 custom-scrollbar">
+                                <div className="p-4 md:p-6 lg:p-8 flex flex-col gap-6 flex-1 min-h-0">
                                     <RequestPanel
                                         method={activeTab.method}
                                         setMethod={(method) => updateActiveTab({ method })}
@@ -461,16 +513,18 @@ export function ApiClient() {
                                         onPaste={handleCurlPaste}
                                         activeEnvironmentVariables={activeEnvironmentVariables}
                                     />
-                                    <RequestTabs
-                                        params={activeTab.params}
-                                        setParams={(params) => updateActiveTab({ params })}
-                                        headers={activeTab.headers}
-                                        setHeaders={(headers) => updateActiveTab({ headers })}
-                                        body={activeTab.body}
-                                        setBody={(body) => updateActiveTab({ body })}
-                                        auth={activeTab.auth}
-                                        setAuth={(auth) => updateActiveTab({ auth })}
-                                    />
+                                    <div className="flex-1 min-h-0">
+                                        <RequestTabs
+                                            params={activeTab.params}
+                                            setParams={(params) => updateActiveTab({ params })}
+                                            headers={activeTab.headers}
+                                            setHeaders={(headers) => updateActiveTab({ headers })}
+                                            body={activeTab.body}
+                                            setBody={(body) => updateActiveTab({ body })}
+                                            auth={activeTab.auth}
+                                            setAuth={(auth) => updateActiveTab({ auth })}
+                                        />
+                                    </div>
                                 </div>
                             </ResizablePanel>
 
