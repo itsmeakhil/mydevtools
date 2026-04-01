@@ -31,7 +31,8 @@
     "malay": "Bahasa Melayu",
     "dutch": "Nederlands",
     "polish": "Polski",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "Ukrainsk"
   },
   "SettingsPage": {
     "title": "Indstillinger",
@@ -90,7 +91,8 @@
         "vi": "Tiếng Việt",
         "ru": "Русский",
         "sv": "Svenska",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "uk": "Українська"
       }
     }
   },
@@ -1391,13 +1393,13 @@
     "copy": "Kopiér",
     "save": "Gem",
     "saving": "Gemmer...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "Venstre dokumentnavn",
+    "rightDocNameLabel": "Højre dokumentnavn",
+    "toastCopiedText": "Tekstpanel kopieret",
+    "toastCopiedTree": "Træpanel kopieret",
+    "toastCopyFailed": "Kunne ikke kopiere JSON",
+    "toastLoginRequired": "Log ind for at gemme dokumenter",
+    "toastSaved": "Dokument gemt",
+    "toastSaveFailed": "Kunne ikke gemme dokument"
   }
 }

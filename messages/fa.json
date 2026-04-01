@@ -30,7 +30,9 @@
     "malay": "Bahasa Melayu",
     "dutch": "Nederlands",
     "polish": "Polski",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "اوکراینی",
+    "persian": "فارسی"
   },
   "SettingsPage": {
     "title": "تنظیمات",
@@ -88,7 +90,9 @@
         "vi": "Tiếng Việt",
         "ru": "Русский",
         "sv": "Svenska",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "uk": "Українська",
+        "fa": "فارسی"
       }
     }
   },
@@ -1389,13 +1393,13 @@
     "copy": "کپی",
     "save": "ذخیره",
     "saving": "در حال ذخیره...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "نام سند سمت چپ",
+    "rightDocNameLabel": "نام سند سمت راست",
+    "toastCopiedText": "پنل متن کپی شد",
+    "toastCopiedTree": "پنل درختی کپی شد",
+    "toastCopyFailed": "کپی JSON ناموفق بود",
+    "toastLoginRequired": "برای ذخیره اسناد وارد شوید",
+    "toastSaved": "سند ذخیره شد",
+    "toastSaveFailed": "ذخیره سند ناموفق بود"
   }
 }

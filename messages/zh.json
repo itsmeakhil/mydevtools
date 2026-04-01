@@ -31,7 +31,8 @@
     "malay": "Bahasa Melayu",
     "dutch": "Nederlands",
     "polish": "Polski",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "乌克兰语"
   },
   "SettingsPage": {
     "title": "设置",
@@ -88,7 +89,10 @@
         "pt": "Português",
         "pt-BR": "Português (Brasil)",
         "vi": "Tiếng Việt",
-        "ru": "Русский"
+        "ru": "Русский",
+        "uk": "Українська",
+        "sv": "Svenska",
+        "tr": "Türkçe"
       }
     }
   },
@@ -1389,13 +1393,13 @@
     "copy": "复制",
     "save": "保存",
     "saving": "保存中...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "左侧文档名称",
+    "rightDocNameLabel": "右侧文档名称",
+    "toastCopiedText": "已复制文本面板",
+    "toastCopiedTree": "已复制树形面板",
+    "toastCopyFailed": "复制 JSON 失败",
+    "toastLoginRequired": "请登录以保存文档",
+    "toastSaved": "文档已保存",
+    "toastSaveFailed": "文档保存失败"
   }
 }

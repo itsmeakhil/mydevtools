@@ -30,7 +30,9 @@
     "korean": "한국어",
     "malay": "Bahasa Melayu",
     "dutch": "Nederlands",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "Oekraïens",
+    "polish": "Pools"
   },
   "SettingsPage": {
     "title": "Instellingen",
@@ -89,7 +91,8 @@
         "vi": "Tiếng Việt",
         "ru": "Русский",
         "sv": "Svenska",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "uk": "Українська"
       }
     }
   },
@@ -1390,13 +1393,13 @@
     "copy": "Kopiëren",
     "save": "Opslaan",
     "saving": "Opslaan...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "Naam linkerdocument",
+    "rightDocNameLabel": "Naam rechterdocument",
+    "toastCopiedText": "Tekstpaneel gekopieerd",
+    "toastCopiedTree": "Boompaneel gekopieerd",
+    "toastCopyFailed": "Kan JSON niet kopiëren",
+    "toastLoginRequired": "Log in om documenten op te slaan",
+    "toastSaved": "Document opgeslagen",
+    "toastSaveFailed": "Document opslaan mislukt"
   }
 }

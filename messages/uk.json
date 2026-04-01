@@ -31,7 +31,8 @@
     "dutch": "Nederlands",
     "polish": "Polish",
     "vietnamese": "Tiếng Việt",
-    "ukrainian": "Українська"
+    "ukrainian": "Українська",
+    "norwegian": "Норвезька"
   },
   "SettingsPage": {
     "title": "Налаштування",
@@ -1392,13 +1393,13 @@
     "copy": "Копіювати",
     "save": "Зберегти",
     "saving": "Збереження...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "Назва лівого документа",
+    "rightDocNameLabel": "Назва правого документа",
+    "toastCopiedText": "Текстову панель скопійовано",
+    "toastCopiedTree": "Панель дерева скопійовано",
+    "toastCopyFailed": "Не вдалося скопіювати JSON",
+    "toastLoginRequired": "Увійдіть, щоб зберігати документи",
+    "toastSaved": "Документ збережено",
+    "toastSaveFailed": "Не вдалося зберегти документ"
   }
 }

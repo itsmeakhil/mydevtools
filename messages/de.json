@@ -31,7 +31,8 @@
     "malay": "Bahasa Melayu",
     "dutch": "Nederlands",
     "polish": "Polski",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "Ukrainisch"
   },
   "SettingsPage": {
     "title": "Einstellungen",
@@ -90,7 +91,8 @@
         "vi": "Tiếng Việt",
         "ru": "Русский",
         "sv": "Svenska",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "uk": "Українська"
       }
     }
   },
@@ -1391,13 +1393,13 @@
     "copy": "Kopieren",
     "save": "Speichern",
     "saving": "Wird gespeichert...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "Name des linken Dokuments",
+    "rightDocNameLabel": "Name des rechten Dokuments",
+    "toastCopiedText": "Textbereich kopiert",
+    "toastCopiedTree": "Baumansicht kopiert",
+    "toastCopyFailed": "JSON konnte nicht kopiert werden",
+    "toastLoginRequired": "Bitte melden Sie sich an, um Dokumente zu speichern",
+    "toastSaved": "Dokument gespeichert",
+    "toastSaveFailed": "Dokument konnte nicht gespeichert werden"
   }
 }

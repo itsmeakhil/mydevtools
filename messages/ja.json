@@ -31,7 +31,8 @@
     "malay": "Bahasa Melayu",
     "dutch": "Nederlands",
     "polish": "Polski",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "ウクライナ語"
   },
   "SettingsPage": {
     "title": "設定",
@@ -90,7 +91,8 @@
         "vi": "Tiếng Việt",
         "ru": "Русский",
         "sv": "Svenska",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "uk": "Українська"
       }
     }
   },
@@ -1391,13 +1393,13 @@
     "copy": "コピー",
     "save": "保存",
     "saving": "保存中...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "左ドキュメント名",
+    "rightDocNameLabel": "右ドキュメント名",
+    "toastCopiedText": "テキストパネルをコピーしました",
+    "toastCopiedTree": "ツリーパネルをコピーしました",
+    "toastCopyFailed": "JSONのコピーに失敗しました",
+    "toastLoginRequired": "ドキュメントを保存するにはログインしてください",
+    "toastSaved": "ドキュメントを保存しました",
+    "toastSaveFailed": "ドキュメントの保存に失敗しました"
   }
 }

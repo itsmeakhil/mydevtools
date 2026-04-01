@@ -31,7 +31,8 @@
     "malay": "Bahasa Melayu",
     "dutch": "Nederlands",
     "polish": "Polski",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "Ukraina"
   },
   "SettingsPage": {
     "title": "Pengaturan",
@@ -1397,7 +1398,7 @@
     "toastCopiedText": "Panel teks disalin",
     "toastCopiedTree": "Panel pohon disalin",
     "toastCopyFailed": "Gagal menyalin JSON",
-    "toastLoginRequired": "Masuk untuk menyimpan dokumen",
+    "toastLoginRequired": "Silakan masuk untuk menyimpan dokumen",
     "toastSaved": "Dokumen disimpan",
     "toastSaveFailed": "Gagal menyimpan dokumen"
   }

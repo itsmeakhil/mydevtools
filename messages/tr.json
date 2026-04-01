@@ -31,7 +31,8 @@
     "malay": "Bahasa Melayu",
     "dutch": "Nederlands",
     "polish": "Polski",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "Ukraynaca"
   },
   "SettingsPage": {
     "title": "Ayarlar",
@@ -90,7 +91,8 @@
         "vi": "Tiếng Việt",
         "ru": "Русский",
         "sv": "Svenska",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "uk": "Українська"
       }
     }
   },
@@ -1391,13 +1393,13 @@
     "copy": "Kopyala",
     "save": "Kaydet",
     "saving": "Kaydediliyor...",
-    "leftDocNameLabel": "Left document name",
-    "rightDocNameLabel": "Right document name",
-    "toastCopiedText": "Text pane copied",
-    "toastCopiedTree": "Tree pane copied",
-    "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
-    "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "leftDocNameLabel": "Sol belge adı",
+    "rightDocNameLabel": "Sağ belge adı",
+    "toastCopiedText": "Metin paneli kopyalandı",
+    "toastCopiedTree": "Ağaç paneli kopyalandı",
+    "toastCopyFailed": "JSON kopyalanamadı",
+    "toastLoginRequired": "Belgeleri kaydetmek için giriş yapın",
+    "toastSaved": "Belge kaydedildi",
+    "toastSaveFailed": "Belge kaydedilemedi"
   }
 }
