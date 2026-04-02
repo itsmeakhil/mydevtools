@@ -2,20 +2,7 @@
 
 import * as React from "react"
 import { toast } from "sonner"
-import {
-    collection,
-    query,
-    where,
-    onSnapshot,
-    addDoc,
-    updateDoc,
-    deleteDoc,
-    doc,
-    serverTimestamp,
-    getDocs,
-    writeBatch
-} from "firebase/firestore"
-import { db, auth } from "@/database/firebase"
+import { auth } from "@/database/firebase"
 import { useAuthState } from "react-firebase-hooks/auth"
 
 export interface EnvironmentVariable {
@@ -35,13 +22,44 @@ export interface Environment {
 const STORAGE_KEY = "api-client-environments"
 const ACTIVE_ENV_KEY = "api-client-active-environment"
 
+function sortEnvs(envs: Environment[]) {
+    return [...envs].sort((a, b) => a.name.localeCompare(b.name))
+}
+
 export function useEnvironments() {
     const [user, loading] = useAuthState(auth)
     const [environments, setEnvironments] = React.useState<Environment[]>([])
     const [activeEnvId, setActiveEnvId] = React.useState<string | null>(null)
     const [isLoading, setIsLoading] = React.useState(true)
+    const migrationRanRef = React.useRef(false)
 
-    // Load environments from Firestore
+    React.useEffect(() => {
+        if (!user) migrationRanRef.current = false
+    }, [user])
+
+    const authedFetch = React.useCallback(
+        async (path: string, init?: RequestInit) => {
+            if (!user) throw new Error("Not authenticated")
+            const token = await user.getIdToken()
+            const res = await fetch(path, {
+                ...init,
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(init?.headers || {}),
+                    Authorization: `Bearer ${token}`,
+                },
+                cache: "no-store",
+            })
+            if (!res.ok) {
+                const text = await res.text().catch(() => "")
+                throw new Error(text || `Request failed (${res.status})`)
+            }
+            return res
+        },
+        [user]
+    )
+
+    // Load environments from backend
     React.useEffect(() => {
         if (loading) return
         if (!user) {
@@ -50,91 +68,66 @@ export function useEnvironments() {
             return
         }
 
-        const q = query(
-            collection(db, "api_environments"),
-            where("userId", "==", user.uid)
-        )
+        let cancelled = false
+        ;(async () => {
+            try {
+                setIsLoading(true)
+                const res = await authedFetch("/api/backend/api-client/environments", { method: "GET" })
+                const envs = sortEnvs((await res.json()) as Environment[])
+                if (!cancelled) setEnvironments(envs)
+            } catch (error) {
+                console.error("Error fetching environments:", error)
+                toast.error("Failed to load environments")
+            } finally {
+                if (!cancelled) setIsLoading(false)
+            }
+        })()
 
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-            const envs = snapshot.docs.map(doc => ({
-                ...doc.data(),
-                id: doc.id
-            })) as Environment[]
+        return () => {
+            cancelled = true
+        }
+    }, [user, loading, authedFetch])
 
-            // Sort by name
-            envs.sort((a, b) => a.name.localeCompare(b.name))
-
-            setEnvironments(envs)
-            setIsLoading(false)
-        }, (error) => {
-            console.error("Error fetching environments:", error)
-            toast.error("Failed to load environments")
-            setIsLoading(false)
-        })
-
-        return () => unsubscribe()
-    }, [user, loading])
-
-    // Migration logic: LocalStorage -> Firestore
+    // Migration: localStorage → backend once when server has no environments
     React.useEffect(() => {
         const migrateData = async () => {
-            if (loading || !user || !isLoading) return
+            if (loading || !user || isLoading || migrationRanRef.current) return
 
             const stored = localStorage.getItem(STORAGE_KEY)
             if (!stored) return
+            if (environments.length > 0) return
 
-            // Check if we already have data in Firestore
-            const q = query(collection(db, "api_environments"), where("userId", "==", user.uid))
-            const snapshot = await getDocs(q)
-
-            if (snapshot.empty) {
-                try {
-                    const localEnvironments: Environment[] = JSON.parse(stored)
-                    if (localEnvironments.length > 0) {
-                        const batch = writeBatch(db)
-                        localEnvironments.forEach(env => {
-                            // Create new doc ref
-                            const newDocRef = doc(collection(db, "api_environments"))
-                            // We don't use the old ID as the doc ID to let Firestore auto-generate, 
-                            // but we might want to preserve it if it's referenced elsewhere?
-                            // The activeEnvId references it. 
-                            // If we change IDs, we break the active selection.
-                            // Let's try to use the existing ID if it's a valid string, or map it.
-                            // Actually, let's just create new docs and if the active one matches, we're good.
-                            // Wait, if we change IDs, activeEnvId (stored locally) won't match.
-                            // We should probably update activeEnvId if we can map them.
-                            // Simpler: Just use the old ID as the doc ID if possible? 
-                            // Firestore IDs are strings. 
-
-                            // Let's just generate new IDs for cleanliness and reset active env if needed.
-                            // Or better, try to keep the ID if it looks like a UUID.
-
-                            batch.set(newDocRef, {
-                                ...env,
-                                userId: user.uid,
-                                createdAt: serverTimestamp(),
-                                updatedAt: serverTimestamp()
-                            })
+            migrationRanRef.current = true
+            try {
+                const localEnvironments: Environment[] = JSON.parse(stored)
+                const migrated: Environment[] = []
+                for (const env of localEnvironments) {
+                    const res = await authedFetch("/api/backend/api-client/environments", {
+                        method: "POST",
+                        body: JSON.stringify({ name: env.name }),
+                    })
+                    const created = (await res.json()) as Environment
+                    if (env.variables?.length) {
+                        const patchRes = await authedFetch(`/api/backend/api-client/environments/${created.id}`, {
+                            method: "PATCH",
+                            body: JSON.stringify({ variables: env.variables }),
                         })
-                        await batch.commit()
-                        toast.success("Migrated local environments to cloud")
-                        localStorage.removeItem(STORAGE_KEY)
-                        // We might lose active env selection if IDs change, but that's acceptable for a one-time migration.
-                        // Actually, since we are reading 'stored' which has the IDs, and we are creating NEW docs with NEW IDs (auto-generated by doc()),
-                        // the IDs WILL change.
-                        // If we want to preserve IDs, we should use setDoc with specific ID.
-                        // But local IDs might be UUIDs, which are fine for Firestore.
+                        migrated.push((await patchRes.json()) as Environment)
+                    } else {
+                        migrated.push(created)
                     }
-                } catch (e) {
-                    console.error("Migration failed", e)
                 }
+                toast.success("Migrated local environments to cloud")
+                localStorage.removeItem(STORAGE_KEY)
+                setEnvironments(sortEnvs(migrated))
+            } catch (e) {
+                migrationRanRef.current = false
+                console.error("Migration failed", e)
             }
         }
 
-        if (!loading && user) {
-            migrateData()
-        }
-    }, [user, loading, isLoading])
+        void migrateData()
+    }, [user, loading, isLoading, environments.length, authedFetch])
 
     // Load active env from local storage
     React.useEffect(() => {
@@ -157,15 +150,14 @@ export function useEnvironments() {
         if (!user) return ""
 
         try {
-            const docRef = await addDoc(collection(db, "api_environments"), {
-                name,
-                variables: [],
-                userId: user.uid,
-                createdAt: serverTimestamp(),
-                updatedAt: serverTimestamp()
+            const res = await authedFetch("/api/backend/api-client/environments", {
+                method: "POST",
+                body: JSON.stringify({ name }),
             })
+            const created = (await res.json()) as Environment
+            setEnvironments((prev) => sortEnvs([...prev, created]))
             toast.success("Environment created")
-            return docRef.id
+            return created.id
         } catch (e) {
             console.error("Error creating environment", e)
             toast.error("Failed to create environment")
@@ -177,11 +169,12 @@ export function useEnvironments() {
         if (!user) return
 
         try {
-            const envRef = doc(db, "api_environments", id)
-            await updateDoc(envRef, {
-                ...updates,
-                updatedAt: serverTimestamp()
+            const res = await authedFetch(`/api/backend/api-client/environments/${id}`, {
+                method: "PATCH",
+                body: JSON.stringify(updates),
             })
+            const updated = (await res.json()) as Environment
+            setEnvironments((prev) => sortEnvs(prev.map((e) => (e.id === updated.id ? updated : e))))
         } catch (e) {
             console.error("Error updating environment", e)
             toast.error("Failed to update environment")
@@ -192,7 +185,8 @@ export function useEnvironments() {
         if (!user) return
 
         try {
-            await deleteDoc(doc(db, "api_environments", id))
+            await authedFetch(`/api/backend/api-client/environments/${id}`, { method: "DELETE" })
+            setEnvironments((prev) => prev.filter((e) => e.id !== id))
             if (activeEnvId === id) {
                 setActiveEnvId(null)
             }

@@ -1,14 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { IconCopy, IconDeviceFloppy, IconFilePlus, IconJson } from '@tabler/icons-react'
-import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { toast } from 'sonner'
 import { Mode, toTextContent, type Content, type OnChangeStatus } from 'vanilla-jsoneditor'
 import { Card, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { db } from '@/database/firebase'
 import useAuth from '@/utils/useAuth'
 import { VanillaEditor } from './vanilla-editor'
 import {
@@ -48,6 +46,28 @@ const createPaneState = (initialName: string): PaneState => ({
 export function JsonFormatterLayout() {
   const t = useTranslations('JsonFormatter')
   const { user } = useAuth(false)
+
+  const authedFetch = useCallback(
+    async (path: string, init?: RequestInit) => {
+      if (!user) throw new Error('Not authenticated')
+      const token = await user.getIdToken()
+      const res = await fetch(path, {
+        ...init,
+        headers: {
+          'Content-Type': 'application/json',
+          ...(init?.headers || {}),
+          Authorization: `Bearer ${token}`,
+        },
+        cache: 'no-store',
+      })
+      if (!res.ok) {
+        const text = await res.text().catch(() => '')
+        throw new Error(text || `Request failed (${res.status})`)
+      }
+      return res
+    },
+    [user]
+  )
   const [leftPane, setLeftPane] = useState<PaneState>(() =>
     createPaneState(t('documentNameText', { n: 1 }))
   )
@@ -113,7 +133,7 @@ export function JsonFormatterLayout() {
   }
 
   const handleSave = async (pane: PaneKey) => {
-    if (!user?.uid) {
+    if (!user) {
       toast.error(t('toastLoginRequired'))
       return
     }
@@ -122,22 +142,26 @@ export function JsonFormatterLayout() {
     try {
       updatePane(pane, (prev) => ({ ...prev, isSaving: true }))
       const textContent = toTextContent(paneState.content)
-      const payload = {
+      const body = {
         title: paneState.documentName,
-        userId: user.uid,
         pane,
         content: textContent.text,
-        updatedAt: serverTimestamp(),
       }
 
       if (paneState.documentId) {
-        await updateDoc(doc(db, 'json_formatter_documents', paneState.documentId), payload)
+        const res = await authedFetch(
+          `/api/backend/json-formatter/documents/${paneState.documentId}`,
+          { method: 'PATCH', body: JSON.stringify(body) }
+        )
+        const saved = (await res.json()) as { id: string }
+        updatePane(pane, (prev) => ({ ...prev, documentId: saved.id }))
       } else {
-        const docRef = await addDoc(collection(db, 'json_formatter_documents'), {
-          ...payload,
-          createdAt: serverTimestamp(),
+        const res = await authedFetch('/api/backend/json-formatter/documents', {
+          method: 'POST',
+          body: JSON.stringify(body),
         })
-        updatePane(pane, (prev) => ({ ...prev, documentId: docRef.id }))
+        const saved = (await res.json()) as { id: string }
+        updatePane(pane, (prev) => ({ ...prev, documentId: saved.id }))
       }
 
       toast.success(t('toastSaved'))

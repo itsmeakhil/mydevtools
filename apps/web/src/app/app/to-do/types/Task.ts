@@ -1,5 +1,3 @@
-import { FieldValue, Timestamp } from "firebase/firestore";
-
 export type TaskPriority = "low" | "medium" | "high";
 export type TaskStatus = "not-started" | "ongoing" | "completed";
 
@@ -42,16 +40,16 @@ export interface NewTask {
   status: TaskStatus;
   statusOrder: number;
   priority?: TaskPriority;
-  dueDate?: FieldValue | Timestamp | string;
+  dueDate?: string;
   tags?: TaskTag[];
   subTasks?: SubTask[];
-  createdAt: FieldValue | Timestamp;
-  completedAt?: FieldValue | Timestamp;
+  createdAt: string;
+  completedAt?: string;
   created_by: string;
   archived?: boolean;
   timeEstimate?: number;
   timeLogged?: number;
   isTimerRunning?: boolean;
-  timerStartedAt?: FieldValue | Timestamp | string;
+  timerStartedAt?: string;
   projectId?: string;
 }
