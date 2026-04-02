@@ -1,5 +1,7 @@
 from fastapi import APIRouter, Depends, Query
 
+from typing import Optional
+
 from app.api.routes.auth.services import get_current_uid
 from app.api.routes.bookmarks import services as bm_svc
 from app.api.routes.bookmarks.schema import (
@@ -44,7 +46,7 @@ def clear_all(uid: str = Depends(get_current_uid)) -> dict[str, int]:
 @bookmarks_router.get("", response_model=list[BookmarkOut], summary="List bookmarks")
 def list_bookmarks(
     uid: str = Depends(get_current_uid),
-    folder_id: str | None = Query(
+    folder_id: Optional[str] = Query(
         default=None,
         alias="folderId",
         description="Omit for all; use 'uncategorized' for root; else a folder id",
