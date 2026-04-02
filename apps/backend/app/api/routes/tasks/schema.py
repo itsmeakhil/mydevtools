@@ -26,7 +26,7 @@ Projects::
     db.projects.create_index([("created_by", 1), ("createdAt", 1)])
 """
 
-from typing import Any, Literal
+from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -56,26 +56,26 @@ class TaskBase(BaseModel):
     """Writable task fields (aligned with ``NewTask`` / Firestore writes)."""
 
     text: str = Field(min_length=1)
-    description: str | None = None
+    description: Optional[str] = None
     status: TaskStatus = "not-started"
     statusOrder: int = 2
-    priority: TaskPriority | None = None
-    dueDate: str | None = None
-    tags: list[TaskTag] | None = None
-    subTasks: list[SubTask] | None = None
-    archived: bool | None = None
-    timeEstimate: int | None = None
-    timeLogged: int | None = None
-    isTimerRunning: bool | None = None
-    timerStartedAt: str | None = None
-    projectId: str | None = None
+    priority: Optional[TaskPriority] = None
+    dueDate: Optional[str] = None
+    tags: Optional[list[TaskTag]] = None
+    subTasks: Optional[list[SubTask]] = None
+    archived: Optional[bool] = None
+    timeEstimate: Optional[int] = None
+    timeLogged: Optional[int] = None
+    isTimerRunning: Optional[bool] = None
+    timerStartedAt: Optional[str] = None
+    projectId: Optional[str] = None
 
 
 class TaskCreate(BaseModel):
     """Maps to ``addTask``: title + optional project."""
 
     text: str = Field(min_length=1)
-    projectId: str | None = None
+    projectId: Optional[str] = None
 
 
 class TaskUpdate(BaseModel):
@@ -86,20 +86,20 @@ class TaskUpdate(BaseModel):
 
     model_config = ConfigDict(extra="ignore")
 
-    text: str | None = None
-    description: str | None = None
-    status: TaskStatus | None = None
-    statusOrder: int | None = None
-    priority: TaskPriority | None = None
-    dueDate: str | None = None
-    tags: list[TaskTag] | None = None
-    subTasks: list[SubTask] | None = None
-    archived: bool | None = None
-    timeEstimate: int | None = None
-    timeLogged: int | None = None
-    isTimerRunning: bool | None = None
-    timerStartedAt: str | None = None
-    projectId: str | None = None
+    text: Optional[str] = None
+    description: Optional[str] = None
+    status: Optional[TaskStatus] = None
+    statusOrder: Optional[int] = None
+    priority: Optional[TaskPriority] = None
+    dueDate: Optional[str] = None
+    tags: Optional[list[TaskTag]] = None
+    subTasks: Optional[list[SubTask]] = None
+    archived: Optional[bool] = None
+    timeEstimate: Optional[int] = None
+    timeLogged: Optional[int] = None
+    isTimerRunning: Optional[bool] = None
+    timerStartedAt: Optional[str] = None
+    projectId: Optional[str] = None
 
 
 class TaskStatusUpdate(BaseModel):
@@ -115,22 +115,22 @@ class TaskOut(BaseModel):
 
     id: str
     text: str
-    description: str | None = None
+    description: Optional[str] = None
     status: TaskStatus
     statusOrder: int
-    priority: TaskPriority | None = None
-    dueDate: str | None = None
-    tags: list[dict[str, Any]] | None = None
-    subTasks: list[dict[str, Any]] | None = None
+    priority: Optional[TaskPriority] = None
+    dueDate: Optional[str] = None
+    tags: Optional[list[dict[str, Any]]] = None
+    subTasks: Optional[list[dict[str, Any]]] = None
     createdAt: str
-    completedAt: str | None = None
+    completedAt: Optional[str] = None
     created_by: str
-    archived: bool | None = None
-    timeEstimate: int | None = None
-    timeLogged: int | None = None
-    isTimerRunning: bool | None = None
-    timerStartedAt: str | None = None
-    projectId: str | None = None
+    archived: Optional[bool] = None
+    timeEstimate: Optional[int] = None
+    timeLogged: Optional[int] = None
+    isTimerRunning: Optional[bool] = None
+    timerStartedAt: Optional[str] = None
+    projectId: Optional[str] = None
 
 
 class TaskListResponse(BaseModel):
@@ -168,8 +168,8 @@ class ProjectCreate(ProjectBase):
 class ProjectUpdate(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    name: str | None = Field(default=None, min_length=1)
-    color: str | None = Field(default=None, min_length=1)
+    name: Optional[str] = Field(default=None, min_length=1)
+    color: Optional[str] = Field(default=None, min_length=1)
 
 
 class ProjectOut(BaseModel):
