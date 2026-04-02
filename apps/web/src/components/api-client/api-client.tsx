@@ -35,6 +35,26 @@ import { Button } from "@/components/ui/button"
 import { FolderOpen, PanelRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 
+/** `new URL()` requires a scheme; host-only URLs (e.g. `api.example.com/v1`) are common in API clients. */
+function buildRequestUrl(raw: string): URL {
+    const trimmed = raw.trim()
+    if (!trimmed) {
+        throw new Error("URL is empty")
+    }
+    try {
+        return new URL(trimmed)
+    } catch {
+        try {
+            if (trimmed.startsWith("//")) {
+                return new URL(`https:${trimmed}`)
+            }
+            return new URL(`https://${trimmed}`)
+        } catch {
+            throw new Error("Invalid URL")
+        }
+    }
+}
+
 const createNewTab = (): ApiRequestState => ({
     id: crypto.randomUUID(),
     name: API_CLIENT_DEFAULT_TAB_NAME,
@@ -221,7 +241,7 @@ export function ApiClient() {
     }
 
     const handleSend = async () => {
-        if (!activeTab.url) return
+        if (!activeTab.url?.trim()) return
 
         updateActiveTab({ isLoading: true, response: null })
         const startTime = performance.now()
@@ -231,7 +251,7 @@ export function ApiClient() {
             const finalUrl = substituteVariables(activeTab.url)
 
             // Construct URL with params
-            const urlObj = new URL(finalUrl)
+            const urlObj = buildRequestUrl(finalUrl)
             activeTab.params.forEach((p) => {
                 if (p.active && p.key) {
                     urlObj.searchParams.append(substituteVariables(p.key), substituteVariables(p.value))

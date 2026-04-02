@@ -11,6 +11,25 @@ import { CheckCircle2, AlertCircle, Copy, Download, Search, Info, Clock, Databas
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 
+function normalizeContentType(headers: Record<string, string>): string {
+    const raw =
+        Object.entries(headers).find(([k]) => k.toLowerCase() === "content-type")?.[1] || ""
+    return raw.split(";")[0].trim().toLowerCase()
+}
+
+/** When servers omit or mislabel Content-Type, still offer an HTML preview for obvious documents. */
+function bodyLooksLikeHtml(body: string): boolean {
+    if (!body || body.length < 3) return false
+    const s = body.trimStart()
+    if (s.startsWith("<?xml")) return false
+    if (/^\s*[{[]/.test(s)) return false
+    const head = s.slice(0, 400)
+    if (/^\s*<!doctype\s+html\b/i.test(head)) return true
+    if (/^\s*<\s*html\b/i.test(head)) return true
+    if (/^\s*<\s*(head|body)\b/i.test(head)) return true
+    return false
+}
+
 interface ResponsePanelProps {
     response: ApiResponse | null
 }
@@ -35,11 +54,17 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
     const isSuccess = response.status >= 200 && response.status < 300
     const isError = response.status >= 400
 
-    const contentType = Object.entries(response.headers).find(([k]) => k.toLowerCase() === "content-type")?.[1] || ""
+    const contentType = normalizeContentType(response.headers)
+    const isHtmlByHeader =
+        contentType.includes("text/html") ||
+        contentType.includes("application/xhtml") ||
+        contentType === "application/xhtml+xml"
+    const isHtmlByBody = !response.isBase64 && bodyLooksLikeHtml(response.body)
+    const isHtmlResponse = isHtmlByHeader || isHtmlByBody
 
     const getLanguage = () => {
         if (contentType.includes("json")) return "json"
-        if (contentType.includes("html")) return "html"
+        if (contentType.includes("html") || isHtmlByBody) return "html"
         if (contentType.includes("xml")) return "xml"
         return "text"
     }
@@ -52,7 +77,9 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
 
     const handleDownload = () => {
         if (!response?.body) return
-        const blob = new Blob([response.body], { type: contentType || "text/plain" })
+        const blob = new Blob([response.body], {
+            type: contentType || (isHtmlResponse ? "text/html" : "text/plain"),
+        })
         const url = URL.createObjectURL(blob)
         const a = document.createElement("a")
         a.href = url
@@ -77,9 +104,14 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
                     <iframe src={`data:application/pdf;base64,${response.body}`} className="w-full h-full border-0 absolute inset-0" />
                 )
             }
-        } else if (contentType.includes("text/html")) {
+        } else if (isHtmlResponse) {
             return (
-                <iframe srcDoc={response.body} className="w-full h-full border-0 absolute inset-0 bg-white" sandbox="allow-scripts allow-same-origin allow-forms" />
+                <iframe
+                    title="HTML response preview"
+                    srcDoc={response.body}
+                    className="w-full h-full min-h-[320px] border-0 absolute inset-0 bg-white dark:bg-background"
+                    sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                />
             )
         }
 
@@ -90,11 +122,21 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
         )
     }
 
-    const hasPreview = response.isBase64 || contentType.includes("text/html")
+    const hasPreview = response.isBase64 || isHtmlResponse
+    const defaultTab =
+        (isHtmlResponse && !response.isBase64) ||
+        (response.isBase64 &&
+            (contentType.includes("image/") || contentType.includes("application/pdf")))
+            ? "preview"
+            : "body"
 
     return (
         <div className="flex flex-col h-full space-y-4 min-h-0">
-            <Tabs defaultValue={hasPreview ? "preview" : "body"} className="flex-1 flex flex-col min-h-0">
+            <Tabs
+                key={`${response.status}-${response.time}-${response.size}-${response.body?.length ?? 0}`}
+                defaultValue={defaultTab}
+                className="flex-1 flex flex-col min-h-0"
+            >
                 <div
                     className={cn(
                         "flex flex-wrap items-center justify-between gap-3 p-2 border rounded-xl bg-card shrink-0",
