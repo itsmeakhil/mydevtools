@@ -1,23 +1,9 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
-import {
-    collection,
-    query,
-    onSnapshot,
-    addDoc,
-    updateDoc,
-    doc,
-    deleteDoc,
-    where,
-    serverTimestamp,
-    orderBy,
-} from "firebase/firestore";
-import { db } from "../../../../database/firebase";
 import { Project, NewProject } from "@/app/app/to-do/types/Project";
 import useAuth from "@/utils/useAuth";
 import { toast } from "sonner";
-import { format } from "date-fns";
 import { useTranslations } from "next-intl";
 
 interface ProjectContextType {
@@ -36,53 +22,70 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
     const [projects, setProjects] = useState<Project[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    const authedFetch = useCallback(
+        async (path: string, init?: RequestInit) => {
+            if (!user) throw new Error("Not authenticated");
+            const token = await user.getIdToken()
+            const res = await fetch(path, {
+                ...init,
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(init?.headers || {}),
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            if (!res.ok) {
+                const text = await res.text().catch(() => "")
+                throw new Error(text || `Request failed (${res.status})`)
+            }
+            return res
+        },
+        [user]
+    )
+
     useEffect(() => {
-        if (!user || !user.uid) {
+        if (!user) {
             setProjects([]);
             setIsLoading(false);
             return;
         }
 
-        const q = query(
-            collection(db, "projects"),
-            where("created_by", "==", user.uid),
-            orderBy("createdAt", "asc")
-        );
+        let cancelled = false
+        ;(async () => {
+            try {
+                setIsLoading(true)
+                const res = await authedFetch("/api/backend/projects", { method: "GET" })
+                const items = (await res.json()) as Project[]
+                if (!cancelled) setProjects(items)
+            } catch (error) {
+                console.error("Error fetching projects:", error)
+            } finally {
+                if (!cancelled) setIsLoading(false)
+            }
+        })()
 
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-            const projectsArray: Project[] = [];
-            snapshot.forEach((doc) => {
-                const data = doc.data();
-                projectsArray.push({
-                    id: doc.id,
-                    name: data.name,
-                    color: data.color,
-                    created_by: data.created_by,
-                    createdAt: data.createdAt?.toDate ? format(data.createdAt.toDate(), "dd MMM yyyy, hh:mm a") : "Unknown",
-                });
-            });
-            setProjects(projectsArray);
-            setIsLoading(false);
-        }, (error) => {
-            console.error("Error fetching projects:", error);
-            setIsLoading(false);
-        });
-
-        return () => unsubscribe();
-    }, [user]);
+        return () => {
+            cancelled = true
+        }
+    }, [user, authedFetch]);
 
     const addProject = async (name: string, color: string) => {
-        if (!user || !user.uid) return;
+        if (!user) return;
 
         const newProject: NewProject = {
             name,
             color,
             created_by: user.uid,
-            createdAt: serverTimestamp(),
+            createdAt: new Date().toISOString(),
         };
 
         try {
-            await addDoc(collection(db, "projects"), newProject);
+            const res = await authedFetch("/api/backend/projects", {
+                method: "POST",
+                body: JSON.stringify({ name: newProject.name, color: newProject.color }),
+            })
+            const created = (await res.json()) as Project
+            setProjects((prev) => [...prev, created])
             toast.success(tAck("projectCreatedTitle"));
         } catch (error) {
             console.error("Failed to add project:", error);
@@ -91,11 +94,16 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
     };
 
     const updateProject = async (projectId: string, updates: Partial<Project>) => {
-        if (!user || !user.uid) return;
+        if (!user) return;
 
         try {
             const { id, created_by, createdAt, ...updateData } = updates as any;
-            await updateDoc(doc(db, "projects", projectId), updateData);
+            const res = await authedFetch(`/api/backend/projects/${projectId}`, {
+                method: "PATCH",
+                body: JSON.stringify(updateData),
+            })
+            const updated = (await res.json()) as Project
+            setProjects((prev) => prev.map((p) => (p.id === projectId ? updated : p)))
             toast.success(tAck("projectUpdatedTitle"));
         } catch (error) {
             console.error("Failed to update project:", error);
@@ -104,10 +112,11 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
     };
 
     const deleteProject = async (projectId: string) => {
-        if (!user || !user.uid) return;
+        if (!user) return;
 
         try {
-            await deleteDoc(doc(db, "projects", projectId));
+            await authedFetch(`/api/backend/projects/${projectId}`, { method: "DELETE" })
+            setProjects((prev) => prev.filter((p) => p.id !== projectId))
             toast.success(tAck("projectDeletedTitle"));
         } catch (error) {
             console.error("Failed to delete project:", error);

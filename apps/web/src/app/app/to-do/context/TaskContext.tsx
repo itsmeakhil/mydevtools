@@ -1,65 +1,11 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from "react";
-import {
-  collection,
-  query,
-  onSnapshot,
-  addDoc,
-  updateDoc,
-  doc,
-  deleteDoc,
-  limit,
-  startAfter,
-  QueryDocumentSnapshot,
-  DocumentData,
-  orderBy,
-  getDocs,
-  limitToLast,
-  endBefore,
-  serverTimestamp,
-  QuerySnapshot,
-  where,
-  getCountFromServer,
-} from "firebase/firestore";
-import { db } from "../../../../database/firebase";
 import { Task, NewTask } from "@/app/app/to-do/types/Task";
 import { format } from "date-fns";
 import useAuth, { AuthState } from "@/utils/useAuth";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
-
-// Helper function to safely convert Firestore timestamps to formatted strings
-const formatFirestoreDate = (dateValue: any): string | undefined => {
-  if (!dateValue) return undefined;
-
-  // If it's already a string, return it
-  if (typeof dateValue === 'string') {
-    return dateValue;
-  }
-
-  // If it's a Firestore Timestamp, convert it
-  if (dateValue && typeof dateValue.toDate === 'function') {
-    try {
-      return format(dateValue.toDate(), "dd MMM yyyy, hh:mm a");
-    } catch (error) {
-      console.error("Error formatting Firestore date:", error);
-      return undefined;
-    }
-  }
-
-  // If it's a Date object, format it
-  if (dateValue instanceof Date) {
-    try {
-      return format(dateValue, "dd MMM yyyy, hh:mm a");
-    } catch (error) {
-      console.error("Error formatting Date:", error);
-      return undefined;
-    }
-  }
-
-  return undefined;
-};
 
 interface TaskContextType {
   tasks: Task[];
@@ -102,9 +48,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
   const tStatus = useTranslations("Tasks.status");
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [lastDoc, setLastDoc] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [firstDoc, setFirstDoc] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
   const [totalPages, setTotalPages] = useState(0);
   const [totalTaskCount, setTotalTaskCount] = useState(0);
   const [filterStatus, setFilterStatus] = useState<"all" | "not-started" | "ongoing" | "completed">("all");
@@ -115,461 +59,117 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
     ongoing: 0,
     notStarted: 0,
   });
-  const [pageCache, setPageCache] = useState<Map<number, QueryDocumentSnapshot<DocumentData>>>(new Map());
   const tasksPerPage = 10;
-  const unsubscribers = useRef<(() => void)[]>([]);
+  const didInitialLoad = useRef(false);
 
-  // Modify the cleanup function to be less aggressive
-  const cleanupListeners = useCallback(() => {
-    if (unsubscribers.current.length > 0) {
-      unsubscribers.current.forEach(unsubscribe => unsubscribe());
-      unsubscribers.current = [];
-    }
-  }, []);
-
-  // Modified error handler
-  const handleFirestoreError = useCallback((error: { code: string }) => {
-    if (error.code === "permission-denied") {
-      console.warn("Permission denied, cleaning up listeners");
-      cleanupListeners();
-    } else {
-      console.error("Firestore error:", error);
-    }
-  }, [cleanupListeners]);
-
-  // Helper function to update tasks from snapshot
-  const updateTasksFromSnapshot = useCallback((querySnapshot: QuerySnapshot<DocumentData>) => {
-    const tasksArray: Task[] = [];
-    querySnapshot.forEach((doc: QueryDocumentSnapshot<DocumentData>) => {
-      const data = doc.data();
-      tasksArray.push({
-        id: doc.id,
-        text: data.text,
-        description: data.description,
-        status: data.status,
-        statusOrder: data.statusOrder,
-        priority: data.priority,
-        dueDate: data.dueDate,
-        tags: data.tags,
-        subTasks: data.subTasks,
-        createdAt: formatFirestoreDate(data.createdAt) || "Unknown",
-        completedAt: formatFirestoreDate(data.completedAt),
-        created_by: data.created_by,
-        archived: data.archived,
-        timeEstimate: data.timeEstimate,
-        timeLogged: data.timeLogged,
-        isTimerRunning: data.isTimerRunning,
-        timerStartedAt: data.timerStartedAt,
-        projectId: data.projectId,
+  const authedFetch = useCallback(
+    async (path: string, init?: RequestInit) => {
+      if (!user) throw new Error("Not authenticated");
+      const token = await user.getIdToken();
+      const res = await fetch(path, {
+        ...init,
+        headers: {
+          "Content-Type": "application/json",
+          ...(init?.headers || {}),
+          Authorization: `Bearer ${token}`,
+        },
+        cache: "no-store",
       });
-    });
-    setTasks(tasksArray);
-    if (querySnapshot.docs.length > 0) {
-      setFirstDoc(querySnapshot.docs[0]);
-      setLastDoc(querySnapshot.docs[querySnapshot.docs.length - 1]);
-    }
-  }, []);
+      if (!res.ok) {
+        const text = await res.text().catch(() => "");
+        throw new Error(text || `Request failed (${res.status})`);
+      }
+      return res;
+    },
+    [user]
+  );
 
-  // Fetch stats efficiently using count()
   const fetchStats = useCallback(async () => {
-    if (!user || !user.uid) return;
-
     try {
-      const baseQuery = query(collection(db, "tasks"), where("created_by", "==", user.uid));
-
-      const [totalSnap, completedSnap, ongoingSnap, notStartedSnap] = await Promise.all([
-        getCountFromServer(baseQuery),
-        getCountFromServer(query(baseQuery, where("status", "==", "completed"))),
-        getCountFromServer(query(baseQuery, where("status", "==", "ongoing"))),
-        getCountFromServer(query(baseQuery, where("status", "==", "not-started")))
-      ]);
-
-      setAllTaskStats({
-        total: totalSnap.data().count,
-        completed: completedSnap.data().count,
-        ongoing: ongoingSnap.data().count,
-        notStarted: notStartedSnap.data().count,
-      });
-
-      // Update total pages based on total count
-      const calculatedPages = Math.max(1, Math.ceil(totalSnap.data().count / tasksPerPage));
+      if (!user) return;
+      const res = await authedFetch("/api/backend/tasks/stats", { method: "GET" });
+      const stats = await res.json();
+      setAllTaskStats(stats);
+      const calculatedPages = Math.max(1, Math.ceil((stats.total ?? 0) / tasksPerPage));
       setTotalPages(calculatedPages);
-      setTotalTaskCount(totalSnap.data().count);
-
+      setTotalTaskCount(stats.total ?? 0);
     } catch (error) {
       console.error("Error fetching task stats:", error);
     }
-  }, [user]);
+  }, [user, authedFetch, tasksPerPage]);
 
-  // Initial stats load
   useEffect(() => {
     fetchStats();
   }, [fetchStats]);
 
-  // Listen for page changes to update list
-  useEffect(() => {
-    if (!user || !user.uid) {
-      cleanupListeners();
-      return;
-    }
-
-    // We still need to fetch the current page of tasks
-    // This logic was partly in the previous useEffect, now we ensure it runs when page/filter changes
-    // The actual task fetching is handled by the other useEffect (lines 361+ in original file)
-    // but we need to make sure totalPages is correct.
-    // fetchStats handles totalPages now.
-
-  }, [user, cleanupListeners]);
-
-  // Modified query creation helper function with proper typing
-  const createTaskQuery = useCallback(
-    (baseQuery: boolean) => {
-      if (!user?.uid) return null;
-
-      const constraints = [
-        where("created_by", "==", user.uid),
-      ];
-
-      // Add filter if not "all"
-      if (filterStatus !== "all") {
-        constraints.push(where("status", "==", filterStatus));
-      }
-
-      if (filterProject !== "all") {
-        constraints.push(where("projectId", "==", filterProject));
-      }
-
-      if (baseQuery) {
-        return query(
-          collection(db, "tasks"),
-          ...constraints,
-          orderBy("statusOrder"),
-          orderBy("createdAt", "desc"),
-          limit(tasksPerPage)
-        );
-      }
-      return query(
-        collection(db, "tasks"),
-        ...constraints,
-        orderBy("statusOrder"),
-        orderBy("createdAt", "desc")
-      );
-    },
-    [user?.uid, tasksPerPage, filterStatus, filterProject]
-  );
-
-  // Add this new function to refresh current page
   const refreshCurrentPage = useCallback(async () => {
-    if (!user?.uid) return;
-    setIsLoading(true);
-
     try {
-      const constraints = [
-        where("created_by", "==", user.uid),
-      ];
+      if (!user) return;
+      setIsLoading(true);
+      const params = new URLSearchParams();
+      params.set("status", filterStatus);
+      params.set("projectId", filterProject);
+      params.set("page", String(currentPage));
+      params.set("pageSize", String(tasksPerPage));
 
-      if (filterStatus !== "all") {
-        constraints.push(where("status", "==", filterStatus));
-      }
-
-      if (filterProject !== "all") {
-        constraints.push(where("projectId", "==", filterProject));
-      }
-
-      const q = query(
-        collection(db, "tasks"),
-        ...constraints,
-        orderBy("statusOrder"),
-        orderBy("createdAt", "desc"),
-        limit(currentPage * tasksPerPage)
-      );
-
-      const querySnapshot = await getDocs(q);
-      const docs = querySnapshot.docs;
-
-      if (docs.length === 0 && currentPage > 1) {
-        setCurrentPage((prev) => Math.max(1, prev - 1));
-        return await refreshCurrentPage();
-      }
-
-      const startIndex = (currentPage - 1) * tasksPerPage;
-      const pageDocs = docs.slice(startIndex, Math.min(startIndex + tasksPerPage, docs.length));
-
-      const tasksArray = pageDocs.map((doc) => {
-        const data = doc.data();
-        return {
-          id: doc.id,
-          text: data.text,
-          description: data.description,
-          status: data.status,
-          statusOrder: data.statusOrder,
-          priority: data.priority,
-          dueDate: data.dueDate,
-          tags: data.tags,
-          subTasks: data.subTasks,
-          createdAt: formatFirestoreDate(data.createdAt) || "Unknown",
-          completedAt: formatFirestoreDate(data.completedAt),
-          created_by: data.created_by,
-          archived: data.archived,
-          timeEstimate: data.timeEstimate,
-          timeLogged: data.timeLogged,
-          isTimerRunning: data.isTimerRunning,
-          timerStartedAt: data.timerStartedAt,
-          projectId: data.projectId,
-        };
-      });
-
-      setTasks(tasksArray);
-
-      if (pageDocs.length > 0) {
-        setFirstDoc(pageDocs[0]);
-        setLastDoc(pageDocs[pageDocs.length - 1]);
-      }
-
-      const totalDocsQuery = query(
-        collection(db, "tasks"),
-        ...constraints
-      );
-      const totalDocs = await getDocs(totalDocsQuery);
-      setTotalPages(Math.max(1, Math.ceil(totalDocs.size / tasksPerPage)));
-
-      const newCache = new Map<number, QueryDocumentSnapshot<DocumentData>>();
-      docs.forEach((doc, index) => {
-        const pageNumber = Math.floor(index / tasksPerPage) + 1;
-        if (!newCache.has(pageNumber)) {
-          newCache.set(pageNumber, doc);
-        }
-      });
-      setPageCache(newCache);
+      const res = await authedFetch(`/api/backend/tasks?${params.toString()}`, { method: "GET" });
+      const data = await res.json();
+      setTasks(data.items ?? []);
+      setTotalPages(data.total_pages ?? 1);
+      setTotalTaskCount(data.total ?? 0);
     } finally {
       setIsLoading(false);
     }
-  }, [user?.uid, currentPage, tasksPerPage, filterStatus, filterProject]);
+  }, [user, authedFetch, currentPage, tasksPerPage, filterStatus, filterProject]);
 
   // Reset to page 1 when filter changes
   useEffect(() => {
     setCurrentPage(1);
-    setPageCache(new Map());
   }, [filterStatus, filterProject]);
 
-  // Initial page load
   useEffect(() => {
-    if (!user || !user.uid) {
-      cleanupListeners();
+    if (!user) {
+      setTasks([]);
+      setIsLoading(false);
       return;
     }
-
-    setIsLoading(true);
-    const q = createTaskQuery(true);
-    if (!q) return;
-
-    const unsubscribe = onSnapshot(
-      q,
-      async (querySnapshot) => {
-        updateTasksFromSnapshot(querySnapshot);
-        await refreshCurrentPage();
-        setIsLoading(false);
-      },
-      handleFirestoreError
-    );
-
-    unsubscribers.current.push(unsubscribe);
-    return () => {
-      cleanupListeners();
-    };
-  }, [user, createTaskQuery, refreshCurrentPage, cleanupListeners, handleFirestoreError, updateTasksFromSnapshot, filterStatus, filterProject]);
+    // Avoid double-load on mount when stats effect also runs
+    if (!didInitialLoad.current) didInitialLoad.current = true;
+    refreshCurrentPage();
+  }, [user, refreshCurrentPage]);
 
   const fetchNextPage = useCallback(() => {
-    if (currentPage >= totalPages || !lastDoc || !user || !user.uid) return;
-
-    const constraints = [
-      where("created_by", "==", user.uid),
-    ];
-
-    if (filterStatus !== "all") {
-      constraints.push(where("status", "==", filterStatus));
-    }
-
-    if (filterProject !== "all") {
-      constraints.push(where("projectId", "==", filterProject));
-    }
-
-    const q = query(
-      collection(db, "tasks"),
-      ...constraints,
-      orderBy("statusOrder"),
-      orderBy("createdAt", "desc"),
-      startAfter(lastDoc),
-      limit(tasksPerPage)
-    );
-    const unsubscribe = onSnapshot(
-      q,
-      (querySnapshot) => {
-        if (querySnapshot.empty) {
-          return;
-        }
-        updateTasksFromSnapshot(querySnapshot);
-        setPageCache((prev) => {
-          const newCache = new Map(prev);
-          newCache.set(currentPage + 1, querySnapshot.docs[0]);
-          return newCache;
-        });
-        setCurrentPage(currentPage + 1);
-      },
-      handleFirestoreError
-    );
-
-    unsubscribers.current.push(unsubscribe);
-  }, [currentPage, totalPages, lastDoc, user, handleFirestoreError, filterStatus, filterProject, updateTasksFromSnapshot]);
+    if (currentPage >= totalPages) return;
+    setCurrentPage((p) => p + 1);
+  }, [currentPage, totalPages]);
 
   const fetchPreviousPage = useCallback(() => {
-    if (currentPage <= 1 || !firstDoc || !user || !user.uid) return;
-
-    const constraints = [
-      where("created_by", "==", user.uid),
-    ];
-
-    if (filterStatus !== "all") {
-      constraints.push(where("status", "==", filterStatus));
-    }
-
-    if (filterProject !== "all") {
-      constraints.push(where("projectId", "==", filterProject));
-    }
-
-    const q = query(
-      collection(db, "tasks"),
-      ...constraints,
-      orderBy("statusOrder"),
-      orderBy("createdAt", "desc"),
-      endBefore(firstDoc),
-      limitToLast(tasksPerPage)
-    );
-    const unsubscribe = onSnapshot(
-      q,
-      (querySnapshot) => {
-        if (querySnapshot.empty) {
-          return;
-        }
-        updateTasksFromSnapshot(querySnapshot);
-        setPageCache((prev) => {
-          const newCache = new Map(prev);
-          newCache.set(currentPage - 1, querySnapshot.docs[0]);
-          return newCache;
-        });
-        setCurrentPage(currentPage - 1);
-      },
-      handleFirestoreError
-    );
-
-    unsubscribers.current.push(unsubscribe);
-  }, [currentPage, firstDoc, user, handleFirestoreError, filterStatus, filterProject, updateTasksFromSnapshot]);
+    if (currentPage <= 1) return;
+    setCurrentPage((p) => Math.max(1, p - 1));
+  }, [currentPage]);
 
   const handlePageChange = async (page: number) => {
-    if (page === currentPage || page > totalPages || page < 1 || !user || !user.uid) return;
-
-    if (page === currentPage + 1) {
-      fetchNextPage();
-      return;
-    }
-    if (page === currentPage - 1) {
-      fetchPreviousPage();
-      return;
-    }
-
-    const constraints = [
-      where("created_by", "==", user.uid),
-    ];
-
-    if (filterStatus !== "all") {
-      constraints.push(where("status", "==", filterStatus));
-    }
-
-    if (filterProject !== "all") {
-      constraints.push(where("projectId", "==", filterProject));
-    }
-
-    const cachedDoc = pageCache.get(page);
-    if (cachedDoc) {
-      const q = query(
-        collection(db, "tasks"),
-        ...constraints,
-        orderBy("statusOrder"),
-        orderBy("createdAt", "desc"),
-        startAfter(cachedDoc),
-        limit(tasksPerPage)
-      );
-      const querySnapshot = await getDocs(q);
-      if (!querySnapshot.empty) {
-        updateTasksFromSnapshot(querySnapshot);
-        setCurrentPage(page);
-      }
-      return;
-    }
-
-    const q = query(
-      collection(db, "tasks"),
-      ...constraints,
-      orderBy("statusOrder"),
-      orderBy("createdAt", "desc"),
-      limit(page * tasksPerPage)
-    );
-    const querySnapshot = await getDocs(q);
-    const docs = querySnapshot.docs;
-    if (docs.length === 0) return;
-
-    const startIndex = (page - 1) * tasksPerPage;
-    const pageDocs = docs.slice(startIndex, Math.min(startIndex + tasksPerPage, docs.length));
-
-    const tasksArray: Task[] = [];
-    pageDocs.forEach((doc) => {
-      const data = doc.data();
-      tasksArray.push({
-        id: doc.id,
-        text: data.text,
-        description: data.description,
-        status: data.status,
-        statusOrder: data.statusOrder,
-        priority: data.priority,
-        dueDate: data.dueDate,
-        tags: data.tags,
-        subTasks: data.subTasks,
-        createdAt: formatFirestoreDate(data.createdAt) || "Unknown",
-        completedAt: formatFirestoreDate(data.completedAt),
-        created_by: data.created_by,
-        archived: data.archived,
-        timeLogged: data.timeLogged,
-        isTimerRunning: data.isTimerRunning,
-        timerStartedAt: data.timerStartedAt,
-        projectId: data.projectId,
-      });
-    });
-
-    setTasks(tasksArray);
-    setFirstDoc(pageDocs[0]);
-    setLastDoc(pageDocs[pageDocs.length - 1]);
-
-    setPageCache((prev) => {
-      const newCache = new Map(prev);
-      newCache.set(page, pageDocs[0]);
-      return newCache;
-    });
-
+    if (page === currentPage || page > totalPages || page < 1) return;
     setCurrentPage(page);
   };
 
   const addTask = async (newTaskText: string, projectId?: string): Promise<void> => {
-    if (!user || !user.uid) return;
+    if (!user) return;
     const newTask: NewTask = {
       text: newTaskText,
       status: "not-started",
       statusOrder: 2,
-      createdAt: serverTimestamp(),
+      createdAt: new Date().toISOString(),
       created_by: user.uid,
       projectId: projectId,
     };
     try {
-      await addDoc(collection(db, "tasks"), newTask);
+      await authedFetch("/api/backend/tasks", {
+        method: "POST",
+        body: JSON.stringify({ text: newTask.text, projectId: newTask.projectId }),
+      });
+      await refreshCurrentPage();
+      await fetchStats();
 
       // Optimistically update stats
       setAllTaskStats(prev => ({
@@ -591,7 +191,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
   };
 
   const updateTask = async (taskId: string, updates: Partial<Task>): Promise<void> => {
-    if (!user?.uid) return;
+    if (!user) return;
 
     // Optimistically update local state
     setTasks((currentTasks) =>
@@ -605,7 +205,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
 
       // If status is being updated and completedAt is not explicitly set
       if (updates.status === "completed" && !updates.completedAt) {
-        updateData.completedAt = serverTimestamp();
+        // Backend sets completedAt when status becomes completed
       }
 
       // Remove fields that shouldn't be updated directly in Firestore
@@ -626,7 +226,10 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
         return;
       }
 
-      await updateDoc(doc(db, "tasks", taskId), updateData);
+      await authedFetch(`/api/backend/tasks/${taskId}`, {
+        method: "PATCH",
+        body: JSON.stringify(updateData),
+      });
       toast.success(tAck("taskUpdatedTitle"));
     } catch (error) {
       console.error("Failed to update task:", error);
@@ -695,7 +298,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
   };
 
   const deleteTask = async (taskId: string): Promise<void> => {
-    if (!user?.uid) return;
+    if (!user) return;
 
     // Get the task before deleting it (for undo functionality)
     const taskToDelete = tasks.find(t => t.id === taskId);
@@ -726,11 +329,12 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
           // If deletion was already executed, re-add to Firestore
           if (deleteExecuted) {
             try {
-              const { id, ...taskData } = taskToDelete;
-              await addDoc(collection(db, "tasks"), {
-                ...taskData,
-                createdAt: serverTimestamp(),
+              await authedFetch("/api/backend/tasks", {
+                method: "POST",
+                body: JSON.stringify({ text: taskToDelete.text, projectId: taskToDelete.projectId }),
               });
+              await refreshCurrentPage();
+              await fetchStats();
               toast.success(tAck("taskRestoredSuccessTitle"));
             } catch (error) {
               console.error("Failed to restore task:", error);
@@ -747,7 +351,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
     // Execute deletion after delay (allows time for undo)
     deleteTimeout = setTimeout(async () => {
       try {
-        await deleteDoc(doc(db, "tasks", taskId));
+        await authedFetch(`/api/backend/tasks/${taskId}`, { method: "DELETE" });
         deleteExecuted = true;
 
         // Update stats after successful deletion
@@ -775,24 +379,15 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
   };
 
   const importTasks = async (importedTasks: Task[]): Promise<void> => {
-    if (!user?.uid) return;
+    if (!user) return;
 
     try {
-      const batch = [];
-      for (const task of importedTasks) {
-        // Remove the id field and add to Firestore
-        const { id, createdAt, completedAt, ...taskData } = task;
-        const newTask: NewTask = {
-          ...taskData,
-          created_by: user.uid,
-          createdAt: serverTimestamp(),
-          completedAt: completedAt ? serverTimestamp() : undefined,
-        };
-        batch.push(addDoc(collection(db, "tasks"), newTask));
-      }
-
-      await Promise.all(batch);
+      await authedFetch("/api/backend/tasks/import", {
+        method: "POST",
+        body: JSON.stringify({ tasks: importedTasks }),
+      });
       await refreshCurrentPage();
+      await fetchStats();
       toast.success(tAck("tasksImportedTitle", { count: importedTasks.length }));
     } catch (error) {
       console.error("Failed to import tasks:", error);
@@ -802,93 +397,17 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    if (!user?.uid) return;
-
-    const constraints = [
-      where("created_by", "==", user.uid),
-    ];
-
-    if (filterStatus !== "all") {
-      constraints.push(where("status", "==", filterStatus));
-    }
-
-    if (filterProject !== "all") {
-      constraints.push(where("projectId", "==", filterProject));
-    }
-
-    const q = query(
-      collection(db, "tasks"),
-      ...constraints,
-      orderBy("statusOrder"),
-      orderBy("createdAt", "desc"),
-      limit(tasksPerPage)
-    );
-
-    const unsubscribe = onSnapshot(
-      q,
-      (snapshot) => {
-        if (!snapshot.metadata.hasPendingWrites) {
-          updateTasksFromSnapshot(snapshot);
-        }
-      },
-      handleFirestoreError
-    );
-
-    return () => unsubscribe();
-  }, [user?.uid, currentPage, handleFirestoreError, updateTasksFromSnapshot, filterStatus, filterProject]);
-
-  useEffect(() => {
-    return () => {
-      cleanupListeners();
-    };
-  }, [cleanupListeners]);
+    if (!user) return;
+    refreshCurrentPage();
+  }, [user, currentPage, filterStatus, filterProject, refreshCurrentPage]);
 
   const getFilteredTasksForExport = async (): Promise<Task[]> => {
-    if (!user?.uid) return [];
-
-    const constraints = [
-      where("created_by", "==", user.uid),
-    ];
-
-    if (filterStatus !== "all") {
-      constraints.push(where("status", "==", filterStatus));
-    }
-
-    if (filterProject !== "all") {
-      constraints.push(where("projectId", "==", filterProject));
-    }
-
-    const q = query(
-      collection(db, "tasks"),
-      ...constraints,
-      orderBy("statusOrder"),
-      orderBy("createdAt", "desc")
-    );
-
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map((doc) => {
-      const data = doc.data();
-      return {
-        id: doc.id,
-        text: data.text,
-        description: data.description,
-        status: data.status,
-        statusOrder: data.statusOrder,
-        priority: data.priority,
-        dueDate: data.dueDate,
-        tags: data.tags,
-        subTasks: data.subTasks,
-        createdAt: formatFirestoreDate(data.createdAt) || "Unknown",
-        completedAt: formatFirestoreDate(data.completedAt),
-        created_by: data.created_by,
-        archived: data.archived,
-        timeEstimate: data.timeEstimate,
-        timeLogged: data.timeLogged,
-        isTimerRunning: data.isTimerRunning,
-        timerStartedAt: data.timerStartedAt,
-        projectId: data.projectId,
-      };
-    });
+    if (!user) return [];
+    const params = new URLSearchParams();
+    params.set("status", filterStatus);
+    params.set("projectId", filterProject);
+    const res = await authedFetch(`/api/backend/tasks/export?${params.toString()}`, { method: "GET" });
+    return (await res.json()) as Task[];
   };
 
   return (
