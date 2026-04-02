@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 
 from app.api.router import api_router
 from app.core.config import get_settings
@@ -16,5 +17,206 @@ app.include_router(api_router, prefix="/api/v1")
 
 
 @app.get("/", tags=["root"], summary="Root endpoint")
-def root() -> dict[str, str]:
-    return {"message": f"{settings.APP_NAME} is running"}
+def root() -> HTMLResponse:
+    # Minimal "shadcn-like" black/white landing page (no frontend build required).
+    # If you later want a full shadcn UI, we can host a Next.js page separately.
+    app_name = settings.APP_NAME
+    return HTMLResponse(
+        f"""<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{app_name}</title>
+    <style>
+      :root {{
+        --bg: #ffffff;
+        --fg: #0a0a0a;
+        --muted: rgba(10,10,10,0.65);
+        --border: rgba(10,10,10,0.12);
+        --card: rgba(0,0,0,0.03);
+        --btn: #0a0a0a;
+        --btn-fg: #ffffff;
+      }}
+      @media (prefers-color-scheme: dark) {{
+        :root {{
+          --bg: #000000;
+          --fg: #ffffff;
+          --muted: rgba(255,255,255,0.7);
+          --border: rgba(255,255,255,0.14);
+          --card: rgba(255,255,255,0.06);
+          --btn: #ffffff;
+          --btn-fg: #000000;
+        }}
+      }}
+      html, body {{
+        height: 100%;
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      }}
+      .wrap {{
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+      }}
+      header {{
+        border-bottom: 1px solid var(--border);
+        backdrop-filter: blur(10px);
+      }}
+      .container {{
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 24px 16px;
+      }}
+      .top {{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }}
+      .brand {{
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }}
+      .title {{
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        font-size: 18px;
+      }}
+      .subtitle {{
+        color: var(--muted);
+        font-size: 13px;
+      }}
+      .grid {{
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 18px;
+      }}
+      @media (min-width: 640px) {{
+        .grid {{ grid-template-columns: repeat(3, 1fr); }}
+      }}
+      .card {{
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px;
+        background: var(--card);
+      }}
+      .card h3 {{
+        margin: 0 0 8px 0;
+        font-size: 14px;
+      }}
+      .card p {{
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.4;
+      }}
+      .hero {{
+        padding-top: 28px;
+        padding-bottom: 28px;
+      }}
+      .hero h1 {{
+        font-size: 34px;
+        margin: 0;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+      }}
+      .hero p {{
+        color: var(--muted);
+        margin: 10px 0 0 0;
+        line-height: 1.5;
+        max-width: 60ch;
+      }}
+      .actions {{
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }}
+      .btn {{
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        padding: 0 14px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 13px;
+      }}
+      .btn.primary {{
+        background: var(--btn);
+        color: var(--btn-fg);
+        border-color: transparent;
+      }}
+      .btn.ghost {{
+        background: transparent;
+        color: var(--fg);
+      }}
+      footer {{
+        margin-top: auto;
+        border-top: 1px solid var(--border);
+      }}
+      .foot {{
+        color: var(--muted);
+        font-size: 12px;
+        padding: 18px 16px;
+      }}
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="container top">
+          <div class="brand">
+            <div class="title">{app_name}</div>
+            <div class="subtitle">FastAPI backend • Firebase auth + MongoDB template</div>
+          </div>
+          <div>
+            <a class="btn ghost" href="/docs">API Docs</a>
+          </div>
+        </div>
+      </header>
+
+      <main class="container hero">
+        <h1>Minimal, production-ready API starter.</h1>
+        <p>
+          This service exposes health and auth helpers and includes task/project/bookmark modules
+          designed to mirror the existing Firebase payload shape in your web app.
+        </p>
+
+        <div class="actions">
+          <a class="btn primary" href="/docs">Open Swagger</a>
+          <a class="btn ghost" href="/api/v1/health">Health: /api/v1/health</a>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Auth</h3>
+            <p>Verify Firebase ID tokens and fetch current user profile.</p>
+          </div>
+          <div class="card">
+            <h3>Tasks</h3>
+            <p>Paginated list, status updates, and export/import parity.</p>
+          </div>
+          <div class="card">
+            <h3>Bookmarks</h3>
+            <p>Folders + bookmarks with upsert import and move/delete actions.</p>
+          </div>
+        </div>
+      </main>
+
+      <footer>
+        <div class="foot container">© {app_name} • Deployed on Fastapi Cloud .</div>
+      </footer>
+    </div>
+  </body>
+</html>""",
+        status_code=200,
+    )
