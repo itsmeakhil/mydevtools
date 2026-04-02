@@ -120,10 +120,10 @@ export default function ImportDialog({ open, onOpenChange }: ImportDialogProps) 
             }
 
             if (importMode === 'replace') {
-                clearAll()
+                await clearAll()
             }
 
-            importBookmarks(result.bookmarks, result.folders)
+            await importBookmarks(result.bookmarks, result.folders)
             toast.success(
                 t("successToast", {
                     bookmarks: result.bookmarks.length,
