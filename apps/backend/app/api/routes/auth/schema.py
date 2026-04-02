@@ -1,3 +1,5 @@
+from typing import Any, Dict, Optional
+
 from pydantic import BaseModel, ConfigDict, Field
 
 
@@ -10,11 +12,11 @@ class VerifiedTokenData(BaseModel):
     model_config = ConfigDict(extra="allow")
 
     uid: str
-    email: str | None = None
-    email_verified: bool | None = None
-    name: str | None = None
-    picture: str | None = None
-    firebase: dict | None = None
+    email: Optional[str] = None
+    email_verified: Optional[bool] = None
+    name: Optional[str] = None
+    picture: Optional[str] = None
+    firebase: Optional[Dict[str, Any]] = None
 
 
 class VerifyTokenResponse(BaseModel):
@@ -23,8 +25,8 @@ class VerifyTokenResponse(BaseModel):
 
 class UserProfileResponse(BaseModel):
     uid: str
-    email: str | None = None
-    display_name: str | None = None
-    photo_url: str | None = None
+    email: Optional[str] = None
+    display_name: Optional[str] = None
+    photo_url: Optional[str] = None
     email_verified: bool
     disabled: bool
