@@ -1,0 +1,32 @@
+[project]
+name = "mydevtools-backend"
+version = "0.1.0"
+description = "FastAPI backend for mydevtools monorepo"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi[standard]",
+  "uvicorn[standard]>=0.35.0",
+  "pydantic-settings>=2.10.1",
+  "firebase-admin>=7.1.0",
+  "pymongo[srv]"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.4.1",
+  "httpx>=0.28.1",
+  "ruff>=0.13.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

@@ -52,3 +52,11 @@ apps/*/next-env.d.ts
 
 .vscode
 .env
+
+# python (backend)
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.venv/
+apps/backend/.venv/
