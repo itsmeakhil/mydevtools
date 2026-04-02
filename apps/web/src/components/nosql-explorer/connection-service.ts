@@ -1,14 +1,5 @@
-import { db, auth } from "@/database/firebase";
-import {
-    collection,
-    query,
-    where,
-    getDocs,
-    orderBy,
-} from "firebase/firestore";
+import { auth } from "@/database/firebase";
 import { SavedConnection } from "./types";
-
-const COLLECTION_NAME = "mongodb_connections";
 
 const BACKEND_BASE_URL: string =
     process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
@@ -72,7 +63,6 @@ const proxyRequest = async <T,>(
 
 export const saveConnection = async (userId: string, connectionString: string, name?: string) => {
     try {
-        // New storage: FastAPI + MongoDB. `userId` is implied by auth token; we keep the signature.
         const created = await proxyRequest<SavedConnection>(
             "POST",
             "/api/v1/nosql/connections",
@@ -86,40 +76,9 @@ export const saveConnection = async (userId: string, connectionString: string, n
     }
 };
 
-export const getConnections = async (userId: string): Promise<SavedConnection[]> => {
+export const getConnections = async (_userId: string): Promise<SavedConnection[]> => {
     try {
-        // Prefer backend (MongoDB).
-        const backendConnections = await proxyRequest<SavedConnection[]>("GET", "/api/v1/nosql/connections");
-
-        if (backendConnections && backendConnections.length > 0) {
-            return backendConnections;
-        }
-
-        // One-time migration: if backend is empty but Firestore has data, copy it over.
-        const legacyQ = query(
-            collection(db, COLLECTION_NAME),
-            where("userId", "==", userId),
-            orderBy("lastUsedAt", "desc")
-        );
-        const querySnapshot = await getDocs(legacyQ);
-        const legacy = querySnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-        })) as SavedConnection[];
-
-        if (legacy.length === 0) return [];
-
-        await Promise.all(
-            legacy.map(async (c) => {
-                try {
-                    await saveConnection(userId, c.connectionString, c.name);
-                } catch (e) {
-                    console.warn("[NoSQL Explorer] migration connection skipped:", e);
-                }
-            })
-        );
-
-        return proxyRequest<SavedConnection[]>("GET", "/api/v1/nosql/connections");
+        return (await proxyRequest<SavedConnection[]>("GET", "/api/v1/nosql/connections")) ?? [];
     } catch (error) {
         console.error("Error getting connections:", error);
         throw error;

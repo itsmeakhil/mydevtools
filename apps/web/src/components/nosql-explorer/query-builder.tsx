@@ -8,9 +8,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { db, auth } from "@/database/firebase";
-import { collection, query as firestoreQuery, where, onSnapshot, addDoc, updateDoc, doc, serverTimestamp, getDocs, QuerySnapshot, DocumentData } from "firebase/firestore";
+import { auth } from "@/database/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { getNosqlQueryHistory, putNosqlQueryHistory } from "@/lib/user-preferences-api";
 import Editor from "@monaco-editor/react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { IconSearch, IconHistory, IconX, IconPlus, IconTrash, IconCheck, IconFilter, IconMaximize, IconBraces, IconPlayerPlay } from "@tabler/icons-react";
@@ -54,7 +54,6 @@ export function QueryBuilder({
     const [builderOpen, setBuilderOpen] = useState(false);
     const [user] = useAuthState(auth);
     const { theme } = useTheme();
-    const [historyDocId, setHistoryDocId] = useState<string | null>(null);
     const [advancedOpen, setAdvancedOpen] = useState(false);
 
     // Sync internal state with props
@@ -62,87 +61,60 @@ export function QueryBuilder({
         setTextQuery(query);
     }, [query]);
 
-    // Load history from Firestore
+    // Load query history from API (+ one-time localStorage migration when server is empty)
     useEffect(() => {
         if (!user) {
             setQueryHistory([]);
             return;
         }
 
-        const q = firestoreQuery(
-            collection(db, "nosql_query_history"),
-            where("userId", "==", user.uid),
-            where("connectionName", "==", connectionName),
-            where("dbName", "==", dbName),
-            where("collectionName", "==", collectionName)
-        );
+        let cancelled = false;
 
-        const unsubscribe = onSnapshot(q, (snapshot: QuerySnapshot<DocumentData>) => {
-            if (!snapshot.empty) {
-                const docData = snapshot.docs[0].data();
-                setQueryHistory((docData.queries as string[]) || []);
-                setHistoryDocId(snapshot.docs[0].id);
-            } else {
-                setQueryHistory([]);
-                setHistoryDocId(null);
-            }
-        });
+        (async () => {
+            try {
+                const remote = await getNosqlQueryHistory({
+                    connectionName,
+                    dbName,
+                    collectionName,
+                });
+                if (cancelled) return;
 
-        return () => unsubscribe();
-    }, [user, connectionName, dbName, collectionName]);
+                let queries = remote.queries ?? [];
+                const key = `nosql_query_history_${connectionName}_${dbName}_${collectionName}`;
+                const saved = localStorage.getItem(key);
 
-    // Migration logic
-    useEffect(() => {
-        const migrate = async () => {
-            if (!user) return;
-
-            const key = `nosql_query_history_${connectionName}_${dbName}_${collectionName}`;
-            const saved = localStorage.getItem(key);
-
-            if (saved) {
-                try {
-                    const localHistory = JSON.parse(saved);
-                    if (localHistory.length > 0) {
-                        // Check if doc exists
-                        const q = firestoreQuery(
-                            collection(db, "nosql_query_history"),
-                            where("userId", "==", user.uid),
-                            where("connectionName", "==", connectionName),
-                            where("dbName", "==", dbName),
-                            where("collectionName", "==", collectionName)
-                        );
-                        const snapshot = await getDocs(q);
-
-                        if (snapshot.empty) {
-                            await addDoc(collection(db, "nosql_query_history"), {
-                                userId: user.uid,
+                if (saved && queries.length === 0) {
+                    try {
+                        const localHistory = JSON.parse(saved) as unknown;
+                        if (Array.isArray(localHistory) && localHistory.length > 0) {
+                            const merged = [...new Set(localHistory.map(String))].slice(0, 10);
+                            const out = await putNosqlQueryHistory({
                                 connectionName,
                                 dbName,
                                 collectionName,
-                                queries: localHistory,
-                                updatedAt: serverTimestamp()
-                            });
-                        } else {
-                            // Merge? Or just ignore if cloud has data?
-                            // Let's merge unique queries
-                            const docRef = snapshot.docs[0].ref;
-                            const currentQueries = (snapshot.docs[0].data().queries as string[]) || [];
-                            const merged = [...new Set([...localHistory, ...currentQueries])].slice(0, 10);
-                            await updateDoc(docRef, {
                                 queries: merged,
-                                updatedAt: serverTimestamp()
                             });
+                            if (!cancelled) {
+                                queries = out.queries;
+                                localStorage.removeItem(key);
+                                toast.success(t("migrateHistory"));
+                            }
                         }
-                        // Clear local storage
-                        localStorage.removeItem(key);
-                        toast.success(t("migrateHistory"));
+                    } catch (e) {
+                        console.error("Migration failed", e);
                     }
-                } catch (e) {
-                    console.error("Migration failed", e);
                 }
+
+                if (!cancelled) setQueryHistory(queries);
+            } catch (e) {
+                console.error("Failed to load query history", e);
+                if (!cancelled) setQueryHistory([]);
             }
+        })();
+
+        return () => {
+            cancelled = true;
         };
-        migrate();
     }, [user, connectionName, dbName, collectionName]);
 
     const saveQueryToHistory = async (q: string) => {
@@ -151,22 +123,13 @@ export function QueryBuilder({
         const newHistory = [q, ...queryHistory.filter(h => h !== q)].slice(0, 10);
 
         try {
-            if (historyDocId) {
-                await updateDoc(doc(db, "nosql_query_history", historyDocId), {
-                    queries: newHistory,
-                    updatedAt: serverTimestamp()
-                });
-            } else {
-                const docRef = await addDoc(collection(db, "nosql_query_history"), {
-                    userId: user.uid,
-                    connectionName,
-                    dbName,
-                    collectionName,
-                    queries: newHistory,
-                    updatedAt: serverTimestamp()
-                });
-                setHistoryDocId(docRef.id);
-            }
+            const out = await putNosqlQueryHistory({
+                connectionName,
+                dbName,
+                collectionName,
+                queries: newHistory,
+            });
+            setQueryHistory(out.queries);
         } catch (e) {
             console.error("Failed to save history", e);
             toast.error(t("saveHistoryFail"));
@@ -175,15 +138,18 @@ export function QueryBuilder({
 
     const deleteFromHistory = async (e: React.MouseEvent, q: string) => {
         e.stopPropagation();
-        if (!user || !historyDocId) return;
+        if (!user) return;
 
         const newHistory = queryHistory.filter(h => h !== q);
 
         try {
-            await updateDoc(doc(db, "nosql_query_history", historyDocId), {
+            const out = await putNosqlQueryHistory({
+                connectionName,
+                dbName,
+                collectionName,
                 queries: newHistory,
-                updatedAt: serverTimestamp()
             });
+            setQueryHistory(out.queries);
         } catch (err) {
             console.error("Failed to delete from history", err);
             toast.error(t("deleteQueryFail"));

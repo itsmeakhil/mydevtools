@@ -1,9 +1,8 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { db } from '@/database/firebase';
 import useAuth from '@/utils/useAuth';
+import { getUserPreferences, patchUserPreferences } from '@/lib/user-preferences-api';
 
 /**
  * Hook to manage tool favorites
@@ -16,22 +15,13 @@ export function useFavoriteTool() {
   const [initialized, setInitialized] = useState<boolean>(false);
   const isSavingRef = useRef(false);
 
-  // Load favorites from Firebase for authenticated users
   useEffect(() => {
     const loadFavorites = async () => {
       if (user?.uid) {
         setIsLoading(true);
         try {
-          const userFavoritesRef = doc(db, 'users', user.uid, 'userData', 'favorites');
-          const favoritesDoc = await getDoc(userFavoritesRef);
-
-          if (favoritesDoc.exists()) {
-            const userData = favoritesDoc.data();
-            setFavorites(userData.toolFavorites || []);
-          } else {
-            await setDoc(userFavoritesRef, { toolFavorites: [] });
-            setFavorites([]);
-          }
+          const data = await getUserPreferences();
+          setFavorites(Array.isArray(data.toolFavorites) ? data.toolFavorites : []);
           setInitialized(true);
         } catch (error) {
           console.error("Error loading favorites:", error);
@@ -49,7 +39,6 @@ export function useFavoriteTool() {
     loadFavorites();
   }, [user?.uid]);
 
-  // Save favorites to Firebase whenever they change (but only after initial load)
   useEffect(() => {
     if (!initialized || isLoading || isSavingRef.current || !user?.uid) {
       return;
@@ -58,8 +47,7 @@ export function useFavoriteTool() {
     const saveFavorites = async () => {
       isSavingRef.current = true;
       try {
-        const userFavoritesRef = doc(db, 'users', user.uid, 'userData', 'favorites');
-        await setDoc(userFavoritesRef, { toolFavorites: favorites }, { merge: true });
+        await patchUserPreferences({ toolFavorites: favorites });
       } catch (error) {
         console.error("Error saving favorites:", error);
       } finally {
@@ -70,9 +58,6 @@ export function useFavoriteTool() {
     saveFavorites();
   }, [favorites, user?.uid, initialized, isLoading]);
 
-  /**
-   * Toggle favorite status for a tool
-   */
   const toggleFavorite = useCallback(async (toolId: string) => {
     if (!user?.uid) {
       window.location.href = '/login';
@@ -91,9 +76,6 @@ export function useFavoriteTool() {
     }
   }, [user?.uid]);
 
-  /**
-   * Check if a tool is favorited
-   */
   const isFavorite = useCallback((toolId: string): boolean => {
     return favorites.includes(toolId);
   }, [favorites]);

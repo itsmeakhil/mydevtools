@@ -1,10 +1,9 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { db } from '@/database/firebase';
 import useAuth from '@/utils/useAuth';
 import { useToolVisibilityStore, DEFAULT_ENABLED_TOOLS } from '@/store/tool-visibility-store';
+import { getUserPreferences, patchUserPreferences } from '@/lib/user-preferences-api';
 
 /**
  * Hook to manage which tools are visible/enabled in the sidebar navigation.
@@ -17,8 +16,6 @@ export function useToolVisibility() {
   const [initialized, setInitialized] = useState<boolean>(false);
   const isSavingRef = useRef(false);
 
-  // Load preferences from Firebase when logged in.
-  // When logged out, rely on the Zustand persist store (do not clobber on refresh).
   useEffect(() => {
     const loadPreferences = async () => {
       if (authLoading) return;
@@ -26,26 +23,20 @@ export function useToolVisibility() {
       if (user?.uid) {
         setIsLoading(true);
         try {
-          const userPrefsRef = doc(db, 'users', user.uid, 'userData', 'preferences');
-          const prefsDoc = await getDoc(userPrefsRef);
-
-          if (prefsDoc.exists() && prefsDoc.data().enabledTools) {
-            setEnabledTools(prefsDoc.data().enabledTools);
+          const data = await getUserPreferences();
+          if (Array.isArray(data.enabledTools)) {
+            setEnabledTools(data.enabledTools);
           } else {
-            // New user, set default
-            await setDoc(userPrefsRef, { enabledTools: DEFAULT_ENABLED_TOOLS }, { merge: true });
             setEnabledTools(DEFAULT_ENABLED_TOOLS);
           }
           setInitialized(true);
         } catch (error) {
           console.error("Error loading tool visibility preferences:", error);
-          setEnabledTools(DEFAULT_ENABLED_TOOLS); // Fallback
+          setEnabledTools(DEFAULT_ENABLED_TOOLS);
         } finally {
           setIsLoading(false);
         }
       } else {
-        // Not logged in: keep whatever the persisted store has.
-        // One-time migration from older localStorage key, without clobbering persisted state.
         try {
           const hasHydrated = (useToolVisibilityStore as any).persist?.hasHydrated?.() ?? true;
           const legacyPrefs = hasHydrated ? localStorage.getItem('enabled-tools') : null;
@@ -64,7 +55,6 @@ export function useToolVisibility() {
     loadPreferences();
   }, [user?.uid, authLoading, setEnabledTools]);
 
-  // Save preferences whenever they change
   useEffect(() => {
     if (!initialized || isLoading || isSavingRef.current) {
       return;
@@ -74,8 +64,7 @@ export function useToolVisibility() {
       isSavingRef.current = true;
       try {
         if (user?.uid) {
-          const userPrefsRef = doc(db, 'users', user.uid, 'userData', 'preferences');
-          await setDoc(userPrefsRef, { enabledTools }, { merge: true });
+          await patchUserPreferences({ enabledTools });
         }
       } catch (error) {
         console.error("Error saving tool visibility preferences:", error);
