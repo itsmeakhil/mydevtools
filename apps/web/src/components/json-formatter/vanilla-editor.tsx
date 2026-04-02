@@ -12,7 +12,7 @@ interface VanillaEditorProps extends JSONEditorPropsOptional {
 
 export function VanillaEditor({ className = '', ...props }: VanillaEditorProps) {
   const refContainer = useRef<HTMLDivElement>(null)
-  const refEditor = useRef<JSONEditor | null>(null)
+  const refEditor = useRef<ReturnType<typeof JSONEditor> | null>(null)
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -25,7 +25,7 @@ export function VanillaEditor({ className = '', ...props }: VanillaEditorProps) 
   useEffect(() => {
     // create editor
     if (refContainer.current && !refEditor.current) {
-      refEditor.current = new JSONEditor({
+      refEditor.current = JSONEditor({
         target: refContainer.current,
         props,
       })
