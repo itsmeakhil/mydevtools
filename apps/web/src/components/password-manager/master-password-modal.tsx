@@ -8,9 +8,13 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Lock, KeyRound, AlertTriangle, Unlock, ShieldCheck } from "lucide-react"
 import { usePasswordStore } from "@/store/password-store"
 import { deriveKey, generateSalt, createKeyVerifier, verifyKey } from "@/lib/encryption"
-import { auth, db } from "@/database/firebase"
-import { doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore"
+import { auth } from "@/database/firebase"
 import { onAuthStateChanged } from "firebase/auth"
+import {
+    getVaultOrNull,
+    listPasswordEntries,
+    setupVault,
+} from "@/lib/password-manager-api"
 import { loadKey, saveKey, clearKey } from "@/lib/key-storage"
 import { decryptData } from "@/lib/encryption"
 import { PasswordEntry } from "@/store/password-store"
@@ -39,7 +43,7 @@ export function VaultLockScreen() {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
                 setUserId(user.uid)
-                await checkVaultStatus(user.uid)
+                await checkVaultStatus()
             } else {
                 setUserId(null)
                 setMode("loading")
@@ -48,27 +52,26 @@ export function VaultLockScreen() {
         return () => unsubscribe()
     }, [])
 
-    const fetchAndSetPasswords = async (uid: string, key: CryptoKey) => {
+    const fetchAndSetPasswords = async (key: CryptoKey) => {
         try {
-            console.log("[Password Fetch] Starting to fetch passwords from Firestore...")
+            console.log("[Password Fetch] Starting to fetch passwords from API...")
             setPasswordsLoading(true)
-            const querySnapshot = await getDocs(collection(db, "user_passwords", uid, "entries"))
-            console.log(`[Password Fetch] Found ${querySnapshot.docs.length} encrypted password(s)`)
+            const rows = await listPasswordEntries()
+            console.log(`[Password Fetch] Found ${rows.length} encrypted password(s)`)
 
-            const decryptionPromises = querySnapshot.docs.map(async (doc) => {
-                const data = doc.data()
+            const decryptionPromises = rows.map(async (row) => {
                 try {
-                    const decryptedData = await decryptData(key, data.encryptedData, data.iv)
+                    const decryptedData = await decryptData(key, row.encryptedData, row.iv)
                     const parsedData = JSON.parse(decryptedData)
 
                     return {
-                        id: doc.id,
+                        id: row.id,
                         ...parsedData,
-                        createdAt: data.createdAt,
-                        updatedAt: data.updatedAt
+                        createdAt: row.createdAt,
+                        updatedAt: row.updatedAt
                     } as PasswordEntry
                 } catch (e) {
-                    console.error(`[Password Fetch] Failed to decrypt password ${doc.id}:`, e)
+                    console.error(`[Password Fetch] Failed to decrypt password ${row.id}:`, e)
                     return null
                 }
             })
@@ -79,7 +82,7 @@ export function VaultLockScreen() {
             console.log(`[Password Fetch] Successfully decrypted ${loadedPasswords.length} password(s)`)
             setPasswords(loadedPasswords)
 
-            if (loadedPasswords.length === 0 && querySnapshot.docs.length > 0) {
+            if (loadedPasswords.length === 0 && rows.length > 0) {
                 console.warn("[Password Fetch] Warning: Found encrypted passwords but failed to decrypt any")
                 toast.error(t("toastDecryptFailed"))
             }
@@ -92,15 +95,13 @@ export function VaultLockScreen() {
         }
     }
 
-    const checkVaultStatus = async (uid: string) => {
+    const checkVaultStatus = async () => {
         try {
-            const docRef = doc(db, "user_settings", uid, "security", "vault")
-            const docSnap = await getDoc(docRef)
+            const vault = await getVaultOrNull()
 
-            if (docSnap.exists()) {
-                const data = docSnap.data()
-                setVaultSalt(data.salt)
-                setVerifier(data.verifier)
+            if (vault) {
+                setVaultSalt(vault.salt)
+                setVerifier(vault.verifier)
                 setMode("unlock")
 
                 // Try to auto-unlock
@@ -114,7 +115,7 @@ export function VaultLockScreen() {
                     }
 
                     console.log("[Auto-unlock] Saved key found, verifying...")
-                    const isValid = await verifyKey(savedKey, data.verifier.encrypted, data.verifier.iv)
+                    const isValid = await verifyKey(savedKey, vault.verifier.encrypted, vault.verifier.iv)
 
                     if (!isValid) {
                         console.warn("[Auto-unlock] Saved key verification failed - clearing invalid key")
@@ -124,7 +125,7 @@ export function VaultLockScreen() {
 
                     console.log("[Auto-unlock] Key verified successfully, loading passwords...")
                     setKey(savedKey)
-                    await fetchAndSetPasswords(uid, savedKey)
+                    await fetchAndSetPasswords(savedKey)
                     console.log("[Auto-unlock] Auto-unlock completed successfully")
                     toast.success(t("toastUnlockedAuto"))
                     return
@@ -179,13 +180,11 @@ export function VaultLockScreen() {
                 }
 
                 // Load passwords
-                if (userId) {
-                    try {
-                        await fetchAndSetPasswords(userId, key)
-                    } catch (fetchErr) {
-                        console.error("[Manual Unlock] Failed to fetch passwords:", fetchErr)
-                        // Error already shown by fetchAndSetPasswords via toast
-                    }
+                try {
+                    await fetchAndSetPasswords(key)
+                } catch (fetchErr) {
+                    console.error("[Manual Unlock] Failed to fetch passwords:", fetchErr)
+                    // Error already shown by fetchAndSetPasswords via toast
                 }
 
                 setPassword("")
@@ -224,10 +223,10 @@ export function VaultLockScreen() {
             const key = await deriveKey(password, salt)
             const verifierData = await createKeyVerifier(key)
 
-            await setDoc(doc(db, "user_settings", userId, "security", "vault"), {
+            await setupVault({
                 salt,
                 verifier: verifierData,
-                createdAt: Date.now()
+                createdAt: Date.now(),
             })
 
             setKey(key)

@@ -9,8 +9,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Search, Copy, Eye, EyeOff, Trash2, ExternalLink, LayoutGrid, List, Lock, Pencil, MoreVertical, FileJson, Plus, ShieldCheck, AlertTriangle, Repeat, Link2Off, X } from "lucide-react"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { toast } from "sonner"
-import { doc, deleteDoc } from "firebase/firestore"
-import { db, auth } from "@/database/firebase"
+import { auth } from "@/database/firebase"
+import { deletePasswordEntry } from "@/lib/password-manager-api"
 import { clearKey } from "@/lib/key-storage"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { cn } from "@/lib/utils"
@@ -153,7 +153,7 @@ export function PasswordList() {
         if (!auth.currentUser || !passwordToDelete) return
 
         try {
-            await deleteDoc(doc(db, "user_passwords", auth.currentUser.uid, "entries", passwordToDelete))
+            await deletePasswordEntry(passwordToDelete)
             deletePassword(passwordToDelete)
             toast.success(tToast("passwordDeleted"))
         } catch (error) {

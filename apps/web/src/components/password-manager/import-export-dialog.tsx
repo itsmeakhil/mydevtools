@@ -8,8 +8,8 @@ import { Label } from "@/components/ui/label"
 import { Upload, Download, FileJson, AlertTriangle } from "lucide-react"
 import { usePasswordStore, PasswordEntry } from "@/store/password-store"
 import { toast } from "sonner"
-import { auth, db } from "@/database/firebase"
-import { collection, addDoc } from "firebase/firestore"
+import { auth } from "@/database/firebase"
+import { createPasswordEntry } from "@/lib/password-manager-api"
 import { encryptData } from "@/lib/encryption"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
@@ -82,15 +82,15 @@ export function ImportExportDialog({ children }: ImportExportDialogProps) {
                 const dataToEncrypt = JSON.stringify(entryData)
                 const { encrypted, iv } = await encryptData(encryptionKey, dataToEncrypt)
 
-                const docRef = await addDoc(collection(db, "user_passwords", auth.currentUser.uid, "entries"), {
+                const created = await createPasswordEntry({
                     encryptedData: encrypted,
                     iv,
                     createdAt: timestamp,
-                    updatedAt: timestamp
+                    updatedAt: timestamp,
                 })
 
                 const newEntry: PasswordEntry = {
-                    id: docRef.id,
+                    id: created.id,
                     ...entryData,
                     createdAt: timestamp,
                     updatedAt: timestamp

@@ -14,8 +14,8 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Badge } from "@/components/ui/badge"
 import { usePasswordStore, PasswordEntry } from "@/store/password-store"
 import { encryptData } from "@/lib/encryption"
-import { auth, db } from "@/database/firebase"
-import { doc, updateDoc } from "firebase/firestore"
+import { auth } from "@/database/firebase"
+import { updatePasswordEntry } from "@/lib/password-manager-api"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
 import { useTranslations } from "next-intl"
@@ -97,10 +97,10 @@ export function EditPasswordDialog({ entry, open, onOpenChange }: EditPasswordDi
 
             const timestamp = Date.now()
 
-            await updateDoc(doc(db, "user_passwords", auth.currentUser.uid, "entries", entry.id), {
+            await updatePasswordEntry(entry.id, {
                 encryptedData: encrypted,
                 iv,
-                updatedAt: timestamp
+                updatedAt: timestamp,
             })
 
             const updatedEntry: PasswordEntry = {

@@ -14,8 +14,8 @@ import { AdvancedGenerator } from "./advanced-generator"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Badge } from "@/components/ui/badge"
 import { encryptData } from "@/lib/encryption"
-import { auth, db } from "@/database/firebase"
-import { collection, addDoc } from "firebase/firestore"
+import { auth } from "@/database/firebase"
+import { createPasswordEntry } from "@/lib/password-manager-api"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
 import { useTranslations } from "next-intl"
@@ -81,15 +81,15 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
 
             const timestamp = Date.now()
 
-            const docRef = await addDoc(collection(db, "user_passwords", auth.currentUser.uid, "entries"), {
+            const created = await createPasswordEntry({
                 encryptedData: encrypted,
                 iv,
                 createdAt: timestamp,
-                updatedAt: timestamp
+                updatedAt: timestamp,
             })
 
             const newEntry: PasswordEntry = {
-                id: docRef.id,
+                id: created.id,
                 ...formData,
                 createdAt: timestamp,
                 updatedAt: timestamp
