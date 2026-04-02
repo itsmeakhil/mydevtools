@@ -1,11 +1,15 @@
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, Optional
 
 from bson import ObjectId
 from bson.errors import InvalidId
 from fastapi import HTTPException, status
-from pymongo.collection import Collection
-from pymongo.errors import PyMongoError
+try:
+    from pymongo.collection import Collection
+    from pymongo.errors import PyMongoError
+except Exception:  # pragma: no cover
+    Collection = Any  # type: ignore
+    PyMongoError = Exception  # type: ignore
 from app.utils.collection_name import TASKS, PROJECTS
 from app.api.routes.tasks.schema import (
     ProjectCreate,
@@ -97,8 +101,8 @@ def _project_doc_to_out(doc: dict[str, Any]) -> ProjectOut:
 
 def _task_filter(
     uid: str,
-    status_filter: str | None = None,
-    project_filter: str | None = None,
+    status_filter: Optional[str] = None,
+    project_filter: Optional[str] = None,
 ) -> dict[str, Any]:
     q: dict[str, Any] = {"created_by": uid}
     if status_filter and status_filter != "all":
