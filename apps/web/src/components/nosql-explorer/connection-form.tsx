@@ -96,8 +96,9 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
             toast.success(t("toastTestOk"));
-        } catch (error: any) {
-            toast.error(t("toastTestFail", { message: error.message }));
+        } catch (error) {
+            const message = error instanceof Error ? error.message : String(error);
+            toast.error(t("toastTestFail", { message }));
         } finally {
             setIsTesting(false);
         }
@@ -295,7 +296,11 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                                                     <IconHistory className="w-3 h-3" />
                                                     {t("lastUsed", {
                                                         time: formatDistanceToNow(
-                                                            conn.lastUsedAt?.toDate ? conn.lastUsedAt.toDate() : new Date(),
+                                                            typeof conn.lastUsedAt === "number"
+                                                                ? new Date(conn.lastUsedAt)
+                                                                : conn.lastUsedAt?.toDate
+                                                                    ? conn.lastUsedAt.toDate()
+                                                                    : new Date(),
                                                             { addSuffix: true, locale: dateLocale }
                                                         ),
                                                     })}

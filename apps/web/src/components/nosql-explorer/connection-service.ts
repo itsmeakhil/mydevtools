@@ -1,38 +1,85 @@
-import { db } from "@/database/firebase";
-import { collection, addDoc, query, where, getDocs, deleteDoc, doc, orderBy, serverTimestamp, updateDoc } from "firebase/firestore";
+import { db, auth } from "@/database/firebase";
+import {
+    collection,
+    query,
+    where,
+    getDocs,
+    orderBy,
+} from "firebase/firestore";
 import { SavedConnection } from "./types";
 
 const COLLECTION_NAME = "mongodb_connections";
 
+const BACKEND_BASE_URL: string =
+    process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
+    process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
+    "http://localhost:8000";
+
+type ProxyResponse = {
+    status: number;
+    statusText: string;
+    headers: Record<string, string>;
+    body: string;
+    isBase64: boolean;
+    time: number;
+    size: number;
+    error?: string;
+};
+
+const proxyRequest = async <T,>(
+    method: string,
+    path: string,
+    body?: unknown
+): Promise<T> => {
+    const currentUser = auth.currentUser;
+    if (!currentUser) throw new Error("Not authenticated.");
+
+    const idToken = await currentUser.getIdToken();
+    const url = new URL(path, BACKEND_BASE_URL).toString();
+
+    const headersObj: Record<string, string> = {
+        Authorization: `Bearer ${idToken}`,
+    };
+
+    const proxyBody = body !== undefined ? JSON.stringify(body) : undefined;
+    if (proxyBody !== undefined && method !== "GET" && method !== "HEAD") {
+        headersObj["Content-Type"] = "application/json";
+    }
+
+    const proxyRes = await fetch("/api/proxy", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            url,
+            method,
+            headers: headersObj,
+            body: proxyBody,
+        }),
+    });
+
+    const proxyData = (await proxyRes.json()) as ProxyResponse;
+    if (proxyData.status < 200 || proxyData.status >= 300) {
+        throw new Error(proxyData.body || proxyData.statusText || proxyData.error || "Request failed");
+    }
+
+    if (!proxyData.body) return undefined as T;
+    try {
+        return JSON.parse(proxyData.body) as T;
+    } catch {
+        return proxyData.body as unknown as T;
+    }
+};
+
 export const saveConnection = async (userId: string, connectionString: string, name?: string) => {
     try {
-        // Check if connection already exists for this user
-        const q = query(
-            collection(db, COLLECTION_NAME),
-            where("userId", "==", userId),
-            where("connectionString", "==", connectionString)
+        // New storage: FastAPI + MongoDB. `userId` is implied by auth token; we keep the signature.
+        const created = await proxyRequest<SavedConnection>(
+            "POST",
+            "/api/v1/nosql/connections",
+            { connectionString, name: name || "My Connection" }
         );
-        const querySnapshot = await getDocs(q);
 
-        if (!querySnapshot.empty) {
-            // Update existing connection's lastUsedAt
-            const docId = querySnapshot.docs[0].id;
-            await updateDoc(doc(db, COLLECTION_NAME, docId), {
-                lastUsedAt: serverTimestamp(),
-                name: name || querySnapshot.docs[0].data().name // Keep existing name if not provided
-            });
-            return docId;
-        } else {
-            // Create new connection
-            const docRef = await addDoc(collection(db, COLLECTION_NAME), {
-                userId,
-                connectionString,
-                name: name || "My Connection",
-                createdAt: serverTimestamp(),
-                lastUsedAt: serverTimestamp(),
-            });
-            return docRef.id;
-        }
+        return created.id;
     } catch (error) {
         console.error("Error saving connection:", error);
         throw error;
@@ -41,16 +88,38 @@ export const saveConnection = async (userId: string, connectionString: string, n
 
 export const getConnections = async (userId: string): Promise<SavedConnection[]> => {
     try {
-        const q = query(
+        // Prefer backend (MongoDB).
+        const backendConnections = await proxyRequest<SavedConnection[]>("GET", "/api/v1/nosql/connections");
+
+        if (backendConnections && backendConnections.length > 0) {
+            return backendConnections;
+        }
+
+        // One-time migration: if backend is empty but Firestore has data, copy it over.
+        const legacyQ = query(
             collection(db, COLLECTION_NAME),
             where("userId", "==", userId),
             orderBy("lastUsedAt", "desc")
         );
-        const querySnapshot = await getDocs(q);
-        return querySnapshot.docs.map((doc) => ({
+        const querySnapshot = await getDocs(legacyQ);
+        const legacy = querySnapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
         })) as SavedConnection[];
+
+        if (legacy.length === 0) return [];
+
+        await Promise.all(
+            legacy.map(async (c) => {
+                try {
+                    await saveConnection(userId, c.connectionString, c.name);
+                } catch (e) {
+                    console.warn("[NoSQL Explorer] migration connection skipped:", e);
+                }
+            })
+        );
+
+        return proxyRequest<SavedConnection[]>("GET", "/api/v1/nosql/connections");
     } catch (error) {
         console.error("Error getting connections:", error);
         throw error;
@@ -59,8 +128,7 @@ export const getConnections = async (userId: string): Promise<SavedConnection[]>
 
 export const deleteConnection = async (userId: string, connectionId: string) => {
     try {
-        // Verify ownership before deleting (optional but good practice, though rules should handle it)
-        await deleteDoc(doc(db, COLLECTION_NAME, connectionId));
+        await proxyRequest<void>("DELETE", `/api/v1/nosql/connections/${connectionId}`);
     } catch (error) {
         console.error("Error deleting connection:", error);
         throw error;
@@ -69,9 +137,7 @@ export const deleteConnection = async (userId: string, connectionId: string) => 
 
 export const updateConnectionName = async (userId: string, connectionId: string, newName: string) => {
     try {
-        await updateDoc(doc(db, COLLECTION_NAME, connectionId), {
-            name: newName
-        });
+        await proxyRequest<void>("PATCH", `/api/v1/nosql/connections/${connectionId}`, { name: newName });
     } catch (error) {
         console.error("Error updating connection name:", error);
         throw error;
@@ -79,10 +145,7 @@ export const updateConnectionName = async (userId: string, connectionId: string,
 };
 export const updateConnectionDetails = async (userId: string, connectionId: string, updates: { name?: string, connectionString?: string }) => {
     try {
-        await updateDoc(doc(db, COLLECTION_NAME, connectionId), {
-            ...updates,
-            lastUsedAt: serverTimestamp(),
-        });
+        await proxyRequest<void>("PATCH", `/api/v1/nosql/connections/${connectionId}`, updates);
     } catch (error) {
         console.error("Error updating connection details:", error);
         throw error;

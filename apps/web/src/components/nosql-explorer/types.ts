@@ -7,7 +7,7 @@ export interface Database {
 export interface Collection {
     name: string;
     type: string;
-    options: any;
+    options: unknown;
     info: {
         readOnly: boolean;
         uuid: string;
@@ -24,16 +24,20 @@ export interface Collection {
 
 export interface Document {
     _id: string;
-    [key: string]: any;
+    [key: string]: unknown;
 }
+
+export type FirestoreTimestampLike = {
+    toDate: () => Date;
+};
 
 export interface SavedConnection {
     id: string;
     userId: string;
     connectionString: string;
     name: string;
-    createdAt: any;
-    lastUsedAt: any;
+    createdAt: number | FirestoreTimestampLike | null;
+    lastUsedAt: number | FirestoreTimestampLike | null;
 }
 
 export interface ConnectionState {
