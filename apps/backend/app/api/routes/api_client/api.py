@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 
 from app.api.routes.auth.services import get_current_uid
 from app.api.routes.api_client import services as api_client_svc
@@ -9,6 +9,9 @@ from app.api.routes.api_client.schema import (
     ApiClientEnvironmentCreate,
     ApiClientEnvironmentOut,
     ApiClientEnvironmentUpdate,
+    ApiClientHistoryCreate,
+    ApiClientHistoryOut,
+    HISTORY_MAX_ITEMS,
 )
 
 
@@ -75,4 +78,30 @@ def patch_environment(
 @router.delete("/environments/{environment_id}", status_code=204, summary="Delete API client environment")
 def delete_environment(environment_id: str, uid: str = Depends(get_current_uid)) -> None:
     api_client_svc.delete_environment(uid, environment_id)
+
+
+@router.get("/history", response_model=list[ApiClientHistoryOut], summary="List API client request history")
+def list_history(
+    uid: str = Depends(get_current_uid),
+    limit: int = Query(default=HISTORY_MAX_ITEMS, ge=1, le=HISTORY_MAX_ITEMS),
+) -> list[ApiClientHistoryOut]:
+    return api_client_svc.list_history(uid, limit=limit)
+
+
+@router.post("/history", response_model=ApiClientHistoryOut, summary="Append API client history entry")
+def create_history(
+    body: ApiClientHistoryCreate,
+    uid: str = Depends(get_current_uid),
+) -> ApiClientHistoryOut:
+    return api_client_svc.create_history(uid, body)
+
+
+@router.delete("/history/clear", status_code=204, summary="Clear all API client history")
+def clear_history(uid: str = Depends(get_current_uid)) -> None:
+    api_client_svc.clear_history(uid)
+
+
+@router.delete("/history/{entry_id}", status_code=204, summary="Delete one history entry")
+def delete_history_entry(entry_id: str, uid: str = Depends(get_current_uid)) -> None:
+    api_client_svc.delete_history_entry(uid, entry_id)
 
