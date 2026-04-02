@@ -48,7 +48,7 @@ export function Header() {
   const mobileNavLinks = [
     { href: "/", label: "Home" },
     { href: "/#features", label: "Features" },
-    { href: "/dashboard", label: "Get Started", isPrimary: true },
+    { href: "/login", label: "Get Started", isPrimary: true },
     { href: "https://github.com/itsmeakhil/mydevtools.tech", label: "GitHub", icon: Github, external: true },
   ];
 
@@ -129,7 +129,7 @@ export function Header() {
                 </Button>
               </Link>
               <Button asChild className="px-6 shadow-sm hover:shadow-md transition-shadow">
-                <Link href="/dashboard">
+                <Link href="/login">
                   Get Started
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>

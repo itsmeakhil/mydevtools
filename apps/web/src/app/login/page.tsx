@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/header";
 import { LoginForm } from "@/components/login-form";
+import { LoginRedirectIfAuthed } from "@/components/login-redirect-if-authed";
 import { BackgroundAnimation } from "@/components/ui/background-animation";
 import { Logo } from "@/components/logo";
 
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <>
+      <LoginRedirectIfAuthed />
       <Header />
       <div className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden font-sans">
         {/* Reused Background Animation */}

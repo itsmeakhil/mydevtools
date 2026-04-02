@@ -74,7 +74,13 @@ export function UserPreferencesSync() {
     const loadPreferences = async () => {
       if (authLoading || !user?.uid) {
         loadedUserIdRef.current = null;
-        hydratedRef.current = !authLoading;
+        // While logged out, never treat preferences as hydrated — otherwise the save
+        // effect PATCHes local defaults (e.g. accent blue) and overwrites the server
+        // before the next login's GET + merge runs.
+        if (!user?.uid) {
+          hydratedRef.current = false;
+          lastSavedRef.current = "";
+        }
         return;
       }
       if (loadedUserIdRef.current === user.uid) return;
