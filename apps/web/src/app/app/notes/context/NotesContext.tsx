@@ -1,23 +1,15 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
-import {
-    collection,
-    query,
-    onSnapshot,
-    addDoc,
-    updateDoc,
-    deleteDoc,
-    doc,
-    serverTimestamp,
-    orderBy,
-    where
-} from "firebase/firestore";
-import { db } from "@/database/firebase";
 import { Note } from "../types/Note";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/database/firebase";
 import { useTranslations } from "next-intl";
+
+const BACKEND_BASE_URL: string =
+    process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
+    process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
+    "http://localhost:8000";
 
 interface NotesContextType {
     notes: Note[];
@@ -38,76 +30,109 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     const [isLoading, setIsLoading] = useState(true);
     const [activeNoteId, setActiveNoteId] = useState<string | null>(null);
 
+    const apiRequest = useCallback(
+        async <T,>(method: string, path: string, body?: unknown): Promise<T> => {
+            if (!user) throw new Error(t("authRequiredError"));
+
+            const idToken = await user.getIdToken();
+            const url = new URL(path, BACKEND_BASE_URL).toString();
+
+            const headers: Record<string, string> = {
+                Authorization: `Bearer ${idToken}`,
+            };
+            if (body !== undefined && body !== null && method !== "GET" && method !== "HEAD") {
+                headers["Content-Type"] = "application/json";
+            }
+
+            const proxyRes = await fetch("/api/proxy", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    url,
+                    method,
+                    headers,
+                    body: body !== undefined ? JSON.stringify(body) : undefined,
+                }),
+            });
+
+            const proxyData = await proxyRes.json();
+            if (proxyData.status < 200 || proxyData.status >= 300) {
+                throw new Error(proxyData.body || proxyData.statusText || "API request failed");
+            }
+
+            const responseBody = proxyData.body as string;
+            if (!responseBody) {
+                return undefined as T;
+            }
+
+            try {
+                return JSON.parse(responseBody) as T;
+            } catch {
+                return responseBody as unknown as T;
+            }
+        },
+        [user, t]
+    );
+
+    const refreshNotes = useCallback(async () => {
+        if (!user) return;
+        const data = await apiRequest<Note[]>("GET", "/api/v1/notes");
+        // Keep stable ordering in case server ordering changes.
+        setNotes([...data].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
+    }, [apiRequest, user]);
+
     useEffect(() => {
         if (!user) {
             setNotes([]);
             setIsLoading(false);
+            setActiveNoteId(null);
             return;
         }
 
-        const q = query(
-            collection(db, "notes"),
-            where("userId", "==", user.uid),
-            orderBy("createdAt", "asc")
-        );
-
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-            const notesData = snapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-                // Convert timestamps to ISO strings if needed, or keep as is if they are stored as strings
-                // Assuming they are stored as serverTimestamp() which returns a Timestamp object
-                createdAt: doc.data().createdAt?.toDate?.()?.toISOString() || new Date().toISOString(),
-                updatedAt: doc.data().updatedAt?.toDate?.()?.toISOString() || new Date().toISOString(),
-            })) as Note[];
-
-            setNotes(notesData);
-            setIsLoading(false);
-        });
-
-        return () => unsubscribe();
-    }, [user]);
+        (async () => {
+            try {
+                setIsLoading(true);
+                await refreshNotes();
+            } finally {
+                setIsLoading(false);
+            }
+        })();
+    }, [refreshNotes, user]);
 
     const createNote = useCallback(async (parentId: string | null = null) => {
         if (!user) throw new Error(t("authRequiredError"));
-
-        const newNote = {
+        const created = await apiRequest<Note>("POST", "/api/v1/notes", {
             title: t("defaultTitle"),
             content: {},
             parentId,
-            userId: user.uid,
-            createdAt: serverTimestamp(),
-            updatedAt: serverTimestamp(),
-            icon: "📄",
-        };
-
-        const docRef = await addDoc(collection(db, "notes"), newNote);
-        setActiveNoteId(docRef.id);
-        return docRef.id;
-    }, [user, t]);
+            // Backend/UI uses `note.icon || "📄"` fallback.
+            icon: undefined,
+        });
+        setActiveNoteId(created.id);
+        setNotes((prev) => [...prev, created].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
+        return created.id;
+    }, [apiRequest, user, t]);
 
     const updateNote = useCallback(async (id: string, updates: Partial<Note>) => {
         if (!user) return;
+        const payload: Partial<Pick<Note, "title" | "content" | "parentId" | "icon">> = {};
+        if (updates.title !== undefined) payload.title = updates.title;
+        if (updates.content !== undefined) payload.content = updates.content;
+        if (updates.parentId !== undefined) payload.parentId = updates.parentId;
+        if (updates.icon !== undefined) payload.icon = updates.icon;
 
-        const noteRef = doc(db, "notes", id);
-        await updateDoc(noteRef, {
-            ...updates,
-            updatedAt: serverTimestamp(),
-        });
-    }, [user]);
+        const updated = await apiRequest<Note>("PATCH", `/api/v1/notes/${id}`, payload);
+        setNotes((prev) => prev.map((n) => (n.id === updated.id ? updated : n)));
+    }, [apiRequest, user]);
 
     const deleteNote = useCallback(async (id: string) => {
         if (!user) return;
-
-        // Recursively delete children (optional, but good practice)
-        // For now, we'll just delete the note itself. 
-        // In a production app, you'd want a cloud function or batch write to delete children.
-
-        await deleteDoc(doc(db, "notes", id));
+        await apiRequest<void>("DELETE", `/api/v1/notes/${id}?recursive=true`);
         if (activeNoteId === id) {
             setActiveNoteId(null);
         }
-    }, [user, activeNoteId]);
+        await refreshNotes();
+    }, [apiRequest, user, activeNoteId, refreshNotes]);
 
     return (
         <NotesContext.Provider
