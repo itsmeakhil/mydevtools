@@ -1,4 +1,5 @@
 from functools import lru_cache
+from typing import Optional
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -10,8 +11,8 @@ class Settings(BaseSettings):
     APP_HOST: str = "0.0.0.0"
     APP_PORT: int = 8000
 
-    FIREBASE_CREDENTIALS_JSON: str | None = None
-    FIREBASE_CREDENTIALS_PATH: str | None = None
+    FIREBASE_CREDENTIALS_JSON: Optional[str] = None
+    FIREBASE_CREDENTIALS_PATH: Optional[str] = None
 
     MONGO_DB_URL: str = "mongodb://localhost:27017"
     MONGO_DB_NAME: str = "mydevtools"
