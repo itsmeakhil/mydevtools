@@ -7,6 +7,7 @@ from app.api.routes.tasks.api import router as tasks_router
 from app.api.routes.passwords.api import router as passwords_router
 from app.api.routes.notes.api import router as notes_router
 from app.api.routes.nosql.api import router as nosql_router
+from app.api.routes.user_preferences.api import router as user_preferences_router
 
 api_router = APIRouter()
 api_router.include_router(health_router)
@@ -16,3 +17,4 @@ api_router.include_router(bookmarks_router)
 api_router.include_router(passwords_router)
 api_router.include_router(notes_router)
 api_router.include_router(nosql_router)
+api_router.include_router(user_preferences_router)
