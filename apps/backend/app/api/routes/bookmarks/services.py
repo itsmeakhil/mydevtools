@@ -1,12 +1,20 @@
 import random
 import string
 import time
-from typing import Any
+from typing import Any, Optional
 
 from fastapi import HTTPException, status
-from pymongo.collection import Collection
-from pymongo.errors import PyMongoError
-from pymongo import ReturnDocument
+try:
+    from pymongo.collection import Collection
+    from pymongo.errors import PyMongoError
+    from pymongo import ReturnDocument
+except Exception:  # pragma: no cover
+    # Allow backend to start and run unit tests without a working PyMongo/OpenSSL stack.
+    Collection = Any  # type: ignore
+    PyMongoError = Exception  # type: ignore
+
+    class ReturnDocument:  # type: ignore
+        AFTER = "after"
 
 from app.api.routes.bookmarks.schema import (
     COLLECTION_BOOKMARK_FOLDERS,
@@ -83,7 +91,7 @@ def _descendant_folder_ids(root_id: str, folders: list[dict[str, Any]]) -> list[
 def list_bookmarks(
     uid: str,
     *,
-    folder_id: str | None = None,
+    folder_id: Optional[str] = None,
 ) -> list[BookmarkOut]:
     col = _bookmarks_col()
     q: dict[str, Any] = {"created_by": uid}
