@@ -1,3 +1,4 @@
+USERS = "users"
 TASKS = "tasks"
 PROJECTS = "projects"
 BOOKMARKS = "bookmarks"

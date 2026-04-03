@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback, use
 import { Task, NewTask } from "@/app/app/to-do/types/Task";
 import { format } from "date-fns";
 import useAuth, { AuthState } from "@/utils/useAuth";
+import { backendFetch } from "@/lib/backend-auth";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 
@@ -65,15 +66,12 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
   const authedFetch = useCallback(
     async (path: string, init?: RequestInit) => {
       if (!user) throw new Error("Not authenticated");
-      const token = await user.getIdToken();
-      const res = await fetch(path, {
+      const res = await backendFetch(path, {
         ...init,
         headers: {
           "Content-Type": "application/json",
           ...(init?.headers || {}),
-          Authorization: `Bearer ${token}`,
         },
-        cache: "no-store",
       });
       if (!res.ok) {
         const text = await res.text().catch(() => "");

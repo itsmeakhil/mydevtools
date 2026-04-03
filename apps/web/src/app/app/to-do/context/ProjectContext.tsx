@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { Project, NewProject } from "@/app/app/to-do/types/Project";
 import useAuth from "@/utils/useAuth";
+import { backendFetch } from "@/lib/backend-auth";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 
@@ -25,13 +26,11 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
     const authedFetch = useCallback(
         async (path: string, init?: RequestInit) => {
             if (!user) throw new Error("Not authenticated");
-            const token = await user.getIdToken()
-            const res = await fetch(path, {
+            const res = await backendFetch(path, {
                 ...init,
                 headers: {
                     "Content-Type": "application/json",
                     ...(init?.headers || {}),
-                    Authorization: `Bearer ${token}`,
                 },
             })
             if (!res.ok) {

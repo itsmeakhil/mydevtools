@@ -1,32 +1,22 @@
-from typing import Any, Dict, Optional
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, Field
 
 
-class VerifyTokenRequest(BaseModel):
+class SessionRequest(BaseModel):
+    """Exchange a Firebase ID token once; API returns HttpOnly cookies (no JWT in JSON)."""
+
     id_token: str = Field(min_length=1)
-    check_revoked: bool = False
-
-
-class VerifiedTokenData(BaseModel):
-    model_config = ConfigDict(extra="allow")
-
-    uid: str
-    email: Optional[str] = None
-    email_verified: Optional[bool] = None
-    name: Optional[str] = None
-    picture: Optional[str] = None
-    firebase: Optional[Dict[str, Any]] = None
-
-
-class VerifyTokenResponse(BaseModel):
-    token: VerifiedTokenData
+    check_revoked: bool = True
 
 
 class UserProfileResponse(BaseModel):
     uid: str
-    email: Optional[str] = None
-    display_name: Optional[str] = None
-    photo_url: Optional[str] = None
+    email: str | None = None
+    display_name: str | None = None
+    photo_url: str | None = None
     email_verified: bool
     disabled: bool
+
+
+class OkResponse(BaseModel):
+    ok: bool

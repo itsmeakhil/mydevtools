@@ -25,12 +25,9 @@ const proxyRequest = async <T,>(
     const currentUser = auth.currentUser;
     if (!currentUser) throw new Error("Not authenticated.");
 
-    const idToken = await currentUser.getIdToken();
     const url = new URL(path, BACKEND_BASE_URL).toString();
 
-    const headersObj: Record<string, string> = {
-        Authorization: `Bearer ${idToken}`,
-    };
+    const headersObj: Record<string, string> = {};
 
     const proxyBody = body !== undefined ? JSON.stringify(body) : undefined;
     if (proxyBody !== undefined && method !== "GET" && method !== "HEAD") {
@@ -39,6 +36,7 @@ const proxyRequest = async <T,>(
 
     const proxyRes = await fetch("/api/proxy", {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             url,

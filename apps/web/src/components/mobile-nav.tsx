@@ -18,6 +18,7 @@ import { signOut as firebaseSignOut } from "firebase/auth"
 import { auth } from "@/database/firebase"
 import { usePasswordStore } from "@/store/password-store"
 import { useToolVisibilityStore } from "@/store/tool-visibility-store"
+import { logoutBackendSession } from "@/lib/backend-auth"
 import { motion } from "framer-motion"
 import { useThemeAnimation } from "@space-man/react-theme-animation"
 
@@ -76,6 +77,7 @@ export function MobileNav() {
 
             resetTools() // Reset tool visibility to defaults
 
+            await logoutBackendSession()
             await firebaseSignOut(auth);
             router.push('/login');
         } catch (error) {

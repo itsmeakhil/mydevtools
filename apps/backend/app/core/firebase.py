@@ -27,7 +27,6 @@ def get_firebase_app():
 
     settings = get_settings()
     cred_json = settings.FIREBASE_CREDENTIALS_JSON
-    cred_path = settings.FIREBASE_CREDENTIALS_PATH
 
     if cred_json:
         try:
@@ -37,8 +36,6 @@ def get_firebase_app():
         cert = credentials.Certificate(data)
         return firebase_admin.initialize_app(cert)
 
-    if cred_path:
-        cert = credentials.Certificate(str(Path(cred_path).expanduser().resolve()))
-        return firebase_admin.initialize_app(cert)
+    
 
     return firebase_admin.initialize_app()

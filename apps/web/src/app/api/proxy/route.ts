@@ -25,6 +25,10 @@ export async function POST(req: NextRequest) {
         const startTime = performance.now()
 
         const requestHeaders = { ...(headers || {}) } as Record<string, string>
+        const incomingCookie = req.headers.get("cookie")
+        if (incomingCookie && !Object.keys(requestHeaders).some((k) => k.toLowerCase() === "cookie")) {
+            requestHeaders["cookie"] = incomingCookie
+        }
         let requestBody: BodyInit | undefined = body || undefined
 
         if (body && typeof body === "object" && body.mode === "form-data" && Array.isArray(body.entries)) {

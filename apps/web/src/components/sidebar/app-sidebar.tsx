@@ -16,6 +16,7 @@ import { auth } from '../../database/firebase'
 import { useRouter } from 'next/navigation'
 import { usePasswordStore } from '@/store/password-store'
 import { useToolVisibilityStore } from '@/store/tool-visibility-store'
+import { logoutBackendSession } from '@/lib/backend-auth'
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { lockVault } = usePasswordStore()
@@ -55,6 +56,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
       resetTools() // Reset tool visibility to defaults
 
+      await logoutBackendSession()
       await firebaseSignOut(auth);
       router.push('/login');
     } catch (error) {

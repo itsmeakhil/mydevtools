@@ -4,9 +4,12 @@ import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { AppSidebar } from "./app-sidebar";
 import { NavBar } from '@/components/nav-bar';
 import { MobileNav } from '@/components/mobile-nav';
+import useAuth from '@/utils/useAuth';
+import { EnsureBackendSession } from '@/components/ensure-backend-session';
 
 function Layout({ children }: { children: React.ReactNode }) {
   const { state } = useSidebar();
+  const { user } = useAuth(false);
 
   return (
     <div className="flex h-screen font-mono w-full">
@@ -34,7 +37,9 @@ function Layout({ children }: { children: React.ReactNode }) {
         {/* Scrollable content */}
         <main className="font-mono">
           <div className="mx-auto w-full">
-            {children}
+            <EnsureBackendSession user={user}>
+              {children}
+            </EnsureBackendSession>
           </div>
         </main>
         <MobileNav />

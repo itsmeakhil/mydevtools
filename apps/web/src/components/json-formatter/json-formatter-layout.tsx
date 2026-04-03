@@ -8,6 +8,7 @@ import { Mode, toTextContent, type Content, type OnChangeStatus } from 'vanilla-
 import { Card, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import useAuth from '@/utils/useAuth'
+import { backendFetch } from '@/lib/backend-auth'
 import { VanillaEditor } from './vanilla-editor'
 import {
   ResizableHandle,
@@ -50,15 +51,12 @@ export function JsonFormatterLayout() {
   const authedFetch = useCallback(
     async (path: string, init?: RequestInit) => {
       if (!user) throw new Error('Not authenticated')
-      const token = await user.getIdToken()
-      const res = await fetch(path, {
+      const res = await backendFetch(path, {
         ...init,
         headers: {
           'Content-Type': 'application/json',
           ...(init?.headers || {}),
-          Authorization: `Bearer ${token}`,
         },
-        cache: 'no-store',
       })
       if (!res.ok) {
         const text = await res.text().catch(() => '')

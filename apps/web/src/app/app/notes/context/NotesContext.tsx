@@ -34,18 +34,16 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
         async <T,>(method: string, path: string, body?: unknown): Promise<T> => {
             if (!user) throw new Error(t("authRequiredError"));
 
-            const idToken = await user.getIdToken();
             const url = new URL(path, BACKEND_BASE_URL).toString();
 
-            const headers: Record<string, string> = {
-                Authorization: `Bearer ${idToken}`,
-            };
+            const headers: Record<string, string> = {};
             if (body !== undefined && body !== null && method !== "GET" && method !== "HEAD") {
                 headers["Content-Type"] = "application/json";
             }
 
             const proxyRes = await fetch("/api/proxy", {
                 method: "POST",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     url,

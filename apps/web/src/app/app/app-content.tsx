@@ -5,9 +5,12 @@ import { useSidebar } from "@/components/ui/sidebar";
 import { AppSidebar } from "../../components/sidebar/app-sidebar";
 import { NavBar } from '@/components/nav-bar';
 import { MobileNav } from '@/components/mobile-nav';
+import useAuth from '@/utils/useAuth';
+import { EnsureBackendSession } from '@/components/ensure-backend-session';
 
 export function AppContent({ children }: { children: React.ReactNode }) {
   const { state } = useSidebar();
+  const { user } = useAuth(false);
 
   return (
     <div
@@ -33,7 +36,9 @@ export function AppContent({ children }: { children: React.ReactNode }) {
           </div>
           <div className="flex-1 flex flex-col z-10 min-w-0 min-h-0 overflow-hidden">
             <div className="flex-1 min-w-0 min-h-0 overflow-hidden">
-              {children}
+              <EnsureBackendSession user={user}>
+                {children}
+              </EnsureBackendSession>
             </div>
           </div>
           <MobileNav />

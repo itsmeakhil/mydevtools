@@ -1,4 +1,5 @@
 import { auth } from "@/database/firebase"
+import { BACKEND_AUTH_REFRESH_PATH, ensureBackendSession } from "@/lib/backend-auth"
 
 const BACKEND_BASE_URL: string =
     process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
@@ -53,20 +54,19 @@ type ProxyResponse = {
     error?: string
 }
 
+async function syncApiSessionIfNeeded(): Promise<void> {
+    const u = auth.currentUser
+    if (u) await ensureBackendSession(u)
+}
+
 async function proxyJson<T>(
     method: string,
     path: string,
     body?: unknown
 ): Promise<{ status: number; data: T | null }> {
-    const currentUser = auth.currentUser
-    if (!currentUser) throw new Error("Not authenticated.")
-
-    const idToken = await currentUser.getIdToken()
     const url = new URL(path, BACKEND_BASE_URL).toString()
 
-    const headersObj: Record<string, string> = {
-        Authorization: `Bearer ${idToken}`,
-    }
+    const headersObj: Record<string, string> = {}
 
     const proxyBody = body !== undefined ? JSON.stringify(body) : undefined
     if (proxyBody !== undefined && method !== "GET" && method !== "HEAD") {
@@ -75,6 +75,7 @@ async function proxyJson<T>(
 
     const proxyRes = await fetch("/api/proxy", {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             url,
@@ -96,6 +97,31 @@ async function proxyJson<T>(
     }
 }
 
+/** Ensures JWT cookies exist, then proxies. Retries after refresh or Firebase re-exchange on 401. */
+async function proxyJsonAuthed<T>(
+    method: string,
+    path: string,
+    body?: unknown
+): Promise<{ status: number; data: T | null }> {
+    await syncApiSessionIfNeeded()
+    let result = await proxyJson<T>(method, path, body)
+    if (result.status === 401) {
+        const refr = await fetch(BACKEND_AUTH_REFRESH_PATH, {
+            method: "POST",
+            credentials: "include",
+            cache: "no-store",
+        })
+        if (refr.ok) {
+            result = await proxyJson<T>(method, path, body)
+        }
+    }
+    if (result.status === 401) {
+        await syncApiSessionIfNeeded()
+        result = await proxyJson<T>(method, path, body)
+    }
+    return result
+}
+
 function backendErrorMessage(data: unknown): string {
     if (typeof data === "string" && data.trim()) return data
     if (data && typeof data === "object" && "detail" in data) {
@@ -111,7 +137,7 @@ function backendErrorMessage(data: unknown): string {
 }
 
 async function userPrefsRequest<T>(method: string, path: string, body?: unknown): Promise<T> {
-    const { status, data } = await proxyJson<T>(method, path, body)
+    const { status, data } = await proxyJsonAuthed<T>(method, path, body)
     if (status < 200 || status >= 300) {
         throw new Error(backendErrorMessage(data))
     }

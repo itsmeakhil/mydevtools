@@ -15,7 +15,7 @@ Backend service template for the monorepo.
 
 ## Quick start
 
-1. Create and activate a Python 3.11+ virtual environment.
+1. Create and activate a Python 3.10+ virtual environment.
 2. Install dependencies:
    - `pip install -e ".[dev]"`
 3. Copy env file:
@@ -27,13 +27,16 @@ Backend service template for the monorepo.
 
 - `GET /` - root message
 - `GET /api/v1/health` - health check
-- `POST /api/v1/auth/verify-token` - verify Firebase ID token
-- `GET /api/v1/auth/me` - get current Firebase user profile
+- `POST /api/v1/auth/session` - verify Firebase ID token once; sets HttpOnly cookies (`mdt_at` access JWT ~15d, `mdt_rt` refresh ~60d) and upserts `users` in MongoDB (document `_id` = Firebase UID)
+- `POST /api/v1/auth/refresh` - rotate tokens using the refresh cookie
+- `POST /api/v1/auth/logout` - clear cookies and server-side refresh hash
+- `GET /api/v1/auth/session/check` - 200 if the access JWT is valid
+- `GET /api/v1/auth/me` - current user profile from the `users` collection
 - `GET /docs` - Swagger UI
 
 ### Todo app (parity with Firestore `tasks` / `projects`)
 
-All routes require `Authorization: Bearer <Firebase ID token>`.
+Protected routes accept `Authorization: Bearer <API JWT>` and/or the HttpOnly access cookie `mdt_at` (used by the Next.js BFF). Firebase ID tokens are only accepted on `POST /auth/session`.
 
 **Tasks** (`/api/v1/tasks`)
 
@@ -64,7 +67,7 @@ Set `MONGO_DB_URL` and `MONGO_DB_NAME` in `.env`. Document layout and indexes: `
 
 The bookmarks UI today uses **localStorage** only (`bookmark-storage`). These APIs store the **same payload** in MongoDB using the same pattern as tasks: top-level collections `bookmarks` and `bookmarkFolders` with `created_by` = Firebase UID. String `_id` values match client-generated ids.
 
-All routes require `Authorization: Bearer <Firebase ID token>`.
+Protected routes accept `Authorization: Bearer <API JWT>` and/or the HttpOnly access cookie `mdt_at` (used by the Next.js BFF). Firebase ID tokens are only accepted on `POST /auth/session`.
 
 **Bookmarks** — `/api/v1/bookmarks`
 
@@ -92,6 +95,16 @@ All routes require `Authorization: Bearer <Firebase ID token>`.
 | DELETE | `/{id}` | `deleteFolder` (descendants removed; bookmarks → uncategorized) |
 
 Schema and indexes: `app/api/routes/bookmarks/schema.py`.
+
+## API JWT and cookies
+
+- Set `JWT_SECRET_KEY` in `.env` (required when `APP_ENV=production`).
+- Optional: `AUTH_COOKIE_SECURE=true` when the API is only served over HTTPS.
+- Access token lifetime defaults to **15 days**; refresh token **60 days** (`ACCESS_TOKEN_EXPIRE_DAYS` / `REFRESH_TOKEN_EXPIRE_DAYS` in `app/core/config.py`).
+
+Recommended MongoDB index for refresh lookup:
+
+    db.users.create_index([("refresh_token_hash", 1)], sparse=True)
 
 ## Firebase auth setup
 

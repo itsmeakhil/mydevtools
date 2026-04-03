@@ -14,6 +14,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../database/firebase";
 import { useState } from "react";
+import { establishBackendSession } from "@/lib/backend-auth";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, AlertCircle, Github } from "lucide-react";
 
@@ -27,7 +28,14 @@ export function LoginForm() {
     setError("");
     try {
       const result = await signInWithPopup(auth, provider);
-      console.log("User signed in:", result.user);
+      const idToken = await result.user.getIdToken();
+      try {
+        await establishBackendSession(idToken);
+      } catch (sessionErr) {
+        console.error("Backend session failed:", sessionErr);
+        setError("Signed in, but could not start an API session. Please try again.");
+        return;
+      }
       router.push("/dashboard");
     } catch (error: any) {
       console.error("Error during sign-in:", error);
@@ -74,7 +82,14 @@ export function LoginForm() {
 
               // Link the pending credential
               await linkWithCredential(result.user, pendingCredential);
-              console.log("Account linked successfully");
+              const idToken = await result.user.getIdToken();
+              try {
+                await establishBackendSession(idToken);
+              } catch (sessionErr) {
+                console.error("Backend session failed:", sessionErr);
+                setError("Signed in, but could not start an API session. Please try again.");
+                return;
+              }
               router.push("/dashboard");
               return;
             } else {

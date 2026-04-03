@@ -5,6 +5,7 @@ import { auth } from '../../../database/firebase';
 import { Button } from '../../../components/ui/button';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { establishBackendSession } from '@/lib/backend-auth';
 
 const GoogleLoginButton = () => {
     const router = useRouter();
@@ -12,11 +13,11 @@ const GoogleLoginButton = () => {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
-      console.log('User signed in:', result.user);
-      router.push('/dashboard'); // Redirect to the home page or any other page
-      // Redirect or handle user data
+      const idToken = await result.user.getIdToken();
+      await establishBackendSession(idToken);
+      router.push('/dashboard');
     } catch (error) {
-      console.error('Error during Google sign-in:', error);
+      console.error('Error during Google sign-in or API session:', error);
     }
   };
 

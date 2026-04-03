@@ -12,6 +12,20 @@ function requireBaseUrl() {
     return null
 }
 
+function appendSetCookiesFromUpstream(upstream: Response, res: NextResponse) {
+    const anyHeaders = upstream.headers as Headers & { getSetCookie?: () => string[] }
+    if (typeof anyHeaders.getSetCookie === "function") {
+        for (const c of anyHeaders.getSetCookie()) {
+            res.headers.append("Set-Cookie", c)
+        }
+        return
+    }
+    const single = upstream.headers.get("set-cookie")
+    if (single) {
+        res.headers.append("Set-Cookie", single)
+    }
+}
+
 async function forward(req: NextRequest, method: string, pathSegments: string[]) {
     const baseUrlError = requireBaseUrl()
     if (baseUrlError) return baseUrlError
@@ -23,6 +37,9 @@ async function forward(req: NextRequest, method: string, pathSegments: string[])
     const headers: Record<string, string> = {}
     const auth = req.headers.get("authorization")
     if (auth) headers["authorization"] = auth
+
+    const cookie = req.headers.get("cookie")
+    if (cookie) headers["cookie"] = cookie
 
     const contentType = req.headers.get("content-type")
     if (contentType) headers["content-type"] = contentType
@@ -42,16 +59,20 @@ async function forward(req: NextRequest, method: string, pathSegments: string[])
     const upstreamContentType = upstreamRes.headers.get("content-type") || ""
     if (!upstreamContentType.includes("application/json")) {
         const text = await upstreamRes.text()
-        return new NextResponse(text, {
+        const res = new NextResponse(text, {
             status: upstreamRes.status,
             headers: {
                 "content-type": upstreamContentType || "text/plain",
             },
         })
+        appendSetCookiesFromUpstream(upstreamRes, res)
+        return res
     }
 
     const json = await upstreamRes.json().catch(() => null)
-    return NextResponse.json(json, { status: upstreamRes.status })
+    const res = NextResponse.json(json, { status: upstreamRes.status })
+    appendSetCookiesFromUpstream(upstreamRes, res)
+    return res
 }
 
 export async function GET(req: NextRequest, ctx: { params: Promise<{ path: string[] }> }) {
@@ -73,4 +94,3 @@ export async function DELETE(req: NextRequest, ctx: { params: Promise<{ path: st
     const { path } = await ctx.params
     return forward(req, "DELETE", path)
 }
-

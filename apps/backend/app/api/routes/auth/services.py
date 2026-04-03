@@ -1,13 +1,17 @@
-from typing import Optional
+from typing import Annotated
 
-from fastapi import Header, HTTPException, status
+from fastapi import Cookie, Depends, Header, HTTPException, status
+
+from app.api.routes.auth.schema import UserProfileResponse
+from app.api.routes.auth.tokens import decode_access_token
+from app.api.routes.auth.users_repo import get_user_doc
+from app.core.auth_cookies import ACCESS_COOKIE_NAME
+from app.core.firebase import get_firebase_app
+
 try:
     from firebase_admin import auth as firebase_auth
 except ModuleNotFoundError:  # pragma: no cover
     firebase_auth = None  # type: ignore[assignment]
-
-from app.api.routes.auth.schema import UserProfileResponse
-from app.core.firebase import get_firebase_app
 
 
 def verify_id_token(id_token: str, check_revoked: bool = False) -> dict:
@@ -37,63 +41,42 @@ def verify_id_token(id_token: str, check_revoked: bool = False) -> dict:
         ) from exc
 
 
-def extract_bearer_token(authorization: Optional[str]) -> str:
-    if not authorization:
+def get_current_uid(
+    authorization: Annotated[str | None, Header(alias="Authorization")] = None,
+    mdt_at: Annotated[str | None, Cookie(alias=ACCESS_COOKIE_NAME)] = None,
+) -> str:
+    token: str | None = None
+    if authorization:
+        scheme, _, value = authorization.partition(" ")
+        if scheme.lower() == "bearer" and value.strip():
+            token = value.strip()
+    if not token and mdt_at and mdt_at.strip():
+        token = mdt_at.strip()
+    if not token:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Missing Authorization header.",
+            detail="Not authenticated.",
         )
-
-    scheme, _, token = authorization.partition(" ")
-    if scheme.lower() != "bearer" or not token:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Authorization header must be Bearer token.",
-        )
-    return token
+    return decode_access_token(token)
 
 
-def get_current_uid(authorization: Optional[str] = Header(default=None)) -> str:
-    token = extract_bearer_token(authorization)
-    decoded = verify_id_token(token, check_revoked=True)
-    uid = decoded.get("uid")
-    if not uid:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Token payload missing user id.",
-        )
-    return uid
-
-
-def get_current_user(authorization: Optional[str] = Header(default=None)) -> UserProfileResponse:
-    token = extract_bearer_token(authorization)
-    decoded = verify_id_token(token, check_revoked=True)
-    uid = decoded.get("uid")
-    if not uid:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Token payload missing user id.",
-        )
-
-    get_firebase_app()
-    try:
-        user = firebase_auth.get_user(uid)
-    except firebase_auth.UserNotFoundError as exc:
+def get_current_user(uid: str = Depends(get_current_uid)) -> UserProfileResponse:
+    doc = get_user_doc(uid)
+    if not doc:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="Firebase user not found.",
-        ) from exc
-    except Exception as exc:
+            detail="User not found.",
+        )
+    if doc.get("disabled"):
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Unable to fetch Firebase user profile.",
-        ) from exc
-
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Account disabled.",
+        )
     return UserProfileResponse(
-        uid=user.uid,
-        email=user.email,
-        display_name=user.display_name,
-        photo_url=user.photo_url,
-        email_verified=user.email_verified,
-        disabled=user.disabled,
+        uid=str(doc["_id"]),
+        email=doc.get("email"),
+        display_name=doc.get("display_name"),
+        photo_url=doc.get("photo_url"),
+        email_verified=bool(doc.get("email_verified")),
+        disabled=bool(doc.get("disabled")),
     )
