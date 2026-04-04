@@ -20,11 +20,11 @@ import { Loader2, AlertCircle, Github } from "lucide-react";
 
 export function LoginForm() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const [loadingProvider, setLoadingProvider] = useState<"google" | "github" | "">("");
   const [error, setError] = useState("");
 
-  const handleLogin = async (provider: GoogleAuthProvider | GithubAuthProvider) => {
-    setIsLoading(true);
+  const handleLogin = async (provider: GoogleAuthProvider | GithubAuthProvider, providerName: "google" | "github") => {
+    setLoadingProvider(providerName);
     setError("");
     try {
       const result = await signInWithPopup(auth, provider);
@@ -74,8 +74,8 @@ export function LoginForm() {
               setError("");
 
               // Inform user
-              const providerName = providerId === GoogleAuthProvider.PROVIDER_ID ? "Google" : "GitHub";
-              alert(`You already have an account with ${providerName}. Please sign in with ${providerName} to link your accounts.`);
+              const linkProviderName = providerId === GoogleAuthProvider.PROVIDER_ID ? "Google" : "GitHub";
+              alert(`You already have an account with ${linkProviderName}. Please sign in with ${linkProviderName} to link your accounts.`);
 
               // Sign in with the existing provider
               const result = await signInWithPopup(auth, existingProvider);
@@ -110,7 +110,7 @@ export function LoginForm() {
         );
       }
     } finally {
-      setIsLoading(false);
+      setLoadingProvider("");
     }
   };
 
@@ -125,12 +125,12 @@ export function LoginForm() {
 
       <Button
         type="button"
-        onClick={() => handleLogin(new GoogleAuthProvider())}
-        disabled={isLoading}
+        onClick={() => handleLogin(new GoogleAuthProvider(), "google")}
+        disabled={loadingProvider !== ""}
         className="w-full flex items-center justify-center font-medium shadow-sm transition-colors"
         variant="outline"
       >
-        {isLoading ? (
+        {loadingProvider === "google" ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             <span>Signing in...</span>
@@ -167,12 +167,12 @@ export function LoginForm() {
 
       <Button
         type="button"
-        onClick={() => handleLogin(new GithubAuthProvider())}
-        disabled={isLoading}
+        onClick={() => handleLogin(new GithubAuthProvider(), "github")}
+        disabled={loadingProvider !== ""}
         className="w-full flex items-center justify-center font-medium shadow-sm transition-colors"
         variant="outline"
       >
-        {isLoading ? (
+        {loadingProvider === "github" ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             <span>Signing in...</span>
