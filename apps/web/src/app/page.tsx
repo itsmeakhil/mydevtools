@@ -9,7 +9,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { BackgroundAnimation } from "@/components/ui/background-animation";
 import {
   ArrowRight,
   Zap,
@@ -37,48 +36,48 @@ export default function Page() {
       description: "Format, validate, and minify JSON data with our powerful JSON tools.",
       icon: FileJson,
       href: "/app/json-formatter",
-      color: "text-orange-500",
-      bgColor: "bg-orange-500/10",
+      color: "text-foreground",
+      bgColor: "bg-muted",
     },
     {
       title: "API Client",
       description: "Test and debug HTTP requests with our easy-to-use API client.",
       icon: LinkIcon,
       href: "/app/api-client",
-      color: "text-blue-500",
-      bgColor: "bg-blue-500/10",
+      color: "text-foreground",
+      bgColor: "bg-muted",
     },
     {
       title: "NoSQL Explorer",
       description: "Explore and manage your MongoDB databases directly from your browser.",
       icon: KeyRound,
       href: "/app/nosql-explorer",
-      color: "text-purple-500",
-      bgColor: "bg-purple-500/10",
+      color: "text-foreground",
+      bgColor: "bg-muted",
     },
     {
       title: "Password Manager",
       description: "Securely store and manage your passwords with client-side encryption.",
       icon: Lock,
       href: "/app/password-manager",
-      color: "text-green-500",
-      bgColor: "bg-green-500/10",
+      color: "text-foreground",
+      bgColor: "bg-muted",
     },
     {
       title: "Task Manager",
       description: "Organize your daily tasks and boost your productivity.",
       icon: CheckCircle2,
       href: "/app/to-do",
-      color: "text-red-500",
-      bgColor: "bg-red-500/10",
+      color: "text-foreground",
+      bgColor: "bg-muted",
     },
     {
       title: "Notes",
       description: "Capture ideas and organize your thoughts with our simple note-taking app.",
       icon: Code2,
       href: "/app/notes",
-      color: "text-indigo-500",
-      bgColor: "bg-indigo-500/10",
+      color: "text-foreground",
+      bgColor: "bg-muted",
     },
   ];
 
@@ -106,19 +105,17 @@ export default function Page() {
 
       {/* Hero Section */}
       <section className="relative py-12 sm:py-16 md:py-24 lg:py-32 overflow-hidden">
-        {/* OpenStatus-inspired Background */}
-        <BackgroundAnimation />
 
         <div className="container px-4 md:px-6 mx-auto text-center">
           <div className="space-y-6 md:space-y-4 max-w-3xl mx-auto">
-            <Badge variant="secondary" className="px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium rounded-full border border-primary/20 bg-primary/5 text-primary animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <Badge variant="secondary" className="px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium rounded-full border border-border bg-muted text-foreground animate-in fade-in slide-in-from-bottom-4 duration-500">
               <Sparkles className="w-3 md:w-4 h-3 md:h-4 mr-1.5 md:mr-2 inline-block" />
               The Ultimate Developer Toolkit
             </Badge>
 
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground animate-in fade-in slide-in-from-bottom-6 duration-700 leading-tight">
               Simplify Your <br className="hidden sm:block" />
-              <span className="text-primary bg-clip-text">Development Workflow</span>
+              <span className="text-foreground">Development Workflow</span>
             </h1>
 
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-1000 px-2">
@@ -170,8 +167,8 @@ export default function Page() {
             {features.map((feature, index) => (
               <Card key={index} className="border-none shadow-none bg-transparent">
                 <CardHeader className="pb-3 md:pb-6 flex flex-row items-center gap-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <feature.icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-muted flex items-center justify-center shrink-0">
+                    <feature.icon className="w-5 h-5 md:w-6 md:h-6 text-foreground" />
                   </div>
                   <CardTitle className="text-lg md:text-xl">{feature.title}</CardTitle>
                 </CardHeader>
@@ -197,12 +194,12 @@ export default function Page() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {tools.map((tool, index) => (
               <Link key={index} href={tool.href}>
-                <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 active:scale-[0.98] border-border/50 hover:border-primary/50 group cursor-pointer">
+                <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 active:scale-[0.98] border-border/50 hover:border-foreground/50 group cursor-pointer">
                   <CardHeader className="pb-3 md:pb-6 flex flex-row items-center gap-4">
                     <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg ${tool.bgColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shrink-0`}>
                       <tool.icon className={`w-5 h-5 md:w-6 md:h-6 ${tool.color}`} />
                     </div>
-                    <CardTitle className="text-lg md:text-xl group-hover:text-primary transition-colors">
+                    <CardTitle className="text-lg md:text-xl group-hover:text-foreground transition-colors">
                       {tool.title}
                     </CardTitle>
                   </CardHeader>
@@ -225,7 +222,7 @@ export default function Page() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-primary/5 relative overflow-hidden">
+      <section className="py-16 md:py-24 bg-muted/50 relative overflow-hidden">
         <div className="container px-4 md:px-6 mx-auto text-center relative z-10">
           <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 md:mb-6 px-2">Ready to Boost Your Productivity?</h2>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 md:mb-10 px-4">
@@ -246,8 +243,6 @@ export default function Page() {
               backgroundSize: '32px 32px'
             }}
           />
-          <div className="absolute top-1/2 left-1/4 w-[400px] md:w-[700px] h-[400px] md:h-[700px] rounded-full bg-primary/25 blur-[100px] md:blur-[140px] animate-float" />
-          <div className="absolute bottom-1/2 right-1/4 w-[350px] md:w-[600px] h-[350px] md:h-[600px] rounded-full bg-blue-500/20 blur-[90px] md:blur-[120px] animate-float-delayed" />
         </div>
       </section>
 
