@@ -36,7 +36,7 @@ export function ModeToggle() {
       <SwitchPrimitives.Root
         className={cn(
           "peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent bg-input shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50",
-          "data-[state=checked]:bg-primary"
+          "data-[state=checked]:bg-foreground"
         )}
         disabled
       >
@@ -46,7 +46,7 @@ export function ModeToggle() {
             "data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0"
           )}
         >
-          <Sun className="h-3.5 w-3.5 text-orange-500" />
+          <Sun className="h-3.5 w-3.5 text-foreground" />
         </SwitchPrimitives.Thumb>
       </SwitchPrimitives.Root>
     )
@@ -59,7 +59,7 @@ export function ModeToggle() {
       onCheckedChange={handleToggle}
       className={cn(
         "peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent bg-input shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50",
-        "data-[state=checked]:bg-primary"
+        "data-[state=checked]:bg-foreground"
       )}
       aria-label="Toggle theme"
     >
@@ -70,9 +70,9 @@ export function ModeToggle() {
         )}
       >
         {isDark ? (
-          <Moon className="h-3.5 w-3.5 text-primary transition-all" />
+          <Moon className="h-3.5 w-3.5 text-foreground transition-all" />
         ) : (
-          <Sun className="h-3.5 w-3.5 text-orange-500 transition-all" />
+          <Sun className="h-3.5 w-3.5 text-foreground transition-all" />
         )}
       </SwitchPrimitives.Thumb>
     </SwitchPrimitives.Root>

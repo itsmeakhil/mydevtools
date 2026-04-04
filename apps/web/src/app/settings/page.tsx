@@ -141,8 +141,8 @@ export default function SettingsPage() {
                 <Button
                   variant="outline"
                   className={cn(
-                    "h-24 flex-col gap-3 justify-center border-2 border-muted hover:border-primary/50 transition-all",
-                    theme === 'light' && "border-primary bg-primary/5"
+                    "h-24 flex-col gap-3 justify-center border-2 border-muted hover:border-foreground/50 transition-all",
+                    theme === 'light' && "border-foreground bg-foreground/5"
                   )}
                   onClick={() => setTheme('light')}
                 >
@@ -152,8 +152,8 @@ export default function SettingsPage() {
                 <Button
                   variant="outline"
                   className={cn(
-                    "h-24 flex-col gap-3 justify-center border-2 border-muted hover:border-primary/50 transition-all",
-                    theme === 'dark' && "border-primary bg-primary/5"
+                    "h-24 flex-col gap-3 justify-center border-2 border-muted hover:border-foreground/50 transition-all",
+                    theme === 'dark' && "border-foreground bg-foreground/5"
                   )}
                   onClick={() => setTheme('dark')}
                 >
@@ -163,8 +163,8 @@ export default function SettingsPage() {
                 <Button
                   variant="outline"
                   className={cn(
-                    "h-24 flex-col gap-3 justify-center border-2 border-muted hover:border-primary/50 transition-all",
-                    theme === 'system' && "border-primary bg-primary/5"
+                    "h-24 flex-col gap-3 justify-center border-2 border-muted hover:border-foreground/50 transition-all",
+                    theme === 'system' && "border-foreground bg-foreground/5"
                   )}
                   onClick={() => setTheme('system')}
                 >
