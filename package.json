@@ -14,5 +14,10 @@
   "devDependencies": {
     "next": "16.0.10",
     "rimraf": "^6.1.0"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "next-themes@0.4.6": "patches/next-themes@0.4.6.patch"
+    }
   }
 }

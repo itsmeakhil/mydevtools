@@ -3,11 +3,10 @@
 import * as React from "react"
 import { ThemeProvider as NextThemesProvider, useTheme as useNextTheme } from "next-themes"
 import { SpacemanThemeProvider, ThemeAnimationType } from "@space-man/react-theme-animation"
-import { useColorTheme } from "@/hooks/use-color-theme"
+import { ColorThemeProvider } from "@/hooks/use-color-theme"
 
 function ThemeSync({ children }: { children: React.ReactNode }) {
   const { theme } = useNextTheme()
-  useColorTheme()
   const [mounted, setMounted] = React.useState(false)
 
   React.useEffect(() => {
@@ -30,13 +29,15 @@ export function ThemeProvider({
 }: React.ComponentProps<typeof NextThemesProvider>) {
   return (
     <NextThemesProvider {...props}>
-      <SpacemanThemeProvider
-        defaultTheme={props.defaultTheme as "light" | "dark" | "system" | undefined}
-        animationType={ThemeAnimationType.CIRCLE}
-        duration={400}
-      >
-        <ThemeSync>{children}</ThemeSync>
-      </SpacemanThemeProvider>
+      <ColorThemeProvider>
+        <SpacemanThemeProvider
+          defaultTheme={props.defaultTheme as "light" | "dark" | "system" | undefined}
+          animationType={ThemeAnimationType.CIRCLE}
+          duration={400}
+        >
+          <ThemeSync>{children}</ThemeSync>
+        </SpacemanThemeProvider>
+      </ColorThemeProvider>
     </NextThemesProvider>
   )
 }

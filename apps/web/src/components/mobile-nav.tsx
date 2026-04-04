@@ -17,7 +17,6 @@ import useAuth from "@/utils/useAuth"
 import { signOut as firebaseSignOut } from "firebase/auth"
 import { auth } from "@/database/firebase"
 import { usePasswordStore } from "@/store/password-store"
-import { useToolVisibilityStore } from "@/store/tool-visibility-store"
 import { logoutBackendSession } from "@/lib/backend-auth"
 import { motion } from "framer-motion"
 import { useThemeAnimation } from "@space-man/react-theme-animation"
@@ -35,7 +34,6 @@ export function MobileNav() {
     const { toggleSidebar, openMobile } = useSidebar()
     const { user } = useAuth()
     const { lockVault } = usePasswordStore()
-    const { resetTools } = useToolVisibilityStore()
     const { theme, toggleTheme, ref } = useThemeAnimation()
     const [mounted, setMounted] = useState(false)
 
@@ -74,8 +72,6 @@ export function MobileNav() {
                     req.onerror = () => resolve()
                 })
             }
-
-            resetTools() // Reset tool visibility to defaults
 
             await logoutBackendSession()
             await firebaseSignOut(auth);
