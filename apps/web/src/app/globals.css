@@ -52,47 +52,41 @@ body {
   }
 
   .dark {
-    /* Blue-tinted dark theme - deep blue slate backgrounds */
-    --background: 222 18% 8%;
-    --foreground: 210 15% 88%;
-    /* Card with slightly lighter blue-tinted background */
-    --card: 222 16% 11%;
-    --card-foreground: 210 15% 92%;
-    --popover: 222 16% 11%;
-    --popover-foreground: 210 15% 92%;
-    /* Primary with blue accent */
-    --primary: 217 75% 55%;
-    --primary-foreground: 0 0% 98%;
-    /* Secondary with subtle blue-tinted elevation */
-    --secondary: 222 14% 16%;
-    --secondary-foreground: 210 15% 88%;
-    /* Muted tones with blue tint */
-    --muted: 222 12% 18%;
-    --muted-foreground: 210 10% 68%;
-    /* Accent with blue tone */
-    --accent: 217 65% 45%;
+    /* Minimalist dark theme - shadcn neutral zinc defaults */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    /* Soft blue-tinted borders */
-    --border: 222 12% 20%;
-    --input: 222 12% 20%;
-    --ring: 217 75% 55%;
-    /* Chart colors with blue, green, violet accents */
-    --chart-1: 217 75% 55%;
-    --chart-2: 142 55% 50%;
-    --chart-3: 252 45% 50%;
-    --chart-4: 217 75% 55%;
-    --chart-5: 142 55% 50%;
-    /* Sidebar with matching blue dark theme */
-    --sidebar-background: 222 18% 6%;
-    --sidebar-foreground: 210 15% 85%;
-    --sidebar-primary: 217 75% 55%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 222 14% 16%;
-    --sidebar-accent-foreground: 210 15% 88%;
-    --sidebar-border: 222 12% 20%;
-    --sidebar-ring: 217 75% 55%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    /* Chart colors remain balanced */
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    /* Sidebar with neutral dark theme */
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 240 5.9% 10%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 240 4.9% 83.9%;
   }
 
   /* Color Theme Overrides - Light Mode */
@@ -453,17 +447,17 @@ body {
     border-color: hsl(var(--primary) / 0.2);
   }
 
-  /* Enhanced gradient backgrounds with blue tint */
+  /* Clean gradient backgrounds to remove blue tint */
   .dark .bg-gradient-to-br {
     background-image: linear-gradient(135deg,
-        hsl(222 18% 8%),
-        hsl(222 16% 6%),
-        hsl(222 12% 10% / 0.3));
+        hsl(var(--background)),
+        hsl(var(--background)),
+        hsl(var(--muted)));
   }
 
-  /* Gradient background for body */
+  /* Standard neutral background for body */
   .dark body {
-    background: linear-gradient(135deg, hsl(222 18% 8%) 0%, hsl(222 18% 6%) 100%);
+    background: hsl(var(--background));
   }
 
   /* Custom scrollbar for tabs */

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Github, Menu, X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./modeToggle";
-import { LanguageSwitcher } from "./language-switcher";
 import { Logo } from "./logo";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -117,7 +116,6 @@ export function Header() {
 
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-3">
-              <LanguageSwitcher />
               <ModeToggle />
               <Link href="https://github.com/itsmeakhil/mydevtools.tech" target="_blank" rel="noreferrer">
                 <Button
@@ -128,7 +126,7 @@ export function Header() {
                   <Github className="h-4 w-4" />
                 </Button>
               </Link>
-              <Button asChild className="px-6 shadow-sm hover:shadow-md transition-shadow">
+              <Button asChild className="bg-foreground text-background hover:bg-foreground/90 px-6 shadow-sm hover:shadow-md transition-shadow">
                 <Link href="/login">
                   Get Started
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -181,7 +179,7 @@ export function Header() {
                           "text-base font-medium transition-all duration-200",
                           "hover:bg-muted/60 active:scale-[0.98]",
                           "min-h-[48px]",
-                          link.isPrimary && "bg-primary text-primary-foreground hover:bg-primary/90"
+                          link.isPrimary && "bg-foreground text-background hover:bg-foreground/90"
                         )}
                       >
                         {link.icon && <link.icon className="h-5 w-5" />}
@@ -202,10 +200,6 @@ export function Header() {
                     <div className="flex items-center justify-between px-4 py-3">
                       <span className="text-sm font-medium text-muted-foreground">Theme</span>
                       <ModeToggle />
-                    </div>
-                    <div className="flex items-center justify-between px-4 py-3 border-t border-border/40">
-                      <span className="text-sm font-medium text-muted-foreground">Language</span>
-                      <LanguageSwitcher />
                     </div>
                   </motion.div>
                 </div>

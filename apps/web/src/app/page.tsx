@@ -124,7 +124,7 @@ export default function Page() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 md:gap-4 pt-6 md:pt-8 animate-in fade-in slide-in-from-bottom-10 duration-1000 px-4 sm:px-0">
-              <Button size="lg" className="h-12 md:h-12 px-6 md:px-8 text-sm md:text-base rounded-full w-full sm:w-auto touch-target" onClick={goToLogin}>
+              <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90 h-12 md:h-12 px-6 md:px-8 text-sm md:text-base rounded-full w-full sm:w-auto touch-target" onClick={goToLogin}>
                 Get Started <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button size="lg" variant="outline" className="h-12 md:h-12 px-6 md:px-8 text-sm md:text-base rounded-full w-full sm:w-auto touch-target" asChild>
@@ -229,7 +229,7 @@ export default function Page() {
             Join thousands of developers who use MyDevTools to streamline their daily tasks.
             Open source, free, and privacy-focused.
           </p>
-          <Button size="lg" className="h-12 md:h-14 px-8 md:px-10 text-base md:text-lg rounded-full shadow-xl hover:shadow-2xl hover:scale-105 active:scale-[0.98] transition-all duration-300 w-full sm:w-auto max-w-sm sm:max-w-none touch-target" onClick={goToLogin}>
+          <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90 h-12 md:h-14 px-8 md:px-10 text-base md:text-lg rounded-full shadow-xl hover:shadow-2xl hover:scale-105 active:scale-[0.98] transition-all duration-300 w-full sm:w-auto max-w-sm sm:max-w-none touch-target" onClick={goToLogin}>
             Start Using Tools Now
           </Button>
         </div>
