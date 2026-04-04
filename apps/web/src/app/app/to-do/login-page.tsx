@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
-import Link from "next/link"
 import { FileJson, ListTodo, StickyNote, FileCode, Key, Hash } from "lucide-react"
+import { LegalAgreementFooter } from "@/components/legal-agreement-footer"
 import { Card } from "@/components/ui/card"
 import { LoginForm } from "../../../components/login-form"
 
@@ -79,17 +79,10 @@ export default function LoginPage() {
             <p className="text-sm text-muted-foreground">Sign in to your account to continue</p>
           </div>
           <LoginForm />
-          <p className="px-8 text-center text-sm text-muted-foreground">
-            By continuing, you agree to our{" "}
-            <Link href="/terms" className="underline underline-offset-4 hover:text-foreground transition-colors">
-              Terms of Service
-            </Link>{" "}
-            and{" "}
-            <Link href="/privacy" className="underline underline-offset-4 hover:text-foreground transition-colors">
-              Privacy Policy
-            </Link>
-            .
-          </p>
+          <LegalAgreementFooter
+            className="px-8 text-sm text-muted-foreground"
+            linkClassName="font-normal text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
+          />
         </div>
       </div>
     </div>
