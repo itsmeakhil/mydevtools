@@ -233,7 +233,7 @@ export default function SettingsPage() {
                 <SelectTrigger>
                   <SelectValue placeholder={t('language.selectPlaceholder')} />
                 </SelectTrigger>
-                <SelectContent rounded-lg>
+                <SelectContent className="rounded-lg">
                   <SelectItem value="en">{t('language.languages.en')}</SelectItem>
                   <SelectItem value="af">{t('language.languages.af')}</SelectItem>
                   <SelectItem value="ar">{t('language.languages.ar')}</SelectItem>

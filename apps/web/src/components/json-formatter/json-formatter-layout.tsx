@@ -306,7 +306,7 @@ export function JsonFormatterLayout() {
               </Button>
               <Button variant="outline" size="sm" onClick={() => openLoadDialog('left')}>
                 <IconFolderOpen className="mr-1.5 h-4 w-4" />
-                {t('load')}
+                {t.has('load') ? t('load') : 'Load'}
               </Button>
               <Button
                 size="sm"
@@ -354,7 +354,7 @@ export function JsonFormatterLayout() {
               </Button>
               <Button variant="outline" size="sm" onClick={() => openLoadDialog('right')}>
                 <IconFolderOpen className="mr-1.5 h-4 w-4" />
-                {t('load')}
+                {t.has('load') ? t('load') : 'Load'}
               </Button>
               <Button
                 size="sm"
