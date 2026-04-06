@@ -9,6 +9,7 @@ import {
   Sun,
   User as UserIcon,
   Settings,
+  HelpCircle,
 } from 'lucide-react'
 import { useThemeAnimation } from '@space-man/react-theme-animation'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
@@ -59,13 +60,14 @@ export function NavUser({ user, onSignout }: NavUserProps) {
 
   if (!isLoggedIn) {
     return (
-      <Link href="/login">
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              size="lg"
-              className="text-muted-foreground hover:bg-sidebar-accent/80"
-            >
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton
+            size="lg"
+            className="text-muted-foreground hover:bg-sidebar-accent/80"
+            asChild
+          >
+            <Link href="/login">
               <UserIcon className="h-8 w-8 shrink-0 opacity-80" />
               <div className="grid min-w-0 flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">Guest</span>
@@ -73,10 +75,27 @@ export function NavUser({ user, onSignout }: NavUserProps) {
                   Sign in to sync
                 </span>
               </div>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </Link>
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+        <SidebarMenuItem>
+          <SidebarMenuButton
+            size="lg"
+            className="text-muted-foreground hover:bg-sidebar-accent/80"
+            asChild
+          >
+            <Link href="/help">
+              <HelpCircle className="h-8 w-8 shrink-0 opacity-80" />
+              <div className="grid min-w-0 flex-1 text-left text-sm leading-tight">
+                <span className="truncate font-medium">Help</span>
+                <span className="truncate text-xs text-muted-foreground">
+                  Docs &amp; security
+                </span>
+              </div>
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
     )
   }
 
@@ -158,6 +177,12 @@ export function NavUser({ user, onSignout }: NavUserProps) {
             </div>
 
             <DropdownMenuGroup className="p-1.5">
+              <DropdownMenuItem asChild className={menuItemClass}>
+                <Link href="/help" className="flex w-full items-center">
+                  <HelpCircle className="size-4" />
+                  <span>Help</span>
+                </Link>
+              </DropdownMenuItem>
               <DropdownMenuItem asChild className={menuItemClass}>
                 <Link href="/settings" className="flex w-full items-center">
                   <Settings className="size-4" />

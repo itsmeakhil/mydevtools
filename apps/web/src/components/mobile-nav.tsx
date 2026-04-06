@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { Home, LayoutGrid, LogOut, User as UserIcon, Moon, Sun } from "lucide-react"
+import { Home, LayoutGrid, LogOut, User as UserIcon, Moon, Sun, Settings, HelpCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useSidebar } from "@/components/ui/sidebar"
 import {
@@ -211,6 +211,19 @@ export function MobileNav() {
                                 </div>
                             </div>
                         </DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem asChild className="cursor-pointer py-2.5">
+                            <Link href="/help" className="flex w-full items-center">
+                                <HelpCircle className="mr-2 h-4 w-4" />
+                                <span>Help</span>
+                            </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild className="cursor-pointer py-2.5">
+                            <Link href="/settings" className="flex w-full items-center">
+                                <Settings className="mr-2 h-4 w-4" />
+                                <span>Settings</span>
+                            </Link>
+                        </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                             ref={ref as any}
