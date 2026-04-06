@@ -1392,6 +1392,7 @@
     "newDocument": "Ny",
     "copy": "Kopiér",
     "save": "Gem",
+    "load": "Indlæs",
     "saving": "Gemmer...",
     "leftDocNameLabel": "Venstre dokumentnavn",
     "rightDocNameLabel": "Højre dokumentnavn",

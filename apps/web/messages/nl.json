@@ -1392,6 +1392,7 @@
     "newDocument": "Nieuw",
     "copy": "Kopiëren",
     "save": "Opslaan",
+    "load": "Laden",
     "saving": "Opslaan...",
     "leftDocNameLabel": "Naam linkerdocument",
     "rightDocNameLabel": "Naam rechterdocument",

@@ -1392,6 +1392,7 @@
     "newDocument": "Novo",
     "copy": "Copiar",
     "save": "Guardar",
+    "load": "Carregar",
     "saving": "A guardar...",
     "leftDocNameLabel": "Nome do documento esquerdo",
     "rightDocNameLabel": "Nome do documento direito",

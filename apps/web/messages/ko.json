@@ -1392,6 +1392,7 @@
     "newDocument": "새로 만들기",
     "copy": "복사",
     "save": "저장",
+    "load": "불러오기",
     "saving": "저장 중...",
     "leftDocNameLabel": "왼쪽 문서 이름",
     "rightDocNameLabel": "오른쪽 문서 이름",
