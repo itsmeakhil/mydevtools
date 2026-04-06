@@ -5,23 +5,6 @@ const BACKEND_BASE_URL: string =
 
 const BASE = "/api/v1/password-manager"
 
-export type KeyVerifier = {
-    encrypted: string
-    iv: string
-}
-
-export type VaultOut = {
-    salt: string
-    verifier: KeyVerifier
-    createdAt: number
-}
-
-export type VaultSetupRequest = {
-    salt: string
-    verifier: KeyVerifier
-    createdAt?: number
-}
-
 export type PasswordEntryOut = {
     id: string
     encryptedData: string
@@ -111,19 +94,6 @@ async function passwordManagerRequest<T>(method: string, path: string, body?: un
         throw new Error(backendErrorMessage(data))
     }
     return data as T
-}
-
-export async function getVaultOrNull(): Promise<VaultOut | null> {
-    const { status, data } = await proxyJson<VaultOut>("GET", `${BASE}/vault`)
-    if (status === 404) return null
-    if (status < 200 || status >= 300) {
-        throw new Error(backendErrorMessage(data))
-    }
-    return data
-}
-
-export async function setupVault(body: VaultSetupRequest): Promise<VaultOut> {
-    return passwordManagerRequest<VaultOut>("POST", `${BASE}/vault/setup`, body)
 }
 
 export async function listPasswordEntries(): Promise<PasswordEntryOut[]> {

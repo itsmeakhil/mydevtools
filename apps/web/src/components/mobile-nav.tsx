@@ -17,6 +17,8 @@ import useAuth from "@/utils/useAuth"
 import { signOut as firebaseSignOut } from "firebase/auth"
 import { auth } from "@/database/firebase"
 import { usePasswordStore } from "@/store/password-store"
+import { useMasterKeyStore } from "@/store/master-key-store"
+import { clearMasterKey } from "@/lib/key-storage"
 import { logoutBackendSession } from "@/lib/backend-auth"
 import { motion } from "framer-motion"
 import { useThemeAnimation } from "@space-man/react-theme-animation"
@@ -33,7 +35,8 @@ export function MobileNav() {
     const router = useRouter()
     const { toggleSidebar, openMobile } = useSidebar()
     const { user } = useAuth()
-    const { lockVault } = usePasswordStore()
+    const { clearPasswords } = usePasswordStore()
+    const { clearKey: clearMasterKeyStore } = useMasterKeyStore()
     const { theme, toggleTheme, ref } = useThemeAnimation()
     const [mounted, setMounted] = useState(false)
 
@@ -52,9 +55,10 @@ export function MobileNav() {
 
     const handleSignOut = async () => {
         try {
-            lockVault() // Clear in-memory state immediately
+            clearPasswords()     // clear decrypted passwords from memory
+            clearMasterKeyStore() // clear global master key in-memory state
 
-            // Clear encryption key from IndexedDB
+            // Clear password-manager vault key from IndexedDB
             if (typeof window !== 'undefined' && window.indexedDB) {
                 await new Promise<void>((resolve) => {
                     const req = window.indexedDB.open("PasswordManagerDB", 1)
@@ -72,6 +76,9 @@ export function MobileNav() {
                     req.onerror = () => resolve()
                 })
             }
+
+            // Clear global master key from IndexedDB
+            await clearMasterKey()
 
             await logoutBackendSession()
             await firebaseSignOut(auth);

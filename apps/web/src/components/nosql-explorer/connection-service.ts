@@ -1,10 +1,14 @@
 import { auth } from "@/database/firebase";
+import { encryptData, decryptData } from "@/lib/encryption";
+import { toast } from "sonner";
 import { SavedConnection } from "./types";
 
 const BACKEND_BASE_URL: string =
     process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
     process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
     "http://localhost:8000";
+
+// ── proxy helper ──────────────────────────────────────────────────────────────
 
 type ProxyResponse = {
     status: number;
@@ -26,9 +30,7 @@ const proxyRequest = async <T,>(
     if (!currentUser) throw new Error("Not authenticated.");
 
     const url = new URL(path, BACKEND_BASE_URL).toString();
-
     const headersObj: Record<string, string> = {};
-
     const proxyBody = body !== undefined ? JSON.stringify(body) : undefined;
     if (proxyBody !== undefined && method !== "GET" && method !== "HEAD") {
         headersObj["Content-Type"] = "application/json";
@@ -38,12 +40,7 @@ const proxyRequest = async <T,>(
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            url,
-            method,
-            headers: headersObj,
-            body: proxyBody,
-        }),
+        body: JSON.stringify({ url, method, headers: headersObj, body: proxyBody }),
     });
 
     const proxyData = (await proxyRes.json()) as ProxyResponse;
@@ -59,52 +56,102 @@ const proxyRequest = async <T,>(
     }
 };
 
-export const saveConnection = async (userId: string, connectionString: string, name?: string) => {
-    try {
-        const created = await proxyRequest<SavedConnection>(
-            "POST",
-            "/api/v1/nosql/connections",
-            { connectionString, name: name || "My Connection" }
+// ── raw type returned by backend (no decrypted connectionString) ──────────────
+
+type ConnectionRaw = Omit<SavedConnection, "connectionString">;
+
+// ── public API ────────────────────────────────────────────────────────────────
+
+/**
+ * Encrypts the connectionString with the global master key, then saves it.
+ * The server receives only the ciphertext — the raw string never leaves the browser.
+ */
+export const saveConnection = async (
+    _userId: string,
+    connectionString: string,
+    name: string = "My Connection",
+    encryptionKey: CryptoKey
+): Promise<string> => {
+    const { encrypted, iv } = await encryptData(encryptionKey, connectionString);
+
+    const created = await proxyRequest<ConnectionRaw>(
+        "POST",
+        "/api/v1/nosql/connections",
+        { encryptedData: encrypted, iv, name }
+    );
+    return created.id;
+};
+
+/**
+ * Fetches saved connections and decrypts each connectionString locally.
+ */
+export const getConnections = async (
+    _userId: string,
+    encryptionKey: CryptoKey
+): Promise<SavedConnection[]> => {
+    const raw = (await proxyRequest<ConnectionRaw[]>("GET", "/api/v1/nosql/connections")) ?? [];
+
+    const results = await Promise.allSettled(
+        raw.map(async (conn): Promise<SavedConnection> => {
+            const connectionString = await decryptData(encryptionKey, conn.encryptedData, conn.iv);
+            return { ...conn, connectionString };
+        })
+    );
+
+    const connections: SavedConnection[] = [];
+    let failedCount = 0;
+
+    for (const result of results) {
+        if (result.status === "fulfilled") {
+            connections.push(result.value);
+        } else {
+            failedCount++;
+        }
+    }
+
+    if (failedCount > 0) {
+        toast.error(
+            `${failedCount} connection${failedCount > 1 ? "s" : ""} could not be decrypted. ` +
+            "They may have been saved before encryption was enabled — please delete and re-add them."
         );
-
-        return created.id;
-    } catch (error) {
-        console.error("Error saving connection:", error);
-        throw error;
     }
+
+    return connections;
 };
 
-export const getConnections = async (_userId: string): Promise<SavedConnection[]> => {
-    try {
-        return (await proxyRequest<SavedConnection[]>("GET", "/api/v1/nosql/connections")) ?? [];
-    } catch (error) {
-        console.error("Error getting connections:", error);
-        throw error;
-    }
+export const deleteConnection = async (_userId: string, connectionId: string): Promise<void> => {
+    await proxyRequest<void>("DELETE", `/api/v1/nosql/connections/${connectionId}`);
 };
 
-export const deleteConnection = async (userId: string, connectionId: string) => {
-    try {
-        await proxyRequest<void>("DELETE", `/api/v1/nosql/connections/${connectionId}`);
-    } catch (error) {
-        console.error("Error deleting connection:", error);
-        throw error;
-    }
+/** Rename only — name is not encrypted. */
+export const updateConnectionName = async (
+    _userId: string,
+    connectionId: string,
+    newName: string
+): Promise<void> => {
+    await proxyRequest<void>("PATCH", `/api/v1/nosql/connections/${connectionId}`, { name: newName });
 };
 
-export const updateConnectionName = async (userId: string, connectionId: string, newName: string) => {
-    try {
-        await proxyRequest<void>("PATCH", `/api/v1/nosql/connections/${connectionId}`, { name: newName });
-    } catch (error) {
-        console.error("Error updating connection name:", error);
-        throw error;
+/**
+ * Update name and/or connectionString.
+ * If a new connectionString is provided it is re-encrypted with the master key.
+ */
+export const updateConnectionDetails = async (
+    _userId: string,
+    connectionId: string,
+    updates: { name?: string; connectionString?: string },
+    encryptionKey: CryptoKey
+): Promise<void> => {
+    const patch: Record<string, string> = {};
+
+    if (updates.name !== undefined) {
+        patch.name = updates.name;
     }
-};
-export const updateConnectionDetails = async (userId: string, connectionId: string, updates: { name?: string, connectionString?: string }) => {
-    try {
-        await proxyRequest<void>("PATCH", `/api/v1/nosql/connections/${connectionId}`, updates);
-    } catch (error) {
-        console.error("Error updating connection details:", error);
-        throw error;
+    if (updates.connectionString !== undefined) {
+        const { encrypted, iv } = await encryptData(encryptionKey, updates.connectionString);
+        patch.encryptedData = encrypted;
+        patch.iv = iv;
     }
+
+    await proxyRequest<void>("PATCH", `/api/v1/nosql/connections/${connectionId}`, patch);
 };

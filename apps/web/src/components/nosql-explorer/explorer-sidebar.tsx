@@ -8,6 +8,7 @@ import { IconDatabase, IconFolder, IconChevronRight, IconChevronDown, IconRefres
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import useAuth from "@/utils/useAuth";
+import { useMasterKeyStore } from "@/store/master-key-store";
 import { getConnections, updateConnectionName, deleteConnection } from "./connection-service";
 import { toast } from "sonner";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -47,6 +48,7 @@ export function ExplorerSidebar({
 }: ExplorerSidebarProps) {
     const t = useTranslations("NoSqlExplorer.sidebar");
     const { user } = useAuth();
+    const { encryptionKey } = useMasterKeyStore();
     const [connections, setConnections] = useState<ConnectionNode[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(true);
@@ -58,16 +60,16 @@ export function ExplorerSidebar({
     const [renameDatabaseDialog, setRenameDatabaseDialog] = useState<{ open: boolean, connection: SavedConnection | null, dbName: string, newName: string }>({ open: false, connection: null, dbName: "", newName: "" });
 
     useEffect(() => {
-        if (user) {
+        if (user && encryptionKey) {
             loadConnections();
         }
-    }, [user]);
+    }, [user, encryptionKey]);
 
     const loadConnections = async () => {
-        if (!user) return;
+        if (!user || !encryptionKey) return;
         setLoading(true);
         try {
-            const saved = await getConnections(user.uid);
+            const saved = await getConnections(user.uid, encryptionKey);
 
             // Restore expanded state from localStorage
             const expandedConnIds = JSON.parse(localStorage.getItem("nosql_expanded_connections") || "[]");

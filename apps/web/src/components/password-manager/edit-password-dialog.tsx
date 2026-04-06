@@ -13,6 +13,7 @@ import { AdvancedGenerator } from "./advanced-generator"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Badge } from "@/components/ui/badge"
 import { usePasswordStore, PasswordEntry } from "@/store/password-store"
+import { useMasterKeyStore } from "@/store/master-key-store"
 import { encryptData } from "@/lib/encryption"
 import { auth } from "@/database/firebase"
 import { updatePasswordEntry } from "@/lib/password-manager-api"
@@ -28,7 +29,8 @@ interface EditPasswordDialogProps {
 
 export function EditPasswordDialog({ entry, open, onOpenChange }: EditPasswordDialogProps) {
     const t = useTranslations("PasswordManager.form")
-    const { encryptionKey, updatePassword } = usePasswordStore()
+    const { encryptionKey } = useMasterKeyStore()
+    const { updatePassword } = usePasswordStore()
     const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
         service: entry.service,

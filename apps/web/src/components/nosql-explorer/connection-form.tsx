@@ -9,6 +9,7 @@ import { IconDatabase, IconTrash, IconHistory, IconPencil, IconPlugConnected, Ic
 import { SavedConnection } from "./types";
 import { getConnections, deleteConnection, saveConnection, updateConnectionDetails } from "./connection-service";
 import useAuth from "@/utils/useAuth";
+import { useMasterKeyStore } from "@/store/master-key-store";
 import { toast } from "sonner";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatDistanceToNow } from "date-fns";
@@ -61,6 +62,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
     const [name, setName] = useState("My Connection");
     const [savedConnections, setSavedConnections] = useState<SavedConnection[]>([]);
     const { user } = useAuth();
+    const { encryptionKey } = useMasterKeyStore();
     const [isLoadingConnections, setIsLoadingConnections] = useState(false);
     const [isTesting, setIsTesting] = useState(false);
     const [editingId, setEditingId] = useState<string | null>(null);
@@ -72,10 +74,10 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
     }, [user]);
 
     const loadConnections = async () => {
-        if (!user) return;
+        if (!user || !encryptionKey) return;
         setIsLoadingConnections(true);
         try {
-            const connections = await getConnections(user.uid);
+            const connections = await getConnections(user.uid, encryptionKey);
             setSavedConnections(connections);
         } catch (error) {
             console.error("Failed to load connections", error);
@@ -106,23 +108,22 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (connectionString) {
-            if (user) {
-                try {
-                    if (editingId) {
-                        await updateConnectionDetails(user.uid, editingId, { name, connectionString });
-                        toast.success(t("toastUpdated"));
-                    } else {
-                        await saveConnection(user.uid, connectionString, name);
-                    }
-                    loadConnections();
-                } catch (e) {
-                    console.error("Failed to save connection", e);
-                }
+        if (!connectionString || !user || !encryptionKey) return;
+
+        try {
+            if (editingId) {
+                await updateConnectionDetails(user.uid, editingId, { name, connectionString }, encryptionKey);
+                toast.success(t("toastUpdated"));
+            } else {
+                await saveConnection(user.uid, connectionString, name, encryptionKey);
             }
-            setEditingId(null);
-            await onConnect(connectionString);
+            loadConnections();
+        } catch (e) {
+            console.error("Failed to save connection", e);
         }
+
+        setEditingId(null);
+        await onConnect(connectionString);
     };
 
     const handleSelectConnection = (conn: SavedConnection) => {

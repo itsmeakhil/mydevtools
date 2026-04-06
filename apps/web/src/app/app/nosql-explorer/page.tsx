@@ -9,6 +9,7 @@ import { ConnectionState, ExplorerTab, SavedConnection } from "@/components/nosq
 import { TabBar } from "@/components/nosql-explorer/tab-bar";
 import { toast } from "sonner";
 import useAuth from "@/utils/useAuth";
+import { useMasterKeyStore } from "@/store/master-key-store";
 import { getConnections } from "@/components/nosql-explorer/connection-service";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
@@ -31,6 +32,7 @@ import {
 export default function NoSQLExplorerPage() {
     const t = useTranslations("NoSqlExplorer.page");
     const { user } = useAuth();
+    const { encryptionKey } = useMasterKeyStore();
     // We still keep some state for the "active" context if needed, but mostly driven by tabs now
     const [state, setState] = useState<ConnectionState>({
         isConnected: false,
@@ -59,9 +61,9 @@ export default function NoSQLExplorerPage() {
     // Check for connections
     useEffect(() => {
         const checkConnections = async () => {
-            if (user) {
+            if (user && encryptionKey) {
                 try {
-                    const connections = await getConnections(user.uid);
+                    const connections = await getConnections(user.uid, encryptionKey);
                     setHasConnections(connections.length > 0);
                 } catch (error) {
                     console.error("Failed to check connections", error);
@@ -72,7 +74,7 @@ export default function NoSQLExplorerPage() {
             }
         };
         checkConnections();
-    }, [user]);
+    }, [user, encryptionKey]);
 
     // Load tabs from localStorage on mount
     useEffect(() => {
@@ -235,25 +237,19 @@ export default function NoSQLExplorerPage() {
     // Let's add connectionString to ExplorerTab for convenience.
 
     const handleRefresh = async () => {
-        if (activeTab) {
-            // We need connection string. 
-            // Let's fetch it from the sidebar? No, sidebar has it.
-            // Let's look up the connection string from the sidebar's list? We don't have access to sidebar state.
-            // Let's fetch all connections and find the one matching activeTab.connectionId
-            if (user) {
-                const connections = await getConnections(user.uid);
-                const conn = connections.find(c => c.id === activeTab.connectionId);
-                if (conn) {
-                    fetchDocumentsForTab(activeTab, conn.connectionString);
-                }
+        if (activeTab && user && encryptionKey) {
+            const connections = await getConnections(user.uid, encryptionKey);
+            const conn = connections.find(c => c.id === activeTab.connectionId);
+            if (conn) {
+                fetchDocumentsForTab(activeTab, conn.connectionString);
             }
         }
     };
 
     const handleInsert = async (doc: any) => {
-        if (!activeTab || !user) return;
+        if (!activeTab || !user || !encryptionKey) return;
         try {
-            const connections = await getConnections(user.uid);
+            const connections = await getConnections(user.uid, encryptionKey);
             const conn = connections.find(c => c.id === activeTab.connectionId);
             if (!conn) throw new Error("Connection not found");
 
@@ -276,9 +272,9 @@ export default function NoSQLExplorerPage() {
     };
 
     const handleUpdate = async (id: string, update: any) => {
-        if (!activeTab || !user) return;
+        if (!activeTab || !user || !encryptionKey) return;
         try {
-            const connections = await getConnections(user.uid);
+            const connections = await getConnections(user.uid, encryptionKey);
             const conn = connections.find(c => c.id === activeTab.connectionId);
             if (!conn) throw new Error("Connection not found");
 
@@ -310,7 +306,7 @@ export default function NoSQLExplorerPage() {
         if (!activeTab || !user || !id) return;
 
         try {
-            const connections = await getConnections(user.uid);
+            const connections = await getConnections(user.uid, encryptionKey!);
             const conn = connections.find(c => c.id === activeTab.connectionId);
             if (!conn) throw new Error("Connection not found");
 
@@ -373,8 +369,8 @@ export default function NoSQLExplorerPage() {
     };
 
     const performFetch = async (tab: ExplorerTab) => {
-        if (user) {
-            const connections = await getConnections(user.uid);
+        if (user && encryptionKey) {
+            const connections = await getConnections(user.uid, encryptionKey);
             const conn = connections.find(c => c.id === tab.connectionId);
             if (conn) {
                 fetchDocumentsForTab(tab, conn.connectionString);

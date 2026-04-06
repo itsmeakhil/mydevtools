@@ -63,3 +63,23 @@ def find_uid_by_refresh_hash(token_hash: str) -> str | None:
         return None
     uid = doc.get("_id")
     return str(uid) if uid is not None else None
+
+
+# ── Master-password vault ─────────────────────────────────────────────────────
+
+
+def get_master_vault(uid: str) -> dict[str, Any] | None:
+    """Return the stored master-vault metadata for *uid*, or None if not set up."""
+    doc = get_user_doc(uid)
+    if not doc:
+        return None
+    return doc.get("master_vault") or None
+
+
+def set_master_vault(uid: str, vault: dict[str, Any]) -> None:
+    """Persist master-vault metadata on the user document (idempotent upsert)."""
+    now = _now_ms()
+    users_collection().update_one(
+        {"_id": uid},
+        {"$set": {"master_vault": vault, "updated_at": now}},
+    )

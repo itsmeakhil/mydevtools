@@ -1,4 +1,5 @@
 
+// ── Password-manager vault key ────────────────────────────────────────────────
 const DB_NAME = "PasswordManagerDB";
 const STORE_NAME = "keys";
 const KEY_ID = "vaultKey";
@@ -82,5 +83,69 @@ export const clearKey = async (): Promise<void> => {
         });
     } catch (e) {
         console.error("Failed to clear key:", e);
+    }
+};
+
+// ── Global master key ─────────────────────────────────────────────────────────
+// Stored in a separate IndexedDB so it is completely isolated from the
+// password-manager vault key.  The CryptoKey object is non-extractable; the
+// raw password is never persisted.
+
+const MASTER_DB_NAME = "MasterKeyDB";
+const MASTER_STORE_NAME = "keys";
+const MASTER_KEY_ID = "masterKey";
+
+const openMasterDB = (): Promise<IDBDatabase> =>
+    new Promise((resolve, reject) => {
+        if (typeof window === "undefined" || !window.indexedDB) {
+            reject(new Error("IndexedDB not supported"));
+            return;
+        }
+        const req = indexedDB.open(MASTER_DB_NAME, 1);
+        req.onupgradeneeded = (e) => {
+            const db = (e.target as IDBOpenDBRequest).result;
+            if (!db.objectStoreNames.contains(MASTER_STORE_NAME)) {
+                db.createObjectStore(MASTER_STORE_NAME);
+            }
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+    });
+
+export const saveMasterKey = async (key: CryptoKey): Promise<void> => {
+    const db = await openMasterDB();
+    await new Promise<void>((resolve, reject) => {
+        const tx = db.transaction(MASTER_STORE_NAME, "readwrite");
+        tx.objectStore(MASTER_STORE_NAME).put(key, MASTER_KEY_ID);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+    });
+};
+
+export const loadMasterKey = async (): Promise<CryptoKey | null> => {
+    try {
+        const db = await openMasterDB();
+        return new Promise<CryptoKey | null>((resolve, reject) => {
+            const tx = db.transaction(MASTER_STORE_NAME, "readonly");
+            const req = tx.objectStore(MASTER_STORE_NAME).get(MASTER_KEY_ID);
+            req.onsuccess = () => resolve((req.result as CryptoKey) || null);
+            req.onerror = () => reject(req.error);
+        });
+    } catch {
+        return null;
+    }
+};
+
+export const clearMasterKey = async (): Promise<void> => {
+    try {
+        const db = await openMasterDB();
+        await new Promise<void>((resolve, reject) => {
+            const tx = db.transaction(MASTER_STORE_NAME, "readwrite");
+            tx.objectStore(MASTER_STORE_NAME).delete(MASTER_KEY_ID);
+            tx.oncomplete = () => resolve();
+            tx.onerror = () => reject(tx.error);
+        });
+    } catch (e) {
+        console.error("[MasterKey] Failed to clear master key:", e);
     }
 };

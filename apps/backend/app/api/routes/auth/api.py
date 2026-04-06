@@ -1,9 +1,16 @@
+import time
 from typing import Annotated
 
 from fastapi import APIRouter, Cookie, Depends, Header, HTTPException, Response, status
 
 from app.api.routes.auth.cookie_attach import attach_auth_cookies, clear_auth_cookies
-from app.api.routes.auth.schema import OkResponse, SessionRequest, UserProfileResponse
+from app.api.routes.auth.schema import (
+    MasterVaultOut,
+    MasterVaultSetupRequest,
+    OkResponse,
+    SessionRequest,
+    UserProfileResponse,
+)
 from app.api.routes.auth.services import get_current_uid, get_current_user, verify_id_token
 from app.api.routes.auth.tokens import (
     create_access_token,
@@ -14,7 +21,9 @@ from app.api.routes.auth.tokens import (
 from app.api.routes.auth.users_repo import (
     clear_refresh_token_hash,
     find_uid_by_refresh_hash,
+    get_master_vault,
     get_user_doc,
+    set_master_vault,
     set_refresh_token_hash,
     upsert_user_from_firebase_claims,
 )
@@ -133,3 +142,48 @@ def me(
 )
 def session_check(_uid: Annotated[str, Depends(get_current_uid)]) -> OkResponse:
     return OkResponse(ok=True)
+
+
+# ── Master-password vault ─────────────────────────────────────────────────────
+
+
+@router.get(
+    "/master-vault",
+    response_model=MasterVaultOut,
+    summary="Retrieve master-vault metadata (salt + verifier) for the current user",
+)
+def get_master_vault_endpoint(
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> MasterVaultOut:
+    vault = get_master_vault(uid)
+    if not vault:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Master vault not configured.",
+        )
+    return MasterVaultOut(**vault)
+
+
+@router.post(
+    "/master-vault",
+    response_model=MasterVaultOut,
+    status_code=status.HTTP_201_CREATED,
+    summary="Set up master vault once (salt + key-verifier blob; raw password never sent)",
+)
+def setup_master_vault_endpoint(
+    payload: MasterVaultSetupRequest,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> MasterVaultOut:
+    if get_master_vault(uid):
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Master vault already configured.",
+        )
+    created_at = int(time.time() * 1000)
+    vault: dict = {
+        "salt": payload.salt,
+        "verifier": payload.verifier.model_dump(),
+        "createdAt": created_at,
+    }
+    set_master_vault(uid, vault)
+    return MasterVaultOut(**vault)

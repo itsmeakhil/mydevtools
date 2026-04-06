@@ -1,7 +1,6 @@
 import random
 import string
 import time
-from datetime import datetime, timezone
 from typing import Any, Optional
 
 from fastapi import HTTPException, status
@@ -39,7 +38,8 @@ def _doc_to_out(doc: dict[str, Any], *, connection_id: str) -> ConnectionOut:
     return ConnectionOut(
         id=connection_id,
         userId=str(doc.get("created_by", "")),
-        connectionString=str(doc.get("connectionString", "")),
+        encryptedData=str(doc.get("encryptedData", "")),
+        iv=str(doc.get("iv", "")),
         name=str(doc.get("name", "")),
         createdAt=created_at,
         lastUsedAt=last_used_at,
@@ -47,37 +47,23 @@ def _doc_to_out(doc: dict[str, Any], *, connection_id: str) -> ConnectionOut:
 
 
 def list_connections(uid: str) -> list[ConnectionOut]:
-    cursor = _connections_col().find({"created_by": uid}).sort([("lastUsedAt", -1), ("createdAt", -1)])
-    out: list[ConnectionOut] = []
-    for doc in cursor:
-        cid = str(doc.get("_id", ""))
-        out.append(_doc_to_out(doc, connection_id=cid))
-    return out
+    # Only return documents that have been saved with the encrypted format.
+    # Legacy docs that only contain a plain `connectionString` are excluded.
+    cursor = _connections_col().find(
+        {"created_by": uid, "encryptedData": {"$exists": True}, "iv": {"$exists": True}}
+    ).sort([("lastUsedAt", -1), ("createdAt", -1)])
+    return [_doc_to_out(doc, connection_id=str(doc.get("_id", ""))) for doc in cursor]
 
 
 def upsert_connection(uid: str, body: ConnectionCreate) -> ConnectionOut:
+    """Always inserts a new connection record (deduplication is handled client-side)."""
     ts = now_ms()
-
-    existing = _connections_col().find_one({"created_by": uid, "connectionString": body.connectionString})
-    if existing:
-        patch: dict[str, Any] = {"lastUsedAt": ts}
-        if body.name is not None:
-            patch["name"] = body.name
-        try:
-            _connections_col().update_one({"_id": existing.get("_id"), "created_by": uid}, {"$set": patch})
-        except PyMongoError as exc:
-            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update connection.") from exc
-        # Refresh doc for canonical values.
-        existing = _connections_col().find_one({"_id": existing.get("_id"), "created_by": uid})
-        if not existing:
-            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Connection missing after update.")
-        return _doc_to_out(existing, connection_id=str(existing.get("_id", "")))
-
     new_id = new_client_style_id()
     doc: dict[str, Any] = {
         "_id": new_id,
         "created_by": uid,
-        "connectionString": body.connectionString,
+        "encryptedData": body.encryptedData,
+        "iv": body.iv,
         "name": body.name or "My Connection",
         "createdAt": ts,
         "lastUsedAt": ts,
@@ -85,35 +71,51 @@ def upsert_connection(uid: str, body: ConnectionCreate) -> ConnectionOut:
     try:
         _connections_col().insert_one(doc)
     except PyMongoError as exc:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create connection.") from exc
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to create connection.",
+        ) from exc
     return _doc_to_out(doc, connection_id=new_id)
 
 
 def update_connection(uid: str, connection_id: str, body: ConnectionUpdate) -> ConnectionOut:
     existing = _connections_col().find_one({"_id": connection_id, "created_by": uid})
     if not existing:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found."
+        )
 
     ts = now_ms()
     patch: dict[str, Any] = {"lastUsedAt": ts}
-    if body.connectionString is not None:
-        patch["connectionString"] = body.connectionString
+
+    if body.encryptedData is not None:
+        patch["encryptedData"] = body.encryptedData
+    if body.iv is not None:
+        patch["iv"] = body.iv
     if body.name is not None:
         patch["name"] = body.name
 
     try:
-        _connections_col().update_one({"_id": connection_id, "created_by": uid}, {"$set": patch})
+        _connections_col().update_one(
+            {"_id": connection_id, "created_by": uid}, {"$set": patch}
+        )
     except PyMongoError as exc:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update connection.") from exc
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to update connection.",
+        ) from exc
 
     updated = _connections_col().find_one({"_id": connection_id, "created_by": uid})
     if not updated:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found."
+        )
     return _doc_to_out(updated, connection_id=connection_id)
 
 
 def delete_connection(uid: str, connection_id: str) -> None:
     res = _connections_col().delete_one({"_id": connection_id, "created_by": uid})
     if res.deleted_count == 0:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
-
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found."
+        )

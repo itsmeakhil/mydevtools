@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState, useRef } from "react"
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll"
 import { usePasswordStore } from "@/store/password-store"
+import { useMasterKeyStore } from "@/store/master-key-store"
+import { clearMasterKey } from "@/lib/key-storage"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -11,7 +13,6 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { toast } from "sonner"
 import { auth } from "@/database/firebase"
 import { deletePasswordEntry } from "@/lib/password-manager-api"
-import { clearKey } from "@/lib/key-storage"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { cn } from "@/lib/utils"
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog"
@@ -34,7 +35,8 @@ import { useTranslations } from "next-intl"
 export function PasswordList() {
     const t = useTranslations("PasswordManager.list")
     const tToast = useTranslations("PasswordManager.toasts")
-    const { passwords, deletePassword, lockVault, isLoading } = usePasswordStore()
+    const { passwords, deletePassword, clearPasswords, isLoading } = usePasswordStore()
+    const { clearKey: clearMasterKeyStore } = useMasterKeyStore()
     const [searchTerm, setSearchTerm] = useState("")
     const [visiblePasswords, setVisiblePasswords] = useState<Set<string>>(new Set())
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
@@ -166,8 +168,9 @@ export function PasswordList() {
     }
 
     const handleLock = async () => {
-        await clearKey()
-        lockVault()
+        clearPasswords()           // wipe decrypted passwords from memory
+        clearMasterKeyStore()      // clear global key from Zustand
+        await clearMasterKey()     // clear global key from IndexedDB
         toast.success(tToast("vaultLocked"))
     }
 

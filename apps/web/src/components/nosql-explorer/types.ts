@@ -34,6 +34,14 @@ export type FirestoreTimestampLike = {
 export interface SavedConnection {
     id: string;
     userId: string;
+    /** AES-GCM ciphertext of the connectionString — what the backend stores and returns. */
+    encryptedData: string;
+    /** IV used during encryption. */
+    iv: string;
+    /**
+     * Decrypted connectionString — populated client-side after fetching.
+     * Never sent to or stored on the server.
+     */
     connectionString: string;
     name: string;
     createdAt: number | FirestoreTimestampLike | null;

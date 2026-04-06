@@ -1,5 +1,5 @@
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class SessionRequest(BaseModel):
@@ -20,3 +20,29 @@ class UserProfileResponse(BaseModel):
 
 class OkResponse(BaseModel):
     ok: bool
+
+
+# ── Master-password vault ─────────────────────────────────────────────────────
+
+class KeyVerifier(BaseModel):
+    """AES-GCM ciphertext used to verify the derived key without storing the password."""
+
+    model_config = ConfigDict(extra="ignore")
+
+    encrypted: str = Field(min_length=1)
+    iv: str = Field(min_length=1)
+
+
+class MasterVaultSetupRequest(BaseModel):
+    """Client sends PBKDF2 salt + key-verifier blob; server never sees the raw password."""
+
+    salt: str = Field(min_length=1)
+    verifier: KeyVerifier
+
+
+class MasterVaultOut(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
+    salt: str
+    verifier: KeyVerifier
+    createdAt: int

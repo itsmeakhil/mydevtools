@@ -7,6 +7,7 @@ import { NavBar } from '@/components/nav-bar';
 import { MobileNav } from '@/components/mobile-nav';
 import useAuth from '@/utils/useAuth';
 import { EnsureBackendSession } from '@/components/ensure-backend-session';
+import { MasterPasswordGate } from '@/components/master-password-gate';
 
 export function AppContent({ children }: { children: React.ReactNode }) {
   const { state } = useSidebar();
@@ -37,7 +38,9 @@ export function AppContent({ children }: { children: React.ReactNode }) {
           <div className="flex-1 flex flex-col z-10 min-w-0 min-h-0 overflow-hidden">
             <div className="flex-1 min-w-0 min-h-0 overflow-hidden">
               <EnsureBackendSession user={user}>
-                {children}
+                <MasterPasswordGate>
+                  {children}
+                </MasterPasswordGate>
               </EnsureBackendSession>
             </div>
           </div>

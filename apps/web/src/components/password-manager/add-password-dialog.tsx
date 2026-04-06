@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Plus, Wand2, RefreshCw, Check, Copy, ChevronDown, ChevronUp } from "lucide-react"
 import { usePasswordStore, PasswordEntry } from "@/store/password-store"
+import { useMasterKeyStore } from "@/store/master-key-store"
 import { AdvancedGenerator } from "./advanced-generator"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Badge } from "@/components/ui/badge"
@@ -22,7 +23,8 @@ import { useTranslations } from "next-intl"
 
 export function AddPasswordDialog({ children }: { children?: React.ReactNode }) {
     const t = useTranslations("PasswordManager.form")
-    const { encryptionKey, addPassword } = usePasswordStore()
+    const { encryptionKey } = useMasterKeyStore()
+    const { addPassword } = usePasswordStore()
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({

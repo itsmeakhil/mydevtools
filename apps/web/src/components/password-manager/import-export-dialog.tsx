@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Upload, Download, FileJson, AlertTriangle } from "lucide-react"
 import { usePasswordStore, PasswordEntry } from "@/store/password-store"
+import { useMasterKeyStore } from "@/store/master-key-store"
 import { toast } from "sonner"
 import { auth } from "@/database/firebase"
 import { createPasswordEntry } from "@/lib/password-manager-api"
@@ -23,7 +24,8 @@ export function ImportExportDialog({ children }: ImportExportDialogProps) {
     const t = useTranslations("PasswordManager.importExport")
     const tToast = useTranslations("PasswordManager.toasts")
     const pastePlaceholder = String(t.raw("pastePlaceholder"))
-    const { passwords, encryptionKey, addPassword } = usePasswordStore()
+    const { encryptionKey } = useMasterKeyStore()
+    const { passwords, addPassword } = usePasswordStore()
     const [open, setOpen] = useState(false)
     const [importData, setImportData] = useState("")
     const [loading, setLoading] = useState(false)
