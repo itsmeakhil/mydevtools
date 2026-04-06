@@ -9,8 +9,10 @@ import {
   Bookmark,
   Globe,
   Database,
-  LayoutDashboard
+  LayoutDashboard,
+  Braces,
 } from "lucide-react";
+import { ModeToggle } from "@/components/modeToggle";
 
 // Route to title/icon mapping
 const routeConfig: Record<string, { title: string; icon: React.ElementType }> = {
@@ -19,6 +21,7 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType }> = 
   '/app/notes': { title: 'Notes', icon: FileText },
   '/app/password-manager': { title: 'Password Manager', icon: Lock },
   '/app/bookmarks': { title: 'Bookmarks', icon: Bookmark },
+  '/app/json-formatter': { title: 'JSON Formatter', icon: Braces },
   '/app/api-client': { title: 'API Client', icon: Globe },
   '/app/nosql-explorer': { title: 'NoSQL Explorer', icon: Database },
   '/app/email-validator': { title: 'Email Validator', icon: Globe },
@@ -35,7 +38,18 @@ export function NavBar() {
   const config = match?.[1];
   const matchedRoute = match?.[0];
 
-  if (!config) return null;
+  if (!config) {
+    if (pathname.startsWith("/app")) {
+      return (
+        <header className="sticky top-0 z-20 hidden w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:block">
+          <div className="flex h-12 items-center justify-end px-4">
+            <ModeToggle />
+          </div>
+        </header>
+      );
+    }
+    return null;
+  }
 
   const Icon = config.icon;
   const title =
@@ -47,16 +61,23 @@ export function NavBar() {
           ? tNav("emailValidator")
           : matchedRoute === "/app/nosql-explorer"
             ? tNav("nosqlExplorer")
-            : config.title;
+            : matchedRoute === "/app/json-formatter"
+              ? tNav("jsonFormatter")
+              : config.title;
 
   return (
-    <header className="sticky top-0 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-20 hidden md:block">
-      <div className="flex h-12 items-center px-4 gap-3">
-        <div className="flex items-center gap-2.5">
-          <div className="p-1.5 rounded-lg bg-primary/10">
+    <header className="sticky top-0 z-20 hidden w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:block">
+      <div className="flex h-12 w-full items-center justify-between gap-3 px-4">
+        <div className="flex min-w-0 items-center gap-2.5">
+          <div className="shrink-0 rounded-lg bg-primary/10 p-1.5">
             <Icon className="h-4 w-4 text-primary" strokeWidth={2} />
           </div>
-          <h1 className="text-sm font-semibold tracking-tight">{title}</h1>
+          <h1 className="truncate text-sm font-semibold tracking-tight">
+            {title}
+          </h1>
+        </div>
+        <div className="shrink-0">
+          <ModeToggle />
         </div>
       </div>
     </header>
