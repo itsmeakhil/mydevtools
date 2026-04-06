@@ -1392,6 +1392,7 @@
     "newDocument": "جديد",
     "copy": "نسخ",
     "save": "حفظ",
+    "load": "تحميل",
     "saving": "جارٍ الحفظ...",
     "leftDocNameLabel": "اسم المستند الأيسر",
     "rightDocNameLabel": "اسم المستند الأيمن",

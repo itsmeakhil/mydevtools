@@ -1392,6 +1392,7 @@
     "newDocument": "Nou",
     "copy": "Copiar",
     "save": "Desar",
+    "load": "Carregar",
     "saving": "Desant...",
     "leftDocNameLabel": "Nom del document esquerre",
     "rightDocNameLabel": "Nom del document dret",

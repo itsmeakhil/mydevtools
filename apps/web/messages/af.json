@@ -1392,6 +1392,7 @@
     "newDocument": "Nuut",
     "copy": "Kopieer",
     "save": "Stoor",
+    "load": "Laai",
     "saving": "Stoor tans...",
     "leftDocNameLabel": "Linkerdokumentnaam",
     "rightDocNameLabel": "Regterdokumentnaam",

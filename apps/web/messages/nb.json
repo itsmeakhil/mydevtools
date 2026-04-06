@@ -1392,6 +1392,7 @@
     "newDocument": "Ny",
     "copy": "Kopier",
     "save": "Lagre",
+    "load": "Last inn",
     "saving": "Lagrer...",
     "leftDocNameLabel": "Navn på venstre dokument",
     "rightDocNameLabel": "Navn på høyre dokument",

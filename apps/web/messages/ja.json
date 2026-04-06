@@ -1392,6 +1392,7 @@
     "newDocument": "新規",
     "copy": "コピー",
     "save": "保存",
+    "load": "読み込み",
     "saving": "保存中...",
     "leftDocNameLabel": "左ドキュメント名",
     "rightDocNameLabel": "右ドキュメント名",

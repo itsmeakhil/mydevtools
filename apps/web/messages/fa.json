@@ -1392,6 +1392,7 @@
     "newDocument": "جدید",
     "copy": "کپی",
     "save": "ذخیره",
+    "load": "بارگذاری",
     "saving": "در حال ذخیره...",
     "leftDocNameLabel": "نام سند سمت چپ",
     "rightDocNameLabel": "نام سند سمت راست",

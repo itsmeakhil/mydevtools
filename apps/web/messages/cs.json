@@ -1392,6 +1392,7 @@
     "newDocument": "Nový",
     "copy": "Kopírovat",
     "save": "Uložit",
+    "load": "Načíst",
     "saving": "Ukládání...",
     "leftDocNameLabel": "Název levého dokumentu",
     "rightDocNameLabel": "Název pravého dokumentu",

@@ -1,8 +1,15 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { IconCopy, IconDeviceFloppy, IconFilePlus, IconJson } from '@tabler/icons-react'
+import {
+  IconCopy,
+  IconDeviceFloppy,
+  IconFilePlus,
+  IconFolderOpen,
+  IconJson,
+  IconRefresh,
+} from '@tabler/icons-react'
 import { toast } from 'sonner'
 import { Mode, toTextContent, type Content, type OnChangeStatus } from 'vanilla-jsoneditor'
 import { Card, CardHeader } from '@/components/ui/card'
@@ -15,6 +22,14 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from '@/components/ui/resizable'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 const initialJson = {
   array: [1, 2, 3],
@@ -34,6 +49,15 @@ interface PaneState {
   documentId: string | null
   isSaving: boolean
   newDocumentCount: number
+}
+
+type JsonFormatterDocumentOut = {
+  id: string
+  title: string
+  pane: PaneKey
+  content: string
+  createdAt: string
+  updatedAt: string
 }
 
 const createPaneState = (initialName: string): PaneState => ({
@@ -72,6 +96,18 @@ export function JsonFormatterLayout() {
   const [rightPane, setRightPane] = useState<PaneState>(() =>
     createPaneState(t('documentNameTree', { n: 1 }))
   )
+
+  const [loadOpen, setLoadOpen] = useState(false)
+  const [loadPane, setLoadPane] = useState<PaneKey>('left')
+  const [docsLoading, setDocsLoading] = useState(false)
+  const [docs, setDocs] = useState<JsonFormatterDocumentOut[]>([])
+
+  const docsByPane = useMemo(() => {
+    return {
+      left: docs.filter((d) => d.pane === 'left'),
+      right: docs.filter((d) => d.pane === 'right'),
+    }
+  }, [docs])
 
   const updatePane = (pane: PaneKey, updater: (prev: PaneState) => PaneState) => {
     if (pane === 'left') {
@@ -171,6 +207,59 @@ export function JsonFormatterLayout() {
     }
   }
 
+  const fetchDocuments = async () => {
+    const res = await authedFetch('/api/backend/json-formatter/documents')
+    const list = (await res.json()) as JsonFormatterDocumentOut[]
+    setDocs(Array.isArray(list) ? list : [])
+  }
+
+  const openLoadDialog = async (pane: PaneKey) => {
+    if (!user) {
+      toast.error(t('toastLoginRequired'))
+      return
+    }
+    setLoadPane(pane)
+    setLoadOpen(true)
+    setDocsLoading(true)
+    try {
+      await fetchDocuments()
+    } catch (error) {
+      console.error('Failed to list JSON documents:', error)
+      toast.error('Failed to load saved documents')
+      setDocs([])
+    } finally {
+      setDocsLoading(false)
+    }
+  }
+
+  const loadDocumentIntoPane = async (pane: PaneKey, docId: string) => {
+    try {
+      const res = await authedFetch(`/api/backend/json-formatter/documents/${docId}`)
+      const doc = (await res.json()) as JsonFormatterDocumentOut
+      const title = doc?.title || ''
+      const contentText = doc?.content || ''
+
+      let content: Content
+      try {
+        content = { json: JSON.parse(contentText) }
+      } catch {
+        content = { text: contentText }
+      }
+
+      updatePane(pane, (prev) => ({
+        ...prev,
+        content,
+        documentName: title || prev.documentName,
+        documentId: docId,
+      }))
+      toast.success('Loaded')
+      setLoadOpen(false)
+    } catch (error) {
+      console.error('Failed to load JSON document:', error)
+      toast.error('Failed to load saved document')
+    }
+  }
+
   return (
     <div className="flex h-full min-h-0 w-full flex-col gap-3 overflow-hidden">
       <Card className="shrink-0 border shadow-lg bg-card/50 backdrop-blur-sm">
@@ -214,6 +303,10 @@ export function JsonFormatterLayout() {
               <Button variant="outline" size="sm" onClick={() => handleCopy('left')}>
                 <IconCopy className="mr-1.5 h-4 w-4" />
                 {t('copy')}
+              </Button>
+              <Button variant="outline" size="sm" onClick={() => openLoadDialog('left')}>
+                <IconFolderOpen className="mr-1.5 h-4 w-4" />
+                {t('load')}
               </Button>
               <Button
                 size="sm"
@@ -259,6 +352,10 @@ export function JsonFormatterLayout() {
                 <IconCopy className="mr-1.5 h-4 w-4" />
                 {t('copy')}
               </Button>
+              <Button variant="outline" size="sm" onClick={() => openLoadDialog('right')}>
+                <IconFolderOpen className="mr-1.5 h-4 w-4" />
+                {t('load')}
+              </Button>
               <Button
                 size="sm"
                 onClick={() => handleSave('right')}
@@ -282,6 +379,79 @@ export function JsonFormatterLayout() {
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>
+
+      <Dialog open={loadOpen} onOpenChange={setLoadOpen}>
+        <DialogContent className="max-w-xl">
+          <DialogHeader>
+            <DialogTitle>
+              Load saved JSON
+            </DialogTitle>
+            <DialogDescription>
+              Pick a previously saved JSON document from your account.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="flex items-center justify-between gap-2">
+            <div className="text-xs text-muted-foreground">
+              Load into <span className="font-medium">{loadPane}</span>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={async () => {
+                setDocsLoading(true)
+                try {
+                  await fetchDocuments()
+                } finally {
+                  setDocsLoading(false)
+                }
+              }}
+              disabled={docsLoading}
+            >
+              <IconRefresh className="mr-1.5 h-4 w-4" />
+              Refresh
+            </Button>
+          </div>
+
+          <ScrollArea className="h-[320px] rounded-md border">
+            <div className="p-2">
+              {docsLoading ? (
+                <div className="p-4 text-sm text-muted-foreground">
+                  Loading…
+                </div>
+              ) : docsByPane[loadPane].length === 0 ? (
+                <div className="p-4 text-sm text-muted-foreground">
+                  No saved documents yet.
+                </div>
+              ) : (
+                <div className="space-y-1">
+                  {docsByPane[loadPane].map((d) => (
+                    <button
+                      key={d.id}
+                      className="w-full rounded-md border px-3 py-2 text-left hover:bg-muted transition-colors"
+                      onClick={() => loadDocumentIntoPane(loadPane, d.id)}
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="min-w-0">
+                          <div className="truncate text-sm font-medium">
+                            {d.title}
+                          </div>
+                          <div className="truncate text-xs text-muted-foreground">
+                            {d.updatedAt || d.createdAt}
+                          </div>
+                        </div>
+                        <div className="shrink-0 text-xs text-muted-foreground">
+                          {d.pane}
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </ScrollArea>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

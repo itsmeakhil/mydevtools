@@ -1392,6 +1392,7 @@
     "newDocument": "Mới",
     "copy": "Sao chép",
     "save": "Lưu",
+    "load": "Tải",
     "saving": "Đang lưu...",
     "leftDocNameLabel": "Tên tài liệu bên trái",
     "rightDocNameLabel": "Tên tài liệu bên phải",

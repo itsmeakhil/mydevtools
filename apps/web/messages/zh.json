@@ -1392,6 +1392,7 @@
     "newDocument": "新建",
     "copy": "复制",
     "save": "保存",
+    "load": "加载",
     "saving": "保存中...",
     "leftDocNameLabel": "左侧文档名称",
     "rightDocNameLabel": "右侧文档名称",
