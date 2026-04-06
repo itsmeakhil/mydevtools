@@ -1,0 +1,201 @@
+"use client"
+
+import { useState, useCallback, useEffect, useRef } from "react"
+import { HistoryRequest, CollectionRequest } from "./types"
+import { auth } from "@/database/firebase"
+import { useAuthState } from "react-firebase-hooks/auth"
+import { backendFetch } from "@/lib/backend-auth"
+
+const HISTORY_STORAGE_KEY = "api-client-history"
+const HISTORY_LIMIT = 100
+
+export function useHistory() {
+    const [user, loading] = useAuthState(auth)
+    const [history, setHistory] = useState<HistoryRequest[]>([])
+    const migrationRanRef = useRef(false)
+
+    const authedFetch = useCallback(
+        async (path: string, init?: RequestInit) => {
+            if (!user) throw new Error("Not authenticated")
+            const res = await backendFetch(path, {
+                ...init,
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(init?.headers || {}),
+                },
+            })
+            if (!res.ok) {
+                const text = await res.text().catch(() => "")
+                throw new Error(text || `Request failed (${res.status})`)
+            }
+            return res
+        },
+        [user]
+    )
+
+    useEffect(() => {
+        if (!user) migrationRanRef.current = false
+    }, [user])
+
+    // Load history: MongoDB when signed in, otherwise localStorage
+    useEffect(() => {
+        if (loading) return
+
+        if (!user) {
+            const stored = localStorage.getItem(HISTORY_STORAGE_KEY)
+            if (stored) {
+                try {
+                    setHistory(JSON.parse(stored) as HistoryRequest[])
+                } catch (e) {
+                    console.error("Failed to parse history", e)
+                    setHistory([])
+                }
+            } else {
+                setHistory([])
+            }
+            return
+        }
+
+        let cancelled = false
+        ;(async () => {
+            try {
+                const res = await authedFetch(
+                    `/api/backend/api-client/history?limit=${HISTORY_LIMIT}`,
+                    { method: "GET" }
+                )
+                const items = (await res.json()) as HistoryRequest[]
+                if (!cancelled) setHistory(items)
+            } catch (e) {
+                console.error("Failed to load API client history", e)
+                if (!cancelled) setHistory([])
+            }
+        })()
+
+        return () => {
+            cancelled = true
+        }
+    }, [user, loading, authedFetch])
+
+    // One-time migration: localStorage → MongoDB when server history is empty
+    useEffect(() => {
+        const migrate = async () => {
+            if (loading || !user || migrationRanRef.current) return
+            const stored = localStorage.getItem(HISTORY_STORAGE_KEY)
+            if (!stored) return
+            if (history.length > 0) return
+
+            migrationRanRef.current = true
+            try {
+                const localItems: HistoryRequest[] = JSON.parse(stored)
+                const ordered = [...localItems].sort((a, b) => a.timestamp - b.timestamp)
+                for (const item of ordered) {
+                    const { id: _id, ...rest } = item
+                    await authedFetch("/api/backend/api-client/history", {
+                        method: "POST",
+                        body: JSON.stringify({
+                            method: rest.method,
+                            url: rest.url,
+                            params: rest.params,
+                            headers: rest.headers,
+                            body: rest.body,
+                            auth: rest.auth,
+                            name: rest.name,
+                            status: rest.status,
+                            timestamp: rest.timestamp,
+                        }),
+                    })
+                }
+                localStorage.removeItem(HISTORY_STORAGE_KEY)
+                const refreshed = await authedFetch(
+                    `/api/backend/api-client/history?limit=${HISTORY_LIMIT}`,
+                    { method: "GET" }
+                )
+                setHistory((await refreshed.json()) as HistoryRequest[])
+            } catch (e) {
+                migrationRanRef.current = false
+                console.error("History migration failed", e)
+            }
+        }
+        void migrate()
+    }, [user, loading, history.length, authedFetch])
+
+    const addHistoryItem = useCallback(
+        async (
+            request: Omit<CollectionRequest, "id" | "name">,
+            name: string,
+            status?: number
+        ) => {
+            const timestamp = Date.now()
+            const payload = {
+                ...request,
+                name,
+                timestamp,
+                status,
+            }
+
+            if (user) {
+                try {
+                    const res = await authedFetch("/api/backend/api-client/history", {
+                        method: "POST",
+                        body: JSON.stringify(payload),
+                    })
+                    const created = (await res.json()) as HistoryRequest
+                    setHistory((prev) => [created, ...prev].slice(0, HISTORY_LIMIT))
+                } catch (e) {
+                    console.error("Failed to save history entry", e)
+                }
+                return
+            }
+
+            setHistory((prev) => {
+                const newItem: HistoryRequest = {
+                    ...request,
+                    id: crypto.randomUUID(),
+                    name,
+                    timestamp,
+                    status,
+                }
+                const next = [newItem, ...prev].slice(0, HISTORY_LIMIT)
+                localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(next))
+                return next
+            })
+        },
+        [user, authedFetch]
+    )
+
+    const clearHistory = useCallback(async () => {
+        if (user) {
+            try {
+                await authedFetch("/api/backend/api-client/history/clear", { method: "DELETE" })
+                setHistory([])
+            } catch (e) {
+                console.error("Failed to clear history", e)
+            }
+            return
+        }
+        setHistory([])
+        localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify([]))
+    }, [user, authedFetch])
+
+    const deleteHistoryItem = useCallback(
+        async (id: string) => {
+            if (user) {
+                try {
+                    await authedFetch(`/api/backend/api-client/history/${id}`, { method: "DELETE" })
+                    setHistory((prev) => prev.filter((item) => item.id !== id))
+                } catch (e) {
+                    console.error("Failed to delete history entry", e)
+                }
+                return
+            }
+            setHistory((prev) => {
+                const next = prev.filter((item) => item.id !== id)
+                localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(next))
+                return next
+            })
+        },
+        [user, authedFetch]
+    )
+
+    return { history, addHistoryItem, clearHistory, deleteHistoryItem }
+}

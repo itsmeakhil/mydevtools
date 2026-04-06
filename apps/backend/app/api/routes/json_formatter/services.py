@@ -1,0 +1,126 @@
+from datetime import datetime, timezone
+from typing import Any
+
+from bson import ObjectId
+from bson.errors import InvalidId
+from fastapi import HTTPException, status
+
+try:
+    from pymongo.collection import Collection
+    from pymongo.errors import PyMongoError
+except Exception:  # pragma: no cover
+    Collection = Any  # type: ignore
+    PyMongoError = Exception  # type: ignore
+
+from app.api.routes.json_formatter.schema import (
+    JsonFormatterDocumentCreate,
+    JsonFormatterDocumentOut,
+    JsonFormatterDocumentUpdate,
+)
+from app.core.db import get_db
+from app.utils.collection_name import JSON_FORMATTER_DOCUMENTS
+
+
+def _col() -> Collection:
+    return get_db()[JSON_FORMATTER_DOCUMENTS]
+
+
+def _parse_oid(doc_id: str) -> ObjectId:
+    try:
+        return ObjectId(doc_id)
+    except InvalidId as exc:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid document id.",
+        ) from exc
+
+
+def _format_ts(value: Any) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, datetime):
+        if value.tzinfo is None:
+            value = value.replace(tzinfo=timezone.utc)
+        return value.astimezone(timezone.utc).isoformat()
+    if isinstance(value, str):
+        return value
+    return str(value)
+
+
+def _doc_to_out(doc: dict[str, Any]) -> JsonFormatterDocumentOut:
+    oid = doc.get("_id")
+    pane = doc.get("pane")
+    if pane not in ("left", "right"):
+        pane = "left"
+    return JsonFormatterDocumentOut(
+        id=str(oid) if oid is not None else "",
+        title=doc.get("title", ""),
+        pane=pane,
+        content=doc.get("content") if isinstance(doc.get("content"), str) else "",
+        createdAt=_format_ts(doc.get("createdAt")) or "",
+        updatedAt=_format_ts(doc.get("updatedAt")) or "",
+    )
+
+
+def list_documents(uid: str) -> list[JsonFormatterDocumentOut]:
+    cursor = _col().find({"created_by": uid}).sort([("updatedAt", -1)])
+    return [_doc_to_out(d) for d in cursor]
+
+
+def create_document(uid: str, body: JsonFormatterDocumentCreate) -> JsonFormatterDocumentOut:
+    now = datetime.now(timezone.utc)
+    doc: dict[str, Any] = {
+        "created_by": uid,
+        "title": body.title,
+        "pane": body.pane,
+        "content": body.content,
+        "createdAt": now,
+        "updatedAt": now,
+    }
+    try:
+        result = _col().insert_one(doc)
+    except PyMongoError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to create JSON formatter document.",
+        ) from exc
+    doc["_id"] = result.inserted_id
+    return _doc_to_out(doc)
+
+
+def get_document(uid: str, doc_id: str) -> JsonFormatterDocumentOut:
+    oid = _parse_oid(doc_id)
+    doc = _col().find_one({"_id": oid, "created_by": uid})
+    if not doc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")
+    return _doc_to_out(doc)
+
+
+def update_document(uid: str, doc_id: str, body: JsonFormatterDocumentUpdate) -> JsonFormatterDocumentOut:
+    oid = _parse_oid(doc_id)
+    col = _col()
+    existing = col.find_one({"_id": oid, "created_by": uid})
+    if not existing:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")
+
+    patch = body.model_dump(exclude_unset=True)
+    if not patch:
+        return _doc_to_out(existing)
+
+    patch["updatedAt"] = datetime.now(timezone.utc)
+    try:
+        col.update_one({"_id": oid, "created_by": uid}, {"$set": patch})
+    except PyMongoError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to update document.",
+        ) from exc
+    updated = col.find_one({"_id": oid})
+    return _doc_to_out(updated)  # type: ignore[arg-type]
+
+
+def delete_document(uid: str, doc_id: str) -> None:
+    oid = _parse_oid(doc_id)
+    result = _col().delete_one({"_id": oid, "created_by": uid})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")

@@ -2,6 +2,7 @@
 
 # Dependencies
 /node_modules
+/apps/web/node_modules
 /.pnp
 .pnp.js
 .pnp.*
@@ -22,6 +23,8 @@ pnpm-lock.yaml
 # next.js
 /.next/
 /out/
+apps/*/.next/
+apps/*/out/
 
 # production
 /build
@@ -45,6 +48,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+apps/*/next-env.d.ts
 
 .vscode
 .env
+
+# python (backend)
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.venv/
+apps/backend/.venv/

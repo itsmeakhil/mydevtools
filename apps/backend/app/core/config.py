@@ -1,0 +1,42 @@
+from functools import lru_cache
+
+from pydantic import Field
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    APP_NAME: str = "MyDevTools API"
+    APP_ENV: str = "development"
+    APP_DEBUG: bool = True
+    APP_HOST: str = "0.0.0.0"
+    APP_PORT: int = 8000
+
+    FIREBASE_CREDENTIALS_JSON: str | None = None
+
+    MONGO_DB_URL: str = "mongodb://localhost:27017"
+    MONGO_DB_NAME: str = "mydevtools"
+
+    # HS256 secret for API JWTs (set a strong value in production).
+    JWT_SECRET_KEY: str = Field(
+        default="DEFAULT_DEV_JWT_SECRET_NOT_FOR_PRODUCTION",
+        min_length=16,
+    )
+    JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_DAYS: int = 15
+    REFRESH_TOKEN_EXPIRE_DAYS: int = 60
+    # HttpOnly cookies: use Secure=true over HTTPS (recommended in production).
+    AUTH_COOKIE_SECURE: bool = False
+
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+
+    def model_post_init(self, __context: object) -> None:  # type: ignore[override]
+        dev_placeholder = "DEFAULT_DEV_JWT_SECRET_NOT_FOR_PRODUCTION"
+        if self.APP_ENV == "production" and self.JWT_SECRET_KEY == dev_placeholder:
+            raise ValueError(
+                "JWT_SECRET_KEY must be set in the environment when APP_ENV=production",
+            )
+
+
+@lru_cache
+def get_settings() -> Settings:
+    return Settings()
