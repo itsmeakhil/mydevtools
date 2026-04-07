@@ -12,6 +12,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { sidebarData } from '@/components/sidebar/data/sidebar-data'
 import { cn } from '@/lib/utils'
+import { useTranslations } from 'next-intl'
 
 const appItems = sidebarData.navGroups.flatMap((g) => g.items)
 
@@ -84,16 +85,17 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 }
 
 export default function HelpPage() {
+  const t = useTranslations('Help')
+
   return (
     <div className="flex-1 space-y-6 p-6 pb-24 md:pb-8 max-w-5xl mx-auto w-full pt-16 md:pt-8 bg-background/50">
       <div className="space-y-1">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
           <BookOpen className="h-8 w-8 opacity-80 shrink-0" aria-hidden />
-          Help &amp; documentation
+          {t('title')}
         </h1>
         <p className="text-muted-foreground text-sm md:text-base max-w-3xl">
-          How MyDevTools fits together, what each app does, and how security and encryption protect your
-          data.
+          {t('subtitle')}
         </p>
       </div>
 
@@ -101,72 +103,70 @@ export default function HelpPage() {
         <TabsList className="flex h-auto w-full flex-wrap justify-start gap-1 bg-muted/60 p-1">
           <TabsTrigger value="overview" className="gap-1.5">
             <BookOpen className="h-3.5 w-3.5" />
-            Overview
+            {t('tabs.overview')}
           </TabsTrigger>
           <TabsTrigger value="apps" className="gap-1.5">
             <LayoutGrid className="h-3.5 w-3.5" />
-            Apps
+            {t('tabs.apps')}
           </TabsTrigger>
           <TabsTrigger value="security" className="gap-1.5">
             <Shield className="h-3.5 w-3.5" />
-            Security
+            {t('tabs.security')}
           </TabsTrigger>
           <TabsTrigger value="tips" className="gap-1.5">
             <Lightbulb className="h-3.5 w-3.5" />
-            Tips
+            {t('tabs.tips')}
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="mt-0 space-y-4 outline-none">
           <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle>What is MyDevTools?</CardTitle>
+              <CardTitle>{t('overview.whatIs.title')}</CardTitle>
               <CardDescription>
-                A signed-in developer workspace: a dashboard and a set of tools for everyday tasks.
+                {t('overview.whatIs.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4 text-sm text-muted-foreground">
               <p>
-                After you sign in with your account, the app establishes a session with the MyDevTools API
-                so tools can load and save your data. The sidebar lists every app; you can hide tools you
-                do not use from{' '}
+                {t('overview.whatIs.p1')}{' '}
                 <Link href="/settings" className="text-primary underline-offset-4 hover:underline">
-                  Settings
+                  {t('overview.whatIs.settingsLink')}
                 </Link>
-                .
+                {t('overview.whatIs.p1After')}
               </p>
               <p>
-                Some features use a <strong className="text-foreground font-medium">master password</strong>{' '}
-                (or global vault key) so that secrets like passwords and database connection strings are
-                encrypted on your device before they reach the server.
+                {t.rich('overview.whatIs.p2', {
+                  strong: (chunks) => (
+                    <strong className="text-foreground font-medium">{chunks}</strong>
+                  ),
+                })}
               </p>
             </CardContent>
           </Card>
           <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle>Quick links</CardTitle>
+              <CardTitle>{t('overview.quickLinks.title')}</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-wrap gap-2">
               <Link
                 href="/dashboard"
                 className="inline-flex items-center gap-1 rounded-md border bg-background/80 px-3 py-1.5 text-sm hover:bg-accent/60"
               >
-                Dashboard
+                {t('overview.quickLinks.dashboard')}
               </Link>
               <Link
                 href="/settings"
                 className="inline-flex items-center gap-1 rounded-md border bg-background/80 px-3 py-1.5 text-sm hover:bg-accent/60"
               >
-                Settings
+                {t('overview.quickLinks.settings')}
               </Link>
             </CardContent>
           </Card>
         </TabsContent>
 
         <TabsContent value="apps" className="mt-0 space-y-4 outline-none">
-          <p className="text-sm text-muted-foreground">
-            Open any tool from the sidebar or dashboard. Below is a short guide per app.
-          </p>
+          <p className="text-sm text-muted-foreground">{t('apps.intro')}</p>
           <div className="grid gap-4">
             {appItems.map((item) => {
               const url = typeof item.url === 'string' ? item.url : String(item.url)
@@ -195,7 +195,7 @@ export default function HelpPage() {
                           'underline-offset-4 hover:underline'
                         )}
                       >
-                        Open
+                        {t('apps.open')}
                         <ExternalLink className="h-3 w-3" aria-hidden />
                       </Link>
                     </div>
@@ -204,7 +204,7 @@ export default function HelpPage() {
                   <CardContent className="space-y-3 text-sm text-muted-foreground">
                     {extra ? (
                       <>
-                        <SectionTitle>How it works</SectionTitle>
+                        <SectionTitle>{t('apps.howItWorks')}</SectionTitle>
                         <ul className="list-disc pl-5 space-y-1">
                           {extra.howItWorks.map((line) => (
                             <li key={line}>{line}</li>
@@ -217,7 +217,7 @@ export default function HelpPage() {
                         ) : null}
                       </>
                     ) : (
-                      <p>Use this tool from the sidebar for its dedicated workflow.</p>
+                      <p>{t('apps.generic')}</p>
                     )}
                   </CardContent>
                 </Card>
@@ -229,23 +229,31 @@ export default function HelpPage() {
         <TabsContent value="security" className="mt-0 space-y-4 outline-none">
           <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle>Sign-in and API session</CardTitle>
-              <CardDescription>Identity and how the browser talks to your backend.</CardDescription>
+              <CardTitle>{t('security.session.title')}</CardTitle>
+              <CardDescription>{t('security.session.description')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3 text-sm text-muted-foreground">
               <ul className="list-disc pl-5 space-y-2">
                 <li>
-                  <strong className="text-foreground font-medium">Authentication</strong> uses Firebase for
-                  sign-in. After login, the app exchanges your Firebase ID token for API cookies.
+                  {t.rich('security.session.items.authentication', {
+                    strong: (chunks) => (
+                      <strong className="text-foreground font-medium">{chunks}</strong>
+                    ),
+                  })}
                 </li>
                 <li>
-                  <strong className="text-foreground font-medium">Access tokens</strong> are JWTs signed on
-                  the server (HS256). They prove which user is calling the API.
+                  {t.rich('security.session.items.accessTokens', {
+                    strong: (chunks) => (
+                      <strong className="text-foreground font-medium">{chunks}</strong>
+                    ),
+                  })}
                 </li>
                 <li>
-                  <strong className="text-foreground font-medium">Refresh tokens</strong> are stored in
-                  HttpOnly cookies; the server stores a SHA-256 hash of the refresh token, not the raw
-                  token.
+                  {t.rich('security.session.items.refreshTokens', {
+                    strong: (chunks) => (
+                      <strong className="text-foreground font-medium">{chunks}</strong>
+                    ),
+                  })}
                 </li>
               </ul>
             </CardContent>
@@ -253,49 +261,53 @@ export default function HelpPage() {
 
           <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle>Encryption you should know about</CardTitle>
-              <CardDescription>Client-side crypto for vault and sensitive connection data.</CardDescription>
+              <CardTitle>{t('security.encryption.title')}</CardTitle>
+              <CardDescription>{t('security.encryption.description')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3 text-sm text-muted-foreground">
               <p>
-                For the <strong className="text-foreground font-medium">password manager</strong> and{' '}
-                <strong className="text-foreground font-medium">NoSQL Explorer</strong> saved connections,
-                the web app uses the browser{' '}
-                <strong className="text-foreground font-medium">Web Crypto API</strong>:
+                {t.rich('security.encryption.p1', {
+                  strong: (chunks) => (
+                    <strong className="text-foreground font-medium">{chunks}</strong>
+                  ),
+                })}
               </p>
               <ul className="list-disc pl-5 space-y-2">
                 <li>
-                  <strong className="text-foreground font-medium">PBKDF2</strong> with{' '}
-                  <strong className="text-foreground font-medium">SHA-256</strong>,{' '}
-                  <strong className="text-foreground font-medium">100,000</strong> iterations, and a random
-                  salt derives a 256-bit key from your master password.
+                  {t.rich('security.encryption.items.kdf', {
+                    strong: (chunks) => (
+                      <strong className="text-foreground font-medium">{chunks}</strong>
+                    ),
+                  })}
                 </li>
                 <li>
-                  <strong className="text-foreground font-medium">AES-256-GCM</strong> encrypts payloads; a
-                  random <strong className="text-foreground font-medium">12-byte IV</strong> is used per
-                  encryption.
+                  {t.rich('security.encryption.items.aes', {
+                    strong: (chunks) => (
+                      <strong className="text-foreground font-medium">{chunks}</strong>
+                    ),
+                  })}
                 </li>
                 <li>
-                  The derived key stays in the browser (non-extractable). The server receives{' '}
-                  <strong className="text-foreground font-medium">ciphertext and IVs</strong>, not your master
-                  password or plaintext secrets.
+                  {t.rich('security.encryption.items.scope', {
+                    strong: (chunks) => (
+                      <strong className="text-foreground font-medium">{chunks}</strong>
+                    ),
+                  })}
                 </li>
               </ul>
               <p className="rounded-lg border border-amber-500/30 bg-amber-500/5 px-3 py-2 text-xs leading-relaxed text-foreground/90">
-                If you forget the master password, encrypted data cannot be recovered. Store it safely.
+                {t('security.encryption.warning')}
               </p>
             </CardContent>
           </Card>
 
           <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle>Logout and local data</CardTitle>
+              <CardTitle>{t('security.logout.title')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm text-muted-foreground">
               <p>
-                Logging out clears in-memory secrets, vault-related state, and master key material from
-                IndexedDB where applicable, and ends the API session. Anything kept only in local storage
-                on a device may remain until you clear it in the browser.
+                {t('security.logout.body')}
               </p>
             </CardContent>
           </Card>
@@ -304,21 +316,15 @@ export default function HelpPage() {
         <TabsContent value="tips" className="mt-0 space-y-4 outline-none">
           <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle>Using MyDevTools safely</CardTitle>
+              <CardTitle>{t('tips.title')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm text-muted-foreground">
               <ul className="list-disc pl-5 space-y-2">
-                <li>Use a strong, unique master password for vault features.</li>
-                <li>
-                  Treat the API Client like any HTTP client: avoid pasting production secrets into shared
-                  environments unless you understand who can see them.
-                </li>
-                <li>
-                  NoSQL Explorer connects to databases you configure; use least-privilege users and network
-                  rules where possible.
-                </li>
-                <li>JSON Formatter is local to the browser—still avoid pasting highly sensitive data on shared machines.</li>
-                <li>Customize visible tools in Settings to keep the sidebar focused.</li>
+                <li>{t('tips.items.masterPassword')}</li>
+                <li>{t('tips.items.apiClient')}</li>
+                <li>{t('tips.items.nosql')}</li>
+                <li>{t('tips.items.json')}</li>
+                <li>{t('tips.items.settings')}</li>
               </ul>
             </CardContent>
           </Card>

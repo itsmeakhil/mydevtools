@@ -9,6 +9,73 @@
     "emailValidator": "Validateur d’e-mail",
     "nosqlExplorer": "Explorateur NoSQL"
   },
+  "Help": {
+    "title": "Aide et documentation",
+    "subtitle": "Comment MyDevTools s’articule, ce que fait chaque app et comment la sécurité et le chiffrement protègent vos données.",
+    "tabs": {
+      "overview": "Aperçu",
+      "apps": "Apps",
+      "security": "Sécurité",
+      "tips": "Conseils"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "Qu’est-ce que MyDevTools ?",
+        "description": "Un espace de travail développeur avec connexion : un tableau de bord et des outils pour le quotidien.",
+        "p1": "Après connexion, l’app établit une session avec l’API MyDevTools pour charger et enregistrer vos données. La barre latérale liste toutes les apps ; vous pouvez masquer celles que vous n’utilisez pas depuis",
+        "settingsLink": "Paramètres",
+        "p1After": ".",
+        "p2": "Certaines fonctionnalités utilisent un <strong>mot de passe maître</strong> (ou une clé de coffre globale) afin que des secrets comme les mots de passe et chaînes de connexion soient chiffrés sur votre appareil avant d’atteindre le serveur."
+      },
+      "quickLinks": {
+        "title": "Liens rapides",
+        "dashboard": "Tableau de bord",
+        "settings": "Paramètres"
+      }
+    },
+    "apps": {
+      "intro": "Ouvrez un outil depuis la barre latérale ou le tableau de bord. Voici un guide rapide par app.",
+      "open": "Ouvrir",
+      "howItWorks": "Fonctionnement",
+      "generic": "Utilisez cet outil depuis la barre latérale pour son flux de travail dédié."
+    },
+    "security": {
+      "session": {
+        "title": "Connexion et session API",
+        "description": "Identité et communication entre le navigateur et votre backend.",
+        "items": {
+          "authentication": "<strong>Authentification</strong> via Firebase. Après connexion, l’app échange votre jeton d’ID Firebase contre des cookies API.",
+          "accessTokens": "<strong>Jetons d’accès</strong> : JWT signés côté serveur (HS256) qui prouvent quel utilisateur appelle l’API.",
+          "refreshTokens": "<strong>Jetons de rafraîchissement</strong> : stockés en cookies HttpOnly ; le serveur conserve un hash SHA-256 du jeton, pas le jeton brut."
+        }
+      },
+      "encryption": {
+        "title": "Chiffrement à connaître",
+        "description": "Crypto côté client pour le coffre et les données de connexion sensibles.",
+        "p1": "Pour le <strong>gestionnaire de mots de passe</strong> et les connexions enregistrées de l’<strong>Explorateur NoSQL</strong>, l’app web utilise la <strong>Web Crypto API</strong> du navigateur :",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> avec <strong>SHA-256</strong>, <strong>100 000</strong> itérations et un sel aléatoire dérive une clé 256 bits depuis votre mot de passe maître.",
+          "aes": "<strong>AES-256-GCM</strong> chiffre les données ; un <strong>IV de 12 octets</strong> aléatoire est utilisé à chaque chiffrement.",
+          "scope": "La clé dérivée reste dans le navigateur (non extractible). Le serveur reçoit <strong>le texte chiffré et les IV</strong>, pas votre mot de passe maître ni des secrets en clair."
+        },
+        "warning": "Si vous oubliez le mot de passe maître, les données chiffrées ne peuvent pas être récupérées. Conservez-le en lieu sûr."
+      },
+      "logout": {
+        "title": "Déconnexion et données locales",
+        "body": "La déconnexion efface les secrets en mémoire, l’état du coffre et, si applicable, le matériel de clé maître dans IndexedDB, et termine la session API. Les données uniquement en stockage local peuvent rester jusqu’à suppression dans le navigateur."
+      }
+    },
+    "tips": {
+      "title": "Utiliser MyDevTools en toute sécurité",
+      "items": {
+        "masterPassword": "Utilisez un mot de passe maître fort et unique pour les fonctions de coffre.",
+        "apiClient": "Traitez le Client API comme tout client HTTP : évitez de coller des secrets de production dans des environnements partagés sans savoir qui peut les voir.",
+        "nosql": "L’Explorateur NoSQL se connecte à des bases que vous configurez ; utilisez des comptes au moindre privilège et des règles réseau si possible.",
+        "json": "Le formateur JSON fonctionne localement dans le navigateur—évitez quand même de coller des données très sensibles sur des machines partagées.",
+        "settings": "Personnalisez les outils visibles dans Paramètres pour garder la barre latérale focalisée."
+      }
+    }
+  },
   "Settings": {
     "title": "Paramètres",
     "language": "Langue",

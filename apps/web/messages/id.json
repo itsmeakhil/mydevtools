@@ -9,6 +9,73 @@
     "emailValidator": "Validator Email",
     "nosqlExplorer": "NoSQL Explorer"
   },
+  "Help": {
+    "title": "Bantuan & dokumentasi",
+    "subtitle": "Cara MyDevTools bekerja, apa yang dilakukan tiap aplikasi, dan bagaimana keamanan serta enkripsi melindungi data Anda.",
+    "tabs": {
+      "overview": "Ringkasan",
+      "apps": "Aplikasi",
+      "security": "Keamanan",
+      "tips": "Tips"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "Apa itu MyDevTools?",
+        "description": "Workspace developer dengan login: dasbor dan kumpulan tools untuk kebutuhan sehari-hari.",
+        "p1": "Setelah login, aplikasi membuat sesi dengan MyDevTools API agar tools dapat memuat dan menyimpan data Anda. Sidebar menampilkan semua aplikasi; Anda dapat menyembunyikan tools yang tidak digunakan dari",
+        "settingsLink": "Pengaturan",
+        "p1After": ".",
+        "p2": "Beberapa fitur menggunakan <strong>kata sandi utama</strong> (atau kunci vault global) agar rahasia seperti kata sandi dan connection string dienkripsi di perangkat Anda sebelum mencapai server."
+      },
+      "quickLinks": {
+        "title": "Tautan cepat",
+        "dashboard": "Dasbor",
+        "settings": "Pengaturan"
+      }
+    },
+    "apps": {
+      "intro": "Buka tool apa pun dari sidebar atau dasbor. Berikut panduan singkat untuk tiap aplikasi.",
+      "open": "Buka",
+      "howItWorks": "Cara kerja",
+      "generic": "Gunakan tool ini dari sidebar untuk workflow khususnya."
+    },
+    "security": {
+      "session": {
+        "title": "Login dan sesi API",
+        "description": "Identitas dan cara browser berkomunikasi dengan backend.",
+        "items": {
+          "authentication": "<strong>Autentikasi</strong> menggunakan Firebase untuk login. Setelah login, aplikasi menukar Firebase ID token Anda menjadi cookie API.",
+          "accessTokens": "<strong>Access token</strong> adalah JWT yang ditandatangani server (HS256) untuk membuktikan pengguna yang memanggil API.",
+          "refreshTokens": "<strong>Refresh token</strong> disimpan di cookie HttpOnly; server menyimpan hash SHA-256 dari token, bukan token mentahnya."
+        }
+      },
+      "encryption": {
+        "title": "Enkripsi yang perlu diketahui",
+        "description": "Kripto sisi klien untuk vault dan data koneksi sensitif.",
+        "p1": "Untuk <strong>pengelola kata sandi</strong> dan koneksi tersimpan di <strong>NoSQL Explorer</strong>, aplikasi web menggunakan <strong>Web Crypto API</strong> pada browser:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> dengan <strong>SHA-256</strong>, <strong>100.000</strong> iterasi, dan salt acak menurunkan kunci 256-bit dari kata sandi utama Anda.",
+          "aes": "<strong>AES-256-GCM</strong> mengenkripsi data; <strong>IV 12-byte</strong> acak digunakan untuk setiap enkripsi.",
+          "scope": "Kunci turunan tetap di browser (tidak dapat diekstrak). Server hanya menerima <strong>ciphertext dan IV</strong>, bukan kata sandi utama atau rahasia dalam plaintext."
+        },
+        "warning": "Jika Anda lupa kata sandi utama, data terenkripsi tidak dapat dipulihkan. Simpan dengan aman."
+      },
+      "logout": {
+        "title": "Logout dan data lokal",
+        "body": "Logout akan menghapus rahasia di memori, status vault, dan (jika berlaku) material kunci utama dari IndexedDB, serta mengakhiri sesi API. Data yang hanya tersimpan di penyimpanan lokal perangkat dapat tetap ada sampai Anda menghapusnya di browser."
+      }
+    },
+    "tips": {
+      "title": "Menggunakan MyDevTools dengan aman",
+      "items": {
+        "masterPassword": "Gunakan kata sandi utama yang kuat dan unik untuk fitur vault.",
+        "apiClient": "Perlakukan API Client seperti HTTP client lainnya: hindari menempelkan rahasia produksi ke lingkungan bersama jika Anda tidak tahu siapa yang bisa melihatnya.",
+        "nosql": "NoSQL Explorer terhubung ke database yang Anda konfigurasi; gunakan akun dengan hak minimum dan aturan jaringan bila memungkinkan.",
+        "json": "Pemformat JSON berjalan lokal di browser—tetap hindari menempelkan data sangat sensitif di mesin bersama.",
+        "settings": "Sesuaikan tools yang terlihat di Pengaturan agar sidebar tetap fokus."
+      }
+    }
+  },
   "Settings": {
     "title": "Pengaturan",
     "language": "Bahasa",

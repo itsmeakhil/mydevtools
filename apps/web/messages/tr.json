@@ -9,6 +9,73 @@
     "emailValidator": "E-posta Doğrulayıcı",
     "nosqlExplorer": "NoSQL Gezgini"
   },
+  "Help": {
+    "title": "Yardım ve dokümantasyon",
+    "subtitle": "MyDevTools’un nasıl çalıştığı, her uygulamanın ne yaptığı ve güvenlik ile şifrelemenin verilerinizi nasıl koruduğu.",
+    "tabs": {
+      "overview": "Genel bakış",
+      "apps": "Uygulamalar",
+      "security": "Güvenlik",
+      "tips": "İpuçları"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "MyDevTools nedir?",
+        "description": "Giriş yapılan bir geliştirici çalışma alanı: bir gösterge paneli ve günlük araçlar.",
+        "p1": "Hesabınızla giriş yaptıktan sonra uygulama, araçların verilerinizi yükleyip kaydedebilmesi için MyDevTools API ile bir oturum kurar. Yan menü tüm uygulamaları listeler; kullanmadığınız araçları",
+        "settingsLink": "Ayarlar",
+        "p1After": "sayfasından gizleyebilirsiniz.",
+        "p2": "Bazı özellikler <strong>ana parola</strong> (veya global kasa anahtarı) kullanır; böylece parolalar ve bağlantı dizeleri gibi sırlar sunucuya ulaşmadan önce cihazınızda şifrelenir."
+      },
+      "quickLinks": {
+        "title": "Hızlı bağlantılar",
+        "dashboard": "Gösterge Paneli",
+        "settings": "Ayarlar"
+      }
+    },
+    "apps": {
+      "intro": "Herhangi bir aracı yan menüden veya gösterge panelinden açın. Aşağıda her uygulama için kısa bir rehber var.",
+      "open": "Aç",
+      "howItWorks": "Nasıl çalışır",
+      "generic": "Bu aracı yan menüden, kendi iş akışı üzerinden kullanın."
+    },
+    "security": {
+      "session": {
+        "title": "Giriş ve API oturumu",
+        "description": "Kimlik ve tarayıcının backend ile nasıl konuştuğu.",
+        "items": {
+          "authentication": "<strong>Kimlik doğrulama</strong> için Firebase kullanılır. Girişten sonra uygulama Firebase ID token’ınızı API çerezleriyle değiştirir.",
+          "accessTokens": "<strong>Erişim token’ları</strong> sunucuda imzalanan JWT’lerdir (HS256) ve API’yi çağıran kullanıcıyı kanıtlar.",
+          "refreshTokens": "<strong>Yenileme token’ları</strong> HttpOnly çerezlerde saklanır; sunucu ham token yerine SHA-256 hash’ini tutar."
+        }
+      },
+      "encryption": {
+        "title": "Bilmeniz gereken şifreleme",
+        "description": "Kasa ve hassas bağlantı verileri için istemci tarafı kripto.",
+        "p1": "<strong>Şifre yöneticisi</strong> ve <strong>NoSQL Gezgini</strong> kaydedilmiş bağlantıları için web uygulaması tarayıcının <strong>Web Crypto API</strong>’sini kullanır:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> (<strong>SHA-256</strong>, <strong>100.000</strong> iterasyon, rastgele salt) ana parolanızdan 256-bit anahtar türetir.",
+          "aes": "<strong>AES-256-GCM</strong> veriyi şifreler; her şifreleme için rastgele <strong>12 bayt IV</strong> kullanılır.",
+          "scope": "Türetilen anahtar tarayıcıda kalır (dışa aktarılamaz). Sunucu yalnızca <strong>şifreli metin ve IV</strong> alır; ana parola veya düz metin sırlar gönderilmez."
+        },
+        "warning": "Ana parolanızı unutursanız, şifrelenmiş veriler kurtarılamaz. Güvenle saklayın."
+      },
+      "logout": {
+        "title": "Çıkış ve yerel veriler",
+        "body": "Çıkış yapmak bellek içindeki sırları, kasa durumunu ve (varsa) IndexedDB’deki ana anahtar materyalini temizler ve API oturumunu sonlandırır. Yalnızca yerel depoda tutulan veriler, tarayıcıdan temizleyene kadar kalabilir."
+      }
+    },
+    "tips": {
+      "title": "MyDevTools’u güvenli kullanma",
+      "items": {
+        "masterPassword": "Kasa özellikleri için güçlü ve benzersiz bir ana parola kullanın.",
+        "apiClient": "API İstemcisini herhangi bir HTTP istemcisi gibi kullanın: kimlerin görebileceğini bilmiyorsanız üretim sırlarını paylaşılan ortamlara yapıştırmayın.",
+        "nosql": "NoSQL Gezgini sizin yapılandırdığınız veritabanlarına bağlanır; mümkünse en az ayrıcalıklı kullanıcıları ve ağ kurallarını kullanın.",
+        "json": "JSON biçimleyici tarayıcıda yerel çalışır—yine de paylaşılan cihazlarda çok hassas verileri yapıştırmaktan kaçının.",
+        "settings": "Yan menüyü odaklı tutmak için Ayarlar’dan görünür araçları özelleştirin."
+      }
+    }
+  },
   "Settings": {
     "title": "Ayarlar",
     "language": "Dil",

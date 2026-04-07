@@ -9,6 +9,73 @@
     "emailValidator": "Xác thực email",
     "nosqlExplorer": "NoSQL Explorer"
   },
+  "Help": {
+    "title": "Trợ giúp & tài liệu",
+    "subtitle": "MyDevTools hoạt động như thế nào, mỗi ứng dụng làm gì, và bảo mật/mã hóa bảo vệ dữ liệu của bạn ra sao.",
+    "tabs": {
+      "overview": "Tổng quan",
+      "apps": "Ứng dụng",
+      "security": "Bảo mật",
+      "tips": "Mẹo"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "MyDevTools là gì?",
+        "description": "Một không gian làm việc dành cho dev có đăng nhập: bảng điều khiển và bộ công cụ hằng ngày.",
+        "p1": "Sau khi đăng nhập, ứng dụng thiết lập phiên với MyDevTools API để các công cụ có thể tải và lưu dữ liệu của bạn. Thanh bên liệt kê mọi ứng dụng; bạn có thể ẩn các công cụ không dùng trong",
+        "settingsLink": "Cài đặt",
+        "p1After": ".",
+        "p2": "Một số tính năng dùng <strong>mật khẩu chính</strong> (hoặc khóa vault toàn cục) để các bí mật như mật khẩu và chuỗi kết nối được mã hóa trên thiết bị của bạn trước khi đến máy chủ."
+      },
+      "quickLinks": {
+        "title": "Liên kết nhanh",
+        "dashboard": "Bảng điều khiển",
+        "settings": "Cài đặt"
+      }
+    },
+    "apps": {
+      "intro": "Mở bất kỳ công cụ nào từ thanh bên hoặc bảng điều khiển. Dưới đây là hướng dẫn ngắn cho từng ứng dụng.",
+      "open": "Mở",
+      "howItWorks": "Cách hoạt động",
+      "generic": "Hãy dùng công cụ này từ thanh bên theo workflow riêng của nó."
+    },
+    "security": {
+      "session": {
+        "title": "Đăng nhập và phiên API",
+        "description": "Danh tính và cách trình duyệt giao tiếp với backend.",
+        "items": {
+          "authentication": "<strong>Xác thực</strong> dùng Firebase để đăng nhập. Sau đó ứng dụng đổi Firebase ID token sang cookie API.",
+          "accessTokens": "<strong>Access token</strong> là JWT được ký trên máy chủ (HS256) và xác định người dùng gọi API.",
+          "refreshTokens": "<strong>Refresh token</strong> được lưu trong HttpOnly cookie; máy chủ lưu hash SHA-256 của refresh token chứ không lưu token thô."
+        }
+      },
+      "encryption": {
+        "title": "Mã hóa cần biết",
+        "description": "Crypto phía client cho vault và dữ liệu kết nối nhạy cảm.",
+        "p1": "Với <strong>trình quản lý mật khẩu</strong> và các kết nối đã lưu của <strong>NoSQL Explorer</strong>, ứng dụng web dùng <strong>Web Crypto API</strong> của trình duyệt:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> với <strong>SHA-256</strong>, <strong>100.000</strong> vòng lặp và salt ngẫu nhiên để suy ra khóa 256-bit từ mật khẩu chính.",
+          "aes": "<strong>AES-256-GCM</strong> mã hóa dữ liệu; mỗi lần mã hóa dùng <strong>IV 12 byte</strong> ngẫu nhiên.",
+          "scope": "Khóa suy ra ở lại trong trình duyệt (không trích xuất được). Máy chủ chỉ nhận <strong>bản mã và IV</strong>, không nhận mật khẩu chính hay bí mật dạng rõ."
+        },
+        "warning": "Nếu bạn quên mật khẩu chính, dữ liệu đã mã hóa sẽ không thể khôi phục. Hãy lưu giữ cẩn thận."
+      },
+      "logout": {
+        "title": "Đăng xuất và dữ liệu cục bộ",
+        "body": "Đăng xuất sẽ xóa bí mật trong bộ nhớ, trạng thái vault, và (khi áp dụng) vật liệu khóa chính khỏi IndexedDB, đồng thời kết thúc phiên API. Dữ liệu chỉ nằm trong local storage có thể vẫn còn cho đến khi bạn tự xóa trong trình duyệt."
+      }
+    },
+    "tips": {
+      "title": "Dùng MyDevTools an toàn",
+      "items": {
+        "masterPassword": "Dùng mật khẩu chính mạnh và duy nhất cho các tính năng vault.",
+        "apiClient": "Hãy coi API Client như mọi HTTP client: tránh dán bí mật production vào môi trường dùng chung nếu bạn không biết ai có thể xem.",
+        "nosql": "NoSQL Explorer kết nối tới DB do bạn cấu hình; hãy dùng tài khoản tối thiểu quyền và quy tắc mạng khi có thể.",
+        "json": "Trình định dạng JSON chạy cục bộ trong trình duyệt—dù vậy vẫn nên tránh dán dữ liệu cực kỳ nhạy cảm trên máy dùng chung.",
+        "settings": "Tùy chỉnh công cụ hiển thị trong Cài đặt để thanh bên gọn và tập trung hơn."
+      }
+    }
+  },
   "Settings": {
     "title": "Cài đặt",
     "language": "Ngôn ngữ",

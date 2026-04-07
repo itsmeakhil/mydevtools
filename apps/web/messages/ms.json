@@ -9,6 +9,73 @@
     "emailValidator": "Pengesah E-mel",
     "nosqlExplorer": "Penjelajah NoSQL"
   },
+  "Help": {
+    "title": "Bantuan & dokumentasi",
+    "subtitle": "Bagaimana MyDevTools berfungsi, apa yang dibuat oleh setiap aplikasi, dan bagaimana keselamatan serta penyulitan melindungi data anda.",
+    "tabs": {
+      "overview": "Gambaran keseluruhan",
+      "apps": "Aplikasi",
+      "security": "Keselamatan",
+      "tips": "Petua"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "Apakah MyDevTools?",
+        "description": "Ruang kerja pembangun dengan log masuk: papan pemuka dan set alat untuk tugasan harian.",
+        "p1": "Selepas anda log masuk, aplikasi mewujudkan sesi dengan MyDevTools API supaya alat boleh memuat dan menyimpan data anda. Bar sisi menyenaraikan semua aplikasi; anda boleh menyembunyikan alat yang tidak digunakan dari",
+        "settingsLink": "Tetapan",
+        "p1After": ".",
+        "p2": "Sesetengah ciri menggunakan <strong>kata laluan induk</strong> (atau kunci vault global) supaya rahsia seperti kata laluan dan rentetan sambungan disulitkan pada peranti anda sebelum sampai ke pelayan."
+      },
+      "quickLinks": {
+        "title": "Pautan pantas",
+        "dashboard": "Papan Pemuka",
+        "settings": "Tetapan"
+      }
+    },
+    "apps": {
+      "intro": "Buka mana-mana alat dari bar sisi atau papan pemuka. Di bawah ialah panduan ringkas untuk setiap aplikasi.",
+      "open": "Buka",
+      "howItWorks": "Cara ia berfungsi",
+      "generic": "Gunakan alat ini dari bar sisi untuk aliran kerja khususnya."
+    },
+    "security": {
+      "session": {
+        "title": "Log masuk dan sesi API",
+        "description": "Identiti dan cara pelayar berkomunikasi dengan backend.",
+        "items": {
+          "authentication": "<strong>Pengesahan</strong> menggunakan Firebase untuk log masuk. Selepas log masuk, aplikasi menukar token ID Firebase anda kepada kuki API.",
+          "accessTokens": "<strong>Token akses</strong> ialah JWT yang ditandatangani pelayan (HS256) untuk membuktikan pengguna yang memanggil API.",
+          "refreshTokens": "<strong>Token segar semula</strong> disimpan dalam kuki HttpOnly; pelayan menyimpan hash SHA-256 token, bukan token mentah."
+        }
+      },
+      "encryption": {
+        "title": "Penyulitan yang perlu diketahui",
+        "description": "Kripto sisi klien untuk vault dan data sambungan sensitif.",
+        "p1": "Untuk <strong>pengurus kata laluan</strong> dan sambungan tersimpan dalam <strong>Penjelajah NoSQL</strong>, aplikasi web menggunakan <strong>Web Crypto API</strong> pelayar:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> dengan <strong>SHA-256</strong>, <strong>100,000</strong> iterasi dan salt rawak menjana kunci 256-bit daripada kata laluan induk anda.",
+          "aes": "<strong>AES-256-GCM</strong> menyulitkan data; <strong>IV 12 bait</strong> rawak digunakan bagi setiap penyulitan.",
+          "scope": "Kunci terbitan kekal dalam pelayar (tidak boleh diekstrak). Pelayan hanya menerima <strong>ciphertext dan IV</strong>, bukan kata laluan induk atau rahsia dalam teks biasa."
+        },
+        "warning": "Jika anda terlupa kata laluan induk, data yang disulitkan tidak boleh dipulihkan. Simpan dengan selamat."
+      },
+      "logout": {
+        "title": "Log keluar dan data tempatan",
+        "body": "Log keluar akan mengosongkan rahsia dalam ingatan, status vault, dan (jika berkenaan) bahan kunci induk daripada IndexedDB serta menamatkan sesi API. Data yang hanya berada dalam storan tempatan peranti mungkin kekal sehingga anda memadamkannya dalam pelayar."
+      }
+    },
+    "tips": {
+      "title": "Menggunakan MyDevTools dengan selamat",
+      "items": {
+        "masterPassword": "Gunakan kata laluan induk yang kuat dan unik untuk ciri vault.",
+        "apiClient": "Anggap API Client seperti klien HTTP biasa: elakkan menampal rahsia produksi ke persekitaran kongsi jika anda tidak tahu siapa yang boleh melihatnya.",
+        "nosql": "Penjelajah NoSQL menyambung ke pangkalan data yang anda konfigurasi; gunakan akaun keistimewaan minimum dan peraturan rangkaian jika boleh.",
+        "json": "Pemformat JSON berjalan secara tempatan dalam pelayar—masih elakkan menampal data yang sangat sensitif pada mesin kongsi.",
+        "settings": "Sesuaikan alat yang kelihatan dalam Tetapan untuk memastikan bar sisi kekal fokus."
+      }
+    }
+  },
   "Settings": {
     "title": "Tetapan",
     "language": "Bahasa",

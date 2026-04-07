@@ -9,6 +9,73 @@
     "emailValidator": "Validátor e-mailů",
     "nosqlExplorer": "Průzkumník NoSQL"
   },
+  "Help": {
+    "title": "Nápověda a dokumentace",
+    "subtitle": "Jak MyDevTools funguje, co dělá každá aplikace a jak bezpečnost a šifrování chrání vaše data.",
+    "tabs": {
+      "overview": "Přehled",
+      "apps": "Aplikace",
+      "security": "Bezpečnost",
+      "tips": "Tipy"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "Co je MyDevTools?",
+        "description": "Vývojářský workspace s přihlášením: přehled a sada nástrojů pro každodenní práci.",
+        "p1": "Po přihlášení aplikace naváže relaci s MyDevTools API, aby nástroje mohly načítat a ukládat vaše data. Postranní panel zobrazuje všechny aplikace; nástroje, které nepoužíváte, můžete skrýt v",
+        "settingsLink": "Nastavení",
+        "p1After": ".",
+        "p2": "Některé funkce používají <strong>hlavní heslo</strong> (nebo globální klíč trezoru), aby se tajné údaje jako hesla a connection stringy šifrovaly na vašem zařízení dříve, než dorazí na server."
+      },
+      "quickLinks": {
+        "title": "Rychlé odkazy",
+        "dashboard": "Přehled",
+        "settings": "Nastavení"
+      }
+    },
+    "apps": {
+      "intro": "Otevřete libovolný nástroj z postranního panelu nebo přehledu. Níže je stručný průvodce pro každou aplikaci.",
+      "open": "Otevřít",
+      "howItWorks": "Jak to funguje",
+      "generic": "Používejte tento nástroj z postranního panelu v jeho vyhrazeném pracovním postupu."
+    },
+    "security": {
+      "session": {
+        "title": "Přihlášení a API relace",
+        "description": "Identita a jak prohlížeč komunikuje s backendem.",
+        "items": {
+          "authentication": "<strong>Ověřování</strong> používá Firebase. Po přihlášení aplikace vymění váš Firebase ID token za API cookies.",
+          "accessTokens": "<strong>Přístupové tokeny</strong> jsou JWT podepsané na serveru (HS256) a dokazují, který uživatel volá API.",
+          "refreshTokens": "<strong>Obnovovací tokeny</strong> jsou uloženy v HttpOnly cookies; server ukládá SHA-256 hash tokenu, ne jeho surovou hodnotu."
+        }
+      },
+      "encryption": {
+        "title": "Šifrování, které byste měli znát",
+        "description": "Kryptografie na straně klienta pro trezor a citlivé údaje o připojení.",
+        "p1": "Pro <strong>správce hesel</strong> a uložená připojení v <strong>Průzkumníku NoSQL</strong> web používá <strong>Web Crypto API</strong> v prohlížeči:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> s <strong>SHA-256</strong>, <strong>100 000</strong> iteracemi a náhodnou solí odvodí 256bitový klíč z hlavního hesla.",
+          "aes": "<strong>AES-256-GCM</strong> šifruje data; pro každé šifrování se používá náhodný <strong>12bajtový IV</strong>.",
+          "scope": "Odvozený klíč zůstává v prohlížeči (nelze exportovat). Server dostává pouze <strong>šifrotext a IV</strong>, nikoliv hlavní heslo ani tajná data v otevřené podobě."
+        },
+        "warning": "Pokud zapomenete hlavní heslo, šifrovaná data nelze obnovit. Bezpečně si ho uložte."
+      },
+      "logout": {
+        "title": "Odhlášení a lokální data",
+        "body": "Odhlášení vymaže tajné údaje v paměti, stav trezoru a (pokud je to relevantní) materiál hlavního klíče z IndexedDB a ukončí API relaci. Data uložená pouze v lokálním úložišti zařízení mohou zůstat, dokud je nevymažete v prohlížeči."
+      }
+    },
+    "tips": {
+      "title": "Bezpečné používání MyDevTools",
+      "items": {
+        "masterPassword": "Používejte silné, jedinečné hlavní heslo pro funkce trezoru.",
+        "apiClient": "S API klientem zacházejte jako s běžným HTTP klientem: nevkládejte produkční tajemství do sdílených prostředí, pokud nevíte, kdo je může vidět.",
+        "nosql": "Průzkumník NoSQL se připojuje k databázím, které nastavíte; používejte účty s minimálními právy a síťová pravidla, pokud je to možné.",
+        "json": "Formátovač JSON běží lokálně v prohlížeči—i tak se vyhněte vkládání velmi citlivých dat na sdílených počítačích.",
+        "settings": "Přizpůsobte viditelné nástroje v Nastavení, aby postranní panel zůstal přehledný."
+      }
+    }
+  },
   "Settings": {
     "title": "Nastavení",
     "language": "Jazyk",

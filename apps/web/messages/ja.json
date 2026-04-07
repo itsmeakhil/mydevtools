@@ -9,6 +9,73 @@
     "emailValidator": "メールバリデーター",
     "nosqlExplorer": "NoSQLエクスプローラー"
   },
+  "Help": {
+    "title": "ヘルプとドキュメント",
+    "subtitle": "MyDevTools の全体像、各アプリの使い方、そしてセキュリティと暗号化がデータをどのように保護するかを説明します。",
+    "tabs": {
+      "overview": "概要",
+      "apps": "アプリ",
+      "security": "セキュリティ",
+      "tips": "ヒント"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "MyDevTools とは？",
+        "description": "ログインして使う開発者向けワークスペース。ダッシュボードと日常ツール群を提供します。",
+        "p1": "ログイン後、アプリは MyDevTools API とセッションを確立し、各ツールがデータを読み書きできるようにします。サイドバーにはすべてのアプリが表示され、使わないツールは",
+        "settingsLink": "設定",
+        "p1After": "で非表示にできます。",
+        "p2": "一部の機能では <strong>マスターパスワード</strong>（またはグローバルなボールトキー）を使用し、パスワードや接続文字列などの機密情報をサーバーに送る前に端末内で暗号化します。"
+      },
+      "quickLinks": {
+        "title": "クイックリンク",
+        "dashboard": "ダッシュボード",
+        "settings": "設定"
+      }
+    },
+    "apps": {
+      "intro": "サイドバーまたはダッシュボードから任意のツールを開けます。以下は各アプリの簡単なガイドです。",
+      "open": "開く",
+      "howItWorks": "仕組み",
+      "generic": "このツールはサイドバーから開いて専用のワークフローで使用してください。"
+    },
+    "security": {
+      "session": {
+        "title": "ログインと API セッション",
+        "description": "認証とブラウザがバックエンドと通信する仕組み。",
+        "items": {
+          "authentication": "<strong>認証</strong>は Firebase を使用します。ログイン後、Firebase の ID トークンを API の Cookie に交換します。",
+          "accessTokens": "<strong>アクセストークン</strong>はサーバーで署名された JWT（HS256）で、API を呼び出すユーザーを証明します。",
+          "refreshTokens": "<strong>リフレッシュトークン</strong>は HttpOnly Cookie に保存され、サーバー側にはトークンそのものではなく SHA-256 ハッシュが保存されます。"
+        }
+      },
+      "encryption": {
+        "title": "知っておくべき暗号化",
+        "description": "ボールトや機密の接続データのためのクライアント側暗号化。",
+        "p1": "<strong>パスワードマネージャー</strong>および <strong>NoSQL エクスプローラー</strong>の保存済み接続では、ブラウザの <strong>Web Crypto API</strong> を使用します。",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong>（<strong>SHA-256</strong>、<strong>100,000</strong> 回、ランダム salt）でマスターパスワードから 256-bit キーを導出します。",
+          "aes": "<strong>AES-256-GCM</strong> で暗号化し、暗号化ごとにランダムな <strong>12 バイト IV</strong> を使用します。",
+          "scope": "導出キーはブラウザ内に保持され（取り出し不可）、サーバーに送られるのは <strong>暗号文と IV</strong> のみです。マスターパスワードや平文の秘密は送信されません。"
+        },
+        "warning": "マスターパスワードを忘れると暗号化されたデータは復元できません。安全に保管してください。"
+      },
+      "logout": {
+        "title": "ログアウトとローカルデータ",
+        "body": "ログアウト時にメモリ上の機密情報、ボールト状態、（該当する場合）IndexedDB 上のマスターキー素材を消去し、API セッションを終了します。端末のローカルストレージのみに残るデータは、ブラウザで削除するまで残る場合があります。"
+      }
+    },
+    "tips": {
+      "title": "安全に使うためのヒント",
+      "items": {
+        "masterPassword": "ボールト機能には強力で一意なマスターパスワードを使用してください。",
+        "apiClient": "API クライアントは通常の HTTP クライアントと同様に扱い、共有環境では本番のシークレットを貼り付けないようにしてください。",
+        "nosql": "NoSQL エクスプローラーはあなたが設定した DB に接続します。可能なら最小権限ユーザーとネットワーク制限を使ってください。",
+        "json": "JSON フォーマッターはブラウザ内で処理されますが、共有端末では機密情報の貼り付けを避けてください。",
+        "settings": "設定で表示ツールをカスタマイズしてサイドバーを整理できます。"
+      }
+    }
+  },
   "Settings": {
     "title": "設定",
     "language": "言語",
