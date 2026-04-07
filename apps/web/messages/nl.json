@@ -9,6 +9,73 @@
     "emailValidator": "E-mailvalidator",
     "nosqlExplorer": "NoSQL-verkenner"
   },
+  "Help": {
+    "title": "Help en documentatie",
+    "subtitle": "Hoe MyDevTools in elkaar zit, wat elke app doet en hoe beveiliging en versleuteling je gegevens beschermen.",
+    "tabs": {
+      "overview": "Overzicht",
+      "apps": "Apps",
+      "security": "Beveiliging",
+      "tips": "Tips"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "Wat is MyDevTools?",
+        "description": "Een developer-workspace met login: een dashboard en een set tools voor dagelijks gebruik.",
+        "p1": "Na het inloggen maakt de app een sessie met de MyDevTools API zodat tools je data kunnen laden en opslaan. De zijbalk toont alle apps; tools die je niet gebruikt kun je verbergen via",
+        "settingsLink": "Instellingen",
+        "p1After": ".",
+        "p2": "Sommige functies gebruiken een <strong>masterwachtwoord</strong> (of globale vault-sleutel) zodat geheimen zoals wachtwoorden en connection strings op je apparaat worden versleuteld voordat ze de server bereiken."
+      },
+      "quickLinks": {
+        "title": "Snelle links",
+        "dashboard": "Dashboard",
+        "settings": "Instellingen"
+      }
+    },
+    "apps": {
+      "intro": "Open een tool via de zijbalk of het dashboard. Hieronder staat een korte gids per app.",
+      "open": "Openen",
+      "howItWorks": "Hoe het werkt",
+      "generic": "Gebruik deze tool via de zijbalk voor de bijbehorende workflow."
+    },
+    "security": {
+      "session": {
+        "title": "Inloggen en API-sessie",
+        "description": "Identiteit en hoe de browser met je backend praat.",
+        "items": {
+          "authentication": "<strong>Authenticatie</strong> gebruikt Firebase voor inloggen. Na login wisselt de app je Firebase ID-token om voor API-cookies.",
+          "accessTokens": "<strong>Access tokens</strong> zijn server-ondertekende JWT’s (HS256) en tonen welke gebruiker de API aanroept.",
+          "refreshTokens": "<strong>Refresh tokens</strong> worden opgeslagen in HttpOnly cookies; de server bewaart een SHA-256 hash van de refresh token, niet de ruwe token."
+        }
+      },
+      "encryption": {
+        "title": "Versleuteling die je moet kennen",
+        "description": "Client-side crypto voor vault en gevoelige connectiegegevens.",
+        "p1": "Voor de <strong>wachtwoordmanager</strong> en opgeslagen verbindingen in de <strong>NoSQL-verkenner</strong> gebruikt de web-app de <strong>Web Crypto API</strong> van de browser:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> met <strong>SHA-256</strong>, <strong>100.000</strong> iteraties en een willekeurige salt leidt een 256-bit sleutel af uit je masterwachtwoord.",
+          "aes": "<strong>AES-256-GCM</strong> versleutelt payloads; per versleuteling wordt een willekeurige <strong>12-byte IV</strong> gebruikt.",
+          "scope": "De afgeleide sleutel blijft in de browser (niet exporteerbaar). De server ontvangt alleen <strong>ciphertext en IV’s</strong>, niet je masterwachtwoord of plaintext secrets."
+        },
+        "warning": "Als je het masterwachtwoord vergeet, kunnen versleutelde gegevens niet worden hersteld. Bewaar het veilig."
+      },
+      "logout": {
+        "title": "Uitloggen en lokale data",
+        "body": "Uitloggen wist geheimen in het geheugen, vault-status en (waar van toepassing) masterkey-materiaal uit IndexedDB en beëindigt de API-sessie. Data die alleen in lokale opslag staat kan blijven totdat je die in de browser wist."
+      }
+    },
+    "tips": {
+      "title": "MyDevTools veilig gebruiken",
+      "items": {
+        "masterPassword": "Gebruik een sterk, uniek masterwachtwoord voor vault-functies.",
+        "apiClient": "Behandel de API-client als elke HTTP-client: plak geen productiegeheimen in gedeelde omgevingen als je niet weet wie ze kan zien.",
+        "nosql": "De NoSQL-verkenner maakt verbinding met databases die jij configureert; gebruik accounts met minimale rechten en netwerkregels waar mogelijk.",
+        "json": "De JSON-formatter werkt lokaal in de browser—plak alsnog geen zeer gevoelige data op gedeelde apparaten.",
+        "settings": "Pas zichtbare tools aan in Instellingen om de zijbalk gefocust te houden."
+      }
+    }
+  },
   "Settings": {
     "title": "Instellingen",
     "language": "Taal",

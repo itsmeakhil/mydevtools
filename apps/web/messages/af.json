@@ -9,6 +9,73 @@
     "emailValidator": "E-posvalidasie",
     "nosqlExplorer": "NoSQL-verkenner"
   },
+  "Help": {
+    "title": "Hulp en dokumentasie",
+    "subtitle": "Hoe MyDevTools saamwerk, wat elke app doen, en hoe sekuriteit en enkripsie jou data beskerm.",
+    "tabs": {
+      "overview": "Oorsig",
+      "apps": "Apps",
+      "security": "Sekuriteit",
+      "tips": "Wenke"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "Wat is MyDevTools?",
+        "description": "’n Ontwikkelaar-werkspasie met aanmelding: ’n paneelbord en ’n stel gereedskap vir alledaagse take.",
+        "p1": "Nadat jy aanmeld, vestig die app ’n sessie met die MyDevTools API sodat gereedskap jou data kan laai en stoor. Die sybalk wys elke app; jy kan gereedskap wat jy nie gebruik nie wegsteek in",
+        "settingsLink": "Instellings",
+        "p1After": ".",
+        "p2": "Sommige funksies gebruik ’n <strong>meesterwagwoord</strong> (of globale kluis-sleutel) sodat geheime soos wagwoorde en verbindingsstringe op jou toestel geënkripteer word voordat dit die bediener bereik."
+      },
+      "quickLinks": {
+        "title": "Vinnige skakels",
+        "dashboard": "Paneelbord",
+        "settings": "Instellings"
+      }
+    },
+    "apps": {
+      "intro": "Maak enige hulpmiddel oop vanaf die sybalk of paneelbord. Hieronder is ’n kort gids per app.",
+      "open": "Maak oop",
+      "howItWorks": "Hoe dit werk",
+      "generic": "Gebruik hierdie hulpmiddel vanaf die sybalk vir sy toegewyde werkvloei."
+    },
+    "security": {
+      "session": {
+        "title": "Aanmelding en API-sessie",
+        "description": "Identiteit en hoe die blaaier met jou backend praat.",
+        "items": {
+          "authentication": "<strong>Verifikasie</strong> gebruik Firebase vir aanmelding. Ná login ruil die app jou Firebase ID-token vir API-koekies.",
+          "accessTokens": "<strong>Toegang-tokens</strong> is JWT’s wat op die bediener geteken word (HS256) en bewys watter gebruiker die API oproep.",
+          "refreshTokens": "<strong>Verfris-tokens</strong> word in HttpOnly-koekies gestoor; die bediener stoor ’n SHA-256 hash van die token, nie die rou token nie."
+        }
+      },
+      "encryption": {
+        "title": "Enkripsie om te ken",
+        "description": "Kliënt-kant kripto vir die kluis en sensitiewe verbindingsdata.",
+        "p1": "Vir die <strong>wagwoordbestuurder</strong> en gestoorde verbindings in die <strong>NoSQL-verkenner</strong> gebruik die web app die blaaier se <strong>Web Crypto API</strong>:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> met <strong>SHA-256</strong>, <strong>100 000</strong> iterasies en ’n ewekansige sout lei ’n 256-bis sleutel uit jou meesterwagwoord af.",
+          "aes": "<strong>AES-256-GCM</strong> enkripteer data; ’n ewekansige <strong>12-byte IV</strong> word per enkripsie gebruik.",
+          "scope": "Die afgeleide sleutel bly in die blaaier (nie-uittrekbaar). Die bediener ontvang slegs <strong>ciphertext en IV’s</strong>, nie jou meesterwagwoord of plaintext geheime nie."
+        },
+        "warning": "As jy die meesterwagwoord vergeet, kan geënkripteerde data nie herstel word nie. Bêre dit veilig."
+      },
+      "logout": {
+        "title": "Afmeld en plaaslike data",
+        "body": "Afmeld maak geheime in geheue skoon, kluis-verwante toestand, en meester-sleutelmateriaal uit IndexedDB waar van toepassing, en beëindig die API-sessie. Data wat net in plaaslike berging is kan bly totdat jy dit in die blaaier uitvee."
+      }
+    },
+    "tips": {
+      "title": "Gebruik MyDevTools veilig",
+      "items": {
+        "masterPassword": "Gebruik ’n sterk, unieke meesterwagwoord vir kluis-funksies.",
+        "apiClient": "Behandel die API-kliënt soos enige HTTP-kliënt: moenie produksie-geheime in gedeelde omgewings plak as jy nie weet wie dit kan sien nie.",
+        "nosql": "NoSQL-verkenner koppel aan databasisse wat jy konfigureer; gebruik minste-voorreg gebruikers en netwerkreëls waar moontlik.",
+        "json": "JSON-formateerder werk plaaslik in die blaaier—vermy steeds om baie sensitiewe data op gedeelde masjiene te plak.",
+        "settings": "Pas sigbare gereedskap in Instellings aan om die sybalk gefokus te hou."
+      }
+    }
+  },
   "Settings": {
     "title": "Instellings",
     "language": "Taal",

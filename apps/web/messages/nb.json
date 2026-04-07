@@ -9,6 +9,73 @@
     "emailValidator": "E-postvalidering",
     "nosqlExplorer": "NoSQL-utforsker"
   },
+  "Help": {
+    "title": "Hjelp og dokumentasjon",
+    "subtitle": "Hvordan MyDevTools henger sammen, hva hver app gjør, og hvordan sikkerhet og kryptering beskytter dataene dine.",
+    "tabs": {
+      "overview": "Oversikt",
+      "apps": "Apper",
+      "security": "Sikkerhet",
+      "tips": "Tips"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "Hva er MyDevTools?",
+        "description": "Et utvikler‑workspace med innlogging: et dashbord og et sett med verktøy for hverdagsoppgaver.",
+        "p1": "Når du logger inn, oppretter appen en økt med MyDevTools API slik at verktøy kan laste og lagre dataene dine. Sidebaren viser alle apper; du kan skjule verktøy du ikke bruker i",
+        "settingsLink": "Innstillinger",
+        "p1After": ".",
+        "p2": "Noen funksjoner bruker et <strong>hovedpassord</strong> (eller global vault‑nøkkel) slik at hemmeligheter som passord og tilkoblingsstrenger krypteres på enheten din før de når serveren."
+      },
+      "quickLinks": {
+        "title": "Hurtiglenker",
+        "dashboard": "Dashbord",
+        "settings": "Innstillinger"
+      }
+    },
+    "apps": {
+      "intro": "Åpne et verktøy fra sidebaren eller dashbordet. Nedenfor er en kort guide per app.",
+      "open": "Åpne",
+      "howItWorks": "Slik fungerer det",
+      "generic": "Bruk dette verktøyet fra sidebaren for den dedikerte arbeidsflyten."
+    },
+    "security": {
+      "session": {
+        "title": "Innlogging og API‑økt",
+        "description": "Identitet og hvordan nettleseren snakker med backenden din.",
+        "items": {
+          "authentication": "<strong>Autentisering</strong> bruker Firebase for innlogging. Etter innlogging bytter appen Firebase ID‑tokenet ditt mot API‑cookies.",
+          "accessTokens": "<strong>Tilgangstoken</strong> er JWT-er signert på serveren (HS256) og beviser hvilken bruker som kaller API-et.",
+          "refreshTokens": "<strong>Oppfriskningstoken</strong> lagres i HttpOnly cookies; serveren lagrer en SHA-256 hash av tokenet, ikke selve tokenet."
+        }
+      },
+      "encryption": {
+        "title": "Kryptering du bør kjenne til",
+        "description": "Klientside‑krypto for vault og sensitive tilkoblingsdata.",
+        "p1": "For <strong>passordbehandleren</strong> og lagrede tilkoblinger i <strong>NoSQL‑utforskeren</strong> bruker webappen nettleserens <strong>Web Crypto API</strong>:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> med <strong>SHA-256</strong>, <strong>100 000</strong> iterasjoner og tilfeldig salt avleder en 256-bit nøkkel fra hovedpassordet ditt.",
+          "aes": "<strong>AES-256-GCM</strong> krypterer data; en tilfeldig <strong>12-byte IV</strong> brukes for hver kryptering.",
+          "scope": "Den avledede nøkkelen blir i nettleseren (ikke-eksporterbar). Serveren mottar kun <strong>ciphertext og IV-er</strong>, ikke hovedpassordet ditt eller hemmeligheter i klartekst."
+        },
+        "warning": "Hvis du glemmer hovedpassordet, kan krypterte data ikke gjenopprettes. Oppbevar det trygt."
+      },
+      "logout": {
+        "title": "Logg ut og lokale data",
+        "body": "Når du logger ut, ryddes hemmeligheter i minnet, vault‑status og (der det gjelder) hovednøkkelmateriale fra IndexedDB, og API‑økten avsluttes. Data som bare ligger i lokal lagring kan bli værende til du sletter det i nettleseren."
+      }
+    },
+    "tips": {
+      "title": "Bruk MyDevTools sikkert",
+      "items": {
+        "masterPassword": "Bruk et sterkt og unikt hovedpassord for vault‑funksjoner.",
+        "apiClient": "Behandle API‑klienten som enhver HTTP‑klient: unngå å lime inn produksjonshemmeligheter i delte miljøer hvis du ikke vet hvem som kan se dem.",
+        "nosql": "NoSQL‑utforskeren kobler til databaser du konfigurerer; bruk brukere med minst mulig rettigheter og nettverksregler når mulig.",
+        "json": "JSON‑formatereren kjører lokalt i nettleseren—unngå likevel å lime inn svært sensitive data på delte maskiner.",
+        "settings": "Tilpass synlige verktøy i Innstillinger for å holde sidebaren fokusert."
+      }
+    }
+  },
   "Settings": {
     "title": "Innstillinger",
     "language": "Språk",

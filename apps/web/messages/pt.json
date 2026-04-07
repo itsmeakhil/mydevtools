@@ -9,6 +9,73 @@
     "emailValidator": "Validador de E-mail",
     "nosqlExplorer": "Explorador NoSQL"
   },
+  "Help": {
+    "title": "Ajuda e documentação",
+    "subtitle": "Como o MyDevTools funciona em conjunto, o que faz cada app e como a segurança e a encriptação protegem os seus dados.",
+    "tabs": {
+      "overview": "Visão geral",
+      "apps": "Apps",
+      "security": "Segurança",
+      "tips": "Dicas"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "O que é o MyDevTools?",
+        "description": "Um espaço de trabalho para programadores com sessão iniciada: um painel e um conjunto de ferramentas para o dia a dia.",
+        "p1": "Depois de iniciar sessão, a app estabelece uma sessão com a API do MyDevTools para que as ferramentas possam carregar e guardar os seus dados. A barra lateral lista todas as apps; pode ocultar ferramentas que não utiliza em",
+        "settingsLink": "Definições",
+        "p1After": ".",
+        "p2": "Algumas funcionalidades usam uma <strong>palavra-passe mestre</strong> (ou chave global do cofre) para que segredos como palavras-passe e strings de ligação sejam encriptados no seu dispositivo antes de chegarem ao servidor."
+      },
+      "quickLinks": {
+        "title": "Ligações rápidas",
+        "dashboard": "Painel",
+        "settings": "Definições"
+      }
+    },
+    "apps": {
+      "intro": "Abra qualquer ferramenta a partir da barra lateral ou do painel. Abaixo está um guia curto por app.",
+      "open": "Abrir",
+      "howItWorks": "Como funciona",
+      "generic": "Use esta ferramenta a partir da barra lateral para o seu fluxo de trabalho dedicado."
+    },
+    "security": {
+      "session": {
+        "title": "Sessão e API",
+        "description": "Identidade e como o browser comunica com o seu backend.",
+        "items": {
+          "authentication": "<strong>Autenticação</strong> via Firebase. Após o login, a app troca o seu Firebase ID token por cookies da API.",
+          "accessTokens": "<strong>Tokens de acesso</strong> são JWT assinados no servidor (HS256). Provam qual utilizador está a chamar a API.",
+          "refreshTokens": "<strong>Tokens de renovação</strong> são guardados em cookies HttpOnly; o servidor guarda um hash SHA-256 do token, não o token em bruto."
+        }
+      },
+      "encryption": {
+        "title": "Encriptação importante",
+        "description": "Criptografia no cliente para o cofre e dados sensíveis de ligação.",
+        "p1": "Para o <strong>gestor de palavras-passe</strong> e ligações guardadas do <strong>Explorador NoSQL</strong>, a app web usa a <strong>Web Crypto API</strong> do browser:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> com <strong>SHA-256</strong>, <strong>100.000</strong> iterações e um salt aleatório deriva uma chave de 256 bits a partir da palavra-passe mestre.",
+          "aes": "<strong>AES-256-GCM</strong> encripta os dados; é usado um <strong>IV de 12 bytes</strong> aleatório por cada encriptação.",
+          "scope": "A chave derivada fica no browser (não extraível). O servidor recebe apenas <strong>ciphertext e IVs</strong>, não a palavra-passe mestre nem segredos em texto simples."
+        },
+        "warning": "Se esquecer a palavra-passe mestre, os dados encriptados não podem ser recuperados. Guarde-a em segurança."
+      },
+      "logout": {
+        "title": "Terminar sessão e dados locais",
+        "body": "Terminar sessão limpa segredos em memória, estado do cofre e material da chave mestre do IndexedDB quando aplicável, e termina a sessão da API. Dados guardados apenas no armazenamento local podem permanecer até os limpar no browser."
+      }
+    },
+    "tips": {
+      "title": "Usar o MyDevTools em segurança",
+      "items": {
+        "masterPassword": "Use uma palavra-passe mestre forte e única para funcionalidades do cofre.",
+        "apiClient": "Trate o Cliente API como qualquer cliente HTTP: evite colar segredos de produção em ambientes partilhados sem saber quem os pode ver.",
+        "nosql": "O Explorador NoSQL liga-se a bases de dados que configura; use utilizadores com o mínimo privilégio e regras de rede quando possível.",
+        "json": "O Formatador JSON corre localmente no browser—mesmo assim evite colar dados muito sensíveis em máquinas partilhadas.",
+        "settings": "Personalize as ferramentas visíveis nas Definições para manter a barra lateral focada."
+      }
+    }
+  },
   "Settings": {
     "title": "Definições",
     "language": "Idioma",

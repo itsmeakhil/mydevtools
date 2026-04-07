@@ -9,6 +9,73 @@
     "emailValidator": "Email Validator",
     "nosqlExplorer": "NoSQL Explorer"
   },
+  "Help": {
+    "title": "Pomoc i dokumentacja",
+    "subtitle": "Jak działa MyDevTools, co robi każda aplikacja oraz jak bezpieczeństwo i szyfrowanie chronią Twoje dane.",
+    "tabs": {
+      "overview": "Przegląd",
+      "apps": "Aplikacje",
+      "security": "Bezpieczeństwo",
+      "tips": "Wskazówki"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "Czym jest MyDevTools?",
+        "description": "Środowisko dla programistów z logowaniem: dashboard i zestaw narzędzi na co dzień.",
+        "p1": "Po zalogowaniu aplikacja ustanawia sesję z API MyDevTools, dzięki czemu narzędzia mogą wczytywać i zapisywać Twoje dane. Pasek boczny pokazuje wszystkie aplikacje; nieużywane narzędzia możesz ukryć w",
+        "settingsLink": "Settings",
+        "p1After": ".",
+        "p2": "Niektóre funkcje używają <strong>hasła głównego</strong> (lub globalnego klucza sejfu), aby sekrety takie jak hasła i connection stringi były szyfrowane na Twoim urządzeniu zanim trafią na serwer."
+      },
+      "quickLinks": {
+        "title": "Szybkie linki",
+        "dashboard": "Dashboard",
+        "settings": "Settings"
+      }
+    },
+    "apps": {
+      "intro": "Otwórz dowolne narzędzie z paska bocznego lub dashboardu. Poniżej krótki opis każdej aplikacji.",
+      "open": "Otwórz",
+      "howItWorks": "Jak to działa",
+      "generic": "Korzystaj z tego narzędzia z paska bocznego w jego dedykowanym workflow."
+    },
+    "security": {
+      "session": {
+        "title": "Logowanie i sesja API",
+        "description": "Tożsamość i sposób, w jaki przeglądarka komunikuje się z backendem.",
+        "items": {
+          "authentication": "<strong>Uwierzytelnianie</strong> korzysta z Firebase. Po zalogowaniu aplikacja wymienia Firebase ID token na ciasteczka API.",
+          "accessTokens": "<strong>Tokeny dostępu</strong> to podpisane na serwerze JWT (HS256), które potwierdzają użytkownika wywołującego API.",
+          "refreshTokens": "<strong>Tokeny odświeżania</strong> są przechowywane w HttpOnly cookies; serwer trzyma hash SHA-256 tokenu, a nie sam token."
+        }
+      },
+      "encryption": {
+        "title": "Szyfrowanie, które warto znać",
+        "description": "Kryptografia po stronie klienta dla sejfu i wrażliwych danych połączeń.",
+        "p1": "Dla <strong>menedżera haseł</strong> i zapisanych połączeń w <strong>NoSQL Explorer</strong> aplikacja webowa używa <strong>Web Crypto API</strong> przeglądarki:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> z <strong>SHA-256</strong>, <strong>100 000</strong> iteracji i losową solą wyprowadza 256-bitowy klucz z hasła głównego.",
+          "aes": "<strong>AES-256-GCM</strong> szyfruje dane; dla każdego szyfrowania używany jest losowy <strong>12-bajtowy IV</strong>.",
+          "scope": "Wyprowadzony klucz pozostaje w przeglądarce (nie da się go wyeksportować). Serwer otrzymuje tylko <strong>szyfrogram i IV</strong>, nie hasło główne ani sekrety w postaci jawnej."
+        },
+        "warning": "Jeśli zapomnisz hasła głównego, zaszyfrowanych danych nie da się odzyskać. Przechowuj je bezpiecznie."
+      },
+      "logout": {
+        "title": "Wylogowanie i dane lokalne",
+        "body": "Wylogowanie czyści sekrety z pamięci, stan sejfu i (jeśli dotyczy) materiał klucza głównego z IndexedDB oraz kończy sesję API. Dane zapisane tylko w local storage mogą pozostać, dopóki nie wyczyścisz ich w przeglądarce."
+      }
+    },
+    "tips": {
+      "title": "Bezpieczne korzystanie z MyDevTools",
+      "items": {
+        "masterPassword": "Używaj silnego, unikalnego hasła głównego dla funkcji sejfu.",
+        "apiClient": "Traktuj API Client jak każdy klient HTTP: nie wklejaj sekretów produkcyjnych do współdzielonych środowisk, jeśli nie wiesz, kto może je zobaczyć.",
+        "nosql": "NoSQL Explorer łączy się z bazami, które konfigurujesz; używaj kont z minimalnymi uprawnieniami i reguł sieciowych, jeśli to możliwe.",
+        "json": "Formatowanie JSON działa lokalnie w przeglądarce—mimo to unikaj wklejania bardzo wrażliwych danych na współdzielonych urządzeniach.",
+        "settings": "Dostosuj widoczne narzędzia w Settings, aby pasek boczny był bardziej przejrzysty."
+      }
+    }
+  },
   "Settings": {
     "title": "Settings",
     "language": "Language",

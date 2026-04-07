@@ -9,6 +9,73 @@
     "emailValidator": "邮箱验证",
     "nosqlExplorer": "NoSQL 浏览器"
   },
+  "Help": {
+    "title": "帮助与文档",
+    "subtitle": "了解 MyDevTools 的整体结构、各应用的用途，以及安全与加密如何保护你的数据。",
+    "tabs": {
+      "overview": "概览",
+      "apps": "应用",
+      "security": "安全",
+      "tips": "提示"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "什么是 MyDevTools？",
+        "description": "一个可登录的开发者工作区：包含控制台与日常工具集合。",
+        "p1": "登录后，应用会与 MyDevTools API 建立会话，让工具能够加载与保存你的数据。侧边栏列出所有应用；你可以在",
+        "settingsLink": "设置",
+        "p1After": "中隐藏不常用的工具。",
+        "p2": "部分功能使用 <strong>主密码</strong>（或全局保险库密钥），使密码、数据库连接串等敏感信息在到达服务器前先在你的设备上完成加密。"
+      },
+      "quickLinks": {
+        "title": "快捷链接",
+        "dashboard": "控制台",
+        "settings": "设置"
+      }
+    },
+    "apps": {
+      "intro": "你可以从侧边栏或控制台打开任何工具。下面是每个应用的简要说明。",
+      "open": "打开",
+      "howItWorks": "工作方式",
+      "generic": "请从侧边栏使用该工具的专用工作流程。"
+    },
+    "security": {
+      "session": {
+        "title": "登录与 API 会话",
+        "description": "身份与浏览器如何与后端通信。",
+        "items": {
+          "authentication": "<strong>认证</strong> 使用 Firebase 登录。登录后，应用会将 Firebase ID Token 交换为 API Cookie。",
+          "accessTokens": "<strong>访问令牌</strong> 为服务器签名的 JWT（HS256），用于证明调用 API 的用户身份。",
+          "refreshTokens": "<strong>刷新令牌</strong> 存放在 HttpOnly Cookie 中；服务器保存的是刷新令牌的 SHA-256 哈希值，而不是原始令牌。"
+        }
+      },
+      "encryption": {
+        "title": "你需要了解的加密",
+        "description": "保险库与敏感连接数据的客户端加密。",
+        "p1": "对于 <strong>密码管理器</strong> 与 <strong>NoSQL 浏览器</strong> 的已保存连接，Web 端使用浏览器的 <strong>Web Crypto API</strong>：",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong>（<strong>SHA-256</strong>、<strong>100,000</strong> 次迭代与随机盐）从主密码派生 256 位密钥。",
+          "aes": "<strong>AES-256-GCM</strong> 加密数据；每次加密都会使用随机的 <strong>12 字节 IV</strong>。",
+          "scope": "派生密钥保留在浏览器中（不可导出）。服务器只接收 <strong>密文与 IV</strong>，不会接收主密码或明文秘密。"
+        },
+        "warning": "如果你忘记主密码，加密数据将无法恢复。请妥善保管。"
+      },
+      "logout": {
+        "title": "退出登录与本地数据",
+        "body": "退出登录会清除内存中的敏感信息、保险库相关状态，并在适用时从 IndexedDB 清除主密钥材料，同时结束 API 会话。仅保存在设备本地存储中的数据可能会保留，直到你在浏览器中清理。"
+      }
+    },
+    "tips": {
+      "title": "安全使用 MyDevTools",
+      "items": {
+        "masterPassword": "为保险库功能设置强且唯一的主密码。",
+        "apiClient": "将 API 客户端视为普通 HTTP 客户端：不了解可见范围时，避免在共享环境中粘贴生产密钥。",
+        "nosql": "NoSQL 浏览器连接到你配置的数据库；尽量使用最小权限账号与网络规则。",
+        "json": "JSON 格式化在浏览器本地运行——在共享设备上仍应避免粘贴高度敏感数据。",
+        "settings": "在设置中自定义可见工具，让侧边栏更聚焦。"
+      }
+    }
+  },
   "Settings": {
     "title": "设置",
     "language": "语言",

@@ -9,6 +9,73 @@
     "emailValidator": "Email Validator",
     "nosqlExplorer": "NoSQL Explorer"
   },
+  "Help": {
+    "title": "Help & documentation",
+    "subtitle": "How MyDevTools fits together, what each app does, and how security and encryption protect your data.",
+    "tabs": {
+      "overview": "Overview",
+      "apps": "Apps",
+      "security": "Security",
+      "tips": "Tips"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "What is MyDevTools?",
+        "description": "A signed-in developer workspace: a dashboard and a set of tools for everyday tasks.",
+        "p1": "After you sign in with your account, the app establishes a session with the MyDevTools API so tools can load and save your data. The sidebar lists every app; you can hide tools you do not use from",
+        "settingsLink": "Settings",
+        "p1After": ".",
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted on your device before they reach the server."
+      },
+      "quickLinks": {
+        "title": "Quick links",
+        "dashboard": "Dashboard",
+        "settings": "Settings"
+      }
+    },
+    "apps": {
+      "intro": "Open any tool from the sidebar or dashboard. Below is a short guide per app.",
+      "open": "Open",
+      "howItWorks": "How it works",
+      "generic": "Use this tool from the sidebar for its dedicated workflow."
+    },
+    "security": {
+      "session": {
+        "title": "Sign-in and API session",
+        "description": "Identity and how the browser talks to your backend.",
+        "items": {
+          "authentication": "<strong>Authentication</strong> uses Firebase for sign-in. After login, the app exchanges your Firebase ID token for API cookies.",
+          "accessTokens": "<strong>Access tokens</strong> are JWTs signed on the server (HS256). They prove which user is calling the API.",
+          "refreshTokens": "<strong>Refresh tokens</strong> are stored in HttpOnly cookies; the server stores a SHA-256 hash of the refresh token, not the raw token."
+        }
+      },
+      "encryption": {
+        "title": "Encryption you should know about",
+        "description": "Client-side crypto for vault and sensitive connection data.",
+        "p1": "For the <strong>password manager</strong> and <strong>NoSQL Explorer</strong> saved connections, the web app uses the browser <strong>Web Crypto API</strong>:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> with <strong>SHA-256</strong>, <strong>100,000</strong> iterations, and a random salt derives a 256-bit key from your master password.",
+          "aes": "<strong>AES-256-GCM</strong> encrypts payloads; a random <strong>12-byte IV</strong> is used per encryption.",
+          "scope": "The derived key stays in the browser (non-extractable). The server receives <strong>ciphertext and IVs</strong>, not your master password or plaintext secrets."
+        },
+        "warning": "If you forget the master password, encrypted data cannot be recovered. Store it safely."
+      },
+      "logout": {
+        "title": "Logout and local data",
+        "body": "Logging out clears in-memory secrets, vault-related state, and master key material from IndexedDB where applicable, and ends the API session. Anything kept only in local storage on a device may remain until you clear it in the browser."
+      }
+    },
+    "tips": {
+      "title": "Using MyDevTools safely",
+      "items": {
+        "masterPassword": "Use a strong, unique master password for vault features.",
+        "apiClient": "Treat the API Client like any HTTP client: avoid pasting production secrets into shared environments unless you understand who can see them.",
+        "nosql": "NoSQL Explorer connects to databases you configure; use least-privilege users and network rules where possible.",
+        "json": "JSON Formatter is local to the browser—still avoid pasting highly sensitive data on shared machines.",
+        "settings": "Customize visible tools in Settings to keep the sidebar focused."
+      }
+    }
+  },
   "Settings": {
     "title": "Settings",
     "language": "Language",

@@ -9,6 +9,73 @@
     "emailValidator": "E-Mail-Validator",
     "nosqlExplorer": "NoSQL-Explorer"
   },
+  "Help": {
+    "title": "Hilfe & Dokumentation",
+    "subtitle": "Wie MyDevTools zusammenhängt, was jede App macht und wie Sicherheit und Verschlüsselung deine Daten schützen.",
+    "tabs": {
+      "overview": "Übersicht",
+      "apps": "Apps",
+      "security": "Sicherheit",
+      "tips": "Tipps"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "Was ist MyDevTools?",
+        "description": "Ein Entwickler‑Workspace mit Login: Dashboard und Tools für den Alltag.",
+        "p1": "Nach dem Anmelden stellt die App eine Sitzung mit der MyDevTools‑API her, damit Tools Daten laden und speichern können. Die Seitenleiste listet alle Apps; ungenutzte Tools kannst du in",
+        "settingsLink": "Einstellungen",
+        "p1After": "ausblenden.",
+        "p2": "Einige Funktionen nutzen ein <strong>Master‑Passwort</strong> (oder einen globalen Vault‑Key), sodass Geheimnisse wie Passwörter und Verbindungsstrings auf deinem Gerät verschlüsselt werden, bevor sie den Server erreichen."
+      },
+      "quickLinks": {
+        "title": "Schnelllinks",
+        "dashboard": "Dashboard",
+        "settings": "Einstellungen"
+      }
+    },
+    "apps": {
+      "intro": "Öffne ein Tool über die Seitenleiste oder das Dashboard. Unten findest du eine kurze Anleitung pro App.",
+      "open": "Öffnen",
+      "howItWorks": "So funktioniert’s",
+      "generic": "Nutze dieses Tool über die Seitenleiste für den vorgesehenen Workflow."
+    },
+    "security": {
+      "session": {
+        "title": "Login und API‑Sitzung",
+        "description": "Identität und wie der Browser mit deinem Backend spricht.",
+        "items": {
+          "authentication": "<strong>Authentifizierung</strong> erfolgt über Firebase. Nach dem Login tauscht die App dein Firebase‑ID‑Token gegen API‑Cookies.",
+          "accessTokens": "<strong>Access‑Tokens</strong> sind serverseitig signierte JWTs (HS256). Sie zeigen, welcher Nutzer die API aufruft.",
+          "refreshTokens": "<strong>Refresh‑Tokens</strong> liegen in HttpOnly‑Cookies; der Server speichert einen SHA‑256‑Hash des Tokens, nicht das Token im Klartext."
+        }
+      },
+      "encryption": {
+        "title": "Wichtige Verschlüsselung",
+        "description": "Client‑seitige Krypto für Vault und sensible Verbindungsdaten.",
+        "p1": "Für den <strong>Passwort‑Manager</strong> und gespeicherte Verbindungen im <strong>NoSQL‑Explorer</strong> nutzt die Web‑App die <strong>Web Crypto API</strong> des Browsers:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> mit <strong>SHA‑256</strong>, <strong>100.000</strong> Iterationen und zufälligem Salt leitet aus dem Master‑Passwort einen 256‑Bit‑Key ab.",
+          "aes": "<strong>AES‑256‑GCM</strong> verschlüsselt Nutzdaten; pro Verschlüsselung wird ein zufälliger <strong>12‑Byte‑IV</strong> verwendet.",
+          "scope": "Der abgeleitete Schlüssel bleibt im Browser (nicht exportierbar). Der Server erhält <strong>Ciphertext und IVs</strong>, nicht dein Master‑Passwort oder Klartext‑Geheimnisse."
+        },
+        "warning": "Wenn du das Master‑Passwort vergisst, können verschlüsselte Daten nicht wiederhergestellt werden. Bewahre es sicher auf."
+      },
+      "logout": {
+        "title": "Abmelden und lokale Daten",
+        "body": "Beim Abmelden werden Secrets im Speicher, Vault‑Status und – falls zutreffend – Master‑Key‑Material aus IndexedDB gelöscht und die API‑Sitzung beendet. Daten, die nur im lokalen Speicher liegen, bleiben ggf. bis zur Browser‑Bereinigung erhalten."
+      }
+    },
+    "tips": {
+      "title": "MyDevTools sicher nutzen",
+      "items": {
+        "masterPassword": "Nutze ein starkes, einzigartiges Master‑Passwort für Vault‑Funktionen.",
+        "apiClient": "Behandle den API‑Client wie jeden HTTP‑Client: füge keine Produktions‑Secrets in geteilte Umgebungen ein, wenn du nicht weißt, wer sie sieht.",
+        "nosql": "Der NoSQL‑Explorer verbindet sich mit von dir konfigurierten Datenbanken; nutze Least‑Privilege‑Accounts und Netzregeln, wenn möglich.",
+        "json": "Der JSON‑Formatierer läuft lokal im Browser—trotzdem keine hochsensiblen Daten auf geteilten Geräten einfügen.",
+        "settings": "Blende Tools in den Einstellungen aus, um die Seitenleiste fokussiert zu halten."
+      }
+    }
+  },
   "Settings": {
     "title": "Einstellungen",
     "language": "Sprache",

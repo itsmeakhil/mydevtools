@@ -9,6 +9,73 @@
     "emailValidator": "Validador de correu",
     "nosqlExplorer": "Explorador NoSQL"
   },
+  "Help": {
+    "title": "Ajuda i documentació",
+    "subtitle": "Com encaixa MyDevTools, què fa cada aplicació i com la seguretat i el xifrat protegeixen les teves dades.",
+    "tabs": {
+      "overview": "Visió general",
+      "apps": "Aplicacions",
+      "security": "Seguretat",
+      "tips": "Consells"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "Què és MyDevTools?",
+        "description": "Un espai de treball per a desenvolupadors amb inici de sessió: un tauler i un conjunt d’eines per al dia a dia.",
+        "p1": "Després d’iniciar sessió, l’app estableix una sessió amb l’API de MyDevTools perquè les eines puguin carregar i desar les teves dades. La barra lateral llista totes les apps; pots amagar les eines que no fas servir a",
+        "settingsLink": "Configuració",
+        "p1After": ".",
+        "p2": "Algunes funcions utilitzen una <strong>contrasenya mestra</strong> (o clau global del vault) perquè secrets com contrasenyes i cadenes de connexió es xifrin al teu dispositiu abans d’arribar al servidor."
+      },
+      "quickLinks": {
+        "title": "Enllaços ràpids",
+        "dashboard": "Tauler",
+        "settings": "Configuració"
+      }
+    },
+    "apps": {
+      "intro": "Obre qualsevol eina des de la barra lateral o el tauler. A continuació tens una guia breu per aplicació.",
+      "open": "Obrir",
+      "howItWorks": "Com funciona",
+      "generic": "Fes servir aquesta eina des de la barra lateral per al seu flux de treball dedicat."
+    },
+    "security": {
+      "session": {
+        "title": "Inici de sessió i sessió d’API",
+        "description": "Identitat i com el navegador es comunica amb el backend.",
+        "items": {
+          "authentication": "<strong>Autenticació</strong> mitjançant Firebase. Després del login, l’app intercanvia el teu Firebase ID token per cookies de l’API.",
+          "accessTokens": "<strong>Tokens d’accés</strong> són JWT signats al servidor (HS256) que proven quin usuari crida l’API.",
+          "refreshTokens": "<strong>Tokens de refresc</strong> es guarden en cookies HttpOnly; el servidor desa un hash SHA-256 del token, no el token en brut."
+        }
+      },
+      "encryption": {
+        "title": "Xifrat que has de conèixer",
+        "description": "Criptografia al client per al vault i dades sensibles de connexió.",
+        "p1": "Per al <strong>gestor de contrasenyes</strong> i les connexions desades de l’<strong>Explorador NoSQL</strong>, l’app web fa servir la <strong>Web Crypto API</strong> del navegador:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> amb <strong>SHA-256</strong>, <strong>100.000</strong> iteracions i una sal aleatòria deriva una clau de 256 bits a partir de la contrasenya mestra.",
+          "aes": "<strong>AES-256-GCM</strong> xifra dades; s’utilitza un <strong>IV de 12 bytes</strong> aleatori per cada xifrat.",
+          "scope": "La clau derivada es manté al navegador (no exportable). El servidor només rep <strong>xifrat i IV</strong>, no la contrasenya mestra ni secrets en clar."
+        },
+        "warning": "Si oblides la contrasenya mestra, no es poden recuperar les dades xifrades. Desa-la de manera segura."
+      },
+      "logout": {
+        "title": "Tancar sessió i dades locals",
+        "body": "En tancar sessió s’esborren secrets en memòria, estat del vault i, si escau, material de la clau mestra d’IndexedDB, i es finalitza la sessió de l’API. Les dades que només estiguin a l’emmagatzematge local poden romandre fins que les esborris al navegador."
+      }
+    },
+    "tips": {
+      "title": "Fer servir MyDevTools de manera segura",
+      "items": {
+        "masterPassword": "Fes servir una contrasenya mestra forta i única per a les funcions del vault.",
+        "apiClient": "Tracta el Client API com qualsevol client HTTP: evita enganxar secrets de producció en entorns compartits si no saps qui els pot veure.",
+        "nosql": "L’Explorador NoSQL es connecta a bases de dades que configures; fes servir usuaris amb mínims privilegis i regles de xarxa quan sigui possible.",
+        "json": "El formatador JSON funciona localment al navegador—tot i així evita enganxar dades molt sensibles en equips compartits.",
+        "settings": "Personalitza les eines visibles a Configuració per mantenir la barra lateral enfocada."
+      }
+    }
+  },
   "Settings": {
     "title": "Configuració",
     "language": "Idioma",

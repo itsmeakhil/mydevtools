@@ -9,6 +9,73 @@
     "emailValidator": "Validatore di posta elettronica",
     "nosqlExplorer": "Esploratore NoSQL"
   },
+  "Help": {
+    "title": "Aiuto e documentazione",
+    "subtitle": "Come funziona MyDevTools, cosa fa ogni app e come sicurezza e crittografia proteggono i tuoi dati.",
+    "tabs": {
+      "overview": "Panoramica",
+      "apps": "App",
+      "security": "Sicurezza",
+      "tips": "Suggerimenti"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "Che cos’è MyDevTools?",
+        "description": "Uno spazio di lavoro per sviluppatori con accesso: una dashboard e una raccolta di strumenti quotidiani.",
+        "p1": "Dopo l’accesso, l’app stabilisce una sessione con l’API di MyDevTools per consentire agli strumenti di caricare e salvare i tuoi dati. La barra laterale elenca tutte le app; puoi nascondere gli strumenti che non usi da",
+        "settingsLink": "Impostazioni",
+        "p1After": ".",
+        "p2": "Alcune funzionalità usano una <strong>password principale</strong> (o chiave globale del vault) così che segreti come password e stringhe di connessione vengano crittografati sul tuo dispositivo prima di arrivare al server."
+      },
+      "quickLinks": {
+        "title": "Link rapidi",
+        "dashboard": "Pannello di controllo",
+        "settings": "Impostazioni"
+      }
+    },
+    "apps": {
+      "intro": "Apri qualsiasi strumento dalla barra laterale o dalla dashboard. Qui sotto trovi una guida breve per ogni app.",
+      "open": "Apri",
+      "howItWorks": "Come funziona",
+      "generic": "Usa questo strumento dalla barra laterale per il suo flusso di lavoro dedicato."
+    },
+    "security": {
+      "session": {
+        "title": "Accesso e sessione API",
+        "description": "Identità e come il browser comunica con il backend.",
+        "items": {
+          "authentication": "<strong>Autenticazione</strong> tramite Firebase. Dopo il login, l’app scambia l’ID token di Firebase con cookie dell’API.",
+          "accessTokens": "<strong>Token di accesso</strong> sono JWT firmati sul server (HS256) e indicano quale utente sta chiamando l’API.",
+          "refreshTokens": "<strong>Token di refresh</strong> sono salvati in cookie HttpOnly; il server conserva un hash SHA-256 del token, non il token in chiaro."
+        }
+      },
+      "encryption": {
+        "title": "Crittografia da conoscere",
+        "description": "Crittografia lato client per vault e dati di connessione sensibili.",
+        "p1": "Per il <strong>gestore delle password</strong> e le connessioni salvate dell’<strong>Esploratore NoSQL</strong>, l’app web usa la <strong>Web Crypto API</strong> del browser:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> con <strong>SHA-256</strong>, <strong>100.000</strong> iterazioni e un salt casuale deriva una chiave a 256 bit dalla password principale.",
+          "aes": "<strong>AES-256-GCM</strong> cifra i dati; viene usato un <strong>IV di 12 byte</strong> casuale per ogni cifratura.",
+          "scope": "La chiave derivata resta nel browser (non esportabile). Il server riceve solo <strong>ciphertext e IV</strong>, non la password principale né segreti in chiaro."
+        },
+        "warning": "Se dimentichi la password principale, i dati crittografati non possono essere recuperati. Conservala con cura."
+      },
+      "logout": {
+        "title": "Logout e dati locali",
+        "body": "Il logout elimina i segreti in memoria, lo stato del vault e, quando applicabile, il materiale della chiave principale da IndexedDB, e termina la sessione API. I dati mantenuti solo nello storage locale del dispositivo possono rimanere finché non li cancelli dal browser."
+      }
+    },
+    "tips": {
+      "title": "Usare MyDevTools in sicurezza",
+      "items": {
+        "masterPassword": "Usa una password principale forte e unica per le funzionalità del vault.",
+        "apiClient": "Tratta il Cliente API come qualsiasi client HTTP: evita di incollare segreti di produzione in ambienti condivisi se non sai chi può vederli.",
+        "nosql": "NoSQL Explorer si collega a database configurati da te; usa utenti a privilegi minimi e regole di rete quando possibile.",
+        "json": "JSON Formatter è locale nel browser—evita comunque di incollare dati molto sensibili su macchine condivise.",
+        "settings": "Personalizza gli strumenti visibili in Impostazioni per mantenere la barra laterale più pulita."
+      }
+    }
+  },
   "Settings": {
     "title": "Impostazioni",
     "language": "Lingua",
