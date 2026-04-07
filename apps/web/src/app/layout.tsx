@@ -5,6 +5,7 @@ import { Toaster } from 'sonner'
 import { ThemeProvider } from "@/components/theme-provider"
 import { UserPreferencesSync } from "@/components/user-preferences-sync"
 import { ToolVisibilityPreferencesSync } from "@/components/tool-visibility-preferences-sync"
+import { AppUpdateNotifier } from "@/components/app-update-notifier"
 import { cn } from "@/lib/utils"
 import { Geist_Mono as NextGeistMono } from 'next/font/google'
 
@@ -118,6 +119,7 @@ export default async function RootLayout({
           <NextIntlClientProvider messages={messages}>
             <UserPreferencesSync />
             <ToolVisibilityPreferencesSync />
+            <AppUpdateNotifier />
             {children}
             <Analytics />
             <SpeedInsights />
