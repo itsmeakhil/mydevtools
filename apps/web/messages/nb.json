@@ -218,7 +218,46 @@
         "title": "E-postvalidering",
         "description": "Verifiser og valider e-postadresser."
       }
-    }
+    },
+    "tabs": {
+      "apps": "Apper",
+      "analytics": "Analyse",
+      "ui": "Grensesnitt"
+    },
+    "analytics": {
+      "title": "Dataene dine i et øyeblikk",
+      "subtitle": "Tall synkronisert med kontoen din på serveren.",
+      "loadError": "Kunne ikke laste analyse.",
+      "retry": "Prøv igjen",
+      "loginHint": "Logg inn for å se bruksanalyse og grensesnittpreferanser.",
+      "passwordEntries": "Passordoppføringer",
+      "bookmarks": "Bokmerker",
+      "bookmarkFolders": "Bokmerkemapper",
+      "tasksTotal": "Oppgaver",
+      "tasksCompleted": "Fullført",
+      "tasksOngoing": "Pågående",
+      "tasksNotStarted": "Ikke startet",
+      "projects": "Prosjekter",
+      "nosqlConnections": "DB-tilkoblinger",
+      "notes": "Notater",
+      "apiClientCollections": "API-samlinger",
+      "apiClientEnvironments": "API-miljøer",
+      "apiClientHistory": "API-historikkoppføringer",
+      "jsonFormatterDocuments": "JSON-formateringsdokumenter"
+    },
+    "ui": {
+      "title": "Grensesnittpreferanser",
+      "subtitle": "Tema, språk og synlige verktøy i sidefeltet — fra kontoinnstillingene.",
+      "loadError": "Kunne ikke laste preferanser.",
+      "loginHint": "Logg inn for å se lagrede grensesnittpreferanser.",
+      "theme": "Tema",
+      "accent": "Aksentfarge",
+      "locale": "Språk",
+      "enabledTools": "Synlige verktøy",
+      "favoriteTools": "Favorittverktøy",
+      "toolsWithUsage": "Verktøy med bruksstatistikk"
+    },
+    "signIn": "Logg inn"
   },
   "Tasks": {
     "page": {

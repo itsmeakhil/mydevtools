@@ -218,7 +218,46 @@
         "title": "Pengesah E-mel",
         "description": "Sahkan dan pengesahan alamat e-mel."
       }
-    }
+    },
+    "tabs": {
+      "apps": "Aplikasi",
+      "analytics": "Analitik",
+      "ui": "Antara muka"
+    },
+    "analytics": {
+      "title": "Data anda sekilas",
+      "subtitle": "Kiraan disegerakkan dengan akaun anda pada pelayan.",
+      "loadError": "Tidak dapat memuatkan analitik.",
+      "retry": "Cuba lagi",
+      "loginHint": "Log masuk untuk melihat analitik penggunaan dan pilihan antara muka.",
+      "passwordEntries": "Entri kata laluan",
+      "bookmarks": "Penanda halaman",
+      "bookmarkFolders": "Folder penanda",
+      "tasksTotal": "Tugas",
+      "tasksCompleted": "Selesai",
+      "tasksOngoing": "Sedang berjalan",
+      "tasksNotStarted": "Belum dimulakan",
+      "projects": "Projek",
+      "nosqlConnections": "Sambungan pangkalan data",
+      "notes": "Nota",
+      "apiClientCollections": "Koleksi API",
+      "apiClientEnvironments": "Persekitaran API",
+      "apiClientHistory": "Entri sejarah API",
+      "jsonFormatterDocuments": "Dokumen pemformat JSON"
+    },
+    "ui": {
+      "title": "Pilihan antara muka",
+      "subtitle": "Tema, bahasa dan alat yang kelihatan di bar sisi — daripada tetapan akaun.",
+      "loadError": "Tidak dapat memuatkan pilihan.",
+      "loginHint": "Log masuk untuk melihat pilihan antara muka yang disimpan.",
+      "theme": "Tema",
+      "accent": "Warna aksen",
+      "locale": "Bahasa",
+      "enabledTools": "Alat kelihatan",
+      "favoriteTools": "Alat kegemaran",
+      "toolsWithUsage": "Alat dengan penjejakan penggunaan"
+    },
+    "signIn": "Log masuk"
   },
   "Tasks": {
     "page": {

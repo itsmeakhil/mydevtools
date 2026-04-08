@@ -218,7 +218,46 @@
         "title": "メールバリデーター",
         "description": "メールアドレスの検証と確認を行います。"
       }
-    }
+    },
+    "tabs": {
+      "apps": "アプリ",
+      "analytics": "分析",
+      "ui": "インターフェース"
+    },
+    "analytics": {
+      "title": "データの概要",
+      "subtitle": "サーバー上のアカウントと同期された件数です。",
+      "loadError": "分析を読み込めませんでした。",
+      "retry": "再試行",
+      "loginHint": "ログインすると利用状況の分析とインターフェース設定を表示できます。",
+      "passwordEntries": "パスワード項目",
+      "bookmarks": "ブックマーク",
+      "bookmarkFolders": "ブックマークフォルダ",
+      "tasksTotal": "タスク",
+      "tasksCompleted": "完了",
+      "tasksOngoing": "進行中",
+      "tasksNotStarted": "未着手",
+      "projects": "プロジェクト",
+      "nosqlConnections": "DB接続",
+      "notes": "ノート",
+      "apiClientCollections": "APIコレクション",
+      "apiClientEnvironments": "API環境",
+      "apiClientHistory": "API履歴エントリ",
+      "jsonFormatterDocuments": "JSONフォーマッターのドキュメント"
+    },
+    "ui": {
+      "title": "インターフェース設定",
+      "subtitle": "テーマ・言語・サイドバーに表示するツール — アカウント設定から。",
+      "loadError": "設定を読み込めませんでした。",
+      "loginHint": "ログインすると保存したインターフェース設定を表示できます。",
+      "theme": "テーマ",
+      "accent": "アクセントカラー",
+      "locale": "言語",
+      "enabledTools": "表示中のツール",
+      "favoriteTools": "お気に入りのツール",
+      "toolsWithUsage": "利用状況が記録されたツール"
+    },
+    "signIn": "ログイン"
   },
   "Tasks": {
     "page": {

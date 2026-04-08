@@ -218,7 +218,46 @@
         "title": "Validator Email",
         "description": "Verifikasi dan validasi alamat email."
       }
-    }
+    },
+    "tabs": {
+      "apps": "Aplikasi",
+      "analytics": "Analitik",
+      "ui": "Antarmuka"
+    },
+    "analytics": {
+      "title": "Data Anda sekilas",
+      "subtitle": "Jumlah disinkronkan dengan akun Anda di server.",
+      "loadError": "Tidak dapat memuat analitik.",
+      "retry": "Coba lagi",
+      "loginHint": "Masuk untuk melihat analitik penggunaan dan preferensi antarmuka.",
+      "passwordEntries": "Entri kata sandi",
+      "bookmarks": "Penanda",
+      "bookmarkFolders": "Folder penanda",
+      "tasksTotal": "Tugas",
+      "tasksCompleted": "Selesai",
+      "tasksOngoing": "Berjalan",
+      "tasksNotStarted": "Belum dimulai",
+      "projects": "Proyek",
+      "nosqlConnections": "Koneksi basis data",
+      "notes": "Catatan",
+      "apiClientCollections": "Koleksi API",
+      "apiClientEnvironments": "Lingkungan API",
+      "apiClientHistory": "Entri riwayat API",
+      "jsonFormatterDocuments": "Dokumen pemformat JSON"
+    },
+    "ui": {
+      "title": "Preferensi antarmuka",
+      "subtitle": "Tema, bahasa, dan alat yang terlihat di bilah sisi — dari pengaturan akun.",
+      "loadError": "Tidak dapat memuat preferensi.",
+      "loginHint": "Masuk untuk melihat preferensi antarmuka yang disimpan.",
+      "theme": "Tema",
+      "accent": "Warna aksen",
+      "locale": "Bahasa",
+      "enabledTools": "Alat terlihat",
+      "favoriteTools": "Alat favorit",
+      "toolsWithUsage": "Alat dengan pelacakan penggunaan"
+    },
+    "signIn": "Masuk"
   },
   "Tasks": {
     "page": {

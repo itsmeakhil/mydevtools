@@ -218,7 +218,46 @@
         "title": "Validátor e-mailu",
         "description": "Ověřujte a validujte e-mailové adresy."
       }
-    }
+    },
+    "tabs": {
+      "apps": "Aplikace",
+      "analytics": "Analytika",
+      "ui": "Rozhraní"
+    },
+    "analytics": {
+      "title": "Vaše data na první pohled",
+      "subtitle": "Počty synchronizované s vaším účtem na serveru.",
+      "loadError": "Nelze načíst analytiku.",
+      "retry": "Zkusit znovu",
+      "loginHint": "Přihlaste se pro zobrazení analytiky a předvoleb rozhraní.",
+      "passwordEntries": "Záznamů hesel",
+      "bookmarks": "Záložky",
+      "bookmarkFolders": "Složky záložek",
+      "tasksTotal": "Úkoly",
+      "tasksCompleted": "Dokončené",
+      "tasksOngoing": "Probíhající",
+      "tasksNotStarted": "Nespuštěné",
+      "projects": "Projekty",
+      "nosqlConnections": "Připojení k DB",
+      "notes": "Poznámky",
+      "apiClientCollections": "Kolekce API",
+      "apiClientEnvironments": "Prostředí API",
+      "apiClientHistory": "Záznamy historie API",
+      "jsonFormatterDocuments": "Dokumenty JSON formátovače"
+    },
+    "ui": {
+      "title": "Předvolby rozhraní",
+      "subtitle": "Motiv, jazyk a viditelné nástroje v postranním panelu — z nastavení účtu.",
+      "loadError": "Nelze načíst předvolby.",
+      "loginHint": "Přihlaste se pro zobrazení uložených předvoleb rozhraní.",
+      "theme": "Motiv",
+      "accent": "Barva zvýraznění",
+      "locale": "Jazyk",
+      "enabledTools": "Viditelné nástroje",
+      "favoriteTools": "Oblíbené nástroje",
+      "toolsWithUsage": "Nástroje se sledováním použití"
+    },
+    "signIn": "Přihlásit se"
   },
   "Tasks": {
     "page": {

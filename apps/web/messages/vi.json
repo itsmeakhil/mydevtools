@@ -218,7 +218,46 @@
         "title": "Xác thực Email",
         "description": "Xác minh và kiểm tra địa chỉ email."
       }
-    }
+    },
+    "tabs": {
+      "apps": "Ứng dụng",
+      "analytics": "Phân tích",
+      "ui": "Giao diện"
+    },
+    "analytics": {
+      "title": "Dữ liệu của bạn trong nháy mắt",
+      "subtitle": "Số liệu đồng bộ với tài khoản trên máy chủ.",
+      "loadError": "Không tải được phân tích.",
+      "retry": "Thử lại",
+      "loginHint": "Đăng nhập để xem phân tích sử dụng và tùy chọn giao diện.",
+      "passwordEntries": "Mục mật khẩu",
+      "bookmarks": "Dấu trang",
+      "bookmarkFolders": "Thư mục dấu trang",
+      "tasksTotal": "Nhiệm vụ",
+      "tasksCompleted": "Hoàn thành",
+      "tasksOngoing": "Đang làm",
+      "tasksNotStarted": "Chưa bắt đầu",
+      "projects": "Dự án",
+      "nosqlConnections": "Kết nối CSDL",
+      "notes": "Ghi chú",
+      "apiClientCollections": "Bộ sưu tập API",
+      "apiClientEnvironments": "Môi trường API",
+      "apiClientHistory": "Mục lịch sử API",
+      "jsonFormatterDocuments": "Tài liệu định dạng JSON"
+    },
+    "ui": {
+      "title": "Tùy chọn giao diện",
+      "subtitle": "Chủ đề, ngôn ngữ và công cụ hiển thị trên thanh bên — từ cài đặt tài khoản.",
+      "loadError": "Không tải được tùy chọn.",
+      "loginHint": "Đăng nhập để xem tùy chọn giao diện đã lưu.",
+      "theme": "Chủ đề",
+      "accent": "Màu nhấn",
+      "locale": "Ngôn ngữ",
+      "enabledTools": "Công cụ hiển thị",
+      "favoriteTools": "Công cụ yêu thích",
+      "toolsWithUsage": "Công cụ có theo dõi sử dụng"
+    },
+    "signIn": "Đăng nhập"
   },
   "Tasks": {
     "page": {

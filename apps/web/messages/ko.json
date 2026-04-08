@@ -218,7 +218,46 @@
         "title": "이메일 검증기",
         "description": "이메일 주소를 검증하세요."
       }
-    }
+    },
+    "tabs": {
+      "apps": "앱",
+      "analytics": "분석",
+      "ui": "인터페이스"
+    },
+    "analytics": {
+      "title": "데이터 한눈에 보기",
+      "subtitle": "서버의 계정과 동기화된 개수입니다.",
+      "loadError": "분석을 불러올 수 없습니다.",
+      "retry": "다시 시도",
+      "loginHint": "로그인하면 사용 분석과 인터페이스 설정을 볼 수 있습니다.",
+      "passwordEntries": "비밀번호 항목",
+      "bookmarks": "북마크",
+      "bookmarkFolders": "북마크 폴더",
+      "tasksTotal": "작업",
+      "tasksCompleted": "완료",
+      "tasksOngoing": "진행 중",
+      "tasksNotStarted": "시작 전",
+      "projects": "프로젝트",
+      "nosqlConnections": "DB 연결",
+      "notes": "노트",
+      "apiClientCollections": "API 컬렉션",
+      "apiClientEnvironments": "API 환경",
+      "apiClientHistory": "API 기록 항목",
+      "jsonFormatterDocuments": "JSON 포맷터 문서"
+    },
+    "ui": {
+      "title": "인터페이스 설정",
+      "subtitle": "테마, 언어, 사이드바에 표시할 도구 — 계정 설정에서.",
+      "loadError": "설정을 불러올 수 없습니다.",
+      "loginHint": "로그인하면 저장된 인터페이스 설정을 볼 수 있습니다.",
+      "theme": "테마",
+      "accent": "강조 색",
+      "locale": "언어",
+      "enabledTools": "표시 중인 도구",
+      "favoriteTools": "즐겨찾는 도구",
+      "toolsWithUsage": "사용량이 추적된 도구"
+    },
+    "signIn": "로그인"
   },
   "Tasks": {
     "page": {

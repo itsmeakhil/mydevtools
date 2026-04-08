@@ -218,7 +218,46 @@
         "title": "اعتبار سنجی ایمیل",
         "description": "آدرس های ایمیل را تأیید و تأیید کنید."
       }
-    }
+    },
+    "tabs": {
+      "apps": "برنامه‌ها",
+      "analytics": "تحلیل",
+      "ui": "رابط کاربری"
+    },
+    "analytics": {
+      "title": "داده‌های شما در یک نگاه",
+      "subtitle": "شمارش‌ها همگام‌شده با حساب شما روی سرور.",
+      "loadError": "بارگذاری تحلیل ممکن نشد.",
+      "retry": "تلاش دوباره",
+      "loginHint": "برای دیدن تحلیل استفاده و ترجیحات رابط وارد شوید.",
+      "passwordEntries": "ورودی‌های گذرواژه",
+      "bookmarks": "نشانک‌ها",
+      "bookmarkFolders": "پوشه‌های نشانک",
+      "tasksTotal": "وظایف",
+      "tasksCompleted": "تکمیل‌شده",
+      "tasksOngoing": "در حال انجام",
+      "tasksNotStarted": "شروع‌نشده",
+      "projects": "پروژه‌ها",
+      "nosqlConnections": "اتصالات پایگاه داده",
+      "notes": "یادداشت‌ها",
+      "apiClientCollections": "مجموعه‌های API",
+      "apiClientEnvironments": "محیط‌های API",
+      "apiClientHistory": "ورودی‌های تاریخچه API",
+      "jsonFormatterDocuments": "اسناد قالب‌ده JSON"
+    },
+    "ui": {
+      "title": "ترجیحات رابط",
+      "subtitle": "پوسته، زبان و ابزارهای نوار کناری — از تنظیمات حساب.",
+      "loadError": "بارگذاری ترجیحات ممکن نشد.",
+      "loginHint": "برای دیدن ترجیحات ذخیره‌شده وارد شوید.",
+      "theme": "پوسته",
+      "accent": "رنگ تأکید",
+      "locale": "زبان",
+      "enabledTools": "ابزارهای قابل مشاهده",
+      "favoriteTools": "ابزارهای مورد علاقه",
+      "toolsWithUsage": "ابزارها با آمار استفاده"
+    },
+    "signIn": "ورود"
   },
   "Tasks": {
     "page": {

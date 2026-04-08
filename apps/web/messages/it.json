@@ -218,7 +218,46 @@
         "title": "Validatore di posta elettronica",
         "description": "Verificare e convalidare gli indirizzi e-mail."
       }
-    }
+    },
+    "tabs": {
+      "apps": "App",
+      "analytics": "Analisi",
+      "ui": "Interfaccia"
+    },
+    "analytics": {
+      "title": "I tuoi dati a colpo d’occhio",
+      "subtitle": "Conteggi sincronizzati con il tuo account sul server.",
+      "loadError": "Impossibile caricare le statistiche.",
+      "retry": "Riprova",
+      "loginHint": "Accedi per vedere analisi d’uso e preferenze di interfaccia.",
+      "passwordEntries": "Voci password",
+      "bookmarks": "Segnalibri",
+      "bookmarkFolders": "Cartelle segnalibri",
+      "tasksTotal": "Attività",
+      "tasksCompleted": "Completate",
+      "tasksOngoing": "In corso",
+      "tasksNotStarted": "Non iniziate",
+      "projects": "Progetti",
+      "nosqlConnections": "Connessioni DB",
+      "notes": "Note",
+      "apiClientCollections": "Raccolte API",
+      "apiClientEnvironments": "Ambienti API",
+      "apiClientHistory": "Voci cronologia API",
+      "jsonFormatterDocuments": "Documenti formattatore JSON"
+    },
+    "ui": {
+      "title": "Preferenze interfaccia",
+      "subtitle": "Tema, lingua e strumenti visibili nella barra laterale — dalle impostazioni account.",
+      "loadError": "Impossibile caricare le preferenze.",
+      "loginHint": "Accedi per vedere le preferenze di interfaccia salvate.",
+      "theme": "Tema",
+      "accent": "Colore accento",
+      "locale": "Lingua",
+      "enabledTools": "Strumenti visibili",
+      "favoriteTools": "Strumenti preferiti",
+      "toolsWithUsage": "Strumenti con utilizzo tracciato"
+    },
+    "signIn": "Accedi"
   },
   "Tasks": {
     "page": {

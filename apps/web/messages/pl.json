@@ -218,7 +218,46 @@
         "title": "Email Validator",
         "description": "Verify and validate email addresses."
       }
-    }
+    },
+    "tabs": {
+      "apps": "Aplikacje",
+      "analytics": "Analityka",
+      "ui": "Interfejs"
+    },
+    "analytics": {
+      "title": "Twoje dane w skrócie",
+      "subtitle": "Liczby zsynchronizowane z kontem na serwerze.",
+      "loadError": "Nie udało się wczytać statystyk.",
+      "retry": "Ponów",
+      "loginHint": "Zaloguj się, aby zobaczyć analitykę i preferencje interfejsu.",
+      "passwordEntries": "Wpisy haseł",
+      "bookmarks": "Zakładki",
+      "bookmarkFolders": "Foldery zakładek",
+      "tasksTotal": "Zadania",
+      "tasksCompleted": "Ukończone",
+      "tasksOngoing": "W toku",
+      "tasksNotStarted": "Nierozpoczęte",
+      "projects": "Projekty",
+      "nosqlConnections": "Połączenia z BD",
+      "notes": "Notatki",
+      "apiClientCollections": "Kolekcje API",
+      "apiClientEnvironments": "Środowiska API",
+      "apiClientHistory": "Wpisy historii API",
+      "jsonFormatterDocuments": "Dokumenty formatu JSON"
+    },
+    "ui": {
+      "title": "Preferencje interfejsu",
+      "subtitle": "Motyw, język i widoczne narzędzia na pasku bocznym — z ustawień konta.",
+      "loadError": "Nie udało się wczytać preferencji.",
+      "loginHint": "Zaloguj się, aby zobaczyć zapisane preferencje interfejsu.",
+      "theme": "Motyw",
+      "accent": "Kolor akcentu",
+      "locale": "Język",
+      "enabledTools": "Widoczne narzędzia",
+      "favoriteTools": "Ulubione narzędzia",
+      "toolsWithUsage": "Narzędzia ze statystyką użycia"
+    },
+    "signIn": "Zaloguj się"
   },
   "Tasks": {
     "page": {

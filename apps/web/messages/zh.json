@@ -218,7 +218,46 @@
         "title": "邮箱验证",
         "description": "验证电子邮件地址。"
       }
-    }
+    },
+    "tabs": {
+      "apps": "应用",
+      "analytics": "分析",
+      "ui": "界面"
+    },
+    "analytics": {
+      "title": "数据一览",
+      "subtitle": "与服务器账户同步的计数。",
+      "loadError": "无法加载分析数据。",
+      "retry": "重试",
+      "loginHint": "登录后可查看使用分析与界面偏好。",
+      "passwordEntries": "密码条目",
+      "bookmarks": "书签",
+      "bookmarkFolders": "书签文件夹",
+      "tasksTotal": "任务",
+      "tasksCompleted": "已完成",
+      "tasksOngoing": "进行中",
+      "tasksNotStarted": "未开始",
+      "projects": "项目",
+      "nosqlConnections": "数据库连接",
+      "notes": "笔记",
+      "apiClientCollections": "API 集合",
+      "apiClientEnvironments": "API 环境",
+      "apiClientHistory": "API 历史记录",
+      "jsonFormatterDocuments": "JSON 格式化器文档"
+    },
+    "ui": {
+      "title": "界面偏好",
+      "subtitle": "主题、语言与侧边栏显示的工具 — 来自账户设置。",
+      "loadError": "无法加载偏好设置。",
+      "loginHint": "登录后可查看已保存的界面偏好。",
+      "theme": "主题",
+      "accent": "强调色",
+      "locale": "语言",
+      "enabledTools": "显示的工具",
+      "favoriteTools": "收藏的工具",
+      "toolsWithUsage": "已记录使用情况的工具"
+    },
+    "signIn": "登录"
   },
   "Tasks": {
     "page": {
