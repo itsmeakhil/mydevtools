@@ -218,7 +218,46 @@
         "title": "E-Mail-Validator",
         "description": "E-Mail-Adressen prüfen und validieren."
       }
-    }
+    },
+    "tabs": {
+      "apps": "Apps",
+      "analytics": "Analysen",
+      "ui": "Oberfläche"
+    },
+    "analytics": {
+      "title": "Ihre Daten auf einen Blick",
+      "subtitle": "Zählerstand mit Ihrem Konto auf dem Server synchronisiert.",
+      "loadError": "Analysen konnten nicht geladen werden.",
+      "retry": "Erneut versuchen",
+      "loginHint": "Melden Sie sich an, um Nutzungsanalysen und Oberflächeneinstellungen zu sehen.",
+      "passwordEntries": "Passwort-Einträge",
+      "bookmarks": "Lesezeichen",
+      "bookmarkFolders": "Lesezeichen-Ordner",
+      "tasksTotal": "Aufgaben",
+      "tasksCompleted": "Erledigt",
+      "tasksOngoing": "In Bearbeitung",
+      "tasksNotStarted": "Nicht gestartet",
+      "projects": "Projekte",
+      "nosqlConnections": "DB-Verbindungen",
+      "notes": "Notizen",
+      "apiClientCollections": "API-Sammlungen",
+      "apiClientEnvironments": "API-Umgebungen",
+      "apiClientHistory": "API-Verlaufseinträge",
+      "jsonFormatterDocuments": "JSON-Formatierer-Dokumente"
+    },
+    "ui": {
+      "title": "Oberflächeneinstellungen",
+      "subtitle": "Design, Sprache und sichtbare Tools in der Seitenleiste — aus Ihren Kontoeinstellungen.",
+      "loadError": "Einstellungen konnten nicht geladen werden.",
+      "loginHint": "Melden Sie sich an, um Ihre gespeicherten Oberflächeneinstellungen zu sehen.",
+      "theme": "Design",
+      "accent": "Akzentfarbe",
+      "locale": "Sprache",
+      "enabledTools": "Sichtbare Tools",
+      "favoriteTools": "Favoriten-Tools",
+      "toolsWithUsage": "Tools mit Nutzungsstatistik"
+    },
+    "signIn": "Anmelden"
   },
   "Tasks": {
     "page": {

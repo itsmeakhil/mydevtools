@@ -1,0 +1,1 @@
+"""Analytics routes (dashboard aggregates)."""

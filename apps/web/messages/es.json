@@ -218,7 +218,46 @@
         "title": "Validador de correo",
         "description": "Verifica y valida direcciones de correo."
       }
-    }
+    },
+    "tabs": {
+      "apps": "Aplicaciones",
+      "analytics": "Análisis",
+      "ui": "Interfaz"
+    },
+    "analytics": {
+      "title": "Tus datos de un vistazo",
+      "subtitle": "Recuentos sincronizados con tu cuenta en el servidor.",
+      "loadError": "No se pudieron cargar las estadísticas.",
+      "retry": "Reintentar",
+      "loginHint": "Inicia sesión para ver el análisis de uso y las preferencias de interfaz.",
+      "passwordEntries": "Entradas de contraseñas",
+      "bookmarks": "Marcadores",
+      "bookmarkFolders": "Carpetas de marcadores",
+      "tasksTotal": "Tareas",
+      "tasksCompleted": "Completadas",
+      "tasksOngoing": "En curso",
+      "tasksNotStarted": "Sin empezar",
+      "projects": "Proyectos",
+      "nosqlConnections": "Conexiones a BD",
+      "notes": "Notas",
+      "apiClientCollections": "Colecciones API",
+      "apiClientEnvironments": "Entornos API",
+      "apiClientHistory": "Entradas del historial API",
+      "jsonFormatterDocuments": "Documentos del formateador JSON"
+    },
+    "ui": {
+      "title": "Preferencias de interfaz",
+      "subtitle": "Tema, idioma y herramientas visibles en la barra lateral — desde la configuración de tu cuenta.",
+      "loadError": "No se pudieron cargar las preferencias.",
+      "loginHint": "Inicia sesión para ver tus preferencias de interfaz guardadas.",
+      "theme": "Tema",
+      "accent": "Color de acento",
+      "locale": "Idioma",
+      "enabledTools": "Herramientas visibles",
+      "favoriteTools": "Herramientas favoritas",
+      "toolsWithUsage": "Herramientas con uso registrado"
+    },
+    "signIn": "Iniciar sesión"
   },
   "Tasks": {
     "page": {

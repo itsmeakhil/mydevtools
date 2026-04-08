@@ -218,7 +218,46 @@
         "title": "E-posta Doğrulayıcı",
         "description": "E-posta adreslerini doğrulayın ve kontrol edin."
       }
-    }
+    },
+    "tabs": {
+      "apps": "Uygulamalar",
+      "analytics": "Analitik",
+      "ui": "Arayüz"
+    },
+    "analytics": {
+      "title": "Verilerinize genel bakış",
+      "subtitle": "Sunucudaki hesabınızla senkronize sayılar.",
+      "loadError": "Analitik yüklenemedi.",
+      "retry": "Yeniden dene",
+      "loginHint": "Kullanım analitiği ve arayüz tercihleri için giriş yapın.",
+      "passwordEntries": "Parola kayıtları",
+      "bookmarks": "Yer imleri",
+      "bookmarkFolders": "Yer imi klasörleri",
+      "tasksTotal": "Görevler",
+      "tasksCompleted": "Tamamlanan",
+      "tasksOngoing": "Devam eden",
+      "tasksNotStarted": "Başlanmadı",
+      "projects": "Projeler",
+      "nosqlConnections": "Veritabanı bağlantıları",
+      "notes": "Notlar",
+      "apiClientCollections": "API koleksiyonları",
+      "apiClientEnvironments": "API ortamları",
+      "apiClientHistory": "API geçmişi kayıtları",
+      "jsonFormatterDocuments": "JSON biçimleyici belgeleri"
+    },
+    "ui": {
+      "title": "Arayüz tercihleri",
+      "subtitle": "Tema, dil ve kenar çubuğundaki araçlar — hesap ayarlarınızdan.",
+      "loadError": "Tercihler yüklenemedi.",
+      "loginHint": "Kayıtlı arayüz tercihlerinizi görmek için giriş yapın.",
+      "theme": "Tema",
+      "accent": "Vurgu rengi",
+      "locale": "Dil",
+      "enabledTools": "Görünür araçlar",
+      "favoriteTools": "Favori araçlar",
+      "toolsWithUsage": "Kullanımı izlenen araçlar"
+    },
+    "signIn": "Giriş yap"
   },
   "Tasks": {
     "page": {

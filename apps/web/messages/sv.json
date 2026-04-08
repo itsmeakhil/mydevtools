@@ -218,7 +218,46 @@
         "title": "E-postvalidering",
         "description": "Verifiera och validera e-postadresser."
       }
-    }
+    },
+    "tabs": {
+      "apps": "Appar",
+      "analytics": "Analys",
+      "ui": "Gränssnitt"
+    },
+    "analytics": {
+      "title": "Dina data i korthet",
+      "subtitle": "Antal synkroniserade med ditt konto på servern.",
+      "loadError": "Kunde inte ladda analys.",
+      "retry": "Försök igen",
+      "loginHint": "Logga in för att se användningsanalys och gränssnittsinställningar.",
+      "passwordEntries": "Lösenordsposter",
+      "bookmarks": "Bokmärken",
+      "bookmarkFolders": "Bokmärkesmappar",
+      "tasksTotal": "Uppgifter",
+      "tasksCompleted": "Klara",
+      "tasksOngoing": "Pågående",
+      "tasksNotStarted": "Ej påbörjade",
+      "projects": "Projekt",
+      "nosqlConnections": "DB-anslutningar",
+      "notes": "Anteckningar",
+      "apiClientCollections": "API-samlingar",
+      "apiClientEnvironments": "API-miljöer",
+      "apiClientHistory": "API-historikposter",
+      "jsonFormatterDocuments": "JSON-formateringsdokument"
+    },
+    "ui": {
+      "title": "Gränssnittsinställningar",
+      "subtitle": "Tema, språk och synliga verktyg i sidofältet — från dina kontoinställningar.",
+      "loadError": "Kunde inte ladda inställningar.",
+      "loginHint": "Logga in för att se dina sparade gränssnittsinställningar.",
+      "theme": "Tema",
+      "accent": "Accentfärg",
+      "locale": "Språk",
+      "enabledTools": "Synliga verktyg",
+      "favoriteTools": "Favoritverktyg",
+      "toolsWithUsage": "Verktyg med användningsstatistik"
+    },
+    "signIn": "Logga in"
   },
   "Tasks": {
     "page": {

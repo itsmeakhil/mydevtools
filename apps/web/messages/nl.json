@@ -218,7 +218,46 @@
         "title": "E-mailvalidator",
         "description": "Verifieer en valideer e-mailadressen."
       }
-    }
+    },
+    "tabs": {
+      "apps": "Apps",
+      "analytics": "Analyse",
+      "ui": "Interface"
+    },
+    "analytics": {
+      "title": "Jouw data in één oogopslag",
+      "subtitle": "Tellingen gesynchroniseerd met je account op de server.",
+      "loadError": "Kan statistieken niet laden.",
+      "retry": "Opnieuw",
+      "loginHint": "Log in om gebruiksanalyses en interfacevoorkeuren te zien.",
+      "passwordEntries": "Wachtwoorditems",
+      "bookmarks": "Bladwijzers",
+      "bookmarkFolders": "Bladwijzermappen",
+      "tasksTotal": "Taken",
+      "tasksCompleted": "Voltooid",
+      "tasksOngoing": "Bezig",
+      "tasksNotStarted": "Niet gestart",
+      "projects": "Projecten",
+      "nosqlConnections": "DB-verbindingen",
+      "notes": "Notities",
+      "apiClientCollections": "API-collecties",
+      "apiClientEnvironments": "API-omgevingen",
+      "apiClientHistory": "API-geschiedenisitems",
+      "jsonFormatterDocuments": "JSON-formatteerdocumenten"
+    },
+    "ui": {
+      "title": "Interfacevoorkeuren",
+      "subtitle": "Thema, taal en zichtbare tools in de zijbalk — vanuit je accountinstellingen.",
+      "loadError": "Kan voorkeuren niet laden.",
+      "loginHint": "Log in om je opgeslagen interfacevoorkeuren te zien.",
+      "theme": "Thema",
+      "accent": "Accentkleur",
+      "locale": "Taal",
+      "enabledTools": "Zichtbare tools",
+      "favoriteTools": "Favoriete tools",
+      "toolsWithUsage": "Tools met gebruiksstatistieken"
+    },
+    "signIn": "Inloggen"
   },
   "Tasks": {
     "page": {

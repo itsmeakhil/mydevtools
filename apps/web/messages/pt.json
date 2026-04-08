@@ -218,7 +218,46 @@
         "title": "Validador de E-mail",
         "description": "Verifica e valida endereços de e-mail."
       }
-    }
+    },
+    "tabs": {
+      "apps": "Aplicações",
+      "analytics": "Análise",
+      "ui": "Interface"
+    },
+    "analytics": {
+      "title": "Os seus dados num relance",
+      "subtitle": "Contagens sincronizadas com a sua conta no servidor.",
+      "loadError": "Não foi possível carregar as estatísticas.",
+      "retry": "Tentar novamente",
+      "loginHint": "Inicie sessão para ver análises de utilização e preferências de interface.",
+      "passwordEntries": "Entradas de palavras-passe",
+      "bookmarks": "Marcadores",
+      "bookmarkFolders": "Pastas de marcadores",
+      "tasksTotal": "Tarefas",
+      "tasksCompleted": "Concluídas",
+      "tasksOngoing": "Em curso",
+      "tasksNotStarted": "Não iniciadas",
+      "projects": "Projetos",
+      "nosqlConnections": "Ligações à BD",
+      "notes": "Notas",
+      "apiClientCollections": "Coleções API",
+      "apiClientEnvironments": "Ambientes API",
+      "apiClientHistory": "Entradas do histórico API",
+      "jsonFormatterDocuments": "Documentos do formatador JSON"
+    },
+    "ui": {
+      "title": "Preferências de interface",
+      "subtitle": "Tema, idioma e ferramentas visíveis na barra lateral — nas definições da conta.",
+      "loadError": "Não foi possível carregar as preferências.",
+      "loginHint": "Inicie sessão para ver as preferências de interface guardadas.",
+      "theme": "Tema",
+      "accent": "Cor de destaque",
+      "locale": "Idioma",
+      "enabledTools": "Ferramentas visíveis",
+      "favoriteTools": "Ferramentas favoritas",
+      "toolsWithUsage": "Ferramentas com utilização registada"
+    },
+    "signIn": "Iniciar sessão"
   },
   "Tasks": {
     "page": {

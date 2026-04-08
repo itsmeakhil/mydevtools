@@ -9,6 +9,7 @@ Backend service template for the monorepo.
 - `app/api/routes/health.py` - health endpoint
 - `app/api/routes/tasks/` - todo tasks + projects (MongoDB, mirrors Firestore shape)
 - `app/api/routes/bookmarks/` - bookmarks + folders (MongoDB; same model as Zustand store / future Firestore)
+- `app/api/routes/analytics/` - dashboard aggregates (counts per user across collections)
 - `app/core/config.py` - environment settings
 - `app/core/db.py` - MongoDB client
 - `tests/` - backend tests
@@ -33,6 +34,7 @@ Backend service template for the monorepo.
 - `GET /api/v1/auth/session/check` - 200 if the access JWT is valid
 - `GET /api/v1/auth/me` - current user profile from the `users` collection
 - `GET /docs` - Swagger UI
+- `GET /api/v1/analytics/summary` - dashboard counts (password entries, bookmarks, tasks, projects, NoSQL connections, notes, API client data, JSON formatter docs) for the signed-in user
 
 ### Todo app (parity with Firestore `tasks` / `projects`)
 

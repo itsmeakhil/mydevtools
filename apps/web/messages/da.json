@@ -218,7 +218,46 @@
         "title": "E-mail-validator",
         "description": "Bekræft og valider e-mailadresser."
       }
-    }
+    },
+    "tabs": {
+      "apps": "Apps",
+      "analytics": "Analyse",
+      "ui": "Brugerflade"
+    },
+    "analytics": {
+      "title": "Dine data på et øjeblik",
+      "subtitle": "Antal synkroniseret med din konto på serveren.",
+      "loadError": "Kunne ikke indlæse analyse.",
+      "retry": "Prøv igen",
+      "loginHint": "Log ind for at se brugsanalyse og grænsefladeindstillinger.",
+      "passwordEntries": "Adgangskodeposter",
+      "bookmarks": "Bogmærker",
+      "bookmarkFolders": "Bogmærkemapper",
+      "tasksTotal": "Opgaver",
+      "tasksCompleted": "Fuldført",
+      "tasksOngoing": "I gang",
+      "tasksNotStarted": "Ikke startet",
+      "projects": "Projekter",
+      "nosqlConnections": "DB-forbindelser",
+      "notes": "Noter",
+      "apiClientCollections": "API-samlinger",
+      "apiClientEnvironments": "API-miljøer",
+      "apiClientHistory": "API-historikposter",
+      "jsonFormatterDocuments": "JSON-formatdokumenter"
+    },
+    "ui": {
+      "title": "Brugerfladeindstillinger",
+      "subtitle": "Tema, sprog og synlige værktøjer i sidebjælken — fra dine kontoindstillinger.",
+      "loadError": "Kunne ikke indlæse indstillinger.",
+      "loginHint": "Log ind for at se dine gemte grænsefladeindstillinger.",
+      "theme": "Tema",
+      "accent": "Accentfarve",
+      "locale": "Sprog",
+      "enabledTools": "Synlige værktøjer",
+      "favoriteTools": "Foretrukne værktøjer",
+      "toolsWithUsage": "Værktøjer med brugsstatistik"
+    },
+    "signIn": "Log ind"
   },
   "Tasks": {
     "page": {

@@ -218,7 +218,46 @@
         "title": "Validador de correu",
         "description": "Verifica i valida adreces de correu."
       }
-    }
+    },
+    "tabs": {
+      "apps": "Aplicacions",
+      "analytics": "Anàlisi",
+      "ui": "Interfície"
+    },
+    "analytics": {
+      "title": "Les teves dades d’un cop d’ull",
+      "subtitle": "Recomptes sincronitzats amb el teu compte al servidor.",
+      "loadError": "No s’han pogut carregar les estadístiques.",
+      "retry": "Torna-ho a provar",
+      "loginHint": "Inicia la sessió per veure l’anàlisi d’ús i les preferències d’interfície.",
+      "passwordEntries": "Entrades de contrasenyes",
+      "bookmarks": "Marcadors",
+      "bookmarkFolders": "Carpetes de marcadors",
+      "tasksTotal": "Tasques",
+      "tasksCompleted": "Completades",
+      "tasksOngoing": "En curs",
+      "tasksNotStarted": "No iniciades",
+      "projects": "Projectes",
+      "nosqlConnections": "Connexions a BD",
+      "notes": "Notes",
+      "apiClientCollections": "Col·leccions API",
+      "apiClientEnvironments": "Entorns API",
+      "apiClientHistory": "Entrades de l’historial API",
+      "jsonFormatterDocuments": "Documents del formatador JSON"
+    },
+    "ui": {
+      "title": "Preferències d’interfície",
+      "subtitle": "Tema, idioma i eines visibles a la barra lateral — des de la configuració del compte.",
+      "loadError": "No s’han pogut carregar les preferències.",
+      "loginHint": "Inicia la sessió per veure les preferències d’interfície desades.",
+      "theme": "Tema",
+      "accent": "Color d’accent",
+      "locale": "Idioma",
+      "enabledTools": "Eines visibles",
+      "favoriteTools": "Eines favorites",
+      "toolsWithUsage": "Eines amb ús registrat"
+    },
+    "signIn": "Inicia la sessió"
   },
   "Tasks": {
     "page": {

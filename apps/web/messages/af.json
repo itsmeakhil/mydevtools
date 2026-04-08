@@ -218,7 +218,46 @@
         "title": "E-posvalidator",
         "description": "Verifieer en valideer e-posadresse."
       }
-    }
+    },
+    "tabs": {
+      "apps": "Apps",
+      "analytics": "Ontleding",
+      "ui": "Koppelvlak"
+    },
+    "analytics": {
+      "title": "Jou data in ’n oogopslag",
+      "subtitle": "Tellinge gesinkroniseer met jou rekening op die bediener.",
+      "loadError": "Kon nie ontleding laai nie.",
+      "retry": "Probeer weer",
+      "loginHint": "Meld aan om gebruik-ontleding en koppelvlakvoorkeure te sien.",
+      "passwordEntries": "Wagwoord-inskrywings",
+      "bookmarks": "Boekmerke",
+      "bookmarkFolders": "Boekmerkvouers",
+      "tasksTotal": "Take",
+      "tasksCompleted": "Voltooi",
+      "tasksOngoing": "Aan die gang",
+      "tasksNotStarted": "Nie begin nie",
+      "projects": "Projekte",
+      "nosqlConnections": "DB-verbindings",
+      "notes": "Notas",
+      "apiClientCollections": "API-versamelings",
+      "apiClientEnvironments": "API-omgewings",
+      "apiClientHistory": "API-geskiedenisinskrywings",
+      "jsonFormatterDocuments": "JSON-formateerderdokumente"
+    },
+    "ui": {
+      "title": "Koppelvlakvoorkeure",
+      "subtitle": "Tema, taal en sigbare gereedskap in die sybalk — vanaf jou rekeninginstellings.",
+      "loadError": "Kon nie voorkeure laai nie.",
+      "loginHint": "Meld aan om gestoorde koppelvlakvoorkeure te sien.",
+      "theme": "Tema",
+      "accent": "Aksentkleur",
+      "locale": "Taal",
+      "enabledTools": "Sigbare gereedskap",
+      "favoriteTools": "Gunsteling-gereedskap",
+      "toolsWithUsage": "Gereedskap met gebruikstatistiek"
+    },
+    "signIn": "Meld aan"
   },
   "Tasks": {
     "page": {

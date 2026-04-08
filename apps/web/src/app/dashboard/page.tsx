@@ -3,7 +3,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { sidebarData } from "../../components/sidebar/data/sidebar-data";
 import Link, { LinkProps } from "next/link";
-import { Heart, Clock, ArrowRight, Sparkles, Layers, Zap, Search, X } from 'lucide-react';
+import { Heart, Clock, ArrowRight, Sparkles, Layers, Zap, Search, X, LayoutGrid, BarChart3 } from 'lucide-react';
 import { requiresAuth } from '@/lib/tool-config';
 import { useFavoriteTool } from '@/hooks/use-favorite-tool';
 import { useToolUsage } from '@/hooks/use-tool-usage';
@@ -13,6 +13,8 @@ import useAuth from "@/utils/useAuth";
 import { useTranslations } from 'next-intl';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { DashboardAnalyticsPanel } from '@/components/dashboard/dashboard-analytics-panel';
 
 const TOOL_URL_TO_KEY: Record<string, string> = {
   '/app/to-do': 'toDo',
@@ -102,6 +104,7 @@ const findItemById = (id: string | undefined | null): ToolItem | undefined => {
 
 const DashboardPage: React.FC = () => {
   const t = useTranslations('Dashboard');
+  const tTabs = useTranslations('Dashboard.tabs');
   const { user, loading } = useAuth(false); // Dashboard shows for all users
   const { favorites, isFavorite, toggleFavorite } = useFavoriteTool();
   const { getRecentlyUsedTools } = useToolUsage();
@@ -408,6 +411,19 @@ const DashboardPage: React.FC = () => {
             </div>
           </div>
 
+          <Tabs defaultValue="apps" className="w-full">
+            <TabsList className="mb-3 grid h-auto w-full grid-cols-2 gap-1 rounded-xl bg-muted/50 p-1 sm:inline-flex sm:w-auto sm:justify-start">
+              <TabsTrigger value="apps" className="gap-1.5 text-xs sm:text-sm">
+                <LayoutGrid className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                {tTabs('apps')}
+              </TabsTrigger>
+              <TabsTrigger value="analytics" className="gap-1.5 text-xs sm:text-sm">
+                <BarChart3 className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                {tTabs('analytics')}
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="apps" className="mt-0 space-y-5 md:space-y-8 focus-visible:outline-none">
           <div className="sticky top-[56px] md:top-0 z-30 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border border-border/40 rounded-xl px-3 py-2">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -549,6 +565,23 @@ const DashboardPage: React.FC = () => {
               </div>
             )}
           </div>
+            </TabsContent>
+
+            <TabsContent value="analytics" className="mt-0 rounded-xl border border-border/40 bg-background/40 p-4 md:p-6 focus-visible:outline-none">
+              {user ? (
+                <DashboardAnalyticsPanel />
+              ) : (
+                <Card className="border-dashed">
+                  <CardContent className="pt-6 text-center text-sm text-muted-foreground">
+                    <p>{t('analytics.loginHint')}</p>
+                    <Button type="button" className="mt-4" asChild>
+                      <Link href="/login">{t('signIn')}</Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              )}
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>

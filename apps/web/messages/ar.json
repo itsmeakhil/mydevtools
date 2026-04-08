@@ -218,7 +218,46 @@
         "title": "التحقق من البريد",
         "description": "تحقق من عناوين البريد الإلكتروني."
       }
-    }
+    },
+    "tabs": {
+      "apps": "التطبيقات",
+      "analytics": "التحليلات",
+      "ui": "الواجهة"
+    },
+    "analytics": {
+      "title": "بياناتك في لمحة",
+      "subtitle": "أعداد متزامنة مع حسابك على الخادم.",
+      "loadError": "تعذّر تحميل التحليلات.",
+      "retry": "إعادة المحاولة",
+      "loginHint": "سجّل الدخول لعرض تحليلات الاستخدام وتفضيلات الواجهة.",
+      "passwordEntries": "إدخالات كلمات المرور",
+      "bookmarks": "الإشارات المرجعية",
+      "bookmarkFolders": "مجلدات الإشارات",
+      "tasksTotal": "المهام",
+      "tasksCompleted": "مكتملة",
+      "tasksOngoing": "قيد التنفيذ",
+      "tasksNotStarted": "لم تبدأ",
+      "projects": "المشاريع",
+      "nosqlConnections": "اتصالات قاعدة البيانات",
+      "notes": "الملاحظات",
+      "apiClientCollections": "مجموعات API",
+      "apiClientEnvironments": "بيئات API",
+      "apiClientHistory": "سجلات سجل API",
+      "jsonFormatterDocuments": "مستندات منسّق JSON"
+    },
+    "ui": {
+      "title": "تفضيلات الواجهة",
+      "subtitle": "المظهر واللغة والأدوات الظاهرة في الشريط الجانبي — من إعدادات الحساب.",
+      "loadError": "تعذّر تحميل التفضيلات.",
+      "loginHint": "سجّل الدخول لعرض تفضيلات الواجهة المحفوظة.",
+      "theme": "المظهر",
+      "accent": "لون التمييز",
+      "locale": "اللغة",
+      "enabledTools": "الأدوات الظاهرة",
+      "favoriteTools": "الأدوات المفضلة",
+      "toolsWithUsage": "أدوات مع تتبع الاستخدام"
+    },
+    "signIn": "تسجيل الدخول"
   },
   "Tasks": {
     "page": {

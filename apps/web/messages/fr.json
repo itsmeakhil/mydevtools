@@ -218,7 +218,46 @@
         "title": "Validateur d’e-mail",
         "description": "Vérifiez et validez les adresses e-mail."
       }
-    }
+    },
+    "tabs": {
+      "apps": "Applications",
+      "analytics": "Analytique",
+      "ui": "Interface"
+    },
+    "analytics": {
+      "title": "Vos données en un coup d’œil",
+      "subtitle": "Compteurs synchronisés avec votre compte sur le serveur.",
+      "loadError": "Impossible de charger les statistiques.",
+      "retry": "Réessayer",
+      "loginHint": "Connectez-vous pour voir les analyses d’utilisation et les préférences d’interface.",
+      "passwordEntries": "Entrées de mots de passe",
+      "bookmarks": "Signets",
+      "bookmarkFolders": "Dossiers de signets",
+      "tasksTotal": "Tâches",
+      "tasksCompleted": "Terminées",
+      "tasksOngoing": "En cours",
+      "tasksNotStarted": "Non démarrées",
+      "projects": "Projets",
+      "nosqlConnections": "Connexions BD",
+      "notes": "Notes",
+      "apiClientCollections": "Collections API",
+      "apiClientEnvironments": "Environnements API",
+      "apiClientHistory": "Entrées d’historique API",
+      "jsonFormatterDocuments": "Documents du formateur JSON"
+    },
+    "ui": {
+      "title": "Préférences d’interface",
+      "subtitle": "Thème, langue et outils visibles dans la barre latérale — depuis les paramètres du compte.",
+      "loadError": "Impossible de charger les préférences.",
+      "loginHint": "Connectez-vous pour voir vos préférences d’interface enregistrées.",
+      "theme": "Thème",
+      "accent": "Couleur d’accent",
+      "locale": "Langue",
+      "enabledTools": "Outils visibles",
+      "favoriteTools": "Outils favoris",
+      "toolsWithUsage": "Outils avec suivi d’utilisation"
+    },
+    "signIn": "Se connecter"
   },
   "Tasks": {
     "page": {

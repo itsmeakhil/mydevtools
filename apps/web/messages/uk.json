@@ -218,7 +218,46 @@
         "title": "Перевірка email",
         "description": "Перевіряйте та валідуйте email-адреси."
       }
-    }
+    },
+    "tabs": {
+      "apps": "Застосунки",
+      "analytics": "Аналітика",
+      "ui": "Інтерфейс"
+    },
+    "analytics": {
+      "title": "Ваші дані коротко",
+      "subtitle": "Лічильники синхронізовано з обліковим записом на сервері.",
+      "loadError": "Не вдалося завантажити аналітику.",
+      "retry": "Повторити",
+      "loginHint": "Увійдіть, щоб бачити аналітику та налаштування інтерфейсу.",
+      "passwordEntries": "Записів паролів",
+      "bookmarks": "Закладки",
+      "bookmarkFolders": "Папки закладок",
+      "tasksTotal": "Завдання",
+      "tasksCompleted": "Виконано",
+      "tasksOngoing": "У процесі",
+      "tasksNotStarted": "Не розпочато",
+      "projects": "Проєкти",
+      "nosqlConnections": "Підключення до БД",
+      "notes": "Нотатки",
+      "apiClientCollections": "Колекції API",
+      "apiClientEnvironments": "Оточення API",
+      "apiClientHistory": "Записи історії API",
+      "jsonFormatterDocuments": "Документи JSON-форматера"
+    },
+    "ui": {
+      "title": "Налаштування інтерфейсу",
+      "subtitle": "Тема, мова та видимі інструменти на бічній панелі — з налаштувань облікового запису.",
+      "loadError": "Не вдалося завантажити налаштування.",
+      "loginHint": "Увійдіть, щоб бачити збережені налаштування інтерфейсу.",
+      "theme": "Тема",
+      "accent": "Колір акценту",
+      "locale": "Мова",
+      "enabledTools": "Видимі інструменти",
+      "favoriteTools": "Обрані інструменти",
+      "toolsWithUsage": "Інструменти зі статистикою"
+    },
+    "signIn": "Увійти"
   },
   "Tasks": {
     "page": {
