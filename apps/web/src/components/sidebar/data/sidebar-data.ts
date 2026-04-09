@@ -10,6 +10,7 @@ import {
   IconRocket,
   IconShield,
   IconCode,
+  IconTransform,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -71,6 +72,12 @@ export const sidebarData: SidebarData = {
           url: '/app/json-formatter',
           icon: IconJson,
           description: 'Format, validate, and edit JSON data.',
+        },
+        {
+          title: 'Base64 Encoder',
+          url: '/app/base64',
+          icon: IconTransform,
+          description: 'Encode and decode Base64 strings.',
         },
         {
           title: 'API Client',
