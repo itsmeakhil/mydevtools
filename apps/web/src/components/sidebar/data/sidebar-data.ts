@@ -7,6 +7,9 @@ import {
   IconDatabase,
   IconBookmark,
   IconMailCheck,
+  IconRocket,
+  IconShield,
+  IconCode,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -18,32 +21,51 @@ export const sidebarData: SidebarData = {
   },
   navGroups: [
     {
-      title: 'Apps',
+      title: 'Productivity',
+      icon: IconRocket,
       items: [
         {
           title: 'Tasks',
           url: '/app/to-do',
           icon: IconChecklist,
-          description: 'Manage your to-do lists efficiently.'
+          description: 'Manage your to-do lists efficiently.',
         },
         {
           title: 'Notes',
           url: '/app/notes',
           icon: IconNotes,
-          description: 'Capture ideas and organize your thoughts.'
-        },
-        {
-          title: 'Password Manager',
-          url: '/app/password-manager',
-          icon: IconLock,
-          description: 'Securely store and manage your passwords.'
+          description: 'Capture ideas and organize your thoughts.',
         },
         {
           title: 'Bookmarks',
           url: '/app/bookmarks',
           icon: IconBookmark,
-          description: 'Manage and organize your bookmarks.'
+          description: 'Manage and organize your bookmarks.',
         },
+      ],
+    },
+    {
+      title: 'Security',
+      icon: IconShield,
+      items: [
+        {
+          title: 'Password Manager',
+          url: '/app/password-manager',
+          icon: IconLock,
+          description: 'Securely store and manage your passwords.',
+        },
+        {
+          title: 'Email Validator',
+          url: '/app/email-validator',
+          icon: IconMailCheck,
+          description: 'Verify and validate email addresses.',
+        },
+      ],
+    },
+    {
+      title: 'Development',
+      icon: IconCode,
+      items: [
         {
           title: 'JSON Formatter',
           url: '/app/json-formatter',
@@ -55,28 +77,16 @@ export const sidebarData: SidebarData = {
           url: '/app/api-client',
           icon: IconNetwork,
           description: 'Test and debug HTTP requests.',
-          hiddenOnMobile: true
+          hiddenOnMobile: true,
         },
         {
           title: 'NoSQL Explorer',
           url: '/app/nosql-explorer',
           icon: IconDatabase,
           description: 'Explore MongoDB databases.',
-          hiddenOnMobile: true
+          hiddenOnMobile: true,
         },
-        {
-          title: 'Email Validator',
-          url: '/app/email-validator',
-          icon: IconMailCheck,
-          description: 'Verify and validate email addresses.',
-        },
-
       ],
     },
-
-
-
-
-
   ],
 }

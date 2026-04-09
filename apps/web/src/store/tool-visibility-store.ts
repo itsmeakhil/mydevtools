@@ -1,7 +1,16 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export const DEFAULT_ENABLED_TOOLS = ['/app/to-do', '/app/notes', '/app/password-manager'];
+export const DEFAULT_ENABLED_TOOLS = [
+  '/app/to-do',
+  '/app/notes',
+  '/app/bookmarks',
+  '/app/password-manager',
+  '/app/email-validator',
+  '/app/json-formatter',
+  '/app/api-client',
+  '/app/nosql-explorer',
+];
 
 interface ToolVisibilityStore {
   enabledTools: string[];

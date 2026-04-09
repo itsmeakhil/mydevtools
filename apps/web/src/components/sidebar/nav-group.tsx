@@ -85,7 +85,7 @@ export function NavGroup({ title, items, collapsible, icon: Icon, hiddenOnMobile
     });
 
   // If group is hidden on mobile or has no visible items, don't render
-  if (isMobile && (hiddenOnMobile || visibleItems.length === 0)) {
+  if ((isMobile && hiddenOnMobile) || visibleItems.length === 0) {
     return null;
   }
 
