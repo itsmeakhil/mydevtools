@@ -13,6 +13,8 @@ import {
   Braces,
   Link2,
   Fingerprint,
+  TextQuote,
+  Palette,
 } from "lucide-react";
 import { ModeToggle } from "@/components/modeToggle";
 
@@ -29,6 +31,8 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType }> = 
   '/app/email-validator': { title: 'Email Validator', icon: Globe },
   '/app/url-encode': { title: 'URL Encoder / Decoder', icon: Link2 },
   '/app/uuid-generator': { title: 'UUID / ULID Generator', icon: Fingerprint },
+  '/app/lorem-ipsum': { title: 'Lorem Ipsum Generator', icon: TextQuote },
+  '/app/color-picker': { title: 'Color Picker', icon: Palette },
 };
 
 export function NavBar() {

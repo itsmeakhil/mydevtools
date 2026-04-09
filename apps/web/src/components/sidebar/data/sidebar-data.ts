@@ -13,6 +13,8 @@ import {
   IconTransform,
   IconLink,
   IconFingerprint,
+  IconQuote,
+  IconPalette,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -92,6 +94,18 @@ export const sidebarData: SidebarData = {
           url: '/app/uuid-generator',
           icon: IconFingerprint,
           description: 'Generate UUIDs and ULIDs with bulk export.',
+        },
+        {
+          title: 'Lorem Ipsum',
+          url: '/app/lorem-ipsum',
+          icon: IconQuote,
+          description: 'Generate placeholder Latin text for layouts and mockups.',
+        },
+        {
+          title: 'Color Picker',
+          url: '/app/color-picker',
+          icon: IconPalette,
+          description: 'Convert HEX, RGB, HSL and explore color palettes.',
         },
         {
           title: 'API Client',

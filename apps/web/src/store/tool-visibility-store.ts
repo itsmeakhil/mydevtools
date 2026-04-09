@@ -12,6 +12,8 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/nosql-explorer',
   '/app/url-encode',
   '/app/uuid-generator',
+  '/app/lorem-ipsum',
+  '/app/color-picker',
 ];
 
 interface ToolVisibilityStore {

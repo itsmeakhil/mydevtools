@@ -36,6 +36,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'nosql-explorer',
         'url-encode',
         'uuid-generator',
+        'lorem-ipsum',
+        'color-picker',
     ].map((tool) => ({
         url: `${baseUrl}/app/${tool}`,
         lastModified: new Date(),

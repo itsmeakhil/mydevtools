@@ -47,6 +47,16 @@ export const toolsMetadata: Record<string, {
         title: 'UUID / ULID Generator',
         description: 'Generate UUID v1–v7 or ULIDs with namespace options and bulk copy or download.',
         keywords: ['uuid generator', 'ulid generator', 'guid', 'uuid v4', 'uuid v7', 'bulk uuid']
+    },
+    'lorem-ipsum': {
+        title: 'Lorem Ipsum Generator',
+        description: 'Generate classical Lorem Ipsum as paragraphs, sentences, words, or lists. Export plain text or HTML.',
+        keywords: ['lorem ipsum', 'placeholder text', 'dummy text', 'latin filler', 'mockup text']
+    },
+    'color-picker': {
+        title: 'Color Picker & HEX RGB HSL Converter',
+        description: 'Pick colors, convert between HEX, RGB, and HSL, and copy CSS. Explore harmonic palettes in the browser.',
+        keywords: ['color picker', 'hex to rgb', 'rgb to hsl', 'color converter', 'palette generator']
     }
 }
 
