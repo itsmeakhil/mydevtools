@@ -11,6 +11,7 @@ import {
   IconShield,
   IconCode,
   IconTransform,
+  IconLink,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -78,6 +79,12 @@ export const sidebarData: SidebarData = {
           url: '/app/base64',
           icon: IconTransform,
           description: 'Encode and decode Base64 strings.',
+        },
+        {
+          title: 'URL Encoder',
+          url: '/app/url-encode',
+          icon: IconLink,
+          description: 'Percent-encode and decode URL components.',
         },
         {
           title: 'API Client',

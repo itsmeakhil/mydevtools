@@ -11,6 +11,7 @@ import {
   Database,
   LayoutDashboard,
   Braces,
+  Link2,
 } from "lucide-react";
 import { ModeToggle } from "@/components/modeToggle";
 
@@ -25,6 +26,7 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType }> = 
   '/app/api-client': { title: 'API Client', icon: Globe },
   '/app/nosql-explorer': { title: 'NoSQL Explorer', icon: Database },
   '/app/email-validator': { title: 'Email Validator', icon: Globe },
+  '/app/url-encode': { title: 'URL Encoder / Decoder', icon: Link2 },
 };
 
 export function NavBar() {

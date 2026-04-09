@@ -34,6 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'json-formatter',
         'api-client',
         'nosql-explorer',
+        'url-encode',
     ].map((tool) => ({
         url: `${baseUrl}/app/${tool}`,
         lastModified: new Date(),

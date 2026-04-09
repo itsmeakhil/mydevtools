@@ -37,6 +37,11 @@ export const toolsMetadata: Record<string, {
         title: 'NoSQL Explorer - Manage MongoDB',
         description: 'Explore and manage your MongoDB databases directly from your browser.',
         keywords: ['nosql explorer', 'mongodb manager', 'database explorer', 'mongo ui']
+    },
+    'url-encode': {
+        title: 'URL Encoder / Decoder - Percent Encoding',
+        description: 'Percent-encode or decode text for query strings and URI components with UTF-8.',
+        keywords: ['url encode', 'url decode', 'percent encode', 'uri encode', 'encodeURIComponent']
     }
 }
 
