@@ -11,6 +11,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/api-client',
   '/app/nosql-explorer',
   '/app/url-encode',
+  '/app/uuid-generator',
 ];
 
 interface ToolVisibilityStore {

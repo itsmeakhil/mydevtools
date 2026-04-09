@@ -42,6 +42,11 @@ export const toolsMetadata: Record<string, {
         title: 'URL Encoder / Decoder - Percent Encoding',
         description: 'Percent-encode or decode text for query strings and URI components with UTF-8.',
         keywords: ['url encode', 'url decode', 'percent encode', 'uri encode', 'encodeURIComponent']
+    },
+    'uuid-generator': {
+        title: 'UUID / ULID Generator',
+        description: 'Generate UUID v1–v7 or ULIDs with namespace options and bulk copy or download.',
+        keywords: ['uuid generator', 'ulid generator', 'guid', 'uuid v4', 'uuid v7', 'bulk uuid']
     }
 }
 

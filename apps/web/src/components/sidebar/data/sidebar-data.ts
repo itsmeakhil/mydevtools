@@ -12,6 +12,7 @@ import {
   IconCode,
   IconTransform,
   IconLink,
+  IconFingerprint,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -85,6 +86,12 @@ export const sidebarData: SidebarData = {
           url: '/app/url-encode',
           icon: IconLink,
           description: 'Percent-encode and decode URL components.',
+        },
+        {
+          title: 'UUID / ULID',
+          url: '/app/uuid-generator',
+          icon: IconFingerprint,
+          description: 'Generate UUIDs and ULIDs with bulk export.',
         },
         {
           title: 'API Client',

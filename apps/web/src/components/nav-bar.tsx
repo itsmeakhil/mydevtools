@@ -12,6 +12,7 @@ import {
   LayoutDashboard,
   Braces,
   Link2,
+  Fingerprint,
 } from "lucide-react";
 import { ModeToggle } from "@/components/modeToggle";
 
@@ -27,6 +28,7 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType }> = 
   '/app/nosql-explorer': { title: 'NoSQL Explorer', icon: Database },
   '/app/email-validator': { title: 'Email Validator', icon: Globe },
   '/app/url-encode': { title: 'URL Encoder / Decoder', icon: Link2 },
+  '/app/uuid-generator': { title: 'UUID / ULID Generator', icon: Fingerprint },
 };
 
 export function NavBar() {
