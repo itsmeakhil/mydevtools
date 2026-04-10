@@ -55,7 +55,7 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
   '/app/timestamp-converter': { title: 'Timestamp Converter', icon: Clock, namespace: 'TimestampConverter' },
   '/app/cron-builder': { title: 'Cron Builder', icon: Repeat, namespace: 'CronBuilder' },
   '/app/sql-formatter': { title: 'SQL Formatter', icon: Table2, namespace: 'SqlFormatter' },
-  '/app/diff-checker': { title: 'Diff checker', icon: GitCompare },
+  '/app/diff-checker': { title: 'Diff checker', icon: GitCompare, namespace: 'DiffChecker' },
 };
 
 export function NavBar() {
