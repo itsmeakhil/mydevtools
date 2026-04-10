@@ -18,6 +18,7 @@ import {
   IconKey,
   IconRegex,
   IconCalendarTime,
+  IconRepeat,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -97,6 +98,12 @@ export const sidebarData: SidebarData = {
           url: '/app/timestamp-converter',
           icon: IconCalendarTime,
           description: 'Unix, ISO, and relative time conversion.',
+        },
+        {
+          title: 'Cron Builder',
+          url: '/app/cron-builder',
+          icon: IconRepeat,
+          description: 'Visual cron builder, presets, and parser.',
         },
         {
           title: 'Base64 Encoder',

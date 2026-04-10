@@ -41,6 +41,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'jwt-decoder',
         'regex-tester',
         'timestamp-converter',
+        'cron-builder',
     ].map((tool) => ({
         url: `${baseUrl}/app/${tool}`,
         lastModified: new Date(),

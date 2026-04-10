@@ -18,6 +18,7 @@ import {
   Key,
   Regex,
   Clock,
+  Repeat,
 } from "lucide-react";
 import { ModeToggle } from "@/components/modeToggle";
 
@@ -39,6 +40,7 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType }> = 
   '/app/jwt-decoder': { title: 'JWT Decoder', icon: Key },
   '/app/regex-tester': { title: 'Regex Tester', icon: Regex },
   '/app/timestamp-converter': { title: 'Timestamp Converter', icon: Clock },
+  '/app/cron-builder': { title: 'Cron Builder', icon: Repeat },
 };
 
 export function NavBar() {

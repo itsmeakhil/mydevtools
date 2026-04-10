@@ -72,6 +72,11 @@ export const toolsMetadata: Record<string, {
         title: 'Timestamp Converter - Unix, ISO & Relative',
         description: 'Convert Unix seconds or milliseconds, ISO-8601, and date strings. See UTC, local, and relative time with one-click copy.',
         keywords: ['unix timestamp', 'epoch converter', 'iso 8601', 'relative time', 'date converter']
+    },
+    'cron-builder': {
+        title: 'Cron Expression Builder & Parser',
+        description: 'Build 5-field cron jobs with presets and quick picks, edit raw expressions, read plain-English schedules, and preview next run times in the browser.',
+        keywords: ['cron builder', 'crontab', 'cron expression', 'schedule parser', 'cron parser']
     }
 }
 
