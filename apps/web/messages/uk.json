@@ -7,7 +7,20 @@
     "bookmarks": "Закладки",
     "jsonFormatter": "Форматувальник JSON",
     "emailValidator": "Перевірка email",
-    "nosqlExplorer": "NoSQL Провідник"
+    "nosqlExplorer": "NoSQL Провідник",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "jwtDecoder": "Декодер JWT",
+    "sqlFormatter": "SQL Formatter",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker"
   },
   "Help": {
     "title": "Довідка та документація",
@@ -217,6 +230,54 @@
       "emailValidator": {
         "title": "Перевірка email",
         "description": "Перевіряйте та валідуйте email-адреси."
+      },
+      "jwtDecoder": {
+        "title": "Декодер JWT",
+        "description": "Декодуйте заголовок, корисне навантаження та строк дії JWT."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
       }
     },
     "tabs": {
@@ -1508,5 +1569,377 @@
     "toastLoginRequired": "Увійдіть, щоб зберігати документи",
     "toastSaved": "Документ збережено",
     "toastSaveFailed": "Не вдалося зберегти документ"
+  },
+  "JwtDecoder": {
+    "title": "Декодер JWT",
+    "subtitle": "Переглядайте заголовок і payload. Строк дії береться з claim <code>exp</code>. Нічого не надсилається на сервер; підпис не перевіряється.",
+    "tokenLabel": "Токен",
+    "clear": "Очистити",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Копіювати",
+    "expiryLabel": "Строк дії (exp)",
+    "signaturePresent": "Підпис присутній (не перевіряється)",
+    "noExp": "У payload немає claim <code>exp</code>.",
+    "status": {
+      "expired": "Прострочено",
+      "valid": "Дійсний"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Локальний",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Видано (iat)",
+      "notBefore": "Не раніше (nbf)"
+    },
+    "panels": {
+      "header": "Заголовок",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Вставте JWT для декодування.",
+      "segments": "JWT має містити щонайменше заголовок і payload (два сегменти).",
+      "base64": "Не вдалося декодувати заголовок або payload (base64url)."
+    },
+    "relative": {
+      "future": "через {n} {unit}",
+      "past": "{n} {unit} тому"
+    },
+    "units": {
+      "second": "{count, plural, one {секунду} few {секунди} many {секунд} other {секунд}}",
+      "minute": "{count, plural, one {хвилину} few {хвилини} many {хвилин} other {хвилин}}",
+      "hour": "{count, plural, one {годину} few {години} many {годин} other {годин}}",
+      "day": "{count, plural, one {день} few {дні} many {днів} other {днів}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "Форматувач SQL",
+    "subtitle": "Форматуйте SQL для MySQL, PostgreSQL або SQLite. Працює у браузері; нічого не завантажується.",
+    "dialectLabel": "Діалект",
+    "keywordsLabel": "Ключові слова",
+    "indentLabel": "Відступ",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "ВЕРХНІЙ РЕГІСТР",
+      "lower": "нижній регістр",
+      "preserve": "Зберегти"
+    },
+    "spaces": "{n} пробілів",
+    "format": "Форматувати",
+    "clear": "Очистити",
+    "counter": "{current} / {max} символів",
+    "inputPanel": "Ввід",
+    "formattedPanel": "Відформатовано",
+    "copy": "Копіювати",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Натисніть \"Форматувати\"…",
+    "errors": {
+      "tooLong": "Ввід обмежено {max} символами.",
+      "couldNotFormat": "Не вдалося відформатувати цей SQL."
+    }
+  },
+  "RegexTester": {
+    "title": "Тестер regex",
+    "subtitle": "Регулярні вирази у стилі JavaScript у реальному часі. Збіги підсвічуються; нічого не залишає ваш браузер.",
+    "patternLabel": "Шаблон",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g глобально",
+      "i": "i без урахування регістру",
+      "m": "m багаторядковий",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(порожньо)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {збіг} few {збіги} many {збігів} other {збігів}}",
+    "testTextLabel": "Тестовий текст",
+    "counter": "{current} / {max}",
+    "clear": "Очистити",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Текст обмежено {max} символами.",
+      "invalid": "Некоректний регулярний вираз.",
+      "runaway": "Зупинено після {max} збігів (можливо, шаблон “розбігся”)."
+    }
+  },
+  "TimestampConverter": {
+    "title": "Конвертер часових міток",
+    "subtitle": "Unix-секунди (≤10 цифр) або мілісекунди (довші цілі числа), <code>ISO-8601</code> або рядки, які може розібрати браузер. Усе працює локально.",
+    "inputLabel": "Ввід",
+    "placeholder": "1744200000 або 2025-04-09T12:00:00Z",
+    "now": "Зараз",
+    "copy": "Копіювати",
+    "hint": "Вставте значення або натисніть <strong>Зараз</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Відносно",
+      "human": "Зрозуміло"
+    },
+    "fields": {
+      "seconds": "Секунди",
+      "milliseconds": "Мілісекунди",
+      "utc": "UTC",
+      "local": "Локально",
+      "distance": "Відстань"
+    },
+    "errors": {
+      "empty": "Введіть Unix-мітку, ISO-рядок або текст дати.",
+      "invalidNumber": "Некоректна числова мітка часу.",
+      "outOfRange": "Поза діапазоном для JavaScript Date.",
+      "couldNotParse": "Не вдалося розібрати як Unix, ISO-8601 або дату браузера."
+    }
+  },
+  "CronBuilder": {
+    "title": "Конструктор cron-виразів",
+    "subtitle": "Стандартний 5-польовий cron: <mono>minute hour day month weekday</mono>. Парсер внутрішньо використовує seconds=<code>0</code>. Опційний 6-польовий формат (<mono>sec min hour dom mon dow</mono>) працює в редакторі.",
+    "tabs": {
+      "builder": "Візуальний конструктор",
+      "expression": "Вираз"
+    },
+    "presetsLabel": "Пресети",
+    "fieldsLabel": "Поля",
+    "rawExpressionLabel": "Сирий вираз",
+    "expressionHint": "Зніміть фокус, щоб розібрати та синхронізувати конструктор. {count} {count, plural, one {токен} few {токени} many {токенів} other {токенів}}.",
+    "currentExpressionLabel": "Поточний вираз",
+    "copy": "Копіювати",
+    "quickPick": "Швидкий вибір",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Простою мовою",
+    "nextRunsLabel": "Наступні запуски (локальний час)",
+    "fields": {
+      "minute": "Хвилина",
+      "hour": "Година",
+      "dayOfMonth": "День місяця",
+      "month": "Місяць",
+      "dayOfWeek": "День тижня"
+    },
+    "presets": {
+      "everyMinute": "Щохвилини",
+      "every5Minutes": "Кожні 5 хвилин",
+      "every15Minutes": "Кожні 15 хвилин",
+      "everyHour": "Щогодини (о :00)",
+      "every6Hours": "Кожні 6 годин",
+      "dailyMidnight": "Щодня опівночі",
+      "daily0900": "Щодня о 09:00",
+      "weekdays0900": "Будні о 09:00",
+      "weeklySunday": "Щотижня (неділя 00:00)",
+      "monthlyFirst": "Щомісяця (1-ше 00:00)",
+      "yearlyJan1": "Щороку (1 січ 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "щохвилини"
+      },
+      "hour": {
+        "every": "щогодини"
+      },
+      "dom": {
+        "any": "будь-який день",
+        "last": "останній день"
+      },
+      "month": {
+        "every": "щомісяця"
+      },
+      "dow": {
+        "any": "будь-який день",
+        "weekdays": "будні",
+        "weekend": "вихідні"
+      }
+    },
+    "months": {
+      "jan": "Січ",
+      "feb": "Лют",
+      "mar": "Бер",
+      "apr": "Кві",
+      "may": "Тра",
+      "jun": "Чер",
+      "jul": "Лип",
+      "aug": "Сер",
+      "sep": "Вер",
+      "oct": "Жов",
+      "nov": "Лис",
+      "dec": "Гру"
+    },
+    "weekdays": {
+      "sun": "Нд",
+      "mon": "Пн",
+      "tue": "Вт",
+      "wed": "Ср",
+      "thu": "Чт",
+      "fri": "Пт",
+      "sat": "Сб"
+    },
+    "errors": {
+      "fieldCount": "Очікується 5 полів (minute hour day month weekday) або 6 із секундами.",
+      "invalid": "Некоректний cron-вираз."
+    }
+  },
+  "Base64": {
+    "title": "Кодування / декодування Base64",
+    "subtitle": "Кодуйте текст у Base64 або декодуйте Base64-рядки",
+    "upload": "Завантажити",
+    "clear": "Очистити",
+    "modes": {
+      "encode": "Кодувати",
+      "decode": "Декодувати"
+    },
+    "swapTitle": "Поміняти місцями ввід і вивід",
+    "panels": {
+      "plainText": "Звичайний текст",
+      "base64Input": "Ввід Base64",
+      "base64Output": "Вивід Base64",
+      "decodedText": "Декодований текст"
+    },
+    "placeholders": {
+      "encode": "Введіть текст для кодування у Base64…",
+      "decode": "Вставте Base64 для декодування…"
+    },
+    "dropHere": "Перетягніть файл сюди",
+    "charCount": "{count} символів",
+    "download": {
+      "title": "Завантажити результат",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Копіювати в буфер обміну",
+    "outputPlaceholder": "Результат з’явиться тут…",
+    "errors": {
+      "invalidBase64": "Некоректний Base64-рядок. Перевірте ввід.",
+      "encodeFailed": "Не вдалося закодувати ввід."
+    }
+  },
+  "UrlEncode": {
+    "title": "Кодування / декодування URL",
+    "subtitle": "Відсоткове кодування/декодування через encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Завантажити",
+    "clear": "Очистити",
+    "modes": {
+      "encode": "Кодувати",
+      "decode": "Декодувати"
+    },
+    "swapTitle": "Поміняти місцями ввід і вивід",
+    "panels": {
+      "plainText": "Звичайний текст",
+      "encodedInput": "Закодований ввід",
+      "encodedOutput": "Закодований вивід",
+      "decodedText": "Декодований текст"
+    },
+    "placeholders": {
+      "encode": "Введіть текст для відсоткового кодування…",
+      "decode": "Вставте percent-encoded текст для декодування…"
+    },
+    "dropHere": "Перетягніть файл сюди",
+    "charCount": "{count} символів",
+    "download": {
+      "title": "Завантажити результат",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Копіювати в буфер обміну",
+    "outputPlaceholder": "Результат з’явиться тут…",
+    "errors": {
+      "invalidEncoding": "Некоректне percent-encoding. Перевірте неповні пари % або escape-послідовності.",
+      "encodeFailed": "Не вдалося закодувати (некоректний Unicode у вводі)."
+    }
+  },
+  "UuidGenerator": {
+    "title": "Генератор UUID / ULID",
+    "subtitle": "Генеруйте UUID (RFC 9562) або ULID у браузері. Пакетний експорт до {max} за запуск.",
+    "format": "Формат",
+    "kindHints": {
+      "ulid": "Сортований, URL-безпечний ідентифікатор на 26 символів",
+      "uuid4": "Випадковий (RFC 9562)",
+      "uuid7": "Упорядкований за часом, Unix мс + випадковість",
+      "uuid1": "MAC/час (RFC 9562)",
+      "uuid6": "Перевпорядкований григоріанський час",
+      "uuid3": "MD5‑хеш імені + простору назв",
+      "uuid5": "SHA‑1‑хеш імені + простору назв"
+    },
+    "countLabel": "Кількість (1–{max})",
+    "nameLabel": "Ім’я (вхідний рядок)",
+    "namePlaceholder": "наприклад my.app/resource",
+    "bulkHint": "У пакетному режимі додаються <code>#0</code>, <code>#1</code>, … щоб кожен ID був унікальним (v3/v5 детерміновані).",
+    "namespace": "Простір назв",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Власний UUID"
+    },
+    "customNamespaceLabel": "UUID простору назв",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Згенерувати",
+    "output": "Вивід",
+    "lines": "{count} рядків",
+    "download": {
+      "title": "Завантажити .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Копіювати все",
+    "outputPlaceholder": "Натисніть \"Згенерувати\"…",
+    "errors": {
+      "invalidCustomNamespace": "Власний простір назв має бути валідним UUID.",
+      "missingName": "Ім’я потрібне для UUID v3 та v5.",
+      "unknown": "Не вдалося згенерувати ідентифікатори."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Генератор Lorem Ipsum",
+    "subtitle": "Генеруйте замінний латинський текст для ваших макетів та прототипів.",
+    "paragraphs": "Абзаци",
+    "sentences": "Речення",
+    "words": "Слова",
+    "count": "Кількість",
+    "generate": "Генерувати",
+    "copy": "Копіювати",
+    "startWith": "Почати з 'Lorem ipsum...'",
+    "outputPlaceholder": "Результат з'явиться тут...",
+    "outputType": "Тип виведення",
+    "bulletList": "Маркований список",
+    "htmlMarkup": "HTML-розмітка",
+    "htmlMarkupHint": "Обгорніть виведення в абзаци або використовуйте список для режиму маркерів",
+    "output": "Виведення",
+    "download": "Завантажити"
+  },
+  "ColorPicker": {
+    "title": "Вибір і конвертер кольорів",
+    "subtitle": "Конвертуйте HEX, RGB та HSL; створюйте гармонійні палітри. Вся обробка відбувається у вашому браузері.",
+    "nativePicker": "Вбудований вибір кольору",
+    "chooseColor": "Виберіть колір",
+    "eyeDropper": "Піпетка",
+    "invalidHex": "Невірний колір HEX.",
+    "cssValues": "CSS-значення",
+    "palettes": "Палітри",
+    "copied": "Скопійовано",
+    "clickToCopy": "Натисніть для копіювання",
+    "copyAllHex": "Копіювати всі HEX",
+    "copy": "Копіювати",
+    "copyColor": "Копіювати {color}",
+    "paletteShades": "Відтінки",
+    "paletteComplementary": "Додатковий",
+    "paletteTriadic": "Тріадний",
+    "paletteAnalogous": "Аналогічний",
+    "paletteSplit": "Розділений доп.",
+    "paletteSquare": "Квадратний"
+  },
+  "DiffChecker": {
+    "title": "Перевірка різниць",
+    "subtitle": "Порядкове порівняння двох текстів поруч. Все залишається у вашому браузері.",
+    "rowsCount": "{count} рядків",
+    "truncatedWarning": "Показано перші {max} рядків.",
+    "limitExceeded": "Кожна сторона обмежена {max} символами.",
+    "clearBoth": "Очистити обидва",
+    "original": "Оригінал",
+    "modified": "Змінено",
+    "originalPlaceholder": "Вставте оригінальний текст…",
+    "modifiedPlaceholder": "Вставте змінений текст…",
+    "comparisonLabel": "Порівняння поруч",
+    "emptyState": "Введіть текст в обидві панелі для порівняння."
   }
 }

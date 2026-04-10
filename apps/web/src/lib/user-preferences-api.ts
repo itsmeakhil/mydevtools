@@ -1,5 +1,6 @@
 import { auth } from "@/database/firebase"
 import { BACKEND_AUTH_REFRESH_PATH, ensureBackendSession } from "@/lib/backend-auth"
+import { requestLogout } from "@/lib/logout-user"
 
 const BACKEND_BASE_URL: string =
     process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
@@ -119,6 +120,12 @@ async function proxyJsonAuthed<T>(
         await syncApiSessionIfNeeded()
         result = await proxyJson<T>(method, path, body)
     }
+
+    // All retries exhausted — force logout so the user can re-authenticate.
+    if (result.status === 401 || result.status === 403) {
+        requestLogout(result.status === 403 ? "unauthorized" : "session-expired")
+    }
+
     return result
 }
 

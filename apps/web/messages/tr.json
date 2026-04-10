@@ -7,7 +7,20 @@
     "bookmarks": "Yer İmleri",
     "jsonFormatter": "JSON biçimleyici",
     "emailValidator": "E-posta Doğrulayıcı",
-    "nosqlExplorer": "NoSQL Gezgini"
+    "nosqlExplorer": "NoSQL Gezgini",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "jwtDecoder": "JWT Çözücü",
+    "sqlFormatter": "SQL Formatter",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -217,6 +230,54 @@
       "emailValidator": {
         "title": "E-posta Doğrulayıcı",
         "description": "E-posta adreslerini doğrulayın ve kontrol edin."
+      },
+      "jwtDecoder": {
+        "title": "JWT Çözücü",
+        "description": "JWT başlığını, yükünü ve süresini çöz."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
       }
     },
     "tabs": {
@@ -1508,5 +1569,377 @@
     "toastLoginRequired": "Belgeleri kaydetmek için giriş yapın",
     "toastSaved": "Belge kaydedildi",
     "toastSaveFailed": "Belge kaydedilemedi"
+  },
+  "JwtDecoder": {
+    "title": "JWT Çözücü",
+    "subtitle": "Başlık ve yükü inceleyin. Süre, <code>exp</code> claim’ini kullanır. Sunucuya veri gönderilmez; imza doğrulanmaz.",
+    "tokenLabel": "Token",
+    "clear": "Temizle",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Kopyala",
+    "expiryLabel": "Süre (exp)",
+    "signaturePresent": "İmza var (doğrulanmadı)",
+    "noExp": "Payload içinde <code>exp</code> claim’i yok.",
+    "status": {
+      "expired": "Süresi doldu",
+      "valid": "Geçerli"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Yerel",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Düzenlenme (iat)",
+      "notBefore": "Şundan önce değil (nbf)"
+    },
+    "panels": {
+      "header": "Başlık",
+      "payload": "Yük"
+    },
+    "errors": {
+      "empty": "Çözmek için bir JWT yapıştırın.",
+      "segments": "JWT en az başlık ve yük (iki segment) içermelidir.",
+      "base64": "Başlık veya yük base64url çözülemedi."
+    },
+    "relative": {
+      "future": "{n} {unit} içinde",
+      "past": "{n} {unit} önce"
+    },
+    "units": {
+      "second": "{count, plural, one {saniye} other {saniye}}",
+      "minute": "{count, plural, one {dakika} other {dakika}}",
+      "hour": "{count, plural, one {saat} other {saat}}",
+      "day": "{count, plural, one {gün} other {gün}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL Biçimlendirici",
+    "subtitle": "MySQL, PostgreSQL veya SQLite için SQL’i biçimlendir. Tarayıcıda çalışır; hiçbir şey yüklenmez.",
+    "dialectLabel": "Lehçe",
+    "keywordsLabel": "Anahtar kelimeler",
+    "indentLabel": "Girinti",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "BÜYÜK",
+      "lower": "küçük",
+      "preserve": "Koru"
+    },
+    "spaces": "{n} boşluk",
+    "format": "Biçimlendir",
+    "clear": "Temizle",
+    "counter": "{current} / {max} karakter",
+    "inputPanel": "Girdi",
+    "formattedPanel": "Biçimlendirilmiş",
+    "copy": "Kopyala",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "\"Biçimlendir\"e tıkla…",
+    "errors": {
+      "tooLong": "Girdi {max} karakter ile sınırlıdır.",
+      "couldNotFormat": "Bu SQL biçimlendirilemedi."
+    }
+  },
+  "RegexTester": {
+    "title": "Regex Testi",
+    "subtitle": "Metninize karşı canlı JavaScript tarzı regex. Eşleşmeler vurgulanır; hiçbir şey tarayıcınızdan çıkmaz.",
+    "patternLabel": "Desen",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i büyük/küçük harf duyarsız",
+      "m": "m çok satırlı",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(boş)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {eşleşme} other {eşleşme}}",
+    "testTextLabel": "Test metni",
+    "counter": "{current} / {max}",
+    "clear": "Temizle",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Metin {max} karakter ile sınırlıdır.",
+      "invalid": "Geçersiz düzenli ifade.",
+      "runaway": "{max} eşleşmeden sonra durduruldu (olası kontrolden çıkan desen)."
+    }
+  },
+  "TimestampConverter": {
+    "title": "Zaman damgası dönüştürücü",
+    "subtitle": "Unix saniyeleri (≤10 basamak) veya milisaniyeler (daha uzun tam sayılar), <code>ISO-8601</code> ya da tarayıcınızın ayrıştırabildiği dizeler. Her şey yerelde çalışır.",
+    "inputLabel": "Girdi",
+    "placeholder": "1744200000 veya 2025-04-09T12:00:00Z",
+    "now": "Şimdi",
+    "copy": "Kopyala",
+    "hint": "Bir değer yapıştırın veya <strong>Şimdi</strong>ye tıklayın.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Göreli",
+      "human": "Okunabilir"
+    },
+    "fields": {
+      "seconds": "Saniye",
+      "milliseconds": "Milisaniye",
+      "utc": "UTC",
+      "local": "Yerel",
+      "distance": "Mesafe"
+    },
+    "errors": {
+      "empty": "Bir Unix zaman damgası, ISO dizesi veya tarih metni girin.",
+      "invalidNumber": "Geçersiz sayısal zaman damgası.",
+      "outOfRange": "JavaScript Date için aralık dışında.",
+      "couldNotParse": "Unix, ISO-8601 veya tarayıcı tarih dizesi olarak ayrıştırılamadı."
+    }
+  },
+  "CronBuilder": {
+    "title": "Cron ifade oluşturucu",
+    "subtitle": "Standart 5 alanlı cron: <mono>minute hour day month weekday</mono>. Ayrıştırıcı dahili olarak seconds=<code>0</code> kullanır. İfade düzenleyicide isteğe bağlı 6 alan (<mono>sec min hour dom mon dow</mono>) da çalışır.",
+    "tabs": {
+      "builder": "Görsel oluşturucu",
+      "expression": "İfade"
+    },
+    "presetsLabel": "Hazır ayarlar",
+    "fieldsLabel": "Alanlar",
+    "rawExpressionLabel": "Ham ifade",
+    "expressionHint": "Ayrıştırmak ve senkronize etmek için alandan çıkın. {count} {count, plural, one {token} other {token}}.",
+    "currentExpressionLabel": "Mevcut ifade",
+    "copy": "Kopyala",
+    "quickPick": "Hızlı seçim",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Düz metin",
+    "nextRunsLabel": "Sonraki çalıştırmalar (yerel saat)",
+    "fields": {
+      "minute": "Dakika",
+      "hour": "Saat",
+      "dayOfMonth": "Ayın günü",
+      "month": "Ay",
+      "dayOfWeek": "Haftanın günü"
+    },
+    "presets": {
+      "everyMinute": "Her dakika",
+      "every5Minutes": "Her 5 dakika",
+      "every15Minutes": "Her 15 dakika",
+      "everyHour": "Her saat (:00)",
+      "every6Hours": "Her 6 saat",
+      "dailyMidnight": "Günlük (gece yarısı)",
+      "daily0900": "Günlük 09:00",
+      "weekdays0900": "Hafta içi 09:00",
+      "weeklySunday": "Haftalık (Pazar 00:00)",
+      "monthlyFirst": "Aylık (1. gün 00:00)",
+      "yearlyJan1": "Yıllık (1 Oca 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "her dakika"
+      },
+      "hour": {
+        "every": "her saat"
+      },
+      "dom": {
+        "any": "herhangi bir gün",
+        "last": "son gün"
+      },
+      "month": {
+        "every": "her ay"
+      },
+      "dow": {
+        "any": "herhangi bir gün",
+        "weekdays": "hafta içi",
+        "weekend": "hafta sonu"
+      }
+    },
+    "months": {
+      "jan": "Oca",
+      "feb": "Şub",
+      "mar": "Mar",
+      "apr": "Nis",
+      "may": "May",
+      "jun": "Haz",
+      "jul": "Tem",
+      "aug": "Ağu",
+      "sep": "Eyl",
+      "oct": "Eki",
+      "nov": "Kas",
+      "dec": "Ara"
+    },
+    "weekdays": {
+      "sun": "Paz",
+      "mon": "Pzt",
+      "tue": "Sal",
+      "wed": "Çar",
+      "thu": "Per",
+      "fri": "Cum",
+      "sat": "Cmt"
+    },
+    "errors": {
+      "fieldCount": "5 alan (minute hour day month weekday) veya saniyeli 6 alan bekleniyor.",
+      "invalid": "Geçersiz cron ifadesi."
+    }
+  },
+  "Base64": {
+    "title": "Base64 Kodlayıcı / Çözücü",
+    "subtitle": "Metni Base64’e kodlayın veya Base64 dizelerini çözün",
+    "upload": "Yükle",
+    "clear": "Temizle",
+    "modes": {
+      "encode": "Kodla",
+      "decode": "Çöz"
+    },
+    "swapTitle": "Girdi ve çıktıyı değiştir",
+    "panels": {
+      "plainText": "Düz metin",
+      "base64Input": "Base64 girdi",
+      "base64Output": "Base64 çıktı",
+      "decodedText": "Çözülmüş metin"
+    },
+    "placeholders": {
+      "encode": "Base64’e kodlamak için metin girin…",
+      "decode": "Çözmek için Base64 yapıştırın…"
+    },
+    "dropHere": "Dosyayı buraya bırakın",
+    "charCount": "{count} karakter",
+    "download": {
+      "title": "Çıktıyı indir",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Panoya kopyala",
+    "outputPlaceholder": "Çıktı burada görünecek…",
+    "errors": {
+      "invalidBase64": "Geçersiz Base64 dizesi. Girdiyi kontrol edin.",
+      "encodeFailed": "Girdi kodlanamadı."
+    }
+  },
+  "UrlEncode": {
+    "title": "URL Kodlayıcı / Çözücü",
+    "subtitle": "encodeURIComponent / decodeURIComponent (UTF‑8) ile yüzde kodla/çöz",
+    "upload": "Yükle",
+    "clear": "Temizle",
+    "modes": {
+      "encode": "Kodla",
+      "decode": "Çöz"
+    },
+    "swapTitle": "Girdi ve çıktıyı değiştir",
+    "panels": {
+      "plainText": "Düz metin",
+      "encodedInput": "Kodlanmış girdi",
+      "encodedOutput": "Kodlanmış çıktı",
+      "decodedText": "Çözülmüş metin"
+    },
+    "placeholders": {
+      "encode": "Yüzde kodlamak için metin girin…",
+      "decode": "Çözmek için percent-encoded metin yapıştırın…"
+    },
+    "dropHere": "Dosyayı buraya bırakın",
+    "charCount": "{count} karakter",
+    "download": {
+      "title": "Çıktıyı indir",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Panoya kopyala",
+    "outputPlaceholder": "Çıktı burada görünecek…",
+    "errors": {
+      "invalidEncoding": "Geçersiz yüzde kodlama. Eksik % çiftlerini veya hatalı kaçış dizilerini kontrol edin.",
+      "encodeFailed": "Kodlanamadı (girdide geçersiz Unicode)."
+    }
+  },
+  "UuidGenerator": {
+    "title": "UUID / ULID Oluşturucu",
+    "subtitle": "Tarayıcıda RFC 9562 UUID’leri veya ULID’ler oluşturun. Toplu dışa aktarma: çalıştırma başına {max} adede kadar.",
+    "format": "Biçim",
+    "kindHints": {
+      "ulid": "Sıralanabilir, URL için güvenli 26 karakterlik tanımlayıcı",
+      "uuid4": "Rastgele (RFC 9562)",
+      "uuid7": "Zamana göre sıralı, Unix ms + rastgele",
+      "uuid1": "MAC/zaman tabanlı (RFC 9562)",
+      "uuid6": "Yeniden sıralanmış Gregoryen zaman",
+      "uuid3": "Ad + ad alanı için MD5 hash",
+      "uuid5": "Ad + ad alanı için SHA‑1 hash"
+    },
+    "countLabel": "Adet (1–{max})",
+    "nameLabel": "Ad (girdi dizesi)",
+    "namePlaceholder": "örn. my.app/resource",
+    "bulkHint": "Toplu çalıştırmada <code>#0</code>, <code>#1</code>, … eklenir; böylece her ID farklı olur (v3/v5 deterministiktir).",
+    "namespace": "Ad alanı",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Özel UUID"
+    },
+    "customNamespaceLabel": "Ad alanı UUID’si",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Oluştur",
+    "output": "Çıktı",
+    "lines": "{count} satır",
+    "download": {
+      "title": ".txt indir",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Tümünü kopyala",
+    "outputPlaceholder": "\"Oluştur\"a tıklayın…",
+    "errors": {
+      "invalidCustomNamespace": "Özel ad alanı geçerli bir UUID olmalıdır.",
+      "missingName": "UUID v3 ve v5 için ad gereklidir.",
+      "unknown": "ID’ler oluşturulamadı."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Lorem Ipsum Oluşturucu",
+    "subtitle": "Düzenleriniz ve maketleriniz için Latince yer tutucu metin oluşturun.",
+    "paragraphs": "Paragraflar",
+    "sentences": "Cümleler",
+    "words": "Kelimeler",
+    "count": "Sayı",
+    "generate": "Oluştur",
+    "copy": "Kopyala",
+    "startWith": "'Lorem ipsum...' ile başla",
+    "outputPlaceholder": "Çıktı burada görünecek...",
+    "outputType": "Çıktı türü",
+    "bulletList": "Madde işaretli liste",
+    "htmlMarkup": "HTML işaretlemesi",
+    "htmlMarkupHint": "Çıktıyı paragraflara sarın veya madde işareti modu için liste kullanın",
+    "output": "Çıktı",
+    "download": "İndir"
+  },
+  "ColorPicker": {
+    "title": "Renk seçici ve dönüştürücü",
+    "subtitle": "HEX, RGB ve HSL'yi dönüştürün; uyumlu paletler oluşturun. Tüm işlemler tarayıcınızda gerçekleşir.",
+    "nativePicker": "Yerleşik seçici",
+    "chooseColor": "Renk seçin",
+    "eyeDropper": "Göz damlası",
+    "invalidHex": "Geçersiz HEX rengi.",
+    "cssValues": "CSS değerleri",
+    "palettes": "Paletler",
+    "copied": "Kopyalandı",
+    "clickToCopy": "Kopyalamak için tıklayın",
+    "copyAllHex": "Tüm HEX'leri kopyala",
+    "copy": "Kopyala",
+    "copyColor": "{color} kopyala",
+    "paletteShades": "Tonlar",
+    "paletteComplementary": "Tamamlayıcı",
+    "paletteTriadic": "Üçlü",
+    "paletteAnalogous": "Benzer",
+    "paletteSplit": "Bölünmüş tamaml.",
+    "paletteSquare": "Kare"
+  },
+  "DiffChecker": {
+    "title": "Fark denetleyici",
+    "subtitle": "İki metnin satır satır yan yana karşılaştırması. Her şey tarayıcınızda kalır.",
+    "rowsCount": "{count} satır",
+    "truncatedWarning": "İlk {max} satır gösteriliyor.",
+    "limitExceeded": "Her taraf {max} karakterle sınırlıdır.",
+    "clearBoth": "İkisini de temizle",
+    "original": "Orijinal",
+    "modified": "Değiştirilmiş",
+    "originalPlaceholder": "Orijinal metni yapıştırın…",
+    "modifiedPlaceholder": "Değiştirilmiş metni yapıştırın…",
+    "comparisonLabel": "Yan yana karşılaştırma",
+    "emptyState": "Karşılaştırmak için her iki panele de metin girin."
   }
 }

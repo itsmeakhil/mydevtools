@@ -7,6 +7,20 @@ import {
   IconDatabase,
   IconBookmark,
   IconMailCheck,
+  IconRocket,
+  IconShield,
+  IconCode,
+  IconTransform,
+  IconLink,
+  IconFingerprint,
+  IconQuote,
+  IconPalette,
+  IconKey,
+  IconRegex,
+  IconCalendarTime,
+  IconRepeat,
+  IconSql,
+  IconGitCompare,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -18,51 +32,38 @@ export const sidebarData: SidebarData = {
   },
   navGroups: [
     {
-      title: 'Apps',
+      title: 'Productivity',
+      icon: IconRocket,
       items: [
         {
           title: 'Tasks',
           url: '/app/to-do',
           icon: IconChecklist,
-          description: 'Manage your to-do lists efficiently.'
+          description: 'Manage your to-do lists efficiently.',
         },
         {
           title: 'Notes',
           url: '/app/notes',
           icon: IconNotes,
-          description: 'Capture ideas and organize your thoughts.'
-        },
-        {
-          title: 'Password Manager',
-          url: '/app/password-manager',
-          icon: IconLock,
-          description: 'Securely store and manage your passwords.'
+          description: 'Capture ideas and organize your thoughts.',
         },
         {
           title: 'Bookmarks',
           url: '/app/bookmarks',
           icon: IconBookmark,
-          description: 'Manage and organize your bookmarks.'
+          description: 'Manage and organize your bookmarks.',
         },
+      ],
+    },
+    {
+      title: 'Security',
+      icon: IconShield,
+      items: [
         {
-          title: 'JSON Formatter',
-          url: '/app/json-formatter',
-          icon: IconJson,
-          description: 'Format, validate, and edit JSON data.',
-        },
-        {
-          title: 'API Client',
-          url: '/app/api-client',
-          icon: IconNetwork,
-          description: 'Test and debug HTTP requests.',
-          hiddenOnMobile: true
-        },
-        {
-          title: 'NoSQL Explorer',
-          url: '/app/nosql-explorer',
-          icon: IconDatabase,
-          description: 'Explore MongoDB databases.',
-          hiddenOnMobile: true
+          title: 'Password Manager',
+          url: '/app/password-manager',
+          icon: IconLock,
+          description: 'Securely store and manage your passwords.',
         },
         {
           title: 'Email Validator',
@@ -70,13 +71,99 @@ export const sidebarData: SidebarData = {
           icon: IconMailCheck,
           description: 'Verify and validate email addresses.',
         },
-
+        {
+          title: 'JWT Decoder',
+          url: '/app/jwt-decoder',
+          icon: IconKey,
+          description: 'Decode JWT header, payload, and expiry.',
+        },
       ],
     },
-
-
-
-
-
+    {
+      title: 'Development',
+      icon: IconCode,
+      items: [
+        {
+          title: 'JSON Formatter',
+          url: '/app/json-formatter',
+          icon: IconJson,
+          description: 'Format, validate, and edit JSON data.',
+        },
+        {
+          title: 'SQL Formatter',
+          url: '/app/sql-formatter',
+          icon: IconSql,
+          description: 'Format SQL for MySQL, PostgreSQL, and SQLite.',
+        },
+        {
+          title: 'Diff checker',
+          url: '/app/diff-checker',
+          icon: IconGitCompare,
+          description: 'Side-by-side line diff of two texts.',
+        },
+        {
+          title: 'Regex Tester',
+          url: '/app/regex-tester',
+          icon: IconRegex,
+          description: 'Test regex with live match highlighting.',
+        },
+        {
+          title: 'Timestamp Converter',
+          url: '/app/timestamp-converter',
+          icon: IconCalendarTime,
+          description: 'Unix, ISO, and relative time conversion.',
+        },
+        {
+          title: 'Cron Builder',
+          url: '/app/cron-builder',
+          icon: IconRepeat,
+          description: 'Visual cron builder, presets, and parser.',
+        },
+        {
+          title: 'Base64 Encoder',
+          url: '/app/base64',
+          icon: IconTransform,
+          description: 'Encode and decode Base64 strings.',
+        },
+        {
+          title: 'URL Encoder',
+          url: '/app/url-encode',
+          icon: IconLink,
+          description: 'Percent-encode and decode URL components.',
+        },
+        {
+          title: 'UUID / ULID',
+          url: '/app/uuid-generator',
+          icon: IconFingerprint,
+          description: 'Generate UUIDs and ULIDs with bulk export.',
+        },
+        {
+          title: 'Lorem Ipsum',
+          url: '/app/lorem-ipsum',
+          icon: IconQuote,
+          description: 'Generate placeholder Latin text for layouts and mockups.',
+        },
+        {
+          title: 'Color Picker',
+          url: '/app/color-picker',
+          icon: IconPalette,
+          description: 'Convert HEX, RGB, HSL and explore color palettes.',
+        },
+        {
+          title: 'API Client',
+          url: '/app/api-client',
+          icon: IconNetwork,
+          description: 'Test and debug HTTP requests.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'NoSQL Explorer',
+          url: '/app/nosql-explorer',
+          icon: IconDatabase,
+          description: 'Explore MongoDB databases.',
+          hiddenOnMobile: true,
+        },
+      ],
+    },
   ],
 }

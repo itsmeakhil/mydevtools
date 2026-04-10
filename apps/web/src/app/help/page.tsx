@@ -13,6 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { sidebarData } from '@/components/sidebar/data/sidebar-data'
 import { cn } from '@/lib/utils'
 import { useTranslations } from 'next-intl'
+import { getToolMessageKey } from '@/lib/tool-i18n'
 
 const appItems = sidebarData.navGroups.flatMap((g) => g.items)
 
@@ -86,6 +87,8 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 
 export default function HelpPage() {
   const t = useTranslations('Help')
+  const tNav = useTranslations('Navigation')
+  const tTools = useTranslations('Dashboard.tools')
 
   return (
     <div className="flex-1 space-y-6 p-6 pb-24 md:pb-8 max-w-5xl mx-auto w-full pt-16 md:pt-8 bg-background/50">
@@ -172,6 +175,11 @@ export default function HelpPage() {
               const url = typeof item.url === 'string' ? item.url : String(item.url)
               const Icon = item.icon
               const extra = appDetails[url]
+              const toolKey = getToolMessageKey(url)
+              const cardTitle = toolKey ? tNav(toolKey as never) : item.title
+              const cardDescription = toolKey
+                ? tTools(`${toolKey}.description` as never)
+                : item.description
               return (
                 <Card
                   key={url}
@@ -186,7 +194,7 @@ export default function HelpPage() {
                             aria-hidden
                           />
                         )}
-                        <CardTitle className="text-base">{item.title}</CardTitle>
+                        <CardTitle className="text-base">{cardTitle}</CardTitle>
                       </div>
                       <Link
                         href={url}
@@ -199,7 +207,7 @@ export default function HelpPage() {
                         <ExternalLink className="h-3 w-3" aria-hidden />
                       </Link>
                     </div>
-                    <CardDescription>{item.description}</CardDescription>
+                    <CardDescription>{cardDescription}</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3 text-sm text-muted-foreground">
                     {extra ? (

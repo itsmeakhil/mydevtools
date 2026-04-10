@@ -7,7 +7,20 @@
     "bookmarks": "Boekmerke",
     "jsonFormatter": "JSON-formateerder",
     "emailValidator": "E-posvalidasie",
-    "nosqlExplorer": "NoSQL-verkenner"
+    "nosqlExplorer": "NoSQL-verkenner",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "jwtDecoder": "JWT-dekodeerder",
+    "sqlFormatter": "SQL Formatter",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -217,6 +230,54 @@
       "emailValidator": {
         "title": "E-posvalidator",
         "description": "Verifieer en valideer e-posadresse."
+      },
+      "jwtDecoder": {
+        "title": "JWT-dekodeerder",
+        "description": "Dekodeer JWT-kop, payload en vervaldatum."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
       }
     },
     "tabs": {
@@ -1508,5 +1569,377 @@
     "toastLoginRequired": "Meld asseblief aan om dokumente te stoor",
     "toastSaved": "Dokument gestoor",
     "toastSaveFailed": "Kon nie dokument stoor nie"
+  },
+  "JwtDecoder": {
+    "title": "JWT-dekodeerder",
+    "subtitle": "Inspekteer header en payload. Vervaldatum gebruik die <code>exp</code>-eis. Niks word na ’n bediener gestuur nie; die handtekening word nie geverifieer nie.",
+    "tokenLabel": "Token",
+    "clear": "Vee uit",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Kopieer",
+    "expiryLabel": "Verval (exp)",
+    "signaturePresent": "Handtekening teenwoordig (nie geverifieer nie)",
+    "noExp": "Geen <code>exp</code>-eis in die payload nie.",
+    "status": {
+      "expired": "Verval",
+      "valid": "Geldig"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Plaaslik",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Uitgereik (iat)",
+      "notBefore": "Nie voor (nbf)"
+    },
+    "panels": {
+      "header": "Header",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Plak ’n JWT om te dekodeer.",
+      "segments": "’n JWT benodig minstens ’n header en payload (twee segmente).",
+      "base64": "Kon nie header of payload base64url-dekodeer nie."
+    },
+    "relative": {
+      "future": "oor {n} {unit}",
+      "past": "{n} {unit} gelede"
+    },
+    "units": {
+      "second": "{count, plural, one {sekonde} other {sekondes}}",
+      "minute": "{count, plural, one {minuut} other {minute}}",
+      "hour": "{count, plural, one {uur} other {ure}}",
+      "day": "{count, plural, one {dag} other {dae}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL-formateerder",
+    "subtitle": "Formateer SQL vir MySQL, PostgreSQL of SQLite. Loop in jou blaaier; niks word opgelaai nie.",
+    "dialectLabel": "Dialek",
+    "keywordsLabel": "Sleutelwoorde",
+    "indentLabel": "Inkeep",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "HOOFLETTERS",
+      "lower": "kleinletters",
+      "preserve": "Behou"
+    },
+    "spaces": "{n} spasies",
+    "format": "Formateer",
+    "clear": "Vee uit",
+    "counter": "{current} / {max} karakters",
+    "inputPanel": "Invoer",
+    "formattedPanel": "Geformateer",
+    "copy": "Kopieer",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Klik \"Formateer\"…",
+    "errors": {
+      "tooLong": "Invoer is beperk tot {max} karakters.",
+      "couldNotFormat": "Kon nie hierdie SQL formateer nie."
+    }
+  },
+  "RegexTester": {
+    "title": "Regex-toetser",
+    "subtitle": "JavaScript-styl regex teen jou teks, lewendig. Treffer word gemerk; niks verlaat jou blaaier nie.",
+    "patternLabel": "Patroon",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g globaal",
+      "i": "i ignoreer hoof-/kleinletters",
+      "m": "m multireël",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(leeg)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {treffer} other {treffers}}",
+    "testTextLabel": "Toetstekst",
+    "counter": "{current} / {max}",
+    "clear": "Vee uit",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Teks is beperk tot {max} karakters.",
+      "invalid": "Ongeldige regex.",
+      "runaway": "Gestop ná {max} treffers (moontlike wegholpatroon)."
+    }
+  },
+  "TimestampConverter": {
+    "title": "Tydstempel-omsetter",
+    "subtitle": "Unix-sekondes (≤10 syfers) of millisekondes (langer heelgetalle), <code>ISO-8601</code> of stringe wat jou blaaier kan ontleed. Alles loop plaaslik.",
+    "inputLabel": "Invoer",
+    "placeholder": "1744200000 of 2025-04-09T12:00:00Z",
+    "now": "Nou",
+    "copy": "Kopieer",
+    "hint": "Plak ’n waarde of klik <strong>Nou</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relatief",
+      "human": "Leesbaar"
+    },
+    "fields": {
+      "seconds": "Sekondes",
+      "milliseconds": "Millisekondes",
+      "utc": "UTC",
+      "local": "Plaaslik",
+      "distance": "Afstand"
+    },
+    "errors": {
+      "empty": "Voer ’n Unix-tydstempel, ISO-string of datumteks in.",
+      "invalidNumber": "Ongeldige numeriese tydstempel.",
+      "outOfRange": "Buite omvang vir JavaScript Date.",
+      "couldNotParse": "Kon nie as Unix, ISO-8601 of blaaier-datumstring ontleed nie."
+    }
+  },
+  "CronBuilder": {
+    "title": "Cron-uitdrukbouer",
+    "subtitle": "Standaard 5-veld cron: <mono>minute hour day month weekday</mono>. Die ontleder gebruik seconds=<code>0</code> intern. Opsionele 6-veld (<mono>sec min hour dom mon dow</mono>) werk in die uitdrukredigeerder.",
+    "tabs": {
+      "builder": "Visuele bouer",
+      "expression": "Uitdrukking"
+    },
+    "presetsLabel": "Voorafinstellings",
+    "fieldsLabel": "Velde",
+    "rawExpressionLabel": "Rou uitdrukking",
+    "expressionHint": "Verlaat die veld om te ontleed en die bouer te sinkroniseer. {count} {count, plural, one {token} other {tokens}}.",
+    "currentExpressionLabel": "Huidige uitdrukking",
+    "copy": "Kopieer",
+    "quickPick": "Vinnige keuse",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Gewone taal",
+    "nextRunsLabel": "Volgende lopies (plaaslike tyd)",
+    "fields": {
+      "minute": "Minuut",
+      "hour": "Uur",
+      "dayOfMonth": "Dag van maand",
+      "month": "Maand",
+      "dayOfWeek": "Dag van week"
+    },
+    "presets": {
+      "everyMinute": "Elke minuut",
+      "every5Minutes": "Elke 5 minute",
+      "every15Minutes": "Elke 15 minute",
+      "everyHour": "Elke uur (by :00)",
+      "every6Hours": "Elke 6 uur",
+      "dailyMidnight": "Daagliks om middernag",
+      "daily0900": "Daagliks om 09:00",
+      "weekdays0900": "Weekdae om 09:00",
+      "weeklySunday": "Weekliks (Sondag 00:00)",
+      "monthlyFirst": "Maandeliks (1ste 00:00)",
+      "yearlyJan1": "Jaarliks (1 Jan 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "elke minuut"
+      },
+      "hour": {
+        "every": "elke uur"
+      },
+      "dom": {
+        "any": "enige dag",
+        "last": "laaste dag"
+      },
+      "month": {
+        "every": "elke maand"
+      },
+      "dow": {
+        "any": "enige weekdag",
+        "weekdays": "weekdae",
+        "weekend": "naweek"
+      }
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mrt",
+      "apr": "Apr",
+      "may": "Mei",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Okt",
+      "nov": "Nov",
+      "dec": "Des"
+    },
+    "weekdays": {
+      "sun": "So",
+      "mon": "Ma",
+      "tue": "Di",
+      "wed": "Wo",
+      "thu": "Do",
+      "fri": "Vr",
+      "sat": "Sa"
+    },
+    "errors": {
+      "fieldCount": "Verwag 5 velde (minute hour day month weekday) of 6 insluitend sekondes.",
+      "invalid": "Ongeldige cron-uitdrukking."
+    }
+  },
+  "Base64": {
+    "title": "Base64-enkodeerder / -dekodeerder",
+    "subtitle": "Enkodeer teks na Base64 of dekodeer Base64-stringe",
+    "upload": "Laai op",
+    "clear": "Vee uit",
+    "modes": {
+      "encode": "Enkodeer",
+      "decode": "Dekodeer"
+    },
+    "swapTitle": "Ruil invoer en uitvoer om",
+    "panels": {
+      "plainText": "Gewone teks",
+      "base64Input": "Base64-invoer",
+      "base64Output": "Base64-uitvoer",
+      "decodedText": "Gedekodeerde teks"
+    },
+    "placeholders": {
+      "encode": "Voer teks in om na Base64 te enkodeer…",
+      "decode": "Plak Base64-string om te dekodeer…"
+    },
+    "dropHere": "Laat lêer hier val",
+    "charCount": "{count} karakters",
+    "download": {
+      "title": "Laai uitvoer af",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Kopieer na knipbord",
+    "outputPlaceholder": "Uitvoer sal hier verskyn…",
+    "errors": {
+      "invalidBase64": "Ongeldige Base64-string. Kontroleer invoer.",
+      "encodeFailed": "Kon nie invoer enkodeer nie."
+    }
+  },
+  "UrlEncode": {
+    "title": "URL-enkodeerder / -dekodeerder",
+    "subtitle": "Persentasie-enkodeer/-dekodeer met encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Laai op",
+    "clear": "Vee uit",
+    "modes": {
+      "encode": "Enkodeer",
+      "decode": "Dekodeer"
+    },
+    "swapTitle": "Ruil invoer en uitvoer om",
+    "panels": {
+      "plainText": "Gewone teks",
+      "encodedInput": "Gekodeerde invoer",
+      "encodedOutput": "Gekodeerde uitvoer",
+      "decodedText": "Gedekodeerde teks"
+    },
+    "placeholders": {
+      "encode": "Voer teks in om persentasie te enkodeer…",
+      "decode": "Plak persentasie-gekodeerde teks om te dekodeer…"
+    },
+    "dropHere": "Laat lêer hier val",
+    "charCount": "{count} karakters",
+    "download": {
+      "title": "Laai uitvoer af",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Kopieer na knipbord",
+    "outputPlaceholder": "Uitvoer sal hier verskyn…",
+    "errors": {
+      "invalidEncoding": "Ongeldige persentasie-enkodering. Kontroleer onvolledige %‑pare of escapes.",
+      "encodeFailed": "Kon nie enkodeer nie (ongeldige Unicode in invoer)."
+    }
+  },
+  "UuidGenerator": {
+    "title": "UUID / ULID-generator",
+    "subtitle": "Genereer RFC 9562-UUID’s of ULID’s in die blaaier. Grootmaat-uitvoer tot {max} per lopie.",
+    "format": "Formaat",
+    "kindHints": {
+      "ulid": "Sorteerbare, URL-veilige 26-karakter identifiseerder",
+      "uuid4": "Ewekansig (RFC 9562)",
+      "uuid7": "Tyd-georden, Unix ms + ewekansig",
+      "uuid1": "MAC/tyd-gebaseer (RFC 9562)",
+      "uuid6": "Herordende Gregoriaanse tyd-gebaseer",
+      "uuid3": "MD5-hash van naam + naamruimte",
+      "uuid5": "SHA‑1-hash van naam + naamruimte"
+    },
+    "countLabel": "Aantal (1–{max})",
+    "nameLabel": "Naam (invoerstring)",
+    "namePlaceholder": "bv. my.app/resource",
+    "bulkHint": "Grootmaat voeg <code>#0</code>, <code>#1</code>, … by sodat elke ID uniek is (v3/v5 is deterministies).",
+    "namespace": "Naamruimte",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Pasgemaakte UUID"
+    },
+    "customNamespaceLabel": "Naamruimte-UUID",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Genereer",
+    "output": "Uitvoer",
+    "lines": "{count} lyne",
+    "download": {
+      "title": "Laai .txt af",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Kopieer alles",
+    "outputPlaceholder": "Klik \"Genereer\"…",
+    "errors": {
+      "invalidCustomNamespace": "Pasgemaakte naamruimte moet ’n geldige UUID wees.",
+      "missingName": "Naam is vereis vir UUID v3 en v5.",
+      "unknown": "Kon nie ID’s genereer nie."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Lorem Ipsum Generator",
+    "subtitle": "Genereer plaasvervanger Latynse teks vir jou uitlegte en prototipes.",
+    "paragraphs": "Paragrawe",
+    "sentences": "Sinne",
+    "words": "Woorde",
+    "count": "Aantal",
+    "generate": "Genereer",
+    "copy": "Kopieer",
+    "startWith": "Begin met 'Lorem ipsum...'",
+    "outputPlaceholder": "Uitset sal hier verskyn...",
+    "outputType": "Uitsettype",
+    "bulletList": "Kolletjielys",
+    "htmlMarkup": "HTML-opmaak",
+    "htmlMarkupHint": "Omhul uitset in paragrawe of gebruik 'n lys vir kolletjiemodus",
+    "output": "Uitset",
+    "download": "Laai af"
+  },
+  "ColorPicker": {
+    "title": "Kleurkeuser en omskakelaar",
+    "subtitle": "Skakel HEX, RGB en HSL om; bou harmoniese palette. Alle verwerking bly in jou blaaier.",
+    "nativePicker": "Inheemse keuser",
+    "chooseColor": "Kies kleur",
+    "eyeDropper": "Oogdruppelaar",
+    "invalidHex": "Ongeldige HEX-kleur.",
+    "cssValues": "CSS-waardes",
+    "palettes": "Palette",
+    "copied": "Gekopieer",
+    "clickToCopy": "Klik om te kopieer",
+    "copyAllHex": "Kopieer alle HEX",
+    "copy": "Kopieer",
+    "copyColor": "Kopieer {color}",
+    "paletteShades": "Skakerings",
+    "paletteComplementary": "Komplementêr",
+    "paletteTriadic": "Triadies",
+    "paletteAnalogous": "Analoog",
+    "paletteSplit": "Gesplete komp.",
+    "paletteSquare": "Vierkantig"
+  },
+  "DiffChecker": {
+    "title": "Verskilvindeling",
+    "subtitle": "Reël-vir-reël-vergelyking van twee tekste langs mekaar. Alles bly in jou blaaier.",
+    "rowsCount": "{count} rye",
+    "truncatedWarning": "Wys eerste {max} rye.",
+    "limitExceeded": "Elke kant is beperk tot {max} karakters.",
+    "clearBoth": "Verwyder albei",
+    "original": "Oorspronklik",
+    "modified": "Gewysig",
+    "originalPlaceholder": "Plak oorspronklike teks…",
+    "modifiedPlaceholder": "Plak gewysigde teks…",
+    "comparisonLabel": "Sy-aan-sy vergelyking",
+    "emptyState": "Voer teks in beide panele in om te vergelyk."
   }
 }

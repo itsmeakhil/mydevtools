@@ -37,6 +37,56 @@ export const toolsMetadata: Record<string, {
         title: 'NoSQL Explorer - Manage MongoDB',
         description: 'Explore and manage your MongoDB databases directly from your browser.',
         keywords: ['nosql explorer', 'mongodb manager', 'database explorer', 'mongo ui']
+    },
+    'url-encode': {
+        title: 'URL Encoder / Decoder - Percent Encoding',
+        description: 'Percent-encode or decode text for query strings and URI components with UTF-8.',
+        keywords: ['url encode', 'url decode', 'percent encode', 'uri encode', 'encodeURIComponent']
+    },
+    'uuid-generator': {
+        title: 'UUID / ULID Generator',
+        description: 'Generate UUID v1–v7 or ULIDs with namespace options and bulk copy or download.',
+        keywords: ['uuid generator', 'ulid generator', 'guid', 'uuid v4', 'uuid v7', 'bulk uuid']
+    },
+    'lorem-ipsum': {
+        title: 'Lorem Ipsum Generator',
+        description: 'Generate classical Lorem Ipsum as paragraphs, sentences, words, or lists. Export plain text or HTML.',
+        keywords: ['lorem ipsum', 'placeholder text', 'dummy text', 'latin filler', 'mockup text']
+    },
+    'color-picker': {
+        title: 'Color Picker & HEX RGB HSL Converter',
+        description: 'Pick colors, convert between HEX, RGB, and HSL, and copy CSS. Explore harmonic palettes in the browser.',
+        keywords: ['color picker', 'hex to rgb', 'rgb to hsl', 'color converter', 'palette generator']
+    },
+    'jwt-decoder': {
+        title: 'JWT Decoder - Header, Payload & Expiry',
+        description: 'Decode JSON Web Tokens in the browser: header, payload, exp, iat, and nbf. No server upload; signature not verified.',
+        keywords: ['jwt decode', 'jwt debugger', 'json web token', 'jwt exp', 'jwt payload']
+    },
+    'regex-tester': {
+        title: 'Regex Tester - Live Match Highlighting',
+        description: 'Test JavaScript regular expressions with live highlights, flags (g, i, m, s, u), and match counts. Client-side only.',
+        keywords: ['regex tester', 'regular expression', 'javascript regex', 'regex debug', 'pattern match']
+    },
+    'timestamp-converter': {
+        title: 'Timestamp Converter - Unix, ISO & Relative',
+        description: 'Convert Unix seconds or milliseconds, ISO-8601, and date strings. See UTC, local, and relative time with one-click copy.',
+        keywords: ['unix timestamp', 'epoch converter', 'iso 8601', 'relative time', 'date converter']
+    },
+    'cron-builder': {
+        title: 'Cron Expression Builder & Parser',
+        description: 'Build 5-field cron jobs with presets and quick picks, edit raw expressions, read plain-English schedules, and preview next run times in the browser.',
+        keywords: ['cron builder', 'crontab', 'cron expression', 'schedule parser', 'cron parser']
+    },
+    'sql-formatter': {
+        title: 'SQL Formatter - MySQL, PostgreSQL, SQLite',
+        description: 'Pretty-print SQL in the browser with dialect-aware formatting for MySQL, PostgreSQL, and SQLite.',
+        keywords: ['sql formatter', 'pretty print sql', 'postgresql format', 'mysql sql', 'sqlite sql']
+    },
+    'diff-checker': {
+        title: 'Text Diff Checker - Side-by-Side Compare',
+        description: 'Compare two texts line by side with additions and removals highlighted. Runs entirely in your browser.',
+        keywords: ['text diff', 'diff checker', 'side by side compare', 'line diff', 'text compare']
     }
 }
 

@@ -7,7 +7,20 @@
     "bookmarks": "نشانک ها",
     "jsonFormatter": "قالب‌ده JSON",
     "emailValidator": "اعتبار سنجی ایمیل",
-    "nosqlExplorer": "NoSQL Explorer"
+    "nosqlExplorer": "NoSQL Explorer",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "jwtDecoder": "رمزگشای JWT",
+    "sqlFormatter": "SQL Formatter",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -217,6 +230,54 @@
       "emailValidator": {
         "title": "اعتبار سنجی ایمیل",
         "description": "آدرس های ایمیل را تأیید و تأیید کنید."
+      },
+      "jwtDecoder": {
+        "title": "رمزگشای JWT",
+        "description": "هدر، بار داده و زمان انقضای JWT را رمزگشایی کنید."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
       }
     },
     "tabs": {
@@ -1508,5 +1569,377 @@
     "toastLoginRequired": "برای ذخیره اسناد وارد شوید",
     "toastSaved": "سند ذخیره شد",
     "toastSaveFailed": "ذخیره سند ناموفق بود"
+  },
+  "JwtDecoder": {
+    "title": "رمزگشای JWT",
+    "subtitle": "سربرگ و بار داده را بررسی کنید. انقضا از ادعای <code>exp</code> استفاده می‌کند. چیزی به سرور ارسال نمی‌شود؛ امضا تأیید نمی‌شود.",
+    "tokenLabel": "توکن",
+    "clear": "پاک کردن",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "کپی",
+    "expiryLabel": "انقضا (exp)",
+    "signaturePresent": "امضا موجود است (تأیید نمی‌شود)",
+    "noExp": "ادعای <code>exp</code> در بار داده وجود ندارد.",
+    "status": {
+      "expired": "منقضی شده",
+      "valid": "معتبر"
+    },
+    "fields": {
+      "unix": "یونیکس",
+      "local": "محلی",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "زمان صدور (iat)",
+      "notBefore": "نه قبل از (nbf)"
+    },
+    "panels": {
+      "header": "سربرگ",
+      "payload": "بار داده"
+    },
+    "errors": {
+      "empty": "یک JWT برای رمزگشایی جای‌گذاری کنید.",
+      "segments": "JWT باید حداقل سربرگ و بار داده داشته باشد (دو بخش).",
+      "base64": "رمزگشایی base64url سربرگ یا بار داده ممکن نبود."
+    },
+    "relative": {
+      "future": "در {n} {unit}",
+      "past": "{n} {unit} پیش"
+    },
+    "units": {
+      "second": "{count, plural, one {ثانیه} other {ثانیه}}",
+      "minute": "{count, plural, one {دقیقه} other {دقیقه}}",
+      "hour": "{count, plural, one {ساعت} other {ساعت}}",
+      "day": "{count, plural, one {روز} other {روز}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "فرمت‌کننده SQL",
+    "subtitle": "SQL را برای MySQL، PostgreSQL یا SQLite مرتب کنید. در مرورگر اجرا می‌شود؛ چیزی آپلود نمی‌شود.",
+    "dialectLabel": "گویش",
+    "keywordsLabel": "کلیدواژه‌ها",
+    "indentLabel": "تورفتگی",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "حروف بزرگ",
+      "lower": "حروف کوچک",
+      "preserve": "حفظ"
+    },
+    "spaces": "{n} فاصله",
+    "format": "فرمت",
+    "clear": "پاک کردن",
+    "counter": "{current} / {max} نویسه",
+    "inputPanel": "ورودی",
+    "formattedPanel": "فرمت‌شده",
+    "copy": "کپی",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "روی \"فرمت\" کلیک کنید…",
+    "errors": {
+      "tooLong": "ورودی به {max} نویسه محدود است.",
+      "couldNotFormat": "فرمت‌کردن این SQL ممکن نبود."
+    }
+  },
+  "RegexTester": {
+    "title": "آزمایشگر Regex",
+    "subtitle": "Regex به سبک JavaScript به‌صورت زنده روی متن شما. تطبیق‌ها هایلایت می‌شوند و چیزی از مرورگر خارج نمی‌شود.",
+    "patternLabel": "الگو",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g سراسری",
+      "i": "i بدون حساسیت به حروف",
+      "m": "m چندخطی",
+      "s": "s dotAll",
+      "u": "u یونیکد"
+    },
+    "emptyPattern": "(خالی)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {تطبیق} other {تطبیق‌ها}}",
+    "testTextLabel": "متن آزمایش",
+    "counter": "{current} / {max}",
+    "clear": "پاک کردن",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "متن به {max} نویسه محدود است.",
+      "invalid": "عبارت باقاعده نامعتبر است.",
+      "runaway": "پس از {max} تطبیق متوقف شد (احتمال الگوی runaway)."
+    }
+  },
+  "TimestampConverter": {
+    "title": "مبدل تایم‌استمپ",
+    "subtitle": "ثانیهٔ یونیکس (≤۱۰ رقم) یا میلی‌ثانیه (اعداد بلندتر)، <code>ISO-8601</code> یا رشته‌هایی که مرورگر می‌تواند تحلیل کند. همه چیز محلی اجرا می‌شود.",
+    "inputLabel": "ورودی",
+    "placeholder": "1744200000 یا 2025-04-09T12:00:00Z",
+    "now": "اکنون",
+    "copy": "کپی",
+    "hint": "یک مقدار بچسبانید یا روی <strong>اکنون</strong> کلیک کنید.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "نسبی",
+      "human": "خوانا"
+    },
+    "fields": {
+      "seconds": "ثانیه",
+      "milliseconds": "میلی‌ثانیه",
+      "utc": "UTC",
+      "local": "محلی",
+      "distance": "فاصله"
+    },
+    "errors": {
+      "empty": "یک تایم‌استمپ یونیکس، رشتهٔ ISO یا متن تاریخ وارد کنید.",
+      "invalidNumber": "تایم‌استمپ عددی نامعتبر است.",
+      "outOfRange": "خارج از محدودهٔ JavaScript Date.",
+      "couldNotParse": "به‌عنوان Unix، ISO-8601 یا تاریخ قابل‌تحلیل مرورگر قابل پردازش نیست."
+    }
+  },
+  "CronBuilder": {
+    "title": "سازندهٔ عبارت Cron",
+    "subtitle": "کرون استاندارد ۵ فیلدی: <mono>minute hour day month weekday</mono>. مفسر به‌صورت داخلی seconds=<code>0</code> را استفاده می‌کند. فرمت اختیاری ۶ فیلدی (<mono>sec min hour dom mon dow</mono>) در ویرایشگر عبارت کار می‌کند.",
+    "tabs": {
+      "builder": "سازندهٔ بصری",
+      "expression": "عبارت"
+    },
+    "presetsLabel": "پیش‌فرض‌ها",
+    "fieldsLabel": "فیلدها",
+    "rawExpressionLabel": "عبارت خام",
+    "expressionHint": "برای تجزیه و همگام‌سازی، از فیلد خارج شوید. {count} {count, plural, one {توکن} other {توکن}}.",
+    "currentExpressionLabel": "عبارت فعلی",
+    "copy": "کپی",
+    "quickPick": "انتخاب سریع",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "توضیح متنی",
+    "nextRunsLabel": "اجراهای بعدی (زمان محلی)",
+    "fields": {
+      "minute": "دقیقه",
+      "hour": "ساعت",
+      "dayOfMonth": "روز ماه",
+      "month": "ماه",
+      "dayOfWeek": "روز هفته"
+    },
+    "presets": {
+      "everyMinute": "هر دقیقه",
+      "every5Minutes": "هر ۵ دقیقه",
+      "every15Minutes": "هر ۱۵ دقیقه",
+      "everyHour": "هر ساعت (در :00)",
+      "every6Hours": "هر ۶ ساعت",
+      "dailyMidnight": "روزانه در نیمه‌شب",
+      "daily0900": "روزانه در 09:00",
+      "weekdays0900": "روزهای کاری در 09:00",
+      "weeklySunday": "هفتگی (یکشنبه 00:00)",
+      "monthlyFirst": "ماهانه (روز 1، 00:00)",
+      "yearlyJan1": "سالانه (1 ژانویه 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "هر دقیقه"
+      },
+      "hour": {
+        "every": "هر ساعت"
+      },
+      "dom": {
+        "any": "هر روز",
+        "last": "آخرین روز"
+      },
+      "month": {
+        "every": "هر ماه"
+      },
+      "dow": {
+        "any": "هر روز",
+        "weekdays": "روزهای کاری",
+        "weekend": "آخر هفته"
+      }
+    },
+    "months": {
+      "jan": "ژان",
+      "feb": "فور",
+      "mar": "مار",
+      "apr": "آپر",
+      "may": "مه",
+      "jun": "ژوئن",
+      "jul": "ژوئیه",
+      "aug": "اوت",
+      "sep": "سپت",
+      "oct": "اکت",
+      "nov": "نوا",
+      "dec": "دسا"
+    },
+    "weekdays": {
+      "sun": "یک",
+      "mon": "دو",
+      "tue": "سه",
+      "wed": "چه",
+      "thu": "پنج",
+      "fri": "جمع",
+      "sat": "شنبه"
+    },
+    "errors": {
+      "fieldCount": "انتظار می‌رود ۵ فیلد (minute hour day month weekday) یا ۶ فیلد با ثانیه باشد.",
+      "invalid": "عبارت cron نامعتبر است."
+    }
+  },
+  "Base64": {
+    "title": "رمزگذار / رمزگشای Base64",
+    "subtitle": "متن را به Base64 رمزگذاری کنید یا رشته‌های Base64 را رمزگشایی کنید",
+    "upload": "آپلود",
+    "clear": "پاک کردن",
+    "modes": {
+      "encode": "رمزگذاری",
+      "decode": "رمزگشایی"
+    },
+    "swapTitle": "جابه‌جایی ورودی و خروجی",
+    "panels": {
+      "plainText": "متن ساده",
+      "base64Input": "ورودی Base64",
+      "base64Output": "خروجی Base64",
+      "decodedText": "متن رمزگشایی‌شده"
+    },
+    "placeholders": {
+      "encode": "متن را برای رمزگذاری Base64 وارد کنید…",
+      "decode": "رشتهٔ Base64 را برای رمزگشایی بچسبانید…"
+    },
+    "dropHere": "فایل را اینجا رها کنید",
+    "charCount": "{count} نویسه",
+    "download": {
+      "title": "دانلود خروجی",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "کپی در کلیپ‌بورد",
+    "outputPlaceholder": "خروجی اینجا نمایش داده می‌شود…",
+    "errors": {
+      "invalidBase64": "رشتهٔ Base64 نامعتبر است. ورودی را بررسی کنید.",
+      "encodeFailed": "رمزگذاری ورودی ناموفق بود."
+    }
+  },
+  "UrlEncode": {
+    "title": "رمزگذار / رمزگشای URL",
+    "subtitle": "رمزگذاری/رمزگشایی درصدی با encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "آپلود",
+    "clear": "پاک کردن",
+    "modes": {
+      "encode": "رمزگذاری",
+      "decode": "رمزگشایی"
+    },
+    "swapTitle": "جابه‌جایی ورودی و خروجی",
+    "panels": {
+      "plainText": "متن ساده",
+      "encodedInput": "ورودی کدشده",
+      "encodedOutput": "خروجی کدشده",
+      "decodedText": "متن رمزگشایی‌شده"
+    },
+    "placeholders": {
+      "encode": "متن را برای درصد-کدگذاری وارد کنید…",
+      "decode": "متن percent-encoded را برای رمزگشایی بچسبانید…"
+    },
+    "dropHere": "فایل را اینجا رها کنید",
+    "charCount": "{count} نویسه",
+    "download": {
+      "title": "دانلود خروجی",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "کپی در کلیپ‌بورد",
+    "outputPlaceholder": "خروجی اینجا نمایش داده می‌شود…",
+    "errors": {
+      "invalidEncoding": "کدگذاری درصدی نامعتبر است. جفت‌های % ناقص یا escapeهای نامعتبر را بررسی کنید.",
+      "encodeFailed": "رمزگذاری ممکن نیست (Unicode نامعتبر در ورودی)."
+    }
+  },
+  "UuidGenerator": {
+    "title": "مولد UUID / ULID",
+    "subtitle": "UUIDهای RFC 9562 یا ULID را در مرورگر تولید کنید. خروجی گروهی تا {max} در هر اجرا.",
+    "format": "فرمت",
+    "kindHints": {
+      "ulid": "شناسهٔ ۲۶ کاراکتری قابل مرتب‌سازی و امن برای URL",
+      "uuid4": "تصادفی (RFC 9562)",
+      "uuid7": "مرتب‌شده بر اساس زمان، میلی‌ثانیهٔ یونیکس + تصادفی",
+      "uuid1": "مبتنی بر MAC/زمان (RFC 9562)",
+      "uuid6": "زمان گریگوری بازآرایی‌شده",
+      "uuid3": "هش MD5 از نام + فضای نام",
+      "uuid5": "هش SHA‑1 از نام + فضای نام"
+    },
+    "countLabel": "تعداد (۱–{max})",
+    "nameLabel": "نام (رشتهٔ ورودی)",
+    "namePlaceholder": "مثلاً my.app/resource",
+    "bulkHint": "در حالت گروهی <code>#0</code>، <code>#1</code>، … اضافه می‌شود تا هر ID یکتا باشد (v3/v5 قطعی هستند).",
+    "namespace": "فضای نام",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "UUID سفارشی"
+    },
+    "customNamespaceLabel": "UUID فضای نام",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "تولید",
+    "output": "خروجی",
+    "lines": "{count} خط",
+    "download": {
+      "title": "دانلود .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "کپی همه",
+    "outputPlaceholder": "روی «تولید» کلیک کنید…",
+    "errors": {
+      "invalidCustomNamespace": "فضای نام سفارشی باید یک UUID معتبر باشد.",
+      "missingName": "برای UUID v3 و v5 وارد کردن نام لازم است.",
+      "unknown": "امکان تولید شناسه‌ها وجود ندارد."
+    }
+  },
+  "LoremIpsum": {
+    "title": "مولد متن لورم ایپسوم",
+    "subtitle": "متن لاتین موقت برای طرح‌بندی‌ها و ماکت‌های خود تولید کنید.",
+    "paragraphs": "پاراگراف‌ها",
+    "sentences": "جملات",
+    "words": "کلمات",
+    "count": "تعداد",
+    "generate": "تولید",
+    "copy": "کپی",
+    "startWith": "شروع با 'Lorem ipsum...'",
+    "outputPlaceholder": "خروجی اینجا نمایش داده می‌شود...",
+    "outputType": "نوع خروجی",
+    "bulletList": "لیست گلوله‌ای",
+    "htmlMarkup": "نشانه‌گذاری HTML",
+    "htmlMarkupHint": "خروجی را در پاراگراف‌ها قرار دهید یا از لیست برای حالت گلوله استفاده کنید",
+    "output": "خروجی",
+    "download": "دانلود"
+  },
+  "ColorPicker": {
+    "title": "انتخابگر و مبدل رنگ",
+    "subtitle": "HEX، RGB و HSL را تبدیل کنید؛ پالت‌های هارمونیک بسازید. تمام پردازش در مرورگر شما انجام می‌شود.",
+    "nativePicker": "انتخابگر بومی",
+    "chooseColor": "انتخاب رنگ",
+    "eyeDropper": "قطره‌چکان",
+    "invalidHex": "رنگ HEX نامعتبر است.",
+    "cssValues": "مقادیر CSS",
+    "palettes": "پالت‌ها",
+    "copied": "کپی شد",
+    "clickToCopy": "برای کپی کلیک کنید",
+    "copyAllHex": "کپی تمام HEX",
+    "copy": "کپی",
+    "copyColor": "کپی {color}",
+    "paletteShades": "سایه‌ها",
+    "paletteComplementary": "مکمل",
+    "paletteTriadic": "سه‌گانه",
+    "paletteAnalogous": "مشابه",
+    "paletteSplit": "مکمل منقسم",
+    "paletteSquare": "مربع"
+  },
+  "DiffChecker": {
+    "title": "مقایسه تفاوت‌ها",
+    "subtitle": "مقایسه خط‌به‌خط دو متن در کنار هم. همه چیز در مرورگر شما می‌ماند.",
+    "rowsCount": "{count} ردیف",
+    "truncatedWarning": "نمایش {max} ردیف اول.",
+    "limitExceeded": "هر طرف محدود به {max} کاراکتر است.",
+    "clearBoth": "پاک کردن هر دو",
+    "original": "اصلی",
+    "modified": "تغییریافته",
+    "originalPlaceholder": "متن اصلی را جایگذاری کنید…",
+    "modifiedPlaceholder": "متن تغییریافته را جایگذاری کنید…",
+    "comparisonLabel": "مقایسه جنب‌به‌جنب",
+    "emptyState": "متن را در هر دو پنل وارد کنید تا مقایسه شود."
   }
 }

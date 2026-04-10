@@ -16,6 +16,7 @@ import { useToolVisibility } from '@/hooks/use-tool-visibility'
 import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { COLOR_THEME_OPTIONS, type ColorTheme, useColorTheme } from '@/hooks/use-color-theme'
+import { getToolMessageKey } from '@/lib/tool-i18n'
 
 const colorDisplay: Record<ColorTheme, { swatchClass: string; name: string }> = {
   cyan: { swatchClass: 'bg-cyan-500', name: 'Teal' },
@@ -30,6 +31,7 @@ const colorDisplay: Record<ColorTheme, { swatchClass: string; name: string }> = 
 
 export default function SettingsPage() {
   const t = useTranslations('SettingsPage')
+  const tNav = useTranslations('Navigation')
   const locale = useLocale()
   const router = useRouter()
   const { theme, setTheme } = useTheme()
@@ -101,23 +103,41 @@ export default function SettingsPage() {
               {t('tools.description')}
             </CardDescription>
           </CardHeader>
-          <CardContent className="grid gap-3 sm:grid-cols-2">
-            {sidebarData.navGroups.flatMap((group: any) => group.items).map((item: any) => {
-              const url = typeof item.url === 'string' ? item.url : item.url?.toString() || '';
-              if (!url.startsWith('/app/')) return null;
-              
-              const isEnabled = isToolEnabled(url);
-              
+          <CardContent className="space-y-6">
+            {sidebarData.navGroups.map((group: any) => {
+              const groupTools = group.items.filter((item: any) => {
+                const url = typeof item.url === 'string' ? item.url : item.url?.toString() || '';
+                return url.startsWith('/app/');
+              });
+              if (groupTools.length === 0) return null;
+
               return (
-                <div key={url} className="flex items-center justify-between rounded-lg border p-3 bg-background/50 shadow-sm transition-colors hover:bg-accent/30">
-                  <Label className="text-sm font-medium flex items-center gap-2 cursor-pointer" onClick={() => toggleTool(url)}>
-                    {item.icon && <item.icon className="h-4 w-4 text-muted-foreground" />}
-                    {item.title}
-                  </Label>
-                  <Switch 
-                    checked={isEnabled} 
-                    onCheckedChange={() => toggleTool(url)} 
-                  />
+                <div key={group.title} className="space-y-3">
+                  <div className="flex items-center gap-2 pb-1 border-b border-border/50">
+                    {group.icon && <group.icon className="h-4 w-4 text-muted-foreground" />}
+                    <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">{group.title}</h4>
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {groupTools.map((item: any) => {
+                      const url = typeof item.url === 'string' ? item.url : item.url?.toString() || '';
+                      const isEnabled = isToolEnabled(url);
+                      const toolKey = getToolMessageKey(url);
+                      const label = toolKey ? tNav(toolKey as never) : item.title;
+
+                      return (
+                        <div key={url} className="flex items-center justify-between rounded-lg border p-3 bg-background/50 shadow-sm transition-colors hover:bg-accent/30">
+                          <Label className="text-sm font-medium flex items-center gap-2 cursor-pointer" onClick={() => toggleTool(url)}>
+                            {item.icon && <item.icon className="h-4 w-4 text-muted-foreground" />}
+                            {label}
+                          </Label>
+                          <Switch
+                            checked={isEnabled}
+                            onCheckedChange={() => toggleTool(url)}
+                          />
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
               )
             })}

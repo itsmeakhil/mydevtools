@@ -7,7 +7,20 @@
     "bookmarks": "Marcadors",
     "jsonFormatter": "Formatador JSON",
     "emailValidator": "Validador de correu",
-    "nosqlExplorer": "Explorador NoSQL"
+    "nosqlExplorer": "Explorador NoSQL",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "jwtDecoder": "Descodificador JWT",
+    "sqlFormatter": "SQL Formatter",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -217,6 +230,54 @@
       "emailValidator": {
         "title": "Validador de correu",
         "description": "Verifica i valida adreces de correu."
+      },
+      "jwtDecoder": {
+        "title": "Descodificador JWT",
+        "description": "Descodifica la capçalera, el payload i la caducitat del JWT."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
       }
     },
     "tabs": {
@@ -1508,5 +1569,377 @@
     "toastLoginRequired": "Inicia sessió per desar documents",
     "toastSaved": "Document desat",
     "toastSaveFailed": "No s'ha pogut desar el document"
+  },
+  "JwtDecoder": {
+    "title": "Descodificador JWT",
+    "subtitle": "Inspecciona la capçalera i el payload. La caducitat usa la reclamació <code>exp</code>. No s’envia res a un servidor; la signatura no es verifica.",
+    "tokenLabel": "Token",
+    "clear": "Netejar",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Copia",
+    "expiryLabel": "Caducitat (exp)",
+    "signaturePresent": "Signatura present (no verificada)",
+    "noExp": "No hi ha la reclamació <code>exp</code> al payload.",
+    "status": {
+      "expired": "Caducat",
+      "valid": "Vàlid"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Local",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Emès a (iat)",
+      "notBefore": "No abans de (nbf)"
+    },
+    "panels": {
+      "header": "Capçalera",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Enganxa un JWT per descodificar.",
+      "segments": "Un JWT necessita com a mínim capçalera i payload (dos segments).",
+      "base64": "No s’ha pogut descodificar en base64url la capçalera o el payload."
+    },
+    "relative": {
+      "future": "d’aquí a {n} {unit}",
+      "past": "fa {n} {unit}"
+    },
+    "units": {
+      "second": "{count, plural, one {segon} other {segons}}",
+      "minute": "{count, plural, one {minut} other {minuts}}",
+      "hour": "{count, plural, one {hora} other {hores}}",
+      "day": "{count, plural, one {dia} other {dies}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "Formatador SQL",
+    "subtitle": "Dona format a SQL per MySQL, PostgreSQL o SQLite. S’executa al navegador; no es puja res.",
+    "dialectLabel": "Dialecte",
+    "keywordsLabel": "Paraules clau",
+    "indentLabel": "Sagnat",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "MAJÚSCULES",
+      "lower": "minúscules",
+      "preserve": "Conserva"
+    },
+    "spaces": "{n} espais",
+    "format": "Formata",
+    "clear": "Neteja",
+    "counter": "{current} / {max} caràcters",
+    "inputPanel": "Entrada",
+    "formattedPanel": "Formatat",
+    "copy": "Copia",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Fes clic a \"Formata\"…",
+    "errors": {
+      "tooLong": "L’entrada està limitada a {max} caràcters.",
+      "couldNotFormat": "No s’ha pogut formatar aquest SQL."
+    }
+  },
+  "RegexTester": {
+    "title": "Testador de regex",
+    "subtitle": "Regex d’estil JavaScript en directe sobre el teu text. Les coincidències es ressalten; res no surt del navegador.",
+    "patternLabel": "Patró",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i ignora maj./min.",
+      "m": "m multilínia",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(buit)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {coincidència} other {coincidències}}",
+    "testTextLabel": "Text de prova",
+    "counter": "{current} / {max}",
+    "clear": "Neteja",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "El text està limitat a {max} caràcters.",
+      "invalid": "Expressió regular no vàlida.",
+      "runaway": "Aturat després de {max} coincidències (possible patró descontrolat)."
+    }
+  },
+  "TimestampConverter": {
+    "title": "Convertidor de marques de temps",
+    "subtitle": "Segons Unix (≤10 dígits) o mil·lisegons (enters més llargs), <code>ISO-8601</code> o cadenes que el navegador pugui interpretar. Tot s’executa localment.",
+    "inputLabel": "Entrada",
+    "placeholder": "1744200000 o 2025-04-09T12:00:00Z",
+    "now": "Ara",
+    "copy": "Copia",
+    "hint": "Enganxa un valor o fes clic a <strong>Ara</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relatiu",
+      "human": "Llegible"
+    },
+    "fields": {
+      "seconds": "Segons",
+      "milliseconds": "Mil·lisegons",
+      "utc": "UTC",
+      "local": "Local",
+      "distance": "Distància"
+    },
+    "errors": {
+      "empty": "Introdueix un timestamp Unix, una cadena ISO o un text de data.",
+      "invalidNumber": "Timestamp numèric no vàlid.",
+      "outOfRange": "Fora de rang per a JavaScript Date.",
+      "couldNotParse": "No s’ha pogut interpretar com Unix, ISO-8601 o data del navegador."
+    }
+  },
+  "CronBuilder": {
+    "title": "Constructor d’expressions Cron",
+    "subtitle": "Cron estàndard de 5 camps: <mono>minute hour day month weekday</mono>. El parser usa seconds=<code>0</code> internament. El format opcional de 6 camps (<mono>sec min hour dom mon dow</mono>) funciona a l’editor.",
+    "tabs": {
+      "builder": "Constructor visual",
+      "expression": "Expressió"
+    },
+    "presetsLabel": "Predefinits",
+    "fieldsLabel": "Camps",
+    "rawExpressionLabel": "Expressió en brut",
+    "expressionHint": "Surt del camp per analitzar i sincronitzar el constructor. {count} {count, plural, one {token} other {tokens}}.",
+    "currentExpressionLabel": "Expressió actual",
+    "copy": "Copia",
+    "quickPick": "Tria ràpida",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Llenguatge natural",
+    "nextRunsLabel": "Properes execucions (hora local)",
+    "fields": {
+      "minute": "Minut",
+      "hour": "Hora",
+      "dayOfMonth": "Dia del mes",
+      "month": "Mes",
+      "dayOfWeek": "Dia de la setmana"
+    },
+    "presets": {
+      "everyMinute": "Cada minut",
+      "every5Minutes": "Cada 5 minuts",
+      "every15Minutes": "Cada 15 minuts",
+      "everyHour": "Cada hora (a :00)",
+      "every6Hours": "Cada 6 hores",
+      "dailyMidnight": "Diari a mitjanit",
+      "daily0900": "Diari a les 09:00",
+      "weekdays0900": "Feiners a les 09:00",
+      "weeklySunday": "Setmanal (diumenge 00:00)",
+      "monthlyFirst": "Mensual (dia 1 00:00)",
+      "yearlyJan1": "Anual (1 gen 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "cada minut"
+      },
+      "hour": {
+        "every": "cada hora"
+      },
+      "dom": {
+        "any": "qualsevol dia",
+        "last": "últim dia"
+      },
+      "month": {
+        "every": "cada mes"
+      },
+      "dow": {
+        "any": "qualsevol dia",
+        "weekdays": "feiners",
+        "weekend": "cap de setmana"
+      }
+    },
+    "months": {
+      "jan": "Gen",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Abr",
+      "may": "Mai",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Ago",
+      "sep": "Set",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Des"
+    },
+    "weekdays": {
+      "sun": "Dg",
+      "mon": "Dl",
+      "tue": "Dt",
+      "wed": "Dc",
+      "thu": "Dj",
+      "fri": "Dv",
+      "sat": "Ds"
+    },
+    "errors": {
+      "fieldCount": "S’esperaven 5 camps (minute hour day month weekday) o 6 incloent segons.",
+      "invalid": "Expressió cron no vàlida."
+    }
+  },
+  "Base64": {
+    "title": "Codificador / descodificador Base64",
+    "subtitle": "Codifica text a Base64 o descodifica cadenes Base64",
+    "upload": "Puja",
+    "clear": "Neteja",
+    "modes": {
+      "encode": "Codifica",
+      "decode": "Descodifica"
+    },
+    "swapTitle": "Intercanvia entrada i sortida",
+    "panels": {
+      "plainText": "Text pla",
+      "base64Input": "Entrada Base64",
+      "base64Output": "Sortida Base64",
+      "decodedText": "Text descodificat"
+    },
+    "placeholders": {
+      "encode": "Escriu text per codificar a Base64…",
+      "decode": "Enganxa una cadena Base64 per descodificar…"
+    },
+    "dropHere": "Deixa el fitxer aquí",
+    "charCount": "{count} caràcters",
+    "download": {
+      "title": "Descarrega la sortida",
+      "encodedFilename": "codificat.b64",
+      "decodedFilename": "descodificat.txt"
+    },
+    "copyTitle": "Copia al porta-retalls",
+    "outputPlaceholder": "La sortida apareixerà aquí…",
+    "errors": {
+      "invalidBase64": "Cadena Base64 no vàlida. Revisa l’entrada.",
+      "encodeFailed": "No s’ha pogut codificar l’entrada."
+    }
+  },
+  "UrlEncode": {
+    "title": "Codificador / descodificador d’URL",
+    "subtitle": "Codifica/descodifica en percentatge amb encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Puja",
+    "clear": "Neteja",
+    "modes": {
+      "encode": "Codifica",
+      "decode": "Descodifica"
+    },
+    "swapTitle": "Intercanvia entrada i sortida",
+    "panels": {
+      "plainText": "Text pla",
+      "encodedInput": "Entrada codificada",
+      "encodedOutput": "Sortida codificada",
+      "decodedText": "Text descodificat"
+    },
+    "placeholders": {
+      "encode": "Introdueix text per codificar en percentatge…",
+      "decode": "Enganxa text percent-encoded per descodificar…"
+    },
+    "dropHere": "Deixa el fitxer aquí",
+    "charCount": "{count} caràcters",
+    "download": {
+      "title": "Baixa la sortida",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Copia al porta-retalls",
+    "outputPlaceholder": "La sortida apareixerà aquí…",
+    "errors": {
+      "invalidEncoding": "Codificació de percentatge no vàlida. Revisa parells % incomplets o seqüències d’escapament.",
+      "encodeFailed": "No s’ha pogut codificar (Unicode no vàlid a l’entrada)."
+    }
+  },
+  "UuidGenerator": {
+    "title": "Generador UUID / ULID",
+    "subtitle": "Genera UUID (RFC 9562) o ULID al navegador. Exportació en bloc fins a {max} per execució.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "Identificador de 26 caràcters ordenable i segur per a URL",
+      "uuid4": "Aleatori (RFC 9562)",
+      "uuid7": "Ordenat en el temps, ms Unix + aleatori",
+      "uuid1": "Basat en MAC/temps (RFC 9562)",
+      "uuid6": "Temps gregorià reordenat",
+      "uuid3": "Hash MD5 de nom + espai de noms",
+      "uuid5": "Hash SHA‑1 de nom + espai de noms"
+    },
+    "countLabel": "Quantitat (1–{max})",
+    "nameLabel": "Nom (cadena d’entrada)",
+    "namePlaceholder": "p. ex. my.app/resource",
+    "bulkHint": "En lots s’afegeix <code>#0</code>, <code>#1</code>, … perquè cada ID sigui diferent (v3/v5 són deterministes).",
+    "namespace": "Espai de noms",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "UUID personalitzat"
+    },
+    "customNamespaceLabel": "UUID d’espai de noms",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Genera",
+    "output": "Sortida",
+    "lines": "{count} línies",
+    "download": {
+      "title": "Descarrega .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Copia-ho tot",
+    "outputPlaceholder": "Feu clic a \"Genera\"…",
+    "errors": {
+      "invalidCustomNamespace": "L’espai de noms personalitzat ha de ser un UUID vàlid.",
+      "missingName": "Cal un nom per a UUID v3 i v5.",
+      "unknown": "No s’han pogut generar els ID."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Generador de Lorem Ipsum",
+    "subtitle": "Genereu text llatí de substitució per als vostres dissenys i maquetes.",
+    "paragraphs": "Paràgrafs",
+    "sentences": "Frases",
+    "words": "Paraules",
+    "count": "Nombre",
+    "generate": "Genera",
+    "copy": "Copia",
+    "startWith": "Comença amb 'Lorem ipsum...'",
+    "outputPlaceholder": "El resultat apareixerà aquí...",
+    "outputType": "Tipus de sortida",
+    "bulletList": "Llista de punts",
+    "htmlMarkup": "Marcatge HTML",
+    "htmlMarkupHint": "Embolica la sortida en paràgrafs, o utilitza una llista per al mode de punts",
+    "output": "Sortida",
+    "download": "Descarregar"
+  },
+  "ColorPicker": {
+    "title": "Selector i convertidor de color",
+    "subtitle": "Converteix HEX, RGB i HSL; crea paletes harmòniques. Tot el processament es fa al teu navegador.",
+    "nativePicker": "Selector natiu",
+    "chooseColor": "Tria un color",
+    "eyeDropper": "Comptagotes",
+    "invalidHex": "Color HEX no vàlid.",
+    "cssValues": "Valors CSS",
+    "palettes": "Paletes",
+    "copied": "Copiat",
+    "clickToCopy": "Fes clic per copiar",
+    "copyAllHex": "Copia tots els HEX",
+    "copy": "Copia",
+    "copyColor": "Copia {color}",
+    "paletteShades": "Tons",
+    "paletteComplementary": "Complementari",
+    "paletteTriadic": "Triàdic",
+    "paletteAnalogous": "Anàleg",
+    "paletteSplit": "Comp. dividida",
+    "paletteSquare": "Quadrat"
+  },
+  "DiffChecker": {
+    "title": "Comparador de diferències",
+    "subtitle": "Comparació de línies entre dos textos costat a costat. Tot es queda al vostre navegador.",
+    "rowsCount": "{count} files",
+    "truncatedWarning": "Mostrant les primeres {max} files.",
+    "limitExceeded": "Cada costat està limitat a {max} caràcters.",
+    "clearBoth": "Esborrar tots dos",
+    "original": "Original",
+    "modified": "Modificat",
+    "originalPlaceholder": "Enganxeu el text original…",
+    "modifiedPlaceholder": "Enganxeu el text modificat…",
+    "comparisonLabel": "Comparació costat a costat",
+    "emptyState": "Introduïu text als dos panells per comparar."
   }
 }

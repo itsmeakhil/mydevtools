@@ -7,7 +7,20 @@
     "bookmarks": "Bookmarks",
     "jsonFormatter": "Formatowanie JSON",
     "emailValidator": "Email Validator",
-    "nosqlExplorer": "NoSQL Explorer"
+    "nosqlExplorer": "NoSQL Explorer",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "jwtDecoder": "Dekoder JWT",
+    "sqlFormatter": "SQL Formatter",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -217,6 +230,54 @@
       "emailValidator": {
         "title": "Email Validator",
         "description": "Verify and validate email addresses."
+      },
+      "jwtDecoder": {
+        "title": "Dekoder JWT",
+        "description": "Dekoduj nagłówek, payload i wygaśnięcie JWT."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
       }
     },
     "tabs": {
@@ -1508,5 +1569,377 @@
     "toastLoginRequired": "Zaloguj się, aby zapisywać dokumenty",
     "toastSaved": "Dokument zapisany",
     "toastSaveFailed": "Nie udało się zapisać dokumentu"
+  },
+  "JwtDecoder": {
+    "title": "Dekoder JWT",
+    "subtitle": "Podglądaj nagłówek i payload. Wygaśnięcie używa claim <code>exp</code>. Nic nie jest wysyłane na serwer; podpis nie jest weryfikowany.",
+    "tokenLabel": "Token",
+    "clear": "Wyczyść",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Kopiuj",
+    "expiryLabel": "Wygaśnięcie (exp)",
+    "signaturePresent": "Podpis obecny (niezweryfikowany)",
+    "noExp": "Brak claim <code>exp</code> w payload.",
+    "status": {
+      "expired": "Wygasł",
+      "valid": "Ważny"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Lokalny",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Wydano (iat)",
+      "notBefore": "Nie wcześniej niż (nbf)"
+    },
+    "panels": {
+      "header": "Nagłówek",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Wklej JWT do dekodowania.",
+      "segments": "JWT musi mieć co najmniej nagłówek i payload (dwa segmenty).",
+      "base64": "Nie udało się zdekodować nagłówka lub payload (base64url)."
+    },
+    "relative": {
+      "future": "za {n} {unit}",
+      "past": "{n} {unit} temu"
+    },
+    "units": {
+      "second": "{count, plural, one {sekundę} few {sekundy} many {sekund} other {sekund}}",
+      "minute": "{count, plural, one {minutę} few {minuty} many {minut} other {minut}}",
+      "hour": "{count, plural, one {godzinę} few {godziny} many {godzin} other {godzin}}",
+      "day": "{count, plural, one {dzień} few {dni} many {dni} other {dni}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "Formatowanie SQL",
+    "subtitle": "Formatuj SQL dla MySQL, PostgreSQL lub SQLite. Działa w przeglądarce; nic nie jest wysyłane.",
+    "dialectLabel": "Dialekt",
+    "keywordsLabel": "Słowa kluczowe",
+    "indentLabel": "Wcięcie",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "WIELKIE",
+      "lower": "małe",
+      "preserve": "Zachowaj"
+    },
+    "spaces": "{n} spacje",
+    "format": "Formatuj",
+    "clear": "Wyczyść",
+    "counter": "{current} / {max} znaków",
+    "inputPanel": "Wejście",
+    "formattedPanel": "Sformatowane",
+    "copy": "Kopiuj",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Kliknij „Formatuj”…",
+    "errors": {
+      "tooLong": "Wejście jest ograniczone do {max} znaków.",
+      "couldNotFormat": "Nie udało się sformatować tego SQL."
+    }
+  },
+  "RegexTester": {
+    "title": "Tester regex",
+    "subtitle": "Regex w stylu JavaScript na żywo dla Twojego tekstu. Dopasowania są podświetlane; nic nie opuszcza przeglądarki.",
+    "patternLabel": "Wzorzec",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g globalnie",
+      "i": "i bez rozróżniania wielkości liter",
+      "m": "m wielowierszowe",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(puste)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {dopasowanie} other {dopasowań}}",
+    "testTextLabel": "Tekst testowy",
+    "counter": "{current} / {max}",
+    "clear": "Wyczyść",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Tekst jest ograniczony do {max} znaków.",
+      "invalid": "Nieprawidłowe wyrażenie regularne.",
+      "runaway": "Zatrzymano po {max} dopasowaniach (możliwy niekończący się wzorzec)."
+    }
+  },
+  "TimestampConverter": {
+    "title": "Konwerter znaczników czasu",
+    "subtitle": "Sekundy Unix (≤10 cyfr) lub milisekundy (dłuższe liczby całkowite), <code>ISO-8601</code> albo ciągi, które przeglądarka potrafi zinterpretować. Wszystko działa lokalnie.",
+    "inputLabel": "Wejście",
+    "placeholder": "1744200000 lub 2025-04-09T12:00:00Z",
+    "now": "Teraz",
+    "copy": "Kopiuj",
+    "hint": "Wklej wartość lub kliknij <strong>Teraz</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Względny",
+      "human": "Czytelny"
+    },
+    "fields": {
+      "seconds": "Sekundy",
+      "milliseconds": "Milisekundy",
+      "utc": "UTC",
+      "local": "Lokalnie",
+      "distance": "Odległość"
+    },
+    "errors": {
+      "empty": "Wprowadź znacznik czasu Unix, ciąg ISO lub tekst daty.",
+      "invalidNumber": "Nieprawidłowy liczbowy znacznik czasu.",
+      "outOfRange": "Poza zakresem dla JavaScript Date.",
+      "couldNotParse": "Nie udało się odczytać jako Unix, ISO-8601 lub data przeglądarki."
+    }
+  },
+  "CronBuilder": {
+    "title": "Kreator wyrażeń Cron",
+    "subtitle": "Standardowy cron 5‑polowy: <mono>minute hour day month weekday</mono>. Parser używa seconds=<code>0</code> wewnętrznie. Opcjonalny format 6‑polowy (<mono>sec min hour dom mon dow</mono>) działa w edytorze.",
+    "tabs": {
+      "builder": "Kreator wizualny",
+      "expression": "Wyrażenie"
+    },
+    "presetsLabel": "Predefiniowane",
+    "fieldsLabel": "Pola",
+    "rawExpressionLabel": "Surowe wyrażenie",
+    "expressionHint": "Opuść pole, aby przetworzyć i zsynchronizować kreator. {count} {count, plural, one {token} other {tokenów}}.",
+    "currentExpressionLabel": "Aktualne wyrażenie",
+    "copy": "Kopiuj",
+    "quickPick": "Szybki wybór",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Język naturalny",
+    "nextRunsLabel": "Kolejne uruchomienia (czas lokalny)",
+    "fields": {
+      "minute": "Minuta",
+      "hour": "Godzina",
+      "dayOfMonth": "Dzień miesiąca",
+      "month": "Miesiąc",
+      "dayOfWeek": "Dzień tygodnia"
+    },
+    "presets": {
+      "everyMinute": "Co minutę",
+      "every5Minutes": "Co 5 minut",
+      "every15Minutes": "Co 15 minut",
+      "everyHour": "Co godzinę (o :00)",
+      "every6Hours": "Co 6 godzin",
+      "dailyMidnight": "Codziennie o północy",
+      "daily0900": "Codziennie o 09:00",
+      "weekdays0900": "W dni robocze o 09:00",
+      "weeklySunday": "Co tydzień (niedziela 00:00)",
+      "monthlyFirst": "Co miesiąc (1. 00:00)",
+      "yearlyJan1": "Co rok (1 sty 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "co minutę"
+      },
+      "hour": {
+        "every": "co godzinę"
+      },
+      "dom": {
+        "any": "dowolny dzień",
+        "last": "ostatni dzień"
+      },
+      "month": {
+        "every": "co miesiąc"
+      },
+      "dow": {
+        "any": "dowolny dzień",
+        "weekdays": "dni robocze",
+        "weekend": "weekend"
+      }
+    },
+    "months": {
+      "jan": "Sty",
+      "feb": "Lut",
+      "mar": "Mar",
+      "apr": "Kwi",
+      "may": "Maj",
+      "jun": "Cze",
+      "jul": "Lip",
+      "aug": "Sie",
+      "sep": "Wrz",
+      "oct": "Paź",
+      "nov": "Lis",
+      "dec": "Gru"
+    },
+    "weekdays": {
+      "sun": "Nd",
+      "mon": "Pn",
+      "tue": "Wt",
+      "wed": "Śr",
+      "thu": "Cz",
+      "fri": "Pt",
+      "sat": "Sb"
+    },
+    "errors": {
+      "fieldCount": "Oczekiwano 5 pól (minute hour day month weekday) lub 6 z sekundami.",
+      "invalid": "Nieprawidłowe wyrażenie cron."
+    }
+  },
+  "Base64": {
+    "title": "Koder / dekoder Base64",
+    "subtitle": "Koduj tekst do Base64 lub dekoduj ciągi Base64",
+    "upload": "Wgraj",
+    "clear": "Wyczyść",
+    "modes": {
+      "encode": "Koduj",
+      "decode": "Dekoduj"
+    },
+    "swapTitle": "Zamień wejście i wyjście",
+    "panels": {
+      "plainText": "Zwykły tekst",
+      "base64Input": "Wejście Base64",
+      "base64Output": "Wyjście Base64",
+      "decodedText": "Zdekodowany tekst"
+    },
+    "placeholders": {
+      "encode": "Wpisz tekst do zakodowania w Base64…",
+      "decode": "Wklej Base64 do dekodowania…"
+    },
+    "dropHere": "Upuść plik tutaj",
+    "charCount": "{count} znaków",
+    "download": {
+      "title": "Pobierz wynik",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Kopiuj do schowka",
+    "outputPlaceholder": "Wynik pojawi się tutaj…",
+    "errors": {
+      "invalidBase64": "Nieprawidłowy ciąg Base64. Sprawdź wejście.",
+      "encodeFailed": "Nie udało się zakodować wejścia."
+    }
+  },
+  "UrlEncode": {
+    "title": "Kodowanie / dekodowanie URL",
+    "subtitle": "Koduj/dekoduj procentowo przy użyciu encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Wgraj",
+    "clear": "Wyczyść",
+    "modes": {
+      "encode": "Koduj",
+      "decode": "Dekoduj"
+    },
+    "swapTitle": "Zamień wejście i wyjście",
+    "panels": {
+      "plainText": "Zwykły tekst",
+      "encodedInput": "Zakodowane wejście",
+      "encodedOutput": "Zakodowane wyjście",
+      "decodedText": "Zdekodowany tekst"
+    },
+    "placeholders": {
+      "encode": "Wpisz tekst do kodowania procentowego…",
+      "decode": "Wklej tekst percent-encoded do dekodowania…"
+    },
+    "dropHere": "Upuść plik tutaj",
+    "charCount": "{count} znaków",
+    "download": {
+      "title": "Pobierz wynik",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Kopiuj do schowka",
+    "outputPlaceholder": "Wynik pojawi się tutaj…",
+    "errors": {
+      "invalidEncoding": "Nieprawidłowe kodowanie procentowe. Sprawdź niekompletne pary % lub sekwencje escape.",
+      "encodeFailed": "Nie można zakodować (nieprawidłowy Unicode w wejściu)."
+    }
+  },
+  "UuidGenerator": {
+    "title": "Generator UUID / ULID",
+    "subtitle": "Generuj UUID (RFC 9562) lub ULID w przeglądarce. Eksport zbiorczy do {max} na uruchomienie.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "Sortowalny, bezpieczny dla URL identyfikator 26‑znakowy",
+      "uuid4": "Losowy (RFC 9562)",
+      "uuid7": "Uporządkowany w czasie, ms Unix + losowość",
+      "uuid1": "MAC/czas (RFC 9562)",
+      "uuid6": "Przestawiony czas gregoriański",
+      "uuid3": "Hash MD5 nazwy + przestrzeni nazw",
+      "uuid5": "Hash SHA‑1 nazwy + przestrzeni nazw"
+    },
+    "countLabel": "Liczba (1–{max})",
+    "nameLabel": "Nazwa (ciąg wejściowy)",
+    "namePlaceholder": "np. my.app/resource",
+    "bulkHint": "W trybie zbiorczym dodawane jest <code>#0</code>, <code>#1</code>, … aby każdy ID był inny (v3/v5 są deterministyczne).",
+    "namespace": "Przestrzeń nazw",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Własny UUID"
+    },
+    "customNamespaceLabel": "UUID przestrzeni nazw",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Generuj",
+    "output": "Wynik",
+    "lines": "{count} wierszy",
+    "download": {
+      "title": "Pobierz .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Kopiuj wszystko",
+    "outputPlaceholder": "Kliknij „Generuj”…",
+    "errors": {
+      "invalidCustomNamespace": "Własna przestrzeń nazw musi być prawidłowym UUID.",
+      "missingName": "Nazwa jest wymagana dla UUID v3 i v5.",
+      "unknown": "Nie udało się wygenerować identyfikatorów."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Generator Lorem Ipsum",
+    "subtitle": "Generuj zastępczy tekst łaciński dla swoich układów i makiet.",
+    "paragraphs": "Akapity",
+    "sentences": "Zdania",
+    "words": "Słowa",
+    "count": "Liczba",
+    "generate": "Generuj",
+    "copy": "Kopiuj",
+    "startWith": "Zacznij od 'Lorem ipsum...'",
+    "outputPlaceholder": "Wynik pojawi się tutaj...",
+    "outputType": "Typ wyjścia",
+    "bulletList": "Lista punktowana",
+    "htmlMarkup": "Znaczniki HTML",
+    "htmlMarkupHint": "Zawiń dane wyjściowe w akapity lub użyj listy dla trybu punktowanego",
+    "output": "Wynik",
+    "download": "Pobierz"
+  },
+  "ColorPicker": {
+    "title": "Selektor i konwerter kolorów",
+    "subtitle": "Konwertuj HEX, RGB i HSL; twórz harmonijne palety. Cała obróbka odbywa się w przeglądarce.",
+    "nativePicker": "Natywny selektor",
+    "chooseColor": "Wybierz kolor",
+    "eyeDropper": "Pipeta",
+    "invalidHex": "Nieprawidłowy kolor HEX.",
+    "cssValues": "Wartości CSS",
+    "palettes": "Palety",
+    "copied": "Skopiowano",
+    "clickToCopy": "Kliknij, aby skopiować",
+    "copyAllHex": "Kopiuj wszystkie HEX",
+    "copy": "Kopiuj",
+    "copyColor": "Kopiuj {color}",
+    "paletteShades": "Odcienie",
+    "paletteComplementary": "Dopełniający",
+    "paletteTriadic": "Triadyczny",
+    "paletteAnalogous": "Analogiczny",
+    "paletteSplit": "Dopeł. podzielony",
+    "paletteSquare": "Kwadratowy"
+  },
+  "DiffChecker": {
+    "title": "Sprawdzanie różnic",
+    "subtitle": "Porównanie wierszy dwóch tekstów obok siebie. Wszystko pozostaje w Twojej przeglądarce.",
+    "rowsCount": "{count} wierszy",
+    "truncatedWarning": "Wyświetlanie pierwszych {max} wierszy.",
+    "limitExceeded": "Każda strona jest ograniczona do {max} znaków.",
+    "clearBoth": "Wyczyść oba",
+    "original": "Oryginał",
+    "modified": "Zmodyfikowany",
+    "originalPlaceholder": "Wklej oryginalny tekst…",
+    "modifiedPlaceholder": "Wklej zmodyfikowany tekst…",
+    "comparisonLabel": "Porównanie obok siebie",
+    "emptyState": "Wprowadź tekst w obu panelach, aby porównać."
   }
 }

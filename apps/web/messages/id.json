@@ -7,7 +7,20 @@
     "bookmarks": "Penanda",
     "jsonFormatter": "Pemformat JSON",
     "emailValidator": "Validator Email",
-    "nosqlExplorer": "NoSQL Explorer"
+    "nosqlExplorer": "NoSQL Explorer",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "jwtDecoder": "Dekoder JWT",
+    "sqlFormatter": "SQL Formatter",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -217,6 +230,54 @@
       "emailValidator": {
         "title": "Validator Email",
         "description": "Verifikasi dan validasi alamat email."
+      },
+      "jwtDecoder": {
+        "title": "Dekoder JWT",
+        "description": "Decode header, payload, dan kedaluwarsa JWT."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
       }
     },
     "tabs": {
@@ -1508,5 +1569,377 @@
     "toastLoginRequired": "Silakan masuk untuk menyimpan dokumen",
     "toastSaved": "Dokumen disimpan",
     "toastSaveFailed": "Gagal menyimpan dokumen"
+  },
+  "JwtDecoder": {
+    "title": "Dekoder JWT",
+    "subtitle": "Periksa header dan payload. Kedaluwarsa menggunakan klaim <code>exp</code>. Tidak ada yang dikirim ke server; tanda tangan tidak diverifikasi.",
+    "tokenLabel": "Token",
+    "clear": "Bersihkan",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Salin",
+    "expiryLabel": "Kedaluwarsa (exp)",
+    "signaturePresent": "Tanda tangan ada (tidak diverifikasi)",
+    "noExp": "Tidak ada klaim <code>exp</code> di payload.",
+    "status": {
+      "expired": "Kedaluwarsa",
+      "valid": "Valid"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Lokal",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Diterbitkan (iat)",
+      "notBefore": "Tidak sebelum (nbf)"
+    },
+    "panels": {
+      "header": "Header",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Tempel JWT untuk didekode.",
+      "segments": "JWT butuh setidaknya header dan payload (dua segmen).",
+      "base64": "Tidak dapat mendekode base64url header atau payload."
+    },
+    "relative": {
+      "future": "dalam {n} {unit}",
+      "past": "{n} {unit} yang lalu"
+    },
+    "units": {
+      "second": "{count, plural, one {detik} other {detik}}",
+      "minute": "{count, plural, one {menit} other {menit}}",
+      "hour": "{count, plural, one {jam} other {jam}}",
+      "day": "{count, plural, one {hari} other {hari}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "Pemformat SQL",
+    "subtitle": "Rapikan SQL untuk MySQL, PostgreSQL, atau SQLite. Berjalan di browser; tidak ada yang diunggah.",
+    "dialectLabel": "Dialek",
+    "keywordsLabel": "Kata kunci",
+    "indentLabel": "Indentasi",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "HURUF BESAR",
+      "lower": "huruf kecil",
+      "preserve": "Pertahankan"
+    },
+    "spaces": "{n} spasi",
+    "format": "Format",
+    "clear": "Bersihkan",
+    "counter": "{current} / {max} karakter",
+    "inputPanel": "Input",
+    "formattedPanel": "Terformat",
+    "copy": "Salin",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Klik \"Format\"…",
+    "errors": {
+      "tooLong": "Input dibatasi hingga {max} karakter.",
+      "couldNotFormat": "Tidak dapat memformat SQL ini."
+    }
+  },
+  "RegexTester": {
+    "title": "Penguji regex",
+    "subtitle": "Regex gaya JavaScript secara langsung pada teks Anda. Kecocokan disorot; tidak ada yang keluar dari browser.",
+    "patternLabel": "Pola",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i abaikan huruf besar/kecil",
+      "m": "m multiline",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(kosong)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {kecocokan} other {kecocokan}}",
+    "testTextLabel": "Teks uji",
+    "counter": "{current} / {max}",
+    "clear": "Bersihkan",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Teks dibatasi hingga {max} karakter.",
+      "invalid": "Ekspresi reguler tidak valid.",
+      "runaway": "Dihentikan setelah {max} kecocokan (kemungkinan pola runaway)."
+    }
+  },
+  "TimestampConverter": {
+    "title": "Konverter timestamp",
+    "subtitle": "Detik Unix (≤10 digit) atau milidetik (bilangan lebih panjang), <code>ISO-8601</code>, atau string yang bisa diparse browser. Semua berjalan lokal.",
+    "inputLabel": "Input",
+    "placeholder": "1744200000 atau 2025-04-09T12:00:00Z",
+    "now": "Sekarang",
+    "copy": "Salin",
+    "hint": "Tempel nilai atau klik <strong>Sekarang</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relatif",
+      "human": "Mudah dibaca"
+    },
+    "fields": {
+      "seconds": "Detik",
+      "milliseconds": "Milidetik",
+      "utc": "UTC",
+      "local": "Lokal",
+      "distance": "Jarak"
+    },
+    "errors": {
+      "empty": "Masukkan timestamp Unix, string ISO, atau teks tanggal.",
+      "invalidNumber": "Timestamp numerik tidak valid.",
+      "outOfRange": "Di luar rentang untuk JavaScript Date.",
+      "couldNotParse": "Tidak dapat diparse sebagai Unix, ISO-8601, atau tanggal browser."
+    }
+  },
+  "CronBuilder": {
+    "title": "Pembuat ekspresi Cron",
+    "subtitle": "Cron standar 5 bidang: <mono>minute hour day month weekday</mono>. Parser menggunakan seconds=<code>0</code> secara internal. Format opsional 6 bidang (<mono>sec min hour dom mon dow</mono>) berfungsi di editor ekspresi.",
+    "tabs": {
+      "builder": "Pembuat visual",
+      "expression": "Ekspresi"
+    },
+    "presetsLabel": "Preset",
+    "fieldsLabel": "Bidang",
+    "rawExpressionLabel": "Ekspresi mentah",
+    "expressionHint": "Keluar dari field untuk mem-parse dan menyinkronkan pembuat. {count} {count, plural, one {token} other {token}}.",
+    "currentExpressionLabel": "Ekspresi saat ini",
+    "copy": "Salin",
+    "quickPick": "Pilih cepat",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Bahasa natural",
+    "nextRunsLabel": "Jadwal berikutnya (waktu lokal)",
+    "fields": {
+      "minute": "Menit",
+      "hour": "Jam",
+      "dayOfMonth": "Hari dalam bulan",
+      "month": "Bulan",
+      "dayOfWeek": "Hari dalam minggu"
+    },
+    "presets": {
+      "everyMinute": "Setiap menit",
+      "every5Minutes": "Setiap 5 menit",
+      "every15Minutes": "Setiap 15 menit",
+      "everyHour": "Setiap jam (pada :00)",
+      "every6Hours": "Setiap 6 jam",
+      "dailyMidnight": "Harian tengah malam",
+      "daily0900": "Harian 09:00",
+      "weekdays0900": "Hari kerja 09:00",
+      "weeklySunday": "Mingguan (Minggu 00:00)",
+      "monthlyFirst": "Bulanan (tgl 1 00:00)",
+      "yearlyJan1": "Tahunan (1 Jan 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "setiap menit"
+      },
+      "hour": {
+        "every": "setiap jam"
+      },
+      "dom": {
+        "any": "hari apa saja",
+        "last": "hari terakhir"
+      },
+      "month": {
+        "every": "setiap bulan"
+      },
+      "dow": {
+        "any": "hari apa saja",
+        "weekdays": "hari kerja",
+        "weekend": "akhir pekan"
+      }
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "Mei",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Agu",
+      "sep": "Sep",
+      "oct": "Okt",
+      "nov": "Nov",
+      "dec": "Des"
+    },
+    "weekdays": {
+      "sun": "Min",
+      "mon": "Sen",
+      "tue": "Sel",
+      "wed": "Rab",
+      "thu": "Kam",
+      "fri": "Jum",
+      "sat": "Sab"
+    },
+    "errors": {
+      "fieldCount": "Diharapkan 5 bidang (minute hour day month weekday) atau 6 termasuk detik.",
+      "invalid": "Ekspresi cron tidak valid."
+    }
+  },
+  "Base64": {
+    "title": "Encoder / Decoder Base64",
+    "subtitle": "Encode teks ke Base64 atau decode string Base64",
+    "upload": "Unggah",
+    "clear": "Bersihkan",
+    "modes": {
+      "encode": "Encode",
+      "decode": "Decode"
+    },
+    "swapTitle": "Tukar input dan output",
+    "panels": {
+      "plainText": "Teks biasa",
+      "base64Input": "Input Base64",
+      "base64Output": "Output Base64",
+      "decodedText": "Teks ter-decode"
+    },
+    "placeholders": {
+      "encode": "Masukkan teks untuk di-encode ke Base64…",
+      "decode": "Tempel string Base64 untuk di-decode…"
+    },
+    "dropHere": "Jatuhkan file di sini",
+    "charCount": "{count} karakter",
+    "download": {
+      "title": "Unduh output",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Salin ke clipboard",
+    "outputPlaceholder": "Output akan muncul di sini…",
+    "errors": {
+      "invalidBase64": "String Base64 tidak valid. Periksa input.",
+      "encodeFailed": "Gagal meng-encode input."
+    }
+  },
+  "UrlEncode": {
+    "title": "Encoder / Decoder URL",
+    "subtitle": "Percent-encode/decode dengan encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Unggah",
+    "clear": "Bersihkan",
+    "modes": {
+      "encode": "Encode",
+      "decode": "Decode"
+    },
+    "swapTitle": "Tukar input dan output",
+    "panels": {
+      "plainText": "Teks biasa",
+      "encodedInput": "Input ter-encode",
+      "encodedOutput": "Output ter-encode",
+      "decodedText": "Teks ter-decode"
+    },
+    "placeholders": {
+      "encode": "Masukkan teks untuk percent-encode…",
+      "decode": "Tempel teks percent-encoded untuk decode…"
+    },
+    "dropHere": "Jatuhkan file di sini",
+    "charCount": "{count} karakter",
+    "download": {
+      "title": "Unduh output",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Salin ke clipboard",
+    "outputPlaceholder": "Output akan muncul di sini…",
+    "errors": {
+      "invalidEncoding": "Percent-encoding tidak valid. Periksa pasangan % yang tidak lengkap atau escape yang salah.",
+      "encodeFailed": "Tidak dapat meng-encode (Unicode tidak valid pada input)."
+    }
+  },
+  "UuidGenerator": {
+    "title": "Generator UUID / ULID",
+    "subtitle": "Buat UUID (RFC 9562) atau ULID di browser. Ekspor massal hingga {max} per sekali jalan.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "ID 26 karakter yang dapat diurutkan dan aman untuk URL",
+      "uuid4": "Acak (RFC 9562)",
+      "uuid7": "Berurutan waktu, ms Unix + acak",
+      "uuid1": "Berbasis MAC/waktu (RFC 9562)",
+      "uuid6": "Waktu Gregorian yang diurut ulang",
+      "uuid3": "Hash MD5 dari nama + namespace",
+      "uuid5": "Hash SHA‑1 dari nama + namespace"
+    },
+    "countLabel": "Jumlah (1–{max})",
+    "nameLabel": "Nama (string input)",
+    "namePlaceholder": "mis. my.app/resource",
+    "bulkHint": "Mode massal menambahkan <code>#0</code>, <code>#1</code>, … agar setiap ID berbeda (v3/v5 deterministik).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "UUID kustom"
+    },
+    "customNamespaceLabel": "UUID namespace",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Buat",
+    "output": "Output",
+    "lines": "{count} baris",
+    "download": {
+      "title": "Unduh .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Salin semua",
+    "outputPlaceholder": "Klik \"Buat\"…",
+    "errors": {
+      "invalidCustomNamespace": "Namespace kustom harus berupa UUID yang valid.",
+      "missingName": "Nama diperlukan untuk UUID v3 dan v5.",
+      "unknown": "Tidak dapat membuat ID."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Generator Lorem Ipsum",
+    "subtitle": "Hasilkan teks Latin pengganti untuk tata letak dan mockup Anda.",
+    "paragraphs": "Paragraf",
+    "sentences": "Kalimat",
+    "words": "Kata",
+    "count": "Jumlah",
+    "generate": "Hasilkan",
+    "copy": "Salin",
+    "startWith": "Mulai dengan 'Lorem ipsum...'",
+    "outputPlaceholder": "Output akan muncul di sini...",
+    "outputType": "Jenis output",
+    "bulletList": "Daftar poin",
+    "htmlMarkup": "Markup HTML",
+    "htmlMarkupHint": "Bungkus output dalam paragraf, atau gunakan daftar untuk mode poin",
+    "output": "Output",
+    "download": "Unduh"
+  },
+  "ColorPicker": {
+    "title": "Pemilih dan konverter warna",
+    "subtitle": "Konversi HEX, RGB, dan HSL; buat palet harmonis. Semua pemrosesan dilakukan di browser Anda.",
+    "nativePicker": "Pemilih bawaan",
+    "chooseColor": "Pilih warna",
+    "eyeDropper": "Penetes mata",
+    "invalidHex": "Warna HEX tidak valid.",
+    "cssValues": "Nilai CSS",
+    "palettes": "Palet",
+    "copied": "Disalin",
+    "clickToCopy": "Klik untuk menyalin",
+    "copyAllHex": "Salin semua HEX",
+    "copy": "Salin",
+    "copyColor": "Salin {color}",
+    "paletteShades": "Nuansa",
+    "paletteComplementary": "Komplementer",
+    "paletteTriadic": "Triadik",
+    "paletteAnalogous": "Analog",
+    "paletteSplit": "Komp. terpisah",
+    "paletteSquare": "Persegi"
+  },
+  "DiffChecker": {
+    "title": "Pemeriksa Perbedaan",
+    "subtitle": "Perbandingan baris per baris dua teks secara berdampingan. Semuanya tetap di browser Anda.",
+    "rowsCount": "{count} baris",
+    "truncatedWarning": "Menampilkan {max} baris pertama.",
+    "limitExceeded": "Setiap sisi dibatasi hingga {max} karakter.",
+    "clearBoth": "Hapus keduanya",
+    "original": "Asli",
+    "modified": "Dimodifikasi",
+    "originalPlaceholder": "Tempel teks asli…",
+    "modifiedPlaceholder": "Tempel teks yang dimodifikasi…",
+    "comparisonLabel": "Perbandingan berdampingan",
+    "emptyState": "Masukkan teks di kedua panel untuk membandingkan."
   }
 }

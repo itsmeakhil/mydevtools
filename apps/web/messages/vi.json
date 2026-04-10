@@ -7,7 +7,20 @@
     "bookmarks": "Dấu trang",
     "jsonFormatter": "Trình định dạng JSON",
     "emailValidator": "Xác thực email",
-    "nosqlExplorer": "NoSQL Explorer"
+    "nosqlExplorer": "NoSQL Explorer",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "jwtDecoder": "Trình giải mã JWT",
+    "sqlFormatter": "SQL Formatter",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -217,6 +230,54 @@
       "emailValidator": {
         "title": "Xác thực Email",
         "description": "Xác minh và kiểm tra địa chỉ email."
+      },
+      "jwtDecoder": {
+        "title": "Trình giải mã JWT",
+        "description": "Giải mã header, payload và thời gian hết hạn của JWT."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
       }
     },
     "tabs": {
@@ -1508,5 +1569,377 @@
     "toastLoginRequired": "Vui lòng đăng nhập để lưu tài liệu",
     "toastSaved": "Đã lưu tài liệu",
     "toastSaveFailed": "Không thể lưu tài liệu"
+  },
+  "JwtDecoder": {
+    "title": "Trình giải mã JWT",
+    "subtitle": "Xem header và payload. Hết hạn dùng claim <code>exp</code>. Không gửi lên máy chủ; chữ ký không được xác minh.",
+    "tokenLabel": "Token",
+    "clear": "Xóa",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Sao chép",
+    "expiryLabel": "Hết hạn (exp)",
+    "signaturePresent": "Có chữ ký (không xác minh)",
+    "noExp": "Không có claim <code>exp</code> trong payload.",
+    "status": {
+      "expired": "Đã hết hạn",
+      "valid": "Hợp lệ"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Cục bộ",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Phát hành (iat)",
+      "notBefore": "Không trước (nbf)"
+    },
+    "panels": {
+      "header": "Header",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Dán JWT để giải mã.",
+      "segments": "JWT cần ít nhất header và payload (hai đoạn).",
+      "base64": "Không thể giải mã base64url cho header hoặc payload."
+    },
+    "relative": {
+      "future": "trong {n} {unit}",
+      "past": "{n} {unit} trước"
+    },
+    "units": {
+      "second": "{count, plural, one {giây} other {giây}}",
+      "minute": "{count, plural, one {phút} other {phút}}",
+      "hour": "{count, plural, one {giờ} other {giờ}}",
+      "day": "{count, plural, one {ngày} other {ngày}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "Trình định dạng SQL",
+    "subtitle": "Định dạng SQL cho MySQL, PostgreSQL hoặc SQLite. Chạy trong trình duyệt; không tải lên gì cả.",
+    "dialectLabel": "Phương ngữ",
+    "keywordsLabel": "Từ khóa",
+    "indentLabel": "Thụt lề",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "CHỮ HOA",
+      "lower": "chữ thường",
+      "preserve": "Giữ nguyên"
+    },
+    "spaces": "{n} khoảng trắng",
+    "format": "Định dạng",
+    "clear": "Xóa",
+    "counter": "{current} / {max} ký tự",
+    "inputPanel": "Đầu vào",
+    "formattedPanel": "Đã định dạng",
+    "copy": "Sao chép",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Nhấn \"Định dạng\"…",
+    "errors": {
+      "tooLong": "Đầu vào bị giới hạn {max} ký tự.",
+      "couldNotFormat": "Không thể định dạng SQL này."
+    }
+  },
+  "RegexTester": {
+    "title": "Trình thử Regex",
+    "subtitle": "Regex kiểu JavaScript chạy trực tiếp trên văn bản. Kết quả khớp được tô sáng; không có gì rời khỏi trình duyệt.",
+    "patternLabel": "Mẫu",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g toàn cục",
+      "i": "i không phân biệt hoa/thường",
+      "m": "m nhiều dòng",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(trống)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {kết quả} other {kết quả}}",
+    "testTextLabel": "Văn bản thử",
+    "counter": "{current} / {max}",
+    "clear": "Xóa",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Văn bản bị giới hạn {max} ký tự.",
+      "invalid": "Biểu thức chính quy không hợp lệ.",
+      "runaway": "Dừng sau {max} lần khớp (có thể mẫu bị runaway)."
+    }
+  },
+  "TimestampConverter": {
+    "title": "Trình chuyển đổi dấu thời gian",
+    "subtitle": "Giây Unix (≤10 chữ số) hoặc mili giây (số nguyên dài hơn), <code>ISO-8601</code> hoặc chuỗi mà trình duyệt có thể phân tích. Mọi thứ chạy cục bộ.",
+    "inputLabel": "Đầu vào",
+    "placeholder": "1744200000 hoặc 2025-04-09T12:00:00Z",
+    "now": "Bây giờ",
+    "copy": "Sao chép",
+    "hint": "Dán một giá trị hoặc bấm <strong>Bây giờ</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Tương đối",
+      "human": "Dễ đọc"
+    },
+    "fields": {
+      "seconds": "Giây",
+      "milliseconds": "Mili giây",
+      "utc": "UTC",
+      "local": "Cục bộ",
+      "distance": "Khoảng cách"
+    },
+    "errors": {
+      "empty": "Nhập dấu thời gian Unix, chuỗi ISO hoặc văn bản ngày.",
+      "invalidNumber": "Dấu thời gian số không hợp lệ.",
+      "outOfRange": "Ngoài phạm vi JavaScript Date.",
+      "couldNotParse": "Không thể phân tích dưới dạng Unix, ISO-8601 hoặc chuỗi ngày của trình duyệt."
+    }
+  },
+  "CronBuilder": {
+    "title": "Trình tạo biểu thức Cron",
+    "subtitle": "Cron tiêu chuẩn 5 trường: <mono>minute hour day month weekday</mono>. Bộ phân tích dùng seconds=<code>0</code> nội bộ. Định dạng 6 trường tùy chọn (<mono>sec min hour dom mon dow</mono>) hoạt động trong trình soạn thảo.",
+    "tabs": {
+      "builder": "Trình tạo trực quan",
+      "expression": "Biểu thức"
+    },
+    "presetsLabel": "Mẫu sẵn",
+    "fieldsLabel": "Trường",
+    "rawExpressionLabel": "Biểu thức thô",
+    "expressionHint": "Rời khỏi ô để phân tích và đồng bộ trình tạo. {count} {count, plural, one {token} other {token}}.",
+    "currentExpressionLabel": "Biểu thức hiện tại",
+    "copy": "Sao chép",
+    "quickPick": "Chọn nhanh",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Ngôn ngữ tự nhiên",
+    "nextRunsLabel": "Lần chạy tiếp theo (giờ địa phương)",
+    "fields": {
+      "minute": "Phút",
+      "hour": "Giờ",
+      "dayOfMonth": "Ngày trong tháng",
+      "month": "Tháng",
+      "dayOfWeek": "Thứ"
+    },
+    "presets": {
+      "everyMinute": "Mỗi phút",
+      "every5Minutes": "Mỗi 5 phút",
+      "every15Minutes": "Mỗi 15 phút",
+      "everyHour": "Mỗi giờ (lúc :00)",
+      "every6Hours": "Mỗi 6 giờ",
+      "dailyMidnight": "Hằng ngày lúc nửa đêm",
+      "daily0900": "Hằng ngày lúc 09:00",
+      "weekdays0900": "Ngày thường lúc 09:00",
+      "weeklySunday": "Hàng tuần (CN 00:00)",
+      "monthlyFirst": "Hàng tháng (ngày 1 00:00)",
+      "yearlyJan1": "Hàng năm (1/1 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "mỗi phút"
+      },
+      "hour": {
+        "every": "mỗi giờ"
+      },
+      "dom": {
+        "any": "bất kỳ ngày",
+        "last": "ngày cuối"
+      },
+      "month": {
+        "every": "mỗi tháng"
+      },
+      "dow": {
+        "any": "bất kỳ ngày",
+        "weekdays": "ngày thường",
+        "weekend": "cuối tuần"
+      }
+    },
+    "months": {
+      "jan": "Th1",
+      "feb": "Th2",
+      "mar": "Th3",
+      "apr": "Th4",
+      "may": "Th5",
+      "jun": "Th6",
+      "jul": "Th7",
+      "aug": "Th8",
+      "sep": "Th9",
+      "oct": "Th10",
+      "nov": "Th11",
+      "dec": "Th12"
+    },
+    "weekdays": {
+      "sun": "CN",
+      "mon": "T2",
+      "tue": "T3",
+      "wed": "T4",
+      "thu": "T5",
+      "fri": "T6",
+      "sat": "T7"
+    },
+    "errors": {
+      "fieldCount": "Cần 5 trường (minute hour day month weekday) hoặc 6 trường gồm giây.",
+      "invalid": "Biểu thức cron không hợp lệ."
+    }
+  },
+  "Base64": {
+    "title": "Mã hóa / giải mã Base64",
+    "subtitle": "Mã hóa văn bản sang Base64 hoặc giải mã chuỗi Base64",
+    "upload": "Tải lên",
+    "clear": "Xóa",
+    "modes": {
+      "encode": "Mã hóa",
+      "decode": "Giải mã"
+    },
+    "swapTitle": "Hoán đổi đầu vào/đầu ra",
+    "panels": {
+      "plainText": "Văn bản",
+      "base64Input": "Đầu vào Base64",
+      "base64Output": "Đầu ra Base64",
+      "decodedText": "Văn bản đã giải mã"
+    },
+    "placeholders": {
+      "encode": "Nhập văn bản để mã hóa Base64…",
+      "decode": "Dán Base64 để giải mã…"
+    },
+    "dropHere": "Thả tệp vào đây",
+    "charCount": "{count} ký tự",
+    "download": {
+      "title": "Tải xuống kết quả",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Sao chép vào clipboard",
+    "outputPlaceholder": "Kết quả sẽ hiển thị ở đây…",
+    "errors": {
+      "invalidBase64": "Chuỗi Base64 không hợp lệ. Hãy kiểm tra đầu vào.",
+      "encodeFailed": "Không thể mã hóa đầu vào."
+    }
+  },
+  "UrlEncode": {
+    "title": "Mã hóa / giải mã URL",
+    "subtitle": "Mã hóa/giải mã theo phần trăm bằng encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Tải lên",
+    "clear": "Xóa",
+    "modes": {
+      "encode": "Mã hóa",
+      "decode": "Giải mã"
+    },
+    "swapTitle": "Hoán đổi đầu vào/đầu ra",
+    "panels": {
+      "plainText": "Văn bản",
+      "encodedInput": "Đầu vào đã mã hóa",
+      "encodedOutput": "Đầu ra đã mã hóa",
+      "decodedText": "Văn bản đã giải mã"
+    },
+    "placeholders": {
+      "encode": "Nhập văn bản để mã hóa phần trăm…",
+      "decode": "Dán văn bản percent-encoded để giải mã…"
+    },
+    "dropHere": "Thả tệp vào đây",
+    "charCount": "{count} ký tự",
+    "download": {
+      "title": "Tải xuống kết quả",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Sao chép vào clipboard",
+    "outputPlaceholder": "Kết quả sẽ hiển thị ở đây…",
+    "errors": {
+      "invalidEncoding": "Mã hóa phần trăm không hợp lệ. Hãy kiểm tra cặp % chưa đầy đủ hoặc chuỗi escape sai.",
+      "encodeFailed": "Không thể mã hóa (Unicode không hợp lệ trong đầu vào)."
+    }
+  },
+  "UuidGenerator": {
+    "title": "Trình tạo UUID / ULID",
+    "subtitle": "Tạo UUID (RFC 9562) hoặc ULID trong trình duyệt. Xuất hàng loạt tối đa {max} mỗi lần chạy.",
+    "format": "Định dạng",
+    "kindHints": {
+      "ulid": "Định danh 26 ký tự có thể sắp xếp, an toàn cho URL",
+      "uuid4": "Ngẫu nhiên (RFC 9562)",
+      "uuid7": "Theo thời gian, ms Unix + ngẫu nhiên",
+      "uuid1": "Dựa trên MAC/thời gian (RFC 9562)",
+      "uuid6": "Thời gian Gregory được sắp xếp lại",
+      "uuid3": "Băm MD5 của tên + namespace",
+      "uuid5": "Băm SHA‑1 của tên + namespace"
+    },
+    "countLabel": "Số lượng (1–{max})",
+    "nameLabel": "Tên (chuỗi đầu vào)",
+    "namePlaceholder": "vd. my.app/resource",
+    "bulkHint": "Chạy hàng loạt sẽ thêm <code>#0</code>, <code>#1</code>, … để mỗi ID khác nhau (v3/v5 là tất định).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "UUID tùy chỉnh"
+    },
+    "customNamespaceLabel": "UUID namespace",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Tạo",
+    "output": "Kết quả",
+    "lines": "{count} dòng",
+    "download": {
+      "title": "Tải .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Sao chép tất cả",
+    "outputPlaceholder": "Nhấn \"Tạo\"…",
+    "errors": {
+      "invalidCustomNamespace": "Namespace tùy chỉnh phải là UUID hợp lệ.",
+      "missingName": "Cần có tên cho UUID v3 và v5.",
+      "unknown": "Không thể tạo ID."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Bộ Tạo Lorem Ipsum",
+    "subtitle": "Tạo văn bản Latin giữ chỗ cho bố cục và mockup của bạn.",
+    "paragraphs": "Đoạn văn",
+    "sentences": "Câu",
+    "words": "Từ",
+    "count": "Số lượng",
+    "generate": "Tạo",
+    "copy": "Sao chép",
+    "startWith": "Bắt đầu với 'Lorem ipsum...'",
+    "outputPlaceholder": "Kết quả sẽ xuất hiện ở đây...",
+    "outputType": "Loại đầu ra",
+    "bulletList": "Danh sách gạch đầu dòng",
+    "htmlMarkup": "Đánh dấu HTML",
+    "htmlMarkupHint": "Bọc đầu ra trong đoạn văn, hoặc sử dụng danh sách cho chế độ gạch đầu dòng",
+    "output": "Đầu ra",
+    "download": "Tải xuống"
+  },
+  "ColorPicker": {
+    "title": "Bộ chọn và chuyển đổi màu sắc",
+    "subtitle": "Chuyển đổi HEX, RGB và HSL; tạo bảng màu hài hòa. Tất cả xử lý diễn ra trong trình duyệt của bạn.",
+    "nativePicker": "Bộ chọn gốc",
+    "chooseColor": "Chọn màu",
+    "eyeDropper": "Ống nhỏ giọt",
+    "invalidHex": "Màu HEX không hợp lệ.",
+    "cssValues": "Giá trị CSS",
+    "palettes": "Bảng màu",
+    "copied": "Đã sao chép",
+    "clickToCopy": "Nhấp để sao chép",
+    "copyAllHex": "Sao chép tất cả HEX",
+    "copy": "Sao chép",
+    "copyColor": "Sao chép {color}",
+    "paletteShades": "Sắc độ",
+    "paletteComplementary": "Bổ sung",
+    "paletteTriadic": "Bộ ba",
+    "paletteAnalogous": "Tương tự",
+    "paletteSplit": "Bổ sung phân chia",
+    "paletteSquare": "Hình vuông"
+  },
+  "DiffChecker": {
+    "title": "Kiểm tra sự khác biệt",
+    "subtitle": "So sánh từng dòng giữa hai văn bản cạnh nhau. Mọi thứ đều ở lại trong trình duyệt của bạn.",
+    "rowsCount": "{count} hàng",
+    "truncatedWarning": "Hiển thị {max} hàng đầu tiên.",
+    "limitExceeded": "Mỗi bên bị giới hạn {max} ký tự.",
+    "clearBoth": "Xóa cả hai",
+    "original": "Gốc",
+    "modified": "Đã sửa đổi",
+    "originalPlaceholder": "Dán văn bản gốc…",
+    "modifiedPlaceholder": "Dán văn bản đã sửa đổi…",
+    "comparisonLabel": "So sánh cạnh nhau",
+    "emptyState": "Nhập văn bản vào cả hai bảng để so sánh."
   }
 }

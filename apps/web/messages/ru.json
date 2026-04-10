@@ -7,7 +7,20 @@
     "bookmarks": "Закладки",
     "jsonFormatter": "Форматировщик JSON",
     "emailValidator": "Валидатор email",
-    "nosqlExplorer": "NoSQL-обозреватель"
+    "nosqlExplorer": "NoSQL-обозреватель",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "jwtDecoder": "Декодер JWT",
+    "sqlFormatter": "SQL Formatter",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker"
   },
   "Help": {
     "title": "Справка и документация",
@@ -217,6 +230,54 @@
       "emailValidator": {
         "title": "Валидатор email",
         "description": "Проверяйте и валидируйте адреса электронной почты."
+      },
+      "jwtDecoder": {
+        "title": "Декодер JWT",
+        "description": "Декодируйте заголовок, полезную нагрузку и срок действия JWT."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
       }
     },
     "tabs": {
@@ -1508,5 +1569,377 @@
     "toastLoginRequired": "Войдите, чтобы сохранять документы",
     "toastSaved": "Документ сохранён",
     "toastSaveFailed": "Не удалось сохранить документ"
+  },
+  "JwtDecoder": {
+    "title": "Декодер JWT",
+    "subtitle": "Просматривайте заголовок и payload. Срок действия берётся из claim <code>exp</code>. Ничего не отправляется на сервер; подпись не проверяется.",
+    "tokenLabel": "Токен",
+    "clear": "Очистить",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Копировать",
+    "expiryLabel": "Срок действия (exp)",
+    "signaturePresent": "Подпись присутствует (не проверяется)",
+    "noExp": "В payload нет claim <code>exp</code>.",
+    "status": {
+      "expired": "Истёк",
+      "valid": "Действителен"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Локальное",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Выдано (iat)",
+      "notBefore": "Не ранее (nbf)"
+    },
+    "panels": {
+      "header": "Заголовок",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Вставьте JWT для декодирования.",
+      "segments": "JWT должен содержать как минимум заголовок и payload (два сегмента).",
+      "base64": "Не удалось декодировать заголовок или payload (base64url)."
+    },
+    "relative": {
+      "future": "через {n} {unit}",
+      "past": "{n} {unit} назад"
+    },
+    "units": {
+      "second": "{count, plural, one {секунду} few {секунды} many {секунд} other {секунд}}",
+      "minute": "{count, plural, one {минуту} few {минуты} many {минут} other {минут}}",
+      "hour": "{count, plural, one {час} few {часа} many {часов} other {часов}}",
+      "day": "{count, plural, one {день} few {дня} many {дней} other {дней}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "Форматтер SQL",
+    "subtitle": "Форматируйте SQL для MySQL, PostgreSQL или SQLite. Работает в браузере; ничего не загружается.",
+    "dialectLabel": "Диалект",
+    "keywordsLabel": "Ключевые слова",
+    "indentLabel": "Отступ",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "ВЕРХНИЙ РЕГИСТР",
+      "lower": "нижний регистр",
+      "preserve": "Сохранить"
+    },
+    "spaces": "{n} пробела(ов)",
+    "format": "Форматировать",
+    "clear": "Очистить",
+    "counter": "{current} / {max} символов",
+    "inputPanel": "Ввод",
+    "formattedPanel": "Форматировано",
+    "copy": "Копировать",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Нажмите «Форматировать»…",
+    "errors": {
+      "tooLong": "Ввод ограничен {max} символами.",
+      "couldNotFormat": "Не удалось отформатировать этот SQL."
+    }
+  },
+  "RegexTester": {
+    "title": "Тестер regex",
+    "subtitle": "Регулярные выражения в стиле JavaScript в реальном времени. Совпадения подсвечиваются; ничего не покидает браузер.",
+    "patternLabel": "Шаблон",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g глобально",
+      "i": "i без учёта регистра",
+      "m": "m многострочный",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(пусто)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {совпадение} few {совпадения} many {совпадений} other {совпадений}}",
+    "testTextLabel": "Тестовый текст",
+    "counter": "{current} / {max}",
+    "clear": "Очистить",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Текст ограничен {max} символами.",
+      "invalid": "Некорректное регулярное выражение.",
+      "runaway": "Остановлено после {max} совпадений (возможный “разбежавшийся” шаблон)."
+    }
+  },
+  "TimestampConverter": {
+    "title": "Конвертер временных меток",
+    "subtitle": "Unix-секунды (≤10 цифр) или миллисекунды (более длинные числа), <code>ISO-8601</code> или строки, которые может разобрать браузер. Всё выполняется локально.",
+    "inputLabel": "Ввод",
+    "placeholder": "1744200000 или 2025-04-09T12:00:00Z",
+    "now": "Сейчас",
+    "copy": "Копировать",
+    "hint": "Вставьте значение или нажмите <strong>Сейчас</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Относительно",
+      "human": "Человекочитаемо"
+    },
+    "fields": {
+      "seconds": "Секунды",
+      "milliseconds": "Миллисекунды",
+      "utc": "UTC",
+      "local": "Локально",
+      "distance": "Разница"
+    },
+    "errors": {
+      "empty": "Введите Unix-метку времени, ISO-строку или текст даты.",
+      "invalidNumber": "Некорректная числовая метка времени.",
+      "outOfRange": "Вне диапазона для JavaScript Date.",
+      "couldNotParse": "Не удалось распознать как Unix, ISO-8601 или строку даты браузера."
+    }
+  },
+  "CronBuilder": {
+    "title": "Конструктор cron-выражений",
+    "subtitle": "Стандартный cron из 5 полей: <mono>minute hour day month weekday</mono>. Парсер использует seconds=<code>0</code> внутри. Опциональный формат из 6 полей (<mono>sec min hour dom mon dow</mono>) работает в редакторе.",
+    "tabs": {
+      "builder": "Визуальный конструктор",
+      "expression": "Выражение"
+    },
+    "presetsLabel": "Пресеты",
+    "fieldsLabel": "Поля",
+    "rawExpressionLabel": "Сырое выражение",
+    "expressionHint": "Уберите фокус, чтобы разобрать и синхронизировать конструктор. {count} {count, plural, one {токен} few {токена} many {токенов} other {токенов}}.",
+    "currentExpressionLabel": "Текущее выражение",
+    "copy": "Копировать",
+    "quickPick": "Быстрый выбор",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Естественный язык",
+    "nextRunsLabel": "Следующие запуски (местное время)",
+    "fields": {
+      "minute": "Минуты",
+      "hour": "Часы",
+      "dayOfMonth": "День месяца",
+      "month": "Месяц",
+      "dayOfWeek": "День недели"
+    },
+    "presets": {
+      "everyMinute": "Каждую минуту",
+      "every5Minutes": "Каждые 5 минут",
+      "every15Minutes": "Каждые 15 минут",
+      "everyHour": "Каждый час (в :00)",
+      "every6Hours": "Каждые 6 часов",
+      "dailyMidnight": "Ежедневно в полночь",
+      "daily0900": "Ежедневно в 09:00",
+      "weekdays0900": "По будням в 09:00",
+      "weeklySunday": "Еженедельно (вс 00:00)",
+      "monthlyFirst": "Ежемесячно (1-е 00:00)",
+      "yearlyJan1": "Ежегодно (1 янв 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "каждую минуту"
+      },
+      "hour": {
+        "every": "каждый час"
+      },
+      "dom": {
+        "any": "любой день",
+        "last": "последний день"
+      },
+      "month": {
+        "every": "каждый месяц"
+      },
+      "dow": {
+        "any": "любой день",
+        "weekdays": "будни",
+        "weekend": "выходные"
+      }
+    },
+    "months": {
+      "jan": "янв",
+      "feb": "фев",
+      "mar": "мар",
+      "apr": "апр",
+      "may": "май",
+      "jun": "июн",
+      "jul": "июл",
+      "aug": "авг",
+      "sep": "сен",
+      "oct": "окт",
+      "nov": "ноя",
+      "dec": "дек"
+    },
+    "weekdays": {
+      "sun": "вс",
+      "mon": "пн",
+      "tue": "вт",
+      "wed": "ср",
+      "thu": "чт",
+      "fri": "пт",
+      "sat": "сб"
+    },
+    "errors": {
+      "fieldCount": "Ожидается 5 полей (minute hour day month weekday) или 6 с секундами.",
+      "invalid": "Некорректное cron-выражение."
+    }
+  },
+  "Base64": {
+    "title": "Base64 кодирование / декодирование",
+    "subtitle": "Кодируйте текст в Base64 или декодируйте строки Base64",
+    "upload": "Загрузить",
+    "clear": "Очистить",
+    "modes": {
+      "encode": "Кодировать",
+      "decode": "Декодировать"
+    },
+    "swapTitle": "Поменять местами ввод и вывод",
+    "panels": {
+      "plainText": "Текст",
+      "base64Input": "Ввод Base64",
+      "base64Output": "Вывод Base64",
+      "decodedText": "Декодированный текст"
+    },
+    "placeholders": {
+      "encode": "Введите текст для кодирования в Base64…",
+      "decode": "Вставьте Base64 для декодирования…"
+    },
+    "dropHere": "Перетащите файл сюда",
+    "charCount": "{count} символов",
+    "download": {
+      "title": "Скачать результат",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Скопировать в буфер обмена",
+    "outputPlaceholder": "Результат появится здесь…",
+    "errors": {
+      "invalidBase64": "Некорректная строка Base64. Проверьте ввод.",
+      "encodeFailed": "Не удалось закодировать ввод."
+    }
+  },
+  "UrlEncode": {
+    "title": "URL кодирование / декодирование",
+    "subtitle": "Процентное кодирование/декодирование через encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Загрузить",
+    "clear": "Очистить",
+    "modes": {
+      "encode": "Кодировать",
+      "decode": "Декодировать"
+    },
+    "swapTitle": "Поменять местами ввод и вывод",
+    "panels": {
+      "plainText": "Текст",
+      "encodedInput": "Кодированный ввод",
+      "encodedOutput": "Кодированный вывод",
+      "decodedText": "Декодированный текст"
+    },
+    "placeholders": {
+      "encode": "Введите текст для percent-encoding…",
+      "decode": "Вставьте percent-encoded текст для декодирования…"
+    },
+    "dropHere": "Перетащите файл сюда",
+    "charCount": "{count} символов",
+    "download": {
+      "title": "Скачать результат",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Скопировать в буфер обмена",
+    "outputPlaceholder": "Результат появится здесь…",
+    "errors": {
+      "invalidEncoding": "Некорректное percent-encoding. Проверьте неполные пары % или escape-последовательности.",
+      "encodeFailed": "Не удалось закодировать (некорректный Unicode во вводе)."
+    }
+  },
+  "UuidGenerator": {
+    "title": "Генератор UUID / ULID",
+    "subtitle": "Генерируйте UUID (RFC 9562) или ULID в браузере. Пакетный экспорт до {max} за запуск.",
+    "format": "Формат",
+    "kindHints": {
+      "ulid": "Сортируемый, безопасный для URL идентификатор из 26 символов",
+      "uuid4": "Случайный (RFC 9562)",
+      "uuid7": "Упорядочен по времени, Unix мс + случайность",
+      "uuid1": "MAC/время (RFC 9562)",
+      "uuid6": "Переупорядоченное григорианское время",
+      "uuid3": "MD5‑хеш имени + пространства имён",
+      "uuid5": "SHA‑1‑хеш имени + пространства имён"
+    },
+    "countLabel": "Количество (1–{max})",
+    "nameLabel": "Имя (входная строка)",
+    "namePlaceholder": "например my.app/resource",
+    "bulkHint": "В пакетном режиме добавляются <code>#0</code>, <code>#1</code>, … чтобы каждый ID был уникален (v3/v5 детерминированы).",
+    "namespace": "Пространство имён",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Свой UUID"
+    },
+    "customNamespaceLabel": "UUID пространства имён",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Сгенерировать",
+    "output": "Вывод",
+    "lines": "{count} строк",
+    "download": {
+      "title": "Скачать .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Копировать всё",
+    "outputPlaceholder": "Нажмите «Сгенерировать»…",
+    "errors": {
+      "invalidCustomNamespace": "Пользовательское пространство имён должно быть валидным UUID.",
+      "missingName": "Имя обязательно для UUID v3 и v5.",
+      "unknown": "Не удалось сгенерировать идентификаторы."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Генератор Lorem Ipsum",
+    "subtitle": "Генерируйте замещающий латинский текст для ваших макетов и прототипов.",
+    "paragraphs": "Абзацы",
+    "sentences": "Предложения",
+    "words": "Слова",
+    "count": "Количество",
+    "generate": "Сгенерировать",
+    "copy": "Копировать",
+    "startWith": "Начать с 'Lorem ipsum...'",
+    "outputPlaceholder": "Результат появится здесь...",
+    "outputType": "Тип вывода",
+    "bulletList": "Маркированный список",
+    "htmlMarkup": "HTML-разметка",
+    "htmlMarkupHint": "Обернуть вывод в абзацы или использовать список для режима маркеров",
+    "output": "Вывод",
+    "download": "Скачать"
+  },
+  "ColorPicker": {
+    "title": "Выбор и конвертер цветов",
+    "subtitle": "Конвертируйте HEX, RGB и HSL; создавайте гармоничные палитры. Вся обработка выполняется в браузере.",
+    "nativePicker": "Встроенный выбор цвета",
+    "chooseColor": "Выберите цвет",
+    "eyeDropper": "Пипетка",
+    "invalidHex": "Неверный цвет HEX.",
+    "cssValues": "CSS-значения",
+    "palettes": "Палитры",
+    "copied": "Скопировано",
+    "clickToCopy": "Нажмите для копирования",
+    "copyAllHex": "Копировать все HEX",
+    "copy": "Копировать",
+    "copyColor": "Копировать {color}",
+    "paletteShades": "Оттенки",
+    "paletteComplementary": "Дополнительный",
+    "paletteTriadic": "Триадический",
+    "paletteAnalogous": "Аналогичный",
+    "paletteSplit": "Разделённый доп.",
+    "paletteSquare": "Квадратный"
+  },
+  "DiffChecker": {
+    "title": "Сравнение различий",
+    "subtitle": "Построчное сравнение двух текстов бок о бок. Всё остаётся в вашем браузере.",
+    "rowsCount": "{count} строк",
+    "truncatedWarning": "Показаны первые {max} строк.",
+    "limitExceeded": "Каждая сторона ограничена {max} символами.",
+    "clearBoth": "Очистить оба",
+    "original": "Оригинал",
+    "modified": "Изменённый",
+    "originalPlaceholder": "Вставьте исходный текст…",
+    "modifiedPlaceholder": "Вставьте изменённый текст…",
+    "comparisonLabel": "Сравнение бок о бок",
+    "emptyState": "Введите текст в оба поля для сравнения."
   }
 }

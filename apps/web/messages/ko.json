@@ -7,7 +7,20 @@
     "bookmarks": "북마크",
     "jsonFormatter": "JSON 포맷터",
     "emailValidator": "이메일 검증기",
-    "nosqlExplorer": "NoSQL 탐색기"
+    "nosqlExplorer": "NoSQL 탐색기",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "jwtDecoder": "JWT 디코더",
+    "sqlFormatter": "SQL Formatter",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -217,6 +230,54 @@
       "emailValidator": {
         "title": "이메일 검증기",
         "description": "이메일 주소를 검증하세요."
+      },
+      "jwtDecoder": {
+        "title": "JWT 디코더",
+        "description": "JWT 헤더, 페이로드, 만료 시간을 디코딩합니다."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
       }
     },
     "tabs": {
@@ -1508,5 +1569,377 @@
     "toastLoginRequired": "문서를 저장하려면 로그인하세요",
     "toastSaved": "문서가 저장되었습니다",
     "toastSaveFailed": "문서 저장에 실패했습니다"
+  },
+  "JwtDecoder": {
+    "title": "JWT 디코더",
+    "subtitle": "헤더와 페이로드를 확인합니다. 만료는 <code>exp</code> 클레임을 사용합니다. 서버로 전송되지 않으며 서명은 검증되지 않습니다.",
+    "tokenLabel": "토큰",
+    "clear": "지우기",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "복사",
+    "expiryLabel": "만료 (exp)",
+    "signaturePresent": "서명 존재(검증 안 함)",
+    "noExp": "페이로드에 <code>exp</code> 클레임이 없습니다.",
+    "status": {
+      "expired": "만료됨",
+      "valid": "유효함"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "로컬",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "발급 (iat)",
+      "notBefore": "유효 시작 (nbf)"
+    },
+    "panels": {
+      "header": "헤더",
+      "payload": "페이로드"
+    },
+    "errors": {
+      "empty": "디코딩할 JWT를 붙여넣으세요.",
+      "segments": "JWT에는 최소 헤더와 페이로드(두 세그먼트)가 필요합니다.",
+      "base64": "헤더 또는 페이로드를 base64url 디코딩할 수 없습니다."
+    },
+    "relative": {
+      "future": "{n}{unit} 후",
+      "past": "{n}{unit} 전"
+    },
+    "units": {
+      "second": "{count, plural, one {초} other {초}}",
+      "minute": "{count, plural, one {분} other {분}}",
+      "hour": "{count, plural, one {시간} other {시간}}",
+      "day": "{count, plural, one {일} other {일}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL 포매터",
+    "subtitle": "MySQL, PostgreSQL 또는 SQLite용 SQL을 보기 좋게 정리합니다. 브라우저에서 실행되며 업로드되지 않습니다.",
+    "dialectLabel": "방언",
+    "keywordsLabel": "키워드",
+    "indentLabel": "들여쓰기",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "대문자",
+      "lower": "소문자",
+      "preserve": "유지"
+    },
+    "spaces": "{n}칸",
+    "format": "포맷",
+    "clear": "지우기",
+    "counter": "{current} / {max}자",
+    "inputPanel": "입력",
+    "formattedPanel": "결과",
+    "copy": "복사",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "“포맷”을 클릭…",
+    "errors": {
+      "tooLong": "입력은 최대 {max}자까지입니다.",
+      "couldNotFormat": "이 SQL을 포맷할 수 없습니다."
+    }
+  },
+  "RegexTester": {
+    "title": "정규식 테스터",
+    "subtitle": "텍스트에 대해 JavaScript 스타일 정규식을 실시간으로 실행합니다. 매칭은 강조 표시되며 브라우저 밖으로 나가지 않습니다.",
+    "patternLabel": "패턴",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g 전역",
+      "i": "i 대소문자 무시",
+      "m": "m 멀티라인",
+      "s": "s dotAll",
+      "u": "u 유니코드"
+    },
+    "emptyPattern": "(비어 있음)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {일치} other {일치}}",
+    "testTextLabel": "테스트 텍스트",
+    "counter": "{current} / {max}",
+    "clear": "지우기",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "텍스트는 최대 {max}자까지입니다.",
+      "invalid": "잘못된 정규식입니다.",
+      "runaway": "{max}개 일치 후 중지됨(패턴 폭주 가능성)."
+    }
+  },
+  "TimestampConverter": {
+    "title": "타임스탬프 변환기",
+    "subtitle": "Unix 초(≤10자리) 또는 밀리초(더 긴 정수), <code>ISO-8601</code>, 혹은 브라우저가 파싱할 수 있는 문자열을 변환합니다. 모두 로컬에서 실행됩니다.",
+    "inputLabel": "입력",
+    "placeholder": "1744200000 또는 2025-04-09T12:00:00Z",
+    "now": "지금",
+    "copy": "복사",
+    "hint": "값을 붙여넣거나 <strong>지금</strong>을 클릭하세요.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "상대",
+      "human": "사람이 읽기 쉬움"
+    },
+    "fields": {
+      "seconds": "초",
+      "milliseconds": "밀리초",
+      "utc": "UTC",
+      "local": "로컬",
+      "distance": "거리"
+    },
+    "errors": {
+      "empty": "Unix 타임스탬프, ISO 문자열 또는 날짜 텍스트를 입력하세요.",
+      "invalidNumber": "숫자 타임스탬프가 올바르지 않습니다.",
+      "outOfRange": "JavaScript Date 범위를 벗어났습니다.",
+      "couldNotParse": "Unix/ISO-8601/브라우저 날짜 문자열로 파싱할 수 없습니다."
+    }
+  },
+  "CronBuilder": {
+    "title": "Cron 표현식 빌더",
+    "subtitle": "표준 5필드 cron: <mono>minute hour day month weekday</mono>. 파서는 내부적으로 seconds=<code>0</code>을 사용합니다. 표현식 편집기에서는 선택적 6필드(<mono>sec min hour dom mon dow</mono>)도 지원합니다.",
+    "tabs": {
+      "builder": "비주얼 빌더",
+      "expression": "표현식"
+    },
+    "presetsLabel": "프리셋",
+    "fieldsLabel": "필드",
+    "rawExpressionLabel": "원본 표현식",
+    "expressionHint": "포커스를 벗어나면 파싱하여 빌더와 동기화합니다. {count} {count, plural, one {토큰} other {토큰}}.",
+    "currentExpressionLabel": "현재 표현식",
+    "copy": "복사",
+    "quickPick": "빠른 선택",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "자연어",
+    "nextRunsLabel": "다음 실행(로컬 시간)",
+    "fields": {
+      "minute": "분",
+      "hour": "시",
+      "dayOfMonth": "일",
+      "month": "월",
+      "dayOfWeek": "요일"
+    },
+    "presets": {
+      "everyMinute": "매분",
+      "every5Minutes": "5분마다",
+      "every15Minutes": "15분마다",
+      "everyHour": "매시간(:00)",
+      "every6Hours": "6시간마다",
+      "dailyMidnight": "매일 자정",
+      "daily0900": "매일 09:00",
+      "weekdays0900": "평일 09:00",
+      "weeklySunday": "매주(일 00:00)",
+      "monthlyFirst": "매월(1일 00:00)",
+      "yearlyJan1": "매년(1월 1일 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "매분"
+      },
+      "hour": {
+        "every": "매시간"
+      },
+      "dom": {
+        "any": "임의의 날",
+        "last": "마지막 날"
+      },
+      "month": {
+        "every": "매월"
+      },
+      "dow": {
+        "any": "임의의 요일",
+        "weekdays": "평일",
+        "weekend": "주말"
+      }
+    },
+    "months": {
+      "jan": "1월",
+      "feb": "2월",
+      "mar": "3월",
+      "apr": "4월",
+      "may": "5월",
+      "jun": "6월",
+      "jul": "7월",
+      "aug": "8월",
+      "sep": "9월",
+      "oct": "10월",
+      "nov": "11월",
+      "dec": "12월"
+    },
+    "weekdays": {
+      "sun": "일",
+      "mon": "월",
+      "tue": "화",
+      "wed": "수",
+      "thu": "목",
+      "fri": "금",
+      "sat": "토"
+    },
+    "errors": {
+      "fieldCount": "5개 필드(minute hour day month weekday) 또는 초를 포함한 6개 필드를 기대합니다.",
+      "invalid": "잘못된 cron 표현식입니다."
+    }
+  },
+  "Base64": {
+    "title": "Base64 인코더 / 디코더",
+    "subtitle": "텍스트를 Base64로 인코딩하거나 Base64 문자열을 디코딩합니다",
+    "upload": "업로드",
+    "clear": "지우기",
+    "modes": {
+      "encode": "인코딩",
+      "decode": "디코딩"
+    },
+    "swapTitle": "입력/출력 바꾸기",
+    "panels": {
+      "plainText": "일반 텍스트",
+      "base64Input": "Base64 입력",
+      "base64Output": "Base64 출력",
+      "decodedText": "디코딩된 텍스트"
+    },
+    "placeholders": {
+      "encode": "Base64로 인코딩할 텍스트를 입력…",
+      "decode": "디코딩할 Base64 문자열을 붙여넣기…"
+    },
+    "dropHere": "여기에 파일을 놓으세요",
+    "charCount": "{count}자",
+    "download": {
+      "title": "출력 다운로드",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "클립보드로 복사",
+    "outputPlaceholder": "출력이 여기에 표시됩니다…",
+    "errors": {
+      "invalidBase64": "유효하지 않은 Base64 문자열입니다. 입력을 확인하세요.",
+      "encodeFailed": "인코딩에 실패했습니다."
+    }
+  },
+  "UrlEncode": {
+    "title": "URL 인코더 / 디코더",
+    "subtitle": "encodeURIComponent / decodeURIComponent(UTF‑8)로 퍼센트 인코딩/디코딩",
+    "upload": "업로드",
+    "clear": "지우기",
+    "modes": {
+      "encode": "인코딩",
+      "decode": "디코딩"
+    },
+    "swapTitle": "입력/출력 바꾸기",
+    "panels": {
+      "plainText": "일반 텍스트",
+      "encodedInput": "인코딩 입력",
+      "encodedOutput": "인코딩 출력",
+      "decodedText": "디코딩된 텍스트"
+    },
+    "placeholders": {
+      "encode": "퍼센트 인코딩할 텍스트를 입력…",
+      "decode": "디코딩할 percent-encoded 텍스트를 붙여넣기…"
+    },
+    "dropHere": "여기에 파일을 놓으세요",
+    "charCount": "{count}자",
+    "download": {
+      "title": "출력 다운로드",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "클립보드로 복사",
+    "outputPlaceholder": "출력이 여기에 표시됩니다…",
+    "errors": {
+      "invalidEncoding": "잘못된 퍼센트 인코딩입니다. 불완전한 % 쌍이나 잘못된 이스케이프를 확인하세요.",
+      "encodeFailed": "인코딩할 수 없습니다(입력에 잘못된 Unicode)."
+    }
+  },
+  "UuidGenerator": {
+    "title": "UUID / ULID 생성기",
+    "subtitle": "브라우저에서 RFC 9562 UUID 또는 ULID를 생성합니다. 한 번에 최대 {max}개까지 일괄 내보내기.",
+    "format": "형식",
+    "kindHints": {
+      "ulid": "정렬 가능하고 URL 안전한 26자 식별자",
+      "uuid4": "무작위 (RFC 9562)",
+      "uuid7": "시간 순서(Unix ms + 무작위)",
+      "uuid1": "MAC/시간 기반 (RFC 9562)",
+      "uuid6": "재정렬된 그레고리력 시간 기반",
+      "uuid3": "이름 + 네임스페이스의 MD5 해시",
+      "uuid5": "이름 + 네임스페이스의 SHA‑1 해시"
+    },
+    "countLabel": "개수 (1–{max})",
+    "nameLabel": "이름(입력 문자열)",
+    "namePlaceholder": "예: my.app/resource",
+    "bulkHint": "일괄 실행 시 <code>#0</code>, <code>#1</code>, … 을 덧붙여 각 ID를 고유하게 만듭니다(v3/v5는 결정적).",
+    "namespace": "네임스페이스",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "사용자 지정 UUID"
+    },
+    "customNamespaceLabel": "네임스페이스 UUID",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "생성",
+    "output": "출력",
+    "lines": "{count}줄",
+    "download": {
+      "title": ".txt 다운로드",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "모두 복사",
+    "outputPlaceholder": "\"생성\"을 클릭…",
+    "errors": {
+      "invalidCustomNamespace": "사용자 지정 네임스페이스는 유효한 UUID여야 합니다.",
+      "missingName": "UUID v3 및 v5에는 이름이 필요합니다.",
+      "unknown": "ID를 생성할 수 없습니다."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Lorem Ipsum 생성기",
+    "subtitle": "레이아웃과 목업을 위한 라틴어 플레이스홀더 텍스트를 생성합니다.",
+    "paragraphs": "단락",
+    "sentences": "문장",
+    "words": "단어",
+    "count": "개수",
+    "generate": "생성",
+    "copy": "복사",
+    "startWith": "'Lorem ipsum...'으로 시작",
+    "outputPlaceholder": "출력이 여기에 표시됩니다...",
+    "outputType": "출력 유형",
+    "bulletList": "글머리 기호 목록",
+    "htmlMarkup": "HTML 마크업",
+    "htmlMarkupHint": "출력을 단락으로 감싸거나 글머리 기호 모드에서 목록 사용",
+    "output": "출력",
+    "download": "다운로드"
+  },
+  "ColorPicker": {
+    "title": "색상 선택기 및 변환기",
+    "subtitle": "HEX, RGB, HSL을 변환하고 조화로운 팔레트를 만드세요. 모든 처리는 브라우저에서 이루어집니다.",
+    "nativePicker": "기본 선택기",
+    "chooseColor": "색상 선택",
+    "eyeDropper": "스포이트",
+    "invalidHex": "유효하지 않은 HEX 색상입니다.",
+    "cssValues": "CSS 값",
+    "palettes": "팔레트",
+    "copied": "복사됨",
+    "clickToCopy": "클릭하여 복사",
+    "copyAllHex": "모든 HEX 복사",
+    "copy": "복사",
+    "copyColor": "{color} 복사",
+    "paletteShades": "음영",
+    "paletteComplementary": "보색",
+    "paletteTriadic": "삼원색",
+    "paletteAnalogous": "유사색",
+    "paletteSplit": "분할 보색",
+    "paletteSquare": "사각형"
+  },
+  "DiffChecker": {
+    "title": "차이 확인기",
+    "subtitle": "두 텍스트를 나란히 행 단위로 비교합니다. 모든 처리는 브라우저에서 이루어집니다.",
+    "rowsCount": "{count} 행",
+    "truncatedWarning": "처음 {max} 행을 표시합니다.",
+    "limitExceeded": "각 측면은 {max} 문자로 제한됩니다.",
+    "clearBoth": "모두 지우기",
+    "original": "원본",
+    "modified": "수정됨",
+    "originalPlaceholder": "원본 텍스트를 붙여넣으세요…",
+    "modifiedPlaceholder": "수정된 텍스트를 붙여넣으세요…",
+    "comparisonLabel": "나란히 비교",
+    "emptyState": "두 패널 모두에 텍스트를 입력하여 비교하세요."
   }
 }

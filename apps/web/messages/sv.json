@@ -7,7 +7,20 @@
     "bookmarks": "Bokmärken",
     "jsonFormatter": "JSON-formaterare",
     "emailValidator": "E-postvalidering",
-    "nosqlExplorer": "NoSQL-utforskare"
+    "nosqlExplorer": "NoSQL-utforskare",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "jwtDecoder": "JWT-avkodare",
+    "sqlFormatter": "SQL Formatter",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -217,6 +230,54 @@
       "emailValidator": {
         "title": "E-postvalidering",
         "description": "Verifiera och validera e-postadresser."
+      },
+      "jwtDecoder": {
+        "title": "JWT-avkodare",
+        "description": "Avkoda JWT-header, payload och utgångstid."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
       }
     },
     "tabs": {
@@ -1508,5 +1569,377 @@
     "toastLoginRequired": "Logga in för att spara dokument",
     "toastSaved": "Dokument sparat",
     "toastSaveFailed": "Kunde inte spara dokument"
+  },
+  "JwtDecoder": {
+    "title": "JWT-avkodare",
+    "subtitle": "Inspektera header och payload. Utgångstid använder claim <code>exp</code>. Inget skickas till en server; signaturen verifieras inte.",
+    "tokenLabel": "Token",
+    "clear": "Rensa",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Kopiera",
+    "expiryLabel": "Utgångstid (exp)",
+    "signaturePresent": "Signatur finns (ej verifierad)",
+    "noExp": "Ingen <code>exp</code>-claim i payload.",
+    "status": {
+      "expired": "Utgången",
+      "valid": "Giltig"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Lokal",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Utfärdad (iat)",
+      "notBefore": "Inte före (nbf)"
+    },
+    "panels": {
+      "header": "Header",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Klistra in en JWT för att avkoda.",
+      "segments": "En JWT behöver minst header och payload (två segment).",
+      "base64": "Kunde inte base64url-avkoda header eller payload."
+    },
+    "relative": {
+      "future": "om {n} {unit}",
+      "past": "för {n} {unit} sedan"
+    },
+    "units": {
+      "second": "{count, plural, one {sekund} other {sekunder}}",
+      "minute": "{count, plural, one {minut} other {minuter}}",
+      "hour": "{count, plural, one {timme} other {timmar}}",
+      "day": "{count, plural, one {dag} other {dagar}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL-formaterare",
+    "subtitle": "Formatera SQL för MySQL, PostgreSQL eller SQLite. Körs i din webbläsare; inget laddas upp.",
+    "dialectLabel": "Dialekt",
+    "keywordsLabel": "Nyckelord",
+    "indentLabel": "Indrag",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "VERSALER",
+      "lower": "gemener",
+      "preserve": "Behåll"
+    },
+    "spaces": "{n} mellanslag",
+    "format": "Formatera",
+    "clear": "Rensa",
+    "counter": "{current} / {max} tecken",
+    "inputPanel": "Inmatning",
+    "formattedPanel": "Formaterat",
+    "copy": "Kopiera",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Klicka \"Formatera\"…",
+    "errors": {
+      "tooLong": "Inmatning är begränsad till {max} tecken.",
+      "couldNotFormat": "Kunde inte formatera denna SQL."
+    }
+  },
+  "RegexTester": {
+    "title": "Regex-tester",
+    "subtitle": "JavaScript-liknande regex live mot din text. Träffar markeras; inget lämnar din webbläsare.",
+    "patternLabel": "Mönster",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i ignorera versaler/gemener",
+      "m": "m flerradig",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(tom)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {träff} other {träffar}}",
+    "testTextLabel": "Testtext",
+    "counter": "{current} / {max}",
+    "clear": "Rensa",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Texten är begränsad till {max} tecken.",
+      "invalid": "Ogiltigt reguljärt uttryck.",
+      "runaway": "Stoppade efter {max} träffar (möjligt skenande mönster)."
+    }
+  },
+  "TimestampConverter": {
+    "title": "Tidsstämpelkonverterare",
+    "subtitle": "Unix-sekunder (≤10 siffror) eller millisekunder (längre heltal), <code>ISO-8601</code> eller strängar som din webbläsare kan tolka. Allt körs lokalt.",
+    "inputLabel": "Inmatning",
+    "placeholder": "1744200000 eller 2025-04-09T12:00:00Z",
+    "now": "Nu",
+    "copy": "Kopiera",
+    "hint": "Klistra in ett värde eller klicka <strong>Nu</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relativ",
+      "human": "Läsbart"
+    },
+    "fields": {
+      "seconds": "Sekunder",
+      "milliseconds": "Millisekunder",
+      "utc": "UTC",
+      "local": "Lokal",
+      "distance": "Avstånd"
+    },
+    "errors": {
+      "empty": "Ange en Unix-tidsstämpel, ISO-sträng eller datumtext.",
+      "invalidNumber": "Ogiltig numerisk tidsstämpel.",
+      "outOfRange": "Utanför intervallet för JavaScript Date.",
+      "couldNotParse": "Kunde inte tolka som Unix, ISO-8601 eller webbläsardatum."
+    }
+  },
+  "CronBuilder": {
+    "title": "Cron-uttrycksbyggare",
+    "subtitle": "Standard cron med 5 fält: <mono>minute hour day month weekday</mono>. Parsern använder seconds=<code>0</code> internt. Valfritt 6-fält (<mono>sec min hour dom mon dow</mono>) fungerar i uttryckseditorn.",
+    "tabs": {
+      "builder": "Visuell byggare",
+      "expression": "Uttryck"
+    },
+    "presetsLabel": "Förinställningar",
+    "fieldsLabel": "Fält",
+    "rawExpressionLabel": "Rått uttryck",
+    "expressionHint": "Lämna fältet för att tolka och synka byggaren. {count} {count, plural, one {token} other {tokens}}.",
+    "currentExpressionLabel": "Aktuellt uttryck",
+    "copy": "Kopiera",
+    "quickPick": "Snabbval",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Klartext",
+    "nextRunsLabel": "Nästa körningar (lokal tid)",
+    "fields": {
+      "minute": "Minut",
+      "hour": "Timme",
+      "dayOfMonth": "Dag i månaden",
+      "month": "Månad",
+      "dayOfWeek": "Veckodag"
+    },
+    "presets": {
+      "everyMinute": "Varje minut",
+      "every5Minutes": "Var 5:e minut",
+      "every15Minutes": "Var 15:e minut",
+      "everyHour": "Varje timme (vid :00)",
+      "every6Hours": "Var 6:e timme",
+      "dailyMidnight": "Dagligen vid midnatt",
+      "daily0900": "Dagligen kl 09:00",
+      "weekdays0900": "Vardagar kl 09:00",
+      "weeklySunday": "Veckovis (söndag 00:00)",
+      "monthlyFirst": "Månadsvis (1:a 00:00)",
+      "yearlyJan1": "Årligen (1 jan 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "varje minut"
+      },
+      "hour": {
+        "every": "varje timme"
+      },
+      "dom": {
+        "any": "valfri dag",
+        "last": "sista dagen"
+      },
+      "month": {
+        "every": "varje månad"
+      },
+      "dow": {
+        "any": "valfri veckodag",
+        "weekdays": "vardagar",
+        "weekend": "helg"
+      }
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "Maj",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Okt",
+      "nov": "Nov",
+      "dec": "Dec"
+    },
+    "weekdays": {
+      "sun": "Sön",
+      "mon": "Mån",
+      "tue": "Tis",
+      "wed": "Ons",
+      "thu": "Tor",
+      "fri": "Fre",
+      "sat": "Lör"
+    },
+    "errors": {
+      "fieldCount": "Förväntade 5 fält (minute hour day month weekday) eller 6 inklusive sekunder.",
+      "invalid": "Ogiltigt cron-uttryck."
+    }
+  },
+  "Base64": {
+    "title": "Base64-kodare / avkodare",
+    "subtitle": "Koda text till Base64 eller avkoda Base64-strängar",
+    "upload": "Ladda upp",
+    "clear": "Rensa",
+    "modes": {
+      "encode": "Koda",
+      "decode": "Avkoda"
+    },
+    "swapTitle": "Byt indata och utdata",
+    "panels": {
+      "plainText": "Vanlig text",
+      "base64Input": "Base64-indata",
+      "base64Output": "Base64-utdata",
+      "decodedText": "Avkodad text"
+    },
+    "placeholders": {
+      "encode": "Skriv text att koda till Base64…",
+      "decode": "Klistra in Base64 för att avkoda…"
+    },
+    "dropHere": "Släpp fil här",
+    "charCount": "{count} tecken",
+    "download": {
+      "title": "Ladda ner output",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Kopiera till urklipp",
+    "outputPlaceholder": "Output visas här…",
+    "errors": {
+      "invalidBase64": "Ogiltig Base64-sträng. Kontrollera indata.",
+      "encodeFailed": "Kunde inte koda indata."
+    }
+  },
+  "UrlEncode": {
+    "title": "URL-kodare / avkodare",
+    "subtitle": "Procentkoda/avkoda med encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Ladda upp",
+    "clear": "Rensa",
+    "modes": {
+      "encode": "Koda",
+      "decode": "Avkoda"
+    },
+    "swapTitle": "Byt indata och utdata",
+    "panels": {
+      "plainText": "Vanlig text",
+      "encodedInput": "Kodat indata",
+      "encodedOutput": "Kodat utdata",
+      "decodedText": "Avkodad text"
+    },
+    "placeholders": {
+      "encode": "Skriv text för procentkodning…",
+      "decode": "Klistra in procentkodad text för avkodning…"
+    },
+    "dropHere": "Släpp fil här",
+    "charCount": "{count} tecken",
+    "download": {
+      "title": "Ladda ner output",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Kopiera till urklipp",
+    "outputPlaceholder": "Output visas här…",
+    "errors": {
+      "invalidEncoding": "Ogiltig procentkodning. Kontrollera ofullständiga %‑par eller escapes.",
+      "encodeFailed": "Kunde inte koda (ogiltig Unicode i indata)."
+    }
+  },
+  "UuidGenerator": {
+    "title": "UUID-/ULID-generator",
+    "subtitle": "Generera RFC 9562-UUID:er eller ULID:er i webbläsaren. Bulkundexport upp till {max} per körning.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "Sorterbart, URL-säkert 26-teckens ID",
+      "uuid4": "Slumpmässig (RFC 9562)",
+      "uuid7": "Tidsordnad, Unix ms + slump",
+      "uuid1": "MAC-/tidsbaserad (RFC 9562)",
+      "uuid6": "Omordnad gregoriansk tid",
+      "uuid3": "MD5-hash av namn + namespace",
+      "uuid5": "SHA‑1-hash av namn + namespace"
+    },
+    "countLabel": "Antal (1–{max})",
+    "nameLabel": "Namn (indatasträng)",
+    "namePlaceholder": "t.ex. my.app/resource",
+    "bulkHint": "I bulk läggs <code>#0</code>, <code>#1</code>, … till så att varje ID blir unikt (v3/v5 är deterministiska).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Anpassad UUID"
+    },
+    "customNamespaceLabel": "Namespace-UUID",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Generera",
+    "output": "Utdata",
+    "lines": "{count} rader",
+    "download": {
+      "title": "Ladda ner .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Kopiera allt",
+    "outputPlaceholder": "Klicka på \"Generera\"…",
+    "errors": {
+      "invalidCustomNamespace": "Anpassad namespace måste vara en giltig UUID.",
+      "missingName": "Namn krävs för UUID v3 och v5.",
+      "unknown": "Kunde inte generera ID:n."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Lorem Ipsum Generator",
+    "subtitle": "Generera latinsk platshållartext för dina layouter och mockups.",
+    "paragraphs": "Stycken",
+    "sentences": "Meningar",
+    "words": "Ord",
+    "count": "Antal",
+    "generate": "Generera",
+    "copy": "Kopiera",
+    "startWith": "Börja med 'Lorem ipsum...'",
+    "outputPlaceholder": "Utdata visas här...",
+    "outputType": "Utdatatyp",
+    "bulletList": "Punktlista",
+    "htmlMarkup": "HTML-uppmärkning",
+    "htmlMarkupHint": "Omslut utdata i stycken, eller använd en lista för punktlistläge",
+    "output": "Utdata",
+    "download": "Ladda ner"
+  },
+  "ColorPicker": {
+    "title": "Färgväljare och konverterare",
+    "subtitle": "Konvertera HEX, RGB och HSL; bygg harmoniska paletter. All bearbetning sker i din webbläsare.",
+    "nativePicker": "Inbyggd väljare",
+    "chooseColor": "Välj färg",
+    "eyeDropper": "Pipett",
+    "invalidHex": "Ogiltig HEX-färg.",
+    "cssValues": "CSS-värden",
+    "palettes": "Paletter",
+    "copied": "Kopierat",
+    "clickToCopy": "Klicka för att kopiera",
+    "copyAllHex": "Kopiera alla HEX",
+    "copy": "Kopiera",
+    "copyColor": "Kopiera {color}",
+    "paletteShades": "Nyanser",
+    "paletteComplementary": "Komplementär",
+    "paletteTriadic": "Triadisk",
+    "paletteAnalogous": "Analog",
+    "paletteSplit": "Delad kompl.",
+    "paletteSquare": "Kvadratisk"
+  },
+  "DiffChecker": {
+    "title": "Diff-kontroll",
+    "subtitle": "Rad-för-rad-jämförelse av två texter sida vid sida. Allt stannar i din webbläsare.",
+    "rowsCount": "{count} rader",
+    "truncatedWarning": "Visar de första {max} raderna.",
+    "limitExceeded": "Varje sida är begränsad till {max} tecken.",
+    "clearBoth": "Rensa båda",
+    "original": "Original",
+    "modified": "Ändrad",
+    "originalPlaceholder": "Klistra in originaltext…",
+    "modifiedPlaceholder": "Klistra in ändrad text…",
+    "comparisonLabel": "Sida vid sida-jämförelse",
+    "emptyState": "Ange text i båda panelerna för att jämföra."
   }
 }

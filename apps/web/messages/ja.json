@@ -7,7 +7,20 @@
     "bookmarks": "ブックマーク",
     "jsonFormatter": "JSON フォーマッター",
     "emailValidator": "メールバリデーター",
-    "nosqlExplorer": "NoSQLエクスプローラー"
+    "nosqlExplorer": "NoSQLエクスプローラー",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "jwtDecoder": "JWTデコーダー",
+    "sqlFormatter": "SQL Formatter",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -217,6 +230,54 @@
       "emailValidator": {
         "title": "メールバリデーター",
         "description": "メールアドレスの検証と確認を行います。"
+      },
+      "jwtDecoder": {
+        "title": "JWTデコーダー",
+        "description": "JWT のヘッダー、ペイロード、有効期限をデコードします。"
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
       }
     },
     "tabs": {
@@ -1508,5 +1569,377 @@
     "toastLoginRequired": "ドキュメントを保存するにはログインしてください",
     "toastSaved": "ドキュメントを保存しました",
     "toastSaveFailed": "ドキュメントの保存に失敗しました"
+  },
+  "JwtDecoder": {
+    "title": "JWTデコーダー",
+    "subtitle": "ヘッダーとペイロードを確認します。有効期限は <code>exp</code> クレームを使用します。サーバーへ送信されず、署名は検証されません。",
+    "tokenLabel": "トークン",
+    "clear": "クリア",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "コピー",
+    "expiryLabel": "有効期限 (exp)",
+    "signaturePresent": "署名あり（未検証）",
+    "noExp": "ペイロードに <code>exp</code> クレームがありません。",
+    "status": {
+      "expired": "期限切れ",
+      "valid": "有効"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "ローカル",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "発行時刻 (iat)",
+      "notBefore": "有効開始 (nbf)"
+    },
+    "panels": {
+      "header": "ヘッダー",
+      "payload": "ペイロード"
+    },
+    "errors": {
+      "empty": "デコードする JWT を貼り付けてください。",
+      "segments": "JWT には少なくともヘッダーとペイロード（2 セグメント）が必要です。",
+      "base64": "ヘッダーまたはペイロードを base64url デコードできませんでした。"
+    },
+    "relative": {
+      "future": "{n}{unit}後",
+      "past": "{n}{unit}前"
+    },
+    "units": {
+      "second": "{count, plural, one {秒} other {秒}}",
+      "minute": "{count, plural, one {分} other {分}}",
+      "hour": "{count, plural, one {時間} other {時間}}",
+      "day": "{count, plural, one {日} other {日}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQLフォーマッター",
+    "subtitle": "MySQL / PostgreSQL / SQLite のSQLを整形します。ブラウザ内で実行され、アップロードされません。",
+    "dialectLabel": "方言",
+    "keywordsLabel": "キーワード",
+    "indentLabel": "インデント",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "大文字",
+      "lower": "小文字",
+      "preserve": "保持"
+    },
+    "spaces": "{n} スペース",
+    "format": "整形",
+    "clear": "クリア",
+    "counter": "{current} / {max} 文字",
+    "inputPanel": "入力",
+    "formattedPanel": "整形結果",
+    "copy": "コピー",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "「整形」をクリック…",
+    "errors": {
+      "tooLong": "入力は {max} 文字までです。",
+      "couldNotFormat": "このSQLを整形できませんでした。"
+    }
+  },
+  "RegexTester": {
+    "title": "正規表現テスター",
+    "subtitle": "JavaScript 形式の正規表現をテキストに対してライブ実行します。一致箇所はハイライトされ、ブラウザ外へ送信されません。",
+    "patternLabel": "パターン",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g グローバル",
+      "i": "i 大文字小文字を無視",
+      "m": "m 複数行",
+      "s": "s dotAll",
+      "u": "u Unicode"
+    },
+    "emptyPattern": "(空)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {一致} other {一致}}",
+    "testTextLabel": "テストテキスト",
+    "counter": "{current} / {max}",
+    "clear": "クリア",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "テキストは {max} 文字までです。",
+      "invalid": "正規表現が無効です。",
+      "runaway": "{max} 件で停止しました（暴走している可能性があります）。"
+    }
+  },
+  "TimestampConverter": {
+    "title": "タイムスタンプ変換",
+    "subtitle": "Unix秒（10桁以下）またはミリ秒（それ以上の整数）、<code>ISO-8601</code>、またはブラウザが解釈できる文字列に対応します。すべてローカルで動作します。",
+    "inputLabel": "入力",
+    "placeholder": "1744200000 または 2025-04-09T12:00:00Z",
+    "now": "今",
+    "copy": "コピー",
+    "hint": "値を貼り付けるか <strong>今</strong> をクリックしてください。",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "相対",
+      "human": "表示"
+    },
+    "fields": {
+      "seconds": "秒",
+      "milliseconds": "ミリ秒",
+      "utc": "UTC",
+      "local": "ローカル",
+      "distance": "差"
+    },
+    "errors": {
+      "empty": "Unixタイムスタンプ、ISO文字列、または日付テキストを入力してください。",
+      "invalidNumber": "数値のタイムスタンプが無効です。",
+      "outOfRange": "JavaScript Date の範囲外です。",
+      "couldNotParse": "Unix/ISO-8601/ブラウザ日付として解析できませんでした。"
+    }
+  },
+  "CronBuilder": {
+    "title": "Cron 式ビルダー",
+    "subtitle": "標準の5フィールドcron: <mono>minute hour day month weekday</mono>。パーサーは内部で seconds=<code>0</code> を使用します。式エディターでは任意の6フィールド（<mono>sec min hour dom mon dow</mono>）も利用できます。",
+    "tabs": {
+      "builder": "ビジュアルビルダー",
+      "expression": "式"
+    },
+    "presetsLabel": "プリセット",
+    "fieldsLabel": "フィールド",
+    "rawExpressionLabel": "生の式",
+    "expressionHint": "フォーカスを外すと解析してビルダーに同期します。{count} {count, plural, one {トークン} other {トークン}}。",
+    "currentExpressionLabel": "現在の式",
+    "copy": "コピー",
+    "quickPick": "クイック選択",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "説明",
+    "nextRunsLabel": "次の実行（ローカル）",
+    "fields": {
+      "minute": "分",
+      "hour": "時",
+      "dayOfMonth": "日",
+      "month": "月",
+      "dayOfWeek": "曜日"
+    },
+    "presets": {
+      "everyMinute": "毎分",
+      "every5Minutes": "5分ごと",
+      "every15Minutes": "15分ごと",
+      "everyHour": "毎時（:00）",
+      "every6Hours": "6時間ごと",
+      "dailyMidnight": "毎日0:00",
+      "daily0900": "毎日09:00",
+      "weekdays0900": "平日09:00",
+      "weeklySunday": "毎週（日 00:00）",
+      "monthlyFirst": "毎月（1日 00:00）",
+      "yearlyJan1": "毎年（1/1 00:00）"
+    },
+    "picks": {
+      "minute": {
+        "every": "毎分"
+      },
+      "hour": {
+        "every": "毎時"
+      },
+      "dom": {
+        "any": "任意の日",
+        "last": "月末"
+      },
+      "month": {
+        "every": "毎月"
+      },
+      "dow": {
+        "any": "任意の曜日",
+        "weekdays": "平日",
+        "weekend": "週末"
+      }
+    },
+    "months": {
+      "jan": "1月",
+      "feb": "2月",
+      "mar": "3月",
+      "apr": "4月",
+      "may": "5月",
+      "jun": "6月",
+      "jul": "7月",
+      "aug": "8月",
+      "sep": "9月",
+      "oct": "10月",
+      "nov": "11月",
+      "dec": "12月"
+    },
+    "weekdays": {
+      "sun": "日",
+      "mon": "月",
+      "tue": "火",
+      "wed": "水",
+      "thu": "木",
+      "fri": "金",
+      "sat": "土"
+    },
+    "errors": {
+      "fieldCount": "5フィールド（minute hour day month weekday）または秒を含む6フィールドが必要です。",
+      "invalid": "cron式が無効です。"
+    }
+  },
+  "Base64": {
+    "title": "Base64 エンコード / デコード",
+    "subtitle": "テキストを Base64 にエンコード、または Base64 文字列をデコードします",
+    "upload": "アップロード",
+    "clear": "クリア",
+    "modes": {
+      "encode": "エンコード",
+      "decode": "デコード"
+    },
+    "swapTitle": "入力と出力を入れ替え",
+    "panels": {
+      "plainText": "プレーンテキスト",
+      "base64Input": "Base64 入力",
+      "base64Output": "Base64 出力",
+      "decodedText": "デコード結果"
+    },
+    "placeholders": {
+      "encode": "Base64 にエンコードするテキストを入力…",
+      "decode": "デコードする Base64 を貼り付け…"
+    },
+    "dropHere": "ここにファイルをドロップ",
+    "charCount": "{count} 文字",
+    "download": {
+      "title": "出力をダウンロード",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "クリップボードにコピー",
+    "outputPlaceholder": "ここに出力が表示されます…",
+    "errors": {
+      "invalidBase64": "無効な Base64 文字列です。入力を確認してください。",
+      "encodeFailed": "エンコードに失敗しました。"
+    }
+  },
+  "UrlEncode": {
+    "title": "URL エンコード / デコード",
+    "subtitle": "encodeURIComponent / decodeURIComponent（UTF‑8）でパーセントエンコード/デコードします",
+    "upload": "アップロード",
+    "clear": "クリア",
+    "modes": {
+      "encode": "エンコード",
+      "decode": "デコード"
+    },
+    "swapTitle": "入力と出力を入れ替え",
+    "panels": {
+      "plainText": "プレーンテキスト",
+      "encodedInput": "エンコード入力",
+      "encodedOutput": "エンコード出力",
+      "decodedText": "デコード結果"
+    },
+    "placeholders": {
+      "encode": "パーセントエンコードするテキストを入力…",
+      "decode": "デコードする percent-encoded テキストを貼り付け…"
+    },
+    "dropHere": "ここにファイルをドロップ",
+    "charCount": "{count} 文字",
+    "download": {
+      "title": "出力をダウンロード",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "クリップボードにコピー",
+    "outputPlaceholder": "ここに出力が表示されます…",
+    "errors": {
+      "invalidEncoding": "パーセントエンコードが無効です。不完全な % ペアや不正なエスケープを確認してください。",
+      "encodeFailed": "エンコードできません（入力に無効な Unicode）。"
+    }
+  },
+  "UuidGenerator": {
+    "title": "UUID / ULID ジェネレーター",
+    "subtitle": "ブラウザで RFC 9562 UUID または ULID を生成します。1回あたり最大 {max} 件まで一括エクスポートできます。",
+    "format": "形式",
+    "kindHints": {
+      "ulid": "並べ替え可能で URL セーフな 26 文字 ID",
+      "uuid4": "ランダム（RFC 9562）",
+      "uuid7": "時系列順（Unix ms + ランダム）",
+      "uuid1": "MAC/時刻ベース（RFC 9562）",
+      "uuid6": "並べ替えられたグレゴリオ暦時刻ベース",
+      "uuid3": "名前 + 名前空間の MD5 ハッシュ",
+      "uuid5": "名前 + 名前空間の SHA‑1 ハッシュ"
+    },
+    "countLabel": "件数（1～{max}）",
+    "nameLabel": "名前（入力文字列）",
+    "namePlaceholder": "例: my.app/resource",
+    "bulkHint": "一括実行では <code>#0</code>、<code>#1</code>… を付与し、各 ID を一意にします（v3/v5 は決定的）。",
+    "namespace": "名前空間",
+    "namespaceOptions": {
+      "dns": "DNS（RFC 4122）",
+      "url": "URL（RFC 4122）",
+      "custom": "カスタム UUID"
+    },
+    "customNamespaceLabel": "名前空間 UUID",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "生成",
+    "output": "出力",
+    "lines": "{count} 行",
+    "download": {
+      "title": ".txt をダウンロード",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "すべてコピー",
+    "outputPlaceholder": "「生成」をクリック…",
+    "errors": {
+      "invalidCustomNamespace": "カスタム名前空間は有効な UUID である必要があります。",
+      "missingName": "UUID v3 と v5 には名前が必要です。",
+      "unknown": "ID を生成できませんでした。"
+    }
+  },
+  "LoremIpsum": {
+    "title": "Lorem Ipsum ジェネレーター",
+    "subtitle": "レイアウトやモックアップ用のラテン語プレースホルダーテキストを生成します。",
+    "paragraphs": "段落",
+    "sentences": "文",
+    "words": "単語",
+    "count": "数",
+    "generate": "生成",
+    "copy": "コピー",
+    "startWith": "'Lorem ipsum...' で始める",
+    "outputPlaceholder": "出力はここに表示されます...",
+    "outputType": "出力タイプ",
+    "bulletList": "箇条書きリスト",
+    "htmlMarkup": "HTMLマークアップ",
+    "htmlMarkupHint": "出力を段落で囲むか、箇条書きモードではリストを使用",
+    "output": "出力",
+    "download": "ダウンロード"
+  },
+  "ColorPicker": {
+    "title": "カラーピッカーとコンバーター",
+    "subtitle": "HEX、RGB、HSLを変換し、ハーモニックパレットを作成します。すべての処理はブラウザ内で行われます。",
+    "nativePicker": "ネイティブピッカー",
+    "chooseColor": "色を選択",
+    "eyeDropper": "スポイト",
+    "invalidHex": "無効なHEXカラーです。",
+    "cssValues": "CSS値",
+    "palettes": "パレット",
+    "copied": "コピー済み",
+    "clickToCopy": "クリックしてコピー",
+    "copyAllHex": "すべてのHEXをコピー",
+    "copy": "コピー",
+    "copyColor": "{color} をコピー",
+    "paletteShades": "シェード",
+    "paletteComplementary": "補色",
+    "paletteTriadic": "トライアド",
+    "paletteAnalogous": "アナログ",
+    "paletteSplit": "分裂補色",
+    "paletteSquare": "スクエア"
+  },
+  "DiffChecker": {
+    "title": "差分チェッカー",
+    "subtitle": "2つのテキストを並べて行単位で比較します。すべてブラウザ内で処理されます。",
+    "rowsCount": "{count} 行",
+    "truncatedWarning": "最初の {max} 行を表示中。",
+    "limitExceeded": "各側は {max} 文字に制限されています。",
+    "clearBoth": "両方をクリア",
+    "original": "オリジナル",
+    "modified": "変更後",
+    "originalPlaceholder": "元のテキストを貼り付け…",
+    "modifiedPlaceholder": "変更後のテキストを貼り付け…",
+    "comparisonLabel": "並べて比較",
+    "emptyState": "両方のパネルにテキストを入力して比較してください。"
   }
 }

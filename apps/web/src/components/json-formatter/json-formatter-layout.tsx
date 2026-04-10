@@ -262,7 +262,7 @@ export function JsonFormatterLayout() {
 
   return (
     <div className="flex h-full min-h-0 w-full flex-col gap-3 overflow-hidden">
-      <Card className="shrink-0 border shadow-lg bg-card/50 backdrop-blur-sm">
+      <Card className="shrink-0 border shadow-lg bg-card/50 backdrop-blur-sm md:hidden">
         <CardHeader className="p-3 md:pb-3">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-2.5">

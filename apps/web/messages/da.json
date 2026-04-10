@@ -7,7 +7,20 @@
     "bookmarks": "Bogmærker",
     "jsonFormatter": "JSON-formatering",
     "emailValidator": "E-mailvalidering",
-    "nosqlExplorer": "NoSQL-udforsker"
+    "nosqlExplorer": "NoSQL-udforsker",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "jwtDecoder": "JWT-dekoder",
+    "sqlFormatter": "SQL Formatter",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker"
   },
   "Help": {
     "title": "Hjælp og dokumentation",
@@ -217,6 +230,54 @@
       "emailValidator": {
         "title": "E-mail-validator",
         "description": "Bekræft og valider e-mailadresser."
+      },
+      "jwtDecoder": {
+        "title": "JWT-dekoder",
+        "description": "Afkod JWT-header, payload og udløb."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
       }
     },
     "tabs": {
@@ -1508,5 +1569,377 @@
     "toastLoginRequired": "Log ind for at gemme dokumenter",
     "toastSaved": "Dokument gemt",
     "toastSaveFailed": "Kunne ikke gemme dokument"
+  },
+  "JwtDecoder": {
+    "title": "JWT-dekoder",
+    "subtitle": "Inspicér header og payload. Udløb bruger <code>exp</code>-claim. Intet sendes til en server; signaturen verificeres ikke.",
+    "tokenLabel": "Token",
+    "clear": "Ryd",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Kopiér",
+    "expiryLabel": "Udløb (exp)",
+    "signaturePresent": "Signatur til stede (ikke verificeret)",
+    "noExp": "Ingen <code>exp</code>-claim i payload.",
+    "status": {
+      "expired": "Udløbet",
+      "valid": "Gyldig"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Lokal",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Udstedt (iat)",
+      "notBefore": "Ikke før (nbf)"
+    },
+    "panels": {
+      "header": "Header",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Indsæt en JWT for at dekode.",
+      "segments": "En JWT kræver mindst header og payload (to segmenter).",
+      "base64": "Kunne ikke base64url-dekode header eller payload."
+    },
+    "relative": {
+      "future": "om {n} {unit}",
+      "past": "for {n} {unit} siden"
+    },
+    "units": {
+      "second": "{count, plural, one {sekund} other {sekunder}}",
+      "minute": "{count, plural, one {minut} other {minutter}}",
+      "hour": "{count, plural, one {time} other {timer}}",
+      "day": "{count, plural, one {dag} other {dage}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL-formater",
+    "subtitle": "Formatér SQL til MySQL, PostgreSQL eller SQLite. Kører i din browser; intet uploades.",
+    "dialectLabel": "Dialekt",
+    "keywordsLabel": "Nøgleord",
+    "indentLabel": "Indrykning",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "STORE",
+      "lower": "små",
+      "preserve": "Bevar"
+    },
+    "spaces": "{n} mellemrum",
+    "format": "Formatér",
+    "clear": "Ryd",
+    "counter": "{current} / {max} tegn",
+    "inputPanel": "Input",
+    "formattedPanel": "Formateret",
+    "copy": "Kopiér",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Klik \"Formatér\"…",
+    "errors": {
+      "tooLong": "Input er begrænset til {max} tegn.",
+      "couldNotFormat": "Kunne ikke formatere denne SQL."
+    }
+  },
+  "RegexTester": {
+    "title": "Regex-tester",
+    "subtitle": "JavaScript-lignende regex live mod din tekst. Matches fremhæves; intet forlader din browser.",
+    "patternLabel": "Mønster",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i ignorer store/små bogstaver",
+      "m": "m multiline",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(tom)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {match} other {matches}}",
+    "testTextLabel": "Testtekst",
+    "counter": "{current} / {max}",
+    "clear": "Ryd",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Teksten er begrænset til {max} tegn.",
+      "invalid": "Ugyldigt regulært udtryk.",
+      "runaway": "Stoppede efter {max} matches (muligt løbsk mønster)."
+    }
+  },
+  "TimestampConverter": {
+    "title": "Timestamp-konverter",
+    "subtitle": "Unix-sekunder (≤10 cifre) eller millisekunder (længere heltal), <code>ISO-8601</code> eller strenge som din browser kan parse. Alt kører lokalt.",
+    "inputLabel": "Input",
+    "placeholder": "1744200000 eller 2025-04-09T12:00:00Z",
+    "now": "Nu",
+    "copy": "Kopiér",
+    "hint": "Indsæt en værdi eller klik <strong>Nu</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relativ",
+      "human": "Læsbar"
+    },
+    "fields": {
+      "seconds": "Sekunder",
+      "milliseconds": "Millisekunder",
+      "utc": "UTC",
+      "local": "Lokal",
+      "distance": "Afstand"
+    },
+    "errors": {
+      "empty": "Indtast et Unix-timestamp, en ISO-streng eller datotekst.",
+      "invalidNumber": "Ugyldigt numerisk timestamp.",
+      "outOfRange": "Uden for rækkevidde for JavaScript Date.",
+      "couldNotParse": "Kunne ikke parse som Unix, ISO-8601 eller browser-datostreng."
+    }
+  },
+  "CronBuilder": {
+    "title": "Cron-udtryksbygger",
+    "subtitle": "Standard 5-felts cron: <mono>minute hour day month weekday</mono>. Parseren bruger seconds=<code>0</code> internt. Valgfrit 6-felts format (<mono>sec min hour dom mon dow</mono>) virker i editoren.",
+    "tabs": {
+      "builder": "Visuel bygger",
+      "expression": "Udtryk"
+    },
+    "presetsLabel": "Forudindstillinger",
+    "fieldsLabel": "Felter",
+    "rawExpressionLabel": "Rå udtryk",
+    "expressionHint": "Forlad feltet for at parse og synkronisere byggeren. {count} {count, plural, one {token} other {tokens}}.",
+    "currentExpressionLabel": "Aktuelt udtryk",
+    "copy": "Kopiér",
+    "quickPick": "Hurtigt valg",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Almindeligt sprog",
+    "nextRunsLabel": "Næste kørsler (lokal tid)",
+    "fields": {
+      "minute": "Minut",
+      "hour": "Time",
+      "dayOfMonth": "Dag i måneden",
+      "month": "Måned",
+      "dayOfWeek": "Ugedag"
+    },
+    "presets": {
+      "everyMinute": "Hvert minut",
+      "every5Minutes": "Hver 5. minut",
+      "every15Minutes": "Hver 15. minut",
+      "everyHour": "Hver time (ved :00)",
+      "every6Hours": "Hver 6. time",
+      "dailyMidnight": "Dagligt ved midnat",
+      "daily0900": "Dagligt kl. 09:00",
+      "weekdays0900": "Hverdage kl. 09:00",
+      "weeklySunday": "Ugentligt (søndag 00:00)",
+      "monthlyFirst": "Månedligt (1. 00:00)",
+      "yearlyJan1": "Årligt (1. jan 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "hvert minut"
+      },
+      "hour": {
+        "every": "hver time"
+      },
+      "dom": {
+        "any": "vilkårlig dag",
+        "last": "sidste dag"
+      },
+      "month": {
+        "every": "hver måned"
+      },
+      "dow": {
+        "any": "vilkårlig ugedag",
+        "weekdays": "hverdage",
+        "weekend": "weekend"
+      }
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "Maj",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Okt",
+      "nov": "Nov",
+      "dec": "Dec"
+    },
+    "weekdays": {
+      "sun": "Søn",
+      "mon": "Man",
+      "tue": "Tir",
+      "wed": "Ons",
+      "thu": "Tor",
+      "fri": "Fre",
+      "sat": "Lør"
+    },
+    "errors": {
+      "fieldCount": "Forventer 5 felter (minute hour day month weekday) eller 6 inkl. sekunder.",
+      "invalid": "Ugyldigt cron-udtryk."
+    }
+  },
+  "Base64": {
+    "title": "Base64-koder / dekoder",
+    "subtitle": "Kod tekst til Base64 eller dekod Base64-strenge",
+    "upload": "Upload",
+    "clear": "Ryd",
+    "modes": {
+      "encode": "Kod",
+      "decode": "Dekod"
+    },
+    "swapTitle": "Byt input og output",
+    "panels": {
+      "plainText": "Ren tekst",
+      "base64Input": "Base64-input",
+      "base64Output": "Base64-output",
+      "decodedText": "Dekodet tekst"
+    },
+    "placeholders": {
+      "encode": "Indtast tekst for at kode til Base64…",
+      "decode": "Indsæt Base64-streng for at dekode…"
+    },
+    "dropHere": "Slip fil her",
+    "charCount": "{count} tegn",
+    "download": {
+      "title": "Download output",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Kopiér til udklipsholder",
+    "outputPlaceholder": "Output vises her…",
+    "errors": {
+      "invalidBase64": "Ugyldig Base64-streng. Tjek input.",
+      "encodeFailed": "Kunne ikke kode input."
+    }
+  },
+  "UrlEncode": {
+    "title": "URL-koder / dekoder",
+    "subtitle": "Procentkod/afkod med encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Upload",
+    "clear": "Ryd",
+    "modes": {
+      "encode": "Kod",
+      "decode": "Afkod"
+    },
+    "swapTitle": "Byt input og output",
+    "panels": {
+      "plainText": "Ren tekst",
+      "encodedInput": "Kodet input",
+      "encodedOutput": "Kodet output",
+      "decodedText": "Afkodet tekst"
+    },
+    "placeholders": {
+      "encode": "Indtast tekst til procentkodning…",
+      "decode": "Indsæt procentkodet tekst til afkodning…"
+    },
+    "dropHere": "Slip fil her",
+    "charCount": "{count} tegn",
+    "download": {
+      "title": "Download output",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Kopiér til udklipsholder",
+    "outputPlaceholder": "Output vises her…",
+    "errors": {
+      "invalidEncoding": "Ugyldig procentkodning. Tjek ufuldstændige %‑par eller escapes.",
+      "encodeFailed": "Kunne ikke kode (ugyldig Unicode i input)."
+    }
+  },
+  "UuidGenerator": {
+    "title": "UUID / ULID-generator",
+    "subtitle": "Generér RFC 9562-UUID’er eller ULID’er i browseren. Masseeksport op til {max} pr. kørsel.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "Sortérbar, URL-sikker identifikator på 26 tegn",
+      "uuid4": "Tilfældig (RFC 9562)",
+      "uuid7": "Tidsordnet, Unix ms + tilfældig",
+      "uuid1": "MAC-/tidsbaseret (RFC 9562)",
+      "uuid6": "Omarrangeret gregoriansk tidsbaseret",
+      "uuid3": "MD5-hash af navn + namespace",
+      "uuid5": "SHA‑1-hash af navn + namespace"
+    },
+    "countLabel": "Antal (1–{max})",
+    "nameLabel": "Navn (inputstreng)",
+    "namePlaceholder": "fx my.app/resource",
+    "bulkHint": "Ved batch tilføjes <code>#0</code>, <code>#1</code>, … så hvert ID er unikt (v3/v5 er deterministiske).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Brugerdefineret UUID"
+    },
+    "customNamespaceLabel": "Namespace-UUID",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Generér",
+    "output": "Output",
+    "lines": "{count} linjer",
+    "download": {
+      "title": "Download .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Kopiér alt",
+    "outputPlaceholder": "Klik på \"Generér\"…",
+    "errors": {
+      "invalidCustomNamespace": "Brugerdefineret namespace skal være en gyldig UUID.",
+      "missingName": "Navn er påkrævet for UUID v3 og v5.",
+      "unknown": "Kunne ikke generere ID’er."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Lorem Ipsum Generator",
+    "subtitle": "Generer latinsk plassholdertekst til dine layouts og mockups.",
+    "paragraphs": "Afsnit",
+    "sentences": "Sætninger",
+    "words": "Ord",
+    "count": "Antal",
+    "generate": "Generer",
+    "copy": "Kopiér",
+    "startWith": "Start med 'Lorem ipsum...'",
+    "outputPlaceholder": "Output vises her...",
+    "outputType": "Outputtype",
+    "bulletList": "Punktliste",
+    "htmlMarkup": "HTML-markup",
+    "htmlMarkupHint": "Indpak output i afsnit, eller brug en liste til punkttilstand",
+    "output": "Output",
+    "download": "Download"
+  },
+  "ColorPicker": {
+    "title": "Farvevælger og konverter",
+    "subtitle": "Konverter HEX, RGB og HSL; byg harmoniske paletter. Al behandling sker i din browser.",
+    "nativePicker": "Indbygget vælger",
+    "chooseColor": "Vælg farve",
+    "eyeDropper": "Øjedråber",
+    "invalidHex": "Ugyldig HEX-farve.",
+    "cssValues": "CSS-værdier",
+    "palettes": "Paletter",
+    "copied": "Kopieret",
+    "clickToCopy": "Klik for at kopiere",
+    "copyAllHex": "Kopiér alle HEX",
+    "copy": "Kopiér",
+    "copyColor": "Kopiér {color}",
+    "paletteShades": "Nuancer",
+    "paletteComplementary": "Komplementær",
+    "paletteTriadic": "Triadisk",
+    "paletteAnalogous": "Analog",
+    "paletteSplit": "Delt kompl.",
+    "paletteSquare": "Firkantet"
+  },
+  "DiffChecker": {
+    "title": "Diff-kontrol",
+    "subtitle": "Side-om-side linjediff af to tekster. Alt forbliver i din browser.",
+    "rowsCount": "{count} rækker",
+    "truncatedWarning": "Viser de første {max} rækker.",
+    "limitExceeded": "Hver side er begrænset til {max} tegn.",
+    "clearBoth": "Ryd begge",
+    "original": "Original",
+    "modified": "Ændret",
+    "originalPlaceholder": "Indsæt original tekst…",
+    "modifiedPlaceholder": "Indsæt ændret tekst…",
+    "comparisonLabel": "Side-om-side sammenligning",
+    "emptyState": "Indtast tekst i begge paneler for at sammenligne."
   }
 }

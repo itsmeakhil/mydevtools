@@ -7,7 +7,20 @@
     "bookmarks": "الإشارات المرجعية",
     "jsonFormatter": "منسّق JSON",
     "emailValidator": "التحقق من البريد",
-    "nosqlExplorer": "مستكشف NoSQL"
+    "nosqlExplorer": "مستكشف NoSQL",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "jwtDecoder": "محلّل JWT",
+    "sqlFormatter": "SQL Formatter",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -217,6 +230,54 @@
       "emailValidator": {
         "title": "التحقق من البريد",
         "description": "تحقق من عناوين البريد الإلكتروني."
+      },
+      "jwtDecoder": {
+        "title": "محلّل JWT",
+        "description": "فك ترميز ترويسة وبيانات ووقت انتهاء JWT."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
       }
     },
     "tabs": {
@@ -1508,5 +1569,377 @@
     "toastLoginRequired": "يرجى تسجيل الدخول لحفظ المستندات",
     "toastSaved": "تم حفظ المستند",
     "toastSaveFailed": "فشل حفظ المستند"
+  },
+  "JwtDecoder": {
+    "title": "محلّل JWT",
+    "subtitle": "اعرض الترويسة والحمولة. يعتمد الانتهاء على مطالبة <code>exp</code>. لا يتم إرسال أي شيء إلى الخادم؛ ولا يتم التحقق من التوقيع.",
+    "tokenLabel": "الرمز",
+    "clear": "مسح",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "نسخ",
+    "expiryLabel": "الانتهاء (exp)",
+    "signaturePresent": "التوقيع موجود (غير مُتحقَّق منه)",
+    "noExp": "لا توجد مطالبة <code>exp</code> في الحمولة.",
+    "status": {
+      "expired": "منتهي الصلاحية",
+      "valid": "صالح"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "محلي",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "وقت الإصدار (iat)",
+      "notBefore": "ليس قبل (nbf)"
+    },
+    "panels": {
+      "header": "الترويسة",
+      "payload": "الحمولة"
+    },
+    "errors": {
+      "empty": "الصق JWT لفك الترميز.",
+      "segments": "يحتاج JWT إلى ترويسة وحمولة على الأقل (جزآن).",
+      "base64": "تعذّر فك ترميز الترويسة أو الحمولة بصيغة base64url."
+    },
+    "relative": {
+      "future": "بعد {n} {unit}",
+      "past": "قبل {n} {unit}"
+    },
+    "units": {
+      "second": "{count, plural, one {ثانية} other {ثوانٍ}}",
+      "minute": "{count, plural, one {دقيقة} other {دقائق}}",
+      "hour": "{count, plural, one {ساعة} other {ساعات}}",
+      "day": "{count, plural, one {يوم} other {أيام}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "منسّق SQL",
+    "subtitle": "نسّق SQL لـ MySQL أو PostgreSQL أو SQLite. يعمل داخل المتصفح؛ لا يتم رفع أي شيء.",
+    "dialectLabel": "اللهجة",
+    "keywordsLabel": "الكلمات المفتاحية",
+    "indentLabel": "الإزاحة",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "أحرف كبيرة",
+      "lower": "أحرف صغيرة",
+      "preserve": "الإبقاء"
+    },
+    "spaces": "{n} مسافات",
+    "format": "تنسيق",
+    "clear": "مسح",
+    "counter": "{current} / {max} حرفًا",
+    "inputPanel": "المدخل",
+    "formattedPanel": "المخرجات",
+    "copy": "نسخ",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "انقر على \"تنسيق\"…",
+    "errors": {
+      "tooLong": "المدخلات محدودة إلى {max} حرفًا.",
+      "couldNotFormat": "تعذر تنسيق SQL."
+    }
+  },
+  "RegexTester": {
+    "title": "مختبر Regex",
+    "subtitle": "Regex بنمط JavaScript مباشرةً على نصك. يتم تمييز التطابقات؛ ولا يغادر شيء متصفحك.",
+    "patternLabel": "النمط",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g عام",
+      "i": "i تجاهل حالة الأحرف",
+      "m": "m متعدد الأسطر",
+      "s": "s dotAll",
+      "u": "u يونيكود"
+    },
+    "emptyPattern": "(فارغ)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {تطابق} other {تطابقات}}",
+    "testTextLabel": "نص الاختبار",
+    "counter": "{current} / {max}",
+    "clear": "مسح",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "النص محدود إلى {max} حرفًا.",
+      "invalid": "تعبير نمطي غير صالح.",
+      "runaway": "تم الإيقاف بعد {max} تطابقًا (قد يكون النمط جامحًا)."
+    }
+  },
+  "TimestampConverter": {
+    "title": "محول الطابع الزمني",
+    "subtitle": "ثواني Unix (≤10 أرقام) أو ميلي ثانية (أعداد أطول)، <code>ISO-8601</code> أو سلاسل يمكن للمتصفح تحليلها. كل شيء يعمل محليًا.",
+    "inputLabel": "الإدخال",
+    "placeholder": "1744200000 أو 2025-04-09T12:00:00Z",
+    "now": "الآن",
+    "copy": "نسخ",
+    "hint": "الصق قيمة أو انقر <strong>الآن</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "نسبي",
+      "human": "مقروء"
+    },
+    "fields": {
+      "seconds": "ثوانٍ",
+      "milliseconds": "ميلي ثانية",
+      "utc": "UTC",
+      "local": "محلي",
+      "distance": "المسافة"
+    },
+    "errors": {
+      "empty": "أدخل طابعًا زمنيًا Unix أو سلسلة ISO أو نص تاريخ.",
+      "invalidNumber": "طابع زمني رقمي غير صالح.",
+      "outOfRange": "خارج النطاق لـ JavaScript Date.",
+      "couldNotParse": "تعذر التحليل كـ Unix أو ISO-8601 أو تاريخ قابل للتحليل من المتصفح."
+    }
+  },
+  "CronBuilder": {
+    "title": "منشئ تعبيرات Cron",
+    "subtitle": "Cron قياسي بخمسة حقول: <mono>minute hour day month weekday</mono>. يستخدم المحلّل seconds=<code>0</code> داخليًا. يعمل أيضًا التنسيق الاختياري ذو 6 حقول (<mono>sec min hour dom mon dow</mono>) في محرّر التعبير.",
+    "tabs": {
+      "builder": "منشئ مرئي",
+      "expression": "تعبير"
+    },
+    "presetsLabel": "الإعدادات المسبقة",
+    "fieldsLabel": "الحقول",
+    "rawExpressionLabel": "التعبير الخام",
+    "expressionHint": "اخرج من الحقل (فقدان التركيز) للتحليل ومزامنة المنشئ. {count} {count, plural, one {رمز} other {رموز}}.",
+    "currentExpressionLabel": "التعبير الحالي",
+    "copy": "نسخ",
+    "quickPick": "اختيار سريع",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "وصف نصي",
+    "nextRunsLabel": "التشغيلات التالية (الوقت المحلي)",
+    "fields": {
+      "minute": "الدقيقة",
+      "hour": "الساعة",
+      "dayOfMonth": "يوم الشهر",
+      "month": "الشهر",
+      "dayOfWeek": "يوم الأسبوع"
+    },
+    "presets": {
+      "everyMinute": "كل دقيقة",
+      "every5Minutes": "كل 5 دقائق",
+      "every15Minutes": "كل 15 دقيقة",
+      "everyHour": "كل ساعة (عند :00)",
+      "every6Hours": "كل 6 ساعات",
+      "dailyMidnight": "يوميًا عند منتصف الليل",
+      "daily0900": "يوميًا عند 09:00",
+      "weekdays0900": "أيام العمل عند 09:00",
+      "weeklySunday": "أسبوعيًا (الأحد 00:00)",
+      "monthlyFirst": "شهريًا (اليوم الأول 00:00)",
+      "yearlyJan1": "سنويًا (1 يناير 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "كل دقيقة"
+      },
+      "hour": {
+        "every": "كل ساعة"
+      },
+      "dom": {
+        "any": "أي يوم",
+        "last": "آخر يوم"
+      },
+      "month": {
+        "every": "كل شهر"
+      },
+      "dow": {
+        "any": "أي يوم",
+        "weekdays": "أيام العمل",
+        "weekend": "عطلة نهاية الأسبوع"
+      }
+    },
+    "months": {
+      "jan": "ينا",
+      "feb": "فبر",
+      "mar": "مار",
+      "apr": "أبر",
+      "may": "ماي",
+      "jun": "يون",
+      "jul": "يول",
+      "aug": "أغس",
+      "sep": "سبت",
+      "oct": "أكت",
+      "nov": "نوف",
+      "dec": "ديس"
+    },
+    "weekdays": {
+      "sun": "أحد",
+      "mon": "اثن",
+      "tue": "ثلث",
+      "wed": "أرب",
+      "thu": "خمس",
+      "fri": "جمع",
+      "sat": "سبت"
+    },
+    "errors": {
+      "fieldCount": "المتوقع 5 حقول (minute hour day month weekday) أو 6 مع الثواني.",
+      "invalid": "تعبير cron غير صالح."
+    }
+  },
+  "Base64": {
+    "title": "ترميز / فك ترميز Base64",
+    "subtitle": "حوّل النص إلى Base64 أو فك ترميز سلاسل Base64",
+    "upload": "رفع",
+    "clear": "مسح",
+    "modes": {
+      "encode": "ترميز",
+      "decode": "فك الترميز"
+    },
+    "swapTitle": "تبديل الإدخال والإخراج",
+    "panels": {
+      "plainText": "نص عادي",
+      "base64Input": "إدخال Base64",
+      "base64Output": "إخراج Base64",
+      "decodedText": "نص مفكوك"
+    },
+    "placeholders": {
+      "encode": "أدخل نصًا لترميزه إلى Base64…",
+      "decode": "الصق سلسلة Base64 لفك ترميزها…"
+    },
+    "dropHere": "أفلت الملف هنا",
+    "charCount": "{count} حرف",
+    "download": {
+      "title": "تنزيل الإخراج",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "نسخ إلى الحافظة",
+    "outputPlaceholder": "سيظهر الإخراج هنا…",
+    "errors": {
+      "invalidBase64": "سلسلة Base64 غير صالحة. تحقق من الإدخال.",
+      "encodeFailed": "فشل ترميز الإدخال."
+    }
+  },
+  "UrlEncode": {
+    "title": "ترميز / فك ترميز URL",
+    "subtitle": "ترميز/فك ترميز بالنسبة المئوية باستخدام encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "رفع",
+    "clear": "مسح",
+    "modes": {
+      "encode": "ترميز",
+      "decode": "فك الترميز"
+    },
+    "swapTitle": "تبديل الإدخال والإخراج",
+    "panels": {
+      "plainText": "نص عادي",
+      "encodedInput": "إدخال مُرمَّز",
+      "encodedOutput": "إخراج مُرمَّز",
+      "decodedText": "نص مفكوك الترميز"
+    },
+    "placeholders": {
+      "encode": "أدخل نصًا لترميزه بالنسبة المئوية…",
+      "decode": "الصق نصًا مُرمَّزًا بالنسبة المئوية لفك ترميزه…"
+    },
+    "dropHere": "أفلت الملف هنا",
+    "charCount": "{count} حرفًا",
+    "download": {
+      "title": "تنزيل الإخراج",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "نسخ إلى الحافظة",
+    "outputPlaceholder": "سيظهر الإخراج هنا…",
+    "errors": {
+      "invalidEncoding": "ترميز النسبة المئوية غير صالح. تحقّق من أزواج % غير المكتملة أو تسلسلات الهروب غير الصحيحة.",
+      "encodeFailed": "تعذّر الترميز (Unicode غير صالح في الإدخال)."
+    }
+  },
+  "UuidGenerator": {
+    "title": "مولّد UUID / ULID",
+    "subtitle": "أنشئ UUID (RFC 9562) أو ULID في المتصفح. تصدير دفعي حتى {max} لكل تشغيل.",
+    "format": "التنسيق",
+    "kindHints": {
+      "ulid": "معرّف قابل للفرز وآمن للروابط بطول 26 حرفًا",
+      "uuid4": "عشوائي (RFC 9562)",
+      "uuid7": "مرتّب زمنيًا، ملّي ثانية يونكس + عشوائي",
+      "uuid1": "مبني على MAC/الوقت (RFC 9562)",
+      "uuid6": "وقت غريغوري معاد ترتيبه",
+      "uuid3": "تجزئة MD5 للاسم + مساحة الاسم",
+      "uuid5": "تجزئة SHA‑1 للاسم + مساحة الاسم"
+    },
+    "countLabel": "العدد (1–{max})",
+    "nameLabel": "الاسم (سلسلة الإدخال)",
+    "namePlaceholder": "مثال: my.app/resource",
+    "bulkHint": "في التشغيل الدفعي تُضاف <code>#0</code> و<code>#1</code>… ليكون كل معرّف فريدًا (v3/v5 حتمية).",
+    "namespace": "مساحة الاسم",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "UUID مخصص"
+    },
+    "customNamespaceLabel": "UUID لمساحة الاسم",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "إنشاء",
+    "output": "المخرجات",
+    "lines": "{count} سطر",
+    "download": {
+      "title": "تنزيل .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "نسخ الكل",
+    "outputPlaceholder": "انقر على \"إنشاء\"…",
+    "errors": {
+      "invalidCustomNamespace": "يجب أن تكون مساحة الاسم المخصصة UUID صالحًا.",
+      "missingName": "الاسم مطلوب لـ UUID v3 و v5.",
+      "unknown": "تعذّر إنشاء المعرّفات."
+    }
+  },
+  "LoremIpsum": {
+    "title": "مولد نصوص اللورم إيبسوم",
+    "subtitle": "أنشئ نصوصاً لاتينية بديلة لتخطيطاتك ونماذجك.",
+    "paragraphs": "فقرات",
+    "sentences": "جمل",
+    "words": "كلمات",
+    "count": "العدد",
+    "generate": "توليد",
+    "copy": "نسخ",
+    "startWith": "ابدأ بـ 'Lorem ipsum...'",
+    "outputPlaceholder": "سيظهر الناتج هنا...",
+    "outputType": "نوع الإخراج",
+    "bulletList": "قائمة نقطية",
+    "htmlMarkup": "ترميز HTML",
+    "htmlMarkupHint": "التفاف الإخراج في فقرات، أو استخدام قائمة لوضع النقاط",
+    "output": "الناتج",
+    "download": "تنزيل"
+  },
+  "ColorPicker": {
+    "title": "منتقي الألوان ومحوّلها",
+    "subtitle": "حوّل HEX وRGB وHSL؛ وابنِ لوحات ألوان منسجمة. تتم المعالجة بالكامل في متصفحك.",
+    "nativePicker": "منتقي الألوان الأصلي",
+    "chooseColor": "اختر لوناً",
+    "eyeDropper": "قطارة العين",
+    "invalidHex": "لون HEX غير صالح.",
+    "cssValues": "قيم CSS",
+    "palettes": "لوحات الألوان",
+    "copied": "تم النسخ",
+    "clickToCopy": "انقر للنسخ",
+    "copyAllHex": "نسخ جميع قيم HEX",
+    "copy": "نسخ",
+    "copyColor": "نسخ {color}",
+    "paletteShades": "درجات",
+    "paletteComplementary": "تكميلي",
+    "paletteTriadic": "ثلاثي",
+    "paletteAnalogous": "تناظري",
+    "paletteSplit": "تكميلي منقسم",
+    "paletteSquare": "مربع"
+  },
+  "DiffChecker": {
+    "title": "مدقق الاختلافات",
+    "subtitle": "مقارنة الأسطر جنباً إلى جنب بين نصين. كل شيء يبقى في متصفحك.",
+    "rowsCount": "{count} صفوف",
+    "truncatedWarning": "عرض أول {max} صف.",
+    "limitExceeded": "كل جانب محدود بـ {max} حرف.",
+    "clearBoth": "مسح الكل",
+    "original": "الأصلي",
+    "modified": "المعدّل",
+    "originalPlaceholder": "الصق النص الأصلي…",
+    "modifiedPlaceholder": "الصق النص المعدّل…",
+    "comparisonLabel": "مقارنة جنباً إلى جنب",
+    "emptyState": "أدخل نصاً في كلا اللوحتين للمقارنة."
   }
 }

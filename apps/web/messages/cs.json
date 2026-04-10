@@ -7,7 +7,20 @@
     "bookmarks": "Záložky",
     "jsonFormatter": "Formátovač JSON",
     "emailValidator": "Validátor e-mailů",
-    "nosqlExplorer": "Průzkumník NoSQL"
+    "nosqlExplorer": "Průzkumník NoSQL",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "jwtDecoder": "Dekodér JWT",
+    "sqlFormatter": "SQL Formatter",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -217,6 +230,54 @@
       "emailValidator": {
         "title": "Validátor e-mailu",
         "description": "Ověřujte a validujte e-mailové adresy."
+      },
+      "jwtDecoder": {
+        "title": "Dekodér JWT",
+        "description": "Dekódujte hlavičku, payload a vypršení JWT."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
       }
     },
     "tabs": {
@@ -1508,5 +1569,377 @@
     "toastLoginRequired": "Pro uložení dokumentů se přihlaste",
     "toastSaved": "Dokument uložen",
     "toastSaveFailed": "Nepodařilo se uložit dokument"
+  },
+  "JwtDecoder": {
+    "title": "Dekodér JWT",
+    "subtitle": "Prohlédněte si hlavičku a payload. Exspirace používá claim <code>exp</code>. Nic se neposílá na server; podpis se neověřuje.",
+    "tokenLabel": "Token",
+    "clear": "Vymazat",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Kopírovat",
+    "expiryLabel": "Vypršení (exp)",
+    "signaturePresent": "Podpis přítomen (neověřen)",
+    "noExp": "V payload chybí claim <code>exp</code>.",
+    "status": {
+      "expired": "Vypršel",
+      "valid": "Platný"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Místní",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Vydáno (iat)",
+      "notBefore": "Ne dříve než (nbf)"
+    },
+    "panels": {
+      "header": "Hlavička",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Vložte JWT pro dekódování.",
+      "segments": "JWT potřebuje alespoň hlavičku a payload (dva segmenty).",
+      "base64": "Nepodařilo se dekódovat hlavičku nebo payload (base64url)."
+    },
+    "relative": {
+      "future": "za {n} {unit}",
+      "past": "před {n} {unit}"
+    },
+    "units": {
+      "second": "{count, plural, one {sekundu} few {sekundy} other {sekund}}",
+      "minute": "{count, plural, one {minutu} few {minuty} other {minut}}",
+      "hour": "{count, plural, one {hodinu} few {hodiny} other {hodin}}",
+      "day": "{count, plural, one {den} few {dny} other {dní}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "Formátovač SQL",
+    "subtitle": "Formátujte SQL pro MySQL, PostgreSQL nebo SQLite. Běží v prohlížeči; nic se neodesílá.",
+    "dialectLabel": "Dialekt",
+    "keywordsLabel": "Klíčová slova",
+    "indentLabel": "Odsazení",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "VELKÁ",
+      "lower": "malá",
+      "preserve": "Zachovat"
+    },
+    "spaces": "{n} mezer",
+    "format": "Formátovat",
+    "clear": "Vymazat",
+    "counter": "{current} / {max} znaků",
+    "inputPanel": "Vstup",
+    "formattedPanel": "Naformátováno",
+    "copy": "Kopírovat",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Klikněte na „Formátovat“…",
+    "errors": {
+      "tooLong": "Vstup je omezen na {max} znaků.",
+      "couldNotFormat": "Tento SQL se nepodařilo naformátovat."
+    }
+  },
+  "RegexTester": {
+    "title": "Tester regex",
+    "subtitle": "Regex ve stylu JavaScript živě nad vaším textem. Shody jsou zvýrazněny; nic neopustí prohlížeč.",
+    "patternLabel": "Vzor",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g globální",
+      "i": "i ignorovat velikost písmen",
+      "m": "m víceřádkové",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(prázdné)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {shoda} few {shody} other {shod}}",
+    "testTextLabel": "Testovací text",
+    "counter": "{current} / {max}",
+    "clear": "Vymazat",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Text je omezen na {max} znaků.",
+      "invalid": "Neplatný regulární výraz.",
+      "runaway": "Zastaveno po {max} shodách (možný „runaway“ vzor)."
+    }
+  },
+  "TimestampConverter": {
+    "title": "Převodník časových razítek",
+    "subtitle": "Unix sekundy (≤10 číslic) nebo milisekundy (delší celá čísla), <code>ISO-8601</code> nebo řetězce, které prohlížeč umí přečíst. Vše běží lokálně.",
+    "inputLabel": "Vstup",
+    "placeholder": "1744200000 nebo 2025-04-09T12:00:00Z",
+    "now": "Teď",
+    "copy": "Kopírovat",
+    "hint": "Vložte hodnotu nebo klikněte na <strong>Teď</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relativní",
+      "human": "Čitelné"
+    },
+    "fields": {
+      "seconds": "Sekundy",
+      "milliseconds": "Milisekundy",
+      "utc": "UTC",
+      "local": "Lokálně",
+      "distance": "Rozdíl"
+    },
+    "errors": {
+      "empty": "Zadejte unixové razítko, ISO řetězec nebo text data.",
+      "invalidNumber": "Neplatné číselné razítko.",
+      "outOfRange": "Mimo rozsah pro JavaScript Date.",
+      "couldNotParse": "Nelze přečíst jako Unix, ISO-8601 nebo datum prohlížeče."
+    }
+  },
+  "CronBuilder": {
+    "title": "Tvůrce cron výrazů",
+    "subtitle": "Standardní cron s 5 poli: <mono>minute hour day month weekday</mono>. Parser interně používá seconds=<code>0</code>. Volitelný 6-pólový formát (<mono>sec min hour dom mon dow</mono>) funguje v editoru.",
+    "tabs": {
+      "builder": "Vizuální tvůrce",
+      "expression": "Výraz"
+    },
+    "presetsLabel": "Předvolby",
+    "fieldsLabel": "Pole",
+    "rawExpressionLabel": "Surový výraz",
+    "expressionHint": "Opuštěním pole dojde k parsování a synchronizaci tvůrce. {count} {count, plural, one {token} few {tokeny} other {tokenů}}.",
+    "currentExpressionLabel": "Aktuální výraz",
+    "copy": "Kopírovat",
+    "quickPick": "Rychlý výběr",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Popis",
+    "nextRunsLabel": "Další spuštění (místní čas)",
+    "fields": {
+      "minute": "Minuta",
+      "hour": "Hodina",
+      "dayOfMonth": "Den v měsíci",
+      "month": "Měsíc",
+      "dayOfWeek": "Den v týdnu"
+    },
+    "presets": {
+      "everyMinute": "Každou minutu",
+      "every5Minutes": "Každých 5 minut",
+      "every15Minutes": "Každých 15 minut",
+      "everyHour": "Každou hodinu (v :00)",
+      "every6Hours": "Každých 6 hodin",
+      "dailyMidnight": "Denně o půlnoci",
+      "daily0900": "Denně v 09:00",
+      "weekdays0900": "Ve všední dny v 09:00",
+      "weeklySunday": "Týdně (neděle 00:00)",
+      "monthlyFirst": "Měsíčně (1. 00:00)",
+      "yearlyJan1": "Ročně (1. led 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "každou minutu"
+      },
+      "hour": {
+        "every": "každou hodinu"
+      },
+      "dom": {
+        "any": "libovolný den",
+        "last": "poslední den"
+      },
+      "month": {
+        "every": "každý měsíc"
+      },
+      "dow": {
+        "any": "libovolný den",
+        "weekdays": "všední dny",
+        "weekend": "víkend"
+      }
+    },
+    "months": {
+      "jan": "Led",
+      "feb": "Úno",
+      "mar": "Bře",
+      "apr": "Dub",
+      "may": "Kvě",
+      "jun": "Čvn",
+      "jul": "Čvc",
+      "aug": "Srp",
+      "sep": "Zář",
+      "oct": "Říj",
+      "nov": "Lis",
+      "dec": "Pro"
+    },
+    "weekdays": {
+      "sun": "Ne",
+      "mon": "Po",
+      "tue": "Út",
+      "wed": "St",
+      "thu": "Čt",
+      "fri": "Pá",
+      "sat": "So"
+    },
+    "errors": {
+      "fieldCount": "Očekáváno 5 polí (minute hour day month weekday) nebo 6 včetně sekund.",
+      "invalid": "Neplatný cron výraz."
+    }
+  },
+  "Base64": {
+    "title": "Base64 kodér / dekodér",
+    "subtitle": "Kódujte text do Base64 nebo dekódujte Base64 řetězce",
+    "upload": "Nahrát",
+    "clear": "Vymazat",
+    "modes": {
+      "encode": "Kódovat",
+      "decode": "Dekódovat"
+    },
+    "swapTitle": "Prohodit vstup a výstup",
+    "panels": {
+      "plainText": "Prostý text",
+      "base64Input": "Vstup Base64",
+      "base64Output": "Výstup Base64",
+      "decodedText": "Dekódovaný text"
+    },
+    "placeholders": {
+      "encode": "Zadejte text pro kódování do Base64…",
+      "decode": "Vložte Base64 řetězec k dekódování…"
+    },
+    "dropHere": "Pusťte soubor sem",
+    "charCount": "{count} znaků",
+    "download": {
+      "title": "Stáhnout výstup",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Kopírovat do schránky",
+    "outputPlaceholder": "Výstup se zobrazí zde…",
+    "errors": {
+      "invalidBase64": "Neplatný Base64 řetězec. Zkontrolujte vstup.",
+      "encodeFailed": "Kódování se nezdařilo."
+    }
+  },
+  "UrlEncode": {
+    "title": "URL enkodér / dekodér",
+    "subtitle": "Procentové kódování/dekódování pomocí encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Nahrát",
+    "clear": "Vymazat",
+    "modes": {
+      "encode": "Enkódovat",
+      "decode": "Dekódovat"
+    },
+    "swapTitle": "Prohodit vstup a výstup",
+    "panels": {
+      "plainText": "Prostý text",
+      "encodedInput": "Enkódovaný vstup",
+      "encodedOutput": "Enkódovaný výstup",
+      "decodedText": "Dekódovaný text"
+    },
+    "placeholders": {
+      "encode": "Zadejte text pro procentové kódování…",
+      "decode": "Vložte percent-encoded text pro dekódování…"
+    },
+    "dropHere": "Sem přetáhněte soubor",
+    "charCount": "{count} znaků",
+    "download": {
+      "title": "Stáhnout výstup",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Kopírovat do schránky",
+    "outputPlaceholder": "Výstup se zobrazí zde…",
+    "errors": {
+      "invalidEncoding": "Neplatné procentové kódování. Zkontrolujte neúplné dvojice % nebo chybné escape sekvence.",
+      "encodeFailed": "Nepodařilo se enkódovat (neplatné Unicode ve vstupu)."
+    }
+  },
+  "UuidGenerator": {
+    "title": "Generátor UUID / ULID",
+    "subtitle": "Generujte UUID (RFC 9562) nebo ULID v prohlížeči. Hromadný export až {max} na spuštění.",
+    "format": "Formát",
+    "kindHints": {
+      "ulid": "Řaditelný, URL-bezpečný identifikátor o 26 znacích",
+      "uuid4": "Náhodné (RFC 9562)",
+      "uuid7": "Časově seřazené, Unix ms + náhoda",
+      "uuid1": "MAC/čas (RFC 9562)",
+      "uuid6": "Přeuspořádaný gregoriánský čas",
+      "uuid3": "MD5 hash jména + namespace",
+      "uuid5": "SHA‑1 hash jména + namespace"
+    },
+    "countLabel": "Počet (1–{max})",
+    "nameLabel": "Jméno (vstupní řetězec)",
+    "namePlaceholder": "např. my.app/resource",
+    "bulkHint": "V dávce se přidá <code>#0</code>, <code>#1</code>, … aby byl každý ID jedinečný (v3/v5 jsou deterministické).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Vlastní UUID"
+    },
+    "customNamespaceLabel": "UUID namespace",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Generovat",
+    "output": "Výstup",
+    "lines": "{count} řádků",
+    "download": {
+      "title": "Stáhnout .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Kopírovat vše",
+    "outputPlaceholder": "Klikněte na „Generovat“…",
+    "errors": {
+      "invalidCustomNamespace": "Vlastní namespace musí být platná UUID.",
+      "missingName": "Pro UUID v3 a v5 je vyžadováno jméno.",
+      "unknown": "Nepodařilo se vygenerovat ID."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Generátor Lorem Ipsum",
+    "subtitle": "Generujte zástupný latinský text pro vaše rozvržení a makety.",
+    "paragraphs": "Odstavce",
+    "sentences": "Věty",
+    "words": "Slova",
+    "count": "Počet",
+    "generate": "Generovat",
+    "copy": "Kopírovat",
+    "startWith": "Začít s 'Lorem ipsum...'",
+    "outputPlaceholder": "Výstup se zobrazí zde...",
+    "outputType": "Typ výstupu",
+    "bulletList": "Odrážkový seznam",
+    "htmlMarkup": "HTML značkování",
+    "htmlMarkupHint": "Zabalte výstup do odstavců nebo použijte seznam pro režim odrážek",
+    "output": "Výstup",
+    "download": "Stáhnout"
+  },
+  "ColorPicker": {
+    "title": "Výběr a převodník barev",
+    "subtitle": "Převádějte HEX, RGB a HSL; vytvářejte harmonické palety. Veškeré zpracování probíhá v prohlížeči.",
+    "nativePicker": "Nativní výběr",
+    "chooseColor": "Vyberte barvu",
+    "eyeDropper": "Kapátko",
+    "invalidHex": "Neplatná barva HEX.",
+    "cssValues": "Hodnoty CSS",
+    "palettes": "Palety",
+    "copied": "Zkopírováno",
+    "clickToCopy": "Kliknutím zkopírujte",
+    "copyAllHex": "Kopírovat vše HEX",
+    "copy": "Kopírovat",
+    "copyColor": "Kopírovat {color}",
+    "paletteShades": "Odstíny",
+    "paletteComplementary": "Doplňkový",
+    "paletteTriadic": "Triadický",
+    "paletteAnalogous": "Analogický",
+    "paletteSplit": "Dělený dopl.",
+    "paletteSquare": "Čtvercový"
+  },
+  "DiffChecker": {
+    "title": "Porovnávač rozdílů",
+    "subtitle": "Porovnání řádků dvou textů vedle sebe. Vše zůstává ve vašem prohlížeči.",
+    "rowsCount": "{count} řádků",
+    "truncatedWarning": "Zobrazuje se prvních {max} řádků.",
+    "limitExceeded": "Každá strana je omezena na {max} znaků.",
+    "clearBoth": "Vymazat oboje",
+    "original": "Originál",
+    "modified": "Upraveno",
+    "originalPlaceholder": "Vložte původní text…",
+    "modifiedPlaceholder": "Vložte upravený text…",
+    "comparisonLabel": "Porovnání vedle sebe",
+    "emptyState": "Zadejte text do obou panelů pro porovnání."
   }
 }
