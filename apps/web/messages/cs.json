@@ -10,7 +10,7 @@
     "nosqlExplorer": "Průzkumník NoSQL",
     "toDo": "Tasks",
     "notes": "Notes",
-    "jwtDecoder": "JWT Decoder",
+    "jwtDecoder": "Dekodér JWT",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -232,8 +232,8 @@
         "description": "Ověřujte a validujte e-mailové adresy."
       },
       "jwtDecoder": {
-        "title": "JWT Decoder",
-        "description": "Decode JWT header, payload, and expiry."
+        "title": "Dekodér JWT",
+        "description": "Dekódujte hlavičku, payload a vypršení JWT."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1569,5 +1569,78 @@
     "toastLoginRequired": "Pro uložení dokumentů se přihlaste",
     "toastSaved": "Dokument uložen",
     "toastSaveFailed": "Nepodařilo se uložit dokument"
+  },
+  "JwtDecoder": {
+    "title": "Dekodér JWT",
+    "subtitle": "Prohlédněte si hlavičku a payload. Exspirace používá claim <code>exp</code>. Nic se neposílá na server; podpis se neověřuje.",
+    "tokenLabel": "Token",
+    "clear": "Vymazat",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Kopírovat",
+    "expiryLabel": "Vypršení (exp)",
+    "signaturePresent": "Podpis přítomen (neověřen)",
+    "noExp": "V payload chybí claim <code>exp</code>.",
+    "status": {
+      "expired": "Vypršel",
+      "valid": "Platný"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Místní",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Vydáno (iat)",
+      "notBefore": "Ne dříve než (nbf)"
+    },
+    "panels": {
+      "header": "Hlavička",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Vložte JWT pro dekódování.",
+      "segments": "JWT potřebuje alespoň hlavičku a payload (dva segmenty).",
+      "base64": "Nepodařilo se dekódovat hlavičku nebo payload (base64url)."
+    },
+    "relative": {
+      "future": "za {n} {unit}",
+      "past": "před {n} {unit}"
+    },
+    "units": {
+      "second": "{count, plural, one {sekundu} few {sekundy} other {sekund}}",
+      "minute": "{count, plural, one {minutu} few {minuty} other {minut}}",
+      "hour": "{count, plural, one {hodinu} few {hodiny} other {hodin}}",
+      "day": "{count, plural, one {den} few {dny} other {dní}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL formatter",
+    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
+    "dialectLabel": "Dialect",
+    "keywordsLabel": "Keywords",
+    "indentLabel": "Indent",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "UPPER",
+      "lower": "lower",
+      "preserve": "Preserve"
+    },
+    "spaces": "{n} spaces",
+    "format": "Format",
+    "clear": "Clear",
+    "counter": "{current} / {max} characters",
+    "inputPanel": "Input",
+    "formattedPanel": "Formatted",
+    "copy": "Copy",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Click \"Format\"…",
+    "errors": {
+      "tooLong": "Input is limited to {max} characters.",
+      "couldNotFormat": "Could not format this SQL."
+    }
   }
 }

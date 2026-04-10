@@ -1569,5 +1569,78 @@
     "toastLoginRequired": "Inicia sesión para guardar documentos",
     "toastSaved": "Documento guardado",
     "toastSaveFailed": "Error al guardar el documento"
+  },
+  "JwtDecoder": {
+    "title": "Decodificador JWT",
+    "subtitle": "Inspecciona la cabecera y la carga útil. La caducidad usa la reclamación <code>exp</code>. No se envía nada a un servidor; la firma no se verifica.",
+    "tokenLabel": "Token",
+    "clear": "Limpiar",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Copiar",
+    "expiryLabel": "Caducidad (exp)",
+    "signaturePresent": "Firma presente (no verificada)",
+    "noExp": "No hay reclamación <code>exp</code> en la carga útil.",
+    "status": {
+      "expired": "Caducado",
+      "valid": "Válido"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Local",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Emitido en (iat)",
+      "notBefore": "No antes de (nbf)"
+    },
+    "panels": {
+      "header": "Cabecera",
+      "payload": "Carga útil"
+    },
+    "errors": {
+      "empty": "Pega un JWT para decodificar.",
+      "segments": "Un JWT necesita al menos una cabecera y una carga útil (dos segmentos).",
+      "base64": "No se pudo decodificar en base64url la cabecera o la carga útil."
+    },
+    "relative": {
+      "future": "en {n} {unit}",
+      "past": "hace {n} {unit}"
+    },
+    "units": {
+      "second": "{count, plural, one {segundo} other {segundos}}",
+      "minute": "{count, plural, one {minuto} other {minutos}}",
+      "hour": "{count, plural, one {hora} other {horas}}",
+      "day": "{count, plural, one {día} other {días}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "Formateador SQL",
+    "subtitle": "Da formato a SQL para MySQL, PostgreSQL o SQLite. Se ejecuta en tu navegador; no se sube nada.",
+    "dialectLabel": "Dialecto",
+    "keywordsLabel": "Palabras clave",
+    "indentLabel": "Sangría",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "MAYÚSCULAS",
+      "lower": "minúsculas",
+      "preserve": "Conservar"
+    },
+    "spaces": "{n} espacios",
+    "format": "Formatear",
+    "clear": "Limpiar",
+    "counter": "{current} / {max} caracteres",
+    "inputPanel": "Entrada",
+    "formattedPanel": "Formateado",
+    "copy": "Copiar",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Haz clic en «Formatear»…",
+    "errors": {
+      "tooLong": "La entrada está limitada a {max} caracteres.",
+      "couldNotFormat": "No se pudo formatear este SQL."
+    }
   }
 }

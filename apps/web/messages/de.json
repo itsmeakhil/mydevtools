@@ -1569,5 +1569,78 @@
     "toastLoginRequired": "Bitte melden Sie sich an, um Dokumente zu speichern",
     "toastSaved": "Dokument gespeichert",
     "toastSaveFailed": "Dokument konnte nicht gespeichert werden"
+  },
+  "JwtDecoder": {
+    "title": "JWT-Decoder",
+    "subtitle": "Header und Payload ansehen. Die Ablaufzeit nutzt den <code>exp</code>-Claim. Es wird nichts an einen Server gesendet; die Signatur wird nicht verifiziert.",
+    "tokenLabel": "Token",
+    "clear": "Leeren",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Kopieren",
+    "expiryLabel": "Ablauf (exp)",
+    "signaturePresent": "Signatur vorhanden (nicht verifiziert)",
+    "noExp": "Kein <code>exp</code>-Claim in der Payload.",
+    "status": {
+      "expired": "Abgelaufen",
+      "valid": "Gültig"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Lokal",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Ausgestellt am (iat)",
+      "notBefore": "Nicht vor (nbf)"
+    },
+    "panels": {
+      "header": "Header",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "JWT zum Dekodieren einfügen.",
+      "segments": "Ein JWT braucht mindestens Header und Payload (zwei Segmente).",
+      "base64": "Header oder Payload konnte nicht base64url-dekodiert werden."
+    },
+    "relative": {
+      "future": "in {n} {unit}",
+      "past": "vor {n} {unit}"
+    },
+    "units": {
+      "second": "{count, plural, one {Sekunde} other {Sekunden}}",
+      "minute": "{count, plural, one {Minute} other {Minuten}}",
+      "hour": "{count, plural, one {Stunde} other {Stunden}}",
+      "day": "{count, plural, one {Tag} other {Tagen}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL-Formatierer",
+    "subtitle": "SQL für MySQL, PostgreSQL oder SQLite formatieren. Läuft im Browser; es wird nichts hochgeladen.",
+    "dialectLabel": "Dialekt",
+    "keywordsLabel": "Schlüsselwörter",
+    "indentLabel": "Einzug",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "GROSS",
+      "lower": "klein",
+      "preserve": "Beibehalten"
+    },
+    "spaces": "{n} Leerzeichen",
+    "format": "Formatieren",
+    "clear": "Leeren",
+    "counter": "{current} / {max} Zeichen",
+    "inputPanel": "Eingabe",
+    "formattedPanel": "Formatiert",
+    "copy": "Kopieren",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Klicke auf „Formatieren“…",
+    "errors": {
+      "tooLong": "Eingabe ist auf {max} Zeichen begrenzt.",
+      "couldNotFormat": "SQL konnte nicht formatiert werden."
+    }
   }
 }

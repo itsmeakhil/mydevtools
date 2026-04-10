@@ -2,11 +2,24 @@
   "Navigation": {
     "dashboard": "Dashboard",
     "settings": "Settings",
-    "apiClient": "API Client",
+    "toDo": "Tasks",
+    "notes": "Notes",
     "passwordManager": "Password Manager",
     "bookmarks": "Bookmarks",
-    "jsonFormatter": "JSON Formatter",
     "emailValidator": "Email Validator",
+    "jwtDecoder": "JWT Decoder",
+    "jsonFormatter": "JSON Formatter",
+    "sqlFormatter": "SQL Formatter",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker",
+    "apiClient": "API Client",
     "nosqlExplorer": "NoSQL Explorer"
   },
   "Help": {
@@ -256,6 +269,54 @@
       "emailValidator": {
         "title": "Email Validator",
         "description": "Verify and validate email addresses."
+      },
+      "jwtDecoder": {
+        "title": "JWT Decoder",
+        "description": "Decode JWT header, payload, and expiry."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
       }
     }
   },
@@ -1508,5 +1569,78 @@
     "toastLoginRequired": "Please sign in to save documents",
     "toastSaved": "Document saved",
     "toastSaveFailed": "Failed to save document"
+  },
+  "JwtDecoder": {
+    "title": "JWT decoder",
+    "subtitle": "Inspect header and payload. Expiry uses the <code>exp</code> claim. Nothing is sent to a server; the signature is not verified.",
+    "tokenLabel": "Token",
+    "clear": "Clear",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Copy",
+    "expiryLabel": "Expiry (exp)",
+    "signaturePresent": "Signature present (not verified)",
+    "noExp": "No <code>exp</code> claim in the payload.",
+    "status": {
+      "expired": "Expired",
+      "valid": "Valid"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Local",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Issued at (iat)",
+      "notBefore": "Not before (nbf)"
+    },
+    "panels": {
+      "header": "Header",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Paste a JWT to decode.",
+      "segments": "A JWT needs at least a header and payload (two segments).",
+      "base64": "Could not base64url-decode header or payload."
+    },
+    "relative": {
+      "future": "in {n} {unit}",
+      "past": "{n} {unit} ago"
+    },
+    "units": {
+      "second": "{count, plural, one {second} other {seconds}}",
+      "minute": "{count, plural, one {minute} other {minutes}}",
+      "hour": "{count, plural, one {hour} other {hours}}",
+      "day": "{count, plural, one {day} other {days}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL formatter",
+    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
+    "dialectLabel": "Dialect",
+    "keywordsLabel": "Keywords",
+    "indentLabel": "Indent",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "UPPER",
+      "lower": "lower",
+      "preserve": "Preserve"
+    },
+    "spaces": "{n} spaces",
+    "format": "Format",
+    "clear": "Clear",
+    "counter": "{current} / {max} characters",
+    "inputPanel": "Input",
+    "formattedPanel": "Formatted",
+    "copy": "Copy",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Click \"Format\"…",
+    "errors": {
+      "tooLong": "Input is limited to {max} characters.",
+      "couldNotFormat": "Could not format this SQL."
+    }
   }
 }

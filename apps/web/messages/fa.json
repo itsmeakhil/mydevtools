@@ -10,7 +10,7 @@
     "nosqlExplorer": "NoSQL Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "jwtDecoder": "JWT Decoder",
+    "jwtDecoder": "رمزگشای JWT",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -232,8 +232,8 @@
         "description": "آدرس های ایمیل را تأیید و تأیید کنید."
       },
       "jwtDecoder": {
-        "title": "JWT Decoder",
-        "description": "Decode JWT header, payload, and expiry."
+        "title": "رمزگشای JWT",
+        "description": "هدر، بار داده و زمان انقضای JWT را رمزگشایی کنید."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1569,5 +1569,78 @@
     "toastLoginRequired": "برای ذخیره اسناد وارد شوید",
     "toastSaved": "سند ذخیره شد",
     "toastSaveFailed": "ذخیره سند ناموفق بود"
+  },
+  "JwtDecoder": {
+    "title": "رمزگشای JWT",
+    "subtitle": "سربرگ و بار داده را بررسی کنید. انقضا از ادعای <code>exp</code> استفاده می‌کند. چیزی به سرور ارسال نمی‌شود؛ امضا تأیید نمی‌شود.",
+    "tokenLabel": "توکن",
+    "clear": "پاک کردن",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "کپی",
+    "expiryLabel": "انقضا (exp)",
+    "signaturePresent": "امضا موجود است (تأیید نمی‌شود)",
+    "noExp": "ادعای <code>exp</code> در بار داده وجود ندارد.",
+    "status": {
+      "expired": "منقضی شده",
+      "valid": "معتبر"
+    },
+    "fields": {
+      "unix": "یونیکس",
+      "local": "محلی",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "زمان صدور (iat)",
+      "notBefore": "نه قبل از (nbf)"
+    },
+    "panels": {
+      "header": "سربرگ",
+      "payload": "بار داده"
+    },
+    "errors": {
+      "empty": "یک JWT برای رمزگشایی جای‌گذاری کنید.",
+      "segments": "JWT باید حداقل سربرگ و بار داده داشته باشد (دو بخش).",
+      "base64": "رمزگشایی base64url سربرگ یا بار داده ممکن نبود."
+    },
+    "relative": {
+      "future": "در {n} {unit}",
+      "past": "{n} {unit} پیش"
+    },
+    "units": {
+      "second": "{count, plural, one {ثانیه} other {ثانیه}}",
+      "minute": "{count, plural, one {دقیقه} other {دقیقه}}",
+      "hour": "{count, plural, one {ساعت} other {ساعت}}",
+      "day": "{count, plural, one {روز} other {روز}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL formatter",
+    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
+    "dialectLabel": "Dialect",
+    "keywordsLabel": "Keywords",
+    "indentLabel": "Indent",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "UPPER",
+      "lower": "lower",
+      "preserve": "Preserve"
+    },
+    "spaces": "{n} spaces",
+    "format": "Format",
+    "clear": "Clear",
+    "counter": "{current} / {max} characters",
+    "inputPanel": "Input",
+    "formattedPanel": "Formatted",
+    "copy": "Copy",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Click \"Format\"…",
+    "errors": {
+      "tooLong": "Input is limited to {max} characters.",
+      "couldNotFormat": "Could not format this SQL."
+    }
   }
 }

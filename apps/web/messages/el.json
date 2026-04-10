@@ -10,7 +10,7 @@
     "nosqlExplorer": "NoSQL Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "jwtDecoder": "JWT Decoder",
+    "jwtDecoder": "Αποκωδικοποιητής JWT",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -232,8 +232,8 @@
         "description": "Επαληθεύστε και επικυρώστε διευθύνσεις email."
       },
       "jwtDecoder": {
-        "title": "JWT Decoder",
-        "description": "Decode JWT header, payload, and expiry."
+        "title": "Αποκωδικοποιητής JWT",
+        "description": "Αποκωδικοποιήστε κεφαλίδα, payload και λήξη JWT."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1569,5 +1569,78 @@
     "toastLoginRequired": "Συνδεθείτε για να αποθηκεύσετε έγγραφα",
     "toastSaved": "Το έγγραφο αποθηκεύτηκε",
     "toastSaveFailed": "Αποτυχία αποθήκευσης εγγράφου"
+  },
+  "JwtDecoder": {
+    "title": "Αποκωδικοποιητής JWT",
+    "subtitle": "Επιθεωρήστε κεφαλίδα και payload. Η λήξη χρησιμοποιεί το claim <code>exp</code>. Δεν αποστέλλεται τίποτα σε διακομιστή· η υπογραφή δεν επαληθεύεται.",
+    "tokenLabel": "Token",
+    "clear": "Καθαρισμός",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Αντιγραφή",
+    "expiryLabel": "Λήξη (exp)",
+    "signaturePresent": "Υπογραφή υπάρχει (δεν επαληθεύεται)",
+    "noExp": "Δεν υπάρχει claim <code>exp</code> στο payload.",
+    "status": {
+      "expired": "Έληξε",
+      "valid": "Έγκυρο"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Τοπική",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Έκδοση (iat)",
+      "notBefore": "Όχι πριν (nbf)"
+    },
+    "panels": {
+      "header": "Κεφαλίδα",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Επικολλήστε ένα JWT για αποκωδικοποίηση.",
+      "segments": "Ένα JWT χρειάζεται τουλάχιστον κεφαλίδα και payload (δύο τμήματα).",
+      "base64": "Αποτυχία αποκωδικοποίησης base64url κεφαλίδας ή payload."
+    },
+    "relative": {
+      "future": "σε {n} {unit}",
+      "past": "πριν από {n} {unit}"
+    },
+    "units": {
+      "second": "{count, plural, one {δευτερόλεπτο} other {δευτερόλεπτα}}",
+      "minute": "{count, plural, one {λεπτό} other {λεπτά}}",
+      "hour": "{count, plural, one {ώρα} other {ώρες}}",
+      "day": "{count, plural, one {ημέρα} other {ημέρες}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL formatter",
+    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
+    "dialectLabel": "Dialect",
+    "keywordsLabel": "Keywords",
+    "indentLabel": "Indent",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "UPPER",
+      "lower": "lower",
+      "preserve": "Preserve"
+    },
+    "spaces": "{n} spaces",
+    "format": "Format",
+    "clear": "Clear",
+    "counter": "{current} / {max} characters",
+    "inputPanel": "Input",
+    "formattedPanel": "Formatted",
+    "copy": "Copy",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Click \"Format\"…",
+    "errors": {
+      "tooLong": "Input is limited to {max} characters.",
+      "couldNotFormat": "Could not format this SQL."
+    }
   }
 }

@@ -10,7 +10,7 @@
     "nosqlExplorer": "مستكشف NoSQL",
     "toDo": "Tasks",
     "notes": "Notes",
-    "jwtDecoder": "JWT Decoder",
+    "jwtDecoder": "محلّل JWT",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -232,8 +232,8 @@
         "description": "تحقق من عناوين البريد الإلكتروني."
       },
       "jwtDecoder": {
-        "title": "JWT Decoder",
-        "description": "Decode JWT header, payload, and expiry."
+        "title": "محلّل JWT",
+        "description": "فك ترميز ترويسة وبيانات ووقت انتهاء JWT."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1569,5 +1569,78 @@
     "toastLoginRequired": "يرجى تسجيل الدخول لحفظ المستندات",
     "toastSaved": "تم حفظ المستند",
     "toastSaveFailed": "فشل حفظ المستند"
+  },
+  "JwtDecoder": {
+    "title": "محلّل JWT",
+    "subtitle": "اعرض الترويسة والحمولة. يعتمد الانتهاء على مطالبة <code>exp</code>. لا يتم إرسال أي شيء إلى الخادم؛ ولا يتم التحقق من التوقيع.",
+    "tokenLabel": "الرمز",
+    "clear": "مسح",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "نسخ",
+    "expiryLabel": "الانتهاء (exp)",
+    "signaturePresent": "التوقيع موجود (غير مُتحقَّق منه)",
+    "noExp": "لا توجد مطالبة <code>exp</code> في الحمولة.",
+    "status": {
+      "expired": "منتهي الصلاحية",
+      "valid": "صالح"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "محلي",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "وقت الإصدار (iat)",
+      "notBefore": "ليس قبل (nbf)"
+    },
+    "panels": {
+      "header": "الترويسة",
+      "payload": "الحمولة"
+    },
+    "errors": {
+      "empty": "الصق JWT لفك الترميز.",
+      "segments": "يحتاج JWT إلى ترويسة وحمولة على الأقل (جزآن).",
+      "base64": "تعذّر فك ترميز الترويسة أو الحمولة بصيغة base64url."
+    },
+    "relative": {
+      "future": "بعد {n} {unit}",
+      "past": "قبل {n} {unit}"
+    },
+    "units": {
+      "second": "{count, plural, one {ثانية} other {ثوانٍ}}",
+      "minute": "{count, plural, one {دقيقة} other {دقائق}}",
+      "hour": "{count, plural, one {ساعة} other {ساعات}}",
+      "day": "{count, plural, one {يوم} other {أيام}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL formatter",
+    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
+    "dialectLabel": "Dialect",
+    "keywordsLabel": "Keywords",
+    "indentLabel": "Indent",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "UPPER",
+      "lower": "lower",
+      "preserve": "Preserve"
+    },
+    "spaces": "{n} spaces",
+    "format": "Format",
+    "clear": "Clear",
+    "counter": "{current} / {max} characters",
+    "inputPanel": "Input",
+    "formattedPanel": "Formatted",
+    "copy": "Copy",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Click \"Format\"…",
+    "errors": {
+      "tooLong": "Input is limited to {max} characters.",
+      "couldNotFormat": "Could not format this SQL."
+    }
   }
 }
