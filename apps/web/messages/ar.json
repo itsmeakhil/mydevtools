@@ -1642,5 +1642,30 @@
       "tooLong": "المدخلات محدودة إلى {max} حرفًا.",
       "couldNotFormat": "تعذر تنسيق SQL."
     }
+  },
+  "RegexTester": {
+    "title": "مختبر Regex",
+    "subtitle": "Regex بنمط JavaScript مباشرةً على نصك. يتم تمييز التطابقات؛ ولا يغادر شيء متصفحك.",
+    "patternLabel": "النمط",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g عام",
+      "i": "i تجاهل حالة الأحرف",
+      "m": "m متعدد الأسطر",
+      "s": "s dotAll",
+      "u": "u يونيكود"
+    },
+    "emptyPattern": "(فارغ)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {تطابق} other {تطابقات}}",
+    "testTextLabel": "نص الاختبار",
+    "counter": "{current} / {max}",
+    "clear": "مسح",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "النص محدود إلى {max} حرفًا.",
+      "invalid": "تعبير نمطي غير صالح.",
+      "runaway": "تم الإيقاف بعد {max} تطابقًا (قد يكون النمط جامحًا)."
+    }
   }
 }

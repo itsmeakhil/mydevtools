@@ -1642,5 +1642,58 @@
       "tooLong": "Input is limited to {max} characters.",
       "couldNotFormat": "Could not format this SQL."
     }
+  },
+  "RegexTester": {
+    "title": "Regex tester",
+    "subtitle": "Live JavaScript-style regex against your text. Matches are highlighted in the editor; nothing leaves your browser.",
+    "patternLabel": "Pattern",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i ignore case",
+      "m": "m multiline",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(empty)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {match} other {matches}}",
+    "testTextLabel": "Test text",
+    "counter": "{current} / {max}",
+    "clear": "Clear",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Text is limited to {max} characters.",
+      "invalid": "Invalid regular expression.",
+      "runaway": "Stopped after {max} matches (possible runaway pattern)."
+    }
+  },
+  "TimestampConverter": {
+    "title": "Timestamp converter",
+    "subtitle": "Unix seconds (≤10 digits) or milliseconds (longer integers), <code>ISO-8601</code>, or strings your browser can parse. Everything runs locally.",
+    "inputLabel": "Input",
+    "placeholder": "1744200000 or 2025-04-09T12:00:00Z",
+    "now": "Now",
+    "copy": "Copy",
+    "hint": "Paste a value or click <strong>Now</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relative",
+      "human": "Human-readable"
+    },
+    "fields": {
+      "seconds": "Seconds",
+      "milliseconds": "Milliseconds",
+      "utc": "UTC",
+      "local": "Local",
+      "distance": "Distance"
+    },
+    "errors": {
+      "empty": "Enter a Unix timestamp, ISO string, or date text.",
+      "invalidNumber": "Invalid numeric timestamp.",
+      "outOfRange": "Out of range for JavaScript Date.",
+      "couldNotParse": "Could not parse as Unix time, ISO-8601, or browser date string."
+    }
   }
 }

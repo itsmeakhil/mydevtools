@@ -1642,5 +1642,30 @@
       "tooLong": "L’entrada està limitada a {max} caràcters.",
       "couldNotFormat": "No s’ha pogut formatar aquest SQL."
     }
+  },
+  "RegexTester": {
+    "title": "Testador de regex",
+    "subtitle": "Regex d’estil JavaScript en directe sobre el teu text. Les coincidències es ressalten; res no surt del navegador.",
+    "patternLabel": "Patró",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i ignora maj./min.",
+      "m": "m multilínia",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(buit)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {coincidència} other {coincidències}}",
+    "testTextLabel": "Text de prova",
+    "counter": "{current} / {max}",
+    "clear": "Neteja",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "El text està limitat a {max} caràcters.",
+      "invalid": "Expressió regular no vàlida.",
+      "runaway": "Aturat després de {max} coincidències (possible patró descontrolat)."
+    }
   }
 }

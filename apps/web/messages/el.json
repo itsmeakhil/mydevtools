@@ -1642,5 +1642,30 @@
       "tooLong": "Η είσοδος περιορίζεται σε {max} χαρακτήρες.",
       "couldNotFormat": "Δεν ήταν δυνατή η μορφοποίηση αυτού του SQL."
     }
+  },
+  "RegexTester": {
+    "title": "Δοκιμή regex",
+    "subtitle": "Regex τύπου JavaScript σε πραγματικό χρόνο στο κείμενό σας. Οι αντιστοιχίσεις επισημαίνονται· τίποτα δεν φεύγει από τον browser.",
+    "patternLabel": "Μοτίβο",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g καθολικό",
+      "i": "i χωρίς διάκριση πεζών/κεφαλαίων",
+      "m": "m πολυγραμμικό",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(κενό)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {αντιστοίχιση} other {αντιστοιχίσεις}}",
+    "testTextLabel": "Κείμενο δοκιμής",
+    "counter": "{current} / {max}",
+    "clear": "Καθαρισμός",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Το κείμενο περιορίζεται σε {max} χαρακτήρες.",
+      "invalid": "Μη έγκυρη κανονική έκφραση.",
+      "runaway": "Σταμάτησε μετά από {max} αντιστοιχίσεις (πιθανό runaway μοτίβο)."
+    }
   }
 }

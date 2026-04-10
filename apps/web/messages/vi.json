@@ -1642,5 +1642,30 @@
       "tooLong": "Đầu vào bị giới hạn {max} ký tự.",
       "couldNotFormat": "Không thể định dạng SQL này."
     }
+  },
+  "RegexTester": {
+    "title": "Trình thử Regex",
+    "subtitle": "Regex kiểu JavaScript chạy trực tiếp trên văn bản. Kết quả khớp được tô sáng; không có gì rời khỏi trình duyệt.",
+    "patternLabel": "Mẫu",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g toàn cục",
+      "i": "i không phân biệt hoa/thường",
+      "m": "m nhiều dòng",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(trống)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {kết quả} other {kết quả}}",
+    "testTextLabel": "Văn bản thử",
+    "counter": "{current} / {max}",
+    "clear": "Xóa",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Văn bản bị giới hạn {max} ký tự.",
+      "invalid": "Biểu thức chính quy không hợp lệ.",
+      "runaway": "Dừng sau {max} lần khớp (có thể mẫu bị runaway)."
+    }
   }
 }

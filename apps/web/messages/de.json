@@ -1642,5 +1642,30 @@
       "tooLong": "Eingabe ist auf {max} Zeichen begrenzt.",
       "couldNotFormat": "SQL konnte nicht formatiert werden."
     }
+  },
+  "RegexTester": {
+    "title": "Regex-Tester",
+    "subtitle": "JavaScript-ähnliche Regex live gegen deinen Text. Treffer werden markiert; nichts verlässt deinen Browser.",
+    "patternLabel": "Muster",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i ohne Beachtung der Groß-/Kleinschreibung",
+      "m": "m mehrzeilig",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(leer)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {Treffer} other {Treffer}}",
+    "testTextLabel": "Testtext",
+    "counter": "{current} / {max}",
+    "clear": "Leeren",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Text ist auf {max} Zeichen begrenzt.",
+      "invalid": "Ungültiger regulärer Ausdruck.",
+      "runaway": "Nach {max} Treffern gestoppt (möglicherweise ausuferndes Muster)."
+    }
   }
 }

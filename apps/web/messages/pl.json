@@ -1642,5 +1642,30 @@
       "tooLong": "Wejście jest ograniczone do {max} znaków.",
       "couldNotFormat": "Nie udało się sformatować tego SQL."
     }
+  },
+  "RegexTester": {
+    "title": "Tester regex",
+    "subtitle": "Regex w stylu JavaScript na żywo dla Twojego tekstu. Dopasowania są podświetlane; nic nie opuszcza przeglądarki.",
+    "patternLabel": "Wzorzec",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g globalnie",
+      "i": "i bez rozróżniania wielkości liter",
+      "m": "m wielowierszowe",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(puste)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {dopasowanie} other {dopasowań}}",
+    "testTextLabel": "Tekst testowy",
+    "counter": "{current} / {max}",
+    "clear": "Wyczyść",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Tekst jest ograniczony do {max} znaków.",
+      "invalid": "Nieprawidłowe wyrażenie regularne.",
+      "runaway": "Zatrzymano po {max} dopasowaniach (możliwy niekończący się wzorzec)."
+    }
   }
 }

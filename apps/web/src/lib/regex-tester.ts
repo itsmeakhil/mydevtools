@@ -5,7 +5,14 @@ export type MatchRange = { start: number; end: number };
 
 export type RegexTestResult =
   | { ok: true; ranges: MatchRange[]; matchCount: number }
-  | { ok: false; error: string };
+  | {
+      ok: false;
+      errorKey: 'tooLong' | 'invalid' | 'runaway';
+      /** Used for i18n interpolation. */
+      errorVars?: Record<string, string | number>;
+      /** Developer-facing details (not user-facing). */
+      detail?: string;
+    };
 
 /** Merge overlapping / adjacent ranges for a single highlight layer. */
 export function mergeRanges(ranges: MatchRange[]): MatchRange[] {
@@ -48,7 +55,8 @@ export function findMatchRanges(
   if (text.length > MAX_TEST_TEXT_LENGTH) {
     return {
       ok: false,
-      error: `Text is limited to ${MAX_TEST_TEXT_LENGTH.toLocaleString()} characters.`,
+      errorKey: 'tooLong',
+      errorVars: { max: MAX_TEST_TEXT_LENGTH.toLocaleString() },
     };
   }
 
@@ -62,7 +70,7 @@ export function findMatchRanges(
     re = new RegExp(trimmed, flagString);
   } catch (e) {
     const msg = e instanceof Error ? e.message : 'Invalid regular expression.';
-    return { ok: false, error: msg };
+    return { ok: false, errorKey: 'invalid', detail: msg };
   }
 
   const ranges: MatchRange[] = [];
@@ -90,7 +98,8 @@ export function findMatchRanges(
   if (guard >= MAX_MATCHES) {
     return {
       ok: false,
-      error: `Stopped after ${MAX_MATCHES.toLocaleString()} matches (possible runaway pattern).`,
+      errorKey: 'runaway',
+      errorVars: { max: MAX_MATCHES.toLocaleString() },
     };
   }
 

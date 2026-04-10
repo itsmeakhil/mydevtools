@@ -1642,5 +1642,30 @@
       "tooLong": "Input dibatasi hingga {max} karakter.",
       "couldNotFormat": "Tidak dapat memformat SQL ini."
     }
+  },
+  "RegexTester": {
+    "title": "Penguji regex",
+    "subtitle": "Regex gaya JavaScript secara langsung pada teks Anda. Kecocokan disorot; tidak ada yang keluar dari browser.",
+    "patternLabel": "Pola",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i abaikan huruf besar/kecil",
+      "m": "m multiline",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(kosong)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {kecocokan} other {kecocokan}}",
+    "testTextLabel": "Teks uji",
+    "counter": "{current} / {max}",
+    "clear": "Bersihkan",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Teks dibatasi hingga {max} karakter.",
+      "invalid": "Ekspresi reguler tidak valid.",
+      "runaway": "Dihentikan setelah {max} kecocokan (kemungkinan pola runaway)."
+    }
   }
 }

@@ -14,6 +14,7 @@ import {
 } from '@/lib/regex-tester';
 import { cn } from '@/lib/utils';
 import { AlertCircle, Trash2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 function HighlightedText({
   text,
@@ -53,9 +54,10 @@ function HighlightedText({
 }
 
 export function RegexTesterLayout() {
+  const t = useTranslations('RegexTester');
   const [pattern, setPattern] = useState('');
   const [testText, setTestText] = useState(
-    'The quick brown fox jumps over the lazy dog.\nEmail: test@example.com\nIDs: abc-123, xyz_456'
+    t('sampleText')
   );
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
@@ -93,51 +95,55 @@ export function RegexTesterLayout() {
   return (
     <div className="flex flex-col h-full gap-4 min-h-0">
       <div className="shrink-0">
-        <h1 className="text-lg font-semibold tracking-tight">Regex tester</h1>
-        <p className="text-xs text-muted-foreground">
-          Live JavaScript-style regex against your text. Matches are highlighted in the editor; nothing
-          leaves your browser.
-        </p>
+        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
+        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
       </div>
 
       <Card className="p-4 space-y-3 shrink-0">
         <div className="space-y-2">
           <Label htmlFor="regex-pattern" className="text-xs text-muted-foreground uppercase tracking-wider">
-            Pattern
+            {t('patternLabel')}
           </Label>
           <Input
             id="regex-pattern"
             value={pattern}
             onChange={(e) => setPattern(e.target.value)}
-            placeholder="[\w.-]+@[\w.-]+\.\w+"
+            placeholder={t('patternPlaceholder')}
             spellCheck={false}
             className="font-mono text-sm"
           />
         </div>
 
         <div className="flex flex-wrap gap-x-4 gap-y-2">
-          <FlagBox id="flg-g" checked={global} onCheckedChange={setGlobal} label="g global" />
-          <FlagBox id="flg-i" checked={ignoreCase} onCheckedChange={setIgnoreCase} label="i ignore case" />
-          <FlagBox id="flg-m" checked={multiline} onCheckedChange={setMultiline} label="m multiline" />
-          <FlagBox id="flg-s" checked={dotAll} onCheckedChange={setDotAll} label="s dotAll" />
-          <FlagBox id="flg-u" checked={unicode} onCheckedChange={setUnicode} label="u unicode" />
+          <FlagBox id="flg-g" checked={global} onCheckedChange={setGlobal} label={t('flags.g')} />
+          <FlagBox id="flg-i" checked={ignoreCase} onCheckedChange={setIgnoreCase} label={t('flags.i')} />
+          <FlagBox id="flg-m" checked={multiline} onCheckedChange={setMultiline} label={t('flags.m')} />
+          <FlagBox id="flg-s" checked={dotAll} onCheckedChange={setDotAll} label={t('flags.s')} />
+          <FlagBox id="flg-u" checked={unicode} onCheckedChange={setUnicode} label={t('flags.u')} />
         </div>
 
         <p className="text-[11px] text-muted-foreground font-mono">
-          /{pattern || '(empty)'}/{flagString || '—'}
+          /{pattern || t('emptyPattern')}/{flagString || t('noFlags')}
         </p>
 
         {result.ok === false && (
           <div className="flex items-start gap-2 rounded-md border border-destructive/40 bg-destructive/5 px-3 py-2 text-sm text-destructive">
             <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
-            <p>{result.error}</p>
+            <p>
+              {result.errorKey === 'invalid'
+                ? t('errors.invalid')
+                : t(`errors.${result.errorKey}` as never, result.errorVars as never)}
+            </p>
+            {result.errorKey === 'invalid' && result.detail ? (
+              <p className="text-xs text-destructive/80 font-mono mt-1">{result.detail}</p>
+            ) : null}
           </div>
         )}
 
         {result.ok && (
           <p className="text-xs text-muted-foreground">
-            <span className="font-medium text-foreground tabular-nums">{result.matchCount}</span> match
-            {result.matchCount === 1 ? '' : 'es'}
+            <span className="font-medium text-foreground tabular-nums">{result.matchCount}</span>{' '}
+            {t('matches', { count: result.matchCount })}
           </p>
         )}
       </Card>
@@ -145,7 +151,7 @@ export function RegexTesterLayout() {
       <Card className="flex flex-col flex-1 min-h-0 overflow-hidden p-0">
         <div className="flex items-center justify-between px-3 py-2 border-b border-border/50 bg-muted/30 shrink-0">
           <Label htmlFor="regex-text" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-            Test text
+            {t('testTextLabel')}
           </Label>
           <div className="flex items-center gap-3">
             <span
@@ -154,7 +160,10 @@ export function RegexTesterLayout() {
                 overLimit ? 'text-destructive' : 'text-muted-foreground'
               )}
             >
-              {testText.length.toLocaleString()} / {MAX_TEST_TEXT_LENGTH.toLocaleString()}
+              {t('counter', {
+                current: testText.length.toLocaleString(),
+                max: MAX_TEST_TEXT_LENGTH.toLocaleString(),
+              })}
             </span>
             <Button
               type="button"
@@ -164,7 +173,7 @@ export function RegexTesterLayout() {
               onClick={() => setTestText('')}
             >
               <Trash2 className="h-3 w-3" />
-              Clear
+              {t('clear')}
             </Button>
           </div>
         </div>

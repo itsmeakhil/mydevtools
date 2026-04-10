@@ -1642,5 +1642,30 @@
       "tooLong": "La entrada está limitada a {max} caracteres.",
       "couldNotFormat": "No se pudo formatear este SQL."
     }
+  },
+  "RegexTester": {
+    "title": "Probador de regex",
+    "subtitle": "Regex estilo JavaScript en vivo sobre tu texto. Las coincidencias se resaltan; nada sale de tu navegador.",
+    "patternLabel": "Patrón",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i sin distinción mayús/minús",
+      "m": "m multilínea",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(vacío)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {coincidencia} other {coincidencias}}",
+    "testTextLabel": "Texto de prueba",
+    "counter": "{current} / {max}",
+    "clear": "Limpiar",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "El texto está limitado a {max} caracteres.",
+      "invalid": "Expresión regular no válida.",
+      "runaway": "Se detuvo tras {max} coincidencias (posible patrón descontrolado)."
+    }
   }
 }

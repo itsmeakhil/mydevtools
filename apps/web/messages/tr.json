@@ -1642,5 +1642,30 @@
       "tooLong": "Girdi {max} karakter ile sınırlıdır.",
       "couldNotFormat": "Bu SQL biçimlendirilemedi."
     }
+  },
+  "RegexTester": {
+    "title": "Regex Testi",
+    "subtitle": "Metninize karşı canlı JavaScript tarzı regex. Eşleşmeler vurgulanır; hiçbir şey tarayıcınızdan çıkmaz.",
+    "patternLabel": "Desen",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i büyük/küçük harf duyarsız",
+      "m": "m çok satırlı",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(boş)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {eşleşme} other {eşleşme}}",
+    "testTextLabel": "Test metni",
+    "counter": "{current} / {max}",
+    "clear": "Temizle",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Metin {max} karakter ile sınırlıdır.",
+      "invalid": "Geçersiz düzenli ifade.",
+      "runaway": "{max} eşleşmeden sonra durduruldu (olası kontrolden çıkan desen)."
+    }
   }
 }

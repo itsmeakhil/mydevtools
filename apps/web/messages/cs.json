@@ -1642,5 +1642,30 @@
       "tooLong": "Vstup je omezen na {max} znaků.",
       "couldNotFormat": "Tento SQL se nepodařilo naformátovat."
     }
+  },
+  "RegexTester": {
+    "title": "Tester regex",
+    "subtitle": "Regex ve stylu JavaScript živě nad vaším textem. Shody jsou zvýrazněny; nic neopustí prohlížeč.",
+    "patternLabel": "Vzor",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g globální",
+      "i": "i ignorovat velikost písmen",
+      "m": "m víceřádkové",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(prázdné)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {shoda} few {shody} other {shod}}",
+    "testTextLabel": "Testovací text",
+    "counter": "{current} / {max}",
+    "clear": "Vymazat",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Text je omezen na {max} znaků.",
+      "invalid": "Neplatný regulární výraz.",
+      "runaway": "Zastaveno po {max} shodách (možný „runaway“ vzor)."
+    }
   }
 }

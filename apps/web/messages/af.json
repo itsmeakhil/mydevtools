@@ -1642,5 +1642,30 @@
       "tooLong": "Invoer is beperk tot {max} karakters.",
       "couldNotFormat": "Kon nie hierdie SQL formateer nie."
     }
+  },
+  "RegexTester": {
+    "title": "Regex-toetser",
+    "subtitle": "JavaScript-styl regex teen jou teks, lewendig. Treffer word gemerk; niks verlaat jou blaaier nie.",
+    "patternLabel": "Patroon",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g globaal",
+      "i": "i ignoreer hoof-/kleinletters",
+      "m": "m multireël",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(leeg)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {treffer} other {treffers}}",
+    "testTextLabel": "Toetstekst",
+    "counter": "{current} / {max}",
+    "clear": "Vee uit",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Teks is beperk tot {max} karakters.",
+      "invalid": "Ongeldige regex.",
+      "runaway": "Gestop ná {max} treffers (moontlike wegholpatroon)."
+    }
   }
 }

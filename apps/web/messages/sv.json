@@ -1642,5 +1642,30 @@
       "tooLong": "Inmatning är begränsad till {max} tecken.",
       "couldNotFormat": "Kunde inte formatera denna SQL."
     }
+  },
+  "RegexTester": {
+    "title": "Regex-tester",
+    "subtitle": "JavaScript-liknande regex live mot din text. Träffar markeras; inget lämnar din webbläsare.",
+    "patternLabel": "Mönster",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i ignorera versaler/gemener",
+      "m": "m flerradig",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(tom)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {träff} other {träffar}}",
+    "testTextLabel": "Testtext",
+    "counter": "{current} / {max}",
+    "clear": "Rensa",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Texten är begränsad till {max} tecken.",
+      "invalid": "Ogiltigt reguljärt uttryck.",
+      "runaway": "Stoppade efter {max} träffar (möjligt skenande mönster)."
+    }
   }
 }

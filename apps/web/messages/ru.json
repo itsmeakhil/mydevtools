@@ -1642,5 +1642,30 @@
       "tooLong": "Ввод ограничен {max} символами.",
       "couldNotFormat": "Не удалось отформатировать этот SQL."
     }
+  },
+  "RegexTester": {
+    "title": "Тестер regex",
+    "subtitle": "Регулярные выражения в стиле JavaScript в реальном времени. Совпадения подсвечиваются; ничего не покидает браузер.",
+    "patternLabel": "Шаблон",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g глобально",
+      "i": "i без учёта регистра",
+      "m": "m многострочный",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(пусто)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {совпадение} few {совпадения} many {совпадений} other {совпадений}}",
+    "testTextLabel": "Тестовый текст",
+    "counter": "{current} / {max}",
+    "clear": "Очистить",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Текст ограничен {max} символами.",
+      "invalid": "Некорректное регулярное выражение.",
+      "runaway": "Остановлено после {max} совпадений (возможный “разбежавшийся” шаблон)."
+    }
   }
 }

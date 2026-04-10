@@ -1642,5 +1642,30 @@
       "tooLong": "Ввід обмежено {max} символами.",
       "couldNotFormat": "Не вдалося відформатувати цей SQL."
     }
+  },
+  "RegexTester": {
+    "title": "Тестер regex",
+    "subtitle": "Регулярні вирази у стилі JavaScript у реальному часі. Збіги підсвічуються; нічого не залишає ваш браузер.",
+    "patternLabel": "Шаблон",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g глобально",
+      "i": "i без урахування регістру",
+      "m": "m багаторядковий",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(порожньо)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {збіг} few {збіги} many {збігів} other {збігів}}",
+    "testTextLabel": "Тестовий текст",
+    "counter": "{current} / {max}",
+    "clear": "Очистити",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Текст обмежено {max} символами.",
+      "invalid": "Некоректний регулярний вираз.",
+      "runaway": "Зупинено після {max} збігів (можливо, шаблон “розбігся”)."
+    }
   }
 }

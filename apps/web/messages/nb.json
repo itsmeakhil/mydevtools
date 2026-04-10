@@ -1642,5 +1642,30 @@
       "tooLong": "Inndata er begrenset til {max} tegn.",
       "couldNotFormat": "Kunne ikke formatere denne SQL-en."
     }
+  },
+  "RegexTester": {
+    "title": "Regex-tester",
+    "subtitle": "JavaScript-lignende regex live mot teksten din. Treff markeres; ingenting forlater nettleseren.",
+    "patternLabel": "Mønster",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i ignorer store/små bokstaver",
+      "m": "m multiline",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(tom)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {treff} other {treff}}",
+    "testTextLabel": "Testtekst",
+    "counter": "{current} / {max}",
+    "clear": "Tøm",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Teksten er begrenset til {max} tegn.",
+      "invalid": "Ugyldig regulært uttrykk.",
+      "runaway": "Stoppet etter {max} treff (mulig løpsk mønster)."
+    }
   }
 }

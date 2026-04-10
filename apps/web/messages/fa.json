@@ -1642,5 +1642,30 @@
       "tooLong": "ورودی به {max} نویسه محدود است.",
       "couldNotFormat": "فرمت‌کردن این SQL ممکن نبود."
     }
+  },
+  "RegexTester": {
+    "title": "آزمایشگر Regex",
+    "subtitle": "Regex به سبک JavaScript به‌صورت زنده روی متن شما. تطبیق‌ها هایلایت می‌شوند و چیزی از مرورگر خارج نمی‌شود.",
+    "patternLabel": "الگو",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g سراسری",
+      "i": "i بدون حساسیت به حروف",
+      "m": "m چندخطی",
+      "s": "s dotAll",
+      "u": "u یونیکد"
+    },
+    "emptyPattern": "(خالی)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {تطبیق} other {تطبیق‌ها}}",
+    "testTextLabel": "متن آزمایش",
+    "counter": "{current} / {max}",
+    "clear": "پاک کردن",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "متن به {max} نویسه محدود است.",
+      "invalid": "عبارت باقاعده نامعتبر است.",
+      "runaway": "پس از {max} تطبیق متوقف شد (احتمال الگوی runaway)."
+    }
   }
 }

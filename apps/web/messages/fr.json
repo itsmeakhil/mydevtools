@@ -1642,5 +1642,30 @@
       "tooLong": "La saisie est limitée à {max} caractères.",
       "couldNotFormat": "Impossible de formater ce SQL."
     }
+  },
+  "RegexTester": {
+    "title": "Testeur de regex",
+    "subtitle": "Regex de style JavaScript en direct sur votre texte. Les correspondances sont surlignées ; rien ne quitte votre navigateur.",
+    "patternLabel": "Motif",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i insensible à la casse",
+      "m": "m multiligne",
+      "s": "s dotAll",
+      "u": "u unicode"
+    },
+    "emptyPattern": "(vide)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {correspondance} other {correspondances}}",
+    "testTextLabel": "Texte de test",
+    "counter": "{current} / {max}",
+    "clear": "Effacer",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Le texte est limité à {max} caractères.",
+      "invalid": "Expression régulière invalide.",
+      "runaway": "Arrêt après {max} correspondances (motif possiblement incontrôlé)."
+    }
   }
 }

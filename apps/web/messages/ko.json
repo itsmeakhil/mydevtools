@@ -1642,5 +1642,30 @@
       "tooLong": "입력은 최대 {max}자까지입니다.",
       "couldNotFormat": "이 SQL을 포맷할 수 없습니다."
     }
+  },
+  "RegexTester": {
+    "title": "정규식 테스터",
+    "subtitle": "텍스트에 대해 JavaScript 스타일 정규식을 실시간으로 실행합니다. 매칭은 강조 표시되며 브라우저 밖으로 나가지 않습니다.",
+    "patternLabel": "패턴",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g 전역",
+      "i": "i 대소문자 무시",
+      "m": "m 멀티라인",
+      "s": "s dotAll",
+      "u": "u 유니코드"
+    },
+    "emptyPattern": "(비어 있음)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {일치} other {일치}}",
+    "testTextLabel": "테스트 텍스트",
+    "counter": "{current} / {max}",
+    "clear": "지우기",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "텍스트는 최대 {max}자까지입니다.",
+      "invalid": "잘못된 정규식입니다.",
+      "runaway": "{max}개 일치 후 중지됨(패턴 폭주 가능성)."
+    }
   }
 }

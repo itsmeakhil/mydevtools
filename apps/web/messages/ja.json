@@ -1642,5 +1642,30 @@
       "tooLong": "入力は {max} 文字までです。",
       "couldNotFormat": "このSQLを整形できませんでした。"
     }
+  },
+  "RegexTester": {
+    "title": "正規表現テスター",
+    "subtitle": "JavaScript 形式の正規表現をテキストに対してライブ実行します。一致箇所はハイライトされ、ブラウザ外へ送信されません。",
+    "patternLabel": "パターン",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g グローバル",
+      "i": "i 大文字小文字を無視",
+      "m": "m 複数行",
+      "s": "s dotAll",
+      "u": "u Unicode"
+    },
+    "emptyPattern": "(空)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {一致} other {一致}}",
+    "testTextLabel": "テストテキスト",
+    "counter": "{current} / {max}",
+    "clear": "クリア",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "テキストは {max} 文字までです。",
+      "invalid": "正規表現が無効です。",
+      "runaway": "{max} 件で停止しました（暴走している可能性があります）。"
+    }
   }
 }
