@@ -1814,5 +1814,39 @@
       "invalidBase64": "Chuỗi Base64 không hợp lệ. Hãy kiểm tra đầu vào.",
       "encodeFailed": "Không thể mã hóa đầu vào."
     }
+  },
+  "UrlEncode": {
+    "title": "Mã hóa / giải mã URL",
+    "subtitle": "Mã hóa/giải mã theo phần trăm bằng encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Tải lên",
+    "clear": "Xóa",
+    "modes": {
+      "encode": "Mã hóa",
+      "decode": "Giải mã"
+    },
+    "swapTitle": "Hoán đổi đầu vào/đầu ra",
+    "panels": {
+      "plainText": "Văn bản",
+      "encodedInput": "Đầu vào đã mã hóa",
+      "encodedOutput": "Đầu ra đã mã hóa",
+      "decodedText": "Văn bản đã giải mã"
+    },
+    "placeholders": {
+      "encode": "Nhập văn bản để mã hóa phần trăm…",
+      "decode": "Dán văn bản percent-encoded để giải mã…"
+    },
+    "dropHere": "Thả tệp vào đây",
+    "charCount": "{count} ký tự",
+    "download": {
+      "title": "Tải xuống kết quả",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Sao chép vào clipboard",
+    "outputPlaceholder": "Kết quả sẽ hiển thị ở đây…",
+    "errors": {
+      "invalidEncoding": "Mã hóa phần trăm không hợp lệ. Hãy kiểm tra cặp % chưa đầy đủ hoặc chuỗi escape sai.",
+      "encodeFailed": "Không thể mã hóa (Unicode không hợp lệ trong đầu vào)."
+    }
   }
 }

@@ -1814,5 +1814,39 @@
       "invalidBase64": "Некорректная строка Base64. Проверьте ввод.",
       "encodeFailed": "Не удалось закодировать ввод."
     }
+  },
+  "UrlEncode": {
+    "title": "URL кодирование / декодирование",
+    "subtitle": "Процентное кодирование/декодирование через encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Загрузить",
+    "clear": "Очистить",
+    "modes": {
+      "encode": "Кодировать",
+      "decode": "Декодировать"
+    },
+    "swapTitle": "Поменять местами ввод и вывод",
+    "panels": {
+      "plainText": "Текст",
+      "encodedInput": "Кодированный ввод",
+      "encodedOutput": "Кодированный вывод",
+      "decodedText": "Декодированный текст"
+    },
+    "placeholders": {
+      "encode": "Введите текст для percent-encoding…",
+      "decode": "Вставьте percent-encoded текст для декодирования…"
+    },
+    "dropHere": "Перетащите файл сюда",
+    "charCount": "{count} символов",
+    "download": {
+      "title": "Скачать результат",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Скопировать в буфер обмена",
+    "outputPlaceholder": "Результат появится здесь…",
+    "errors": {
+      "invalidEncoding": "Некорректное percent-encoding. Проверьте неполные пары % или escape-последовательности.",
+      "encodeFailed": "Не удалось закодировать (некорректный Unicode во вводе)."
+    }
   }
 }

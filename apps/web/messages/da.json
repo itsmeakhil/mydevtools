@@ -1814,5 +1814,39 @@
       "invalidBase64": "Ugyldig Base64-streng. Tjek input.",
       "encodeFailed": "Kunne ikke kode input."
     }
+  },
+  "UrlEncode": {
+    "title": "URL-koder / dekoder",
+    "subtitle": "Procentkod/afkod med encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Upload",
+    "clear": "Ryd",
+    "modes": {
+      "encode": "Kod",
+      "decode": "Afkod"
+    },
+    "swapTitle": "Byt input og output",
+    "panels": {
+      "plainText": "Ren tekst",
+      "encodedInput": "Kodet input",
+      "encodedOutput": "Kodet output",
+      "decodedText": "Afkodet tekst"
+    },
+    "placeholders": {
+      "encode": "Indtast tekst til procentkodning…",
+      "decode": "Indsæt procentkodet tekst til afkodning…"
+    },
+    "dropHere": "Slip fil her",
+    "charCount": "{count} tegn",
+    "download": {
+      "title": "Download output",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Kopiér til udklipsholder",
+    "outputPlaceholder": "Output vises her…",
+    "errors": {
+      "invalidEncoding": "Ugyldig procentkodning. Tjek ufuldstændige %‑par eller escapes.",
+      "encodeFailed": "Kunne ikke kode (ugyldig Unicode i input)."
+    }
   }
 }

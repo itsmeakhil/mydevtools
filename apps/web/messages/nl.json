@@ -1814,5 +1814,39 @@
       "invalidBase64": "Ongeldige Base64-string. Controleer je invoer.",
       "encodeFailed": "Kon invoer niet encoderen."
     }
+  },
+  "UrlEncode": {
+    "title": "URL-encoder / -decoder",
+    "subtitle": "Procentcoderen/decoderen met encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Uploaden",
+    "clear": "Wissen",
+    "modes": {
+      "encode": "Encoderen",
+      "decode": "Decoderen"
+    },
+    "swapTitle": "Invoer en uitvoer omwisselen",
+    "panels": {
+      "plainText": "Platte tekst",
+      "encodedInput": "Gecodeerde invoer",
+      "encodedOutput": "Gecodeerde uitvoer",
+      "decodedText": "Gedecodeerde tekst"
+    },
+    "placeholders": {
+      "encode": "Voer tekst in om te percent-encoderen…",
+      "decode": "Plak percent-encoded tekst om te decoderen…"
+    },
+    "dropHere": "Zet bestand hier neer",
+    "charCount": "{count} tekens",
+    "download": {
+      "title": "Uitvoer downloaden",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Kopiëren naar klembord",
+    "outputPlaceholder": "Uitvoer verschijnt hier…",
+    "errors": {
+      "invalidEncoding": "Ongeldige percent-codering. Controleer onvolledige %‑paren of escapes.",
+      "encodeFailed": "Kon niet encoderen (ongeldige Unicode in invoer)."
+    }
   }
 }

@@ -1814,5 +1814,39 @@
       "invalidBase64": "Ungültiger Base64-String. Bitte Eingabe prüfen.",
       "encodeFailed": "Eingabe konnte nicht kodiert werden."
     }
+  },
+  "UrlEncode": {
+    "title": "URL Encoder / Decoder",
+    "subtitle": "Prozentkodieren/-dekodieren mit encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Hochladen",
+    "clear": "Leeren",
+    "modes": {
+      "encode": "Kodieren",
+      "decode": "Dekodieren"
+    },
+    "swapTitle": "Eingabe und Ausgabe tauschen",
+    "panels": {
+      "plainText": "Klartext",
+      "encodedInput": "Kodierte Eingabe",
+      "encodedOutput": "Kodierte Ausgabe",
+      "decodedText": "Dekodierter Text"
+    },
+    "placeholders": {
+      "encode": "Text zum Prozentkodieren eingeben (z. B. Query-Parameter)…",
+      "decode": "Prozentkodierten Text zum Dekodieren einfügen…"
+    },
+    "dropHere": "Datei hier ablegen",
+    "charCount": "{count} Zeichen",
+    "download": {
+      "title": "Ausgabe herunterladen",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "In die Zwischenablage kopieren",
+    "outputPlaceholder": "Ausgabe erscheint hier…",
+    "errors": {
+      "invalidEncoding": "Ungültige Prozentkodierung. Prüfe unvollständige %‑Paare oder Escape-Sequenzen.",
+      "encodeFailed": "Konnte nicht kodieren (ungültiges Unicode in der Eingabe)."
+    }
   }
 }

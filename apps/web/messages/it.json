@@ -1814,5 +1814,39 @@
       "invalidBase64": "Stringa Base64 non valida. Controlla l’input.",
       "encodeFailed": "Impossibile codificare l’input."
     }
+  },
+  "UrlEncode": {
+    "title": "Codificatore / decodificatore URL",
+    "subtitle": "Codifica/decodifica percentuale con encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Carica",
+    "clear": "Pulisci",
+    "modes": {
+      "encode": "Codifica",
+      "decode": "Decodifica"
+    },
+    "swapTitle": "Scambia input e output",
+    "panels": {
+      "plainText": "Testo semplice",
+      "encodedInput": "Input codificato",
+      "encodedOutput": "Output codificato",
+      "decodedText": "Testo decodificato"
+    },
+    "placeholders": {
+      "encode": "Inserisci testo da codificare in percentuale (es. query string)…",
+      "decode": "Incolla testo percent-encoded da decodificare…"
+    },
+    "dropHere": "Rilascia qui il file",
+    "charCount": "{count} caratteri",
+    "download": {
+      "title": "Scarica output",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Copia negli appunti",
+    "outputPlaceholder": "L’output apparirà qui…",
+    "errors": {
+      "invalidEncoding": "Percent-encoding non valido. Verifica coppie % incomplete o sequenze di escape.",
+      "encodeFailed": "Impossibile codificare (Unicode non valido nell’input)."
+    }
   }
 }

@@ -1814,5 +1814,39 @@
       "invalidBase64": "String Base64 inválida. Verifique a entrada.",
       "encodeFailed": "Falha ao codificar a entrada."
     }
+  },
+  "UrlEncode": {
+    "title": "Codificador / decodificador de URL",
+    "subtitle": "Codifique/decodifique por porcentagem com encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Enviar",
+    "clear": "Limpar",
+    "modes": {
+      "encode": "Codificar",
+      "decode": "Decodificar"
+    },
+    "swapTitle": "Trocar entrada e saída",
+    "panels": {
+      "plainText": "Texto simples",
+      "encodedInput": "Entrada codificada",
+      "encodedOutput": "Saída codificada",
+      "decodedText": "Texto decodificado"
+    },
+    "placeholders": {
+      "encode": "Digite texto para codificar (ex.: valores de query string)…",
+      "decode": "Cole texto percent-encoded para decodificar…"
+    },
+    "dropHere": "Solte o arquivo aqui",
+    "charCount": "{count} caracteres",
+    "download": {
+      "title": "Baixar saída",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Copiar para a área de transferência",
+    "outputPlaceholder": "A saída aparecerá aqui…",
+    "errors": {
+      "invalidEncoding": "Codificação por porcentagem inválida. Verifique pares % incompletos ou escapes.",
+      "encodeFailed": "Não foi possível codificar (Unicode inválido na entrada)."
+    }
   }
 }

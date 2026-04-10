@@ -1814,5 +1814,39 @@
       "invalidBase64": "Rentetan Base64 tidak sah. Semak input.",
       "encodeFailed": "Gagal mengod input."
     }
+  },
+  "UrlEncode": {
+    "title": "Pengekod / penyahkod URL",
+    "subtitle": "Pengekodan peratus/nyahkod dengan encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Muat naik",
+    "clear": "Kosongkan",
+    "modes": {
+      "encode": "Kod",
+      "decode": "Nyahkod"
+    },
+    "swapTitle": "Tukar input dan output",
+    "panels": {
+      "plainText": "Teks biasa",
+      "encodedInput": "Input berkod",
+      "encodedOutput": "Output berkod",
+      "decodedText": "Teks dinyahkod"
+    },
+    "placeholders": {
+      "encode": "Masukkan teks untuk peratus-kod…",
+      "decode": "Tampal teks percent-encoded untuk nyahkod…"
+    },
+    "dropHere": "Lepaskan fail di sini",
+    "charCount": "{count} aksara",
+    "download": {
+      "title": "Muat turun output",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Salin ke papan klip",
+    "outputPlaceholder": "Output akan muncul di sini…",
+    "errors": {
+      "invalidEncoding": "Peratus-pengekodan tidak sah. Semak pasangan % tidak lengkap atau escape yang salah.",
+      "encodeFailed": "Tidak dapat mengod (Unicode tidak sah dalam input)."
+    }
   }
 }

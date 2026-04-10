@@ -1814,5 +1814,39 @@
       "invalidBase64": "유효하지 않은 Base64 문자열입니다. 입력을 확인하세요.",
       "encodeFailed": "인코딩에 실패했습니다."
     }
+  },
+  "UrlEncode": {
+    "title": "URL 인코더 / 디코더",
+    "subtitle": "encodeURIComponent / decodeURIComponent(UTF‑8)로 퍼센트 인코딩/디코딩",
+    "upload": "업로드",
+    "clear": "지우기",
+    "modes": {
+      "encode": "인코딩",
+      "decode": "디코딩"
+    },
+    "swapTitle": "입력/출력 바꾸기",
+    "panels": {
+      "plainText": "일반 텍스트",
+      "encodedInput": "인코딩 입력",
+      "encodedOutput": "인코딩 출력",
+      "decodedText": "디코딩된 텍스트"
+    },
+    "placeholders": {
+      "encode": "퍼센트 인코딩할 텍스트를 입력…",
+      "decode": "디코딩할 percent-encoded 텍스트를 붙여넣기…"
+    },
+    "dropHere": "여기에 파일을 놓으세요",
+    "charCount": "{count}자",
+    "download": {
+      "title": "출력 다운로드",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "클립보드로 복사",
+    "outputPlaceholder": "출력이 여기에 표시됩니다…",
+    "errors": {
+      "invalidEncoding": "잘못된 퍼센트 인코딩입니다. 불완전한 % 쌍이나 잘못된 이스케이프를 확인하세요.",
+      "encodeFailed": "인코딩할 수 없습니다(입력에 잘못된 Unicode)."
+    }
   }
 }

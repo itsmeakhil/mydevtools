@@ -1814,5 +1814,39 @@
       "invalidBase64": "无效的 Base64 字符串，请检查输入。",
       "encodeFailed": "编码失败。"
     }
+  },
+  "UrlEncode": {
+    "title": "URL 编码 / 解码",
+    "subtitle": "使用 encodeURIComponent / decodeURIComponent（UTF‑8）进行百分号编码/解码",
+    "upload": "上传",
+    "clear": "清空",
+    "modes": {
+      "encode": "编码",
+      "decode": "解码"
+    },
+    "swapTitle": "交换输入与输出",
+    "panels": {
+      "plainText": "纯文本",
+      "encodedInput": "已编码输入",
+      "encodedOutput": "已编码输出",
+      "decodedText": "已解码文本"
+    },
+    "placeholders": {
+      "encode": "输入要进行百分号编码的文本…",
+      "decode": "粘贴要解码的 percent-encoded 文本…"
+    },
+    "dropHere": "将文件拖放到此处",
+    "charCount": "{count} 个字符",
+    "download": {
+      "title": "下载输出",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "复制到剪贴板",
+    "outputPlaceholder": "输出将显示在这里…",
+    "errors": {
+      "invalidEncoding": "百分号编码无效。请检查不完整的 % 对或错误的转义序列。",
+      "encodeFailed": "无法编码（输入中包含无效的 Unicode）。"
+    }
   }
 }

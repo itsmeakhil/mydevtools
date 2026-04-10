@@ -1814,5 +1814,39 @@
       "invalidBase64": "String Base64 tidak valid. Periksa input.",
       "encodeFailed": "Gagal meng-encode input."
     }
+  },
+  "UrlEncode": {
+    "title": "Encoder / Decoder URL",
+    "subtitle": "Percent-encode/decode dengan encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Unggah",
+    "clear": "Bersihkan",
+    "modes": {
+      "encode": "Encode",
+      "decode": "Decode"
+    },
+    "swapTitle": "Tukar input dan output",
+    "panels": {
+      "plainText": "Teks biasa",
+      "encodedInput": "Input ter-encode",
+      "encodedOutput": "Output ter-encode",
+      "decodedText": "Teks ter-decode"
+    },
+    "placeholders": {
+      "encode": "Masukkan teks untuk percent-encode…",
+      "decode": "Tempel teks percent-encoded untuk decode…"
+    },
+    "dropHere": "Jatuhkan file di sini",
+    "charCount": "{count} karakter",
+    "download": {
+      "title": "Unduh output",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Salin ke clipboard",
+    "outputPlaceholder": "Output akan muncul di sini…",
+    "errors": {
+      "invalidEncoding": "Percent-encoding tidak valid. Periksa pasangan % yang tidak lengkap atau escape yang salah.",
+      "encodeFailed": "Tidak dapat meng-encode (Unicode tidak valid pada input)."
+    }
   }
 }

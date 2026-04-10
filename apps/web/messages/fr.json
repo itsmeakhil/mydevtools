@@ -1814,5 +1814,39 @@
       "invalidBase64": "Chaîne Base64 invalide. Vérifiez votre saisie.",
       "encodeFailed": "Échec de l’encodage."
     }
+  },
+  "UrlEncode": {
+    "title": "Encodeur / décodeur d’URL",
+    "subtitle": "Encoder/décoder en pourcentage via encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Téléverser",
+    "clear": "Effacer",
+    "modes": {
+      "encode": "Encoder",
+      "decode": "Décoder"
+    },
+    "swapTitle": "Permuter entrée et sortie",
+    "panels": {
+      "plainText": "Texte brut",
+      "encodedInput": "Entrée encodée",
+      "encodedOutput": "Sortie encodée",
+      "decodedText": "Texte décodé"
+    },
+    "placeholders": {
+      "encode": "Saisissez du texte à encoder (ex. valeurs de query string)…",
+      "decode": "Collez du texte encodé en pourcentage à décoder…"
+    },
+    "dropHere": "Déposez un fichier ici",
+    "charCount": "{count} car.",
+    "download": {
+      "title": "Télécharger la sortie",
+      "encodedFilename": "url-encode.txt",
+      "decodedFilename": "url-decode.txt"
+    },
+    "copyTitle": "Copier dans le presse‑papiers",
+    "outputPlaceholder": "La sortie apparaîtra ici…",
+    "errors": {
+      "invalidEncoding": "Encodage en pourcentage invalide. Vérifiez les paires % incomplètes ou les séquences d’échappement.",
+      "encodeFailed": "Impossible d’encoder (Unicode invalide dans l’entrée)."
+    }
   }
 }

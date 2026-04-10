@@ -1814,5 +1814,39 @@
       "invalidBase64": "無効な Base64 文字列です。入力を確認してください。",
       "encodeFailed": "エンコードに失敗しました。"
     }
+  },
+  "UrlEncode": {
+    "title": "URL エンコード / デコード",
+    "subtitle": "encodeURIComponent / decodeURIComponent（UTF‑8）でパーセントエンコード/デコードします",
+    "upload": "アップロード",
+    "clear": "クリア",
+    "modes": {
+      "encode": "エンコード",
+      "decode": "デコード"
+    },
+    "swapTitle": "入力と出力を入れ替え",
+    "panels": {
+      "plainText": "プレーンテキスト",
+      "encodedInput": "エンコード入力",
+      "encodedOutput": "エンコード出力",
+      "decodedText": "デコード結果"
+    },
+    "placeholders": {
+      "encode": "パーセントエンコードするテキストを入力…",
+      "decode": "デコードする percent-encoded テキストを貼り付け…"
+    },
+    "dropHere": "ここにファイルをドロップ",
+    "charCount": "{count} 文字",
+    "download": {
+      "title": "出力をダウンロード",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "クリップボードにコピー",
+    "outputPlaceholder": "ここに出力が表示されます…",
+    "errors": {
+      "invalidEncoding": "パーセントエンコードが無効です。不完全な % ペアや不正なエスケープを確認してください。",
+      "encodeFailed": "エンコードできません（入力に無効な Unicode）。"
+    }
   }
 }

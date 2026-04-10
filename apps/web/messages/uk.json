@@ -1814,5 +1814,39 @@
       "invalidBase64": "Некоректний Base64-рядок. Перевірте ввід.",
       "encodeFailed": "Не вдалося закодувати ввід."
     }
+  },
+  "UrlEncode": {
+    "title": "Кодування / декодування URL",
+    "subtitle": "Відсоткове кодування/декодування через encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Завантажити",
+    "clear": "Очистити",
+    "modes": {
+      "encode": "Кодувати",
+      "decode": "Декодувати"
+    },
+    "swapTitle": "Поміняти місцями ввід і вивід",
+    "panels": {
+      "plainText": "Звичайний текст",
+      "encodedInput": "Закодований ввід",
+      "encodedOutput": "Закодований вивід",
+      "decodedText": "Декодований текст"
+    },
+    "placeholders": {
+      "encode": "Введіть текст для відсоткового кодування…",
+      "decode": "Вставте percent-encoded текст для декодування…"
+    },
+    "dropHere": "Перетягніть файл сюди",
+    "charCount": "{count} символів",
+    "download": {
+      "title": "Завантажити результат",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Копіювати в буфер обміну",
+    "outputPlaceholder": "Результат з’явиться тут…",
+    "errors": {
+      "invalidEncoding": "Некоректне percent-encoding. Перевірте неповні пари % або escape-послідовності.",
+      "encodeFailed": "Не вдалося закодувати (некоректний Unicode у вводі)."
+    }
   }
 }

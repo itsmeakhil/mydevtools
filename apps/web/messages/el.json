@@ -1814,5 +1814,39 @@
       "invalidBase64": "Μη έγκυρη συμβολοσειρά Base64. Ελέγξτε την είσοδο.",
       "encodeFailed": "Αποτυχία κωδικοποίησης."
     }
+  },
+  "UrlEncode": {
+    "title": "Κωδικοποιητής / αποκωδικοποιητής URL",
+    "subtitle": "Κωδικοποίηση/αποκωδικοποίηση ποσοστού με encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Μεταφόρτωση",
+    "clear": "Καθαρισμός",
+    "modes": {
+      "encode": "Κωδικοποίηση",
+      "decode": "Αποκωδικοποίηση"
+    },
+    "swapTitle": "Εναλλαγή εισόδου και εξόδου",
+    "panels": {
+      "plainText": "Απλό κείμενο",
+      "encodedInput": "Κωδικοποιημένη είσοδος",
+      "encodedOutput": "Κωδικοποιημένη έξοδος",
+      "decodedText": "Αποκωδικοποιημένο κείμενο"
+    },
+    "placeholders": {
+      "encode": "Εισαγάγετε κείμενο για percent-encoding…",
+      "decode": "Επικολλήστε percent-encoded κείμενο για αποκωδικοποίηση…"
+    },
+    "dropHere": "Αφήστε το αρχείο εδώ",
+    "charCount": "{count} χαρακτ.",
+    "download": {
+      "title": "Λήψη εξόδου",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Αντιγραφή στο πρόχειρο",
+    "outputPlaceholder": "Η έξοδος θα εμφανιστεί εδώ…",
+    "errors": {
+      "invalidEncoding": "Μη έγκυρο percent-encoding. Ελέγξτε για ελλιπή ζεύγη % ή λάθος ακολουθίες διαφυγής.",
+      "encodeFailed": "Δεν ήταν δυνατή η κωδικοποίηση (μη έγκυρο Unicode στην είσοδο)."
+    }
   }
 }

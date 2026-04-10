@@ -7,12 +7,18 @@ export type NamespacePreset = 'DNS' | 'URL' | 'custom';
 
 const MAX_BULK = 10_000;
 
-export function resolveNamespace(preset: NamespacePreset, custom: string): string {
+export type GenerateIdsErrorKey = 'invalidCustomNamespace' | 'missingName' | 'unknown';
+
+export type GenerateIdsResult =
+  | { ok: true; lines: string[] }
+  | { ok: false; errorKey: GenerateIdsErrorKey };
+
+export function resolveNamespace(preset: NamespacePreset, custom: string): string | null {
   if (preset === 'DNS') return v5.DNS;
   if (preset === 'URL') return v5.URL;
   const trimmed = custom.trim();
   if (!validate(trimmed)) {
-    throw new Error('Custom namespace must be a valid UUID.');
+    return null;
   }
   return trimmed;
 }
@@ -26,22 +32,25 @@ export interface GenerateIdsOptions {
   customNamespace: string;
 }
 
-export function generateIds(options: GenerateIdsOptions): string[] {
+export function generateIds(options: GenerateIdsOptions): GenerateIdsResult {
   const count = Math.min(Math.max(1, Math.floor(options.count)), MAX_BULK);
   const { kind, name, namespacePreset, customNamespace } = options;
   const lines: string[] = [];
 
   if (kind === 'uuid3' || kind === 'uuid5') {
-    const ns = resolveNamespace(namespacePreset, customNamespace);
     const base = name.trim();
     if (!base) {
-      throw new Error('Name is required for UUID v3 and v5.');
+      return { ok: false, errorKey: 'missingName' };
+    }
+    const ns = resolveNamespace(namespacePreset, customNamespace);
+    if (!ns) {
+      return { ok: false, errorKey: 'invalidCustomNamespace' };
     }
     for (let i = 0; i < count; i++) {
       const input = count === 1 ? base : `${base}#${i}`;
       lines.push(kind === 'uuid3' ? v3(input, ns) : v5(input, ns));
     }
-    return lines;
+    return { ok: true, lines };
   }
 
   for (let i = 0; i < count; i++) {
@@ -63,7 +72,7 @@ export function generateIds(options: GenerateIdsOptions): string[] {
         break;
     }
   }
-  return lines;
+  return { ok: true, lines };
 }
 
 export { MAX_BULK };

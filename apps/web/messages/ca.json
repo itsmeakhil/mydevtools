@@ -1814,5 +1814,39 @@
       "invalidBase64": "Cadena Base64 no vàlida. Revisa l’entrada.",
       "encodeFailed": "No s’ha pogut codificar l’entrada."
     }
+  },
+  "UrlEncode": {
+    "title": "Codificador / descodificador d’URL",
+    "subtitle": "Codifica/descodifica en percentatge amb encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Puja",
+    "clear": "Neteja",
+    "modes": {
+      "encode": "Codifica",
+      "decode": "Descodifica"
+    },
+    "swapTitle": "Intercanvia entrada i sortida",
+    "panels": {
+      "plainText": "Text pla",
+      "encodedInput": "Entrada codificada",
+      "encodedOutput": "Sortida codificada",
+      "decodedText": "Text descodificat"
+    },
+    "placeholders": {
+      "encode": "Introdueix text per codificar en percentatge…",
+      "decode": "Enganxa text percent-encoded per descodificar…"
+    },
+    "dropHere": "Deixa el fitxer aquí",
+    "charCount": "{count} caràcters",
+    "download": {
+      "title": "Baixa la sortida",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Copia al porta-retalls",
+    "outputPlaceholder": "La sortida apareixerà aquí…",
+    "errors": {
+      "invalidEncoding": "Codificació de percentatge no vàlida. Revisa parells % incomplets o seqüències d’escapament.",
+      "encodeFailed": "No s’ha pogut codificar (Unicode no vàlid a l’entrada)."
+    }
   }
 }

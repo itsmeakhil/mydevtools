@@ -1814,5 +1814,39 @@
       "invalidBase64": "Ogiltig Base64-sträng. Kontrollera indata.",
       "encodeFailed": "Kunde inte koda indata."
     }
+  },
+  "UrlEncode": {
+    "title": "URL-kodare / avkodare",
+    "subtitle": "Procentkoda/avkoda med encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Ladda upp",
+    "clear": "Rensa",
+    "modes": {
+      "encode": "Koda",
+      "decode": "Avkoda"
+    },
+    "swapTitle": "Byt indata och utdata",
+    "panels": {
+      "plainText": "Vanlig text",
+      "encodedInput": "Kodat indata",
+      "encodedOutput": "Kodat utdata",
+      "decodedText": "Avkodad text"
+    },
+    "placeholders": {
+      "encode": "Skriv text för procentkodning…",
+      "decode": "Klistra in procentkodad text för avkodning…"
+    },
+    "dropHere": "Släpp fil här",
+    "charCount": "{count} tecken",
+    "download": {
+      "title": "Ladda ner output",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Kopiera till urklipp",
+    "outputPlaceholder": "Output visas här…",
+    "errors": {
+      "invalidEncoding": "Ogiltig procentkodning. Kontrollera ofullständiga %‑par eller escapes.",
+      "encodeFailed": "Kunde inte koda (ogiltig Unicode i indata)."
+    }
   }
 }

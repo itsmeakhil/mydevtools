@@ -1814,5 +1814,39 @@
       "invalidBase64": "Nieprawidłowy ciąg Base64. Sprawdź wejście.",
       "encodeFailed": "Nie udało się zakodować wejścia."
     }
+  },
+  "UrlEncode": {
+    "title": "Kodowanie / dekodowanie URL",
+    "subtitle": "Koduj/dekoduj procentowo przy użyciu encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Wgraj",
+    "clear": "Wyczyść",
+    "modes": {
+      "encode": "Koduj",
+      "decode": "Dekoduj"
+    },
+    "swapTitle": "Zamień wejście i wyjście",
+    "panels": {
+      "plainText": "Zwykły tekst",
+      "encodedInput": "Zakodowane wejście",
+      "encodedOutput": "Zakodowane wyjście",
+      "decodedText": "Zdekodowany tekst"
+    },
+    "placeholders": {
+      "encode": "Wpisz tekst do kodowania procentowego…",
+      "decode": "Wklej tekst percent-encoded do dekodowania…"
+    },
+    "dropHere": "Upuść plik tutaj",
+    "charCount": "{count} znaków",
+    "download": {
+      "title": "Pobierz wynik",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Kopiuj do schowka",
+    "outputPlaceholder": "Wynik pojawi się tutaj…",
+    "errors": {
+      "invalidEncoding": "Nieprawidłowe kodowanie procentowe. Sprawdź niekompletne pary % lub sekwencje escape.",
+      "encodeFailed": "Nie można zakodować (nieprawidłowy Unicode w wejściu)."
+    }
   }
 }

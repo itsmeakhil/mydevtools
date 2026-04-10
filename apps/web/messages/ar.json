@@ -1814,5 +1814,39 @@
       "invalidBase64": "سلسلة Base64 غير صالحة. تحقق من الإدخال.",
       "encodeFailed": "فشل ترميز الإدخال."
     }
+  },
+  "UrlEncode": {
+    "title": "ترميز / فك ترميز URL",
+    "subtitle": "ترميز/فك ترميز بالنسبة المئوية باستخدام encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "رفع",
+    "clear": "مسح",
+    "modes": {
+      "encode": "ترميز",
+      "decode": "فك الترميز"
+    },
+    "swapTitle": "تبديل الإدخال والإخراج",
+    "panels": {
+      "plainText": "نص عادي",
+      "encodedInput": "إدخال مُرمَّز",
+      "encodedOutput": "إخراج مُرمَّز",
+      "decodedText": "نص مفكوك الترميز"
+    },
+    "placeholders": {
+      "encode": "أدخل نصًا لترميزه بالنسبة المئوية…",
+      "decode": "الصق نصًا مُرمَّزًا بالنسبة المئوية لفك ترميزه…"
+    },
+    "dropHere": "أفلت الملف هنا",
+    "charCount": "{count} حرفًا",
+    "download": {
+      "title": "تنزيل الإخراج",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "نسخ إلى الحافظة",
+    "outputPlaceholder": "سيظهر الإخراج هنا…",
+    "errors": {
+      "invalidEncoding": "ترميز النسبة المئوية غير صالح. تحقّق من أزواج % غير المكتملة أو تسلسلات الهروب غير الصحيحة.",
+      "encodeFailed": "تعذّر الترميز (Unicode غير صالح في الإدخال)."
+    }
   }
 }

@@ -1814,5 +1814,39 @@
       "invalidBase64": "Invalid Base64 string. Please check your input.",
       "encodeFailed": "Failed to encode the input."
     }
+  },
+  "UrlEncode": {
+    "title": "URL Encoder / Decoder",
+    "subtitle": "Percent-encode or decode text using encodeURIComponent / decodeURIComponent (UTF-8)",
+    "upload": "Upload",
+    "clear": "Clear",
+    "modes": {
+      "encode": "Encode",
+      "decode": "Decode"
+    },
+    "swapTitle": "Swap input and output",
+    "panels": {
+      "plainText": "Plain text",
+      "encodedInput": "Encoded input",
+      "encodedOutput": "Encoded output",
+      "decodedText": "Decoded text"
+    },
+    "placeholders": {
+      "encode": "Enter text to percent-encode (e.g. query string values)…",
+      "decode": "Paste percent-encoded text to decode…"
+    },
+    "dropHere": "Drop file here",
+    "charCount": "{count} chars",
+    "download": {
+      "title": "Download output",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Copy to clipboard",
+    "outputPlaceholder": "Output will appear here…",
+    "errors": {
+      "invalidEncoding": "Invalid percent-encoding. Check for incomplete % pairs or bad escape sequences.",
+      "encodeFailed": "Could not encode (invalid Unicode in input)."
+    }
   }
 }

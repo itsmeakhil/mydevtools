@@ -1814,5 +1814,39 @@
       "invalidBase64": "Neplatný Base64 řetězec. Zkontrolujte vstup.",
       "encodeFailed": "Kódování se nezdařilo."
     }
+  },
+  "UrlEncode": {
+    "title": "URL enkodér / dekodér",
+    "subtitle": "Procentové kódování/dekódování pomocí encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Nahrát",
+    "clear": "Vymazat",
+    "modes": {
+      "encode": "Enkódovat",
+      "decode": "Dekódovat"
+    },
+    "swapTitle": "Prohodit vstup a výstup",
+    "panels": {
+      "plainText": "Prostý text",
+      "encodedInput": "Enkódovaný vstup",
+      "encodedOutput": "Enkódovaný výstup",
+      "decodedText": "Dekódovaný text"
+    },
+    "placeholders": {
+      "encode": "Zadejte text pro procentové kódování…",
+      "decode": "Vložte percent-encoded text pro dekódování…"
+    },
+    "dropHere": "Sem přetáhněte soubor",
+    "charCount": "{count} znaků",
+    "download": {
+      "title": "Stáhnout výstup",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Kopírovat do schránky",
+    "outputPlaceholder": "Výstup se zobrazí zde…",
+    "errors": {
+      "invalidEncoding": "Neplatné procentové kódování. Zkontrolujte neúplné dvojice % nebo chybné escape sekvence.",
+      "encodeFailed": "Nepodařilo se enkódovat (neplatné Unicode ve vstupu)."
+    }
   }
 }

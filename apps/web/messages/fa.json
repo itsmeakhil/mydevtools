@@ -1814,5 +1814,39 @@
       "invalidBase64": "رشتهٔ Base64 نامعتبر است. ورودی را بررسی کنید.",
       "encodeFailed": "رمزگذاری ورودی ناموفق بود."
     }
+  },
+  "UrlEncode": {
+    "title": "رمزگذار / رمزگشای URL",
+    "subtitle": "رمزگذاری/رمزگشایی درصدی با encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "آپلود",
+    "clear": "پاک کردن",
+    "modes": {
+      "encode": "رمزگذاری",
+      "decode": "رمزگشایی"
+    },
+    "swapTitle": "جابه‌جایی ورودی و خروجی",
+    "panels": {
+      "plainText": "متن ساده",
+      "encodedInput": "ورودی کدشده",
+      "encodedOutput": "خروجی کدشده",
+      "decodedText": "متن رمزگشایی‌شده"
+    },
+    "placeholders": {
+      "encode": "متن را برای درصد-کدگذاری وارد کنید…",
+      "decode": "متن percent-encoded را برای رمزگشایی بچسبانید…"
+    },
+    "dropHere": "فایل را اینجا رها کنید",
+    "charCount": "{count} نویسه",
+    "download": {
+      "title": "دانلود خروجی",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "کپی در کلیپ‌بورد",
+    "outputPlaceholder": "خروجی اینجا نمایش داده می‌شود…",
+    "errors": {
+      "invalidEncoding": "کدگذاری درصدی نامعتبر است. جفت‌های % ناقص یا escapeهای نامعتبر را بررسی کنید.",
+      "encodeFailed": "رمزگذاری ممکن نیست (Unicode نامعتبر در ورودی)."
+    }
   }
 }

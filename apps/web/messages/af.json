@@ -1814,5 +1814,39 @@
       "invalidBase64": "Ongeldige Base64-string. Kontroleer invoer.",
       "encodeFailed": "Kon nie invoer enkodeer nie."
     }
+  },
+  "UrlEncode": {
+    "title": "URL-enkodeerder / -dekodeerder",
+    "subtitle": "Persentasie-enkodeer/-dekodeer met encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Laai op",
+    "clear": "Vee uit",
+    "modes": {
+      "encode": "Enkodeer",
+      "decode": "Dekodeer"
+    },
+    "swapTitle": "Ruil invoer en uitvoer om",
+    "panels": {
+      "plainText": "Gewone teks",
+      "encodedInput": "Gekodeerde invoer",
+      "encodedOutput": "Gekodeerde uitvoer",
+      "decodedText": "Gedekodeerde teks"
+    },
+    "placeholders": {
+      "encode": "Voer teks in om persentasie te enkodeer…",
+      "decode": "Plak persentasie-gekodeerde teks om te dekodeer…"
+    },
+    "dropHere": "Laat lêer hier val",
+    "charCount": "{count} karakters",
+    "download": {
+      "title": "Laai uitvoer af",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Kopieer na knipbord",
+    "outputPlaceholder": "Uitvoer sal hier verskyn…",
+    "errors": {
+      "invalidEncoding": "Ongeldige persentasie-enkodering. Kontroleer onvolledige %‑pare of escapes.",
+      "encodeFailed": "Kon nie enkodeer nie (ongeldige Unicode in invoer)."
+    }
   }
 }

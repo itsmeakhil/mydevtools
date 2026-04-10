@@ -1814,5 +1814,39 @@
       "invalidBase64": "Geçersiz Base64 dizesi. Girdiyi kontrol edin.",
       "encodeFailed": "Girdi kodlanamadı."
     }
+  },
+  "UrlEncode": {
+    "title": "URL Kodlayıcı / Çözücü",
+    "subtitle": "encodeURIComponent / decodeURIComponent (UTF‑8) ile yüzde kodla/çöz",
+    "upload": "Yükle",
+    "clear": "Temizle",
+    "modes": {
+      "encode": "Kodla",
+      "decode": "Çöz"
+    },
+    "swapTitle": "Girdi ve çıktıyı değiştir",
+    "panels": {
+      "plainText": "Düz metin",
+      "encodedInput": "Kodlanmış girdi",
+      "encodedOutput": "Kodlanmış çıktı",
+      "decodedText": "Çözülmüş metin"
+    },
+    "placeholders": {
+      "encode": "Yüzde kodlamak için metin girin…",
+      "decode": "Çözmek için percent-encoded metin yapıştırın…"
+    },
+    "dropHere": "Dosyayı buraya bırakın",
+    "charCount": "{count} karakter",
+    "download": {
+      "title": "Çıktıyı indir",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Panoya kopyala",
+    "outputPlaceholder": "Çıktı burada görünecek…",
+    "errors": {
+      "invalidEncoding": "Geçersiz yüzde kodlama. Eksik % çiftlerini veya hatalı kaçış dizilerini kontrol edin.",
+      "encodeFailed": "Kodlanamadı (girdide geçersiz Unicode)."
+    }
   }
 }
