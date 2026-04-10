@@ -57,6 +57,21 @@ export const toolsMetadata: Record<string, {
         title: 'Color Picker & HEX RGB HSL Converter',
         description: 'Pick colors, convert between HEX, RGB, and HSL, and copy CSS. Explore harmonic palettes in the browser.',
         keywords: ['color picker', 'hex to rgb', 'rgb to hsl', 'color converter', 'palette generator']
+    },
+    'jwt-decoder': {
+        title: 'JWT Decoder - Header, Payload & Expiry',
+        description: 'Decode JSON Web Tokens in the browser: header, payload, exp, iat, and nbf. No server upload; signature not verified.',
+        keywords: ['jwt decode', 'jwt debugger', 'json web token', 'jwt exp', 'jwt payload']
+    },
+    'regex-tester': {
+        title: 'Regex Tester - Live Match Highlighting',
+        description: 'Test JavaScript regular expressions with live highlights, flags (g, i, m, s, u), and match counts. Client-side only.',
+        keywords: ['regex tester', 'regular expression', 'javascript regex', 'regex debug', 'pattern match']
+    },
+    'timestamp-converter': {
+        title: 'Timestamp Converter - Unix, ISO & Relative',
+        description: 'Convert Unix seconds or milliseconds, ISO-8601, and date strings. See UTC, local, and relative time with one-click copy.',
+        keywords: ['unix timestamp', 'epoch converter', 'iso 8601', 'relative time', 'date converter']
     }
 }
 

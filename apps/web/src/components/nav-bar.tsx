@@ -15,6 +15,9 @@ import {
   Fingerprint,
   TextQuote,
   Palette,
+  Key,
+  Regex,
+  Clock,
 } from "lucide-react";
 import { ModeToggle } from "@/components/modeToggle";
 
@@ -33,6 +36,9 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType }> = 
   '/app/uuid-generator': { title: 'UUID / ULID Generator', icon: Fingerprint },
   '/app/lorem-ipsum': { title: 'Lorem Ipsum Generator', icon: TextQuote },
   '/app/color-picker': { title: 'Color Picker', icon: Palette },
+  '/app/jwt-decoder': { title: 'JWT Decoder', icon: Key },
+  '/app/regex-tester': { title: 'Regex Tester', icon: Regex },
+  '/app/timestamp-converter': { title: 'Timestamp Converter', icon: Clock },
 };
 
 export function NavBar() {

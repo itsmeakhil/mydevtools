@@ -15,6 +15,9 @@ import {
   IconFingerprint,
   IconQuote,
   IconPalette,
+  IconKey,
+  IconRegex,
+  IconCalendarTime,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -65,6 +68,12 @@ export const sidebarData: SidebarData = {
           icon: IconMailCheck,
           description: 'Verify and validate email addresses.',
         },
+        {
+          title: 'JWT Decoder',
+          url: '/app/jwt-decoder',
+          icon: IconKey,
+          description: 'Decode JWT header, payload, and expiry.',
+        },
       ],
     },
     {
@@ -76,6 +85,18 @@ export const sidebarData: SidebarData = {
           url: '/app/json-formatter',
           icon: IconJson,
           description: 'Format, validate, and edit JSON data.',
+        },
+        {
+          title: 'Regex Tester',
+          url: '/app/regex-tester',
+          icon: IconRegex,
+          description: 'Test regex with live match highlighting.',
+        },
+        {
+          title: 'Timestamp Converter',
+          url: '/app/timestamp-converter',
+          icon: IconCalendarTime,
+          description: 'Unix, ISO, and relative time conversion.',
         },
         {
           title: 'Base64 Encoder',

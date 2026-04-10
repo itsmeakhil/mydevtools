@@ -38,6 +38,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'uuid-generator',
         'lorem-ipsum',
         'color-picker',
+        'jwt-decoder',
+        'regex-tester',
+        'timestamp-converter',
     ].map((tool) => ({
         url: `${baseUrl}/app/${tool}`,
         lastModified: new Date(),
