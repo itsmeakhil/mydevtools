@@ -2,11 +2,24 @@
   "Navigation": {
     "dashboard": "Dashboard",
     "settings": "Einstellungen",
-    "apiClient": "API-Client",
+    "toDo": "Aufgaben",
+    "notes": "Notizen",
     "passwordManager": "Passwort-Manager",
     "bookmarks": "Lesezeichen",
-    "jsonFormatter": "JSON-Formatierer",
     "emailValidator": "E-Mail-Validator",
+    "jwtDecoder": "JWT-Decoder",
+    "jsonFormatter": "JSON-Formatierer",
+    "sqlFormatter": "SQL-Formatierer",
+    "diffChecker": "Textvergleich",
+    "regexTester": "Regex-Tester",
+    "timestampConverter": "Zeitstempel-Konverter",
+    "cronBuilder": "Cron-Editor",
+    "base64Encoder": "Base64-Kodierung",
+    "urlEncoder": "URL-Kodierung",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Farbauswahl",
+    "apiClient": "API-Client",
     "nosqlExplorer": "NoSQL-Explorer"
   },
   "Help": {
@@ -217,6 +230,54 @@
       "emailValidator": {
         "title": "E-Mail-Validator",
         "description": "E-Mail-Adressen prüfen und validieren."
+      },
+      "jwtDecoder": {
+        "title": "JWT-Decoder",
+        "description": "JWT-Header, Nutzdaten und Ablaufzeit dekodieren."
+      },
+      "jsonFormatter": {
+        "title": "JSON-Formatierer",
+        "description": "JSON formatieren, validieren und bearbeiten."
+      },
+      "sqlFormatter": {
+        "title": "SQL-Formatierer",
+        "description": "SQL für MySQL, PostgreSQL und SQLite formatieren."
+      },
+      "diffChecker": {
+        "title": "Textvergleich",
+        "description": "Zwei Texte zeilenweise nebeneinander vergleichen."
+      },
+      "regexTester": {
+        "title": "Regex-Tester",
+        "description": "Reguläre Ausdrücke mit Live-Hervorhebung testen."
+      },
+      "timestampConverter": {
+        "title": "Zeitstempel-Konverter",
+        "description": "Unix-, ISO- und relative Zeitangaben umrechnen."
+      },
+      "cronBuilder": {
+        "title": "Cron-Editor",
+        "description": "Visueller Cron-Editor, Vorlagen und Parser."
+      },
+      "base64Encoder": {
+        "title": "Base64-Kodierung",
+        "description": "Zeichenketten Base64 kodieren und dekodieren."
+      },
+      "urlEncoder": {
+        "title": "URL-Kodierung",
+        "description": "URL-Bestandteile prozentkodieren und dekodieren."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "UUIDs und ULIDs erzeugen und massenhaft exportieren."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Platzhalter-Lateintext für Layouts und Mockups erzeugen."
+      },
+      "colorPicker": {
+        "title": "Farbauswahl",
+        "description": "HEX, RGB, HSL umrechnen und Farbpaletten erkunden."
       }
     },
     "tabs": {

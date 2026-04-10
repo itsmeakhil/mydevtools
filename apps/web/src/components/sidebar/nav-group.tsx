@@ -36,6 +36,7 @@ import useAuth from "@/utils/useAuth"; // Import useAuth
 import { useTranslations } from "next-intl";
 import { requiresAuth } from "@/lib/tool-config";
 import { useToolVisibility } from "@/hooks/use-tool-visibility";
+import { getToolMessageKey } from "@/lib/tool-i18n";
 
 // Define the props interface for NavGroup
 interface NavGroupProps {
@@ -201,14 +202,8 @@ const SidebarMenuLink = ({
   const tNav = useTranslations("Navigation");
   const itemUrl =
     typeof item.url === "string" ? item.url : item.url.toString();
-  const displayTitle =
-    itemUrl === "/app/bookmarks"
-      ? tNav("bookmarks")
-      : itemUrl === "/app/email-validator"
-        ? tNav("emailValidator")
-        : itemUrl === "/app/nosql-explorer"
-          ? tNav("nosqlExplorer")
-          : item.title;
+  const toolKey = getToolMessageKey(itemUrl);
+  const displayTitle = toolKey ? tNav(toolKey as never) : item.title;
 
   return (
     <SidebarMenuItem>

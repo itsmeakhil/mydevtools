@@ -16,16 +16,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { DashboardAnalyticsPanel } from '@/components/dashboard/dashboard-analytics-panel';
-
-const TOOL_URL_TO_KEY: Record<string, string> = {
-  '/app/to-do': 'toDo',
-  '/app/notes': 'notes',
-  '/app/password-manager': 'passwordManager',
-  '/app/bookmarks': 'bookmarks',
-  '/app/api-client': 'apiClient',
-  '/app/nosql-explorer': 'nosqlExplorer',
-  '/app/email-validator': 'emailValidator',
-};
+import { TOOL_PATH_TO_MESSAGE_KEY } from '@/lib/tool-i18n';
 
 function dashboardGreeting(t: (key: string) => string): string {
   const hour = new Date().getHours();
@@ -277,7 +268,7 @@ const DashboardPage: React.FC = () => {
     const tCard = useTranslations('Dashboard');
     const tTools = useTranslations('Dashboard.tools');
     const pathname = item.url?.toString().split('?')[0] ?? '';
-    const toolKey = TOOL_URL_TO_KEY[pathname];
+    const toolKey = TOOL_PATH_TO_MESSAGE_KEY[pathname];
     const displayTitle = toolKey ? tTools(`${toolKey}.title` as Parameters<typeof tTools>[0]) : item.title;
     const displayDescription = toolKey
       ? tTools(`${toolKey}.description` as Parameters<typeof tTools>[0])

@@ -23,6 +23,7 @@ import {
   GitCompare,
 } from "lucide-react";
 import { ModeToggle } from "@/components/modeToggle";
+import { getToolMessageKey } from "@/lib/tool-i18n";
 
 // Route to title/icon mapping
 const routeConfig: Record<string, { title: string; icon: React.ElementType }> = {
@@ -72,18 +73,8 @@ export function NavBar() {
   }
 
   const Icon = config.icon;
-  const title =
-    matchedRoute === "/app/password-manager"
-      ? tNav("passwordManager")
-      : matchedRoute === "/app/bookmarks"
-        ? tNav("bookmarks")
-        : matchedRoute === "/app/email-validator"
-          ? tNav("emailValidator")
-          : matchedRoute === "/app/nosql-explorer"
-            ? tNav("nosqlExplorer")
-            : matchedRoute === "/app/json-formatter"
-              ? tNav("jsonFormatter")
-              : config.title;
+  const toolKey = matchedRoute ? getToolMessageKey(matchedRoute) : undefined;
+  const title = toolKey ? tNav(toolKey as never) : config.title;
 
   return (
     <header className="sticky top-0 z-20 hidden w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:block">

@@ -2,11 +2,24 @@
   "Navigation": {
     "dashboard": "Tableau de bord",
     "settings": "Paramètres",
-    "apiClient": "Client API",
+    "toDo": "Tâches",
+    "notes": "Notes",
     "passwordManager": "Gestionnaire de mots de passe",
     "bookmarks": "Signets",
-    "jsonFormatter": "Formateur JSON",
     "emailValidator": "Validateur d’e-mail",
+    "jwtDecoder": "Décodeur JWT",
+    "jsonFormatter": "Formateur JSON",
+    "sqlFormatter": "Formateur SQL",
+    "diffChecker": "Comparateur de différences",
+    "regexTester": "Testeur d’expressions régulières",
+    "timestampConverter": "Convertisseur d’horodatage",
+    "cronBuilder": "Constructeur Cron",
+    "base64Encoder": "Encodeur Base64",
+    "urlEncoder": "Encodeur d’URL",
+    "uuidGenerator": "UUID / ULID",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Sélecteur de couleurs",
+    "apiClient": "Client API",
     "nosqlExplorer": "Explorateur NoSQL"
   },
   "Help": {
@@ -217,6 +230,54 @@
       "emailValidator": {
         "title": "Validateur d’e-mail",
         "description": "Vérifiez et validez les adresses e-mail."
+      },
+      "jwtDecoder": {
+        "title": "Décodeur JWT",
+        "description": "Décoder l’en-tête, la charge utile et l’expiration des JWT."
+      },
+      "jsonFormatter": {
+        "title": "Formateur JSON",
+        "description": "Formater, valider et modifier des données JSON."
+      },
+      "sqlFormatter": {
+        "title": "Formateur SQL",
+        "description": "Formater du SQL pour MySQL, PostgreSQL et SQLite."
+      },
+      "diffChecker": {
+        "title": "Comparateur de différences",
+        "description": "Différences ligne par ligne côte à côte entre deux textes."
+      },
+      "regexTester": {
+        "title": "Testeur d’expressions régulières",
+        "description": "Tester des regex avec surlignage des correspondances en direct."
+      },
+      "timestampConverter": {
+        "title": "Convertisseur d’horodatage",
+        "description": "Conversion entre Unix, ISO et temps relatif."
+      },
+      "cronBuilder": {
+        "title": "Constructeur Cron",
+        "description": "Constructeur visuel Cron, préréglages et analyseur."
+      },
+      "base64Encoder": {
+        "title": "Encodeur Base64",
+        "description": "Encoder et décoder des chaînes Base64."
+      },
+      "urlEncoder": {
+        "title": "Encodeur d’URL",
+        "description": "Encoder et décoder en pourcentage les composants d’URL."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Générer des UUID et ULID avec export en masse."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Générer du texte latin factice pour maquettes et mises en page."
+      },
+      "colorPicker": {
+        "title": "Sélecteur de couleurs",
+        "description": "Convertir HEX, RVB, TSL et explorer des palettes."
       }
     },
     "tabs": {
