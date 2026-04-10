@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useMessages } from "next-intl";
 import {
   CheckSquare,
   FileText,
@@ -21,38 +21,48 @@ import {
   Repeat,
   Table2,
   GitCompare,
+  Binary,
 } from "lucide-react";
 import { ModeToggle } from "@/components/modeToggle";
 import { getToolMessageKey } from "@/lib/tool-i18n";
 
-// Route to title/icon mapping
-const routeConfig: Record<string, { title: string; icon: React.ElementType }> = {
+/** Strip HTML-like tags and ICU {variable} placeholders from rich-text subtitles. */
+function cleanSubtitle(raw: string): string {
+  return raw
+    .replace(/<[^>]+>/g, '')
+    .replace(/\s*\{[^}]+\}\s*/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+const routeConfig: Record<string, { title: string; icon: React.ElementType; namespace?: string }> = {
   '/dashboard': { title: 'Dashboard', icon: LayoutDashboard },
   '/app/to-do': { title: 'Tasks', icon: CheckSquare },
   '/app/notes': { title: 'Notes', icon: FileText },
   '/app/password-manager': { title: 'Password Manager', icon: Lock },
   '/app/bookmarks': { title: 'Bookmarks', icon: Bookmark },
-  '/app/json-formatter': { title: 'JSON Formatter', icon: Braces },
+  '/app/base64': { title: 'Base64', icon: Binary, namespace: 'Base64' },
+  '/app/json-formatter': { title: 'JSON Formatter', icon: Braces, namespace: 'JsonFormatter' },
   '/app/api-client': { title: 'API Client', icon: Globe },
   '/app/nosql-explorer': { title: 'NoSQL Explorer', icon: Database },
   '/app/email-validator': { title: 'Email Validator', icon: Globe },
-  '/app/url-encode': { title: 'URL Encoder / Decoder', icon: Link2 },
-  '/app/uuid-generator': { title: 'UUID / ULID Generator', icon: Fingerprint },
-  '/app/lorem-ipsum': { title: 'Lorem Ipsum Generator', icon: TextQuote },
-  '/app/color-picker': { title: 'Color Picker', icon: Palette },
-  '/app/jwt-decoder': { title: 'JWT Decoder', icon: Key },
-  '/app/regex-tester': { title: 'Regex Tester', icon: Regex },
-  '/app/timestamp-converter': { title: 'Timestamp Converter', icon: Clock },
-  '/app/cron-builder': { title: 'Cron Builder', icon: Repeat },
-  '/app/sql-formatter': { title: 'SQL Formatter', icon: Table2 },
+  '/app/url-encode': { title: 'URL Encoder / Decoder', icon: Link2, namespace: 'UrlEncode' },
+  '/app/uuid-generator': { title: 'UUID / ULID Generator', icon: Fingerprint, namespace: 'UuidGenerator' },
+  '/app/lorem-ipsum': { title: 'Lorem Ipsum Generator', icon: TextQuote, namespace: 'LoremIpsum' },
+  '/app/color-picker': { title: 'Color Picker', icon: Palette, namespace: 'ColorPicker' },
+  '/app/jwt-decoder': { title: 'JWT Decoder', icon: Key, namespace: 'JwtDecoder' },
+  '/app/regex-tester': { title: 'Regex Tester', icon: Regex, namespace: 'RegexTester' },
+  '/app/timestamp-converter': { title: 'Timestamp Converter', icon: Clock, namespace: 'TimestampConverter' },
+  '/app/cron-builder': { title: 'Cron Builder', icon: Repeat, namespace: 'CronBuilder' },
+  '/app/sql-formatter': { title: 'SQL Formatter', icon: Table2, namespace: 'SqlFormatter' },
   '/app/diff-checker': { title: 'Diff checker', icon: GitCompare },
 };
 
 export function NavBar() {
   const pathname = usePathname();
   const tNav = useTranslations("Navigation");
+  const messages = useMessages();
 
-  // Find matching route config
   const match = Object.entries(routeConfig).find(([route]) =>
     pathname === route || pathname.startsWith(route + '/')
   );
@@ -76,16 +86,29 @@ export function NavBar() {
   const toolKey = matchedRoute ? getToolMessageKey(matchedRoute) : undefined;
   const title = toolKey ? tNav(toolKey as never) : config.title;
 
+  const rawSubtitle = config.namespace
+    ? ((messages[config.namespace] as Record<string, string> | undefined)?.subtitle
+       ?? (messages[config.namespace] as Record<string, string> | undefined)?.description)
+    : undefined;
+  const subtitle = rawSubtitle ? cleanSubtitle(rawSubtitle) : undefined;
+
   return (
     <header className="sticky top-0 z-20 hidden w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:block">
-      <div className="flex h-12 w-full items-center justify-between gap-3 px-4">
+      <div className="flex min-h-12 w-full items-center justify-between gap-3 px-4 py-2">
         <div className="flex min-w-0 items-center gap-2.5">
           <div className="shrink-0 rounded-lg bg-primary/10 p-1.5">
             <Icon className="h-4 w-4 text-primary" strokeWidth={2} />
           </div>
-          <h1 className="truncate text-sm font-semibold tracking-tight">
-            {title}
-          </h1>
+          <div className="flex min-w-0 flex-col">
+            <h1 className="truncate text-sm font-semibold tracking-tight">
+              {title}
+            </h1>
+            {subtitle && (
+              <p className="truncate text-xs text-muted-foreground leading-tight">
+                {subtitle}
+              </p>
+            )}
+          </div>
         </div>
         <div className="shrink-0">
           <ModeToggle />

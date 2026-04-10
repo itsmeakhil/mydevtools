@@ -189,7 +189,7 @@ export function ColorPickerToolLayout() {
 
   return (
     <div className="flex flex-col h-full gap-4 min-h-0 overflow-auto">
-      <div className="shrink-0">
+      <div className="shrink-0 md:hidden">
         <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
         <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
       </div>

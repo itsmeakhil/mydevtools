@@ -71,7 +71,7 @@ export function DiffCheckerLayout() {
 
   return (
     <div className="flex flex-col h-full gap-4 min-h-0">
-      <div className="shrink-0">
+      <div className="shrink-0 md:hidden">
         <h1 className="text-lg font-semibold tracking-tight">Diff checker</h1>
         <p className="text-xs text-muted-foreground">
           Side-by-side line diff of two texts. Everything stays in your browser.

@@ -149,7 +149,7 @@ export function Base64Layout() {
   return (
     <div className="flex flex-col h-full gap-4">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shrink-0">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shrink-0 md:hidden">
         <div>
           <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
           <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
