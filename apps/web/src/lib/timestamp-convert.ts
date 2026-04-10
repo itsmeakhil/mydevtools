@@ -1,7 +1,10 @@
 import { format, formatDistanceToNow, getUnixTime, isValid, parseISO } from 'date-fns';
 
 export type ParsedTimestamp = { ok: true; date: Date };
-export type ParseError = { ok: false; error: string };
+export type ParseError = {
+  ok: false;
+  errorKey: 'empty' | 'invalidNumber' | 'outOfRange' | 'couldNotParse';
+};
 export type ParseTimestampResult = ParsedTimestamp | ParseError;
 
 /**
@@ -10,19 +13,19 @@ export type ParseTimestampResult = ParsedTimestamp | ParseError;
 export function parseTimestampInput(raw: string): ParseTimestampResult {
   const s = raw.trim();
   if (!s) {
-    return { ok: false, error: 'Enter a Unix timestamp, ISO string, or date text.' };
+    return { ok: false, errorKey: 'empty' };
   }
 
   if (/^-?\d+$/.test(s)) {
     const n = Number(s);
     if (!Number.isFinite(n)) {
-      return { ok: false, error: 'Invalid numeric timestamp.' };
+      return { ok: false, errorKey: 'invalidNumber' };
     }
     const absDigits = s.replace(/^-/, '').length;
     const ms = absDigits <= 10 ? n * 1000 : n;
     const d = new Date(ms);
     if (Number.isNaN(d.getTime())) {
-      return { ok: false, error: 'Out of range for JavaScript Date.' };
+      return { ok: false, errorKey: 'outOfRange' };
     }
     return { ok: true, date: d };
   }
@@ -39,7 +42,7 @@ export function parseTimestampInput(raw: string): ParseTimestampResult {
 
   return {
     ok: false,
-    error: 'Could not parse as Unix time, ISO-8601, or browser date string.',
+    errorKey: 'couldNotParse',
   };
 }
 
