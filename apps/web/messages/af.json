@@ -1614,33 +1614,33 @@
     }
   },
   "SqlFormatter": {
-    "title": "SQL formatter",
-    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
-    "dialectLabel": "Dialect",
-    "keywordsLabel": "Keywords",
-    "indentLabel": "Indent",
+    "title": "SQL-formateerder",
+    "subtitle": "Formateer SQL vir MySQL, PostgreSQL of SQLite. Loop in jou blaaier; niks word opgelaai nie.",
+    "dialectLabel": "Dialek",
+    "keywordsLabel": "Sleutelwoorde",
+    "indentLabel": "Inkeep",
     "dialects": {
       "mysql": "MySQL",
       "postgresql": "PostgreSQL",
       "sqlite": "SQLite"
     },
     "keywordCase": {
-      "upper": "UPPER",
-      "lower": "lower",
-      "preserve": "Preserve"
+      "upper": "HOOFLETTERS",
+      "lower": "kleinletters",
+      "preserve": "Behou"
     },
-    "spaces": "{n} spaces",
-    "format": "Format",
-    "clear": "Clear",
-    "counter": "{current} / {max} characters",
-    "inputPanel": "Input",
-    "formattedPanel": "Formatted",
-    "copy": "Copy",
+    "spaces": "{n} spasies",
+    "format": "Formateer",
+    "clear": "Vee uit",
+    "counter": "{current} / {max} karakters",
+    "inputPanel": "Invoer",
+    "formattedPanel": "Geformateer",
+    "copy": "Kopieer",
     "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Click \"Format\"…",
+    "outputPlaceholder": "Klik \"Formateer\"…",
     "errors": {
-      "tooLong": "Input is limited to {max} characters.",
-      "couldNotFormat": "Could not format this SQL."
+      "tooLong": "Invoer is beperk tot {max} karakters.",
+      "couldNotFormat": "Kon nie hierdie SQL formateer nie."
     }
   }
 }

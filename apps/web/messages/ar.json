@@ -1614,33 +1614,33 @@
     }
   },
   "SqlFormatter": {
-    "title": "SQL formatter",
-    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
-    "dialectLabel": "Dialect",
-    "keywordsLabel": "Keywords",
-    "indentLabel": "Indent",
+    "title": "منسّق SQL",
+    "subtitle": "نسّق SQL لـ MySQL أو PostgreSQL أو SQLite. يعمل داخل المتصفح؛ لا يتم رفع أي شيء.",
+    "dialectLabel": "اللهجة",
+    "keywordsLabel": "الكلمات المفتاحية",
+    "indentLabel": "الإزاحة",
     "dialects": {
       "mysql": "MySQL",
       "postgresql": "PostgreSQL",
       "sqlite": "SQLite"
     },
     "keywordCase": {
-      "upper": "UPPER",
-      "lower": "lower",
-      "preserve": "Preserve"
+      "upper": "أحرف كبيرة",
+      "lower": "أحرف صغيرة",
+      "preserve": "الإبقاء"
     },
-    "spaces": "{n} spaces",
-    "format": "Format",
-    "clear": "Clear",
-    "counter": "{current} / {max} characters",
-    "inputPanel": "Input",
-    "formattedPanel": "Formatted",
-    "copy": "Copy",
+    "spaces": "{n} مسافات",
+    "format": "تنسيق",
+    "clear": "مسح",
+    "counter": "{current} / {max} حرفًا",
+    "inputPanel": "المدخل",
+    "formattedPanel": "المخرجات",
+    "copy": "نسخ",
     "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Click \"Format\"…",
+    "outputPlaceholder": "انقر على \"تنسيق\"…",
     "errors": {
-      "tooLong": "Input is limited to {max} characters.",
-      "couldNotFormat": "Could not format this SQL."
+      "tooLong": "المدخلات محدودة إلى {max} حرفًا.",
+      "couldNotFormat": "تعذر تنسيق SQL."
     }
   }
 }

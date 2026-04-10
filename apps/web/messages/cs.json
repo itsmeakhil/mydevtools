@@ -1614,33 +1614,33 @@
     }
   },
   "SqlFormatter": {
-    "title": "SQL formatter",
-    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
-    "dialectLabel": "Dialect",
-    "keywordsLabel": "Keywords",
-    "indentLabel": "Indent",
+    "title": "Formátovač SQL",
+    "subtitle": "Formátujte SQL pro MySQL, PostgreSQL nebo SQLite. Běží v prohlížeči; nic se neodesílá.",
+    "dialectLabel": "Dialekt",
+    "keywordsLabel": "Klíčová slova",
+    "indentLabel": "Odsazení",
     "dialects": {
       "mysql": "MySQL",
       "postgresql": "PostgreSQL",
       "sqlite": "SQLite"
     },
     "keywordCase": {
-      "upper": "UPPER",
-      "lower": "lower",
-      "preserve": "Preserve"
+      "upper": "VELKÁ",
+      "lower": "malá",
+      "preserve": "Zachovat"
     },
-    "spaces": "{n} spaces",
-    "format": "Format",
-    "clear": "Clear",
-    "counter": "{current} / {max} characters",
-    "inputPanel": "Input",
-    "formattedPanel": "Formatted",
-    "copy": "Copy",
+    "spaces": "{n} mezer",
+    "format": "Formátovat",
+    "clear": "Vymazat",
+    "counter": "{current} / {max} znaků",
+    "inputPanel": "Vstup",
+    "formattedPanel": "Naformátováno",
+    "copy": "Kopírovat",
     "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Click \"Format\"…",
+    "outputPlaceholder": "Klikněte na „Formátovat“…",
     "errors": {
-      "tooLong": "Input is limited to {max} characters.",
-      "couldNotFormat": "Could not format this SQL."
+      "tooLong": "Vstup je omezen na {max} znaků.",
+      "couldNotFormat": "Tento SQL se nepodařilo naformátovat."
     }
   }
 }
