@@ -13,17 +13,18 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { AlertCircle, Check, Copy, Trash2, Wand2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
-const DIALECTS: { value: SqlLanguage; label: string }[] = [
-  { value: 'mysql', label: 'MySQL' },
-  { value: 'postgresql', label: 'PostgreSQL' },
-  { value: 'sqlite', label: 'SQLite' },
+const DIALECTS: { value: SqlLanguage; key: 'mysql' | 'postgresql' | 'sqlite' }[] = [
+  { value: 'mysql', key: 'mysql' },
+  { value: 'postgresql', key: 'postgresql' },
+  { value: 'sqlite', key: 'sqlite' },
 ];
 
-const KEYWORD_CASES: { value: KeywordCase; label: string }[] = [
-  { value: 'upper', label: 'UPPER' },
-  { value: 'lower', label: 'lower' },
-  { value: 'preserve', label: 'Preserve' },
+const KEYWORD_CASES: { value: KeywordCase; key: 'upper' | 'lower' | 'preserve' }[] = [
+  { value: 'upper', key: 'upper' },
+  { value: 'lower', key: 'lower' },
+  { value: 'preserve', key: 'preserve' },
 ];
 
 const SAMPLE = `select u.id, u.email, count(o.id) as order_count from users u left join orders o on o.user_id = u.id where u.created_at > '2024-01-01' group by u.id, u.email having count(o.id) > 0 order by order_count desc limit 10;`;
@@ -31,6 +32,7 @@ const SAMPLE = `select u.id, u.email, count(o.id) as order_count from users u le
 const MAX_LEN = 500_000;
 
 export function SqlFormatterLayout() {
+  const t = useTranslations('SqlFormatter');
   const [input, setInput] = useState(SAMPLE);
   const [output, setOutput] = useState('');
   const [dialect, setDialect] = useState<SqlLanguage>('postgresql');
@@ -48,7 +50,7 @@ export function SqlFormatterLayout() {
       return;
     }
     if (q.length > MAX_LEN) {
-      setError(`Input is limited to ${MAX_LEN.toLocaleString()} characters.`);
+      setError(t('errors.tooLong', { max: MAX_LEN.toLocaleString() }));
       setOutput('');
       return;
     }
@@ -64,30 +66,32 @@ export function SqlFormatterLayout() {
       );
     } catch (e) {
       setOutput('');
-      setError(e instanceof Error ? e.message : 'Could not format this SQL.');
+      setError(e instanceof Error ? e.message : t('errors.couldNotFormat'));
     }
-  }, [input, dialect, keywordCase, tabWidth]);
+  }, [input, dialect, keywordCase, tabWidth, t]);
 
   const handleCopy = async () => {
     if (!output) return;
-    await navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(output);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // ignore clipboard failures
+    }
   };
 
   return (
     <div className="flex flex-col h-full gap-4 min-h-0">
       <div className="shrink-0">
-        <h1 className="text-lg font-semibold tracking-tight">SQL formatter</h1>
-        <p className="text-xs text-muted-foreground">
-          Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.
-        </p>
+        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
+        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
       </div>
 
       <Card className="p-4 shrink-0">
         <div className="flex flex-wrap items-end gap-4">
           <div className="space-y-2 min-w-[140px]">
-            <Label className="text-xs text-muted-foreground uppercase tracking-wider">Dialect</Label>
+            <Label className="text-xs text-muted-foreground uppercase tracking-wider">{t('dialectLabel')}</Label>
             <Select value={dialect} onValueChange={(v) => setDialect(v as SqlLanguage)}>
               <SelectTrigger className="h-9 text-sm w-[180px]">
                 <SelectValue />
@@ -95,14 +99,14 @@ export function SqlFormatterLayout() {
               <SelectContent>
                 {DIALECTS.map((d) => (
                   <SelectItem key={d.value} value={d.value}>
-                    {d.label}
+                    {t(`dialects.${d.key}` as never)}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
           <div className="space-y-2 min-w-[120px]">
-            <Label className="text-xs text-muted-foreground uppercase tracking-wider">Keywords</Label>
+            <Label className="text-xs text-muted-foreground uppercase tracking-wider">{t('keywordsLabel')}</Label>
             <Select value={keywordCase} onValueChange={(v) => setKeywordCase(v as KeywordCase)}>
               <SelectTrigger className="h-9 text-sm w-[140px]">
                 <SelectValue />
@@ -110,7 +114,7 @@ export function SqlFormatterLayout() {
               <SelectContent>
                 {KEYWORD_CASES.map((k) => (
                   <SelectItem key={k.value} value={k.value}>
-                    {k.label}
+                    {t(`keywordCase.${k.key}` as never)}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -118,7 +122,7 @@ export function SqlFormatterLayout() {
           </div>
           <div className="space-y-2 min-w-[80px]">
             <Label htmlFor="sql-tab" className="text-xs text-muted-foreground uppercase tracking-wider">
-              Indent
+              {t('indentLabel')}
             </Label>
             <Select value={tabWidth} onValueChange={setTabWidth}>
               <SelectTrigger id="sql-tab" className="h-9 text-sm w-[80px]">
@@ -127,7 +131,7 @@ export function SqlFormatterLayout() {
               <SelectContent>
                 {['2', '4'].map((n) => (
                   <SelectItem key={n} value={n}>
-                    {n} spaces
+                    {t('spaces', { n })}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -136,7 +140,7 @@ export function SqlFormatterLayout() {
           <div className="flex flex-wrap gap-2 pb-0.5">
             <Button type="button" size="sm" className="gap-1.5 h-9" onClick={runFormat}>
               <Wand2 className="h-3.5 w-3.5" />
-              Format
+              {t('format')}
             </Button>
             <Button
               type="button"
@@ -150,12 +154,12 @@ export function SqlFormatterLayout() {
               }}
             >
               <Trash2 className="h-3.5 w-3.5" />
-              Clear
+              {t('clear')}
             </Button>
           </div>
         </div>
         <p className="text-[11px] text-muted-foreground mt-3">
-          {input.length.toLocaleString()} / {MAX_LEN.toLocaleString()} characters
+          {t('counter', { current: input.length.toLocaleString(), max: MAX_LEN.toLocaleString() })}
         </p>
       </Card>
 
@@ -170,7 +174,7 @@ export function SqlFormatterLayout() {
         <Card className="flex flex-col overflow-hidden min-h-[220px]">
           <div className="px-4 py-2.5 border-b border-border/50 bg-muted/30">
             <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              Input
+              {t('inputPanel')}
             </Label>
           </div>
           <div className="flex-1 min-h-0 relative">
@@ -179,7 +183,7 @@ export function SqlFormatterLayout() {
               onChange={(e) => setInput(e.target.value)}
               spellCheck={false}
               className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm font-mono focus:outline-none placeholder:text-muted-foreground/50"
-              placeholder="SELECT * FROM ..."
+              placeholder={t('inputPlaceholder')}
             />
           </div>
         </Card>
@@ -187,7 +191,7 @@ export function SqlFormatterLayout() {
         <Card className="flex flex-col overflow-hidden min-h-[220px]">
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 bg-muted/30 gap-2">
             <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              Formatted
+              {t('formattedPanel')}
             </Label>
             <Button
               type="button"
@@ -195,7 +199,7 @@ export function SqlFormatterLayout() {
               size="icon"
               className="h-7 w-7 shrink-0"
               disabled={!output}
-              title="Copy"
+              title={t('copy')}
               onClick={handleCopy}
             >
               {copied ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
@@ -205,7 +209,7 @@ export function SqlFormatterLayout() {
             <textarea
               value={output}
               readOnly
-              placeholder='Click "Format"…'
+              placeholder={t('outputPlaceholder')}
               spellCheck={false}
               className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm font-mono focus:outline-none placeholder:text-muted-foreground/50"
             />

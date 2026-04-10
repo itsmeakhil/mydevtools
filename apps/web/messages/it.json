@@ -10,7 +10,7 @@
     "nosqlExplorer": "Esploratore NoSQL",
     "toDo": "Tasks",
     "notes": "Notes",
-    "jwtDecoder": "JWT Decoder",
+    "jwtDecoder": "Decodificatore JWT",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -232,8 +232,8 @@
         "description": "Verificare e convalidare gli indirizzi e-mail."
       },
       "jwtDecoder": {
-        "title": "JWT Decoder",
-        "description": "Decode JWT header, payload, and expiry."
+        "title": "Decodificatore JWT",
+        "description": "Decodifica intestazione, payload e scadenza dei JWT."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1569,5 +1569,78 @@
     "toastLoginRequired": "Accedi per salvare i documenti",
     "toastSaved": "Documento salvato",
     "toastSaveFailed": "Impossibile salvare il documento"
+  },
+  "JwtDecoder": {
+    "title": "Decodificatore JWT",
+    "subtitle": "Ispeziona header e payload. La scadenza usa la claim <code>exp</code>. Nulla viene inviato a un server; la firma non è verificata.",
+    "tokenLabel": "Token",
+    "clear": "Pulisci",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Copia",
+    "expiryLabel": "Scadenza (exp)",
+    "signaturePresent": "Firma presente (non verificata)",
+    "noExp": "Nessuna claim <code>exp</code> nel payload.",
+    "status": {
+      "expired": "Scaduto",
+      "valid": "Valido"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Locale",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Emesso a (iat)",
+      "notBefore": "Non prima di (nbf)"
+    },
+    "panels": {
+      "header": "Header",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Incolla un JWT da decodificare.",
+      "segments": "Un JWT richiede almeno header e payload (due segmenti).",
+      "base64": "Impossibile decodificare header o payload in base64url."
+    },
+    "relative": {
+      "future": "tra {n} {unit}",
+      "past": "{n} {unit} fa"
+    },
+    "units": {
+      "second": "{count, plural, one {secondo} other {secondi}}",
+      "minute": "{count, plural, one {minuto} other {minuti}}",
+      "hour": "{count, plural, one {ora} other {ore}}",
+      "day": "{count, plural, one {giorno} other {giorni}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL formatter",
+    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
+    "dialectLabel": "Dialect",
+    "keywordsLabel": "Keywords",
+    "indentLabel": "Indent",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "UPPER",
+      "lower": "lower",
+      "preserve": "Preserve"
+    },
+    "spaces": "{n} spaces",
+    "format": "Format",
+    "clear": "Clear",
+    "counter": "{current} / {max} characters",
+    "inputPanel": "Input",
+    "formattedPanel": "Formatted",
+    "copy": "Copy",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Click \"Format\"…",
+    "errors": {
+      "tooLong": "Input is limited to {max} characters.",
+      "couldNotFormat": "Could not format this SQL."
+    }
   }
 }

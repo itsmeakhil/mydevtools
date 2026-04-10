@@ -10,7 +10,7 @@
     "nosqlExplorer": "NoSQLエクスプローラー",
     "toDo": "Tasks",
     "notes": "Notes",
-    "jwtDecoder": "JWT Decoder",
+    "jwtDecoder": "JWTデコーダー",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -232,8 +232,8 @@
         "description": "メールアドレスの検証と確認を行います。"
       },
       "jwtDecoder": {
-        "title": "JWT Decoder",
-        "description": "Decode JWT header, payload, and expiry."
+        "title": "JWTデコーダー",
+        "description": "JWT のヘッダー、ペイロード、有効期限をデコードします。"
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1569,5 +1569,78 @@
     "toastLoginRequired": "ドキュメントを保存するにはログインしてください",
     "toastSaved": "ドキュメントを保存しました",
     "toastSaveFailed": "ドキュメントの保存に失敗しました"
+  },
+  "JwtDecoder": {
+    "title": "JWTデコーダー",
+    "subtitle": "ヘッダーとペイロードを確認します。有効期限は <code>exp</code> クレームを使用します。サーバーへ送信されず、署名は検証されません。",
+    "tokenLabel": "トークン",
+    "clear": "クリア",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "コピー",
+    "expiryLabel": "有効期限 (exp)",
+    "signaturePresent": "署名あり（未検証）",
+    "noExp": "ペイロードに <code>exp</code> クレームがありません。",
+    "status": {
+      "expired": "期限切れ",
+      "valid": "有効"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "ローカル",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "発行時刻 (iat)",
+      "notBefore": "有効開始 (nbf)"
+    },
+    "panels": {
+      "header": "ヘッダー",
+      "payload": "ペイロード"
+    },
+    "errors": {
+      "empty": "デコードする JWT を貼り付けてください。",
+      "segments": "JWT には少なくともヘッダーとペイロード（2 セグメント）が必要です。",
+      "base64": "ヘッダーまたはペイロードを base64url デコードできませんでした。"
+    },
+    "relative": {
+      "future": "{n}{unit}後",
+      "past": "{n}{unit}前"
+    },
+    "units": {
+      "second": "{count, plural, one {秒} other {秒}}",
+      "minute": "{count, plural, one {分} other {分}}",
+      "hour": "{count, plural, one {時間} other {時間}}",
+      "day": "{count, plural, one {日} other {日}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL formatter",
+    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
+    "dialectLabel": "Dialect",
+    "keywordsLabel": "Keywords",
+    "indentLabel": "Indent",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "UPPER",
+      "lower": "lower",
+      "preserve": "Preserve"
+    },
+    "spaces": "{n} spaces",
+    "format": "Format",
+    "clear": "Clear",
+    "counter": "{current} / {max} characters",
+    "inputPanel": "Input",
+    "formattedPanel": "Formatted",
+    "copy": "Copy",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Click \"Format\"…",
+    "errors": {
+      "tooLong": "Input is limited to {max} characters.",
+      "couldNotFormat": "Could not format this SQL."
+    }
   }
 }

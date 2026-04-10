@@ -10,7 +10,7 @@
     "nosqlExplorer": "NoSQL Gezgini",
     "toDo": "Tasks",
     "notes": "Notes",
-    "jwtDecoder": "JWT Decoder",
+    "jwtDecoder": "JWT Çözücü",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -232,8 +232,8 @@
         "description": "E-posta adreslerini doğrulayın ve kontrol edin."
       },
       "jwtDecoder": {
-        "title": "JWT Decoder",
-        "description": "Decode JWT header, payload, and expiry."
+        "title": "JWT Çözücü",
+        "description": "JWT başlığını, yükünü ve süresini çöz."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1569,5 +1569,78 @@
     "toastLoginRequired": "Belgeleri kaydetmek için giriş yapın",
     "toastSaved": "Belge kaydedildi",
     "toastSaveFailed": "Belge kaydedilemedi"
+  },
+  "JwtDecoder": {
+    "title": "JWT Çözücü",
+    "subtitle": "Başlık ve yükü inceleyin. Süre, <code>exp</code> claim’ini kullanır. Sunucuya veri gönderilmez; imza doğrulanmaz.",
+    "tokenLabel": "Token",
+    "clear": "Temizle",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Kopyala",
+    "expiryLabel": "Süre (exp)",
+    "signaturePresent": "İmza var (doğrulanmadı)",
+    "noExp": "Payload içinde <code>exp</code> claim’i yok.",
+    "status": {
+      "expired": "Süresi doldu",
+      "valid": "Geçerli"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Yerel",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Düzenlenme (iat)",
+      "notBefore": "Şundan önce değil (nbf)"
+    },
+    "panels": {
+      "header": "Başlık",
+      "payload": "Yük"
+    },
+    "errors": {
+      "empty": "Çözmek için bir JWT yapıştırın.",
+      "segments": "JWT en az başlık ve yük (iki segment) içermelidir.",
+      "base64": "Başlık veya yük base64url çözülemedi."
+    },
+    "relative": {
+      "future": "{n} {unit} içinde",
+      "past": "{n} {unit} önce"
+    },
+    "units": {
+      "second": "{count, plural, one {saniye} other {saniye}}",
+      "minute": "{count, plural, one {dakika} other {dakika}}",
+      "hour": "{count, plural, one {saat} other {saat}}",
+      "day": "{count, plural, one {gün} other {gün}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL formatter",
+    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
+    "dialectLabel": "Dialect",
+    "keywordsLabel": "Keywords",
+    "indentLabel": "Indent",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "UPPER",
+      "lower": "lower",
+      "preserve": "Preserve"
+    },
+    "spaces": "{n} spaces",
+    "format": "Format",
+    "clear": "Clear",
+    "counter": "{current} / {max} characters",
+    "inputPanel": "Input",
+    "formattedPanel": "Formatted",
+    "copy": "Copy",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Click \"Format\"…",
+    "errors": {
+      "tooLong": "Input is limited to {max} characters.",
+      "couldNotFormat": "Could not format this SQL."
+    }
   }
 }

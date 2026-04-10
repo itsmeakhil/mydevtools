@@ -10,7 +10,7 @@
     "nosqlExplorer": "NoSQL Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "jwtDecoder": "JWT Decoder",
+    "jwtDecoder": "Dekoder JWT",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -232,8 +232,8 @@
         "description": "Verifikasi dan validasi alamat email."
       },
       "jwtDecoder": {
-        "title": "JWT Decoder",
-        "description": "Decode JWT header, payload, and expiry."
+        "title": "Dekoder JWT",
+        "description": "Decode header, payload, dan kedaluwarsa JWT."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1569,5 +1569,78 @@
     "toastLoginRequired": "Silakan masuk untuk menyimpan dokumen",
     "toastSaved": "Dokumen disimpan",
     "toastSaveFailed": "Gagal menyimpan dokumen"
+  },
+  "JwtDecoder": {
+    "title": "Dekoder JWT",
+    "subtitle": "Periksa header dan payload. Kedaluwarsa menggunakan klaim <code>exp</code>. Tidak ada yang dikirim ke server; tanda tangan tidak diverifikasi.",
+    "tokenLabel": "Token",
+    "clear": "Bersihkan",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Salin",
+    "expiryLabel": "Kedaluwarsa (exp)",
+    "signaturePresent": "Tanda tangan ada (tidak diverifikasi)",
+    "noExp": "Tidak ada klaim <code>exp</code> di payload.",
+    "status": {
+      "expired": "Kedaluwarsa",
+      "valid": "Valid"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Lokal",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Diterbitkan (iat)",
+      "notBefore": "Tidak sebelum (nbf)"
+    },
+    "panels": {
+      "header": "Header",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Tempel JWT untuk didekode.",
+      "segments": "JWT butuh setidaknya header dan payload (dua segmen).",
+      "base64": "Tidak dapat mendekode base64url header atau payload."
+    },
+    "relative": {
+      "future": "dalam {n} {unit}",
+      "past": "{n} {unit} yang lalu"
+    },
+    "units": {
+      "second": "{count, plural, one {detik} other {detik}}",
+      "minute": "{count, plural, one {menit} other {menit}}",
+      "hour": "{count, plural, one {jam} other {jam}}",
+      "day": "{count, plural, one {hari} other {hari}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL formatter",
+    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
+    "dialectLabel": "Dialect",
+    "keywordsLabel": "Keywords",
+    "indentLabel": "Indent",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "UPPER",
+      "lower": "lower",
+      "preserve": "Preserve"
+    },
+    "spaces": "{n} spaces",
+    "format": "Format",
+    "clear": "Clear",
+    "counter": "{current} / {max} characters",
+    "inputPanel": "Input",
+    "formattedPanel": "Formatted",
+    "copy": "Copy",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Click \"Format\"…",
+    "errors": {
+      "tooLong": "Input is limited to {max} characters.",
+      "couldNotFormat": "Could not format this SQL."
+    }
   }
 }

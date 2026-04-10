@@ -10,7 +10,7 @@
     "nosqlExplorer": "NoSQL 浏览器",
     "toDo": "Tasks",
     "notes": "Notes",
-    "jwtDecoder": "JWT Decoder",
+    "jwtDecoder": "JWT 解码器",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -232,8 +232,8 @@
         "description": "验证电子邮件地址。"
       },
       "jwtDecoder": {
-        "title": "JWT Decoder",
-        "description": "Decode JWT header, payload, and expiry."
+        "title": "JWT 解码器",
+        "description": "解码 JWT 的头部、载荷和过期时间。"
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1569,5 +1569,78 @@
     "toastLoginRequired": "请登录以保存文档",
     "toastSaved": "文档已保存",
     "toastSaveFailed": "文档保存失败"
+  },
+  "JwtDecoder": {
+    "title": "JWT 解码器",
+    "subtitle": "查看头部和载荷。过期时间使用 <code>exp</code> 声明。不会发送到服务器；不验证签名。",
+    "tokenLabel": "令牌",
+    "clear": "清空",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "复制",
+    "expiryLabel": "过期 (exp)",
+    "signaturePresent": "包含签名（未验证）",
+    "noExp": "载荷中没有 <code>exp</code> 声明。",
+    "status": {
+      "expired": "已过期",
+      "valid": "有效"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "本地",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "签发时间 (iat)",
+      "notBefore": "生效时间 (nbf)"
+    },
+    "panels": {
+      "header": "头部",
+      "payload": "载荷"
+    },
+    "errors": {
+      "empty": "粘贴一个 JWT 进行解码。",
+      "segments": "JWT 至少需要头部和载荷（两个段）。",
+      "base64": "无法 base64url 解码头部或载荷。"
+    },
+    "relative": {
+      "future": "{n} {unit}后",
+      "past": "{n} {unit}前"
+    },
+    "units": {
+      "second": "{count, plural, one {秒} other {秒}}",
+      "minute": "{count, plural, one {分钟} other {分钟}}",
+      "hour": "{count, plural, one {小时} other {小时}}",
+      "day": "{count, plural, one {天} other {天}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL formatter",
+    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
+    "dialectLabel": "Dialect",
+    "keywordsLabel": "Keywords",
+    "indentLabel": "Indent",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "UPPER",
+      "lower": "lower",
+      "preserve": "Preserve"
+    },
+    "spaces": "{n} spaces",
+    "format": "Format",
+    "clear": "Clear",
+    "counter": "{current} / {max} characters",
+    "inputPanel": "Input",
+    "formattedPanel": "Formatted",
+    "copy": "Copy",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Click \"Format\"…",
+    "errors": {
+      "tooLong": "Input is limited to {max} characters.",
+      "couldNotFormat": "Could not format this SQL."
+    }
   }
 }

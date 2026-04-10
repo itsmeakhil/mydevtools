@@ -1569,5 +1569,78 @@
     "toastLoginRequired": "Connectez-vous pour enregistrer des documents",
     "toastSaved": "Document enregistré",
     "toastSaveFailed": "Échec de l'enregistrement du document"
+  },
+  "JwtDecoder": {
+    "title": "Décodeur JWT",
+    "subtitle": "Inspectez l’en-tête et la charge utile. L’expiration utilise la revendication <code>exp</code>. Rien n’est envoyé à un serveur ; la signature n’est pas vérifiée.",
+    "tokenLabel": "Jeton",
+    "clear": "Effacer",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Copier",
+    "expiryLabel": "Expiration (exp)",
+    "signaturePresent": "Signature présente (non vérifiée)",
+    "noExp": "Aucune revendication <code>exp</code> dans la charge utile.",
+    "status": {
+      "expired": "Expiré",
+      "valid": "Valide"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Local",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Émis à (iat)",
+      "notBefore": "Pas avant (nbf)"
+    },
+    "panels": {
+      "header": "En-tête",
+      "payload": "Charge utile"
+    },
+    "errors": {
+      "empty": "Collez un JWT à décoder.",
+      "segments": "Un JWT nécessite au moins un en-tête et une charge utile (deux segments).",
+      "base64": "Impossible de décoder en base64url l’en-tête ou la charge utile."
+    },
+    "relative": {
+      "future": "dans {n} {unit}",
+      "past": "il y a {n} {unit}"
+    },
+    "units": {
+      "second": "{count, plural, one {seconde} other {secondes}}",
+      "minute": "{count, plural, one {minute} other {minutes}}",
+      "hour": "{count, plural, one {heure} other {heures}}",
+      "day": "{count, plural, one {jour} other {jours}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "Formateur SQL",
+    "subtitle": "Mettre en forme du SQL pour MySQL, PostgreSQL ou SQLite. Tout s’exécute dans votre navigateur ; rien n’est téléversé.",
+    "dialectLabel": "Dialecte",
+    "keywordsLabel": "Mots-clés",
+    "indentLabel": "Indentation",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "MAJUSCULES",
+      "lower": "minuscules",
+      "preserve": "Préserver"
+    },
+    "spaces": "{n} espaces",
+    "format": "Formater",
+    "clear": "Effacer",
+    "counter": "{current} / {max} caractères",
+    "inputPanel": "Entrée",
+    "formattedPanel": "Formaté",
+    "copy": "Copier",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Cliquez sur « Formater »…",
+    "errors": {
+      "tooLong": "La saisie est limitée à {max} caractères.",
+      "couldNotFormat": "Impossible de formater ce SQL."
+    }
   }
 }

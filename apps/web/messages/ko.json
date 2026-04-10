@@ -10,7 +10,7 @@
     "nosqlExplorer": "NoSQL 탐색기",
     "toDo": "Tasks",
     "notes": "Notes",
-    "jwtDecoder": "JWT Decoder",
+    "jwtDecoder": "JWT 디코더",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -232,8 +232,8 @@
         "description": "이메일 주소를 검증하세요."
       },
       "jwtDecoder": {
-        "title": "JWT Decoder",
-        "description": "Decode JWT header, payload, and expiry."
+        "title": "JWT 디코더",
+        "description": "JWT 헤더, 페이로드, 만료 시간을 디코딩합니다."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1569,5 +1569,78 @@
     "toastLoginRequired": "문서를 저장하려면 로그인하세요",
     "toastSaved": "문서가 저장되었습니다",
     "toastSaveFailed": "문서 저장에 실패했습니다"
+  },
+  "JwtDecoder": {
+    "title": "JWT 디코더",
+    "subtitle": "헤더와 페이로드를 확인합니다. 만료는 <code>exp</code> 클레임을 사용합니다. 서버로 전송되지 않으며 서명은 검증되지 않습니다.",
+    "tokenLabel": "토큰",
+    "clear": "지우기",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "복사",
+    "expiryLabel": "만료 (exp)",
+    "signaturePresent": "서명 존재(검증 안 함)",
+    "noExp": "페이로드에 <code>exp</code> 클레임이 없습니다.",
+    "status": {
+      "expired": "만료됨",
+      "valid": "유효함"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "로컬",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "발급 (iat)",
+      "notBefore": "유효 시작 (nbf)"
+    },
+    "panels": {
+      "header": "헤더",
+      "payload": "페이로드"
+    },
+    "errors": {
+      "empty": "디코딩할 JWT를 붙여넣으세요.",
+      "segments": "JWT에는 최소 헤더와 페이로드(두 세그먼트)가 필요합니다.",
+      "base64": "헤더 또는 페이로드를 base64url 디코딩할 수 없습니다."
+    },
+    "relative": {
+      "future": "{n}{unit} 후",
+      "past": "{n}{unit} 전"
+    },
+    "units": {
+      "second": "{count, plural, one {초} other {초}}",
+      "minute": "{count, plural, one {분} other {분}}",
+      "hour": "{count, plural, one {시간} other {시간}}",
+      "day": "{count, plural, one {일} other {일}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL formatter",
+    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
+    "dialectLabel": "Dialect",
+    "keywordsLabel": "Keywords",
+    "indentLabel": "Indent",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "UPPER",
+      "lower": "lower",
+      "preserve": "Preserve"
+    },
+    "spaces": "{n} spaces",
+    "format": "Format",
+    "clear": "Clear",
+    "counter": "{current} / {max} characters",
+    "inputPanel": "Input",
+    "formattedPanel": "Formatted",
+    "copy": "Copy",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Click \"Format\"…",
+    "errors": {
+      "tooLong": "Input is limited to {max} characters.",
+      "couldNotFormat": "Could not format this SQL."
+    }
   }
 }

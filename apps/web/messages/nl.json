@@ -10,7 +10,7 @@
     "nosqlExplorer": "NoSQL-verkenner",
     "toDo": "Tasks",
     "notes": "Notes",
-    "jwtDecoder": "JWT Decoder",
+    "jwtDecoder": "JWT-decoder",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -232,8 +232,8 @@
         "description": "Verifieer en valideer e-mailadressen."
       },
       "jwtDecoder": {
-        "title": "JWT Decoder",
-        "description": "Decode JWT header, payload, and expiry."
+        "title": "JWT-decoder",
+        "description": "Decodeer JWT-header, payload en verloopdatum."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1569,5 +1569,78 @@
     "toastLoginRequired": "Log in om documenten op te slaan",
     "toastSaved": "Document opgeslagen",
     "toastSaveFailed": "Document opslaan mislukt"
+  },
+  "JwtDecoder": {
+    "title": "JWT-decoder",
+    "subtitle": "Bekijk header en payload. Vervaldatum gebruikt de <code>exp</code>-claim. Er wordt niets naar een server gestuurd; de handtekening wordt niet geverifieerd.",
+    "tokenLabel": "Token",
+    "clear": "Wissen",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Kopiëren",
+    "expiryLabel": "Vervaldatum (exp)",
+    "signaturePresent": "Handtekening aanwezig (niet geverifieerd)",
+    "noExp": "Geen <code>exp</code>-claim in de payload.",
+    "status": {
+      "expired": "Verlopen",
+      "valid": "Geldig"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Lokaal",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Uitgegeven op (iat)",
+      "notBefore": "Niet vóór (nbf)"
+    },
+    "panels": {
+      "header": "Header",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Plak een JWT om te decoderen.",
+      "segments": "Een JWT heeft minimaal een header en payload nodig (twee segmenten).",
+      "base64": "Header of payload kon niet base64url-gedecodeerd worden."
+    },
+    "relative": {
+      "future": "over {n} {unit}",
+      "past": "{n} {unit} geleden"
+    },
+    "units": {
+      "second": "{count, plural, one {seconde} other {seconden}}",
+      "minute": "{count, plural, one {minuut} other {minuten}}",
+      "hour": "{count, plural, one {uur} other {uur}}",
+      "day": "{count, plural, one {dag} other {dagen}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL formatter",
+    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
+    "dialectLabel": "Dialect",
+    "keywordsLabel": "Keywords",
+    "indentLabel": "Indent",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "UPPER",
+      "lower": "lower",
+      "preserve": "Preserve"
+    },
+    "spaces": "{n} spaces",
+    "format": "Format",
+    "clear": "Clear",
+    "counter": "{current} / {max} characters",
+    "inputPanel": "Input",
+    "formattedPanel": "Formatted",
+    "copy": "Copy",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Click \"Format\"…",
+    "errors": {
+      "tooLong": "Input is limited to {max} characters.",
+      "couldNotFormat": "Could not format this SQL."
+    }
   }
 }

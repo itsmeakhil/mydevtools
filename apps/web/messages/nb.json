@@ -10,7 +10,7 @@
     "nosqlExplorer": "NoSQL-utforsker",
     "toDo": "Tasks",
     "notes": "Notes",
-    "jwtDecoder": "JWT Decoder",
+    "jwtDecoder": "JWT-dekoder",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -232,8 +232,8 @@
         "description": "Verifiser og valider e-postadresser."
       },
       "jwtDecoder": {
-        "title": "JWT Decoder",
-        "description": "Decode JWT header, payload, and expiry."
+        "title": "JWT-dekoder",
+        "description": "Dekod JWT-header, payload og utløp."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1569,5 +1569,78 @@
     "toastLoginRequired": "Logg inn for å lagre dokumenter",
     "toastSaved": "Dokument lagret",
     "toastSaveFailed": "Kunne ikke lagre dokument"
+  },
+  "JwtDecoder": {
+    "title": "JWT-dekoder",
+    "subtitle": "Inspiser header og payload. Utløp bruker <code>exp</code>-claim. Ingenting sendes til en server; signaturen verifiseres ikke.",
+    "tokenLabel": "Token",
+    "clear": "Tøm",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Kopier",
+    "expiryLabel": "Utløp (exp)",
+    "signaturePresent": "Signatur til stede (ikke verifisert)",
+    "noExp": "Ingen <code>exp</code>-claim i payload.",
+    "status": {
+      "expired": "Utløpt",
+      "valid": "Gyldig"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Lokal",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Utstedt (iat)",
+      "notBefore": "Ikke før (nbf)"
+    },
+    "panels": {
+      "header": "Header",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Lim inn en JWT for å dekode.",
+      "segments": "En JWT trenger minst header og payload (to segmenter).",
+      "base64": "Kunne ikke base64url-dekode header eller payload."
+    },
+    "relative": {
+      "future": "om {n} {unit}",
+      "past": "for {n} {unit} siden"
+    },
+    "units": {
+      "second": "{count, plural, one {sekund} other {sekunder}}",
+      "minute": "{count, plural, one {minutt} other {minutter}}",
+      "hour": "{count, plural, one {time} other {timer}}",
+      "day": "{count, plural, one {dag} other {dager}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL formatter",
+    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
+    "dialectLabel": "Dialect",
+    "keywordsLabel": "Keywords",
+    "indentLabel": "Indent",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "UPPER",
+      "lower": "lower",
+      "preserve": "Preserve"
+    },
+    "spaces": "{n} spaces",
+    "format": "Format",
+    "clear": "Clear",
+    "counter": "{current} / {max} characters",
+    "inputPanel": "Input",
+    "formattedPanel": "Formatted",
+    "copy": "Copy",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Click \"Format\"…",
+    "errors": {
+      "tooLong": "Input is limited to {max} characters.",
+      "couldNotFormat": "Could not format this SQL."
+    }
   }
 }

@@ -5,7 +5,15 @@
 export type ClaimTimeInfo = {
   unix: number;
   date: Date;
-  label: string;
+  labelKey: 'issuedAt' | 'notBefore';
+};
+
+export type RelativeUnit = 'second' | 'minute' | 'hour' | 'day';
+
+export type RelativeTime = {
+  direction: 'future' | 'past';
+  value: number;
+  unit: RelativeUnit;
 };
 
 export type JwtExpiryInfo =
@@ -15,7 +23,7 @@ export type JwtExpiryInfo =
       unix: number;
       date: Date;
       expired: boolean;
-      relative: string;
+      relative: RelativeTime;
     };
 
 export type JwtDecodeSuccess = {
@@ -34,7 +42,7 @@ export type JwtDecodeSuccess = {
 
 export type JwtDecodeFailure = {
   ok: false;
-  error: string;
+  errorKey: 'empty' | 'segments' | 'base64';
 };
 
 export type JwtDecodeResult = JwtDecodeSuccess | JwtDecodeFailure;
@@ -65,47 +73,43 @@ function formatPrettyJson(text: string): { formatted: string; parsed: unknown } 
   return { formatted: JSON.stringify(parsed, null, 2), parsed };
 }
 
-function relativeFromNow(target: Date, now: Date): string {
+function relativeFromNow(target: Date, now: Date): RelativeTime {
   const diffMs = target.getTime() - now.getTime();
   const future = diffMs > 0;
   const abs = Math.abs(diffMs);
   const sec = Math.round(abs / 1000);
+  const direction: RelativeTime['direction'] = future ? 'future' : 'past';
 
-  const phrase = (n: number, one: string, many: string) => {
-    const w = n === 1 ? one : many;
-    return future ? `in ${n} ${w}` : `${n} ${w} ago`;
-  };
-
-  if (sec < 60) return phrase(sec, 'second', 'seconds');
+  if (sec < 60) return { direction, value: sec, unit: 'second' };
   const min = Math.round(sec / 60);
-  if (min < 60) return phrase(min, 'minute', 'minutes');
+  if (min < 60) return { direction, value: min, unit: 'minute' };
   const hr = Math.round(min / 60);
-  if (hr < 48) return phrase(hr, 'hour', 'hours');
+  if (hr < 48) return { direction, value: hr, unit: 'hour' };
   const day = Math.round(hr / 24);
-  return phrase(day, 'day', 'days');
+  return { direction, value: day, unit: 'day' };
 }
 
 function claimInfo(
   obj: Record<string, unknown>,
   key: string,
-  label: string
+  labelKey: ClaimTimeInfo['labelKey']
 ): ClaimTimeInfo | null {
   const unix = readUnixClaim(obj, key);
   if (unix === null) return null;
   const date = new Date(unix * 1000);
   if (Number.isNaN(date.getTime())) return null;
-  return { unix, date, label };
+  return { unix, date, labelKey };
 }
 
 export function decodeJwt(token: string): JwtDecodeResult {
   const trimmed = token.trim().replace(/^Bearer\s+/i, '');
   if (!trimmed) {
-    return { ok: false, error: 'Paste a JWT to decode.' };
+    return { ok: false, errorKey: 'empty' };
   }
 
   const parts = trimmed.split('.');
   if (parts.length < 2) {
-    return { ok: false, error: 'A JWT needs at least a header and payload (two segments).' };
+    return { ok: false, errorKey: 'segments' };
   }
 
   let headerRaw: string;
@@ -114,7 +118,7 @@ export function decodeJwt(token: string): JwtDecodeResult {
     headerRaw = base64UrlDecode(parts[0]!);
     payloadRaw = base64UrlDecode(parts[1]!);
   } catch {
-    return { ok: false, error: 'Could not base64url-decode header or payload.' };
+    return { ok: false, errorKey: 'base64' };
   }
 
   let headerFormatted: string;
@@ -159,8 +163,8 @@ export function decodeJwt(token: string): JwtDecodeResult {
         };
       }
     }
-    issuedAt = claimInfo(po, 'iat', 'Issued at (iat)');
-    notBefore = claimInfo(po, 'nbf', 'Not before (nbf)');
+    issuedAt = claimInfo(po, 'iat', 'issuedAt');
+    notBefore = claimInfo(po, 'nbf', 'notBefore');
   }
 
   return {

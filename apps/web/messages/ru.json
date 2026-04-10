@@ -10,7 +10,7 @@
     "nosqlExplorer": "NoSQL-обозреватель",
     "toDo": "Tasks",
     "notes": "Notes",
-    "jwtDecoder": "JWT Decoder",
+    "jwtDecoder": "Декодер JWT",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -232,8 +232,8 @@
         "description": "Проверяйте и валидируйте адреса электронной почты."
       },
       "jwtDecoder": {
-        "title": "JWT Decoder",
-        "description": "Decode JWT header, payload, and expiry."
+        "title": "Декодер JWT",
+        "description": "Декодируйте заголовок, полезную нагрузку и срок действия JWT."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1569,5 +1569,78 @@
     "toastLoginRequired": "Войдите, чтобы сохранять документы",
     "toastSaved": "Документ сохранён",
     "toastSaveFailed": "Не удалось сохранить документ"
+  },
+  "JwtDecoder": {
+    "title": "Декодер JWT",
+    "subtitle": "Просматривайте заголовок и payload. Срок действия берётся из claim <code>exp</code>. Ничего не отправляется на сервер; подпись не проверяется.",
+    "tokenLabel": "Токен",
+    "clear": "Очистить",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Копировать",
+    "expiryLabel": "Срок действия (exp)",
+    "signaturePresent": "Подпись присутствует (не проверяется)",
+    "noExp": "В payload нет claim <code>exp</code>.",
+    "status": {
+      "expired": "Истёк",
+      "valid": "Действителен"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Локальное",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Выдано (iat)",
+      "notBefore": "Не ранее (nbf)"
+    },
+    "panels": {
+      "header": "Заголовок",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Вставьте JWT для декодирования.",
+      "segments": "JWT должен содержать как минимум заголовок и payload (два сегмента).",
+      "base64": "Не удалось декодировать заголовок или payload (base64url)."
+    },
+    "relative": {
+      "future": "через {n} {unit}",
+      "past": "{n} {unit} назад"
+    },
+    "units": {
+      "second": "{count, plural, one {секунду} few {секунды} many {секунд} other {секунд}}",
+      "minute": "{count, plural, one {минуту} few {минуты} many {минут} other {минут}}",
+      "hour": "{count, plural, one {час} few {часа} many {часов} other {часов}}",
+      "day": "{count, plural, one {день} few {дня} many {дней} other {дней}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL formatter",
+    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
+    "dialectLabel": "Dialect",
+    "keywordsLabel": "Keywords",
+    "indentLabel": "Indent",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "UPPER",
+      "lower": "lower",
+      "preserve": "Preserve"
+    },
+    "spaces": "{n} spaces",
+    "format": "Format",
+    "clear": "Clear",
+    "counter": "{current} / {max} characters",
+    "inputPanel": "Input",
+    "formattedPanel": "Formatted",
+    "copy": "Copy",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Click \"Format\"…",
+    "errors": {
+      "tooLong": "Input is limited to {max} characters.",
+      "couldNotFormat": "Could not format this SQL."
+    }
   }
 }

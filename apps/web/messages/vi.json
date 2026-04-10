@@ -10,7 +10,7 @@
     "nosqlExplorer": "NoSQL Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "jwtDecoder": "JWT Decoder",
+    "jwtDecoder": "Trình giải mã JWT",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -232,8 +232,8 @@
         "description": "Xác minh và kiểm tra địa chỉ email."
       },
       "jwtDecoder": {
-        "title": "JWT Decoder",
-        "description": "Decode JWT header, payload, and expiry."
+        "title": "Trình giải mã JWT",
+        "description": "Giải mã header, payload và thời gian hết hạn của JWT."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1569,5 +1569,78 @@
     "toastLoginRequired": "Vui lòng đăng nhập để lưu tài liệu",
     "toastSaved": "Đã lưu tài liệu",
     "toastSaveFailed": "Không thể lưu tài liệu"
+  },
+  "JwtDecoder": {
+    "title": "Trình giải mã JWT",
+    "subtitle": "Xem header và payload. Hết hạn dùng claim <code>exp</code>. Không gửi lên máy chủ; chữ ký không được xác minh.",
+    "tokenLabel": "Token",
+    "clear": "Xóa",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Sao chép",
+    "expiryLabel": "Hết hạn (exp)",
+    "signaturePresent": "Có chữ ký (không xác minh)",
+    "noExp": "Không có claim <code>exp</code> trong payload.",
+    "status": {
+      "expired": "Đã hết hạn",
+      "valid": "Hợp lệ"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Cục bộ",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Phát hành (iat)",
+      "notBefore": "Không trước (nbf)"
+    },
+    "panels": {
+      "header": "Header",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Dán JWT để giải mã.",
+      "segments": "JWT cần ít nhất header và payload (hai đoạn).",
+      "base64": "Không thể giải mã base64url cho header hoặc payload."
+    },
+    "relative": {
+      "future": "trong {n} {unit}",
+      "past": "{n} {unit} trước"
+    },
+    "units": {
+      "second": "{count, plural, one {giây} other {giây}}",
+      "minute": "{count, plural, one {phút} other {phút}}",
+      "hour": "{count, plural, one {giờ} other {giờ}}",
+      "day": "{count, plural, one {ngày} other {ngày}}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL formatter",
+    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
+    "dialectLabel": "Dialect",
+    "keywordsLabel": "Keywords",
+    "indentLabel": "Indent",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "UPPER",
+      "lower": "lower",
+      "preserve": "Preserve"
+    },
+    "spaces": "{n} spaces",
+    "format": "Format",
+    "clear": "Clear",
+    "counter": "{current} / {max} characters",
+    "inputPanel": "Input",
+    "formattedPanel": "Formatted",
+    "copy": "Copy",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Click \"Format\"…",
+    "errors": {
+      "tooLong": "Input is limited to {max} characters.",
+      "couldNotFormat": "Could not format this SQL."
+    }
   }
 }
