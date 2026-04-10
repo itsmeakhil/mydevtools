@@ -1667,5 +1667,152 @@
       "invalid": "Ongeldige reguliere expressie.",
       "runaway": "Gestopt na {max} matches (mogelijk ontspoord patroon)."
     }
+  },
+  "TimestampConverter": {
+    "title": "Timestamp-converter",
+    "subtitle": "Unix-seconden (≤10 cijfers) of milliseconden (langere integers), <code>ISO-8601</code> of strings die je browser kan parsen. Alles draait lokaal.",
+    "inputLabel": "Invoer",
+    "placeholder": "1744200000 of 2025-04-09T12:00:00Z",
+    "now": "Nu",
+    "copy": "Kopiëren",
+    "hint": "Plak een waarde of klik op <strong>Nu</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relatief",
+      "human": "Leesbaar"
+    },
+    "fields": {
+      "seconds": "Seconden",
+      "milliseconds": "Milliseconden",
+      "utc": "UTC",
+      "local": "Lokaal",
+      "distance": "Afstand"
+    },
+    "errors": {
+      "empty": "Voer een Unix-timestamp, ISO-string of datumtekst in.",
+      "invalidNumber": "Ongeldige numerieke timestamp.",
+      "outOfRange": "Buiten bereik voor JavaScript Date.",
+      "couldNotParse": "Kon niet parsen als Unix, ISO-8601 of browser-datumstring."
+    }
+  },
+  "CronBuilder": {
+    "title": "Cron-expressiebouwer",
+    "subtitle": "Standaard 5-veld cron: <mono>minute hour day month weekday</mono>. De parser gebruikt intern seconds=<code>0</code>. Optioneel 6-veld (<mono>sec min hour dom mon dow</mono>) werkt in de expressie-editor.",
+    "tabs": {
+      "builder": "Visuele bouwer",
+      "expression": "Expressie"
+    },
+    "presetsLabel": "Voorinstellingen",
+    "fieldsLabel": "Velden",
+    "rawExpressionLabel": "Ruwe expressie",
+    "expressionHint": "Verlaat het veld om te parsen en de bouwer te synchroniseren. {count} {count, plural, one {token} other {tokens}}.",
+    "currentExpressionLabel": "Huidige expressie",
+    "copy": "Kopiëren",
+    "quickPick": "Snelle keuze",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Gewone taal",
+    "nextRunsLabel": "Volgende runs (lokale tijd)",
+    "fields": {
+      "minute": "Minuut",
+      "hour": "Uur",
+      "dayOfMonth": "Dag van maand",
+      "month": "Maand",
+      "dayOfWeek": "Dag van week"
+    },
+    "presets": {
+      "everyMinute": "Elke minuut",
+      "every5Minutes": "Elke 5 minuten",
+      "every15Minutes": "Elke 15 minuten",
+      "everyHour": "Elk uur (op :00)",
+      "every6Hours": "Elke 6 uur",
+      "dailyMidnight": "Dagelijks om middernacht",
+      "daily0900": "Dagelijks om 09:00",
+      "weekdays0900": "Werkdagen om 09:00",
+      "weeklySunday": "Wekelijks (zondag 00:00)",
+      "monthlyFirst": "Maandelijks (1e 00:00)",
+      "yearlyJan1": "Jaarlijks (1 jan 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "elke minuut"
+      },
+      "hour": {
+        "every": "elk uur"
+      },
+      "dom": {
+        "any": "elke dag",
+        "last": "laatste dag"
+      },
+      "month": {
+        "every": "elke maand"
+      },
+      "dow": {
+        "any": "elke weekdag",
+        "weekdays": "werkdagen",
+        "weekend": "weekend"
+      }
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mrt",
+      "apr": "Apr",
+      "may": "Mei",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Okt",
+      "nov": "Nov",
+      "dec": "Dec"
+    },
+    "weekdays": {
+      "sun": "Zo",
+      "mon": "Ma",
+      "tue": "Di",
+      "wed": "Wo",
+      "thu": "Do",
+      "fri": "Vr",
+      "sat": "Za"
+    },
+    "errors": {
+      "fieldCount": "Verwacht 5 velden (minute hour day month weekday) of 6 inclusief seconden.",
+      "invalid": "Ongeldige cron-expressie."
+    }
+  },
+  "Base64": {
+    "title": "Base64-encoder / -decoder",
+    "subtitle": "Encodeer tekst naar Base64 of decodeer Base64-strings",
+    "upload": "Uploaden",
+    "clear": "Wissen",
+    "modes": {
+      "encode": "Encoderen",
+      "decode": "Decoderen"
+    },
+    "swapTitle": "Invoer en uitvoer omwisselen",
+    "panels": {
+      "plainText": "Platte tekst",
+      "base64Input": "Base64-invoer",
+      "base64Output": "Base64-uitvoer",
+      "decodedText": "Gedecodeerde tekst"
+    },
+    "placeholders": {
+      "encode": "Voer tekst in om naar Base64 te encoderen…",
+      "decode": "Plak Base64 om te decoderen…"
+    },
+    "dropHere": "Zet bestand hier neer",
+    "charCount": "{count} tekens",
+    "download": {
+      "title": "Uitvoer downloaden",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Kopiëren naar klembord",
+    "outputPlaceholder": "Uitvoer verschijnt hier…",
+    "errors": {
+      "invalidBase64": "Ongeldige Base64-string. Controleer je invoer.",
+      "encodeFailed": "Kon invoer niet encoderen."
+    }
   }
 }

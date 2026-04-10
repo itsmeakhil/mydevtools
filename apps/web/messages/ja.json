@@ -1667,5 +1667,152 @@
       "invalid": "正規表現が無効です。",
       "runaway": "{max} 件で停止しました（暴走している可能性があります）。"
     }
+  },
+  "TimestampConverter": {
+    "title": "タイムスタンプ変換",
+    "subtitle": "Unix秒（10桁以下）またはミリ秒（それ以上の整数）、<code>ISO-8601</code>、またはブラウザが解釈できる文字列に対応します。すべてローカルで動作します。",
+    "inputLabel": "入力",
+    "placeholder": "1744200000 または 2025-04-09T12:00:00Z",
+    "now": "今",
+    "copy": "コピー",
+    "hint": "値を貼り付けるか <strong>今</strong> をクリックしてください。",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "相対",
+      "human": "表示"
+    },
+    "fields": {
+      "seconds": "秒",
+      "milliseconds": "ミリ秒",
+      "utc": "UTC",
+      "local": "ローカル",
+      "distance": "差"
+    },
+    "errors": {
+      "empty": "Unixタイムスタンプ、ISO文字列、または日付テキストを入力してください。",
+      "invalidNumber": "数値のタイムスタンプが無効です。",
+      "outOfRange": "JavaScript Date の範囲外です。",
+      "couldNotParse": "Unix/ISO-8601/ブラウザ日付として解析できませんでした。"
+    }
+  },
+  "CronBuilder": {
+    "title": "Cron 式ビルダー",
+    "subtitle": "標準の5フィールドcron: <mono>minute hour day month weekday</mono>。パーサーは内部で seconds=<code>0</code> を使用します。式エディターでは任意の6フィールド（<mono>sec min hour dom mon dow</mono>）も利用できます。",
+    "tabs": {
+      "builder": "ビジュアルビルダー",
+      "expression": "式"
+    },
+    "presetsLabel": "プリセット",
+    "fieldsLabel": "フィールド",
+    "rawExpressionLabel": "生の式",
+    "expressionHint": "フォーカスを外すと解析してビルダーに同期します。{count} {count, plural, one {トークン} other {トークン}}。",
+    "currentExpressionLabel": "現在の式",
+    "copy": "コピー",
+    "quickPick": "クイック選択",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "説明",
+    "nextRunsLabel": "次の実行（ローカル）",
+    "fields": {
+      "minute": "分",
+      "hour": "時",
+      "dayOfMonth": "日",
+      "month": "月",
+      "dayOfWeek": "曜日"
+    },
+    "presets": {
+      "everyMinute": "毎分",
+      "every5Minutes": "5分ごと",
+      "every15Minutes": "15分ごと",
+      "everyHour": "毎時（:00）",
+      "every6Hours": "6時間ごと",
+      "dailyMidnight": "毎日0:00",
+      "daily0900": "毎日09:00",
+      "weekdays0900": "平日09:00",
+      "weeklySunday": "毎週（日 00:00）",
+      "monthlyFirst": "毎月（1日 00:00）",
+      "yearlyJan1": "毎年（1/1 00:00）"
+    },
+    "picks": {
+      "minute": {
+        "every": "毎分"
+      },
+      "hour": {
+        "every": "毎時"
+      },
+      "dom": {
+        "any": "任意の日",
+        "last": "月末"
+      },
+      "month": {
+        "every": "毎月"
+      },
+      "dow": {
+        "any": "任意の曜日",
+        "weekdays": "平日",
+        "weekend": "週末"
+      }
+    },
+    "months": {
+      "jan": "1月",
+      "feb": "2月",
+      "mar": "3月",
+      "apr": "4月",
+      "may": "5月",
+      "jun": "6月",
+      "jul": "7月",
+      "aug": "8月",
+      "sep": "9月",
+      "oct": "10月",
+      "nov": "11月",
+      "dec": "12月"
+    },
+    "weekdays": {
+      "sun": "日",
+      "mon": "月",
+      "tue": "火",
+      "wed": "水",
+      "thu": "木",
+      "fri": "金",
+      "sat": "土"
+    },
+    "errors": {
+      "fieldCount": "5フィールド（minute hour day month weekday）または秒を含む6フィールドが必要です。",
+      "invalid": "cron式が無効です。"
+    }
+  },
+  "Base64": {
+    "title": "Base64 エンコード / デコード",
+    "subtitle": "テキストを Base64 にエンコード、または Base64 文字列をデコードします",
+    "upload": "アップロード",
+    "clear": "クリア",
+    "modes": {
+      "encode": "エンコード",
+      "decode": "デコード"
+    },
+    "swapTitle": "入力と出力を入れ替え",
+    "panels": {
+      "plainText": "プレーンテキスト",
+      "base64Input": "Base64 入力",
+      "base64Output": "Base64 出力",
+      "decodedText": "デコード結果"
+    },
+    "placeholders": {
+      "encode": "Base64 にエンコードするテキストを入力…",
+      "decode": "デコードする Base64 を貼り付け…"
+    },
+    "dropHere": "ここにファイルをドロップ",
+    "charCount": "{count} 文字",
+    "download": {
+      "title": "出力をダウンロード",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "クリップボードにコピー",
+    "outputPlaceholder": "ここに出力が表示されます…",
+    "errors": {
+      "invalidBase64": "無効な Base64 文字列です。入力を確認してください。",
+      "encodeFailed": "エンコードに失敗しました。"
+    }
   }
 }

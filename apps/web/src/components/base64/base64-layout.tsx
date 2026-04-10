@@ -15,10 +15,12 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 type Mode = 'encode' | 'decode';
 
 export function Base64Layout() {
+  const t = useTranslations('Base64');
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [mode, setMode] = useState<Mode>('encode');
@@ -56,15 +58,11 @@ export function Base64Layout() {
           setOutput(decoded);
         }
       } catch {
-        setError(
-          currentMode === 'decode'
-            ? 'Invalid Base64 string. Please check your input.'
-            : 'Failed to encode the input.'
-        );
+        setError(currentMode === 'decode' ? t('errors.invalidBase64') : t('errors.encodeFailed'));
         setOutput('');
       }
     },
-    []
+    [t]
   );
 
   const handleInputChange = (value: string) => {
@@ -84,9 +82,13 @@ export function Base64Layout() {
 
   const handleCopy = async () => {
     if (!output) return;
-    await navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(output);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // ignore clipboard failures
+    }
   };
 
   const handleClear = () => {
@@ -120,7 +122,7 @@ export function Base64Layout() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = mode === 'encode' ? 'encoded.b64' : 'decoded.txt';
+    a.download = mode === 'encode' ? t('download.encodedFilename') : t('download.decodedFilename');
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -149,10 +151,8 @@ export function Base64Layout() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shrink-0">
         <div>
-          <h1 className="text-lg font-semibold tracking-tight">Base64 Encoder / Decoder</h1>
-          <p className="text-xs text-muted-foreground">
-            Encode text to Base64 or decode Base64 strings
-          </p>
+          <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
+          <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
         </div>
         <div className="flex items-center gap-2">
           <Button
@@ -162,7 +162,7 @@ export function Base64Layout() {
             onClick={() => fileInputRef.current?.click()}
           >
             <Upload className="h-3.5 w-3.5" />
-            Upload
+            {t('upload')}
           </Button>
           <input
             ref={fileInputRef}
@@ -177,7 +177,7 @@ export function Base64Layout() {
           />
           <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={handleClear}>
             <Trash2 className="h-3.5 w-3.5" />
-            Clear
+            {t('clear')}
           </Button>
         </div>
       </div>
@@ -199,12 +199,12 @@ export function Base64Layout() {
                 : 'text-muted-foreground hover:text-foreground'
             )}
           >
-            Encode
+            {t('modes.encode')}
           </button>
           <button
             onClick={toggleMode}
             className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-background/50 transition-colors"
-            title="Swap input and output"
+            title={t('swapTitle')}
           >
             <ArrowRightLeft className="h-4 w-4" />
           </button>
@@ -222,7 +222,7 @@ export function Base64Layout() {
                 : 'text-muted-foreground hover:text-foreground'
             )}
           >
-            Decode
+            {t('modes.decode')}
           </button>
         </div>
       </div>
@@ -243,11 +243,11 @@ export function Base64Layout() {
             <div className="flex items-center gap-2">
               <FileText className="h-3.5 w-3.5 text-muted-foreground" />
               <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                {mode === 'encode' ? 'Plain Text' : 'Base64 Input'}
+                {mode === 'encode' ? t('panels.plainText') : t('panels.base64Input')}
               </Label>
             </div>
             <span className="text-[10px] text-muted-foreground tabular-nums">
-              {charCount.toLocaleString()} chars
+              {t('charCount', { count: charCount.toLocaleString() })}
             </span>
           </div>
           <div className="flex-1 min-h-0 relative">
@@ -256,8 +256,8 @@ export function Base64Layout() {
               onChange={(e) => handleInputChange(e.target.value)}
               placeholder={
                 mode === 'encode'
-                  ? 'Enter text to encode to Base64…'
-                  : 'Paste Base64 string to decode…'
+                  ? t('placeholders.encode')
+                  : t('placeholders.decode')
               }
               className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm font-mono focus:outline-none placeholder:text-muted-foreground/50"
               spellCheck={false}
@@ -266,7 +266,7 @@ export function Base64Layout() {
               <div className="absolute inset-0 flex items-center justify-center bg-primary/5 backdrop-blur-sm">
                 <div className="flex flex-col items-center gap-2 text-primary">
                   <Upload className="h-8 w-8" />
-                  <span className="text-sm font-medium">Drop file here</span>
+                  <span className="text-sm font-medium">{t('dropHere')}</span>
                 </div>
               </div>
             )}
@@ -279,12 +279,12 @@ export function Base64Layout() {
             <div className="flex items-center gap-2">
               <FileText className="h-3.5 w-3.5 text-muted-foreground" />
               <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                {mode === 'encode' ? 'Base64 Output' : 'Decoded Text'}
+                {mode === 'encode' ? t('panels.base64Output') : t('panels.decodedText')}
               </Label>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-[10px] text-muted-foreground tabular-nums">
-                {outputCharCount.toLocaleString()} chars
+                {t('charCount', { count: outputCharCount.toLocaleString() })}
               </span>
               <Button
                 variant="ghost"
@@ -292,7 +292,7 @@ export function Base64Layout() {
                 className="h-6 w-6"
                 onClick={handleDownload}
                 disabled={!output}
-                title="Download output"
+                title={t('download.title')}
               >
                 <Download className="h-3 w-3" />
               </Button>
@@ -302,7 +302,7 @@ export function Base64Layout() {
                 className="h-6 w-6"
                 onClick={handleCopy}
                 disabled={!output}
-                title="Copy to clipboard"
+                title={t('copyTitle')}
               >
                 {copied ? (
                   <Check className="h-3 w-3 text-green-500" />
@@ -324,7 +324,7 @@ export function Base64Layout() {
               <textarea
                 value={output}
                 readOnly
-                placeholder="Output will appear here…"
+                placeholder={t('outputPlaceholder')}
                 className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm font-mono focus:outline-none placeholder:text-muted-foreground/50"
                 spellCheck={false}
               />

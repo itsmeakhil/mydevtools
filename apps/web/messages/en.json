@@ -1695,5 +1695,124 @@
       "outOfRange": "Out of range for JavaScript Date.",
       "couldNotParse": "Could not parse as Unix time, ISO-8601, or browser date string."
     }
+  },
+  "CronBuilder": {
+    "title": "Cron expression builder",
+    "subtitle": "Standard 5-field cron: <mono>minute hour day month weekday</mono>. Parser uses seconds=<code>0</code> internally. Optional 6-field (<mono>sec min hour dom mon dow</mono>) works in the expression editor.",
+    "tabs": {
+      "builder": "Visual builder",
+      "expression": "Expression"
+    },
+    "presetsLabel": "Presets",
+    "fieldsLabel": "Fields",
+    "rawExpressionLabel": "Raw expression",
+    "expressionHint": "Blur the field to parse and sync the builder. {count} {count, plural, one {token} other {tokens}}.",
+    "currentExpressionLabel": "Current expression",
+    "copy": "Copy",
+    "quickPick": "Quick pick",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Plain language",
+    "nextRunsLabel": "Next runs (local time)",
+    "fields": {
+      "minute": "Minute",
+      "hour": "Hour",
+      "dayOfMonth": "Day of month",
+      "month": "Month",
+      "dayOfWeek": "Day of week"
+    },
+    "presets": {
+      "everyMinute": "Every minute",
+      "every5Minutes": "Every 5 minutes",
+      "every15Minutes": "Every 15 minutes",
+      "everyHour": "Every hour (at :00)",
+      "every6Hours": "Every 6 hours",
+      "dailyMidnight": "Daily at midnight",
+      "daily0900": "Daily at 09:00",
+      "weekdays0900": "Weekdays at 09:00",
+      "weeklySunday": "Weekly (Sunday 00:00)",
+      "monthlyFirst": "Monthly (1st 00:00)",
+      "yearlyJan1": "Yearly (Jan 1 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "every minute"
+      },
+      "hour": {
+        "every": "every hour"
+      },
+      "dom": {
+        "any": "any day",
+        "last": "last day"
+      },
+      "month": {
+        "every": "every month"
+      },
+      "dow": {
+        "any": "any weekday",
+        "weekdays": "weekdays",
+        "weekend": "weekend"
+      }
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "May",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Dec"
+    },
+    "weekdays": {
+      "sun": "Sun",
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat"
+    },
+    "errors": {
+      "fieldCount": "Expected 5 fields (minute hour day month weekday) or 6 including seconds.",
+      "invalid": "Invalid cron expression."
+    }
+  },
+  "Base64": {
+    "title": "Base64 Encoder / Decoder",
+    "subtitle": "Encode text to Base64 or decode Base64 strings",
+    "upload": "Upload",
+    "clear": "Clear",
+    "modes": {
+      "encode": "Encode",
+      "decode": "Decode"
+    },
+    "swapTitle": "Swap input and output",
+    "panels": {
+      "plainText": "Plain Text",
+      "base64Input": "Base64 Input",
+      "base64Output": "Base64 Output",
+      "decodedText": "Decoded Text"
+    },
+    "placeholders": {
+      "encode": "Enter text to encode to Base64…",
+      "decode": "Paste Base64 string to decode…"
+    },
+    "dropHere": "Drop file here",
+    "charCount": "{count} chars",
+    "download": {
+      "title": "Download output",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Copy to clipboard",
+    "outputPlaceholder": "Output will appear here…",
+    "errors": {
+      "invalidBase64": "Invalid Base64 string. Please check your input.",
+      "encodeFailed": "Failed to encode the input."
+    }
   }
 }

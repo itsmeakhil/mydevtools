@@ -1667,5 +1667,152 @@
       "invalid": "Expressió regular no vàlida.",
       "runaway": "Aturat després de {max} coincidències (possible patró descontrolat)."
     }
+  },
+  "TimestampConverter": {
+    "title": "Convertidor de marques de temps",
+    "subtitle": "Segons Unix (≤10 dígits) o mil·lisegons (enters més llargs), <code>ISO-8601</code> o cadenes que el navegador pugui interpretar. Tot s’executa localment.",
+    "inputLabel": "Entrada",
+    "placeholder": "1744200000 o 2025-04-09T12:00:00Z",
+    "now": "Ara",
+    "copy": "Copia",
+    "hint": "Enganxa un valor o fes clic a <strong>Ara</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relatiu",
+      "human": "Llegible"
+    },
+    "fields": {
+      "seconds": "Segons",
+      "milliseconds": "Mil·lisegons",
+      "utc": "UTC",
+      "local": "Local",
+      "distance": "Distància"
+    },
+    "errors": {
+      "empty": "Introdueix un timestamp Unix, una cadena ISO o un text de data.",
+      "invalidNumber": "Timestamp numèric no vàlid.",
+      "outOfRange": "Fora de rang per a JavaScript Date.",
+      "couldNotParse": "No s’ha pogut interpretar com Unix, ISO-8601 o data del navegador."
+    }
+  },
+  "CronBuilder": {
+    "title": "Constructor d’expressions Cron",
+    "subtitle": "Cron estàndard de 5 camps: <mono>minute hour day month weekday</mono>. El parser usa seconds=<code>0</code> internament. El format opcional de 6 camps (<mono>sec min hour dom mon dow</mono>) funciona a l’editor.",
+    "tabs": {
+      "builder": "Constructor visual",
+      "expression": "Expressió"
+    },
+    "presetsLabel": "Predefinits",
+    "fieldsLabel": "Camps",
+    "rawExpressionLabel": "Expressió en brut",
+    "expressionHint": "Surt del camp per analitzar i sincronitzar el constructor. {count} {count, plural, one {token} other {tokens}}.",
+    "currentExpressionLabel": "Expressió actual",
+    "copy": "Copia",
+    "quickPick": "Tria ràpida",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Llenguatge natural",
+    "nextRunsLabel": "Properes execucions (hora local)",
+    "fields": {
+      "minute": "Minut",
+      "hour": "Hora",
+      "dayOfMonth": "Dia del mes",
+      "month": "Mes",
+      "dayOfWeek": "Dia de la setmana"
+    },
+    "presets": {
+      "everyMinute": "Cada minut",
+      "every5Minutes": "Cada 5 minuts",
+      "every15Minutes": "Cada 15 minuts",
+      "everyHour": "Cada hora (a :00)",
+      "every6Hours": "Cada 6 hores",
+      "dailyMidnight": "Diari a mitjanit",
+      "daily0900": "Diari a les 09:00",
+      "weekdays0900": "Feiners a les 09:00",
+      "weeklySunday": "Setmanal (diumenge 00:00)",
+      "monthlyFirst": "Mensual (dia 1 00:00)",
+      "yearlyJan1": "Anual (1 gen 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "cada minut"
+      },
+      "hour": {
+        "every": "cada hora"
+      },
+      "dom": {
+        "any": "qualsevol dia",
+        "last": "últim dia"
+      },
+      "month": {
+        "every": "cada mes"
+      },
+      "dow": {
+        "any": "qualsevol dia",
+        "weekdays": "feiners",
+        "weekend": "cap de setmana"
+      }
+    },
+    "months": {
+      "jan": "Gen",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Abr",
+      "may": "Mai",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Ago",
+      "sep": "Set",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Des"
+    },
+    "weekdays": {
+      "sun": "Dg",
+      "mon": "Dl",
+      "tue": "Dt",
+      "wed": "Dc",
+      "thu": "Dj",
+      "fri": "Dv",
+      "sat": "Ds"
+    },
+    "errors": {
+      "fieldCount": "S’esperaven 5 camps (minute hour day month weekday) o 6 incloent segons.",
+      "invalid": "Expressió cron no vàlida."
+    }
+  },
+  "Base64": {
+    "title": "Codificador / descodificador Base64",
+    "subtitle": "Codifica text a Base64 o descodifica cadenes Base64",
+    "upload": "Puja",
+    "clear": "Neteja",
+    "modes": {
+      "encode": "Codifica",
+      "decode": "Descodifica"
+    },
+    "swapTitle": "Intercanvia entrada i sortida",
+    "panels": {
+      "plainText": "Text pla",
+      "base64Input": "Entrada Base64",
+      "base64Output": "Sortida Base64",
+      "decodedText": "Text descodificat"
+    },
+    "placeholders": {
+      "encode": "Escriu text per codificar a Base64…",
+      "decode": "Enganxa una cadena Base64 per descodificar…"
+    },
+    "dropHere": "Deixa el fitxer aquí",
+    "charCount": "{count} caràcters",
+    "download": {
+      "title": "Descarrega la sortida",
+      "encodedFilename": "codificat.b64",
+      "decodedFilename": "descodificat.txt"
+    },
+    "copyTitle": "Copia al porta-retalls",
+    "outputPlaceholder": "La sortida apareixerà aquí…",
+    "errors": {
+      "invalidBase64": "Cadena Base64 no vàlida. Revisa l’entrada.",
+      "encodeFailed": "No s’ha pogut codificar l’entrada."
+    }
   }
 }

@@ -1667,5 +1667,152 @@
       "invalid": "Ogiltigt reguljärt uttryck.",
       "runaway": "Stoppade efter {max} träffar (möjligt skenande mönster)."
     }
+  },
+  "TimestampConverter": {
+    "title": "Tidsstämpelkonverterare",
+    "subtitle": "Unix-sekunder (≤10 siffror) eller millisekunder (längre heltal), <code>ISO-8601</code> eller strängar som din webbläsare kan tolka. Allt körs lokalt.",
+    "inputLabel": "Inmatning",
+    "placeholder": "1744200000 eller 2025-04-09T12:00:00Z",
+    "now": "Nu",
+    "copy": "Kopiera",
+    "hint": "Klistra in ett värde eller klicka <strong>Nu</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relativ",
+      "human": "Läsbart"
+    },
+    "fields": {
+      "seconds": "Sekunder",
+      "milliseconds": "Millisekunder",
+      "utc": "UTC",
+      "local": "Lokal",
+      "distance": "Avstånd"
+    },
+    "errors": {
+      "empty": "Ange en Unix-tidsstämpel, ISO-sträng eller datumtext.",
+      "invalidNumber": "Ogiltig numerisk tidsstämpel.",
+      "outOfRange": "Utanför intervallet för JavaScript Date.",
+      "couldNotParse": "Kunde inte tolka som Unix, ISO-8601 eller webbläsardatum."
+    }
+  },
+  "CronBuilder": {
+    "title": "Cron-uttrycksbyggare",
+    "subtitle": "Standard cron med 5 fält: <mono>minute hour day month weekday</mono>. Parsern använder seconds=<code>0</code> internt. Valfritt 6-fält (<mono>sec min hour dom mon dow</mono>) fungerar i uttryckseditorn.",
+    "tabs": {
+      "builder": "Visuell byggare",
+      "expression": "Uttryck"
+    },
+    "presetsLabel": "Förinställningar",
+    "fieldsLabel": "Fält",
+    "rawExpressionLabel": "Rått uttryck",
+    "expressionHint": "Lämna fältet för att tolka och synka byggaren. {count} {count, plural, one {token} other {tokens}}.",
+    "currentExpressionLabel": "Aktuellt uttryck",
+    "copy": "Kopiera",
+    "quickPick": "Snabbval",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Klartext",
+    "nextRunsLabel": "Nästa körningar (lokal tid)",
+    "fields": {
+      "minute": "Minut",
+      "hour": "Timme",
+      "dayOfMonth": "Dag i månaden",
+      "month": "Månad",
+      "dayOfWeek": "Veckodag"
+    },
+    "presets": {
+      "everyMinute": "Varje minut",
+      "every5Minutes": "Var 5:e minut",
+      "every15Minutes": "Var 15:e minut",
+      "everyHour": "Varje timme (vid :00)",
+      "every6Hours": "Var 6:e timme",
+      "dailyMidnight": "Dagligen vid midnatt",
+      "daily0900": "Dagligen kl 09:00",
+      "weekdays0900": "Vardagar kl 09:00",
+      "weeklySunday": "Veckovis (söndag 00:00)",
+      "monthlyFirst": "Månadsvis (1:a 00:00)",
+      "yearlyJan1": "Årligen (1 jan 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "varje minut"
+      },
+      "hour": {
+        "every": "varje timme"
+      },
+      "dom": {
+        "any": "valfri dag",
+        "last": "sista dagen"
+      },
+      "month": {
+        "every": "varje månad"
+      },
+      "dow": {
+        "any": "valfri veckodag",
+        "weekdays": "vardagar",
+        "weekend": "helg"
+      }
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "Maj",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Okt",
+      "nov": "Nov",
+      "dec": "Dec"
+    },
+    "weekdays": {
+      "sun": "Sön",
+      "mon": "Mån",
+      "tue": "Tis",
+      "wed": "Ons",
+      "thu": "Tor",
+      "fri": "Fre",
+      "sat": "Lör"
+    },
+    "errors": {
+      "fieldCount": "Förväntade 5 fält (minute hour day month weekday) eller 6 inklusive sekunder.",
+      "invalid": "Ogiltigt cron-uttryck."
+    }
+  },
+  "Base64": {
+    "title": "Base64-kodare / avkodare",
+    "subtitle": "Koda text till Base64 eller avkoda Base64-strängar",
+    "upload": "Ladda upp",
+    "clear": "Rensa",
+    "modes": {
+      "encode": "Koda",
+      "decode": "Avkoda"
+    },
+    "swapTitle": "Byt indata och utdata",
+    "panels": {
+      "plainText": "Vanlig text",
+      "base64Input": "Base64-indata",
+      "base64Output": "Base64-utdata",
+      "decodedText": "Avkodad text"
+    },
+    "placeholders": {
+      "encode": "Skriv text att koda till Base64…",
+      "decode": "Klistra in Base64 för att avkoda…"
+    },
+    "dropHere": "Släpp fil här",
+    "charCount": "{count} tecken",
+    "download": {
+      "title": "Ladda ner output",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Kopiera till urklipp",
+    "outputPlaceholder": "Output visas här…",
+    "errors": {
+      "invalidBase64": "Ogiltig Base64-sträng. Kontrollera indata.",
+      "encodeFailed": "Kunde inte koda indata."
+    }
   }
 }

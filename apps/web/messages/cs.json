@@ -1667,5 +1667,152 @@
       "invalid": "Neplatný regulární výraz.",
       "runaway": "Zastaveno po {max} shodách (možný „runaway“ vzor)."
     }
+  },
+  "TimestampConverter": {
+    "title": "Převodník časových razítek",
+    "subtitle": "Unix sekundy (≤10 číslic) nebo milisekundy (delší celá čísla), <code>ISO-8601</code> nebo řetězce, které prohlížeč umí přečíst. Vše běží lokálně.",
+    "inputLabel": "Vstup",
+    "placeholder": "1744200000 nebo 2025-04-09T12:00:00Z",
+    "now": "Teď",
+    "copy": "Kopírovat",
+    "hint": "Vložte hodnotu nebo klikněte na <strong>Teď</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relativní",
+      "human": "Čitelné"
+    },
+    "fields": {
+      "seconds": "Sekundy",
+      "milliseconds": "Milisekundy",
+      "utc": "UTC",
+      "local": "Lokálně",
+      "distance": "Rozdíl"
+    },
+    "errors": {
+      "empty": "Zadejte unixové razítko, ISO řetězec nebo text data.",
+      "invalidNumber": "Neplatné číselné razítko.",
+      "outOfRange": "Mimo rozsah pro JavaScript Date.",
+      "couldNotParse": "Nelze přečíst jako Unix, ISO-8601 nebo datum prohlížeče."
+    }
+  },
+  "CronBuilder": {
+    "title": "Tvůrce cron výrazů",
+    "subtitle": "Standardní cron s 5 poli: <mono>minute hour day month weekday</mono>. Parser interně používá seconds=<code>0</code>. Volitelný 6-pólový formát (<mono>sec min hour dom mon dow</mono>) funguje v editoru.",
+    "tabs": {
+      "builder": "Vizuální tvůrce",
+      "expression": "Výraz"
+    },
+    "presetsLabel": "Předvolby",
+    "fieldsLabel": "Pole",
+    "rawExpressionLabel": "Surový výraz",
+    "expressionHint": "Opuštěním pole dojde k parsování a synchronizaci tvůrce. {count} {count, plural, one {token} few {tokeny} other {tokenů}}.",
+    "currentExpressionLabel": "Aktuální výraz",
+    "copy": "Kopírovat",
+    "quickPick": "Rychlý výběr",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Popis",
+    "nextRunsLabel": "Další spuštění (místní čas)",
+    "fields": {
+      "minute": "Minuta",
+      "hour": "Hodina",
+      "dayOfMonth": "Den v měsíci",
+      "month": "Měsíc",
+      "dayOfWeek": "Den v týdnu"
+    },
+    "presets": {
+      "everyMinute": "Každou minutu",
+      "every5Minutes": "Každých 5 minut",
+      "every15Minutes": "Každých 15 minut",
+      "everyHour": "Každou hodinu (v :00)",
+      "every6Hours": "Každých 6 hodin",
+      "dailyMidnight": "Denně o půlnoci",
+      "daily0900": "Denně v 09:00",
+      "weekdays0900": "Ve všední dny v 09:00",
+      "weeklySunday": "Týdně (neděle 00:00)",
+      "monthlyFirst": "Měsíčně (1. 00:00)",
+      "yearlyJan1": "Ročně (1. led 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "každou minutu"
+      },
+      "hour": {
+        "every": "každou hodinu"
+      },
+      "dom": {
+        "any": "libovolný den",
+        "last": "poslední den"
+      },
+      "month": {
+        "every": "každý měsíc"
+      },
+      "dow": {
+        "any": "libovolný den",
+        "weekdays": "všední dny",
+        "weekend": "víkend"
+      }
+    },
+    "months": {
+      "jan": "Led",
+      "feb": "Úno",
+      "mar": "Bře",
+      "apr": "Dub",
+      "may": "Kvě",
+      "jun": "Čvn",
+      "jul": "Čvc",
+      "aug": "Srp",
+      "sep": "Zář",
+      "oct": "Říj",
+      "nov": "Lis",
+      "dec": "Pro"
+    },
+    "weekdays": {
+      "sun": "Ne",
+      "mon": "Po",
+      "tue": "Út",
+      "wed": "St",
+      "thu": "Čt",
+      "fri": "Pá",
+      "sat": "So"
+    },
+    "errors": {
+      "fieldCount": "Očekáváno 5 polí (minute hour day month weekday) nebo 6 včetně sekund.",
+      "invalid": "Neplatný cron výraz."
+    }
+  },
+  "Base64": {
+    "title": "Base64 kodér / dekodér",
+    "subtitle": "Kódujte text do Base64 nebo dekódujte Base64 řetězce",
+    "upload": "Nahrát",
+    "clear": "Vymazat",
+    "modes": {
+      "encode": "Kódovat",
+      "decode": "Dekódovat"
+    },
+    "swapTitle": "Prohodit vstup a výstup",
+    "panels": {
+      "plainText": "Prostý text",
+      "base64Input": "Vstup Base64",
+      "base64Output": "Výstup Base64",
+      "decodedText": "Dekódovaný text"
+    },
+    "placeholders": {
+      "encode": "Zadejte text pro kódování do Base64…",
+      "decode": "Vložte Base64 řetězec k dekódování…"
+    },
+    "dropHere": "Pusťte soubor sem",
+    "charCount": "{count} znaků",
+    "download": {
+      "title": "Stáhnout výstup",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Kopírovat do schránky",
+    "outputPlaceholder": "Výstup se zobrazí zde…",
+    "errors": {
+      "invalidBase64": "Neplatný Base64 řetězec. Zkontrolujte vstup.",
+      "encodeFailed": "Kódování se nezdařilo."
+    }
   }
 }

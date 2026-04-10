@@ -1667,5 +1667,152 @@
       "invalid": "Expresión regular no válida.",
       "runaway": "Se detuvo tras {max} coincidencias (posible patrón descontrolado)."
     }
+  },
+  "TimestampConverter": {
+    "title": "Conversor de marcas de tiempo",
+    "subtitle": "Segundos Unix (≤10 dígitos) o milisegundos (enteros más largos), <code>ISO-8601</code> o cadenas que tu navegador pueda interpretar. Todo se ejecuta localmente.",
+    "inputLabel": "Entrada",
+    "placeholder": "1744200000 o 2025-04-09T12:00:00Z",
+    "now": "Ahora",
+    "copy": "Copiar",
+    "hint": "Pega un valor o haz clic en <strong>Ahora</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relativo",
+      "human": "Legible"
+    },
+    "fields": {
+      "seconds": "Segundos",
+      "milliseconds": "Milisegundos",
+      "utc": "UTC",
+      "local": "Local",
+      "distance": "Distancia"
+    },
+    "errors": {
+      "empty": "Introduce un timestamp Unix, una cadena ISO o un texto de fecha.",
+      "invalidNumber": "Timestamp numérico no válido.",
+      "outOfRange": "Fuera de rango para Date de JavaScript.",
+      "couldNotParse": "No se pudo interpretar como Unix, ISO-8601 o fecha del navegador."
+    }
+  },
+  "CronBuilder": {
+    "title": "Constructor de expresiones Cron",
+    "subtitle": "Cron estándar de 5 campos: <mono>minuto hora día mes día_semana</mono>. El analizador usa seconds=<code>0</code> internamente. El formato opcional de 6 campos (<mono>seg min hora dom mes dow</mono>) funciona en el editor.",
+    "tabs": {
+      "builder": "Constructor visual",
+      "expression": "Expresión"
+    },
+    "presetsLabel": "Preajustes",
+    "fieldsLabel": "Campos",
+    "rawExpressionLabel": "Expresión cruda",
+    "expressionHint": "Quita el foco del campo para analizar y sincronizar el constructor. {count} {count, plural, one {token} other {tokens}}.",
+    "currentExpressionLabel": "Expresión actual",
+    "copy": "Copiar",
+    "quickPick": "Selección rápida",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Lenguaje natural",
+    "nextRunsLabel": "Próximas ejecuciones (hora local)",
+    "fields": {
+      "minute": "Minuto",
+      "hour": "Hora",
+      "dayOfMonth": "Día del mes",
+      "month": "Mes",
+      "dayOfWeek": "Día de la semana"
+    },
+    "presets": {
+      "everyMinute": "Cada minuto",
+      "every5Minutes": "Cada 5 minutos",
+      "every15Minutes": "Cada 15 minutos",
+      "everyHour": "Cada hora (en :00)",
+      "every6Hours": "Cada 6 horas",
+      "dailyMidnight": "Diario a medianoche",
+      "daily0900": "Diario a las 09:00",
+      "weekdays0900": "Laborables a las 09:00",
+      "weeklySunday": "Semanal (domingo 00:00)",
+      "monthlyFirst": "Mensual (día 1 00:00)",
+      "yearlyJan1": "Anual (1 ene 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "cada minuto"
+      },
+      "hour": {
+        "every": "cada hora"
+      },
+      "dom": {
+        "any": "cualquier día",
+        "last": "último día"
+      },
+      "month": {
+        "every": "cada mes"
+      },
+      "dow": {
+        "any": "cualquier día",
+        "weekdays": "laborables",
+        "weekend": "fin de semana"
+      }
+    },
+    "months": {
+      "jan": "Ene",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Abr",
+      "may": "May",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Ago",
+      "sep": "Sep",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Dic"
+    },
+    "weekdays": {
+      "sun": "Dom",
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mié",
+      "thu": "Jue",
+      "fri": "Vie",
+      "sat": "Sáb"
+    },
+    "errors": {
+      "fieldCount": "Se esperaban 5 campos (minuto hora día mes día_semana) o 6 incluyendo segundos.",
+      "invalid": "Expresión cron no válida."
+    }
+  },
+  "Base64": {
+    "title": "Codificador / decodificador Base64",
+    "subtitle": "Codifica texto en Base64 o decodifica cadenas Base64",
+    "upload": "Subir",
+    "clear": "Limpiar",
+    "modes": {
+      "encode": "Codificar",
+      "decode": "Decodificar"
+    },
+    "swapTitle": "Intercambiar entrada y salida",
+    "panels": {
+      "plainText": "Texto plano",
+      "base64Input": "Entrada Base64",
+      "base64Output": "Salida Base64",
+      "decodedText": "Texto decodificado"
+    },
+    "placeholders": {
+      "encode": "Introduce texto para codificar en Base64…",
+      "decode": "Pega una cadena Base64 para decodificar…"
+    },
+    "dropHere": "Suelta el archivo aquí",
+    "charCount": "{count} caracteres",
+    "download": {
+      "title": "Descargar salida",
+      "encodedFilename": "codificado.b64",
+      "decodedFilename": "decodificado.txt"
+    },
+    "copyTitle": "Copiar al portapapeles",
+    "outputPlaceholder": "La salida aparecerá aquí…",
+    "errors": {
+      "invalidBase64": "Cadena Base64 no válida. Revisa tu entrada.",
+      "encodeFailed": "No se pudo codificar la entrada."
+    }
   }
 }

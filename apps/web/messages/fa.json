@@ -1667,5 +1667,152 @@
       "invalid": "عبارت باقاعده نامعتبر است.",
       "runaway": "پس از {max} تطبیق متوقف شد (احتمال الگوی runaway)."
     }
+  },
+  "TimestampConverter": {
+    "title": "مبدل تایم‌استمپ",
+    "subtitle": "ثانیهٔ یونیکس (≤۱۰ رقم) یا میلی‌ثانیه (اعداد بلندتر)، <code>ISO-8601</code> یا رشته‌هایی که مرورگر می‌تواند تحلیل کند. همه چیز محلی اجرا می‌شود.",
+    "inputLabel": "ورودی",
+    "placeholder": "1744200000 یا 2025-04-09T12:00:00Z",
+    "now": "اکنون",
+    "copy": "کپی",
+    "hint": "یک مقدار بچسبانید یا روی <strong>اکنون</strong> کلیک کنید.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "نسبی",
+      "human": "خوانا"
+    },
+    "fields": {
+      "seconds": "ثانیه",
+      "milliseconds": "میلی‌ثانیه",
+      "utc": "UTC",
+      "local": "محلی",
+      "distance": "فاصله"
+    },
+    "errors": {
+      "empty": "یک تایم‌استمپ یونیکس، رشتهٔ ISO یا متن تاریخ وارد کنید.",
+      "invalidNumber": "تایم‌استمپ عددی نامعتبر است.",
+      "outOfRange": "خارج از محدودهٔ JavaScript Date.",
+      "couldNotParse": "به‌عنوان Unix، ISO-8601 یا تاریخ قابل‌تحلیل مرورگر قابل پردازش نیست."
+    }
+  },
+  "CronBuilder": {
+    "title": "سازندهٔ عبارت Cron",
+    "subtitle": "کرون استاندارد ۵ فیلدی: <mono>minute hour day month weekday</mono>. مفسر به‌صورت داخلی seconds=<code>0</code> را استفاده می‌کند. فرمت اختیاری ۶ فیلدی (<mono>sec min hour dom mon dow</mono>) در ویرایشگر عبارت کار می‌کند.",
+    "tabs": {
+      "builder": "سازندهٔ بصری",
+      "expression": "عبارت"
+    },
+    "presetsLabel": "پیش‌فرض‌ها",
+    "fieldsLabel": "فیلدها",
+    "rawExpressionLabel": "عبارت خام",
+    "expressionHint": "برای تجزیه و همگام‌سازی، از فیلد خارج شوید. {count} {count, plural, one {توکن} other {توکن}}.",
+    "currentExpressionLabel": "عبارت فعلی",
+    "copy": "کپی",
+    "quickPick": "انتخاب سریع",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "توضیح متنی",
+    "nextRunsLabel": "اجراهای بعدی (زمان محلی)",
+    "fields": {
+      "minute": "دقیقه",
+      "hour": "ساعت",
+      "dayOfMonth": "روز ماه",
+      "month": "ماه",
+      "dayOfWeek": "روز هفته"
+    },
+    "presets": {
+      "everyMinute": "هر دقیقه",
+      "every5Minutes": "هر ۵ دقیقه",
+      "every15Minutes": "هر ۱۵ دقیقه",
+      "everyHour": "هر ساعت (در :00)",
+      "every6Hours": "هر ۶ ساعت",
+      "dailyMidnight": "روزانه در نیمه‌شب",
+      "daily0900": "روزانه در 09:00",
+      "weekdays0900": "روزهای کاری در 09:00",
+      "weeklySunday": "هفتگی (یکشنبه 00:00)",
+      "monthlyFirst": "ماهانه (روز 1، 00:00)",
+      "yearlyJan1": "سالانه (1 ژانویه 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "هر دقیقه"
+      },
+      "hour": {
+        "every": "هر ساعت"
+      },
+      "dom": {
+        "any": "هر روز",
+        "last": "آخرین روز"
+      },
+      "month": {
+        "every": "هر ماه"
+      },
+      "dow": {
+        "any": "هر روز",
+        "weekdays": "روزهای کاری",
+        "weekend": "آخر هفته"
+      }
+    },
+    "months": {
+      "jan": "ژان",
+      "feb": "فور",
+      "mar": "مار",
+      "apr": "آپر",
+      "may": "مه",
+      "jun": "ژوئن",
+      "jul": "ژوئیه",
+      "aug": "اوت",
+      "sep": "سپت",
+      "oct": "اکت",
+      "nov": "نوا",
+      "dec": "دسا"
+    },
+    "weekdays": {
+      "sun": "یک",
+      "mon": "دو",
+      "tue": "سه",
+      "wed": "چه",
+      "thu": "پنج",
+      "fri": "جمع",
+      "sat": "شنبه"
+    },
+    "errors": {
+      "fieldCount": "انتظار می‌رود ۵ فیلد (minute hour day month weekday) یا ۶ فیلد با ثانیه باشد.",
+      "invalid": "عبارت cron نامعتبر است."
+    }
+  },
+  "Base64": {
+    "title": "رمزگذار / رمزگشای Base64",
+    "subtitle": "متن را به Base64 رمزگذاری کنید یا رشته‌های Base64 را رمزگشایی کنید",
+    "upload": "آپلود",
+    "clear": "پاک کردن",
+    "modes": {
+      "encode": "رمزگذاری",
+      "decode": "رمزگشایی"
+    },
+    "swapTitle": "جابه‌جایی ورودی و خروجی",
+    "panels": {
+      "plainText": "متن ساده",
+      "base64Input": "ورودی Base64",
+      "base64Output": "خروجی Base64",
+      "decodedText": "متن رمزگشایی‌شده"
+    },
+    "placeholders": {
+      "encode": "متن را برای رمزگذاری Base64 وارد کنید…",
+      "decode": "رشتهٔ Base64 را برای رمزگشایی بچسبانید…"
+    },
+    "dropHere": "فایل را اینجا رها کنید",
+    "charCount": "{count} نویسه",
+    "download": {
+      "title": "دانلود خروجی",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "کپی در کلیپ‌بورد",
+    "outputPlaceholder": "خروجی اینجا نمایش داده می‌شود…",
+    "errors": {
+      "invalidBase64": "رشتهٔ Base64 نامعتبر است. ورودی را بررسی کنید.",
+      "encodeFailed": "رمزگذاری ورودی ناموفق بود."
+    }
   }
 }

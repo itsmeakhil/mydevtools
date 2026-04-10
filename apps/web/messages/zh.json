@@ -1667,5 +1667,152 @@
       "invalid": "正则表达式无效。",
       "runaway": "在 {max} 次匹配后停止（可能存在失控的模式）。"
     }
+  },
+  "TimestampConverter": {
+    "title": "时间戳转换器",
+    "subtitle": "支持 Unix 秒（≤10 位）或毫秒（更长整数）、<code>ISO-8601</code>，或浏览器可解析的日期字符串。全部在本地运行。",
+    "inputLabel": "输入",
+    "placeholder": "1744200000 或 2025-04-09T12:00:00Z",
+    "now": "现在",
+    "copy": "复制",
+    "hint": "粘贴一个值或点击 <strong>现在</strong>。",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "相对",
+      "human": "可读格式"
+    },
+    "fields": {
+      "seconds": "秒",
+      "milliseconds": "毫秒",
+      "utc": "UTC",
+      "local": "本地",
+      "distance": "距离"
+    },
+    "errors": {
+      "empty": "请输入 Unix 时间戳、ISO 字符串或日期文本。",
+      "invalidNumber": "数字时间戳无效。",
+      "outOfRange": "超出 JavaScript Date 范围。",
+      "couldNotParse": "无法按 Unix、ISO-8601 或浏览器日期字符串解析。"
+    }
+  },
+  "CronBuilder": {
+    "title": "Cron 表达式生成器",
+    "subtitle": "标准 5 段 cron：<mono>minute hour day month weekday</mono>。解析器内部使用 seconds=<code>0</code>。表达式编辑器也支持可选的 6 段格式（<mono>sec min hour dom mon dow</mono>）。",
+    "tabs": {
+      "builder": "可视化构建器",
+      "expression": "表达式"
+    },
+    "presetsLabel": "预设",
+    "fieldsLabel": "字段",
+    "rawExpressionLabel": "原始表达式",
+    "expressionHint": "离开输入框以解析并同步构建器。{count} 个{count, plural, one {token} other {tokens}}。",
+    "currentExpressionLabel": "当前表达式",
+    "copy": "复制",
+    "quickPick": "快速选择",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "自然语言",
+    "nextRunsLabel": "下次运行（本地时间）",
+    "fields": {
+      "minute": "分钟",
+      "hour": "小时",
+      "dayOfMonth": "月中的天",
+      "month": "月份",
+      "dayOfWeek": "星期"
+    },
+    "presets": {
+      "everyMinute": "每分钟",
+      "every5Minutes": "每 5 分钟",
+      "every15Minutes": "每 15 分钟",
+      "everyHour": "每小时（:00）",
+      "every6Hours": "每 6 小时",
+      "dailyMidnight": "每天午夜",
+      "daily0900": "每天 09:00",
+      "weekdays0900": "工作日 09:00",
+      "weeklySunday": "每周（周日 00:00）",
+      "monthlyFirst": "每月（1 日 00:00）",
+      "yearlyJan1": "每年（1 月 1 日 00:00）"
+    },
+    "picks": {
+      "minute": {
+        "every": "每分钟"
+      },
+      "hour": {
+        "every": "每小时"
+      },
+      "dom": {
+        "any": "任意日",
+        "last": "最后一天"
+      },
+      "month": {
+        "every": "每月"
+      },
+      "dow": {
+        "any": "任意星期",
+        "weekdays": "工作日",
+        "weekend": "周末"
+      }
+    },
+    "months": {
+      "jan": "1月",
+      "feb": "2月",
+      "mar": "3月",
+      "apr": "4月",
+      "may": "5月",
+      "jun": "6月",
+      "jul": "7月",
+      "aug": "8月",
+      "sep": "9月",
+      "oct": "10月",
+      "nov": "11月",
+      "dec": "12月"
+    },
+    "weekdays": {
+      "sun": "日",
+      "mon": "一",
+      "tue": "二",
+      "wed": "三",
+      "thu": "四",
+      "fri": "五",
+      "sat": "六"
+    },
+    "errors": {
+      "fieldCount": "需要 5 段（minute hour day month weekday）或包含秒的 6 段。",
+      "invalid": "无效的 cron 表达式。"
+    }
+  },
+  "Base64": {
+    "title": "Base64 编码 / 解码",
+    "subtitle": "将文本编码为 Base64 或解码 Base64 字符串",
+    "upload": "上传",
+    "clear": "清空",
+    "modes": {
+      "encode": "编码",
+      "decode": "解码"
+    },
+    "swapTitle": "交换输入与输出",
+    "panels": {
+      "plainText": "纯文本",
+      "base64Input": "Base64 输入",
+      "base64Output": "Base64 输出",
+      "decodedText": "解码文本"
+    },
+    "placeholders": {
+      "encode": "输入要编码为 Base64 的文本…",
+      "decode": "粘贴要解码的 Base64 字符串…"
+    },
+    "dropHere": "将文件拖放到这里",
+    "charCount": "{count} 个字符",
+    "download": {
+      "title": "下载输出",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "复制到剪贴板",
+    "outputPlaceholder": "输出将显示在这里…",
+    "errors": {
+      "invalidBase64": "无效的 Base64 字符串，请检查输入。",
+      "encodeFailed": "编码失败。"
+    }
   }
 }

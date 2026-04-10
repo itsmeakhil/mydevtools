@@ -1667,5 +1667,152 @@
       "invalid": "Ekspresi reguler tidak valid.",
       "runaway": "Dihentikan setelah {max} kecocokan (kemungkinan pola runaway)."
     }
+  },
+  "TimestampConverter": {
+    "title": "Konverter timestamp",
+    "subtitle": "Detik Unix (≤10 digit) atau milidetik (bilangan lebih panjang), <code>ISO-8601</code>, atau string yang bisa diparse browser. Semua berjalan lokal.",
+    "inputLabel": "Input",
+    "placeholder": "1744200000 atau 2025-04-09T12:00:00Z",
+    "now": "Sekarang",
+    "copy": "Salin",
+    "hint": "Tempel nilai atau klik <strong>Sekarang</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relatif",
+      "human": "Mudah dibaca"
+    },
+    "fields": {
+      "seconds": "Detik",
+      "milliseconds": "Milidetik",
+      "utc": "UTC",
+      "local": "Lokal",
+      "distance": "Jarak"
+    },
+    "errors": {
+      "empty": "Masukkan timestamp Unix, string ISO, atau teks tanggal.",
+      "invalidNumber": "Timestamp numerik tidak valid.",
+      "outOfRange": "Di luar rentang untuk JavaScript Date.",
+      "couldNotParse": "Tidak dapat diparse sebagai Unix, ISO-8601, atau tanggal browser."
+    }
+  },
+  "CronBuilder": {
+    "title": "Pembuat ekspresi Cron",
+    "subtitle": "Cron standar 5 bidang: <mono>minute hour day month weekday</mono>. Parser menggunakan seconds=<code>0</code> secara internal. Format opsional 6 bidang (<mono>sec min hour dom mon dow</mono>) berfungsi di editor ekspresi.",
+    "tabs": {
+      "builder": "Pembuat visual",
+      "expression": "Ekspresi"
+    },
+    "presetsLabel": "Preset",
+    "fieldsLabel": "Bidang",
+    "rawExpressionLabel": "Ekspresi mentah",
+    "expressionHint": "Keluar dari field untuk mem-parse dan menyinkronkan pembuat. {count} {count, plural, one {token} other {token}}.",
+    "currentExpressionLabel": "Ekspresi saat ini",
+    "copy": "Salin",
+    "quickPick": "Pilih cepat",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Bahasa natural",
+    "nextRunsLabel": "Jadwal berikutnya (waktu lokal)",
+    "fields": {
+      "minute": "Menit",
+      "hour": "Jam",
+      "dayOfMonth": "Hari dalam bulan",
+      "month": "Bulan",
+      "dayOfWeek": "Hari dalam minggu"
+    },
+    "presets": {
+      "everyMinute": "Setiap menit",
+      "every5Minutes": "Setiap 5 menit",
+      "every15Minutes": "Setiap 15 menit",
+      "everyHour": "Setiap jam (pada :00)",
+      "every6Hours": "Setiap 6 jam",
+      "dailyMidnight": "Harian tengah malam",
+      "daily0900": "Harian 09:00",
+      "weekdays0900": "Hari kerja 09:00",
+      "weeklySunday": "Mingguan (Minggu 00:00)",
+      "monthlyFirst": "Bulanan (tgl 1 00:00)",
+      "yearlyJan1": "Tahunan (1 Jan 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "setiap menit"
+      },
+      "hour": {
+        "every": "setiap jam"
+      },
+      "dom": {
+        "any": "hari apa saja",
+        "last": "hari terakhir"
+      },
+      "month": {
+        "every": "setiap bulan"
+      },
+      "dow": {
+        "any": "hari apa saja",
+        "weekdays": "hari kerja",
+        "weekend": "akhir pekan"
+      }
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "Mei",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Agu",
+      "sep": "Sep",
+      "oct": "Okt",
+      "nov": "Nov",
+      "dec": "Des"
+    },
+    "weekdays": {
+      "sun": "Min",
+      "mon": "Sen",
+      "tue": "Sel",
+      "wed": "Rab",
+      "thu": "Kam",
+      "fri": "Jum",
+      "sat": "Sab"
+    },
+    "errors": {
+      "fieldCount": "Diharapkan 5 bidang (minute hour day month weekday) atau 6 termasuk detik.",
+      "invalid": "Ekspresi cron tidak valid."
+    }
+  },
+  "Base64": {
+    "title": "Encoder / Decoder Base64",
+    "subtitle": "Encode teks ke Base64 atau decode string Base64",
+    "upload": "Unggah",
+    "clear": "Bersihkan",
+    "modes": {
+      "encode": "Encode",
+      "decode": "Decode"
+    },
+    "swapTitle": "Tukar input dan output",
+    "panels": {
+      "plainText": "Teks biasa",
+      "base64Input": "Input Base64",
+      "base64Output": "Output Base64",
+      "decodedText": "Teks ter-decode"
+    },
+    "placeholders": {
+      "encode": "Masukkan teks untuk di-encode ke Base64…",
+      "decode": "Tempel string Base64 untuk di-decode…"
+    },
+    "dropHere": "Jatuhkan file di sini",
+    "charCount": "{count} karakter",
+    "download": {
+      "title": "Unduh output",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Salin ke clipboard",
+    "outputPlaceholder": "Output akan muncul di sini…",
+    "errors": {
+      "invalidBase64": "String Base64 tidak valid. Periksa input.",
+      "encodeFailed": "Gagal meng-encode input."
+    }
   }
 }

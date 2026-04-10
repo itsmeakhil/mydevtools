@@ -25,83 +25,21 @@ import {
   validateCron,
 } from '@/lib/cron-utils';
 import { AlertCircle, Check, Copy } from 'lucide-react';
-
-const MINUTE_PICKS = [
-  { value: '*', label: '* (every minute)' },
-  { value: '*/2', label: '*/2' },
-  { value: '*/5', label: '*/5' },
-  { value: '*/10', label: '*/10' },
-  { value: '*/15', label: '*/15' },
-  { value: '*/30', label: '*/30' },
-  { value: '0', label: '0' },
-  { value: '15', label: '15' },
-  { value: '30', label: '30' },
-  { value: '45', label: '45' },
-];
-
-const HOUR_PICKS = [
-  { value: '*', label: '* (every hour)' },
-  { value: '*/2', label: '*/2' },
-  { value: '*/3', label: '*/3' },
-  { value: '*/6', label: '*/6' },
-  { value: '*/12', label: '*/12' },
-  ...Array.from({ length: 24 }, (_, h) => ({
-    value: String(h),
-    label: String(h),
-  })),
-];
-
-const DOM_PICKS = [
-  { value: '*', label: '* (any day)' },
-  { value: 'L', label: 'L (last day)' },
-  ...Array.from({ length: 31 }, (_, d) => ({
-    value: String(d + 1),
-    label: String(d + 1),
-  })),
-];
-
-const MONTH_PICKS = [
-  { value: '*', label: '* (every month)' },
-  { value: '1', label: 'Jan' },
-  { value: '2', label: 'Feb' },
-  { value: '3', label: 'Mar' },
-  { value: '4', label: 'Apr' },
-  { value: '5', label: 'May' },
-  { value: '6', label: 'Jun' },
-  { value: '7', label: 'Jul' },
-  { value: '8', label: 'Aug' },
-  { value: '9', label: 'Sep' },
-  { value: '10', label: 'Oct' },
-  { value: '11', label: 'Nov' },
-  { value: '12', label: 'Dec' },
-];
-
-const DOW_PICKS = [
-  { value: '*', label: '* (any weekday)' },
-  { value: '0', label: '0 Sun' },
-  { value: '1', label: '1 Mon' },
-  { value: '2', label: '2 Tue' },
-  { value: '3', label: '3 Wed' },
-  { value: '4', label: '4 Thu' },
-  { value: '5', label: '5 Fri' },
-  { value: '6', label: '6 Sat' },
-  { value: '1-5', label: '1–5 weekdays' },
-  { value: '0,6', label: '0,6 weekend' },
-];
-
-const PICKS = [MINUTE_PICKS, HOUR_PICKS, DOM_PICKS, MONTH_PICKS, DOW_PICKS];
+import { useLocale, useTranslations } from 'next-intl';
 
 function QuickPick({
   options,
   onPick,
+  placeholder,
 }: {
   options: { value: string; label: string }[];
   onPick: (v: string) => void;
+  placeholder: string;
 }) {
   return (
     <Select onValueChange={onPick}>
       <SelectTrigger className="h-8 w-[min(100%,11rem)] text-xs shrink-0">
-        <SelectValue placeholder="Quick pick" />
+        <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent className="max-h-60">
         {options.map((o) => (
@@ -115,6 +53,8 @@ function QuickPick({
 }
 
 export function CronBuilderLayout() {
+  const t = useTranslations('CronBuilder');
+  const locale = useLocale();
   const [expression, setExpression] = useState('0 * * * *');
   const [rawDraft, setRawDraft] = useState('0 * * * *');
   const [copied, setCopied] = useState(false);
@@ -126,7 +66,10 @@ export function CronBuilderLayout() {
   };
 
   const validation = useMemo(() => validateCron(expression), [expression]);
-  const human = useMemo(() => (validation.ok ? describeCron(expression) : null), [expression, validation.ok]);
+  const human = useMemo(
+    () => (validation.ok ? describeCron(expression, locale) : null),
+    [expression, validation.ok, locale]
+  );
   const nextRuns = useMemo(
     () => (validation.ok ? getNextRunDates(expression, 6) : null),
     [expression, validation.ok]
@@ -140,19 +83,99 @@ export function CronBuilderLayout() {
   };
 
   const copyExpr = async () => {
-    await navigator.clipboard.writeText(expression.trim());
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+    try {
+      await navigator.clipboard.writeText(expression.trim());
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      // ignore clipboard failures
+    }
   };
+
+  const monthShort = useMemo(
+    () => [
+      t('months.jan'),
+      t('months.feb'),
+      t('months.mar'),
+      t('months.apr'),
+      t('months.may'),
+      t('months.jun'),
+      t('months.jul'),
+      t('months.aug'),
+      t('months.sep'),
+      t('months.oct'),
+      t('months.nov'),
+      t('months.dec'),
+    ],
+    [t]
+  );
+
+  const weekdayShort = useMemo(
+    () => [
+      t('weekdays.sun'),
+      t('weekdays.mon'),
+      t('weekdays.tue'),
+      t('weekdays.wed'),
+      t('weekdays.thu'),
+      t('weekdays.fri'),
+      t('weekdays.sat'),
+    ],
+    [t]
+  );
+
+  const PICKS = useMemo(() => {
+    const minutePicks = [
+      { value: '*', label: `* (${t('picks.minute.every')})` },
+      { value: '*/2', label: '*/2' },
+      { value: '*/5', label: '*/5' },
+      { value: '*/10', label: '*/10' },
+      { value: '*/15', label: '*/15' },
+      { value: '*/30', label: '*/30' },
+      { value: '0', label: '0' },
+      { value: '15', label: '15' },
+      { value: '30', label: '30' },
+      { value: '45', label: '45' },
+    ];
+
+    const hourPicks = [
+      { value: '*', label: `* (${t('picks.hour.every')})` },
+      { value: '*/2', label: '*/2' },
+      { value: '*/3', label: '*/3' },
+      { value: '*/6', label: '*/6' },
+      { value: '*/12', label: '*/12' },
+      ...Array.from({ length: 24 }, (_, h) => ({ value: String(h), label: String(h) })),
+    ];
+
+    const domPicks = [
+      { value: '*', label: `* (${t('picks.dom.any')})` },
+      { value: 'L', label: `L (${t('picks.dom.last')})` },
+      ...Array.from({ length: 31 }, (_, d) => ({ value: String(d + 1), label: String(d + 1) })),
+    ];
+
+    const monthPicks = [
+      { value: '*', label: `* (${t('picks.month.every')})` },
+      ...monthShort.map((m, i) => ({ value: String(i + 1), label: m })),
+    ];
+
+    const dowPicks = [
+      { value: '*', label: `* (${t('picks.dow.any')})` },
+      ...weekdayShort.map((w, i) => ({ value: String(i), label: `${i} ${w}` })),
+      { value: '1-5', label: `1–5 ${t('picks.dow.weekdays')}` },
+      { value: '0,6', label: `0,6 ${t('picks.dow.weekend')}` },
+    ];
+
+    return [minutePicks, hourPicks, domPicks, monthPicks, dowPicks] as const;
+  }, [t, monthShort, weekdayShort]);
 
   return (
     <div className="flex flex-col h-full gap-4 min-h-0 overflow-auto">
       <div className="shrink-0">
-        <h1 className="text-lg font-semibold tracking-tight">Cron expression builder</h1>
+        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
         <p className="text-xs text-muted-foreground">
-          Standard 5-field cron: <span className="font-mono text-foreground">minute hour day month weekday</span>.
-          Parser uses seconds=<code className="text-foreground">0</code> internally. Optional 6-field (
-          <span className="font-mono">sec min hour dom mon dow</span>) works in the expression editor.
+          {t.rich('subtitle', {
+            mono: (chunks) => <span className="font-mono text-foreground">{chunks}</span>,
+            code: (chunks) => <code className="text-foreground">{chunks}</code>,
+          })}
         </p>
       </div>
 
@@ -167,53 +190,58 @@ export function CronBuilderLayout() {
       >
         <TabsList className="w-fit">
           <TabsTrigger value="builder" className="text-xs">
-            Visual builder
+            {t('tabs.builder')}
           </TabsTrigger>
           <TabsTrigger value="expression" className="text-xs">
-            Expression
+            {t('tabs.expression')}
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="builder" className="mt-0 space-y-4">
           <Card className="p-4 space-y-3">
-            <Label className="text-xs text-muted-foreground uppercase tracking-wider">Presets</Label>
+            <Label className="text-xs text-muted-foreground uppercase tracking-wider">{t('presetsLabel')}</Label>
             <div className="flex flex-wrap gap-2">
               {CRON_PRESETS.map((p) => (
                 <Button
-                  key={p.cron}
+                  key={p.key}
                   type="button"
                   variant="outline"
                   size="sm"
                   className="text-xs h-8"
                   onClick={() => commitExpression(p.cron)}
                 >
-                  {p.label}
+                  {t(`presets.${p.key}` as never)}
                 </Button>
               ))}
             </div>
           </Card>
 
           <Card className="p-4 space-y-4">
-            <Label className="text-xs text-muted-foreground uppercase tracking-wider">Fields</Label>
+            <Label className="text-xs text-muted-foreground uppercase tracking-wider">{t('fieldsLabel')}</Label>
             <div className="space-y-3">
               {CRON_FIELD_LABELS.map((label, i) => {
                 const idx = i as 0 | 1 | 2 | 3 | 4;
+                const uiLabel = t(`fields.${label}` as never);
                 return (
                   <div
                     key={label}
                     className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3"
                   >
                     <span className="text-xs font-medium text-muted-foreground w-36 shrink-0">
-                      {label}
+                      {uiLabel}
                     </span>
                     <Input
                       value={five[idx]}
                       onChange={(e) => updateField(idx, e.target.value)}
                       className="font-mono text-sm h-9 flex-1 min-w-0"
                       spellCheck={false}
-                      aria-label={label}
+                      aria-label={uiLabel}
                     />
-                    <QuickPick options={PICKS[idx]!} onPick={(v) => updateField(idx, v)} />
+                    <QuickPick
+                      options={PICKS[idx]!}
+                      onPick={(v) => updateField(idx, v)}
+                      placeholder={t('quickPick')}
+                    />
                   </div>
                 );
               })}
@@ -224,7 +252,7 @@ export function CronBuilderLayout() {
         <TabsContent value="expression" className="mt-0 space-y-3">
           <Card className="p-4 space-y-2">
             <Label htmlFor="cron-raw" className="text-xs text-muted-foreground uppercase tracking-wider">
-              Raw expression
+              {t('rawExpressionLabel')}
             </Label>
             <textarea
               id="cron-raw"
@@ -235,7 +263,7 @@ export function CronBuilderLayout() {
               className="w-full min-h-[100px] rounded-md border border-input bg-transparent px-3 py-2 text-sm font-mono shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
             <p className="text-[11px] text-muted-foreground">
-              Blur the field to parse and sync the builder. {tokenCount} token{tokenCount === 1 ? '' : 's'}.
+              {t('expressionHint', { count: tokenCount })}
             </p>
           </Card>
         </TabsContent>
@@ -243,25 +271,34 @@ export function CronBuilderLayout() {
 
       <Card className="p-4 space-y-2 shrink-0">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <Label className="text-xs text-muted-foreground uppercase tracking-wider">Current expression</Label>
+          <Label className="text-xs text-muted-foreground uppercase tracking-wider">{t('currentExpressionLabel')}</Label>
           <Button type="button" variant="outline" size="sm" className="h-8 gap-1 text-xs" onClick={copyExpr}>
             {copied ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
-            Copy
+            {t('copy')}
           </Button>
         </div>
-        <p className="font-mono text-sm break-all rounded-md bg-muted/50 px-3 py-2">{expression.trim() || '—'}</p>
+        <p className="font-mono text-sm break-all rounded-md bg-muted/50 px-3 py-2">
+          {expression.trim() || t('emptyExpression')}
+        </p>
       </Card>
 
       {validation.ok === false && (
         <div className="flex items-start gap-2 rounded-lg border border-destructive/40 bg-destructive/5 px-3 py-2 text-sm text-destructive">
           <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
-          <p>{validation.error}</p>
+          <div className="space-y-1">
+            <p>
+              {validation.errorKey === 'invalid' ? t('errors.invalid') : t(`errors.${validation.errorKey}` as never)}
+            </p>
+            {validation.errorKey === 'invalid' && validation.detail ? (
+              <p className="text-xs text-destructive/80 font-mono">{validation.detail}</p>
+            ) : null}
+          </div>
         </div>
       )}
 
       {validation.ok && human && (
         <Card className="p-4 space-y-2 border-primary/20 bg-primary/5">
-          <Label className="text-xs text-muted-foreground uppercase tracking-wider">Plain language</Label>
+          <Label className="text-xs text-muted-foreground uppercase tracking-wider">{t('plainLanguageLabel')}</Label>
           <p className="text-sm leading-relaxed">{human}</p>
         </Card>
       )}
@@ -269,7 +306,7 @@ export function CronBuilderLayout() {
       {validation.ok && nextRuns && nextRuns.length > 0 && (
         <Card className="p-4 space-y-2">
           <Label className="text-xs text-muted-foreground uppercase tracking-wider">
-            Next runs (local time)
+            {t('nextRunsLabel')}
           </Label>
           <ul className="space-y-1.5 text-sm font-mono text-muted-foreground">
             {nextRuns.map((d, i) => (

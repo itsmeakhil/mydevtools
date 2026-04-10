@@ -1667,5 +1667,152 @@
       "invalid": "Ugyldigt regulært udtryk.",
       "runaway": "Stoppede efter {max} matches (muligt løbsk mønster)."
     }
+  },
+  "TimestampConverter": {
+    "title": "Timestamp-konverter",
+    "subtitle": "Unix-sekunder (≤10 cifre) eller millisekunder (længere heltal), <code>ISO-8601</code> eller strenge som din browser kan parse. Alt kører lokalt.",
+    "inputLabel": "Input",
+    "placeholder": "1744200000 eller 2025-04-09T12:00:00Z",
+    "now": "Nu",
+    "copy": "Kopiér",
+    "hint": "Indsæt en værdi eller klik <strong>Nu</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relativ",
+      "human": "Læsbar"
+    },
+    "fields": {
+      "seconds": "Sekunder",
+      "milliseconds": "Millisekunder",
+      "utc": "UTC",
+      "local": "Lokal",
+      "distance": "Afstand"
+    },
+    "errors": {
+      "empty": "Indtast et Unix-timestamp, en ISO-streng eller datotekst.",
+      "invalidNumber": "Ugyldigt numerisk timestamp.",
+      "outOfRange": "Uden for rækkevidde for JavaScript Date.",
+      "couldNotParse": "Kunne ikke parse som Unix, ISO-8601 eller browser-datostreng."
+    }
+  },
+  "CronBuilder": {
+    "title": "Cron-udtryksbygger",
+    "subtitle": "Standard 5-felts cron: <mono>minute hour day month weekday</mono>. Parseren bruger seconds=<code>0</code> internt. Valgfrit 6-felts format (<mono>sec min hour dom mon dow</mono>) virker i editoren.",
+    "tabs": {
+      "builder": "Visuel bygger",
+      "expression": "Udtryk"
+    },
+    "presetsLabel": "Forudindstillinger",
+    "fieldsLabel": "Felter",
+    "rawExpressionLabel": "Rå udtryk",
+    "expressionHint": "Forlad feltet for at parse og synkronisere byggeren. {count} {count, plural, one {token} other {tokens}}.",
+    "currentExpressionLabel": "Aktuelt udtryk",
+    "copy": "Kopiér",
+    "quickPick": "Hurtigt valg",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Almindeligt sprog",
+    "nextRunsLabel": "Næste kørsler (lokal tid)",
+    "fields": {
+      "minute": "Minut",
+      "hour": "Time",
+      "dayOfMonth": "Dag i måneden",
+      "month": "Måned",
+      "dayOfWeek": "Ugedag"
+    },
+    "presets": {
+      "everyMinute": "Hvert minut",
+      "every5Minutes": "Hver 5. minut",
+      "every15Minutes": "Hver 15. minut",
+      "everyHour": "Hver time (ved :00)",
+      "every6Hours": "Hver 6. time",
+      "dailyMidnight": "Dagligt ved midnat",
+      "daily0900": "Dagligt kl. 09:00",
+      "weekdays0900": "Hverdage kl. 09:00",
+      "weeklySunday": "Ugentligt (søndag 00:00)",
+      "monthlyFirst": "Månedligt (1. 00:00)",
+      "yearlyJan1": "Årligt (1. jan 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "hvert minut"
+      },
+      "hour": {
+        "every": "hver time"
+      },
+      "dom": {
+        "any": "vilkårlig dag",
+        "last": "sidste dag"
+      },
+      "month": {
+        "every": "hver måned"
+      },
+      "dow": {
+        "any": "vilkårlig ugedag",
+        "weekdays": "hverdage",
+        "weekend": "weekend"
+      }
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "Maj",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Okt",
+      "nov": "Nov",
+      "dec": "Dec"
+    },
+    "weekdays": {
+      "sun": "Søn",
+      "mon": "Man",
+      "tue": "Tir",
+      "wed": "Ons",
+      "thu": "Tor",
+      "fri": "Fre",
+      "sat": "Lør"
+    },
+    "errors": {
+      "fieldCount": "Forventer 5 felter (minute hour day month weekday) eller 6 inkl. sekunder.",
+      "invalid": "Ugyldigt cron-udtryk."
+    }
+  },
+  "Base64": {
+    "title": "Base64-koder / dekoder",
+    "subtitle": "Kod tekst til Base64 eller dekod Base64-strenge",
+    "upload": "Upload",
+    "clear": "Ryd",
+    "modes": {
+      "encode": "Kod",
+      "decode": "Dekod"
+    },
+    "swapTitle": "Byt input og output",
+    "panels": {
+      "plainText": "Ren tekst",
+      "base64Input": "Base64-input",
+      "base64Output": "Base64-output",
+      "decodedText": "Dekodet tekst"
+    },
+    "placeholders": {
+      "encode": "Indtast tekst for at kode til Base64…",
+      "decode": "Indsæt Base64-streng for at dekode…"
+    },
+    "dropHere": "Slip fil her",
+    "charCount": "{count} tegn",
+    "download": {
+      "title": "Download output",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Kopiér til udklipsholder",
+    "outputPlaceholder": "Output vises her…",
+    "errors": {
+      "invalidBase64": "Ugyldig Base64-streng. Tjek input.",
+      "encodeFailed": "Kunne ikke kode input."
+    }
   }
 }

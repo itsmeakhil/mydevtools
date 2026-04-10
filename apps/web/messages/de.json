@@ -1667,5 +1667,152 @@
       "invalid": "Ungültiger regulärer Ausdruck.",
       "runaway": "Nach {max} Treffern gestoppt (möglicherweise ausuferndes Muster)."
     }
+  },
+  "TimestampConverter": {
+    "title": "Zeitstempel-Konverter",
+    "subtitle": "Unix-Sekunden (≤10 Ziffern) oder Millisekunden (längere Ganzzahlen), <code>ISO-8601</code> oder Strings, die dein Browser parsen kann. Läuft lokal.",
+    "inputLabel": "Eingabe",
+    "placeholder": "1744200000 oder 2025-04-09T12:00:00Z",
+    "now": "Jetzt",
+    "copy": "Kopieren",
+    "hint": "Wert einfügen oder <strong>Jetzt</strong> klicken.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relativ",
+      "human": "Lesbar"
+    },
+    "fields": {
+      "seconds": "Sekunden",
+      "milliseconds": "Millisekunden",
+      "utc": "UTC",
+      "local": "Lokal",
+      "distance": "Abstand"
+    },
+    "errors": {
+      "empty": "Gib einen Unix-Zeitstempel, ISO-String oder Datums-Text ein.",
+      "invalidNumber": "Ungültiger numerischer Zeitstempel.",
+      "outOfRange": "Außerhalb des Bereichs für JavaScript Date.",
+      "couldNotParse": "Konnte nicht als Unix, ISO-8601 oder Browser-Datum geparst werden."
+    }
+  },
+  "CronBuilder": {
+    "title": "Cron-Ausdruck-Builder",
+    "subtitle": "Standard-Cron mit 5 Feldern: <mono>minute hour day month weekday</mono>. Der Parser nutzt seconds=<code>0</code> intern. Optionaler 6-Feld-Ausdruck (<mono>sec min hour dom mon dow</mono>) funktioniert im Editor.",
+    "tabs": {
+      "builder": "Visueller Builder",
+      "expression": "Ausdruck"
+    },
+    "presetsLabel": "Vorlagen",
+    "fieldsLabel": "Felder",
+    "rawExpressionLabel": "Roh-Ausdruck",
+    "expressionHint": "Feld verlassen, um zu parsen und den Builder zu synchronisieren. {count} {count, plural, one {Token} other {Tokens}}.",
+    "currentExpressionLabel": "Aktueller Ausdruck",
+    "copy": "Kopieren",
+    "quickPick": "Schnellauswahl",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Klartext",
+    "nextRunsLabel": "Nächste Ausführungen (lokale Zeit)",
+    "fields": {
+      "minute": "Minute",
+      "hour": "Stunde",
+      "dayOfMonth": "Tag des Monats",
+      "month": "Monat",
+      "dayOfWeek": "Wochentag"
+    },
+    "presets": {
+      "everyMinute": "Jede Minute",
+      "every5Minutes": "Alle 5 Minuten",
+      "every15Minutes": "Alle 15 Minuten",
+      "everyHour": "Jede Stunde (um :00)",
+      "every6Hours": "Alle 6 Stunden",
+      "dailyMidnight": "Täglich um Mitternacht",
+      "daily0900": "Täglich um 09:00",
+      "weekdays0900": "Werktags um 09:00",
+      "weeklySunday": "Wöchentlich (Sonntag 00:00)",
+      "monthlyFirst": "Monatlich (1. 00:00)",
+      "yearlyJan1": "Jährlich (1. Jan 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "jede Minute"
+      },
+      "hour": {
+        "every": "jede Stunde"
+      },
+      "dom": {
+        "any": "beliebiger Tag",
+        "last": "letzter Tag"
+      },
+      "month": {
+        "every": "jeder Monat"
+      },
+      "dow": {
+        "any": "beliebiger Wochentag",
+        "weekdays": "Werktage",
+        "weekend": "Wochenende"
+      }
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mär",
+      "apr": "Apr",
+      "may": "Mai",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Okt",
+      "nov": "Nov",
+      "dec": "Dez"
+    },
+    "weekdays": {
+      "sun": "So",
+      "mon": "Mo",
+      "tue": "Di",
+      "wed": "Mi",
+      "thu": "Do",
+      "fri": "Fr",
+      "sat": "Sa"
+    },
+    "errors": {
+      "fieldCount": "Erwartet: 5 Felder (minute hour day month weekday) oder 6 inkl. Sekunden.",
+      "invalid": "Ungültiger Cron-Ausdruck."
+    }
+  },
+  "Base64": {
+    "title": "Base64 Encoder / Decoder",
+    "subtitle": "Text nach Base64 kodieren oder Base64-Strings dekodieren",
+    "upload": "Hochladen",
+    "clear": "Leeren",
+    "modes": {
+      "encode": "Kodieren",
+      "decode": "Dekodieren"
+    },
+    "swapTitle": "Eingabe und Ausgabe tauschen",
+    "panels": {
+      "plainText": "Klartext",
+      "base64Input": "Base64-Eingabe",
+      "base64Output": "Base64-Ausgabe",
+      "decodedText": "Dekodierter Text"
+    },
+    "placeholders": {
+      "encode": "Text eingeben, um nach Base64 zu kodieren…",
+      "decode": "Base64-String einfügen, um zu dekodieren…"
+    },
+    "dropHere": "Datei hier ablegen",
+    "charCount": "{count} Zeichen",
+    "download": {
+      "title": "Ausgabe herunterladen",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "In die Zwischenablage kopieren",
+    "outputPlaceholder": "Ausgabe erscheint hier…",
+    "errors": {
+      "invalidBase64": "Ungültiger Base64-String. Bitte Eingabe prüfen.",
+      "encodeFailed": "Eingabe konnte nicht kodiert werden."
+    }
   }
 }

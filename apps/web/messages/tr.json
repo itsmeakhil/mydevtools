@@ -1667,5 +1667,152 @@
       "invalid": "Geçersiz düzenli ifade.",
       "runaway": "{max} eşleşmeden sonra durduruldu (olası kontrolden çıkan desen)."
     }
+  },
+  "TimestampConverter": {
+    "title": "Zaman damgası dönüştürücü",
+    "subtitle": "Unix saniyeleri (≤10 basamak) veya milisaniyeler (daha uzun tam sayılar), <code>ISO-8601</code> ya da tarayıcınızın ayrıştırabildiği dizeler. Her şey yerelde çalışır.",
+    "inputLabel": "Girdi",
+    "placeholder": "1744200000 veya 2025-04-09T12:00:00Z",
+    "now": "Şimdi",
+    "copy": "Kopyala",
+    "hint": "Bir değer yapıştırın veya <strong>Şimdi</strong>ye tıklayın.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Göreli",
+      "human": "Okunabilir"
+    },
+    "fields": {
+      "seconds": "Saniye",
+      "milliseconds": "Milisaniye",
+      "utc": "UTC",
+      "local": "Yerel",
+      "distance": "Mesafe"
+    },
+    "errors": {
+      "empty": "Bir Unix zaman damgası, ISO dizesi veya tarih metni girin.",
+      "invalidNumber": "Geçersiz sayısal zaman damgası.",
+      "outOfRange": "JavaScript Date için aralık dışında.",
+      "couldNotParse": "Unix, ISO-8601 veya tarayıcı tarih dizesi olarak ayrıştırılamadı."
+    }
+  },
+  "CronBuilder": {
+    "title": "Cron ifade oluşturucu",
+    "subtitle": "Standart 5 alanlı cron: <mono>minute hour day month weekday</mono>. Ayrıştırıcı dahili olarak seconds=<code>0</code> kullanır. İfade düzenleyicide isteğe bağlı 6 alan (<mono>sec min hour dom mon dow</mono>) da çalışır.",
+    "tabs": {
+      "builder": "Görsel oluşturucu",
+      "expression": "İfade"
+    },
+    "presetsLabel": "Hazır ayarlar",
+    "fieldsLabel": "Alanlar",
+    "rawExpressionLabel": "Ham ifade",
+    "expressionHint": "Ayrıştırmak ve senkronize etmek için alandan çıkın. {count} {count, plural, one {token} other {token}}.",
+    "currentExpressionLabel": "Mevcut ifade",
+    "copy": "Kopyala",
+    "quickPick": "Hızlı seçim",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Düz metin",
+    "nextRunsLabel": "Sonraki çalıştırmalar (yerel saat)",
+    "fields": {
+      "minute": "Dakika",
+      "hour": "Saat",
+      "dayOfMonth": "Ayın günü",
+      "month": "Ay",
+      "dayOfWeek": "Haftanın günü"
+    },
+    "presets": {
+      "everyMinute": "Her dakika",
+      "every5Minutes": "Her 5 dakika",
+      "every15Minutes": "Her 15 dakika",
+      "everyHour": "Her saat (:00)",
+      "every6Hours": "Her 6 saat",
+      "dailyMidnight": "Günlük (gece yarısı)",
+      "daily0900": "Günlük 09:00",
+      "weekdays0900": "Hafta içi 09:00",
+      "weeklySunday": "Haftalık (Pazar 00:00)",
+      "monthlyFirst": "Aylık (1. gün 00:00)",
+      "yearlyJan1": "Yıllık (1 Oca 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "her dakika"
+      },
+      "hour": {
+        "every": "her saat"
+      },
+      "dom": {
+        "any": "herhangi bir gün",
+        "last": "son gün"
+      },
+      "month": {
+        "every": "her ay"
+      },
+      "dow": {
+        "any": "herhangi bir gün",
+        "weekdays": "hafta içi",
+        "weekend": "hafta sonu"
+      }
+    },
+    "months": {
+      "jan": "Oca",
+      "feb": "Şub",
+      "mar": "Mar",
+      "apr": "Nis",
+      "may": "May",
+      "jun": "Haz",
+      "jul": "Tem",
+      "aug": "Ağu",
+      "sep": "Eyl",
+      "oct": "Eki",
+      "nov": "Kas",
+      "dec": "Ara"
+    },
+    "weekdays": {
+      "sun": "Paz",
+      "mon": "Pzt",
+      "tue": "Sal",
+      "wed": "Çar",
+      "thu": "Per",
+      "fri": "Cum",
+      "sat": "Cmt"
+    },
+    "errors": {
+      "fieldCount": "5 alan (minute hour day month weekday) veya saniyeli 6 alan bekleniyor.",
+      "invalid": "Geçersiz cron ifadesi."
+    }
+  },
+  "Base64": {
+    "title": "Base64 Kodlayıcı / Çözücü",
+    "subtitle": "Metni Base64’e kodlayın veya Base64 dizelerini çözün",
+    "upload": "Yükle",
+    "clear": "Temizle",
+    "modes": {
+      "encode": "Kodla",
+      "decode": "Çöz"
+    },
+    "swapTitle": "Girdi ve çıktıyı değiştir",
+    "panels": {
+      "plainText": "Düz metin",
+      "base64Input": "Base64 girdi",
+      "base64Output": "Base64 çıktı",
+      "decodedText": "Çözülmüş metin"
+    },
+    "placeholders": {
+      "encode": "Base64’e kodlamak için metin girin…",
+      "decode": "Çözmek için Base64 yapıştırın…"
+    },
+    "dropHere": "Dosyayı buraya bırakın",
+    "charCount": "{count} karakter",
+    "download": {
+      "title": "Çıktıyı indir",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Panoya kopyala",
+    "outputPlaceholder": "Çıktı burada görünecek…",
+    "errors": {
+      "invalidBase64": "Geçersiz Base64 dizesi. Girdiyi kontrol edin.",
+      "encodeFailed": "Girdi kodlanamadı."
+    }
   }
 }

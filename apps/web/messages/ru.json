@@ -1667,5 +1667,152 @@
       "invalid": "Некорректное регулярное выражение.",
       "runaway": "Остановлено после {max} совпадений (возможный “разбежавшийся” шаблон)."
     }
+  },
+  "TimestampConverter": {
+    "title": "Конвертер временных меток",
+    "subtitle": "Unix-секунды (≤10 цифр) или миллисекунды (более длинные числа), <code>ISO-8601</code> или строки, которые может разобрать браузер. Всё выполняется локально.",
+    "inputLabel": "Ввод",
+    "placeholder": "1744200000 или 2025-04-09T12:00:00Z",
+    "now": "Сейчас",
+    "copy": "Копировать",
+    "hint": "Вставьте значение или нажмите <strong>Сейчас</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Относительно",
+      "human": "Человекочитаемо"
+    },
+    "fields": {
+      "seconds": "Секунды",
+      "milliseconds": "Миллисекунды",
+      "utc": "UTC",
+      "local": "Локально",
+      "distance": "Разница"
+    },
+    "errors": {
+      "empty": "Введите Unix-метку времени, ISO-строку или текст даты.",
+      "invalidNumber": "Некорректная числовая метка времени.",
+      "outOfRange": "Вне диапазона для JavaScript Date.",
+      "couldNotParse": "Не удалось распознать как Unix, ISO-8601 или строку даты браузера."
+    }
+  },
+  "CronBuilder": {
+    "title": "Конструктор cron-выражений",
+    "subtitle": "Стандартный cron из 5 полей: <mono>minute hour day month weekday</mono>. Парсер использует seconds=<code>0</code> внутри. Опциональный формат из 6 полей (<mono>sec min hour dom mon dow</mono>) работает в редакторе.",
+    "tabs": {
+      "builder": "Визуальный конструктор",
+      "expression": "Выражение"
+    },
+    "presetsLabel": "Пресеты",
+    "fieldsLabel": "Поля",
+    "rawExpressionLabel": "Сырое выражение",
+    "expressionHint": "Уберите фокус, чтобы разобрать и синхронизировать конструктор. {count} {count, plural, one {токен} few {токена} many {токенов} other {токенов}}.",
+    "currentExpressionLabel": "Текущее выражение",
+    "copy": "Копировать",
+    "quickPick": "Быстрый выбор",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Естественный язык",
+    "nextRunsLabel": "Следующие запуски (местное время)",
+    "fields": {
+      "minute": "Минуты",
+      "hour": "Часы",
+      "dayOfMonth": "День месяца",
+      "month": "Месяц",
+      "dayOfWeek": "День недели"
+    },
+    "presets": {
+      "everyMinute": "Каждую минуту",
+      "every5Minutes": "Каждые 5 минут",
+      "every15Minutes": "Каждые 15 минут",
+      "everyHour": "Каждый час (в :00)",
+      "every6Hours": "Каждые 6 часов",
+      "dailyMidnight": "Ежедневно в полночь",
+      "daily0900": "Ежедневно в 09:00",
+      "weekdays0900": "По будням в 09:00",
+      "weeklySunday": "Еженедельно (вс 00:00)",
+      "monthlyFirst": "Ежемесячно (1-е 00:00)",
+      "yearlyJan1": "Ежегодно (1 янв 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "каждую минуту"
+      },
+      "hour": {
+        "every": "каждый час"
+      },
+      "dom": {
+        "any": "любой день",
+        "last": "последний день"
+      },
+      "month": {
+        "every": "каждый месяц"
+      },
+      "dow": {
+        "any": "любой день",
+        "weekdays": "будни",
+        "weekend": "выходные"
+      }
+    },
+    "months": {
+      "jan": "янв",
+      "feb": "фев",
+      "mar": "мар",
+      "apr": "апр",
+      "may": "май",
+      "jun": "июн",
+      "jul": "июл",
+      "aug": "авг",
+      "sep": "сен",
+      "oct": "окт",
+      "nov": "ноя",
+      "dec": "дек"
+    },
+    "weekdays": {
+      "sun": "вс",
+      "mon": "пн",
+      "tue": "вт",
+      "wed": "ср",
+      "thu": "чт",
+      "fri": "пт",
+      "sat": "сб"
+    },
+    "errors": {
+      "fieldCount": "Ожидается 5 полей (minute hour day month weekday) или 6 с секундами.",
+      "invalid": "Некорректное cron-выражение."
+    }
+  },
+  "Base64": {
+    "title": "Base64 кодирование / декодирование",
+    "subtitle": "Кодируйте текст в Base64 или декодируйте строки Base64",
+    "upload": "Загрузить",
+    "clear": "Очистить",
+    "modes": {
+      "encode": "Кодировать",
+      "decode": "Декодировать"
+    },
+    "swapTitle": "Поменять местами ввод и вывод",
+    "panels": {
+      "plainText": "Текст",
+      "base64Input": "Ввод Base64",
+      "base64Output": "Вывод Base64",
+      "decodedText": "Декодированный текст"
+    },
+    "placeholders": {
+      "encode": "Введите текст для кодирования в Base64…",
+      "decode": "Вставьте Base64 для декодирования…"
+    },
+    "dropHere": "Перетащите файл сюда",
+    "charCount": "{count} символов",
+    "download": {
+      "title": "Скачать результат",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Скопировать в буфер обмена",
+    "outputPlaceholder": "Результат появится здесь…",
+    "errors": {
+      "invalidBase64": "Некорректная строка Base64. Проверьте ввод.",
+      "encodeFailed": "Не удалось закодировать ввод."
+    }
   }
 }

@@ -1667,5 +1667,152 @@
       "invalid": "Biểu thức chính quy không hợp lệ.",
       "runaway": "Dừng sau {max} lần khớp (có thể mẫu bị runaway)."
     }
+  },
+  "TimestampConverter": {
+    "title": "Trình chuyển đổi dấu thời gian",
+    "subtitle": "Giây Unix (≤10 chữ số) hoặc mili giây (số nguyên dài hơn), <code>ISO-8601</code> hoặc chuỗi mà trình duyệt có thể phân tích. Mọi thứ chạy cục bộ.",
+    "inputLabel": "Đầu vào",
+    "placeholder": "1744200000 hoặc 2025-04-09T12:00:00Z",
+    "now": "Bây giờ",
+    "copy": "Sao chép",
+    "hint": "Dán một giá trị hoặc bấm <strong>Bây giờ</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Tương đối",
+      "human": "Dễ đọc"
+    },
+    "fields": {
+      "seconds": "Giây",
+      "milliseconds": "Mili giây",
+      "utc": "UTC",
+      "local": "Cục bộ",
+      "distance": "Khoảng cách"
+    },
+    "errors": {
+      "empty": "Nhập dấu thời gian Unix, chuỗi ISO hoặc văn bản ngày.",
+      "invalidNumber": "Dấu thời gian số không hợp lệ.",
+      "outOfRange": "Ngoài phạm vi JavaScript Date.",
+      "couldNotParse": "Không thể phân tích dưới dạng Unix, ISO-8601 hoặc chuỗi ngày của trình duyệt."
+    }
+  },
+  "CronBuilder": {
+    "title": "Trình tạo biểu thức Cron",
+    "subtitle": "Cron tiêu chuẩn 5 trường: <mono>minute hour day month weekday</mono>. Bộ phân tích dùng seconds=<code>0</code> nội bộ. Định dạng 6 trường tùy chọn (<mono>sec min hour dom mon dow</mono>) hoạt động trong trình soạn thảo.",
+    "tabs": {
+      "builder": "Trình tạo trực quan",
+      "expression": "Biểu thức"
+    },
+    "presetsLabel": "Mẫu sẵn",
+    "fieldsLabel": "Trường",
+    "rawExpressionLabel": "Biểu thức thô",
+    "expressionHint": "Rời khỏi ô để phân tích và đồng bộ trình tạo. {count} {count, plural, one {token} other {token}}.",
+    "currentExpressionLabel": "Biểu thức hiện tại",
+    "copy": "Sao chép",
+    "quickPick": "Chọn nhanh",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Ngôn ngữ tự nhiên",
+    "nextRunsLabel": "Lần chạy tiếp theo (giờ địa phương)",
+    "fields": {
+      "minute": "Phút",
+      "hour": "Giờ",
+      "dayOfMonth": "Ngày trong tháng",
+      "month": "Tháng",
+      "dayOfWeek": "Thứ"
+    },
+    "presets": {
+      "everyMinute": "Mỗi phút",
+      "every5Minutes": "Mỗi 5 phút",
+      "every15Minutes": "Mỗi 15 phút",
+      "everyHour": "Mỗi giờ (lúc :00)",
+      "every6Hours": "Mỗi 6 giờ",
+      "dailyMidnight": "Hằng ngày lúc nửa đêm",
+      "daily0900": "Hằng ngày lúc 09:00",
+      "weekdays0900": "Ngày thường lúc 09:00",
+      "weeklySunday": "Hàng tuần (CN 00:00)",
+      "monthlyFirst": "Hàng tháng (ngày 1 00:00)",
+      "yearlyJan1": "Hàng năm (1/1 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "mỗi phút"
+      },
+      "hour": {
+        "every": "mỗi giờ"
+      },
+      "dom": {
+        "any": "bất kỳ ngày",
+        "last": "ngày cuối"
+      },
+      "month": {
+        "every": "mỗi tháng"
+      },
+      "dow": {
+        "any": "bất kỳ ngày",
+        "weekdays": "ngày thường",
+        "weekend": "cuối tuần"
+      }
+    },
+    "months": {
+      "jan": "Th1",
+      "feb": "Th2",
+      "mar": "Th3",
+      "apr": "Th4",
+      "may": "Th5",
+      "jun": "Th6",
+      "jul": "Th7",
+      "aug": "Th8",
+      "sep": "Th9",
+      "oct": "Th10",
+      "nov": "Th11",
+      "dec": "Th12"
+    },
+    "weekdays": {
+      "sun": "CN",
+      "mon": "T2",
+      "tue": "T3",
+      "wed": "T4",
+      "thu": "T5",
+      "fri": "T6",
+      "sat": "T7"
+    },
+    "errors": {
+      "fieldCount": "Cần 5 trường (minute hour day month weekday) hoặc 6 trường gồm giây.",
+      "invalid": "Biểu thức cron không hợp lệ."
+    }
+  },
+  "Base64": {
+    "title": "Mã hóa / giải mã Base64",
+    "subtitle": "Mã hóa văn bản sang Base64 hoặc giải mã chuỗi Base64",
+    "upload": "Tải lên",
+    "clear": "Xóa",
+    "modes": {
+      "encode": "Mã hóa",
+      "decode": "Giải mã"
+    },
+    "swapTitle": "Hoán đổi đầu vào/đầu ra",
+    "panels": {
+      "plainText": "Văn bản",
+      "base64Input": "Đầu vào Base64",
+      "base64Output": "Đầu ra Base64",
+      "decodedText": "Văn bản đã giải mã"
+    },
+    "placeholders": {
+      "encode": "Nhập văn bản để mã hóa Base64…",
+      "decode": "Dán Base64 để giải mã…"
+    },
+    "dropHere": "Thả tệp vào đây",
+    "charCount": "{count} ký tự",
+    "download": {
+      "title": "Tải xuống kết quả",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Sao chép vào clipboard",
+    "outputPlaceholder": "Kết quả sẽ hiển thị ở đây…",
+    "errors": {
+      "invalidBase64": "Chuỗi Base64 không hợp lệ. Hãy kiểm tra đầu vào.",
+      "encodeFailed": "Không thể mã hóa đầu vào."
+    }
   }
 }

@@ -1667,5 +1667,152 @@
       "invalid": "Некоректний регулярний вираз.",
       "runaway": "Зупинено після {max} збігів (можливо, шаблон “розбігся”)."
     }
+  },
+  "TimestampConverter": {
+    "title": "Конвертер часових міток",
+    "subtitle": "Unix-секунди (≤10 цифр) або мілісекунди (довші цілі числа), <code>ISO-8601</code> або рядки, які може розібрати браузер. Усе працює локально.",
+    "inputLabel": "Ввід",
+    "placeholder": "1744200000 або 2025-04-09T12:00:00Z",
+    "now": "Зараз",
+    "copy": "Копіювати",
+    "hint": "Вставте значення або натисніть <strong>Зараз</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Відносно",
+      "human": "Зрозуміло"
+    },
+    "fields": {
+      "seconds": "Секунди",
+      "milliseconds": "Мілісекунди",
+      "utc": "UTC",
+      "local": "Локально",
+      "distance": "Відстань"
+    },
+    "errors": {
+      "empty": "Введіть Unix-мітку, ISO-рядок або текст дати.",
+      "invalidNumber": "Некоректна числова мітка часу.",
+      "outOfRange": "Поза діапазоном для JavaScript Date.",
+      "couldNotParse": "Не вдалося розібрати як Unix, ISO-8601 або дату браузера."
+    }
+  },
+  "CronBuilder": {
+    "title": "Конструктор cron-виразів",
+    "subtitle": "Стандартний 5-польовий cron: <mono>minute hour day month weekday</mono>. Парсер внутрішньо використовує seconds=<code>0</code>. Опційний 6-польовий формат (<mono>sec min hour dom mon dow</mono>) працює в редакторі.",
+    "tabs": {
+      "builder": "Візуальний конструктор",
+      "expression": "Вираз"
+    },
+    "presetsLabel": "Пресети",
+    "fieldsLabel": "Поля",
+    "rawExpressionLabel": "Сирий вираз",
+    "expressionHint": "Зніміть фокус, щоб розібрати та синхронізувати конструктор. {count} {count, plural, one {токен} few {токени} many {токенів} other {токенів}}.",
+    "currentExpressionLabel": "Поточний вираз",
+    "copy": "Копіювати",
+    "quickPick": "Швидкий вибір",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Простою мовою",
+    "nextRunsLabel": "Наступні запуски (локальний час)",
+    "fields": {
+      "minute": "Хвилина",
+      "hour": "Година",
+      "dayOfMonth": "День місяця",
+      "month": "Місяць",
+      "dayOfWeek": "День тижня"
+    },
+    "presets": {
+      "everyMinute": "Щохвилини",
+      "every5Minutes": "Кожні 5 хвилин",
+      "every15Minutes": "Кожні 15 хвилин",
+      "everyHour": "Щогодини (о :00)",
+      "every6Hours": "Кожні 6 годин",
+      "dailyMidnight": "Щодня опівночі",
+      "daily0900": "Щодня о 09:00",
+      "weekdays0900": "Будні о 09:00",
+      "weeklySunday": "Щотижня (неділя 00:00)",
+      "monthlyFirst": "Щомісяця (1-ше 00:00)",
+      "yearlyJan1": "Щороку (1 січ 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "щохвилини"
+      },
+      "hour": {
+        "every": "щогодини"
+      },
+      "dom": {
+        "any": "будь-який день",
+        "last": "останній день"
+      },
+      "month": {
+        "every": "щомісяця"
+      },
+      "dow": {
+        "any": "будь-який день",
+        "weekdays": "будні",
+        "weekend": "вихідні"
+      }
+    },
+    "months": {
+      "jan": "Січ",
+      "feb": "Лют",
+      "mar": "Бер",
+      "apr": "Кві",
+      "may": "Тра",
+      "jun": "Чер",
+      "jul": "Лип",
+      "aug": "Сер",
+      "sep": "Вер",
+      "oct": "Жов",
+      "nov": "Лис",
+      "dec": "Гру"
+    },
+    "weekdays": {
+      "sun": "Нд",
+      "mon": "Пн",
+      "tue": "Вт",
+      "wed": "Ср",
+      "thu": "Чт",
+      "fri": "Пт",
+      "sat": "Сб"
+    },
+    "errors": {
+      "fieldCount": "Очікується 5 полів (minute hour day month weekday) або 6 із секундами.",
+      "invalid": "Некоректний cron-вираз."
+    }
+  },
+  "Base64": {
+    "title": "Кодування / декодування Base64",
+    "subtitle": "Кодуйте текст у Base64 або декодуйте Base64-рядки",
+    "upload": "Завантажити",
+    "clear": "Очистити",
+    "modes": {
+      "encode": "Кодувати",
+      "decode": "Декодувати"
+    },
+    "swapTitle": "Поміняти місцями ввід і вивід",
+    "panels": {
+      "plainText": "Звичайний текст",
+      "base64Input": "Ввід Base64",
+      "base64Output": "Вивід Base64",
+      "decodedText": "Декодований текст"
+    },
+    "placeholders": {
+      "encode": "Введіть текст для кодування у Base64…",
+      "decode": "Вставте Base64 для декодування…"
+    },
+    "dropHere": "Перетягніть файл сюди",
+    "charCount": "{count} символів",
+    "download": {
+      "title": "Завантажити результат",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Копіювати в буфер обміну",
+    "outputPlaceholder": "Результат з’явиться тут…",
+    "errors": {
+      "invalidBase64": "Некоректний Base64-рядок. Перевірте ввід.",
+      "encodeFailed": "Не вдалося закодувати ввід."
+    }
   }
 }

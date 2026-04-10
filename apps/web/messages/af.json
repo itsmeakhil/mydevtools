@@ -1667,5 +1667,152 @@
       "invalid": "Ongeldige regex.",
       "runaway": "Gestop ná {max} treffers (moontlike wegholpatroon)."
     }
+  },
+  "TimestampConverter": {
+    "title": "Tydstempel-omsetter",
+    "subtitle": "Unix-sekondes (≤10 syfers) of millisekondes (langer heelgetalle), <code>ISO-8601</code> of stringe wat jou blaaier kan ontleed. Alles loop plaaslik.",
+    "inputLabel": "Invoer",
+    "placeholder": "1744200000 of 2025-04-09T12:00:00Z",
+    "now": "Nou",
+    "copy": "Kopieer",
+    "hint": "Plak ’n waarde of klik <strong>Nou</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relatief",
+      "human": "Leesbaar"
+    },
+    "fields": {
+      "seconds": "Sekondes",
+      "milliseconds": "Millisekondes",
+      "utc": "UTC",
+      "local": "Plaaslik",
+      "distance": "Afstand"
+    },
+    "errors": {
+      "empty": "Voer ’n Unix-tydstempel, ISO-string of datumteks in.",
+      "invalidNumber": "Ongeldige numeriese tydstempel.",
+      "outOfRange": "Buite omvang vir JavaScript Date.",
+      "couldNotParse": "Kon nie as Unix, ISO-8601 of blaaier-datumstring ontleed nie."
+    }
+  },
+  "CronBuilder": {
+    "title": "Cron-uitdrukbouer",
+    "subtitle": "Standaard 5-veld cron: <mono>minute hour day month weekday</mono>. Die ontleder gebruik seconds=<code>0</code> intern. Opsionele 6-veld (<mono>sec min hour dom mon dow</mono>) werk in die uitdrukredigeerder.",
+    "tabs": {
+      "builder": "Visuele bouer",
+      "expression": "Uitdrukking"
+    },
+    "presetsLabel": "Voorafinstellings",
+    "fieldsLabel": "Velde",
+    "rawExpressionLabel": "Rou uitdrukking",
+    "expressionHint": "Verlaat die veld om te ontleed en die bouer te sinkroniseer. {count} {count, plural, one {token} other {tokens}}.",
+    "currentExpressionLabel": "Huidige uitdrukking",
+    "copy": "Kopieer",
+    "quickPick": "Vinnige keuse",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Gewone taal",
+    "nextRunsLabel": "Volgende lopies (plaaslike tyd)",
+    "fields": {
+      "minute": "Minuut",
+      "hour": "Uur",
+      "dayOfMonth": "Dag van maand",
+      "month": "Maand",
+      "dayOfWeek": "Dag van week"
+    },
+    "presets": {
+      "everyMinute": "Elke minuut",
+      "every5Minutes": "Elke 5 minute",
+      "every15Minutes": "Elke 15 minute",
+      "everyHour": "Elke uur (by :00)",
+      "every6Hours": "Elke 6 uur",
+      "dailyMidnight": "Daagliks om middernag",
+      "daily0900": "Daagliks om 09:00",
+      "weekdays0900": "Weekdae om 09:00",
+      "weeklySunday": "Weekliks (Sondag 00:00)",
+      "monthlyFirst": "Maandeliks (1ste 00:00)",
+      "yearlyJan1": "Jaarliks (1 Jan 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "elke minuut"
+      },
+      "hour": {
+        "every": "elke uur"
+      },
+      "dom": {
+        "any": "enige dag",
+        "last": "laaste dag"
+      },
+      "month": {
+        "every": "elke maand"
+      },
+      "dow": {
+        "any": "enige weekdag",
+        "weekdays": "weekdae",
+        "weekend": "naweek"
+      }
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mrt",
+      "apr": "Apr",
+      "may": "Mei",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Okt",
+      "nov": "Nov",
+      "dec": "Des"
+    },
+    "weekdays": {
+      "sun": "So",
+      "mon": "Ma",
+      "tue": "Di",
+      "wed": "Wo",
+      "thu": "Do",
+      "fri": "Vr",
+      "sat": "Sa"
+    },
+    "errors": {
+      "fieldCount": "Verwag 5 velde (minute hour day month weekday) of 6 insluitend sekondes.",
+      "invalid": "Ongeldige cron-uitdrukking."
+    }
+  },
+  "Base64": {
+    "title": "Base64-enkodeerder / -dekodeerder",
+    "subtitle": "Enkodeer teks na Base64 of dekodeer Base64-stringe",
+    "upload": "Laai op",
+    "clear": "Vee uit",
+    "modes": {
+      "encode": "Enkodeer",
+      "decode": "Dekodeer"
+    },
+    "swapTitle": "Ruil invoer en uitvoer om",
+    "panels": {
+      "plainText": "Gewone teks",
+      "base64Input": "Base64-invoer",
+      "base64Output": "Base64-uitvoer",
+      "decodedText": "Gedekodeerde teks"
+    },
+    "placeholders": {
+      "encode": "Voer teks in om na Base64 te enkodeer…",
+      "decode": "Plak Base64-string om te dekodeer…"
+    },
+    "dropHere": "Laat lêer hier val",
+    "charCount": "{count} karakters",
+    "download": {
+      "title": "Laai uitvoer af",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Kopieer na knipbord",
+    "outputPlaceholder": "Uitvoer sal hier verskyn…",
+    "errors": {
+      "invalidBase64": "Ongeldige Base64-string. Kontroleer invoer.",
+      "encodeFailed": "Kon nie invoer enkodeer nie."
+    }
   }
 }

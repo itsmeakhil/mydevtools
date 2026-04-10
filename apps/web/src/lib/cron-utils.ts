@@ -2,25 +2,25 @@ import CronExpressionParser from 'cron-parser';
 import cronstrue from 'cronstrue';
 
 export const CRON_FIELD_LABELS = [
-  'Minute',
-  'Hour',
-  'Day of month',
-  'Month',
-  'Day of week',
+  'minute',
+  'hour',
+  'dayOfMonth',
+  'month',
+  'dayOfWeek',
 ] as const;
 
-export const CRON_PRESETS: { label: string; cron: string }[] = [
-  { label: 'Every minute', cron: '* * * * *' },
-  { label: 'Every 5 minutes', cron: '*/5 * * * *' },
-  { label: 'Every 15 minutes', cron: '*/15 * * * *' },
-  { label: 'Every hour (at :00)', cron: '0 * * * *' },
-  { label: 'Every 6 hours', cron: '0 */6 * * *' },
-  { label: 'Daily at midnight', cron: '0 0 * * *' },
-  { label: 'Daily at 09:00', cron: '0 9 * * *' },
-  { label: 'Weekdays at 09:00', cron: '0 9 * * 1-5' },
-  { label: 'Weekly (Sunday 00:00)', cron: '0 0 * * 0' },
-  { label: 'Monthly (1st 00:00)', cron: '0 0 1 * *' },
-  { label: 'Yearly (Jan 1 00:00)', cron: '0 0 1 1 *' },
+export const CRON_PRESETS: { key: string; cron: string }[] = [
+  { key: 'everyMinute', cron: '* * * * *' },
+  { key: 'every5Minutes', cron: '*/5 * * * *' },
+  { key: 'every15Minutes', cron: '*/15 * * * *' },
+  { key: 'everyHour', cron: '0 * * * *' },
+  { key: 'every6Hours', cron: '0 */6 * * *' },
+  { key: 'dailyMidnight', cron: '0 0 * * *' },
+  { key: 'daily0900', cron: '0 9 * * *' },
+  { key: 'weekdays0900', cron: '0 9 * * 1-5' },
+  { key: 'weeklySunday', cron: '0 0 * * 0' },
+  { key: 'monthlyFirst', cron: '0 0 1 * *' },
+  { key: 'yearlyJan1', cron: '0 0 1 1 *' },
 ];
 
 export function tokenizeCron(expression: string): string[] {
@@ -35,12 +35,14 @@ export function toSixField(expression: string): string {
   return parts.join(' ');
 }
 
-export function validateCron(expression: string): { ok: true } | { ok: false; error: string } {
+export function validateCron(
+  expression: string
+): { ok: true } | { ok: false; errorKey: 'fieldCount' | 'invalid'; detail?: string } {
   const parts = tokenizeCron(expression);
   if (parts.length !== 5 && parts.length !== 6) {
     return {
       ok: false,
-      error: 'Expected 5 fields (minute hour day month weekday) or 6 including seconds.',
+      errorKey: 'fieldCount',
     };
   }
   try {
@@ -48,11 +50,18 @@ export function validateCron(expression: string): { ok: true } | { ok: false; er
     return { ok: true };
   } catch (e) {
     const msg = e instanceof Error ? e.message : 'Invalid cron expression.';
-    return { ok: false, error: msg };
+    return { ok: false, errorKey: 'invalid', detail: msg };
   }
 }
 
-export function describeCron(expression: string): string | null {
+function toCronstrueLocale(locale: string): string {
+  if (locale === 'pt-BR') return 'pt_BR';
+  if (locale === 'pt') return 'pt_PT';
+  if (locale === 'zh') return 'zh_CN';
+  return locale;
+}
+
+export function describeCron(expression: string, locale: string): string | null {
   const trimmed = expression.trim();
   if (!trimmed) return null;
   const t = tokenizeCron(trimmed);
@@ -61,6 +70,7 @@ export function describeCron(expression: string): string | null {
     return cronstrue.toString(five, {
       use24HourTimeFormat: true,
       dayOfWeekStartIndexZero: true,
+      locale: toCronstrueLocale(locale),
     });
   } catch {
     return null;

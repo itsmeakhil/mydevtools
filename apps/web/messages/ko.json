@@ -1667,5 +1667,152 @@
       "invalid": "잘못된 정규식입니다.",
       "runaway": "{max}개 일치 후 중지됨(패턴 폭주 가능성)."
     }
+  },
+  "TimestampConverter": {
+    "title": "타임스탬프 변환기",
+    "subtitle": "Unix 초(≤10자리) 또는 밀리초(더 긴 정수), <code>ISO-8601</code>, 혹은 브라우저가 파싱할 수 있는 문자열을 변환합니다. 모두 로컬에서 실행됩니다.",
+    "inputLabel": "입력",
+    "placeholder": "1744200000 또는 2025-04-09T12:00:00Z",
+    "now": "지금",
+    "copy": "복사",
+    "hint": "값을 붙여넣거나 <strong>지금</strong>을 클릭하세요.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "상대",
+      "human": "사람이 읽기 쉬움"
+    },
+    "fields": {
+      "seconds": "초",
+      "milliseconds": "밀리초",
+      "utc": "UTC",
+      "local": "로컬",
+      "distance": "거리"
+    },
+    "errors": {
+      "empty": "Unix 타임스탬프, ISO 문자열 또는 날짜 텍스트를 입력하세요.",
+      "invalidNumber": "숫자 타임스탬프가 올바르지 않습니다.",
+      "outOfRange": "JavaScript Date 범위를 벗어났습니다.",
+      "couldNotParse": "Unix/ISO-8601/브라우저 날짜 문자열로 파싱할 수 없습니다."
+    }
+  },
+  "CronBuilder": {
+    "title": "Cron 표현식 빌더",
+    "subtitle": "표준 5필드 cron: <mono>minute hour day month weekday</mono>. 파서는 내부적으로 seconds=<code>0</code>을 사용합니다. 표현식 편집기에서는 선택적 6필드(<mono>sec min hour dom mon dow</mono>)도 지원합니다.",
+    "tabs": {
+      "builder": "비주얼 빌더",
+      "expression": "표현식"
+    },
+    "presetsLabel": "프리셋",
+    "fieldsLabel": "필드",
+    "rawExpressionLabel": "원본 표현식",
+    "expressionHint": "포커스를 벗어나면 파싱하여 빌더와 동기화합니다. {count} {count, plural, one {토큰} other {토큰}}.",
+    "currentExpressionLabel": "현재 표현식",
+    "copy": "복사",
+    "quickPick": "빠른 선택",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "자연어",
+    "nextRunsLabel": "다음 실행(로컬 시간)",
+    "fields": {
+      "minute": "분",
+      "hour": "시",
+      "dayOfMonth": "일",
+      "month": "월",
+      "dayOfWeek": "요일"
+    },
+    "presets": {
+      "everyMinute": "매분",
+      "every5Minutes": "5분마다",
+      "every15Minutes": "15분마다",
+      "everyHour": "매시간(:00)",
+      "every6Hours": "6시간마다",
+      "dailyMidnight": "매일 자정",
+      "daily0900": "매일 09:00",
+      "weekdays0900": "평일 09:00",
+      "weeklySunday": "매주(일 00:00)",
+      "monthlyFirst": "매월(1일 00:00)",
+      "yearlyJan1": "매년(1월 1일 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "매분"
+      },
+      "hour": {
+        "every": "매시간"
+      },
+      "dom": {
+        "any": "임의의 날",
+        "last": "마지막 날"
+      },
+      "month": {
+        "every": "매월"
+      },
+      "dow": {
+        "any": "임의의 요일",
+        "weekdays": "평일",
+        "weekend": "주말"
+      }
+    },
+    "months": {
+      "jan": "1월",
+      "feb": "2월",
+      "mar": "3월",
+      "apr": "4월",
+      "may": "5월",
+      "jun": "6월",
+      "jul": "7월",
+      "aug": "8월",
+      "sep": "9월",
+      "oct": "10월",
+      "nov": "11월",
+      "dec": "12월"
+    },
+    "weekdays": {
+      "sun": "일",
+      "mon": "월",
+      "tue": "화",
+      "wed": "수",
+      "thu": "목",
+      "fri": "금",
+      "sat": "토"
+    },
+    "errors": {
+      "fieldCount": "5개 필드(minute hour day month weekday) 또는 초를 포함한 6개 필드를 기대합니다.",
+      "invalid": "잘못된 cron 표현식입니다."
+    }
+  },
+  "Base64": {
+    "title": "Base64 인코더 / 디코더",
+    "subtitle": "텍스트를 Base64로 인코딩하거나 Base64 문자열을 디코딩합니다",
+    "upload": "업로드",
+    "clear": "지우기",
+    "modes": {
+      "encode": "인코딩",
+      "decode": "디코딩"
+    },
+    "swapTitle": "입력/출력 바꾸기",
+    "panels": {
+      "plainText": "일반 텍스트",
+      "base64Input": "Base64 입력",
+      "base64Output": "Base64 출력",
+      "decodedText": "디코딩된 텍스트"
+    },
+    "placeholders": {
+      "encode": "Base64로 인코딩할 텍스트를 입력…",
+      "decode": "디코딩할 Base64 문자열을 붙여넣기…"
+    },
+    "dropHere": "여기에 파일을 놓으세요",
+    "charCount": "{count}자",
+    "download": {
+      "title": "출력 다운로드",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "클립보드로 복사",
+    "outputPlaceholder": "출력이 여기에 표시됩니다…",
+    "errors": {
+      "invalidBase64": "유효하지 않은 Base64 문자열입니다. 입력을 확인하세요.",
+      "encodeFailed": "인코딩에 실패했습니다."
+    }
   }
 }

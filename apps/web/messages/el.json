@@ -1667,5 +1667,152 @@
       "invalid": "Μη έγκυρη κανονική έκφραση.",
       "runaway": "Σταμάτησε μετά από {max} αντιστοιχίσεις (πιθανό runaway μοτίβο)."
     }
+  },
+  "TimestampConverter": {
+    "title": "Μετατροπέας timestamp",
+    "subtitle": "Unix δευτερόλεπτα (≤10 ψηφία) ή χιλιοστά (μεγαλύτεροι ακέραιοι), <code>ISO-8601</code> ή συμβολοσειρές που μπορεί να διαβάσει ο browser. Όλα τρέχουν τοπικά.",
+    "inputLabel": "Είσοδος",
+    "placeholder": "1744200000 ή 2025-04-09T12:00:00Z",
+    "now": "Τώρα",
+    "copy": "Αντιγραφή",
+    "hint": "Επικολλήστε μια τιμή ή πατήστε <strong>Τώρα</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Σχετικό",
+      "human": "Αναγνώσιμο"
+    },
+    "fields": {
+      "seconds": "Δευτερόλεπτα",
+      "milliseconds": "Χιλιοστά",
+      "utc": "UTC",
+      "local": "Τοπικά",
+      "distance": "Απόσταση"
+    },
+    "errors": {
+      "empty": "Εισάγετε Unix timestamp, ISO string ή κείμενο ημερομηνίας.",
+      "invalidNumber": "Μη έγκυρο αριθμητικό timestamp.",
+      "outOfRange": "Εκτός ορίων για JavaScript Date.",
+      "couldNotParse": "Δεν ήταν δυνατή η ανάλυση ως Unix, ISO-8601 ή ημερομηνία browser."
+    }
+  },
+  "CronBuilder": {
+    "title": "Δημιουργός εκφράσεων Cron",
+    "subtitle": "Τυπικό cron 5 πεδίων: <mono>minute hour day month weekday</mono>. Ο parser χρησιμοποιεί seconds=<code>0</code> εσωτερικά. Προαιρετικό 6-πεδίων (<mono>sec min hour dom mon dow</mono>) λειτουργεί στον editor.",
+    "tabs": {
+      "builder": "Οπτικός δημιουργός",
+      "expression": "Έκφραση"
+    },
+    "presetsLabel": "Προεπιλογές",
+    "fieldsLabel": "Πεδία",
+    "rawExpressionLabel": "Ωμή έκφραση",
+    "expressionHint": "Βγείτε από το πεδίο για ανάλυση και συγχρονισμό. {count} {count, plural, one {token} other {tokens}}.",
+    "currentExpressionLabel": "Τρέχουσα έκφραση",
+    "copy": "Αντιγραφή",
+    "quickPick": "Γρήγορη επιλογή",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Φυσική γλώσσα",
+    "nextRunsLabel": "Επόμενες εκτελέσεις (τοπική ώρα)",
+    "fields": {
+      "minute": "Λεπτό",
+      "hour": "Ώρα",
+      "dayOfMonth": "Ημέρα μήνα",
+      "month": "Μήνας",
+      "dayOfWeek": "Ημέρα εβδομάδας"
+    },
+    "presets": {
+      "everyMinute": "Κάθε λεπτό",
+      "every5Minutes": "Κάθε 5 λεπτά",
+      "every15Minutes": "Κάθε 15 λεπτά",
+      "everyHour": "Κάθε ώρα (στο :00)",
+      "every6Hours": "Κάθε 6 ώρες",
+      "dailyMidnight": "Καθημερινά τα μεσάνυχτα",
+      "daily0900": "Καθημερινά στις 09:00",
+      "weekdays0900": "Καθημερινές στις 09:00",
+      "weeklySunday": "Εβδομαδιαία (Κυριακή 00:00)",
+      "monthlyFirst": "Μηνιαία (1η 00:00)",
+      "yearlyJan1": "Ετήσια (1 Ιαν 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "κάθε λεπτό"
+      },
+      "hour": {
+        "every": "κάθε ώρα"
+      },
+      "dom": {
+        "any": "οποιαδήποτε ημέρα",
+        "last": "τελευταία ημέρα"
+      },
+      "month": {
+        "every": "κάθε μήνα"
+      },
+      "dow": {
+        "any": "οποιαδήποτε ημέρα",
+        "weekdays": "καθημερινές",
+        "weekend": "ΣΚ"
+      }
+    },
+    "months": {
+      "jan": "Ιαν",
+      "feb": "Φεβ",
+      "mar": "Μαρ",
+      "apr": "Απρ",
+      "may": "Μάι",
+      "jun": "Ιουν",
+      "jul": "Ιουλ",
+      "aug": "Αυγ",
+      "sep": "Σεπ",
+      "oct": "Οκτ",
+      "nov": "Νοε",
+      "dec": "Δεκ"
+    },
+    "weekdays": {
+      "sun": "Κυρ",
+      "mon": "Δευ",
+      "tue": "Τρι",
+      "wed": "Τετ",
+      "thu": "Πεμ",
+      "fri": "Παρ",
+      "sat": "Σαβ"
+    },
+    "errors": {
+      "fieldCount": "Αναμένονται 5 πεδία (minute hour day month weekday) ή 6 με δευτερόλεπτα.",
+      "invalid": "Μη έγκυρη cron έκφραση."
+    }
+  },
+  "Base64": {
+    "title": "Κωδικοποιητής / αποκωδικοποιητής Base64",
+    "subtitle": "Κωδικοποιήστε κείμενο σε Base64 ή αποκωδικοποιήστε συμβολοσειρές Base64",
+    "upload": "Μεταφόρτωση",
+    "clear": "Καθαρισμός",
+    "modes": {
+      "encode": "Κωδικοποίηση",
+      "decode": "Αποκωδικοποίηση"
+    },
+    "swapTitle": "Εναλλαγή εισόδου/εξόδου",
+    "panels": {
+      "plainText": "Απλό κείμενο",
+      "base64Input": "Είσοδος Base64",
+      "base64Output": "Έξοδος Base64",
+      "decodedText": "Αποκωδικοποιημένο κείμενο"
+    },
+    "placeholders": {
+      "encode": "Πληκτρολογήστε κείμενο για κωδικοποίηση σε Base64…",
+      "decode": "Επικολλήστε Base64 για αποκωδικοποίηση…"
+    },
+    "dropHere": "Αφήστε το αρχείο εδώ",
+    "charCount": "{count} χαρακτήρες",
+    "download": {
+      "title": "Λήψη εξόδου",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Αντιγραφή στο πρόχειρο",
+    "outputPlaceholder": "Η έξοδος θα εμφανιστεί εδώ…",
+    "errors": {
+      "invalidBase64": "Μη έγκυρη συμβολοσειρά Base64. Ελέγξτε την είσοδο.",
+      "encodeFailed": "Αποτυχία κωδικοποίησης."
+    }
   }
 }
