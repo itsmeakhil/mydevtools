@@ -77,6 +77,16 @@ export const toolsMetadata: Record<string, {
         title: 'Cron Expression Builder & Parser',
         description: 'Build 5-field cron jobs with presets and quick picks, edit raw expressions, read plain-English schedules, and preview next run times in the browser.',
         keywords: ['cron builder', 'crontab', 'cron expression', 'schedule parser', 'cron parser']
+    },
+    'sql-formatter': {
+        title: 'SQL Formatter - MySQL, PostgreSQL, SQLite',
+        description: 'Pretty-print SQL in the browser with dialect-aware formatting for MySQL, PostgreSQL, and SQLite.',
+        keywords: ['sql formatter', 'pretty print sql', 'postgresql format', 'mysql sql', 'sqlite sql']
+    },
+    'diff-checker': {
+        title: 'Text Diff Checker - Side-by-Side Compare',
+        description: 'Compare two texts line by side with additions and removals highlighted. Runs entirely in your browser.',
+        keywords: ['text diff', 'diff checker', 'side by side compare', 'line diff', 'text compare']
     }
 }
 

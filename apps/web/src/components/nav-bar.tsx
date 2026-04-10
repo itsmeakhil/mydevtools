@@ -19,6 +19,8 @@ import {
   Regex,
   Clock,
   Repeat,
+  Table2,
+  GitCompare,
 } from "lucide-react";
 import { ModeToggle } from "@/components/modeToggle";
 
@@ -41,6 +43,8 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType }> = 
   '/app/regex-tester': { title: 'Regex Tester', icon: Regex },
   '/app/timestamp-converter': { title: 'Timestamp Converter', icon: Clock },
   '/app/cron-builder': { title: 'Cron Builder', icon: Repeat },
+  '/app/sql-formatter': { title: 'SQL Formatter', icon: Table2 },
+  '/app/diff-checker': { title: 'Diff checker', icon: GitCompare },
 };
 
 export function NavBar() {

@@ -19,6 +19,8 @@ import {
   IconRegex,
   IconCalendarTime,
   IconRepeat,
+  IconSql,
+  IconGitCompare,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -86,6 +88,18 @@ export const sidebarData: SidebarData = {
           url: '/app/json-formatter',
           icon: IconJson,
           description: 'Format, validate, and edit JSON data.',
+        },
+        {
+          title: 'SQL Formatter',
+          url: '/app/sql-formatter',
+          icon: IconSql,
+          description: 'Format SQL for MySQL, PostgreSQL, and SQLite.',
+        },
+        {
+          title: 'Diff checker',
+          url: '/app/diff-checker',
+          icon: IconGitCompare,
+          description: 'Side-by-side line diff of two texts.',
         },
         {
           title: 'Regex Tester',
