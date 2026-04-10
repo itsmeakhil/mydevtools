@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Percent-encoding tidak valid. Periksa pasangan % yang tidak lengkap atau escape yang salah.",
       "encodeFailed": "Tidak dapat meng-encode (Unicode tidak valid pada input)."
     }
+  },
+  "UuidGenerator": {
+    "title": "Generator UUID / ULID",
+    "subtitle": "Buat UUID (RFC 9562) atau ULID di browser. Ekspor massal hingga {max} per sekali jalan.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "ID 26 karakter yang dapat diurutkan dan aman untuk URL",
+      "uuid4": "Acak (RFC 9562)",
+      "uuid7": "Berurutan waktu, ms Unix + acak",
+      "uuid1": "Berbasis MAC/waktu (RFC 9562)",
+      "uuid6": "Waktu Gregorian yang diurut ulang",
+      "uuid3": "Hash MD5 dari nama + namespace",
+      "uuid5": "Hash SHA‑1 dari nama + namespace"
+    },
+    "countLabel": "Jumlah (1–{max})",
+    "nameLabel": "Nama (string input)",
+    "namePlaceholder": "mis. my.app/resource",
+    "bulkHint": "Mode massal menambahkan <code>#0</code>, <code>#1</code>, … agar setiap ID berbeda (v3/v5 deterministik).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "UUID kustom"
+    },
+    "customNamespaceLabel": "UUID namespace",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Buat",
+    "output": "Output",
+    "lines": "{count} baris",
+    "download": {
+      "title": "Unduh .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Salin semua",
+    "outputPlaceholder": "Klik \"Buat\"…",
+    "errors": {
+      "invalidCustomNamespace": "Namespace kustom harus berupa UUID yang valid.",
+      "missingName": "Nama diperlukan untuk UUID v3 dan v5.",
+      "unknown": "Tidak dapat membuat ID."
+    }
   }
 }

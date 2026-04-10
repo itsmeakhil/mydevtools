@@ -1848,5 +1848,45 @@
       "invalidEncoding": "ترميز النسبة المئوية غير صالح. تحقّق من أزواج % غير المكتملة أو تسلسلات الهروب غير الصحيحة.",
       "encodeFailed": "تعذّر الترميز (Unicode غير صالح في الإدخال)."
     }
+  },
+  "UuidGenerator": {
+    "title": "مولّد UUID / ULID",
+    "subtitle": "أنشئ UUID (RFC 9562) أو ULID في المتصفح. تصدير دفعي حتى {max} لكل تشغيل.",
+    "format": "التنسيق",
+    "kindHints": {
+      "ulid": "معرّف قابل للفرز وآمن للروابط بطول 26 حرفًا",
+      "uuid4": "عشوائي (RFC 9562)",
+      "uuid7": "مرتّب زمنيًا، ملّي ثانية يونكس + عشوائي",
+      "uuid1": "مبني على MAC/الوقت (RFC 9562)",
+      "uuid6": "وقت غريغوري معاد ترتيبه",
+      "uuid3": "تجزئة MD5 للاسم + مساحة الاسم",
+      "uuid5": "تجزئة SHA‑1 للاسم + مساحة الاسم"
+    },
+    "countLabel": "العدد (1–{max})",
+    "nameLabel": "الاسم (سلسلة الإدخال)",
+    "namePlaceholder": "مثال: my.app/resource",
+    "bulkHint": "في التشغيل الدفعي تُضاف <code>#0</code> و<code>#1</code>… ليكون كل معرّف فريدًا (v3/v5 حتمية).",
+    "namespace": "مساحة الاسم",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "UUID مخصص"
+    },
+    "customNamespaceLabel": "UUID لمساحة الاسم",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "إنشاء",
+    "output": "المخرجات",
+    "lines": "{count} سطر",
+    "download": {
+      "title": "تنزيل .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "نسخ الكل",
+    "outputPlaceholder": "انقر على \"إنشاء\"…",
+    "errors": {
+      "invalidCustomNamespace": "يجب أن تكون مساحة الاسم المخصصة UUID صالحًا.",
+      "missingName": "الاسم مطلوب لـ UUID v3 و v5.",
+      "unknown": "تعذّر إنشاء المعرّفات."
+    }
   }
 }

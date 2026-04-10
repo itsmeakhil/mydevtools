@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Geçersiz yüzde kodlama. Eksik % çiftlerini veya hatalı kaçış dizilerini kontrol edin.",
       "encodeFailed": "Kodlanamadı (girdide geçersiz Unicode)."
     }
+  },
+  "UuidGenerator": {
+    "title": "UUID / ULID Oluşturucu",
+    "subtitle": "Tarayıcıda RFC 9562 UUID’leri veya ULID’ler oluşturun. Toplu dışa aktarma: çalıştırma başına {max} adede kadar.",
+    "format": "Biçim",
+    "kindHints": {
+      "ulid": "Sıralanabilir, URL için güvenli 26 karakterlik tanımlayıcı",
+      "uuid4": "Rastgele (RFC 9562)",
+      "uuid7": "Zamana göre sıralı, Unix ms + rastgele",
+      "uuid1": "MAC/zaman tabanlı (RFC 9562)",
+      "uuid6": "Yeniden sıralanmış Gregoryen zaman",
+      "uuid3": "Ad + ad alanı için MD5 hash",
+      "uuid5": "Ad + ad alanı için SHA‑1 hash"
+    },
+    "countLabel": "Adet (1–{max})",
+    "nameLabel": "Ad (girdi dizesi)",
+    "namePlaceholder": "örn. my.app/resource",
+    "bulkHint": "Toplu çalıştırmada <code>#0</code>, <code>#1</code>, … eklenir; böylece her ID farklı olur (v3/v5 deterministiktir).",
+    "namespace": "Ad alanı",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Özel UUID"
+    },
+    "customNamespaceLabel": "Ad alanı UUID’si",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Oluştur",
+    "output": "Çıktı",
+    "lines": "{count} satır",
+    "download": {
+      "title": ".txt indir",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Tümünü kopyala",
+    "outputPlaceholder": "\"Oluştur\"a tıklayın…",
+    "errors": {
+      "invalidCustomNamespace": "Özel ad alanı geçerli bir UUID olmalıdır.",
+      "missingName": "UUID v3 ve v5 için ad gereklidir.",
+      "unknown": "ID’ler oluşturulamadı."
+    }
   }
 }

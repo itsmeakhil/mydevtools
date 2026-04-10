@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Некорректное percent-encoding. Проверьте неполные пары % или escape-последовательности.",
       "encodeFailed": "Не удалось закодировать (некорректный Unicode во вводе)."
     }
+  },
+  "UuidGenerator": {
+    "title": "Генератор UUID / ULID",
+    "subtitle": "Генерируйте UUID (RFC 9562) или ULID в браузере. Пакетный экспорт до {max} за запуск.",
+    "format": "Формат",
+    "kindHints": {
+      "ulid": "Сортируемый, безопасный для URL идентификатор из 26 символов",
+      "uuid4": "Случайный (RFC 9562)",
+      "uuid7": "Упорядочен по времени, Unix мс + случайность",
+      "uuid1": "MAC/время (RFC 9562)",
+      "uuid6": "Переупорядоченное григорианское время",
+      "uuid3": "MD5‑хеш имени + пространства имён",
+      "uuid5": "SHA‑1‑хеш имени + пространства имён"
+    },
+    "countLabel": "Количество (1–{max})",
+    "nameLabel": "Имя (входная строка)",
+    "namePlaceholder": "например my.app/resource",
+    "bulkHint": "В пакетном режиме добавляются <code>#0</code>, <code>#1</code>, … чтобы каждый ID был уникален (v3/v5 детерминированы).",
+    "namespace": "Пространство имён",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Свой UUID"
+    },
+    "customNamespaceLabel": "UUID пространства имён",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Сгенерировать",
+    "output": "Вывод",
+    "lines": "{count} строк",
+    "download": {
+      "title": "Скачать .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Копировать всё",
+    "outputPlaceholder": "Нажмите «Сгенерировать»…",
+    "errors": {
+      "invalidCustomNamespace": "Пользовательское пространство имён должно быть валидным UUID.",
+      "missingName": "Имя обязательно для UUID v3 и v5.",
+      "unknown": "Не удалось сгенерировать идентификаторы."
+    }
   }
 }

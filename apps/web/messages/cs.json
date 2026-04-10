@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Neplatné procentové kódování. Zkontrolujte neúplné dvojice % nebo chybné escape sekvence.",
       "encodeFailed": "Nepodařilo se enkódovat (neplatné Unicode ve vstupu)."
     }
+  },
+  "UuidGenerator": {
+    "title": "Generátor UUID / ULID",
+    "subtitle": "Generujte UUID (RFC 9562) nebo ULID v prohlížeči. Hromadný export až {max} na spuštění.",
+    "format": "Formát",
+    "kindHints": {
+      "ulid": "Řaditelný, URL-bezpečný identifikátor o 26 znacích",
+      "uuid4": "Náhodné (RFC 9562)",
+      "uuid7": "Časově seřazené, Unix ms + náhoda",
+      "uuid1": "MAC/čas (RFC 9562)",
+      "uuid6": "Přeuspořádaný gregoriánský čas",
+      "uuid3": "MD5 hash jména + namespace",
+      "uuid5": "SHA‑1 hash jména + namespace"
+    },
+    "countLabel": "Počet (1–{max})",
+    "nameLabel": "Jméno (vstupní řetězec)",
+    "namePlaceholder": "např. my.app/resource",
+    "bulkHint": "V dávce se přidá <code>#0</code>, <code>#1</code>, … aby byl každý ID jedinečný (v3/v5 jsou deterministické).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Vlastní UUID"
+    },
+    "customNamespaceLabel": "UUID namespace",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Generovat",
+    "output": "Výstup",
+    "lines": "{count} řádků",
+    "download": {
+      "title": "Stáhnout .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Kopírovat vše",
+    "outputPlaceholder": "Klikněte na „Generovat“…",
+    "errors": {
+      "invalidCustomNamespace": "Vlastní namespace musí být platná UUID.",
+      "missingName": "Pro UUID v3 a v5 je vyžadováno jméno.",
+      "unknown": "Nepodařilo se vygenerovat ID."
+    }
   }
 }

@@ -1848,5 +1848,45 @@
       "invalidEncoding": "잘못된 퍼센트 인코딩입니다. 불완전한 % 쌍이나 잘못된 이스케이프를 확인하세요.",
       "encodeFailed": "인코딩할 수 없습니다(입력에 잘못된 Unicode)."
     }
+  },
+  "UuidGenerator": {
+    "title": "UUID / ULID 생성기",
+    "subtitle": "브라우저에서 RFC 9562 UUID 또는 ULID를 생성합니다. 한 번에 최대 {max}개까지 일괄 내보내기.",
+    "format": "형식",
+    "kindHints": {
+      "ulid": "정렬 가능하고 URL 안전한 26자 식별자",
+      "uuid4": "무작위 (RFC 9562)",
+      "uuid7": "시간 순서(Unix ms + 무작위)",
+      "uuid1": "MAC/시간 기반 (RFC 9562)",
+      "uuid6": "재정렬된 그레고리력 시간 기반",
+      "uuid3": "이름 + 네임스페이스의 MD5 해시",
+      "uuid5": "이름 + 네임스페이스의 SHA‑1 해시"
+    },
+    "countLabel": "개수 (1–{max})",
+    "nameLabel": "이름(입력 문자열)",
+    "namePlaceholder": "예: my.app/resource",
+    "bulkHint": "일괄 실행 시 <code>#0</code>, <code>#1</code>, … 을 덧붙여 각 ID를 고유하게 만듭니다(v3/v5는 결정적).",
+    "namespace": "네임스페이스",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "사용자 지정 UUID"
+    },
+    "customNamespaceLabel": "네임스페이스 UUID",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "생성",
+    "output": "출력",
+    "lines": "{count}줄",
+    "download": {
+      "title": ".txt 다운로드",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "모두 복사",
+    "outputPlaceholder": "\"생성\"을 클릭…",
+    "errors": {
+      "invalidCustomNamespace": "사용자 지정 네임스페이스는 유효한 UUID여야 합니다.",
+      "missingName": "UUID v3 및 v5에는 이름이 필요합니다.",
+      "unknown": "ID를 생성할 수 없습니다."
+    }
   }
 }

@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Ugyldig prosentkoding. Sjekk ufullstendige %‑par eller escapes.",
       "encodeFailed": "Kunne ikke kode (ugyldig Unicode i input)."
     }
+  },
+  "UuidGenerator": {
+    "title": "UUID-/ULID-generator",
+    "subtitle": "Generer RFC 9562-UUID-er eller ULID-er i nettleseren. Masseeksport opptil {max} per kjøring.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "Sorterbar, URL-sikker identifikator på 26 tegn",
+      "uuid4": "Tilfeldig (RFC 9562)",
+      "uuid7": "Tidsordnet, Unix ms + tilfeldig",
+      "uuid1": "MAC-/tidsbasert (RFC 9562)",
+      "uuid6": "Omordnet gregoriansk tidsbasert",
+      "uuid3": "MD5-hash av navn + namespace",
+      "uuid5": "SHA‑1-hash av navn + namespace"
+    },
+    "countLabel": "Antall (1–{max})",
+    "nameLabel": "Navn (inndatastreng)",
+    "namePlaceholder": "f.eks. my.app/resource",
+    "bulkHint": "I batch legges <code>#0</code>, <code>#1</code>, … til slik at hver ID er unik (v3/v5 er deterministiske).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Egendefinert UUID"
+    },
+    "customNamespaceLabel": "Namespace-UUID",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Generer",
+    "output": "Utdata",
+    "lines": "{count} linjer",
+    "download": {
+      "title": "Last ned .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Kopier alt",
+    "outputPlaceholder": "Klikk \"Generer\"…",
+    "errors": {
+      "invalidCustomNamespace": "Egendefinert namespace må være en gyldig UUID.",
+      "missingName": "Navn er påkrevd for UUID v3 og v5.",
+      "unknown": "Kunne ikke generere ID-er."
+    }
   }
 }

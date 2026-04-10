@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Nieprawidłowe kodowanie procentowe. Sprawdź niekompletne pary % lub sekwencje escape.",
       "encodeFailed": "Nie można zakodować (nieprawidłowy Unicode w wejściu)."
     }
+  },
+  "UuidGenerator": {
+    "title": "Generator UUID / ULID",
+    "subtitle": "Generuj UUID (RFC 9562) lub ULID w przeglądarce. Eksport zbiorczy do {max} na uruchomienie.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "Sortowalny, bezpieczny dla URL identyfikator 26‑znakowy",
+      "uuid4": "Losowy (RFC 9562)",
+      "uuid7": "Uporządkowany w czasie, ms Unix + losowość",
+      "uuid1": "MAC/czas (RFC 9562)",
+      "uuid6": "Przestawiony czas gregoriański",
+      "uuid3": "Hash MD5 nazwy + przestrzeni nazw",
+      "uuid5": "Hash SHA‑1 nazwy + przestrzeni nazw"
+    },
+    "countLabel": "Liczba (1–{max})",
+    "nameLabel": "Nazwa (ciąg wejściowy)",
+    "namePlaceholder": "np. my.app/resource",
+    "bulkHint": "W trybie zbiorczym dodawane jest <code>#0</code>, <code>#1</code>, … aby każdy ID był inny (v3/v5 są deterministyczne).",
+    "namespace": "Przestrzeń nazw",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Własny UUID"
+    },
+    "customNamespaceLabel": "UUID przestrzeni nazw",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Generuj",
+    "output": "Wynik",
+    "lines": "{count} wierszy",
+    "download": {
+      "title": "Pobierz .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Kopiuj wszystko",
+    "outputPlaceholder": "Kliknij „Generuj”…",
+    "errors": {
+      "invalidCustomNamespace": "Własna przestrzeń nazw musi być prawidłowym UUID.",
+      "missingName": "Nazwa jest wymagana dla UUID v3 i v5.",
+      "unknown": "Nie udało się wygenerować identyfikatorów."
+    }
   }
 }

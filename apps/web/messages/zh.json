@@ -1848,5 +1848,45 @@
       "invalidEncoding": "百分号编码无效。请检查不完整的 % 对或错误的转义序列。",
       "encodeFailed": "无法编码（输入中包含无效的 Unicode）。"
     }
+  },
+  "UuidGenerator": {
+    "title": "UUID / ULID 生成器",
+    "subtitle": "在浏览器中生成 RFC 9562 UUID 或 ULID。每次最多批量导出 {max} 个。",
+    "format": "格式",
+    "kindHints": {
+      "ulid": "可排序、URL 安全的 26 位标识符",
+      "uuid4": "随机（RFC 9562）",
+      "uuid7": "按时间排序，Unix 毫秒 + 随机",
+      "uuid1": "基于 MAC/时间（RFC 9562）",
+      "uuid6": "重新排序的格里历时间",
+      "uuid3": "名称 + 命名空间的 MD5 哈希",
+      "uuid5": "名称 + 命名空间的 SHA‑1 哈希"
+    },
+    "countLabel": "数量（1–{max}）",
+    "nameLabel": "名称（输入字符串）",
+    "namePlaceholder": "例如 my.app/resource",
+    "bulkHint": "批量生成会追加 <code>#0</code>、<code>#1</code>… 以确保每个 ID 不同（v3/v5 为确定性）。",
+    "namespace": "命名空间",
+    "namespaceOptions": {
+      "dns": "DNS（RFC 4122）",
+      "url": "URL（RFC 4122）",
+      "custom": "自定义 UUID"
+    },
+    "customNamespaceLabel": "命名空间 UUID",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "生成",
+    "output": "输出",
+    "lines": "{count} 行",
+    "download": {
+      "title": "下载 .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "复制全部",
+    "outputPlaceholder": "点击“生成”…",
+    "errors": {
+      "invalidCustomNamespace": "自定义命名空间必须是有效的 UUID。",
+      "missingName": "UUID v3 和 v5 需要名称。",
+      "unknown": "无法生成 ID。"
+    }
   }
 }

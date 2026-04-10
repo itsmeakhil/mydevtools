@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Ungültige Prozentkodierung. Prüfe unvollständige %‑Paare oder Escape-Sequenzen.",
       "encodeFailed": "Konnte nicht kodieren (ungültiges Unicode in der Eingabe)."
     }
+  },
+  "UuidGenerator": {
+    "title": "UUID-/ULID-Generator",
+    "subtitle": "Erzeuge RFC‑9562‑UUIDs oder ULIDs im Browser. Bulk-Export bis zu {max} pro Durchlauf.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "Sortierbarer, URL-sicherer 26‑Zeichen‑Bezeichner",
+      "uuid4": "Zufällig (RFC 9562)",
+      "uuid7": "Zeitgeordnet, Unix‑ms + Zufall",
+      "uuid1": "MAC-/zeitbasiert (RFC 9562)",
+      "uuid6": "Neu geordnete gregorianische Zeit",
+      "uuid3": "MD5-Hash aus Name + Namespace",
+      "uuid5": "SHA‑1-Hash aus Name + Namespace"
+    },
+    "countLabel": "Anzahl (1–{max})",
+    "nameLabel": "Name (Eingabe-String)",
+    "namePlaceholder": "z. B. my.app/resource",
+    "bulkHint": "Bei Bulk-Läufen wird <code>#0</code>, <code>#1</code>, … angehängt, damit jede ID eindeutig ist (v3/v5 sind deterministisch).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Benutzerdefinierte UUID"
+    },
+    "customNamespaceLabel": "Namespace-UUID",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Generieren",
+    "output": "Ausgabe",
+    "lines": "{count} Zeilen",
+    "download": {
+      "title": ".txt herunterladen",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Alles kopieren",
+    "outputPlaceholder": "Klicke auf „Generieren“…",
+    "errors": {
+      "invalidCustomNamespace": "Der benutzerdefinierte Namespace muss eine gültige UUID sein.",
+      "missingName": "Für UUID v3 und v5 ist ein Name erforderlich.",
+      "unknown": "IDs konnten nicht erzeugt werden."
+    }
   }
 }

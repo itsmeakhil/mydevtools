@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Percent-encoding non valido. Verifica coppie % incomplete o sequenze di escape.",
       "encodeFailed": "Impossibile codificare (Unicode non valido nell’input)."
     }
+  },
+  "UuidGenerator": {
+    "title": "Generatore UUID / ULID",
+    "subtitle": "Genera UUID (RFC 9562) o ULID nel browser. Esportazione in blocco fino a {max} per esecuzione.",
+    "format": "Formato",
+    "kindHints": {
+      "ulid": "Identificatore ordinabile, sicuro per URL, 26 caratteri",
+      "uuid4": "Casuale (RFC 9562)",
+      "uuid7": "Ordinato nel tempo, ms Unix + casuale",
+      "uuid1": "Basato su MAC/tempo (RFC 9562)",
+      "uuid6": "Tempo gregoriano riordinato",
+      "uuid3": "Hash MD5 di nome + namespace",
+      "uuid5": "Hash SHA‑1 di nome + namespace"
+    },
+    "countLabel": "Quantità (1–{max})",
+    "nameLabel": "Nome (stringa di input)",
+    "namePlaceholder": "es. my.app/resource",
+    "bulkHint": "Nei batch viene aggiunto <code>#0</code>, <code>#1</code>, … così ogni ID è distinto (v3/v5 sono deterministici).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "UUID personalizzato"
+    },
+    "customNamespaceLabel": "UUID namespace",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Genera",
+    "output": "Output",
+    "lines": "{count} righe",
+    "download": {
+      "title": "Scarica .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Copia tutto",
+    "outputPlaceholder": "Clicca su \"Genera\"…",
+    "errors": {
+      "invalidCustomNamespace": "Il namespace personalizzato deve essere un UUID valido.",
+      "missingName": "Il nome è obbligatorio per UUID v3 e v5.",
+      "unknown": "Impossibile generare gli ID."
+    }
   }
 }

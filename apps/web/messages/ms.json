@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Peratus-pengekodan tidak sah. Semak pasangan % tidak lengkap atau escape yang salah.",
       "encodeFailed": "Tidak dapat mengod (Unicode tidak sah dalam input)."
     }
+  },
+  "UuidGenerator": {
+    "title": "Penjana UUID / ULID",
+    "subtitle": "Jana UUID (RFC 9562) atau ULID dalam pelayar. Eksport pukal hingga {max} setiap kali.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "Pengecam 26 aksara yang boleh diisih dan selamat untuk URL",
+      "uuid4": "Rawak (RFC 9562)",
+      "uuid7": "Teratur mengikut masa, ms Unix + rawak",
+      "uuid1": "Berasaskan MAC/masa (RFC 9562)",
+      "uuid6": "Masa Gregorian disusun semula",
+      "uuid3": "Hash MD5 nama + namespace",
+      "uuid5": "Hash SHA‑1 nama + namespace"
+    },
+    "countLabel": "Bilangan (1–{max})",
+    "nameLabel": "Nama (rentetan input)",
+    "namePlaceholder": "cth. my.app/resource",
+    "bulkHint": "Mod pukal menambah <code>#0</code>, <code>#1</code>, … supaya setiap ID berbeza (v3/v5 deterministik).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "UUID tersuai"
+    },
+    "customNamespaceLabel": "UUID namespace",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Jana",
+    "output": "Output",
+    "lines": "{count} baris",
+    "download": {
+      "title": "Muat turun .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Salin semua",
+    "outputPlaceholder": "Klik \"Jana\"…",
+    "errors": {
+      "invalidCustomNamespace": "Namespace tersuai mestilah UUID yang sah.",
+      "missingName": "Nama diperlukan untuk UUID v3 dan v5.",
+      "unknown": "Tidak dapat menjana ID."
+    }
   }
 }

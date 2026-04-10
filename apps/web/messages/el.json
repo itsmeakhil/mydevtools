@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Μη έγκυρο percent-encoding. Ελέγξτε για ελλιπή ζεύγη % ή λάθος ακολουθίες διαφυγής.",
       "encodeFailed": "Δεν ήταν δυνατή η κωδικοποίηση (μη έγκυρο Unicode στην είσοδο)."
     }
+  },
+  "UuidGenerator": {
+    "title": "Γεννήτρια UUID / ULID",
+    "subtitle": "Δημιουργήστε UUID (RFC 9562) ή ULID στον browser. Μαζική εξαγωγή έως {max} ανά εκτέλεση.",
+    "format": "Μορφή",
+    "kindHints": {
+      "ulid": "Ταξινομήσιμο, URL-safe αναγνωριστικό 26 χαρακτήρων",
+      "uuid4": "Τυχαίο (RFC 9562)",
+      "uuid7": "Χρονικά ταξινομημένο, Unix ms + τυχαίο",
+      "uuid1": "MAC/χρόνος (RFC 9562)",
+      "uuid6": "Αναδιατεταγμένος γρηγοριανός χρόνος",
+      "uuid3": "MD5 hash ονόματος + namespace",
+      "uuid5": "SHA‑1 hash ονόματος + namespace"
+    },
+    "countLabel": "Πλήθος (1–{max})",
+    "nameLabel": "Όνομα (συμβολοσειρά εισόδου)",
+    "namePlaceholder": "π.χ. my.app/resource",
+    "bulkHint": "Στη μαζική δημιουργία προστίθενται <code>#0</code>, <code>#1</code>, … ώστε κάθε ID να είναι διαφορετικό (v3/v5 είναι ντετερμινιστικά).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Προσαρμοσμένο UUID"
+    },
+    "customNamespaceLabel": "UUID namespace",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Δημιουργία",
+    "output": "Έξοδος",
+    "lines": "{count} γραμμές",
+    "download": {
+      "title": "Λήψη .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Αντιγραφή όλων",
+    "outputPlaceholder": "Πατήστε «Δημιουργία»…",
+    "errors": {
+      "invalidCustomNamespace": "Το προσαρμοσμένο namespace πρέπει να είναι έγκυρο UUID.",
+      "missingName": "Απαιτείται όνομα για UUID v3 και v5.",
+      "unknown": "Δεν ήταν δυνατή η δημιουργία των ID."
+    }
   }
 }

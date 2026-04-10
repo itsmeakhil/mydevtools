@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Некоректне percent-encoding. Перевірте неповні пари % або escape-послідовності.",
       "encodeFailed": "Не вдалося закодувати (некоректний Unicode у вводі)."
     }
+  },
+  "UuidGenerator": {
+    "title": "Генератор UUID / ULID",
+    "subtitle": "Генеруйте UUID (RFC 9562) або ULID у браузері. Пакетний експорт до {max} за запуск.",
+    "format": "Формат",
+    "kindHints": {
+      "ulid": "Сортований, URL-безпечний ідентифікатор на 26 символів",
+      "uuid4": "Випадковий (RFC 9562)",
+      "uuid7": "Упорядкований за часом, Unix мс + випадковість",
+      "uuid1": "MAC/час (RFC 9562)",
+      "uuid6": "Перевпорядкований григоріанський час",
+      "uuid3": "MD5‑хеш імені + простору назв",
+      "uuid5": "SHA‑1‑хеш імені + простору назв"
+    },
+    "countLabel": "Кількість (1–{max})",
+    "nameLabel": "Ім’я (вхідний рядок)",
+    "namePlaceholder": "наприклад my.app/resource",
+    "bulkHint": "У пакетному режимі додаються <code>#0</code>, <code>#1</code>, … щоб кожен ID був унікальним (v3/v5 детерміновані).",
+    "namespace": "Простір назв",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Власний UUID"
+    },
+    "customNamespaceLabel": "UUID простору назв",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Згенерувати",
+    "output": "Вивід",
+    "lines": "{count} рядків",
+    "download": {
+      "title": "Завантажити .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Копіювати все",
+    "outputPlaceholder": "Натисніть \"Згенерувати\"…",
+    "errors": {
+      "invalidCustomNamespace": "Власний простір назв має бути валідним UUID.",
+      "missingName": "Ім’я потрібне для UUID v3 та v5.",
+      "unknown": "Не вдалося згенерувати ідентифікатори."
+    }
   }
 }

@@ -1848,5 +1848,45 @@
       "invalidEncoding": "パーセントエンコードが無効です。不完全な % ペアや不正なエスケープを確認してください。",
       "encodeFailed": "エンコードできません（入力に無効な Unicode）。"
     }
+  },
+  "UuidGenerator": {
+    "title": "UUID / ULID ジェネレーター",
+    "subtitle": "ブラウザで RFC 9562 UUID または ULID を生成します。1回あたり最大 {max} 件まで一括エクスポートできます。",
+    "format": "形式",
+    "kindHints": {
+      "ulid": "並べ替え可能で URL セーフな 26 文字 ID",
+      "uuid4": "ランダム（RFC 9562）",
+      "uuid7": "時系列順（Unix ms + ランダム）",
+      "uuid1": "MAC/時刻ベース（RFC 9562）",
+      "uuid6": "並べ替えられたグレゴリオ暦時刻ベース",
+      "uuid3": "名前 + 名前空間の MD5 ハッシュ",
+      "uuid5": "名前 + 名前空間の SHA‑1 ハッシュ"
+    },
+    "countLabel": "件数（1～{max}）",
+    "nameLabel": "名前（入力文字列）",
+    "namePlaceholder": "例: my.app/resource",
+    "bulkHint": "一括実行では <code>#0</code>、<code>#1</code>… を付与し、各 ID を一意にします（v3/v5 は決定的）。",
+    "namespace": "名前空間",
+    "namespaceOptions": {
+      "dns": "DNS（RFC 4122）",
+      "url": "URL（RFC 4122）",
+      "custom": "カスタム UUID"
+    },
+    "customNamespaceLabel": "名前空間 UUID",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "生成",
+    "output": "出力",
+    "lines": "{count} 行",
+    "download": {
+      "title": ".txt をダウンロード",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "すべてコピー",
+    "outputPlaceholder": "「生成」をクリック…",
+    "errors": {
+      "invalidCustomNamespace": "カスタム名前空間は有効な UUID である必要があります。",
+      "missingName": "UUID v3 と v5 には名前が必要です。",
+      "unknown": "ID を生成できませんでした。"
+    }
   }
 }

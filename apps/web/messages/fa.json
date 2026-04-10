@@ -1848,5 +1848,45 @@
       "invalidEncoding": "کدگذاری درصدی نامعتبر است. جفت‌های % ناقص یا escapeهای نامعتبر را بررسی کنید.",
       "encodeFailed": "رمزگذاری ممکن نیست (Unicode نامعتبر در ورودی)."
     }
+  },
+  "UuidGenerator": {
+    "title": "مولد UUID / ULID",
+    "subtitle": "UUIDهای RFC 9562 یا ULID را در مرورگر تولید کنید. خروجی گروهی تا {max} در هر اجرا.",
+    "format": "فرمت",
+    "kindHints": {
+      "ulid": "شناسهٔ ۲۶ کاراکتری قابل مرتب‌سازی و امن برای URL",
+      "uuid4": "تصادفی (RFC 9562)",
+      "uuid7": "مرتب‌شده بر اساس زمان، میلی‌ثانیهٔ یونیکس + تصادفی",
+      "uuid1": "مبتنی بر MAC/زمان (RFC 9562)",
+      "uuid6": "زمان گریگوری بازآرایی‌شده",
+      "uuid3": "هش MD5 از نام + فضای نام",
+      "uuid5": "هش SHA‑1 از نام + فضای نام"
+    },
+    "countLabel": "تعداد (۱–{max})",
+    "nameLabel": "نام (رشتهٔ ورودی)",
+    "namePlaceholder": "مثلاً my.app/resource",
+    "bulkHint": "در حالت گروهی <code>#0</code>، <code>#1</code>، … اضافه می‌شود تا هر ID یکتا باشد (v3/v5 قطعی هستند).",
+    "namespace": "فضای نام",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "UUID سفارشی"
+    },
+    "customNamespaceLabel": "UUID فضای نام",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "تولید",
+    "output": "خروجی",
+    "lines": "{count} خط",
+    "download": {
+      "title": "دانلود .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "کپی همه",
+    "outputPlaceholder": "روی «تولید» کلیک کنید…",
+    "errors": {
+      "invalidCustomNamespace": "فضای نام سفارشی باید یک UUID معتبر باشد.",
+      "missingName": "برای UUID v3 و v5 وارد کردن نام لازم است.",
+      "unknown": "امکان تولید شناسه‌ها وجود ندارد."
+    }
   }
 }

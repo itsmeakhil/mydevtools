@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Mã hóa phần trăm không hợp lệ. Hãy kiểm tra cặp % chưa đầy đủ hoặc chuỗi escape sai.",
       "encodeFailed": "Không thể mã hóa (Unicode không hợp lệ trong đầu vào)."
     }
+  },
+  "UuidGenerator": {
+    "title": "Trình tạo UUID / ULID",
+    "subtitle": "Tạo UUID (RFC 9562) hoặc ULID trong trình duyệt. Xuất hàng loạt tối đa {max} mỗi lần chạy.",
+    "format": "Định dạng",
+    "kindHints": {
+      "ulid": "Định danh 26 ký tự có thể sắp xếp, an toàn cho URL",
+      "uuid4": "Ngẫu nhiên (RFC 9562)",
+      "uuid7": "Theo thời gian, ms Unix + ngẫu nhiên",
+      "uuid1": "Dựa trên MAC/thời gian (RFC 9562)",
+      "uuid6": "Thời gian Gregory được sắp xếp lại",
+      "uuid3": "Băm MD5 của tên + namespace",
+      "uuid5": "Băm SHA‑1 của tên + namespace"
+    },
+    "countLabel": "Số lượng (1–{max})",
+    "nameLabel": "Tên (chuỗi đầu vào)",
+    "namePlaceholder": "vd. my.app/resource",
+    "bulkHint": "Chạy hàng loạt sẽ thêm <code>#0</code>, <code>#1</code>, … để mỗi ID khác nhau (v3/v5 là tất định).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "UUID tùy chỉnh"
+    },
+    "customNamespaceLabel": "UUID namespace",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Tạo",
+    "output": "Kết quả",
+    "lines": "{count} dòng",
+    "download": {
+      "title": "Tải .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Sao chép tất cả",
+    "outputPlaceholder": "Nhấn \"Tạo\"…",
+    "errors": {
+      "invalidCustomNamespace": "Namespace tùy chỉnh phải là UUID hợp lệ.",
+      "missingName": "Cần có tên cho UUID v3 và v5.",
+      "unknown": "Không thể tạo ID."
+    }
   }
 }

@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Invalid percent-encoding. Check for incomplete % pairs or bad escape sequences.",
       "encodeFailed": "Could not encode (invalid Unicode in input)."
     }
+  },
+  "UuidGenerator": {
+    "title": "UUID / ULID generator",
+    "subtitle": "Generate RFC 9562 UUIDs or ULIDs in the browser. Bulk export up to {max} per run.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "Sortable, URL-safe 26-character identifier",
+      "uuid4": "Random (RFC 9562)",
+      "uuid7": "Time-ordered, Unix ms + random",
+      "uuid1": "MAC/time-based (RFC 9562)",
+      "uuid6": "Reordered Gregorian time-based",
+      "uuid3": "MD5 hash of name + namespace",
+      "uuid5": "SHA-1 hash of name + namespace"
+    },
+    "countLabel": "Count (1–{max})",
+    "nameLabel": "Name (input string)",
+    "namePlaceholder": "e.g. my.app/resource",
+    "bulkHint": "Bulk runs append <code>#0</code>, <code>#1</code>, … so each ID is distinct (v3/v5 are deterministic).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Custom UUID"
+    },
+    "customNamespaceLabel": "Namespace UUID",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Generate",
+    "output": "Output",
+    "lines": "{count} lines",
+    "download": {
+      "title": "Download .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Copy all",
+    "outputPlaceholder": "Click \"Generate\"…",
+    "errors": {
+      "invalidCustomNamespace": "Custom namespace must be a valid UUID.",
+      "missingName": "Name is required for UUID v3 and v5.",
+      "unknown": "Could not generate IDs."
+    }
   }
 }

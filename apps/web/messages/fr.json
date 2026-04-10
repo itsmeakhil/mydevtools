@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Encodage en pourcentage invalide. Vérifiez les paires % incomplètes ou les séquences d’échappement.",
       "encodeFailed": "Impossible d’encoder (Unicode invalide dans l’entrée)."
     }
+  },
+  "UuidGenerator": {
+    "title": "Générateur UUID / ULID",
+    "subtitle": "Générez des UUID (RFC 9562) ou des ULID dans le navigateur. Export en lot jusqu’à {max} par exécution.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "Identifiant triable, sûr pour URL, 26 caractères",
+      "uuid4": "Aléatoire (RFC 9562)",
+      "uuid7": "Ordonné dans le temps, ms Unix + aléatoire",
+      "uuid1": "Basé MAC/temps (RFC 9562)",
+      "uuid6": "Temps grégorien réordonné",
+      "uuid3": "Hachage MD5 du nom + espace de noms",
+      "uuid5": "Hachage SHA‑1 du nom + espace de noms"
+    },
+    "countLabel": "Quantité (1–{max})",
+    "nameLabel": "Nom (chaîne d’entrée)",
+    "namePlaceholder": "ex. mon.app/ressource",
+    "bulkHint": "En lot, on ajoute <code>#0</code>, <code>#1</code>, … pour rendre chaque ID unique (v3/v5 sont déterministes).",
+    "namespace": "Espace de noms",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "UUID personnalisé"
+    },
+    "customNamespaceLabel": "UUID d’espace de noms",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Générer",
+    "output": "Sortie",
+    "lines": "{count} lignes",
+    "download": {
+      "title": "Télécharger .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Tout copier",
+    "outputPlaceholder": "Cliquez sur « Générer »…",
+    "errors": {
+      "invalidCustomNamespace": "L’espace de noms personnalisé doit être un UUID valide.",
+      "missingName": "Le nom est requis pour UUID v3 et v5.",
+      "unknown": "Impossible de générer les identifiants."
+    }
   }
 }

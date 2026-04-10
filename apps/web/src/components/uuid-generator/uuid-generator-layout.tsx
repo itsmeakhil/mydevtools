@@ -19,19 +19,33 @@ import {
   MAX_BULK,
   type IdKind,
   type NamespacePreset,
+  type GenerateIdsErrorKey,
 } from '@/lib/generate-ids';
+import { useTranslations } from 'next-intl';
 
-const KIND_OPTIONS: { value: IdKind; label: string; hint: string }[] = [
-  { value: 'ulid', label: 'ULID', hint: 'Sortable, URL-safe 26-character identifier' },
-  { value: 'uuid4', label: 'UUID v4', hint: 'Random (RFC 9562)' },
-  { value: 'uuid7', label: 'UUID v7', hint: 'Time-ordered, Unix ms + random' },
-  { value: 'uuid1', label: 'UUID v1', hint: 'MAC/time-based (RFC 9562)' },
-  { value: 'uuid6', label: 'UUID v6', hint: 'Reordered Gregorian time-based' },
-  { value: 'uuid3', label: 'UUID v3', hint: 'MD5 hash of name + namespace' },
-  { value: 'uuid5', label: 'UUID v5', hint: 'SHA-1 hash of name + namespace' },
+const KIND_OPTIONS: { value: IdKind; label: string }[] = [
+  { value: 'ulid', label: 'ULID' },
+  { value: 'uuid4', label: 'UUID v4' },
+  { value: 'uuid7', label: 'UUID v7' },
+  { value: 'uuid1', label: 'UUID v1' },
+  { value: 'uuid6', label: 'UUID v6' },
+  { value: 'uuid3', label: 'UUID v3' },
+  { value: 'uuid5', label: 'UUID v5' },
 ];
 
+function errorKeyFromGenerateIdsErrorKey(key: GenerateIdsErrorKey): string {
+  switch (key) {
+    case 'invalidCustomNamespace':
+      return 'errors.invalidCustomNamespace';
+    case 'missingName':
+      return 'errors.missingName';
+    default:
+      return 'errors.unknown';
+  }
+}
+
 export function UuidGeneratorLayout() {
+  const t = useTranslations('UuidGenerator');
   const [kind, setKind] = useState<IdKind>('uuid4');
   const [count, setCount] = useState(10);
   const [name, setName] = useState('mydevtools');
@@ -49,25 +63,34 @@ export function UuidGeneratorLayout() {
     setCopied(false);
     try {
       const n = Number(count);
-      const lines = generateIds({
+      const result = generateIds({
         kind,
         count: Number.isFinite(n) ? n : 1,
         name,
         namespacePreset,
         customNamespace,
       });
-      setOutput(lines.join('\n'));
+      if (!result.ok) {
+        setOutput('');
+        setError(t(errorKeyFromGenerateIdsErrorKey(result.errorKey)));
+        return;
+      }
+      setOutput(result.lines.join('\n'));
     } catch (e) {
       setOutput('');
-      setError(e instanceof Error ? e.message : 'Could not generate IDs.');
+      setError(t('errors.unknown'));
     }
-  }, [kind, count, name, namespacePreset, customNamespace]);
+  }, [kind, count, name, namespacePreset, customNamespace, t]);
 
   const handleCopy = async () => {
     if (!output) return;
-    await navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(output);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // ignore clipboard failures
+    }
   };
 
   const handleDownload = () => {
@@ -76,7 +99,7 @@ export function UuidGeneratorLayout() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `ids-${kind}.txt`;
+    a.download = t('download.filename', { kind });
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -84,10 +107,9 @@ export function UuidGeneratorLayout() {
   return (
     <div className="flex flex-col h-full gap-4 min-h-0">
       <div className="shrink-0">
-        <h1 className="text-lg font-semibold tracking-tight">UUID / ULID generator</h1>
+        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
         <p className="text-xs text-muted-foreground">
-          Generate RFC 9562 UUIDs or ULIDs in the browser. Bulk export up to {MAX_BULK.toLocaleString()}{' '}
-          per run.
+          {t('subtitle', { max: MAX_BULK.toLocaleString() })}
         </p>
       </div>
 
@@ -95,7 +117,7 @@ export function UuidGeneratorLayout() {
         <Card className="flex flex-col gap-4 p-4 overflow-auto">
           <div className="space-y-2">
             <Label htmlFor="id-kind" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              Format
+              {t('format')}
             </Label>
             <Select
               value={kind}
@@ -113,13 +135,15 @@ export function UuidGeneratorLayout() {
               </SelectContent>
             </Select>
             {kindMeta && (
-              <p className="text-[11px] text-muted-foreground leading-snug">{kindMeta.hint}</p>
+              <p className="text-[11px] text-muted-foreground leading-snug">
+                {t(`kindHints.${kindMeta.value}`)}
+              </p>
             )}
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="id-count" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              Count (1–{MAX_BULK.toLocaleString()})
+              {t('countLabel', { max: MAX_BULK.toLocaleString() })}
             </Label>
             <Input
               id="id-count"
@@ -136,25 +160,25 @@ export function UuidGeneratorLayout() {
             <>
               <div className="space-y-2">
                 <Label htmlFor="id-name" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Name (input string)
+                  {t('nameLabel')}
                 </Label>
                 <Input
                   id="id-name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="e.g. my.app/resource"
+                  placeholder={t('namePlaceholder')}
                   className="font-mono text-sm"
                 />
                 <p className="text-[11px] text-muted-foreground">
-                  Bulk runs append <code className="text-foreground">#0</code>,{' '}
-                  <code className="text-foreground">#1</code>, … so each ID is distinct (v3/v5 are
-                  deterministic).
+                  {t.rich('bulkHint', {
+                    code: (chunks) => <code className="text-foreground">{chunks}</code>,
+                  })}
                 </p>
               </div>
 
               <div className="space-y-2">
                 <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Namespace
+                  {t('namespace')}
                 </Label>
                 <Select
                   value={namespacePreset}
@@ -164,9 +188,9 @@ export function UuidGeneratorLayout() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="DNS">DNS (RFC 4122)</SelectItem>
-                    <SelectItem value="URL">URL (RFC 4122)</SelectItem>
-                    <SelectItem value="custom">Custom UUID</SelectItem>
+                    <SelectItem value="DNS">{t('namespaceOptions.dns')}</SelectItem>
+                    <SelectItem value="URL">{t('namespaceOptions.url')}</SelectItem>
+                    <SelectItem value="custom">{t('namespaceOptions.custom')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -174,13 +198,13 @@ export function UuidGeneratorLayout() {
               {namespacePreset === 'custom' && (
                 <div className="space-y-2">
                   <Label htmlFor="id-ns-custom" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Namespace UUID
+                    {t('customNamespaceLabel')}
                   </Label>
                   <Input
                     id="id-ns-custom"
                     value={customNamespace}
                     onChange={(e) => setCustomNamespace(e.target.value)}
-                    placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                    placeholder={t('customNamespacePlaceholder')}
                     className="font-mono text-sm"
                   />
                 </div>
@@ -191,7 +215,7 @@ export function UuidGeneratorLayout() {
           <div className="flex flex-wrap gap-2 pt-1">
             <Button type="button" onClick={runGenerate} className="gap-1.5">
               <RefreshCw className="h-3.5 w-3.5" />
-              Generate
+              {t('generate')}
             </Button>
           </div>
         </Card>
@@ -199,11 +223,11 @@ export function UuidGeneratorLayout() {
         <Card className="flex flex-col overflow-hidden min-h-[280px]">
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 bg-muted/30 gap-2">
             <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              Output
+              {t('output')}
             </Label>
             <div className="flex items-center gap-1 shrink-0">
               <span className="text-[10px] text-muted-foreground tabular-nums mr-1">
-                {output ? output.split('\n').length.toLocaleString() : 0} lines
+                {t('lines', { count: output ? output.split('\n').length.toLocaleString() : '0' })}
               </span>
               <Button
                 type="button"
@@ -212,7 +236,7 @@ export function UuidGeneratorLayout() {
                 className="h-7 w-7"
                 onClick={handleDownload}
                 disabled={!output}
-                title="Download .txt"
+                title={t('download.title')}
               >
                 <Download className="h-3.5 w-3.5" />
               </Button>
@@ -223,7 +247,7 @@ export function UuidGeneratorLayout() {
                 className="h-7 w-7"
                 onClick={handleCopy}
                 disabled={!output}
-                title="Copy all"
+                title={t('copyTitle')}
               >
                 {copied ? (
                   <Check className="h-3.5 w-3.5 text-green-500" />
@@ -245,7 +269,7 @@ export function UuidGeneratorLayout() {
               <textarea
                 value={output}
                 readOnly
-                placeholder='Click "Generate"…'
+                placeholder={t('outputPlaceholder')}
                 className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm font-mono focus:outline-none placeholder:text-muted-foreground/50"
                 spellCheck={false}
               />

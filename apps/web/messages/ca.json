@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Codificació de percentatge no vàlida. Revisa parells % incomplets o seqüències d’escapament.",
       "encodeFailed": "No s’ha pogut codificar (Unicode no vàlid a l’entrada)."
     }
+  },
+  "UuidGenerator": {
+    "title": "Generador UUID / ULID",
+    "subtitle": "Genera UUID (RFC 9562) o ULID al navegador. Exportació en bloc fins a {max} per execució.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "Identificador de 26 caràcters ordenable i segur per a URL",
+      "uuid4": "Aleatori (RFC 9562)",
+      "uuid7": "Ordenat en el temps, ms Unix + aleatori",
+      "uuid1": "Basat en MAC/temps (RFC 9562)",
+      "uuid6": "Temps gregorià reordenat",
+      "uuid3": "Hash MD5 de nom + espai de noms",
+      "uuid5": "Hash SHA‑1 de nom + espai de noms"
+    },
+    "countLabel": "Quantitat (1–{max})",
+    "nameLabel": "Nom (cadena d’entrada)",
+    "namePlaceholder": "p. ex. my.app/resource",
+    "bulkHint": "En lots s’afegeix <code>#0</code>, <code>#1</code>, … perquè cada ID sigui diferent (v3/v5 són deterministes).",
+    "namespace": "Espai de noms",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "UUID personalitzat"
+    },
+    "customNamespaceLabel": "UUID d’espai de noms",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Genera",
+    "output": "Sortida",
+    "lines": "{count} línies",
+    "download": {
+      "title": "Descarrega .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Copia-ho tot",
+    "outputPlaceholder": "Feu clic a \"Genera\"…",
+    "errors": {
+      "invalidCustomNamespace": "L’espai de noms personalitzat ha de ser un UUID vàlid.",
+      "missingName": "Cal un nom per a UUID v3 i v5.",
+      "unknown": "No s’han pogut generar els ID."
+    }
   }
 }

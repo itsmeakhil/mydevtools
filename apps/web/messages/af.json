@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Ongeldige persentasie-enkodering. Kontroleer onvolledige %‑pare of escapes.",
       "encodeFailed": "Kon nie enkodeer nie (ongeldige Unicode in invoer)."
     }
+  },
+  "UuidGenerator": {
+    "title": "UUID / ULID-generator",
+    "subtitle": "Genereer RFC 9562-UUID’s of ULID’s in die blaaier. Grootmaat-uitvoer tot {max} per lopie.",
+    "format": "Formaat",
+    "kindHints": {
+      "ulid": "Sorteerbare, URL-veilige 26-karakter identifiseerder",
+      "uuid4": "Ewekansig (RFC 9562)",
+      "uuid7": "Tyd-georden, Unix ms + ewekansig",
+      "uuid1": "MAC/tyd-gebaseer (RFC 9562)",
+      "uuid6": "Herordende Gregoriaanse tyd-gebaseer",
+      "uuid3": "MD5-hash van naam + naamruimte",
+      "uuid5": "SHA‑1-hash van naam + naamruimte"
+    },
+    "countLabel": "Aantal (1–{max})",
+    "nameLabel": "Naam (invoerstring)",
+    "namePlaceholder": "bv. my.app/resource",
+    "bulkHint": "Grootmaat voeg <code>#0</code>, <code>#1</code>, … by sodat elke ID uniek is (v3/v5 is deterministies).",
+    "namespace": "Naamruimte",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Pasgemaakte UUID"
+    },
+    "customNamespaceLabel": "Naamruimte-UUID",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Genereer",
+    "output": "Uitvoer",
+    "lines": "{count} lyne",
+    "download": {
+      "title": "Laai .txt af",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Kopieer alles",
+    "outputPlaceholder": "Klik \"Genereer\"…",
+    "errors": {
+      "invalidCustomNamespace": "Pasgemaakte naamruimte moet ’n geldige UUID wees.",
+      "missingName": "Naam is vereis vir UUID v3 en v5.",
+      "unknown": "Kon nie ID’s genereer nie."
+    }
   }
 }

@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Ogiltig procentkodning. Kontrollera ofullständiga %‑par eller escapes.",
       "encodeFailed": "Kunde inte koda (ogiltig Unicode i indata)."
     }
+  },
+  "UuidGenerator": {
+    "title": "UUID-/ULID-generator",
+    "subtitle": "Generera RFC 9562-UUID:er eller ULID:er i webbläsaren. Bulkundexport upp till {max} per körning.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "Sorterbart, URL-säkert 26-teckens ID",
+      "uuid4": "Slumpmässig (RFC 9562)",
+      "uuid7": "Tidsordnad, Unix ms + slump",
+      "uuid1": "MAC-/tidsbaserad (RFC 9562)",
+      "uuid6": "Omordnad gregoriansk tid",
+      "uuid3": "MD5-hash av namn + namespace",
+      "uuid5": "SHA‑1-hash av namn + namespace"
+    },
+    "countLabel": "Antal (1–{max})",
+    "nameLabel": "Namn (indatasträng)",
+    "namePlaceholder": "t.ex. my.app/resource",
+    "bulkHint": "I bulk läggs <code>#0</code>, <code>#1</code>, … till så att varje ID blir unikt (v3/v5 är deterministiska).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Anpassad UUID"
+    },
+    "customNamespaceLabel": "Namespace-UUID",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Generera",
+    "output": "Utdata",
+    "lines": "{count} rader",
+    "download": {
+      "title": "Ladda ner .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Kopiera allt",
+    "outputPlaceholder": "Klicka på \"Generera\"…",
+    "errors": {
+      "invalidCustomNamespace": "Anpassad namespace måste vara en giltig UUID.",
+      "missingName": "Namn krävs för UUID v3 och v5.",
+      "unknown": "Kunde inte generera ID:n."
+    }
   }
 }

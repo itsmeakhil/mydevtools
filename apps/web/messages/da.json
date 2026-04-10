@@ -1848,5 +1848,45 @@
       "invalidEncoding": "Ugyldig procentkodning. Tjek ufuldstændige %‑par eller escapes.",
       "encodeFailed": "Kunne ikke kode (ugyldig Unicode i input)."
     }
+  },
+  "UuidGenerator": {
+    "title": "UUID / ULID-generator",
+    "subtitle": "Generér RFC 9562-UUID’er eller ULID’er i browseren. Masseeksport op til {max} pr. kørsel.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "Sortérbar, URL-sikker identifikator på 26 tegn",
+      "uuid4": "Tilfældig (RFC 9562)",
+      "uuid7": "Tidsordnet, Unix ms + tilfældig",
+      "uuid1": "MAC-/tidsbaseret (RFC 9562)",
+      "uuid6": "Omarrangeret gregoriansk tidsbaseret",
+      "uuid3": "MD5-hash af navn + namespace",
+      "uuid5": "SHA‑1-hash af navn + namespace"
+    },
+    "countLabel": "Antal (1–{max})",
+    "nameLabel": "Navn (inputstreng)",
+    "namePlaceholder": "fx my.app/resource",
+    "bulkHint": "Ved batch tilføjes <code>#0</code>, <code>#1</code>, … så hvert ID er unikt (v3/v5 er deterministiske).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Brugerdefineret UUID"
+    },
+    "customNamespaceLabel": "Namespace-UUID",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Generér",
+    "output": "Output",
+    "lines": "{count} linjer",
+    "download": {
+      "title": "Download .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Kopiér alt",
+    "outputPlaceholder": "Klik på \"Generér\"…",
+    "errors": {
+      "invalidCustomNamespace": "Brugerdefineret namespace skal være en gyldig UUID.",
+      "missingName": "Navn er påkrævet for UUID v3 og v5.",
+      "unknown": "Kunne ikke generere ID’er."
+    }
   }
 }
