@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "Analog",
     "paletteSplit": "Komp. terpisah",
     "paletteSquare": "Persegi"
+  },
+  "DiffChecker": {
+    "title": "Pemeriksa Perbedaan",
+    "subtitle": "Perbandingan baris per baris dua teks secara berdampingan. Semuanya tetap di browser Anda.",
+    "rowsCount": "{count} baris",
+    "truncatedWarning": "Menampilkan {max} baris pertama.",
+    "limitExceeded": "Setiap sisi dibatasi hingga {max} karakter.",
+    "clearBoth": "Hapus keduanya",
+    "original": "Asli",
+    "modified": "Dimodifikasi",
+    "originalPlaceholder": "Tempel teks asli…",
+    "modifiedPlaceholder": "Tempel teks yang dimodifikasi…",
+    "comparisonLabel": "Perbandingan berdampingan",
+    "emptyState": "Masukkan teks di kedua panel untuk membandingkan."
   }
 }

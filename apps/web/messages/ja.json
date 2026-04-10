@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "アナログ",
     "paletteSplit": "分裂補色",
     "paletteSquare": "スクエア"
+  },
+  "DiffChecker": {
+    "title": "差分チェッカー",
+    "subtitle": "2つのテキストを並べて行単位で比較します。すべてブラウザ内で処理されます。",
+    "rowsCount": "{count} 行",
+    "truncatedWarning": "最初の {max} 行を表示中。",
+    "limitExceeded": "各側は {max} 文字に制限されています。",
+    "clearBoth": "両方をクリア",
+    "original": "オリジナル",
+    "modified": "変更後",
+    "originalPlaceholder": "元のテキストを貼り付け…",
+    "modifiedPlaceholder": "変更後のテキストを貼り付け…",
+    "comparisonLabel": "並べて比較",
+    "emptyState": "両方のパネルにテキストを入力して比較してください。"
   }
 }

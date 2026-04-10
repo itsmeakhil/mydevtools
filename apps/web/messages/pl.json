@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "Analogiczny",
     "paletteSplit": "Dopeł. podzielony",
     "paletteSquare": "Kwadratowy"
+  },
+  "DiffChecker": {
+    "title": "Sprawdzanie różnic",
+    "subtitle": "Porównanie wierszy dwóch tekstów obok siebie. Wszystko pozostaje w Twojej przeglądarce.",
+    "rowsCount": "{count} wierszy",
+    "truncatedWarning": "Wyświetlanie pierwszych {max} wierszy.",
+    "limitExceeded": "Każda strona jest ograniczona do {max} znaków.",
+    "clearBoth": "Wyczyść oba",
+    "original": "Oryginał",
+    "modified": "Zmodyfikowany",
+    "originalPlaceholder": "Wklej oryginalny tekst…",
+    "modifiedPlaceholder": "Wklej zmodyfikowany tekst…",
+    "comparisonLabel": "Porównanie obok siebie",
+    "emptyState": "Wprowadź tekst w obu panelach, aby porównać."
   }
 }

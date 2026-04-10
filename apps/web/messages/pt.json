@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "Análogo",
     "paletteSplit": "Compl. dividido",
     "paletteSquare": "Quadrado"
+  },
+  "DiffChecker": {
+    "title": "Verificador de diferenças",
+    "subtitle": "Comparação linha a linha de dois textos lado a lado. Tudo permanece no seu navegador.",
+    "rowsCount": "{count} linhas",
+    "truncatedWarning": "A mostrar as primeiras {max} linhas.",
+    "limitExceeded": "Cada lado é limitado a {max} caracteres.",
+    "clearBoth": "Limpar ambos",
+    "original": "Original",
+    "modified": "Modificado",
+    "originalPlaceholder": "Cole o texto original…",
+    "modifiedPlaceholder": "Cole o texto modificado…",
+    "comparisonLabel": "Comparação lado a lado",
+    "emptyState": "Introduza texto em ambos os painéis para comparar."
   }
 }

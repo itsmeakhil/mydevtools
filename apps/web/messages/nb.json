@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "Analog",
     "paletteSplit": "Delt kompl.",
     "paletteSquare": "Kvadratisk"
+  },
+  "DiffChecker": {
+    "title": "Diff-sjekker",
+    "subtitle": "Side-ved-side-linjediff av to tekster. Alt forblir i nettleseren din.",
+    "rowsCount": "{count} rader",
+    "truncatedWarning": "Viser de første {max} radene.",
+    "limitExceeded": "Hver side er begrenset til {max} tegn.",
+    "clearBoth": "Tøm begge",
+    "original": "Original",
+    "modified": "Endret",
+    "originalPlaceholder": "Lim inn original tekst…",
+    "modifiedPlaceholder": "Lim inn endret tekst…",
+    "comparisonLabel": "Side-ved-side-sammenligning",
+    "emptyState": "Skriv inn tekst i begge paneler for å sammenligne."
   }
 }

@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "Analoog",
     "paletteSplit": "Gedeeld compl.",
     "paletteSquare": "Vierkant"
+  },
+  "DiffChecker": {
+    "title": "Verschilcontrole",
+    "subtitle": "Regel-voor-regel vergelijking van twee teksten naast elkaar. Alles blijft in uw browser.",
+    "rowsCount": "{count} rijen",
+    "truncatedWarning": "Eerste {max} rijen worden weergegeven.",
+    "limitExceeded": "Elke zijde is beperkt tot {max} tekens.",
+    "clearBoth": "Beide wissen",
+    "original": "Origineel",
+    "modified": "Gewijzigd",
+    "originalPlaceholder": "Plak originele tekst…",
+    "modifiedPlaceholder": "Plak gewijzigde tekst…",
+    "comparisonLabel": "Vergelijking naast elkaar",
+    "emptyState": "Voer tekst in beide panelen in om te vergelijken."
   }
 }

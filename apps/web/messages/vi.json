@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "Tương tự",
     "paletteSplit": "Bổ sung phân chia",
     "paletteSquare": "Hình vuông"
+  },
+  "DiffChecker": {
+    "title": "Kiểm tra sự khác biệt",
+    "subtitle": "So sánh từng dòng giữa hai văn bản cạnh nhau. Mọi thứ đều ở lại trong trình duyệt của bạn.",
+    "rowsCount": "{count} hàng",
+    "truncatedWarning": "Hiển thị {max} hàng đầu tiên.",
+    "limitExceeded": "Mỗi bên bị giới hạn {max} ký tự.",
+    "clearBoth": "Xóa cả hai",
+    "original": "Gốc",
+    "modified": "Đã sửa đổi",
+    "originalPlaceholder": "Dán văn bản gốc…",
+    "modifiedPlaceholder": "Dán văn bản đã sửa đổi…",
+    "comparisonLabel": "So sánh cạnh nhau",
+    "emptyState": "Nhập văn bản vào cả hai bảng để so sánh."
   }
 }

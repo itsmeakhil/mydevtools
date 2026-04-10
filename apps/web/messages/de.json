@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "Analog",
     "paletteSplit": "Geteiltes Kompl.",
     "paletteSquare": "Quadratisch"
+  },
+  "DiffChecker": {
+    "title": "Diff-Prüfer",
+    "subtitle": "Zeile-für-Zeile-Vergleich zweier Texte nebeneinander. Alles bleibt in Ihrem Browser.",
+    "rowsCount": "{count} Zeilen",
+    "truncatedWarning": "Zeige die ersten {max} Zeilen.",
+    "limitExceeded": "Jede Seite ist auf {max} Zeichen begrenzt.",
+    "clearBoth": "Beide leeren",
+    "original": "Original",
+    "modified": "Geändert",
+    "originalPlaceholder": "Originaltext einfügen…",
+    "modifiedPlaceholder": "Geänderten Text einfügen…",
+    "comparisonLabel": "Nebeneinander-Vergleich",
+    "emptyState": "Text in beiden Feldern eingeben, um zu vergleichen."
   }
 }

@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "유사색",
     "paletteSplit": "분할 보색",
     "paletteSquare": "사각형"
+  },
+  "DiffChecker": {
+    "title": "차이 확인기",
+    "subtitle": "두 텍스트를 나란히 행 단위로 비교합니다. 모든 처리는 브라우저에서 이루어집니다.",
+    "rowsCount": "{count} 행",
+    "truncatedWarning": "처음 {max} 행을 표시합니다.",
+    "limitExceeded": "각 측면은 {max} 문자로 제한됩니다.",
+    "clearBoth": "모두 지우기",
+    "original": "원본",
+    "modified": "수정됨",
+    "originalPlaceholder": "원본 텍스트를 붙여넣으세요…",
+    "modifiedPlaceholder": "수정된 텍스트를 붙여넣으세요…",
+    "comparisonLabel": "나란히 비교",
+    "emptyState": "두 패널 모두에 텍스트를 입력하여 비교하세요."
   }
 }

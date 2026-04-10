@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "Analog",
     "paletteSplit": "Delad kompl.",
     "paletteSquare": "Kvadratisk"
+  },
+  "DiffChecker": {
+    "title": "Diff-kontroll",
+    "subtitle": "Rad-för-rad-jämförelse av två texter sida vid sida. Allt stannar i din webbläsare.",
+    "rowsCount": "{count} rader",
+    "truncatedWarning": "Visar de första {max} raderna.",
+    "limitExceeded": "Varje sida är begränsad till {max} tecken.",
+    "clearBoth": "Rensa båda",
+    "original": "Original",
+    "modified": "Ändrad",
+    "originalPlaceholder": "Klistra in originaltext…",
+    "modifiedPlaceholder": "Klistra in ändrad text…",
+    "comparisonLabel": "Sida vid sida-jämförelse",
+    "emptyState": "Ange text i båda panelerna för att jämföra."
   }
 }

@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "Analogous",
     "paletteSplit": "Split comp.",
     "paletteSquare": "Square"
+  },
+  "DiffChecker": {
+    "title": "Diff checker",
+    "subtitle": "Side-by-side line diff of two texts. Everything stays in your browser.",
+    "rowsCount": "{count} rows",
+    "truncatedWarning": "Showing first {max} rows.",
+    "limitExceeded": "Each side is limited to {max} characters.",
+    "clearBoth": "Clear both",
+    "original": "Original",
+    "modified": "Modified",
+    "originalPlaceholder": "Paste original text…",
+    "modifiedPlaceholder": "Paste modified text…",
+    "comparisonLabel": "Side-by-side comparison",
+    "emptyState": "Enter text in both panels to compare."
   }
 }

@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "Analoog",
     "paletteSplit": "Gesplete komp.",
     "paletteSquare": "Vierkantig"
+  },
+  "DiffChecker": {
+    "title": "Verskilvindeling",
+    "subtitle": "Reël-vir-reël-vergelyking van twee tekste langs mekaar. Alles bly in jou blaaier.",
+    "rowsCount": "{count} rye",
+    "truncatedWarning": "Wys eerste {max} rye.",
+    "limitExceeded": "Elke kant is beperk tot {max} karakters.",
+    "clearBoth": "Verwyder albei",
+    "original": "Oorspronklik",
+    "modified": "Gewysig",
+    "originalPlaceholder": "Plak oorspronklike teks…",
+    "modifiedPlaceholder": "Plak gewysigde teks…",
+    "comparisonLabel": "Sy-aan-sy vergelyking",
+    "emptyState": "Voer teks in beide panele in om te vergelyk."
   }
 }

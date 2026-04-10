@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "Anàleg",
     "paletteSplit": "Comp. dividida",
     "paletteSquare": "Quadrat"
+  },
+  "DiffChecker": {
+    "title": "Comparador de diferències",
+    "subtitle": "Comparació de línies entre dos textos costat a costat. Tot es queda al vostre navegador.",
+    "rowsCount": "{count} files",
+    "truncatedWarning": "Mostrant les primeres {max} files.",
+    "limitExceeded": "Cada costat està limitat a {max} caràcters.",
+    "clearBoth": "Esborrar tots dos",
+    "original": "Original",
+    "modified": "Modificat",
+    "originalPlaceholder": "Enganxeu el text original…",
+    "modifiedPlaceholder": "Enganxeu el text modificat…",
+    "comparisonLabel": "Comparació costat a costat",
+    "emptyState": "Introduïu text als dos panells per comparar."
   }
 }

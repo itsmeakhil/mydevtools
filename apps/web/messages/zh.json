@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "邻近色",
     "paletteSplit": "分裂互补",
     "paletteSquare": "正方形配色"
+  },
+  "DiffChecker": {
+    "title": "差异检查器",
+    "subtitle": "并排逐行比较两段文本。所有处理都在您的浏览器中完成。",
+    "rowsCount": "{count} 行",
+    "truncatedWarning": "显示前 {max} 行。",
+    "limitExceeded": "每侧限制为 {max} 个字符。",
+    "clearBoth": "清除两者",
+    "original": "原始",
+    "modified": "已修改",
+    "originalPlaceholder": "粘贴原始文本…",
+    "modifiedPlaceholder": "粘贴已修改的文本…",
+    "comparisonLabel": "并排比较",
+    "emptyState": "在两个面板中输入文本以进行比较。"
   }
 }

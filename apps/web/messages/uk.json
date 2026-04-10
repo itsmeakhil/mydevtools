@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "Аналогічний",
     "paletteSplit": "Розділений доп.",
     "paletteSquare": "Квадратний"
+  },
+  "DiffChecker": {
+    "title": "Перевірка різниць",
+    "subtitle": "Порядкове порівняння двох текстів поруч. Все залишається у вашому браузері.",
+    "rowsCount": "{count} рядків",
+    "truncatedWarning": "Показано перші {max} рядків.",
+    "limitExceeded": "Кожна сторона обмежена {max} символами.",
+    "clearBoth": "Очистити обидва",
+    "original": "Оригінал",
+    "modified": "Змінено",
+    "originalPlaceholder": "Вставте оригінальний текст…",
+    "modifiedPlaceholder": "Вставте змінений текст…",
+    "comparisonLabel": "Порівняння поруч",
+    "emptyState": "Введіть текст в обидві панелі для порівняння."
   }
 }

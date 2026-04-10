@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "مشابه",
     "paletteSplit": "مکمل منقسم",
     "paletteSquare": "مربع"
+  },
+  "DiffChecker": {
+    "title": "مقایسه تفاوت‌ها",
+    "subtitle": "مقایسه خط‌به‌خط دو متن در کنار هم. همه چیز در مرورگر شما می‌ماند.",
+    "rowsCount": "{count} ردیف",
+    "truncatedWarning": "نمایش {max} ردیف اول.",
+    "limitExceeded": "هر طرف محدود به {max} کاراکتر است.",
+    "clearBoth": "پاک کردن هر دو",
+    "original": "اصلی",
+    "modified": "تغییریافته",
+    "originalPlaceholder": "متن اصلی را جایگذاری کنید…",
+    "modifiedPlaceholder": "متن تغییریافته را جایگذاری کنید…",
+    "comparisonLabel": "مقایسه جنب‌به‌جنب",
+    "emptyState": "متن را در هر دو پنل وارد کنید تا مقایسه شود."
   }
 }

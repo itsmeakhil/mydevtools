@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "Analogický",
     "paletteSplit": "Dělený dopl.",
     "paletteSquare": "Čtvercový"
+  },
+  "DiffChecker": {
+    "title": "Porovnávač rozdílů",
+    "subtitle": "Porovnání řádků dvou textů vedle sebe. Vše zůstává ve vašem prohlížeči.",
+    "rowsCount": "{count} řádků",
+    "truncatedWarning": "Zobrazuje se prvních {max} řádků.",
+    "limitExceeded": "Každá strana je omezena na {max} znaků.",
+    "clearBoth": "Vymazat oboje",
+    "original": "Originál",
+    "modified": "Upraveno",
+    "originalPlaceholder": "Vložte původní text…",
+    "modifiedPlaceholder": "Vložte upravený text…",
+    "comparisonLabel": "Porovnání vedle sebe",
+    "emptyState": "Zadejte text do obou panelů pro porovnání."
   }
 }

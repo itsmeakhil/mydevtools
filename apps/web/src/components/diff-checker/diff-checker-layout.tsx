@@ -12,6 +12,7 @@ import {
 } from '@/lib/text-diff';
 import { cn } from '@/lib/utils';
 import { Trash2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const SAMPLE_A = `function greet(name) {
   console.log("Hello, " + name);
@@ -30,6 +31,7 @@ function rowBg(kind: string) {
 }
 
 export function DiffCheckerLayout() {
+  const t = useTranslations('DiffChecker');
   const [leftText, setLeftText] = useState(SAMPLE_A);
   const [rightText, setRightText] = useState(SAMPLE_B);
 
@@ -72,10 +74,8 @@ export function DiffCheckerLayout() {
   return (
     <div className="flex flex-col h-full gap-4 min-h-0">
       <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">Diff checker</h1>
-        <p className="text-xs text-muted-foreground">
-          Side-by-side line diff of two texts. Everything stays in your browser.
-        </p>
+        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
+        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
       </div>
 
       <div className="flex flex-wrap items-center gap-3 text-xs shrink-0">
@@ -89,22 +89,24 @@ export function DiffCheckerLayout() {
               −{stats.removed}
             </span>
             {' · '}
-            <span className="tabular-nums">{rows.length} rows</span>
+            <span className="tabular-nums">
+              {t('rowsCount', { count: rows.length.toLocaleString() })}
+            </span>
           </span>
         )}
         {truncated && (
           <span className="text-amber-600 dark:text-amber-400">
-            Showing first {DIFF_MAX_ROWS.toLocaleString()} rows.
+            {t('truncatedWarning', { max: DIFF_MAX_ROWS.toLocaleString() })}
           </span>
         )}
         {overLimit && (
           <span className="text-destructive">
-            Each side is limited to {DIFF_MAX_INPUT_CHARS.toLocaleString()} characters.
+            {t('limitExceeded', { max: DIFF_MAX_INPUT_CHARS.toLocaleString() })}
           </span>
         )}
         <Button type="button" variant="outline" size="sm" className="h-7 text-xs gap-1 ml-auto" onClick={clearAll}>
           <Trash2 className="h-3 w-3" />
-          Clear both
+          {t('clearBoth')}
         </Button>
       </div>
 
@@ -112,7 +114,7 @@ export function DiffCheckerLayout() {
         <Card className="flex flex-col overflow-hidden">
           <div className="px-3 py-2 border-b border-border/50 bg-muted/30">
             <Label htmlFor="diff-left" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              Original
+              {t('original')}
             </Label>
           </div>
           <textarea
@@ -121,13 +123,13 @@ export function DiffCheckerLayout() {
             onChange={(e) => setLeftText(e.target.value)}
             spellCheck={false}
             className="min-h-[160px] flex-1 resize-y w-full bg-transparent p-3 text-sm font-mono focus:outline-none"
-            placeholder="Paste original text…"
+            placeholder={t('originalPlaceholder')}
           />
         </Card>
         <Card className="flex flex-col overflow-hidden">
           <div className="px-3 py-2 border-b border-border/50 bg-muted/30">
             <Label htmlFor="diff-right" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              Modified
+              {t('modified')}
             </Label>
           </div>
           <textarea
@@ -136,7 +138,7 @@ export function DiffCheckerLayout() {
             onChange={(e) => setRightText(e.target.value)}
             spellCheck={false}
             className="min-h-[160px] flex-1 resize-y w-full bg-transparent p-3 text-sm font-mono focus:outline-none"
-            placeholder="Paste modified text…"
+            placeholder={t('modifiedPlaceholder')}
           />
         </Card>
       </div>
@@ -144,7 +146,7 @@ export function DiffCheckerLayout() {
       <Card className="flex flex-col flex-1 min-h-[280px] overflow-hidden p-0">
         <div className="px-3 py-2 border-b border-border/50 bg-muted/30 shrink-0">
           <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-            Side-by-side comparison
+            {t('comparisonLabel')}
           </Label>
         </div>
         <div className="flex flex-1 min-h-0 divide-x divide-border">
@@ -170,7 +172,7 @@ export function DiffCheckerLayout() {
               </div>
             ))}
             {!overLimit && rows.length === 0 && (
-              <p className="p-4 text-sm text-muted-foreground">Enter text in both panels to compare.</p>
+              <p className="p-4 text-sm text-muted-foreground">{t('emptyState')}</p>
             )}
           </div>
           <div
@@ -195,7 +197,7 @@ export function DiffCheckerLayout() {
               </div>
             ))}
             {!overLimit && rows.length === 0 && (
-              <p className="p-4 text-sm text-muted-foreground">Enter text in both panels to compare.</p>
+              <p className="p-4 text-sm text-muted-foreground">{t('emptyState')}</p>
             )}
           </div>
         </div>

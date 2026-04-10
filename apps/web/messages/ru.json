@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "Аналогичный",
     "paletteSplit": "Разделённый доп.",
     "paletteSquare": "Квадратный"
+  },
+  "DiffChecker": {
+    "title": "Сравнение различий",
+    "subtitle": "Построчное сравнение двух текстов бок о бок. Всё остаётся в вашем браузере.",
+    "rowsCount": "{count} строк",
+    "truncatedWarning": "Показаны первые {max} строк.",
+    "limitExceeded": "Каждая сторона ограничена {max} символами.",
+    "clearBoth": "Очистить оба",
+    "original": "Оригинал",
+    "modified": "Изменённый",
+    "originalPlaceholder": "Вставьте исходный текст…",
+    "modifiedPlaceholder": "Вставьте изменённый текст…",
+    "comparisonLabel": "Сравнение бок о бок",
+    "emptyState": "Введите текст в оба поля для сравнения."
   }
 }

@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "Analog",
     "paletteSplit": "Delt kompl.",
     "paletteSquare": "Firkantet"
+  },
+  "DiffChecker": {
+    "title": "Diff-kontrol",
+    "subtitle": "Side-om-side linjediff af to tekster. Alt forbliver i din browser.",
+    "rowsCount": "{count} rækker",
+    "truncatedWarning": "Viser de første {max} rækker.",
+    "limitExceeded": "Hver side er begrænset til {max} tegn.",
+    "clearBoth": "Ryd begge",
+    "original": "Original",
+    "modified": "Ændret",
+    "originalPlaceholder": "Indsæt original tekst…",
+    "modifiedPlaceholder": "Indsæt ændret tekst…",
+    "comparisonLabel": "Side-om-side sammenligning",
+    "emptyState": "Indtast tekst i begge paneler for at sammenligne."
   }
 }

@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "Analogue",
     "paletteSplit": "Compl. divisé",
     "paletteSquare": "Carré"
+  },
+  "DiffChecker": {
+    "title": "Vérificateur de différences",
+    "subtitle": "Comparaison ligne par ligne de deux textes côte à côte. Tout reste dans votre navigateur.",
+    "rowsCount": "{count} lignes",
+    "truncatedWarning": "Affichage des premières {max} lignes.",
+    "limitExceeded": "Chaque côté est limité à {max} caractères.",
+    "clearBoth": "Effacer les deux",
+    "original": "Original",
+    "modified": "Modifié",
+    "originalPlaceholder": "Collez le texte original…",
+    "modifiedPlaceholder": "Collez le texte modifié…",
+    "comparisonLabel": "Comparaison côte à côte",
+    "emptyState": "Saisissez du texte dans les deux panneaux pour comparer."
   }
 }

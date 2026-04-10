@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "Benzer",
     "paletteSplit": "Bölünmüş tamaml.",
     "paletteSquare": "Kare"
+  },
+  "DiffChecker": {
+    "title": "Fark denetleyici",
+    "subtitle": "İki metnin satır satır yan yana karşılaştırması. Her şey tarayıcınızda kalır.",
+    "rowsCount": "{count} satır",
+    "truncatedWarning": "İlk {max} satır gösteriliyor.",
+    "limitExceeded": "Her taraf {max} karakterle sınırlıdır.",
+    "clearBoth": "İkisini de temizle",
+    "original": "Orijinal",
+    "modified": "Değiştirilmiş",
+    "originalPlaceholder": "Orijinal metni yapıştırın…",
+    "modifiedPlaceholder": "Değiştirilmiş metni yapıştırın…",
+    "comparisonLabel": "Yan yana karşılaştırma",
+    "emptyState": "Karşılaştırmak için her iki panele de metin girin."
   }
 }

@@ -1927,5 +1927,19 @@
     "paletteAnalogous": "تناظري",
     "paletteSplit": "تكميلي منقسم",
     "paletteSquare": "مربع"
+  },
+  "DiffChecker": {
+    "title": "مدقق الاختلافات",
+    "subtitle": "مقارنة الأسطر جنباً إلى جنب بين نصين. كل شيء يبقى في متصفحك.",
+    "rowsCount": "{count} صفوف",
+    "truncatedWarning": "عرض أول {max} صف.",
+    "limitExceeded": "كل جانب محدود بـ {max} حرف.",
+    "clearBoth": "مسح الكل",
+    "original": "الأصلي",
+    "modified": "المعدّل",
+    "originalPlaceholder": "الصق النص الأصلي…",
+    "modifiedPlaceholder": "الصق النص المعدّل…",
+    "comparisonLabel": "مقارنة جنباً إلى جنب",
+    "emptyState": "أدخل نصاً في كلا اللوحتين للمقارنة."
   }
 }
