@@ -1888,5 +1888,44 @@
       "missingName": "O nome é obrigatório para UUID v3 e v5.",
       "unknown": "Não foi possível gerar os IDs."
     }
+  },
+  "LoremIpsum": {
+    "title": "Gerador de Lorem Ipsum",
+    "subtitle": "Gere texto latino de espaço reservado para seus layouts e mockups.",
+    "paragraphs": "Parágrafos",
+    "sentences": "Frases",
+    "words": "Palavras",
+    "count": "Quantidade",
+    "generate": "Gerar",
+    "copy": "Copiar",
+    "startWith": "Começar com 'Lorem ipsum...'",
+    "outputPlaceholder": "A saída aparecerá aqui...",
+    "outputType": "Tipo de saída",
+    "bulletList": "Lista de marcadores",
+    "htmlMarkup": "Marcação HTML",
+    "htmlMarkupHint": "Envolva a saída em parágrafos ou use uma lista para o modo de marcadores",
+    "output": "Saída",
+    "download": "Baixar"
+  },
+  "ColorPicker": {
+    "title": "Seletor e conversor de cores",
+    "subtitle": "Converta HEX, RGB e HSL; crie paletas harmônicas. Todo o processamento ocorre no seu navegador.",
+    "nativePicker": "Seletor nativo",
+    "chooseColor": "Escolha uma cor",
+    "eyeDropper": "Conta-gotas",
+    "invalidHex": "Cor HEX inválida.",
+    "cssValues": "Valores CSS",
+    "palettes": "Paletas",
+    "copied": "Copiado",
+    "clickToCopy": "Clique para copiar",
+    "copyAllHex": "Copiar todos os HEX",
+    "copy": "Copiar",
+    "copyColor": "Copiar {color}",
+    "paletteShades": "Tons",
+    "paletteComplementary": "Complementar",
+    "paletteTriadic": "Triádico",
+    "paletteAnalogous": "Análogo",
+    "paletteSplit": "Compl. dividido",
+    "paletteSquare": "Quadrado"
   }
 }

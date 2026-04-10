@@ -1888,5 +1888,44 @@
       "missingName": "Имя обязательно для UUID v3 и v5.",
       "unknown": "Не удалось сгенерировать идентификаторы."
     }
+  },
+  "LoremIpsum": {
+    "title": "Генератор Lorem Ipsum",
+    "subtitle": "Генерируйте замещающий латинский текст для ваших макетов и прототипов.",
+    "paragraphs": "Абзацы",
+    "sentences": "Предложения",
+    "words": "Слова",
+    "count": "Количество",
+    "generate": "Сгенерировать",
+    "copy": "Копировать",
+    "startWith": "Начать с 'Lorem ipsum...'",
+    "outputPlaceholder": "Результат появится здесь...",
+    "outputType": "Тип вывода",
+    "bulletList": "Маркированный список",
+    "htmlMarkup": "HTML-разметка",
+    "htmlMarkupHint": "Обернуть вывод в абзацы или использовать список для режима маркеров",
+    "output": "Вывод",
+    "download": "Скачать"
+  },
+  "ColorPicker": {
+    "title": "Выбор и конвертер цветов",
+    "subtitle": "Конвертируйте HEX, RGB и HSL; создавайте гармоничные палитры. Вся обработка выполняется в браузере.",
+    "nativePicker": "Встроенный выбор цвета",
+    "chooseColor": "Выберите цвет",
+    "eyeDropper": "Пипетка",
+    "invalidHex": "Неверный цвет HEX.",
+    "cssValues": "CSS-значения",
+    "palettes": "Палитры",
+    "copied": "Скопировано",
+    "clickToCopy": "Нажмите для копирования",
+    "copyAllHex": "Копировать все HEX",
+    "copy": "Копировать",
+    "copyColor": "Копировать {color}",
+    "paletteShades": "Оттенки",
+    "paletteComplementary": "Дополнительный",
+    "paletteTriadic": "Триадический",
+    "paletteAnalogous": "Аналогичный",
+    "paletteSplit": "Разделённый доп.",
+    "paletteSquare": "Квадратный"
   }
 }

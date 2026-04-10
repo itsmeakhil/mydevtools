@@ -1888,5 +1888,44 @@
       "missingName": "UUID v3 ve v5 için ad gereklidir.",
       "unknown": "ID’ler oluşturulamadı."
     }
+  },
+  "LoremIpsum": {
+    "title": "Lorem Ipsum Oluşturucu",
+    "subtitle": "Düzenleriniz ve maketleriniz için Latince yer tutucu metin oluşturun.",
+    "paragraphs": "Paragraflar",
+    "sentences": "Cümleler",
+    "words": "Kelimeler",
+    "count": "Sayı",
+    "generate": "Oluştur",
+    "copy": "Kopyala",
+    "startWith": "'Lorem ipsum...' ile başla",
+    "outputPlaceholder": "Çıktı burada görünecek...",
+    "outputType": "Çıktı türü",
+    "bulletList": "Madde işaretli liste",
+    "htmlMarkup": "HTML işaretlemesi",
+    "htmlMarkupHint": "Çıktıyı paragraflara sarın veya madde işareti modu için liste kullanın",
+    "output": "Çıktı",
+    "download": "İndir"
+  },
+  "ColorPicker": {
+    "title": "Renk seçici ve dönüştürücü",
+    "subtitle": "HEX, RGB ve HSL'yi dönüştürün; uyumlu paletler oluşturun. Tüm işlemler tarayıcınızda gerçekleşir.",
+    "nativePicker": "Yerleşik seçici",
+    "chooseColor": "Renk seçin",
+    "eyeDropper": "Göz damlası",
+    "invalidHex": "Geçersiz HEX rengi.",
+    "cssValues": "CSS değerleri",
+    "palettes": "Paletler",
+    "copied": "Kopyalandı",
+    "clickToCopy": "Kopyalamak için tıklayın",
+    "copyAllHex": "Tüm HEX'leri kopyala",
+    "copy": "Kopyala",
+    "copyColor": "{color} kopyala",
+    "paletteShades": "Tonlar",
+    "paletteComplementary": "Tamamlayıcı",
+    "paletteTriadic": "Üçlü",
+    "paletteAnalogous": "Benzer",
+    "paletteSplit": "Bölünmüş tamaml.",
+    "paletteSquare": "Kare"
   }
 }

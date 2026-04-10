@@ -1888,5 +1888,44 @@
       "missingName": "Namn krävs för UUID v3 och v5.",
       "unknown": "Kunde inte generera ID:n."
     }
+  },
+  "LoremIpsum": {
+    "title": "Lorem Ipsum Generator",
+    "subtitle": "Generera latinsk platshållartext för dina layouter och mockups.",
+    "paragraphs": "Stycken",
+    "sentences": "Meningar",
+    "words": "Ord",
+    "count": "Antal",
+    "generate": "Generera",
+    "copy": "Kopiera",
+    "startWith": "Börja med 'Lorem ipsum...'",
+    "outputPlaceholder": "Utdata visas här...",
+    "outputType": "Utdatatyp",
+    "bulletList": "Punktlista",
+    "htmlMarkup": "HTML-uppmärkning",
+    "htmlMarkupHint": "Omslut utdata i stycken, eller använd en lista för punktlistläge",
+    "output": "Utdata",
+    "download": "Ladda ner"
+  },
+  "ColorPicker": {
+    "title": "Färgväljare och konverterare",
+    "subtitle": "Konvertera HEX, RGB och HSL; bygg harmoniska paletter. All bearbetning sker i din webbläsare.",
+    "nativePicker": "Inbyggd väljare",
+    "chooseColor": "Välj färg",
+    "eyeDropper": "Pipett",
+    "invalidHex": "Ogiltig HEX-färg.",
+    "cssValues": "CSS-värden",
+    "palettes": "Paletter",
+    "copied": "Kopierat",
+    "clickToCopy": "Klicka för att kopiera",
+    "copyAllHex": "Kopiera alla HEX",
+    "copy": "Kopiera",
+    "copyColor": "Kopiera {color}",
+    "paletteShades": "Nyanser",
+    "paletteComplementary": "Komplementär",
+    "paletteTriadic": "Triadisk",
+    "paletteAnalogous": "Analog",
+    "paletteSplit": "Delad kompl.",
+    "paletteSquare": "Kvadratisk"
   }
 }

@@ -1888,5 +1888,44 @@
       "missingName": "Απαιτείται όνομα για UUID v3 και v5.",
       "unknown": "Δεν ήταν δυνατή η δημιουργία των ID."
     }
+  },
+  "LoremIpsum": {
+    "title": "Γεννήτρια Lorem Ipsum",
+    "subtitle": "Δημιουργήστε λατινικό κείμενο κράτησης θέσης για τις διατάξεις και τα μακέτα σας.",
+    "paragraphs": "Παράγραφοι",
+    "sentences": "Προτάσεις",
+    "words": "Λέξεις",
+    "count": "Αριθμός",
+    "generate": "Δημιουργία",
+    "copy": "Αντιγραφή",
+    "startWith": "Έναρξη με 'Lorem ipsum...'",
+    "outputPlaceholder": "Η έξοδος θα εμφανιστεί εδώ...",
+    "outputType": "Τύπος εξόδου",
+    "bulletList": "Λίστα κουκκίδων",
+    "htmlMarkup": "Σήμανση HTML",
+    "htmlMarkupHint": "Τυλίξτε την έξοδο σε παραγράφους ή χρησιμοποιήστε λίστα για λειτουργία κουκκίδων",
+    "output": "Έξοδος",
+    "download": "Λήψη"
+  },
+  "ColorPicker": {
+    "title": "Επιλογέας και μετατροπέας χρωμάτων",
+    "subtitle": "Μετατρέψτε HEX, RGB και HSL· δημιουργήστε αρμονικές παλέτες. Όλη η επεξεργασία γίνεται στον περιηγητή σας.",
+    "nativePicker": "Εγγενής επιλογέας",
+    "chooseColor": "Επιλέξτε χρώμα",
+    "eyeDropper": "Σταγονόμετρο",
+    "invalidHex": "Μη έγκυρο χρώμα HEX.",
+    "cssValues": "Τιμές CSS",
+    "palettes": "Παλέτες",
+    "copied": "Αντιγράφηκε",
+    "clickToCopy": "Κλικ για αντιγραφή",
+    "copyAllHex": "Αντιγραφή όλων HEX",
+    "copy": "Αντιγραφή",
+    "copyColor": "Αντιγραφή {color}",
+    "paletteShades": "Αποχρώσεις",
+    "paletteComplementary": "Συμπληρωματικό",
+    "paletteTriadic": "Τριαδικό",
+    "paletteAnalogous": "Ανάλογο",
+    "paletteSplit": "Διαιρ. συμπλ.",
+    "paletteSquare": "Τετράγωνο"
   }
 }

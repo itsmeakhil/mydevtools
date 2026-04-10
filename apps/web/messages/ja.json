@@ -1888,5 +1888,44 @@
       "missingName": "UUID v3 と v5 には名前が必要です。",
       "unknown": "ID を生成できませんでした。"
     }
+  },
+  "LoremIpsum": {
+    "title": "Lorem Ipsum ジェネレーター",
+    "subtitle": "レイアウトやモックアップ用のラテン語プレースホルダーテキストを生成します。",
+    "paragraphs": "段落",
+    "sentences": "文",
+    "words": "単語",
+    "count": "数",
+    "generate": "生成",
+    "copy": "コピー",
+    "startWith": "'Lorem ipsum...' で始める",
+    "outputPlaceholder": "出力はここに表示されます...",
+    "outputType": "出力タイプ",
+    "bulletList": "箇条書きリスト",
+    "htmlMarkup": "HTMLマークアップ",
+    "htmlMarkupHint": "出力を段落で囲むか、箇条書きモードではリストを使用",
+    "output": "出力",
+    "download": "ダウンロード"
+  },
+  "ColorPicker": {
+    "title": "カラーピッカーとコンバーター",
+    "subtitle": "HEX、RGB、HSLを変換し、ハーモニックパレットを作成します。すべての処理はブラウザ内で行われます。",
+    "nativePicker": "ネイティブピッカー",
+    "chooseColor": "色を選択",
+    "eyeDropper": "スポイト",
+    "invalidHex": "無効なHEXカラーです。",
+    "cssValues": "CSS値",
+    "palettes": "パレット",
+    "copied": "コピー済み",
+    "clickToCopy": "クリックしてコピー",
+    "copyAllHex": "すべてのHEXをコピー",
+    "copy": "コピー",
+    "copyColor": "{color} をコピー",
+    "paletteShades": "シェード",
+    "paletteComplementary": "補色",
+    "paletteTriadic": "トライアド",
+    "paletteAnalogous": "アナログ",
+    "paletteSplit": "分裂補色",
+    "paletteSquare": "スクエア"
   }
 }

@@ -1888,5 +1888,44 @@
       "missingName": "الاسم مطلوب لـ UUID v3 و v5.",
       "unknown": "تعذّر إنشاء المعرّفات."
     }
+  },
+  "LoremIpsum": {
+    "title": "مولد نصوص اللورم إيبسوم",
+    "subtitle": "أنشئ نصوصاً لاتينية بديلة لتخطيطاتك ونماذجك.",
+    "paragraphs": "فقرات",
+    "sentences": "جمل",
+    "words": "كلمات",
+    "count": "العدد",
+    "generate": "توليد",
+    "copy": "نسخ",
+    "startWith": "ابدأ بـ 'Lorem ipsum...'",
+    "outputPlaceholder": "سيظهر الناتج هنا...",
+    "outputType": "نوع الإخراج",
+    "bulletList": "قائمة نقطية",
+    "htmlMarkup": "ترميز HTML",
+    "htmlMarkupHint": "التفاف الإخراج في فقرات، أو استخدام قائمة لوضع النقاط",
+    "output": "الناتج",
+    "download": "تنزيل"
+  },
+  "ColorPicker": {
+    "title": "منتقي الألوان ومحوّلها",
+    "subtitle": "حوّل HEX وRGB وHSL؛ وابنِ لوحات ألوان منسجمة. تتم المعالجة بالكامل في متصفحك.",
+    "nativePicker": "منتقي الألوان الأصلي",
+    "chooseColor": "اختر لوناً",
+    "eyeDropper": "قطارة العين",
+    "invalidHex": "لون HEX غير صالح.",
+    "cssValues": "قيم CSS",
+    "palettes": "لوحات الألوان",
+    "copied": "تم النسخ",
+    "clickToCopy": "انقر للنسخ",
+    "copyAllHex": "نسخ جميع قيم HEX",
+    "copy": "نسخ",
+    "copyColor": "نسخ {color}",
+    "paletteShades": "درجات",
+    "paletteComplementary": "تكميلي",
+    "paletteTriadic": "ثلاثي",
+    "paletteAnalogous": "تناظري",
+    "paletteSplit": "تكميلي منقسم",
+    "paletteSquare": "مربع"
   }
 }

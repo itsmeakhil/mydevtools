@@ -1888,5 +1888,44 @@
       "missingName": "Cal un nom per a UUID v3 i v5.",
       "unknown": "No s’han pogut generar els ID."
     }
+  },
+  "LoremIpsum": {
+    "title": "Generador de Lorem Ipsum",
+    "subtitle": "Genereu text llatí de substitució per als vostres dissenys i maquetes.",
+    "paragraphs": "Paràgrafs",
+    "sentences": "Frases",
+    "words": "Paraules",
+    "count": "Nombre",
+    "generate": "Genera",
+    "copy": "Copia",
+    "startWith": "Comença amb 'Lorem ipsum...'",
+    "outputPlaceholder": "El resultat apareixerà aquí...",
+    "outputType": "Tipus de sortida",
+    "bulletList": "Llista de punts",
+    "htmlMarkup": "Marcatge HTML",
+    "htmlMarkupHint": "Embolica la sortida en paràgrafs, o utilitza una llista per al mode de punts",
+    "output": "Sortida",
+    "download": "Descarregar"
+  },
+  "ColorPicker": {
+    "title": "Selector i convertidor de color",
+    "subtitle": "Converteix HEX, RGB i HSL; crea paletes harmòniques. Tot el processament es fa al teu navegador.",
+    "nativePicker": "Selector natiu",
+    "chooseColor": "Tria un color",
+    "eyeDropper": "Comptagotes",
+    "invalidHex": "Color HEX no vàlid.",
+    "cssValues": "Valors CSS",
+    "palettes": "Paletes",
+    "copied": "Copiat",
+    "clickToCopy": "Fes clic per copiar",
+    "copyAllHex": "Copia tots els HEX",
+    "copy": "Copia",
+    "copyColor": "Copia {color}",
+    "paletteShades": "Tons",
+    "paletteComplementary": "Complementari",
+    "paletteTriadic": "Triàdic",
+    "paletteAnalogous": "Anàleg",
+    "paletteSplit": "Comp. dividida",
+    "paletteSquare": "Quadrat"
   }
 }

@@ -1888,5 +1888,44 @@
       "missingName": "UUID v3 및 v5에는 이름이 필요합니다.",
       "unknown": "ID를 생성할 수 없습니다."
     }
+  },
+  "LoremIpsum": {
+    "title": "Lorem Ipsum 생성기",
+    "subtitle": "레이아웃과 목업을 위한 라틴어 플레이스홀더 텍스트를 생성합니다.",
+    "paragraphs": "단락",
+    "sentences": "문장",
+    "words": "단어",
+    "count": "개수",
+    "generate": "생성",
+    "copy": "복사",
+    "startWith": "'Lorem ipsum...'으로 시작",
+    "outputPlaceholder": "출력이 여기에 표시됩니다...",
+    "outputType": "출력 유형",
+    "bulletList": "글머리 기호 목록",
+    "htmlMarkup": "HTML 마크업",
+    "htmlMarkupHint": "출력을 단락으로 감싸거나 글머리 기호 모드에서 목록 사용",
+    "output": "출력",
+    "download": "다운로드"
+  },
+  "ColorPicker": {
+    "title": "색상 선택기 및 변환기",
+    "subtitle": "HEX, RGB, HSL을 변환하고 조화로운 팔레트를 만드세요. 모든 처리는 브라우저에서 이루어집니다.",
+    "nativePicker": "기본 선택기",
+    "chooseColor": "색상 선택",
+    "eyeDropper": "스포이트",
+    "invalidHex": "유효하지 않은 HEX 색상입니다.",
+    "cssValues": "CSS 값",
+    "palettes": "팔레트",
+    "copied": "복사됨",
+    "clickToCopy": "클릭하여 복사",
+    "copyAllHex": "모든 HEX 복사",
+    "copy": "복사",
+    "copyColor": "{color} 복사",
+    "paletteShades": "음영",
+    "paletteComplementary": "보색",
+    "paletteTriadic": "삼원색",
+    "paletteAnalogous": "유사색",
+    "paletteSplit": "분할 보색",
+    "paletteSquare": "사각형"
   }
 }

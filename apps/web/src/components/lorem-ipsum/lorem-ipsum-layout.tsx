@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -19,15 +19,20 @@ import {
   LOREM_LIMITS,
   type LoremUnit,
 } from '@/lib/lorem-ipsum';
+import { useTranslations } from 'next-intl';
 
-const UNIT_OPTIONS: { value: LoremUnit; label: string; hint: string }[] = [
-  { value: 'paragraphs', label: 'Paragraphs', hint: 'Separated by blank lines (plain) or <p> tags (HTML)' },
-  { value: 'sentences', label: 'Sentences', hint: 'Flowing prose built from classical sentences' },
-  { value: 'words', label: 'Words', hint: 'Exact word count, cycling the corpus' },
-  { value: 'list', label: 'Bullet list', hint: 'One sentence per item (markdown-style dash or <ul>)' },
-];
+const UNIT_VALUES: LoremUnit[] = ['paragraphs', 'sentences', 'words', 'list'];
+
+type LoremUnitKey = 'paragraphs' | 'sentences' | 'words' | 'bulletList';
+const UNIT_KEY_MAP: Record<LoremUnit, LoremUnitKey> = {
+  paragraphs: 'paragraphs',
+  sentences: 'sentences',
+  words: 'words',
+  list: 'bulletList',
+};
 
 export function LoremIpsumLayout() {
+  const t = useTranslations('LoremIpsum');
   const [unit, setUnit] = useState<LoremUnit>('paragraphs');
   const [count, setCount] = useState(3);
   const [asHtml, setAsHtml] = useState(false);
@@ -35,7 +40,6 @@ export function LoremIpsumLayout() {
   const [copied, setCopied] = useState(false);
 
   const limits = LOREM_LIMITS[unit];
-  const unitMeta = useMemo(() => UNIT_OPTIONS.find((o) => o.value === unit), [unit]);
 
   const runGenerate = useCallback(() => {
     setCopied(false);
@@ -70,10 +74,8 @@ export function LoremIpsumLayout() {
   return (
     <div className="flex flex-col h-full gap-4 min-h-0">
       <div className="shrink-0">
-        <h1 className="text-lg font-semibold tracking-tight">Lorem Ipsum generator</h1>
-        <p className="text-xs text-muted-foreground">
-          Classical Latin placeholder text for mockups and layouts. Runs entirely in your browser.
-        </p>
+        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
+        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
       </div>
 
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-0">
@@ -83,23 +85,20 @@ export function LoremIpsumLayout() {
               htmlFor="lorem-unit"
               className="text-xs font-medium text-muted-foreground uppercase tracking-wider"
             >
-              Output type
+              {t('outputType')}
             </Label>
             <Select value={unit} onValueChange={(v) => setUnit(v as LoremUnit)}>
               <SelectTrigger id="lorem-unit" className="text-sm">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {UNIT_OPTIONS.map((opt) => (
-                  <SelectItem key={opt.value} value={opt.value} className="text-sm">
-                    {opt.label}
+                {UNIT_VALUES.map((value) => (
+                  <SelectItem key={value} value={value} className="text-sm">
+                    {t(UNIT_KEY_MAP[value])}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
-            {unitMeta && (
-              <p className="text-[11px] text-muted-foreground leading-snug">{unitMeta.hint}</p>
-            )}
           </div>
 
           <div className="space-y-2">
@@ -107,7 +106,7 @@ export function LoremIpsumLayout() {
               htmlFor="lorem-count"
               className="text-xs font-medium text-muted-foreground uppercase tracking-wider"
             >
-              Count ({limits.min}–{limits.max.toLocaleString()})
+              {t('count')} ({limits.min}–{limits.max.toLocaleString()})
             </Label>
             <Input
               id="lorem-count"
@@ -123,10 +122,10 @@ export function LoremIpsumLayout() {
           <div className="flex items-center justify-between gap-3 rounded-lg border border-border/50 bg-muted/20 px-3 py-2.5">
             <div className="space-y-0.5">
               <Label htmlFor="lorem-html" className="text-sm font-medium cursor-pointer">
-                HTML markup
+                {t('htmlMarkup')}
               </Label>
               <p className="text-[11px] text-muted-foreground">
-                Wrap output in paragraphs, or use a list for bullet mode
+                {t('htmlMarkupHint')}
               </p>
             </div>
             <Switch id="lorem-html" checked={asHtml} onCheckedChange={setAsHtml} />
@@ -134,14 +133,14 @@ export function LoremIpsumLayout() {
 
           <Button type="button" onClick={runGenerate} className="gap-1.5 w-fit">
             <RefreshCw className="h-3.5 w-3.5" />
-            Generate
+            {t('generate')}
           </Button>
         </Card>
 
         <Card className="flex flex-col overflow-hidden min-h-[280px]">
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 bg-muted/30 gap-2">
             <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              Output
+              {t('output')}
             </Label>
             <div className="flex items-center gap-1 shrink-0">
               <span className="text-[10px] text-muted-foreground tabular-nums mr-1">
@@ -154,7 +153,7 @@ export function LoremIpsumLayout() {
                 className="h-7 w-7"
                 onClick={handleDownload}
                 disabled={!output}
-                title="Download"
+                title={t('download')}
               >
                 <Download className="h-3.5 w-3.5" />
               </Button>
@@ -165,7 +164,7 @@ export function LoremIpsumLayout() {
                 className="h-7 w-7"
                 onClick={handleCopy}
                 disabled={!output}
-                title="Copy"
+                title={t('copy')}
               >
                 {copied ? (
                   <Check className="h-3.5 w-3.5 text-green-500" />
@@ -179,7 +178,7 @@ export function LoremIpsumLayout() {
             <textarea
               value={output}
               readOnly
-              placeholder='Choose options and click "Generate"…'
+              placeholder={t('outputPlaceholder')}
               className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm leading-relaxed focus:outline-none placeholder:text-muted-foreground/50"
               spellCheck={false}
             />

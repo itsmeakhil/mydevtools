@@ -1888,5 +1888,44 @@
       "missingName": "Naam is vereis vir UUID v3 en v5.",
       "unknown": "Kon nie ID’s genereer nie."
     }
+  },
+  "LoremIpsum": {
+    "title": "Lorem Ipsum Generator",
+    "subtitle": "Genereer plaasvervanger Latynse teks vir jou uitlegte en prototipes.",
+    "paragraphs": "Paragrawe",
+    "sentences": "Sinne",
+    "words": "Woorde",
+    "count": "Aantal",
+    "generate": "Genereer",
+    "copy": "Kopieer",
+    "startWith": "Begin met 'Lorem ipsum...'",
+    "outputPlaceholder": "Uitset sal hier verskyn...",
+    "outputType": "Uitsettype",
+    "bulletList": "Kolletjielys",
+    "htmlMarkup": "HTML-opmaak",
+    "htmlMarkupHint": "Omhul uitset in paragrawe of gebruik 'n lys vir kolletjiemodus",
+    "output": "Uitset",
+    "download": "Laai af"
+  },
+  "ColorPicker": {
+    "title": "Kleurkeuser en omskakelaar",
+    "subtitle": "Skakel HEX, RGB en HSL om; bou harmoniese palette. Alle verwerking bly in jou blaaier.",
+    "nativePicker": "Inheemse keuser",
+    "chooseColor": "Kies kleur",
+    "eyeDropper": "Oogdruppelaar",
+    "invalidHex": "Ongeldige HEX-kleur.",
+    "cssValues": "CSS-waardes",
+    "palettes": "Palette",
+    "copied": "Gekopieer",
+    "clickToCopy": "Klik om te kopieer",
+    "copyAllHex": "Kopieer alle HEX",
+    "copy": "Kopieer",
+    "copyColor": "Kopieer {color}",
+    "paletteShades": "Skakerings",
+    "paletteComplementary": "Komplementêr",
+    "paletteTriadic": "Triadies",
+    "paletteAnalogous": "Analoog",
+    "paletteSplit": "Gesplete komp.",
+    "paletteSquare": "Vierkantig"
   }
 }

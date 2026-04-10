@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { PALETTE_GROUPS } from '@/lib/color-palettes';
 import { Check, Copy, Pipette } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const DEFAULT_HEX = '#6366f1';
 
@@ -61,7 +62,19 @@ function useCopyFeedback() {
   return { key, flash };
 }
 
+type PaletteId = (typeof PALETTE_GROUPS)[number]['id'];
+const PALETTE_LABEL_KEY: Record<PaletteId, 'paletteShades' | 'paletteComplementary' | 'paletteTriadic' | 'paletteAnalogous' | 'paletteSplit' | 'paletteSquare'> = {
+  monochrome: 'paletteShades',
+  complementary: 'paletteComplementary',
+  triadic: 'paletteTriadic',
+  analogous: 'paletteAnalogous',
+  split: 'paletteSplit',
+  square: 'paletteSquare',
+};
+
 export function ColorPickerToolLayout() {
+  const t = useTranslations('ColorPicker');
+
   const [hex, setHex] = useState(DEFAULT_HEX);
   const [hexDraft, setHexDraft] = useState(DEFAULT_HEX);
   const [hexError, setHexError] = useState(false);
@@ -163,7 +176,7 @@ export function ColorPickerToolLayout() {
         size="icon"
         className="h-8 w-8 shrink-0"
         onClick={() => copy(value, id)}
-        title="Copy"
+        title={t('copy')}
       >
         {copiedKey === id ? (
           <Check className="h-3.5 w-3.5 text-green-500" />
@@ -177,10 +190,8 @@ export function ColorPickerToolLayout() {
   return (
     <div className="flex flex-col h-full gap-4 min-h-0 overflow-auto">
       <div className="shrink-0">
-        <h1 className="text-lg font-semibold tracking-tight">Color picker and converter</h1>
-        <p className="text-xs text-muted-foreground">
-          Convert HEX, RGB, and HSL; build harmonic palettes. All processing stays in your browser.
-        </p>
+        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
+        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 shrink-0">
@@ -193,14 +204,14 @@ export function ColorPickerToolLayout() {
             />
             <div className="flex flex-col gap-2 min-w-0">
               <Label className="text-xs text-muted-foreground uppercase tracking-wider">
-                Native picker
+                {t('nativePicker')}
               </Label>
               <input
                 type="color"
                 value={hex}
                 onChange={(e) => syncFromColor(Color(e.target.value))}
                 className="h-10 w-full max-w-[200px] cursor-pointer rounded-md border border-input bg-background p-1"
-                aria-label="Choose color"
+                aria-label={t('chooseColor')}
               />
               {eyeDropperSupported && (
                 <Button
@@ -211,7 +222,7 @@ export function ColorPickerToolLayout() {
                   onClick={pickScreenColor}
                 >
                   <Pipette className="h-3.5 w-3.5" />
-                  Eye dropper
+                  {t('eyeDropper')}
                 </Button>
               )}
             </div>
@@ -244,7 +255,7 @@ export function ColorPickerToolLayout() {
                 {copiedKey === 'hex' ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
               </Button>
             </div>
-            {hexError && <p className="text-xs text-destructive">Invalid HEX color.</p>}
+            {hexError && <p className="text-xs text-destructive">{t('invalidHex')}</p>}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -339,7 +350,7 @@ export function ColorPickerToolLayout() {
           </div>
 
           <div className="space-y-2 pt-1 border-t border-border/50">
-            <Label className="text-xs text-muted-foreground uppercase tracking-wider">CSS values</Label>
+            <Label className="text-xs text-muted-foreground uppercase tracking-wider">{t('cssValues')}</Label>
             <div className="space-y-1.5">
               <CopyRow id="css-hex" label="hex" value={hex} />
               <CopyRow id="css-rgb" label="rgb" value={rgbCss} />
@@ -350,7 +361,7 @@ export function ColorPickerToolLayout() {
 
         <Card className="p-4 flex flex-col min-h-[280px]">
           <Label className="text-xs text-muted-foreground uppercase tracking-wider mb-3">
-            Palettes
+            {t('palettes')}
           </Label>
           <Tabs defaultValue="monochrome" className="flex-1 flex flex-col min-h-0 gap-3">
             <TabsList className="flex h-auto w-full flex-wrap justify-start gap-1 bg-muted/50 p-1">
@@ -360,7 +371,7 @@ export function ColorPickerToolLayout() {
                   value={g.id}
                   className="text-xs px-2.5 py-1.5 shrink-0"
                 >
-                  {g.label}
+                  {t(PALETTE_LABEL_KEY[g.id])}
                 </TabsTrigger>
               ))}
             </TabsList>
@@ -377,7 +388,7 @@ export function ColorPickerToolLayout() {
                         <button
                           key={cid}
                           type="button"
-                          aria-label={`Copy ${hx}`}
+                          aria-label={t('copyColor', { color: hx })}
                           onClick={() => copy(hx, cid)}
                           className="group flex flex-col items-stretch gap-1 rounded-lg border border-border/60 bg-card/50 p-1.5 w-[calc(50%-4px)] sm:w-[calc(33.333%-6px)] max-w-[140px] transition-colors hover:bg-muted/40"
                         >
@@ -389,7 +400,7 @@ export function ColorPickerToolLayout() {
                             {hx}
                           </span>
                           <span className="text-[10px] text-muted-foreground text-center">
-                            {copiedKey === cid ? 'Copied' : 'Click to copy'}
+                            {copiedKey === cid ? t('copied') : t('clickToCopy')}
                           </span>
                         </button>
                       );
@@ -407,7 +418,7 @@ export function ColorPickerToolLayout() {
                     ) : (
                       <Copy className="h-3.5 w-3.5" />
                     )}
-                    Copy all HEX
+                    {t('copyAllHex')}
                   </Button>
                 </TabsContent>
               );

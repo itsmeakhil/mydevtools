@@ -1888,5 +1888,44 @@
       "missingName": "Cần có tên cho UUID v3 và v5.",
       "unknown": "Không thể tạo ID."
     }
+  },
+  "LoremIpsum": {
+    "title": "Bộ Tạo Lorem Ipsum",
+    "subtitle": "Tạo văn bản Latin giữ chỗ cho bố cục và mockup của bạn.",
+    "paragraphs": "Đoạn văn",
+    "sentences": "Câu",
+    "words": "Từ",
+    "count": "Số lượng",
+    "generate": "Tạo",
+    "copy": "Sao chép",
+    "startWith": "Bắt đầu với 'Lorem ipsum...'",
+    "outputPlaceholder": "Kết quả sẽ xuất hiện ở đây...",
+    "outputType": "Loại đầu ra",
+    "bulletList": "Danh sách gạch đầu dòng",
+    "htmlMarkup": "Đánh dấu HTML",
+    "htmlMarkupHint": "Bọc đầu ra trong đoạn văn, hoặc sử dụng danh sách cho chế độ gạch đầu dòng",
+    "output": "Đầu ra",
+    "download": "Tải xuống"
+  },
+  "ColorPicker": {
+    "title": "Bộ chọn và chuyển đổi màu sắc",
+    "subtitle": "Chuyển đổi HEX, RGB và HSL; tạo bảng màu hài hòa. Tất cả xử lý diễn ra trong trình duyệt của bạn.",
+    "nativePicker": "Bộ chọn gốc",
+    "chooseColor": "Chọn màu",
+    "eyeDropper": "Ống nhỏ giọt",
+    "invalidHex": "Màu HEX không hợp lệ.",
+    "cssValues": "Giá trị CSS",
+    "palettes": "Bảng màu",
+    "copied": "Đã sao chép",
+    "clickToCopy": "Nhấp để sao chép",
+    "copyAllHex": "Sao chép tất cả HEX",
+    "copy": "Sao chép",
+    "copyColor": "Sao chép {color}",
+    "paletteShades": "Sắc độ",
+    "paletteComplementary": "Bổ sung",
+    "paletteTriadic": "Bộ ba",
+    "paletteAnalogous": "Tương tự",
+    "paletteSplit": "Bổ sung phân chia",
+    "paletteSquare": "Hình vuông"
   }
 }

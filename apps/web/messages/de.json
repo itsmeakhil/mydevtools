@@ -1888,5 +1888,44 @@
       "missingName": "Für UUID v3 und v5 ist ein Name erforderlich.",
       "unknown": "IDs konnten nicht erzeugt werden."
     }
+  },
+  "LoremIpsum": {
+    "title": "Lorem-Ipsum-Generator",
+    "subtitle": "Generiere lateinischen Platzhaltertext für deine Layouts und Mockups.",
+    "paragraphs": "Absätze",
+    "sentences": "Sätze",
+    "words": "Wörter",
+    "count": "Anzahl",
+    "generate": "Generieren",
+    "copy": "Kopieren",
+    "startWith": "Mit 'Lorem ipsum...' beginnen",
+    "outputPlaceholder": "Ausgabe erscheint hier...",
+    "outputType": "Ausgabetyp",
+    "bulletList": "Aufzählungsliste",
+    "htmlMarkup": "HTML-Markup",
+    "htmlMarkupHint": "Ausgabe in Absätze einschließen oder eine Liste für den Listenmodus verwenden",
+    "output": "Ausgabe",
+    "download": "Herunterladen"
+  },
+  "ColorPicker": {
+    "title": "Farbwähler und Konverter",
+    "subtitle": "Konvertiere HEX, RGB und HSL; erstelle harmonische Paletten. Die Verarbeitung erfolgt komplett im Browser.",
+    "nativePicker": "Nativer Farbwähler",
+    "chooseColor": "Farbe wählen",
+    "eyeDropper": "Pipette",
+    "invalidHex": "Ungültige HEX-Farbe.",
+    "cssValues": "CSS-Werte",
+    "palettes": "Paletten",
+    "copied": "Kopiert",
+    "clickToCopy": "Zum Kopieren klicken",
+    "copyAllHex": "Alle HEX kopieren",
+    "copy": "Kopieren",
+    "copyColor": "{color} kopieren",
+    "paletteShades": "Abstufungen",
+    "paletteComplementary": "Komplementär",
+    "paletteTriadic": "Triadisch",
+    "paletteAnalogous": "Analog",
+    "paletteSplit": "Geteiltes Kompl.",
+    "paletteSquare": "Quadratisch"
   }
 }

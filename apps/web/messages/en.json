@@ -1888,5 +1888,44 @@
       "missingName": "Name is required for UUID v3 and v5.",
       "unknown": "Could not generate IDs."
     }
+  },
+  "LoremIpsum": {
+    "title": "Lorem Ipsum Generator",
+    "subtitle": "Generate placeholder Latin text for your layouts and mockups.",
+    "outputType": "Output type",
+    "paragraphs": "Paragraphs",
+    "sentences": "Sentences",
+    "words": "Words",
+    "bulletList": "Bullet list",
+    "count": "Count",
+    "htmlMarkup": "HTML markup",
+    "htmlMarkupHint": "Wrap output in paragraphs, or use a list for bullet mode",
+    "generate": "Generate",
+    "output": "Output",
+    "download": "Download",
+    "copy": "Copy",
+    "startWith": "Start with 'Lorem ipsum...'",
+    "outputPlaceholder": "Output will appear here..."
+  },
+  "ColorPicker": {
+    "title": "Color picker and converter",
+    "subtitle": "Convert HEX, RGB, and HSL; build harmonic palettes. All processing stays in your browser.",
+    "nativePicker": "Native picker",
+    "chooseColor": "Choose color",
+    "eyeDropper": "Eye dropper",
+    "invalidHex": "Invalid HEX color.",
+    "cssValues": "CSS values",
+    "palettes": "Palettes",
+    "copied": "Copied",
+    "clickToCopy": "Click to copy",
+    "copyAllHex": "Copy all HEX",
+    "copy": "Copy",
+    "copyColor": "Copy {color}",
+    "paletteShades": "Shades",
+    "paletteComplementary": "Complementary",
+    "paletteTriadic": "Triadic",
+    "paletteAnalogous": "Analogous",
+    "paletteSplit": "Split comp.",
+    "paletteSquare": "Square"
   }
 }

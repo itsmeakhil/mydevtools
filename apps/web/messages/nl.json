@@ -1888,5 +1888,44 @@
       "missingName": "Naam is vereist voor UUID v3 en v5.",
       "unknown": "Kon geen ID’s genereren."
     }
+  },
+  "LoremIpsum": {
+    "title": "Lorem Ipsum Generator",
+    "subtitle": "Genereer Latijnse plaatsaanduidingstekst voor je lay-outs en mockups.",
+    "paragraphs": "Alinea's",
+    "sentences": "Zinnen",
+    "words": "Woorden",
+    "count": "Aantal",
+    "generate": "Genereer",
+    "copy": "Kopieer",
+    "startWith": "Begin met 'Lorem ipsum...'",
+    "outputPlaceholder": "Uitvoer verschijnt hier...",
+    "outputType": "Uitvoertype",
+    "bulletList": "Opsommingslijst",
+    "htmlMarkup": "HTML-opmaak",
+    "htmlMarkupHint": "Uitvoer in alinea's inpakken of een lijst gebruiken voor de opsommingstekenmodus",
+    "output": "Uitvoer",
+    "download": "Downloaden"
+  },
+  "ColorPicker": {
+    "title": "Kleurkiezer en converter",
+    "subtitle": "Converteer HEX, RGB en HSL; maak harmonische paletten. Alle verwerking vindt plaats in je browser.",
+    "nativePicker": "Ingebouwde kiezer",
+    "chooseColor": "Kies een kleur",
+    "eyeDropper": "Pipet",
+    "invalidHex": "Ongeldige HEX-kleur.",
+    "cssValues": "CSS-waarden",
+    "palettes": "Paletten",
+    "copied": "Gekopieerd",
+    "clickToCopy": "Klik om te kopiëren",
+    "copyAllHex": "Alle HEX kopiëren",
+    "copy": "Kopiëren",
+    "copyColor": "{color} kopiëren",
+    "paletteShades": "Tinten",
+    "paletteComplementary": "Complementair",
+    "paletteTriadic": "Triadisch",
+    "paletteAnalogous": "Analoog",
+    "paletteSplit": "Gedeeld compl.",
+    "paletteSquare": "Vierkant"
   }
 }

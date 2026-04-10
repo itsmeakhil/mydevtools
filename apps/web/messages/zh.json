@@ -1888,5 +1888,44 @@
       "missingName": "UUID v3 和 v5 需要名称。",
       "unknown": "无法生成 ID。"
     }
+  },
+  "LoremIpsum": {
+    "title": "Lorem Ipsum 生成器",
+    "subtitle": "为您的布局和原型生成拉丁文占位文本。",
+    "paragraphs": "段落",
+    "sentences": "句子",
+    "words": "单词",
+    "count": "数量",
+    "generate": "生成",
+    "copy": "复制",
+    "startWith": "以 'Lorem ipsum...' 开头",
+    "outputPlaceholder": "输出将在此处显示...",
+    "outputType": "输出类型",
+    "bulletList": "项目符号列表",
+    "htmlMarkup": "HTML 标记",
+    "htmlMarkupHint": "将输出包装在段落中，或在项目符号模式下使用列表",
+    "output": "输出",
+    "download": "下载"
+  },
+  "ColorPicker": {
+    "title": "颜色选择器和转换器",
+    "subtitle": "转换 HEX、RGB 和 HSL；构建和谐调色板。所有处理在您的浏览器中完成。",
+    "nativePicker": "原生选择器",
+    "chooseColor": "选择颜色",
+    "eyeDropper": "吸管工具",
+    "invalidHex": "无效的 HEX 颜色。",
+    "cssValues": "CSS 值",
+    "palettes": "调色板",
+    "copied": "已复制",
+    "clickToCopy": "点击复制",
+    "copyAllHex": "复制所有 HEX",
+    "copy": "复制",
+    "copyColor": "复制 {color}",
+    "paletteShades": "色调",
+    "paletteComplementary": "互补色",
+    "paletteTriadic": "三角配色",
+    "paletteAnalogous": "邻近色",
+    "paletteSplit": "分裂互补",
+    "paletteSquare": "正方形配色"
   }
 }

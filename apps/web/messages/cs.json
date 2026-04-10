@@ -1888,5 +1888,44 @@
       "missingName": "Pro UUID v3 a v5 je vyžadováno jméno.",
       "unknown": "Nepodařilo se vygenerovat ID."
     }
+  },
+  "LoremIpsum": {
+    "title": "Generátor Lorem Ipsum",
+    "subtitle": "Generujte zástupný latinský text pro vaše rozvržení a makety.",
+    "paragraphs": "Odstavce",
+    "sentences": "Věty",
+    "words": "Slova",
+    "count": "Počet",
+    "generate": "Generovat",
+    "copy": "Kopírovat",
+    "startWith": "Začít s 'Lorem ipsum...'",
+    "outputPlaceholder": "Výstup se zobrazí zde...",
+    "outputType": "Typ výstupu",
+    "bulletList": "Odrážkový seznam",
+    "htmlMarkup": "HTML značkování",
+    "htmlMarkupHint": "Zabalte výstup do odstavců nebo použijte seznam pro režim odrážek",
+    "output": "Výstup",
+    "download": "Stáhnout"
+  },
+  "ColorPicker": {
+    "title": "Výběr a převodník barev",
+    "subtitle": "Převádějte HEX, RGB a HSL; vytvářejte harmonické palety. Veškeré zpracování probíhá v prohlížeči.",
+    "nativePicker": "Nativní výběr",
+    "chooseColor": "Vyberte barvu",
+    "eyeDropper": "Kapátko",
+    "invalidHex": "Neplatná barva HEX.",
+    "cssValues": "Hodnoty CSS",
+    "palettes": "Palety",
+    "copied": "Zkopírováno",
+    "clickToCopy": "Kliknutím zkopírujte",
+    "copyAllHex": "Kopírovat vše HEX",
+    "copy": "Kopírovat",
+    "copyColor": "Kopírovat {color}",
+    "paletteShades": "Odstíny",
+    "paletteComplementary": "Doplňkový",
+    "paletteTriadic": "Triadický",
+    "paletteAnalogous": "Analogický",
+    "paletteSplit": "Dělený dopl.",
+    "paletteSquare": "Čtvercový"
   }
 }

@@ -1888,5 +1888,44 @@
       "missingName": "Navn er påkrevd for UUID v3 og v5.",
       "unknown": "Kunne ikke generere ID-er."
     }
+  },
+  "LoremIpsum": {
+    "title": "Lorem Ipsum Generator",
+    "subtitle": "Generer latinsk plassholdertekst for dine oppsett og prototyper.",
+    "paragraphs": "Avsnitt",
+    "sentences": "Setninger",
+    "words": "Ord",
+    "count": "Antall",
+    "generate": "Generer",
+    "copy": "Kopier",
+    "startWith": "Start med 'Lorem ipsum...'",
+    "outputPlaceholder": "Output vises her...",
+    "outputType": "Utdatatype",
+    "bulletList": "Punktliste",
+    "htmlMarkup": "HTML-markup",
+    "htmlMarkupHint": "Pakk inn output i avsnitt, eller bruk en liste for punktliste-modus",
+    "output": "Utdata",
+    "download": "Last ned"
+  },
+  "ColorPicker": {
+    "title": "Fargevelger og konverter",
+    "subtitle": "Konverter HEX, RGB og HSL; bygg harmoniske paletter. All behandling skjer i nettleseren din.",
+    "nativePicker": "Innebygd velger",
+    "chooseColor": "Velg farge",
+    "eyeDropper": "Øyedråper",
+    "invalidHex": "Ugyldig HEX-farge.",
+    "cssValues": "CSS-verdier",
+    "palettes": "Paletter",
+    "copied": "Kopiert",
+    "clickToCopy": "Klikk for å kopiere",
+    "copyAllHex": "Kopier alle HEX",
+    "copy": "Kopier",
+    "copyColor": "Kopier {color}",
+    "paletteShades": "Nyanser",
+    "paletteComplementary": "Komplementær",
+    "paletteTriadic": "Triadisk",
+    "paletteAnalogous": "Analog",
+    "paletteSplit": "Delt kompl.",
+    "paletteSquare": "Kvadratisk"
   }
 }

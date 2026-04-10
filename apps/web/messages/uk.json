@@ -1888,5 +1888,44 @@
       "missingName": "Ім’я потрібне для UUID v3 та v5.",
       "unknown": "Не вдалося згенерувати ідентифікатори."
     }
+  },
+  "LoremIpsum": {
+    "title": "Генератор Lorem Ipsum",
+    "subtitle": "Генеруйте замінний латинський текст для ваших макетів та прототипів.",
+    "paragraphs": "Абзаци",
+    "sentences": "Речення",
+    "words": "Слова",
+    "count": "Кількість",
+    "generate": "Генерувати",
+    "copy": "Копіювати",
+    "startWith": "Почати з 'Lorem ipsum...'",
+    "outputPlaceholder": "Результат з'явиться тут...",
+    "outputType": "Тип виведення",
+    "bulletList": "Маркований список",
+    "htmlMarkup": "HTML-розмітка",
+    "htmlMarkupHint": "Обгорніть виведення в абзаци або використовуйте список для режиму маркерів",
+    "output": "Виведення",
+    "download": "Завантажити"
+  },
+  "ColorPicker": {
+    "title": "Вибір і конвертер кольорів",
+    "subtitle": "Конвертуйте HEX, RGB та HSL; створюйте гармонійні палітри. Вся обробка відбувається у вашому браузері.",
+    "nativePicker": "Вбудований вибір кольору",
+    "chooseColor": "Виберіть колір",
+    "eyeDropper": "Піпетка",
+    "invalidHex": "Невірний колір HEX.",
+    "cssValues": "CSS-значення",
+    "palettes": "Палітри",
+    "copied": "Скопійовано",
+    "clickToCopy": "Натисніть для копіювання",
+    "copyAllHex": "Копіювати всі HEX",
+    "copy": "Копіювати",
+    "copyColor": "Копіювати {color}",
+    "paletteShades": "Відтінки",
+    "paletteComplementary": "Додатковий",
+    "paletteTriadic": "Тріадний",
+    "paletteAnalogous": "Аналогічний",
+    "paletteSplit": "Розділений доп.",
+    "paletteSquare": "Квадратний"
   }
 }

@@ -1888,5 +1888,44 @@
       "missingName": "Nazwa jest wymagana dla UUID v3 i v5.",
       "unknown": "Nie udało się wygenerować identyfikatorów."
     }
+  },
+  "LoremIpsum": {
+    "title": "Generator Lorem Ipsum",
+    "subtitle": "Generuj zastępczy tekst łaciński dla swoich układów i makiet.",
+    "paragraphs": "Akapity",
+    "sentences": "Zdania",
+    "words": "Słowa",
+    "count": "Liczba",
+    "generate": "Generuj",
+    "copy": "Kopiuj",
+    "startWith": "Zacznij od 'Lorem ipsum...'",
+    "outputPlaceholder": "Wynik pojawi się tutaj...",
+    "outputType": "Typ wyjścia",
+    "bulletList": "Lista punktowana",
+    "htmlMarkup": "Znaczniki HTML",
+    "htmlMarkupHint": "Zawiń dane wyjściowe w akapity lub użyj listy dla trybu punktowanego",
+    "output": "Wynik",
+    "download": "Pobierz"
+  },
+  "ColorPicker": {
+    "title": "Selektor i konwerter kolorów",
+    "subtitle": "Konwertuj HEX, RGB i HSL; twórz harmonijne palety. Cała obróbka odbywa się w przeglądarce.",
+    "nativePicker": "Natywny selektor",
+    "chooseColor": "Wybierz kolor",
+    "eyeDropper": "Pipeta",
+    "invalidHex": "Nieprawidłowy kolor HEX.",
+    "cssValues": "Wartości CSS",
+    "palettes": "Palety",
+    "copied": "Skopiowano",
+    "clickToCopy": "Kliknij, aby skopiować",
+    "copyAllHex": "Kopiuj wszystkie HEX",
+    "copy": "Kopiuj",
+    "copyColor": "Kopiuj {color}",
+    "paletteShades": "Odcienie",
+    "paletteComplementary": "Dopełniający",
+    "paletteTriadic": "Triadyczny",
+    "paletteAnalogous": "Analogiczny",
+    "paletteSplit": "Dopeł. podzielony",
+    "paletteSquare": "Kwadratowy"
   }
 }

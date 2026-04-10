@@ -1888,5 +1888,44 @@
       "missingName": "برای UUID v3 و v5 وارد کردن نام لازم است.",
       "unknown": "امکان تولید شناسه‌ها وجود ندارد."
     }
+  },
+  "LoremIpsum": {
+    "title": "مولد متن لورم ایپسوم",
+    "subtitle": "متن لاتین موقت برای طرح‌بندی‌ها و ماکت‌های خود تولید کنید.",
+    "paragraphs": "پاراگراف‌ها",
+    "sentences": "جملات",
+    "words": "کلمات",
+    "count": "تعداد",
+    "generate": "تولید",
+    "copy": "کپی",
+    "startWith": "شروع با 'Lorem ipsum...'",
+    "outputPlaceholder": "خروجی اینجا نمایش داده می‌شود...",
+    "outputType": "نوع خروجی",
+    "bulletList": "لیست گلوله‌ای",
+    "htmlMarkup": "نشانه‌گذاری HTML",
+    "htmlMarkupHint": "خروجی را در پاراگراف‌ها قرار دهید یا از لیست برای حالت گلوله استفاده کنید",
+    "output": "خروجی",
+    "download": "دانلود"
+  },
+  "ColorPicker": {
+    "title": "انتخابگر و مبدل رنگ",
+    "subtitle": "HEX، RGB و HSL را تبدیل کنید؛ پالت‌های هارمونیک بسازید. تمام پردازش در مرورگر شما انجام می‌شود.",
+    "nativePicker": "انتخابگر بومی",
+    "chooseColor": "انتخاب رنگ",
+    "eyeDropper": "قطره‌چکان",
+    "invalidHex": "رنگ HEX نامعتبر است.",
+    "cssValues": "مقادیر CSS",
+    "palettes": "پالت‌ها",
+    "copied": "کپی شد",
+    "clickToCopy": "برای کپی کلیک کنید",
+    "copyAllHex": "کپی تمام HEX",
+    "copy": "کپی",
+    "copyColor": "کپی {color}",
+    "paletteShades": "سایه‌ها",
+    "paletteComplementary": "مکمل",
+    "paletteTriadic": "سه‌گانه",
+    "paletteAnalogous": "مشابه",
+    "paletteSplit": "مکمل منقسم",
+    "paletteSquare": "مربع"
   }
 }

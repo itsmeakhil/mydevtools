@@ -1888,5 +1888,44 @@
       "missingName": "Nama diperlukan untuk UUID v3 dan v5.",
       "unknown": "Tidak dapat menjana ID."
     }
+  },
+  "LoremIpsum": {
+    "title": "Penjana Lorem Ipsum",
+    "subtitle": "Jana teks Latin pemegang tempat untuk susun atur dan mockup anda.",
+    "paragraphs": "Perenggan",
+    "sentences": "Ayat",
+    "words": "Perkataan",
+    "count": "Bilangan",
+    "generate": "Jana",
+    "copy": "Salin",
+    "startWith": "Mulakan dengan 'Lorem ipsum...'",
+    "outputPlaceholder": "Output akan muncul di sini...",
+    "outputType": "Jenis output",
+    "bulletList": "Senarai poin",
+    "htmlMarkup": "Markup HTML",
+    "htmlMarkupHint": "Balut output dalam perenggan, atau gunakan senarai untuk mod poin",
+    "output": "Output",
+    "download": "Muat turun"
+  },
+  "ColorPicker": {
+    "title": "Pemilih dan penukar warna",
+    "subtitle": "Tukar HEX, RGB dan HSL; bina palet harmoni. Semua pemprosesan berlaku dalam pelayar anda.",
+    "nativePicker": "Pemilih asli",
+    "chooseColor": "Pilih warna",
+    "eyeDropper": "Penitis mata",
+    "invalidHex": "Warna HEX tidak sah.",
+    "cssValues": "Nilai CSS",
+    "palettes": "Palet",
+    "copied": "Disalin",
+    "clickToCopy": "Klik untuk salin",
+    "copyAllHex": "Salin semua HEX",
+    "copy": "Salin",
+    "copyColor": "Salin {color}",
+    "paletteShades": "Warna-warna",
+    "paletteComplementary": "Komplementari",
+    "paletteTriadic": "Triadi",
+    "paletteAnalogous": "Analog",
+    "paletteSplit": "Komp. berpecah",
+    "paletteSquare": "Segi empat"
   }
 }
