@@ -1614,33 +1614,33 @@
     }
   },
   "SqlFormatter": {
-    "title": "SQL formatter",
-    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
-    "dialectLabel": "Dialect",
-    "keywordsLabel": "Keywords",
-    "indentLabel": "Indent",
+    "title": "SQL Biçimlendirici",
+    "subtitle": "MySQL, PostgreSQL veya SQLite için SQL’i biçimlendir. Tarayıcıda çalışır; hiçbir şey yüklenmez.",
+    "dialectLabel": "Lehçe",
+    "keywordsLabel": "Anahtar kelimeler",
+    "indentLabel": "Girinti",
     "dialects": {
       "mysql": "MySQL",
       "postgresql": "PostgreSQL",
       "sqlite": "SQLite"
     },
     "keywordCase": {
-      "upper": "UPPER",
-      "lower": "lower",
-      "preserve": "Preserve"
+      "upper": "BÜYÜK",
+      "lower": "küçük",
+      "preserve": "Koru"
     },
-    "spaces": "{n} spaces",
-    "format": "Format",
-    "clear": "Clear",
-    "counter": "{current} / {max} characters",
-    "inputPanel": "Input",
-    "formattedPanel": "Formatted",
-    "copy": "Copy",
+    "spaces": "{n} boşluk",
+    "format": "Biçimlendir",
+    "clear": "Temizle",
+    "counter": "{current} / {max} karakter",
+    "inputPanel": "Girdi",
+    "formattedPanel": "Biçimlendirilmiş",
+    "copy": "Kopyala",
     "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Click \"Format\"…",
+    "outputPlaceholder": "\"Biçimlendir\"e tıkla…",
     "errors": {
-      "tooLong": "Input is limited to {max} characters.",
-      "couldNotFormat": "Could not format this SQL."
+      "tooLong": "Girdi {max} karakter ile sınırlıdır.",
+      "couldNotFormat": "Bu SQL biçimlendirilemedi."
     }
   }
 }

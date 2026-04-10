@@ -1614,33 +1614,33 @@
     }
   },
   "SqlFormatter": {
-    "title": "SQL formatter",
-    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
-    "dialectLabel": "Dialect",
-    "keywordsLabel": "Keywords",
-    "indentLabel": "Indent",
+    "title": "Форматтер SQL",
+    "subtitle": "Форматируйте SQL для MySQL, PostgreSQL или SQLite. Работает в браузере; ничего не загружается.",
+    "dialectLabel": "Диалект",
+    "keywordsLabel": "Ключевые слова",
+    "indentLabel": "Отступ",
     "dialects": {
       "mysql": "MySQL",
       "postgresql": "PostgreSQL",
       "sqlite": "SQLite"
     },
     "keywordCase": {
-      "upper": "UPPER",
-      "lower": "lower",
-      "preserve": "Preserve"
+      "upper": "ВЕРХНИЙ РЕГИСТР",
+      "lower": "нижний регистр",
+      "preserve": "Сохранить"
     },
-    "spaces": "{n} spaces",
-    "format": "Format",
-    "clear": "Clear",
-    "counter": "{current} / {max} characters",
-    "inputPanel": "Input",
-    "formattedPanel": "Formatted",
-    "copy": "Copy",
+    "spaces": "{n} пробела(ов)",
+    "format": "Форматировать",
+    "clear": "Очистить",
+    "counter": "{current} / {max} символов",
+    "inputPanel": "Ввод",
+    "formattedPanel": "Форматировано",
+    "copy": "Копировать",
     "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Click \"Format\"…",
+    "outputPlaceholder": "Нажмите «Форматировать»…",
     "errors": {
-      "tooLong": "Input is limited to {max} characters.",
-      "couldNotFormat": "Could not format this SQL."
+      "tooLong": "Ввод ограничен {max} символами.",
+      "couldNotFormat": "Не удалось отформатировать этот SQL."
     }
   }
 }

@@ -1614,33 +1614,33 @@
     }
   },
   "SqlFormatter": {
-    "title": "SQL formatter",
-    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
-    "dialectLabel": "Dialect",
-    "keywordsLabel": "Keywords",
-    "indentLabel": "Indent",
+    "title": "Форматувач SQL",
+    "subtitle": "Форматуйте SQL для MySQL, PostgreSQL або SQLite. Працює у браузері; нічого не завантажується.",
+    "dialectLabel": "Діалект",
+    "keywordsLabel": "Ключові слова",
+    "indentLabel": "Відступ",
     "dialects": {
       "mysql": "MySQL",
       "postgresql": "PostgreSQL",
       "sqlite": "SQLite"
     },
     "keywordCase": {
-      "upper": "UPPER",
-      "lower": "lower",
-      "preserve": "Preserve"
+      "upper": "ВЕРХНІЙ РЕГІСТР",
+      "lower": "нижній регістр",
+      "preserve": "Зберегти"
     },
-    "spaces": "{n} spaces",
-    "format": "Format",
-    "clear": "Clear",
-    "counter": "{current} / {max} characters",
-    "inputPanel": "Input",
-    "formattedPanel": "Formatted",
-    "copy": "Copy",
+    "spaces": "{n} пробілів",
+    "format": "Форматувати",
+    "clear": "Очистити",
+    "counter": "{current} / {max} символів",
+    "inputPanel": "Ввід",
+    "formattedPanel": "Відформатовано",
+    "copy": "Копіювати",
     "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Click \"Format\"…",
+    "outputPlaceholder": "Натисніть \"Форматувати\"…",
     "errors": {
-      "tooLong": "Input is limited to {max} characters.",
-      "couldNotFormat": "Could not format this SQL."
+      "tooLong": "Ввід обмежено {max} символами.",
+      "couldNotFormat": "Не вдалося відформатувати цей SQL."
     }
   }
 }

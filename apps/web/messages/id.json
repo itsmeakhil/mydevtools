@@ -1614,33 +1614,33 @@
     }
   },
   "SqlFormatter": {
-    "title": "SQL formatter",
-    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
-    "dialectLabel": "Dialect",
-    "keywordsLabel": "Keywords",
-    "indentLabel": "Indent",
+    "title": "Pemformat SQL",
+    "subtitle": "Rapikan SQL untuk MySQL, PostgreSQL, atau SQLite. Berjalan di browser; tidak ada yang diunggah.",
+    "dialectLabel": "Dialek",
+    "keywordsLabel": "Kata kunci",
+    "indentLabel": "Indentasi",
     "dialects": {
       "mysql": "MySQL",
       "postgresql": "PostgreSQL",
       "sqlite": "SQLite"
     },
     "keywordCase": {
-      "upper": "UPPER",
-      "lower": "lower",
-      "preserve": "Preserve"
+      "upper": "HURUF BESAR",
+      "lower": "huruf kecil",
+      "preserve": "Pertahankan"
     },
-    "spaces": "{n} spaces",
+    "spaces": "{n} spasi",
     "format": "Format",
-    "clear": "Clear",
-    "counter": "{current} / {max} characters",
+    "clear": "Bersihkan",
+    "counter": "{current} / {max} karakter",
     "inputPanel": "Input",
-    "formattedPanel": "Formatted",
-    "copy": "Copy",
+    "formattedPanel": "Terformat",
+    "copy": "Salin",
     "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Click \"Format\"…",
+    "outputPlaceholder": "Klik \"Format\"…",
     "errors": {
-      "tooLong": "Input is limited to {max} characters.",
-      "couldNotFormat": "Could not format this SQL."
+      "tooLong": "Input dibatasi hingga {max} karakter.",
+      "couldNotFormat": "Tidak dapat memformat SQL ini."
     }
   }
 }

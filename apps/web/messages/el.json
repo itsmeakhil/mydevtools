@@ -1614,33 +1614,33 @@
     }
   },
   "SqlFormatter": {
-    "title": "SQL formatter",
-    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
-    "dialectLabel": "Dialect",
-    "keywordsLabel": "Keywords",
-    "indentLabel": "Indent",
+    "title": "Μορφοποιητής SQL",
+    "subtitle": "Μορφοποιήστε SQL για MySQL, PostgreSQL ή SQLite. Τρέχει στον browser· δεν ανεβαίνει τίποτα.",
+    "dialectLabel": "Διάλεκτος",
+    "keywordsLabel": "Λέξεις-κλειδιά",
+    "indentLabel": "Εσοχή",
     "dialects": {
       "mysql": "MySQL",
       "postgresql": "PostgreSQL",
       "sqlite": "SQLite"
     },
     "keywordCase": {
-      "upper": "UPPER",
-      "lower": "lower",
-      "preserve": "Preserve"
+      "upper": "ΚΕΦΑΛΑΙΑ",
+      "lower": "πεζά",
+      "preserve": "Διατήρηση"
     },
-    "spaces": "{n} spaces",
-    "format": "Format",
-    "clear": "Clear",
-    "counter": "{current} / {max} characters",
-    "inputPanel": "Input",
-    "formattedPanel": "Formatted",
-    "copy": "Copy",
+    "spaces": "{n} κενά",
+    "format": "Μορφοποίηση",
+    "clear": "Καθαρισμός",
+    "counter": "{current} / {max} χαρακτήρες",
+    "inputPanel": "Είσοδος",
+    "formattedPanel": "Μορφοποιημένο",
+    "copy": "Αντιγραφή",
     "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Click \"Format\"…",
+    "outputPlaceholder": "Πατήστε «Μορφοποίηση»…",
     "errors": {
-      "tooLong": "Input is limited to {max} characters.",
-      "couldNotFormat": "Could not format this SQL."
+      "tooLong": "Η είσοδος περιορίζεται σε {max} χαρακτήρες.",
+      "couldNotFormat": "Δεν ήταν δυνατή η μορφοποίηση αυτού του SQL."
     }
   }
 }

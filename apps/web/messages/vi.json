@@ -1614,33 +1614,33 @@
     }
   },
   "SqlFormatter": {
-    "title": "SQL formatter",
-    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
-    "dialectLabel": "Dialect",
-    "keywordsLabel": "Keywords",
-    "indentLabel": "Indent",
+    "title": "Trình định dạng SQL",
+    "subtitle": "Định dạng SQL cho MySQL, PostgreSQL hoặc SQLite. Chạy trong trình duyệt; không tải lên gì cả.",
+    "dialectLabel": "Phương ngữ",
+    "keywordsLabel": "Từ khóa",
+    "indentLabel": "Thụt lề",
     "dialects": {
       "mysql": "MySQL",
       "postgresql": "PostgreSQL",
       "sqlite": "SQLite"
     },
     "keywordCase": {
-      "upper": "UPPER",
-      "lower": "lower",
-      "preserve": "Preserve"
+      "upper": "CHỮ HOA",
+      "lower": "chữ thường",
+      "preserve": "Giữ nguyên"
     },
-    "spaces": "{n} spaces",
-    "format": "Format",
-    "clear": "Clear",
-    "counter": "{current} / {max} characters",
-    "inputPanel": "Input",
-    "formattedPanel": "Formatted",
-    "copy": "Copy",
+    "spaces": "{n} khoảng trắng",
+    "format": "Định dạng",
+    "clear": "Xóa",
+    "counter": "{current} / {max} ký tự",
+    "inputPanel": "Đầu vào",
+    "formattedPanel": "Đã định dạng",
+    "copy": "Sao chép",
     "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Click \"Format\"…",
+    "outputPlaceholder": "Nhấn \"Định dạng\"…",
     "errors": {
-      "tooLong": "Input is limited to {max} characters.",
-      "couldNotFormat": "Could not format this SQL."
+      "tooLong": "Đầu vào bị giới hạn {max} ký tự.",
+      "couldNotFormat": "Không thể định dạng SQL này."
     }
   }
 }

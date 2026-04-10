@@ -1614,33 +1614,33 @@
     }
   },
   "SqlFormatter": {
-    "title": "SQL formatter",
-    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
-    "dialectLabel": "Dialect",
-    "keywordsLabel": "Keywords",
-    "indentLabel": "Indent",
+    "title": "SQL 포매터",
+    "subtitle": "MySQL, PostgreSQL 또는 SQLite용 SQL을 보기 좋게 정리합니다. 브라우저에서 실행되며 업로드되지 않습니다.",
+    "dialectLabel": "방언",
+    "keywordsLabel": "키워드",
+    "indentLabel": "들여쓰기",
     "dialects": {
       "mysql": "MySQL",
       "postgresql": "PostgreSQL",
       "sqlite": "SQLite"
     },
     "keywordCase": {
-      "upper": "UPPER",
-      "lower": "lower",
-      "preserve": "Preserve"
+      "upper": "대문자",
+      "lower": "소문자",
+      "preserve": "유지"
     },
-    "spaces": "{n} spaces",
-    "format": "Format",
-    "clear": "Clear",
-    "counter": "{current} / {max} characters",
-    "inputPanel": "Input",
-    "formattedPanel": "Formatted",
-    "copy": "Copy",
+    "spaces": "{n}칸",
+    "format": "포맷",
+    "clear": "지우기",
+    "counter": "{current} / {max}자",
+    "inputPanel": "입력",
+    "formattedPanel": "결과",
+    "copy": "복사",
     "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Click \"Format\"…",
+    "outputPlaceholder": "“포맷”을 클릭…",
     "errors": {
-      "tooLong": "Input is limited to {max} characters.",
-      "couldNotFormat": "Could not format this SQL."
+      "tooLong": "입력은 최대 {max}자까지입니다.",
+      "couldNotFormat": "이 SQL을 포맷할 수 없습니다."
     }
   }
 }

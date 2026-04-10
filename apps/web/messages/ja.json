@@ -1614,33 +1614,33 @@
     }
   },
   "SqlFormatter": {
-    "title": "SQL formatter",
-    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
-    "dialectLabel": "Dialect",
-    "keywordsLabel": "Keywords",
-    "indentLabel": "Indent",
+    "title": "SQLフォーマッター",
+    "subtitle": "MySQL / PostgreSQL / SQLite のSQLを整形します。ブラウザ内で実行され、アップロードされません。",
+    "dialectLabel": "方言",
+    "keywordsLabel": "キーワード",
+    "indentLabel": "インデント",
     "dialects": {
       "mysql": "MySQL",
       "postgresql": "PostgreSQL",
       "sqlite": "SQLite"
     },
     "keywordCase": {
-      "upper": "UPPER",
-      "lower": "lower",
-      "preserve": "Preserve"
+      "upper": "大文字",
+      "lower": "小文字",
+      "preserve": "保持"
     },
-    "spaces": "{n} spaces",
-    "format": "Format",
-    "clear": "Clear",
-    "counter": "{current} / {max} characters",
-    "inputPanel": "Input",
-    "formattedPanel": "Formatted",
-    "copy": "Copy",
+    "spaces": "{n} スペース",
+    "format": "整形",
+    "clear": "クリア",
+    "counter": "{current} / {max} 文字",
+    "inputPanel": "入力",
+    "formattedPanel": "整形結果",
+    "copy": "コピー",
     "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Click \"Format\"…",
+    "outputPlaceholder": "「整形」をクリック…",
     "errors": {
-      "tooLong": "Input is limited to {max} characters.",
-      "couldNotFormat": "Could not format this SQL."
+      "tooLong": "入力は {max} 文字までです。",
+      "couldNotFormat": "このSQLを整形できませんでした。"
     }
   }
 }

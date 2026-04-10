@@ -1614,33 +1614,33 @@
     }
   },
   "SqlFormatter": {
-    "title": "SQL formatter",
-    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
-    "dialectLabel": "Dialect",
-    "keywordsLabel": "Keywords",
-    "indentLabel": "Indent",
+    "title": "SQL 格式化",
+    "subtitle": "格式化 MySQL、PostgreSQL 或 SQLite 的 SQL。在浏览器中运行；不会上传任何内容。",
+    "dialectLabel": "方言",
+    "keywordsLabel": "关键字",
+    "indentLabel": "缩进",
     "dialects": {
       "mysql": "MySQL",
       "postgresql": "PostgreSQL",
       "sqlite": "SQLite"
     },
     "keywordCase": {
-      "upper": "UPPER",
-      "lower": "lower",
-      "preserve": "Preserve"
+      "upper": "大写",
+      "lower": "小写",
+      "preserve": "保留"
     },
-    "spaces": "{n} spaces",
-    "format": "Format",
-    "clear": "Clear",
-    "counter": "{current} / {max} characters",
-    "inputPanel": "Input",
-    "formattedPanel": "Formatted",
-    "copy": "Copy",
+    "spaces": "{n} 个空格",
+    "format": "格式化",
+    "clear": "清空",
+    "counter": "{current} / {max} 个字符",
+    "inputPanel": "输入",
+    "formattedPanel": "已格式化",
+    "copy": "复制",
     "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Click \"Format\"…",
+    "outputPlaceholder": "点击“格式化”…",
     "errors": {
-      "tooLong": "Input is limited to {max} characters.",
-      "couldNotFormat": "Could not format this SQL."
+      "tooLong": "输入限制为 {max} 个字符。",
+      "couldNotFormat": "无法格式化该 SQL。"
     }
   }
 }

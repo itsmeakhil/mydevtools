@@ -1614,33 +1614,33 @@
     }
   },
   "SqlFormatter": {
-    "title": "SQL formatter",
-    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
-    "dialectLabel": "Dialect",
-    "keywordsLabel": "Keywords",
-    "indentLabel": "Indent",
+    "title": "Formatador SQL",
+    "subtitle": "Formate SQL para MySQL, PostgreSQL ou SQLite. Roda no navegador; nada é enviado.",
+    "dialectLabel": "Dialeto",
+    "keywordsLabel": "Palavras-chave",
+    "indentLabel": "Indentação",
     "dialects": {
       "mysql": "MySQL",
       "postgresql": "PostgreSQL",
       "sqlite": "SQLite"
     },
     "keywordCase": {
-      "upper": "UPPER",
-      "lower": "lower",
-      "preserve": "Preserve"
+      "upper": "MAIÚSCULAS",
+      "lower": "minúsculas",
+      "preserve": "Manter"
     },
-    "spaces": "{n} spaces",
-    "format": "Format",
-    "clear": "Clear",
-    "counter": "{current} / {max} characters",
-    "inputPanel": "Input",
-    "formattedPanel": "Formatted",
-    "copy": "Copy",
+    "spaces": "{n} espaços",
+    "format": "Formatar",
+    "clear": "Limpar",
+    "counter": "{current} / {max} caracteres",
+    "inputPanel": "Entrada",
+    "formattedPanel": "Formatado",
+    "copy": "Copiar",
     "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Click \"Format\"…",
+    "outputPlaceholder": "Clique em \"Formatar\"…",
     "errors": {
-      "tooLong": "Input is limited to {max} characters.",
-      "couldNotFormat": "Could not format this SQL."
+      "tooLong": "A entrada é limitada a {max} caracteres.",
+      "couldNotFormat": "Não foi possível formatar este SQL."
     }
   }
 }

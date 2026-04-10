@@ -9,6 +9,8 @@
     "build": "pnpm -r --if-present build",
     "start": "pnpm --filter @mydevtools/web start",
     "lint": "pnpm -r --if-present lint",
+    "i18n:audit": "node scripts/i18n-audit.mjs",
+    "i18n:sync": "node scripts/i18n-sync.mjs",
     "clean-install": "rimraf node_modules apps/*/node_modules && pnpm install"
   },
   "devDependencies": {

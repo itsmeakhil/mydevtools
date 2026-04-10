@@ -1614,33 +1614,33 @@
     }
   },
   "SqlFormatter": {
-    "title": "SQL formatter",
-    "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, or SQLite. Runs in your browser; nothing is uploaded.",
-    "dialectLabel": "Dialect",
-    "keywordsLabel": "Keywords",
-    "indentLabel": "Indent",
+    "title": "SQL-formaterer",
+    "subtitle": "Formatter SQL for MySQL, PostgreSQL eller SQLite. Kjører i nettleseren; ingenting lastes opp.",
+    "dialectLabel": "Dialekt",
+    "keywordsLabel": "Nøkkelord",
+    "indentLabel": "Innrykk",
     "dialects": {
       "mysql": "MySQL",
       "postgresql": "PostgreSQL",
       "sqlite": "SQLite"
     },
     "keywordCase": {
-      "upper": "UPPER",
-      "lower": "lower",
-      "preserve": "Preserve"
+      "upper": "STORE",
+      "lower": "små",
+      "preserve": "Behold"
     },
-    "spaces": "{n} spaces",
-    "format": "Format",
-    "clear": "Clear",
-    "counter": "{current} / {max} characters",
-    "inputPanel": "Input",
-    "formattedPanel": "Formatted",
-    "copy": "Copy",
+    "spaces": "{n} mellomrom",
+    "format": "Formater",
+    "clear": "Tøm",
+    "counter": "{current} / {max} tegn",
+    "inputPanel": "Inndata",
+    "formattedPanel": "Formatert",
+    "copy": "Kopier",
     "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Click \"Format\"…",
+    "outputPlaceholder": "Klikk \"Formater\"…",
     "errors": {
-      "tooLong": "Input is limited to {max} characters.",
-      "couldNotFormat": "Could not format this SQL."
+      "tooLong": "Inndata er begrenset til {max} tegn.",
+      "couldNotFormat": "Kunne ikke formatere denne SQL-en."
     }
   }
 }
