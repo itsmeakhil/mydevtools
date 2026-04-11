@@ -34,6 +34,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { FolderOpen, PanelRight } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ensureHttpScheme } from "@/lib/url-normalize"
 
 /** `new URL()` requires a scheme; host-only URLs (e.g. `api.example.com/v1`) are common in API clients. */
 function buildRequestUrl(raw: string): URL {
@@ -45,10 +46,7 @@ function buildRequestUrl(raw: string): URL {
         return new URL(trimmed)
     } catch {
         try {
-            if (trimmed.startsWith("//")) {
-                return new URL(`https:${trimmed}`)
-            }
-            return new URL(`https://${trimmed}`)
+            return new URL(ensureHttpScheme(trimmed))
         } catch {
             throw new Error("Invalid URL")
         }
