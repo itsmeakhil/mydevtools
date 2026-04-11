@@ -109,6 +109,15 @@ export default async function RootLayout({
     <html lang={htmlLang} dir={dir} suppressHydrationWarning className={cn(
       geistMono.variable
     )}>
+      <head>
+        {/* Firebase Auth & token refresh */}
+        <link rel="preconnect" href="https://identitytoolkit.googleapis.com" />
+        <link rel="preconnect" href="https://securetoken.googleapis.com" />
+        {/* Firebase Storage */}
+        <link rel="preconnect" href="https://firebasestorage.googleapis.com" />
+        {/* Vercel Speed Insights */}
+        <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
+      </head>
       <body suppressHydrationWarning className="min-h-screen bg-background font-sans antialiased">
         <ThemeProvider
           attribute="class"
