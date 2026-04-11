@@ -1970,6 +1970,7 @@
       "csharp": "C# (System.Text.Json)",
       "dart": "Dart",
       "swift": "Swift (Codable)"
-    }
+    },
+    "editorLoading": "Φόρτωση επεξεργαστή…"
   }
 }

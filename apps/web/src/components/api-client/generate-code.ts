@@ -1,3 +1,4 @@
+import { ensureHttpScheme } from "@/lib/url-normalize"
 import { ApiRequestState } from "./types"
 
 export type CodeLanguage = "curl" | "javascript" | "python" | "go"
@@ -12,8 +13,7 @@ export function generateCode(request: ApiRequestState, language: CodeLanguage): 
         try {
             urlObj = new URL(url || "http://localhost")
         } catch {
-            // Try prepending scheme if missing
-            urlObj = new URL("http://" + url)
+            urlObj = new URL(ensureHttpScheme(url || "http://localhost"))
         }
 
         params.forEach(p => {

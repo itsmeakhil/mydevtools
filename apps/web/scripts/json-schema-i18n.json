@@ -34,7 +34,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Chargement de l’éditeur…"
     }
   },
   "es": {
@@ -72,7 +73,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Cargando el editor…"
     }
   },
   "de": {
@@ -110,7 +112,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Editor wird geladen…"
     }
   },
   "it": {
@@ -148,7 +151,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Caricamento editor…"
     }
   },
   "pt": {
@@ -186,7 +190,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "A carregar o editor…"
     }
   },
   "pt-BR": {
@@ -224,7 +229,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Carregando o editor…"
     }
   },
   "nl": {
@@ -262,7 +268,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Editor laden…"
     }
   },
   "sv": {
@@ -300,7 +307,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Läser in redigeraren…"
     }
   },
   "nb": {
@@ -338,7 +346,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Laster inn redigeringsprogrammet…"
     }
   },
   "da": {
@@ -376,7 +385,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Indlæser editor…"
     }
   },
   "af": {
@@ -414,7 +424,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Laai redigeerder…"
     }
   },
   "cs": {
@@ -452,7 +463,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Načítání editoru…"
     }
   },
   "pl": {
@@ -490,7 +502,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Ładowanie edytora…"
     }
   },
   "uk": {
@@ -528,7 +541,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Завантаження редактора…"
     }
   },
   "ru": {
@@ -566,7 +580,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Загрузка редактора…"
     }
   },
   "el": {
@@ -604,7 +619,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Φόρτωση επεξεργαστή…"
     }
   },
   "tr": {
@@ -642,7 +658,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Editör yükleniyor…"
     }
   },
   "ar": {
@@ -680,7 +697,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "جاري تحميل المحرر…"
     }
   },
   "fa": {
@@ -718,7 +736,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "در حال بارگذاری ویرایشگر…"
     }
   },
   "id": {
@@ -756,7 +775,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Memuat editor…"
     }
   },
   "ms": {
@@ -794,7 +814,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Memuatkan editor…"
     }
   },
   "vi": {
@@ -832,7 +853,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "Đang tải trình soạn thảo…"
     }
   },
   "ja": {
@@ -870,7 +892,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "エディタを読み込み中…"
     }
   },
   "ko": {
@@ -908,7 +931,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "편집기 로드 중…"
     }
   },
   "zh": {
@@ -946,7 +970,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "正在加载编辑器…"
     }
   },
   "ca": {
@@ -984,7 +1009,8 @@
         "csharp": "C# (System.Text.Json)",
         "dart": "Dart",
         "swift": "Swift (Codable)"
-      }
+      },
+      "editorLoading": "S'està carregant l'editor…"
     }
   }
 }

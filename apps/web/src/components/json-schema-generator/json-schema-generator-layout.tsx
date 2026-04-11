@@ -24,6 +24,7 @@ import {
   type OutputLanguage,
 } from '@/lib/json-schema-generator';
 import './json-schema-highlighter.css';
+import { JsonSchemaInputEditor } from './json-schema-input-editor';
 
 const defaultSample = `{
   "id": 42,
@@ -139,14 +140,11 @@ export function JsonSchemaGeneratorLayout() {
               {t('inputLabel')}
             </Label>
           </div>
-          <div className="relative min-h-0 flex-1 min-h-[200px]">
-            <textarea
+          <div className="relative min-h-0 min-h-[200px] flex-1">
+            <JsonSchemaInputEditor
               value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder={t('inputPlaceholder')}
-              spellCheck={false}
-              className="absolute inset-0 h-full w-full resize-none bg-transparent p-4 font-mono text-sm focus:outline-none placeholder:text-muted-foreground/50"
-              aria-label={t('inputLabel')}
+              onChange={setInput}
+              ariaLabel={`${t('inputLabel')}. ${t('inputPlaceholder')}`}
             />
           </div>
         </Card>
