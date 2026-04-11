@@ -4,6 +4,7 @@
     "settings": "Inställningar",
     "apiClient": "API-klient",
     "passwordManager": "Lösenordshanterare",
+    "environmentManager": "Miljöhanterare",
     "bookmarks": "Bokmärken",
     "jsonFormatter": "JSON-formaterare",
     "emailValidator": "E-postvalidering",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Kryptering du bör känna till",
         "description": "Klientside‑krypto för vault och känslig anslutningsdata.",
-        "p1": "För <strong>lösenordshanteraren</strong> och sparade anslutningar i <strong>NoSQL‑utforskaren</strong> använder webbappen webbläsarens <strong>Web Crypto API</strong>:",
+        "p1": "För <strong>lösenordshanteraren</strong>, <strong>miljöhanteraren</strong> och sparade anslutningar i <strong>NoSQL Explorer</strong> använder webbappen webbläsarens <strong>Web Crypto API</strong>:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> med <strong>SHA‑256</strong>, <strong>100 000</strong> iterationer och slumpmässig salt härleder en 256‑bitars nyckel från ditt huvudlösenord.",
           "aes": "<strong>AES‑256‑GCM</strong> krypterar data; en slumpmässig <strong>12‑byte IV</strong> används per kryptering.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Lösenordshanterare",
         "description": "Lagra och hantera dina lösenord säkert."
+      },
+      "environmentManager": {
+        "title": "Miljöhanterare",
+        "description": "Spara .env-liknande variabler per projekt och miljö med taggar."
       },
       "bookmarks": {
         "title": "Bokmärken",
@@ -708,6 +713,69 @@
       "separator": "Separator",
       "capitalization": "Versalisering",
       "includeNumber": "Inkludera siffra"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Krypterade miljövariabler per projekt och miljö.",
+    "page": {
+      "loading": "Laddar…",
+      "title": "Miljöhanterare",
+      "loadFailed": "Kunde inte ladda miljöuppsättningar"
+    },
+    "list": {
+      "title": "Miljöer",
+      "loading": "Laddar dina uppsättningar…",
+      "emptyTitle": "Inga miljöuppsättningar ännu",
+      "emptyHint": "Skapa en uppsättning för varje projekt och miljö (t.ex. produktions-API-nycklar). Allt krypteras i webbläsaren före uppladdning.",
+      "searchPlaceholder": "Sök projekt, miljö, taggar, anteckningar…",
+      "tagFilterPlaceholder": "Filtrera på tagg",
+      "variableCount": "{count, plural, one {# variabel} other {# variabler}}",
+      "updatedAgo": "Uppdaterad {time}",
+      "copyDotEnv": "Kopiera .env",
+      "edit": "Redigera",
+      "delete": "Ta bort",
+      "cancel": "Avbryt",
+      "confirmDelete": "Ta bort",
+      "deleteDialogTitle": "Ta bort miljöuppsättning?",
+      "deleteDialogDescription": "Detta tar bort den krypterade blobben från ditt konto. Kan inte ångras."
+    },
+    "toasts": {
+      "copiedDotEnv": ".env kopierat till urklipp",
+      "deleted": "Miljöuppsättning borttagen",
+      "deleteFailed": "Kunde inte ta bort"
+    },
+    "form": {
+      "addTitle": "Ny miljöuppsättning",
+      "editTitle": "Redigera miljöuppsättning",
+      "triggerAdd": "Lägg till miljöuppsättning",
+      "addSrOnly": "Lägg till miljöuppsättning",
+      "project": "Projekt",
+      "environment": "Miljö",
+      "placeholderProject": "t.ex. billing-api",
+      "placeholderEnvironment": "t.ex. production",
+      "pasteEnvLabel": "Klistra in .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Slå ihop inklistrade rader",
+      "variables": "Variabler",
+      "addRow": "Lägg till rad",
+      "keyPlaceholder": "NYCKEL",
+      "valuePlaceholder": "värde",
+      "notesOptional": "Anteckningar (valfritt)",
+      "placeholderNotes": "Rotationspolicy, ägare, länkar…",
+      "tags": "Taggar",
+      "placeholderTags": "Lägg till taggar (Enter eller komma)",
+      "cancel": "Avbryt",
+      "save": "Spara",
+      "saving": "Sparar…",
+      "update": "Uppdatera",
+      "updating": "Uppdaterar…",
+      "toastSaved": "Miljöuppsättning sparad",
+      "toastSaveFailed": "Kunde inte spara",
+      "toastUpdated": "Miljöuppsättning uppdaterad",
+      "toastUpdateFailed": "Kunde inte uppdatera",
+      "toastPasteEmpty": "Inga NYCKEL=värde-rader hittades",
+      "toastPasteApplied": "{count} variabler sammanslagna från inklistring",
+      "toastProjectEnvRequired": "Projekt och miljö krävs"
     }
   },
   "Bookmarks": {

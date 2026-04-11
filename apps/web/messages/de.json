@@ -5,6 +5,7 @@
     "toDo": "Aufgaben",
     "notes": "Notizen",
     "passwordManager": "Passwort-Manager",
+    "environmentManager": "Umgebungs-Manager",
     "bookmarks": "Lesezeichen",
     "emailValidator": "E-Mail-Validator",
     "jwtDecoder": "JWT-Decoder",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Wichtige Verschlüsselung",
         "description": "Client‑seitige Krypto für Vault und sensible Verbindungsdaten.",
-        "p1": "Für den <strong>Passwort‑Manager</strong> und gespeicherte Verbindungen im <strong>NoSQL‑Explorer</strong> nutzt die Web‑App die <strong>Web Crypto API</strong> des Browsers:",
+        "p1": "Für den <strong>Passwort‑Manager</strong>, den <strong>Umgebungs‑Manager</strong> und gespeicherte Verbindungen im <strong>NoSQL‑Explorer</strong> nutzt die Web‑App die <strong>Web Crypto API</strong> des Browsers:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> mit <strong>SHA‑256</strong>, <strong>100.000</strong> Iterationen und zufälligem Salt leitet aus dem Master‑Passwort einen 256‑Bit‑Key ab.",
           "aes": "<strong>AES‑256‑GCM</strong> verschlüsselt Nutzdaten; pro Verschlüsselung wird ein zufälliger <strong>12‑Byte‑IV</strong> verwendet.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Passwort-Manager",
         "description": "Speichern und verwalten Sie Ihre Passwörter sicher."
+      },
+      "environmentManager": {
+        "title": "Umgebungs-Manager",
+        "description": ".env-ähnliche Variablen nach Projekt und Umgebung mit Tags speichern."
       },
       "bookmarks": {
         "title": "Lesezeichen",
@@ -708,6 +713,69 @@
       "separator": "Trennzeichen",
       "capitalization": "Großschreibung",
       "includeNumber": "Ziffer einbeziehen"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Verschlüsselte Umgebungsvariablen nach Projekt und Umgebung.",
+    "page": {
+      "loading": "Wird geladen…",
+      "title": "Umgebungs-Manager",
+      "loadFailed": "Umgebungssets konnten nicht geladen werden"
+    },
+    "list": {
+      "title": "Umgebungen",
+      "loading": "Sets werden geladen…",
+      "emptyTitle": "Noch keine Umgebungssets",
+      "emptyHint": "Legen Sie ein Set pro Projekt und Umgebung an (z. B. Produktions-API-Schlüssel). Alles wird vor dem Upload im Browser verschlüsselt.",
+      "searchPlaceholder": "Projekt, Umgebung, Tags, Notizen durchsuchen…",
+      "tagFilterPlaceholder": "Nach Tag filtern",
+      "variableCount": "{count, plural, one {# Variable} other {# Variablen}}",
+      "updatedAgo": "Aktualisiert {time}",
+      "copyDotEnv": ".env kopieren",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "cancel": "Abbrechen",
+      "confirmDelete": "Löschen",
+      "deleteDialogTitle": "Umgebungsset löschen?",
+      "deleteDialogDescription": "Der verschlüsselte Datensatz wird aus Ihrem Konto entfernt. Dies lässt sich nicht rückgängig machen."
+    },
+    "toasts": {
+      "copiedDotEnv": ".env in die Zwischenablage kopiert",
+      "deleted": "Umgebungsset gelöscht",
+      "deleteFailed": "Löschen fehlgeschlagen"
+    },
+    "form": {
+      "addTitle": "Neues Umgebungsset",
+      "editTitle": "Umgebungsset bearbeiten",
+      "triggerAdd": "Umgebungsset hinzufügen",
+      "addSrOnly": "Umgebungsset hinzufügen",
+      "project": "Projekt",
+      "environment": "Umgebung",
+      "placeholderProject": "z. B. billing-api",
+      "placeholderEnvironment": "z. B. production",
+      "pasteEnvLabel": ".env einfügen",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Eingefügte Zeilen zusammenführen",
+      "variables": "Variablen",
+      "addRow": "Zeile hinzufügen",
+      "keyPlaceholder": "SCHLÜSSEL",
+      "valuePlaceholder": "Wert",
+      "notesOptional": "Notizen (optional)",
+      "placeholderNotes": "Rotation, Verantwortliche, Links…",
+      "tags": "Tags",
+      "placeholderTags": "Tags hinzufügen (Enter oder Komma)",
+      "cancel": "Abbrechen",
+      "save": "Speichern",
+      "saving": "Speichern…",
+      "update": "Aktualisieren",
+      "updating": "Aktualisieren…",
+      "toastSaved": "Umgebungsset gespeichert",
+      "toastSaveFailed": "Speichern fehlgeschlagen",
+      "toastUpdated": "Umgebungsset aktualisiert",
+      "toastUpdateFailed": "Aktualisierung fehlgeschlagen",
+      "toastPasteEmpty": "Keine KEY=Zeilen gefunden",
+      "toastPasteApplied": "{count} Variablen aus der Einfügung übernommen",
+      "toastProjectEnvRequired": "Projekt und Umgebung sind erforderlich"
     }
   },
   "Bookmarks": {

@@ -4,6 +4,7 @@
     "settings": "Pengaturan",
     "apiClient": "Klien api",
     "passwordManager": "Pengelola Kata Sandi",
+    "environmentManager": "Pengelola lingkungan",
     "bookmarks": "Penanda",
     "jsonFormatter": "Pemformat JSON",
     "emailValidator": "Validator Email",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Enkripsi yang perlu diketahui",
         "description": "Kripto sisi klien untuk vault dan data koneksi sensitif.",
-        "p1": "Untuk <strong>pengelola kata sandi</strong> dan koneksi tersimpan di <strong>NoSQL Explorer</strong>, aplikasi web menggunakan <strong>Web Crypto API</strong> pada browser:",
+        "p1": "Untuk <strong>pengelola kata sandi</strong>, <strong>pengelola lingkungan</strong>, dan koneksi tersimpan di <strong>NoSQL Explorer</strong>, aplikasi web menggunakan <strong>Web Crypto API</strong> browser:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> dengan <strong>SHA-256</strong>, <strong>100.000</strong> iterasi, dan salt acak menurunkan kunci 256-bit dari kata sandi utama Anda.",
           "aes": "<strong>AES-256-GCM</strong> mengenkripsi data; <strong>IV 12-byte</strong> acak digunakan untuk setiap enkripsi.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Pengelola Kata Sandi",
         "description": "Simpan dan kelola kata sandi Anda dengan aman."
+      },
+      "environmentManager": {
+        "title": "Pengelola lingkungan",
+        "description": "Simpan variabel bergaya .env per proyek dan lingkungan dengan tag."
       },
       "bookmarks": {
         "title": "Penanda",
@@ -708,6 +713,69 @@
       "separator": "Magnetik",
       "capitalization": "Kapitalisasi",
       "includeNumber": "Sertakan nomor"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Variabel lingkungan terenkripsi per proyek dan lingkungan.",
+    "page": {
+      "loading": "Memuat…",
+      "title": "Pengelola lingkungan",
+      "loadFailed": "Gagal memuat set lingkungan"
+    },
+    "list": {
+      "title": "Lingkungan",
+      "loading": "Memuat set Anda…",
+      "emptyTitle": "Belum ada set lingkungan",
+      "emptyHint": "Buat set untuk setiap proyek dan lingkungan (mis. kunci API produksi). Semua dienkripsi di browser sebelum diunggah.",
+      "searchPlaceholder": "Cari proyek, lingkungan, tag, catatan…",
+      "tagFilterPlaceholder": "Saring menurut tag",
+      "variableCount": "{count, plural, other {# variabel}}",
+      "updatedAgo": "Diperbarui {time}",
+      "copyDotEnv": "Salin .env",
+      "edit": "Edit",
+      "delete": "Hapus",
+      "cancel": "Batal",
+      "confirmDelete": "Hapus",
+      "deleteDialogTitle": "Hapus set lingkungan?",
+      "deleteDialogDescription": "Ini menghapus data terenkripsi dari akun Anda. Tidak dapat dibatalkan."
+    },
+    "toasts": {
+      "copiedDotEnv": ".env disalin ke papan klip",
+      "deleted": "Set lingkungan dihapus",
+      "deleteFailed": "Gagal menghapus"
+    },
+    "form": {
+      "addTitle": "Set lingkungan baru",
+      "editTitle": "Edit set lingkungan",
+      "triggerAdd": "Tambah set lingkungan",
+      "addSrOnly": "Tambah set lingkungan",
+      "project": "Proyek",
+      "environment": "Lingkungan",
+      "placeholderProject": "mis. billing-api",
+      "placeholderEnvironment": "mis. production",
+      "pasteEnvLabel": "Tempel .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Gabungkan baris yang ditempel",
+      "variables": "Variabel",
+      "addRow": "Tambah baris",
+      "keyPlaceholder": "KUNCI",
+      "valuePlaceholder": "nilai",
+      "notesOptional": "Catatan (opsional)",
+      "placeholderNotes": "Kebijakan rotasi, pemilik, tautan…",
+      "tags": "Tag",
+      "placeholderTags": "Tambah tag (Enter atau koma)",
+      "cancel": "Batal",
+      "save": "Simpan",
+      "saving": "Menyimpan…",
+      "update": "Perbarui",
+      "updating": "Memperbarui…",
+      "toastSaved": "Set lingkungan disimpan",
+      "toastSaveFailed": "Gagal menyimpan",
+      "toastUpdated": "Set lingkungan diperbarui",
+      "toastUpdateFailed": "Gagal memperbarui",
+      "toastPasteEmpty": "Tidak ada baris KUNCI=nilai",
+      "toastPasteApplied": "{count} variabel digabung dari tempelan",
+      "toastProjectEnvRequired": "Proyek dan lingkungan wajib diisi"
     }
   },
   "Bookmarks": {

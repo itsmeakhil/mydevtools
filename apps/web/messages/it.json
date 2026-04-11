@@ -4,6 +4,7 @@
     "settings": "Impostazioni",
     "apiClient": "Cliente API",
     "passwordManager": "Gestore delle password",
+    "environmentManager": "Gestore ambienti",
     "bookmarks": "Segnalibri",
     "jsonFormatter": "Formattatore JSON",
     "emailValidator": "Validatore di posta elettronica",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Crittografia da conoscere",
         "description": "Crittografia lato client per vault e dati di connessione sensibili.",
-        "p1": "Per il <strong>gestore delle password</strong> e le connessioni salvate dell’<strong>Esploratore NoSQL</strong>, l’app web usa la <strong>Web Crypto API</strong> del browser:",
+        "p1": "Per il <strong>gestore delle password</strong>, il <strong>gestore degli ambienti</strong> e le connessioni salvate in <strong>NoSQL Explorer</strong>, l'app web usa la <strong>Web Crypto API</strong> del browser:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> con <strong>SHA-256</strong>, <strong>100.000</strong> iterazioni e un salt casuale deriva una chiave a 256 bit dalla password principale.",
           "aes": "<strong>AES-256-GCM</strong> cifra i dati; viene usato un <strong>IV di 12 byte</strong> casuale per ogni cifratura.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Gestore delle password",
         "description": "Archivia e gestisci in modo sicuro le tue password."
+      },
+      "environmentManager": {
+        "title": "Gestore ambienti",
+        "description": "Salva variabili in stile .env per progetto e ambiente con tag."
       },
       "bookmarks": {
         "title": "Segnalibri",
@@ -708,6 +713,69 @@
       "separator": "Separatore",
       "capitalization": "Capitalizzazione",
       "includeNumber": "Includi numero"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Variabili d'ambiente crittografate per progetto e ambiente.",
+    "page": {
+      "loading": "Caricamento…",
+      "title": "Gestore ambienti",
+      "loadFailed": "Impossibile caricare i set di ambiente"
+    },
+    "list": {
+      "title": "Ambienti",
+      "loading": "Caricamento dei set…",
+      "emptyTitle": "Nessun set di ambiente ancora",
+      "emptyHint": "Crea un set per ogni progetto e ambiente (es. chiavi API di produzione). Tutto viene crittografato nel browser prima del caricamento.",
+      "searchPlaceholder": "Cerca progetto, ambiente, tag, note…",
+      "tagFilterPlaceholder": "Filtra per tag",
+      "variableCount": "{count, plural, one {# variabile} other {# variabili}}",
+      "updatedAgo": "Aggiornato {time}",
+      "copyDotEnv": "Copia .env",
+      "edit": "Modifica",
+      "delete": "Elimina",
+      "cancel": "Annulla",
+      "confirmDelete": "Elimina",
+      "deleteDialogTitle": "Eliminare il set di ambiente?",
+      "deleteDialogDescription": "Rimuove il blob crittografato dal tuo account. Operazione irreversibile."
+    },
+    "toasts": {
+      "copiedDotEnv": ".env copiato negli appunti",
+      "deleted": "Set di ambiente eliminato",
+      "deleteFailed": "Eliminazione non riuscita"
+    },
+    "form": {
+      "addTitle": "Nuovo set di ambiente",
+      "editTitle": "Modifica set di ambiente",
+      "triggerAdd": "Aggiungi set di ambiente",
+      "addSrOnly": "Aggiungi set di ambiente",
+      "project": "Progetto",
+      "environment": "Ambiente",
+      "placeholderProject": "es. billing-api",
+      "placeholderEnvironment": "es. production",
+      "pasteEnvLabel": "Incolla .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Unisci righe incollate",
+      "variables": "Variabili",
+      "addRow": "Aggiungi riga",
+      "keyPlaceholder": "CHIAVE",
+      "valuePlaceholder": "valore",
+      "notesOptional": "Note (opzionale)",
+      "placeholderNotes": "Policy di rotazione, owner, link…",
+      "tags": "Tag",
+      "placeholderTags": "Aggiungi tag (Invio o virgola)",
+      "cancel": "Annulla",
+      "save": "Salva",
+      "saving": "Salvataggio…",
+      "update": "Aggiorna",
+      "updating": "Aggiornamento…",
+      "toastSaved": "Set di ambiente salvato",
+      "toastSaveFailed": "Salvataggio non riuscito",
+      "toastUpdated": "Set di ambiente aggiornato",
+      "toastUpdateFailed": "Aggiornamento non riuscito",
+      "toastPasteEmpty": "Nessuna riga CHIAVE=valore trovata",
+      "toastPasteApplied": "Unite {count} variabili dall'incolla",
+      "toastProjectEnvRequired": "Progetto e ambiente sono obbligatori"
     }
   },
   "Bookmarks": {

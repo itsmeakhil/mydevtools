@@ -4,6 +4,7 @@
     "settings": "Instellingen",
     "apiClient": "API-client",
     "passwordManager": "Wachtwoordbeheer",
+    "environmentManager": "Omgevingsbeheer",
     "bookmarks": "Bladwijzers",
     "jsonFormatter": "JSON-formatter",
     "emailValidator": "E-mailvalidator",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Versleuteling die je moet kennen",
         "description": "Client-side crypto voor vault en gevoelige connectiegegevens.",
-        "p1": "Voor de <strong>wachtwoordmanager</strong> en opgeslagen verbindingen in de <strong>NoSQL-verkenner</strong> gebruikt de web-app de <strong>Web Crypto API</strong> van de browser:",
+        "p1": "Voor de <strong>wachtwoordbeheerder</strong>, <strong>omgevingsbeheer</strong> en opgeslagen verbindingen in <strong>NoSQL Explorer</strong> gebruikt de webapp de <strong>Web Crypto API</strong> van de browser:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> met <strong>SHA-256</strong>, <strong>100.000</strong> iteraties en een willekeurige salt leidt een 256-bit sleutel af uit je masterwachtwoord.",
           "aes": "<strong>AES-256-GCM</strong> versleutelt payloads; per versleuteling wordt een willekeurige <strong>12-byte IV</strong> gebruikt.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Wachtwoordbeheer",
         "description": "Bewaar en beheer je wachtwoorden veilig."
+      },
+      "environmentManager": {
+        "title": "Omgevingsbeheer",
+        "description": "Sla .env-achtige variabelen per project en omgeving op met tags."
       },
       "bookmarks": {
         "title": "Bladwijzers",
@@ -708,6 +713,69 @@
       "separator": "Scheidingsteken",
       "capitalization": "Hoofdlettergebruik",
       "includeNumber": "Cijfer toevoegen"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Versleutelde omgevingsvariabelen per project en omgeving.",
+    "page": {
+      "loading": "Laden…",
+      "title": "Omgevingsbeheer",
+      "loadFailed": "Omgevingssets laden mislukt"
+    },
+    "list": {
+      "title": "Omgevingen",
+      "loading": "Uw sets laden…",
+      "emptyTitle": "Nog geen omgevingssets",
+      "emptyHint": "Maak een set per project en omgeving (bijv. productie-API-sleutels). Alles wordt in uw browser versleuteld vóór upload.",
+      "searchPlaceholder": "Zoek project, omgeving, tags, notities…",
+      "tagFilterPlaceholder": "Filter op tag",
+      "variableCount": "{count, plural, one {# variabele} other {# variabelen}}",
+      "updatedAgo": "Bijgewerkt {time}",
+      "copyDotEnv": ".env kopiëren",
+      "edit": "Bewerken",
+      "delete": "Verwijderen",
+      "cancel": "Annuleren",
+      "confirmDelete": "Verwijderen",
+      "deleteDialogTitle": "Omgevingsset verwijderen?",
+      "deleteDialogDescription": "Hiermee wordt de versleutelde blob uit uw account verwijderd. Kan niet ongedaan worden gemaakt."
+    },
+    "toasts": {
+      "copiedDotEnv": ".env naar klembord gekopieerd",
+      "deleted": "Omgevingsset verwijderd",
+      "deleteFailed": "Verwijderen mislukt"
+    },
+    "form": {
+      "addTitle": "Nieuwe omgevingsset",
+      "editTitle": "Omgevingsset bewerken",
+      "triggerAdd": "Omgevingsset toevoegen",
+      "addSrOnly": "Omgevingsset toevoegen",
+      "project": "Project",
+      "environment": "Omgeving",
+      "placeholderProject": "bijv. billing-api",
+      "placeholderEnvironment": "bijv. production",
+      "pasteEnvLabel": ".env plakken",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Geplakte regels samenvoegen",
+      "variables": "Variabelen",
+      "addRow": "Rij toevoegen",
+      "keyPlaceholder": "SLEUTEL",
+      "valuePlaceholder": "waarde",
+      "notesOptional": "Notities (optioneel)",
+      "placeholderNotes": "Rotatiebeleid, eigenaar, links…",
+      "tags": "Tags",
+      "placeholderTags": "Tags toevoegen (Enter of komma)",
+      "cancel": "Annuleren",
+      "save": "Opslaan",
+      "saving": "Opslaan…",
+      "update": "Bijwerken",
+      "updating": "Bijwerken…",
+      "toastSaved": "Omgevingsset opgeslagen",
+      "toastSaveFailed": "Opslaan mislukt",
+      "toastUpdated": "Omgevingsset bijgewerkt",
+      "toastUpdateFailed": "Bijwerken mislukt",
+      "toastPasteEmpty": "Geen SLEUTEL=waarde-regels gevonden",
+      "toastPasteApplied": "{count} variabelen samengevoegd uit plakken",
+      "toastProjectEnvRequired": "Project en omgeving zijn verplicht"
     }
   },
   "Bookmarks": {

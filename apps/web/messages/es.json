@@ -5,6 +5,7 @@
     "toDo": "Tareas",
     "notes": "Notas",
     "passwordManager": "Gestor de contraseñas",
+    "environmentManager": "Gestor de entornos",
     "bookmarks": "Marcadores",
     "emailValidator": "Validador de correo",
     "jwtDecoder": "Decodificador JWT",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Cifrado que debes conocer",
         "description": "Criptografía del lado del cliente para el cofre y datos sensibles de conexión.",
-        "p1": "Para el <strong>gestor de contraseñas</strong> y conexiones guardadas del <strong>Explorador NoSQL</strong>, la web usa la <strong>Web Crypto API</strong> del navegador:",
+        "p1": "Para el <strong>gestor de contraseñas</strong>, el <strong>gestor de entornos</strong> y las conexiones guardadas en <strong>NoSQL Explorer</strong>, la aplicación web usa la <strong>Web Crypto API</strong> del navegador:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> con <strong>SHA-256</strong>, <strong>100.000</strong> iteraciones y una sal aleatoria deriva una clave de 256 bits desde tu contraseña maestra.",
           "aes": "<strong>AES-256-GCM</strong> cifra los datos; se usa un <strong>IV de 12 bytes</strong> aleatorio por cifrado.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Gestor de contraseñas",
         "description": "Almacena y gestiona tus contraseñas de forma segura."
+      },
+      "environmentManager": {
+        "title": "Gestor de entornos",
+        "description": "Guarda variables tipo .env por proyecto y entorno con etiquetas."
       },
       "bookmarks": {
         "title": "Marcadores",
@@ -708,6 +713,69 @@
       "separator": "Separador",
       "capitalization": "Mayúsculas",
       "includeNumber": "Incluir número"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Variables de entorno cifradas por proyecto y entorno.",
+    "page": {
+      "loading": "Cargando…",
+      "title": "Gestor de entornos",
+      "loadFailed": "No se pudieron cargar los conjuntos de entorno"
+    },
+    "list": {
+      "title": "Entornos",
+      "loading": "Cargando tus conjuntos…",
+      "emptyTitle": "Aún no hay conjuntos de entorno",
+      "emptyHint": "Crea un conjunto por proyecto y entorno (p. ej. claves de API de producción). Todo se cifra en tu navegador antes de subirlo.",
+      "searchPlaceholder": "Buscar proyecto, entorno, etiquetas, notas…",
+      "tagFilterPlaceholder": "Filtrar por etiqueta",
+      "variableCount": "{count, plural, one {# variable} other {# variables}}",
+      "updatedAgo": "Actualizado {time}",
+      "copyDotEnv": "Copiar .env",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "cancel": "Cancelar",
+      "confirmDelete": "Eliminar",
+      "deleteDialogTitle": "¿Eliminar conjunto de entorno?",
+      "deleteDialogDescription": "Esto elimina el blob cifrado de tu cuenta. No se puede deshacer."
+    },
+    "toasts": {
+      "copiedDotEnv": ".env copiado al portapapeles",
+      "deleted": "Conjunto de entorno eliminado",
+      "deleteFailed": "No se pudo eliminar"
+    },
+    "form": {
+      "addTitle": "Nuevo conjunto de entorno",
+      "editTitle": "Editar conjunto de entorno",
+      "triggerAdd": "Añadir conjunto de entorno",
+      "addSrOnly": "Añadir conjunto de entorno",
+      "project": "Proyecto",
+      "environment": "Entorno",
+      "placeholderProject": "p. ej. billing-api",
+      "placeholderEnvironment": "p. ej. production",
+      "pasteEnvLabel": "Pegar .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Fusionar líneas pegadas",
+      "variables": "Variables",
+      "addRow": "Añadir fila",
+      "keyPlaceholder": "CLAVE",
+      "valuePlaceholder": "valor",
+      "notesOptional": "Notas (opcional)",
+      "placeholderNotes": "Política de rotación, responsable, enlaces…",
+      "tags": "Etiquetas",
+      "placeholderTags": "Añadir etiquetas (Enter o coma)",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "saving": "Guardando…",
+      "update": "Actualizar",
+      "updating": "Actualizando…",
+      "toastSaved": "Conjunto de entorno guardado",
+      "toastSaveFailed": "No se pudo guardar",
+      "toastUpdated": "Conjunto de entorno actualizado",
+      "toastUpdateFailed": "No se pudo actualizar",
+      "toastPasteEmpty": "No se encontraron líneas CLAVE=valor",
+      "toastPasteApplied": "Se fusionaron {count} variables del pegado",
+      "toastProjectEnvRequired": "El proyecto y el entorno son obligatorios"
     }
   },
   "Bookmarks": {

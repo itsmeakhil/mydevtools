@@ -5,6 +5,7 @@
     "toDo": "Tâches",
     "notes": "Notes",
     "passwordManager": "Gestionnaire de mots de passe",
+    "environmentManager": "Gestionnaire d'environnement",
     "bookmarks": "Signets",
     "emailValidator": "Validateur d’e-mail",
     "jwtDecoder": "Décodeur JWT",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Chiffrement à connaître",
         "description": "Crypto côté client pour le coffre et les données de connexion sensibles.",
-        "p1": "Pour le <strong>gestionnaire de mots de passe</strong> et les connexions enregistrées de l’<strong>Explorateur NoSQL</strong>, l’app web utilise la <strong>Web Crypto API</strong> du navigateur :",
+        "p1": "Pour le <strong>gestionnaire de mots de passe</strong>, le <strong>gestionnaire d'environnement</strong> et les connexions enregistrées dans <strong>NoSQL Explorer</strong>, l'application web utilise la <strong>Web Crypto API</strong> du navigateur :",
         "items": {
           "kdf": "<strong>PBKDF2</strong> avec <strong>SHA-256</strong>, <strong>100 000</strong> itérations et un sel aléatoire dérive une clé 256 bits depuis votre mot de passe maître.",
           "aes": "<strong>AES-256-GCM</strong> chiffre les données ; un <strong>IV de 12 octets</strong> aléatoire est utilisé à chaque chiffrement.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Gestionnaire de mots de passe",
         "description": "Stockez et gérez vos mots de passe en toute sécurité."
+      },
+      "environmentManager": {
+        "title": "Gestionnaire d'environnement",
+        "description": "Stockez des variables type .env par projet et environnement avec des étiquettes."
       },
       "bookmarks": {
         "title": "Signets",
@@ -708,6 +713,69 @@
       "separator": "Séparateur",
       "capitalization": "Casse",
       "includeNumber": "Inclure un chiffre"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Variables d'environnement chiffrées par projet et environnement.",
+    "page": {
+      "loading": "Chargement…",
+      "title": "Gestionnaire d'environnement",
+      "loadFailed": "Impossible de charger les jeux d'environnement"
+    },
+    "list": {
+      "title": "Environnements",
+      "loading": "Chargement de vos jeux…",
+      "emptyTitle": "Aucun jeu d'environnement pour l'instant",
+      "emptyHint": "Créez un jeu pour chaque projet et environnement (ex. clés API de production). Tout est chiffré dans votre navigateur avant l'envoi.",
+      "searchPlaceholder": "Rechercher projet, environnement, étiquettes, notes…",
+      "tagFilterPlaceholder": "Filtrer par étiquette",
+      "variableCount": "{count, plural, one {# variable} other {# variables}}",
+      "updatedAgo": "Mis à jour {time}",
+      "copyDotEnv": "Copier .env",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "cancel": "Annuler",
+      "confirmDelete": "Supprimer",
+      "deleteDialogTitle": "Supprimer le jeu d'environnement ?",
+      "deleteDialogDescription": "Cela supprime le blob chiffré de votre compte. Action irréversible."
+    },
+    "toasts": {
+      "copiedDotEnv": ".env copié dans le presse-papiers",
+      "deleted": "Jeu d'environnement supprimé",
+      "deleteFailed": "Échec de la suppression"
+    },
+    "form": {
+      "addTitle": "Nouveau jeu d'environnement",
+      "editTitle": "Modifier le jeu d'environnement",
+      "triggerAdd": "Ajouter un jeu d'environnement",
+      "addSrOnly": "Ajouter un jeu d'environnement",
+      "project": "Projet",
+      "environment": "Environnement",
+      "placeholderProject": "ex. billing-api",
+      "placeholderEnvironment": "ex. production",
+      "pasteEnvLabel": "Coller un .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Fusionner les lignes collées",
+      "variables": "Variables",
+      "addRow": "Ajouter une ligne",
+      "keyPlaceholder": "CLÉ",
+      "valuePlaceholder": "valeur",
+      "notesOptional": "Notes (facultatif)",
+      "placeholderNotes": "Politique de rotation, propriétaire, liens…",
+      "tags": "Étiquettes",
+      "placeholderTags": "Ajouter des étiquettes (Entrée ou virgule)",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "update": "Mettre à jour",
+      "updating": "Mise à jour…",
+      "toastSaved": "Jeu d'environnement enregistré",
+      "toastSaveFailed": "Échec de l'enregistrement",
+      "toastUpdated": "Jeu d'environnement mis à jour",
+      "toastUpdateFailed": "Échec de la mise à jour",
+      "toastPasteEmpty": "Aucune ligne CLÉ=valeur trouvée",
+      "toastPasteApplied": "{count} variables fusionnées depuis le collage",
+      "toastProjectEnvRequired": "Le projet et l'environnement sont obligatoires"
     }
   },
   "Bookmarks": {

@@ -4,6 +4,7 @@
     "settings": "Configuració",
     "apiClient": "Client API",
     "passwordManager": "Gestor de contrasenyes",
+    "environmentManager": "Gestor d'entorns",
     "bookmarks": "Marcadors",
     "jsonFormatter": "Formatador JSON",
     "emailValidator": "Validador de correu",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Xifrat que has de conèixer",
         "description": "Criptografia al client per al vault i dades sensibles de connexió.",
-        "p1": "Per al <strong>gestor de contrasenyes</strong> i les connexions desades de l’<strong>Explorador NoSQL</strong>, l’app web fa servir la <strong>Web Crypto API</strong> del navegador:",
+        "p1": "Per al <strong>gestor de contrasenyes</strong>, el <strong>gestor d'entorns</strong> i les connexions desades del <strong>explorador NoSQL</strong>, l'aplicació web utilitza la <strong>Web Crypto API</strong> del navegador:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> amb <strong>SHA-256</strong>, <strong>100.000</strong> iteracions i una sal aleatòria deriva una clau de 256 bits a partir de la contrasenya mestra.",
           "aes": "<strong>AES-256-GCM</strong> xifra dades; s’utilitza un <strong>IV de 12 bytes</strong> aleatori per cada xifrat.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Gestor de contrasenyes",
         "description": "Emmagatzema i gestiona les contrasenyes amb seguretat."
+      },
+      "environmentManager": {
+        "title": "Gestor d'entorns",
+        "description": "Desa variables tipus .env per projecte i entorn amb etiquetes."
       },
       "bookmarks": {
         "title": "Marcadors",
@@ -708,6 +713,69 @@
       "separator": "Separador",
       "capitalization": "Majúscules inicials",
       "includeNumber": "Inclou un número"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Variables d'entorn xifrades per projecte i entorn.",
+    "page": {
+      "loading": "S'està carregant…",
+      "title": "Gestor d'entorns",
+      "loadFailed": "No s'han pogut carregar els conjunts d'entorn"
+    },
+    "list": {
+      "title": "Entorns",
+      "loading": "S'estan carregant els conjunts…",
+      "emptyTitle": "Encara no hi ha conjunts d'entorn",
+      "emptyHint": "Crea un conjunt per a cada projecte i entorn (p. ex. claus d'API de producció). Tot es xifra al navegador abans de pujar-lo.",
+      "searchPlaceholder": "Cerca projecte, entorn, etiquetes, notes…",
+      "tagFilterPlaceholder": "Filtra per etiqueta",
+      "variableCount": "{count, plural, one {# variable} other {# variables}}",
+      "updatedAgo": "Actualitzat {time}",
+      "copyDotEnv": "Copia .env",
+      "edit": "Edita",
+      "delete": "Suprimeix",
+      "cancel": "Cancel·la",
+      "confirmDelete": "Suprimeix",
+      "deleteDialogTitle": "Vols suprimir el conjunt d'entorn?",
+      "deleteDialogDescription": "Això elimina el blob xifrat del teu compte. No es pot desfer."
+    },
+    "toasts": {
+      "copiedDotEnv": ".env copiat al porta-retalls",
+      "deleted": "Conjunt d'entorn suprimit",
+      "deleteFailed": "No s'ha pogut suprimir"
+    },
+    "form": {
+      "addTitle": "Nou conjunt d'entorn",
+      "editTitle": "Edita el conjunt d'entorn",
+      "triggerAdd": "Afegeix conjunt d'entorn",
+      "addSrOnly": "Afegeix conjunt d'entorn",
+      "project": "Projecte",
+      "environment": "Entorn",
+      "placeholderProject": "p. ex. billing-api",
+      "placeholderEnvironment": "p. ex. production",
+      "pasteEnvLabel": "Enganxa .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Fusiona les línies enganxades",
+      "variables": "Variables",
+      "addRow": "Afegeix fila",
+      "keyPlaceholder": "CLAU",
+      "valuePlaceholder": "valor",
+      "notesOptional": "Notes (opcional)",
+      "placeholderNotes": "Política de rotació, propietari, enllaços…",
+      "tags": "Etiquetes",
+      "placeholderTags": "Afegeix etiquetes (Retorn o coma)",
+      "cancel": "Cancel·la",
+      "save": "Desa",
+      "saving": "S'està desant…",
+      "update": "Actualitza",
+      "updating": "S'està actualitzant…",
+      "toastSaved": "Conjunt d'entorn desat",
+      "toastSaveFailed": "No s'ha pogut desar",
+      "toastUpdated": "Conjunt d'entorn actualitzat",
+      "toastUpdateFailed": "No s'ha pogut actualitzar",
+      "toastPasteEmpty": "No s'han trobat línies CLAU=valor",
+      "toastPasteApplied": "S'han fusionat {count} variables de l'enganxat",
+      "toastProjectEnvRequired": "El projecte i l'entorn són obligatoris"
     }
   },
   "Bookmarks": {

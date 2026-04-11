@@ -4,6 +4,7 @@
     "settings": "Nastavení",
     "apiClient": "API klient",
     "passwordManager": "Správce hesel",
+    "environmentManager": "Správce prostředí",
     "bookmarks": "Záložky",
     "jsonFormatter": "Formátovač JSON",
     "emailValidator": "Validátor e-mailů",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Šifrování, které byste měli znát",
         "description": "Kryptografie na straně klienta pro trezor a citlivé údaje o připojení.",
-        "p1": "Pro <strong>správce hesel</strong> a uložená připojení v <strong>Průzkumníku NoSQL</strong> web používá <strong>Web Crypto API</strong> v prohlížeči:",
+        "p1": "Pro <strong>správce hesel</strong>, <strong>správce prostředí</strong> a uložená připojení v <strong>NoSQL Exploreru</strong> webová aplikace používá v prohlížeči <strong>Web Crypto API</strong>:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> s <strong>SHA-256</strong>, <strong>100 000</strong> iteracemi a náhodnou solí odvodí 256bitový klíč z hlavního hesla.",
           "aes": "<strong>AES-256-GCM</strong> šifruje data; pro každé šifrování se používá náhodný <strong>12bajtový IV</strong>.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Správce hesel",
         "description": "Bezpečně ukládejte a spravujte hesla."
+      },
+      "environmentManager": {
+        "title": "Správce prostředí",
+        "description": "Ukládejte proměnné ve stylu .env podle projektu a prostředí se značkami."
       },
       "bookmarks": {
         "title": "Záložky",
@@ -708,6 +713,69 @@
       "separator": "Oddělovač",
       "capitalization": "Velká písmena ve slovech",
       "includeNumber": "Zahrnout číslici"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Šifrované proměnné prostředí podle projektu a prostředí.",
+    "page": {
+      "loading": "Načítání…",
+      "title": "Správce prostředí",
+      "loadFailed": "Nepodařilo se načíst sady prostředí"
+    },
+    "list": {
+      "title": "Prostředí",
+      "loading": "Načítání sad…",
+      "emptyTitle": "Zatím žádné sady prostředí",
+      "emptyHint": "Vytvořte sadu pro každý projekt a prostředí (např. produkční API klíče). Vše se před nahráním šifruje v prohlížeči.",
+      "searchPlaceholder": "Hledat projekt, prostředí, značky, poznámky…",
+      "tagFilterPlaceholder": "Filtrovat podle značky",
+      "variableCount": "{count, plural, one {# proměnná} few {# proměnné} other {# proměnných}}",
+      "updatedAgo": "Aktualizováno {time}",
+      "copyDotEnv": "Kopírovat .env",
+      "edit": "Upravit",
+      "delete": "Smazat",
+      "cancel": "Zrušit",
+      "confirmDelete": "Smazat",
+      "deleteDialogTitle": "Smazat sadu prostředí?",
+      "deleteDialogDescription": "Tím se odstraní šifrovaná data z účtu. Akci nelze vrátit zpět."
+    },
+    "toasts": {
+      "copiedDotEnv": ".env zkopírováno do schránky",
+      "deleted": "Sada prostředí smazána",
+      "deleteFailed": "Smazání se nezdařilo"
+    },
+    "form": {
+      "addTitle": "Nová sada prostředí",
+      "editTitle": "Upravit sadu prostředí",
+      "triggerAdd": "Přidat sadu prostředí",
+      "addSrOnly": "Přidat sadu prostředí",
+      "project": "Projekt",
+      "environment": "Prostředí",
+      "placeholderProject": "např. billing-api",
+      "placeholderEnvironment": "např. production",
+      "pasteEnvLabel": "Vložit .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Sloučit vložené řádky",
+      "variables": "Proměnné",
+      "addRow": "Přidat řádek",
+      "keyPlaceholder": "KLÍČ",
+      "valuePlaceholder": "hodnota",
+      "notesOptional": "Poznámky (volitelné)",
+      "placeholderNotes": "Rotace, vlastník, odkazy…",
+      "tags": "Značky",
+      "placeholderTags": "Přidat značky (Enter nebo čárka)",
+      "cancel": "Zrušit",
+      "save": "Uložit",
+      "saving": "Ukládání…",
+      "update": "Aktualizovat",
+      "updating": "Aktualizace…",
+      "toastSaved": "Sada prostředí uložena",
+      "toastSaveFailed": "Uložení se nezdařilo",
+      "toastUpdated": "Sada prostředí aktualizována",
+      "toastUpdateFailed": "Aktualizace se nezdařila",
+      "toastPasteEmpty": "Nenalezeny řádky KLÍČ=hodnota",
+      "toastPasteApplied": "Sloučeno {count} proměnných z vloženého textu",
+      "toastProjectEnvRequired": "Projekt a prostředí jsou povinné"
     }
   },
   "Bookmarks": {

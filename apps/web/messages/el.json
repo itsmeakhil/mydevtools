@@ -4,6 +4,7 @@
     "settings": "Ρυθμίσεις",
     "apiClient": "Πελάτης API",
     "passwordManager": "Διαχειριστής κωδικών πρόσβασης",
+    "environmentManager": "Διαχειριστής περιβάλλοντος",
     "bookmarks": "Σελιδοδείκτες",
     "jsonFormatter": "Μορφοποιητής JSON",
     "emailValidator": "Email Validator",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Κρυπτογράφηση που πρέπει να γνωρίζετε",
         "description": "Κρυπτογραφία στην πλευρά του πελάτη για το θησαυροφυλάκιο και ευαίσθητα δεδομένα σύνδεσης.",
-        "p1": "Για τον <strong>διαχειριστή κωδικών</strong> και τις αποθηκευμένες συνδέσεις του <strong>NoSQL Explorer</strong>, η web εφαρμογή χρησιμοποιεί το <strong>Web Crypto API</strong> του browser:",
+        "p1": "Για τον <strong>διαχειριστή κωδικών πρόσβασης</strong>, τον <strong>διαχειριστή περιβάλλοντος</strong> και τις αποθηκευμένες συνδέσεις στον <strong>NoSQL Explorer</strong>, η εφαρμογή web χρησιμοποιεί το <strong>Web Crypto API</strong> του προγράμματος περιήγησης:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> με <strong>SHA-256</strong>, <strong>100.000</strong> επαναλήψεις και τυχαίο salt παράγει κλειδί 256-bit από τον κύριο κωδικό.",
           "aes": "<strong>AES-256-GCM</strong> κρυπτογραφεί δεδομένα· χρησιμοποιείται τυχαίο <strong>IV 12 bytes</strong> σε κάθε κρυπτογράφηση.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Διαχειριστής κωδικών",
         "description": "Αποθηκεύστε και διαχειριστείτε τους κωδικούς με ασφάλεια."
+      },
+      "environmentManager": {
+        "title": "Διαχειριστής περιβάλλοντος",
+        "description": "Αποθηκεύστε μεταβλητές τύπου .env ανά έργο και περιβάλλον με ετικέτες."
       },
       "bookmarks": {
         "title": "Σελιδοδείκτες",
@@ -708,6 +713,69 @@
       "separator": "Διαχωριστής",
       "capitalization": "Κεφαλοποίηση",
       "includeNumber": "Συμπεριλάβετε τον αριθμό"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Κρυπτογραφημένες μεταβλητές περιβάλλοντος ανά έργο και περιβάλλον.",
+    "page": {
+      "loading": "Φόρτωση…",
+      "title": "Διαχειριστής περιβάλλοντος",
+      "loadFailed": "Αποτυχία φόρτωσης συνόλων περιβάλλοντος"
+    },
+    "list": {
+      "title": "Περιβάλλοντα",
+      "loading": "Φόρτωση των συνόλων σας…",
+      "emptyTitle": "Δεν υπάρχουν ακόμα σύνολα περιβάλλοντος",
+      "emptyHint": "Δημιουργήστε ένα σύνολο για κάθε έργο και περιβάλλον (π.χ. κλειδιά API παραγωγής). Όλα κρυπτογραφούνται στο πρόγραμμα περιήγησης πριν την αποστολή.",
+      "searchPlaceholder": "Αναζήτηση έργου, περιβάλλοντος, ετικετών, σημειώσεων…",
+      "tagFilterPlaceholder": "Φιλτράρισμα κατά ετικέτα",
+      "variableCount": "{count, plural, one {# μεταβλητή} other {# μεταβλητές}}",
+      "updatedAgo": "Ενημερώθηκε {time}",
+      "copyDotEnv": "Αντιγραφή .env",
+      "edit": "Επεξεργασία",
+      "delete": "Διαγραφή",
+      "cancel": "Ακύρωση",
+      "confirmDelete": "Διαγραφή",
+      "deleteDialogTitle": "Διαγραφή συνόλου περιβάλλοντος;",
+      "deleteDialogDescription": "Αφαιρεί το κρυπτογραφημένο αρχείο από τον λογαριασμό σας. Δεν μπορεί να αναιρεθεί."
+    },
+    "toasts": {
+      "copiedDotEnv": "Το .env αντιγράφηκε στο πρόχειρο",
+      "deleted": "Το σύνολο περιβάλλοντος διαγράφηκε",
+      "deleteFailed": "Η διαγραφή απέτυχε"
+    },
+    "form": {
+      "addTitle": "Νέο σύνολο περιβάλλοντος",
+      "editTitle": "Επεξεργασία συνόλου περιβάλλοντος",
+      "triggerAdd": "Προσθήκη συνόλου περιβάλλοντος",
+      "addSrOnly": "Προσθήκη συνόλου περιβάλλοντος",
+      "project": "Έργο",
+      "environment": "Περιβάλλον",
+      "placeholderProject": "π.χ. billing-api",
+      "placeholderEnvironment": "π.χ. production",
+      "pasteEnvLabel": "Επικόλληση .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Συγχώνευση επικολλημένων γραμμών",
+      "variables": "Μεταβλητές",
+      "addRow": "Προσθήκη γραμμής",
+      "keyPlaceholder": "ΚΛΕΙΔΙ",
+      "valuePlaceholder": "τιμή",
+      "notesOptional": "Σημειώσεις (προαιρετικό)",
+      "placeholderNotes": "Πολιτική περιστροφής, ιδιοκτήτης, σύνδεσμοι…",
+      "tags": "Ετικέτες",
+      "placeholderTags": "Προσθέστε ετικέτες (Enter ή κόμμα)",
+      "cancel": "Ακύρωση",
+      "save": "Αποθήκευση",
+      "saving": "Αποθήκευση…",
+      "update": "Ενημέρωση",
+      "updating": "Ενημέρωση…",
+      "toastSaved": "Το σύνολο περιβάλλοντος αποθηκεύτηκε",
+      "toastSaveFailed": "Η αποθήκευση απέτυχε",
+      "toastUpdated": "Το σύνολο περιβάλλοντος ενημερώθηκε",
+      "toastUpdateFailed": "Η ενημέρωση απέτυχε",
+      "toastPasteEmpty": "Δεν βρέθηκαν γραμμές ΚΛΕΙΔΙ=τιμή",
+      "toastPasteApplied": "Συγχωνεύτηκαν {count} μεταβλητές από την επικόλληση",
+      "toastProjectEnvRequired": "Το έργο και το περιβάλλον είναι υποχρεωτικά"
     }
   },
   "Bookmarks": {

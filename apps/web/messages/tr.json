@@ -4,6 +4,7 @@
     "settings": "Ayarlar",
     "apiClient": "API İstemcisi",
     "passwordManager": "Şifre Yöneticisi",
+    "environmentManager": "Ortam yöneticisi",
     "bookmarks": "Yer İmleri",
     "jsonFormatter": "JSON biçimleyici",
     "emailValidator": "E-posta Doğrulayıcı",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Bilmeniz gereken şifreleme",
         "description": "Kasa ve hassas bağlantı verileri için istemci tarafı kripto.",
-        "p1": "<strong>Şifre yöneticisi</strong> ve <strong>NoSQL Gezgini</strong> kaydedilmiş bağlantıları için web uygulaması tarayıcının <strong>Web Crypto API</strong>’sini kullanır:",
+        "p1": "<strong>Şifre yöneticisi</strong>, <strong>ortam yöneticisi</strong> ve <strong>NoSQL Explorer</strong> kayıtlı bağlantıları için web uygulaması tarayıcının <strong>Web Crypto API</strong> özelliğini kullanır:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> (<strong>SHA-256</strong>, <strong>100.000</strong> iterasyon, rastgele salt) ana parolanızdan 256-bit anahtar türetir.",
           "aes": "<strong>AES-256-GCM</strong> veriyi şifreler; her şifreleme için rastgele <strong>12 bayt IV</strong> kullanılır.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Şifre Yöneticisi",
         "description": "Şifrelerinizi güvenle saklayın ve yönetin."
+      },
+      "environmentManager": {
+        "title": "Ortam yöneticisi",
+        "description": ".env tarzı değişkenleri proje ve ortama göre etiketlerle saklayın."
       },
       "bookmarks": {
         "title": "Yer İmleri",
@@ -708,6 +713,69 @@
       "separator": "Ayırıcı",
       "capitalization": "Büyük harf kullanımı",
       "includeNumber": "Sayı dahil et"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Proje ve ortama göre şifrelenmiş ortam değişkenleri.",
+    "page": {
+      "loading": "Yükleniyor…",
+      "title": "Ortam yöneticisi",
+      "loadFailed": "Ortam kümeleri yüklenemedi"
+    },
+    "list": {
+      "title": "Ortamlar",
+      "loading": "Kümeleriniz yükleniyor…",
+      "emptyTitle": "Henüz ortam kümesi yok",
+      "emptyHint": "Her proje ve ortam için bir küme oluşturun (ör. üretim API anahtarları). Yüklemeden önce her şey tarayıcınızda şifrelenir.",
+      "searchPlaceholder": "Proje, ortam, etiket, not ara…",
+      "tagFilterPlaceholder": "Etikete göre filtrele",
+      "variableCount": "{count, plural, one {# değişken} other {# değişken}}",
+      "updatedAgo": "Güncellendi {time}",
+      "copyDotEnv": ".env kopyala",
+      "edit": "Düzenle",
+      "delete": "Sil",
+      "cancel": "İptal",
+      "confirmDelete": "Sil",
+      "deleteDialogTitle": "Ortam kümesi silinsin mi?",
+      "deleteDialogDescription": "Şifreli veri hesabınızdan kaldırılır. Geri alınamaz."
+    },
+    "toasts": {
+      "copiedDotEnv": ".env panoya kopyalandı",
+      "deleted": "Ortam kümesi silindi",
+      "deleteFailed": "Silinemedi"
+    },
+    "form": {
+      "addTitle": "Yeni ortam kümesi",
+      "editTitle": "Ortam kümesini düzenle",
+      "triggerAdd": "Ortam kümesi ekle",
+      "addSrOnly": "Ortam kümesi ekle",
+      "project": "Proje",
+      "environment": "Ortam",
+      "placeholderProject": "ör. billing-api",
+      "placeholderEnvironment": "ör. production",
+      "pasteEnvLabel": ".env yapıştır",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Yapıştırılan satırları birleştir",
+      "variables": "Değişkenler",
+      "addRow": "Satır ekle",
+      "keyPlaceholder": "ANAHTAR",
+      "valuePlaceholder": "değer",
+      "notesOptional": "Notlar (isteğe bağlı)",
+      "placeholderNotes": "Rotasyon politikası, sahip, bağlantılar…",
+      "tags": "Etiketler",
+      "placeholderTags": "Etiket ekle (Enter veya virgül)",
+      "cancel": "İptal",
+      "save": "Kaydet",
+      "saving": "Kaydediliyor…",
+      "update": "Güncelle",
+      "updating": "Güncelleniyor…",
+      "toastSaved": "Ortam kümesi kaydedildi",
+      "toastSaveFailed": "Kaydedilemedi",
+      "toastUpdated": "Ortam kümesi güncellendi",
+      "toastUpdateFailed": "Güncellenemedi",
+      "toastPasteEmpty": "ANAHTAR=değer satırı bulunamadı",
+      "toastPasteApplied": "Yapıştırmadan {count} değişken birleştirildi",
+      "toastProjectEnvRequired": "Proje ve ortam zorunludur"
     }
   },
   "Bookmarks": {

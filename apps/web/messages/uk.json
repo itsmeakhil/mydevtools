@@ -4,6 +4,7 @@
     "settings": "Налаштування",
     "apiClient": "API Клієнт",
     "passwordManager": "Менеджер паролів",
+    "environmentManager": "Менеджер середовищ",
     "bookmarks": "Закладки",
     "jsonFormatter": "Форматувальник JSON",
     "emailValidator": "Перевірка email",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Шифрування, яке варто знати",
         "description": "Криптографія на стороні клієнта для сховища та чутливих даних підключень.",
-        "p1": "Для <strong>менеджера паролів</strong> і збережених підключень у <strong>NoSQL Провіднику</strong> веб‑застосунок використовує <strong>Web Crypto API</strong> браузера:",
+        "p1": "Для <strong>менеджера паролів</strong>, <strong>менеджера середовищ</strong> і збережених підключень у <strong>NoSQL Explorer</strong> вебзастосунок використовує <strong>Web Crypto API</strong> браузера:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> з <strong>SHA-256</strong>, <strong>100 000</strong> ітерацій і випадковою сіллю виводить 256‑бітний ключ з майстер‑пароля.",
           "aes": "<strong>AES‑256‑GCM</strong> шифрує дані; для кожного шифрування використовується випадковий <strong>IV 12 байт</strong>.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Менеджер паролів",
         "description": "Безпечно зберігайте та керуйте паролями."
+      },
+      "environmentManager": {
+        "title": "Менеджер середовищ",
+        "description": "Зберігайте змінні у стилі .env за проєктом і середовищем з тегами."
       },
       "bookmarks": {
         "title": "Закладки",
@@ -708,6 +713,69 @@
       "separator": "Розділювач",
       "capitalization": "Капіталізація",
       "includeNumber": "Додати цифру"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Зашифровані змінні середовища за проєктом і середовищем.",
+    "page": {
+      "loading": "Завантаження…",
+      "title": "Менеджер середовищ",
+      "loadFailed": "Не вдалося завантажити набори середовищ"
+    },
+    "list": {
+      "title": "Середовища",
+      "loading": "Завантаження наборів…",
+      "emptyTitle": "Поки немає наборів середовищ",
+      "emptyHint": "Створіть набір для кожного проєкту й середовища (наприклад, ключі API продакшену). Усе шифрується в браузері перед завантаженням.",
+      "searchPlaceholder": "Пошук за проєктом, середовищем, тегами, нотатками…",
+      "tagFilterPlaceholder": "Фільтр за тегом",
+      "variableCount": "{count, plural, one {# змінна} few {# змінні} other {# змінних}}",
+      "updatedAgo": "Оновлено {time}",
+      "copyDotEnv": "Копіювати .env",
+      "edit": "Редагувати",
+      "delete": "Видалити",
+      "cancel": "Скасувати",
+      "confirmDelete": "Видалити",
+      "deleteDialogTitle": "Видалити набір середовища?",
+      "deleteDialogDescription": "Зашифровані дані буде видалено з облікового запису. Це незворотно."
+    },
+    "toasts": {
+      "copiedDotEnv": ".env скопійовано в буфер обміну",
+      "deleted": "Набір середовища видалено",
+      "deleteFailed": "Не вдалося видалити"
+    },
+    "form": {
+      "addTitle": "Новий набір середовища",
+      "editTitle": "Редагувати набір середовища",
+      "triggerAdd": "Додати набір середовища",
+      "addSrOnly": "Додати набір середовища",
+      "project": "Проєкт",
+      "environment": "Середовище",
+      "placeholderProject": "напр. billing-api",
+      "placeholderEnvironment": "напр. production",
+      "pasteEnvLabel": "Вставити .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Об'єднати вставлені рядки",
+      "variables": "Змінні",
+      "addRow": "Додати рядок",
+      "keyPlaceholder": "КЛЮЧ",
+      "valuePlaceholder": "значення",
+      "notesOptional": "Нотатки (необов'язково)",
+      "placeholderNotes": "Політика ротації, власник, посилання…",
+      "tags": "Теги",
+      "placeholderTags": "Додати теги (Enter або кома)",
+      "cancel": "Скасувати",
+      "save": "Зберегти",
+      "saving": "Збереження…",
+      "update": "Оновити",
+      "updating": "Оновлення…",
+      "toastSaved": "Набір середовища збережено",
+      "toastSaveFailed": "Не вдалося зберегти",
+      "toastUpdated": "Набір середовища оновлено",
+      "toastUpdateFailed": "Не вдалося оновити",
+      "toastPasteEmpty": "Рядків КЛЮЧ=значення не знайдено",
+      "toastPasteApplied": "Об'єднано {count} змінних з вставки",
+      "toastProjectEnvRequired": "Проєкт і середовище обов'язкові"
     }
   },
   "Bookmarks": {

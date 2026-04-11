@@ -4,6 +4,7 @@
     "settings": "Настройки",
     "apiClient": "API-клиент",
     "passwordManager": "Менеджер паролей",
+    "environmentManager": "Менеджер окружений",
     "bookmarks": "Закладки",
     "jsonFormatter": "Форматировщик JSON",
     "emailValidator": "Валидатор email",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Важное о шифровании",
         "description": "Криптография на стороне клиента для хранилища и чувствительных данных подключений.",
-        "p1": "Для <strong>менеджера паролей</strong> и сохранённых подключений <strong>NoSQL‑обозревателя</strong> веб‑приложение использует <strong>Web Crypto API</strong> браузера:",
+        "p1": "Для <strong>менеджера паролей</strong>, <strong>менеджера окружений</strong> и сохранённых подключений в <strong>NoSQL Explorer</strong> веб-приложение использует <strong>Web Crypto API</strong> браузера:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> с <strong>SHA‑256</strong>, <strong>100 000</strong> итераций и случайной солью выводит 256‑битный ключ из мастер‑пароля.",
           "aes": "<strong>AES‑256‑GCM</strong> шифрует данные; для каждого шифрования используется случайный <strong>IV 12 байт</strong>.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Менеджер паролей",
         "description": "Безопасно храните и управляйте паролями."
+      },
+      "environmentManager": {
+        "title": "Менеджер окружений",
+        "description": "Храните переменные в стиле .env по проекту и окружению с тегами."
       },
       "bookmarks": {
         "title": "Закладки",
@@ -708,6 +713,69 @@
       "separator": "Разделитель",
       "capitalization": "Заглавные буквы",
       "includeNumber": "Включить число"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Зашифрованные переменные окружения по проекту и среде.",
+    "page": {
+      "loading": "Загрузка…",
+      "title": "Менеджер окружений",
+      "loadFailed": "Не удалось загрузить наборы окружений"
+    },
+    "list": {
+      "title": "Окружения",
+      "loading": "Загрузка наборов…",
+      "emptyTitle": "Пока нет наборов окружений",
+      "emptyHint": "Создайте набор для каждого проекта и среды (например, ключи API продакшена). Всё шифруется в браузере перед загрузкой.",
+      "searchPlaceholder": "Поиск по проекту, среде, тегам, заметкам…",
+      "tagFilterPlaceholder": "Фильтр по тегу",
+      "variableCount": "{count, plural, one {# переменная} few {# переменные} other {# переменных}}",
+      "updatedAgo": "Обновлено {time}",
+      "copyDotEnv": "Копировать .env",
+      "edit": "Изменить",
+      "delete": "Удалить",
+      "cancel": "Отмена",
+      "confirmDelete": "Удалить",
+      "deleteDialogTitle": "Удалить набор окружения?",
+      "deleteDialogDescription": "Зашифрованные данные будут удалены из аккаунта. Действие необратимо."
+    },
+    "toasts": {
+      "copiedDotEnv": ".env скопирован в буфер обмена",
+      "deleted": "Набор окружения удалён",
+      "deleteFailed": "Не удалось удалить"
+    },
+    "form": {
+      "addTitle": "Новый набор окружения",
+      "editTitle": "Изменить набор окружения",
+      "triggerAdd": "Добавить набор окружения",
+      "addSrOnly": "Добавить набор окружения",
+      "project": "Проект",
+      "environment": "Окружение",
+      "placeholderProject": "напр. billing-api",
+      "placeholderEnvironment": "напр. production",
+      "pasteEnvLabel": "Вставить .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Объединить вставленные строки",
+      "variables": "Переменные",
+      "addRow": "Добавить строку",
+      "keyPlaceholder": "КЛЮЧ",
+      "valuePlaceholder": "значение",
+      "notesOptional": "Заметки (необязательно)",
+      "placeholderNotes": "Политика ротации, владелец, ссылки…",
+      "tags": "Теги",
+      "placeholderTags": "Добавить теги (Enter или запятая)",
+      "cancel": "Отмена",
+      "save": "Сохранить",
+      "saving": "Сохранение…",
+      "update": "Обновить",
+      "updating": "Обновление…",
+      "toastSaved": "Набор окружения сохранён",
+      "toastSaveFailed": "Не удалось сохранить",
+      "toastUpdated": "Набор окружения обновлён",
+      "toastUpdateFailed": "Не удалось обновить",
+      "toastPasteEmpty": "Строки КЛЮЧ=значение не найдены",
+      "toastPasteApplied": "Объединено переменных из вставки: {count}",
+      "toastProjectEnvRequired": "Проект и окружение обязательны"
     }
   },
   "Bookmarks": {

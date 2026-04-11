@@ -4,6 +4,7 @@
     "settings": "设置",
     "apiClient": "API 客户端",
     "passwordManager": "密码管理器",
+    "environmentManager": "环境管理",
     "bookmarks": "书签",
     "jsonFormatter": "JSON 格式化器",
     "emailValidator": "邮箱验证",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "你需要了解的加密",
         "description": "保险库与敏感连接数据的客户端加密。",
-        "p1": "对于 <strong>密码管理器</strong> 与 <strong>NoSQL 浏览器</strong> 的已保存连接，Web 端使用浏览器的 <strong>Web Crypto API</strong>：",
+        "p1": "对于<strong>密码管理器</strong>、<strong>环境管理器</strong>以及 <strong>NoSQL Explorer</strong> 中保存的连接，Web 应用使用浏览器的 <strong>Web Crypto API</strong>：",
         "items": {
           "kdf": "<strong>PBKDF2</strong>（<strong>SHA-256</strong>、<strong>100,000</strong> 次迭代与随机盐）从主密码派生 256 位密钥。",
           "aes": "<strong>AES-256-GCM</strong> 加密数据；每次加密都会使用随机的 <strong>12 字节 IV</strong>。",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "密码管理器",
         "description": "安全保存和管理密码。"
+      },
+      "environmentManager": {
+        "title": "环境管理",
+        "description": "按项目与环境保存 .env 风格变量，并支持标签。"
       },
       "bookmarks": {
         "title": "书签",
@@ -708,6 +713,69 @@
       "separator": "分隔符",
       "capitalization": "大小写",
       "includeNumber": "包含数字"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "按项目与环境加密存储的环境变量。",
+    "page": {
+      "loading": "加载中…",
+      "title": "环境管理",
+      "loadFailed": "无法加载环境集合"
+    },
+    "list": {
+      "title": "环境",
+      "loading": "正在加载集合…",
+      "emptyTitle": "尚无环境集合",
+      "emptyHint": "为每个项目与环境创建集合（例如生产环境 API 密钥）。上传前均在浏览器中加密。",
+      "searchPlaceholder": "搜索项目、环境、标签、备注…",
+      "tagFilterPlaceholder": "按标签筛选",
+      "variableCount": "{count, plural, other {# 个变量}}",
+      "updatedAgo": "更新于 {time}",
+      "copyDotEnv": "复制 .env",
+      "edit": "编辑",
+      "delete": "删除",
+      "cancel": "取消",
+      "confirmDelete": "删除",
+      "deleteDialogTitle": "删除环境集合？",
+      "deleteDialogDescription": "将从账户中移除加密数据，无法撤销。"
+    },
+    "toasts": {
+      "copiedDotEnv": "已复制 .env 到剪贴板",
+      "deleted": "已删除环境集合",
+      "deleteFailed": "删除失败"
+    },
+    "form": {
+      "addTitle": "新建环境集合",
+      "editTitle": "编辑环境集合",
+      "triggerAdd": "添加环境集合",
+      "addSrOnly": "添加环境集合",
+      "project": "项目",
+      "environment": "环境",
+      "placeholderProject": "例如 billing-api",
+      "placeholderEnvironment": "例如 production",
+      "pasteEnvLabel": "粘贴 .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "合并粘贴的行",
+      "variables": "变量",
+      "addRow": "添加行",
+      "keyPlaceholder": "键",
+      "valuePlaceholder": "值",
+      "notesOptional": "备注（可选）",
+      "placeholderNotes": "轮换策略、负责人、链接…",
+      "tags": "标签",
+      "placeholderTags": "添加标签（回车或逗号）",
+      "cancel": "取消",
+      "save": "保存",
+      "saving": "保存中…",
+      "update": "更新",
+      "updating": "更新中…",
+      "toastSaved": "已保存环境集合",
+      "toastSaveFailed": "保存失败",
+      "toastUpdated": "已更新环境集合",
+      "toastUpdateFailed": "更新失败",
+      "toastPasteEmpty": "未找到 键=值 行",
+      "toastPasteApplied": "从粘贴合并了 {count} 个变量",
+      "toastProjectEnvRequired": "项目和环境为必填"
     }
   },
   "Bookmarks": {

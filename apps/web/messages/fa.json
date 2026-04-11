@@ -4,6 +4,7 @@
     "settings": "تنظیمات",
     "apiClient": "سرویس گیرنده API",
     "passwordManager": "مدیر رمز عبور",
+    "environmentManager": "مدیر محیط",
     "bookmarks": "نشانک ها",
     "jsonFormatter": "قالب‌ده JSON",
     "emailValidator": "اعتبار سنجی ایمیل",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "رمزنگاری مهم",
         "description": "رمزنگاری سمت کلاینت برای خزانه و داده‌های اتصال حساس.",
-        "p1": "برای <strong>مدیر رمز عبور</strong> و اتصال‌های ذخیره‌شده در <strong>NoSQL Explorer</strong>، برنامه وب از <strong>Web Crypto API</strong> مرورگر استفاده می‌کند:",
+        "p1": "برای <strong>مدیر رمز عبور</strong>، <strong>مدیر محیط</strong> و اتصال‌های ذخیره‌شده در <strong>NoSQL Explorer</strong>، برنامه وب از <strong>Web Crypto API</strong> مرورگر استفاده می‌کند:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> با <strong>SHA-256</strong>، <strong>100,000</strong> تکرار و salt تصادفی، یک کلید 256 بیتی را از رمز اصلی مشتق می‌کند.",
           "aes": "<strong>AES-256-GCM</strong> داده‌ها را رمزنگاری می‌کند؛ برای هر رمزنگاری از <strong>IV 12 بایتی</strong> تصادفی استفاده می‌شود.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "مدیر رمز عبور",
         "description": "رمزهای عبور خود را ایمن ذخیره و مدیریت کنید."
+      },
+      "environmentManager": {
+        "title": "مدیر محیط",
+        "description": "متغیرهای شبیه .env را به‌ازای هر پروژه و محیط با برچسب ذخیره کنید."
       },
       "bookmarks": {
         "title": "نشانک ها",
@@ -708,6 +713,69 @@
       "separator": "جداکننده",
       "capitalization": "حروف بزرگ",
       "includeNumber": "شامل شماره"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "متغیرهای محیط رمزگذاری‌شده به‌ازای هر پروژه و محیط.",
+    "page": {
+      "loading": "در حال بارگذاری…",
+      "title": "مدیر محیط",
+      "loadFailed": "بارگذاری مجموعه‌های محیط ناموفق بود"
+    },
+    "list": {
+      "title": "محیط‌ها",
+      "loading": "در حال بارگذاری مجموعه‌ها…",
+      "emptyTitle": "هنوز مجموعه محیطی وجود ندارد",
+      "emptyHint": "برای هر پروژه و محیط یک مجموعه بسازید (مثلاً کلیدهای API تولید). همه قبل از آپلود در مرورگر شما رمزگذاری می‌شوند.",
+      "searchPlaceholder": "جستجوی پروژه، محیط، برچسب، یادداشت…",
+      "tagFilterPlaceholder": "فیلتر با برچسب",
+      "variableCount": "{count, plural, one {# متغیر} other {# متغیر}}",
+      "updatedAgo": "به‌روزرسانی {time}",
+      "copyDotEnv": "کپی .env",
+      "edit": "ویرایش",
+      "delete": "حذف",
+      "cancel": "لغو",
+      "confirmDelete": "حذف",
+      "deleteDialogTitle": "حذف مجموعه محیط؟",
+      "deleteDialogDescription": "بلاب رمزگذاری‌شده از حساب شما حذف می‌شود. قابل بازگشت نیست."
+    },
+    "toasts": {
+      "copiedDotEnv": ".env در کلیپ‌بورد کپی شد",
+      "deleted": "مجموعه محیط حذف شد",
+      "deleteFailed": "حذف ناموفق بود"
+    },
+    "form": {
+      "addTitle": "مجموعه محیط جدید",
+      "editTitle": "ویرایش مجموعه محیط",
+      "triggerAdd": "افزودن مجموعه محیط",
+      "addSrOnly": "افزودن مجموعه محیط",
+      "project": "پروژه",
+      "environment": "محیط",
+      "placeholderProject": "مثال billing-api",
+      "placeholderEnvironment": "مثال production",
+      "pasteEnvLabel": "چسباندن .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "ادغام خطوط چسبانده‌شده",
+      "variables": "متغیرها",
+      "addRow": "افزودن سطر",
+      "keyPlaceholder": "کلید",
+      "valuePlaceholder": "مقدار",
+      "notesOptional": "یادداشت (اختیاری)",
+      "placeholderNotes": "سیاست چرخش، مالک، پیوندها…",
+      "tags": "برچسب‌ها",
+      "placeholderTags": "افزودن برچسب (Enter یا ویرگول)",
+      "cancel": "لغو",
+      "save": "ذخیره",
+      "saving": "در حال ذخیره…",
+      "update": "به‌روزرسانی",
+      "updating": "در حال به‌روزرسانی…",
+      "toastSaved": "مجموعه محیط ذخیره شد",
+      "toastSaveFailed": "ذخیره ناموفق بود",
+      "toastUpdated": "مجموعه محیط به‌روز شد",
+      "toastUpdateFailed": "به‌روزرسانی ناموفق بود",
+      "toastPasteEmpty": "خط کلید=مقدار یافت نشد",
+      "toastPasteApplied": "{count} متغیر از چسباندن ادغام شد",
+      "toastProjectEnvRequired": "پروژه و محیط الزامی است"
     }
   },
   "Bookmarks": {
