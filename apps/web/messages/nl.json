@@ -314,7 +314,16 @@
       "apiClientCollections": "API-collecties",
       "apiClientEnvironments": "API-omgevingen",
       "apiClientHistory": "API-geschiedenisitems",
-      "jsonFormatterDocuments": "JSON-formatteerdocumenten"
+      "jsonFormatterDocuments": "JSON-formatteerdocumenten",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…"
     },
     "ui": {
       "title": "Interfacevoorkeuren",

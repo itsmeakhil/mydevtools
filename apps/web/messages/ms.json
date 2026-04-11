@@ -314,7 +314,16 @@
       "apiClientCollections": "Koleksi API",
       "apiClientEnvironments": "Persekitaran API",
       "apiClientHistory": "Entri sejarah API",
-      "jsonFormatterDocuments": "Dokumen pemformat JSON"
+      "jsonFormatterDocuments": "Dokumen pemformat JSON",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…"
     },
     "ui": {
       "title": "Pilihan antara muka",

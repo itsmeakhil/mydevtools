@@ -314,7 +314,16 @@
       "apiClientCollections": "Bộ sưu tập API",
       "apiClientEnvironments": "Môi trường API",
       "apiClientHistory": "Mục lịch sử API",
-      "jsonFormatterDocuments": "Tài liệu định dạng JSON"
+      "jsonFormatterDocuments": "Tài liệu định dạng JSON",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…"
     },
     "ui": {
       "title": "Tùy chọn giao diện",

@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { UserPreferencesSync } from "@/components/user-preferences-sync"
 import { ToolVisibilityPreferencesSync } from "@/components/tool-visibility-preferences-sync"
 import { AppUpdateNotifier } from "@/components/app-update-notifier"
+import { GlobalCommandPalette } from "@/components/global-command-palette"
 import { cn } from "@/lib/utils"
 import { Geist_Mono as NextGeistMono } from 'next/font/google'
 
@@ -129,6 +130,7 @@ export default async function RootLayout({
             <UserPreferencesSync />
             <ToolVisibilityPreferencesSync />
             <AppUpdateNotifier />
+            <GlobalCommandPalette />
             {children}
             <Analytics />
             <SpeedInsights />

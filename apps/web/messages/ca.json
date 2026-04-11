@@ -314,7 +314,16 @@
       "apiClientCollections": "Col·leccions API",
       "apiClientEnvironments": "Entorns API",
       "apiClientHistory": "Entrades de l’historial API",
-      "jsonFormatterDocuments": "Documents del formatador JSON"
+      "jsonFormatterDocuments": "Documents del formatador JSON",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…"
     },
     "ui": {
       "title": "Preferències d’interfície",
