@@ -20,7 +20,8 @@
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
-    "colorPicker": "Color Picker"
+    "colorPicker": "Color Picker",
+    "jsonSchemaGenerator": "JSON-skjemagenerator"
   },
   "Help": {
     "title": "Hjelp og dokumentasjon",
@@ -278,6 +279,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "jsonSchemaGenerator": {
+        "title": "JSON-skjemagenerator",
+        "description": "Utled et JSON-skjema og typede modeller fra eksempel-JSON."
       }
     },
     "tabs": {
@@ -1941,5 +1946,30 @@
     "modifiedPlaceholder": "Lim inn endret tekst…",
     "comparisonLabel": "Side-ved-side-sammenligning",
     "emptyState": "Skriv inn tekst i begge paneler for å sammenligne."
+  },
+  "JsonSchemaGenerator": {
+    "title": "JSON-skjemagenerator",
+    "subtitle": "Lim inn gyldig JSON for å generere JSON-skjema eller typede modeller. Alt kjører i nettleseren.",
+    "languageLabel": "Utgangsspråk",
+    "inputLabel": "JSON-inndata",
+    "inputPlaceholder": "Lim inn JSON her…",
+    "outputLabel": "Generert utdata",
+    "outputPlaceholder": "Skjemaet eller de genererte typene vises her…",
+    "parseError": "Ugyldig JSON",
+    "clear": "Tøm",
+    "copy": "Kopier",
+    "copied": "Kopiert til utklippstavlen",
+    "copyFailed": "Kunne ikke kopiere",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "JSON-skjema (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    }
   }
 }

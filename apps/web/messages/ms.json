@@ -20,7 +20,8 @@
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
-    "colorPicker": "Color Picker"
+    "colorPicker": "Color Picker",
+    "jsonSchemaGenerator": "Penjana Skema JSON"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -278,6 +279,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "jsonSchemaGenerator": {
+        "title": "Penjana Skema JSON",
+        "description": "Inferens skema JSON dan model berjenis daripada sampel JSON."
       }
     },
     "tabs": {
@@ -1941,5 +1946,30 @@
     "modifiedPlaceholder": "Tampal teks yang diubah suai…",
     "comparisonLabel": "Perbandingan bersebelahan",
     "emptyState": "Masukkan teks dalam kedua-dua panel untuk membandingkan."
+  },
+  "JsonSchemaGenerator": {
+    "title": "Penjana Skema JSON",
+    "subtitle": "Tampal JSON yang sah untuk menjana skema JSON atau model berjenis. Semuanya berjalan dalam pelayar anda.",
+    "languageLabel": "Bahasa output",
+    "inputLabel": "Input JSON",
+    "inputPlaceholder": "Tampal JSON di sini…",
+    "outputLabel": "Output yang dijana",
+    "outputPlaceholder": "Skema atau jenis yang dijana akan dipaparkan di sini…",
+    "parseError": "JSON tidak sah",
+    "clear": "Kosongkan",
+    "copy": "Salin",
+    "copied": "Disalin ke papan keratan",
+    "copyFailed": "Tidak dapat menyalin",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "Skema JSON (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    }
   }
 }

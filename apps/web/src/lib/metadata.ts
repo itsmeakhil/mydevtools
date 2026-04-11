@@ -28,6 +28,11 @@ export const toolsMetadata: Record<string, {
         description: 'Format, validate, and edit JSON data with our powerful JSON editor.',
         keywords: ['json editor', 'json formatter', 'json validator', 'edit json']
     },
+    'json-schema-generator': {
+        title: 'JSON Schema Generator - Types from JSON',
+        description: 'Generate JSON Schema (Draft 2020-12) and typed models for Python, TypeScript, Go, Rust, Java, C#, Dart, and Swift from sample JSON.',
+        keywords: ['json schema', 'jsonschema', 'pydantic', 'typescript types', 'go struct from json', 'serde', 'openapi']
+    },
     'api-client': {
         title: 'API Client - Test HTTP Requests',
         description: 'Test and debug HTTP requests with our easy-to-use API client.',

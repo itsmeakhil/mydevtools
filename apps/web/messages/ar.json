@@ -20,7 +20,8 @@
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
-    "colorPicker": "Color Picker"
+    "colorPicker": "Color Picker",
+    "jsonSchemaGenerator": "مولّد مخطط JSON"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -278,6 +279,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "jsonSchemaGenerator": {
+        "title": "مولّد مخطط JSON",
+        "description": "استنتج مخطط JSON ونماذج مُنمّطة من عيّنة JSON."
       }
     },
     "tabs": {
@@ -1941,5 +1946,30 @@
     "modifiedPlaceholder": "الصق النص المعدّل…",
     "comparisonLabel": "مقارنة جنباً إلى جنب",
     "emptyState": "أدخل نصاً في كلا اللوحتين للمقارنة."
+  },
+  "JsonSchemaGenerator": {
+    "title": "مولّد مخطط JSON",
+    "subtitle": "الصق JSON صالحًا لتوليد مخطط JSON أو نماذج مُنمّطة. كل شيء يعمل في المتصفح.",
+    "languageLabel": "لغة المخرجات",
+    "inputLabel": "إدخال JSON",
+    "inputPlaceholder": "الصق JSON هنا…",
+    "outputLabel": "المخرجات المُولَّدة",
+    "outputPlaceholder": "يظهر المخطط أو الأنواع المُولَّدة هنا…",
+    "parseError": "JSON غير صالح",
+    "clear": "مسح",
+    "copy": "نسخ",
+    "copied": "تم النسخ إلى الحافظة",
+    "copyFailed": "تعذّر النسخ",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "مخطط JSON (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    }
   }
 }

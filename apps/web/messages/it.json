@@ -20,7 +20,8 @@
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
-    "colorPicker": "Color Picker"
+    "colorPicker": "Color Picker",
+    "jsonSchemaGenerator": "Generatore di schema JSON"
   },
   "Help": {
     "title": "Aiuto e documentazione",
@@ -278,6 +279,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "jsonSchemaGenerator": {
+        "title": "Generatore di schema JSON",
+        "description": "Ricava uno schema JSON e modelli tipizzati da un campione JSON."
       }
     },
     "tabs": {
@@ -1941,5 +1946,30 @@
     "modifiedPlaceholder": "Incolla il testo modificato…",
     "comparisonLabel": "Confronto fianco a fianco",
     "emptyState": "Inserisci testo in entrambi i pannelli per confrontare."
+  },
+  "JsonSchemaGenerator": {
+    "title": "Generatore di schema JSON",
+    "subtitle": "Incolla JSON valido per generare uno schema JSON o modelli tipizzati. Tutto viene eseguito nel browser.",
+    "languageLabel": "Linguaggio di output",
+    "inputLabel": "Input JSON",
+    "inputPlaceholder": "Incolla il JSON qui…",
+    "outputLabel": "Output generato",
+    "outputPlaceholder": "Lo schema o i tipi generati appariranno qui…",
+    "parseError": "JSON non valido",
+    "clear": "Cancella",
+    "copy": "Copia",
+    "copied": "Copiato negli appunti",
+    "copyFailed": "Impossibile copiare",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "Schema JSON (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    }
   }
 }

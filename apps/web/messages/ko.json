@@ -20,7 +20,8 @@
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
-    "colorPicker": "Color Picker"
+    "colorPicker": "Color Picker",
+    "jsonSchemaGenerator": "JSON 스키마 생성기"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -278,6 +279,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "jsonSchemaGenerator": {
+        "title": "JSON 스키마 생성기",
+        "description": "샘플 JSON에서 JSON 스키마와 타입이 지정된 모델을 추론합니다."
       }
     },
     "tabs": {
@@ -1941,5 +1946,30 @@
     "modifiedPlaceholder": "수정된 텍스트를 붙여넣으세요…",
     "comparisonLabel": "나란히 비교",
     "emptyState": "두 패널 모두에 텍스트를 입력하여 비교하세요."
+  },
+  "JsonSchemaGenerator": {
+    "title": "JSON 스키마 생성기",
+    "subtitle": "유효한 JSON을 붙여넣어 JSON 스키마 또는 타입 모델을 생성합니다. 모든 처리는 브라우저에서 이루어집니다.",
+    "languageLabel": "출력 언어",
+    "inputLabel": "JSON 입력",
+    "inputPlaceholder": "JSON을 여기에 붙여넣기…",
+    "outputLabel": "생성된 출력",
+    "outputPlaceholder": "생성된 스키마나 타입이 여기에 표시됩니다…",
+    "parseError": "잘못된 JSON",
+    "clear": "지우기",
+    "copy": "복사",
+    "copied": "클립보드에 복사됨",
+    "copyFailed": "복사하지 못했습니다",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "JSON 스키마(Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    }
   }
 }

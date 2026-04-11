@@ -9,6 +9,7 @@
     "emailValidator": "Email Validator",
     "jwtDecoder": "JWT Decoder",
     "jsonFormatter": "JSON Formatter",
+    "jsonSchemaGenerator": "JSON Schema Generator",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -277,6 +278,10 @@
       "jsonFormatter": {
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
+      },
+      "jsonSchemaGenerator": {
+        "title": "JSON Schema Generator",
+        "description": "Infer JSON Schema and typed models from sample JSON."
       },
       "sqlFormatter": {
         "title": "SQL Formatter",
@@ -1779,6 +1784,31 @@
     "errors": {
       "fieldCount": "Expected 5 fields (minute hour day month weekday) or 6 including seconds.",
       "invalid": "Invalid cron expression."
+    }
+  },
+  "JsonSchemaGenerator": {
+    "title": "JSON Schema Generator",
+    "subtitle": "Paste valid JSON to generate JSON Schema or typed models. Everything runs in your browser.",
+    "languageLabel": "Output language",
+    "inputLabel": "JSON input",
+    "inputPlaceholder": "Paste JSON here…",
+    "outputLabel": "Generated output",
+    "outputPlaceholder": "Generated schema or types will appear here…",
+    "parseError": "Invalid JSON",
+    "clear": "Clear",
+    "copy": "Copy",
+    "copied": "Copied to clipboard",
+    "copyFailed": "Could not copy",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "JSON Schema (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
     }
   },
   "Base64": {

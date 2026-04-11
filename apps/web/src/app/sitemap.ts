@@ -32,6 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'password-manager',
         'bookmarks',
         'json-formatter',
+        'json-schema-generator',
         'api-client',
         'nosql-explorer',
         'url-encode',

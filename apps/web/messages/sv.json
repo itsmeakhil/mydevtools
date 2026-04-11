@@ -20,7 +20,8 @@
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
-    "colorPicker": "Color Picker"
+    "colorPicker": "Color Picker",
+    "jsonSchemaGenerator": "JSON-schemagenerator"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -278,6 +279,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "jsonSchemaGenerator": {
+        "title": "JSON-schemagenerator",
+        "description": "Härled ett JSON-schema och typade modeller från exempel-JSON."
       }
     },
     "tabs": {
@@ -1941,5 +1946,30 @@
     "modifiedPlaceholder": "Klistra in ändrad text…",
     "comparisonLabel": "Sida vid sida-jämförelse",
     "emptyState": "Ange text i båda panelerna för att jämföra."
+  },
+  "JsonSchemaGenerator": {
+    "title": "JSON-schemagenerator",
+    "subtitle": "Klistra in giltig JSON för att generera JSON-schema eller typade modeller. Allt körs i din webbläsare.",
+    "languageLabel": "Utdataspråk",
+    "inputLabel": "JSON-indata",
+    "inputPlaceholder": "Klistra in JSON här…",
+    "outputLabel": "Genererad utdata",
+    "outputPlaceholder": "Schemat eller de genererade typerna visas här…",
+    "parseError": "Ogiltig JSON",
+    "clear": "Rensa",
+    "copy": "Kopiera",
+    "copied": "Kopierat till urklipp",
+    "copyFailed": "Kunde inte kopiera",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "JSON-schema (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    }
   }
 }

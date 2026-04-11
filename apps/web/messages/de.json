@@ -20,7 +20,8 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Farbauswahl",
     "apiClient": "API-Client",
-    "nosqlExplorer": "NoSQL-Explorer"
+    "nosqlExplorer": "NoSQL-Explorer",
+    "jsonSchemaGenerator": "JSON-Schema-Generator"
   },
   "Help": {
     "title": "Hilfe & Dokumentation",
@@ -278,6 +279,10 @@
       "colorPicker": {
         "title": "Farbauswahl",
         "description": "HEX, RGB, HSL umrechnen und Farbpaletten erkunden."
+      },
+      "jsonSchemaGenerator": {
+        "title": "JSON-Schema-Generator",
+        "description": "Leiten Sie ein JSON-Schema und typisierte Modelle aus Beispiel-JSON ab."
       }
     },
     "tabs": {
@@ -1941,5 +1946,30 @@
     "modifiedPlaceholder": "Geänderten Text einfügen…",
     "comparisonLabel": "Nebeneinander-Vergleich",
     "emptyState": "Text in beiden Feldern eingeben, um zu vergleichen."
+  },
+  "JsonSchemaGenerator": {
+    "title": "JSON-Schema-Generator",
+    "subtitle": "Fügen Sie gültiges JSON ein, um ein JSON-Schema oder typisierte Modelle zu erzeugen. Alles läuft im Browser.",
+    "languageLabel": "Ausgabesprache",
+    "inputLabel": "JSON-Eingabe",
+    "inputPlaceholder": "JSON hier einfügen…",
+    "outputLabel": "Generierte Ausgabe",
+    "outputPlaceholder": "Schema oder generierte Typen erscheinen hier…",
+    "parseError": "Ungültiges JSON",
+    "clear": "Leeren",
+    "copy": "Kopieren",
+    "copied": "In die Zwischenablage kopiert",
+    "copyFailed": "Kopieren fehlgeschlagen",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "JSON-Schema (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    }
   }
 }

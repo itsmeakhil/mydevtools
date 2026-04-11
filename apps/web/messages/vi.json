@@ -20,7 +20,8 @@
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
-    "colorPicker": "Color Picker"
+    "colorPicker": "Color Picker",
+    "jsonSchemaGenerator": "Trình tạo lược đồ JSON"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -278,6 +279,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "jsonSchemaGenerator": {
+        "title": "Trình tạo lược đồ JSON",
+        "description": "Suy ra lược đồ JSON và mô hình có kiểu từ mẫu JSON."
       }
     },
     "tabs": {
@@ -1941,5 +1946,30 @@
     "modifiedPlaceholder": "Dán văn bản đã sửa đổi…",
     "comparisonLabel": "So sánh cạnh nhau",
     "emptyState": "Nhập văn bản vào cả hai bảng để so sánh."
+  },
+  "JsonSchemaGenerator": {
+    "title": "Trình tạo lược đồ JSON",
+    "subtitle": "Dán JSON hợp lệ để tạo lược đồ JSON hoặc mô hình có kiểu. Mọi thứ chạy trong trình duyệt.",
+    "languageLabel": "Ngôn ngữ đầu ra",
+    "inputLabel": "Đầu vào JSON",
+    "inputPlaceholder": "Dán JSON vào đây…",
+    "outputLabel": "Đầu ra đã tạo",
+    "outputPlaceholder": "Lược đồ hoặc kiểu đã tạo sẽ hiển thị ở đây…",
+    "parseError": "JSON không hợp lệ",
+    "clear": "Xóa",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép vào bảng tạm",
+    "copyFailed": "Không thể sao chép",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "Lược đồ JSON (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    }
   }
 }

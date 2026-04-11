@@ -43,6 +43,11 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
   '/app/bookmarks': { title: 'Bookmarks', icon: Bookmark },
   '/app/base64': { title: 'Base64', icon: Binary, namespace: 'Base64' },
   '/app/json-formatter': { title: 'JSON Formatter', icon: Braces, namespace: 'JsonFormatter' },
+  '/app/json-schema-generator': {
+    title: 'JSON Schema Generator',
+    icon: Braces,
+    namespace: 'JsonSchemaGenerator',
+  },
   '/app/api-client': { title: 'API Client', icon: Globe },
   '/app/nosql-explorer': { title: 'NoSQL Explorer', icon: Database },
   '/app/email-validator': { title: 'Email Validator', icon: Globe },

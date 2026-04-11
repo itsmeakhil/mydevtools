@@ -1,0 +1,990 @@
+{
+  "fr": {
+    "Navigation": {
+      "jsonSchemaGenerator": "Générateur de schéma JSON"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "Générateur de schéma JSON",
+          "description": "Déduisez un schéma JSON et des modèles typés à partir d'un exemple JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "Générateur de schéma JSON",
+      "subtitle": "Collez du JSON valide pour générer un schéma JSON ou des modèles typés. Tout s'exécute dans votre navigateur.",
+      "languageLabel": "Langue de sortie",
+      "inputLabel": "Entrée JSON",
+      "inputPlaceholder": "Collez le JSON ici…",
+      "outputLabel": "Résultat généré",
+      "outputPlaceholder": "Le schéma ou les types générés s'afficheront ici…",
+      "parseError": "JSON invalide",
+      "clear": "Effacer",
+      "copy": "Copier",
+      "copied": "Copié dans le presse-papiers",
+      "copyFailed": "Impossible de copier",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "Schéma JSON (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "es": {
+    "Navigation": {
+      "jsonSchemaGenerator": "Generador de esquema JSON"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "Generador de esquema JSON",
+          "description": "Obtén un esquema JSON y modelos tipados a partir de una muestra JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "Generador de esquema JSON",
+      "subtitle": "Pega JSON válido para generar un esquema JSON o modelos tipados. Todo se ejecuta en tu navegador.",
+      "languageLabel": "Idioma de salida",
+      "inputLabel": "Entrada JSON",
+      "inputPlaceholder": "Pega el JSON aquí…",
+      "outputLabel": "Salida generada",
+      "outputPlaceholder": "El esquema o los tipos generados aparecerán aquí…",
+      "parseError": "JSON no válido",
+      "clear": "Borrar",
+      "copy": "Copiar",
+      "copied": "Copiado al portapapeles",
+      "copyFailed": "No se pudo copiar",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "Esquema JSON (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "de": {
+    "Navigation": {
+      "jsonSchemaGenerator": "JSON-Schema-Generator"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "JSON-Schema-Generator",
+          "description": "Leiten Sie ein JSON-Schema und typisierte Modelle aus Beispiel-JSON ab."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "JSON-Schema-Generator",
+      "subtitle": "Fügen Sie gültiges JSON ein, um ein JSON-Schema oder typisierte Modelle zu erzeugen. Alles läuft im Browser.",
+      "languageLabel": "Ausgabesprache",
+      "inputLabel": "JSON-Eingabe",
+      "inputPlaceholder": "JSON hier einfügen…",
+      "outputLabel": "Generierte Ausgabe",
+      "outputPlaceholder": "Schema oder generierte Typen erscheinen hier…",
+      "parseError": "Ungültiges JSON",
+      "clear": "Leeren",
+      "copy": "Kopieren",
+      "copied": "In die Zwischenablage kopiert",
+      "copyFailed": "Kopieren fehlgeschlagen",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "JSON-Schema (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "it": {
+    "Navigation": {
+      "jsonSchemaGenerator": "Generatore di schema JSON"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "Generatore di schema JSON",
+          "description": "Ricava uno schema JSON e modelli tipizzati da un campione JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "Generatore di schema JSON",
+      "subtitle": "Incolla JSON valido per generare uno schema JSON o modelli tipizzati. Tutto viene eseguito nel browser.",
+      "languageLabel": "Linguaggio di output",
+      "inputLabel": "Input JSON",
+      "inputPlaceholder": "Incolla il JSON qui…",
+      "outputLabel": "Output generato",
+      "outputPlaceholder": "Lo schema o i tipi generati appariranno qui…",
+      "parseError": "JSON non valido",
+      "clear": "Cancella",
+      "copy": "Copia",
+      "copied": "Copiato negli appunti",
+      "copyFailed": "Impossibile copiare",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "Schema JSON (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "pt": {
+    "Navigation": {
+      "jsonSchemaGenerator": "Gerador de esquema JSON"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "Gerador de esquema JSON",
+          "description": "Infira um esquema JSON e modelos tipados a partir de uma amostra JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "Gerador de esquema JSON",
+      "subtitle": "Cole JSON válido para gerar um esquema JSON ou modelos tipados. Tudo corre no seu navegador.",
+      "languageLabel": "Idioma de saída",
+      "inputLabel": "Entrada JSON",
+      "inputPlaceholder": "Cole o JSON aqui…",
+      "outputLabel": "Saída gerada",
+      "outputPlaceholder": "O esquema ou os tipos gerados aparecerão aqui…",
+      "parseError": "JSON inválido",
+      "clear": "Limpar",
+      "copy": "Copiar",
+      "copied": "Copiado para a área de transferência",
+      "copyFailed": "Não foi possível copiar",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "Esquema JSON (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "pt-BR": {
+    "Navigation": {
+      "jsonSchemaGenerator": "Gerador de esquema JSON"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "Gerador de esquema JSON",
+          "description": "Infira um esquema JSON e modelos tipados a partir de uma amostra JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "Gerador de esquema JSON",
+      "subtitle": "Cole JSON válido para gerar um esquema JSON ou modelos tipados. Tudo roda no seu navegador.",
+      "languageLabel": "Idioma de saída",
+      "inputLabel": "Entrada JSON",
+      "inputPlaceholder": "Cole o JSON aqui…",
+      "outputLabel": "Saída gerada",
+      "outputPlaceholder": "O esquema ou os tipos gerados aparecerão aqui…",
+      "parseError": "JSON inválido",
+      "clear": "Limpar",
+      "copy": "Copiar",
+      "copied": "Copiado para a área de transferência",
+      "copyFailed": "Não foi possível copiar",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "Esquema JSON (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "nl": {
+    "Navigation": {
+      "jsonSchemaGenerator": "JSON-schema-generator"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "JSON-schema-generator",
+          "description": "Leid een JSON-schema en getypeerde modellen af van voorbeeld-JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "JSON-schema-generator",
+      "subtitle": "Plak geldige JSON om een JSON-schema of getypeerde modellen te genereren. Alles draait in je browser.",
+      "languageLabel": "Uitvoertaal",
+      "inputLabel": "JSON-invoer",
+      "inputPlaceholder": "Plak JSON hier…",
+      "outputLabel": "Gegenereerde uitvoer",
+      "outputPlaceholder": "Het schema of de gegenereerde typen verschijnen hier…",
+      "parseError": "Ongeldige JSON",
+      "clear": "Wissen",
+      "copy": "Kopiëren",
+      "copied": "Gekopieerd naar klembord",
+      "copyFailed": "Kopiëren mislukt",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "JSON-schema (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "sv": {
+    "Navigation": {
+      "jsonSchemaGenerator": "JSON-schemagenerator"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "JSON-schemagenerator",
+          "description": "Härled ett JSON-schema och typade modeller från exempel-JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "JSON-schemagenerator",
+      "subtitle": "Klistra in giltig JSON för att generera JSON-schema eller typade modeller. Allt körs i din webbläsare.",
+      "languageLabel": "Utdataspråk",
+      "inputLabel": "JSON-indata",
+      "inputPlaceholder": "Klistra in JSON här…",
+      "outputLabel": "Genererad utdata",
+      "outputPlaceholder": "Schemat eller de genererade typerna visas här…",
+      "parseError": "Ogiltig JSON",
+      "clear": "Rensa",
+      "copy": "Kopiera",
+      "copied": "Kopierat till urklipp",
+      "copyFailed": "Kunde inte kopiera",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "JSON-schema (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "nb": {
+    "Navigation": {
+      "jsonSchemaGenerator": "JSON-skjemagenerator"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "JSON-skjemagenerator",
+          "description": "Utled et JSON-skjema og typede modeller fra eksempel-JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "JSON-skjemagenerator",
+      "subtitle": "Lim inn gyldig JSON for å generere JSON-skjema eller typede modeller. Alt kjører i nettleseren.",
+      "languageLabel": "Utgangsspråk",
+      "inputLabel": "JSON-inndata",
+      "inputPlaceholder": "Lim inn JSON her…",
+      "outputLabel": "Generert utdata",
+      "outputPlaceholder": "Skjemaet eller de genererte typene vises her…",
+      "parseError": "Ugyldig JSON",
+      "clear": "Tøm",
+      "copy": "Kopier",
+      "copied": "Kopiert til utklippstavlen",
+      "copyFailed": "Kunne ikke kopiere",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "JSON-skjema (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "da": {
+    "Navigation": {
+      "jsonSchemaGenerator": "JSON-skemagenerator"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "JSON-skemagenerator",
+          "description": "Udled et JSON-skema og typede modeller fra eksempel-JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "JSON-skemagenerator",
+      "subtitle": "Indsæt gyldig JSON for at generere JSON-skema eller typede modeller. Alt kører i din browser.",
+      "languageLabel": "Outputsprog",
+      "inputLabel": "JSON-input",
+      "inputPlaceholder": "Indsæt JSON her…",
+      "outputLabel": "Genereret output",
+      "outputPlaceholder": "Skemaet eller de genererede typer vises her…",
+      "parseError": "Ugyldig JSON",
+      "clear": "Ryd",
+      "copy": "Kopiér",
+      "copied": "Kopieret til udklipsholder",
+      "copyFailed": "Kunne ikke kopiere",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "JSON-skema (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "af": {
+    "Navigation": {
+      "jsonSchemaGenerator": "JSON-skemagenerator"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "JSON-skemagenerator",
+          "description": "Lei 'n JSON-skema en getiketteerde modelle uit voorbeeld-JSON af."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "JSON-skemagenerator",
+      "subtitle": "Plak geldige JSON om 'n JSON-skema of getiketteerde modelle te genereer. Alles loop in jou blaaier.",
+      "languageLabel": "Uittaal",
+      "inputLabel": "JSON-invoer",
+      "inputPlaceholder": "Plak JSON hier…",
+      "outputLabel": "Gegenereerde uitset",
+      "outputPlaceholder": "Die skema of gegenereerde tipes verskyn hier…",
+      "parseError": "Ongeldige JSON",
+      "clear": "Maak skoon",
+      "copy": "Kopieer",
+      "copied": "Na knipbord gekopieer",
+      "copyFailed": "Kon nie kopieer nie",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "JSON-skema (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "cs": {
+    "Navigation": {
+      "jsonSchemaGenerator": "Generátor JSON schématu"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "Generátor JSON schématu",
+          "description": "Odvození JSON schématu a typovaných modelů z ukázkového JSONu."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "Generátor JSON schématu",
+      "subtitle": "Vložte platný JSON a vygenerujte JSON schéma nebo typované modely. Vše běží v prohlížeči.",
+      "languageLabel": "Jazyk výstupu",
+      "inputLabel": "Vstup JSON",
+      "inputPlaceholder": "Vložte JSON sem…",
+      "outputLabel": "Vygenerovaný výstup",
+      "outputPlaceholder": "Schéma nebo vygenerované typy se zobrazí zde…",
+      "parseError": "Neplatný JSON",
+      "clear": "Vymazat",
+      "copy": "Kopírovat",
+      "copied": "Zkopírováno do schránky",
+      "copyFailed": "Kopírování se nezdařilo",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "JSON schéma (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "pl": {
+    "Navigation": {
+      "jsonSchemaGenerator": "Generator schematu JSON"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "Generator schematu JSON",
+          "description": "Wywnioskuj schemat JSON i modele typowane z przykładowego JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "Generator schematu JSON",
+      "subtitle": "Wklej prawidłowy JSON, aby wygenerować schemat JSON lub modele typowane. Wszystko działa w przeglądarce.",
+      "languageLabel": "Język wyjścia",
+      "inputLabel": "Dane wejściowe JSON",
+      "inputPlaceholder": "Wklej JSON tutaj…",
+      "outputLabel": "Wygenerowany wynik",
+      "outputPlaceholder": "Schemat lub wygenerowane typy pojawią się tutaj…",
+      "parseError": "Nieprawidłowy JSON",
+      "clear": "Wyczyść",
+      "copy": "Kopiuj",
+      "copied": "Skopiowano do schowka",
+      "copyFailed": "Nie udało się skopiować",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "Schemat JSON (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "uk": {
+    "Navigation": {
+      "jsonSchemaGenerator": "Генератор JSON-схеми"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "Генератор JSON-схеми",
+          "description": "Виведіть JSON-схему та типізовані моделі з прикладу JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "Генератор JSON-схеми",
+      "subtitle": "Вставте коректний JSON, щоб згенерувати JSON-схему або типізовані моделі. Усе працює у вашому браузері.",
+      "languageLabel": "Мова виводу",
+      "inputLabel": "Вхід JSON",
+      "inputPlaceholder": "Вставте JSON сюди…",
+      "outputLabel": "Згенерований вивід",
+      "outputPlaceholder": "Схема або згенеровані типи з’являться тут…",
+      "parseError": "Некоректний JSON",
+      "clear": "Очистити",
+      "copy": "Копіювати",
+      "copied": "Скопійовано в буфер обміну",
+      "copyFailed": "Не вдалося скопіювати",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "JSON-схема (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "ru": {
+    "Navigation": {
+      "jsonSchemaGenerator": "Генератор JSON-схемы"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "Генератор JSON-схемы",
+          "description": "Получите JSON-схему и типизированные модели из примера JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "Генератор JSON-схемы",
+      "subtitle": "Вставьте корректный JSON, чтобы сгенерировать JSON-схему или типизированные модели. Всё выполняется в браузере.",
+      "languageLabel": "Язык вывода",
+      "inputLabel": "Ввод JSON",
+      "inputPlaceholder": "Вставьте JSON сюда…",
+      "outputLabel": "Сгенерированный вывод",
+      "outputPlaceholder": "Схема или сгенерированные типы появятся здесь…",
+      "parseError": "Некорректный JSON",
+      "clear": "Очистить",
+      "copy": "Копировать",
+      "copied": "Скопировано в буфер обмена",
+      "copyFailed": "Не удалось скопировать",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "JSON-схема (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "el": {
+    "Navigation": {
+      "jsonSchemaGenerator": "Γεννήτρια JSON Schema"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "Γεννήτρια JSON Schema",
+          "description": "Συμπεράνετε ένα JSON Schema και τυποποιημένα μοντέλα από δείγμα JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "Γεννήτρια JSON Schema",
+      "subtitle": "Επικολλήστε έγκυρο JSON για να δημιουργήσετε JSON Schema ή τυποποιημένα μοντέλα. Όλα εκτελούνται στον browser σας.",
+      "languageLabel": "Γλώσσα εξόδου",
+      "inputLabel": "Είσοδος JSON",
+      "inputPlaceholder": "Επικολλήστε JSON εδώ…",
+      "outputLabel": "Δημιουργημένη έξοδος",
+      "outputPlaceholder": "Το σχήμα ή οι τύποι θα εμφανιστούν εδώ…",
+      "parseError": "Μη έγκυρο JSON",
+      "clear": "Εκκαθάριση",
+      "copy": "Αντιγραφή",
+      "copied": "Αντιγράφηκε στο πρόχειρο",
+      "copyFailed": "Αποτυχία αντιγραφής",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "JSON Schema (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "tr": {
+    "Navigation": {
+      "jsonSchemaGenerator": "JSON Şema Oluşturucu"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "JSON Şema Oluşturucu",
+          "description": "Örnek JSON’dan JSON Şeması ve tipli modeller türetin."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "JSON Şema Oluşturucu",
+      "subtitle": "JSON Şeması veya tipli modeller üretmek için geçerli JSON yapıştırın. Her şey tarayıcınızda çalışır.",
+      "languageLabel": "Çıktı dili",
+      "inputLabel": "JSON girdisi",
+      "inputPlaceholder": "JSON’u buraya yapıştırın…",
+      "outputLabel": "Üretilen çıktı",
+      "outputPlaceholder": "Üretilen şema veya türler burada görünecek…",
+      "parseError": "Geçersiz JSON",
+      "clear": "Temizle",
+      "copy": "Kopyala",
+      "copied": "Panoya kopyalandı",
+      "copyFailed": "Kopyalanamadı",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "JSON Şeması (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "ar": {
+    "Navigation": {
+      "jsonSchemaGenerator": "مولّد مخطط JSON"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "مولّد مخطط JSON",
+          "description": "استنتج مخطط JSON ونماذج مُنمّطة من عيّنة JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "مولّد مخطط JSON",
+      "subtitle": "الصق JSON صالحًا لتوليد مخطط JSON أو نماذج مُنمّطة. كل شيء يعمل في المتصفح.",
+      "languageLabel": "لغة المخرجات",
+      "inputLabel": "إدخال JSON",
+      "inputPlaceholder": "الصق JSON هنا…",
+      "outputLabel": "المخرجات المُولَّدة",
+      "outputPlaceholder": "يظهر المخطط أو الأنواع المُولَّدة هنا…",
+      "parseError": "JSON غير صالح",
+      "clear": "مسح",
+      "copy": "نسخ",
+      "copied": "تم النسخ إلى الحافظة",
+      "copyFailed": "تعذّر النسخ",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "مخطط JSON (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "fa": {
+    "Navigation": {
+      "jsonSchemaGenerator": "تولیدکنندهٔ طرح JSON"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "تولیدکنندهٔ طرح JSON",
+          "description": "از نمونهٔ JSON، طرح JSON و مدل‌های نوع‌دار استنتاج کنید."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "تولیدکنندهٔ طرح JSON",
+      "subtitle": "JSON معتبر بچسبانید تا طرح JSON یا مدل‌های نوع‌دار بسازید. همه‌چیز در مرورگر شما اجرا می‌شود.",
+      "languageLabel": "زبان خروجی",
+      "inputLabel": "ورودی JSON",
+      "inputPlaceholder": "JSON را اینجا بچسبانید…",
+      "outputLabel": "خروجی تولیدشده",
+      "outputPlaceholder": "طرح یا انواع تولیدشده اینجا نمایش داده می‌شود…",
+      "parseError": "JSON نامعتبر",
+      "clear": "پاک کردن",
+      "copy": "رونوشت",
+      "copied": "در بریده‌دان رونوشت شد",
+      "copyFailed": "رونوشت ممکن نشد",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "طرح JSON (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "id": {
+    "Navigation": {
+      "jsonSchemaGenerator": "Generator Skema JSON"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "Generator Skema JSON",
+          "description": "Turunkan skema JSON dan model bertipe dari contoh JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "Generator Skema JSON",
+      "subtitle": "Tempel JSON yang valid untuk menghasilkan skema JSON atau model bertipe. Semua berjalan di peramban Anda.",
+      "languageLabel": "Bahasa keluaran",
+      "inputLabel": "Masukan JSON",
+      "inputPlaceholder": "Tempel JSON di sini…",
+      "outputLabel": "Keluaran yang dihasilkan",
+      "outputPlaceholder": "Skema atau tipe yang dihasilkan akan muncul di sini…",
+      "parseError": "JSON tidak valid",
+      "clear": "Bersihkan",
+      "copy": "Salin",
+      "copied": "Disalin ke papan klip",
+      "copyFailed": "Tidak dapat menyalin",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "Skema JSON (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "ms": {
+    "Navigation": {
+      "jsonSchemaGenerator": "Penjana Skema JSON"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "Penjana Skema JSON",
+          "description": "Inferens skema JSON dan model berjenis daripada sampel JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "Penjana Skema JSON",
+      "subtitle": "Tampal JSON yang sah untuk menjana skema JSON atau model berjenis. Semuanya berjalan dalam pelayar anda.",
+      "languageLabel": "Bahasa output",
+      "inputLabel": "Input JSON",
+      "inputPlaceholder": "Tampal JSON di sini…",
+      "outputLabel": "Output yang dijana",
+      "outputPlaceholder": "Skema atau jenis yang dijana akan dipaparkan di sini…",
+      "parseError": "JSON tidak sah",
+      "clear": "Kosongkan",
+      "copy": "Salin",
+      "copied": "Disalin ke papan keratan",
+      "copyFailed": "Tidak dapat menyalin",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "Skema JSON (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "vi": {
+    "Navigation": {
+      "jsonSchemaGenerator": "Trình tạo lược đồ JSON"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "Trình tạo lược đồ JSON",
+          "description": "Suy ra lược đồ JSON và mô hình có kiểu từ mẫu JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "Trình tạo lược đồ JSON",
+      "subtitle": "Dán JSON hợp lệ để tạo lược đồ JSON hoặc mô hình có kiểu. Mọi thứ chạy trong trình duyệt.",
+      "languageLabel": "Ngôn ngữ đầu ra",
+      "inputLabel": "Đầu vào JSON",
+      "inputPlaceholder": "Dán JSON vào đây…",
+      "outputLabel": "Đầu ra đã tạo",
+      "outputPlaceholder": "Lược đồ hoặc kiểu đã tạo sẽ hiển thị ở đây…",
+      "parseError": "JSON không hợp lệ",
+      "clear": "Xóa",
+      "copy": "Sao chép",
+      "copied": "Đã sao chép vào bảng tạm",
+      "copyFailed": "Không thể sao chép",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "Lược đồ JSON (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "ja": {
+    "Navigation": {
+      "jsonSchemaGenerator": "JSONスキーマジェネレーター"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "JSONスキーマジェネレーター",
+          "description": "サンプルJSONからJSONスキーマと型付きモデルを推論します。"
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "JSONスキーマジェネレーター",
+      "subtitle": "有効なJSONを貼り付けてJSONスキーマや型付きモデルを生成します。すべてブラウザ内で処理されます。",
+      "languageLabel": "出力言語",
+      "inputLabel": "JSON入力",
+      "inputPlaceholder": "JSONをここに貼り付け…",
+      "outputLabel": "生成された出力",
+      "outputPlaceholder": "生成されたスキーマや型がここに表示されます…",
+      "parseError": "無効なJSON",
+      "clear": "クリア",
+      "copy": "コピー",
+      "copied": "クリップボードにコピーしました",
+      "copyFailed": "コピーできませんでした",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "JSONスキーマ（Draft 2020-12）",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "ko": {
+    "Navigation": {
+      "jsonSchemaGenerator": "JSON 스키마 생성기"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "JSON 스키마 생성기",
+          "description": "샘플 JSON에서 JSON 스키마와 타입이 지정된 모델을 추론합니다."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "JSON 스키마 생성기",
+      "subtitle": "유효한 JSON을 붙여넣어 JSON 스키마 또는 타입 모델을 생성합니다. 모든 처리는 브라우저에서 이루어집니다.",
+      "languageLabel": "출력 언어",
+      "inputLabel": "JSON 입력",
+      "inputPlaceholder": "JSON을 여기에 붙여넣기…",
+      "outputLabel": "생성된 출력",
+      "outputPlaceholder": "생성된 스키마나 타입이 여기에 표시됩니다…",
+      "parseError": "잘못된 JSON",
+      "clear": "지우기",
+      "copy": "복사",
+      "copied": "클립보드에 복사됨",
+      "copyFailed": "복사하지 못했습니다",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "JSON 스키마(Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "zh": {
+    "Navigation": {
+      "jsonSchemaGenerator": "JSON 模式生成器"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "JSON 模式生成器",
+          "description": "从示例 JSON 推断 JSON 模式与类型化模型。"
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "JSON 模式生成器",
+      "subtitle": "粘贴有效的 JSON 以生成 JSON 模式或类型化模型。全部在浏览器中完成。",
+      "languageLabel": "输出语言",
+      "inputLabel": "JSON 输入",
+      "inputPlaceholder": "在此粘贴 JSON…",
+      "outputLabel": "生成结果",
+      "outputPlaceholder": "生成的模式或类型将显示在此…",
+      "parseError": "无效的 JSON",
+      "clear": "清空",
+      "copy": "复制",
+      "copied": "已复制到剪贴板",
+      "copyFailed": "无法复制",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "JSON 模式（Draft 2020-12）",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  },
+  "ca": {
+    "Navigation": {
+      "jsonSchemaGenerator": "Generador d'esquema JSON"
+    },
+    "Dashboard": {
+      "tools": {
+        "jsonSchemaGenerator": {
+          "title": "Generador d'esquema JSON",
+          "description": "Extreu un esquema JSON i models tipats a partir d'una mostra JSON."
+        }
+      }
+    },
+    "JsonSchemaGenerator": {
+      "title": "Generador d'esquema JSON",
+      "subtitle": "Enganxa JSON vàlid per generar un esquema JSON o models tipats. Tot s'executa al navegador.",
+      "languageLabel": "Idioma de sortida",
+      "inputLabel": "Entrada JSON",
+      "inputPlaceholder": "Enganxa el JSON aquí…",
+      "outputLabel": "Sortida generada",
+      "outputPlaceholder": "L'esquema o els tipus generats apareixeran aquí…",
+      "parseError": "JSON no vàlid",
+      "clear": "Neteja",
+      "copy": "Copia",
+      "copied": "Copiat al porta-retalls",
+      "copyFailed": "No s'ha pogut copiar",
+      "languages": {
+        "python": "Python (Pydantic v2)",
+        "typescript": "TypeScript",
+        "jsonSchema": "Esquema JSON (Draft 2020-12)",
+        "go": "Go (encoding/json)",
+        "rust": "Rust (serde_json)",
+        "java": "Java (Jackson)",
+        "csharp": "C# (System.Text.Json)",
+        "dart": "Dart",
+        "swift": "Swift (Codable)"
+      }
+    }
+  }
+}
