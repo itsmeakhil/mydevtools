@@ -4,6 +4,7 @@
     "settings": "Indstillinger",
     "apiClient": "API-klient",
     "passwordManager": "Adgangskodeadministration",
+    "environmentManager": "Miljøadministration",
     "bookmarks": "Bogmærker",
     "jsonFormatter": "JSON-formatering",
     "emailValidator": "E-mailvalidering",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Kryptering du bør kende",
         "description": "Klientside‑krypto for vault og følsomme forbindelsesdata.",
-        "p1": "For <strong>password manageren</strong> og gemte forbindelser i <strong>NoSQL‑udforskeren</strong> bruger webappen browserens <strong>Web Crypto API</strong>:",
+        "p1": "Til <strong>adgangskodeadministration</strong>, <strong>miljøadministration</strong> og gemte forbindelser i <strong>NoSQL Explorer</strong> bruger webappen browserens <strong>Web Crypto API</strong>:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> med <strong>SHA‑256</strong>, <strong>100.000</strong> iterationer og en tilfældig salt afleder en 256‑bit nøgle fra din masteradgangskode.",
           "aes": "<strong>AES‑256‑GCM</strong> krypterer data; en tilfældig <strong>12‑byte IV</strong> bruges for hver kryptering.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Adgangskodeadministrator",
         "description": "Gem og administrer adgangskoder sikkert."
+      },
+      "environmentManager": {
+        "title": "Miljøadministration",
+        "description": "Gem .env-lignende variabler pr. projekt og miljø med tags."
       },
       "bookmarks": {
         "title": "Bogmærker",
@@ -708,6 +713,82 @@
       "separator": "Separator",
       "capitalization": "Brug af store bogstaver",
       "includeNumber": "Inkluder nummer"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Krypterede miljøvariabler pr. projekt og miljø.",
+    "page": {
+      "loading": "Indlæser…",
+      "title": "Miljøadministration",
+      "loadFailed": "Kunne ikke indlæse miljøsæt"
+    },
+    "list": {
+      "title": "Miljøer",
+      "loading": "Indlæser dine sæt…",
+      "emptyTitle": "Ingen miljøsæt endnu",
+      "emptyHint": "Opret et sæt for hvert projekt og miljø (f.eks. produktions-API-nøgler). Alt krypteres i din browser før upload.",
+      "searchPlaceholder": "Søg projekt, miljø, tags, noter…",
+      "tagFilterPlaceholder": "Filtrér efter tag",
+      "variableCount": "{count, plural, one {# variabel} other {# variabler}}",
+      "updatedAgo": "Opdateret {time}",
+      "copyDotEnv": "Kopiér .env",
+      "edit": "Redigér",
+      "delete": "Slet",
+      "cancel": "Annuller",
+      "confirmDelete": "Slet",
+      "deleteDialogTitle": "Slet miljøsæt?",
+      "deleteDialogDescription": "Dette fjerner den krypterede blob fra din konto. Kan ikke fortrydes.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
+    },
+    "toasts": {
+      "copiedDotEnv": ".env kopieret til udklipsholder",
+      "deleted": "Miljøsæt slettet",
+      "deleteFailed": "Kunne ikke slette"
+    },
+    "form": {
+      "addTitle": "Nyt miljøsæt",
+      "editTitle": "Redigér miljøsæt",
+      "triggerAdd": "Tilføj miljøsæt",
+      "addSrOnly": "Tilføj miljøsæt",
+      "project": "Projekt",
+      "environment": "Miljø",
+      "placeholderProject": "f.eks. billing-api",
+      "placeholderEnvironment": "f.eks. production",
+      "pasteEnvLabel": "Indsæt .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Flet indsatte linjer",
+      "variables": "Variabler",
+      "addRow": "Tilføj række",
+      "keyPlaceholder": "NØGLE",
+      "valuePlaceholder": "værdi",
+      "notesOptional": "Noter (valgfrit)",
+      "placeholderNotes": "Rotationspolitik, ejer, links…",
+      "tags": "Tags",
+      "placeholderTags": "Tilføj tags (Enter eller komma)",
+      "cancel": "Annuller",
+      "save": "Gem",
+      "saving": "Gemmer…",
+      "update": "Opdatér",
+      "updating": "Opdaterer…",
+      "toastSaved": "Miljøsæt gemt",
+      "toastSaveFailed": "Kunne ikke gemme",
+      "toastUpdated": "Miljøsæt opdateret",
+      "toastUpdateFailed": "Kunne ikke opdatere",
+      "toastPasteEmpty": "Ingen NØGLE=værdi-linjer fundet",
+      "toastPasteApplied": "{count} variabler flettet fra indsætning",
+      "toastProjectEnvRequired": "Projekt og miljø er påkrævet",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}"
     }
   },
   "Bookmarks": {

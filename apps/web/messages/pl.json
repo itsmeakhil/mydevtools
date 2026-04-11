@@ -4,6 +4,7 @@
     "settings": "Settings",
     "apiClient": "API Client",
     "passwordManager": "Password Manager",
+    "environmentManager": "Menedżer środowisk",
     "bookmarks": "Bookmarks",
     "jsonFormatter": "Formatowanie JSON",
     "emailValidator": "Email Validator",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Szyfrowanie, które warto znać",
         "description": "Kryptografia po stronie klienta dla sejfu i wrażliwych danych połączeń.",
-        "p1": "Dla <strong>menedżera haseł</strong> i zapisanych połączeń w <strong>NoSQL Explorer</strong> aplikacja webowa używa <strong>Web Crypto API</strong> przeglądarki:",
+        "p1": "Dla <strong>menedżera haseł</strong>, <strong>menedżera środowisk</strong> i zapisanych połączeń w <strong>NoSQL Explorer</strong> aplikacja webowa używa <strong>Web Crypto API</strong> przeglądarki:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> z <strong>SHA-256</strong>, <strong>100 000</strong> iteracji i losową solą wyprowadza 256-bitowy klucz z hasła głównego.",
           "aes": "<strong>AES-256-GCM</strong> szyfruje dane; dla każdego szyfrowania używany jest losowy <strong>12-bajtowy IV</strong>.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Password Manager",
         "description": "Securely store and manage your passwords."
+      },
+      "environmentManager": {
+        "title": "Menedżer środowisk",
+        "description": "Przechowuj zmienne w stylu .env według projektu i środowiska z tagami."
       },
       "bookmarks": {
         "title": "Bookmarks",
@@ -708,6 +713,82 @@
       "separator": "Separator",
       "capitalization": "Capitalization",
       "includeNumber": "Include number"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Zaszyfrowane zmienne środowiskowe według projektu i środowiska.",
+    "page": {
+      "loading": "Ładowanie…",
+      "title": "Menedżer środowisk",
+      "loadFailed": "Nie udało się wczytać zestawów środowisk"
+    },
+    "list": {
+      "title": "Środowiska",
+      "loading": "Wczytywanie zestawów…",
+      "emptyTitle": "Brak zestawów środowisk",
+      "emptyHint": "Utwórz zestaw dla każdego projektu i środowiska (np. klucze API produkcji). Wszystko jest szyfrowane w przeglądarce przed wysłaniem.",
+      "searchPlaceholder": "Szukaj projektu, środowiska, tagów, notatek…",
+      "tagFilterPlaceholder": "Filtruj według tagu",
+      "variableCount": "{count, plural, one {# zmienna} few {# zmienne} other {# zmiennych}}",
+      "updatedAgo": "Zaktualizowano {time}",
+      "copyDotEnv": "Kopiuj .env",
+      "edit": "Edytuj",
+      "delete": "Usuń",
+      "cancel": "Anuluj",
+      "confirmDelete": "Usuń",
+      "deleteDialogTitle": "Usunąć zestaw środowisk?",
+      "deleteDialogDescription": "To usuwa zaszyfrowane dane z konta. Operacji nie cofniesz.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
+    },
+    "toasts": {
+      "copiedDotEnv": ".env skopiowano do schowka",
+      "deleted": "Zestaw środowisk usunięty",
+      "deleteFailed": "Nie udało się usunąć"
+    },
+    "form": {
+      "addTitle": "Nowy zestaw środowisk",
+      "editTitle": "Edytuj zestaw środowisk",
+      "triggerAdd": "Dodaj zestaw środowisk",
+      "addSrOnly": "Dodaj zestaw środowisk",
+      "project": "Projekt",
+      "environment": "Środowisko",
+      "placeholderProject": "np. billing-api",
+      "placeholderEnvironment": "np. production",
+      "pasteEnvLabel": "Wklej .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Scal wklejone linie",
+      "variables": "Zmienne",
+      "addRow": "Dodaj wiersz",
+      "keyPlaceholder": "KLUCZ",
+      "valuePlaceholder": "wartość",
+      "notesOptional": "Notatki (opcjonalnie)",
+      "placeholderNotes": "Polityka rotacji, właściciel, linki…",
+      "tags": "Tagi",
+      "placeholderTags": "Dodaj tagi (Enter lub przecinek)",
+      "cancel": "Anuluj",
+      "save": "Zapisz",
+      "saving": "Zapisywanie…",
+      "update": "Aktualizuj",
+      "updating": "Aktualizowanie…",
+      "toastSaved": "Zestaw środowisk zapisany",
+      "toastSaveFailed": "Zapis nie powiódł się",
+      "toastUpdated": "Zestaw środowisk zaktualizowany",
+      "toastUpdateFailed": "Aktualizacja nie powiodła się",
+      "toastPasteEmpty": "Nie znaleziono linii KLUCZ=wartość",
+      "toastPasteApplied": "Scalono {count} zmiennych ze wklejki",
+      "toastProjectEnvRequired": "Projekt i środowisko są wymagane",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}"
     }
   },
   "Bookmarks": {

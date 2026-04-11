@@ -4,6 +4,7 @@
     "settings": "Instellings",
     "apiClient": "API-kliënt",
     "passwordManager": "Wagwoordbestuurder",
+    "environmentManager": "Omgewingbestuurder",
     "bookmarks": "Boekmerke",
     "jsonFormatter": "JSON-formateerder",
     "emailValidator": "E-posvalidasie",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Enkripsie om te ken",
         "description": "Kliënt-kant kripto vir die kluis en sensitiewe verbindingsdata.",
-        "p1": "Vir die <strong>wagwoordbestuurder</strong> en gestoorde verbindings in die <strong>NoSQL-verkenner</strong> gebruik die web app die blaaier se <strong>Web Crypto API</strong>:",
+        "p1": "Vir die <strong>wagwoordbestuurder</strong>, <strong>omgewingbestuurder</strong> en gestoorde koppelings in <strong>NoSQL Explorer</strong> gebruik die webtoepassing die blaaier se <strong>Web Crypto API</strong>:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> met <strong>SHA-256</strong>, <strong>100 000</strong> iterasies en ’n ewekansige sout lei ’n 256-bis sleutel uit jou meesterwagwoord af.",
           "aes": "<strong>AES-256-GCM</strong> enkripteer data; ’n ewekansige <strong>12-byte IV</strong> word per enkripsie gebruik.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Wagwoordbestuurder",
         "description": "Berg en bestuur wagwoorde veilig."
+      },
+      "environmentManager": {
+        "title": "Omgewingbestuurder",
+        "description": "Stoor .env-tipe veranderlikes per projek en omgewing met etikette."
       },
       "bookmarks": {
         "title": "Boekmerke",
@@ -708,6 +713,82 @@
       "separator": "Skeidingsteken",
       "capitalization": "Hooflettergebruik",
       "includeNumber": "Sluit syfer in"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Geënkripteerde omgewingsveranderlikes per projek en omgewing.",
+    "page": {
+      "loading": "Laai…",
+      "title": "Omgewingbestuurder",
+      "loadFailed": "Kon nie omgewingstelle laai nie"
+    },
+    "list": {
+      "title": "Omgewings",
+      "loading": "Laai jou stelle…",
+      "emptyTitle": "Nog geen omgewingstelle nie",
+      "emptyHint": "Skep 'n stel vir elke projek en omgewing (bv. produksie API-sleutels). Alles word in jou blaaier geënkripteer voor oplaai.",
+      "searchPlaceholder": "Soek projek, omgewing, etikette, notas…",
+      "tagFilterPlaceholder": "Filter volgens etiket",
+      "variableCount": "{count, plural, one {# veranderlike} other {# veranderlikes}}",
+      "updatedAgo": "Bygewerk {time}",
+      "copyDotEnv": "Kopieer .env",
+      "edit": "Wysig",
+      "delete": "Vee uit",
+      "cancel": "Kanselleer",
+      "confirmDelete": "Vee uit",
+      "deleteDialogTitle": "Omgewingstel uitvee?",
+      "deleteDialogDescription": "Dit verwyder die geënkripteerde data uit jou rekening. Dit kan nie ongedaan gemaak word nie.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
+    },
+    "toasts": {
+      "copiedDotEnv": ".env na knipbord gekopieer",
+      "deleted": "Omgewingstel uitgevee",
+      "deleteFailed": "Kon nie uitvee nie"
+    },
+    "form": {
+      "addTitle": "Nuwe omgewingstel",
+      "editTitle": "Wysig omgewingstel",
+      "triggerAdd": "Voeg omgewingstel by",
+      "addSrOnly": "Voeg omgewingstel by",
+      "project": "Projek",
+      "environment": "Omgewing",
+      "placeholderProject": "bv. billing-api",
+      "placeholderEnvironment": "bv. produksie",
+      "pasteEnvLabel": "Plak .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Voeg geplakte lyne saam",
+      "variables": "Veranderlikes",
+      "addRow": "Voeg ry by",
+      "keyPlaceholder": "SLEUTEL",
+      "valuePlaceholder": "waarde",
+      "notesOptional": "Notas (opsioneel)",
+      "placeholderNotes": "Rotasie, eienaar, skakels…",
+      "tags": "Etikette",
+      "placeholderTags": "Voeg etikette by (Enter of komma)",
+      "cancel": "Kanselleer",
+      "save": "Stoor",
+      "saving": "Stoor…",
+      "update": "Werk by",
+      "updating": "Werk tans by…",
+      "toastSaved": "Omgewingstel gestoor",
+      "toastSaveFailed": "Kon nie stoor nie",
+      "toastUpdated": "Omgewingstel bygewerk",
+      "toastUpdateFailed": "Kon nie bywerk nie",
+      "toastPasteEmpty": "Geen KEY=waarde-lyne gevind nie",
+      "toastPasteApplied": "{count} veranderlikes van plakking saamgevoeg",
+      "toastProjectEnvRequired": "Projek en omgewing is verpligtend",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}"
     }
   },
   "Bookmarks": {

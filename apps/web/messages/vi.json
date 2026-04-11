@@ -4,6 +4,7 @@
     "settings": "Cài đặt",
     "apiClient": "API Client",
     "passwordManager": "Quản lý mật khẩu",
+    "environmentManager": "Trình quản lý môi trường",
     "bookmarks": "Dấu trang",
     "jsonFormatter": "Trình định dạng JSON",
     "emailValidator": "Xác thực email",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Mã hóa cần biết",
         "description": "Crypto phía client cho vault và dữ liệu kết nối nhạy cảm.",
-        "p1": "Với <strong>trình quản lý mật khẩu</strong> và các kết nối đã lưu của <strong>NoSQL Explorer</strong>, ứng dụng web dùng <strong>Web Crypto API</strong> của trình duyệt:",
+        "p1": "Đối với <strong>trình quản lý mật khẩu</strong>, <strong>trình quản lý môi trường</strong> và kết nối đã lưu trong <strong>NoSQL Explorer</strong>, ứng dụng web dùng <strong>Web Crypto API</strong> của trình duyệt:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> với <strong>SHA-256</strong>, <strong>100.000</strong> vòng lặp và salt ngẫu nhiên để suy ra khóa 256-bit từ mật khẩu chính.",
           "aes": "<strong>AES-256-GCM</strong> mã hóa dữ liệu; mỗi lần mã hóa dùng <strong>IV 12 byte</strong> ngẫu nhiên.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Quản lý mật khẩu",
         "description": "Lưu trữ và quản lý mật khẩu an toàn."
+      },
+      "environmentManager": {
+        "title": "Trình quản lý môi trường",
+        "description": "Lưu biến kiểu .env theo dự án và môi trường kèm thẻ."
       },
       "bookmarks": {
         "title": "Dấu trang",
@@ -708,6 +713,82 @@
       "separator": "Dấu phân cách",
       "capitalization": "Viết hoa",
       "includeNumber": "Bao gồm số"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Biến môi trường được mã hóa theo dự án và môi trường.",
+    "page": {
+      "loading": "Đang tải…",
+      "title": "Trình quản lý môi trường",
+      "loadFailed": "Không tải được bộ môi trường"
+    },
+    "list": {
+      "title": "Môi trường",
+      "loading": "Đang tải bộ của bạn…",
+      "emptyTitle": "Chưa có bộ môi trường",
+      "emptyHint": "Tạo một bộ cho mỗi dự án và môi trường (ví dụ khóa API production). Mọi thứ được mã hóa trong trình duyệt trước khi tải lên.",
+      "searchPlaceholder": "Tìm dự án, môi trường, thẻ, ghi chú…",
+      "tagFilterPlaceholder": "Lọc theo thẻ",
+      "variableCount": "{count, plural, other {# biến}}",
+      "updatedAgo": "Cập nhật {time}",
+      "copyDotEnv": "Sao chép .env",
+      "edit": "Sửa",
+      "delete": "Xóa",
+      "cancel": "Hủy",
+      "confirmDelete": "Xóa",
+      "deleteDialogTitle": "Xóa bộ môi trường?",
+      "deleteDialogDescription": "Dữ liệu mã hóa sẽ bị xóa khỏi tài khoản. Không hoàn tác được.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
+    },
+    "toasts": {
+      "copiedDotEnv": "Đã sao chép .env vào clipboard",
+      "deleted": "Đã xóa bộ môi trường",
+      "deleteFailed": "Xóa thất bại"
+    },
+    "form": {
+      "addTitle": "Bộ môi trường mới",
+      "editTitle": "Sửa bộ môi trường",
+      "triggerAdd": "Thêm bộ môi trường",
+      "addSrOnly": "Thêm bộ môi trường",
+      "project": "Dự án",
+      "environment": "Môi trường",
+      "placeholderProject": "vd. billing-api",
+      "placeholderEnvironment": "vd. production",
+      "pasteEnvLabel": "Dán .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Gộp các dòng đã dán",
+      "variables": "Biến",
+      "addRow": "Thêm dòng",
+      "keyPlaceholder": "KHÓA",
+      "valuePlaceholder": "giá trị",
+      "notesOptional": "Ghi chú (tuỳ chọn)",
+      "placeholderNotes": "Chính sách luân chuyển, chủ sở hữu, liên kết…",
+      "tags": "Thẻ",
+      "placeholderTags": "Thêm thẻ (Enter hoặc dấu phẩy)",
+      "cancel": "Hủy",
+      "save": "Lưu",
+      "saving": "Đang lưu…",
+      "update": "Cập nhật",
+      "updating": "Đang cập nhật…",
+      "toastSaved": "Đã lưu bộ môi trường",
+      "toastSaveFailed": "Lưu thất bại",
+      "toastUpdated": "Đã cập nhật bộ môi trường",
+      "toastUpdateFailed": "Cập nhật thất bại",
+      "toastPasteEmpty": "Không tìm thấy dòng KHÓA=giá trị",
+      "toastPasteApplied": "Đã gộp {count} biến từ nội dung dán",
+      "toastProjectEnvRequired": "Dự án và môi trường là bắt buộc",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}"
     }
   },
   "Bookmarks": {

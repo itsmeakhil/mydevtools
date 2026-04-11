@@ -15,12 +15,14 @@ import { onAuthStateChanged, signOut as firebaseSignOut } from 'firebase/auth'
 import { auth } from '../../database/firebase'
 import { useRouter } from 'next/navigation'
 import { usePasswordStore } from '@/store/password-store'
+import { useEnvironmentManagerStore } from '@/store/environment-manager-store'
 import { useMasterKeyStore } from '@/store/master-key-store'
 import { clearMasterKey } from '@/lib/key-storage'
 import { logoutBackendSession } from '@/lib/backend-auth'
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { clearPasswords } = usePasswordStore()
+  const { clearSets } = useEnvironmentManagerStore()
   const { clearKey: clearMasterKeyStore } = useMasterKeyStore()
   const [user, setUser] = useState({
     name: '',
@@ -35,6 +37,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const handleSignOut = async () => {
     try {
       clearPasswords()     // clear decrypted passwords from memory
+      clearSets()          // clear decrypted environment sets from memory
       clearMasterKeyStore() // clear global master key in-memory state
 
       // Clear password-manager vault key from IndexedDB

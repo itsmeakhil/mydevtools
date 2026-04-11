@@ -4,6 +4,7 @@
     "settings": "Innstillinger",
     "apiClient": "API-klient",
     "passwordManager": "Passordbehandler",
+    "environmentManager": "Miljøbehandler",
     "bookmarks": "Bokmerker",
     "jsonFormatter": "JSON-formaterer",
     "emailValidator": "E-postvalidering",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Kryptering du bør kjenne til",
         "description": "Klientside‑krypto for vault og sensitive tilkoblingsdata.",
-        "p1": "For <strong>passordbehandleren</strong> og lagrede tilkoblinger i <strong>NoSQL‑utforskeren</strong> bruker webappen nettleserens <strong>Web Crypto API</strong>:",
+        "p1": "For <strong>passordbehandleren</strong>, <strong>miljøbehandleren</strong> og lagrede tilkoblinger i <strong>NoSQL Explorer</strong> bruker webappen nettleserens <strong>Web Crypto API</strong>:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> med <strong>SHA-256</strong>, <strong>100 000</strong> iterasjoner og tilfeldig salt avleder en 256-bit nøkkel fra hovedpassordet ditt.",
           "aes": "<strong>AES-256-GCM</strong> krypterer data; en tilfeldig <strong>12-byte IV</strong> brukes for hver kryptering.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Passordbehandler",
         "description": "Lagre og administrer passordene dine sikkert."
+      },
+      "environmentManager": {
+        "title": "Miljøbehandler",
+        "description": "Lagre .env-lignende variabler per prosjekt og miljø med tagger."
       },
       "bookmarks": {
         "title": "Bokmerker",
@@ -708,6 +713,82 @@
       "separator": "Skilletegn",
       "capitalization": "Store forbokstaver",
       "includeNumber": "Inkluder tall"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Krypterte miljøvariabler per prosjekt og miljø.",
+    "page": {
+      "loading": "Laster…",
+      "title": "Miljøbehandler",
+      "loadFailed": "Kunne ikke laste miljøsett"
+    },
+    "list": {
+      "title": "Miljøer",
+      "loading": "Laster settene dine…",
+      "emptyTitle": "Ingen miljøsett ennå",
+      "emptyHint": "Opprett et sett for hvert prosjekt og miljø (f.eks. produksjons-API-nøkler). Alt krypteres i nettleseren før opplasting.",
+      "searchPlaceholder": "Søk prosjekt, miljø, tagger, notater…",
+      "tagFilterPlaceholder": "Filtrer på tagg",
+      "variableCount": "{count, plural, one {# variabel} other {# variabler}}",
+      "updatedAgo": "Oppdatert {time}",
+      "copyDotEnv": "Kopier .env",
+      "edit": "Rediger",
+      "delete": "Slett",
+      "cancel": "Avbryt",
+      "confirmDelete": "Slett",
+      "deleteDialogTitle": "Slette miljøsett?",
+      "deleteDialogDescription": "Dette fjerner den krypterte bloben fra kontoen din. Kan ikke angres.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
+    },
+    "toasts": {
+      "copiedDotEnv": ".env kopiert til utklippstavle",
+      "deleted": "Miljøsett slettet",
+      "deleteFailed": "Kunne ikke slette"
+    },
+    "form": {
+      "addTitle": "Nytt miljøsett",
+      "editTitle": "Rediger miljøsett",
+      "triggerAdd": "Legg til miljøsett",
+      "addSrOnly": "Legg til miljøsett",
+      "project": "Prosjekt",
+      "environment": "Miljø",
+      "placeholderProject": "f.eks. billing-api",
+      "placeholderEnvironment": "f.eks. production",
+      "pasteEnvLabel": "Lim inn .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Slå sammen limte linjer",
+      "variables": "Variabler",
+      "addRow": "Legg til rad",
+      "keyPlaceholder": "NØKKEL",
+      "valuePlaceholder": "verdi",
+      "notesOptional": "Notater (valgfritt)",
+      "placeholderNotes": "Rotasjonspolicy, eier, lenker…",
+      "tags": "Tagger",
+      "placeholderTags": "Legg til tagger (Enter eller komma)",
+      "cancel": "Avbryt",
+      "save": "Lagre",
+      "saving": "Lagrer…",
+      "update": "Oppdater",
+      "updating": "Oppdaterer…",
+      "toastSaved": "Miljøsett lagret",
+      "toastSaveFailed": "Kunne ikke lagre",
+      "toastUpdated": "Miljøsett oppdatert",
+      "toastUpdateFailed": "Kunne ikke oppdatere",
+      "toastPasteEmpty": "Ingen NØKKEL=verdi-linjer funnet",
+      "toastPasteApplied": "{count} variabler slått sammen fra liming",
+      "toastProjectEnvRequired": "Prosjekt og miljø er påkrevd",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}"
     }
   },
   "Bookmarks": {

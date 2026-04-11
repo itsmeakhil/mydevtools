@@ -22,6 +22,7 @@ import {
   Table2,
   GitCompare,
   Binary,
+  FileCode2,
 } from "lucide-react";
 import { ModeToggle } from "@/components/modeToggle";
 import { getToolMessageKey } from "@/lib/tool-i18n";
@@ -40,6 +41,7 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
   '/app/to-do': { title: 'Tasks', icon: CheckSquare },
   '/app/notes': { title: 'Notes', icon: FileText },
   '/app/password-manager': { title: 'Password Manager', icon: Lock },
+  '/app/environment-manager': { title: 'Environment Manager', icon: FileCode2, namespace: 'EnvironmentManager' },
   '/app/bookmarks': { title: 'Bookmarks', icon: Bookmark },
   '/app/base64': { title: 'Base64', icon: Binary, namespace: 'Base64' },
   '/app/json-formatter': { title: 'JSON Formatter', icon: Braces, namespace: 'JsonFormatter' },

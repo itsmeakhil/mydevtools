@@ -17,6 +17,7 @@ import useAuth from "@/utils/useAuth"
 import { signOut as firebaseSignOut } from "firebase/auth"
 import { auth } from "@/database/firebase"
 import { usePasswordStore } from "@/store/password-store"
+import { useEnvironmentManagerStore } from "@/store/environment-manager-store"
 import { useMasterKeyStore } from "@/store/master-key-store"
 import { clearMasterKey } from "@/lib/key-storage"
 import { logoutBackendSession } from "@/lib/backend-auth"
@@ -36,6 +37,7 @@ export function MobileNav() {
     const { toggleSidebar, openMobile } = useSidebar()
     const { user } = useAuth()
     const { clearPasswords } = usePasswordStore()
+    const { clearSets } = useEnvironmentManagerStore()
     const { clearKey: clearMasterKeyStore } = useMasterKeyStore()
     const { theme, toggleTheme, ref } = useThemeAnimation()
     const [mounted, setMounted] = useState(false)
@@ -56,6 +58,7 @@ export function MobileNav() {
     const handleSignOut = async () => {
         try {
             clearPasswords()     // clear decrypted passwords from memory
+            clearSets()          // clear decrypted environment sets from memory
             clearMasterKeyStore() // clear global master key in-memory state
 
             // Clear password-manager vault key from IndexedDB

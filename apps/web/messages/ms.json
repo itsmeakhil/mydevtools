@@ -4,6 +4,7 @@
     "settings": "Tetapan",
     "apiClient": "Klien API",
     "passwordManager": "Pengurus Kata Laluan",
+    "environmentManager": "Pengurus persekitaran",
     "bookmarks": "Penanda Halaman",
     "jsonFormatter": "Pemformat JSON",
     "emailValidator": "Pengesah E-mel",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Penyulitan yang perlu diketahui",
         "description": "Kripto sisi klien untuk vault dan data sambungan sensitif.",
-        "p1": "Untuk <strong>pengurus kata laluan</strong> dan sambungan tersimpan dalam <strong>Penjelajah NoSQL</strong>, aplikasi web menggunakan <strong>Web Crypto API</strong> pelayar:",
+        "p1": "Untuk <strong>pengurus kata laluan</strong>, <strong>pengurus persekitaran</strong> dan sambungan tersimpan dalam <strong>NoSQL Explorer</strong>, aplikasi web menggunakan <strong>Web Crypto API</strong> pelayar:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> dengan <strong>SHA-256</strong>, <strong>100,000</strong> iterasi dan salt rawak menjana kunci 256-bit daripada kata laluan induk anda.",
           "aes": "<strong>AES-256-GCM</strong> menyulitkan data; <strong>IV 12 bait</strong> rawak digunakan bagi setiap penyulitan.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Pengurus Kata Laluan",
         "description": "Simpan dan urus kata laluan anda dengan selamat."
+      },
+      "environmentManager": {
+        "title": "Pengurus persekitaran",
+        "description": "Simpan pemboleh ubah gaya .env mengikut projek dan persekitaran dengan teg."
       },
       "bookmarks": {
         "title": "Penanda Halaman",
@@ -708,6 +713,82 @@
       "separator": "Pemisah",
       "capitalization": "Huruf besar",
       "includeNumber": "Sertakan nombor"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Pemboleh ubah persekitaran disulitkan mengikut projek dan persekitaran.",
+    "page": {
+      "loading": "Memuatkan…",
+      "title": "Pengurus persekitaran",
+      "loadFailed": "Gagal memuatkan set persekitaran"
+    },
+    "list": {
+      "title": "Persekitaran",
+      "loading": "Memuatkan set anda…",
+      "emptyTitle": "Tiada set persekitaran lagi",
+      "emptyHint": "Cipta set untuk setiap projek dan persekitaran (cth. kunci API pengeluaran). Semua disulitkan dalam pelayar sebelum dimuat naik.",
+      "searchPlaceholder": "Cari projek, persekitaran, teg, nota…",
+      "tagFilterPlaceholder": "Tapis mengikut teg",
+      "variableCount": "{count, plural, other {# pemboleh ubah}}",
+      "updatedAgo": "Dikemas kini {time}",
+      "copyDotEnv": "Salin .env",
+      "edit": "Edit",
+      "delete": "Padam",
+      "cancel": "Batal",
+      "confirmDelete": "Padam",
+      "deleteDialogTitle": "Padam set persekitaran?",
+      "deleteDialogDescription": "Ini memadam blob disulitkan daripada akaun anda. Tidak boleh dibuat asal.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
+    },
+    "toasts": {
+      "copiedDotEnv": ".env disalin ke papan keratan",
+      "deleted": "Set persekitaran dipadam",
+      "deleteFailed": "Gagal memadam"
+    },
+    "form": {
+      "addTitle": "Set persekitaran baharu",
+      "editTitle": "Edit set persekitaran",
+      "triggerAdd": "Tambah set persekitaran",
+      "addSrOnly": "Tambah set persekitaran",
+      "project": "Projek",
+      "environment": "Persekitaran",
+      "placeholderProject": "cth. billing-api",
+      "placeholderEnvironment": "cth. production",
+      "pasteEnvLabel": "Tampal .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Gabung baris yang ditampal",
+      "variables": "Pemboleh ubah",
+      "addRow": "Tambah baris",
+      "keyPlaceholder": "KUNCI",
+      "valuePlaceholder": "nilai",
+      "notesOptional": "Nota (pilihan)",
+      "placeholderNotes": "Dasar putaran, pemilik, pautan…",
+      "tags": "Teg",
+      "placeholderTags": "Tambah teg (Enter atau koma)",
+      "cancel": "Batal",
+      "save": "Simpan",
+      "saving": "Menyimpan…",
+      "update": "Kemas kini",
+      "updating": "Mengemas kini…",
+      "toastSaved": "Set persekitaran disimpan",
+      "toastSaveFailed": "Gagal menyimpan",
+      "toastUpdated": "Set persekitaran dikemas kini",
+      "toastUpdateFailed": "Gagal mengemas kini",
+      "toastPasteEmpty": "Tiada baris KUNCI=nilai",
+      "toastPasteApplied": "{count} pemboleh ubah digabung daripada tampalan",
+      "toastProjectEnvRequired": "Projek dan persekitaran diperlukan",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}"
     }
   },
   "Bookmarks": {

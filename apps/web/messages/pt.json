@@ -4,6 +4,7 @@
     "settings": "Definições",
     "apiClient": "Cliente API",
     "passwordManager": "Gestor de Palavras-passe",
+    "environmentManager": "Gestor de ambientes",
     "bookmarks": "Marcadores",
     "jsonFormatter": "Formatador JSON",
     "emailValidator": "Validador de E-mail",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Encriptação importante",
         "description": "Criptografia no cliente para o cofre e dados sensíveis de ligação.",
-        "p1": "Para o <strong>gestor de palavras-passe</strong> e ligações guardadas do <strong>Explorador NoSQL</strong>, a app web usa a <strong>Web Crypto API</strong> do browser:",
+        "p1": "Para o <strong>gestor de palavras-passe</strong>, o <strong>gestor de ambientes</strong> e as ligações guardadas no <strong>NoSQL Explorer</strong>, a aplicação web usa a <strong>Web Crypto API</strong> do navegador:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> com <strong>SHA-256</strong>, <strong>100.000</strong> iterações e um salt aleatório deriva uma chave de 256 bits a partir da palavra-passe mestre.",
           "aes": "<strong>AES-256-GCM</strong> encripta os dados; é usado um <strong>IV de 12 bytes</strong> aleatório por cada encriptação.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "Gestor de Palavras-passe",
         "description": "Armazena e gere as tuas palavras-passe em segurança."
+      },
+      "environmentManager": {
+        "title": "Gestor de ambientes",
+        "description": "Guarde variáveis tipo .env por projeto e ambiente com etiquetas."
       },
       "bookmarks": {
         "title": "Marcadores",
@@ -708,6 +713,82 @@
       "separator": "Separador",
       "capitalization": "Capitalização",
       "includeNumber": "Incluir número"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Variáveis de ambiente encriptadas por projeto e ambiente.",
+    "page": {
+      "loading": "A carregar…",
+      "title": "Gestor de ambientes",
+      "loadFailed": "Falha ao carregar conjuntos de ambiente"
+    },
+    "list": {
+      "title": "Ambientes",
+      "loading": "A carregar os seus conjuntos…",
+      "emptyTitle": "Ainda sem conjuntos de ambiente",
+      "emptyHint": "Crie um conjunto por projeto e ambiente (ex.: chaves API de produção). Tudo é encriptado no navegador antes do envio.",
+      "searchPlaceholder": "Pesquisar projeto, ambiente, etiquetas, notas…",
+      "tagFilterPlaceholder": "Filtrar por etiqueta",
+      "variableCount": "{count, plural, one {# variável} other {# variáveis}}",
+      "updatedAgo": "Atualizado {time}",
+      "copyDotEnv": "Copiar .env",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "cancel": "Cancelar",
+      "confirmDelete": "Eliminar",
+      "deleteDialogTitle": "Eliminar conjunto de ambiente?",
+      "deleteDialogDescription": "Isto remove o blob encriptado da sua conta. Não pode ser anulado.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
+    },
+    "toasts": {
+      "copiedDotEnv": ".env copiado para a área de transferência",
+      "deleted": "Conjunto de ambiente eliminado",
+      "deleteFailed": "Falha ao eliminar"
+    },
+    "form": {
+      "addTitle": "Novo conjunto de ambiente",
+      "editTitle": "Editar conjunto de ambiente",
+      "triggerAdd": "Adicionar conjunto de ambiente",
+      "addSrOnly": "Adicionar conjunto de ambiente",
+      "project": "Projeto",
+      "environment": "Ambiente",
+      "placeholderProject": "ex. billing-api",
+      "placeholderEnvironment": "ex. production",
+      "pasteEnvLabel": "Colar .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Fundir linhas coladas",
+      "variables": "Variáveis",
+      "addRow": "Adicionar linha",
+      "keyPlaceholder": "CHAVE",
+      "valuePlaceholder": "valor",
+      "notesOptional": "Notas (opcional)",
+      "placeholderNotes": "Política de rotação, responsável, ligações…",
+      "tags": "Etiquetas",
+      "placeholderTags": "Adicionar etiquetas (Enter ou vírgula)",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "saving": "A guardar…",
+      "update": "Atualizar",
+      "updating": "A atualizar…",
+      "toastSaved": "Conjunto de ambiente guardado",
+      "toastSaveFailed": "Falha ao guardar",
+      "toastUpdated": "Conjunto de ambiente atualizado",
+      "toastUpdateFailed": "Falha ao atualizar",
+      "toastPasteEmpty": "Nenhuma linha CHAVE=valor encontrada",
+      "toastPasteApplied": "{count} variáveis fundidas da colagem",
+      "toastProjectEnvRequired": "Projeto e ambiente são obrigatórios",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}"
     }
   },
   "Bookmarks": {

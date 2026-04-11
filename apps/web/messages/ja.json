@@ -4,6 +4,7 @@
     "settings": "設定",
     "apiClient": "APIクライアント",
     "passwordManager": "パスワードマネージャー",
+    "environmentManager": "環境変数マネージャー",
     "bookmarks": "ブックマーク",
     "jsonFormatter": "JSON フォーマッター",
     "emailValidator": "メールバリデーター",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "知っておくべき暗号化",
         "description": "ボールトや機密の接続データのためのクライアント側暗号化。",
-        "p1": "<strong>パスワードマネージャー</strong>および <strong>NoSQL エクスプローラー</strong>の保存済み接続では、ブラウザの <strong>Web Crypto API</strong> を使用します。",
+        "p1": "<strong>パスワードマネージャー</strong>、<strong>環境変数マネージャー</strong>、<strong>NoSQL Explorer</strong> の保存接続では、ブラウザの <strong>Web Crypto API</strong> を使用します:",
         "items": {
           "kdf": "<strong>PBKDF2</strong>（<strong>SHA-256</strong>、<strong>100,000</strong> 回、ランダム salt）でマスターパスワードから 256-bit キーを導出します。",
           "aes": "<strong>AES-256-GCM</strong> で暗号化し、暗号化ごとにランダムな <strong>12 バイト IV</strong> を使用します。",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "パスワードマネージャー",
         "description": "パスワードを安全に保存・管理します。"
+      },
+      "environmentManager": {
+        "title": "環境変数マネージャー",
+        "description": "プロジェクトと環境ごとに .env 形式の変数をタグ付きで保存します。"
       },
       "bookmarks": {
         "title": "ブックマーク",
@@ -708,6 +713,82 @@
       "separator": "区切り文字",
       "capitalization": "大文字化",
       "includeNumber": "数字を含める"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "プロジェクトと環境ごとに暗号化された環境変数。",
+    "page": {
+      "loading": "読み込み中…",
+      "title": "環境変数マネージャー",
+      "loadFailed": "環境セットの読み込みに失敗しました"
+    },
+    "list": {
+      "title": "環境",
+      "loading": "セットを読み込み中…",
+      "emptyTitle": "環境セットはまだありません",
+      "emptyHint": "プロジェクトと環境ごとにセットを作成します（例: 本番 API キー）。アップロード前にブラウザで暗号化されます。",
+      "searchPlaceholder": "プロジェクト・環境・タグ・メモを検索…",
+      "tagFilterPlaceholder": "タグで絞り込み",
+      "variableCount": "{count, plural, other {# 件の変数}}",
+      "updatedAgo": "更新 {time}",
+      "copyDotEnv": ".env をコピー",
+      "edit": "編集",
+      "delete": "削除",
+      "cancel": "キャンセル",
+      "confirmDelete": "削除",
+      "deleteDialogTitle": "環境セットを削除しますか？",
+      "deleteDialogDescription": "アカウントから暗号化データが削除されます。元に戻せません。",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
+    },
+    "toasts": {
+      "copiedDotEnv": ".env をクリップボードにコピーしました",
+      "deleted": "環境セットを削除しました",
+      "deleteFailed": "削除に失敗しました"
+    },
+    "form": {
+      "addTitle": "新しい環境セット",
+      "editTitle": "環境セットを編集",
+      "triggerAdd": "環境セットを追加",
+      "addSrOnly": "環境セットを追加",
+      "project": "プロジェクト",
+      "environment": "環境",
+      "placeholderProject": "例: billing-api",
+      "placeholderEnvironment": "例: production",
+      "pasteEnvLabel": ".env を貼り付け",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "貼り付けた行をマージ",
+      "variables": "変数",
+      "addRow": "行を追加",
+      "keyPlaceholder": "キー",
+      "valuePlaceholder": "値",
+      "notesOptional": "メモ（任意）",
+      "placeholderNotes": "ローテーション方針、担当者、リンク…",
+      "tags": "タグ",
+      "placeholderTags": "タグを追加（Enter またはカンマ）",
+      "cancel": "キャンセル",
+      "save": "保存",
+      "saving": "保存中…",
+      "update": "更新",
+      "updating": "更新中…",
+      "toastSaved": "環境セットを保存しました",
+      "toastSaveFailed": "保存に失敗しました",
+      "toastUpdated": "環境セットを更新しました",
+      "toastUpdateFailed": "更新に失敗しました",
+      "toastPasteEmpty": "KEY=値 の行が見つかりません",
+      "toastPasteApplied": "貼り付けから {count} 件の変数をマージしました",
+      "toastProjectEnvRequired": "プロジェクトと環境は必須です",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}"
     }
   },
   "Bookmarks": {

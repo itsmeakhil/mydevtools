@@ -42,6 +42,16 @@ const appDetails: Record<
     dataNote:
       'The server stores only ciphertext and IVs for vault metadata and entries. Your master password is never transmitted.',
   },
+  '/app/environment-manager': {
+    howItWorks: [
+      'Uses the same master vault key as the password manager.',
+      'Group variables by project name and environment (for example staging vs production).',
+      'Add tags, optional notes, key/value rows, or paste a .env block to merge variables.',
+      'Copy a formatted .env file to the clipboard when you need it locally.',
+    ],
+    dataNote:
+      'Each set is stored as ciphertext plus an IV; plaintext keys and values exist only in your browser after unlock.',
+  },
   '/app/bookmarks': {
     howItWorks: [
       'Save URLs in folders, edit titles, and open links quickly from the grid.',

@@ -4,6 +4,7 @@
     "settings": "الإعدادات",
     "apiClient": "عميل API",
     "passwordManager": "مدير كلمات المرور",
+    "environmentManager": "مدير البيئة",
     "bookmarks": "الإشارات المرجعية",
     "jsonFormatter": "منسّق JSON",
     "emailValidator": "التحقق من البريد",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "التشفير المهم معرفته",
         "description": "تشفير من جهة العميل لخزنة البيانات وبيانات الاتصال الحساسة.",
-        "p1": "بالنسبة إلى <strong>مدير كلمات المرور</strong> واتصالات <strong>مستكشف NoSQL</strong> المحفوظة، يستخدم التطبيق <strong>Web Crypto API</strong> في المتصفح:",
+        "p1": "بالنسبة إلى <strong>مدير كلمات المرور</strong> و<strong>مدير البيئة</strong> واتصالات <strong>مستكشف NoSQL</strong> المحفوظة، يستخدم التطبيق <strong>Web Crypto API</strong> في المتصفح:",
         "items": {
           "kdf": "تقوم <strong>PBKDF2</strong> مع <strong>SHA-256</strong> و<strong>100,000</strong> تكرار وملح عشوائي باشتقاق مفتاح 256-بت من كلمة المرور الرئيسية.",
           "aes": "تقوم <strong>AES-256-GCM</strong> بتشفير البيانات؛ ويتم استخدام <strong>IV بطول 12 بايت</strong> عشوائي لكل عملية تشفير.",
@@ -215,6 +216,10 @@
       "passwordManager": {
         "title": "مدير كلمات المرور",
         "description": "خزّن كلمات المرور وأدرها بأمان."
+      },
+      "environmentManager": {
+        "title": "مدير البيئة",
+        "description": "خزن متغيرات بصيغة .env حسب المشروع والبيئة مع وسوم."
       },
       "bookmarks": {
         "title": "الإشارات المرجعية",
@@ -708,6 +713,82 @@
       "separator": "الفاصل",
       "capitalization": "الأحرف الكبيرة",
       "includeNumber": "تضمين رقم"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "متغيرات بيئة مشفّرة حسب المشروع والبيئة.",
+    "page": {
+      "loading": "جارٍ التحميل…",
+      "title": "مدير البيئة",
+      "loadFailed": "تعذّر تحميل مجموعات البيئة"
+    },
+    "list": {
+      "title": "البيئات",
+      "loading": "جارٍ تحميل مجموعاتك…",
+      "emptyTitle": "لا توجد مجموعات بيئة بعد",
+      "emptyHint": "أنشئ مجموعة لكل مشروع وبيئة (مثل مفاتيح واجهة الإنتاج). يُشفّر كل شيء في متصفحك قبل الرفع.",
+      "searchPlaceholder": "ابحث في المشروع والبيئة والوسوم والملاحظات…",
+      "tagFilterPlaceholder": "تصفية حسب الوسم",
+      "variableCount": "{count, plural, one {# متغير} other {# متغيرات}}",
+      "updatedAgo": "عُدّل {time}",
+      "copyDotEnv": "نسخ .env",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "cancel": "إلغاء",
+      "confirmDelete": "حذف",
+      "deleteDialogTitle": "حذف مجموعة البيئة؟",
+      "deleteDialogDescription": "يُزال النص المشفّر من حسابك. لا يمكن التراجع.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
+    },
+    "toasts": {
+      "copiedDotEnv": "تم نسخ .env إلى الحافظة",
+      "deleted": "تم حذف مجموعة البيئة",
+      "deleteFailed": "فشل الحذف"
+    },
+    "form": {
+      "addTitle": "مجموعة بيئة جديدة",
+      "editTitle": "تعديل مجموعة البيئة",
+      "triggerAdd": "إضافة مجموعة بيئة",
+      "addSrOnly": "إضافة مجموعة بيئة",
+      "project": "المشروع",
+      "environment": "البيئة",
+      "placeholderProject": "مثال: billing-api",
+      "placeholderEnvironment": "مثال: production",
+      "pasteEnvLabel": "لصق .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "دمج الأسطر الملصوقة",
+      "variables": "المتغيرات",
+      "addRow": "إضافة صف",
+      "keyPlaceholder": "المفتاح",
+      "valuePlaceholder": "القيمة",
+      "notesOptional": "ملاحظات (اختياري)",
+      "placeholderNotes": "سياسة التدوير، المالك، روابط…",
+      "tags": "الوسوم",
+      "placeholderTags": "أضف وسومًا (Enter أو فاصلة)",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "saving": "جارٍ الحفظ…",
+      "update": "تحديث",
+      "updating": "جارٍ التحديث…",
+      "toastSaved": "تم حفظ مجموعة البيئة",
+      "toastSaveFailed": "فشل الحفظ",
+      "toastUpdated": "تم تحديث مجموعة البيئة",
+      "toastUpdateFailed": "فشل التحديث",
+      "toastPasteEmpty": "لم يُعثر على أسطر KEY=value",
+      "toastPasteApplied": "تم دمج {count} متغيرًا من اللصق",
+      "toastProjectEnvRequired": "المشروع والبيئة مطلوبان",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}"
     }
   },
   "Bookmarks": {
