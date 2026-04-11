@@ -149,7 +149,7 @@ const features = [
     icon: Shield,
     title: "Secure & Private",
     description:
-      "Your data never leaves your browser. 100% client-side execution with absolute zero tracking.",
+      "Sensitive data is encrypted in your browser before it's ever transmitted. The server only receives encrypted blobs it cannot read.",
     gradient: "from-emerald-500 to-teal-400",
   },
   {
@@ -182,7 +182,7 @@ const howItWorks = [
     step: "03",
     title: "Work Privately",
     description:
-      "Everything runs in your browser. Your data never leaves your device.",
+      "Data is AES-256 encrypted in your browser before sync. The server never sees your plaintext.",
     icon: Shield,
     gradient: "from-emerald-500 to-teal-400",
   },
@@ -195,7 +195,7 @@ const faqItems = [
   },
   {
     q: "Is my data secure?",
-    a: "All processing is client-side. Your data never leaves your browser. The Password Manager uses AES-256 encryption in your browser before any sync — zero-knowledge by design.",
+    a: "Sensitive data is AES-256 encrypted in your browser before it reaches the server. The server only stores encrypted blobs it cannot read — zero-knowledge by design.",
   },
   {
     q: "Do I need an account to use the tools?",
@@ -347,7 +347,7 @@ export default function Page() {
               {[
                 { value: "19+", label: "Dev Tools" },
                 { value: "100%", label: "Open Source" },
-                { value: "0kb", label: "Data Sent" },
+                { value: "E2E", label: "Encrypted" },
               ].map((s, i) => (
                 <div key={i} className="text-center">
                   <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-sky-500 to-violet-500 bg-clip-text text-transparent">
@@ -637,8 +637,9 @@ export default function Page() {
                     Zero-Knowledge Privacy
                   </h3>
                   <p className="relative z-10 text-muted-foreground leading-relaxed text-sm md:text-base flex-1">
-                    No analytics on your data. Client-side only. Passwords are
-                    AES-256 encrypted in your browser before any sync.
+                    Sensitive data is AES-256 encrypted in your browser before
+                    transmission. The server only receives encrypted blobs — it
+                    never sees your plaintext.
                   </p>
                 </div>
               </motion.div>
