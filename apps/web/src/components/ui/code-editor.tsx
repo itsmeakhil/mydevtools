@@ -1,7 +1,20 @@
 "use client";
 
-import { Editor } from '@monaco-editor/react';
+import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
+
+// Dynamically import Monaco — ~3 MB, only loads when a code editor is first rendered
+const Editor = dynamic(
+    () => import('@monaco-editor/react').then((m) => m.Editor),
+    {
+        ssr: false,
+        loading: () => (
+            <div className="flex items-center justify-center h-full text-sm text-muted-foreground bg-muted/10">
+                Loading editor...
+            </div>
+        ),
+    }
+);
 
 interface CodeEditorProps {
     value: string;
@@ -44,11 +57,6 @@ export default function CodeEditor({
                     formatOnType: true,
                     padding: { top: 10, bottom: 10 },
                 }}
-                loading={
-                    <div className="flex items-center justify-center h-full text-sm text-muted-foreground bg-muted/10">
-                        Loading editor...
-                    </div>
-                }
             />
         </div>
     );

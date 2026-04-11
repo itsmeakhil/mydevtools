@@ -21,7 +21,6 @@ import { useEnvironmentManagerStore } from "@/store/environment-manager-store"
 import { useMasterKeyStore } from "@/store/master-key-store"
 import { clearMasterKey } from "@/lib/key-storage"
 import { logoutBackendSession } from "@/lib/backend-auth"
-import { motion } from "framer-motion"
 import { useThemeAnimation } from "@space-man/react-theme-animation"
 
 // Navigation items configuration
@@ -126,14 +125,12 @@ export function MobileNav() {
                 className={cn(navItemStyles, pathname === "/dashboard" && activeStyles)}
                 aria-current={pathname === "/dashboard" ? "page" : undefined}
             >
-                {activeTab === 'home' && (
-                    <motion.div
-                        layoutId="mobileNavIndicator"
-                        className="absolute inset-1 bg-primary/10 rounded-xl -z-10"
-                        initial={false}
-                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                )}
+                <span
+                    className={cn(
+                        "absolute inset-1 bg-primary/10 rounded-xl -z-10 transition-opacity duration-200",
+                        activeTab === 'home' ? "opacity-100" : "opacity-0"
+                    )}
+                />
                 <Home
                     className={cn(
                         "h-5 w-5 transition-transform duration-200",
@@ -151,14 +148,12 @@ export function MobileNav() {
                 aria-expanded={openMobile}
                 aria-label="Toggle tools menu"
             >
-                {activeTab === 'tools' && (
-                    <motion.div
-                        layoutId="mobileNavIndicator"
-                        className="absolute inset-1 bg-primary/10 rounded-xl -z-10"
-                        initial={false}
-                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                )}
+                <span
+                    className={cn(
+                        "absolute inset-1 bg-primary/10 rounded-xl -z-10 transition-opacity duration-200",
+                        activeTab === 'tools' ? "opacity-100" : "opacity-0"
+                    )}
+                />
                 <LayoutGrid
                     className={cn(
                         "h-5 w-5 transition-transform duration-200",
