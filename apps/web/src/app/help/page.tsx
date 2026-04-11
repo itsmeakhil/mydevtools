@@ -54,6 +54,13 @@ const appDetails: Record<
       'Processing runs in the browser; nothing is sent to the server for formatting.',
     ],
   },
+  '/app/json-schema-generator': {
+    howItWorks: [
+      'Paste valid JSON (including nested objects and arrays). The tool infers a structural schema from your sample.',
+      'Choose an output language to generate JSON Schema (Draft 2020-12) or starter types for Python, TypeScript, Go, Rust, Java, C#, Dart, or Swift.',
+      'All inference and code generation run locally in your browser.',
+    ],
+  },
   '/app/api-client': {
     howItWorks: [
       'Build HTTP requests with method, URL, query params, headers, and body.',

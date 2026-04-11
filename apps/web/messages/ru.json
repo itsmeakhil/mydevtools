@@ -20,7 +20,8 @@
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
-    "colorPicker": "Color Picker"
+    "colorPicker": "Color Picker",
+    "jsonSchemaGenerator": "Генератор JSON-схемы"
   },
   "Help": {
     "title": "Справка и документация",
@@ -278,6 +279,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "jsonSchemaGenerator": {
+        "title": "Генератор JSON-схемы",
+        "description": "Получите JSON-схему и типизированные модели из примера JSON."
       }
     },
     "tabs": {
@@ -1941,5 +1946,30 @@
     "modifiedPlaceholder": "Вставьте изменённый текст…",
     "comparisonLabel": "Сравнение бок о бок",
     "emptyState": "Введите текст в оба поля для сравнения."
+  },
+  "JsonSchemaGenerator": {
+    "title": "Генератор JSON-схемы",
+    "subtitle": "Вставьте корректный JSON, чтобы сгенерировать JSON-схему или типизированные модели. Всё выполняется в браузере.",
+    "languageLabel": "Язык вывода",
+    "inputLabel": "Ввод JSON",
+    "inputPlaceholder": "Вставьте JSON сюда…",
+    "outputLabel": "Сгенерированный вывод",
+    "outputPlaceholder": "Схема или сгенерированные типы появятся здесь…",
+    "parseError": "Некорректный JSON",
+    "clear": "Очистить",
+    "copy": "Копировать",
+    "copied": "Скопировано в буфер обмена",
+    "copyFailed": "Не удалось скопировать",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "JSON-схема (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    }
   }
 }

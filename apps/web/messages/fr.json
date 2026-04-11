@@ -20,7 +20,8 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Sélecteur de couleurs",
     "apiClient": "Client API",
-    "nosqlExplorer": "Explorateur NoSQL"
+    "nosqlExplorer": "Explorateur NoSQL",
+    "jsonSchemaGenerator": "Générateur de schéma JSON"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -278,6 +279,10 @@
       "colorPicker": {
         "title": "Sélecteur de couleurs",
         "description": "Convertir HEX, RVB, TSL et explorer des palettes."
+      },
+      "jsonSchemaGenerator": {
+        "title": "Générateur de schéma JSON",
+        "description": "Déduisez un schéma JSON et des modèles typés à partir d'un exemple JSON."
       }
     },
     "tabs": {
@@ -1941,5 +1946,30 @@
     "modifiedPlaceholder": "Collez le texte modifié…",
     "comparisonLabel": "Comparaison côte à côte",
     "emptyState": "Saisissez du texte dans les deux panneaux pour comparer."
+  },
+  "JsonSchemaGenerator": {
+    "title": "Générateur de schéma JSON",
+    "subtitle": "Collez du JSON valide pour générer un schéma JSON ou des modèles typés. Tout s'exécute dans votre navigateur.",
+    "languageLabel": "Langue de sortie",
+    "inputLabel": "Entrée JSON",
+    "inputPlaceholder": "Collez le JSON ici…",
+    "outputLabel": "Résultat généré",
+    "outputPlaceholder": "Le schéma ou les types générés s'afficheront ici…",
+    "parseError": "JSON invalide",
+    "clear": "Effacer",
+    "copy": "Copier",
+    "copied": "Copié dans le presse-papiers",
+    "copyFailed": "Impossible de copier",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "Schéma JSON (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    }
   }
 }

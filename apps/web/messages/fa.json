@@ -20,7 +20,8 @@
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
-    "colorPicker": "Color Picker"
+    "colorPicker": "Color Picker",
+    "jsonSchemaGenerator": "تولیدکنندهٔ طرح JSON"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -278,6 +279,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "jsonSchemaGenerator": {
+        "title": "تولیدکنندهٔ طرح JSON",
+        "description": "از نمونهٔ JSON، طرح JSON و مدل‌های نوع‌دار استنتاج کنید."
       }
     },
     "tabs": {
@@ -1941,5 +1946,30 @@
     "modifiedPlaceholder": "متن تغییریافته را جایگذاری کنید…",
     "comparisonLabel": "مقایسه جنب‌به‌جنب",
     "emptyState": "متن را در هر دو پنل وارد کنید تا مقایسه شود."
+  },
+  "JsonSchemaGenerator": {
+    "title": "تولیدکنندهٔ طرح JSON",
+    "subtitle": "JSON معتبر بچسبانید تا طرح JSON یا مدل‌های نوع‌دار بسازید. همه‌چیز در مرورگر شما اجرا می‌شود.",
+    "languageLabel": "زبان خروجی",
+    "inputLabel": "ورودی JSON",
+    "inputPlaceholder": "JSON را اینجا بچسبانید…",
+    "outputLabel": "خروجی تولیدشده",
+    "outputPlaceholder": "طرح یا انواع تولیدشده اینجا نمایش داده می‌شود…",
+    "parseError": "JSON نامعتبر",
+    "clear": "پاک کردن",
+    "copy": "رونوشت",
+    "copied": "در بریده‌دان رونوشت شد",
+    "copyFailed": "رونوشت ممکن نشد",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "طرح JSON (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    }
   }
 }

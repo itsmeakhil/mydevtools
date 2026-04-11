@@ -20,7 +20,8 @@
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
-    "colorPicker": "Color Picker"
+    "colorPicker": "Color Picker",
+    "jsonSchemaGenerator": "Генератор JSON-схеми"
   },
   "Help": {
     "title": "Довідка та документація",
@@ -278,6 +279,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "jsonSchemaGenerator": {
+        "title": "Генератор JSON-схеми",
+        "description": "Виведіть JSON-схему та типізовані моделі з прикладу JSON."
       }
     },
     "tabs": {
@@ -1941,5 +1946,30 @@
     "modifiedPlaceholder": "Вставте змінений текст…",
     "comparisonLabel": "Порівняння поруч",
     "emptyState": "Введіть текст в обидві панелі для порівняння."
+  },
+  "JsonSchemaGenerator": {
+    "title": "Генератор JSON-схеми",
+    "subtitle": "Вставте коректний JSON, щоб згенерувати JSON-схему або типізовані моделі. Усе працює у вашому браузері.",
+    "languageLabel": "Мова виводу",
+    "inputLabel": "Вхід JSON",
+    "inputPlaceholder": "Вставте JSON сюди…",
+    "outputLabel": "Згенерований вивід",
+    "outputPlaceholder": "Схема або згенеровані типи з’являться тут…",
+    "parseError": "Некоректний JSON",
+    "clear": "Очистити",
+    "copy": "Копіювати",
+    "copied": "Скопійовано в буфер обміну",
+    "copyFailed": "Не вдалося скопіювати",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "JSON-схема (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    }
   }
 }

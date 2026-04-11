@@ -20,7 +20,8 @@
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
-    "colorPicker": "Color Picker"
+    "colorPicker": "Color Picker",
+    "jsonSchemaGenerator": "Generátor JSON schématu"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -278,6 +279,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "jsonSchemaGenerator": {
+        "title": "Generátor JSON schématu",
+        "description": "Odvození JSON schématu a typovaných modelů z ukázkového JSONu."
       }
     },
     "tabs": {
@@ -1941,5 +1946,30 @@
     "modifiedPlaceholder": "Vložte upravený text…",
     "comparisonLabel": "Porovnání vedle sebe",
     "emptyState": "Zadejte text do obou panelů pro porovnání."
+  },
+  "JsonSchemaGenerator": {
+    "title": "Generátor JSON schématu",
+    "subtitle": "Vložte platný JSON a vygenerujte JSON schéma nebo typované modely. Vše běží v prohlížeči.",
+    "languageLabel": "Jazyk výstupu",
+    "inputLabel": "Vstup JSON",
+    "inputPlaceholder": "Vložte JSON sem…",
+    "outputLabel": "Vygenerovaný výstup",
+    "outputPlaceholder": "Schéma nebo vygenerované typy se zobrazí zde…",
+    "parseError": "Neplatný JSON",
+    "clear": "Vymazat",
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno do schránky",
+    "copyFailed": "Kopírování se nezdařilo",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "JSON schéma (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    }
   }
 }

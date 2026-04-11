@@ -20,7 +20,8 @@
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
-    "colorPicker": "Color Picker"
+    "colorPicker": "Color Picker",
+    "jsonSchemaGenerator": "JSON Şema Oluşturucu"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -278,6 +279,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "jsonSchemaGenerator": {
+        "title": "JSON Şema Oluşturucu",
+        "description": "Örnek JSON’dan JSON Şeması ve tipli modeller türetin."
       }
     },
     "tabs": {
@@ -1941,5 +1946,30 @@
     "modifiedPlaceholder": "Değiştirilmiş metni yapıştırın…",
     "comparisonLabel": "Yan yana karşılaştırma",
     "emptyState": "Karşılaştırmak için her iki panele de metin girin."
+  },
+  "JsonSchemaGenerator": {
+    "title": "JSON Şema Oluşturucu",
+    "subtitle": "JSON Şeması veya tipli modeller üretmek için geçerli JSON yapıştırın. Her şey tarayıcınızda çalışır.",
+    "languageLabel": "Çıktı dili",
+    "inputLabel": "JSON girdisi",
+    "inputPlaceholder": "JSON’u buraya yapıştırın…",
+    "outputLabel": "Üretilen çıktı",
+    "outputPlaceholder": "Üretilen şema veya türler burada görünecek…",
+    "parseError": "Geçersiz JSON",
+    "clear": "Temizle",
+    "copy": "Kopyala",
+    "copied": "Panoya kopyalandı",
+    "copyFailed": "Kopyalanamadı",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "JSON Şeması (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    }
   }
 }

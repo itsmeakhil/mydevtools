@@ -9,6 +9,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/email-validator',
   '/app/jwt-decoder',
   '/app/json-formatter',
+  '/app/json-schema-generator',
   '/app/sql-formatter',
   '/app/diff-checker',
   '/app/regex-tester',

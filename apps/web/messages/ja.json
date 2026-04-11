@@ -20,7 +20,8 @@
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
-    "colorPicker": "Color Picker"
+    "colorPicker": "Color Picker",
+    "jsonSchemaGenerator": "JSONスキーマジェネレーター"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -278,6 +279,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "jsonSchemaGenerator": {
+        "title": "JSONスキーマジェネレーター",
+        "description": "サンプルJSONからJSONスキーマと型付きモデルを推論します。"
       }
     },
     "tabs": {
@@ -1941,5 +1946,30 @@
     "modifiedPlaceholder": "変更後のテキストを貼り付け…",
     "comparisonLabel": "並べて比較",
     "emptyState": "両方のパネルにテキストを入力して比較してください。"
+  },
+  "JsonSchemaGenerator": {
+    "title": "JSONスキーマジェネレーター",
+    "subtitle": "有効なJSONを貼り付けてJSONスキーマや型付きモデルを生成します。すべてブラウザ内で処理されます。",
+    "languageLabel": "出力言語",
+    "inputLabel": "JSON入力",
+    "inputPlaceholder": "JSONをここに貼り付け…",
+    "outputLabel": "生成された出力",
+    "outputPlaceholder": "生成されたスキーマや型がここに表示されます…",
+    "parseError": "無効なJSON",
+    "clear": "クリア",
+    "copy": "コピー",
+    "copied": "クリップボードにコピーしました",
+    "copyFailed": "コピーできませんでした",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "JSONスキーマ（Draft 2020-12）",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    }
   }
 }

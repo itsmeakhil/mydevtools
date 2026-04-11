@@ -20,7 +20,8 @@
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
-    "colorPicker": "Color Picker"
+    "colorPicker": "Color Picker",
+    "jsonSchemaGenerator": "JSON-skemagenerator"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -278,6 +279,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "jsonSchemaGenerator": {
+        "title": "JSON-skemagenerator",
+        "description": "Lei 'n JSON-skema en getiketteerde modelle uit voorbeeld-JSON af."
       }
     },
     "tabs": {
@@ -1941,5 +1946,30 @@
     "modifiedPlaceholder": "Plak gewysigde teks…",
     "comparisonLabel": "Sy-aan-sy vergelyking",
     "emptyState": "Voer teks in beide panele in om te vergelyk."
+  },
+  "JsonSchemaGenerator": {
+    "title": "JSON-skemagenerator",
+    "subtitle": "Plak geldige JSON om 'n JSON-skema of getiketteerde modelle te genereer. Alles loop in jou blaaier.",
+    "languageLabel": "Uittaal",
+    "inputLabel": "JSON-invoer",
+    "inputPlaceholder": "Plak JSON hier…",
+    "outputLabel": "Gegenereerde uitset",
+    "outputPlaceholder": "Die skema of gegenereerde tipes verskyn hier…",
+    "parseError": "Ongeldige JSON",
+    "clear": "Maak skoon",
+    "copy": "Kopieer",
+    "copied": "Na knipbord gekopieer",
+    "copyFailed": "Kon nie kopieer nie",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "JSON-skema (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    }
   }
 }

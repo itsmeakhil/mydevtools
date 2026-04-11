@@ -20,7 +20,8 @@
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
-    "colorPicker": "Color Picker"
+    "colorPicker": "Color Picker",
+    "jsonSchemaGenerator": "Γεννήτρια JSON Schema"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",
@@ -278,6 +279,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "jsonSchemaGenerator": {
+        "title": "Γεννήτρια JSON Schema",
+        "description": "Συμπεράνετε ένα JSON Schema και τυποποιημένα μοντέλα από δείγμα JSON."
       }
     },
     "tabs": {
@@ -1941,5 +1946,30 @@
     "modifiedPlaceholder": "Επικολλήστε το τροποποιημένο κείμενο…",
     "comparisonLabel": "Παράλληλη σύγκριση",
     "emptyState": "Εισαγάγετε κείμενο και στα δύο παράθυρα για σύγκριση."
+  },
+  "JsonSchemaGenerator": {
+    "title": "Γεννήτρια JSON Schema",
+    "subtitle": "Επικολλήστε έγκυρο JSON για να δημιουργήσετε JSON Schema ή τυποποιημένα μοντέλα. Όλα εκτελούνται στον browser σας.",
+    "languageLabel": "Γλώσσα εξόδου",
+    "inputLabel": "Είσοδος JSON",
+    "inputPlaceholder": "Επικολλήστε JSON εδώ…",
+    "outputLabel": "Δημιουργημένη έξοδος",
+    "outputPlaceholder": "Το σχήμα ή οι τύποι θα εμφανιστούν εδώ…",
+    "parseError": "Μη έγκυρο JSON",
+    "clear": "Εκκαθάριση",
+    "copy": "Αντιγραφή",
+    "copied": "Αντιγράφηκε στο πρόχειρο",
+    "copyFailed": "Αποτυχία αντιγραφής",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "JSON Schema (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    }
   }
 }

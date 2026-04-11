@@ -21,6 +21,7 @@ import {
   IconRepeat,
   IconSql,
   IconGitCompare,
+  IconBraces,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -88,6 +89,12 @@ export const sidebarData: SidebarData = {
           url: '/app/json-formatter',
           icon: IconJson,
           description: 'Format, validate, and edit JSON data.',
+        },
+        {
+          title: 'JSON Schema Generator',
+          url: '/app/json-schema-generator',
+          icon: IconBraces,
+          description: 'Infer JSON Schema and typed models from sample JSON.',
         },
         {
           title: 'SQL Formatter',
