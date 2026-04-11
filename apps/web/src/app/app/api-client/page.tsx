@@ -1,9 +1,7 @@
 import { ApiClient } from "@/components/api-client/api-client"
+import { generateToolMetadata } from "@/lib/metadata"
 
-export const metadata = {
-    title: "API Client | MyDevTools",
-    description: "A powerful HTTP client for testing APIs",
-}
+export const metadata = generateToolMetadata('api-client')
 
 export default function ApiClientPage() {
     return (

@@ -1,10 +1,7 @@
-import type { Metadata } from 'next'
+import { generateToolMetadata } from '@/lib/metadata'
 import NotesClientLayout from './notes-client-layout'
 
-export const metadata: Metadata = {
-  title: 'Notes',
-  description: 'Create and manage notes quickly. Simple note-taking app for developers.',
-}
+export const metadata = generateToolMetadata('notes')
 
 export default function NotesLayout({ children }: { children: React.ReactNode }) {
   return <NotesClientLayout>{children}</NotesClientLayout>

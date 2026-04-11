@@ -1,10 +1,7 @@
 import { SqlFormatterLayout } from '@/components/sql-formatter/sql-formatter-layout'
+import { generateToolMetadata } from '@/lib/metadata'
 
-export const metadata = {
-  title: 'SQL Formatter | MyDevTools',
-  description:
-    'Format SQL for MySQL, PostgreSQL, and SQLite with keyword casing and indentation options in the browser.',
-}
+export const metadata = generateToolMetadata('sql-formatter')
 
 export default function SqlFormatterPage() {
   return (

@@ -1,9 +1,6 @@
-import type { Metadata } from 'next'
+import { generateToolMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
-  title: 'Task Manager',
-  description: 'Organize daily tasks, set priorities, and track your productivity.',
-}
+export const metadata = generateToolMetadata('to-do')
 
 export default function ToDoLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>

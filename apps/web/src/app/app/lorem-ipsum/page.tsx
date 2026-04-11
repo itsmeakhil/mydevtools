@@ -1,10 +1,7 @@
 import { LoremIpsumLayout } from '@/components/lorem-ipsum/lorem-ipsum-layout'
+import { generateToolMetadata } from '@/lib/metadata'
 
-export const metadata = {
-  title: 'Lorem Ipsum Generator | MyDevTools',
-  description:
-    'Generate classical Lorem Ipsum by paragraphs, sentences, words, or bullet lists. Plain text or HTML.',
-}
+export const metadata = generateToolMetadata('lorem-ipsum')
 
 export default function LoremIpsumPage() {
   return (

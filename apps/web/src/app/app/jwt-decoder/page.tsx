@@ -1,10 +1,7 @@
 import { JwtDecoderLayout } from '@/components/jwt-decoder/jwt-decoder-layout'
+import { generateToolMetadata } from '@/lib/metadata'
 
-export const metadata = {
-  title: 'JWT Decoder | MyDevTools',
-  description:
-    'Decode JWT header and payload, read exp / iat / nbf times. Client-side only; signature not verified.',
-}
+export const metadata = generateToolMetadata('jwt-decoder')
 
 export default function JwtDecoderPage() {
   return (

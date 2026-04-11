@@ -1,9 +1,6 @@
-import type { Metadata } from 'next'
+import { generateToolMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
-  title: 'Bookmarks',
-  description: 'Save and organize your favorite links and developer resources in one place.',
-}
+export const metadata = generateToolMetadata('bookmarks')
 
 export default function BookmarksLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>

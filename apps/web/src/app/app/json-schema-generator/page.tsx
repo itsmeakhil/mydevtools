@@ -1,10 +1,7 @@
 import { JsonSchemaGeneratorLayout } from '@/components/json-schema-generator/json-schema-generator-layout';
+import { generateToolMetadata } from '@/lib/metadata';
 
-export const metadata = {
-  title: 'JSON Schema Generator | MyDevTools',
-  description:
-    'Paste JSON and generate JSON Schema or typed models for Python, TypeScript, Go, Rust, Java, C#, Dart, and Swift.',
-};
+export const metadata = generateToolMetadata('json-schema-generator')
 
 export default function JsonSchemaGeneratorPage() {
   return (

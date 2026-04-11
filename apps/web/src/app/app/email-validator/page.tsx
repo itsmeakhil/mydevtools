@@ -1,9 +1,7 @@
 import { EmailValidator } from "@/components/email-validator/email-validator";
+import { generateToolMetadata } from "@/lib/metadata";
 
-export const metadata = {
-    title: "Email Validator - MyDevTools",
-    description: "Verify and validate email addresses online.",
-};
+export const metadata = generateToolMetadata('email-validator')
 
 export default function EmailValidatorPage() {
     return <EmailValidator />;

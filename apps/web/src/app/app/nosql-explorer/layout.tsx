@@ -1,9 +1,6 @@
-import type { Metadata } from 'next'
+import { generateToolMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
-  title: 'NoSQL Explorer',
-  description: 'Explore and manage your MongoDB databases directly from your browser.',
-}
+export const metadata = generateToolMetadata('nosql-explorer')
 
 export default function NoSQLExplorerLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>

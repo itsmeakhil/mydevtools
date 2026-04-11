@@ -1,10 +1,7 @@
 import { RegexTesterLayout } from '@/components/regex-tester/regex-tester-layout'
+import { generateToolMetadata } from '@/lib/metadata'
 
-export const metadata = {
-  title: 'Regex Tester | MyDevTools',
-  description:
-    'Test JavaScript regular expressions with live match highlighting, flags, and match counts in the browser.',
-}
+export const metadata = generateToolMetadata('regex-tester')
 
 export default function RegexTesterPage() {
   return (
