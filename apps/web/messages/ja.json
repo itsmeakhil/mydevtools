@@ -314,7 +314,16 @@
       "apiClientCollections": "APIコレクション",
       "apiClientEnvironments": "API環境",
       "apiClientHistory": "API履歴エントリ",
-      "jsonFormatterDocuments": "JSONフォーマッターのドキュメント"
+      "jsonFormatterDocuments": "JSONフォーマッターのドキュメント",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…"
     },
     "ui": {
       "title": "インターフェース設定",

@@ -314,7 +314,16 @@
       "apiClientCollections": "Колекції API",
       "apiClientEnvironments": "Оточення API",
       "apiClientHistory": "Записи історії API",
-      "jsonFormatterDocuments": "Документи JSON-форматера"
+      "jsonFormatterDocuments": "Документи JSON-форматера",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…"
     },
     "ui": {
       "title": "Налаштування інтерфейсу",

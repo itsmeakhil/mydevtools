@@ -314,7 +314,16 @@
       "apiClientCollections": "API 컬렉션",
       "apiClientEnvironments": "API 환경",
       "apiClientHistory": "API 기록 항목",
-      "jsonFormatterDocuments": "JSON 포맷터 문서"
+      "jsonFormatterDocuments": "JSON 포맷터 문서",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…"
     },
     "ui": {
       "title": "인터페이스 설정",

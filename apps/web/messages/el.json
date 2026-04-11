@@ -314,7 +314,16 @@
       "apiClientCollections": "Συλλογές API",
       "apiClientEnvironments": "Περιβάλλοντα API",
       "apiClientHistory": "Καταχωρήσεις ιστορικού API",
-      "jsonFormatterDocuments": "Έγγραφα μορφοποιητή JSON"
+      "jsonFormatterDocuments": "Έγγραφα μορφοποιητή JSON",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…"
     },
     "ui": {
       "title": "Προτιμήσεις διεπαφής",

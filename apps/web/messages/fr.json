@@ -314,7 +314,16 @@
       "apiClientCollections": "Collections API",
       "apiClientEnvironments": "Environnements API",
       "apiClientHistory": "Entrées d’historique API",
-      "jsonFormatterDocuments": "Documents du formateur JSON"
+      "jsonFormatterDocuments": "Documents du formateur JSON",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…"
     },
     "ui": {
       "title": "Préférences d’interface",

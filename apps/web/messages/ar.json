@@ -314,7 +314,16 @@
       "apiClientCollections": "مجموعات API",
       "apiClientEnvironments": "بيئات API",
       "apiClientHistory": "سجلات سجل API",
-      "jsonFormatterDocuments": "مستندات منسّق JSON"
+      "jsonFormatterDocuments": "مستندات منسّق JSON",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…"
     },
     "ui": {
       "title": "تفضيلات الواجهة",

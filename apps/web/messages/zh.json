@@ -314,7 +314,16 @@
       "apiClientCollections": "API 集合",
       "apiClientEnvironments": "API 环境",
       "apiClientHistory": "API 历史记录",
-      "jsonFormatterDocuments": "JSON 格式化器文档"
+      "jsonFormatterDocuments": "JSON 格式化器文档",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…"
     },
     "ui": {
       "title": "界面偏好",

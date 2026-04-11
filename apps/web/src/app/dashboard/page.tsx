@@ -23,8 +23,14 @@ const DashboardAnalyticsPanel = dynamic(
   () => import('@/components/dashboard/dashboard-analytics-panel').then((m) => m.DashboardAnalyticsPanel),
   {
     loading: () => (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {[...Array(4)].map((_, i) => <Skeleton key={i} className="h-28 w-full rounded-xl" />)}
+      <div className="space-y-6 p-1 md:p-2">
+        <Skeleton className="h-40 w-full rounded-2xl" />
+        <Skeleton className="h-28 w-full rounded-xl" />
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {[...Array(6)].map((_, i) => (
+            <Skeleton key={i} className="h-28 rounded-xl" />
+          ))}
+        </div>
       </div>
     ),
   }
@@ -582,18 +588,24 @@ const DashboardPage: React.FC = () => {
           </div>
             </TabsContent>
 
-            <TabsContent value="analytics" className="mt-0 rounded-xl border border-border/40 bg-background/40 p-4 md:p-6 focus-visible:outline-none">
+            <TabsContent value="analytics" className="mt-0 rounded-2xl focus-visible:outline-none">
               {user ? (
-                <DashboardAnalyticsPanel />
+                <div className="p-1 md:p-2">
+                  <DashboardAnalyticsPanel />
+                </div>
               ) : (
-                <Card className="border-dashed">
-                  <CardContent className="pt-6 text-center text-sm text-muted-foreground">
-                    <p>{t('analytics.loginHint')}</p>
-                    <Button type="button" className="mt-4" asChild>
+                <div className="relative overflow-hidden rounded-2xl border border-dashed border-border/50 bg-gradient-to-br from-primary/[0.04] via-muted/20 to-background px-6 py-12 text-center md:px-10 md:py-16">
+                  <div className="pointer-events-none absolute inset-0 dashboard-grid-bg opacity-30" aria-hidden />
+                  <div className="relative mx-auto max-w-md space-y-5">
+                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary shadow-inner ring-1 ring-border/40">
+                      <BarChart3 className="h-8 w-8" strokeWidth={1.5} aria-hidden />
+                    </div>
+                    <p className="text-sm leading-relaxed text-muted-foreground">{t('analytics.loginHint')}</p>
+                    <Button type="button" className="rounded-xl shadow-sm" asChild>
                       <Link href="/login">{t('signIn')}</Link>
                     </Button>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               )}
             </TabsContent>
           </Tabs>

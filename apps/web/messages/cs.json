@@ -314,7 +314,16 @@
       "apiClientCollections": "Kolekce API",
       "apiClientEnvironments": "Prostředí API",
       "apiClientHistory": "Záznamy historie API",
-      "jsonFormatterDocuments": "Dokumenty JSON formátovače"
+      "jsonFormatterDocuments": "Dokumenty JSON formátovače",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…"
     },
     "ui": {
       "title": "Předvolby rozhraní",
