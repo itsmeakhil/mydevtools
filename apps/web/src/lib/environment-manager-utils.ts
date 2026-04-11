@@ -1,29 +1,88 @@
 import type { EnvSetEntry, EnvVariableRow } from "@/store/environment-manager-store"
 
-export function parseDotEnvBlock(text: string): EnvVariableRow[] {
-    const out: EnvVariableRow[] = []
-    for (let line of text.split(/\r?\n/)) {
-        line = line.trim()
-        if (!line || line.startsWith("#")) continue
-        if (line.startsWith("export ")) {
-            line = line.slice(7).trim()
+/** Typical .env export key: letters, digits, underscore; must not start with digit. */
+const ENV_KEY_RE = /^[A-Za-z_][A-Za-z0-9_]*$/
+
+function parseEnvAssignmentBody(line: string): EnvVariableRow | null {
+    let s = line.trim()
+    if (s.startsWith("export ")) {
+        s = s.slice(7).trim()
+    }
+    const eq = s.indexOf("=")
+    if (eq <= 0) return null
+    const rawKey = s.slice(0, eq).trim()
+    if (!ENV_KEY_RE.test(rawKey)) return null
+    let val = s.slice(eq + 1)
+    if (
+        (val.startsWith('"') && val.endsWith('"')) ||
+        (val.startsWith("'") && val.endsWith("'"))
+    ) {
+        val = val.slice(1, -1)
+        val = val.replace(/\\n/g, "\n").replace(/\\r/g, "\r").replace(/\\"/g, '"').replace(/\\'/g, "'")
+    }
+    return { key: rawKey, value: val }
+}
+
+export type DotEnvParseDetailed = {
+    /** Uncommented KEY=value lines */
+    active: EnvVariableRow[]
+    /** Lines like `# KEY=value` (commented-out assignments) */
+    commentedEnv: EnvVariableRow[]
+    /** `#` lines that are not commented-out assignments */
+    plainCommentLines: number
+}
+
+export function parseDotEnvDetailed(text: string): DotEnvParseDetailed {
+    const active: EnvVariableRow[] = []
+    const commentedEnv: EnvVariableRow[] = []
+    let plainCommentLines = 0
+
+    for (const rawLine of text.split(/\r?\n/)) {
+        const trimmed = rawLine.trim()
+        if (!trimmed) continue
+
+        if (trimmed.startsWith("#")) {
+            const afterHash = trimmed.slice(1).trim()
+            if (!afterHash) {
+                plainCommentLines += 1
+                continue
+            }
+            const parsed = parseEnvAssignmentBody(afterHash)
+            if (parsed) {
+                commentedEnv.push(parsed)
+            } else {
+                plainCommentLines += 1
+            }
+            continue
         }
-        const eq = line.indexOf("=")
-        if (eq <= 0) continue
-        const rawKey = line.slice(0, eq).trim()
-        let val = line.slice(eq + 1)
-        if (
-            (val.startsWith('"') && val.endsWith('"')) ||
-            (val.startsWith("'") && val.endsWith("'"))
-        ) {
-            val = val.slice(1, -1)
-            val = val.replace(/\\n/g, "\n").replace(/\\r/g, "\r").replace(/\\"/g, '"').replace(/\\'/g, "'")
-        }
-        if (rawKey) {
-            out.push({ key: rawKey, value: val })
+
+        const parsed = parseEnvAssignmentBody(trimmed)
+        if (parsed) {
+            active.push(parsed)
         }
     }
-    return out
+
+    return { active, commentedEnv, plainCommentLines }
+}
+
+/** True if paste looks like an env file (at least one assignment, active or commented-out). */
+export function isValidEnvPasteText(text: string): boolean {
+    const d = parseDotEnvDetailed(text)
+    return d.active.length > 0 || d.commentedEnv.length > 0
+}
+
+export function mergeEnvVariableRows(
+    prev: EnvVariableRow[],
+    incoming: EnvVariableRow[],
+    emptyRow: EnvVariableRow
+): EnvVariableRow[] {
+    const base = prev.filter((r) => r.key.trim() || r.value.trim())
+    const merged = [...base, ...incoming]
+    return merged.length > 0 ? merged : [emptyRow]
+}
+
+export function parseDotEnvBlock(text: string): EnvVariableRow[] {
+    return parseDotEnvDetailed(text).active
 }
 
 export function formatDotEnv(variables: EnvVariableRow[]): string {

@@ -775,7 +775,15 @@
       "toastUpdateFailed": "به‌روزرسانی ناموفق بود",
       "toastPasteEmpty": "خط کلید=مقدار یافت نشد",
       "toastPasteApplied": "{count} متغیر از چسباندن ادغام شد",
-      "toastProjectEnvRequired": "پروژه و محیط الزامی است"
+      "toastProjectEnvRequired": "پروژه و محیط الزامی است",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}"
     }
   },
   "Bookmarks": {

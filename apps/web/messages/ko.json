@@ -775,7 +775,15 @@
       "toastUpdateFailed": "업데이트 실패",
       "toastPasteEmpty": "KEY=값 줄을 찾을 수 없음",
       "toastPasteApplied": "붙여넣기에서 변수 {count}개 병합",
-      "toastProjectEnvRequired": "프로젝트와 환경은 필수입니다"
+      "toastProjectEnvRequired": "프로젝트와 환경은 필수입니다",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}"
     }
   },
   "Bookmarks": {

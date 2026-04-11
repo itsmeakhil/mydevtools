@@ -8,21 +8,20 @@ import { useIsMobile } from "@/components/hooks/use-mobile"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Plus, Trash2, ChevronDown, ChevronUp } from "lucide-react"
+import { Plus, Trash2 } from "lucide-react"
 import {
     useEnvironmentManagerStore,
     type EnvVariableRow,
 } from "@/store/environment-manager-store"
 import { useMasterKeyStore } from "@/store/master-key-store"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Badge } from "@/components/ui/badge"
+import { EnvPasteCollapsible } from "@/components/environment-manager/env-paste-collapsible"
 import { encryptData } from "@/lib/encryption"
 import { auth } from "@/database/firebase"
 import { createEnvSetEntry } from "@/lib/environment-manager-api"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
 import { useTranslations } from "next-intl"
-import { parseDotEnvBlock } from "@/lib/environment-manager-utils"
 
 function emptyVariable(): EnvVariableRow {
     return { key: "", value: "" }
@@ -42,6 +41,8 @@ export function AddEnvironmentSetDialog({ children }: { children?: React.ReactNo
     const [notes, setNotes] = useState("")
     const [pasteOpen, setPasteOpen] = useState(false)
     const [pasteText, setPasteText] = useState("")
+    const [pendingCommented, setPendingCommented] = useState<EnvVariableRow[]>([])
+    const [plainCommentLines, setPlainCommentLines] = useState(0)
 
     const resetForm = () => {
         setProject("")
@@ -52,6 +53,8 @@ export function AddEnvironmentSetDialog({ children }: { children?: React.ReactNo
         setNotes("")
         setPasteText("")
         setPasteOpen(false)
+        setPendingCommented([])
+        setPlainCommentLines(0)
     }
 
     const handleAddTag = (e: React.KeyboardEvent) => {
@@ -67,21 +70,6 @@ export function AddEnvironmentSetDialog({ children }: { children?: React.ReactNo
 
     const removeTag = (tag: string) => {
         setTags((prev) => prev.filter((x) => x !== tag))
-    }
-
-    const applyPaste = () => {
-        const parsed = parseDotEnvBlock(pasteText)
-        if (parsed.length === 0) {
-            toast.error(t("toastPasteEmpty"))
-            return
-        }
-        setVariables((prev) => {
-            const base = prev.filter((r) => r.key.trim() || r.value.trim())
-            const merged = [...base, ...parsed]
-            return merged.length ? merged : [emptyVariable()]
-        })
-        setPasteText("")
-        toast.success(t("toastPasteApplied", { count: parsed.length }))
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -153,25 +141,19 @@ export function AddEnvironmentSetDialog({ children }: { children?: React.ReactNo
                 </div>
             </div>
 
-            <Collapsible open={pasteOpen} onOpenChange={setPasteOpen}>
-                <CollapsibleTrigger asChild>
-                    <Button type="button" variant="outline" size="sm" className="w-full justify-between">
-                        <span>{t("pasteEnvLabel")}</span>
-                        {pasteOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-                    </Button>
-                </CollapsibleTrigger>
-                <CollapsibleContent className="space-y-2 pt-2">
-                    <Textarea
-                        placeholder={t("pasteEnvPlaceholder")}
-                        value={pasteText}
-                        onChange={(e) => setPasteText(e.target.value)}
-                        className="min-h-[120px] font-mono text-sm"
-                    />
-                    <Button type="button" variant="secondary" size="sm" onClick={applyPaste}>
-                        {t("applyPaste")}
-                    </Button>
-                </CollapsibleContent>
-            </Collapsible>
+            <EnvPasteCollapsible
+                pasteOpen={pasteOpen}
+                onPasteOpenChange={setPasteOpen}
+                pasteText={pasteText}
+                onPasteTextChange={setPasteText}
+                pendingCommented={pendingCommented}
+                plainCommentLines={plainCommentLines}
+                onPendingCommentedChange={setPendingCommented}
+                onPlainCommentLinesChange={setPlainCommentLines}
+                setVariables={setVariables}
+                emptyRow={emptyVariable()}
+                t={t as (key: string, values?: Record<string, string | number | boolean | Date>) => string}
+            />
 
             <div className="space-y-2">
                 <div className="flex items-center justify-between">
