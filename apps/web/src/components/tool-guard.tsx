@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { ShieldOff, Settings, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToolVisibilityStore } from '@/store/tool-visibility-store';
-import { motion } from 'framer-motion';
 
 /**
  * URL-level guard for /app/* routes.
@@ -33,12 +32,7 @@ export function ToolGuard({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex flex-1 items-center justify-center p-6 bg-background/50">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
-        className="flex flex-col items-center text-center max-w-md space-y-6"
-      >
+      <div className="flex flex-col items-center text-center max-w-md space-y-6 animate-in fade-in slide-in-from-bottom-6 duration-300">
         {/* Icon */}
         <div className="relative">
           <div className="p-5 rounded-2xl bg-muted/50 border border-border/50">
@@ -70,7 +64,7 @@ export function ToolGuard({ children }: { children: React.ReactNode }) {
             </Link>
           </Button>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

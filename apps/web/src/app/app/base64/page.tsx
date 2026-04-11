@@ -1,9 +1,7 @@
 import { Base64Layout } from '@/components/base64/base64-layout'
+import { generateToolMetadata } from '@/lib/metadata'
 
-export const metadata = {
-  title: 'Base64 Encoder / Decoder | MyDevTools',
-  description: 'Encode text to Base64 or decode Base64 strings with UTF-8 support.',
-}
+export const metadata = generateToolMetadata('base64')
 
 export default function Base64Page() {
   return (

@@ -1,10 +1,7 @@
 import { UrlEncodeLayout } from '@/components/url-encode/url-encode-layout'
+import { generateToolMetadata } from '@/lib/metadata'
 
-export const metadata = {
-  title: 'URL Encoder / Decoder | MyDevTools',
-  description:
-    'Percent-encode or decode strings with UTF-8 support using standard URI component encoding.',
-}
+export const metadata = generateToolMetadata('url-encode')
 
 export default function UrlEncodePage() {
   return (

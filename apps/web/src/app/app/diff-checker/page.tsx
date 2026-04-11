@@ -1,15 +1,12 @@
-import { DiffCheckerLayout } from '@/components/diff-checker/diff-checker-layout'
+import { DiffCheckerLayoutLazy } from '@/components/app-tools/client-only-tool-loaders'
+import { generateToolMetadata } from '@/lib/metadata'
 
-export const metadata = {
-  title: 'Diff checker | MyDevTools',
-  description:
-    'Side-by-side line diff of two texts with highlighted additions and removals in the browser.',
-}
+export const metadata = generateToolMetadata('diff-checker')
 
 export default function DiffCheckerPage() {
   return (
     <div className="h-full w-full min-h-0 p-4">
-      <DiffCheckerLayout />
+      <DiffCheckerLayoutLazy />
     </div>
   )
 }

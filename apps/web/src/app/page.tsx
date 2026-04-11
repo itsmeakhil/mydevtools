@@ -1,12 +1,18 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+} from "@/components/ui/collapsible";
 import { motion, useInView } from "framer-motion";
 import {
   ArrowRight,
@@ -15,7 +21,6 @@ import {
   Rocket,
   Sparkles,
   CheckCircle2,
-  Code2,
   Lock,
   FileJson,
   KeyRound,
@@ -23,6 +28,11 @@ import {
   Terminal,
   Star,
   GitFork,
+  NotebookPen,
+  ChevronDown,
+  LogIn,
+  LayoutGrid,
+  ExternalLink,
 } from "lucide-react";
 
 // ─── Animation Variants ────────────────────────────────────────────────────────
@@ -119,7 +129,7 @@ const tools = [
     title: "Notes",
     description:
       "Capture ideas and organize thoughts with a clean, distraction-free note-taking app.",
-    icon: Code2,
+    icon: NotebookPen,
     href: "/app/notes",
     gradient: "from-indigo-500 to-blue-400",
     hoverGlow: "hover:shadow-indigo-500/25",
@@ -139,7 +149,7 @@ const features = [
     icon: Shield,
     title: "Secure & Private",
     description:
-      "Your data never leaves your browser. 100% client-side execution with absolute zero tracking.",
+      "Sensitive data is encrypted in your browser before it's ever transmitted. The server only receives encrypted blobs it cannot read.",
     gradient: "from-emerald-500 to-teal-400",
   },
   {
@@ -151,10 +161,54 @@ const features = [
   },
 ];
 
-const stats = [
-  { value: "10+", label: "Dev Tools" },
-  { value: "100%", label: "Open Source" },
-  { value: "0kb", label: "Data Sent" },
+const howItWorks = [
+  {
+    step: "01",
+    title: "Sign In Instantly",
+    description:
+      "One-click Google Sign-In. No email, no password, no credit card required.",
+    icon: LogIn,
+    gradient: "from-sky-500 to-cyan-400",
+  },
+  {
+    step: "02",
+    title: "Pick Your Tool",
+    description:
+      "Choose from 19+ tools in one unified dashboard. Everything in a single tab.",
+    icon: LayoutGrid,
+    gradient: "from-violet-500 to-purple-400",
+  },
+  {
+    step: "03",
+    title: "Work Privately",
+    description:
+      "Data is AES-256 encrypted in your browser before sync. The server never sees your plaintext.",
+    icon: Shield,
+    gradient: "from-emerald-500 to-teal-400",
+  },
+];
+
+const faqItems = [
+  {
+    q: "Is MyDevTools really free?",
+    a: "Yes — free forever, no paid tiers, no credit card required. MyDevTools is open source (MIT license) and will always be free to use.",
+  },
+  {
+    q: "Is my data secure?",
+    a: "Sensitive data is AES-256 encrypted in your browser before it reaches the server. The server only stores encrypted blobs it cannot read — zero-knowledge by design.",
+  },
+  {
+    q: "Do I need an account to use the tools?",
+    a: "Google Sign-In is required to save your data across sessions. It's one click — no email or password needed.",
+  },
+  {
+    q: "Is this truly open source?",
+    a: "Yes. Full source code is available on GitHub under the MIT license. You can audit, contribute, or self-host it.",
+  },
+  {
+    q: "Does it work offline?",
+    a: "Most tools are fully client-side and work offline (JSON Editor, Password Manager, Notes, etc.). Tools that connect to external services (NoSQL Explorer, API Client) need a network connection.",
+  },
 ];
 
 // ─── Page ──────────────────────────────────────────────────────────────────────
@@ -162,6 +216,22 @@ const stats = [
 export default function Page() {
   const router = useRouter();
   const goToLogin = () => router.push("/login");
+
+  const [githubStars, setGithubStars] = useState<number | null>(null);
+  const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch("https://api.github.com/repos/itsmeakhil/mydevtools.tech", {
+      headers: { Accept: "application/vnd.github+json" },
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (typeof d.stargazers_count === "number") {
+          setGithubStars(d.stargazers_count);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans overflow-x-hidden">
@@ -274,7 +344,11 @@ export default function Page() {
               transition={{ duration: 0.6, delay: 0.32 }}
               className="pt-6 grid grid-cols-3 gap-6 max-w-sm mx-auto"
             >
-              {stats.map((s, i) => (
+              {[
+                { value: "19+", label: "Dev Tools" },
+                { value: "100%", label: "Open Source" },
+                { value: "E2E", label: "Encrypted" },
+              ].map((s, i) => (
                 <div key={i} className="text-center">
                   <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-sky-500 to-violet-500 bg-clip-text text-transparent">
                     {s.value}
@@ -286,10 +360,51 @@ export default function Page() {
               ))}
             </motion.div>
 
+            {/* Dashboard screenshot */}
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.7, delay: 0.4 }}
+              className="pt-4 relative mx-auto max-w-5xl"
+            >
+              {/* Browser chrome frame */}
+              <div className="rounded-2xl border border-border/60 bg-card/80 backdrop-blur-sm shadow-2xl shadow-violet-500/10 overflow-hidden">
+                {/* Fake browser bar */}
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-border/40 bg-muted/40">
+                  <div className="flex gap-1.5 shrink-0">
+                    <div className="w-3 h-3 rounded-full bg-rose-400/70" />
+                    <div className="w-3 h-3 rounded-full bg-amber-400/70" />
+                    <div className="w-3 h-3 rounded-full bg-emerald-400/70" />
+                  </div>
+                  <div className="flex-1 mx-4 h-6 rounded-md bg-background/60 border border-border/40 text-xs text-muted-foreground flex items-center px-3">
+                    mydevtools.tech/app
+                  </div>
+                </div>
+                {/* Screenshot — light/dark via CSS */}
+                <Image
+                  src="/images/dashboard-light.png"
+                  alt="MyDevTools dashboard"
+                  width={1200}
+                  height={700}
+                  priority
+                  className="w-full h-auto dark:hidden"
+                />
+                <Image
+                  src="/images/dashboard-dark.png"
+                  alt="MyDevTools dashboard"
+                  width={1200}
+                  height={700}
+                  priority
+                  className="w-full h-auto hidden dark:block"
+                />
+              </div>
+              {/* Glow beneath the screenshot */}
+              <div className="absolute -bottom-6 inset-x-8 h-16 bg-violet-500/20 blur-2xl rounded-full pointer-events-none" />
+            </motion.div>
+
             {/* Product Hunt badge */}
             <motion.div
               variants={fadeUp}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
               className="pt-2"
             >
               <a
@@ -307,6 +422,63 @@ export default function Page() {
               </a>
             </motion.div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* ── How It Works ────────────────────────────────────────────────────── */}
+      <section className="py-16 md:py-24 relative overflow-hidden">
+        <div className="container px-4 md:px-6 mx-auto">
+          <Section>
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-14"
+            >
+              <Badge
+                variant="secondary"
+                className="mb-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium"
+              >
+                <Sparkles className="w-3 h-3" />
+                Get Started in Seconds
+              </Badge>
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
+                How It Works
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+                From zero to productive in under a minute.
+              </p>
+            </motion.div>
+
+            <div className="relative grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-10 max-w-4xl mx-auto">
+              {/* Connecting line (desktop only) */}
+              <div className="hidden sm:block absolute top-10 left-[calc(16.67%+24px)] right-[calc(16.67%+24px)] h-px border-t border-dashed border-border/50" />
+
+              {howItWorks.map((step, i) => (
+                <motion.div
+                  key={i}
+                  variants={fadeUp}
+                  transition={{ duration: 0.55, delay: i * 0.12 }}
+                  className="flex flex-col items-center text-center relative"
+                >
+                  {/* Step circle */}
+                  <div
+                    className={`w-20 h-20 rounded-full bg-gradient-to-br ${step.gradient} p-px mb-6 shadow-lg z-10`}
+                  >
+                    <div className="w-full h-full rounded-full bg-card flex items-center justify-center">
+                      <step.icon className="w-8 h-8 text-foreground" />
+                    </div>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-muted-foreground/60 mb-2 tracking-widest">
+                    STEP {step.step}
+                  </span>
+                  <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed max-w-[220px]">
+                    {step.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </Section>
         </div>
       </section>
 
@@ -336,16 +508,9 @@ export default function Page() {
                   transition={{ duration: 0.55, delay: i * 0.1 }}
                 >
                   <div className="group relative h-full rounded-2xl border border-border/50 bg-card/60 backdrop-blur-sm p-7 hover:border-border hover:shadow-xl transition-all duration-300 overflow-hidden">
-                    {/* Card glow on hover */}
-                    <div
-                      className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${f.gradient} rounded-2xl`}
-                      style={{ opacity: undefined }}
-                    />
                     <div
                       className={`absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 bg-gradient-to-br ${f.gradient}`}
                     />
-
-                    {/* Gradient ring icon */}
                     <div
                       className={`relative z-10 w-12 h-12 rounded-xl bg-gradient-to-br ${f.gradient} p-px mb-6 shadow-lg`}
                     >
@@ -353,7 +518,6 @@ export default function Page() {
                         <f.icon className="w-5 h-5 text-foreground" />
                       </div>
                     </div>
-
                     <h3 className="relative z-10 text-xl font-semibold mb-3">
                       {f.title}
                     </h3>
@@ -363,6 +527,122 @@ export default function Page() {
                   </div>
                 </motion.div>
               ))}
+            </div>
+          </Section>
+        </div>
+      </section>
+
+      {/* ── Social Proof ─────────────────────────────────────────────────────── */}
+      <section className="py-16 md:py-24 relative overflow-hidden">
+        <div className="absolute inset-0 -z-10 bg-muted/20" />
+        <div className="container px-4 md:px-6 mx-auto">
+          <Section>
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-14"
+            >
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+                Trusted by the Developer Community
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+                Open source, privacy-first, and community-verified.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
+              {/* Open Source card */}
+              <motion.div
+                variants={fadeUp}
+                transition={{ duration: 0.55, delay: 0 }}
+              >
+                <div className="group relative h-full rounded-2xl border border-border/50 bg-card/60 backdrop-blur-sm p-7 hover:border-border hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500 bg-gradient-to-br from-sky-500 to-cyan-400" />
+                  <div className="relative z-10 w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500 to-cyan-400 p-px mb-6 shadow-lg">
+                    <div className="w-full h-full rounded-[11px] bg-card flex items-center justify-center">
+                      <GitFork className="w-5 h-5 text-foreground" />
+                    </div>
+                  </div>
+                  <h3 className="relative z-10 text-xl font-semibold mb-3">
+                    100% Open Source
+                  </h3>
+                  <p className="relative z-10 text-muted-foreground leading-relaxed text-sm md:text-base mb-5 flex-1">
+                    MIT licensed. Full source on GitHub. Audit every line,
+                    contribute features, or self-host.
+                  </p>
+                  <Link
+                    href="https://github.com/itsmeakhil/mydevtools.tech"
+                    target="_blank"
+                    className="relative z-10 inline-flex items-center gap-1.5 text-sm font-medium text-sky-500 hover:text-sky-400 transition-colors"
+                  >
+                    <Star className="w-4 h-4" />
+                    {githubStars !== null ? (
+                      <span>{githubStars} stars on GitHub</span>
+                    ) : (
+                      <span>View on GitHub</span>
+                    )}
+                    <ExternalLink className="w-3.5 h-3.5 opacity-60" />
+                  </Link>
+                </div>
+              </motion.div>
+
+              {/* Product Hunt card */}
+              <motion.div
+                variants={fadeUp}
+                transition={{ duration: 0.55, delay: 0.1 }}
+              >
+                <div className="group relative h-full rounded-2xl border border-border/50 bg-card/60 backdrop-blur-sm p-7 hover:border-border hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500 bg-gradient-to-br from-amber-500 to-orange-400" />
+                  <div className="relative z-10 w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-400 p-px mb-6 shadow-lg">
+                    <div className="w-full h-full rounded-[11px] bg-card flex items-center justify-center">
+                      <Star className="w-5 h-5 text-foreground" />
+                    </div>
+                  </div>
+                  <h3 className="relative z-10 text-xl font-semibold mb-3">
+                    Featured on Product Hunt
+                  </h3>
+                  <p className="relative z-10 text-muted-foreground leading-relaxed text-sm md:text-base mb-5 flex-1">
+                    Recognized by the developer community. Try it and leave your
+                    review.
+                  </p>
+                  <a
+                    href="https://www.producthunt.com/products/mydevtools?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-mydevtools"
+                    target="_blank"
+                    className="relative z-10 inline-block hover:opacity-90 hover:scale-105 transition-all duration-300 self-start"
+                  >
+                    <img
+                      src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1041847&theme=light&t=1764002797983"
+                      alt="MyDevTools on Product Hunt"
+                      style={{ width: "180px", height: "39px" }}
+                      width="180"
+                      height="39"
+                    />
+                  </a>
+                </div>
+              </motion.div>
+
+              {/* Privacy card */}
+              <motion.div
+                variants={fadeUp}
+                transition={{ duration: 0.55, delay: 0.2 }}
+              >
+                <div className="group relative h-full rounded-2xl border border-border/50 bg-card/60 backdrop-blur-sm p-7 hover:border-border hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500 bg-gradient-to-br from-emerald-500 to-teal-400" />
+                  <div className="relative z-10 w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-400 p-px mb-6 shadow-lg">
+                    <div className="w-full h-full rounded-[11px] bg-card flex items-center justify-center">
+                      <Shield className="w-5 h-5 text-foreground" />
+                    </div>
+                  </div>
+                  <h3 className="relative z-10 text-xl font-semibold mb-3">
+                    Zero-Knowledge Privacy
+                  </h3>
+                  <p className="relative z-10 text-muted-foreground leading-relaxed text-sm md:text-base flex-1">
+                    Sensitive data is AES-256 encrypted in your browser before
+                    transmission. The server only receives encrypted blobs — it
+                    never sees your plaintext.
+                  </p>
+                </div>
+              </motion.div>
             </div>
           </Section>
         </div>
@@ -461,6 +741,63 @@ export default function Page() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </motion.div>
+          </Section>
+        </div>
+      </section>
+
+      {/* ── FAQ ─────────────────────────────────────────────────────────────── */}
+      <section className="py-16 md:py-28 relative overflow-hidden">
+        <div className="container px-4 md:px-6 mx-auto max-w-3xl">
+          <Section>
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
+                Common Questions
+              </h2>
+              <p className="text-muted-foreground text-lg">
+                Everything you need to know before getting started.
+              </p>
+            </motion.div>
+
+            <div className="space-y-3">
+              {faqItems.map((item, i) => (
+                <motion.div
+                  key={i}
+                  variants={fadeUp}
+                  transition={{ duration: 0.5, delay: i * 0.07 }}
+                >
+                  <Collapsible
+                    open={openFaqIdx === i}
+                    onOpenChange={(open) =>
+                      setOpenFaqIdx(open ? i : null)
+                    }
+                  >
+                    <CollapsibleTrigger className="w-full">
+                      <div className="flex items-center justify-between w-full rounded-2xl border border-border/50 bg-card/60 backdrop-blur-sm px-6 py-4 hover:border-border hover:bg-card/80 transition-all duration-200 text-left">
+                        <span className="font-medium text-base pr-4">
+                          {item.q}
+                        </span>
+                        <motion.div
+                          animate={{ rotate: openFaqIdx === i ? 180 : 0 }}
+                          transition={{ duration: 0.25 }}
+                          className="shrink-0 text-muted-foreground"
+                        >
+                          <ChevronDown className="w-4 h-4" />
+                        </motion.div>
+                      </div>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <div className="px-6 pb-4 pt-2 text-muted-foreground text-sm leading-relaxed border border-t-0 border-border/50 rounded-b-2xl bg-card/30 backdrop-blur-sm -mt-2">
+                        {item.a}
+                      </div>
+                    </CollapsibleContent>
+                  </Collapsible>
+                </motion.div>
+              ))}
+            </div>
           </Section>
         </div>
       </section>

@@ -1,16 +1,12 @@
-'use client'
-import React from 'react';
-import { ClientLayout } from '../../components/sidebar/client-layout';
-import { RequireAuth } from '@/components/require-auth';
-import { MasterPasswordGate } from '@/components/master-password-gate';
+import { generatePageMetadata } from '@/lib/metadata'
+import DashboardClientLayout from './dashboard-client-layout'
+
+export const metadata = generatePageMetadata({
+  title: 'Dashboard',
+  description: 'Access all your developer tools from one unified dashboard. Search, favorite, and launch any tool instantly.',
+  path: '/dashboard',
+})
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <RequireAuth>
-      {/* Gate sits outside ClientLayout so the overlay covers the full screen. */}
-      <MasterPasswordGate>
-        <ClientLayout>{children}</ClientLayout>
-      </MasterPasswordGate>
-    </RequireAuth>
-  );
+  return <DashboardClientLayout>{children}</DashboardClientLayout>
 }

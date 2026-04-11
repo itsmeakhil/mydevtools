@@ -12,6 +12,7 @@ import { listEnvSetEntries } from "@/lib/environment-manager-api"
 import { decryptData } from "@/lib/encryption"
 import { parseEnvPayloadJson } from "@/lib/environment-manager-utils"
 import { toast } from "sonner"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function EnvironmentManagerPage() {
     const t = useTranslations("EnvironmentManager.page")
@@ -64,8 +65,20 @@ export default function EnvironmentManagerPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                {t("loading")}
+            <div className="h-full flex flex-col container mx-auto px-4 md:px-6 lg:px-8">
+                <div className="flex justify-between items-center py-6 shrink-0">
+                    <Skeleton className="h-9 w-56" />
+                    <Skeleton className="h-9 w-40" />
+                </div>
+                <div className="flex gap-3 mb-6">
+                    <Skeleton className="h-9 flex-1 max-w-sm" />
+                    <Skeleton className="h-9 w-24" />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {[...Array(4)].map((_, i) => (
+                        <Skeleton key={i} className="h-44 w-full rounded-xl" />
+                    ))}
+                </div>
             </div>
         )
     }

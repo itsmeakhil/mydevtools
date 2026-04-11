@@ -1,15 +1,12 @@
-import { JsonSchemaGeneratorLayout } from '@/components/json-schema-generator/json-schema-generator-layout';
+import { JsonSchemaGeneratorLayoutLazy } from '@/components/app-tools/client-only-tool-loaders'
+import { generateToolMetadata } from '@/lib/metadata'
 
-export const metadata = {
-  title: 'JSON Schema Generator | MyDevTools',
-  description:
-    'Paste JSON and generate JSON Schema or typed models for Python, TypeScript, Go, Rust, Java, C#, Dart, and Swift.',
-};
+export const metadata = generateToolMetadata('json-schema-generator')
 
 export default function JsonSchemaGeneratorPage() {
   return (
     <div className="h-full w-full min-h-0 p-4">
-      <JsonSchemaGeneratorLayout />
+      <JsonSchemaGeneratorLayoutLazy />
     </div>
-  );
+  )
 }

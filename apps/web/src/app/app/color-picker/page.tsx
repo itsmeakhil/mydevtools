@@ -1,15 +1,12 @@
-import { ColorPickerToolLayout } from '@/components/color-picker-tool/color-picker-tool-layout'
+import { ColorPickerToolLayoutLazy } from '@/components/app-tools/client-only-tool-loaders'
+import { generateToolMetadata } from '@/lib/metadata'
 
-export const metadata = {
-  title: 'Color Picker & Converter | MyDevTools',
-  description:
-    'Pick colors, convert HEX, RGB, and HSL, and explore palettes: shades, complementary, triadic, and more.',
-}
+export const metadata = generateToolMetadata('color-picker')
 
 export default function ColorPickerPage() {
   return (
     <div className="h-full w-full min-h-0 p-4">
-      <ColorPickerToolLayout />
+      <ColorPickerToolLayoutLazy />
     </div>
   )
 }

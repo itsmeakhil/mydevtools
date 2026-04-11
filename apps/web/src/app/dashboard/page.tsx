@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import dynamic from 'next/dynamic';
 import { Card, CardContent } from "@/components/ui/card";
 import { sidebarData } from "../../components/sidebar/data/sidebar-data";
 import Link, { LinkProps } from "next/link";
@@ -7,7 +8,6 @@ import { Heart, Clock, ArrowRight, Sparkles, Layers, Zap, Search, X, LayoutGrid,
 import { requiresAuth } from '@/lib/tool-config';
 import { useFavoriteTool } from '@/hooks/use-favorite-tool';
 import { useToolUsage } from '@/hooks/use-tool-usage';
-import { motion } from 'framer-motion';
 import { useMediaQuery } from "@/hooks/use-media-query";
 import useAuth from "@/utils/useAuth";
 import { useTranslations } from 'next-intl';
@@ -15,8 +15,20 @@ import { useToolVisibility } from '@/hooks/use-tool-visibility';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { DashboardAnalyticsPanel } from '@/components/dashboard/dashboard-analytics-panel';
+import { Skeleton } from '@/components/ui/skeleton';
 import { TOOL_PATH_TO_MESSAGE_KEY } from '@/lib/tool-i18n';
+
+// Lazy-load the analytics panel — it's behind a tab click, not in the critical path
+const DashboardAnalyticsPanel = dynamic(
+  () => import('@/components/dashboard/dashboard-analytics-panel').then((m) => m.DashboardAnalyticsPanel),
+  {
+    loading: () => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {[...Array(4)].map((_, i) => <Skeleton key={i} className="h-28 w-full rounded-xl" />)}
+      </div>
+    ),
+  }
+);
 
 function dashboardGreeting(t: (key: string) => string): string {
   const hour = new Date().getHours();
@@ -284,11 +296,9 @@ const DashboardPage: React.FC = () => {
     };
 
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.3) }}
-        className="card-gradient-border rounded-xl"
+      <div
+        className="card-gradient-border rounded-xl animate-in fade-in slide-in-from-bottom-4 duration-300"
+        style={{ animationDelay: `${Math.min(index * 50, 300)}ms`, animationFillMode: 'both' }}
       >
         <Link href={item.url || "#"} className="block group h-full" onClick={handleClick}>
           <Card className="glass-card border-border/30 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 h-full min-h-[130px] md:min-h-[180px] relative overflow-hidden group-hover:-translate-y-0.5 md:group-hover:-translate-y-1.5">
@@ -338,7 +348,7 @@ const DashboardPage: React.FC = () => {
             </CardContent>
           </Card>
         </Link>
-      </motion.div>
+      </div>
     );
   };
 

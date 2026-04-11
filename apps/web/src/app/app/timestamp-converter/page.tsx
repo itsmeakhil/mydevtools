@@ -1,10 +1,7 @@
 import { TimestampConverterLayout } from '@/components/timestamp-converter/timestamp-converter-layout'
+import { generateToolMetadata } from '@/lib/metadata'
 
-export const metadata = {
-  title: 'Timestamp Converter | MyDevTools',
-  description:
-    'Convert Unix time, ISO-8601, and date strings. View UTC, local ISO, relative time, and copy any field.',
-}
+export const metadata = generateToolMetadata('timestamp-converter')
 
 export default function TimestampConverterPage() {
   return (

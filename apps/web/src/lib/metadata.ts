@@ -2,6 +2,10 @@ import { Metadata } from 'next'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 
+function ogImageUrl(title: string, description: string): string {
+    return `${baseUrl}/api/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`
+}
+
 // Tool metadata definitions
 export const toolsMetadata: Record<string, {
     title: string
@@ -9,48 +13,58 @@ export const toolsMetadata: Record<string, {
     keywords: string[]
 }> = {
     'to-do': {
-        title: 'To-Do List - Task Management App',
-        description: 'Manage tasks and to-do lists efficiently. Free to-do list app for developers.',
+        title: 'Task Manager',
+        description: 'Organize daily tasks, set priorities, and track your productivity. A to-do app built for developers.',
         keywords: ['to do list', 'task manager', 'todo app', 'task list', 'productivity']
     },
     'notes': {
-        title: 'Notes - Quick Note Taking App',
-        description: 'Create and manage notes quickly. Simple note-taking app for developers.',
-        keywords: ['notes app', 'note taking', 'quick notes', 'developer notes', 'text notes']
+        title: 'Notes',
+        description: 'Create and manage notes quickly. Markdown-supported note-taking for developers.',
+        keywords: ['notes app', 'note taking', 'quick notes', 'developer notes', 'markdown notes']
+    },
+    'bookmarks': {
+        title: 'Bookmarks',
+        description: 'Save and organize your favorite links and developer resources in one place.',
+        keywords: ['bookmarks manager', 'link organizer', 'developer resources', 'save links', 'favorites']
     },
     'password-manager': {
-        title: 'Password Manager - Secure Password Vault',
-        description: 'Securely store and manage passwords with client-side encryption. Free password manager with vault protection.',
+        title: 'Password Manager',
+        description: 'Securely store and manage passwords with client-side AES-256 encryption. Zero-knowledge vault.',
         keywords: ['password manager', 'password vault', 'secure passwords', 'password storage', 'encrypted vault']
     },
     'environment-manager': {
-        title: 'Environment Manager - Encrypted .env Vault',
+        title: 'Environment Manager',
         description: 'Organize environment variables by project and environment. Encrypted on your device with AES-256-GCM before sync.',
         keywords: ['environment variables', 'env file', 'secrets manager', 'dotenv', 'encrypted env', 'devops']
     },
+    'email-validator': {
+        title: 'Email Validator',
+        description: 'Verify and validate email addresses with MX record checks and RFC 5322 syntax validation.',
+        keywords: ['email validator', 'email verification', 'mx record check', 'email syntax', 'validate email']
+    },
     'json-formatter': {
-        title: 'JSON Editor - Advanced JSON Tool',
-        description: 'Format, validate, and edit JSON data with our powerful JSON editor.',
-        keywords: ['json editor', 'json formatter', 'json validator', 'edit json']
+        title: 'JSON Editor',
+        description: 'Format, validate, and edit JSON data with text and tree views. Supports JSONPath queries.',
+        keywords: ['json editor', 'json formatter', 'json validator', 'edit json', 'jsonpath']
     },
     'json-schema-generator': {
-        title: 'JSON Schema Generator - Types from JSON',
+        title: 'JSON Schema Generator',
         description: 'Generate JSON Schema (Draft 2020-12) and typed models for Python, TypeScript, Go, Rust, Java, C#, Dart, and Swift from sample JSON.',
         keywords: ['json schema', 'jsonschema', 'pydantic', 'typescript types', 'go struct from json', 'serde', 'openapi']
     },
     'api-client': {
-        title: 'API Client - Test HTTP Requests',
-        description: 'Test and debug HTTP requests with our easy-to-use API client.',
-        keywords: ['api client', 'http client', 'rest api tester', 'debug api']
+        title: 'API Client',
+        description: 'Test and debug HTTP requests with headers, body, and auth support. A lightweight Postman alternative in your browser.',
+        keywords: ['api client', 'http client', 'rest api tester', 'debug api', 'postman alternative']
     },
     'nosql-explorer': {
-        title: 'NoSQL Explorer - Manage MongoDB',
+        title: 'NoSQL Explorer',
         description: 'Explore and manage your MongoDB databases directly from your browser.',
-        keywords: ['nosql explorer', 'mongodb manager', 'database explorer', 'mongo ui']
+        keywords: ['nosql explorer', 'mongodb manager', 'database explorer', 'mongo ui', 'mongodb browser']
     },
     'url-encode': {
-        title: 'URL Encoder / Decoder - Percent Encoding',
-        description: 'Percent-encode or decode text for query strings and URI components with UTF-8.',
+        title: 'URL Encoder / Decoder',
+        description: 'Percent-encode or decode text for query strings and URI components with UTF-8 support.',
         keywords: ['url encode', 'url decode', 'percent encode', 'uri encode', 'encodeURIComponent']
     },
     'uuid-generator': {
@@ -64,40 +78,45 @@ export const toolsMetadata: Record<string, {
         keywords: ['lorem ipsum', 'placeholder text', 'dummy text', 'latin filler', 'mockup text']
     },
     'color-picker': {
-        title: 'Color Picker & HEX RGB HSL Converter',
-        description: 'Pick colors, convert between HEX, RGB, and HSL, and copy CSS. Explore harmonic palettes in the browser.',
+        title: 'Color Picker & Converter',
+        description: 'Pick colors, convert between HEX, RGB, and HSL, and explore harmonic palettes — shades, complementary, triadic, and more.',
         keywords: ['color picker', 'hex to rgb', 'rgb to hsl', 'color converter', 'palette generator']
     },
     'jwt-decoder': {
-        title: 'JWT Decoder - Header, Payload & Expiry',
+        title: 'JWT Decoder',
         description: 'Decode JSON Web Tokens in the browser: header, payload, exp, iat, and nbf. No server upload; signature not verified.',
         keywords: ['jwt decode', 'jwt debugger', 'json web token', 'jwt exp', 'jwt payload']
     },
     'regex-tester': {
-        title: 'Regex Tester - Live Match Highlighting',
-        description: 'Test JavaScript regular expressions with live highlights, flags (g, i, m, s, u), and match counts. Client-side only.',
+        title: 'Regex Tester',
+        description: 'Test JavaScript regular expressions with live match highlighting, flags (g, i, m, s, u), and match counts. Client-side only.',
         keywords: ['regex tester', 'regular expression', 'javascript regex', 'regex debug', 'pattern match']
     },
     'timestamp-converter': {
-        title: 'Timestamp Converter - Unix, ISO & Relative',
+        title: 'Timestamp Converter',
         description: 'Convert Unix seconds or milliseconds, ISO-8601, and date strings. See UTC, local, and relative time with one-click copy.',
         keywords: ['unix timestamp', 'epoch converter', 'iso 8601', 'relative time', 'date converter']
     },
     'cron-builder': {
-        title: 'Cron Expression Builder & Parser',
-        description: 'Build 5-field cron jobs with presets and quick picks, edit raw expressions, read plain-English schedules, and preview next run times in the browser.',
+        title: 'Cron Expression Builder',
+        description: 'Build 5-field cron jobs with presets and quick picks, edit raw expressions, read plain-English schedules, and preview next run times.',
         keywords: ['cron builder', 'crontab', 'cron expression', 'schedule parser', 'cron parser']
     },
     'sql-formatter': {
-        title: 'SQL Formatter - MySQL, PostgreSQL, SQLite',
+        title: 'SQL Formatter',
         description: 'Pretty-print SQL in the browser with dialect-aware formatting for MySQL, PostgreSQL, and SQLite.',
         keywords: ['sql formatter', 'pretty print sql', 'postgresql format', 'mysql sql', 'sqlite sql']
     },
     'diff-checker': {
-        title: 'Text Diff Checker - Side-by-Side Compare',
-        description: 'Compare two texts line by side with additions and removals highlighted. Runs entirely in your browser.',
+        title: 'Text Diff Checker',
+        description: 'Compare two texts side by side with additions and removals highlighted. Runs entirely in your browser.',
         keywords: ['text diff', 'diff checker', 'side by side compare', 'line diff', 'text compare']
-    }
+    },
+    'base64': {
+        title: 'Base64 Encoder / Decoder',
+        description: 'Encode text to Base64 or decode Base64 strings instantly, with UTF-8 support. Runs entirely in your browser.',
+        keywords: ['base64 encode', 'base64 decode', 'base64 converter', 'encode text', 'decode base64']
+    },
 }
 
 // Generate metadata for a tool page
@@ -111,19 +130,21 @@ export function generateToolMetadata(toolSlug: string): Metadata {
         }
     }
 
+    const image = ogImageUrl(tool.title, tool.description)
+
     return {
         title: tool.title,
         description: tool.description,
         keywords: tool.keywords,
         openGraph: {
-            title: tool.title,
+            title: `${tool.title} | MyDevTools`,
             description: tool.description,
             url: `${baseUrl}/app/${toolSlug}`,
             siteName: 'MyDevTools',
             type: 'website',
             images: [
                 {
-                    url: `${baseUrl}/og-image.png`,
+                    url: image,
                     width: 1200,
                     height: 630,
                     alt: tool.title,
@@ -132,13 +153,51 @@ export function generateToolMetadata(toolSlug: string): Metadata {
         },
         twitter: {
             card: 'summary_large_image',
-            title: tool.title,
+            title: `${tool.title} | MyDevTools`,
             description: tool.description,
-            images: [`${baseUrl}/og-image.png`],
+            images: [image],
             creator: '@mydevtools',
         },
         alternates: {
             canonical: `${baseUrl}/app/${toolSlug}`,
+        },
+    }
+}
+
+// Generate metadata for non-tool pages (dashboard, etc.)
+export function generatePageMetadata(opts: {
+    title: string
+    description: string
+    path: string
+}): Metadata {
+    const image = ogImageUrl(opts.title, opts.description)
+    return {
+        title: opts.title,
+        description: opts.description,
+        openGraph: {
+            title: `${opts.title} | MyDevTools`,
+            description: opts.description,
+            url: `${baseUrl}${opts.path}`,
+            siteName: 'MyDevTools',
+            type: 'website',
+            images: [
+                {
+                    url: image,
+                    width: 1200,
+                    height: 630,
+                    alt: opts.title,
+                },
+            ],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: `${opts.title} | MyDevTools`,
+            description: opts.description,
+            images: [image],
+            creator: '@mydevtools',
+        },
+        alternates: {
+            canonical: `${baseUrl}${opts.path}`,
         },
     }
 }
@@ -149,7 +208,7 @@ export const siteMetadata = {
     title: 'MyDevTools - Essential Tools for Developers',
     description: 'Your Ultimate Developer Toolkit. Access free online tools including JSON editor, API client, password manager, and more. Boost productivity with client-side processing.',
     url: baseUrl,
-    ogImage: `${baseUrl}/og-image.png`,
+    ogImage: ogImageUrl('MyDevTools', 'Essential Tools for Developers'),
     keywords: [
         'developer tools',
         'online tools',

@@ -1,7 +1,11 @@
-'use client'
-import React from 'react';
-import { ClientLayout } from '../../components/sidebar/client-layout';
+import type { Metadata } from 'next'
+import SettingsClientLayout from './settings-client-layout'
+
+export const metadata: Metadata = {
+  title: 'Settings',
+  description: 'Manage your MyDevTools account preferences and app settings.',
+}
 
 export default function SettingsLayout({ children }: { children: React.ReactNode }) {
-  return <ClientLayout>{children}</ClientLayout>;
+  return <SettingsClientLayout>{children}</SettingsClientLayout>
 }

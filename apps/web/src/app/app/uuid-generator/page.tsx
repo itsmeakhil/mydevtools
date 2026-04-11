@@ -1,10 +1,7 @@
 import { UuidGeneratorLayout } from '@/components/uuid-generator/uuid-generator-layout'
+import { generateToolMetadata } from '@/lib/metadata'
 
-export const metadata = {
-  title: 'UUID / ULID Generator | MyDevTools',
-  description:
-    'Generate UUID v1, v3, v4, v5, v6, v7, or ULIDs with namespace options and bulk export.',
-}
+export const metadata = generateToolMetadata('uuid-generator')
 
 export default function UuidGeneratorPage() {
   return (
