@@ -737,7 +737,12 @@
       "cancel": "キャンセル",
       "confirmDelete": "削除",
       "deleteDialogTitle": "環境セットを削除しますか？",
-      "deleteDialogDescription": "アカウントから暗号化データが削除されます。元に戻せません。"
+      "deleteDialogDescription": "アカウントから暗号化データが削除されます。元に戻せません。",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env をクリップボードにコピーしました",

@@ -737,7 +737,12 @@
       "cancel": "Avbryt",
       "confirmDelete": "Ta bort",
       "deleteDialogTitle": "Ta bort miljöuppsättning?",
-      "deleteDialogDescription": "Detta tar bort den krypterade blobben från ditt konto. Kan inte ångras."
+      "deleteDialogDescription": "Detta tar bort den krypterade blobben från ditt konto. Kan inte ångras.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env kopierat till urklipp",

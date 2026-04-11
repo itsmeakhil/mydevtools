@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Search, Copy, Pencil, Trash2, FileCode2 } from "lucide-react"
+import { Search, Copy, Pencil, Trash2, FileCode2, Eye } from "lucide-react"
 import { toast } from "sonner"
 import { deleteEnvSetEntry } from "@/lib/environment-manager-api"
 import { formatDotEnv } from "@/lib/environment-manager-utils"
@@ -27,6 +27,14 @@ import { formatDistanceToNow } from "date-fns"
 import { cn } from "@/lib/utils"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import { SidebarTrigger } from "@/components/ui/sidebar"
+import {
+    Dialog,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from "@/components/ui/dialog"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 export function EnvironmentSetList() {
     const t = useTranslations("EnvironmentManager.list")
@@ -38,6 +46,7 @@ export function EnvironmentSetList() {
     const [editing, setEditing] = useState<EnvSetEntry | null>(null)
     const [editOpen, setEditOpen] = useState(false)
     const [deleteId, setDeleteId] = useState<string | null>(null)
+    const [viewingEntry, setViewingEntry] = useState<EnvSetEntry | null>(null)
     const isMobile = useIsMobile()
 
     const allTags = useMemo(() => {
@@ -170,6 +179,16 @@ export function EnvironmentSetList() {
                                         </Button>
                                         <Button
                                             type="button"
+                                            variant="outline"
+                                            size="sm"
+                                            className="gap-1"
+                                            onClick={() => setViewingEntry(entry)}
+                                        >
+                                            <Eye className="h-3.5 w-3.5" />
+                                            {t("view")}
+                                        </Button>
+                                        <Button
+                                            type="button"
                                             variant="ghost"
                                             size="sm"
                                             className="gap-1"
@@ -207,6 +226,65 @@ export function EnvironmentSetList() {
                     if (!o) setEditing(null)
                 }}
             />
+
+            <Dialog open={!!viewingEntry} onOpenChange={(o) => !o && setViewingEntry(null)}>
+                <DialogContent className="flex h-[min(92vh,920px)] w-[min(95vw,1320px)] max-w-[min(95vw,1320px)] max-h-[min(92vh,920px)] flex-col gap-0 overflow-hidden p-0 sm:max-w-[min(95vw,1320px)]">
+                    {viewingEntry && (
+                        <>
+                            <DialogHeader className="shrink-0 space-y-1 px-6 pb-2 pt-6 text-left">
+                                <DialogTitle className="text-xl leading-tight">
+                                    {viewingEntry.project}
+                                    <span className="text-muted-foreground font-normal"> / </span>
+                                    <span className="font-semibold">{viewingEntry.environment}</span>
+                                </DialogTitle>
+                                <p className="text-sm text-muted-foreground">{t("viewDialogSubtitle")}</p>
+                            </DialogHeader>
+                            <div className="flex min-h-0 flex-1 flex-col space-y-3 overflow-hidden px-6 pb-2">
+                                {viewingEntry.tags.length > 0 && (
+                                    <div className="flex flex-wrap gap-1">
+                                        {viewingEntry.tags.map((tag) => (
+                                            <Badge key={tag} variant="secondary" className="text-xs">
+                                                {tag}
+                                            </Badge>
+                                        ))}
+                                    </div>
+                                )}
+                                {viewingEntry.notes.trim() && (
+                                    <div className="space-y-1">
+                                        <p className="text-xs font-medium text-muted-foreground">
+                                            {t("viewNotesHeading")}
+                                        </p>
+                                        <p className="text-sm text-foreground whitespace-pre-wrap">{viewingEntry.notes}</p>
+                                    </div>
+                                )}
+                                <ScrollArea className="min-h-[min(48vh,520px)] flex-1 basis-0 rounded-md border bg-muted/30 sm:min-h-[min(58vh,680px)]">
+                                    <pre className="p-4 text-left font-mono text-sm leading-relaxed whitespace-pre-wrap break-all">
+                                        {formatDotEnv(viewingEntry.variables).trim() || t("viewNoVariables")}
+                                    </pre>
+                                </ScrollArea>
+                            </div>
+                            <DialogFooter className="px-6 py-4 border-t bg-muted/20 shrink-0 gap-2 sm:gap-2 flex-row flex-wrap justify-end">
+                                <Button type="button" variant="outline" onClick={() => setViewingEntry(null)}>
+                                    {t("closeView")}
+                                </Button>
+                                <Button
+                                    type="button"
+                                    className="gap-1.5"
+                                    onClick={() =>
+                                        copyToClipboard(
+                                            formatDotEnv(viewingEntry.variables),
+                                            tToast("copiedDotEnv")
+                                        )
+                                    }
+                                >
+                                    <Copy className="h-4 w-4" />
+                                    {t("copyDotEnv")}
+                                </Button>
+                            </DialogFooter>
+                        </>
+                    )}
+                </DialogContent>
+            </Dialog>
 
             <AlertDialog open={!!deleteId} onOpenChange={(o) => !o && setDeleteId(null)}>
                 <AlertDialogContent>

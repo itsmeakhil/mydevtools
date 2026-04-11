@@ -737,7 +737,12 @@
       "cancel": "Cancel·la",
       "confirmDelete": "Suprimeix",
       "deleteDialogTitle": "Vols suprimir el conjunt d'entorn?",
-      "deleteDialogDescription": "Això elimina el blob xifrat del teu compte. No es pot desfer."
+      "deleteDialogDescription": "Això elimina el blob xifrat del teu compte. No es pot desfer.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env copiat al porta-retalls",

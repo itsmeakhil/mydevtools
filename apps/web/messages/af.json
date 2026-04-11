@@ -737,7 +737,12 @@
       "cancel": "Kanselleer",
       "confirmDelete": "Vee uit",
       "deleteDialogTitle": "Omgewingstel uitvee?",
-      "deleteDialogDescription": "Dit verwyder die geënkripteerde data uit jou rekening. Dit kan nie ongedaan gemaak word nie."
+      "deleteDialogDescription": "Dit verwyder die geënkripteerde data uit jou rekening. Dit kan nie ongedaan gemaak word nie.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env na knipbord gekopieer",

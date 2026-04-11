@@ -737,7 +737,12 @@
       "cancel": "Hủy",
       "confirmDelete": "Xóa",
       "deleteDialogTitle": "Xóa bộ môi trường?",
-      "deleteDialogDescription": "Dữ liệu mã hóa sẽ bị xóa khỏi tài khoản. Không hoàn tác được."
+      "deleteDialogDescription": "Dữ liệu mã hóa sẽ bị xóa khỏi tài khoản. Không hoàn tác được.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": "Đã sao chép .env vào clipboard",

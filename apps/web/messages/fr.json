@@ -737,7 +737,12 @@
       "cancel": "Annuler",
       "confirmDelete": "Supprimer",
       "deleteDialogTitle": "Supprimer le jeu d'environnement ?",
-      "deleteDialogDescription": "Cela supprime le blob chiffré de votre compte. Action irréversible."
+      "deleteDialogDescription": "Cela supprime le blob chiffré de votre compte. Action irréversible.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env copié dans le presse-papiers",

@@ -737,7 +737,12 @@
       "cancel": "Annuleren",
       "confirmDelete": "Verwijderen",
       "deleteDialogTitle": "Omgevingsset verwijderen?",
-      "deleteDialogDescription": "Hiermee wordt de versleutelde blob uit uw account verwijderd. Kan niet ongedaan worden gemaakt."
+      "deleteDialogDescription": "Hiermee wordt de versleutelde blob uit uw account verwijderd. Kan niet ongedaan worden gemaakt.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env naar klembord gekopieerd",

@@ -737,7 +737,12 @@
       "cancel": "取消",
       "confirmDelete": "删除",
       "deleteDialogTitle": "删除环境集合？",
-      "deleteDialogDescription": "将从账户中移除加密数据，无法撤销。"
+      "deleteDialogDescription": "将从账户中移除加密数据，无法撤销。",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": "已复制 .env 到剪贴板",

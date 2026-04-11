@@ -737,7 +737,12 @@
       "cancel": "إلغاء",
       "confirmDelete": "حذف",
       "deleteDialogTitle": "حذف مجموعة البيئة؟",
-      "deleteDialogDescription": "يُزال النص المشفّر من حسابك. لا يمكن التراجع."
+      "deleteDialogDescription": "يُزال النص المشفّر من حسابك. لا يمكن التراجع.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": "تم نسخ .env إلى الحافظة",

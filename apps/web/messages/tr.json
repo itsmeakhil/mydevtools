@@ -737,7 +737,12 @@
       "cancel": "İptal",
       "confirmDelete": "Sil",
       "deleteDialogTitle": "Ortam kümesi silinsin mi?",
-      "deleteDialogDescription": "Şifreli veri hesabınızdan kaldırılır. Geri alınamaz."
+      "deleteDialogDescription": "Şifreli veri hesabınızdan kaldırılır. Geri alınamaz.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env panoya kopyalandı",

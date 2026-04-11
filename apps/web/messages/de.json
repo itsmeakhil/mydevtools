@@ -737,7 +737,12 @@
       "cancel": "Abbrechen",
       "confirmDelete": "Löschen",
       "deleteDialogTitle": "Umgebungsset löschen?",
-      "deleteDialogDescription": "Der verschlüsselte Datensatz wird aus Ihrem Konto entfernt. Dies lässt sich nicht rückgängig machen."
+      "deleteDialogDescription": "Der verschlüsselte Datensatz wird aus Ihrem Konto entfernt. Dies lässt sich nicht rückgängig machen.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env in die Zwischenablage kopiert",

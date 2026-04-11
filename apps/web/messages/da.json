@@ -737,7 +737,12 @@
       "cancel": "Annuller",
       "confirmDelete": "Slet",
       "deleteDialogTitle": "Slet miljøsæt?",
-      "deleteDialogDescription": "Dette fjerner den krypterede blob fra din konto. Kan ikke fortrydes."
+      "deleteDialogDescription": "Dette fjerner den krypterede blob fra din konto. Kan ikke fortrydes.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env kopieret til udklipsholder",

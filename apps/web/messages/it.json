@@ -737,7 +737,12 @@
       "cancel": "Annulla",
       "confirmDelete": "Elimina",
       "deleteDialogTitle": "Eliminare il set di ambiente?",
-      "deleteDialogDescription": "Rimuove il blob crittografato dal tuo account. Operazione irreversibile."
+      "deleteDialogDescription": "Rimuove il blob crittografato dal tuo account. Operazione irreversibile.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env copiato negli appunti",

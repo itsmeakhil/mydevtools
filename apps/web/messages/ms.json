@@ -737,7 +737,12 @@
       "cancel": "Batal",
       "confirmDelete": "Padam",
       "deleteDialogTitle": "Padam set persekitaran?",
-      "deleteDialogDescription": "Ini memadam blob disulitkan daripada akaun anda. Tidak boleh dibuat asal."
+      "deleteDialogDescription": "Ini memadam blob disulitkan daripada akaun anda. Tidak boleh dibuat asal.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env disalin ke papan keratan",

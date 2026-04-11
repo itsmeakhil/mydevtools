@@ -737,7 +737,12 @@
       "cancel": "Ακύρωση",
       "confirmDelete": "Διαγραφή",
       "deleteDialogTitle": "Διαγραφή συνόλου περιβάλλοντος;",
-      "deleteDialogDescription": "Αφαιρεί το κρυπτογραφημένο αρχείο από τον λογαριασμό σας. Δεν μπορεί να αναιρεθεί."
+      "deleteDialogDescription": "Αφαιρεί το κρυπτογραφημένο αρχείο από τον λογαριασμό σας. Δεν μπορεί να αναιρεθεί.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": "Το .env αντιγράφηκε στο πρόχειρο",

@@ -737,7 +737,12 @@
       "cancel": "لغو",
       "confirmDelete": "حذف",
       "deleteDialogTitle": "حذف مجموعه محیط؟",
-      "deleteDialogDescription": "بلاب رمزگذاری‌شده از حساب شما حذف می‌شود. قابل بازگشت نیست."
+      "deleteDialogDescription": "بلاب رمزگذاری‌شده از حساب شما حذف می‌شود. قابل بازگشت نیست.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env در کلیپ‌بورد کپی شد",

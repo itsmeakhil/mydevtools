@@ -737,7 +737,12 @@
       "cancel": "Скасувати",
       "confirmDelete": "Видалити",
       "deleteDialogTitle": "Видалити набір середовища?",
-      "deleteDialogDescription": "Зашифровані дані буде видалено з облікового запису. Це незворотно."
+      "deleteDialogDescription": "Зашифровані дані буде видалено з облікового запису. Це незворотно.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env скопійовано в буфер обміну",

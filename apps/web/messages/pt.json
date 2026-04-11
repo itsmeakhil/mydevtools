@@ -737,7 +737,12 @@
       "cancel": "Cancelar",
       "confirmDelete": "Eliminar",
       "deleteDialogTitle": "Eliminar conjunto de ambiente?",
-      "deleteDialogDescription": "Isto remove o blob encriptado da sua conta. Não pode ser anulado."
+      "deleteDialogDescription": "Isto remove o blob encriptado da sua conta. Não pode ser anulado.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env copiado para a área de transferência",

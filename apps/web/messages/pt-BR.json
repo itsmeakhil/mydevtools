@@ -737,7 +737,12 @@
       "cancel": "Cancelar",
       "confirmDelete": "Excluir",
       "deleteDialogTitle": "Excluir conjunto de ambiente?",
-      "deleteDialogDescription": "Isso remove o blob criptografado da sua conta. Não pode ser desfeito."
+      "deleteDialogDescription": "Isso remove o blob criptografado da sua conta. Não pode ser desfeito.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env copiado para a área de transferência",

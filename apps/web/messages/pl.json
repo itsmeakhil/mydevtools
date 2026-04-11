@@ -737,7 +737,12 @@
       "cancel": "Anuluj",
       "confirmDelete": "Usuń",
       "deleteDialogTitle": "Usunąć zestaw środowisk?",
-      "deleteDialogDescription": "To usuwa zaszyfrowane dane z konta. Operacji nie cofniesz."
+      "deleteDialogDescription": "To usuwa zaszyfrowane dane z konta. Operacji nie cofniesz.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env skopiowano do schowka",

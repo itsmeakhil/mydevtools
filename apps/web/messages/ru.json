@@ -737,7 +737,12 @@
       "cancel": "Отмена",
       "confirmDelete": "Удалить",
       "deleteDialogTitle": "Удалить набор окружения?",
-      "deleteDialogDescription": "Зашифрованные данные будут удалены из аккаунта. Действие необратимо."
+      "deleteDialogDescription": "Зашифрованные данные будут удалены из аккаунта. Действие необратимо.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env скопирован в буфер обмена",

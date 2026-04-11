@@ -737,7 +737,12 @@
       "cancel": "Avbryt",
       "confirmDelete": "Slett",
       "deleteDialogTitle": "Slette miljøsett?",
-      "deleteDialogDescription": "Dette fjerner den krypterte bloben fra kontoen din. Kan ikke angres."
+      "deleteDialogDescription": "Dette fjerner den krypterte bloben fra kontoen din. Kan ikke angres.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env kopiert til utklippstavle",

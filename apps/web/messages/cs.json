@@ -737,7 +737,12 @@
       "cancel": "Zrušit",
       "confirmDelete": "Smazat",
       "deleteDialogTitle": "Smazat sadu prostředí?",
-      "deleteDialogDescription": "Tím se odstraní šifrovaná data z účtu. Akci nelze vrátit zpět."
+      "deleteDialogDescription": "Tím se odstraní šifrovaná data z účtu. Akci nelze vrátit zpět.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close"
     },
     "toasts": {
       "copiedDotEnv": ".env zkopírováno do schránky",
