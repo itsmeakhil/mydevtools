@@ -1,6 +1,8 @@
 "use client"
 
 import { useMemo, useState } from "react"
+import { highlightDotEnvSource } from "@/lib/hljs-dotenv"
+import "./dotenv-modal-highlighter.css"
 import { useEnvironmentManagerStore, type EnvSetEntry } from "@/store/environment-manager-store"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -66,6 +68,12 @@ export function EnvironmentSetList() {
             return matchTag && blob.includes(q)
         })
     }, [sets, search, tagFilter])
+
+    const viewDotEnvRaw = viewingEntry ? formatDotEnv(viewingEntry.variables).trim() : ""
+    const viewDotEnvHtml = useMemo(
+        () => (viewDotEnvRaw ? highlightDotEnvSource(viewDotEnvRaw) : ""),
+        [viewDotEnvRaw]
+    )
 
     const confirmDelete = async () => {
         if (!deleteId) return
@@ -257,10 +265,17 @@ export function EnvironmentSetList() {
                                         <p className="text-sm text-foreground whitespace-pre-wrap">{viewingEntry.notes}</p>
                                     </div>
                                 )}
-                                <ScrollArea className="min-h-[min(48vh,520px)] flex-1 basis-0 rounded-md border bg-muted/30 sm:min-h-[min(58vh,680px)]">
-                                    <pre className="p-4 text-left font-mono text-sm leading-relaxed whitespace-pre-wrap break-all">
-                                        {formatDotEnv(viewingEntry.variables).trim() || t("viewNoVariables")}
-                                    </pre>
+                                <ScrollArea className="dotenv-modal-hl min-h-[min(48vh,520px)] flex-1 basis-0 rounded-md border bg-muted/30 sm:min-h-[min(58vh,680px)]">
+                                    {viewDotEnvRaw ? (
+                                        <pre className="m-0 break-all whitespace-pre-wrap p-4 text-left font-mono text-sm leading-relaxed">
+                                            <code
+                                                className="hljs language-properties !bg-transparent"
+                                                dangerouslySetInnerHTML={{ __html: viewDotEnvHtml }}
+                                            />
+                                        </pre>
+                                    ) : (
+                                        <p className="p-4 text-sm text-muted-foreground">{t("viewNoVariables")}</p>
+                                    )}
                                 </ScrollArea>
                             </div>
                             <DialogFooter className="px-6 py-4 border-t bg-muted/20 shrink-0 gap-2 sm:gap-2 flex-row flex-wrap justify-end">

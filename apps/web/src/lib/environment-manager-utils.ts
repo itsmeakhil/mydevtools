@@ -85,21 +85,39 @@ export function parseDotEnvBlock(text: string): EnvVariableRow[] {
     return parseDotEnvDetailed(text).active
 }
 
+/** Unquoted values are widely supported for this charset (dotenv / shell-like .env). */
+const SAFE_UNQUOTED_VALUE = /^[A-Za-z0-9_.@+/:%-]+$/
+
+function formatOneEnvLine(k: string, value: string): string {
+    if (value === "") {
+        return `${k}=`
+    }
+    if (SAFE_UNQUOTED_VALUE.test(value)) {
+        return `${k}=${value}`
+    }
+
+    const hasNewline = /[\n\r]/.test(value)
+    const hasSingle = value.includes("'")
+    const hasDouble = value.includes('"')
+    const hasBackslash = value.includes("\\")
+
+    // Use single-quoted literal when the value has " but no ', newlines, or backslashes — avoids `\"` noise.
+    if (hasDouble && !hasSingle && !hasNewline && !hasBackslash) {
+        return `${k}='${value}'`
+    }
+
+    const esc = value
+        .replace(/\\/g, "\\\\")
+        .replace(/"/g, '\\"')
+        .replace(/\n/g, "\\n")
+        .replace(/\r/g, "\\r")
+    return `${k}="${esc}"`
+}
+
 export function formatDotEnv(variables: EnvVariableRow[]): string {
     return variables
         .filter((v) => v.key.trim())
-        .map(({ key, value }) => {
-            const k = key.trim()
-            if (/[\n\r"'\\#]/.test(value) || /\s/.test(value) || value.includes("=")) {
-                const esc = value
-                    .replace(/\\/g, "\\\\")
-                    .replace(/"/g, '\\"')
-                    .replace(/\n/g, "\\n")
-                    .replace(/\r/g, "\\r")
-                return `${k}="${esc}"`
-            }
-            return `${k}=${value}`
-        })
+        .map(({ key, value }) => formatOneEnvLine(key.trim(), value))
         .join("\n")
 }
 
