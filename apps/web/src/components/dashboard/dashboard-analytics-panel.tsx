@@ -9,20 +9,16 @@ import {
   Boxes,
   Braces,
   Briefcase,
-  Cable,
   Database,
   FolderOpen,
   History,
   KeyRound,
-  Layers,
   ListTodo,
   RefreshCw,
   Server,
-  Shield,
   StickyNote,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import {
   fetchDashboardAnalyticsSummary,
   type DashboardAnalyticsSummary,
@@ -47,67 +43,61 @@ function sumTrackedItems(d: DashboardAnalyticsSummary): number {
 
 function AnalyticsSkeleton() {
   return (
-    <div className="space-y-8 animate-pulse" aria-hidden>
-      <div className="h-36 rounded-2xl bg-muted/60" />
-      <div className="h-24 rounded-2xl bg-muted/50" />
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="h-28 rounded-xl bg-muted/50" />
+    <div className="flex flex-col gap-2 animate-pulse" aria-hidden>
+      <div className="h-16 rounded-xl bg-muted/60" />
+      <div className="h-10 rounded-lg bg-muted/50" />
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+        {Array.from({ length: 11 }).map((_, i) => (
+          <div key={i} className="h-14 rounded-lg bg-muted/50" />
         ))}
       </div>
     </div>
   )
 }
 
-function MetricTile({
+function MetricChip({
   label,
   value,
   icon: Icon,
   accent,
-  className,
 }: {
   label: string
   value: number
   icon: React.ElementType
   accent: string
-  className?: string
 }) {
   return (
     <div
       className={cn(
-        'group relative overflow-hidden rounded-xl border border-border/50 bg-card/40 p-4 shadow-sm transition-all duration-300',
-        'hover:border-primary/25 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5',
-        'backdrop-blur-sm',
-        className
+        'group relative flex min-h-[3.25rem] items-center gap-2 overflow-hidden rounded-lg border border-border/50 bg-card/50 px-2 py-1.5 shadow-sm',
+        'transition-colors hover:border-primary/20 hover:bg-card/80'
       )}
     >
       <div
         className={cn(
-          'pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full opacity-[0.12] blur-2xl transition-opacity group-hover:opacity-25',
+          'pointer-events-none absolute -right-4 -top-4 h-14 w-14 rounded-full opacity-[0.1] blur-xl transition-opacity group-hover:opacity-20',
           accent
         )}
       />
-      <div className="relative flex items-start gap-3">
-        <div
-          className={cn(
-            'flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-md ring-1 ring-white/10',
-            accent
-          )}
-        >
-          <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden />
-        </div>
-        <div className="min-w-0 flex-1 space-y-1">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-            {label}
-          </p>
-          <p className="text-2xl font-bold tabular-nums tracking-tight">{value}</p>
-        </div>
+      <div
+        className={cn(
+          'relative flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-gradient-to-br text-white shadow-sm ring-1 ring-white/10',
+          accent
+        )}
+      >
+        <Icon className="h-3.5 w-3.5" strokeWidth={2} aria-hidden />
+      </div>
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-[9px] font-semibold uppercase leading-tight tracking-wide text-muted-foreground">
+          {label}
+        </p>
+        <p className="text-base font-bold tabular-nums leading-tight tracking-tight md:text-lg">{value}</p>
       </div>
     </div>
   )
 }
 
-function TaskMixBar({
+function TaskMixInline({
   tasks,
   labels,
 }: {
@@ -118,46 +108,42 @@ function TaskMixBar({
   const pct = (n: number) => (total > 0 ? Math.round((n / total) * 1000) / 10 : 0)
 
   if (total === 0) {
-    return (
-      <p className="text-sm text-muted-foreground">{labels.empty}</p>
-    )
+    return <p className="text-[11px] leading-snug text-muted-foreground">{labels.empty}</p>
   }
 
   const segments = [
-    { key: 'done', value: completed, pct: pct(completed), className: 'bg-emerald-500', label: labels.done },
-    { key: 'ongoing', value: ongoing, pct: pct(ongoing), className: 'bg-amber-500', label: labels.ongoing },
-    {
-      key: 'todo',
-      value: notStarted,
-      pct: pct(notStarted),
-      className: 'bg-muted-foreground/35',
-      label: labels.todo,
-    },
+    { key: 'done', value: completed, pct: pct(completed), className: 'bg-emerald-500' },
+    { key: 'ongoing', value: ongoing, pct: pct(ongoing), className: 'bg-amber-500' },
+    { key: 'todo', value: notStarted, pct: pct(notStarted), className: 'bg-muted-foreground/40' },
   ]
 
   return (
-    <div className="space-y-4">
-      <div className="flex h-3 w-full overflow-hidden rounded-full bg-muted/80 ring-1 ring-border/40">
+    <div className="flex min-w-0 flex-1 flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3">
+      <div className="flex h-2 min-w-0 flex-1 overflow-hidden rounded-full bg-muted/80 ring-1 ring-border/30">
         {segments.map((s) =>
           s.pct > 0 ? (
             <div
               key={s.key}
-              className={cn('h-full min-w-0 transition-all duration-500 first:rounded-l-full last:rounded-r-full', s.className)}
+              className={cn('h-full min-w-0', s.className)}
               style={{ width: `${s.pct}%` }}
-              title={`${s.label}: ${s.value} (${s.pct}%)`}
+              title={`${s.pct}%`}
             />
           ) : null
         )}
       </div>
-      <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs">
-        {segments.map((s) => (
-          <div key={s.key} className="flex items-center gap-2">
-            <span className={cn('h-2 w-2 shrink-0 rounded-full', s.className)} aria-hidden />
-            <span className="text-muted-foreground">{s.label}</span>
-            <span className="font-semibold tabular-nums text-foreground">{s.value}</span>
-            <span className="tabular-nums text-muted-foreground">({s.pct}%)</span>
-          </div>
-        ))}
+      <div className="flex shrink-0 flex-wrap gap-x-3 gap-y-0.5 text-[10px] leading-none">
+        <span className="text-muted-foreground">
+          <span className="mr-0.5 inline-block h-1.5 w-1.5 rounded-full bg-emerald-500 align-middle" />
+          {labels.done} <span className="font-semibold tabular-nums text-foreground">{completed}</span>
+        </span>
+        <span className="text-muted-foreground">
+          <span className="mr-0.5 inline-block h-1.5 w-1.5 rounded-full bg-amber-500 align-middle" />
+          {labels.ongoing} <span className="font-semibold tabular-nums text-foreground">{ongoing}</span>
+        </span>
+        <span className="text-muted-foreground">
+          <span className="mr-0.5 inline-block h-1.5 w-1.5 rounded-full bg-muted-foreground/50 align-middle" />
+          {labels.todo} <span className="font-semibold tabular-nums text-foreground">{notStarted}</span>
+        </span>
       </div>
     </div>
   )
@@ -191,9 +177,9 @@ export function DashboardAnalyticsPanel() {
 
   if (loading && !data) {
     return (
-      <div className="space-y-4">
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Activity className="h-4 w-4 animate-pulse" aria-hidden />
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <Activity className="h-3.5 w-3.5 animate-pulse" aria-hidden />
           <span>{t('loadingLabel')}</span>
         </div>
         <AnalyticsSkeleton />
@@ -203,11 +189,11 @@ export function DashboardAnalyticsPanel() {
 
   if (error && !data) {
     return (
-      <div className="relative overflow-hidden rounded-2xl border border-destructive/25 bg-gradient-to-br from-destructive/5 to-background p-8 text-center">
+      <div className="relative overflow-hidden rounded-xl border border-destructive/25 bg-gradient-to-br from-destructive/5 to-background p-6 text-center">
         <div className="absolute inset-0 dashboard-grid-bg opacity-30" aria-hidden />
-        <div className="relative mx-auto max-w-md space-y-4">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-destructive/10 text-destructive">
-            <BarChart3 className="h-7 w-7" strokeWidth={1.5} />
+        <div className="relative mx-auto max-w-md space-y-3">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-destructive/10 text-destructive">
+            <BarChart3 className="h-6 w-6" strokeWidth={1.5} />
           </div>
           <p className="text-sm font-medium text-destructive">{error || t('loadError')}</p>
           <Button type="button" variant="outline" size="sm" className="gap-2" onClick={() => void load()}>
@@ -224,77 +210,57 @@ export function DashboardAnalyticsPanel() {
   const { tasks } = data
 
   return (
-    <div className="space-y-8 md:space-y-10">
-      {/* Hero */}
-      <div className="relative overflow-hidden rounded-2xl border border-border/40 bg-gradient-to-br from-primary/[0.07] via-background to-violet-500/[0.06] p-6 shadow-sm md:p-8">
-        <div className="pointer-events-none absolute inset-0 dashboard-grid-bg opacity-[0.35]" aria-hidden />
-        <div
-          className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-primary/20 blur-3xl"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute -bottom-24 left-1/4 h-48 w-48 rounded-full bg-violet-500/15 blur-3xl"
-          aria-hidden
-        />
-
-        <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="space-y-3">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-              <span className="relative flex h-1.5 w-1.5">
+    <div className="flex flex-col gap-2 md:gap-2.5">
+      {/* Compact header + totals — one band */}
+      <div className="relative overflow-hidden rounded-xl border border-border/40 bg-gradient-to-br from-primary/[0.06] via-background to-violet-500/[0.05] shadow-sm">
+        <div className="pointer-events-none absolute inset-0 dashboard-grid-bg opacity-[0.25]" aria-hidden />
+        <div className="relative flex flex-wrap items-center gap-3 p-3 md:gap-4 md:p-3.5">
+          <div className="flex min-w-0 flex-1 items-center gap-2.5">
+            <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-primary/20 bg-primary/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-primary">
+              <span className="relative flex h-1 w-1">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-40" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
+                <span className="relative inline-flex h-1 w-1 rounded-full bg-primary" />
               </span>
               {t('heroBadge')}
             </span>
-            <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-violet-600 text-white shadow-lg shadow-primary/25">
-                <BarChart3 className="h-6 w-6" strokeWidth={1.75} />
+            <div className="flex min-w-0 flex-1 items-center gap-2">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-violet-600 text-white shadow-md">
+                <BarChart3 className="h-4 w-4" strokeWidth={2} />
               </div>
-              <div>
-                <h2 className="text-2xl font-bold tracking-tight md:text-3xl">{t('title')}</h2>
-                <p className="mt-1 max-w-lg text-sm leading-relaxed text-muted-foreground">{t('subtitle')}</p>
+              <div className="min-w-0">
+                <h2 className="truncate text-sm font-bold tracking-tight md:text-base">{t('title')}</h2>
+                <p className="truncate text-[11px] text-muted-foreground md:text-xs">{t('subtitle')}</p>
               </div>
             </div>
           </div>
-
-          <div className="flex flex-wrap items-stretch gap-3">
-            <div className="glass-card stats-glow flex min-w-[160px] flex-1 flex-col justify-center rounded-2xl border border-border/50 px-6 py-4 sm:flex-none">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t('totalLabel')}</p>
-              <p className="mt-1 text-4xl font-bold tabular-nums tracking-tight text-primary">{totalCount}</p>
-              <p className="mt-1 text-[11px] text-muted-foreground">{t('totalHint')}</p>
+          <div className="flex w-full shrink-0 items-center justify-between gap-2 sm:w-auto sm:justify-end">
+            <div className="glass-card stats-glow rounded-lg border border-border/50 px-3 py-1.5 text-right">
+              <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">{t('totalLabel')}</p>
+              <p className="text-xl font-bold tabular-nums leading-none text-primary md:text-2xl">{totalCount}</p>
             </div>
             <Button
               type="button"
               variant="outline"
-              size="default"
-              className="h-auto shrink-0 gap-2 rounded-2xl border-border/60 bg-background/80 px-5 py-4 shadow-sm backdrop-blur-sm"
+              size="sm"
+              className="h-9 shrink-0 gap-1.5 rounded-lg px-3"
               onClick={() => void load()}
               disabled={loading}
             >
-              <RefreshCw className={cn('h-4 w-4', loading && 'animate-spin')} />
-              <span className="text-sm font-medium">{t('retry')}</span>
+              <RefreshCw className={cn('h-3.5 w-3.5', loading && 'animate-spin')} />
+              {t('retry')}
             </Button>
           </div>
         </div>
-      </div>
 
-      {/* Task mix */}
-      <Card className="overflow-hidden border-border/50 bg-card/30 shadow-md backdrop-blur-sm">
-        <CardContent className="space-y-4 p-5 md:p-6">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400">
-                <ListTodo className="h-4 w-4" strokeWidth={2} />
-              </div>
-              <div>
-                <h3 className="text-sm font-semibold leading-none">{t('taskMixTitle')}</h3>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {t('tasksTotal')}: <span className="font-semibold text-foreground">{tasks.total}</span>
-                </p>
-              </div>
-            </div>
+        {/* Task mix — same card, minimal height */}
+        <div className="relative flex flex-wrap items-center gap-2 border-t border-border/40 bg-background/30 px-3 py-2 md:px-3.5">
+          <div className="flex shrink-0 items-center gap-1.5 text-[11px] font-semibold text-foreground">
+            <ListTodo className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" aria-hidden />
+            <span className="tabular-nums">
+              {t('taskMixTitle')} ({tasks.total})
+            </span>
           </div>
-          <TaskMixBar
+          <TaskMixInline
             tasks={tasks}
             labels={{
               done: t('tasksCompleted'),
@@ -303,104 +269,72 @@ export function DashboardAnalyticsPanel() {
               empty: t('taskMixEmpty'),
             }}
           />
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
-      {/* Vault & bookmarks */}
-      <section className="space-y-4">
-        <div className="section-header-line flex items-center gap-2 pb-2">
-          <div className="rounded-lg bg-rose-500/10 p-1.5 text-rose-600 dark:text-rose-400">
-            <Shield className="h-4 w-4" strokeWidth={2} />
-          </div>
-          <h3 className="text-sm font-semibold tracking-tight">{t('groupVault')}</h3>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          <MetricTile
-            label={t('passwordEntries')}
-            value={data.passwordEntries}
-            icon={KeyRound}
-            accent="from-rose-500 to-orange-500"
-          />
-          <MetricTile
-            label={t('bookmarks')}
-            value={data.bookmarks}
-            icon={Bookmark}
-            accent="from-sky-500 to-cyan-500"
-          />
-          <MetricTile
-            label={t('bookmarkFolders')}
-            value={data.bookmarkFolders}
-            icon={FolderOpen}
-            accent="from-violet-500 to-purple-500"
-          />
-        </div>
-      </section>
-
-      {/* Workspace */}
-      <section className="space-y-4">
-        <div className="section-header-line flex items-center gap-2 pb-2">
-          <div className="rounded-lg bg-blue-500/10 p-1.5 text-blue-600 dark:text-blue-400">
-            <Layers className="h-4 w-4" strokeWidth={2} />
-          </div>
-          <h3 className="text-sm font-semibold tracking-tight">{t('groupWorkspace')}</h3>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          <MetricTile
-            label={t('projects')}
-            value={data.projects}
-            icon={Briefcase}
-            accent="from-blue-500 to-indigo-600"
-          />
-          <MetricTile
-            label={t('notes')}
-            value={data.notes}
-            icon={StickyNote}
-            accent="from-amber-500 to-yellow-500"
-          />
-        </div>
-      </section>
-
-      {/* Developer toolkit */}
-      <section className="space-y-4">
-        <div className="section-header-line flex items-center gap-2 pb-2">
-          <div className="rounded-lg bg-emerald-500/10 p-1.5 text-emerald-600 dark:text-emerald-400">
-            <Cable className="h-4 w-4" strokeWidth={2} />
-          </div>
-          <h3 className="text-sm font-semibold tracking-tight">{t('groupToolkit')}</h3>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          <MetricTile
-            label={t('nosqlConnections')}
-            value={data.nosqlConnections}
-            icon={Database}
-            accent="from-emerald-500 to-teal-500"
-          />
-          <MetricTile
-            label={t('apiClientCollections')}
-            value={data.apiClientCollections}
-            icon={Boxes}
-            accent="from-slate-600 to-slate-800 dark:from-slate-500 dark:to-slate-700"
-          />
-          <MetricTile
-            label={t('apiClientEnvironments')}
-            value={data.apiClientEnvironments}
-            icon={Server}
-            accent="from-fuchsia-500 to-pink-500"
-          />
-          <MetricTile
-            label={t('apiClientHistory')}
-            value={data.apiClientHistoryEntries}
-            icon={History}
-            accent="from-orange-500 to-red-500"
-          />
-          <MetricTile
-            label={t('jsonFormatterDocuments')}
-            value={data.jsonFormatterDocuments}
-            icon={Braces}
-            accent="from-cyan-500 to-blue-600"
-          />
-        </div>
-      </section>
+      {/* Dense metric grid: 6 × 2 on large screens → no vertical scroll on typical laptops */}
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+        <MetricChip
+          label={t('passwordEntries')}
+          value={data.passwordEntries}
+          icon={KeyRound}
+          accent="from-rose-500 to-orange-500"
+        />
+        <MetricChip
+          label={t('bookmarks')}
+          value={data.bookmarks}
+          icon={Bookmark}
+          accent="from-sky-500 to-cyan-500"
+        />
+        <MetricChip
+          label={t('bookmarkFolders')}
+          value={data.bookmarkFolders}
+          icon={FolderOpen}
+          accent="from-violet-500 to-purple-500"
+        />
+        <MetricChip
+          label={t('projects')}
+          value={data.projects}
+          icon={Briefcase}
+          accent="from-blue-500 to-indigo-600"
+        />
+        <MetricChip
+          label={t('notes')}
+          value={data.notes}
+          icon={StickyNote}
+          accent="from-amber-500 to-yellow-500"
+        />
+        <MetricChip
+          label={t('nosqlConnections')}
+          value={data.nosqlConnections}
+          icon={Database}
+          accent="from-emerald-500 to-teal-500"
+        />
+        <MetricChip
+          label={t('apiClientCollections')}
+          value={data.apiClientCollections}
+          icon={Boxes}
+          accent="from-slate-600 to-slate-800 dark:from-slate-500 dark:to-slate-700"
+        />
+        <MetricChip
+          label={t('apiClientEnvironments')}
+          value={data.apiClientEnvironments}
+          icon={Server}
+          accent="from-fuchsia-500 to-pink-500"
+        />
+        <MetricChip
+          label={t('apiClientHistory')}
+          value={data.apiClientHistoryEntries}
+          icon={History}
+          accent="from-orange-500 to-red-500"
+        />
+        <MetricChip
+          label={t('jsonFormatterDocuments')}
+          value={data.jsonFormatterDocuments}
+          icon={Braces}
+          accent="from-cyan-500 to-blue-600"
+        />
+      </div>
     </div>
   )
 }

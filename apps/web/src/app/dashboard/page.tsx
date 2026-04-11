@@ -23,12 +23,11 @@ const DashboardAnalyticsPanel = dynamic(
   () => import('@/components/dashboard/dashboard-analytics-panel').then((m) => m.DashboardAnalyticsPanel),
   {
     loading: () => (
-      <div className="space-y-6 p-1 md:p-2">
-        <Skeleton className="h-40 w-full rounded-2xl" />
-        <Skeleton className="h-28 w-full rounded-xl" />
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {[...Array(6)].map((_, i) => (
-            <Skeleton key={i} className="h-28 rounded-xl" />
+      <div className="flex flex-col gap-2">
+        <Skeleton className="h-24 w-full rounded-xl" />
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          {[...Array(10)].map((_, i) => (
+            <Skeleton key={i} className="h-14 rounded-lg" />
           ))}
         </div>
       </div>
@@ -590,9 +589,7 @@ const DashboardPage: React.FC = () => {
 
             <TabsContent value="analytics" className="mt-0 rounded-2xl focus-visible:outline-none">
               {user ? (
-                <div className="p-1 md:p-2">
-                  <DashboardAnalyticsPanel />
-                </div>
+                <DashboardAnalyticsPanel />
               ) : (
                 <div className="relative overflow-hidden rounded-2xl border border-dashed border-border/50 bg-gradient-to-br from-primary/[0.04] via-muted/20 to-background px-6 py-12 text-center md:px-10 md:py-16">
                   <div className="pointer-events-none absolute inset-0 dashboard-grid-bg opacity-30" aria-hidden />
