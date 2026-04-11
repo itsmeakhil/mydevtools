@@ -5,6 +5,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "passwordManager": "Password Manager",
+    "environmentManager": "Environment Manager",
     "bookmarks": "Bookmarks",
     "emailValidator": "Email Validator",
     "jwtDecoder": "JWT Decoder",
@@ -66,7 +67,7 @@
       "encryption": {
         "title": "Encryption you should know about",
         "description": "Client-side crypto for vault and sensitive connection data.",
-        "p1": "For the <strong>password manager</strong> and <strong>NoSQL Explorer</strong> saved connections, the web app uses the browser <strong>Web Crypto API</strong>:",
+        "p1": "For the <strong>password manager</strong>, <strong>environment manager</strong>, and <strong>NoSQL Explorer</strong> saved connections, the web app uses the browser <strong>Web Crypto API</strong>:",
         "items": {
           "kdf": "<strong>PBKDF2</strong> with <strong>SHA-256</strong>, <strong>100,000</strong> iterations, and a random salt derives a 256-bit key from your master password.",
           "aes": "<strong>AES-256-GCM</strong> encrypts payloads; a random <strong>12-byte IV</strong> is used per encryption.",
@@ -254,6 +255,10 @@
       "passwordManager": {
         "title": "Password Manager",
         "description": "Securely store and manage your passwords."
+      },
+      "environmentManager": {
+        "title": "Environment Manager",
+        "description": "Store .env-style variables by project and environment with tags."
       },
       "bookmarks": {
         "title": "Bookmarks",
@@ -708,6 +713,69 @@
       "separator": "Separator",
       "capitalization": "Capitalization",
       "includeNumber": "Include number"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Encrypted environment variables by project and environment.",
+    "page": {
+      "loading": "Loading...",
+      "title": "Environment Manager",
+      "loadFailed": "Failed to load environment sets"
+    },
+    "list": {
+      "title": "Environments",
+      "loading": "Loading your sets...",
+      "emptyTitle": "No environment sets yet",
+      "emptyHint": "Create a set for each project and environment (e.g. production API keys). Everything is encrypted in your browser before upload.",
+      "searchPlaceholder": "Search project, environment, tags, notes...",
+      "tagFilterPlaceholder": "Filter by tag",
+      "variableCount": "{count, plural, one {# variable} other {# variables}}",
+      "updatedAgo": "Updated {time}",
+      "copyDotEnv": "Copy .env",
+      "edit": "Edit",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "confirmDelete": "Delete",
+      "deleteDialogTitle": "Delete environment set?",
+      "deleteDialogDescription": "This removes the encrypted blob from your account. You cannot undo this."
+    },
+    "toasts": {
+      "copiedDotEnv": ".env copied to clipboard",
+      "deleted": "Environment set deleted",
+      "deleteFailed": "Failed to delete"
+    },
+    "form": {
+      "addTitle": "New environment set",
+      "editTitle": "Edit environment set",
+      "triggerAdd": "Add environment set",
+      "addSrOnly": "Add environment set",
+      "project": "Project",
+      "environment": "Environment",
+      "placeholderProject": "e.g. billing-api",
+      "placeholderEnvironment": "e.g. production",
+      "pasteEnvLabel": "Paste .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Merge pasted lines",
+      "variables": "Variables",
+      "addRow": "Add row",
+      "keyPlaceholder": "KEY",
+      "valuePlaceholder": "value",
+      "notesOptional": "Notes (optional)",
+      "placeholderNotes": "Rotation policy, owner, links...",
+      "tags": "Tags",
+      "placeholderTags": "Add tags (Enter or comma)",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving...",
+      "update": "Update",
+      "updating": "Updating...",
+      "toastSaved": "Environment set saved",
+      "toastSaveFailed": "Failed to save",
+      "toastUpdated": "Environment set updated",
+      "toastUpdateFailed": "Failed to update",
+      "toastPasteEmpty": "No KEY=value lines found",
+      "toastPasteApplied": "Merged {count} variables from paste",
+      "toastProjectEnvRequired": "Project and environment are required"
     }
   },
   "Bookmarks": {

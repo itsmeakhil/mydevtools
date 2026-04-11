@@ -4,7 +4,12 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 ThemePreference = Literal["light", "dark", "system"]
 
-DEFAULT_ENABLED_TOOLS = ["/app/to-do", "/app/notes", "/app/password-manager"]
+DEFAULT_ENABLED_TOOLS = [
+    "/app/to-do",
+    "/app/notes",
+    "/app/password-manager",
+    "/app/environment-manager",
+]
 
 MAX_NOSQL_HISTORY_QUERIES = 10
 

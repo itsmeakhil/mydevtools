@@ -22,6 +22,7 @@ import {
   IconSql,
   IconGitCompare,
   IconBraces,
+  IconVariable,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -65,6 +66,12 @@ export const sidebarData: SidebarData = {
           url: '/app/password-manager',
           icon: IconLock,
           description: 'Securely store and manage your passwords.',
+        },
+        {
+          title: 'Environment Manager',
+          url: '/app/environment-manager',
+          icon: IconVariable,
+          description: 'Encrypted .env sets per project and environment, with tags.',
         },
         {
           title: 'Email Validator',

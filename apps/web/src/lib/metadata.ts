@@ -23,6 +23,11 @@ export const toolsMetadata: Record<string, {
         description: 'Securely store and manage passwords with client-side encryption. Free password manager with vault protection.',
         keywords: ['password manager', 'password vault', 'secure passwords', 'password storage', 'encrypted vault']
     },
+    'environment-manager': {
+        title: 'Environment Manager - Encrypted .env Vault',
+        description: 'Organize environment variables by project and environment. Encrypted on your device with AES-256-GCM before sync.',
+        keywords: ['environment variables', 'env file', 'secrets manager', 'dotenv', 'encrypted env', 'devops']
+    },
     'json-formatter': {
         title: 'JSON Editor - Advanced JSON Tool',
         description: 'Format, validate, and edit JSON data with our powerful JSON editor.',
