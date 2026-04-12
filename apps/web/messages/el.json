@@ -23,6 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Γεννήτρια JSON Schema",
+    "imageToBase64": "Εικόνα στο Base64",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Γεννήτρια"
   },
@@ -290,6 +291,10 @@
       "jsonSchemaGenerator": {
         "title": "Γεννήτρια JSON Schema",
         "description": "Συμπεράνετε ένα JSON Schema και τυποποιημένα μοντέλα από δείγμα JSON."
+      },
+      "imageToBase64": {
+        "title": "Εικόνα στο Base64",
+        "description": "Μετατροπή εικόνων σε Data URI ή σε ακατέργαστες συμβολοσειρές Base64."
       },
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
@@ -2072,6 +2077,31 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Φόρτωση επεξεργαστή…"
+  },
+  "ImageToBase64": {
+    "title": "Εικόνα στο Base64",
+    "subtitle": "Ρίξτε μια εικόνα, λάβετε ένα URI δεδομένων ή μια ακατέργαστη συμβολοσειρά Base64. Όλα παραμένουν στο πρόγραμμα περιήγησής σας.",
+    "upload": "Μεταφόρτωση εικόνας",
+    "clear": "Σαφής",
+    "modes": {
+      "dataUri": "URI δεδομένων",
+      "rawString": "Ακατέργαστη βάση 64"
+    },
+    "panels": {
+      "imageInput": "Είσοδος εικόνας",
+      "output": "Έξοδος Base64"
+    },
+    "dropHere": "Ρίξτε εικόνα εδώ",
+    "charCount": "{count} χαρακτήρες",
+    "placeholders": {
+      "uploadImage": "Σύρετε και αποθέστε μια εικόνα ή κάντε κλικ στη μεταφόρτωση για να ξεκινήσετε."
+    },
+    "fileTooLarge": "Το αρχείο είναι πολύ μεγάλο. Η επεξεργασία ενδέχεται να παγώσει το πρόγραμμα περιήγησής σας.",
+    "copyTitle": "Αντιγραφή στο πρόχειρο",
+    "download": {
+      "title": "Λήψη κειμένου",
+      "filename": "image-base64.txt"
+    }
   },
   "CssGradientBuilder": {
     "title": "CSS Gradient Builder",

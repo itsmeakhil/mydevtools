@@ -23,6 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "تولیدکنندهٔ طرح JSON",
+    "imageToBase64": "تصویر به Base64",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator"
   },
@@ -290,6 +291,10 @@
       "jsonSchemaGenerator": {
         "title": "تولیدکنندهٔ طرح JSON",
         "description": "از نمونهٔ JSON، طرح JSON و مدل‌های نوع‌دار استنتاج کنید."
+      },
+      "imageToBase64": {
+        "title": "تصویر به Base64",
+        "description": "تصاویر را به Data URI یا رشته های Base64 خام تبدیل کنید."
       },
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
@@ -2072,6 +2077,31 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "در حال بارگذاری ویرایشگر…"
+  },
+  "ImageToBase64": {
+    "title": "تصویر به Base64",
+    "subtitle": "یک تصویر رها کنید، یک URI داده یا رشته خام Base64 دریافت کنید. همه چیز در مرورگر شما باقی می ماند.",
+    "upload": "آپلود تصویر",
+    "clear": "پاک کردن",
+    "modes": {
+      "dataUri": "URI داده",
+      "rawString": "پایه خام 64"
+    },
+    "panels": {
+      "imageInput": "ورودی تصویر",
+      "output": "خروجی Base64"
+    },
+    "dropHere": "تصویر را اینجا رها کنید",
+    "charCount": "{count} کاراکتر",
+    "placeholders": {
+      "uploadImage": "یک تصویر را بکشید و رها کنید یا برای شروع روی آپلود کلیک کنید."
+    },
+    "fileTooLarge": "فایل خیلی بزرگ است پردازش ممکن است مرورگر شما را مسدود کند.",
+    "copyTitle": "در کلیپ بورد کپی کنید",
+    "download": {
+      "title": "دانلود متن",
+      "filename": "image-base64.txt"
+    }
   },
   "CssGradientBuilder": {
     "title": "CSS Gradient Builder",

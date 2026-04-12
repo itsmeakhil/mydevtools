@@ -23,6 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Penjana Skema JSON",
+    "imageToBase64": "Imej ke Base64",
     "cssGradientBuilder": "Pembina Kecerunan CSS",
     "gitignoreGenerator": "Penjana .gitignore"
   },
@@ -290,6 +291,10 @@
       "jsonSchemaGenerator": {
         "title": "Penjana Skema JSON",
         "description": "Inferens skema JSON dan model berjenis daripada sampel JSON."
+      },
+      "imageToBase64": {
+        "title": "Imej ke Base64",
+        "description": "Tukar imej kepada URI Data atau rentetan Base64 mentah."
       },
       "cssGradientBuilder": {
         "title": "Pembina Kecerunan CSS",
@@ -2072,6 +2077,31 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Memuatkan editor…"
+  },
+  "ImageToBase64": {
+    "title": "Imej ke Base64",
+    "subtitle": "Lepaskan imej, dapatkan URI data atau rentetan Base64 mentah. Semuanya kekal dalam penyemak imbas anda.",
+    "upload": "Muat Naik Imej",
+    "clear": "Jelas",
+    "modes": {
+      "dataUri": "URI data",
+      "rawString": "Pangkalan Mentah64"
+    },
+    "panels": {
+      "imageInput": "Input Imej",
+      "output": "Output Base64"
+    },
+    "dropHere": "Lepaskan gambar di sini",
+    "charCount": "{count} aksara",
+    "placeholders": {
+      "uploadImage": "Seret dan lepas imej atau klik muat naik untuk bermula."
+    },
+    "fileTooLarge": "Fail terlalu besar. Pemprosesan mungkin membekukan penyemak imbas anda.",
+    "copyTitle": "Salin ke papan keratan",
+    "download": {
+      "title": "Muat turun teks",
+      "filename": "image-base64.txt"
+    }
   },
   "CssGradientBuilder": {
     "title": "Pembina Kecerunan CSS",

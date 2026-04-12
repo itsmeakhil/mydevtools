@@ -23,6 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Генератор JSON-схемы",
+    "imageToBase64": "Изображение в Base64",
     "cssGradientBuilder": "Конструктор CSS-градиентов",
     "gitignoreGenerator": "Генератор .gitignore"
   },
@@ -290,6 +291,10 @@
       "jsonSchemaGenerator": {
         "title": "Генератор JSON-схемы",
         "description": "Получите JSON-схему и типизированные модели из примера JSON."
+      },
+      "imageToBase64": {
+        "title": "Изображение в Base64",
+        "description": "Преобразуйте изображения в URI данных или необработанные строки Base64."
       },
       "cssGradientBuilder": {
         "title": "Конструктор CSS-градиентов",
@@ -2072,6 +2077,31 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Загрузка редактора…"
+  },
+  "ImageToBase64": {
+    "title": "Изображение в Base64",
+    "subtitle": "Отбросьте изображение, получите URI данных или необработанную строку Base64. Все остается в вашем браузере.",
+    "upload": "Загрузить изображение",
+    "clear": "Прозрачный",
+    "modes": {
+      "dataUri": "URI данных",
+      "rawString": "Необработанная база64"
+    },
+    "panels": {
+      "imageInput": "Ввод изображения",
+      "output": "Вывод Base64"
+    },
+    "dropHere": "Перетащите изображение сюда",
+    "charCount": "{count} символов",
+    "placeholders": {
+      "uploadImage": "Перетащите изображение или нажмите «Загрузить», чтобы начать."
+    },
+    "fileTooLarge": "Файл слишком большой. Обработка может привести к зависанию вашего браузера.",
+    "copyTitle": "Скопировать в буфер обмена",
+    "download": {
+      "title": "Скачать текст",
+      "filename": "изображение-base64.txt"
+    }
   },
   "CssGradientBuilder": {
     "title": "Конструктор CSS-градиентов",

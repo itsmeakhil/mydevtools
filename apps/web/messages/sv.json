@@ -23,6 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-schemagenerator",
+    "imageToBase64": "Bild till Base64",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator"
   },
@@ -290,6 +291,10 @@
       "jsonSchemaGenerator": {
         "title": "JSON-schemagenerator",
         "description": "Härled ett JSON-schema och typade modeller från exempel-JSON."
+      },
+      "imageToBase64": {
+        "title": "Bild till Base64",
+        "description": "Konvertera bilder till Data URI eller rå Base64-strängar."
       },
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
@@ -2072,6 +2077,31 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Läser in redigeraren…"
+  },
+  "ImageToBase64": {
+    "title": "Bild till Base64",
+    "subtitle": "Släpp en bild, skaffa en data-URI eller rå Base64-sträng. Allt finns kvar i din webbläsare.",
+    "upload": "Ladda upp bild",
+    "clear": "Rensa",
+    "modes": {
+      "dataUri": "Data URI",
+      "rawString": "Raw Base64"
+    },
+    "panels": {
+      "imageInput": "Bildinmatning",
+      "output": "Base64-utgång"
+    },
+    "dropHere": "Släpp bilden här",
+    "charCount": "{count} tecken",
+    "placeholders": {
+      "uploadImage": "Dra och släpp en bild eller klicka på ladda upp för att starta."
+    },
+    "fileTooLarge": "Filen är för stor. Bearbetning kan frysa din webbläsare.",
+    "copyTitle": "Kopiera till urklipp",
+    "download": {
+      "title": "Ladda ner text",
+      "filename": "image-base64.txt"
+    }
   },
   "CssGradientBuilder": {
     "title": "CSS Gradient Builder",

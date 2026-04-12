@@ -23,6 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generador d'esquema JSON",
+    "imageToBase64": "Imatge a Base64",
     "cssGradientBuilder": "Creador de degradats CSS",
     "gitignoreGenerator": "Generador .gitignore"
   },
@@ -290,6 +291,10 @@
       "jsonSchemaGenerator": {
         "title": "Generador d'esquema JSON",
         "description": "Extreu un esquema JSON i models tipats a partir d'una mostra JSON."
+      },
+      "imageToBase64": {
+        "title": "Imatge a Base64",
+        "description": "Converteix imatges a URI de dades o cadenes en brut Base64."
       },
       "cssGradientBuilder": {
         "title": "Creador de degradats CSS",
@@ -2072,6 +2077,31 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "S'està carregant l'editor…"
+  },
+  "ImageToBase64": {
+    "title": "Imatge a Base64",
+    "subtitle": "Deixeu anar una imatge, obteniu un URI de dades o una cadena Base64 en brut. Tot es queda al vostre navegador.",
+    "upload": "Carrega la imatge",
+    "clear": "Clar",
+    "modes": {
+      "dataUri": "URI de dades",
+      "rawString": "Base bruta 64"
+    },
+    "panels": {
+      "imageInput": "Entrada d'imatge",
+      "output": "Sortida Base64"
+    },
+    "dropHere": "Deixa la imatge aquí",
+    "charCount": "{count} caràcters",
+    "placeholders": {
+      "uploadImage": "Arrossegueu i deixeu anar una imatge o feu clic a carrega per començar."
+    },
+    "fileTooLarge": "El fitxer és massa gran. El processament pot congelar el vostre navegador.",
+    "copyTitle": "Copia al porta-retalls",
+    "download": {
+      "title": "Descarregar text",
+      "filename": "image-base64.txt"
+    }
   },
   "CssGradientBuilder": {
     "title": "Creador de degradats CSS",

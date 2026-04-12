@@ -23,6 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-schema-generator",
+    "imageToBase64": "Afbeelding naar Base64",
     "cssGradientBuilder": "CSS-verloopbouwer",
     "gitignoreGenerator": ".gitignore-generator"
   },
@@ -290,6 +291,10 @@
       "jsonSchemaGenerator": {
         "title": "JSON-schema-generator",
         "description": "Leid een JSON-schema en getypeerde modellen af van voorbeeld-JSON."
+      },
+      "imageToBase64": {
+        "title": "Afbeelding naar Base64",
+        "description": "Converteer afbeeldingen naar gegevens-URI of onbewerkte Base64-tekenreeksen."
       },
       "cssGradientBuilder": {
         "title": "CSS-verloopbouwer",
@@ -2072,6 +2077,31 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Editor laden…"
+  },
+  "ImageToBase64": {
+    "title": "Afbeelding naar Base64",
+    "subtitle": "Zet een afbeelding neer, haal een gegevens-URI of onbewerkte Base64-tekenreeks op. Alles blijft in uw browser.",
+    "upload": "Afbeelding uploaden",
+    "clear": "Duidelijk",
+    "modes": {
+      "dataUri": "Gegevens-URI",
+      "rawString": "Ruwe Basis64"
+    },
+    "panels": {
+      "imageInput": "Beeldinvoer",
+      "output": "Base64-uitvoer"
+    },
+    "dropHere": "Zet de afbeelding hier neer",
+    "charCount": "{tel} tekens",
+    "placeholders": {
+      "uploadImage": "Sleep een afbeelding en zet deze neer of klik op uploaden om te starten."
+    },
+    "fileTooLarge": "Bestand is te groot. Bij het verwerken kan uw browser vastlopen.",
+    "copyTitle": "Kopiëren naar klembord",
+    "download": {
+      "title": "Tekst downloaden",
+      "filename": "afbeelding-base64.txt"
+    }
   },
   "CssGradientBuilder": {
     "title": "CSS-verloopbouwer",

@@ -23,6 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-skjemagenerator",
+    "imageToBase64": "Bilde til Base64",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator"
   },
@@ -290,6 +291,10 @@
       "jsonSchemaGenerator": {
         "title": "JSON-skjemagenerator",
         "description": "Utled et JSON-skjema og typede modeller fra eksempel-JSON."
+      },
+      "imageToBase64": {
+        "title": "Bilde til Base64",
+        "description": "Konverter bilder til data-URI eller rå Base64-strenger."
       },
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
@@ -2072,6 +2077,31 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Laster inn redigeringsprogrammet…"
+  },
+  "ImageToBase64": {
+    "title": "Bilde til Base64",
+    "subtitle": "Slipp et bilde, få en data-URI eller rå Base64-streng. Alt forblir i nettleseren din.",
+    "upload": "Last opp bilde",
+    "clear": "Klar",
+    "modes": {
+      "dataUri": "Data-URI",
+      "rawString": "Raw Base64"
+    },
+    "panels": {
+      "imageInput": "Bildeinngang",
+      "output": "Base64-utgang"
+    },
+    "dropHere": "Slipp bildet her",
+    "charCount": "{count} tegn",
+    "placeholders": {
+      "uploadImage": "Dra og slipp et bilde eller klikk på last opp for å starte."
+    },
+    "fileTooLarge": "Filen er for stor. Behandling kan fryse nettleseren din.",
+    "copyTitle": "Kopier til utklippstavlen",
+    "download": {
+      "title": "Last ned tekst",
+      "filename": "image-base64.txt"
+    }
   },
   "CssGradientBuilder": {
     "title": "CSS Gradient Builder",

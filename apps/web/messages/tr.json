@@ -23,6 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON Şema Oluşturucu",
+    "imageToBase64": "Base64'e görüntü",
     "cssGradientBuilder": "CSS Degrade Oluşturucu",
     "gitignoreGenerator": ".gitignore Oluşturucu"
   },
@@ -290,6 +291,10 @@
       "jsonSchemaGenerator": {
         "title": "JSON Şema Oluşturucu",
         "description": "Örnek JSON’dan JSON Şeması ve tipli modeller türetin."
+      },
+      "imageToBase64": {
+        "title": "Base64'e görüntü",
+        "description": "Görüntüleri Veri URI'sine veya ham Base64 dizelerine dönüştürün."
       },
       "cssGradientBuilder": {
         "title": "CSS Degrade Oluşturucu",
@@ -2072,6 +2077,31 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Editör yükleniyor…"
+  },
+  "ImageToBase64": {
+    "title": "Base64'e görüntü",
+    "subtitle": "Bir görüntüyü bırakın, bir veri URI'si veya ham Base64 dizesi alın. Her şey tarayıcınızda kalır.",
+    "upload": "Resim Yükle",
+    "clear": "Temizlemek",
+    "modes": {
+      "dataUri": "Veri URI'si",
+      "rawString": "Ham Base64"
+    },
+    "panels": {
+      "imageInput": "Görüntü Girişi",
+      "output": "Base64 Çıkışı"
+    },
+    "dropHere": "Resmi buraya bırakın",
+    "charCount": "{count} karakter",
+    "placeholders": {
+      "uploadImage": "Başlamak için bir resmi sürükleyip bırakın veya yükle'ye tıklayın."
+    },
+    "fileTooLarge": "Dosya çok büyük. İşleme, tarayıcınızı dondurabilir.",
+    "copyTitle": "Panoya kopyala",
+    "download": {
+      "title": "Metni indir",
+      "filename": "image-base64.txt"
+    }
   },
   "CssGradientBuilder": {
     "title": "CSS Degrade Oluşturucu",

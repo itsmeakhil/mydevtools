@@ -23,6 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generator Skema JSON",
+    "imageToBase64": "Gambar ke Base64",
     "cssGradientBuilder": "Pembuat Gradien CSS",
     "gitignoreGenerator": ".gitignore Generator"
   },
@@ -290,6 +291,10 @@
       "jsonSchemaGenerator": {
         "title": "Generator Skema JSON",
         "description": "Turunkan skema JSON dan model bertipe dari contoh JSON."
+      },
+      "imageToBase64": {
+        "title": "Gambar ke Base64",
+        "description": "Konversikan gambar ke URI Data atau string Base64 mentah."
       },
       "cssGradientBuilder": {
         "title": "Pembuat Gradien CSS",
@@ -2072,6 +2077,31 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Memuat editor…"
+  },
+  "ImageToBase64": {
+    "title": "Gambar ke Base64",
+    "subtitle": "Jatuhkan gambar, dapatkan URI data atau string Base64 mentah. Semuanya tetap ada di browser Anda.",
+    "upload": "Unggah Gambar",
+    "clear": "Jernih",
+    "modes": {
+      "dataUri": "URI Data",
+      "rawString": "Basis Mentah64"
+    },
+    "panels": {
+      "imageInput": "Masukan Gambar",
+      "output": "Keluaran Base64"
+    },
+    "dropHere": "Jatuhkan gambar di sini",
+    "charCount": "{count} karakter",
+    "placeholders": {
+      "uploadImage": "Seret dan lepas gambar atau klik unggah untuk memulai."
+    },
+    "fileTooLarge": "File terlalu besar. Pemrosesan mungkin membekukan browser Anda.",
+    "copyTitle": "Salin ke papan klip",
+    "download": {
+      "title": "Unduh teks",
+      "filename": "gambar-base64.txt"
+    }
   },
   "CssGradientBuilder": {
     "title": "Pembuat Gradien CSS",

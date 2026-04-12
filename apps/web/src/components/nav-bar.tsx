@@ -24,6 +24,7 @@ import {
   Binary,
   FileCode2,
   Coffee,
+  Image as ImageIcon,
   Paintbrush,
   FileMinus,
 } from "lucide-react";
@@ -48,6 +49,7 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
   '/app/environment-manager': { title: 'Environment Manager', icon: FileCode2, namespace: 'EnvironmentManager' },
   '/app/bookmarks': { title: 'Bookmarks', icon: Bookmark },
   '/app/base64': { title: 'Base64', icon: Binary, namespace: 'Base64' },
+  '/app/image-to-base64': { title: 'Image to Base64', icon: ImageIcon, namespace: 'ImageToBase64' },
   '/app/json-formatter': { title: 'JSON Formatter', icon: Braces, namespace: 'JsonFormatter' },
   '/app/json-schema-generator': {
     title: 'JSON Schema Generator',

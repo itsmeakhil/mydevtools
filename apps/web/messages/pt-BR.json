@@ -23,6 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Gerador de esquema JSON",
+    "imageToBase64": "Imagem para Base64",
     "cssGradientBuilder": "Construtor de gradiente CSS",
     "gitignoreGenerator": "Gerador .gitignore"
   },
@@ -290,6 +291,10 @@
       "jsonSchemaGenerator": {
         "title": "Gerador de esquema JSON",
         "description": "Infira um esquema JSON e modelos tipados a partir de uma amostra JSON."
+      },
+      "imageToBase64": {
+        "title": "Imagem para Base64",
+        "description": "Converta imagens em URI de dados ou strings Base64 brutas."
       },
       "cssGradientBuilder": {
         "title": "Construtor de gradiente CSS",
@@ -2072,6 +2077,31 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Carregando o editor…"
+  },
+  "ImageToBase64": {
+    "title": "Imagem para Base64",
+    "subtitle": "Solte uma imagem, obtenha um URI de dados ou uma string Base64 bruta. Tudo fica no seu navegador.",
+    "upload": "Carregar imagem",
+    "clear": "Claro",
+    "modes": {
+      "dataUri": "URI de dados",
+      "rawString": "Base64 bruta"
+    },
+    "panels": {
+      "imageInput": "Entrada de imagem",
+      "output": "Saída Base64"
+    },
+    "dropHere": "Solte a imagem aqui",
+    "charCount": "{contar} caracteres",
+    "placeholders": {
+      "uploadImage": "Arraste e solte uma imagem ou clique em carregar para começar."
+    },
+    "fileTooLarge": "O arquivo é muito grande. O processamento pode congelar seu navegador.",
+    "copyTitle": "Copiar para a área de transferência",
+    "download": {
+      "title": "Baixar texto",
+      "filename": "imagem-base64.txt"
+    }
   },
   "CssGradientBuilder": {
     "title": "Construtor de gradiente CSS",

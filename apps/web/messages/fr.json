@@ -23,6 +23,7 @@
     "apiClient": "Client API",
     "nosqlExplorer": "Explorateur NoSQL",
     "jsonSchemaGenerator": "Générateur de schéma JSON",
+    "imageToBase64": "Image vers Base64",
     "cssGradientBuilder": "Générateur de dégradé CSS",
     "gitignoreGenerator": "Générateur .gitignore"
   },
@@ -290,6 +291,10 @@
       "jsonSchemaGenerator": {
         "title": "Générateur de schéma JSON",
         "description": "Déduisez un schéma JSON et des modèles typés à partir d'un exemple JSON."
+      },
+      "imageToBase64": {
+        "title": "Image vers Base64",
+        "description": "Convertissez les images en URI de données ou en chaînes Base64 brutes."
       },
       "cssGradientBuilder": {
         "title": "Générateur de dégradé CSS",
@@ -2072,6 +2077,31 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Chargement de l’éditeur…"
+  },
+  "ImageToBase64": {
+    "title": "Image vers Base64",
+    "subtitle": "Déposez une image, obtenez un URI de données ou une chaîne Base64 brute. Tout reste dans votre navigateur.",
+    "upload": "Télécharger une image",
+    "clear": "Clair",
+    "modes": {
+      "dataUri": "URI des données",
+      "rawString": "Base brute64"
+    },
+    "panels": {
+      "imageInput": "Entrée d'image",
+      "output": "Sortie Base64"
+    },
+    "dropHere": "Déposez l'image ici",
+    "charCount": "{count} caractères",
+    "placeholders": {
+      "uploadImage": "Faites glisser et déposez une image ou cliquez sur Télécharger pour commencer."
+    },
+    "fileTooLarge": "Le fichier est trop volumineux. Le traitement peut geler votre navigateur.",
+    "copyTitle": "Copier dans le presse-papier",
+    "download": {
+      "title": "Télécharger le texte",
+      "filename": "image-base64.txt"
+    }
   },
   "CssGradientBuilder": {
     "title": "Générateur de dégradé CSS",

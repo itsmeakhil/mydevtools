@@ -23,6 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Генератор JSON-схеми",
+    "imageToBase64": "Зображення до Base64",
     "cssGradientBuilder": "Конструктор градієнтів CSS",
     "gitignoreGenerator": "Генератор .gitignore"
   },
@@ -290,6 +291,10 @@
       "jsonSchemaGenerator": {
         "title": "Генератор JSON-схеми",
         "description": "Виведіть JSON-схему та типізовані моделі з прикладу JSON."
+      },
+      "imageToBase64": {
+        "title": "Зображення до Base64",
+        "description": "Перетворюйте зображення на URI даних або необроблені рядки Base64."
       },
       "cssGradientBuilder": {
         "title": "Конструктор градієнтів CSS",
@@ -2072,6 +2077,31 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Завантаження редактора…"
+  },
+  "ImageToBase64": {
+    "title": "Зображення до Base64",
+    "subtitle": "Перетягніть зображення, отримайте URI даних або необроблений рядок Base64. Усе залишається у вашому браузері.",
+    "upload": "Завантажити зображення",
+    "clear": "ясно",
+    "modes": {
+      "dataUri": "URI даних",
+      "rawString": "Необроблена база 64"
+    },
+    "panels": {
+      "imageInput": "Вхід зображення",
+      "output": "Вихід Base64"
+    },
+    "dropHere": "Перетягніть зображення сюди",
+    "charCount": "{count} символів",
+    "placeholders": {
+      "uploadImage": "Перетягніть зображення або натисніть «Завантажити», щоб почати."
+    },
+    "fileTooLarge": "Файл завеликий. Обробка може призвести до зависання вашого браузера.",
+    "copyTitle": "Копіювати в буфер обміну",
+    "download": {
+      "title": "Завантажити текст",
+      "filename": "image-base64.txt"
+    }
   },
   "CssGradientBuilder": {
     "title": "Конструктор градієнтів CSS",

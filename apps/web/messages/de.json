@@ -23,6 +23,7 @@
     "apiClient": "API-Client",
     "nosqlExplorer": "NoSQL-Explorer",
     "jsonSchemaGenerator": "JSON-Schema-Generator",
+    "imageToBase64": "Bild zu Base64",
     "cssGradientBuilder": "CSS-Verlaufsgenerator",
     "gitignoreGenerator": ".gitignore-Generator"
   },
@@ -290,6 +291,10 @@
       "jsonSchemaGenerator": {
         "title": "JSON-Schema-Generator",
         "description": "Leiten Sie ein JSON-Schema und typisierte Modelle aus Beispiel-JSON ab."
+      },
+      "imageToBase64": {
+        "title": "Bild zu Base64",
+        "description": "Konvertieren Sie Bilder in Daten-URI oder rohe Base64-Strings."
       },
       "cssGradientBuilder": {
         "title": "CSS-Verlaufsgenerator",
@@ -2072,6 +2077,31 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Editor wird geladen…"
+  },
+  "ImageToBase64": {
+    "title": "Bild zu Base64",
+    "subtitle": "Legen Sie ein Bild ab und erhalten Sie einen Daten-URI oder eine unformatierte Base64-Zeichenfolge. Alles bleibt in Ihrem Browser.",
+    "upload": "Bild hochladen",
+    "clear": "Klar",
+    "modes": {
+      "dataUri": "Daten-URI",
+      "rawString": "Rohes Base64"
+    },
+    "panels": {
+      "imageInput": "Bildeingabe",
+      "output": "Base64-Ausgabe"
+    },
+    "dropHere": "Bild hier einfügen",
+    "charCount": "{count} Zeichen",
+    "placeholders": {
+      "uploadImage": "Ziehen Sie ein Bild per Drag-and-Drop oder klicken Sie zum Starten auf „Hochladen“."
+    },
+    "fileTooLarge": "Die Datei ist zu groß. Bei der Verarbeitung kann es sein, dass Ihr Browser einfriert.",
+    "copyTitle": "In die Zwischenablage kopieren",
+    "download": {
+      "title": "Text herunterladen",
+      "filename": "image-base64.txt"
+    }
   },
   "CssGradientBuilder": {
     "title": "CSS-Verlaufsgenerator",
