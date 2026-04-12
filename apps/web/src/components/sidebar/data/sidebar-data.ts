@@ -24,6 +24,8 @@ import {
   IconBraces,
   IconVariable,
   IconPhoto,
+  IconColorSwatch,
+  IconFileMinus,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -106,10 +108,22 @@ export const sidebarData: SidebarData = {
           description: 'Encode and decode Base64 strings.',
         },
         {
+          title: '.gitignore Generator',
+          url: '/app/gitignore-generator',
+          icon: IconFileMinus,
+          description: 'Generate merged .gitignore files instantly from 500+ stacks.',
+        },
+        {
           title: 'Color Picker',
           url: '/app/color-picker',
           icon: IconPalette,
           description: 'Convert HEX, RGB, HSL and explore color palettes.',
+        },
+        {
+          title: 'CSS Gradient Builder',
+          url: '/app/css-gradient-builder',
+          icon: IconColorSwatch,
+          description: 'Visual CSS gradient builder with angle control and color stops.',
         },
         {
           title: 'Cron Builder',
@@ -184,6 +198,7 @@ export const sidebarData: SidebarData = {
           icon: IconFingerprint,
           description: 'Generate UUIDs and ULIDs with bulk export.',
         },
+
       ],
     },
   ],

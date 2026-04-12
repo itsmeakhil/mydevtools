@@ -23,7 +23,9 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-skemagenerator",
-    "imageToBase64": "Beeld na Base64"
+    "imageToBase64": "Beeld na Base64",
+    "cssGradientBuilder": "CSS Gradient Builder",
+    "gitignoreGenerator": ".gitignore Generator"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "Beeld na Base64",
         "description": "Skakel beelde om na Data URI of rou Base64-stringe."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS Gradient Builder",
+        "description": "Visuele CSS-gradiëntbouer met hoekbeheer en kleurstops."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore Generator",
+        "description": "Genereer saamgevoegde .gitignore-lêers onmiddellik vanaf 500+ tegnologiese stapels."
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "Laai teks af",
       "filename": "image-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "CSS Gradient Builder",
+    "subtitle": "Visuele CSS-gradiëntbouer met hoekbeheer, kleurstops en een-klik CSS-kopie.",
+    "preview": "Gradiëntvoorskou",
+    "settings": "Instellings",
+    "type": "Tik",
+    "linear": "Lineêr",
+    "radial": "Radiaal",
+    "angle": "Hoek",
+    "stops": "Kleur stop",
+    "color": "Kleur",
+    "position": "Posisie (%)",
+    "addStop": "Voeg Stop by",
+    "deleteStop": "Vee Stop uit",
+    "output": "CSS Uitset",
+    "copy": "Kopieer CSS",
+    "copied": "Gekopieer!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore Generator",
+    "subtitle": "Genereer saamgevoegde .gitignore-lêers onmiddellik vir 'n spesifieke tegnologiestapel of kombinasie.",
+    "searchPlaceholder": "Soek stapels (bv. Node, Python, macOS)...",
+    "noResults": "Geen stapels gevind nie.",
+    "selectedStacks": "Geselekteerde stapels",
+    "output": "Voorskou Uitset",
+    "copy": "Kopieer na knipbord",
+    "copied": "Gekopieer!",
+    "download": "Aflaai .gitignore",
+    "downloading": "Laai tans af...",
+    "errorFetching": "Kon nie toplys haal nie.",
+    "errorGenerating": "Kon nie .gitignore vanaf geselekteerde stapels genereer nie.",
+    "generating": "Genereer tans …",
+    "emptyState": "Kies een of meer tegnologiese stapels om jou .gitignore te genereer."
   }
 }

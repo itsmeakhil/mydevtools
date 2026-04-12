@@ -23,7 +23,9 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generátor JSON schématu",
-    "imageToBase64": "Obrázek do Base64"
+    "imageToBase64": "Obrázek do Base64",
+    "cssGradientBuilder": "CSS Gradient Builder",
+    "gitignoreGenerator": "Generátor .gitignore"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "Obrázek do Base64",
         "description": "Převeďte obrázky na Data URI nebo nezpracované řetězce Base64."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS Gradient Builder",
+        "description": "Vizuální tvůrce přechodů CSS s ovládáním úhlu a barevnými zarážkami."
+      },
+      "gitignoreGenerator": {
+        "title": "Generátor .gitignore",
+        "description": "Okamžitě vygenerujte sloučené soubory .gitignore z více než 500 technologických zásobníků."
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "Stáhnout text",
       "filename": "image-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "CSS Gradient Builder",
+    "subtitle": "Vizuální tvůrce přechodů CSS s ovládáním úhlu, zarážkami barev a kopírováním CSS jedním kliknutím.",
+    "preview": "Náhled přechodu",
+    "settings": "Nastavení",
+    "type": "Typ",
+    "linear": "Lineární",
+    "radial": "Radiální",
+    "angle": "Úhel",
+    "stops": "Barva se zastaví",
+    "color": "Barva",
+    "position": "Pozice (%)",
+    "addStop": "Přidat Stop",
+    "deleteStop": "Smazat Stop",
+    "output": "Výstup CSS",
+    "copy": "Kopírovat CSS",
+    "copied": "Zkopírováno!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Generátor .gitignore",
+    "subtitle": "Okamžitě vygenerujte sloučené soubory .gitignore pro konkrétní sadu technologií nebo kombinaci.",
+    "searchPlaceholder": "Prohledat zásobníky (např. Node, Python, macOS)...",
+    "noResults": "Nebyly nalezeny žádné zásobníky.",
+    "selectedStacks": "Vybrané zásobníky",
+    "output": "Náhled výstupu",
+    "copy": "Kopírovat do schránky",
+    "copied": "Zkopírováno!",
+    "download": "Stáhnout .gitignore",
+    "downloading": "Stahování...",
+    "errorFetching": "Nepodařilo se načíst top-tal seznam.",
+    "errorGenerating": "Vygenerování souboru .gitignore z vybraných zásobníků se nezdařilo.",
+    "generating": "Generování...",
+    "emptyState": "Vyberte jeden nebo více technologických zásobníků pro generování vašeho .gitignore."
   }
 }

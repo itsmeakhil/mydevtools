@@ -23,7 +23,9 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Генератор JSON-схеми",
-    "imageToBase64": "Зображення до Base64"
+    "imageToBase64": "Зображення до Base64",
+    "cssGradientBuilder": "Конструктор градієнтів CSS",
+    "gitignoreGenerator": "Генератор .gitignore"
   },
   "Help": {
     "title": "Довідка та документація",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "Зображення до Base64",
         "description": "Перетворюйте зображення на URI даних або необроблені рядки Base64."
+      },
+      "cssGradientBuilder": {
+        "title": "Конструктор градієнтів CSS",
+        "description": "Візуальний конструктор градієнтів CSS із керуванням кутом і кольорами."
+      },
+      "gitignoreGenerator": {
+        "title": "Генератор .gitignore",
+        "description": "Миттєво створюйте об’єднані файли .gitignore із понад 500 стеків технологій."
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "Завантажити текст",
       "filename": "image-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "Конструктор градієнтів CSS",
+    "subtitle": "Візуальний конструктор градієнтів CSS із керуванням кутом, кольорами та копіюванням CSS одним клацанням миші.",
+    "preview": "Попередній перегляд градієнта",
+    "settings": "Налаштування",
+    "type": "Тип",
+    "linear": "Лінійний",
+    "radial": "Радіальний",
+    "angle": "Кут",
+    "stops": "Кольорові зупинки",
+    "color": "колір",
+    "position": "Позиція (%)",
+    "addStop": "Додайте зупинку",
+    "deleteStop": "Видалити зупинку",
+    "output": "Вихід CSS",
+    "copy": "Копіювати CSS",
+    "copied": "Скопійовано!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Генератор .gitignore",
+    "subtitle": "Миттєво створюйте об’єднані файли .gitignore для певного технологічного стеку чи комбінації.",
+    "searchPlaceholder": "Стеки пошуку (наприклад, Node, Python, macOS)...",
+    "noResults": "Стоси не знайдено.",
+    "selectedStacks": "Вибрані стеки",
+    "output": "Попередній перегляд результату",
+    "copy": "Копіювати в буфер обміну",
+    "copied": "Скопійовано!",
+    "download": "Завантажте .gitignore",
+    "downloading": "Завантаження...",
+    "errorFetching": "Не вдалося отримати перший список.",
+    "errorGenerating": "Не вдалося створити .gitignore із вибраних стеків.",
+    "generating": "Створення...",
+    "emptyState": "Виберіть один або кілька технічних стеків, щоб створити свій .gitignore."
   }
 }

@@ -23,7 +23,9 @@
     "apiClient": "API-Client",
     "nosqlExplorer": "NoSQL-Explorer",
     "jsonSchemaGenerator": "JSON-Schema-Generator",
-    "imageToBase64": "Bild zu Base64"
+    "imageToBase64": "Bild zu Base64",
+    "cssGradientBuilder": "CSS-Verlaufsgenerator",
+    "gitignoreGenerator": ".gitignore-Generator"
   },
   "Help": {
     "title": "Hilfe & Dokumentation",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "Bild zu Base64",
         "description": "Konvertieren Sie Bilder in Daten-URI oder rohe Base64-Strings."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS-Verlaufsgenerator",
+        "description": "Visueller CSS-Verlaufsgenerator mit Winkelsteuerung und Farbstopps."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore-Generator",
+        "description": "Generieren Sie sofort zusammengeführte .gitignore-Dateien aus über 500 Tech-Stacks."
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "Text herunterladen",
       "filename": "image-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "CSS-Verlaufsgenerator",
+    "subtitle": "Visueller CSS-Verlaufsersteller mit Winkelsteuerung, Farbstopps und CSS-Kopie mit einem Klick.",
+    "preview": "Verlaufsvorschau",
+    "settings": "Einstellungen",
+    "type": "Typ",
+    "linear": "Linear",
+    "radial": "Radial",
+    "angle": "Winkel",
+    "stops": "Farbstopps",
+    "color": "Farbe",
+    "position": "Position (%)",
+    "addStop": "Stopp hinzufügen",
+    "deleteStop": "Stopp löschen",
+    "output": "CSS-Ausgabe",
+    "copy": "CSS kopieren",
+    "copied": "Kopiert!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore-Generator",
+    "subtitle": "Generieren Sie sofort zusammengeführte .gitignore-Dateien für einen bestimmten Tech-Stack oder eine bestimmte Kombination.",
+    "searchPlaceholder": "Suchstacks (z. B. Node, Python, macOS) ...",
+    "noResults": "Keine Stapel gefunden.",
+    "selectedStacks": "Ausgewählte Stapel",
+    "output": "Vorschau der Ausgabe",
+    "copy": "In die Zwischenablage kopieren",
+    "copied": "Kopiert!",
+    "download": "Laden Sie .gitignore herunter",
+    "downloading": "Herunterladen...",
+    "errorFetching": "Die Top-Liste konnte nicht abgerufen werden.",
+    "errorGenerating": "Fehler beim Generieren von .gitignore aus ausgewählten Stapeln.",
+    "generating": "Generieren...",
+    "emptyState": "Wählen Sie einen oder mehrere Tech-Stacks aus, um Ihr .gitignore zu generieren."
   }
 }

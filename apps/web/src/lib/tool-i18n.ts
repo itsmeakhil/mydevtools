@@ -24,6 +24,8 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/api-client': 'apiClient',
   '/app/nosql-explorer': 'nosqlExplorer',
   '/app/image-to-base64': 'imageToBase64',
+  '/app/css-gradient-builder': 'cssGradientBuilder',
+  '/app/gitignore-generator': 'gitignoreGenerator',
 };
 
 export function getToolMessageKey(pathname: string): string | undefined {

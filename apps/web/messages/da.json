@@ -23,7 +23,9 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-skemagenerator",
-    "imageToBase64": "Billede til Base64"
+    "imageToBase64": "Billede til Base64",
+    "cssGradientBuilder": "CSS Gradient Builder",
+    "gitignoreGenerator": ".gitignore Generator"
   },
   "Help": {
     "title": "Hjælp og dokumentation",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "Billede til Base64",
         "description": "Konverter billeder til data-URI eller rå Base64-strenge."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS Gradient Builder",
+        "description": "Visuel CSS-gradientbygger med vinkelkontrol og farvestop."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore Generator",
+        "description": "Generer flettede .gitignore-filer med det samme fra 500+ teknologistakke."
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "Download tekst",
       "filename": "image-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "CSS Gradient Builder",
+    "subtitle": "Visuel CSS-gradientbygger med vinkelkontrol, farvestop og CSS-kopi med et enkelt klik.",
+    "preview": "Forhåndsvisning af gradient",
+    "settings": "Indstillinger",
+    "type": "Type",
+    "linear": "Lineær",
+    "radial": "Radial",
+    "angle": "Vinkel",
+    "stops": "Farve stopper",
+    "color": "Farve",
+    "position": "Stilling (%)",
+    "addStop": "Tilføj stop",
+    "deleteStop": "Slet Stop",
+    "output": "CSS output",
+    "copy": "Kopier CSS",
+    "copied": "Kopieret!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore Generator",
+    "subtitle": "Generer flettede .gitignore-filer øjeblikkeligt til en specifik teknisk stak eller kombination.",
+    "searchPlaceholder": "Søg stakke (f.eks. Node, Python, macOS)...",
+    "noResults": "Ingen stakke fundet.",
+    "selectedStacks": "Udvalgte stakke",
+    "output": "Forhåndsvisning af output",
+    "copy": "Kopiér til udklipsholder",
+    "copied": "Kopieret!",
+    "download": "Download .gitignore",
+    "downloading": "Downloader...",
+    "errorFetching": "Det lykkedes ikke at hente toplisten.",
+    "errorGenerating": "Kunne ikke generere .gitignore fra udvalgte stakke.",
+    "generating": "Genererer...",
+    "emptyState": "Vælg en eller flere tekniske stakke for at generere din .gitignore."
   }
 }

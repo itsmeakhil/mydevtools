@@ -23,7 +23,9 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON Şema Oluşturucu",
-    "imageToBase64": "Base64'e görüntü"
+    "imageToBase64": "Base64'e görüntü",
+    "cssGradientBuilder": "CSS Degrade Oluşturucu",
+    "gitignoreGenerator": ".gitignore Oluşturucu"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "Base64'e görüntü",
         "description": "Görüntüleri Veri URI'sine veya ham Base64 dizelerine dönüştürün."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS Degrade Oluşturucu",
+        "description": "Açı kontrolü ve renk duraklarına sahip görsel CSS degrade oluşturucu."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore Oluşturucu",
+        "description": "500'den fazla teknoloji yığınından anında birleştirilmiş .gitignore dosyaları oluşturun."
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "Metni indir",
       "filename": "image-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "CSS Degrade Oluşturucu",
+    "subtitle": "Açı kontrolü, renk durakları ve tek tıklamayla CSS kopyalama özelliklerine sahip görsel CSS degrade oluşturucu.",
+    "preview": "Degrade Önizleme",
+    "settings": "Ayarlar",
+    "type": "Tip",
+    "linear": "Doğrusal",
+    "radial": "Radyal",
+    "angle": "Açı",
+    "stops": "Renk Durakları",
+    "color": "Renk",
+    "position": "Konum (%)",
+    "addStop": "Durak Ekle",
+    "deleteStop": "Durdurmayı Sil",
+    "output": "CSS Çıkışı",
+    "copy": "CSS'yi kopyala",
+    "copied": "Kopyalandı!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore Oluşturucu",
+    "subtitle": "Belirli bir teknoloji yığını veya birleşimi için birleştirilmiş .gitignore dosyalarını anında oluşturun.",
+    "searchPlaceholder": "Yığınlarda arama yapın (ör. Node, Python, macOS)...",
+    "noResults": "Yığın bulunamadı.",
+    "selectedStacks": "Seçilen Yığınlar",
+    "output": "Çıktıyı Önizle",
+    "copy": "Panoya kopyala",
+    "copied": "Kopyalandı!",
+    "download": ".gitignore'u indirin",
+    "downloading": "İndiriliyor...",
+    "errorFetching": "Toplam liste getirilemedi.",
+    "errorGenerating": "Seçilen yığınlardan .gitignore oluşturulamadı.",
+    "generating": "Oluşturuluyor...",
+    "emptyState": ".gitignore'unuzu oluşturmak için bir veya daha fazla teknoloji yığını seçin."
   }
 }

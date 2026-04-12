@@ -23,7 +23,9 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generador d'esquema JSON",
-    "imageToBase64": "Imatge a Base64"
+    "imageToBase64": "Imatge a Base64",
+    "cssGradientBuilder": "Creador de degradats CSS",
+    "gitignoreGenerator": "Generador .gitignore"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "Imatge a Base64",
         "description": "Converteix imatges a URI de dades o cadenes en brut Base64."
+      },
+      "cssGradientBuilder": {
+        "title": "Creador de degradats CSS",
+        "description": "Creador de degradat CSS visual amb control d'angle i parades de color."
+      },
+      "gitignoreGenerator": {
+        "title": "Generador .gitignore",
+        "description": "Genereu fitxers .gitignore combinats a l'instant a partir de més de 500 piles tecnològiques."
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "Descarregar text",
       "filename": "image-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "Creador de degradats CSS",
+    "subtitle": "Creador de degradat CSS visual amb control d'angle, parades de color i còpia CSS d'un sol clic.",
+    "preview": "Vista prèvia del degradat",
+    "settings": "Configuració",
+    "type": "Tipus",
+    "linear": "Lineal",
+    "radial": "Radial",
+    "angle": "Angle",
+    "stops": "Color Stops",
+    "color": "Color",
+    "position": "Posició (%)",
+    "addStop": "Afegeix Stop",
+    "deleteStop": "Elimina Stop",
+    "output": "Sortida CSS",
+    "copy": "Copia CSS",
+    "copied": "Copiat!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Generador .gitignore",
+    "subtitle": "Genereu fitxers .gitignore combinats a l'instant per a una pila o combinació tecnològica específica.",
+    "searchPlaceholder": "Cerca piles (per exemple, Node, Python, macOS)...",
+    "noResults": "No s'han trobat piles.",
+    "selectedStacks": "Piles seleccionades",
+    "output": "Vista prèvia de la sortida",
+    "copy": "Copia al porta-retalls",
+    "copied": "Copiat!",
+    "download": "Descarrega .gitignore",
+    "downloading": "S'està baixant...",
+    "errorFetching": "No s'ha pogut obtenir la llista de primers llocs.",
+    "errorGenerating": "No s'ha pogut generar .gitignore a partir de les piles seleccionades.",
+    "generating": "Generant...",
+    "emptyState": "Seleccioneu una o més piles de tecnologia per generar el vostre .gitignore."
   }
 }

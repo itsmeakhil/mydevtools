@@ -23,7 +23,9 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generatore di schema JSON",
-    "imageToBase64": "Immagine su Base64"
+    "imageToBase64": "Immagine su Base64",
+    "cssGradientBuilder": "Generatore di gradienti CSS",
+    "gitignoreGenerator": "Generatore .gitignore"
   },
   "Help": {
     "title": "Aiuto e documentazione",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "Immagine su Base64",
         "description": "Converti immagini in URI dati o stringhe Base64 non elaborate."
+      },
+      "cssGradientBuilder": {
+        "title": "Generatore di gradienti CSS",
+        "description": "Generatore di gradienti visivi CSS con controllo dell'angolo e interruzioni del colore."
+      },
+      "gitignoreGenerator": {
+        "title": "Generatore .gitignore",
+        "description": "Genera istantaneamente file .gitignore uniti da oltre 500 stack tecnologici."
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "Scarica testo",
       "filename": "immagine-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "Generatore di gradienti CSS",
+    "subtitle": "Generatore di gradienti CSS visivi con controllo dell'angolo, interruzioni di colore e copia CSS con un clic.",
+    "preview": "Anteprima gradiente",
+    "settings": "Impostazioni",
+    "type": "Tipo",
+    "linear": "Lineare",
+    "radial": "Radiale",
+    "angle": "Angolo",
+    "stops": "Il colore si ferma",
+    "color": "Colore",
+    "position": "Posizione (%)",
+    "addStop": "Aggiungi fermata",
+    "deleteStop": "Elimina Interrompi",
+    "output": "Uscita CSS",
+    "copy": "Copia CSS",
+    "copied": "Copiato!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Generatore .gitignore",
+    "subtitle": "Genera istantaneamente file .gitignore uniti per uno stack tecnologico o una combinazione specifica.",
+    "searchPlaceholder": "Stack di ricerca (ad esempio Node, Python, macOS)...",
+    "noResults": "Nessuno stack trovato.",
+    "selectedStacks": "Stack selezionati",
+    "output": "Anteprima dell'output",
+    "copy": "Copia negli appunti",
+    "copied": "Copiato!",
+    "download": "Scarica .gitignore",
+    "downloading": "Download in corso...",
+    "errorFetching": "Impossibile recuperare l'elenco dei migliori risultati.",
+    "errorGenerating": "Impossibile generare .gitignore dagli stack selezionati.",
+    "generating": "Generazione...",
+    "emptyState": "Seleziona uno o più stack tecnologici per generare il tuo .gitignore."
   }
 }

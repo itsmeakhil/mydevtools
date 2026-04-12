@@ -23,7 +23,9 @@
     "apiClient": "Cliente API",
     "nosqlExplorer": "Explorador NoSQL",
     "jsonSchemaGenerator": "Generador de esquema JSON",
-    "imageToBase64": "Imagen a Base64"
+    "imageToBase64": "Imagen a Base64",
+    "cssGradientBuilder": "Generador de degradado CSS",
+    "gitignoreGenerator": "Generador .gitignore"
   },
   "Help": {
     "title": "Ayuda y documentación",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "Imagen a Base64",
         "description": "Convierta imágenes a URI de datos o cadenas Base64 sin formato."
+      },
+      "cssGradientBuilder": {
+        "title": "Generador de degradado CSS",
+        "description": "Generador de gradientes CSS visual con control de ángulos y paradas de color."
+      },
+      "gitignoreGenerator": {
+        "title": "Generador .gitignore",
+        "description": "Genere archivos .gitignore combinados al instante a partir de más de 500 pilas de tecnología."
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "Descargar texto",
       "filename": "imagen-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "Generador de degradado CSS",
+    "subtitle": "Generador visual de degradados CSS con control de ángulo, paradas de color y copia CSS con un solo clic.",
+    "preview": "Vista previa de degradado",
+    "settings": "Ajustes",
+    "type": "Tipo",
+    "linear": "Lineal",
+    "radial": "Radial",
+    "angle": "Ángulo",
+    "stops": "Paradas de color",
+    "color": "Color",
+    "position": "Posición (%)",
+    "addStop": "Agregar parada",
+    "deleteStop": "Eliminar Detener",
+    "output": "Salida CSS",
+    "copy": "Copiar CSS",
+    "copied": "¡Copiado!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Generador .gitignore",
+    "subtitle": "Genere archivos .gitignore combinados al instante para una combinación o pila de tecnología específica.",
+    "searchPlaceholder": "Pilas de búsqueda (por ejemplo, Node, Python, macOS)...",
+    "noResults": "No se encontraron pilas.",
+    "selectedStacks": "Pilas seleccionadas",
+    "output": "Vista previa de salida",
+    "copy": "Copiar al portapapeles",
+    "copied": "¡Copiado!",
+    "download": "Descargar .gitignore",
+    "downloading": "Descargando...",
+    "errorFetching": "No se pudo recuperar la lista principal.",
+    "errorGenerating": "No se pudo generar .gitignore a partir de pilas seleccionadas.",
+    "generating": "Generando...",
+    "emptyState": "Seleccione una o más pilas de tecnología para generar su .gitignore."
   }
 }

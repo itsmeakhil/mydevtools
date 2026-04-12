@@ -23,7 +23,9 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generator Skema JSON",
-    "imageToBase64": "Gambar ke Base64"
+    "imageToBase64": "Gambar ke Base64",
+    "cssGradientBuilder": "Pembuat Gradien CSS",
+    "gitignoreGenerator": ".gitignore Generator"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "Gambar ke Base64",
         "description": "Konversikan gambar ke URI Data atau string Base64 mentah."
+      },
+      "cssGradientBuilder": {
+        "title": "Pembuat Gradien CSS",
+        "description": "Pembuat gradien CSS visual dengan kontrol sudut dan penghentian warna."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore Generator",
+        "description": "Hasilkan file .gitignore gabungan secara instan dari 500+ tumpukan teknologi."
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "Unduh teks",
       "filename": "gambar-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "Pembuat Gradien CSS",
+    "subtitle": "Pembuat gradien CSS visual dengan kontrol sudut, penghentian warna, dan salinan CSS sekali klik.",
+    "preview": "Pratinjau Gradien",
+    "settings": "Pengaturan",
+    "type": "Jenis",
+    "linear": "Linier",
+    "radial": "Radial",
+    "angle": "Sudut",
+    "stops": "Warna Berhenti",
+    "color": "Warna",
+    "position": "Posisi (%)",
+    "addStop": "Tambahkan Berhenti",
+    "deleteStop": "Hapus Berhenti",
+    "output": "Keluaran CSS",
+    "copy": "Salin CSS",
+    "copied": "Disalin!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore Generator",
+    "subtitle": "Hasilkan file .gitignore gabungan secara instan untuk tumpukan atau kombinasi teknologi tertentu.",
+    "searchPlaceholder": "Tumpukan pencarian (misalnya Node, Python, macOS)...",
+    "noResults": "Tidak ada tumpukan yang ditemukan.",
+    "selectedStacks": "Tumpukan yang Dipilih",
+    "output": "Pratinjau Keluaran",
+    "copy": "Salin ke Papan Klip",
+    "copied": "Disalin!",
+    "download": "Unduh .gitignore",
+    "downloading": "Mengunduh...",
+    "errorFetching": "Gagal mengambil daftar teratas.",
+    "errorGenerating": "Gagal menghasilkan .gitignore dari tumpukan yang dipilih.",
+    "generating": "Menghasilkan...",
+    "emptyState": "Pilih satu atau lebih tumpukan teknologi untuk menghasilkan .gitignore Anda."
   }
 }

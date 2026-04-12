@@ -23,7 +23,9 @@
     "apiClient": "Client API",
     "nosqlExplorer": "Explorateur NoSQL",
     "jsonSchemaGenerator": "Générateur de schéma JSON",
-    "imageToBase64": "Image vers Base64"
+    "imageToBase64": "Image vers Base64",
+    "cssGradientBuilder": "Générateur de dégradé CSS",
+    "gitignoreGenerator": "Générateur .gitignore"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "Image vers Base64",
         "description": "Convertissez les images en URI de données ou en chaînes Base64 brutes."
+      },
+      "cssGradientBuilder": {
+        "title": "Générateur de dégradé CSS",
+        "description": "Générateur de dégradé visuel CSS avec contrôle d'angle et arrêts de couleur."
+      },
+      "gitignoreGenerator": {
+        "title": "Générateur .gitignore",
+        "description": "Générez instantanément des fichiers .gitignore fusionnés à partir de plus de 500 piles technologiques."
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "Télécharger le texte",
       "filename": "image-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "Générateur de dégradé CSS",
+    "subtitle": "Générateur de dégradé CSS visuel avec contrôle de l'angle, arrêts de couleur et copie CSS en un clic.",
+    "preview": "Aperçu du dégradé",
+    "settings": "Paramètres",
+    "type": "Taper",
+    "linear": "Linéaire",
+    "radial": "Radial",
+    "angle": "Angle",
+    "stops": "Arrêts de couleur",
+    "color": "Couleur",
+    "position": "Position (%)",
+    "addStop": "Ajouter un arrêt",
+    "deleteStop": "Supprimer l'arrêt",
+    "output": "Sortie CSS",
+    "copy": "Copier CSS",
+    "copied": "Copié!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Générateur .gitignore",
+    "subtitle": "Générez instantanément des fichiers .gitignore fusionnés pour une pile ou une combinaison technologique spécifique.",
+    "searchPlaceholder": "Piles de recherche (par exemple Node, Python, macOS)...",
+    "noResults": "Aucune pile trouvée.",
+    "selectedStacks": "Piles sélectionnées",
+    "output": "Aperçu de la sortie",
+    "copy": "Copier dans le Presse-papiers",
+    "copied": "Copié!",
+    "download": "Télécharger .gitignore",
+    "downloading": "Téléchargement...",
+    "errorFetching": "Échec de la récupération de la liste des meilleurs résultats.",
+    "errorGenerating": "Échec de la génération de .gitignore à partir des piles sélectionnées.",
+    "generating": "Générateur...",
+    "emptyState": "Sélectionnez une ou plusieurs piles technologiques pour générer votre .gitignore."
   }
 }

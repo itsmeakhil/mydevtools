@@ -23,7 +23,9 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-schemagenerator",
-    "imageToBase64": "Bild till Base64"
+    "imageToBase64": "Bild till Base64",
+    "cssGradientBuilder": "CSS Gradient Builder",
+    "gitignoreGenerator": ".gitignore Generator"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "Bild till Base64",
         "description": "Konvertera bilder till Data URI eller rå Base64-strängar."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS Gradient Builder",
+        "description": "Visuell CSS-gradientbyggare med vinkelkontroll och färgstopp."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore Generator",
+        "description": "Generera sammanslagna .gitignore-filer direkt från 500+ tekniska stackar."
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "Ladda ner text",
       "filename": "image-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "CSS Gradient Builder",
+    "subtitle": "Visuell CSS-gradientbyggare med vinkelkontroll, färgstopp och CSS-kopia med ett klick.",
+    "preview": "Gradient Preview",
+    "settings": "Inställningar",
+    "type": "Typ",
+    "linear": "Linjär",
+    "radial": "Radiell",
+    "angle": "Vinkel",
+    "stops": "Färgen stannar",
+    "color": "Färg",
+    "position": "Position (%)",
+    "addStop": "Lägg till stopp",
+    "deleteStop": "Ta bort Stop",
+    "output": "CSS-utgång",
+    "copy": "Kopiera CSS",
+    "copied": "Kopierade!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore Generator",
+    "subtitle": "Generera sammanslagna .gitignore-filer direkt för en specifik teknisk stack eller kombination.",
+    "searchPlaceholder": "Sök stackar (t.ex. Node, Python, macOS)...",
+    "noResults": "Inga stackar hittades.",
+    "selectedStacks": "Valda staplar",
+    "output": "Förhandsgranska utdata",
+    "copy": "Kopiera till Urklipp",
+    "copied": "Kopierade!",
+    "download": "Ladda ner .gitignore",
+    "downloading": "Laddar ned...",
+    "errorFetching": "Det gick inte att hämta topplistan.",
+    "errorGenerating": "Det gick inte att generera .gitignore från valda stackar.",
+    "generating": "Alstrande...",
+    "emptyState": "Välj en eller flera teknikstackar för att generera din .gitignore."
   }
 }

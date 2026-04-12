@@ -23,7 +23,9 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "apiClient": "API Client",
-    "nosqlExplorer": "NoSQL Explorer"
+    "nosqlExplorer": "NoSQL Explorer",
+    "cssGradientBuilder": "CSS Gradient Builder",
+    "gitignoreGenerator": ".gitignore Generator"
   },
   "Help": {
     "title": "Help & documentation",
@@ -341,6 +343,14 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS Gradient Builder",
+        "description": "Visual CSS gradient builder with angle control and color stops."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore Generator",
+        "description": "Generate merged .gitignore files instantly from 500+ tech stacks."
       }
     }
   },
@@ -2092,5 +2102,44 @@
       "title": "Download text",
       "filename": "image-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "CSS Gradient Builder",
+    "subtitle": "Visual CSS gradient builder with angle control, color stops, and one-click CSS copy.",
+    "preview": "Gradient Preview",
+    "settings": "Settings",
+    "type": "Type",
+    "linear": "Linear",
+    "radial": "Radial",
+    "angle": "Angle",
+    "stops": "Color Stops",
+    "color": "Color",
+    "position": "Position (%)",
+    "addStop": "Add Stop",
+    "deleteStop": "Delete Stop",
+    "output": "CSS Output",
+    "copy": "Copy CSS",
+    "copied": "Copied!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore Generator",
+    "subtitle": "Generate merged .gitignore files instantly for a specific tech stack or combination.",
+    "searchPlaceholder": "Search stacks (e.g. Node, Python, macOS)...",
+    "noResults": "No stacks found.",
+    "selectedStacks": "Selected Stacks",
+    "output": "Preview Output",
+    "copy": "Copy to Clipboard",
+    "copied": "Copied!",
+    "download": "Download .gitignore",
+    "downloading": "Downloading...",
+    "errorFetching": "Failed to fetch top-tal list.",
+    "errorGenerating": "Failed to generate .gitignore from selected stacks.",
+    "generating": "Generating...",
+    "emptyState": "Select one or more tech stacks to generate your .gitignore."
   }
 }

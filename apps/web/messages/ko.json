@@ -23,7 +23,9 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON 스키마 생성기",
-    "imageToBase64": "이미지를 Base64로"
+    "imageToBase64": "이미지를 Base64로",
+    "cssGradientBuilder": "CSS 그라디언트 빌더",
+    "gitignoreGenerator": ".gitignore 생성기"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "이미지를 Base64로",
         "description": "이미지를 데이터 URI 또는 ​​원시 Base64 문자열로 변환합니다."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS 그라디언트 빌더",
+        "description": "각도 제어 및 색상 정지 기능을 갖춘 시각적 CSS 그라데이션 빌더입니다."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore 생성기",
+        "description": "500개 이상의 기술 스택에서 병합된 .gitignore 파일을 즉시 생성합니다."
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "텍스트 다운로드",
       "filename": "이미지-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "CSS 그라디언트 빌더",
+    "subtitle": "각도 제어, 색상 중지 및 원클릭 CSS 복사 기능을 갖춘 시각적 CSS 그라데이션 빌더입니다.",
+    "preview": "그라데이션 미리보기",
+    "settings": "설정",
+    "type": "유형",
+    "linear": "선의",
+    "radial": "방사형",
+    "angle": "각도",
+    "stops": "컬러 정지",
+    "color": "색상",
+    "position": "위치 (%)",
+    "addStop": "경유지 추가",
+    "deleteStop": "정지 삭제",
+    "output": "CSS 출력",
+    "copy": "CSS 복사",
+    "copied": "복사되었습니다!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore 생성기",
+    "subtitle": "특정 기술 스택 또는 조합에 대해 병합된 .gitignore 파일을 즉시 생성합니다.",
+    "searchPlaceholder": "검색 스택(예: Node, Python, macOS)...",
+    "noResults": "스택을 찾을 수 없습니다.",
+    "selectedStacks": "선택된 스택",
+    "output": "미리보기 출력",
+    "copy": "클립보드에 복사",
+    "copied": "복사되었습니다!",
+    "download": ".gitignore 다운로드",
+    "downloading": "다운로드 중...",
+    "errorFetching": "상위 목록을 가져오지 못했습니다.",
+    "errorGenerating": "선택한 스택에서 .gitignore를 생성하지 못했습니다.",
+    "generating": "생성 중...",
+    "emptyState": ".gitignore를 생성하려면 하나 이상의 기술 스택을 선택하세요."
   }
 }

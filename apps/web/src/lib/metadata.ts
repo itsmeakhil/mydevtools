@@ -122,6 +122,16 @@ export const toolsMetadata: Record<string, {
         description: 'Convert images to Data URI or raw Base64 strings instantly. Drops local images and encodes them purely in the browser.',
         keywords: ['image to base64', 'base64 image', 'data uri generator', 'image converter', 'base64 formatter']
     },
+    'css-gradient-builder': {
+        title: 'CSS Gradient Builder',
+        description: 'Visual CSS gradient builder with angle control, color stops, and one-click CSS copy.',
+        keywords: ['css gradient', 'gradient builder', 'gradient generator', 'linear gradient', 'radial gradient', 'css output']
+    },
+    'gitignore-generator': {
+        title: '.gitignore Generator',
+        description: 'Generate .gitignore files instantly for a specific tech stack (Node, Python, macOS, etc.) or combination.',
+        keywords: ['gitignore', 'git ignore generator', 'ignore file', 'gitignore boilerplate', 'developer tools']
+    },
 }
 
 // Generate metadata for a tool page

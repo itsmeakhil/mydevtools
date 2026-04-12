@@ -62,12 +62,14 @@ Most developer tools are scattered across dozens of tabs, riddled with ads, or s
 | **🖼️ Image to Base64** | Convert images to Data URI or raw Base64 strings with a visual dropzone |
 | **📝 JSON Formatter** | Beautify, validate, minify, and explore JSON with Monaco Editor |
 | **📐 JSON Schema Generator** | Auto-generate JSON Schema from any JSON input instantly |
+| **🙈 .gitignore Generator** | Generate merged .gitignore files instantly from 500+ tech stacks |
 | **🔑 JWT Decoder** | Decode and inspect JWT tokens — header, payload, and signature at a glance |
 | **📋 Lorem Ipsum Generator** | Generate placeholder text in paragraphs, words, or sentences |
 | **🗄️ NoSQL Explorer** | Connect to MongoDB, browse databases & collections, and run queries with a visual data viewer |
 | **🧬 Regex Tester** | Test regular expressions in real time with match highlighting and capture group breakdown |
 | **🛢️ SQL Formatter** | Format and prettify SQL queries with dialect support |
 | **⏱️ Timestamp Converter** | Convert Unix timestamps to human-readable dates and vice versa |
+| **🎨 CSS Gradient Builder** | Visual builder for linear and radial CSS gradients with color stops |
 | **🌐 URL Encoder/Decoder** | Encode and decode URL components instantly |
 | **🔢 UUID Generator** | Generate UUIDs (v1, v4) in bulk with copy support |
 

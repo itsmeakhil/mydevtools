@@ -23,7 +23,9 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Γεννήτρια JSON Schema",
-    "imageToBase64": "Εικόνα στο Base64"
+    "imageToBase64": "Εικόνα στο Base64",
+    "cssGradientBuilder": "CSS Gradient Builder",
+    "gitignoreGenerator": ".gitignore Γεννήτρια"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "Εικόνα στο Base64",
         "description": "Μετατροπή εικόνων σε Data URI ή σε ακατέργαστες συμβολοσειρές Base64."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS Gradient Builder",
+        "description": "Visual CSS gradient builder με έλεγχο γωνίας και χρωματικές στάσεις."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore Γεννήτρια",
+        "description": "Δημιουργήστε συγχωνευμένα αρχεία .gitignore άμεσα από 500+ στοίβες τεχνολογίας."
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "Λήψη κειμένου",
       "filename": "image-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "CSS Gradient Builder",
+    "subtitle": "Visual CSS gradient builder με έλεγχο γωνίας, χρωματικές στάσεις και αντιγραφή CSS με ένα κλικ.",
+    "preview": "Προεπισκόπηση κλίσης",
+    "settings": "Ρυθμίσεις",
+    "type": "Τύπος",
+    "linear": "Γραμμικός",
+    "radial": "Ακτινικός",
+    "angle": "Γωνία",
+    "stops": "Σταματά το χρώμα",
+    "color": "Χρώμα",
+    "position": "Θέση (%)",
+    "addStop": "Προσθήκη Stop",
+    "deleteStop": "Διαγραφή Stop",
+    "output": "Έξοδος CSS",
+    "copy": "Αντιγραφή CSS",
+    "copied": "Αντιγράφηκε!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore Γεννήτρια",
+    "subtitle": "Δημιουργήστε συγχωνευμένα αρχεία .gitignore άμεσα για μια συγκεκριμένη στοίβα τεχνολογίας ή συνδυασμό.",
+    "searchPlaceholder": "Αναζήτηση στοίβων (π.χ. Node, Python, macOS)...",
+    "noResults": "Δεν βρέθηκαν στοίβες.",
+    "selectedStacks": "Επιλεγμένες στοίβες",
+    "output": "Έξοδος προεπισκόπησης",
+    "copy": "Αντιγραφή στο Πρόχειρο",
+    "copied": "Αντιγράφηκε!",
+    "download": "Λήψη .gitignore",
+    "downloading": "Λήψη...",
+    "errorFetching": "Αποτυχία λήψης της λίστας κορυφαίων.",
+    "errorGenerating": "Απέτυχε η δημιουργία .gitignore από επιλεγμένες στοίβες.",
+    "generating": "Δημιουργία...",
+    "emptyState": "Επιλέξτε μία ή περισσότερες στοίβες τεχνολογίας για να δημιουργήσετε το .gitignore σας."
   }
 }

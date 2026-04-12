@@ -23,7 +23,9 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Генератор JSON-схемы",
-    "imageToBase64": "Изображение в Base64"
+    "imageToBase64": "Изображение в Base64",
+    "cssGradientBuilder": "Конструктор CSS-градиентов",
+    "gitignoreGenerator": "Генератор .gitignore"
   },
   "Help": {
     "title": "Справка и документация",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "Изображение в Base64",
         "description": "Преобразуйте изображения в URI данных или необработанные строки Base64."
+      },
+      "cssGradientBuilder": {
+        "title": "Конструктор CSS-градиентов",
+        "description": "Визуальный конструктор градиентов CSS с контролем угла и остановками цвета."
+      },
+      "gitignoreGenerator": {
+        "title": "Генератор .gitignore",
+        "description": "Мгновенно создавайте объединенные файлы .gitignore из более чем 500 технологических стеков."
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "Скачать текст",
       "filename": "изображение-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "Конструктор CSS-градиентов",
+    "subtitle": "Визуальный конструктор градиентов CSS с контролем угла, остановками цвета и копированием CSS одним щелчком мыши.",
+    "preview": "Предварительный просмотр градиента",
+    "settings": "Настройки",
+    "type": "Тип",
+    "linear": "Линейный",
+    "radial": "Радиальный",
+    "angle": "Угол",
+    "stops": "Цветовые остановки",
+    "color": "Цвет",
+    "position": "Позиция (%)",
+    "addStop": "Добавить остановку",
+    "deleteStop": "Удалить остановку",
+    "output": "CSS-вывод",
+    "copy": "Копировать CSS",
+    "copied": "Скопировано!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Генератор .gitignore",
+    "subtitle": "Мгновенно создавайте объединенные файлы .gitignore для определенного технологического стека или комбинации.",
+    "searchPlaceholder": "Стеки поиска (например, Node, Python, macOS)...",
+    "noResults": "Стеки не найдены.",
+    "selectedStacks": "Выбранные стеки",
+    "output": "Предварительный просмотр вывода",
+    "copy": "Копировать в буфер обмена",
+    "copied": "Скопировано!",
+    "download": "Скачать .gitignore",
+    "downloading": "Загрузка...",
+    "errorFetching": "Не удалось получить список самых популярных пользователей.",
+    "errorGenerating": "Не удалось создать .gitignore из выбранных стеков.",
+    "generating": "Создание...",
+    "emptyState": "Выберите один или несколько стеков технологий для создания вашего .gitignore."
   }
 }

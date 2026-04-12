@@ -23,7 +23,9 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generator schematu JSON",
-    "imageToBase64": "Obraz do Base64"
+    "imageToBase64": "Obraz do Base64",
+    "cssGradientBuilder": "Kreator gradientów CSS",
+    "gitignoreGenerator": "Generator .gitignore"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "Obraz do Base64",
         "description": "Konwertuj obrazy na URI danych lub surowe ciągi Base64."
+      },
+      "cssGradientBuilder": {
+        "title": "Kreator gradientów CSS",
+        "description": "Wizualny kreator gradientów CSS z kontrolą kąta i przystankami kolorów."
+      },
+      "gitignoreGenerator": {
+        "title": "Generator .gitignore",
+        "description": "Natychmiast generuj scalone pliki .gitignore z ponad 500 stosów technologii."
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "Pobierz tekst",
       "filename": "image-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "Kreator gradientów CSS",
+    "subtitle": "Wizualny kreator gradientów CSS z kontrolą kąta, przystankami kolorów i kopiowaniem CSS jednym kliknięciem.",
+    "preview": "Podgląd gradientu",
+    "settings": "Ustawienia",
+    "type": "Typ",
+    "linear": "Liniowy",
+    "radial": "Promieniowy",
+    "angle": "Kąt",
+    "stops": "Kolor zatrzymuje się",
+    "color": "Kolor",
+    "position": "Pozycja (%)",
+    "addStop": "Dodaj przystanek",
+    "deleteStop": "Usuń przystanek",
+    "output": "Dane wyjściowe CSS",
+    "copy": "Skopiuj CSS",
+    "copied": "Skopiowano!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Generator .gitignore",
+    "subtitle": "Natychmiast generuj scalone pliki .gitignore dla określonego stosu technologii lub kombinacji.",
+    "searchPlaceholder": "Przeszukaj stosy (np. Node, Python, macOS)...",
+    "noResults": "Nie znaleziono stosów.",
+    "selectedStacks": "Wybrane stosy",
+    "output": "Podgląd wyników",
+    "copy": "Skopiuj do schowka",
+    "copied": "Skopiowano!",
+    "download": "Pobierz .gitignore",
+    "downloading": "Ściąganie...",
+    "errorFetching": "Nie udało się pobrać listy najlepszych.",
+    "errorGenerating": "Nie udało się wygenerować pliku .gitignore z wybranych stosów.",
+    "generating": "Generowanie...",
+    "emptyState": "Wybierz jeden lub więcej stosów technologii, aby wygenerować plik .gitignore."
   }
 }

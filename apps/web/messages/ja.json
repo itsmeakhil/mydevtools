@@ -23,7 +23,9 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSONスキーマジェネレーター",
-    "imageToBase64": "画像をBase64に変換"
+    "imageToBase64": "画像をBase64に変換",
+    "cssGradientBuilder": "CSS グラデーション ビルダー",
+    "gitignoreGenerator": ".gitignore ジェネレーター"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "画像をBase64に変換",
         "description": "画像をデータ URI または生の Base64 文字列に変換します。"
+      },
+      "cssGradientBuilder": {
+        "title": "CSS グラデーション ビルダー",
+        "description": "角度制御とカラーストップを備えたビジュアル CSS グラデーション ビルダー。"
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore ジェネレーター",
+        "description": "500 を超える技術スタックからマージされた .gitignore ファイルを即座に生成します。"
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "テキストをダウンロードする",
       "filename": "画像-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "CSS グラデーション ビルダー",
+    "subtitle": "角度コントロール、カラーストップ、ワンクリック CSS コピーを備えたビジュアル CSS グラデーション ビルダー。",
+    "preview": "グラデーションのプレビュー",
+    "settings": "設定",
+    "type": "タイプ",
+    "linear": "リニア",
+    "radial": "ラジアル",
+    "angle": "角度",
+    "stops": "カラーストップ",
+    "color": "色",
+    "position": "位置 （％）",
+    "addStop": "ストップの追加",
+    "deleteStop": "ストップの削除",
+    "output": "CSS出力",
+    "copy": "CSSをコピーする",
+    "copied": "コピーしました！",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore ジェネレーター",
+    "subtitle": "特定の技術スタックまたは組み合わせに対して、マージされた .gitignore ファイルを即座に生成します。",
+    "searchPlaceholder": "検索スタック (例: Node、Python、macOS)...",
+    "noResults": "スタックが見つかりませんでした。",
+    "selectedStacks": "選択されたスタック",
+    "output": "出力のプレビュー",
+    "copy": "クリップボードにコピー",
+    "copied": "コピーしました！",
+    "download": ".gitignore をダウンロード",
+    "downloading": "ダウンロード中...",
+    "errorFetching": "上位リストの取得に失敗しました。",
+    "errorGenerating": "選択したスタックから .gitignore を生成できませんでした。",
+    "generating": "生成中...",
+    "emptyState": ".gitignore を生成するには、1 つ以上の技術スタックを選択します。"
   }
 }

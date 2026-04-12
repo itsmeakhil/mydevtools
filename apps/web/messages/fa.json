@@ -23,7 +23,9 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "تولیدکنندهٔ طرح JSON",
-    "imageToBase64": "تصویر به Base64"
+    "imageToBase64": "تصویر به Base64",
+    "cssGradientBuilder": "CSS Gradient Builder",
+    "gitignoreGenerator": ".gitignore Generator"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -293,6 +295,14 @@
       "imageToBase64": {
         "title": "تصویر به Base64",
         "description": "تصاویر را به Data URI یا رشته های Base64 خام تبدیل کنید."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS Gradient Builder",
+        "description": "سازنده گرادیان CSS ویژوال با کنترل زاویه و توقف رنگ."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore Generator",
+        "description": "فایل‌های gitignore. ادغام شده را فوراً از بیش از 500 پشته فناوری ایجاد کنید."
       }
     },
     "tabs": {
@@ -2092,5 +2102,44 @@
       "title": "دانلود متن",
       "filename": "image-base64.txt"
     }
+  },
+  "CssGradientBuilder": {
+    "title": "CSS Gradient Builder",
+    "subtitle": "سازنده گرادیان CSS ویژوال با کنترل زاویه، توقف رنگ و کپی CSS با یک کلیک.",
+    "preview": "پیش نمایش گرادیان",
+    "settings": "تنظیمات",
+    "type": "تایپ کنید",
+    "linear": "خطی",
+    "radial": "شعاعی",
+    "angle": "زاویه",
+    "stops": "رنگ متوقف می شود",
+    "color": "رنگ",
+    "position": "موقعیت (%)",
+    "addStop": "Stop را اضافه کنید",
+    "deleteStop": "Stop را حذف کنید",
+    "output": "خروجی CSS",
+    "copy": "CSS را کپی کنید",
+    "copied": "کپی شده!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore Generator",
+    "subtitle": "فایل‌های .gitignore ادغام شده را فوراً برای یک پشته یا ترکیب فنی خاص ایجاد کنید.",
+    "searchPlaceholder": "پشته های جستجو (به عنوان مثال Node، Python، macOS)...",
+    "noResults": "پشته ای پیدا نشد.",
+    "selectedStacks": "پشته های انتخاب شده",
+    "output": "پیش نمایش خروجی",
+    "copy": "در کلیپ بورد کپی کنید",
+    "copied": "کپی شده!",
+    "download": "gitignore. را دانلود کنید",
+    "downloading": "در حال دانلود...",
+    "errorFetching": "واکشی فهرست برتر ناموفق بود.",
+    "errorGenerating": "gitignore. از پشته های انتخابی ایجاد نشد.",
+    "generating": "در حال تولید...",
+    "emptyState": "برای ایجاد .gitignore خود یک یا چند پشته فناوری انتخاب کنید."
   }
 }
