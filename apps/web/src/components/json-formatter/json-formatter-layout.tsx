@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { useIsMobile } from '@/components/hooks/use-mobile'
 import {
   IconCopy,
   IconDeviceFloppy,
@@ -97,6 +98,7 @@ export function JsonFormatterLayout() {
     createPaneState(t('documentNameTree', { n: 1 }))
   )
 
+  const isMobile = useIsMobile()
   const [loadOpen, setLoadOpen] = useState(false)
   const [loadPane, setLoadPane] = useState<PaneKey>('left')
   const [docsLoading, setDocsLoading] = useState(false)
@@ -283,17 +285,17 @@ export function JsonFormatterLayout() {
       </Card>
 
       <ResizablePanelGroup
-        direction="horizontal"
+        direction={isMobile ? "vertical" : "horizontal"}
         className="min-h-0 flex-1 rounded-lg border overflow-hidden"
       >
         {/* Left Pane - Text Mode */}
-        <ResizablePanel defaultSize={50} minSize={20} className="min-h-0">
+        <ResizablePanel defaultSize={50} minSize={isMobile ? 30 : 20} className="min-h-0">
           <div className="flex h-full min-h-0 flex-col">
             <div className="flex flex-wrap items-center gap-2 border-b p-2">
               <input
                 value={leftPane.documentName}
                 onChange={(event) => handlePaneNameChange('left', event.target.value)}
-                className="h-8 w-[170px] rounded-md border border-input bg-background px-2.5 text-xs text-foreground outline-none ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                className="h-8 w-full sm:w-[170px] rounded-md border border-input bg-background px-2.5 text-xs text-foreground outline-none ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 aria-label={t('leftDocNameLabel')}
               />
               <Button variant="outline" size="sm" onClick={() => handleNewDocument('left')}>
@@ -335,13 +337,13 @@ export function JsonFormatterLayout() {
         <ResizableHandle withHandle />
 
         {/* Right Pane - Tree Mode */}
-        <ResizablePanel defaultSize={50} minSize={20} className="min-h-0">
+        <ResizablePanel defaultSize={50} minSize={isMobile ? 30 : 20} className="min-h-0">
           <div className="flex h-full min-h-0 flex-col">
             <div className="flex flex-wrap items-center gap-2 border-b p-2">
               <input
                 value={rightPane.documentName}
                 onChange={(event) => handlePaneNameChange('right', event.target.value)}
-                className="h-8 w-[170px] rounded-md border border-input bg-background px-2.5 text-xs text-foreground outline-none ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                className="h-8 w-full sm:w-[170px] rounded-md border border-input bg-background px-2.5 text-xs text-foreground outline-none ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 aria-label={t('rightDocNameLabel')}
               />
               <Button variant="outline" size="sm" onClick={() => handleNewDocument('right')}>

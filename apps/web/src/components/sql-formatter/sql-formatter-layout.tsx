@@ -89,11 +89,11 @@ export function SqlFormatterLayout() {
       </div>
 
       <Card className="p-4 shrink-0">
-        <div className="flex flex-wrap items-end gap-4">
-          <div className="space-y-2 min-w-[140px]">
+        <div className="flex flex-wrap items-end gap-3">
+          <div className="space-y-2 w-full sm:w-auto sm:min-w-[140px]">
             <Label className="text-xs text-muted-foreground uppercase tracking-wider">{t('dialectLabel')}</Label>
             <Select value={dialect} onValueChange={(v) => setDialect(v as SqlLanguage)}>
-              <SelectTrigger className="h-9 text-sm w-[180px]">
+              <SelectTrigger className="h-9 text-sm w-full sm:w-[180px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -105,10 +105,10 @@ export function SqlFormatterLayout() {
               </SelectContent>
             </Select>
           </div>
-          <div className="space-y-2 min-w-[120px]">
+          <div className="space-y-2 w-full sm:w-auto sm:min-w-[120px]">
             <Label className="text-xs text-muted-foreground uppercase tracking-wider">{t('keywordsLabel')}</Label>
             <Select value={keywordCase} onValueChange={(v) => setKeywordCase(v as KeywordCase)}>
-              <SelectTrigger className="h-9 text-sm w-[140px]">
+              <SelectTrigger className="h-9 text-sm w-full sm:w-[140px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -120,12 +120,12 @@ export function SqlFormatterLayout() {
               </SelectContent>
             </Select>
           </div>
-          <div className="space-y-2 min-w-[80px]">
+          <div className="space-y-2 w-full sm:w-auto sm:min-w-[80px]">
             <Label htmlFor="sql-tab" className="text-xs text-muted-foreground uppercase tracking-wider">
               {t('indentLabel')}
             </Label>
             <Select value={tabWidth} onValueChange={setTabWidth}>
-              <SelectTrigger id="sql-tab" className="h-9 text-sm w-[80px]">
+              <SelectTrigger id="sql-tab" className="h-9 text-sm w-full sm:w-[80px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

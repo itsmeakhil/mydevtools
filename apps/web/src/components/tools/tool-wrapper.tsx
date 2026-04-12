@@ -42,7 +42,7 @@ export function ToolWrapper({
   }, [toolId, pathname, trackToolUsage]);
 
   return (
-    <div className={`min-h-screen bg-background text-foreground p-4 ${className}`}>
+    <div className={`min-h-screen bg-background text-foreground p-2 md:p-4 ${className}`}>
       <Card className={`${maxWidthClasses[maxWidth]} mx-auto`}>
         <CardContent className="pt-6">
           {children}

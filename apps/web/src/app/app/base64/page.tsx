@@ -5,7 +5,7 @@ export const metadata = generateToolMetadata('base64')
 
 export default function Base64Page() {
   return (
-    <div className="h-full w-full min-h-0 p-4">
+    <div className="h-full w-full min-h-0 p-2 md:p-4">
       <Base64Layout />
     </div>
   )

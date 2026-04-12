@@ -283,7 +283,7 @@ export default function TaskItem({
                       "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
                       statusConfig.bgColor,
                       statusConfig.color,
-                      "min-w-[40px] h-[40px] md:min-w-[44px] md:h-[44px]"
+                      "min-w-[44px] h-[44px]"
                     )}
                     aria-label={`Mark as ${task.status === "completed" ? "not completed" : "completed"}`}
                   >
@@ -301,7 +301,7 @@ export default function TaskItem({
               <div className="flex items-start gap-2 flex-wrap">
                 <h3
                   className={cn(
-                    "block text-[15px] md:text-base font-semibold leading-tight transition-all flex-1 min-w-[150px]",
+                    "block text-[15px] md:text-base font-semibold leading-tight transition-all flex-1 min-w-0",
                     task.status === "completed"
                       ? "text-muted-foreground line-through decoration-muted-foreground/50"
                       : "text-foreground"

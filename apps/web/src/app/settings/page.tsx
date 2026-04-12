@@ -157,11 +157,11 @@ export default function SettingsPage() {
           <CardContent className="space-y-6">
             <div className="space-y-4">
               <Label>{t('appearance.themePreference')}</Label>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4">
                 <Button
                   variant="outline"
                   className={cn(
-                    "h-24 flex-col gap-3 justify-center border-2 border-muted hover:border-foreground/50 transition-all",
+                    "h-16 sm:h-24 flex-col gap-2 sm:gap-3 justify-center border-2 border-muted hover:border-foreground/50 transition-all",
                     theme === 'light' && "border-foreground bg-foreground/5"
                   )}
                   onClick={() => setTheme('light')}
@@ -172,7 +172,7 @@ export default function SettingsPage() {
                 <Button
                   variant="outline"
                   className={cn(
-                    "h-24 flex-col gap-3 justify-center border-2 border-muted hover:border-foreground/50 transition-all",
+                    "h-16 sm:h-24 flex-col gap-2 sm:gap-3 justify-center border-2 border-muted hover:border-foreground/50 transition-all",
                     theme === 'dark' && "border-foreground bg-foreground/5"
                   )}
                   onClick={() => setTheme('dark')}
@@ -183,7 +183,7 @@ export default function SettingsPage() {
                 <Button
                   variant="outline"
                   className={cn(
-                    "h-24 flex-col gap-3 justify-center border-2 border-muted hover:border-foreground/50 transition-all",
+                    "h-16 sm:h-24 flex-col gap-2 sm:gap-3 justify-center border-2 border-muted hover:border-foreground/50 transition-all",
                     theme === 'system' && "border-foreground bg-foreground/5"
                   )}
                   onClick={() => setTheme('system')}

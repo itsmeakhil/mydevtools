@@ -149,7 +149,7 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
                         <TabsTrigger value="headers" className="px-4">{t("headersTab")}</TabsTrigger>
                     </TabsList>
                     <div className="ml-auto flex items-center flex-wrap justify-end gap-2">
-                        <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md border bg-background/80">
+                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border bg-background/80">
                             {isSuccess ? (
                                 <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
                             ) : isError ? (
@@ -169,18 +169,18 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
                                     : response.statusText}
                             </span>
                         </div>
-                        <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md border bg-background/80">
+                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border bg-background/80">
                             <Clock className="h-3.5 w-3.5 text-muted-foreground/70" />
                             <span className="text-xs font-mono font-semibold">{response.time}ms</span>
                         </div>
-                        <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md border bg-background/80">
+                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border bg-background/80">
                             <Database className="h-3.5 w-3.5 text-muted-foreground/70" />
                             <span className="text-xs font-mono font-semibold">{(response.size / 1024).toFixed(2)} KB</span>
                         </div>
-                        <Button variant="outline" size="icon" className="h-8 w-8 rounded-lg" onClick={handleCopy} title={t("copyBody")}>
+                        <Button variant="outline" size="icon" className="h-9 w-9 rounded-lg" onClick={handleCopy} title={t("copyBody")}>
                             <Copy className="h-4 w-4" />
                         </Button>
-                        <Button variant="outline" size="icon" className="h-8 w-8 rounded-lg" onClick={handleDownload} title={t("downloadResponse")}>
+                        <Button variant="outline" size="icon" className="h-9 w-9 rounded-lg" onClick={handleDownload} title={t("downloadResponse")}>
                             <Download className="h-4 w-4" />
                         </Button>
                     </div>

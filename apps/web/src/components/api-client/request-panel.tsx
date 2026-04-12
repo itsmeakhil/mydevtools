@@ -135,7 +135,7 @@ export function RequestPanel({
 
     return (
         <div className="flex flex-col gap-4">
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
                 <Select value={method} onValueChange={(v) => setMethod(v as RequestMethod)}>
                     <SelectTrigger className={cn(
                         "w-[110px] h-10 font-black tracking-tight transition-all border shrink-0",
@@ -153,7 +153,7 @@ export function RequestPanel({
                     </SelectContent>
                 </Select>
 
-                <div className="relative flex-1 group">
+                <div className="relative flex-1 min-w-0 group">
                     <Globe className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                     {hoveredVariable && (
                         <TooltipProvider>
@@ -196,9 +196,9 @@ export function RequestPanel({
                     {url && (
                         <button
                             onClick={() => setUrl("")}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 flex items-center justify-center rounded-full hover:bg-muted text-muted-foreground transition-colors"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6 flex items-center justify-center rounded-full hover:bg-muted text-muted-foreground transition-colors"
                         >
-                            <X className="h-3 w-3" />
+                            <X className="h-3.5 w-3.5" />
                         </button>
                     )}
                 </div>
