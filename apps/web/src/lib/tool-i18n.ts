@@ -27,6 +27,7 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/css-gradient-builder': 'cssGradientBuilder',
   '/app/gitignore-generator': 'gitignoreGenerator',
   '/app/csv-excel-json': 'csvExcelJson',
+  '/app/snippet-manager': 'snippetManager',
 };
 
 export function getToolMessageKey(pathname: string): string | undefined {

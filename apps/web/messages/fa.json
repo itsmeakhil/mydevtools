@@ -26,7 +26,8 @@
     "imageToBase64": "تصویر به Base64",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "قطعه‌کدها"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "فایل‌های CSV یا Excel را به JSON تبدیل کنید و دوباره به CSV یا XLSX صادر کنید."
+      },
+      "snippetManager": {
+        "title": "قطعه‌کدها",
+        "description": "قطعه‌کدها را با برجسته‌سازی نحو، تشخیص خودکار زبان و قالب‌بندی ذخیره کنید."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "قطعه‌کدهای برنامه"
     },
     "ui": {
       "title": "ترجیحات رابط",
@@ -2182,6 +2188,68 @@
       "invalidJson": "JSON نامعتبر",
       "exportFailed": "صادرات ناموفق",
       "copyFailed": "کپی نشد"
+    }
+  },
+  "SnippetManager": {
+    "title": "مدیریت قطعه‌کد",
+    "subtitle": "قطعه‌کدها را در مرورگر نگه دارید یا برای همگام‌سازی با حساب وارد شوید. بین مشاهده و ویرایش جابه‌جا شوید، با یک کلیک کپی کنید، زبان را انتخاب یا خودکار تشخیص دهید و JSON، SQL یا کد پشتیبانی‌شده توسط Monaco را قالب‌بندی کنید.",
+    "snippets": "قطعه‌کدها",
+    "newSnippet": "قطعه‌کد جدید",
+    "newSnippetTitle": "قطعه‌کد جدید",
+    "defaultSnippetTitle": "خوش آمدید",
+    "defaultSnippetCode": "// به قطعه‌کدها خوش آمدید\n// حالت مشاهده در برابر ویرایش، رونوشت، قالب‌بندی و زبان خودکار را امتحان کنید\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "جستجوی قطعه‌کدها…",
+    "searchAria": "جستجوی قطعه‌کدها",
+    "emptySearch": "هیچ قطعه‌ای با جستجو هم‌خوان نیست.",
+    "snippetTitle": "عنوان",
+    "snippetTitlePlaceholder": "نام قطعه",
+    "language": "زبان",
+    "detectedHint": "برجسته‌سازی به‌صورت {lang}",
+    "badgeAuto": "خودکار · {lang}",
+    "modeView": "مشاهده",
+    "modeEdit": "ویرایش",
+    "copy": "رونوشت",
+    "copied": "رونوشت شد",
+    "format": "قالب‌بندی",
+    "cancel": "لغو",
+    "deleteTitle": "قطعه‌کد حذف شود؟",
+    "deleteDescription": "«{title}» از این مرورگر حذف می‌شود.",
+    "deleteConfirm": "حذف",
+    "editorAria": "ویرایشگر کد قطعه",
+    "editorLoading": "در حال بارگذاری ویرایشگر…",
+    "toastCopied": "در بریده‌دان رونوشت شد",
+    "toastCopyFailed": "رونوشت ممکن نشد",
+    "toastNothingToCopy": "چیزی برای رونوشت نیست",
+    "toastFormatted": "قالب‌بندی شد",
+    "toastFormatFailed": "قالب‌بندی ممکن نشد",
+    "toastFormatJsonInvalid": "JSON نامعتبر — نخست نحو را درست کنید",
+    "toastFormatUnsupported": "قالب‌بند برای این زبان نیست — JSON یا SQL یا حالت ویرایش را امتحان کنید",
+    "toastDeleted": "قطعه حذف شد",
+    "toastLoadFailed": "بارگیری قطعه‌کدها از سرور انجام نشد.",
+    "toastSyncFailed": "همگام‌سازی با سرور انجام نشد.",
+    "languages": {
+      "auto": "تشخیص خودکار",
+      "plaintext": "متن ساده",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

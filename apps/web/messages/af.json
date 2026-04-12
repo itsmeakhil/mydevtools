@@ -26,7 +26,8 @@
     "imageToBase64": "Beeld na Base64",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Kodesnippette"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Skakel CSV- of Excel-lêers na JSON en voer terug uit na CSV of XLSX."
+      },
+      "snippetManager": {
+        "title": "Kodesnippette",
+        "description": "Bewaar snippette met sintaks-beklemtoning, outomatiese taalopsporing en formatering."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Kodesnippette"
     },
     "ui": {
       "title": "Koppelvlakvoorkeure",
@@ -2182,6 +2188,68 @@
       "invalidJson": "Ongeldige JSON",
       "exportFailed": "Uitvoer het misluk",
       "copyFailed": "Kon nie kopieer nie"
+    }
+  },
+  "SnippetManager": {
+    "title": "Kodesnippet-bestuurder",
+    "subtitle": "Bewaar snippette in jou blaaier of meld aan om dit met jou rekening te sinkroniseer. Wissel tussen bekyk en wysig, kopieer met een klik, kies taal of outo-opsporing, en formatteer JSON, SQL of Monaco-ondersteunde kode.",
+    "snippets": "Snippette",
+    "newSnippet": "Nuwe snippet",
+    "newSnippetTitle": "Nuwe snippet",
+    "defaultSnippetTitle": "Welkom",
+    "defaultSnippetCode": "// Welkom by kodesnippette\n// Probeer bekyk vs wysig, kopieer, formateer en outo-taal\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Soek snippette…",
+    "searchAria": "Soek snippette",
+    "emptySearch": "Geen snippette pas by jou soektog nie.",
+    "snippetTitle": "Titel",
+    "snippetTitlePlaceholder": "Snippett-naam",
+    "language": "Taal",
+    "detectedHint": "Beklemtoning as {lang}",
+    "badgeAuto": "Outo · {lang}",
+    "modeView": "Bekyk",
+    "modeEdit": "Wysig",
+    "copy": "Kopieer",
+    "copied": "Gekopieer",
+    "format": "Formateer",
+    "cancel": "Kanselleer",
+    "deleteTitle": "Snippett uitvee?",
+    "deleteDescription": "“{title}” sal uit hierdie blaaier verwyder word.",
+    "deleteConfirm": "Vee uit",
+    "editorAria": "Snippett-kode-redigeerder",
+    "editorLoading": "Laai redigeerder…",
+    "toastCopied": "Gekopieer na knipbord",
+    "toastCopyFailed": "Kon nie kopieer nie",
+    "toastNothingToCopy": "Niks om te kopieer nie",
+    "toastFormatted": "Geformatteer",
+    "toastFormatFailed": "Kon nie formateer nie",
+    "toastFormatJsonInvalid": "Ongeldige JSON — herstel eers sintaksis",
+    "toastFormatUnsupported": "Geen formateerder vir hierdie taal nie — probeer JSON of SQL of wysig-modus",
+    "toastDeleted": "Snippett uitgevee",
+    "toastLoadFailed": "Kon nie snippette van die bediener laai nie.",
+    "toastSyncFailed": "Kon nie met die bediener sinkroniseer nie.",
+    "languages": {
+      "auto": "Outomatiese opsporing",
+      "plaintext": "Gewone teks",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

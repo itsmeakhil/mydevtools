@@ -19,3 +19,4 @@ class DashboardAnalyticsOut(BaseModel):
     apiClientEnvironments: int = Field(ge=0)
     apiClientHistoryEntries: int = Field(ge=0)
     jsonFormatterDocuments: int = Field(ge=0)
+    codeSnippets: int = Field(ge=0)

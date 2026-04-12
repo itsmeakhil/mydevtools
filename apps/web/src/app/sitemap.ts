@@ -47,6 +47,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'sql-formatter',
         'diff-checker',
         'csv-excel-json',
+        'snippet-manager',
     ].map((tool) => ({
         url: `${baseUrl}/app/${tool}`,
         lastModified: new Date(),

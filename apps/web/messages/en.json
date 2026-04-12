@@ -26,7 +26,8 @@
     "nosqlExplorer": "NoSQL Explorer",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Code Snippets"
   },
   "Help": {
     "title": "Help & documentation",
@@ -238,7 +239,8 @@
       "apiClientCollections": "API collections",
       "apiClientEnvironments": "API environments",
       "apiClientHistory": "API history entries",
-      "jsonFormatterDocuments": "JSON formatter documents"
+      "jsonFormatterDocuments": "JSON formatter documents",
+      "codeSnippets": "Code snippets"
     },
     "ui": {
       "title": "Interface preferences",
@@ -356,6 +358,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Convert CSV or Excel files to JSON and export back to CSV or XLSX."
+      },
+      "snippetManager": {
+        "title": "Code Snippets",
+        "description": "Save snippets with syntax highlighting, auto language detection, and formatting."
       }
     }
   },
@@ -1920,6 +1926,68 @@
       "csharp": "C# (System.Text.Json)",
       "dart": "Dart",
       "swift": "Swift (Codable)"
+    }
+  },
+  "SnippetManager": {
+    "title": "Code Snippet Manager",
+    "subtitle": "Store snippets in your browser, or sign in to sync them with your account. Switch between view and edit, copy in one click, pick a language or use auto-detect, and format JSON, SQL, or Monaco-supported code.",
+    "snippets": "Snippets",
+    "newSnippet": "New snippet",
+    "newSnippetTitle": "New snippet",
+    "defaultSnippetTitle": "Welcome",
+    "defaultSnippetCode": "// Welcome to Code Snippets\n// Try View vs Edit, Copy, Format, and Auto language.\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Search snippets…",
+    "searchAria": "Search snippets",
+    "emptySearch": "No snippets match your search.",
+    "snippetTitle": "Title",
+    "snippetTitlePlaceholder": "Snippet name",
+    "language": "Language",
+    "detectedHint": "Highlighting as {lang}",
+    "badgeAuto": "Auto · {lang}",
+    "modeView": "View",
+    "modeEdit": "Edit",
+    "copy": "Copy",
+    "copied": "Copied",
+    "format": "Format",
+    "cancel": "Cancel",
+    "deleteTitle": "Delete snippet?",
+    "deleteDescription": "“{title}” will be removed from this browser.",
+    "deleteConfirm": "Delete",
+    "editorAria": "Snippet code editor",
+    "editorLoading": "Loading editor…",
+    "toastCopied": "Copied to clipboard",
+    "toastCopyFailed": "Could not copy",
+    "toastNothingToCopy": "Nothing to copy",
+    "toastFormatted": "Formatted",
+    "toastFormatFailed": "Could not format",
+    "toastFormatJsonInvalid": "Invalid JSON — fix syntax first",
+    "toastFormatUnsupported": "No formatter for this language — try JSON or SQL, or use Edit mode",
+    "toastDeleted": "Snippet deleted",
+    "toastLoadFailed": "Could not load snippets from the server.",
+    "toastSyncFailed": "Could not sync with the server.",
+    "languages": {
+      "auto": "Auto-detect",
+      "plaintext": "Plain text",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   },
   "CsvExcelJson": {

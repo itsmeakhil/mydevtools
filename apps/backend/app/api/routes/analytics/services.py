@@ -14,6 +14,7 @@ from app.utils.collection_name import (
     API_CLIENT_HISTORY,
     BOOKMARK_FOLDERS,
     BOOKMARKS,
+    CODE_SNIPPETS,
     JSON_FORMATTER_DOCUMENTS,
     NOTES,
     NOSQL_CONNECTIONS,
@@ -48,6 +49,7 @@ def get_dashboard_analytics(uid: str) -> DashboardAnalyticsOut:
     api_envs = _col(API_CLIENT_ENVIRONMENTS).count_documents(base)
     api_history = _col(API_CLIENT_HISTORY).count_documents(base)
     json_docs = _col(JSON_FORMATTER_DOCUMENTS).count_documents(base)
+    code_snippets = _col(CODE_SNIPPETS).count_documents(base)
 
     return DashboardAnalyticsOut(
         passwordEntries=password_entries,
@@ -61,4 +63,5 @@ def get_dashboard_analytics(uid: str) -> DashboardAnalyticsOut:
         apiClientEnvironments=api_envs,
         apiClientHistoryEntries=api_history,
         jsonFormatterDocuments=json_docs,
+        codeSnippets=code_snippets,
     )

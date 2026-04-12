@@ -26,7 +26,8 @@
     "imageToBase64": "Imagem para Base64",
     "cssGradientBuilder": "Construtor de gradiente CSS",
     "gitignoreGenerator": "Gerador .gitignore",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Trechos de código"
   },
   "Help": {
     "title": "Ajuda e documentação",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Converta arquivos CSV ou Excel em JSON e exporte de volta para CSV ou XLSX."
+      },
+      "snippetManager": {
+        "title": "Trechos de código",
+        "description": "Salve trechos com realce de sintaxe, detecção automática de linguagem e formatação."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Trechos de código"
     },
     "ui": {
       "title": "Preferências de interface",
@@ -2182,6 +2188,68 @@
       "invalidJson": "JSON inválido",
       "exportFailed": "Falha na exportação",
       "copyFailed": "Não foi possível copiar"
+    }
+  },
+  "SnippetManager": {
+    "title": "Gerenciador de trechos de código",
+    "subtitle": "Armazene trechos no navegador ou entre para sincronizá-los com sua conta. Alterne entre ver e editar, copie com um clique, escolha a linguagem ou detecção automática e formate JSON, SQL ou código suportado pelo Monaco.",
+    "snippets": "Trechos",
+    "newSnippet": "Novo trecho",
+    "newSnippetTitle": "Novo trecho",
+    "defaultSnippetTitle": "Bem-vindo",
+    "defaultSnippetCode": "// Bem-vindo aos trechos de código\n// Experimente Ver vs Editar, Copiar, Formatar e idioma automático\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Buscar trechos…",
+    "searchAria": "Buscar trechos",
+    "emptySearch": "Nenhum trecho corresponde à busca.",
+    "snippetTitle": "Título",
+    "snippetTitlePlaceholder": "Nome do trecho",
+    "language": "Linguagem",
+    "detectedHint": "Realce como {lang}",
+    "badgeAuto": "Auto · {lang}",
+    "modeView": "Ver",
+    "modeEdit": "Editar",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "format": "Formatar",
+    "cancel": "Cancelar",
+    "deleteTitle": "Excluir trecho?",
+    "deleteDescription": "“{title}” será removido deste navegador.",
+    "deleteConfirm": "Excluir",
+    "editorAria": "Editor de código do trecho",
+    "editorLoading": "Carregando editor…",
+    "toastCopied": "Copiado para a área de transferência",
+    "toastCopyFailed": "Não foi possível copiar",
+    "toastNothingToCopy": "Nada para copiar",
+    "toastFormatted": "Formatado",
+    "toastFormatFailed": "Não foi possível formatar",
+    "toastFormatJsonInvalid": "JSON inválido — corrija a sintaxe primeiro",
+    "toastFormatUnsupported": "Sem formatador para esta linguagem — tente JSON ou SQL, ou modo de edição",
+    "toastDeleted": "Trecho excluído",
+    "toastLoadFailed": "Não foi possível carregar os trechos do servidor.",
+    "toastSyncFailed": "Não foi possível sincronizar com o servidor.",
+    "languages": {
+      "auto": "Detecção automática",
+      "plaintext": "Texto simples",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

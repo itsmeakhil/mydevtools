@@ -26,7 +26,8 @@
     "imageToBase64": "Imagen a Base64",
     "cssGradientBuilder": "Generador de degradado CSS",
     "gitignoreGenerator": "Generador .gitignore",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Fragmentos de código"
   },
   "Help": {
     "title": "Ayuda y documentación",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Convierte archivos CSV o Excel a JSON y exporta de vuelta a CSV o XLSX."
+      },
+      "snippetManager": {
+        "title": "Fragmentos de código",
+        "description": "Guarda fragmentos con resaltado de sintaxis, detección automática de idioma y formato."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Fragmentos de código"
     },
     "ui": {
       "title": "Preferencias de interfaz",
@@ -2182,6 +2188,68 @@
       "invalidJson": "JSON no válido",
       "exportFailed": "Error al exportar",
       "copyFailed": "No se pudo copiar"
+    }
+  },
+  "SnippetManager": {
+    "title": "Administrador de fragmentos de código",
+    "subtitle": "Guarda fragmentos en tu navegador o inicia sesión para sincronizarlos con tu cuenta. Cambia entre ver y editar, copia con un clic, elige idioma o detección automática y formatea JSON, SQL o código compatible con Monaco.",
+    "snippets": "Fragmentos",
+    "newSnippet": "Nuevo fragmento",
+    "newSnippetTitle": "Nuevo fragmento",
+    "defaultSnippetTitle": "Bienvenido",
+    "defaultSnippetCode": "// Bienvenido a Fragmentos de código\n// Prueba Ver vs Editar, Copiar, Formatear y idioma automático\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Buscar fragmentos…",
+    "searchAria": "Buscar fragmentos",
+    "emptySearch": "Ningún fragmento coincide con tu búsqueda.",
+    "snippetTitle": "Título",
+    "snippetTitlePlaceholder": "Nombre del fragmento",
+    "language": "Lenguaje",
+    "detectedHint": "Resaltado como {lang}",
+    "badgeAuto": "Auto · {lang}",
+    "modeView": "Ver",
+    "modeEdit": "Editar",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "format": "Formatear",
+    "cancel": "Cancelar",
+    "deleteTitle": "¿Eliminar fragmento?",
+    "deleteDescription": "«{title}» se eliminará de este navegador.",
+    "deleteConfirm": "Eliminar",
+    "editorAria": "Editor de código del fragmento",
+    "editorLoading": "Cargando editor…",
+    "toastCopied": "Copiado al portapapeles",
+    "toastCopyFailed": "No se pudo copiar",
+    "toastNothingToCopy": "Nada que copiar",
+    "toastFormatted": "Formateado",
+    "toastFormatFailed": "No se pudo formatear",
+    "toastFormatJsonInvalid": "JSON no válido — corrige la sintaxis primero",
+    "toastFormatUnsupported": "Sin formateador para este lenguaje — prueba JSON o SQL, o modo edición",
+    "toastDeleted": "Fragmento eliminado",
+    "toastLoadFailed": "No se pudieron cargar los fragmentos desde el servidor.",
+    "toastSyncFailed": "No se pudo sincronizar con el servidor.",
+    "languages": {
+      "auto": "Detección automática",
+      "plaintext": "Texto sin formato",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

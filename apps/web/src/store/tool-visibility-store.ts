@@ -5,6 +5,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/to-do',
   '/app/notes',
   '/app/bookmarks',
+  '/app/snippet-manager',
   '/app/password-manager',
   '/app/environment-manager',
   '/app/email-validator',

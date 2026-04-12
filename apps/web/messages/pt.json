@@ -26,7 +26,8 @@
     "imageToBase64": "Imagem para Base64",
     "cssGradientBuilder": "Construtor de gradiente CSS",
     "gitignoreGenerator": "Gerador .gitignore",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Excertos de código"
   },
   "Help": {
     "title": "Ajuda e documentação",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Converta ficheiros CSV ou Excel para JSON e exporte para CSV ou XLSX."
+      },
+      "snippetManager": {
+        "title": "Excertos de código",
+        "description": "Guarde excertos com realce de sintaxe, deteção automática de linguagem e formatação."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Excertos de código"
     },
     "ui": {
       "title": "Preferências de interface",
@@ -2182,6 +2188,68 @@
       "invalidJson": "JSON inválido",
       "exportFailed": "Falha na exportação",
       "copyFailed": "Não foi possível copiar"
+    }
+  },
+  "SnippetManager": {
+    "title": "Gestor de excertos de código",
+    "subtitle": "Guarde excertos no navegador ou inicie sessão para os sincronizar com a sua conta. Alterne entre ver e editar, copie com um clique, escolha a linguagem ou deteção automática e formate JSON, SQL ou código suportado pelo Monaco.",
+    "snippets": "Excertos",
+    "newSnippet": "Novo excerto",
+    "newSnippetTitle": "Novo excerto",
+    "defaultSnippetTitle": "Bem-vindo",
+    "defaultSnippetCode": "// Bem-vindo aos excertos de código\n// Experimente Ver vs Editar, Copiar, Formatar e idioma automático\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Pesquisar excertos…",
+    "searchAria": "Pesquisar excertos",
+    "emptySearch": "Nenhum excerto corresponde à pesquisa.",
+    "snippetTitle": "Título",
+    "snippetTitlePlaceholder": "Nome do excerto",
+    "language": "Linguagem",
+    "detectedHint": "Realce como {lang}",
+    "badgeAuto": "Auto · {lang}",
+    "modeView": "Ver",
+    "modeEdit": "Editar",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "format": "Formatar",
+    "cancel": "Cancelar",
+    "deleteTitle": "Eliminar excerto?",
+    "deleteDescription": "«{title}» será removido deste navegador.",
+    "deleteConfirm": "Eliminar",
+    "editorAria": "Editor de código do excerto",
+    "editorLoading": "A carregar editor…",
+    "toastCopied": "Copiado para a área de transferência",
+    "toastCopyFailed": "Não foi possível copiar",
+    "toastNothingToCopy": "Nada para copiar",
+    "toastFormatted": "Formatado",
+    "toastFormatFailed": "Não foi possível formatar",
+    "toastFormatJsonInvalid": "JSON inválido — corrija a sintaxe primeiro",
+    "toastFormatUnsupported": "Sem formatador para esta linguagem — tente JSON ou SQL, ou modo de edição",
+    "toastDeleted": "Excerto eliminado",
+    "toastLoadFailed": "Não foi possível carregar os excertos do servidor.",
+    "toastSyncFailed": "Não foi possível sincronizar com o servidor.",
+    "languages": {
+      "auto": "Deteção automática",
+      "plaintext": "Texto simples",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

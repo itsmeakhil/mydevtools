@@ -26,7 +26,8 @@
     "imageToBase64": "Immagine su Base64",
     "cssGradientBuilder": "Generatore di gradienti CSS",
     "gitignoreGenerator": "Generatore .gitignore",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Snippet di codice"
   },
   "Help": {
     "title": "Aiuto e documentazione",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Converti file CSV o Excel in JSON ed esporta in CSV o XLSX."
+      },
+      "snippetManager": {
+        "title": "Snippet di codice",
+        "description": "Salva snippet con evidenziazione sintattica, rilevamento automatico della lingua e formattazione."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Snippet di codice"
     },
     "ui": {
       "title": "Preferenze interfaccia",
@@ -2182,6 +2188,68 @@
       "invalidJson": "JSON non valido",
       "exportFailed": "Esportazione non riuscita",
       "copyFailed": "Impossibile copiare"
+    }
+  },
+  "SnippetManager": {
+    "title": "Gestore snippet di codice",
+    "subtitle": "Conserva gli snippet nel browser o accedi per sincronizzarli con il tuo account. Passa da visualizzazione a modifica, copia con un clic, scegli la lingua o il rilevamento automatico e formatta JSON, SQL o codice supportato da Monaco.",
+    "snippets": "Snippet",
+    "newSnippet": "Nuovo snippet",
+    "newSnippetTitle": "Nuovo snippet",
+    "defaultSnippetTitle": "Benvenuto",
+    "defaultSnippetCode": "// Benvenuto negli snippet di codice\n// Prova Visualizza vs Modifica, Copia, Formatta e lingua automatica\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Cerca snippet…",
+    "searchAria": "Cerca snippet",
+    "emptySearch": "Nessuno snippet corrisponde alla ricerca.",
+    "snippetTitle": "Titolo",
+    "snippetTitlePlaceholder": "Nome snippet",
+    "language": "Linguaggio",
+    "detectedHint": "Evidenziazione come {lang}",
+    "badgeAuto": "Auto · {lang}",
+    "modeView": "Visualizza",
+    "modeEdit": "Modifica",
+    "copy": "Copia",
+    "copied": "Copiato",
+    "format": "Formatta",
+    "cancel": "Annulla",
+    "deleteTitle": "Eliminare lo snippet?",
+    "deleteDescription": "«{title}» verrà rimosso da questo browser.",
+    "deleteConfirm": "Elimina",
+    "editorAria": "Editor codice snippet",
+    "editorLoading": "Caricamento editor…",
+    "toastCopied": "Copiato negli appunti",
+    "toastCopyFailed": "Impossibile copiare",
+    "toastNothingToCopy": "Niente da copiare",
+    "toastFormatted": "Formattato",
+    "toastFormatFailed": "Impossibile formattare",
+    "toastFormatJsonInvalid": "JSON non valido — correggi prima la sintassi",
+    "toastFormatUnsupported": "Nessun formattatore per questo linguaggio — prova JSON o SQL o la modalità modifica",
+    "toastDeleted": "Snippet eliminato",
+    "toastLoadFailed": "Impossibile caricare gli snippet dal server.",
+    "toastSyncFailed": "Impossibile sincronizzare con il server.",
+    "languages": {
+      "auto": "Rilevamento automatico",
+      "plaintext": "Testo normale",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

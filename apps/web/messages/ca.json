@@ -26,7 +26,8 @@
     "imageToBase64": "Imatge a Base64",
     "cssGradientBuilder": "Creador de degradats CSS",
     "gitignoreGenerator": "Generador .gitignore",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Fragments de codi"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Converteix fitxers CSV o Excel a JSON i exporta de nou a CSV o XLSX."
+      },
+      "snippetManager": {
+        "title": "Fragments de codi",
+        "description": "Desa fragments amb ressaltat de sintaxi, detecció automàtica d’idioma i format."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Fragments de codi"
     },
     "ui": {
       "title": "Preferències d’interfície",
@@ -2182,6 +2188,68 @@
       "invalidJson": "JSON no vàlid",
       "exportFailed": "Ha fallat l’exportació",
       "copyFailed": "No s’ha pogut copiar"
+    }
+  },
+  "SnippetManager": {
+    "title": "Gestor de fragments de codi",
+    "subtitle": "Emmagatzema fragments al navegador o inicia sessió per sincronitzar-los amb el teu compte. Canvia entre veure i editar, copia amb un clic, tria idioma o detecció automàtica i formata JSON, SQL o codi compatible amb Monaco.",
+    "snippets": "Fragments",
+    "newSnippet": "Fragment nou",
+    "newSnippetTitle": "Fragment nou",
+    "defaultSnippetTitle": "Benvingut",
+    "defaultSnippetCode": "// Benvingut als fragments de codi\n// Prova veure vs editar, copia, formata i idioma automàtic\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Cerca fragments…",
+    "searchAria": "Cerca fragments",
+    "emptySearch": "Cap fragment no coincideix amb la cerca.",
+    "snippetTitle": "Títol",
+    "snippetTitlePlaceholder": "Nom del fragment",
+    "language": "Llenguatge",
+    "detectedHint": "Ressaltat com a {lang}",
+    "badgeAuto": "Auto · {lang}",
+    "modeView": "Veure",
+    "modeEdit": "Editar",
+    "copy": "Copiar",
+    "copied": "Copiat",
+    "format": "Formatejar",
+    "cancel": "Cancel·la",
+    "deleteTitle": "Eliminar el fragment?",
+    "deleteDescription": "«{title}» se suprimirà d'aquest navegador.",
+    "deleteConfirm": "Eliminar",
+    "editorAria": "Editor de codi del fragment",
+    "editorLoading": "Carregant l'editor…",
+    "toastCopied": "Copiat al porta-retalls",
+    "toastCopyFailed": "No s'ha pogut copiar",
+    "toastNothingToCopy": "Res a copiar",
+    "toastFormatted": "Formatejat",
+    "toastFormatFailed": "No s'ha pogut formatejar",
+    "toastFormatJsonInvalid": "JSON no vàlid — corregeix la sintaxi primer",
+    "toastFormatUnsupported": "Sense formatador per a aquest llenguatge — prova JSON o SQL o mode edició",
+    "toastDeleted": "Fragment eliminat",
+    "toastLoadFailed": "No s'han pogut carregar els fragments des del servidor.",
+    "toastSyncFailed": "No s'ha pogut sincronitzar amb el servidor.",
+    "languages": {
+      "auto": "Detecció automàtica",
+      "plaintext": "Text sense format",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

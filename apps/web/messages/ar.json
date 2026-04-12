@@ -26,7 +26,8 @@
     "imageToBase64": "الصورة إلى Base64",
     "cssGradientBuilder": "CSS منشئ التدرج",
     "gitignoreGenerator": ".gitignore مولد",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "مقاطع الشيفرة"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "حوّل ملفات CSV أو Excel إلى JSON وصدّر مرة أخرى إلى CSV أو XLSX."
+      },
+      "snippetManager": {
+        "title": "مقاطع الشيفرة",
+        "description": "احفظ المقاطع مع تمييز بناء الجملة وكشف اللغة التلقائي والتنسيق."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "مقاطع برمجية"
     },
     "ui": {
       "title": "تفضيلات الواجهة",
@@ -2182,6 +2188,68 @@
       "invalidJson": "JSON غير صالح",
       "exportFailed": "فشل التصدير",
       "copyFailed": "تعذّر النسخ"
+    }
+  },
+  "SnippetManager": {
+    "title": "مدير مقاطع الشيفرة",
+    "subtitle": "خزّن المقاطع في المتصفح أو سجّل الدخول لمزامنتها مع حسابك. بدّل بين العرض والتحرير، انسخ بنقرة واحدة، اختر لغة أو كشفًا تلقائيًا، ونسّق JSON أو SQL أو أكواد يدعمها Monaco.",
+    "snippets": "المقاطع",
+    "newSnippet": "مقطع جديد",
+    "newSnippetTitle": "مقطع جديد",
+    "defaultSnippetTitle": "مرحبًا",
+    "defaultSnippetCode": "// مرحبًا بك في مقاطع الشيفرة\n// جرّب العرض مقابل التحرير، النسخ، التنسيق واللغة التلقائية\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "البحث في المقاطع…",
+    "searchAria": "البحث في المقاطع",
+    "emptySearch": "لا توجد مقاطع تطابق بحثك.",
+    "snippetTitle": "العنوان",
+    "snippetTitlePlaceholder": "اسم المقطع",
+    "language": "اللغة",
+    "detectedHint": "تمييز بناء الجملة: {lang}",
+    "badgeAuto": "تلقائي · {lang}",
+    "modeView": "عرض",
+    "modeEdit": "تحرير",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "format": "تنسيق",
+    "cancel": "إلغاء",
+    "deleteTitle": "حذف المقطع؟",
+    "deleteDescription": "سيتم إزالة «{title}» من هذا المتصفح.",
+    "deleteConfirm": "حذف",
+    "editorAria": "محرر شيفرة المقطع",
+    "editorLoading": "جاري تحميل المحرر…",
+    "toastCopied": "تم النسخ إلى الحافظة",
+    "toastCopyFailed": "تعذّر النسخ",
+    "toastNothingToCopy": "لا يوجد شيء للنسخ",
+    "toastFormatted": "تم التنسيق",
+    "toastFormatFailed": "تعذّر التنسيق",
+    "toastFormatJsonInvalid": "JSON غير صالح — صحّح الصياغة أولًا",
+    "toastFormatUnsupported": "لا يوجد مُنسّق لهذه اللغة — جرّب JSON أو SQL أو وضع التحرير",
+    "toastDeleted": "تم حذف المقطع",
+    "toastLoadFailed": "تعذّر تحميل المقاطع من الخادم.",
+    "toastSyncFailed": "تعذّرت المزامنة مع الخادم.",
+    "languages": {
+      "auto": "اكتشاف تلقائي",
+      "plaintext": "نص عادي",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

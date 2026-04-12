@@ -26,7 +26,8 @@
     "imageToBase64": "Afbeelding naar Base64",
     "cssGradientBuilder": "CSS-verloopbouwer",
     "gitignoreGenerator": ".gitignore-generator",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Codefragmenten"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Zet CSV- of Excel-bestanden om naar JSON en exporteer terug naar CSV of XLSX."
+      },
+      "snippetManager": {
+        "title": "Codefragmenten",
+        "description": "Bewaar fragmenten met syntaxisaccentuering, automatische taaldetectie en opmaak."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Codefragmenten"
     },
     "ui": {
       "title": "Interfacevoorkeuren",
@@ -2182,6 +2188,68 @@
       "invalidJson": "Ongeldige JSON",
       "exportFailed": "Exporteren mislukt",
       "copyFailed": "Kopiëren mislukt"
+    }
+  },
+  "SnippetManager": {
+    "title": "Codefragmentbeheer",
+    "subtitle": "Bewaar snippets in je browser of log in om ze met je account te synchroniseren. Wissel tussen bekijken en bewerken, kopieer met één klik, kies een taal of automatische detectie en formatteer JSON, SQL of door Monaco ondersteunde code.",
+    "snippets": "Fragmenten",
+    "newSnippet": "Nieuw fragment",
+    "newSnippetTitle": "Nieuw fragment",
+    "defaultSnippetTitle": "Welkom",
+    "defaultSnippetCode": "// Welkom bij codefragmenten\n// Probeer bekijken vs bewerken, kopiëren, formatteren en automatische taal\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Fragmenten zoeken…",
+    "searchAria": "Fragmenten zoeken",
+    "emptySearch": "Geen fragmenten komen overeen met je zoekopdracht.",
+    "snippetTitle": "Titel",
+    "snippetTitlePlaceholder": "Fragmentnaam",
+    "language": "Taal",
+    "detectedHint": "Markering als {lang}",
+    "badgeAuto": "Auto · {lang}",
+    "modeView": "Bekijken",
+    "modeEdit": "Bewerken",
+    "copy": "Kopiëren",
+    "copied": "Gekopieerd",
+    "format": "Formatteren",
+    "cancel": "Annuleren",
+    "deleteTitle": "Fragment verwijderen?",
+    "deleteDescription": "‘{title}’ wordt uit deze browser verwijderd.",
+    "deleteConfirm": "Verwijderen",
+    "editorAria": "Fragmentcode-editor",
+    "editorLoading": "Editor laden…",
+    "toastCopied": "Gekopieerd naar klembord",
+    "toastCopyFailed": "Kopiëren mislukt",
+    "toastNothingToCopy": "Niets om te kopiëren",
+    "toastFormatted": "Geformatteerd",
+    "toastFormatFailed": "Formatteren mislukt",
+    "toastFormatJsonInvalid": "Ongeldige JSON — los eerst de syntaxis op",
+    "toastFormatUnsupported": "Geen formatter voor deze taal — probeer JSON of SQL, of bewerkingsmodus",
+    "toastDeleted": "Fragment verwijderd",
+    "toastLoadFailed": "Snippets konden niet van de server worden geladen.",
+    "toastSyncFailed": "Synchroniseren met de server is mislukt.",
+    "languages": {
+      "auto": "Automatisch detecteren",
+      "plaintext": "Platte tekst",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

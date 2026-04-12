@@ -26,7 +26,8 @@
     "imageToBase64": "Billede til Base64",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Kodestykker"
   },
   "Help": {
     "title": "Hjælp og dokumentation",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Konverter CSV- eller Excel-filer til JSON og eksporter tilbage til CSV eller XLSX."
+      },
+      "snippetManager": {
+        "title": "Kodestykker",
+        "description": "Gem kodestykker med syntaksfremhævelse, automatisk sprogdetektion og formatering."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Kode-snippets"
     },
     "ui": {
       "title": "Brugerfladeindstillinger",
@@ -2182,6 +2188,68 @@
       "invalidJson": "Ugyldig JSON",
       "exportFailed": "Eksport mislykkedes",
       "copyFailed": "Kunne ikke kopiere"
+    }
+  },
+  "SnippetManager": {
+    "title": "Kodestykke-manager",
+    "subtitle": "Gem snippets i browseren eller log ind for at synkronisere med din konto. Skift mellem visning og redigering, kopiér med ét klik, vælg sprog eller autodetektér, og formatér JSON, SQL eller Monaco-understøttet kode.",
+    "snippets": "Snippets",
+    "newSnippet": "Nyt snippet",
+    "newSnippetTitle": "Nyt snippet",
+    "defaultSnippetTitle": "Velkommen",
+    "defaultSnippetCode": "// Velkommen til kodestykker\n// Prøv visning vs redigering, kopiér, formatér og automatisk sprog\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Søg i snippets…",
+    "searchAria": "Søg i snippets",
+    "emptySearch": "Ingen snippets matcher din søgning.",
+    "snippetTitle": "Titel",
+    "snippetTitlePlaceholder": "Snippet-navn",
+    "language": "Sprog",
+    "detectedHint": "Fremhævning som {lang}",
+    "badgeAuto": "Auto · {lang}",
+    "modeView": "Vis",
+    "modeEdit": "Rediger",
+    "copy": "Kopiér",
+    "copied": "Kopieret",
+    "format": "Formatér",
+    "cancel": "Annuller",
+    "deleteTitle": "Slet snippet?",
+    "deleteDescription": "«{title}» fjernes fra denne browser.",
+    "deleteConfirm": "Slet",
+    "editorAria": "Snippet-kodeeditor",
+    "editorLoading": "Indlæser editor…",
+    "toastCopied": "Kopieret til udklipsholder",
+    "toastCopyFailed": "Kunne ikke kopiere",
+    "toastNothingToCopy": "Intet at kopiere",
+    "toastFormatted": "Formateret",
+    "toastFormatFailed": "Kunne ikke formatere",
+    "toastFormatJsonInvalid": "Ugyldig JSON — ret syntaksen først",
+    "toastFormatUnsupported": "Ingen formatter til dette sprog — prøv JSON eller SQL eller redigeringstilstand",
+    "toastDeleted": "Snippet slettet",
+    "toastLoadFailed": "Kunne ikke indlæse snippets fra serveren.",
+    "toastSyncFailed": "Kunne ikke synkronisere med serveren.",
+    "languages": {
+      "auto": "Automatisk registrering",
+      "plaintext": "Almindelig tekst",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

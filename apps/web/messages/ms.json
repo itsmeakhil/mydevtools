@@ -26,7 +26,8 @@
     "imageToBase64": "Imej ke Base64",
     "cssGradientBuilder": "Pembina Kecerunan CSS",
     "gitignoreGenerator": "Penjana .gitignore",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Petikan kod"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Tukar fail CSV atau Excel kepada JSON dan eksport semula ke CSV atau XLSX."
+      },
+      "snippetManager": {
+        "title": "Petikan kod",
+        "description": "Simpan petikan dengan sorotan sintaks, pengesanan bahasa automatik dan pemformatan."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Petikan kod"
     },
     "ui": {
       "title": "Pilihan antara muka",
@@ -2182,6 +2188,68 @@
       "invalidJson": "JSON tidak sah",
       "exportFailed": "Eksport gagal",
       "copyFailed": "Tidak dapat menyalin"
+    }
+  },
+  "SnippetManager": {
+    "title": "Pengurus petikan kod",
+    "subtitle": "Simpan petikan dalam pelayar atau log masuk untuk menyelaraskannya dengan akaun anda. Tukar antara lihat dan sunting, salin satu klik, pilih bahasa atau auto kesan, dan format JSON, SQL atau kod yang disokong Monaco.",
+    "snippets": "Petikan",
+    "newSnippet": "Petikan baharu",
+    "newSnippetTitle": "Petikan baharu",
+    "defaultSnippetTitle": "Selamat datang",
+    "defaultSnippetCode": "// Selamat datang ke petikan kod\n// Cuba lihat vs sunting, salin, format dan bahasa automatik\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Cari petikan…",
+    "searchAria": "Cari petikan",
+    "emptySearch": "Tiada petikan sepadan.",
+    "snippetTitle": "Tajuk",
+    "snippetTitlePlaceholder": "Nama petikan",
+    "language": "Bahasa",
+    "detectedHint": "Sorotan sebagai {lang}",
+    "badgeAuto": "Auto · {lang}",
+    "modeView": "Lihat",
+    "modeEdit": "Sunting",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "format": "Format",
+    "cancel": "Batal",
+    "deleteTitle": "Padam petikan?",
+    "deleteDescription": "“{title}” akan dibuang daripada pelayar ini.",
+    "deleteConfirm": "Padam",
+    "editorAria": "Editor kod petikan",
+    "editorLoading": "Memuatkan editor…",
+    "toastCopied": "Disalin ke papan keratan",
+    "toastCopyFailed": "Tidak dapat menyalin",
+    "toastNothingToCopy": "Tiada untuk disalin",
+    "toastFormatted": "Telah diformat",
+    "toastFormatFailed": "Tidak dapat memformat",
+    "toastFormatJsonInvalid": "JSON tidak sah — betulkan sintaks dahulu",
+    "toastFormatUnsupported": "Tiada pemformat untuk bahasa ini — cuba JSON atau SQL atau mod sunting",
+    "toastDeleted": "Petikan dipadam",
+    "toastLoadFailed": "Tidak dapat memuatkan petikan dari pelayan.",
+    "toastSyncFailed": "Tidak dapat menyelaraskan dengan pelayan.",
+    "languages": {
+      "auto": "Auto kesan",
+      "plaintext": "Teks biasa",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

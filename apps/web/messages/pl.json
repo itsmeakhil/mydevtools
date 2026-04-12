@@ -26,7 +26,8 @@
     "imageToBase64": "Obraz do Base64",
     "cssGradientBuilder": "Kreator gradientów CSS",
     "gitignoreGenerator": "Generator .gitignore",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Fragmenty kodu"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Konwertuj pliki CSV lub Excel na JSON i eksportuj z powrotem do CSV lub XLSX."
+      },
+      "snippetManager": {
+        "title": "Fragmenty kodu",
+        "description": "Zapisuj fragmenty z podświetlaniem składni, autowykrywaniem języka i formatowaniem."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Fragmenty kodu"
     },
     "ui": {
       "title": "Preferencje interfejsu",
@@ -2182,6 +2188,68 @@
       "invalidJson": "Nieprawidłowy JSON",
       "exportFailed": "Eksport nie powiódł się",
       "copyFailed": "Nie można skopiować"
+    }
+  },
+  "SnippetManager": {
+    "title": "Menedżer fragmentów kodu",
+    "subtitle": "Przechowuj fragmenty kodu w przeglądarce lub zaloguj się, aby synchronizować je z kontem. Przełączaj widok i edycję, kopiuj jednym kliknięciem, wybierz język lub autowykrywanie i formatuj JSON, SQL lub kod obsługiwany przez Monaco.",
+    "snippets": "Fragmenty",
+    "newSnippet": "Nowy fragment",
+    "newSnippetTitle": "Nowy fragment",
+    "defaultSnippetTitle": "Witamy",
+    "defaultSnippetCode": "// Witamy we fragmentach kodu\n// Wypróbuj widok vs edycja, kopiowanie, formatowanie i auto-język\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Szukaj fragmentów…",
+    "searchAria": "Szukaj fragmentów",
+    "emptySearch": "Brak fragmentów pasujących do wyszukiwania.",
+    "snippetTitle": "Tytuł",
+    "snippetTitlePlaceholder": "Nazwa fragmentu",
+    "language": "Język",
+    "detectedHint": "Podświetlanie: {lang}",
+    "badgeAuto": "Auto · {lang}",
+    "modeView": "Podgląd",
+    "modeEdit": "Edycja",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano",
+    "format": "Formatuj",
+    "cancel": "Anuluj",
+    "deleteTitle": "Usunąć fragment?",
+    "deleteDescription": "„{title}” zostanie usunięty z tej przeglądarki.",
+    "deleteConfirm": "Usuń",
+    "editorAria": "Edytor kodu fragmentu",
+    "editorLoading": "Ładowanie edytora…",
+    "toastCopied": "Skopiowano do schowka",
+    "toastCopyFailed": "Nie udało się skopiować",
+    "toastNothingToCopy": "Nic do skopiowania",
+    "toastFormatted": "Sformatowano",
+    "toastFormatFailed": "Nie udało się sformatować",
+    "toastFormatJsonInvalid": "Nieprawidłowy JSON — najpierw popraw składnię",
+    "toastFormatUnsupported": "Brak formatu dla tego języka — spróbuj JSON lub SQL albo tryb edycji",
+    "toastDeleted": "Fragment usunięty",
+    "toastLoadFailed": "Nie udało się wczytać fragmentów z serwera.",
+    "toastSyncFailed": "Nie udało się zsynchronizować z serwerem.",
+    "languages": {
+      "auto": "Wykrywanie automatyczne",
+      "plaintext": "Zwykły tekst",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }
