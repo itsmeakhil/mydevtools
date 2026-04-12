@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "Generator Skema JSON"
+    "jsonSchemaGenerator": "Generator Skema JSON",
+    "cssGradientBuilder": "Pembuat Gradien CSS"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "Generator Skema JSON",
         "description": "Turunkan skema JSON dan model bertipe dari contoh JSON."
+      },
+      "cssGradientBuilder": {
+        "title": "Pembuat Gradien CSS",
+        "description": "Pembuat gradien CSS visual dengan kontrol sudut dan penghentian warna."
       }
     },
     "tabs": {
@@ -2062,5 +2067,28 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Memuat editor…"
+  },
+  "CssGradientBuilder": {
+    "title": "Pembuat Gradien CSS",
+    "subtitle": "Pembuat gradien CSS visual dengan kontrol sudut, penghentian warna, dan salinan CSS sekali klik.",
+    "preview": "Pratinjau Gradien",
+    "settings": "Pengaturan",
+    "type": "Jenis",
+    "linear": "Linier",
+    "radial": "Radial",
+    "angle": "Sudut",
+    "stops": "Warna Berhenti",
+    "color": "Warna",
+    "position": "Posisi (%)",
+    "addStop": "Tambahkan Berhenti",
+    "deleteStop": "Hapus Berhenti",
+    "output": "Keluaran CSS",
+    "copy": "Salin CSS",
+    "copied": "Disalin!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

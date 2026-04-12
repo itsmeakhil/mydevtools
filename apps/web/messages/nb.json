@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "JSON-skjemagenerator"
+    "jsonSchemaGenerator": "JSON-skjemagenerator",
+    "cssGradientBuilder": "CSS Gradient Builder"
   },
   "Help": {
     "title": "Hjelp og dokumentasjon",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "JSON-skjemagenerator",
         "description": "Utled et JSON-skjema og typede modeller fra eksempel-JSON."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS Gradient Builder",
+        "description": "Visuell CSS-gradientbygger med vinkelkontroll og fargestopper."
       }
     },
     "tabs": {
@@ -2062,5 +2067,28 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Laster inn redigeringsprogrammet…"
+  },
+  "CssGradientBuilder": {
+    "title": "CSS Gradient Builder",
+    "subtitle": "Visuell CSS-gradientbygger med vinkelkontroll, fargestopper og ett-klikks CSS-kopi.",
+    "preview": "Forhåndsvisning av gradient",
+    "settings": "Innstillinger",
+    "type": "Type",
+    "linear": "Lineær",
+    "radial": "Radial",
+    "angle": "Vinkel",
+    "stops": "Farge stopper",
+    "color": "Farge",
+    "position": "Stilling (%)",
+    "addStop": "Legg til Stopp",
+    "deleteStop": "Slett Stopp",
+    "output": "CSS-utgang",
+    "copy": "Kopier CSS",
+    "copied": "Kopiert!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

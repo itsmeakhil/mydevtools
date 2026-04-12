@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "JSON 스키마 생성기"
+    "jsonSchemaGenerator": "JSON 스키마 생성기",
+    "cssGradientBuilder": "CSS 그라디언트 빌더"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "JSON 스키마 생성기",
         "description": "샘플 JSON에서 JSON 스키마와 타입이 지정된 모델을 추론합니다."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS 그라디언트 빌더",
+        "description": "각도 제어 및 색상 정지 기능을 갖춘 시각적 CSS 그라데이션 빌더입니다."
       }
     },
     "tabs": {
@@ -2062,5 +2067,28 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "편집기 로드 중…"
+  },
+  "CssGradientBuilder": {
+    "title": "CSS 그라디언트 빌더",
+    "subtitle": "각도 제어, 색상 중지 및 원클릭 CSS 복사 기능을 갖춘 시각적 CSS 그라데이션 빌더입니다.",
+    "preview": "그라데이션 미리보기",
+    "settings": "설정",
+    "type": "유형",
+    "linear": "선의",
+    "radial": "방사형",
+    "angle": "각도",
+    "stops": "컬러 정지",
+    "color": "색상",
+    "position": "위치 (%)",
+    "addStop": "경유지 추가",
+    "deleteStop": "정지 삭제",
+    "output": "CSS 출력",
+    "copy": "CSS 복사",
+    "copied": "복사되었습니다!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "JSON-schemagenerator"
+    "jsonSchemaGenerator": "JSON-schemagenerator",
+    "cssGradientBuilder": "CSS Gradient Builder"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "JSON-schemagenerator",
         "description": "Härled ett JSON-schema och typade modeller från exempel-JSON."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS Gradient Builder",
+        "description": "Visuell CSS-gradientbyggare med vinkelkontroll och färgstopp."
       }
     },
     "tabs": {
@@ -2062,5 +2067,28 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Läser in redigeraren…"
+  },
+  "CssGradientBuilder": {
+    "title": "CSS Gradient Builder",
+    "subtitle": "Visuell CSS-gradientbyggare med vinkelkontroll, färgstopp och CSS-kopia med ett klick.",
+    "preview": "Gradient Preview",
+    "settings": "Inställningar",
+    "type": "Typ",
+    "linear": "Linjär",
+    "radial": "Radiell",
+    "angle": "Vinkel",
+    "stops": "Färgen stannar",
+    "color": "Färg",
+    "position": "Position (%)",
+    "addStop": "Lägg till stopp",
+    "deleteStop": "Ta bort Stop",
+    "output": "CSS-utgång",
+    "copy": "Kopiera CSS",
+    "copied": "Kopierade!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

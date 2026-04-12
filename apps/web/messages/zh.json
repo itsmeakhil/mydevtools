@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "JSON 模式生成器"
+    "jsonSchemaGenerator": "JSON 模式生成器",
+    "cssGradientBuilder": "CSS 渐变生成器"
   },
   "Help": {
     "title": "帮助与文档",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "JSON 模式生成器",
         "description": "从示例 JSON 推断 JSON 模式与类型化模型。"
+      },
+      "cssGradientBuilder": {
+        "title": "CSS 渐变生成器",
+        "description": "具有角度控制和色标的视觉 CSS 渐变生成器。"
       }
     },
     "tabs": {
@@ -2062,5 +2067,28 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "正在加载编辑器…"
+  },
+  "CssGradientBuilder": {
+    "title": "CSS 渐变生成器",
+    "subtitle": "具有角度控制、色标和一键 CSS 复制功能的可视化 CSS 渐变生成器。",
+    "preview": "渐变预览",
+    "settings": "设置",
+    "type": "类型",
+    "linear": "线性",
+    "radial": "径向",
+    "angle": "角度",
+    "stops": "色标",
+    "color": "颜色",
+    "position": "位置 （％）",
+    "addStop": "添加停靠站",
+    "deleteStop": "删除停靠点",
+    "output": "CSS 输出",
+    "copy": "复制CSS",
+    "copied": "复制了！",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "Gerador de esquema JSON"
+    "jsonSchemaGenerator": "Gerador de esquema JSON",
+    "cssGradientBuilder": "Construtor de gradiente CSS"
   },
   "Help": {
     "title": "Ajuda e documentação",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "Gerador de esquema JSON",
         "description": "Infira um esquema JSON e modelos tipados a partir de uma amostra JSON."
+      },
+      "cssGradientBuilder": {
+        "title": "Construtor de gradiente CSS",
+        "description": "Construtor de gradiente visual CSS com controle de ângulo e paradas de cores."
       }
     },
     "tabs": {
@@ -2062,5 +2067,28 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Carregando o editor…"
+  },
+  "CssGradientBuilder": {
+    "title": "Construtor de gradiente CSS",
+    "subtitle": "Construtor de gradiente visual CSS com controle de ângulo, limites de cores e cópia CSS com um clique.",
+    "preview": "Pré-visualização do gradiente",
+    "settings": "Configurações",
+    "type": "Tipo",
+    "linear": "Linear",
+    "radial": "Radial",
+    "angle": "Ângulo",
+    "stops": "Paradas de cores",
+    "color": "Cor",
+    "position": "Posição (%)",
+    "addStop": "Adicionar parada",
+    "deleteStop": "Excluir parada",
+    "output": "Saída CSS",
+    "copy": "Copiar CSS",
+    "copied": "Copiado!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "Generátor JSON schématu"
+    "jsonSchemaGenerator": "Generátor JSON schématu",
+    "cssGradientBuilder": "CSS Gradient Builder"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "Generátor JSON schématu",
         "description": "Odvození JSON schématu a typovaných modelů z ukázkového JSONu."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS Gradient Builder",
+        "description": "Vizuální tvůrce přechodů CSS s ovládáním úhlu a barevnými zarážkami."
       }
     },
     "tabs": {
@@ -2062,5 +2067,28 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Načítání editoru…"
+  },
+  "CssGradientBuilder": {
+    "title": "CSS Gradient Builder",
+    "subtitle": "Vizuální tvůrce přechodů CSS s ovládáním úhlu, zarážkami barev a kopírováním CSS jedním kliknutím.",
+    "preview": "Náhled přechodu",
+    "settings": "Nastavení",
+    "type": "Typ",
+    "linear": "Lineární",
+    "radial": "Radiální",
+    "angle": "Úhel",
+    "stops": "Barva se zastaví",
+    "color": "Barva",
+    "position": "Pozice (%)",
+    "addStop": "Přidat Stop",
+    "deleteStop": "Smazat Stop",
+    "output": "Výstup CSS",
+    "copy": "Kopírovat CSS",
+    "copied": "Zkopírováno!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

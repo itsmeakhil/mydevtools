@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "Γεννήτρια JSON Schema"
+    "jsonSchemaGenerator": "Γεννήτρια JSON Schema",
+    "cssGradientBuilder": "CSS Gradient Builder"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "Γεννήτρια JSON Schema",
         "description": "Συμπεράνετε ένα JSON Schema και τυποποιημένα μοντέλα από δείγμα JSON."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS Gradient Builder",
+        "description": "Visual CSS gradient builder με έλεγχο γωνίας και χρωματικές στάσεις."
       }
     },
     "tabs": {
@@ -2062,5 +2067,28 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Φόρτωση επεξεργαστή…"
+  },
+  "CssGradientBuilder": {
+    "title": "CSS Gradient Builder",
+    "subtitle": "Visual CSS gradient builder με έλεγχο γωνίας, χρωματικές στάσεις και αντιγραφή CSS με ένα κλικ.",
+    "preview": "Προεπισκόπηση κλίσης",
+    "settings": "Ρυθμίσεις",
+    "type": "Τύπος",
+    "linear": "Γραμμικός",
+    "radial": "Ακτινικός",
+    "angle": "Γωνία",
+    "stops": "Σταματά το χρώμα",
+    "color": "Χρώμα",
+    "position": "Θέση (%)",
+    "addStop": "Προσθήκη Stop",
+    "deleteStop": "Διαγραφή Stop",
+    "output": "Έξοδος CSS",
+    "copy": "Αντιγραφή CSS",
+    "copied": "Αντιγράφηκε!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

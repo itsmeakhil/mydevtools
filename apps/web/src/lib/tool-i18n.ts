@@ -23,6 +23,7 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/color-picker': 'colorPicker',
   '/app/api-client': 'apiClient',
   '/app/nosql-explorer': 'nosqlExplorer',
+  '/app/css-gradient-builder': 'cssGradientBuilder',
 };
 
 export function getToolMessageKey(pathname: string): string | undefined {

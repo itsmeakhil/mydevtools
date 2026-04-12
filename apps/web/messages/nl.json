@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "JSON-schema-generator"
+    "jsonSchemaGenerator": "JSON-schema-generator",
+    "cssGradientBuilder": "CSS-verloopbouwer"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "JSON-schema-generator",
         "description": "Leid een JSON-schema en getypeerde modellen af van voorbeeld-JSON."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS-verloopbouwer",
+        "description": "Visuele CSS-gradiëntbouwer met hoekcontrole en kleurstops."
       }
     },
     "tabs": {
@@ -2062,5 +2067,28 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Editor laden…"
+  },
+  "CssGradientBuilder": {
+    "title": "CSS-verloopbouwer",
+    "subtitle": "Visuele CSS-gradiëntbouwer met hoekcontrole, kleurstops en CSS-kopie met één klik.",
+    "preview": "Verloopvoorbeeld",
+    "settings": "Instellingen",
+    "type": "Type",
+    "linear": "Lineair",
+    "radial": "Radiaal",
+    "angle": "Hoek",
+    "stops": "Kleur stopt",
+    "color": "Kleur",
+    "position": "Positie (%)",
+    "addStop": "Stop toevoegen",
+    "deleteStop": "Stop verwijderen",
+    "output": "CSS-uitvoer",
+    "copy": "Kopieer CSS",
+    "copied": "Gekopieerd!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

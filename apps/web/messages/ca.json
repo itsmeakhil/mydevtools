@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "Generador d'esquema JSON"
+    "jsonSchemaGenerator": "Generador d'esquema JSON",
+    "cssGradientBuilder": "Creador de degradats CSS"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "Generador d'esquema JSON",
         "description": "Extreu un esquema JSON i models tipats a partir d'una mostra JSON."
+      },
+      "cssGradientBuilder": {
+        "title": "Creador de degradats CSS",
+        "description": "Creador de degradat CSS visual amb control d'angle i parades de color."
       }
     },
     "tabs": {
@@ -2062,5 +2067,28 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "S'està carregant l'editor…"
+  },
+  "CssGradientBuilder": {
+    "title": "Creador de degradats CSS",
+    "subtitle": "Creador de degradat CSS visual amb control d'angle, parades de color i còpia CSS d'un sol clic.",
+    "preview": "Vista prèvia del degradat",
+    "settings": "Configuració",
+    "type": "Tipus",
+    "linear": "Lineal",
+    "radial": "Radial",
+    "angle": "Angle",
+    "stops": "Color Stops",
+    "color": "Color",
+    "position": "Posició (%)",
+    "addStop": "Afegeix Stop",
+    "deleteStop": "Elimina Stop",
+    "output": "Sortida CSS",
+    "copy": "Copia CSS",
+    "copied": "Copiat!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

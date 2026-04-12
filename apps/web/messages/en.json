@@ -21,6 +21,7 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "cssGradientBuilder": "CSS Gradient Builder",
     "apiClient": "API Client",
     "nosqlExplorer": "NoSQL Explorer"
   },
@@ -336,6 +337,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS Gradient Builder",
+        "description": "Visual CSS gradient builder with angle control and color stops."
       }
     }
   },
@@ -2062,5 +2067,28 @@
     "modifiedPlaceholder": "Paste modified text…",
     "comparisonLabel": "Side-by-side comparison",
     "emptyState": "Enter text in both panels to compare."
+  },
+  "CssGradientBuilder": {
+    "title": "CSS Gradient Builder",
+    "subtitle": "Visual CSS gradient builder with angle control, color stops, and one-click CSS copy.",
+    "preview": "Gradient Preview",
+    "settings": "Settings",
+    "type": "Type",
+    "linear": "Linear",
+    "radial": "Radial",
+    "angle": "Angle",
+    "stops": "Color Stops",
+    "color": "Color",
+    "position": "Position (%)",
+    "addStop": "Add Stop",
+    "deleteStop": "Delete Stop",
+    "output": "CSS Output",
+    "copy": "Copy CSS",
+    "copied": "Copied!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

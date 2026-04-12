@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "تولیدکنندهٔ طرح JSON"
+    "jsonSchemaGenerator": "تولیدکنندهٔ طرح JSON",
+    "cssGradientBuilder": "CSS Gradient Builder"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "تولیدکنندهٔ طرح JSON",
         "description": "از نمونهٔ JSON، طرح JSON و مدل‌های نوع‌دار استنتاج کنید."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS Gradient Builder",
+        "description": "سازنده گرادیان CSS ویژوال با کنترل زاویه و توقف رنگ."
       }
     },
     "tabs": {
@@ -2062,5 +2067,28 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "در حال بارگذاری ویرایشگر…"
+  },
+  "CssGradientBuilder": {
+    "title": "CSS Gradient Builder",
+    "subtitle": "سازنده گرادیان CSS ویژوال با کنترل زاویه، توقف رنگ و کپی CSS با یک کلیک.",
+    "preview": "پیش نمایش گرادیان",
+    "settings": "تنظیمات",
+    "type": "تایپ کنید",
+    "linear": "خطی",
+    "radial": "شعاعی",
+    "angle": "زاویه",
+    "stops": "رنگ متوقف می شود",
+    "color": "رنگ",
+    "position": "موقعیت (%)",
+    "addStop": "Stop را اضافه کنید",
+    "deleteStop": "Stop را حذف کنید",
+    "output": "خروجی CSS",
+    "copy": "CSS را کپی کنید",
+    "copied": "کپی شده!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "Penjana Skema JSON"
+    "jsonSchemaGenerator": "Penjana Skema JSON",
+    "cssGradientBuilder": "Pembina Kecerunan CSS"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "Penjana Skema JSON",
         "description": "Inferens skema JSON dan model berjenis daripada sampel JSON."
+      },
+      "cssGradientBuilder": {
+        "title": "Pembina Kecerunan CSS",
+        "description": "Pembina kecerunan CSS visual dengan kawalan sudut dan hentian warna."
       }
     },
     "tabs": {
@@ -2062,5 +2067,28 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Memuatkan editor…"
+  },
+  "CssGradientBuilder": {
+    "title": "Pembina Kecerunan CSS",
+    "subtitle": "Pembina kecerunan CSS visual dengan kawalan sudut, hentian warna dan salinan CSS satu klik.",
+    "preview": "Pratonton Kecerunan",
+    "settings": "tetapan",
+    "type": "taip",
+    "linear": "Linear",
+    "radial": "Jejari",
+    "angle": "sudut",
+    "stops": "Warna Berhenti",
+    "color": "warna",
+    "position": "Kedudukan (%)",
+    "addStop": "Tambah Berhenti",
+    "deleteStop": "Padam Berhenti",
+    "output": "Output CSS",
+    "copy": "Salin CSS",
+    "copied": "disalin!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

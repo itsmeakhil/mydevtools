@@ -117,6 +117,11 @@ export const toolsMetadata: Record<string, {
         description: 'Encode text to Base64 or decode Base64 strings instantly, with UTF-8 support. Runs entirely in your browser.',
         keywords: ['base64 encode', 'base64 decode', 'base64 converter', 'encode text', 'decode base64']
     },
+    'css-gradient-builder': {
+        title: 'CSS Gradient Builder',
+        description: 'Visual CSS gradient builder with angle control, color stops, and one-click CSS copy.',
+        keywords: ['css gradient', 'gradient builder', 'gradient generator', 'linear gradient', 'radial gradient', 'css output']
+    },
 }
 
 // Generate metadata for a tool page

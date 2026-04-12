@@ -63,6 +63,7 @@ Most developer tools are scattered across dozens of tabs, riddled with ads, or s
 | **🌐 URL Encoder/Decoder** | Encode and decode URL components instantly |
 | **🔤 Base64** | Encode and decode Base64 strings with one click |
 | **⏱️ Timestamp Converter** | Convert Unix timestamps to human-readable dates and vice versa |
+| **🎨 CSS Gradient Builder** | Visual builder for linear and radial CSS gradients with color stops |
 | **📋 Lorem Ipsum Generator** | Generate placeholder text in paragraphs, words, or sentences |
 | **🔢 UUID Generator** | Generate UUIDs (v1, v4) in bulk with copy support |
 | **⏰ Cron Builder** | Build and validate cron expressions visually with human-readable output |

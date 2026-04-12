@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "JSON Şema Oluşturucu"
+    "jsonSchemaGenerator": "JSON Şema Oluşturucu",
+    "cssGradientBuilder": "CSS Degrade Oluşturucu"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "JSON Şema Oluşturucu",
         "description": "Örnek JSON’dan JSON Şeması ve tipli modeller türetin."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS Degrade Oluşturucu",
+        "description": "Açı kontrolü ve renk duraklarına sahip görsel CSS degrade oluşturucu."
       }
     },
     "tabs": {
@@ -2062,5 +2067,28 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Editör yükleniyor…"
+  },
+  "CssGradientBuilder": {
+    "title": "CSS Degrade Oluşturucu",
+    "subtitle": "Açı kontrolü, renk durakları ve tek tıklamayla CSS kopyalama özelliklerine sahip görsel CSS degrade oluşturucu.",
+    "preview": "Degrade Önizleme",
+    "settings": "Ayarlar",
+    "type": "Tip",
+    "linear": "Doğrusal",
+    "radial": "Radyal",
+    "angle": "Açı",
+    "stops": "Renk Durakları",
+    "color": "Renk",
+    "position": "Konum (%)",
+    "addStop": "Durak Ekle",
+    "deleteStop": "Durdurmayı Sil",
+    "output": "CSS Çıkışı",
+    "copy": "CSS'yi kopyala",
+    "copied": "Kopyalandı!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }
