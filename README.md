@@ -5,21 +5,24 @@
 <h1 align="center">MyDevTools.tech</h1>
 
 <p align="center">
-  <strong>Your all-in-one, open-source developer toolkit — fast, private, and beautiful.</strong>
+  <strong>Your all-in-one, open-source developer toolkit — fast, private, and beautifully crafted.</strong>
 </p>
 
 <p align="center">
   <a href="https://mydevtools.tech">🌐 Live App</a> •
-  <a href="#-features">✨ Features</a> •
+  <a href="#-tools--features">✨ Tools</a> •
+  <a href="#-tech-stack">🏗️ Stack</a> •
   <a href="#-getting-started">🚀 Get Started</a> •
   <a href="#-contributing">🤝 Contribute</a>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
   <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/FastAPI-Python-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" />
   <img src="https://img.shields.io/badge/Firebase-12-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase" />
+  <img src="https://img.shields.io/badge/MongoDB-supported-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
   <img src="https://img.shields.io/badge/License-GPL_3.0-blue?style=for-the-badge" alt="License" />
 </p>
 
@@ -35,47 +38,96 @@
 
 Most developer tools are scattered across dozens of tabs, riddled with ads, or send your data to unknown servers. **MyDevTools** changes that:
 
-- ⚡ **Client-side processing** — Your data never leaves your browser
-- 🔒 **Privacy-first** — No tracking, no analytics on your data, no ads
-- 🎨 **Premium UI** — Dark/light mode, smooth animations, responsive design
-- 💯 **Free & open source** — Forever. Built with ❤️ by the community
+- ⚡ **Client-side first** — Your data is processed in-browser wherever possible. No unnecessary server round-trips.
+- 🔒 **Privacy by design** — No ad tracking, no data harvesting. Your vault stays yours.
+- 🎨 **Premium UI/UX** — Dark/light mode, silky animations, fully responsive across all devices.
+- 🌍 **Internationalization** — Built-in i18n support via `next-intl`.
+- 💯 **Free & open source** — Forever. Built with love by the community.
 
 ---
 
-## ✨ Features
+## ✨ Tools & Features
 
-### 🧰 Developer Tools
+### 🧰 Developer Utilities
 
 | Tool | Description |
 |------|-------------|
-| **📡 API Client** | Test & debug REST APIs with a Postman-like interface — headers, params, body, and response inspection |
-| **🗄️ NoSQL Explorer** | Connect to and explore MongoDB databases with a visual query builder and data viewer |
-| **📧 Email Validator** | Validate email address format and structure instantly |
+| **📡 API Client** | Test & debug REST APIs with a Postman-like interface — headers, query params, body, response inspector |
+| **🗄️ NoSQL Explorer** | Connect to MongoDB, browse databases & collections, and run queries with a visual data viewer |
+| **📝 JSON Formatter** | Beautify, validate, minify, and explore JSON with Monaco Editor |
+| **📐 JSON Schema Generator** | Auto-generate JSON Schema from any JSON input instantly |
+| **🔑 JWT Decoder** | Decode and inspect JWT tokens — header, payload, and signature at a glance |
+| **🧬 Regex Tester** | Test regular expressions in real time with match highlighting and capture group breakdown |
+| **🛢️ SQL Formatter** | Format and prettify SQL queries with dialect support |
+| **🔀 Diff Checker** | Side-by-side text diff viewer with inline change highlighting |
+| **🌐 URL Encoder/Decoder** | Encode and decode URL components instantly |
+| **🔤 Base64** | Encode and decode Base64 strings with one click |
+| **⏱️ Timestamp Converter** | Convert Unix timestamps to human-readable dates and vice versa |
+| **📋 Lorem Ipsum Generator** | Generate placeholder text in paragraphs, words, or sentences |
+| **🔢 UUID Generator** | Generate UUIDs (v1, v4) in bulk with copy support |
+| **⏰ Cron Builder** | Build and validate cron expressions visually with human-readable output |
+| **🎨 Color Picker** | Pick, convert, and preview colors across HEX, RGB, HSL formats and more |
+| **📧 Email Validator** | Validate email address format and DNS structure instantly |
+| **🌿 Environment Manager** | Manage `.env` files — import, export, diff environments, keep secrets organized |
 
 ### 📱 Productivity Apps
 
 | Tool | Description |
 |------|-------------|
-| **✅ Task Manager** | Organize tasks with priorities, drag-and-drop reordering, and progress tracking |
+| **✅ Task Manager** | Organize tasks with priorities, statuses, and drag-and-drop reordering |
 | **📓 Notes** | Rich-text note-taking powered by Tiptap — headings, lists, code blocks, images & more |
-| **🔐 Password Manager** | Store passwords securely with client-side encryption. Your vault, your keys |
+| **🔐 Password Manager** | Store credentials securely with client-side encryption. Your vault, your keys |
 | **🔖 Bookmarks** | Save, organize, and manage your favorite links in one central place |
 
 ---
 
 ## 🏗️ Tech Stack
 
+### Frontend
+
 | Layer | Technology |
-|-------|-----------|
-| **Framework** | [Next.js 16](https://nextjs.org/) (App Router, Turbopack) |
+|-------|------------|
+| **Framework** | [Next.js 16](https://nextjs.org/) — App Router, Turbopack, Server Components |
+| **Runtime** | [React 19](https://react.dev/) |
 | **Language** | [TypeScript 5.7](https://www.typescriptlang.org/) |
-| **Styling** | [Tailwind CSS 3.4](https://tailwindcss.com/) + [Shadcn UI](https://ui.shadcn.com/) |
-| **State** | [Zustand](https://github.com/pmndrs/zustand) |
-| **Editors** | [Monaco Editor](https://microsoft.github.io/monaco-editor/) · [Tiptap](https://tiptap.dev/) |
-| **Animations** | [Framer Motion](https://www.framer.com/motion/) |
-| **Backend** | [Firebase](https://firebase.google.com/) (Auth, Firestore, Storage) |
-| **Analytics** | [Vercel Analytics](https://vercel.com/analytics) + [Speed Insights](https://vercel.com/docs/speed-insights) |
+| **Styling** | [Tailwind CSS 3.4](https://tailwindcss.com/) + [Shadcn UI](https://ui.shadcn.com/) + [Radix UI](https://www.radix-ui.com/) |
+| **Animations** | [Framer Motion](https://www.framer.com/motion/) + [Motion](https://motion.dev/) |
+| **State Management** | [Zustand](https://github.com/pmndrs/zustand) |
+| **Code Editors** | [Monaco Editor](https://microsoft.github.io/monaco-editor/) · [Tiptap](https://tiptap.dev/) · [Novel](https://novel.sh/) |
 | **Drag & Drop** | [dnd-kit](https://dndkit.com/) |
+| **i18n** | [next-intl](https://next-intl-docs.vercel.app/) |
+| **Icons** | [Lucide React](https://lucide.dev/) + [Tabler Icons](https://tabler.io/icons) |
+| **Notifications** | [Sonner](https://sonner.emilkowal.ski/) |
+| **Date Utilities** | [date-fns](https://date-fns.org/) |
+| **Analytics** | [Vercel Analytics](https://vercel.com/analytics) + [Speed Insights](https://vercel.com/docs/speed-insights) |
+
+### Backend
+
+| Layer | Technology |
+|-------|------------|
+| **Framework** | [FastAPI](https://fastapi.tiangolo.com/) (Python 3.10+) |
+| **Server** | [Uvicorn](https://www.uvicorn.org/) (ASGI) |
+| **Validation** | [Pydantic](https://docs.pydantic.dev/) + `pydantic-settings` |
+| **Auth** | [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup) + `python-jose` (JWT) |
+| **Linting** | [Ruff](https://docs.astral.sh/ruff/) |
+| **Testing** | [Pytest](https://pytest.org/) + [HTTPX](https://www.python-httpx.org/) |
+
+### Database & Cloud Services
+
+| Service | Purpose |
+|---------|---------|
+| **[Firebase Firestore](https://firebase.google.com/docs/firestore)** | Primary NoSQL database for user data (notes, tasks, bookmarks, passwords) |
+| **[Firebase Auth](https://firebase.google.com/docs/auth)** | Authentication — email/password, OAuth providers |
+| **[Firebase Storage](https://firebase.google.com/docs/storage)** | File and asset storage |
+| **[MongoDB](https://www.mongodb.com/)** | Direct connection support via the NoSQL Explorer tool |
+
+### Monorepo Infrastructure
+
+| Tool | Purpose |
+|------|---------|
+| **[pnpm Workspaces](https://pnpm.io/workspaces)** | Fast, efficient monorepo package management |
+| **`apps/web`** | Next.js 16 frontend application |
+| **`apps/backend`** | FastAPI Python backend service |
 
 ---
 
@@ -84,7 +136,8 @@ Most developer tools are scattered across dozens of tabs, riddled with ads, or s
 ### Prerequisites
 
 - **Node.js** ≥ 18
-- **pnpm** (recommended) or npm
+- **pnpm** ≥ 9 (recommended)
+- **Python** ≥ 3.10 (for backend)
 
 ### Installation
 
@@ -93,29 +146,43 @@ Most developer tools are scattered across dozens of tabs, riddled with ads, or s
 git clone https://github.com/itsmeakhil/mydevtools.tech.git
 cd mydevtools.tech
 
-# Install dependencies
+# Install all workspace dependencies
 pnpm install
 
 # Set up environment variables
 cp .env.example .env
-# Fill in your Firebase credentials
+# Fill in your Firebase credentials and other config
+```
 
-# Start the web app development server
+### Running the Web App
+
+```bash
 pnpm dev
 ```
 
-The web app will be running at **[http://localhost:3000](http://localhost:3000)** 🎉
+The frontend will be live at **[http://localhost:3000](http://localhost:3000)** 🎉
 
-### Build Commands
+### Running the Backend
+
+```bash
+pnpm dev:backend
+```
+
+The FastAPI backend will be live at **[http://localhost:8000](http://localhost:8000)**  
+Interactive API docs available at **[http://localhost:8000/docs](http://localhost:8000/docs)**
+
+---
+
+## 📜 Available Scripts
 
 | Command | Description |
 |---------|-------------|
-| `pnpm dev` | Start web app dev server (`apps/web`) |
-| `pnpm dev:backend` | Start backend workspace script (`apps/backend`) |
-| `pnpm build` | Build all workspaces that expose a build script |
-| `pnpm start` | Start web app production server |
-| `pnpm lint` | Run lint in all workspaces that expose lint |
-| `pnpm clean-install` | Fresh install for the monorepo |
+| `pnpm dev` | Start the Next.js frontend dev server with Turbopack |
+| `pnpm dev:backend` | Start the FastAPI backend with hot reload |
+| `pnpm build` | Build all workspaces |
+| `pnpm start` | Start the frontend production server |
+| `pnpm lint` | Run linting across all workspaces |
+| `pnpm clean-install` | Fresh dependency install for the entire monorepo |
 
 ---
 
@@ -124,21 +191,73 @@ The web app will be running at **[http://localhost:3000](http://localhost:3000)*
 ```
 mydevtools.tech/
 ├── apps/
-│   ├── web/                 # Next.js frontend app
-│   │   ├── src/             # App source code
-│   │   ├── public/          # Static assets
-│   │   ├── messages/        # next-intl locale messages
-│   │   └── package.json
-│   └── backend/             # Backend workspace (scaffold)
-├── pnpm-workspace.yaml      # Workspace package map
-└── package.json             # Root monorepo scripts
+│   ├── web/                          # Next.js 16 frontend (App Router)
+│   │   ├── src/
+│   │   │   ├── app/
+│   │   │   │   ├── app/              # Tool pages
+│   │   │   │   │   ├── api-client/
+│   │   │   │   │   ├── base64/
+│   │   │   │   │   ├── bookmarks/
+│   │   │   │   │   ├── color-picker/
+│   │   │   │   │   ├── cron-builder/
+│   │   │   │   │   ├── diff-checker/
+│   │   │   │   │   ├── email-validator/
+│   │   │   │   │   ├── environment-manager/
+│   │   │   │   │   ├── json-formatter/
+│   │   │   │   │   ├── json-schema-generator/
+│   │   │   │   │   ├── jwt-decoder/
+│   │   │   │   │   ├── lorem-ipsum/
+│   │   │   │   │   ├── nosql-explorer/
+│   │   │   │   │   ├── notes/
+│   │   │   │   │   ├── password-manager/
+│   │   │   │   │   ├── regex-tester/
+│   │   │   │   │   ├── sql-formatter/
+│   │   │   │   │   ├── timestamp-converter/
+│   │   │   │   │   ├── to-do/
+│   │   │   │   │   ├── url-encode/
+│   │   │   │   │   └── uuid-generator/
+│   │   │   │   ├── api/              # Next.js route handlers
+│   │   │   │   ├── dashboard/        # User dashboard
+│   │   │   │   ├── login/            # Auth page
+│   │   │   │   └── settings/         # App settings
+│   │   │   ├── components/           # Shared UI components
+│   │   │   ├── store/                # Zustand state stores
+│   │   │   ├── hooks/                # Custom React hooks
+│   │   │   ├── lib/                  # Utilities and helpers
+│   │   │   ├── i18n/                 # Internationalization config
+│   │   │   └── database/             # Firebase client setup
+│   │   ├── messages/                 # next-intl locale files
+│   │   └── public/                   # Static assets
+│   │
+│   └── backend/                      # FastAPI Python backend
+│       ├── app/
+│       │   ├── api/
+│       │   │   └── routes/           # API route modules
+│       │   │       ├── auth/
+│       │   │       ├── notes/
+│       │   │       ├── tasks/
+│       │   │       ├── bookmarks/
+│       │   │       ├── passwords/
+│       │   │       ├── nosql/
+│       │   │       ├── api_client/
+│       │   │       ├── environment_manager/
+│       │   │       ├── analytics/
+│       │   │       └── user_preferences/
+│       │   ├── core/                 # Config, DB, Firebase admin, auth
+│       │   └── main.py               # FastAPI app entry point
+│       ├── tests/                    # Pytest test suite
+│       └── pyproject.toml
+│
+├── pnpm-workspace.yaml               # Workspace configuration
+├── package.json                      # Root monorepo scripts
+└── scripts/                          # Utility scripts
 ```
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Whether it's a bug fix, new feature, or documentation improvement — we'd love your help.
+Contributions are welcome! Whether it's a bug fix, a new tool, a UI improvement, or a docs update — we'd love your help.
 
 1. **Fork** the repository
 2. **Create** your feature branch: `git checkout -b feature/amazing-feature`
@@ -146,11 +265,14 @@ Contributions are welcome! Whether it's a bug fix, new feature, or documentation
 4. **Push** to the branch: `git push origin feature/amazing-feature`
 5. **Open** a Pull Request
 
+Please ensure your code follows the existing style and that linting passes (`pnpm lint`).
+
 ---
 
 ## 💡 Feature Requests
 
-Have an idea? We'd love to hear it!
+Have an idea for a new tool or improvement? We'd love to hear it!
+
 [**→ Submit a Feature Request**](https://docs.google.com/forms/d/e/1FAIpQLSfrqN2WWGF6weA_hFPsce9U6wjUpvjZzIF7KZABYMvX4xRW3A/viewform?usp=header)
 
 ---
@@ -163,9 +285,9 @@ Have an idea? We'd love to hear it!
 
 ---
 
-## ⭐ Support
+## ⭐ Support the Project
 
-If you find MyDevTools useful, consider giving it a **star** on GitHub — it helps others discover the project!
+If MyDevTools saves you time, consider giving it a **star** on GitHub — it helps others discover the project and motivates us to keep building!
 
 [![Star on GitHub](https://img.shields.io/github/stars/itsmeakhil/mydevtools.tech?style=social)](https://github.com/itsmeakhil/mydevtools.tech)
 
