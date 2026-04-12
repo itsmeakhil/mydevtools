@@ -20,20 +20,14 @@ import {
   Shield,
   Rocket,
   Sparkles,
-  CheckCircle2,
-  Lock,
-  FileJson,
-  KeyRound,
-  Link as LinkIcon,
-  Terminal,
   Star,
   GitFork,
-  NotebookPen,
   ChevronDown,
   LogIn,
   LayoutGrid,
   ExternalLink,
 } from "lucide-react";
+import { sidebarData } from "@/components/sidebar/data/sidebar-data";
 
 // ─── Animation Variants ────────────────────────────────────────────────────────
 
@@ -74,68 +68,50 @@ function Section({
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
 
-const tools = [
-  {
-    title: "JSON Editor",
-    description:
-      "Format, validate, and minify JSON with syntax highlighting and real-time error detection.",
-    icon: FileJson,
-    href: "/app/json-formatter",
-    gradient: "from-sky-500 to-cyan-400",
-    hoverGlow: "hover:shadow-sky-500/25",
-    bgFade: "from-sky-500/8 to-cyan-400/8",
-  },
-  {
-    title: "API Client",
-    description:
-      "Test and debug HTTP requests with headers, auth, body support and response inspection.",
-    icon: LinkIcon,
-    href: "/app/api-client",
-    gradient: "from-violet-500 to-purple-400",
-    hoverGlow: "hover:shadow-violet-500/25",
-    bgFade: "from-violet-500/8 to-purple-400/8",
-  },
-  {
-    title: "NoSQL Explorer",
-    description:
-      "Explore and manage your MongoDB databases directly from your browser with ease.",
-    icon: KeyRound,
-    href: "/app/nosql-explorer",
-    gradient: "from-emerald-500 to-teal-400",
-    hoverGlow: "hover:shadow-emerald-500/25",
-    bgFade: "from-emerald-500/8 to-teal-400/8",
-  },
-  {
-    title: "Password Manager",
-    description:
-      "Securely store and manage passwords with client-side AES encryption. Zero-knowledge.",
-    icon: Lock,
-    href: "/app/password-manager",
-    gradient: "from-rose-500 to-orange-400",
-    hoverGlow: "hover:shadow-rose-500/25",
-    bgFade: "from-rose-500/8 to-orange-400/8",
-  },
-  {
-    title: "Task Manager",
-    description:
-      "Organize daily tasks, set priorities, and track your productivity with smart lists.",
-    icon: CheckCircle2,
-    href: "/app/to-do",
-    gradient: "from-amber-500 to-yellow-400",
-    hoverGlow: "hover:shadow-amber-500/25",
-    bgFade: "from-amber-500/8 to-yellow-400/8",
-  },
-  {
-    title: "Notes",
-    description:
-      "Capture ideas and organize thoughts with a clean, distraction-free note-taking app.",
-    icon: NotebookPen,
-    href: "/app/notes",
-    gradient: "from-indigo-500 to-blue-400",
-    hoverGlow: "hover:shadow-indigo-500/25",
-    bgFade: "from-indigo-500/8 to-blue-400/8",
-  },
-];
+type HomeToolEntry = {
+  title: string;
+  description: string;
+  url: string;
+  icon?: React.ElementType;
+};
+
+function flattenSidebarTools(): HomeToolEntry[] {
+  const out: HomeToolEntry[] = [];
+  for (const group of sidebarData.navGroups) {
+    for (const item of group.items) {
+      if ("items" in item && item.items?.length) {
+        for (const sub of item.items) {
+          if (!sub.url) continue;
+          out.push({
+            title: sub.title,
+            description: sub.description ?? "",
+            url: typeof sub.url === "string" ? sub.url : String(sub.url),
+            icon: sub.icon ?? item.icon,
+          });
+        }
+      } else if ("url" in item && item.url) {
+        out.push({
+          title: item.title,
+          description: item.description ?? "",
+          url: typeof item.url === "string" ? item.url : String(item.url),
+          icon: item.icon,
+        });
+      }
+    }
+  }
+  return out;
+}
+
+const allAppTools = flattenSidebarTools();
+
+const toolListGradients = [
+  "from-sky-500 to-cyan-400",
+  "from-violet-500 to-purple-400",
+  "from-emerald-500 to-teal-400",
+  "from-rose-500 to-orange-400",
+  "from-amber-500 to-yellow-400",
+  "from-indigo-500 to-blue-400",
+] as const;
 
 const features = [
   {
@@ -173,8 +149,7 @@ const howItWorks = [
   {
     step: "02",
     title: "Pick Your Tool",
-    description:
-      "Choose from 19+ tools in one unified dashboard. Everything in a single tab.",
+    description: `Choose from ${allAppTools.length} tools in one unified dashboard. Everything in a single tab.`,
     icon: LayoutGrid,
     gradient: "from-violet-500 to-purple-400",
   },
@@ -483,7 +458,10 @@ export default function Page() {
       </section>
 
       {/* ── Features ────────────────────────────────────────────────────────── */}
-      <section className="py-16 md:py-28 relative overflow-hidden">
+      <section
+        id="features"
+        className="py-16 md:py-28 relative overflow-hidden scroll-mt-28"
+      >
         <div className="container px-4 md:px-6 mx-auto">
           <Section>
             <motion.div
@@ -528,6 +506,90 @@ export default function Page() {
                 </motion.div>
               ))}
             </div>
+          </Section>
+        </div>
+      </section>
+
+      {/* ── Tools ───────────────────────────────────────────────────────────── */}
+      <section
+        id="tools"
+        className="py-16 md:py-28 relative overflow-hidden scroll-mt-28"
+      >
+        <div className="absolute inset-0 -z-10 bg-muted/20" />
+        <div className="container px-4 md:px-6 mx-auto">
+          <Section>
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12 md:mb-14"
+            >
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
+                Tools
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                The full catalog from the app — open any utility in one click.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+              {allAppTools.map((tool, i) => {
+                const g = toolListGradients[i % toolListGradients.length];
+                const Icon = tool.icon;
+                return (
+                  <motion.div
+                    key={tool.url}
+                    variants={fadeUp}
+                    transition={{
+                      duration: 0.45,
+                      delay: Math.min(i * 0.03, 0.45),
+                    }}
+                  >
+                    <Link
+                      href={tool.url}
+                      className="group block h-full rounded-xl border border-border/50 bg-card/60 backdrop-blur-sm p-4 hover:border-border hover:shadow-lg transition-all duration-300"
+                    >
+                      <div className="flex gap-3 items-start">
+                        {Icon ? (
+                          <div
+                            className={`shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br ${g} flex items-center justify-center shadow-md group-hover:scale-105 transition-transform duration-300`}
+                          >
+                            <Icon
+                              className="w-5 h-5 text-white"
+                              stroke={1.75}
+                            />
+                          </div>
+                        ) : null}
+                        <div className="min-w-0 flex-1">
+                          <h3 className="font-semibold text-sm sm:text-base mb-0.5 flex items-center gap-1.5">
+                            {tool.title}
+                            <ArrowRight className="w-3.5 h-3.5 shrink-0 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                          </h3>
+                          <p className="text-xs sm:text-sm text-muted-foreground leading-snug line-clamp-2">
+                            {tool.description}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.55, delay: 0.15 }}
+              className="mt-10 md:mt-12 text-center"
+            >
+              <Button
+                variant="outline"
+                size="lg"
+                className="rounded-full h-11 px-7 text-sm hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+                onClick={goToLogin}
+              >
+                Open dashboard
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </motion.div>
           </Section>
         </div>
       </section>
@@ -644,103 +706,6 @@ export default function Page() {
                 </div>
               </motion.div>
             </div>
-          </Section>
-        </div>
-      </section>
-
-      {/* ── Tools Showcase ──────────────────────────────────────────────────── */}
-      <section
-        id="features"
-        className="py-16 md:py-28 relative overflow-hidden"
-      >
-        {/* Section background */}
-        <div className="absolute inset-0 -z-10 bg-muted/25" />
-        <div
-          className="absolute inset-0 -z-10 opacity-[0.03] dark:opacity-[0.05]"
-          style={{
-            backgroundImage: `radial-gradient(circle, hsl(var(--foreground)) 1px, transparent 1px)`,
-            backgroundSize: "28px 28px",
-          }}
-        />
-
-        <div className="container px-4 md:px-6 mx-auto">
-          <Section>
-            <motion.div
-              variants={fadeUp}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-14"
-            >
-              <Badge
-                variant="secondary"
-                className="mb-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium"
-              >
-                <Terminal className="w-3 h-3" />
-                Developer Toolkit
-              </Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-                Popular Tools
-              </h2>
-              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-                Discover our most-used utilities designed to supercharge your
-                productivity.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-              {tools.map((tool, i) => (
-                <motion.div
-                  key={i}
-                  variants={fadeUp}
-                  transition={{ duration: 0.5, delay: i * 0.07 }}
-                >
-                  <Link href={tool.href} className="block h-full">
-                    <div
-                      className={`group relative h-full rounded-2xl border border-border/50 bg-card/70 backdrop-blur-sm p-6 hover:border-border/80 transition-all duration-300 hover:shadow-2xl ${tool.hoverGlow} cursor-pointer overflow-hidden`}
-                    >
-                      {/* Subtle gradient wash on hover */}
-                      <div
-                        className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${tool.bgFade}`}
-                      />
-
-                      <div className="relative z-10">
-                        {/* Gradient icon */}
-                        <div
-                          className={`w-12 h-12 rounded-xl bg-gradient-to-br ${tool.gradient} flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300`}
-                        >
-                          <tool.icon className="w-6 h-6 text-white drop-shadow-sm" />
-                        </div>
-
-                        {/* Title + animated arrow */}
-                        <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                          {tool.title}
-                          <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                        </h3>
-
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {tool.description}
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div
-              variants={fadeUp}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-12 text-center"
-            >
-              <Button
-                variant="outline"
-                size="lg"
-                className="rounded-full h-12 px-8 text-base hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 backdrop-blur-sm"
-                onClick={goToLogin}
-              >
-                Explore All Tools
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </motion.div>
           </Section>
         </div>
       </section>
