@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "JSON-skemagenerator",
     "imageToBase64": "Billede til Base64",
     "cssGradientBuilder": "CSS Gradient Builder",
-    "gitignoreGenerator": ".gitignore Generator"
+    "gitignoreGenerator": ".gitignore Generator",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "Hjælp og dokumentation",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": ".gitignore Generator",
         "description": "Generer flettede .gitignore-filer med det samme fra 500+ teknologistakke."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Konverter CSV- eller Excel-filer til JSON og eksporter tilbage til CSV eller XLSX."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "Kunne ikke generere .gitignore fra udvalgte stakke.",
     "generating": "Genererer...",
     "emptyState": "Vælg en eller flere tekniske stakke for at generere din .gitignore."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Upload CSV eller Excel, rediger JSON, og download CSV eller XLSX. Kun tabeldata; Excel-datoer bliver ISO-tidsstempler i JSON.",
+    "dropTitle": "Slip en CSV- eller Excel-fil",
+    "dropHint": "Første ark bruges til .xlsx / .xls. CSV skal have en header-række.",
+    "chooseFile": "Vælg fil",
+    "jsonLabel": "JSON (array af objekter)",
+    "jsonPlaceholder": "Indsæt et JSON-array af objekter, eller importér CSV / Excel…",
+    "loadSample": "Indlæs eksempel",
+    "actions": {
+      "format": "Formatér JSON",
+      "clear": "Ryd",
+      "copy": "Kopiér",
+      "copied": "Kopieret",
+      "downloadCsv": "Download CSV",
+      "downloadXlsx": "Download Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Data",
+    "toastLoadedCsv": "CSV indlæst i editoren",
+    "toastLoadedExcel": "Excel indlæst i editoren",
+    "toastFormatted": "JSON formateret",
+    "toastExportedCsv": "CSV downloadet",
+    "toastExportedXlsx": "Excel downloadet",
+    "toastCopied": "Kopieret til udklipsholder",
+    "footnote": "Alt kører i din browser. JSON skal være et ikke-tomt array af objekter. Indlejrede værdier serialiseres som JSON i CSV-celler.",
+    "errors": {
+      "unsupportedFile": "Brug en .csv-, .xlsx- eller .xls-fil.",
+      "parseFailed": "Kunne ikke læse filen.",
+      "invalidJson": "Ugyldig JSON",
+      "exportFailed": "Eksport mislykkedes",
+      "copyFailed": "Kunne ikke kopiere"
+    }
   }
 }

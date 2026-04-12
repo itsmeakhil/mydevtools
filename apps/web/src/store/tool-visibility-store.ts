@@ -16,6 +16,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/regex-tester',
   '/app/timestamp-converter',
   '/app/cron-builder',
+  '/app/csv-excel-json',
   '/app/api-client',
   '/app/nosql-explorer',
   '/app/url-encode',

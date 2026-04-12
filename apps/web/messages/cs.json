@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "Generátor JSON schématu",
     "imageToBase64": "Obrázek do Base64",
     "cssGradientBuilder": "CSS Gradient Builder",
-    "gitignoreGenerator": "Generátor .gitignore"
+    "gitignoreGenerator": "Generátor .gitignore",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": "Generátor .gitignore",
         "description": "Okamžitě vygenerujte sloučené soubory .gitignore z více než 500 technologických zásobníků."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Převádějte soubory CSV nebo Excel do JSON a exportujte zpět do CSV nebo XLSX."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "Vygenerování souboru .gitignore z vybraných zásobníků se nezdařilo.",
     "generating": "Generování...",
     "emptyState": "Vyberte jeden nebo více technologických zásobníků pro generování vašeho .gitignore."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Nahrajte CSV nebo Excel, upravte JSON a stáhněte CSV nebo XLSX. Pouze tabulková data; data z Excelu budou v JSON jako ISO časové značky.",
+    "dropTitle": "Přetáhněte soubor CSV nebo Excel",
+    "dropHint": "U .xlsx / .xls se použije první list. CSV musí mít řádek záhlaví.",
+    "chooseFile": "Vybrat soubor",
+    "jsonLabel": "JSON (pole objektů)",
+    "jsonPlaceholder": "Vložte JSON pole objektů nebo importujte CSV / Excel…",
+    "loadSample": "Načíst ukázku",
+    "actions": {
+      "format": "Formátovat JSON",
+      "clear": "Vymazat",
+      "copy": "Kopírovat",
+      "copied": "Zkopírováno",
+      "downloadCsv": "Stáhnout CSV",
+      "downloadXlsx": "Stáhnout Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Data",
+    "toastLoadedCsv": "CSV načteno do editoru",
+    "toastLoadedExcel": "Excel načten do editoru",
+    "toastFormatted": "JSON naformátováno",
+    "toastExportedCsv": "CSV staženo",
+    "toastExportedXlsx": "Excel stažen",
+    "toastCopied": "Zkopírováno do schránky",
+    "footnote": "Vše probíhá v prohlížeči. JSON musí být neprázdné pole objektů. Vnořené hodnoty se v buňkách CSV serializují jako JSON.",
+    "errors": {
+      "unsupportedFile": "Použijte soubor .csv, .xlsx nebo .xls.",
+      "parseFailed": "Soubor nelze zpracovat.",
+      "invalidJson": "Neplatný JSON",
+      "exportFailed": "Export se nezdařil",
+      "copyFailed": "Kopírování se nezdařilo"
+    }
   }
 }

@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "Generador d'esquema JSON",
     "imageToBase64": "Imatge a Base64",
     "cssGradientBuilder": "Creador de degradats CSS",
-    "gitignoreGenerator": "Generador .gitignore"
+    "gitignoreGenerator": "Generador .gitignore",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": "Generador .gitignore",
         "description": "Genereu fitxers .gitignore combinats a l'instant a partir de més de 500 piles tecnològiques."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Converteix fitxers CSV o Excel a JSON i exporta de nou a CSV o XLSX."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "No s'ha pogut generar .gitignore a partir de les piles seleccionades.",
     "generating": "Generant...",
     "emptyState": "Seleccioneu una o més piles de tecnologia per generar el vostre .gitignore."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Puja CSV o Excel, edita el JSON i descarrega CSV o XLSX. Només dades tabulars; les dates d’Excel passen a ISO al JSON.",
+    "dropTitle": "Deixa anar un CSV o Excel",
+    "dropHint": "Per a .xlsx / .xls s’usa el primer full. El CSV ha de tenir fila de capçalera.",
+    "chooseFile": "Trieu un fitxer",
+    "jsonLabel": "JSON (matriu d’objectes)",
+    "jsonPlaceholder": "Enganxa una matriu JSON d’objectes o importa CSV / Excel…",
+    "loadSample": "Carregar exemple",
+    "actions": {
+      "format": "Formatejar JSON",
+      "clear": "Netejar",
+      "copy": "Copiar",
+      "copied": "Copiat",
+      "downloadCsv": "Descarregar CSV",
+      "downloadXlsx": "Descarregar Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Dades",
+    "toastLoadedCsv": "CSV carregat a l’editor",
+    "toastLoadedExcel": "Excel carregat a l’editor",
+    "toastFormatted": "JSON formatat",
+    "toastExportedCsv": "CSV descarregat",
+    "toastExportedXlsx": "Excel descarregat",
+    "toastCopied": "Copiat al porta-retalls",
+    "footnote": "Tot s’executa al navegador. El JSON ha de ser una matriu no buida d’objectes. Els valors imbricats es serialitzen com a JSON a les cel·les CSV.",
+    "errors": {
+      "unsupportedFile": "Utilitza un fitxer .csv, .xlsx o .xls.",
+      "parseFailed": "No s’ha pogut analitzar el fitxer.",
+      "invalidJson": "JSON no vàlid",
+      "exportFailed": "Ha fallat l’exportació",
+      "copyFailed": "No s’ha pogut copiar"
+    }
   }
 }

@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "Trình tạo lược đồ JSON",
     "imageToBase64": "Hình ảnh tới Base64",
     "cssGradientBuilder": "Trình tạo độ dốc CSS",
-    "gitignoreGenerator": "Trình tạo .gitignore"
+    "gitignoreGenerator": "Trình tạo .gitignore",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": "Trình tạo .gitignore",
         "description": "Tạo các tệp .gitignore đã hợp nhất ngay lập tức từ hơn 500 nhóm công nghệ."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Chuyển file CSV hoặc Excel sang JSON và xuất lại CSV hoặc XLSX."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "Không tạo được .gitignore từ các ngăn xếp đã chọn.",
     "generating": "Đang tạo...",
     "emptyState": "Chọn một hoặc nhiều nhóm công nghệ để tạo .gitignore của bạn."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Tải CSV hoặc Excel, chỉnh JSON, rồi tải CSV hoặc XLSX. Chỉ dữ liệu dạng bảng; ô ngày trong Excel thành dấu thời gian ISO trong JSON.",
+    "dropTitle": "Thả file CSV hoặc Excel",
+    "dropHint": "Với .xlsx / .xls dùng sheet đầu tiên. CSV cần có dòng tiêu đề.",
+    "chooseFile": "Chọn file",
+    "jsonLabel": "JSON (mảng đối tượng)",
+    "jsonPlaceholder": "Dán mảng JSON đối tượng hoặc nhập CSV / Excel…",
+    "loadSample": "Tải mẫu",
+    "actions": {
+      "format": "Định dạng JSON",
+      "clear": "Xóa",
+      "copy": "Sao chép",
+      "copied": "Đã sao chép",
+      "downloadCsv": "Tải CSV",
+      "downloadXlsx": "Tải Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Dữ liệu",
+    "toastLoadedCsv": "Đã tải CSV vào trình sửa",
+    "toastLoadedExcel": "Đã tải Excel vào trình sửa",
+    "toastFormatted": "Đã định dạng JSON",
+    "toastExportedCsv": "Đã tải CSV",
+    "toastExportedXlsx": "Đã tải Excel",
+    "toastCopied": "Đã sao chép vào clipboard",
+    "footnote": "Mọi thứ chạy trong trình duyệt. JSON phải là mảng đối tượng không rỗng. Giá trị lồng nhau được chuỗi hóa JSON trong ô CSV.",
+    "errors": {
+      "unsupportedFile": "Dùng file .csv, .xlsx hoặc .xls.",
+      "parseFailed": "Không thể phân tích file này.",
+      "invalidJson": "JSON không hợp lệ",
+      "exportFailed": "Xuất thất bại",
+      "copyFailed": "Không thể sao chép"
+    }
   }
 }

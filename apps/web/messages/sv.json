@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "JSON-schemagenerator",
     "imageToBase64": "Bild till Base64",
     "cssGradientBuilder": "CSS Gradient Builder",
-    "gitignoreGenerator": ".gitignore Generator"
+    "gitignoreGenerator": ".gitignore Generator",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": ".gitignore Generator",
         "description": "Generera sammanslagna .gitignore-filer direkt från 500+ tekniska stackar."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Konvertera CSV- eller Excel-filer till JSON och exportera tillbaka till CSV eller XLSX."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "Det gick inte att generera .gitignore från valda stackar.",
     "generating": "Alstrande...",
     "emptyState": "Välj en eller flera teknikstackar för att generera din .gitignore."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Ladda upp CSV eller Excel, redigera JSON och ladda ner CSV eller XLSX. Endast tabell data; Excel-datum blir ISO-tidsstämplar i JSON.",
+    "dropTitle": "Släpp en CSV- eller Excel-fil",
+    "dropHint": "Första arbetsbladet används för .xlsx / .xls. CSV måste ha en rubrikrad.",
+    "chooseFile": "Välj fil",
+    "jsonLabel": "JSON (array av objekt)",
+    "jsonPlaceholder": "Klistra in JSON-array av objekt eller importera CSV / Excel…",
+    "loadSample": "Ladda exempel",
+    "actions": {
+      "format": "Formatera JSON",
+      "clear": "Rensa",
+      "copy": "Kopiera",
+      "copied": "Kopierat",
+      "downloadCsv": "Ladda ner CSV",
+      "downloadXlsx": "Ladda ner Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Data",
+    "toastLoadedCsv": "CSV laddad i redigeraren",
+    "toastLoadedExcel": "Excel laddad i redigeraren",
+    "toastFormatted": "JSON formaterat",
+    "toastExportedCsv": "CSV nedladdad",
+    "toastExportedXlsx": "Excel nedladdad",
+    "toastCopied": "Kopierat till urklipp",
+    "footnote": "Allt körs i webbläsaren. JSON måste vara en icke-tom array av objekt. Kapslade värden serialiseras som JSON i CSV-celler.",
+    "errors": {
+      "unsupportedFile": "Använd en .csv-, .xlsx- eller .xls-fil.",
+      "parseFailed": "Kunde inte tolka filen.",
+      "invalidJson": "Ogiltig JSON",
+      "exportFailed": "Export misslyckades",
+      "copyFailed": "Kunde inte kopiera"
+    }
   }
 }

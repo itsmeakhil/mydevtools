@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "JSON Şema Oluşturucu",
     "imageToBase64": "Base64'e görüntü",
     "cssGradientBuilder": "CSS Degrade Oluşturucu",
-    "gitignoreGenerator": ".gitignore Oluşturucu"
+    "gitignoreGenerator": ".gitignore Oluşturucu",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": ".gitignore Oluşturucu",
         "description": "500'den fazla teknoloji yığınından anında birleştirilmiş .gitignore dosyaları oluşturun."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "CSV veya Excel dosyalarını JSON’a dönüştürün ve tekrar CSV veya XLSX olarak dışa aktarın."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "Seçilen yığınlardan .gitignore oluşturulamadı.",
     "generating": "Oluşturuluyor...",
     "emptyState": ".gitignore'unuzu oluşturmak için bir veya daha fazla teknoloji yığını seçin."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "CSV veya Excel yükleyin, JSON’u düzenleyin, ardından CSV veya XLSX indirin. Yalnızca tablo verisi; Excel tarih hücreleri JSON’da ISO zaman damgası olur.",
+    "dropTitle": "CSV veya Excel dosyasını bırakın",
+    "dropHint": ".xlsx / .xls için ilk çalışma sayfası kullanılır. CSV’de başlık satırı olmalıdır.",
+    "chooseFile": "Dosya seç",
+    "jsonLabel": "JSON (nesne dizisi)",
+    "jsonPlaceholder": "Nesnelerden oluşan JSON dizisini yapıştırın veya CSV / Excel içe aktarın…",
+    "loadSample": "Örnek yükle",
+    "actions": {
+      "format": "JSON’u biçimlendir",
+      "clear": "Temizle",
+      "copy": "Kopyala",
+      "copied": "Kopyalandı",
+      "downloadCsv": "CSV indir",
+      "downloadXlsx": "Excel indir"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Veri",
+    "toastLoadedCsv": "CSV düzenleyiciye yüklendi",
+    "toastLoadedExcel": "Excel düzenleyiciye yüklendi",
+    "toastFormatted": "JSON biçimlendirildi",
+    "toastExportedCsv": "CSV indirildi",
+    "toastExportedXlsx": "Excel indirildi",
+    "toastCopied": "Panoya kopyalandı",
+    "footnote": "Her şey tarayıcıda çalışır. JSON boş olmayan bir nesne dizisi olmalıdır. İç içe değerler CSV hücrelerinde JSON olarak serileştirilir.",
+    "errors": {
+      "unsupportedFile": ".csv, .xlsx veya .xls dosyası kullanın.",
+      "parseFailed": "Bu dosya ayrıştırılamadı.",
+      "invalidJson": "Geçersiz JSON",
+      "exportFailed": "Dışa aktarma başarısız",
+      "copyFailed": "Kopyalanamadı"
+    }
   }
 }

@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "JSON-schema-generator",
     "imageToBase64": "Afbeelding naar Base64",
     "cssGradientBuilder": "CSS-verloopbouwer",
-    "gitignoreGenerator": ".gitignore-generator"
+    "gitignoreGenerator": ".gitignore-generator",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": ".gitignore-generator",
         "description": "Genereer direct samengevoegde .gitignore-bestanden uit meer dan 500 tech-stacks."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Zet CSV- of Excel-bestanden om naar JSON en exporteer terug naar CSV of XLSX."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "Kan .gitignore niet genereren van geselecteerde stapels.",
     "generating": "Genereren...",
     "emptyState": "Selecteer een of meer tech-stacks om uw .gitignore te genereren."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Upload CSV of Excel, bewerk JSON en download CSV of XLSX. Alleen tabelgegevens; Excel-datums worden ISO-tijdstempels in JSON.",
+    "dropTitle": "Sleep een CSV- of Excel-bestand hierheen",
+    "dropHint": "Voor .xlsx / .xls wordt het eerste werkblad gebruikt. CSV moet een kopregel hebben.",
+    "chooseFile": "Bestand kiezen",
+    "jsonLabel": "JSON (array van objecten)",
+    "jsonPlaceholder": "Plak een JSON-array van objecten of importeer CSV / Excel…",
+    "loadSample": "Voorbeeld laden",
+    "actions": {
+      "format": "JSON formatteren",
+      "clear": "Wissen",
+      "copy": "Kopiëren",
+      "copied": "Gekopieerd",
+      "downloadCsv": "CSV downloaden",
+      "downloadXlsx": "Excel downloaden"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Gegevens",
+    "toastLoadedCsv": "CSV geladen in editor",
+    "toastLoadedExcel": "Excel-bestand geladen in editor",
+    "toastFormatted": "JSON geformatteerd",
+    "toastExportedCsv": "CSV gedownload",
+    "toastExportedXlsx": "Excel gedownload",
+    "toastCopied": "Gekopieerd naar klembord",
+    "footnote": "Alles draait in je browser. JSON moet een niet-lege array van objecten zijn. Geneste waarden worden als JSON in CSV-cellen gezet.",
+    "errors": {
+      "unsupportedFile": "Gebruik een .csv-, .xlsx- of .xls-bestand.",
+      "parseFailed": "Dit bestand kon niet worden gelezen.",
+      "invalidJson": "Ongeldige JSON",
+      "exportFailed": "Exporteren mislukt",
+      "copyFailed": "Kopiëren mislukt"
+    }
   }
 }

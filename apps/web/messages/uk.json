@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "Генератор JSON-схеми",
     "imageToBase64": "Зображення до Base64",
     "cssGradientBuilder": "Конструктор градієнтів CSS",
-    "gitignoreGenerator": "Генератор .gitignore"
+    "gitignoreGenerator": "Генератор .gitignore",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "Довідка та документація",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": "Генератор .gitignore",
         "description": "Миттєво створюйте об’єднані файли .gitignore із понад 500 стеків технологій."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Перетворюйте CSV або Excel на JSON і експортуйте назад у CSV чи XLSX."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "Не вдалося створити .gitignore із вибраних стеків.",
     "generating": "Створення...",
     "emptyState": "Виберіть один або кілька технічних стеків, щоб створити свій .gitignore."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Завантажте CSV або Excel, відредагуйте JSON, потім завантажте CSV або XLSX. Лише табличні дані; дати Excel стають ISO-мітками часу в JSON.",
+    "dropTitle": "Перетягніть файл CSV або Excel",
+    "dropHint": "Для .xlsx / .xls використовується перший аркуш. CSV має містити рядок заголовків.",
+    "chooseFile": "Вибрати файл",
+    "jsonLabel": "JSON (масив об’єктів)",
+    "jsonPlaceholder": "Вставте JSON-масив об’єктів або імпортуйте CSV / Excel…",
+    "loadSample": "Завантажити приклад",
+    "actions": {
+      "format": "Форматувати JSON",
+      "clear": "Очистити",
+      "copy": "Копіювати",
+      "copied": "Скопійовано",
+      "downloadCsv": "Завантажити CSV",
+      "downloadXlsx": "Завантажити Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Дані",
+    "toastLoadedCsv": "CSV завантажено в редактор",
+    "toastLoadedExcel": "Excel завантажено в редактор",
+    "toastFormatted": "JSON відформатовано",
+    "toastExportedCsv": "CSV завантажено",
+    "toastExportedXlsx": "Excel завантажено",
+    "toastCopied": "Скопійовано в буфер",
+    "footnote": "Усе працює у браузері. JSON має бути непустим масивом об’єктів. Вкладені значення серіалізуються в JSON у комірках CSV.",
+    "errors": {
+      "unsupportedFile": "Використайте файл .csv, .xlsx або .xls.",
+      "parseFailed": "Не вдалося розібрати файл.",
+      "invalidJson": "Некоректний JSON",
+      "exportFailed": "Помилка експорту",
+      "copyFailed": "Не вдалося скопіювати"
+    }
   }
 }

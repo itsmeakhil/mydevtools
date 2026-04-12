@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "تولیدکنندهٔ طرح JSON",
     "imageToBase64": "تصویر به Base64",
     "cssGradientBuilder": "CSS Gradient Builder",
-    "gitignoreGenerator": ".gitignore Generator"
+    "gitignoreGenerator": ".gitignore Generator",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": ".gitignore Generator",
         "description": "فایل‌های gitignore. ادغام شده را فوراً از بیش از 500 پشته فناوری ایجاد کنید."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "فایل‌های CSV یا Excel را به JSON تبدیل کنید و دوباره به CSV یا XLSX صادر کنید."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "gitignore. از پشته های انتخابی ایجاد نشد.",
     "generating": "در حال تولید...",
     "emptyState": "برای ایجاد .gitignore خود یک یا چند پشته فناوری انتخاب کنید."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "CSV یا Excel را بارگذاری کنید، JSON را ویرایش کنید، سپس CSV یا XLSX را دانلود کنید. فقط داده جدولی؛ سلول‌های تاریخ Excel در JSON به برچسب زمانی ISO تبدیل می‌شوند.",
+    "dropTitle": "فایل CSV یا Excel را رها کنید",
+    "dropHint": "برای .xlsx / .xls از اولین برگه استفاده می‌شود. CSV باید سطر سرستون داشته باشد.",
+    "chooseFile": "انتخاب فایل",
+    "jsonLabel": "JSON (آرایه‌ای از شیءها)",
+    "jsonPlaceholder": "آرایه JSON از شیءها را بچسبانید یا CSV / Excel وارد کنید…",
+    "loadSample": "بارگذاری نمونه",
+    "actions": {
+      "format": "قالب‌بندی JSON",
+      "clear": "پاک کردن",
+      "copy": "کپی",
+      "copied": "کپی شد",
+      "downloadCsv": "دانلود CSV",
+      "downloadXlsx": "دانلود Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "داده",
+    "toastLoadedCsv": "CSV در ویرایشگر بارگذاری شد",
+    "toastLoadedExcel": "Excel در ویرایشگر بارگذاری شد",
+    "toastFormatted": "JSON قالب‌بندی شد",
+    "toastExportedCsv": "CSV دانلود شد",
+    "toastExportedXlsx": "Excel دانلود شد",
+    "toastCopied": "در کلیپ‌بورد کپی شد",
+    "footnote": "همه‌چیز در مرورگر اجرا می‌شود. JSON باید آرایه‌ای غیرخالی از شیءها باشد. مقادیر تودرتو در سلول‌های CSV به صورت JSON سریال می‌شوند.",
+    "errors": {
+      "unsupportedFile": "از فایل .csv، .xlsx یا .xls استفاده کنید.",
+      "parseFailed": "این فایل قابل تجزیه نیست.",
+      "invalidJson": "JSON نامعتبر",
+      "exportFailed": "صادرات ناموفق",
+      "copyFailed": "کپی نشد"
+    }
   }
 }

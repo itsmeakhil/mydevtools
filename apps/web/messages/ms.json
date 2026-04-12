@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "Penjana Skema JSON",
     "imageToBase64": "Imej ke Base64",
     "cssGradientBuilder": "Pembina Kecerunan CSS",
-    "gitignoreGenerator": "Penjana .gitignore"
+    "gitignoreGenerator": "Penjana .gitignore",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": "Penjana .gitignore",
         "description": "Hasilkan fail .gitignore yang digabungkan serta-merta daripada 500+ susunan teknologi."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Tukar fail CSV atau Excel kepada JSON dan eksport semula ke CSV atau XLSX."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "Gagal menjana .gitignore daripada tindanan yang dipilih.",
     "generating": "Menjana...",
     "emptyState": "Pilih satu atau lebih tindanan teknologi untuk menjana .gitignore anda."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Muat naik CSV atau Excel, edit JSON, kemudian muat turun CSV atau XLSX. Data jadual sahaja; tarikh Excel menjadi cap masa ISO dalam JSON.",
+    "dropTitle": "Lepaskan fail CSV atau Excel",
+    "dropHint": "Untuk .xlsx / .xls, helaian pertama digunakan. CSV mesti ada baris pengepala.",
+    "chooseFile": "Pilih fail",
+    "jsonLabel": "JSON (tatasusunan objek)",
+    "jsonPlaceholder": "Tampal tatasusunan JSON objek atau import CSV / Excel…",
+    "loadSample": "Muat contoh",
+    "actions": {
+      "format": "Format JSON",
+      "clear": "Kosongkan",
+      "copy": "Salin",
+      "copied": "Disalin",
+      "downloadCsv": "Muat turun CSV",
+      "downloadXlsx": "Muat turun Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Data",
+    "toastLoadedCsv": "CSV dimuatkan ke editor",
+    "toastLoadedExcel": "Excel dimuatkan ke editor",
+    "toastFormatted": "JSON diformat",
+    "toastExportedCsv": "CSV dimuat turun",
+    "toastExportedXlsx": "Excel dimuat turun",
+    "toastCopied": "Disalin ke papan keratan",
+    "footnote": "Semua berjalan dalam pelayar. JSON mesti tatasusunan objek yang tidak kosong. Nilai bersarang disirikan sebagai JSON dalam sel CSV.",
+    "errors": {
+      "unsupportedFile": "Guna fail .csv, .xlsx atau .xls.",
+      "parseFailed": "Tidak dapat menghuraikan fail ini.",
+      "invalidJson": "JSON tidak sah",
+      "exportFailed": "Eksport gagal",
+      "copyFailed": "Tidak dapat menyalin"
+    }
   }
 }

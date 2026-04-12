@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "Gerador de esquema JSON",
     "imageToBase64": "Imagem para Base64",
     "cssGradientBuilder": "Construtor de gradiente CSS",
-    "gitignoreGenerator": "Gerador .gitignore"
+    "gitignoreGenerator": "Gerador .gitignore",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "Ajuda e documentação",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": "Gerador .gitignore",
         "description": "Gere arquivos .gitignore mesclados instantaneamente a partir de mais de 500 pilhas de tecnologia."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Converta ficheiros CSV ou Excel para JSON e exporte para CSV ou XLSX."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "Falha ao gerar .gitignore das pilhas selecionadas.",
     "generating": "Gerando...",
     "emptyState": "Selecione uma ou mais pilhas de tecnologia para gerar seu .gitignore."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Carregue CSV ou Excel, edite o JSON e descarregue CSV ou XLSX. Apenas dados tabulares; as datas do Excel passam a ISO no JSON.",
+    "dropTitle": "Largue um ficheiro CSV ou Excel",
+    "dropHint": "Para .xlsx / .xls usa-se a primeira folha. O CSV precisa de linha de cabeçalho.",
+    "chooseFile": "Escolher ficheiro",
+    "jsonLabel": "JSON (array de objetos)",
+    "jsonPlaceholder": "Cole um array JSON de objetos ou importe CSV / Excel…",
+    "loadSample": "Carregar exemplo",
+    "actions": {
+      "format": "Formatar JSON",
+      "clear": "Limpar",
+      "copy": "Copiar",
+      "copied": "Copiado",
+      "downloadCsv": "Descarregar CSV",
+      "downloadXlsx": "Descarregar Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Dados",
+    "toastLoadedCsv": "CSV carregado no editor",
+    "toastLoadedExcel": "Excel carregado no editor",
+    "toastFormatted": "JSON formatado",
+    "toastExportedCsv": "CSV descarregado",
+    "toastExportedXlsx": "Excel descarregado",
+    "toastCopied": "Copiado para a área de transferência",
+    "footnote": "Tudo corre no navegador. O JSON deve ser um array não vazio de objetos. Valores aninhados são serializados em JSON nas células CSV.",
+    "errors": {
+      "unsupportedFile": "Use um ficheiro .csv, .xlsx ou .xls.",
+      "parseFailed": "Não foi possível analisar o ficheiro.",
+      "invalidJson": "JSON inválido",
+      "exportFailed": "Falha na exportação",
+      "copyFailed": "Não foi possível copiar"
+    }
   }
 }

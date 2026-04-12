@@ -27,6 +27,7 @@ import {
   Image as ImageIcon,
   Paintbrush,
   FileMinus,
+  FileSpreadsheet,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
@@ -71,6 +72,7 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
   '/app/cron-builder': { title: 'Cron Builder', icon: Repeat, namespace: 'CronBuilder' },
   '/app/sql-formatter': { title: 'SQL Formatter', icon: Table2, namespace: 'SqlFormatter' },
   '/app/diff-checker': { title: 'Diff checker', icon: GitCompare, namespace: 'DiffChecker' },
+  '/app/csv-excel-json': { title: 'CSV / Excel ↔ JSON', icon: FileSpreadsheet, namespace: 'CsvExcelJson' },
 };
 
 export function NavBar() {

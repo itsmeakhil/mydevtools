@@ -26,6 +26,7 @@ import {
   IconPhoto,
   IconColorSwatch,
   IconFileMinus,
+  IconFileSpreadsheet,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -124,6 +125,12 @@ export const sidebarData: SidebarData = {
           url: '/app/css-gradient-builder',
           icon: IconColorSwatch,
           description: 'Visual CSS gradient builder with angle control and color stops.',
+        },
+        {
+          title: 'CSV / Excel ↔ JSON',
+          url: '/app/csv-excel-json',
+          icon: IconFileSpreadsheet,
+          description: 'Convert CSV or Excel files to JSON and back. File upload with sensible dates.',
         },
         {
           title: 'Cron Builder',
