@@ -56,6 +56,7 @@ Most developer tools are scattered across dozens of tabs, riddled with ads, or s
 | **🗄️ NoSQL Explorer** | Connect to MongoDB, browse databases & collections, and run queries with a visual data viewer |
 | **📝 JSON Formatter** | Beautify, validate, minify, and explore JSON with Monaco Editor |
 | **📐 JSON Schema Generator** | Auto-generate JSON Schema from any JSON input instantly |
+| **🙈 .gitignore Generator** | Generate merged .gitignore files instantly from 500+ tech stacks |
 | **🔑 JWT Decoder** | Decode and inspect JWT tokens — header, payload, and signature at a glance |
 | **🧬 Regex Tester** | Test regular expressions in real time with match highlighting and capture group breakdown |
 | **🛢️ SQL Formatter** | Format and prettify SQL queries with dialect support |

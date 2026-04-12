@@ -23,7 +23,8 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generator schematu JSON",
-    "cssGradientBuilder": "Kreator gradientów CSS"
+    "cssGradientBuilder": "Kreator gradientów CSS",
+    "gitignoreGenerator": "Generator .gitignore"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -293,6 +294,10 @@
       "cssGradientBuilder": {
         "title": "Kreator gradientów CSS",
         "description": "Wizualny kreator gradientów CSS z kontrolą kąta i przystankami kolorów."
+      },
+      "gitignoreGenerator": {
+        "title": "Generator .gitignore",
+        "description": "Natychmiast generuj scalone pliki .gitignore z ponad 500 stosów technologii."
       }
     },
     "tabs": {
@@ -2090,5 +2095,21 @@
     "randomize": "Randomize",
     "reverse": "Reverse",
     "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Generator .gitignore",
+    "subtitle": "Natychmiast generuj scalone pliki .gitignore dla określonego stosu technologii lub kombinacji.",
+    "searchPlaceholder": "Przeszukaj stosy (np. Node, Python, macOS)...",
+    "noResults": "Nie znaleziono stosów.",
+    "selectedStacks": "Wybrane stosy",
+    "output": "Podgląd wyników",
+    "copy": "Skopiuj do schowka",
+    "copied": "Skopiowano!",
+    "download": "Pobierz .gitignore",
+    "downloading": "Ściąganie...",
+    "errorFetching": "Nie udało się pobrać listy najlepszych.",
+    "errorGenerating": "Nie udało się wygenerować pliku .gitignore z wybranych stosów.",
+    "generating": "Generowanie...",
+    "emptyState": "Wybierz jeden lub więcej stosów technologii, aby wygenerować plik .gitignore."
   }
 }

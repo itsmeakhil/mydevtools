@@ -23,7 +23,8 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Penjana Skema JSON",
-    "cssGradientBuilder": "Pembina Kecerunan CSS"
+    "cssGradientBuilder": "Pembina Kecerunan CSS",
+    "gitignoreGenerator": "Penjana .gitignore"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -293,6 +294,10 @@
       "cssGradientBuilder": {
         "title": "Pembina Kecerunan CSS",
         "description": "Pembina kecerunan CSS visual dengan kawalan sudut dan hentian warna."
+      },
+      "gitignoreGenerator": {
+        "title": "Penjana .gitignore",
+        "description": "Hasilkan fail .gitignore yang digabungkan serta-merta daripada 500+ susunan teknologi."
       }
     },
     "tabs": {
@@ -2090,5 +2095,21 @@
     "randomize": "Randomize",
     "reverse": "Reverse",
     "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Penjana .gitignore",
+    "subtitle": "Hasilkan fail .gitignore yang digabungkan serta-merta untuk susunan atau gabungan teknologi tertentu.",
+    "searchPlaceholder": "Cari tindanan (cth. Node, Python, macOS)...",
+    "noResults": "Tiada tindanan ditemui.",
+    "selectedStacks": "Timbunan Terpilih",
+    "output": "Pratonton Output",
+    "copy": "Salin ke Papan Klip",
+    "copied": "disalin!",
+    "download": "Muat turun .giignore",
+    "downloading": "Memuat turun...",
+    "errorFetching": "Gagal mengambil senarai teratas.",
+    "errorGenerating": "Gagal menjana .gitignore daripada tindanan yang dipilih.",
+    "generating": "Menjana...",
+    "emptyState": "Pilih satu atau lebih tindanan teknologi untuk menjana .gitignore anda."
   }
 }

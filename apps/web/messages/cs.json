@@ -23,7 +23,8 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generátor JSON schématu",
-    "cssGradientBuilder": "CSS Gradient Builder"
+    "cssGradientBuilder": "CSS Gradient Builder",
+    "gitignoreGenerator": "Generátor .gitignore"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -293,6 +294,10 @@
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
         "description": "Vizuální tvůrce přechodů CSS s ovládáním úhlu a barevnými zarážkami."
+      },
+      "gitignoreGenerator": {
+        "title": "Generátor .gitignore",
+        "description": "Okamžitě vygenerujte sloučené soubory .gitignore z více než 500 technologických zásobníků."
       }
     },
     "tabs": {
@@ -2090,5 +2095,21 @@
     "randomize": "Randomize",
     "reverse": "Reverse",
     "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Generátor .gitignore",
+    "subtitle": "Okamžitě vygenerujte sloučené soubory .gitignore pro konkrétní sadu technologií nebo kombinaci.",
+    "searchPlaceholder": "Prohledat zásobníky (např. Node, Python, macOS)...",
+    "noResults": "Nebyly nalezeny žádné zásobníky.",
+    "selectedStacks": "Vybrané zásobníky",
+    "output": "Náhled výstupu",
+    "copy": "Kopírovat do schránky",
+    "copied": "Zkopírováno!",
+    "download": "Stáhnout .gitignore",
+    "downloading": "Stahování...",
+    "errorFetching": "Nepodařilo se načíst top-tal seznam.",
+    "errorGenerating": "Vygenerování souboru .gitignore z vybraných zásobníků se nezdařilo.",
+    "generating": "Generování...",
+    "emptyState": "Vyberte jeden nebo více technologických zásobníků pro generování vašeho .gitignore."
   }
 }

@@ -23,7 +23,8 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-schema-generator",
-    "cssGradientBuilder": "CSS-verloopbouwer"
+    "cssGradientBuilder": "CSS-verloopbouwer",
+    "gitignoreGenerator": ".gitignore-generator"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -293,6 +294,10 @@
       "cssGradientBuilder": {
         "title": "CSS-verloopbouwer",
         "description": "Visuele CSS-gradiëntbouwer met hoekcontrole en kleurstops."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore-generator",
+        "description": "Genereer direct samengevoegde .gitignore-bestanden uit meer dan 500 tech-stacks."
       }
     },
     "tabs": {
@@ -2090,5 +2095,21 @@
     "randomize": "Randomize",
     "reverse": "Reverse",
     "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore-generator",
+    "subtitle": "Genereer direct samengevoegde .gitignore-bestanden voor een specifieke tech-stack of combinatie.",
+    "searchPlaceholder": "Zoekstapels (bijv. Node, Python, macOS)...",
+    "noResults": "Geen stapels gevonden.",
+    "selectedStacks": "Geselecteerde stapels",
+    "output": "Voorbeeld van uitvoer",
+    "copy": "Kopiëren naar Klembord",
+    "copied": "Gekopieerd!",
+    "download": "Download .gitignore",
+    "downloading": "Downloaden...",
+    "errorFetching": "Kan de toplijst niet ophalen.",
+    "errorGenerating": "Kan .gitignore niet genereren van geselecteerde stapels.",
+    "generating": "Genereren...",
+    "emptyState": "Selecteer een of meer tech-stacks om uw .gitignore te genereren."
   }
 }

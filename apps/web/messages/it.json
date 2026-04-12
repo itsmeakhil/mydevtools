@@ -23,7 +23,8 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generatore di schema JSON",
-    "cssGradientBuilder": "Generatore di gradienti CSS"
+    "cssGradientBuilder": "Generatore di gradienti CSS",
+    "gitignoreGenerator": "Generatore .gitignore"
   },
   "Help": {
     "title": "Aiuto e documentazione",
@@ -293,6 +294,10 @@
       "cssGradientBuilder": {
         "title": "Generatore di gradienti CSS",
         "description": "Generatore di gradienti visivi CSS con controllo dell'angolo e interruzioni del colore."
+      },
+      "gitignoreGenerator": {
+        "title": "Generatore .gitignore",
+        "description": "Genera istantaneamente file .gitignore uniti da oltre 500 stack tecnologici."
       }
     },
     "tabs": {
@@ -2090,5 +2095,21 @@
     "randomize": "Randomize",
     "reverse": "Reverse",
     "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Generatore .gitignore",
+    "subtitle": "Genera istantaneamente file .gitignore uniti per uno stack tecnologico o una combinazione specifica.",
+    "searchPlaceholder": "Stack di ricerca (ad esempio Node, Python, macOS)...",
+    "noResults": "Nessuno stack trovato.",
+    "selectedStacks": "Stack selezionati",
+    "output": "Anteprima dell'output",
+    "copy": "Copia negli appunti",
+    "copied": "Copiato!",
+    "download": "Scarica .gitignore",
+    "downloading": "Download in corso...",
+    "errorFetching": "Impossibile recuperare l'elenco dei migliori risultati.",
+    "errorGenerating": "Impossibile generare .gitignore dagli stack selezionati.",
+    "generating": "Generazione...",
+    "emptyState": "Seleziona uno o più stack tecnologici per generare il tuo .gitignore."
   }
 }

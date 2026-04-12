@@ -23,7 +23,8 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Генератор JSON-схемы",
-    "cssGradientBuilder": "Конструктор CSS-градиентов"
+    "cssGradientBuilder": "Конструктор CSS-градиентов",
+    "gitignoreGenerator": "Генератор .gitignore"
   },
   "Help": {
     "title": "Справка и документация",
@@ -293,6 +294,10 @@
       "cssGradientBuilder": {
         "title": "Конструктор CSS-градиентов",
         "description": "Визуальный конструктор градиентов CSS с контролем угла и остановками цвета."
+      },
+      "gitignoreGenerator": {
+        "title": "Генератор .gitignore",
+        "description": "Мгновенно создавайте объединенные файлы .gitignore из более чем 500 технологических стеков."
       }
     },
     "tabs": {
@@ -2090,5 +2095,21 @@
     "randomize": "Randomize",
     "reverse": "Reverse",
     "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Генератор .gitignore",
+    "subtitle": "Мгновенно создавайте объединенные файлы .gitignore для определенного технологического стека или комбинации.",
+    "searchPlaceholder": "Стеки поиска (например, Node, Python, macOS)...",
+    "noResults": "Стеки не найдены.",
+    "selectedStacks": "Выбранные стеки",
+    "output": "Предварительный просмотр вывода",
+    "copy": "Копировать в буфер обмена",
+    "copied": "Скопировано!",
+    "download": "Скачать .gitignore",
+    "downloading": "Загрузка...",
+    "errorFetching": "Не удалось получить список самых популярных пользователей.",
+    "errorGenerating": "Не удалось создать .gitignore из выбранных стеков.",
+    "generating": "Создание...",
+    "emptyState": "Выберите один или несколько стеков технологий для создания вашего .gitignore."
   }
 }

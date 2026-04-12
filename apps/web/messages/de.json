@@ -23,7 +23,8 @@
     "apiClient": "API-Client",
     "nosqlExplorer": "NoSQL-Explorer",
     "jsonSchemaGenerator": "JSON-Schema-Generator",
-    "cssGradientBuilder": "CSS-Verlaufsgenerator"
+    "cssGradientBuilder": "CSS-Verlaufsgenerator",
+    "gitignoreGenerator": ".gitignore-Generator"
   },
   "Help": {
     "title": "Hilfe & Dokumentation",
@@ -293,6 +294,10 @@
       "cssGradientBuilder": {
         "title": "CSS-Verlaufsgenerator",
         "description": "Visueller CSS-Verlaufsgenerator mit Winkelsteuerung und Farbstopps."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore-Generator",
+        "description": "Generieren Sie sofort zusammengeführte .gitignore-Dateien aus über 500 Tech-Stacks."
       }
     },
     "tabs": {
@@ -2090,5 +2095,21 @@
     "randomize": "Randomize",
     "reverse": "Reverse",
     "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore-Generator",
+    "subtitle": "Generieren Sie sofort zusammengeführte .gitignore-Dateien für einen bestimmten Tech-Stack oder eine bestimmte Kombination.",
+    "searchPlaceholder": "Suchstacks (z. B. Node, Python, macOS) ...",
+    "noResults": "Keine Stapel gefunden.",
+    "selectedStacks": "Ausgewählte Stapel",
+    "output": "Vorschau der Ausgabe",
+    "copy": "In die Zwischenablage kopieren",
+    "copied": "Kopiert!",
+    "download": "Laden Sie .gitignore herunter",
+    "downloading": "Herunterladen...",
+    "errorFetching": "Die Top-Liste konnte nicht abgerufen werden.",
+    "errorGenerating": "Fehler beim Generieren von .gitignore aus ausgewählten Stapeln.",
+    "generating": "Generieren...",
+    "emptyState": "Wählen Sie einen oder mehrere Tech-Stacks aus, um Ihr .gitignore zu generieren."
   }
 }

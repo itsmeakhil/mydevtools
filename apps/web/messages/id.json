@@ -23,7 +23,8 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generator Skema JSON",
-    "cssGradientBuilder": "Pembuat Gradien CSS"
+    "cssGradientBuilder": "Pembuat Gradien CSS",
+    "gitignoreGenerator": ".gitignore Generator"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -293,6 +294,10 @@
       "cssGradientBuilder": {
         "title": "Pembuat Gradien CSS",
         "description": "Pembuat gradien CSS visual dengan kontrol sudut dan penghentian warna."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore Generator",
+        "description": "Generate merged .gitignore files instantly from 500+ tech stacks."
       }
     },
     "tabs": {
@@ -2090,5 +2095,21 @@
     "randomize": "Randomize",
     "reverse": "Reverse",
     "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore Generator",
+    "subtitle": "Generate merged .gitignore files instantly for a specific tech stack or combination.",
+    "searchPlaceholder": "Search stacks (e.g. Node, Python, macOS)...",
+    "noResults": "No stacks found.",
+    "selectedStacks": "Selected Stacks",
+    "output": "Preview Output",
+    "copy": "Copy to Clipboard",
+    "copied": "Copied!",
+    "download": "Download .gitignore",
+    "downloading": "Downloading...",
+    "errorFetching": "Failed to fetch top-tal list.",
+    "errorGenerating": "Failed to generate .gitignore from selected stacks.",
+    "generating": "Generating...",
+    "emptyState": "Select one or more tech stacks to generate your .gitignore."
   }
 }

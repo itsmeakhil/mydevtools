@@ -23,7 +23,8 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Trình tạo lược đồ JSON",
-    "cssGradientBuilder": "Trình tạo độ dốc CSS"
+    "cssGradientBuilder": "Trình tạo độ dốc CSS",
+    "gitignoreGenerator": "Trình tạo .gitignore"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -293,6 +294,10 @@
       "cssGradientBuilder": {
         "title": "Trình tạo độ dốc CSS",
         "description": "Trình tạo gradient CSS trực quan với khả năng kiểm soát góc và điểm dừng màu."
+      },
+      "gitignoreGenerator": {
+        "title": "Trình tạo .gitignore",
+        "description": "Tạo các tệp .gitignore đã hợp nhất ngay lập tức từ hơn 500 nhóm công nghệ."
       }
     },
     "tabs": {
@@ -2090,5 +2095,21 @@
     "randomize": "Randomize",
     "reverse": "Reverse",
     "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Trình tạo .gitignore",
+    "subtitle": "Tạo các tệp .gitignore đã hợp nhất ngay lập tức cho một tổ hợp hoặc ngăn xếp công nghệ cụ thể.",
+    "searchPlaceholder": "Ngăn xếp tìm kiếm (ví dụ: Node, Python, macOS)...",
+    "noResults": "Không tìm thấy ngăn xếp nào.",
+    "selectedStacks": "Ngăn xếp đã chọn",
+    "output": "Xem trước đầu ra",
+    "copy": "Sao chép vào Clipboard",
+    "copied": "Đã sao chép!",
+    "download": "Tải xuống .gitignore",
+    "downloading": "Đang tải xuống...",
+    "errorFetching": "Không tìm nạp được danh sách hàng đầu.",
+    "errorGenerating": "Không tạo được .gitignore từ các ngăn xếp đã chọn.",
+    "generating": "Đang tạo...",
+    "emptyState": "Chọn một hoặc nhiều nhóm công nghệ để tạo .gitignore của bạn."
   }
 }
