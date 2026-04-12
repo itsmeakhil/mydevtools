@@ -24,6 +24,7 @@ import {
   IconBraces,
   IconVariable,
   IconColorSwatch,
+  IconFileMinus,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -169,6 +170,12 @@ export const sidebarData: SidebarData = {
           url: '/app/css-gradient-builder',
           icon: IconColorSwatch,
           description: 'Visual CSS gradient builder with angle control and color stops.',
+        },
+        {
+          title: '.gitignore Generator',
+          url: '/app/gitignore-generator',
+          icon: IconFileMinus,
+          description: 'Generate merged .gitignore files instantly from 500+ stacks.',
         },
         {
           title: 'API Client',

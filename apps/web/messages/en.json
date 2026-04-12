@@ -22,6 +22,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "cssGradientBuilder": "CSS Gradient Builder",
+    "gitignoreGenerator": ".gitignore Generator",
     "apiClient": "API Client",
     "nosqlExplorer": "NoSQL Explorer"
   },
@@ -341,6 +342,10 @@
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
         "description": "Visual CSS gradient builder with angle control and color stops."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore Generator",
+        "description": "Generate merged .gitignore files instantly from 500+ tech stacks."
       }
     }
   },
@@ -2090,5 +2095,21 @@
     "randomize": "Randomize",
     "reverse": "Reverse",
     "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore Generator",
+    "subtitle": "Generate merged .gitignore files instantly for a specific tech stack or combination.",
+    "searchPlaceholder": "Search stacks (e.g. Node, Python, macOS)...",
+    "noResults": "No stacks found.",
+    "selectedStacks": "Selected Stacks",
+    "output": "Preview Output",
+    "copy": "Copy to Clipboard",
+    "copied": "Copied!",
+    "download": "Download .gitignore",
+    "downloading": "Downloading...",
+    "errorFetching": "Failed to fetch top-tal list.",
+    "errorGenerating": "Failed to generate .gitignore from selected stacks.",
+    "generating": "Generating...",
+    "emptyState": "Select one or more tech stacks to generate your .gitignore."
   }
 }

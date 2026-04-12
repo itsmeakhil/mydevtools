@@ -122,6 +122,11 @@ export const toolsMetadata: Record<string, {
         description: 'Visual CSS gradient builder with angle control, color stops, and one-click CSS copy.',
         keywords: ['css gradient', 'gradient builder', 'gradient generator', 'linear gradient', 'radial gradient', 'css output']
     },
+    'gitignore-generator': {
+        title: '.gitignore Generator',
+        description: 'Generate .gitignore files instantly for a specific tech stack (Node, Python, macOS, etc.) or combination.',
+        keywords: ['gitignore', 'git ignore generator', 'ignore file', 'gitignore boilerplate', 'developer tools']
+    },
 }
 
 // Generate metadata for a tool page

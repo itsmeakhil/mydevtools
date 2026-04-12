@@ -23,7 +23,8 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON 模式生成器",
-    "cssGradientBuilder": "CSS 渐变生成器"
+    "cssGradientBuilder": "CSS 渐变生成器",
+    "gitignoreGenerator": ".gitignore 生成器"
   },
   "Help": {
     "title": "帮助与文档",
@@ -293,6 +294,10 @@
       "cssGradientBuilder": {
         "title": "CSS 渐变生成器",
         "description": "具有角度控制和色标的视觉 CSS 渐变生成器。"
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore 生成器",
+        "description": "立即从 500 多个技术堆栈生成合并的 .gitignore 文件。"
       }
     },
     "tabs": {
@@ -2090,5 +2095,21 @@
     "randomize": "Randomize",
     "reverse": "Reverse",
     "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore 生成器",
+    "subtitle": "立即为特定技术堆栈或组合生成合并的 .gitignore 文件。",
+    "searchPlaceholder": "搜索堆栈（例如 Node、Python、macOS）...",
+    "noResults": "没有找到堆栈。",
+    "selectedStacks": "选定的堆栈",
+    "output": "预览输出",
+    "copy": "复制到剪贴板",
+    "copied": "复制了！",
+    "download": "下载.gitignore",
+    "downloading": "正在下载...",
+    "errorFetching": "无法获取最高列表。",
+    "errorGenerating": "无法从选定的堆栈生成 .gitignore。",
+    "generating": "生成...",
+    "emptyState": "选择一个或多个技术堆栈来生成 .gitignore。"
   }
 }

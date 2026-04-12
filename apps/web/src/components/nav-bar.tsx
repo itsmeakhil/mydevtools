@@ -25,6 +25,7 @@ import {
   FileCode2,
   Coffee,
   Paintbrush,
+  FileMinus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
@@ -61,6 +62,7 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
   '/app/lorem-ipsum': { title: 'Lorem Ipsum Generator', icon: TextQuote, namespace: 'LoremIpsum' },
   '/app/color-picker': { title: 'Color Picker', icon: Palette, namespace: 'ColorPicker' },
   '/app/css-gradient-builder': { title: 'CSS Gradient Builder', icon: Paintbrush, namespace: 'CssGradientBuilder' },
+  '/app/gitignore-generator': { title: '.gitignore Generator', icon: FileMinus, namespace: 'GitignoreGenerator' },
   '/app/jwt-decoder': { title: 'JWT Decoder', icon: Key, namespace: 'JwtDecoder' },
   '/app/regex-tester': { title: 'Regex Tester', icon: Regex, namespace: 'RegexTester' },
   '/app/timestamp-converter': { title: 'Timestamp Converter', icon: Clock, namespace: 'TimestampConverter' },

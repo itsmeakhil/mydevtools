@@ -23,7 +23,8 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Γεννήτρια JSON Schema",
-    "cssGradientBuilder": "CSS Gradient Builder"
+    "cssGradientBuilder": "CSS Gradient Builder",
+    "gitignoreGenerator": ".gitignore Γεννήτρια"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",
@@ -293,6 +294,10 @@
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
         "description": "Visual CSS gradient builder με έλεγχο γωνίας και χρωματικές στάσεις."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore Γεννήτρια",
+        "description": "Δημιουργήστε συγχωνευμένα αρχεία .gitignore άμεσα από 500+ στοίβες τεχνολογίας."
       }
     },
     "tabs": {
@@ -2090,5 +2095,21 @@
     "randomize": "Randomize",
     "reverse": "Reverse",
     "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore Γεννήτρια",
+    "subtitle": "Δημιουργήστε συγχωνευμένα αρχεία .gitignore άμεσα για μια συγκεκριμένη στοίβα τεχνολογίας ή συνδυασμό.",
+    "searchPlaceholder": "Αναζήτηση στοίβων (π.χ. Node, Python, macOS)...",
+    "noResults": "Δεν βρέθηκαν στοίβες.",
+    "selectedStacks": "Επιλεγμένες στοίβες",
+    "output": "Έξοδος προεπισκόπησης",
+    "copy": "Αντιγραφή στο Πρόχειρο",
+    "copied": "Αντιγράφηκε!",
+    "download": "Λήψη .gitignore",
+    "downloading": "Λήψη...",
+    "errorFetching": "Αποτυχία λήψης της λίστας κορυφαίων.",
+    "errorGenerating": "Απέτυχε η δημιουργία .gitignore από επιλεγμένες στοίβες.",
+    "generating": "Δημιουργία...",
+    "emptyState": "Επιλέξτε μία ή περισσότερες στοίβες τεχνολογίας για να δημιουργήσετε το .gitignore σας."
   }
 }
