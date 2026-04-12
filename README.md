@@ -116,10 +116,8 @@ Most developer tools are scattered across dozens of tabs, riddled with ads, or s
 
 | Service | Purpose |
 |---------|---------|
-| **[Firebase Firestore](https://firebase.google.com/docs/firestore)** | Primary NoSQL database for user data (notes, tasks, bookmarks, passwords) |
 | **[Firebase Auth](https://firebase.google.com/docs/auth)** | Authentication — email/password, OAuth providers |
-| **[Firebase Storage](https://firebase.google.com/docs/storage)** | File and asset storage |
-| **[MongoDB](https://www.mongodb.com/)** | Direct connection support via the NoSQL Explorer tool |
+| **[MongoDB](https://www.mongodb.com/)** | Primary NoSQL database for user data (notes, tasks, bookmarks, passwords), Direct connection support via the NoSQL Explorer tool |
 
 ### Monorepo Infrastructure
 
