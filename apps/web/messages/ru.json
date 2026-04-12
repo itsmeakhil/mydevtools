@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "Генератор JSON-схемы"
+    "jsonSchemaGenerator": "Генератор JSON-схемы",
+    "cssGradientBuilder": "Конструктор CSS-градиентов"
   },
   "Help": {
     "title": "Справка и документация",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "Генератор JSON-схемы",
         "description": "Получите JSON-схему и типизированные модели из примера JSON."
+      },
+      "cssGradientBuilder": {
+        "title": "Конструктор CSS-градиентов",
+        "description": "Визуальный конструктор градиентов CSS с контролем угла и остановками цвета."
       }
     },
     "tabs": {
@@ -2062,5 +2067,23 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Загрузка редактора…"
+  },
+  "CssGradientBuilder": {
+    "title": "Конструктор CSS-градиентов",
+    "subtitle": "Визуальный конструктор градиентов CSS с контролем угла, остановками цвета и копированием CSS одним щелчком мыши.",
+    "preview": "Предварительный просмотр градиента",
+    "settings": "Настройки",
+    "type": "Тип",
+    "linear": "Линейный",
+    "radial": "Радиальный",
+    "angle": "Угол",
+    "stops": "Цветовые остановки",
+    "color": "Цвет",
+    "position": "Позиция (%)",
+    "addStop": "Добавить остановку",
+    "deleteStop": "Удалить остановку",
+    "output": "CSS-вывод",
+    "copy": "Копировать CSS",
+    "copied": "Скопировано!"
   }
 }

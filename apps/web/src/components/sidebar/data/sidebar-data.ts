@@ -23,6 +23,7 @@ import {
   IconGitCompare,
   IconBraces,
   IconVariable,
+  IconColorSwatch,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -162,6 +163,12 @@ export const sidebarData: SidebarData = {
           url: '/app/color-picker',
           icon: IconPalette,
           description: 'Convert HEX, RGB, HSL and explore color palettes.',
+        },
+        {
+          title: 'CSS Gradient Builder',
+          url: '/app/css-gradient-builder',
+          icon: IconColorSwatch,
+          description: 'Visual CSS gradient builder with angle control and color stops.',
         },
         {
           title: 'API Client',

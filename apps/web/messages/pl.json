@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "Generator schematu JSON"
+    "jsonSchemaGenerator": "Generator schematu JSON",
+    "cssGradientBuilder": "Kreator gradientów CSS"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "Generator schematu JSON",
         "description": "Wywnioskuj schemat JSON i modele typowane z przykładowego JSON."
+      },
+      "cssGradientBuilder": {
+        "title": "Kreator gradientów CSS",
+        "description": "Wizualny kreator gradientów CSS z kontrolą kąta i przystankami kolorów."
       }
     },
     "tabs": {
@@ -2062,5 +2067,23 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Ładowanie edytora…"
+  },
+  "CssGradientBuilder": {
+    "title": "Kreator gradientów CSS",
+    "subtitle": "Wizualny kreator gradientów CSS z kontrolą kąta, przystankami kolorów i kopiowaniem CSS jednym kliknięciem.",
+    "preview": "Podgląd gradientu",
+    "settings": "Ustawienia",
+    "type": "Typ",
+    "linear": "Liniowy",
+    "radial": "Promieniowy",
+    "angle": "Kąt",
+    "stops": "Kolor zatrzymuje się",
+    "color": "Kolor",
+    "position": "Pozycja (%)",
+    "addStop": "Dodaj przystanek",
+    "deleteStop": "Usuń przystanek",
+    "output": "Dane wyjściowe CSS",
+    "copy": "Skopiuj CSS",
+    "copied": "Skopiowano!"
   }
 }

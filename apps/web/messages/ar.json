@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "مولّد مخطط JSON"
+    "jsonSchemaGenerator": "مولّد مخطط JSON",
+    "cssGradientBuilder": "CSS منشئ التدرج"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "مولّد مخطط JSON",
         "description": "استنتج مخطط JSON ونماذج مُنمّطة من عيّنة JSON."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS منشئ التدرج",
+        "description": "منشئ التدرج المرئي لـ CSS مع التحكم في الزاوية وتوقف الألوان."
       }
     },
     "tabs": {
@@ -2062,5 +2067,23 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "جاري تحميل المحرر…"
+  },
+  "CssGradientBuilder": {
+    "title": "CSS منشئ التدرج",
+    "subtitle": "منشئ التدرج المرئي لـ CSS مع التحكم في الزاوية وتوقف الألوان ونسخ CSS بنقرة واحدة.",
+    "preview": "معاينة التدرج",
+    "settings": "إعدادات",
+    "type": "يكتب",
+    "linear": "خطي",
+    "radial": "شعاعي",
+    "angle": "زاوية",
+    "stops": "توقف اللون",
+    "color": "لون",
+    "position": "موضع (٪)",
+    "addStop": "أضف توقف",
+    "deleteStop": "حذف التوقف",
+    "output": "مخرجات CSS",
+    "copy": "انسخ CSS",
+    "copied": "منسوخ!"
   }
 }

@@ -22,7 +22,8 @@
     "colorPicker": "Selector de color",
     "apiClient": "Cliente API",
     "nosqlExplorer": "Explorador NoSQL",
-    "jsonSchemaGenerator": "Generador de esquema JSON"
+    "jsonSchemaGenerator": "Generador de esquema JSON",
+    "cssGradientBuilder": "Generador de degradado CSS"
   },
   "Help": {
     "title": "Ayuda y documentación",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "Generador de esquema JSON",
         "description": "Obtén un esquema JSON y modelos tipados a partir de una muestra JSON."
+      },
+      "cssGradientBuilder": {
+        "title": "Generador de degradado CSS",
+        "description": "Generador de gradientes CSS visual con control de ángulos y paradas de color."
       }
     },
     "tabs": {
@@ -2062,5 +2067,23 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Cargando el editor…"
+  },
+  "CssGradientBuilder": {
+    "title": "Generador de degradado CSS",
+    "subtitle": "Generador visual de degradados CSS con control de ángulo, paradas de color y copia CSS con un solo clic.",
+    "preview": "Vista previa de degradado",
+    "settings": "Ajustes",
+    "type": "Tipo",
+    "linear": "Lineal",
+    "radial": "Radial",
+    "angle": "Ángulo",
+    "stops": "Paradas de color",
+    "color": "Color",
+    "position": "Posición (%)",
+    "addStop": "Agregar parada",
+    "deleteStop": "Eliminar Detener",
+    "output": "Salida CSS",
+    "copy": "Copiar CSS",
+    "copied": "¡Copiado!"
   }
 }

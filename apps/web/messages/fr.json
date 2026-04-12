@@ -22,7 +22,8 @@
     "colorPicker": "Sélecteur de couleurs",
     "apiClient": "Client API",
     "nosqlExplorer": "Explorateur NoSQL",
-    "jsonSchemaGenerator": "Générateur de schéma JSON"
+    "jsonSchemaGenerator": "Générateur de schéma JSON",
+    "cssGradientBuilder": "Générateur de dégradé CSS"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "Générateur de schéma JSON",
         "description": "Déduisez un schéma JSON et des modèles typés à partir d'un exemple JSON."
+      },
+      "cssGradientBuilder": {
+        "title": "Générateur de dégradé CSS",
+        "description": "Générateur de dégradé visuel CSS avec contrôle d'angle et arrêts de couleur."
       }
     },
     "tabs": {
@@ -2062,5 +2067,23 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Chargement de l’éditeur…"
+  },
+  "CssGradientBuilder": {
+    "title": "Générateur de dégradé CSS",
+    "subtitle": "Générateur de dégradé CSS visuel avec contrôle de l'angle, arrêts de couleur et copie CSS en un clic.",
+    "preview": "Aperçu du dégradé",
+    "settings": "Paramètres",
+    "type": "Taper",
+    "linear": "Linéaire",
+    "radial": "Radial",
+    "angle": "Angle",
+    "stops": "Arrêts de couleur",
+    "color": "Couleur",
+    "position": "Position (%)",
+    "addStop": "Ajouter un arrêt",
+    "deleteStop": "Supprimer l'arrêt",
+    "output": "Sortie CSS",
+    "copy": "Copier CSS",
+    "copied": "Copié!"
   }
 }

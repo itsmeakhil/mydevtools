@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "JSONスキーマジェネレーター"
+    "jsonSchemaGenerator": "JSONスキーマジェネレーター",
+    "cssGradientBuilder": "CSS グラデーション ビルダー"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "JSONスキーマジェネレーター",
         "description": "サンプルJSONからJSONスキーマと型付きモデルを推論します。"
+      },
+      "cssGradientBuilder": {
+        "title": "CSS グラデーション ビルダー",
+        "description": "角度制御とカラーストップを備えたビジュアル CSS グラデーション ビルダー。"
       }
     },
     "tabs": {
@@ -2062,5 +2067,23 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "エディタを読み込み中…"
+  },
+  "CssGradientBuilder": {
+    "title": "CSS グラデーション ビルダー",
+    "subtitle": "角度コントロール、カラーストップ、ワンクリック CSS コピーを備えたビジュアル CSS グラデーション ビルダー。",
+    "preview": "グラデーションのプレビュー",
+    "settings": "設定",
+    "type": "タイプ",
+    "linear": "リニア",
+    "radial": "ラジアル",
+    "angle": "角度",
+    "stops": "カラーストップ",
+    "color": "色",
+    "position": "位置 （％）",
+    "addStop": "ストップの追加",
+    "deleteStop": "ストップの削除",
+    "output": "CSS出力",
+    "copy": "CSSをコピーする",
+    "copied": "コピーしました！"
   }
 }

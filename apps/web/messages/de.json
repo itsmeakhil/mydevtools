@@ -22,7 +22,8 @@
     "colorPicker": "Farbauswahl",
     "apiClient": "API-Client",
     "nosqlExplorer": "NoSQL-Explorer",
-    "jsonSchemaGenerator": "JSON-Schema-Generator"
+    "jsonSchemaGenerator": "JSON-Schema-Generator",
+    "cssGradientBuilder": "CSS-Verlaufsgenerator"
   },
   "Help": {
     "title": "Hilfe & Dokumentation",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "JSON-Schema-Generator",
         "description": "Leiten Sie ein JSON-Schema und typisierte Modelle aus Beispiel-JSON ab."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS-Verlaufsgenerator",
+        "description": "Visueller CSS-Verlaufsgenerator mit Winkelsteuerung und Farbstopps."
       }
     },
     "tabs": {
@@ -2062,5 +2067,23 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Editor wird geladen…"
+  },
+  "CssGradientBuilder": {
+    "title": "CSS-Verlaufsgenerator",
+    "subtitle": "Visueller CSS-Verlaufsersteller mit Winkelsteuerung, Farbstopps und CSS-Kopie mit einem Klick.",
+    "preview": "Verlaufsvorschau",
+    "settings": "Einstellungen",
+    "type": "Typ",
+    "linear": "Linear",
+    "radial": "Radial",
+    "angle": "Winkel",
+    "stops": "Farbstopps",
+    "color": "Farbe",
+    "position": "Position (%)",
+    "addStop": "Stopp hinzufügen",
+    "deleteStop": "Stopp löschen",
+    "output": "CSS-Ausgabe",
+    "copy": "CSS kopieren",
+    "copied": "Kopiert!"
   }
 }

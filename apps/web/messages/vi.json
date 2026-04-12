@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "Trình tạo lược đồ JSON"
+    "jsonSchemaGenerator": "Trình tạo lược đồ JSON",
+    "cssGradientBuilder": "Trình tạo độ dốc CSS"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "Trình tạo lược đồ JSON",
         "description": "Suy ra lược đồ JSON và mô hình có kiểu từ mẫu JSON."
+      },
+      "cssGradientBuilder": {
+        "title": "Trình tạo độ dốc CSS",
+        "description": "Trình tạo gradient CSS trực quan với khả năng kiểm soát góc và điểm dừng màu."
       }
     },
     "tabs": {
@@ -2062,5 +2067,23 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Đang tải trình soạn thảo…"
+  },
+  "CssGradientBuilder": {
+    "title": "Trình tạo độ dốc CSS",
+    "subtitle": "Trình tạo gradient CSS trực quan với khả năng kiểm soát góc, điểm dừng màu và sao chép CSS chỉ bằng một cú nhấp chuột.",
+    "preview": "Xem trước độ dốc",
+    "settings": "Cài đặt",
+    "type": "Kiểu",
+    "linear": "tuyến tính",
+    "radial": "Xuyên tâm",
+    "angle": "Góc",
+    "stops": "Điểm dừng màu",
+    "color": "Màu sắc",
+    "position": "Chức vụ (%)",
+    "addStop": "Thêm điểm dừng",
+    "deleteStop": "Xóa điểm dừng",
+    "output": "Đầu ra CSS",
+    "copy": "Sao chép CSS",
+    "copied": "Đã sao chép!"
   }
 }

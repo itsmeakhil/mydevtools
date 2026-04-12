@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "Генератор JSON-схеми"
+    "jsonSchemaGenerator": "Генератор JSON-схеми",
+    "cssGradientBuilder": "Конструктор градієнтів CSS"
   },
   "Help": {
     "title": "Довідка та документація",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "Генератор JSON-схеми",
         "description": "Виведіть JSON-схему та типізовані моделі з прикладу JSON."
+      },
+      "cssGradientBuilder": {
+        "title": "Конструктор градієнтів CSS",
+        "description": "Візуальний конструктор градієнтів CSS із керуванням кутом і кольорами."
       }
     },
     "tabs": {
@@ -2062,5 +2067,23 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "Завантаження редактора…"
+  },
+  "CssGradientBuilder": {
+    "title": "Конструктор градієнтів CSS",
+    "subtitle": "Візуальний конструктор градієнтів CSS із керуванням кутом, кольорами та копіюванням CSS одним клацанням миші.",
+    "preview": "Попередній перегляд градієнта",
+    "settings": "Налаштування",
+    "type": "Тип",
+    "linear": "Лінійний",
+    "radial": "Радіальний",
+    "angle": "Кут",
+    "stops": "Кольорові зупинки",
+    "color": "колір",
+    "position": "Позиція (%)",
+    "addStop": "Додайте зупинку",
+    "deleteStop": "Видалити зупинку",
+    "output": "Вихід CSS",
+    "copy": "Копіювати CSS",
+    "copied": "Скопійовано!"
   }
 }
