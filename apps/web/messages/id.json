@@ -297,7 +297,7 @@
       },
       "gitignoreGenerator": {
         "title": ".gitignore Generator",
-        "description": "Generate merged .gitignore files instantly from 500+ tech stacks."
+        "description": "Hasilkan file .gitignore gabungan secara instan dari 500+ tumpukan teknologi."
       }
     },
     "tabs": {
@@ -2098,18 +2098,18 @@
   },
   "GitignoreGenerator": {
     "title": ".gitignore Generator",
-    "subtitle": "Generate merged .gitignore files instantly for a specific tech stack or combination.",
-    "searchPlaceholder": "Search stacks (e.g. Node, Python, macOS)...",
-    "noResults": "No stacks found.",
-    "selectedStacks": "Selected Stacks",
-    "output": "Preview Output",
-    "copy": "Copy to Clipboard",
-    "copied": "Copied!",
-    "download": "Download .gitignore",
-    "downloading": "Downloading...",
-    "errorFetching": "Failed to fetch top-tal list.",
-    "errorGenerating": "Failed to generate .gitignore from selected stacks.",
-    "generating": "Generating...",
-    "emptyState": "Select one or more tech stacks to generate your .gitignore."
+    "subtitle": "Hasilkan file .gitignore gabungan secara instan untuk tumpukan atau kombinasi teknologi tertentu.",
+    "searchPlaceholder": "Tumpukan pencarian (misalnya Node, Python, macOS)...",
+    "noResults": "Tidak ada tumpukan yang ditemukan.",
+    "selectedStacks": "Tumpukan yang Dipilih",
+    "output": "Pratinjau Keluaran",
+    "copy": "Salin ke Papan Klip",
+    "copied": "Disalin!",
+    "download": "Unduh .gitignore",
+    "downloading": "Mengunduh...",
+    "errorFetching": "Gagal mengambil daftar teratas.",
+    "errorGenerating": "Gagal menghasilkan .gitignore dari tumpukan yang dipilih.",
+    "generating": "Menghasilkan...",
+    "emptyState": "Pilih satu atau lebih tumpukan teknologi untuk menghasilkan .gitignore Anda."
   }
 }

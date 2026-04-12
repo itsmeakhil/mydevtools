@@ -297,7 +297,7 @@
       },
       "gitignoreGenerator": {
         "title": ".gitignore Generator",
-        "description": "Generate merged .gitignore files instantly from 500+ tech stacks."
+        "description": "Generer sammenslåtte .gitignore-filer umiddelbart fra 500+ teknologistabler."
       }
     },
     "tabs": {
@@ -2098,18 +2098,18 @@
   },
   "GitignoreGenerator": {
     "title": ".gitignore Generator",
-    "subtitle": "Generate merged .gitignore files instantly for a specific tech stack or combination.",
-    "searchPlaceholder": "Search stacks (e.g. Node, Python, macOS)...",
-    "noResults": "No stacks found.",
-    "selectedStacks": "Selected Stacks",
-    "output": "Preview Output",
-    "copy": "Copy to Clipboard",
-    "copied": "Copied!",
-    "download": "Download .gitignore",
-    "downloading": "Downloading...",
-    "errorFetching": "Failed to fetch top-tal list.",
-    "errorGenerating": "Failed to generate .gitignore from selected stacks.",
-    "generating": "Generating...",
-    "emptyState": "Select one or more tech stacks to generate your .gitignore."
+    "subtitle": "Generer sammenslåtte .gitignore-filer umiddelbart for en spesifikk teknisk stack eller kombinasjon.",
+    "searchPlaceholder": "Søk i stabler (f.eks. Node, Python, macOS)...",
+    "noResults": "Ingen stabler funnet.",
+    "selectedStacks": "Utvalgte stabler",
+    "output": "Forhåndsvis utdata",
+    "copy": "Kopier til utklippstavlen",
+    "copied": "Kopiert!",
+    "download": "Last ned .gitignore",
+    "downloading": "Laster ned...",
+    "errorFetching": "Kunne ikke hente topplisten.",
+    "errorGenerating": "Kunne ikke generere .gitignore fra valgte stabler.",
+    "generating": "Genererer...",
+    "emptyState": "Velg én eller flere teknologistabler for å generere .gitignore."
   }
 }
