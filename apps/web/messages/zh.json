@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "JSON 模式生成器",
     "imageToBase64": "图像转 Base64",
     "cssGradientBuilder": "CSS 渐变生成器",
-    "gitignoreGenerator": ".gitignore 生成器"
+    "gitignoreGenerator": ".gitignore 生成器",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "帮助与文档",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": ".gitignore 生成器",
         "description": "立即从 500 多个技术堆栈生成合并的 .gitignore 文件。"
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "将 CSV 或 Excel 转为 JSON，并可导出为 CSV 或 XLSX。"
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "无法从选定的堆栈生成 .gitignore。",
     "generating": "生成...",
     "emptyState": "选择一个或多个技术堆栈来生成 .gitignore。"
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "上传 CSV 或 Excel，编辑 JSON，再下载 CSV 或 XLSX。仅支持表格数据；Excel 日期单元格在 JSON 中为 ISO 时间戳。",
+    "dropTitle": "拖放 CSV 或 Excel 文件",
+    "dropHint": ".xlsx / .xls 使用第一个工作表。CSV 需包含标题行。",
+    "chooseFile": "选择文件",
+    "jsonLabel": "JSON（对象数组）",
+    "jsonPlaceholder": "粘贴对象组成的 JSON 数组，或导入 CSV / Excel…",
+    "loadSample": "加载示例",
+    "actions": {
+      "format": "格式化 JSON",
+      "clear": "清空",
+      "copy": "复制",
+      "copied": "已复制",
+      "downloadCsv": "下载 CSV",
+      "downloadXlsx": "下载 Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "数据",
+    "toastLoadedCsv": "已将 CSV 加载到编辑器",
+    "toastLoadedExcel": "已将 Excel 加载到编辑器",
+    "toastFormatted": "已格式化 JSON",
+    "toastExportedCsv": "已下载 CSV",
+    "toastExportedXlsx": "已下载 Excel",
+    "toastCopied": "已复制到剪贴板",
+    "footnote": "全部在浏览器中完成。JSON 必须是非空对象数组。嵌套值在 CSV 单元格中会序列化为 JSON。",
+    "errors": {
+      "unsupportedFile": "请使用 .csv、.xlsx 或 .xls 文件。",
+      "parseFailed": "无法解析此文件。",
+      "invalidJson": "无效的 JSON",
+      "exportFailed": "导出失败",
+      "copyFailed": "无法复制"
+    }
   }
 }

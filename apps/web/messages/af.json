@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "JSON-skemagenerator",
     "imageToBase64": "Beeld na Base64",
     "cssGradientBuilder": "CSS Gradient Builder",
-    "gitignoreGenerator": ".gitignore Generator"
+    "gitignoreGenerator": ".gitignore Generator",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": ".gitignore Generator",
         "description": "Genereer saamgevoegde .gitignore-lêers onmiddellik vanaf 500+ tegnologiese stapels."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Skakel CSV- of Excel-lêers na JSON en voer terug uit na CSV of XLSX."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "Kon nie .gitignore vanaf geselekteerde stapels genereer nie.",
     "generating": "Genereer tans …",
     "emptyState": "Kies een of meer tegnologiese stapels om jou .gitignore te genereer."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Laai CSV of Excel op, wysig JSON, laai dan CSV of XLSX af. Slegs tabeldata; Excel-datums word ISO-tydstempels in JSON.",
+    "dropTitle": "Los ’n CSV- of Excel-lêer hier",
+    "dropHint": "Eerste werkblad word vir .xlsx / .xls gebruik. CSV moet ’n opskrifry hê.",
+    "chooseFile": "Kies lêer",
+    "jsonLabel": "JSON (skikking van voorwerpe)",
+    "jsonPlaceholder": "Plak ’n JSON-skikking van voorwerpe of voer CSV / Excel in…",
+    "loadSample": "Laai voorbeeld",
+    "actions": {
+      "format": "Formateer JSON",
+      "clear": "Maak skoon",
+      "copy": "Kopieer",
+      "copied": "Gekopieer",
+      "downloadCsv": "Laai CSV af",
+      "downloadXlsx": "Laai Excel af"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Data",
+    "toastLoadedCsv": "CSV in redigeerder gelaai",
+    "toastLoadedExcel": "Excel in redigeerder gelaai",
+    "toastFormatted": "JSON geformateer",
+    "toastExportedCsv": "CSV afgelaai",
+    "toastExportedXlsx": "Excel afgelaai",
+    "toastCopied": "Na knipbord gekopieer",
+    "footnote": "Alles loop in jou blaaier. JSON moet ’n nie-leë skikking van voorwerpe wees. Geneste waardes word as JSON in CSV-selle gestoor.",
+    "errors": {
+      "unsupportedFile": "Gebruik ’n .csv-, .xlsx- of .xls-lêer.",
+      "parseFailed": "Kon nie hierdie lêer ontleed nie.",
+      "invalidJson": "Ongeldige JSON",
+      "exportFailed": "Uitvoer het misluk",
+      "copyFailed": "Kon nie kopieer nie"
+    }
   }
 }

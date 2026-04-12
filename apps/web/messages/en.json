@@ -25,7 +25,8 @@
     "apiClient": "API Client",
     "nosqlExplorer": "NoSQL Explorer",
     "cssGradientBuilder": "CSS Gradient Builder",
-    "gitignoreGenerator": ".gitignore Generator"
+    "gitignoreGenerator": ".gitignore Generator",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "Help & documentation",
@@ -351,6 +352,10 @@
       "gitignoreGenerator": {
         "title": ".gitignore Generator",
         "description": "Generate merged .gitignore files instantly from 500+ tech stacks."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Convert CSV or Excel files to JSON and export back to CSV or XLSX."
       }
     }
   },
@@ -1915,6 +1920,43 @@
       "csharp": "C# (System.Text.Json)",
       "dart": "Dart",
       "swift": "Swift (Codable)"
+    }
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Upload a CSV or Excel file, edit JSON, then download CSV or XLSX. Tabular data only; Excel date cells become ISO timestamps in JSON.",
+    "dropTitle": "Drop a CSV or Excel file",
+    "dropHint": "First worksheet is used for .xlsx / .xls. CSV must include a header row.",
+    "chooseFile": "Choose file",
+    "jsonLabel": "JSON (array of objects)",
+    "jsonPlaceholder": "Paste a JSON array of objects, or import CSV / Excel…",
+    "loadSample": "Load sample",
+    "actions": {
+      "format": "Format JSON",
+      "clear": "Clear",
+      "copy": "Copy",
+      "copied": "Copied",
+      "downloadCsv": "Download CSV",
+      "downloadXlsx": "Download Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Data",
+    "toastLoadedCsv": "CSV loaded into editor",
+    "toastLoadedExcel": "Excel file loaded into editor",
+    "toastFormatted": "JSON formatted",
+    "toastExportedCsv": "CSV downloaded",
+    "toastExportedXlsx": "Excel file downloaded",
+    "toastCopied": "Copied to clipboard",
+    "footnote": "Everything runs in your browser. JSON must be a non-empty array of objects. Nested values are JSON-stringified inside CSV cells.",
+    "errors": {
+      "unsupportedFile": "Use a .csv, .xlsx, or .xls file.",
+      "parseFailed": "Could not parse this file.",
+      "invalidJson": "Invalid JSON",
+      "exportFailed": "Export failed",
+      "copyFailed": "Could not copy"
     }
   },
   "Base64": {

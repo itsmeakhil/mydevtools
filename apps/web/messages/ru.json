@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "Генератор JSON-схемы",
     "imageToBase64": "Изображение в Base64",
     "cssGradientBuilder": "Конструктор CSS-градиентов",
-    "gitignoreGenerator": "Генератор .gitignore"
+    "gitignoreGenerator": "Генератор .gitignore",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "Справка и документация",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": "Генератор .gitignore",
         "description": "Мгновенно создавайте объединенные файлы .gitignore из более чем 500 технологических стеков."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Конвертируйте CSV или Excel в JSON и экспортируйте обратно в CSV или XLSX."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "Не удалось создать .gitignore из выбранных стеков.",
     "generating": "Создание...",
     "emptyState": "Выберите один или несколько стеков технологий для создания вашего .gitignore."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Загрузите CSV или Excel, отредактируйте JSON, затем скачайте CSV или XLSX. Только табличные данные; даты Excel становятся ISO-временными метками в JSON.",
+    "dropTitle": "Перетащите файл CSV или Excel",
+    "dropHint": "Для .xlsx / .xls используется первый лист. В CSV должна быть строка заголовков.",
+    "chooseFile": "Выбрать файл",
+    "jsonLabel": "JSON (массив объектов)",
+    "jsonPlaceholder": "Вставьте JSON-массив объектов или импортируйте CSV / Excel…",
+    "loadSample": "Загрузить пример",
+    "actions": {
+      "format": "Форматировать JSON",
+      "clear": "Очистить",
+      "copy": "Копировать",
+      "copied": "Скопировано",
+      "downloadCsv": "Скачать CSV",
+      "downloadXlsx": "Скачать Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Данные",
+    "toastLoadedCsv": "CSV загружен в редактор",
+    "toastLoadedExcel": "Excel загружен в редактор",
+    "toastFormatted": "JSON отформатирован",
+    "toastExportedCsv": "CSV скачан",
+    "toastExportedXlsx": "Excel скачан",
+    "toastCopied": "Скопировано в буфер",
+    "footnote": "Всё выполняется в браузере. JSON должен быть непустым массивом объектов. Вложенные значения сериализуются в JSON в ячейках CSV.",
+    "errors": {
+      "unsupportedFile": "Используйте файл .csv, .xlsx или .xls.",
+      "parseFailed": "Не удалось разобрать файл.",
+      "invalidJson": "Некорректный JSON",
+      "exportFailed": "Ошибка экспорта",
+      "copyFailed": "Не удалось скопировать"
+    }
   }
 }

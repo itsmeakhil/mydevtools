@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "Γεννήτρια JSON Schema",
     "imageToBase64": "Εικόνα στο Base64",
     "cssGradientBuilder": "CSS Gradient Builder",
-    "gitignoreGenerator": ".gitignore Γεννήτρια"
+    "gitignoreGenerator": ".gitignore Γεννήτρια",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": ".gitignore Γεννήτρια",
         "description": "Δημιουργήστε συγχωνευμένα αρχεία .gitignore άμεσα από 500+ στοίβες τεχνολογίας."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Μετατρέψτε αρχεία CSV ή Excel σε JSON και εξάγετε ξανά σε CSV ή XLSX."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "Απέτυχε η δημιουργία .gitignore από επιλεγμένες στοίβες.",
     "generating": "Δημιουργία...",
     "emptyState": "Επιλέξτε μία ή περισσότερες στοίβες τεχνολογίας για να δημιουργήσετε το .gitignore σας."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Ανεβάστε CSV ή Excel, επεξεργαστείτε JSON και κατεβάστε CSV ή XLSX. Μόνο πίνακας· οι ημερομηνίες Excel γίνονται ISO στο JSON.",
+    "dropTitle": "Αφήστε αρχείο CSV ή Excel",
+    "dropHint": "Για .xlsx / .xls χρησιμοποιείται το πρώτο φύλλο. Το CSV χρειάζεται γραμμή κεφαλίδας.",
+    "chooseFile": "Επιλογή αρχείου",
+    "jsonLabel": "JSON (πίνακας αντικειμένων)",
+    "jsonPlaceholder": "Επικολλήστε πίνακα JSON αντικειμένων ή εισάγετε CSV / Excel…",
+    "loadSample": "Φόρτωση δείγματος",
+    "actions": {
+      "format": "Μορφοποίηση JSON",
+      "clear": "Εκκαθάριση",
+      "copy": "Αντιγραφή",
+      "copied": "Αντιγράφηκε",
+      "downloadCsv": "Λήψη CSV",
+      "downloadXlsx": "Λήψη Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Δεδομένα",
+    "toastLoadedCsv": "Το CSV φορτώθηκε στον επεξεργαστή",
+    "toastLoadedExcel": "Το Excel φορτώθηκε στον επεξεργαστή",
+    "toastFormatted": "Το JSON μορφοποιήθηκε",
+    "toastExportedCsv": "Το CSV λήφθηκε",
+    "toastExportedXlsx": "Το Excel λήφθηκε",
+    "toastCopied": "Αντιγράφηκε στο πρόχειρο",
+    "footnote": "Όλα τρέχουν στον browser. Το JSON πρέπει να είναι μη κενός πίνακας αντικειμένων. Ένθετες τιμές σειριοποιούνται ως JSON στα κελιά CSV.",
+    "errors": {
+      "unsupportedFile": "Χρησιμοποιήστε αρχείο .csv, .xlsx ή .xls.",
+      "parseFailed": "Δεν ήταν δυνατή η ανάλυση του αρχείου.",
+      "invalidJson": "Μη έγκυρο JSON",
+      "exportFailed": "Η εξαγωγή απέτυχε",
+      "copyFailed": "Δεν ήταν δυνατή η αντιγραφή"
+    }
   }
 }

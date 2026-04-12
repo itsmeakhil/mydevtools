@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "JSONスキーマジェネレーター",
     "imageToBase64": "画像をBase64に変換",
     "cssGradientBuilder": "CSS グラデーション ビルダー",
-    "gitignoreGenerator": ".gitignore ジェネレーター"
+    "gitignoreGenerator": ".gitignore ジェネレーター",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": ".gitignore ジェネレーター",
         "description": "500 を超える技術スタックからマージされた .gitignore ファイルを即座に生成します。"
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "CSV や Excel を JSON に変換し、CSV や XLSX に再エクスポートします。"
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "選択したスタックから .gitignore を生成できませんでした。",
     "generating": "生成中...",
     "emptyState": ".gitignore を生成するには、1 つ以上の技術スタックを選択します。"
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "CSV または Excel をアップロードし、JSON を編集してから CSV または XLSX をダウンロード。表形式データのみ。Excel の日付セルは JSON では ISO 形式になります。",
+    "dropTitle": "CSV または Excel ファイルをドロップ",
+    "dropHint": ".xlsx / .xls は先頭のシートを使用します。CSV はヘッダー行が必要です。",
+    "chooseFile": "ファイルを選択",
+    "jsonLabel": "JSON（オブジェクトの配列）",
+    "jsonPlaceholder": "オブジェクトの JSON 配列を貼り付けるか、CSV / Excel を取り込み…",
+    "loadSample": "サンプルを読み込む",
+    "actions": {
+      "format": "JSON を整形",
+      "clear": "クリア",
+      "copy": "コピー",
+      "copied": "コピーしました",
+      "downloadCsv": "CSV をダウンロード",
+      "downloadXlsx": "Excel をダウンロード"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "データ",
+    "toastLoadedCsv": "CSV をエディターに読み込みました",
+    "toastLoadedExcel": "Excel をエディターに読み込みました",
+    "toastFormatted": "JSON を整形しました",
+    "toastExportedCsv": "CSV をダウンロードしました",
+    "toastExportedXlsx": "Excel をダウンロードしました",
+    "toastCopied": "クリップボードにコピーしました",
+    "footnote": "すべてブラウザ内で処理されます。JSON は空でないオブジェクトの配列である必要があります。ネストした値は CSV セル内で JSON 文字列化されます。",
+    "errors": {
+      "unsupportedFile": ".csv、.xlsx、または .xls ファイルを使用してください。",
+      "parseFailed": "このファイルを解析できませんでした。",
+      "invalidJson": "無効な JSON",
+      "exportFailed": "エクスポートに失敗しました",
+      "copyFailed": "コピーできませんでした"
+    }
   }
 }

@@ -132,6 +132,11 @@ export const toolsMetadata: Record<string, {
         description: 'Generate .gitignore files instantly for a specific tech stack (Node, Python, macOS, etc.) or combination.',
         keywords: ['gitignore', 'git ignore generator', 'ignore file', 'gitignore boilerplate', 'developer tools']
     },
+    'csv-excel-json': {
+        title: 'CSV / Excel ↔ JSON Converter',
+        description: 'Upload CSV or Excel files and convert to JSON, or export a JSON array of objects back to CSV and XLSX. Dates from Excel become ISO strings. Runs in your browser.',
+        keywords: ['csv to json', 'excel to json', 'xlsx to json', 'json to csv', 'json to excel', 'spreadsheet converter', 'tabular data']
+    },
 }
 
 // Generate metadata for a tool page

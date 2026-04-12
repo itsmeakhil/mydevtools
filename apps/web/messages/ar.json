@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "مولّد مخطط JSON",
     "imageToBase64": "الصورة إلى Base64",
     "cssGradientBuilder": "CSS منشئ التدرج",
-    "gitignoreGenerator": ".gitignore مولد"
+    "gitignoreGenerator": ".gitignore مولد",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": ".gitignore مولد",
         "description": "قم بإنشاء ملفات .gitignore مدمجة على الفور من أكثر من 500 حزمة تقنية."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "حوّل ملفات CSV أو Excel إلى JSON وصدّر مرة أخرى إلى CSV أو XLSX."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "فشل في إنشاء .gitignore من الأكوام المحددة.",
     "generating": "جارٍ الإنشاء...",
     "emptyState": "حدد واحدًا أو أكثر من مجموعات التكنولوجيا لإنشاء .gitignore الخاص بك."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "ارفع CSV أو Excel، عدّل JSON، ثم نزّل CSV أو XLSX. بيانات جدولية فقط؛ خلايا التاريخ في Excel تصبح طوابع ISO في JSON.",
+    "dropTitle": "أسقط ملف CSV أو Excel",
+    "dropHint": "يُستخدم الورقة الأولى لملفات .xlsx / .xls. يجب أن يحتوي CSV على صف عناوين.",
+    "chooseFile": "اختر ملفًا",
+    "jsonLabel": "JSON (مصفوفة كائنات)",
+    "jsonPlaceholder": "الصق مصفوفة JSON من الكائنات أو استورد CSV / Excel…",
+    "loadSample": "تحميل مثال",
+    "actions": {
+      "format": "تنسيق JSON",
+      "clear": "مسح",
+      "copy": "نسخ",
+      "copied": "تم النسخ",
+      "downloadCsv": "تنزيل CSV",
+      "downloadXlsx": "تنزيل Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "بيانات",
+    "toastLoadedCsv": "تم تحميل CSV في المحرر",
+    "toastLoadedExcel": "تم تحميل Excel في المحرر",
+    "toastFormatted": "تم تنسيق JSON",
+    "toastExportedCsv": "تم تنزيل CSV",
+    "toastExportedXlsx": "تم تنزيل Excel",
+    "toastCopied": "تم النسخ إلى الحافظة",
+    "footnote": "كل شيء يعمل في المتصفح. يجب أن يكون JSON مصفوفة غير فارغة من الكائنات. القيم المتداخلة تُسلسل كـ JSON داخل خلايا CSV.",
+    "errors": {
+      "unsupportedFile": "استخدم ملف .csv أو .xlsx أو .xls.",
+      "parseFailed": "تعذّر تحليل هذا الملف.",
+      "invalidJson": "JSON غير صالح",
+      "exportFailed": "فشل التصدير",
+      "copyFailed": "تعذّر النسخ"
+    }
   }
 }

@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "Generator schematu JSON",
     "imageToBase64": "Obraz do Base64",
     "cssGradientBuilder": "Kreator gradientów CSS",
-    "gitignoreGenerator": "Generator .gitignore"
+    "gitignoreGenerator": "Generator .gitignore",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": "Generator .gitignore",
         "description": "Natychmiast generuj scalone pliki .gitignore z ponad 500 stosów technologii."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Konwertuj pliki CSV lub Excel na JSON i eksportuj z powrotem do CSV lub XLSX."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "Nie udało się wygenerować pliku .gitignore z wybranych stosów.",
     "generating": "Generowanie...",
     "emptyState": "Wybierz jeden lub więcej stosów technologii, aby wygenerować plik .gitignore."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Wgraj CSV lub Excel, edytuj JSON, pobierz CSV lub XLSX. Tylko dane tabelaryczne; daty z Excela stają się znacznikami ISO w JSON.",
+    "dropTitle": "Upuść plik CSV lub Excel",
+    "dropHint": "Dla .xlsx / .xls używany jest pierwszy arkusz. CSV musi mieć wiersz nagłówka.",
+    "chooseFile": "Wybierz plik",
+    "jsonLabel": "JSON (tablica obiektów)",
+    "jsonPlaceholder": "Wklej tablicę JSON obiektów lub zaimportuj CSV / Excel…",
+    "loadSample": "Załaduj przykład",
+    "actions": {
+      "format": "Formatuj JSON",
+      "clear": "Wyczyść",
+      "copy": "Kopiuj",
+      "copied": "Skopiowano",
+      "downloadCsv": "Pobierz CSV",
+      "downloadXlsx": "Pobierz Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Dane",
+    "toastLoadedCsv": "CSV wczytano do edytora",
+    "toastLoadedExcel": "Plik Excel wczytano do edytora",
+    "toastFormatted": "Sformatowano JSON",
+    "toastExportedCsv": "Pobrano CSV",
+    "toastExportedXlsx": "Pobrano Excel",
+    "toastCopied": "Skopiowano do schowka",
+    "footnote": "Wszystko w przeglądarce. JSON musi być niepustą tablicą obiektów. Zagnieżdżone wartości są serializowane do JSON w komórkach CSV.",
+    "errors": {
+      "unsupportedFile": "Użyj pliku .csv, .xlsx lub .xls.",
+      "parseFailed": "Nie można przetworzyć pliku.",
+      "invalidJson": "Nieprawidłowy JSON",
+      "exportFailed": "Eksport nie powiódł się",
+      "copyFailed": "Nie można skopiować"
+    }
   }
 }

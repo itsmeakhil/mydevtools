@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "Generator Skema JSON",
     "imageToBase64": "Gambar ke Base64",
     "cssGradientBuilder": "Pembuat Gradien CSS",
-    "gitignoreGenerator": ".gitignore Generator"
+    "gitignoreGenerator": ".gitignore Generator",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": ".gitignore Generator",
         "description": "Hasilkan file .gitignore gabungan secara instan dari 500+ tumpukan teknologi."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Ubah file CSV atau Excel menjadi JSON dan ekspor kembali ke CSV atau XLSX."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "Gagal menghasilkan .gitignore dari tumpukan yang dipilih.",
     "generating": "Menghasilkan...",
     "emptyState": "Pilih satu atau lebih tumpukan teknologi untuk menghasilkan .gitignore Anda."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Unggah CSV atau Excel, edit JSON, lalu unduh CSV atau XLSX. Hanya data tabular; tanggal Excel menjadi stempel waktu ISO di JSON.",
+    "dropTitle": "Letakkan file CSV atau Excel",
+    "dropHint": "Untuk .xlsx / .xls digunakan lembar pertama. CSV harus punya baris header.",
+    "chooseFile": "Pilih file",
+    "jsonLabel": "JSON (array objek)",
+    "jsonPlaceholder": "Tempel array JSON objek atau impor CSV / Excel…",
+    "loadSample": "Muat contoh",
+    "actions": {
+      "format": "Format JSON",
+      "clear": "Hapus",
+      "copy": "Salin",
+      "copied": "Disalin",
+      "downloadCsv": "Unduh CSV",
+      "downloadXlsx": "Unduh Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Data",
+    "toastLoadedCsv": "CSV dimuat ke editor",
+    "toastLoadedExcel": "Excel dimuat ke editor",
+    "toastFormatted": "JSON diformat",
+    "toastExportedCsv": "CSV diunduh",
+    "toastExportedXlsx": "Excel diunduh",
+    "toastCopied": "Disalin ke papan klip",
+    "footnote": "Semua berjalan di browser. JSON harus berupa array objek yang tidak kosong. Nilai bersarang diserialisasi sebagai JSON di sel CSV.",
+    "errors": {
+      "unsupportedFile": "Gunakan file .csv, .xlsx, atau .xls.",
+      "parseFailed": "Tidak dapat mengurai file ini.",
+      "invalidJson": "JSON tidak valid",
+      "exportFailed": "Ekspor gagal",
+      "copyFailed": "Tidak dapat menyalin"
+    }
   }
 }

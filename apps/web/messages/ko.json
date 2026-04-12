@@ -25,7 +25,8 @@
     "jsonSchemaGenerator": "JSON 스키마 생성기",
     "imageToBase64": "이미지를 Base64로",
     "cssGradientBuilder": "CSS 그라디언트 빌더",
-    "gitignoreGenerator": ".gitignore 생성기"
+    "gitignoreGenerator": ".gitignore 생성기",
+    "csvExcelJson": "CSV / Excel ↔ JSON"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -303,6 +304,10 @@
       "gitignoreGenerator": {
         "title": ".gitignore 생성기",
         "description": "500개 이상의 기술 스택에서 병합된 .gitignore 파일을 즉시 생성합니다."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "CSV 또는 Excel 파일을 JSON으로 변환하고 CSV 또는 XLSX로 다시보냅니다."
       }
     },
     "tabs": {
@@ -2141,5 +2146,42 @@
     "errorGenerating": "선택한 스택에서 .gitignore를 생성하지 못했습니다.",
     "generating": "생성 중...",
     "emptyState": ".gitignore를 생성하려면 하나 이상의 기술 스택을 선택하세요."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "CSV 또는 Excel을 업로드하고 JSON을 편집한 뒤 CSV 또는 XLSX로 다운로드합니다. 표 형식 데이터만 지원합니다. Excel 날짜 셀은 JSON에서 ISO 타임스탬프로 변환됩니다.",
+    "dropTitle": "CSV 또는 Excel 파일을 놓으세요",
+    "dropHint": ".xlsx / .xls는 첫 번째 시트를 사용합니다. CSV에는 헤더 행이 있어야 합니다.",
+    "chooseFile": "파일 선택",
+    "jsonLabel": "JSON(객체 배열)",
+    "jsonPlaceholder": "객체의 JSON 배열을 붙여넣거나 CSV / Excel을 가져오기…",
+    "loadSample": "샘플 불러오기",
+    "actions": {
+      "format": "JSON 정렬",
+      "clear": "지우기",
+      "copy": "복사",
+      "copied": "복사됨",
+      "downloadCsv": "CSV 다운로드",
+      "downloadXlsx": "Excel 다운로드"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "데이터",
+    "toastLoadedCsv": "CSV를 편집기에 불러왔습니다",
+    "toastLoadedExcel": "Excel 파일을 편집기에 불러왔습니다",
+    "toastFormatted": "JSON이 정렬되었습니다",
+    "toastExportedCsv": "CSV를 다운로드했습니다",
+    "toastExportedXlsx": "Excel을 다운로드했습니다",
+    "toastCopied": "클립보드에 복사했습니다",
+    "footnote": "모든 처리는 브라우저에서 이루어집니다. JSON은 비어 있지 않은 객체 배열이어야 합니다. 중첩 값은 CSV 셀에 JSON 문자열로 직렬화됩니다.",
+    "errors": {
+      "unsupportedFile": ".csv, .xlsx 또는 .xls 파일을 사용하세요.",
+      "parseFailed": "이 파일을 분석할 수 없습니다.",
+      "invalidJson": "잘못된 JSON",
+      "exportFailed": "보내기 실패",
+      "copyFailed": "복사할 수 없습니다"
+    }
   }
 }
