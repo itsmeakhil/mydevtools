@@ -17,6 +17,7 @@
     "timestampConverter": "Timestamp Converter",
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
+    "imageToBase64": "Image to Base64",
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
@@ -320,6 +321,10 @@
       "base64Encoder": {
         "title": "Base64 Encoder",
         "description": "Encode and decode Base64 strings."
+      },
+      "imageToBase64": {
+        "title": "Image to Base64",
+        "description": "Convert images to Data URI or raw Base64 strings."
       },
       "urlEncoder": {
         "title": "URL Encoder",
@@ -2062,5 +2067,30 @@
     "modifiedPlaceholder": "Paste modified text…",
     "comparisonLabel": "Side-by-side comparison",
     "emptyState": "Enter text in both panels to compare."
+  },
+  "ImageToBase64": {
+    "title": "Image to Base64",
+    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
+    "upload": "Upload Image",
+    "clear": "Clear",
+    "modes": {
+      "dataUri": "Data URI",
+      "rawString": "Raw Base64"
+    },
+    "panels": {
+      "imageInput": "Image Input",
+      "output": "Base64 Output"
+    },
+    "dropHere": "Drop image here",
+    "charCount": "{count} chars",
+    "placeholders": {
+      "uploadImage": "Drag and drop an image or click upload to start."
+    },
+    "fileTooLarge": "File is too large. Processing might freeze your browser.",
+    "copyTitle": "Copy to clipboard",
+    "download": {
+      "title": "Download text",
+      "filename": "image-base64.txt"
+    }
   }
 }

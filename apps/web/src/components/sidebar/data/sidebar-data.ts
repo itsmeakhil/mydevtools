@@ -23,6 +23,7 @@ import {
   IconGitCompare,
   IconBraces,
   IconVariable,
+  IconPhoto,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -38,10 +39,10 @@ export const sidebarData: SidebarData = {
       icon: IconRocket,
       items: [
         {
-          title: 'Tasks',
-          url: '/app/to-do',
-          icon: IconChecklist,
-          description: 'Manage your to-do lists efficiently.',
+          title: 'Bookmarks',
+          url: '/app/bookmarks',
+          icon: IconBookmark,
+          description: 'Manage and organize your bookmarks.',
         },
         {
           title: 'Notes',
@@ -50,10 +51,10 @@ export const sidebarData: SidebarData = {
           description: 'Capture ideas and organize your thoughts.',
         },
         {
-          title: 'Bookmarks',
-          url: '/app/bookmarks',
-          icon: IconBookmark,
-          description: 'Manage and organize your bookmarks.',
+          title: 'Tasks',
+          url: '/app/to-do',
+          icon: IconChecklist,
+          description: 'Manage your to-do lists efficiently.',
         },
       ],
     },
@@ -62,10 +63,10 @@ export const sidebarData: SidebarData = {
       icon: IconShield,
       items: [
         {
-          title: 'Password Manager',
-          url: '/app/password-manager',
-          icon: IconLock,
-          description: 'Securely store and manage your passwords.',
+          title: 'Email Validator',
+          url: '/app/email-validator',
+          icon: IconMailCheck,
+          description: 'Verify and validate email addresses.',
         },
         {
           title: 'Environment Manager',
@@ -74,16 +75,16 @@ export const sidebarData: SidebarData = {
           description: 'Encrypted .env sets per project and environment, with tags.',
         },
         {
-          title: 'Email Validator',
-          url: '/app/email-validator',
-          icon: IconMailCheck,
-          description: 'Verify and validate email addresses.',
-        },
-        {
           title: 'JWT Decoder',
           url: '/app/jwt-decoder',
           icon: IconKey,
           description: 'Decode JWT header, payload, and expiry.',
+        },
+        {
+          title: 'Password Manager',
+          url: '/app/password-manager',
+          icon: IconLock,
+          description: 'Securely store and manage your passwords.',
         },
       ],
     },
@@ -91,6 +92,43 @@ export const sidebarData: SidebarData = {
       title: 'Development',
       icon: IconCode,
       items: [
+        {
+          title: 'API Client',
+          url: '/app/api-client',
+          icon: IconNetwork,
+          description: 'Test and debug HTTP requests.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'Base64 Encoder',
+          url: '/app/base64',
+          icon: IconTransform,
+          description: 'Encode and decode Base64 strings.',
+        },
+        {
+          title: 'Color Picker',
+          url: '/app/color-picker',
+          icon: IconPalette,
+          description: 'Convert HEX, RGB, HSL and explore color palettes.',
+        },
+        {
+          title: 'Cron Builder',
+          url: '/app/cron-builder',
+          icon: IconRepeat,
+          description: 'Visual cron builder, presets, and parser.',
+        },
+        {
+          title: 'Diff checker',
+          url: '/app/diff-checker',
+          icon: IconGitCompare,
+          description: 'Side-by-side line diff of two texts.',
+        },
+        {
+          title: 'Image to Base64',
+          url: '/app/image-to-base64',
+          icon: IconPhoto,
+          description: 'Convert images to Data URI or raw Base64 strings.',
+        },
         {
           title: 'JSON Formatter',
           url: '/app/json-formatter',
@@ -104,16 +142,17 @@ export const sidebarData: SidebarData = {
           description: 'Infer JSON Schema and typed models from sample JSON.',
         },
         {
-          title: 'SQL Formatter',
-          url: '/app/sql-formatter',
-          icon: IconSql,
-          description: 'Format SQL for MySQL, PostgreSQL, and SQLite.',
+          title: 'Lorem Ipsum',
+          url: '/app/lorem-ipsum',
+          icon: IconQuote,
+          description: 'Generate placeholder Latin text for layouts and mockups.',
         },
         {
-          title: 'Diff checker',
-          url: '/app/diff-checker',
-          icon: IconGitCompare,
-          description: 'Side-by-side line diff of two texts.',
+          title: 'NoSQL Explorer',
+          url: '/app/nosql-explorer',
+          icon: IconDatabase,
+          description: 'Explore MongoDB databases.',
+          hiddenOnMobile: true,
         },
         {
           title: 'Regex Tester',
@@ -122,22 +161,16 @@ export const sidebarData: SidebarData = {
           description: 'Test regex with live match highlighting.',
         },
         {
+          title: 'SQL Formatter',
+          url: '/app/sql-formatter',
+          icon: IconSql,
+          description: 'Format SQL for MySQL, PostgreSQL, and SQLite.',
+        },
+        {
           title: 'Timestamp Converter',
           url: '/app/timestamp-converter',
           icon: IconCalendarTime,
           description: 'Unix, ISO, and relative time conversion.',
-        },
-        {
-          title: 'Cron Builder',
-          url: '/app/cron-builder',
-          icon: IconRepeat,
-          description: 'Visual cron builder, presets, and parser.',
-        },
-        {
-          title: 'Base64 Encoder',
-          url: '/app/base64',
-          icon: IconTransform,
-          description: 'Encode and decode Base64 strings.',
         },
         {
           title: 'URL Encoder',
@@ -150,32 +183,6 @@ export const sidebarData: SidebarData = {
           url: '/app/uuid-generator',
           icon: IconFingerprint,
           description: 'Generate UUIDs and ULIDs with bulk export.',
-        },
-        {
-          title: 'Lorem Ipsum',
-          url: '/app/lorem-ipsum',
-          icon: IconQuote,
-          description: 'Generate placeholder Latin text for layouts and mockups.',
-        },
-        {
-          title: 'Color Picker',
-          url: '/app/color-picker',
-          icon: IconPalette,
-          description: 'Convert HEX, RGB, HSL and explore color palettes.',
-        },
-        {
-          title: 'API Client',
-          url: '/app/api-client',
-          icon: IconNetwork,
-          description: 'Test and debug HTTP requests.',
-          hiddenOnMobile: true,
-        },
-        {
-          title: 'NoSQL Explorer',
-          url: '/app/nosql-explorer',
-          icon: IconDatabase,
-          description: 'Explore MongoDB databases.',
-          hiddenOnMobile: true,
         },
       ],
     },

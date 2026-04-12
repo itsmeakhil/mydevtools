@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "JSON 스키마 생성기"
+    "jsonSchemaGenerator": "JSON 스키마 생성기",
+    "imageToBase64": "Image to Base64"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "JSON 스키마 생성기",
         "description": "샘플 JSON에서 JSON 스키마와 타입이 지정된 모델을 추론합니다."
+      },
+      "imageToBase64": {
+        "title": "Image to Base64",
+        "description": "Convert images to Data URI or raw Base64 strings."
       }
     },
     "tabs": {
@@ -2062,5 +2067,30 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "편집기 로드 중…"
+  },
+  "ImageToBase64": {
+    "title": "Image to Base64",
+    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
+    "upload": "Upload Image",
+    "clear": "Clear",
+    "modes": {
+      "dataUri": "Data URI",
+      "rawString": "Raw Base64"
+    },
+    "panels": {
+      "imageInput": "Image Input",
+      "output": "Base64 Output"
+    },
+    "dropHere": "Drop image here",
+    "charCount": "{count} chars",
+    "placeholders": {
+      "uploadImage": "Drag and drop an image or click upload to start."
+    },
+    "fileTooLarge": "File is too large. Processing might freeze your browser.",
+    "copyTitle": "Copy to clipboard",
+    "download": {
+      "title": "Download text",
+      "filename": "image-base64.txt"
+    }
   }
 }

@@ -22,7 +22,8 @@
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
-    "jsonSchemaGenerator": "JSON 模式生成器"
+    "jsonSchemaGenerator": "JSON 模式生成器",
+    "imageToBase64": "Image to Base64"
   },
   "Help": {
     "title": "帮助与文档",
@@ -288,6 +289,10 @@
       "jsonSchemaGenerator": {
         "title": "JSON 模式生成器",
         "description": "从示例 JSON 推断 JSON 模式与类型化模型。"
+      },
+      "imageToBase64": {
+        "title": "Image to Base64",
+        "description": "Convert images to Data URI or raw Base64 strings."
       }
     },
     "tabs": {
@@ -2062,5 +2067,30 @@
       "swift": "Swift (Codable)"
     },
     "editorLoading": "正在加载编辑器…"
+  },
+  "ImageToBase64": {
+    "title": "Image to Base64",
+    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
+    "upload": "Upload Image",
+    "clear": "Clear",
+    "modes": {
+      "dataUri": "Data URI",
+      "rawString": "Raw Base64"
+    },
+    "panels": {
+      "imageInput": "Image Input",
+      "output": "Base64 Output"
+    },
+    "dropHere": "Drop image here",
+    "charCount": "{count} chars",
+    "placeholders": {
+      "uploadImage": "Drag and drop an image or click upload to start."
+    },
+    "fileTooLarge": "File is too large. Processing might freeze your browser.",
+    "copyTitle": "Copy to clipboard",
+    "download": {
+      "title": "Download text",
+      "filename": "image-base64.txt"
+    }
   }
 }

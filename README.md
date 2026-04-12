@@ -53,31 +53,31 @@ Most developer tools are scattered across dozens of tabs, riddled with ads, or s
 | Tool | Description |
 |------|-------------|
 | **📡 API Client** | Test & debug REST APIs with a Postman-like interface — headers, query params, body, response inspector |
-| **🗄️ NoSQL Explorer** | Connect to MongoDB, browse databases & collections, and run queries with a visual data viewer |
+| **🔤 Base64** | Encode and decode Base64 strings with one click |
+| **🎨 Color Picker** | Pick, convert, and preview colors across HEX, RGB, HSL formats and more |
+| **⏰ Cron Builder** | Build and validate cron expressions visually with human-readable output |
+| **🔀 Diff Checker** | Side-by-side text diff viewer with inline change highlighting |
+| **📧 Email Validator** | Validate email address format and DNS structure instantly |
+| **🌿 Environment Manager** | Manage `.env` files — import, export, diff environments, keep secrets organized |
 | **📝 JSON Formatter** | Beautify, validate, minify, and explore JSON with Monaco Editor |
 | **📐 JSON Schema Generator** | Auto-generate JSON Schema from any JSON input instantly |
 | **🔑 JWT Decoder** | Decode and inspect JWT tokens — header, payload, and signature at a glance |
+| **📋 Lorem Ipsum Generator** | Generate placeholder text in paragraphs, words, or sentences |
+| **🗄️ NoSQL Explorer** | Connect to MongoDB, browse databases & collections, and run queries with a visual data viewer |
 | **🧬 Regex Tester** | Test regular expressions in real time with match highlighting and capture group breakdown |
 | **🛢️ SQL Formatter** | Format and prettify SQL queries with dialect support |
-| **🔀 Diff Checker** | Side-by-side text diff viewer with inline change highlighting |
-| **🌐 URL Encoder/Decoder** | Encode and decode URL components instantly |
-| **🔤 Base64** | Encode and decode Base64 strings with one click |
 | **⏱️ Timestamp Converter** | Convert Unix timestamps to human-readable dates and vice versa |
-| **📋 Lorem Ipsum Generator** | Generate placeholder text in paragraphs, words, or sentences |
+| **🌐 URL Encoder/Decoder** | Encode and decode URL components instantly |
 | **🔢 UUID Generator** | Generate UUIDs (v1, v4) in bulk with copy support |
-| **⏰ Cron Builder** | Build and validate cron expressions visually with human-readable output |
-| **🎨 Color Picker** | Pick, convert, and preview colors across HEX, RGB, HSL formats and more |
-| **📧 Email Validator** | Validate email address format and DNS structure instantly |
-| **🌿 Environment Manager** | Manage `.env` files — import, export, diff environments, keep secrets organized |
 
 ### 📱 Productivity Apps
 
 | Tool | Description |
 |------|-------------|
-| **✅ Task Manager** | Organize tasks with priorities, statuses, and drag-and-drop reordering |
+| **🔖 Bookmarks** | Save, organize, and manage your favorite links in one central place |
 | **📓 Notes** | Rich-text note-taking powered by Tiptap — headings, lists, code blocks, images & more |
 | **🔐 Password Manager** | Store credentials securely with client-side encryption. Your vault, your keys |
-| **🔖 Bookmarks** | Save, organize, and manage your favorite links in one central place |
+| **✅ Task Manager** | Organize tasks with priorities, statuses, and drag-and-drop reordering |
 
 ---
 
