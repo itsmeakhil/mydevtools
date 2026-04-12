@@ -24,7 +24,7 @@
     "nosqlExplorer": "Explorador NoSQL",
     "jsonSchemaGenerator": "Generador de esquema JSON",
     "cssGradientBuilder": "Generador de degradado CSS",
-    "gitignoreGenerator": ".gitignore Generator"
+    "gitignoreGenerator": "Generador .gitignore"
   },
   "Help": {
     "title": "Ayuda y documentación",
@@ -296,8 +296,8 @@
         "description": "Generador de gradientes CSS visual con control de ángulos y paradas de color."
       },
       "gitignoreGenerator": {
-        "title": ".gitignore Generator",
-        "description": "Generate merged .gitignore files instantly from 500+ tech stacks."
+        "title": "Generador .gitignore",
+        "description": "Genere archivos .gitignore combinados al instante a partir de más de 500 pilas de tecnología."
       }
     },
     "tabs": {
@@ -2097,19 +2097,19 @@
     "downloadImage": "Download"
   },
   "GitignoreGenerator": {
-    "title": ".gitignore Generator",
-    "subtitle": "Generate merged .gitignore files instantly for a specific tech stack or combination.",
-    "searchPlaceholder": "Search stacks (e.g. Node, Python, macOS)...",
-    "noResults": "No stacks found.",
-    "selectedStacks": "Selected Stacks",
-    "output": "Preview Output",
-    "copy": "Copy to Clipboard",
-    "copied": "Copied!",
-    "download": "Download .gitignore",
-    "downloading": "Downloading...",
-    "errorFetching": "Failed to fetch top-tal list.",
-    "errorGenerating": "Failed to generate .gitignore from selected stacks.",
-    "generating": "Generating...",
-    "emptyState": "Select one or more tech stacks to generate your .gitignore."
+    "title": "Generador .gitignore",
+    "subtitle": "Genere archivos .gitignore combinados al instante para una combinación o pila de tecnología específica.",
+    "searchPlaceholder": "Pilas de búsqueda (por ejemplo, Node, Python, macOS)...",
+    "noResults": "No se encontraron pilas.",
+    "selectedStacks": "Pilas seleccionadas",
+    "output": "Vista previa de salida",
+    "copy": "Copiar al portapapeles",
+    "copied": "¡Copiado!",
+    "download": "Descargar .gitignore",
+    "downloading": "Descargando...",
+    "errorFetching": "No se pudo recuperar la lista principal.",
+    "errorGenerating": "No se pudo generar .gitignore a partir de pilas seleccionadas.",
+    "generating": "Generando...",
+    "emptyState": "Seleccione una o más pilas de tecnología para generar su .gitignore."
   }
 }

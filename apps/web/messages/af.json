@@ -297,7 +297,7 @@
       },
       "gitignoreGenerator": {
         "title": ".gitignore Generator",
-        "description": "Generate merged .gitignore files instantly from 500+ tech stacks."
+        "description": "Genereer saamgevoegde .gitignore-lêers onmiddellik vanaf 500+ tegnologiese stapels."
       }
     },
     "tabs": {
@@ -2098,18 +2098,18 @@
   },
   "GitignoreGenerator": {
     "title": ".gitignore Generator",
-    "subtitle": "Generate merged .gitignore files instantly for a specific tech stack or combination.",
-    "searchPlaceholder": "Search stacks (e.g. Node, Python, macOS)...",
-    "noResults": "No stacks found.",
-    "selectedStacks": "Selected Stacks",
-    "output": "Preview Output",
-    "copy": "Copy to Clipboard",
-    "copied": "Copied!",
-    "download": "Download .gitignore",
-    "downloading": "Downloading...",
-    "errorFetching": "Failed to fetch top-tal list.",
-    "errorGenerating": "Failed to generate .gitignore from selected stacks.",
-    "generating": "Generating...",
-    "emptyState": "Select one or more tech stacks to generate your .gitignore."
+    "subtitle": "Genereer saamgevoegde .gitignore-lêers onmiddellik vir 'n spesifieke tegnologiestapel of kombinasie.",
+    "searchPlaceholder": "Soek stapels (bv. Node, Python, macOS)...",
+    "noResults": "Geen stapels gevind nie.",
+    "selectedStacks": "Geselekteerde stapels",
+    "output": "Voorskou Uitset",
+    "copy": "Kopieer na knipbord",
+    "copied": "Gekopieer!",
+    "download": "Aflaai .gitignore",
+    "downloading": "Laai tans af...",
+    "errorFetching": "Kon nie toplys haal nie.",
+    "errorGenerating": "Kon nie .gitignore vanaf geselekteerde stapels genereer nie.",
+    "generating": "Genereer tans …",
+    "emptyState": "Kies een of meer tegnologiese stapels om jou .gitignore te genereer."
   }
 }
