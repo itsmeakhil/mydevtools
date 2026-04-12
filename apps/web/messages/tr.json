@@ -26,7 +26,8 @@
     "imageToBase64": "Base64'e görüntü",
     "cssGradientBuilder": "CSS Degrade Oluşturucu",
     "gitignoreGenerator": ".gitignore Oluşturucu",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Kod parçacıkları"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "CSV veya Excel dosyalarını JSON’a dönüştürün ve tekrar CSV veya XLSX olarak dışa aktarın."
+      },
+      "snippetManager": {
+        "title": "Kod parçacıkları",
+        "description": "Sözdizimi vurgulama, otomatik dil algılama ve biçimlendirme ile parçacıkları kaydedin."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Kod parçacıkları"
     },
     "ui": {
       "title": "Arayüz tercihleri",
@@ -2182,6 +2188,68 @@
       "invalidJson": "Geçersiz JSON",
       "exportFailed": "Dışa aktarma başarısız",
       "copyFailed": "Kopyalanamadı"
+    }
+  },
+  "SnippetManager": {
+    "title": "Kod parçacığı yöneticisi",
+    "subtitle": "Parçacıkları tarayıcıda saklayın veya hesabınızla eşitlemek için oturum açın. Görüntüleme ve düzenleme arasında geçiş yapın, tek tıkla kopyalayın, dil seçin veya otomatik algılayın ve JSON, SQL veya Monaco destekli kodu biçimlendirin.",
+    "snippets": "Parçacıklar",
+    "newSnippet": "Yeni parçacık",
+    "newSnippetTitle": "Yeni parçacık",
+    "defaultSnippetTitle": "Hoş geldiniz",
+    "defaultSnippetCode": "// Kod parçacıklarına hoş geldiniz\n// Görüntüle vs düzenle, kopyala, biçimlendir ve otomatik dil deneyin\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Parçacık ara…",
+    "searchAria": "Parçacık ara",
+    "emptySearch": "Aramanızla eşleşen parçacık yok.",
+    "snippetTitle": "Başlık",
+    "snippetTitlePlaceholder": "Parçacık adı",
+    "language": "Dil",
+    "detectedHint": "Vurgulama: {lang}",
+    "badgeAuto": "Otomatik · {lang}",
+    "modeView": "Görüntüle",
+    "modeEdit": "Düzenle",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "format": "Biçimlendir",
+    "cancel": "İptal",
+    "deleteTitle": "Parçacık silinsin mi?",
+    "deleteDescription": "“{title}” bu tarayıcıdan kaldırılacak.",
+    "deleteConfirm": "Sil",
+    "editorAria": "Parçacık kod düzenleyici",
+    "editorLoading": "Düzenleyici yükleniyor…",
+    "toastCopied": "Panoya kopyalandı",
+    "toastCopyFailed": "Kopyalanamadı",
+    "toastNothingToCopy": "Kopyalanacak bir şey yok",
+    "toastFormatted": "Biçimlendirildi",
+    "toastFormatFailed": "Biçimlendirilemedi",
+    "toastFormatJsonInvalid": "Geçersiz JSON — önce sözdizimini düzeltin",
+    "toastFormatUnsupported": "Bu dil için biçimlendirici yok — JSON veya SQL deneyin ya da düzenleme modunu kullanın",
+    "toastDeleted": "Parçacık silindi",
+    "toastLoadFailed": "Parçacıklar sunucudan yüklenemedi.",
+    "toastSyncFailed": "Sunucu ile eşitleme başarısız oldu.",
+    "languages": {
+      "auto": "Otomatik algıla",
+      "plaintext": "Düz metin",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

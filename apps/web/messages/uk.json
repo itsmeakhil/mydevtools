@@ -26,7 +26,8 @@
     "imageToBase64": "Зображення до Base64",
     "cssGradientBuilder": "Конструктор градієнтів CSS",
     "gitignoreGenerator": "Генератор .gitignore",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Фрагменти коду"
   },
   "Help": {
     "title": "Довідка та документація",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Перетворюйте CSV або Excel на JSON і експортуйте назад у CSV чи XLSX."
+      },
+      "snippetManager": {
+        "title": "Фрагменти коду",
+        "description": "Зберігайте фрагменти з підсвічуванням синтаксису, авто-визначенням мови та форматуванням."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Фрагменти коду"
     },
     "ui": {
       "title": "Налаштування інтерфейсу",
@@ -2182,6 +2188,68 @@
       "invalidJson": "Некоректний JSON",
       "exportFailed": "Помилка експорту",
       "copyFailed": "Не вдалося скопіювати"
+    }
+  },
+  "SnippetManager": {
+    "title": "Менеджер фрагментів коду",
+    "subtitle": "Зберігайте фрагменти коду в браузері або увійдіть, щоб синхронізувати їх з обліковим записом. Перемикайте перегляд і редагування, копіюйте одним кліком, обирайте мову або авто-визначення та форматуйте JSON, SQL або код, який підтримує Monaco.",
+    "snippets": "Фрагменти",
+    "newSnippet": "Новий фрагмент",
+    "newSnippetTitle": "Новий фрагмент",
+    "defaultSnippetTitle": "Ласкаво просимо",
+    "defaultSnippetCode": "// Ласкаво просимо до фрагментів коду\n// Спробуйте перегляд і редагування, копіювання, форматування та авто-мову\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Пошук фрагментів…",
+    "searchAria": "Пошук фрагментів",
+    "emptySearch": "Немає фрагментів за запитом.",
+    "snippetTitle": "Заголовок",
+    "snippetTitlePlaceholder": "Назва фрагмента",
+    "language": "Мова",
+    "detectedHint": "Підсвічування: {lang}",
+    "badgeAuto": "Авто · {lang}",
+    "modeView": "Перегляд",
+    "modeEdit": "Редагування",
+    "copy": "Копіювати",
+    "copied": "Скопійовано",
+    "format": "Форматувати",
+    "cancel": "Скасувати",
+    "deleteTitle": "Видалити фрагмент?",
+    "deleteDescription": "«{title}» буде вилучено з цього браузера.",
+    "deleteConfirm": "Видалити",
+    "editorAria": "Редактор коду фрагмента",
+    "editorLoading": "Завантаження редактора…",
+    "toastCopied": "Скопійовано в буфер",
+    "toastCopyFailed": "Не вдалося скопіювати",
+    "toastNothingToCopy": "Нічого копіювати",
+    "toastFormatted": "Відформатовано",
+    "toastFormatFailed": "Не вдалося відформатувати",
+    "toastFormatJsonInvalid": "Некоректний JSON — спочатку виправте синтаксис",
+    "toastFormatUnsupported": "Немає форматера для цієї мови — спробуйте JSON або SQL або режим редагування",
+    "toastDeleted": "Фрагмент видалено",
+    "toastLoadFailed": "Не вдалося завантажити фрагменти з сервера.",
+    "toastSyncFailed": "Не вдалося синхронізувати з сервером.",
+    "languages": {
+      "auto": "Автовизначення",
+      "plaintext": "Звичайний текст",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

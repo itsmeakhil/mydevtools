@@ -26,7 +26,8 @@
     "imageToBase64": "Obrázek do Base64",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": "Generátor .gitignore",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Úryvky kódu"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Převádějte soubory CSV nebo Excel do JSON a exportujte zpět do CSV nebo XLSX."
+      },
+      "snippetManager": {
+        "title": "Úryvky kódu",
+        "description": "Ukládejte úryvky se zvýrazněním syntaxe, automatickou detekcí jazyka a formátováním."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Úryvky kódu"
     },
     "ui": {
       "title": "Předvolby rozhraní",
@@ -2182,6 +2188,68 @@
       "invalidJson": "Neplatný JSON",
       "exportFailed": "Export se nezdařil",
       "copyFailed": "Kopírování se nezdařilo"
+    }
+  },
+  "SnippetManager": {
+    "title": "Správce úryvků kódu",
+    "subtitle": "Ukládejte úryvky v prohlížeči nebo se přihlaste a synchronizujte je s účtem. Přepínejte zobrazení a úpravy, kopírujte jedním kliknutím, volte jazyk nebo automatickou detekci a formátujte JSON, SQL nebo kód podporovaný Monacem.",
+    "snippets": "Úryvky",
+    "newSnippet": "Nový úryvek",
+    "newSnippetTitle": "Nový úryvek",
+    "defaultSnippetTitle": "Vítejte",
+    "defaultSnippetCode": "// Vítejte u úryvků kódu\n// Zkuste zobrazení vs úpravy, kopírování, formátování a automatický jazyk\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Hledat úryvky…",
+    "searchAria": "Hledat úryvky",
+    "emptySearch": "Žádný úryvek neodpovídá hledání.",
+    "snippetTitle": "Název",
+    "snippetTitlePlaceholder": "Název úryvku",
+    "language": "Jazyk",
+    "detectedHint": "Zvýraznění: {lang}",
+    "badgeAuto": "Auto · {lang}",
+    "modeView": "Zobrazit",
+    "modeEdit": "Upravit",
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno",
+    "format": "Formátovat",
+    "cancel": "Zrušit",
+    "deleteTitle": "Smazat úryvek?",
+    "deleteDescription": "„{title}“ bude odebrán z tohoto prohlížeče.",
+    "deleteConfirm": "Smazat",
+    "editorAria": "Editor kódu úryvku",
+    "editorLoading": "Načítání editoru…",
+    "toastCopied": "Zkopírováno do schránky",
+    "toastCopyFailed": "Kopírování se nezdařilo",
+    "toastNothingToCopy": "Nic ke kopírování",
+    "toastFormatted": "Naformátováno",
+    "toastFormatFailed": "Formátování se nezdařilo",
+    "toastFormatJsonInvalid": "Neplatné JSON — nejdřív opravte syntaxi",
+    "toastFormatUnsupported": "Pro tento jazyk není formátovač — zkuste JSON nebo SQL nebo režim úprav",
+    "toastDeleted": "Úryvek smazán",
+    "toastLoadFailed": "Úryvky se nepodařilo načíst ze serveru.",
+    "toastSyncFailed": "Synchronizace se serverem se nezdařila.",
+    "languages": {
+      "auto": "Automatická detekce",
+      "plaintext": "Prostý text",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

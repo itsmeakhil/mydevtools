@@ -26,7 +26,8 @@
     "imageToBase64": "Image vers Base64",
     "cssGradientBuilder": "Générateur de dégradé CSS",
     "gitignoreGenerator": "Générateur .gitignore",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Extraits de code"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Convertir des fichiers CSV ou Excel en JSON et exporter vers CSV ou XLSX."
+      },
+      "snippetManager": {
+        "title": "Extraits de code",
+        "description": "Enregistrez des extraits avec coloration syntaxique, détection automatique du langage et formatage."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Extraits de code"
     },
     "ui": {
       "title": "Préférences d’interface",
@@ -2182,6 +2188,68 @@
       "invalidJson": "JSON invalide",
       "exportFailed": "Échec de l’export",
       "copyFailed": "Impossible de copier"
+    }
+  },
+  "SnippetManager": {
+    "title": "Gestionnaire d'extraits de code",
+    "subtitle": "Enregistrez des extraits dans votre navigateur ou connectez-vous pour les synchroniser avec votre compte. Passez de la consultation à l’édition, copiez en un clic, choisissez un langage ou la détection automatique, et formatez JSON, SQL ou le code pris en charge par Monaco.",
+    "snippets": "Extraits",
+    "newSnippet": "Nouvel extrait",
+    "newSnippetTitle": "Nouvel extrait",
+    "defaultSnippetTitle": "Bienvenue",
+    "defaultSnippetCode": "// Bienvenue dans Extraits de code\n// Essayez Affichage / Édition, Copier, Formater et langage auto\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Rechercher des extraits…",
+    "searchAria": "Rechercher des extraits",
+    "emptySearch": "Aucun extrait ne correspond à votre recherche.",
+    "snippetTitle": "Titre",
+    "snippetTitlePlaceholder": "Nom de l'extrait",
+    "language": "Langage",
+    "detectedHint": "Coloration syntaxique : {lang}",
+    "badgeAuto": "Auto · {lang}",
+    "modeView": "Lecture",
+    "modeEdit": "Édition",
+    "copy": "Copier",
+    "copied": "Copié",
+    "format": "Formater",
+    "cancel": "Annuler",
+    "deleteTitle": "Supprimer l'extrait ?",
+    "deleteDescription": "« {title} » sera supprimé de ce navigateur.",
+    "deleteConfirm": "Supprimer",
+    "editorAria": "Éditeur de code de l'extrait",
+    "editorLoading": "Chargement de l'éditeur…",
+    "toastCopied": "Copié dans le presse-papiers",
+    "toastCopyFailed": "Impossible de copier",
+    "toastNothingToCopy": "Rien à copier",
+    "toastFormatted": "Formaté",
+    "toastFormatFailed": "Impossible de formater",
+    "toastFormatJsonInvalid": "JSON invalide — corrigez la syntaxe d'abord",
+    "toastFormatUnsupported": "Pas de formateur pour ce langage — essayez JSON ou SQL, ou passez en mode édition",
+    "toastDeleted": "Extrait supprimé",
+    "toastLoadFailed": "Impossible de charger les extraits depuis le serveur.",
+    "toastSyncFailed": "Impossible de synchroniser avec le serveur.",
+    "languages": {
+      "auto": "Détection automatique",
+      "plaintext": "Texte brut",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

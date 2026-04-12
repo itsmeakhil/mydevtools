@@ -26,7 +26,8 @@
     "imageToBase64": "Hình ảnh tới Base64",
     "cssGradientBuilder": "Trình tạo độ dốc CSS",
     "gitignoreGenerator": "Trình tạo .gitignore",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Đoạn mã"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Chuyển file CSV hoặc Excel sang JSON và xuất lại CSV hoặc XLSX."
+      },
+      "snippetManager": {
+        "title": "Đoạn mã",
+        "description": "Lưu đoạn mã với tô sáng cú pháp, tự động nhận diện ngôn ngữ và định dạng."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Đoạn mã"
     },
     "ui": {
       "title": "Tùy chọn giao diện",
@@ -2182,6 +2188,68 @@
       "invalidJson": "JSON không hợp lệ",
       "exportFailed": "Xuất thất bại",
       "copyFailed": "Không thể sao chép"
+    }
+  },
+  "SnippetManager": {
+    "title": "Trình quản lý đoạn mã",
+    "subtitle": "Lưu đoạn mã trong trình duyệt hoặc đăng nhập để đồng bộ với tài khoản. Chuyển giữa xem và sửa, sao chép một cú nhấp, chọn ngôn ngữ hoặc tự động nhận diện, và định dạng JSON, SQL hoặc mã được Monaco hỗ trợ.",
+    "snippets": "Đoạn mã",
+    "newSnippet": "Đoạn mới",
+    "newSnippetTitle": "Đoạn mới",
+    "defaultSnippetTitle": "Chào mừng",
+    "defaultSnippetCode": "// Chào mừng đến với đoạn mã\n// Thử xem so với sửa, sao chép, định dạng và ngôn ngữ tự động\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Tìm đoạn mã…",
+    "searchAria": "Tìm đoạn mã",
+    "emptySearch": "Không có đoạn mã khớp tìm kiếm.",
+    "snippetTitle": "Tiêu đề",
+    "snippetTitlePlaceholder": "Tên đoạn",
+    "language": "Ngôn ngữ",
+    "detectedHint": "Tô sáng dạng {lang}",
+    "badgeAuto": "Tự động · {lang}",
+    "modeView": "Xem",
+    "modeEdit": "Sửa",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép",
+    "format": "Định dạng",
+    "cancel": "Hủy",
+    "deleteTitle": "Xóa đoạn mã?",
+    "deleteDescription": "“{title}” sẽ bị xóa khỏi trình duyệt này.",
+    "deleteConfirm": "Xóa",
+    "editorAria": "Trình sửa mã đoạn",
+    "editorLoading": "Đang tải trình sửa…",
+    "toastCopied": "Đã sao chép vào bảng tạm",
+    "toastCopyFailed": "Không thể sao chép",
+    "toastNothingToCopy": "Không có gì để sao chép",
+    "toastFormatted": "Đã định dạng",
+    "toastFormatFailed": "Không thể định dạng",
+    "toastFormatJsonInvalid": "JSON không hợp lệ — sửa cú pháp trước",
+    "toastFormatUnsupported": "Không có bộ định dạng cho ngôn ngữ này — thử JSON hoặc SQL hoặc chế độ sửa",
+    "toastDeleted": "Đã xóa đoạn mã",
+    "toastLoadFailed": "Không thể tải đoạn mã từ máy chủ.",
+    "toastSyncFailed": "Không thể đồng bộ với máy chủ.",
+    "languages": {
+      "auto": "Tự động nhận diện",
+      "plaintext": "Văn bản thuần",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

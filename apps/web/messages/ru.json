@@ -26,7 +26,8 @@
     "imageToBase64": "Изображение в Base64",
     "cssGradientBuilder": "Конструктор CSS-градиентов",
     "gitignoreGenerator": "Генератор .gitignore",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Фрагменты кода"
   },
   "Help": {
     "title": "Справка и документация",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Конвертируйте CSV или Excel в JSON и экспортируйте обратно в CSV или XLSX."
+      },
+      "snippetManager": {
+        "title": "Фрагменты кода",
+        "description": "Сохраняйте сниппеты с подсветкой синтаксиса, автоопределением языка и форматированием."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Фрагменты кода"
     },
     "ui": {
       "title": "Настройки интерфейса",
@@ -2182,6 +2188,68 @@
       "invalidJson": "Некорректный JSON",
       "exportFailed": "Ошибка экспорта",
       "copyFailed": "Не удалось скопировать"
+    }
+  },
+  "SnippetManager": {
+    "title": "Менеджер фрагментов кода",
+    "subtitle": "Храните сниппеты в браузере или войдите, чтобы синхронизировать их с аккаунтом. Переключайтесь между просмотром и правкой, копируйте в один клик, выбирайте язык или автоопределение и форматируйте JSON, SQL или код, поддерживаемый Monaco.",
+    "snippets": "Сниппеты",
+    "newSnippet": "Новый сниппет",
+    "newSnippetTitle": "Новый сниппет",
+    "defaultSnippetTitle": "Добро пожаловать",
+    "defaultSnippetCode": "// Добро пожаловать в фрагменты кода\n// Попробуйте просмотр и правку, копирование, форматирование и автоязык\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Поиск сниппетов…",
+    "searchAria": "Поиск сниппетов",
+    "emptySearch": "Нет сниппетов по запросу.",
+    "snippetTitle": "Заголовок",
+    "snippetTitlePlaceholder": "Имя сниппета",
+    "language": "Язык",
+    "detectedHint": "Подсветка: {lang}",
+    "badgeAuto": "Авто · {lang}",
+    "modeView": "Просмотр",
+    "modeEdit": "Правка",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "format": "Форматировать",
+    "cancel": "Отмена",
+    "deleteTitle": "Удалить сниппет?",
+    "deleteDescription": "«{title}» будет удалён из этого браузера.",
+    "deleteConfirm": "Удалить",
+    "editorAria": "Редактор кода сниппета",
+    "editorLoading": "Загрузка редактора…",
+    "toastCopied": "Скопировано в буфер",
+    "toastCopyFailed": "Не удалось скопировать",
+    "toastNothingToCopy": "Нечего копировать",
+    "toastFormatted": "Отформатировано",
+    "toastFormatFailed": "Не удалось отформатировать",
+    "toastFormatJsonInvalid": "Неверный JSON — сначала исправьте синтаксис",
+    "toastFormatUnsupported": "Нет форматтера для этого языка — попробуйте JSON или SQL или режим правки",
+    "toastDeleted": "Сниппет удалён",
+    "toastLoadFailed": "Не удалось загрузить сниппеты с сервера.",
+    "toastSyncFailed": "Не удалось синхронизировать с сервером.",
+    "languages": {
+      "auto": "Автоопределение",
+      "plaintext": "Простой текст",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

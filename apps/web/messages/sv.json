@@ -26,7 +26,8 @@
     "imageToBase64": "Bild till Base64",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Kodutdrag"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Konvertera CSV- eller Excel-filer till JSON och exportera tillbaka till CSV eller XLSX."
+      },
+      "snippetManager": {
+        "title": "Kodutdrag",
+        "description": "Spara utdrag med syntaxmarkering, automatisk språkupptäckt och formatering."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Kodutdrag"
     },
     "ui": {
       "title": "Gränssnittsinställningar",
@@ -2182,6 +2188,68 @@
       "invalidJson": "Ogiltig JSON",
       "exportFailed": "Export misslyckades",
       "copyFailed": "Kunde inte kopiera"
+    }
+  },
+  "SnippetManager": {
+    "title": "Hanterare för kodutdrag",
+    "subtitle": "Spara utdrag i webbläsaren eller logga in för att synka med ditt konto. Växla mellan visning och redigering, kopiera med ett klick, välj språk eller autoupptäckt, och formatera JSON, SQL eller Monaco-stödd kod.",
+    "snippets": "Utdrag",
+    "newSnippet": "Nytt utdrag",
+    "newSnippetTitle": "Nytt utdrag",
+    "defaultSnippetTitle": "Välkommen",
+    "defaultSnippetCode": "// Välkommen till kodutdrag\n// Prova visning vs redigera, kopiera, formatera och automatiskt språk\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Sök utdrag…",
+    "searchAria": "Sök utdrag",
+    "emptySearch": "Inga utdrag matchar sökningen.",
+    "snippetTitle": "Titel",
+    "snippetTitlePlaceholder": "Utdragsnamn",
+    "language": "Språk",
+    "detectedHint": "Syntaxmarkering som {lang}",
+    "badgeAuto": "Auto · {lang}",
+    "modeView": "Visa",
+    "modeEdit": "Redigera",
+    "copy": "Kopiera",
+    "copied": "Kopierat",
+    "format": "Formatera",
+    "cancel": "Avbryt",
+    "deleteTitle": "Ta bort utdrag?",
+    "deleteDescription": "”{title}” tas bort från den här webbläsaren.",
+    "deleteConfirm": "Ta bort",
+    "editorAria": "Kodredigerare för utdrag",
+    "editorLoading": "Laddar redigerare…",
+    "toastCopied": "Kopierat till urklipp",
+    "toastCopyFailed": "Kunde inte kopiera",
+    "toastNothingToCopy": "Inget att kopiera",
+    "toastFormatted": "Formaterat",
+    "toastFormatFailed": "Kunde inte formatera",
+    "toastFormatJsonInvalid": "Ogiltig JSON — åtgärda syntaxen först",
+    "toastFormatUnsupported": "Ingen formaterare för detta språk — prova JSON eller SQL eller redigeringsläge",
+    "toastDeleted": "Utdrag borttaget",
+    "toastLoadFailed": "Kunde inte läsa in utdrag från servern.",
+    "toastSyncFailed": "Kunde inte synkronisera med servern.",
+    "languages": {
+      "auto": "Automatisk avkänning",
+      "plaintext": "Oformaterad text",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

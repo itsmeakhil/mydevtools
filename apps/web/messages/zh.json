@@ -26,7 +26,8 @@
     "imageToBase64": "图像转 Base64",
     "cssGradientBuilder": "CSS 渐变生成器",
     "gitignoreGenerator": ".gitignore 生成器",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "代码片段"
   },
   "Help": {
     "title": "帮助与文档",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "将 CSV 或 Excel 转为 JSON，并可导出为 CSV 或 XLSX。"
+      },
+      "snippetManager": {
+        "title": "代码片段",
+        "description": "保存代码片段，支持语法高亮、自动检测语言和格式化。"
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "代码片段"
     },
     "ui": {
       "title": "界面偏好",
@@ -2182,6 +2188,68 @@
       "invalidJson": "无效的 JSON",
       "exportFailed": "导出失败",
       "copyFailed": "无法复制"
+    }
+  },
+  "SnippetManager": {
+    "title": "代码片段管理器",
+    "subtitle": "在浏览器中保存代码片段，或登录以同步到账户。在查看与编辑间切换、一键复制、选择语言或使用自动检测，并格式化 JSON、SQL 或 Monaco 支持的代码。",
+    "snippets": "片段",
+    "newSnippet": "新建片段",
+    "newSnippetTitle": "新建片段",
+    "defaultSnippetTitle": "欢迎",
+    "defaultSnippetCode": "// 欢迎使用代码片段\n// 试试查看/编辑、复制、格式化与自动语言\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "搜索片段…",
+    "searchAria": "搜索片段",
+    "emptySearch": "没有匹配的片段。",
+    "snippetTitle": "标题",
+    "snippetTitlePlaceholder": "片段名称",
+    "language": "语言",
+    "detectedHint": "高亮为 {lang}",
+    "badgeAuto": "自动 · {lang}",
+    "modeView": "查看",
+    "modeEdit": "编辑",
+    "copy": "复制",
+    "copied": "已复制",
+    "format": "格式化",
+    "cancel": "取消",
+    "deleteTitle": "删除片段？",
+    "deleteDescription": "将从此浏览器移除「{title}」。",
+    "deleteConfirm": "删除",
+    "editorAria": "片段代码编辑器",
+    "editorLoading": "正在加载编辑器…",
+    "toastCopied": "已复制到剪贴板",
+    "toastCopyFailed": "无法复制",
+    "toastNothingToCopy": "没有可复制的内容",
+    "toastFormatted": "已格式化",
+    "toastFormatFailed": "无法格式化",
+    "toastFormatJsonInvalid": "JSON 无效 — 请先修正语法",
+    "toastFormatUnsupported": "此语言没有格式化程序 — 请尝试 JSON 或 SQL，或使用编辑模式",
+    "toastDeleted": "片段已删除",
+    "toastLoadFailed": "无法从服务器加载代码片段。",
+    "toastSyncFailed": "无法与服务器同步。",
+    "languages": {
+      "auto": "自动检测",
+      "plaintext": "纯文本",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

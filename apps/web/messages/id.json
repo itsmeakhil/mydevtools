@@ -26,7 +26,8 @@
     "imageToBase64": "Gambar ke Base64",
     "cssGradientBuilder": "Pembuat Gradien CSS",
     "gitignoreGenerator": ".gitignore Generator",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Cuplikan kode"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Ubah file CSV atau Excel menjadi JSON dan ekspor kembali ke CSV atau XLSX."
+      },
+      "snippetManager": {
+        "title": "Cuplikan kode",
+        "description": "Simpan cuplikan dengan penyorotan sintaks, deteksi bahasa otomatis, dan pemformatan."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Cuplikan kode"
     },
     "ui": {
       "title": "Preferensi antarmuka",
@@ -2182,6 +2188,68 @@
       "invalidJson": "JSON tidak valid",
       "exportFailed": "Ekspor gagal",
       "copyFailed": "Tidak dapat menyalin"
+    }
+  },
+  "SnippetManager": {
+    "title": "Pengelola cuplikan kode",
+    "subtitle": "Simpan cuplikan di browser atau masuk untuk menyinkronkannya dengan akun Anda. Beralih antara lihat dan sunting, salin sekali klik, pilih bahasa atau deteksi otomatis, dan format JSON, SQL, atau kode yang didukung Monaco.",
+    "snippets": "Cuplikan",
+    "newSnippet": "Cuplikan baru",
+    "newSnippetTitle": "Cuplikan baru",
+    "defaultSnippetTitle": "Selamat datang",
+    "defaultSnippetCode": "// Selamat datang di cuplikan kode\n// Coba lihat vs sunting, salin, format, dan bahasa otomatis\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Cari cuplikan…",
+    "searchAria": "Cari cuplikan",
+    "emptySearch": "Tidak ada cuplikan yang cocok.",
+    "snippetTitle": "Judul",
+    "snippetTitlePlaceholder": "Nama cuplikan",
+    "language": "Bahasa",
+    "detectedHint": "Sorotan sebagai {lang}",
+    "badgeAuto": "Otomatis · {lang}",
+    "modeView": "Lihat",
+    "modeEdit": "Sunting",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "format": "Format",
+    "cancel": "Batal",
+    "deleteTitle": "Hapus cuplikan?",
+    "deleteDescription": "“{title}” akan dihapus dari browser ini.",
+    "deleteConfirm": "Hapus",
+    "editorAria": "Editor kode cuplikan",
+    "editorLoading": "Memuat editor…",
+    "toastCopied": "Disalin ke papan klip",
+    "toastCopyFailed": "Tidak dapat menyalin",
+    "toastNothingToCopy": "Tidak ada yang disalin",
+    "toastFormatted": "Sudah diformat",
+    "toastFormatFailed": "Tidak dapat memformat",
+    "toastFormatJsonInvalid": "JSON tidak valid — perbaiki sintaks dulu",
+    "toastFormatUnsupported": "Tidak ada pemformat untuk bahasa ini — coba JSON atau SQL atau mode sunting",
+    "toastDeleted": "Cuplikan dihapus",
+    "toastLoadFailed": "Tidak dapat memuat cuplikan dari server.",
+    "toastSyncFailed": "Tidak dapat menyinkronkan dengan server.",
+    "languages": {
+      "auto": "Deteksi otomatis",
+      "plaintext": "Teks biasa",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

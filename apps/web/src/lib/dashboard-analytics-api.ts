@@ -19,6 +19,7 @@ export type DashboardAnalyticsSummary = {
   apiClientEnvironments: number
   apiClientHistoryEntries: number
   jsonFormatterDocuments: number
+  codeSnippets: number
 }
 
 export async function fetchDashboardAnalyticsSummary(): Promise<DashboardAnalyticsSummary> {
@@ -27,5 +28,10 @@ export async function fetchDashboardAnalyticsSummary(): Promise<DashboardAnalyti
     const text = await res.text().catch(() => '')
     throw new Error(text || `Analytics failed (${res.status})`)
   }
-  return res.json() as Promise<DashboardAnalyticsSummary>
+  const data = (await res.json()) as DashboardAnalyticsSummary
+  // Older backends omit `codeSnippets`; without this, dashboard totals become NaN.
+  return {
+    ...data,
+    codeSnippets: data.codeSnippets ?? 0,
+  }
 }

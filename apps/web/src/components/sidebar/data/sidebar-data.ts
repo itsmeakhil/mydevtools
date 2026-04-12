@@ -27,6 +27,7 @@ import {
   IconColorSwatch,
   IconFileMinus,
   IconFileSpreadsheet,
+  IconBrandVscode,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -52,6 +53,12 @@ export const sidebarData: SidebarData = {
           url: '/app/notes',
           icon: IconNotes,
           description: 'Capture ideas and organize your thoughts.',
+        },
+        {
+          title: 'Code Snippets',
+          url: '/app/snippet-manager',
+          icon: IconBrandVscode,
+          description: 'Save snippets with syntax highlighting, auto language, view and edit.',
         },
         {
           title: 'Tasks',

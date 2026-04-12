@@ -26,7 +26,8 @@
     "imageToBase64": "Εικόνα στο Base64",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Γεννήτρια",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Αποσπάσματα κώδικα"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "Μετατρέψτε αρχεία CSV ή Excel σε JSON και εξάγετε ξανά σε CSV ή XLSX."
+      },
+      "snippetManager": {
+        "title": "Αποσπάσματα κώδικα",
+        "description": "Αποθηκεύστε αποσπάσματα με τονισμό σύνταξης, αυτόματη ανίχνευση γλώσσας και μορφοποίηση."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Αποσπάσματα κώδικα"
     },
     "ui": {
       "title": "Προτιμήσεις διεπαφής",
@@ -2182,6 +2188,68 @@
       "invalidJson": "Μη έγκυρο JSON",
       "exportFailed": "Η εξαγωγή απέτυχε",
       "copyFailed": "Δεν ήταν δυνατή η αντιγραφή"
+    }
+  },
+  "SnippetManager": {
+    "title": "Διαχειριστής αποσπασμάτων κώδικα",
+    "subtitle": "Αποθηκεύστε αποσπάσματα στον browser ή συνδεθείτε για συγχρονισμό με τον λογαριασμό σας. Εναλλαγή προβολής και επεξεργασίας, αντιγραφή με ένα κλικ, επιλογή γλώσσας ή αυτόματη ανίχνευση και μορφοποίηση JSON, SQL ή κώδικα που υποστηρίζει το Monaco.",
+    "snippets": "Αποσπάσματα",
+    "newSnippet": "Νέο απόσπασμα",
+    "newSnippetTitle": "Νέο απόσπασμα",
+    "defaultSnippetTitle": "Καλώς ήρθατε",
+    "defaultSnippetCode": "// Καλώς ήρθατε στα αποσπάσματα κώδικα\n// Δοκιμάστε προβολή vs επεξεργασία, αντιγραφή, μορφοποίηση και αυτόματη γλώσσα\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Αναζήτηση αποσπασμάτων…",
+    "searchAria": "Αναζήτηση αποσπασμάτων",
+    "emptySearch": "Κανένα απόσπασμα δεν ταιριάζει στην αναζήτηση.",
+    "snippetTitle": "Τίτλος",
+    "snippetTitlePlaceholder": "Όνομα αποσπάσματος",
+    "language": "Γλώσσα",
+    "detectedHint": "Τονισμός ως {lang}",
+    "badgeAuto": "Αυτόματο · {lang}",
+    "modeView": "Προβολή",
+    "modeEdit": "Επεξεργασία",
+    "copy": "Αντιγραφή",
+    "copied": "Αντιγράφηκε",
+    "format": "Μορφοποίηση",
+    "cancel": "Άκυρο",
+    "deleteTitle": "Διαγραφή αποσπάσματος;",
+    "deleteDescription": "Το «{title}» θα αφαιρεθεί από αυτόν τον browser.",
+    "deleteConfirm": "Διαγραφή",
+    "editorAria": "Επεξεργαστής κώδικα αποσπάσματος",
+    "editorLoading": "Φόρτωση επεξεργαστή…",
+    "toastCopied": "Αντιγράφηκε στο πρόχειρο",
+    "toastCopyFailed": "Αδυναμία αντιγραφής",
+    "toastNothingToCopy": "Τίποτα για αντιγραφή",
+    "toastFormatted": "Μορφοποιήθηκε",
+    "toastFormatFailed": "Αδυναμία μορφοποίησης",
+    "toastFormatJsonInvalid": "Μη έγκυρο JSON — διορθώστε πρώτα τη σύνταξη",
+    "toastFormatUnsupported": "Δεν υπάρχει μορφοποιητής για αυτή τη γλώσσα — δοκιμάστε JSON ή SQL ή λειτουργία επεξεργασίας",
+    "toastDeleted": "Το απόσπασμα διαγράφηκε",
+    "toastLoadFailed": "Δεν ήταν δυνατή η φόρτωση αποσπασμάτων από τον διακομιστή.",
+    "toastSyncFailed": "Δεν ήταν δυνατός ο συγχρονισμός με τον διακομιστή.",
+    "languages": {
+      "auto": "Αυτόματη ανίχνευση",
+      "plaintext": "Απλό κείμενο",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

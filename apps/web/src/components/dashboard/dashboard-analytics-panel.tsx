@@ -9,6 +9,7 @@ import {
   Boxes,
   Braces,
   Briefcase,
+  Code2,
   Database,
   FolderOpen,
   History,
@@ -37,7 +38,8 @@ function sumTrackedItems(d: DashboardAnalyticsSummary): number {
     d.apiClientCollections +
     d.apiClientEnvironments +
     d.apiClientHistoryEntries +
-    d.jsonFormatterDocuments
+    d.jsonFormatterDocuments +
+    (d.codeSnippets ?? 0)
   )
 }
 
@@ -47,7 +49,7 @@ function AnalyticsSkeleton() {
       <div className="h-16 rounded-xl bg-muted/60" />
       <div className="h-10 rounded-lg bg-muted/50" />
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-        {Array.from({ length: 11 }).map((_, i) => (
+        {Array.from({ length: 12 }).map((_, i) => (
           <div key={i} className="h-14 rounded-lg bg-muted/50" />
         ))}
       </div>
@@ -333,6 +335,12 @@ export function DashboardAnalyticsPanel() {
           value={data.jsonFormatterDocuments}
           icon={Braces}
           accent="from-cyan-500 to-blue-600"
+        />
+        <MetricChip
+          label={t('codeSnippets')}
+          value={data.codeSnippets ?? 0}
+          icon={Code2}
+          accent="from-lime-500 to-green-600"
         />
       </div>
     </div>

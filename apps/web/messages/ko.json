@@ -26,7 +26,8 @@
     "imageToBase64": "이미지를 Base64로",
     "cssGradientBuilder": "CSS 그라디언트 빌더",
     "gitignoreGenerator": ".gitignore 생성기",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "코드 스니펫"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "CSV 또는 Excel 파일을 JSON으로 변환하고 CSV 또는 XLSX로 다시보냅니다."
+      },
+      "snippetManager": {
+        "title": "코드 스니펫",
+        "description": "구문 강조, 자동 언어 감지 및 서식으로 스니펫을 저장하세요."
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "코드 스니펫"
     },
     "ui": {
       "title": "인터페이스 설정",
@@ -2182,6 +2188,68 @@
       "invalidJson": "잘못된 JSON",
       "exportFailed": "보내기 실패",
       "copyFailed": "복사할 수 없습니다"
+    }
+  },
+  "SnippetManager": {
+    "title": "코드 스니펫 관리자",
+    "subtitle": "브라우저에 스니펫을 저장하거나 로그인해 계정과 동기화하세요. 보기와 편집 전환, 한 번의 클릭으로 복사, 언어 선택 또는 자동 감지, JSON·SQL·Monaco 지원 코드 포맷을 사용할 수 있습니다.",
+    "snippets": "스니펫",
+    "newSnippet": "새 스니펫",
+    "newSnippetTitle": "새 스니펫",
+    "defaultSnippetTitle": "환영합니다",
+    "defaultSnippetCode": "// 코드 스니펫에 오신 것을 환영합니다\n// 보기/편집, 복사, 서식 및 자동 언어를 사용해 보세요\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "스니펫 검색…",
+    "searchAria": "스니펫 검색",
+    "emptySearch": "검색과 일치하는 스니펫이 없습니다.",
+    "snippetTitle": "제목",
+    "snippetTitlePlaceholder": "스니펫 이름",
+    "language": "언어",
+    "detectedHint": "강조: {lang}",
+    "badgeAuto": "자동 · {lang}",
+    "modeView": "보기",
+    "modeEdit": "편집",
+    "copy": "복사",
+    "copied": "복사됨",
+    "format": "서식",
+    "cancel": "취소",
+    "deleteTitle": "스니펫을 삭제할까요?",
+    "deleteDescription": "‘{title}’이(가) 이 브라우저에서 제거됩니다.",
+    "deleteConfirm": "삭제",
+    "editorAria": "스니펫 코드 편집기",
+    "editorLoading": "편집기 로드 중…",
+    "toastCopied": "클립보드에 복사됨",
+    "toastCopyFailed": "복사할 수 없습니다",
+    "toastNothingToCopy": "복사할 내용이 없습니다",
+    "toastFormatted": "서식이 적용되었습니다",
+    "toastFormatFailed": "서식을 적용할 수 없습니다",
+    "toastFormatJsonInvalid": "잘못된 JSON — 먼저 구문을 수정하세요",
+    "toastFormatUnsupported": "이 언어용 서식 도구가 없습니다 — JSON 또는 SQL 또는 편집 모드를 사용해 보세요",
+    "toastDeleted": "스니펫이 삭제되었습니다",
+    "toastLoadFailed": "서버에서 스니펫을 불러오지 못했습니다.",
+    "toastSyncFailed": "서버와 동기화하지 못했습니다.",
+    "languages": {
+      "auto": "자동 감지",
+      "plaintext": "일반 텍스트",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }

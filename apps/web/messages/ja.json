@@ -26,7 +26,8 @@
     "imageToBase64": "画像をBase64に変換",
     "cssGradientBuilder": "CSS グラデーション ビルダー",
     "gitignoreGenerator": ".gitignore ジェネレーター",
-    "csvExcelJson": "CSV / Excel ↔ JSON"
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "コードスニペット"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -308,6 +309,10 @@
       "csvExcelJson": {
         "title": "CSV / Excel ↔ JSON",
         "description": "CSV や Excel を JSON に変換し、CSV や XLSX に再エクスポートします。"
+      },
+      "snippetManager": {
+        "title": "コードスニペット",
+        "description": "シンタックスハイライト、自動言語検出、整形でスニペットを保存します。"
       }
     },
     "tabs": {
@@ -343,7 +348,8 @@
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…"
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "コードスニペット"
     },
     "ui": {
       "title": "インターフェース設定",
@@ -2182,6 +2188,68 @@
       "invalidJson": "無効な JSON",
       "exportFailed": "エクスポートに失敗しました",
       "copyFailed": "コピーできませんでした"
+    }
+  },
+  "SnippetManager": {
+    "title": "コードスニペットマネージャー",
+    "subtitle": "ブラウザにスニペットを保存するか、サインインしてアカウントと同期します。表示と編集の切り替え、ワンクリックコピー、言語の選択または自動検出、JSON・SQL・Monaco 対応コードの整形ができます。",
+    "snippets": "スニペット",
+    "newSnippet": "新しいスニペット",
+    "newSnippetTitle": "新しいスニペット",
+    "defaultSnippetTitle": "ようこそ",
+    "defaultSnippetCode": "// コードスニペットへようこそ\n// 表示と編集、コピー、整形、自動言語をお試しください\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "スニペットを検索…",
+    "searchAria": "スニペットを検索",
+    "emptySearch": "一致するスニペットがありません。",
+    "snippetTitle": "タイトル",
+    "snippetTitlePlaceholder": "スニペット名",
+    "language": "言語",
+    "detectedHint": "ハイライト: {lang}",
+    "badgeAuto": "自動 · {lang}",
+    "modeView": "表示",
+    "modeEdit": "編集",
+    "copy": "コピー",
+    "copied": "コピーしました",
+    "format": "整形",
+    "cancel": "キャンセル",
+    "deleteTitle": "スニペットを削除しますか？",
+    "deleteDescription": "「{title}」はこのブラウザから削除されます。",
+    "deleteConfirm": "削除",
+    "editorAria": "スニペットコードエディター",
+    "editorLoading": "エディターを読み込み中…",
+    "toastCopied": "クリップボードにコピーしました",
+    "toastCopyFailed": "コピーできませんでした",
+    "toastNothingToCopy": "コピーする内容がありません",
+    "toastFormatted": "整形しました",
+    "toastFormatFailed": "整形できませんでした",
+    "toastFormatJsonInvalid": "無効な JSON — 先に構文を修正してください",
+    "toastFormatUnsupported": "この言語用の整形はありません — JSON か SQL、または編集モードをお試しください",
+    "toastDeleted": "スニペットを削除しました",
+    "toastLoadFailed": "サーバーからスニペットを読み込めませんでした。",
+    "toastSyncFailed": "サーバーと同期できませんでした。",
+    "languages": {
+      "auto": "自動検出",
+      "plaintext": "プレーンテキスト",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
     }
   }
 }
