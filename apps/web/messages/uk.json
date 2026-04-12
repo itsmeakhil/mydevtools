@@ -2084,6 +2084,11 @@
     "deleteStop": "Видалити зупинку",
     "output": "Вихід CSS",
     "copy": "Копіювати CSS",
-    "copied": "Скопійовано!"
+    "copied": "Скопійовано!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

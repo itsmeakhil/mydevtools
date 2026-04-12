@@ -2084,6 +2084,11 @@
     "deleteStop": "Padam Berhenti",
     "output": "Output CSS",
     "copy": "Salin CSS",
-    "copied": "disalin!"
+    "copied": "disalin!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

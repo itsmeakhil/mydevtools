@@ -2084,6 +2084,11 @@
     "deleteStop": "Stop را حذف کنید",
     "output": "خروجی CSS",
     "copy": "CSS را کپی کنید",
-    "copied": "کپی شده!"
+    "copied": "کپی شده!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

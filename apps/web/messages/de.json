@@ -2084,6 +2084,11 @@
     "deleteStop": "Stopp löschen",
     "output": "CSS-Ausgabe",
     "copy": "CSS kopieren",
-    "copied": "Kopiert!"
+    "copied": "Kopiert!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

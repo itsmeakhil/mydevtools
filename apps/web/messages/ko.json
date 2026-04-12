@@ -2084,6 +2084,11 @@
     "deleteStop": "정지 삭제",
     "output": "CSS 출력",
     "copy": "CSS 복사",
-    "copied": "복사되었습니다!"
+    "copied": "복사되었습니다!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

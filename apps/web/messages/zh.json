@@ -2084,6 +2084,11 @@
     "deleteStop": "删除停靠点",
     "output": "CSS 输出",
     "copy": "复制CSS",
-    "copied": "复制了！"
+    "copied": "复制了！",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

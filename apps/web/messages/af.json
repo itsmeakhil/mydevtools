@@ -2084,6 +2084,11 @@
     "deleteStop": "Vee Stop uit",
     "output": "CSS Uitset",
     "copy": "Kopieer CSS",
-    "copied": "Gekopieer!"
+    "copied": "Gekopieer!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }

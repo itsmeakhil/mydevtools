@@ -2084,6 +2084,11 @@
     "deleteStop": "Slet Stop",
     "output": "CSS output",
     "copy": "Kopier CSS",
-    "copied": "Kopieret!"
+    "copied": "Kopieret!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
   }
 }
