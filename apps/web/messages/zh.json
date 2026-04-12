@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON 模式生成器",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "图像转 Base64"
   },
   "Help": {
     "title": "帮助与文档",
@@ -291,8 +291,8 @@
         "description": "从示例 JSON 推断 JSON 模式与类型化模型。"
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "图像转 Base64",
+        "description": "将图像转换为数据 URI 或原始 Base64 字符串。"
       }
     },
     "tabs": {
@@ -2069,28 +2069,28 @@
     "editorLoading": "正在加载编辑器…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "图像转 Base64",
+    "subtitle": "删除图像，获取数据 URI 或原始 Base64 字符串。一切都保留在您的浏览器中。",
+    "upload": "上传图片",
+    "clear": "清除",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "数据URI",
+      "rawString": "原始 Base64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "图像输入",
+      "output": "Base64 输出"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "将图像拖放到此处",
+    "charCount": "{count} 个字符",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "拖放图像或单击上传开始。"
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "文件太大。处理过程可能会冻结您的浏览器。",
+    "copyTitle": "复制到剪贴板",
     "download": {
-      "title": "Download text",
-      "filename": "image-base64.txt"
+      "title": "下载文字",
+      "filename": "图像-base64.txt"
     }
   }
 }

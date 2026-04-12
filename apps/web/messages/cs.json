@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generátor JSON schématu",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Obrázek do Base64"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -291,8 +291,8 @@
         "description": "Odvození JSON schématu a typovaných modelů z ukázkového JSONu."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Obrázek do Base64",
+        "description": "Převeďte obrázky na Data URI nebo nezpracované řetězce Base64."
       }
     },
     "tabs": {
@@ -2069,27 +2069,27 @@
     "editorLoading": "Načítání editoru…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Obrázek do Base64",
+    "subtitle": "Pusťte obrázek, získejte URI dat nebo nezpracovaný řetězec Base64. Vše zůstane ve vašem prohlížeči.",
+    "upload": "Nahrát obrázek",
+    "clear": "Jasný",
     "modes": {
-      "dataUri": "Data URI",
+      "dataUri": "Identifikátor URI dat",
       "rawString": "Raw Base64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Obrazový vstup",
+      "output": "Výstup Base64"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Přetáhněte obrázek sem",
+    "charCount": "{count} znaků",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Přetáhněte obrázek nebo začněte kliknutím na tlačítko nahrát."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "Soubor je příliš velký. Zpracování může zamrznout váš prohlížeč.",
+    "copyTitle": "Kopírovat do schránky",
     "download": {
-      "title": "Download text",
+      "title": "Stáhnout text",
       "filename": "image-base64.txt"
     }
   }

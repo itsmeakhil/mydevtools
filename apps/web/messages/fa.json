@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "تولیدکنندهٔ طرح JSON",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "تصویر به Base64"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -291,8 +291,8 @@
         "description": "از نمونهٔ JSON، طرح JSON و مدل‌های نوع‌دار استنتاج کنید."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "تصویر به Base64",
+        "description": "تصاویر را به Data URI یا رشته های Base64 خام تبدیل کنید."
       }
     },
     "tabs": {
@@ -2069,27 +2069,27 @@
     "editorLoading": "در حال بارگذاری ویرایشگر…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "تصویر به Base64",
+    "subtitle": "یک تصویر رها کنید، یک URI داده یا رشته خام Base64 دریافت کنید. همه چیز در مرورگر شما باقی می ماند.",
+    "upload": "آپلود تصویر",
+    "clear": "پاک کردن",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "URI داده",
+      "rawString": "پایه خام 64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "ورودی تصویر",
+      "output": "خروجی Base64"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "تصویر را اینجا رها کنید",
+    "charCount": "{count} کاراکتر",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "یک تصویر را بکشید و رها کنید یا برای شروع روی آپلود کلیک کنید."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "فایل خیلی بزرگ است پردازش ممکن است مرورگر شما را مسدود کند.",
+    "copyTitle": "در کلیپ بورد کپی کنید",
     "download": {
-      "title": "Download text",
+      "title": "دانلود متن",
       "filename": "image-base64.txt"
     }
   }

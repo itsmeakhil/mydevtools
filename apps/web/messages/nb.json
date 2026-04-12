@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-skjemagenerator",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Bilde til Base64"
   },
   "Help": {
     "title": "Hjelp og dokumentasjon",
@@ -291,8 +291,8 @@
         "description": "Utled et JSON-skjema og typede modeller fra eksempel-JSON."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Bilde til Base64",
+        "description": "Konverter bilder til data-URI eller rå Base64-strenger."
       }
     },
     "tabs": {
@@ -2069,27 +2069,27 @@
     "editorLoading": "Laster inn redigeringsprogrammet…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Bilde til Base64",
+    "subtitle": "Slipp et bilde, få en data-URI eller rå Base64-streng. Alt forblir i nettleseren din.",
+    "upload": "Last opp bilde",
+    "clear": "Klar",
     "modes": {
-      "dataUri": "Data URI",
+      "dataUri": "Data-URI",
       "rawString": "Raw Base64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Bildeinngang",
+      "output": "Base64-utgang"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Slipp bildet her",
+    "charCount": "{count} tegn",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Dra og slipp et bilde eller klikk på last opp for å starte."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "Filen er for stor. Behandling kan fryse nettleseren din.",
+    "copyTitle": "Kopier til utklippstavlen",
     "download": {
-      "title": "Download text",
+      "title": "Last ned tekst",
       "filename": "image-base64.txt"
     }
   }

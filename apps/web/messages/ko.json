@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON 스키마 생성기",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "이미지를 Base64로"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -291,8 +291,8 @@
         "description": "샘플 JSON에서 JSON 스키마와 타입이 지정된 모델을 추론합니다."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "이미지를 Base64로",
+        "description": "이미지를 데이터 URI 또는 ​​원시 Base64 문자열로 변환합니다."
       }
     },
     "tabs": {
@@ -2069,28 +2069,28 @@
     "editorLoading": "편집기 로드 중…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "이미지를 Base64로",
+    "subtitle": "이미지를 삭제하고 데이터 URI 또는 ​​원시 Base64 문자열을 가져옵니다. 모든 것이 브라우저에 유지됩니다.",
+    "upload": "이미지 업로드",
+    "clear": "분명한",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "데이터 URI",
+      "rawString": "원시 베이스64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "이미지 입력",
+      "output": "Base64 출력"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "여기에 이미지를 드롭하세요.",
+    "charCount": "{count}자",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "이미지를 드래그 앤 드롭하거나 업로드를 클릭하여 시작하세요."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "파일이 너무 큽니다. 처리하면 브라우저가 정지될 수 있습니다.",
+    "copyTitle": "클립보드에 복사",
     "download": {
-      "title": "Download text",
-      "filename": "image-base64.txt"
+      "title": "텍스트 다운로드",
+      "filename": "이미지-base64.txt"
     }
   }
 }

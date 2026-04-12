@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON Şema Oluşturucu",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Base64'e görüntü"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -291,8 +291,8 @@
         "description": "Örnek JSON’dan JSON Şeması ve tipli modeller türetin."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Base64'e görüntü",
+        "description": "Görüntüleri Veri URI'sine veya ham Base64 dizelerine dönüştürün."
       }
     },
     "tabs": {
@@ -2069,27 +2069,27 @@
     "editorLoading": "Editör yükleniyor…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Base64'e görüntü",
+    "subtitle": "Bir görüntüyü bırakın, bir veri URI'si veya ham Base64 dizesi alın. Her şey tarayıcınızda kalır.",
+    "upload": "Resim Yükle",
+    "clear": "Temizlemek",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "Veri URI'si",
+      "rawString": "Ham Base64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Görüntü Girişi",
+      "output": "Base64 Çıkışı"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Resmi buraya bırakın",
+    "charCount": "{count} karakter",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Başlamak için bir resmi sürükleyip bırakın veya yükle'ye tıklayın."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "Dosya çok büyük. İşleme, tarayıcınızı dondurabilir.",
+    "copyTitle": "Panoya kopyala",
     "download": {
-      "title": "Download text",
+      "title": "Metni indir",
       "filename": "image-base64.txt"
     }
   }

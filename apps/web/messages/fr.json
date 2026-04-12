@@ -23,7 +23,7 @@
     "apiClient": "Client API",
     "nosqlExplorer": "Explorateur NoSQL",
     "jsonSchemaGenerator": "Générateur de schéma JSON",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Image vers Base64"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -291,8 +291,8 @@
         "description": "Déduisez un schéma JSON et des modèles typés à partir d'un exemple JSON."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Image vers Base64",
+        "description": "Convertissez les images en URI de données ou en chaînes Base64 brutes."
       }
     },
     "tabs": {
@@ -2069,27 +2069,27 @@
     "editorLoading": "Chargement de l’éditeur…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Image vers Base64",
+    "subtitle": "Déposez une image, obtenez un URI de données ou une chaîne Base64 brute. Tout reste dans votre navigateur.",
+    "upload": "Télécharger une image",
+    "clear": "Clair",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "URI des données",
+      "rawString": "Base brute64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Entrée d'image",
+      "output": "Sortie Base64"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Déposez l'image ici",
+    "charCount": "{count} caractères",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Faites glisser et déposez une image ou cliquez sur Télécharger pour commencer."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "Le fichier est trop volumineux. Le traitement peut geler votre navigateur.",
+    "copyTitle": "Copier dans le presse-papier",
     "download": {
-      "title": "Download text",
+      "title": "Télécharger le texte",
       "filename": "image-base64.txt"
     }
   }

@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-skemagenerator",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Beeld na Base64"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -291,8 +291,8 @@
         "description": "Lei 'n JSON-skema en getiketteerde modelle uit voorbeeld-JSON af."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Beeld na Base64",
+        "description": "Skakel beelde om na Data URI of rou Base64-stringe."
       }
     },
     "tabs": {
@@ -2069,27 +2069,27 @@
     "editorLoading": "Laai redigeerder…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Beeld na Base64",
+    "subtitle": "Los 'n prent, kry 'n data-URI of rou Base64-string. Alles bly in jou blaaier.",
+    "upload": "Laai prent op",
+    "clear": "Duidelik",
     "modes": {
       "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "rawString": "Rou basis64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Beeld-invoer",
+      "output": "Basis64 Uitset"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Los prent hier",
+    "charCount": "{tel} tekens",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Sleep en los 'n prent of klik oplaai om te begin."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "Lêer is te groot. Verwerking kan jou blaaier vries.",
+    "copyTitle": "Kopieer na knipbord",
     "download": {
-      "title": "Download text",
+      "title": "Laai teks af",
       "filename": "image-base64.txt"
     }
   }

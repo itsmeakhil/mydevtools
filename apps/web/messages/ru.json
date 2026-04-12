@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Генератор JSON-схемы",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Изображение в Base64"
   },
   "Help": {
     "title": "Справка и документация",
@@ -291,8 +291,8 @@
         "description": "Получите JSON-схему и типизированные модели из примера JSON."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Изображение в Base64",
+        "description": "Преобразуйте изображения в URI данных или необработанные строки Base64."
       }
     },
     "tabs": {
@@ -2069,28 +2069,28 @@
     "editorLoading": "Загрузка редактора…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Изображение в Base64",
+    "subtitle": "Отбросьте изображение, получите URI данных или необработанную строку Base64. Все остается в вашем браузере.",
+    "upload": "Загрузить изображение",
+    "clear": "Прозрачный",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "URI данных",
+      "rawString": "Необработанная база64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Ввод изображения",
+      "output": "Вывод Base64"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Перетащите изображение сюда",
+    "charCount": "{count} символов",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Перетащите изображение или нажмите «Загрузить», чтобы начать."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "Файл слишком большой. Обработка может привести к зависанию вашего браузера.",
+    "copyTitle": "Скопировать в буфер обмена",
     "download": {
-      "title": "Download text",
-      "filename": "image-base64.txt"
+      "title": "Скачать текст",
+      "filename": "изображение-base64.txt"
     }
   }
 }

@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "مولّد مخطط JSON",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "الصورة إلى Base64"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -291,8 +291,8 @@
         "description": "استنتج مخطط JSON ونماذج مُنمّطة من عيّنة JSON."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "الصورة إلى Base64",
+        "description": "تحويل الصور إلى Data URI أو سلاسل Base64 الأولية."
       }
     },
     "tabs": {
@@ -2069,27 +2069,27 @@
     "editorLoading": "جاري تحميل المحرر…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "الصورة إلى Base64",
+    "subtitle": "قم بإسقاط صورة، واحصل على URI للبيانات أو سلسلة Base64 الأولية. كل شيء يبقى في متصفحك.",
+    "upload": "تحميل الصورة",
+    "clear": "واضح",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "معرف الموارد المنتظم (URI) للبيانات",
+      "rawString": "قاعدة خام64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "إدخال الصورة",
+      "output": "إخراج Base64"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "أسقط الصورة هنا",
+    "charCount": "{عدد} حرف",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "قم بسحب وإسقاط صورة أو انقر فوق تحميل للبدء."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "الملف كبير جدًا. قد تؤدي المعالجة إلى تجميد متصفحك.",
+    "copyTitle": "نسخ إلى الحافظة",
     "download": {
-      "title": "Download text",
+      "title": "تنزيل النص",
       "filename": "image-base64.txt"
     }
   }

@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generatore di schema JSON",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Immagine su Base64"
   },
   "Help": {
     "title": "Aiuto e documentazione",
@@ -291,8 +291,8 @@
         "description": "Ricava uno schema JSON e modelli tipizzati da un campione JSON."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Immagine su Base64",
+        "description": "Converti immagini in URI dati o stringhe Base64 non elaborate."
       }
     },
     "tabs": {
@@ -2069,28 +2069,28 @@
     "editorLoading": "Caricamento editor…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Immagine su Base64",
+    "subtitle": "Rilascia un'immagine, ottieni un URI di dati o una stringa Base64 non elaborata. Tutto rimane nel tuo browser.",
+    "upload": "Carica immagine",
+    "clear": "Chiaro",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "URI dei dati",
+      "rawString": "Base grezza64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Ingresso immagine",
+      "output": "Uscita Base64"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Rilascia l'immagine qui",
+    "charCount": "{count} caratteri",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Trascina e rilascia un'immagine o fai clic su Carica per iniziare."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "Il file è troppo grande. L'elaborazione potrebbe bloccare il browser.",
+    "copyTitle": "Copia negli appunti",
     "download": {
-      "title": "Download text",
-      "filename": "image-base64.txt"
+      "title": "Scarica testo",
+      "filename": "immagine-base64.txt"
     }
   }
 }

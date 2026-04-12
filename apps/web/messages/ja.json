@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSONスキーマジェネレーター",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "画像をBase64に変換"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -291,8 +291,8 @@
         "description": "サンプルJSONからJSONスキーマと型付きモデルを推論します。"
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "画像をBase64に変換",
+        "description": "画像をデータ URI または生の Base64 文字列に変換します。"
       }
     },
     "tabs": {
@@ -2069,28 +2069,28 @@
     "editorLoading": "エディタを読み込み中…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "画像をBase64に変換",
+    "subtitle": "画像をドロップし、データ URI または生の Base64 文字列を取得します。すべてがブラウザ内に残ります。",
+    "upload": "画像をアップロードする",
+    "clear": "クリア",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "データURI",
+      "rawString": "生のBase64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "画像入力",
+      "output": "Base64出力"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "ここに画像をドロップ",
+    "charCount": "{count} 文字",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "画像をドラッグ アンド ドロップするか、アップロードをクリックして開始します。"
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "ファイルが大きすぎます。処理中にブラウザがフリーズする可能性があります。",
+    "copyTitle": "クリップボードにコピー",
     "download": {
-      "title": "Download text",
-      "filename": "image-base64.txt"
+      "title": "テキストをダウンロードする",
+      "filename": "画像-base64.txt"
     }
   }
 }

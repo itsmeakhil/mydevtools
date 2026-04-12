@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Trình tạo lược đồ JSON",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Hình ảnh tới Base64"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -291,8 +291,8 @@
         "description": "Suy ra lược đồ JSON và mô hình có kiểu từ mẫu JSON."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Hình ảnh tới Base64",
+        "description": "Chuyển đổi hình ảnh thành URI dữ liệu hoặc chuỗi Base64 thô."
       }
     },
     "tabs": {
@@ -2069,28 +2069,28 @@
     "editorLoading": "Đang tải trình soạn thảo…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Hình ảnh tới Base64",
+    "subtitle": "Thả hình ảnh, lấy URI dữ liệu hoặc chuỗi Base64 thô. Mọi thứ vẫn ở trong trình duyệt của bạn.",
+    "upload": "Tải hình ảnh lên",
+    "clear": "Thông thoáng",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "URI dữ liệu",
+      "rawString": "Cơ sở thô64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Nhập hình ảnh",
+      "output": "Đầu ra Base64"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Thả hình ảnh ở đây",
+    "charCount": "{đếm} ký tự",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Kéo và thả hình ảnh hoặc nhấp vào tải lên để bắt đầu."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "Tệp quá lớn. Quá trình xử lý có thể đóng băng trình duyệt của bạn.",
+    "copyTitle": "Sao chép vào khay nhớ tạm",
     "download": {
-      "title": "Download text",
-      "filename": "image-base64.txt"
+      "title": "Tải văn bản xuống",
+      "filename": "hình ảnh-base64.txt"
     }
   }
 }

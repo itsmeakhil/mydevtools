@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Penjana Skema JSON",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Imej ke Base64"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -291,8 +291,8 @@
         "description": "Inferens skema JSON dan model berjenis daripada sampel JSON."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Imej ke Base64",
+        "description": "Tukar imej kepada URI Data atau rentetan Base64 mentah."
       }
     },
     "tabs": {
@@ -2069,27 +2069,27 @@
     "editorLoading": "Memuatkan editor…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Imej ke Base64",
+    "subtitle": "Lepaskan imej, dapatkan URI data atau rentetan Base64 mentah. Semuanya kekal dalam penyemak imbas anda.",
+    "upload": "Muat Naik Imej",
+    "clear": "Jelas",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "URI data",
+      "rawString": "Pangkalan Mentah64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Input Imej",
+      "output": "Output Base64"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Lepaskan gambar di sini",
+    "charCount": "{count} aksara",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Seret dan lepas imej atau klik muat naik untuk bermula."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "Fail terlalu besar. Pemprosesan mungkin membekukan penyemak imbas anda.",
+    "copyTitle": "Salin ke papan keratan",
     "download": {
-      "title": "Download text",
+      "title": "Muat turun teks",
       "filename": "image-base64.txt"
     }
   }

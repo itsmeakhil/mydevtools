@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generador d'esquema JSON",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Imatge a Base64"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -291,8 +291,8 @@
         "description": "Extreu un esquema JSON i models tipats a partir d'una mostra JSON."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Imatge a Base64",
+        "description": "Converteix imatges a URI de dades o cadenes en brut Base64."
       }
     },
     "tabs": {
@@ -2069,27 +2069,27 @@
     "editorLoading": "S'està carregant l'editor…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Imatge a Base64",
+    "subtitle": "Deixeu anar una imatge, obteniu un URI de dades o una cadena Base64 en brut. Tot es queda al vostre navegador.",
+    "upload": "Carrega la imatge",
+    "clear": "Clar",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "URI de dades",
+      "rawString": "Base bruta 64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Entrada d'imatge",
+      "output": "Sortida Base64"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Deixa la imatge aquí",
+    "charCount": "{count} caràcters",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Arrossegueu i deixeu anar una imatge o feu clic a carrega per començar."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "El fitxer és massa gran. El processament pot congelar el vostre navegador.",
+    "copyTitle": "Copia al porta-retalls",
     "download": {
-      "title": "Download text",
+      "title": "Descarregar text",
       "filename": "image-base64.txt"
     }
   }

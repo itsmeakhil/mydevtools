@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-schemagenerator",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Bild till Base64"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -291,8 +291,8 @@
         "description": "Härled ett JSON-schema och typade modeller från exempel-JSON."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Bild till Base64",
+        "description": "Konvertera bilder till Data URI eller rå Base64-strängar."
       }
     },
     "tabs": {
@@ -2069,27 +2069,27 @@
     "editorLoading": "Läser in redigeraren…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Bild till Base64",
+    "subtitle": "Släpp en bild, skaffa en data-URI eller rå Base64-sträng. Allt finns kvar i din webbläsare.",
+    "upload": "Ladda upp bild",
+    "clear": "Rensa",
     "modes": {
       "dataUri": "Data URI",
       "rawString": "Raw Base64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Bildinmatning",
+      "output": "Base64-utgång"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Släpp bilden här",
+    "charCount": "{count} tecken",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Dra och släpp en bild eller klicka på ladda upp för att starta."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "Filen är för stor. Bearbetning kan frysa din webbläsare.",
+    "copyTitle": "Kopiera till urklipp",
     "download": {
-      "title": "Download text",
+      "title": "Ladda ner text",
       "filename": "image-base64.txt"
     }
   }

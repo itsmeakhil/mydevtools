@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generator Skema JSON",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Gambar ke Base64"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -291,8 +291,8 @@
         "description": "Turunkan skema JSON dan model bertipe dari contoh JSON."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Gambar ke Base64",
+        "description": "Konversikan gambar ke URI Data atau string Base64 mentah."
       }
     },
     "tabs": {
@@ -2069,28 +2069,28 @@
     "editorLoading": "Memuat editor…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Gambar ke Base64",
+    "subtitle": "Jatuhkan gambar, dapatkan URI data atau string Base64 mentah. Semuanya tetap ada di browser Anda.",
+    "upload": "Unggah Gambar",
+    "clear": "Jernih",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "URI Data",
+      "rawString": "Basis Mentah64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Masukan Gambar",
+      "output": "Keluaran Base64"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Jatuhkan gambar di sini",
+    "charCount": "{count} karakter",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Seret dan lepas gambar atau klik unggah untuk memulai."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "File terlalu besar. Pemrosesan mungkin membekukan browser Anda.",
+    "copyTitle": "Salin ke papan klip",
     "download": {
-      "title": "Download text",
-      "filename": "image-base64.txt"
+      "title": "Unduh teks",
+      "filename": "gambar-base64.txt"
     }
   }
 }

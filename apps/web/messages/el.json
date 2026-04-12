@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Γεννήτρια JSON Schema",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Εικόνα στο Base64"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",
@@ -291,8 +291,8 @@
         "description": "Συμπεράνετε ένα JSON Schema και τυποποιημένα μοντέλα από δείγμα JSON."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Εικόνα στο Base64",
+        "description": "Μετατροπή εικόνων σε Data URI ή σε ακατέργαστες συμβολοσειρές Base64."
       }
     },
     "tabs": {
@@ -2069,27 +2069,27 @@
     "editorLoading": "Φόρτωση επεξεργαστή…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Εικόνα στο Base64",
+    "subtitle": "Ρίξτε μια εικόνα, λάβετε ένα URI δεδομένων ή μια ακατέργαστη συμβολοσειρά Base64. Όλα παραμένουν στο πρόγραμμα περιήγησής σας.",
+    "upload": "Μεταφόρτωση εικόνας",
+    "clear": "Σαφής",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "URI δεδομένων",
+      "rawString": "Ακατέργαστη βάση 64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Είσοδος εικόνας",
+      "output": "Έξοδος Base64"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Ρίξτε εικόνα εδώ",
+    "charCount": "{count} χαρακτήρες",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Σύρετε και αποθέστε μια εικόνα ή κάντε κλικ στη μεταφόρτωση για να ξεκινήσετε."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "Το αρχείο είναι πολύ μεγάλο. Η επεξεργασία ενδέχεται να παγώσει το πρόγραμμα περιήγησής σας.",
+    "copyTitle": "Αντιγραφή στο πρόχειρο",
     "download": {
-      "title": "Download text",
+      "title": "Λήψη κειμένου",
       "filename": "image-base64.txt"
     }
   }

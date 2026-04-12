@@ -23,7 +23,7 @@
     "apiClient": "API-Client",
     "nosqlExplorer": "NoSQL-Explorer",
     "jsonSchemaGenerator": "JSON-Schema-Generator",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Bild zu Base64"
   },
   "Help": {
     "title": "Hilfe & Dokumentation",
@@ -291,8 +291,8 @@
         "description": "Leiten Sie ein JSON-Schema und typisierte Modelle aus Beispiel-JSON ab."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Bild zu Base64",
+        "description": "Konvertieren Sie Bilder in Daten-URI oder rohe Base64-Strings."
       }
     },
     "tabs": {
@@ -2069,27 +2069,27 @@
     "editorLoading": "Editor wird geladen…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Bild zu Base64",
+    "subtitle": "Legen Sie ein Bild ab und erhalten Sie einen Daten-URI oder eine unformatierte Base64-Zeichenfolge. Alles bleibt in Ihrem Browser.",
+    "upload": "Bild hochladen",
+    "clear": "Klar",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "Daten-URI",
+      "rawString": "Rohes Base64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Bildeingabe",
+      "output": "Base64-Ausgabe"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Bild hier einfügen",
+    "charCount": "{count} Zeichen",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Ziehen Sie ein Bild per Drag-and-Drop oder klicken Sie zum Starten auf „Hochladen“."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "Die Datei ist zu groß. Bei der Verarbeitung kann es sein, dass Ihr Browser einfriert.",
+    "copyTitle": "In die Zwischenablage kopieren",
     "download": {
-      "title": "Download text",
+      "title": "Text herunterladen",
       "filename": "image-base64.txt"
     }
   }

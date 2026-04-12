@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generator schematu JSON",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Obraz do Base64"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -291,8 +291,8 @@
         "description": "Wywnioskuj schemat JSON i modele typowane z przykładowego JSON."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Obraz do Base64",
+        "description": "Konwertuj obrazy na URI danych lub surowe ciągi Base64."
       }
     },
     "tabs": {
@@ -2069,27 +2069,27 @@
     "editorLoading": "Ładowanie edytora…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Obraz do Base64",
+    "subtitle": "Upuść obraz, uzyskaj identyfikator URI danych lub surowy ciąg Base64. Wszystko pozostaje w Twojej przeglądarce.",
+    "upload": "Prześlij obraz",
+    "clear": "Jasne",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "URI danych",
+      "rawString": "Surowa baza64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Wejście obrazu",
+      "output": "Dane wyjściowe Base64"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Upuść obraz tutaj",
+    "charCount": "{count} znaków",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Przeciągnij i upuść obraz lub kliknij przycisk przesyłania, aby rozpocząć."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "Plik jest za duży. Przetwarzanie może zawiesić Twoją przeglądarkę.",
+    "copyTitle": "Skopiuj do schowka",
     "download": {
-      "title": "Download text",
+      "title": "Pobierz tekst",
       "filename": "image-base64.txt"
     }
   }

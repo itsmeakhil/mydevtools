@@ -59,6 +59,7 @@ Most developer tools are scattered across dozens of tabs, riddled with ads, or s
 | **🔀 Diff Checker** | Side-by-side text diff viewer with inline change highlighting |
 | **📧 Email Validator** | Validate email address format and DNS structure instantly |
 | **🌿 Environment Manager** | Manage `.env` files — import, export, diff environments, keep secrets organized |
+| **🖼️ Image to Base64** | Convert images to Data URI or raw Base64 strings with a visual dropzone |
 | **📝 JSON Formatter** | Beautify, validate, minify, and explore JSON with Monaco Editor |
 | **📐 JSON Schema Generator** | Auto-generate JSON Schema from any JSON input instantly |
 | **🔑 JWT Decoder** | Decode and inspect JWT tokens — header, payload, and signature at a glance |

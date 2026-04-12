@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Gerador de esquema JSON",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Imagem para Base64"
   },
   "Help": {
     "title": "Ajuda e documentação",
@@ -291,8 +291,8 @@
         "description": "Infira um esquema JSON e modelos tipados a partir de uma amostra JSON."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Imagem para Base64",
+        "description": "Converta imagens em URI de dados ou strings Base64 brutas."
       }
     },
     "tabs": {
@@ -2069,28 +2069,28 @@
     "editorLoading": "A carregar o editor…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Imagem para Base64",
+    "subtitle": "Solte uma imagem, obtenha um URI de dados ou uma string Base64 bruta. Tudo fica no seu navegador.",
+    "upload": "Carregar imagem",
+    "clear": "Claro",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "URI de dados",
+      "rawString": "Base64 bruta"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Entrada de imagem",
+      "output": "Saída Base64"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Solte a imagem aqui",
+    "charCount": "{contar} caracteres",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Arraste e solte uma imagem ou clique em carregar para começar."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "O arquivo é muito grande. O processamento pode congelar seu navegador.",
+    "copyTitle": "Copiar para a área de transferência",
     "download": {
-      "title": "Download text",
-      "filename": "image-base64.txt"
+      "title": "Baixar texto",
+      "filename": "imagem-base64.txt"
     }
   }
 }

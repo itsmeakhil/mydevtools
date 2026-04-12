@@ -23,7 +23,7 @@
     "apiClient": "Cliente API",
     "nosqlExplorer": "Explorador NoSQL",
     "jsonSchemaGenerator": "Generador de esquema JSON",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Imagen a Base64"
   },
   "Help": {
     "title": "Ayuda y documentación",
@@ -291,8 +291,8 @@
         "description": "Obtén un esquema JSON y modelos tipados a partir de una muestra JSON."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Imagen a Base64",
+        "description": "Convierta imágenes a URI de datos o cadenas Base64 sin formato."
       }
     },
     "tabs": {
@@ -2069,28 +2069,28 @@
     "editorLoading": "Cargando el editor…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Imagen a Base64",
+    "subtitle": "Suelte una imagen, obtenga un URI de datos o una cadena Base64 sin formato. Todo permanece en tu navegador.",
+    "upload": "Subir imagen",
+    "clear": "Claro",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "URI de datos",
+      "rawString": "Base cruda64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Entrada de imagen",
+      "output": "Salida Base64"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Suelta imagen aquí",
+    "charCount": "{contar} caracteres",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Arrastre y suelte una imagen o haga clic en cargar para comenzar."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "El archivo es demasiado grande. El procesamiento puede congelar su navegador.",
+    "copyTitle": "Copiar al portapapeles",
     "download": {
-      "title": "Download text",
-      "filename": "image-base64.txt"
+      "title": "Descargar texto",
+      "filename": "imagen-base64.txt"
     }
   }
 }

@@ -23,7 +23,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-schema-generator",
-    "imageToBase64": "Image to Base64"
+    "imageToBase64": "Afbeelding naar Base64"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -291,8 +291,8 @@
         "description": "Leid een JSON-schema en getypeerde modellen af van voorbeeld-JSON."
       },
       "imageToBase64": {
-        "title": "Image to Base64",
-        "description": "Convert images to Data URI or raw Base64 strings."
+        "title": "Afbeelding naar Base64",
+        "description": "Converteer afbeeldingen naar gegevens-URI of onbewerkte Base64-tekenreeksen."
       }
     },
     "tabs": {
@@ -2069,28 +2069,28 @@
     "editorLoading": "Editor laden…"
   },
   "ImageToBase64": {
-    "title": "Image to Base64",
-    "subtitle": "Drop an image, get a data URI or raw Base64 string. Everything stays in your browser.",
-    "upload": "Upload Image",
-    "clear": "Clear",
+    "title": "Afbeelding naar Base64",
+    "subtitle": "Zet een afbeelding neer, haal een gegevens-URI of onbewerkte Base64-tekenreeks op. Alles blijft in uw browser.",
+    "upload": "Afbeelding uploaden",
+    "clear": "Duidelijk",
     "modes": {
-      "dataUri": "Data URI",
-      "rawString": "Raw Base64"
+      "dataUri": "Gegevens-URI",
+      "rawString": "Ruwe Basis64"
     },
     "panels": {
-      "imageInput": "Image Input",
-      "output": "Base64 Output"
+      "imageInput": "Beeldinvoer",
+      "output": "Base64-uitvoer"
     },
-    "dropHere": "Drop image here",
-    "charCount": "{count} chars",
+    "dropHere": "Zet de afbeelding hier neer",
+    "charCount": "{tel} tekens",
     "placeholders": {
-      "uploadImage": "Drag and drop an image or click upload to start."
+      "uploadImage": "Sleep een afbeelding en zet deze neer of klik op uploaden om te starten."
     },
-    "fileTooLarge": "File is too large. Processing might freeze your browser.",
-    "copyTitle": "Copy to clipboard",
+    "fileTooLarge": "Bestand is te groot. Bij het verwerken kan uw browser vastlopen.",
+    "copyTitle": "Kopiëren naar klembord",
     "download": {
-      "title": "Download text",
-      "filename": "image-base64.txt"
+      "title": "Tekst downloaden",
+      "filename": "afbeelding-base64.txt"
     }
   }
 }
