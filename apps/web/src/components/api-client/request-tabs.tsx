@@ -164,7 +164,7 @@ export function RequestTabs({
                             value={normalizedBody.type}
                             onValueChange={(v) => updateBody({ type: v as RequestBody["type"] })}
                         >
-                            <SelectTrigger className="w-[220px] h-8 text-xs">
+                            <SelectTrigger className="w-full sm:w-[220px] h-8 text-xs">
                                 <SelectValue placeholder={t("selectType")} />
                             </SelectTrigger>
                             <SelectContent>
@@ -186,14 +186,15 @@ export function RequestTabs({
                         </div>
                     ) : normalizedBody.type === "form-data" ? (
                         <div className="rounded-lg border bg-background flex-1 min-h-0">
-                            <div className="grid grid-cols-[40px_1fr_160px_1fr_44px] gap-2 px-3 py-2 border-b text-xs font-semibold text-muted-foreground">
+                            <div className="overflow-x-auto">
+                            <div className="grid grid-cols-[40px_1fr_160px_1fr_44px] gap-2 px-3 py-2 border-b text-xs font-semibold text-muted-foreground min-w-[480px]">
                                 <div />
                                 <div>Key</div>
                                 <div>Type</div>
                                 <div>Value</div>
                                 <div />
                             </div>
-                            <div className="p-3 space-y-2 flex-1 min-h-0 overflow-auto custom-scrollbar">
+                            <div className="p-3 space-y-2 flex-1 min-h-0 overflow-auto custom-scrollbar min-w-[480px]">
                                 {(normalizedBody.formData ?? []).map((item) => (
                                     <div key={item.id} className="grid grid-cols-[40px_1fr_160px_1fr_44px] gap-2 items-center">
                                         <div className="flex justify-center">
@@ -260,6 +261,7 @@ export function RequestTabs({
                                     </div>
                                 ))}
                             </div>
+                            </div>
                             <div className="px-3 py-2 border-t">
                                 <Button variant="outline" size="sm" onClick={addFormDataItem}>
                                     <Plus className="h-4 w-4 mr-2" />
@@ -269,13 +271,14 @@ export function RequestTabs({
                         </div>
                     ) : normalizedBody.type === "x-www-form-urlencoded" ? (
                         <div className="rounded-lg border bg-background flex-1 min-h-0">
-                            <div className="grid grid-cols-[40px_1fr_1fr_44px] gap-2 px-3 py-2 border-b text-xs font-semibold text-muted-foreground">
+                            <div className="overflow-x-auto">
+                            <div className="grid grid-cols-[40px_1fr_1fr_44px] gap-2 px-3 py-2 border-b text-xs font-semibold text-muted-foreground min-w-[360px]">
                                 <div />
                                 <div>Key</div>
                                 <div>Value</div>
                                 <div />
                             </div>
-                            <div className="p-3 space-y-2 flex-1 min-h-0 overflow-auto custom-scrollbar">
+                            <div className="p-3 space-y-2 flex-1 min-h-0 overflow-auto custom-scrollbar min-w-[360px]">
                                 {(normalizedBody.urlEncoded ?? []).map((item) => (
                                     <div key={item.id} className="grid grid-cols-[40px_1fr_1fr_44px] gap-2 items-center">
                                         <div className="flex justify-center">
@@ -304,6 +307,7 @@ export function RequestTabs({
                                         </Button>
                                     </div>
                                 ))}
+                            </div>
                             </div>
                             <div className="px-3 py-2 border-t">
                                 <Button variant="outline" size="sm" onClick={addUrlEncodedItem}>

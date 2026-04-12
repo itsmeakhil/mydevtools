@@ -375,13 +375,13 @@ const DashboardPage: React.FC = () => {
             </div>
           </div>
           {/* Quick Stats in Header */}
-          <div className="flex items-center gap-1.5">
-            <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-muted/50">
-              <Layers size={12} className="text-primary" />
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-muted/50 min-h-[32px]">
+              <Layers size={14} className="text-primary shrink-0" />
               <span className="text-xs font-semibold">{totalTools}</span>
             </div>
-            <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-muted/50">
-              <Heart size={12} className="text-red-500" />
+            <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-muted/50 min-h-[32px]">
+              <Heart size={14} className="text-red-500 shrink-0" />
               <span className="text-xs font-semibold">{favorites.length}</span>
             </div>
           </div>
@@ -552,7 +552,7 @@ const DashboardPage: React.FC = () => {
                     </span>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
                   {group.items.map((item: any, itemIndex) => (
                     <React.Fragment key={`${groupIndex}-${itemIndex}`}>
                       {/* Render search result items (flattened) */}

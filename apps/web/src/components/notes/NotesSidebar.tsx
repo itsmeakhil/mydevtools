@@ -79,7 +79,7 @@ const NoteItem = ({ note, level, onDeleteClick, parentTitle, expandedIds, onTogg
         <div>
             <div
                 className={cn(
-                    "group flex items-center gap-1 py-1 px-2 rounded-md cursor-pointer transition-colors min-h-[32px]",
+                    "group flex items-center gap-1 py-1.5 px-2 rounded-md cursor-pointer transition-colors min-h-[40px]",
                     isActive ? "bg-primary/10 text-primary" : "hover:bg-muted/50 text-muted-foreground hover:text-foreground"
                 )}
                 style={{ paddingLeft: `${level * 12 + 8}px` }}
@@ -111,11 +111,11 @@ const NoteItem = ({ note, level, onDeleteClick, parentTitle, expandedIds, onTogg
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="h-6 w-6"
+                        className="h-7 w-7"
                         onClick={handleCreateChild}
                         title={t("addSubPage")}
                     >
-                        <Plus className="h-3 w-3" />
+                        <Plus className="h-3.5 w-3.5" />
                     </Button>
 
                     <DropdownMenu>
@@ -123,7 +123,7 @@ const NoteItem = ({ note, level, onDeleteClick, parentTitle, expandedIds, onTogg
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                className="h-6 w-6"
+                                className="h-7 w-7"
                                 onClick={(e) => e.stopPropagation()}
                                 aria-label={t("noteOptionsAria")}
                             >

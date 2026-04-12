@@ -5,7 +5,7 @@ export const metadata = generateToolMetadata('api-client')
 
 export default function ApiClientPage() {
   return (
-    <div className="h-full w-full p-4">
+    <div className="h-full w-full p-2 md:p-4">
       <ApiClientLazy />
     </div>
   )

@@ -8,7 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 const NotionEditor = dynamic(() => import("@/components/notes/NotionEditor"), {
   ssr: false,
   loading: () => (
-    <div className="max-w-3xl mx-auto px-8 py-12 w-full">
+    <div className="max-w-3xl mx-auto px-4 md:px-8 py-8 md:py-12 w-full">
       <Skeleton className="h-10 w-64 mb-10" />
       <Skeleton className="h-4 w-full mb-3" />
       <Skeleton className="h-4 w-5/6 mb-3" />
@@ -25,7 +25,7 @@ export default function NotesPage() {
 
     if (loading) {
         return (
-            <div className="max-w-3xl mx-auto px-8 py-12 w-full">
+            <div className="max-w-3xl mx-auto px-4 md:px-8 py-8 md:py-12 w-full">
                 <Skeleton className="h-10 w-64 mb-10" />
                 <Skeleton className="h-4 w-full mb-3" />
                 <Skeleton className="h-4 w-5/6 mb-3" />

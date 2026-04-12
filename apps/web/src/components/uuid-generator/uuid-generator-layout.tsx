@@ -213,7 +213,7 @@ export function UuidGeneratorLayout() {
           )}
 
           <div className="flex flex-wrap gap-2 pt-1">
-            <Button type="button" onClick={runGenerate} className="gap-1.5">
+            <Button type="button" onClick={runGenerate} className="gap-1.5 w-full sm:w-auto">
               <RefreshCw className="h-3.5 w-3.5" />
               {t('generate')}
             </Button>
