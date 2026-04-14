@@ -1304,7 +1304,9 @@
     "layout": {
       "collections": "Collections",
       "closeSidebar": "Close sidebar",
-      "openSidebar": "Open sidebar"
+      "openSidebar": "Open sidebar",
+      "request": "Request",
+      "response": "Response"
     },
     "requestPanel": {
       "methodPlaceholder": "Method",

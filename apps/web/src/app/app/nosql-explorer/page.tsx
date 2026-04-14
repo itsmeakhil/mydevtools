@@ -11,13 +11,19 @@ import { toast } from "sonner";
 import useAuth from "@/utils/useAuth";
 import { useMasterKeyStore } from "@/store/master-key-store";
 import { getConnections } from "@/components/nosql-explorer/connection-service";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { IconDatabase, IconServer, IconBrandMongodb, IconSearch, IconPlus, IconArrowLeft } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Menu } from "lucide-react";
+import {
+    ResponsiveModal,
+    ResponsiveModalBody,
+    ResponsiveModalHeader,
+    ResponsiveModalTitle,
+} from "@/components/ui/responsive-modal";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -133,6 +139,7 @@ export default function NoSQLExplorerPage() {
     const handleSelectCollection = async (connection: SavedConnection, dbName: string, collectionName: string) => {
         const tabId = `${connection.id}-${dbName}-${collectionName}`;
         const existingTab = tabs.find((t) => t.id === tabId);
+        setMobileSidebarOpen(false);
 
         if (existingTab) {
             setActiveTabId(tabId);
@@ -378,6 +385,7 @@ export default function NoSQLExplorerPage() {
         }
     };
 
+    const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
     const [sidebarWidth, setSidebarWidth] = useState(256);
     const [isResizing, setIsResizing] = useState(false);
 
@@ -448,29 +456,65 @@ export default function NoSQLExplorerPage() {
                     />
                 </>
             ) : (
-                <div className="absolute top-4 left-4 z-50">
-                    <Sheet>
-                        <SheetTrigger asChild>
-                            <Button variant="outline" size="icon" className="h-8 w-8 bg-background shadow-sm">
-                                <Menu className="h-4 w-4" />
-                            </Button>
-                        </SheetTrigger>
-                        <SheetContent side="left" className="p-0 w-[85vw] sm:w-[350px]">
-                            <ExplorerSidebar
-                                width={300} // Fixed width for mobile sheet
-                                onSelectCollection={(conn, db, col) => {
-                                    handleSelectCollection(conn, db, col);
-                                    // We might want to close the sheet here, but we don't have control over sheet open state easily unless we lift it up.
-                                    // For now, user can click outside to close.
-                                }}
-                                onRefresh={() => { }}
-                                onAddConnection={() => setIsConnectionDialogOpen(true)}
-                            />
-                        </SheetContent>
-                    </Sheet>
-                </div>
+                /* Mobile sidebar — controlled sheet that auto-closes on collection select */
+                <Sheet open={mobileSidebarOpen} onOpenChange={setMobileSidebarOpen}>
+                    <SheetContent side="left" className="p-0 w-[85vw] sm:w-[350px]">
+                        <VisuallyHidden><SheetTitle>{t("dialogAddConnection")}</SheetTitle></VisuallyHidden>
+                        <ExplorerSidebar
+                            width={300}
+                            onSelectCollection={handleSelectCollection}
+                            onRefresh={() => { }}
+                            onAddConnection={() => {
+                                setMobileSidebarOpen(false);
+                                setIsConnectionDialogOpen(true);
+                            }}
+                        />
+                    </SheetContent>
+                </Sheet>
             )}
+
             <div className="flex-1 flex flex-col overflow-hidden bg-background min-w-0">
+                {/* Mobile top toolbar */}
+                {!isDesktop && (
+                    <div className="flex items-center gap-2 border-b px-3 py-2 shrink-0 bg-background">
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-9 w-9 shrink-0 p-0"
+                            onClick={() => setMobileSidebarOpen(true)}
+                            aria-label="Open collections"
+                        >
+                            <Menu className="h-4 w-4" />
+                        </Button>
+                        <div className="flex-1 min-w-0">
+                            {activeTab ? (
+                                <div className="flex items-center gap-1.5 min-w-0">
+                                    <IconDatabase className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+                                    <span className="truncate text-sm font-medium">
+                                        {activeTab.collectionName}
+                                    </span>
+                                    <span className="shrink-0 text-xs text-muted-foreground">
+                                        · {activeTab.dbName}
+                                    </span>
+                                </div>
+                            ) : (
+                                <span className="text-sm text-muted-foreground">
+                                    {t("selectCollectionTitle")}
+                                </span>
+                            )}
+                        </div>
+                        <Button
+                            variant="outline"
+                            size="icon"
+                            className="h-9 w-9 shrink-0"
+                            onClick={() => setIsConnectionDialogOpen(true)}
+                            aria-label={t("connectCta")}
+                        >
+                            <IconPlus className="h-4 w-4" />
+                        </Button>
+                    </div>
+                )}
+
                 <TabBar
                     tabs={tabs}
                     activeTabId={activeTabId}
@@ -567,34 +611,22 @@ export default function NoSQLExplorerPage() {
                 </div>
             </div>
 
-            <Dialog open={isConnectionDialogOpen} onOpenChange={setIsConnectionDialogOpen}>
-                <DialogContent className="max-w-5xl w-[95vw] md:w-full max-h-[90vh] overflow-y-auto">
-                    <DialogHeader>
-                        <DialogTitle>{t("dialogAddConnection")}</DialogTitle>
-                    </DialogHeader>
+            <ResponsiveModal open={isConnectionDialogOpen} onOpenChange={setIsConnectionDialogOpen}>
+                <ResponsiveModalHeader>
+                    <ResponsiveModalTitle>{t("dialogAddConnection")}</ResponsiveModalTitle>
+                </ResponsiveModalHeader>
+                <ResponsiveModalBody>
                     <ConnectionForm
-                        onConnect={async (connStr) => {
-                            // ConnectionForm saves it. We just close.
-                            // But ConnectionForm props are onConnect(connectionString).
-                            // We need to check ConnectionForm implementation.
-                            // If it saves, we just close.
-                            // Let's assume onConnect is called after successful connection/save?
-                            // Looking at ConnectionForm, it calls onConnect with string.
-                            // It handles saving internally if we updated it? 
-                            // Wait, previous implementation of ConnectionForm handled saving.
-                            // Let's verify ConnectionForm.
+                        onConnect={async () => {
                             setIsConnectionDialogOpen(false);
                             setHasConnections(true);
-                            // We might need to trigger sidebar refresh. 
-                            // We can pass a refresh trigger to sidebar or use a context.
-                            // For now, user can manually refresh sidebar.
                             toast.success(t("toastConnectionAdded"));
                         }}
                         loading={false}
                         error={null}
                     />
-                </DialogContent>
-            </Dialog>
+                </ResponsiveModalBody>
+            </ResponsiveModal>
 
             <AlertDialog open={deleteConfirmation.isOpen} onOpenChange={(open) => setDeleteConfirmation(prev => ({ ...prev, isOpen: open }))}>
                 <AlertDialogContent>

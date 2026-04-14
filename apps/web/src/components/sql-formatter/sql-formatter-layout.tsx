@@ -5,6 +5,7 @@ import { useCallback, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import { useIsMobile } from '@/components/hooks/use-mobile';
 import {
   Select,
   SelectContent,
@@ -33,6 +34,8 @@ const MAX_LEN = 500_000;
 
 export function SqlFormatterLayout() {
   const t = useTranslations('SqlFormatter');
+  const isMobile = useIsMobile();
+  const [mobileTab, setMobileTab] = useState<'input' | 'output'>('input');
   const [input, setInput] = useState(SAMPLE);
   const [output, setOutput] = useState('');
   const [dialect, setDialect] = useState<SqlLanguage>('postgresql');
@@ -44,6 +47,7 @@ export function SqlFormatterLayout() {
   const runFormat = useCallback(() => {
     setError('');
     setCopied(false);
+    if (isMobile) setMobileTab('output');
     const q = input;
     if (!q.trim()) {
       setOutput('');
@@ -170,51 +174,80 @@ export function SqlFormatterLayout() {
         </div>
       )}
 
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-0">
-        <Card className="flex flex-col overflow-hidden min-h-[220px]">
-          <div className="px-4 py-2.5 border-b border-border/50 bg-muted/30">
-            <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              {t('inputPanel')}
-            </Label>
-          </div>
-          <div className="flex-1 min-h-0 relative">
-            <textarea
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              spellCheck={false}
-              className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm font-mono focus:outline-none placeholder:text-muted-foreground/50"
-              placeholder={t('inputPlaceholder')}
-            />
-          </div>
-        </Card>
+      {isMobile && (
+        <div className="flex shrink-0 rounded-lg border bg-muted/40 p-1 gap-1">
+          <button
+            onClick={() => setMobileTab('input')}
+            className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-all ${
+              mobileTab === 'input'
+                ? 'bg-background text-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            {t('inputPanel')}
+          </button>
+          <button
+            onClick={() => setMobileTab('output')}
+            className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-all ${
+              mobileTab === 'output'
+                ? 'bg-background text-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            {t('formattedPanel')}
+          </button>
+        </div>
+      )}
 
-        <Card className="flex flex-col overflow-hidden min-h-[220px]">
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 bg-muted/30 gap-2">
-            <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              {t('formattedPanel')}
-            </Label>
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon"
-              className="h-7 w-7 shrink-0"
-              disabled={!output}
-              title={t('copy')}
-              onClick={handleCopy}
-            >
-              {copied ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
-            </Button>
-          </div>
-          <div className="flex-1 min-h-0 relative">
-            <textarea
-              value={output}
-              readOnly
-              placeholder={t('outputPlaceholder')}
-              spellCheck={false}
-              className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm font-mono focus:outline-none placeholder:text-muted-foreground/50"
-            />
-          </div>
-        </Card>
+      <div className={`flex-1 ${isMobile ? 'flex flex-col min-h-0' : 'grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-0'}`}>
+        {(!isMobile || mobileTab === 'input') && (
+          <Card className="flex flex-col overflow-hidden min-h-[220px] flex-1">
+            <div className="px-4 py-2.5 border-b border-border/50 bg-muted/30">
+              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                {t('inputPanel')}
+              </Label>
+            </div>
+            <div className="flex-1 min-h-0 relative">
+              <textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                spellCheck={false}
+                className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm font-mono focus:outline-none placeholder:text-muted-foreground/50"
+                placeholder={t('inputPlaceholder')}
+              />
+            </div>
+          </Card>
+        )}
+
+        {(!isMobile || mobileTab === 'output') && (
+          <Card className="flex flex-col overflow-hidden min-h-[220px] flex-1">
+            <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 bg-muted/30 gap-2">
+              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                {t('formattedPanel')}
+              </Label>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 shrink-0"
+                disabled={!output}
+                title={t('copy')}
+                onClick={handleCopy}
+              >
+                {copied ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
+              </Button>
+            </div>
+            <div className="flex-1 min-h-0 relative">
+              <textarea
+                value={output}
+                readOnly
+                placeholder={t('outputPlaceholder')}
+                spellCheck={false}
+                className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm font-mono focus:outline-none placeholder:text-muted-foreground/50"
+              />
+            </div>
+          </Card>
+        )}
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet"
-import { Drawer, DrawerContent } from "@/components/ui/drawer"
+import { Drawer, DrawerContent, DrawerTitle } from "@/components/ui/drawer"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   Tooltip,
@@ -201,6 +201,7 @@ const Sidebar = React.forwardRef<
             data-mobile="true"
             className="bg-sidebar p-0 text-sidebar-foreground max-h-[85vh] [&>button]:hidden shadow-2xl"
           >
+            <DrawerTitle className="sr-only">Navigation Menu</DrawerTitle>
             <div className="flex h-[calc(85vh-2rem)] w-full flex-col overflow-y-auto overflow-x-hidden pb-4 px-2">
               {children}
             </div>
