@@ -1,0 +1,1016 @@
+{
+  "fr": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Convertir des fichiers CSV ou Excel en JSON et exporter vers CSV ou XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Importez un fichier CSV ou Excel, modifiez le JSON, puis téléchargez en CSV ou XLSX. Données tabulaires uniquement ; les dates Excel deviennent des horodatages ISO dans le JSON.",
+      "dropTitle": "Déposez un fichier CSV ou Excel",
+      "dropHint": "La première feuille est utilisée pour .xlsx / .xls. Le CSV doit comporter une ligne d’en-têtes.",
+      "chooseFile": "Choisir un fichier",
+      "jsonLabel": "JSON (tableau d’objets)",
+      "jsonPlaceholder": "Collez un tableau JSON d’objets ou importez CSV / Excel…",
+      "loadSample": "Charger un exemple",
+      "actions": {
+        "format": "Formater le JSON",
+        "clear": "Effacer",
+        "copy": "Copier",
+        "copied": "Copié",
+        "downloadCsv": "Télécharger CSV",
+        "downloadXlsx": "Télécharger Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Données",
+      "toastLoadedCsv": "CSV chargé dans l’éditeur",
+      "toastLoadedExcel": "Fichier Excel chargé dans l’éditeur",
+      "toastFormatted": "JSON formaté",
+      "toastExportedCsv": "CSV téléchargé",
+      "toastExportedXlsx": "Fichier Excel téléchargé",
+      "toastCopied": "Copié dans le presse-papiers",
+      "footnote": "Tout s’exécute dans votre navigateur. Le JSON doit être un tableau non vide d’objets. Les valeurs imbriquées sont sérialisées en JSON dans les cellules CSV.",
+      "errors": {
+        "unsupportedFile": "Utilisez un fichier .csv, .xlsx ou .xls.",
+        "parseFailed": "Impossible d’analyser ce fichier.",
+        "invalidJson": "JSON invalide",
+        "exportFailed": "Échec de l’export",
+        "copyFailed": "Impossible de copier"
+      }
+    }
+  },
+  "de": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "CSV- oder Excel-Dateien in JSON umwandeln und nach CSV oder XLSX exportieren.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "CSV- oder Excel-Datei hochladen, JSON bearbeiten, dann als CSV oder XLSX herunterladen. Nur Tabellendaten; Excel-Datumswerte werden im JSON als ISO-Zeitstempel ausgegeben.",
+      "dropTitle": "CSV- oder Excel-Datei hier ablegen",
+      "dropHint": "Für .xlsx / .xls wird das erste Arbeitsblatt verwendet. CSV benötigt eine Kopfzeile.",
+      "chooseFile": "Datei wählen",
+      "jsonLabel": "JSON (Array von Objekten)",
+      "jsonPlaceholder": "JSON-Array einfügen oder CSV / Excel importieren…",
+      "loadSample": "Beispiel laden",
+      "actions": {
+        "format": "JSON formatieren",
+        "clear": "Leeren",
+        "copy": "Kopieren",
+        "copied": "Kopiert",
+        "downloadCsv": "CSV herunterladen",
+        "downloadXlsx": "Excel herunterladen"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Daten",
+      "toastLoadedCsv": "CSV in den Editor geladen",
+      "toastLoadedExcel": "Excel-Datei in den Editor geladen",
+      "toastFormatted": "JSON formatiert",
+      "toastExportedCsv": "CSV heruntergeladen",
+      "toastExportedXlsx": "Excel-Datei heruntergeladen",
+      "toastCopied": "In die Zwischenablage kopiert",
+      "footnote": "Alles läuft im Browser. JSON muss ein nicht leeres Array von Objekten sein. Verschachtelte Werte werden in CSV-Zellen als JSON-String gespeichert.",
+      "errors": {
+        "unsupportedFile": "Bitte .csv-, .xlsx- oder .xls-Datei verwenden.",
+        "parseFailed": "Diese Datei konnte nicht gelesen werden.",
+        "invalidJson": "Ungültiges JSON",
+        "exportFailed": "Export fehlgeschlagen",
+        "copyFailed": "Kopieren fehlgeschlagen"
+      }
+    }
+  },
+  "es": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Convierte archivos CSV o Excel a JSON y exporta de vuelta a CSV o XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Sube un CSV o Excel, edita el JSON y descarga CSV o XLSX. Solo datos tabulares; las fechas de Excel pasan a marcas de tiempo ISO en JSON.",
+      "dropTitle": "Suelta un CSV o Excel",
+      "dropHint": "Se usa la primera hoja en .xlsx / .xls. El CSV debe tener fila de cabecera.",
+      "chooseFile": "Elegir archivo",
+      "jsonLabel": "JSON (matriz de objetos)",
+      "jsonPlaceholder": "Pega un array JSON de objetos o importa CSV / Excel…",
+      "loadSample": "Cargar ejemplo",
+      "actions": {
+        "format": "Formatear JSON",
+        "clear": "Borrar",
+        "copy": "Copiar",
+        "copied": "Copiado",
+        "downloadCsv": "Descargar CSV",
+        "downloadXlsx": "Descargar Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Datos",
+      "toastLoadedCsv": "CSV cargado en el editor",
+      "toastLoadedExcel": "Excel cargado en el editor",
+      "toastFormatted": "JSON formateado",
+      "toastExportedCsv": "CSV descargado",
+      "toastExportedXlsx": "Excel descargado",
+      "toastCopied": "Copiado al portapapeles",
+      "footnote": "Todo se ejecuta en tu navegador. El JSON debe ser un array no vacío de objetos. Los valores anidados se serializan como JSON en las celdas CSV.",
+      "errors": {
+        "unsupportedFile": "Usa un archivo .csv, .xlsx o .xls.",
+        "parseFailed": "No se pudo analizar el archivo.",
+        "invalidJson": "JSON no válido",
+        "exportFailed": "Error al exportar",
+        "copyFailed": "No se pudo copiar"
+      }
+    }
+  },
+  "it": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Converti file CSV o Excel in JSON ed esporta in CSV o XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Carica CSV o Excel, modifica il JSON, poi scarica CSV o XLSX. Solo dati tabulari; le date Excel diventano timestamp ISO nel JSON.",
+      "dropTitle": "Trascina un CSV o Excel",
+      "dropHint": "Per .xlsx / .xls si usa il primo foglio. Il CSV deve avere una riga di intestazione.",
+      "chooseFile": "Scegli file",
+      "jsonLabel": "JSON (array di oggetti)",
+      "jsonPlaceholder": "Incolla un array JSON di oggetti o importa CSV / Excel…",
+      "loadSample": "Carica esempio",
+      "actions": {
+        "format": "Formatta JSON",
+        "clear": "Cancella",
+        "copy": "Copia",
+        "copied": "Copiato",
+        "downloadCsv": "Scarica CSV",
+        "downloadXlsx": "Scarica Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Dati",
+      "toastLoadedCsv": "CSV caricato nell’editor",
+      "toastLoadedExcel": "File Excel caricato nell’editor",
+      "toastFormatted": "JSON formattato",
+      "toastExportedCsv": "CSV scaricato",
+      "toastExportedXlsx": "Excel scaricato",
+      "toastCopied": "Copiato negli appunti",
+      "footnote": "Tutto nel browser. Il JSON deve essere un array non vuoto di oggetti. I valori annidati sono serializzati in JSON nelle celle CSV.",
+      "errors": {
+        "unsupportedFile": "Usa un file .csv, .xlsx o .xls.",
+        "parseFailed": "Impossibile analizzare il file.",
+        "invalidJson": "JSON non valido",
+        "exportFailed": "Esportazione non riuscita",
+        "copyFailed": "Impossibile copiare"
+      }
+    }
+  },
+  "pt": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Converta ficheiros CSV ou Excel para JSON e exporte para CSV ou XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Carregue CSV ou Excel, edite o JSON e descarregue CSV ou XLSX. Apenas dados tabulares; as datas do Excel passam a ISO no JSON.",
+      "dropTitle": "Largue um ficheiro CSV ou Excel",
+      "dropHint": "Para .xlsx / .xls usa-se a primeira folha. O CSV precisa de linha de cabeçalho.",
+      "chooseFile": "Escolher ficheiro",
+      "jsonLabel": "JSON (array de objetos)",
+      "jsonPlaceholder": "Cole um array JSON de objetos ou importe CSV / Excel…",
+      "loadSample": "Carregar exemplo",
+      "actions": {
+        "format": "Formatar JSON",
+        "clear": "Limpar",
+        "copy": "Copiar",
+        "copied": "Copiado",
+        "downloadCsv": "Descarregar CSV",
+        "downloadXlsx": "Descarregar Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Dados",
+      "toastLoadedCsv": "CSV carregado no editor",
+      "toastLoadedExcel": "Excel carregado no editor",
+      "toastFormatted": "JSON formatado",
+      "toastExportedCsv": "CSV descarregado",
+      "toastExportedXlsx": "Excel descarregado",
+      "toastCopied": "Copiado para a área de transferência",
+      "footnote": "Tudo corre no navegador. O JSON deve ser um array não vazio de objetos. Valores aninhados são serializados em JSON nas células CSV.",
+      "errors": {
+        "unsupportedFile": "Use um ficheiro .csv, .xlsx ou .xls.",
+        "parseFailed": "Não foi possível analisar o ficheiro.",
+        "invalidJson": "JSON inválido",
+        "exportFailed": "Falha na exportação",
+        "copyFailed": "Não foi possível copiar"
+      }
+    }
+  },
+  "pt-BR": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Converta arquivos CSV ou Excel em JSON e exporte de volta para CSV ou XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Envie CSV ou Excel, edite o JSON e baixe CSV ou XLSX. Apenas dados tabulares; datas do Excel viram ISO no JSON.",
+      "dropTitle": "Solte um arquivo CSV ou Excel",
+      "dropHint": "Para .xlsx / .xls usa-se a primeira planilha. O CSV precisa de linha de cabeçalho.",
+      "chooseFile": "Escolher arquivo",
+      "jsonLabel": "JSON (array de objetos)",
+      "jsonPlaceholder": "Cole um array JSON de objetos ou importe CSV / Excel…",
+      "loadSample": "Carregar exemplo",
+      "actions": {
+        "format": "Formatar JSON",
+        "clear": "Limpar",
+        "copy": "Copiar",
+        "copied": "Copiado",
+        "downloadCsv": "Baixar CSV",
+        "downloadXlsx": "Baixar Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Dados",
+      "toastLoadedCsv": "CSV carregado no editor",
+      "toastLoadedExcel": "Excel carregado no editor",
+      "toastFormatted": "JSON formatado",
+      "toastExportedCsv": "CSV baixado",
+      "toastExportedXlsx": "Excel baixado",
+      "toastCopied": "Copiado para a área de transferência",
+      "footnote": "Tudo roda no navegador. O JSON deve ser um array não vazio de objetos. Valores aninhados viram JSON nas células CSV.",
+      "errors": {
+        "unsupportedFile": "Use um arquivo .csv, .xlsx ou .xls.",
+        "parseFailed": "Não foi possível analisar o arquivo.",
+        "invalidJson": "JSON inválido",
+        "exportFailed": "Falha na exportação",
+        "copyFailed": "Não foi possível copiar"
+      }
+    }
+  },
+  "nl": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Zet CSV- of Excel-bestanden om naar JSON en exporteer terug naar CSV of XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Upload CSV of Excel, bewerk JSON en download CSV of XLSX. Alleen tabelgegevens; Excel-datums worden ISO-tijdstempels in JSON.",
+      "dropTitle": "Sleep een CSV- of Excel-bestand hierheen",
+      "dropHint": "Voor .xlsx / .xls wordt het eerste werkblad gebruikt. CSV moet een kopregel hebben.",
+      "chooseFile": "Bestand kiezen",
+      "jsonLabel": "JSON (array van objecten)",
+      "jsonPlaceholder": "Plak een JSON-array van objecten of importeer CSV / Excel…",
+      "loadSample": "Voorbeeld laden",
+      "actions": {
+        "format": "JSON formatteren",
+        "clear": "Wissen",
+        "copy": "Kopiëren",
+        "copied": "Gekopieerd",
+        "downloadCsv": "CSV downloaden",
+        "downloadXlsx": "Excel downloaden"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Gegevens",
+      "toastLoadedCsv": "CSV geladen in editor",
+      "toastLoadedExcel": "Excel-bestand geladen in editor",
+      "toastFormatted": "JSON geformatteerd",
+      "toastExportedCsv": "CSV gedownload",
+      "toastExportedXlsx": "Excel gedownload",
+      "toastCopied": "Gekopieerd naar klembord",
+      "footnote": "Alles draait in je browser. JSON moet een niet-lege array van objecten zijn. Geneste waarden worden als JSON in CSV-cellen gezet.",
+      "errors": {
+        "unsupportedFile": "Gebruik een .csv-, .xlsx- of .xls-bestand.",
+        "parseFailed": "Dit bestand kon niet worden gelezen.",
+        "invalidJson": "Ongeldige JSON",
+        "exportFailed": "Exporteren mislukt",
+        "copyFailed": "Kopiëren mislukt"
+      }
+    }
+  },
+  "pl": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Konwertuj pliki CSV lub Excel na JSON i eksportuj z powrotem do CSV lub XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Wgraj CSV lub Excel, edytuj JSON, pobierz CSV lub XLSX. Tylko dane tabelaryczne; daty z Excela stają się znacznikami ISO w JSON.",
+      "dropTitle": "Upuść plik CSV lub Excel",
+      "dropHint": "Dla .xlsx / .xls używany jest pierwszy arkusz. CSV musi mieć wiersz nagłówka.",
+      "chooseFile": "Wybierz plik",
+      "jsonLabel": "JSON (tablica obiektów)",
+      "jsonPlaceholder": "Wklej tablicę JSON obiektów lub zaimportuj CSV / Excel…",
+      "loadSample": "Załaduj przykład",
+      "actions": {
+        "format": "Formatuj JSON",
+        "clear": "Wyczyść",
+        "copy": "Kopiuj",
+        "copied": "Skopiowano",
+        "downloadCsv": "Pobierz CSV",
+        "downloadXlsx": "Pobierz Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Dane",
+      "toastLoadedCsv": "CSV wczytano do edytora",
+      "toastLoadedExcel": "Plik Excel wczytano do edytora",
+      "toastFormatted": "Sformatowano JSON",
+      "toastExportedCsv": "Pobrano CSV",
+      "toastExportedXlsx": "Pobrano Excel",
+      "toastCopied": "Skopiowano do schowka",
+      "footnote": "Wszystko w przeglądarce. JSON musi być niepustą tablicą obiektów. Zagnieżdżone wartości są serializowane do JSON w komórkach CSV.",
+      "errors": {
+        "unsupportedFile": "Użyj pliku .csv, .xlsx lub .xls.",
+        "parseFailed": "Nie można przetworzyć pliku.",
+        "invalidJson": "Nieprawidłowy JSON",
+        "exportFailed": "Eksport nie powiódł się",
+        "copyFailed": "Nie można skopiować"
+      }
+    }
+  },
+  "uk": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Перетворюйте CSV або Excel на JSON і експортуйте назад у CSV чи XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Завантажте CSV або Excel, відредагуйте JSON, потім завантажте CSV або XLSX. Лише табличні дані; дати Excel стають ISO-мітками часу в JSON.",
+      "dropTitle": "Перетягніть файл CSV або Excel",
+      "dropHint": "Для .xlsx / .xls використовується перший аркуш. CSV має містити рядок заголовків.",
+      "chooseFile": "Вибрати файл",
+      "jsonLabel": "JSON (масив об’єктів)",
+      "jsonPlaceholder": "Вставте JSON-масив об’єктів або імпортуйте CSV / Excel…",
+      "loadSample": "Завантажити приклад",
+      "actions": {
+        "format": "Форматувати JSON",
+        "clear": "Очистити",
+        "copy": "Копіювати",
+        "copied": "Скопійовано",
+        "downloadCsv": "Завантажити CSV",
+        "downloadXlsx": "Завантажити Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Дані",
+      "toastLoadedCsv": "CSV завантажено в редактор",
+      "toastLoadedExcel": "Excel завантажено в редактор",
+      "toastFormatted": "JSON відформатовано",
+      "toastExportedCsv": "CSV завантажено",
+      "toastExportedXlsx": "Excel завантажено",
+      "toastCopied": "Скопійовано в буфер",
+      "footnote": "Усе працює у браузері. JSON має бути непустим масивом об’єктів. Вкладені значення серіалізуються в JSON у комірках CSV.",
+      "errors": {
+        "unsupportedFile": "Використайте файл .csv, .xlsx або .xls.",
+        "parseFailed": "Не вдалося розібрати файл.",
+        "invalidJson": "Некоректний JSON",
+        "exportFailed": "Помилка експорту",
+        "copyFailed": "Не вдалося скопіювати"
+      }
+    }
+  },
+  "ru": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Конвертируйте CSV или Excel в JSON и экспортируйте обратно в CSV или XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Загрузите CSV или Excel, отредактируйте JSON, затем скачайте CSV или XLSX. Только табличные данные; даты Excel становятся ISO-временными метками в JSON.",
+      "dropTitle": "Перетащите файл CSV или Excel",
+      "dropHint": "Для .xlsx / .xls используется первый лист. В CSV должна быть строка заголовков.",
+      "chooseFile": "Выбрать файл",
+      "jsonLabel": "JSON (массив объектов)",
+      "jsonPlaceholder": "Вставьте JSON-массив объектов или импортируйте CSV / Excel…",
+      "loadSample": "Загрузить пример",
+      "actions": {
+        "format": "Форматировать JSON",
+        "clear": "Очистить",
+        "copy": "Копировать",
+        "copied": "Скопировано",
+        "downloadCsv": "Скачать CSV",
+        "downloadXlsx": "Скачать Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Данные",
+      "toastLoadedCsv": "CSV загружен в редактор",
+      "toastLoadedExcel": "Excel загружен в редактор",
+      "toastFormatted": "JSON отформатирован",
+      "toastExportedCsv": "CSV скачан",
+      "toastExportedXlsx": "Excel скачан",
+      "toastCopied": "Скопировано в буфер",
+      "footnote": "Всё выполняется в браузере. JSON должен быть непустым массивом объектов. Вложенные значения сериализуются в JSON в ячейках CSV.",
+      "errors": {
+        "unsupportedFile": "Используйте файл .csv, .xlsx или .xls.",
+        "parseFailed": "Не удалось разобрать файл.",
+        "invalidJson": "Некорректный JSON",
+        "exportFailed": "Ошибка экспорта",
+        "copyFailed": "Не удалось скопировать"
+      }
+    }
+  },
+  "ja": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "CSV や Excel を JSON に変換し、CSV や XLSX に再エクスポートします。",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "CSV または Excel をアップロードし、JSON を編集してから CSV または XLSX をダウンロード。表形式データのみ。Excel の日付セルは JSON では ISO 形式になります。",
+      "dropTitle": "CSV または Excel ファイルをドロップ",
+      "dropHint": ".xlsx / .xls は先頭のシートを使用します。CSV はヘッダー行が必要です。",
+      "chooseFile": "ファイルを選択",
+      "jsonLabel": "JSON（オブジェクトの配列）",
+      "jsonPlaceholder": "オブジェクトの JSON 配列を貼り付けるか、CSV / Excel を取り込み…",
+      "loadSample": "サンプルを読み込む",
+      "actions": {
+        "format": "JSON を整形",
+        "clear": "クリア",
+        "copy": "コピー",
+        "copied": "コピーしました",
+        "downloadCsv": "CSV をダウンロード",
+        "downloadXlsx": "Excel をダウンロード"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "データ",
+      "toastLoadedCsv": "CSV をエディターに読み込みました",
+      "toastLoadedExcel": "Excel をエディターに読み込みました",
+      "toastFormatted": "JSON を整形しました",
+      "toastExportedCsv": "CSV をダウンロードしました",
+      "toastExportedXlsx": "Excel をダウンロードしました",
+      "toastCopied": "クリップボードにコピーしました",
+      "footnote": "すべてブラウザ内で処理されます。JSON は空でないオブジェクトの配列である必要があります。ネストした値は CSV セル内で JSON 文字列化されます。",
+      "errors": {
+        "unsupportedFile": ".csv、.xlsx、または .xls ファイルを使用してください。",
+        "parseFailed": "このファイルを解析できませんでした。",
+        "invalidJson": "無効な JSON",
+        "exportFailed": "エクスポートに失敗しました",
+        "copyFailed": "コピーできませんでした"
+      }
+    }
+  },
+  "ko": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "CSV 또는 Excel 파일을 JSON으로 변환하고 CSV 또는 XLSX로 다시보냅니다.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "CSV 또는 Excel을 업로드하고 JSON을 편집한 뒤 CSV 또는 XLSX로 다운로드합니다. 표 형식 데이터만 지원합니다. Excel 날짜 셀은 JSON에서 ISO 타임스탬프로 변환됩니다.",
+      "dropTitle": "CSV 또는 Excel 파일을 놓으세요",
+      "dropHint": ".xlsx / .xls는 첫 번째 시트를 사용합니다. CSV에는 헤더 행이 있어야 합니다.",
+      "chooseFile": "파일 선택",
+      "jsonLabel": "JSON(객체 배열)",
+      "jsonPlaceholder": "객체의 JSON 배열을 붙여넣거나 CSV / Excel을 가져오기…",
+      "loadSample": "샘플 불러오기",
+      "actions": {
+        "format": "JSON 정렬",
+        "clear": "지우기",
+        "copy": "복사",
+        "copied": "복사됨",
+        "downloadCsv": "CSV 다운로드",
+        "downloadXlsx": "Excel 다운로드"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "데이터",
+      "toastLoadedCsv": "CSV를 편집기에 불러왔습니다",
+      "toastLoadedExcel": "Excel 파일을 편집기에 불러왔습니다",
+      "toastFormatted": "JSON이 정렬되었습니다",
+      "toastExportedCsv": "CSV를 다운로드했습니다",
+      "toastExportedXlsx": "Excel을 다운로드했습니다",
+      "toastCopied": "클립보드에 복사했습니다",
+      "footnote": "모든 처리는 브라우저에서 이루어집니다. JSON은 비어 있지 않은 객체 배열이어야 합니다. 중첩 값은 CSV 셀에 JSON 문자열로 직렬화됩니다.",
+      "errors": {
+        "unsupportedFile": ".csv, .xlsx 또는 .xls 파일을 사용하세요.",
+        "parseFailed": "이 파일을 분석할 수 없습니다.",
+        "invalidJson": "잘못된 JSON",
+        "exportFailed": "보내기 실패",
+        "copyFailed": "복사할 수 없습니다"
+      }
+    }
+  },
+  "zh": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "将 CSV 或 Excel 转为 JSON，并可导出为 CSV 或 XLSX。",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "上传 CSV 或 Excel，编辑 JSON，再下载 CSV 或 XLSX。仅支持表格数据；Excel 日期单元格在 JSON 中为 ISO 时间戳。",
+      "dropTitle": "拖放 CSV 或 Excel 文件",
+      "dropHint": ".xlsx / .xls 使用第一个工作表。CSV 需包含标题行。",
+      "chooseFile": "选择文件",
+      "jsonLabel": "JSON（对象数组）",
+      "jsonPlaceholder": "粘贴对象组成的 JSON 数组，或导入 CSV / Excel…",
+      "loadSample": "加载示例",
+      "actions": {
+        "format": "格式化 JSON",
+        "clear": "清空",
+        "copy": "复制",
+        "copied": "已复制",
+        "downloadCsv": "下载 CSV",
+        "downloadXlsx": "下载 Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "数据",
+      "toastLoadedCsv": "已将 CSV 加载到编辑器",
+      "toastLoadedExcel": "已将 Excel 加载到编辑器",
+      "toastFormatted": "已格式化 JSON",
+      "toastExportedCsv": "已下载 CSV",
+      "toastExportedXlsx": "已下载 Excel",
+      "toastCopied": "已复制到剪贴板",
+      "footnote": "全部在浏览器中完成。JSON 必须是非空对象数组。嵌套值在 CSV 单元格中会序列化为 JSON。",
+      "errors": {
+        "unsupportedFile": "请使用 .csv、.xlsx 或 .xls 文件。",
+        "parseFailed": "无法解析此文件。",
+        "invalidJson": "无效的 JSON",
+        "exportFailed": "导出失败",
+        "copyFailed": "无法复制"
+      }
+    }
+  },
+  "ar": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "حوّل ملفات CSV أو Excel إلى JSON وصدّر مرة أخرى إلى CSV أو XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "ارفع CSV أو Excel، عدّل JSON، ثم نزّل CSV أو XLSX. بيانات جدولية فقط؛ خلايا التاريخ في Excel تصبح طوابع ISO في JSON.",
+      "dropTitle": "أسقط ملف CSV أو Excel",
+      "dropHint": "يُستخدم الورقة الأولى لملفات .xlsx / .xls. يجب أن يحتوي CSV على صف عناوين.",
+      "chooseFile": "اختر ملفًا",
+      "jsonLabel": "JSON (مصفوفة كائنات)",
+      "jsonPlaceholder": "الصق مصفوفة JSON من الكائنات أو استورد CSV / Excel…",
+      "loadSample": "تحميل مثال",
+      "actions": {
+        "format": "تنسيق JSON",
+        "clear": "مسح",
+        "copy": "نسخ",
+        "copied": "تم النسخ",
+        "downloadCsv": "تنزيل CSV",
+        "downloadXlsx": "تنزيل Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "بيانات",
+      "toastLoadedCsv": "تم تحميل CSV في المحرر",
+      "toastLoadedExcel": "تم تحميل Excel في المحرر",
+      "toastFormatted": "تم تنسيق JSON",
+      "toastExportedCsv": "تم تنزيل CSV",
+      "toastExportedXlsx": "تم تنزيل Excel",
+      "toastCopied": "تم النسخ إلى الحافظة",
+      "footnote": "كل شيء يعمل في المتصفح. يجب أن يكون JSON مصفوفة غير فارغة من الكائنات. القيم المتداخلة تُسلسل كـ JSON داخل خلايا CSV.",
+      "errors": {
+        "unsupportedFile": "استخدم ملف .csv أو .xlsx أو .xls.",
+        "parseFailed": "تعذّر تحليل هذا الملف.",
+        "invalidJson": "JSON غير صالح",
+        "exportFailed": "فشل التصدير",
+        "copyFailed": "تعذّر النسخ"
+      }
+    }
+  },
+  "ca": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Converteix fitxers CSV o Excel a JSON i exporta de nou a CSV o XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Puja CSV o Excel, edita el JSON i descarrega CSV o XLSX. Només dades tabulars; les dates d’Excel passen a ISO al JSON.",
+      "dropTitle": "Deixa anar un CSV o Excel",
+      "dropHint": "Per a .xlsx / .xls s’usa el primer full. El CSV ha de tenir fila de capçalera.",
+      "chooseFile": "Trieu un fitxer",
+      "jsonLabel": "JSON (matriu d’objectes)",
+      "jsonPlaceholder": "Enganxa una matriu JSON d’objectes o importa CSV / Excel…",
+      "loadSample": "Carregar exemple",
+      "actions": {
+        "format": "Formatejar JSON",
+        "clear": "Netejar",
+        "copy": "Copiar",
+        "copied": "Copiat",
+        "downloadCsv": "Descarregar CSV",
+        "downloadXlsx": "Descarregar Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Dades",
+      "toastLoadedCsv": "CSV carregat a l’editor",
+      "toastLoadedExcel": "Excel carregat a l’editor",
+      "toastFormatted": "JSON formatat",
+      "toastExportedCsv": "CSV descarregat",
+      "toastExportedXlsx": "Excel descarregat",
+      "toastCopied": "Copiat al porta-retalls",
+      "footnote": "Tot s’executa al navegador. El JSON ha de ser una matriu no buida d’objectes. Els valors imbricats es serialitzen com a JSON a les cel·les CSV.",
+      "errors": {
+        "unsupportedFile": "Utilitza un fitxer .csv, .xlsx o .xls.",
+        "parseFailed": "No s’ha pogut analitzar el fitxer.",
+        "invalidJson": "JSON no vàlid",
+        "exportFailed": "Ha fallat l’exportació",
+        "copyFailed": "No s’ha pogut copiar"
+      }
+    }
+  },
+  "cs": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Převádějte soubory CSV nebo Excel do JSON a exportujte zpět do CSV nebo XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Nahrajte CSV nebo Excel, upravte JSON a stáhněte CSV nebo XLSX. Pouze tabulková data; data z Excelu budou v JSON jako ISO časové značky.",
+      "dropTitle": "Přetáhněte soubor CSV nebo Excel",
+      "dropHint": "U .xlsx / .xls se použije první list. CSV musí mít řádek záhlaví.",
+      "chooseFile": "Vybrat soubor",
+      "jsonLabel": "JSON (pole objektů)",
+      "jsonPlaceholder": "Vložte JSON pole objektů nebo importujte CSV / Excel…",
+      "loadSample": "Načíst ukázku",
+      "actions": {
+        "format": "Formátovat JSON",
+        "clear": "Vymazat",
+        "copy": "Kopírovat",
+        "copied": "Zkopírováno",
+        "downloadCsv": "Stáhnout CSV",
+        "downloadXlsx": "Stáhnout Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Data",
+      "toastLoadedCsv": "CSV načteno do editoru",
+      "toastLoadedExcel": "Excel načten do editoru",
+      "toastFormatted": "JSON naformátováno",
+      "toastExportedCsv": "CSV staženo",
+      "toastExportedXlsx": "Excel stažen",
+      "toastCopied": "Zkopírováno do schránky",
+      "footnote": "Vše probíhá v prohlížeči. JSON musí být neprázdné pole objektů. Vnořené hodnoty se v buňkách CSV serializují jako JSON.",
+      "errors": {
+        "unsupportedFile": "Použijte soubor .csv, .xlsx nebo .xls.",
+        "parseFailed": "Soubor nelze zpracovat.",
+        "invalidJson": "Neplatný JSON",
+        "exportFailed": "Export se nezdařil",
+        "copyFailed": "Kopírování se nezdařilo"
+      }
+    }
+  },
+  "da": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Konverter CSV- eller Excel-filer til JSON og eksporter tilbage til CSV eller XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Upload CSV eller Excel, rediger JSON, og download CSV eller XLSX. Kun tabeldata; Excel-datoer bliver ISO-tidsstempler i JSON.",
+      "dropTitle": "Slip en CSV- eller Excel-fil",
+      "dropHint": "Første ark bruges til .xlsx / .xls. CSV skal have en header-række.",
+      "chooseFile": "Vælg fil",
+      "jsonLabel": "JSON (array af objekter)",
+      "jsonPlaceholder": "Indsæt et JSON-array af objekter, eller importér CSV / Excel…",
+      "loadSample": "Indlæs eksempel",
+      "actions": {
+        "format": "Formatér JSON",
+        "clear": "Ryd",
+        "copy": "Kopiér",
+        "copied": "Kopieret",
+        "downloadCsv": "Download CSV",
+        "downloadXlsx": "Download Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Data",
+      "toastLoadedCsv": "CSV indlæst i editoren",
+      "toastLoadedExcel": "Excel indlæst i editoren",
+      "toastFormatted": "JSON formateret",
+      "toastExportedCsv": "CSV downloadet",
+      "toastExportedXlsx": "Excel downloadet",
+      "toastCopied": "Kopieret til udklipsholder",
+      "footnote": "Alt kører i din browser. JSON skal være et ikke-tomt array af objekter. Indlejrede værdier serialiseres som JSON i CSV-celler.",
+      "errors": {
+        "unsupportedFile": "Brug en .csv-, .xlsx- eller .xls-fil.",
+        "parseFailed": "Kunne ikke læse filen.",
+        "invalidJson": "Ugyldig JSON",
+        "exportFailed": "Eksport mislykkedes",
+        "copyFailed": "Kunne ikke kopiere"
+      }
+    }
+  },
+  "el": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Μετατρέψτε αρχεία CSV ή Excel σε JSON και εξάγετε ξανά σε CSV ή XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Ανεβάστε CSV ή Excel, επεξεργαστείτε JSON και κατεβάστε CSV ή XLSX. Μόνο πίνακας· οι ημερομηνίες Excel γίνονται ISO στο JSON.",
+      "dropTitle": "Αφήστε αρχείο CSV ή Excel",
+      "dropHint": "Για .xlsx / .xls χρησιμοποιείται το πρώτο φύλλο. Το CSV χρειάζεται γραμμή κεφαλίδας.",
+      "chooseFile": "Επιλογή αρχείου",
+      "jsonLabel": "JSON (πίνακας αντικειμένων)",
+      "jsonPlaceholder": "Επικολλήστε πίνακα JSON αντικειμένων ή εισάγετε CSV / Excel…",
+      "loadSample": "Φόρτωση δείγματος",
+      "actions": {
+        "format": "Μορφοποίηση JSON",
+        "clear": "Εκκαθάριση",
+        "copy": "Αντιγραφή",
+        "copied": "Αντιγράφηκε",
+        "downloadCsv": "Λήψη CSV",
+        "downloadXlsx": "Λήψη Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Δεδομένα",
+      "toastLoadedCsv": "Το CSV φορτώθηκε στον επεξεργαστή",
+      "toastLoadedExcel": "Το Excel φορτώθηκε στον επεξεργαστή",
+      "toastFormatted": "Το JSON μορφοποιήθηκε",
+      "toastExportedCsv": "Το CSV λήφθηκε",
+      "toastExportedXlsx": "Το Excel λήφθηκε",
+      "toastCopied": "Αντιγράφηκε στο πρόχειρο",
+      "footnote": "Όλα τρέχουν στον browser. Το JSON πρέπει να είναι μη κενός πίνακας αντικειμένων. Ένθετες τιμές σειριοποιούνται ως JSON στα κελιά CSV.",
+      "errors": {
+        "unsupportedFile": "Χρησιμοποιήστε αρχείο .csv, .xlsx ή .xls.",
+        "parseFailed": "Δεν ήταν δυνατή η ανάλυση του αρχείου.",
+        "invalidJson": "Μη έγκυρο JSON",
+        "exportFailed": "Η εξαγωγή απέτυχε",
+        "copyFailed": "Δεν ήταν δυνατή η αντιγραφή"
+      }
+    }
+  },
+  "id": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Ubah file CSV atau Excel menjadi JSON dan ekspor kembali ke CSV atau XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Unggah CSV atau Excel, edit JSON, lalu unduh CSV atau XLSX. Hanya data tabular; tanggal Excel menjadi stempel waktu ISO di JSON.",
+      "dropTitle": "Letakkan file CSV atau Excel",
+      "dropHint": "Untuk .xlsx / .xls digunakan lembar pertama. CSV harus punya baris header.",
+      "chooseFile": "Pilih file",
+      "jsonLabel": "JSON (array objek)",
+      "jsonPlaceholder": "Tempel array JSON objek atau impor CSV / Excel…",
+      "loadSample": "Muat contoh",
+      "actions": {
+        "format": "Format JSON",
+        "clear": "Hapus",
+        "copy": "Salin",
+        "copied": "Disalin",
+        "downloadCsv": "Unduh CSV",
+        "downloadXlsx": "Unduh Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Data",
+      "toastLoadedCsv": "CSV dimuat ke editor",
+      "toastLoadedExcel": "Excel dimuat ke editor",
+      "toastFormatted": "JSON diformat",
+      "toastExportedCsv": "CSV diunduh",
+      "toastExportedXlsx": "Excel diunduh",
+      "toastCopied": "Disalin ke papan klip",
+      "footnote": "Semua berjalan di browser. JSON harus berupa array objek yang tidak kosong. Nilai bersarang diserialisasi sebagai JSON di sel CSV.",
+      "errors": {
+        "unsupportedFile": "Gunakan file .csv, .xlsx, atau .xls.",
+        "parseFailed": "Tidak dapat mengurai file ini.",
+        "invalidJson": "JSON tidak valid",
+        "exportFailed": "Ekspor gagal",
+        "copyFailed": "Tidak dapat menyalin"
+      }
+    }
+  },
+  "ms": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Tukar fail CSV atau Excel kepada JSON dan eksport semula ke CSV atau XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Muat naik CSV atau Excel, edit JSON, kemudian muat turun CSV atau XLSX. Data jadual sahaja; tarikh Excel menjadi cap masa ISO dalam JSON.",
+      "dropTitle": "Lepaskan fail CSV atau Excel",
+      "dropHint": "Untuk .xlsx / .xls, helaian pertama digunakan. CSV mesti ada baris pengepala.",
+      "chooseFile": "Pilih fail",
+      "jsonLabel": "JSON (tatasusunan objek)",
+      "jsonPlaceholder": "Tampal tatasusunan JSON objek atau import CSV / Excel…",
+      "loadSample": "Muat contoh",
+      "actions": {
+        "format": "Format JSON",
+        "clear": "Kosongkan",
+        "copy": "Salin",
+        "copied": "Disalin",
+        "downloadCsv": "Muat turun CSV",
+        "downloadXlsx": "Muat turun Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Data",
+      "toastLoadedCsv": "CSV dimuatkan ke editor",
+      "toastLoadedExcel": "Excel dimuatkan ke editor",
+      "toastFormatted": "JSON diformat",
+      "toastExportedCsv": "CSV dimuat turun",
+      "toastExportedXlsx": "Excel dimuat turun",
+      "toastCopied": "Disalin ke papan keratan",
+      "footnote": "Semua berjalan dalam pelayar. JSON mesti tatasusunan objek yang tidak kosong. Nilai bersarang disirikan sebagai JSON dalam sel CSV.",
+      "errors": {
+        "unsupportedFile": "Guna fail .csv, .xlsx atau .xls.",
+        "parseFailed": "Tidak dapat menghuraikan fail ini.",
+        "invalidJson": "JSON tidak sah",
+        "exportFailed": "Eksport gagal",
+        "copyFailed": "Tidak dapat menyalin"
+      }
+    }
+  },
+  "nb": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Konverter CSV- eller Excel-filer til JSON og eksporter tilbake til CSV eller XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Last opp CSV eller Excel, rediger JSON, og last ned CSV eller XLSX. Kun tabell data; Excel-datoer blir ISO-tidsstempler i JSON.",
+      "dropTitle": "Slipp en CSV- eller Excel-fil",
+      "dropHint": "Første ark brukes for .xlsx / .xls. CSV må ha en overskriftsrad.",
+      "chooseFile": "Velg fil",
+      "jsonLabel": "JSON (array av objekter)",
+      "jsonPlaceholder": "Lim inn JSON-array av objekter, eller importer CSV / Excel…",
+      "loadSample": "Last inn eksempel",
+      "actions": {
+        "format": "Formater JSON",
+        "clear": "Tøm",
+        "copy": "Kopier",
+        "copied": "Kopiert",
+        "downloadCsv": "Last ned CSV",
+        "downloadXlsx": "Last ned Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Data",
+      "toastLoadedCsv": "CSV lastet inn i redigeringsprogrammet",
+      "toastLoadedExcel": "Excel lastet inn i redigeringsprogrammet",
+      "toastFormatted": "JSON formatert",
+      "toastExportedCsv": "CSV lastet ned",
+      "toastExportedXlsx": "Excel lastet ned",
+      "toastCopied": "Kopiert til utklippstavle",
+      "footnote": "Alt skjer i nettleseren. JSON må være en ikke-tom array av objekter. Nestede verdier serialiseres som JSON i CSV-celler.",
+      "errors": {
+        "unsupportedFile": "Bruk en .csv-, .xlsx- eller .xls-fil.",
+        "parseFailed": "Kunne ikke lese filen.",
+        "invalidJson": "Ugyldig JSON",
+        "exportFailed": "Eksport mislyktes",
+        "copyFailed": "Kunne ikke kopiere"
+      }
+    }
+  },
+  "sv": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Konvertera CSV- eller Excel-filer till JSON och exportera tillbaka till CSV eller XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Ladda upp CSV eller Excel, redigera JSON och ladda ner CSV eller XLSX. Endast tabell data; Excel-datum blir ISO-tidsstämplar i JSON.",
+      "dropTitle": "Släpp en CSV- eller Excel-fil",
+      "dropHint": "Första arbetsbladet används för .xlsx / .xls. CSV måste ha en rubrikrad.",
+      "chooseFile": "Välj fil",
+      "jsonLabel": "JSON (array av objekt)",
+      "jsonPlaceholder": "Klistra in JSON-array av objekt eller importera CSV / Excel…",
+      "loadSample": "Ladda exempel",
+      "actions": {
+        "format": "Formatera JSON",
+        "clear": "Rensa",
+        "copy": "Kopiera",
+        "copied": "Kopierat",
+        "downloadCsv": "Ladda ner CSV",
+        "downloadXlsx": "Ladda ner Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Data",
+      "toastLoadedCsv": "CSV laddad i redigeraren",
+      "toastLoadedExcel": "Excel laddad i redigeraren",
+      "toastFormatted": "JSON formaterat",
+      "toastExportedCsv": "CSV nedladdad",
+      "toastExportedXlsx": "Excel nedladdad",
+      "toastCopied": "Kopierat till urklipp",
+      "footnote": "Allt körs i webbläsaren. JSON måste vara en icke-tom array av objekt. Kapslade värden serialiseras som JSON i CSV-celler.",
+      "errors": {
+        "unsupportedFile": "Använd en .csv-, .xlsx- eller .xls-fil.",
+        "parseFailed": "Kunde inte tolka filen.",
+        "invalidJson": "Ogiltig JSON",
+        "exportFailed": "Export misslyckades",
+        "copyFailed": "Kunde inte kopiera"
+      }
+    }
+  },
+  "tr": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "CSV veya Excel dosyalarını JSON’a dönüştürün ve tekrar CSV veya XLSX olarak dışa aktarın.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "CSV veya Excel yükleyin, JSON’u düzenleyin, ardından CSV veya XLSX indirin. Yalnızca tablo verisi; Excel tarih hücreleri JSON’da ISO zaman damgası olur.",
+      "dropTitle": "CSV veya Excel dosyasını bırakın",
+      "dropHint": ".xlsx / .xls için ilk çalışma sayfası kullanılır. CSV’de başlık satırı olmalıdır.",
+      "chooseFile": "Dosya seç",
+      "jsonLabel": "JSON (nesne dizisi)",
+      "jsonPlaceholder": "Nesnelerden oluşan JSON dizisini yapıştırın veya CSV / Excel içe aktarın…",
+      "loadSample": "Örnek yükle",
+      "actions": {
+        "format": "JSON’u biçimlendir",
+        "clear": "Temizle",
+        "copy": "Kopyala",
+        "copied": "Kopyalandı",
+        "downloadCsv": "CSV indir",
+        "downloadXlsx": "Excel indir"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Veri",
+      "toastLoadedCsv": "CSV düzenleyiciye yüklendi",
+      "toastLoadedExcel": "Excel düzenleyiciye yüklendi",
+      "toastFormatted": "JSON biçimlendirildi",
+      "toastExportedCsv": "CSV indirildi",
+      "toastExportedXlsx": "Excel indirildi",
+      "toastCopied": "Panoya kopyalandı",
+      "footnote": "Her şey tarayıcıda çalışır. JSON boş olmayan bir nesne dizisi olmalıdır. İç içe değerler CSV hücrelerinde JSON olarak serileştirilir.",
+      "errors": {
+        "unsupportedFile": ".csv, .xlsx veya .xls dosyası kullanın.",
+        "parseFailed": "Bu dosya ayrıştırılamadı.",
+        "invalidJson": "Geçersiz JSON",
+        "exportFailed": "Dışa aktarma başarısız",
+        "copyFailed": "Kopyalanamadı"
+      }
+    }
+  },
+  "vi": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Chuyển file CSV hoặc Excel sang JSON và xuất lại CSV hoặc XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Tải CSV hoặc Excel, chỉnh JSON, rồi tải CSV hoặc XLSX. Chỉ dữ liệu dạng bảng; ô ngày trong Excel thành dấu thời gian ISO trong JSON.",
+      "dropTitle": "Thả file CSV hoặc Excel",
+      "dropHint": "Với .xlsx / .xls dùng sheet đầu tiên. CSV cần có dòng tiêu đề.",
+      "chooseFile": "Chọn file",
+      "jsonLabel": "JSON (mảng đối tượng)",
+      "jsonPlaceholder": "Dán mảng JSON đối tượng hoặc nhập CSV / Excel…",
+      "loadSample": "Tải mẫu",
+      "actions": {
+        "format": "Định dạng JSON",
+        "clear": "Xóa",
+        "copy": "Sao chép",
+        "copied": "Đã sao chép",
+        "downloadCsv": "Tải CSV",
+        "downloadXlsx": "Tải Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Dữ liệu",
+      "toastLoadedCsv": "Đã tải CSV vào trình sửa",
+      "toastLoadedExcel": "Đã tải Excel vào trình sửa",
+      "toastFormatted": "Đã định dạng JSON",
+      "toastExportedCsv": "Đã tải CSV",
+      "toastExportedXlsx": "Đã tải Excel",
+      "toastCopied": "Đã sao chép vào clipboard",
+      "footnote": "Mọi thứ chạy trong trình duyệt. JSON phải là mảng đối tượng không rỗng. Giá trị lồng nhau được chuỗi hóa JSON trong ô CSV.",
+      "errors": {
+        "unsupportedFile": "Dùng file .csv, .xlsx hoặc .xls.",
+        "parseFailed": "Không thể phân tích file này.",
+        "invalidJson": "JSON không hợp lệ",
+        "exportFailed": "Xuất thất bại",
+        "copyFailed": "Không thể sao chép"
+      }
+    }
+  },
+  "fa": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "فایل‌های CSV یا Excel را به JSON تبدیل کنید و دوباره به CSV یا XLSX صادر کنید.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "CSV یا Excel را بارگذاری کنید، JSON را ویرایش کنید، سپس CSV یا XLSX را دانلود کنید. فقط داده جدولی؛ سلول‌های تاریخ Excel در JSON به برچسب زمانی ISO تبدیل می‌شوند.",
+      "dropTitle": "فایل CSV یا Excel را رها کنید",
+      "dropHint": "برای .xlsx / .xls از اولین برگه استفاده می‌شود. CSV باید سطر سرستون داشته باشد.",
+      "chooseFile": "انتخاب فایل",
+      "jsonLabel": "JSON (آرایه‌ای از شیءها)",
+      "jsonPlaceholder": "آرایه JSON از شیءها را بچسبانید یا CSV / Excel وارد کنید…",
+      "loadSample": "بارگذاری نمونه",
+      "actions": {
+        "format": "قالب‌بندی JSON",
+        "clear": "پاک کردن",
+        "copy": "کپی",
+        "copied": "کپی شد",
+        "downloadCsv": "دانلود CSV",
+        "downloadXlsx": "دانلود Excel"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "داده",
+      "toastLoadedCsv": "CSV در ویرایشگر بارگذاری شد",
+      "toastLoadedExcel": "Excel در ویرایشگر بارگذاری شد",
+      "toastFormatted": "JSON قالب‌بندی شد",
+      "toastExportedCsv": "CSV دانلود شد",
+      "toastExportedXlsx": "Excel دانلود شد",
+      "toastCopied": "در کلیپ‌بورد کپی شد",
+      "footnote": "همه‌چیز در مرورگر اجرا می‌شود. JSON باید آرایه‌ای غیرخالی از شیءها باشد. مقادیر تودرتو در سلول‌های CSV به صورت JSON سریال می‌شوند.",
+      "errors": {
+        "unsupportedFile": "از فایل .csv، .xlsx یا .xls استفاده کنید.",
+        "parseFailed": "این فایل قابل تجزیه نیست.",
+        "invalidJson": "JSON نامعتبر",
+        "exportFailed": "صادرات ناموفق",
+        "copyFailed": "کپی نشد"
+      }
+    }
+  },
+  "af": {
+    "nav": "CSV / Excel ↔ JSON",
+    "dTitle": "CSV / Excel ↔ JSON",
+    "dDesc": "Skakel CSV- of Excel-lêers na JSON en voer terug uit na CSV of XLSX.",
+    "tool": {
+      "title": "CSV / Excel ↔ JSON",
+      "subtitle": "Laai CSV of Excel op, wysig JSON, laai dan CSV of XLSX af. Slegs tabeldata; Excel-datums word ISO-tydstempels in JSON.",
+      "dropTitle": "Los ’n CSV- of Excel-lêer hier",
+      "dropHint": "Eerste werkblad word vir .xlsx / .xls gebruik. CSV moet ’n opskrifry hê.",
+      "chooseFile": "Kies lêer",
+      "jsonLabel": "JSON (skikking van voorwerpe)",
+      "jsonPlaceholder": "Plak ’n JSON-skikking van voorwerpe of voer CSV / Excel in…",
+      "loadSample": "Laai voorbeeld",
+      "actions": {
+        "format": "Formateer JSON",
+        "clear": "Maak skoon",
+        "copy": "Kopieer",
+        "copied": "Gekopieer",
+        "downloadCsv": "Laai CSV af",
+        "downloadXlsx": "Laai Excel af"
+      },
+      "filenames": { "csv": "data.csv", "xlsx": "data.xlsx" },
+      "sheetName": "Data",
+      "toastLoadedCsv": "CSV in redigeerder gelaai",
+      "toastLoadedExcel": "Excel in redigeerder gelaai",
+      "toastFormatted": "JSON geformateer",
+      "toastExportedCsv": "CSV afgelaai",
+      "toastExportedXlsx": "Excel afgelaai",
+      "toastCopied": "Na knipbord gekopieer",
+      "footnote": "Alles loop in jou blaaier. JSON moet ’n nie-leë skikking van voorwerpe wees. Geneste waardes word as JSON in CSV-selle gestoor.",
+      "errors": {
+        "unsupportedFile": "Gebruik ’n .csv-, .xlsx- of .xls-lêer.",
+        "parseFailed": "Kon nie hierdie lêer ontleed nie.",
+        "invalidJson": "Ongeldige JSON",
+        "exportFailed": "Uitvoer het misluk",
+        "copyFailed": "Kon nie kopieer nie"
+      }
+    }
+  }
+}

@@ -149,7 +149,7 @@ export function DiffCheckerLayout() {
             {t('comparisonLabel')}
           </Label>
         </div>
-        <div className="flex flex-1 min-h-0 divide-x divide-border">
+        <div className="flex flex-col md:flex-row flex-1 min-h-0 divide-y md:divide-y-0 md:divide-x divide-border">
           <div
             ref={leftScrollRef}
             onScroll={(e) => syncScroll('left', e.currentTarget.scrollTop)}

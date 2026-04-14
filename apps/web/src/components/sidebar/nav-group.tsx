@@ -4,6 +4,8 @@ import { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 import {
   Collapsible,
   CollapsibleContent,
@@ -205,12 +207,15 @@ const SidebarMenuLink = ({
   const toolKey = getToolMessageKey(itemUrl);
   const displayTitle = toolKey ? tNav(toolKey as never) : item.title;
 
+  const isActive = checkIsActive(href, item);
+
   return (
-    <SidebarMenuItem>
+    <SidebarMenuItem className="relative group">
       <SidebarMenuButton
         asChild
-        isActive={checkIsActive(href, item)}
+        isActive={isActive}
         tooltip={displayTitle}
+        className={cn("transition-all duration-200", isActive && "bg-transparent dark:bg-transparent hover:bg-transparent")}
       >
         <Link
           href={item.url}
@@ -220,8 +225,15 @@ const SidebarMenuLink = ({
           }}
           className="relative flex items-center"
         >
-          {item.icon && <item.icon />}
-          <span>{displayTitle}</span>
+          {isActive && (
+            <motion.div
+              layoutId="sidebar-active-pill"
+              className="absolute inset-0 rounded-md bg-primary/10 dark:bg-primary/20 -z-10"
+              transition={{ type: "spring", stiffness: 400, damping: 30 }}
+            />
+          )}
+          {item.icon && <item.icon className="z-10" />}
+          <span className="z-10 font-medium group-hover:translate-x-0.5 transition-transform">{displayTitle}</span>
           {item.badge && <NavBadge>{item.badge}</NavBadge>}
         </Link>
       </SidebarMenuButton>
@@ -276,11 +288,14 @@ const SidebarMenuCollapsible = ({
                   typeof subItem.url === "string"
                     ? subItem.url
                     : subItem.url.toString();
+                const isSubActive = checkIsActive(href, subItem);
+                
                 return (
-                  <SidebarMenuSubItem key={subItem.title}>
+                  <SidebarMenuSubItem key={subItem.title} className="relative group/sub">
                     <SidebarMenuSubButton
                       asChild
-                      isActive={checkIsActive(href, subItem)}
+                      isActive={isSubActive}
+                      className={cn("transition-all duration-200", isSubActive && "bg-transparent hover:bg-transparent")}
                     >
                       <Link
                         href={subItem.url}
@@ -288,9 +303,23 @@ const SidebarMenuCollapsible = ({
                           handleSubLinkClick(e, subItemUrl);
                           setOpenMobile(false);
                         }}
+                        className="relative flex items-center pl-4 overflow-hidden"
                       >
-                        {subItem.icon && <subItem.icon />}
-                        <span>{subItem.title}</span>
+                        {isSubActive && (
+                          <>
+                            <motion.div
+                              layoutId="sidebar-sub-active-pill"
+                              className="absolute inset-0 rounded-md bg-primary/5 dark:bg-primary/10 -z-10"
+                              transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                            />
+                            <motion.div
+                              layoutId="sidebar-sub-active-border"
+                              className="absolute left-0 top-1/2 -translate-y-1/2 h-4 w-[2px] bg-primary rounded-full transition-all duration-300"
+                            />
+                          </>
+                        )}
+                        {subItem.icon && <subItem.icon className="z-10" />}
+                        <span className="z-10 font-medium group-hover/sub:translate-x-0.5 transition-transform">{subItem.title}</span>
                         {subItem.badge && <NavBadge>{subItem.badge}</NavBadge>}
                       </Link>
                     </SidebarMenuSubButton>

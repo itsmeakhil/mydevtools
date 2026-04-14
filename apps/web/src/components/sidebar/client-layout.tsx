@@ -28,7 +28,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 
       {/* Main content area */}
       <div className={`flex-1 ${state === 'collapsed' ? 'md:ml-[var(--sidebar-width-icon)]' : 'md:ml-[var(--sidebar-width)]'
-        } ml-0 pb-16 md:pb-0`}>
+        } ml-0 pb-28 md:pb-0`}>
         {/* Fixed navbar */}
         <header className="sticky top-0 z-20 bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800 hidden md:block">
           <NavBar />

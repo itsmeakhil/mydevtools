@@ -165,7 +165,7 @@ export default function ImportDialog({ open, onOpenChange }: ImportDialogProps) 
 
                 <div className="space-y-4 py-4">
                     {/* Browser Export Instructions */}
-                    <div className="grid grid-cols-4 gap-2">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                         {[
                             { icon: IconBrandChrome, name: 'Chrome', instruction: t("chromeInstruction") },
                             { icon: IconBrandFirefox, name: 'Firefox', instruction: t("firefoxInstruction") },

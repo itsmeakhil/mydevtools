@@ -86,16 +86,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar collapsible='icon' variant='floating' {...props}>
-      <SidebarHeader className="border-b border-border/40 pb-3 hidden md:flex">
+      <SidebarHeader className="border-b border-border/30 pb-3 hidden md:flex">
         <div
-          className="flex items-center space-x-3 px-3 py-3 transition-all duration-200 hover:cursor-pointer hover:bg-accent/50 rounded-lg bg-accent/10 border border-transparent hover:border-border/50 group-data-[state=collapsed]:bg-transparent group-data-[state=collapsed]:border-none group-data-[state=collapsed]:p-0 group-data-[state=collapsed]:justify-center"
+          className="flex items-center space-x-3 px-3 py-3 transition-all duration-300 hover:cursor-pointer hover:bg-primary/5 rounded-xl bg-transparent border border-transparent hover:border-primary/10 group-data-[state=collapsed]:bg-transparent group-data-[state=collapsed]:border-none group-data-[state=collapsed]:p-0 group-data-[state=collapsed]:justify-center overflow-hidden group/logo"
           onClick={() => router.push('/dashboard')}
         >
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center transition-transform duration-300 group-hover/logo:scale-105">
             <Logo size={36} showText={false} />
           </div>
-          <div className="group-data-[state=collapsed]:hidden flex flex-col justify-center">
-            <div className="relative h-6 w-28 -ml-1">
+          <div className="flex flex-col justify-center transition-all duration-300 origin-left group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:translate-x-[-10px]">
+            <div className="relative h-6 w-28 -ml-1 whitespace-nowrap">
               {/* Light Mode Text (Dark Color) */}
               <img
                 src="/logo-text-light.png"
@@ -109,7 +109,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 className="hidden dark:block object-contain h-full w-full object-left"
               />
             </div>
-            <p className="text-[10px] text-muted-foreground/80 font-medium tracking-wider uppercase pl-0.5">Developer&apos;s Toolkit</p>
+            <p className="text-[10px] text-muted-foreground/80 font-medium tracking-wider uppercase pl-0.5 whitespace-nowrap">Developer&apos;s Toolkit</p>
           </div>
         </div>
       </SidebarHeader>
@@ -118,7 +118,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <NavGroup key={props.title} {...props} />
         ))}
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="hidden md:block">
         <NavUser user={user} onSignout={handleSignOut} />
       </SidebarFooter>
       <SidebarRail />
