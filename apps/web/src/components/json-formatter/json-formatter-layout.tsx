@@ -24,12 +24,12 @@ import {
   ResizablePanelGroup,
 } from '@/components/ui/resizable'
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
+  ResponsiveModal,
+  ResponsiveModalBody,
+  ResponsiveModalDescription,
+  ResponsiveModalHeader,
+  ResponsiveModalTitle,
+} from '@/components/ui/responsive-modal'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
 const initialJson = {
@@ -99,6 +99,7 @@ export function JsonFormatterLayout() {
   )
 
   const isMobile = useIsMobile()
+  const [activePane, setActivePane] = useState<PaneKey>('left')
   const [loadOpen, setLoadOpen] = useState(false)
   const [loadPane, setLoadPane] = useState<PaneKey>('left')
   const [docsLoading, setDocsLoading] = useState(false)
@@ -262,6 +263,36 @@ export function JsonFormatterLayout() {
     }
   }
 
+  const renderPaneToolbar = (pane: PaneKey) => {
+    const state = pane === 'left' ? leftPane : rightPane
+    return (
+      <div className="flex flex-wrap items-center gap-2 border-b p-2">
+        <input
+          value={state.documentName}
+          onChange={(event) => handlePaneNameChange(pane, event.target.value)}
+          className="h-8 w-full sm:w-[170px] rounded-md border border-input bg-background px-2.5 text-xs text-foreground outline-none ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          aria-label={pane === 'left' ? t('leftDocNameLabel') : t('rightDocNameLabel')}
+        />
+        <Button variant="outline" size="sm" onClick={() => handleNewDocument(pane)}>
+          <IconFilePlus className="mr-1.5 h-4 w-4" />
+          {t('newDocument')}
+        </Button>
+        <Button variant="outline" size="sm" onClick={() => handleCopy(pane)}>
+          <IconCopy className="mr-1.5 h-4 w-4" />
+          {t('copy')}
+        </Button>
+        <Button variant="outline" size="sm" onClick={() => openLoadDialog(pane)}>
+          <IconFolderOpen className="mr-1.5 h-4 w-4" />
+          {t.has('load') ? t('load') : 'Load'}
+        </Button>
+        <Button size="sm" onClick={() => handleSave(pane)} disabled={state.isSaving}>
+          <IconDeviceFloppy className="mr-1.5 h-4 w-4" />
+          {state.isSaving ? t('saving') : t('save')}
+        </Button>
+      </div>
+    )
+  }
+
   return (
     <div className="flex h-full min-h-0 w-full flex-col gap-3 overflow-hidden">
       <Card className="shrink-0 border shadow-lg bg-card/50 backdrop-blur-sm md:hidden">
@@ -284,42 +315,38 @@ export function JsonFormatterLayout() {
         </CardHeader>
       </Card>
 
-      <ResizablePanelGroup
-        direction={isMobile ? "vertical" : "horizontal"}
-        className="min-h-0 flex-1 rounded-lg border overflow-hidden"
-      >
-        {/* Left Pane - Text Mode */}
-        <ResizablePanel defaultSize={50} minSize={isMobile ? 30 : 20} className="min-h-0">
-          <div className="flex h-full min-h-0 flex-col">
-            <div className="flex flex-wrap items-center gap-2 border-b p-2">
-              <input
-                value={leftPane.documentName}
-                onChange={(event) => handlePaneNameChange('left', event.target.value)}
-                className="h-8 w-full sm:w-[170px] rounded-md border border-input bg-background px-2.5 text-xs text-foreground outline-none ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                aria-label={t('leftDocNameLabel')}
-              />
-              <Button variant="outline" size="sm" onClick={() => handleNewDocument('left')}>
-                <IconFilePlus className="mr-1.5 h-4 w-4" />
-                {t('newDocument')}
-              </Button>
-              <Button variant="outline" size="sm" onClick={() => handleCopy('left')}>
-                <IconCopy className="mr-1.5 h-4 w-4" />
-                {t('copy')}
-              </Button>
-              <Button variant="outline" size="sm" onClick={() => openLoadDialog('left')}>
-                <IconFolderOpen className="mr-1.5 h-4 w-4" />
-                {t.has('load') ? t('load') : 'Load'}
-              </Button>
-              <Button
-                size="sm"
-                onClick={() => handleSave('left')}
-                disabled={leftPane.isSaving}
-              >
-                <IconDeviceFloppy className="mr-1.5 h-4 w-4" />
-                {leftPane.isSaving ? t('saving') : t('save')}
-              </Button>
-            </div>
-            <div className="min-h-0 flex-1">
+      {/* Mobile tab switcher */}
+      {isMobile && (
+        <div className="flex shrink-0 rounded-lg border bg-muted/40 p-1 gap-1">
+          <button
+            onClick={() => setActivePane('left')}
+            className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-all ${
+              activePane === 'left'
+                ? 'bg-background text-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            Text
+          </button>
+          <button
+            onClick={() => setActivePane('right')}
+            className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-all ${
+              activePane === 'right'
+                ? 'bg-background text-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            Tree
+          </button>
+        </div>
+      )}
+
+      {isMobile ? (
+        /* Mobile: single full-height pane, toggled by tabs */
+        <div className="min-h-0 flex-1 rounded-lg border overflow-hidden flex flex-col">
+          {renderPaneToolbar(activePane)}
+          <div className="min-h-0 flex-1">
+            {activePane === 'left' ? (
               <VanillaEditor
                 mode={Mode.text}
                 content={leftPane.content}
@@ -330,44 +357,7 @@ export function JsonFormatterLayout() {
                 navigationBar={true}
                 statusBar={true}
               />
-            </div>
-          </div>
-        </ResizablePanel>
-
-        <ResizableHandle withHandle />
-
-        {/* Right Pane - Tree Mode */}
-        <ResizablePanel defaultSize={50} minSize={isMobile ? 30 : 20} className="min-h-0">
-          <div className="flex h-full min-h-0 flex-col">
-            <div className="flex flex-wrap items-center gap-2 border-b p-2">
-              <input
-                value={rightPane.documentName}
-                onChange={(event) => handlePaneNameChange('right', event.target.value)}
-                className="h-8 w-full sm:w-[170px] rounded-md border border-input bg-background px-2.5 text-xs text-foreground outline-none ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                aria-label={t('rightDocNameLabel')}
-              />
-              <Button variant="outline" size="sm" onClick={() => handleNewDocument('right')}>
-                <IconFilePlus className="mr-1.5 h-4 w-4" />
-                {t('newDocument')}
-              </Button>
-              <Button variant="outline" size="sm" onClick={() => handleCopy('right')}>
-                <IconCopy className="mr-1.5 h-4 w-4" />
-                {t('copy')}
-              </Button>
-              <Button variant="outline" size="sm" onClick={() => openLoadDialog('right')}>
-                <IconFolderOpen className="mr-1.5 h-4 w-4" />
-                {t.has('load') ? t('load') : 'Load'}
-              </Button>
-              <Button
-                size="sm"
-                onClick={() => handleSave('right')}
-                disabled={rightPane.isSaving}
-              >
-                <IconDeviceFloppy className="mr-1.5 h-4 w-4" />
-                {rightPane.isSaving ? t('saving') : t('save')}
-              </Button>
-            </div>
-            <div className="min-h-0 flex-1">
+            ) : (
               <VanillaEditor
                 mode={Mode.tree}
                 content={rightPane.content}
@@ -377,23 +367,64 @@ export function JsonFormatterLayout() {
                 mainMenuBar={true}
                 navigationBar={true}
               />
-            </div>
+            )}
           </div>
-        </ResizablePanel>
-      </ResizablePanelGroup>
+        </div>
+      ) : (
+        /* Desktop: side-by-side resizable panes */
+        <ResizablePanelGroup
+          direction="horizontal"
+          className="min-h-0 flex-1 rounded-lg border overflow-hidden"
+        >
+          <ResizablePanel defaultSize={50} minSize={20} className="min-h-0">
+            <div className="flex h-full min-h-0 flex-col">
+              {renderPaneToolbar('left')}
+              <div className="min-h-0 flex-1">
+                <VanillaEditor
+                  mode={Mode.text}
+                  content={leftPane.content}
+                  onChange={(updated, previous, status) =>
+                    handlePaneChange('left', updated, previous, status)
+                  }
+                  mainMenuBar={true}
+                  navigationBar={true}
+                  statusBar={true}
+                />
+              </div>
+            </div>
+          </ResizablePanel>
 
-      <Dialog open={loadOpen} onOpenChange={setLoadOpen}>
-        <DialogContent className="max-w-xl">
-          <DialogHeader>
-            <DialogTitle>
-              Load saved JSON
-            </DialogTitle>
-            <DialogDescription>
-              Pick a previously saved JSON document from your account.
-            </DialogDescription>
-          </DialogHeader>
+          <ResizableHandle withHandle />
 
-          <div className="flex items-center justify-between gap-2">
+          <ResizablePanel defaultSize={50} minSize={20} className="min-h-0">
+            <div className="flex h-full min-h-0 flex-col">
+              {renderPaneToolbar('right')}
+              <div className="min-h-0 flex-1">
+                <VanillaEditor
+                  mode={Mode.tree}
+                  content={rightPane.content}
+                  onChange={(updated, previous, status) =>
+                    handlePaneChange('right', updated, previous, status)
+                  }
+                  mainMenuBar={true}
+                  navigationBar={true}
+                />
+              </div>
+            </div>
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      )}
+
+      <ResponsiveModal open={loadOpen} onOpenChange={setLoadOpen}>
+        <ResponsiveModalHeader>
+          <ResponsiveModalTitle>Load saved JSON</ResponsiveModalTitle>
+          <ResponsiveModalDescription>
+            Pick a previously saved JSON document from your account.
+          </ResponsiveModalDescription>
+        </ResponsiveModalHeader>
+
+        <ResponsiveModalBody>
+          <div className="flex items-center justify-between gap-2 mb-3">
             <div className="text-xs text-muted-foreground">
               Load into <span className="font-medium">{loadPane}</span>
             </div>
@@ -418,9 +449,7 @@ export function JsonFormatterLayout() {
           <ScrollArea className="h-[320px] rounded-md border">
             <div className="p-2">
               {docsLoading ? (
-                <div className="p-4 text-sm text-muted-foreground">
-                  Loading…
-                </div>
+                <div className="p-4 text-sm text-muted-foreground">Loading…</div>
               ) : docsByPane[loadPane].length === 0 ? (
                 <div className="p-4 text-sm text-muted-foreground">
                   No saved documents yet.
@@ -435,9 +464,7 @@ export function JsonFormatterLayout() {
                     >
                       <div className="flex items-center justify-between gap-3">
                         <div className="min-w-0">
-                          <div className="truncate text-sm font-medium">
-                            {d.title}
-                          </div>
+                          <div className="truncate text-sm font-medium">{d.title}</div>
                           <div className="truncate text-xs text-muted-foreground">
                             {d.updatedAt || d.createdAt}
                           </div>
@@ -452,8 +479,8 @@ export function JsonFormatterLayout() {
               )}
             </div>
           </ScrollArea>
-        </DialogContent>
-      </Dialog>
+        </ResponsiveModalBody>
+      </ResponsiveModal>
     </div>
   )
 }

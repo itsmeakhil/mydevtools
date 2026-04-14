@@ -95,6 +95,7 @@ export function ApiClient() {
     const isMobile = useIsMobile()
     const [collectionsOpen, setCollectionsOpen] = React.useState(false)
     const [sidebarOpen, setSidebarOpen] = React.useState(true)
+    const [mobilePanel, setMobilePanel] = React.useState<'request' | 'response'>('request')
     const activeEnvironmentVariables = React.useMemo(() => {
         if (!activeEnvId) return {}
         const activeEnv = environments.find((env) => env.id === activeEnvId)
@@ -242,6 +243,7 @@ export function ApiClient() {
         if (!activeTab.url?.trim()) return
 
         updateActiveTab({ isLoading: true, response: null })
+        if (isMobile) setMobilePanel('response')
         const startTime = performance.now()
 
         try {
@@ -514,24 +516,61 @@ export function ApiClient() {
                         onTabClose={handleCloseTab}
                         onTabAdd={handleAddTab}
                     />
+
+                    {/* Mobile Request/Response tab switcher */}
+                    {isMobile && (
+                        <div className="flex shrink-0 border-b bg-muted/40 p-1 gap-1 mx-2 mt-2 mb-1 rounded-lg">
+                            <button
+                                onClick={() => setMobilePanel('request')}
+                                className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-all ${
+                                    mobilePanel === 'request'
+                                        ? 'bg-background text-foreground shadow-sm'
+                                        : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                            >
+                                {t("layout.request")}
+                            </button>
+                            <button
+                                onClick={() => setMobilePanel('response')}
+                                className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-all ${
+                                    mobilePanel === 'response'
+                                        ? 'bg-background text-foreground shadow-sm'
+                                        : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                            >
+                                {t("layout.response")}
+                                {activeTab.response && (
+                                    <span className={`ml-1.5 inline-block h-2 w-2 rounded-full ${
+                                        activeTab.response.status >= 200 && activeTab.response.status < 300
+                                            ? 'bg-emerald-500'
+                                            : activeTab.response.status >= 400
+                                            ? 'bg-rose-500'
+                                            : 'bg-amber-500'
+                                    }`} />
+                                )}
+                            </button>
+                        </div>
+                    )}
+
                     <div className="flex-1 overflow-hidden min-h-0 bg-card/30">
-                        <ResizablePanelGroup direction={isMobile ? "vertical" : "horizontal"} className="h-full w-full">
-                            <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col h-full">
-                                <div className="p-4 md:p-6 lg:p-8 flex flex-col gap-6 flex-1 min-h-0">
-                                    <RequestPanel
-                                        method={activeTab.method}
-                                        setMethod={(method) => updateActiveTab({ method })}
-                                        url={activeTab.url}
-                                        setUrl={(url) => updateActiveTab({ url, name: url || API_CLIENT_DEFAULT_TAB_NAME })}
-                                        onSend={handleSend}
-                                        isLoading={activeTab.isLoading}
-                                        collections={collections}
-                                        onSave={handleSaveRequest}
-                                        saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
-                                        onPaste={handleCurlPaste}
-                                        activeEnvironmentVariables={activeEnvironmentVariables}
-                                    />
-                                    <div className="flex-1 min-h-0">
+                        {isMobile ? (
+                            /* Mobile: single panel toggled by tabs */
+                            <div className="h-full overflow-y-auto">
+                                {mobilePanel === 'request' ? (
+                                    <div className="p-4 flex flex-col gap-6 min-h-full">
+                                        <RequestPanel
+                                            method={activeTab.method}
+                                            setMethod={(method) => updateActiveTab({ method })}
+                                            url={activeTab.url}
+                                            setUrl={(url) => updateActiveTab({ url, name: url || API_CLIENT_DEFAULT_TAB_NAME })}
+                                            onSend={handleSend}
+                                            isLoading={activeTab.isLoading}
+                                            collections={collections}
+                                            onSave={handleSaveRequest}
+                                            saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
+                                            onPaste={handleCurlPaste}
+                                            activeEnvironmentVariables={activeEnvironmentVariables}
+                                        />
                                         <RequestTabs
                                             params={activeTab.params}
                                             setParams={(params) => updateActiveTab({ params })}
@@ -543,17 +582,54 @@ export function ApiClient() {
                                             setAuth={(auth) => updateActiveTab({ auth })}
                                         />
                                     </div>
-                                </div>
-                            </ResizablePanel>
+                                ) : (
+                                    <div className="p-4">
+                                        <ResponsePanel response={activeTab.response} />
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            /* Desktop: side-by-side resizable panels */
+                            <ResizablePanelGroup direction="horizontal" className="h-full w-full">
+                                <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col h-full">
+                                    <div className="p-4 md:p-6 lg:p-8 flex flex-col gap-6 flex-1 min-h-0">
+                                        <RequestPanel
+                                            method={activeTab.method}
+                                            setMethod={(method) => updateActiveTab({ method })}
+                                            url={activeTab.url}
+                                            setUrl={(url) => updateActiveTab({ url, name: url || API_CLIENT_DEFAULT_TAB_NAME })}
+                                            onSend={handleSend}
+                                            isLoading={activeTab.isLoading}
+                                            collections={collections}
+                                            onSave={handleSaveRequest}
+                                            saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
+                                            onPaste={handleCurlPaste}
+                                            activeEnvironmentVariables={activeEnvironmentVariables}
+                                        />
+                                        <div className="flex-1 min-h-0">
+                                            <RequestTabs
+                                                params={activeTab.params}
+                                                setParams={(params) => updateActiveTab({ params })}
+                                                headers={activeTab.headers}
+                                                setHeaders={(headers) => updateActiveTab({ headers })}
+                                                body={activeTab.body}
+                                                setBody={(body) => updateActiveTab({ body })}
+                                                auth={activeTab.auth}
+                                                setAuth={(auth) => updateActiveTab({ auth })}
+                                            />
+                                        </div>
+                                    </div>
+                                </ResizablePanel>
 
-                            <ResizableHandle withHandle className="w-1.5 bg-border/40 hover:bg-primary/20 transition-colors" />
+                                <ResizableHandle withHandle className="w-1.5 bg-border/40 hover:bg-primary/20 transition-colors" />
 
-                            <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col h-full bg-muted/[0.02]">
-                                <div className="p-4 md:p-6 lg:p-8 flex-1 overflow-y-auto min-h-0 custom-scrollbar">
-                                    <ResponsePanel response={activeTab.response} />
-                                </div>
-                            </ResizablePanel>
-                        </ResizablePanelGroup>
+                                <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col h-full bg-muted/[0.02]">
+                                    <div className="p-4 md:p-6 lg:p-8 flex-1 overflow-y-auto min-h-0 custom-scrollbar">
+                                        <ResponsePanel response={activeTab.response} />
+                                    </div>
+                                </ResizablePanel>
+                            </ResizablePanelGroup>
+                        )}
                     </div>
                 </Card>
             </div>

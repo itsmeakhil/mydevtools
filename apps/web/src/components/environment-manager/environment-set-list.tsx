@@ -36,6 +36,13 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog"
+import {
+    Drawer,
+    DrawerContent,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+} from "@/components/ui/drawer"
 import { ScrollArea } from "@/components/ui/scroll-area"
 
 export function EnvironmentSetList() {
@@ -235,71 +242,139 @@ export function EnvironmentSetList() {
                 }}
             />
 
-            <Dialog open={!!viewingEntry} onOpenChange={(o) => !o && setViewingEntry(null)}>
-                <DialogContent className="flex h-[min(92vh,920px)] w-[min(95vw,1320px)] max-w-[min(95vw,1320px)] max-h-[min(92vh,920px)] flex-col gap-0 overflow-hidden p-0 sm:max-w-[min(95vw,1320px)]">
-                    {viewingEntry && (
-                        <>
-                            <DialogHeader className="shrink-0 space-y-1 px-6 pb-2 pt-6 text-left">
-                                <DialogTitle className="text-xl leading-tight">
-                                    {viewingEntry.project}
-                                    <span className="text-muted-foreground font-normal"> / </span>
-                                    <span className="font-semibold">{viewingEntry.environment}</span>
-                                </DialogTitle>
-                                <p className="text-sm text-muted-foreground">{t("viewDialogSubtitle")}</p>
-                            </DialogHeader>
-                            <div className="flex min-h-0 flex-1 flex-col space-y-3 overflow-hidden px-6 pb-2">
-                                {viewingEntry.tags.length > 0 && (
-                                    <div className="flex flex-wrap gap-1">
-                                        {viewingEntry.tags.map((tag) => (
-                                            <Badge key={tag} variant="secondary" className="text-xs">
-                                                {tag}
-                                            </Badge>
-                                        ))}
-                                    </div>
-                                )}
-                                {viewingEntry.notes.trim() && (
-                                    <div className="space-y-1">
-                                        <p className="text-xs font-medium text-muted-foreground">
-                                            {t("viewNotesHeading")}
-                                        </p>
-                                        <p className="text-sm text-foreground whitespace-pre-wrap">{viewingEntry.notes}</p>
-                                    </div>
-                                )}
-                                <ScrollArea className="dotenv-modal-hl min-h-[min(48vh,520px)] flex-1 basis-0 rounded-md border bg-muted/30 sm:min-h-[min(58vh,680px)]">
-                                    {viewDotEnvRaw ? (
-                                        <pre className="m-0 break-all whitespace-pre-wrap p-4 text-left font-mono text-sm leading-relaxed">
-                                            <code
-                                                className="hljs language-properties !bg-transparent"
-                                                dangerouslySetInnerHTML={{ __html: viewDotEnvHtml }}
-                                            />
-                                        </pre>
-                                    ) : (
-                                        <p className="p-4 text-sm text-muted-foreground">{t("viewNoVariables")}</p>
+            {isMobile ? (
+                <Drawer open={!!viewingEntry} onOpenChange={(o) => !o && setViewingEntry(null)}>
+                    <DrawerContent className="max-h-[96vh] flex flex-col overflow-hidden p-0">
+                        {viewingEntry && (
+                            <>
+                                <DrawerHeader className="shrink-0 space-y-1 px-4 pb-2 pt-4 text-left">
+                                    <DrawerTitle className="text-xl leading-tight">
+                                        {viewingEntry.project}
+                                        <span className="text-muted-foreground font-normal"> / </span>
+                                        <span className="font-semibold">{viewingEntry.environment}</span>
+                                    </DrawerTitle>
+                                    <p className="text-sm text-muted-foreground">{t("viewDialogSubtitle")}</p>
+                                </DrawerHeader>
+                                <div className="flex min-h-0 flex-1 flex-col space-y-3 overflow-hidden px-4 pb-2">
+                                    {viewingEntry.tags.length > 0 && (
+                                        <div className="flex flex-wrap gap-1">
+                                            {viewingEntry.tags.map((tag) => (
+                                                <Badge key={tag} variant="secondary" className="text-xs">
+                                                    {tag}
+                                                </Badge>
+                                            ))}
+                                        </div>
                                     )}
-                                </ScrollArea>
-                            </div>
-                            <DialogFooter className="px-6 py-4 border-t bg-muted/20 shrink-0 gap-2 sm:gap-2 flex-row flex-wrap justify-end">
-                                <Button type="button" variant="outline" onClick={() => setViewingEntry(null)}>
-                                    {t("closeView")}
-                                </Button>
-                                <Button
-                                    type="button"
-                                    className="gap-1.5"
-                                    onClick={() =>
-                                        copyToClipboard(
-                                            formatDotEnv(viewingEntry.variables),
-                                            tToast("copiedDotEnv")
-                                        )
-                                    }
-                                >
-                                    <Copy className="h-4 w-4" />
-                                    {t("copyDotEnv")}
-                                </Button>
-                            </DialogFooter>
-                        </>
-                    )}
-                </DialogContent>
-            </Dialog>
+                                    {viewingEntry.notes.trim() && (
+                                        <div className="space-y-1">
+                                            <p className="text-xs font-medium text-muted-foreground">
+                                                {t("viewNotesHeading")}
+                                            </p>
+                                            <p className="text-sm text-foreground whitespace-pre-wrap">{viewingEntry.notes}</p>
+                                        </div>
+                                    )}
+                                    <ScrollArea className="dotenv-modal-hl min-h-[min(55vh,520px)] flex-1 basis-0 rounded-md border bg-muted/30">
+                                        {viewDotEnvRaw ? (
+                                            <pre className="m-0 break-all whitespace-pre-wrap p-4 text-left font-mono text-sm leading-relaxed">
+                                                <code
+                                                    className="hljs language-properties !bg-transparent"
+                                                    dangerouslySetInnerHTML={{ __html: viewDotEnvHtml }}
+                                                />
+                                            </pre>
+                                        ) : (
+                                            <p className="p-4 text-sm text-muted-foreground">{t("viewNoVariables")}</p>
+                                        )}
+                                    </ScrollArea>
+                                </div>
+                                <DrawerFooter className="px-4 py-4 border-t bg-muted/20 shrink-0 gap-3 flex-col justify-end">
+                                    <Button
+                                        type="button"
+                                        className="gap-1.5 w-full h-12 rounded-xl text-base font-semibold"
+                                        onClick={() =>
+                                            copyToClipboard(
+                                                formatDotEnv(viewingEntry.variables),
+                                                tToast("copiedDotEnv")
+                                            )
+                                        }
+                                    >
+                                        <Copy className="h-5 w-5" />
+                                        {t("copyDotEnv")}
+                                    </Button>
+                                    <Button type="button" variant="outline" className="w-full h-12 rounded-xl text-base" onClick={() => setViewingEntry(null)}>
+                                        {t("closeView")}
+                                    </Button>
+                                </DrawerFooter>
+                            </>
+                        )}
+                    </DrawerContent>
+                </Drawer>
+            ) : (
+                <Dialog open={!!viewingEntry} onOpenChange={(o) => !o && setViewingEntry(null)}>
+                    <DialogContent className="flex h-[min(92vh,920px)] w-[min(95vw,1320px)] max-w-[min(95vw,1320px)] max-h-[min(92vh,920px)] flex-col gap-0 overflow-hidden p-0 sm:max-w-[min(95vw,1320px)]">
+                        {viewingEntry && (
+                            <>
+                                <DialogHeader className="shrink-0 space-y-1 px-6 pb-2 pt-6 text-left">
+                                    <DialogTitle className="text-xl leading-tight">
+                                        {viewingEntry.project}
+                                        <span className="text-muted-foreground font-normal"> / </span>
+                                        <span className="font-semibold">{viewingEntry.environment}</span>
+                                    </DialogTitle>
+                                    <p className="text-sm text-muted-foreground">{t("viewDialogSubtitle")}</p>
+                                </DialogHeader>
+                                <div className="flex min-h-0 flex-1 flex-col space-y-3 overflow-hidden px-6 pb-2">
+                                    {viewingEntry.tags.length > 0 && (
+                                        <div className="flex flex-wrap gap-1">
+                                            {viewingEntry.tags.map((tag) => (
+                                                <Badge key={tag} variant="secondary" className="text-xs">
+                                                    {tag}
+                                                </Badge>
+                                            ))}
+                                        </div>
+                                    )}
+                                    {viewingEntry.notes.trim() && (
+                                        <div className="space-y-1">
+                                            <p className="text-xs font-medium text-muted-foreground">
+                                                {t("viewNotesHeading")}
+                                            </p>
+                                            <p className="text-sm text-foreground whitespace-pre-wrap">{viewingEntry.notes}</p>
+                                        </div>
+                                    )}
+                                    <ScrollArea className="dotenv-modal-hl min-h-[min(48vh,520px)] flex-1 basis-0 rounded-md border bg-muted/30 sm:min-h-[min(58vh,680px)]">
+                                        {viewDotEnvRaw ? (
+                                            <pre className="m-0 break-all whitespace-pre-wrap p-4 text-left font-mono text-sm leading-relaxed">
+                                                <code
+                                                    className="hljs language-properties !bg-transparent"
+                                                    dangerouslySetInnerHTML={{ __html: viewDotEnvHtml }}
+                                                />
+                                            </pre>
+                                        ) : (
+                                            <p className="p-4 text-sm text-muted-foreground">{t("viewNoVariables")}</p>
+                                        )}
+                                    </ScrollArea>
+                                </div>
+                                <DialogFooter className="px-6 py-4 border-t bg-muted/20 shrink-0 gap-2 sm:gap-2 flex-row flex-wrap justify-end">
+                                    <Button type="button" variant="outline" onClick={() => setViewingEntry(null)}>
+                                        {t("closeView")}
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        className="gap-1.5"
+                                        onClick={() =>
+                                            copyToClipboard(
+                                                formatDotEnv(viewingEntry.variables),
+                                                tToast("copiedDotEnv")
+                                            )
+                                        }
+                                    >
+                                        <Copy className="h-4 w-4" />
+                                        {t("copyDotEnv")}
+                                    </Button>
+                                </DialogFooter>
+                            </>
+                        )}
+                    </DialogContent>
+                </Dialog>
+            )}
 
             <AlertDialog open={!!deleteId} onOpenChange={(o) => !o && setDeleteId(null)}>
                 <AlertDialogContent>

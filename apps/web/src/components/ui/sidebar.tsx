@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet"
+import { Drawer, DrawerContent, DrawerTitle } from "@/components/ui/drawer"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   Tooltip,
@@ -194,22 +195,18 @@ const Sidebar = React.forwardRef<
 
     if (isMobile) {
       return (
-        <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
-          <SheetContent
+        <Drawer open={openMobile} onOpenChange={setOpenMobile} {...props}>
+          <DrawerContent
             data-sidebar="sidebar"
             data-mobile="true"
-            className="w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
-            style={
-              {
-                "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
-              } as React.CSSProperties
-            }
-            side={side}
+            className="bg-sidebar p-0 text-sidebar-foreground max-h-[85vh] [&>button]:hidden shadow-2xl"
           >
-            <SheetTitle className="sr-only">Navigation menu</SheetTitle>
-            <div className="flex h-full w-full flex-col">{children}</div>
-          </SheetContent>
-        </Sheet>
+            <DrawerTitle className="sr-only">Navigation Menu</DrawerTitle>
+            <div className="flex h-[calc(85vh-2rem)] w-full flex-col overflow-y-auto overflow-x-hidden pb-4 px-2">
+              {children}
+            </div>
+          </DrawerContent>
+        </Drawer>
       )
     }
 

@@ -22,6 +22,7 @@ import { useMasterKeyStore } from "@/store/master-key-store"
 import { clearMasterKey } from "@/lib/key-storage"
 import { logoutBackendSession } from "@/lib/backend-auth"
 import { useThemeAnimation } from "@space-man/react-theme-animation"
+import { motion } from "framer-motion"
 
 // Navigation items configuration
 const navItems = [
@@ -93,11 +94,11 @@ export function MobileNav() {
     // Base styles for nav items
     const navItemStyles = cn(
         "relative flex flex-col items-center justify-center gap-0.5",
-        "min-h-[48px] min-w-[64px] px-3 py-2",
-        "text-xs font-medium text-muted-foreground",
-        "transition-all duration-200 ease-out",
+        "h-12 w-14 sm:w-16",
+        "text-[10px] font-medium text-muted-foreground",
+        "transition-colors duration-200 ease-out",
         "hover:text-foreground active:scale-95",
-        "touch-ripple rounded-xl"
+        "rounded-full z-10"
     )
 
     const activeStyles = "text-primary"
@@ -105,19 +106,18 @@ export function MobileNav() {
     return (
         <nav
             className={cn(
-                "fixed bottom-0 left-0 right-0 z-50",
-                "flex items-center justify-around",
-                "h-[72px] px-2",
-                "border-t border-border/40",
-                "bg-background/85 backdrop-blur-xl",
-                "pb-[env(safe-area-inset-bottom)]",
+                "fixed bottom-6 left-1/2 -translate-x-1/2 z-50",
+                "flex items-center justify-around gap-1",
+                "h-[64px] px-2 w-[calc(100%-2rem)] max-w-sm",
+                "border border-border/50 rounded-full",
+                "bg-background/80 backdrop-blur-2xl shadow-2xl",
                 "md:hidden"
             )}
             role="navigation"
             aria-label="Mobile navigation"
         >
-            {/* Gradient overlay for premium feel */}
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+            {/* Soft inner highlight for premium feel */}
+            <div className="absolute inset-0 rounded-full border border-white/10 pointer-events-none" />
 
             {/* Home Link */}
             <Link
@@ -125,17 +125,15 @@ export function MobileNav() {
                 className={cn(navItemStyles, pathname === "/dashboard" && activeStyles)}
                 aria-current={pathname === "/dashboard" ? "page" : undefined}
             >
-                <span
-                    className={cn(
-                        "absolute inset-1 bg-primary/10 rounded-xl -z-10 transition-opacity duration-200",
-                        activeTab === 'home' ? "opacity-100" : "opacity-0"
-                    )}
-                />
+                {activeTab === 'home' && (
+                    <motion.div
+                        layoutId="active-mobile-nav"
+                        className="absolute inset-0 bg-primary/10 rounded-full -z-10"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                )}
                 <Home
-                    className={cn(
-                        "h-5 w-5 transition-transform duration-200",
-                        pathname === "/dashboard" && "scale-110"
-                    )}
+                    className="h-5 w-5 transition-transform duration-200"
                     strokeWidth={pathname === "/dashboard" ? 2.5 : 2}
                 />
                 <span className="mt-0.5">{navItems[0].label}</span>
@@ -148,17 +146,15 @@ export function MobileNav() {
                 aria-expanded={openMobile}
                 aria-label="Toggle tools menu"
             >
-                <span
-                    className={cn(
-                        "absolute inset-1 bg-primary/10 rounded-xl -z-10 transition-opacity duration-200",
-                        activeTab === 'tools' ? "opacity-100" : "opacity-0"
-                    )}
-                />
+                {activeTab === 'tools' && (
+                    <motion.div
+                        layoutId="active-mobile-nav"
+                        className="absolute inset-0 bg-primary/10 rounded-full -z-10"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                )}
                 <LayoutGrid
-                    className={cn(
-                        "h-5 w-5 transition-transform duration-200",
-                        openMobile && "scale-110"
-                    )}
+                    className="h-5 w-5 transition-transform duration-200"
                     strokeWidth={openMobile ? 2.5 : 2}
                 />
                 <span className="mt-0.5">Tools</span>
@@ -172,6 +168,13 @@ export function MobileNav() {
                             className={cn(navItemStyles, "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2")}
                             aria-label="User menu"
                         >
+                            {activeTab === 'profile' && (
+                                <motion.div
+                                    layoutId="active-mobile-nav"
+                                    className="absolute inset-0 bg-primary/10 rounded-full -z-10"
+                                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                />
+                            )}
                             <div className="relative">
                                 <Avatar className="h-6 w-6 ring-2 ring-background shadow-sm">
                                     <AvatarImage src={user.photoURL || ""} alt={user.displayName || "User"} />

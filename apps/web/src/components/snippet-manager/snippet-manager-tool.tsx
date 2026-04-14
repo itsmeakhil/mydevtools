@@ -61,7 +61,7 @@ import {
 import {
   Sheet,
   SheetContent,
-  SheetHeader,
+
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
@@ -495,26 +495,55 @@ export function SnippetManagerTool() {
 
         <div className="flex min-h-0 flex-1 flex-col gap-3">
           {isMobile ? (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 shrink-0">
+              {/* Current snippet name + open list button */}
               <Sheet open={listOpen} onOpenChange={setListOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="outline" size="sm" className="gap-2">
-                    <IconMenu2 className="h-4 w-4" />
-                    {t("snippets")}
-                  </Button>
+                  <button
+                    type="button"
+                    className="flex flex-1 min-w-0 items-center gap-2 rounded-lg border bg-muted/40 px-3 py-2 text-left transition-colors hover:bg-muted"
+                  >
+                    <IconMenu2 className="h-4 w-4 shrink-0 text-muted-foreground" />
+                    <span className="truncate text-sm font-medium">
+                      {draftTitle || t("snippets")}
+                    </span>
+                    <span className="ml-auto shrink-0 text-xs text-muted-foreground">
+                      {filtered.length}
+                    </span>
+                  </button>
                 </SheetTrigger>
-                <SheetContent side="left" className="w-[min(100%,320px)] p-4">
-                  <SheetHeader>
-                    <SheetTitle>{t("snippets")}</SheetTitle>
-                  </SheetHeader>
-                  <div className="mt-4 h-[calc(100vh-8rem)]">{snippetList}</div>
+                <SheetContent side="bottom" className="h-[75vh] rounded-t-2xl p-0">
+                  <div className="flex items-center justify-between border-b px-4 py-3">
+                    <SheetTitle className="text-base">{t("snippets")}</SheetTitle>
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="secondary"
+                      className="gap-1.5 h-8"
+                      onClick={handleNew}
+                    >
+                      <IconPlus className="h-3.5 w-3.5" />
+                      {t("newSnippet")}
+                    </Button>
+                  </div>
+                  <div className="p-4 h-[calc(75vh-4rem)]">{snippetList}</div>
                 </SheetContent>
               </Sheet>
+              <Button
+                type="button"
+                size="sm"
+                variant="secondary"
+                className="h-10 w-10 shrink-0 p-0"
+                onClick={handleNew}
+                aria-label={t("newSnippet")}
+              >
+                <IconPlus className="h-4 w-4" />
+              </Button>
             </div>
           ) : null}
 
           {isMobile ? (
-            <div className="flex min-h-[480px] flex-1 flex-col rounded-lg border border-border/50">
+            <div className="flex flex-1 min-h-0 flex-col rounded-lg border border-border/50">
               <div className="flex h-full min-h-0 flex-col gap-3 p-3">
                 <div className="flex flex-wrap items-end gap-3">
                   <div className="grid min-w-[140px] flex-1 gap-1.5">
