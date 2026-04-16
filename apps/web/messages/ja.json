@@ -31,7 +31,8 @@
     "qrCodeGenerator": "QRコード生成",
     "ipSubnetCalculator": "IP／サブネット計算",
     "hashGenerator": "ハッシュ生成",
-    "hmacGenerator": "HMACジェネレーター"
+    "hmacGenerator": "HMACジェネレーター",
+    "markdownPreview": "Markdownプレビュー"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -333,6 +334,10 @@
       "hmacGenerator": {
         "title": "HMACジェネレーター",
         "description": "Webhookの署名とAPI連携のテストに HMAC-SHA1/256/384/512。"
+      },
+      "markdownPreview": {
+        "title": "Markdownプレビュー",
+        "description": "HTMLエクスポートとHTML → Markdown変換を備えたライブMarkdownレンダラー。"
       }
     },
     "tabs": {
@@ -2497,5 +2502,26 @@
     "errors": {
       "cryptoFailed": "HMACを計算できませんでした。Web Crypto の対応を確認して再試行してください。"
     }
+  },
+  "MarkdownPreview": {
+    "title": "Markdownプレビュー & HTML",
+    "subtitle": "HTMLエクスポートとHTML → Markdown変換を備えたライブMarkdownレンダラー。すべてブラウザで動作します。",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Markdown入力",
+    "htmlInputLabel": "HTML入力",
+    "previewLabel": "プレビュー",
+    "htmlOutputLabel": "HTMLソース",
+    "mdOutputLabel": "Markdown出力",
+    "inputPlaceholder": "# こんにちは\\n\\nここに **markdown** を入力してください…",
+    "htmlInputPlaceholder": "HTMLをここに貼り付けてください…",
+    "copyHtml": "HTMLをコピー",
+    "copyMarkdown": "Markdownをコピー",
+    "exportHtml": "HTMLをエクスポート",
+    "copied": "コピーしました",
+    "charCount": "{count, plural, other {# 文字}}",
+    "emptyHint": "Markdownの入力を開始すると、ライブプレビューとHTML出力が表示されます。",
+    "emptyHintHtmlToMd": "HTMLを貼り付けてMarkdownに変換します。",
+    "securityNote": "すべてブラウザでローカルに実行されます。何もアップロードされません。"
   }
 }

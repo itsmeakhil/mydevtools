@@ -31,7 +31,8 @@
     "qrCodeGenerator": "تولیدکنندهٔ QR",
     "ipSubnetCalculator": "ماشین‌حساب IP / زیرشبکه",
     "hashGenerator": "تولیدکنندهٔ هش",
-    "hmacGenerator": "تولیدکنندهٔ HMAC"
+    "hmacGenerator": "تولیدکنندهٔ HMAC",
+    "markdownPreview": "پیش‌نمایش Markdown"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -333,6 +334,10 @@
       "hmacGenerator": {
         "title": "تولیدکنندهٔ HMAC",
         "description": "امضای وب‌هوک و آزمایش یکپارچگی API با HMAC-SHA1/256/384/512."
+      },
+      "markdownPreview": {
+        "title": "پیش‌نمایش Markdown",
+        "description": "رندر زنده Markdown با صادرکردن HTML و تبدیل HTML → Markdown."
       }
     },
     "tabs": {
@@ -2497,5 +2502,26 @@
     "errors": {
       "cryptoFailed": "محاسبهٔ HMAC ممکن نشد. پشتیبانی Web Crypto را بررسی و دوباره امتحان کنید."
     }
+  },
+  "MarkdownPreview": {
+    "title": "پیش‌نمایش Markdown و HTML",
+    "subtitle": "رندر زنده Markdown با صادرکردن HTML و تبدیل HTML → Markdown. همه چیز در مرورگر شما اجرا می‌شود.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "ورودی Markdown",
+    "htmlInputLabel": "ورودی HTML",
+    "previewLabel": "پیش‌نمایش",
+    "htmlOutputLabel": "منبع HTML",
+    "mdOutputLabel": "خروجی Markdown",
+    "inputPlaceholder": "# سلام\\n\\n**markdown** خود را اینجا بنویسید…",
+    "htmlInputPlaceholder": "HTML خود را اینجا بچسبانید…",
+    "copyHtml": "کپی HTML",
+    "copyMarkdown": "کپی Markdown",
+    "exportHtml": "خروجی HTML",
+    "copied": "کپی شد",
+    "charCount": "{count, plural, other {# کاراکتر}}",
+    "emptyHint": "برای دیدن پیش‌نمایش زنده و خروجی HTML، Markdown تایپ کنید.",
+    "emptyHintHtmlToMd": "HTML را برای تبدیل به Markdown بچسبانید.",
+    "securityNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. هیچ چیزی آپلود نمی‌شود."
   }
 }

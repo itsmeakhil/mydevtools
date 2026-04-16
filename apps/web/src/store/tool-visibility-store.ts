@@ -28,6 +28,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/hmac-generator',
   '/app/lorem-ipsum',
   '/app/color-picker',
+  '/app/markdown-preview-html',
 ];
 
 interface ToolVisibilityStore {

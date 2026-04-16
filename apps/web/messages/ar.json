@@ -31,7 +31,8 @@
     "qrCodeGenerator": "مُولّد رمز QR",
     "ipSubnetCalculator": "حاسبة IP / الشبكة الفرعية",
     "hashGenerator": "مُولّد الهاش",
-    "hmacGenerator": "مُولّد HMAC"
+    "hmacGenerator": "مُولّد HMAC",
+    "markdownPreview": "معاينة Markdown"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -333,6 +334,10 @@
       "hmacGenerator": {
         "title": "مُولّد HMAC",
         "description": "توقيع خطافات الويب واختبار تكاملات API باستخدام HMAC-SHA1/256/384/512."
+      },
+      "markdownPreview": {
+        "title": "معاينة Markdown",
+        "description": "معرض Markdown مباشر مع تصدير HTML وتحويل HTML → Markdown."
       }
     },
     "tabs": {
@@ -2497,5 +2502,26 @@
     "errors": {
       "cryptoFailed": "تعذّر حساب HMAC. تأكد من دعم Web Crypto وحاول مجددًا."
     }
+  },
+  "MarkdownPreview": {
+    "title": "معاينة Markdown وHTML",
+    "subtitle": "عارض Markdown مباشر مع تصدير HTML وتحويل HTML → Markdown. كل شيء يعمل في متصفحك.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "إدخال Markdown",
+    "htmlInputLabel": "إدخال HTML",
+    "previewLabel": "معاينة",
+    "htmlOutputLabel": "مصدر HTML",
+    "mdOutputLabel": "إخراج Markdown",
+    "inputPlaceholder": "# مرحبا\\n\\naكتب **markdown** هنا…",
+    "htmlInputPlaceholder": "الصق HTML هنا…",
+    "copyHtml": "نسخ HTML",
+    "copyMarkdown": "نسخ Markdown",
+    "exportHtml": "تصدير HTML",
+    "copied": "تم النسخ",
+    "charCount": "{count, plural, one {# حرف} other {# أحرف}}",
+    "emptyHint": "ابدأ بكتابة Markdown لرؤية المعاينة المباشرة وإخراج HTML.",
+    "emptyHintHtmlToMd": "الصق HTML لتحويله إلى Markdown.",
+    "securityNote": "كل شيء يعمل محليًا في متصفحك. لا يتم تحميل أي بيانات."
   }
 }

@@ -31,7 +31,8 @@
     "qrCodeGenerator": "Δημιουργός κωδικών QR",
     "ipSubnetCalculator": "Υπολογιστής IP / υποδικτύου",
     "hashGenerator": "Γεννήτρια hash",
-    "hmacGenerator": "Γεννήτρια HMAC"
+    "hmacGenerator": "Γεννήτρια HMAC",
+    "markdownPreview": "Προεπισκόπηση Markdown"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",
@@ -333,6 +334,10 @@
       "hmacGenerator": {
         "title": "Γεννήτρια HMAC",
         "description": "Υπογράψτε webhooks και δοκιμάστε ενσωματώσεις API με HMAC-SHA1/256/384/512."
+      },
+      "markdownPreview": {
+        "title": "Προεπισκόπηση Markdown",
+        "description": "Ζωντανός renderer Markdown με εξαγωγή HTML και μετατροπή HTML → Markdown."
       }
     },
     "tabs": {
@@ -2497,5 +2502,26 @@
     "errors": {
       "cryptoFailed": "Αδυναμία υπολογισμού HMAC. Ελέγξτε την υποστήριξη Web Crypto και δοκιμάστε ξανά."
     }
+  },
+  "MarkdownPreview": {
+    "title": "Προεπισκόπηση Markdown & HTML",
+    "subtitle": "Ζωντανός renderer Markdown με εξαγωγή HTML και μετατροπή HTML → Markdown. Όλα εκτελούνται στο πρόγραμμα περιήγησής σας.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Είσοδος Markdown",
+    "htmlInputLabel": "Είσοδος HTML",
+    "previewLabel": "Προεπισκόπηση",
+    "htmlOutputLabel": "Πηγαίος HTML",
+    "mdOutputLabel": "Έξοδος Markdown",
+    "inputPlaceholder": "# Γεια\\n\\nΠληκτρολογήστε το **markdown** εδώ…",
+    "htmlInputPlaceholder": "Επικολλήστε το HTML εδώ…",
+    "copyHtml": "Αντιγραφή HTML",
+    "copyMarkdown": "Αντιγραφή Markdown",
+    "exportHtml": "Εξαγωγή HTML",
+    "copied": "Αντιγράφηκε",
+    "charCount": "{count, plural, one {# χαρακτήρας} other {# χαρακτήρες}}",
+    "emptyHint": "Ξεκινήστε να πληκτρολογείτε Markdown για να δείτε την προεπισκόπηση και την έξοδο HTML.",
+    "emptyHintHtmlToMd": "Επικολλήστε HTML για μετατροπή σε Markdown.",
+    "securityNote": "Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας. Δεν γίνεται καμία μεταφόρτωση."
   }
 }

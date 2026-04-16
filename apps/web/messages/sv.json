@@ -31,7 +31,8 @@
     "qrCodeGenerator": "QR-kodgenerator",
     "ipSubnetCalculator": "IP-/subnetkalkylator",
     "hashGenerator": "Hash-generator",
-    "hmacGenerator": "HMAC-generator"
+    "hmacGenerator": "HMAC-generator",
+    "markdownPreview": "Markdown-förhandsgranskning"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -333,6 +334,10 @@
       "hmacGenerator": {
         "title": "HMAC-generator",
         "description": "Signera webhooks och testa API-integrationer med HMAC-SHA1/256/384/512."
+      },
+      "markdownPreview": {
+        "title": "Markdown-förhandsgranskning",
+        "description": "Live Markdown-renderer med HTML-export och HTML → Markdown-konvertering."
       }
     },
     "tabs": {
@@ -2497,5 +2502,26 @@
     "errors": {
       "cryptoFailed": "Kunde inte beräkna HMAC. Kontrollera Web Crypto-stöd och försök igen."
     }
+  },
+  "MarkdownPreview": {
+    "title": "Markdown-förhandsgranskning & HTML",
+    "subtitle": "Live Markdown-renderer med HTML-export och HTML → Markdown-konvertering. Allt körs i din webbläsare.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Markdown-inmatning",
+    "htmlInputLabel": "HTML-inmatning",
+    "previewLabel": "Förhandsgranskning",
+    "htmlOutputLabel": "HTML-källa",
+    "mdOutputLabel": "Markdown-utmatning",
+    "inputPlaceholder": "# Hej\\n\\nSkriv din **markdown** här…",
+    "htmlInputPlaceholder": "Klistra in din HTML här…",
+    "copyHtml": "Kopiera HTML",
+    "copyMarkdown": "Kopiera Markdown",
+    "exportHtml": "Exportera HTML",
+    "copied": "Kopierat",
+    "charCount": "{count, plural, one {# tecken} other {# tecken}}",
+    "emptyHint": "Börja skriva Markdown för att se live-förhandsgranskning och HTML-utdata.",
+    "emptyHintHtmlToMd": "Klistra in HTML för att konvertera det till Markdown.",
+    "securityNote": "Allt körs lokalt i din webbläsare. Inget laddas upp."
   }
 }

@@ -31,7 +31,8 @@
     "qrCodeGenerator": "Генератор QR-кодів",
     "ipSubnetCalculator": "Калькулятор IP / підмережі",
     "hashGenerator": "Генератор хешів",
-    "hmacGenerator": "Генератор HMAC"
+    "hmacGenerator": "Генератор HMAC",
+    "markdownPreview": "Перегляд Markdown"
   },
   "Help": {
     "title": "Довідка та документація",
@@ -333,6 +334,10 @@
       "hmacGenerator": {
         "title": "Генератор HMAC",
         "description": "Підписуйте вебхуки та тестуйте інтеграції API з HMAC-SHA1/256/384/512."
+      },
+      "markdownPreview": {
+        "title": "Перегляд Markdown",
+        "description": "Живий рендерер Markdown з експортом HTML і конвертацією HTML → Markdown."
       }
     },
     "tabs": {
@@ -2497,5 +2502,26 @@
     "errors": {
       "cryptoFailed": "Не вдалося обчислити HMAC. Перевірте підтримку Web Crypto і спробуйте ще раз."
     }
+  },
+  "MarkdownPreview": {
+    "title": "Перегляд Markdown & HTML",
+    "subtitle": "Живий рендерер Markdown з експортом HTML і конвертацією HTML → Markdown. Все працює у вашому браузері.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Введення Markdown",
+    "htmlInputLabel": "Введення HTML",
+    "previewLabel": "Перегляд",
+    "htmlOutputLabel": "Джерело HTML",
+    "mdOutputLabel": "Виведення Markdown",
+    "inputPlaceholder": "# Привіт\\n\\nВведіть ваш **markdown** тут…",
+    "htmlInputPlaceholder": "Вставте ваш HTML тут…",
+    "copyHtml": "Копіювати HTML",
+    "copyMarkdown": "Копіювати Markdown",
+    "exportHtml": "Експортувати HTML",
+    "copied": "Скопійовано",
+    "charCount": "{count, plural, one {# символ} few {# символи} other {# символів}}",
+    "emptyHint": "Почніть вводити Markdown, щоб побачити попередній перегляд і HTML вивід.",
+    "emptyHintHtmlToMd": "Вставте HTML для конвертації в Markdown.",
+    "securityNote": "Все виконується локально у вашому браузері. Нічого не завантажується."
   }
 }

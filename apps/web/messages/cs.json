@@ -31,7 +31,8 @@
     "qrCodeGenerator": "Generátor QR kódů",
     "ipSubnetCalculator": "Kalkulačka IP / podsítě",
     "hashGenerator": "Generátor hashů",
-    "hmacGenerator": "Generátor HMAC"
+    "hmacGenerator": "Generátor HMAC",
+    "markdownPreview": "Náhled Markdown"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -333,6 +334,10 @@
       "hmacGenerator": {
         "title": "Generátor HMAC",
         "description": "Podepisujte webhooky a testujte integrace API pomocí HMAC-SHA1/256/384/512."
+      },
+      "markdownPreview": {
+        "title": "Náhled Markdown",
+        "description": "Živý renderer Markdown s exportem HTML a převodem HTML → Markdown."
       }
     },
     "tabs": {
@@ -2497,5 +2502,26 @@
     "errors": {
       "cryptoFailed": "HMAC se nepodařilo vypočítat. Zkontrolujte podporu Web Crypto a zkuste znovu."
     }
+  },
+  "MarkdownPreview": {
+    "title": "Náhled Markdown & HTML",
+    "subtitle": "Živý renderer Markdown s exportem HTML a převodem HTML → Markdown. Vše běží ve vašem prohlížeči.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Vstup Markdown",
+    "htmlInputLabel": "Vstup HTML",
+    "previewLabel": "Náhled",
+    "htmlOutputLabel": "Zdroj HTML",
+    "mdOutputLabel": "Výstup Markdown",
+    "inputPlaceholder": "# Ahoj\\n\\nZadejte svůj **markdown** zde…",
+    "htmlInputPlaceholder": "Vložte svůj HTML zde…",
+    "copyHtml": "Kopírovat HTML",
+    "copyMarkdown": "Kopírovat Markdown",
+    "exportHtml": "Exportovat HTML",
+    "copied": "Zkopírováno",
+    "charCount": "{count, plural, one {# znak} few {# znaky} other {# znaků}}",
+    "emptyHint": "Začněte psát Markdown pro zobrazení živého náhledu a HTML výstupu.",
+    "emptyHintHtmlToMd": "Vložte HTML pro převod na Markdown.",
+    "securityNote": "Vše běží lokálně ve vašem prohlížeči. Nic se nenahrává."
   }
 }

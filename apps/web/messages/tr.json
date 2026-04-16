@@ -31,7 +31,8 @@
     "qrCodeGenerator": "QR kod oluşturucu",
     "ipSubnetCalculator": "IP / alt ağ hesaplayıcı",
     "hashGenerator": "Hash oluşturucu",
-    "hmacGenerator": "HMAC Oluşturucu"
+    "hmacGenerator": "HMAC Oluşturucu",
+    "markdownPreview": "Markdown Önizleme"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -333,6 +334,10 @@
       "hmacGenerator": {
         "title": "HMAC Oluşturucu",
         "description": "HMAC-SHA1/256/384/512 ile webhook imzalama ve API entegrasyonlarını test edin."
+      },
+      "markdownPreview": {
+        "title": "Markdown Önizleme",
+        "description": "HTML dışa aktarma ve HTML → Markdown dönüşümlü canlı Markdown renderer."
       }
     },
     "tabs": {
@@ -2497,5 +2502,26 @@
     "errors": {
       "cryptoFailed": "HMAC hesaplanamadı. Web Crypto desteğini kontrol edip yeniden deneyin."
     }
+  },
+  "MarkdownPreview": {
+    "title": "Markdown Önizleme & HTML",
+    "subtitle": "HTML dışa aktarma ve HTML → Markdown dönüşümlü canlı Markdown renderer. Her şey tarayıcınızda çalışır.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Markdown girişi",
+    "htmlInputLabel": "HTML girişi",
+    "previewLabel": "Önizleme",
+    "htmlOutputLabel": "HTML kaynağı",
+    "mdOutputLabel": "Markdown çıktısı",
+    "inputPlaceholder": "# Merhaba\\n\\n**markdown**'ınızı buraya yazın…",
+    "htmlInputPlaceholder": "HTML'inizi buraya yapıştırın…",
+    "copyHtml": "HTML'yi Kopyala",
+    "copyMarkdown": "Markdown'ı Kopyala",
+    "exportHtml": "HTML'yi Dışa Aktar",
+    "copied": "Kopyalandı",
+    "charCount": "{count, plural, one {# karakter} other {# karakter}}",
+    "emptyHint": "Canlı önizleme ve HTML çıktısını görmek için Markdown yazmaya başlayın.",
+    "emptyHintHtmlToMd": "HTML'yi Markdown'a dönüştürmek için yapıştırın.",
+    "securityNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
   }
 }

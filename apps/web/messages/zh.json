@@ -31,7 +31,8 @@
     "qrCodeGenerator": "二维码生成器",
     "ipSubnetCalculator": "IP / 子网计算器",
     "hashGenerator": "哈希生成器",
-    "hmacGenerator": "HMAC 生成器"
+    "hmacGenerator": "HMAC 生成器",
+    "markdownPreview": "Markdown 预览"
   },
   "Help": {
     "title": "帮助与文档",
@@ -333,6 +334,10 @@
       "hmacGenerator": {
         "title": "HMAC 生成器",
         "description": "使用 HMAC-SHA1/256/384/512 为 Webhook 签名并测试 API 集成。"
+      },
+      "markdownPreview": {
+        "title": "Markdown 预览",
+        "description": "实时 Markdown 渲染，支持 HTML 导出和 HTML → Markdown 转换。"
       }
     },
     "tabs": {
@@ -2497,5 +2502,26 @@
     "errors": {
       "cryptoFailed": "无法计算 HMAC。请检查浏览器是否支持 Web Crypto 后重试。"
     }
+  },
+  "MarkdownPreview": {
+    "title": "Markdown 预览 & HTML",
+    "subtitle": "实时 Markdown 渲染，支持 HTML 导出和 HTML → Markdown 转换。一切在浏览器中运行。",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Markdown 输入",
+    "htmlInputLabel": "HTML 输入",
+    "previewLabel": "预览",
+    "htmlOutputLabel": "HTML 源码",
+    "mdOutputLabel": "Markdown 输出",
+    "inputPlaceholder": "# 你好\\n\\n在此输入你的 **markdown**…",
+    "htmlInputPlaceholder": "在此粘贴你的 HTML…",
+    "copyHtml": "复制 HTML",
+    "copyMarkdown": "复制 Markdown",
+    "exportHtml": "导出 HTML",
+    "copied": "已复制",
+    "charCount": "{count, plural, other {# 个字符}}",
+    "emptyHint": "开始输入 Markdown 以查看实时预览和 HTML 输出。",
+    "emptyHintHtmlToMd": "粘贴 HTML 以将其转换为 Markdown。",
+    "securityNote": "一切在您的浏览器本地运行，不会上传任何内容。"
   }
 }
