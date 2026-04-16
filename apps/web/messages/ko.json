@@ -28,7 +28,8 @@
     "gitignoreGenerator": ".gitignore 생성기",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "코드 스니펫",
-    "qrCodeGenerator": "QR 코드 생성기"
+    "qrCodeGenerator": "QR 코드 생성기",
+    "ipSubnetCalculator": "IP / 서브넷 계산기"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "QR 코드 생성기",
         "description": "브라우저에서 텍스트나 URL로 PNG QR 코드를 만듭니다."
+      },
+      "ipSubnetCalculator": {
+        "title": "IP / 서브넷 계산기",
+        "description": "IPv4·IPv6 CIDR: 넷마스크, 범위, 주소 수."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "QR 코드를 만들 수 없습니다. 더 짧은 텍스트나 낮은 오류 정정을 시도하세요.",
       "copyUnsupported": "브라우저가 이미지 클립보드 복사를 지원하지 않습니다.",
       "copyFailed": "클립보드에 복사하지 못했습니다."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "IP / 서브넷 계산기",
+    "subtitle": "브라우저에서 IPv4·IPv6 CIDR 정보—외부 요청 없음.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "네트워크",
+    "placeholderIpv4": "10.0.0.0/24 또는 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 또는 2001:db8::1/64",
+    "hintIpv4": "CIDR(예 /24) 또는 IPv4 + 점 표기 서브넷 마스크.",
+    "hintIpv6": "접두사 길이(예 /64)를 포함하세요. 생략 시 /128.",
+    "copyValue": "값 복사",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "네트워크 주소",
+      "netmask": "서브넷 마스크",
+      "wildcard": "와일드카드 마스크",
+      "broadcast": "브로드캐스트",
+      "firstHost": "첫 호스트",
+      "lastHost": "마지막 호스트",
+      "totalAddresses": "총 주소 수",
+      "usableHosts": "사용 가능 호스트",
+      "prefixLength": "접두사 길이(비트)",
+      "networkIpv6": "네트워크 주소",
+      "lastIpv6": "범위의 마지막 주소",
+      "totalAddressesIpv6": "서브넷 주소 수"
+    },
+    "usableNote": {
+      "pointToPoint": "/31 포인트투포인트는 두 주소를 모두 호스트로 사용(RFC 3021).",
+      "singleHost": "/32는 단일 호스트."
+    },
+    "ipv6RangeHint": {
+      "normal": "수학적 전체 범위를 표시합니다. 라우터 규칙은 다를 수 있습니다.",
+      "single": "/128은 단일 주소.",
+      "full": "/0은 전체 IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "IPv4 네트워크가 잘못되었습니다. CIDR 또는 주소+마스크.",
+      "invalidIpv6": "IPv6 네트워크가 잘못되었습니다. 예: 2001:db8::/48."
     }
   }
 }

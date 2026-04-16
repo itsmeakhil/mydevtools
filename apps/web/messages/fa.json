@@ -28,7 +28,8 @@
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "قطعه‌کدها",
-    "qrCodeGenerator": "تولیدکنندهٔ QR"
+    "qrCodeGenerator": "تولیدکنندهٔ QR",
+    "ipSubnetCalculator": "ماشین‌حساب IP / زیرشبکه"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "تولیدکنندهٔ QR",
         "description": "ساخت PNG QR از متن یا نشانی در مرورگر."
+      },
+      "ipSubnetCalculator": {
+        "title": "ماشین‌حساب IP / زیرشبکه",
+        "description": "IPv4 و IPv6 CIDR: ماسک، ناحیه، و تعداد آدرس."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "تولید QR ممکن نشد. متن کوتاه‌تر یا تصحیح خطای کمتر امتحان کنید.",
       "copyUnsupported": "مرورگر از کپی تصویر در کلیپ‌بورد پشتیبانی نمی‌کند.",
       "copyFailed": "کپی در کلیپ‌بورد انجام نشد."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "ماشین‌حساب IP / زیرشبکه",
+    "subtitle": "جزئیات CIDR برای IPv4 و IPv6 در مرورگر—بدون درخواست شبکهٔ خارجی.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "شبکه",
+    "placeholderIpv4": "10.0.0.0/24 یا 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 یا 2001:db8::1/64",
+    "hintIpv4": "از CIDR (مثلاً /24) یا IPv4 به‌همراه ماسک نقطه‌دار استفاده کنید.",
+    "hintIpv6": "طول پیشوند را بیاورید (مثلاً /64). بدون آن /128 فرض می‌شود.",
+    "copyValue": "کپی مقدار",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "آدرس شبکه",
+      "netmask": "ماسک زیرشبکه",
+      "wildcard": "ماسک wildcard",
+      "broadcast": "Broadcast",
+      "firstHost": "اولین میزبان",
+      "lastHost": "آخرین میزبان",
+      "totalAddresses": "آدرس‌های کل",
+      "usableHosts": "میزبان‌های قابل استفاده",
+      "prefixLength": "طول پیشوند (بیت)",
+      "networkIpv6": "آدرس شبکه",
+      "lastIpv6": "آخرین آدرس در محدوده",
+      "totalAddressesIpv6": "آدرس در زیرشبکه"
+    },
+    "usableNote": {
+      "pointToPoint": "پیوندهای /31 نقطه‌به‌نقطه هر دو آدرس را به‌عنوان میزبان به‌کار می‌برند (RFC 3021).",
+      "singleHost": "/32 برای یک میزبان است."
+    },
+    "ipv6RangeHint": {
+      "normal": "محدودهٔ ریاضی کامل نشان داده می‌شود؛ قوانین مسیریاب ممکن است متفاوت باشد.",
+      "single": "/128 یک آدرس واحد است.",
+      "full": "/0 تمام IPv6 را پوشش می‌دهد."
+    },
+    "errors": {
+      "invalidIpv4": "شبکهٔ IPv4 نامعتبر. CIDR یا آدرس + ماسک امتحان کنید.",
+      "invalidIpv6": "شبکهٔ IPv6 نامعتبر. از آدرس/پیشوند مثل 2001:db8::/48 استفاده کنید."
     }
   }
 }

@@ -28,7 +28,8 @@
     "gitignoreGenerator": "Penjana .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Petikan kod",
-    "qrCodeGenerator": "Penjana kod QR"
+    "qrCodeGenerator": "Penjana kod QR",
+    "ipSubnetCalculator": "Kalkulator IP / subnet"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "Penjana kod QR",
         "description": "Cipta kod QR PNG daripada teks atau URL dalam pelayar."
+      },
+      "ipSubnetCalculator": {
+        "title": "Kalkulator IP / subnet",
+        "description": "IPv4 dan IPv6 CIDR: topeng rangkaian, julat, dan bilangan alamat."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "Tidak dapat menjana kod QR. Cuba teks lebih pendek atau pembetulan lebih rendah.",
       "copyUnsupported": "Pelayar tidak menyokong menyalin imej ke papan keratan.",
       "copyFailed": "Tidak dapat menyalin ke papan keratan."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "Kalkulator IP / subnet",
+    "subtitle": "Butiran CIDR IPv4 dan IPv6 dalam pelayar—tiada permintaan luaran.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Rangkaian",
+    "placeholderIpv4": "10.0.0.0/24 atau 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 atau 2001:db8::1/64",
+    "hintIpv4": "Gunakan CIDR (cth. /24) atau IPv4 + topeng bertitik.",
+    "hintIpv6": "Sertakan panjang awalan (cth. /64). Jika tidak, /128.",
+    "copyValue": "Salin nilai",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Alamat rangkaian",
+      "netmask": "Topeng subnet",
+      "wildcard": "Topeng wildcard",
+      "broadcast": "Broadcast",
+      "firstHost": "Hos pertama",
+      "lastHost": "Hos terakhir",
+      "totalAddresses": "Jumlah alamat",
+      "usableHosts": "Hos boleh guna",
+      "prefixLength": "Panjang awalan (bit)",
+      "networkIpv6": "Alamat rangkaian",
+      "lastIpv6": "Alamat terakhir dalam julat",
+      "totalAddressesIpv6": "Alamat dalam subnet"
+    },
+    "usableNote": {
+      "pointToPoint": "Pautan /31 titik-ke-titik menggunakan kedua-dua alamat sebagai hos (RFC 3021).",
+      "singleHost": "/32 ialah satu hos."
+    },
+    "ipv6RangeHint": {
+      "normal": "Julat matematik penuh dipaparkan; peraturan penghala mungkin berbeza.",
+      "single": "/128 ialah satu alamat.",
+      "full": "/0 merangkumi IPv6 sepenuhnya."
+    },
+    "errors": {
+      "invalidIpv4": "Rangkaian IPv4 tidak sah. Cuba CIDR atau alamat + topeng.",
+      "invalidIpv6": "Rangkaian IPv6 tidak sah. Gunakan alamat/awalan, cth. 2001:db8::/48."
     }
   }
 }

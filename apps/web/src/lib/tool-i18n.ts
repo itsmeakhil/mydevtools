@@ -20,6 +20,7 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/url-encode': 'urlEncoder',
   '/app/uuid-generator': 'uuidGenerator',
   '/app/qr-code-generator': 'qrCodeGenerator',
+  '/app/ip-subnet-calculator': 'ipSubnetCalculator',
   '/app/lorem-ipsum': 'loremIpsum',
   '/app/color-picker': 'colorPicker',
   '/app/api-client': 'apiClient',

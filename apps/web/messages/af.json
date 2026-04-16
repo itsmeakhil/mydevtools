@@ -28,7 +28,8 @@
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Kodesnippette",
-    "qrCodeGenerator": "QR-kodegenerator"
+    "qrCodeGenerator": "QR-kodegenerator",
+    "ipSubnetCalculator": "IP-/subnetrekenaar"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "QR-kodegenerator",
         "description": "Skep PNG QR-kodes uit teks of URL's in jou blaaier."
+      },
+      "ipSubnetCalculator": {
+        "title": "IP-/subnetrekenaar",
+        "description": "IPv4 en IPv6 CIDR: netmasker, reekse en adresse."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "Kon nie hierdie QR-kode skep nie. Probeer korter teks of laer foutkorreksie.",
       "copyUnsupported": "Jou blaaier ondersteun nie die kopieer van beelde na die knipbord nie.",
       "copyFailed": "Kon nie na die knipbord kopieer nie."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "IP-/subnetrekenaar",
+    "subtitle": "IPv4- en IPv6-CIDR in jou blaaier—geen netwerkversoeke nie.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Netwerk",
+    "placeholderIpv4": "10.0.0.0/24 of 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 of 2001:db8::1/64",
+    "hintIpv4": "Gebruik CIDR (bv. /24) of ’n IPv4-adres plus ’n puntgedeelte-netmasker.",
+    "hintIpv6": "Sluit 'n prefikslengte in (bv. /64). Sonder dit word /128 veronderstel.",
+    "copyValue": "Kopieer waarde",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Netwerkadres",
+      "netmask": "Subnetmasker",
+      "wildcard": "Wildcard-masker",
+      "broadcast": "Uitsaai",
+      "firstHost": "Eerste gasheer",
+      "lastHost": "Laaste gasheer",
+      "totalAddresses": "Totale adresse",
+      "usableHosts": "Bruikbare gasheer-adresse",
+      "prefixLength": "Prefikslengte (grepe)",
+      "networkIpv6": "Netwerkadres",
+      "lastIpv6": "Laaste adres in reeks",
+      "totalAddressesIpv6": "Adresse in subnet"
+    },
+    "usableNote": {
+      "pointToPoint": "/31 punt-tot-punt skakels gebruik beide adresse as gasheer (RFC 3021).",
+      "singleHost": "/32 is vir ’n enkele gasheer."
+    },
+    "ipv6RangeHint": {
+      "normal": "Die wiskundige reeks loop van die netwerk tot die laaste adres; roeter- en anycast-reëls wissel per netwerk.",
+      "single": "/128 is ’n enkele adres.",
+      "full": "/0 dek alle IPv6-adresse."
+    },
+    "errors": {
+      "invalidIpv4": "Ongeldige IPv4-netwerk. Probeer CIDR (10.0.0.0/24) of adres + netmasker.",
+      "invalidIpv6": "Ongeldige IPv6-netwerk. Gebruik adres/prefiks, bv. 2001:db8::/48."
     }
   }
 }

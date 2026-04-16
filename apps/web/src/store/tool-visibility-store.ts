@@ -23,6 +23,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/url-encode',
   '/app/uuid-generator',
   '/app/qr-code-generator',
+  '/app/ip-subnet-calculator',
   '/app/lorem-ipsum',
   '/app/color-picker',
 ];

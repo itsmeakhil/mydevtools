@@ -28,7 +28,8 @@
     "gitignoreGenerator": "Gerador .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Trechos de código",
-    "qrCodeGenerator": "Gerador de QR Code"
+    "qrCodeGenerator": "Gerador de QR Code",
+    "ipSubnetCalculator": "Calculadora IP / sub-rede"
   },
   "Help": {
     "title": "Ajuda e documentação",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "Gerador de QR Code",
         "description": "Crie QR Codes PNG a partir de texto ou URL no navegador."
+      },
+      "ipSubnetCalculator": {
+        "title": "Calculadora IP / sub-rede",
+        "description": "IPv4 e IPv6 CIDR: máscara, intervalos e contagem de endereços."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "Não foi possível gerar o QR Code. Tente um texto menor ou menos correção.",
       "copyUnsupported": "Seu navegador não suporta copiar imagens para a área de transferência.",
       "copyFailed": "Não foi possível copiar para a área de transferência."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "Calculadora IP / sub-rede",
+    "subtitle": "Detalhes de CIDR IPv4 e IPv6 no navegador—sem requisições externas.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Rede",
+    "placeholderIpv4": "10.0.0.0/24 ou 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 ou 2001:db8::1/64",
+    "hintIpv4": "Use CIDR (ex.: /24) ou IPv4 com máscara decimal.",
+    "hintIpv6": "Inclua o tamanho do prefixo (ex.: /64). Se omitido, /128.",
+    "copyValue": "Copiar valor",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Endereço de rede",
+      "netmask": "Máscara de sub-rede",
+      "wildcard": "Máscara curinga",
+      "broadcast": "Broadcast",
+      "firstHost": "Primeiro host",
+      "lastHost": "Último host",
+      "totalAddresses": "Endereços totais",
+      "usableHosts": "Hosts utilizáveis",
+      "prefixLength": "Tamanho do prefixo (bits)",
+      "networkIpv6": "Endereço de rede",
+      "lastIpv6": "Último endereço no intervalo",
+      "totalAddressesIpv6": "Endereços na sub-rede"
+    },
+    "usableNote": {
+      "pointToPoint": "Links /31 ponto a ponto usam ambos os endereços como hosts (RFC 3021).",
+      "singleHost": "/32 é um único host."
+    },
+    "ipv6RangeHint": {
+      "normal": "Mostra o intervalo matemático completo; regras do roteador podem variar.",
+      "single": "/128 é um único endereço.",
+      "full": "/0 cobre todo o IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Rede IPv4 inválida. Tente CIDR ou endereço + máscara.",
+      "invalidIpv6": "Rede IPv6 inválida. Use endereço/prefixo, ex.: 2001:db8::/48."
     }
   }
 }

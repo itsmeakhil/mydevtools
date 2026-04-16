@@ -28,7 +28,8 @@
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Kodestykker",
-    "qrCodeGenerator": "QR-kodegenerator"
+    "qrCodeGenerator": "QR-kodegenerator",
+    "ipSubnetCalculator": "IP-/subnetberegner"
   },
   "Help": {
     "title": "Hjælp og dokumentation",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "QR-kodegenerator",
         "description": "Opret PNG QR-koder fra tekst eller URL i browseren."
+      },
+      "ipSubnetCalculator": {
+        "title": "IP-/subnetberegner",
+        "description": "IPv4 og IPv6 CIDR: netmaske, intervaller og adresser."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "Kunne ikke generere QR-koden. Prøv kortere tekst eller lavere fejlretning.",
       "copyUnsupported": "Browseren understøtter ikke kopiering af billeder til udklipsholder.",
       "copyFailed": "Kunne ikke kopiere til udklipsholder."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "IP-/subnetberegner",
+    "subtitle": "IPv4- og IPv6-CIDR i browseren—ingen eksterne kald.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Netværk",
+    "placeholderIpv4": "10.0.0.0/24 eller 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 eller 2001:db8::1/64",
+    "hintIpv4": "Brug CIDR (fx /24) eller IPv4-adresse + punktum-netmaske.",
+    "hintIpv6": "Angiv præfikslængde (fx /64). Uden angivelse antages /128.",
+    "copyValue": "Kopiér værdi",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Netværksadresse",
+      "netmask": "Subnetmaske",
+      "wildcard": "Wildcard-maske",
+      "broadcast": "Broadcast",
+      "firstHost": "Første vært",
+      "lastHost": "Sidste vært",
+      "totalAddresses": "Adresser i alt",
+      "usableHosts": "Brugbare værter",
+      "prefixLength": "Præfiks (bit)",
+      "networkIpv6": "Netværksadresse",
+      "lastIpv6": "Sidste adresse i interval",
+      "totalAddressesIpv6": "Adresser i subnet"
+    },
+    "usableNote": {
+      "pointToPoint": "/31 punkt-til-punkt bruger begge adresser som værter (RFC 3021).",
+      "singleHost": "/32 er én værtsadresse."
+    },
+    "ipv6RangeHint": {
+      "normal": "Viser det fulde matematiske interval; routerregler kan variere.",
+      "single": "/128 er én adresse.",
+      "full": "/0 dækker hele IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Ugyldigt IPv4-netværk. Prøv CIDR eller adresse + maske.",
+      "invalidIpv6": "Ugyldigt IPv6-netværk. Brug adresse/præfiks, fx 2001:db8::/48."
     }
   }
 }

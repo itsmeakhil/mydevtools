@@ -28,7 +28,8 @@
     "gitignoreGenerator": ".gitignore 生成器",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "代码片段",
-    "qrCodeGenerator": "二维码生成器"
+    "qrCodeGenerator": "二维码生成器",
+    "ipSubnetCalculator": "IP / 子网计算器"
   },
   "Help": {
     "title": "帮助与文档",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "二维码生成器",
         "description": "在浏览器中从文本或 URL 生成 PNG 二维码。"
+      },
+      "ipSubnetCalculator": {
+        "title": "IP / 子网计算器",
+        "description": "IPv4 与 IPv6 CIDR：掩码、范围与地址数量。"
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "无法生成二维码。请尝试更短文本或更低纠错级别。",
       "copyUnsupported": "当前浏览器不支持将图片复制到剪贴板。",
       "copyFailed": "无法复制到剪贴板。"
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "IP / 子网计算器",
+    "subtitle": "在浏览器中计算 IPv4 与 IPv6 CIDR—不发送外部请求。",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "网络",
+    "placeholderIpv4": "10.0.0.0/24 或 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 或 2001:db8::1/64",
+    "hintIpv4": "使用 CIDR（如 /24）或 IPv4 加点分十进制子网掩码。",
+    "hintIpv6": "包含前缀长度（如 /64）。省略时默认为 /128。",
+    "copyValue": "复制值",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "网络地址",
+      "netmask": "子网掩码",
+      "wildcard": "通配符掩码",
+      "broadcast": "广播地址",
+      "firstHost": "首主机",
+      "lastHost": "末主机",
+      "totalAddresses": "总地址数",
+      "usableHosts": "可用主机数",
+      "prefixLength": "前缀长度（位）",
+      "networkIpv6": "网络地址",
+      "lastIpv6": "范围内最后一个地址",
+      "totalAddressesIpv6": "子网内地址数"
+    },
+    "usableNote": {
+      "pointToPoint": "/31 点对点链路将两个地址都作为主机（RFC 3021）。",
+      "singleHost": "/32 表示单个主机。"
+    },
+    "ipv6RangeHint": {
+      "normal": "显示完整数学范围；路由器上的规则可能不同。",
+      "single": "/128 为单个地址。",
+      "full": "/0 覆盖全部 IPv6。"
+    },
+    "errors": {
+      "invalidIpv4": "无效的 IPv4 网络。请使用 CIDR 或地址+掩码。",
+      "invalidIpv6": "无效的 IPv6 网络。请使用 地址/前缀，例如 2001:db8::/48。"
     }
   }
 }

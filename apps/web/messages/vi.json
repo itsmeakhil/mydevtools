@@ -28,7 +28,8 @@
     "gitignoreGenerator": "Trình tạo .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Đoạn mã",
-    "qrCodeGenerator": "Trình tạo mã QR"
+    "qrCodeGenerator": "Trình tạo mã QR",
+    "ipSubnetCalculator": "Máy tính IP / mạng con"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "Trình tạo mã QR",
         "description": "Tạo mã QR PNG từ văn bản hoặc URL ngay trên trình duyệt."
+      },
+      "ipSubnetCalculator": {
+        "title": "Máy tính IP / mạng con",
+        "description": "IPv4 và IPv6 CIDR: mặt nạ, dải và số địa chỉ."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "Không tạo được mã QR. Thử văn bản ngắn hơn hoặc mức sửa lỗi thấp hơn.",
       "copyUnsupported": "Trình duyệt không hỗ trợ sao chép ảnh vào clipboard.",
       "copyFailed": "Không sao chép được vào clipboard."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "Máy tính IP / mạng con",
+    "subtitle": "Chi tiết CIDR IPv4 và IPv6 trong trình duyệt—không gửi yêu cầu ra ngoài.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Mạng",
+    "placeholderIpv4": "10.0.0.0/24 hoặc 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 hoặc 2001:db8::1/64",
+    "hintIpv4": "Dùng CIDR (vd. /24) hoặc IPv4 kèm mạng con dạng chấm.",
+    "hintIpv6": "Gồm độ dài tiền tố (vd. /64). Bỏ qua thì mặc định /128.",
+    "copyValue": "Sao chép giá trị",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Địa chỉ mạng",
+      "netmask": "Mặt nạ mạng con",
+      "wildcard": "Mặt nạ wildcard",
+      "broadcast": "Broadcast",
+      "firstHost": "Máy chủ đầu",
+      "lastHost": "Máy chủ cuối",
+      "totalAddresses": "Tổng địa chỉ",
+      "usableHosts": "Máy chủ khả dụng",
+      "prefixLength": "Độ dài tiền tố (bit)",
+      "networkIpv6": "Địa chỉ mạng",
+      "lastIpv6": "Địa chỉ cuối trong dải",
+      "totalAddressesIpv6": "Địa chỉ trong mạng con"
+    },
+    "usableNote": {
+      "pointToPoint": "Liên kết /31 điểm-điểm dùng cả hai địa chỉ làm máy chủ (RFC 3021).",
+      "singleHost": "/32 là một máy chủ."
+    },
+    "ipv6RangeHint": {
+      "normal": "Hiển thị toàn bộ dải phạm vi toán học; quy tắc bộ định tuyến có thể khác.",
+      "single": "/128 là một địa chỉ.",
+      "full": "/0 bao phủ toàn IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Mạng IPv4 không hợp lệ. Thử CIDR hoặc địa chỉ + mặt nạ.",
+      "invalidIpv6": "Mạng IPv6 không hợp lệ. Dùng địa chỉ/tiền tố, vd. 2001:db8::/48."
     }
   }
 }

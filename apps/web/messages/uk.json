@@ -28,7 +28,8 @@
     "gitignoreGenerator": "Генератор .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Фрагменти коду",
-    "qrCodeGenerator": "Генератор QR-кодів"
+    "qrCodeGenerator": "Генератор QR-кодів",
+    "ipSubnetCalculator": "Калькулятор IP / підмережі"
   },
   "Help": {
     "title": "Довідка та документація",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "Генератор QR-кодів",
         "description": "Створюйте PNG QR-коди з тексту або URL у браузері."
+      },
+      "ipSubnetCalculator": {
+        "title": "Калькулятор IP / підмережі",
+        "description": "IPv4 та IPv6 CIDR: маска, діапазони й кількість адрес."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "Не вдалося згенерувати QR-код. Спробуйте коротший текст або нижчу корекцію.",
       "copyUnsupported": "Браузер не підтримує копіювання зображення в буфер.",
       "copyFailed": "Не вдалося скопіювати в буфер."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "Калькулятор IP / підмережі",
+    "subtitle": "Деталі CIDR IPv4 та IPv6 у браузері—без зовнішніх запитів.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Мережа",
+    "placeholderIpv4": "10.0.0.0/24 або 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 або 2001:db8::1/64",
+    "hintIpv4": "Використовуйте CIDR (напр. /24) або IPv4 з крапковою маскою.",
+    "hintIpv6": "Вкажіть довжину префікса (напр. /64). Якщо немає — /128.",
+    "copyValue": "Копіювати значення",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Адреса мережі",
+      "netmask": "Маска підмережі",
+      "wildcard": "Wildcard-маска",
+      "broadcast": "Широкомовлення",
+      "firstHost": "Перший вузол",
+      "lastHost": "Останній вузол",
+      "totalAddresses": "Усього адрес",
+      "usableHosts": "Доступні вузли",
+      "prefixLength": "Довжина префікса (біти)",
+      "networkIpv6": "Адреса мережі",
+      "lastIpv6": "Остання адреса в діапазоні",
+      "totalAddressesIpv6": "Адрес у підмережі"
+    },
+    "usableNote": {
+      "pointToPoint": "/31 point-to-point використовує обидві адреси як вузли (RFC 3021).",
+      "singleHost": "/32 — один вузол."
+    },
+    "ipv6RangeHint": {
+      "normal": "Показано повний математичний діапазон; правила маршрутизатора можуть відрізнятися.",
+      "single": "/128 — одна адреса.",
+      "full": "/0 охоплює весь IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Некоректна мережа IPv4. Спробуйте CIDR або адресу + маску.",
+      "invalidIpv6": "Некоректна мережа IPv6. Використайте адресу/префікс, напр. 2001:db8::/48."
     }
   }
 }

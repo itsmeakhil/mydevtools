@@ -28,7 +28,8 @@
     "gitignoreGenerator": "Generador .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Fragments de codi",
-    "qrCodeGenerator": "Generador de codis QR"
+    "qrCodeGenerator": "Generador de codis QR",
+    "ipSubnetCalculator": "Calculadora IP / subxarxa"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "Generador de codis QR",
         "description": "Crea codis QR en PNG a partir de text o URL al navegador."
+      },
+      "ipSubnetCalculator": {
+        "title": "Calculadora IP / subxarxa",
+        "description": "IPv4 i IPv6 CIDR: màscara, intervals i recompte d’adreces."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "No s’ha pogut generar el codi QR. Prova un text més curt o menys correcció.",
       "copyUnsupported": "El navegador no permet copiar imatges al porta-retalls.",
       "copyFailed": "No s’ha pogut copiar al porta-retalls."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "Calculadora IP / subxarxa",
+    "subtitle": "Detalls CIDR IPv4 i IPv6 al navegador—sense sol·licituds externs.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Xarxa",
+    "placeholderIpv4": "10.0.0.0/24 o 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 o 2001:db8::1/64",
+    "hintIpv4": "Useu CIDR (p. ex. /24) o adreça IPv4 + màscara en punt decimal.",
+    "hintIpv6": "Incloeu el prefix (p. ex. /64). Si falta, es suposa /128.",
+    "copyValue": "Copia el valor",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Adreça de xarxa",
+      "netmask": "Màscara de subxarxa",
+      "wildcard": "Màscara comodí",
+      "broadcast": "Difusió",
+      "firstHost": "Primer amfitrió",
+      "lastHost": "Últim amfitrió",
+      "totalAddresses": "Adreces totals",
+      "usableHosts": "Amfitrions usables",
+      "prefixLength": "Longitud del prefix (bits)",
+      "networkIpv6": "Adreça de xarxa",
+      "lastIpv6": "Última adreça del rang",
+      "totalAddressesIpv6": "Adreces a la subxarxa"
+    },
+    "usableNote": {
+      "pointToPoint": "Enllaços /31 punt a punt usen les dues adreces com amfitrions (RFC 3021).",
+      "singleHost": "/32 és per a un sol amfitrió."
+    },
+    "ipv6RangeHint": {
+      "normal": "Es mostra el rang matemàtic complet; les regles del encaminador poden variar.",
+      "single": "/128 és una sola adreça.",
+      "full": "/0 cobreix tot IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Xarxa IPv4 no vàlida. Proveu CIDR o adreça + màscara.",
+      "invalidIpv6": "Xarxa IPv6 no vàlida. Useu adreça/prefix, p. ex. 2001:db8::/48."
     }
   }
 }
