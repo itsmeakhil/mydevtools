@@ -48,7 +48,7 @@ export function MobileNav() {
     }, [])
 
     // Determine active tab for indicator animation
-    const getActiveTab = () => {
+    const getActiveTab = (): 'home' | 'tools' | 'profile' | null => {
         if (pathname === '/dashboard') return 'home'
         if (openMobile) return 'tools'
         return null
