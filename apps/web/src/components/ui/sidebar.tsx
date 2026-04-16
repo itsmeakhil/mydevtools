@@ -195,7 +195,7 @@ const Sidebar = React.forwardRef<
 
     if (isMobile) {
       return (
-        <Drawer open={openMobile} onOpenChange={setOpenMobile} {...props}>
+        <Drawer open={openMobile} onOpenChange={setOpenMobile}>
           <DrawerContent
             data-sidebar="sidebar"
             data-mobile="true"
