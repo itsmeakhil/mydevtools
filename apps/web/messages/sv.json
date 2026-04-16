@@ -28,7 +28,8 @@
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Kodutdrag",
-    "qrCodeGenerator": "QR-kodgenerator"
+    "qrCodeGenerator": "QR-kodgenerator",
+    "ipSubnetCalculator": "IP-/subnetkalkylator"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "QR-kodgenerator",
         "description": "Skapa PNG QR-koder från text eller URL i webbläsaren."
+      },
+      "ipSubnetCalculator": {
+        "title": "IP-/subnetkalkylator",
+        "description": "IPv4 och IPv6 CIDR: nätmask, intervall och adressantal."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "Kunde inte generera QR-koden. Prova kortare text eller lägre felkorrigering.",
       "copyUnsupported": "Webbläsaren stöder inte att kopiera bilder till urklipp.",
       "copyFailed": "Kunde inte kopiera till urklipp."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "IP-/subnetkalkylator",
+    "subtitle": "IPv4- och IPv6-CIDR i webbläsaren—inga externa anrop.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Nätverk",
+    "placeholderIpv4": "10.0.0.0/24 eller 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 eller 2001:db8::1/64",
+    "hintIpv4": "Använd CIDR (t.ex. /24) eller IPv4-adress + punktnätmask.",
+    "hintIpv6": "Ange prefixlängd (t.ex. /64). Utan anges /128.",
+    "copyValue": "Kopiera värde",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Nätverksadress",
+      "netmask": "Subnetmask",
+      "wildcard": "Wildcard-mask",
+      "broadcast": "Broadcast",
+      "firstHost": "Första värd",
+      "lastHost": "Sista värd",
+      "totalAddresses": "Adresser totalt",
+      "usableHosts": "Användbara värdar",
+      "prefixLength": "Prefixlängd (bitar)",
+      "networkIpv6": "Nätverksadress",
+      "lastIpv6": "Sista adressen i intervallet",
+      "totalAddressesIpv6": "Adresser i subnet"
+    },
+    "usableNote": {
+      "pointToPoint": "/31 punkt-till-punkt använder båda adresserna som värdar (RFC 3021).",
+      "singleHost": "/32 är en enda värdadress."
+    },
+    "ipv6RangeHint": {
+      "normal": "Visar hela det matematiska intervallet; routerregler kan variera.",
+      "single": "/128 är en enda adress.",
+      "full": "/0 täcker hela IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Ogiltigt IPv4-nätverk. Prova CIDR eller adress + mask.",
+      "invalidIpv6": "Ogiltigt IPv6-nätverk. Använd adress/prefix, t.ex. 2001:db8::/48."
     }
   }
 }

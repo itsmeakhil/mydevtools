@@ -28,7 +28,8 @@
     "gitignoreGenerator": ".gitignore Γεννήτρια",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Αποσπάσματα κώδικα",
-    "qrCodeGenerator": "Δημιουργός κωδικών QR"
+    "qrCodeGenerator": "Δημιουργός κωδικών QR",
+    "ipSubnetCalculator": "Υπολογιστής IP / υποδικτύου"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "Δημιουργός κωδικών QR",
         "description": "Δημιουργήστε κωδικές QR PNG από κείμενο ή URL στο πρόγραμμα περιήγησης."
+      },
+      "ipSubnetCalculator": {
+        "title": "Υπολογιστής IP / υποδικτύου",
+        "description": "IPv4 και IPv6 CIDR: μάσκα, εύρη και πλήθος διευθύνσεων."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "Δεν ήταν δυνατή η δημιουργία QR. Δοκιμάστε μικρότερο κείμενο ή χαμηλότερη διόρθωση.",
       "copyUnsupported": "Ο browser δεν υποστηρίζει αντιγραφή εικόνας στο πρόχειρο.",
       "copyFailed": "Αποτυχία αντιγραφής στο πρόχειρο."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "Υπολογιστής IP / υποδικτύου",
+    "subtitle": "Λεπτομέρειες CIDR IPv4 και IPv6 στον browser—χωρίς εξωτερικά αιτήματα.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Δίκτυο",
+    "placeholderIpv4": "10.0.0.0/24 ή 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 ή 2001:db8::1/64",
+    "hintIpv4": "Χρησιμοποιήστε CIDR (π.χ. /24) ή IPv4 + μάσκα με τελείες.",
+    "hintIpv6": "Συμπεριλάβετε μήκος προθέματος (π.χ. /64). Χωρίς αυτό /128.",
+    "copyValue": "Αντιγραφή τιμής",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Διεύθυνση δικτύου",
+      "netmask": "Μάσκα υποδικτύου",
+      "wildcard": "Μάσκα wildcard",
+      "broadcast": "Broadcast",
+      "firstHost": "Πρώτος κόμβος",
+      "lastHost": "Τελευταίος κόμβος",
+      "totalAddresses": "Συνολικές διευθύνσεις",
+      "usableHosts": "Χρήσιμοι κόμβοι",
+      "prefixLength": "Μήκος προθέματος (bits)",
+      "networkIpv6": "Διεύθυνση δικτύου",
+      "lastIpv6": "Τελευταία διεύθυνση στο εύρος",
+      "totalAddressesIpv6": "Διευθύνσεις στο υποδίκτυο"
+    },
+    "usableNote": {
+      "pointToPoint": "Συνδέσεις /31 point-to-point χρησιμοποιούν και τις δύο διευθύνσεις ως hosts (RFC 3021).",
+      "singleHost": "/32 είναι μία διεύθυνση host."
+    },
+    "ipv6RangeHint": {
+      "normal": "Εμφανίζεται πλήρες μαθηματικό εύρος· οι κανόνες δρομολογητή μπορεί να διαφέρουν.",
+      "single": "/128 είναι μία διεύθυνση.",
+      "full": "/0 καλύπτει όλο το IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Μη έγκυρο IPv4 δίκτυο. Δοκιμάστε CIDR ή διεύθυνση + μάσκα.",
+      "invalidIpv6": "Μη έγκυρο IPv6 δίκτυο. Χρησιμοποιήστε διεύθυνση/πρόθεμα, π.χ. 2001:db8::/48."
     }
   }
 }

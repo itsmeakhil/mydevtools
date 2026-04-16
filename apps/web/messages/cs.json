@@ -28,7 +28,8 @@
     "gitignoreGenerator": "Generátor .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Úryvky kódu",
-    "qrCodeGenerator": "Generátor QR kódů"
+    "qrCodeGenerator": "Generátor QR kódů",
+    "ipSubnetCalculator": "Kalkulačka IP / podsítě"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "Generátor QR kódů",
         "description": "Vytvářejte PNG QR kódy z textu nebo URL v prohlížeči."
+      },
+      "ipSubnetCalculator": {
+        "title": "Kalkulačka IP / podsítě",
+        "description": "IPv4 a IPv6 CIDR: maska, rozsahy a počty adres."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "QR kód se nepodařilo vygenerovat. Zkuste kratší text nebo nižší korekci.",
       "copyUnsupported": "Prohlížeč nepodporuje kopírování obrázků do schránky.",
       "copyFailed": "Kopírování do schránky se nezdařilo."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "Kalkulačka IP / podsítě",
+    "subtitle": "IPv4 a IPv6 CIDR přímo v prohlížeči—bez síťových požadavků.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Síť",
+    "placeholderIpv4": "10.0.0.0/24 nebo 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 nebo 2001:db8::1/64",
+    "hintIpv4": "Použijte CIDR (např. /24) nebo IPv4 + tečkovou masku.",
+    "hintIpv6": "Uveďte délku prefixu (např. /64). Bez ní se předpokládá /128.",
+    "copyValue": "Kopírovat hodnotu",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Síťová adresa",
+      "netmask": "Maska podsítě",
+      "wildcard": "Wildcard maska",
+      "broadcast": "Broadcast",
+      "firstHost": "První hostitel",
+      "lastHost": "Poslední hostitel",
+      "totalAddresses": "Celkem adres",
+      "usableHosts": "Použitelní hostitelé",
+      "prefixLength": "Délka prefixu (bity)",
+      "networkIpv6": "Síťová adresa",
+      "lastIpv6": "Poslední adresa v rozsahu",
+      "totalAddressesIpv6": "Adres v podsíti"
+    },
+    "usableNote": {
+      "pointToPoint": "/31 bodové spoje používají obě adresy jako hostitele (RFC 3021).",
+      "singleHost": "/32 je jedna hostitelská adresa."
+    },
+    "ipv6RangeHint": {
+      "normal": "Zobrazuje se celý matematický rozsah; pravidla směrovače se mohou lišit.",
+      "single": "/128 je jedna adresa.",
+      "full": "/0 pokrývá celý IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Neplatná IPv4 síť. Zkuste CIDR nebo adresu + masku.",
+      "invalidIpv6": "Neplatná IPv6 síť. Použijte adresa/prefix, např. 2001:db8::/48."
     }
   }
 }

@@ -77,6 +77,11 @@ export const toolsMetadata: Record<string, {
         description: 'Create PNG QR codes from any text or URL with error correction, colors, and margin. Runs entirely in your browser.',
         keywords: ['qr code', 'qr generator', 'qrcode', 'png qr', 'wifi qr', 'vcard qr', 'offline qr']
     },
+    'ip-subnet-calculator': {
+        title: 'IP / Subnet Calculator',
+        description: 'Compute IPv4 and IPv6 CIDR details: netmask, wildcard, broadcast, first and last host, and subnet size. Runs locally in your browser.',
+        keywords: ['subnet calculator', 'cidr calculator', 'ip calculator', 'netmask', 'ipv6 subnet', 'network calculator', 'ip range']
+    },
     'lorem-ipsum': {
         title: 'Lorem Ipsum Generator',
         description: 'Generate classical Lorem Ipsum as paragraphs, sentences, words, or lists. Export plain text or HTML.',

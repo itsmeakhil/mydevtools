@@ -28,7 +28,8 @@
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Kodeutdrag",
-    "qrCodeGenerator": "QR-kodegenerator"
+    "qrCodeGenerator": "QR-kodegenerator",
+    "ipSubnetCalculator": "IP-/subnettkalkulator"
   },
   "Help": {
     "title": "Hjelp og dokumentasjon",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "QR-kodegenerator",
         "description": "Lag PNG QR-koder fra tekst eller URL i nettleseren."
+      },
+      "ipSubnetCalculator": {
+        "title": "IP-/subnettkalkulator",
+        "description": "IPv4 og IPv6 CIDR: nettmaske, intervaller og adresser."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "Kunne ikke generere QR-koden. Prøv kortere tekst eller lavere feilretting.",
       "copyUnsupported": "Nettleseren støtter ikke kopiering av bilder til utklippstavlen.",
       "copyFailed": "Kunne ikke kopiere til utklippstavlen."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "IP-/subnettkalkulator",
+    "subtitle": "IPv4- og IPv6-CIDR i nettleseren—ingen eksterne kall.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Nettverk",
+    "placeholderIpv4": "10.0.0.0/24 eller 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 eller 2001:db8::1/64",
+    "hintIpv4": "Bruk CIDR (f.eks. /24) eller IPv4-adresse + punktum-nettmaske.",
+    "hintIpv6": "Angi prefikslengde (f.eks. /64). Uten angivelse antas /128.",
+    "copyValue": "Kopier verdi",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Nettverksadresse",
+      "netmask": "Subnetmaske",
+      "wildcard": "Wildcard-maske",
+      "broadcast": "Broadcast",
+      "firstHost": "Første vert",
+      "lastHost": "Siste vert",
+      "totalAddresses": "Adresser totalt",
+      "usableHosts": "Brukbare verter",
+      "prefixLength": "Prefikslengde (biter)",
+      "networkIpv6": "Nettverksadresse",
+      "lastIpv6": "Siste adresse i området",
+      "totalAddressesIpv6": "Adresser i subnett"
+    },
+    "usableNote": {
+      "pointToPoint": "/31 punkt-til-punkt bruker begge adresser som verter (RFC 3021).",
+      "singleHost": "/32 er én vertsadresse."
+    },
+    "ipv6RangeHint": {
+      "normal": "Viser hele det matematiske området; ruteregler kan variere.",
+      "single": "/128 er én adresse.",
+      "full": "/0 dekker hele IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Ugyldig IPv4-nettverk. Prøv CIDR eller adresse + maske.",
+      "invalidIpv6": "Ugyldig IPv6-nettverk. Bruk adresse/prefiks, f.eks. 2001:db8::/48."
     }
   }
 }

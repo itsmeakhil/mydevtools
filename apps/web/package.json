@@ -56,6 +56,7 @@
     "framer-motion": "^12.23.24",
     "geist": "^1.5.1",
     "highlight.js": "^11.11.1",
+    "ipaddr.js": "^2.3.0",
     "jsonpath-plus": "^10.3.0",
     "jsonrepair": "^3.13.1",
     "katex": "^0.16.25",

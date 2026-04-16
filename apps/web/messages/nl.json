@@ -28,7 +28,8 @@
     "gitignoreGenerator": ".gitignore-generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Codefragmenten",
-    "qrCodeGenerator": "QR-codegenerator"
+    "qrCodeGenerator": "QR-codegenerator",
+    "ipSubnetCalculator": "IP-/subnetcalculator"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "QR-codegenerator",
         "description": "Maak PNG QR-codes van tekst of URL’s in de browser."
+      },
+      "ipSubnetCalculator": {
+        "title": "IP-/subnetcalculator",
+        "description": "IPv4 en IPv6 CIDR: netmasker, bereiken en adressen."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "Kan deze QR-code niet genereren. Probeer kortere tekst of lagere correctie.",
       "copyUnsupported": "Je browser ondersteunt het kopiëren van afbeeldingen niet.",
       "copyFailed": "Kopiëren naar klembord mislukt."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "IP-/subnetcalculator",
+    "subtitle": "IPv4- en IPv6-CIDR in de browser—geen externe netwerkverzoeken.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Netwerk",
+    "placeholderIpv4": "10.0.0.0/24 of 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 of 2001:db8::1/64",
+    "hintIpv4": "Gebruik CIDR (bijv. /24) of IPv4 met decimale netmasker.",
+    "hintIpv6": "Geef de prefixlengte (bijv. /64). Zonder invoer wordt /128 aangenomen.",
+    "copyValue": "Waarde kopiëren",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Netwerkadres",
+      "netmask": "Subnetmasker",
+      "wildcard": "Wildcard-masker",
+      "broadcast": "Broadcast",
+      "firstHost": "Eerste host",
+      "lastHost": "Laatste host",
+      "totalAddresses": "Totaal adressen",
+      "usableHosts": "Bruikbare hosts",
+      "prefixLength": "Prefixlengte (bits)",
+      "networkIpv6": "Netwerkadres",
+      "lastIpv6": "Laatste adres in bereik",
+      "totalAddressesIpv6": "Adressen in subnet"
+    },
+    "usableNote": {
+      "pointToPoint": "/31 point-to-point gebruikt beide adressen als hosts (RFC 3021).",
+      "singleHost": "/32 is één hostadres."
+    },
+    "ipv6RangeHint": {
+      "normal": "Toont het volledige wiskundige bereik; routerregels kunnen afwijken.",
+      "single": "/128 is één adres.",
+      "full": "/0 dek heel IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Ongeldig IPv4-netwerk. Probeer CIDR of adres + masker.",
+      "invalidIpv6": "Ongeldig IPv6-netwerk. Gebruik adres/prefix, bijv. 2001:db8::/48."
     }
   }
 }

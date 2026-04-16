@@ -28,7 +28,8 @@
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Cuplikan kode",
-    "qrCodeGenerator": "Generator kode QR"
+    "qrCodeGenerator": "Generator kode QR",
+    "ipSubnetCalculator": "Kalkulator IP / subnet"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "Generator kode QR",
         "description": "Buat kode QR PNG dari teks atau URL di peramban."
+      },
+      "ipSubnetCalculator": {
+        "title": "Kalkulator IP / subnet",
+        "description": "IPv4 dan IPv6 CIDR: netmask, rentang, dan jumlah alamat."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "Tidak dapat membuat kode QR. Coba teks lebih pendek atau koreksi lebih rendah.",
       "copyUnsupported": "Peramban tidak mendukung menyalin gambar ke papan klip.",
       "copyFailed": "Tidak dapat menyalin ke papan klip."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "Kalkulator IP / subnet",
+    "subtitle": "Detail CIDR IPv4 dan IPv6 di peramban—tanpa permintaan jaringan.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Jaringan",
+    "placeholderIpv4": "10.0.0.0/24 atau 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 atau 2001:db8::1/64",
+    "hintIpv4": "Gunakan CIDR (mis. /24) atau IPv4 + netmask bertitik.",
+    "hintIpv6": "Sertakan panjang prefiks (mis. /64). Jika tidak, /128.",
+    "copyValue": "Salin nilai",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Alamat jaringan",
+      "netmask": "Subnet mask",
+      "wildcard": "Wildcard mask",
+      "broadcast": "Broadcast",
+      "firstHost": "Host pertama",
+      "lastHost": "Host terakhir",
+      "totalAddresses": "Total alamat",
+      "usableHosts": "Host yang dapat dipakai",
+      "prefixLength": "Panjang prefiks (bit)",
+      "networkIpv6": "Alamat jaringan",
+      "lastIpv6": "Alamat terakhir dalam rentang",
+      "totalAddressesIpv6": "Alamat dalam subnet"
+    },
+    "usableNote": {
+      "pointToPoint": "Tautan /31 titik-ke-titik memakai kedua alamat sebagai host (RFC 3021).",
+      "singleHost": "/32 adalah satu host."
+    },
+    "ipv6RangeHint": {
+      "normal": "Menampilkan rentang matematis penuh; aturan router dapat berbeda.",
+      "single": "/128 adalah satu alamat.",
+      "full": "/0 mencakup seluruh IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Jaringan IPv4 tidak valid. Coba CIDR atau alamat + mask.",
+      "invalidIpv6": "Jaringan IPv6 tidak valid. Gunakan alamat/prefiks, mis. 2001:db8::/48."
     }
   }
 }

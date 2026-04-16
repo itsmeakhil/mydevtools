@@ -28,7 +28,8 @@
     "gitignoreGenerator": "Generator .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Fragmenty kodu",
-    "qrCodeGenerator": "Generator kodów QR"
+    "qrCodeGenerator": "Generator kodów QR",
+    "ipSubnetCalculator": "Kalkulator IP / podsieci"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "Generator kodów QR",
         "description": "Twórz kody QR PNG z tekstu lub adresu URL w przeglądarce."
+      },
+      "ipSubnetCalculator": {
+        "title": "Kalkulator IP / podsieci",
+        "description": "IPv4 i IPv6 CIDR: maska, zakresy i liczba adresów."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "Nie udało się wygenerować kodu QR. Spróbuj krótszego tekstu lub niższej korekcji.",
       "copyUnsupported": "Przeglądarka nie obsługuje kopiowania obrazów do schowka.",
       "copyFailed": "Nie udało się skopiować do schowka."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "Kalkulator IP / podsieci",
+    "subtitle": "Szczegóły CIDR IPv4 i IPv6 w przeglądarce—bez żądań sieciowych.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Sieć",
+    "placeholderIpv4": "10.0.0.0/24 lub 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 lub 2001:db8::1/64",
+    "hintIpv4": "Użyj CIDR (np. /24) lub IPv4 z maską dziesiętną.",
+    "hintIpv6": "Podaj długość prefiksu (np. /64). Bez tego przyjmuje się /128.",
+    "copyValue": "Kopiuj wartość",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Adres sieci",
+      "netmask": "Maska podsieci",
+      "wildcard": "Maska wildcard",
+      "broadcast": "Broadcast",
+      "firstHost": "Pierwszy host",
+      "lastHost": "Ostatni host",
+      "totalAddresses": "Łącznie adresów",
+      "usableHosts": "Używalne hosty",
+      "prefixLength": "Długość prefiksu (bity)",
+      "networkIpv6": "Adres sieci",
+      "lastIpv6": "Ostatni adres w zakresie",
+      "totalAddressesIpv6": "Adresów w podsieci"
+    },
+    "usableNote": {
+      "pointToPoint": "Łącza /31 point-to-point używają obu adresów jako hostów (RFC 3021).",
+      "singleHost": "/32 to pojedynczy host."
+    },
+    "ipv6RangeHint": {
+      "normal": "Pokazano pełny zakres matematyczny; reguły routera mogą się różnić.",
+      "single": "/128 to jeden adres.",
+      "full": "/0 obejmuje cały IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Nieprawidłowa sieć IPv4. Spróbuj CIDR lub adres + maska.",
+      "invalidIpv6": "Nieprawidłowa sieć IPv6. Użyj adres/prefiks, np. 2001:db8::/48."
     }
   }
 }

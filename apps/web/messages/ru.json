@@ -28,7 +28,8 @@
     "gitignoreGenerator": "Генератор .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Фрагменты кода",
-    "qrCodeGenerator": "Генератор QR-кодов"
+    "qrCodeGenerator": "Генератор QR-кодов",
+    "ipSubnetCalculator": "Калькулятор IP / подсети"
   },
   "Help": {
     "title": "Справка и документация",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "Генератор QR-кодов",
         "description": "Создавайте PNG QR-коды из текста или URL в браузере."
+      },
+      "ipSubnetCalculator": {
+        "title": "Калькулятор IP / подсети",
+        "description": "IPv4 и IPv6 CIDR: маска, диапазоны и число адресов."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "Не удалось создать QR-код. Попробуйте короче текст или ниже коррекцию.",
       "copyUnsupported": "Браузер не поддерживает копирование изображения в буфер.",
       "copyFailed": "Не удалось скопировать в буфер."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "Калькулятор IP / подсети",
+    "subtitle": "Сведения CIDR для IPv4 и IPv6 в браузере—без внешних запросов.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Сеть",
+    "placeholderIpv4": "10.0.0.0/24 или 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 или 2001:db8::1/64",
+    "hintIpv4": "Используйте CIDR (например /24) или IPv4 с маской в точечной нотации.",
+    "hintIpv6": "Укажите длину префикса (например /64). Без неё — /128.",
+    "copyValue": "Копировать значение",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Адрес сети",
+      "netmask": "Маска подсети",
+      "wildcard": "Инвертированная маска",
+      "broadcast": "Широковещание",
+      "firstHost": "Первый хост",
+      "lastHost": "Последний хост",
+      "totalAddresses": "Всего адресов",
+      "usableHosts": "Доступные хосты",
+      "prefixLength": "Длина префикса (бит)",
+      "networkIpv6": "Адрес сети",
+      "lastIpv6": "Последний адрес в диапазоне",
+      "totalAddressesIpv6": "Адресов в подсети"
+    },
+    "usableNote": {
+      "pointToPoint": "/31 point-to-point использует оба адреса как хосты (RFC 3021).",
+      "singleHost": "/32 — один хост."
+    },
+    "ipv6RangeHint": {
+      "normal": "Показан полный математический диапазон; правила маршрутизатора могут отличаться.",
+      "single": "/128 — один адрес.",
+      "full": "/0 охватывает весь IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Неверная сеть IPv4. Попробуйте CIDR или адрес + маску.",
+      "invalidIpv6": "Неверная сеть IPv6. Используйте адрес/префикс, напр. 2001:db8::/48."
     }
   }
 }
