@@ -28,7 +28,8 @@
     "gitignoreGenerator": ".gitignore مولد",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "مقاطع الشيفرة",
-    "qrCodeGenerator": "مُولّد رمز QR"
+    "qrCodeGenerator": "مُولّد رمز QR",
+    "ipSubnetCalculator": "حاسبة IP / الشبكة الفرعية"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "مُولّد رمز QR",
         "description": "أنشئ صور PNG لرمز QR من نص أو روابط في المتصفح."
+      },
+      "ipSubnetCalculator": {
+        "title": "حاسبة IP / الشبكة الفرعية",
+        "description": "IPv4 وIPv6 CIDR: قناع الشبكة، النطاقات، وعدد العناوين."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "تعذر إنشاء رمز QR. جرّب نصًا أقصر أو مستوى تصحيح أخطاء أقل.",
       "copyUnsupported": "المتصفح لا يدعم نسخ الصور إلى الحافظة.",
       "copyFailed": "تعذر النسخ إلى الحافظة."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "حاسبة IP / الشبكة الفرعية",
+    "subtitle": "تفاصيل CIDR لـ IPv4 وIPv6 في المتصفح—دون طلبات خارجية.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "الشبكة",
+    "placeholderIpv4": "10.0.0.0/24 أو 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 أو 2001:db8::1/64",
+    "hintIpv4": "استخدم CIDR (مثل /24) أو عنوان IPv4 مع قناع شبكة منقّط.",
+    "hintIpv6": "ضمّن طول البادئة (مثل /64). إن حُذف، يُفترض /128.",
+    "copyValue": "نسخ القيمة",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "عنوان الشبكة",
+      "netmask": "قناع الشبكة الفرعية",
+      "wildcard": "قناع بدل",
+      "broadcast": "البث",
+      "firstHost": "أول مضيف",
+      "lastHost": "آخر مضيف",
+      "totalAddresses": "إجمالي العناوين",
+      "usableHosts": "المضيفون القابلون للاستخدام",
+      "prefixLength": "طول البادئة (بت)",
+      "networkIpv6": "عنوان الشبكة",
+      "lastIpv6": "آخر عنوان في النطاق",
+      "totalAddressesIpv6": "عناوين في الشبكة الفرعية"
+    },
+    "usableNote": {
+      "pointToPoint": "روابط /31 نقطية تستخدم كلا العنوانين كمضيفين (RFC 3021).",
+      "singleHost": "/32 لعنوان مضيف واحد."
+    },
+    "ipv6RangeHint": {
+      "normal": "يُظهر الأداة النطاق الرياضي الكامل؛ قواعد الموجّه قد تختلف.",
+      "single": "/128 يعني عنوانًا واحدًا.",
+      "full": "/0 يغطي كل عناوين IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "شبكة IPv4 غير صالحة. جرّب CIDR أو عنوانًا مع قناع.",
+      "invalidIpv6": "شبكة IPv6 غير صالحة. استخدم عنوان/بادئة مثل 2001:db8::/48."
     }
   }
 }

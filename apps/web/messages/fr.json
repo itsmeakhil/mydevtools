@@ -28,7 +28,8 @@
     "gitignoreGenerator": "Générateur .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Extraits de code",
-    "qrCodeGenerator": "Générateur de codes QR"
+    "qrCodeGenerator": "Générateur de codes QR",
+    "ipSubnetCalculator": "Calculateur IP / sous-réseau"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "Générateur de codes QR",
         "description": "Créez des codes QR PNG à partir de texte ou d’URL dans le navigateur."
+      },
+      "ipSubnetCalculator": {
+        "title": "Calculateur IP / sous-réseau",
+        "description": "IPv4 et IPv6 CIDR : masque, plages et nombre d’adresses."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "Impossible de générer ce code QR. Essayez un texte plus court ou moins de correction.",
       "copyUnsupported": "Votre navigateur ne permet pas de copier des images dans le presse-papiers.",
       "copyFailed": "Impossible de copier dans le presse-papiers."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "Calculateur IP / sous-réseau",
+    "subtitle": "Détails CIDR IPv4 et IPv6 dans le navigateur—sans requêtes externes.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Réseau",
+    "placeholderIpv4": "10.0.0.0/24 ou 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 ou 2001:db8::1/64",
+    "hintIpv4": "Utilisez la notation CIDR (ex. /24) ou une IPv4 avec masque décimal.",
+    "hintIpv6": "Indiquez la longueur de préfixe (ex. /64). Sans cela, /128 est supposé.",
+    "copyValue": "Copier la valeur",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Adresse réseau",
+      "netmask": "Masque de sous-réseau",
+      "wildcard": "Masque wildcard",
+      "broadcast": "Broadcast",
+      "firstHost": "Premier hôte",
+      "lastHost": "Dernier hôte",
+      "totalAddresses": "Adresses totales",
+      "usableHosts": "Hôtes utilisables",
+      "prefixLength": "Longueur du préfixe (bits)",
+      "networkIpv6": "Adresse réseau",
+      "lastIpv6": "Dernière adresse de la plage",
+      "totalAddressesIpv6": "Adresses dans le sous-réseau"
+    },
+    "usableNote": {
+      "pointToPoint": "Les liaisons /31 point-à-point utilisent les deux adresses comme hôtes (RFC 3021).",
+      "singleHost": "/32 correspond à un seul hôte."
+    },
+    "ipv6RangeHint": {
+      "normal": "Plage mathématique complète affichée ; les règles du routeur peuvent varier.",
+      "single": "/128 est une adresse unique.",
+      "full": "/0 couvre tout l’IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Réseau IPv4 invalide. Essayez CIDR ou adresse + masque.",
+      "invalidIpv6": "Réseau IPv6 invalide. Utilisez adresse/préfixe, ex. 2001:db8::/48."
     }
   }
 }

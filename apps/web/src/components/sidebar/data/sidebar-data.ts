@@ -29,6 +29,7 @@ import {
   IconFileSpreadsheet,
   IconBrandVscode,
   IconQrcode,
+  IconHierarchy2,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -242,6 +243,13 @@ export const sidebarData: SidebarData = {
           url: '/app/qr-code-generator',
           icon: IconQrcode,
           description: 'Create PNG QR codes from text or URLs locally in your browser.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'IP / Subnet Calculator',
+          url: '/app/ip-subnet-calculator',
+          icon: IconHierarchy2,
+          description: 'IPv4 and IPv6 CIDR: netmask, host range, and address counts in your browser.',
           hiddenOnMobile: true,
         },
 

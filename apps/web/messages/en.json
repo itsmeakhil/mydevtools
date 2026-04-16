@@ -21,6 +21,7 @@
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
     "qrCodeGenerator": "QR Code Generator",
+    "ipSubnetCalculator": "IP / Subnet Calculator",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "apiClient": "API Client",
@@ -343,6 +344,10 @@
       "qrCodeGenerator": {
         "title": "QR Code Generator",
         "description": "Create PNG QR codes from text or URLs in your browser."
+      },
+      "ipSubnetCalculator": {
+        "title": "IP / Subnet Calculator",
+        "description": "IPv4 and IPv6 CIDR: netmask, ranges, and address counts."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2169,6 +2174,46 @@
       "generationFailed": "Could not generate this QR code. Try shorter text or lower error correction.",
       "copyUnsupported": "Your browser does not support copying images to the clipboard.",
       "copyFailed": "Could not copy to the clipboard."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "IP / Subnet calculator",
+    "subtitle": "IPv4 and IPv6 CIDR details in your browser—no requests leave this page.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Network",
+    "placeholderIpv4": "10.0.0.0/24 or 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 or 2001:db8::1/64",
+    "hintIpv4": "Use CIDR (e.g. /24) or an IPv4 address plus a dotted-decimal netmask.",
+    "hintIpv6": "Include a prefix length (e.g. /64). If omitted, /128 is assumed.",
+    "copyValue": "Copy value",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Network address",
+      "netmask": "Subnet mask",
+      "wildcard": "Wildcard mask",
+      "broadcast": "Broadcast",
+      "firstHost": "First host",
+      "lastHost": "Last host",
+      "totalAddresses": "Total addresses",
+      "usableHosts": "Usable hosts",
+      "prefixLength": "Prefix length (bits)",
+      "networkIpv6": "Network address",
+      "lastIpv6": "Last address in range",
+      "totalAddressesIpv6": "Addresses in subnet"
+    },
+    "usableNote": {
+      "pointToPoint": "/31 point-to-point links use both addresses as hosts (RFC 3021).",
+      "singleHost": "/32 is a single-host mask."
+    },
+    "ipv6RangeHint": {
+      "normal": "Usable interface addresses typically exclude the subnet router anycast on some networks; this tool shows the full mathematical range.",
+      "single": "/128 is a single address.",
+      "full": "/0 spans all IPv6 addresses."
+    },
+    "errors": {
+      "invalidIpv4": "Invalid IPv4 network. Try CIDR (10.0.0.0/24) or address + netmask.",
+      "invalidIpv6": "Invalid IPv6 network. Use address/prefix, for example 2001:db8::/48."
     }
   },
   "LoremIpsum": {

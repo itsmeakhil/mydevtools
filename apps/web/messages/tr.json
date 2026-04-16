@@ -28,7 +28,8 @@
     "gitignoreGenerator": ".gitignore Oluşturucu",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Kod parçacıkları",
-    "qrCodeGenerator": "QR kod oluşturucu"
+    "qrCodeGenerator": "QR kod oluşturucu",
+    "ipSubnetCalculator": "IP / alt ağ hesaplayıcı"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "QR kod oluşturucu",
         "description": "Metin veya URL’den tarayıcıda PNG QR kodları oluşturun."
+      },
+      "ipSubnetCalculator": {
+        "title": "IP / alt ağ hesaplayıcı",
+        "description": "IPv4 ve IPv6 CIDR: maske, aralıklar ve adres sayısı."
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "QR kod oluşturulamadı. Daha kısa metin veya daha düşük düzeltme deneyin.",
       "copyUnsupported": "Tarayıcı görüntüyü panoya kopyalamayı desteklemiyor.",
       "copyFailed": "Panoya kopyalanamadı."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "IP / alt ağ hesaplayıcı",
+    "subtitle": "IPv4 ve IPv6 CIDR ayrıntıları tarayıcıda—dış istek yok.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Ağ",
+    "placeholderIpv4": "10.0.0.0/24 veya 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 veya 2001:db8::1/64",
+    "hintIpv4": "CIDR (ör. /24) veya noktalı alt ağ maskesi ile IPv4 kullanın.",
+    "hintIpv6": "Önek uzunluğunu ekleyin (ör. /64). Yoksa /128 varsayılır.",
+    "copyValue": "Değeri kopyala",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Ağ adresi",
+      "netmask": "Alt ağ maskesi",
+      "wildcard": "Wildcard maskesi",
+      "broadcast": "Yayın",
+      "firstHost": "İlk ana bilgisayar",
+      "lastHost": "Son ana bilgisayar",
+      "totalAddresses": "Toplam adres",
+      "usableHosts": "Kullanılabilir ana bilgisayar",
+      "prefixLength": "Önek uzunluğu (bit)",
+      "networkIpv6": "Ağ adresi",
+      "lastIpv6": "Aralıktaki son adres",
+      "totalAddressesIpv6": "Alt ağdaki adresler"
+    },
+    "usableNote": {
+      "pointToPoint": "/31 noktadan noktaya bağlantılar her iki adresi de ana bilgisayar olarak kullanır (RFC 3021).",
+      "singleHost": "/32 tek ana bilgisayardır."
+    },
+    "ipv6RangeHint": {
+      "normal": "Tam matematiksel aralık gösterilir; yönlendirici kuralları farklı olabilir.",
+      "single": "/128 tek adrestir.",
+      "full": "/0 tüm IPv6 kapsar."
+    },
+    "errors": {
+      "invalidIpv4": "Geçersiz IPv4 ağı. CIDR veya adres + maske deneyin.",
+      "invalidIpv6": "Geçersiz IPv6 ağı. Örn. 2001:db8::/48 biçimini kullanın."
     }
   }
 }

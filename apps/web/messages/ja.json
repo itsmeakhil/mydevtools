@@ -28,7 +28,8 @@
     "gitignoreGenerator": ".gitignore ジェネレーター",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "コードスニペット",
-    "qrCodeGenerator": "QRコード生成"
+    "qrCodeGenerator": "QRコード生成",
+    "ipSubnetCalculator": "IP／サブネット計算"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -318,6 +319,10 @@
       "qrCodeGenerator": {
         "title": "QRコード生成",
         "description": "テキストやURLからブラウザ内でPNGのQRコードを作成。"
+      },
+      "ipSubnetCalculator": {
+        "title": "IP／サブネット計算",
+        "description": "IPv4／IPv6 CIDR：ネットマスク、範囲、件数。"
       }
     },
     "tabs": {
@@ -2355,6 +2360,46 @@
       "generationFailed": "QRコードを生成できませんでした。文字を短くするか誤り訂正を下げてください。",
       "copyUnsupported": "お使いのブラウザは画像のクリップボードコピーに対応していません。",
       "copyFailed": "クリップボードにコピーできませんでした。"
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "IP／サブネット計算",
+    "subtitle": "ブラウザ内で IPv4／IPv6 の CIDR を計算—外部通信なし。",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "ネットワーク",
+    "placeholderIpv4": "10.0.0.0/24 または 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 または 2001:db8::1/64",
+    "hintIpv4": "CIDR（例 /24）または IPv4＋ドット付きサブネットマスク。",
+    "hintIpv6": "プレフィックス長（例 /64）。省略時は /128。",
+    "copyValue": "値をコピー",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "ネットワークアドレス",
+      "netmask": "サブネットマスク",
+      "wildcard": "ワイルドカードマスク",
+      "broadcast": "ブロードキャスト",
+      "firstHost": "先頭ホスト",
+      "lastHost": "末尾ホスト",
+      "totalAddresses": "総アドレス数",
+      "usableHosts": "usable ホスト数",
+      "prefixLength": "プレフィックス長（ビット）",
+      "networkIpv6": "ネットワークアドレス",
+      "lastIpv6": "範囲の最終アドレス",
+      "totalAddressesIpv6": "サブネット内アドレス数"
+    },
+    "usableNote": {
+      "pointToPoint": "/31 のポイントツーポイントは両方をホストとして使用（RFC 3021）。",
+      "singleHost": "/32 は単一ホスト。"
+    },
+    "ipv6RangeHint": {
+      "normal": "数学上の全範囲を表示。ルーター運用ルールは異なる場合があります。",
+      "single": "/128 は単一アドレス。",
+      "full": "/0 は IPv6 全体。"
+    },
+    "errors": {
+      "invalidIpv4": "IPv4 が無効です。CIDR または アドレス＋マスクを試してください。",
+      "invalidIpv6": "IPv6 が無効です。例: 2001:db8::/48 の形式で入力。"
     }
   }
 }
