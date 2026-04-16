@@ -32,6 +32,7 @@ import {
   IconHierarchy2,
   IconHash,
   IconCircleKey,
+  IconMarkdown,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -266,6 +267,13 @@ export const sidebarData: SidebarData = {
           url: '/app/hmac-generator',
           icon: IconCircleKey,
           description: 'HMAC-SHA1/256/384/512 for webhooks and API signing tests in your browser.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'Markdown Preview',
+          url: '/app/markdown-preview-html',
+          icon: IconMarkdown,
+          description: 'Live Markdown renderer with HTML export and HTML → Markdown conversion.',
           hiddenOnMobile: true,
         },
 

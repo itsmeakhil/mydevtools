@@ -31,7 +31,8 @@
     "qrCodeGenerator": "QR 코드 생성기",
     "ipSubnetCalculator": "IP / 서브넷 계산기",
     "hashGenerator": "해시 생성기",
-    "hmacGenerator": "HMAC 생성기"
+    "hmacGenerator": "HMAC 생성기",
+    "markdownPreview": "마크다운 미리보기"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -333,6 +334,10 @@
       "hmacGenerator": {
         "title": "HMAC 생성기",
         "description": "HMAC-SHA1/256/384/512로 웹훅 서명 및 API 연동 테스트."
+      },
+      "markdownPreview": {
+        "title": "마크다운 미리보기",
+        "description": "HTML 내보내기 및 HTML → Markdown 변환이 포함된 실시간 Markdown 렌더러."
       }
     },
     "tabs": {
@@ -2497,5 +2502,26 @@
     "errors": {
       "cryptoFailed": "HMAC을 계산할 수 없습니다. Web Crypto 지원을 확인하고 다시 시도하세요."
     }
+  },
+  "MarkdownPreview": {
+    "title": "마크다운 미리보기 & HTML",
+    "subtitle": "HTML 내보내기 및 HTML → Markdown 변환이 포함된 실시간 Markdown 렌더러. 모든 것이 브라우저에서 실행됩니다.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Markdown 입력",
+    "htmlInputLabel": "HTML 입력",
+    "previewLabel": "미리보기",
+    "htmlOutputLabel": "HTML 소스",
+    "mdOutputLabel": "Markdown 출력",
+    "inputPlaceholder": "# 안녕하세요\\n\\n여기에 **markdown**을 입력하세요…",
+    "htmlInputPlaceholder": "여기에 HTML을 붙여넣으세요…",
+    "copyHtml": "HTML 복사",
+    "copyMarkdown": "Markdown 복사",
+    "exportHtml": "HTML 내보내기",
+    "copied": "복사됨",
+    "charCount": "{count, plural, other {# 자}}",
+    "emptyHint": "Markdown을 입력하면 실시간 미리보기와 HTML 출력을 볼 수 있습니다.",
+    "emptyHintHtmlToMd": "HTML을 붙여넣으면 Markdown으로 변환됩니다.",
+    "securityNote": "모든 것이 브라우저에서 로컬로 실행됩니다. 업로드되는 것이 없습니다."
   }
 }

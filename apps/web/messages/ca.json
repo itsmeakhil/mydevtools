@@ -31,7 +31,8 @@
     "qrCodeGenerator": "Generador de codis QR",
     "ipSubnetCalculator": "Calculadora IP / subxarxa",
     "hashGenerator": "Generador de hash",
-    "hmacGenerator": "Generador HMAC"
+    "hmacGenerator": "Generador HMAC",
+    "markdownPreview": "Previsualització Markdown"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -333,6 +334,10 @@
       "hmacGenerator": {
         "title": "Generador HMAC",
         "description": "Signa webhooks i prova integracions API amb HMAC-SHA1/256/384/512."
+      },
+      "markdownPreview": {
+        "title": "Previsualització Markdown",
+        "description": "Renderitzador Markdown en viu amb exportació HTML i conversió HTML → Markdown."
       }
     },
     "tabs": {
@@ -2497,5 +2502,26 @@
     "errors": {
       "cryptoFailed": "No s’ha pogut calcular l’HMAC. Comproveu el suport de Web Crypto i torneu-ho a provar."
     }
+  },
+  "MarkdownPreview": {
+    "title": "Previsualització Markdown & HTML",
+    "subtitle": "Renderitzador Markdown en viu amb exportació HTML i conversió HTML → Markdown. Tot s'executa al vostre navegador.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Entrada Markdown",
+    "htmlInputLabel": "Entrada HTML",
+    "previewLabel": "Previsualització",
+    "htmlOutputLabel": "Font HTML",
+    "mdOutputLabel": "Sortida Markdown",
+    "inputPlaceholder": "# Hola\\n\\nEscriviu el vostre **markdown** aquí…",
+    "htmlInputPlaceholder": "Enganxeu el vostre HTML aquí…",
+    "copyHtml": "Copia HTML",
+    "copyMarkdown": "Copia Markdown",
+    "exportHtml": "Exporta HTML",
+    "copied": "Copiat",
+    "charCount": "{count, plural, one {# caràcter} other {# caràcters}}",
+    "emptyHint": "Comenceu a escriure Markdown per veure la previsualització i la sortida HTML.",
+    "emptyHintHtmlToMd": "Enganxeu HTML per convertir-lo en Markdown.",
+    "securityNote": "Tot s'executa localment al vostre navegador. No es carrega res."
   }
 }

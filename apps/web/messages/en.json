@@ -31,7 +31,8 @@
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
-    "snippetManager": "Code Snippets"
+    "snippetManager": "Code Snippets",
+    "markdownPreview": "Markdown Preview"
   },
   "Help": {
     "title": "Help & documentation",
@@ -382,6 +383,10 @@
       "snippetManager": {
         "title": "Code Snippets",
         "description": "Save snippets with syntax highlighting, auto language detection, and formatting."
+      },
+      "markdownPreview": {
+        "title": "Markdown Preview",
+        "description": "Live Markdown renderer with HTML export and HTML → Markdown conversion."
       }
     }
   },
@@ -2497,5 +2502,26 @@
       "exportCsv": "CSV",
       "noRows": "No rows returned"
     }
+  },
+  "MarkdownPreview": {
+    "title": "Markdown Preview & HTML",
+    "subtitle": "Live Markdown renderer with HTML export and HTML → Markdown conversion. Everything runs in your browser.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Markdown input",
+    "htmlInputLabel": "HTML input",
+    "previewLabel": "Preview",
+    "htmlOutputLabel": "HTML source",
+    "mdOutputLabel": "Markdown output",
+    "inputPlaceholder": "# Hello\\n\\nType your **markdown** here…",
+    "htmlInputPlaceholder": "Paste your HTML here…",
+    "copyHtml": "Copy HTML",
+    "copyMarkdown": "Copy Markdown",
+    "exportHtml": "Export HTML",
+    "copied": "Copied",
+    "charCount": "{count, plural, one {# character} other {# characters}}",
+    "emptyHint": "Start typing Markdown to see the live preview and HTML output.",
+    "emptyHintHtmlToMd": "Paste HTML to convert it to Markdown.",
+    "securityNote": "Everything runs locally in your browser. Nothing is uploaded."
   }
 }

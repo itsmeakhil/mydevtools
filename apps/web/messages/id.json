@@ -31,7 +31,8 @@
     "qrCodeGenerator": "Generator kode QR",
     "ipSubnetCalculator": "Kalkulator IP / subnet",
     "hashGenerator": "Generator hash",
-    "hmacGenerator": "Generator HMAC"
+    "hmacGenerator": "Generator HMAC",
+    "markdownPreview": "Pratinjau Markdown"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -333,6 +334,10 @@
       "hmacGenerator": {
         "title": "Generator HMAC",
         "description": "Menandatangani webhook dan menguji integrasi API dengan HMAC-SHA1/256/384/512."
+      },
+      "markdownPreview": {
+        "title": "Pratinjau Markdown",
+        "description": "Renderer Markdown langsung dengan ekspor HTML dan konversi HTML → Markdown."
       }
     },
     "tabs": {
@@ -2497,5 +2502,26 @@
     "errors": {
       "cryptoFailed": "Tidak dapat menghitung HMAC. Periksa dukungan Web Crypto dan coba lagi."
     }
+  },
+  "MarkdownPreview": {
+    "title": "Pratinjau Markdown & HTML",
+    "subtitle": "Renderer Markdown langsung dengan ekspor HTML dan konversi HTML → Markdown. Semua berjalan di browser Anda.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Input Markdown",
+    "htmlInputLabel": "Input HTML",
+    "previewLabel": "Pratinjau",
+    "htmlOutputLabel": "Sumber HTML",
+    "mdOutputLabel": "Output Markdown",
+    "inputPlaceholder": "# Halo\\n\\nKetik **markdown** Anda di sini…",
+    "htmlInputPlaceholder": "Tempel HTML Anda di sini…",
+    "copyHtml": "Salin HTML",
+    "copyMarkdown": "Salin Markdown",
+    "exportHtml": "Ekspor HTML",
+    "copied": "Disalin",
+    "charCount": "{count, plural, other {# karakter}}",
+    "emptyHint": "Mulai mengetik Markdown untuk melihat pratinjau langsung dan output HTML.",
+    "emptyHintHtmlToMd": "Tempel HTML untuk mengonversinya ke Markdown.",
+    "securityNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
   }
 }

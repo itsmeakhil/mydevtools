@@ -33,6 +33,7 @@ import {
   Calculator,
   Hash,
   ShieldCheck,
+  FileDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
@@ -71,6 +72,7 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
   '/app/ip-subnet-calculator': { title: 'IP / Subnet Calculator', icon: Calculator, namespace: 'IpSubnetCalculator' },
   '/app/hash-generator': { title: 'Hash Generator', icon: Hash, namespace: 'HashGenerator' },
   '/app/hmac-generator': { title: 'HMAC Generator', icon: ShieldCheck, namespace: 'HmacGenerator' },
+  '/app/markdown-preview-html': { title: 'Markdown Preview', icon: FileDown, namespace: 'MarkdownPreview' },
   '/app/lorem-ipsum': { title: 'Lorem Ipsum Generator', icon: TextQuote, namespace: 'LoremIpsum' },
   '/app/color-picker': { title: 'Color Picker', icon: Palette, namespace: 'ColorPicker' },
   '/app/css-gradient-builder': { title: 'CSS Gradient Builder', icon: Paintbrush, namespace: 'CssGradientBuilder' },

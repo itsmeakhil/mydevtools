@@ -31,7 +31,8 @@
     "qrCodeGenerator": "QR-kodegenerator",
     "ipSubnetCalculator": "IP-/subnettkalkulator",
     "hashGenerator": "Hash-generator",
-    "hmacGenerator": "HMAC-generator"
+    "hmacGenerator": "HMAC-generator",
+    "markdownPreview": "Markdown-forhåndsvisning"
   },
   "Help": {
     "title": "Hjelp og dokumentasjon",
@@ -333,6 +334,10 @@
       "hmacGenerator": {
         "title": "HMAC-generator",
         "description": "Signer webhooks og test API-integrasjoner med HMAC-SHA1/256/384/512."
+      },
+      "markdownPreview": {
+        "title": "Markdown-forhåndsvisning",
+        "description": "Live Markdown-renderer med HTML-eksport og HTML → Markdown-konvertering."
       }
     },
     "tabs": {
@@ -2497,5 +2502,26 @@
     "errors": {
       "cryptoFailed": "Kunne ikke beregne HMAC. Sjekk Web Crypto-støtte og prøv igjen."
     }
+  },
+  "MarkdownPreview": {
+    "title": "Markdown-forhåndsvisning & HTML",
+    "subtitle": "Live Markdown-renderer med HTML-eksport og HTML → Markdown-konvertering. Alt kjører i nettleseren din.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Markdown-inndata",
+    "htmlInputLabel": "HTML-inndata",
+    "previewLabel": "Forhåndsvisning",
+    "htmlOutputLabel": "HTML-kilde",
+    "mdOutputLabel": "Markdown-utdata",
+    "inputPlaceholder": "# Hei\\n\\nSkriv inn **markdown** her…",
+    "htmlInputPlaceholder": "Lim inn HTML her…",
+    "copyHtml": "Kopier HTML",
+    "copyMarkdown": "Kopier Markdown",
+    "exportHtml": "Eksporter HTML",
+    "copied": "Kopiert",
+    "charCount": "{count, plural, one {# tegn} other {# tegn}}",
+    "emptyHint": "Begynn å skrive Markdown for å se live-forhåndsvisning og HTML-utdata.",
+    "emptyHintHtmlToMd": "Lim inn HTML for å konvertere det til Markdown.",
+    "securityNote": "Alt kjører lokalt i nettleseren din. Ingenting lastes opp."
   }
 }

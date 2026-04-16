@@ -31,7 +31,8 @@
     "qrCodeGenerator": "Trình tạo mã QR",
     "ipSubnetCalculator": "Máy tính IP / mạng con",
     "hashGenerator": "Trình tạo hash",
-    "hmacGenerator": "Trình tạo HMAC"
+    "hmacGenerator": "Trình tạo HMAC",
+    "markdownPreview": "Xem trước Markdown"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -333,6 +334,10 @@
       "hmacGenerator": {
         "title": "Trình tạo HMAC",
         "description": "Ký webhook và kiểm thử tích hợp API với HMAC-SHA1/256/384/512."
+      },
+      "markdownPreview": {
+        "title": "Xem trước Markdown",
+        "description": "Trình kết xuất Markdown trực tiếp với xuất HTML và chuyển đổi HTML → Markdown."
       }
     },
     "tabs": {
@@ -2497,5 +2502,26 @@
     "errors": {
       "cryptoFailed": "Không thể tính HMAC. Kiểm tra hỗ trợ Web Crypto và thử lại."
     }
+  },
+  "MarkdownPreview": {
+    "title": "Xem trước Markdown & HTML",
+    "subtitle": "Trình kết xuất Markdown trực tiếp với xuất HTML và chuyển đổi HTML → Markdown. Tất cả chạy trong trình duyệt của bạn.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Đầu vào Markdown",
+    "htmlInputLabel": "Đầu vào HTML",
+    "previewLabel": "Xem trước",
+    "htmlOutputLabel": "Nguồn HTML",
+    "mdOutputLabel": "Đầu ra Markdown",
+    "inputPlaceholder": "# Xin chào\\n\\nNhập **markdown** của bạn tại đây…",
+    "htmlInputPlaceholder": "Dán HTML của bạn tại đây…",
+    "copyHtml": "Sao chép HTML",
+    "copyMarkdown": "Sao chép Markdown",
+    "exportHtml": "Xuất HTML",
+    "copied": "Đã sao chép",
+    "charCount": "{count, plural, other {# ký tự}}",
+    "emptyHint": "Bắt đầu nhập Markdown để xem bản xem trước trực tiếp và đầu ra HTML.",
+    "emptyHintHtmlToMd": "Dán HTML để chuyển đổi sang Markdown.",
+    "securityNote": "Tất cả chạy cục bộ trong trình duyệt của bạn. Không có gì được tải lên."
   }
 }

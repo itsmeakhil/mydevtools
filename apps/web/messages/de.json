@@ -31,7 +31,8 @@
     "qrCodeGenerator": "QR-Code-Generator",
     "ipSubnetCalculator": "IP-/Subnetz-Rechner",
     "hashGenerator": "Hash-Generator",
-    "hmacGenerator": "HMAC-Generator"
+    "hmacGenerator": "HMAC-Generator",
+    "markdownPreview": "Markdown-Vorschau"
   },
   "Help": {
     "title": "Hilfe & Dokumentation",
@@ -333,6 +334,10 @@
       "hmacGenerator": {
         "title": "HMAC-Generator",
         "description": "Webhooks signieren und API-Integrationen mit HMAC-SHA1/256/384/512 testen."
+      },
+      "markdownPreview": {
+        "title": "Markdown-Vorschau",
+        "description": "Live-Markdown-Renderer mit HTML-Export und HTML → Markdown-Konvertierung."
       }
     },
     "tabs": {
@@ -2497,5 +2502,26 @@
     "errors": {
       "cryptoFailed": "HMAC konnte nicht berechnet werden. Prüfen Sie Web Crypto und versuchen Sie es erneut."
     }
+  },
+  "MarkdownPreview": {
+    "title": "Markdown-Vorschau & HTML",
+    "subtitle": "Live-Markdown-Renderer mit HTML-Export und HTML → Markdown-Konvertierung. Alles läuft in Ihrem Browser.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Markdown-Eingabe",
+    "htmlInputLabel": "HTML-Eingabe",
+    "previewLabel": "Vorschau",
+    "htmlOutputLabel": "HTML-Quelle",
+    "mdOutputLabel": "Markdown-Ausgabe",
+    "inputPlaceholder": "# Hallo\\n\\nGeben Sie hier Ihr **Markdown** ein…",
+    "htmlInputPlaceholder": "Fügen Sie hier Ihr HTML ein…",
+    "copyHtml": "HTML kopieren",
+    "copyMarkdown": "Markdown kopieren",
+    "exportHtml": "HTML exportieren",
+    "copied": "Kopiert",
+    "charCount": "{count, plural, one {# Zeichen} other {# Zeichen}}",
+    "emptyHint": "Beginnen Sie mit der Eingabe von Markdown, um die Live-Vorschau und HTML-Ausgabe zu sehen.",
+    "emptyHintHtmlToMd": "Fügen Sie HTML ein, um es in Markdown zu konvertieren.",
+    "securityNote": "Alles läuft lokal in Ihrem Browser. Es werden keine Daten hochgeladen."
   }
 }

@@ -31,7 +31,8 @@
     "qrCodeGenerator": "QR-codegenerator",
     "ipSubnetCalculator": "IP-/subnetcalculator",
     "hashGenerator": "Hash-generator",
-    "hmacGenerator": "HMAC-generator"
+    "hmacGenerator": "HMAC-generator",
+    "markdownPreview": "Markdown-voorbeeld"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -333,6 +334,10 @@
       "hmacGenerator": {
         "title": "HMAC-generator",
         "description": "Webhooks ondertekenen en API-integraties testen met HMAC-SHA1/256/384/512."
+      },
+      "markdownPreview": {
+        "title": "Markdown-voorbeeld",
+        "description": "Live Markdown-renderer met HTML-export en HTML → Markdown-conversie."
       }
     },
     "tabs": {
@@ -2497,5 +2502,26 @@
     "errors": {
       "cryptoFailed": "HMAC kon niet worden berekend. Controleer Web Crypto-ondersteuning en probeer opnieuw."
     }
+  },
+  "MarkdownPreview": {
+    "title": "Markdown-voorbeeld & HTML",
+    "subtitle": "Live Markdown-renderer met HTML-export en HTML → Markdown-conversie. Alles draait in uw browser.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Markdown-invoer",
+    "htmlInputLabel": "HTML-invoer",
+    "previewLabel": "Voorbeeld",
+    "htmlOutputLabel": "HTML-bron",
+    "mdOutputLabel": "Markdown-uitvoer",
+    "inputPlaceholder": "# Hallo\\n\\nVoer uw **markdown** hier in…",
+    "htmlInputPlaceholder": "Plak uw HTML hier…",
+    "copyHtml": "HTML kopiëren",
+    "copyMarkdown": "Markdown kopiëren",
+    "exportHtml": "HTML exporteren",
+    "copied": "Gekopieerd",
+    "charCount": "{count, plural, one {# teken} other {# tekens}}",
+    "emptyHint": "Begin met het typen van Markdown om de live preview en HTML-uitvoer te zien.",
+    "emptyHintHtmlToMd": "Plak HTML om het naar Markdown te converteren.",
+    "securityNote": "Alles wordt lokaal in uw browser uitgevoerd. Er wordt niets geüpload."
   }
 }

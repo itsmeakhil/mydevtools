@@ -31,7 +31,8 @@
     "qrCodeGenerator": "QR-kodegenerator",
     "ipSubnetCalculator": "IP-/subnetberegner",
     "hashGenerator": "Hash-generator",
-    "hmacGenerator": "HMAC-generator"
+    "hmacGenerator": "HMAC-generator",
+    "markdownPreview": "Markdown-forhåndsvisning"
   },
   "Help": {
     "title": "Hjælp og dokumentation",
@@ -333,6 +334,10 @@
       "hmacGenerator": {
         "title": "HMAC-generator",
         "description": "Underskriv webhooks og test API-integrationer med HMAC-SHA1/256/384/512."
+      },
+      "markdownPreview": {
+        "title": "Markdown-forhåndsvisning",
+        "description": "Live Markdown-renderer med HTML-eksport og HTML → Markdown-konvertering."
       }
     },
     "tabs": {
@@ -2497,5 +2502,26 @@
     "errors": {
       "cryptoFailed": "Kunne ikke beregne HMAC. Kontroller Web Crypto-understøttelse og prøv igen."
     }
+  },
+  "MarkdownPreview": {
+    "title": "Markdown-forhåndsvisning & HTML",
+    "subtitle": "Live Markdown-renderer med HTML-eksport og HTML → Markdown-konvertering. Alt kører i din browser.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Markdown-input",
+    "htmlInputLabel": "HTML-input",
+    "previewLabel": "Forhåndsvisning",
+    "htmlOutputLabel": "HTML-kilde",
+    "mdOutputLabel": "Markdown-output",
+    "inputPlaceholder": "# Hej\\n\\nSkriv din **markdown** her…",
+    "htmlInputPlaceholder": "Indsæt din HTML her…",
+    "copyHtml": "Kopiér HTML",
+    "copyMarkdown": "Kopiér Markdown",
+    "exportHtml": "Eksportér HTML",
+    "copied": "Kopieret",
+    "charCount": "{count, plural, one {# tegn} other {# tegn}}",
+    "emptyHint": "Begynd at skrive Markdown for at se live-forhåndsvisning og HTML-output.",
+    "emptyHintHtmlToMd": "Indsæt HTML for at konvertere det til Markdown.",
+    "securityNote": "Alt kører lokalt i din browser. Intet uploades."
   }
 }
