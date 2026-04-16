@@ -30,6 +30,7 @@ import {
   IconBrandVscode,
   IconQrcode,
   IconHierarchy2,
+  IconHash,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -250,6 +251,13 @@ export const sidebarData: SidebarData = {
           url: '/app/ip-subnet-calculator',
           icon: IconHierarchy2,
           description: 'IPv4 and IPv6 CIDR: netmask, host range, and address counts in your browser.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'Hash Generator',
+          url: '/app/hash-generator',
+          icon: IconHash,
+          description: 'MD5, SHA-1, SHA-256/384/512 digests for text or files in your browser.',
           hiddenOnMobile: true,
         },
 

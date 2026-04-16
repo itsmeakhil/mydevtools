@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "مقاطع الشيفرة",
     "qrCodeGenerator": "مُولّد رمز QR",
-    "ipSubnetCalculator": "حاسبة IP / الشبكة الفرعية"
+    "ipSubnetCalculator": "حاسبة IP / الشبكة الفرعية",
+    "hashGenerator": "مُولّد الهاش"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "حاسبة IP / الشبكة الفرعية",
         "description": "IPv4 وIPv6 CIDR: قناع الشبكة، النطاقات، وعدد العناوين."
+      },
+      "hashGenerator": {
+        "title": "مُولّد الهاش",
+        "description": "MD5 وSHA-1 وSHA-2 لنص أو ملفات."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "حوّل أي نص أو رابط إلى صورة PNG لرمز QR. كل المعالجة تتم محليًا في المتصفح.",
     "contentLabel": "المحتوى",
     "contentPlaceholder": "https://example.com، نص عادي، سلسلة Wi‑Fi، vCard…",
+    "styleLabel": "النمط",
+    "dotTypeLabel": "شكل النقطة",
+    "dotTypeSquare": "مربع",
+    "dotTypeDots": "نقاط",
+    "dotTypeRounded": "مدوّر",
+    "dotTypeExtraRounded": "مدوّر جداً",
+    "dotTypeClassy": "أنيق",
+    "dotTypeClassyRounded": "أنيق مدوّر",
+    "cornerSquareLabel": "مربعات الزوايا",
+    "cornerSquareDot": "نقطة",
+    "cornerSquareSquare": "مربع",
+    "cornerSquareExtraRounded": "مدوّر جداً",
+    "cornerDotLabel": "نقاط الزوايا",
+    "cornerDotDot": "نقطة",
+    "cornerDotSquare": "مربع",
     "eccLabel": "تصحيح الخطأ",
     "eccL": "منخفض (~7%)",
     "eccM": "متوسط (~15%)",
@@ -2349,7 +2369,12 @@
     "darkColor": "الوحدات الداكنة",
     "lightColor": "الوحدات الفاتحة",
     "resetColors": "إعادة تعيين الألوان",
+    "logoLabel": "شعار مركزي",
+    "logoMarginLabel": "هامش",
+    "uploadLogo": "رفع صورة",
+    "removeLogo": "إزالة الشعار",
     "downloadPng": "تنزيل PNG",
+    "downloadSvg": "تنزيل SVG",
     "copyImage": "نسخ الصورة",
     "copied": "تم النسخ",
     "clear": "مسح",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "شبكة IPv4 غير صالحة. جرّب CIDR أو عنوانًا مع قناع.",
       "invalidIpv6": "شبكة IPv6 غير صالحة. استخدم عنوان/بادئة مثل 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "مُولّد الهاش",
+    "subtitle": "ملخصات MD5 وSHA-1 وSHA-2 للنص أو الملفات؛ bcrypt لكلمات المرور (إدخال نصي). كل شيء محليًا في المتصفح.",
+    "algorithmLabel": "الخوارزمية",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "نص",
+    "modeFile": "ملف",
+    "inputLabelText": "المدخلات",
+    "placeholderText": "اكتب أو الصق النص…",
+    "chooseFile": "اختر ملفًا",
+    "clearFile": "مسح",
+    "fileHint": "تُقرأ الملفات في الذاكرة فقط؛ الحد الأقصى {maxMb} ميغابايت لكل ملف. لا يتم الرفع.",
+    "outputLabel": "المختزلة (سِداسي عشري)",
+    "copyHash": "نسخ المختزلة",
+    "copied": "تم النسخ",
+    "byteCount": "{count, plural, zero {# بايت} one {# بايت} two {# بايتان} few {# بايتات} many {# بايتًا} other {# بايت}}",
+    "charCount": "{count, plural, zero {# حرف} one {# حرف} two {# حرفان} few {# أحرف} many {# حرفًا} other {# حرف}}",
+    "emptyHint": "أدخل نصًا أو اختر ملفًا لحساب الهاش.",
+    "securityNote": "لا يُنصح بـ MD5 وSHA-1 لاستخدامات أمنية جديدة؛ يُفضّل SHA-256 أو SHA-512.",
+    "errors": {
+      "fileTooLarge": "الملف أكبر من {maxMb} ميغابايت.",
+      "fileReadFailed": "تعذر قراءة هذا الملف."
+    },
+    "bcryptRoundsLabel": "التكلفة (جولات)",
+    "bcryptRoundsHint": "القيم الأعلى أبطأ وأقوى ضد التخمين. القيمة الشائعة 10.",
+    "fileTabDisabledTitle": "bcrypt يجزّئ كلمات المرور من النص فقط، وليس الملفات العشوائية.",
+    "placeholderBcrypt": "اكتب أو الصق كلمة مرور للتجزئة…",
+    "outputLabelBcrypt": "تجزئة bcrypt",
+    "copyBcrypt": "نسخ التجزئة",
+    "emptyHintBcrypt": "أدخل كلمة مرور لحساب تجزئة bcrypt.",
+    "securityNoteBcrypt": "كل مخرجات bcrypt تتضمن ملحًا عشوائيًا؛ نفس كلمة المرور تعطي سلسلة مختلفة في كل مرة. هذا متوقع. استخدم تكلفة عالية في الإنتاج."
   }
 }

@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Αποσπάσματα κώδικα",
     "qrCodeGenerator": "Δημιουργός κωδικών QR",
-    "ipSubnetCalculator": "Υπολογιστής IP / υποδικτύου"
+    "ipSubnetCalculator": "Υπολογιστής IP / υποδικτύου",
+    "hashGenerator": "Γεννήτρια hash"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "Υπολογιστής IP / υποδικτύου",
         "description": "IPv4 και IPv6 CIDR: μάσκα, εύρη και πλήθος διευθύνσεων."
+      },
+      "hashGenerator": {
+        "title": "Γεννήτρια hash",
+        "description": "MD5, SHA-1 και SHA-2 για κείμενο ή αρχεία."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Μετατρέψτε οποιοδήποτε κείμενο ή URL σε PNG QR. Η απόδοση γίνεται τοπικά στον browser.",
     "contentLabel": "Περιεχόμενο",
     "contentPlaceholder": "https://example.com, απλό κείμενο, συμβολοσειρά Wi‑Fi, vCard…",
+    "styleLabel": "Στυλ",
+    "dotTypeLabel": "Σχήμα τελείας",
+    "dotTypeSquare": "Τετράγωνο",
+    "dotTypeDots": "Τελείες",
+    "dotTypeRounded": "Στρογγυλεμένο",
+    "dotTypeExtraRounded": "Έξτρα στρογγυλεμένο",
+    "dotTypeClassy": "Κομψό",
+    "dotTypeClassyRounded": "Κομψό στρογγυλεμένο",
+    "cornerSquareLabel": "Γωνιακά τετράγωνα",
+    "cornerSquareDot": "Τελεία",
+    "cornerSquareSquare": "Τετράγωνο",
+    "cornerSquareExtraRounded": "Έξτρα στρογγυλεμένο",
+    "cornerDotLabel": "Γωνιακές τελείες",
+    "cornerDotDot": "Τελεία",
+    "cornerDotSquare": "Τετράγωνο",
     "eccLabel": "Διόρθωση σφαλμάτων",
     "eccL": "Χαμηλή (~7%)",
     "eccM": "Μέτρια (~15%)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Σκούρες ενότητες",
     "lightColor": "Ανοιχτές ενότητες",
     "resetColors": "Επαναφορά χρωμάτων",
+    "logoLabel": "Κεντρικό λογότυπο",
+    "logoMarginLabel": "Περιθώριο",
+    "uploadLogo": "Μεταφόρτωση εικόνας",
+    "removeLogo": "Αφαίρεση λογοτύπου",
     "downloadPng": "Λήψη PNG",
+    "downloadSvg": "Λήψη SVG",
     "copyImage": "Αντιγραφή εικόνας",
     "copied": "Αντιγράφηκε",
     "clear": "Εκκαθάριση",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Μη έγκυρο IPv4 δίκτυο. Δοκιμάστε CIDR ή διεύθυνση + μάσκα.",
       "invalidIpv6": "Μη έγκυρο IPv6 δίκτυο. Χρησιμοποιήστε διεύθυνση/πρόθεμα, π.χ. 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Γεννήτρια hash",
+    "subtitle": "Αποσπάσματα MD5, SHA-1 και SHA-2 για κείμενο ή αρχεία· bcrypt για κωδικούς (εισαγωγή κειμένου). Όλα τοπικά στον περιηγητή.",
+    "algorithmLabel": "Αλγόριθμος",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Κείμενο",
+    "modeFile": "Αρχείο",
+    "inputLabelText": "Είσοδος",
+    "placeholderText": "Πληκτρολογήστε ή επικολλήστε κείμενο…",
+    "chooseFile": "Επιλογή αρχείου",
+    "clearFile": "Εκκαθάριση",
+    "fileHint": "Τα αρχεία διαβάζονται μόνο στη μνήμη· μέγ. {maxMb} MB. Χωρίς μεταφόρτωση.",
+    "outputLabel": "Digest (hex)",
+    "copyHash": "Αντιγραφή digest",
+    "copied": "Αντιγράφηκε",
+    "byteCount": "{count, plural, one {# byte} other {# bytes}}",
+    "charCount": "{count, plural, one {# χαρακτήρας} other {# χαρακτήρες}}",
+    "emptyHint": "Εισάγετε κείμενο ή επιλέξτε αρχείο.",
+    "securityNote": "Τα MD5 και SHA-1 δεν συνιστώνται για νέες εφαρμογές ασφαλείας· προτιμήστε SHA-256 ή SHA-512.",
+    "errors": {
+      "fileTooLarge": "Το αρχείο είναι μεγαλύτερο από {maxMb} MB.",
+      "fileReadFailed": "Αποτυχία ανάγνωσης αρχείου."
+    },
+    "bcryptRoundsLabel": "Κόστος (γύροι)",
+    "bcryptRoundsHint": "Υψηλότερες τιμές είναι πιο αργές και πιο ανθεκτικές. Συνήθης προεπιλογή 10.",
+    "fileTabDisabledTitle": "Το bcrypt κατακερματίζει μόνο κωδικούς από κείμενο, όχι αυθαίρετα αρχεία.",
+    "placeholderBcrypt": "Πληκτρολογήστε ή επικολλήστε κωδικό για κατακερματισμό…",
+    "outputLabelBcrypt": "Κατακερματισμός bcrypt",
+    "copyBcrypt": "Αντιγραφή κατακερματισμού",
+    "emptyHintBcrypt": "Εισάγετε κωδικό για υπολογισμό bcrypt.",
+    "securityNoteBcrypt": "Κάθε έξοδος bcrypt περιλαμβάνει τυχαίο αλάτι· ο ίδιος κωδικός δίνει διαφορετική συμβολοσειρά κάθε φορά. Αυτό αναμένεται. Χρησιμοποιήστε υψηλό κόστος σε παραγωγή."
   }
 }

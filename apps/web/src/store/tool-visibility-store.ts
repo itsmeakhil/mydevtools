@@ -24,6 +24,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/uuid-generator',
   '/app/qr-code-generator',
   '/app/ip-subnet-calculator',
+  '/app/hash-generator',
   '/app/lorem-ipsum',
   '/app/color-picker',
 ];

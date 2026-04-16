@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "コードスニペット",
     "qrCodeGenerator": "QRコード生成",
-    "ipSubnetCalculator": "IP／サブネット計算"
+    "ipSubnetCalculator": "IP／サブネット計算",
+    "hashGenerator": "ハッシュ生成"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "IP／サブネット計算",
         "description": "IPv4／IPv6 CIDR：ネットマスク、範囲、件数。"
+      },
+      "hashGenerator": {
+        "title": "ハッシュ生成",
+        "description": "テキストやファイルの MD5、SHA-1、SHA-2。"
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "テキストやURLをPNGのQRコードに変換します。描画はすべてブラウザ内で行われます。",
     "contentLabel": "内容",
     "contentPlaceholder": "https://example.com、プレーンテキスト、Wi‑Fi文字列、vCard…",
+    "styleLabel": "スタイル",
+    "dotTypeLabel": "ドットの形",
+    "dotTypeSquare": "四角",
+    "dotTypeDots": "ドット",
+    "dotTypeRounded": "角丸",
+    "dotTypeExtraRounded": "超角丸",
+    "dotTypeClassy": "クラシー",
+    "dotTypeClassyRounded": "クラシー角丸",
+    "cornerSquareLabel": "コーナー四角",
+    "cornerSquareDot": "ドット",
+    "cornerSquareSquare": "四角",
+    "cornerSquareExtraRounded": "超角丸",
+    "cornerDotLabel": "コーナードット",
+    "cornerDotDot": "ドット",
+    "cornerDotSquare": "四角",
     "eccLabel": "誤り訂正",
     "eccL": "低 (~7%)",
     "eccM": "中 (~15%)",
@@ -2349,7 +2369,12 @@
     "darkColor": "暗いモジュール",
     "lightColor": "明るいモジュール",
     "resetColors": "色をリセット",
+    "logoLabel": "中央ロゴ",
+    "logoMarginLabel": "余白",
+    "uploadLogo": "画像をアップロード",
+    "removeLogo": "ロゴを削除",
     "downloadPng": "PNGをダウンロード",
+    "downloadSvg": "SVGをダウンロード",
     "copyImage": "画像をコピー",
     "copied": "コピーしました",
     "clear": "クリア",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "IPv4 が無効です。CIDR または アドレス＋マスクを試してください。",
       "invalidIpv6": "IPv6 が無効です。例: 2001:db8::/48 の形式で入力。"
     }
+  },
+  "HashGenerator": {
+    "title": "ハッシュ生成",
+    "subtitle": "テキストまたはファイル向けの MD5・SHA-1・SHA-2 ダイジェスト、パスワード向けの bcrypt（テキスト入力）。すべてブラウザ内でローカル計算されます。",
+    "algorithmLabel": "アルゴリズム",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "テキスト",
+    "modeFile": "ファイル",
+    "inputLabelText": "入力",
+    "placeholderText": "テキストを入力または貼り付け…",
+    "chooseFile": "ファイルを選択",
+    "clearFile": "クリア",
+    "fileHint": "ファイルはメモリ上のみ読み込み、最大 {maxMb} MB。アップロードしません。",
+    "outputLabel": "ダイジェスト（hex）",
+    "copyHash": "ダイジェストをコピー",
+    "copied": "コピーしました",
+    "byteCount": "{count, plural, other {# バイト}}",
+    "charCount": "{count, plural, other {# 文字}}",
+    "emptyHint": "テキストを入力するかファイルを選んでください。",
+    "securityNote": "新規のセキュリティ用途には MD5 と SHA-1 は非推奨です。SHA-256 または SHA-512 を推奨。",
+    "errors": {
+      "fileTooLarge": "ファイルが {maxMb} MB を超えています。",
+      "fileReadFailed": "ファイルを読めませんでした。"
+    },
+    "bcryptRoundsLabel": "コスト（ラウンド）",
+    "bcryptRoundsHint": "値が大きいほど遅くなりブルートフォースに強くなります。一般的な既定は 10 です。",
+    "fileTabDisabledTitle": "bcrypt はテキストのパスワードのみをハッシュし、任意のファイルは扱いません。",
+    "placeholderBcrypt": "ハッシュするパスワードを入力または貼り付け…",
+    "outputLabelBcrypt": "bcrypt ハッシュ",
+    "copyBcrypt": "ハッシュをコピー",
+    "emptyHintBcrypt": "bcrypt ハッシュを計算するにはパスワードを入力してください。",
+    "securityNoteBcrypt": "bcrypt の出力には毎回ランダムなソルトが含まれます。同じパスワードでも毎回異なる文字列になります。本番では十分なコストを設定してください。"
   }
 }

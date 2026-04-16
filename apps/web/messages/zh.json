@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "代码片段",
     "qrCodeGenerator": "二维码生成器",
-    "ipSubnetCalculator": "IP / 子网计算器"
+    "ipSubnetCalculator": "IP / 子网计算器",
+    "hashGenerator": "哈希生成器"
   },
   "Help": {
     "title": "帮助与文档",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "IP / 子网计算器",
         "description": "IPv4 与 IPv6 CIDR：掩码、范围与地址数量。"
+      },
+      "hashGenerator": {
+        "title": "哈希生成器",
+        "description": "文本或文件的 MD5、SHA-1、SHA-2。"
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "将任意文本或 URL 转为 PNG 二维码。全部在浏览器本地渲染。",
     "contentLabel": "内容",
     "contentPlaceholder": "https://example.com、纯文本、Wi‑Fi 字符串、vCard…",
+    "styleLabel": "样式",
+    "dotTypeLabel": "点形状",
+    "dotTypeSquare": "方形",
+    "dotTypeDots": "圆点",
+    "dotTypeRounded": "圆角",
+    "dotTypeExtraRounded": "超圆角",
+    "dotTypeClassy": "经典",
+    "dotTypeClassyRounded": "经典圆角",
+    "cornerSquareLabel": "角落方块",
+    "cornerSquareDot": "圆点",
+    "cornerSquareSquare": "方形",
+    "cornerSquareExtraRounded": "超圆角",
+    "cornerDotLabel": "角落圆点",
+    "cornerDotDot": "圆点",
+    "cornerDotSquare": "方形",
     "eccLabel": "纠错级别",
     "eccL": "低（约 7%）",
     "eccM": "中（约 15%）",
@@ -2349,7 +2369,12 @@
     "darkColor": "深色模块",
     "lightColor": "浅色模块",
     "resetColors": "重置颜色",
+    "logoLabel": "中心徽标",
+    "logoMarginLabel": "边距",
+    "uploadLogo": "上传图片",
+    "removeLogo": "删除徽标",
     "downloadPng": "下载 PNG",
+    "downloadSvg": "下载 SVG",
     "copyImage": "复制图片",
     "copied": "已复制",
     "clear": "清空",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "无效的 IPv4 网络。请使用 CIDR 或地址+掩码。",
       "invalidIpv6": "无效的 IPv6 网络。请使用 地址/前缀，例如 2001:db8::/48。"
     }
+  },
+  "HashGenerator": {
+    "title": "哈希生成器",
+    "subtitle": "适用于文本或文件的 MD5、SHA-1、SHA-2 摘要；适用于密码的 bcrypt（文本输入）。全部在浏览器本地计算。",
+    "algorithmLabel": "算法",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "文本",
+    "modeFile": "文件",
+    "inputLabelText": "输入",
+    "placeholderText": "输入或粘贴要哈希的文本…",
+    "chooseFile": "选择文件",
+    "clearFile": "清除",
+    "fileHint": "仅在本机内存中读取文件；最大 {maxMb} MB。不会上传。",
+    "outputLabel": "摘要（十六进制）",
+    "copyHash": "复制摘要",
+    "copied": "已复制",
+    "byteCount": "{count, plural, other {# 字节}}",
+    "charCount": "{count, plural, other {# 个字符}}",
+    "emptyHint": "输入文本或选择文件以计算哈希。",
+    "securityNote": "新的安全场景不建议使用 MD5 与 SHA-1；请优先使用 SHA-256 或 SHA-512。",
+    "errors": {
+      "fileTooLarge": "文件超过 {maxMb} MB。",
+      "fileReadFailed": "无法读取该文件。"
+    },
+    "bcryptRoundsLabel": "成本（轮数）",
+    "bcryptRoundsHint": "数值越高越慢，也更抗暴力破解。常见默认值为 10。",
+    "fileTabDisabledTitle": "bcrypt 仅对文本中的密码进行哈希，不处理任意文件。",
+    "placeholderBcrypt": "输入或粘贴要哈希的密码…",
+    "outputLabelBcrypt": "bcrypt 哈希",
+    "copyBcrypt": "复制哈希",
+    "emptyHintBcrypt": "输入密码以计算 bcrypt 哈希。",
+    "securityNoteBcrypt": "每次 bcrypt 输出都包含随机盐；同一密码每次会得到不同字符串，这是预期行为。生产环境请使用足够高的成本。"
   }
 }

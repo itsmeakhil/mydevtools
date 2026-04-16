@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Trechos de código",
     "qrCodeGenerator": "Gerador de QR Code",
-    "ipSubnetCalculator": "Calculadora IP / sub-rede"
+    "ipSubnetCalculator": "Calculadora IP / sub-rede",
+    "hashGenerator": "Gerador de hash"
   },
   "Help": {
     "title": "Ajuda e documentação",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "Calculadora IP / sub-rede",
         "description": "IPv4 e IPv6 CIDR: máscara, intervalos e contagem de endereços."
+      },
+      "hashGenerator": {
+        "title": "Gerador de hash",
+        "description": "MD5, SHA-1 e SHA-2 para texto ou arquivos."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Transforme qualquer texto ou URL em um QR Code PNG. Tudo é renderizado localmente no navegador.",
     "contentLabel": "Conteúdo",
     "contentPlaceholder": "https://exemplo.com.br, texto simples, string Wi‑Fi, vCard…",
+    "styleLabel": "Estilo",
+    "dotTypeLabel": "Forma do ponto",
+    "dotTypeSquare": "Quadrado",
+    "dotTypeDots": "Pontos",
+    "dotTypeRounded": "Arredondado",
+    "dotTypeExtraRounded": "Extra arredondado",
+    "dotTypeClassy": "Elegante",
+    "dotTypeClassyRounded": "Elegante arredondado",
+    "cornerSquareLabel": "Quadrados de canto",
+    "cornerSquareDot": "Ponto",
+    "cornerSquareSquare": "Quadrado",
+    "cornerSquareExtraRounded": "Extra arredondado",
+    "cornerDotLabel": "Pontos de canto",
+    "cornerDotDot": "Ponto",
+    "cornerDotSquare": "Quadrado",
     "eccLabel": "Correção de erro",
     "eccL": "Baixa (~7%)",
     "eccM": "Média (~15%)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Módulos escuros",
     "lightColor": "Módulos claros",
     "resetColors": "Redefinir cores",
+    "logoLabel": "Logo central",
+    "logoMarginLabel": "Margem",
+    "uploadLogo": "Enviar imagem",
+    "removeLogo": "Remover logo",
     "downloadPng": "Baixar PNG",
+    "downloadSvg": "Baixar SVG",
     "copyImage": "Copiar imagem",
     "copied": "Copiado",
     "clear": "Limpar",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Rede IPv4 inválida. Tente CIDR ou endereço + máscara.",
       "invalidIpv6": "Rede IPv6 inválida. Use endereço/prefixo, ex.: 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Gerador de hash",
+    "subtitle": "Resumos MD5, SHA-1 e SHA-2 para texto ou arquivos; bcrypt para senhas (entrada de texto). Tudo é calculado localmente no navegador.",
+    "algorithmLabel": "Algoritmo",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Texto",
+    "modeFile": "Arquivo",
+    "inputLabelText": "Entrada",
+    "placeholderText": "Digite ou cole o texto…",
+    "chooseFile": "Escolher arquivo",
+    "clearFile": "Limpar",
+    "fileHint": "Os arquivos são lidos só na memória; máx. {maxMb} MB. Sem upload.",
+    "outputLabel": "Digest (hex)",
+    "copyHash": "Copiar digest",
+    "copied": "Copiado",
+    "byteCount": "{count, plural, one {# byte} other {# bytes}}",
+    "charCount": "{count, plural, one {# caractere} other {# caracteres}}",
+    "emptyHint": "Digite texto ou escolha um arquivo.",
+    "securityNote": "MD5 e SHA-1 não são recomendados para novos usos de segurança; prefira SHA-256 ou SHA-512.",
+    "errors": {
+      "fileTooLarge": "Arquivo maior que {maxMb} MB.",
+      "fileReadFailed": "Não foi possível ler o arquivo."
+    },
+    "bcryptRoundsLabel": "Custo (rodadas)",
+    "bcryptRoundsHint": "Valores maiores são mais lentos e mais resistentes à força bruta. O padrão comum é 10.",
+    "fileTabDisabledTitle": "O bcrypt só resume senhas a partir de texto, não arquivos arbitrários.",
+    "placeholderBcrypt": "Digite ou cole uma senha para resumir…",
+    "outputLabelBcrypt": "Hash bcrypt",
+    "copyBcrypt": "Copiar hash",
+    "emptyHintBcrypt": "Digite uma senha para calcular o hash bcrypt.",
+    "securityNoteBcrypt": "Cada saída bcrypt inclui sal aleatório; a mesma senha produz uma string diferente a cada vez. É esperado. Use custo alto em produção."
   }
 }

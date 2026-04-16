@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Kod parçacıkları",
     "qrCodeGenerator": "QR kod oluşturucu",
-    "ipSubnetCalculator": "IP / alt ağ hesaplayıcı"
+    "ipSubnetCalculator": "IP / alt ağ hesaplayıcı",
+    "hashGenerator": "Hash oluşturucu"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "IP / alt ağ hesaplayıcı",
         "description": "IPv4 ve IPv6 CIDR: maske, aralıklar ve adres sayısı."
+      },
+      "hashGenerator": {
+        "title": "Hash oluşturucu",
+        "description": "Metin veya dosyalar için MD5, SHA-1 ve SHA-2."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Herhangi bir metni veya URL’yi PNG QR koda dönüştürün. İşlem tamamen tarayıcıda yerel olarak yapılır.",
     "contentLabel": "İçerik",
     "contentPlaceholder": "https://ornek.com, düz metin, Wi‑Fi dizesi, vCard…",
+    "styleLabel": "Stil",
+    "dotTypeLabel": "Nokta şekli",
+    "dotTypeSquare": "Kare",
+    "dotTypeDots": "Noktalar",
+    "dotTypeRounded": "Yuvarlatılmış",
+    "dotTypeExtraRounded": "Ekstra yuvarlatılmış",
+    "dotTypeClassy": "Zarif",
+    "dotTypeClassyRounded": "Zarif yuvarlatılmış",
+    "cornerSquareLabel": "Köşe kareleri",
+    "cornerSquareDot": "Nokta",
+    "cornerSquareSquare": "Kare",
+    "cornerSquareExtraRounded": "Ekstra yuvarlatılmış",
+    "cornerDotLabel": "Köşe noktaları",
+    "cornerDotDot": "Nokta",
+    "cornerDotSquare": "Kare",
     "eccLabel": "Hata düzeltme",
     "eccL": "Düşük (~%7)",
     "eccM": "Orta (~%15)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Koyu modüller",
     "lightColor": "Açık modüller",
     "resetColors": "Renkleri sıfırla",
+    "logoLabel": "Orta logo",
+    "logoMarginLabel": "Boşluk",
+    "uploadLogo": "Resim yükle",
+    "removeLogo": "Logoyu kaldır",
     "downloadPng": "PNG indir",
+    "downloadSvg": "SVG indir",
     "copyImage": "Görüntüyü kopyala",
     "copied": "Kopyalandı",
     "clear": "Temizle",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Geçersiz IPv4 ağı. CIDR veya adres + maske deneyin.",
       "invalidIpv6": "Geçersiz IPv6 ağı. Örn. 2001:db8::/48 biçimini kullanın."
     }
+  },
+  "HashGenerator": {
+    "title": "Hash oluşturucu",
+    "subtitle": "Metin veya dosyalar için MD5, SHA-1 ve SHA-2 özetleri; parolalar için bcrypt (metin girişi). Tümü tarayıcıda yerel olarak hesaplanır.",
+    "algorithmLabel": "Algoritma",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Metin",
+    "modeFile": "Dosya",
+    "inputLabelText": "Girdi",
+    "placeholderText": "Metin yazın veya yapıştırın…",
+    "chooseFile": "Dosya seç",
+    "clearFile": "Temizle",
+    "fileHint": "Dosyalar yalnızca bellekte okunur; en fazla {maxMb} MB. Yükleme yok.",
+    "outputLabel": "Özet (hex)",
+    "copyHash": "Özeti kopyala",
+    "copied": "Kopyalandı",
+    "byteCount": "{count, plural, one {# bayt} other {# bayt}}",
+    "charCount": "{count, plural, one {# karakter} other {# karakter}}",
+    "emptyHint": "Metin girin veya dosya seçin.",
+    "securityNote": "Yeni güvenlik kullanımları için MD5 ve SHA-1 önerilmez; SHA-256 veya SHA-512 kullanın.",
+    "errors": {
+      "fileTooLarge": "Dosya {maxMb} MB’den büyük.",
+      "fileReadFailed": "Dosya okunamadı."
+    },
+    "bcryptRoundsLabel": "Maliyet (tur)",
+    "bcryptRoundsHint": "Daha yüksek değerler daha yavaş ve kaba kuvvete daha dayanıklıdır. Yaygın varsayılan 10’dur.",
+    "fileTabDisabledTitle": "bcrypt yalnızca metinden parolaları özetler; rastgele dosyaları değil.",
+    "placeholderBcrypt": "Özetlemek için parola yazın veya yapıştırın…",
+    "outputLabelBcrypt": "bcrypt özeti",
+    "copyBcrypt": "Özeti kopyala",
+    "emptyHintBcrypt": "bcrypt özeti hesaplamak için parola girin.",
+    "securityNoteBcrypt": "Her bcrypt çıktısı rastgele tuz içerir; aynı parola her seferinde farklı bir dize üretir. Bu beklenendir. Üretimde yüksek maliyet kullanın."
   }
 }

@@ -40,6 +40,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'uuid-generator',
         'qr-code-generator',
         'ip-subnet-calculator',
+        'hash-generator',
         'lorem-ipsum',
         'color-picker',
         'jwt-decoder',

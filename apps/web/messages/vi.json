@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Đoạn mã",
     "qrCodeGenerator": "Trình tạo mã QR",
-    "ipSubnetCalculator": "Máy tính IP / mạng con"
+    "ipSubnetCalculator": "Máy tính IP / mạng con",
+    "hashGenerator": "Trình tạo hash"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "Máy tính IP / mạng con",
         "description": "IPv4 và IPv6 CIDR: mặt nạ, dải và số địa chỉ."
+      },
+      "hashGenerator": {
+        "title": "Trình tạo hash",
+        "description": "MD5, SHA-1 và SHA-2 cho văn bản hoặc tệp."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Chuyển mọi văn bản hoặc URL thành mã QR PNG. Mọi thứ được kết xuất cục bộ trong trình duyệt.",
     "contentLabel": "Nội dung",
     "contentPlaceholder": "https://example.com, văn bản thuần, chuỗi Wi‑Fi, vCard…",
+    "styleLabel": "Kiểu",
+    "dotTypeLabel": "Hình dạng chấm",
+    "dotTypeSquare": "Vuông",
+    "dotTypeDots": "Chấm tròn",
+    "dotTypeRounded": "Bo tròn",
+    "dotTypeExtraRounded": "Bo tròn nhiều",
+    "dotTypeClassy": "Thanh lịch",
+    "dotTypeClassyRounded": "Thanh lịch bo tròn",
+    "cornerSquareLabel": "Ô vuông góc",
+    "cornerSquareDot": "Chấm",
+    "cornerSquareSquare": "Vuông",
+    "cornerSquareExtraRounded": "Bo tròn nhiều",
+    "cornerDotLabel": "Chấm góc",
+    "cornerDotDot": "Chấm",
+    "cornerDotSquare": "Vuông",
     "eccLabel": "Sửa lỗi",
     "eccL": "Thấp (~7%)",
     "eccM": "Trung bình (~15%)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Module tối",
     "lightColor": "Module sáng",
     "resetColors": "Đặt lại màu",
+    "logoLabel": "Logo trung tâm",
+    "logoMarginLabel": "Lề",
+    "uploadLogo": "Tải ảnh lên",
+    "removeLogo": "Xóa logo",
     "downloadPng": "Tải PNG",
+    "downloadSvg": "Tải SVG",
     "copyImage": "Sao chép ảnh",
     "copied": "Đã sao chép",
     "clear": "Xóa",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Mạng IPv4 không hợp lệ. Thử CIDR hoặc địa chỉ + mặt nạ.",
       "invalidIpv6": "Mạng IPv6 không hợp lệ. Dùng địa chỉ/tiền tố, vd. 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Trình tạo hash",
+    "subtitle": "Bản tóm lược MD5, SHA-1 và SHA-2 cho văn bản hoặc tệp; bcrypt cho mật khẩu (nhập văn bản). Tất cả chạy cục bộ trong trình duyệt.",
+    "algorithmLabel": "Thuật toán",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Văn bản",
+    "modeFile": "Tệp",
+    "inputLabelText": "Đầu vào",
+    "placeholderText": "Nhập hoặc dán văn bản…",
+    "chooseFile": "Chọn tệp",
+    "clearFile": "Xóa",
+    "fileHint": "Chỉ đọc tệp trong bộ nhớ; tối đa {maxMb} MB. Không tải lên.",
+    "outputLabel": "Bản tóm tắt (hex)",
+    "copyHash": "Sao chép bản tóm tắt",
+    "copied": "Đã sao chép",
+    "byteCount": "{count, plural, other {# byte}}",
+    "charCount": "{count, plural, other {# ký tự}}",
+    "emptyHint": "Nhập văn bản hoặc chọn tệp.",
+    "securityNote": "MD5 và SHA-1 không khuyến nghị cho mục đích bảo mật mới; dùng SHA-256 hoặc SHA-512.",
+    "errors": {
+      "fileTooLarge": "Tệp lớn hơn {maxMb} MB.",
+      "fileReadFailed": "Không đọc được tệp."
+    },
+    "bcryptRoundsLabel": "Chi phí (vòng)",
+    "bcryptRoundsHint": "Giá trị cao hơn chậm hơn và chống brute-force tốt hơn. Mặc định thường là 10.",
+    "fileTabDisabledTitle": "bcrypt chỉ băm mật khẩu từ văn bản, không phải tệp tùy ý.",
+    "placeholderBcrypt": "Nhập hoặc dán mật khẩu để băm…",
+    "outputLabelBcrypt": "Băm bcrypt",
+    "copyBcrypt": "Sao chép băm",
+    "emptyHintBcrypt": "Nhập mật khẩu để tính băm bcrypt.",
+    "securityNoteBcrypt": "Mỗi đầu ra bcrypt có muối ngẫu nhiên; cùng mật khẩu cho chuỗi khác nhau mỗi lần. Điều này là bình thường. Dùng chi phí cao trong môi trường production."
   }
 }

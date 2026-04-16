@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Фрагменти коду",
     "qrCodeGenerator": "Генератор QR-кодів",
-    "ipSubnetCalculator": "Калькулятор IP / підмережі"
+    "ipSubnetCalculator": "Калькулятор IP / підмережі",
+    "hashGenerator": "Генератор хешів"
   },
   "Help": {
     "title": "Довідка та документація",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "Калькулятор IP / підмережі",
         "description": "IPv4 та IPv6 CIDR: маска, діапазони й кількість адрес."
+      },
+      "hashGenerator": {
+        "title": "Генератор хешів",
+        "description": "MD5, SHA-1 і SHA-2 для тексту або файлів."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Перетворіть будь-який текст або URL на PNG QR-код. Усе обробляється локально в браузері.",
     "contentLabel": "Вміст",
     "contentPlaceholder": "https://example.com, звичайний текст, рядок Wi‑Fi, vCard…",
+    "styleLabel": "Стиль",
+    "dotTypeLabel": "Форма точок",
+    "dotTypeSquare": "Квадрат",
+    "dotTypeDots": "Точки",
+    "dotTypeRounded": "Округлені",
+    "dotTypeExtraRounded": "Максимально округлені",
+    "dotTypeClassy": "Елегантні",
+    "dotTypeClassyRounded": "Елегантні округлені",
+    "cornerSquareLabel": "Кутові квадрати",
+    "cornerSquareDot": "Точка",
+    "cornerSquareSquare": "Квадрат",
+    "cornerSquareExtraRounded": "Максимально округлені",
+    "cornerDotLabel": "Кутові точки",
+    "cornerDotDot": "Точка",
+    "cornerDotSquare": "Квадрат",
     "eccLabel": "Корекція помилок",
     "eccL": "Низька (~7%)",
     "eccM": "Середня (~15%)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Темні модулі",
     "lightColor": "Світлі модулі",
     "resetColors": "Скинути кольори",
+    "logoLabel": "Логотип по центру",
+    "logoMarginLabel": "Відступ",
+    "uploadLogo": "Завантажити зображення",
+    "removeLogo": "Видалити логотип",
     "downloadPng": "Завантажити PNG",
+    "downloadSvg": "Завантажити SVG",
     "copyImage": "Копіювати зображення",
     "copied": "Скопійовано",
     "clear": "Очистити",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Некоректна мережа IPv4. Спробуйте CIDR або адресу + маску.",
       "invalidIpv6": "Некоректна мережа IPv6. Використайте адресу/префікс, напр. 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Генератор хешів",
+    "subtitle": "Контрольні суми MD5, SHA-1 і SHA-2 для тексту або файлів; bcrypt для паролів (текстовий ввід). Усе локально в браузері.",
+    "algorithmLabel": "Алгоритм",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Текст",
+    "modeFile": "Файл",
+    "inputLabelText": "Ввод",
+    "placeholderText": "Введіть або вставте текст…",
+    "chooseFile": "Вибрати файл",
+    "clearFile": "Очистити",
+    "fileHint": "Файли читаються лише в пам’яті; макс. {maxMb} МБ. Без завантаження на сервер.",
+    "outputLabel": "Дайджест (hex)",
+    "copyHash": "Копіювати дайджест",
+    "copied": "Скопійовано",
+    "byteCount": "{count, plural, one {# байт} few {# байти} many {# байтів} other {# байта}}",
+    "charCount": "{count, plural, one {# символ} few {# символи} many {# символів} other {# символа}}",
+    "emptyHint": "Введіть текст або виберіть файл.",
+    "securityNote": "Для нових задач безпеки MD5 і SHA-1 не рекомендуються; використовуйте SHA-256 або SHA-512.",
+    "errors": {
+      "fileTooLarge": "Файл більший за {maxMb} МБ.",
+      "fileReadFailed": "Не вдалося прочитати файл."
+    },
+    "bcryptRoundsLabel": "Вартість (раунди)",
+    "bcryptRoundsHint": "Більше значення — повільніше й стійкіше до перебору. Зазвичай за замовчуванням 10.",
+    "fileTabDisabledTitle": "bcrypt хешує лише паролі з тексту, а не довільні файли.",
+    "placeholderBcrypt": "Введіть або вставте пароль для хешування…",
+    "outputLabelBcrypt": "Хеш bcrypt",
+    "copyBcrypt": "Копіювати хеш",
+    "emptyHintBcrypt": "Введіть пароль для обчислення bcrypt-хеша.",
+    "securityNoteBcrypt": "Кожен вихід bcrypt містить випадкову сіль; той самий пароль дає різний рядок щоразу. Це очікувано. У продакшені використовуйте високу вартість."
   }
 }

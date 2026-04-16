@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Kodutdrag",
     "qrCodeGenerator": "QR-kodgenerator",
-    "ipSubnetCalculator": "IP-/subnetkalkylator"
+    "ipSubnetCalculator": "IP-/subnetkalkylator",
+    "hashGenerator": "Hash-generator"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "IP-/subnetkalkylator",
         "description": "IPv4 och IPv6 CIDR: nätmask, intervall och adressantal."
+      },
+      "hashGenerator": {
+        "title": "Hash-generator",
+        "description": "MD5, SHA-1 och SHA-2 för text eller filer."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Gör valfri text eller URL till en PNG QR-kod. Allt renderas lokalt i webbläsaren.",
     "contentLabel": "Innehåll",
     "contentPlaceholder": "https://example.com, vanlig text, Wi‑Fi-sträng, vCard…",
+    "styleLabel": "Stil",
+    "dotTypeLabel": "Punktform",
+    "dotTypeSquare": "Kvadrat",
+    "dotTypeDots": "Punkter",
+    "dotTypeRounded": "Avrundad",
+    "dotTypeExtraRounded": "Extra avrundad",
+    "dotTypeClassy": "Elegant",
+    "dotTypeClassyRounded": "Elegant avrundad",
+    "cornerSquareLabel": "Hörn kvadrater",
+    "cornerSquareDot": "Punkt",
+    "cornerSquareSquare": "Kvadrat",
+    "cornerSquareExtraRounded": "Extra avrundad",
+    "cornerDotLabel": "Hörn punkter",
+    "cornerDotDot": "Punkt",
+    "cornerDotSquare": "Kvadrat",
     "eccLabel": "Felkorrigering",
     "eccL": "Låg (~7%)",
     "eccM": "Medel (~15%)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Mörka moduler",
     "lightColor": "Ljusa moduler",
     "resetColors": "Återställ färger",
+    "logoLabel": "Centralt logo",
+    "logoMarginLabel": "Marginal",
+    "uploadLogo": "Ladda upp bild",
+    "removeLogo": "Ta bort logo",
     "downloadPng": "Ladda ner PNG",
+    "downloadSvg": "Ladda ner SVG",
     "copyImage": "Kopiera bild",
     "copied": "Kopierat",
     "clear": "Rensa",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Ogiltigt IPv4-nätverk. Prova CIDR eller adress + mask.",
       "invalidIpv6": "Ogiltigt IPv6-nätverk. Använd adress/prefix, t.ex. 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Hash-generator",
+    "subtitle": "MD5-, SHA-1- och SHA-2-summor för text eller filer; bcrypt för lösenord (textinmatning). Allt körs lokalt i webbläsaren.",
+    "algorithmLabel": "Algoritm",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Text",
+    "modeFile": "Fil",
+    "inputLabelText": "Indata",
+    "placeholderText": "Skriv eller klistra in text…",
+    "chooseFile": "Välj fil",
+    "clearFile": "Rensa",
+    "fileHint": "Filer läses bara i minnet; max {maxMb} MB. Ingen uppladdning.",
+    "outputLabel": "Digest (hex)",
+    "copyHash": "Kopiera digest",
+    "copied": "Kopierat",
+    "byteCount": "{count, plural, one {# byte} other {# byte}}",
+    "charCount": "{count, plural, one {# tecken} other {# tecken}}",
+    "emptyHint": "Ange text eller välj en fil.",
+    "securityNote": "MD5 och SHA-1 rekommenderas inte för nya säkerhetsanvändningar; använd SHA-256 eller SHA-512.",
+    "errors": {
+      "fileTooLarge": "Filen är större än {maxMb} MB.",
+      "fileReadFailed": "Kunde inte läsa filen."
+    },
+    "bcryptRoundsLabel": "Kostnad (varv)",
+    "bcryptRoundsHint": "Högre värden är långsammare och mer motståndskraftiga. Vanlig standard är 10.",
+    "fileTabDisabledTitle": "bcrypt hashar bara lösenord från text, inte godtyckliga filer.",
+    "placeholderBcrypt": "Skriv eller klistra in ett lösenord…",
+    "outputLabelBcrypt": "bcrypt-hash",
+    "copyBcrypt": "Kopiera hash",
+    "emptyHintBcrypt": "Ange ett lösenord för att beräkna bcrypt-hash.",
+    "securityNoteBcrypt": "Varje bcrypt-utdata innehåller ett slumpmässigt salt; samma lösenord ger en ny sträng varje gång. Det förväntas. Använd hög kostnad i produktion."
   }
 }

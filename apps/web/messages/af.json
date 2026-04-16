@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Kodesnippette",
     "qrCodeGenerator": "QR-kodegenerator",
-    "ipSubnetCalculator": "IP-/subnetrekenaar"
+    "ipSubnetCalculator": "IP-/subnetrekenaar",
+    "hashGenerator": "Hash-generator"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "IP-/subnetrekenaar",
         "description": "IPv4 en IPv6 CIDR: netmasker, reekse en adresse."
+      },
+      "hashGenerator": {
+        "title": "Hash-generator",
+        "description": "MD5, SHA-1 en SHA-2 vir teks of lêers."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Maak enige teks of URL 'n PNG QR-kode. Alles word plaaslik in jou blaaier weergegee.",
     "contentLabel": "Inhoud",
     "contentPlaceholder": "https://voorbeeld.com, plat teks, Wi‑Fi-string, vCard …",
+    "styleLabel": "Styl",
+    "dotTypeLabel": "Kolletjievorm",
+    "dotTypeSquare": "Vierkant",
+    "dotTypeDots": "Kolletjies",
+    "dotTypeRounded": "Gerond",
+    "dotTypeExtraRounded": "Ekstra gerond",
+    "dotTypeClassy": "Klassiek",
+    "dotTypeClassyRounded": "Klassiek gerond",
+    "cornerSquareLabel": "Hoekvierkante",
+    "cornerSquareDot": "Kolletjie",
+    "cornerSquareSquare": "Vierkant",
+    "cornerSquareExtraRounded": "Ekstra gerond",
+    "cornerDotLabel": "Hoekkolletjies",
+    "cornerDotDot": "Kolletjie",
+    "cornerDotSquare": "Vierkant",
     "eccLabel": "Foutkorreksie",
     "eccL": "Laag (~7%)",
     "eccM": "Medium (~15%)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Donker modules",
     "lightColor": "Lig modules",
     "resetColors": "Stel kleure terug",
+    "logoLabel": "Middelste logo",
+    "logoMarginLabel": "Marge",
+    "uploadLogo": "Laai prent op",
+    "removeLogo": "Verwyder logo",
     "downloadPng": "Laai PNG af",
+    "downloadSvg": "Laai SVG af",
     "copyImage": "Kopieer beeld",
     "copied": "Gekopieer",
     "clear": "Maak skoon",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Ongeldige IPv4-netwerk. Probeer CIDR (10.0.0.0/24) of adres + netmasker.",
       "invalidIpv6": "Ongeldige IPv6-netwerk. Gebruik adres/prefiks, bv. 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Hash-generator",
+    "subtitle": "MD5-, SHA-1- en SHA-2-verslae vir teks of lêers; bcrypt vir wagwoorde (teksinvoer). Alles loop plaaslik in jou blaaier.",
+    "algorithmLabel": "Algoritme",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Teks",
+    "modeFile": "Lêer",
+    "inputLabelText": "Invoer",
+    "placeholderText": "Tik of plak teks om te hash…",
+    "chooseFile": "Kies lêer",
+    "clearFile": "Vee uit",
+    "fileHint": "Lêers word net in geheue gelees; maks {maxMb} MB per lêer. Niks word opgelaai nie.",
+    "outputLabel": "Versnit (hex)",
+    "copyHash": "Kopieer versnit",
+    "copied": "Gekopieer",
+    "byteCount": "{count, plural, one {# greep} other {# grepe}}",
+    "charCount": "{count, plural, one {# karakter} other {# karakters}}",
+    "emptyHint": "Voer teks in of kies ’n lêer om die hash te sien.",
+    "securityNote": "MD5 en SHA-1 is nie meer vir nuwe veiligheidsgebruik aanbeveel nie; verkies SHA-256 of SHA-512.",
+    "errors": {
+      "fileTooLarge": "Lêer is groter as {maxMb} MB.",
+      "fileReadFailed": "Kon nie hierdie lêer lees nie."
+    },
+    "bcryptRoundsLabel": "Koste (ronde)",
+    "bcryptRoundsHint": "Hoër waardes is stadiger en sterker teen brute krag. Algemene verstek is 10.",
+    "fileTabDisabledTitle": "Bcrypt hashes slegs wagwoorde van teks, nie lukrake lêers nie.",
+    "placeholderBcrypt": "Tik of plak ’n wagwoord om te hash…",
+    "outputLabelBcrypt": "Bcrypt-hash",
+    "copyBcrypt": "Kopieer hash",
+    "emptyHintBcrypt": "Voer ’n wagwoord in om ’n bcrypt-hash te bereken.",
+    "securityNoteBcrypt": "Elke bcrypt-uitset sluit ’n lukrake sout in; dieselfde wagwoord gee elke keer ’n ander string. Dit is verwag. Gebruik sterk koste in produksie."
   }
 }

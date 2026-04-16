@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Fragments de codi",
     "qrCodeGenerator": "Generador de codis QR",
-    "ipSubnetCalculator": "Calculadora IP / subxarxa"
+    "ipSubnetCalculator": "Calculadora IP / subxarxa",
+    "hashGenerator": "Generador de hash"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "Calculadora IP / subxarxa",
         "description": "IPv4 i IPv6 CIDR: màscara, intervals i recompte d’adreces."
+      },
+      "hashGenerator": {
+        "title": "Generador de hash",
+        "description": "MD5, SHA-1 i SHA-2 per a text o fitxers."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Converteix qualsevol text o URL en un codi QR PNG. Tot es renderitza localment al navegador.",
     "contentLabel": "Contingut",
     "contentPlaceholder": "https://exemple.cat, text pla, cadena Wi‑Fi, vCard…",
+    "styleLabel": "Estil",
+    "dotTypeLabel": "Forma del punt",
+    "dotTypeSquare": "Quadrat",
+    "dotTypeDots": "Punts",
+    "dotTypeRounded": "Arrodonit",
+    "dotTypeExtraRounded": "Extra arrodonit",
+    "dotTypeClassy": "Elegant",
+    "dotTypeClassyRounded": "Elegant arrodonit",
+    "cornerSquareLabel": "Quadrats de cantonada",
+    "cornerSquareDot": "Punt",
+    "cornerSquareSquare": "Quadrat",
+    "cornerSquareExtraRounded": "Extra arrodonit",
+    "cornerDotLabel": "Punts de cantonada",
+    "cornerDotDot": "Punt",
+    "cornerDotSquare": "Quadrat",
     "eccLabel": "Correcció d’errors",
     "eccL": "Baixa (~7%)",
     "eccM": "Mitjana (~15%)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Mòduls foscos",
     "lightColor": "Mòduls clars",
     "resetColors": "Restableix colors",
+    "logoLabel": "Logotip central",
+    "logoMarginLabel": "Marge",
+    "uploadLogo": "Pujar imatge",
+    "removeLogo": "Eliminar logotip",
     "downloadPng": "Baixa PNG",
+    "downloadSvg": "Descarregar SVG",
     "copyImage": "Copia la imatge",
     "copied": "Copiat",
     "clear": "Neteja",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Xarxa IPv4 no vàlida. Proveu CIDR o adreça + màscara.",
       "invalidIpv6": "Xarxa IPv6 no vàlida. Useu adreça/prefix, p. ex. 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Generador de hash",
+    "subtitle": "Resums MD5, SHA-1 i SHA-2 per a text o fitxers; bcrypt per a contrasenyes (entrada de text). Tot es calcula localment al navegador.",
+    "algorithmLabel": "Algorisme",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Text",
+    "modeFile": "Fitxer",
+    "inputLabelText": "Entrada",
+    "placeholderText": "Escriviu o enganxeu text…",
+    "chooseFile": "Trieu fitxer",
+    "clearFile": "Neteja",
+    "fileHint": "Els fitxers es llegeixen només a la memòria; màx. {maxMb} MB per fitxer. No es puja res.",
+    "outputLabel": "Resum (hex)",
+    "copyHash": "Copia el resum",
+    "copied": "Copiat",
+    "byteCount": "{count, plural, one {# byte} other {# bytes}}",
+    "charCount": "{count, plural, one {# caràcter} other {# caràcters}}",
+    "emptyHint": "Introduïu text o trieu un fitxer per calcular el hash.",
+    "securityNote": "MD5 i SHA-1 no es recomanen per a usos de seguretat nous; preferiu SHA-256 o SHA-512.",
+    "errors": {
+      "fileTooLarge": "El fitxer supera {maxMb} MB.",
+      "fileReadFailed": "No s’ha pogut llegir el fitxer."
+    },
+    "bcryptRoundsLabel": "Cost (voltes)",
+    "bcryptRoundsHint": "Valors més alts són més lents i més resistents a força bruta. Per defecte sol ser 10.",
+    "fileTabDisabledTitle": "bcrypt només resum contrasenyes des de text, no fitxers arbitraris.",
+    "placeholderBcrypt": "Escriviu o enganxeu una contrasenya per resumir…",
+    "outputLabelBcrypt": "Resum bcrypt",
+    "copyBcrypt": "Copia el resum",
+    "emptyHintBcrypt": "Introduïu una contrasenya per calcular el resum bcrypt.",
+    "securityNoteBcrypt": "Cada sortida bcrypt inclou una sal aleatòria; la mateixa contrasenya dona una cadena diferent cada vegada. És esperat. Useu costos alts en producció."
   }
 }

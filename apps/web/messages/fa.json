@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "قطعه‌کدها",
     "qrCodeGenerator": "تولیدکنندهٔ QR",
-    "ipSubnetCalculator": "ماشین‌حساب IP / زیرشبکه"
+    "ipSubnetCalculator": "ماشین‌حساب IP / زیرشبکه",
+    "hashGenerator": "تولیدکنندهٔ هش"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "ماشین‌حساب IP / زیرشبکه",
         "description": "IPv4 و IPv6 CIDR: ماسک، ناحیه، و تعداد آدرس."
+      },
+      "hashGenerator": {
+        "title": "تولیدکنندهٔ هش",
+        "description": "MD5، SHA-1 و SHA-2 برای متن یا فایل."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "هر متن یا URL را به PNG QR تبدیل کنید. همه‌چیز به‌صورت محلی در مرورگر رندر می‌شود.",
     "contentLabel": "محتوا",
     "contentPlaceholder": "https://example.com، متن ساده، رشتهٔ Wi‑Fi، vCard…",
+    "styleLabel": "سبک",
+    "dotTypeLabel": "شکل نقطه",
+    "dotTypeSquare": "مربع",
+    "dotTypeDots": "نقطه‌ها",
+    "dotTypeRounded": "گرد",
+    "dotTypeExtraRounded": "بسیار گرد",
+    "dotTypeClassy": "شیک",
+    "dotTypeClassyRounded": "شیک گرد",
+    "cornerSquareLabel": "مربع‌های گوشه",
+    "cornerSquareDot": "نقطه",
+    "cornerSquareSquare": "مربع",
+    "cornerSquareExtraRounded": "بسیار گرد",
+    "cornerDotLabel": "نقطه‌های گوشه",
+    "cornerDotDot": "نقطه",
+    "cornerDotSquare": "مربع",
     "eccLabel": "تصحیح خطا",
     "eccL": "پایین (~۷٪)",
     "eccM": "متوسط (~۱۵٪)",
@@ -2349,7 +2369,12 @@
     "darkColor": "ماژول‌های تیره",
     "lightColor": "ماژول‌های روشن",
     "resetColors": "بازنشانی رنگ‌ها",
+    "logoLabel": "لوگوی مرکزی",
+    "logoMarginLabel": "حاشیه",
+    "uploadLogo": "بارگذاری تصویر",
+    "removeLogo": "حذف لوگو",
     "downloadPng": "دانلود PNG",
+    "downloadSvg": "دانلود SVG",
     "copyImage": "کپی تصویر",
     "copied": "کپی شد",
     "clear": "پاک کردن",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "شبکهٔ IPv4 نامعتبر. CIDR یا آدرس + ماسک امتحان کنید.",
       "invalidIpv6": "شبکهٔ IPv6 نامعتبر. از آدرس/پیشوند مثل 2001:db8::/48 استفاده کنید."
     }
+  },
+  "HashGenerator": {
+    "title": "تولیدکنندهٔ هش",
+    "subtitle": "چکسام‌های MD5 و SHA-1 و SHA-2 برای متن یا فایل؛ bcrypt برای گذرواژه‌ها (ورودی متنی). همه‌چیز به‌صورت محلی در مرورگر.",
+    "algorithmLabel": "الگوریتم",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "متن",
+    "modeFile": "فایل",
+    "inputLabelText": "ورودی",
+    "placeholderText": "متن را وارد یا بچسبانید…",
+    "chooseFile": "انتخاب فایل",
+    "clearFile": "پاک کردن",
+    "fileHint": "فقط در حافظه خوانده می‌شود؛ حداکثر {maxMb} مگابایت. آپلود نمی‌شود.",
+    "outputLabel": "چکیده (hex)",
+    "copyHash": "کپی چکیده",
+    "copied": "کپی شد",
+    "byteCount": "{count, plural, one {# بایت} other {# بایت}}",
+    "charCount": "{count, plural, one {# نویسه} other {# نویسه}}",
+    "emptyHint": "متن وارد کنید یا فایلی انتخاب کنید.",
+    "securityNote": "برای کاربردهای امنیتی جدید MD5 و SHA-1 توصیه نمی‌شود؛ SHA-256 یا SHA-512 بهتر است.",
+    "errors": {
+      "fileTooLarge": "فایل بزرگ‌تر از {maxMb} مگابایت است.",
+      "fileReadFailed": "خواندن فایل ممکن نشد."
+    },
+    "bcryptRoundsLabel": "هزینه (گردها)",
+    "bcryptRoundsHint": "مقادیر بالاتر کندتر و مقاوم‌تر در برابر حملهٔ brute-force هستند. پیش‌فرض رایج ۱۰ است.",
+    "fileTabDisabledTitle": "bcrypt فقط گذرواژه را از متن هش می‌کند، نه فایل‌های دلخواه.",
+    "placeholderBcrypt": "گذرواژه را برای هش کردن تایپ یا جای‌گذاری کنید…",
+    "outputLabelBcrypt": "هش bcrypt",
+    "copyBcrypt": "کپی هش",
+    "emptyHintBcrypt": "برای محاسبهٔ هش bcrypt گذرواژه وارد کنید.",
+    "securityNoteBcrypt": "هر خروجی bcrypt نمک تصادفی دارد؛ همان گذرواژه هر بار رشتهٔ متفاوتی می‌دهد. این طبیعی است. در تولید هزینهٔ بالا بگذارید."
   }
 }

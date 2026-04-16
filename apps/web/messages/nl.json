@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Codefragmenten",
     "qrCodeGenerator": "QR-codegenerator",
-    "ipSubnetCalculator": "IP-/subnetcalculator"
+    "ipSubnetCalculator": "IP-/subnetcalculator",
+    "hashGenerator": "Hash-generator"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "IP-/subnetcalculator",
         "description": "IPv4 en IPv6 CIDR: netmasker, bereiken en adressen."
+      },
+      "hashGenerator": {
+        "title": "Hash-generator",
+        "description": "MD5, SHA-1 en SHA-2 voor tekst of bestanden."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Zet tekst of een URL om in een PNG QR-code. Alles wordt lokaal in de browser gerenderd.",
     "contentLabel": "Inhoud",
     "contentPlaceholder": "https://voorbeeld.nl, platte tekst, Wi‑Fi-tekenreeks, vCard…",
+    "styleLabel": "Stijl",
+    "dotTypeLabel": "Puntvorm",
+    "dotTypeSquare": "Vierkant",
+    "dotTypeDots": "Punten",
+    "dotTypeRounded": "Afgerond",
+    "dotTypeExtraRounded": "Extra afgerond",
+    "dotTypeClassy": "Elegant",
+    "dotTypeClassyRounded": "Elegant afgerond",
+    "cornerSquareLabel": "Hoekvierkanten",
+    "cornerSquareDot": "Punt",
+    "cornerSquareSquare": "Vierkant",
+    "cornerSquareExtraRounded": "Extra afgerond",
+    "cornerDotLabel": "Hoekpunten",
+    "cornerDotDot": "Punt",
+    "cornerDotSquare": "Vierkant",
     "eccLabel": "Foutcorrectie",
     "eccL": "Laag (~7%)",
     "eccM": "Gemiddeld (~15%)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Donkere modules",
     "lightColor": "Lichte modules",
     "resetColors": "Kleuren resetten",
+    "logoLabel": "Centraal logo",
+    "logoMarginLabel": "Marge",
+    "uploadLogo": "Afbeelding uploaden",
+    "removeLogo": "Logo verwijderen",
     "downloadPng": "PNG downloaden",
+    "downloadSvg": "SVG downloaden",
     "copyImage": "Afbeelding kopiëren",
     "copied": "Gekopieerd",
     "clear": "Wissen",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Ongeldig IPv4-netwerk. Probeer CIDR of adres + masker.",
       "invalidIpv6": "Ongeldig IPv6-netwerk. Gebruik adres/prefix, bijv. 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Hash-generator",
+    "subtitle": "MD5-, SHA-1- en SHA-2-digest voor tekst of bestanden; bcrypt voor wachtwoorden (tekstinvoer). Alles lokaal in je browser.",
+    "algorithmLabel": "Algoritme",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Tekst",
+    "modeFile": "Bestand",
+    "inputLabelText": "Invoer",
+    "placeholderText": "Typ of plak tekst…",
+    "chooseFile": "Bestand kiezen",
+    "clearFile": "Wissen",
+    "fileHint": "Bestanden worden alleen in geheugen gelezen; max {maxMb} MB. Geen upload.",
+    "outputLabel": "Digest (hex)",
+    "copyHash": "Digest kopiëren",
+    "copied": "Gekopieerd",
+    "byteCount": "{count, plural, one {# byte} other {# bytes}}",
+    "charCount": "{count, plural, one {# teken} other {# tekens}}",
+    "emptyHint": "Voer tekst in of kies een bestand.",
+    "securityNote": "MD5 en SHA-1 worden niet aanbevolen voor nieuwe beveiliging; gebruik SHA-256 of SHA-512.",
+    "errors": {
+      "fileTooLarge": "Bestand groter dan {maxMb} MB.",
+      "fileReadFailed": "Kan bestand niet lezen."
+    },
+    "bcryptRoundsLabel": "Kosten (rondes)",
+    "bcryptRoundsHint": "Hogere waarden zijn trager en sterker tegen brute force. Vaak standaard 10.",
+    "fileTabDisabledTitle": "bcrypt hasht alleen wachtwoorden uit tekst, geen willekeurige bestanden.",
+    "placeholderBcrypt": "Typ of plak een wachtwoord om te hashen…",
+    "outputLabelBcrypt": "bcrypt-hash",
+    "copyBcrypt": "Hash kopiëren",
+    "emptyHintBcrypt": "Voer een wachtwoord in om een bcrypt-hash te berekenen.",
+    "securityNoteBcrypt": "Elke bcrypt-uitvoer bevat een willekeurig zout; hetzelfde wachtwoord geeft elke keer een andere string. Dat is verwacht. Gebruik hoge kosten in productie."
   }
 }

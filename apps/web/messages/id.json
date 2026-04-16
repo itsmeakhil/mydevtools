@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Cuplikan kode",
     "qrCodeGenerator": "Generator kode QR",
-    "ipSubnetCalculator": "Kalkulator IP / subnet"
+    "ipSubnetCalculator": "Kalkulator IP / subnet",
+    "hashGenerator": "Generator hash"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "Kalkulator IP / subnet",
         "description": "IPv4 dan IPv6 CIDR: netmask, rentang, dan jumlah alamat."
+      },
+      "hashGenerator": {
+        "title": "Generator hash",
+        "description": "MD5, SHA-1, dan SHA-2 untuk teks atau file."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Ubah teks atau URL apa pun menjadi kode QR PNG. Semua diproses secara lokal di peramban.",
     "contentLabel": "Konten",
     "contentPlaceholder": "https://example.com, teks biasa, string Wi‑Fi, vCard…",
+    "styleLabel": "Gaya",
+    "dotTypeLabel": "Bentuk titik",
+    "dotTypeSquare": "Kotak",
+    "dotTypeDots": "Titik",
+    "dotTypeRounded": "Membulat",
+    "dotTypeExtraRounded": "Sangat membulat",
+    "dotTypeClassy": "Elegan",
+    "dotTypeClassyRounded": "Elegan membulat",
+    "cornerSquareLabel": "Kotak sudut",
+    "cornerSquareDot": "Titik",
+    "cornerSquareSquare": "Kotak",
+    "cornerSquareExtraRounded": "Sangat membulat",
+    "cornerDotLabel": "Titik sudut",
+    "cornerDotDot": "Titik",
+    "cornerDotSquare": "Kotak",
     "eccLabel": "Koreksi kesalahan",
     "eccL": "Rendah (~7%)",
     "eccM": "Sedang (~15%)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Modul gelap",
     "lightColor": "Modul terang",
     "resetColors": "Atur ulang warna",
+    "logoLabel": "Logo tengah",
+    "logoMarginLabel": "Margin",
+    "uploadLogo": "Unggah gambar",
+    "removeLogo": "Hapus logo",
     "downloadPng": "Unduh PNG",
+    "downloadSvg": "Unduh SVG",
     "copyImage": "Salin gambar",
     "copied": "Disalin",
     "clear": "Hapus",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Jaringan IPv4 tidak valid. Coba CIDR atau alamat + mask.",
       "invalidIpv6": "Jaringan IPv6 tidak valid. Gunakan alamat/prefiks, mis. 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Generator hash",
+    "subtitle": "Ringkasan MD5, SHA-1, dan SHA-2 untuk teks atau file; bcrypt untuk kata sandi (input teks). Semua dihitung lokal di peramban.",
+    "algorithmLabel": "Algoritme",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Teks",
+    "modeFile": "Berkas",
+    "inputLabelText": "Masukan",
+    "placeholderText": "Ketik atau tempel teks…",
+    "chooseFile": "Pilih berkas",
+    "clearFile": "Hapus",
+    "fileHint": "Berkas hanya dibaca di memori; maks. {maxMb} MB. Tidak diunggah.",
+    "outputLabel": "Ringkasan (hex)",
+    "copyHash": "Salin ringkasan",
+    "copied": "Disalin",
+    "byteCount": "{count, plural, other {# byte}}",
+    "charCount": "{count, plural, other {# karakter}}",
+    "emptyHint": "Masukkan teks atau pilih berkas.",
+    "securityNote": "MD5 dan SHA-1 tidak disarankan untuk keamanan baru; gunakan SHA-256 atau SHA-512.",
+    "errors": {
+      "fileTooLarge": "Berkas lebih besar dari {maxMb} MB.",
+      "fileReadFailed": "Tidak dapat membaca berkas."
+    },
+    "bcryptRoundsLabel": "Biaya (putaran)",
+    "bcryptRoundsHint": "Nilai lebih tinggi lebih lambat dan lebih tahan brute force. Biasanya default 10.",
+    "fileTabDisabledTitle": "bcrypt hanya meng-hash kata sandi dari teks, bukan file sembarangan.",
+    "placeholderBcrypt": "Ketik atau tempel kata sandi untuk di-hash…",
+    "outputLabelBcrypt": "Hash bcrypt",
+    "copyBcrypt": "Salin hash",
+    "emptyHintBcrypt": "Masukkan kata sandi untuk menghitung hash bcrypt.",
+    "securityNoteBcrypt": "Setiap keluaran bcrypt menyertakan garam acak; kata sandi yang sama menghasilkan string berbeda setiap kali. Ini wajar. Gunakan biaya tinggi di produksi."
   }
 }

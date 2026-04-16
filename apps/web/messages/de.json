@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Code-Snippets",
     "qrCodeGenerator": "QR-Code-Generator",
-    "ipSubnetCalculator": "IP-/Subnetz-Rechner"
+    "ipSubnetCalculator": "IP-/Subnetz-Rechner",
+    "hashGenerator": "Hash-Generator"
   },
   "Help": {
     "title": "Hilfe & Dokumentation",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "IP-/Subnetz-Rechner",
         "description": "IPv4 und IPv6 CIDR: Netzmaske, Bereiche und Adressanzahl."
+      },
+      "hashGenerator": {
+        "title": "Hash-Generator",
+        "description": "MD5, SHA-1 und SHA-2 für Text oder Dateien."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Wandle beliebigen Text oder URLs in einen PNG-QR-Code um. Die Darstellung erfolgt lokal im Browser.",
     "contentLabel": "Inhalt",
     "contentPlaceholder": "https://beispiel.de, Klartext, WLAN-String, vCard …",
+    "styleLabel": "Stil",
+    "dotTypeLabel": "Punktform",
+    "dotTypeSquare": "Quadrat",
+    "dotTypeDots": "Punkte",
+    "dotTypeRounded": "Abgerundet",
+    "dotTypeExtraRounded": "Extra abgerundet",
+    "dotTypeClassy": "Elegant",
+    "dotTypeClassyRounded": "Elegant abgerundet",
+    "cornerSquareLabel": "Eckquadrate",
+    "cornerSquareDot": "Punkt",
+    "cornerSquareSquare": "Quadrat",
+    "cornerSquareExtraRounded": "Extra abgerundet",
+    "cornerDotLabel": "Eckpunkte",
+    "cornerDotDot": "Punkt",
+    "cornerDotSquare": "Quadrat",
     "eccLabel": "Fehlerkorrektur",
     "eccL": "Niedrig (~7 %)",
     "eccM": "Mittel (~15 %)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Dunkle Module",
     "lightColor": "Helle Module",
     "resetColors": "Farben zurücksetzen",
+    "logoLabel": "Mittellogo",
+    "logoMarginLabel": "Abstand",
+    "uploadLogo": "Bild hochladen",
+    "removeLogo": "Logo entfernen",
     "downloadPng": "PNG herunterladen",
+    "downloadSvg": "SVG herunterladen",
     "copyImage": "Bild kopieren",
     "copied": "Kopiert",
     "clear": "Leeren",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Ungültiges IPv4-Netz. CIDR (10.0.0.0/24) oder Adresse + Maske verwenden.",
       "invalidIpv6": "Ungültiges IPv6-Netz. Adresse/Präfix angeben, z. B. 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Hash-Generator",
+    "subtitle": "MD5-, SHA-1- und SHA-2-Prüfsummen für Text oder Dateien; bcrypt für Passwörter (Texteingabe). Alles läuft lokal im Browser.",
+    "algorithmLabel": "Algorithmus",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Text",
+    "modeFile": "Datei",
+    "inputLabelText": "Eingabe",
+    "placeholderText": "Text zum Hashen eingeben oder einfügen…",
+    "chooseFile": "Datei wählen",
+    "clearFile": "Leeren",
+    "fileHint": "Dateien werden nur im Speicher gelesen; max. {maxMb} MB. Kein Upload.",
+    "outputLabel": "Digest (hex)",
+    "copyHash": "Digest kopieren",
+    "copied": "Kopiert",
+    "byteCount": "{count, plural, one {# Byte} other {# Bytes}}",
+    "charCount": "{count, plural, one {# Zeichen} other {# Zeichen}}",
+    "emptyHint": "Text eingeben oder eine Datei wählen.",
+    "securityNote": "MD5 und SHA-1 sind für neue sicherheitskritische Zwecke nicht empfohlen; SHA-256 oder SHA-512 bevorzugen.",
+    "errors": {
+      "fileTooLarge": "Datei ist größer als {maxMb} MB.",
+      "fileReadFailed": "Datei konnte nicht gelesen werden."
+    },
+    "bcryptRoundsLabel": "Kostenfaktor (Runden)",
+    "bcryptRoundsHint": "Höhere Werte sind langsamer und robuster gegen Brute-Force. Üblich ist 10.",
+    "fileTabDisabledTitle": "bcrypt hasht nur Passwörter aus Text, keine beliebigen Dateien.",
+    "placeholderBcrypt": "Passwort zum Hashen eingeben oder einfügen…",
+    "outputLabelBcrypt": "bcrypt-Hash",
+    "copyBcrypt": "Hash kopieren",
+    "emptyHintBcrypt": "Geben Sie ein Passwort ein, um einen bcrypt-Hash zu berechnen.",
+    "securityNoteBcrypt": "Jede bcrypt-Ausgabe enthält ein zufälliges Salz; dasselbe Passwort ergibt jedes Mal eine andere Zeichenkette. Das ist erwartet. In Produktion hohe Kosten verwenden."
   }
 }

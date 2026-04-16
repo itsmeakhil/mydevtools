@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Extraits de code",
     "qrCodeGenerator": "Générateur de codes QR",
-    "ipSubnetCalculator": "Calculateur IP / sous-réseau"
+    "ipSubnetCalculator": "Calculateur IP / sous-réseau",
+    "hashGenerator": "Générateur de hash"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "Calculateur IP / sous-réseau",
         "description": "IPv4 et IPv6 CIDR : masque, plages et nombre d’adresses."
+      },
+      "hashGenerator": {
+        "title": "Générateur de hash",
+        "description": "MD5, SHA-1 et SHA-2 pour texte ou fichiers."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Transformez tout texte ou URL en code QR PNG. Tout est rendu localement dans le navigateur.",
     "contentLabel": "Contenu",
     "contentPlaceholder": "https://exemple.fr, texte brut, chaîne Wi‑Fi, vCard…",
+    "styleLabel": "Style",
+    "dotTypeLabel": "Forme des points",
+    "dotTypeSquare": "Carré",
+    "dotTypeDots": "Points",
+    "dotTypeRounded": "Arrondi",
+    "dotTypeExtraRounded": "Extra arrondi",
+    "dotTypeClassy": "Élégant",
+    "dotTypeClassyRounded": "Élégant arrondi",
+    "cornerSquareLabel": "Carrés de coin",
+    "cornerSquareDot": "Point",
+    "cornerSquareSquare": "Carré",
+    "cornerSquareExtraRounded": "Extra arrondi",
+    "cornerDotLabel": "Points de coin",
+    "cornerDotDot": "Point",
+    "cornerDotSquare": "Carré",
     "eccLabel": "Correction d’erreurs",
     "eccL": "Faible (~7 %)",
     "eccM": "Moyenne (~15 %)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Modules foncés",
     "lightColor": "Modules clairs",
     "resetColors": "Réinitialiser les couleurs",
+    "logoLabel": "Logo central",
+    "logoMarginLabel": "Marge",
+    "uploadLogo": "Téléverser une image",
+    "removeLogo": "Supprimer le logo",
     "downloadPng": "Télécharger PNG",
+    "downloadSvg": "Télécharger SVG",
     "copyImage": "Copier l’image",
     "copied": "Copié",
     "clear": "Effacer",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Réseau IPv4 invalide. Essayez CIDR ou adresse + masque.",
       "invalidIpv6": "Réseau IPv6 invalide. Utilisez adresse/préfixe, ex. 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Générateur de hash",
+    "subtitle": "Empreintes MD5, SHA-1 et SHA-2 pour texte ou fichiers ; bcrypt pour les mots de passe (saisie texte). Tout est calculé localement dans le navigateur.",
+    "algorithmLabel": "Algorithme",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Texte",
+    "modeFile": "Fichier",
+    "inputLabelText": "Entrée",
+    "placeholderText": "Saisissez ou collez du texte…",
+    "chooseFile": "Choisir un fichier",
+    "clearFile": "Effacer",
+    "fileHint": "Lecture en mémoire uniquement ; max. {maxMb} Mo par fichier. Aucun envoi.",
+    "outputLabel": "Empreinte (hex)",
+    "copyHash": "Copier l’empreinte",
+    "copied": "Copié",
+    "byteCount": "{count, plural, one {# octet} other {# octets}}",
+    "charCount": "{count, plural, one {# caractère} other {# caractères}}",
+    "emptyHint": "Saisissez du texte ou choisissez un fichier.",
+    "securityNote": "MD5 et SHA-1 ne sont pas recommandés pour les nouveaux usages de sécurité ; préférez SHA-256 ou SHA-512.",
+    "errors": {
+      "fileTooLarge": "Fichier supérieur à {maxMb} Mo.",
+      "fileReadFailed": "Impossible de lire le fichier."
+    },
+    "bcryptRoundsLabel": "Coût (tours)",
+    "bcryptRoundsHint": "Des valeurs plus élevées sont plus lentes et plus résistantes aux attaques par force brute. Souvent 10 par défaut.",
+    "fileTabDisabledTitle": "bcrypt ne hache que des mots de passe saisis en texte, pas des fichiers arbitraires.",
+    "placeholderBcrypt": "Saisissez ou collez un mot de passe à hacher…",
+    "outputLabelBcrypt": "Hachage bcrypt",
+    "copyBcrypt": "Copier le hachage",
+    "emptyHintBcrypt": "Entrez un mot de passe pour calculer un hachage bcrypt.",
+    "securityNoteBcrypt": "Chaque sortie bcrypt inclut un sel aléatoire ; le même mot de passe produit une chaîne différente à chaque fois. C’est attendu. Utilisez un coût élevé en production."
   }
 }

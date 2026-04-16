@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Fragmentos de código",
     "qrCodeGenerator": "Generador de códigos QR",
-    "ipSubnetCalculator": "Calculadora IP / subred"
+    "ipSubnetCalculator": "Calculadora IP / subred",
+    "hashGenerator": "Generador de hash"
   },
   "Help": {
     "title": "Ayuda y documentación",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "Calculadora IP / subred",
         "description": "IPv4 e IPv6 CIDR: máscara, rangos y recuento de direcciones."
+      },
+      "hashGenerator": {
+        "title": "Generador de hash",
+        "description": "MD5, SHA-1 y SHA-2 para texto o archivos."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Convierte cualquier texto o URL en un código QR PNG. Todo se renderiza localmente en el navegador.",
     "contentLabel": "Contenido",
     "contentPlaceholder": "https://ejemplo.com, texto plano, cadena Wi‑Fi, vCard…",
+    "styleLabel": "Estilo",
+    "dotTypeLabel": "Forma del punto",
+    "dotTypeSquare": "Cuadrado",
+    "dotTypeDots": "Puntos",
+    "dotTypeRounded": "Redondeado",
+    "dotTypeExtraRounded": "Extra redondeado",
+    "dotTypeClassy": "Elegante",
+    "dotTypeClassyRounded": "Elegante redondeado",
+    "cornerSquareLabel": "Cuadrados de esquina",
+    "cornerSquareDot": "Punto",
+    "cornerSquareSquare": "Cuadrado",
+    "cornerSquareExtraRounded": "Extra redondeado",
+    "cornerDotLabel": "Puntos de esquina",
+    "cornerDotDot": "Punto",
+    "cornerDotSquare": "Cuadrado",
     "eccLabel": "Corrección de errores",
     "eccL": "Baja (~7%)",
     "eccM": "Media (~15%)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Módulos oscuros",
     "lightColor": "Módulos claros",
     "resetColors": "Restablecer colores",
+    "logoLabel": "Logo central",
+    "logoMarginLabel": "Margen",
+    "uploadLogo": "Subir imagen",
+    "removeLogo": "Quitar logo",
     "downloadPng": "Descargar PNG",
+    "downloadSvg": "Descargar SVG",
     "copyImage": "Copiar imagen",
     "copied": "Copiado",
     "clear": "Borrar",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Red IPv4 no válida. Pruebe CIDR o dirección + máscara.",
       "invalidIpv6": "Red IPv6 no válida. Use dirección/prefijo, p. ej. 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Generador de hash",
+    "subtitle": "Resúmenes MD5, SHA-1 y SHA-2 para texto o archivos; bcrypt para contraseñas (entrada de texto). Todo se calcula localmente en el navegador.",
+    "algorithmLabel": "Algoritmo",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Texto",
+    "modeFile": "Archivo",
+    "inputLabelText": "Entrada",
+    "placeholderText": "Escriba o pegue texto…",
+    "chooseFile": "Elegir archivo",
+    "clearFile": "Borrar",
+    "fileHint": "Los archivos se leen solo en memoria; máx. {maxMb} MB. No se sube nada.",
+    "outputLabel": "Digest (hex)",
+    "copyHash": "Copiar digest",
+    "copied": "Copiado",
+    "byteCount": "{count, plural, one {# byte} other {# bytes}}",
+    "charCount": "{count, plural, one {# carácter} other {# caracteres}}",
+    "emptyHint": "Introduzca texto o elija un archivo.",
+    "securityNote": "MD5 y SHA-1 no se recomiendan para nuevos usos de seguridad; prefiera SHA-256 o SHA-512.",
+    "errors": {
+      "fileTooLarge": "El archivo supera {maxMb} MB.",
+      "fileReadFailed": "No se pudo leer el archivo."
+    },
+    "bcryptRoundsLabel": "Coste (rondas)",
+    "bcryptRoundsHint": "Valores más altos son más lentos y más resistentes a fuerza bruta. Lo habitual es 10.",
+    "fileTabDisabledTitle": "bcrypt solo resume contraseñas desde texto, no archivos arbitrarios.",
+    "placeholderBcrypt": "Escriba o pegue una contraseña para resumir…",
+    "outputLabelBcrypt": "Hash bcrypt",
+    "copyBcrypt": "Copiar hash",
+    "emptyHintBcrypt": "Introduzca una contraseña para calcular el hash bcrypt.",
+    "securityNoteBcrypt": "Cada salida bcrypt incluye sal aleatoria; la misma contraseña da una cadena distinta cada vez. Es esperado. Use costes altos en producción."
   }
 }

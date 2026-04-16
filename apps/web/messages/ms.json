@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Petikan kod",
     "qrCodeGenerator": "Penjana kod QR",
-    "ipSubnetCalculator": "Kalkulator IP / subnet"
+    "ipSubnetCalculator": "Kalkulator IP / subnet",
+    "hashGenerator": "Penjana hash"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "Kalkulator IP / subnet",
         "description": "IPv4 dan IPv6 CIDR: topeng rangkaian, julat, dan bilangan alamat."
+      },
+      "hashGenerator": {
+        "title": "Penjana hash",
+        "description": "MD5, SHA-1 dan SHA-2 untuk teks atau fail."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Tukar sebarang teks atau URL kepada kod QR PNG. Semua dipaparkan secara tempatan dalam pelayar.",
     "contentLabel": "Kandungan",
     "contentPlaceholder": "https://example.com, teks biasa, rentetan Wi‑Fi, vCard…",
+    "styleLabel": "Gaya",
+    "dotTypeLabel": "Bentuk titik",
+    "dotTypeSquare": "Segi empat",
+    "dotTypeDots": "Titik",
+    "dotTypeRounded": "Membulat",
+    "dotTypeExtraRounded": "Sangat membulat",
+    "dotTypeClassy": "Elegan",
+    "dotTypeClassyRounded": "Elegan membulat",
+    "cornerSquareLabel": "Segi empat sudut",
+    "cornerSquareDot": "Titik",
+    "cornerSquareSquare": "Segi empat",
+    "cornerSquareExtraRounded": "Sangat membulat",
+    "cornerDotLabel": "Titik sudut",
+    "cornerDotDot": "Titik",
+    "cornerDotSquare": "Segi empat",
     "eccLabel": "Pembetulan ralat",
     "eccL": "Rendah (~7%)",
     "eccM": "Sederhana (~15%)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Modul gelap",
     "lightColor": "Modul cerah",
     "resetColors": "Set semula warna",
+    "logoLabel": "Logo tengah",
+    "logoMarginLabel": "Jidar",
+    "uploadLogo": "Muat naik gambar",
+    "removeLogo": "Buang logo",
     "downloadPng": "Muat turun PNG",
+    "downloadSvg": "Muat turun SVG",
     "copyImage": "Salin imej",
     "copied": "Disalin",
     "clear": "Padam",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Rangkaian IPv4 tidak sah. Cuba CIDR atau alamat + topeng.",
       "invalidIpv6": "Rangkaian IPv6 tidak sah. Gunakan alamat/awalan, cth. 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Penjana hash",
+    "subtitle": "Pencernaan MD5, SHA-1 dan SHA-2 untuk teks atau fail; bcrypt untuk kata laluan (input teks). Semua dikira secara setempat dalam pelayar.",
+    "algorithmLabel": "Algoritma",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Teks",
+    "modeFile": "Fail",
+    "inputLabelText": "Input",
+    "placeholderText": "Taip atau tampal teks…",
+    "chooseFile": "Pilih fail",
+    "clearFile": "Padam",
+    "fileHint": "Fail dibaca dalam memori sahaja; maks {maxMb} MB. Tiada muat naik.",
+    "outputLabel": "Cincangan (hex)",
+    "copyHash": "Salin cincangan",
+    "copied": "Disalin",
+    "byteCount": "{count, plural, other {# bait}}",
+    "charCount": "{count, plural, other {# aksara}}",
+    "emptyHint": "Masukkan teks atau pilih fail.",
+    "securityNote": "MD5 dan SHA-1 tidak disyorkan untuk keselamatan baharu; gunakan SHA-256 atau SHA-512.",
+    "errors": {
+      "fileTooLarge": "Fail melebihi {maxMb} MB.",
+      "fileReadFailed": "Tidak dapat membaca fail."
+    },
+    "bcryptRoundsLabel": "Kos (pusingan)",
+    "bcryptRoundsHint": "Nilai lebih tinggi lebih perlahan dan lebih tahan brute force. Lalai biasa ialah 10.",
+    "fileTabDisabledTitle": "bcrypt hanya menghash kata laluan daripada teks, bukan fail sewenang-wenang.",
+    "placeholderBcrypt": "Taip atau tampal kata laluan untuk di-hash…",
+    "outputLabelBcrypt": "Hash bcrypt",
+    "copyBcrypt": "Salin hash",
+    "emptyHintBcrypt": "Masukkan kata laluan untuk mengira hash bcrypt.",
+    "securityNoteBcrypt": "Setiap output bcrypt merangkumi garam rawak; kata laluan yang sama menghasilkan rentetan berbeza setiap kali. Ini dijangka. Gunakan kos tinggi dalam produksi."
   }
 }

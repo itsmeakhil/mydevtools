@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Фрагменты кода",
     "qrCodeGenerator": "Генератор QR-кодов",
-    "ipSubnetCalculator": "Калькулятор IP / подсети"
+    "ipSubnetCalculator": "Калькулятор IP / подсети",
+    "hashGenerator": "Генератор хешей"
   },
   "Help": {
     "title": "Справка и документация",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "Калькулятор IP / подсети",
         "description": "IPv4 и IPv6 CIDR: маска, диапазоны и число адресов."
+      },
+      "hashGenerator": {
+        "title": "Генератор хешей",
+        "description": "MD5, SHA-1 и SHA-2 для текста или файлов."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Превратите любой текст или URL в PNG QR-код. Всё обрабатывается локально в браузере.",
     "contentLabel": "Содержимое",
     "contentPlaceholder": "https://example.com, обычный текст, строка Wi‑Fi, vCard…",
+    "styleLabel": "Стиль",
+    "dotTypeLabel": "Форма точек",
+    "dotTypeSquare": "Квадрат",
+    "dotTypeDots": "Точки",
+    "dotTypeRounded": "Скруглённые",
+    "dotTypeExtraRounded": "Максимально скруглённые",
+    "dotTypeClassy": "Элегантные",
+    "dotTypeClassyRounded": "Элегантные скруглённые",
+    "cornerSquareLabel": "Угловые квадраты",
+    "cornerSquareDot": "Точка",
+    "cornerSquareSquare": "Квадрат",
+    "cornerSquareExtraRounded": "Максимально скруглённые",
+    "cornerDotLabel": "Угловые точки",
+    "cornerDotDot": "Точка",
+    "cornerDotSquare": "Квадрат",
     "eccLabel": "Коррекция ошибок",
     "eccL": "Низкая (~7%)",
     "eccM": "Средняя (~15%)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Тёмные модули",
     "lightColor": "Светлые модули",
     "resetColors": "Сбросить цвета",
+    "logoLabel": "Логотип по центру",
+    "logoMarginLabel": "Отступ",
+    "uploadLogo": "Загрузить изображение",
+    "removeLogo": "Удалить логотип",
     "downloadPng": "Скачать PNG",
+    "downloadSvg": "Скачать SVG",
     "copyImage": "Копировать изображение",
     "copied": "Скопировано",
     "clear": "Очистить",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Неверная сеть IPv4. Попробуйте CIDR или адрес + маску.",
       "invalidIpv6": "Неверная сеть IPv6. Используйте адрес/префикс, напр. 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Генератор хешей",
+    "subtitle": "Контрольные суммы MD5, SHA-1 и SHA-2 для текста или файлов; bcrypt для паролей (текстовый ввод). Всё локально в браузере.",
+    "algorithmLabel": "Алгоритм",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Текст",
+    "modeFile": "Файл",
+    "inputLabelText": "Ввод",
+    "placeholderText": "Введите или вставьте текст…",
+    "chooseFile": "Выбрать файл",
+    "clearFile": "Очистить",
+    "fileHint": "Файлы читаются только в памяти; макс. {maxMb} МБ. Загрузки на сервер нет.",
+    "outputLabel": "Дайджест (hex)",
+    "copyHash": "Копировать дайджест",
+    "copied": "Скопировано",
+    "byteCount": "{count, plural, one {# байт} few {# байта} many {# байт} other {# байт}}",
+    "charCount": "{count, plural, one {# символ} few {# символа} many {# символов} other {# символа}}",
+    "emptyHint": "Введите текст или выберите файл.",
+    "securityNote": "Для новых задач безопасности MD5 и SHA-1 не рекомендуются; используйте SHA-256 или SHA-512.",
+    "errors": {
+      "fileTooLarge": "Файл больше {maxMb} МБ.",
+      "fileReadFailed": "Не удалось прочитать файл."
+    },
+    "bcryptRoundsLabel": "Стоимость (раунды)",
+    "bcryptRoundsHint": "Больше значение — медленнее и устойчивее к перебору. Обычно по умолчанию 10.",
+    "fileTabDisabledTitle": "bcrypt хеширует только пароли из текста, а не произвольные файлы.",
+    "placeholderBcrypt": "Введите или вставьте пароль для хеширования…",
+    "outputLabelBcrypt": "Хеш bcrypt",
+    "copyBcrypt": "Копировать хеш",
+    "emptyHintBcrypt": "Введите пароль для вычисления bcrypt-хеша.",
+    "securityNoteBcrypt": "Каждый результат bcrypt содержит случайную соль; один и тот же пароль даёт разную строку каждый раз. Это нормально. В продакшене используйте высокую стоимость."
   }
 }

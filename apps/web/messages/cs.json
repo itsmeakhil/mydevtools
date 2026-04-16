@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Úryvky kódu",
     "qrCodeGenerator": "Generátor QR kódů",
-    "ipSubnetCalculator": "Kalkulačka IP / podsítě"
+    "ipSubnetCalculator": "Kalkulačka IP / podsítě",
+    "hashGenerator": "Generátor hashů"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "Kalkulačka IP / podsítě",
         "description": "IPv4 a IPv6 CIDR: maska, rozsahy a počty adres."
+      },
+      "hashGenerator": {
+        "title": "Generátor hashů",
+        "description": "MD5, SHA-1 a SHA-2 pro text nebo soubory."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Převeďte libovolný text nebo URL na PNG QR kód. Vykreslení probíhá lokálně v prohlížeči.",
     "contentLabel": "Obsah",
     "contentPlaceholder": "https://example.com, prostý text, řetězec Wi‑Fi, vCard…",
+    "styleLabel": "Styl",
+    "dotTypeLabel": "Tvar teček",
+    "dotTypeSquare": "Čtverec",
+    "dotTypeDots": "Tečky",
+    "dotTypeRounded": "Zaoblené",
+    "dotTypeExtraRounded": "Extra zaoblené",
+    "dotTypeClassy": "Elegantní",
+    "dotTypeClassyRounded": "Elegantní zaoblené",
+    "cornerSquareLabel": "Rohové čtverce",
+    "cornerSquareDot": "Tečka",
+    "cornerSquareSquare": "Čtverec",
+    "cornerSquareExtraRounded": "Extra zaoblené",
+    "cornerDotLabel": "Rohové tečky",
+    "cornerDotDot": "Tečka",
+    "cornerDotSquare": "Čtverec",
     "eccLabel": "Korekce chyb",
     "eccL": "Nízká (~7 %)",
     "eccM": "Střední (~15 %)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Tmavé moduly",
     "lightColor": "Světlé moduly",
     "resetColors": "Obnovit barvy",
+    "logoLabel": "Logo uprostřed",
+    "logoMarginLabel": "Odsazení",
+    "uploadLogo": "Nahrát obrázek",
+    "removeLogo": "Odebrat logo",
     "downloadPng": "Stáhnout PNG",
+    "downloadSvg": "Stáhnout SVG",
     "copyImage": "Kopírovat obrázek",
     "copied": "Zkopírováno",
     "clear": "Vymazat",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Neplatná IPv4 síť. Zkuste CIDR nebo adresu + masku.",
       "invalidIpv6": "Neplatná IPv6 síť. Použijte adresa/prefix, např. 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Generátor hashů",
+    "subtitle": "MD5, SHA-1 a SHA-2 pro text nebo soubory; bcrypt pro hesla (textový vstup). Vše proběhne lokálně v prohlížeči.",
+    "algorithmLabel": "Algoritmus",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Text",
+    "modeFile": "Soubor",
+    "inputLabelText": "Vstup",
+    "placeholderText": "Zadejte nebo vložte text…",
+    "chooseFile": "Vybrat soubor",
+    "clearFile": "Vymazat",
+    "fileHint": "Soubory se čtou jen v paměti; max. {maxMb} MB. Nic se nenahrává.",
+    "outputLabel": "Otisk (hex)",
+    "copyHash": "Kopírovat otisk",
+    "copied": "Zkopírováno",
+    "byteCount": "{count, plural, one {# bajt} few {# bajty} many {# bajtů} other {# bajtů}}",
+    "charCount": "{count, plural, one {# znak} few {# znaky} many {# znaků} other {# znaků}}",
+    "emptyHint": "Zadejte text nebo vyberte soubor.",
+    "securityNote": "MD5 a SHA-1 se pro nové bezpečnostní účely nedoporučují; použijte SHA-256 nebo SHA-512.",
+    "errors": {
+      "fileTooLarge": "Soubor je větší než {maxMb} MB.",
+      "fileReadFailed": "Soubor nelze přečíst."
+    },
+    "bcryptRoundsLabel": "Náklad (kola)",
+    "bcryptRoundsHint": "Vyšší hodnoty jsou pomalejší a odolnější vůči hrubé síle. Běžně 10.",
+    "fileTabDisabledTitle": "bcrypt hashuje pouze hesla z textu, ne libovolné soubory.",
+    "placeholderBcrypt": "Zadejte nebo vložte heslo k hashování…",
+    "outputLabelBcrypt": "bcrypt hash",
+    "copyBcrypt": "Kopírovat hash",
+    "emptyHintBcrypt": "Zadejte heslo pro výpočet bcrypt hashe.",
+    "securityNoteBcrypt": "Každý výstup bcrypt obsahuje náhodnou sůl; stejné heslo dá pokaždé jiný řetězec. To je očekávané. V produkci používejte vyšší náklad."
   }
 }

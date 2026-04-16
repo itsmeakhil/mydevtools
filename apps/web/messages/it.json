@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Snippet di codice",
     "qrCodeGenerator": "Generatore di codici QR",
-    "ipSubnetCalculator": "Calcolatrice IP / subnet"
+    "ipSubnetCalculator": "Calcolatrice IP / subnet",
+    "hashGenerator": "Generatore di hash"
   },
   "Help": {
     "title": "Aiuto e documentazione",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "Calcolatrice IP / subnet",
         "description": "IPv4 e IPv6 CIDR: maschera, intervalli e conteggio indirizzi."
+      },
+      "hashGenerator": {
+        "title": "Generatore di hash",
+        "description": "MD5, SHA-1 e SHA-2 per testo o file."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Trasforma qualsiasi testo o URL in un codice QR PNG. Tutto viene renderizzato localmente nel browser.",
     "contentLabel": "Contenuto",
     "contentPlaceholder": "https://esempio.it, testo semplice, stringa Wi‑Fi, vCard…",
+    "styleLabel": "Stile",
+    "dotTypeLabel": "Forma dei punti",
+    "dotTypeSquare": "Quadrato",
+    "dotTypeDots": "Punti",
+    "dotTypeRounded": "Arrotondato",
+    "dotTypeExtraRounded": "Extra arrotondato",
+    "dotTypeClassy": "Elegante",
+    "dotTypeClassyRounded": "Elegante arrotondato",
+    "cornerSquareLabel": "Quadrati d'angolo",
+    "cornerSquareDot": "Punto",
+    "cornerSquareSquare": "Quadrato",
+    "cornerSquareExtraRounded": "Extra arrotondato",
+    "cornerDotLabel": "Punti d'angolo",
+    "cornerDotDot": "Punto",
+    "cornerDotSquare": "Quadrato",
     "eccLabel": "Correzione errori",
     "eccL": "Bassa (~7%)",
     "eccM": "Media (~15%)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Moduli scuri",
     "lightColor": "Moduli chiari",
     "resetColors": "Ripristina colori",
+    "logoLabel": "Logo centrale",
+    "logoMarginLabel": "Margine",
+    "uploadLogo": "Carica immagine",
+    "removeLogo": "Rimuovi logo",
     "downloadPng": "Scarica PNG",
+    "downloadSvg": "Scarica SVG",
     "copyImage": "Copia immagine",
     "copied": "Copiato",
     "clear": "Cancella",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Rete IPv4 non valida. Prova CIDR o indirizzo + maschera.",
       "invalidIpv6": "Rete IPv6 non valida. Usa indirizzo/prefisso, es. 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Generatore di hash",
+    "subtitle": "Digest MD5, SHA-1 e SHA-2 per testo o file; bcrypt per le password (input testuale). Tutto viene calcolato localmente nel browser.",
+    "algorithmLabel": "Algoritmo",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Testo",
+    "modeFile": "File",
+    "inputLabelText": "Input",
+    "placeholderText": "Digita o incolla testo…",
+    "chooseFile": "Scegli file",
+    "clearFile": "Cancella",
+    "fileHint": "I file sono letti solo in memoria; max {maxMb} MB. Nessun caricamento.",
+    "outputLabel": "Digest (hex)",
+    "copyHash": "Copia digest",
+    "copied": "Copiato",
+    "byteCount": "{count, plural, one {# byte} other {# byte}}",
+    "charCount": "{count, plural, one {# carattere} other {# caratteri}}",
+    "emptyHint": "Inserisci testo o scegli un file.",
+    "securityNote": "MD5 e SHA-1 non sono consigliati per nuovi usi di sicurezza; preferire SHA-256 o SHA-512.",
+    "errors": {
+      "fileTooLarge": "File più grande di {maxMb} MB.",
+      "fileReadFailed": "Impossibile leggere il file."
+    },
+    "bcryptRoundsLabel": "Costo (giri)",
+    "bcryptRoundsHint": "Valori più alti sono più lenti e più resistenti alla forza bruta. Spesso il default è 10.",
+    "fileTabDisabledTitle": "bcrypt elabora solo password da testo, non file arbitrari.",
+    "placeholderBcrypt": "Digita o incolla una password da sottoporre a hash…",
+    "outputLabelBcrypt": "Hash bcrypt",
+    "copyBcrypt": "Copia hash",
+    "emptyHintBcrypt": "Inserisci una password per calcolare l’hash bcrypt.",
+    "securityNoteBcrypt": "Ogni output bcrypt include un sale casuale; la stessa password produce una stringa diversa ogni volta. È normale. Usa costi elevati in produzione."
   }
 }

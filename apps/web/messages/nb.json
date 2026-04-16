@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Kodeutdrag",
     "qrCodeGenerator": "QR-kodegenerator",
-    "ipSubnetCalculator": "IP-/subnettkalkulator"
+    "ipSubnetCalculator": "IP-/subnettkalkulator",
+    "hashGenerator": "Hash-generator"
   },
   "Help": {
     "title": "Hjelp og dokumentasjon",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "IP-/subnettkalkulator",
         "description": "IPv4 og IPv6 CIDR: nettmaske, intervaller og adresser."
+      },
+      "hashGenerator": {
+        "title": "Hash-generator",
+        "description": "MD5, SHA-1 og SHA-2 for tekst eller filer."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Gjør tekst eller URL om til en PNG QR-kode. Alt rendres lokalt i nettleseren.",
     "contentLabel": "Innhold",
     "contentPlaceholder": "https://example.com, ren tekst, Wi‑Fi-streng, vCard…",
+    "styleLabel": "Stil",
+    "dotTypeLabel": "Punktform",
+    "dotTypeSquare": "Kvadrat",
+    "dotTypeDots": "Prikker",
+    "dotTypeRounded": "Avrundet",
+    "dotTypeExtraRounded": "Ekstra avrundet",
+    "dotTypeClassy": "Elegant",
+    "dotTypeClassyRounded": "Elegant avrundet",
+    "cornerSquareLabel": "Hjørnekvadrat",
+    "cornerSquareDot": "Prikk",
+    "cornerSquareSquare": "Kvadrat",
+    "cornerSquareExtraRounded": "Ekstra avrundet",
+    "cornerDotLabel": "Hjørneprikker",
+    "cornerDotDot": "Prikk",
+    "cornerDotSquare": "Kvadrat",
     "eccLabel": "Feilretting",
     "eccL": "Lav (~7%)",
     "eccM": "Middels (~15%)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Mørke moduler",
     "lightColor": "Lyse moduler",
     "resetColors": "Tilbakestill farger",
+    "logoLabel": "Midtlogo",
+    "logoMarginLabel": "Marg",
+    "uploadLogo": "Last opp bilde",
+    "removeLogo": "Fjern logo",
     "downloadPng": "Last ned PNG",
+    "downloadSvg": "Last ned SVG",
     "copyImage": "Kopier bilde",
     "copied": "Kopiert",
     "clear": "Tøm",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Ugyldig IPv4-nettverk. Prøv CIDR eller adresse + maske.",
       "invalidIpv6": "Ugyldig IPv6-nettverk. Bruk adresse/prefiks, f.eks. 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Hash-generator",
+    "subtitle": "MD5-, SHA-1- og SHA-2-summer for tekst eller filer; bcrypt for passord (tekstinndata). Alt kjører lokalt i nettleseren.",
+    "algorithmLabel": "Algoritme",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Tekst",
+    "modeFile": "Fil",
+    "inputLabelText": "Inndata",
+    "placeholderText": "Skriv eller lim inn tekst…",
+    "chooseFile": "Velg fil",
+    "clearFile": "Tøm",
+    "fileHint": "Filer leses kun i minnet; maks {maxMb} MB. Ingen opplasting.",
+    "outputLabel": "Digest (hex)",
+    "copyHash": "Kopier digest",
+    "copied": "Kopiert",
+    "byteCount": "{count, plural, one {# byte} other {# bytes}}",
+    "charCount": "{count, plural, one {# tegn} other {# tegn}}",
+    "emptyHint": "Skriv inn tekst eller velg en fil.",
+    "securityNote": "MD5 og SHA-1 anbefales ikke for nye sikkerhetsformål; bruk SHA-256 eller SHA-512.",
+    "errors": {
+      "fileTooLarge": "Filen er større enn {maxMb} MB.",
+      "fileReadFailed": "Kunne ikke lese filen."
+    },
+    "bcryptRoundsLabel": "Kostnad (runder)",
+    "bcryptRoundsHint": "Høyere verdier er tregere og mer motstandsdyktige. Vanlig standard er 10.",
+    "fileTabDisabledTitle": "bcrypt hasher bare passord fra tekst, ikke vilkårlige filer.",
+    "placeholderBcrypt": "Skriv eller lim inn et passord…",
+    "outputLabelBcrypt": "bcrypt-hash",
+    "copyBcrypt": "Kopier hash",
+    "emptyHintBcrypt": "Skriv inn et passord for å beregne bcrypt-hash.",
+    "securityNoteBcrypt": "Hver bcrypt-utdata inneholder tilfeldig salt; samme passord gir en ny streng hver gang. Dette er forventet. Bruk høy kostnad i produksjon."
   }
 }

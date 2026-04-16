@@ -29,7 +29,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Fragmenty kodu",
     "qrCodeGenerator": "Generator kodów QR",
-    "ipSubnetCalculator": "Kalkulator IP / podsieci"
+    "ipSubnetCalculator": "Kalkulator IP / podsieci",
+    "hashGenerator": "Generator skrótów"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -323,6 +324,10 @@
       "ipSubnetCalculator": {
         "title": "Kalkulator IP / podsieci",
         "description": "IPv4 i IPv6 CIDR: maska, zakresy i liczba adresów."
+      },
+      "hashGenerator": {
+        "title": "Generator skrótów",
+        "description": "MD5, SHA-1 i SHA-2 dla tekstu lub plików."
       }
     },
     "tabs": {
@@ -2338,6 +2343,21 @@
     "subtitle": "Zamień dowolny tekst lub URL na kod QR PNG. Renderowanie odbywa się lokalnie w przeglądarce.",
     "contentLabel": "Treść",
     "contentPlaceholder": "https://example.com, zwykły tekst, ciąg Wi‑Fi, vCard…",
+    "styleLabel": "Styl",
+    "dotTypeLabel": "Kształt punktów",
+    "dotTypeSquare": "Kwadrat",
+    "dotTypeDots": "Kropki",
+    "dotTypeRounded": "Zaokrąglone",
+    "dotTypeExtraRounded": "Bardzo zaokrąglone",
+    "dotTypeClassy": "Eleganckie",
+    "dotTypeClassyRounded": "Eleganckie zaokrąglone",
+    "cornerSquareLabel": "Kwadraty rogów",
+    "cornerSquareDot": "Kropka",
+    "cornerSquareSquare": "Kwadrat",
+    "cornerSquareExtraRounded": "Bardzo zaokrąglone",
+    "cornerDotLabel": "Kropki rogów",
+    "cornerDotDot": "Kropka",
+    "cornerDotSquare": "Kwadrat",
     "eccLabel": "Korekcja błędów",
     "eccL": "Niska (~7%)",
     "eccM": "Średnia (~15%)",
@@ -2349,7 +2369,12 @@
     "darkColor": "Ciemne moduły",
     "lightColor": "Jasne moduły",
     "resetColors": "Resetuj kolory",
+    "logoLabel": "Logo centralne",
+    "logoMarginLabel": "Margines",
+    "uploadLogo": "Prześlij obraz",
+    "removeLogo": "Usuń logo",
     "downloadPng": "Pobierz PNG",
+    "downloadSvg": "Pobierz SVG",
     "copyImage": "Kopiuj obraz",
     "copied": "Skopiowano",
     "clear": "Wyczyść",
@@ -2401,5 +2426,44 @@
       "invalidIpv4": "Nieprawidłowa sieć IPv4. Spróbuj CIDR lub adres + maska.",
       "invalidIpv6": "Nieprawidłowa sieć IPv6. Użyj adres/prefiks, np. 2001:db8::/48."
     }
+  },
+  "HashGenerator": {
+    "title": "Generator skrótów",
+    "subtitle": "Skróty MD5, SHA-1 i SHA-2 dla tekstu lub plików; bcrypt dla haseł (wejście tekstowe). Wszystko lokalnie w przeglądarce.",
+    "algorithmLabel": "Algorytm",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Tekst",
+    "modeFile": "Plik",
+    "inputLabelText": "Wejście",
+    "placeholderText": "Wpisz lub wklej tekst…",
+    "chooseFile": "Wybierz plik",
+    "clearFile": "Wyczyść",
+    "fileHint": "Pliki są czytane tylko w pamięci; maks. {maxMb} MB. Brak wysyłania.",
+    "outputLabel": "Skrót (hex)",
+    "copyHash": "Kopiuj skrót",
+    "copied": "Skopiowano",
+    "byteCount": "{count, plural, one {# bajt} few {# bajty} many {# bajtów} other {# bajta}}",
+    "charCount": "{count, plural, one {# znak} few {# znaki} many {# znaków} other {# znaku}}",
+    "emptyHint": "Wpisz tekst lub wybierz plik.",
+    "securityNote": "MD5 i SHA-1 nie są zalecane do nowych zastosowań bezpieczeństwa; użyj SHA-256 lub SHA-512.",
+    "errors": {
+      "fileTooLarge": "Plik większy niż {maxMb} MB.",
+      "fileReadFailed": "Nie można odczytać pliku."
+    },
+    "bcryptRoundsLabel": "Koszt (rundy)",
+    "bcryptRoundsHint": "Wyższe wartości są wolniejsze i bardziej odporne na brute force. Zwykle domyślnie 10.",
+    "fileTabDisabledTitle": "bcrypt haszuje tylko hasła z tekstu, nie dowolne pliki.",
+    "placeholderBcrypt": "Wpisz lub wklej hasło do zahashowania…",
+    "outputLabelBcrypt": "Skrót bcrypt",
+    "copyBcrypt": "Kopiuj skrót",
+    "emptyHintBcrypt": "Wpisz hasło, aby obliczyć skrót bcrypt.",
+    "securityNoteBcrypt": "Każdy wynik bcrypt zawiera losową sól; to samo hasło daje za każdym razem inny ciąg. To oczekiwane. W produkcji używaj wysokiego kosztu."
   }
 }
