@@ -38,6 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'nosql-explorer',
         'url-encode',
         'uuid-generator',
+        'qr-code-generator',
         'lorem-ipsum',
         'color-picker',
         'jwt-decoder',

@@ -28,6 +28,7 @@ import {
   IconFileMinus,
   IconFileSpreadsheet,
   IconBrandVscode,
+  IconQrcode,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -234,6 +235,13 @@ export const sidebarData: SidebarData = {
           url: '/app/uuid-generator',
           icon: IconFingerprint,
           description: 'Generate UUIDs and ULIDs with bulk export.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'QR Code Generator',
+          url: '/app/qr-code-generator',
+          icon: IconQrcode,
+          description: 'Create PNG QR codes from text or URLs locally in your browser.',
           hiddenOnMobile: true,
         },
 

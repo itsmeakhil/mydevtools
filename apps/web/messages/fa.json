@@ -27,7 +27,8 @@
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
-    "snippetManager": "قطعه‌کدها"
+    "snippetManager": "قطعه‌کدها",
+    "qrCodeGenerator": "تولیدکنندهٔ QR"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -313,6 +314,10 @@
       "snippetManager": {
         "title": "قطعه‌کدها",
         "description": "قطعه‌کدها را با برجسته‌سازی نحو، تشخیص خودکار زبان و قالب‌بندی ذخیره کنید."
+      },
+      "qrCodeGenerator": {
+        "title": "تولیدکنندهٔ QR",
+        "description": "ساخت PNG QR از متن یا نشانی در مرورگر."
       }
     },
     "tabs": {
@@ -1304,7 +1309,9 @@
     "layout": {
       "collections": "مجموعه ها",
       "closeSidebar": "نوار کناری را ببندید",
-      "openSidebar": "نوار کناری را باز کنید"
+      "openSidebar": "نوار کناری را باز کنید",
+      "request": "Request",
+      "response": "Response"
     },
     "requestPanel": {
       "methodPlaceholder": "روش",
@@ -2319,6 +2326,35 @@
       "rowCountFiltered": "{filtered} / {total} ردیف",
       "exportCsv": "CSV",
       "noRows": "هیچ ردیفی بازگردانده نشد"
+    }
+  },
+  "QrCodeGenerator": {
+    "title": "تولیدکنندهٔ QR",
+    "subtitle": "هر متن یا URL را به PNG QR تبدیل کنید. همه‌چیز به‌صورت محلی در مرورگر رندر می‌شود.",
+    "contentLabel": "محتوا",
+    "contentPlaceholder": "https://example.com، متن ساده، رشتهٔ Wi‑Fi، vCard…",
+    "eccLabel": "تصحیح خطا",
+    "eccL": "پایین (~۷٪)",
+    "eccM": "متوسط (~۱۵٪)",
+    "eccQ": "چارک (~۲۵٪)",
+    "eccH": "بالا (~۳۰٪)",
+    "marginLabel": "حاشیه (ماژول)",
+    "widthLabel": "عرض تصویر",
+    "widthEffective": "با {px} پیکسل رندر می‌شود",
+    "darkColor": "ماژول‌های تیره",
+    "lightColor": "ماژول‌های روشن",
+    "resetColors": "بازنشانی رنگ‌ها",
+    "downloadPng": "دانلود PNG",
+    "copyImage": "کپی تصویر",
+    "copied": "کپی شد",
+    "clear": "پاک کردن",
+    "previewAlt": "پیش‌نمایش QR",
+    "emptyHint": "متن را وارد یا بچسبانید تا پیش‌نمایش را ببینید.",
+    "filename": "qr-code.png",
+    "errors": {
+      "generationFailed": "تولید QR ممکن نشد. متن کوتاه‌تر یا تصحیح خطای کمتر امتحان کنید.",
+      "copyUnsupported": "مرورگر از کپی تصویر در کلیپ‌بورد پشتیبانی نمی‌کند.",
+      "copyFailed": "کپی در کلیپ‌بورد انجام نشد."
     }
   }
 }

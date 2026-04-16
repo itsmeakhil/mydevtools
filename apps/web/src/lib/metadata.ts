@@ -72,6 +72,11 @@ export const toolsMetadata: Record<string, {
         description: 'Generate UUID v1–v7 or ULIDs with namespace options and bulk copy or download.',
         keywords: ['uuid generator', 'ulid generator', 'guid', 'uuid v4', 'uuid v7', 'bulk uuid']
     },
+    'qr-code-generator': {
+        title: 'QR Code Generator',
+        description: 'Create PNG QR codes from any text or URL with error correction, colors, and margin. Runs entirely in your browser.',
+        keywords: ['qr code', 'qr generator', 'qrcode', 'png qr', 'wifi qr', 'vcard qr', 'offline qr']
+    },
     'lorem-ipsum': {
         title: 'Lorem Ipsum Generator',
         description: 'Generate classical Lorem Ipsum as paragraphs, sentences, words, or lists. Export plain text or HTML.',

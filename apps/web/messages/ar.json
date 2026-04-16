@@ -27,7 +27,8 @@
     "cssGradientBuilder": "CSS منشئ التدرج",
     "gitignoreGenerator": ".gitignore مولد",
     "csvExcelJson": "CSV / Excel ↔ JSON",
-    "snippetManager": "مقاطع الشيفرة"
+    "snippetManager": "مقاطع الشيفرة",
+    "qrCodeGenerator": "مُولّد رمز QR"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -313,6 +314,10 @@
       "snippetManager": {
         "title": "مقاطع الشيفرة",
         "description": "احفظ المقاطع مع تمييز بناء الجملة وكشف اللغة التلقائي والتنسيق."
+      },
+      "qrCodeGenerator": {
+        "title": "مُولّد رمز QR",
+        "description": "أنشئ صور PNG لرمز QR من نص أو روابط في المتصفح."
       }
     },
     "tabs": {
@@ -1304,7 +1309,9 @@
     "layout": {
       "collections": "المجموعات",
       "closeSidebar": "إغلاق الشريط الجانبي",
-      "openSidebar": "فتح الشريط الجانبي"
+      "openSidebar": "فتح الشريط الجانبي",
+      "request": "Request",
+      "response": "Response"
     },
     "requestPanel": {
       "methodPlaceholder": "الطريقة",
@@ -2319,6 +2326,35 @@
       "rowCountFiltered": "{filtered} / {total} صف",
       "exportCsv": "CSV",
       "noRows": "لم يتم إرجاع أي صفوف"
+    }
+  },
+  "QrCodeGenerator": {
+    "title": "مُولّد رمز QR",
+    "subtitle": "حوّل أي نص أو رابط إلى صورة PNG لرمز QR. كل المعالجة تتم محليًا في المتصفح.",
+    "contentLabel": "المحتوى",
+    "contentPlaceholder": "https://example.com، نص عادي، سلسلة Wi‑Fi، vCard…",
+    "eccLabel": "تصحيح الخطأ",
+    "eccL": "منخفض (~7%)",
+    "eccM": "متوسط (~15%)",
+    "eccQ": "ربعي (~25%)",
+    "eccH": "عالٍ (~30%)",
+    "marginLabel": "الهامش (وحدات)",
+    "widthLabel": "عرض الصورة",
+    "widthEffective": "يُعرض بحجم {px} بكسل",
+    "darkColor": "الوحدات الداكنة",
+    "lightColor": "الوحدات الفاتحة",
+    "resetColors": "إعادة تعيين الألوان",
+    "downloadPng": "تنزيل PNG",
+    "copyImage": "نسخ الصورة",
+    "copied": "تم النسخ",
+    "clear": "مسح",
+    "previewAlt": "معاينة رمز QR",
+    "emptyHint": "اكتب أو الصق المحتوى لمعاينة رمز QR.",
+    "filename": "qr-code.png",
+    "errors": {
+      "generationFailed": "تعذر إنشاء رمز QR. جرّب نصًا أقصر أو مستوى تصحيح أخطاء أقل.",
+      "copyUnsupported": "المتصفح لا يدعم نسخ الصور إلى الحافظة.",
+      "copyFailed": "تعذر النسخ إلى الحافظة."
     }
   }
 }

@@ -27,7 +27,8 @@
     "cssGradientBuilder": "Générateur de dégradé CSS",
     "gitignoreGenerator": "Générateur .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
-    "snippetManager": "Extraits de code"
+    "snippetManager": "Extraits de code",
+    "qrCodeGenerator": "Générateur de codes QR"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -313,6 +314,10 @@
       "snippetManager": {
         "title": "Extraits de code",
         "description": "Enregistrez des extraits avec coloration syntaxique, détection automatique du langage et formatage."
+      },
+      "qrCodeGenerator": {
+        "title": "Générateur de codes QR",
+        "description": "Créez des codes QR PNG à partir de texte ou d’URL dans le navigateur."
       }
     },
     "tabs": {
@@ -1304,7 +1309,9 @@
     "layout": {
       "collections": "Collections",
       "closeSidebar": "Fermer la barre latérale",
-      "openSidebar": "Ouvrir la barre latérale"
+      "openSidebar": "Ouvrir la barre latérale",
+      "request": "Request",
+      "response": "Response"
     },
     "requestPanel": {
       "methodPlaceholder": "Méthode",
@@ -2319,6 +2326,35 @@
       "rowCountFiltered": "{filtered} / {total} lignes",
       "exportCsv": "CSV",
       "noRows": "Aucune ligne retournée"
+    }
+  },
+  "QrCodeGenerator": {
+    "title": "Générateur de codes QR",
+    "subtitle": "Transformez tout texte ou URL en code QR PNG. Tout est rendu localement dans le navigateur.",
+    "contentLabel": "Contenu",
+    "contentPlaceholder": "https://exemple.fr, texte brut, chaîne Wi‑Fi, vCard…",
+    "eccLabel": "Correction d’erreurs",
+    "eccL": "Faible (~7 %)",
+    "eccM": "Moyenne (~15 %)",
+    "eccQ": "Quartile (~25 %)",
+    "eccH": "Élevée (~30 %)",
+    "marginLabel": "Marge (modules)",
+    "widthLabel": "Largeur de l’image",
+    "widthEffective": "Rendu à {px} px",
+    "darkColor": "Modules foncés",
+    "lightColor": "Modules clairs",
+    "resetColors": "Réinitialiser les couleurs",
+    "downloadPng": "Télécharger PNG",
+    "copyImage": "Copier l’image",
+    "copied": "Copié",
+    "clear": "Effacer",
+    "previewAlt": "Aperçu du code QR",
+    "emptyHint": "Saisissez ou collez du contenu pour prévisualiser le code QR.",
+    "filename": "code-qr.png",
+    "errors": {
+      "generationFailed": "Impossible de générer ce code QR. Essayez un texte plus court ou moins de correction.",
+      "copyUnsupported": "Votre navigateur ne permet pas de copier des images dans le presse-papiers.",
+      "copyFailed": "Impossible de copier dans le presse-papiers."
     }
   }
 }

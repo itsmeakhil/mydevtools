@@ -19,6 +19,7 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/base64': 'base64Encoder',
   '/app/url-encode': 'urlEncoder',
   '/app/uuid-generator': 'uuidGenerator',
+  '/app/qr-code-generator': 'qrCodeGenerator',
   '/app/lorem-ipsum': 'loremIpsum',
   '/app/color-picker': 'colorPicker',
   '/app/api-client': 'apiClient',

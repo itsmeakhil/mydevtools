@@ -21,6 +21,7 @@ import {
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { DbType, SavedSqlConnection, SqlConnectionConfig } from "./types";
 import { saveConnection, updateConnection, deleteConnection } from "./connection-service";
 import { useMasterKeyStore } from "@/store/master-key-store";
@@ -60,6 +61,7 @@ export function ConnectionForm({
     onConnected,
     onConnectionsChanged,
 }: ConnectionFormProps) {
+    const t = useTranslations("SqlClient.connection");
     const { encryptionKey } = useMasterKeyStore();
     const [config, setConfig] = useState<SqlConnectionConfig>(defaultConfig());
     const [name, setName] = useState("My Connection");
@@ -77,7 +79,7 @@ export function ConnectionForm({
 
     const handleTest = async () => {
         if (!config.host || !config.database) {
-            toast.error("Fill in host and database before testing.");
+            toast.error(t("toastFillFields"));
             return;
         }
         setIsTesting(true);
@@ -89,9 +91,9 @@ export function ConnectionForm({
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
-            toast.success(`Connected! ${data.version ?? ""}`);
+            toast.success(t("toastConnectOk", { version: data.version ?? "" }));
         } catch (err) {
-            toast.error(`Connection failed: ${err instanceof Error ? err.message : String(err)}`);
+            toast.error(t("toastConnectFail", { message: err instanceof Error ? err.message : String(err) }));
         } finally {
             setIsTesting(false);
         }
@@ -100,28 +102,28 @@ export function ConnectionForm({
     const handleSave = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!encryptionKey) {
-            toast.error("Unlock your vault first.");
+            toast.error(t("toastUnlockVault"));
             return;
         }
         if (!config.host || !config.database) {
-            toast.error("Host and database are required.");
+            toast.error(t("toastFieldsRequired"));
             return;
         }
         setIsSaving(true);
         try {
             if (editingId) {
                 await updateConnection(editingId, { config, name }, encryptionKey);
-                toast.success("Connection updated.");
+                toast.success(t("toastUpdated"));
                 onConnectionsChanged();
                 handleCancel();
             } else {
                 const conn = await saveConnection(config, name, encryptionKey);
-                toast.success("Connection saved.");
+                toast.success(t("toastSaved"));
                 onConnectionsChanged();
                 onConnected(conn);
             }
         } catch (err) {
-            toast.error(`Failed to save: ${err instanceof Error ? err.message : String(err)}`);
+            toast.error(t("toastSaveFail", { message: err instanceof Error ? err.message : String(err) }));
         } finally {
             setIsSaving(false);
         }
@@ -136,14 +138,14 @@ export function ConnectionForm({
 
     const handleDelete = async (e: React.MouseEvent, id: string) => {
         e.stopPropagation();
-        if (!confirm("Delete this connection?")) return;
+        if (!confirm(t("confirmDelete"))) return;
         try {
             await deleteConnection(id);
-            toast.success("Connection deleted.");
+            toast.success(t("toastDeleted"));
             if (editingId === id) handleCancel();
             onConnectionsChanged();
         } catch {
-            toast.error("Failed to delete connection.");
+            toast.error(t("toastDeleteFail"));
         }
     };
 
@@ -160,7 +162,7 @@ export function ConnectionForm({
                 <form onSubmit={handleSave} className="flex flex-col gap-5 p-6 overflow-y-auto">
                     {/* DB type picker */}
                     <div className="space-y-2">
-                        <Label className="text-sm font-medium">Database Type</Label>
+                        <Label className="text-sm font-medium">{t("labelDbType")}</Label>
                         <div className="flex gap-2">
                             {DB_TYPES.map(({ value, label, color }) => (
                                 <button
@@ -184,19 +186,19 @@ export function ConnectionForm({
                     {/* Connection name */}
                     <div className="space-y-1.5">
                         <Label htmlFor="conn-name" className="text-sm font-medium">
-                            Connection Name
+                            {t("labelName")}
                         </Label>
                         <Input
                             id="conn-name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="My Production DB"
+                            placeholder={t("placeholderName")}
                         />
                     </div>
 
                     {/* Host + Port on one row */}
                     <div className="space-y-1.5">
-                        <Label className="text-sm font-medium">Host & Port</Label>
+                        <Label className="text-sm font-medium">{t("labelHostPort")}</Label>
                         <div className="flex gap-2">
                             <Input
                                 id="conn-host"
@@ -220,13 +222,13 @@ export function ConnectionForm({
                     {/* Database name */}
                     <div className="space-y-1.5">
                         <Label htmlFor="conn-db" className="text-sm font-medium">
-                            Database
+                            {t("labelDatabase")}
                         </Label>
                         <Input
                             id="conn-db"
                             value={config.database}
                             onChange={(e) => set("database", e.target.value)}
-                            placeholder="mydb"
+                            placeholder={t("placeholderDatabase")}
                             className="font-mono text-sm"
                         />
                     </div>
@@ -234,7 +236,7 @@ export function ConnectionForm({
                     {/* Username */}
                     <div className="space-y-1.5">
                         <Label htmlFor="conn-user" className="text-sm font-medium">
-                            Username
+                            {t("labelUsername")}
                         </Label>
                         <Input
                             id="conn-user"
@@ -249,7 +251,7 @@ export function ConnectionForm({
                     {/* Password */}
                     <div className="space-y-1.5">
                         <Label htmlFor="conn-pass" className="text-sm font-medium">
-                            Password
+                            {t("labelPassword")}
                         </Label>
                         <Input
                             id="conn-pass"
@@ -265,8 +267,8 @@ export function ConnectionForm({
                     {/* SSL */}
                     <div className="flex items-center justify-between rounded-lg border px-4 py-3 bg-muted/30">
                         <div>
-                            <p className="text-sm font-medium">Enable SSL / TLS</p>
-                            <p className="text-xs text-muted-foreground mt-0.5">Encrypt the connection to the server</p>
+                            <p className="text-sm font-medium">{t("labelSsl")}</p>
+                            <p className="text-xs text-muted-foreground mt-0.5">{t("sslDesc")}</p>
                         </div>
                         <Switch
                             id="conn-ssl"
@@ -278,7 +280,7 @@ export function ConnectionForm({
                     {/* Security note */}
                     <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/40 rounded-lg px-3 py-2">
                         <IconShieldLock className="w-3.5 h-3.5 flex-shrink-0 text-green-500" />
-                        Credentials are AES-256 encrypted in your browser before storage
+                        {t("securityNote")}
                     </div>
 
                     {/* Actions */}
@@ -295,7 +297,7 @@ export function ConnectionForm({
                                     ? <IconLoader2 className="w-4 h-4 animate-spin mr-2" />
                                     : <IconPlugConnected className="w-4 h-4 mr-2" />
                                 }
-                                Test Connection
+                                {t("btnTest")}
                             </Button>
                             <Button
                                 type="submit"
@@ -306,7 +308,7 @@ export function ConnectionForm({
                                     ? <IconLoader2 className="w-4 h-4 animate-spin mr-2" />
                                     : null
                                 }
-                                {editingId ? "Update" : "Save & Connect"}
+                                {editingId ? t("btnUpdate") : t("btnSave")}
                             </Button>
                         </div>
 
@@ -319,7 +321,7 @@ export function ConnectionForm({
                                 onClick={handleCancel}
                             >
                                 <IconX className="w-3.5 h-3.5 mr-1" />
-                                Cancel editing
+                                {t("btnCancelEdit")}
                             </Button>
                         )}
                     </div>
@@ -332,7 +334,7 @@ export function ConnectionForm({
             {/* ── Right: saved connections ── */}
             <div className="w-[260px] flex-shrink-0 flex flex-col">
                 <div className="flex items-center justify-between px-4 pt-5 pb-3">
-                    <span className="text-sm font-medium">Saved Connections</span>
+                    <span className="text-sm font-medium">{t("savedConnections")}</span>
                     <Badge variant="secondary" className="text-xs tabular-nums">
                         {savedConnections.length}
                     </Badge>
@@ -344,7 +346,7 @@ export function ConnectionForm({
                             <div className="flex flex-col items-center justify-center py-16 gap-3 text-muted-foreground">
                                 <IconServer className="w-9 h-9 opacity-15" />
                                 <p className="text-xs text-center">
-                                    Saved connections<br />will appear here
+                                    {t("emptySaved")}
                                 </p>
                             </div>
                         ) : (

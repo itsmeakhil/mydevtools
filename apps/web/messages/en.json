@@ -20,6 +20,7 @@
     "imageToBase64": "Image to Base64",
     "urlEncoder": "URL Encoder",
     "uuidGenerator": "UUID / ULID",
+    "qrCodeGenerator": "QR Code Generator",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "apiClient": "API Client",
@@ -338,6 +339,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "qrCodeGenerator": {
+        "title": "QR Code Generator",
+        "description": "Create PNG QR codes from text or URLs in your browser."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2135,6 +2140,35 @@
       "invalidCustomNamespace": "Custom namespace must be a valid UUID.",
       "missingName": "Name is required for UUID v3 and v5.",
       "unknown": "Could not generate IDs."
+    }
+  },
+  "QrCodeGenerator": {
+    "title": "QR code generator",
+    "subtitle": "Turn any text or URL into a PNG QR code. Everything is rendered locally in your browser.",
+    "contentLabel": "Content",
+    "contentPlaceholder": "https://example.com, plain text, Wi‑Fi string, vCard…",
+    "eccLabel": "Error correction",
+    "eccL": "Low (~7%)",
+    "eccM": "Medium (~15%)",
+    "eccQ": "Quartile (~25%)",
+    "eccH": "High (~30%)",
+    "marginLabel": "Margin (modules)",
+    "widthLabel": "Image width",
+    "widthEffective": "Renders at {px} px",
+    "darkColor": "Dark modules",
+    "lightColor": "Light modules",
+    "resetColors": "Reset colors",
+    "downloadPng": "Download PNG",
+    "copyImage": "Copy image",
+    "copied": "Copied",
+    "clear": "Clear",
+    "previewAlt": "QR code preview",
+    "emptyHint": "Type or paste content to preview your QR code.",
+    "filename": "qr-code.png",
+    "errors": {
+      "generationFailed": "Could not generate this QR code. Try shorter text or lower error correction.",
+      "copyUnsupported": "Your browser does not support copying images to the clipboard.",
+      "copyFailed": "Could not copy to the clipboard."
     }
   },
   "LoremIpsum": {

@@ -27,7 +27,8 @@
     "cssGradientBuilder": "CSS-verloopbouwer",
     "gitignoreGenerator": ".gitignore-generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
-    "snippetManager": "Codefragmenten"
+    "snippetManager": "Codefragmenten",
+    "qrCodeGenerator": "QR-codegenerator"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -313,6 +314,10 @@
       "snippetManager": {
         "title": "Codefragmenten",
         "description": "Bewaar fragmenten met syntaxisaccentuering, automatische taaldetectie en opmaak."
+      },
+      "qrCodeGenerator": {
+        "title": "QR-codegenerator",
+        "description": "Maak PNG QR-codes van tekst of URL’s in de browser."
       }
     },
     "tabs": {
@@ -1304,7 +1309,9 @@
     "layout": {
       "collections": "Collecties",
       "closeSidebar": "Zijbalk sluiten",
-      "openSidebar": "Zijbalk openen"
+      "openSidebar": "Zijbalk openen",
+      "request": "Request",
+      "response": "Response"
     },
     "requestPanel": {
       "methodPlaceholder": "Methode",
@@ -2319,6 +2326,35 @@
       "rowCountFiltered": "{filtered} / {total} rijen",
       "exportCsv": "CSV",
       "noRows": "Geen rijen geretourneerd"
+    }
+  },
+  "QrCodeGenerator": {
+    "title": "QR-codegenerator",
+    "subtitle": "Zet tekst of een URL om in een PNG QR-code. Alles wordt lokaal in de browser gerenderd.",
+    "contentLabel": "Inhoud",
+    "contentPlaceholder": "https://voorbeeld.nl, platte tekst, Wi‑Fi-tekenreeks, vCard…",
+    "eccLabel": "Foutcorrectie",
+    "eccL": "Laag (~7%)",
+    "eccM": "Gemiddeld (~15%)",
+    "eccQ": "Kwartiel (~25%)",
+    "eccH": "Hoog (~30%)",
+    "marginLabel": "Marge (modules)",
+    "widthLabel": "Beeldbreedte",
+    "widthEffective": "Wordt gerenderd op {px} px",
+    "darkColor": "Donkere modules",
+    "lightColor": "Lichte modules",
+    "resetColors": "Kleuren resetten",
+    "downloadPng": "PNG downloaden",
+    "copyImage": "Afbeelding kopiëren",
+    "copied": "Gekopieerd",
+    "clear": "Wissen",
+    "previewAlt": "Voorbeeld QR-code",
+    "emptyHint": "Typ of plak inhoud om een voorbeeld te zien.",
+    "filename": "qr-code.png",
+    "errors": {
+      "generationFailed": "Kan deze QR-code niet genereren. Probeer kortere tekst of lagere correctie.",
+      "copyUnsupported": "Je browser ondersteunt het kopiëren van afbeeldingen niet.",
+      "copyFailed": "Kopiëren naar klembord mislukt."
     }
   }
 }

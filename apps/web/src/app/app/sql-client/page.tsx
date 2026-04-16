@@ -19,6 +19,7 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/u
 import useAuth from "@/utils/useAuth";
 import { useMasterKeyStore } from "@/store/master-key-store";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { useTranslations } from "next-intl";
 
 import { SchemaSidebar } from "@/components/sql-client/schema-sidebar";
 import { ConnectionForm } from "@/components/sql-client/connection-form";
@@ -31,6 +32,7 @@ function newTabId() {
 }
 
 export default function SqlClientPage() {
+    const t = useTranslations("SqlClient.page");
     const { user } = useAuth();
     const { encryptionKey } = useMasterKeyStore();
     const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -85,7 +87,7 @@ export default function SqlClientPage() {
             const conns = await getConnections(encryptionKey);
             setConnections(conns);
         } catch (err) {
-            toast.error("Failed to load connections.");
+            toast.error(t("toastLoadFail"));
         }
     };
 
@@ -177,7 +179,7 @@ export default function SqlClientPage() {
             ) : (
                 <Sheet open={mobileSidebarOpen} onOpenChange={setMobileSidebarOpen}>
                     <SheetContent side="left" className="p-0 w-[85vw] sm:w-[350px]">
-                        <VisuallyHidden><SheetTitle>SQL Explorer</SheetTitle></VisuallyHidden>
+                        <VisuallyHidden><SheetTitle>{t("mobileSheetTitle")}</SheetTitle></VisuallyHidden>
                         {sidebar}
                     </SheetContent>
                 </Sheet>
@@ -197,7 +199,7 @@ export default function SqlClientPage() {
                             <Menu className="h-4 w-4" />
                         </Button>
                         <span className="text-sm text-muted-foreground flex-1 truncate">
-                            {activeTab ? activeTab.connectionName : "SQL Client"}
+                            {activeTab ? activeTab.connectionName : t("title")}
                         </span>
                         <Button
                             variant="outline"
@@ -241,7 +243,7 @@ export default function SqlClientPage() {
                             className="h-8 w-8 mx-1 flex-shrink-0"
                             onClick={() => connections[0] && openQueryTab(connections[0])}
                             disabled={connections.length === 0}
-                            title="New query tab"
+                            title={t("newTabLabel")}
                         >
                             <IconPlus className="w-3.5 h-3.5" />
                         </Button>
@@ -267,9 +269,9 @@ export default function SqlClientPage() {
                                         <IconLock className="w-8 h-8 text-muted-foreground" />
                                     </div>
                                     <div>
-                                        <h3 className="text-lg font-semibold text-foreground">Vault Locked</h3>
+                                        <h3 className="text-lg font-semibold text-foreground">{t("vaultLockedTitle")}</h3>
                                         <p className="text-sm mt-1">
-                                            Unlock your vault to access saved connections.
+                                            {t("vaultLockedDesc")}
                                         </p>
                                     </div>
                                 </div>
@@ -280,11 +282,10 @@ export default function SqlClientPage() {
                                     </div>
                                     <div className="space-y-2">
                                         <h2 className="text-2xl font-bold tracking-tight text-foreground">
-                                            SQL Client
+                                            {t("heroTitle")}
                                         </h2>
                                         <p className="text-muted-foreground">
-                                            Connect to PostgreSQL, MySQL, or MariaDB databases. Credentials are encrypted
-                                            in your browser and never stored in plaintext.
+                                            {t("heroDesc")}
                                         </p>
                                     </div>
                                     <div className="grid grid-cols-3 gap-3 text-left">
@@ -300,7 +301,7 @@ export default function SqlClientPage() {
                                         className="gap-2 shadow-lg"
                                     >
                                         <IconPlus className="w-5 h-5" />
-                                        Add Connection
+                                        {t("heroAddConnection")}
                                     </Button>
                                 </div>
                             ) : (
@@ -308,10 +309,9 @@ export default function SqlClientPage() {
                                     <div className="w-14 h-14 bg-muted rounded-full flex items-center justify-center mx-auto">
                                         <IconTable className="w-7 h-7 text-muted-foreground" />
                                     </div>
-                                    <p className="text-sm font-medium text-foreground">Select a table or open a query tab</p>
+                                    <p className="text-sm font-medium text-foreground">{t("selectTableTitle")}</p>
                                     <p className="text-xs text-muted-foreground">
-                                        Click a table in the sidebar, or use{" "}
-                                        <span className="font-mono bg-muted px-1 rounded">⌘↩</span> to run queries.
+                                        {t("selectTableDesc")}
                                     </p>
                                 </div>
                             )}
@@ -325,7 +325,7 @@ export default function SqlClientPage() {
                 <Dialog open={isConnectionDialogOpen} onOpenChange={setIsConnectionDialogOpen}>
                     <DialogContent className="max-w-[780px] p-0 overflow-hidden gap-0">
                         <DialogHeader className="px-6 pt-5 pb-0">
-                            <DialogTitle>SQL Connections</DialogTitle>
+                            <DialogTitle>{t("dialogTitle")}</DialogTitle>
                         </DialogHeader>
                         <ConnectionForm
                             savedConnections={connections}
@@ -338,7 +338,7 @@ export default function SqlClientPage() {
                 <Drawer open={isConnectionDialogOpen} onOpenChange={setIsConnectionDialogOpen}>
                     <DrawerContent className="max-h-[90vh]">
                         <DrawerHeader>
-                            <DrawerTitle>SQL Connections</DrawerTitle>
+                            <DrawerTitle>{t("dialogTitle")}</DrawerTitle>
                         </DrawerHeader>
                         <div className="overflow-y-auto">
                             <ConnectionForm

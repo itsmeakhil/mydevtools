@@ -27,7 +27,8 @@
     "cssGradientBuilder": "Pembina Kecerunan CSS",
     "gitignoreGenerator": "Penjana .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
-    "snippetManager": "Petikan kod"
+    "snippetManager": "Petikan kod",
+    "qrCodeGenerator": "Penjana kod QR"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -313,6 +314,10 @@
       "snippetManager": {
         "title": "Petikan kod",
         "description": "Simpan petikan dengan sorotan sintaks, pengesanan bahasa automatik dan pemformatan."
+      },
+      "qrCodeGenerator": {
+        "title": "Penjana kod QR",
+        "description": "Cipta kod QR PNG daripada teks atau URL dalam pelayar."
       }
     },
     "tabs": {
@@ -1304,7 +1309,9 @@
     "layout": {
       "collections": "Koleksi",
       "closeSidebar": "Tutup bar sisi",
-      "openSidebar": "Buka bar sisi"
+      "openSidebar": "Buka bar sisi",
+      "request": "Request",
+      "response": "Response"
     },
     "requestPanel": {
       "methodPlaceholder": "Kaedah",
@@ -2319,6 +2326,35 @@
       "rowCountFiltered": "{filtered} / {total} baris",
       "exportCsv": "CSV",
       "noRows": "Tiada baris dikembalikan"
+    }
+  },
+  "QrCodeGenerator": {
+    "title": "Penjana kod QR",
+    "subtitle": "Tukar sebarang teks atau URL kepada kod QR PNG. Semua dipaparkan secara tempatan dalam pelayar.",
+    "contentLabel": "Kandungan",
+    "contentPlaceholder": "https://example.com, teks biasa, rentetan Wi‑Fi, vCard…",
+    "eccLabel": "Pembetulan ralat",
+    "eccL": "Rendah (~7%)",
+    "eccM": "Sederhana (~15%)",
+    "eccQ": "Suku (~25%)",
+    "eccH": "Tinggi (~30%)",
+    "marginLabel": "Margin (modul)",
+    "widthLabel": "Lebar imej",
+    "widthEffective": "Dipaparkan pada {px} px",
+    "darkColor": "Modul gelap",
+    "lightColor": "Modul cerah",
+    "resetColors": "Set semula warna",
+    "downloadPng": "Muat turun PNG",
+    "copyImage": "Salin imej",
+    "copied": "Disalin",
+    "clear": "Padam",
+    "previewAlt": "Pratonton kod QR",
+    "emptyHint": "Taip atau tampal kandungan untuk pratonton.",
+    "filename": "kod-qr.png",
+    "errors": {
+      "generationFailed": "Tidak dapat menjana kod QR. Cuba teks lebih pendek atau pembetulan lebih rendah.",
+      "copyUnsupported": "Pelayar tidak menyokong menyalin imej ke papan keratan.",
+      "copyFailed": "Tidak dapat menyalin ke papan keratan."
     }
   }
 }

@@ -27,7 +27,8 @@
     "cssGradientBuilder": "Construtor de gradiente CSS",
     "gitignoreGenerator": "Gerador .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
-    "snippetManager": "Excertos de código"
+    "snippetManager": "Excertos de código",
+    "qrCodeGenerator": "Gerador de códigos QR"
   },
   "Help": {
     "title": "Ajuda e documentação",
@@ -313,6 +314,10 @@
       "snippetManager": {
         "title": "Excertos de código",
         "description": "Guarde excertos com realce de sintaxe, deteção automática de linguagem e formatação."
+      },
+      "qrCodeGenerator": {
+        "title": "Gerador de códigos QR",
+        "description": "Crie códigos QR PNG a partir de texto ou URL no navegador."
       }
     },
     "tabs": {
@@ -1304,7 +1309,9 @@
     "layout": {
       "collections": "Coleções",
       "closeSidebar": "Fechar barra lateral",
-      "openSidebar": "Abrir barra lateral"
+      "openSidebar": "Abrir barra lateral",
+      "request": "Request",
+      "response": "Response"
     },
     "requestPanel": {
       "methodPlaceholder": "Método",
@@ -2319,6 +2326,35 @@
       "rowCountFiltered": "{filtered} / {total} linhas",
       "exportCsv": "CSV",
       "noRows": "Nenhuma linha retornada"
+    }
+  },
+  "QrCodeGenerator": {
+    "title": "Gerador de códigos QR",
+    "subtitle": "Converta qualquer texto ou URL num código QR PNG. Tudo é renderizado localmente no navegador.",
+    "contentLabel": "Conteúdo",
+    "contentPlaceholder": "https://exemplo.pt, texto simples, cadeia Wi‑Fi, vCard…",
+    "eccLabel": "Correção de erros",
+    "eccL": "Baixa (~7%)",
+    "eccM": "Média (~15%)",
+    "eccQ": "Quartil (~25%)",
+    "eccH": "Alta (~30%)",
+    "marginLabel": "Margem (módulos)",
+    "widthLabel": "Largura da imagem",
+    "widthEffective": "Renderizado a {px} px",
+    "darkColor": "Módulos escuros",
+    "lightColor": "Módulos claros",
+    "resetColors": "Repor cores",
+    "downloadPng": "Descarregar PNG",
+    "copyImage": "Copiar imagem",
+    "copied": "Copiado",
+    "clear": "Limpar",
+    "previewAlt": "Pré-visualização do código QR",
+    "emptyHint": "Escreva ou cole conteúdo para pré-visualizar.",
+    "filename": "codigo-qr.png",
+    "errors": {
+      "generationFailed": "Não foi possível gerar o código QR. Tente texto mais curto ou menos correção.",
+      "copyUnsupported": "O navegador não suporta copiar imagens para a área de transferência.",
+      "copyFailed": "Não foi possível copiar para a área de transferência."
     }
   }
 }

@@ -29,6 +29,7 @@ import {
   FileMinus,
   FileSpreadsheet,
   FileCode,
+  QrCode,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
@@ -63,6 +64,7 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
   '/app/email-validator': { title: 'Email Validator', icon: Globe },
   '/app/url-encode': { title: 'URL Encoder / Decoder', icon: Link2, namespace: 'UrlEncode' },
   '/app/uuid-generator': { title: 'UUID / ULID Generator', icon: Fingerprint, namespace: 'UuidGenerator' },
+  '/app/qr-code-generator': { title: 'QR Code Generator', icon: QrCode, namespace: 'QrCodeGenerator' },
   '/app/lorem-ipsum': { title: 'Lorem Ipsum Generator', icon: TextQuote, namespace: 'LoremIpsum' },
   '/app/color-picker': { title: 'Color Picker', icon: Palette, namespace: 'ColorPicker' },
   '/app/css-gradient-builder': { title: 'CSS Gradient Builder', icon: Paintbrush, namespace: 'CssGradientBuilder' },

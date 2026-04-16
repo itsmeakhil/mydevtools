@@ -27,7 +27,8 @@
     "cssGradientBuilder": "Конструктор CSS-градиентов",
     "gitignoreGenerator": "Генератор .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
-    "snippetManager": "Фрагменты кода"
+    "snippetManager": "Фрагменты кода",
+    "qrCodeGenerator": "Генератор QR-кодов"
   },
   "Help": {
     "title": "Справка и документация",
@@ -313,6 +314,10 @@
       "snippetManager": {
         "title": "Фрагменты кода",
         "description": "Сохраняйте сниппеты с подсветкой синтаксиса, автоопределением языка и форматированием."
+      },
+      "qrCodeGenerator": {
+        "title": "Генератор QR-кодов",
+        "description": "Создавайте PNG QR-коды из текста или URL в браузере."
       }
     },
     "tabs": {
@@ -1304,7 +1309,9 @@
     "layout": {
       "collections": "Коллекции",
       "closeSidebar": "Закрыть боковую панель",
-      "openSidebar": "Открыть боковую панель"
+      "openSidebar": "Открыть боковую панель",
+      "request": "Request",
+      "response": "Response"
     },
     "requestPanel": {
       "methodPlaceholder": "Метод",
@@ -2319,6 +2326,35 @@
       "rowCountFiltered": "{filtered} / {total} строк",
       "exportCsv": "CSV",
       "noRows": "Строки не возвращены"
+    }
+  },
+  "QrCodeGenerator": {
+    "title": "Генератор QR-кодов",
+    "subtitle": "Превратите любой текст или URL в PNG QR-код. Всё обрабатывается локально в браузере.",
+    "contentLabel": "Содержимое",
+    "contentPlaceholder": "https://example.com, обычный текст, строка Wi‑Fi, vCard…",
+    "eccLabel": "Коррекция ошибок",
+    "eccL": "Низкая (~7%)",
+    "eccM": "Средняя (~15%)",
+    "eccQ": "Квартиль (~25%)",
+    "eccH": "Высокая (~30%)",
+    "marginLabel": "Поле (модули)",
+    "widthLabel": "Ширина изображения",
+    "widthEffective": "Рендер {px} px",
+    "darkColor": "Тёмные модули",
+    "lightColor": "Светлые модули",
+    "resetColors": "Сбросить цвета",
+    "downloadPng": "Скачать PNG",
+    "copyImage": "Копировать изображение",
+    "copied": "Скопировано",
+    "clear": "Очистить",
+    "previewAlt": "Предпросмотр QR-кода",
+    "emptyHint": "Введите или вставьте текст для предпросмотра.",
+    "filename": "qr-code.png",
+    "errors": {
+      "generationFailed": "Не удалось создать QR-код. Попробуйте короче текст или ниже коррекцию.",
+      "copyUnsupported": "Браузер не поддерживает копирование изображения в буфер.",
+      "copyFailed": "Не удалось скопировать в буфер."
     }
   }
 }

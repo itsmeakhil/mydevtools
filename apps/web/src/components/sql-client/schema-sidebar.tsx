@@ -17,6 +17,7 @@ import { SavedSqlConnection, SchemaInfo, TableInfo } from "./types";
 import { DbIcon, dbTypeLabel } from "./db-icon";
 import { touchConnection } from "./connection-service";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 interface SchemaSidebarProps {
     width: number;
@@ -43,6 +44,7 @@ export function SchemaSidebar({
     onAddConnection,
     onSelectConnection,
 }: SchemaSidebarProps) {
+    const t = useTranslations("SqlClient.sidebar");
     const [connStates, setConnStates] = useState<Record<string, ConnState>>({});
 
     const getState = (id: string): ConnState =>
@@ -75,7 +77,7 @@ export function SchemaSidebar({
         } catch (err) {
             const msg = err instanceof Error ? err.message : String(err);
             setState(conn.id, { loading: false, error: msg });
-            toast.error(`Failed to load schema: ${msg}`);
+            toast.error(t("toastSchemaFail", { message: msg }));
         }
     };
 
@@ -112,17 +114,17 @@ export function SchemaSidebar({
             style={{ width }}
         >
             {/* Header */}
-            <div className="flex items-center justify-between px-3 py-2 border-b flex-shrink-0">
-                <span className="text-xs font-semibold uppercase text-muted-foreground tracking-wider flex items-center gap-1.5">
-                    <IconDatabase className="w-3.5 h-3.5" />
-                    SQL Explorer
-                </span>
+            <div className="flex items-center justify-between px-3 py-2.5 border-b flex-shrink-0">
+                <h1 className="text-sm font-semibold flex items-center gap-1.5">
+                    <IconDatabase className="w-4 h-4 text-primary flex-shrink-0" />
+                    {t("title")}
+                </h1>
                 <Button
                     variant="ghost"
                     size="icon"
                     className="h-6 w-6"
                     onClick={onAddConnection}
-                    title="Add connection"
+                    title={t("tooltipAddConnection")}
                 >
                     <IconPlus className="h-3.5 w-3.5" />
                 </Button>
@@ -132,7 +134,7 @@ export function SchemaSidebar({
                 <div className="p-2 space-y-1">
                     {connections.length === 0 && (
                         <div className="text-center py-8 text-muted-foreground text-xs">
-                            No connections saved yet
+                            {t("noConnections")}
                         </div>
                     )}
 
@@ -181,7 +183,7 @@ export function SchemaSidebar({
                                             size="icon"
                                             className="h-5 w-5 opacity-0 group-hover:opacity-100 flex-shrink-0"
                                             onClick={(e) => { e.stopPropagation(); loadSchema(conn); }}
-                                            title="Refresh schema"
+                                            title={t("tooltipRefreshSchema")}
                                         >
                                             <IconRefresh className="h-3 w-3" />
                                         </Button>

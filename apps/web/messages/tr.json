@@ -27,7 +27,8 @@
     "cssGradientBuilder": "CSS Degrade Oluşturucu",
     "gitignoreGenerator": ".gitignore Oluşturucu",
     "csvExcelJson": "CSV / Excel ↔ JSON",
-    "snippetManager": "Kod parçacıkları"
+    "snippetManager": "Kod parçacıkları",
+    "qrCodeGenerator": "QR kod oluşturucu"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -313,6 +314,10 @@
       "snippetManager": {
         "title": "Kod parçacıkları",
         "description": "Sözdizimi vurgulama, otomatik dil algılama ve biçimlendirme ile parçacıkları kaydedin."
+      },
+      "qrCodeGenerator": {
+        "title": "QR kod oluşturucu",
+        "description": "Metin veya URL’den tarayıcıda PNG QR kodları oluşturun."
       }
     },
     "tabs": {
@@ -1304,7 +1309,9 @@
     "layout": {
       "collections": "Koleksiyonlar",
       "closeSidebar": "Kenar çubuğunu kapat",
-      "openSidebar": "Kenar çubuğunu aç"
+      "openSidebar": "Kenar çubuğunu aç",
+      "request": "Request",
+      "response": "Response"
     },
     "requestPanel": {
       "methodPlaceholder": "Yöntem",
@@ -2319,6 +2326,35 @@
       "rowCountFiltered": "{filtered} / {total} satır",
       "exportCsv": "CSV",
       "noRows": "Satır döndürülmedi"
+    }
+  },
+  "QrCodeGenerator": {
+    "title": "QR kod oluşturucu",
+    "subtitle": "Herhangi bir metni veya URL’yi PNG QR koda dönüştürün. İşlem tamamen tarayıcıda yerel olarak yapılır.",
+    "contentLabel": "İçerik",
+    "contentPlaceholder": "https://ornek.com, düz metin, Wi‑Fi dizesi, vCard…",
+    "eccLabel": "Hata düzeltme",
+    "eccL": "Düşük (~%7)",
+    "eccM": "Orta (~%15)",
+    "eccQ": "Çeyrek (~%25)",
+    "eccH": "Yüksek (~%30)",
+    "marginLabel": "Kenar boşluğu (modül)",
+    "widthLabel": "Görüntü genişliği",
+    "widthEffective": "{px} px olarak oluşturulur",
+    "darkColor": "Koyu modüller",
+    "lightColor": "Açık modüller",
+    "resetColors": "Renkleri sıfırla",
+    "downloadPng": "PNG indir",
+    "copyImage": "Görüntüyü kopyala",
+    "copied": "Kopyalandı",
+    "clear": "Temizle",
+    "previewAlt": "QR kod önizlemesi",
+    "emptyHint": "Önizleme için içerik yazın veya yapıştırın.",
+    "filename": "qr-kod.png",
+    "errors": {
+      "generationFailed": "QR kod oluşturulamadı. Daha kısa metin veya daha düşük düzeltme deneyin.",
+      "copyUnsupported": "Tarayıcı görüntüyü panoya kopyalamayı desteklemiyor.",
+      "copyFailed": "Panoya kopyalanamadı."
     }
   }
 }
