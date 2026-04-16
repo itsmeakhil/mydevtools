@@ -30,7 +30,8 @@
     "snippetManager": "Petikan kod",
     "qrCodeGenerator": "Penjana kod QR",
     "ipSubnetCalculator": "Kalkulator IP / subnet",
-    "hashGenerator": "Penjana hash"
+    "hashGenerator": "Penjana hash",
+    "hmacGenerator": "Penjana HMAC"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Penjana hash",
         "description": "MD5, SHA-1 dan SHA-2 untuk teks atau fail."
+      },
+      "hmacGenerator": {
+        "title": "Penjana HMAC",
+        "description": "Tandatangani webhook dan uji integrasi API dengan HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Salin hash",
     "emptyHintBcrypt": "Masukkan kata laluan untuk mengira hash bcrypt.",
     "securityNoteBcrypt": "Setiap output bcrypt merangkumi garam rawak; kata laluan yang sama menghasilkan rentetan berbeza setiap kali. Ini dijangka. Gunakan kos tinggi dalam produksi."
+  },
+  "HmacGenerator": {
+    "title": "Penjana HMAC",
+    "subtitle": "Untuk menandatangani webhook dan menguji integrasi API. HMAC-SHA1/256/384/512 dalam hex atau Base64—dikira secara setempat dalam pelayar.",
+    "secretLabel": "Kunci rahsia",
+    "messageLabel": "Mesej / muatan",
+    "placeholderSecret": "Tampal rahsia penandatanganan…",
+    "placeholderMessage": "Tampal badan mentah atau rentetan untuk diautentikasi (selalunya bait webhook yang tepat).",
+    "algorithmLabel": "Algoritma HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Format output",
+    "formatHex": "Hex (huruf kecil)",
+    "formatBase64": "Base64",
+    "outputLabel": "Tandatangan",
+    "copyOutput": "Salin tandatangan",
+    "copied": "Disalin",
+    "byteCountHint": "{count, plural, other {# bait}} (UTF-8)",
+    "emptyHint": "Masukkan kunci rahsia untuk mengira HMAC.",
+    "securityNote": "Jangan kongsi rahsia penandatanganan. Halaman ini tidak memuat naik data—semua berjalan dalam pelayar.",
+    "errors": {
+      "cryptoFailed": "Tidak dapat mengira HMAC. Semak sokongan Web Crypto dan cuba lagi."
+    }
   }
 }

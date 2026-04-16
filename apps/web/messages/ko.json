@@ -30,7 +30,8 @@
     "snippetManager": "코드 스니펫",
     "qrCodeGenerator": "QR 코드 생성기",
     "ipSubnetCalculator": "IP / 서브넷 계산기",
-    "hashGenerator": "해시 생성기"
+    "hashGenerator": "해시 생성기",
+    "hmacGenerator": "HMAC 생성기"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "해시 생성기",
         "description": "텍스트나 파일용 MD5, SHA-1, SHA-2."
+      },
+      "hmacGenerator": {
+        "title": "HMAC 생성기",
+        "description": "HMAC-SHA1/256/384/512로 웹훅 서명 및 API 연동 테스트."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "해시 복사",
     "emptyHintBcrypt": "bcrypt 해시를 계산하려면 비밀번호를 입력하세요.",
     "securityNoteBcrypt": "bcrypt 출력에는 매번 무작위 솔트가 포함됩니다. 같은 비밀번호라도 매번 다른 문자열이 나옵니다. 운영 환경에서는 높은 비용을 사용하세요."
+  },
+  "HmacGenerator": {
+    "title": "HMAC 생성기",
+    "subtitle": "웹훅 서명과 API 연동 테스트용. HMAC-SHA1/256/384/512를 hex 또는 Base64로—브라우저에서 로컬 계산.",
+    "secretLabel": "비밀 키",
+    "messageLabel": "메시지 / 페이로드",
+    "placeholderSecret": "서명 비밀값을 붙여넣기…",
+    "placeholderMessage": "검증할 원시 본문 또는 문자열을 붙여넣기(대개 웹훅 본문 바이트와 동일).",
+    "algorithmLabel": "HMAC 알고리즘",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "출력 형식",
+    "formatHex": "Hex(소문자)",
+    "formatBase64": "Base64",
+    "outputLabel": "서명",
+    "copyOutput": "서명 복사",
+    "copied": "복사됨",
+    "byteCountHint": "{count, plural, other {#바이트}} (UTF-8)",
+    "emptyHint": "HMAC을 계산하려면 비밀 키를 입력하세요.",
+    "securityNote": "서명 비밀값은 절대 공유하지 마세요. 이 페이지는 데이터를 업로드하지 않으며 모두 브라우저에서 실행됩니다.",
+    "errors": {
+      "cryptoFailed": "HMAC을 계산할 수 없습니다. Web Crypto 지원을 확인하고 다시 시도하세요."
+    }
   }
 }

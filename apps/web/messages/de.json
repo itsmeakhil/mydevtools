@@ -30,7 +30,8 @@
     "snippetManager": "Code-Snippets",
     "qrCodeGenerator": "QR-Code-Generator",
     "ipSubnetCalculator": "IP-/Subnetz-Rechner",
-    "hashGenerator": "Hash-Generator"
+    "hashGenerator": "Hash-Generator",
+    "hmacGenerator": "HMAC-Generator"
   },
   "Help": {
     "title": "Hilfe & Dokumentation",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Hash-Generator",
         "description": "MD5, SHA-1 und SHA-2 für Text oder Dateien."
+      },
+      "hmacGenerator": {
+        "title": "HMAC-Generator",
+        "description": "Webhooks signieren und API-Integrationen mit HMAC-SHA1/256/384/512 testen."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Hash kopieren",
     "emptyHintBcrypt": "Geben Sie ein Passwort ein, um einen bcrypt-Hash zu berechnen.",
     "securityNoteBcrypt": "Jede bcrypt-Ausgabe enthält ein zufälliges Salz; dasselbe Passwort ergibt jedes Mal eine andere Zeichenkette. Das ist erwartet. In Produktion hohe Kosten verwenden."
+  },
+  "HmacGenerator": {
+    "title": "HMAC-Generator",
+    "subtitle": "Zum Signieren von Webhooks und Testen von API-Integrationen. HMAC-SHA1/256/384/512 als Hex oder Base64—lokal im Browser berechnet.",
+    "secretLabel": "Geheimer Schlüssel",
+    "messageLabel": "Nachricht / Nutzdaten",
+    "placeholderSecret": "Signing-Secret einfügen…",
+    "placeholderMessage": "Rohdaten oder Zeichenkette zum Verifizieren einfügen (oft exakte Webhook-Body-Bytes).",
+    "algorithmLabel": "HMAC-Algorithmus",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Ausgabeformat",
+    "formatHex": "Hex (Kleinbuchstaben)",
+    "formatBase64": "Base64",
+    "outputLabel": "Signatur",
+    "copyOutput": "Signatur kopieren",
+    "copied": "Kopiert",
+    "byteCountHint": "{count, plural, one {# Byte} other {# Bytes}} (UTF-8)",
+    "emptyHint": "Geben Sie einen geheimen Schlüssel ein, um HMAC zu berechnen.",
+    "securityNote": "Teilen Sie Ihr Signing-Secret niemals. Diese Seite lädt keine Daten hoch—alles läuft im Browser.",
+    "errors": {
+      "cryptoFailed": "HMAC konnte nicht berechnet werden. Prüfen Sie Web Crypto und versuchen Sie es erneut."
+    }
   }
 }

@@ -30,7 +30,8 @@
     "snippetManager": "Kodesnippette",
     "qrCodeGenerator": "QR-kodegenerator",
     "ipSubnetCalculator": "IP-/subnetrekenaar",
-    "hashGenerator": "Hash-generator"
+    "hashGenerator": "Hash-generator",
+    "hmacGenerator": "HMAC-generator"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Hash-generator",
         "description": "MD5, SHA-1 en SHA-2 vir teks of lêers."
+      },
+      "hmacGenerator": {
+        "title": "HMAC-generator",
+        "description": "Teken webhooks en toets API-integrasies met HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Kopieer hash",
     "emptyHintBcrypt": "Voer ’n wagwoord in om ’n bcrypt-hash te bereken.",
     "securityNoteBcrypt": "Elke bcrypt-uitset sluit ’n lukrake sout in; dieselfde wagwoord gee elke keer ’n ander string. Dit is verwag. Gebruik sterk koste in produksie."
+  },
+  "HmacGenerator": {
+    "title": "HMAC-generator",
+    "subtitle": "Vir die ondertekening van webhooks en die toets van API-integrasies. HMAC-SHA1/256/384/512 in heks of Base64—plaaslik in jou blaaier bereken.",
+    "secretLabel": "Geheime sleutel",
+    "messageLabel": "Boodskap / nutlading",
+    "placeholderSecret": "Plak jou ondertekeningsgeheim…",
+    "placeholderMessage": "Plak die rou lyf of string om te verifieer (dikwels presiese webhook-bytes).",
+    "algorithmLabel": "HMAC-algoritme",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Uitvoerformaat",
+    "formatHex": "Heks (kleinletters)",
+    "formatBase64": "Base64",
+    "outputLabel": "Handtekening",
+    "copyOutput": "Kopieer handtekening",
+    "copied": "Gekopieer",
+    "byteCountHint": "{count, plural, one {# greep} other {# grepe}} (UTF-8)",
+    "emptyHint": "Voer 'n geheime sleutel in om HMAC te bereken.",
+    "securityNote": "Deel nooit jou ondertekeningsgeheim nie. Hierdie bladsy laai niks op nie—alles loop in jou blaaier.",
+    "errors": {
+      "cryptoFailed": "Kon nie HMAC bereken nie. Kontroleer Web Crypto-steun en probeer weer."
+    }
   }
 }

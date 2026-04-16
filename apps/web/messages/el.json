@@ -30,7 +30,8 @@
     "snippetManager": "Αποσπάσματα κώδικα",
     "qrCodeGenerator": "Δημιουργός κωδικών QR",
     "ipSubnetCalculator": "Υπολογιστής IP / υποδικτύου",
-    "hashGenerator": "Γεννήτρια hash"
+    "hashGenerator": "Γεννήτρια hash",
+    "hmacGenerator": "Γεννήτρια HMAC"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Γεννήτρια hash",
         "description": "MD5, SHA-1 και SHA-2 για κείμενο ή αρχεία."
+      },
+      "hmacGenerator": {
+        "title": "Γεννήτρια HMAC",
+        "description": "Υπογράψτε webhooks και δοκιμάστε ενσωματώσεις API με HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Αντιγραφή κατακερματισμού",
     "emptyHintBcrypt": "Εισάγετε κωδικό για υπολογισμό bcrypt.",
     "securityNoteBcrypt": "Κάθε έξοδος bcrypt περιλαμβάνει τυχαίο αλάτι· ο ίδιος κωδικός δίνει διαφορετική συμβολοσειρά κάθε φορά. Αυτό αναμένεται. Χρησιμοποιήστε υψηλό κόστος σε παραγωγή."
+  },
+  "HmacGenerator": {
+    "title": "Γεννήτρια HMAC",
+    "subtitle": "Για υπογραφή webhooks και δοκιμή ενσωματώσεων API. HMAC-SHA1/256/384/512 σε hex ή Base64—υπολογισμός τοπικά στον περιηγητή.",
+    "secretLabel": "Μυστικό κλειδί",
+    "messageLabel": "Μήνυμα / φορτίο",
+    "placeholderSecret": "Επικολλήστε το μυστικό υπογραφής…",
+    "placeholderMessage": "Επικολλήστε το ακατέργαστο σώμα ή τη συμβολοσειρά επαλήθευσης (συχνά τα ακριβή bytes του webhook).",
+    "algorithmLabel": "Αλγόριθμος HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Μορφή εξόδου",
+    "formatHex": "Hex (πεζά)",
+    "formatBase64": "Base64",
+    "outputLabel": "Υπογραφή",
+    "copyOutput": "Αντιγραφή υπογραφής",
+    "copied": "Αντιγράφηκε",
+    "byteCountHint": "{count, plural, one {# byte} other {# bytes}} (UTF-8)",
+    "emptyHint": "Εισάγετε μυστικό κλειδί για υπολογισμό HMAC.",
+    "securityNote": "Μην μοιράζεστε ποτέ το μυστικό υπογραφής. Αυτή η σελίδα δεν ανεβάζει δεδομένα—όλα εκτελούνται στον περιηγητή.",
+    "errors": {
+      "cryptoFailed": "Αδυναμία υπολογισμού HMAC. Ελέγξτε την υποστήριξη Web Crypto και δοκιμάστε ξανά."
+    }
   }
 }

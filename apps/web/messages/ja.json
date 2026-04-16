@@ -30,7 +30,8 @@
     "snippetManager": "コードスニペット",
     "qrCodeGenerator": "QRコード生成",
     "ipSubnetCalculator": "IP／サブネット計算",
-    "hashGenerator": "ハッシュ生成"
+    "hashGenerator": "ハッシュ生成",
+    "hmacGenerator": "HMACジェネレーター"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "ハッシュ生成",
         "description": "テキストやファイルの MD5、SHA-1、SHA-2。"
+      },
+      "hmacGenerator": {
+        "title": "HMACジェネレーター",
+        "description": "Webhookの署名とAPI連携のテストに HMAC-SHA1/256/384/512。"
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "ハッシュをコピー",
     "emptyHintBcrypt": "bcrypt ハッシュを計算するにはパスワードを入力してください。",
     "securityNoteBcrypt": "bcrypt の出力には毎回ランダムなソルトが含まれます。同じパスワードでも毎回異なる文字列になります。本番では十分なコストを設定してください。"
+  },
+  "HmacGenerator": {
+    "title": "HMACジェネレーター",
+    "subtitle": "Webhookの署名とAPI連携のテスト用。HMAC-SHA1/256/384/512 を hex または Base64 で出力—すべてブラウザ内で計算。",
+    "secretLabel": "秘密鍵",
+    "messageLabel": "メッセージ / ペイロード",
+    "placeholderSecret": "署名用シークレットを貼り付け…",
+    "placeholderMessage": "検証する生の本文または文字列を貼り付け（多くの場合Webhook本文のバイト列そのもの）。",
+    "algorithmLabel": "HMACアルゴリズム",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "出力形式",
+    "formatHex": "Hex（小文字）",
+    "formatBase64": "Base64",
+    "outputLabel": "署名",
+    "copyOutput": "署名をコピー",
+    "copied": "コピーしました",
+    "byteCountHint": "{count, plural, other {# バイト}} (UTF-8)",
+    "emptyHint": "HMACを計算するには秘密鍵を入力してください。",
+    "securityNote": "署名用シークレットは共有しないでください。データはアップロードされず、すべてブラウザ内で処理されます。",
+    "errors": {
+      "cryptoFailed": "HMACを計算できませんでした。Web Crypto の対応を確認して再試行してください。"
+    }
   }
 }

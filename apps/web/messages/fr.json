@@ -30,7 +30,8 @@
     "snippetManager": "Extraits de code",
     "qrCodeGenerator": "Générateur de codes QR",
     "ipSubnetCalculator": "Calculateur IP / sous-réseau",
-    "hashGenerator": "Générateur de hash"
+    "hashGenerator": "Générateur de hash",
+    "hmacGenerator": "Générateur HMAC"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Générateur de hash",
         "description": "MD5, SHA-1 et SHA-2 pour texte ou fichiers."
+      },
+      "hmacGenerator": {
+        "title": "Générateur HMAC",
+        "description": "Signer des webhooks et tester des intégrations API avec HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Copier le hachage",
     "emptyHintBcrypt": "Entrez un mot de passe pour calculer un hachage bcrypt.",
     "securityNoteBcrypt": "Chaque sortie bcrypt inclut un sel aléatoire ; le même mot de passe produit une chaîne différente à chaque fois. C’est attendu. Utilisez un coût élevé en production."
+  },
+  "HmacGenerator": {
+    "title": "Générateur HMAC",
+    "subtitle": "Pour signer des webhooks et tester des intégrations d’API. HMAC-SHA1/256/384/512 en hexadécimal ou Base64—calculé localement dans le navigateur.",
+    "secretLabel": "Clé secrète",
+    "messageLabel": "Message / charge utile",
+    "placeholderSecret": "Collez votre secret de signature…",
+    "placeholderMessage": "Collez le corps brut ou la chaîne à authentifier (souvent les octets exacts du webhook).",
+    "algorithmLabel": "Algorithme HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Format de sortie",
+    "formatHex": "Hexadécimal (minuscules)",
+    "formatBase64": "Base64",
+    "outputLabel": "Signature",
+    "copyOutput": "Copier la signature",
+    "copied": "Copié",
+    "byteCountHint": "{count, plural, one {# octet} other {# octets}} (UTF-8)",
+    "emptyHint": "Saisissez une clé secrète pour calculer le HMAC.",
+    "securityNote": "Ne partagez jamais votre secret de signature. Cette page n’envoie pas de données ; tout s’exécute dans le navigateur.",
+    "errors": {
+      "cryptoFailed": "Impossible de calculer le HMAC. Vérifiez le support de Web Crypto et réessayez."
+    }
   }
 }

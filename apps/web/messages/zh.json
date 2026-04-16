@@ -30,7 +30,8 @@
     "snippetManager": "代码片段",
     "qrCodeGenerator": "二维码生成器",
     "ipSubnetCalculator": "IP / 子网计算器",
-    "hashGenerator": "哈希生成器"
+    "hashGenerator": "哈希生成器",
+    "hmacGenerator": "HMAC 生成器"
   },
   "Help": {
     "title": "帮助与文档",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "哈希生成器",
         "description": "文本或文件的 MD5、SHA-1、SHA-2。"
+      },
+      "hmacGenerator": {
+        "title": "HMAC 生成器",
+        "description": "使用 HMAC-SHA1/256/384/512 为 Webhook 签名并测试 API 集成。"
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "复制哈希",
     "emptyHintBcrypt": "输入密码以计算 bcrypt 哈希。",
     "securityNoteBcrypt": "每次 bcrypt 输出都包含随机盐；同一密码每次会得到不同字符串，这是预期行为。生产环境请使用足够高的成本。"
+  },
+  "HmacGenerator": {
+    "title": "HMAC 生成器",
+    "subtitle": "用于 Webhook 签名与 API 集成测试。支持 HMAC-SHA1/256/384/512，输出 hex 或 Base64—均在浏览器本地计算。",
+    "secretLabel": "密钥",
+    "messageLabel": "消息 / 负载",
+    "placeholderSecret": "粘贴签名密钥…",
+    "placeholderMessage": "粘贴要验证的原始正文或字符串（通常为 Webhook 正文的精确字节）。",
+    "algorithmLabel": "HMAC 算法",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "输出格式",
+    "formatHex": "Hex（小写）",
+    "formatBase64": "Base64",
+    "outputLabel": "签名",
+    "copyOutput": "复制签名",
+    "copied": "已复制",
+    "byteCountHint": "{count, plural, other {# 字节}} (UTF-8)",
+    "emptyHint": "输入密钥以计算 HMAC。",
+    "securityNote": "切勿泄露签名密钥。本页不会上传数据，一切在浏览器中运行。",
+    "errors": {
+      "cryptoFailed": "无法计算 HMAC。请检查浏览器是否支持 Web Crypto 后重试。"
+    }
   }
 }

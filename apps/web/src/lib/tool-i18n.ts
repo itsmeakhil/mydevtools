@@ -22,6 +22,7 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/qr-code-generator': 'qrCodeGenerator',
   '/app/ip-subnet-calculator': 'ipSubnetCalculator',
   '/app/hash-generator': 'hashGenerator',
+  '/app/hmac-generator': 'hmacGenerator',
   '/app/lorem-ipsum': 'loremIpsum',
   '/app/color-picker': 'colorPicker',
   '/app/api-client': 'apiClient',

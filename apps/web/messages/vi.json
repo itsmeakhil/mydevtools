@@ -30,7 +30,8 @@
     "snippetManager": "Đoạn mã",
     "qrCodeGenerator": "Trình tạo mã QR",
     "ipSubnetCalculator": "Máy tính IP / mạng con",
-    "hashGenerator": "Trình tạo hash"
+    "hashGenerator": "Trình tạo hash",
+    "hmacGenerator": "Trình tạo HMAC"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Trình tạo hash",
         "description": "MD5, SHA-1 và SHA-2 cho văn bản hoặc tệp."
+      },
+      "hmacGenerator": {
+        "title": "Trình tạo HMAC",
+        "description": "Ký webhook và kiểm thử tích hợp API với HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Sao chép băm",
     "emptyHintBcrypt": "Nhập mật khẩu để tính băm bcrypt.",
     "securityNoteBcrypt": "Mỗi đầu ra bcrypt có muối ngẫu nhiên; cùng mật khẩu cho chuỗi khác nhau mỗi lần. Điều này là bình thường. Dùng chi phí cao trong môi trường production."
+  },
+  "HmacGenerator": {
+    "title": "Trình tạo HMAC",
+    "subtitle": "Để ký webhook và kiểm thử tích hợp API. HMAC-SHA1/256/384/512 dạng hex hoặc Base64—tính cục bộ trong trình duyệt.",
+    "secretLabel": "Khóa bí mật",
+    "messageLabel": "Thông điệp / payload",
+    "placeholderSecret": "Dán bí mật ký…",
+    "placeholderMessage": "Dán nội dung thô hoặc chuỗi cần xác thực (thường đúng byte nội dung webhook).",
+    "algorithmLabel": "Thuật toán HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Định dạng đầu ra",
+    "formatHex": "Hex (chữ thường)",
+    "formatBase64": "Base64",
+    "outputLabel": "Chữ ký",
+    "copyOutput": "Sao chép chữ ký",
+    "copied": "Đã sao chép",
+    "byteCountHint": "{count, plural, other {# byte}} (UTF-8)",
+    "emptyHint": "Nhập khóa bí mật để tính HMAC.",
+    "securityNote": "Không bao giờ chia sẻ bí mật ký. Trang này không tải dữ liệu lên—mọi thứ chạy trong trình duyệt.",
+    "errors": {
+      "cryptoFailed": "Không thể tính HMAC. Kiểm tra hỗ trợ Web Crypto và thử lại."
+    }
   }
 }

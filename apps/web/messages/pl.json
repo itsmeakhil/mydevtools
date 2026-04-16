@@ -30,7 +30,8 @@
     "snippetManager": "Fragmenty kodu",
     "qrCodeGenerator": "Generator kodów QR",
     "ipSubnetCalculator": "Kalkulator IP / podsieci",
-    "hashGenerator": "Generator skrótów"
+    "hashGenerator": "Generator skrótów",
+    "hmacGenerator": "Generator HMAC"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Generator skrótów",
         "description": "MD5, SHA-1 i SHA-2 dla tekstu lub plików."
+      },
+      "hmacGenerator": {
+        "title": "Generator HMAC",
+        "description": "Podpisuj webhooki i testuj integracje API za pomocą HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Kopiuj skrót",
     "emptyHintBcrypt": "Wpisz hasło, aby obliczyć skrót bcrypt.",
     "securityNoteBcrypt": "Każdy wynik bcrypt zawiera losową sól; to samo hasło daje za każdym razem inny ciąg. To oczekiwane. W produkcji używaj wysokiego kosztu."
+  },
+  "HmacGenerator": {
+    "title": "Generator HMAC",
+    "subtitle": "Do podpisywania webhooków i testowania integracji API. HMAC-SHA1/256/384/512 w hex lub Base64—obliczane lokalnie w przeglądarce.",
+    "secretLabel": "Tajny klucz",
+    "messageLabel": "Wiadomość / ładunek",
+    "placeholderSecret": "Wklej tajny klucz podpisu…",
+    "placeholderMessage": "Wklej surowe ciało lub ciąg do uwierzytelnienia (często dokładne bajty webhooka).",
+    "algorithmLabel": "Algorytm HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Format wyjścia",
+    "formatHex": "Hex (małe litery)",
+    "formatBase64": "Base64",
+    "outputLabel": "Podpis",
+    "copyOutput": "Kopiuj podpis",
+    "copied": "Skopiowano",
+    "byteCountHint": "{count, plural, one {# bajt} few {# bajty} many {# bajtów} other {# bajta}} (UTF-8)",
+    "emptyHint": "Wpisz tajny klucz, aby obliczyć HMAC.",
+    "securityNote": "Nigdy nie udostępniaj tajnego klucza podpisu. Ta strona nie wysyła danych—wszystko działa w przeglądarce.",
+    "errors": {
+      "cryptoFailed": "Nie można obliczyć HMAC. Sprawdź obsługę Web Crypto i spróbuj ponownie."
+    }
   }
 }

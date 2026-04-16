@@ -23,6 +23,7 @@
     "qrCodeGenerator": "QR Code Generator",
     "ipSubnetCalculator": "IP / Subnet Calculator",
     "hashGenerator": "Hash Generator",
+    "hmacGenerator": "HMAC Generator",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "apiClient": "API Client",
@@ -353,6 +354,10 @@
       "hashGenerator": {
         "title": "Hash Generator",
         "description": "MD5, SHA-1, and SHA-2 digests for text or files."
+      },
+      "hmacGenerator": {
+        "title": "HMAC Generator",
+        "description": "Sign webhooks and test API integrations with HMAC-SHA1/256/384/512."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2278,6 +2283,33 @@
     "errors": {
       "fileTooLarge": "File is larger than {maxMb} MB.",
       "fileReadFailed": "Could not read this file."
+    }
+  },
+  "HmacGenerator": {
+    "title": "HMAC generator",
+    "subtitle": "For signing webhooks and testing API integrations. HMAC-SHA1/256/384/512 in hex or Base64—computed locally in your browser.",
+    "secretLabel": "Secret key",
+    "messageLabel": "Message / payload",
+    "placeholderSecret": "Paste your signing secret…",
+    "placeholderMessage": "Paste the raw body or string to authenticate (often the exact webhook body bytes).",
+    "algorithmLabel": "HMAC algorithm",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Output format",
+    "formatHex": "Hex (lowercase)",
+    "formatBase64": "Base64",
+    "outputLabel": "Signature",
+    "copyOutput": "Copy signature",
+    "copied": "Copied",
+    "byteCountHint": "{count, plural, one {# byte} other {# bytes}} (UTF-8)",
+    "emptyHint": "Enter a secret key to compute HMAC.",
+    "securityNote": "Never share your signing secret. This page does not upload data—everything runs in your browser.",
+    "errors": {
+      "cryptoFailed": "Could not compute HMAC. Check your browser supports Web Crypto and try again."
     }
   },
   "LoremIpsum": {

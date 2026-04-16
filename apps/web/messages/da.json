@@ -30,7 +30,8 @@
     "snippetManager": "Kodestykker",
     "qrCodeGenerator": "QR-kodegenerator",
     "ipSubnetCalculator": "IP-/subnetberegner",
-    "hashGenerator": "Hash-generator"
+    "hashGenerator": "Hash-generator",
+    "hmacGenerator": "HMAC-generator"
   },
   "Help": {
     "title": "Hjælp og dokumentation",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Hash-generator",
         "description": "MD5, SHA-1 og SHA-2 til tekst eller filer."
+      },
+      "hmacGenerator": {
+        "title": "HMAC-generator",
+        "description": "Underskriv webhooks og test API-integrationer med HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Kopiér hash",
     "emptyHintBcrypt": "Indtast en adgangskode for at beregne bcrypt-hash.",
     "securityNoteBcrypt": "Hver bcrypt-output indeholder et tilfældigt salt; samme adgangskode giver en ny streng hver gang. Det er forventet. Brug høj omkostning i produktion."
+  },
+  "HmacGenerator": {
+    "title": "HMAC-generator",
+    "subtitle": "Til underskrift af webhooks og test af API-integrationer. HMAC-SHA1/256/384/512 i hex eller Base64—beregnet lokalt i din browser.",
+    "secretLabel": "Hemmelig nøgle",
+    "messageLabel": "Besked / payload",
+    "placeholderSecret": "Indsæt din underskriftshemmelighed…",
+    "placeholderMessage": "Indsæt den rå krop eller streng, der skal godkendes (ofte de præcise webhook-bytes).",
+    "algorithmLabel": "HMAC-algoritme",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Outputformat",
+    "formatHex": "Hex (små bogstaver)",
+    "formatBase64": "Base64",
+    "outputLabel": "Signatur",
+    "copyOutput": "Kopiér signatur",
+    "copied": "Kopieret",
+    "byteCountHint": "{count, plural, one {# byte} other {# bytes}} (UTF-8)",
+    "emptyHint": "Indtast en hemmelig nøgle for at beregne HMAC.",
+    "securityNote": "Del aldrig din underskriftshemmelighed. Denne side uploader ikke data—alt kører i din browser.",
+    "errors": {
+      "cryptoFailed": "Kunne ikke beregne HMAC. Kontroller Web Crypto-understøttelse og prøv igen."
+    }
   }
 }

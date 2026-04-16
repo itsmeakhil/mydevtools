@@ -30,7 +30,8 @@
     "snippetManager": "Codefragmenten",
     "qrCodeGenerator": "QR-codegenerator",
     "ipSubnetCalculator": "IP-/subnetcalculator",
-    "hashGenerator": "Hash-generator"
+    "hashGenerator": "Hash-generator",
+    "hmacGenerator": "HMAC-generator"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Hash-generator",
         "description": "MD5, SHA-1 en SHA-2 voor tekst of bestanden."
+      },
+      "hmacGenerator": {
+        "title": "HMAC-generator",
+        "description": "Webhooks ondertekenen en API-integraties testen met HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Hash kopiëren",
     "emptyHintBcrypt": "Voer een wachtwoord in om een bcrypt-hash te berekenen.",
     "securityNoteBcrypt": "Elke bcrypt-uitvoer bevat een willekeurig zout; hetzelfde wachtwoord geeft elke keer een andere string. Dat is verwacht. Gebruik hoge kosten in productie."
+  },
+  "HmacGenerator": {
+    "title": "HMAC-generator",
+    "subtitle": "Voor het ondertekenen van webhooks en het testen van API-integraties. HMAC-SHA1/256/384/512 in hex of Base64—lokaal in je browser berekend.",
+    "secretLabel": "Geheime sleutel",
+    "messageLabel": "Bericht / payload",
+    "placeholderSecret": "Plak je signing secret…",
+    "placeholderMessage": "Plak de ruwe body of tekenreeks om te verifiëren (vaak de exacte webhook-bytes).",
+    "algorithmLabel": "HMAC-algoritme",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Uitvoerformaat",
+    "formatHex": "Hex (kleine letters)",
+    "formatBase64": "Base64",
+    "outputLabel": "Handtekening",
+    "copyOutput": "Handtekening kopiëren",
+    "copied": "Gekopieerd",
+    "byteCountHint": "{count, plural, one {# byte} other {# bytes}} (UTF-8)",
+    "emptyHint": "Voer een geheime sleutel in om HMAC te berekenen.",
+    "securityNote": "Deel je signing secret nooit. Deze pagina uploadt geen gegevens—alles draait in je browser.",
+    "errors": {
+      "cryptoFailed": "HMAC kon niet worden berekend. Controleer Web Crypto-ondersteuning en probeer opnieuw."
+    }
   }
 }

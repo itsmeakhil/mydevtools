@@ -30,7 +30,8 @@
     "snippetManager": "مقاطع الشيفرة",
     "qrCodeGenerator": "مُولّد رمز QR",
     "ipSubnetCalculator": "حاسبة IP / الشبكة الفرعية",
-    "hashGenerator": "مُولّد الهاش"
+    "hashGenerator": "مُولّد الهاش",
+    "hmacGenerator": "مُولّد HMAC"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "مُولّد الهاش",
         "description": "MD5 وSHA-1 وSHA-2 لنص أو ملفات."
+      },
+      "hmacGenerator": {
+        "title": "مُولّد HMAC",
+        "description": "توقيع خطافات الويب واختبار تكاملات API باستخدام HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "نسخ التجزئة",
     "emptyHintBcrypt": "أدخل كلمة مرور لحساب تجزئة bcrypt.",
     "securityNoteBcrypt": "كل مخرجات bcrypt تتضمن ملحًا عشوائيًا؛ نفس كلمة المرور تعطي سلسلة مختلفة في كل مرة. هذا متوقع. استخدم تكلفة عالية في الإنتاج."
+  },
+  "HmacGenerator": {
+    "title": "مُولّد HMAC",
+    "subtitle": "لتوقيع خطافات الويب واختبار تكاملات واجهات API. HMAC-SHA1/256/384/512 بصيغة hex أو Base64—يُحسب محليًا في المتصفح.",
+    "secretLabel": "المفتاح السري",
+    "messageLabel": "الرسالة / الحمولة",
+    "placeholderSecret": "الصق سر التوقيع…",
+    "placeholderMessage": "الصق النص الخام أو السلسلة للمصادقة (غالبًا نفس بايتات جسم الخطاف).",
+    "algorithmLabel": "خوارزمية HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "صيغة الإخراج",
+    "formatHex": "Hex (أحرف صغيرة)",
+    "formatBase64": "Base64",
+    "outputLabel": "التوقيع",
+    "copyOutput": "نسخ التوقيع",
+    "copied": "تم النسخ",
+    "byteCountHint": "{count, plural, one {# بايت} other {# بايت}} (UTF-8)",
+    "emptyHint": "أدخل مفتاحًا سريًا لحساب HMAC.",
+    "securityNote": "لا تشارك سر التوقيع أبدًا. لا تُرفع البيانات من هذه الصفحة—كل شيء يعمل في المتصفح.",
+    "errors": {
+      "cryptoFailed": "تعذّر حساب HMAC. تأكد من دعم Web Crypto وحاول مجددًا."
+    }
   }
 }

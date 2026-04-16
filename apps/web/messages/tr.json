@@ -30,7 +30,8 @@
     "snippetManager": "Kod parçacıkları",
     "qrCodeGenerator": "QR kod oluşturucu",
     "ipSubnetCalculator": "IP / alt ağ hesaplayıcı",
-    "hashGenerator": "Hash oluşturucu"
+    "hashGenerator": "Hash oluşturucu",
+    "hmacGenerator": "HMAC Oluşturucu"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Hash oluşturucu",
         "description": "Metin veya dosyalar için MD5, SHA-1 ve SHA-2."
+      },
+      "hmacGenerator": {
+        "title": "HMAC Oluşturucu",
+        "description": "HMAC-SHA1/256/384/512 ile webhook imzalama ve API entegrasyonlarını test edin."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Özeti kopyala",
     "emptyHintBcrypt": "bcrypt özeti hesaplamak için parola girin.",
     "securityNoteBcrypt": "Her bcrypt çıktısı rastgele tuz içerir; aynı parola her seferinde farklı bir dize üretir. Bu beklenendir. Üretimde yüksek maliyet kullanın."
+  },
+  "HmacGenerator": {
+    "title": "HMAC oluşturucu",
+    "subtitle": "Webhook imzalamak ve API entegrasyonlarını test etmek için. HMAC-SHA1/256/384/512 hex veya Base64—tarayıcıda yerel hesaplanır.",
+    "secretLabel": "Gizli anahtar",
+    "messageLabel": "İleti / yük",
+    "placeholderSecret": "İmzalama sırrını yapıştırın…",
+    "placeholderMessage": "Doğrulanacak ham gövde veya dizeyi yapıştırın (genelde webhook gövdesinin tam baytları).",
+    "algorithmLabel": "HMAC algoritması",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Çıktı biçimi",
+    "formatHex": "Hex (küçük harf)",
+    "formatBase64": "Base64",
+    "outputLabel": "İmza",
+    "copyOutput": "İmzayı kopyala",
+    "copied": "Kopyalandı",
+    "byteCountHint": "{count, plural, one {# bayt} other {# bayt}} (UTF-8)",
+    "emptyHint": "HMAC hesaplamak için gizli anahtar girin.",
+    "securityNote": "İmzalama sırrını asla paylaşmayın. Bu sayfa veri yüklemez—her şey tarayıcıda çalışır.",
+    "errors": {
+      "cryptoFailed": "HMAC hesaplanamadı. Web Crypto desteğini kontrol edip yeniden deneyin."
+    }
   }
 }
