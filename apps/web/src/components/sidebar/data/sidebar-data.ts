@@ -196,6 +196,12 @@ export const sidebarData: SidebarData = {
           description: 'Explore MongoDB databases.',
         },
         {
+          title: 'SQL Client',
+          url: '/app/sql-client',
+          icon: IconSql,
+          description: 'Connect to PostgreSQL, MySQL, and MariaDB. Run queries with an encrypted credential store.',
+        },
+        {
           title: 'Regex Tester',
           url: '/app/regex-tester',
           icon: IconRegex,
