@@ -30,7 +30,8 @@
     "snippetManager": "Snippet di codice",
     "qrCodeGenerator": "Generatore di codici QR",
     "ipSubnetCalculator": "Calcolatrice IP / subnet",
-    "hashGenerator": "Generatore di hash"
+    "hashGenerator": "Generatore di hash",
+    "hmacGenerator": "Generatore HMAC"
   },
   "Help": {
     "title": "Aiuto e documentazione",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Generatore di hash",
         "description": "MD5, SHA-1 e SHA-2 per testo o file."
+      },
+      "hmacGenerator": {
+        "title": "Generatore HMAC",
+        "description": "Firma webhook e testa integrazioni API con HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Copia hash",
     "emptyHintBcrypt": "Inserisci una password per calcolare l’hash bcrypt.",
     "securityNoteBcrypt": "Ogni output bcrypt include un sale casuale; la stessa password produce una stringa diversa ogni volta. È normale. Usa costi elevati in produzione."
+  },
+  "HmacGenerator": {
+    "title": "Generatore HMAC",
+    "subtitle": "Per firmare webhook e testare integrazioni API. HMAC-SHA1/256/384/512 in hex o Base64—calcolato localmente nel browser.",
+    "secretLabel": "Chiave segreta",
+    "messageLabel": "Messaggio / payload",
+    "placeholderSecret": "Incolla il secret di firma…",
+    "placeholderMessage": "Incolla il corpo grezzo o la stringa da autenticare (spesso gli stessi byte esatti del webhook).",
+    "algorithmLabel": "Algoritmo HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Formato di output",
+    "formatHex": "Hex (minuscolo)",
+    "formatBase64": "Base64",
+    "outputLabel": "Firma",
+    "copyOutput": "Copia firma",
+    "copied": "Copiato",
+    "byteCountHint": "{count, plural, one {# byte} other {# byte}} (UTF-8)",
+    "emptyHint": "Inserisci una chiave segreta per calcolare l’HMAC.",
+    "securityNote": "Non condividere mai il secret di firma. Questa pagina non carica dati; tutto viene eseguito nel browser.",
+    "errors": {
+      "cryptoFailed": "Impossibile calcolare l’HMAC. Verifica il supporto a Web Crypto e riprova."
+    }
   }
 }

@@ -25,6 +25,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/qr-code-generator',
   '/app/ip-subnet-calculator',
   '/app/hash-generator',
+  '/app/hmac-generator',
   '/app/lorem-ipsum',
   '/app/color-picker',
 ];

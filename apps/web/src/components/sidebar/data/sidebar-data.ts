@@ -31,6 +31,7 @@ import {
   IconQrcode,
   IconHierarchy2,
   IconHash,
+  IconCircleKey,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -258,6 +259,13 @@ export const sidebarData: SidebarData = {
           url: '/app/hash-generator',
           icon: IconHash,
           description: 'MD5, SHA-1, SHA-256/384/512 digests for text or files in your browser.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'HMAC Generator',
+          url: '/app/hmac-generator',
+          icon: IconCircleKey,
+          description: 'HMAC-SHA1/256/384/512 for webhooks and API signing tests in your browser.',
           hiddenOnMobile: true,
         },
 

@@ -30,7 +30,8 @@
     "snippetManager": "Kodutdrag",
     "qrCodeGenerator": "QR-kodgenerator",
     "ipSubnetCalculator": "IP-/subnetkalkylator",
-    "hashGenerator": "Hash-generator"
+    "hashGenerator": "Hash-generator",
+    "hmacGenerator": "HMAC-generator"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Hash-generator",
         "description": "MD5, SHA-1 och SHA-2 för text eller filer."
+      },
+      "hmacGenerator": {
+        "title": "HMAC-generator",
+        "description": "Signera webhooks och testa API-integrationer med HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Kopiera hash",
     "emptyHintBcrypt": "Ange ett lösenord för att beräkna bcrypt-hash.",
     "securityNoteBcrypt": "Varje bcrypt-utdata innehåller ett slumpmässigt salt; samma lösenord ger en ny sträng varje gång. Det förväntas. Använd hög kostnad i produktion."
+  },
+  "HmacGenerator": {
+    "title": "HMAC-generator",
+    "subtitle": "För att signera webhooks och testa API-integrationer. HMAC-SHA1/256/384/512 i hex eller Base64—beräknat lokalt i webbläsaren.",
+    "secretLabel": "Hemlig nyckel",
+    "messageLabel": "Meddelande / nyttolast",
+    "placeholderSecret": "Klistra in din signeringshemlighet…",
+    "placeholderMessage": "Klistra in råtext eller sträng att verifiera (ofta exakta webhook-bytes).",
+    "algorithmLabel": "HMAC-algoritm",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Utdataformat",
+    "formatHex": "Hex (gemener)",
+    "formatBase64": "Base64",
+    "outputLabel": "Signatur",
+    "copyOutput": "Kopiera signatur",
+    "copied": "Kopierat",
+    "byteCountHint": "{count, plural, one {# byte} other {# byte}} (UTF-8)",
+    "emptyHint": "Ange en hemlig nyckel för att beräkna HMAC.",
+    "securityNote": "Dela aldrig din signeringshemlighet. Den här sidan laddar inte upp data—allt körs i webbläsaren.",
+    "errors": {
+      "cryptoFailed": "Kunde inte beräkna HMAC. Kontrollera Web Crypto-stöd och försök igen."
+    }
   }
 }

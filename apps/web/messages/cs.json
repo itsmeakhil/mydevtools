@@ -30,7 +30,8 @@
     "snippetManager": "Úryvky kódu",
     "qrCodeGenerator": "Generátor QR kódů",
     "ipSubnetCalculator": "Kalkulačka IP / podsítě",
-    "hashGenerator": "Generátor hashů"
+    "hashGenerator": "Generátor hashů",
+    "hmacGenerator": "Generátor HMAC"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Generátor hashů",
         "description": "MD5, SHA-1 a SHA-2 pro text nebo soubory."
+      },
+      "hmacGenerator": {
+        "title": "Generátor HMAC",
+        "description": "Podepisujte webhooky a testujte integrace API pomocí HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Kopírovat hash",
     "emptyHintBcrypt": "Zadejte heslo pro výpočet bcrypt hashe.",
     "securityNoteBcrypt": "Každý výstup bcrypt obsahuje náhodnou sůl; stejné heslo dá pokaždé jiný řetězec. To je očekávané. V produkci používejte vyšší náklad."
+  },
+  "HmacGenerator": {
+    "title": "Generátor HMAC",
+    "subtitle": "Pro podepisování webhooků a testování integrací API. HMAC-SHA1/256/384/512 v hex nebo Base64—počítáno lokálně v prohlížeči.",
+    "secretLabel": "Tajný klíč",
+    "messageLabel": "Zpráva / payload",
+    "placeholderSecret": "Vložte podpisové tajemství…",
+    "placeholderMessage": "Vložte surové tělo nebo řetězec k ověření (často přesné bajty webhooku).",
+    "algorithmLabel": "Algoritmus HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Formát výstupu",
+    "formatHex": "Hex (malá písmena)",
+    "formatBase64": "Base64",
+    "outputLabel": "Podpis",
+    "copyOutput": "Kopírovat podpis",
+    "copied": "Zkopírováno",
+    "byteCountHint": "{count, plural, one {# bajt} few {# bajty} other {# bajtů}} (UTF-8)",
+    "emptyHint": "Zadejte tajný klíč pro výpočet HMAC.",
+    "securityNote": "Nikdy nesdílejte podpisové tajemství. Tato stránka nic neodesílá—vše běží v prohlížeči.",
+    "errors": {
+      "cryptoFailed": "HMAC se nepodařilo vypočítat. Zkontrolujte podporu Web Crypto a zkuste znovu."
+    }
   }
 }

@@ -30,7 +30,8 @@
     "snippetManager": "Excertos de código",
     "qrCodeGenerator": "Gerador de códigos QR",
     "ipSubnetCalculator": "Calculadora IP / sub-rede",
-    "hashGenerator": "Gerador de hash"
+    "hashGenerator": "Gerador de hash",
+    "hmacGenerator": "Gerador HMAC"
   },
   "Help": {
     "title": "Ajuda e documentação",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Gerador de hash",
         "description": "MD5, SHA-1 e SHA-2 para texto ou ficheiros."
+      },
+      "hmacGenerator": {
+        "title": "Gerador HMAC",
+        "description": "Assine webhooks e teste integrações de API com HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Copiar hash",
     "emptyHintBcrypt": "Introduza uma palavra-passe para calcular o hash bcrypt.",
     "securityNoteBcrypt": "Cada saída bcrypt inclui sal aleatório; a mesma palavra-passe produz uma cadeia diferente de cada vez. É esperado. Use custo elevado em produção."
+  },
+  "HmacGenerator": {
+    "title": "Gerador HMAC",
+    "subtitle": "Para assinar webhooks e testar integrações de API. HMAC-SHA1/256/384/512 em hexadecimal ou Base64—calculado localmente no navegador.",
+    "secretLabel": "Chave secreta",
+    "messageLabel": "Mensagem / payload",
+    "placeholderSecret": "Cole o segredo de assinatura…",
+    "placeholderMessage": "Cole o corpo em bruto ou a cadeia a autenticar (normalmente os bytes exatos do webhook).",
+    "algorithmLabel": "Algoritmo HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Formato de saída",
+    "formatHex": "Hexadecimal (minúsculas)",
+    "formatBase64": "Base64",
+    "outputLabel": "Assinatura",
+    "copyOutput": "Copiar assinatura",
+    "copied": "Copiado",
+    "byteCountHint": "{count, plural, one {# byte} other {# bytes}} (UTF-8)",
+    "emptyHint": "Introduza uma chave secreta para calcular o HMAC.",
+    "securityNote": "Nunca partilhe o segredo de assinatura. Esta página não carrega dados; tudo corre no navegador.",
+    "errors": {
+      "cryptoFailed": "Não foi possível calcular o HMAC. Verifique o suporte a Web Crypto e tente novamente."
+    }
   }
 }

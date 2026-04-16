@@ -30,7 +30,8 @@
     "snippetManager": "قطعه‌کدها",
     "qrCodeGenerator": "تولیدکنندهٔ QR",
     "ipSubnetCalculator": "ماشین‌حساب IP / زیرشبکه",
-    "hashGenerator": "تولیدکنندهٔ هش"
+    "hashGenerator": "تولیدکنندهٔ هش",
+    "hmacGenerator": "تولیدکنندهٔ HMAC"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "تولیدکنندهٔ هش",
         "description": "MD5، SHA-1 و SHA-2 برای متن یا فایل."
+      },
+      "hmacGenerator": {
+        "title": "تولیدکنندهٔ HMAC",
+        "description": "امضای وب‌هوک و آزمایش یکپارچگی API با HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "کپی هش",
     "emptyHintBcrypt": "برای محاسبهٔ هش bcrypt گذرواژه وارد کنید.",
     "securityNoteBcrypt": "هر خروجی bcrypt نمک تصادفی دارد؛ همان گذرواژه هر بار رشتهٔ متفاوتی می‌دهد. این طبیعی است. در تولید هزینهٔ بالا بگذارید."
+  },
+  "HmacGenerator": {
+    "title": "تولیدکنندهٔ HMAC",
+    "subtitle": "برای امضای وب‌هوک‌ها و آزمایش یکپارچگی API. HMAC-SHA1/256/384/512 به صورت hex یا Base64—به‌صورت محلی در مرورگر.",
+    "secretLabel": "کلید مخفی",
+    "messageLabel": "پیام / بار مفید",
+    "placeholderSecret": "رمز امضا را بچسبانید…",
+    "placeholderMessage": "بدنهٔ خام یا رشتهٔ احراز هویت را بچسبانید (معمولاً همان بایت‌های دقیق وب‌هوک).",
+    "algorithmLabel": "الگوریتم HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "قالب خروجی",
+    "formatHex": "Hex (حروف کوچک)",
+    "formatBase64": "Base64",
+    "outputLabel": "امضا",
+    "copyOutput": "کپی امضا",
+    "copied": "کپی شد",
+    "byteCountHint": "{count, plural, one {# بایت} other {# بایت}} (UTF-8)",
+    "emptyHint": "برای محاسبهٔ HMAC کلید مخفی وارد کنید.",
+    "securityNote": "هرگز رمز امضا را به اشتراک نگذارید. این صفحه داده‌ای آپلود نمی‌کند؛ همه‌چیز در مرورگر اجرا می‌شود.",
+    "errors": {
+      "cryptoFailed": "محاسبهٔ HMAC ممکن نشد. پشتیبانی Web Crypto را بررسی و دوباره امتحان کنید."
+    }
   }
 }

@@ -30,7 +30,8 @@
     "snippetManager": "Kodeutdrag",
     "qrCodeGenerator": "QR-kodegenerator",
     "ipSubnetCalculator": "IP-/subnettkalkulator",
-    "hashGenerator": "Hash-generator"
+    "hashGenerator": "Hash-generator",
+    "hmacGenerator": "HMAC-generator"
   },
   "Help": {
     "title": "Hjelp og dokumentasjon",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Hash-generator",
         "description": "MD5, SHA-1 og SHA-2 for tekst eller filer."
+      },
+      "hmacGenerator": {
+        "title": "HMAC-generator",
+        "description": "Signer webhooks og test API-integrasjoner med HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Kopier hash",
     "emptyHintBcrypt": "Skriv inn et passord for å beregne bcrypt-hash.",
     "securityNoteBcrypt": "Hver bcrypt-utdata inneholder tilfeldig salt; samme passord gir en ny streng hver gang. Dette er forventet. Bruk høy kostnad i produksjon."
+  },
+  "HmacGenerator": {
+    "title": "HMAC-generator",
+    "subtitle": "For signering av webhooks og testing av API-integrasjoner. HMAC-SHA1/256/384/512 i hex eller Base64—beregnet lokalt i nettleseren.",
+    "secretLabel": "Hemmelig nøkkel",
+    "messageLabel": "Melding / nyttelast",
+    "placeholderSecret": "Lim inn signeringshemmelighet…",
+    "placeholderMessage": "Lim inn råtekst eller streng som skal verifiseres (ofte nøyaktige webhook-bytes).",
+    "algorithmLabel": "HMAC-algoritme",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Utdataformat",
+    "formatHex": "Hex (små bokstaver)",
+    "formatBase64": "Base64",
+    "outputLabel": "Signatur",
+    "copyOutput": "Kopier signatur",
+    "copied": "Kopiert",
+    "byteCountHint": "{count, plural, one {# byte} other {# bytes}} (UTF-8)",
+    "emptyHint": "Skriv inn en hemmelig nøkkel for å beregne HMAC.",
+    "securityNote": "Del aldri signeringshemmeligheten. Denne siden laster ikke opp data—alt kjører i nettleseren.",
+    "errors": {
+      "cryptoFailed": "Kunne ikke beregne HMAC. Sjekk Web Crypto-støtte og prøv igjen."
+    }
   }
 }

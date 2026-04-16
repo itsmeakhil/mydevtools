@@ -30,7 +30,8 @@
     "snippetManager": "Cuplikan kode",
     "qrCodeGenerator": "Generator kode QR",
     "ipSubnetCalculator": "Kalkulator IP / subnet",
-    "hashGenerator": "Generator hash"
+    "hashGenerator": "Generator hash",
+    "hmacGenerator": "Generator HMAC"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Generator hash",
         "description": "MD5, SHA-1, dan SHA-2 untuk teks atau file."
+      },
+      "hmacGenerator": {
+        "title": "Generator HMAC",
+        "description": "Menandatangani webhook dan menguji integrasi API dengan HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Salin hash",
     "emptyHintBcrypt": "Masukkan kata sandi untuk menghitung hash bcrypt.",
     "securityNoteBcrypt": "Setiap keluaran bcrypt menyertakan garam acak; kata sandi yang sama menghasilkan string berbeda setiap kali. Ini wajar. Gunakan biaya tinggi di produksi."
+  },
+  "HmacGenerator": {
+    "title": "Generator HMAC",
+    "subtitle": "Untuk menandatangani webhook dan menguji integrasi API. HMAC-SHA1/256/384/512 dalam hex atau Base64—dihitung secara lokal di peramban.",
+    "secretLabel": "Kunci rahasia",
+    "messageLabel": "Pesan / muatan",
+    "placeholderSecret": "Tempel rahasia penandatanganan…",
+    "placeholderMessage": "Tempel isi mentah atau string untuk diautentikasi (sering byte webhook yang persis).",
+    "algorithmLabel": "Algoritma HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Format keluaran",
+    "formatHex": "Hex (huruf kecil)",
+    "formatBase64": "Base64",
+    "outputLabel": "Tanda tangan",
+    "copyOutput": "Salin tanda tangan",
+    "copied": "Disalin",
+    "byteCountHint": "{count, plural, other {# byte}} (UTF-8)",
+    "emptyHint": "Masukkan kunci rahasia untuk menghitung HMAC.",
+    "securityNote": "Jangan pernah membagikan rahasia penandatanganan. Halaman ini tidak mengunggah data—semua berjalan di peramban.",
+    "errors": {
+      "cryptoFailed": "Tidak dapat menghitung HMAC. Periksa dukungan Web Crypto dan coba lagi."
+    }
   }
 }

@@ -30,7 +30,8 @@
     "snippetManager": "Фрагменты кода",
     "qrCodeGenerator": "Генератор QR-кодов",
     "ipSubnetCalculator": "Калькулятор IP / подсети",
-    "hashGenerator": "Генератор хешей"
+    "hashGenerator": "Генератор хешей",
+    "hmacGenerator": "Генератор HMAC"
   },
   "Help": {
     "title": "Справка и документация",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Генератор хешей",
         "description": "MD5, SHA-1 и SHA-2 для текста или файлов."
+      },
+      "hmacGenerator": {
+        "title": "Генератор HMAC",
+        "description": "Подписывайте вебхуки и тестируйте интеграции API с HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Копировать хеш",
     "emptyHintBcrypt": "Введите пароль для вычисления bcrypt-хеша.",
     "securityNoteBcrypt": "Каждый результат bcrypt содержит случайную соль; один и тот же пароль даёт разную строку каждый раз. Это нормально. В продакшене используйте высокую стоимость."
+  },
+  "HmacGenerator": {
+    "title": "Генератор HMAC",
+    "subtitle": "Для подписи вебхуков и проверки интеграций API. HMAC-SHA1/256/384/512 в hex или Base64—вычисляется локально в браузере.",
+    "secretLabel": "Секретный ключ",
+    "messageLabel": "Сообщение / полезная нагрузка",
+    "placeholderSecret": "Вставьте секрет подписи…",
+    "placeholderMessage": "Вставьте сырое тело или строку для проверки (часто точные байты тела вебхука).",
+    "algorithmLabel": "Алгоритм HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Формат вывода",
+    "formatHex": "Hex (нижний регистр)",
+    "formatBase64": "Base64",
+    "outputLabel": "Подпись",
+    "copyOutput": "Копировать подпись",
+    "copied": "Скопировано",
+    "byteCountHint": "{count, plural, one {# байт} few {# байта} many {# байт} other {# байта}} (UTF-8)",
+    "emptyHint": "Введите секретный ключ для вычисления HMAC.",
+    "securityNote": "Никогда не делитесь секретом подписи. Эта страница не загружает данные — всё выполняется в браузере.",
+    "errors": {
+      "cryptoFailed": "Не удалось вычислить HMAC. Проверьте поддержку Web Crypto и повторите попытку."
+    }
   }
 }

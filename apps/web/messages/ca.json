@@ -30,7 +30,8 @@
     "snippetManager": "Fragments de codi",
     "qrCodeGenerator": "Generador de codis QR",
     "ipSubnetCalculator": "Calculadora IP / subxarxa",
-    "hashGenerator": "Generador de hash"
+    "hashGenerator": "Generador de hash",
+    "hmacGenerator": "Generador HMAC"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -328,6 +329,10 @@
       "hashGenerator": {
         "title": "Generador de hash",
         "description": "MD5, SHA-1 i SHA-2 per a text o fitxers."
+      },
+      "hmacGenerator": {
+        "title": "Generador HMAC",
+        "description": "Signa webhooks i prova integracions API amb HMAC-SHA1/256/384/512."
       }
     },
     "tabs": {
@@ -2465,5 +2470,32 @@
     "copyBcrypt": "Copia el resum",
     "emptyHintBcrypt": "Introduïu una contrasenya per calcular el resum bcrypt.",
     "securityNoteBcrypt": "Cada sortida bcrypt inclou una sal aleatòria; la mateixa contrasenya dona una cadena diferent cada vegada. És esperat. Useu costos alts en producció."
+  },
+  "HmacGenerator": {
+    "title": "Generador HMAC",
+    "subtitle": "Per signar webhooks i provar integracions d’API. HMAC-SHA1/256/384/512 en hex o Base64—calculat localment al navegador.",
+    "secretLabel": "Clau secreta",
+    "messageLabel": "Missatge / càrrega útil",
+    "placeholderSecret": "Enganxeu el secret de signatura…",
+    "placeholderMessage": "Enganxeu el cos en brut o la cadena a autenticar (sovint els mateixos bytes del webhook).",
+    "algorithmLabel": "Algorisme HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Format de sortida",
+    "formatHex": "Hex (minúscules)",
+    "formatBase64": "Base64",
+    "outputLabel": "Signatura",
+    "copyOutput": "Copia la signatura",
+    "copied": "Copiat",
+    "byteCountHint": "{count, plural, one {# octet} other {# octets}} (UTF-8)",
+    "emptyHint": "Introduïu una clau secreta per calcular l’HMAC.",
+    "securityNote": "No compartiu mai el secret de signatura. Aquesta pàgina no puja dades; tot s’executa al navegador.",
+    "errors": {
+      "cryptoFailed": "No s’ha pogut calcular l’HMAC. Comproveu el suport de Web Crypto i torneu-ho a provar."
+    }
   }
 }
