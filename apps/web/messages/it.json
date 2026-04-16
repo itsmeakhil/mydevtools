@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "Client SQL",
+      "dialogTitle": "Connessioni SQL",
+      "mobileSheetTitle": "Esplora SQL",
+      "newTabLabel": "Nuova scheda query",
+      "vaultLockedTitle": "Archivio bloccato",
+      "vaultLockedDesc": "Sblocca l'archivio per accedere alle connessioni salvate.",
+      "heroTitle": "Client SQL",
+      "heroDesc": "Connettiti a PostgreSQL, MySQL o MariaDB. Le credenziali sono cifrate nel browser.",
+      "heroAddConnection": "Aggiungi connessione",
+      "selectTableTitle": "Seleziona una tabella o apri una scheda query",
+      "selectTableDesc": "Clicca su una tabella nella barra laterale o usa ⌘↩.",
+      "toastLoadFail": "Caricamento connessioni fallito."
+    },
+    "connection": {
+      "titleNew": "Nuova connessione SQL",
+      "titleEdit": "Modifica connessione",
+      "labelDbType": "Tipo di database",
+      "labelName": "Nome connessione",
+      "placeholderName": "Il mio DB di produzione",
+      "labelHostPort": "Host e Porta",
+      "labelDatabase": "Database",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Nome utente",
+      "labelPassword": "Password",
+      "labelSsl": "Abilita SSL / TLS",
+      "sslDesc": "Cifra la connessione al server",
+      "securityNote": "Le credenziali sono cifrate AES-256 nel browser prima dell'archiviazione",
+      "btnTest": "Testa connessione",
+      "btnSave": "Salva e connetti",
+      "btnUpdate": "Aggiorna",
+      "btnCancelEdit": "Annulla modifica",
+      "savedConnections": "Connessioni salvate",
+      "emptySaved": "Le connessioni salvate appariranno qui",
+      "confirmDelete": "Eliminare questa connessione?",
+      "toastFillFields": "Compila host e database prima di testare.",
+      "toastConnectOk": "Connesso! {version}",
+      "toastConnectFail": "Connessione fallita: {message}",
+      "toastUnlockVault": "Sblocca prima l'archivio.",
+      "toastFieldsRequired": "Host e database sono obbligatori.",
+      "toastUpdated": "Connessione aggiornata.",
+      "toastSaved": "Connessione salvata.",
+      "toastSaveFail": "Salvataggio fallito: {message}",
+      "toastDeleted": "Connessione eliminata.",
+      "toastDeleteFail": "Impossibile eliminare la connessione."
+    },
+    "sidebar": {
+      "title": "Esplora SQL",
+      "tooltipAddConnection": "Aggiungi connessione",
+      "tooltipRefreshSchema": "Aggiorna schema",
+      "noConnections": "Nessuna connessione salvata",
+      "toastSchemaFail": "Caricamento schema fallito: {message}"
+    },
+    "editor": {
+      "btnRun": "Esegui",
+      "executing": "Esecuzione query…",
+      "emptyTitle": "Esegui una query per vedere i risultati",
+      "emptyHint": "Premi ⌘↩ o clicca Esegui",
+      "toastNoConnection": "Nessuna connessione attiva."
+    },
+    "results": {
+      "filterPlaceholder": "Filtra risultati…",
+      "rowCount": "{count} {count, plural, one {riga} other {righe}}",
+      "rowCountFiltered": "{filtered} / {total} righe",
+      "exportCsv": "CSV",
+      "noRows": "Nessuna riga restituita"
+    }
   }
 }

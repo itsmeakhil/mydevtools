@@ -2253,5 +2253,74 @@
     "errorGenerating": "Failed to generate .gitignore from selected stacks.",
     "generating": "Generating...",
     "emptyState": "Select one or more tech stacks to generate your .gitignore."
+  },
+  "SqlClient": {
+    "page": {
+      "title": "SQL Client",
+      "dialogTitle": "SQL Connections",
+      "mobileSheetTitle": "SQL Explorer",
+      "newTabLabel": "New query tab",
+      "vaultLockedTitle": "Vault Locked",
+      "vaultLockedDesc": "Unlock your vault to access saved connections.",
+      "heroTitle": "SQL Client",
+      "heroDesc": "Connect to PostgreSQL, MySQL, or MariaDB databases. Credentials are encrypted in your browser and never stored in plaintext.",
+      "heroAddConnection": "Add Connection",
+      "selectTableTitle": "Select a table or open a query tab",
+      "selectTableDesc": "Click a table in the sidebar, or use ⌘↩ to run queries.",
+      "toastLoadFail": "Failed to load connections."
+    },
+    "connection": {
+      "titleNew": "New SQL Connection",
+      "titleEdit": "Edit Connection",
+      "labelDbType": "Database Type",
+      "labelName": "Connection Name",
+      "placeholderName": "My Production DB",
+      "labelHostPort": "Host & Port",
+      "labelDatabase": "Database",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Username",
+      "labelPassword": "Password",
+      "labelSsl": "Enable SSL / TLS",
+      "sslDesc": "Encrypt the connection to the server",
+      "securityNote": "Credentials are AES-256 encrypted in your browser before storage",
+      "btnTest": "Test Connection",
+      "btnSave": "Save & Connect",
+      "btnUpdate": "Update",
+      "btnCancelEdit": "Cancel editing",
+      "savedConnections": "Saved Connections",
+      "emptySaved": "Saved connections will appear here",
+      "confirmDelete": "Delete this connection?",
+      "toastFillFields": "Fill in host and database before testing.",
+      "toastConnectOk": "Connected! {version}",
+      "toastConnectFail": "Connection failed: {message}",
+      "toastUnlockVault": "Unlock your vault first.",
+      "toastFieldsRequired": "Host and database are required.",
+      "toastUpdated": "Connection updated.",
+      "toastSaved": "Connection saved.",
+      "toastSaveFail": "Failed to save: {message}",
+      "toastDeleted": "Connection deleted.",
+      "toastDeleteFail": "Failed to delete connection."
+    },
+    "sidebar": {
+      "title": "SQL Explorer",
+      "tooltipAddConnection": "Add connection",
+      "tooltipRefreshSchema": "Refresh schema",
+      "noConnections": "No connections saved yet",
+      "toastSchemaFail": "Failed to load schema: {message}"
+    },
+    "editor": {
+      "btnRun": "Run",
+      "executing": "Executing query…",
+      "emptyTitle": "Run a query to see results",
+      "emptyHint": "Press ⌘↩ or click Run",
+      "toastNoConnection": "No active connection."
+    },
+    "results": {
+      "filterPlaceholder": "Filter results…",
+      "rowCount": "{count} {count, plural, one {row} other {rows}}",
+      "rowCountFiltered": "{filtered} / {total} rows",
+      "exportCsv": "CSV",
+      "noRows": "No rows returned"
+    }
   }
 }

@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "SQL-klient",
+      "dialogTitle": "SQL-tilkoblinger",
+      "mobileSheetTitle": "SQL-utforsker",
+      "newTabLabel": "Ny spørringsfane",
+      "vaultLockedTitle": "Hvelv låst",
+      "vaultLockedDesc": "Lås opp hvelvet for å få tilgang til lagrede tilkoblinger.",
+      "heroTitle": "SQL-klient",
+      "heroDesc": "Koble til PostgreSQL, MySQL eller MariaDB. Legitimasjon krypteres i nettleseren.",
+      "heroAddConnection": "Legg til tilkobling",
+      "selectTableTitle": "Velg en tabell eller åpne en spørringsfane",
+      "selectTableDesc": "Klikk på en tabell i sidefeltet eller bruk ⌘↩.",
+      "toastLoadFail": "Lasting av tilkoblinger mislyktes."
+    },
+    "connection": {
+      "titleNew": "Ny SQL-tilkobling",
+      "titleEdit": "Rediger tilkobling",
+      "labelDbType": "Databasetype",
+      "labelName": "Tilkoblingsnavn",
+      "placeholderName": "Min produksjonsdatabase",
+      "labelHostPort": "Vert og port",
+      "labelDatabase": "Database",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Brukernavn",
+      "labelPassword": "Passord",
+      "labelSsl": "Aktiver SSL / TLS",
+      "sslDesc": "Krypter tilkoblingen til serveren",
+      "securityNote": "Legitimasjon krypteres AES-256 i nettleseren før lagring",
+      "btnTest": "Test tilkobling",
+      "btnSave": "Lagre og koble til",
+      "btnUpdate": "Oppdater",
+      "btnCancelEdit": "Avbryt redigering",
+      "savedConnections": "Lagrede tilkoblinger",
+      "emptySaved": "Lagrede tilkoblinger vises her",
+      "confirmDelete": "Slett denne tilkoblingen?",
+      "toastFillFields": "Fyll inn vert og database før testing.",
+      "toastConnectOk": "Tilkoblet! {version}",
+      "toastConnectFail": "Tilkobling mislyktes: {message}",
+      "toastUnlockVault": "Lås opp hvelvet først.",
+      "toastFieldsRequired": "Vert og database er påkrevd.",
+      "toastUpdated": "Tilkobling oppdatert.",
+      "toastSaved": "Tilkobling lagret.",
+      "toastSaveFail": "Lagring mislyktes: {message}",
+      "toastDeleted": "Tilkobling slettet.",
+      "toastDeleteFail": "Sletting av tilkobling mislyktes."
+    },
+    "sidebar": {
+      "title": "SQL-utforsker",
+      "tooltipAddConnection": "Legg til tilkobling",
+      "tooltipRefreshSchema": "Oppdater skjema",
+      "noConnections": "Ingen lagrede tilkoblinger ennå",
+      "toastSchemaFail": "Lasting av skjema mislyktes: {message}"
+    },
+    "editor": {
+      "btnRun": "Kjør",
+      "executing": "Utfører spørring…",
+      "emptyTitle": "Kjør en spørring for å se resultater",
+      "emptyHint": "Trykk ⌘↩ eller klikk Kjør",
+      "toastNoConnection": "Ingen aktiv tilkobling."
+    },
+    "results": {
+      "filterPlaceholder": "Filtrer resultater…",
+      "rowCount": "{count} {count, plural, one {rad} other {rader}}",
+      "rowCountFiltered": "{filtered} / {total} rader",
+      "exportCsv": "CSV",
+      "noRows": "Ingen rader returnert"
+    }
   }
 }

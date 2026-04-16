@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "SQL klient",
+      "dialogTitle": "SQL připojení",
+      "mobileSheetTitle": "SQL průzkumník",
+      "newTabLabel": "Nová karta dotazu",
+      "vaultLockedTitle": "Trezor uzamčen",
+      "vaultLockedDesc": "Odemkněte trezor pro přístup k uloženým připojením.",
+      "heroTitle": "SQL klient",
+      "heroDesc": "Připojte se k PostgreSQL, MySQL nebo MariaDB. Přihlašovací údaje jsou šifrovány v prohlížeči.",
+      "heroAddConnection": "Přidat připojení",
+      "selectTableTitle": "Vyberte tabulku nebo otevřete kartu dotazu",
+      "selectTableDesc": "Klikněte na tabulku v postranním panelu nebo použijte ⌘↩.",
+      "toastLoadFail": "Nepodařilo se načíst připojení."
+    },
+    "connection": {
+      "titleNew": "Nové SQL připojení",
+      "titleEdit": "Upravit připojení",
+      "labelDbType": "Typ databáze",
+      "labelName": "Název připojení",
+      "placeholderName": "Moje produkční DB",
+      "labelHostPort": "Host a port",
+      "labelDatabase": "Databáze",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Uživatelské jméno",
+      "labelPassword": "Heslo",
+      "labelSsl": "Povolit SSL / TLS",
+      "sslDesc": "Šifrovat připojení k serveru",
+      "securityNote": "Přihlašovací údaje jsou před uložením šifrovány AES-256 v prohlížeči",
+      "btnTest": "Otestovat připojení",
+      "btnSave": "Uložit a připojit",
+      "btnUpdate": "Aktualizovat",
+      "btnCancelEdit": "Zrušit úpravy",
+      "savedConnections": "Uložená připojení",
+      "emptySaved": "Uložená připojení se zobrazí zde",
+      "confirmDelete": "Smazat toto připojení?",
+      "toastFillFields": "Před testem vyplňte host a databázi.",
+      "toastConnectOk": "Připojeno! {version}",
+      "toastConnectFail": "Připojení selhalo: {message}",
+      "toastUnlockVault": "Nejprve odemkněte trezor.",
+      "toastFieldsRequired": "Host a databáze jsou povinné.",
+      "toastUpdated": "Připojení aktualizováno.",
+      "toastSaved": "Připojení uloženo.",
+      "toastSaveFail": "Uložení selhalo: {message}",
+      "toastDeleted": "Připojení smazáno.",
+      "toastDeleteFail": "Nepodařilo se smazat připojení."
+    },
+    "sidebar": {
+      "title": "SQL průzkumník",
+      "tooltipAddConnection": "Přidat připojení",
+      "tooltipRefreshSchema": "Obnovit schéma",
+      "noConnections": "Zatím žádná uložená připojení",
+      "toastSchemaFail": "Nepodařilo se načíst schéma: {message}"
+    },
+    "editor": {
+      "btnRun": "Spustit",
+      "executing": "Provádí se dotaz…",
+      "emptyTitle": "Spusťte dotaz pro zobrazení výsledků",
+      "emptyHint": "Stiskněte ⌘↩ nebo klikněte Spustit",
+      "toastNoConnection": "Žádné aktivní připojení."
+    },
+    "results": {
+      "filterPlaceholder": "Filtrovat výsledky…",
+      "rowCount": "{count} {count, plural, one {řádek} few {řádky} other {řádků}}",
+      "rowCountFiltered": "{filtered} / {total} řádků",
+      "exportCsv": "CSV",
+      "noRows": "Žádné řádky nebyly vráceny"
+    }
   }
 }

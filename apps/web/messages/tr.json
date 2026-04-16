@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "SQL İstemcisi",
+      "dialogTitle": "SQL Bağlantıları",
+      "mobileSheetTitle": "SQL Gezgini",
+      "newTabLabel": "Yeni sorgu sekmesi",
+      "vaultLockedTitle": "Kasa kilitli",
+      "vaultLockedDesc": "Kayıtlı bağlantılara erişmek için kasanızı açın.",
+      "heroTitle": "SQL İstemcisi",
+      "heroDesc": "PostgreSQL, MySQL veya MariaDB'ye bağlanın. Kimlik bilgileri tarayıcınızda şifrelenir.",
+      "heroAddConnection": "Bağlantı ekle",
+      "selectTableTitle": "Bir tablo seçin veya sorgu sekmesi açın",
+      "selectTableDesc": "Kenar çubuğundan bir tabloya tıklayın veya ⌘↩ kullanın.",
+      "toastLoadFail": "Bağlantılar yüklenemedi."
+    },
+    "connection": {
+      "titleNew": "Yeni SQL Bağlantısı",
+      "titleEdit": "Bağlantıyı düzenle",
+      "labelDbType": "Veritabanı türü",
+      "labelName": "Bağlantı adı",
+      "placeholderName": "Üretim veritabanım",
+      "labelHostPort": "Host ve Port",
+      "labelDatabase": "Veritabanı",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Kullanıcı adı",
+      "labelPassword": "Parola",
+      "labelSsl": "SSL / TLS etkinleştir",
+      "sslDesc": "Sunucu bağlantısını şifrele",
+      "securityNote": "Kimlik bilgileri depolanmadan önce tarayıcıda AES-256 ile şifrelenir",
+      "btnTest": "Bağlantıyı test et",
+      "btnSave": "Kaydet ve bağlan",
+      "btnUpdate": "Güncelle",
+      "btnCancelEdit": "Düzenlemeyi iptal et",
+      "savedConnections": "Kayıtlı bağlantılar",
+      "emptySaved": "Kayıtlı bağlantılar burada görünecek",
+      "confirmDelete": "Bu bağlantı silinsin mi?",
+      "toastFillFields": "Test etmeden önce host ve veritabanını doldurun.",
+      "toastConnectOk": "Bağlandı! {version}",
+      "toastConnectFail": "Bağlantı başarısız: {message}",
+      "toastUnlockVault": "Önce kasanızı açın.",
+      "toastFieldsRequired": "Host ve veritabanı zorunludur.",
+      "toastUpdated": "Bağlantı güncellendi.",
+      "toastSaved": "Bağlantı kaydedildi.",
+      "toastSaveFail": "Kaydetme başarısız: {message}",
+      "toastDeleted": "Bağlantı silindi.",
+      "toastDeleteFail": "Bağlantı silinemedi."
+    },
+    "sidebar": {
+      "title": "SQL Gezgini",
+      "tooltipAddConnection": "Bağlantı ekle",
+      "tooltipRefreshSchema": "Şemayı yenile",
+      "noConnections": "Henüz kayıtlı bağlantı yok",
+      "toastSchemaFail": "Şema yüklenemedi: {message}"
+    },
+    "editor": {
+      "btnRun": "Çalıştır",
+      "executing": "Sorgu çalıştırılıyor…",
+      "emptyTitle": "Sonuçları görmek için sorgu çalıştırın",
+      "emptyHint": "⌘↩ basın veya Çalıştır'a tıklayın",
+      "toastNoConnection": "Aktif bağlantı yok."
+    },
+    "results": {
+      "filterPlaceholder": "Sonuçları filtrele…",
+      "rowCount": "{count} satır",
+      "rowCountFiltered": "{filtered} / {total} satır",
+      "exportCsv": "CSV",
+      "noRows": "Satır döndürülmedi"
+    }
   }
 }

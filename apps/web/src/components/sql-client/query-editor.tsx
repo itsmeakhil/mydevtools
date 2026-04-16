@@ -9,6 +9,7 @@ import {
     IconAlertCircle,
 } from "@tabler/icons-react";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { QueryResult, QueryTab, SavedSqlConnection } from "./types";
 import { ResultsTable } from "./results-table";
 import { DbIcon, dbTypeLabel } from "./db-icon";
@@ -26,13 +27,14 @@ interface QueryEditorProps {
 }
 
 export function QueryEditor({ tab, connection, onQueryChange, onResult, onClose }: QueryEditorProps) {
+    const t = useTranslations("SqlClient.editor");
     const { resolvedTheme } = useTheme();
     const [isRunning, setIsRunning] = useState(false);
     const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
 
     const runQuery = useCallback(async () => {
         if (!connection?.config) {
-            toast.error("No active connection.");
+            toast.error(t("toastNoConnection"));
             return;
         }
         const query = editorRef.current?.getValue() ?? tab.query;
@@ -56,7 +58,7 @@ export function QueryEditor({ tab, connection, onQueryChange, onResult, onClose 
         } finally {
             setIsRunning(false);
         }
-    }, [connection, tab.query, onResult]);
+    }, [connection, tab.query, onResult, t]);
 
     const handleEditorMount = (ed: editor.IStandaloneCodeEditor) => {
         editorRef.current = ed;
@@ -91,7 +93,7 @@ export function QueryEditor({ tab, connection, onQueryChange, onResult, onClose 
                         ) : (
                             <IconPlayerPlay className="w-3.5 h-3.5" />
                         )}
-                        Run
+                        {t("btnRun")}
                     </Button>
                     <span className="text-[10px] text-muted-foreground hidden sm:block">
                         ⌘↩
@@ -134,7 +136,7 @@ export function QueryEditor({ tab, connection, onQueryChange, onResult, onClose 
                     {isRunning && (
                         <div className="flex items-center justify-center h-full gap-2 text-muted-foreground">
                             <IconLoader2 className="w-5 h-5 animate-spin" />
-                            <span className="text-sm">Executing query…</span>
+                            <span className="text-sm">{t("executing")}</span>
                         </div>
                     )}
 
@@ -152,8 +154,8 @@ export function QueryEditor({ tab, connection, onQueryChange, onResult, onClose 
                     {!isRunning && !tab.result && !tab.error && (
                         <div className="flex flex-col items-center justify-center h-full gap-2 text-muted-foreground">
                             <IconPlayerPlay className="w-8 h-8 opacity-20" />
-                            <p className="text-sm">Run a query to see results</p>
-                            <p className="text-xs opacity-60">Press ⌘↩ or click Run</p>
+                            <p className="text-sm">{t("emptyTitle")}</p>
+                            <p className="text-xs opacity-60">{t("emptyHint")}</p>
                         </div>
                     )}
                 </div>

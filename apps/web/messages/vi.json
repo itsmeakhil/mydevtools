@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "Máy khách SQL",
+      "dialogTitle": "Kết nối SQL",
+      "mobileSheetTitle": "Trình duyệt SQL",
+      "newTabLabel": "Tab truy vấn mới",
+      "vaultLockedTitle": "Kho bị khóa",
+      "vaultLockedDesc": "Mở khóa kho để truy cập các kết nối đã lưu.",
+      "heroTitle": "Máy khách SQL",
+      "heroDesc": "Kết nối với PostgreSQL, MySQL hoặc MariaDB. Thông tin đăng nhập được mã hóa trong trình duyệt.",
+      "heroAddConnection": "Thêm kết nối",
+      "selectTableTitle": "Chọn bảng hoặc mở tab truy vấn",
+      "selectTableDesc": "Nhấp vào bảng trong thanh bên hoặc dùng ⌘↩.",
+      "toastLoadFail": "Không thể tải kết nối."
+    },
+    "connection": {
+      "titleNew": "Kết nối SQL mới",
+      "titleEdit": "Chỉnh sửa kết nối",
+      "labelDbType": "Loại cơ sở dữ liệu",
+      "labelName": "Tên kết nối",
+      "placeholderName": "CSDL sản xuất của tôi",
+      "labelHostPort": "Host và Cổng",
+      "labelDatabase": "Cơ sở dữ liệu",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Tên người dùng",
+      "labelPassword": "Mật khẩu",
+      "labelSsl": "Bật SSL / TLS",
+      "sslDesc": "Mã hóa kết nối đến máy chủ",
+      "securityNote": "Thông tin đăng nhập được mã hóa AES-256 trong trình duyệt trước khi lưu",
+      "btnTest": "Kiểm tra kết nối",
+      "btnSave": "Lưu và kết nối",
+      "btnUpdate": "Cập nhật",
+      "btnCancelEdit": "Hủy chỉnh sửa",
+      "savedConnections": "Kết nối đã lưu",
+      "emptySaved": "Các kết nối đã lưu sẽ hiện ở đây",
+      "confirmDelete": "Xóa kết nối này?",
+      "toastFillFields": "Điền host và cơ sở dữ liệu trước khi kiểm tra.",
+      "toastConnectOk": "Đã kết nối! {version}",
+      "toastConnectFail": "Kết nối thất bại: {message}",
+      "toastUnlockVault": "Mở khóa kho trước.",
+      "toastFieldsRequired": "Host và cơ sở dữ liệu là bắt buộc.",
+      "toastUpdated": "Đã cập nhật kết nối.",
+      "toastSaved": "Đã lưu kết nối.",
+      "toastSaveFail": "Lưu thất bại: {message}",
+      "toastDeleted": "Đã xóa kết nối.",
+      "toastDeleteFail": "Xóa kết nối thất bại."
+    },
+    "sidebar": {
+      "title": "Trình duyệt SQL",
+      "tooltipAddConnection": "Thêm kết nối",
+      "tooltipRefreshSchema": "Làm mới lược đồ",
+      "noConnections": "Chưa có kết nối nào được lưu",
+      "toastSchemaFail": "Không thể tải lược đồ: {message}"
+    },
+    "editor": {
+      "btnRun": "Chạy",
+      "executing": "Đang thực thi truy vấn…",
+      "emptyTitle": "Chạy truy vấn để xem kết quả",
+      "emptyHint": "Nhấn ⌘↩ hoặc nhấp Chạy",
+      "toastNoConnection": "Không có kết nối hoạt động."
+    },
+    "results": {
+      "filterPlaceholder": "Lọc kết quả…",
+      "rowCount": "{count} hàng",
+      "rowCountFiltered": "{filtered} / {total} hàng",
+      "exportCsv": "CSV",
+      "noRows": "Không có hàng nào được trả về"
+    }
   }
 }

@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "Klient SQL",
+      "dialogTitle": "Połączenia SQL",
+      "mobileSheetTitle": "Eksplorator SQL",
+      "newTabLabel": "Nowa karta zapytania",
+      "vaultLockedTitle": "Skarbiec zablokowany",
+      "vaultLockedDesc": "Odblokuj skarbiec, aby uzyskać dostęp do zapisanych połączeń.",
+      "heroTitle": "Klient SQL",
+      "heroDesc": "Połącz się z PostgreSQL, MySQL lub MariaDB. Dane uwierzytelniające są szyfrowane w przeglądarce.",
+      "heroAddConnection": "Dodaj połączenie",
+      "selectTableTitle": "Wybierz tabelę lub otwórz kartę zapytania",
+      "selectTableDesc": "Kliknij tabelę na pasku bocznym lub użyj ⌘↩.",
+      "toastLoadFail": "Nie udało się załadować połączeń."
+    },
+    "connection": {
+      "titleNew": "Nowe połączenie SQL",
+      "titleEdit": "Edytuj połączenie",
+      "labelDbType": "Typ bazy danych",
+      "labelName": "Nazwa połączenia",
+      "placeholderName": "Moja baza produkcyjna",
+      "labelHostPort": "Host i port",
+      "labelDatabase": "Baza danych",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Nazwa użytkownika",
+      "labelPassword": "Hasło",
+      "labelSsl": "Włącz SSL / TLS",
+      "sslDesc": "Szyfruj połączenie z serwerem",
+      "securityNote": "Dane uwierzytelniające są szyfrowane AES-256 w przeglądarce przed zapisem",
+      "btnTest": "Testuj połączenie",
+      "btnSave": "Zapisz i połącz",
+      "btnUpdate": "Zaktualizuj",
+      "btnCancelEdit": "Anuluj edycję",
+      "savedConnections": "Zapisane połączenia",
+      "emptySaved": "Zapisane połączenia pojawią się tutaj",
+      "confirmDelete": "Usunąć to połączenie?",
+      "toastFillFields": "Wypełnij host i bazę danych przed testowaniem.",
+      "toastConnectOk": "Połączono! {version}",
+      "toastConnectFail": "Błąd połączenia: {message}",
+      "toastUnlockVault": "Najpierw odblokuj skarbiec.",
+      "toastFieldsRequired": "Host i baza danych są wymagane.",
+      "toastUpdated": "Połączenie zaktualizowane.",
+      "toastSaved": "Połączenie zapisane.",
+      "toastSaveFail": "Błąd zapisu: {message}",
+      "toastDeleted": "Połączenie usunięte.",
+      "toastDeleteFail": "Nie udało się usunąć połączenia."
+    },
+    "sidebar": {
+      "title": "Eksplorator SQL",
+      "tooltipAddConnection": "Dodaj połączenie",
+      "tooltipRefreshSchema": "Odśwież schemat",
+      "noConnections": "Brak zapisanych połączeń",
+      "toastSchemaFail": "Nie udało się załadować schematu: {message}"
+    },
+    "editor": {
+      "btnRun": "Uruchom",
+      "executing": "Wykonywanie zapytania…",
+      "emptyTitle": "Uruchom zapytanie, aby zobaczyć wyniki",
+      "emptyHint": "Naciśnij ⌘↩ lub kliknij Uruchom",
+      "toastNoConnection": "Brak aktywnego połączenia."
+    },
+    "results": {
+      "filterPlaceholder": "Filtruj wyniki…",
+      "rowCount": "{count} {count, plural, one {wiersz} few {wiersze} many {wierszy} other {wierszy}}",
+      "rowCountFiltered": "{filtered} / {total} wierszy",
+      "exportCsv": "CSV",
+      "noRows": "Nie zwrócono wierszy"
+    }
   }
 }

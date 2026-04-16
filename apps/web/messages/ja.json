@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "SQL クライアント",
+      "dialogTitle": "SQL 接続",
+      "mobileSheetTitle": "SQL エクスプローラー",
+      "newTabLabel": "新しいクエリタブ",
+      "vaultLockedTitle": "ボルトがロックされています",
+      "vaultLockedDesc": "ボルトをアンロックして保存済み接続にアクセスします。",
+      "heroTitle": "SQL クライアント",
+      "heroDesc": "PostgreSQL、MySQL、MariaDB に接続します。認証情報はブラウザで暗号化されます。",
+      "heroAddConnection": "接続を追加",
+      "selectTableTitle": "テーブルを選択するかクエリタブを開く",
+      "selectTableDesc": "サイドバーのテーブルをクリックするか ⌘↩ を使用します。",
+      "toastLoadFail": "接続の読み込みに失敗しました。"
+    },
+    "connection": {
+      "titleNew": "新しい SQL 接続",
+      "titleEdit": "接続を編集",
+      "labelDbType": "データベースの種類",
+      "labelName": "接続名",
+      "placeholderName": "本番データベース",
+      "labelHostPort": "ホストとポート",
+      "labelDatabase": "データベース",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "ユーザー名",
+      "labelPassword": "パスワード",
+      "labelSsl": "SSL / TLS を有効にする",
+      "sslDesc": "サーバーへの接続を暗号化する",
+      "securityNote": "認証情報はストレージ前にブラウザで AES-256 暗号化されます",
+      "btnTest": "接続テスト",
+      "btnSave": "保存して接続",
+      "btnUpdate": "更新",
+      "btnCancelEdit": "編集をキャンセル",
+      "savedConnections": "保存済み接続",
+      "emptySaved": "保存済み接続はここに表示されます",
+      "confirmDelete": "この接続を削除しますか？",
+      "toastFillFields": "テスト前にホストとデータベースを入力してください。",
+      "toastConnectOk": "接続しました！{version}",
+      "toastConnectFail": "接続失敗：{message}",
+      "toastUnlockVault": "まずボルトをアンロックしてください。",
+      "toastFieldsRequired": "ホストとデータベースは必須です。",
+      "toastUpdated": "接続を更新しました。",
+      "toastSaved": "接続を保存しました。",
+      "toastSaveFail": "保存失敗：{message}",
+      "toastDeleted": "接続を削除しました。",
+      "toastDeleteFail": "接続を削除できませんでした。"
+    },
+    "sidebar": {
+      "title": "SQL エクスプローラー",
+      "tooltipAddConnection": "接続を追加",
+      "tooltipRefreshSchema": "スキーマを更新",
+      "noConnections": "保存済み接続はありません",
+      "toastSchemaFail": "スキーマの読み込みに失敗：{message}"
+    },
+    "editor": {
+      "btnRun": "実行",
+      "executing": "クエリを実行中…",
+      "emptyTitle": "クエリを実行して結果を表示",
+      "emptyHint": "⌘↩ を押すか実行をクリック",
+      "toastNoConnection": "アクティブな接続がありません。"
+    },
+    "results": {
+      "filterPlaceholder": "結果をフィルタ…",
+      "rowCount": "{count} 行",
+      "rowCountFiltered": "{filtered} / {total} 行",
+      "exportCsv": "CSV",
+      "noRows": "行が返されませんでした"
+    }
   }
 }

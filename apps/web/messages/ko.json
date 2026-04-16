@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "SQL 클라이언트",
+      "dialogTitle": "SQL 연결",
+      "mobileSheetTitle": "SQL 탐색기",
+      "newTabLabel": "새 쿼리 탭",
+      "vaultLockedTitle": "금고 잠김",
+      "vaultLockedDesc": "저장된 연결에 접근하려면 금고를 잠금 해제하세요.",
+      "heroTitle": "SQL 클라이언트",
+      "heroDesc": "PostgreSQL, MySQL 또는 MariaDB에 연결합니다. 자격 증명은 브라우저에서 암호화됩니다.",
+      "heroAddConnection": "연결 추가",
+      "selectTableTitle": "테이블 선택 또는 쿼리 탭 열기",
+      "selectTableDesc": "사이드바에서 테이블을 클릭하거나 ⌘↩을 사용하세요.",
+      "toastLoadFail": "연결 로드에 실패했습니다."
+    },
+    "connection": {
+      "titleNew": "새 SQL 연결",
+      "titleEdit": "연결 편집",
+      "labelDbType": "데이터베이스 유형",
+      "labelName": "연결 이름",
+      "placeholderName": "내 프로덕션 DB",
+      "labelHostPort": "호스트 및 포트",
+      "labelDatabase": "데이터베이스",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "사용자 이름",
+      "labelPassword": "비밀번호",
+      "labelSsl": "SSL / TLS 활성화",
+      "sslDesc": "서버 연결 암호화",
+      "securityNote": "자격 증명은 저장 전 브라우저에서 AES-256 암호화됩니다",
+      "btnTest": "연결 테스트",
+      "btnSave": "저장 및 연결",
+      "btnUpdate": "업데이트",
+      "btnCancelEdit": "편집 취소",
+      "savedConnections": "저장된 연결",
+      "emptySaved": "저장된 연결이 여기에 표시됩니다",
+      "confirmDelete": "이 연결을 삭제하시겠습니까?",
+      "toastFillFields": "테스트 전에 호스트와 데이터베이스를 입력하세요.",
+      "toastConnectOk": "연결됨! {version}",
+      "toastConnectFail": "연결 실패: {message}",
+      "toastUnlockVault": "먼저 금고를 잠금 해제하세요.",
+      "toastFieldsRequired": "호스트와 데이터베이스는 필수입니다.",
+      "toastUpdated": "연결이 업데이트되었습니다.",
+      "toastSaved": "연결이 저장되었습니다.",
+      "toastSaveFail": "저장 실패: {message}",
+      "toastDeleted": "연결이 삭제되었습니다.",
+      "toastDeleteFail": "연결 삭제에 실패했습니다."
+    },
+    "sidebar": {
+      "title": "SQL 탐색기",
+      "tooltipAddConnection": "연결 추가",
+      "tooltipRefreshSchema": "스키마 새로고침",
+      "noConnections": "저장된 연결 없음",
+      "toastSchemaFail": "스키마 로드 실패: {message}"
+    },
+    "editor": {
+      "btnRun": "실행",
+      "executing": "쿼리 실행 중…",
+      "emptyTitle": "쿼리를 실행하여 결과 보기",
+      "emptyHint": "⌘↩를 누르거나 실행 클릭",
+      "toastNoConnection": "활성 연결 없음."
+    },
+    "results": {
+      "filterPlaceholder": "결과 필터…",
+      "rowCount": "{count}행",
+      "rowCountFiltered": "{filtered} / {total}행",
+      "exportCsv": "CSV",
+      "noRows": "반환된 행 없음"
+    }
   }
 }

@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "Cliente SQL",
+      "dialogTitle": "Conexiones SQL",
+      "mobileSheetTitle": "Explorador SQL",
+      "newTabLabel": "Nueva pestaña",
+      "vaultLockedTitle": "Bóveda bloqueada",
+      "vaultLockedDesc": "Desbloquea tu bóveda para acceder a las conexiones guardadas.",
+      "heroTitle": "Cliente SQL",
+      "heroDesc": "Conéctate a PostgreSQL, MySQL o MariaDB. Las credenciales se cifran en tu navegador.",
+      "heroAddConnection": "Agregar conexión",
+      "selectTableTitle": "Selecciona una tabla o abre una pestaña",
+      "selectTableDesc": "Haz clic en una tabla de la barra lateral o usa ⌘↩.",
+      "toastLoadFail": "Error al cargar las conexiones."
+    },
+    "connection": {
+      "titleNew": "Nueva conexión SQL",
+      "titleEdit": "Editar conexión",
+      "labelDbType": "Tipo de base de datos",
+      "labelName": "Nombre de la conexión",
+      "placeholderName": "Mi base de producción",
+      "labelHostPort": "Host y Puerto",
+      "labelDatabase": "Base de datos",
+      "placeholderDatabase": "mibd",
+      "labelUsername": "Usuario",
+      "labelPassword": "Contraseña",
+      "labelSsl": "Habilitar SSL / TLS",
+      "sslDesc": "Cifrar la conexión al servidor",
+      "securityNote": "Las credenciales se cifran AES-256 en tu navegador antes del almacenamiento",
+      "btnTest": "Probar conexión",
+      "btnSave": "Guardar y conectar",
+      "btnUpdate": "Actualizar",
+      "btnCancelEdit": "Cancelar edición",
+      "savedConnections": "Conexiones guardadas",
+      "emptySaved": "Las conexiones guardadas aparecerán aquí",
+      "confirmDelete": "¿Eliminar esta conexión?",
+      "toastFillFields": "Rellena el host y la base de datos antes de probar.",
+      "toastConnectOk": "¡Conectado! {version}",
+      "toastConnectFail": "Conexión fallida: {message}",
+      "toastUnlockVault": "Desbloquea tu bóveda primero.",
+      "toastFieldsRequired": "El host y la base de datos son obligatorios.",
+      "toastUpdated": "Conexión actualizada.",
+      "toastSaved": "Conexión guardada.",
+      "toastSaveFail": "Error al guardar: {message}",
+      "toastDeleted": "Conexión eliminada.",
+      "toastDeleteFail": "No se pudo eliminar la conexión."
+    },
+    "sidebar": {
+      "title": "Explorador SQL",
+      "tooltipAddConnection": "Agregar conexión",
+      "tooltipRefreshSchema": "Actualizar esquema",
+      "noConnections": "No hay conexiones guardadas",
+      "toastSchemaFail": "Error al cargar el esquema: {message}"
+    },
+    "editor": {
+      "btnRun": "Ejecutar",
+      "executing": "Ejecutando consulta…",
+      "emptyTitle": "Ejecuta una consulta para ver los resultados",
+      "emptyHint": "Pulsa ⌘↩ o haz clic en Ejecutar",
+      "toastNoConnection": "No hay conexión activa."
+    },
+    "results": {
+      "filterPlaceholder": "Filtrar resultados…",
+      "rowCount": "{count} {count, plural, one {fila} other {filas}}",
+      "rowCountFiltered": "{filtered} / {total} filas",
+      "exportCsv": "CSV",
+      "noRows": "No se devolvieron filas"
+    }
   }
 }

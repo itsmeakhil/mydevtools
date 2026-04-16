@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "SQL-klient",
+      "dialogTitle": "SQL-forbindelser",
+      "mobileSheetTitle": "SQL-stifinder",
+      "newTabLabel": "Ny forespørgselsfane",
+      "vaultLockedTitle": "Boks låst",
+      "vaultLockedDesc": "Lås boksen op for at få adgang til gemte forbindelser.",
+      "heroTitle": "SQL-klient",
+      "heroDesc": "Opret forbindelse til PostgreSQL, MySQL eller MariaDB. Legitimationsoplysninger krypteres i browseren.",
+      "heroAddConnection": "Tilføj forbindelse",
+      "selectTableTitle": "Vælg en tabel eller åbn en forespørgselsfane",
+      "selectTableDesc": "Klik på en tabel i sidebjælken eller brug ⌘↩.",
+      "toastLoadFail": "Indlæsning af forbindelser mislykkedes."
+    },
+    "connection": {
+      "titleNew": "Ny SQL-forbindelse",
+      "titleEdit": "Rediger forbindelse",
+      "labelDbType": "Databasetype",
+      "labelName": "Forbindelsesnavn",
+      "placeholderName": "Min produktionsdatabase",
+      "labelHostPort": "Vært og port",
+      "labelDatabase": "Database",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Brugernavn",
+      "labelPassword": "Adgangskode",
+      "labelSsl": "Aktivér SSL / TLS",
+      "sslDesc": "Kryptér forbindelsen til serveren",
+      "securityNote": "Legitimationsoplysninger krypteres AES-256 i browseren inden lagring",
+      "btnTest": "Test forbindelse",
+      "btnSave": "Gem og opret forbindelse",
+      "btnUpdate": "Opdater",
+      "btnCancelEdit": "Annuller redigering",
+      "savedConnections": "Gemte forbindelser",
+      "emptySaved": "Gemte forbindelser vises her",
+      "confirmDelete": "Slet denne forbindelse?",
+      "toastFillFields": "Udfyld vært og database inden test.",
+      "toastConnectOk": "Forbundet! {version}",
+      "toastConnectFail": "Forbindelse mislykkedes: {message}",
+      "toastUnlockVault": "Lås boksen op først.",
+      "toastFieldsRequired": "Vært og database er påkrævet.",
+      "toastUpdated": "Forbindelse opdateret.",
+      "toastSaved": "Forbindelse gemt.",
+      "toastSaveFail": "Lagring mislykkedes: {message}",
+      "toastDeleted": "Forbindelse slettet.",
+      "toastDeleteFail": "Sletning af forbindelse mislykkedes."
+    },
+    "sidebar": {
+      "title": "SQL-stifinder",
+      "tooltipAddConnection": "Tilføj forbindelse",
+      "tooltipRefreshSchema": "Opdater skema",
+      "noConnections": "Ingen gemte forbindelser endnu",
+      "toastSchemaFail": "Indlæsning af skema mislykkedes: {message}"
+    },
+    "editor": {
+      "btnRun": "Kør",
+      "executing": "Udfører forespørgsel…",
+      "emptyTitle": "Kør en forespørgsel for at se resultater",
+      "emptyHint": "Tryk ⌘↩ eller klik Kør",
+      "toastNoConnection": "Ingen aktiv forbindelse."
+    },
+    "results": {
+      "filterPlaceholder": "Filtrer resultater…",
+      "rowCount": "{count} {count, plural, one {række} other {rækker}}",
+      "rowCountFiltered": "{filtered} / {total} rækker",
+      "exportCsv": "CSV",
+      "noRows": "Ingen rækker returneret"
+    }
   }
 }

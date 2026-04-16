@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "SQL-клиент",
+      "dialogTitle": "SQL-подключения",
+      "mobileSheetTitle": "SQL-проводник",
+      "newTabLabel": "Новая вкладка запроса",
+      "vaultLockedTitle": "Хранилище заблокировано",
+      "vaultLockedDesc": "Разблокируйте хранилище для доступа к сохранённым подключениям.",
+      "heroTitle": "SQL-клиент",
+      "heroDesc": "Подключайтесь к PostgreSQL, MySQL или MariaDB. Учётные данные шифруются в браузере.",
+      "heroAddConnection": "Добавить подключение",
+      "selectTableTitle": "Выберите таблицу или откройте вкладку",
+      "selectTableDesc": "Нажмите на таблицу на боковой панели или используйте ⌘↩.",
+      "toastLoadFail": "Не удалось загрузить подключения."
+    },
+    "connection": {
+      "titleNew": "Новое SQL-подключение",
+      "titleEdit": "Изменить подключение",
+      "labelDbType": "Тип базы данных",
+      "labelName": "Имя подключения",
+      "placeholderName": "Моя рабочая БД",
+      "labelHostPort": "Хост и порт",
+      "labelDatabase": "База данных",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Имя пользователя",
+      "labelPassword": "Пароль",
+      "labelSsl": "Включить SSL / TLS",
+      "sslDesc": "Шифровать подключение к серверу",
+      "securityNote": "Учётные данные шифруются AES-256 в браузере перед сохранением",
+      "btnTest": "Проверить подключение",
+      "btnSave": "Сохранить и подключиться",
+      "btnUpdate": "Обновить",
+      "btnCancelEdit": "Отменить редактирование",
+      "savedConnections": "Сохранённые подключения",
+      "emptySaved": "Сохранённые подключения появятся здесь",
+      "confirmDelete": "Удалить это подключение?",
+      "toastFillFields": "Заполните хост и базу данных перед тестом.",
+      "toastConnectOk": "Подключено! {version}",
+      "toastConnectFail": "Ошибка подключения: {message}",
+      "toastUnlockVault": "Сначала разблокируйте хранилище.",
+      "toastFieldsRequired": "Хост и база данных обязательны.",
+      "toastUpdated": "Подключение обновлено.",
+      "toastSaved": "Подключение сохранено.",
+      "toastSaveFail": "Ошибка сохранения: {message}",
+      "toastDeleted": "Подключение удалено.",
+      "toastDeleteFail": "Не удалось удалить подключение."
+    },
+    "sidebar": {
+      "title": "SQL-проводник",
+      "tooltipAddConnection": "Добавить подключение",
+      "tooltipRefreshSchema": "Обновить схему",
+      "noConnections": "Нет сохранённых подключений",
+      "toastSchemaFail": "Не удалось загрузить схему: {message}"
+    },
+    "editor": {
+      "btnRun": "Выполнить",
+      "executing": "Выполнение запроса…",
+      "emptyTitle": "Выполните запрос для просмотра результатов",
+      "emptyHint": "Нажмите ⌘↩ или кнопку Выполнить",
+      "toastNoConnection": "Нет активного подключения."
+    },
+    "results": {
+      "filterPlaceholder": "Фильтр результатов…",
+      "rowCount": "{count} {count, plural, one {строка} few {строки} other {строк}}",
+      "rowCountFiltered": "{filtered} / {total} строк",
+      "exportCsv": "CSV",
+      "noRows": "Строки не возвращены"
+    }
   }
 }

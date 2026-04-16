@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "کلاینت SQL",
+      "dialogTitle": "اتصالات SQL",
+      "mobileSheetTitle": "مرورگر SQL",
+      "newTabLabel": "تب پرس‌وجوی جدید",
+      "vaultLockedTitle": "خزانه قفل است",
+      "vaultLockedDesc": "خزانه را برای دسترسی به اتصالات ذخیره‌شده باز کنید.",
+      "heroTitle": "کلاینت SQL",
+      "heroDesc": "به PostgreSQL، MySQL یا MariaDB متصل شوید. اعتبارنامه‌ها در مرورگر رمزگذاری می‌شوند.",
+      "heroAddConnection": "افزودن اتصال",
+      "selectTableTitle": "یک جدول انتخاب کنید یا تب پرس‌وجو باز کنید",
+      "selectTableDesc": "روی جدولی در نوار کناری کلیک کنید یا از ⌘↩ استفاده کنید.",
+      "toastLoadFail": "بارگذاری اتصالات ناموفق بود."
+    },
+    "connection": {
+      "titleNew": "اتصال SQL جدید",
+      "titleEdit": "ویرایش اتصال",
+      "labelDbType": "نوع پایگاه داده",
+      "labelName": "نام اتصال",
+      "placeholderName": "پایگاه داده تولید من",
+      "labelHostPort": "هاست و پورت",
+      "labelDatabase": "پایگاه داده",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "نام کاربری",
+      "labelPassword": "رمز عبور",
+      "labelSsl": "فعال‌سازی SSL / TLS",
+      "sslDesc": "رمزگذاری اتصال به سرور",
+      "securityNote": "اعتبارنامه‌ها قبل از ذخیره‌سازی در مرورگر با AES-256 رمزگذاری می‌شوند",
+      "btnTest": "آزمایش اتصال",
+      "btnSave": "ذخیره و اتصال",
+      "btnUpdate": "به‌روزرسانی",
+      "btnCancelEdit": "لغو ویرایش",
+      "savedConnections": "اتصالات ذخیره‌شده",
+      "emptySaved": "اتصالات ذخیره‌شده اینجا نمایش داده می‌شوند",
+      "confirmDelete": "این اتصال حذف شود؟",
+      "toastFillFields": "قبل از آزمایش هاست و پایگاه داده را پر کنید.",
+      "toastConnectOk": "متصل شد! {version}",
+      "toastConnectFail": "اتصال ناموفق: {message}",
+      "toastUnlockVault": "ابتدا خزانه را باز کنید.",
+      "toastFieldsRequired": "هاست و پایگاه داده اجباری هستند.",
+      "toastUpdated": "اتصال به‌روز شد.",
+      "toastSaved": "اتصال ذخیره شد.",
+      "toastSaveFail": "ذخیره‌سازی ناموفق: {message}",
+      "toastDeleted": "اتصال حذف شد.",
+      "toastDeleteFail": "حذف اتصال ناموفق بود."
+    },
+    "sidebar": {
+      "title": "مرورگر SQL",
+      "tooltipAddConnection": "افزودن اتصال",
+      "tooltipRefreshSchema": "به‌روزرسانی طرح‌واره",
+      "noConnections": "هنوز اتصالی ذخیره نشده",
+      "toastSchemaFail": "بارگذاری طرح‌واره ناموفق: {message}"
+    },
+    "editor": {
+      "btnRun": "اجرا",
+      "executing": "در حال اجرای پرس‌وجو…",
+      "emptyTitle": "یک پرس‌وجو اجرا کنید تا نتایج را ببینید",
+      "emptyHint": "⌘↩ را فشار دهید یا روی اجرا کلیک کنید",
+      "toastNoConnection": "هیچ اتصال فعالی وجود ندارد."
+    },
+    "results": {
+      "filterPlaceholder": "فیلتر نتایج…",
+      "rowCount": "{count} ردیف",
+      "rowCountFiltered": "{filtered} / {total} ردیف",
+      "exportCsv": "CSV",
+      "noRows": "هیچ ردیفی بازگردانده نشد"
+    }
   }
 }

@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "عميل SQL",
+      "dialogTitle": "اتصالات SQL",
+      "mobileSheetTitle": "مستكشف SQL",
+      "newTabLabel": "علامة تبويب استعلام جديدة",
+      "vaultLockedTitle": "الخزنة مقفلة",
+      "vaultLockedDesc": "افتح الخزنة للوصول إلى الاتصالات المحفوظة.",
+      "heroTitle": "عميل SQL",
+      "heroDesc": "اتصل بـ PostgreSQL أو MySQL أو MariaDB. يتم تشفير بيانات الاعتماد في متصفحك.",
+      "heroAddConnection": "إضافة اتصال",
+      "selectTableTitle": "اختر جدولاً أو افتح علامة تبويب استعلام",
+      "selectTableDesc": "انقر على جدول في الشريط الجانبي أو استخدم ⌘↩.",
+      "toastLoadFail": "فشل تحميل الاتصالات."
+    },
+    "connection": {
+      "titleNew": "اتصال SQL جديد",
+      "titleEdit": "تعديل الاتصال",
+      "labelDbType": "نوع قاعدة البيانات",
+      "labelName": "اسم الاتصال",
+      "placeholderName": "قاعدة بيانات الإنتاج",
+      "labelHostPort": "المضيف والمنفذ",
+      "labelDatabase": "قاعدة البيانات",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "اسم المستخدم",
+      "labelPassword": "كلمة المرور",
+      "labelSsl": "تفعيل SSL / TLS",
+      "sslDesc": "تشفير الاتصال بالخادم",
+      "securityNote": "يتم تشفير بيانات الاعتماد بـ AES-256 في المتصفح قبل التخزين",
+      "btnTest": "اختبار الاتصال",
+      "btnSave": "حفظ والاتصال",
+      "btnUpdate": "تحديث",
+      "btnCancelEdit": "إلغاء التعديل",
+      "savedConnections": "الاتصالات المحفوظة",
+      "emptySaved": "ستظهر الاتصالات المحفوظة هنا",
+      "confirmDelete": "حذف هذا الاتصال؟",
+      "toastFillFields": "املأ المضيف وقاعدة البيانات قبل الاختبار.",
+      "toastConnectOk": "تم الاتصال! {version}",
+      "toastConnectFail": "فشل الاتصال: {message}",
+      "toastUnlockVault": "افتح الخزنة أولاً.",
+      "toastFieldsRequired": "المضيف وقاعدة البيانات مطلوبان.",
+      "toastUpdated": "تم تحديث الاتصال.",
+      "toastSaved": "تم حفظ الاتصال.",
+      "toastSaveFail": "فشل الحفظ: {message}",
+      "toastDeleted": "تم حذف الاتصال.",
+      "toastDeleteFail": "فشل حذف الاتصال."
+    },
+    "sidebar": {
+      "title": "مستكشف SQL",
+      "tooltipAddConnection": "إضافة اتصال",
+      "tooltipRefreshSchema": "تحديث المخطط",
+      "noConnections": "لا توجد اتصالات محفوظة بعد",
+      "toastSchemaFail": "فشل تحميل المخطط: {message}"
+    },
+    "editor": {
+      "btnRun": "تشغيل",
+      "executing": "جارٍ تنفيذ الاستعلام…",
+      "emptyTitle": "شغّل استعلاماً لرؤية النتائج",
+      "emptyHint": "اضغط ⌘↩ أو انقر على تشغيل",
+      "toastNoConnection": "لا يوجد اتصال نشط."
+    },
+    "results": {
+      "filterPlaceholder": "تصفية النتائج…",
+      "rowCount": "{count} صف",
+      "rowCountFiltered": "{filtered} / {total} صف",
+      "exportCsv": "CSV",
+      "noRows": "لم يتم إرجاع أي صفوف"
+    }
   }
 }

@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "SQL-kliënt",
+      "dialogTitle": "SQL-verbindings",
+      "mobileSheetTitle": "SQL-verkenner",
+      "newTabLabel": "Nuwe navraag-oortjie",
+      "vaultLockedTitle": "Kluis gesluit",
+      "vaultLockedDesc": "Ontsluit die kluis om toegang te kry tot gestoorde verbindings.",
+      "heroTitle": "SQL-kliënt",
+      "heroDesc": "Koppel aan PostgreSQL, MySQL of MariaDB. Geloofsbriewe word in die blaaier geënkripteer.",
+      "heroAddConnection": "Voeg verbinding by",
+      "selectTableTitle": "Kies 'n tabel of maak 'n navraag-oortjie oop",
+      "selectTableDesc": "Klik op 'n tabel in die sybalk of gebruik ⌘↩.",
+      "toastLoadFail": "Verbindings kon nie gelaai word nie."
+    },
+    "connection": {
+      "titleNew": "Nuwe SQL-verbinding",
+      "titleEdit": "Wysig verbinding",
+      "labelDbType": "Databasistype",
+      "labelName": "Verbindingsnaam",
+      "placeholderName": "My produksiedatabasis",
+      "labelHostPort": "Gasheer en poort",
+      "labelDatabase": "Databasis",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Gebruikersnaam",
+      "labelPassword": "Wagwoord",
+      "labelSsl": "Aktiveer SSL / TLS",
+      "sslDesc": "Enkripteer die verbinding na die bediener",
+      "securityNote": "Geloofsbriewe word AES-256 in die blaaier geënkripteer voor stoor",
+      "btnTest": "Toets verbinding",
+      "btnSave": "Stoor en verbind",
+      "btnUpdate": "Opdateer",
+      "btnCancelEdit": "Kanselleer wysiging",
+      "savedConnections": "Gestoorde verbindings",
+      "emptySaved": "Gestoorde verbindings verskyn hier",
+      "confirmDelete": "Hierdie verbinding verwyder?",
+      "toastFillFields": "Vul gasheer en databasis in voor toetsing.",
+      "toastConnectOk": "Verbind! {version}",
+      "toastConnectFail": "Verbinding misluk: {message}",
+      "toastUnlockVault": "Ontsluit eers die kluis.",
+      "toastFieldsRequired": "Gasheer en databasis is vereis.",
+      "toastUpdated": "Verbinding opgedateer.",
+      "toastSaved": "Verbinding gestoor.",
+      "toastSaveFail": "Stoor misluk: {message}",
+      "toastDeleted": "Verbinding verwyder.",
+      "toastDeleteFail": "Kon nie verbinding verwyder nie."
+    },
+    "sidebar": {
+      "title": "SQL-verkenner",
+      "tooltipAddConnection": "Voeg verbinding by",
+      "tooltipRefreshSchema": "Verfris skema",
+      "noConnections": "Nog geen gestoorde verbindings nie",
+      "toastSchemaFail": "Skema kon nie gelaai word nie: {message}"
+    },
+    "editor": {
+      "btnRun": "Voer uit",
+      "executing": "Navraag word uitgevoer…",
+      "emptyTitle": "Voer 'n navraag uit om resultate te sien",
+      "emptyHint": "Druk ⌘↩ of klik Voer uit",
+      "toastNoConnection": "Geen aktiewe verbinding nie."
+    },
+    "results": {
+      "filterPlaceholder": "Filtreer resultate…",
+      "rowCount": "{count} ry(e)",
+      "rowCountFiltered": "{filtered} / {total} rye",
+      "exportCsv": "CSV",
+      "noRows": "Geen rye teruggekeer nie"
+    }
   }
 }

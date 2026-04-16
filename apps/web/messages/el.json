@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "Πελάτης SQL",
+      "dialogTitle": "Συνδέσεις SQL",
+      "mobileSheetTitle": "Εξερευνητής SQL",
+      "newTabLabel": "Νέα καρτέλα ερωτήματος",
+      "vaultLockedTitle": "Το θησαυροφυλάκιο είναι κλειδωμένο",
+      "vaultLockedDesc": "Ξεκλειδώστε το θησαυροφυλάκιο για πρόσβαση στις αποθηκευμένες συνδέσεις.",
+      "heroTitle": "Πελάτης SQL",
+      "heroDesc": "Συνδεθείτε σε PostgreSQL, MySQL ή MariaDB. Τα διαπιστευτήρια κρυπτογραφούνται στο πρόγραμμα περιήγησης.",
+      "heroAddConnection": "Προσθήκη σύνδεσης",
+      "selectTableTitle": "Επιλέξτε πίνακα ή ανοίξτε καρτέλα ερωτήματος",
+      "selectTableDesc": "Κάντε κλικ σε πίνακα στην πλαϊνή μπάρα ή χρησιμοποιήστε ⌘↩.",
+      "toastLoadFail": "Αποτυχία φόρτωσης συνδέσεων."
+    },
+    "connection": {
+      "titleNew": "Νέα σύνδεση SQL",
+      "titleEdit": "Επεξεργασία σύνδεσης",
+      "labelDbType": "Τύπος βάσης δεδομένων",
+      "labelName": "Όνομα σύνδεσης",
+      "placeholderName": "Η βάση παραγωγής μου",
+      "labelHostPort": "Κεντρικός υπολογιστής & Θύρα",
+      "labelDatabase": "Βάση δεδομένων",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Όνομα χρήστη",
+      "labelPassword": "Κωδικός πρόσβασης",
+      "labelSsl": "Ενεργοποίηση SSL / TLS",
+      "sslDesc": "Κρυπτογράφηση σύνδεσης με τον διακομιστή",
+      "securityNote": "Τα διαπιστευτήρια κρυπτογραφούνται AES-256 στο πρόγραμμα περιήγησης πριν την αποθήκευση",
+      "btnTest": "Δοκιμή σύνδεσης",
+      "btnSave": "Αποθήκευση & Σύνδεση",
+      "btnUpdate": "Ενημέρωση",
+      "btnCancelEdit": "Ακύρωση επεξεργασίας",
+      "savedConnections": "Αποθηκευμένες συνδέσεις",
+      "emptySaved": "Οι αποθηκευμένες συνδέσεις θα εμφανιστούν εδώ",
+      "confirmDelete": "Διαγραφή αυτής της σύνδεσης;",
+      "toastFillFields": "Συμπληρώστε τον κεντρικό υπολογιστή και τη βάση δεδομένων πριν τη δοκιμή.",
+      "toastConnectOk": "Συνδέθηκε! {version}",
+      "toastConnectFail": "Αποτυχία σύνδεσης: {message}",
+      "toastUnlockVault": "Ξεκλειδώστε πρώτα το θησαυροφυλάκιο.",
+      "toastFieldsRequired": "Ο κεντρικός υπολογιστής και η βάση δεδομένων είναι απαραίτητα.",
+      "toastUpdated": "Η σύνδεση ενημερώθηκε.",
+      "toastSaved": "Η σύνδεση αποθηκεύτηκε.",
+      "toastSaveFail": "Αποτυχία αποθήκευσης: {message}",
+      "toastDeleted": "Η σύνδεση διαγράφηκε.",
+      "toastDeleteFail": "Αποτυχία διαγραφής σύνδεσης."
+    },
+    "sidebar": {
+      "title": "Εξερευνητής SQL",
+      "tooltipAddConnection": "Προσθήκη σύνδεσης",
+      "tooltipRefreshSchema": "Ανανέωση σχήματος",
+      "noConnections": "Δεν υπάρχουν αποθηκευμένες συνδέσεις",
+      "toastSchemaFail": "Αποτυχία φόρτωσης σχήματος: {message}"
+    },
+    "editor": {
+      "btnRun": "Εκτέλεση",
+      "executing": "Εκτέλεση ερωτήματος…",
+      "emptyTitle": "Εκτελέστε ένα ερώτημα για να δείτε αποτελέσματα",
+      "emptyHint": "Πατήστε ⌘↩ ή κάντε κλικ στο Εκτέλεση",
+      "toastNoConnection": "Δεν υπάρχει ενεργή σύνδεση."
+    },
+    "results": {
+      "filterPlaceholder": "Φιλτράρισμα αποτελεσμάτων…",
+      "rowCount": "{count} γραμμή(ές)",
+      "rowCountFiltered": "{filtered} / {total} γραμμές",
+      "exportCsv": "CSV",
+      "noRows": "Δεν επιστράφηκαν γραμμές"
+    }
   }
 }

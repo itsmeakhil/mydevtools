@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "Client SQL",
+      "dialogTitle": "Connexions SQL",
+      "mobileSheetTitle": "Explorador SQL",
+      "newTabLabel": "Nova pestanya de consulta",
+      "vaultLockedTitle": "Caixa forta bloquejada",
+      "vaultLockedDesc": "Desbloqueja la caixa forta per accedir a les connexions desades.",
+      "heroTitle": "Client SQL",
+      "heroDesc": "Connecta't a PostgreSQL, MySQL o MariaDB. Les credencials es xifren al navegador.",
+      "heroAddConnection": "Afegeix connexió",
+      "selectTableTitle": "Selecciona una taula o obre una pestanya",
+      "selectTableDesc": "Fes clic en una taula de la barra lateral o utilitza ⌘↩.",
+      "toastLoadFail": "No s'han pogut carregar les connexions."
+    },
+    "connection": {
+      "titleNew": "Nova connexió SQL",
+      "titleEdit": "Edita la connexió",
+      "labelDbType": "Tipus de base de dades",
+      "labelName": "Nom de la connexió",
+      "placeholderName": "La meva BD de producció",
+      "labelHostPort": "Amfitrió i port",
+      "labelDatabase": "Base de dades",
+      "placeholderDatabase": "mevabd",
+      "labelUsername": "Nom d'usuari",
+      "labelPassword": "Contrasenya",
+      "labelSsl": "Activa SSL / TLS",
+      "sslDesc": "Xifra la connexió al servidor",
+      "securityNote": "Les credencials es xifren AES-256 al navegador abans de l'emmagatzemament",
+      "btnTest": "Prova la connexió",
+      "btnSave": "Desa i connecta",
+      "btnUpdate": "Actualitza",
+      "btnCancelEdit": "Cancel·la l'edició",
+      "savedConnections": "Connexions desades",
+      "emptySaved": "Les connexions desades apareixeran aquí",
+      "confirmDelete": "Voleu suprimir aquesta connexió?",
+      "toastFillFields": "Empleneu l'amfitrió i la base de dades abans de provar.",
+      "toastConnectOk": "Connectat! {version}",
+      "toastConnectFail": "Error de connexió: {message}",
+      "toastUnlockVault": "Primer desbloqueu la caixa forta.",
+      "toastFieldsRequired": "L'amfitrió i la base de dades són obligatoris.",
+      "toastUpdated": "Connexió actualitzada.",
+      "toastSaved": "Connexió desada.",
+      "toastSaveFail": "Error en desar: {message}",
+      "toastDeleted": "Connexió suprimida.",
+      "toastDeleteFail": "No s'ha pogut suprimir la connexió."
+    },
+    "sidebar": {
+      "title": "Explorador SQL",
+      "tooltipAddConnection": "Afegeix connexió",
+      "tooltipRefreshSchema": "Actualitza l'esquema",
+      "noConnections": "No hi ha connexions desades",
+      "toastSchemaFail": "No s'ha pogut carregar l'esquema: {message}"
+    },
+    "editor": {
+      "btnRun": "Executa",
+      "executing": "Executant consulta…",
+      "emptyTitle": "Executa una consulta per veure els resultats",
+      "emptyHint": "Prem ⌘↩ o fes clic a Executa",
+      "toastNoConnection": "No hi ha connexió activa."
+    },
+    "results": {
+      "filterPlaceholder": "Filtra els resultats…",
+      "rowCount": "{count} {count, plural, one {fila} other {files}}",
+      "rowCountFiltered": "{filtered} / {total} files",
+      "exportCsv": "CSV",
+      "noRows": "No s'han retornat files"
+    }
   }
 }

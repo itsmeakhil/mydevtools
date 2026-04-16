@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "Cliente SQL",
+      "dialogTitle": "Conexões SQL",
+      "mobileSheetTitle": "Explorador SQL",
+      "newTabLabel": "Nova aba",
+      "vaultLockedTitle": "Cofre bloqueado",
+      "vaultLockedDesc": "Desbloqueie seu cofre para acessar as conexões salvas.",
+      "heroTitle": "Cliente SQL",
+      "heroDesc": "Conecte-se ao PostgreSQL, MySQL ou MariaDB. As credenciais são criptografadas no navegador.",
+      "heroAddConnection": "Adicionar conexão",
+      "selectTableTitle": "Selecione uma tabela ou abra uma aba",
+      "selectTableDesc": "Clique em uma tabela na barra lateral ou use ⌘↩.",
+      "toastLoadFail": "Falha ao carregar conexões."
+    },
+    "connection": {
+      "titleNew": "Nova conexão SQL",
+      "titleEdit": "Editar conexão",
+      "labelDbType": "Tipo de banco de dados",
+      "labelName": "Nome da conexão",
+      "placeholderName": "Meu banco de produção",
+      "labelHostPort": "Host e Porta",
+      "labelDatabase": "Banco de dados",
+      "placeholderDatabase": "meubanco",
+      "labelUsername": "Usuário",
+      "labelPassword": "Senha",
+      "labelSsl": "Ativar SSL / TLS",
+      "sslDesc": "Criptografar a conexão com o servidor",
+      "securityNote": "As credenciais são criptografadas AES-256 no navegador antes do armazenamento",
+      "btnTest": "Testar conexão",
+      "btnSave": "Salvar e conectar",
+      "btnUpdate": "Atualizar",
+      "btnCancelEdit": "Cancelar edição",
+      "savedConnections": "Conexões salvas",
+      "emptySaved": "As conexões salvas aparecerão aqui",
+      "confirmDelete": "Excluir esta conexão?",
+      "toastFillFields": "Preencha host e banco antes de testar.",
+      "toastConnectOk": "Conectado! {version}",
+      "toastConnectFail": "Falha na conexão: {message}",
+      "toastUnlockVault": "Desbloqueie seu cofre primeiro.",
+      "toastFieldsRequired": "Host e banco de dados são obrigatórios.",
+      "toastUpdated": "Conexão atualizada.",
+      "toastSaved": "Conexão salva.",
+      "toastSaveFail": "Falha ao salvar: {message}",
+      "toastDeleted": "Conexão excluída.",
+      "toastDeleteFail": "Falha ao excluir conexão."
+    },
+    "sidebar": {
+      "title": "Explorador SQL",
+      "tooltipAddConnection": "Adicionar conexão",
+      "tooltipRefreshSchema": "Atualizar esquema",
+      "noConnections": "Nenhuma conexão salva ainda",
+      "toastSchemaFail": "Falha ao carregar esquema: {message}"
+    },
+    "editor": {
+      "btnRun": "Executar",
+      "executing": "Executando consulta…",
+      "emptyTitle": "Execute uma consulta para ver os resultados",
+      "emptyHint": "Pressione ⌘↩ ou clique em Executar",
+      "toastNoConnection": "Sem conexão ativa."
+    },
+    "results": {
+      "filterPlaceholder": "Filtrar resultados…",
+      "rowCount": "{count} {count, plural, one {linha} other {linhas}}",
+      "rowCountFiltered": "{filtered} / {total} linhas",
+      "exportCsv": "CSV",
+      "noRows": "Nenhuma linha retornada"
+    }
   }
 }

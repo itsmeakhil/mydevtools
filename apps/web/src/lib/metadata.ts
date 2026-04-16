@@ -142,6 +142,11 @@ export const toolsMetadata: Record<string, {
         description: 'Save, edit, and copy code snippets with Monaco syntax highlighting, auto-detect language, view and edit modes, and format JSON, SQL, and more. Stored locally in your browser.',
         keywords: ['code snippets', 'snippet manager', 'syntax highlighting', 'paste bin', 'developer snippets', 'monaco editor']
     },
+    'sql-client': {
+        title: 'SQL Client',
+        description: 'Connect to PostgreSQL, MySQL, and MariaDB databases from your browser. Run queries, explore schemas, and export results. Credentials encrypted with AES-256 before storage.',
+        keywords: ['sql client', 'postgresql client', 'mysql client', 'mariadb client', 'sql query', 'database browser', 'sql explorer']
+    },
 }
 
 // Generate metadata for a tool page

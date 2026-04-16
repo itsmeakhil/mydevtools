@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "SQL-klient",
+      "dialogTitle": "SQL-anslutningar",
+      "mobileSheetTitle": "SQL-utforskaren",
+      "newTabLabel": "Ny flik för frågor",
+      "vaultLockedTitle": "Valvet är låst",
+      "vaultLockedDesc": "Lås upp valvet för att komma åt sparade anslutningar.",
+      "heroTitle": "SQL-klient",
+      "heroDesc": "Anslut till PostgreSQL, MySQL eller MariaDB. Uppgifter krypteras i webbläsaren.",
+      "heroAddConnection": "Lägg till anslutning",
+      "selectTableTitle": "Välj en tabell eller öppna en frågeflik",
+      "selectTableDesc": "Klicka på en tabell i sidofältet eller använd ⌘↩.",
+      "toastLoadFail": "Det gick inte att läsa in anslutningar."
+    },
+    "connection": {
+      "titleNew": "Ny SQL-anslutning",
+      "titleEdit": "Redigera anslutning",
+      "labelDbType": "Databastyp",
+      "labelName": "Anslutningsnamn",
+      "placeholderName": "Min produktionsdatabas",
+      "labelHostPort": "Värd och port",
+      "labelDatabase": "Databas",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Användarnamn",
+      "labelPassword": "Lösenord",
+      "labelSsl": "Aktivera SSL / TLS",
+      "sslDesc": "Kryptera anslutningen till servern",
+      "securityNote": "Uppgifter krypteras med AES-256 i webbläsaren före lagring",
+      "btnTest": "Testa anslutning",
+      "btnSave": "Spara och anslut",
+      "btnUpdate": "Uppdatera",
+      "btnCancelEdit": "Avbryt redigering",
+      "savedConnections": "Sparade anslutningar",
+      "emptySaved": "Sparade anslutningar visas här",
+      "confirmDelete": "Ta bort den här anslutningen?",
+      "toastFillFields": "Fyll i värd och databas innan test.",
+      "toastConnectOk": "Ansluten! {version}",
+      "toastConnectFail": "Anslutning misslyckades: {message}",
+      "toastUnlockVault": "Lås upp valvet först.",
+      "toastFieldsRequired": "Värd och databas krävs.",
+      "toastUpdated": "Anslutning uppdaterad.",
+      "toastSaved": "Anslutning sparad.",
+      "toastSaveFail": "Spara misslyckades: {message}",
+      "toastDeleted": "Anslutning borttagen.",
+      "toastDeleteFail": "Det gick inte att ta bort anslutningen."
+    },
+    "sidebar": {
+      "title": "SQL-utforskaren",
+      "tooltipAddConnection": "Lägg till anslutning",
+      "tooltipRefreshSchema": "Uppdatera schema",
+      "noConnections": "Inga sparade anslutningar ännu",
+      "toastSchemaFail": "Det gick inte att läsa in schemat: {message}"
+    },
+    "editor": {
+      "btnRun": "Kör",
+      "executing": "Kör fråga…",
+      "emptyTitle": "Kör en fråga för att se resultat",
+      "emptyHint": "Tryck ⌘↩ eller klicka Kör",
+      "toastNoConnection": "Ingen aktiv anslutning."
+    },
+    "results": {
+      "filterPlaceholder": "Filtrera resultat…",
+      "rowCount": "{count} {count, plural, one {rad} other {rader}}",
+      "rowCountFiltered": "{filtered} / {total} rader",
+      "exportCsv": "CSV",
+      "noRows": "Inga rader returnerades"
+    }
   }
 }

@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "SQL-Client",
+      "dialogTitle": "SQL-Verbindungen",
+      "mobileSheetTitle": "SQL-Explorer",
+      "newTabLabel": "Neuer Tab",
+      "vaultLockedTitle": "Tresor gesperrt",
+      "vaultLockedDesc": "Entsperren Sie Ihren Tresor, um auf gespeicherte Verbindungen zuzugreifen.",
+      "heroTitle": "SQL-Client",
+      "heroDesc": "Verbinden Sie sich mit PostgreSQL, MySQL oder MariaDB. Anmeldedaten werden im Browser verschlüsselt.",
+      "heroAddConnection": "Verbindung hinzufügen",
+      "selectTableTitle": "Tabelle auswählen oder Tab öffnen",
+      "selectTableDesc": "Klicken Sie auf eine Tabelle in der Seitenleiste oder drücken Sie ⌘↩.",
+      "toastLoadFail": "Verbindungen konnten nicht geladen werden."
+    },
+    "connection": {
+      "titleNew": "Neue SQL-Verbindung",
+      "titleEdit": "Verbindung bearbeiten",
+      "labelDbType": "Datenbanktyp",
+      "labelName": "Verbindungsname",
+      "placeholderName": "Meine Produktionsdatenbank",
+      "labelHostPort": "Host & Port",
+      "labelDatabase": "Datenbank",
+      "placeholderDatabase": "meindb",
+      "labelUsername": "Benutzername",
+      "labelPassword": "Passwort",
+      "labelSsl": "SSL / TLS aktivieren",
+      "sslDesc": "Verbindung zum Server verschlüsseln",
+      "securityNote": "Anmeldedaten werden AES-256 im Browser verschlüsselt, bevor sie gespeichert werden",
+      "btnTest": "Verbindung testen",
+      "btnSave": "Speichern & Verbinden",
+      "btnUpdate": "Aktualisieren",
+      "btnCancelEdit": "Bearbeitung abbrechen",
+      "savedConnections": "Gespeicherte Verbindungen",
+      "emptySaved": "Gespeicherte Verbindungen erscheinen hier",
+      "confirmDelete": "Diese Verbindung löschen?",
+      "toastFillFields": "Bitte Host und Datenbank vor dem Test ausfüllen.",
+      "toastConnectOk": "Verbunden! {version}",
+      "toastConnectFail": "Verbindung fehlgeschlagen: {message}",
+      "toastUnlockVault": "Bitte entsperren Sie zuerst Ihren Tresor.",
+      "toastFieldsRequired": "Host und Datenbank sind erforderlich.",
+      "toastUpdated": "Verbindung aktualisiert.",
+      "toastSaved": "Verbindung gespeichert.",
+      "toastSaveFail": "Speichern fehlgeschlagen: {message}",
+      "toastDeleted": "Verbindung gelöscht.",
+      "toastDeleteFail": "Verbindung konnte nicht gelöscht werden."
+    },
+    "sidebar": {
+      "title": "SQL-Explorer",
+      "tooltipAddConnection": "Verbindung hinzufügen",
+      "tooltipRefreshSchema": "Schema aktualisieren",
+      "noConnections": "Noch keine Verbindungen gespeichert",
+      "toastSchemaFail": "Schema konnte nicht geladen werden: {message}"
+    },
+    "editor": {
+      "btnRun": "Ausführen",
+      "executing": "Abfrage wird ausgeführt…",
+      "emptyTitle": "Abfrage ausführen, um Ergebnisse zu sehen",
+      "emptyHint": "⌘↩ drücken oder Ausführen klicken",
+      "toastNoConnection": "Keine aktive Verbindung."
+    },
+    "results": {
+      "filterPlaceholder": "Ergebnisse filtern…",
+      "rowCount": "{count} {count, plural, one {Zeile} other {Zeilen}}",
+      "rowCountFiltered": "{filtered} / {total} Zeilen",
+      "exportCsv": "CSV",
+      "noRows": "Keine Zeilen zurückgegeben"
+    }
   }
 }

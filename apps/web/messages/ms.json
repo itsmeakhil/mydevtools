@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "Klien SQL",
+      "dialogTitle": "Sambungan SQL",
+      "mobileSheetTitle": "Penjelajah SQL",
+      "newTabLabel": "Tab pertanyaan baru",
+      "vaultLockedTitle": "Peti dikunci",
+      "vaultLockedDesc": "Buka kunci peti untuk mengakses sambungan tersimpan.",
+      "heroTitle": "Klien SQL",
+      "heroDesc": "Sambung ke PostgreSQL, MySQL atau MariaDB. Kelayakan disulitkan dalam pelayar anda.",
+      "heroAddConnection": "Tambah sambungan",
+      "selectTableTitle": "Pilih jadual atau buka tab pertanyaan",
+      "selectTableDesc": "Klik jadual dalam bar sisi atau guna ⌘↩.",
+      "toastLoadFail": "Gagal memuatkan sambungan."
+    },
+    "connection": {
+      "titleNew": "Sambungan SQL baharu",
+      "titleEdit": "Edit sambungan",
+      "labelDbType": "Jenis pangkalan data",
+      "labelName": "Nama sambungan",
+      "placeholderName": "DB produksi saya",
+      "labelHostPort": "Hos & Port",
+      "labelDatabase": "Pangkalan data",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Nama pengguna",
+      "labelPassword": "Kata laluan",
+      "labelSsl": "Aktifkan SSL / TLS",
+      "sslDesc": "Sulitkan sambungan ke pelayan",
+      "securityNote": "Kelayakan disulitkan AES-256 dalam pelayar sebelum disimpan",
+      "btnTest": "Uji sambungan",
+      "btnSave": "Simpan & Sambung",
+      "btnUpdate": "Kemas kini",
+      "btnCancelEdit": "Batal pengeditan",
+      "savedConnections": "Sambungan tersimpan",
+      "emptySaved": "Sambungan tersimpan akan muncul di sini",
+      "confirmDelete": "Padam sambungan ini?",
+      "toastFillFields": "Isi hos dan pangkalan data sebelum menguji.",
+      "toastConnectOk": "Disambungkan! {version}",
+      "toastConnectFail": "Sambungan gagal: {message}",
+      "toastUnlockVault": "Buka kunci peti dahulu.",
+      "toastFieldsRequired": "Hos dan pangkalan data diperlukan.",
+      "toastUpdated": "Sambungan dikemas kini.",
+      "toastSaved": "Sambungan disimpan.",
+      "toastSaveFail": "Gagal menyimpan: {message}",
+      "toastDeleted": "Sambungan dipadam.",
+      "toastDeleteFail": "Gagal memadam sambungan."
+    },
+    "sidebar": {
+      "title": "Penjelajah SQL",
+      "tooltipAddConnection": "Tambah sambungan",
+      "tooltipRefreshSchema": "Muat semula skema",
+      "noConnections": "Tiada sambungan tersimpan lagi",
+      "toastSchemaFail": "Gagal memuatkan skema: {message}"
+    },
+    "editor": {
+      "btnRun": "Jalankan",
+      "executing": "Menjalankan pertanyaan…",
+      "emptyTitle": "Jalankan pertanyaan untuk melihat keputusan",
+      "emptyHint": "Tekan ⌘↩ atau klik Jalankan",
+      "toastNoConnection": "Tiada sambungan aktif."
+    },
+    "results": {
+      "filterPlaceholder": "Tapis keputusan…",
+      "rowCount": "{count} baris",
+      "rowCountFiltered": "{filtered} / {total} baris",
+      "exportCsv": "CSV",
+      "noRows": "Tiada baris dikembalikan"
+    }
   }
 }

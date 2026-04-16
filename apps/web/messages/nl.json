@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "SQL-client",
+      "dialogTitle": "SQL-verbindingen",
+      "mobileSheetTitle": "SQL-verkenner",
+      "newTabLabel": "Nieuw querytabblad",
+      "vaultLockedTitle": "Kluis vergrendeld",
+      "vaultLockedDesc": "Ontgrendel de kluis om toegang te krijgen tot opgeslagen verbindingen.",
+      "heroTitle": "SQL-client",
+      "heroDesc": "Maak verbinding met PostgreSQL, MySQL of MariaDB. Inloggegevens worden in de browser versleuteld.",
+      "heroAddConnection": "Verbinding toevoegen",
+      "selectTableTitle": "Selecteer een tabel of open een querytabblad",
+      "selectTableDesc": "Klik op een tabel in de zijbalk of gebruik ⌘↩.",
+      "toastLoadFail": "Verbindingen laden mislukt."
+    },
+    "connection": {
+      "titleNew": "Nieuwe SQL-verbinding",
+      "titleEdit": "Verbinding bewerken",
+      "labelDbType": "Databasetype",
+      "labelName": "Verbindingsnaam",
+      "placeholderName": "Mijn productiedatabase",
+      "labelHostPort": "Host en poort",
+      "labelDatabase": "Database",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Gebruikersnaam",
+      "labelPassword": "Wachtwoord",
+      "labelSsl": "SSL / TLS inschakelen",
+      "sslDesc": "Verbinding met de server versleutelen",
+      "securityNote": "Inloggegevens worden AES-256 versleuteld in de browser vóór opslag",
+      "btnTest": "Verbinding testen",
+      "btnSave": "Opslaan en verbinden",
+      "btnUpdate": "Bijwerken",
+      "btnCancelEdit": "Bewerken annuleren",
+      "savedConnections": "Opgeslagen verbindingen",
+      "emptySaved": "Opgeslagen verbindingen verschijnen hier",
+      "confirmDelete": "Deze verbinding verwijderen?",
+      "toastFillFields": "Vul host en database in vóór het testen.",
+      "toastConnectOk": "Verbonden! {version}",
+      "toastConnectFail": "Verbinding mislukt: {message}",
+      "toastUnlockVault": "Ontgrendel eerst de kluis.",
+      "toastFieldsRequired": "Host en database zijn verplicht.",
+      "toastUpdated": "Verbinding bijgewerkt.",
+      "toastSaved": "Verbinding opgeslagen.",
+      "toastSaveFail": "Opslaan mislukt: {message}",
+      "toastDeleted": "Verbinding verwijderd.",
+      "toastDeleteFail": "Verbinding verwijderen mislukt."
+    },
+    "sidebar": {
+      "title": "SQL-verkenner",
+      "tooltipAddConnection": "Verbinding toevoegen",
+      "tooltipRefreshSchema": "Schema vernieuwen",
+      "noConnections": "Nog geen verbindingen opgeslagen",
+      "toastSchemaFail": "Schema laden mislukt: {message}"
+    },
+    "editor": {
+      "btnRun": "Uitvoeren",
+      "executing": "Query uitvoeren…",
+      "emptyTitle": "Voer een query uit om resultaten te zien",
+      "emptyHint": "Druk op ⌘↩ of klik Uitvoeren",
+      "toastNoConnection": "Geen actieve verbinding."
+    },
+    "results": {
+      "filterPlaceholder": "Resultaten filteren…",
+      "rowCount": "{count} {count, plural, one {rij} other {rijen}}",
+      "rowCountFiltered": "{filtered} / {total} rijen",
+      "exportCsv": "CSV",
+      "noRows": "Geen rijen geretourneerd"
+    }
   }
 }

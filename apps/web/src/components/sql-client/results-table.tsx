@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { IconDownload, IconSearch, IconX } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
 import { QueryResult } from "./types";
 
 interface ResultsTableProps {
@@ -12,6 +13,7 @@ interface ResultsTableProps {
 }
 
 export function ResultsTable({ result }: ResultsTableProps) {
+    const t = useTranslations("SqlClient.results");
     const [filter, setFilter] = useState("");
 
     const filteredRows = filter
@@ -57,7 +59,7 @@ export function ResultsTable({ result }: ResultsTableProps) {
                     <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
                     <Input
                         className="h-7 pl-8 pr-7 text-xs"
-                        placeholder="Filter results…"
+                        placeholder={t("filterPlaceholder")}
                         value={filter}
                         onChange={(e) => setFilter(e.target.value)}
                     />
@@ -73,14 +75,14 @@ export function ResultsTable({ result }: ResultsTableProps) {
 
                 <span className="text-xs text-muted-foreground ml-auto">
                     {filteredRows.length !== result.rows.length
-                        ? `${filteredRows.length} / ${result.rows.length} rows`
-                        : `${result.rowCount} row${result.rowCount !== 1 ? "s" : ""}`}{" "}
+                        ? t("rowCountFiltered", { filtered: filteredRows.length, total: result.rows.length })
+                        : t("rowCount", { count: result.rowCount })}{" "}
                     · {result.executionTime}ms
                 </span>
 
                 <Button variant="outline" size="sm" className="h-7 text-xs gap-1.5" onClick={handleExportCSV}>
                     <IconDownload className="w-3.5 h-3.5" />
-                    CSV
+                    {t("exportCsv")}
                 </Button>
             </div>
 
@@ -110,7 +112,7 @@ export function ResultsTable({ result }: ResultsTableProps) {
                                         colSpan={result.columns.length + 1}
                                         className="text-center py-8 text-muted-foreground"
                                     >
-                                        No rows returned
+                                        {t("noRows")}
                                     </td>
                                 </tr>
                             ) : (

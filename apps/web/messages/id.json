@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "Klien SQL",
+      "dialogTitle": "Koneksi SQL",
+      "mobileSheetTitle": "Penjelajah SQL",
+      "newTabLabel": "Tab kueri baru",
+      "vaultLockedTitle": "Brankas terkunci",
+      "vaultLockedDesc": "Buka kunci brankas untuk mengakses koneksi tersimpan.",
+      "heroTitle": "Klien SQL",
+      "heroDesc": "Hubungkan ke PostgreSQL, MySQL, atau MariaDB. Kredensial dienkripsi di browser Anda.",
+      "heroAddConnection": "Tambah koneksi",
+      "selectTableTitle": "Pilih tabel atau buka tab kueri",
+      "selectTableDesc": "Klik tabel di bilah samping atau gunakan ⌘↩.",
+      "toastLoadFail": "Gagal memuat koneksi."
+    },
+    "connection": {
+      "titleNew": "Koneksi SQL baru",
+      "titleEdit": "Edit koneksi",
+      "labelDbType": "Jenis basis data",
+      "labelName": "Nama koneksi",
+      "placeholderName": "DB produksi saya",
+      "labelHostPort": "Host & Port",
+      "labelDatabase": "Basis data",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Nama pengguna",
+      "labelPassword": "Kata sandi",
+      "labelSsl": "Aktifkan SSL / TLS",
+      "sslDesc": "Enkripsi koneksi ke server",
+      "securityNote": "Kredensial dienkripsi AES-256 di browser sebelum disimpan",
+      "btnTest": "Uji koneksi",
+      "btnSave": "Simpan & Hubungkan",
+      "btnUpdate": "Perbarui",
+      "btnCancelEdit": "Batalkan pengeditan",
+      "savedConnections": "Koneksi tersimpan",
+      "emptySaved": "Koneksi tersimpan akan muncul di sini",
+      "confirmDelete": "Hapus koneksi ini?",
+      "toastFillFields": "Isi host dan basis data sebelum menguji.",
+      "toastConnectOk": "Terhubung! {version}",
+      "toastConnectFail": "Koneksi gagal: {message}",
+      "toastUnlockVault": "Buka kunci brankas terlebih dahulu.",
+      "toastFieldsRequired": "Host dan basis data wajib diisi.",
+      "toastUpdated": "Koneksi diperbarui.",
+      "toastSaved": "Koneksi disimpan.",
+      "toastSaveFail": "Gagal menyimpan: {message}",
+      "toastDeleted": "Koneksi dihapus.",
+      "toastDeleteFail": "Gagal menghapus koneksi."
+    },
+    "sidebar": {
+      "title": "Penjelajah SQL",
+      "tooltipAddConnection": "Tambah koneksi",
+      "tooltipRefreshSchema": "Segarkan skema",
+      "noConnections": "Belum ada koneksi tersimpan",
+      "toastSchemaFail": "Gagal memuat skema: {message}"
+    },
+    "editor": {
+      "btnRun": "Jalankan",
+      "executing": "Menjalankan kueri…",
+      "emptyTitle": "Jalankan kueri untuk melihat hasil",
+      "emptyHint": "Tekan ⌘↩ atau klik Jalankan",
+      "toastNoConnection": "Tidak ada koneksi aktif."
+    },
+    "results": {
+      "filterPlaceholder": "Filter hasil…",
+      "rowCount": "{count} baris",
+      "rowCountFiltered": "{filtered} / {total} baris",
+      "exportCsv": "CSV",
+      "noRows": "Tidak ada baris yang dikembalikan"
+    }
   }
 }

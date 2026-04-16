@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "SQL 客户端",
+      "dialogTitle": "SQL 连接",
+      "mobileSheetTitle": "SQL 浏览器",
+      "newTabLabel": "新建查询标签页",
+      "vaultLockedTitle": "保险库已锁定",
+      "vaultLockedDesc": "解锁保险库以访问保存的连接。",
+      "heroTitle": "SQL 客户端",
+      "heroDesc": "连接到 PostgreSQL、MySQL 或 MariaDB。凭据在浏览器中加密，绝不以明文存储。",
+      "heroAddConnection": "添加连接",
+      "selectTableTitle": "选择表或打开查询标签页",
+      "selectTableDesc": "在侧边栏中点击表，或使用 ⌘↩ 运行查询。",
+      "toastLoadFail": "加载连接失败。"
+    },
+    "connection": {
+      "titleNew": "新建 SQL 连接",
+      "titleEdit": "编辑连接",
+      "labelDbType": "数据库类型",
+      "labelName": "连接名称",
+      "placeholderName": "我的生产数据库",
+      "labelHostPort": "主机与端口",
+      "labelDatabase": "数据库",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "用户名",
+      "labelPassword": "密码",
+      "labelSsl": "启用 SSL / TLS",
+      "sslDesc": "加密与服务器的连接",
+      "securityNote": "凭据在浏览器中经 AES-256 加密后才会存储",
+      "btnTest": "测试连接",
+      "btnSave": "保存并连接",
+      "btnUpdate": "更新",
+      "btnCancelEdit": "取消编辑",
+      "savedConnections": "已保存的连接",
+      "emptySaved": "保存的连接将显示在此处",
+      "confirmDelete": "删除此连接？",
+      "toastFillFields": "请在测试前填写主机和数据库。",
+      "toastConnectOk": "已连接！{version}",
+      "toastConnectFail": "连接失败：{message}",
+      "toastUnlockVault": "请先解锁您的保险库。",
+      "toastFieldsRequired": "主机和数据库是必填项。",
+      "toastUpdated": "连接已更新。",
+      "toastSaved": "连接已保存。",
+      "toastSaveFail": "保存失败：{message}",
+      "toastDeleted": "连接已删除。",
+      "toastDeleteFail": "删除连接失败。"
+    },
+    "sidebar": {
+      "title": "SQL 浏览器",
+      "tooltipAddConnection": "添加连接",
+      "tooltipRefreshSchema": "刷新架构",
+      "noConnections": "尚无保存的连接",
+      "toastSchemaFail": "加载架构失败：{message}"
+    },
+    "editor": {
+      "btnRun": "运行",
+      "executing": "正在执行查询…",
+      "emptyTitle": "运行查询以查看结果",
+      "emptyHint": "按 ⌘↩ 或点击运行",
+      "toastNoConnection": "无活动连接。"
+    },
+    "results": {
+      "filterPlaceholder": "筛选结果…",
+      "rowCount": "{count} 行",
+      "rowCountFiltered": "{filtered} / {total} 行",
+      "exportCsv": "CSV",
+      "noRows": "未返回任何行"
+    }
   }
 }

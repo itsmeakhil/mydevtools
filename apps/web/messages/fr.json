@@ -2251,5 +2251,74 @@
       "rust": "Rust",
       "php": "PHP"
     }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "Client SQL",
+      "dialogTitle": "Connexions SQL",
+      "mobileSheetTitle": "Explorateur SQL",
+      "newTabLabel": "Nouvel onglet",
+      "vaultLockedTitle": "Coffre verrouillé",
+      "vaultLockedDesc": "Déverrouillez votre coffre pour accéder aux connexions.",
+      "heroTitle": "Client SQL",
+      "heroDesc": "Connectez-vous à PostgreSQL, MySQL ou MariaDB. Les identifiants sont chiffrés dans votre navigateur.",
+      "heroAddConnection": "Ajouter une connexion",
+      "selectTableTitle": "Sélectionnez une table ou ouvrez un onglet",
+      "selectTableDesc": "Cliquez sur une table dans la barre latérale ou utilisez ⌘↩.",
+      "toastLoadFail": "Impossible de charger les connexions."
+    },
+    "connection": {
+      "titleNew": "Nouvelle connexion SQL",
+      "titleEdit": "Modifier la connexion",
+      "labelDbType": "Type de base de données",
+      "labelName": "Nom de la connexion",
+      "placeholderName": "Ma base de prod",
+      "labelHostPort": "Hôte & Port",
+      "labelDatabase": "Base de données",
+      "placeholderDatabase": "mabase",
+      "labelUsername": "Nom d'utilisateur",
+      "labelPassword": "Mot de passe",
+      "labelSsl": "Activer SSL / TLS",
+      "sslDesc": "Chiffrer la connexion au serveur",
+      "securityNote": "Les identifiants sont chiffrés AES-256 dans votre navigateur avant stockage",
+      "btnTest": "Tester la connexion",
+      "btnSave": "Enregistrer & Connecter",
+      "btnUpdate": "Mettre à jour",
+      "btnCancelEdit": "Annuler la modification",
+      "savedConnections": "Connexions enregistrées",
+      "emptySaved": "Les connexions apparaîtront ici",
+      "confirmDelete": "Supprimer cette connexion ?",
+      "toastFillFields": "Remplissez l'hôte et la base avant de tester.",
+      "toastConnectOk": "Connecté ! {version}",
+      "toastConnectFail": "Connexion échouée : {message}",
+      "toastUnlockVault": "Déverrouillez votre coffre d'abord.",
+      "toastFieldsRequired": "L'hôte et la base de données sont requis.",
+      "toastUpdated": "Connexion mise à jour.",
+      "toastSaved": "Connexion enregistrée.",
+      "toastSaveFail": "Échec de l'enregistrement : {message}",
+      "toastDeleted": "Connexion supprimée.",
+      "toastDeleteFail": "Impossible de supprimer la connexion."
+    },
+    "sidebar": {
+      "title": "Explorateur SQL",
+      "tooltipAddConnection": "Ajouter une connexion",
+      "tooltipRefreshSchema": "Actualiser le schéma",
+      "noConnections": "Aucune connexion enregistrée",
+      "toastSchemaFail": "Impossible de charger le schéma : {message}"
+    },
+    "editor": {
+      "btnRun": "Exécuter",
+      "executing": "Exécution en cours…",
+      "emptyTitle": "Exécutez une requête pour voir les résultats",
+      "emptyHint": "Appuyez sur ⌘↩ ou cliquez sur Exécuter",
+      "toastNoConnection": "Aucune connexion active."
+    },
+    "results": {
+      "filterPlaceholder": "Filtrer les résultats…",
+      "rowCount": "{count} {count, plural, one {ligne} other {lignes}}",
+      "rowCountFiltered": "{filtered} / {total} lignes",
+      "exportCsv": "CSV",
+      "noRows": "Aucune ligne retournée"
+    }
   }
 }
