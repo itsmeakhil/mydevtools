@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "JWT-avkodare",
+    "certificatePemDecoder": "Certifikat- / PEM-avkodare",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "JWT-avkodare",
         "description": "Avkoda JWT-header, payload och utgångstid."
+      },
+      "certificatePemDecoder": {
+        "title": "Certifikat- / PEM-avkodare",
+        "description": "Avkoda X.509-certifikat och CSR:er: ämne, utfärdare, giltighet och SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "En verifieringsnyckel krävs för denna algoritm.",
       "base64": "Kunde inte avkoda JWT-header eller signatur.",
       "cryptoFailed": "Verifiering misslyckades. Kontrollera nyckelformatet och försök igen."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Certifikat- / PEM-avkodare",
+    "subtitle": "Klistra in ett X.509-certifikat (<code>-----BEGIN CERTIFICATE-----</code>) eller en CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Ämne, utfärdare, datum och SAN analyseras lokalt; inget laddas upp.",
+    "pemLabel": "PEM-indata",
+    "clear": "Rensa",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Tolkar…",
+    "copyHex": "Kopiera fingeravtryck (hex utan kolon)",
+    "errors": {
+      "empty": "Klistra in ett PEM-certifikat eller en CSR för att avkoda.",
+      "noBlock": "Ingen PEM-block för certifikat eller CSR hittades.",
+      "parseFailed": "Kunde inte tolka dessa PEM-data."
+    },
+    "block": {
+      "title": "PEM-block {index}",
+      "certificate": "X.509-certifikat",
+      "csr": "Begäran om certifikatsignering"
+    },
+    "fields": {
+      "subject": "Ämne",
+      "issuer": "Utfärdare",
+      "notBefore": "Ogiltigt före",
+      "notAfter": "Ogiltigt efter",
+      "serial": "Serienummer (hex)",
+      "sha256": "SHA-256-fingeravtryck",
+      "sans": "Alternativa ämnesnamn",
+      "sansNone": "Ingen SAN-tillägg.",
+      "signatureAlgorithm": "Signaturalgoritm",
+      "csrIssuerNote": "CSR:er innehåller inte utfärdare (finns på det utfärdade certifikatet).",
+      "csrValidityNote": "CSR:er innehåller inte giltighetsdatum (finns på det utfärdade certifikatet)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Katalognamn",
+      "email": "E-post",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "Registrerat ID",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

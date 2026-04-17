@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "Descodificador JWT",
+    "certificatePemDecoder": "Descodificador de certificats / PEM",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "Descodificador JWT",
         "description": "Descodifica la capçalera, el payload i la caducitat del JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "Descodificador de certificats / PEM",
+        "description": "Descodifica certificats X.509 i CSR: subjecte, emissor, validesa i SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "Cal una clau de verificació per a aquest algorisme.",
       "base64": "No s’ha pogut decodificar la capçalera o la signatura del JWT.",
       "cryptoFailed": "Ha fallat la verificació. Comprova el format de la clau i torna-ho a provar."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Descodificador de certificats / PEM",
+    "subtitle": "Enganxa un certificat X.509 (<code>-----BEGIN CERTIFICATE-----</code>) o una CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Subjecte, emissor, dates i SAN s'analitzen localment; no es puja res.",
+    "pemLabel": "Entrada PEM",
+    "clear": "Netejar",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "S'està analitzant…",
+    "copyHex": "Copia l'empremta (hex sense dos punts)",
+    "errors": {
+      "empty": "Enganxa un certificat PEM o una CSR per descodificar.",
+      "noBlock": "No s'ha trobat cap bloc PEM de certificat o CSR.",
+      "parseFailed": "No s'ha pogut analitzar aquestes dades PEM."
+    },
+    "block": {
+      "title": "Bloc PEM {index}",
+      "certificate": "Certificat X.509",
+      "csr": "Sol·licitud de signatura de certificat"
+    },
+    "fields": {
+      "subject": "Subjecte",
+      "issuer": "Emissor",
+      "notBefore": "No vàlid abans de",
+      "notAfter": "No vàlid després de",
+      "serial": "Número de sèrie (hex)",
+      "sha256": "Empremta SHA-256",
+      "sans": "Noms alternatius del subjecte",
+      "signatureAlgorithm": "Algorisme de signatura",
+      "csrIssuerNote": "Les CSR no inclouen emissor (apareix al certificat emès).",
+      "csrValidityNote": "Les CSR no inclouen dates de validesa (apareixen al certificat emès).",
+      "sansNone": "Sense extensió SAN."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Nom de directori",
+      "email": "Correu",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "ID registrat",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "Декодер JWT",
+    "certificatePemDecoder": "Декодер сертификата / PEM",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "Декодер JWT",
         "description": "Декодируйте заголовок, полезную нагрузку и срок действия JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "Декодер сертификата / PEM",
+        "description": "Декодируйте сертификаты X.509 и CSR: субъект, издатель, срок действия, SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "Для этого алгоритма требуется ключ проверки.",
       "base64": "Не удалось декодировать заголовок или подпись JWT.",
       "cryptoFailed": "Проверка не удалась. Проверьте формат ключа и попробуйте снова."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Декодер сертификата / PEM",
+    "subtitle": "Вставьте сертификат X.509 (<code>-----BEGIN CERTIFICATE-----</code>) или CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Субъект, издатель, даты и SAN разбираются локально; ничего не отправляется.",
+    "pemLabel": "Ввод PEM",
+    "clear": "Очистить",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Разбор…",
+    "copyHex": "Копировать отпечаток (hex без двоеточий)",
+    "errors": {
+      "empty": "Вставьте PEM-сертификат или CSR для декодирования.",
+      "noBlock": "Не найден PEM-блок сертификата или CSR.",
+      "parseFailed": "Не удалось разобрать эти PEM-данные."
+    },
+    "block": {
+      "title": "PEM-блок {index}",
+      "certificate": "Сертификат X.509",
+      "csr": "Запрос на подпись сертификата"
+    },
+    "fields": {
+      "subject": "Субъект",
+      "issuer": "Издатель",
+      "notBefore": "Не действителен до",
+      "notAfter": "Не действителен после",
+      "serial": "Серийный номер (hex)",
+      "sha256": "Отпечаток SHA-256",
+      "sans": "Альтернативные имена субъекта",
+      "sansNone": "Расширение SAN отсутствует.",
+      "signatureAlgorithm": "Алгоритм подписи",
+      "csrIssuerNote": "В CSR нет издателя (он указывается в выданном сертификате).",
+      "csrValidityNote": "В CSR нет сроков действия (они указываются в выданном сертификате)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Отличительное имя",
+      "email": "Почта",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "Зарегистрированный ID",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

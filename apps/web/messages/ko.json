@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "JWT 디코더",
+    "certificatePemDecoder": "인증서 / PEM 디코더",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "JWT 디코더",
         "description": "JWT 헤더, 페이로드, 만료 시간을 디코딩합니다."
+      },
+      "certificatePemDecoder": {
+        "title": "인증서 / PEM 디코더",
+        "description": "X.509 인증서와 CSR 디코딩: 주체, 발급자, 유효 기간, SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "이 알고리즘에는 검증 키가 필요합니다.",
       "base64": "JWT 헤더 또는 서명을 디코딩할 수 없습니다.",
       "cryptoFailed": "검증에 실패했습니다. 키 형식을 확인하고 다시 시도하세요."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "인증서 / PEM 디코더",
+    "subtitle": "X.509 인증서(<code>-----BEGIN CERTIFICATE-----</code>) 또는 CSR(<code>-----BEGIN CERTIFICATE REQUEST-----</code>)을 붙여넣으세요. 주체, 발급자, 날짜, SAN은 로컬에서 분석되며 업로드되지 않습니다.",
+    "pemLabel": "PEM 입력",
+    "clear": "지우기",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "분석 중…",
+    "copyHex": "지문 복사(콜론 없는 16진)",
+    "errors": {
+      "empty": "디코딩할 PEM 인증서 또는 CSR을 붙여넣으세요.",
+      "noBlock": "인증서 또는 CSR PEM 블록을 찾을 수 없습니다.",
+      "parseFailed": "이 PEM 데이터를 분석할 수 없습니다."
+    },
+    "block": {
+      "title": "PEM 블록 {index}",
+      "certificate": "X.509 인증서",
+      "csr": "인증서 서명 요청"
+    },
+    "fields": {
+      "subject": "주체",
+      "issuer": "발급자",
+      "notBefore": "이전에는 유효하지 않음",
+      "notAfter": "이후에는 유효하지 않음",
+      "serial": "일련 번호(16진)",
+      "sha256": "SHA-256 지문",
+      "sans": "주체 대체 이름",
+      "sansNone": "SAN 확장이 없습니다.",
+      "signatureAlgorithm": "서명 알고리즘",
+      "csrIssuerNote": "CSR에는 발급자가 없습니다(발급된 인증서에 표시됩니다).",
+      "csrValidityNote": "CSR에는 유효 기간이 없습니다(발급된 인증서에 표시됩니다)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "디렉터리 이름",
+      "email": "이메일",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "등록 ID",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

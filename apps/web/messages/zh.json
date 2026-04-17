@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "JWT 解码器",
+    "certificatePemDecoder": "证书 / PEM 解码器",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "JWT 解码器",
         "description": "解码 JWT 的头部、载荷和过期时间。"
+      },
+      "certificatePemDecoder": {
+        "title": "证书 / PEM 解码器",
+        "description": "解码 X.509 证书与 CSR：主题、颁发者、有效期与 SAN。"
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "该算法需要验证密钥。",
       "base64": "无法解码 JWT 头部或签名。",
       "cryptoFailed": "验证失败。请检查密钥格式后重试。"
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "证书 / PEM 解码器",
+    "subtitle": "粘贴 X.509 证书（<code>-----BEGIN CERTIFICATE-----</code>）或 CSR（<code>-----BEGIN CERTIFICATE REQUEST-----</code>）。主题、颁发者、日期与 SAN 在本地解析；不会上传任何内容。",
+    "pemLabel": "PEM 输入",
+    "clear": "清除",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "正在解析…",
+    "copyHex": "复制指纹（无冒号的十六进制）",
+    "errors": {
+      "empty": "请粘贴 PEM 证书或 CSR 以解码。",
+      "noBlock": "未找到证书或 CSR 的 PEM 块。",
+      "parseFailed": "无法解析此 PEM 数据。"
+    },
+    "block": {
+      "title": "PEM 块 {index}",
+      "certificate": "X.509 证书",
+      "csr": "证书签名请求"
+    },
+    "fields": {
+      "subject": "主题",
+      "issuer": "颁发者",
+      "notBefore": "生效前无效",
+      "notAfter": "过期后无效",
+      "serial": "序列号（十六进制）",
+      "sha256": "SHA-256 指纹",
+      "sans": "主题备用名称",
+      "sansNone": "无 SAN 扩展。",
+      "signatureAlgorithm": "签名算法",
+      "csrIssuerNote": "CSR 不包含颁发者（颁发者出现在已签发的证书上）。",
+      "csrValidityNote": "CSR 不包含有效期（有效期出现在已签发的证书上）。"
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "可分辨名称",
+      "email": "电子邮件",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "注册 ID",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

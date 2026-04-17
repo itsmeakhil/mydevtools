@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "Decodificatore JWT",
+    "certificatePemDecoder": "Decodificatore certificati / PEM",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "Decodificatore JWT",
         "description": "Decodifica intestazione, payload e scadenza dei JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "Decodificatore certificati / PEM",
+        "description": "Decodifica certificati X.509 e CSR: soggetto, emittente, validità e SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "È richiesta una chiave di verifica per questo algoritmo.",
       "base64": "Impossibile decodificare l’header o la firma del JWT.",
       "cryptoFailed": "Verifica non riuscita. Controlla il formato della chiave e riprova."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Decodificatore certificati / PEM",
+    "subtitle": "Incolla un certificato X.509 (<code>-----BEGIN CERTIFICATE-----</code>) o una CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Soggetto, emittente, date e SAN sono analizzati in locale; nulla viene caricato.",
+    "pemLabel": "Input PEM",
+    "clear": "Cancella",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Analisi in corso…",
+    "copyHex": "Copia impronta (hex senza due punti)",
+    "errors": {
+      "empty": "Incolla un certificato PEM o una CSR da decodificare.",
+      "noBlock": "Nessun blocco PEM di certificato o CSR trovato.",
+      "parseFailed": "Impossibile analizzare questi dati PEM."
+    },
+    "block": {
+      "title": "Blocco PEM {index}",
+      "certificate": "Certificato X.509",
+      "csr": "Richiesta di firma certificato"
+    },
+    "fields": {
+      "subject": "Soggetto",
+      "issuer": "Emittente",
+      "notBefore": "Non valido prima del",
+      "notAfter": "Non valido dopo il",
+      "serial": "Numero di serie (hex)",
+      "sha256": "Impronta SHA-256",
+      "sans": "Nomi alternativi del soggetto",
+      "sansNone": "Nessuna estensione SAN.",
+      "signatureAlgorithm": "Algoritmo di firma",
+      "csrIssuerNote": "Le CSR non includono l’emittente (compare sul certificato emesso).",
+      "csrValidityNote": "Le CSR non includono le date di validità (compaiono sul certificato emesso)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Nome distintivo",
+      "email": "Email",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "ID registrato",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

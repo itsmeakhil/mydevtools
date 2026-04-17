@@ -122,6 +122,11 @@ export const toolsMetadata: Record<string, {
         description: 'Decode JSON Web Tokens in the browser: header, payload, exp, iat, and nbf. No server upload; signature not verified.',
         keywords: ['jwt decode', 'jwt debugger', 'json web token', 'jwt exp', 'jwt payload']
     },
+    'certificate-pem-decoder': {
+        title: 'Certificate / PEM Decoder',
+        description: 'Paste an X.509 PEM certificate or PKCS#10 CSR to inspect subject, issuer, validity, serial, SHA-256 fingerprint, and Subject Alternative Names. Runs locally in your browser.',
+        keywords: ['x509 decoder', 'pem decoder', 'certificate parser', 'csr decoder', 'subject alternative name', 'san', 'ssl certificate', 'pkcs10']
+    },
     'regex-tester': {
         title: 'Regex Tester',
         description: 'Test JavaScript regular expressions with live match highlighting, flags (g, i, m, s, u), and match counts. Client-side only.',

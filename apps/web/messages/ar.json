@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "محلّل JWT",
+    "certificatePemDecoder": "فك ترميز الشهادة / PEM",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "محلّل JWT",
         "description": "فك ترميز ترويسة وبيانات ووقت انتهاء JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "فك ترميز الشهادة / PEM",
+        "description": "فك ترميز شهادات X.509 وطلبات CSR: الموضوع، المصدر، الصلاحية، وأسماء SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "مفتاح التحقق مطلوب لهذه الخوارزمية.",
       "base64": "تعذر فك ترميز ترويسة JWT أو التوقيع.",
       "cryptoFailed": "فشل التحقق. تحقق من تنسيق المفتاح وحاول مرة أخرى."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "فك ترميز الشهادة / PEM",
+    "subtitle": "الصق شهادة X.509 (<code>-----BEGIN CERTIFICATE-----</code>) أو طلب CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). يتم تحليل الموضوع والمصدر والتواريخ وأسماء SAN محليًا؛ لا يتم رفع أي شيء.",
+    "pemLabel": "إدخال PEM",
+    "clear": "مسح",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "جارٍ التحليل…",
+    "copyHex": "نسخ البصمة (سداسي بدون نقطتين)",
+    "errors": {
+      "empty": "الصق شهادة PEM أو CSR لفك الترميز.",
+      "noBlock": "لم يُعثر على كتلة PEM لشهادة أو CSR.",
+      "parseFailed": "تعذّر تحليل بيانات PEM هذه."
+    },
+    "block": {
+      "title": "كتلة PEM {index}",
+      "certificate": "شهادة X.509",
+      "csr": "طلب توقيع شهادة"
+    },
+    "fields": {
+      "subject": "الموضوع",
+      "issuer": "المُصْدِر",
+      "notBefore": "غير صالح قبل",
+      "notAfter": "غير صالح بعد",
+      "serial": "الرقم التسلسلي (سداسي)",
+      "sha256": "بصمة SHA-256",
+      "sans": "أسماء بديلة للموضوع",
+      "sansNone": "لا يوجد امتداد SAN.",
+      "signatureAlgorithm": "خوارزمية التوقيع",
+      "csrIssuerNote": "لا يتضمّن طلب CSR مُصدِرًا (يظهر ذلك في الشهادة الصادرة).",
+      "csrValidityNote": "لا يتضمّن طلب CSR تواريخ صلاحية (تظهر في الشهادة الصادرة)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "اسم الدليل",
+      "email": "بريد",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "معرّف مسجّل",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

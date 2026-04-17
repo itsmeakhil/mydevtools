@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "Trình giải mã JWT",
+    "certificatePemDecoder": "Bộ giải mã chứng chỉ / PEM",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "Trình giải mã JWT",
         "description": "Giải mã header, payload và thời gian hết hạn của JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "Bộ giải mã chứng chỉ / PEM",
+        "description": "Giải mã chứng chỉ X.509 và CSR: chủ thể, nhà phát hành, hiệu lực và SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "Cần khóa xác minh cho thuật toán này.",
       "base64": "Không thể giải mã header hoặc chữ ký JWT.",
       "cryptoFailed": "Xác minh thất bại. Kiểm tra định dạng khóa và thử lại."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Bộ giải mã chứng chỉ / PEM",
+    "subtitle": "Dán chứng chỉ X.509 (<code>-----BEGIN CERTIFICATE-----</code>) hoặc CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Chủ thể, nhà phát hành, ngày và SAN được phân tích cục bộ; không tải lên.",
+    "pemLabel": "Đầu vào PEM",
+    "clear": "Xóa",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Đang phân tích…",
+    "copyHex": "Sao chép vân tay (hex không có dấu hai chấm)",
+    "errors": {
+      "empty": "Dán chứng chỉ PEM hoặc CSR để giải mã.",
+      "noBlock": "Không tìm thấy khối PEM chứng chỉ hoặc CSR.",
+      "parseFailed": "Không thể phân tích dữ liệu PEM này."
+    },
+    "block": {
+      "title": "Khối PEM {index}",
+      "certificate": "Chứng chỉ X.509",
+      "csr": "Yêu cầu ký chứng chỉ"
+    },
+    "fields": {
+      "subject": "Chủ thể",
+      "issuer": "Nhà phát hành",
+      "notBefore": "Không hợp lệ trước",
+      "notAfter": "Không hợp lệ sau",
+      "serial": "Số sê-ri (hex)",
+      "sha256": "Vân tay SHA-256",
+      "sans": "Tên thay thế cho chủ thể",
+      "sansNone": "Không có phần mở rộng SAN.",
+      "signatureAlgorithm": "Thuật toán ký",
+      "csrIssuerNote": "CSR không có nhà phát hành (có trên chứng chỉ đã cấp).",
+      "csrValidityNote": "CSR không có ngày hiệu lực (có trên chứng chỉ đã cấp)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Tên thư mục",
+      "email": "Email",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "ID đã đăng ký",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

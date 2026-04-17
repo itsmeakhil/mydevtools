@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "Dekoder JWT",
+    "certificatePemDecoder": "Dekoder certyfikatu / PEM",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "Dekoder JWT",
         "description": "Dekoduj nagłówek, payload i wygaśnięcie JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "Dekoder certyfikatu / PEM",
+        "description": "Dekoduj certyfikaty X.509 i CSR: podmiot, wystawca, ważność i SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "Dla tego algorytmu wymagany jest klucz weryfikacji.",
       "base64": "Nie udało się zdekodować nagłówka lub podpisu JWT.",
       "cryptoFailed": "Weryfikacja nie powiodła się. Sprawdź format klucza i spróbuj ponownie."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Dekoder certyfikatu / PEM",
+    "subtitle": "Wklej certyfikat X.509 (<code>-----BEGIN CERTIFICATE-----</code>) lub CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Podmiot, wystawca, daty i SAN są analizowane lokalnie; nic nie jest wysyłane.",
+    "pemLabel": "Dane PEM",
+    "clear": "Wyczyść",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Przetwarzanie…",
+    "copyHex": "Kopiuj odcisk palca (hex bez dwukropków)",
+    "errors": {
+      "empty": "Wklej certyfikat PEM lub CSR do zdekodowania.",
+      "noBlock": "Nie znaleziono bloku PEM certyfikatu ani CSR.",
+      "parseFailed": "Nie można przetworzyć tych danych PEM."
+    },
+    "block": {
+      "title": "Blok PEM {index}",
+      "certificate": "Certyfikat X.509",
+      "csr": "Żądanie podpisu certyfikatu"
+    },
+    "fields": {
+      "subject": "Podmiot",
+      "issuer": "Wystawca",
+      "notBefore": "Nieważny przed",
+      "notAfter": "Nieważny po",
+      "serial": "Numer seryjny (hex)",
+      "sha256": "Odcisk SHA-256",
+      "sans": "Alternatywne nazwy podmiotu",
+      "sansNone": "Brak rozszerzenia SAN.",
+      "signatureAlgorithm": "Algorytm podpisu",
+      "csrIssuerNote": "CSR nie zawiera wystawcy (jest na wydanym certyfikacie).",
+      "csrValidityNote": "CSR nie zawiera dat ważności (są na wydanym certyfikacie)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Nazwa katalogowa",
+      "email": "E-mail",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "Zarejestrowane ID",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {
