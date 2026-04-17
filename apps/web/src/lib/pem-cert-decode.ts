@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import {
   PemConverter,
   Pkcs10CertificateRequest,

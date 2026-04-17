@@ -17,6 +17,15 @@ const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_APP_BUILD_ID: getAppBuildId(),
   },
+  async redirects() {
+    return [
+      {
+        source: '/app/certificate-pem',
+        destination: '/app/certificate-pem-decoder',
+        permanent: true,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
