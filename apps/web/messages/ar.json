@@ -15,6 +15,7 @@
     "jwtDecoder": "محلّل JWT",
     "certificatePemDecoder": "فك ترميز الشهادة / PEM",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "منسّق GraphQL",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "منسّق GraphQL",
+        "description": "نسّق GraphQL مع تمييز الصيغة ومُنشئ استعلامات بسيط."
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "تعذر تنسيق SQL."
     }
   },
+  "GraphqlFormatter": {
+    "title": "منسّق GraphQL",
+    "subtitle": "نسّق استعلامات GraphQL والطفرات والاشتراكات داخل المتصفح. لا يتم رفع أي شيء.",
+    "tabs": {
+      "format": "تنسيق",
+      "build": "مُنشئ الاستعلام"
+    },
+    "outputModeLabel": "المخرجات",
+    "outputModes": {
+      "pretty": "طباعة مقروءة",
+      "minify": "تصغير"
+    },
+    "format": "تنسيق",
+    "clear": "مسح",
+    "counter": "{current} / {max} حرفًا",
+    "inputPanel": "الإدخال",
+    "outputPanel": "المخرجات",
+    "copy": "نسخ",
+    "builderHint": "ألِف هيكلًا ثم طبِّقه على المحرر. تعريفات المتغيرات بصياغة GraphQL (مثل $id: ID!) — الأقواس اختيارية.",
+    "builder": {
+      "operation": "العملية",
+      "operationName": "اسم العملية",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "تعريفات المتغيرات",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "مجموعة الاختيار",
+      "apply": "تطبيق على الإدخال",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "الإدخال محدود بـ {max} حرفًا.",
+      "couldNotFormat": "تعذّر تحليل أو طباعة هذا GraphQL.",
+      "emptySelection": "أضِف مجموعة اختيار قبل التطبيق."
+    }
+  },
+
   "RegexTester": {
     "title": "مختبر Regex",
     "subtitle": "Regex بنمط JavaScript مباشرةً على نصك. يتم تمييز التطابقات؛ ولا يغادر شيء متصفحك.",

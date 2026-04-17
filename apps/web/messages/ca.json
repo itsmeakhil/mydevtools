@@ -15,6 +15,7 @@
     "jwtDecoder": "Descodificador JWT",
     "certificatePemDecoder": "Descodificador de certificats / PEM",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "Formatador GraphQL",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "Formatador GraphQL",
+        "description": "Formata GraphQL amb ressaltat de sintaxi i un editor de consultes senzill."
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "No s’ha pogut formatar aquest SQL."
     }
   },
+  "GraphqlFormatter": {
+    "title": "Formatador GraphQL",
+    "subtitle": "Formata consultes, mutacions i subscripcions GraphQL al navegador. No es puja res.",
+    "tabs": {
+      "format": "Formata",
+      "build": "Editor de consulta"
+    },
+    "outputModeLabel": "Sortida",
+    "outputModes": {
+      "pretty": "Impressió llegible",
+      "minify": "Minifica"
+    },
+    "format": "Formata",
+    "clear": "Esborra",
+    "counter": "{current} / {max} caràcters",
+    "inputPanel": "Entrada",
+    "outputPanel": "Sortida",
+    "copy": "Copia",
+    "builderHint": "Compon un esquelet i aplica’l a l’editor. Les definicions de variables usen sintaxi GraphQL (p. ex. $id: ID!) — els parèntesis són opcionals.",
+    "builder": {
+      "operation": "Operació",
+      "operationName": "Nom de l’operació",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Definicions de variables",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Conjunt de selecció",
+      "apply": "Aplica a l’entrada",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "L’entrada està limitada a {max} caràcters.",
+      "couldNotFormat": "No s’ha pogut analitzar ni imprimir aquest GraphQL.",
+      "emptySelection": "Afegeix un conjunt de selecció abans d’aplicar."
+    }
+  },
+
   "RegexTester": {
     "title": "Testador de regex",
     "subtitle": "Regex d’estil JavaScript en directe sobre el teu text. Les coincidències es ressalten; res no surt del navegador.",

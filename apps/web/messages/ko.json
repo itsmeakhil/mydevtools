@@ -15,6 +15,7 @@
     "jwtDecoder": "JWT 디코더",
     "certificatePemDecoder": "인증서 / PEM 디코더",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "GraphQL 포매터",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "GraphQL 포매터",
+        "description": "구문 강조와 간단한 쿼리 빌더로 GraphQL을 포맷합니다."
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "이 SQL을 포맷할 수 없습니다."
     }
   },
+  "GraphqlFormatter": {
+    "title": "GraphQL 포매터",
+    "subtitle": "브라우저에서 GraphQL 쿼리·뮤테이션·구독을 포맷합니다. 업로드되지 않습니다.",
+    "tabs": {
+      "format": "포맷",
+      "build": "쿼리 빌더"
+    },
+    "outputModeLabel": "출력",
+    "outputModes": {
+      "pretty": "읽기 쉬운 형식",
+      "minify": "압축"
+    },
+    "format": "포맷",
+    "clear": "지우기",
+    "counter": "{current} / {max}자",
+    "inputPanel": "입력",
+    "outputPanel": "출력",
+    "copy": "복사",
+    "builderHint": "문서 뼈대를 만든 뒤 입력 편집기에 적용합니다. 변수 정의는 GraphQL 구문(예: $id: ID!)을 사용하며 괄호는 선택 사항입니다.",
+    "builder": {
+      "operation": "오퍼레이션",
+      "operationName": "오퍼레이션 이름",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "변수 정의",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "선택 집합",
+      "apply": "입력에 적용",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "입력은 최대 {max}자까지 가능합니다.",
+      "couldNotFormat": "이 GraphQL을 파싱하거나 출력할 수 없습니다.",
+      "emptySelection": "적용하기 전에 선택 집합을 추가하세요."
+    }
+  },
+
   "RegexTester": {
     "title": "정규식 테스터",
     "subtitle": "텍스트에 대해 JavaScript 스타일 정규식을 실시간으로 실행합니다. 매칭은 강조 표시되며 브라우저 밖으로 나가지 않습니다.",

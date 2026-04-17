@@ -15,6 +15,7 @@
     "jwtDecoder": "Trình giải mã JWT",
     "certificatePemDecoder": "Bộ giải mã chứng chỉ / PEM",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "Trình định dạng GraphQL",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "Trình định dạng GraphQL",
+        "description": "Định dạng GraphQL với tô sáng cú pháp và trình xây dựng truy vấn đơn giản."
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "Không thể định dạng SQL này."
     }
   },
+  "GraphqlFormatter": {
+    "title": "Trình định dạng GraphQL",
+    "subtitle": "Định dạng truy vấn, mutation và subscription GraphQL trong trình duyệt. Không tải dữ liệu lên.",
+    "tabs": {
+      "format": "Định dạng",
+      "build": "Trình tạo truy vấn"
+    },
+    "outputModeLabel": "Đầu ra",
+    "outputModes": {
+      "pretty": "In đẹp",
+      "minify": "Thu nhỏ"
+    },
+    "format": "Định dạng",
+    "clear": "Xóa",
+    "counter": "{current} / {max} ký tự",
+    "inputPanel": "Đầu vào",
+    "outputPanel": "Đầu ra",
+    "copy": "Sao chép",
+    "builderHint": "Soạn khung tài liệu rồi áp vào trình soạn. Định nghĩa biến theo cú pháp GraphQL (ví dụ $id: ID!) — dấu ngoặc là tùy chọn.",
+    "builder": {
+      "operation": "Thao tác",
+      "operationName": "Tên thao tác",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Định nghĩa biến",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Tập chọn",
+      "apply": "Áp vào đầu vào",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "Đầu vào giới hạn {max} ký tự.",
+      "couldNotFormat": "Không thể phân tích hoặc in GraphQL này.",
+      "emptySelection": "Thêm tập chọn trước khi áp dụng."
+    }
+  },
+
   "RegexTester": {
     "title": "Trình thử Regex",
     "subtitle": "Regex kiểu JavaScript chạy trực tiếp trên văn bản. Kết quả khớp được tô sáng; không có gì rời khỏi trình duyệt.",

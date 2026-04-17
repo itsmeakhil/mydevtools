@@ -15,6 +15,7 @@
     "jwtDecoder": "JWT Çözücü",
     "certificatePemDecoder": "Sertifika / PEM çözücü",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "GraphQL Biçimlendirici",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "GraphQL Biçimlendirici",
+        "description": "Sözdizimi vurgulama ve basit bir sorgu oluşturucuyla GraphQL biçimlendirin."
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "Bu SQL biçimlendirilemedi."
     }
   },
+  "GraphqlFormatter": {
+    "title": "GraphQL biçimlendirici",
+    "subtitle": "GraphQL sorgularını, mutasyonlarını ve aboneliklerini tarayıcıda biçimlendirin. Hiçbir şey yüklenmez.",
+    "tabs": {
+      "format": "Biçimlendir",
+      "build": "Sorgu oluşturucu"
+    },
+    "outputModeLabel": "Çıktı",
+    "outputModes": {
+      "pretty": "Okunabilir yazdır",
+      "minify": "Küçült"
+    },
+    "format": "Biçimlendir",
+    "clear": "Temizle",
+    "counter": "{current} / {max} karakter",
+    "inputPanel": "Girdi",
+    "outputPanel": "Çıktı",
+    "copy": "Kopyala",
+    "builderHint": "Bir iskelet oluşturup düzenleyiciye uygulayın. Değişken tanımları GraphQL sözdizimindedir (ör. $id: ID!) — parantezler isteğe bağlıdır.",
+    "builder": {
+      "operation": "İşlem",
+      "operationName": "İşlem adı",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Değişken tanımları",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Seçim kümesi",
+      "apply": "Girdiye uygula",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "Girdi {max} karakterle sınırlıdır.",
+      "couldNotFormat": "Bu GraphQL ayrıştırılamadı veya yazdırılamadı.",
+      "emptySelection": "Uygulamadan önce bir seçim kümesi ekleyin."
+    }
+  },
+
   "RegexTester": {
     "title": "Regex Testi",
     "subtitle": "Metninize karşı canlı JavaScript tarzı regex. Eşleşmeler vurgulanır; hiçbir şey tarayıcınızdan çıkmaz.",

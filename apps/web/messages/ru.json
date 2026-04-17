@@ -15,6 +15,7 @@
     "jwtDecoder": "Декодер JWT",
     "certificatePemDecoder": "Декодер сертификата / PEM",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "Форматтер GraphQL",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "Форматтер GraphQL",
+        "description": "Форматируйте GraphQL с подсветкой синтаксиса и простым конструктором запросов."
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "Не удалось отформатировать этот SQL."
     }
   },
+  "GraphqlFormatter": {
+    "title": "Форматтер GraphQL",
+    "subtitle": "Форматируйте запросы, мутации и подписки GraphQL в браузере. Ничего не загружается.",
+    "tabs": {
+      "format": "Форматировать",
+      "build": "Конструктор запроса"
+    },
+    "outputModeLabel": "Вывод",
+    "outputModes": {
+      "pretty": "Читаемая печать",
+      "minify": "Минификация"
+    },
+    "format": "Форматировать",
+    "clear": "Очистить",
+    "counter": "{current} / {max} символов",
+    "inputPanel": "Ввод",
+    "outputPanel": "Вывод",
+    "copy": "Копировать",
+    "builderHint": "Соберите каркас документа и примените к редактору. Определения переменных в синтаксисе GraphQL (напр. $id: ID!) — скобки необязательны.",
+    "builder": {
+      "operation": "Операция",
+      "operationName": "Имя операции",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Определения переменных",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Набор полей",
+      "apply": "Вставить во ввод",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "Ввод ограничен {max} символами.",
+      "couldNotFormat": "Не удалось разобрать или вывести этот GraphQL.",
+      "emptySelection": "Добавьте набор полей перед применением."
+    }
+  },
+
   "RegexTester": {
     "title": "Тестер regex",
     "subtitle": "Регулярные выражения в стиле JavaScript в реальном времени. Совпадения подсвечиваются; ничего не покидает браузер.",

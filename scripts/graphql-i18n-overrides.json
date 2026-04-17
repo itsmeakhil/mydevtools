@@ -1,0 +1,1244 @@
+{
+  "en": {
+    "nav": "GraphQL Formatter",
+    "dash": {
+      "title": "GraphQL Formatter",
+      "description": "Format queries with syntax highlighting and a simple query builder."
+    },
+    "GraphqlFormatter": {
+      "title": "GraphQL formatter",
+      "subtitle": "Format GraphQL queries, mutations, and subscriptions in your browser. Nothing is uploaded.",
+      "tabs": {
+        "format": "Format",
+        "build": "Query builder"
+      },
+      "outputModeLabel": "Output",
+      "outputModes": {
+        "pretty": "Pretty print",
+        "minify": "Minify"
+      },
+      "format": "Format",
+      "clear": "Clear",
+      "counter": "{current} / {max} characters",
+      "inputPanel": "Input",
+      "outputPanel": "Output",
+      "copy": "Copy",
+      "builderHint": "Compose a document skeleton, then apply it to the input editor. Variable definitions use GraphQL syntax (e.g. $id: ID!)—parentheses are optional.",
+      "builder": {
+        "operation": "Operation",
+        "operationName": "Operation name",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Variable definitions",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Selection set",
+        "apply": "Apply to input",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "Input is limited to {max} characters.",
+        "couldNotFormat": "Could not parse or print this GraphQL.",
+        "emptySelection": "Add a selection set before applying."
+      }
+    }
+  },
+  "de": {
+    "nav": "GraphQL-Formatierer",
+    "dash": {
+      "title": "GraphQL-Formatierer",
+      "description": "GraphQL mit Syntaxhervorhebung formatieren und mit einem einfachen Abfrage-Editor zusammenstellen."
+    },
+    "GraphqlFormatter": {
+      "title": "GraphQL-Formatierer",
+      "subtitle": "Formatiert GraphQL-Abfragen, Mutationen und Subscriptions im Browser. Es wird nichts hochgeladen.",
+      "tabs": {
+        "format": "Formatieren",
+        "build": "Abfrage-Editor"
+      },
+      "outputModeLabel": "Ausgabe",
+      "outputModes": {
+        "pretty": "Lesbare Ausgabe",
+        "minify": "Minifizieren"
+      },
+      "format": "Formatieren",
+      "clear": "Leeren",
+      "counter": "{current} / {max} Zeichen",
+      "inputPanel": "Eingabe",
+      "outputPanel": "Ausgabe",
+      "copy": "Kopieren",
+      "builderHint": "Baue ein Gerüst und übernimm es in den Editor. Variablendefinitionen in GraphQL-Syntax (z. B. $id: ID!), Klammern sind optional.",
+      "builder": {
+        "operation": "Operation",
+        "operationName": "Operationsname",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Variablendefinitionen",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Selektionssatz",
+        "apply": "In die Eingabe übernehmen",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "Die Eingabe ist auf {max} Zeichen begrenzt.",
+        "couldNotFormat": "Dieses GraphQL konnte nicht geparst oder ausgegeben werden.",
+        "emptySelection": "Bitte zuerst einen Selektionssatz einfügen."
+      }
+    }
+  },
+  "fr": {
+    "nav": "Formateur GraphQL",
+    "dash": {
+      "title": "Formateur GraphQL",
+      "description": "Formatez du GraphQL avec coloration syntaxique et un éditeur de requêtes simple."
+    },
+    "GraphqlFormatter": {
+      "title": "Formateur GraphQL",
+      "subtitle": "Formatez les requêtes, mutations et abonnements GraphQL dans le navigateur. Rien n’est téléversé.",
+      "tabs": {
+        "format": "Formater",
+        "build": "Éditeur de requête"
+      },
+      "outputModeLabel": "Sortie",
+      "outputModes": {
+        "pretty": "Pretty-print",
+        "minify": "Minifier"
+      },
+      "format": "Formater",
+      "clear": "Effacer",
+      "counter": "{current} / {max} caractères",
+      "inputPanel": "Entrée",
+      "outputPanel": "Sortie",
+      "copy": "Copier",
+      "builderHint": "Composez un squelette puis appliquez-le dans l’éditeur. Définitions de variables en syntaxe GraphQL (ex. $id : ID ! ) — parenthèses facultatives.",
+      "builder": {
+        "operation": "Opération",
+        "operationName": "Nom de l’opération",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Définitions de variables",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Sélection",
+        "apply": "Appliquer à l’entrée",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "La saisie est limitée à {max} caractères.",
+        "couldNotFormat": "Impossible d’analyser ou d’imprimer ce GraphQL.",
+        "emptySelection": "Ajoutez une sélection avant d’appliquer."
+      }
+    }
+  },
+  "es": {
+    "nav": "Formateador GraphQL",
+    "dash": {
+      "title": "Formateador GraphQL",
+      "description": "Formatea GraphQL con resaltado de sintaxis y un editor de consultas sencillo."
+    },
+    "GraphqlFormatter": {
+      "title": "Formateador GraphQL",
+      "subtitle": "Formatea consultas, mutaciones y suscripciones GraphQL en el navegador. No se sube nada.",
+      "tabs": {
+        "format": "Formatear",
+        "build": "Editor de consulta"
+      },
+      "outputModeLabel": "Salida",
+      "outputModes": {
+        "pretty": "Impresión legible",
+        "minify": "Minificar"
+      },
+      "format": "Formatear",
+      "clear": "Borrar",
+      "counter": "{current} / {max} caracteres",
+      "inputPanel": "Entrada",
+      "outputPanel": "Salida",
+      "copy": "Copiar",
+      "builderHint": "Compón un esqueleto y aplícalo al editor. Las definiciones de variables usan sintaxis GraphQL (p. ej. $id: ID!) — los paréntesis son opcionales.",
+      "builder": {
+        "operation": "Operación",
+        "operationName": "Nombre de la operación",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Definiciones de variables",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Conjunto de selección",
+        "apply": "Aplicar a la entrada",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "La entrada está limitada a {max} caracteres.",
+        "couldNotFormat": "No se pudo analizar ni volcar este GraphQL.",
+        "emptySelection": "Añade un conjunto de selección antes de aplicar."
+      }
+    }
+  },
+  "it": {
+    "nav": "Formattatore GraphQL",
+    "dash": {
+      "title": "Formattatore GraphQL",
+      "description": "Formatta GraphQL con evidenziazione della sintassi e un editor di query semplice."
+    },
+    "GraphqlFormatter": {
+      "title": "Formattatore GraphQL",
+      "subtitle": "Formatta query, mutazioni e subscription GraphQL nel browser. Nulla viene caricato.",
+      "tabs": {
+        "format": "Formatta",
+        "build": "Editor di query"
+      },
+      "outputModeLabel": "Output",
+      "outputModes": {
+        "pretty": "Stampa leggibile",
+        "minify": "Minifica"
+      },
+      "format": "Formatta",
+      "clear": "Svuota",
+      "counter": "{current} / {max} caratteri",
+      "inputPanel": "Input",
+      "outputPanel": "Output",
+      "copy": "Copia",
+      "builderHint": "Componi lo scheletro del documento e applicalo all’editor. Le definizioni di variabili usano la sintassi GraphQL (es. $id: ID!) — le parentesi sono opzionali.",
+      "builder": {
+        "operation": "Operazione",
+        "operationName": "Nome operazione",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Definizioni di variabili",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Selezione",
+        "apply": "Applica all’input",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "L’input è limitato a {max} caratteri.",
+        "couldNotFormat": "Impossibile analizzare o stampare questo GraphQL.",
+        "emptySelection": "Aggiungi una selezione prima di applicare."
+      }
+    }
+  },
+  "pt": {
+    "nav": "Formatador GraphQL",
+    "dash": {
+      "title": "Formatador GraphQL",
+      "description": "Formate GraphQL com realce de sintaxe e um editor de consultas simples."
+    },
+    "GraphqlFormatter": {
+      "title": "Formatador GraphQL",
+      "subtitle": "Formate consultas, mutações e subscrições GraphQL no navegador. Nada é enviado.",
+      "tabs": {
+        "format": "Formatar",
+        "build": "Editor de consulta"
+      },
+      "outputModeLabel": "Saída",
+      "outputModes": {
+        "pretty": "Impressão legível",
+        "minify": "Minificar"
+      },
+      "format": "Formatar",
+      "clear": "Limpar",
+      "counter": "{current} / {max} caracteres",
+      "inputPanel": "Entrada",
+      "outputPanel": "Saída",
+      "copy": "Copiar",
+      "builderHint": "Monte um esqueleto e aplique-o ao editor. Definições de variáveis em sintaxe GraphQL (ex.: $id: ID!) — parênteses opcionais.",
+      "builder": {
+        "operation": "Operação",
+        "operationName": "Nome da operação",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Definições de variáveis",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Conjunto de seleção",
+        "apply": "Aplicar à entrada",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "A entrada está limitada a {max} caracteres.",
+        "couldNotFormat": "Não foi possível analisar ou imprimir este GraphQL.",
+        "emptySelection": "Adicione uma seleção antes de aplicar."
+      }
+    }
+  },
+  "pt-BR": {
+    "nav": "Formatador GraphQL",
+    "dash": {
+      "title": "Formatador GraphQL",
+      "description": "Formate GraphQL com realce de sintaxe e um editor de consultas simples."
+    },
+    "GraphqlFormatter": {
+      "title": "Formatador GraphQL",
+      "subtitle": "Formate consultas, mutações e assinaturas GraphQL no navegador. Nada é enviado.",
+      "tabs": {
+        "format": "Formatar",
+        "build": "Editor de consulta"
+      },
+      "outputModeLabel": "Saída",
+      "outputModes": {
+        "pretty": "Impressão legível",
+        "minify": "Minificar"
+      },
+      "format": "Formatar",
+      "clear": "Limpar",
+      "counter": "{current} / {max} caracteres",
+      "inputPanel": "Entrada",
+      "outputPanel": "Saída",
+      "copy": "Copiar",
+      "builderHint": "Monte um esqueleto e aplique-o ao editor. Definições de variáveis em sintaxe GraphQL (ex.: $id: ID!) — parênteses opcionais.",
+      "builder": {
+        "operation": "Operação",
+        "operationName": "Nome da operação",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Definições de variáveis",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Conjunto de seleção",
+        "apply": "Aplicar à entrada",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "A entrada está limitada a {max} caracteres.",
+        "couldNotFormat": "Não foi possível analisar ou imprimir este GraphQL.",
+        "emptySelection": "Adicione uma seleção antes de aplicar."
+      }
+    }
+  },
+  "nl": {
+    "nav": "GraphQL-formatter",
+    "dash": {
+      "title": "GraphQL-formatter",
+      "description": "Formatteer GraphQL met syntax highlighting en een eenvoudige querybouwer."
+    },
+    "GraphqlFormatter": {
+      "title": "GraphQL-formatter",
+      "subtitle": "Formatteer GraphQL-query’s, mutaties en subscriptions in je browser. Er wordt niets geüpload.",
+      "tabs": {
+        "format": "Formatteren",
+        "build": "Querybouwer"
+      },
+      "outputModeLabel": "Uitvoer",
+      "outputModes": {
+        "pretty": "Leesbare afdruk",
+        "minify": "Minificeren"
+      },
+      "format": "Formatteren",
+      "clear": "Wissen",
+      "counter": "{current} / {max} tekens",
+      "inputPanel": "Invoer",
+      "outputPanel": "Uitvoer",
+      "copy": "Kopiëren",
+      "builderHint": "Stel een skelet samen en zet het in de editor. Variabeledefinities in GraphQL-syntaxis (bijv. $id: ID!) — haakjes optioneel.",
+      "builder": {
+        "operation": "Operatie",
+        "operationName": "Operatienaam",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Variabeledefinities",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Selectie",
+        "apply": "Toepassen op invoer",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "Invoer is beperkt tot {max} tekens.",
+        "couldNotFormat": "Deze GraphQL kon niet worden geparsed of afgedrukt.",
+        "emptySelection": "Voeg eerst een selectie toe."
+      }
+    }
+  },
+  "pl": {
+    "nav": "Formatter GraphQL",
+    "dash": {
+      "title": "Formatter GraphQL",
+      "description": "Formatuj GraphQL z podświetlaniem składni i prostym edytorem zapytań."
+    },
+    "GraphqlFormatter": {
+      "title": "Formatter GraphQL",
+      "subtitle": "Formatuj zapytania, mutacje i subskrypcje GraphQL w przeglądarce. Nic nie jest wysyłane.",
+      "tabs": {
+        "format": "Formatuj",
+        "build": "Edytor zapytań"
+      },
+      "outputModeLabel": "Wynik",
+      "outputModes": {
+        "pretty": "Czytelny zapis",
+        "minify": "Minifikuj"
+      },
+      "format": "Formatuj",
+      "clear": "Wyczyść",
+      "counter": "{current} / {max} znaków",
+      "inputPanel": "Wejście",
+      "outputPanel": "Wyjście",
+      "copy": "Kopiuj",
+      "builderHint": "Złóż szkielet dokumentu i wstaw go do edytora. Definicje zmiennych w składni GraphQL (np. $id: ID!) — nawiasy opcjonalne.",
+      "builder": {
+        "operation": "Operacja",
+        "operationName": "Nazwa operacji",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Definicje zmiennych",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Zestaw selekcji",
+        "apply": "Zastosuj do wejścia",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "Wejście jest ograniczone do {max} znaków.",
+        "couldNotFormat": "Nie udało się przeanalizować ani wypisać tego GraphQL.",
+        "emptySelection": "Dodaj zestaw selekcji przed zastosowaniem."
+      }
+    }
+  },
+  "ru": {
+    "nav": "Форматтер GraphQL",
+    "dash": {
+      "title": "Форматтер GraphQL",
+      "description": "Форматируйте GraphQL с подсветкой синтаксиса и простым конструктором запросов."
+    },
+    "GraphqlFormatter": {
+      "title": "Форматтер GraphQL",
+      "subtitle": "Форматируйте запросы, мутации и подписки GraphQL в браузере. Ничего не загружается.",
+      "tabs": {
+        "format": "Форматировать",
+        "build": "Конструктор запроса"
+      },
+      "outputModeLabel": "Вывод",
+      "outputModes": {
+        "pretty": "Читаемая печать",
+        "minify": "Минификация"
+      },
+      "format": "Форматировать",
+      "clear": "Очистить",
+      "counter": "{current} / {max} символов",
+      "inputPanel": "Ввод",
+      "outputPanel": "Вывод",
+      "copy": "Копировать",
+      "builderHint": "Соберите каркас документа и примените к редактору. Определения переменных в синтаксисе GraphQL (напр. $id: ID!) — скобки необязательны.",
+      "builder": {
+        "operation": "Операция",
+        "operationName": "Имя операции",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Определения переменных",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Набор полей",
+        "apply": "Вставить во ввод",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "Ввод ограничен {max} символами.",
+        "couldNotFormat": "Не удалось разобрать или вывести этот GraphQL.",
+        "emptySelection": "Добавьте набор полей перед применением."
+      }
+    }
+  },
+  "uk": {
+    "nav": "Форматувач GraphQL",
+    "dash": {
+      "title": "Форматувач GraphQL",
+      "description": "Форматуйте GraphQL із підсвітленням синтаксису й простим конструктором запитів."
+    },
+    "GraphqlFormatter": {
+      "title": "Форматувач GraphQL",
+      "subtitle": "Форматуйте запити, мутації й підписки GraphQL у браузері. Нічого не завантажується.",
+      "tabs": {
+        "format": "Форматувати",
+        "build": "Конструктор запиту"
+      },
+      "outputModeLabel": "Вивід",
+      "outputModes": {
+        "pretty": "Читабельний вивід",
+        "minify": "Мініфікувати"
+      },
+      "format": "Форматувати",
+      "clear": "Очистити",
+      "counter": "{current} / {max} символів",
+      "inputPanel": "Вхід",
+      "outputPanel": "Вихід",
+      "copy": "Копіювати",
+      "builderHint": "Зберіть каркас документа й застосуйте до редактора. Визначення змінних у синтаксисі GraphQL (напр. $id: ID!) — дужки не обов’язкові.",
+      "builder": {
+        "operation": "Операція",
+        "operationName": "Назва операції",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Визначення змінних",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Набір вибору",
+        "apply": "Застосувати до вводу",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "Ввід обмежено {max} символами.",
+        "couldNotFormat": "Не вдалося розібрати чи надрукувати цей GraphQL.",
+        "emptySelection": "Додайте набір вибору перед застосуванням."
+      }
+    }
+  },
+  "cs": {
+    "nav": "Formátovač GraphQL",
+    "dash": {
+      "title": "Formátovač GraphQL",
+      "description": "Formátujte GraphQL se zvýrazněním syntaxe a jednoduchým editorem dotazů."
+    },
+    "GraphqlFormatter": {
+      "title": "Formátovač GraphQL",
+      "subtitle": "Formátujte dotazy, mutace a odběry GraphQL v prohlížeči. Nic se neodesílá.",
+      "tabs": {
+        "format": "Formátovat",
+        "build": "Editor dotazu"
+      },
+      "outputModeLabel": "Výstup",
+      "outputModes": {
+        "pretty": "Čitelný výpis",
+        "minify": "Minifikovat"
+      },
+      "format": "Formátovat",
+      "clear": "Vymazat",
+      "counter": "{current} / {max} znaků",
+      "inputPanel": "Vstup",
+      "outputPanel": "Výstup",
+      "copy": "Kopírovat",
+      "builderHint": "Sestavte kostru dokumentu a vložte ji do editoru. Definice proměnných v syntaxi GraphQL (např. $id: ID!) — závorky jsou volitelné.",
+      "builder": {
+        "operation": "Operace",
+        "operationName": "Název operace",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Definice proměnných",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Výběrová sada",
+        "apply": "Použít na vstup",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "Vstup je omezen na {max} znaků.",
+        "couldNotFormat": "Tento GraphQL se nepodařilo parsovat ani vypsat.",
+        "emptySelection": "Před použitím doplňte výběrovou sadu."
+      }
+    }
+  },
+  "el": {
+    "nav": "Μορφοποιητής GraphQL",
+    "dash": {
+      "title": "Μορφοποιητής GraphQL",
+      "description": "Μορφοποιήστε GraphQL με επισήμανση σύνταξης και απλό επεξεργαστή ερωτημάτων."
+    },
+    "GraphqlFormatter": {
+      "title": "Μορφοποιητής GraphQL",
+      "subtitle": "Μορφοποιήστε ερωτήματα, μεταλλάξεις και συνδρομές GraphQL στο πρόγραμμα περιήγησης. Δεν ανεβαίνει τίποτα.",
+      "tabs": {
+        "format": "Μορφοποίηση",
+        "build": "Δημιουργός ερωτήματος"
+      },
+      "outputModeLabel": "Έξοδος",
+      "outputModes": {
+        "pretty": "Αναγνώσιμη εκτύπωση",
+        "minify": "Σμίκρυνση"
+      },
+      "format": "Μορφοποίηση",
+      "clear": "Εκκαθάριση",
+      "counter": "{current} / {max} χαρακτήρες",
+      "inputPanel": "Είσοδος",
+      "outputPanel": "Έξοδος",
+      "copy": "Αντιγραφή",
+      "builderHint": "Συνθέστε ένα σκελετό και τον εφαρμόζετε στον επεξεργαστή. Ορισμοί μεταβλητών με σύνταξη GraphQL (π.χ. $id: ID!) — οι παρενθέσεις είναι προαιρετικές.",
+      "builder": {
+        "operation": "Λειτουργία",
+        "operationName": "Όνομα λειτουργίας",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Ορισμοί μεταβλητών",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Σύνολο επιλογής",
+        "apply": "Εφαρμογή στην είσοδο",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "Η είσοδος περιορίζεται σε {max} χαρακτήρες.",
+        "couldNotFormat": "Δεν ήταν δυνατή η ανάλυση ή εκτύπωση αυτού του GraphQL.",
+        "emptySelection": "Προσθέστε σύνολο επιλογής πριν από την εφαρμογή."
+      }
+    }
+  },
+  "da": {
+    "nav": "GraphQL-formater",
+    "dash": {
+      "title": "GraphQL-formater",
+      "description": "Formatér GraphQL med syntaksfremhævning og en enkel forespørgselsbygger."
+    },
+    "GraphqlFormatter": {
+      "title": "GraphQL-formater",
+      "subtitle": "Formatér GraphQL-forespørgsler, mutationer og abonnementer i browseren. Intet uploades.",
+      "tabs": {
+        "format": "Formatér",
+        "build": "Forespørgselsbygger"
+      },
+      "outputModeLabel": "Output",
+      "outputModes": {
+        "pretty": "Læsevenlig udskrift",
+        "minify": "Minificér"
+      },
+      "format": "Formatér",
+      "clear": "Ryd",
+      "counter": "{current} / {max} tegn",
+      "inputPanel": "Input",
+      "outputPanel": "Output",
+      "copy": "Kopiér",
+      "builderHint": "Byg et skelet og brug det i editoren. Variabeldefinitioner i GraphQL-syntaks (f.eks. $id: ID!) — parenteser er valgfri.",
+      "builder": {
+        "operation": "Operation",
+        "operationName": "Operationsnavn",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Variabeldefinitioner",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Udvalg",
+        "apply": "Anvend på input",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "Input er begrænset til {max} tegn.",
+        "couldNotFormat": "Kunne ikke parse eller udskrive denne GraphQL.",
+        "emptySelection": "Tilføj et udvalg før du anvender."
+      }
+    }
+  },
+  "sv": {
+    "nav": "GraphQL-formaterare",
+    "dash": {
+      "title": "GraphQL-formaterare",
+      "description": "Formatera GraphQL med syntaxmarkering och en enkel frågebyggare."
+    },
+    "GraphqlFormatter": {
+      "title": "GraphQL-formaterare",
+      "subtitle": "Formatera GraphQL-frågor, mutationer och prenumerationer i webbläsaren. Inget laddas upp.",
+      "tabs": {
+        "format": "Formatera",
+        "build": "Frågebyggare"
+      },
+      "outputModeLabel": "Utdata",
+      "outputModes": {
+        "pretty": "Läsbart format",
+        "minify": "Minifiera"
+      },
+      "format": "Formatera",
+      "clear": "Rensa",
+      "counter": "{current} / {max} tecken",
+      "inputPanel": "Indata",
+      "outputPanel": "Utdata",
+      "copy": "Kopiera",
+      "builderHint": "Bygg ett skelett och lägg in det i redigeraren. Variabeldefinitioner i GraphQL-syntax (t.ex. $id: ID!) — parenteser är valfria.",
+      "builder": {
+        "operation": "Åtgärd",
+        "operationName": "Åtgärdsnamn",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Variabeldefinitioner",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Urval",
+        "apply": "Använd på indata",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "Indata är begränsat till {max} tecken.",
+        "couldNotFormat": "Kunde inte parsa eller skriva ut denna GraphQL.",
+        "emptySelection": "Lägg till ett urval innan du använder."
+      }
+    }
+  },
+  "nb": {
+    "nav": "GraphQL-formaterer",
+    "dash": {
+      "title": "GraphQL-formaterer",
+      "description": "Formater GraphQL med syntaksutheving og en enkel spørringsbygger."
+    },
+    "GraphqlFormatter": {
+      "title": "GraphQL-formaterer",
+      "subtitle": "Formater GraphQL-spørsmål, mutasjoner og abonnementer i nettleseren. Ingenting lastes opp.",
+      "tabs": {
+        "format": "Formater",
+        "build": "Spørringsbygger"
+      },
+      "outputModeLabel": "Utdata",
+      "outputModes": {
+        "pretty": "Lesbar utskrift",
+        "minify": "Minifiser"
+      },
+      "format": "Formater",
+      "clear": "Tøm",
+      "counter": "{current} / {max} tegn",
+      "inputPanel": "Inndata",
+      "outputPanel": "Utdata",
+      "copy": "Kopier",
+      "builderHint": "Bygg et skjelett og bruk det i editoren. Variabeldefinisjoner i GraphQL-syntaks (f.eks. $id: ID!) — parenteser er valgfrie.",
+      "builder": {
+        "operation": "Operasjon",
+        "operationName": "Operasjonsnavn",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Variabeldefinisjoner",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Utvalg",
+        "apply": "Bruk på inndata",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "Inndata er begrenset til {max} tegn.",
+        "couldNotFormat": "Kunne ikke parse eller skrive ut denne GraphQL.",
+        "emptySelection": "Legg til et utvalg før du bruker."
+      }
+    }
+  },
+  "tr": {
+    "nav": "GraphQL Biçimlendirici",
+    "dash": {
+      "title": "GraphQL Biçimlendirici",
+      "description": "Sözdizimi vurgulama ve basit bir sorgu oluşturucuyla GraphQL biçimlendirin."
+    },
+    "GraphqlFormatter": {
+      "title": "GraphQL biçimlendirici",
+      "subtitle": "GraphQL sorgularını, mutasyonlarını ve aboneliklerini tarayıcıda biçimlendirin. Hiçbir şey yüklenmez.",
+      "tabs": {
+        "format": "Biçimlendir",
+        "build": "Sorgu oluşturucu"
+      },
+      "outputModeLabel": "Çıktı",
+      "outputModes": {
+        "pretty": "Okunabilir yazdır",
+        "minify": "Küçült"
+      },
+      "format": "Biçimlendir",
+      "clear": "Temizle",
+      "counter": "{current} / {max} karakter",
+      "inputPanel": "Girdi",
+      "outputPanel": "Çıktı",
+      "copy": "Kopyala",
+      "builderHint": "Bir iskelet oluşturup düzenleyiciye uygulayın. Değişken tanımları GraphQL sözdizimindedir (ör. $id: ID!) — parantezler isteğe bağlıdır.",
+      "builder": {
+        "operation": "İşlem",
+        "operationName": "İşlem adı",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Değişken tanımları",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Seçim kümesi",
+        "apply": "Girdiye uygula",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "Girdi {max} karakterle sınırlıdır.",
+        "couldNotFormat": "Bu GraphQL ayrıştırılamadı veya yazdırılamadı.",
+        "emptySelection": "Uygulamadan önce bir seçim kümesi ekleyin."
+      }
+    }
+  },
+  "ar": {
+    "nav": "منسّق GraphQL",
+    "dash": {
+      "title": "منسّق GraphQL",
+      "description": "نسّق GraphQL مع تمييز الصيغة ومُنشئ استعلامات بسيط."
+    },
+    "GraphqlFormatter": {
+      "title": "منسّق GraphQL",
+      "subtitle": "نسّق استعلامات GraphQL والطفرات والاشتراكات داخل المتصفح. لا يتم رفع أي شيء.",
+      "tabs": {
+        "format": "تنسيق",
+        "build": "مُنشئ الاستعلام"
+      },
+      "outputModeLabel": "المخرجات",
+      "outputModes": {
+        "pretty": "طباعة مقروءة",
+        "minify": "تصغير"
+      },
+      "format": "تنسيق",
+      "clear": "مسح",
+      "counter": "{current} / {max} حرفًا",
+      "inputPanel": "الإدخال",
+      "outputPanel": "المخرجات",
+      "copy": "نسخ",
+      "builderHint": "ألِف هيكلًا ثم طبِّقه على المحرر. تعريفات المتغيرات بصياغة GraphQL (مثل $id: ID!) — الأقواس اختيارية.",
+      "builder": {
+        "operation": "العملية",
+        "operationName": "اسم العملية",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "تعريفات المتغيرات",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "مجموعة الاختيار",
+        "apply": "تطبيق على الإدخال",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "الإدخال محدود بـ {max} حرفًا.",
+        "couldNotFormat": "تعذّر تحليل أو طباعة هذا GraphQL.",
+        "emptySelection": "أضِف مجموعة اختيار قبل التطبيق."
+      }
+    }
+  },
+  "fa": {
+    "nav": "قالب‌بند GraphQL",
+    "dash": {
+      "title": "قالب‌بند GraphQL",
+      "description": "GraphQL را با برجسته‌سازی نحو و ویرایشگر سادهٔ پرس‌وجو قالب‌بندی کنید."
+    },
+    "GraphqlFormatter": {
+      "title": "قالب‌بند GraphQL",
+      "subtitle": "پرس‌وجوها، جهش‌ها و اشتراک‌های GraphQL را در مرورگر قالب‌بندی کنید. چیزی آپلود نمی‌شود.",
+      "tabs": {
+        "format": "قالب‌بندی",
+        "build": "سازندهٔ پرس‌وجو"
+      },
+      "outputModeLabel": "خروجی",
+      "outputModes": {
+        "pretty": "چاپ خوانا",
+        "minify": "فشرده‌سازی"
+      },
+      "format": "قالب‌بندی",
+      "clear": "پاک‌سازی",
+      "counter": "{current} / {max} نویسه",
+      "inputPanel": "ورودی",
+      "outputPanel": "خروجی",
+      "copy": "رونوشت",
+      "builderHint": "اسکلت سند را بسازید و روی ویراستار اعمال کنید. تعریف متغیرها با نحو GraphQL (مثلاً $id: ID!) — پرانتز اختیاری است.",
+      "builder": {
+        "operation": "عملیات",
+        "operationName": "نام عملیات",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "تعریف متغیرها",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "مجموعهٔ گزینش",
+        "apply": "اعمال روی ورودی",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "ورودی حداکثر {max} نویسه است.",
+        "couldNotFormat": "تجزیه یا چاپ این GraphQL ممکن نشد.",
+        "emptySelection": "قبل از اعمال، مجموعهٔ گزینش را اضافه کنید."
+      }
+    }
+  },
+  "vi": {
+    "nav": "Trình định dạng GraphQL",
+    "dash": {
+      "title": "Trình định dạng GraphQL",
+      "description": "Định dạng GraphQL với tô sáng cú pháp và trình xây dựng truy vấn đơn giản."
+    },
+    "GraphqlFormatter": {
+      "title": "Trình định dạng GraphQL",
+      "subtitle": "Định dạng truy vấn, mutation và subscription GraphQL trong trình duyệt. Không tải dữ liệu lên.",
+      "tabs": {
+        "format": "Định dạng",
+        "build": "Trình tạo truy vấn"
+      },
+      "outputModeLabel": "Đầu ra",
+      "outputModes": {
+        "pretty": "In đẹp",
+        "minify": "Thu nhỏ"
+      },
+      "format": "Định dạng",
+      "clear": "Xóa",
+      "counter": "{current} / {max} ký tự",
+      "inputPanel": "Đầu vào",
+      "outputPanel": "Đầu ra",
+      "copy": "Sao chép",
+      "builderHint": "Soạn khung tài liệu rồi áp vào trình soạn. Định nghĩa biến theo cú pháp GraphQL (ví dụ $id: ID!) — dấu ngoặc là tùy chọn.",
+      "builder": {
+        "operation": "Thao tác",
+        "operationName": "Tên thao tác",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Định nghĩa biến",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Tập chọn",
+        "apply": "Áp vào đầu vào",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "Đầu vào giới hạn {max} ký tự.",
+        "couldNotFormat": "Không thể phân tích hoặc in GraphQL này.",
+        "emptySelection": "Thêm tập chọn trước khi áp dụng."
+      }
+    }
+  },
+  "id": {
+    "nav": "Pemformat GraphQL",
+    "dash": {
+      "title": "Pemformat GraphQL",
+      "description": "Format GraphQL dengan penyorotan sintaks dan pembangun kueri sederhana."
+    },
+    "GraphqlFormatter": {
+      "title": "Pemformat GraphQL",
+      "subtitle": "Format kueri, mutasi, dan langganan GraphQL di peramban. Tidak ada yang diunggah.",
+      "tabs": {
+        "format": "Format",
+        "build": "Pembangun kueri"
+      },
+      "outputModeLabel": "Keluaran",
+      "outputModes": {
+        "pretty": "Cetak rapi",
+        "minify": "Perkecil"
+      },
+      "format": "Format",
+      "clear": "Hapus",
+      "counter": "{current} / {max} karakter",
+      "inputPanel": "Masukan",
+      "outputPanel": "Keluaran",
+      "copy": "Salin",
+      "builderHint": "Buat kerangka dokumen lalu terapkan ke editor. Definisi variabel memakai sintaks GraphQL (mis. $id: ID!) — tanda kurung bersifat opsional.",
+      "builder": {
+        "operation": "Operasi",
+        "operationName": "Nama operasi",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Definisi variabel",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Himpunan seleksi",
+        "apply": "Terapkan ke masukan",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "Masukan dibatasi {max} karakter.",
+        "couldNotFormat": "Tidak dapat menguraikan atau mencetak GraphQL ini.",
+        "emptySelection": "Tambahkan himpunan seleksi sebelum menerapkan."
+      }
+    }
+  },
+  "ms": {
+    "nav": "Pemformat GraphQL",
+    "dash": {
+      "title": "Pemformat GraphQL",
+      "description": "Format GraphQL dengan pensyntaksan sorotan dan pembina pertanyaan ringkas."
+    },
+    "GraphqlFormatter": {
+      "title": "Pemformat GraphQL",
+      "subtitle": "Format pertanyaan, mutasi dan langganan GraphQL dalam pelayar. Tiada apa dimuat naik.",
+      "tabs": {
+        "format": "Format",
+        "build": "Pembina pertanyaan"
+      },
+      "outputModeLabel": "Output",
+      "outputModes": {
+        "pretty": "Cetakan mudah baca",
+        "minify": "Perminikan"
+      },
+      "format": "Format",
+      "clear": "Kosongkan",
+      "counter": "{current} / {max} aksara",
+      "inputPanel": "Input",
+      "outputPanel": "Output",
+      "copy": "Salin",
+      "builderHint": "Bina rangka dokumen kemudian gunakannya pada editor. Definisi pemboleh ubah menggunakan sintaks GraphQL (cth. $id: ID!) — kurungan pilihan.",
+      "builder": {
+        "operation": "Operasi",
+        "operationName": "Nama operasi",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Definisi pemboleh ubah",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Set pilihan",
+        "apply": "Gunakan pada input",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "Input terhad kepada {max} aksara.",
+        "couldNotFormat": "Tidak dapat menghuraikan atau mencetak GraphQL ini.",
+        "emptySelection": "Tambah set pilihan sebelum menggunakan."
+      }
+    }
+  },
+  "zh": {
+    "nav": "GraphQL 格式化",
+    "dash": {
+      "title": "GraphQL 格式化",
+      "description": "格式化 GraphQL，提供语法高亮与简易查询构建器。"
+    },
+    "GraphqlFormatter": {
+      "title": "GraphQL 格式化",
+      "subtitle": "在浏览器中格式化 GraphQL 查询、变更与订阅。不会上传任何内容。",
+      "tabs": {
+        "format": "格式化",
+        "build": "查询构建器"
+      },
+      "outputModeLabel": "输出",
+      "outputModes": {
+        "pretty": "美化输出",
+        "minify": "压缩"
+      },
+      "format": "格式化",
+      "clear": "清空",
+      "counter": "{current} / {max} 个字符",
+      "inputPanel": "输入",
+      "outputPanel": "输出",
+      "copy": "复制",
+      "builderHint": "组合文档骨架后应用到编辑器。变量定义使用 GraphQL 语法（例如 $id: ID!），括号可选。",
+      "builder": {
+        "operation": "操作类型",
+        "operationName": "操作名称",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "变量定义",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "字段选择",
+        "apply": "应用到输入",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "输入最多 {max} 个字符。",
+        "couldNotFormat": "无法解析或输出此 GraphQL。",
+        "emptySelection": "请先填写选择集再应用。"
+      }
+    }
+  },
+  "ja": {
+    "nav": "GraphQL フォーマッター",
+    "dash": {
+      "title": "GraphQL フォーマッター",
+      "description": "GraphQL を整形し、シンタックスハイライトとシンプルなクエリビルダーを提供します。"
+    },
+    "GraphqlFormatter": {
+      "title": "GraphQL フォーマッター",
+      "subtitle": "ブラウザで GraphQL のクエリ・ミューテーション・サブスクリプションを整形します。アップロードは行われません。",
+      "tabs": {
+        "format": "整形",
+        "build": "クエリビルダー"
+      },
+      "outputModeLabel": "出力",
+      "outputModes": {
+        "pretty": "整形表示",
+        "minify": "圧縮"
+      },
+      "format": "整形",
+      "clear": "クリア",
+      "counter": "{current} / {max} 文字",
+      "inputPanel": "入力",
+      "outputPanel": "出力",
+      "copy": "コピー",
+      "builderHint": "ひな形を組み立てて入力エディターに反映します。変数定義は GraphQL の構文（例: $id: ID!）で、括弧は任意です。",
+      "builder": {
+        "operation": "オペレーション",
+        "operationName": "オペレーション名",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "変数定義",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "セレクションセット",
+        "apply": "入力に反映",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "入力は {max} 文字までです。",
+        "couldNotFormat": "この GraphQL を解析または出力できませんでした。",
+        "emptySelection": "適用する前にセレクションセットを入力してください。"
+      }
+    }
+  },
+  "ko": {
+    "nav": "GraphQL 포매터",
+    "dash": {
+      "title": "GraphQL 포매터",
+      "description": "구문 강조와 간단한 쿼리 빌더로 GraphQL을 포맷합니다."
+    },
+    "GraphqlFormatter": {
+      "title": "GraphQL 포매터",
+      "subtitle": "브라우저에서 GraphQL 쿼리·뮤테이션·구독을 포맷합니다. 업로드되지 않습니다.",
+      "tabs": {
+        "format": "포맷",
+        "build": "쿼리 빌더"
+      },
+      "outputModeLabel": "출력",
+      "outputModes": {
+        "pretty": "읽기 쉬운 형식",
+        "minify": "압축"
+      },
+      "format": "포맷",
+      "clear": "지우기",
+      "counter": "{current} / {max}자",
+      "inputPanel": "입력",
+      "outputPanel": "출력",
+      "copy": "복사",
+      "builderHint": "문서 뼈대를 만든 뒤 입력 편집기에 적용합니다. 변수 정의는 GraphQL 구문(예: $id: ID!)을 사용하며 괄호는 선택 사항입니다.",
+      "builder": {
+        "operation": "오퍼레이션",
+        "operationName": "오퍼레이션 이름",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "변수 정의",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "선택 집합",
+        "apply": "입력에 적용",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "입력은 최대 {max}자까지 가능합니다.",
+        "couldNotFormat": "이 GraphQL을 파싱하거나 출력할 수 없습니다.",
+        "emptySelection": "적용하기 전에 선택 집합을 추가하세요."
+      }
+    }
+  },
+  "ca": {
+    "nav": "Formatador GraphQL",
+    "dash": {
+      "title": "Formatador GraphQL",
+      "description": "Formata GraphQL amb ressaltat de sintaxi i un editor de consultes senzill."
+    },
+    "GraphqlFormatter": {
+      "title": "Formatador GraphQL",
+      "subtitle": "Formata consultes, mutacions i subscripcions GraphQL al navegador. No es puja res.",
+      "tabs": {
+        "format": "Formata",
+        "build": "Editor de consulta"
+      },
+      "outputModeLabel": "Sortida",
+      "outputModes": {
+        "pretty": "Impressió llegible",
+        "minify": "Minifica"
+      },
+      "format": "Formata",
+      "clear": "Esborra",
+      "counter": "{current} / {max} caràcters",
+      "inputPanel": "Entrada",
+      "outputPanel": "Sortida",
+      "copy": "Copia",
+      "builderHint": "Compon un esquelet i aplica’l a l’editor. Les definicions de variables usen sintaxi GraphQL (p. ex. $id: ID!) — els parèntesis són opcionals.",
+      "builder": {
+        "operation": "Operació",
+        "operationName": "Nom de l’operació",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Definicions de variables",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Conjunt de selecció",
+        "apply": "Aplica a l’entrada",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "L’entrada està limitada a {max} caràcters.",
+        "couldNotFormat": "No s’ha pogut analitzar ni imprimir aquest GraphQL.",
+        "emptySelection": "Afegeix un conjunt de selecció abans d’aplicar."
+      }
+    }
+  },
+  "af": {
+    "nav": "GraphQL-formateerder",
+    "dash": {
+      "title": "GraphQL-formateerder",
+      "description": "Formateer GraphQL met sintaksuitligting en ’n eenvoudige navrae-bouer."
+    },
+    "GraphqlFormatter": {
+      "title": "GraphQL-formateerder",
+      "subtitle": "Formateer GraphQL-navrae, mutasies en intekeninge in jou blaaier. Niks word opgelaai nie.",
+      "tabs": {
+        "format": "Formateer",
+        "build": "Navrae-bouer"
+      },
+      "outputModeLabel": "Afvoer",
+      "outputModes": {
+        "pretty": "Leesbare druk",
+        "minify": "Minifiseer"
+      },
+      "format": "Formateer",
+      "clear": "Maak skoon",
+      "counter": "{current} / {max} karakters",
+      "inputPanel": "Invoer",
+      "outputPanel": "Afvoer",
+      "copy": "Kopieer",
+      "builderHint": "Stel 'n raamwerk saam en pas dit op die redigeerder toe. Veranderlike-definisies gebruik GraphQL-sintaks (bv. $id: ID!) — hakies is opsioneel.",
+      "builder": {
+        "operation": "Operasie",
+        "operationName": "Operasienaam",
+        "operationNamePlaceholder": "MyOperation",
+        "variableDefs": "Veranderlike-definisies",
+        "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+        "selection": "Keuseset",
+        "apply": "Pas toe op invoer",
+        "operations": {
+          "query": "Query",
+          "mutation": "Mutation",
+          "subscription": "Subscription"
+        }
+      },
+      "errors": {
+        "tooLong": "Invoer is beperk tot {max} karakters.",
+        "couldNotFormat": "Kon nie hierdie GraphQL ontleed of druk nie.",
+        "emptySelection": "Voeg eers 'n keuseset by voordat jy toepas."
+      }
+    }
+  }
+}

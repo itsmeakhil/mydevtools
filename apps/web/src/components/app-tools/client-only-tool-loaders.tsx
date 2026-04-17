@@ -58,3 +58,11 @@ export const SqlFormatterLayoutLazy = dynamic(
     ),
   { ssr: false, loading: toolLoading }
 )
+
+export const GraphqlFormatterLayoutLazy = dynamic(
+  () =>
+    import('@/components/graphql-formatter/graphql-formatter-layout').then(
+      m => m.GraphqlFormatterLayout
+    ),
+  { ssr: false, loading: toolLoading }
+)

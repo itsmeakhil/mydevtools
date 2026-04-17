@@ -14,6 +14,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/json-formatter',
   '/app/json-schema-generator',
   '/app/sql-formatter',
+  '/app/graphql-formatter',
   '/app/diff-checker',
   '/app/regex-tester',
   '/app/timestamp-converter',

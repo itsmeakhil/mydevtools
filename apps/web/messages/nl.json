@@ -15,6 +15,7 @@
     "jwtDecoder": "JWT-decoder",
     "certificatePemDecoder": "Certificaat- / PEM-decoder",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "GraphQL-formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "GraphQL-formatter",
+        "description": "Formatteer GraphQL met syntax highlighting en een eenvoudige querybouwer."
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "Kon deze SQL niet formatteren."
     }
   },
+  "GraphqlFormatter": {
+    "title": "GraphQL-formatter",
+    "subtitle": "Formatteer GraphQL-query’s, mutaties en subscriptions in je browser. Er wordt niets geüpload.",
+    "tabs": {
+      "format": "Formatteren",
+      "build": "Querybouwer"
+    },
+    "outputModeLabel": "Uitvoer",
+    "outputModes": {
+      "pretty": "Leesbare afdruk",
+      "minify": "Minificeren"
+    },
+    "format": "Formatteren",
+    "clear": "Wissen",
+    "counter": "{current} / {max} tekens",
+    "inputPanel": "Invoer",
+    "outputPanel": "Uitvoer",
+    "copy": "Kopiëren",
+    "builderHint": "Stel een skelet samen en zet het in de editor. Variabeledefinities in GraphQL-syntaxis (bijv. $id: ID!) — haakjes optioneel.",
+    "builder": {
+      "operation": "Operatie",
+      "operationName": "Operatienaam",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Variabeledefinities",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Selectie",
+      "apply": "Toepassen op invoer",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "Invoer is beperkt tot {max} tekens.",
+      "couldNotFormat": "Deze GraphQL kon niet worden geparsed of afgedrukt.",
+      "emptySelection": "Voeg eerst een selectie toe."
+    }
+  },
+
   "RegexTester": {
     "title": "Regex-tester",
     "subtitle": "JavaScript-achtige regex live op je tekst. Matches worden gemarkeerd; niets verlaat je browser.",

@@ -13,6 +13,7 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/json-formatter': 'jsonFormatter',
   '/app/json-schema-generator': 'jsonSchemaGenerator',
   '/app/sql-formatter': 'sqlFormatter',
+  '/app/graphql-formatter': 'graphqlFormatter',
   '/app/diff-checker': 'diffChecker',
   '/app/regex-tester': 'regexTester',
   '/app/timestamp-converter': 'timestampConverter',

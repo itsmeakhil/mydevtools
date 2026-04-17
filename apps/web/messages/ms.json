@@ -15,6 +15,7 @@
     "jwtDecoder": "Penyahkod JWT",
     "certificatePemDecoder": "Pengecam sijil / PEM",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "Pemformat GraphQL",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "Pemformat GraphQL",
+        "description": "Format GraphQL dengan pensyntaksan sorotan dan pembina pertanyaan ringkas."
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "Tidak dapat memformat SQL ini."
     }
   },
+  "GraphqlFormatter": {
+    "title": "Pemformat GraphQL",
+    "subtitle": "Format pertanyaan, mutasi dan langganan GraphQL dalam pelayar. Tiada apa dimuat naik.",
+    "tabs": {
+      "format": "Format",
+      "build": "Pembina pertanyaan"
+    },
+    "outputModeLabel": "Output",
+    "outputModes": {
+      "pretty": "Cetakan mudah baca",
+      "minify": "Perminikan"
+    },
+    "format": "Format",
+    "clear": "Kosongkan",
+    "counter": "{current} / {max} aksara",
+    "inputPanel": "Input",
+    "outputPanel": "Output",
+    "copy": "Salin",
+    "builderHint": "Bina rangka dokumen kemudian gunakannya pada editor. Definisi pemboleh ubah menggunakan sintaks GraphQL (cth. $id: ID!) — kurungan pilihan.",
+    "builder": {
+      "operation": "Operasi",
+      "operationName": "Nama operasi",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Definisi pemboleh ubah",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Set pilihan",
+      "apply": "Gunakan pada input",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "Input terhad kepada {max} aksara.",
+      "couldNotFormat": "Tidak dapat menghuraikan atau mencetak GraphQL ini.",
+      "emptySelection": "Tambah set pilihan sebelum menggunakan."
+    }
+  },
+
   "RegexTester": {
     "title": "Penguji regex",
     "subtitle": "Regex gaya JavaScript secara langsung pada teks anda. Padanan diserlahkan; tiada apa keluar dari pelayar.",
