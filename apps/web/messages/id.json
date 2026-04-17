@@ -3,6 +3,7 @@
     "dashboard": "Dasbor ",
     "settings": "Pengaturan",
     "apiClient": "Klien api",
+    "httpStatusCodes": "Kode status HTTP",
     "passwordManager": "Pengelola Kata Sandi",
     "environmentManager": "Pengelola lingkungan",
     "bookmarks": "Penanda",
@@ -1897,6 +1898,27 @@
       "outOfRange": "Di luar rentang untuk JavaScript Date.",
       "couldNotParse": "Tidak dapat diparse sebagai Unix, ISO-8601, atau tanggal browser."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "Kode status HTTP",
+    "subtitle": "Cari dan jelajahi kode status respons HTTP (<code>1xx</code>–<code>5xx</code>) dengan deskripsi singkat dan referensi RFC. Berjalan secara lokal.",
+    "header": {
+      "title": "Kode status HTTP",
+      "description": "Referensi yang dapat dicari untuk kode respons HTTP beserta deskripsi dan referensi RFC."
+    },
+    "searchPlaceholder": "Cari: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Filter kelas…",
+    "classFilterAll": "Semua kelas",
+    "resultsCount": "{count} dari {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Frasa",
+      "description": "Deskripsi",
+      "copy": "Salin"
+    },
+    "noResults": "Tidak ada hasil untuk “{query}”.",
+    "specPrefix": "Spes.:",
+    "copied": "Kode disalin"
   },
   "CronBuilder": {
     "title": "Pembuat ekspresi Cron",

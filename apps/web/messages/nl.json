@@ -3,6 +3,7 @@
     "dashboard": "Dashboard",
     "settings": "Instellingen",
     "apiClient": "API-client",
+    "httpStatusCodes": "HTTP-statuscodes",
     "passwordManager": "Wachtwoordbeheer",
     "environmentManager": "Omgevingsbeheer",
     "bookmarks": "Bladwijzers",
@@ -1897,6 +1898,27 @@
       "outOfRange": "Buiten bereik voor JavaScript Date.",
       "couldNotParse": "Kon niet parsen als Unix, ISO-8601 of browser-datumstring."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "HTTP-statuscodes",
+    "subtitle": "Zoek en bekijk HTTP-responsstatuscodes (<code>1xx</code>–<code>5xx</code>) met korte beschrijvingen en RFC-verwijzingen. Werkt lokaal.",
+    "header": {
+      "title": "HTTP-statuscodes",
+      "description": "Doorzoekbare referentie van HTTP-responscodes met beschrijvingen en RFC-verwijzingen."
+    },
+    "searchPlaceholder": "Zoeken: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Klasse filteren…",
+    "classFilterAll": "Alle klassen",
+    "resultsCount": "{count} van {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Zin",
+      "description": "Beschrijving",
+      "copy": "Kopiëren"
+    },
+    "noResults": "Geen resultaten voor “{query}”.",
+    "specPrefix": "Spec:",
+    "copied": "Code gekopieerd"
   },
   "CronBuilder": {
     "title": "Cron-expressiebouwer",

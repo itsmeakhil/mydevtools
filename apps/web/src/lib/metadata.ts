@@ -57,6 +57,11 @@ export const toolsMetadata: Record<string, {
         description: 'Test and debug HTTP requests with headers, body, and auth support. A lightweight Postman alternative in your browser.',
         keywords: ['api client', 'http client', 'rest api tester', 'debug api', 'postman alternative']
     },
+    'http-status-codes': {
+        title: 'HTTP Status Codes Reference',
+        description: 'Search and browse HTTP status codes (1xx–5xx) with short descriptions and RFC references.',
+        keywords: ['http status codes', 'status code list', 'http response codes', '200 ok', '404 not found', '500 internal server error', 'rfc 9110']
+    },
     'nosql-explorer': {
         title: 'NoSQL Explorer',
         description: 'Explore and manage your MongoDB databases directly from your browser.',

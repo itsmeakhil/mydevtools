@@ -3,6 +3,7 @@
     "dashboard": "Gösterge Paneli",
     "settings": "Ayarlar",
     "apiClient": "API İstemcisi",
+    "httpStatusCodes": "HTTP durum kodları",
     "passwordManager": "Şifre Yöneticisi",
     "environmentManager": "Ortam yöneticisi",
     "bookmarks": "Yer İmleri",
@@ -1897,6 +1898,27 @@
       "outOfRange": "JavaScript Date için aralık dışında.",
       "couldNotParse": "Unix, ISO-8601 veya tarayıcı tarih dizesi olarak ayrıştırılamadı."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "HTTP durum kodları",
+    "subtitle": "HTTP yanıt durum kodlarını (<code>1xx</code>–<code>5xx</code>) kısa açıklamalar ve RFC referanslarıyla arayın ve göz atın. Yerel olarak çalışır.",
+    "header": {
+      "title": "HTTP durum kodları",
+      "description": "Açıklamalar ve RFC referanslarıyla HTTP yanıt kodları için aranabilir başvuru."
+    },
+    "searchPlaceholder": "Ara: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Sınıfa göre filtrele…",
+    "classFilterAll": "Tüm sınıflar",
+    "resultsCount": "{total} içinde {count}",
+    "table": {
+      "code": "Code",
+      "phrase": "İfade",
+      "description": "Açıklama",
+      "copy": "Kopyala"
+    },
+    "noResults": "“{query}” için sonuç yok.",
+    "specPrefix": "Spes.:",
+    "copied": "Kod kopyalandı"
   },
   "CronBuilder": {
     "title": "Cron ifade oluşturucu",

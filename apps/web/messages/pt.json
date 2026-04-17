@@ -3,6 +3,7 @@
     "dashboard": "Painel",
     "settings": "Definições",
     "apiClient": "Cliente API",
+    "httpStatusCodes": "Códigos de estado HTTP",
     "passwordManager": "Gestor de Palavras-passe",
     "environmentManager": "Gestor de ambientes",
     "bookmarks": "Marcadores",
@@ -1897,6 +1898,27 @@
       "outOfRange": "Fora do intervalo para Date do JavaScript.",
       "couldNotParse": "Não foi possível interpretar como Unix, ISO-8601 ou data do navegador."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "Códigos de estado HTTP",
+    "subtitle": "Pesquise e navegue por códigos de estado de respostas HTTP (<code>1xx</code>–<code>5xx</code>) com descrições curtas e referências RFC. Funciona localmente.",
+    "header": {
+      "title": "Códigos de estado HTTP",
+      "description": "Referência pesquisável de códigos de resposta HTTP com descrições e referências RFC."
+    },
+    "searchPlaceholder": "Pesquisar: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Filtrar classe…",
+    "classFilterAll": "Todas as classes",
+    "resultsCount": "{count} de {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Frase",
+      "description": "Description",
+      "copy": "Copiar"
+    },
+    "noResults": "Sem resultados para “{query}”.",
+    "specPrefix": "Espec.:",
+    "copied": "Código copiado"
   },
   "CronBuilder": {
     "title": "Construtor de expressão Cron",

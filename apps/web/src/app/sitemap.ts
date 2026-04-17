@@ -35,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'json-formatter',
         'json-schema-generator',
         'api-client',
+        'http-status-codes',
         'nosql-explorer',
         'url-encode',
         'uuid-generator',

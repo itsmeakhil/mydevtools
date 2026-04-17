@@ -3,6 +3,7 @@
     "dashboard": "Oversigt",
     "settings": "Indstillinger",
     "apiClient": "API-klient",
+    "httpStatusCodes": "HTTP-statuskoder",
     "passwordManager": "Adgangskodeadministration",
     "environmentManager": "Miljøadministration",
     "bookmarks": "Bogmærker",
@@ -1897,6 +1898,27 @@
       "outOfRange": "Uden for rækkevidde for JavaScript Date.",
       "couldNotParse": "Kunne ikke parse som Unix, ISO-8601 eller browser-datostreng."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "HTTP-statuskoder",
+    "subtitle": "Søg og gennemse HTTP-statuskoder for svar (<code>1xx</code>–<code>5xx</code>) med korte beskrivelser og RFC-referencer. Kører lokalt.",
+    "header": {
+      "title": "HTTP-statuskoder",
+      "description": "Søgbar reference over HTTP-svarskoder med beskrivelser og RFC-referencer."
+    },
+    "searchPlaceholder": "Søg: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Filtrér klasse…",
+    "classFilterAll": "Alle klasser",
+    "resultsCount": "{count} af {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Frase",
+      "description": "Beskrivelse",
+      "copy": "Kopiér"
+    },
+    "noResults": "Ingen resultater for “{query}”.",
+    "specPrefix": "Spec:",
+    "copied": "Kode kopieret"
   },
   "CronBuilder": {
     "title": "Cron-udtryksbygger",

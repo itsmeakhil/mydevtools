@@ -3,6 +3,7 @@
     "dashboard": "Instrumentpanel",
     "settings": "Inställningar",
     "apiClient": "API-klient",
+    "httpStatusCodes": "HTTP-statuskoder",
     "passwordManager": "Lösenordshanterare",
     "environmentManager": "Miljöhanterare",
     "bookmarks": "Bokmärken",
@@ -1897,6 +1898,27 @@
       "outOfRange": "Utanför intervallet för JavaScript Date.",
       "couldNotParse": "Kunde inte tolka som Unix, ISO-8601 eller webbläsardatum."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "HTTP-statuskoder",
+    "subtitle": "Sök och bläddra bland HTTP-statuskoder för svar (<code>1xx</code>–<code>5xx</code>) med korta beskrivningar och RFC-referenser. Körs lokalt.",
+    "header": {
+      "title": "HTTP-statuskoder",
+      "description": "Sökbar referens för HTTP-svarskoder med beskrivningar och RFC-referenser."
+    },
+    "searchPlaceholder": "Sök: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Filtrera klass…",
+    "classFilterAll": "Alla klasser",
+    "resultsCount": "{count} av {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Fras",
+      "description": "Beskrivning",
+      "copy": "Kopiera"
+    },
+    "noResults": "Inga träffar för “{query}”.",
+    "specPrefix": "Spec:",
+    "copied": "Kod kopierad"
   },
   "CronBuilder": {
     "title": "Cron-uttrycksbyggare",

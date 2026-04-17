@@ -27,6 +27,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "apiClient": "API Client",
+    "httpStatusCodes": "HTTP status codes",
     "nosqlExplorer": "NoSQL Explorer",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator",
@@ -289,6 +290,10 @@
       "apiClient": {
         "title": "API Client",
         "description": "Test and debug HTTP requests."
+      },
+      "httpStatusCodes": {
+        "title": "HTTP Status Codes",
+        "description": "Search HTTP status codes with descriptions (1xx–5xx)."
       },
       "nosqlExplorer": {
         "title": "NoSQL Explorer",
@@ -1897,6 +1902,27 @@
       "outOfRange": "Out of range for JavaScript Date.",
       "couldNotParse": "Could not parse as Unix time, ISO-8601, or browser date string."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "HTTP status codes",
+    "subtitle": "Search and browse HTTP response status codes (<code>1xx</code>–<code>5xx</code>) with short descriptions and RFC references. Runs locally in your browser.",
+    "header": {
+      "title": "HTTP Status Codes",
+      "description": "Searchable list of HTTP response status codes with descriptions and RFC references."
+    },
+    "searchPlaceholder": "Search: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Filter class…",
+    "classFilterAll": "All classes",
+    "resultsCount": "{count} of {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Reason phrase",
+      "description": "Description",
+      "copy": "Copy"
+    },
+    "noResults": "No matches for “{query}”.",
+    "specPrefix": "Spec:",
+    "copied": "Status code copied"
   },
   "CronBuilder": {
     "title": "Cron expression builder",

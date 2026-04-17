@@ -35,6 +35,7 @@ import {
   ShieldCheck,
   FileDown,
   ArrowRightLeft,
+  List,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
@@ -70,6 +71,7 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
     namespace: 'JsonSchemaGenerator',
   },
   '/app/api-client': { title: 'API Client', icon: Globe },
+  '/app/http-status-codes': { title: 'HTTP Status Codes', icon: List, namespace: 'HttpStatusCodes' },
   '/app/nosql-explorer': { title: 'NoSQL Explorer', icon: Database },
   '/app/email-validator': { title: 'Email Validator', icon: Globe },
   '/app/url-encode': { title: 'URL Encoder / Decoder', icon: Link2, namespace: 'UrlEncode' },

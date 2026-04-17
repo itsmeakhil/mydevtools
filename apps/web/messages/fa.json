@@ -3,6 +3,7 @@
     "dashboard": "داشبورد",
     "settings": "تنظیمات",
     "apiClient": "سرویس گیرنده API",
+    "httpStatusCodes": "کدهای وضعیت HTTP",
     "passwordManager": "مدیر رمز عبور",
     "environmentManager": "مدیر محیط",
     "bookmarks": "نشانک ها",
@@ -1897,6 +1898,27 @@
       "outOfRange": "خارج از محدودهٔ JavaScript Date.",
       "couldNotParse": "به‌عنوان Unix، ISO-8601 یا تاریخ قابل‌تحلیل مرورگر قابل پردازش نیست."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "کدهای وضعیت HTTP",
+    "subtitle": "کدهای وضعیت پاسخ‌های HTTP را جستجو و مرور کنید (<code>1xx</code>–<code>5xx</code>) همراه با توضیحات کوتاه و ارجاع‌های RFC. به‌صورت محلی اجرا می‌شود.",
+    "header": {
+      "title": "کدهای وضعیت HTTP",
+      "description": "فهرست قابل جستجو از کدهای پاسخ HTTP همراه با توضیحات و ارجاع‌های RFC."
+    },
+    "searchPlaceholder": "جستجو: 404، not found، rate limit، gateway…",
+    "classFilterPlaceholder": "فیلتر کلاس…",
+    "classFilterAll": "همهٔ کلاس‌ها",
+    "resultsCount": "{count} از {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "عبارت",
+      "description": "توضیحات",
+      "copy": "کپی"
+    },
+    "noResults": "نتیجه‌ای برای «{query}» پیدا نشد.",
+    "specPrefix": "مشخصات:",
+    "copied": "کد کپی شد"
   },
   "CronBuilder": {
     "title": "سازندهٔ عبارت Cron",

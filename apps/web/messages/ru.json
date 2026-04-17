@@ -3,6 +3,7 @@
     "dashboard": "Панель управления",
     "settings": "Настройки",
     "apiClient": "API-клиент",
+    "httpStatusCodes": "Коды состояния HTTP",
     "passwordManager": "Менеджер паролей",
     "environmentManager": "Менеджер окружений",
     "bookmarks": "Закладки",
@@ -1897,6 +1898,27 @@
       "outOfRange": "Вне диапазона для JavaScript Date.",
       "couldNotParse": "Не удалось распознать как Unix, ISO-8601 или строку даты браузера."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "Коды состояния HTTP",
+    "subtitle": "Поиск и справочник кодов состояния ответов HTTP (<code>1xx</code>–<code>5xx</code>) с краткими описаниями и ссылками на RFC. Работает локально.",
+    "header": {
+      "title": "Коды состояния HTTP",
+      "description": "Справочник с поиском по кодам ответов HTTP с описаниями и ссылками на RFC."
+    },
+    "searchPlaceholder": "Поиск: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Фильтр класса…",
+    "classFilterAll": "Все классы",
+    "resultsCount": "{count} из {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Фраза",
+      "description": "Описание",
+      "copy": "Копировать"
+    },
+    "noResults": "Нет совпадений для «{query}».",
+    "specPrefix": "Спец.:",
+    "copied": "Код скопирован"
   },
   "CronBuilder": {
     "title": "Конструктор cron-выражений",

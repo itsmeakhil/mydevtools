@@ -3,6 +3,7 @@
     "dashboard": "控制台",
     "settings": "设置",
     "apiClient": "API 客户端",
+    "httpStatusCodes": "HTTP 状态码",
     "passwordManager": "密码管理器",
     "environmentManager": "环境管理",
     "bookmarks": "书签",
@@ -1897,6 +1898,27 @@
       "outOfRange": "超出 JavaScript Date 范围。",
       "couldNotParse": "无法按 Unix、ISO-8601 或浏览器日期字符串解析。"
     }
+  },
+  "HttpStatusCodes": {
+    "title": "HTTP 状态码",
+    "subtitle": "搜索并浏览 HTTP 响应状态码（<code>1xx</code>–<code>5xx</code>），包含简短说明与 RFC 参考。完全在本地运行。",
+    "header": {
+      "title": "HTTP 状态码",
+      "description": "可搜索的 HTTP 响应状态码参考，包含说明与 RFC 参考。"
+    },
+    "searchPlaceholder": "搜索：404、not found、rate limit、gateway…",
+    "classFilterPlaceholder": "筛选类别…",
+    "classFilterAll": "全部类别",
+    "resultsCount": "{count} / {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "短语",
+      "description": "说明",
+      "copy": "复制"
+    },
+    "noResults": "未找到“{query}”的匹配项。",
+    "specPrefix": "规范：",
+    "copied": "已复制状态码"
   },
   "CronBuilder": {
     "title": "Cron 表达式生成器",

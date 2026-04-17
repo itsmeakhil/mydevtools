@@ -35,6 +35,7 @@ import {
   IconMarkdown,
   IconArrowsExchange,
   IconFileCode,
+  IconListNumbers,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -117,6 +118,13 @@ export const sidebarData: SidebarData = {
           url: '/app/api-client',
           icon: IconNetwork,
           description: 'Test and debug HTTP requests.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'HTTP Status Codes',
+          url: '/app/http-status-codes',
+          icon: IconListNumbers,
+          description: 'Search HTTP status codes with descriptions (1xx–5xx).',
           hiddenOnMobile: true,
         },
         {

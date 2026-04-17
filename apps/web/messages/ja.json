@@ -3,6 +3,7 @@
     "dashboard": "ダッシュボード",
     "settings": "設定",
     "apiClient": "APIクライアント",
+    "httpStatusCodes": "HTTPステータスコード",
     "passwordManager": "パスワードマネージャー",
     "environmentManager": "環境変数マネージャー",
     "bookmarks": "ブックマーク",
@@ -1897,6 +1898,27 @@
       "outOfRange": "JavaScript Date の範囲外です。",
       "couldNotParse": "Unix/ISO-8601/ブラウザ日付として解析できませんでした。"
     }
+  },
+  "HttpStatusCodes": {
+    "title": "HTTPステータスコード",
+    "subtitle": "HTTPレスポンスのステータスコード（<code>1xx</code>–<code>5xx</code>）を検索・参照できます。短い説明とRFC参照付き。ローカルで動作します。",
+    "header": {
+      "title": "HTTPステータスコード",
+      "description": "HTTPレスポンスコードの検索可能なリファレンス。説明とRFC参照付き。"
+    },
+    "searchPlaceholder": "検索: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "クラスで絞り込み…",
+    "classFilterAll": "すべてのクラス",
+    "resultsCount": "{total}件中{count}件",
+    "table": {
+      "code": "Code",
+      "phrase": "フレーズ",
+      "description": "説明",
+      "copy": "コピー"
+    },
+    "noResults": "「{query}」に一致する項目がありません。",
+    "specPrefix": "仕様:",
+    "copied": "コピーしました"
   },
   "CronBuilder": {
     "title": "Cron 式ビルダー",

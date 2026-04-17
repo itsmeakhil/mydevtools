@@ -3,6 +3,7 @@
     "dashboard": "Панель",
     "settings": "Налаштування",
     "apiClient": "API Клієнт",
+    "httpStatusCodes": "Коди стану HTTP",
     "passwordManager": "Менеджер паролів",
     "environmentManager": "Менеджер середовищ",
     "bookmarks": "Закладки",
@@ -1897,6 +1898,27 @@
       "outOfRange": "Поза діапазоном для JavaScript Date.",
       "couldNotParse": "Не вдалося розібрати як Unix, ISO-8601 або дату браузера."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "Коди стану HTTP",
+    "subtitle": "Пошук і довідник кодів стану HTTP-відповідей (<code>1xx</code>–<code>5xx</code>) з короткими описами та посиланнями на RFC. Працює локально.",
+    "header": {
+      "title": "Коди стану HTTP",
+      "description": "Довідник з пошуком по HTTP-кодах відповіді з описами та посиланнями на RFC."
+    },
+    "searchPlaceholder": "Пошук: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Фільтр класу…",
+    "classFilterAll": "Усі класи",
+    "resultsCount": "{count} із {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Фраза",
+      "description": "Опис",
+      "copy": "Копіювати"
+    },
+    "noResults": "Немає збігів для «{query}».",
+    "specPrefix": "Спец.:",
+    "copied": "Код скопійовано"
   },
   "CronBuilder": {
     "title": "Конструктор cron-виразів",
