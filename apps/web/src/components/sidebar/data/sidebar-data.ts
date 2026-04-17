@@ -34,6 +34,7 @@ import {
   IconCircleKey,
   IconMarkdown,
   IconArrowsExchange,
+  IconFileCode,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -282,6 +283,13 @@ export const sidebarData: SidebarData = {
           url: '/app/markdown-preview-html',
           icon: IconMarkdown,
           description: 'Live Markdown renderer with HTML export and HTML → Markdown conversion.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'Format Converter',
+          url: '/app/format-converter',
+          icon: IconFileCode,
+          description: 'Convert between JSON, YAML, TOML, and XML in any direction.',
           hiddenOnMobile: true,
         },
 

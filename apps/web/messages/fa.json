@@ -33,7 +33,8 @@
     "hashGenerator": "تولیدکنندهٔ هش",
     "hmacGenerator": "تولیدکنندهٔ HMAC",
     "markdownPreview": "پیش‌نمایش Markdown",
-    "numberBaseConverter": "مبدّل مبنا"
+    "numberBaseConverter": "مبدّل مبنا",
+    "formatConverter": "مبدّل فرمت"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -2546,5 +2547,18 @@
     "errors": {
       "invalidNumber": "این مقدار برای مبنای ورودی انتخاب‌شده معتبر نیست."
     }
+  },
+  "FormatConverter": {
+    "title": "مبدّل فرمت",
+    "subtitle": "بین JSON، YAML، TOML و XML در هر جهتی تبدیل کنید. تمام ۱۲ ترکیب. همه چیز در مرورگر شما اجرا می‌شود.",
+    "fromLabel": "از",
+    "toLabel": "به",
+    "swap": "تعویض",
+    "swapTitle": "فرمت‌ها را تعویض کنید و خروجی را به عنوان ورودی استفاده کنید",
+    "copy": "کپی",
+    "copied": "کپی شد",
+    "charCount": "{count, plural, one {# کاراکتر} other {# کاراکتر}}",
+    "emptyHint": "ورودی خود را در سمت چپ وارد کنید تا خروجی تبدیل‌شده را ببینید.",
+    "localNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. چیزی آپلود نمی‌شود."
   }
 }

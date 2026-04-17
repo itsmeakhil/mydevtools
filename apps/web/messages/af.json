@@ -33,7 +33,8 @@
     "hashGenerator": "Hash-generator",
     "hmacGenerator": "HMAC-generator",
     "markdownPreview": "Markdown-voorskou",
-    "numberBaseConverter": "Basisomskakelaar"
+    "numberBaseConverter": "Basisomskakelaar",
+    "formatConverter": "Formaat Omskakelaer"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -2546,5 +2547,18 @@
     "errors": {
       "invalidNumber": "Die waarde is nie geldig vir die gekose invoerbasis nie."
     }
+  },
+  "FormatConverter": {
+    "title": "Formaat Omskakelaer",
+    "subtitle": "Skakel tussen JSON, YAML, TOML en XML in enige rigting. Al 12 kombinasies. Alles loop in jou blaaier.",
+    "fromLabel": "Van",
+    "toLabel": "Na",
+    "swap": "Wissel",
+    "swapTitle": "Wissel formate en gebruik uitset as invoer",
+    "copy": "Kopieer",
+    "copied": "Gekopieer",
+    "charCount": "{count, plural, one {# karakter} other {# karakters}}",
+    "emptyHint": "Plak of tik jou invoer aan die linkerkant om die omgeskakelede uitset te sien.",
+    "localNote": "Alles loop plaaslik in jou blaaier. Niks word opgelaai nie."
   }
 }

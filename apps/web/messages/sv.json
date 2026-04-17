@@ -33,7 +33,8 @@
     "hashGenerator": "Hash-generator",
     "hmacGenerator": "HMAC-generator",
     "markdownPreview": "Markdown-förhandsgranskning",
-    "numberBaseConverter": "Basomvandlare"
+    "numberBaseConverter": "Basomvandlare",
+    "formatConverter": "Formatkonverterare"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -2546,5 +2547,18 @@
     "errors": {
       "invalidNumber": "Ogiltigt värde för vald inmatningsbas."
     }
+  },
+  "FormatConverter": {
+    "title": "Formatkonverterare",
+    "subtitle": "Konvertera mellan JSON, YAML, TOML och XML i valfri riktning. Alla 12 kombinationer. Allt körs i din webbläsare.",
+    "fromLabel": "Från",
+    "toLabel": "Till",
+    "swap": "Byt",
+    "swapTitle": "Byt format och använd utdata som indata",
+    "copy": "Kopiera",
+    "copied": "Kopierat",
+    "charCount": "{count, plural, one {# tecken} other {# tecken}}",
+    "emptyHint": "Klistra in eller skriv din indata till vänster för att se den konverterade utdatan.",
+    "localNote": "Allt körs lokalt i din webbläsare. Ingenting laddas upp."
   }
 }

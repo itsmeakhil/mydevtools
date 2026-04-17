@@ -33,7 +33,8 @@
     "hashGenerator": "Trình tạo hash",
     "hmacGenerator": "Trình tạo HMAC",
     "markdownPreview": "Xem trước Markdown",
-    "numberBaseConverter": "Chuyển đổi cơ số"
+    "numberBaseConverter": "Chuyển đổi cơ số",
+    "formatConverter": "Chuyển đổi định dạng"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -2546,5 +2547,18 @@
     "errors": {
       "invalidNumber": "Giá trị không hợp lệ với cơ số đầu vào đã chọn."
     }
+  },
+  "FormatConverter": {
+    "title": "Chuyển đổi định dạng",
+    "subtitle": "Chuyển đổi giữa JSON, YAML, TOML và XML theo bất kỳ hướng nào. Tất cả 12 tổ hợp. Mọi thứ chạy trên trình duyệt của bạn.",
+    "fromLabel": "Từ",
+    "toLabel": "Đến",
+    "swap": "Hoán đổi",
+    "swapTitle": "Hoán đổi định dạng và sử dụng đầu ra làm đầu vào",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép",
+    "charCount": "{count, plural, other {# ký tự}}",
+    "emptyHint": "Dán hoặc nhập dữ liệu đầu vào ở bên trái để xem đầu ra đã chuyển đổi.",
+    "localNote": "Mọi thứ chạy cục bộ trên trình duyệt của bạn. Không có gì được tải lên."
   }
 }

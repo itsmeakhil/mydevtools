@@ -33,7 +33,8 @@
     "hashGenerator": "Hash oluşturucu",
     "hmacGenerator": "HMAC Oluşturucu",
     "markdownPreview": "Markdown Önizleme",
-    "numberBaseConverter": "Taban dönüştürücü"
+    "numberBaseConverter": "Taban dönüştürücü",
+    "formatConverter": "Format Dönüştürücü"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -2546,5 +2547,18 @@
     "errors": {
       "invalidNumber": "Seçilen giriş tabanı için geçersiz değer."
     }
+  },
+  "FormatConverter": {
+    "title": "Format Dönüştürücü",
+    "subtitle": "JSON, YAML, TOML ve XML arasında her yönde dönüştürün. 12 kombinasyonun tamamı. Her şey tarayıcınızda çalışır.",
+    "fromLabel": "Kaynak",
+    "toLabel": "Hedef",
+    "swap": "Değiştir",
+    "swapTitle": "Formatları değiştirin ve çıktıyı girdi olarak kullanın",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "charCount": "{count, plural, one {# karakter} other {# karakter}}",
+    "emptyHint": "Dönüştürülmüş çıktıyı görmek için solda girdinizi yapıştırın veya yazın.",
+    "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
   }
 }

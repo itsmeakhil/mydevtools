@@ -33,7 +33,8 @@
     "hashGenerator": "Generator hash",
     "hmacGenerator": "Generator HMAC",
     "markdownPreview": "Pratinjau Markdown",
-    "numberBaseConverter": "Konverter basis"
+    "numberBaseConverter": "Konverter basis",
+    "formatConverter": "Konverter Format"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -2546,5 +2547,18 @@
     "errors": {
       "invalidNumber": "Nilai tidak valid untuk basis masukan yang dipilih."
     }
+  },
+  "FormatConverter": {
+    "title": "Konverter Format",
+    "subtitle": "Konversi antara JSON, YAML, TOML, dan XML dalam arah apapun. Semua 12 kombinasi. Semua berjalan di browser Anda.",
+    "fromLabel": "Dari",
+    "toLabel": "Ke",
+    "swap": "Tukar",
+    "swapTitle": "Tukar format dan gunakan keluaran sebagai masukan",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "charCount": "{count, plural, other {# karakter}}",
+    "emptyHint": "Tempel atau ketik masukan Anda di sebelah kiri untuk melihat keluaran yang dikonversi.",
+    "localNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
   }
 }

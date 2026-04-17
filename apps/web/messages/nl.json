@@ -33,7 +33,8 @@
     "hashGenerator": "Hash-generator",
     "hmacGenerator": "HMAC-generator",
     "markdownPreview": "Markdown-voorbeeld",
-    "numberBaseConverter": "Grondtal-converter"
+    "numberBaseConverter": "Grondtal-converter",
+    "formatConverter": "Formaatconverter"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -2546,5 +2547,18 @@
     "errors": {
       "invalidNumber": "Ongeldige waarde voor het gekozen invoergrondtal."
     }
+  },
+  "FormatConverter": {
+    "title": "Formaatconverter",
+    "subtitle": "Converteer tussen JSON, YAML, TOML en XML in elke richting. Alle 12 combinaties. Alles draait in uw browser.",
+    "fromLabel": "Van",
+    "toLabel": "Naar",
+    "swap": "Omwisselen",
+    "swapTitle": "Formaten omwisselen en uitvoer als invoer gebruiken",
+    "copy": "Kopiëren",
+    "copied": "Gekopieerd",
+    "charCount": "{count, plural, one {# teken} other {# tekens}}",
+    "emptyHint": "Plak of typ uw invoer aan de linkerkant om de geconverteerde uitvoer te zien.",
+    "localNote": "Alles draait lokaal in uw browser. Er wordt niets geüpload."
   }
 }
