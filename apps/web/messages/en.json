@@ -21,6 +21,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "URL Parser",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Secret / API key",
     "qrCodeGenerator": "QR Code Generator",
     "ipSubnetCalculator": "IP / Subnet Calculator",
     "hashGenerator": "Hash Generator",
@@ -355,6 +356,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Secret / API key",
+        "description": "Cryptographically random strings with configurable alphabet, length, and bulk export."
       },
       "qrCodeGenerator": {
         "title": "QR Code Generator",
@@ -2281,6 +2286,38 @@
       "invalidCustomNamespace": "Custom namespace must be a valid UUID.",
       "missingName": "Name is required for UUID v3 and v5.",
       "unknown": "Could not generate IDs."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Secret / API key generator",
+    "subtitle": "Generate cryptographically random strings with a configurable length and alphabet. Bulk export up to {max} per run. Pairs with the <uuid>UUID / ULID generator</uuid>.",
+    "alphabetLabel": "Alphabet",
+    "alphabetHint": "Duplicate characters are removed. Each symbol is drawn uniformly using crypto.getRandomValues with rejection sampling (no modulo bias).",
+    "alphabetCount": "{count} unique symbols",
+    "presetsLabel": "Presets",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Alphanumeric",
+      "hex": "Hex (lowercase)",
+      "asciiPrintable": "ASCII printable"
+    },
+    "lengthLabel": "Length per secret (1–{maxLen})",
+    "countLabel": "Count (1–{maxBulk})",
+    "generate": "Generate",
+    "output": "Output",
+    "lines": "{count} lines",
+    "download": {
+      "title": "Download .txt",
+      "filename": "secrets.txt"
+    },
+    "copyTitle": "Copy all",
+    "outputPlaceholder": "Click \"Generate\"…",
+    "errors": {
+      "emptyAlphabet": "Add at least one character to the alphabet.",
+      "alphabetTooLong": "After removing duplicates, the alphabet can have at most {maxAlpha} characters.",
+      "lengthOutOfRange": "Length must be between 1 and {maxLen}.",
+      "countOutOfRange": "Count must be between 1 and {maxBulk}.",
+      "unknown": "Could not generate secrets."
     }
   },
   "QrCodeGenerator": {

@@ -21,6 +21,7 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/url-encode': 'urlEncoder',
   '/app/url-parser': 'urlParser',
   '/app/uuid-generator': 'uuidGenerator',
+  '/app/secret-api-key-generator': 'secretApiKeyGenerator',
   '/app/qr-code-generator': 'qrCodeGenerator',
   '/app/ip-subnet-calculator': 'ipSubnetCalculator',
   '/app/hash-generator': 'hashGenerator',

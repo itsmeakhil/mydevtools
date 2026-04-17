@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "URL Ayrıştırıcı",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Gizli / API anahtarı",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON Şema Oluşturucu",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Gizli / API anahtarı",
+        "description": "Yapılandırılabilir alfabe, uzunluk ve toplu dışa aktarma ile kriptografik rastgele dizeler."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "Özel ad alanı geçerli bir UUID olmalıdır.",
       "missingName": "UUID v3 ve v5 için ad gereklidir.",
       "unknown": "ID’ler oluşturulamadı."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Gizli / API anahtarı oluşturucu",
+    "subtitle": "Yapılandırılabilir uzunluk ve alfabe ile kriptografik rastgele dizeler oluşturun. Çalıştırma başına {max} adede kadar toplu dışa aktarma. <uuid>UUID / ULID oluşturucu</uuid> ile birlikte kullanıma uygundur.",
+    "alphabetLabel": "Alfabe",
+    "alphabetHint": "Yinelenen karakterler kaldırılır. Her simge crypto.getRandomValues ve reddetme örneklemesiyle tekdüze seçilir (modül yanlılığı yok).",
+    "alphabetCount": "{count} benzersiz simge",
+    "presetsLabel": "Ön ayarlar",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Alfasayısal",
+      "hex": "Onaltılık (küçük harf)",
+      "asciiPrintable": "ASCII yazdırılabilir"
+    },
+    "lengthLabel": "Gizli başına uzunluk (1–{maxLen})",
+    "countLabel": "Adet (1–{maxBulk})",
+    "generate": "Oluştur",
+    "output": "Çıktı",
+    "lines": "{count} satır",
+    "download": {
+      "title": ".txt indir",
+      "filename": "gizli-anahtarlar.txt"
+    },
+    "copyTitle": "Tümünü kopyala",
+    "outputPlaceholder": "\"Oluştur\"a tıklayın…",
+    "errors": {
+      "emptyAlphabet": "Alfabeye en az bir karakter ekleyin.",
+      "alphabetTooLong": "Yinelenenler kaldırıldıktan sonra alfabe en fazla {maxAlpha} karakter olabilir.",
+      "lengthOutOfRange": "Uzunluk 1 ile {maxLen} arasında olmalıdır.",
+      "countOutOfRange": "Adet 1 ile {maxBulk} arasında olmalıdır.",
+      "unknown": "Gizli dizeler oluşturulamadı."
     }
   },
   "LoremIpsum": {

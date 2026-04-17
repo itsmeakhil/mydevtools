@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "URL パーサー",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "シークレット / APIキー",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSONスキーマジェネレーター",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "シークレット / APIキー",
+        "description": "アルファベット・長さ・一括出力を設定できる暗号論的乱数文字列。"
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "カスタム名前空間は有効な UUID である必要があります。",
       "missingName": "UUID v3 と v5 には名前が必要です。",
       "unknown": "ID を生成できませんでした。"
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "シークレット / APIキー ジェネレーター",
+    "subtitle": "長さとアルファベットを指定して暗号論的乱数文字列を生成します。1回あたり最大 {max} 件まで一括出力。<uuid>UUID / ULID ジェネレーター</uuid>と併用できます。",
+    "alphabetLabel": "アルファベット",
+    "alphabetHint": "重複文字は除去されます。各文字は crypto.getRandomValues と棄却サンプリングで一様に選ばれます（モジュロバイアスなし）。",
+    "alphabetCount": "ユニーク文字数 {count}",
+    "presetsLabel": "プリセット",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "英数字",
+      "hex": "16進（小文字）",
+      "asciiPrintable": "ASCII印字可能"
+    },
+    "lengthLabel": "1件あたりの長さ（1–{maxLen}）",
+    "countLabel": "件数（1–{maxBulk}）",
+    "generate": "生成",
+    "output": "出力",
+    "lines": "{count} 行",
+    "download": {
+      "title": ".txt をダウンロード",
+      "filename": "secrets.txt"
+    },
+    "copyTitle": "すべてコピー",
+    "outputPlaceholder": "「生成」をクリック…",
+    "errors": {
+      "emptyAlphabet": "アルファベットに1文字以上追加してください。",
+      "alphabetTooLong": "重複除去後のアルファベットは最大 {maxAlpha} 文字までです。",
+      "lengthOutOfRange": "長さは 1〜{maxLen} の範囲にしてください。",
+      "countOutOfRange": "件数は 1〜{maxBulk} の範囲にしてください。",
+      "unknown": "シークレットを生成できませんでした。"
     }
   },
   "LoremIpsum": {

@@ -24,6 +24,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/nosql-explorer',
   '/app/url-encode',
   '/app/uuid-generator',
+  '/app/secret-api-key-generator',
   '/app/qr-code-generator',
   '/app/ip-subnet-calculator',
   '/app/hash-generator',

@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "تجزیه‌گر URL",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "رمز / کلید API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "تولیدکنندهٔ طرح JSON",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "رمز / کلید API",
+        "description": "رشته‌های تصادفی رمزنگاری‌شده با الفبا، طول و خروجی انبوه قابل تنظیم."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "فضای نام سفارشی باید یک UUID معتبر باشد.",
       "missingName": "برای UUID v3 و v5 وارد کردن نام لازم است.",
       "unknown": "امکان تولید شناسه‌ها وجود ندارد."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "مولد رمز / کلید API",
+    "subtitle": "رشته‌های تصادفی رمزنگاری‌شده با طول و الفبای قابل تنظیم بسازید. خروجی انبوه تا {max} در هر اجرا. مکمل <uuid>مولد UUID / ULID</uuid>.",
+    "alphabetLabel": "الفبا",
+    "alphabetHint": "نویسه‌های تکراری حذف می‌شوند. هر نماد به‌صورت یکنواخت با crypto.getRandomValues و نمونه‌گیری ردّی انتخاب می‌شود (بدون سوگیری پیمانه).",
+    "alphabetCount": "{count} نماد یکتا",
+    "presetsLabel": "پیش‌تنظیم‌ها",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "الفبایی-عددی",
+      "hex": "شانزده‌شانزدهی (حروف کوچک)",
+      "asciiPrintable": "ASCII قابل چاپ"
+    },
+    "lengthLabel": "طول هر رمز (۱–{maxLen})",
+    "countLabel": "تعداد (۱–{maxBulk})",
+    "generate": "تولید",
+    "output": "خروجی",
+    "lines": "{count} خط",
+    "download": {
+      "title": "بارگیری .txt",
+      "filename": "اسرار.txt"
+    },
+    "copyTitle": "کپی همه",
+    "outputPlaceholder": "روی «تولید» کلیک کنید…",
+    "errors": {
+      "emptyAlphabet": "حداقل یک نویسه به الفبا اضافه کنید.",
+      "alphabetTooLong": "پس از حذف تکراری‌ها، الفبا حداکثر {maxAlpha} نویسه می‌تواند داشته باشد.",
+      "lengthOutOfRange": "طول باید بین ۱ و {maxLen} باشد.",
+      "countOutOfRange": "تعداد باید بین ۱ و {maxBulk} باشد.",
+      "unknown": "تولید اسرار ممکن نشد."
     }
   },
   "LoremIpsum": {

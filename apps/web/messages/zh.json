@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "URL 解析器",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "密钥 / API 密钥",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON 模式生成器",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "密钥 / API 密钥",
+        "description": "可配置字符集、长度并支持批量导出的密码学随机字符串。"
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "自定义命名空间必须是有效的 UUID。",
       "missingName": "UUID v3 和 v5 需要名称。",
       "unknown": "无法生成 ID。"
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "密钥 / API 密钥生成器",
+    "subtitle": "使用可配置长度与字符集生成密码学随机字符串。每次最多批量导出 {max} 条。可与 <uuid>UUID / ULID 生成器</uuid> 搭配使用。",
+    "alphabetLabel": "字符集",
+    "alphabetHint": "会去除重复字符。每个字符通过 crypto.getRandomValues 与拒绝采样均匀抽取（无取模偏差）。",
+    "alphabetCount": "不重复字符 {count} 个",
+    "presetsLabel": "预设",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "字母数字",
+      "hex": "十六进制（小写）",
+      "asciiPrintable": "ASCII 可打印"
+    },
+    "lengthLabel": "每条长度（1–{maxLen}）",
+    "countLabel": "数量（1–{maxBulk}）",
+    "generate": "生成",
+    "output": "输出",
+    "lines": "{count} 行",
+    "download": {
+      "title": "下载 .txt",
+      "filename": "secrets.txt"
+    },
+    "copyTitle": "复制全部",
+    "outputPlaceholder": "点击「生成」…",
+    "errors": {
+      "emptyAlphabet": "请至少向字符集中添加一个字符。",
+      "alphabetTooLong": "去除重复后，字符集最多 {maxAlpha} 个字符。",
+      "lengthOutOfRange": "长度必须在 1 与 {maxLen} 之间。",
+      "countOutOfRange": "数量必须在 1 与 {maxBulk} 之间。",
+      "unknown": "无法生成密钥字符串。"
     }
   },
   "LoremIpsum": {

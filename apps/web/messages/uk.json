@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "Парсер URL",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Секрет / ключ API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Генератор JSON-схеми",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Секрет / ключ API",
+        "description": "Криптографічно випадкові рядки з налаштовуваним алфавітом, довжиною та масовим експортом."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "Власний простір назв має бути валідним UUID.",
       "missingName": "Ім’я потрібне для UUID v3 та v5.",
       "unknown": "Не вдалося згенерувати ідентифікатори."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Генератор секрету / ключа API",
+    "subtitle": "Створюйте криптографічно випадкові рядки з налаштовуваною довжиною та алфавітом. Масовий експорт до {max} за запуск. Доповнює <uuid>генератор UUID / ULID</uuid>.",
+    "alphabetLabel": "Алфавіт",
+    "alphabetHint": "Дублікати символів прибираються. Кожен символ обирається рівномірно через crypto.getRandomValues і відбір із відсівом (без модульного зміщення).",
+    "alphabetCount": "Унікальних символів: {count}",
+    "presetsLabel": "Пресети",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Літери й цифри",
+      "hex": "Шістнадцятковий (малі літери)",
+      "asciiPrintable": "Друкований ASCII"
+    },
+    "lengthLabel": "Довжина на секрет (1–{maxLen})",
+    "countLabel": "Кількість (1–{maxBulk})",
+    "generate": "Згенерувати",
+    "output": "Вивід",
+    "lines": "{count} рядків",
+    "download": {
+      "title": "Завантажити .txt",
+      "filename": "secrets.txt"
+    },
+    "copyTitle": "Копіювати все",
+    "outputPlaceholder": "Натисніть «Згенерувати»…",
+    "errors": {
+      "emptyAlphabet": "Додайте до алфавіту хоча б один символ.",
+      "alphabetTooLong": "Після видалення дублікатів алфавіт може містити щонайбільше {maxAlpha} символів.",
+      "lengthOutOfRange": "Довжина має бути від 1 до {maxLen}.",
+      "countOutOfRange": "Кількість має бути від 1 до {maxBulk}.",
+      "unknown": "Не вдалося згенерувати секрети."
     }
   },
   "LoremIpsum": {

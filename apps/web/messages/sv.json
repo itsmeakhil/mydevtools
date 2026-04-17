@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "URL-tolk",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Hemlighet / API-nyckel",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-schemagenerator",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Hemlighet / API-nyckel",
+        "description": "Kryptografiskt slumpmässiga strängar med konfigurerbart alfabet, längd och bulkexport."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "Anpassad namespace måste vara en giltig UUID.",
       "missingName": "Namn krävs för UUID v3 och v5.",
       "unknown": "Kunde inte generera ID:n."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Generator för hemlighet / API-nyckel",
+    "subtitle": "Generera kryptografiskt slumpmässiga strängar med konfigurerbar längd och alfabet. Bulkexport upp till {max} per körning. Kompletterar <uuid>UUID-/ULID-generatorn</uuid>.",
+    "alphabetLabel": "Alfabet",
+    "alphabetHint": "Dubbletter tas bort. Varje symbol väljs jämnt med crypto.getRandomValues och rejection sampling (ingen modulobias).",
+    "alphabetCount": "{count} unika symboler",
+    "presetsLabel": "Förinställningar",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Alfanumerisk",
+      "hex": "Hex (gemener)",
+      "asciiPrintable": "ASCII utskrivbar"
+    },
+    "lengthLabel": "Längd per hemlighet (1–{maxLen})",
+    "countLabel": "Antal (1–{maxBulk})",
+    "generate": "Generera",
+    "output": "Utdata",
+    "lines": "{count} rader",
+    "download": {
+      "title": "Ladda ner .txt",
+      "filename": "hemligheter.txt"
+    },
+    "copyTitle": "Kopiera allt",
+    "outputPlaceholder": "Klicka på \"Generera\"…",
+    "errors": {
+      "emptyAlphabet": "Lägg till minst ett tecken i alfabetet.",
+      "alphabetTooLong": "Efter borttagning av dubbletter kan alfabetet ha högst {maxAlpha} tecken.",
+      "lengthOutOfRange": "Längden måste vara mellan 1 och {maxLen}.",
+      "countOutOfRange": "Antalet måste vara mellan 1 och {maxBulk}.",
+      "unknown": "Kunde inte generera hemligheter."
     }
   },
   "LoremIpsum": {

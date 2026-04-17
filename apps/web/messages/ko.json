@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "URL 파서",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "비밀 / API 키",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON 스키마 생성기",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "비밀 / API 키",
+        "description": "알파벳·길이·대량보내기를 설정할 수 있는 암호학적 난수 문자열."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "사용자 지정 네임스페이스는 유효한 UUID여야 합니다.",
       "missingName": "UUID v3 및 v5에는 이름이 필요합니다.",
       "unknown": "ID를 생성할 수 없습니다."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "비밀 / API 키 생성기",
+    "subtitle": "길이와 문자 집합을 지정해 암호학적 난수 문자열을 생성합니다. 실행당 최대 {max}개까지 대량보내기. <uuid>UUID / ULID 생성기</uuid>와 함께 쓰기 좋습니다.",
+    "alphabetLabel": "문자 집합",
+    "alphabetHint": "중복 문자는 제거됩니다. crypto.getRandomValues와 기각 샘플링으로 각 문자를 균일하게 선택합니다(모듈로 편향 없음).",
+    "alphabetCount": "고유 문자 {count}개",
+    "presetsLabel": "프리셋",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "영숫자",
+      "hex": "16진수(소문자)",
+      "asciiPrintable": "ASCII 인쇄 가능"
+    },
+    "lengthLabel": "비밀당 길이(1–{maxLen})",
+    "countLabel": "개수(1–{maxBulk})",
+    "generate": "생성",
+    "output": "출력",
+    "lines": "{count}줄",
+    "download": {
+      "title": ".txt 다운로드",
+      "filename": "secrets.txt"
+    },
+    "copyTitle": "모두 복사",
+    "outputPlaceholder": "\"생성\"을 클릭하세요…",
+    "errors": {
+      "emptyAlphabet": "문자 집합에 문자를 하나 이상 추가하세요.",
+      "alphabetTooLong": "중복 제거 후 문자 집합은 최대 {maxAlpha}자까지 가능합니다.",
+      "lengthOutOfRange": "길이는 1~{maxLen} 사이여야 합니다.",
+      "countOutOfRange": "개수는 1~{maxBulk} 사이여야 합니다.",
+      "unknown": "비밀을 생성할 수 없습니다."
     }
   },
   "LoremIpsum": {

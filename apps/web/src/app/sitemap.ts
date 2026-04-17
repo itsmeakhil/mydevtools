@@ -39,6 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'nosql-explorer',
         'url-encode',
         'uuid-generator',
+        'secret-api-key-generator',
         'qr-code-generator',
         'ip-subnet-calculator',
         'hash-generator',

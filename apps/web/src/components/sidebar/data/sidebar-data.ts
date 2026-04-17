@@ -32,11 +32,12 @@ import {
   IconHierarchy2,
   IconHash,
   IconCircleKey,
+  IconCircleKeyFilled,
   IconMarkdown,
   IconArrowsExchange,
   IconFileCode,
   IconListNumbers,
-  IconFileType,
+  IconFileInfo,
   IconUserSearch,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
@@ -268,6 +269,13 @@ export const sidebarData: SidebarData = {
           hiddenOnMobile: true,
         },
         {
+          title: 'Secret / API Key',
+          url: '/app/secret-api-key-generator',
+          icon: IconCircleKeyFilled,
+          description: 'Cryptographically random strings with configurable alphabet and length.',
+          hiddenOnMobile: true,
+        },
+        {
           title: 'QR Code Generator',
           url: '/app/qr-code-generator',
           icon: IconQrcode,
@@ -312,7 +320,7 @@ export const sidebarData: SidebarData = {
         {
           title: 'MIME Type Lookup',
           url: '/app/mime-type-lookup',
-          icon: IconFileType,
+          icon: IconFileInfo,
           description: 'Find the MIME type for a file extension or filename.',
           hiddenOnMobile: true,
         },

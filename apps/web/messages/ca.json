@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "Analitzador d’URL",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Secret / clau API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generador d'esquema JSON",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Secret / clau API",
+        "description": "Cad aleatòries criptogràfiques amb alfabet, longitud i exportació massiva configurables."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "L’espai de noms personalitzat ha de ser un UUID vàlid.",
       "missingName": "Cal un nom per a UUID v3 i v5.",
       "unknown": "No s’han pogut generar els ID."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Generador de secret / clau API",
+    "subtitle": "Genera cad aleatòries criptogràfiques amb longitud i alfabet configurables. Exportació massiva fins a {max} per execució. Complementa el <uuid>generador UUID / ULID</uuid>.",
+    "alphabetLabel": "Alfabet",
+    "alphabetHint": "Se suprimeixen els caràcters duplicats. Cada símbol es tria de manera uniforme amb crypto.getRandomValues i mostreig per rebuig (sense biaix de mòdul).",
+    "alphabetCount": "{count} símbols únics",
+    "presetsLabel": "Predefinits",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Alfanumèric",
+      "hex": "Hexadecimal (minúscules)",
+      "asciiPrintable": "ASCII imprimible"
+    },
+    "lengthLabel": "Longitud per secret (1–{maxLen})",
+    "countLabel": "Recompte (1–{maxBulk})",
+    "generate": "Genera",
+    "output": "Sortida",
+    "lines": "{count} línies",
+    "download": {
+      "title": "Baixa .txt",
+      "filename": "secrets.txt"
+    },
+    "copyTitle": "Copia-ho tot",
+    "outputPlaceholder": "Fes clic a \"Genera\"…",
+    "errors": {
+      "emptyAlphabet": "Afegeix almenys un caràcter a l'alfabet.",
+      "alphabetTooLong": "Després d'eliminar duplicats, l'alfabet pot tenir com a màxim {maxAlpha} caràcters.",
+      "lengthOutOfRange": "La longitud ha d'estar entre 1 i {maxLen}.",
+      "countOutOfRange": "El recompte ha d'estar entre 1 i {maxBulk}.",
+      "unknown": "No s'han pogut generar els secrets."
     }
   },
   "LoremIpsum": {

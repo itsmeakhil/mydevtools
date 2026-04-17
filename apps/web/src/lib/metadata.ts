@@ -82,6 +82,11 @@ export const toolsMetadata: Record<string, {
         description: 'Generate UUID v1–v7 or ULIDs with namespace options and bulk copy or download.',
         keywords: ['uuid generator', 'ulid generator', 'guid', 'uuid v4', 'uuid v7', 'bulk uuid']
     },
+    'secret-api-key-generator': {
+        title: 'Secret / API Key Generator',
+        description: 'Generate cryptographically random strings with a configurable alphabet and length. Bulk copy or download; pairs with the UUID generator.',
+        keywords: ['api key generator', 'secret generator', 'random string', 'crypto random', 'token generator', 'getrandomvalues']
+    },
     'qr-code-generator': {
         title: 'QR Code Generator',
         description: 'Create PNG QR codes from any text or URL with error correction, colors, and margin. Runs entirely in your browser.',
