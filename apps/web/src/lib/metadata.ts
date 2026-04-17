@@ -137,6 +137,11 @@ export const toolsMetadata: Record<string, {
         description: 'Encode text to Base64 or decode Base64 strings instantly, with UTF-8 support. Runs entirely in your browser.',
         keywords: ['base64 encode', 'base64 decode', 'base64 converter', 'encode text', 'decode base64']
     },
+    'number-base-converter': {
+        title: 'Number Base Converter',
+        description: 'Convert integers between number bases 2 through 36 with optional 0x/0b/0o prefixes. Runs entirely in your browser.',
+        keywords: ['number base converter', 'radix converter', 'binary to hex', 'decimal to binary', 'base36', 'integer converter']
+    },
     'image-to-base64': {
         title: 'Image to Base64 Converter',
         description: 'Convert images to Data URI or raw Base64 strings instantly. Drops local images and encodes them purely in the browser.',

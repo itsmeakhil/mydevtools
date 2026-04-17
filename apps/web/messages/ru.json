@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "Калькулятор IP / подсети",
     "hashGenerator": "Генератор хешей",
     "hmacGenerator": "Генератор HMAC",
-    "markdownPreview": "Просмотр Markdown"
+    "markdownPreview": "Просмотр Markdown",
+    "numberBaseConverter": "Конвертер систем"
   },
   "Help": {
     "title": "Справка и документация",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Просмотр Markdown",
         "description": "Живой рендерер Markdown с экспортом HTML и конвертацией HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "Конвертер систем счисления",
+        "description": "Перевод целых чисел между основаниями 2–36."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Начните вводить Markdown, чтобы увидеть предпросмотр и HTML вывод.",
     "emptyHintHtmlToMd": "Вставьте HTML для конвертации в Markdown.",
     "securityNote": "Всё выполняется локально в вашем браузере. Ничего не загружается."
+  },
+  "NumberBaseConverter": {
+    "title": "Конвертер систем счисления",
+    "subtitle": "Перевод целых чисел между основаниями 2–36. Поддержка префиксов 0x / 0b / 0o. Всё локально в браузере.",
+    "inputBaseLabel": "Из основания",
+    "outputBaseLabel": "В основание",
+    "inputLabel": "Входное число",
+    "placeholderInput": "Введите целое число в выбранной входной системе…",
+    "outputLabel": "Результат",
+    "copyOutput": "Копировать результат",
+    "copied": "Скопировано",
+    "swap": "Поменять основания",
+    "byteCountHint": "{count, plural, one {# байт} few {# байта} many {# байт} other {# байта}} (длина UTF-8)",
+    "emptyHint": "Введите число для перевода.",
+    "note": "Цифры выше 9 — буквы A–Z (без учёта регистра). Пробелы и подчёркивания игнорируются.",
+    "errors": {
+      "invalidNumber": "Недопустимое значение для выбранной входной системы."
+    }
   }
 }

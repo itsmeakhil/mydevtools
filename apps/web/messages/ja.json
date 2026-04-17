@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "IP／サブネット計算",
     "hashGenerator": "ハッシュ生成",
     "hmacGenerator": "HMACジェネレーター",
-    "markdownPreview": "Markdownプレビュー"
+    "markdownPreview": "Markdownプレビュー",
+    "numberBaseConverter": "基数変換"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Markdownプレビュー",
         "description": "HTMLエクスポートとHTML → Markdown変換を備えたライブMarkdownレンダラー。"
+      },
+      "numberBaseConverter": {
+        "title": "基数変換ツール",
+        "description": "2～36進法の整数を相互変換。"
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Markdownの入力を開始すると、ライブプレビューとHTML出力が表示されます。",
     "emptyHintHtmlToMd": "HTMLを貼り付けてMarkdownに変換します。",
     "securityNote": "すべてブラウザでローカルに実行されます。何もアップロードされません。"
+  },
+  "NumberBaseConverter": {
+    "title": "基数変換",
+    "subtitle": "2～36進法の整数を変換。0x / 0b / 0o プレフィックスに対応。すべてブラウザ内で計算されます。",
+    "inputBaseLabel": "変換元の基数",
+    "outputBaseLabel": "変換先の基数",
+    "inputLabel": "入力値",
+    "placeholderInput": "選択した入力基数で整数を入力…",
+    "outputLabel": "変換結果",
+    "copyOutput": "結果をコピー",
+    "copied": "コピーしました",
+    "swap": "基数を入れ替え",
+    "byteCountHint": "{count, plural, other {# バイト}} (UTF-8 の入力長)",
+    "emptyHint": "変換する数値を入力してください。",
+    "note": "10を超える桁は A–Z（大文字小文字を区別しません）。スペースとアンダースコアは無視されます。",
+    "errors": {
+      "invalidNumber": "選択した入力基数では無効な値です。"
+    }
   }
 }

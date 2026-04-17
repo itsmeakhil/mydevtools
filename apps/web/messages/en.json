@@ -32,7 +32,8 @@
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Code Snippets",
-    "markdownPreview": "Markdown Preview"
+    "markdownPreview": "Markdown Preview",
+    "numberBaseConverter": "Number Base Converter"
   },
   "Help": {
     "title": "Help & documentation",
@@ -387,6 +388,10 @@
       "markdownPreview": {
         "title": "Markdown Preview",
         "description": "Live Markdown renderer with HTML export and HTML → Markdown conversion."
+      },
+      "numberBaseConverter": {
+        "title": "Number Base Converter",
+        "description": "Convert integers between bases 2–36 (binary, decimal, hex, and more)."
       }
     }
   },
@@ -2315,6 +2320,24 @@
     "securityNote": "Never share your signing secret. This page does not upload data—everything runs in your browser.",
     "errors": {
       "cryptoFailed": "Could not compute HMAC. Check your browser supports Web Crypto and try again."
+    }
+  },
+  "NumberBaseConverter": {
+    "title": "Number base converter",
+    "subtitle": "Convert integers between bases 2–36. Supports optional 0x / 0b / 0o prefixes for hex, binary, and octal. Everything runs locally in your browser.",
+    "inputBaseLabel": "From base",
+    "outputBaseLabel": "To base",
+    "inputLabel": "Input number",
+    "placeholderInput": "Enter a whole number in the selected input base…",
+    "outputLabel": "Converted value",
+    "copyOutput": "Copy result",
+    "copied": "Copied",
+    "swap": "Swap bases",
+    "byteCountHint": "{count, plural, one {# byte} other {# bytes}} (UTF-8 input length)",
+    "emptyHint": "Enter a number to convert.",
+    "note": "Digits beyond 9 use letters A–Z (case-insensitive). Spaces and underscores are ignored.",
+    "errors": {
+      "invalidNumber": "That value is not valid for the selected input base."
     }
   },
   "LoremIpsum": {

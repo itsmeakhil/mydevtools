@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "Kalkulator IP / subnet",
     "hashGenerator": "Generator hash",
     "hmacGenerator": "Generator HMAC",
-    "markdownPreview": "Pratinjau Markdown"
+    "markdownPreview": "Pratinjau Markdown",
+    "numberBaseConverter": "Konverter basis"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Pratinjau Markdown",
         "description": "Renderer Markdown langsung dengan ekspor HTML dan konversi HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "Konverter basis angka",
+        "description": "Konversi bilangan bulat antar basis 2–36."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Mulai mengetik Markdown untuk melihat pratinjau langsung dan output HTML.",
     "emptyHintHtmlToMd": "Tempel HTML untuk mengonversinya ke Markdown.",
     "securityNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
+  },
+  "NumberBaseConverter": {
+    "title": "Konverter basis angka",
+    "subtitle": "Konversi bilangan bulat antar basis 2–36. Awalan opsional 0x / 0b / 0o. Semua dihitung lokal di peramban.",
+    "inputBaseLabel": "Dari basis",
+    "outputBaseLabel": "Ke basis",
+    "inputLabel": "Angka masukan",
+    "placeholderInput": "Masukkan bilangan bulat pada basis masukan yang dipilih…",
+    "outputLabel": "Nilai hasil konversi",
+    "copyOutput": "Salin hasil",
+    "copied": "Disalin",
+    "swap": "Tukar basis",
+    "byteCountHint": "{count, plural, other {# byte}} (panjang UTF-8)",
+    "emptyHint": "Masukkan angka untuk dikonversi.",
+    "note": "Digit di atas 9 memakai huruf A–Z (tidak peka huruf besar/kecil). Spasi dan garis bawah diabaikan.",
+    "errors": {
+      "invalidNumber": "Nilai tidak valid untuk basis masukan yang dipilih."
+    }
   }
 }

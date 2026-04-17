@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "IP-/subnetrekenaar",
     "hashGenerator": "Hash-generator",
     "hmacGenerator": "HMAC-generator",
-    "markdownPreview": "Markdown-voorskou"
+    "markdownPreview": "Markdown-voorskou",
+    "numberBaseConverter": "Basisomskakelaar"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Markdown-voorskou",
         "description": "Lewendige Markdown-weergawer met HTML-uitvoer en HTML → Markdown-omskakeling."
+      },
+      "numberBaseConverter": {
+        "title": "Basisomskakelaar",
+        "description": "Skakel heelgetalle tussen basisse 2–36 (binêr, desimaal, heks, ens.)."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Begin Markdown tik om die lewendige voorskou en HTML-uitvoer te sien.",
     "emptyHintHtmlToMd": "Plak HTML om dit na Markdown om te skakel.",
     "securityNote": "Alles loop plaaslik in jou blaaier. Niks word opgelaai nie."
+  },
+  "NumberBaseConverter": {
+    "title": "Basisomskakelaar",
+    "subtitle": "Skakel heelgetalle tussen basisse 2–36. Opsioneel 0x / 0b / 0o voorvoegsels. Alles plaaslik in jou blaaier.",
+    "inputBaseLabel": "Van basis",
+    "outputBaseLabel": "Na basis",
+    "inputLabel": "Invoernommer",
+    "placeholderInput": "Voer ’n heelgetal in die gekose invoerbasis in…",
+    "outputLabel": "Omgeskakelde waarde",
+    "copyOutput": "Kopieer resultaat",
+    "copied": "Gekopieer",
+    "swap": "Ruil basisse",
+    "byteCountHint": "{count, plural, one {# greep} other {# grepe}} (UTF-8 invoerlengte)",
+    "emptyHint": "Voer ’n nommer in om om te skakel.",
+    "note": "Syfers na 9 gebruik letters A–Z (nie saak sensitief nie). Spasies en onderstrepe word geïgnoreer.",
+    "errors": {
+      "invalidNumber": "Die waarde is nie geldig vir die gekose invoerbasis nie."
+    }
   }
 }

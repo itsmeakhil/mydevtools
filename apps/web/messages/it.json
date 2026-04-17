@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "Calcolatrice IP / subnet",
     "hashGenerator": "Generatore di hash",
     "hmacGenerator": "Generatore HMAC",
-    "markdownPreview": "Anteprima Markdown"
+    "markdownPreview": "Anteprima Markdown",
+    "numberBaseConverter": "Convertitore di base"
   },
   "Help": {
     "title": "Aiuto e documentazione",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Anteprima Markdown",
         "description": "Renderer Markdown in tempo reale con esportazione HTML e conversione HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "Convertitore di base numerica",
+        "description": "Converti interi tra basi da 2 a 36."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Inizia a digitare Markdown per vedere l'anteprima live e l'output HTML.",
     "emptyHintHtmlToMd": "Incolla HTML per convertirlo in Markdown.",
     "securityNote": "Tutto viene eseguito localmente nel tuo browser. Nulla viene caricato."
+  },
+  "NumberBaseConverter": {
+    "title": "Convertitore di base numerica",
+    "subtitle": "Converti interi tra basi 2–36. Prefissi opzionali 0x / 0b / 0o. Tutto viene calcolato localmente nel browser.",
+    "inputBaseLabel": "Da base",
+    "outputBaseLabel": "A base",
+    "inputLabel": "Numero in ingresso",
+    "placeholderInput": "Inserisci un intero nella base di ingresso selezionata…",
+    "outputLabel": "Valore convertito",
+    "copyOutput": "Copia risultato",
+    "copied": "Copiato",
+    "swap": "Scambia basi",
+    "byteCountHint": "{count, plural, one {# byte} other {# byte}} (lunghezza UTF-8)",
+    "emptyHint": "Inserisci un numero da convertire.",
+    "note": "Le cifre oltre il 9 usano le lettere A–Z (maiuscole/minuscole indifferenti). Spazi e underscore ignorati.",
+    "errors": {
+      "invalidNumber": "Valore non valido per la base di ingresso selezionata."
+    }
   }
 }

@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "IP-/subnetkalkylator",
     "hashGenerator": "Hash-generator",
     "hmacGenerator": "HMAC-generator",
-    "markdownPreview": "Markdown-förhandsgranskning"
+    "markdownPreview": "Markdown-förhandsgranskning",
+    "numberBaseConverter": "Basomvandlare"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Markdown-förhandsgranskning",
         "description": "Live Markdown-renderer med HTML-export och HTML → Markdown-konvertering."
+      },
+      "numberBaseConverter": {
+        "title": "Basomvandlare",
+        "description": "Konvertera heltal mellan baser 2–36."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Börja skriva Markdown för att se live-förhandsgranskning och HTML-utdata.",
     "emptyHintHtmlToMd": "Klistra in HTML för att konvertera det till Markdown.",
     "securityNote": "Allt körs lokalt i din webbläsare. Inget laddas upp."
+  },
+  "NumberBaseConverter": {
+    "title": "Basomvandlare",
+    "subtitle": "Konvertera heltal mellan baser 2–36. Valfria prefix 0x / 0b / 0o. Allt körs lokalt i webbläsaren.",
+    "inputBaseLabel": "Från bas",
+    "outputBaseLabel": "Till bas",
+    "inputLabel": "Inmatat tal",
+    "placeholderInput": "Ange ett heltal i vald inmatningsbas…",
+    "outputLabel": "Konverterat värde",
+    "copyOutput": "Kopiera resultat",
+    "copied": "Kopierat",
+    "swap": "Byt baser",
+    "byteCountHint": "{count, plural, one {# byte} other {# byte}} (UTF-8-längd)",
+    "emptyHint": "Ange ett tal att konvertera.",
+    "note": "Siffror över 9 använder bokstäverna A–Z (skiftlägesokänsligt). Blanksteg och understreck ignoreras.",
+    "errors": {
+      "invalidNumber": "Ogiltigt värde för vald inmatningsbas."
+    }
   }
 }

@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "Калькулятор IP / підмережі",
     "hashGenerator": "Генератор хешів",
     "hmacGenerator": "Генератор HMAC",
-    "markdownPreview": "Перегляд Markdown"
+    "markdownPreview": "Перегляд Markdown",
+    "numberBaseConverter": "Конвертер систем"
   },
   "Help": {
     "title": "Довідка та документація",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Перегляд Markdown",
         "description": "Живий рендерер Markdown з експортом HTML і конвертацією HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "Конвертер систем числення",
+        "description": "Перетворення цілих чисел між основами 2–36."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Почніть вводити Markdown, щоб побачити попередній перегляд і HTML вивід.",
     "emptyHintHtmlToMd": "Вставте HTML для конвертації в Markdown.",
     "securityNote": "Все виконується локально у вашому браузері. Нічого не завантажується."
+  },
+  "NumberBaseConverter": {
+    "title": "Конвертер систем числення",
+    "subtitle": "Перетворення цілих чисел між основами 2–36. Підтримка префіксів 0x / 0b / 0o. Усе локально в браузері.",
+    "inputBaseLabel": "З основи",
+    "outputBaseLabel": "В основу",
+    "inputLabel": "Вхідне число",
+    "placeholderInput": "Введіть ціле число у вибраній вхідній основі…",
+    "outputLabel": "Результат",
+    "copyOutput": "Копіювати результат",
+    "copied": "Скопійовано",
+    "swap": "Поміняти основи",
+    "byteCountHint": "{count, plural, one {# байт} few {# байти} many {# байтів} other {# байта}} (довжина UTF-8)",
+    "emptyHint": "Введіть число для перетворення.",
+    "note": "Цифри понад 9 — літери A–Z (без урахування регістру). Пробіли та підкреслення ігноруються.",
+    "errors": {
+      "invalidNumber": "Неприпустиме значення для вибраної вхідної основи."
+    }
   }
 }

@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "ماشین‌حساب IP / زیرشبکه",
     "hashGenerator": "تولیدکنندهٔ هش",
     "hmacGenerator": "تولیدکنندهٔ HMAC",
-    "markdownPreview": "پیش‌نمایش Markdown"
+    "markdownPreview": "پیش‌نمایش Markdown",
+    "numberBaseConverter": "مبدّل مبنا"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "پیش‌نمایش Markdown",
         "description": "رندر زنده Markdown با صادرکردن HTML و تبدیل HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "مبدّل مبنای عددی",
+        "description": "تبدیل اعداد صحیح بین مبناهای ۲ تا ۳۶."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "برای دیدن پیش‌نمایش زنده و خروجی HTML، Markdown تایپ کنید.",
     "emptyHintHtmlToMd": "HTML را برای تبدیل به Markdown بچسبانید.",
     "securityNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. هیچ چیزی آپلود نمی‌شود."
+  },
+  "NumberBaseConverter": {
+    "title": "مبدّل مبنای عددی",
+    "subtitle": "تبدیل اعداد صحیح بین مبناهای ۲–۳۶. پیشوندهای اختیاری 0x / 0b / 0o. همه‌چیز به‌صورت محلی در مرورگر.",
+    "inputBaseLabel": "از مبنا",
+    "outputBaseLabel": "به مبنا",
+    "inputLabel": "عدد ورودی",
+    "placeholderInput": "یک عدد صحیح در مبنای ورودی انتخاب‌شده وارد کنید…",
+    "outputLabel": "مقدار تبدیل‌شده",
+    "copyOutput": "کپی نتیجه",
+    "copied": "کپی شد",
+    "swap": "جابه‌جایی مبناها",
+    "byteCountHint": "{count, plural, one {# بایت} other {# بایت}} (طول ورودی UTF-8)",
+    "emptyHint": "برای تبدیل عددی وارد کنید.",
+    "note": "ارقام بالاتر از ۹ با حروف A–Z (بدون حساسیت به حروف بزرگ/کوچک). فاصله و زیرخط نادیده گرفته می‌شوند.",
+    "errors": {
+      "invalidNumber": "این مقدار برای مبنای ورودی انتخاب‌شده معتبر نیست."
+    }
   }
 }

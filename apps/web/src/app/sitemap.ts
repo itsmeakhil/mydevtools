@@ -53,6 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'csv-excel-json',
         'snippet-manager',
         'markdown-preview-html',
+        'number-base-converter',
     ].map((tool) => ({
         url: `${baseUrl}/app/${tool}`,
         lastModified: new Date(),

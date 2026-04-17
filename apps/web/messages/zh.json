@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "IP / 子网计算器",
     "hashGenerator": "哈希生成器",
     "hmacGenerator": "HMAC 生成器",
-    "markdownPreview": "Markdown 预览"
+    "markdownPreview": "Markdown 预览",
+    "numberBaseConverter": "进制转换"
   },
   "Help": {
     "title": "帮助与文档",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Markdown 预览",
         "description": "实时 Markdown 渲染，支持 HTML 导出和 HTML → Markdown 转换。"
+      },
+      "numberBaseConverter": {
+        "title": "进制转换器",
+        "description": "在 2–36 进制之间转换整数。"
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "开始输入 Markdown 以查看实时预览和 HTML 输出。",
     "emptyHintHtmlToMd": "粘贴 HTML 以将其转换为 Markdown。",
     "securityNote": "一切在您的浏览器本地运行，不会上传任何内容。"
+  },
+  "NumberBaseConverter": {
+    "title": "进制转换器",
+    "subtitle": "在 2–36 进制之间转换整数。支持可选前缀 0x / 0b / 0o。全部在浏览器本地计算。",
+    "inputBaseLabel": "源进制",
+    "outputBaseLabel": "目标进制",
+    "inputLabel": "输入数字",
+    "placeholderInput": "以所选输入进制输入一个整数…",
+    "outputLabel": "转换结果",
+    "copyOutput": "复制结果",
+    "copied": "已复制",
+    "swap": "交换进制",
+    "byteCountHint": "{count, plural, other {# 字节}} (UTF-8 输入长度)",
+    "emptyHint": "输入要转换的数字。",
+    "note": "大于 9 的数位使用字母 A–Z（不区分大小写）。空格与下划线会被忽略。",
+    "errors": {
+      "invalidNumber": "该值对所选输入进制无效。"
+    }
   }
 }

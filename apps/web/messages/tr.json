@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "IP / alt ağ hesaplayıcı",
     "hashGenerator": "Hash oluşturucu",
     "hmacGenerator": "HMAC Oluşturucu",
-    "markdownPreview": "Markdown Önizleme"
+    "markdownPreview": "Markdown Önizleme",
+    "numberBaseConverter": "Taban dönüştürücü"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Markdown Önizleme",
         "description": "HTML dışa aktarma ve HTML → Markdown dönüşümlü canlı Markdown renderer."
+      },
+      "numberBaseConverter": {
+        "title": "Sayı tabanı dönüştürücü",
+        "description": "2–36 tabanları arasında tam sayıları dönüştürün."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Canlı önizleme ve HTML çıktısını görmek için Markdown yazmaya başlayın.",
     "emptyHintHtmlToMd": "HTML'yi Markdown'a dönüştürmek için yapıştırın.",
     "securityNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
+  },
+  "NumberBaseConverter": {
+    "title": "Sayı tabanı dönüştürücü",
+    "subtitle": "2–36 tabanları arasında tam sayı dönüşümü. İsteğe bağlı 0x / 0b / 0o önekleri. Tümü tarayıcıda yerel.",
+    "inputBaseLabel": "Kaynak taban",
+    "outputBaseLabel": "Hedef taban",
+    "inputLabel": "Girdi sayısı",
+    "placeholderInput": "Seçilen giriş tabanında bir tam sayı girin…",
+    "outputLabel": "Dönüştürülen değer",
+    "copyOutput": "Sonucu kopyala",
+    "copied": "Kopyalandı",
+    "swap": "Tabanları değiştir",
+    "byteCountHint": "{count, plural, one {# bayt} other {# bayt}} (UTF-8 uzunluğu)",
+    "emptyHint": "Dönüştürmek için bir sayı girin.",
+    "note": "9’dan büyük basamaklar A–Z harflerini kullanır (büyük/küçük harf duyarsız). Boşluk ve alt çizgi yok sayılır.",
+    "errors": {
+      "invalidNumber": "Seçilen giriş tabanı için geçersiz değer."
+    }
   }
 }

@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "Kalkulator IP / podsieci",
     "hashGenerator": "Generator skrótów",
     "hmacGenerator": "Generator HMAC",
-    "markdownPreview": "Podgląd Markdown"
+    "markdownPreview": "Podgląd Markdown",
+    "numberBaseConverter": "Konwerter systemów"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Podgląd Markdown",
         "description": "Podgląd Markdown na żywo z eksportem HTML i konwersją HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "Konwerter podstaw liczbowych",
+        "description": "Konwertuj liczby całkowite między podstawami 2–36."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Zacznij wpisywać Markdown, aby zobaczyć podgląd na żywo i wyjście HTML.",
     "emptyHintHtmlToMd": "Wklej HTML, aby przekonwertować go na Markdown.",
     "securityNote": "Wszystko działa lokalnie w przeglądarce. Nic nie jest przesyłane."
+  },
+  "NumberBaseConverter": {
+    "title": "Konwerter podstaw liczbowych",
+    "subtitle": "Konwersja liczb całkowitych między podstawami 2–36. Opcjonalne prefiksy 0x / 0b / 0o. Wszystko lokalnie w przeglądarce.",
+    "inputBaseLabel": "Z podstawy",
+    "outputBaseLabel": "Na podstawę",
+    "inputLabel": "Liczba wejściowa",
+    "placeholderInput": "Wpisz liczbę całkowitą w wybranej podstawie wejściowej…",
+    "outputLabel": "Wartość po konwersji",
+    "copyOutput": "Kopiuj wynik",
+    "copied": "Skopiowano",
+    "swap": "Zamień podstawy",
+    "byteCountHint": "{count, plural, one {# bajt} few {# bajty} many {# bajtów} other {# bajta}} (długość UTF-8)",
+    "emptyHint": "Wpisz liczbę do konwersji.",
+    "note": "Cyfry powyżej 9 to litery A–Z (bez rozróżniania wielkości). Spacje i podkreślenia są ignorowane.",
+    "errors": {
+      "invalidNumber": "Nieprawidłowa wartość dla wybranej podstawy wejściowej."
+    }
   }
 }

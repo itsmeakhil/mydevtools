@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "Máy tính IP / mạng con",
     "hashGenerator": "Trình tạo hash",
     "hmacGenerator": "Trình tạo HMAC",
-    "markdownPreview": "Xem trước Markdown"
+    "markdownPreview": "Xem trước Markdown",
+    "numberBaseConverter": "Chuyển đổi cơ số"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Xem trước Markdown",
         "description": "Trình kết xuất Markdown trực tiếp với xuất HTML và chuyển đổi HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "Chuyển đổi cơ số",
+        "description": "Chuyển đổi số nguyên giữa các cơ số 2–36."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Bắt đầu nhập Markdown để xem bản xem trước trực tiếp và đầu ra HTML.",
     "emptyHintHtmlToMd": "Dán HTML để chuyển đổi sang Markdown.",
     "securityNote": "Tất cả chạy cục bộ trong trình duyệt của bạn. Không có gì được tải lên."
+  },
+  "NumberBaseConverter": {
+    "title": "Chuyển đổi cơ số",
+    "subtitle": "Chuyển đổi số nguyên giữa cơ số 2–36. Hỗ trợ tiền tố tùy chọn 0x / 0b / 0o. Tất cả chạy cục bộ trong trình duyệt.",
+    "inputBaseLabel": "Từ cơ số",
+    "outputBaseLabel": "Sang cơ số",
+    "inputLabel": "Số nhập",
+    "placeholderInput": "Nhập số nguyên theo cơ số đầu vào đã chọn…",
+    "outputLabel": "Giá trị đã chuyển",
+    "copyOutput": "Sao chép kết quả",
+    "copied": "Đã sao chép",
+    "swap": "Hoán đổi cơ số",
+    "byteCountHint": "{count, plural, other {# byte}} (độ dài UTF-8)",
+    "emptyHint": "Nhập số để chuyển đổi.",
+    "note": "Chữ số trên 9 dùng A–Z (không phân biệt hoa thường). Khoảng trắng và gạch dưới bị bỏ qua.",
+    "errors": {
+      "invalidNumber": "Giá trị không hợp lệ với cơ số đầu vào đã chọn."
+    }
   }
 }
