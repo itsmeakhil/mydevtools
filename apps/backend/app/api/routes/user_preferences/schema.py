@@ -4,11 +4,40 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 ThemePreference = Literal["light", "dark", "system"]
 
+# Keep in sync with apps/web/src/store/tool-visibility-store.ts DEFAULT_ENABLED_TOOLS
 DEFAULT_ENABLED_TOOLS = [
     "/app/to-do",
     "/app/notes",
+    "/app/bookmarks",
+    "/app/snippet-manager",
     "/app/password-manager",
     "/app/environment-manager",
+    "/app/email-validator",
+    "/app/jwt-decoder",
+    "/app/certificate-pem-decoder",
+    "/app/json-formatter",
+    "/app/json-schema-generator",
+    "/app/sql-formatter",
+    "/app/graphql-formatter",
+    "/app/diff-checker",
+    "/app/regex-tester",
+    "/app/timestamp-converter",
+    "/app/cron-builder",
+    "/app/number-base-converter",
+    "/app/csv-excel-json",
+    "/app/api-client",
+    "/app/http-status-codes",
+    "/app/nosql-explorer",
+    "/app/url-encode",
+    "/app/uuid-generator",
+    "/app/secret-api-key-generator",
+    "/app/qr-code-generator",
+    "/app/ip-subnet-calculator",
+    "/app/hash-generator",
+    "/app/hmac-generator",
+    "/app/lorem-ipsum",
+    "/app/color-picker",
+    "/app/markdown-preview-html",
 ]
 
 MAX_NOSQL_HISTORY_QUERIES = 10

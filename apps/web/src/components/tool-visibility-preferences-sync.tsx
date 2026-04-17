@@ -2,8 +2,19 @@
 
 import { useEffect, useRef } from "react";
 import useAuth from "@/utils/useAuth";
-import { useToolVisibilityStore, DEFAULT_ENABLED_TOOLS } from "@/store/tool-visibility-store";
+import {
+  useToolVisibilityStore,
+  DEFAULT_ENABLED_TOOLS,
+} from "@/store/tool-visibility-store";
 import { getUserPreferences, patchUserPreferences } from "@/lib/user-preferences-api";
+
+/** Old backend default before it matched the web app list — treat as uninitialized. */
+const LEGACY_FOUR_TOOL_DEFAULT = [
+  "/app/to-do",
+  "/app/notes",
+  "/app/password-manager",
+  "/app/environment-manager",
+] as const;
 
 function normalizeToolsJson(tools: string[]) {
   return JSON.stringify([...tools].sort());
@@ -20,6 +31,12 @@ function normalizeToolList(tools: string[]): string[] {
   const normalized = tools.map(normalizeToolUrl).filter(Boolean);
   // de-dupe while keeping deterministic sort for caching
   return Array.from(new Set(normalized));
+}
+
+function isLegacyFourToolList(tools: string[]): boolean {
+  if (tools.length !== LEGACY_FOUR_TOOL_DEFAULT.length) return false;
+  const set = new Set(tools.map(normalizeToolUrl));
+  return LEGACY_FOUR_TOOL_DEFAULT.every((t) => set.has(t));
 }
 
 /**
@@ -97,9 +114,12 @@ export function ToolVisibilityPreferencesSync() {
       try {
         const data = await getUserPreferences();
         if (cancelled) return;
-        const next = Array.isArray(data.enabledTools)
+        let next = Array.isArray(data.enabledTools)
           ? normalizeToolList(data.enabledTools)
           : DEFAULT_ENABLED_TOOLS;
+        if (isLegacyFourToolList(next)) {
+          next = [...DEFAULT_ENABLED_TOOLS];
+        }
         lastSavedNormRef.current = normalizeToolsJson(next);
         setEnabledTools(next);
         writeCache(next);
