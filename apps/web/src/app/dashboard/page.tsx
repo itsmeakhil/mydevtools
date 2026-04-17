@@ -4,9 +4,8 @@ import dynamic from 'next/dynamic';
 import { Card, CardContent } from "@/components/ui/card";
 import { sidebarData } from "../../components/sidebar/data/sidebar-data";
 import Link, { LinkProps } from "next/link";
-import { Heart, Clock, ArrowRight, Sparkles, Layers, Zap, Search, X, LayoutGrid, BarChart3 } from 'lucide-react';
+import { Clock, ArrowRight, Sparkles, Layers, Zap, Search, X, LayoutGrid, BarChart3, LogIn, Wand2 } from 'lucide-react';
 import { requiresAuth } from '@/lib/tool-config';
-import { usePinnedToolsStore } from '@/store/pinned-tools-store';
 import { useToolUsage } from '@/hooks/use-tool-usage';
 import { useMediaQuery } from "@/hooks/use-media-query";
 import useAuth from "@/utils/useAuth";
@@ -17,6 +16,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Skeleton } from '@/components/ui/skeleton';
 import { TOOL_PATH_TO_MESSAGE_KEY } from '@/lib/tool-i18n';
+import { cn } from '@/lib/utils';
 
 // Lazy-load the analytics panel — it's behind a tab click, not in the critical path
 const DashboardAnalyticsPanel = dynamic(
@@ -86,7 +86,7 @@ const findItemById = (id: string | undefined | null): ToolItem | undefined => {
   if (!id || typeof id !== 'string') {
     return undefined;
   }
-  
+
   const [groupIndexStr, itemIndexStr, subIndexStr] = id.split('-');
   const groupIndex = parseInt(groupIndexStr);
   const itemIndex = parseInt(itemIndexStr);
@@ -111,36 +111,86 @@ const findItemById = (id: string | undefined | null): ToolItem | undefined => {
   }
 };
 
+// ToolCard is defined outside DashboardPage to prevent remount on every render
+interface ToolCardProps {
+  item: ToolItem;
+  id: string;
+  index: number;
+  user: { displayName?: string | null } | null;
+}
+
+const ToolCard = ({ item, id, index, user }: ToolCardProps) => {
+  const tCard = useTranslations('Dashboard');
+  const tTools = useTranslations('Dashboard.tools');
+  const pathname = item.url?.toString().split('?')[0] ?? '';
+  const toolKey = TOOL_PATH_TO_MESSAGE_KEY[pathname];
+  const displayTitle = toolKey ? tTools(`${toolKey}.title` as Parameters<typeof tTools>[0]) : item.title;
+  const displayDescription = toolKey
+    ? tTools(`${toolKey}.description` as Parameters<typeof tTools>[0])
+    : item.description || tCard('toolCard.defaultDescription');
+
+  const itemRequiresAuth = item.url ? requiresAuth(item.url.toString()) : false;
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (itemRequiresAuth && !user) {
+      e.preventDefault();
+      window.location.href = '/login';
+    }
+  };
+
+  return (
+    <div
+      className="card-gradient-border rounded-xl animate-in fade-in slide-in-from-bottom-4 duration-300"
+      style={{ animationDelay: `${Math.min(index * 50, 300)}ms`, animationFillMode: 'both' }}
+    >
+      <Link href={item.url || "#"} className="block group h-full" onClick={handleClick}>
+        <Card className="glass-card border-border/30 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 h-full min-h-[130px] md:min-h-[180px] relative overflow-hidden group-hover:-translate-y-0.5 md:group-hover:-translate-y-1.5">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+          <CardContent className="p-3 md:p-5 h-full flex flex-col justify-between relative z-10">
+            <div className="mb-2 md:mb-4">
+              <div className="p-2 md:p-3 rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 text-primary group-hover:scale-110 transition-all duration-300 icon-container-pulse inline-flex">
+                {item.icon ? <item.icon size={18} strokeWidth={1.5} className="md:w-[22px] md:h-[22px]" /> : <Sparkles size={18} strokeWidth={1.5} className="md:w-[22px] md:h-[22px]" />}
+              </div>
+            </div>
+
+            <div className="flex-1">
+              <div className="flex items-center gap-1.5 md:gap-2 mb-1">
+                <h3 className="text-sm md:text-base font-semibold text-foreground group-hover:text-primary transition-colors">
+                  {displayTitle}
+                </h3>
+                {item.badge && (
+                  <span className="bg-gradient-to-r from-primary/20 to-primary/10 text-primary text-[9px] md:text-[10px] font-semibold px-1.5 md:px-2 py-0.5 rounded-full uppercase tracking-wider border border-primary/20">
+                    {item.badge}
+                  </span>
+                )}
+              </div>
+              <p className="text-muted-foreground/80 text-xs md:text-sm line-clamp-2 group-hover:text-muted-foreground transition-colors">
+                {displayDescription}
+              </p>
+            </div>
+
+            <div className="mt-2 md:mt-3 flex items-center text-[10px] md:text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-[-10px] group-hover:translate-x-0">
+              {tCard('toolCard.launchTool')} <ArrowRight size={10} className="md:w-3 md:h-3 ml-1 md:ml-1.5 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </CardContent>
+        </Card>
+      </Link>
+    </div>
+  );
+};
+
 const DashboardPage: React.FC = () => {
   const t = useTranslations('Dashboard');
   const tTabs = useTranslations('Dashboard.tabs');
   const { user, loading } = useAuth(false); // Dashboard shows for all users
-  const pinnedTools = usePinnedToolsStore((s) => s.pinnedTools);
-  const togglePin = usePinnedToolsStore((s) => s.togglePin);
-  const favorites = pinnedTools;
-  const isFavorite = (id: string) => pinnedTools.includes(id);
-  const toggleFavorite = togglePin;
   const { getRecentlyUsedTools } = useToolUsage();
   const { isToolEnabled } = useToolVisibility();
-  const [favoriteItems, setFavoriteItems] = useState<FavoriteItem[]>([]);
   const [recentlyUsedItems, setRecentlyUsedItems] = useState<FavoriteItem[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [filterGroup, setFilterGroup] = useState<string | null>(null);
   const isMobile = useMediaQuery("(max-width: 768px)");
   const searchInputRef = useRef<HTMLInputElement>(null);
-
-  // Update favoriteItems whenever favorites change
-  useEffect(() => {
-    const items = favorites.map(id => {
-      const item = findItemById(id);
-      return item ? { id, ...item } : null;
-    }).filter((item): item is FavoriteItem => {
-      if (!item) return false;
-      if (isMobile && item.hiddenOnMobile) return false;
-      return true;
-    });
-
-    setFavoriteItems(items);
-  }, [favorites, isMobile]);
 
   // Get recently used tools
   useEffect(() => {
@@ -170,11 +220,42 @@ const DashboardPage: React.FC = () => {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // Filter tools based on search query and mobile visibility
+  // Group titles for category filter chips
+  const groupTitles = useMemo(() => {
+    return sidebarData.navGroups
+      .filter(g => !(isMobile && g.hiddenOnMobile))
+      .map(g => g.title);
+  }, [isMobile]);
+
+  // Tools with a badge — shown in the "What's New" section
+  const whatsNewItems = useMemo<RenderToolItem[]>(() => {
+    const items: RenderToolItem[] = [];
+    sidebarData.navGroups.forEach((group, groupIndex) => {
+      if (isMobile && group.hiddenOnMobile) return;
+      group.items.forEach((item, itemIndex) => {
+        if (isMobile && item.hiddenOnMobile) return;
+        const url = typeof item.url === 'string' ? item.url : item.url?.toString() || '';
+        if (url.startsWith('/app/') && !isToolEnabled(url)) return;
+        if (item.badge) {
+          items.push({ ...item, originalId: createItemId(groupIndex, itemIndex) });
+        }
+        item.items?.forEach((subItem, subIndex) => {
+          if (isMobile && subItem.hiddenOnMobile) return;
+          if (subItem.badge) {
+            items.push({ ...subItem, icon: subItem.icon || item.icon, originalId: createItemId(groupIndex, itemIndex, subIndex) });
+          }
+        });
+      });
+    });
+    return items;
+  }, [isMobile, isToolEnabled]);
+
+  // Filter tools based on search query, mobile visibility, and active group filter
   const filteredGroups = useMemo<RenderGroup[]>(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
     const mobileFilteredGroups = sidebarData.navGroups.map((group, groupIndex) => {
       if (isMobile && group.hiddenOnMobile) return null;
+      if (filterGroup && group.title !== filterGroup) return null;
 
       const visibleItems = group.items
         .map((item, itemIndex) => ({ item, itemIndex }))
@@ -260,7 +341,7 @@ const DashboardPage: React.FC = () => {
     }).filter((group): group is RenderGroup => group !== null);
 
     return mobileFilteredGroups;
-  }, [isMobile, searchQuery, isToolEnabled]);
+  }, [isMobile, searchQuery, filterGroup, isToolEnabled]);
 
   // Calculate total tools count (only enabled tools)
   const totalTools = useMemo(() => {
@@ -284,82 +365,7 @@ const DashboardPage: React.FC = () => {
     );
   }
 
-  // Component for rendering a tool card
-  const ToolCard = ({ item, id, index }: { item: ToolItem, id: string, index: number }) => {
-    const tCard = useTranslations('Dashboard');
-    const tTools = useTranslations('Dashboard.tools');
-    const pathname = item.url?.toString().split('?')[0] ?? '';
-    const toolKey = TOOL_PATH_TO_MESSAGE_KEY[pathname];
-    const displayTitle = toolKey ? tTools(`${toolKey}.title` as Parameters<typeof tTools>[0]) : item.title;
-    const displayDescription = toolKey
-      ? tTools(`${toolKey}.description` as Parameters<typeof tTools>[0])
-      : item.description || tCard('toolCard.defaultDescription');
-
-    const itemRequiresAuth = item.url ? requiresAuth(item.url.toString()) : false;
-
-    const handleClick = (e: React.MouseEvent) => {
-      if (itemRequiresAuth && !user) {
-        e.preventDefault();
-        window.location.href = '/login';
-      }
-    };
-
-    return (
-      <div
-        className="card-gradient-border rounded-xl animate-in fade-in slide-in-from-bottom-4 duration-300"
-        style={{ animationDelay: `${Math.min(index * 50, 300)}ms`, animationFillMode: 'both' }}
-      >
-        <Link href={item.url || "#"} className="block group h-full" onClick={handleClick}>
-          <Card className="glass-card border-border/30 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 h-full min-h-[130px] md:min-h-[180px] relative overflow-hidden group-hover:-translate-y-0.5 md:group-hover:-translate-y-1.5">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-            <CardContent className="p-3 md:p-5 h-full flex flex-col justify-between relative z-10">
-              <div className="flex justify-between items-start mb-2 md:mb-4">
-                <div className="p-2 md:p-3 rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 text-primary group-hover:scale-110 transition-all duration-300 icon-container-pulse">
-                  {item.icon ? <item.icon size={18} strokeWidth={1.5} className="md:w-[22px] md:h-[22px]" /> : <Sparkles size={18} strokeWidth={1.5} className="md:w-[22px] md:h-[22px]" />}
-                </div>
-                <div
-                  className="p-2 rounded-full hover:bg-muted/80 transition-colors z-20 cursor-pointer"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    toggleFavorite(id);
-                  }}
-                >
-                  <Heart
-                    className={`transition-all duration-300 ${isFavorite(id)
-                      ? "text-red-500 fill-red-500 scale-110"
-                      : "text-muted-foreground/60 hover:text-red-500"}`}
-                    size={16}
-                  />
-                </div>
-              </div>
-
-              <div className="flex-1">
-                <div className="flex items-center gap-1.5 md:gap-2 mb-1">
-                  <h3 className="text-sm md:text-base font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {displayTitle}
-                  </h3>
-                  {item.badge && (
-                    <span className="bg-gradient-to-r from-primary/20 to-primary/10 text-primary text-[9px] md:text-[10px] font-semibold px-1.5 md:px-2 py-0.5 rounded-full uppercase tracking-wider border border-primary/20">
-                      {item.badge}
-                    </span>
-                  )}
-                </div>
-                <p className="text-muted-foreground/80 text-xs md:text-sm line-clamp-2 group-hover:text-muted-foreground transition-colors">
-                  {displayDescription}
-                </p>
-              </div>
-
-              <div className="mt-2 md:mt-3 flex items-center text-[10px] md:text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-[-10px] group-hover:translate-x-0">
-                {tCard('toolCard.launchTool')} <ArrowRight size={10} className="md:w-3 md:h-3 ml-1 md:ml-1.5 group-hover:translate-x-1 transition-transform" />
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
-      </div>
-    );
-  };
+  const toolCardProps = { user };
 
   return (
     <div className="min-h-screen bg-background/50 dashboard-grid-bg mobile-nav-offset">
@@ -383,10 +389,6 @@ const DashboardPage: React.FC = () => {
             <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-muted/50 min-h-[32px]">
               <Layers size={14} className="text-primary shrink-0" />
               <span className="text-xs font-semibold">{totalTools}</span>
-            </div>
-            <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-muted/50 min-h-[32px]">
-              <Heart size={14} className="text-red-500 shrink-0" />
-              <span className="text-xs font-semibold">{favorites.length}</span>
             </div>
           </div>
         </div>
@@ -422,15 +424,6 @@ const DashboardPage: React.FC = () => {
                     <p className="text-xs md:text-sm font-semibold">{totalTools}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-1.5 md:gap-2 px-2.5 md:px-4 py-2 md:py-2.5 rounded-lg md:rounded-xl glass-card stats-glow">
-                  <div className="p-1 md:p-1.5 rounded-md md:rounded-lg bg-red-500/10">
-                    <Heart size={14} className="md:w-4 md:h-4 text-red-500" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] md:text-xs text-muted-foreground">{t('stats.favorites')}</p>
-                    <p className="text-xs md:text-sm font-semibold">{favorites.length}</p>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -448,147 +441,190 @@ const DashboardPage: React.FC = () => {
             </TabsList>
 
             <TabsContent value="apps" className="mt-0 space-y-5 md:space-y-8 focus-visible:outline-none">
-          <div className="sticky top-[56px] md:top-0 z-30 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border border-border/40 rounded-xl px-3 py-2">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                ref={searchInputRef}
-                value={searchQuery}
-                onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder={`${t('stats.tools')}...`}
-                className="pl-9 pr-20 h-10"
-              />
-              <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
-                {searchQuery && (
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="h-7 w-7"
-                    onClick={() => setSearchQuery("")}
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
-                )}
-                <span className="hidden md:inline-flex items-center rounded-md border border-border/60 px-1.5 py-0.5 text-[10px] text-muted-foreground">
-                  Ctrl/⌘ K
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Recently Used Tools - Only show when no search query */}
-          {user && recentlyUsedItems.length > 0 && !searchQuery && (
-            <section className="space-y-3 md:space-y-5">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3 section-header-line pb-2">
-                  <div className="p-2 rounded-xl bg-blue-500/10 text-blue-500">
-                    <Clock size={18} strokeWidth={1.5} />
-                  </div>
-                  <h2 className="text-xl font-semibold">{t('sections.recentlyUsed')}</h2>
-                  <span className="text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
-                    {recentlyUsedItems.length}
-                  </span>
-                </div>
-              </div>
-              {/* Horizontal scroll on mobile, grid on larger screens */}
-              <div className="md:hidden -mx-4 px-4">
-                <div className="flex gap-3 overflow-x-auto scroll-snap-x pb-2 mobile-scrollbar-hide">
-                  {recentlyUsedItems.map((item, index) => (
-                    <div key={`recent-mobile-${item.id}`} className="scroll-snap-item w-[280px] flex-shrink-0">
-                      <ToolCard item={item} id={item.id} index={index} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-4">
-                {recentlyUsedItems.map((item, index) => (
-                  <ToolCard key={`recent-${item.id}`} item={item} id={item.id} index={index} />
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* Favorites Section - Only show when no search query */}
-          {user && favorites.length > 0 && !searchQuery && (
-            <section className="space-y-3 md:space-y-5">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3 section-header-line pb-2">
-                  <div className="p-2 rounded-xl bg-red-500/10 text-red-500">
-                    <Heart size={18} strokeWidth={1.5} />
-                  </div>
-                  <h2 className="text-xl font-semibold">{t('sections.favorites')}</h2>
-                  <span className="text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
-                    {favoriteItems.length}
-                  </span>
-                </div>
-              </div>
-              {/* Horizontal scroll on mobile, grid on larger screens */}
-              <div className="md:hidden -mx-4 px-4">
-                <div className="flex gap-3 overflow-x-auto scroll-snap-x pb-2 mobile-scrollbar-hide">
-                  {favoriteItems.map((item, index) => (
-                    <div key={`fav-mobile-${item.id}`} className="scroll-snap-item w-[280px] flex-shrink-0">
-                      <ToolCard item={item} id={item.id} index={index} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-4">
-                {favoriteItems.map((item, index) => (
-                  <ToolCard key={`fav-${item.id}`} item={item} id={item.id} index={index} />
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* All Tools / Search Results */}
-          <div className="space-y-5 md:space-y-8">
-            {filteredGroups.map((group, groupIndex) => (
-              <section key={`${group.title}-${group.originalGroupIndex}`} className="space-y-5">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3 section-header-line pb-2">
-                    <div className="p-2 rounded-xl bg-primary/10 text-primary">
-                      {group.icon ? <group.icon size={18} strokeWidth={1.5} /> : <Sparkles size={18} strokeWidth={1.5} />}
-                    </div>
-                    <h2 className="text-xl font-semibold">{groupDisplayTitle(group.title, t)}</h2>
-                    <span className="text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
-                      {group.items.reduce((acc, item) => acc + (item.items ? item.items.length : 1), 0)}
+              {/* Search + category filter chips */}
+              <div className="sticky top-[56px] md:top-0 z-30 space-y-2 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border border-border/40 rounded-xl px-3 py-2">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    ref={searchInputRef}
+                    value={searchQuery}
+                    onChange={(event) => setSearchQuery(event.target.value)}
+                    placeholder={`${t('stats.tools')}...`}
+                    className="pl-9 pr-20 h-10"
+                  />
+                  <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                    {searchQuery && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="h-7 w-7"
+                        onClick={() => setSearchQuery("")}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    )}
+                    <span className="hidden md:inline-flex items-center rounded-md border border-border/60 px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                      Ctrl/⌘ K
                     </span>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
-                  {group.items.map((item: any, itemIndex) => (
-                    <React.Fragment key={`${groupIndex}-${itemIndex}`}>
-                      {/* Render search result items (flattened) */}
-                      {item.originalId && (
-                        <ToolCard
-                          item={item}
-                          id={item.originalId}
-                          index={itemIndex}
-                        />
+                {/* Category filter chips */}
+                <div className="flex flex-wrap gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => setFilterGroup(null)}
+                    className={cn(
+                      "px-3 py-1 rounded-full text-xs font-medium border transition-colors",
+                      filterGroup === null
+                        ? "bg-primary text-primary-foreground border-primary"
+                        : "bg-muted/50 text-muted-foreground border-border/50 hover:border-primary/40 hover:text-foreground"
+                    )}
+                  >
+                    {t('filterAll')}
+                  </button>
+                  {groupTitles.map((title) => (
+                    <button
+                      key={title}
+                      type="button"
+                      onClick={() => setFilterGroup(filterGroup === title ? null : title)}
+                      className={cn(
+                        "px-3 py-1 rounded-full text-xs font-medium border transition-colors",
+                        filterGroup === title
+                          ? "bg-primary text-primary-foreground border-primary"
+                          : "bg-muted/50 text-muted-foreground border-border/50 hover:border-primary/40 hover:text-foreground"
                       )}
-
-                      {/* Render nested items directly in the grid (only when not searching) */}
-                      {item.items && item.items.map((subItem: ToolItem, subIndex: number) => (
-                        <ToolCard
-                          key={`${groupIndex}-${itemIndex}-${subIndex}`}
-                          item={{ ...subItem, icon: item.icon }}
-                          id={createItemId(group.originalGroupIndex, itemIndex, subIndex)}
-                          index={subIndex}
-                        />
-                      ))}
-                    </React.Fragment>
+                    >
+                      {groupDisplayTitle(title, t)}
+                    </button>
                   ))}
                 </div>
-              </section>
-            ))}
-            {searchQuery && filteredGroups.length === 0 && (
-              <div className="rounded-xl border border-dashed border-border p-10 text-center">
-                <p className="text-sm font-medium text-foreground">{t('toolCard.defaultDescription')}</p>
-                <p className="mt-1 text-xs text-muted-foreground">{searchQuery}</p>
               </div>
-            )}
-          </div>
+
+              {/* What's New — only visible when not searching and no group filter active */}
+              {whatsNewItems.length > 0 && !searchQuery && !filterGroup && (
+                <section className="space-y-3 md:space-y-5">
+                  <div className="flex items-center gap-3 section-header-line pb-2">
+                    <div className="p-2 rounded-xl bg-violet-500/10 text-violet-500">
+                      <Wand2 size={18} strokeWidth={1.5} />
+                    </div>
+                    <h2 className="text-xl font-semibold">{t('sections.whatsNew')}</h2>
+                    <span className="text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
+                      {whatsNewItems.length}
+                    </span>
+                  </div>
+                  <div className="md:hidden -mx-4 px-4">
+                    <div className="flex gap-3 overflow-x-auto scroll-snap-x pb-2 mobile-scrollbar-hide">
+                      {whatsNewItems.map((item, index) => (
+                        <div key={`new-mobile-${item.originalId}`} className="scroll-snap-item w-[280px] flex-shrink-0">
+                          <ToolCard item={item} id={item.originalId!} index={index} {...toolCardProps} />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    {whatsNewItems.map((item, index) => (
+                      <ToolCard key={`new-${item.originalId}`} item={item} id={item.originalId!} index={index} {...toolCardProps} />
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {/* Recently Used — only when logged in and no search query */}
+              {user && recentlyUsedItems.length > 0 && !searchQuery && (
+                <section className="space-y-3 md:space-y-5">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3 section-header-line pb-2">
+                      <div className="p-2 rounded-xl bg-blue-500/10 text-blue-500">
+                        <Clock size={18} strokeWidth={1.5} />
+                      </div>
+                      <h2 className="text-xl font-semibold">{t('sections.recentlyUsed')}</h2>
+                      <span className="text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
+                        {recentlyUsedItems.length}
+                      </span>
+                    </div>
+                  </div>
+                  {/* Horizontal scroll on mobile, grid on larger screens */}
+                  <div className="md:hidden -mx-4 px-4">
+                    <div className="flex gap-3 overflow-x-auto scroll-snap-x pb-2 mobile-scrollbar-hide">
+                      {recentlyUsedItems.map((item, index) => (
+                        <div key={`recent-mobile-${item.id}`} className="scroll-snap-item w-[280px] flex-shrink-0">
+                          <ToolCard item={item} id={item.id} index={index} {...toolCardProps} />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    {recentlyUsedItems.map((item, index) => (
+                      <ToolCard key={`recent-${item.id}`} item={item} id={item.id} index={index} {...toolCardProps} />
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {/* Non-auth CTA — shown when logged out and not searching */}
+              {!user && !searchQuery && (
+                <div className="flex items-center gap-3 rounded-xl border border-border/40 bg-muted/30 px-4 py-3">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                    <LogIn size={18} strokeWidth={1.5} />
+                  </div>
+                  <p className="flex-1 text-sm text-muted-foreground">{t('loginCta.description')}</p>
+                  <Button size="sm" className="shrink-0 rounded-lg" asChild>
+                    <Link href="/login">{t('signIn')}</Link>
+                  </Button>
+                </div>
+              )}
+
+              {/* All Tools / Search Results */}
+              <div className="space-y-5 md:space-y-8">
+                {filteredGroups.map((group, groupIndex) => (
+                  <section key={`${group.title}-${group.originalGroupIndex}`} className="space-y-5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3 section-header-line pb-2">
+                        <div className="p-2 rounded-xl bg-primary/10 text-primary">
+                          {group.icon ? <group.icon size={18} strokeWidth={1.5} /> : <Sparkles size={18} strokeWidth={1.5} />}
+                        </div>
+                        <h2 className="text-xl font-semibold">{groupDisplayTitle(group.title, t)}</h2>
+                        <span className="text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
+                          {group.items.reduce((acc, item) => acc + (item.items ? item.items.length : 1), 0)}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
+                      {group.items.map((item: any, itemIndex) => (
+                        <React.Fragment key={`${groupIndex}-${itemIndex}`}>
+                          {/* Render search result items (flattened) */}
+                          {item.originalId && (
+                            <ToolCard
+                              item={item}
+                              id={item.originalId}
+                              index={itemIndex}
+                              {...toolCardProps}
+                            />
+                          )}
+
+                          {/* Render nested items directly in the grid (only when not searching) */}
+                          {item.items && item.items.map((subItem: ToolItem, subIndex: number) => (
+                            <ToolCard
+                              key={`${groupIndex}-${itemIndex}-${subIndex}`}
+                              item={{ ...subItem, icon: item.icon }}
+                              id={createItemId(group.originalGroupIndex, itemIndex, subIndex)}
+                              index={subIndex}
+                              {...toolCardProps}
+                            />
+                          ))}
+                        </React.Fragment>
+                      ))}
+                    </div>
+                  </section>
+                ))}
+                {(searchQuery || filterGroup) && filteredGroups.length === 0 && (
+                  <div className="rounded-xl border border-dashed border-border p-10 text-center">
+                    <p className="text-sm font-medium text-foreground">{t('noResults')}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">{t('noResultsHint')}</p>
+                  </div>
+                )}
+              </div>
             </TabsContent>
 
             <TabsContent value="analytics" className="mt-0 rounded-2xl focus-visible:outline-none">

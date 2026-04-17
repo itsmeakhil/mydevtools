@@ -112,6 +112,7 @@ export const sidebarData: SidebarData = {
           icon: IconCertificate,
           description: 'Decode X.509 certificates and CSRs: subject, issuer, validity, SANs.',
           hiddenOnMobile: true,
+          badge: 'new',
         },
         {
           title: 'Password Manager',
@@ -255,6 +256,7 @@ export const sidebarData: SidebarData = {
           icon: IconBrandGraphql,
           description: 'Format GraphQL with syntax highlighting and a query builder.',
           hiddenOnMobile: true,
+          badge: 'new',
         },
         {
           title: 'Timestamp Converter',

@@ -196,6 +196,12 @@
     }
   },
   "Dashboard": {
+    "noResults": "No tools match your search",
+    "noResultsHint": "Try a different keyword or clear the filter.",
+    "filterAll": "All",
+    "loginCta": {
+      "description": "Sign in to track your recently used tools."
+    },
     "greeting": {
       "morning": "Good morning",
       "afternoon": "Good afternoon",
@@ -213,7 +219,8 @@
     },
     "sections": {
       "recentlyUsed": "Recently Used",
-      "favorites": "Favorites"
+      "favorites": "Favorites",
+      "whatsNew": "What's New"
     },
     "groups": {
       "apps": "Apps"

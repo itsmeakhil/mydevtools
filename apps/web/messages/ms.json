@@ -196,6 +196,12 @@
     }
   },
   "Dashboard": {
+    "noResults": "Tiada alat yang sepadan dengan carian anda",
+    "noResultsHint": "Cuba kata kunci lain atau kosongkan penapis.",
+    "filterAll": "Semua",
+    "loginCta": {
+      "description": "Log masuk untuk menjejak alat yang baru digunakan."
+    },
     "greeting": {
       "morning": "Selamat pagi",
       "afternoon": "Selamat petang",
@@ -212,7 +218,8 @@
     },
     "sections": {
       "recentlyUsed": "Baru Digunakan",
-      "favorites": "Kegemaran"
+      "favorites": "Kegemaran",
+      "whatsNew": "Yang Baru"
     },
     "groups": {
       "apps": "Aplikasi"
