@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL Ayrıştırıcı",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL Ayrıştırıcı",
+        "description": "Bir URL'yi protokol, host, yol, sorgu parametreleri ve hash olarak ayırın."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "Geçersiz yüzde kodlama. Eksik % çiftlerini veya hatalı kaçış dizilerini kontrol edin.",
       "encodeFailed": "Kodlanamadı (girdide geçersiz Unicode)."
+    }
+  },
+  "UrlParser": {
+    "title": "URL Ayrıştırıcı",
+    "subtitle": "Bir URL'yi protokol, host, yol, sorgu parametreleri ve hash (parça) olarak ayırın.",
+    "upload": "Yükle",
+    "clear": "Temizle",
+    "panels": {
+      "input": "URL girişi",
+      "output": "Sonuç"
+    },
+    "placeholders": {
+      "input": "Bir URL yapıştırın (örn. https://example.com/path?foo=bar#section) veya host/yol (örn. example.com/path)…"
+    },
+    "dropHere": "Dosyayı buraya bırakın",
+    "charCount": "{count} karakter",
+    "outputPlaceholder": "Ayrıştırılan bileşenler burada görünecek…",
+    "fields": {
+      "protocol": "Protokol",
+      "host": "Host",
+      "path": "Yol",
+      "hash": "Hash",
+      "queryParams": "Sorgu parametreleri"
+    },
+    "paramCount": "{count} parametre",
+    "noParams": "Sorgu parametresi yok.",
+    "paramKey": "Anahtar",
+    "paramValue": "Değer",
+    "copyTitle": "Panoya kopyala",
+    "copyParamTitle": "key=value olarak kopyala",
+    "download": {
+      "title": "JSON indir",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Geçersiz URL. Bir hostname (example.com) ekleyin ve karakterleri kontrol edin."
     }
   },
   "UuidGenerator": {

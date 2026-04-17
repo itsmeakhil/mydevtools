@@ -17,6 +17,7 @@
     "cronBuilder": "Constructeur Cron",
     "base64Encoder": "Encodeur Base64",
     "urlEncoder": "Encodeur d’URL",
+    "urlParser": "Analyseur d’URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Sélecteur de couleurs",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "Encodeur d’URL",
         "description": "Encoder et décoder en pourcentage les composants d’URL."
+      },
+      "urlParser": {
+        "title": "Analyseur d’URL",
+        "description": "Décomposer une URL en protocole, hôte, chemin, paramètres de requête et fragment."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "Encodage en pourcentage invalide. Vérifiez les paires % incomplètes ou les séquences d’échappement.",
       "encodeFailed": "Impossible d’encoder (Unicode invalide dans l’entrée)."
+    }
+  },
+  "UrlParser": {
+    "title": "Analyseur d’URL",
+    "subtitle": "Décompose une URL en protocole, hôte, chemin, paramètres de requête et fragment (#).",
+    "upload": "Téléverser",
+    "clear": "Effacer",
+    "panels": {
+      "input": "Entrée URL",
+      "output": "Résultat"
+    },
+    "placeholders": {
+      "input": "Collez une URL (ex. https://example.com/path?foo=bar#section) ou un hôte/chemin (ex. example.com/path)…"
+    },
+    "dropHere": "Déposez un fichier ici",
+    "charCount": "{count} caractères",
+    "outputPlaceholder": "Les composants analysés apparaîtront ici…",
+    "fields": {
+      "protocol": "Protocole",
+      "host": "Hôte",
+      "path": "Chemin",
+      "hash": "Fragment",
+      "queryParams": "Paramètres de requête"
+    },
+    "paramCount": "{count} paramètres",
+    "noParams": "Aucun paramètre de requête.",
+    "paramKey": "Clé",
+    "paramValue": "Valeur",
+    "copyTitle": "Copier dans le presse‑papiers",
+    "copyParamTitle": "Copier comme key=value",
+    "download": {
+      "title": "Télécharger le JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "URL invalide. Incluez un nom d’hôte (example.com) et vérifiez les caractères."
     }
   },
   "UuidGenerator": {

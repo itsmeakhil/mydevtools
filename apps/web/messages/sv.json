@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL-tolk",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL-tolk",
+        "description": "Dela upp en URL i protokoll, värd, sökväg, frågeparametrar och hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "Ogiltig procentkodning. Kontrollera ofullständiga %‑par eller escapes.",
       "encodeFailed": "Kunde inte koda (ogiltig Unicode i indata)."
+    }
+  },
+  "UrlParser": {
+    "title": "URL-tolk",
+    "subtitle": "Dela upp en URL i protokoll, värd, sökväg, frågeparametrar och hash (fragment).",
+    "upload": "Ladda upp",
+    "clear": "Rensa",
+    "panels": {
+      "input": "URL-inmatning",
+      "output": "Resultat"
+    },
+    "placeholders": {
+      "input": "Klistra in en URL (t.ex. https://example.com/path?foo=bar#section) eller värd/sökväg (t.ex. example.com/path)…"
+    },
+    "dropHere": "Släpp fil här",
+    "charCount": "{count} tecken",
+    "outputPlaceholder": "De tolkade komponenterna visas här…",
+    "fields": {
+      "protocol": "Protokoll",
+      "host": "Värd",
+      "path": "Sökväg",
+      "hash": "Hash",
+      "queryParams": "Frågeparametrar"
+    },
+    "paramCount": "{count} parametrar",
+    "noParams": "Inga frågeparametrar.",
+    "paramKey": "Nyckel",
+    "paramValue": "Värde",
+    "copyTitle": "Kopiera till urklipp",
+    "copyParamTitle": "Kopiera som key=value",
+    "download": {
+      "title": "Ladda ner JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Ogiltig URL. Inkludera ett värdnamn (example.com) och kontrollera tecken."
     }
   },
   "UuidGenerator": {

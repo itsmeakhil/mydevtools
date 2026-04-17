@@ -254,6 +254,13 @@ export const sidebarData: SidebarData = {
           hiddenOnMobile: true,
         },
         {
+          title: 'URL Parser',
+          url: '/app/url-parser',
+          icon: IconLink,
+          description: 'Break a URL into protocol, host, path, query params, and hash.',
+          hiddenOnMobile: true,
+        },
+        {
           title: 'UUID / ULID',
           url: '/app/uuid-generator',
           icon: IconFingerprint,

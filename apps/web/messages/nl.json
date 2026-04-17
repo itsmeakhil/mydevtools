@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL-parser",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL-parser",
+        "description": "Splits een URL op in protocol, host, pad, queryparameters en hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "Ongeldige percent-codering. Controleer onvolledige %‑paren of escapes.",
       "encodeFailed": "Kon niet encoderen (ongeldige Unicode in invoer)."
+    }
+  },
+  "UrlParser": {
+    "title": "URL-parser",
+    "subtitle": "Splits een URL op in protocol, host, pad, queryparameters en hash (fragment).",
+    "upload": "Uploaden",
+    "clear": "Wissen",
+    "panels": {
+      "input": "URL-invoer",
+      "output": "Resultaat"
+    },
+    "placeholders": {
+      "input": "Plak een URL (bijv. https://example.com/path?foo=bar#section) of host/pad (bijv. example.com/path)…"
+    },
+    "dropHere": "Zet bestand hier neer",
+    "charCount": "{count} tekens",
+    "outputPlaceholder": "De geparseerde onderdelen verschijnen hier…",
+    "fields": {
+      "protocol": "Protocol",
+      "host": "Host",
+      "path": "Pad",
+      "hash": "Hash",
+      "queryParams": "Queryparameters"
+    },
+    "paramCount": "{count} parameters",
+    "noParams": "Geen queryparameters.",
+    "paramKey": "Sleutel",
+    "paramValue": "Waarde",
+    "copyTitle": "Kopiëren naar klembord",
+    "copyParamTitle": "Kopiëren als key=value",
+    "download": {
+      "title": "JSON downloaden",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Ongeldige URL. Voeg een hostname toe (example.com) en controleer tekens."
     }
   },
   "UuidGenerator": {

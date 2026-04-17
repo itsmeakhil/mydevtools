@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "Analitzador d’URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Analitzador d’URL",
+        "description": "Desglossa un URL en protocol, amfitrió, camí, paràmetres de consulta i hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "Codificació de percentatge no vàlida. Revisa parells % incomplets o seqüències d’escapament.",
       "encodeFailed": "No s’ha pogut codificar (Unicode no vàlid a l’entrada)."
+    }
+  },
+  "UrlParser": {
+    "title": "Analitzador d’URL",
+    "subtitle": "Desglossa un URL en protocol, amfitrió, camí, paràmetres de consulta i hash (fragment).",
+    "upload": "Puja",
+    "clear": "Neteja",
+    "panels": {
+      "input": "Entrada d’URL",
+      "output": "Resultat"
+    },
+    "placeholders": {
+      "input": "Enganxa un URL (p. ex. https://example.com/path?foo=bar#section) o amfitrió/camí (p. ex. example.com/path)…"
+    },
+    "dropHere": "Deixa el fitxer aquí",
+    "charCount": "{count} caràcters",
+    "outputPlaceholder": "Els components analitzats apareixeran aquí…",
+    "fields": {
+      "protocol": "Protocol",
+      "host": "Amfitrió",
+      "path": "Camí",
+      "hash": "Hash",
+      "queryParams": "Paràmetres de consulta"
+    },
+    "paramCount": "{count} paràmetres",
+    "noParams": "Sense paràmetres de consulta.",
+    "paramKey": "Clau",
+    "paramValue": "Valor",
+    "copyTitle": "Copia al porta-retalls",
+    "copyParamTitle": "Copia com a key=value",
+    "download": {
+      "title": "Baixa el JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "URL no vàlid. Inclou un nom d’amfitrió (example.com) i revisa els caràcters."
     }
   },
   "UuidGenerator": {

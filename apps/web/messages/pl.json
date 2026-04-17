@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "Parser URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Parser URL",
+        "description": "Podziel adres URL na protokół, host, ścieżkę, parametry zapytania i hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "Nieprawidłowe kodowanie procentowe. Sprawdź niekompletne pary % lub sekwencje escape.",
       "encodeFailed": "Nie można zakodować (nieprawidłowy Unicode w wejściu)."
+    }
+  },
+  "UrlParser": {
+    "title": "Parser URL",
+    "subtitle": "Podziel adres URL na protokół, host, ścieżkę, parametry zapytania i hash (fragment).",
+    "upload": "Prześlij",
+    "clear": "Wyczyść",
+    "panels": {
+      "input": "Wejście URL",
+      "output": "Wynik"
+    },
+    "placeholders": {
+      "input": "Wklej adres URL (np. https://example.com/path?foo=bar#section) lub host/ścieżkę (np. example.com/path)…"
+    },
+    "dropHere": "Upuść plik tutaj",
+    "charCount": "{count} znaków",
+    "outputPlaceholder": "Przeanalizowane składowe pojawią się tutaj…",
+    "fields": {
+      "protocol": "Protokół",
+      "host": "Host",
+      "path": "Ścieżka",
+      "hash": "Hash",
+      "queryParams": "Parametry zapytania"
+    },
+    "paramCount": "{count} parametrów",
+    "noParams": "Brak parametrów zapytania.",
+    "paramKey": "Klucz",
+    "paramValue": "Wartość",
+    "copyTitle": "Kopiuj do schowka",
+    "copyParamTitle": "Kopiuj jako key=value",
+    "download": {
+      "title": "Pobierz JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Nieprawidłowy URL. Podaj nazwę hosta (example.com) i sprawdź znaki."
     }
   },
   "UuidGenerator": {

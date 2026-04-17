@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "Парсер URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Парсер URL",
+        "description": "Розбийте URL на протокол, хост, шлях, параметри запиту та хеш."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "Некоректне percent-encoding. Перевірте неповні пари % або escape-послідовності.",
       "encodeFailed": "Не вдалося закодувати (некоректний Unicode у вводі)."
+    }
+  },
+  "UrlParser": {
+    "title": "Парсер URL",
+    "subtitle": "Розбийте URL на протокол, хост, шлях, параметри запиту та хеш (фрагмент).",
+    "upload": "Завантажити",
+    "clear": "Очистити",
+    "panels": {
+      "input": "Ввід URL",
+      "output": "Результат"
+    },
+    "placeholders": {
+      "input": "Вставте URL (наприклад, https://example.com/path?foo=bar#section) або хост/шлях (наприклад, example.com/path)…"
+    },
+    "dropHere": "Перетягніть файл сюди",
+    "charCount": "{count} символів",
+    "outputPlaceholder": "Розібрані компоненти з’являться тут…",
+    "fields": {
+      "protocol": "Протокол",
+      "host": "Хост",
+      "path": "Шлях",
+      "hash": "Хеш",
+      "queryParams": "Параметри запиту"
+    },
+    "paramCount": "{count} параметрів",
+    "noParams": "Параметрів запиту немає.",
+    "paramKey": "Ключ",
+    "paramValue": "Значення",
+    "copyTitle": "Копіювати в буфер обміну",
+    "copyParamTitle": "Копіювати як key=value",
+    "download": {
+      "title": "Завантажити JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Некоректний URL. Додайте hostname (example.com) і перевірте символи."
     }
   },
   "UuidGenerator": {

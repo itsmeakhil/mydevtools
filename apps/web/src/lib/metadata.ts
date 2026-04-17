@@ -72,6 +72,11 @@ export const toolsMetadata: Record<string, {
         description: 'Percent-encode or decode text for query strings and URI components with UTF-8 support.',
         keywords: ['url encode', 'url decode', 'percent encode', 'uri encode', 'encodeURIComponent']
     },
+    'url-parser': {
+        title: 'URL Parser',
+        description: 'Parse any URL into protocol, host, path, query parameters, and hash. Runs locally in your browser.',
+        keywords: ['url parser', 'parse url', 'url components', 'query params', 'hash fragment', 'protocol', 'hostname']
+    },
     'uuid-generator': {
         title: 'UUID / ULID Generator',
         description: 'Generate UUID v1–v7 or ULIDs with namespace options and bulk copy or download.',

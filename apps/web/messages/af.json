@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL-ontleder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL-ontleder",
+        "description": "Breek ’n URL af in protokol, gasheer, pad, navraagparameters en hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "Ongeldige persentasie-enkodering. Kontroleer onvolledige %‑pare of escapes.",
       "encodeFailed": "Kon nie enkodeer nie (ongeldige Unicode in invoer)."
+    }
+  },
+  "UrlParser": {
+    "title": "URL-ontleder",
+    "subtitle": "Breek ’n URL af in protokol, gasheer, pad, navraagparameters en hash (fragment).",
+    "upload": "Laai op",
+    "clear": "Maak skoon",
+    "panels": {
+      "input": "URL-invoer",
+      "output": "Ontleding"
+    },
+    "placeholders": {
+      "input": "Plak ’n URL (bv. https://example.com/path?foo=bar#section) of gasheer/pad (bv. example.com/path)…"
+    },
+    "dropHere": "Laat lêer hier val",
+    "charCount": "{count} karakters",
+    "outputPlaceholder": "Ontlede komponente sal hier verskyn…",
+    "fields": {
+      "protocol": "Protokol",
+      "host": "Gasheer",
+      "path": "Pad",
+      "hash": "Hash",
+      "queryParams": "Navraagparameters"
+    },
+    "paramCount": "{count} parameters",
+    "noParams": "Geen navraagparameters nie.",
+    "paramKey": "Sleutel",
+    "paramValue": "Waarde",
+    "copyTitle": "Kopieer na knipbord",
+    "copyParamTitle": "Kopieer as key=value",
+    "download": {
+      "title": "Laai JSON af",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Ongeldige URL. Sluit ’n gasheernaam in (example.com) en kontroleer karakters."
     }
   },
   "UuidGenerator": {

@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "Parser URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Parser URL",
+        "description": "Rozdělte URL na protokol, host, cestu, dotazové parametry a hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "Neplatné procentové kódování. Zkontrolujte neúplné dvojice % nebo chybné escape sekvence.",
       "encodeFailed": "Nepodařilo se enkódovat (neplatné Unicode ve vstupu)."
+    }
+  },
+  "UrlParser": {
+    "title": "Parser URL",
+    "subtitle": "Rozdělte URL na protokol, host, cestu, dotazové parametry a hash (fragment).",
+    "upload": "Nahrát",
+    "clear": "Vymazat",
+    "panels": {
+      "input": "Vstup URL",
+      "output": "Výsledek"
+    },
+    "placeholders": {
+      "input": "Vložte URL (např. https://example.com/path?foo=bar#section) nebo host/cestu (např. example.com/path)…"
+    },
+    "dropHere": "Přetáhněte soubor sem",
+    "charCount": "{count} znaků",
+    "outputPlaceholder": "Analyzované části se zobrazí zde…",
+    "fields": {
+      "protocol": "Protokol",
+      "host": "Host",
+      "path": "Cesta",
+      "hash": "Hash",
+      "queryParams": "Dotazové parametry"
+    },
+    "paramCount": "{count} parametrů",
+    "noParams": "Žádné dotazové parametry.",
+    "paramKey": "Klíč",
+    "paramValue": "Hodnota",
+    "copyTitle": "Kopírovat do schránky",
+    "copyParamTitle": "Kopírovat jako key=value",
+    "download": {
+      "title": "Stáhnout JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Neplatné URL. Uveďte hostname (example.com) a zkontrolujte znaky."
     }
   },
   "UuidGenerator": {

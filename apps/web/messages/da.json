@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL-parser",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL-parser",
+        "description": "Opdel en URL i protokol, vært, sti, forespørgselsparametre og hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "Ugyldig procentkodning. Tjek ufuldstændige %‑par eller escapes.",
       "encodeFailed": "Kunne ikke kode (ugyldig Unicode i input)."
+    }
+  },
+  "UrlParser": {
+    "title": "URL-parser",
+    "subtitle": "Opdel en URL i protokol, vært, sti, forespørgselsparametre og hash (fragment).",
+    "upload": "Upload",
+    "clear": "Ryd",
+    "panels": {
+      "input": "URL-input",
+      "output": "Resultat"
+    },
+    "placeholders": {
+      "input": "Indsæt en URL (fx https://example.com/path?foo=bar#section) eller vært/sti (fx example.com/path)…"
+    },
+    "dropHere": "Slip fil her",
+    "charCount": "{count} tegn",
+    "outputPlaceholder": "De parse‑de komponenter vises her…",
+    "fields": {
+      "protocol": "Protokol",
+      "host": "Vært",
+      "path": "Sti",
+      "hash": "Hash",
+      "queryParams": "Forespørgselsparametre"
+    },
+    "paramCount": "{count} parametre",
+    "noParams": "Ingen forespørgselsparametre.",
+    "paramKey": "Nøgle",
+    "paramValue": "Værdi",
+    "copyTitle": "Kopiér til udklipsholder",
+    "copyParamTitle": "Kopiér som key=value",
+    "download": {
+      "title": "Download JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Ugyldig URL. Inkludér et værtsnavn (example.com) og tjek tegn."
     }
   },
   "UuidGenerator": {

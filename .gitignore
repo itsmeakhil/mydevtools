@@ -25,7 +25,7 @@ pnpm-lock.yaml
 /out/
 apps/*/.next/
 apps/*/out/
-
+apps/*/.agent
 # production
 /build
 

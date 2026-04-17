@@ -19,6 +19,7 @@
     "base64Encoder": "Base64 Encoder",
     "imageToBase64": "Image to Base64",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL Parser",
     "uuidGenerator": "UUID / ULID",
     "qrCodeGenerator": "QR Code Generator",
     "ipSubnetCalculator": "IP / Subnet Calculator",
@@ -346,6 +347,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL Parser",
+        "description": "Break a URL into protocol, host, path, query params, and hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2200,6 +2205,42 @@
     "errors": {
       "invalidEncoding": "Invalid percent-encoding. Check for incomplete % pairs or bad escape sequences.",
       "encodeFailed": "Could not encode (invalid Unicode in input)."
+    }
+  },
+  "UrlParser": {
+    "title": "URL Parser",
+    "subtitle": "Break a URL into protocol, host, path, query parameters, and hash (fragment).",
+    "upload": "Upload",
+    "clear": "Clear",
+    "panels": {
+      "input": "URL input",
+      "output": "Parsed output"
+    },
+    "placeholders": {
+      "input": "Paste a URL (e.g. https://example.com/path?foo=bar#section) or a host/path (e.g. example.com/path)…"
+    },
+    "dropHere": "Drop file here",
+    "charCount": "{count} chars",
+    "outputPlaceholder": "Parsed components will appear here…",
+    "fields": {
+      "protocol": "Protocol",
+      "host": "Host",
+      "path": "Path",
+      "hash": "Hash",
+      "queryParams": "Query parameters"
+    },
+    "paramCount": "{count} params",
+    "noParams": "No query parameters.",
+    "paramKey": "Key",
+    "paramValue": "Value",
+    "copyTitle": "Copy to clipboard",
+    "copyParamTitle": "Copy as key=value",
+    "download": {
+      "title": "Download JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Invalid URL. Include a hostname (example.com) and check for illegal characters."
     }
   },
   "UuidGenerator": {

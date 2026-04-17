@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL-parser",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL-parser",
+        "description": "Del opp en URL i protokoll, vert, sti, spørringsparametre og hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "Ugyldig prosentkoding. Sjekk ufullstendige %‑par eller escapes.",
       "encodeFailed": "Kunne ikke kode (ugyldig Unicode i input)."
+    }
+  },
+  "UrlParser": {
+    "title": "URL-parser",
+    "subtitle": "Del opp en URL i protokoll, vert, sti, spørringsparametre og hash (fragment).",
+    "upload": "Last opp",
+    "clear": "Tøm",
+    "panels": {
+      "input": "URL-inndata",
+      "output": "Resultat"
+    },
+    "placeholders": {
+      "input": "Lim inn en URL (f.eks. https://example.com/path?foo=bar#section) eller vert/sti (f.eks. example.com/path)…"
+    },
+    "dropHere": "Slipp fil her",
+    "charCount": "{count} tegn",
+    "outputPlaceholder": "De analyserte komponentene vises her…",
+    "fields": {
+      "protocol": "Protokoll",
+      "host": "Vert",
+      "path": "Sti",
+      "hash": "Hash",
+      "queryParams": "Spørringsparametre"
+    },
+    "paramCount": "{count} parametre",
+    "noParams": "Ingen spørringsparametre.",
+    "paramKey": "Nøkkel",
+    "paramValue": "Verdi",
+    "copyTitle": "Kopier til utklippstavlen",
+    "copyParamTitle": "Kopier som key=value",
+    "download": {
+      "title": "Last ned JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Ugyldig URL. Inkluder et vertsnavn (example.com) og sjekk tegn."
     }
   },
   "UuidGenerator": {

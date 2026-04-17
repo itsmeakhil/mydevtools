@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "Analisador de URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Analisador de URL",
+        "description": "Divida um URL em protocolo, host, caminho, parâmetros de query e hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "Codificação por percentagem inválida. Verifique pares % incompletos ou escapes.",
       "encodeFailed": "Não foi possível codificar (Unicode inválido na entrada)."
+    }
+  },
+  "UrlParser": {
+    "title": "Analisador de URL",
+    "subtitle": "Divida um URL em protocolo, host, caminho, parâmetros de query e hash (fragmento).",
+    "upload": "Carregar",
+    "clear": "Limpar",
+    "panels": {
+      "input": "Entrada de URL",
+      "output": "Saída"
+    },
+    "placeholders": {
+      "input": "Cole um URL (ex.: https://example.com/path?foo=bar#section) ou um host/caminho (ex.: example.com/path)…"
+    },
+    "dropHere": "Solte o arquivo aqui",
+    "charCount": "{count} caracteres",
+    "outputPlaceholder": "Os componentes analisados aparecerão aqui…",
+    "fields": {
+      "protocol": "Protocolo",
+      "host": "Host",
+      "path": "Caminho",
+      "hash": "Hash",
+      "queryParams": "Parâmetros de query"
+    },
+    "paramCount": "{count} parâmetros",
+    "noParams": "Sem parâmetros de query.",
+    "paramKey": "Chave",
+    "paramValue": "Valor",
+    "copyTitle": "Copiar para a área de transferência",
+    "copyParamTitle": "Copiar como key=value",
+    "download": {
+      "title": "Baixar JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "URL inválido. Inclua um hostname (example.com) e verifique os caracteres."
     }
   },
   "UuidGenerator": {

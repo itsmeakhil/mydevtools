@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "Parser URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Parser URL",
+        "description": "Scompone un URL in protocollo, host, percorso, parametri di query e hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "Percent-encoding non valido. Verifica coppie % incomplete o sequenze di escape.",
       "encodeFailed": "Impossibile codificare (Unicode non valido nell’input)."
+    }
+  },
+  "UrlParser": {
+    "title": "Parser URL",
+    "subtitle": "Scompone un URL in protocollo, host, percorso, parametri di query e hash (frammento).",
+    "upload": "Carica",
+    "clear": "Pulisci",
+    "panels": {
+      "input": "Input URL",
+      "output": "Output"
+    },
+    "placeholders": {
+      "input": "Incolla un URL (es. https://example.com/path?foo=bar#section) o un host/percorso (es. example.com/path)…"
+    },
+    "dropHere": "Rilascia qui il file",
+    "charCount": "{count} caratteri",
+    "outputPlaceholder": "I componenti analizzati appariranno qui…",
+    "fields": {
+      "protocol": "Protocollo",
+      "host": "Host",
+      "path": "Percorso",
+      "hash": "Hash",
+      "queryParams": "Parametri di query"
+    },
+    "paramCount": "{count} parametri",
+    "noParams": "Nessun parametro di query.",
+    "paramKey": "Chiave",
+    "paramValue": "Valore",
+    "copyTitle": "Copia negli appunti",
+    "copyParamTitle": "Copia come key=value",
+    "download": {
+      "title": "Scarica JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "URL non valido. Includi un hostname (example.com) e controlla i caratteri."
     }
   },
   "UuidGenerator": {

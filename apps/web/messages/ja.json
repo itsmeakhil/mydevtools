@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL パーサー",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL パーサー",
+        "description": "URL をプロトコル、ホスト、パス、クエリパラメータ、ハッシュに分解します。"
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "パーセントエンコードが無効です。不完全な % ペアや不正なエスケープを確認してください。",
       "encodeFailed": "エンコードできません（入力に無効な Unicode）。"
+    }
+  },
+  "UrlParser": {
+    "title": "URL パーサー",
+    "subtitle": "URL をプロトコル、ホスト、パス、クエリパラメータ、ハッシュ（フラグメント）に分解します。",
+    "upload": "アップロード",
+    "clear": "クリア",
+    "panels": {
+      "input": "URL 入力",
+      "output": "解析結果"
+    },
+    "placeholders": {
+      "input": "URL を貼り付け（例: https://example.com/path?foo=bar#section）またはホスト/パス（例: example.com/path）…"
+    },
+    "dropHere": "ここにファイルをドロップ",
+    "charCount": "{count} 文字",
+    "outputPlaceholder": "解析されたコンポーネントがここに表示されます…",
+    "fields": {
+      "protocol": "プロトコル",
+      "host": "ホスト",
+      "path": "パス",
+      "hash": "ハッシュ",
+      "queryParams": "クエリパラメータ"
+    },
+    "paramCount": "{count} 件",
+    "noParams": "クエリパラメータはありません。",
+    "paramKey": "キー",
+    "paramValue": "値",
+    "copyTitle": "クリップボードにコピー",
+    "copyParamTitle": "key=value としてコピー",
+    "download": {
+      "title": "JSON をダウンロード",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "URL が無効です。ホスト名（example.com）を含め、文字を確認してください。"
     }
   },
   "UuidGenerator": {

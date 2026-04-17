@@ -17,6 +17,7 @@
     "cronBuilder": "Cron-Editor",
     "base64Encoder": "Base64-Kodierung",
     "urlEncoder": "URL-Kodierung",
+    "urlParser": "URL-Parser",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Farbauswahl",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL-Kodierung",
         "description": "URL-Bestandteile prozentkodieren und dekodieren."
+      },
+      "urlParser": {
+        "title": "URL-Parser",
+        "description": "Eine URL in Protokoll, Host, Pfad, Query-Parameter und Hash aufteilen."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "Ungültige Prozentkodierung. Prüfe unvollständige %‑Paare oder Escape-Sequenzen.",
       "encodeFailed": "Konnte nicht kodieren (ungültiges Unicode in der Eingabe)."
+    }
+  },
+  "UrlParser": {
+    "title": "URL-Parser",
+    "subtitle": "Eine URL in Protokoll, Host, Pfad, Query-Parameter und Hash (Fragment) aufteilen.",
+    "upload": "Hochladen",
+    "clear": "Leeren",
+    "panels": {
+      "input": "URL-Eingabe",
+      "output": "Ergebnis"
+    },
+    "placeholders": {
+      "input": "URL einfügen (z. B. https://example.com/path?foo=bar#section) oder Host/Pfad (z. B. example.com/path)…"
+    },
+    "dropHere": "Datei hier ablegen",
+    "charCount": "{count} Zeichen",
+    "outputPlaceholder": "Die geparsten Komponenten erscheinen hier…",
+    "fields": {
+      "protocol": "Protokoll",
+      "host": "Host",
+      "path": "Pfad",
+      "hash": "Hash",
+      "queryParams": "Query-Parameter"
+    },
+    "paramCount": "{count} Parameter",
+    "noParams": "Keine Query-Parameter.",
+    "paramKey": "Schlüssel",
+    "paramValue": "Wert",
+    "copyTitle": "In die Zwischenablage kopieren",
+    "copyParamTitle": "Als key=value kopieren",
+    "download": {
+      "title": "JSON herunterladen",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Ungültige URL. Bitte Hostname (example.com) angeben und Zeichen prüfen."
     }
   },
   "UuidGenerator": {

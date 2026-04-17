@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "Αναλυτής URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Αναλυτής URL",
+        "description": "Χωρίστε ένα URL σε πρωτόκολλο, κεντρικό υπολογιστή, διαδρομή, παραμέτρους ερωτήματος και hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "Μη έγκυρο percent-encoding. Ελέγξτε για ελλιπή ζεύγη % ή λάθος ακολουθίες διαφυγής.",
       "encodeFailed": "Δεν ήταν δυνατή η κωδικοποίηση (μη έγκυρο Unicode στην είσοδο)."
+    }
+  },
+  "UrlParser": {
+    "title": "Αναλυτής URL",
+    "subtitle": "Χωρίστε ένα URL σε πρωτόκολλο, κεντρικό υπολογιστή, διαδρομή, παραμέτρους ερωτήματος και hash (τμήμα).",
+    "upload": "Μεταφόρτωση",
+    "clear": "Εκκαθάριση",
+    "panels": {
+      "input": "Είσοδος URL",
+      "output": "Αποτέλεσμα"
+    },
+    "placeholders": {
+      "input": "Επικολλήστε ένα URL (π.χ. https://example.com/path?foo=bar#section) ή κεντρικό/διαδρομή (π.χ. example.com/path)…"
+    },
+    "dropHere": "Αποθέστε το αρχείο εδώ",
+    "charCount": "{count} χαρακτήρες",
+    "outputPlaceholder": "Τα αναλυμένα στοιχεία θα εμφανιστούν εδώ…",
+    "fields": {
+      "protocol": "Πρωτόκολλο",
+      "host": "Κεντρικός υπολογιστής",
+      "path": "Διαδρομή",
+      "hash": "Hash",
+      "queryParams": "Παράμετροι ερωτήματος"
+    },
+    "paramCount": "{count} παράμετροι",
+    "noParams": "Δεν υπάρχουν παράμετροι ερωτήματος.",
+    "paramKey": "Κλειδί",
+    "paramValue": "Τιμή",
+    "copyTitle": "Αντιγραφή στο πρόχειρο",
+    "copyParamTitle": "Αντιγραφή ως key=value",
+    "download": {
+      "title": "Λήψη JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Μη έγκυρο URL. Συμπεριλάβετε όνομα κεντρικού υπολογιστή (example.com) και ελέγξτε τους χαρακτήρες."
     }
   },
   "UuidGenerator": {

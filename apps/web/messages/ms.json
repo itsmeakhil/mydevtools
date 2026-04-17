@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "Penghurai URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Penghurai URL",
+        "description": "Pecahkan URL kepada protokol, hos, laluan, parameter kueri, dan hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "Peratus-pengekodan tidak sah. Semak pasangan % tidak lengkap atau escape yang salah.",
       "encodeFailed": "Tidak dapat mengod (Unicode tidak sah dalam input)."
+    }
+  },
+  "UrlParser": {
+    "title": "Penghurai URL",
+    "subtitle": "Pecahkan URL kepada protokol, hos, laluan, parameter kueri, dan hash (fragmen).",
+    "upload": "Muat naik",
+    "clear": "Kosongkan",
+    "panels": {
+      "input": "Input URL",
+      "output": "Output dihuraikan"
+    },
+    "placeholders": {
+      "input": "Tampal URL (cth. https://example.com/path?foo=bar#section) atau hos/laluan (cth. example.com/path)…"
+    },
+    "dropHere": "Lepaskan fail di sini",
+    "charCount": "{count} aksara",
+    "outputPlaceholder": "Komponen yang dihuraikan akan muncul di sini…",
+    "fields": {
+      "protocol": "Protokol",
+      "host": "Hos",
+      "path": "Laluan",
+      "hash": "Hash",
+      "queryParams": "Parameter kueri"
+    },
+    "paramCount": "{count} parameter",
+    "noParams": "Tiada parameter kueri.",
+    "paramKey": "Kunci",
+    "paramValue": "Nilai",
+    "copyTitle": "Salin ke papan klip",
+    "copyParamTitle": "Salin sebagai key=value",
+    "download": {
+      "title": "Muat turun JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "URL tidak sah. Pastikan ada hostname (example.com) dan semak aksara yang tidak dibenarkan."
     }
   },
   "UuidGenerator": {

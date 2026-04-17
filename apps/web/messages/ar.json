@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "محلّل URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "محلّل URL",
+        "description": "تقسيم عنوان URL إلى بروتوكول ومضيف ومسار ومعاملات استعلام وتجزئة (hash)."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "ترميز النسبة المئوية غير صالح. تحقّق من أزواج % غير المكتملة أو تسلسلات الهروب غير الصحيحة.",
       "encodeFailed": "تعذّر الترميز (Unicode غير صالح في الإدخال)."
+    }
+  },
+  "UrlParser": {
+    "title": "محلّل URL",
+    "subtitle": "تقسيم عنوان URL إلى بروتوكول ومضيف ومسار ومعاملات استعلام وتجزئة (الجزء بعد #).",
+    "upload": "رفع",
+    "clear": "مسح",
+    "panels": {
+      "input": "إدخال URL",
+      "output": "النتيجة"
+    },
+    "placeholders": {
+      "input": "الصق عنوان URL (مثل https://example.com/path?foo=bar#section) أو مضيف/مسار (مثل example.com/path)…"
+    },
+    "dropHere": "أسقط الملف هنا",
+    "charCount": "{count} حرفًا",
+    "outputPlaceholder": "ستظهر المكوّنات المحلّلة هنا…",
+    "fields": {
+      "protocol": "البروتوكول",
+      "host": "المضيف",
+      "path": "المسار",
+      "hash": "التجزئة",
+      "queryParams": "معاملات الاستعلام"
+    },
+    "paramCount": "{count} معاملات",
+    "noParams": "لا توجد معاملات استعلام.",
+    "paramKey": "المفتاح",
+    "paramValue": "القيمة",
+    "copyTitle": "نسخ إلى الحافظة",
+    "copyParamTitle": "نسخ كـ key=value",
+    "download": {
+      "title": "تنزيل JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "عنوان URL غير صالح. تأكد من وجود اسم مضيف (example.com) ومن صحة الأحرف."
     }
   },
   "UuidGenerator": {

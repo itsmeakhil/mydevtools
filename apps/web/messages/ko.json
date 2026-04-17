@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL 파서",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL 파서",
+        "description": "URL을 프로토콜, 호스트, 경로, 쿼리 파라미터, 해시로 분해합니다."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "잘못된 퍼센트 인코딩입니다. 불완전한 % 쌍이나 잘못된 이스케이프를 확인하세요.",
       "encodeFailed": "인코딩할 수 없습니다(입력에 잘못된 Unicode)."
+    }
+  },
+  "UrlParser": {
+    "title": "URL 파서",
+    "subtitle": "URL을 프로토콜, 호스트, 경로, 쿼리 파라미터, 해시(프래그먼트)로 분해합니다.",
+    "upload": "업로드",
+    "clear": "지우기",
+    "panels": {
+      "input": "URL 입력",
+      "output": "파싱 결과"
+    },
+    "placeholders": {
+      "input": "URL을 붙여넣기(예: https://example.com/path?foo=bar#section) 또는 호스트/경로(예: example.com/path)…"
+    },
+    "dropHere": "여기에 파일을 놓으세요",
+    "charCount": "{count}자",
+    "outputPlaceholder": "분해된 구성요소가 여기에 표시됩니다…",
+    "fields": {
+      "protocol": "프로토콜",
+      "host": "호스트",
+      "path": "경로",
+      "hash": "해시",
+      "queryParams": "쿼리 파라미터"
+    },
+    "paramCount": "{count}개",
+    "noParams": "쿼리 파라미터가 없습니다.",
+    "paramKey": "키",
+    "paramValue": "값",
+    "copyTitle": "클립보드로 복사",
+    "copyParamTitle": "key=value로 복사",
+    "download": {
+      "title": "JSON 다운로드",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "잘못된 URL입니다. 호스트명(example.com)을 포함하고 문자를 확인하세요."
     }
   },
   "UuidGenerator": {

@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "Trình phân tích URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Trình phân tích URL",
+        "description": "Tách URL thành giao thức, host, đường dẫn, tham số truy vấn và hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2071,6 +2076,42 @@
     "errors": {
       "invalidEncoding": "Mã hóa phần trăm không hợp lệ. Hãy kiểm tra cặp % chưa đầy đủ hoặc chuỗi escape sai.",
       "encodeFailed": "Không thể mã hóa (Unicode không hợp lệ trong đầu vào)."
+    }
+  },
+  "UrlParser": {
+    "title": "Trình phân tích URL",
+    "subtitle": "Tách URL thành giao thức, host, đường dẫn, tham số truy vấn và hash (fragment).",
+    "upload": "Tải lên",
+    "clear": "Xóa",
+    "panels": {
+      "input": "Đầu vào URL",
+      "output": "Kết quả"
+    },
+    "placeholders": {
+      "input": "Dán URL (ví dụ https://example.com/path?foo=bar#section) hoặc host/đường dẫn (ví dụ example.com/path)…"
+    },
+    "dropHere": "Thả tệp vào đây",
+    "charCount": "{count} ký tự",
+    "outputPlaceholder": "Các thành phần đã phân tích sẽ hiển thị ở đây…",
+    "fields": {
+      "protocol": "Giao thức",
+      "host": "Host",
+      "path": "Đường dẫn",
+      "hash": "Hash",
+      "queryParams": "Tham số truy vấn"
+    },
+    "paramCount": "{count} tham số",
+    "noParams": "Không có tham số truy vấn.",
+    "paramKey": "Khóa",
+    "paramValue": "Giá trị",
+    "copyTitle": "Sao chép vào clipboard",
+    "copyParamTitle": "Sao chép dưới dạng key=value",
+    "download": {
+      "title": "Tải xuống JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "URL không hợp lệ. Hãy bao gồm hostname (example.com) và kiểm tra ký tự."
     }
   },
   "UuidGenerator": {
