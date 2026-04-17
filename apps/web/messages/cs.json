@@ -1765,6 +1765,54 @@
       "minute": "{count, plural, one {minutu} few {minuty} other {minut}}",
       "hour": "{count, plural, one {hodinu} few {hodiny} other {hodin}}",
       "day": "{count, plural, one {den} few {dny} other {dní}}"
+    },
+    "tabs": {
+      "decode": "Dekódovat",
+      "sign": "Generátor / podepisovač"
+    },
+    "signer": {
+      "algLabel": "Algoritmus (alg)",
+      "tabs": {
+        "payload": "Payload",
+        "header": "Header"
+      },
+      "payloadLabel": "JSON payload",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "JSON header",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Tajemství (HS*)",
+      "secretPlaceholder": "Vložte svůj HMAC secret…",
+      "privateKeyLabel": "Soukromý klíč PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "Algoritmus \"none\" vytvoří nepodepsaný token. Je to nebezpečné a má sloužit jen pro testování.",
+      "sign": "Podepsat",
+      "verify": "Ověřit podpis",
+      "outputLabel": "Token (kompaktní JWS)",
+      "outputPlaceholder": "Klikněte na „Podepsat“…",
+      "copyToken": "Kopírovat token",
+      "copied": "Zkopírováno",
+      "verifyKeyLabel": "Ověřovací klíč (volitelné)",
+      "verifyKeyPlaceholder": "Pro RS*: vložte veřejný klíč (SPKI) PEM. Pro HS*: nechte prázdné a použije se secret.",
+      "verifyKeyHint": "Pokud je prázdné, ověření použije podepisovací klíč (užitečné pro HS*).",
+      "verifyStatus": {
+        "valid": "Podpis je platný",
+        "invalid": "Podpis je neplatný"
+      },
+      "securityNote": "Vše běží lokálně v prohlížeči; klíče ani tokeny se nikam neodesílají."
+    },
+    "signErrors": {
+      "invalidJson": "Header a payload musí být platný JSON.",
+      "unsupportedAlg": "Nepodporovaný algoritmus.",
+      "missingKey": "Pro tento algoritmus je vyžadován podepisovací klíč.",
+      "cryptoFailed": "Podepisování selhalo. Zkontrolujte formát klíče a zkuste to znovu."
+    },
+    "verifyErrors": {
+      "empty": "Zadejte JWT k ověření.",
+      "segments": "JWT musí mít pro ověření podpisu přesně 3 segmenty.",
+      "unsupportedAlg": "Nepodporovaný nebo chybějící alg v headeru.",
+      "missingKey": "Pro tento algoritmus je vyžadován ověřovací klíč.",
+      "base64": "Nepodařilo se dekódovat header nebo podpis JWT.",
+      "cryptoFailed": "Ověření selhalo. Zkontrolujte formát klíče a zkuste to znovu."
     }
   },
   "SqlFormatter": {

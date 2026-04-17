@@ -1765,6 +1765,54 @@
       "minute": "{count, plural, one {دقیقه} other {دقیقه}}",
       "hour": "{count, plural, one {ساعت} other {ساعت}}",
       "day": "{count, plural, one {روز} other {روز}}"
+    },
+    "tabs": {
+      "decode": "رمزگشایی",
+      "sign": "سازنده / امضاکننده"
+    },
+    "signer": {
+      "algLabel": "الگوریتم (alg)",
+      "tabs": {
+        "payload": "Payload",
+        "header": "Header"
+      },
+      "payloadLabel": "Payload JSON",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "Header JSON",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "راز (HS*)",
+      "secretPlaceholder": "راز HMAC خود را بچسبانید…",
+      "privateKeyLabel": "کلید خصوصی PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "الگوریتم \"none\" یک توکن بدون امضا ایجاد می‌کند. این ناامن است و فقط برای تست استفاده شود.",
+      "sign": "امضا",
+      "verify": "بررسی امضا",
+      "outputLabel": "توکن (JWS فشرده)",
+      "outputPlaceholder": "روی «امضا» کلیک کنید…",
+      "copyToken": "کپی توکن",
+      "copied": "کپی شد",
+      "verifyKeyLabel": "کلید تأیید (اختیاری)",
+      "verifyKeyPlaceholder": "برای RS*: کلید عمومی (SPKI) PEM را بچسبانید. برای HS*: خالی بگذارید تا از راز استفاده شود.",
+      "verifyKeyHint": "اگر خالی باشد، تأیید از کلید امضا استفاده می‌کند (مفید برای HS*).",
+      "verifyStatus": {
+        "valid": "امضا معتبر است",
+        "invalid": "امضا نامعتبر است"
+      },
+      "securityNote": "همه چیز به‌صورت محلی در مرورگر اجرا می‌شود؛ کلیدها و توکن‌ها آپلود نمی‌شوند."
+    },
+    "signErrors": {
+      "invalidJson": "Header و payload باید JSON معتبر باشند.",
+      "unsupportedAlg": "الگوریتم پشتیبانی نمی‌شود.",
+      "missingKey": "برای این الگوریتم کلید امضا لازم است.",
+      "cryptoFailed": "امضا ناموفق بود. فرمت کلید را بررسی کرده و دوباره تلاش کنید."
+    },
+    "verifyErrors": {
+      "empty": "برای تأیید یک JWT وارد کنید.",
+      "segments": "JWT برای تأیید امضا باید دقیقاً ۳ بخش داشته باشد.",
+      "unsupportedAlg": "الگوریتم پشتیبانی نمی‌شود یا alg در header وجود ندارد.",
+      "missingKey": "برای این الگوریتم کلید تأیید لازم است.",
+      "base64": "امکان رمزگشایی header یا امضای JWT نبود.",
+      "cryptoFailed": "تأیید ناموفق بود. فرمت کلید را بررسی کرده و دوباره تلاش کنید."
     }
   },
   "SqlFormatter": {

@@ -1765,6 +1765,54 @@
       "minute": "{count, plural, one {minut} other {minutter}}",
       "hour": "{count, plural, one {time} other {timer}}",
       "day": "{count, plural, one {dag} other {dage}}"
+    },
+    "tabs": {
+      "decode": "Dekod",
+      "sign": "Generator / signering"
+    },
+    "signer": {
+      "algLabel": "Algoritme (alg)",
+      "tabs": {
+        "payload": "Payload",
+        "header": "Header"
+      },
+      "payloadLabel": "Payload JSON",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "Header JSON",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Hemmelighed (HS*)",
+      "secretPlaceholder": "Indsæt din HMAC-hemmelighed…",
+      "privateKeyLabel": "Privat nøgle PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "\"none\"-algoritmen laver et usigneret token. Det er usikkert og bør kun bruges til test.",
+      "sign": "Signér",
+      "verify": "Verificér signatur",
+      "outputLabel": "Token (kompakt JWS)",
+      "outputPlaceholder": "Klik \"Signér\"…",
+      "copyToken": "Kopiér token",
+      "copied": "Kopieret",
+      "verifyKeyLabel": "Verifikationsnøgle (valgfri)",
+      "verifyKeyPlaceholder": "For RS*: indsæt den offentlige nøgle (SPKI) PEM. For HS*: lad stå tom for at genbruge hemmeligheden.",
+      "verifyKeyHint": "Hvis tom, bruger verificering signeringsnøglen (nyttigt for HS*).",
+      "verifyStatus": {
+        "valid": "Signatur gyldig",
+        "invalid": "Signatur ugyldig"
+      },
+      "securityNote": "Alt kører lokalt i din browser; nøgler og tokens uploades ikke."
+    },
+    "signErrors": {
+      "invalidJson": "Header og payload skal være gyldig JSON.",
+      "unsupportedAlg": "Algoritme understøttes ikke.",
+      "missingKey": "En signeringsnøgle er påkrævet for denne algoritme.",
+      "cryptoFailed": "Signering mislykkedes. Tjek nøgleformatet og prøv igen."
+    },
+    "verifyErrors": {
+      "empty": "Indtast en JWT for at verificere.",
+      "segments": "En JWT skal have præcis 3 segmenter for at verificere en signatur.",
+      "unsupportedAlg": "Algoritme understøttes ikke eller mangler alg i headeren.",
+      "missingKey": "En verifikationsnøgle er påkrævet for denne algoritme.",
+      "base64": "Kunne ikke dekode JWT-header eller signatur.",
+      "cryptoFailed": "Verificering mislykkedes. Tjek nøgleformatet og prøv igen."
     }
   },
   "SqlFormatter": {

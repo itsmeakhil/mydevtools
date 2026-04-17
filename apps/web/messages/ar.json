@@ -1765,6 +1765,54 @@
       "minute": "{count, plural, one {دقيقة} other {دقائق}}",
       "hour": "{count, plural, one {ساعة} other {ساعات}}",
       "day": "{count, plural, one {يوم} other {أيام}}"
+    },
+    "tabs": {
+      "decode": "فك الترميز",
+      "sign": "مولّد / موقّع"
+    },
+    "signer": {
+      "algLabel": "الخوارزمية (alg)",
+      "tabs": {
+        "payload": "الحمولة",
+        "header": "الترويسة"
+      },
+      "payloadLabel": "JSON الحمولة",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "JSON الترويسة",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "سر (HS*)",
+      "secretPlaceholder": "الصق سر HMAC…",
+      "privateKeyLabel": "مفتاح خاص PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "خوارزمية \"none\" تُنشئ رمزًا غير موقّع. هذا غير آمن ويجب استخدامه للاختبار فقط.",
+      "sign": "وقّع",
+      "verify": "تحقق من التوقيع",
+      "outputLabel": "الرمز (JWS مضغوط)",
+      "outputPlaceholder": "انقر \"وقّع\"…",
+      "copyToken": "نسخ الرمز",
+      "copied": "تم النسخ",
+      "verifyKeyLabel": "مفتاح التحقق (اختياري)",
+      "verifyKeyPlaceholder": "لـ RS*: الصق المفتاح العام (SPKI) بصيغة PEM. لـ HS*: اتركه فارغًا لإعادة استخدام السر.",
+      "verifyKeyHint": "إذا كان فارغًا، سيستخدم التحقق مفتاح التوقيع (مفيد لـ HS*).",
+      "verifyStatus": {
+        "valid": "التوقيع صالح",
+        "invalid": "التوقيع غير صالح"
+      },
+      "securityNote": "كل شيء يعمل محليًا في المتصفح؛ لا يتم رفع المفاتيح أو الرموز."
+    },
+    "signErrors": {
+      "invalidJson": "يجب أن تكون الترويسة والحمولة JSON صالحًا.",
+      "unsupportedAlg": "خوارزمية غير مدعومة.",
+      "missingKey": "مفتاح التوقيع مطلوب لهذه الخوارزمية.",
+      "cryptoFailed": "فشل التوقيع. تحقق من تنسيق المفتاح وحاول مرة أخرى."
+    },
+    "verifyErrors": {
+      "empty": "أدخل JWT للتحقق.",
+      "segments": "يجب أن يحتوي JWT على 3 أجزاء بالضبط للتحقق من التوقيع.",
+      "unsupportedAlg": "خوارزمية alg غير مدعومة أو مفقودة في الترويسة.",
+      "missingKey": "مفتاح التحقق مطلوب لهذه الخوارزمية.",
+      "base64": "تعذر فك ترميز ترويسة JWT أو التوقيع.",
+      "cryptoFailed": "فشل التحقق. تحقق من تنسيق المفتاح وحاول مرة أخرى."
     }
   },
   "SqlFormatter": {

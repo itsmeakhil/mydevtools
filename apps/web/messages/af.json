@@ -1765,6 +1765,54 @@
       "minute": "{count, plural, one {minuut} other {minute}}",
       "hour": "{count, plural, one {uur} other {ure}}",
       "day": "{count, plural, one {dag} other {dae}}"
+    },
+    "tabs": {
+      "decode": "Dekodeer",
+      "sign": "Generator / ondertekenaar"
+    },
+    "signer": {
+      "algLabel": "Algoritme (alg)",
+      "tabs": {
+        "payload": "Lading",
+        "header": "Kop"
+      },
+      "payloadLabel": "Lading-JSON",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "Kop-JSON",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Geheim (HS*)",
+      "secretPlaceholder": "Plak jou HMAC-geheim…",
+      "privateKeyLabel": "Privaat sleutel PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "Die \"none\"-algoritme skep ’n ongetekende token. Dit is onveilig en is slegs vir toetsing.",
+      "sign": "Onderteken",
+      "verify": "Verifieer handtekening",
+      "outputLabel": "Token (kompakte JWS)",
+      "outputPlaceholder": "Klik \"Onderteken\"…",
+      "copyToken": "Kopieer token",
+      "copied": "Gekopieer",
+      "verifyKeyLabel": "Verifikasie-sleutel (opsioneel)",
+      "verifyKeyPlaceholder": "Vir RS*: plak die publieke sleutel (SPKI) PEM. Vir HS*: los leeg om die geheim te hergebruik.",
+      "verifyKeyHint": "Indien leeg, gebruik verifikasie die onderteken-sleutel (nuttig vir HS*).",
+      "verifyStatus": {
+        "valid": "Handtekening geldig",
+        "invalid": "Handtekening ongeldig"
+      },
+      "securityNote": "Alles loop plaaslik in jou blaaier; sleutels en tokens word nie opgelaai nie."
+    },
+    "signErrors": {
+      "invalidJson": "Kop en lading moet geldige JSON wees.",
+      "unsupportedAlg": "Onondersteunde algoritme.",
+      "missingKey": "’n Onderteken-sleutel is nodig vir hierdie algoritme.",
+      "cryptoFailed": "Ondertekening het misluk. Kontroleer jou sleutel-formaat en probeer weer."
+    },
+    "verifyErrors": {
+      "empty": "Voer ’n JWT in om te verifieer.",
+      "segments": "’n JWT moet presies 3 segmente hê om ’n handtekening te verifieer.",
+      "unsupportedAlg": "Onondersteunde of ontbrekende alg in die kop.",
+      "missingKey": "’n Verifikasie-sleutel is nodig vir hierdie algoritme.",
+      "base64": "Kon nie die JWT-kop of handtekening dekodeer nie.",
+      "cryptoFailed": "Verifikasie het misluk. Kontroleer jou sleutel-formaat en probeer weer."
     }
   },
   "SqlFormatter": {

@@ -1765,6 +1765,54 @@
       "minute": "{count, plural, one {minute} other {minutes}}",
       "hour": "{count, plural, one {heure} other {heures}}",
       "day": "{count, plural, one {jour} other {jours}}"
+    },
+    "tabs": {
+      "decode": "Décoder",
+      "sign": "Générateur / signataire"
+    },
+    "signer": {
+      "algLabel": "Algorithme (alg)",
+      "tabs": {
+        "payload": "Charge utile",
+        "header": "En-tête"
+      },
+      "payloadLabel": "JSON de la charge utile",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "JSON de l’en-tête",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Secret (HS*)",
+      "secretPlaceholder": "Collez votre secret HMAC…",
+      "privateKeyLabel": "Clé privée PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "L’algorithme \"none\" crée un jeton non signé. C’est dangereux et doit servir uniquement aux tests.",
+      "sign": "Signer",
+      "verify": "Vérifier la signature",
+      "outputLabel": "Jeton (JWS compact)",
+      "outputPlaceholder": "Cliquez sur « Signer »…",
+      "copyToken": "Copier le jeton",
+      "copied": "Copié",
+      "verifyKeyLabel": "Clé de vérification (facultative)",
+      "verifyKeyPlaceholder": "Pour RS* : collez la clé publique (SPKI) PEM. Pour HS* : laissez vide pour réutiliser le secret.",
+      "verifyKeyHint": "Si vide, la vérification utilise la clé de signature (utile pour HS*).",
+      "verifyStatus": {
+        "valid": "Signature valide",
+        "invalid": "Signature invalide"
+      },
+      "securityNote": "Tout s’exécute localement dans votre navigateur ; les clés et jetons ne sont pas téléversés."
+    },
+    "signErrors": {
+      "invalidJson": "L’en-tête et la charge utile doivent être un JSON valide.",
+      "unsupportedAlg": "Algorithme non pris en charge.",
+      "missingKey": "Une clé de signature est requise pour cet algorithme.",
+      "cryptoFailed": "La signature a échoué. Vérifiez le format de la clé et réessayez."
+    },
+    "verifyErrors": {
+      "empty": "Saisissez un JWT à vérifier.",
+      "segments": "Un JWT doit avoir exactement 3 segments pour vérifier une signature.",
+      "unsupportedAlg": "Algorithme non pris en charge ou alg manquant dans l’en-tête.",
+      "missingKey": "Une clé de vérification est requise pour cet algorithme.",
+      "base64": "Impossible de décoder l’en-tête ou la signature du JWT.",
+      "cryptoFailed": "La vérification a échoué. Vérifiez le format de la clé et réessayez."
     }
   },
   "SqlFormatter": {
