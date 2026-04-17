@@ -2651,5 +2651,28 @@
     "emptyHint": "Masukkan sambungan atau nama fail untuk mencari jenis MIME.",
     "notFound": "Tiada jenis MIME ditemui untuk input tersebut.",
     "localNote": "Semua berjalan secara tempatan di pelayar anda. Tiada apa yang dimuat naik."
+  },
+  "UserAgentParser": {
+    "title": "Penghurai User-Agent",
+    "subtitle": "Tampal rentetan User-Agent (UA) dan dapatkan pecahan pelayar, OS, enjin, peranti dan CPU. Semua berjalan secara tempatan di pelayar anda.",
+    "inputLabel": "Rentetan User-Agent",
+    "placeholder": "Tampal User-Agent anda di sini…",
+    "hint": "Tip: anda boleh salin UA daripada pengepala permintaan, log, atau devtools pelayar.",
+    "clear": "Kosongkan",
+    "exampleDesktop": "Guna contoh desktop",
+    "exampleMobile": "Guna contoh mudah alih",
+    "resultLabel": "Pecahan",
+    "browserLabel": "Pelayar",
+    "osLabel": "Sistem operasi",
+    "engineLabel": "Enjin",
+    "deviceTypeLabel": "Jenis peranti",
+    "deviceVendorLabel": "Pengeluar peranti",
+    "deviceModelLabel": "Model peranti",
+    "cpuArchLabel": "Seni bina CPU",
+    "copyJson": "Salin JSON",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "emptyHint": "Tampal rentetan User-Agent untuk melihat pecahan.",
+    "localNote": "Semua berjalan secara tempatan di pelayar anda. Tiada apa yang dimuat naik."
   }
 }

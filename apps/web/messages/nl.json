@@ -2651,5 +2651,28 @@
     "emptyHint": "Voer een extensie of bestandsnaam in om het MIME-type op te zoeken.",
     "notFound": "Geen MIME-type gevonden voor deze invoer.",
     "localNote": "Alles draait lokaal in uw browser. Er wordt niets geüpload."
+  },
+  "UserAgentParser": {
+    "title": "User-Agent-parser",
+    "subtitle": "Plak een User-Agent (UA)-string en krijg een uitsplitsing van browser, OS, engine, apparaat en CPU. Alles draait lokaal in uw browser.",
+    "inputLabel": "User-Agent-string",
+    "placeholder": "Plak uw User-Agent hier…",
+    "hint": "Tip: u kunt een UA kopiëren uit request-headers, logs of de browser-devtools.",
+    "clear": "Wissen",
+    "exampleDesktop": "Desktopvoorbeeld gebruiken",
+    "exampleMobile": "Mobiel voorbeeld gebruiken",
+    "resultLabel": "Uitsplitsing",
+    "browserLabel": "Browser",
+    "osLabel": "Besturingssysteem",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Apparaattype",
+    "deviceVendorLabel": "Fabrikant",
+    "deviceModelLabel": "Model",
+    "cpuArchLabel": "CPU-architectuur",
+    "copyJson": "JSON kopiëren",
+    "copy": "Kopiëren",
+    "copied": "Gekopieerd",
+    "emptyHint": "Plak een User-Agent-string om de uitsplitsing te zien.",
+    "localNote": "Alles draait lokaal in uw browser. Er wordt niets geüpload."
   }
 }

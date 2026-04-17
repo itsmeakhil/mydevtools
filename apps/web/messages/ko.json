@@ -2651,5 +2651,28 @@
     "emptyHint": "확장자 또는 파일명을 입력하여 MIME 타입을 조회하세요.",
     "notFound": "해당 입력에 대한 MIME 타입을 찾을 수 없습니다.",
     "localNote": "모든 것이 브라우저에서 로컬로 실행됩니다. 아무것도 업로드되지 않습니다."
+  },
+  "UserAgentParser": {
+    "title": "User-Agent 파서",
+    "subtitle": "User-Agent(UA) 문자열을 붙여넣고 브라우저, OS, 엔진, 디바이스, CPU 정보를 확인하세요. 모든 작업은 브라우저에서 로컬로 실행됩니다.",
+    "inputLabel": "User-Agent 문자열",
+    "placeholder": "여기에 User-Agent를 붙여넣으세요…",
+    "hint": "팁: 요청 헤더, 로그, 또는 브라우저 개발자 도구에서 UA를 복사할 수 있습니다.",
+    "clear": "지우기",
+    "exampleDesktop": "데스크톱 예시 사용",
+    "exampleMobile": "모바일 예시 사용",
+    "resultLabel": "분석 결과",
+    "browserLabel": "브라우저",
+    "osLabel": "운영체제",
+    "engineLabel": "엔진",
+    "deviceTypeLabel": "디바이스 유형",
+    "deviceVendorLabel": "제조사",
+    "deviceModelLabel": "모델",
+    "cpuArchLabel": "CPU 아키텍처",
+    "copyJson": "JSON 복사",
+    "copy": "복사",
+    "copied": "복사됨",
+    "emptyHint": "User-Agent 문자열을 붙여넣어 분석 결과를 확인하세요.",
+    "localNote": "모든 것이 브라우저에서 로컬로 실행됩니다. 아무것도 업로드되지 않습니다."
   }
 }

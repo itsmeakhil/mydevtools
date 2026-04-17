@@ -2651,5 +2651,28 @@
     "emptyHint": "Digite uma extensão ou nome de arquivo para pesquisar o tipo MIME.",
     "notFound": "Nenhum tipo MIME encontrado para essa entrada.",
     "localNote": "Tudo funciona localmente no seu navegador. Nada é enviado."
+  },
+  "UserAgentParser": {
+    "title": "Parser de User-Agent",
+    "subtitle": "Cole uma string User-Agent (UA) e veja a decomposição de navegador, SO, engine, dispositivo e CPU. Tudo funciona localmente no seu navegador.",
+    "inputLabel": "String User-Agent",
+    "placeholder": "Cole seu User-Agent aqui…",
+    "hint": "Dica: você pode copiar um UA dos cabeçalhos da requisição, logs ou das devtools do navegador.",
+    "clear": "Limpar",
+    "exampleDesktop": "Usar exemplo de desktop",
+    "exampleMobile": "Usar exemplo de celular",
+    "resultLabel": "Decomposição",
+    "browserLabel": "Navegador",
+    "osLabel": "Sistema operacional",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Tipo de dispositivo",
+    "deviceVendorLabel": "Fabricante do dispositivo",
+    "deviceModelLabel": "Modelo do dispositivo",
+    "cpuArchLabel": "Arquitetura da CPU",
+    "copyJson": "Copiar JSON",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "emptyHint": "Cole uma string User-Agent para ver a decomposição.",
+    "localNote": "Tudo funciona localmente no seu navegador. Nada é enviado."
   }
 }

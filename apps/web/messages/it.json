@@ -2651,5 +2651,28 @@
     "emptyHint": "Inserisci un'estensione o un nome file per cercare il tipo MIME.",
     "notFound": "Nessun tipo MIME trovato per questo input.",
     "localNote": "Tutto funziona localmente nel tuo browser. Nulla viene caricato."
+  },
+  "UserAgentParser": {
+    "title": "Parser User-Agent",
+    "subtitle": "Incolla una stringa User-Agent (UA) e ottieni un riepilogo di browser, OS, engine, dispositivo e CPU. Tutto funziona localmente nel tuo browser.",
+    "inputLabel": "Stringa User-Agent",
+    "placeholder": "Incolla qui il tuo User-Agent…",
+    "hint": "Suggerimento: puoi copiare un UA dagli header della richiesta, dai log o dai devtools del browser.",
+    "clear": "Cancella",
+    "exampleDesktop": "Usa esempio desktop",
+    "exampleMobile": "Usa esempio mobile",
+    "resultLabel": "Riepilogo",
+    "browserLabel": "Browser",
+    "osLabel": "Sistema operativo",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Tipo di dispositivo",
+    "deviceVendorLabel": "Produttore",
+    "deviceModelLabel": "Modello",
+    "cpuArchLabel": "Architettura CPU",
+    "copyJson": "Copia JSON",
+    "copy": "Copia",
+    "copied": "Copiato",
+    "emptyHint": "Incolla una stringa User-Agent per vedere il riepilogo.",
+    "localNote": "Tutto funziona localmente nel tuo browser. Nulla viene caricato."
   }
 }

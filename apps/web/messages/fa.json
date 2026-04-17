@@ -2651,5 +2651,28 @@
     "emptyHint": "برای جستجوی نوع MIME یک پسوند یا نام فایل وارد کنید.",
     "notFound": "برای این ورودی نوع MIME یافت نشد.",
     "localNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. چیزی آپلود نمی‌شود."
+  },
+  "UserAgentParser": {
+    "title": "تحلیلگر User-Agent",
+    "subtitle": "یک رشته User-Agent (UA) را وارد کنید تا جزئیات مرورگر، سیستم‌عامل، موتور، دستگاه و CPU را ببینید. همه چیز به صورت محلی در مرورگر شما اجرا می‌شود.",
+    "inputLabel": "رشته User-Agent",
+    "placeholder": "User-Agent را اینجا بچسبانید…",
+    "hint": "نکته: می‌توانید UA را از هدرهای درخواست، لاگ‌ها یا devtools مرورگر کپی کنید.",
+    "clear": "پاک کردن",
+    "exampleDesktop": "استفاده از مثال دسکتاپ",
+    "exampleMobile": "استفاده از مثال موبایل",
+    "resultLabel": "جزئیات",
+    "browserLabel": "مرورگر",
+    "osLabel": "سیستم‌عامل",
+    "engineLabel": "موتور",
+    "deviceTypeLabel": "نوع دستگاه",
+    "deviceVendorLabel": "سازنده",
+    "deviceModelLabel": "مدل",
+    "cpuArchLabel": "معماری CPU",
+    "copyJson": "کپی JSON",
+    "copy": "کپی",
+    "copied": "کپی شد",
+    "emptyHint": "برای مشاهده جزئیات، یک رشته User-Agent را بچسبانید.",
+    "localNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. چیزی آپلود نمی‌شود."
   }
 }

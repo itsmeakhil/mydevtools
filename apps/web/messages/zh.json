@@ -2651,5 +2651,28 @@
     "emptyHint": "输入扩展名或文件名以查询 MIME 类型。",
     "notFound": "未找到该输入对应的 MIME 类型。",
     "localNote": "所有操作都在浏览器本地完成。不会上传任何内容。"
+  },
+  "UserAgentParser": {
+    "title": "User-Agent 解析",
+    "subtitle": "粘贴一段 User-Agent（UA）字符串，即可查看浏览器、操作系统、引擎、设备与 CPU 的解析结果。所有操作均在浏览器本地完成。",
+    "inputLabel": "User-Agent 字符串",
+    "placeholder": "在此粘贴你的 User-Agent…",
+    "hint": "提示：你可以从请求头、日志或浏览器开发者工具中复制 UA。",
+    "clear": "清空",
+    "exampleDesktop": "使用桌面示例",
+    "exampleMobile": "使用移动端示例",
+    "resultLabel": "解析结果",
+    "browserLabel": "浏览器",
+    "osLabel": "操作系统",
+    "engineLabel": "引擎",
+    "deviceTypeLabel": "设备类型",
+    "deviceVendorLabel": "设备厂商",
+    "deviceModelLabel": "设备型号",
+    "cpuArchLabel": "CPU 架构",
+    "copyJson": "复制 JSON",
+    "copy": "复制",
+    "copied": "已复制",
+    "emptyHint": "粘贴 User-Agent 字符串以查看解析结果。",
+    "localNote": "所有操作均在浏览器本地完成。不会上传任何内容。"
   }
 }

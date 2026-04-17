@@ -2651,5 +2651,28 @@
     "emptyHint": "Saisissez une extension ou un nom de fichier pour rechercher son type MIME.",
     "notFound": "Aucun type MIME trouvé pour cette entrée.",
     "localNote": "Tout s'exécute localement dans votre navigateur. Rien n'est téléchargé."
+  },
+  "UserAgentParser": {
+    "title": "Analyseur User-Agent",
+    "subtitle": "Collez une chaîne User-Agent (UA) pour obtenir le détail navigateur, OS, moteur, appareil et CPU. Tout s'exécute localement dans votre navigateur.",
+    "inputLabel": "Chaîne User-Agent",
+    "placeholder": "Collez votre User-Agent ici…",
+    "hint": "Astuce : vous pouvez copier un UA depuis les en-têtes de requête, des logs ou les devtools du navigateur.",
+    "clear": "Effacer",
+    "exampleDesktop": "Utiliser un exemple desktop",
+    "exampleMobile": "Utiliser un exemple mobile",
+    "resultLabel": "Détails",
+    "browserLabel": "Navigateur",
+    "osLabel": "Système d’exploitation",
+    "engineLabel": "Moteur",
+    "deviceTypeLabel": "Type d’appareil",
+    "deviceVendorLabel": "Fabricant",
+    "deviceModelLabel": "Modèle",
+    "cpuArchLabel": "Architecture CPU",
+    "copyJson": "Copier JSON",
+    "copy": "Copier",
+    "copied": "Copié",
+    "emptyHint": "Collez une chaîne User-Agent pour voir les détails.",
+    "localNote": "Tout s'exécute localement dans votre navigateur. Rien n'est téléchargé."
   }
 }

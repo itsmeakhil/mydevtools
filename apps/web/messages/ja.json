@@ -2651,5 +2651,28 @@
     "emptyHint": "拡張子またはファイル名を入力して MIME タイプを検索します。",
     "notFound": "この入力に対応する MIME タイプが見つかりません。",
     "localNote": "すべてブラウザ上でローカルに動作します。何もアップロードされません。"
+  },
+  "UserAgentParser": {
+    "title": "User-Agent 解析",
+    "subtitle": "User-Agent（UA）文字列を貼り付けて、ブラウザ・OS・エンジン・デバイス・CPU の内訳を確認します。すべてブラウザ内でローカルに動作します。",
+    "inputLabel": "User-Agent 文字列",
+    "placeholder": "ここに User-Agent を貼り付けてください…",
+    "hint": "ヒント: UA はリクエストヘッダー、ログ、ブラウザの DevTools からコピーできます。",
+    "clear": "クリア",
+    "exampleDesktop": "デスクトップ例を使う",
+    "exampleMobile": "モバイル例を使う",
+    "resultLabel": "内訳",
+    "browserLabel": "ブラウザ",
+    "osLabel": "オペレーティングシステム",
+    "engineLabel": "エンジン",
+    "deviceTypeLabel": "デバイスタイプ",
+    "deviceVendorLabel": "メーカー",
+    "deviceModelLabel": "モデル",
+    "cpuArchLabel": "CPU アーキテクチャ",
+    "copyJson": "JSON をコピー",
+    "copy": "コピー",
+    "copied": "コピーしました",
+    "emptyHint": "User-Agent 文字列を貼り付けると内訳が表示されます。",
+    "localNote": "すべてブラウザ内でローカルに動作します。何もアップロードされません。"
   }
 }

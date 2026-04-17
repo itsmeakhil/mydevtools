@@ -2651,5 +2651,28 @@
     "emptyHint": "MIME türünü bulmak için bir uzantı veya dosya adı girin.",
     "notFound": "Bu giriş için MIME türü bulunamadı.",
     "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
+  },
+  "UserAgentParser": {
+    "title": "User-Agent ayrıştırıcı",
+    "subtitle": "Bir User-Agent (UA) dizesi yapıştırın ve tarayıcı, işletim sistemi, motor, cihaz ve CPU detaylarını görün. Her şey tarayıcınızda yerel olarak çalışır.",
+    "inputLabel": "User-Agent dizesi",
+    "placeholder": "User-Agent'i buraya yapıştırın…",
+    "hint": "İpucu: UA’yı istek başlıklarından, loglardan veya tarayıcı devtools’tan kopyalayabilirsiniz.",
+    "clear": "Temizle",
+    "exampleDesktop": "Masaüstü örneği kullan",
+    "exampleMobile": "Mobil örnek kullan",
+    "resultLabel": "Detaylar",
+    "browserLabel": "Tarayıcı",
+    "osLabel": "İşletim sistemi",
+    "engineLabel": "Motor",
+    "deviceTypeLabel": "Cihaz türü",
+    "deviceVendorLabel": "Üretici",
+    "deviceModelLabel": "Model",
+    "cpuArchLabel": "CPU mimarisi",
+    "copyJson": "JSON'u kopyala",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "emptyHint": "Detayları görmek için bir User-Agent dizesi yapıştırın.",
+    "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
   }
 }

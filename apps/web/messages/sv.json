@@ -2651,5 +2651,28 @@
     "emptyHint": "Ange en filändelse eller ett filnamn för att slå upp MIME-typen.",
     "notFound": "Ingen MIME-typ hittades för den indata.",
     "localNote": "Allt körs lokalt i din webbläsare. Ingenting laddas upp."
+  },
+  "UserAgentParser": {
+    "title": "User-Agent-tolk",
+    "subtitle": "Klistra in en User-Agent (UA)-sträng och få en uppdelning av webbläsare, OS, motor, enhet och CPU. Allt körs lokalt i din webbläsare.",
+    "inputLabel": "User-Agent-sträng",
+    "placeholder": "Klistra in din User-Agent här…",
+    "hint": "Tips: du kan kopiera en UA från request-headers, loggar eller webbläsarens devtools.",
+    "clear": "Rensa",
+    "exampleDesktop": "Använd skrivbordsexempel",
+    "exampleMobile": "Använd mobilexempel",
+    "resultLabel": "Uppdelning",
+    "browserLabel": "Webbläsare",
+    "osLabel": "Operativsystem",
+    "engineLabel": "Motor",
+    "deviceTypeLabel": "Enhetstyp",
+    "deviceVendorLabel": "Tillverkare",
+    "deviceModelLabel": "Modell",
+    "cpuArchLabel": "CPU-arkitektur",
+    "copyJson": "Kopiera JSON",
+    "copy": "Kopiera",
+    "copied": "Kopierat",
+    "emptyHint": "Klistra in en User-Agent-sträng för att se uppdelningen.",
+    "localNote": "Allt körs lokalt i din webbläsare. Ingenting laddas upp."
   }
 }

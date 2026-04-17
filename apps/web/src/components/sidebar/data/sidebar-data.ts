@@ -37,6 +37,7 @@ import {
   IconFileCode,
   IconListNumbers,
   IconFileType,
+  IconUserSearch,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -306,6 +307,13 @@ export const sidebarData: SidebarData = {
           url: '/app/mime-type-lookup',
           icon: IconFileType,
           description: 'Find the MIME type for a file extension or filename.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'User-Agent Parser',
+          url: '/app/user-agent-parser',
+          icon: IconUserSearch,
+          description: 'Paste a user-agent string and get browser, OS, and device details.',
           hiddenOnMobile: true,
         },
 

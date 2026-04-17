@@ -2651,5 +2651,28 @@
     "emptyHint": "Nhập phần mở rộng hoặc tên tệp để tra cứu loại MIME.",
     "notFound": "Không tìm thấy loại MIME cho đầu vào này.",
     "localNote": "Mọi thứ chạy cục bộ trên trình duyệt của bạn. Không có gì được tải lên."
+  },
+  "UserAgentParser": {
+    "title": "Trình phân tích User-Agent",
+    "subtitle": "Dán chuỗi User-Agent (UA) để xem phân tích trình duyệt, hệ điều hành, engine, thiết bị và CPU. Mọi thứ chạy cục bộ trên trình duyệt của bạn.",
+    "inputLabel": "Chuỗi User-Agent",
+    "placeholder": "Dán User-Agent của bạn vào đây…",
+    "hint": "Mẹo: bạn có thể sao chép UA từ header yêu cầu, log hoặc devtools của trình duyệt.",
+    "clear": "Xóa",
+    "exampleDesktop": "Dùng ví dụ máy tính",
+    "exampleMobile": "Dùng ví dụ di động",
+    "resultLabel": "Phân tích",
+    "browserLabel": "Trình duyệt",
+    "osLabel": "Hệ điều hành",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Loại thiết bị",
+    "deviceVendorLabel": "Hãng thiết bị",
+    "deviceModelLabel": "Mẫu thiết bị",
+    "cpuArchLabel": "Kiến trúc CPU",
+    "copyJson": "Sao chép JSON",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép",
+    "emptyHint": "Dán chuỗi User-Agent để xem phân tích.",
+    "localNote": "Mọi thứ chạy cục bộ trên trình duyệt của bạn. Không có gì được tải lên."
   }
 }

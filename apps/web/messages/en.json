@@ -2655,5 +2655,28 @@
     "emptyHint": "Enter an extension or filename to look up its MIME type.",
     "notFound": "No MIME type found for that input.",
     "localNote": "Everything runs locally in your browser. Nothing is uploaded."
+  },
+  "UserAgentParser": {
+    "title": "User-Agent parser",
+    "subtitle": "Paste a User-Agent (UA) string and get a browser, OS, engine, device, and CPU breakdown. Everything runs locally in your browser.",
+    "inputLabel": "User-Agent string",
+    "placeholder": "Paste your User-Agent here…",
+    "hint": "Tip: you can copy a UA from request headers, logs, or your browser devtools.",
+    "clear": "Clear",
+    "exampleDesktop": "Use desktop example",
+    "exampleMobile": "Use mobile example",
+    "resultLabel": "Breakdown",
+    "browserLabel": "Browser",
+    "osLabel": "Operating system",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Device type",
+    "deviceVendorLabel": "Device vendor",
+    "deviceModelLabel": "Device model",
+    "cpuArchLabel": "CPU architecture",
+    "copyJson": "Copy JSON",
+    "copy": "Copy",
+    "copied": "Copied",
+    "emptyHint": "Paste a User-Agent string to see the breakdown.",
+    "localNote": "Everything runs locally in your browser. Nothing is uploaded."
   }
 }

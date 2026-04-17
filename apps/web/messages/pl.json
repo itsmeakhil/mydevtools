@@ -2651,5 +2651,28 @@
     "emptyHint": "Wpisz rozszerzenie lub nazwę pliku, aby sprawdzić typ MIME.",
     "notFound": "Nie znaleziono typu MIME dla tego wejścia.",
     "localNote": "Wszystko działa lokalnie w Twojej przeglądarce. Nic nie jest przesyłane."
+  },
+  "UserAgentParser": {
+    "title": "Parser User-Agent",
+    "subtitle": "Wklej ciąg User-Agent (UA) i zobacz podział na przeglądarkę, system, silnik, urządzenie i CPU. Wszystko działa lokalnie w Twojej przeglądarce.",
+    "inputLabel": "Ciąg User-Agent",
+    "placeholder": "Wklej tutaj swój User-Agent…",
+    "hint": "Wskazówka: UA możesz skopiować z nagłówków żądania, logów lub narzędzi deweloperskich przeglądarki.",
+    "clear": "Wyczyść",
+    "exampleDesktop": "Użyj przykładu na komputer",
+    "exampleMobile": "Użyj przykładu na telefon",
+    "resultLabel": "Podział",
+    "browserLabel": "Przeglądarka",
+    "osLabel": "System operacyjny",
+    "engineLabel": "Silnik",
+    "deviceTypeLabel": "Typ urządzenia",
+    "deviceVendorLabel": "Producent",
+    "deviceModelLabel": "Model",
+    "cpuArchLabel": "Architektura CPU",
+    "copyJson": "Kopiuj JSON",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano",
+    "emptyHint": "Wklej ciąg User-Agent, aby zobaczyć podział.",
+    "localNote": "Wszystko działa lokalnie w Twojej przeglądarce. Nic nie jest przesyłane."
   }
 }

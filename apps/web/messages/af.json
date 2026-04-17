@@ -2651,5 +2651,28 @@
     "emptyHint": "Voer 'n uitbreiding of lêernaam in om die MIME-tipe op te soek.",
     "notFound": "Geen MIME-tipe vir daardie invoer gevind nie.",
     "localNote": "Alles loop plaaslik in jou blaaier. Niks word opgelaai nie."
+  },
+  "UserAgentParser": {
+    "title": "User-Agent-ontleder",
+    "subtitle": "Plak ’n User-Agent (UA)-string en kry ’n uiteensetting van blaaier, OS, enjin, toestel en CPU. Alles loop plaaslik in jou blaaier.",
+    "inputLabel": "User-Agent-string",
+    "placeholder": "Plak jou User-Agent hier…",
+    "hint": "Wenk: jy kan ’n UA uit versoekkoppe, logs of jou blaaier se devtools kopieer.",
+    "clear": "Maak skoon",
+    "exampleDesktop": "Gebruik desktop-voorbeeld",
+    "exampleMobile": "Gebruik mobiele voorbeeld",
+    "resultLabel": "Uiteensetting",
+    "browserLabel": "Blaaier",
+    "osLabel": "Bedryfstelsel",
+    "engineLabel": "Enjin",
+    "deviceTypeLabel": "Toesteltipe",
+    "deviceVendorLabel": "Vervaardiger",
+    "deviceModelLabel": "Model",
+    "cpuArchLabel": "CPU-argitektuur",
+    "copyJson": "Kopieer JSON",
+    "copy": "Kopieer",
+    "copied": "Gekopieer",
+    "emptyHint": "Plak ’n User-Agent-string om die uiteensetting te sien.",
+    "localNote": "Alles loop plaaslik in jou blaaier. Niks word opgelaai nie."
   }
 }

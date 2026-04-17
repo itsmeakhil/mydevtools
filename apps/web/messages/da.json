@@ -2651,5 +2651,28 @@
     "emptyHint": "Indtast en endelse eller et filnavn for at slå MIME-typen op.",
     "notFound": "Ingen MIME-type fundet for dette input.",
     "localNote": "Alt kører lokalt i din browser. Intet uploades."
+  },
+  "UserAgentParser": {
+    "title": "User-Agent-parser",
+    "subtitle": "Indsæt en User-Agent (UA)-streng og få en oversigt over browser, OS, engine, enhed og CPU. Alt kører lokalt i din browser.",
+    "inputLabel": "User-Agent-streng",
+    "placeholder": "Indsæt din User-Agent her…",
+    "hint": "Tip: du kan kopiere en UA fra request-headers, logs eller browserens devtools.",
+    "clear": "Ryd",
+    "exampleDesktop": "Brug desktop-eksempel",
+    "exampleMobile": "Brug mobil-eksempel",
+    "resultLabel": "Oversigt",
+    "browserLabel": "Browser",
+    "osLabel": "Operativsystem",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Enhedstype",
+    "deviceVendorLabel": "Producent",
+    "deviceModelLabel": "Model",
+    "cpuArchLabel": "CPU-arkitektur",
+    "copyJson": "Kopiér JSON",
+    "copy": "Kopiér",
+    "copied": "Kopieret",
+    "emptyHint": "Indsæt en User-Agent-streng for at se oversigten.",
+    "localNote": "Alt kører lokalt i din browser. Intet uploades."
   }
 }

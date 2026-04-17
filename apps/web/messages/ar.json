@@ -2651,5 +2651,28 @@
     "emptyHint": "أدخل امتدادًا أو اسم ملف للبحث عن نوع MIME.",
     "notFound": "لم يتم العثور على نوع MIME لهذه القيمة.",
     "localNote": "كل شيء يعمل محليًا في متصفحك. لا يتم رفع أي شيء."
+  },
+  "UserAgentParser": {
+    "title": "محلل User-Agent",
+    "subtitle": "الصق سلسلة User-Agent (UA) للحصول على تفاصيل المتصفح ونظام التشغيل والمحرك والجهاز والمعالج. كل شيء يعمل محليًا في متصفحك.",
+    "inputLabel": "سلسلة User-Agent",
+    "placeholder": "الصق User-Agent هنا…",
+    "hint": "نصيحة: يمكنك نسخ UA من ترويسات الطلب أو السجلات أو أدوات المطور في المتصفح.",
+    "clear": "مسح",
+    "exampleDesktop": "استخدم مثال سطح المكتب",
+    "exampleMobile": "استخدم مثال الهاتف",
+    "resultLabel": "التفاصيل",
+    "browserLabel": "المتصفح",
+    "osLabel": "نظام التشغيل",
+    "engineLabel": "المحرك",
+    "deviceTypeLabel": "نوع الجهاز",
+    "deviceVendorLabel": "الشركة المصنعة",
+    "deviceModelLabel": "الطراز",
+    "cpuArchLabel": "معمارية CPU",
+    "copyJson": "نسخ JSON",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "emptyHint": "الصق سلسلة User-Agent لعرض التفاصيل.",
+    "localNote": "كل شيء يعمل محليًا في متصفحك. لا يتم رفع أي شيء."
   }
 }

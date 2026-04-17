@@ -2651,5 +2651,28 @@
     "emptyHint": "Zadejte příponu nebo název souboru pro vyhledání MIME typu.",
     "notFound": "Pro tento vstup nebyl nalezen žádný MIME typ.",
     "localNote": "Vše běží lokálně ve vašem prohlížeči. Nic se nenahrává."
+  },
+  "UserAgentParser": {
+    "title": "Parser User-Agent",
+    "subtitle": "Vložte řetězec User-Agent (UA) a získejte rozpis prohlížeče, OS, enginu, zařízení a CPU. Vše běží lokálně ve vašem prohlížeči.",
+    "inputLabel": "Řetězec User-Agent",
+    "placeholder": "Vložte sem svůj User-Agent…",
+    "hint": "Tip: UA můžete zkopírovat z hlaviček požadavku, logů nebo z devtools prohlížeče.",
+    "clear": "Vymazat",
+    "exampleDesktop": "Použít příklad pro desktop",
+    "exampleMobile": "Použít příklad pro mobil",
+    "resultLabel": "Rozpis",
+    "browserLabel": "Prohlížeč",
+    "osLabel": "Operační systém",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Typ zařízení",
+    "deviceVendorLabel": "Výrobce",
+    "deviceModelLabel": "Model",
+    "cpuArchLabel": "Architektura CPU",
+    "copyJson": "Kopírovat JSON",
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno",
+    "emptyHint": "Vložte řetězec User-Agent pro zobrazení rozpisu.",
+    "localNote": "Vše běží lokálně ve vašem prohlížeči. Nic se nenahrává."
   }
 }

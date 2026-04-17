@@ -2651,5 +2651,28 @@
     "emptyHint": "Geben Sie eine Endung oder einen Dateinamen ein, um den MIME-Typ nachzuschlagen.",
     "notFound": "Kein MIME-Typ für diese Eingabe gefunden.",
     "localNote": "Alles läuft lokal in Ihrem Browser. Es wird nichts hochgeladen."
+  },
+  "UserAgentParser": {
+    "title": "User-Agent-Parser",
+    "subtitle": "Fügen Sie eine User-Agent (UA)-Zeichenkette ein und erhalten Sie eine Aufschlüsselung nach Browser, OS, Engine, Gerät und CPU. Alles läuft lokal in Ihrem Browser.",
+    "inputLabel": "User-Agent-Zeichenkette",
+    "placeholder": "Fügen Sie Ihren User-Agent hier ein…",
+    "hint": "Tipp: Sie können einen UA aus Request-Headern, Logs oder den Browser-Devtools kopieren.",
+    "clear": "Leeren",
+    "exampleDesktop": "Desktop-Beispiel verwenden",
+    "exampleMobile": "Mobil-Beispiel verwenden",
+    "resultLabel": "Aufschlüsselung",
+    "browserLabel": "Browser",
+    "osLabel": "Betriebssystem",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Gerätetyp",
+    "deviceVendorLabel": "Hersteller",
+    "deviceModelLabel": "Modell",
+    "cpuArchLabel": "CPU-Architektur",
+    "copyJson": "JSON kopieren",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "emptyHint": "Fügen Sie eine User-Agent-Zeichenkette ein, um die Aufschlüsselung zu sehen.",
+    "localNote": "Alles läuft lokal in Ihrem Browser. Es wird nichts hochgeladen."
   }
 }

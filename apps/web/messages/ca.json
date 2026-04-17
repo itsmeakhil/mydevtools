@@ -2651,5 +2651,28 @@
     "emptyHint": "Introdueix una extensió o un nom de fitxer per cercar el tipus MIME.",
     "notFound": "No s'ha trobat cap tipus MIME per a aquesta entrada.",
     "localNote": "Tot funciona localment al teu navegador. No es puja res."
+  },
+  "UserAgentParser": {
+    "title": "Analitzador de User-Agent",
+    "subtitle": "Enganxa una cadena User-Agent (UA) i obtén el desglossament de navegador, SO, motor, dispositiu i CPU. Tot funciona localment al teu navegador.",
+    "inputLabel": "Cadena User-Agent",
+    "placeholder": "Enganxa el teu User-Agent aquí…",
+    "hint": "Consell: pots copiar un UA des dels encapçalaments de la sol·licitud, els logs o les devtools del navegador.",
+    "clear": "Netejar",
+    "exampleDesktop": "Utilitza un exemple d'escriptori",
+    "exampleMobile": "Utilitza un exemple mòbil",
+    "resultLabel": "Desglossament",
+    "browserLabel": "Navegador",
+    "osLabel": "Sistema operatiu",
+    "engineLabel": "Motor",
+    "deviceTypeLabel": "Tipus de dispositiu",
+    "deviceVendorLabel": "Fabricant",
+    "deviceModelLabel": "Model",
+    "cpuArchLabel": "Arquitectura de la CPU",
+    "copyJson": "Copia JSON",
+    "copy": "Copiar",
+    "copied": "Copiat",
+    "emptyHint": "Enganxa una cadena User-Agent per veure el desglossament.",
+    "localNote": "Tot funciona localment al teu navegador. No es puja res."
   }
 }

@@ -2651,5 +2651,28 @@
     "emptyHint": "Masukkan ekstensi atau nama file untuk mencari tipe MIME.",
     "notFound": "Tidak ditemukan tipe MIME untuk masukan tersebut.",
     "localNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
+  },
+  "UserAgentParser": {
+    "title": "Parser User-Agent",
+    "subtitle": "Tempel string User-Agent (UA) dan dapatkan rincian browser, OS, engine, perangkat, dan CPU. Semua berjalan secara lokal di browser Anda.",
+    "inputLabel": "String User-Agent",
+    "placeholder": "Tempel User-Agent Anda di sini…",
+    "hint": "Tip: Anda dapat menyalin UA dari header permintaan, log, atau devtools browser.",
+    "clear": "Bersihkan",
+    "exampleDesktop": "Gunakan contoh desktop",
+    "exampleMobile": "Gunakan contoh mobile",
+    "resultLabel": "Rincian",
+    "browserLabel": "Browser",
+    "osLabel": "Sistem operasi",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Jenis perangkat",
+    "deviceVendorLabel": "Vendor perangkat",
+    "deviceModelLabel": "Model perangkat",
+    "cpuArchLabel": "Arsitektur CPU",
+    "copyJson": "Salin JSON",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "emptyHint": "Tempel string User-Agent untuk melihat rinciannya.",
+    "localNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
   }
 }

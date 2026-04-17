@@ -187,6 +187,11 @@ export const toolsMetadata: Record<string, {
         description: 'Look up MIME types by file extension or filename and copy the result instantly. Runs entirely in your browser.',
         keywords: ['mime type', 'content-type', 'media type', 'file extension', 'mime lookup', 'http headers']
     },
+    'user-agent-parser': {
+        title: 'User-Agent Parser',
+        description: 'Paste a User-Agent string to see browser, OS, engine, device, and CPU breakdown instantly. Runs entirely in your browser.',
+        keywords: ['user agent', 'ua parser', 'browser detection', 'os detection', 'device detection', 'client hints', 'http headers']
+    },
     'sql-client': {
         title: 'SQL Client',
         description: 'Connect to PostgreSQL, MySQL, and MariaDB databases from your browser. Run queries, explore schemas, and export results. Credentials encrypted with AES-256 before storage.',
