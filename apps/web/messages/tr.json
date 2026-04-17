@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL Ayrıştırıcı",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL Ayrıştırıcı",
+        "description": "Bir URL'yi protokol, host, yol, sorgu parametreleri ve hash olarak ayırın."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "Kodlanamadı (girdide geçersiz Unicode)."
     }
   },
+  "UrlParser": {
+    "title": "URL Ayrıştırıcı",
+    "subtitle": "Bir URL'yi protokol, host, yol, sorgu parametreleri ve hash (parça) olarak ayırın.",
+    "upload": "Yükle",
+    "clear": "Temizle",
+    "panels": {
+      "input": "URL girişi",
+      "output": "Sonuç"
+    },
+    "placeholders": {
+      "input": "Bir URL yapıştırın (örn. https://example.com/path?foo=bar#section) veya host/yol (örn. example.com/path)…"
+    },
+    "dropHere": "Dosyayı buraya bırakın",
+    "charCount": "{count} karakter",
+    "outputPlaceholder": "Ayrıştırılan bileşenler burada görünecek…",
+    "fields": {
+      "protocol": "Protokol",
+      "host": "Host",
+      "path": "Yol",
+      "hash": "Hash",
+      "queryParams": "Sorgu parametreleri"
+    },
+    "paramCount": "{count} parametre",
+    "noParams": "Sorgu parametresi yok.",
+    "paramKey": "Anahtar",
+    "paramValue": "Değer",
+    "copyTitle": "Panoya kopyala",
+    "copyParamTitle": "key=value olarak kopyala",
+    "download": {
+      "title": "JSON indir",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Geçersiz URL. Bir hostname (example.com) ekleyin ve karakterleri kontrol edin."
+    }
+  },
   "UuidGenerator": {
     "title": "UUID / ULID Oluşturucu",
     "subtitle": "Tarayıcıda RFC 9562 UUID’leri veya ULID’ler oluşturun. Toplu dışa aktarma: çalıştırma başına {max} adede kadar.",
@@ -2629,6 +2670,50 @@
     "copied": "Kopyalandı",
     "charCount": "{count, plural, one {# karakter} other {# karakter}}",
     "emptyHint": "Dönüştürülmüş çıktıyı görmek için solda girdinizi yapıştırın veya yazın.",
+    "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
+  },
+  "MimeTypeLookup": {
+    "title": "MIME türü arama",
+    "subtitle": "Dosya uzantısına veya tam dosya adına göre MIME türünü (media type) bulun. Her şey tarayıcınızda yerel olarak çalışır.",
+    "inputLabel": "Uzantı veya dosya adı",
+    "placeholder": "örn. .png, package.json, photo.jpeg",
+    "hint": "İpucu: bir uzantı (noktalı/noktasıız) veya tam dosya adı yapıştırın.",
+    "clear": "Temizle",
+    "exampleFilename": "Örnek dosya adı kullan",
+    "exampleExtension": "Örnek uzantı kullan",
+    "resultLabel": "Sonuç",
+    "normalizedLabel": "Normalize edilmiş giriş:",
+    "mimeTypeLabel": "MIME türü",
+    "contentTypeLabel": "Content-Type başlığı",
+    "charsetLabel": "Karakter kümesi",
+    "copyMimeType": "MIME türünü kopyala",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "emptyHint": "MIME türünü bulmak için bir uzantı veya dosya adı girin.",
+    "notFound": "Bu giriş için MIME türü bulunamadı.",
+    "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
+  },
+  "UserAgentParser": {
+    "title": "User-Agent ayrıştırıcı",
+    "subtitle": "Bir User-Agent (UA) dizesi yapıştırın ve tarayıcı, işletim sistemi, motor, cihaz ve CPU detaylarını görün. Her şey tarayıcınızda yerel olarak çalışır.",
+    "inputLabel": "User-Agent dizesi",
+    "placeholder": "User-Agent'i buraya yapıştırın…",
+    "hint": "İpucu: UA’yı istek başlıklarından, loglardan veya tarayıcı devtools’tan kopyalayabilirsiniz.",
+    "clear": "Temizle",
+    "exampleDesktop": "Masaüstü örneği kullan",
+    "exampleMobile": "Mobil örnek kullan",
+    "resultLabel": "Detaylar",
+    "browserLabel": "Tarayıcı",
+    "osLabel": "İşletim sistemi",
+    "engineLabel": "Motor",
+    "deviceTypeLabel": "Cihaz türü",
+    "deviceVendorLabel": "Üretici",
+    "deviceModelLabel": "Model",
+    "cpuArchLabel": "CPU mimarisi",
+    "copyJson": "JSON'u kopyala",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "emptyHint": "Detayları görmek için bir User-Agent dizesi yapıştırın.",
     "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
   }
 }

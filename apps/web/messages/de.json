@@ -17,6 +17,7 @@
     "cronBuilder": "Cron-Editor",
     "base64Encoder": "Base64-Kodierung",
     "urlEncoder": "URL-Kodierung",
+    "urlParser": "URL-Parser",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Farbauswahl",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL-Kodierung",
         "description": "URL-Bestandteile prozentkodieren und dekodieren."
+      },
+      "urlParser": {
+        "title": "URL-Parser",
+        "description": "Eine URL in Protokoll, Host, Pfad, Query-Parameter und Hash aufteilen."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "Konnte nicht kodieren (ungültiges Unicode in der Eingabe)."
     }
   },
+  "UrlParser": {
+    "title": "URL-Parser",
+    "subtitle": "Eine URL in Protokoll, Host, Pfad, Query-Parameter und Hash (Fragment) aufteilen.",
+    "upload": "Hochladen",
+    "clear": "Leeren",
+    "panels": {
+      "input": "URL-Eingabe",
+      "output": "Ergebnis"
+    },
+    "placeholders": {
+      "input": "URL einfügen (z. B. https://example.com/path?foo=bar#section) oder Host/Pfad (z. B. example.com/path)…"
+    },
+    "dropHere": "Datei hier ablegen",
+    "charCount": "{count} Zeichen",
+    "outputPlaceholder": "Die geparsten Komponenten erscheinen hier…",
+    "fields": {
+      "protocol": "Protokoll",
+      "host": "Host",
+      "path": "Pfad",
+      "hash": "Hash",
+      "queryParams": "Query-Parameter"
+    },
+    "paramCount": "{count} Parameter",
+    "noParams": "Keine Query-Parameter.",
+    "paramKey": "Schlüssel",
+    "paramValue": "Wert",
+    "copyTitle": "In die Zwischenablage kopieren",
+    "copyParamTitle": "Als key=value kopieren",
+    "download": {
+      "title": "JSON herunterladen",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Ungültige URL. Bitte Hostname (example.com) angeben und Zeichen prüfen."
+    }
+  },
   "UuidGenerator": {
     "title": "UUID-/ULID-Generator",
     "subtitle": "Erzeuge RFC‑9562‑UUIDs oder ULIDs im Browser. Bulk-Export bis zu {max} pro Durchlauf.",
@@ -2629,6 +2670,50 @@
     "copied": "Kopiert",
     "charCount": "{count, plural, one {# Zeichen} other {# Zeichen}}",
     "emptyHint": "Fügen Sie Ihre Eingabe links ein oder tippen Sie, um die konvertierte Ausgabe zu sehen.",
+    "localNote": "Alles läuft lokal in Ihrem Browser. Es wird nichts hochgeladen."
+  },
+  "MimeTypeLookup": {
+    "title": "MIME-Typ nachschlagen",
+    "subtitle": "MIME-Typ (Medientyp) für eine Dateiendung oder einen vollständigen Dateinamen nachschlagen. Alles läuft lokal in Ihrem Browser.",
+    "inputLabel": "Dateiendung oder Dateiname",
+    "placeholder": "z. B. .png, package.json, foto.jpeg",
+    "hint": "Tipp: Fügen Sie entweder eine Endung (mit oder ohne Punkt) oder einen vollständigen Dateinamen ein.",
+    "clear": "Leeren",
+    "exampleFilename": "Beispiel-Dateiname",
+    "exampleExtension": "Beispiel-Endung",
+    "resultLabel": "Ergebnis",
+    "normalizedLabel": "Normalisierte Eingabe:",
+    "mimeTypeLabel": "MIME-Typ",
+    "contentTypeLabel": "Content-Type-Header",
+    "charsetLabel": "Zeichensatz",
+    "copyMimeType": "MIME-Typ kopieren",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "emptyHint": "Geben Sie eine Endung oder einen Dateinamen ein, um den MIME-Typ nachzuschlagen.",
+    "notFound": "Kein MIME-Typ für diese Eingabe gefunden.",
+    "localNote": "Alles läuft lokal in Ihrem Browser. Es wird nichts hochgeladen."
+  },
+  "UserAgentParser": {
+    "title": "User-Agent-Parser",
+    "subtitle": "Fügen Sie eine User-Agent (UA)-Zeichenkette ein und erhalten Sie eine Aufschlüsselung nach Browser, OS, Engine, Gerät und CPU. Alles läuft lokal in Ihrem Browser.",
+    "inputLabel": "User-Agent-Zeichenkette",
+    "placeholder": "Fügen Sie Ihren User-Agent hier ein…",
+    "hint": "Tipp: Sie können einen UA aus Request-Headern, Logs oder den Browser-Devtools kopieren.",
+    "clear": "Leeren",
+    "exampleDesktop": "Desktop-Beispiel verwenden",
+    "exampleMobile": "Mobil-Beispiel verwenden",
+    "resultLabel": "Aufschlüsselung",
+    "browserLabel": "Browser",
+    "osLabel": "Betriebssystem",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Gerätetyp",
+    "deviceVendorLabel": "Hersteller",
+    "deviceModelLabel": "Modell",
+    "cpuArchLabel": "CPU-Architektur",
+    "copyJson": "JSON kopieren",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "emptyHint": "Fügen Sie eine User-Agent-Zeichenkette ein, um die Aufschlüsselung zu sehen.",
     "localNote": "Alles läuft lokal in Ihrem Browser. Es wird nichts hochgeladen."
   }
 }

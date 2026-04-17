@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL-tolk",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL-tolk",
+        "description": "Dela upp en URL i protokoll, värd, sökväg, frågeparametrar och hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "Kunde inte koda (ogiltig Unicode i indata)."
     }
   },
+  "UrlParser": {
+    "title": "URL-tolk",
+    "subtitle": "Dela upp en URL i protokoll, värd, sökväg, frågeparametrar och hash (fragment).",
+    "upload": "Ladda upp",
+    "clear": "Rensa",
+    "panels": {
+      "input": "URL-inmatning",
+      "output": "Resultat"
+    },
+    "placeholders": {
+      "input": "Klistra in en URL (t.ex. https://example.com/path?foo=bar#section) eller värd/sökväg (t.ex. example.com/path)…"
+    },
+    "dropHere": "Släpp fil här",
+    "charCount": "{count} tecken",
+    "outputPlaceholder": "De tolkade komponenterna visas här…",
+    "fields": {
+      "protocol": "Protokoll",
+      "host": "Värd",
+      "path": "Sökväg",
+      "hash": "Hash",
+      "queryParams": "Frågeparametrar"
+    },
+    "paramCount": "{count} parametrar",
+    "noParams": "Inga frågeparametrar.",
+    "paramKey": "Nyckel",
+    "paramValue": "Värde",
+    "copyTitle": "Kopiera till urklipp",
+    "copyParamTitle": "Kopiera som key=value",
+    "download": {
+      "title": "Ladda ner JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Ogiltig URL. Inkludera ett värdnamn (example.com) och kontrollera tecken."
+    }
+  },
   "UuidGenerator": {
     "title": "UUID-/ULID-generator",
     "subtitle": "Generera RFC 9562-UUID:er eller ULID:er i webbläsaren. Bulkundexport upp till {max} per körning.",
@@ -2629,6 +2670,50 @@
     "copied": "Kopierat",
     "charCount": "{count, plural, one {# tecken} other {# tecken}}",
     "emptyHint": "Klistra in eller skriv din indata till vänster för att se den konverterade utdatan.",
+    "localNote": "Allt körs lokalt i din webbläsare. Ingenting laddas upp."
+  },
+  "MimeTypeLookup": {
+    "title": "MIME-typ uppslag",
+    "subtitle": "Slå upp MIME-typ (medietyp) för en filändelse eller ett fullständigt filnamn. Allt körs lokalt i din webbläsare.",
+    "inputLabel": "Filändelse eller filnamn",
+    "placeholder": "t.ex. .png, package.json, photo.jpeg",
+    "hint": "Tips: klistra in antingen en ändelse (med eller utan punkt) eller ett fullständigt filnamn.",
+    "clear": "Rensa",
+    "exampleFilename": "Använd exempel-filnamn",
+    "exampleExtension": "Använd exempel-ändelse",
+    "resultLabel": "Resultat",
+    "normalizedLabel": "Normaliserad indata:",
+    "mimeTypeLabel": "MIME-typ",
+    "contentTypeLabel": "Content-Type-header",
+    "charsetLabel": "Teckenuppsättning",
+    "copyMimeType": "Kopiera MIME-typ",
+    "copy": "Kopiera",
+    "copied": "Kopierat",
+    "emptyHint": "Ange en filändelse eller ett filnamn för att slå upp MIME-typen.",
+    "notFound": "Ingen MIME-typ hittades för den indata.",
+    "localNote": "Allt körs lokalt i din webbläsare. Ingenting laddas upp."
+  },
+  "UserAgentParser": {
+    "title": "User-Agent-tolk",
+    "subtitle": "Klistra in en User-Agent (UA)-sträng och få en uppdelning av webbläsare, OS, motor, enhet och CPU. Allt körs lokalt i din webbläsare.",
+    "inputLabel": "User-Agent-sträng",
+    "placeholder": "Klistra in din User-Agent här…",
+    "hint": "Tips: du kan kopiera en UA från request-headers, loggar eller webbläsarens devtools.",
+    "clear": "Rensa",
+    "exampleDesktop": "Använd skrivbordsexempel",
+    "exampleMobile": "Använd mobilexempel",
+    "resultLabel": "Uppdelning",
+    "browserLabel": "Webbläsare",
+    "osLabel": "Operativsystem",
+    "engineLabel": "Motor",
+    "deviceTypeLabel": "Enhetstyp",
+    "deviceVendorLabel": "Tillverkare",
+    "deviceModelLabel": "Modell",
+    "cpuArchLabel": "CPU-arkitektur",
+    "copyJson": "Kopiera JSON",
+    "copy": "Kopiera",
+    "copied": "Kopierat",
+    "emptyHint": "Klistra in en User-Agent-sträng för att se uppdelningen.",
     "localNote": "Allt körs lokalt i din webbläsare. Ingenting laddas upp."
   }
 }

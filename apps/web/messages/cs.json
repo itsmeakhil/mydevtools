@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "Parser URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Parser URL",
+        "description": "Rozdělte URL na protokol, host, cestu, dotazové parametry a hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "Nepodařilo se enkódovat (neplatné Unicode ve vstupu)."
     }
   },
+  "UrlParser": {
+    "title": "Parser URL",
+    "subtitle": "Rozdělte URL na protokol, host, cestu, dotazové parametry a hash (fragment).",
+    "upload": "Nahrát",
+    "clear": "Vymazat",
+    "panels": {
+      "input": "Vstup URL",
+      "output": "Výsledek"
+    },
+    "placeholders": {
+      "input": "Vložte URL (např. https://example.com/path?foo=bar#section) nebo host/cestu (např. example.com/path)…"
+    },
+    "dropHere": "Přetáhněte soubor sem",
+    "charCount": "{count} znaků",
+    "outputPlaceholder": "Analyzované části se zobrazí zde…",
+    "fields": {
+      "protocol": "Protokol",
+      "host": "Host",
+      "path": "Cesta",
+      "hash": "Hash",
+      "queryParams": "Dotazové parametry"
+    },
+    "paramCount": "{count} parametrů",
+    "noParams": "Žádné dotazové parametry.",
+    "paramKey": "Klíč",
+    "paramValue": "Hodnota",
+    "copyTitle": "Kopírovat do schránky",
+    "copyParamTitle": "Kopírovat jako key=value",
+    "download": {
+      "title": "Stáhnout JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Neplatné URL. Uveďte hostname (example.com) a zkontrolujte znaky."
+    }
+  },
   "UuidGenerator": {
     "title": "Generátor UUID / ULID",
     "subtitle": "Generujte UUID (RFC 9562) nebo ULID v prohlížeči. Hromadný export až {max} na spuštění.",
@@ -2629,6 +2670,50 @@
     "copied": "Zkopírováno",
     "charCount": "{count, plural, one {# znak} few {# znaky} other {# znaků}}",
     "emptyHint": "Vložte nebo napište vstup vlevo a uvidíte převedený výstup.",
+    "localNote": "Vše běží lokálně ve vašem prohlížeči. Nic se nenahrává."
+  },
+  "MimeTypeLookup": {
+    "title": "Vyhledání MIME typu",
+    "subtitle": "Vyhledejte MIME typ (media type) podle přípony nebo celého názvu souboru. Vše běží lokálně ve vašem prohlížeči.",
+    "inputLabel": "Přípona nebo název souboru",
+    "placeholder": "např. .png, package.json, photo.jpeg",
+    "hint": "Tip: vložte příponu (s tečkou nebo bez) nebo celý název souboru.",
+    "clear": "Vymazat",
+    "exampleFilename": "Použít ukázkový název souboru",
+    "exampleExtension": "Použít ukázkovou příponu",
+    "resultLabel": "Výsledek",
+    "normalizedLabel": "Normalizovaný vstup:",
+    "mimeTypeLabel": "MIME typ",
+    "contentTypeLabel": "Hlavička Content-Type",
+    "charsetLabel": "Znaková sada",
+    "copyMimeType": "Kopírovat MIME typ",
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno",
+    "emptyHint": "Zadejte příponu nebo název souboru pro vyhledání MIME typu.",
+    "notFound": "Pro tento vstup nebyl nalezen žádný MIME typ.",
+    "localNote": "Vše běží lokálně ve vašem prohlížeči. Nic se nenahrává."
+  },
+  "UserAgentParser": {
+    "title": "Parser User-Agent",
+    "subtitle": "Vložte řetězec User-Agent (UA) a získejte rozpis prohlížeče, OS, enginu, zařízení a CPU. Vše běží lokálně ve vašem prohlížeči.",
+    "inputLabel": "Řetězec User-Agent",
+    "placeholder": "Vložte sem svůj User-Agent…",
+    "hint": "Tip: UA můžete zkopírovat z hlaviček požadavku, logů nebo z devtools prohlížeče.",
+    "clear": "Vymazat",
+    "exampleDesktop": "Použít příklad pro desktop",
+    "exampleMobile": "Použít příklad pro mobil",
+    "resultLabel": "Rozpis",
+    "browserLabel": "Prohlížeč",
+    "osLabel": "Operační systém",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Typ zařízení",
+    "deviceVendorLabel": "Výrobce",
+    "deviceModelLabel": "Model",
+    "cpuArchLabel": "Architektura CPU",
+    "copyJson": "Kopírovat JSON",
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno",
+    "emptyHint": "Vložte řetězec User-Agent pro zobrazení rozpisu.",
     "localNote": "Vše běží lokálně ve vašem prohlížeči. Nic se nenahrává."
   }
 }

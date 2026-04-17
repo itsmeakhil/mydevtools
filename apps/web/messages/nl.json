@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL-parser",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL-parser",
+        "description": "Splits een URL op in protocol, host, pad, queryparameters en hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "Kon niet encoderen (ongeldige Unicode in invoer)."
     }
   },
+  "UrlParser": {
+    "title": "URL-parser",
+    "subtitle": "Splits een URL op in protocol, host, pad, queryparameters en hash (fragment).",
+    "upload": "Uploaden",
+    "clear": "Wissen",
+    "panels": {
+      "input": "URL-invoer",
+      "output": "Resultaat"
+    },
+    "placeholders": {
+      "input": "Plak een URL (bijv. https://example.com/path?foo=bar#section) of host/pad (bijv. example.com/path)…"
+    },
+    "dropHere": "Zet bestand hier neer",
+    "charCount": "{count} tekens",
+    "outputPlaceholder": "De geparseerde onderdelen verschijnen hier…",
+    "fields": {
+      "protocol": "Protocol",
+      "host": "Host",
+      "path": "Pad",
+      "hash": "Hash",
+      "queryParams": "Queryparameters"
+    },
+    "paramCount": "{count} parameters",
+    "noParams": "Geen queryparameters.",
+    "paramKey": "Sleutel",
+    "paramValue": "Waarde",
+    "copyTitle": "Kopiëren naar klembord",
+    "copyParamTitle": "Kopiëren als key=value",
+    "download": {
+      "title": "JSON downloaden",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Ongeldige URL. Voeg een hostname toe (example.com) en controleer tekens."
+    }
+  },
   "UuidGenerator": {
     "title": "UUID-/ULID-generator",
     "subtitle": "Genereer RFC 9562-UUID’s of ULID’s in de browser. Bulkexport tot {max} per run.",
@@ -2629,6 +2670,50 @@
     "copied": "Gekopieerd",
     "charCount": "{count, plural, one {# teken} other {# tekens}}",
     "emptyHint": "Plak of typ uw invoer aan de linkerkant om de geconverteerde uitvoer te zien.",
+    "localNote": "Alles draait lokaal in uw browser. Er wordt niets geüpload."
+  },
+  "MimeTypeLookup": {
+    "title": "MIME-type opzoeken",
+    "subtitle": "Zoek het MIME-type (mediatype) op voor een extensie of volledige bestandsnaam. Alles draait lokaal in uw browser.",
+    "inputLabel": "Extensie of bestandsnaam",
+    "placeholder": "bijv. .png, package.json, photo.jpeg",
+    "hint": "Tip: plak een extensie (met of zonder punt) of een volledige bestandsnaam.",
+    "clear": "Wissen",
+    "exampleFilename": "Voorbeeldbestandsnaam gebruiken",
+    "exampleExtension": "Voorbeeldextensie gebruiken",
+    "resultLabel": "Resultaat",
+    "normalizedLabel": "Genormaliseerde invoer:",
+    "mimeTypeLabel": "MIME-type",
+    "contentTypeLabel": "Content-Type-header",
+    "charsetLabel": "Tekenset",
+    "copyMimeType": "MIME-type kopiëren",
+    "copy": "Kopiëren",
+    "copied": "Gekopieerd",
+    "emptyHint": "Voer een extensie of bestandsnaam in om het MIME-type op te zoeken.",
+    "notFound": "Geen MIME-type gevonden voor deze invoer.",
+    "localNote": "Alles draait lokaal in uw browser. Er wordt niets geüpload."
+  },
+  "UserAgentParser": {
+    "title": "User-Agent-parser",
+    "subtitle": "Plak een User-Agent (UA)-string en krijg een uitsplitsing van browser, OS, engine, apparaat en CPU. Alles draait lokaal in uw browser.",
+    "inputLabel": "User-Agent-string",
+    "placeholder": "Plak uw User-Agent hier…",
+    "hint": "Tip: u kunt een UA kopiëren uit request-headers, logs of de browser-devtools.",
+    "clear": "Wissen",
+    "exampleDesktop": "Desktopvoorbeeld gebruiken",
+    "exampleMobile": "Mobiel voorbeeld gebruiken",
+    "resultLabel": "Uitsplitsing",
+    "browserLabel": "Browser",
+    "osLabel": "Besturingssysteem",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Apparaattype",
+    "deviceVendorLabel": "Fabrikant",
+    "deviceModelLabel": "Model",
+    "cpuArchLabel": "CPU-architectuur",
+    "copyJson": "JSON kopiëren",
+    "copy": "Kopiëren",
+    "copied": "Gekopieerd",
+    "emptyHint": "Plak een User-Agent-string om de uitsplitsing te zien.",
     "localNote": "Alles draait lokaal in uw browser. Er wordt niets geüpload."
   }
 }

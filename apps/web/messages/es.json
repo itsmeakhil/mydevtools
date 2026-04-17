@@ -17,6 +17,7 @@
     "cronBuilder": "Constructor Cron",
     "base64Encoder": "Codificador Base64",
     "urlEncoder": "Codificador de URL",
+    "urlParser": "Analizador de URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Selector de color",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "Codificador de URL",
         "description": "Codifica y decodifica en porcentaje los componentes de URL."
+      },
+      "urlParser": {
+        "title": "Analizador de URL",
+        "description": "Divide una URL en protocolo, host, ruta, parámetros de consulta y hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "No se pudo codificar (Unicode no válido en la entrada)."
     }
   },
+  "UrlParser": {
+    "title": "Analizador de URL",
+    "subtitle": "Divide una URL en protocolo, host, ruta, parámetros de consulta y hash (fragmento).",
+    "upload": "Subir",
+    "clear": "Limpiar",
+    "panels": {
+      "input": "Entrada URL",
+      "output": "Resultado"
+    },
+    "placeholders": {
+      "input": "Pega una URL (p. ej., https://example.com/path?foo=bar#section) o un host/ruta (p. ej., example.com/path)…"
+    },
+    "dropHere": "Suelta el archivo aquí",
+    "charCount": "{count} caracteres",
+    "outputPlaceholder": "Los componentes analizados aparecerán aquí…",
+    "fields": {
+      "protocol": "Protocolo",
+      "host": "Host",
+      "path": "Ruta",
+      "hash": "Hash",
+      "queryParams": "Parámetros de consulta"
+    },
+    "paramCount": "{count} parámetros",
+    "noParams": "Sin parámetros de consulta.",
+    "paramKey": "Clave",
+    "paramValue": "Valor",
+    "copyTitle": "Copiar al portapapeles",
+    "copyParamTitle": "Copiar como key=value",
+    "download": {
+      "title": "Descargar JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "URL no válida. Incluye un hostname (example.com) y revisa caracteres no permitidos."
+    }
+  },
   "UuidGenerator": {
     "title": "Generador de UUID / ULID",
     "subtitle": "Genera UUID (RFC 9562) o ULID en el navegador. Exportación masiva hasta {max} por ejecución.",
@@ -2629,6 +2670,50 @@
     "copied": "Copiado",
     "charCount": "{count, plural, one {# carácter} other {# caracteres}}",
     "emptyHint": "Pega o escribe tu entrada a la izquierda para ver la salida convertida.",
+    "localNote": "Todo funciona localmente en tu navegador. No se sube nada."
+  },
+  "MimeTypeLookup": {
+    "title": "Búsqueda de tipo MIME",
+    "subtitle": "Busca el tipo MIME (tipo de medio) para una extensión o un nombre de archivo completo. Todo funciona localmente en tu navegador.",
+    "inputLabel": "Extensión o nombre de archivo",
+    "placeholder": "p. ej. .png, package.json, photo.jpeg",
+    "hint": "Consejo: pega una extensión (con o sin punto) o un nombre de archivo completo.",
+    "clear": "Limpiar",
+    "exampleFilename": "Usar nombre de archivo de ejemplo",
+    "exampleExtension": "Usar extensión de ejemplo",
+    "resultLabel": "Resultado",
+    "normalizedLabel": "Entrada normalizada:",
+    "mimeTypeLabel": "Tipo MIME",
+    "contentTypeLabel": "Encabezado Content-Type",
+    "charsetLabel": "Conjunto de caracteres",
+    "copyMimeType": "Copiar tipo MIME",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "emptyHint": "Introduce una extensión o un nombre de archivo para buscar su tipo MIME.",
+    "notFound": "No se encontró un tipo MIME para esa entrada.",
+    "localNote": "Todo funciona localmente en tu navegador. No se sube nada."
+  },
+  "UserAgentParser": {
+    "title": "Analizador de User-Agent",
+    "subtitle": "Pega una cadena User-Agent (UA) y obtén un desglose de navegador, SO, motor, dispositivo y CPU. Todo funciona localmente en tu navegador.",
+    "inputLabel": "Cadena User-Agent",
+    "placeholder": "Pega tu User-Agent aquí…",
+    "hint": "Consejo: puedes copiar un UA desde los encabezados de una solicitud, logs o las devtools del navegador.",
+    "clear": "Limpiar",
+    "exampleDesktop": "Usar ejemplo de escritorio",
+    "exampleMobile": "Usar ejemplo móvil",
+    "resultLabel": "Desglose",
+    "browserLabel": "Navegador",
+    "osLabel": "Sistema operativo",
+    "engineLabel": "Motor",
+    "deviceTypeLabel": "Tipo de dispositivo",
+    "deviceVendorLabel": "Fabricante del dispositivo",
+    "deviceModelLabel": "Modelo del dispositivo",
+    "cpuArchLabel": "Arquitectura de CPU",
+    "copyJson": "Copiar JSON",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "emptyHint": "Pega una cadena User-Agent para ver el desglose.",
     "localNote": "Todo funciona localmente en tu navegador. No se sube nada."
   }
 }

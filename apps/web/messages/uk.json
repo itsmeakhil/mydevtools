@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "Парсер URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Парсер URL",
+        "description": "Розбийте URL на протокол, хост, шлях, параметри запиту та хеш."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "Не вдалося закодувати (некоректний Unicode у вводі)."
     }
   },
+  "UrlParser": {
+    "title": "Парсер URL",
+    "subtitle": "Розбийте URL на протокол, хост, шлях, параметри запиту та хеш (фрагмент).",
+    "upload": "Завантажити",
+    "clear": "Очистити",
+    "panels": {
+      "input": "Ввід URL",
+      "output": "Результат"
+    },
+    "placeholders": {
+      "input": "Вставте URL (наприклад, https://example.com/path?foo=bar#section) або хост/шлях (наприклад, example.com/path)…"
+    },
+    "dropHere": "Перетягніть файл сюди",
+    "charCount": "{count} символів",
+    "outputPlaceholder": "Розібрані компоненти з’являться тут…",
+    "fields": {
+      "protocol": "Протокол",
+      "host": "Хост",
+      "path": "Шлях",
+      "hash": "Хеш",
+      "queryParams": "Параметри запиту"
+    },
+    "paramCount": "{count} параметрів",
+    "noParams": "Параметрів запиту немає.",
+    "paramKey": "Ключ",
+    "paramValue": "Значення",
+    "copyTitle": "Копіювати в буфер обміну",
+    "copyParamTitle": "Копіювати як key=value",
+    "download": {
+      "title": "Завантажити JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Некоректний URL. Додайте hostname (example.com) і перевірте символи."
+    }
+  },
   "UuidGenerator": {
     "title": "Генератор UUID / ULID",
     "subtitle": "Генеруйте UUID (RFC 9562) або ULID у браузері. Пакетний експорт до {max} за запуск.",
@@ -2629,6 +2670,50 @@
     "copied": "Скопійовано",
     "charCount": "{count, plural, one {# символ} few {# символи} other {# символів}}",
     "emptyHint": "Вставте або введіть дані ліворуч, щоб побачити конвертований вивід.",
+    "localNote": "Усе працює локально у вашому браузері. Нічого не завантажується."
+  },
+  "MimeTypeLookup": {
+    "title": "Пошук MIME-типу",
+    "subtitle": "Знайдіть MIME-тип (media type) за розширенням або повною назвою файлу. Усе працює локально у вашому браузері.",
+    "inputLabel": "Розширення або назва файлу",
+    "placeholder": "наприклад .png, package.json, photo.jpeg",
+    "hint": "Порада: вставте розширення (з крапкою або без) або повну назву файлу.",
+    "clear": "Очистити",
+    "exampleFilename": "Використати приклад назви файлу",
+    "exampleExtension": "Використати приклад розширення",
+    "resultLabel": "Результат",
+    "normalizedLabel": "Нормалізоване введення:",
+    "mimeTypeLabel": "MIME-тип",
+    "contentTypeLabel": "Заголовок Content-Type",
+    "charsetLabel": "Кодування",
+    "copyMimeType": "Копіювати MIME-тип",
+    "copy": "Копіювати",
+    "copied": "Скопійовано",
+    "emptyHint": "Введіть розширення або назву файлу, щоб знайти MIME-тип.",
+    "notFound": "Для цього введення MIME-тип не знайдено.",
+    "localNote": "Усе працює локально у вашому браузері. Нічого не завантажується."
+  },
+  "UserAgentParser": {
+    "title": "Парсер User-Agent",
+    "subtitle": "Вставте рядок User-Agent (UA) і отримайте розбір браузера, ОС, engine, пристрою та CPU. Усе працює локально у вашому браузері.",
+    "inputLabel": "Рядок User-Agent",
+    "placeholder": "Вставте ваш User-Agent сюди…",
+    "hint": "Порада: ви можете скопіювати UA з заголовків запиту, логів або devtools браузера.",
+    "clear": "Очистити",
+    "exampleDesktop": "Використати приклад для ПК",
+    "exampleMobile": "Використати приклад для мобільного",
+    "resultLabel": "Розбір",
+    "browserLabel": "Браузер",
+    "osLabel": "Операційна система",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Тип пристрою",
+    "deviceVendorLabel": "Виробник",
+    "deviceModelLabel": "Модель",
+    "cpuArchLabel": "Архітектура CPU",
+    "copyJson": "Копіювати JSON",
+    "copy": "Копіювати",
+    "copied": "Скопійовано",
+    "emptyHint": "Вставте рядок User-Agent, щоб побачити розбір.",
     "localNote": "Усе працює локально у вашому браузері. Нічого не завантажується."
   }
 }

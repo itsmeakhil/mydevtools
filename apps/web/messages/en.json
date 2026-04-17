@@ -19,6 +19,7 @@
     "base64Encoder": "Base64 Encoder",
     "imageToBase64": "Image to Base64",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL Parser",
     "uuidGenerator": "UUID / ULID",
     "qrCodeGenerator": "QR Code Generator",
     "ipSubnetCalculator": "IP / Subnet Calculator",
@@ -346,6 +347,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL Parser",
+        "description": "Break a URL into protocol, host, path, query params, and hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2202,6 +2207,42 @@
       "encodeFailed": "Could not encode (invalid Unicode in input)."
     }
   },
+  "UrlParser": {
+    "title": "URL Parser",
+    "subtitle": "Break a URL into protocol, host, path, query parameters, and hash (fragment).",
+    "upload": "Upload",
+    "clear": "Clear",
+    "panels": {
+      "input": "URL input",
+      "output": "Parsed output"
+    },
+    "placeholders": {
+      "input": "Paste a URL (e.g. https://example.com/path?foo=bar#section) or a host/path (e.g. example.com/path)…"
+    },
+    "dropHere": "Drop file here",
+    "charCount": "{count} chars",
+    "outputPlaceholder": "Parsed components will appear here…",
+    "fields": {
+      "protocol": "Protocol",
+      "host": "Host",
+      "path": "Path",
+      "hash": "Hash",
+      "queryParams": "Query parameters"
+    },
+    "paramCount": "{count} params",
+    "noParams": "No query parameters.",
+    "paramKey": "Key",
+    "paramValue": "Value",
+    "copyTitle": "Copy to clipboard",
+    "copyParamTitle": "Copy as key=value",
+    "download": {
+      "title": "Download JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Invalid URL. Include a hostname (example.com) and check for illegal characters."
+    }
+  },
   "UuidGenerator": {
     "title": "UUID / ULID generator",
     "subtitle": "Generate RFC 9562 UUIDs or ULIDs in the browser. Bulk export up to {max} per run.",
@@ -2633,6 +2674,50 @@
     "copied": "Copied",
     "charCount": "{count, plural, one {# character} other {# characters}}",
     "emptyHint": "Paste or type your input on the left to see the converted output.",
+    "localNote": "Everything runs locally in your browser. Nothing is uploaded."
+  },
+  "MimeTypeLookup": {
+    "title": "MIME type lookup",
+    "subtitle": "Look up the MIME type (media type) for a file extension or full filename. Everything runs locally in your browser.",
+    "inputLabel": "Extension or filename",
+    "placeholder": "e.g. .png, package.json, photo.jpeg",
+    "hint": "Tip: paste either an extension (with or without a dot) or a full filename.",
+    "clear": "Clear",
+    "exampleFilename": "Use example filename",
+    "exampleExtension": "Use example extension",
+    "resultLabel": "Result",
+    "normalizedLabel": "Normalized input:",
+    "mimeTypeLabel": "MIME type",
+    "contentTypeLabel": "Content-Type header",
+    "charsetLabel": "Charset",
+    "copyMimeType": "Copy MIME type",
+    "copy": "Copy",
+    "copied": "Copied",
+    "emptyHint": "Enter an extension or filename to look up its MIME type.",
+    "notFound": "No MIME type found for that input.",
+    "localNote": "Everything runs locally in your browser. Nothing is uploaded."
+  },
+  "UserAgentParser": {
+    "title": "User-Agent parser",
+    "subtitle": "Paste a User-Agent (UA) string and get a browser, OS, engine, device, and CPU breakdown. Everything runs locally in your browser.",
+    "inputLabel": "User-Agent string",
+    "placeholder": "Paste your User-Agent here…",
+    "hint": "Tip: you can copy a UA from request headers, logs, or your browser devtools.",
+    "clear": "Clear",
+    "exampleDesktop": "Use desktop example",
+    "exampleMobile": "Use mobile example",
+    "resultLabel": "Breakdown",
+    "browserLabel": "Browser",
+    "osLabel": "Operating system",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Device type",
+    "deviceVendorLabel": "Device vendor",
+    "deviceModelLabel": "Device model",
+    "cpuArchLabel": "CPU architecture",
+    "copyJson": "Copy JSON",
+    "copy": "Copy",
+    "copied": "Copied",
+    "emptyHint": "Paste a User-Agent string to see the breakdown.",
     "localNote": "Everything runs locally in your browser. Nothing is uploaded."
   }
 }

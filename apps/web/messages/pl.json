@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "Parser URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Parser URL",
+        "description": "Podziel adres URL na protokół, host, ścieżkę, parametry zapytania i hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "Nie można zakodować (nieprawidłowy Unicode w wejściu)."
     }
   },
+  "UrlParser": {
+    "title": "Parser URL",
+    "subtitle": "Podziel adres URL na protokół, host, ścieżkę, parametry zapytania i hash (fragment).",
+    "upload": "Prześlij",
+    "clear": "Wyczyść",
+    "panels": {
+      "input": "Wejście URL",
+      "output": "Wynik"
+    },
+    "placeholders": {
+      "input": "Wklej adres URL (np. https://example.com/path?foo=bar#section) lub host/ścieżkę (np. example.com/path)…"
+    },
+    "dropHere": "Upuść plik tutaj",
+    "charCount": "{count} znaków",
+    "outputPlaceholder": "Przeanalizowane składowe pojawią się tutaj…",
+    "fields": {
+      "protocol": "Protokół",
+      "host": "Host",
+      "path": "Ścieżka",
+      "hash": "Hash",
+      "queryParams": "Parametry zapytania"
+    },
+    "paramCount": "{count} parametrów",
+    "noParams": "Brak parametrów zapytania.",
+    "paramKey": "Klucz",
+    "paramValue": "Wartość",
+    "copyTitle": "Kopiuj do schowka",
+    "copyParamTitle": "Kopiuj jako key=value",
+    "download": {
+      "title": "Pobierz JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Nieprawidłowy URL. Podaj nazwę hosta (example.com) i sprawdź znaki."
+    }
+  },
   "UuidGenerator": {
     "title": "Generator UUID / ULID",
     "subtitle": "Generuj UUID (RFC 9562) lub ULID w przeglądarce. Eksport zbiorczy do {max} na uruchomienie.",
@@ -2629,6 +2670,50 @@
     "copied": "Skopiowano",
     "charCount": "{count, plural, one {# znak} few {# znaki} other {# znaków}}",
     "emptyHint": "Wklej lub wpisz dane wejściowe po lewej stronie, aby zobaczyć przekonwertowane wyjście.",
+    "localNote": "Wszystko działa lokalnie w Twojej przeglądarce. Nic nie jest przesyłane."
+  },
+  "MimeTypeLookup": {
+    "title": "Wyszukiwanie typu MIME",
+    "subtitle": "Sprawdź typ MIME (media type) dla rozszerzenia pliku lub pełnej nazwy pliku. Wszystko działa lokalnie w Twojej przeglądarce.",
+    "inputLabel": "Rozszerzenie lub nazwa pliku",
+    "placeholder": "np. .png, package.json, photo.jpeg",
+    "hint": "Wskazówka: wklej rozszerzenie (z kropką lub bez) albo pełną nazwę pliku.",
+    "clear": "Wyczyść",
+    "exampleFilename": "Użyj przykładowej nazwy pliku",
+    "exampleExtension": "Użyj przykładowego rozszerzenia",
+    "resultLabel": "Wynik",
+    "normalizedLabel": "Znormalizowane wejście:",
+    "mimeTypeLabel": "Typ MIME",
+    "contentTypeLabel": "Nagłówek Content-Type",
+    "charsetLabel": "Zestaw znaków",
+    "copyMimeType": "Kopiuj typ MIME",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano",
+    "emptyHint": "Wpisz rozszerzenie lub nazwę pliku, aby sprawdzić typ MIME.",
+    "notFound": "Nie znaleziono typu MIME dla tego wejścia.",
+    "localNote": "Wszystko działa lokalnie w Twojej przeglądarce. Nic nie jest przesyłane."
+  },
+  "UserAgentParser": {
+    "title": "Parser User-Agent",
+    "subtitle": "Wklej ciąg User-Agent (UA) i zobacz podział na przeglądarkę, system, silnik, urządzenie i CPU. Wszystko działa lokalnie w Twojej przeglądarce.",
+    "inputLabel": "Ciąg User-Agent",
+    "placeholder": "Wklej tutaj swój User-Agent…",
+    "hint": "Wskazówka: UA możesz skopiować z nagłówków żądania, logów lub narzędzi deweloperskich przeglądarki.",
+    "clear": "Wyczyść",
+    "exampleDesktop": "Użyj przykładu na komputer",
+    "exampleMobile": "Użyj przykładu na telefon",
+    "resultLabel": "Podział",
+    "browserLabel": "Przeglądarka",
+    "osLabel": "System operacyjny",
+    "engineLabel": "Silnik",
+    "deviceTypeLabel": "Typ urządzenia",
+    "deviceVendorLabel": "Producent",
+    "deviceModelLabel": "Model",
+    "cpuArchLabel": "Architektura CPU",
+    "copyJson": "Kopiuj JSON",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano",
+    "emptyHint": "Wklej ciąg User-Agent, aby zobaczyć podział.",
     "localNote": "Wszystko działa lokalnie w Twojej przeglądarce. Nic nie jest przesyłane."
   }
 }

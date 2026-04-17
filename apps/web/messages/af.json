@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL-ontleder",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL-ontleder",
+        "description": "Breek ’n URL af in protokol, gasheer, pad, navraagparameters en hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "Kon nie enkodeer nie (ongeldige Unicode in invoer)."
     }
   },
+  "UrlParser": {
+    "title": "URL-ontleder",
+    "subtitle": "Breek ’n URL af in protokol, gasheer, pad, navraagparameters en hash (fragment).",
+    "upload": "Laai op",
+    "clear": "Maak skoon",
+    "panels": {
+      "input": "URL-invoer",
+      "output": "Ontleding"
+    },
+    "placeholders": {
+      "input": "Plak ’n URL (bv. https://example.com/path?foo=bar#section) of gasheer/pad (bv. example.com/path)…"
+    },
+    "dropHere": "Laat lêer hier val",
+    "charCount": "{count} karakters",
+    "outputPlaceholder": "Ontlede komponente sal hier verskyn…",
+    "fields": {
+      "protocol": "Protokol",
+      "host": "Gasheer",
+      "path": "Pad",
+      "hash": "Hash",
+      "queryParams": "Navraagparameters"
+    },
+    "paramCount": "{count} parameters",
+    "noParams": "Geen navraagparameters nie.",
+    "paramKey": "Sleutel",
+    "paramValue": "Waarde",
+    "copyTitle": "Kopieer na knipbord",
+    "copyParamTitle": "Kopieer as key=value",
+    "download": {
+      "title": "Laai JSON af",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Ongeldige URL. Sluit ’n gasheernaam in (example.com) en kontroleer karakters."
+    }
+  },
   "UuidGenerator": {
     "title": "UUID / ULID-generator",
     "subtitle": "Genereer RFC 9562-UUID’s of ULID’s in die blaaier. Grootmaat-uitvoer tot {max} per lopie.",
@@ -2629,6 +2670,50 @@
     "copied": "Gekopieer",
     "charCount": "{count, plural, one {# karakter} other {# karakters}}",
     "emptyHint": "Plak of tik jou invoer aan die linkerkant om die omgeskakelede uitset te sien.",
+    "localNote": "Alles loop plaaslik in jou blaaier. Niks word opgelaai nie."
+  },
+  "MimeTypeLookup": {
+    "title": "MIME-tipe opsoek",
+    "subtitle": "Soek die MIME-tipe (media-tipe) vir 'n lêeruitbreiding of volledige lêernaam. Alles loop plaaslik in jou blaaier.",
+    "inputLabel": "Uitbreiding of lêernaam",
+    "placeholder": "bv. .png, package.json, photo.jpeg",
+    "hint": "Wenk: plak óf 'n uitbreiding (met of sonder 'n punt) óf 'n volledige lêernaam.",
+    "clear": "Maak skoon",
+    "exampleFilename": "Gebruik voorbeeld-lêernaam",
+    "exampleExtension": "Gebruik voorbeeld-uitbreiding",
+    "resultLabel": "Resultaat",
+    "normalizedLabel": "Genormaliseerde invoer:",
+    "mimeTypeLabel": "MIME-tipe",
+    "contentTypeLabel": "Content-Type-kop",
+    "charsetLabel": "Karakterstel",
+    "copyMimeType": "Kopieer MIME-tipe",
+    "copy": "Kopieer",
+    "copied": "Gekopieer",
+    "emptyHint": "Voer 'n uitbreiding of lêernaam in om die MIME-tipe op te soek.",
+    "notFound": "Geen MIME-tipe vir daardie invoer gevind nie.",
+    "localNote": "Alles loop plaaslik in jou blaaier. Niks word opgelaai nie."
+  },
+  "UserAgentParser": {
+    "title": "User-Agent-ontleder",
+    "subtitle": "Plak ’n User-Agent (UA)-string en kry ’n uiteensetting van blaaier, OS, enjin, toestel en CPU. Alles loop plaaslik in jou blaaier.",
+    "inputLabel": "User-Agent-string",
+    "placeholder": "Plak jou User-Agent hier…",
+    "hint": "Wenk: jy kan ’n UA uit versoekkoppe, logs of jou blaaier se devtools kopieer.",
+    "clear": "Maak skoon",
+    "exampleDesktop": "Gebruik desktop-voorbeeld",
+    "exampleMobile": "Gebruik mobiele voorbeeld",
+    "resultLabel": "Uiteensetting",
+    "browserLabel": "Blaaier",
+    "osLabel": "Bedryfstelsel",
+    "engineLabel": "Enjin",
+    "deviceTypeLabel": "Toesteltipe",
+    "deviceVendorLabel": "Vervaardiger",
+    "deviceModelLabel": "Model",
+    "cpuArchLabel": "CPU-argitektuur",
+    "copyJson": "Kopieer JSON",
+    "copy": "Kopieer",
+    "copied": "Gekopieer",
+    "emptyHint": "Plak ’n User-Agent-string om die uiteensetting te sien.",
     "localNote": "Alles loop plaaslik in jou blaaier. Niks word opgelaai nie."
   }
 }

@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL 파서",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL 파서",
+        "description": "URL을 프로토콜, 호스트, 경로, 쿼리 파라미터, 해시로 분해합니다."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "인코딩할 수 없습니다(입력에 잘못된 Unicode)."
     }
   },
+  "UrlParser": {
+    "title": "URL 파서",
+    "subtitle": "URL을 프로토콜, 호스트, 경로, 쿼리 파라미터, 해시(프래그먼트)로 분해합니다.",
+    "upload": "업로드",
+    "clear": "지우기",
+    "panels": {
+      "input": "URL 입력",
+      "output": "파싱 결과"
+    },
+    "placeholders": {
+      "input": "URL을 붙여넣기(예: https://example.com/path?foo=bar#section) 또는 호스트/경로(예: example.com/path)…"
+    },
+    "dropHere": "여기에 파일을 놓으세요",
+    "charCount": "{count}자",
+    "outputPlaceholder": "분해된 구성요소가 여기에 표시됩니다…",
+    "fields": {
+      "protocol": "프로토콜",
+      "host": "호스트",
+      "path": "경로",
+      "hash": "해시",
+      "queryParams": "쿼리 파라미터"
+    },
+    "paramCount": "{count}개",
+    "noParams": "쿼리 파라미터가 없습니다.",
+    "paramKey": "키",
+    "paramValue": "값",
+    "copyTitle": "클립보드로 복사",
+    "copyParamTitle": "key=value로 복사",
+    "download": {
+      "title": "JSON 다운로드",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "잘못된 URL입니다. 호스트명(example.com)을 포함하고 문자를 확인하세요."
+    }
+  },
   "UuidGenerator": {
     "title": "UUID / ULID 생성기",
     "subtitle": "브라우저에서 RFC 9562 UUID 또는 ULID를 생성합니다. 한 번에 최대 {max}개까지 일괄 내보내기.",
@@ -2629,6 +2670,50 @@
     "copied": "복사됨",
     "charCount": "{count, plural, other {# 자}}",
     "emptyHint": "왼쪽에 입력을 붙여넣거나 입력하면 변환된 출력을 확인할 수 있습니다.",
+    "localNote": "모든 것이 브라우저에서 로컬로 실행됩니다. 아무것도 업로드되지 않습니다."
+  },
+  "MimeTypeLookup": {
+    "title": "MIME 타입 조회",
+    "subtitle": "파일 확장자 또는 전체 파일명으로 MIME 타입(미디어 타입)을 조회합니다. 모든 작업은 브라우저에서 로컬로 실행됩니다.",
+    "inputLabel": "확장자 또는 파일명",
+    "placeholder": "예: .png, package.json, photo.jpeg",
+    "hint": "팁: 확장자(점 포함/미포함) 또는 전체 파일명을 붙여넣으세요.",
+    "clear": "지우기",
+    "exampleFilename": "예시 파일명 사용",
+    "exampleExtension": "예시 확장자 사용",
+    "resultLabel": "결과",
+    "normalizedLabel": "정규화된 입력:",
+    "mimeTypeLabel": "MIME 타입",
+    "contentTypeLabel": "Content-Type 헤더",
+    "charsetLabel": "문자셋",
+    "copyMimeType": "MIME 타입 복사",
+    "copy": "복사",
+    "copied": "복사됨",
+    "emptyHint": "확장자 또는 파일명을 입력하여 MIME 타입을 조회하세요.",
+    "notFound": "해당 입력에 대한 MIME 타입을 찾을 수 없습니다.",
+    "localNote": "모든 것이 브라우저에서 로컬로 실행됩니다. 아무것도 업로드되지 않습니다."
+  },
+  "UserAgentParser": {
+    "title": "User-Agent 파서",
+    "subtitle": "User-Agent(UA) 문자열을 붙여넣고 브라우저, OS, 엔진, 디바이스, CPU 정보를 확인하세요. 모든 작업은 브라우저에서 로컬로 실행됩니다.",
+    "inputLabel": "User-Agent 문자열",
+    "placeholder": "여기에 User-Agent를 붙여넣으세요…",
+    "hint": "팁: 요청 헤더, 로그, 또는 브라우저 개발자 도구에서 UA를 복사할 수 있습니다.",
+    "clear": "지우기",
+    "exampleDesktop": "데스크톱 예시 사용",
+    "exampleMobile": "모바일 예시 사용",
+    "resultLabel": "분석 결과",
+    "browserLabel": "브라우저",
+    "osLabel": "운영체제",
+    "engineLabel": "엔진",
+    "deviceTypeLabel": "디바이스 유형",
+    "deviceVendorLabel": "제조사",
+    "deviceModelLabel": "모델",
+    "cpuArchLabel": "CPU 아키텍처",
+    "copyJson": "JSON 복사",
+    "copy": "복사",
+    "copied": "복사됨",
+    "emptyHint": "User-Agent 문자열을 붙여넣어 분석 결과를 확인하세요.",
     "localNote": "모든 것이 브라우저에서 로컬로 실행됩니다. 아무것도 업로드되지 않습니다."
   }
 }

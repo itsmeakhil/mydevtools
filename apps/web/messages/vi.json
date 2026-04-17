@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "Trình phân tích URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Trình phân tích URL",
+        "description": "Tách URL thành giao thức, host, đường dẫn, tham số truy vấn và hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "Không thể mã hóa (Unicode không hợp lệ trong đầu vào)."
     }
   },
+  "UrlParser": {
+    "title": "Trình phân tích URL",
+    "subtitle": "Tách URL thành giao thức, host, đường dẫn, tham số truy vấn và hash (fragment).",
+    "upload": "Tải lên",
+    "clear": "Xóa",
+    "panels": {
+      "input": "Đầu vào URL",
+      "output": "Kết quả"
+    },
+    "placeholders": {
+      "input": "Dán URL (ví dụ https://example.com/path?foo=bar#section) hoặc host/đường dẫn (ví dụ example.com/path)…"
+    },
+    "dropHere": "Thả tệp vào đây",
+    "charCount": "{count} ký tự",
+    "outputPlaceholder": "Các thành phần đã phân tích sẽ hiển thị ở đây…",
+    "fields": {
+      "protocol": "Giao thức",
+      "host": "Host",
+      "path": "Đường dẫn",
+      "hash": "Hash",
+      "queryParams": "Tham số truy vấn"
+    },
+    "paramCount": "{count} tham số",
+    "noParams": "Không có tham số truy vấn.",
+    "paramKey": "Khóa",
+    "paramValue": "Giá trị",
+    "copyTitle": "Sao chép vào clipboard",
+    "copyParamTitle": "Sao chép dưới dạng key=value",
+    "download": {
+      "title": "Tải xuống JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "URL không hợp lệ. Hãy bao gồm hostname (example.com) và kiểm tra ký tự."
+    }
+  },
   "UuidGenerator": {
     "title": "Trình tạo UUID / ULID",
     "subtitle": "Tạo UUID (RFC 9562) hoặc ULID trong trình duyệt. Xuất hàng loạt tối đa {max} mỗi lần chạy.",
@@ -2629,6 +2670,50 @@
     "copied": "Đã sao chép",
     "charCount": "{count, plural, other {# ký tự}}",
     "emptyHint": "Dán hoặc nhập dữ liệu đầu vào ở bên trái để xem đầu ra đã chuyển đổi.",
+    "localNote": "Mọi thứ chạy cục bộ trên trình duyệt của bạn. Không có gì được tải lên."
+  },
+  "MimeTypeLookup": {
+    "title": "Tra cứu loại MIME",
+    "subtitle": "Tra cứu loại MIME (media type) theo phần mở rộng hoặc tên tệp đầy đủ. Mọi thứ chạy cục bộ trên trình duyệt của bạn.",
+    "inputLabel": "Phần mở rộng hoặc tên tệp",
+    "placeholder": "ví dụ .png, package.json, photo.jpeg",
+    "hint": "Mẹo: dán phần mở rộng (có hoặc không có dấu chấm) hoặc tên tệp đầy đủ.",
+    "clear": "Xóa",
+    "exampleFilename": "Dùng tên tệp ví dụ",
+    "exampleExtension": "Dùng phần mở rộng ví dụ",
+    "resultLabel": "Kết quả",
+    "normalizedLabel": "Đầu vào đã chuẩn hóa:",
+    "mimeTypeLabel": "Loại MIME",
+    "contentTypeLabel": "Header Content-Type",
+    "charsetLabel": "Bảng mã",
+    "copyMimeType": "Sao chép loại MIME",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép",
+    "emptyHint": "Nhập phần mở rộng hoặc tên tệp để tra cứu loại MIME.",
+    "notFound": "Không tìm thấy loại MIME cho đầu vào này.",
+    "localNote": "Mọi thứ chạy cục bộ trên trình duyệt của bạn. Không có gì được tải lên."
+  },
+  "UserAgentParser": {
+    "title": "Trình phân tích User-Agent",
+    "subtitle": "Dán chuỗi User-Agent (UA) để xem phân tích trình duyệt, hệ điều hành, engine, thiết bị và CPU. Mọi thứ chạy cục bộ trên trình duyệt của bạn.",
+    "inputLabel": "Chuỗi User-Agent",
+    "placeholder": "Dán User-Agent của bạn vào đây…",
+    "hint": "Mẹo: bạn có thể sao chép UA từ header yêu cầu, log hoặc devtools của trình duyệt.",
+    "clear": "Xóa",
+    "exampleDesktop": "Dùng ví dụ máy tính",
+    "exampleMobile": "Dùng ví dụ di động",
+    "resultLabel": "Phân tích",
+    "browserLabel": "Trình duyệt",
+    "osLabel": "Hệ điều hành",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Loại thiết bị",
+    "deviceVendorLabel": "Hãng thiết bị",
+    "deviceModelLabel": "Mẫu thiết bị",
+    "cpuArchLabel": "Kiến trúc CPU",
+    "copyJson": "Sao chép JSON",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép",
+    "emptyHint": "Dán chuỗi User-Agent để xem phân tích.",
     "localNote": "Mọi thứ chạy cục bộ trên trình duyệt của bạn. Không có gì được tải lên."
   }
 }

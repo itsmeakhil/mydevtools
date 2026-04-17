@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL 解析器",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL 解析器",
+        "description": "将 URL 拆分为协议、主机、路径、查询参数和哈希。"
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "无法编码（输入中包含无效的 Unicode）。"
     }
   },
+  "UrlParser": {
+    "title": "URL 解析器",
+    "subtitle": "将 URL 拆分为协议、主机、路径、查询参数和哈希（片段）。",
+    "upload": "上传",
+    "clear": "清空",
+    "panels": {
+      "input": "URL 输入",
+      "output": "解析结果"
+    },
+    "placeholders": {
+      "input": "粘贴 URL（例如 https://example.com/path?foo=bar#section）或主机/路径（例如 example.com/path）…"
+    },
+    "dropHere": "将文件拖放到此处",
+    "charCount": "{count} 个字符",
+    "outputPlaceholder": "解析后的组件将显示在这里…",
+    "fields": {
+      "protocol": "协议",
+      "host": "主机",
+      "path": "路径",
+      "hash": "哈希",
+      "queryParams": "查询参数"
+    },
+    "paramCount": "{count} 个参数",
+    "noParams": "没有查询参数。",
+    "paramKey": "键",
+    "paramValue": "值",
+    "copyTitle": "复制到剪贴板",
+    "copyParamTitle": "复制为 key=value",
+    "download": {
+      "title": "下载 JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "无效的 URL。请包含主机名（example.com）并检查非法字符。"
+    }
+  },
   "UuidGenerator": {
     "title": "UUID / ULID 生成器",
     "subtitle": "在浏览器中生成 RFC 9562 UUID 或 ULID。每次最多批量导出 {max} 个。",
@@ -2630,5 +2671,49 @@
     "charCount": "{count, plural, other {# 个字符}}",
     "emptyHint": "在左侧粘贴或输入内容，即可看到转换后的输出。",
     "localNote": "所有操作均在您的浏览器中本地运行。不会上传任何内容。"
+  },
+  "MimeTypeLookup": {
+    "title": "MIME 类型查询",
+    "subtitle": "根据文件扩展名或完整文件名查询 MIME 类型（媒体类型）。所有操作都在浏览器本地完成。",
+    "inputLabel": "扩展名或文件名",
+    "placeholder": "例如 .png、package.json、photo.jpeg",
+    "hint": "提示：可粘贴扩展名（带或不带点）或完整文件名。",
+    "clear": "清空",
+    "exampleFilename": "使用示例文件名",
+    "exampleExtension": "使用示例扩展名",
+    "resultLabel": "结果",
+    "normalizedLabel": "规范化输入：",
+    "mimeTypeLabel": "MIME 类型",
+    "contentTypeLabel": "Content-Type 头",
+    "charsetLabel": "字符集",
+    "copyMimeType": "复制 MIME 类型",
+    "copy": "复制",
+    "copied": "已复制",
+    "emptyHint": "输入扩展名或文件名以查询 MIME 类型。",
+    "notFound": "未找到该输入对应的 MIME 类型。",
+    "localNote": "所有操作都在浏览器本地完成。不会上传任何内容。"
+  },
+  "UserAgentParser": {
+    "title": "User-Agent 解析",
+    "subtitle": "粘贴一段 User-Agent（UA）字符串，即可查看浏览器、操作系统、引擎、设备与 CPU 的解析结果。所有操作均在浏览器本地完成。",
+    "inputLabel": "User-Agent 字符串",
+    "placeholder": "在此粘贴你的 User-Agent…",
+    "hint": "提示：你可以从请求头、日志或浏览器开发者工具中复制 UA。",
+    "clear": "清空",
+    "exampleDesktop": "使用桌面示例",
+    "exampleMobile": "使用移动端示例",
+    "resultLabel": "解析结果",
+    "browserLabel": "浏览器",
+    "osLabel": "操作系统",
+    "engineLabel": "引擎",
+    "deviceTypeLabel": "设备类型",
+    "deviceVendorLabel": "设备厂商",
+    "deviceModelLabel": "设备型号",
+    "cpuArchLabel": "CPU 架构",
+    "copyJson": "复制 JSON",
+    "copy": "复制",
+    "copied": "已复制",
+    "emptyHint": "粘贴 User-Agent 字符串以查看解析结果。",
+    "localNote": "所有操作均在浏览器本地完成。不会上传任何内容。"
   }
 }

@@ -19,6 +19,7 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/base64': 'base64Encoder',
   '/app/number-base-converter': 'numberBaseConverter',
   '/app/url-encode': 'urlEncoder',
+  '/app/url-parser': 'urlParser',
   '/app/uuid-generator': 'uuidGenerator',
   '/app/qr-code-generator': 'qrCodeGenerator',
   '/app/ip-subnet-calculator': 'ipSubnetCalculator',

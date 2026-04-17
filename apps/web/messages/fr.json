@@ -17,6 +17,7 @@
     "cronBuilder": "Constructeur Cron",
     "base64Encoder": "Encodeur Base64",
     "urlEncoder": "Encodeur d’URL",
+    "urlParser": "Analyseur d’URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Sélecteur de couleurs",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "Encodeur d’URL",
         "description": "Encoder et décoder en pourcentage les composants d’URL."
+      },
+      "urlParser": {
+        "title": "Analyseur d’URL",
+        "description": "Décomposer une URL en protocole, hôte, chemin, paramètres de requête et fragment."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "Impossible d’encoder (Unicode invalide dans l’entrée)."
     }
   },
+  "UrlParser": {
+    "title": "Analyseur d’URL",
+    "subtitle": "Décompose une URL en protocole, hôte, chemin, paramètres de requête et fragment (#).",
+    "upload": "Téléverser",
+    "clear": "Effacer",
+    "panels": {
+      "input": "Entrée URL",
+      "output": "Résultat"
+    },
+    "placeholders": {
+      "input": "Collez une URL (ex. https://example.com/path?foo=bar#section) ou un hôte/chemin (ex. example.com/path)…"
+    },
+    "dropHere": "Déposez un fichier ici",
+    "charCount": "{count} caractères",
+    "outputPlaceholder": "Les composants analysés apparaîtront ici…",
+    "fields": {
+      "protocol": "Protocole",
+      "host": "Hôte",
+      "path": "Chemin",
+      "hash": "Fragment",
+      "queryParams": "Paramètres de requête"
+    },
+    "paramCount": "{count} paramètres",
+    "noParams": "Aucun paramètre de requête.",
+    "paramKey": "Clé",
+    "paramValue": "Valeur",
+    "copyTitle": "Copier dans le presse‑papiers",
+    "copyParamTitle": "Copier comme key=value",
+    "download": {
+      "title": "Télécharger le JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "URL invalide. Incluez un nom d’hôte (example.com) et vérifiez les caractères."
+    }
+  },
   "UuidGenerator": {
     "title": "Générateur UUID / ULID",
     "subtitle": "Générez des UUID (RFC 9562) ou des ULID dans le navigateur. Export en lot jusqu’à {max} par exécution.",
@@ -2629,6 +2670,50 @@
     "copied": "Copié",
     "charCount": "{count, plural, one {# caractère} other {# caractères}}",
     "emptyHint": "Collez ou tapez votre entrée à gauche pour voir la sortie convertie.",
+    "localNote": "Tout s'exécute localement dans votre navigateur. Rien n'est téléchargé."
+  },
+  "MimeTypeLookup": {
+    "title": "Recherche de type MIME",
+    "subtitle": "Recherchez le type MIME (type de média) d'une extension ou d'un nom de fichier complet. Tout s'exécute localement dans votre navigateur.",
+    "inputLabel": "Extension ou nom de fichier",
+    "placeholder": "ex. .png, package.json, photo.jpeg",
+    "hint": "Astuce : collez une extension (avec ou sans point) ou un nom de fichier complet.",
+    "clear": "Effacer",
+    "exampleFilename": "Utiliser un nom de fichier exemple",
+    "exampleExtension": "Utiliser une extension exemple",
+    "resultLabel": "Résultat",
+    "normalizedLabel": "Entrée normalisée :",
+    "mimeTypeLabel": "Type MIME",
+    "contentTypeLabel": "En-tête Content-Type",
+    "charsetLabel": "Jeu de caractères",
+    "copyMimeType": "Copier le type MIME",
+    "copy": "Copier",
+    "copied": "Copié",
+    "emptyHint": "Saisissez une extension ou un nom de fichier pour rechercher son type MIME.",
+    "notFound": "Aucun type MIME trouvé pour cette entrée.",
+    "localNote": "Tout s'exécute localement dans votre navigateur. Rien n'est téléchargé."
+  },
+  "UserAgentParser": {
+    "title": "Analyseur User-Agent",
+    "subtitle": "Collez une chaîne User-Agent (UA) pour obtenir le détail navigateur, OS, moteur, appareil et CPU. Tout s'exécute localement dans votre navigateur.",
+    "inputLabel": "Chaîne User-Agent",
+    "placeholder": "Collez votre User-Agent ici…",
+    "hint": "Astuce : vous pouvez copier un UA depuis les en-têtes de requête, des logs ou les devtools du navigateur.",
+    "clear": "Effacer",
+    "exampleDesktop": "Utiliser un exemple desktop",
+    "exampleMobile": "Utiliser un exemple mobile",
+    "resultLabel": "Détails",
+    "browserLabel": "Navigateur",
+    "osLabel": "Système d’exploitation",
+    "engineLabel": "Moteur",
+    "deviceTypeLabel": "Type d’appareil",
+    "deviceVendorLabel": "Fabricant",
+    "deviceModelLabel": "Modèle",
+    "cpuArchLabel": "Architecture CPU",
+    "copyJson": "Copier JSON",
+    "copy": "Copier",
+    "copied": "Copié",
+    "emptyHint": "Collez une chaîne User-Agent pour voir les détails.",
     "localNote": "Tout s'exécute localement dans votre navigateur. Rien n'est téléchargé."
   }
 }

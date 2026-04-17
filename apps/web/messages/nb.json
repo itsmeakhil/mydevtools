@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL-parser",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL-parser",
+        "description": "Del opp en URL i protokoll, vert, sti, spørringsparametre og hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "Kunne ikke kode (ugyldig Unicode i input)."
     }
   },
+  "UrlParser": {
+    "title": "URL-parser",
+    "subtitle": "Del opp en URL i protokoll, vert, sti, spørringsparametre og hash (fragment).",
+    "upload": "Last opp",
+    "clear": "Tøm",
+    "panels": {
+      "input": "URL-inndata",
+      "output": "Resultat"
+    },
+    "placeholders": {
+      "input": "Lim inn en URL (f.eks. https://example.com/path?foo=bar#section) eller vert/sti (f.eks. example.com/path)…"
+    },
+    "dropHere": "Slipp fil her",
+    "charCount": "{count} tegn",
+    "outputPlaceholder": "De analyserte komponentene vises her…",
+    "fields": {
+      "protocol": "Protokoll",
+      "host": "Vert",
+      "path": "Sti",
+      "hash": "Hash",
+      "queryParams": "Spørringsparametre"
+    },
+    "paramCount": "{count} parametre",
+    "noParams": "Ingen spørringsparametre.",
+    "paramKey": "Nøkkel",
+    "paramValue": "Verdi",
+    "copyTitle": "Kopier til utklippstavlen",
+    "copyParamTitle": "Kopier som key=value",
+    "download": {
+      "title": "Last ned JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Ugyldig URL. Inkluder et vertsnavn (example.com) og sjekk tegn."
+    }
+  },
   "UuidGenerator": {
     "title": "UUID-/ULID-generator",
     "subtitle": "Generer RFC 9562-UUID-er eller ULID-er i nettleseren. Masseeksport opptil {max} per kjøring.",
@@ -2629,6 +2670,50 @@
     "copied": "Kopiert",
     "charCount": "{count, plural, one {# tegn} other {# tegn}}",
     "emptyHint": "Lim inn eller skriv inn inndataene dine til venstre for å se det konverterte utdataet.",
+    "localNote": "Alt kjører lokalt i nettleseren din. Ingenting lastes opp."
+  },
+  "MimeTypeLookup": {
+    "title": "MIME-type oppslag",
+    "subtitle": "Slå opp MIME-type (medietype) for en filendelse eller et fullt filnavn. Alt kjører lokalt i nettleseren din.",
+    "inputLabel": "Filendelse eller filnavn",
+    "placeholder": "f.eks. .png, package.json, photo.jpeg",
+    "hint": "Tips: lim inn enten en endelse (med eller uten punktum) eller et fullt filnavn.",
+    "clear": "Tøm",
+    "exampleFilename": "Bruk eksempel-filnavn",
+    "exampleExtension": "Bruk eksempel-endelse",
+    "resultLabel": "Resultat",
+    "normalizedLabel": "Normalisert input:",
+    "mimeTypeLabel": "MIME-type",
+    "contentTypeLabel": "Content-Type-header",
+    "charsetLabel": "Tegnsett",
+    "copyMimeType": "Kopier MIME-type",
+    "copy": "Kopier",
+    "copied": "Kopiert",
+    "emptyHint": "Skriv inn en endelse eller et filnavn for å slå opp MIME-typen.",
+    "notFound": "Ingen MIME-type funnet for denne inndataen.",
+    "localNote": "Alt kjører lokalt i nettleseren din. Ingenting lastes opp."
+  },
+  "UserAgentParser": {
+    "title": "User-Agent-parser",
+    "subtitle": "Lim inn en User-Agent (UA)-streng og få en oversikt over nettleser, OS, engine, enhet og CPU. Alt kjører lokalt i nettleseren din.",
+    "inputLabel": "User-Agent-streng",
+    "placeholder": "Lim inn User-Agent her…",
+    "hint": "Tips: du kan kopiere en UA fra request-headers, logger eller nettleserens devtools.",
+    "clear": "Tøm",
+    "exampleDesktop": "Bruk desktop-eksempel",
+    "exampleMobile": "Bruk mobil-eksempel",
+    "resultLabel": "Oversikt",
+    "browserLabel": "Nettleser",
+    "osLabel": "Operativsystem",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Enhetstype",
+    "deviceVendorLabel": "Produsent",
+    "deviceModelLabel": "Modell",
+    "cpuArchLabel": "CPU-arkitektur",
+    "copyJson": "Kopier JSON",
+    "copy": "Kopier",
+    "copied": "Kopiert",
+    "emptyHint": "Lim inn en User-Agent-streng for å se oversikten.",
     "localNote": "Alt kjører lokalt i nettleseren din. Ingenting lastes opp."
   }
 }

@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "URL-парсер",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL-парсер",
+        "description": "Разберите URL на протокол, хост, путь, параметры запроса и хэш."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "Не удалось закодировать (некорректный Unicode во вводе)."
     }
   },
+  "UrlParser": {
+    "title": "URL-парсер",
+    "subtitle": "Разберите URL на протокол, хост, путь, параметры запроса и хэш (фрагмент).",
+    "upload": "Загрузить",
+    "clear": "Очистить",
+    "panels": {
+      "input": "Ввод URL",
+      "output": "Результат"
+    },
+    "placeholders": {
+      "input": "Вставьте URL (например, https://example.com/path?foo=bar#section) или хост/путь (например, example.com/path)…"
+    },
+    "dropHere": "Перетащите файл сюда",
+    "charCount": "{count} символов",
+    "outputPlaceholder": "Разобранные компоненты появятся здесь…",
+    "fields": {
+      "protocol": "Протокол",
+      "host": "Хост",
+      "path": "Путь",
+      "hash": "Хэш",
+      "queryParams": "Параметры запроса"
+    },
+    "paramCount": "{count} параметров",
+    "noParams": "Параметров запроса нет.",
+    "paramKey": "Ключ",
+    "paramValue": "Значение",
+    "copyTitle": "Скопировать в буфер обмена",
+    "copyParamTitle": "Скопировать как key=value",
+    "download": {
+      "title": "Скачать JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Некорректный URL. Укажите hostname (example.com) и проверьте символы."
+    }
+  },
   "UuidGenerator": {
     "title": "Генератор UUID / ULID",
     "subtitle": "Генерируйте UUID (RFC 9562) или ULID в браузере. Пакетный экспорт до {max} за запуск.",
@@ -2629,6 +2670,50 @@
     "copied": "Скопировано",
     "charCount": "{count, plural, one {# символ} few {# символа} other {# символов}}",
     "emptyHint": "Вставьте или введите данные слева, чтобы увидеть преобразованный вывод.",
+    "localNote": "Всё работает локально в вашем браузере. Ничего не загружается."
+  },
+  "MimeTypeLookup": {
+    "title": "Поиск MIME-типа",
+    "subtitle": "Узнайте MIME-тип (media type) по расширению файла или полному имени файла. Всё работает локально в вашем браузере.",
+    "inputLabel": "Расширение или имя файла",
+    "placeholder": "например .png, package.json, photo.jpeg",
+    "hint": "Совет: вставьте расширение (с точкой или без) или полное имя файла.",
+    "clear": "Очистить",
+    "exampleFilename": "Использовать пример имени файла",
+    "exampleExtension": "Использовать пример расширения",
+    "resultLabel": "Результат",
+    "normalizedLabel": "Нормализованный ввод:",
+    "mimeTypeLabel": "MIME-тип",
+    "contentTypeLabel": "Заголовок Content-Type",
+    "charsetLabel": "Кодировка",
+    "copyMimeType": "Копировать MIME-тип",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "emptyHint": "Введите расширение или имя файла, чтобы узнать MIME-тип.",
+    "notFound": "MIME-тип для этого ввода не найден.",
+    "localNote": "Всё работает локально в вашем браузере. Ничего не загружается."
+  },
+  "UserAgentParser": {
+    "title": "Парсер User-Agent",
+    "subtitle": "Вставьте строку User-Agent (UA) и получите разбор по браузеру, ОС, движку, устройству и CPU. Всё работает локально в вашем браузере.",
+    "inputLabel": "Строка User-Agent",
+    "placeholder": "Вставьте ваш User-Agent сюда…",
+    "hint": "Совет: можно скопировать UA из заголовков запроса, логов или devtools браузера.",
+    "clear": "Очистить",
+    "exampleDesktop": "Использовать пример для компьютера",
+    "exampleMobile": "Использовать пример для телефона",
+    "resultLabel": "Разбор",
+    "browserLabel": "Браузер",
+    "osLabel": "Операционная система",
+    "engineLabel": "Движок",
+    "deviceTypeLabel": "Тип устройства",
+    "deviceVendorLabel": "Производитель",
+    "deviceModelLabel": "Модель",
+    "cpuArchLabel": "Архитектура CPU",
+    "copyJson": "Скопировать JSON",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "emptyHint": "Вставьте строку User-Agent, чтобы увидеть разбор.",
     "localNote": "Всё работает локально в вашем браузере. Ничего не загружается."
   }
 }

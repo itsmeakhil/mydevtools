@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "محلّل URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "محلّل URL",
+        "description": "تقسيم عنوان URL إلى بروتوكول ومضيف ومسار ومعاملات استعلام وتجزئة (hash)."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "تعذّر الترميز (Unicode غير صالح في الإدخال)."
     }
   },
+  "UrlParser": {
+    "title": "محلّل URL",
+    "subtitle": "تقسيم عنوان URL إلى بروتوكول ومضيف ومسار ومعاملات استعلام وتجزئة (الجزء بعد #).",
+    "upload": "رفع",
+    "clear": "مسح",
+    "panels": {
+      "input": "إدخال URL",
+      "output": "النتيجة"
+    },
+    "placeholders": {
+      "input": "الصق عنوان URL (مثل https://example.com/path?foo=bar#section) أو مضيف/مسار (مثل example.com/path)…"
+    },
+    "dropHere": "أسقط الملف هنا",
+    "charCount": "{count} حرفًا",
+    "outputPlaceholder": "ستظهر المكوّنات المحلّلة هنا…",
+    "fields": {
+      "protocol": "البروتوكول",
+      "host": "المضيف",
+      "path": "المسار",
+      "hash": "التجزئة",
+      "queryParams": "معاملات الاستعلام"
+    },
+    "paramCount": "{count} معاملات",
+    "noParams": "لا توجد معاملات استعلام.",
+    "paramKey": "المفتاح",
+    "paramValue": "القيمة",
+    "copyTitle": "نسخ إلى الحافظة",
+    "copyParamTitle": "نسخ كـ key=value",
+    "download": {
+      "title": "تنزيل JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "عنوان URL غير صالح. تأكد من وجود اسم مضيف (example.com) ومن صحة الأحرف."
+    }
+  },
   "UuidGenerator": {
     "title": "مولّد UUID / ULID",
     "subtitle": "أنشئ UUID (RFC 9562) أو ULID في المتصفح. تصدير دفعي حتى {max} لكل تشغيل.",
@@ -2629,6 +2670,50 @@
     "copied": "تم النسخ",
     "charCount": "{count, plural, one {# حرف} other {# أحرف}}",
     "emptyHint": "الصق أو اكتب مدخلاتك على اليسار لرؤية المخرجات المحوّلة.",
+    "localNote": "كل شيء يعمل محليًا في متصفحك. لا يتم رفع أي شيء."
+  },
+  "MimeTypeLookup": {
+    "title": "البحث عن نوع MIME",
+    "subtitle": "اعثر على نوع MIME (نوع الوسائط) حسب الامتداد أو اسم الملف الكامل. كل شيء يعمل محليًا في متصفحك.",
+    "inputLabel": "الامتداد أو اسم الملف",
+    "placeholder": "مثل .png أو package.json أو photo.jpeg",
+    "hint": "نصيحة: الصق امتدادًا (مع أو بدون نقطة) أو اسم ملف كامل.",
+    "clear": "مسح",
+    "exampleFilename": "استخدم اسم ملف مثال",
+    "exampleExtension": "استخدم امتدادًا مثال",
+    "resultLabel": "النتيجة",
+    "normalizedLabel": "الإدخال المُوحّد:",
+    "mimeTypeLabel": "نوع MIME",
+    "contentTypeLabel": "ترويسة Content-Type",
+    "charsetLabel": "مجموعة الأحرف",
+    "copyMimeType": "نسخ نوع MIME",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "emptyHint": "أدخل امتدادًا أو اسم ملف للبحث عن نوع MIME.",
+    "notFound": "لم يتم العثور على نوع MIME لهذه القيمة.",
+    "localNote": "كل شيء يعمل محليًا في متصفحك. لا يتم رفع أي شيء."
+  },
+  "UserAgentParser": {
+    "title": "محلل User-Agent",
+    "subtitle": "الصق سلسلة User-Agent (UA) للحصول على تفاصيل المتصفح ونظام التشغيل والمحرك والجهاز والمعالج. كل شيء يعمل محليًا في متصفحك.",
+    "inputLabel": "سلسلة User-Agent",
+    "placeholder": "الصق User-Agent هنا…",
+    "hint": "نصيحة: يمكنك نسخ UA من ترويسات الطلب أو السجلات أو أدوات المطور في المتصفح.",
+    "clear": "مسح",
+    "exampleDesktop": "استخدم مثال سطح المكتب",
+    "exampleMobile": "استخدم مثال الهاتف",
+    "resultLabel": "التفاصيل",
+    "browserLabel": "المتصفح",
+    "osLabel": "نظام التشغيل",
+    "engineLabel": "المحرك",
+    "deviceTypeLabel": "نوع الجهاز",
+    "deviceVendorLabel": "الشركة المصنعة",
+    "deviceModelLabel": "الطراز",
+    "cpuArchLabel": "معمارية CPU",
+    "copyJson": "نسخ JSON",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "emptyHint": "الصق سلسلة User-Agent لعرض التفاصيل.",
     "localNote": "كل شيء يعمل محليًا في متصفحك. لا يتم رفع أي شيء."
   }
 }

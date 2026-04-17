@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "Αναλυτής URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Αναλυτής URL",
+        "description": "Χωρίστε ένα URL σε πρωτόκολλο, κεντρικό υπολογιστή, διαδρομή, παραμέτρους ερωτήματος και hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "Δεν ήταν δυνατή η κωδικοποίηση (μη έγκυρο Unicode στην είσοδο)."
     }
   },
+  "UrlParser": {
+    "title": "Αναλυτής URL",
+    "subtitle": "Χωρίστε ένα URL σε πρωτόκολλο, κεντρικό υπολογιστή, διαδρομή, παραμέτρους ερωτήματος και hash (τμήμα).",
+    "upload": "Μεταφόρτωση",
+    "clear": "Εκκαθάριση",
+    "panels": {
+      "input": "Είσοδος URL",
+      "output": "Αποτέλεσμα"
+    },
+    "placeholders": {
+      "input": "Επικολλήστε ένα URL (π.χ. https://example.com/path?foo=bar#section) ή κεντρικό/διαδρομή (π.χ. example.com/path)…"
+    },
+    "dropHere": "Αποθέστε το αρχείο εδώ",
+    "charCount": "{count} χαρακτήρες",
+    "outputPlaceholder": "Τα αναλυμένα στοιχεία θα εμφανιστούν εδώ…",
+    "fields": {
+      "protocol": "Πρωτόκολλο",
+      "host": "Κεντρικός υπολογιστής",
+      "path": "Διαδρομή",
+      "hash": "Hash",
+      "queryParams": "Παράμετροι ερωτήματος"
+    },
+    "paramCount": "{count} παράμετροι",
+    "noParams": "Δεν υπάρχουν παράμετροι ερωτήματος.",
+    "paramKey": "Κλειδί",
+    "paramValue": "Τιμή",
+    "copyTitle": "Αντιγραφή στο πρόχειρο",
+    "copyParamTitle": "Αντιγραφή ως key=value",
+    "download": {
+      "title": "Λήψη JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Μη έγκυρο URL. Συμπεριλάβετε όνομα κεντρικού υπολογιστή (example.com) και ελέγξτε τους χαρακτήρες."
+    }
+  },
   "UuidGenerator": {
     "title": "Γεννήτρια UUID / ULID",
     "subtitle": "Δημιουργήστε UUID (RFC 9562) ή ULID στον browser. Μαζική εξαγωγή έως {max} ανά εκτέλεση.",
@@ -2629,6 +2670,50 @@
     "copied": "Αντιγράφηκε",
     "charCount": "{count, plural, one {# χαρακτήρας} other {# χαρακτήρες}}",
     "emptyHint": "Επικολλήστε ή πληκτρολογήστε την είσοδό σας αριστερά για να δείτε την μετατραπείσα έξοδο.",
+    "localNote": "Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας. Τίποτα δεν ανεβαίνει."
+  },
+  "MimeTypeLookup": {
+    "title": "Αναζήτηση τύπου MIME",
+    "subtitle": "Αναζητήστε τον τύπο MIME (media type) για επέκταση ή πλήρες όνομα αρχείου. Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας.",
+    "inputLabel": "Επέκταση ή όνομα αρχείου",
+    "placeholder": "π.χ. .png, package.json, photo.jpeg",
+    "hint": "Συμβουλή: επικολλήστε είτε επέκταση (με ή χωρίς τελεία) είτε πλήρες όνομα αρχείου.",
+    "clear": "Εκκαθάριση",
+    "exampleFilename": "Χρήση παραδείγματος ονόματος αρχείου",
+    "exampleExtension": "Χρήση παραδείγματος επέκτασης",
+    "resultLabel": "Αποτέλεσμα",
+    "normalizedLabel": "Κανονικοποιημένη είσοδος:",
+    "mimeTypeLabel": "Τύπος MIME",
+    "contentTypeLabel": "Κεφαλίδα Content-Type",
+    "charsetLabel": "Σύνολο χαρακτήρων",
+    "copyMimeType": "Αντιγραφή τύπου MIME",
+    "copy": "Αντιγραφή",
+    "copied": "Αντιγράφηκε",
+    "emptyHint": "Εισάγετε επέκταση ή όνομα αρχείου για να αναζητήσετε τον τύπο MIME.",
+    "notFound": "Δεν βρέθηκε τύπος MIME για αυτή την είσοδο.",
+    "localNote": "Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας. Τίποτα δεν ανεβαίνει."
+  },
+  "UserAgentParser": {
+    "title": "Αναλυτής User-Agent",
+    "subtitle": "Επικολλήστε μια συμβολοσειρά User-Agent (UA) και δείτε ανάλυση για πρόγραμμα περιήγησης, OS, engine, συσκευή και CPU. Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας.",
+    "inputLabel": "Συμβολοσειρά User-Agent",
+    "placeholder": "Επικολλήστε το User-Agent εδώ…",
+    "hint": "Συμβουλή: μπορείτε να αντιγράψετε UA από headers αιτήματος, logs ή τα devtools του προγράμματος περιήγησης.",
+    "clear": "Εκκαθάριση",
+    "exampleDesktop": "Χρήση παραδείγματος desktop",
+    "exampleMobile": "Χρήση παραδείγματος mobile",
+    "resultLabel": "Ανάλυση",
+    "browserLabel": "Πρόγραμμα περιήγησης",
+    "osLabel": "Λειτουργικό σύστημα",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Τύπος συσκευής",
+    "deviceVendorLabel": "Κατασκευαστής",
+    "deviceModelLabel": "Μοντέλο",
+    "cpuArchLabel": "Αρχιτεκτονική CPU",
+    "copyJson": "Αντιγραφή JSON",
+    "copy": "Αντιγραφή",
+    "copied": "Αντιγράφηκε",
+    "emptyHint": "Επικολλήστε μια συμβολοσειρά User-Agent για να δείτε την ανάλυση.",
     "localNote": "Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας. Τίποτα δεν ανεβαίνει."
   }
 }

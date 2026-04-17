@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "تجزیه‌گر URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "تجزیه‌گر URL",
+        "description": "یک URL را به پروتکل، میزبان، مسیر، پارامترهای پرس‌وجو و هش تقسیم کنید."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "رمزگذاری ممکن نیست (Unicode نامعتبر در ورودی)."
     }
   },
+  "UrlParser": {
+    "title": "تجزیه‌گر URL",
+    "subtitle": "یک URL را به پروتکل، میزبان، مسیر، پارامترهای پرس‌وجو و هش (بخش) تقسیم کنید.",
+    "upload": "بارگذاری",
+    "clear": "پاک کردن",
+    "panels": {
+      "input": "ورودی URL",
+      "output": "نتیجه"
+    },
+    "placeholders": {
+      "input": "یک URL بچسبانید (مثال https://example.com/path?foo=bar#section) یا میزبان/مسیر (مثال example.com/path)…"
+    },
+    "dropHere": "فایل را اینجا رها کنید",
+    "charCount": "{count} نویسه",
+    "outputPlaceholder": "اجزای تجزیه‌شده اینجا نمایش داده می‌شوند…",
+    "fields": {
+      "protocol": "پروتکل",
+      "host": "میزبان",
+      "path": "مسیر",
+      "hash": "هش",
+      "queryParams": "پارامترهای پرس‌وجو"
+    },
+    "paramCount": "{count} پارامتر",
+    "noParams": "پارامتر پرس‌وجویی وجود ندارد.",
+    "paramKey": "کلید",
+    "paramValue": "مقدار",
+    "copyTitle": "کپی در کلیپ‌بورد",
+    "copyParamTitle": "کپی به‌صورت key=value",
+    "download": {
+      "title": "دانلود JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "URL نامعتبر است. نام میزبان (example.com) را بگنجانید و نویسه‌ها را بررسی کنید."
+    }
+  },
   "UuidGenerator": {
     "title": "مولد UUID / ULID",
     "subtitle": "UUIDهای RFC 9562 یا ULID را در مرورگر تولید کنید. خروجی گروهی تا {max} در هر اجرا.",
@@ -2629,6 +2670,50 @@
     "copied": "کپی شد",
     "charCount": "{count, plural, one {# کاراکتر} other {# کاراکتر}}",
     "emptyHint": "ورودی خود را در سمت چپ وارد کنید تا خروجی تبدیل‌شده را ببینید.",
+    "localNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. چیزی آپلود نمی‌شود."
+  },
+  "MimeTypeLookup": {
+    "title": "جستجوی نوع MIME",
+    "subtitle": "نوع MIME (media type) را بر اساس پسوند یا نام کامل فایل پیدا کنید. همه چیز به صورت محلی در مرورگر شما اجرا می‌شود.",
+    "inputLabel": "پسوند یا نام فایل",
+    "placeholder": "مثلاً .png، package.json، photo.jpeg",
+    "hint": "نکته: می‌توانید پسوند (با یا بدون نقطه) یا نام کامل فایل را وارد کنید.",
+    "clear": "پاک کردن",
+    "exampleFilename": "استفاده از نام فایل نمونه",
+    "exampleExtension": "استفاده از پسوند نمونه",
+    "resultLabel": "نتیجه",
+    "normalizedLabel": "ورودی نرمال‌شده:",
+    "mimeTypeLabel": "نوع MIME",
+    "contentTypeLabel": "هدر Content-Type",
+    "charsetLabel": "کدگذاری",
+    "copyMimeType": "کپی نوع MIME",
+    "copy": "کپی",
+    "copied": "کپی شد",
+    "emptyHint": "برای جستجوی نوع MIME یک پسوند یا نام فایل وارد کنید.",
+    "notFound": "برای این ورودی نوع MIME یافت نشد.",
+    "localNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. چیزی آپلود نمی‌شود."
+  },
+  "UserAgentParser": {
+    "title": "تحلیلگر User-Agent",
+    "subtitle": "یک رشته User-Agent (UA) را وارد کنید تا جزئیات مرورگر، سیستم‌عامل، موتور، دستگاه و CPU را ببینید. همه چیز به صورت محلی در مرورگر شما اجرا می‌شود.",
+    "inputLabel": "رشته User-Agent",
+    "placeholder": "User-Agent را اینجا بچسبانید…",
+    "hint": "نکته: می‌توانید UA را از هدرهای درخواست، لاگ‌ها یا devtools مرورگر کپی کنید.",
+    "clear": "پاک کردن",
+    "exampleDesktop": "استفاده از مثال دسکتاپ",
+    "exampleMobile": "استفاده از مثال موبایل",
+    "resultLabel": "جزئیات",
+    "browserLabel": "مرورگر",
+    "osLabel": "سیستم‌عامل",
+    "engineLabel": "موتور",
+    "deviceTypeLabel": "نوع دستگاه",
+    "deviceVendorLabel": "سازنده",
+    "deviceModelLabel": "مدل",
+    "cpuArchLabel": "معماری CPU",
+    "copyJson": "کپی JSON",
+    "copy": "کپی",
+    "copied": "کپی شد",
+    "emptyHint": "برای مشاهده جزئیات، یک رشته User-Agent را بچسبانید.",
     "localNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. چیزی آپلود نمی‌شود."
   }
 }

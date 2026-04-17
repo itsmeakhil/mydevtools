@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "Analitzador d’URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Analitzador d’URL",
+        "description": "Desglossa un URL en protocol, amfitrió, camí, paràmetres de consulta i hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "No s’ha pogut codificar (Unicode no vàlid a l’entrada)."
     }
   },
+  "UrlParser": {
+    "title": "Analitzador d’URL",
+    "subtitle": "Desglossa un URL en protocol, amfitrió, camí, paràmetres de consulta i hash (fragment).",
+    "upload": "Puja",
+    "clear": "Neteja",
+    "panels": {
+      "input": "Entrada d’URL",
+      "output": "Resultat"
+    },
+    "placeholders": {
+      "input": "Enganxa un URL (p. ex. https://example.com/path?foo=bar#section) o amfitrió/camí (p. ex. example.com/path)…"
+    },
+    "dropHere": "Deixa el fitxer aquí",
+    "charCount": "{count} caràcters",
+    "outputPlaceholder": "Els components analitzats apareixeran aquí…",
+    "fields": {
+      "protocol": "Protocol",
+      "host": "Amfitrió",
+      "path": "Camí",
+      "hash": "Hash",
+      "queryParams": "Paràmetres de consulta"
+    },
+    "paramCount": "{count} paràmetres",
+    "noParams": "Sense paràmetres de consulta.",
+    "paramKey": "Clau",
+    "paramValue": "Valor",
+    "copyTitle": "Copia al porta-retalls",
+    "copyParamTitle": "Copia com a key=value",
+    "download": {
+      "title": "Baixa el JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "URL no vàlid. Inclou un nom d’amfitrió (example.com) i revisa els caràcters."
+    }
+  },
   "UuidGenerator": {
     "title": "Generador UUID / ULID",
     "subtitle": "Genera UUID (RFC 9562) o ULID al navegador. Exportació en bloc fins a {max} per execució.",
@@ -2629,6 +2670,50 @@
     "copied": "Copiat",
     "charCount": "{count, plural, one {# caràcter} other {# caràcters}}",
     "emptyHint": "Enganxa o escriu l'entrada a l'esquerra per veure la sortida convertida.",
+    "localNote": "Tot funciona localment al teu navegador. No es puja res."
+  },
+  "MimeTypeLookup": {
+    "title": "Cerca de tipus MIME",
+    "subtitle": "Cerca el tipus MIME (tipus de mitjà) per una extensió o un nom de fitxer complet. Tot funciona localment al teu navegador.",
+    "inputLabel": "Extensió o nom de fitxer",
+    "placeholder": "p. ex. .png, package.json, photo.jpeg",
+    "hint": "Consell: enganxa una extensió (amb o sense punt) o un nom de fitxer complet.",
+    "clear": "Netejar",
+    "exampleFilename": "Utilitza un nom de fitxer d'exemple",
+    "exampleExtension": "Utilitza una extensió d'exemple",
+    "resultLabel": "Resultat",
+    "normalizedLabel": "Entrada normalitzada:",
+    "mimeTypeLabel": "Tipus MIME",
+    "contentTypeLabel": "Capçalera Content-Type",
+    "charsetLabel": "Joc de caràcters",
+    "copyMimeType": "Copia el tipus MIME",
+    "copy": "Copiar",
+    "copied": "Copiat",
+    "emptyHint": "Introdueix una extensió o un nom de fitxer per cercar el tipus MIME.",
+    "notFound": "No s'ha trobat cap tipus MIME per a aquesta entrada.",
+    "localNote": "Tot funciona localment al teu navegador. No es puja res."
+  },
+  "UserAgentParser": {
+    "title": "Analitzador de User-Agent",
+    "subtitle": "Enganxa una cadena User-Agent (UA) i obtén el desglossament de navegador, SO, motor, dispositiu i CPU. Tot funciona localment al teu navegador.",
+    "inputLabel": "Cadena User-Agent",
+    "placeholder": "Enganxa el teu User-Agent aquí…",
+    "hint": "Consell: pots copiar un UA des dels encapçalaments de la sol·licitud, els logs o les devtools del navegador.",
+    "clear": "Netejar",
+    "exampleDesktop": "Utilitza un exemple d'escriptori",
+    "exampleMobile": "Utilitza un exemple mòbil",
+    "resultLabel": "Desglossament",
+    "browserLabel": "Navegador",
+    "osLabel": "Sistema operatiu",
+    "engineLabel": "Motor",
+    "deviceTypeLabel": "Tipus de dispositiu",
+    "deviceVendorLabel": "Fabricant",
+    "deviceModelLabel": "Model",
+    "cpuArchLabel": "Arquitectura de la CPU",
+    "copyJson": "Copia JSON",
+    "copy": "Copiar",
+    "copied": "Copiat",
+    "emptyHint": "Enganxa una cadena User-Agent per veure el desglossament.",
     "localNote": "Tot funciona localment al teu navegador. No es puja res."
   }
 }

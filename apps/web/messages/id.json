@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "urlEncoder": "URL Encoder",
+    "urlParser": "Parser URL",
     "uuidGenerator": "UUID / ULID",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
@@ -285,6 +286,10 @@
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Parser URL",
+        "description": "Uraikan URL menjadi protokol, host, path, parameter kueri, dan hash."
       },
       "uuidGenerator": {
         "title": "UUID / ULID",
@@ -2073,6 +2078,42 @@
       "encodeFailed": "Tidak dapat meng-encode (Unicode tidak valid pada input)."
     }
   },
+  "UrlParser": {
+    "title": "Parser URL",
+    "subtitle": "Uraikan URL menjadi protokol, host, path, parameter kueri, dan hash (fragmen).",
+    "upload": "Unggah",
+    "clear": "Bersihkan",
+    "panels": {
+      "input": "Input URL",
+      "output": "Hasil"
+    },
+    "placeholders": {
+      "input": "Tempel URL (mis. https://example.com/path?foo=bar#section) atau host/path (mis. example.com/path)…"
+    },
+    "dropHere": "Jatuhkan file di sini",
+    "charCount": "{count} karakter",
+    "outputPlaceholder": "Komponen yang diurai akan muncul di sini…",
+    "fields": {
+      "protocol": "Protokol",
+      "host": "Host",
+      "path": "Path",
+      "hash": "Hash",
+      "queryParams": "Parameter kueri"
+    },
+    "paramCount": "{count} parameter",
+    "noParams": "Tidak ada parameter kueri.",
+    "paramKey": "Kunci",
+    "paramValue": "Nilai",
+    "copyTitle": "Salin ke clipboard",
+    "copyParamTitle": "Salin sebagai key=value",
+    "download": {
+      "title": "Unduh JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "URL tidak valid. Sertakan hostname (example.com) dan periksa karakternya."
+    }
+  },
   "UuidGenerator": {
     "title": "Generator UUID / ULID",
     "subtitle": "Buat UUID (RFC 9562) atau ULID di browser. Ekspor massal hingga {max} per sekali jalan.",
@@ -2629,6 +2670,50 @@
     "copied": "Disalin",
     "charCount": "{count, plural, other {# karakter}}",
     "emptyHint": "Tempel atau ketik masukan Anda di sebelah kiri untuk melihat keluaran yang dikonversi.",
+    "localNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
+  },
+  "MimeTypeLookup": {
+    "title": "Pencarian tipe MIME",
+    "subtitle": "Cari tipe MIME (media type) untuk ekstensi file atau nama file lengkap. Semua berjalan secara lokal di browser Anda.",
+    "inputLabel": "Ekstensi atau nama file",
+    "placeholder": "mis. .png, package.json, photo.jpeg",
+    "hint": "Tip: tempel ekstensi (dengan atau tanpa titik) atau nama file lengkap.",
+    "clear": "Bersihkan",
+    "exampleFilename": "Gunakan contoh nama file",
+    "exampleExtension": "Gunakan contoh ekstensi",
+    "resultLabel": "Hasil",
+    "normalizedLabel": "Masukan ternormalisasi:",
+    "mimeTypeLabel": "Tipe MIME",
+    "contentTypeLabel": "Header Content-Type",
+    "charsetLabel": "Charset",
+    "copyMimeType": "Salin tipe MIME",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "emptyHint": "Masukkan ekstensi atau nama file untuk mencari tipe MIME.",
+    "notFound": "Tidak ditemukan tipe MIME untuk masukan tersebut.",
+    "localNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
+  },
+  "UserAgentParser": {
+    "title": "Parser User-Agent",
+    "subtitle": "Tempel string User-Agent (UA) dan dapatkan rincian browser, OS, engine, perangkat, dan CPU. Semua berjalan secara lokal di browser Anda.",
+    "inputLabel": "String User-Agent",
+    "placeholder": "Tempel User-Agent Anda di sini…",
+    "hint": "Tip: Anda dapat menyalin UA dari header permintaan, log, atau devtools browser.",
+    "clear": "Bersihkan",
+    "exampleDesktop": "Gunakan contoh desktop",
+    "exampleMobile": "Gunakan contoh mobile",
+    "resultLabel": "Rincian",
+    "browserLabel": "Browser",
+    "osLabel": "Sistem operasi",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Jenis perangkat",
+    "deviceVendorLabel": "Vendor perangkat",
+    "deviceModelLabel": "Model perangkat",
+    "cpuArchLabel": "Arsitektur CPU",
+    "copyJson": "Salin JSON",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "emptyHint": "Tempel string User-Agent untuk melihat rinciannya.",
     "localNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
   }
 }

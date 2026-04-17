@@ -36,6 +36,8 @@ import {
   IconArrowsExchange,
   IconFileCode,
   IconListNumbers,
+  IconFileType,
+  IconUserSearch,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -252,6 +254,13 @@ export const sidebarData: SidebarData = {
           hiddenOnMobile: true,
         },
         {
+          title: 'URL Parser',
+          url: '/app/url-parser',
+          icon: IconLink,
+          description: 'Break a URL into protocol, host, path, query params, and hash.',
+          hiddenOnMobile: true,
+        },
+        {
           title: 'UUID / ULID',
           url: '/app/uuid-generator',
           icon: IconFingerprint,
@@ -298,6 +307,20 @@ export const sidebarData: SidebarData = {
           url: '/app/format-converter',
           icon: IconFileCode,
           description: 'Convert between JSON, YAML, TOML, and XML in any direction.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'MIME Type Lookup',
+          url: '/app/mime-type-lookup',
+          icon: IconFileType,
+          description: 'Find the MIME type for a file extension or filename.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'User-Agent Parser',
+          url: '/app/user-agent-parser',
+          icon: IconUserSearch,
+          description: 'Paste a user-agent string and get browser, OS, and device details.',
           hiddenOnMobile: true,
         },
 

@@ -72,6 +72,11 @@ export const toolsMetadata: Record<string, {
         description: 'Percent-encode or decode text for query strings and URI components with UTF-8 support.',
         keywords: ['url encode', 'url decode', 'percent encode', 'uri encode', 'encodeURIComponent']
     },
+    'url-parser': {
+        title: 'URL Parser',
+        description: 'Parse any URL into protocol, host, path, query parameters, and hash. Runs locally in your browser.',
+        keywords: ['url parser', 'parse url', 'url components', 'query params', 'hash fragment', 'protocol', 'hostname']
+    },
     'uuid-generator': {
         title: 'UUID / ULID Generator',
         description: 'Generate UUID v1–v7 or ULIDs with namespace options and bulk copy or download.',
@@ -181,6 +186,16 @@ export const toolsMetadata: Record<string, {
         title: 'Format Converter',
         description: 'Convert between JSON, YAML, TOML, and XML in any direction. All 12 combinations supported. Runs entirely in your browser.',
         keywords: ['json to yaml', 'yaml to json', 'json to toml', 'toml to json', 'xml to json', 'json to xml', 'yaml to toml', 'toml to yaml', 'format converter', 'data format']
+    },
+    'mime-type-lookup': {
+        title: 'MIME Type Lookup',
+        description: 'Look up MIME types by file extension or filename and copy the result instantly. Runs entirely in your browser.',
+        keywords: ['mime type', 'content-type', 'media type', 'file extension', 'mime lookup', 'http headers']
+    },
+    'user-agent-parser': {
+        title: 'User-Agent Parser',
+        description: 'Paste a User-Agent string to see browser, OS, engine, device, and CPU breakdown instantly. Runs entirely in your browser.',
+        keywords: ['user agent', 'ua parser', 'browser detection', 'os detection', 'device detection', 'client hints', 'http headers']
     },
     'sql-client': {
         title: 'SQL Client',
