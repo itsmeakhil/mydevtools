@@ -147,6 +147,11 @@ export const toolsMetadata: Record<string, {
         description: 'Pretty-print SQL in the browser with dialect-aware formatting for MySQL, PostgreSQL, and SQLite.',
         keywords: ['sql formatter', 'pretty print sql', 'postgresql format', 'mysql sql', 'sqlite sql']
     },
+    'graphql-formatter': {
+        title: 'GraphQL Formatter',
+        description: 'Format and minify GraphQL queries, mutations, and subscriptions with Monaco syntax highlighting and a simple query builder. Runs locally in your browser.',
+        keywords: ['graphql formatter', 'graphql pretty print', 'graphql query builder', 'graphql minify', 'graphql syntax']
+    },
     'diff-checker': {
         title: 'Text Diff Checker',
         description: 'Compare two texts side by side with additions and removals highlighted. Runs entirely in your browser.',

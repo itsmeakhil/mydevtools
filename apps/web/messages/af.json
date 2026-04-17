@@ -15,6 +15,7 @@
     "jwtDecoder": "JWT-dekodeerder",
     "certificatePemDecoder": "Sertifikaat / PEM-dekodeerder",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "GraphQL-formateerder",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "GraphQL-formateerder",
+        "description": "Formateer GraphQL met sintaksuitligting en ’n eenvoudige navrae-bouer."
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "Kon nie hierdie SQL formateer nie."
     }
   },
+  "GraphqlFormatter": {
+    "title": "GraphQL-formateerder",
+    "subtitle": "Formateer GraphQL-navrae, mutasies en intekeninge in jou blaaier. Niks word opgelaai nie.",
+    "tabs": {
+      "format": "Formateer",
+      "build": "Navrae-bouer"
+    },
+    "outputModeLabel": "Afvoer",
+    "outputModes": {
+      "pretty": "Leesbare druk",
+      "minify": "Minifiseer"
+    },
+    "format": "Formateer",
+    "clear": "Maak skoon",
+    "counter": "{current} / {max} karakters",
+    "inputPanel": "Invoer",
+    "outputPanel": "Afvoer",
+    "copy": "Kopieer",
+    "builderHint": "Stel 'n raamwerk saam en pas dit op die redigeerder toe. Veranderlike-definisies gebruik GraphQL-sintaks (bv. $id: ID!) — hakies is opsioneel.",
+    "builder": {
+      "operation": "Operasie",
+      "operationName": "Operasienaam",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Veranderlike-definisies",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Keuseset",
+      "apply": "Pas toe op invoer",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "Invoer is beperk tot {max} karakters.",
+      "couldNotFormat": "Kon nie hierdie GraphQL ontleed of druk nie.",
+      "emptySelection": "Voeg eers 'n keuseset by voordat jy toepas."
+    }
+  },
+
   "RegexTester": {
     "title": "Regex-toetser",
     "subtitle": "JavaScript-styl regex teen jou teks, lewendig. Treffer word gemerk; niks verlaat jou blaaier nie.",

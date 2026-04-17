@@ -15,6 +15,7 @@
     "jwtDecoder": "Decodificador JWT",
     "certificatePemDecoder": "Decodificador de certificado / PEM",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "Formatador GraphQL",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "Formatador GraphQL",
+        "description": "Formate GraphQL com realce de sintaxe e um editor de consultas simples."
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "Não foi possível formatar este SQL."
     }
   },
+  "GraphqlFormatter": {
+    "title": "Formatador GraphQL",
+    "subtitle": "Formate consultas, mutações e assinaturas GraphQL no navegador. Nada é enviado.",
+    "tabs": {
+      "format": "Formatar",
+      "build": "Editor de consulta"
+    },
+    "outputModeLabel": "Saída",
+    "outputModes": {
+      "pretty": "Impressão legível",
+      "minify": "Minificar"
+    },
+    "format": "Formatar",
+    "clear": "Limpar",
+    "counter": "{current} / {max} caracteres",
+    "inputPanel": "Entrada",
+    "outputPanel": "Saída",
+    "copy": "Copiar",
+    "builderHint": "Monte um esqueleto e aplique-o ao editor. Definições de variáveis em sintaxe GraphQL (ex.: $id: ID!) — parênteses opcionais.",
+    "builder": {
+      "operation": "Operação",
+      "operationName": "Nome da operação",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Definições de variáveis",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Conjunto de seleção",
+      "apply": "Aplicar à entrada",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "A entrada está limitada a {max} caracteres.",
+      "couldNotFormat": "Não foi possível analisar ou imprimir este GraphQL.",
+      "emptySelection": "Adicione uma seleção antes de aplicar."
+    }
+  },
+
   "RegexTester": {
     "title": "Testador de regex",
     "subtitle": "Regex estilo JavaScript ao vivo no seu texto. As correspondências são destacadas; nada sai do seu navegador.",

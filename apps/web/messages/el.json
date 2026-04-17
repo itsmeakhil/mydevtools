@@ -15,6 +15,7 @@
     "jwtDecoder": "Αποκωδικοποιητής JWT",
     "certificatePemDecoder": "Αποκωδικοποιητής πιστοποιητικού / PEM",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "Μορφοποιητής GraphQL",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "Μορφοποιητής GraphQL",
+        "description": "Μορφοποιήστε GraphQL με επισήμανση σύνταξης και απλό επεξεργαστή ερωτημάτων."
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "Δεν ήταν δυνατή η μορφοποίηση αυτού του SQL."
     }
   },
+  "GraphqlFormatter": {
+    "title": "Μορφοποιητής GraphQL",
+    "subtitle": "Μορφοποιήστε ερωτήματα, μεταλλάξεις και συνδρομές GraphQL στο πρόγραμμα περιήγησης. Δεν ανεβαίνει τίποτα.",
+    "tabs": {
+      "format": "Μορφοποίηση",
+      "build": "Δημιουργός ερωτήματος"
+    },
+    "outputModeLabel": "Έξοδος",
+    "outputModes": {
+      "pretty": "Αναγνώσιμη εκτύπωση",
+      "minify": "Σμίκρυνση"
+    },
+    "format": "Μορφοποίηση",
+    "clear": "Εκκαθάριση",
+    "counter": "{current} / {max} χαρακτήρες",
+    "inputPanel": "Είσοδος",
+    "outputPanel": "Έξοδος",
+    "copy": "Αντιγραφή",
+    "builderHint": "Συνθέστε ένα σκελετό και τον εφαρμόζετε στον επεξεργαστή. Ορισμοί μεταβλητών με σύνταξη GraphQL (π.χ. $id: ID!) — οι παρενθέσεις είναι προαιρετικές.",
+    "builder": {
+      "operation": "Λειτουργία",
+      "operationName": "Όνομα λειτουργίας",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Ορισμοί μεταβλητών",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Σύνολο επιλογής",
+      "apply": "Εφαρμογή στην είσοδο",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "Η είσοδος περιορίζεται σε {max} χαρακτήρες.",
+      "couldNotFormat": "Δεν ήταν δυνατή η ανάλυση ή εκτύπωση αυτού του GraphQL.",
+      "emptySelection": "Προσθέστε σύνολο επιλογής πριν από την εφαρμογή."
+    }
+  },
+
   "RegexTester": {
     "title": "Δοκιμή regex",
     "subtitle": "Regex τύπου JavaScript σε πραγματικό χρόνο στο κείμενό σας. Οι αντιστοιχίσεις επισημαίνονται· τίποτα δεν φεύγει από τον browser.",

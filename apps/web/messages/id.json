@@ -15,6 +15,7 @@
     "jwtDecoder": "Dekoder JWT",
     "certificatePemDecoder": "Dekoder sertifikat / PEM",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "Pemformat GraphQL",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "Pemformat GraphQL",
+        "description": "Format GraphQL dengan penyorotan sintaks dan pembangun kueri sederhana."
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "Tidak dapat memformat SQL ini."
     }
   },
+  "GraphqlFormatter": {
+    "title": "Pemformat GraphQL",
+    "subtitle": "Format kueri, mutasi, dan langganan GraphQL di peramban. Tidak ada yang diunggah.",
+    "tabs": {
+      "format": "Format",
+      "build": "Pembangun kueri"
+    },
+    "outputModeLabel": "Keluaran",
+    "outputModes": {
+      "pretty": "Cetak rapi",
+      "minify": "Perkecil"
+    },
+    "format": "Format",
+    "clear": "Hapus",
+    "counter": "{current} / {max} karakter",
+    "inputPanel": "Masukan",
+    "outputPanel": "Keluaran",
+    "copy": "Salin",
+    "builderHint": "Buat kerangka dokumen lalu terapkan ke editor. Definisi variabel memakai sintaks GraphQL (mis. $id: ID!) — tanda kurung bersifat opsional.",
+    "builder": {
+      "operation": "Operasi",
+      "operationName": "Nama operasi",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Definisi variabel",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Himpunan seleksi",
+      "apply": "Terapkan ke masukan",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "Masukan dibatasi {max} karakter.",
+      "couldNotFormat": "Tidak dapat menguraikan atau mencetak GraphQL ini.",
+      "emptySelection": "Tambahkan himpunan seleksi sebelum menerapkan."
+    }
+  },
+
   "RegexTester": {
     "title": "Penguji regex",
     "subtitle": "Regex gaya JavaScript secara langsung pada teks Anda. Kecocokan disorot; tidak ada yang keluar dari browser.",

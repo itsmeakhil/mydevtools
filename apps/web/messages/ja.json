@@ -15,6 +15,7 @@
     "jwtDecoder": "JWTデコーダー",
     "certificatePemDecoder": "証明書 / PEM デコーダ",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "GraphQL フォーマッター",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "GraphQL フォーマッター",
+        "description": "GraphQL を整形し、シンタックスハイライトとシンプルなクエリビルダーを提供します。"
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "このSQLを整形できませんでした。"
     }
   },
+  "GraphqlFormatter": {
+    "title": "GraphQL フォーマッター",
+    "subtitle": "ブラウザで GraphQL のクエリ・ミューテーション・サブスクリプションを整形します。アップロードは行われません。",
+    "tabs": {
+      "format": "整形",
+      "build": "クエリビルダー"
+    },
+    "outputModeLabel": "出力",
+    "outputModes": {
+      "pretty": "整形表示",
+      "minify": "圧縮"
+    },
+    "format": "整形",
+    "clear": "クリア",
+    "counter": "{current} / {max} 文字",
+    "inputPanel": "入力",
+    "outputPanel": "出力",
+    "copy": "コピー",
+    "builderHint": "ひな形を組み立てて入力エディターに反映します。変数定義は GraphQL の構文（例: $id: ID!）で、括弧は任意です。",
+    "builder": {
+      "operation": "オペレーション",
+      "operationName": "オペレーション名",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "変数定義",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "セレクションセット",
+      "apply": "入力に反映",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "入力は {max} 文字までです。",
+      "couldNotFormat": "この GraphQL を解析または出力できませんでした。",
+      "emptySelection": "適用する前にセレクションセットを入力してください。"
+    }
+  },
+
   "RegexTester": {
     "title": "正規表現テスター",
     "subtitle": "JavaScript 形式の正規表現をテキストに対してライブ実行します。一致箇所はハイライトされ、ブラウザ外へ送信されません。",

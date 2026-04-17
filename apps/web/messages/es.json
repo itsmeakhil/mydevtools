@@ -12,6 +12,7 @@
     "certificatePemDecoder": "Decodificador de certificados / PEM",
     "jsonFormatter": "Formateador JSON",
     "sqlFormatter": "Formateador SQL",
+    "graphqlFormatter": "Formateador GraphQL",
     "diffChecker": "Comparador de diferencias",
     "regexTester": "Probador de expresiones regulares",
     "timestampConverter": "Conversor de marcas de tiempo",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "Formateador SQL",
         "description": "Formatea SQL para MySQL, PostgreSQL y SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "Formateador GraphQL",
+        "description": "Formatea GraphQL con resaltado de sintaxis y un editor de consultas sencillo."
       },
       "diffChecker": {
         "title": "Comparador de diferencias",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "No se pudo formatear este SQL."
     }
   },
+  "GraphqlFormatter": {
+    "title": "Formateador GraphQL",
+    "subtitle": "Formatea consultas, mutaciones y suscripciones GraphQL en el navegador. No se sube nada.",
+    "tabs": {
+      "format": "Formatear",
+      "build": "Editor de consulta"
+    },
+    "outputModeLabel": "Salida",
+    "outputModes": {
+      "pretty": "Impresión legible",
+      "minify": "Minificar"
+    },
+    "format": "Formatear",
+    "clear": "Borrar",
+    "counter": "{current} / {max} caracteres",
+    "inputPanel": "Entrada",
+    "outputPanel": "Salida",
+    "copy": "Copiar",
+    "builderHint": "Compón un esqueleto y aplícalo al editor. Las definiciones de variables usan sintaxis GraphQL (p. ej. $id: ID!) — los paréntesis son opcionales.",
+    "builder": {
+      "operation": "Operación",
+      "operationName": "Nombre de la operación",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Definiciones de variables",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Conjunto de selección",
+      "apply": "Aplicar a la entrada",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "La entrada está limitada a {max} caracteres.",
+      "couldNotFormat": "No se pudo analizar ni volcar este GraphQL.",
+      "emptySelection": "Añade un conjunto de selección antes de aplicar."
+    }
+  },
+
   "RegexTester": {
     "title": "Probador de regex",
     "subtitle": "Regex estilo JavaScript en vivo sobre tu texto. Las coincidencias se resaltan; nada sale de tu navegador.",

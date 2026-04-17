@@ -15,6 +15,7 @@
     "jwtDecoder": "رمزگشای JWT",
     "certificatePemDecoder": "رمزگشای گواهی / PEM",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "قالب‌بند GraphQL",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "قالب‌بند GraphQL",
+        "description": "GraphQL را با برجسته‌سازی نحو و ویرایشگر سادهٔ پرس‌وجو قالب‌بندی کنید."
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "فرمت‌کردن این SQL ممکن نبود."
     }
   },
+  "GraphqlFormatter": {
+    "title": "قالب‌بند GraphQL",
+    "subtitle": "پرس‌وجوها، جهش‌ها و اشتراک‌های GraphQL را در مرورگر قالب‌بندی کنید. چیزی آپلود نمی‌شود.",
+    "tabs": {
+      "format": "قالب‌بندی",
+      "build": "سازندهٔ پرس‌وجو"
+    },
+    "outputModeLabel": "خروجی",
+    "outputModes": {
+      "pretty": "چاپ خوانا",
+      "minify": "فشرده‌سازی"
+    },
+    "format": "قالب‌بندی",
+    "clear": "پاک‌سازی",
+    "counter": "{current} / {max} نویسه",
+    "inputPanel": "ورودی",
+    "outputPanel": "خروجی",
+    "copy": "رونوشت",
+    "builderHint": "اسکلت سند را بسازید و روی ویراستار اعمال کنید. تعریف متغیرها با نحو GraphQL (مثلاً $id: ID!) — پرانتز اختیاری است.",
+    "builder": {
+      "operation": "عملیات",
+      "operationName": "نام عملیات",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "تعریف متغیرها",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "مجموعهٔ گزینش",
+      "apply": "اعمال روی ورودی",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "ورودی حداکثر {max} نویسه است.",
+      "couldNotFormat": "تجزیه یا چاپ این GraphQL ممکن نشد.",
+      "emptySelection": "قبل از اعمال، مجموعهٔ گزینش را اضافه کنید."
+    }
+  },
+
   "RegexTester": {
     "title": "آزمایشگر Regex",
     "subtitle": "Regex به سبک JavaScript به‌صورت زنده روی متن شما. تطبیق‌ها هایلایت می‌شوند و چیزی از مرورگر خارج نمی‌شود.",

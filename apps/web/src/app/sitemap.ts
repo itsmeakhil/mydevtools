@@ -52,6 +52,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'timestamp-converter',
         'cron-builder',
         'sql-formatter',
+        'graphql-formatter',
         'diff-checker',
         'csv-excel-json',
         'snippet-manager',

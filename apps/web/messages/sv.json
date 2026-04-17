@@ -15,6 +15,7 @@
     "jwtDecoder": "JWT-avkodare",
     "certificatePemDecoder": "Certifikat- / PEM-avkodare",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "GraphQL-formaterare",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "GraphQL-formaterare",
+        "description": "Formatera GraphQL med syntaxmarkering och en enkel frågebyggare."
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "Kunde inte formatera denna SQL."
     }
   },
+  "GraphqlFormatter": {
+    "title": "GraphQL-formaterare",
+    "subtitle": "Formatera GraphQL-frågor, mutationer och prenumerationer i webbläsaren. Inget laddas upp.",
+    "tabs": {
+      "format": "Formatera",
+      "build": "Frågebyggare"
+    },
+    "outputModeLabel": "Utdata",
+    "outputModes": {
+      "pretty": "Läsbart format",
+      "minify": "Minifiera"
+    },
+    "format": "Formatera",
+    "clear": "Rensa",
+    "counter": "{current} / {max} tecken",
+    "inputPanel": "Indata",
+    "outputPanel": "Utdata",
+    "copy": "Kopiera",
+    "builderHint": "Bygg ett skelett och lägg in det i redigeraren. Variabeldefinitioner i GraphQL-syntax (t.ex. $id: ID!) — parenteser är valfria.",
+    "builder": {
+      "operation": "Åtgärd",
+      "operationName": "Åtgärdsnamn",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Variabeldefinitioner",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Urval",
+      "apply": "Använd på indata",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "Indata är begränsat till {max} tecken.",
+      "couldNotFormat": "Kunde inte parsa eller skriva ut denna GraphQL.",
+      "emptySelection": "Lägg till ett urval innan du använder."
+    }
+  },
+
   "RegexTester": {
     "title": "Regex-tester",
     "subtitle": "JavaScript-liknande regex live mot din text. Träffar markeras; inget lämnar din webbläsare.",

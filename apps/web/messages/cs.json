@@ -15,6 +15,7 @@
     "jwtDecoder": "Dekodér JWT",
     "certificatePemDecoder": "Dekodér certifikátů / PEM",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "Formátovač GraphQL",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "Formátovač GraphQL",
+        "description": "Formátujte GraphQL se zvýrazněním syntaxe a jednoduchým editorem dotazů."
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "Tento SQL se nepodařilo naformátovat."
     }
   },
+  "GraphqlFormatter": {
+    "title": "Formátovač GraphQL",
+    "subtitle": "Formátujte dotazy, mutace a odběry GraphQL v prohlížeči. Nic se neodesílá.",
+    "tabs": {
+      "format": "Formátovat",
+      "build": "Editor dotazu"
+    },
+    "outputModeLabel": "Výstup",
+    "outputModes": {
+      "pretty": "Čitelný výpis",
+      "minify": "Minifikovat"
+    },
+    "format": "Formátovat",
+    "clear": "Vymazat",
+    "counter": "{current} / {max} znaků",
+    "inputPanel": "Vstup",
+    "outputPanel": "Výstup",
+    "copy": "Kopírovat",
+    "builderHint": "Sestavte kostru dokumentu a vložte ji do editoru. Definice proměnných v syntaxi GraphQL (např. $id: ID!) — závorky jsou volitelné.",
+    "builder": {
+      "operation": "Operace",
+      "operationName": "Název operace",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Definice proměnných",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Výběrová sada",
+      "apply": "Použít na vstup",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "Vstup je omezen na {max} znaků.",
+      "couldNotFormat": "Tento GraphQL se nepodařilo parsovat ani vypsat.",
+      "emptySelection": "Před použitím doplňte výběrovou sadu."
+    }
+  },
+
   "RegexTester": {
     "title": "Tester regex",
     "subtitle": "Regex ve stylu JavaScript živě nad vaším textem. Shody jsou zvýrazněny; nic neopustí prohlížeč.",

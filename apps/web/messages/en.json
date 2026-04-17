@@ -13,6 +13,7 @@
     "jsonFormatter": "JSON Formatter",
     "jsonSchemaGenerator": "JSON Schema Generator",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "GraphQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -325,6 +326,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "GraphQL Formatter",
+        "description": "Format queries with syntax highlighting and a simple query builder."
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1908,6 +1913,46 @@
       "couldNotFormat": "Could not format this SQL."
     }
   },
+  "GraphqlFormatter": {
+    "title": "GraphQL formatter",
+    "subtitle": "Format GraphQL queries, mutations, and subscriptions in your browser. Nothing is uploaded.",
+    "tabs": {
+      "format": "Format",
+      "build": "Query builder"
+    },
+    "outputModeLabel": "Output",
+    "outputModes": {
+      "pretty": "Pretty print",
+      "minify": "Minify"
+    },
+    "format": "Format",
+    "clear": "Clear",
+    "counter": "{current} / {max} characters",
+    "inputPanel": "Input",
+    "outputPanel": "Output",
+    "copy": "Copy",
+    "builderHint": "Compose a document skeleton, then apply it to the input editor. Variable definitions use GraphQL syntax (e.g. $id: ID!)—parentheses are optional.",
+    "builder": {
+      "operation": "Operation",
+      "operationName": "Operation name",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Variable definitions",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Selection set",
+      "apply": "Apply to input",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "Input is limited to {max} characters.",
+      "couldNotFormat": "Could not parse or print this GraphQL.",
+      "emptySelection": "Add a selection set before applying."
+    }
+  },
+
   "RegexTester": {
     "title": "Regex tester",
     "subtitle": "Live JavaScript-style regex against your text. Matches are highlighted in the editor; nothing leaves your browser.",

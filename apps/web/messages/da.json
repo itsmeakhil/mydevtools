@@ -15,6 +15,7 @@
     "jwtDecoder": "JWT-dekoder",
     "certificatePemDecoder": "Certifikat / PEM-afkoder",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "GraphQL-formater",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "GraphQL-formater",
+        "description": "Formatér GraphQL med syntaksfremhævning og en enkel forespørgselsbygger."
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "Kunne ikke formatere denne SQL."
     }
   },
+  "GraphqlFormatter": {
+    "title": "GraphQL-formater",
+    "subtitle": "Formatér GraphQL-forespørgsler, mutationer og abonnementer i browseren. Intet uploades.",
+    "tabs": {
+      "format": "Formatér",
+      "build": "Forespørgselsbygger"
+    },
+    "outputModeLabel": "Output",
+    "outputModes": {
+      "pretty": "Læsevenlig udskrift",
+      "minify": "Minificér"
+    },
+    "format": "Formatér",
+    "clear": "Ryd",
+    "counter": "{current} / {max} tegn",
+    "inputPanel": "Input",
+    "outputPanel": "Output",
+    "copy": "Kopiér",
+    "builderHint": "Byg et skelet og brug det i editoren. Variabeldefinitioner i GraphQL-syntaks (f.eks. $id: ID!) — parenteser er valgfri.",
+    "builder": {
+      "operation": "Operation",
+      "operationName": "Operationsnavn",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Variabeldefinitioner",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Udvalg",
+      "apply": "Anvend på input",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "Input er begrænset til {max} tegn.",
+      "couldNotFormat": "Kunne ikke parse eller udskrive denne GraphQL.",
+      "emptySelection": "Tilføj et udvalg før du anvender."
+    }
+  },
+
   "RegexTester": {
     "title": "Regex-tester",
     "subtitle": "JavaScript-lignende regex live mod din tekst. Matches fremhæves; intet forlader din browser.",

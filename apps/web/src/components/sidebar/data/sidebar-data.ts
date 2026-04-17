@@ -40,6 +40,7 @@ import {
   IconFileInfo,
   IconUserSearch,
   IconCertificate,
+  IconBrandGraphql,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -246,6 +247,13 @@ export const sidebarData: SidebarData = {
           url: '/app/sql-formatter',
           icon: IconSql,
           description: 'Format SQL for MySQL, PostgreSQL, and SQLite.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'GraphQL Formatter',
+          url: '/app/graphql-formatter',
+          icon: IconBrandGraphql,
+          description: 'Format GraphQL with syntax highlighting and a query builder.',
           hiddenOnMobile: true,
         },
         {

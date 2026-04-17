@@ -15,6 +15,7 @@
     "jwtDecoder": "JWT 解码器",
     "certificatePemDecoder": "证书 / PEM 解码器",
     "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "GraphQL 格式化",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
     "timestampConverter": "Timestamp Converter",
@@ -268,6 +269,10 @@
       "sqlFormatter": {
         "title": "SQL Formatter",
         "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "GraphQL 格式化",
+        "description": "格式化 GraphQL，提供语法高亮与简易查询构建器。"
       },
       "diffChecker": {
         "title": "Diff checker",
@@ -1904,6 +1909,46 @@
       "couldNotFormat": "无法格式化该 SQL。"
     }
   },
+  "GraphqlFormatter": {
+    "title": "GraphQL 格式化",
+    "subtitle": "在浏览器中格式化 GraphQL 查询、变更与订阅。不会上传任何内容。",
+    "tabs": {
+      "format": "格式化",
+      "build": "查询构建器"
+    },
+    "outputModeLabel": "输出",
+    "outputModes": {
+      "pretty": "美化输出",
+      "minify": "压缩"
+    },
+    "format": "格式化",
+    "clear": "清空",
+    "counter": "{current} / {max} 个字符",
+    "inputPanel": "输入",
+    "outputPanel": "输出",
+    "copy": "复制",
+    "builderHint": "组合文档骨架后应用到编辑器。变量定义使用 GraphQL 语法（例如 $id: ID!），括号可选。",
+    "builder": {
+      "operation": "操作类型",
+      "operationName": "操作名称",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "变量定义",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "字段选择",
+      "apply": "应用到输入",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "输入最多 {max} 个字符。",
+      "couldNotFormat": "无法解析或输出此 GraphQL。",
+      "emptySelection": "请先填写选择集再应用。"
+    }
+  },
+
   "RegexTester": {
     "title": "正则测试器",
     "subtitle": "对你的文本实时运行 JavaScript 风格正则。匹配会高亮显示；内容不会离开浏览器。",
