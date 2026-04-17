@@ -212,7 +212,9 @@
     },
     "sections": {
       "recentlyUsed": "Dùng gần đây",
-      "favorites": "Yêu thích"
+      "favorites": "Yêu thích",
+      "whatsNew": "Có gì mới",
+      "pinned": "Đã ghim"
     },
     "groups": {
       "apps": "Ứng dụng"
@@ -365,6 +367,10 @@
       "numberBaseConverter": {
         "title": "Chuyển đổi cơ số",
         "description": "Chuyển đổi số nguyên giữa các cơ số 2–36."
+      },
+      "formatConverter": {
+        "title": "Chuyển đổi định dạng",
+        "description": "Chuyển đổi giữa JSON, YAML, TOML và XML theo mọi hướng. Hỗ trợ đủ 12 tổ hợp."
       }
     },
     "tabs": {
@@ -1948,7 +1954,6 @@
       "emptySelection": "Thêm tập chọn trước khi áp dụng."
     }
   },
-
   "RegexTester": {
     "title": "Trình thử Regex",
     "subtitle": "Regex kiểu JavaScript chạy trực tiếp trên văn bản. Kết quả khớp được tô sáng; không có gì rời khỏi trình duyệt.",

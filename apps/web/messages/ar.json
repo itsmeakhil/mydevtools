@@ -212,7 +212,9 @@
     },
     "sections": {
       "recentlyUsed": "المستخدمة مؤخرًا",
-      "favorites": "المفضلة"
+      "favorites": "المفضلة",
+      "whatsNew": "ما الجديد",
+      "pinned": "مثبت"
     },
     "groups": {
       "apps": "التطبيقات"
@@ -365,6 +367,10 @@
       "numberBaseConverter": {
         "title": "محوّل الأساس الرقمي",
         "description": "تحويل الأعداد الصحيحة بين الأسس من 2 إلى 36."
+      },
+      "formatConverter": {
+        "title": "محوّل الصيغ",
+        "description": "حوّل بين JSON وYAML وTOML وXML في أي اتجاه. يدعم جميع التوليفات الاثنتي عشرة."
       }
     },
     "tabs": {
@@ -1948,7 +1954,6 @@
       "emptySelection": "أضِف مجموعة اختيار قبل التطبيق."
     }
   },
-
   "RegexTester": {
     "title": "مختبر Regex",
     "subtitle": "Regex بنمط JavaScript مباشرةً على نصك. يتم تمييز التطابقات؛ ولا يغادر شيء متصفحك.",

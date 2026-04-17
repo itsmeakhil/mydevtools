@@ -212,7 +212,9 @@
     },
     "sections": {
       "recentlyUsed": "最近使用したツール",
-      "favorites": "お気に入り"
+      "favorites": "お気に入り",
+      "whatsNew": "新着",
+      "pinned": "ピン留め"
     },
     "groups": {
       "apps": "アプリ"
@@ -365,6 +367,10 @@
       "numberBaseConverter": {
         "title": "基数変換ツール",
         "description": "2～36進法の整数を相互変換。"
+      },
+      "formatConverter": {
+        "title": "フォーマット変換",
+        "description": "JSON、YAML、TOML、XML を双方向に変換します。12 通りの組み合わせに対応します。"
       }
     },
     "tabs": {
@@ -1948,7 +1954,6 @@
       "emptySelection": "適用する前にセレクションセットを入力してください。"
     }
   },
-
   "RegexTester": {
     "title": "正規表現テスター",
     "subtitle": "JavaScript 形式の正規表現をテキストに対してライブ実行します。一致箇所はハイライトされ、ブラウザ外へ送信されません。",

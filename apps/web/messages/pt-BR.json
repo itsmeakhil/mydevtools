@@ -212,7 +212,9 @@
     },
     "sections": {
       "recentlyUsed": "Usados Recentemente",
-      "favorites": "Favoritos"
+      "favorites": "Favoritos",
+      "whatsNew": "Novidades",
+      "pinned": "Fixados"
     },
     "groups": {
       "apps": "Aplicativos"
@@ -365,6 +367,10 @@
       "numberBaseConverter": {
         "title": "Conversor de base numérica",
         "description": "Converta inteiros entre bases de 2 a 36."
+      },
+      "formatConverter": {
+        "title": "Conversor de formatos",
+        "description": "Converta entre JSON, YAML, TOML e XML em qualquer direção. As 12 combinações são suportadas."
       }
     },
     "tabs": {
@@ -1948,7 +1954,6 @@
       "emptySelection": "Adicione uma seleção antes de aplicar."
     }
   },
-
   "RegexTester": {
     "title": "Testador de regex",
     "subtitle": "Regex estilo JavaScript ao vivo no seu texto. As correspondências são destacadas; nada sai do seu navegador.",

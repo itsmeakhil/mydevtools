@@ -4,13 +4,13 @@ import dynamic from 'next/dynamic';
 import { Card, CardContent } from "@/components/ui/card";
 import { sidebarData } from "../../components/sidebar/data/sidebar-data";
 import Link, { LinkProps } from "next/link";
-import { Clock, ArrowRight, Sparkles, Layers, Zap, Search, X, LayoutGrid, BarChart3, LogIn, Wand2 } from 'lucide-react';
+import { Clock, ArrowRight, Sparkles, Layers, Zap, Search, X, LayoutGrid, BarChart3, LogIn, Wand2, Pin } from 'lucide-react';
 import { requiresAuth } from '@/lib/tool-config';
+import { usePinnedToolsStore } from '@/store/pinned-tools-store';
 import { useToolUsage } from '@/hooks/use-tool-usage';
 import { useMediaQuery } from "@/hooks/use-media-query";
 import useAuth from "@/utils/useAuth";
 import { useTranslations } from 'next-intl';
-import { useToolVisibility } from '@/hooks/use-tool-visibility';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -117,9 +117,11 @@ interface ToolCardProps {
   id: string;
   index: number;
   user: { displayName?: string | null } | null;
+  isPinned: (url: string) => boolean;
+  togglePin: (url: string) => void;
 }
 
-const ToolCard = ({ item, id, index, user }: ToolCardProps) => {
+const ToolCard = ({ item, id, index, user, isPinned, togglePin }: ToolCardProps) => {
   const tCard = useTranslations('Dashboard');
   const tTools = useTranslations('Dashboard.tools');
   const pathname = item.url?.toString().split('?')[0] ?? '';
@@ -148,10 +150,27 @@ const ToolCard = ({ item, id, index, user }: ToolCardProps) => {
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
           <CardContent className="p-3 md:p-5 h-full flex flex-col justify-between relative z-10">
-            <div className="mb-2 md:mb-4">
-              <div className="p-2 md:p-3 rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 text-primary group-hover:scale-110 transition-all duration-300 icon-container-pulse inline-flex">
+            <div className="flex justify-between items-start mb-2 md:mb-4">
+              <div className="p-2 md:p-3 rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 text-primary group-hover:scale-110 transition-all duration-300 icon-container-pulse">
                 {item.icon ? <item.icon size={18} strokeWidth={1.5} className="md:w-[22px] md:h-[22px]" /> : <Sparkles size={18} strokeWidth={1.5} className="md:w-[22px] md:h-[22px]" />}
               </div>
+              {item.url && (
+                <div
+                  className="p-2 rounded-full hover:bg-muted/80 transition-colors z-20 cursor-pointer"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    togglePin(item.url!.toString());
+                  }}
+                >
+                  <Pin
+                    className={cn('transition-all duration-300', isPinned(item.url.toString())
+                      ? 'text-primary fill-primary scale-110'
+                      : 'text-muted-foreground/60 hover:text-primary')}
+                    size={14}
+                  />
+                </div>
+              )}
             </div>
 
             <div className="flex-1">
@@ -184,8 +203,10 @@ const DashboardPage: React.FC = () => {
   const t = useTranslations('Dashboard');
   const tTabs = useTranslations('Dashboard.tabs');
   const { user, loading } = useAuth(false); // Dashboard shows for all users
+  const pinnedToolUrls = usePinnedToolsStore((s) => s.pinnedTools);
+  const togglePin = usePinnedToolsStore((s) => s.togglePin);
+  const isPinned = (url: string) => pinnedToolUrls.includes(url);
   const { getRecentlyUsedTools } = useToolUsage();
-  const { isToolEnabled } = useToolVisibility();
   const [recentlyUsedItems, setRecentlyUsedItems] = useState<FavoriteItem[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterGroup, setFilterGroup] = useState<string | null>(null);
@@ -234,8 +255,6 @@ const DashboardPage: React.FC = () => {
       if (isMobile && group.hiddenOnMobile) return;
       group.items.forEach((item, itemIndex) => {
         if (isMobile && item.hiddenOnMobile) return;
-        const url = typeof item.url === 'string' ? item.url : item.url?.toString() || '';
-        if (url.startsWith('/app/') && !isToolEnabled(url)) return;
         if (item.badge) {
           items.push({ ...item, originalId: createItemId(groupIndex, itemIndex) });
         }
@@ -248,7 +267,34 @@ const DashboardPage: React.FC = () => {
       });
     });
     return items;
-  }, [isMobile, isToolEnabled]);
+  }, [isMobile]);
+
+  // Pinned tools — derived from URL-keyed store, preserving pin order
+  const pinnedItems = useMemo<RenderToolItem[]>(() => {
+    if (pinnedToolUrls.length === 0) return [];
+    const found: RenderToolItem[] = [];
+    sidebarData.navGroups.forEach((group, groupIndex) => {
+      if (isMobile && group.hiddenOnMobile) return;
+      group.items.forEach((item, itemIndex) => {
+        if (isMobile && item.hiddenOnMobile) return;
+        const url = item.url?.toString() ?? '';
+        if (pinnedToolUrls.includes(url)) {
+          found.push({ ...item, originalId: createItemId(groupIndex, itemIndex) });
+        }
+        item.items?.forEach((subItem, subIndex) => {
+          if (isMobile && subItem.hiddenOnMobile) return;
+          const subUrl = subItem.url?.toString() ?? '';
+          if (pinnedToolUrls.includes(subUrl)) {
+            found.push({ ...subItem, icon: subItem.icon || item.icon, originalId: createItemId(groupIndex, itemIndex, subIndex) });
+          }
+        });
+      });
+    });
+    // Preserve the order items were pinned
+    return pinnedToolUrls
+      .map(url => found.find(i => i.url?.toString() === url))
+      .filter((i): i is RenderToolItem => !!i);
+  }, [pinnedToolUrls, isMobile]);
 
   // Filter tools based on search query, mobile visibility, and active group filter
   const filteredGroups = useMemo<RenderGroup[]>(() => {
@@ -262,9 +308,6 @@ const DashboardPage: React.FC = () => {
         .filter(({ item }) => !(isMobile && item.hiddenOnMobile));
 
       const searchableItems = visibleItems.flatMap<RenderToolItem>(({ item, itemIndex }) => {
-        // Filter out disabled tools
-        const itemUrl = typeof item.url === 'string' ? item.url : item.url?.toString() || '';
-        if (itemUrl.startsWith('/app/') && !isToolEnabled(itemUrl)) return [];
 
         if (item.items?.length) {
           return item.items
@@ -312,11 +355,6 @@ const DashboardPage: React.FC = () => {
       );
 
       const itemsToRender: RenderToolItem[] = normalizedQuery ? dedupedItems : visibleItems
-        .filter(({ item }) => {
-          const itemUrl = typeof item.url === 'string' ? item.url : item.url?.toString() || '';
-          if (itemUrl.startsWith('/app/') && !isToolEnabled(itemUrl)) return false;
-          return true;
-        })
         .map(({ item, itemIndex }) => {
         if (item.items?.length) {
           return {
@@ -341,18 +379,16 @@ const DashboardPage: React.FC = () => {
     }).filter((group): group is RenderGroup => group !== null);
 
     return mobileFilteredGroups;
-  }, [isMobile, searchQuery, filterGroup, isToolEnabled]);
+  }, [isMobile, searchQuery, filterGroup]);
 
-  // Calculate total tools count (only enabled tools)
+  // Total tools count
   const totalTools = useMemo(() => {
     return sidebarData.navGroups.reduce((acc, group) => {
       return acc + group.items.reduce((itemAcc, item) => {
-        const url = typeof item.url === 'string' ? item.url : item.url?.toString() || '';
-        if (url.startsWith('/app/') && !isToolEnabled(url)) return itemAcc;
         return itemAcc + (item.items ? item.items.length : 1);
       }, 0);
     }, 0);
-  }, [isToolEnabled]);
+  }, []);
 
   if (loading) {
     return (
@@ -365,7 +401,7 @@ const DashboardPage: React.FC = () => {
     );
   }
 
-  const toolCardProps = { user };
+  const toolCardProps = { user, isPinned, togglePin };
 
   return (
     <div className="min-h-screen bg-background/50 dashboard-grid-bg mobile-nav-offset">
@@ -500,6 +536,35 @@ const DashboardPage: React.FC = () => {
                   ))}
                 </div>
               </div>
+
+              {/* Pinned — shown first, always visible unless searching or group-filtering */}
+              {pinnedItems.length > 0 && !searchQuery && !filterGroup && (
+                <section className="space-y-3 md:space-y-5">
+                  <div className="flex items-center gap-3 section-header-line pb-2">
+                    <div className="p-2 rounded-xl bg-primary/10 text-primary">
+                      <Pin size={18} strokeWidth={1.5} />
+                    </div>
+                    <h2 className="text-xl font-semibold">{t('sections.pinned')}</h2>
+                    <span className="text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
+                      {pinnedItems.length}
+                    </span>
+                  </div>
+                  <div className="md:hidden -mx-4 px-4">
+                    <div className="flex gap-3 overflow-x-auto scroll-snap-x pb-2 mobile-scrollbar-hide">
+                      {pinnedItems.map((item, index) => (
+                        <div key={`pinned-mobile-${item.originalId}`} className="scroll-snap-item w-[280px] flex-shrink-0">
+                          <ToolCard item={item} id={item.originalId!} index={index} {...toolCardProps} />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    {pinnedItems.map((item, index) => (
+                      <ToolCard key={`pinned-${item.originalId}`} item={item} id={item.originalId!} index={index} {...toolCardProps} />
+                    ))}
+                  </div>
+                </section>
+              )}
 
               {/* What's New — only visible when not searching and no group filter active */}
               {whatsNewItems.length > 0 && !searchQuery && !filterGroup && (

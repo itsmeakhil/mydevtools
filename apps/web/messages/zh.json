@@ -212,7 +212,9 @@
     },
     "sections": {
       "recentlyUsed": "最近使用",
-      "favorites": "收藏"
+      "favorites": "收藏",
+      "whatsNew": "最新动态",
+      "pinned": "已固定"
     },
     "groups": {
       "apps": "应用"
@@ -365,6 +367,10 @@
       "numberBaseConverter": {
         "title": "进制转换器",
         "description": "在 2–36 进制之间转换整数。"
+      },
+      "formatConverter": {
+        "title": "格式转换器",
+        "description": "在 JSON、YAML、TOML 与 XML 之间任意方向转换，支持全部 12 种组合。"
       }
     },
     "tabs": {
@@ -1948,7 +1954,6 @@
       "emptySelection": "请先填写选择集再应用。"
     }
   },
-
   "RegexTester": {
     "title": "正则测试器",
     "subtitle": "对你的文本实时运行 JavaScript 风格正则。匹配会高亮显示；内容不会离开浏览器。",

@@ -220,7 +220,8 @@
     "sections": {
       "recentlyUsed": "Recently Used",
       "favorites": "Favorites",
-      "whatsNew": "What's New"
+      "whatsNew": "What's New",
+      "pinned": "Pinned"
     },
     "groups": {
       "apps": "Apps"
@@ -341,6 +342,10 @@
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
+      },
+      "formatConverter": {
+        "title": "Format Converter",
+        "description": "Convert between JSON, YAML, TOML, and XML in any direction. All 12 combinations supported."
       },
       "regexTester": {
         "title": "Regex Tester",

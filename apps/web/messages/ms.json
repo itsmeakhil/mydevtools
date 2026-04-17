@@ -219,7 +219,8 @@
     "sections": {
       "recentlyUsed": "Baru Digunakan",
       "favorites": "Kegemaran",
-      "whatsNew": "Yang Baru"
+      "whatsNew": "Yang Baru",
+      "pinned": "Disematkan"
     },
     "groups": {
       "apps": "Aplikasi"
@@ -284,6 +285,10 @@
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
+      },
+      "formatConverter": {
+        "title": "Penukar Format",
+        "description": "Tukar antara JSON, YAML, TOML, dan XML dalam mana-mana arah. 12 gabungan disokong."
       },
       "regexTester": {
         "title": "Regex Tester",

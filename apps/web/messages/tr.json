@@ -212,7 +212,9 @@
     },
     "sections": {
       "recentlyUsed": "Son Kullanılanlar",
-      "favorites": "Favoriler"
+      "favorites": "Favoriler",
+      "whatsNew": "Yenilikler",
+      "pinned": "Sabitlenen"
     },
     "groups": {
       "apps": "Uygulamalar"
@@ -365,6 +367,10 @@
       "numberBaseConverter": {
         "title": "Sayı tabanı dönüştürücü",
         "description": "2–36 tabanları arasında tam sayıları dönüştürün."
+      },
+      "formatConverter": {
+        "title": "Format Dönüştürücü",
+        "description": "JSON, YAML, TOML ve XML arasında her yönde dönüştürün. 12 kombinasyonun tamamı desteklenir."
       }
     },
     "tabs": {
@@ -1948,7 +1954,6 @@
       "emptySelection": "Uygulamadan önce bir seçim kümesi ekleyin."
     }
   },
-
   "RegexTester": {
     "title": "Regex Testi",
     "subtitle": "Metninize karşı canlı JavaScript tarzı regex. Eşleşmeler vurgulanır; hiçbir şey tarayıcınızdan çıkmaz.",
