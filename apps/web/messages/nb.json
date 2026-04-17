@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "IP-/subnettkalkulator",
     "hashGenerator": "Hash-generator",
     "hmacGenerator": "HMAC-generator",
-    "markdownPreview": "Markdown-forhåndsvisning"
+    "markdownPreview": "Markdown-forhåndsvisning",
+    "numberBaseConverter": "Grunntall-konverter"
   },
   "Help": {
     "title": "Hjelp og dokumentasjon",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Markdown-forhåndsvisning",
         "description": "Live Markdown-renderer med HTML-eksport og HTML → Markdown-konvertering."
+      },
+      "numberBaseConverter": {
+        "title": "Grunntall-konverter",
+        "description": "Konverter heltall mellom baser 2–36."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Begynn å skrive Markdown for å se live-forhåndsvisning og HTML-utdata.",
     "emptyHintHtmlToMd": "Lim inn HTML for å konvertere det til Markdown.",
     "securityNote": "Alt kjører lokalt i nettleseren din. Ingenting lastes opp."
+  },
+  "NumberBaseConverter": {
+    "title": "Grunntall-konverter",
+    "subtitle": "Konverter heltall mellom baser 2–36. Valgfrie prefikser 0x / 0b / 0o. Alt kjører lokalt i nettleseren.",
+    "inputBaseLabel": "Fra base",
+    "outputBaseLabel": "Til base",
+    "inputLabel": "Inndata",
+    "placeholderInput": "Skriv inn et heltall i valgt inndata-base…",
+    "outputLabel": "Konvertert verdi",
+    "copyOutput": "Kopier resultat",
+    "copied": "Kopiert",
+    "swap": "Bytt baser",
+    "byteCountHint": "{count, plural, one {# byte} other {# bytes}} (UTF-8-lengde)",
+    "emptyHint": "Skriv inn et tall for å konvertere.",
+    "note": "Siffer over 9 bruker bokstaver A–Z (ikke skille mellom store/små). Mellomrom og understrek ignoreres.",
+    "errors": {
+      "invalidNumber": "Verdien er ikke gyldig for valgt inndata-base."
+    }
   }
 }

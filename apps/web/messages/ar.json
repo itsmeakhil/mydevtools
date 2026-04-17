@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "حاسبة IP / الشبكة الفرعية",
     "hashGenerator": "مُولّد الهاش",
     "hmacGenerator": "مُولّد HMAC",
-    "markdownPreview": "معاينة Markdown"
+    "markdownPreview": "معاينة Markdown",
+    "numberBaseConverter": "محوّل الأساس الرقمي"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "معاينة Markdown",
         "description": "معرض Markdown مباشر مع تصدير HTML وتحويل HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "محوّل الأساس الرقمي",
+        "description": "تحويل الأعداد الصحيحة بين الأسس من 2 إلى 36."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "ابدأ بكتابة Markdown لرؤية المعاينة المباشرة وإخراج HTML.",
     "emptyHintHtmlToMd": "الصق HTML لتحويله إلى Markdown.",
     "securityNote": "كل شيء يعمل محليًا في متصفحك. لا يتم تحميل أي بيانات."
+  },
+  "NumberBaseConverter": {
+    "title": "محوّل الأساس الرقمي",
+    "subtitle": "تحويل الأعداد الصحيحة بين الأسس 2–36. يدعم البادئات الاختيارية 0x / 0b / 0o. كل شيء محليًا في المتصفح.",
+    "inputBaseLabel": "من الأساس",
+    "outputBaseLabel": "إلى الأساس",
+    "inputLabel": "الرقم المدخل",
+    "placeholderInput": "أدخل عددًا صحيحًا بالأساس المختار…",
+    "outputLabel": "القيمة المحوّلة",
+    "copyOutput": "نسخ النتيجة",
+    "copied": "تم النسخ",
+    "swap": "تبديل الأساسين",
+    "byteCountHint": "{count, plural, one {# بايت} other {# بايت}} (طول الإدخال UTF-8)",
+    "emptyHint": "أدخل رقمًا للتحويل.",
+    "note": "الأرقام بعد 9 تستخدم الحروف A–Z (غير حساسة لحالة الأحرف). يتم تجاهل المسافات والشرطات السفلية.",
+    "errors": {
+      "invalidNumber": "القيمة غير صالحة للأساس المختار."
+    }
   }
 }

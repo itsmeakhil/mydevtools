@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useMemo, useSyncExternalStore } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -13,12 +13,11 @@ import {
   CollapsibleTrigger,
   CollapsibleContent,
 } from "@/components/ui/collapsible";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   Zap,
   Shield,
-  Rocket,
   Sparkles,
   Star,
   GitFork,
@@ -26,6 +25,10 @@ import {
   LogIn,
   LayoutGrid,
   ExternalLink,
+  Lock,
+  Globe,
+  CheckCircle2,
+  Search,
 } from "lucide-react";
 import { sidebarData } from "@/components/sidebar/data/sidebar-data";
 
@@ -73,36 +76,48 @@ type HomeToolEntry = {
   description: string;
   url: string;
   icon?: React.ElementType;
+  category: string;
 };
 
-function flattenSidebarTools(): HomeToolEntry[] {
-  const out: HomeToolEntry[] = [];
+type ToolCategory = {
+  title: string;
+  icon?: React.ElementType;
+  tools: HomeToolEntry[];
+};
+
+function buildToolCategories(): ToolCategory[] {
+  const out: ToolCategory[] = [];
   for (const group of sidebarData.navGroups) {
+    const tools: HomeToolEntry[] = [];
     for (const item of group.items) {
       if ("items" in item && item.items?.length) {
         for (const sub of item.items) {
           if (!sub.url) continue;
-          out.push({
+          tools.push({
             title: sub.title,
             description: sub.description ?? "",
             url: typeof sub.url === "string" ? sub.url : String(sub.url),
             icon: sub.icon ?? item.icon,
+            category: group.title,
           });
         }
       } else if ("url" in item && item.url) {
-        out.push({
+        tools.push({
           title: item.title,
           description: item.description ?? "",
           url: typeof item.url === "string" ? item.url : String(item.url),
           icon: item.icon,
+          category: group.title,
         });
       }
     }
+    if (tools.length) out.push({ title: group.title, icon: group.icon, tools });
   }
   return out;
 }
 
-const allAppTools = flattenSidebarTools();
+const toolCategories = buildToolCategories();
+const allAppTools: HomeToolEntry[] = toolCategories.flatMap((c) => c.tools);
 
 const toolListGradients = [
   "from-sky-500 to-cyan-400",
@@ -112,30 +127,6 @@ const toolListGradients = [
   "from-amber-500 to-yellow-400",
   "from-indigo-500 to-blue-400",
 ] as const;
-
-const features = [
-  {
-    icon: Zap,
-    title: "Lightning Fast",
-    description:
-      "Optimized for speed with client-side processing. No server round-trips for sensitive operations.",
-    gradient: "from-amber-500 to-orange-400",
-  },
-  {
-    icon: Shield,
-    title: "Secure & Private",
-    description:
-      "Sensitive data is encrypted in your browser before it's ever transmitted. The server only receives encrypted blobs it cannot read.",
-    gradient: "from-emerald-500 to-teal-400",
-  },
-  {
-    icon: Rocket,
-    title: "Developer First",
-    description:
-      "Built by developers, for developers. Clean APIs and an intuitive UI that stays out of your way.",
-    gradient: "from-violet-500 to-blue-400",
-  },
-];
 
 const howItWorks = [
   {
@@ -186,14 +177,43 @@ const faqItems = [
   },
 ];
 
+// Empty subscriber — modKey is read once after hydration; we don't react to platform changes.
+const subscribeNoop = () => () => {};
+const getModKeyClient = () =>
+  /Mac|iPhone|iPad|iPod/.test(navigator.userAgent) ? "⌘" : "Ctrl";
+const getModKeyServer = () => "⌘";
+
 // ─── Page ──────────────────────────────────────────────────────────────────────
 
 export default function Page() {
   const router = useRouter();
   const goToLogin = () => router.push("/login");
 
+  const reduceMotion = useReducedMotion();
   const [githubStars, setGithubStars] = useState<number | null>(null);
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);
+  const [activeToolCategory, setActiveToolCategory] = useState<string>("All");
+  const modKey = useSyncExternalStore(
+    subscribeNoop,
+    getModKeyClient,
+    getModKeyServer
+  );
+
+  const openCommandPalette = () => {
+    window.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "k",
+        metaKey: true,
+        ctrlKey: true,
+        bubbles: true,
+      })
+    );
+  };
+
+  const visibleTools = useMemo(() => {
+    if (activeToolCategory === "All") return allAppTools;
+    return allAppTools.filter((t) => t.category === activeToolCategory);
+  }, [activeToolCategory]);
 
   useEffect(() => {
     fetch("https://api.github.com/repos/itsmeakhil/mydevtools.tech", {
@@ -218,18 +238,34 @@ export default function Page() {
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <motion.div
             className="absolute -top-48 -left-48 w-[500px] h-[500px] rounded-full bg-violet-500/15 blur-[120px]"
-            animate={{ x: [0, 50, 0], y: [0, -50, 0], scale: [1, 1.12, 1] }}
-            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+            animate={
+              reduceMotion ? undefined : { x: [0, 50, 0], y: [0, -50, 0], scale: [1, 1.12, 1] }
+            }
+            transition={
+              reduceMotion ? undefined : { duration: 14, repeat: Infinity, ease: "easeInOut" }
+            }
           />
           <motion.div
             className="absolute -top-24 -right-48 w-[500px] h-[500px] rounded-full bg-sky-500/15 blur-[120px]"
-            animate={{ x: [0, -50, 0], y: [0, 50, 0], scale: [1, 1.18, 1] }}
-            transition={{ duration: 16, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+            animate={
+              reduceMotion ? undefined : { x: [0, -50, 0], y: [0, 50, 0], scale: [1, 1.18, 1] }
+            }
+            transition={
+              reduceMotion
+                ? undefined
+                : { duration: 16, repeat: Infinity, ease: "easeInOut", delay: 1.5 }
+            }
           />
           <motion.div
             className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] rounded-full bg-pink-500/10 blur-[100px]"
-            animate={{ scale: [1, 1.1, 1], opacity: [0.6, 1, 0.6] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
+            animate={
+              reduceMotion ? undefined : { scale: [1, 1.1, 1], opacity: [0.6, 1, 0.6] }
+            }
+            transition={
+              reduceMotion
+                ? undefined
+                : { duration: 10, repeat: Infinity, ease: "easeInOut", delay: 0.8 }
+            }
           />
         </div>
 
@@ -257,8 +293,12 @@ export default function Page() {
                 className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full border border-border/60 bg-muted/70 backdrop-blur-md text-foreground"
               >
                 <motion.span
-                  animate={{ rotate: [0, 18, -18, 0] }}
-                  transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 4 }}
+                  animate={reduceMotion ? undefined : { rotate: [0, 18, -18, 0] }}
+                  transition={
+                    reduceMotion
+                      ? undefined
+                      : { duration: 2.5, repeat: Infinity, repeatDelay: 4 }
+                  }
                   className="inline-flex"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
@@ -320,7 +360,7 @@ export default function Page() {
               className="pt-6 grid grid-cols-3 gap-6 max-w-sm mx-auto"
             >
               {[
-                { value: "19+", label: "Dev Tools" },
+                { value: `${allAppTools.length}+`, label: "Dev Tools" },
                 { value: "100%", label: "Open Source" },
                 { value: "E2E", label: "Encrypted" },
               ].map((s, i) => (
@@ -387,12 +427,12 @@ export default function Page() {
                 target="_blank"
                 className="inline-block hover:opacity-90 hover:scale-105 transition-all duration-300"
               >
-                <img
+                <Image
                   src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1041847&theme=light&t=1764002797983"
                   alt="MyDevTools - Essential tools for developers | Product Hunt"
-                  style={{ width: "250px", height: "54px" }}
-                  width="250"
-                  height="54"
+                  width={250}
+                  height={54}
+                  unoptimized
                 />
               </a>
             </motion.div>
@@ -457,7 +497,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── Features ────────────────────────────────────────────────────────── */}
+      {/* ── Bento Showcase ─────────────────────────────────────────────────── */}
       <section
         id="features"
         className="py-16 md:py-28 relative overflow-hidden scroll-mt-28"
@@ -467,44 +507,164 @@ export default function Page() {
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.6 }}
-              className="text-center mb-14"
+              className="text-center mb-12 md:mb-14"
             >
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
                 Built for Modern Developers
               </h2>
               <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-                Every tool crafted with performance, privacy, and simplicity at
-                its core.
+                Real tools, real previews — speed and privacy by default.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
-              {features.map((f, i) => (
-                <motion.div
-                  key={i}
-                  variants={fadeUp}
-                  transition={{ duration: 0.55, delay: i * 0.1 }}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+              {/* T1 — JSON Formatter (large) */}
+              <motion.div
+                variants={fadeUp}
+                transition={{ duration: 0.55 }}
+                className="md:col-span-2 md:row-span-2"
+              >
+                <Link
+                  href="/app/json-formatter"
+                  className="group relative flex h-full min-h-[380px] flex-col overflow-hidden rounded-2xl border border-border/60 bg-card/60 p-6 md:p-8 backdrop-blur-sm transition-all duration-300 hover:border-border hover:shadow-xl"
                 >
-                  <div className="group relative h-full rounded-2xl border border-border/50 bg-card/60 backdrop-blur-sm p-7 hover:border-border hover:shadow-xl transition-all duration-300 overflow-hidden">
-                    <div
-                      className={`absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 bg-gradient-to-br ${f.gradient}`}
-                    />
-                    <div
-                      className={`relative z-10 w-12 h-12 rounded-xl bg-gradient-to-br ${f.gradient} p-px mb-6 shadow-lg`}
-                    >
-                      <div className="w-full h-full rounded-[11px] bg-card flex items-center justify-center">
-                        <f.icon className="w-5 h-5 text-foreground" />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 bg-gradient-to-br from-amber-500 to-orange-400" />
+                  <div className="relative z-10 flex items-center gap-2 mb-4">
+                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-500 to-orange-400 p-px shadow-md">
+                      <div className="w-full h-full rounded-[7px] bg-card flex items-center justify-center">
+                        <Zap className="w-4 h-4 text-foreground" />
                       </div>
                     </div>
-                    <h3 className="relative z-10 text-xl font-semibold mb-3">
-                      {f.title}
-                    </h3>
-                    <p className="relative z-10 text-muted-foreground leading-relaxed text-sm md:text-base">
-                      {f.description}
-                    </p>
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
+                      Lightning Fast
+                    </span>
                   </div>
-                </motion.div>
-              ))}
+                  <h3 className="relative z-10 text-2xl font-semibold mb-3">
+                    Format & validate in milliseconds
+                  </h3>
+                  <p className="relative z-10 text-muted-foreground leading-relaxed mb-6 max-w-md text-sm md:text-base">
+                    JSON, SQL, Markdown — formatters and editors that run
+                    entirely in your browser. No round-trips, no copy-paste
+                    detours.
+                  </p>
+
+                  {/* JSON code preview */}
+                  <div className="relative z-10 mt-auto rounded-xl border border-border/50 bg-background/80 overflow-hidden font-mono text-xs md:text-sm">
+                    <div className="flex items-center justify-between px-3 py-2 border-b border-border/40 bg-muted/40">
+                      <div className="flex gap-1.5">
+                        <div className="w-2.5 h-2.5 rounded-full bg-rose-400/70" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-amber-400/70" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-emerald-400/70" />
+                      </div>
+                      <span className="text-[10px] text-muted-foreground">
+                        payload.json
+                      </span>
+                    </div>
+                    <pre className="p-4 leading-relaxed text-foreground/90 overflow-x-auto">
+{`{
+  "name": "mydevtools",
+  "tools": ${allAppTools.length},
+  "encrypted": true,
+  "open_source": true
+}`}
+                    </pre>
+                  </div>
+
+                  <div className="relative z-10 mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors">
+                    <span>Open JSON Formatter</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                  </div>
+                </Link>
+              </motion.div>
+
+              {/* T2 — Password Manager */}
+              <motion.div
+                variants={fadeUp}
+                transition={{ duration: 0.55, delay: 0.1 }}
+              >
+                <Link
+                  href="/app/password-manager"
+                  className="group relative flex h-full min-h-[180px] flex-col overflow-hidden rounded-2xl border border-border/60 bg-card/60 p-6 backdrop-blur-sm transition-all duration-300 hover:border-border hover:shadow-xl"
+                >
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 bg-gradient-to-br from-emerald-500 to-teal-400" />
+                  <div className="relative z-10 flex items-center gap-2 mb-3">
+                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-400 p-px shadow-md">
+                      <div className="w-full h-full rounded-[7px] bg-card flex items-center justify-center">
+                        <Lock className="w-4 h-4 text-foreground" />
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
+                      Secure &amp; Private
+                    </span>
+                  </div>
+                  <h3 className="relative z-10 text-lg font-semibold mb-3">
+                    Zero-knowledge vault
+                  </h3>
+
+                  {/* Password entries preview */}
+                  <div className="relative z-10 mt-auto space-y-1.5">
+                    {["github.com", "vercel.com", "anthropic.com"].map(
+                      (label) => (
+                        <div
+                          key={label}
+                          className="flex items-center justify-between px-3 py-1.5 rounded-md bg-background/60 border border-border/40 text-xs"
+                        >
+                          <span className="text-foreground/90 font-mono truncate pr-2">
+                            {label}
+                          </span>
+                          <span className="font-mono tracking-widest text-muted-foreground shrink-0">
+                            ••••••••
+                          </span>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </Link>
+              </motion.div>
+
+              {/* T3 — API Client */}
+              <motion.div
+                variants={fadeUp}
+                transition={{ duration: 0.55, delay: 0.2 }}
+              >
+                <Link
+                  href="/app/api-client"
+                  className="group relative flex h-full min-h-[180px] flex-col overflow-hidden rounded-2xl border border-border/60 bg-card/60 p-6 backdrop-blur-sm transition-all duration-300 hover:border-border hover:shadow-xl"
+                >
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 bg-gradient-to-br from-violet-500 to-blue-400" />
+                  <div className="relative z-10 flex items-center gap-2 mb-3">
+                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-violet-500 to-blue-400 p-px shadow-md">
+                      <div className="w-full h-full rounded-[7px] bg-card flex items-center justify-center">
+                        <Globe className="w-4 h-4 text-foreground" />
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
+                      Developer First
+                    </span>
+                  </div>
+                  <h3 className="relative z-10 text-lg font-semibold mb-3">
+                    Test endpoints in one tab
+                  </h3>
+
+                  {/* API request preview */}
+                  <div className="relative z-10 mt-auto rounded-md border border-border/40 bg-background/60 overflow-hidden font-mono text-[11px]">
+                    <div className="flex items-center gap-2 px-3 py-2 border-b border-border/40">
+                      <span className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-semibold">
+                        GET
+                      </span>
+                      <span className="text-muted-foreground truncate">
+                        /api/v1/users
+                      </span>
+                      <span className="ml-auto inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 shrink-0">
+                        <CheckCircle2 className="w-3 h-3" /> 200
+                      </span>
+                    </div>
+                    <div className="px-3 py-2 text-foreground/80 truncate">
+                      {`{ "id": 42, "ok": true }`}
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
             </div>
           </Section>
         </div>
@@ -521,7 +681,7 @@ export default function Page() {
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.6 }}
-              className="text-center mb-12 md:mb-14"
+              className="text-center mb-8 md:mb-10"
             >
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
                 Tools
@@ -529,19 +689,79 @@ export default function Page() {
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
                 The full catalog from the app — open any utility in one click.
               </p>
+
+              {/* Command palette quick-search hint */}
+              <button
+                type="button"
+                onClick={openCommandPalette}
+                aria-label="Open command palette to search tools"
+                className="mt-6 inline-flex items-center gap-3 px-4 py-2.5 rounded-full border border-border/60 bg-background/60 backdrop-blur-sm text-sm text-muted-foreground hover:text-foreground hover:border-border hover:bg-muted/60 transition-all duration-200 cursor-pointer active:scale-[0.98]"
+              >
+                <Search className="w-4 h-4" />
+                <span>Search tools…</span>
+                <kbd className="ml-1 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded border border-border/60 bg-muted/60 text-[11px] font-mono text-foreground/80">
+                  <span>{modKey}</span>
+                  <span>K</span>
+                </kbd>
+              </button>
+            </motion.div>
+
+            {/* Category filter pills */}
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.5 }}
+              className="flex flex-wrap justify-center gap-2 mb-8 md:mb-10"
+            >
+              {[
+                { key: "All", count: allAppTools.length, icon: undefined as React.ElementType | undefined },
+                ...toolCategories.map((c) => ({
+                  key: c.title,
+                  count: c.tools.length,
+                  icon: c.icon,
+                })),
+              ].map((pill) => {
+                const active = activeToolCategory === pill.key;
+                const Icon = pill.icon;
+                return (
+                  <button
+                    key={pill.key}
+                    onClick={() => setActiveToolCategory(pill.key)}
+                    aria-pressed={active}
+                    className={`cursor-pointer inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200 active:scale-[0.97] ${
+                      active
+                        ? "bg-foreground text-background border-foreground shadow-md"
+                        : "bg-card/60 backdrop-blur-sm border-border/60 text-foreground hover:border-border hover:bg-muted/60"
+                    }`}
+                  >
+                    {Icon ? <Icon className="w-3.5 h-3.5" /> : null}
+                    <span>{pill.key}</span>
+                    <span
+                      className={`text-xs tabular-nums ${
+                        active ? "opacity-80" : "text-muted-foreground"
+                      }`}
+                    >
+                      {pill.count}
+                    </span>
+                  </button>
+                );
+              })}
             </motion.div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-              {allAppTools.map((tool, i) => {
+              <AnimatePresence mode="popLayout">
+              {visibleTools.map((tool, i) => {
                 const g = toolListGradients[i % toolListGradients.length];
                 const Icon = tool.icon;
                 return (
                   <motion.div
                     key={tool.url}
-                    variants={fadeUp}
+                    layout
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
                     transition={{
-                      duration: 0.45,
-                      delay: Math.min(i * 0.03, 0.45),
+                      duration: 0.32,
+                      delay: Math.min(i * 0.02, 0.18),
                     }}
                   >
                     <Link
@@ -573,6 +793,7 @@ export default function Page() {
                   </motion.div>
                 );
               })}
+              </AnimatePresence>
             </div>
 
             <motion.div
@@ -583,7 +804,7 @@ export default function Page() {
               <Button
                 variant="outline"
                 size="lg"
-                className="rounded-full h-11 px-7 text-sm hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+                className="rounded-full h-11 px-7 text-sm cursor-pointer hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
                 onClick={goToLogin}
               >
                 Open dashboard
@@ -672,12 +893,12 @@ export default function Page() {
                     target="_blank"
                     className="relative z-10 inline-block hover:opacity-90 hover:scale-105 transition-all duration-300 self-start"
                   >
-                    <img
+                    <Image
                       src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1041847&theme=light&t=1764002797983"
                       alt="MyDevTools on Product Hunt"
-                      style={{ width: "180px", height: "39px" }}
-                      width="180"
-                      height="39"
+                      width={180}
+                      height={39}
+                      unoptimized
                     />
                   </a>
                 </div>

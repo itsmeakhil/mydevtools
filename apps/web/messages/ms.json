@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "Kalkulator IP / subnet",
     "hashGenerator": "Penjana hash",
     "hmacGenerator": "Penjana HMAC",
-    "markdownPreview": "Pratonton Markdown"
+    "markdownPreview": "Pratonton Markdown",
+    "numberBaseConverter": "Penukar asas"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Pratonton Markdown",
         "description": "Pemapar Markdown langsung dengan eksport HTML dan penukaran HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "Penukar asas nombor",
+        "description": "Tukar integer antara asas 2–36."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Mulakan menaip Markdown untuk melihat pratonton langsung dan output HTML.",
     "emptyHintHtmlToMd": "Tampal HTML untuk menukarnya kepada Markdown.",
     "securityNote": "Semua berjalan secara setempat dalam pelayar anda. Tiada apa yang dimuat naik."
+  },
+  "NumberBaseConverter": {
+    "title": "Penukar asas nombor",
+    "subtitle": "Tukar integer antara asas 2–36. Awalan pilihan 0x / 0b / 0o. Semua dikira secara setempat dalam pelayar.",
+    "inputBaseLabel": "Dari asas",
+    "outputBaseLabel": "Ke asas",
+    "inputLabel": "Nombor input",
+    "placeholderInput": "Masukkan integer dalam asas input yang dipilih…",
+    "outputLabel": "Nilai ditukar",
+    "copyOutput": "Salin hasil",
+    "copied": "Disalin",
+    "swap": "Tukar asas",
+    "byteCountHint": "{count, plural, other {# bait}} (panjang UTF-8)",
+    "emptyHint": "Masukkan nombor untuk ditukar.",
+    "note": "Digit melebihi 9 menggunakan A–Z (tidak peka huruf). Ruang dan garis bawah diabaikan.",
+    "errors": {
+      "invalidNumber": "Nilai tidak sah untuk asas input yang dipilih."
+    }
   }
 }

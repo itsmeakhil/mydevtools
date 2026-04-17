@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "Kalkulačka IP / podsítě",
     "hashGenerator": "Generátor hashů",
     "hmacGenerator": "Generátor HMAC",
-    "markdownPreview": "Náhled Markdown"
+    "markdownPreview": "Náhled Markdown",
+    "numberBaseConverter": "Převodník soustav"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Náhled Markdown",
         "description": "Živý renderer Markdown s exportem HTML a převodem HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "Převodník číselných soustav",
+        "description": "Převádějte celá čísla mezi soustavami o základu 2–36."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Začněte psát Markdown pro zobrazení živého náhledu a HTML výstupu.",
     "emptyHintHtmlToMd": "Vložte HTML pro převod na Markdown.",
     "securityNote": "Vše běží lokálně ve vašem prohlížeči. Nic se nenahrává."
+  },
+  "NumberBaseConverter": {
+    "title": "Převodník číselných soustav",
+    "subtitle": "Převod celých čísel mezi soustavami 2–36. Volitelné prefixy 0x / 0b / 0o. Vše lokálně v prohlížeči.",
+    "inputBaseLabel": "Ze základu",
+    "outputBaseLabel": "Do základu",
+    "inputLabel": "Vstupní číslo",
+    "placeholderInput": "Zadejte celé číslo ve zvolené vstupní soustavě…",
+    "outputLabel": "Převedená hodnota",
+    "copyOutput": "Kopírovat výsledek",
+    "copied": "Zkopírováno",
+    "swap": "Prohodit základy",
+    "byteCountHint": "{count, plural, one {# bajt} few {# bajty} other {# bajtů}} (délka UTF-8)",
+    "emptyHint": "Zadejte číslo k převodu.",
+    "note": "Číslice nad 9 jsou písmena A–Z (bez rozlišení velikosti). Mezery a podtržítka se ignorují.",
+    "errors": {
+      "invalidNumber": "Hodnota není platná pro zvolenou vstupní soustavu."
+    }
   }
 }

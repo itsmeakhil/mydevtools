@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "IP-/subnetberegner",
     "hashGenerator": "Hash-generator",
     "hmacGenerator": "HMAC-generator",
-    "markdownPreview": "Markdown-forhåndsvisning"
+    "markdownPreview": "Markdown-forhåndsvisning",
+    "numberBaseConverter": "Talsystem-konverter"
   },
   "Help": {
     "title": "Hjælp og dokumentation",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Markdown-forhåndsvisning",
         "description": "Live Markdown-renderer med HTML-eksport og HTML → Markdown-konvertering."
+      },
+      "numberBaseConverter": {
+        "title": "Talsystem-konverter",
+        "description": "Konverter heltal mellem baser 2–36."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Begynd at skrive Markdown for at se live-forhåndsvisning og HTML-output.",
     "emptyHintHtmlToMd": "Indsæt HTML for at konvertere det til Markdown.",
     "securityNote": "Alt kører lokalt i din browser. Intet uploades."
+  },
+  "NumberBaseConverter": {
+    "title": "Talsystem-konverter",
+    "subtitle": "Konverter heltal mellem baser 2–36. Valgfri 0x / 0b / 0o-præfiks. Alt kører lokalt i din browser.",
+    "inputBaseLabel": "Fra base",
+    "outputBaseLabel": "Til base",
+    "inputLabel": "Inputtal",
+    "placeholderInput": "Indtast et heltal i den valgte input-base…",
+    "outputLabel": "Konverteret værdi",
+    "copyOutput": "Kopiér resultat",
+    "copied": "Kopieret",
+    "swap": "Byt baser",
+    "byteCountHint": "{count, plural, one {# byte} other {# bytes}} (UTF-8-længde)",
+    "emptyHint": "Indtast et tal for at konvertere.",
+    "note": "Cifre over 9 bruger bogstaver A–Z (ikke versalfølsomt). Mellemrum og understregning ignoreres.",
+    "errors": {
+      "invalidNumber": "Værdien er ikke gyldig for den valgte input-base."
+    }
   }
 }

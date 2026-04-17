@@ -33,6 +33,7 @@ import {
   IconHash,
   IconCircleKey,
   IconMarkdown,
+  IconArrowsExchange,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -122,6 +123,13 @@ export const sidebarData: SidebarData = {
           url: '/app/base64',
           icon: IconTransform,
           description: 'Encode and decode Base64 strings.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'Number Base Converter',
+          url: '/app/number-base-converter',
+          icon: IconArrowsExchange,
+          description: 'Convert integers between bases 2–36 locally in your browser.',
           hiddenOnMobile: true,
         },
         {

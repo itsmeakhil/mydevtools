@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "Υπολογιστής IP / υποδικτύου",
     "hashGenerator": "Γεννήτρια hash",
     "hmacGenerator": "Γεννήτρια HMAC",
-    "markdownPreview": "Προεπισκόπηση Markdown"
+    "markdownPreview": "Προεπισκόπηση Markdown",
+    "numberBaseConverter": "Μετατροπέας βάσης"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Προεπισκόπηση Markdown",
         "description": "Ζωντανός renderer Markdown με εξαγωγή HTML και μετατροπή HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "Μετατροπέας αριθμητικής βάσης",
+        "description": "Μετατροπή ακεραίων μεταξύ βάσεων 2–36."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Ξεκινήστε να πληκτρολογείτε Markdown για να δείτε την προεπισκόπηση και την έξοδο HTML.",
     "emptyHintHtmlToMd": "Επικολλήστε HTML για μετατροπή σε Markdown.",
     "securityNote": "Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας. Δεν γίνεται καμία μεταφόρτωση."
+  },
+  "NumberBaseConverter": {
+    "title": "Μετατροπέας αριθμητικής βάσης",
+    "subtitle": "Μετατροπή ακεραίων μεταξύ βάσεων 2–36. Προαιρετικά προθέματα 0x / 0b / 0o. Όλα τοπικά στον περιηγητή.",
+    "inputBaseLabel": "Από βάση",
+    "outputBaseLabel": "Σε βάση",
+    "inputLabel": "Αριθμός εισόδου",
+    "placeholderInput": "Εισάγετε ακέραιο στη επιλεγμένη βάση εισόδου…",
+    "outputLabel": "Μετατραπείσα τιμή",
+    "copyOutput": "Αντιγραφή αποτελέσματος",
+    "copied": "Αντιγράφηκε",
+    "swap": "Εναλλαγή βάσεων",
+    "byteCountHint": "{count, plural, one {# byte} other {# bytes}} (μήκος UTF-8)",
+    "emptyHint": "Εισάγετε αριθμό για μετατροπή.",
+    "note": "Ψηφία πάνω από 9 χρησιμοποιούν A–Z (ανεξάρτητα πεζών/κεφαλαίων). Κενά και υπογραμμίσεις αγνοούνται.",
+    "errors": {
+      "invalidNumber": "Μη έγκυρη τιμή για την επιλεγμένη βάση εισόδου."
+    }
   }
 }

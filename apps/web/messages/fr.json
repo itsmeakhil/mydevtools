@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "Calculateur IP / sous-réseau",
     "hashGenerator": "Générateur de hash",
     "hmacGenerator": "Générateur HMAC",
-    "markdownPreview": "Aperçu Markdown"
+    "markdownPreview": "Aperçu Markdown",
+    "numberBaseConverter": "Convertisseur de base"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Aperçu Markdown",
         "description": "Rendu Markdown en direct avec export HTML et conversion HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "Convertisseur de base numérique",
+        "description": "Convertissez des entiers entre les bases 2 à 36."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Commencez à taper du Markdown pour voir l'aperçu et la sortie HTML.",
     "emptyHintHtmlToMd": "Collez du HTML pour le convertir en Markdown.",
     "securityNote": "Tout s'exécute localement dans votre navigateur. Rien n'est téléchargé."
+  },
+  "NumberBaseConverter": {
+    "title": "Convertisseur de base numérique",
+    "subtitle": "Convertissez des entiers entre les bases 2 à 36. Préfixes optionnels 0x / 0b / 0o. Tout est calculé localement dans le navigateur.",
+    "inputBaseLabel": "Depuis la base",
+    "outputBaseLabel": "Vers la base",
+    "inputLabel": "Nombre d’entrée",
+    "placeholderInput": "Saisissez un entier dans la base d’entrée sélectionnée…",
+    "outputLabel": "Valeur convertie",
+    "copyOutput": "Copier le résultat",
+    "copied": "Copié",
+    "swap": "Échanger les bases",
+    "byteCountHint": "{count, plural, one {# octet} other {# octets}} (longueur UTF-8)",
+    "emptyHint": "Saisissez un nombre à convertir.",
+    "note": "Les chiffres au-delà de 9 utilisent les lettres A–Z (insensible à la casse). Espaces et tirets bas ignorés.",
+    "errors": {
+      "invalidNumber": "Cette valeur n’est pas valide pour la base d’entrée sélectionnée."
+    }
   }
 }

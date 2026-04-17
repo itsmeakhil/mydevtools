@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "IP-/subnetcalculator",
     "hashGenerator": "Hash-generator",
     "hmacGenerator": "HMAC-generator",
-    "markdownPreview": "Markdown-voorbeeld"
+    "markdownPreview": "Markdown-voorbeeld",
+    "numberBaseConverter": "Grondtal-converter"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Markdown-voorbeeld",
         "description": "Live Markdown-renderer met HTML-export en HTML → Markdown-conversie."
+      },
+      "numberBaseConverter": {
+        "title": "Grondtal-converter",
+        "description": "Converteer gehele getallen tussen grondtallen 2–36."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Begin met het typen van Markdown om de live preview en HTML-uitvoer te zien.",
     "emptyHintHtmlToMd": "Plak HTML om het naar Markdown te converteren.",
     "securityNote": "Alles wordt lokaal in uw browser uitgevoerd. Er wordt niets geüpload."
+  },
+  "NumberBaseConverter": {
+    "title": "Grondtal-converter",
+    "subtitle": "Converteer gehele getallen tussen grondtallen 2–36. Optionele prefixen 0x / 0b / 0o. Alles lokaal in je browser.",
+    "inputBaseLabel": "Van grondtal",
+    "outputBaseLabel": "Naar grondtal",
+    "inputLabel": "Invoergetal",
+    "placeholderInput": "Voer een geheel getal in het gekozen invoergrondtal in…",
+    "outputLabel": "Geconverteerde waarde",
+    "copyOutput": "Resultaat kopiëren",
+    "copied": "Gekopieerd",
+    "swap": "Grondtallen wisselen",
+    "byteCountHint": "{count, plural, one {# byte} other {# bytes}} (UTF-8-lengte)",
+    "emptyHint": "Voer een getal in om te converteren.",
+    "note": "Cijfers boven 9 gebruiken letters A–Z (hoofdletterongevoelig). Spaties en underscores worden genegeerd.",
+    "errors": {
+      "invalidNumber": "Ongeldige waarde voor het gekozen invoergrondtal."
+    }
   }
 }

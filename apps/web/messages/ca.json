@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "Calculadora IP / subxarxa",
     "hashGenerator": "Generador de hash",
     "hmacGenerator": "Generador HMAC",
-    "markdownPreview": "Previsualització Markdown"
+    "markdownPreview": "Previsualització Markdown",
+    "numberBaseConverter": "Conversor de base"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Previsualització Markdown",
         "description": "Renderitzador Markdown en viu amb exportació HTML i conversió HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "Conversor de base numèrica",
+        "description": "Converteix enters entre bases del 2 al 36."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Comenceu a escriure Markdown per veure la previsualització i la sortida HTML.",
     "emptyHintHtmlToMd": "Enganxeu HTML per convertir-lo en Markdown.",
     "securityNote": "Tot s'executa localment al vostre navegador. No es carrega res."
+  },
+  "NumberBaseConverter": {
+    "title": "Conversor de base numèrica",
+    "subtitle": "Converteix enters entre bases 2–36. Prefixos opcionals 0x / 0b / 0o. Tot es calcula localment al navegador.",
+    "inputBaseLabel": "Des de la base",
+    "outputBaseLabel": "A la base",
+    "inputLabel": "Nombre d’entrada",
+    "placeholderInput": "Introduïu un nombre enter en la base d’entrada seleccionada…",
+    "outputLabel": "Valor convertit",
+    "copyOutput": "Copia el resultat",
+    "copied": "Copiat",
+    "swap": "Intercanvia bases",
+    "byteCountHint": "{count, plural, one {# octet} other {# octets}} (longitud UTF-8)",
+    "emptyHint": "Introduïu un nombre per convertir.",
+    "note": "Els dígits superiors a 9 usen A–Z (sense distingir majúscules). S’ignoren espais i guions baixos.",
+    "errors": {
+      "invalidNumber": "Aquest valor no és vàlid per a la base d’entrada seleccionada."
+    }
   }
 }

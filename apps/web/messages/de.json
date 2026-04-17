@@ -32,7 +32,8 @@
     "ipSubnetCalculator": "IP-/Subnetz-Rechner",
     "hashGenerator": "Hash-Generator",
     "hmacGenerator": "HMAC-Generator",
-    "markdownPreview": "Markdown-Vorschau"
+    "markdownPreview": "Markdown-Vorschau",
+    "numberBaseConverter": "Basiskonverter"
   },
   "Help": {
     "title": "Hilfe & Dokumentation",
@@ -338,6 +339,10 @@
       "markdownPreview": {
         "title": "Markdown-Vorschau",
         "description": "Live-Markdown-Renderer mit HTML-Export und HTML → Markdown-Konvertierung."
+      },
+      "numberBaseConverter": {
+        "title": "Zahlenbasen-Konverter",
+        "description": "Ganzzahlen zwischen Basen 2–36 umrechnen."
       }
     },
     "tabs": {
@@ -2523,5 +2528,23 @@
     "emptyHint": "Beginnen Sie mit der Eingabe von Markdown, um die Live-Vorschau und HTML-Ausgabe zu sehen.",
     "emptyHintHtmlToMd": "Fügen Sie HTML ein, um es in Markdown zu konvertieren.",
     "securityNote": "Alles läuft lokal in Ihrem Browser. Es werden keine Daten hochgeladen."
+  },
+  "NumberBaseConverter": {
+    "title": "Zahlenbasen-Konverter",
+    "subtitle": "Ganzzahlen zwischen Basen 2–36 umrechnen. Optionale Präfixe 0x / 0b / 0o. Alles lokal im Browser.",
+    "inputBaseLabel": "Von Basis",
+    "outputBaseLabel": "Zu Basis",
+    "inputLabel": "Eingabezahl",
+    "placeholderInput": "Geben Sie eine Ganzzahl in der gewählten Eingabebasis ein…",
+    "outputLabel": "Ergebnis",
+    "copyOutput": "Ergebnis kopieren",
+    "copied": "Kopiert",
+    "swap": "Basen tauschen",
+    "byteCountHint": "{count, plural, one {# Byte} other {# Bytes}} (UTF-8-Eingabelänge)",
+    "emptyHint": "Geben Sie eine Zahl zum Umrechnen ein.",
+    "note": "Ziffern über 9 sind Buchstaben A–Z (Groß-/Kleinschreibung egal). Leerzeichen und Unterstriche werden ignoriert.",
+    "errors": {
+      "invalidNumber": "Ungültiger Wert für die gewählte Eingabebasis."
+    }
   }
 }
