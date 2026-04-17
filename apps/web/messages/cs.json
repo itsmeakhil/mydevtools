@@ -3,6 +3,7 @@
     "dashboard": "Přehled",
     "settings": "Nastavení",
     "apiClient": "API klient",
+    "httpStatusCodes": "Stavové kódy HTTP",
     "passwordManager": "Správce hesel",
     "environmentManager": "Správce prostředí",
     "bookmarks": "Záložky",
@@ -1897,6 +1898,27 @@
       "outOfRange": "Mimo rozsah pro JavaScript Date.",
       "couldNotParse": "Nelze přečíst jako Unix, ISO-8601 nebo datum prohlížeče."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "Stavové kódy HTTP",
+    "subtitle": "Vyhledávejte a procházejte stavové kódy HTTP odpovědí (<code>1xx</code>–<code>5xx</code>) s krátkými popisy a odkazy na RFC. Běží lokálně v prohlížeči.",
+    "header": {
+      "title": "Stavové kódy HTTP",
+      "description": "Prohledávatelný seznam HTTP kódů odpovědí s popisy a odkazy na RFC."
+    },
+    "searchPlaceholder": "Hledat: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Filtrovat třídu…",
+    "classFilterAll": "Všechny třídy",
+    "resultsCount": "{count} z {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Fráze",
+      "description": "Popis",
+      "copy": "Kopírovat"
+    },
+    "noResults": "Žádné výsledky pro “{query}”.",
+    "specPrefix": "Spec.:",
+    "copied": "Kód zkopírován"
   },
   "CronBuilder": {
     "title": "Tvůrce cron výrazů",

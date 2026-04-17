@@ -20,6 +20,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/number-base-converter',
   '/app/csv-excel-json',
   '/app/api-client',
+  '/app/http-status-codes',
   '/app/nosql-explorer',
   '/app/url-encode',
   '/app/uuid-generator',

@@ -3,6 +3,7 @@
     "dashboard": "Ταμπλό",
     "settings": "Ρυθμίσεις",
     "apiClient": "Πελάτης API",
+    "httpStatusCodes": "Κωδικοί κατάστασης HTTP",
     "passwordManager": "Διαχειριστής κωδικών πρόσβασης",
     "environmentManager": "Διαχειριστής περιβάλλοντος",
     "bookmarks": "Σελιδοδείκτες",
@@ -1897,6 +1898,27 @@
       "outOfRange": "Εκτός ορίων για JavaScript Date.",
       "couldNotParse": "Δεν ήταν δυνατή η ανάλυση ως Unix, ISO-8601 ή ημερομηνία browser."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "Κωδικοί κατάστασης HTTP",
+    "subtitle": "Αναζητήστε και περιηγηθείτε στους κωδικούς κατάστασης απαντήσεων HTTP (<code>1xx</code>–<code>5xx</code>) με σύντομες περιγραφές και αναφορές RFC. Εκτελείται τοπικά.",
+    "header": {
+      "title": "Κωδικοί κατάστασης HTTP",
+      "description": "Αναζητήσιμη λίστα κωδικών απάντησης HTTP με περιγραφές και αναφορές RFC."
+    },
+    "searchPlaceholder": "Αναζήτηση: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Φιλτράρισμα κλάσης…",
+    "classFilterAll": "Όλες οι κλάσεις",
+    "resultsCount": "{count} από {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Φράση",
+      "description": "Περιγραφή",
+      "copy": "Αντιγραφή"
+    },
+    "noResults": "Δεν βρέθηκαν αποτελέσματα για “{query}”.",
+    "specPrefix": "Προδιαγ.:",
+    "copied": "Ο κωδικός αντιγράφηκε"
   },
   "CronBuilder": {
     "title": "Δημιουργός εκφράσεων Cron",

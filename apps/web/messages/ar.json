@@ -3,6 +3,7 @@
     "dashboard": "لوحة التحكم",
     "settings": "الإعدادات",
     "apiClient": "عميل API",
+    "httpStatusCodes": "رموز حالة HTTP",
     "passwordManager": "مدير كلمات المرور",
     "environmentManager": "مدير البيئة",
     "bookmarks": "الإشارات المرجعية",
@@ -1897,6 +1898,27 @@
       "outOfRange": "خارج النطاق لـ JavaScript Date.",
       "couldNotParse": "تعذر التحليل كـ Unix أو ISO-8601 أو تاريخ قابل للتحليل من المتصفح."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "رموز حالة HTTP",
+    "subtitle": "ابحث وتصفّح رموز حالة استجابات HTTP (<code>1xx</code>–<code>5xx</code>) مع أوصاف مختصرة ومراجع RFC. يعمل محليًا في المتصفح.",
+    "header": {
+      "title": "رموز حالة HTTP",
+      "description": "مرجع قابل للبحث لرموز استجابة HTTP مع أوصاف ومراجع RFC."
+    },
+    "searchPlaceholder": "بحث: 404، not found، rate limit، gateway…",
+    "classFilterPlaceholder": "تصفية الفئة…",
+    "classFilterAll": "كل الفئات",
+    "resultsCount": "{count} من {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "العبارة",
+      "description": "الوصف",
+      "copy": "نسخ"
+    },
+    "noResults": "لا نتائج لعبارة «{query}».",
+    "specPrefix": "المعيار:",
+    "copied": "تم نسخ الرمز"
   },
   "CronBuilder": {
     "title": "منشئ تعبيرات Cron",

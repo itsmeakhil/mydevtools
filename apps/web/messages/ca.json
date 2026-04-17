@@ -3,6 +3,7 @@
     "dashboard": "Tauler",
     "settings": "Configuració",
     "apiClient": "Client API",
+    "httpStatusCodes": "Codis d’estat HTTP",
     "passwordManager": "Gestor de contrasenyes",
     "environmentManager": "Gestor d'entorns",
     "bookmarks": "Marcadors",
@@ -1897,6 +1898,27 @@
       "outOfRange": "Fora de rang per a JavaScript Date.",
       "couldNotParse": "No s’ha pogut interpretar com Unix, ISO-8601 o data del navegador."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "Codis d’estat HTTP",
+    "subtitle": "Cerca i explora codis d’estat de respostes HTTP (<code>1xx</code>–<code>5xx</code>) amb descripcions breus i referències RFC. S’executa localment.",
+    "header": {
+      "title": "Codis d’estat HTTP",
+      "description": "Referència amb cerca de codis de resposta HTTP amb descripcions i referències RFC."
+    },
+    "searchPlaceholder": "Cerca: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Filtra classe…",
+    "classFilterAll": "Totes les classes",
+    "resultsCount": "{count} de {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Frase",
+      "description": "Description",
+      "copy": "Copia"
+    },
+    "noResults": "Sense resultats per a “{query}”.",
+    "specPrefix": "Espec.:",
+    "copied": "Codi copiat"
   },
   "CronBuilder": {
     "title": "Constructor d’expressions Cron",

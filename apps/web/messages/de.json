@@ -21,6 +21,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Farbauswahl",
     "apiClient": "API-Client",
+    "httpStatusCodes": "HTTP-Statuscodes",
     "nosqlExplorer": "NoSQL-Explorer",
     "jsonSchemaGenerator": "JSON-Schema-Generator",
     "imageToBase64": "Bild zu Base64",
@@ -1897,6 +1898,27 @@
       "outOfRange": "Außerhalb des Bereichs für JavaScript Date.",
       "couldNotParse": "Konnte nicht als Unix, ISO-8601 oder Browser-Datum geparst werden."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "HTTP-Statuscodes",
+    "subtitle": "Suche und durchsuche HTTP-Statuscodes für Antworten (<code>1xx</code>–<code>5xx</code>) mit Kurzbeschreibungen und RFC-Referenzen. Läuft lokal im Browser.",
+    "header": {
+      "title": "HTTP-Statuscodes",
+      "description": "Durchsuchbare Referenz für HTTP-Antwortcodes mit Beschreibungen und RFC-Referenzen."
+    },
+    "searchPlaceholder": "Suche: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Klasse filtern…",
+    "classFilterAll": "Alle Klassen",
+    "resultsCount": "{count} von {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Bezeichnung",
+      "description": "Description",
+      "copy": "Kopieren"
+    },
+    "noResults": "Keine Treffer für „{query}“.",
+    "specPrefix": "Spez.:",
+    "copied": "Code kopiert"
   },
   "CronBuilder": {
     "title": "Cron-Ausdruck-Builder",

@@ -3,6 +3,7 @@
     "dashboard": "Paneelbord",
     "settings": "Instellings",
     "apiClient": "API-kliënt",
+    "httpStatusCodes": "HTTP-statuskodes",
     "passwordManager": "Wagwoordbestuurder",
     "environmentManager": "Omgewingbestuurder",
     "bookmarks": "Boekmerke",
@@ -1897,6 +1898,27 @@
       "outOfRange": "Buite omvang vir JavaScript Date.",
       "couldNotParse": "Kon nie as Unix, ISO-8601 of blaaier-datumstring ontleed nie."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "HTTP-statuskodes",
+    "subtitle": "Soek en blaai deur HTTP-responsstatuskodes (<code>1xx</code>–<code>5xx</code>) met kort beskrywings en RFC-verwysings. Loop plaaslik.",
+    "header": {
+      "title": "HTTP-statuskodes",
+      "description": "Deursoekbare verwysing van HTTP-responskodes met beskrywings en RFC-verwysings."
+    },
+    "searchPlaceholder": "Soek: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Filter klas…",
+    "classFilterAll": "Alle klasse",
+    "resultsCount": "{count} van {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Frase",
+      "description": "Beskrywing",
+      "copy": "Kopieer"
+    },
+    "noResults": "Geen resultate vir “{query}”.",
+    "specPrefix": "Spes.:",
+    "copied": "Kode gekopieer"
   },
   "CronBuilder": {
     "title": "Cron-uitdrukbouer",

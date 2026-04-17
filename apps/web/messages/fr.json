@@ -21,6 +21,7 @@
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Sélecteur de couleurs",
     "apiClient": "Client API",
+    "httpStatusCodes": "Codes d’état HTTP",
     "nosqlExplorer": "Explorateur NoSQL",
     "jsonSchemaGenerator": "Générateur de schéma JSON",
     "imageToBase64": "Image vers Base64",
@@ -1897,6 +1898,27 @@
       "outOfRange": "Hors plage pour Date JavaScript.",
       "couldNotParse": "Impossible d’analyser en Unix, ISO-8601 ou date interprétable par le navigateur."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "Codes d’état HTTP",
+    "subtitle": "Recherchez et parcourez les codes d’état des réponses HTTP (<code>1xx</code>–<code>5xx</code>) avec des descriptions courtes et des références RFC. Tout s’exécute localement.",
+    "header": {
+      "title": "Codes d’état HTTP",
+      "description": "Référence consultable des codes de réponse HTTP avec descriptions et références RFC."
+    },
+    "searchPlaceholder": "Rechercher : 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Filtrer la classe…",
+    "classFilterAll": "Toutes les classes",
+    "resultsCount": "{count} sur {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Libellé",
+      "description": "Description",
+      "copy": "Copier"
+    },
+    "noResults": "Aucun résultat pour « {query} ».",
+    "specPrefix": "Spéc. :",
+    "copied": "Code copié"
   },
   "CronBuilder": {
     "title": "Constructeur d’expression Cron",

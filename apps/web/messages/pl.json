@@ -3,6 +3,7 @@
     "dashboard": "Dashboard",
     "settings": "Settings",
     "apiClient": "API Client",
+    "httpStatusCodes": "Kody statusu HTTP",
     "passwordManager": "Password Manager",
     "environmentManager": "Menedżer środowisk",
     "bookmarks": "Bookmarks",
@@ -1897,6 +1898,27 @@
       "outOfRange": "Poza zakresem dla JavaScript Date.",
       "couldNotParse": "Nie udało się odczytać jako Unix, ISO-8601 lub data przeglądarki."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "Kody statusu HTTP",
+    "subtitle": "Szukaj i przeglądaj kody statusu odpowiedzi HTTP (<code>1xx</code>–<code>5xx</code>) z krótkimi opisami i odnośnikami do RFC. Działa lokalnie.",
+    "header": {
+      "title": "Kody statusu HTTP",
+      "description": "Wyszukiwalna ściąga kodów odpowiedzi HTTP z opisami i odnośnikami do RFC."
+    },
+    "searchPlaceholder": "Szukaj: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Filtruj klasę…",
+    "classFilterAll": "Wszystkie klasy",
+    "resultsCount": "{count} z {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Fraza",
+      "description": "Opis",
+      "copy": "Kopiuj"
+    },
+    "noResults": "Brak wyników dla „{query}”.",
+    "specPrefix": "Spec.:",
+    "copied": "Kod skopiowany"
   },
   "CronBuilder": {
     "title": "Kreator wyrażeń Cron",

@@ -3,6 +3,7 @@
     "dashboard": "Bảng điều khiển",
     "settings": "Cài đặt",
     "apiClient": "API Client",
+    "httpStatusCodes": "Mã trạng thái HTTP",
     "passwordManager": "Quản lý mật khẩu",
     "environmentManager": "Trình quản lý môi trường",
     "bookmarks": "Dấu trang",
@@ -1897,6 +1898,27 @@
       "outOfRange": "Ngoài phạm vi JavaScript Date.",
       "couldNotParse": "Không thể phân tích dưới dạng Unix, ISO-8601 hoặc chuỗi ngày của trình duyệt."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "Mã trạng thái HTTP",
+    "subtitle": "Tìm kiếm và duyệt mã trạng thái phản hồi HTTP (<code>1xx</code>–<code>5xx</code>) với mô tả ngắn và tham chiếu RFC. Chạy cục bộ trên trình duyệt.",
+    "header": {
+      "title": "Mã trạng thái HTTP",
+      "description": "Danh sách mã phản hồi HTTP có thể tìm kiếm, kèm mô tả và tham chiếu RFC."
+    },
+    "searchPlaceholder": "Tìm: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Lọc theo nhóm…",
+    "classFilterAll": "Tất cả nhóm",
+    "resultsCount": "{count}/{total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Cụm từ",
+      "description": "Mô tả",
+      "copy": "Sao chép"
+    },
+    "noResults": "Không có kết quả cho “{query}”.",
+    "specPrefix": "Chuẩn:",
+    "copied": "Đã sao chép mã"
   },
   "CronBuilder": {
     "title": "Trình tạo biểu thức Cron",

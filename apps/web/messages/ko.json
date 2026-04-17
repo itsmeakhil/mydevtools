@@ -3,6 +3,7 @@
     "dashboard": "대시보드",
     "settings": "설정",
     "apiClient": "API 클라이언트",
+    "httpStatusCodes": "HTTP 상태 코드",
     "passwordManager": "비밀번호 관리자",
     "environmentManager": "환경 변수 관리자",
     "bookmarks": "북마크",
@@ -1897,6 +1898,27 @@
       "outOfRange": "JavaScript Date 범위를 벗어났습니다.",
       "couldNotParse": "Unix/ISO-8601/브라우저 날짜 문자열로 파싱할 수 없습니다."
     }
+  },
+  "HttpStatusCodes": {
+    "title": "HTTP 상태 코드",
+    "subtitle": "HTTP 응답 상태 코드(<code>1xx</code>–<code>5xx</code>)를 검색/탐색하세요. 짧은 설명과 RFC 참조를 제공합니다. 로컬에서 실행됩니다.",
+    "header": {
+      "title": "HTTP 상태 코드",
+      "description": "설명과 RFC 참조가 포함된 HTTP 응답 코드 검색형 레퍼런스입니다."
+    },
+    "searchPlaceholder": "검색: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "클래스 필터…",
+    "classFilterAll": "전체 클래스",
+    "resultsCount": "{total}개 중 {count}개",
+    "table": {
+      "code": "Code",
+      "phrase": "문구",
+      "description": "설명",
+      "copy": "복사"
+    },
+    "noResults": "“{query}”에 대한 결과가 없습니다.",
+    "specPrefix": "규격:",
+    "copied": "상태 코드를 복사했어요"
   },
   "CronBuilder": {
     "title": "Cron 표현식 빌더",
