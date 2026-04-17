@@ -196,6 +196,12 @@
     }
   },
   "Dashboard": {
+    "noResults": "Tiada alat yang sepadan dengan carian anda",
+    "noResultsHint": "Cuba kata kunci lain atau kosongkan penapis.",
+    "filterAll": "Semua",
+    "loginCta": {
+      "description": "Log masuk untuk menjejak alat yang baru digunakan."
+    },
     "greeting": {
       "morning": "Selamat pagi",
       "afternoon": "Selamat petang",
@@ -212,7 +218,9 @@
     },
     "sections": {
       "recentlyUsed": "Baru Digunakan",
-      "favorites": "Kegemaran"
+      "favorites": "Kegemaran",
+      "whatsNew": "Yang Baru",
+      "pinned": "Disematkan"
     },
     "groups": {
       "apps": "Aplikasi"
@@ -277,6 +285,10 @@
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
+      },
+      "formatConverter": {
+        "title": "Penukar Format",
+        "description": "Tukar antara JSON, YAML, TOML, dan XML dalam mana-mana arah. 12 gabungan disokong."
       },
       "regexTester": {
         "title": "Regex Tester",

@@ -5,6 +5,7 @@ import { Toaster } from 'sonner'
 import { ThemeProvider } from "@/components/theme-provider"
 import { UserPreferencesSync } from "@/components/user-preferences-sync"
 import { ToolVisibilityPreferencesSync } from "@/components/tool-visibility-preferences-sync"
+import { PinnedToolsPreferencesSync } from "@/components/pinned-tools-preferences-sync"
 import { AppUpdateNotifier } from "@/components/app-update-notifier"
 import { GlobalCommandPalette } from "@/components/global-command-palette"
 import { cn } from "@/lib/utils"
@@ -129,6 +130,7 @@ export default async function RootLayout({
           <NextIntlClientProvider messages={messages}>
             <UserPreferencesSync />
             <ToolVisibilityPreferencesSync />
+            <PinnedToolsPreferencesSync />
             <AppUpdateNotifier />
             <GlobalCommandPalette />
             {children}

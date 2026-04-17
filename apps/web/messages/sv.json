@@ -212,7 +212,9 @@
     },
     "sections": {
       "recentlyUsed": "Nyligen använda",
-      "favorites": "Favoriter"
+      "favorites": "Favoriter",
+      "whatsNew": "Nyheter",
+      "pinned": "Fästa"
     },
     "groups": {
       "apps": "Appar"
@@ -365,6 +367,10 @@
       "numberBaseConverter": {
         "title": "Basomvandlare",
         "description": "Konvertera heltal mellan baser 2–36."
+      },
+      "formatConverter": {
+        "title": "Formatkonverterare",
+        "description": "Konvertera mellan JSON, YAML, TOML och XML i alla riktningar. Alla 12 kombinationer stöds."
       }
     },
     "tabs": {
@@ -1948,7 +1954,6 @@
       "emptySelection": "Lägg till ett urval innan du använder."
     }
   },
-
   "RegexTester": {
     "title": "Regex-tester",
     "subtitle": "JavaScript-liknande regex live mot din text. Träffar markeras; inget lämnar din webbläsare.",

@@ -212,7 +212,9 @@
     },
     "sections": {
       "recentlyUsed": "Recent gebruikt",
-      "favorites": "Favorieten"
+      "favorites": "Favorieten",
+      "whatsNew": "Wat is er nieuw",
+      "pinned": "Vastgemaakt"
     },
     "groups": {
       "apps": "Apps"
@@ -365,6 +367,10 @@
       "numberBaseConverter": {
         "title": "Grondtal-converter",
         "description": "Converteer gehele getallen tussen grondtallen 2–36."
+      },
+      "formatConverter": {
+        "title": "Formaatconverter",
+        "description": "Converteer tussen JSON, YAML, TOML en XML in elke richting. Alle 12 combinaties worden ondersteund."
       }
     },
     "tabs": {
@@ -1948,7 +1954,6 @@
       "emptySelection": "Voeg eerst een selectie toe."
     }
   },
-
   "RegexTester": {
     "title": "Regex-tester",
     "subtitle": "JavaScript-achtige regex live op je tekst. Matches worden gemarkeerd; niets verlaat je browser.",

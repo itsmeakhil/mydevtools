@@ -15,7 +15,6 @@ import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { sidebarData } from '@/components/sidebar/data/sidebar-data'
 import { getAllToolsMetadata } from '@/lib/tools-registry'
 import { requiresAuth } from '@/lib/tool-config'
-import { useToolVisibility } from '@/hooks/use-tool-visibility'
 import useAuth from '@/utils/useAuth'
 import { cn } from '@/lib/utils'
 import {
@@ -24,7 +23,9 @@ import {
   LayoutDashboard,
   LogIn,
   Settings,
+  Star,
 } from 'lucide-react'
+import { usePinnedToolsStore } from '@/store/pinned-tools-store'
 
 type PaletteEntry = {
   title: string
@@ -119,12 +120,11 @@ export function GlobalCommandPalette() {
   const [modLabel, setModLabel] = React.useState('⌘')
   const router = useRouter()
   const { user } = useAuth(false)
-  const { isToolEnabled } = useToolVisibility()
+  const pinnedTools = usePinnedToolsStore((s) => s.pinnedTools)
 
   const entries = React.useMemo((): PaletteEntry[] => {
     const tools = getAllToolsMetadata()
       .filter((t) => t.url.startsWith('/app/'))
-      .filter((t) => isToolEnabled(t.url))
       .map((tool) => {
         const Icon = getSidebarIconForUrl(tool.url) ?? LayoutDashboard
         const topCategory = tool.category.includes('>')
@@ -155,7 +155,14 @@ export function GlobalCommandPalette() {
     }))
 
     return [...site, ...tools]
-  }, [isToolEnabled, user])
+  }, [user])
+
+  const pinnedEntries = React.useMemo(() => {
+    const urlSet = new Set(pinnedTools)
+    return entries
+      .filter((e) => urlSet.has(e.url))
+      .sort((a, b) => pinnedTools.indexOf(a.url) - pinnedTools.indexOf(b.url))
+  }, [entries, pinnedTools])
 
   const grouped = React.useMemo(() => {
     const map = new Map<string, PaletteEntry[]>()
@@ -254,6 +261,43 @@ export function GlobalCommandPalette() {
           <CommandInput placeholder="Search tools and pages…" />
           <CommandList className="max-h-[min(60vh,480px)] overflow-y-auto">
             <CommandEmpty>No results found.</CommandEmpty>
+            {pinnedEntries.length > 0 && (
+              <React.Fragment>
+                <CommandGroup heading="Pinned">
+                  {pinnedEntries.map((entry) => {
+                    const ItemIcon = entry.Icon
+                    return (
+                      <CommandItem
+                        key={`pinned-${entry.url}`}
+                        value={`pinned ${entry.searchValue} ${entry.url}`}
+                        onSelect={() => run(entry)}
+                        className="flex items-start gap-3 py-2.5 aria-selected:bg-accent"
+                      >
+                        <Star
+                          className="mt-0.5 h-4 w-4 shrink-0 fill-primary text-primary"
+                          aria-hidden
+                        />
+                        <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                          <span className="truncate font-medium leading-none">
+                            {entry.title}
+                          </span>
+                          {entry.description ? (
+                            <span className="line-clamp-2 text-xs text-muted-foreground">
+                              {entry.description}
+                            </span>
+                          ) : null}
+                        </span>
+                        <ItemIcon
+                          className="mt-0.5 h-3.5 w-3.5 shrink-0 opacity-40"
+                          aria-hidden
+                        />
+                      </CommandItem>
+                    )
+                  })}
+                </CommandGroup>
+                <CommandSeparator />
+              </React.Fragment>
+            )}
             {grouped.map(({ category, items }, i) => (
               <React.Fragment key={category}>
                 {i > 0 ? <CommandSeparator /> : null}

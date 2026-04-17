@@ -196,6 +196,12 @@
     }
   },
   "Dashboard": {
+    "noResults": "No tools match your search",
+    "noResultsHint": "Try a different keyword or clear the filter.",
+    "filterAll": "All",
+    "loginCta": {
+      "description": "Sign in to track your recently used tools."
+    },
     "greeting": {
       "morning": "Good morning",
       "afternoon": "Good afternoon",
@@ -213,7 +219,9 @@
     },
     "sections": {
       "recentlyUsed": "Recently Used",
-      "favorites": "Favorites"
+      "favorites": "Favorites",
+      "whatsNew": "What's New",
+      "pinned": "Pinned"
     },
     "groups": {
       "apps": "Apps"
@@ -334,6 +342,10 @@
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
+      },
+      "formatConverter": {
+        "title": "Format Converter",
+        "description": "Convert between JSON, YAML, TOML, and XML in any direction. All 12 combinations supported."
       },
       "regexTester": {
         "title": "Regex Tester",

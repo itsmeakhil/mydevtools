@@ -212,7 +212,9 @@
     },
     "sections": {
       "recentlyUsed": "Baru Digunakan",
-      "favorites": "Favorit"
+      "favorites": "Favorit",
+      "whatsNew": "Yang baru",
+      "pinned": "Disematkan"
     },
     "groups": {
       "apps": "Aplikasi"
@@ -365,6 +367,10 @@
       "numberBaseConverter": {
         "title": "Konverter basis angka",
         "description": "Konversi bilangan bulat antar basis 2–36."
+      },
+      "formatConverter": {
+        "title": "Konverter Format",
+        "description": "Konversi antara JSON, YAML, TOML, dan XML ke segala arah. Semua 12 kombinasi didukung."
       }
     },
     "tabs": {
@@ -1948,7 +1954,6 @@
       "emptySelection": "Tambahkan himpunan seleksi sebelum menerapkan."
     }
   },
-
   "RegexTester": {
     "title": "Penguji regex",
     "subtitle": "Regex gaya JavaScript secara langsung pada teks Anda. Kecocokan disorot; tidak ada yang keluar dari browser.",

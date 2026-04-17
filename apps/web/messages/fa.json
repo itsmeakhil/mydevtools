@@ -212,7 +212,9 @@
     },
     "sections": {
       "recentlyUsed": "اخیرا استفاده شده است",
-      "favorites": "موارد دلخواه"
+      "favorites": "موارد دلخواه",
+      "whatsNew": "تازه‌ها",
+      "pinned": "سنجاق‌شده"
     },
     "groups": {
       "apps": "برنامه ها"
@@ -365,6 +367,10 @@
       "numberBaseConverter": {
         "title": "مبدّل مبنای عددی",
         "description": "تبدیل اعداد صحیح بین مبناهای ۲ تا ۳۶."
+      },
+      "formatConverter": {
+        "title": "مبدّل فرمت",
+        "description": "تبدیل بین JSON، YAML، TOML و XML در هر جهت. هر ۱۲ ترکیب پشتیبانی می‌شود."
       }
     },
     "tabs": {
@@ -1948,7 +1954,6 @@
       "emptySelection": "قبل از اعمال، مجموعهٔ گزینش را اضافه کنید."
     }
   },
-
   "RegexTester": {
     "title": "آزمایشگر Regex",
     "subtitle": "Regex به سبک JavaScript به‌صورت زنده روی متن شما. تطبیق‌ها هایلایت می‌شوند و چیزی از مرورگر خارج نمی‌شود.",

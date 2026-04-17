@@ -212,7 +212,9 @@
     },
     "sections": {
       "recentlyUsed": "Nedávno použité",
-      "favorites": "Oblíbené"
+      "favorites": "Oblíbené",
+      "whatsNew": "Co je nového",
+      "pinned": "Připnuté"
     },
     "groups": {
       "apps": "Aplikace"
@@ -365,6 +367,10 @@
       "numberBaseConverter": {
         "title": "Převodník číselných soustav",
         "description": "Převádějte celá čísla mezi soustavami o základu 2–36."
+      },
+      "formatConverter": {
+        "title": "Převodník formátů",
+        "description": "Převod mezi JSON, YAML, TOML a XML libovolným směrem. Podporováno všech 12 kombinací."
       }
     },
     "tabs": {
@@ -1948,7 +1954,6 @@
       "emptySelection": "Před použitím doplňte výběrovou sadu."
     }
   },
-
   "RegexTester": {
     "title": "Tester regex",
     "subtitle": "Regex ve stylu JavaScript živě nad vaším textem. Shody jsou zvýrazněny; nic neopustí prohlížeč.",

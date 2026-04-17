@@ -212,7 +212,9 @@
     },
     "sections": {
       "recentlyUsed": "Onlangs gebruik",
-      "favorites": "Gunstelinge"
+      "favorites": "Gunstelinge",
+      "whatsNew": "Wat is nuut",
+      "pinned": "Vasgespeld"
     },
     "groups": {
       "apps": "Toeps"
@@ -365,6 +367,10 @@
       "numberBaseConverter": {
         "title": "Basisomskakelaar",
         "description": "Skakel heelgetalle tussen basisse 2–36 (binêr, desimaal, heks, ens.)."
+      },
+      "formatConverter": {
+        "title": "Formaat Omskakelaar",
+        "description": "Skakel tussen JSON, YAML, TOML en XML in enige rigting. Alle 12 kombinasies word ondersteun."
       }
     },
     "tabs": {
@@ -1948,7 +1954,6 @@
       "emptySelection": "Voeg eers 'n keuseset by voordat jy toepas."
     }
   },
-
   "RegexTester": {
     "title": "Regex-toetser",
     "subtitle": "JavaScript-styl regex teen jou teks, lewendig. Treffer word gemerk; niks verlaat jou blaaier nie.",

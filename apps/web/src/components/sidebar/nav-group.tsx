@@ -39,6 +39,8 @@ import { useTranslations } from "next-intl";
 import { requiresAuth } from "@/lib/tool-config";
 import { useToolVisibility } from "@/hooks/use-tool-visibility";
 import { getToolMessageKey } from "@/lib/tool-i18n";
+import { Star } from "lucide-react";
+import { usePinnedToolsStore } from "@/store/pinned-tools-store";
 
 // Define the props interface for NavGroup
 interface NavGroupProps {
@@ -200,12 +202,15 @@ const SidebarMenuLink = ({
   href: string;
   onClick: (e: React.MouseEvent) => void;
 }) => {
-  const { setOpenMobile } = useSidebar();
+  const { setOpenMobile, state } = useSidebar();
   const tNav = useTranslations("Navigation");
+  const togglePin = usePinnedToolsStore((s) => s.togglePin);
+  const pinnedTools = usePinnedToolsStore((s) => s.pinnedTools);
   const itemUrl =
     typeof item.url === "string" ? item.url : item.url.toString();
   const toolKey = getToolMessageKey(itemUrl);
   const displayTitle = toolKey ? tNav(toolKey as never) : item.title;
+  const isPinned = pinnedTools.includes(itemUrl);
 
   const isActive = checkIsActive(href, item);
 
@@ -237,6 +242,23 @@ const SidebarMenuLink = ({
           {item.badge && <NavBadge>{item.badge}</NavBadge>}
         </Link>
       </SidebarMenuButton>
+      {state !== "collapsed" && (
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            togglePin(itemUrl);
+          }}
+          aria-label={isPinned ? "Unpin from sidebar" : "Pin to sidebar"}
+          className={cn(
+            "absolute right-1.5 top-1/2 -translate-y-1/2 z-10 p-0.5 rounded transition-all duration-150 cursor-pointer",
+            "opacity-0 group-hover:opacity-100",
+            isPinned ? "opacity-100 text-primary" : "text-muted-foreground hover:text-foreground"
+          )}
+        >
+          <Star className={cn("h-3 w-3", isPinned && "fill-primary")} />
+        </button>
+      )}
     </SidebarMenuItem>
   );
 };
