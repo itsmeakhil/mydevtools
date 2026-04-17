@@ -10,6 +10,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/environment-manager',
   '/app/email-validator',
   '/app/jwt-decoder',
+  '/app/certificate-pem-decoder',
   '/app/json-formatter',
   '/app/json-schema-generator',
   '/app/sql-formatter',

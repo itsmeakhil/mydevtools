@@ -9,6 +9,7 @@
     "bookmarks": "Lesezeichen",
     "emailValidator": "E-Mail-Validator",
     "jwtDecoder": "JWT-Decoder",
+    "certificatePemDecoder": "Zertifikat- / PEM-Decoder",
     "jsonFormatter": "JSON-Formatierer",
     "sqlFormatter": "SQL-Formatierer",
     "diffChecker": "Textvergleich",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "JWT-Decoder",
         "description": "JWT-Header, Nutzdaten und Ablaufzeit dekodieren."
+      },
+      "certificatePemDecoder": {
+        "title": "Zertifikat- / PEM-Decoder",
+        "description": "X.509-Zertifikate und CSRs dekodieren: Antragsteller, Aussteller, Gültigkeit, SANs."
       },
       "jsonFormatter": {
         "title": "JSON-Formatierer",
@@ -1824,6 +1829,49 @@
       "missingKey": "Für diesen Algorithmus ist ein Prüfschlüssel erforderlich.",
       "base64": "JWT-Header oder Signatur konnten nicht dekodiert werden.",
       "cryptoFailed": "Prüfung fehlgeschlagen. Prüfe das Schlüsselformat und versuche es erneut."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Zertifikat- / PEM-Decoder",
+    "subtitle": "Fügen Sie ein X.509-Zertifikat (<code>-----BEGIN CERTIFICATE-----</code>) oder eine CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>) ein. Antragsteller, Aussteller, Daten und SANs werden lokal ausgewertet; es wird nichts hochgeladen.",
+    "pemLabel": "PEM-Eingabe",
+    "clear": "Leeren",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Wird analysiert…",
+    "copyHex": "Fingerabdruck kopieren (Hex ohne Doppelpunkte)",
+    "errors": {
+      "empty": "Fügen Sie ein PEM-Zertifikat oder eine CSR zum Dekodieren ein.",
+      "noBlock": "Kein PEM-Block für Zertifikat oder CSR gefunden.",
+      "parseFailed": "Diese PEM-Daten konnten nicht verarbeitet werden."
+    },
+    "block": {
+      "title": "PEM-Block {index}",
+      "certificate": "X.509-Zertifikat",
+      "csr": "Zertifikatsignaturanforderung"
+    },
+    "fields": {
+      "subject": "Antragsteller",
+      "issuer": "Aussteller",
+      "notBefore": "Nicht gültig vor",
+      "notAfter": "Nicht gültig nach",
+      "serial": "Seriennummer (Hex)",
+      "sha256": "SHA-256-Fingerabdruck",
+      "sans": "Alternative Antragstellernamen",
+      "sansNone": "Keine SAN-Erweiterung vorhanden.",
+      "signatureAlgorithm": "Signaturalgorithmus",
+      "csrIssuerNote": "CSRs enthalten keinen Aussteller (der steht auf dem ausgestellten Zertifikat).",
+      "csrValidityNote": "CSRs enthalten keine Gültigkeitsdaten (die stehen auf dem ausgestellten Zertifikat)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Verzeichnisname",
+      "email": "E-Mail",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "Registrierte ID",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

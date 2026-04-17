@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "Декодер JWT",
+    "certificatePemDecoder": "Декодер сертифіката / PEM",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "Декодер JWT",
         "description": "Декодуйте заголовок, корисне навантаження та строк дії JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "Декодер сертифіката / PEM",
+        "description": "Декодуйте сертифікати X.509 і CSR: суб’єкт, видавник, строк дії, SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "Для цього алгоритму потрібен ключ перевірки.",
       "base64": "Не вдалося декодувати заголовок або підпис JWT.",
       "cryptoFailed": "Перевірка не вдалася. Перевірте формат ключа та спробуйте знову."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Декодер сертифіката / PEM",
+    "subtitle": "Вставте сертифікат X.509 (<code>-----BEGIN CERTIFICATE-----</code>) або CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Суб’єкт, видавник, дати та SAN обробляються локально; нічого не надсилається.",
+    "pemLabel": "Ввід PEM",
+    "clear": "Очистити",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Обробка…",
+    "copyHex": "Копіювати відбиток (hex без двокрапок)",
+    "errors": {
+      "empty": "Вставте PEM-сертифікат або CSR для декодування.",
+      "noBlock": "Не знайдено PEM-блоку сертифіката або CSR.",
+      "parseFailed": "Не вдалося обробити ці PEM-дані."
+    },
+    "block": {
+      "title": "PEM-блок {index}",
+      "certificate": "Сертифікат X.509",
+      "csr": "Запит на підпис сертифіката"
+    },
+    "fields": {
+      "subject": "Суб’єкт",
+      "issuer": "Видавник",
+      "notBefore": "Недійсний до",
+      "notAfter": "Недійсний після",
+      "serial": "Серійний номер (hex)",
+      "sha256": "Відбиток SHA-256",
+      "sans": "Альтернативні імена суб’єкта",
+      "sansNone": "Розширення SAN відсутнє.",
+      "signatureAlgorithm": "Алгоритм підпису",
+      "csrIssuerNote": "CSR не містить видавника (він у виданому сертифікаті).",
+      "csrValidityNote": "CSR не містить строк дії (вони у виданому сертифікаті)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Ім’я каталогу",
+      "email": "Електронна пошта",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "Зареєстрований ID",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

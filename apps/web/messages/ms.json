@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "Penyahkod JWT",
+    "certificatePemDecoder": "Pengecam sijil / PEM",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "Penyahkod JWT",
         "description": "Nyahkod pengepala, payload dan tamat tempoh JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "Pengecam sijil / PEM",
+        "description": "Nyahkod sijil X.509 dan CSR: subjek, penerbit, kesahan, dan SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "Kunci pengesahan diperlukan untuk algoritma ini.",
       "base64": "Tidak dapat menyahkod header atau tandatangan JWT.",
       "cryptoFailed": "Pengesahan gagal. Semak format kunci dan cuba lagi."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Pengecam sijil / PEM",
+    "subtitle": "Tampal sijil X.509 (<code>-----BEGIN CERTIFICATE-----</code>) atau CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Subjek, penerbit, tarikh, dan SAN dihuraikan secara setempat; tiada muat naik.",
+    "pemLabel": "Input PEM",
+    "clear": "Padam",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Menghuraikan…",
+    "copyHex": "Salin cap jari (hex tanpa titik bertindih)",
+    "errors": {
+      "empty": "Tampal sijil PEM atau CSR untuk dinyahkod.",
+      "noBlock": "Tiada blok PEM sijil atau CSR ditemui.",
+      "parseFailed": "Tidak dapat menghuraikan data PEM ini."
+    },
+    "block": {
+      "title": "Blok PEM {index}",
+      "certificate": "Sijil X.509",
+      "csr": "Permintaan tandatangan sijil"
+    },
+    "fields": {
+      "subject": "Subjek",
+      "issuer": "Penerbit",
+      "notBefore": "Tidak sah sebelum",
+      "notAfter": "Tidak sah selepas",
+      "serial": "Nombor siri (hex)",
+      "sha256": "Cap jari SHA-256",
+      "sans": "Nama alternatif subjek",
+      "sansNone": "Tiada sambungan SAN.",
+      "signatureAlgorithm": "Algoritma tandatangan",
+      "csrIssuerNote": "CSR tidak termasuk penerbit (kelihatan pada sijil yang dikeluarkan).",
+      "csrValidityNote": "CSR tidak termasuk tarikh kesahan (kelihatan pada sijil yang dikeluarkan)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Nama direktori",
+      "email": "E-mel",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "ID berdaftar",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

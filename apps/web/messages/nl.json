@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "JWT-decoder",
+    "certificatePemDecoder": "Certificaat- / PEM-decoder",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "JWT-decoder",
         "description": "Decodeer JWT-header, payload en verloopdatum."
+      },
+      "certificatePemDecoder": {
+        "title": "Certificaat- / PEM-decoder",
+        "description": "Decodeer X.509-certificaten en CSR’s: subject, uitgever, geldigheid en SAN’s."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "Voor dit algoritme is een verificatiesleutel vereist.",
       "base64": "Kon de JWT-header of handtekening niet decoderen.",
       "cryptoFailed": "Verificatie mislukt. Controleer het sleutel-formaat en probeer opnieuw."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Certificaat- / PEM-decoder",
+    "subtitle": "Plak een X.509-certificaat (<code>-----BEGIN CERTIFICATE-----</code>) of een CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Subject, uitgever, datums en SAN’s worden lokaal verwerkt; er wordt niets geüpload.",
+    "pemLabel": "PEM-invoer",
+    "clear": "Wissen",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Bezig met verwerken…",
+    "copyHex": "Vingerafdruk kopiëren (hex zonder dubbele punten)",
+    "errors": {
+      "empty": "Plak een PEM-certificaat of CSR om te decoderen.",
+      "noBlock": "Geen PEM-blok voor certificaat of CSR gevonden.",
+      "parseFailed": "Deze PEM-gegevens konden niet worden verwerkt."
+    },
+    "block": {
+      "title": "PEM-blok {index}",
+      "certificate": "X.509-certificaat",
+      "csr": "Certificaatondertekeningsaanvraag"
+    },
+    "fields": {
+      "subject": "Subject",
+      "issuer": "Uitgever",
+      "notBefore": "Niet geldig vóór",
+      "notAfter": "Niet geldig na",
+      "serial": "Serienummer (hex)",
+      "sha256": "SHA-256-vingerafdruk",
+      "sans": "Onderwerpalternatieve namen",
+      "sansNone": "Geen SAN-extensie.",
+      "signatureAlgorithm": "Handtekeningalgoritme",
+      "csrIssuerNote": "CSR’s bevatten geen uitgever (die staat op het uitgegeven certificaat).",
+      "csrValidityNote": "CSR’s bevatten geen geldigheidsdata (die staan op het uitgegeven certificaat)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Directorynaam",
+      "email": "E-mail",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "Geregistreerde ID",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

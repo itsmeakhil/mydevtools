@@ -9,6 +9,7 @@
     "bookmarks": "Marcadores",
     "emailValidator": "Validador de correo",
     "jwtDecoder": "Decodificador JWT",
+    "certificatePemDecoder": "Decodificador de certificados / PEM",
     "jsonFormatter": "Formateador JSON",
     "sqlFormatter": "Formateador SQL",
     "diffChecker": "Comparador de diferencias",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "Decodificador JWT",
         "description": "Decodifica la cabecera, la carga útil y la caducidad del JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "Decodificador de certificados / PEM",
+        "description": "Decodifica certificados X.509 y CSR: sujeto, emisor, validez y SAN."
       },
       "jsonFormatter": {
         "title": "Formateador JSON",
@@ -1824,6 +1829,49 @@
       "missingKey": "Se requiere una clave de verificación para este algoritmo.",
       "base64": "No se pudo decodificar el header o la firma del JWT.",
       "cryptoFailed": "Falló la verificación. Comprueba el formato de la clave e inténtalo de nuevo."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Decodificador de certificados / PEM",
+    "subtitle": "Pega un certificado X.509 (<code>-----BEGIN CERTIFICATE-----</code>) o una CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Sujeto, emisor, fechas y SAN se analizan en local; no se sube nada.",
+    "pemLabel": "Entrada PEM",
+    "clear": "Borrar",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Analizando…",
+    "copyHex": "Copiar huella (hex sin dos puntos)",
+    "errors": {
+      "empty": "Pega un certificado PEM o una CSR para decodificar.",
+      "noBlock": "No se encontró ningún bloque PEM de certificado o CSR.",
+      "parseFailed": "No se pudieron analizar estos datos PEM."
+    },
+    "block": {
+      "title": "Bloque PEM {index}",
+      "certificate": "Certificado X.509",
+      "csr": "Solicitud de firma de certificado"
+    },
+    "fields": {
+      "subject": "Sujeto",
+      "issuer": "Emisor",
+      "notBefore": "No válido antes de",
+      "notAfter": "No válido después de",
+      "serial": "Número de serie (hex)",
+      "sha256": "Huella SHA-256",
+      "sans": "Nombres alternativos del sujeto",
+      "sansNone": "Sin extensión SAN.",
+      "signatureAlgorithm": "Algoritmo de firma",
+      "csrIssuerNote": "Las CSR no incluyen emisor (aparece en el certificado emitido).",
+      "csrValidityNote": "Las CSR no incluyen fechas de validez (aparecen en el certificado emitido)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Nombre de directorio",
+      "email": "Correo",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "ID registrado",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

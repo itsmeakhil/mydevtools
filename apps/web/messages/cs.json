@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "Dekodér JWT",
+    "certificatePemDecoder": "Dekodér certifikátů / PEM",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "Dekodér JWT",
         "description": "Dekódujte hlavičku, payload a vypršení JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "Dekodér certifikátů / PEM",
+        "description": "Dekódujte certifikáty X.509 a CSR: subjekt, vydavatel, platnost a SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "Pro tento algoritmus je vyžadován ověřovací klíč.",
       "base64": "Nepodařilo se dekódovat header nebo podpis JWT.",
       "cryptoFailed": "Ověření selhalo. Zkontrolujte formát klíče a zkuste to znovu."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Dekodér certifikátů / PEM",
+    "subtitle": "Vložte certifikát X.509 (<code>-----BEGIN CERTIFICATE-----</code>) nebo CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Subjekt, vydavatel, data a SAN se zpracují lokálně; nic se nenahrává.",
+    "pemLabel": "Vstup PEM",
+    "clear": "Vymazat",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Zpracovávání…",
+    "copyHex": "Kopírovat otisk (hex bez dvojteček)",
+    "errors": {
+      "empty": "Vložte PEM certifikát nebo CSR k dekódování.",
+      "noBlock": "Nebyl nalezen PEM blok certifikátu ani CSR.",
+      "parseFailed": "Tato PEM data se nepodařilo zpracovat."
+    },
+    "block": {
+      "title": "PEM blok {index}",
+      "certificate": "Certifikát X.509",
+      "csr": "Žádost o podpis certifikátu"
+    },
+    "fields": {
+      "subject": "Subjekt",
+      "issuer": "Vydavatel",
+      "notBefore": "Neplatné před",
+      "notAfter": "Neplatné po",
+      "serial": "Sériové číslo (hex)",
+      "sha256": "Otisk SHA-256",
+      "sans": "Alternativní jména subjektu",
+      "sansNone": "Rozšíření SAN není přítomno.",
+      "signatureAlgorithm": "Algoritmus podpisu",
+      "csrIssuerNote": "CSR neobsahuje vydavatele (ten je na vydaném certifikátu).",
+      "csrValidityNote": "CSR neobsahuje platnost (ta je na vydaném certifikátu)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Adresářové jméno",
+      "email": "E-mail",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "Registrované ID",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

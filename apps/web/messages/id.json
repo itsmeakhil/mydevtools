@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "Dekoder JWT",
+    "certificatePemDecoder": "Dekoder sertifikat / PEM",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "Dekoder JWT",
         "description": "Decode header, payload, dan kedaluwarsa JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "Dekoder sertifikat / PEM",
+        "description": "Dekode sertifikat X.509 dan CSR: subjek, penerbit, masa berlaku, dan SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "Kunci verifikasi diperlukan untuk algoritma ini.",
       "base64": "Tidak dapat mendekode header atau tanda tangan JWT.",
       "cryptoFailed": "Verifikasi gagal. Periksa format kunci dan coba lagi."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Dekoder sertifikat / PEM",
+    "subtitle": "Tempel sertifikat X.509 (<code>-----BEGIN CERTIFICATE-----</code>) atau CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Subjek, penerbit, tanggal, dan SAN diproses secara lokal; tidak ada yang diunggah.",
+    "pemLabel": "Masukan PEM",
+    "clear": "Hapus",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Memproses…",
+    "copyHex": "Salin sidik jari (hex tanpa titik dua)",
+    "errors": {
+      "empty": "Tempel sertifikat PEM atau CSR untuk mendekode.",
+      "noBlock": "Tidak ada blok PEM sertifikat atau CSR.",
+      "parseFailed": "Tidak dapat memproses data PEM ini."
+    },
+    "block": {
+      "title": "Blok PEM {index}",
+      "certificate": "Sertifikat X.509",
+      "csr": "Permintaan penandatanganan sertifikat"
+    },
+    "fields": {
+      "subject": "Subjek",
+      "issuer": "Penerbit",
+      "notBefore": "Tidak berlaku sebelum",
+      "notAfter": "Tidak berlaku setelah",
+      "serial": "Nomor seri (hex)",
+      "sha256": "Sidik jari SHA-256",
+      "sans": "Nama alternatif subjek",
+      "sansNone": "Tidak ada ekstensi SAN.",
+      "signatureAlgorithm": "Algoritma tanda tangan",
+      "csrIssuerNote": "CSR tidak berisi penerbit (ada pada sertifikat yang diterbitkan).",
+      "csrValidityNote": "CSR tidak berisi tanggal berlaku (ada pada sertifikat yang diterbitkan)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Nama direktori",
+      "email": "Email",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "ID terdaftar",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

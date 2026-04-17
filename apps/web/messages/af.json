@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "JWT-dekodeerder",
+    "certificatePemDecoder": "Sertifikaat / PEM-dekodeerder",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "JWT-dekodeerder",
         "description": "Dekodeer JWT-kop, payload en vervaldatum."
+      },
+      "certificatePemDecoder": {
+        "title": "Sertifikaat / PEM-dekodeerder",
+        "description": "Dekodeer X.509-sertifikate en CSRs: onderwerp, uitreiker, geldigheid, SANs."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "’n Verifikasie-sleutel is nodig vir hierdie algoritme.",
       "base64": "Kon nie die JWT-kop of handtekening dekodeer nie.",
       "cryptoFailed": "Verifikasie het misluk. Kontroleer jou sleutel-formaat en probeer weer."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Sertifikaat / PEM-dekodeerder",
+    "subtitle": "Plak 'n X.509-sertifikaat (<code>-----BEGIN CERTIFICATE-----</code>) of 'n CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Onderwerp, uitreiker, datums en SANs word lokaal ontleed; niks word opgelaai nie.",
+    "pemLabel": "PEM-invoer",
+    "clear": "Maak skoon",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Ontleed…",
+    "copyHex": "Kopieer vingerafdruk (heks, sonder dubbelpunte)",
+    "errors": {
+      "empty": "Plak 'n PEM-sertifikaat of CSR om te dekodeer.",
+      "noBlock": "Geen PEM-sertifikaat- of CSR-blok gevind nie.",
+      "parseFailed": "Kon nie hierdie PEM-data ontleed nie."
+    },
+    "block": {
+      "title": "PEM-blok {index}",
+      "certificate": "X.509-sertifikaat",
+      "csr": "Sertifikaatondertekeningsversoek"
+    },
+    "fields": {
+      "subject": "Onderwerp",
+      "issuer": "Uitreiker",
+      "notBefore": "Nie geldig voor",
+      "notAfter": "Nie geldig na",
+      "serial": "Serienommer (heks)",
+      "sha256": "SHA-256-vingerafdruk",
+      "sans": "Onderwerp alternatiewe name",
+      "sansNone": "Geen SAN-uitbreiding nie.",
+      "signatureAlgorithm": "Handtekening-algoritme",
+      "csrIssuerNote": "CSR's het geen uitreiker nie (dit verskyn op die uitgereikte sertifikaat).",
+      "csrValidityNote": "CSR's het geen geldigheidsdatums nie (dit verskyn op die uitgereikte sertifikaat)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Gidsnaam",
+      "email": "Email",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "Registered ID",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

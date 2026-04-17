@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "Αποκωδικοποιητής JWT",
+    "certificatePemDecoder": "Αποκωδικοποιητής πιστοποιητικού / PEM",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "Αποκωδικοποιητής JWT",
         "description": "Αποκωδικοποιήστε κεφαλίδα, payload και λήξη JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "Αποκωδικοποιητής πιστοποιητικού / PEM",
+        "description": "Αποκωδικοποίηση πιστοποιητικών X.509 και CSR: θέμα, εκδότης, ισχύς, SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "Απαιτείται κλειδί επαλήθευσης για αυτόν τον αλγόριθμο.",
       "base64": "Δεν ήταν δυνατή η αποκωδικοποίηση του header ή της υπογραφής.",
       "cryptoFailed": "Η επαλήθευση απέτυχε. Ελέγξτε τη μορφή κλειδιού και δοκιμάστε ξανά."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Αποκωδικοποιητής πιστοποιητικού / PEM",
+    "subtitle": "Επικολλήστε πιστοποιητικό X.509 (<code>-----BEGIN CERTIFICATE-----</code>) ή CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Θέμα, εκδότης, ημερομηνίες και SAN αναλύονται τοπικά· δεν μεταφορτώνεται τίποτα.",
+    "pemLabel": "Είσοδος PEM",
+    "clear": "Εκκαθάριση",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Γίνεται ανάλυση…",
+    "copyHex": "Αντιγραφή αποτυπώματος (hex χωρίς άνω τελείες)",
+    "errors": {
+      "empty": "Επικολλήστε PEM πιστοποιητικό ή CSR για αποκωδικοποίηση.",
+      "noBlock": "Δεν βρέθηκε μπλοκ PEM πιστοποιητικού ή CSR.",
+      "parseFailed": "Δεν ήταν δυνατή η ανάλυση αυτών των δεδομένων PEM."
+    },
+    "block": {
+      "title": "Μπλοκ PEM {index}",
+      "certificate": "Πιστοποιητικό X.509",
+      "csr": "Αίτηση υπογραφής πιστοποιητικού"
+    },
+    "fields": {
+      "subject": "Θέμα",
+      "issuer": "Εκδότης",
+      "notBefore": "Μη έγκυρο πριν από",
+      "notAfter": "Μη έγκυρο μετά από",
+      "serial": "Σειριακός αριθμός (hex)",
+      "sha256": "Αποτύπωμα SHA-256",
+      "sans": "Εναλλακτικά ονόματα θέματος",
+      "sansNone": "Δεν υπάρχει επέκταση SAN.",
+      "signatureAlgorithm": "Αλγόριθμος υπογραφής",
+      "csrIssuerNote": "Τα CSR δεν περιλαμβάνουν εκδότη (εμφανίζεται στο εκδοθέν πιστοποιητικό).",
+      "csrValidityNote": "Τα CSR δεν περιλαμβάνουν ημερομηνίες ισχύος (εμφανίζονται στο εκδοθέν πιστοποιητικό)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Όνομα καταλόγου",
+      "email": "Email",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "Καταχωρισμένο ID",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

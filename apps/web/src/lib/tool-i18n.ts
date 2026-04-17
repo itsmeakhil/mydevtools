@@ -9,6 +9,7 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/bookmarks': 'bookmarks',
   '/app/email-validator': 'emailValidator',
   '/app/jwt-decoder': 'jwtDecoder',
+  '/app/certificate-pem-decoder': 'certificatePemDecoder',
   '/app/json-formatter': 'jsonFormatter',
   '/app/json-schema-generator': 'jsonSchemaGenerator',
   '/app/sql-formatter': 'sqlFormatter',

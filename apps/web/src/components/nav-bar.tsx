@@ -37,6 +37,7 @@ import {
   ArrowRightLeft,
   List,
   KeyRound,
+  BookKey,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
@@ -93,6 +94,11 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
   '/app/css-gradient-builder': { title: 'CSS Gradient Builder', icon: Paintbrush, namespace: 'CssGradientBuilder' },
   '/app/gitignore-generator': { title: '.gitignore Generator', icon: FileMinus, namespace: 'GitignoreGenerator' },
   '/app/jwt-decoder': { title: 'JWT Decoder', icon: Key, namespace: 'JwtDecoder' },
+  '/app/certificate-pem-decoder': {
+    title: 'Certificate / PEM Decoder',
+    icon: BookKey,
+    namespace: 'CertificatePemDecoder',
+  },
   '/app/regex-tester': { title: 'Regex Tester', icon: Regex, namespace: 'RegexTester' },
   '/app/timestamp-converter': { title: 'Timestamp Converter', icon: Clock, namespace: 'TimestampConverter' },
   '/app/cron-builder': { title: 'Cron Builder', icon: Repeat, namespace: 'CronBuilder' },

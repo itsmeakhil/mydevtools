@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "JWTデコーダー",
+    "certificatePemDecoder": "証明書 / PEM デコーダ",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "JWTデコーダー",
         "description": "JWT のヘッダー、ペイロード、有効期限をデコードします。"
+      },
+      "certificatePemDecoder": {
+        "title": "証明書 / PEM デコーダ",
+        "description": "X.509 証明書と CSR をデコード: サブジェクト、発行者、有効期間、SAN。"
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "このアルゴリズムには検証キーが必要です。",
       "base64": "JWT のヘッダーまたは署名をデコードできませんでした。",
       "cryptoFailed": "検証に失敗しました。キー形式を確認して再試行してください。"
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "証明書 / PEM デコーダ",
+    "subtitle": "X.509 証明書 (<code>-----BEGIN CERTIFICATE-----</code>) または CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>) を貼り付けます。サブジェクト、発行者、日付、SAN はローカルで解析され、アップロードは行われません。",
+    "pemLabel": "PEM 入力",
+    "clear": "クリア",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "解析中…",
+    "copyHex": "フィンガープリントをコピー（コロンなしの16進）",
+    "errors": {
+      "empty": "デコードする PEM 証明書または CSR を貼り付けてください。",
+      "noBlock": "証明書または CSR の PEM ブロックが見つかりません。",
+      "parseFailed": "この PEM データを解析できませんでした。"
+    },
+    "block": {
+      "title": "PEM ブロック {index}",
+      "certificate": "X.509 証明書",
+      "csr": "証明書署名要求"
+    },
+    "fields": {
+      "subject": "サブジェクト",
+      "issuer": "発行者",
+      "notBefore": "有効開始前は無効",
+      "notAfter": "有効終了後は無効",
+      "serial": "シリアル番号（16進）",
+      "sha256": "SHA-256 フィンガープリント",
+      "sans": "サブジェクト代替名",
+      "sansNone": "SAN 拡張はありません。",
+      "signatureAlgorithm": "署名アルゴリズム",
+      "csrIssuerNote": "CSR に発行者は含まれません（発行された証明書に記載されます）。",
+      "csrValidityNote": "CSR に有効期間は含まれません（発行された証明書に記載されます）。"
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "ディレクトリ名",
+      "email": "メール",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "登録 ID",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

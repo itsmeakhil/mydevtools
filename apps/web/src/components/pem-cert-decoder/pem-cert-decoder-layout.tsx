@@ -1,0 +1,240 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import type { DecodedPemBlock } from '@/lib/pem-cert-decode';
+import { decodePemCertificateInput } from '@/lib/pem-cert-decode';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
+import { AlertCircle, Check, Copy, Trash2 } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
+
+function CopyBtn({ text, title }: { text: string; title: string }) {
+  const [done, setDone] = useState(false);
+  return (
+    <Button
+      type="button"
+      variant="ghost"
+      size="icon"
+      className="h-7 w-7 shrink-0"
+      title={title}
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(text);
+          setDone(true);
+          setTimeout(() => setDone(false), 1600);
+        } catch {
+          // ignore
+        }
+      }}
+    >
+      {done ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
+    </Button>
+  );
+}
+
+function formatLocalDate(iso: string, locale: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleString(locale, {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  });
+}
+
+function BlockCard({
+  block,
+  index,
+  t,
+  locale,
+}: {
+  block: DecodedPemBlock;
+  index: number;
+  t: ReturnType<typeof useTranslations>;
+  locale: string;
+}) {
+  const title =
+    block.kind === 'certificate'
+      ? t('block.certificate')
+      : block.kind === 'csr'
+        ? t('block.csr')
+        : '';
+
+  return (
+    <Card className="flex flex-col overflow-hidden min-h-0">
+      <div className="flex items-center justify-between gap-2 border-b border-border/50 bg-muted/30 px-3 py-2">
+        <div className="min-w-0">
+          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+            {t('block.title', { index: index + 1 })}
+          </p>
+          <p className="truncate text-sm font-semibold">{title}</p>
+          <p className="truncate text-[11px] text-muted-foreground font-mono">{block.pemLabel}</p>
+        </div>
+      </div>
+
+      <dl className="grid gap-2 p-3 text-sm">
+        <div className="grid gap-0.5">
+          <dt className="text-xs font-medium text-muted-foreground">{t('fields.subject')}</dt>
+          <dd className="font-mono text-xs break-all">{block.subject || '—'}</dd>
+        </div>
+
+        {block.kind === 'certificate' && (
+          <>
+            <div className="grid gap-0.5">
+              <dt className="text-xs font-medium text-muted-foreground">{t('fields.issuer')}</dt>
+              <dd className="font-mono text-xs break-all">{block.issuer || '—'}</dd>
+            </div>
+            <div className="grid gap-0.5 sm:grid-cols-2 sm:gap-3">
+              <div>
+                <dt className="text-xs font-medium text-muted-foreground">{t('fields.notBefore')}</dt>
+                <dd className="font-mono text-xs">{formatLocalDate(block.notBeforeIso, locale)}</dd>
+              </div>
+              <div>
+                <dt className="text-xs font-medium text-muted-foreground">{t('fields.notAfter')}</dt>
+                <dd className="font-mono text-xs">{formatLocalDate(block.notAfterIso, locale)}</dd>
+              </div>
+            </div>
+            <div className="grid gap-0.5">
+              <dt className="text-xs font-medium text-muted-foreground">{t('fields.serial')}</dt>
+              <dd className="font-mono text-xs break-all">{block.serialNumber}</dd>
+            </div>
+            <div className="grid gap-0.5">
+              <dt className="text-xs font-medium text-muted-foreground">{t('fields.sha256')}</dt>
+              <dd className="flex items-start gap-1">
+                <span className="font-mono text-xs break-all flex-1">{block.sha256Fingerprint}</span>
+                <CopyBtn text={block.sha256Fingerprint.replace(/:/g, '')} title={t('copyHex')} />
+              </dd>
+            </div>
+          </>
+        )}
+
+        {block.kind === 'csr' && (
+          <>
+            <p className="text-xs text-muted-foreground border-l-2 border-muted pl-2">{t('fields.csrIssuerNote')}</p>
+            <p className="text-xs text-muted-foreground border-l-2 border-muted pl-2">{t('fields.csrValidityNote')}</p>
+          </>
+        )}
+
+        <div className="grid gap-0.5">
+          <dt className="text-xs font-medium text-muted-foreground">{t('fields.signatureAlgorithm')}</dt>
+          <dd className="font-mono text-xs break-all">{block.signatureAlgorithm}</dd>
+        </div>
+
+        <div className="grid gap-1 pt-1 border-t border-border/40">
+          <dt className="text-xs font-medium text-muted-foreground">{t('fields.sans')}</dt>
+          <dd>
+            {block.sans.length === 0 ? (
+              <span className="text-xs text-muted-foreground">{t('fields.sansNone')}</span>
+            ) : (
+              <ul className="space-y-1">
+                {block.sans.map((row: { type: string; value: string }, i: number) => {
+                  const kindKeys = ['dns', 'dn', 'email', 'ip', 'url', 'guid', 'upn', 'id'] as const;
+                  const label = kindKeys.includes(row.type as (typeof kindKeys)[number])
+                    ? t(`sanType.${row.type}` as Parameters<typeof t>[0])
+                    : t('sanType.other', { type: row.type });
+                  return (
+                    <li key={`${row.type}-${i}`} className="font-mono text-xs break-all flex gap-2">
+                      <span className="shrink-0 text-muted-foreground">{label}</span>
+                      <span>{row.value}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </dd>
+        </div>
+      </dl>
+    </Card>
+  );
+}
+
+export function PemCertDecoderLayout() {
+  const t = useTranslations('CertificatePemDecoder');
+  const locale = useLocale();
+  const [input, setInput] = useState('');
+  const [blocks, setBlocks] = useState<DecodedPemBlock[] | null>(null);
+  const [errorKey, setErrorKey] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    const trimmed = input.trim();
+    if (!trimmed) {
+      setBlocks(null);
+      setErrorKey(null);
+      setBusy(false);
+      return;
+    }
+
+    let cancelled = false;
+    setBusy(true);
+    void (async () => {
+      const res = await decodePemCertificateInput(input);
+      if (cancelled) return;
+      setBusy(false);
+      if (res.ok) {
+        setBlocks(res.blocks);
+        setErrorKey(null);
+      } else {
+        setBlocks(null);
+        setErrorKey(res.errorKey);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [input]);
+
+  return (
+    <div className={cn('flex flex-col h-full gap-4 min-h-0')}>
+      <div className="shrink-0 md:hidden">
+        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
+        <p className="text-xs text-muted-foreground">
+          {t.rich('subtitle', {
+            code: (chunks) => <code className="text-foreground">{chunks}</code>,
+          })}
+        </p>
+      </div>
+
+      <Card className="flex flex-col overflow-hidden shrink-0">
+        <div className="flex items-center justify-between px-3 py-2 border-b border-border/50 bg-muted/30">
+          <Label htmlFor="pem-input" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+            {t('pemLabel')}
+          </Label>
+          <Button type="button" variant="ghost" size="sm" className="h-7 text-xs gap-1" onClick={() => setInput('')}>
+            <Trash2 className="h-3 w-3" />
+            {t('clear')}
+          </Button>
+        </div>
+        <textarea
+          id="pem-input"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder={t('placeholder')}
+          spellCheck={false}
+          className="min-h-[120px] max-h-[200px] w-full resize-y bg-transparent p-3 text-xs font-mono focus:outline-none placeholder:text-muted-foreground/50"
+        />
+      </Card>
+
+      {busy && input.trim() && (
+        <p className="text-xs text-muted-foreground px-1">{t('parsing')}</p>
+      )}
+
+      {errorKey && input.trim() && !busy && (
+        <div className="flex items-start gap-2 rounded-lg border border-destructive/40 bg-destructive/5 px-3 py-2 text-sm text-destructive">
+          <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+          <p>{t(`errors.${errorKey}` as 'errors.empty')}</p>
+        </div>
+      )}
+
+      {blocks && blocks.length > 0 && (
+        <div className="flex flex-col gap-3 min-h-0 flex-1 overflow-auto">
+          {blocks.map((b, i) => (
+            <BlockCard key={`${b.kind}-${i}`} block={b} index={i} t={t} locale={locale} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

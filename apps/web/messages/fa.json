@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "رمزگشای JWT",
+    "certificatePemDecoder": "رمزگشای گواهی / PEM",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "رمزگشای JWT",
         "description": "هدر، بار داده و زمان انقضای JWT را رمزگشایی کنید."
+      },
+      "certificatePemDecoder": {
+        "title": "رمزگشای گواهی / PEM",
+        "description": "رمزگشایی گواهی‌های X.509 و CSR: موضوع، صادرکننده، اعتبار و SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "برای این الگوریتم کلید تأیید لازم است.",
       "base64": "امکان رمزگشایی header یا امضای JWT نبود.",
       "cryptoFailed": "تأیید ناموفق بود. فرمت کلید را بررسی کرده و دوباره تلاش کنید."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "رمزگشای گواهی / PEM",
+    "subtitle": "یک گواهی X.509 (<code>-----BEGIN CERTIFICATE-----</code>) یا CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>) بچسبانید. موضوع، صادرکننده، تاریخ‌ها و SAN به‌صورت محلی تجزیه می‌شود؛ چیزی آپلود نمی‌شود.",
+    "pemLabel": "ورودی PEM",
+    "clear": "پاک کردن",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "در حال تجزیه…",
+    "copyHex": "کپی اثرانگشت (هگز بدون دونقطه)",
+    "errors": {
+      "empty": "برای رمزگشایی یک گواهی PEM یا CSR بچسبانید.",
+      "noBlock": "بلوک PEM گواهی یا CSR یافت نشد.",
+      "parseFailed": "تجزیه این داده‌های PEM ممکن نشد."
+    },
+    "block": {
+      "title": "بلوک PEM {index}",
+      "certificate": "گواهی X.509",
+      "csr": "درخواست امضای گواهی"
+    },
+    "fields": {
+      "subject": "موضوع",
+      "issuer": "صادرکننده",
+      "notBefore": "نامعتبر قبل از",
+      "notAfter": "نامعتبر پس از",
+      "serial": "شماره سریال (هگز)",
+      "sha256": "اثر انگشت SHA-256",
+      "sans": "نام‌های جایگزین موضوع",
+      "sansNone": "افزونه SAN وجود ندارد.",
+      "signatureAlgorithm": "الگوریتم امضا",
+      "csrIssuerNote": "CSR صادرکننده ندارد (روی گواهی صادرشده می‌آید).",
+      "csrValidityNote": "CSR تاریخ اعتبار ندارد (روی گواهی صادرشده می‌آید)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "نام دایرکتوری",
+      "email": "ایمیل",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "شناسه ثبت‌شده",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

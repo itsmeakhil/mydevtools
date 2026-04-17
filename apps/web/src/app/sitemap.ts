@@ -47,6 +47,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'lorem-ipsum',
         'color-picker',
         'jwt-decoder',
+        'certificate-pem-decoder',
         'regex-tester',
         'timestamp-converter',
         'cron-builder',

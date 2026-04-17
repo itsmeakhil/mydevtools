@@ -9,6 +9,7 @@
     "bookmarks": "Bookmarks",
     "emailValidator": "Email Validator",
     "jwtDecoder": "JWT Decoder",
+    "certificatePemDecoder": "Certificate / PEM Decoder",
     "jsonFormatter": "JSON Formatter",
     "jsonSchemaGenerator": "JSON Schema Generator",
     "sqlFormatter": "SQL Formatter",
@@ -308,6 +309,10 @@
       "jwtDecoder": {
         "title": "JWT Decoder",
         "description": "Decode JWT header, payload, and expiry."
+      },
+      "certificatePemDecoder": {
+        "title": "Certificate / PEM Decoder",
+        "description": "Decode X.509 certificates and CSRs: subject, issuer, validity, SANs."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1828,6 +1833,49 @@
       "missingKey": "A verification key is required for this algorithm.",
       "base64": "Could not decode the JWT header or signature.",
       "cryptoFailed": "Verification failed. Check your key format and try again."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Certificate / PEM decoder",
+    "subtitle": "Paste an X.509 certificate (<code>-----BEGIN CERTIFICATE-----</code>) or a CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Subject, issuer, dates, and SANs are parsed locally; nothing is uploaded.",
+    "pemLabel": "PEM input",
+    "clear": "Clear",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Parsing…",
+    "copyHex": "Copy fingerprint (hex, no colons)",
+    "errors": {
+      "empty": "Paste a PEM certificate or CSR to decode.",
+      "noBlock": "No certificate or CSR PEM block found.",
+      "parseFailed": "Could not parse this PEM data."
+    },
+    "block": {
+      "title": "PEM block {index}",
+      "certificate": "X.509 certificate",
+      "csr": "Certificate signing request"
+    },
+    "fields": {
+      "subject": "Subject",
+      "issuer": "Issuer",
+      "notBefore": "Not valid before",
+      "notAfter": "Not valid after",
+      "serial": "Serial (hex)",
+      "sha256": "SHA-256 fingerprint",
+      "sans": "Subject Alternative Names",
+      "sansNone": "No Subject Alternative Name extension.",
+      "signatureAlgorithm": "Signature algorithm",
+      "csrIssuerNote": "CSRs do not include an issuer (that appears on the issued certificate).",
+      "csrValidityNote": "CSRs do not include validity dates (those appear on the issued certificate)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Directory name",
+      "email": "Email",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "Registered ID",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

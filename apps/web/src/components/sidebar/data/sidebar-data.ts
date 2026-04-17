@@ -39,6 +39,7 @@ import {
   IconListNumbers,
   IconFileInfo,
   IconUserSearch,
+  IconCertificate,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -102,6 +103,13 @@ export const sidebarData: SidebarData = {
           url: '/app/jwt-decoder',
           icon: IconKey,
           description: 'Decode JWT header, payload, and expiry.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'Certificate / PEM Decoder',
+          url: '/app/certificate-pem-decoder',
+          icon: IconCertificate,
+          description: 'Decode X.509 certificates and CSRs: subject, issuer, validity, SANs.',
           hiddenOnMobile: true,
         },
         {

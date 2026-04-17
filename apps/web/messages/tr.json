@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "JWT Çözücü",
+    "certificatePemDecoder": "Sertifika / PEM çözücü",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "JWT Çözücü",
         "description": "JWT başlığını, yükünü ve süresini çöz."
+      },
+      "certificatePemDecoder": {
+        "title": "Sertifika / PEM çözücü",
+        "description": "X.509 sertifikalarını ve CSR’ları çözümleyin: konu, veren, geçerlilik ve SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "Bu algoritma için doğrulama anahtarı gerekir.",
       "base64": "JWT header veya imza çözülemedi.",
       "cryptoFailed": "Doğrulama başarısız. Anahtar biçimini kontrol edip tekrar deneyin."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Sertifika / PEM çözücü",
+    "subtitle": "Bir X.509 sertifikası (<code>-----BEGIN CERTIFICATE-----</code>) veya CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>) yapıştırın. Konu, veren, tarihler ve SAN yerel olarak ayrıştırılır; hiçbir şey yüklenmez.",
+    "pemLabel": "PEM girişi",
+    "clear": "Temizle",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Ayrıştırılıyor…",
+    "copyHex": "Parmak izini kopyala (iki nokta olmadan hex)",
+    "errors": {
+      "empty": "Çözmek için bir PEM sertifikası veya CSR yapıştırın.",
+      "noBlock": "Sertifika veya CSR PEM bloğu bulunamadı.",
+      "parseFailed": "Bu PEM verileri ayrıştırılamadı."
+    },
+    "block": {
+      "title": "PEM bloğu {index}",
+      "certificate": "X.509 sertifikası",
+      "csr": "Sertifika imzalama isteği"
+    },
+    "fields": {
+      "subject": "Konu",
+      "issuer": "Veren",
+      "notBefore": "Öncesi geçersiz",
+      "notAfter": "Sonrası geçersiz",
+      "serial": "Seri numarası (hex)",
+      "sha256": "SHA-256 parmak izi",
+      "sans": "Konu alternatif adları",
+      "sansNone": "SAN uzantısı yok.",
+      "signatureAlgorithm": "İmza algoritması",
+      "csrIssuerNote": "CSR’ler vereni içermez (verilen sertifikada görünür).",
+      "csrValidityNote": "CSR’ler geçerlilik tarihlerini içermez (verilen sertifikada görünür)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Dizin adı",
+      "email": "E-posta",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "Kayıtlı ID",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {

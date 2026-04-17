@@ -13,6 +13,7 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "jwtDecoder": "JWT-dekoder",
+    "certificatePemDecoder": "Certifikat / PEM-afkoder",
     "sqlFormatter": "SQL Formatter",
     "diffChecker": "Diff checker",
     "regexTester": "Regex Tester",
@@ -255,6 +256,10 @@
       "jwtDecoder": {
         "title": "JWT-dekoder",
         "description": "Afkod JWT-header, payload og udløb."
+      },
+      "certificatePemDecoder": {
+        "title": "Certifikat / PEM-afkoder",
+        "description": "Afkod X.509-certifikater og CSR’er: emne, udsteder, gyldighed og SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -1824,6 +1829,49 @@
       "missingKey": "En verifikationsnøgle er påkrævet for denne algoritme.",
       "base64": "Kunne ikke dekode JWT-header eller signatur.",
       "cryptoFailed": "Verificering mislykkedes. Tjek nøgleformatet og prøv igen."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Certifikat / PEM-afkoder",
+    "subtitle": "Indsæt et X.509-certifikat (<code>-----BEGIN CERTIFICATE-----</code>) eller en CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Emne, udsteder, datoer og SAN analyseres lokalt; intet uploades.",
+    "pemLabel": "PEM-input",
+    "clear": "Ryd",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Parser…",
+    "copyHex": "Kopiér fingeraftryk (hex uden kolon)",
+    "errors": {
+      "empty": "Indsæt et PEM-certifikat eller en CSR for at afkode.",
+      "noBlock": "Ingen PEM-blok for certifikat eller CSR fundet.",
+      "parseFailed": "Kunne ikke parse disse PEM-data."
+    },
+    "block": {
+      "title": "PEM-blok {index}",
+      "certificate": "X.509-certifikat",
+      "csr": "Certifikatunderskrivningsanmodning"
+    },
+    "fields": {
+      "subject": "Emne",
+      "issuer": "Udsteder",
+      "notBefore": "Ikke gyldig før",
+      "notAfter": "Ikke gyldig efter",
+      "serial": "Serienummer (hex)",
+      "sha256": "SHA-256-fingeraftryk",
+      "sans": "Emnealtenative navne",
+      "sansNone": "Ingen SAN-udvidelse.",
+      "signatureAlgorithm": "Signaturalgoritme",
+      "csrIssuerNote": "CSR’er har ingen udsteder (den fremgår af det udstedte certifikat).",
+      "csrValidityNote": "CSR’er har ingen gyldighedsdatoer (de fremgår af det udstedte certifikat)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Biblioteksnavn",
+      "email": "E-mail",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "Registreret ID",
+      "other": "{type}"
     }
   },
   "SqlFormatter": {
