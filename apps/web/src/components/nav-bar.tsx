@@ -79,6 +79,7 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
   '/app/hash-generator': { title: 'Hash Generator', icon: Hash, namespace: 'HashGenerator' },
   '/app/hmac-generator': { title: 'HMAC Generator', icon: ShieldCheck, namespace: 'HmacGenerator' },
   '/app/markdown-preview-html': { title: 'Markdown Preview', icon: FileDown, namespace: 'MarkdownPreview' },
+  '/app/format-converter': { title: 'Format Converter', icon: FileCode, namespace: 'FormatConverter' },
   '/app/lorem-ipsum': { title: 'Lorem Ipsum Generator', icon: TextQuote, namespace: 'LoremIpsum' },
   '/app/color-picker': { title: 'Color Picker', icon: Palette, namespace: 'ColorPicker' },
   '/app/css-gradient-builder': { title: 'CSS Gradient Builder', icon: Paintbrush, namespace: 'CssGradientBuilder' },

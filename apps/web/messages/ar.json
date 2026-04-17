@@ -33,7 +33,8 @@
     "hashGenerator": "مُولّد الهاش",
     "hmacGenerator": "مُولّد HMAC",
     "markdownPreview": "معاينة Markdown",
-    "numberBaseConverter": "محوّل الأساس الرقمي"
+    "numberBaseConverter": "محوّل الأساس الرقمي",
+    "formatConverter": "محوّل الصيغ"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -2546,5 +2547,18 @@
     "errors": {
       "invalidNumber": "القيمة غير صالحة للأساس المختار."
     }
+  },
+  "FormatConverter": {
+    "title": "محوّل الصيغ",
+    "subtitle": "حوّل بين JSON و YAML و TOML و XML في أي اتجاه. جميع 12 تركيبة. يعمل كل شيء في متصفحك.",
+    "fromLabel": "من",
+    "toLabel": "إلى",
+    "swap": "تبديل",
+    "swapTitle": "تبديل الصيغ واستخدام المخرجات كمدخلات",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "charCount": "{count, plural, one {# حرف} other {# أحرف}}",
+    "emptyHint": "الصق أو اكتب مدخلاتك على اليسار لرؤية المخرجات المحوّلة.",
+    "localNote": "كل شيء يعمل محليًا في متصفحك. لا يتم رفع أي شيء."
   }
 }

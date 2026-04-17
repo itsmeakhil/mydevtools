@@ -33,7 +33,8 @@
     "hashGenerator": "Penjana hash",
     "hmacGenerator": "Penjana HMAC",
     "markdownPreview": "Pratonton Markdown",
-    "numberBaseConverter": "Penukar asas"
+    "numberBaseConverter": "Penukar asas",
+    "formatConverter": "Penukar Format"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -2546,5 +2547,18 @@
     "errors": {
       "invalidNumber": "Nilai tidak sah untuk asas input yang dipilih."
     }
+  },
+  "FormatConverter": {
+    "title": "Penukar Format",
+    "subtitle": "Tukar antara JSON, YAML, TOML dan XML dalam mana-mana arah. Semua 12 kombinasi. Semua berjalan di pelayar anda.",
+    "fromLabel": "Dari",
+    "toLabel": "Ke",
+    "swap": "Tukar",
+    "swapTitle": "Tukar format dan gunakan output sebagai input",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "charCount": "{count, plural, other {# aksara}}",
+    "emptyHint": "Tampal atau taip input anda di sebelah kiri untuk melihat output yang ditukar.",
+    "localNote": "Semua berjalan secara tempatan di pelayar anda. Tiada apa yang dimuat naik."
   }
 }

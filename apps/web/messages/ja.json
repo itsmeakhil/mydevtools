@@ -33,7 +33,8 @@
     "hashGenerator": "ハッシュ生成",
     "hmacGenerator": "HMACジェネレーター",
     "markdownPreview": "Markdownプレビュー",
-    "numberBaseConverter": "基数変換"
+    "numberBaseConverter": "基数変換",
+    "formatConverter": "フォーマット変換"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -2546,5 +2547,18 @@
     "errors": {
       "invalidNumber": "選択した入力基数では無効な値です。"
     }
+  },
+  "FormatConverter": {
+    "title": "フォーマット変換",
+    "subtitle": "JSON、YAML、TOML、XML間を任意の方向に変換。12通りすべての組み合わせに対応。すべてブラウザ上で動作します。",
+    "fromLabel": "変換元",
+    "toLabel": "変換先",
+    "swap": "入れ替え",
+    "swapTitle": "フォーマットを入れ替えて出力を入力として使用",
+    "copy": "コピー",
+    "copied": "コピーしました",
+    "charCount": "{count, plural, other {# 文字}}",
+    "emptyHint": "左側に入力を貼り付けるか入力すると、変換された出力が表示されます。",
+    "localNote": "すべてブラウザ上でローカルに動作します。何もアップロードされません。"
   }
 }

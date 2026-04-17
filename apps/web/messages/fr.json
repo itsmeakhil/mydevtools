@@ -33,7 +33,8 @@
     "hashGenerator": "Générateur de hash",
     "hmacGenerator": "Générateur HMAC",
     "markdownPreview": "Aperçu Markdown",
-    "numberBaseConverter": "Convertisseur de base"
+    "numberBaseConverter": "Convertisseur de base",
+    "formatConverter": "Convertisseur de formats"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -2546,5 +2547,18 @@
     "errors": {
       "invalidNumber": "Cette valeur n’est pas valide pour la base d’entrée sélectionnée."
     }
+  },
+  "FormatConverter": {
+    "title": "Convertisseur de formats",
+    "subtitle": "Convertissez entre JSON, YAML, TOML et XML dans n'importe quelle direction. Les 12 combinaisons. Tout s'exécute dans votre navigateur.",
+    "fromLabel": "De",
+    "toLabel": "Vers",
+    "swap": "Inverser",
+    "swapTitle": "Inverser les formats et utiliser la sortie comme entrée",
+    "copy": "Copier",
+    "copied": "Copié",
+    "charCount": "{count, plural, one {# caractère} other {# caractères}}",
+    "emptyHint": "Collez ou tapez votre entrée à gauche pour voir la sortie convertie.",
+    "localNote": "Tout s'exécute localement dans votre navigateur. Rien n'est téléchargé."
   }
 }

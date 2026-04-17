@@ -33,7 +33,8 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Code Snippets",
     "markdownPreview": "Markdown Preview",
-    "numberBaseConverter": "Number Base Converter"
+    "numberBaseConverter": "Number Base Converter",
+    "formatConverter": "Format Converter"
   },
   "Help": {
     "title": "Help & documentation",
@@ -2546,5 +2547,18 @@
     "emptyHint": "Start typing Markdown to see the live preview and HTML output.",
     "emptyHintHtmlToMd": "Paste HTML to convert it to Markdown.",
     "securityNote": "Everything runs locally in your browser. Nothing is uploaded."
+  },
+  "FormatConverter": {
+    "title": "Format Converter",
+    "subtitle": "Convert between JSON, YAML, TOML, and XML in any direction. All 12 combinations. Everything runs in your browser.",
+    "fromLabel": "From",
+    "toLabel": "To",
+    "swap": "Swap",
+    "swapTitle": "Swap formats and use output as input",
+    "copy": "Copy",
+    "copied": "Copied",
+    "charCount": "{count, plural, one {# character} other {# characters}}",
+    "emptyHint": "Paste or type your input on the left to see the converted output.",
+    "localNote": "Everything runs locally in your browser. Nothing is uploaded."
   }
 }

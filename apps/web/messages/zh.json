@@ -33,7 +33,8 @@
     "hashGenerator": "哈希生成器",
     "hmacGenerator": "HMAC 生成器",
     "markdownPreview": "Markdown 预览",
-    "numberBaseConverter": "进制转换"
+    "numberBaseConverter": "进制转换",
+    "formatConverter": "格式转换器"
   },
   "Help": {
     "title": "帮助与文档",
@@ -2546,5 +2547,18 @@
     "errors": {
       "invalidNumber": "该值对所选输入进制无效。"
     }
+  },
+  "FormatConverter": {
+    "title": "格式转换器",
+    "subtitle": "在 JSON、YAML、TOML 和 XML 之间任意方向转换。支持全部 12 种组合。所有操作均在浏览器中本地运行。",
+    "fromLabel": "从",
+    "toLabel": "到",
+    "swap": "交换",
+    "swapTitle": "交换格式并将输出用作输入",
+    "copy": "复制",
+    "copied": "已复制",
+    "charCount": "{count, plural, other {# 个字符}}",
+    "emptyHint": "在左侧粘贴或输入内容，即可看到转换后的输出。",
+    "localNote": "所有操作均在您的浏览器中本地运行。不会上传任何内容。"
   }
 }

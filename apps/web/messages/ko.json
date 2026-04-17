@@ -33,7 +33,8 @@
     "hashGenerator": "해시 생성기",
     "hmacGenerator": "HMAC 생성기",
     "markdownPreview": "마크다운 미리보기",
-    "numberBaseConverter": "진법 변환기"
+    "numberBaseConverter": "진법 변환기",
+    "formatConverter": "포맷 변환기"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -2546,5 +2547,18 @@
     "errors": {
       "invalidNumber": "선택한 입력 진법에 맞지 않는 값입니다."
     }
+  },
+  "FormatConverter": {
+    "title": "포맷 변환기",
+    "subtitle": "JSON, YAML, TOML, XML 간을 어떤 방향으로도 변환하세요. 12가지 조합 모두 지원. 모든 것이 브라우저에서 실행됩니다.",
+    "fromLabel": "원본",
+    "toLabel": "대상",
+    "swap": "교환",
+    "swapTitle": "포맷을 교환하고 출력을 입력으로 사용",
+    "copy": "복사",
+    "copied": "복사됨",
+    "charCount": "{count, plural, other {# 자}}",
+    "emptyHint": "왼쪽에 입력을 붙여넣거나 입력하면 변환된 출력을 확인할 수 있습니다.",
+    "localNote": "모든 것이 브라우저에서 로컬로 실행됩니다. 아무것도 업로드되지 않습니다."
   }
 }
