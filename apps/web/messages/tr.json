@@ -1765,6 +1765,54 @@
       "minute": "{count, plural, one {dakika} other {dakika}}",
       "hour": "{count, plural, one {saat} other {saat}}",
       "day": "{count, plural, one {gün} other {gün}}"
+    },
+    "tabs": {
+      "decode": "Çöz",
+      "sign": "Oluşturucu / imzalayıcı"
+    },
+    "signer": {
+      "algLabel": "Algoritma (alg)",
+      "tabs": {
+        "payload": "Payload",
+        "header": "Header"
+      },
+      "payloadLabel": "Payload JSON",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "Header JSON",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Gizli anahtar (HS*)",
+      "secretPlaceholder": "HMAC gizlinizi yapıştırın…",
+      "privateKeyLabel": "Özel anahtar PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "\"none\" algoritması imzasız bir token üretir. Güvenli değildir; yalnızca test için kullanılmalıdır.",
+      "sign": "İmzala",
+      "verify": "İmzayı doğrula",
+      "outputLabel": "Token (kompakt JWS)",
+      "outputPlaceholder": "\"İmzala\"a tıklayın…",
+      "copyToken": "Tokenı kopyala",
+      "copied": "Kopyalandı",
+      "verifyKeyLabel": "Doğrulama anahtarı (isteğe bağlı)",
+      "verifyKeyPlaceholder": "RS* için: açık anahtarı (SPKI) PEM yapıştırın. HS* için: gizliyi yeniden kullanmak üzere boş bırakın.",
+      "verifyKeyHint": "Boşsa doğrulama imzalama anahtarını kullanır (HS* için faydalı).",
+      "verifyStatus": {
+        "valid": "İmza geçerli",
+        "invalid": "İmza geçersiz"
+      },
+      "securityNote": "Her şey tarayıcınızda yerel çalışır; anahtarlar ve tokenlar yüklenmez."
+    },
+    "signErrors": {
+      "invalidJson": "Header ve payload geçerli JSON olmalıdır.",
+      "unsupportedAlg": "Desteklenmeyen algoritma.",
+      "missingKey": "Bu algoritma için bir imzalama anahtarı gerekir.",
+      "cryptoFailed": "İmzalama başarısız. Anahtar biçimini kontrol edip tekrar deneyin."
+    },
+    "verifyErrors": {
+      "empty": "Doğrulamak için bir JWT girin.",
+      "segments": "İmza doğrulaması için JWT tam olarak 3 segmentten oluşmalıdır.",
+      "unsupportedAlg": "Header içinde desteklenmeyen veya eksik alg.",
+      "missingKey": "Bu algoritma için doğrulama anahtarı gerekir.",
+      "base64": "JWT header veya imza çözülemedi.",
+      "cryptoFailed": "Doğrulama başarısız. Anahtar biçimini kontrol edip tekrar deneyin."
     }
   },
   "SqlFormatter": {

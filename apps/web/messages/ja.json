@@ -1765,6 +1765,54 @@
       "minute": "{count, plural, one {分} other {分}}",
       "hour": "{count, plural, one {時間} other {時間}}",
       "day": "{count, plural, one {日} other {日}}"
+    },
+    "tabs": {
+      "decode": "デコード",
+      "sign": "生成 / 署名"
+    },
+    "signer": {
+      "algLabel": "アルゴリズム (alg)",
+      "tabs": {
+        "payload": "ペイロード",
+        "header": "ヘッダー"
+      },
+      "payloadLabel": "ペイロード JSON",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "ヘッダー JSON",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "シークレット (HS*)",
+      "secretPlaceholder": "HMAC シークレットを貼り付け…",
+      "privateKeyLabel": "秘密鍵 PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "\"none\" は署名なしトークンを作成します。安全ではないためテスト用途のみにしてください。",
+      "sign": "署名",
+      "verify": "署名を検証",
+      "outputLabel": "トークン（コンパクト JWS）",
+      "outputPlaceholder": "「署名」をクリック…",
+      "copyToken": "トークンをコピー",
+      "copied": "コピーしました",
+      "verifyKeyLabel": "検証キー（任意）",
+      "verifyKeyPlaceholder": "RS*: 公開鍵（SPKI）PEM を貼り付け。HS*: 空欄でシークレットを再利用。",
+      "verifyKeyHint": "空欄の場合、検証は署名キーを使用します（HS* に便利）。",
+      "verifyStatus": {
+        "valid": "署名は有効です",
+        "invalid": "署名は無効です"
+      },
+      "securityNote": "すべてブラウザ内でローカル実行され、キーやトークンはアップロードされません。"
+    },
+    "signErrors": {
+      "invalidJson": "ヘッダーとペイロードは有効な JSON である必要があります。",
+      "unsupportedAlg": "未対応のアルゴリズムです。",
+      "missingKey": "このアルゴリズムには署名キーが必要です。",
+      "cryptoFailed": "署名に失敗しました。キー形式を確認して再試行してください。"
+    },
+    "verifyErrors": {
+      "empty": "検証する JWT を入力してください。",
+      "segments": "署名検証には JWT が 3 セグメントである必要があります。",
+      "unsupportedAlg": "ヘッダー内の alg が未対応、または欠落しています。",
+      "missingKey": "このアルゴリズムには検証キーが必要です。",
+      "base64": "JWT のヘッダーまたは署名をデコードできませんでした。",
+      "cryptoFailed": "検証に失敗しました。キー形式を確認して再試行してください。"
     }
   },
   "SqlFormatter": {

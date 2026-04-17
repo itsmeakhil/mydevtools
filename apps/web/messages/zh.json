@@ -1765,6 +1765,54 @@
       "minute": "{count, plural, one {分钟} other {分钟}}",
       "hour": "{count, plural, one {小时} other {小时}}",
       "day": "{count, plural, one {天} other {天}}"
+    },
+    "tabs": {
+      "decode": "解码",
+      "sign": "生成 / 签名"
+    },
+    "signer": {
+      "algLabel": "算法（alg）",
+      "tabs": {
+        "payload": "载荷",
+        "header": "头部"
+      },
+      "payloadLabel": "载荷 JSON",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "头部 JSON",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "密钥（HS*）",
+      "secretPlaceholder": "粘贴你的 HMAC 密钥…",
+      "privateKeyLabel": "私钥 PEM（RS*）",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "\"none\" 算法会生成未签名的令牌。不安全，仅用于测试。",
+      "sign": "签名",
+      "verify": "验证签名",
+      "outputLabel": "令牌（紧凑 JWS）",
+      "outputPlaceholder": "点击“签名”…",
+      "copyToken": "复制令牌",
+      "copied": "已复制",
+      "verifyKeyLabel": "验证密钥（可选）",
+      "verifyKeyPlaceholder": "RS*：粘贴公钥（SPKI）PEM。HS*：留空以复用密钥。",
+      "verifyKeyHint": "若留空，将使用签名密钥进行验证（HS* 很方便）。",
+      "verifyStatus": {
+        "valid": "签名有效",
+        "invalid": "签名无效"
+      },
+      "securityNote": "全部在浏览器本地运行；不会上传密钥或令牌。"
+    },
+    "signErrors": {
+      "invalidJson": "头部和载荷必须是有效的 JSON。",
+      "unsupportedAlg": "不支持的算法。",
+      "missingKey": "该算法需要签名密钥。",
+      "cryptoFailed": "签名失败。请检查密钥格式后重试。"
+    },
+    "verifyErrors": {
+      "empty": "请输入要验证的 JWT。",
+      "segments": "验证签名需要 JWT 恰好包含 3 段。",
+      "unsupportedAlg": "头部中缺少 alg 或算法不受支持。",
+      "missingKey": "该算法需要验证密钥。",
+      "base64": "无法解码 JWT 头部或签名。",
+      "cryptoFailed": "验证失败。请检查密钥格式后重试。"
     }
   },
   "SqlFormatter": {

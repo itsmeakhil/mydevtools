@@ -1765,6 +1765,54 @@
       "minute": "{count, plural, one {λεπτό} other {λεπτά}}",
       "hour": "{count, plural, one {ώρα} other {ώρες}}",
       "day": "{count, plural, one {ημέρα} other {ημέρες}}"
+    },
+    "tabs": {
+      "decode": "Αποκωδικοποίηση",
+      "sign": "Γεννήτρια / υπογραφή"
+    },
+    "signer": {
+      "algLabel": "Αλγόριθμος (alg)",
+      "tabs": {
+        "payload": "Payload",
+        "header": "Header"
+      },
+      "payloadLabel": "Payload JSON",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "Header JSON",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Μυστικό (HS*)",
+      "secretPlaceholder": "Επικολλήστε το HMAC μυστικό…",
+      "privateKeyLabel": "Ιδιωτικό κλειδί PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "Ο αλγόριθμος \"none\" δημιουργεί μη υπογεγραμμένο token. Είναι ανασφαλές και πρέπει να χρησιμοποιείται μόνο για δοκιμές.",
+      "sign": "Υπογραφή",
+      "verify": "Επαλήθευση υπογραφής",
+      "outputLabel": "Token (συμπαγές JWS)",
+      "outputPlaceholder": "Κάντε κλικ \"Υπογραφή\"…",
+      "copyToken": "Αντιγραφή token",
+      "copied": "Αντιγράφηκε",
+      "verifyKeyLabel": "Κλειδί επαλήθευσης (προαιρετικό)",
+      "verifyKeyPlaceholder": "Για RS*: επικολλήστε το δημόσιο κλειδί (SPKI) PEM. Για HS*: αφήστε κενό για χρήση του μυστικού.",
+      "verifyKeyHint": "Αν είναι κενό, η επαλήθευση χρησιμοποιεί το κλειδί υπογραφής (χρήσιμο για HS*).",
+      "verifyStatus": {
+        "valid": "Έγκυρη υπογραφή",
+        "invalid": "Μη έγκυρη υπογραφή"
+      },
+      "securityNote": "Όλα εκτελούνται τοπικά στον browser· κλειδιά και tokens δεν ανεβαίνουν."
+    },
+    "signErrors": {
+      "invalidJson": "Το header και το payload πρέπει να είναι έγκυρο JSON.",
+      "unsupportedAlg": "Μη υποστηριζόμενος αλγόριθμος.",
+      "missingKey": "Απαιτείται κλειδί υπογραφής για αυτόν τον αλγόριθμο.",
+      "cryptoFailed": "Η υπογραφή απέτυχε. Ελέγξτε τη μορφή κλειδιού και δοκιμάστε ξανά."
+    },
+    "verifyErrors": {
+      "empty": "Εισάγετε ένα JWT για επαλήθευση.",
+      "segments": "Το JWT πρέπει να έχει ακριβώς 3 τμήματα για επαλήθευση υπογραφής.",
+      "unsupportedAlg": "Μη υποστηριζόμενο ή λείπει το alg στο header.",
+      "missingKey": "Απαιτείται κλειδί επαλήθευσης για αυτόν τον αλγόριθμο.",
+      "base64": "Δεν ήταν δυνατή η αποκωδικοποίηση του header ή της υπογραφής.",
+      "cryptoFailed": "Η επαλήθευση απέτυχε. Ελέγξτε τη μορφή κλειδιού και δοκιμάστε ξανά."
     }
   },
   "SqlFormatter": {

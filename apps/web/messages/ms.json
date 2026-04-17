@@ -1765,6 +1765,54 @@
       "minute": "{count, plural, one {minit} other {minit}}",
       "hour": "{count, plural, one {jam} other {jam}}",
       "day": "{count, plural, one {hari} other {hari}}"
+    },
+    "tabs": {
+      "decode": "Nyahkod",
+      "sign": "Penjana / penandatangan"
+    },
+    "signer": {
+      "algLabel": "Algoritma (alg)",
+      "tabs": {
+        "payload": "Payload",
+        "header": "Header"
+      },
+      "payloadLabel": "JSON payload",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "JSON header",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Rahsia (HS*)",
+      "secretPlaceholder": "Tampal rahsia HMAC anda…",
+      "privateKeyLabel": "Kunci peribadi PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "Algoritma \"none\" menghasilkan token tanpa tandatangan. Ini tidak selamat dan hanya untuk ujian.",
+      "sign": "Tandatangan",
+      "verify": "Sahkan tandatangan",
+      "outputLabel": "Token (JWS padat)",
+      "outputPlaceholder": "Klik \"Tandatangan\"…",
+      "copyToken": "Salin token",
+      "copied": "Disalin",
+      "verifyKeyLabel": "Kunci pengesahan (pilihan)",
+      "verifyKeyPlaceholder": "Untuk RS*: tampal kunci awam (SPKI) PEM. Untuk HS*: biarkan kosong untuk guna rahsia yang sama.",
+      "verifyKeyHint": "Jika kosong, pengesahan menggunakan kunci tandatangan (berguna untuk HS*).",
+      "verifyStatus": {
+        "valid": "Tandatangan sah",
+        "invalid": "Tandatangan tidak sah"
+      },
+      "securityNote": "Semuanya berjalan secara tempatan dalam pelayar; kunci dan token tidak dimuat naik."
+    },
+    "signErrors": {
+      "invalidJson": "Header dan payload mesti JSON yang sah.",
+      "unsupportedAlg": "Algoritma tidak disokong.",
+      "missingKey": "Kunci tandatangan diperlukan untuk algoritma ini.",
+      "cryptoFailed": "Tandatangan gagal. Semak format kunci dan cuba lagi."
+    },
+    "verifyErrors": {
+      "empty": "Masukkan JWT untuk disahkan.",
+      "segments": "JWT mesti mempunyai tepat 3 segmen untuk mengesahkan tandatangan.",
+      "unsupportedAlg": "Algoritma tidak disokong atau alg tiada dalam header.",
+      "missingKey": "Kunci pengesahan diperlukan untuk algoritma ini.",
+      "base64": "Tidak dapat menyahkod header atau tandatangan JWT.",
+      "cryptoFailed": "Pengesahan gagal. Semak format kunci dan cuba lagi."
     }
   },
   "SqlFormatter": {

@@ -1765,6 +1765,54 @@
       "minute": "{count, plural, one {phút} other {phút}}",
       "hour": "{count, plural, one {giờ} other {giờ}}",
       "day": "{count, plural, one {ngày} other {ngày}}"
+    },
+    "tabs": {
+      "decode": "Giải mã",
+      "sign": "Tạo / ký"
+    },
+    "signer": {
+      "algLabel": "Thuật toán (alg)",
+      "tabs": {
+        "payload": "Payload",
+        "header": "Header"
+      },
+      "payloadLabel": "Payload JSON",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "Header JSON",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Bí mật (HS*)",
+      "secretPlaceholder": "Dán bí mật HMAC của bạn…",
+      "privateKeyLabel": "Khóa riêng PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "Thuật toán \"none\" tạo token không có chữ ký. Không an toàn và chỉ nên dùng để kiểm thử.",
+      "sign": "Ký",
+      "verify": "Xác minh chữ ký",
+      "outputLabel": "Token (JWS gọn)",
+      "outputPlaceholder": "Nhấn \"Ký\"…",
+      "copyToken": "Sao chép token",
+      "copied": "Đã sao chép",
+      "verifyKeyLabel": "Khóa xác minh (tùy chọn)",
+      "verifyKeyPlaceholder": "Với RS*: dán khóa công khai (SPKI) PEM. Với HS*: để trống để dùng lại bí mật.",
+      "verifyKeyHint": "Nếu để trống, xác minh sẽ dùng khóa ký (hữu ích với HS*).",
+      "verifyStatus": {
+        "valid": "Chữ ký hợp lệ",
+        "invalid": "Chữ ký không hợp lệ"
+      },
+      "securityNote": "Mọi thứ chạy cục bộ trong trình duyệt; không tải lên khóa hay token."
+    },
+    "signErrors": {
+      "invalidJson": "Header và payload phải là JSON hợp lệ.",
+      "unsupportedAlg": "Thuật toán không được hỗ trợ.",
+      "missingKey": "Cần khóa ký cho thuật toán này.",
+      "cryptoFailed": "Ký thất bại. Kiểm tra định dạng khóa và thử lại."
+    },
+    "verifyErrors": {
+      "empty": "Nhập JWT để xác minh.",
+      "segments": "JWT phải có đúng 3 phần để xác minh chữ ký.",
+      "unsupportedAlg": "Thuật toán không được hỗ trợ hoặc thiếu alg trong header.",
+      "missingKey": "Cần khóa xác minh cho thuật toán này.",
+      "base64": "Không thể giải mã header hoặc chữ ký JWT.",
+      "cryptoFailed": "Xác minh thất bại. Kiểm tra định dạng khóa và thử lại."
     }
   },
   "SqlFormatter": {

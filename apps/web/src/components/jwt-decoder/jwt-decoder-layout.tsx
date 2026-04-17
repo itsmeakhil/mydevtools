@@ -4,10 +4,12 @@ import { useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { decodeJwt, type RelativeUnit } from '@/lib/jwt-decode';
 import { cn } from '@/lib/utils';
 import { AlertCircle, Check, Copy, Trash2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { JwtSignerLayout } from './jwt-signer-layout';
 
 function CopyBtn({ text, title }: { text: string; title: string }) {
   const [done, setDone] = useState(false);
@@ -59,7 +61,7 @@ function JsonPanel({
   );
 }
 
-export function JwtDecoderLayout() {
+function JwtDecodePanel() {
   const t = useTranslations('JwtDecoder');
   const [input, setInput] = useState('');
   const result = useMemo(() => decodeJwt(input), [input]);
@@ -200,5 +202,26 @@ export function JwtDecoderLayout() {
         </div>
       )}
     </div>
+  );
+}
+
+export function JwtDecoderLayout() {
+  const t = useTranslations('JwtDecoder');
+
+  return (
+    <Tabs defaultValue="decode" className="flex h-full min-h-0 w-full flex-col gap-4">
+      <TabsList className="shrink-0 w-fit">
+        <TabsTrigger value="decode">{t('tabs.decode')}</TabsTrigger>
+        <TabsTrigger value="sign">{t('tabs.sign')}</TabsTrigger>
+      </TabsList>
+
+      <TabsContent value="decode" className="flex-1 min-h-0 m-0 data-[state=inactive]:hidden">
+        <JwtDecodePanel />
+      </TabsContent>
+
+      <TabsContent value="sign" className="flex-1 min-h-0 m-0 data-[state=inactive]:hidden">
+        <JwtSignerLayout />
+      </TabsContent>
+    </Tabs>
   );
 }

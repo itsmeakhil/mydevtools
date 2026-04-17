@@ -1765,6 +1765,54 @@
       "minute": "{count, plural, one {хвилину} few {хвилини} many {хвилин} other {хвилин}}",
       "hour": "{count, plural, one {годину} few {години} many {годин} other {годин}}",
       "day": "{count, plural, one {день} few {дні} many {днів} other {днів}}"
+    },
+    "tabs": {
+      "decode": "Декодувати",
+      "sign": "Генератор / підпис"
+    },
+    "signer": {
+      "algLabel": "Алгоритм (alg)",
+      "tabs": {
+        "payload": "Навантаження",
+        "header": "Заголовок"
+      },
+      "payloadLabel": "Payload JSON",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "Header JSON",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Секрет (HS*)",
+      "secretPlaceholder": "Вставте HMAC‑секрет…",
+      "privateKeyLabel": "Приватний ключ PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "Алгоритм \"none\" створює токен без підпису. Це небезпечно — лише для тестування.",
+      "sign": "Підписати",
+      "verify": "Перевірити підпис",
+      "outputLabel": "Токен (компактний JWS)",
+      "outputPlaceholder": "Натисніть «Підписати»…",
+      "copyToken": "Копіювати токен",
+      "copied": "Скопійовано",
+      "verifyKeyLabel": "Ключ перевірки (необов’язково)",
+      "verifyKeyPlaceholder": "Для RS*: вставте публічний ключ (SPKI) PEM. Для HS*: залиште порожнім, щоб використати секрет.",
+      "verifyKeyHint": "Якщо порожньо, перевірка використовує ключ підпису (зручно для HS*).",
+      "verifyStatus": {
+        "valid": "Підпис дійсний",
+        "invalid": "Підпис недійсний"
+      },
+      "securityNote": "Усе виконується локально в браузері; ключі й токени не завантажуються."
+    },
+    "signErrors": {
+      "invalidJson": "Заголовок і payload мають бути валідним JSON.",
+      "unsupportedAlg": "Непідтримуваний алгоритм.",
+      "missingKey": "Для цього алгоритму потрібен ключ підпису.",
+      "cryptoFailed": "Підписання не вдалося. Перевірте формат ключа та спробуйте знову."
+    },
+    "verifyErrors": {
+      "empty": "Введіть JWT для перевірки.",
+      "segments": "JWT має містити рівно 3 сегменти для перевірки підпису.",
+      "unsupportedAlg": "Непідтримуваний або відсутній alg у заголовку.",
+      "missingKey": "Для цього алгоритму потрібен ключ перевірки.",
+      "base64": "Не вдалося декодувати заголовок або підпис JWT.",
+      "cryptoFailed": "Перевірка не вдалася. Перевірте формат ключа та спробуйте знову."
     }
   },
   "SqlFormatter": {

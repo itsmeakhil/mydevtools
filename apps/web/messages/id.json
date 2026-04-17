@@ -1765,6 +1765,54 @@
       "minute": "{count, plural, one {menit} other {menit}}",
       "hour": "{count, plural, one {jam} other {jam}}",
       "day": "{count, plural, one {hari} other {hari}}"
+    },
+    "tabs": {
+      "decode": "Dekode",
+      "sign": "Generator / penandatangan"
+    },
+    "signer": {
+      "algLabel": "Algoritma (alg)",
+      "tabs": {
+        "payload": "Payload",
+        "header": "Header"
+      },
+      "payloadLabel": "JSON payload",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "JSON header",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Rahasia (HS*)",
+      "secretPlaceholder": "Tempel rahasia HMAC Anda…",
+      "privateKeyLabel": "Kunci privat PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "Algoritma \"none\" membuat token tanpa tanda tangan. Ini tidak aman dan hanya untuk pengujian.",
+      "sign": "Tanda tangani",
+      "verify": "Verifikasi tanda tangan",
+      "outputLabel": "Token (JWS ringkas)",
+      "outputPlaceholder": "Klik \"Tanda tangani\"…",
+      "copyToken": "Salin token",
+      "copied": "Tersalin",
+      "verifyKeyLabel": "Kunci verifikasi (opsional)",
+      "verifyKeyPlaceholder": "Untuk RS*: tempel kunci publik (SPKI) PEM. Untuk HS*: kosongkan untuk memakai rahasia yang sama.",
+      "verifyKeyHint": "Jika kosong, verifikasi menggunakan kunci penandatanganan (berguna untuk HS*).",
+      "verifyStatus": {
+        "valid": "Tanda tangan valid",
+        "invalid": "Tanda tangan tidak valid"
+      },
+      "securityNote": "Semua berjalan lokal di browser; kunci dan token tidak diunggah."
+    },
+    "signErrors": {
+      "invalidJson": "Header dan payload harus JSON yang valid.",
+      "unsupportedAlg": "Algoritma tidak didukung.",
+      "missingKey": "Kunci penandatanganan diperlukan untuk algoritma ini.",
+      "cryptoFailed": "Penandatanganan gagal. Periksa format kunci dan coba lagi."
+    },
+    "verifyErrors": {
+      "empty": "Masukkan JWT untuk diverifikasi.",
+      "segments": "JWT harus memiliki tepat 3 segmen untuk memverifikasi tanda tangan.",
+      "unsupportedAlg": "Algoritma tidak didukung atau alg tidak ada di header.",
+      "missingKey": "Kunci verifikasi diperlukan untuk algoritma ini.",
+      "base64": "Tidak dapat mendekode header atau tanda tangan JWT.",
+      "cryptoFailed": "Verifikasi gagal. Periksa format kunci dan coba lagi."
     }
   },
   "SqlFormatter": {

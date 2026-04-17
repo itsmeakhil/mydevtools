@@ -1765,6 +1765,54 @@
       "minute": "{count, plural, one {minutę} few {minuty} many {minut} other {minut}}",
       "hour": "{count, plural, one {godzinę} few {godziny} many {godzin} other {godzin}}",
       "day": "{count, plural, one {dzień} few {dni} many {dni} other {dni}}"
+    },
+    "tabs": {
+      "decode": "Dekoduj",
+      "sign": "Generator / podpisywanie"
+    },
+    "signer": {
+      "algLabel": "Algorytm (alg)",
+      "tabs": {
+        "payload": "Payload",
+        "header": "Header"
+      },
+      "payloadLabel": "JSON payload",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "JSON header",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Sekret (HS*)",
+      "secretPlaceholder": "Wklej sekret HMAC…",
+      "privateKeyLabel": "Klucz prywatny PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "Algorytm \"none\" tworzy token bez podpisu. To niebezpieczne — używaj tylko do testów.",
+      "sign": "Podpisz",
+      "verify": "Zweryfikuj podpis",
+      "outputLabel": "Token (kompaktowy JWS)",
+      "outputPlaceholder": "Kliknij „Podpisz”…",
+      "copyToken": "Kopiuj token",
+      "copied": "Skopiowano",
+      "verifyKeyLabel": "Klucz weryfikacji (opcjonalnie)",
+      "verifyKeyPlaceholder": "Dla RS*: wklej klucz publiczny (SPKI) PEM. Dla HS*: zostaw puste, aby użyć sekretu.",
+      "verifyKeyHint": "Jeśli puste, weryfikacja użyje klucza podpisu (przydatne dla HS*).",
+      "verifyStatus": {
+        "valid": "Podpis poprawny",
+        "invalid": "Podpis niepoprawny"
+      },
+      "securityNote": "Wszystko działa lokalnie w przeglądarce; klucze i tokeny nie są wysyłane."
+    },
+    "signErrors": {
+      "invalidJson": "Header i payload muszą być poprawnym JSON.",
+      "unsupportedAlg": "Nieobsługiwany algorytm.",
+      "missingKey": "Dla tego algorytmu wymagany jest klucz podpisu.",
+      "cryptoFailed": "Podpisywanie nie powiodło się. Sprawdź format klucza i spróbuj ponownie."
+    },
+    "verifyErrors": {
+      "empty": "Wpisz JWT do weryfikacji.",
+      "segments": "JWT musi mieć dokładnie 3 segmenty, aby zweryfikować podpis.",
+      "unsupportedAlg": "Nieobsługiwany lub brakujący alg w headerze.",
+      "missingKey": "Dla tego algorytmu wymagany jest klucz weryfikacji.",
+      "base64": "Nie udało się zdekodować nagłówka lub podpisu JWT.",
+      "cryptoFailed": "Weryfikacja nie powiodła się. Sprawdź format klucza i spróbuj ponownie."
     }
   },
   "SqlFormatter": {

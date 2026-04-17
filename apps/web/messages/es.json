@@ -1765,6 +1765,54 @@
       "minute": "{count, plural, one {minuto} other {minutos}}",
       "hour": "{count, plural, one {hora} other {horas}}",
       "day": "{count, plural, one {día} other {días}}"
+    },
+    "tabs": {
+      "decode": "Decodificar",
+      "sign": "Generador / firmador"
+    },
+    "signer": {
+      "algLabel": "Algoritmo (alg)",
+      "tabs": {
+        "payload": "Payload",
+        "header": "Header"
+      },
+      "payloadLabel": "JSON del payload",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "JSON del header",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Secreto (HS*)",
+      "secretPlaceholder": "Pega tu secreto HMAC…",
+      "privateKeyLabel": "Clave privada PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "El algoritmo \"none\" crea un token sin firmar. Es inseguro y solo debe usarse para pruebas.",
+      "sign": "Firmar",
+      "verify": "Verificar firma",
+      "outputLabel": "Token (JWS compacto)",
+      "outputPlaceholder": "Haz clic en \"Firmar\"…",
+      "copyToken": "Copiar token",
+      "copied": "Copiado",
+      "verifyKeyLabel": "Clave de verificación (opcional)",
+      "verifyKeyPlaceholder": "Para RS*: pega la clave pública (SPKI) PEM. Para HS*: déjalo vacío para reutilizar el secreto.",
+      "verifyKeyHint": "Si está vacío, la verificación usa la clave de firma (útil para HS*).",
+      "verifyStatus": {
+        "valid": "Firma válida",
+        "invalid": "Firma no válida"
+      },
+      "securityNote": "Todo se ejecuta localmente en tu navegador; no se suben claves ni tokens."
+    },
+    "signErrors": {
+      "invalidJson": "El header y el payload deben ser JSON válido.",
+      "unsupportedAlg": "Algoritmo no compatible.",
+      "missingKey": "Se requiere una clave de firma para este algoritmo.",
+      "cryptoFailed": "Falló la firma. Comprueba el formato de la clave e inténtalo de nuevo."
+    },
+    "verifyErrors": {
+      "empty": "Introduce un JWT para verificar.",
+      "segments": "Un JWT debe tener exactamente 3 segmentos para verificar una firma.",
+      "unsupportedAlg": "Algoritmo no compatible o falta alg en el header.",
+      "missingKey": "Se requiere una clave de verificación para este algoritmo.",
+      "base64": "No se pudo decodificar el header o la firma del JWT.",
+      "cryptoFailed": "Falló la verificación. Comprueba el formato de la clave e inténtalo de nuevo."
     }
   },
   "SqlFormatter": {

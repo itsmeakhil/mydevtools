@@ -1765,6 +1765,54 @@
       "minute": "{count, plural, one {minut} other {minuts}}",
       "hour": "{count, plural, one {hora} other {hores}}",
       "day": "{count, plural, one {dia} other {dies}}"
+    },
+    "tabs": {
+      "decode": "Decodifica",
+      "sign": "Generador / signador"
+    },
+    "signer": {
+      "algLabel": "Algorisme (alg)",
+      "tabs": {
+        "payload": "Càrrega",
+        "header": "Capçalera"
+      },
+      "payloadLabel": "JSON de la càrrega",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "JSON de la capçalera",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Secret (HS*)",
+      "secretPlaceholder": "Enganxa el teu secret HMAC…",
+      "privateKeyLabel": "Clau privada PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "L’algorisme \"none\" crea un token sense signar. És insegur i només s’ha d’usar per a proves.",
+      "sign": "Signa",
+      "verify": "Verifica la signatura",
+      "outputLabel": "Token (JWS compacte)",
+      "outputPlaceholder": "Fes clic a \"Signa\"…",
+      "copyToken": "Copia el token",
+      "copied": "Copiat",
+      "verifyKeyLabel": "Clau de verificació (opcional)",
+      "verifyKeyPlaceholder": "Per a RS*: enganxa la clau pública (SPKI) PEM. Per a HS*: deixa-ho buit per reutilitzar el secret.",
+      "verifyKeyHint": "Si és buit, la verificació usa la clau de signatura (útil per a HS*).",
+      "verifyStatus": {
+        "valid": "Signatura vàlida",
+        "invalid": "Signatura invàlida"
+      },
+      "securityNote": "Tot s’executa localment al navegador; no es pugen claus ni tokens."
+    },
+    "signErrors": {
+      "invalidJson": "La capçalera i la càrrega han de ser JSON vàlid.",
+      "unsupportedAlg": "Algorisme no compatible.",
+      "missingKey": "Cal una clau de signatura per a aquest algorisme.",
+      "cryptoFailed": "Ha fallat la signatura. Comprova el format de la clau i torna-ho a provar."
+    },
+    "verifyErrors": {
+      "empty": "Introdueix un JWT per verificar.",
+      "segments": "Un JWT ha de tenir exactament 3 segments per verificar una signatura.",
+      "unsupportedAlg": "Algorisme no compatible o falta alg a la capçalera.",
+      "missingKey": "Cal una clau de verificació per a aquest algorisme.",
+      "base64": "No s’ha pogut decodificar la capçalera o la signatura del JWT.",
+      "cryptoFailed": "Ha fallat la verificació. Comprova el format de la clau i torna-ho a provar."
     }
   },
   "SqlFormatter": {
