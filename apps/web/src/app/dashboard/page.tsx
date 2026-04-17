@@ -6,7 +6,7 @@ import { sidebarData } from "../../components/sidebar/data/sidebar-data";
 import Link, { LinkProps } from "next/link";
 import { Heart, Clock, ArrowRight, Sparkles, Layers, Zap, Search, X, LayoutGrid, BarChart3 } from 'lucide-react';
 import { requiresAuth } from '@/lib/tool-config';
-import { useFavoriteTool } from '@/hooks/use-favorite-tool';
+import { usePinnedToolsStore } from '@/store/pinned-tools-store';
 import { useToolUsage } from '@/hooks/use-tool-usage';
 import { useMediaQuery } from "@/hooks/use-media-query";
 import useAuth from "@/utils/useAuth";
@@ -115,7 +115,11 @@ const DashboardPage: React.FC = () => {
   const t = useTranslations('Dashboard');
   const tTabs = useTranslations('Dashboard.tabs');
   const { user, loading } = useAuth(false); // Dashboard shows for all users
-  const { favorites, isFavorite, toggleFavorite } = useFavoriteTool();
+  const pinnedTools = usePinnedToolsStore((s) => s.pinnedTools);
+  const togglePin = usePinnedToolsStore((s) => s.togglePin);
+  const favorites = pinnedTools;
+  const isFavorite = (id: string) => pinnedTools.includes(id);
+  const toggleFavorite = togglePin;
   const { getRecentlyUsedTools } = useToolUsage();
   const { isToolEnabled } = useToolVisibility();
   const [favoriteItems, setFavoriteItems] = useState<FavoriteItem[]>([]);

@@ -19,11 +19,31 @@ import { useEnvironmentManagerStore } from '@/store/environment-manager-store'
 import { useMasterKeyStore } from '@/store/master-key-store'
 import { clearMasterKey } from '@/lib/key-storage'
 import { logoutBackendSession } from '@/lib/backend-auth'
+import { usePinnedToolsStore } from '@/store/pinned-tools-store'
+import { IconPin } from '@tabler/icons-react'
+import type { NavLink, NavCollapsible } from './types'
+
+function buildPinnedNavItems(pinnedTools: string[]): NavLink[] {
+  if (pinnedTools.length === 0) return []
+  const allLinks: NavLink[] = sidebarData.navGroups.flatMap((group) =>
+    group.items.flatMap((item) => {
+      if (!('items' in item)) return [item as NavLink]
+      return (item as NavCollapsible).items.map((sub) => ({
+        ...sub,
+        icon: sub.icon ?? item.icon,
+      } as NavLink))
+    })
+  )
+  const urlSet = new Set(pinnedTools)
+  return allLinks.filter((link) => urlSet.has(String(link.url)))
+}
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { clearPasswords } = usePasswordStore()
   const { clearSets } = useEnvironmentManagerStore()
   const { clearKey: clearMasterKeyStore } = useMasterKeyStore()
+  const pinnedTools = usePinnedToolsStore((s) => s.pinnedTools)
+  const pinnedNavItems = buildPinnedNavItems(pinnedTools)
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -114,9 +134,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </div>
       </SidebarHeader>
       <SidebarContent className="mt-2 md:mt-0">
-        {sidebarData.navGroups.map((props) => (
-          <NavGroup key={props.title} {...props} />
-        ))}
+        {pinnedNavItems.length > 0 && (
+          <NavGroup title="Pinned" items={pinnedNavItems} icon={IconPin} />
+        )}
+        {sidebarData.navGroups.map((group) => {
+          const filteredItems = group.items
+            .map((item) => {
+              if (!('items' in item)) {
+                return pinnedTools.includes(String(item.url)) ? null : item
+              }
+              const filteredSubs = (item as NavCollapsible).items.filter(
+                (sub) => !pinnedTools.includes(String(sub.url))
+              )
+              return filteredSubs.length === 0 ? null : { ...item, items: filteredSubs }
+            })
+            .filter(Boolean) as typeof group.items
+          if (filteredItems.length === 0) return null
+          return <NavGroup key={group.title} {...group} items={filteredItems} />
+        })}
       </SidebarContent>
       <SidebarFooter className="hidden md:block">
         <NavUser user={user} onSignout={handleSignOut} />

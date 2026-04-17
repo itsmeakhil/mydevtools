@@ -3,7 +3,7 @@
 import { Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { useFavoriteTool } from '@/hooks/use-favorite-tool';
+import { usePinnedToolsStore } from '@/store/pinned-tools-store';
 
 interface ToolHeaderProps {
   title: string;
@@ -12,16 +12,15 @@ interface ToolHeaderProps {
   className?: string;
 }
 
-/**
- * Reusable tool header component with favorite functionality
- */
 export function ToolHeader({ title, description, toolId, className }: ToolHeaderProps) {
-  const { isFavorite, toggleFavorite } = useFavoriteTool();
+  const pinnedTools = usePinnedToolsStore((s) => s.pinnedTools);
+  const togglePin = usePinnedToolsStore((s) => s.togglePin);
+  const isPinned = pinnedTools.includes(toolId);
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    toggleFavorite(toolId);
+    togglePin(toolId);
   };
 
   return (
@@ -41,9 +40,9 @@ export function ToolHeader({ title, description, toolId, className }: ToolHeader
         size="icon"
         onClick={handleFavoriteClick}
         className="text-muted-foreground hover:text-foreground"
-        aria-label={isFavorite(toolId) ? 'Remove from favorites' : 'Add to favorites'}
+        aria-label={isPinned ? 'Remove from pinned' : 'Pin to sidebar'}
       >
-        <Heart className={`h-5 w-5 ${isFavorite(toolId) ? 'fill-current' : ''}`} />
+        <Heart className={`h-5 w-5 ${isPinned ? 'fill-current' : ''}`} />
       </Button>
     </CardHeader>
   );
