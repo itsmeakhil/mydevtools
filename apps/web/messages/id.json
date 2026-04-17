@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "Parser URL",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Rahasia / kunci API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generator Skema JSON",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Rahasia / kunci API",
+        "description": "String acak kriptografis dengan alfabet, panjang, dan ekspor massal yang dapat dikonfigurasi."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "Namespace kustom harus berupa UUID yang valid.",
       "missingName": "Nama diperlukan untuk UUID v3 dan v5.",
       "unknown": "Tidak dapat membuat ID."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Generator rahasia / kunci API",
+    "subtitle": "Hasilkan string acak kriptografis dengan panjang dan alfabet yang dapat dikonfigurasi. Ekspor massal hingga {max} per eksekusi. Melengkapi <uuid>generator UUID / ULID</uuid>.",
+    "alphabetLabel": "Alfabet",
+    "alphabetHint": "Karakter duplikat dihapus. Setiap simbol dipilih seragam dengan crypto.getRandomValues dan rejection sampling (tanpa bias modulo).",
+    "alphabetCount": "{count} simbol unik",
+    "presetsLabel": "Prasetel",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Alfanumerik",
+      "hex": "Heks (huruf kecil)",
+      "asciiPrintable": "ASCII yang dapat dicetak"
+    },
+    "lengthLabel": "Panjang per rahasia (1–{maxLen})",
+    "countLabel": "Jumlah (1–{maxBulk})",
+    "generate": "Hasilkan",
+    "output": "Keluaran",
+    "lines": "{count} baris",
+    "download": {
+      "title": "Unduh .txt",
+      "filename": "rahasia.txt"
+    },
+    "copyTitle": "Salin semua",
+    "outputPlaceholder": "Klik \"Hasilkan\"…",
+    "errors": {
+      "emptyAlphabet": "Tambahkan setidaknya satu karakter ke alfabet.",
+      "alphabetTooLong": "Setelah duplikat dihapus, alfabet paling banyak {maxAlpha} karakter.",
+      "lengthOutOfRange": "Panjang harus antara 1 dan {maxLen}.",
+      "countOutOfRange": "Jumlah harus antara 1 dan {maxBulk}.",
+      "unknown": "Tidak dapat menghasilkan rahasia."
     }
   },
   "LoremIpsum": {

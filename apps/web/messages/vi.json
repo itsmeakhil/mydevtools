@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "Trình phân tích URL",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Bí mật / khóa API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Trình tạo lược đồ JSON",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Bí mật / khóa API",
+        "description": "Chuỗi ngẫu nhiên mật mã với bảng chữ cái, độ dài và xuất hàng loạt có thể cấu hình."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "Namespace tùy chỉnh phải là UUID hợp lệ.",
       "missingName": "Cần có tên cho UUID v3 và v5.",
       "unknown": "Không thể tạo ID."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Trình tạo bí mật / khóa API",
+    "subtitle": "Tạo chuỗi ngẫu nhiên mật mã với độ dài và bảng chữ cái có thể cấu hình. Xuất hàng loạt tối đa {max} mỗi lần chạy. Đi cùng <uuid>trình tạo UUID / ULID</uuid>.",
+    "alphabetLabel": "Bảng chữ cái",
+    "alphabetHint": "Các ký tự trùng lặp bị loại bỏ. Mỗi ký hiệu được chọn đều bằng crypto.getRandomValues và lấy mẫu loại trừ (không lệch modulo).",
+    "alphabetCount": "{count} ký hiệu duy nhất",
+    "presetsLabel": "Cài sẵn",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Chữ và số",
+      "hex": "Thập lục phân (chữ thường)",
+      "asciiPrintable": "ASCII có thể in"
+    },
+    "lengthLabel": "Độ dài mỗi bí mật (1–{maxLen})",
+    "countLabel": "Số lượng (1–{maxBulk})",
+    "generate": "Tạo",
+    "output": "Đầu ra",
+    "lines": "{count} dòng",
+    "download": {
+      "title": "Tải .txt",
+      "filename": "bi-mat.txt"
+    },
+    "copyTitle": "Sao chép tất cả",
+    "outputPlaceholder": "Nhấn \"Tạo\"…",
+    "errors": {
+      "emptyAlphabet": "Thêm ít nhất một ký tự vào bảng chữ cái.",
+      "alphabetTooLong": "Sau khi loại trùng, bảng chữ cái tối đa {maxAlpha} ký tự.",
+      "lengthOutOfRange": "Độ dài phải từ 1 đến {maxLen}.",
+      "countOutOfRange": "Số lượng phải từ 1 đến {maxBulk}.",
+      "unknown": "Không thể tạo bí mật."
     }
   },
   "LoremIpsum": {

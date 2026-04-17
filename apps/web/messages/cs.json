@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "Parser URL",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Tajemství / API klíč",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generátor JSON schématu",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Tajemství / API klíč",
+        "description": "Kryptograficky náhodné řetězce s nastavitelnou abecedou, délkou a hromadným exportem."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "Vlastní namespace musí být platná UUID.",
       "missingName": "Pro UUID v3 a v5 je vyžadováno jméno.",
       "unknown": "Nepodařilo se vygenerovat ID."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Generátor tajného klíče / API klíče",
+    "subtitle": "Generujte kryptograficky náhodné řetězce s nastavitelnou délkou a abecedou. Hromadný export až {max} na běh. Doplňuje <uuid>generátor UUID / ULID</uuid>.",
+    "alphabetLabel": "Abeceda",
+    "alphabetHint": "Duplicitní znaky se odstraní. Každý symbol se volí rovnoměrně pomocí crypto.getRandomValues a metody odmítnutí (bez modulové zkreslení).",
+    "alphabetCount": "{count} jedinečných symbolů",
+    "presetsLabel": "Předvolby",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Alfanumerické",
+      "hex": "Hex (malá písmena)",
+      "asciiPrintable": "ASCII tisknutelné"
+    },
+    "lengthLabel": "Délka na tajemství (1–{maxLen})",
+    "countLabel": "Počet (1–{maxBulk})",
+    "generate": "Generovat",
+    "output": "Výstup",
+    "lines": "{count} řádků",
+    "download": {
+      "title": "Stáhnout .txt",
+      "filename": "tajne-klice.txt"
+    },
+    "copyTitle": "Kopírovat vše",
+    "outputPlaceholder": "Klikněte na „Generovat“…",
+    "errors": {
+      "emptyAlphabet": "Přidejte do abecedy alespoň jeden znak.",
+      "alphabetTooLong": "Po odstranění duplicit může mít abeceda nejvýše {maxAlpha} znaků.",
+      "lengthOutOfRange": "Délka musí být mezi 1 a {maxLen}.",
+      "countOutOfRange": "Počet musí být mezi 1 a {maxBulk}.",
+      "unknown": "Tajné klíče se nepodařilo vygenerovat."
     }
   },
   "LoremIpsum": {

@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "Penghurai URL",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Rahsia / kunci API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Penjana Skema JSON",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Rahsia / kunci API",
+        "description": "Rentetan rawak kriptografi dengan abjad, panjang dan eksport pukal boleh dikonfigurasi."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "Namespace tersuai mestilah UUID yang sah.",
       "missingName": "Nama diperlukan untuk UUID v3 dan v5.",
       "unknown": "Tidak dapat menjana ID."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Penjana rahsia / kunci API",
+    "subtitle": "Jana rentetan rawak kriptografi dengan panjang dan abjad boleh konfigurasi. Eksport pukal sehingga {max} setiap jalanan. Berpasangan dengan <uuid>penjana UUID / ULID</uuid>.",
+    "alphabetLabel": "Abjad",
+    "alphabetHint": "Watak pendua dibuang. Setiap simbol dipilih secara seragam dengan crypto.getRandomValues dan pensampelan penolakan (tiada bias modulo).",
+    "alphabetCount": "{count} simbol unik",
+    "presetsLabel": "Pratetap",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Alfanumerik",
+      "hex": "Perenambelasan (huruf kecil)",
+      "asciiPrintable": "ASCII boleh cetak"
+    },
+    "lengthLabel": "Panjang setiap rahsia (1–{maxLen})",
+    "countLabel": "Bilangan (1–{maxBulk})",
+    "generate": "Jana",
+    "output": "Output",
+    "lines": "{count} baris",
+    "download": {
+      "title": "Muat turun .txt",
+      "filename": "rahsia.txt"
+    },
+    "copyTitle": "Salin semua",
+    "outputPlaceholder": "Klik \"Jana\"…",
+    "errors": {
+      "emptyAlphabet": "Tambah sekurang-kurangnya satu aksara pada abjad.",
+      "alphabetTooLong": "Selepas membuang pendua, abjad boleh mempunyai sehingga {maxAlpha} aksara.",
+      "lengthOutOfRange": "Panjang mestilah antara 1 dan {maxLen}.",
+      "countOutOfRange": "Bilangan mestilah antara 1 dan {maxBulk}.",
+      "unknown": "Tidak dapat menjana rahsia."
     }
   },
   "LoremIpsum": {

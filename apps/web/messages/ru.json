@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "URL-парсер",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Секрет / ключ API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Генератор JSON-схемы",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Секрет / ключ API",
+        "description": "Криптографически случайные строки с настраиваемым алфавитом, длиной и массовым экспортом."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "Пользовательское пространство имён должно быть валидным UUID.",
       "missingName": "Имя обязательно для UUID v3 и v5.",
       "unknown": "Не удалось сгенерировать идентификаторы."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Генератор секрета / ключа API",
+    "subtitle": "Создавайте криптографически случайные строки с настраиваемой длиной и алфавитом. Массовый экспорт до {max} за запуск. Дополняет <uuid>генератор UUID / ULID</uuid>.",
+    "alphabetLabel": "Алфавит",
+    "alphabetHint": "Дубликаты символов удаляются. Каждый символ выбирается равномерно через crypto.getRandomValues и отбор с отбраковкой (без модулярного смещения).",
+    "alphabetCount": "Уникальных символов: {count}",
+    "presetsLabel": "Пресеты",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Буквы и цифры",
+      "hex": "Шестнадцатеричный (строчные)",
+      "asciiPrintable": "Печатаемый ASCII"
+    },
+    "lengthLabel": "Длина одного секрета (1–{maxLen})",
+    "countLabel": "Количество (1–{maxBulk})",
+    "generate": "Сгенерировать",
+    "output": "Вывод",
+    "lines": "{count} строк",
+    "download": {
+      "title": "Скачать .txt",
+      "filename": "secrets.txt"
+    },
+    "copyTitle": "Копировать всё",
+    "outputPlaceholder": "Нажмите «Сгенерировать»…",
+    "errors": {
+      "emptyAlphabet": "Добавьте в алфавит хотя бы один символ.",
+      "alphabetTooLong": "После удаления дубликатов в алфавите может быть не больше {maxAlpha} символов.",
+      "lengthOutOfRange": "Длина должна быть от 1 до {maxLen}.",
+      "countOutOfRange": "Количество должно быть от 1 до {maxBulk}.",
+      "unknown": "Не удалось сгенерировать секреты."
     }
   },
   "LoremIpsum": {

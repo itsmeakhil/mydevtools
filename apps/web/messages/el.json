@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "Αναλυτής URL",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Μυστικό / κλειδί API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Γεννήτρια JSON Schema",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Μυστικό / κλειδί API",
+        "description": "Κρυπτογραφικά τυχαίες συμβολοσειρές με ρυθμιζόμενο αλφάβητο, μήκος και μαζική εξαγωγή."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "Το προσαρμοσμένο namespace πρέπει να είναι έγκυρο UUID.",
       "missingName": "Απαιτείται όνομα για UUID v3 και v5.",
       "unknown": "Δεν ήταν δυνατή η δημιουργία των ID."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Γεννήτρια μυστικού / κλειδιού API",
+    "subtitle": "Δημιουργήστε κρυπτογραφικά τυχαίες συμβολοσειρές με ρυθμιζόμενο μήκος και αλφάβητο. Μαζική εξαγωγή έως {max} ανά εκτέλεση. Συμπληρώνει τον <uuid>γεννήτρια UUID / ULID</uuid>.",
+    "alphabetLabel": "Αλφάβητο",
+    "alphabetHint": "Τα διπλότυπα αφαιρούνται. Κάθε σύμβολο επιλέγεται ομοιόμορφα με crypto.getRandomValues και δειγματοληψία απόρριψης (χωρίς προκατάληψη modulo).",
+    "alphabetCount": "{count} μοναδικά σύμβολα",
+    "presetsLabel": "Προρυθμίσεις",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Αλφαριθμητικό",
+      "hex": "Δεκαεξαδικό (πεζά)",
+      "asciiPrintable": "ASCII εκτυπώσιμο"
+    },
+    "lengthLabel": "Μήκος ανά μυστικό (1–{maxLen})",
+    "countLabel": "Πλήθος (1–{maxBulk})",
+    "generate": "Δημιουργία",
+    "output": "Έξοδος",
+    "lines": "{count} γραμμές",
+    "download": {
+      "title": "Λήψη .txt",
+      "filename": "μυστικά.txt"
+    },
+    "copyTitle": "Αντιγραφή όλων",
+    "outputPlaceholder": "Κάντε κλικ στο \"Δημιουργία\"…",
+    "errors": {
+      "emptyAlphabet": "Προσθέστε τουλάχιστον έναν χαρακτήρα στο αλφάβητο.",
+      "alphabetTooLong": "Μετά την αφαίρεση διπλοτύπων, το αλφάβητο μπορεί να έχει το πολύ {maxAlpha} χαρακτήρες.",
+      "lengthOutOfRange": "Το μήκος πρέπει να είναι μεταξύ 1 και {maxLen}.",
+      "countOutOfRange": "Το πλήθος πρέπει να είναι μεταξύ 1 και {maxBulk}.",
+      "unknown": "Δεν ήταν δυνατή η δημιουργία μυστικών."
     }
   },
   "LoremIpsum": {

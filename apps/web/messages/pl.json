@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "Parser URL",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Sekret / klucz API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generator schematu JSON",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Sekret / klucz API",
+        "description": "Kryptograficznie losowe ciągi z konfigurowalnym alfabetem, długością i eksportem zbiorczym."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "Własna przestrzeń nazw musi być prawidłowym UUID.",
       "missingName": "Nazwa jest wymagana dla UUID v3 i v5.",
       "unknown": "Nie udało się wygenerować identyfikatorów."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Generator sekretu / klucza API",
+    "subtitle": "Generuj kryptograficznie losowe ciągi z konfigurowalną długością i alfabetem. Eksport zbiorczy do {max} na uruchomienie. Uzupełnia <uuid>generator UUID / ULID</uuid>.",
+    "alphabetLabel": "Alfabet",
+    "alphabetHint": "Duplikaty znaków są usuwane. Każdy symbol jest wybierany jednostajnie za pomocą crypto.getRandomValues i próbkowania odrzuceń (bez obciążenia modulo).",
+    "alphabetCount": "{count} unikalnych symboli",
+    "presetsLabel": "Presety",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Alfanumeryczny",
+      "hex": "Szesnastkowy (małe litery)",
+      "asciiPrintable": "ASCII drukowalne"
+    },
+    "lengthLabel": "Długość na sekret (1–{maxLen})",
+    "countLabel": "Liczba (1–{maxBulk})",
+    "generate": "Generuj",
+    "output": "Wynik",
+    "lines": "{count} wierszy",
+    "download": {
+      "title": "Pobierz .txt",
+      "filename": "sekrety.txt"
+    },
+    "copyTitle": "Kopiuj wszystko",
+    "outputPlaceholder": "Kliknij „Generuj”…",
+    "errors": {
+      "emptyAlphabet": "Dodaj co najmniej jeden znak do alfabetu.",
+      "alphabetTooLong": "Po usunięciu duplikatów alfabet może mieć co najwyżej {maxAlpha} znaków.",
+      "lengthOutOfRange": "Długość musi być między 1 a {maxLen}.",
+      "countOutOfRange": "Liczba musi być między 1 a {maxBulk}.",
+      "unknown": "Nie udało się wygenerować sekretów."
     }
   },
   "LoremIpsum": {

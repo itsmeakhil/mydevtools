@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "URL-parser",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Geheim / API-sleutel",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-schema-generator",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Geheim / API-sleutel",
+        "description": "Cryptografisch willekeurige strings met configureerbaar alfabet, lengte en bulkexport."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "Aangepaste namespace moet een geldige UUID zijn.",
       "missingName": "Naam is vereist voor UUID v3 en v5.",
       "unknown": "Kon geen ID’s genereren."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Generator voor geheim / API-sleutel",
+    "subtitle": "Genereer cryptografisch willekeurige strings met configureerbare lengte en alfabet. Bulkexport tot {max} per run. Past bij de <uuid>UUID-/ULID-generator</uuid>.",
+    "alphabetLabel": "Alfabet",
+    "alphabetHint": "Dubbele tekens worden verwijderd. Elk symbool wordt uniform gekozen met crypto.getRandomValues en rejection sampling (geen modulo-bias).",
+    "alphabetCount": "{count} unieke symbolen",
+    "presetsLabel": "Voorinstellingen",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Alfanumeriek",
+      "hex": "Hex (kleine letters)",
+      "asciiPrintable": "ASCII afdrukbaar"
+    },
+    "lengthLabel": "Lengte per geheim (1–{maxLen})",
+    "countLabel": "Aantal (1–{maxBulk})",
+    "generate": "Genereren",
+    "output": "Uitvoer",
+    "lines": "{count} regels",
+    "download": {
+      "title": ".txt downloaden",
+      "filename": "geheimen.txt"
+    },
+    "copyTitle": "Alles kopiëren",
+    "outputPlaceholder": "Klik op \"Genereren\"…",
+    "errors": {
+      "emptyAlphabet": "Voeg minstens één teken toe aan het alfabet.",
+      "alphabetTooLong": "Na het verwijderen van duplicaten mag het alfabet hoogstens {maxAlpha} tekens bevatten.",
+      "lengthOutOfRange": "De lengte moet tussen 1 en {maxLen} liggen.",
+      "countOutOfRange": "Het aantal moet tussen 1 en {maxBulk} liggen.",
+      "unknown": "Geheimen konden niet worden gegenereerd."
     }
   },
   "LoremIpsum": {

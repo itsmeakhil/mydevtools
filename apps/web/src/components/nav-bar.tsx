@@ -36,6 +36,7 @@ import {
   FileDown,
   ArrowRightLeft,
   List,
+  KeyRound,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
@@ -76,6 +77,11 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
   '/app/email-validator': { title: 'Email Validator', icon: Globe },
   '/app/url-encode': { title: 'URL Encoder / Decoder', icon: Link2, namespace: 'UrlEncode' },
   '/app/uuid-generator': { title: 'UUID / ULID Generator', icon: Fingerprint, namespace: 'UuidGenerator' },
+  '/app/secret-api-key-generator': {
+    title: 'Secret / API Key Generator',
+    icon: KeyRound,
+    namespace: 'SecretApiKeyGenerator',
+  },
   '/app/qr-code-generator': { title: 'QR Code Generator', icon: QrCode, namespace: 'QrCodeGenerator' },
   '/app/ip-subnet-calculator': { title: 'IP / Subnet Calculator', icon: Calculator, namespace: 'IpSubnetCalculator' },
   '/app/hash-generator': { title: 'Hash Generator', icon: Hash, namespace: 'HashGenerator' },

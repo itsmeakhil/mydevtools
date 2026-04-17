@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "URL-parser",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Hemmelighet / API-nøkkel",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-skjemagenerator",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Hemmelighet / API-nøkkel",
+        "description": "Kryptografisk tilfeldige strenger med konfigurerbart alfabet, lengde og masseeksport."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "Egendefinert namespace må være en gyldig UUID.",
       "missingName": "Navn er påkrevd for UUID v3 og v5.",
       "unknown": "Kunne ikke generere ID-er."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Generator for hemmelighet / API-nøkkel",
+    "subtitle": "Generer kryptografisk tilfeldige strenger med konfigurerbar lengde og alfabet. Masseeksport opptil {max} per kjøring. Supplerer <uuid>UUID-/ULID-generator</uuid>.",
+    "alphabetLabel": "Alfabet",
+    "alphabetHint": "Duplikater fjernes. Hvert symbol velges uniformt med crypto.getRandomValues og avvisningsutvalg (ingen modulo-skjevhet).",
+    "alphabetCount": "{count} unike symboler",
+    "presetsLabel": "Forhåndsinnstillinger",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Alfanumerisk",
+      "hex": "Hex (små bokstaver)",
+      "asciiPrintable": "ASCII utskrivbar"
+    },
+    "lengthLabel": "Lengde per hemmelighet (1–{maxLen})",
+    "countLabel": "Antall (1–{maxBulk})",
+    "generate": "Generer",
+    "output": "Utdata",
+    "lines": "{count} linjer",
+    "download": {
+      "title": "Last ned .txt",
+      "filename": "hemmeligheter.txt"
+    },
+    "copyTitle": "Kopier alt",
+    "outputPlaceholder": "Klikk på «Generer»…",
+    "errors": {
+      "emptyAlphabet": "Legg til minst ett tegn i alfabetet.",
+      "alphabetTooLong": "Etter fjerning av duplikater kan alfabetet ha maks {maxAlpha} tegn.",
+      "lengthOutOfRange": "Lengden må være mellom 1 og {maxLen}.",
+      "countOutOfRange": "Antall må være mellom 1 og {maxBulk}.",
+      "unknown": "Kunne ikke generere hemmeligheter."
     }
   },
   "LoremIpsum": {

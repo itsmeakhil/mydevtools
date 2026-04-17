@@ -22,6 +22,7 @@
     "urlEncoder": "URL Encoder",
     "urlParser": "محلّل URL",
     "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "سر / مفتاح API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "مولّد مخطط JSON",
@@ -294,6 +295,10 @@
       "uuidGenerator": {
         "title": "UUID / ULID",
         "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "سر / مفتاح API",
+        "description": "سلاسل عشوائية تشفيرية مع أبجدية وطول قابلان للضبط وتصدير بالجملة."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2152,6 +2157,38 @@
       "invalidCustomNamespace": "يجب أن تكون مساحة الاسم المخصصة UUID صالحًا.",
       "missingName": "الاسم مطلوب لـ UUID v3 و v5.",
       "unknown": "تعذّر إنشاء المعرّفات."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "مولّد سر / مفتاح API",
+    "subtitle": "أنشئ سلاسل عشوائية تشفيرية بطول وأبجدية قابلة للضبط. تصدير بالجملة حتى {max} في كل مرة. يكمّل <uuid>مولّد UUID / ULID</uuid>.",
+    "alphabetLabel": "الأبجدية",
+    "alphabetHint": "تُزال الأحرف المكررة. يُختار كل رمز بشكل موحّد باستخدام crypto.getRandomValues مع اختيار بالرفض (دون انحياز المعيار).",
+    "alphabetCount": "{count} رمزًا مميزًا",
+    "presetsLabel": "إعدادات مسبقة",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "أبجدية رقمية",
+      "hex": "سداسي عشري (صغير)",
+      "asciiPrintable": "ASCII قابل للطباعة"
+    },
+    "lengthLabel": "طول كل سر (1–{maxLen})",
+    "countLabel": "العدد (1–{maxBulk})",
+    "generate": "إنشاء",
+    "output": "المخرجات",
+    "lines": "{count} أسطر",
+    "download": {
+      "title": "تنزيل .txt",
+      "filename": "أسرار.txt"
+    },
+    "copyTitle": "نسخ الكل",
+    "outputPlaceholder": "انقر \"إنشاء\"…",
+    "errors": {
+      "emptyAlphabet": "أضف حرفًا واحدًا على الأقل إلى الأبجدية.",
+      "alphabetTooLong": "بعد إزالة التكرارات، يمكن أن تحتوي الأبجدية على {maxAlpha} حرفًا كحد أقصى.",
+      "lengthOutOfRange": "يجب أن يكون الطول بين 1 و{maxLen}.",
+      "countOutOfRange": "يجب أن يكون العدد بين 1 و{maxBulk}.",
+      "unknown": "تعذّر إنشاء الأسرار."
     }
   },
   "LoremIpsum": {
