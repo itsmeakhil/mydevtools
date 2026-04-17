@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, one {# karakter} other {# karakters}}",
     "emptyHint": "Plak of tik jou invoer aan die linkerkant om die omgeskakelede uitset te sien.",
     "localNote": "Alles loop plaaslik in jou blaaier. Niks word opgelaai nie."
+  },
+  "MimeTypeLookup": {
+    "title": "MIME-tipe opsoek",
+    "subtitle": "Soek die MIME-tipe (media-tipe) vir 'n lêeruitbreiding of volledige lêernaam. Alles loop plaaslik in jou blaaier.",
+    "inputLabel": "Uitbreiding of lêernaam",
+    "placeholder": "bv. .png, package.json, photo.jpeg",
+    "hint": "Wenk: plak óf 'n uitbreiding (met of sonder 'n punt) óf 'n volledige lêernaam.",
+    "clear": "Maak skoon",
+    "exampleFilename": "Gebruik voorbeeld-lêernaam",
+    "exampleExtension": "Gebruik voorbeeld-uitbreiding",
+    "resultLabel": "Resultaat",
+    "normalizedLabel": "Genormaliseerde invoer:",
+    "mimeTypeLabel": "MIME-tipe",
+    "contentTypeLabel": "Content-Type-kop",
+    "charsetLabel": "Karakterstel",
+    "copyMimeType": "Kopieer MIME-tipe",
+    "copy": "Kopieer",
+    "copied": "Gekopieer",
+    "emptyHint": "Voer 'n uitbreiding of lêernaam in om die MIME-tipe op te soek.",
+    "notFound": "Geen MIME-tipe vir daardie invoer gevind nie.",
+    "localNote": "Alles loop plaaslik in jou blaaier. Niks word opgelaai nie."
   }
 }

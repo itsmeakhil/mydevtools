@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, one {# znak} few {# znaki} other {# znaków}}",
     "emptyHint": "Wklej lub wpisz dane wejściowe po lewej stronie, aby zobaczyć przekonwertowane wyjście.",
     "localNote": "Wszystko działa lokalnie w Twojej przeglądarce. Nic nie jest przesyłane."
+  },
+  "MimeTypeLookup": {
+    "title": "Wyszukiwanie typu MIME",
+    "subtitle": "Sprawdź typ MIME (media type) dla rozszerzenia pliku lub pełnej nazwy pliku. Wszystko działa lokalnie w Twojej przeglądarce.",
+    "inputLabel": "Rozszerzenie lub nazwa pliku",
+    "placeholder": "np. .png, package.json, photo.jpeg",
+    "hint": "Wskazówka: wklej rozszerzenie (z kropką lub bez) albo pełną nazwę pliku.",
+    "clear": "Wyczyść",
+    "exampleFilename": "Użyj przykładowej nazwy pliku",
+    "exampleExtension": "Użyj przykładowego rozszerzenia",
+    "resultLabel": "Wynik",
+    "normalizedLabel": "Znormalizowane wejście:",
+    "mimeTypeLabel": "Typ MIME",
+    "contentTypeLabel": "Nagłówek Content-Type",
+    "charsetLabel": "Zestaw znaków",
+    "copyMimeType": "Kopiuj typ MIME",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano",
+    "emptyHint": "Wpisz rozszerzenie lub nazwę pliku, aby sprawdzić typ MIME.",
+    "notFound": "Nie znaleziono typu MIME dla tego wejścia.",
+    "localNote": "Wszystko działa lokalnie w Twojej przeglądarce. Nic nie jest przesyłane."
   }
 }

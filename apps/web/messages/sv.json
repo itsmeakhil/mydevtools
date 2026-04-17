@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, one {# tecken} other {# tecken}}",
     "emptyHint": "Klistra in eller skriv din indata till vänster för att se den konverterade utdatan.",
     "localNote": "Allt körs lokalt i din webbläsare. Ingenting laddas upp."
+  },
+  "MimeTypeLookup": {
+    "title": "MIME-typ uppslag",
+    "subtitle": "Slå upp MIME-typ (medietyp) för en filändelse eller ett fullständigt filnamn. Allt körs lokalt i din webbläsare.",
+    "inputLabel": "Filändelse eller filnamn",
+    "placeholder": "t.ex. .png, package.json, photo.jpeg",
+    "hint": "Tips: klistra in antingen en ändelse (med eller utan punkt) eller ett fullständigt filnamn.",
+    "clear": "Rensa",
+    "exampleFilename": "Använd exempel-filnamn",
+    "exampleExtension": "Använd exempel-ändelse",
+    "resultLabel": "Resultat",
+    "normalizedLabel": "Normaliserad indata:",
+    "mimeTypeLabel": "MIME-typ",
+    "contentTypeLabel": "Content-Type-header",
+    "charsetLabel": "Teckenuppsättning",
+    "copyMimeType": "Kopiera MIME-typ",
+    "copy": "Kopiera",
+    "copied": "Kopierat",
+    "emptyHint": "Ange en filändelse eller ett filnamn för att slå upp MIME-typen.",
+    "notFound": "Ingen MIME-typ hittades för den indata.",
+    "localNote": "Allt körs lokalt i din webbläsare. Ingenting laddas upp."
   }
 }

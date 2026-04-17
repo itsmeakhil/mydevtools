@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, one {# teken} other {# tekens}}",
     "emptyHint": "Plak of typ uw invoer aan de linkerkant om de geconverteerde uitvoer te zien.",
     "localNote": "Alles draait lokaal in uw browser. Er wordt niets geüpload."
+  },
+  "MimeTypeLookup": {
+    "title": "MIME-type opzoeken",
+    "subtitle": "Zoek het MIME-type (mediatype) op voor een extensie of volledige bestandsnaam. Alles draait lokaal in uw browser.",
+    "inputLabel": "Extensie of bestandsnaam",
+    "placeholder": "bijv. .png, package.json, photo.jpeg",
+    "hint": "Tip: plak een extensie (met of zonder punt) of een volledige bestandsnaam.",
+    "clear": "Wissen",
+    "exampleFilename": "Voorbeeldbestandsnaam gebruiken",
+    "exampleExtension": "Voorbeeldextensie gebruiken",
+    "resultLabel": "Resultaat",
+    "normalizedLabel": "Genormaliseerde invoer:",
+    "mimeTypeLabel": "MIME-type",
+    "contentTypeLabel": "Content-Type-header",
+    "charsetLabel": "Tekenset",
+    "copyMimeType": "MIME-type kopiëren",
+    "copy": "Kopiëren",
+    "copied": "Gekopieerd",
+    "emptyHint": "Voer een extensie of bestandsnaam in om het MIME-type op te zoeken.",
+    "notFound": "Geen MIME-type gevonden voor deze invoer.",
+    "localNote": "Alles draait lokaal in uw browser. Er wordt niets geüpload."
   }
 }

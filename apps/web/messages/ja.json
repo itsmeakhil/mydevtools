@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, other {# 文字}}",
     "emptyHint": "左側に入力を貼り付けるか入力すると、変換された出力が表示されます。",
     "localNote": "すべてブラウザ上でローカルに動作します。何もアップロードされません。"
+  },
+  "MimeTypeLookup": {
+    "title": "MIME タイプ検索",
+    "subtitle": "拡張子またはファイル名から MIME タイプ（メディアタイプ）を調べます。すべてローカルでブラウザ内にて実行されます。",
+    "inputLabel": "拡張子またはファイル名",
+    "placeholder": "例: .png、package.json、photo.jpeg",
+    "hint": "ヒント: 拡張子（ドットあり/なし）または完全なファイル名を貼り付けてください。",
+    "clear": "クリア",
+    "exampleFilename": "例のファイル名を使う",
+    "exampleExtension": "例の拡張子を使う",
+    "resultLabel": "結果",
+    "normalizedLabel": "正規化した入力:",
+    "mimeTypeLabel": "MIME タイプ",
+    "contentTypeLabel": "Content-Type ヘッダー",
+    "charsetLabel": "文字セット",
+    "copyMimeType": "MIME タイプをコピー",
+    "copy": "コピー",
+    "copied": "コピーしました",
+    "emptyHint": "拡張子またはファイル名を入力して MIME タイプを検索します。",
+    "notFound": "この入力に対応する MIME タイプが見つかりません。",
+    "localNote": "すべてブラウザ上でローカルに動作します。何もアップロードされません。"
   }
 }

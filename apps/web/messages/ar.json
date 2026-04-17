@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, one {# حرف} other {# أحرف}}",
     "emptyHint": "الصق أو اكتب مدخلاتك على اليسار لرؤية المخرجات المحوّلة.",
     "localNote": "كل شيء يعمل محليًا في متصفحك. لا يتم رفع أي شيء."
+  },
+  "MimeTypeLookup": {
+    "title": "البحث عن نوع MIME",
+    "subtitle": "اعثر على نوع MIME (نوع الوسائط) حسب الامتداد أو اسم الملف الكامل. كل شيء يعمل محليًا في متصفحك.",
+    "inputLabel": "الامتداد أو اسم الملف",
+    "placeholder": "مثل .png أو package.json أو photo.jpeg",
+    "hint": "نصيحة: الصق امتدادًا (مع أو بدون نقطة) أو اسم ملف كامل.",
+    "clear": "مسح",
+    "exampleFilename": "استخدم اسم ملف مثال",
+    "exampleExtension": "استخدم امتدادًا مثال",
+    "resultLabel": "النتيجة",
+    "normalizedLabel": "الإدخال المُوحّد:",
+    "mimeTypeLabel": "نوع MIME",
+    "contentTypeLabel": "ترويسة Content-Type",
+    "charsetLabel": "مجموعة الأحرف",
+    "copyMimeType": "نسخ نوع MIME",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "emptyHint": "أدخل امتدادًا أو اسم ملف للبحث عن نوع MIME.",
+    "notFound": "لم يتم العثور على نوع MIME لهذه القيمة.",
+    "localNote": "كل شيء يعمل محليًا في متصفحك. لا يتم رفع أي شيء."
   }
 }

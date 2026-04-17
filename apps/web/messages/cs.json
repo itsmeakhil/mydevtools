@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, one {# znak} few {# znaky} other {# znaků}}",
     "emptyHint": "Vložte nebo napište vstup vlevo a uvidíte převedený výstup.",
     "localNote": "Vše běží lokálně ve vašem prohlížeči. Nic se nenahrává."
+  },
+  "MimeTypeLookup": {
+    "title": "Vyhledání MIME typu",
+    "subtitle": "Vyhledejte MIME typ (media type) podle přípony nebo celého názvu souboru. Vše běží lokálně ve vašem prohlížeči.",
+    "inputLabel": "Přípona nebo název souboru",
+    "placeholder": "např. .png, package.json, photo.jpeg",
+    "hint": "Tip: vložte příponu (s tečkou nebo bez) nebo celý název souboru.",
+    "clear": "Vymazat",
+    "exampleFilename": "Použít ukázkový název souboru",
+    "exampleExtension": "Použít ukázkovou příponu",
+    "resultLabel": "Výsledek",
+    "normalizedLabel": "Normalizovaný vstup:",
+    "mimeTypeLabel": "MIME typ",
+    "contentTypeLabel": "Hlavička Content-Type",
+    "charsetLabel": "Znaková sada",
+    "copyMimeType": "Kopírovat MIME typ",
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno",
+    "emptyHint": "Zadejte příponu nebo název souboru pro vyhledání MIME typu.",
+    "notFound": "Pro tento vstup nebyl nalezen žádný MIME typ.",
+    "localNote": "Vše běží lokálně ve vašem prohlížeči. Nic se nenahrává."
   }
 }

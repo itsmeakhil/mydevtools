@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, one {# کاراکتر} other {# کاراکتر}}",
     "emptyHint": "ورودی خود را در سمت چپ وارد کنید تا خروجی تبدیل‌شده را ببینید.",
     "localNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. چیزی آپلود نمی‌شود."
+  },
+  "MimeTypeLookup": {
+    "title": "جستجوی نوع MIME",
+    "subtitle": "نوع MIME (media type) را بر اساس پسوند یا نام کامل فایل پیدا کنید. همه چیز به صورت محلی در مرورگر شما اجرا می‌شود.",
+    "inputLabel": "پسوند یا نام فایل",
+    "placeholder": "مثلاً .png، package.json، photo.jpeg",
+    "hint": "نکته: می‌توانید پسوند (با یا بدون نقطه) یا نام کامل فایل را وارد کنید.",
+    "clear": "پاک کردن",
+    "exampleFilename": "استفاده از نام فایل نمونه",
+    "exampleExtension": "استفاده از پسوند نمونه",
+    "resultLabel": "نتیجه",
+    "normalizedLabel": "ورودی نرمال‌شده:",
+    "mimeTypeLabel": "نوع MIME",
+    "contentTypeLabel": "هدر Content-Type",
+    "charsetLabel": "کدگذاری",
+    "copyMimeType": "کپی نوع MIME",
+    "copy": "کپی",
+    "copied": "کپی شد",
+    "emptyHint": "برای جستجوی نوع MIME یک پسوند یا نام فایل وارد کنید.",
+    "notFound": "برای این ورودی نوع MIME یافت نشد.",
+    "localNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. چیزی آپلود نمی‌شود."
   }
 }

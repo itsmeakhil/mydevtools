@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, one {# karakter} other {# karakter}}",
     "emptyHint": "Dönüştürülmüş çıktıyı görmek için solda girdinizi yapıştırın veya yazın.",
     "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
+  },
+  "MimeTypeLookup": {
+    "title": "MIME türü arama",
+    "subtitle": "Dosya uzantısına veya tam dosya adına göre MIME türünü (media type) bulun. Her şey tarayıcınızda yerel olarak çalışır.",
+    "inputLabel": "Uzantı veya dosya adı",
+    "placeholder": "örn. .png, package.json, photo.jpeg",
+    "hint": "İpucu: bir uzantı (noktalı/noktasıız) veya tam dosya adı yapıştırın.",
+    "clear": "Temizle",
+    "exampleFilename": "Örnek dosya adı kullan",
+    "exampleExtension": "Örnek uzantı kullan",
+    "resultLabel": "Sonuç",
+    "normalizedLabel": "Normalize edilmiş giriş:",
+    "mimeTypeLabel": "MIME türü",
+    "contentTypeLabel": "Content-Type başlığı",
+    "charsetLabel": "Karakter kümesi",
+    "copyMimeType": "MIME türünü kopyala",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "emptyHint": "MIME türünü bulmak için bir uzantı veya dosya adı girin.",
+    "notFound": "Bu giriş için MIME türü bulunamadı.",
+    "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
   }
 }

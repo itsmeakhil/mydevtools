@@ -2634,5 +2634,26 @@
     "charCount": "{count, plural, one {# character} other {# characters}}",
     "emptyHint": "Paste or type your input on the left to see the converted output.",
     "localNote": "Everything runs locally in your browser. Nothing is uploaded."
+  },
+  "MimeTypeLookup": {
+    "title": "MIME type lookup",
+    "subtitle": "Look up the MIME type (media type) for a file extension or full filename. Everything runs locally in your browser.",
+    "inputLabel": "Extension or filename",
+    "placeholder": "e.g. .png, package.json, photo.jpeg",
+    "hint": "Tip: paste either an extension (with or without a dot) or a full filename.",
+    "clear": "Clear",
+    "exampleFilename": "Use example filename",
+    "exampleExtension": "Use example extension",
+    "resultLabel": "Result",
+    "normalizedLabel": "Normalized input:",
+    "mimeTypeLabel": "MIME type",
+    "contentTypeLabel": "Content-Type header",
+    "charsetLabel": "Charset",
+    "copyMimeType": "Copy MIME type",
+    "copy": "Copy",
+    "copied": "Copied",
+    "emptyHint": "Enter an extension or filename to look up its MIME type.",
+    "notFound": "No MIME type found for that input.",
+    "localNote": "Everything runs locally in your browser. Nothing is uploaded."
   }
 }

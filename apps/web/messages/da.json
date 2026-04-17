@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, one {# tegn} other {# tegn}}",
     "emptyHint": "Indsæt eller skriv dit input til venstre for at se det konverterede output.",
     "localNote": "Alt kører lokalt i din browser. Intet uploades."
+  },
+  "MimeTypeLookup": {
+    "title": "MIME-type opslag",
+    "subtitle": "Slå MIME-type (medietype) op for en filendelse eller et fuldt filnavn. Alt kører lokalt i din browser.",
+    "inputLabel": "Filendelse eller filnavn",
+    "placeholder": "fx .png, package.json, photo.jpeg",
+    "hint": "Tip: indsæt enten en endelse (med eller uden punktum) eller et fuldt filnavn.",
+    "clear": "Ryd",
+    "exampleFilename": "Brug eksempel-filnavn",
+    "exampleExtension": "Brug eksempel-endelse",
+    "resultLabel": "Resultat",
+    "normalizedLabel": "Normaliseret input:",
+    "mimeTypeLabel": "MIME-type",
+    "contentTypeLabel": "Content-Type-header",
+    "charsetLabel": "Tegnsæt",
+    "copyMimeType": "Kopiér MIME-type",
+    "copy": "Kopiér",
+    "copied": "Kopieret",
+    "emptyHint": "Indtast en endelse eller et filnavn for at slå MIME-typen op.",
+    "notFound": "Ingen MIME-type fundet for dette input.",
+    "localNote": "Alt kører lokalt i din browser. Intet uploades."
   }
 }

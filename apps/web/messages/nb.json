@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, one {# tegn} other {# tegn}}",
     "emptyHint": "Lim inn eller skriv inn inndataene dine til venstre for å se det konverterte utdataet.",
     "localNote": "Alt kjører lokalt i nettleseren din. Ingenting lastes opp."
+  },
+  "MimeTypeLookup": {
+    "title": "MIME-type oppslag",
+    "subtitle": "Slå opp MIME-type (medietype) for en filendelse eller et fullt filnavn. Alt kjører lokalt i nettleseren din.",
+    "inputLabel": "Filendelse eller filnavn",
+    "placeholder": "f.eks. .png, package.json, photo.jpeg",
+    "hint": "Tips: lim inn enten en endelse (med eller uten punktum) eller et fullt filnavn.",
+    "clear": "Tøm",
+    "exampleFilename": "Bruk eksempel-filnavn",
+    "exampleExtension": "Bruk eksempel-endelse",
+    "resultLabel": "Resultat",
+    "normalizedLabel": "Normalisert input:",
+    "mimeTypeLabel": "MIME-type",
+    "contentTypeLabel": "Content-Type-header",
+    "charsetLabel": "Tegnsett",
+    "copyMimeType": "Kopier MIME-type",
+    "copy": "Kopier",
+    "copied": "Kopiert",
+    "emptyHint": "Skriv inn en endelse eller et filnavn for å slå opp MIME-typen.",
+    "notFound": "Ingen MIME-type funnet for denne inndataen.",
+    "localNote": "Alt kjører lokalt i nettleseren din. Ingenting lastes opp."
   }
 }

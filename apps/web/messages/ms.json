@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, other {# aksara}}",
     "emptyHint": "Tampal atau taip input anda di sebelah kiri untuk melihat output yang ditukar.",
     "localNote": "Semua berjalan secara tempatan di pelayar anda. Tiada apa yang dimuat naik."
+  },
+  "MimeTypeLookup": {
+    "title": "Carian jenis MIME",
+    "subtitle": "Cari jenis MIME (jenis media) untuk sambungan fail atau nama fail penuh. Semua berjalan secara tempatan di pelayar anda.",
+    "inputLabel": "Sambungan atau nama fail",
+    "placeholder": "cth .png, package.json, photo.jpeg",
+    "hint": "Tip: tampal sambungan (dengan atau tanpa titik) atau nama fail penuh.",
+    "clear": "Kosongkan",
+    "exampleFilename": "Guna contoh nama fail",
+    "exampleExtension": "Guna contoh sambungan",
+    "resultLabel": "Keputusan",
+    "normalizedLabel": "Input dinormalkan:",
+    "mimeTypeLabel": "Jenis MIME",
+    "contentTypeLabel": "Pengepala Content-Type",
+    "charsetLabel": "Set aksara",
+    "copyMimeType": "Salin jenis MIME",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "emptyHint": "Masukkan sambungan atau nama fail untuk mencari jenis MIME.",
+    "notFound": "Tiada jenis MIME ditemui untuk input tersebut.",
+    "localNote": "Semua berjalan secara tempatan di pelayar anda. Tiada apa yang dimuat naik."
   }
 }

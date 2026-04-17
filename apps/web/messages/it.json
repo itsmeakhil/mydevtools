@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, one {# carattere} other {# caratteri}}",
     "emptyHint": "Incolla o digita il tuo input a sinistra per vedere il risultato convertito.",
     "localNote": "Tutto funziona localmente nel tuo browser. Nulla viene caricato."
+  },
+  "MimeTypeLookup": {
+    "title": "Ricerca tipo MIME",
+    "subtitle": "Cerca il tipo MIME (media type) per un'estensione o un nome file completo. Tutto funziona localmente nel tuo browser.",
+    "inputLabel": "Estensione o nome file",
+    "placeholder": "es. .png, package.json, photo.jpeg",
+    "hint": "Suggerimento: incolla un'estensione (con o senza punto) oppure un nome file completo.",
+    "clear": "Cancella",
+    "exampleFilename": "Usa un nome file di esempio",
+    "exampleExtension": "Usa un'estensione di esempio",
+    "resultLabel": "Risultato",
+    "normalizedLabel": "Input normalizzato:",
+    "mimeTypeLabel": "Tipo MIME",
+    "contentTypeLabel": "Header Content-Type",
+    "charsetLabel": "Set di caratteri",
+    "copyMimeType": "Copia tipo MIME",
+    "copy": "Copia",
+    "copied": "Copiato",
+    "emptyHint": "Inserisci un'estensione o un nome file per cercare il tipo MIME.",
+    "notFound": "Nessun tipo MIME trovato per questo input.",
+    "localNote": "Tutto funziona localmente nel tuo browser. Nulla viene caricato."
   }
 }

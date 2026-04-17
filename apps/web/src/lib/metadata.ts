@@ -182,6 +182,11 @@ export const toolsMetadata: Record<string, {
         description: 'Convert between JSON, YAML, TOML, and XML in any direction. All 12 combinations supported. Runs entirely in your browser.',
         keywords: ['json to yaml', 'yaml to json', 'json to toml', 'toml to json', 'xml to json', 'json to xml', 'yaml to toml', 'toml to yaml', 'format converter', 'data format']
     },
+    'mime-type-lookup': {
+        title: 'MIME Type Lookup',
+        description: 'Look up MIME types by file extension or filename and copy the result instantly. Runs entirely in your browser.',
+        keywords: ['mime type', 'content-type', 'media type', 'file extension', 'mime lookup', 'http headers']
+    },
     'sql-client': {
         title: 'SQL Client',
         description: 'Connect to PostgreSQL, MySQL, and MariaDB databases from your browser. Run queries, explore schemas, and export results. Credentials encrypted with AES-256 before storage.',

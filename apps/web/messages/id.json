@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, other {# karakter}}",
     "emptyHint": "Tempel atau ketik masukan Anda di sebelah kiri untuk melihat keluaran yang dikonversi.",
     "localNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
+  },
+  "MimeTypeLookup": {
+    "title": "Pencarian tipe MIME",
+    "subtitle": "Cari tipe MIME (media type) untuk ekstensi file atau nama file lengkap. Semua berjalan secara lokal di browser Anda.",
+    "inputLabel": "Ekstensi atau nama file",
+    "placeholder": "mis. .png, package.json, photo.jpeg",
+    "hint": "Tip: tempel ekstensi (dengan atau tanpa titik) atau nama file lengkap.",
+    "clear": "Bersihkan",
+    "exampleFilename": "Gunakan contoh nama file",
+    "exampleExtension": "Gunakan contoh ekstensi",
+    "resultLabel": "Hasil",
+    "normalizedLabel": "Masukan ternormalisasi:",
+    "mimeTypeLabel": "Tipe MIME",
+    "contentTypeLabel": "Header Content-Type",
+    "charsetLabel": "Charset",
+    "copyMimeType": "Salin tipe MIME",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "emptyHint": "Masukkan ekstensi atau nama file untuk mencari tipe MIME.",
+    "notFound": "Tidak ditemukan tipe MIME untuk masukan tersebut.",
+    "localNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
   }
 }

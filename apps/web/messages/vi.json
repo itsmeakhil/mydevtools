@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, other {# ký tự}}",
     "emptyHint": "Dán hoặc nhập dữ liệu đầu vào ở bên trái để xem đầu ra đã chuyển đổi.",
     "localNote": "Mọi thứ chạy cục bộ trên trình duyệt của bạn. Không có gì được tải lên."
+  },
+  "MimeTypeLookup": {
+    "title": "Tra cứu loại MIME",
+    "subtitle": "Tra cứu loại MIME (media type) theo phần mở rộng hoặc tên tệp đầy đủ. Mọi thứ chạy cục bộ trên trình duyệt của bạn.",
+    "inputLabel": "Phần mở rộng hoặc tên tệp",
+    "placeholder": "ví dụ .png, package.json, photo.jpeg",
+    "hint": "Mẹo: dán phần mở rộng (có hoặc không có dấu chấm) hoặc tên tệp đầy đủ.",
+    "clear": "Xóa",
+    "exampleFilename": "Dùng tên tệp ví dụ",
+    "exampleExtension": "Dùng phần mở rộng ví dụ",
+    "resultLabel": "Kết quả",
+    "normalizedLabel": "Đầu vào đã chuẩn hóa:",
+    "mimeTypeLabel": "Loại MIME",
+    "contentTypeLabel": "Header Content-Type",
+    "charsetLabel": "Bảng mã",
+    "copyMimeType": "Sao chép loại MIME",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép",
+    "emptyHint": "Nhập phần mở rộng hoặc tên tệp để tra cứu loại MIME.",
+    "notFound": "Không tìm thấy loại MIME cho đầu vào này.",
+    "localNote": "Mọi thứ chạy cục bộ trên trình duyệt của bạn. Không có gì được tải lên."
   }
 }

@@ -36,6 +36,7 @@ import {
   IconArrowsExchange,
   IconFileCode,
   IconListNumbers,
+  IconFileType,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -298,6 +299,13 @@ export const sidebarData: SidebarData = {
           url: '/app/format-converter',
           icon: IconFileCode,
           description: 'Convert between JSON, YAML, TOML, and XML in any direction.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'MIME Type Lookup',
+          url: '/app/mime-type-lookup',
+          icon: IconFileType,
+          description: 'Find the MIME type for a file extension or filename.',
           hiddenOnMobile: true,
         },
 

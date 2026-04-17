@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, other {# 个字符}}",
     "emptyHint": "在左侧粘贴或输入内容，即可看到转换后的输出。",
     "localNote": "所有操作均在您的浏览器中本地运行。不会上传任何内容。"
+  },
+  "MimeTypeLookup": {
+    "title": "MIME 类型查询",
+    "subtitle": "根据文件扩展名或完整文件名查询 MIME 类型（媒体类型）。所有操作都在浏览器本地完成。",
+    "inputLabel": "扩展名或文件名",
+    "placeholder": "例如 .png、package.json、photo.jpeg",
+    "hint": "提示：可粘贴扩展名（带或不带点）或完整文件名。",
+    "clear": "清空",
+    "exampleFilename": "使用示例文件名",
+    "exampleExtension": "使用示例扩展名",
+    "resultLabel": "结果",
+    "normalizedLabel": "规范化输入：",
+    "mimeTypeLabel": "MIME 类型",
+    "contentTypeLabel": "Content-Type 头",
+    "charsetLabel": "字符集",
+    "copyMimeType": "复制 MIME 类型",
+    "copy": "复制",
+    "copied": "已复制",
+    "emptyHint": "输入扩展名或文件名以查询 MIME 类型。",
+    "notFound": "未找到该输入对应的 MIME 类型。",
+    "localNote": "所有操作都在浏览器本地完成。不会上传任何内容。"
   }
 }

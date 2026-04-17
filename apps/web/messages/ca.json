@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, one {# caràcter} other {# caràcters}}",
     "emptyHint": "Enganxa o escriu l'entrada a l'esquerra per veure la sortida convertida.",
     "localNote": "Tot funciona localment al teu navegador. No es puja res."
+  },
+  "MimeTypeLookup": {
+    "title": "Cerca de tipus MIME",
+    "subtitle": "Cerca el tipus MIME (tipus de mitjà) per una extensió o un nom de fitxer complet. Tot funciona localment al teu navegador.",
+    "inputLabel": "Extensió o nom de fitxer",
+    "placeholder": "p. ex. .png, package.json, photo.jpeg",
+    "hint": "Consell: enganxa una extensió (amb o sense punt) o un nom de fitxer complet.",
+    "clear": "Netejar",
+    "exampleFilename": "Utilitza un nom de fitxer d'exemple",
+    "exampleExtension": "Utilitza una extensió d'exemple",
+    "resultLabel": "Resultat",
+    "normalizedLabel": "Entrada normalitzada:",
+    "mimeTypeLabel": "Tipus MIME",
+    "contentTypeLabel": "Capçalera Content-Type",
+    "charsetLabel": "Joc de caràcters",
+    "copyMimeType": "Copia el tipus MIME",
+    "copy": "Copiar",
+    "copied": "Copiat",
+    "emptyHint": "Introdueix una extensió o un nom de fitxer per cercar el tipus MIME.",
+    "notFound": "No s'ha trobat cap tipus MIME per a aquesta entrada.",
+    "localNote": "Tot funciona localment al teu navegador. No es puja res."
   }
 }

@@ -2630,5 +2630,26 @@
     "charCount": "{count, plural, one {# Zeichen} other {# Zeichen}}",
     "emptyHint": "Fügen Sie Ihre Eingabe links ein oder tippen Sie, um die konvertierte Ausgabe zu sehen.",
     "localNote": "Alles läuft lokal in Ihrem Browser. Es wird nichts hochgeladen."
+  },
+  "MimeTypeLookup": {
+    "title": "MIME-Typ nachschlagen",
+    "subtitle": "MIME-Typ (Medientyp) für eine Dateiendung oder einen vollständigen Dateinamen nachschlagen. Alles läuft lokal in Ihrem Browser.",
+    "inputLabel": "Dateiendung oder Dateiname",
+    "placeholder": "z. B. .png, package.json, foto.jpeg",
+    "hint": "Tipp: Fügen Sie entweder eine Endung (mit oder ohne Punkt) oder einen vollständigen Dateinamen ein.",
+    "clear": "Leeren",
+    "exampleFilename": "Beispiel-Dateiname",
+    "exampleExtension": "Beispiel-Endung",
+    "resultLabel": "Ergebnis",
+    "normalizedLabel": "Normalisierte Eingabe:",
+    "mimeTypeLabel": "MIME-Typ",
+    "contentTypeLabel": "Content-Type-Header",
+    "charsetLabel": "Zeichensatz",
+    "copyMimeType": "MIME-Typ kopieren",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "emptyHint": "Geben Sie eine Endung oder einen Dateinamen ein, um den MIME-Typ nachzuschlagen.",
+    "notFound": "Kein MIME-Typ für diese Eingabe gefunden.",
+    "localNote": "Alles läuft lokal in Ihrem Browser. Es wird nichts hochgeladen."
   }
 }
