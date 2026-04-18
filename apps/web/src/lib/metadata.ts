@@ -222,6 +222,11 @@ export const toolsMetadata: Record<string, {
         description: 'Build a field schema with dozens of data types, optional blanks, sequences, and export JSON, CSV, SQL, or XML up to thousands of rows — all locally in your browser.',
         keywords: ['mock data', 'test data generator', 'fake data', 'json fixtures', 'csv generator', 'sql insert generator', 'api testing', 'mockaroo']
     },
+    'unit-converter': {
+        title: 'Unit Converter',
+        description: 'Convert between 323 units across 43 scientific and engineering categories including length, mass, pressure, viscosity, thermal, electrical, polymer, and materials science units.',
+        keywords: ['unit converter', 'unit conversion', 'measurement converter', 'scientific units', 'engineering units', 'SI units', 'metric converter']
+    },
 }
 
 // Generate metadata for a tool page

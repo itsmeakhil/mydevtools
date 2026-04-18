@@ -40,7 +40,8 @@
     "markdownPreview": "Podgląd Markdown",
     "numberBaseConverter": "Konwerter systemów",
     "formatConverter": "Konwerter formatów",
-    "mockDataGenerator": "Generator danych testowych"
+    "mockDataGenerator": "Generator danych testowych",
+    "unitConverter": "Konwerter jednostek"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "Generator danych testowych",
         "description": "Zdefiniuj kolumny, wybierz typy i eksportuj zestawy danych do seedów, Postmana lub testów. Do 5000 wierszy, wszystko w przeglądarce — nic nie jest wysyłane."
+      },
+      "httpStatusCodes": {
+        "title": "Kody statusu HTTP",
+        "description": "Wyszukuj kody statusu HTTP z opisami (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "Konwerter jednostek",
+        "description": "Przeliczaj między 323 jednostkami w 43 kategoriach naukowych i technicznych."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "Ulubione narzędzia",
       "toolsWithUsage": "Narzędzia ze statystyką użycia"
     },
-    "signIn": "Zaloguj się"
+    "signIn": "Zaloguj się",
+    "noResults": "Żadne narzędzie nie pasuje do Twojego wyszukiwania",
+    "noResultsHint": "Spróbuj innego słowa kluczowego lub wyczyść filtr.",
+    "filterAll": "Wszystkie",
+    "loginCta": {
+      "description": "Zaloguj się, aby śledzić ostatnio używane narzędzia."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "Znacznik języka",
       "custom_list": "Lista niestandardowa"
     }
+  },
+  "UnitConverter": {
+    "title": "Konwerter jednostek",
+    "subtitle": "Przeliczaj między <strong>323 jednostkami</strong> w <strong>43 kategoriach</strong>",
+    "category": "Kategoria",
+    "from": "Z",
+    "to": "Na",
+    "value": "Wartość",
+    "result": "Wynik",
+    "swapUnits": "Zamień jednostki",
+    "placeholder": "Wprowadź wartość",
+    "copyResult": "Kopiuj wynik",
+    "searchCategory": "Szukaj kategorii...",
+    "selectCategory": "Wybierz kategorię",
+    "noResults": "Nie znaleziono kategorii."
   }
 }

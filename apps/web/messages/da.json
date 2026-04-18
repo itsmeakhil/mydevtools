@@ -40,7 +40,8 @@
     "markdownPreview": "Markdown-forhåndsvisning",
     "numberBaseConverter": "Talsystem-konverter",
     "formatConverter": "Formatkonverter",
-    "mockDataGenerator": "Mock-datagenerator"
+    "mockDataGenerator": "Mock-datagenerator",
+    "unitConverter": "Enhedskonverter"
   },
   "Help": {
     "title": "Hjælp og dokumentation",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "Mock-datagenerator",
         "description": "Definér kolonner, vælg datatyper og eksporter datasæt til seeds, Postman eller tests. Op til 5000 rækker, alt i browseren — intet uploades."
+      },
+      "httpStatusCodes": {
+        "title": "HTTP-statuskoder",
+        "description": "Søg HTTP-statuskoder med beskrivelser (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "Enhedskonverter",
+        "description": "Konverter mellem 323 enheder på tværs af 43 videnskabelige og tekniske kategorier."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "Foretrukne værktøjer",
       "toolsWithUsage": "Værktøjer med brugsstatistik"
     },
-    "signIn": "Log ind"
+    "signIn": "Log ind",
+    "noResults": "Ingen værktøjer matcher din søgning",
+    "noResultsHint": "Prøv et andet nøgleord, eller ryd filteret.",
+    "filterAll": "Alle",
+    "loginCta": {
+      "description": "Log ind for at spore dine senest brugte værktøjer."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "Sprogkode",
       "custom_list": "Brugerdefineret liste"
     }
+  },
+  "UnitConverter": {
+    "title": "Enhedskonverter",
+    "subtitle": "Konverter mellem <strong>323 enheder</strong> på tværs af <strong>43 kategorier</strong>",
+    "category": "Kategori",
+    "from": "Fra",
+    "to": "Til",
+    "value": "Værdi",
+    "result": "Resultat",
+    "swapUnits": "Byt enheder",
+    "placeholder": "Angiv værdi",
+    "copyResult": "Kopiér resultat",
+    "searchCategory": "Søg kategori...",
+    "selectCategory": "Vælg en kategori",
+    "noResults": "Ingen kategori fundet."
   }
 }

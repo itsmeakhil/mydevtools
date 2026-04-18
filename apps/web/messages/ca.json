@@ -40,7 +40,8 @@
     "markdownPreview": "Previsualització Markdown",
     "numberBaseConverter": "Conversor de base",
     "formatConverter": "Conversor de formats",
-    "mockDataGenerator": "Generador de dades de prova"
+    "mockDataGenerator": "Generador de dades de prova",
+    "unitConverter": "Convertidor d'unitats"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "Generador de dades de prova",
         "description": "Definiu columnes, trieu tipus i exporteu conjunts de dades per a llavors, Postman o proves. Fins a 5000 files, tot al navegador: no es puja res."
+      },
+      "httpStatusCodes": {
+        "title": "Codis d'estat HTTP",
+        "description": "Cerca codis d'estat HTTP amb descripcions (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "Convertidor d'unitats",
+        "description": "Converteix entre 323 unitats en 43 categories científiques i d'enginyeria."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "Eines favorites",
       "toolsWithUsage": "Eines amb ús registrat"
     },
-    "signIn": "Inicia la sessió"
+    "signIn": "Inicia la sessió",
+    "noResults": "Cap eina coincideix amb la vostra cerca",
+    "noResultsHint": "Proveu una paraula clau diferent o elimineu el filtre.",
+    "filterAll": "Tot",
+    "loginCta": {
+      "description": "Inicieu sessió per fer un seguiment de les eines utilitzades recentment."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "Etiqueta d’idioma",
       "custom_list": "Llista personalitzada"
     }
+  },
+  "UnitConverter": {
+    "title": "Convertidor d'unitats",
+    "subtitle": "Converteix entre <strong>323 unitats</strong> en <strong>43 categories</strong>",
+    "category": "Categoria",
+    "from": "De",
+    "to": "A",
+    "value": "Valor",
+    "result": "Resultat",
+    "swapUnits": "Intercanviar unitats",
+    "placeholder": "Introduïu un valor",
+    "copyResult": "Copiar resultat",
+    "searchCategory": "Cerca categoria...",
+    "selectCategory": "Seleccioneu una categoria",
+    "noResults": "No s'ha trobat cap categoria."
   }
 }

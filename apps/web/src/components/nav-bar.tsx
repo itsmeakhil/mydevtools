@@ -40,6 +40,7 @@ import {
   KeyRound,
   BookKey,
   FlaskConical,
+  Ruler,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
@@ -117,6 +118,11 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
     title: 'Mock Data Generator',
     icon: FlaskConical,
     namespace: 'MockDataGenerator',
+  },
+  '/app/unit-converter': {
+    title: 'Unit Converter',
+    icon: Ruler,
+    namespace: 'UnitConverter',
   },
 };
 

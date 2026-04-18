@@ -40,7 +40,8 @@
     "markdownPreview": "Pratinjau Markdown",
     "numberBaseConverter": "Konverter basis",
     "formatConverter": "Konverter Format",
-    "mockDataGenerator": "Generator data mock"
+    "mockDataGenerator": "Generator data mock",
+    "unitConverter": "Konverter Satuan"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "Generator data mock",
         "description": "Tentukan kolom, pilih tipe data, dan ekspor set data untuk benih, Postman, atau pengujian. Hingga 5000 baris, semua di peramban — tidak ada unggahan."
+      },
+      "httpStatusCodes": {
+        "title": "Kode Status HTTP",
+        "description": "Cari kode status HTTP dengan deskripsi (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "Konverter Satuan",
+        "description": "Konversi antara 323 satuan di 43 kategori ilmiah dan teknik."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "Alat favorit",
       "toolsWithUsage": "Alat dengan pelacakan penggunaan"
     },
-    "signIn": "Masuk"
+    "signIn": "Masuk",
+    "noResults": "Tidak ada alat yang cocok dengan pencarian Anda",
+    "noResultsHint": "Coba kata kunci lain atau hapus filter.",
+    "filterAll": "Semua",
+    "loginCta": {
+      "description": "Masuk untuk melacak alat yang baru saja Anda gunakan."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "Tag bahasa",
       "custom_list": "Daftar kustom"
     }
+  },
+  "UnitConverter": {
+    "title": "Konverter Satuan",
+    "subtitle": "Konversi antara <strong>323 satuan</strong> di <strong>43 kategori</strong>",
+    "category": "Kategori",
+    "from": "Dari",
+    "to": "Ke",
+    "value": "Nilai",
+    "result": "Hasil",
+    "swapUnits": "Tukar satuan",
+    "placeholder": "Masukkan nilai",
+    "copyResult": "Salin hasil",
+    "searchCategory": "Cari kategori...",
+    "selectCategory": "Pilih kategori",
+    "noResults": "Tidak ada kategori ditemukan."
   }
 }

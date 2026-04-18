@@ -40,7 +40,8 @@
     "markdownPreview": "Anteprima Markdown",
     "numberBaseConverter": "Convertitore di base",
     "formatConverter": "Convertitore di formati",
-    "mockDataGenerator": "Generatore di dati mock"
+    "mockDataGenerator": "Generatore di dati mock",
+    "unitConverter": "Convertitore di unità"
   },
   "Help": {
     "title": "Aiuto e documentazione",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "Generatore di dati mock",
         "description": "Definisci colonne, scegli i tipi ed esporta dataset per seed, Postman o test. Fino a 5000 righe, tutto nel browser: nulla viene caricato."
+      },
+      "httpStatusCodes": {
+        "title": "Codici di stato HTTP",
+        "description": "Cerca codici di stato HTTP con descrizioni (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "Convertitore di unità",
+        "description": "Converti tra 323 unità in 43 categorie scientifiche e ingegneristiche."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "Strumenti preferiti",
       "toolsWithUsage": "Strumenti con utilizzo tracciato"
     },
-    "signIn": "Accedi"
+    "signIn": "Accedi",
+    "noResults": "Nessuno strumento corrisponde alla tua ricerca",
+    "noResultsHint": "Prova una parola chiave diversa o cancella il filtro.",
+    "filterAll": "Tutti",
+    "loginCta": {
+      "description": "Accedi per tenere traccia degli strumenti usati di recente."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "Tag lingua",
       "custom_list": "Elenco personalizzato"
     }
+  },
+  "UnitConverter": {
+    "title": "Convertitore di unità",
+    "subtitle": "Converti tra <strong>323 unità</strong> in <strong>43 categorie</strong>",
+    "category": "Categoria",
+    "from": "Da",
+    "to": "A",
+    "value": "Valore",
+    "result": "Risultato",
+    "swapUnits": "Scambia unità",
+    "placeholder": "Inserisci un valore",
+    "copyResult": "Copia risultato",
+    "searchCategory": "Cerca categoria...",
+    "selectCategory": "Seleziona una categoria",
+    "noResults": "Nessuna categoria trovata."
   }
 }

@@ -40,7 +40,8 @@
     "markdownPreview": "پیش‌نمایش Markdown",
     "numberBaseConverter": "مبدّل مبنا",
     "formatConverter": "مبدّل فرمت",
-    "mockDataGenerator": "مولد دادهٔ آزمایشی"
+    "mockDataGenerator": "مولد دادهٔ آزمایشی",
+    "unitConverter": "مبدل واحد"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "مولد دادهٔ آزمایشی",
         "description": "ستون‌ها را تعریف کنید، نوع داده را انتخاب کنید و مجموعه‌ها را برای seed، Postman یا آزمون برون‌بری کنید. تا 5000 سطر، همه در مرورگر — بدون بارگذاری."
+      },
+      "httpStatusCodes": {
+        "title": "کدهای وضعیت HTTP",
+        "description": "جستجوی کدهای وضعیت HTTP با توضیحات (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "مبدل واحد",
+        "description": "تبدیل بین 323 واحد در 43 دسته علمی و مهندسی."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "ابزارهای مورد علاقه",
       "toolsWithUsage": "ابزارها با آمار استفاده"
     },
-    "signIn": "ورود"
+    "signIn": "ورود",
+    "noResults": "هیچ ابزاری با جستجوی شما مطابقت ندارد",
+    "noResultsHint": "یک کلیدواژه متفاوت امتحان کنید یا فیلتر را پاک کنید.",
+    "filterAll": "همه",
+    "loginCta": {
+      "description": "وارد شوید تا ابزارهای اخیراً استفاده شده خود را دنبال کنید."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "برچسب زبان",
       "custom_list": "فهرست سفارشی"
     }
+  },
+  "UnitConverter": {
+    "title": "مبدل واحد",
+    "subtitle": "تبدیل بین <strong>323 واحد</strong> در <strong>43 دسته</strong>",
+    "category": "دسته‌بندی",
+    "from": "از",
+    "to": "به",
+    "value": "مقدار",
+    "result": "نتیجه",
+    "swapUnits": "تعویض واحدها",
+    "placeholder": "مقدار را وارد کنید",
+    "copyResult": "کپی نتیجه",
+    "searchCategory": "جستجوی دسته‌بندی...",
+    "selectCategory": "یک دسته انتخاب کنید",
+    "noResults": "دسته‌بندی‌ای یافت نشد."
   }
 }

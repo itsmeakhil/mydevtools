@@ -40,7 +40,8 @@
     "markdownPreview": "Markdown-forhåndsvisning",
     "numberBaseConverter": "Grunntall-konverter",
     "formatConverter": "Formatkonverterer",
-    "mockDataGenerator": "Mock-datagenerator"
+    "mockDataGenerator": "Mock-datagenerator",
+    "unitConverter": "Enhetsomregner"
   },
   "Help": {
     "title": "Hjelp og dokumentasjon",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "Mock-datagenerator",
         "description": "Definer kolonner, velg datatyper og eksporter datasett for seeds, Postman eller tester. Opptil 5000 rader, alt i nettleseren — ingenting lastes opp."
+      },
+      "httpStatusCodes": {
+        "title": "HTTP-statuskoder",
+        "description": "Søk etter HTTP-statuskoder med beskrivelser (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "Enhetsomregner",
+        "description": "Konverter mellom 323 enheter på tvers av 43 vitenskapelige og tekniske kategorier."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "Favorittverktøy",
       "toolsWithUsage": "Verktøy med bruksstatistikk"
     },
-    "signIn": "Logg inn"
+    "signIn": "Logg inn",
+    "noResults": "Ingen verktøy samsvarer med søket ditt",
+    "noResultsHint": "Prøv et annet søkeord eller fjern filteret.",
+    "filterAll": "Alle",
+    "loginCta": {
+      "description": "Logg inn for å spore verktøyene du nylig har brukt."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "Språkkode",
       "custom_list": "Tilpasset liste"
     }
+  },
+  "UnitConverter": {
+    "title": "Enhetsomregner",
+    "subtitle": "Konverter mellom <strong>323 enheter</strong> på tvers av <strong>43 kategorier</strong>",
+    "category": "Kategori",
+    "from": "Fra",
+    "to": "Til",
+    "value": "Verdi",
+    "result": "Resultat",
+    "swapUnits": "Bytt enheter",
+    "placeholder": "Skriv inn verdi",
+    "copyResult": "Kopier resultat",
+    "searchCategory": "Søk kategori...",
+    "selectCategory": "Velg en kategori",
+    "noResults": "Ingen kategori funnet."
   }
 }

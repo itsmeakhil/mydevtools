@@ -40,7 +40,8 @@
     "markdownPreview": "Markdownプレビュー",
     "numberBaseConverter": "基数変換",
     "formatConverter": "フォーマット変換",
-    "mockDataGenerator": "モックデータジェネレーター"
+    "mockDataGenerator": "モックデータジェネレーター",
+    "unitConverter": "単位変換器"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "モックデータジェネレーター",
         "description": "列を定義し型を選び、シードや Postman、テスト用のデータをエクスポートします。最大 5000 行、すべてブラウザ内で処理されアップロードはありません。"
+      },
+      "httpStatusCodes": {
+        "title": "HTTPステータスコード",
+        "description": "説明付きのHTTPステータスコードを検索します (1xx–5xx)。"
+      },
+      "unitConverter": {
+        "title": "単位変換器",
+        "description": "43の科学・工学カテゴリにわたる323単位間の変換。"
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "お気に入りのツール",
       "toolsWithUsage": "利用状況が記録されたツール"
     },
-    "signIn": "ログイン"
+    "signIn": "ログイン",
+    "noResults": "検索に一致するツールがありません",
+    "noResultsHint": "別のキーワードを試すか、フィルターをクリアしてください。",
+    "filterAll": "すべて",
+    "loginCta": {
+      "description": "ログインして最近使用したツールを追跡しましょう。"
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "言語タグ",
       "custom_list": "カスタム一覧"
     }
+  },
+  "UnitConverter": {
+    "title": "単位変換器",
+    "subtitle": "<strong>43カテゴリ</strong>にわたる<strong>323単位</strong>間の変換",
+    "category": "カテゴリ",
+    "from": "変換前",
+    "to": "変換後",
+    "value": "値",
+    "result": "結果",
+    "swapUnits": "単位を入れ替え",
+    "placeholder": "値を入力",
+    "copyResult": "結果をコピー",
+    "searchCategory": "カテゴリを検索...",
+    "selectCategory": "カテゴリを選択",
+    "noResults": "カテゴリが見つかりません。"
   }
 }

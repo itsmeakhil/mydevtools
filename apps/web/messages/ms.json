@@ -40,7 +40,8 @@
     "markdownPreview": "Pratonton Markdown",
     "numberBaseConverter": "Penukar asas",
     "formatConverter": "Penukar Format",
-    "mockDataGenerator": "Penjana Data Mock"
+    "mockDataGenerator": "Penjana Data Mock",
+    "unitConverter": "Penukar Unit"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -201,7 +202,7 @@
     "noResultsHint": "Cuba kata kunci lain atau kosongkan penapis.",
     "filterAll": "Semua",
     "loginCta": {
-      "description": "Log masuk untuk menjejak alat yang baru digunakan."
+      "description": "Log masuk untuk menjejaki alat yang baru-baru ini digunakan."
     },
     "greeting": {
       "morning": "Selamat pagi",
@@ -382,6 +383,14 @@
       "mockDataGenerator": {
         "title": "Penjana Data Mock",
         "description": "Takrifkan lajur, pilih jenis data, dan eksport set data untuk benih, Postman atau ujian. Sehingga 5000 baris, semuanya dalam pelayar — tiada muat naik."
+      },
+      "httpStatusCodes": {
+        "title": "Kod Status HTTP",
+        "description": "Cari kod status HTTP dengan penerangan (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "Penukar Unit",
+        "description": "Tukar antara 323 unit merentasi 43 kategori sains dan kejuruteraan."
       }
     },
     "tabs": {
@@ -2961,5 +2970,20 @@
       "language_code": "Tag bahasa",
       "custom_list": "Senarai tersuai"
     }
+  },
+  "UnitConverter": {
+    "title": "Penukar Unit",
+    "subtitle": "Tukar antara <strong>323 unit</strong> merentasi <strong>43 kategori</strong>",
+    "category": "Kategori",
+    "from": "Dari",
+    "to": "Ke",
+    "value": "Nilai",
+    "result": "Keputusan",
+    "swapUnits": "Tukar unit",
+    "placeholder": "Masukkan nilai",
+    "copyResult": "Salin keputusan",
+    "searchCategory": "Cari kategori...",
+    "selectCategory": "Pilih kategori",
+    "noResults": "Tiada kategori dijumpai."
   }
 }

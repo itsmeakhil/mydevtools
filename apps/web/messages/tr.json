@@ -40,7 +40,8 @@
     "markdownPreview": "Markdown Önizleme",
     "numberBaseConverter": "Taban dönüştürücü",
     "formatConverter": "Format Dönüştürücü",
-    "mockDataGenerator": "Sahte veri üreticisi"
+    "mockDataGenerator": "Sahte veri üreticisi",
+    "unitConverter": "Birim Dönüştürücü"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "Sahte veri üreticisi",
         "description": "Sütunları tanımlayın, veri türlerini seçin ve tohum, Postman veya test için dışa aktarın. En fazla 5000 satır, hepsi tarayıcıda — yükleme yok."
+      },
+      "httpStatusCodes": {
+        "title": "HTTP Durum Kodları",
+        "description": "Açıklamalarla birlikte HTTP durum kodlarını arayın (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "Birim Dönüştürücü",
+        "description": "43 bilimsel ve mühendislik kategorisinde 323 birim arasında dönüştürün."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "Favori araçlar",
       "toolsWithUsage": "Kullanımı izlenen araçlar"
     },
-    "signIn": "Giriş yap"
+    "signIn": "Giriş yap",
+    "noResults": "Aramanızla eşleşen araç bulunamadı",
+    "noResultsHint": "Farklı bir anahtar kelime deneyin veya filtreyi temizleyin.",
+    "filterAll": "Tümü",
+    "loginCta": {
+      "description": "Son kullandığınız araçları takip etmek için giriş yapın."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "Dil etiketi",
       "custom_list": "Özel liste"
     }
+  },
+  "UnitConverter": {
+    "title": "Birim Dönüştürücü",
+    "subtitle": "<strong>43 kategori</strong>de <strong>323 birim</strong> arasında dönüştürün",
+    "category": "Kategori",
+    "from": "Kaynak",
+    "to": "Hedef",
+    "value": "Değer",
+    "result": "Sonuç",
+    "swapUnits": "Birimleri değiştir",
+    "placeholder": "Değer girin",
+    "copyResult": "Sonucu kopyala",
+    "searchCategory": "Kategori ara...",
+    "selectCategory": "Bir kategori seçin",
+    "noResults": "Kategori bulunamadı."
   }
 }

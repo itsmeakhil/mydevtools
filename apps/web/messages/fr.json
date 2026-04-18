@@ -40,7 +40,8 @@
     "markdownPreview": "Aperçu Markdown",
     "numberBaseConverter": "Convertisseur de base",
     "formatConverter": "Convertisseur de formats",
-    "mockDataGenerator": "Générateur de données fictives"
+    "mockDataGenerator": "Générateur de données fictives",
+    "unitConverter": "Convertisseur d'unités"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "Générateur de données fictives",
         "description": "Définissez des colonnes, choisissez des types et exportez des jeux de données pour les seeds, Postman ou les tests. Jusqu’à 5000 lignes, tout dans le navigat…"
+      },
+      "httpStatusCodes": {
+        "title": "Codes de statut HTTP",
+        "description": "Recherchez des codes de statut HTTP avec des descriptions (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "Convertisseur d'unités",
+        "description": "Convertissez entre 323 unités dans 43 catégories scientifiques et techniques."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "Outils favoris",
       "toolsWithUsage": "Outils avec suivi d’utilisation"
     },
-    "signIn": "Se connecter"
+    "signIn": "Se connecter",
+    "noResults": "Aucun outil ne correspond à votre recherche",
+    "noResultsHint": "Essayez un autre mot-clé ou effacez le filtre.",
+    "filterAll": "Tout",
+    "loginCta": {
+      "description": "Connectez-vous pour suivre vos outils récemment utilisés."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "Étiquette de langue",
       "custom_list": "Liste personnalisée"
     }
+  },
+  "UnitConverter": {
+    "title": "Convertisseur d'unités",
+    "subtitle": "Convertissez entre <strong>323 unités</strong> sur <strong>43 catégories</strong>",
+    "category": "Catégorie",
+    "from": "De",
+    "to": "Vers",
+    "value": "Valeur",
+    "result": "Résultat",
+    "swapUnits": "Inverser les unités",
+    "placeholder": "Saisir une valeur",
+    "copyResult": "Copier le résultat",
+    "searchCategory": "Rechercher une catégorie...",
+    "selectCategory": "Sélectionner une catégorie",
+    "noResults": "Aucune catégorie trouvée."
   }
 }

@@ -40,7 +40,8 @@
     "markdownPreview": "Markdown-förhandsgranskning",
     "numberBaseConverter": "Basomvandlare",
     "formatConverter": "Formatkonverterare",
-    "mockDataGenerator": "Mock-datagenerator"
+    "mockDataGenerator": "Mock-datagenerator",
+    "unitConverter": "Enhetsomvandlare"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "Mock-datagenerator",
         "description": "Definiera kolumner, välj datatyper och exportera dataset för seeds, Postman eller tester. Upp till 5000 rader, allt i webbläsaren — inget laddas upp."
+      },
+      "httpStatusCodes": {
+        "title": "HTTP-statuskoder",
+        "description": "Sök HTTP-statuskoder med beskrivningar (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "Enhetsomvandlare",
+        "description": "Konvertera mellan 323 enheter i 43 vetenskapliga och tekniska kategorier."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "Favoritverktyg",
       "toolsWithUsage": "Verktyg med användningsstatistik"
     },
-    "signIn": "Logga in"
+    "signIn": "Logga in",
+    "noResults": "Inga verktyg matchar din sökning",
+    "noResultsHint": "Prova ett annat sökord eller rensa filtret.",
+    "filterAll": "Alla",
+    "loginCta": {
+      "description": "Logga in för att spåra dina senast använda verktyg."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "Språktagg",
       "custom_list": "Anpassad lista"
     }
+  },
+  "UnitConverter": {
+    "title": "Enhetsomvandlare",
+    "subtitle": "Konvertera mellan <strong>323 enheter</strong> i <strong>43 kategorier</strong>",
+    "category": "Kategori",
+    "from": "Från",
+    "to": "Till",
+    "value": "Värde",
+    "result": "Resultat",
+    "swapUnits": "Byt enheter",
+    "placeholder": "Ange värde",
+    "copyResult": "Kopiera resultat",
+    "searchCategory": "Sök kategori...",
+    "selectCategory": "Välj en kategori",
+    "noResults": "Ingen kategori hittades."
   }
 }

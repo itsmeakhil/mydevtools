@@ -40,7 +40,8 @@
     "markdownPreview": "Markdown-voorbeeld",
     "numberBaseConverter": "Grondtal-converter",
     "formatConverter": "Formaatconverter",
-    "mockDataGenerator": "Mock-datagenerator"
+    "mockDataGenerator": "Mock-datagenerator",
+    "unitConverter": "Eenhedenconverter"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "Mock-datagenerator",
         "description": "Definieer kolommen, kies gegevenstypen en exporteer fixtures voor seeds, Postman of tests. Tot 5000 rijen, alles in je browser — er wordt niets geüpload."
+      },
+      "httpStatusCodes": {
+        "title": "HTTP-statuscodes",
+        "description": "Zoek HTTP-statuscodes met beschrijvingen (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "Eenhedenconverter",
+        "description": "Converteren tussen 323 eenheden in 43 wetenschappelijke en technische categorieën."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "Favoriete tools",
       "toolsWithUsage": "Tools met gebruiksstatistieken"
     },
-    "signIn": "Inloggen"
+    "signIn": "Inloggen",
+    "noResults": "Geen tools komen overeen met je zoekopdracht",
+    "noResultsHint": "Probeer een ander trefwoord of wis het filter.",
+    "filterAll": "Alles",
+    "loginCta": {
+      "description": "Log in om je recent gebruikte tools bij te houden."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "Taalcode",
       "custom_list": "Aangepaste lijst"
     }
+  },
+  "UnitConverter": {
+    "title": "Eenhedenconverter",
+    "subtitle": "Converteren tussen <strong>323 eenheden</strong> in <strong>43 categorieën</strong>",
+    "category": "Categorie",
+    "from": "Van",
+    "to": "Naar",
+    "value": "Waarde",
+    "result": "Resultaat",
+    "swapUnits": "Eenheden omwisselen",
+    "placeholder": "Voer waarde in",
+    "copyResult": "Resultaat kopiëren",
+    "searchCategory": "Zoek categorie...",
+    "selectCategory": "Selecteer een categorie",
+    "noResults": "Geen categorie gevonden."
   }
 }

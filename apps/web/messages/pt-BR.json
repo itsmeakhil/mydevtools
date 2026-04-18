@@ -40,7 +40,8 @@
     "markdownPreview": "Pré-visualização Markdown",
     "numberBaseConverter": "Conversor de base",
     "formatConverter": "Conversor de formatos",
-    "mockDataGenerator": "Gerador de dados mock"
+    "mockDataGenerator": "Gerador de dados mock",
+    "unitConverter": "Conversor de Unidades"
   },
   "Help": {
     "title": "Ajuda e documentação",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "Gerador de dados mock",
         "description": "Defina colunas, escolha tipos e exporte conjuntos de dados para seeds, Postman ou testes. Até 5000 linhas, tudo no navegador — nada é enviado."
+      },
+      "httpStatusCodes": {
+        "title": "Códigos de status HTTP",
+        "description": "Pesquise códigos de status HTTP com descrições (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "Conversor de Unidades",
+        "description": "Converta entre 323 unidades em 43 categorias científicas e de engenharia."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "Ferramentas favoritas",
       "toolsWithUsage": "Ferramentas com uso rastreado"
     },
-    "signIn": "Entrar"
+    "signIn": "Entrar",
+    "noResults": "Nenhuma ferramenta corresponde à sua pesquisa",
+    "noResultsHint": "Tente uma palavra-chave diferente ou limpe o filtro.",
+    "filterAll": "Tudo",
+    "loginCta": {
+      "description": "Faça login para rastrear suas ferramentas usadas recentemente."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "Tag de idioma",
       "custom_list": "Lista personalizada"
     }
+  },
+  "UnitConverter": {
+    "title": "Conversor de Unidades",
+    "subtitle": "Converta entre <strong>323 unidades</strong> em <strong>43 categorias</strong>",
+    "category": "Categoria",
+    "from": "De",
+    "to": "Para",
+    "value": "Valor",
+    "result": "Resultado",
+    "swapUnits": "Inverter unidades",
+    "placeholder": "Digite um valor",
+    "copyResult": "Copiar resultado",
+    "searchCategory": "Buscar categoria...",
+    "selectCategory": "Selecione uma categoria",
+    "noResults": "Nenhuma categoria encontrada."
   }
 }
