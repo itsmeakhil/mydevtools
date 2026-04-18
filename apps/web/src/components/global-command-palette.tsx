@@ -37,7 +37,7 @@ type PaletteEntry = {
   requiresAuth: boolean
 }
 
-const CATEGORY_ORDER = ['Site', 'Productivity', 'Security', 'Development'] as const
+const CATEGORY_ORDER = ['Site', 'Productivity', 'Security', 'Formatters', 'Converters', 'Generators', 'Network & API', 'Database', 'Media & Design'] as const
 
 const STATIC_ENTRIES: Omit<PaletteEntry, 'searchValue'>[] = [
   {
