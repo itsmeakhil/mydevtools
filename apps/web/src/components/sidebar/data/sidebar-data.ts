@@ -41,6 +41,7 @@ import {
   IconUserSearch,
   IconCertificate,
   IconBrandGraphql,
+  IconClipboardData,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -181,6 +182,14 @@ export const sidebarData: SidebarData = {
           icon: IconFileSpreadsheet,
           description: 'Convert CSV or Excel files to JSON and back. File upload with sensible dates.',
           hiddenOnMobile: true,
+        },
+        {
+          title: 'Mock Data Generator',
+          url: '/app/mock-data-generator',
+          icon: IconClipboardData,
+          description: 'Define a schema and export random JSON, CSV, SQL, or XML for dev and API testing.',
+          hiddenOnMobile: true,
+          badge: 'new',
         },
         {
           title: 'Cron Builder',

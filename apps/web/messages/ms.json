@@ -39,7 +39,8 @@
     "hmacGenerator": "Penjana HMAC",
     "markdownPreview": "Pratonton Markdown",
     "numberBaseConverter": "Penukar asas",
-    "formatConverter": "Penukar Format"
+    "formatConverter": "Penukar Format",
+    "mockDataGenerator": "Penjana Data Mock"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -377,6 +378,10 @@
       "numberBaseConverter": {
         "title": "Penukar asas nombor",
         "description": "Tukar integer antara asas 2–36."
+      },
+      "mockDataGenerator": {
+        "title": "Penjana Data Mock",
+        "description": "Takrifkan lajur, pilih jenis data, dan eksport set data untuk benih, Postman atau ujian. Sehingga 5000 baris, semuanya dalam pelayar — tiada muat naik."
       }
     },
     "tabs": {
@@ -1960,7 +1965,6 @@
       "emptySelection": "Tambah set pilihan sebelum menggunakan."
     }
   },
-
   "RegexTester": {
     "title": "Penguji regex",
     "subtitle": "Regex gaya JavaScript secara langsung pada teks anda. Padanan diserlahkan; tiada apa keluar dari pelayar.",
@@ -2857,5 +2861,105 @@
     "copied": "Disalin",
     "emptyHint": "Tampal rentetan User-Agent untuk melihat pecahan.",
     "localNote": "Semua berjalan secara tempatan di pelayar anda. Tiada apa yang dimuat naik."
+  },
+  "MockDataGenerator": {
+    "title": "Penjana Data Mock",
+    "subtitle": "Takrifkan lajur, pilih jenis data, dan eksport set data untuk benih, Postman atau ujian. Sehingga {max} baris, semuanya dalam pelayar — tiada muat naik.",
+    "mockarooLink": "Aliran kerja ala Mockaroo",
+    "rowsLabel": "Baris",
+    "rowsHint": "Maksimum {max} baris setiap penjanaan supaya tab kekal responsif.",
+    "formatLabel": "Format",
+    "formats": {
+      "json": "JSON",
+      "csv": "CSV",
+      "sql": "INSERT SQL",
+      "xml": "XML"
+    },
+    "tableNameLabel": "Nama jadual SQL",
+    "presetsLabel": "Pratetap",
+    "presetPlaceholder": "Muat pratetap…",
+    "presetDefault": "Permulaan (pengguna)",
+    "presetUsers": "Pengguna & peranan",
+    "presetProducts": "SKU e-dagang",
+    "presetApiLog": "Log permintaan HTTP",
+    "generate": "Jana",
+    "warningDuplicateNames": "Nama lajur pendua: lajur kemudian menimpa yang terdahulu dalam objek JSON. Namakan semula.",
+    "schemaHeading": "Skema",
+    "addField": "Tambah lajur",
+    "removeField": "Buang lajur",
+    "duplicateField": "Duplikasi lajur",
+    "colName": "Nama",
+    "colType": "Jenis",
+    "colOptions": "Pilihan",
+    "colBlank": "Kosong %",
+    "optMin": "min",
+    "optMax": "maks",
+    "optDecimals": "perpuluhan",
+    "optDateFrom": "dari tarikh",
+    "optDateTo": "hingga tarikh",
+    "optValues": "a, b, c",
+    "optStep": "langkah",
+    "optRowBase": "asas",
+    "output": "Output",
+    "outputPlaceholder": "Klik Jana untuk membina data…",
+    "copy": "Salin",
+    "download": "Muat turun",
+    "copied": "Disalin",
+    "groups": {
+      "personal": "Peribadi",
+      "location": "Lokasi",
+      "internetApi": "Internet & API",
+      "numbersIds": "Nombor & ID",
+      "dateTime": "Tarikh & masa",
+      "textDesign": "Teks & reka bentuk",
+      "custom": "Tersuai"
+    },
+    "fieldTypes": {
+      "first_name": "Nama pertama",
+      "last_name": "Nama keluarga",
+      "full_name": "Nama penuh",
+      "email": "Email",
+      "username": "Nama pengguna",
+      "password": "Kata laluan",
+      "phone": "Telefon",
+      "company": "Syarikat",
+      "job_title": "Jawatan",
+      "avatar_url": "URL avatar",
+      "city": "Bandar",
+      "country": "Negara",
+      "country_code": "Kod negara (ISO)",
+      "street_address": "Alamat",
+      "zip_code": "Poskod",
+      "latitude": "Latitud",
+      "longitude": "Longitud",
+      "url": "URL",
+      "domain": "Domain",
+      "ip_address": "IPv4",
+      "ipv6": "IPv6",
+      "mac_address": "MAC address",
+      "http_method": "HTTP method",
+      "http_status": "HTTP status",
+      "integer": "Integer",
+      "float": "Perpuluhan",
+      "boolean": "Boolean",
+      "uuid": "UUID",
+      "credit_card": "Kad kredit (ujian)",
+      "semver": "SemVer",
+      "row_index": "Indeks baris",
+      "sequence": "Jujukan",
+      "date": "Tarikh",
+      "datetime": "Tarikh & masa",
+      "unix_timestamp": "Setem masa Unix",
+      "timezone": "Zon masa",
+      "word": "Perkataan",
+      "sentence": "Ayat",
+      "paragraph": "Perenggan",
+      "slug": "Slug",
+      "hex_color": "Hex color",
+      "rgb_color": "RGB color",
+      "currency_code": "Kod mata wang",
+      "language_code": "Tag bahasa",
+      "custom_list": "Senarai tersuai"
+    }
   }
 }

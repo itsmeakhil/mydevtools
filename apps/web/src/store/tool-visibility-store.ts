@@ -34,6 +34,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/lorem-ipsum',
   '/app/color-picker',
   '/app/markdown-preview-html',
+  '/app/mock-data-generator',
 ];
 
 interface ToolVisibilityStore {
