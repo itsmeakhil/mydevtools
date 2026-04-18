@@ -209,6 +209,24 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: 'Generate .gitignore files instantly for a specific tech stack (Node, Python, macOS, etc.) or combination.',
         keywords: ['gitignore', 'git ignore generator', 'ignore file', 'gitignore boilerplate', 'developer tools']
     },
+    'docker-compose-generator': {
+        title: 'Docker Compose Generator',
+        description:
+            'Pick PostgreSQL, Redis, NGINX, Kafka, Elasticsearch, Prometheus, Grafana, and dozens of other images — get a ready-to-edit docker-compose.yml for local development.',
+        keywords: [
+            'docker compose',
+            'docker-compose.yml',
+            'compose generator',
+            'postgres docker',
+            'redis docker',
+            'nginx docker',
+            'kafka compose',
+            'local development stack',
+            'devops',
+        ],
+        aiSummary:
+            'Free browser tool: tick databases (Postgres, MySQL, MongoDB, ClickHouse), caches (Redis, Valkey, Memcached), queues (RabbitMQ, NATS, Kafka, Redpanda), search (Elasticsearch, Meilisearch), proxies (Traefik, Caddy, NGINX), observability (Prometheus, Grafana, Jaeger, Loki), and admin UIs — then copy or download docker-compose.yml.',
+    },
     'csv-excel-json': {
         title: 'CSV / Excel ↔ JSON Converter',
         description: 'Upload CSV or Excel files and convert to JSON, or export a JSON array of objects back to CSV and XLSX. Dates from Excel become ISO strings. Runs in your browser.',

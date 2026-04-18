@@ -46,7 +46,8 @@
     "formatConverter": "Převodník formátů",
     "mockDataGenerator": "Generátor testovacích dat",
     "svgOptimizer": "Optimalizátor SVG",
-    "unitConverter": "Převodník jednotek"
+    "unitConverter": "Převodník jednotek",
+    "dockerComposeGenerator": "Generátor Docker Compose"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -410,6 +411,10 @@
       "unitConverter": {
         "title": "Převodník jednotek",
         "description": "Převádějte mezi 323 jednotkami ve 43 vědeckých a technických kategoriích."
+      },
+      "dockerComposeGenerator": {
+        "title": "Generátor Docker Compose",
+        "description": "Vyberte databáze, cache, fronty, proxy a observabilitu; exportujte docker-compose.yml pro lokální stacky."
       }
     },
     "tabs": {
@@ -3170,5 +3175,80 @@
     "searchCategory": "Hledat kategorii...",
     "selectCategory": "Vyberte kategorii",
     "noResults": "Žádná kategorie nenalezena."
+  },
+  "DockerComposeGenerator": {
+    "title": "Generátor Docker Compose",
+    "subtitle": "Vyberte populární databáze, cache, fronty zpráv, reverzní proxy a observabilitu — zkopírujte funkční docker-compose.yml pro lokální vývoj.",
+    "searchPlaceholder": "Hledat (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Služby",
+    "selectedCount": "{count, plural, one {# služba} few {# služby} many {# služeb} other {# služeb}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno!",
+    "download": "Stáhnout",
+    "emptyState": "Vyberte jednu nebo více služeb pro vygenerování Compose YAML.",
+    "hintPorts": "Výchozí porty hostitele snižují konflikty; upravte je, pokud Docker nahlásí obsazený port. Před sdílenými prostředími nahraďte demo hesla.",
+    "categories": {
+      "databases": "Databáze a úložiště",
+      "cache": "Cache a in-memory",
+      "queues": "Fronty a messaging",
+      "search": "Vyhledávání a logy",
+      "storage": "Objektové úložiště",
+      "proxy": "Reverzní proxy a ingress",
+      "observability": "Metriky a trasování",
+      "mail": "E-mail (lokální vývoj)",
+      "admin": "Admin a BI rozhraní"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Vymazat"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (kompatibilní s Redis)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (kompatibilní s Kafka)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (kompatibilní se S3)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (zachycení SMTP)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (dev server)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
   }
 }

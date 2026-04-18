@@ -46,7 +46,8 @@
     "formatConverter": "Chuyển đổi định dạng",
     "mockDataGenerator": "Trình tạo dữ liệu giả",
     "svgOptimizer": "Tối ưu SVG",
-    "unitConverter": "Chuyển đổi đơn vị"
+    "unitConverter": "Chuyển đổi đơn vị",
+    "dockerComposeGenerator": "Trình tạo Docker Compose"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -410,6 +411,10 @@
       "unitConverter": {
         "title": "Chuyển đổi đơn vị",
         "description": "Chuyển đổi giữa 323 đơn vị trong 43 danh mục khoa học và kỹ thuật."
+      },
+      "dockerComposeGenerator": {
+        "title": "Trình tạo Docker Compose",
+        "description": "Chọn cơ sở dữ liệu, bộ nhớ đệm, hàng đợi, proxy và image quan sát; xuất docker-compose.yml cho stack cục bộ."
       }
     },
     "tabs": {
@@ -3170,5 +3175,80 @@
     "searchCategory": "Tìm danh mục...",
     "selectCategory": "Chọn danh mục",
     "noResults": "Không tìm thấy danh mục."
+  },
+  "DockerComposeGenerator": {
+    "title": "Trình tạo Docker Compose",
+    "subtitle": "Chọn cơ sở dữ liệu, cache, hàng đợi tin nhắn, reverse proxy và quan sát — sao chép docker-compose.yml sẵn sàng cho phát triển cục bộ.",
+    "searchPlaceholder": "Tìm (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Dịch vụ",
+    "selectedCount": "{count, plural, other {# dịch vụ}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép!",
+    "download": "Tải xuống",
+    "emptyState": "Chọn một hoặc nhiều dịch vụ để tạo YAML Compose.",
+    "hintPorts": "Cổng máy chủ mặc định giảm xung đột; chỉnh nếu Docker báo cổng đã dùng. Đổi mật khẩu demo trước môi trường dùng chung.",
+    "categories": {
+      "databases": "Cơ sở dữ liệu & lưu trữ",
+      "cache": "Cache & trong bộ nhớ",
+      "queues": "Hàng đợi & tin nhắn",
+      "search": "Tìm kiếm & nhật ký",
+      "storage": "Lưu trữ đối tượng",
+      "proxy": "Reverse proxy & ingress",
+      "observability": "Số liệu & tracing",
+      "mail": "Email (phát triển cục bộ)",
+      "admin": "Giao diện quản trị & BI"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Xóa"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (tương thích Redis)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (tương thích Kafka)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (tương thích S3)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (bắt SMTP)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (máy chủ dev)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
   }
 }

@@ -46,7 +46,8 @@
     "formatConverter": "Formatkonverterer",
     "mockDataGenerator": "Mock-datagenerator",
     "svgOptimizer": "SVG-optimalisering",
-    "unitConverter": "Enhetsomregner"
+    "unitConverter": "Enhetsomregner",
+    "dockerComposeGenerator": "Docker Compose-generator"
   },
   "Help": {
     "title": "Hjelp og dokumentasjon",
@@ -410,6 +411,10 @@
       "unitConverter": {
         "title": "Enhetsomregner",
         "description": "Konverter mellom 323 enheter på tvers av 43 vitenskapelige og tekniske kategorier."
+      },
+      "dockerComposeGenerator": {
+        "title": "Docker Compose-generator",
+        "description": "Velg databaser, hurtigminne, køer, proxyer og observabilitetsbilder; eksporter docker-compose.yml for lokale stakk."
       }
     },
     "tabs": {
@@ -3170,5 +3175,80 @@
     "searchCategory": "Søk kategori...",
     "selectCategory": "Velg en kategori",
     "noResults": "Ingen kategori funnet."
+  },
+  "DockerComposeGenerator": {
+    "title": "Docker Compose-generator",
+    "subtitle": "Velg populære databaser, cache, meldingskøer, omvendte proxyer og observabilitet — kopier en docker-compose.yml klar for lokal utvikling.",
+    "searchPlaceholder": "Søk (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Tjenester",
+    "selectedCount": "{count, plural, one {# tjeneste} other {# tjenester}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Kopier",
+    "copied": "Kopiert!",
+    "download": "Last ned",
+    "emptyState": "Velg én eller flere tjenester for å generere Compose-YAML.",
+    "hintPorts": "Standardvertsporter reduserer konflikter; endre hvis Docker melder opptatt port. Bytt demopassord før delte miljøer.",
+    "categories": {
+      "databases": "Databaser og lagring",
+      "cache": "Cache og in-memory",
+      "queues": "Køer og meldinger",
+      "search": "Søk og logger",
+      "storage": "Objektlagring",
+      "proxy": "Omvendte proxyer og ingress",
+      "observability": "Målinger og sporing",
+      "mail": "E-post (lokal utvikling)",
+      "admin": "Admin- og BI-grensesnitt"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Tøm"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (Redis-kompatibel)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (Kafka-kompatibel)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (S3-kompatibel)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (SMTP-fangst)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (dev-server)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
   }
 }

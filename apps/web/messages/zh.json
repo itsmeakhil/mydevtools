@@ -46,7 +46,8 @@
     "formatConverter": "格式转换器",
     "mockDataGenerator": "模拟数据生成器",
     "svgOptimizer": "SVG 优化",
-    "unitConverter": "单位换算器"
+    "unitConverter": "单位换算器",
+    "dockerComposeGenerator": "Docker Compose 生成器"
   },
   "Help": {
     "title": "帮助与文档",
@@ -410,6 +411,10 @@
       "unitConverter": {
         "title": "单位换算器",
         "description": "在 43 个科学和工程类别的 323 个单位之间转换。"
+      },
+      "dockerComposeGenerator": {
+        "title": "Docker Compose 生成器",
+        "description": "选择数据库、缓存、队列、代理与可观测性镜像；导出用于本地栈的 docker-compose.yml。"
       }
     },
     "tabs": {
@@ -3170,5 +3175,80 @@
     "searchCategory": "搜索类别...",
     "selectCategory": "选择类别",
     "noResults": "未找到类别。"
+  },
+  "DockerComposeGenerator": {
+    "title": "Docker Compose 生成器",
+    "subtitle": "选择常用数据库、缓存、消息队列、反向代理与可观测性组件——复制即可用于本地开发的 docker-compose.yml。",
+    "searchPlaceholder": "搜索（postgres、redis、kafka、nginx、grafana…）",
+    "selectedLabel": "服务",
+    "selectedCount": "{count, plural, other {# 个服务}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "复制",
+    "copied": "已复制！",
+    "download": "下载",
+    "emptyState": "请选择一个或多个服务以生成 Compose YAML。",
+    "hintPorts": "默认主机端口已错开以降低冲突；若 Docker 提示端口占用请修改。在共享环境前务必替换演示密码。",
+    "categories": {
+      "databases": "数据库与存储",
+      "cache": "缓存与内存",
+      "queues": "队列与消息",
+      "search": "搜索与日志",
+      "storage": "对象存储",
+      "proxy": "反向代理与入口",
+      "observability": "指标与追踪",
+      "mail": "邮件（本地开发）",
+      "admin": "管理与 BI 界面"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "清空"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey（兼容 Redis）",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda（兼容 Kafka）",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO（兼容 S3）",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit（SMTP 捕获）",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault（开发模式）",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg（Chromium / PDF）"
+    }
   }
 }

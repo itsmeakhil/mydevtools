@@ -46,7 +46,8 @@
     "formatConverter": "포맷 변환기",
     "mockDataGenerator": "모의 데이터 생성기",
     "svgOptimizer": "SVG 최적화",
-    "unitConverter": "단위 변환기"
+    "unitConverter": "단위 변환기",
+    "dockerComposeGenerator": "Docker Compose 생성기"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -410,6 +411,10 @@
       "unitConverter": {
         "title": "단위 변환기",
         "description": "43개의 과학 및 공학 카테고리에서 323개의 단위 간 변환."
+      },
+      "dockerComposeGenerator": {
+        "title": "Docker Compose 생성기",
+        "description": "데이터베이스, 캐시, 큐, 프록시, 관측 가능성 이미지를 선택하고 로컬 스택용 docker-compose.yml을 보냅니다."
       }
     },
     "tabs": {
@@ -3170,5 +3175,80 @@
     "searchCategory": "카테고리 검색...",
     "selectCategory": "카테고리 선택",
     "noResults": "카테고리를 찾을 수 없습니다."
+  },
+  "DockerComposeGenerator": {
+    "title": "Docker Compose 생성기",
+    "subtitle": "인기 있는 데이터베이스, 캐시, 메시지 큐, 리버스 프록시, 관측 가능성을 선택해 로컬 개발용 docker-compose.yml 을 복사하세요.",
+    "searchPlaceholder": "검색 (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "서비스",
+    "selectedCount": "{count, plural, other {#개 서비스}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "복사",
+    "copied": "복사됨!",
+    "download": "다운로드",
+    "emptyState": "Compose YAML 을 생성할 서비스를 하나 이상 선택하세요.",
+    "hintPorts": "기본 호스트 포트는 충돌을 줄이도록 배치되어 있습니다. 바인드 오류 시 변경하세요. 공유 환경 전에 데모 비밀번호를 교체하세요.",
+    "categories": {
+      "databases": "데이터베이스 및 저장소",
+      "cache": "캐시 및 인메모리",
+      "queues": "큐 및 메시징",
+      "search": "검색 및 로그",
+      "storage": "오브젝트 스토리지",
+      "proxy": "리버스 프록시 및 Ingress",
+      "observability": "메트릭 및 추적",
+      "mail": "이메일(로컬 개발)",
+      "admin": "관리 및 BI UI"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "지우기"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey(Redis 호환)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda(Kafka 호환)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO(S3 호환)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit(SMTP 캡처)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault(개발 서버)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg(Chromium / PDF)"
+    }
   }
 }

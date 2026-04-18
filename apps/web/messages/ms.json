@@ -46,7 +46,8 @@
     "formatConverter": "Penukar Format",
     "mockDataGenerator": "Penjana Data Mock",
     "svgOptimizer": "Pengoptimum SVG",
-    "unitConverter": "Penukar Unit"
+    "unitConverter": "Penukar Unit",
+    "dockerComposeGenerator": "Penjana Docker Compose"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -416,6 +417,10 @@
       "unitConverter": {
         "title": "Penukar Unit",
         "description": "Tukar antara 323 unit merentasi 43 kategori sains dan kejuruteraan."
+      },
+      "dockerComposeGenerator": {
+        "title": "Penjana Docker Compose",
+        "description": "Pilih pangkalan data, cache, baris gilir, proksi dan imej kebolehcerapan; eksport docker-compose.yml untuk setempat."
       }
     },
     "tabs": {
@@ -3170,5 +3175,80 @@
     "searchCategory": "Cari kategori...",
     "selectCategory": "Pilih kategori",
     "noResults": "Tiada kategori dijumpai."
+  },
+  "DockerComposeGenerator": {
+    "title": "Penjana Docker Compose",
+    "subtitle": "Pilih pangkalan data popular, cache, baris gilir mesej, proksi songsang dan kebolehcerapan — salin docker-compose.yml untuk pembangunan setempat.",
+    "searchPlaceholder": "Cari (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Perkhidmatan",
+    "selectedCount": "{count, plural, other {# perkhidmatan}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Salin",
+    "copied": "Disalin!",
+    "download": "Muat turun",
+    "emptyState": "Pilih satu atau lebih perkhidmatan untuk menjana YAML Compose.",
+    "hintPorts": "Port hos lalai mengurangkan konflik; ubah jika Docker melaporkan port digunakan. Ganti kata laluan demo sebelum persekitaran dikongsi.",
+    "categories": {
+      "databases": "Pangkalan data & storan",
+      "cache": "Cache & dalam memori",
+      "queues": "Baris gilir & pemesejan",
+      "search": "Carian & log",
+      "storage": "Storan objek",
+      "proxy": "Proksi songsang & ingress",
+      "observability": "Metrik & penjejakan",
+      "mail": "E-mel (pembangunan setempat)",
+      "admin": "Antara muka pentadbir & BI"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Kosongkan"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (serasi Redis)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (serasi Kafka)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (serasi S3)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (tangkap SMTP)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (pelayan dev)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
   }
 }

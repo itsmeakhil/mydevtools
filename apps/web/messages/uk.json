@@ -46,7 +46,8 @@
     "formatConverter": "Конвертер форматів",
     "mockDataGenerator": "Генератор тестових даних",
     "svgOptimizer": "Оптимізатор SVG",
-    "unitConverter": "Конвертер одиниць"
+    "unitConverter": "Конвертер одиниць",
+    "dockerComposeGenerator": "Генератор Docker Compose"
   },
   "Help": {
     "title": "Довідка та документація",
@@ -410,6 +411,10 @@
       "unitConverter": {
         "title": "Конвертер одиниць",
         "description": "Конвертуйте між 323 одиницями у 43 наукових і технічних категоріях."
+      },
+      "dockerComposeGenerator": {
+        "title": "Генератор Docker Compose",
+        "description": "Оберіть бази даних, кеші, черги, проксі та образи спостережуваності; експортуйте docker-compose.yml для локальних стеків."
       }
     },
     "tabs": {
@@ -3170,5 +3175,80 @@
     "searchCategory": "Пошук категорії...",
     "selectCategory": "Виберіть категорію",
     "noResults": "Категорію не знайдено."
+  },
+  "DockerComposeGenerator": {
+    "title": "Генератор Docker Compose",
+    "subtitle": "Оберіть популярні бази даних, кеші, брокери повідомлень, зворотні проксі та спостережуваність — скопіюйте готовий docker-compose.yml для локальної розробки.",
+    "searchPlaceholder": "Пошук (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Сервіси",
+    "selectedCount": "{count, plural, one {# сервіс} few {# сервіси} many {# сервісів} other {# сервісів}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Копіювати",
+    "copied": "Скопійовано!",
+    "download": "Завантажити",
+    "emptyState": "Оберіть один або кілька сервісів, щоб згенерувати YAML Compose.",
+    "hintPorts": "Порти хоста підібрані, щоб рідше конфліктували; змініть за потреби. Замініть демо-паролі перед спільними середовищами.",
+    "categories": {
+      "databases": "Бази даних і сховища",
+      "cache": "Кеш і in-memory",
+      "queues": "Черги та обмін повідомленнями",
+      "search": "Пошук і журнали",
+      "storage": "Об’єктне сховище",
+      "proxy": "Зворотні проксі та ingress",
+      "observability": "Метрики та трасування",
+      "mail": "Пошта (локальна розробка)",
+      "admin": "Адмін-інтерфейси та BI"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Очистити"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (сумісний з Redis)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (сумісна з Kafka)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (сумісний з S3)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (перехоплення SMTP)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (режим розробки)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
   }
 }
