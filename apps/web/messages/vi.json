@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Trình tạo lược đồ JSON",
     "imageToBase64": "Hình ảnh tới Base64",
+    "imageCompressor": "Nén ảnh",
     "cssGradientBuilder": "Trình tạo độ dốc CSS",
     "gitignoreGenerator": "Trình tạo .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "Hình ảnh tới Base64",
         "description": "Chuyển đổi hình ảnh thành URI dữ liệu hoặc chuỗi Base64 thô."
+      },
+      "imageCompressor": {
+        "title": "Nén ảnh",
+        "description": "Nén JPEG, PNG và WebP cục bộ với thanh trượt chất lượng."
       },
       "cssGradientBuilder": {
         "title": "Trình tạo độ dốc CSS",
@@ -2417,6 +2422,42 @@
       "title": "Tải văn bản xuống",
       "filename": "hình ảnh-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "Nén ảnh",
+    "subtitle": "Giảm kích thước đầu ra JPEG, PNG hoặc WebP cục bộ với chất lượng — không tải lên máy chủ.",
+    "upload": "Tải ảnh lên",
+    "clear": "Xóa",
+    "dropHere": "Thả ảnh vào đây",
+    "placeholders": {
+      "uploadImage": "Kéo thả ảnh hoặc bấm để chọn tệp."
+    },
+    "fileTooLarge": "Tệp quá lớn (tối đa {maxMb} MB).",
+    "unsupportedFormat": "Định dạng không hỗ trợ. Dùng JPEG, PNG, WebP, GIF, AVIF hoặc BMP.",
+    "compressFailed": "Không thể nén ảnh này. Thử tệp hoặc định dạng khác.",
+    "panels": {
+      "original": "Gốc",
+      "compressed": "Xem trước đã nén"
+    },
+    "outputFormat": "Định dạng đầu ra",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Chất lượng",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG không mất dữ liệu trên trình duyệt; thanh chất lượng chỉ áp dụng cho JPEG và WebP.",
+    "sizes": {
+      "original": "Gốc: {size}",
+      "compressed": "Đã nén: {size}",
+      "saved": "nhỏ hơn {percent}%"
+    },
+    "largerWarning": "Đầu ra lớn hơn đầu vào — thử định dạng hoặc chất lượng khác.",
+    "download": "Tải xuống",
+    "downloadFilename": "anh-da-nen",
+    "processing": "Đang nén…",
+    "emptyCompressed": "Xem trước đã nén hiển thị tại đây."
   },
   "CssGradientBuilder": {
     "title": "Trình tạo độ dốc CSS",

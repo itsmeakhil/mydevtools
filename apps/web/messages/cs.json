@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generátor JSON schématu",
     "imageToBase64": "Obrázek do Base64",
+    "imageCompressor": "Komprese obrázků",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": "Generátor .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "Obrázek do Base64",
         "description": "Převeďte obrázky na Data URI nebo nezpracované řetězce Base64."
+      },
+      "imageCompressor": {
+        "title": "Komprese obrázků",
+        "description": "Komprimujte JPEG, PNG a WebP lokálně posuvníkem kvality."
       },
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
@@ -2417,6 +2422,42 @@
       "title": "Stáhnout text",
       "filename": "image-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "Komprese obrázků",
+    "subtitle": "Zmenšete výstup JPEG, PNG nebo WebP lokálně s ovládáním kvality — nic se nenahrává.",
+    "upload": "Nahrát obrázek",
+    "clear": "Vymazat",
+    "dropHere": "Přetáhněte obrázek sem",
+    "placeholders": {
+      "uploadImage": "Přetáhněte obrázek nebo klikněte pro výběr souboru."
+    },
+    "fileTooLarge": "Soubor je příliš velký (max. {maxMb} MB).",
+    "unsupportedFormat": "Tento typ souboru není podporován. Použijte JPEG, PNG, WebP, GIF, AVIF nebo BMP.",
+    "compressFailed": "Obrázek se nepodařilo zkomprimovat. Zkuste jiný soubor nebo formát.",
+    "panels": {
+      "original": "Originál",
+      "compressed": "Náhled po kompresi"
+    },
+    "outputFormat": "Výstupní formát",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Kvalita",
+    "qualityPercent": "{value} %",
+    "qualityPngHint": "PNG je v prohlížeči bezztrátové; posuvník kvality platí jen pro JPEG a WebP.",
+    "sizes": {
+      "original": "Originál: {size}",
+      "compressed": "Po kompresi: {size}",
+      "saved": "o {percent} % menší"
+    },
+    "largerWarning": "Výstup je větší než vstup — zkuste jiný formát nebo kvalitu.",
+    "download": "Stáhnout",
+    "downloadFilename": "komprimovany-obrazek",
+    "processing": "Komprimuji…",
+    "emptyCompressed": "Náhled po kompresi se zobrazí zde."
   },
   "CssGradientBuilder": {
     "title": "CSS Gradient Builder",

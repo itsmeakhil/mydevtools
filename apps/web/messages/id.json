@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generator Skema JSON",
     "imageToBase64": "Gambar ke Base64",
+    "imageCompressor": "Kompresor gambar",
     "cssGradientBuilder": "Pembuat Gradien CSS",
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "Gambar ke Base64",
         "description": "Konversikan gambar ke URI Data atau string Base64 mentah."
+      },
+      "imageCompressor": {
+        "title": "Kompresor gambar",
+        "description": "Kompres JPEG, PNG, dan WebP secara lokal dengan penggeser kualitas."
       },
       "cssGradientBuilder": {
         "title": "Pembuat Gradien CSS",
@@ -2417,6 +2422,42 @@
       "title": "Unduh teks",
       "filename": "gambar-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "Kompresor gambar",
+    "subtitle": "Perkecil keluaran JPEG, PNG, atau WebP secara lokal dengan kontrol kualitas — tidak ada unggahan.",
+    "upload": "Unggah gambar",
+    "clear": "Hapus",
+    "dropHere": "Letakkan gambar di sini",
+    "placeholders": {
+      "uploadImage": "Seret dan lepas gambar, atau klik untuk memilih file."
+    },
+    "fileTooLarge": "File terlalu besar (maks {maxMb} MB).",
+    "unsupportedFormat": "Jenis file tidak didukung. Gunakan JPEG, PNG, WebP, GIF, AVIF, atau BMP.",
+    "compressFailed": "Tidak dapat mengompres gambar ini. Coba file atau format lain.",
+    "panels": {
+      "original": "Asli",
+      "compressed": "Pratinjau terkompresi"
+    },
+    "outputFormat": "Format keluaran",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Kualitas",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG tanpa rugi di perangkat; penggeser kualitas hanya untuk JPEG dan WebP.",
+    "sizes": {
+      "original": "Asli: {size}",
+      "compressed": "Terkompresi: {size}",
+      "saved": "{percent}% lebih kecil"
+    },
+    "largerWarning": "Keluaran lebih besar dari masukan — coba format atau kualitas lain.",
+    "download": "Unduh",
+    "downloadFilename": "gambar-terkompresi",
+    "processing": "Mengompres…",
+    "emptyCompressed": "Pratinjau terkompresi muncul di sini."
   },
   "CssGradientBuilder": {
     "title": "Pembuat Gradien CSS",

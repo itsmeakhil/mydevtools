@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-schemagenerator",
     "imageToBase64": "Bild till Base64",
+    "imageCompressor": "Bildkomprimering",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "Bild till Base64",
         "description": "Konvertera bilder till Data URI eller rå Base64-strängar."
+      },
+      "imageCompressor": {
+        "title": "Bildkomprimering",
+        "description": "Komprimera JPEG, PNG och WebP lokalt med en kvalitetsreglage."
       },
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
@@ -2417,6 +2422,42 @@
       "title": "Ladda ner text",
       "filename": "image-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "Bildkomprimering",
+    "subtitle": "Minska JPEG-, PNG- eller WebP-utdata lokalt med kvalitetskontroll — inget laddas upp.",
+    "upload": "Ladda upp bild",
+    "clear": "Rensa",
+    "dropHere": "Släpp bilden här",
+    "placeholders": {
+      "uploadImage": "Dra och släpp en bild, eller klicka för att välja fil."
+    },
+    "fileTooLarge": "Filen är för stor (max {maxMb} MB).",
+    "unsupportedFormat": "Filtypen stöds inte. Använd JPEG, PNG, WebP, GIF, AVIF eller BMP.",
+    "compressFailed": "Det gick inte att komprimera bilden. Prova en annan fil eller ett annat format.",
+    "panels": {
+      "original": "Original",
+      "compressed": "Komprimerad förhandsgranskning"
+    },
+    "outputFormat": "Utdataformat",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Kvalitet",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG är förlustfritt i webbläsaren; kvalitetsreglaget gäller bara JPEG och WebP.",
+    "sizes": {
+      "original": "Original: {size}",
+      "compressed": "Komprimerad: {size}",
+      "saved": "{percent}% mindre"
+    },
+    "largerWarning": "Utdata är större än indata — prova annat format eller kvalitet.",
+    "download": "Ladda ner",
+    "downloadFilename": "komprimerad-bild",
+    "processing": "Komprimerar…",
+    "emptyCompressed": "Komprimerad förhandsgranskning visas här."
   },
   "CssGradientBuilder": {
     "title": "CSS Gradient Builder",

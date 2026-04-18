@@ -44,6 +44,7 @@ import {
   IconClipboardData,
   IconRuler,
   IconFileTypeSvg,
+  IconArrowsDiagonalMinimize2,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -212,6 +213,13 @@ export const sidebarData: SidebarData = {
           url: '/app/image-to-base64',
           icon: IconPhoto,
           description: 'Convert images to Data URI or raw Base64 strings.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'Image Compressor',
+          url: '/app/image-compressor',
+          icon: IconArrowsDiagonalMinimize2,
+          description: 'Compress JPEG, PNG, and WebP locally with a quality slider.',
           hiddenOnMobile: true,
         },
         {

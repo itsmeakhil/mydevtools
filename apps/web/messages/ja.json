@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSONスキーマジェネレーター",
     "imageToBase64": "画像をBase64に変換",
+    "imageCompressor": "画像圧縮",
     "cssGradientBuilder": "CSS グラデーション ビルダー",
     "gitignoreGenerator": ".gitignore ジェネレーター",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "画像をBase64に変換",
         "description": "画像をデータ URI または生の Base64 文字列に変換します。"
+      },
+      "imageCompressor": {
+        "title": "画像圧縮",
+        "description": "JPEG・PNG・WebPをブラウザ内で品質スライダー付きで圧縮。"
       },
       "cssGradientBuilder": {
         "title": "CSS グラデーション ビルダー",
@@ -2417,6 +2422,42 @@
       "title": "テキストをダウンロードする",
       "filename": "画像-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "画像圧縮",
+    "subtitle": "JPEG / PNG / WebP を品質調整でローカル圧縮。アップロードはありません。",
+    "upload": "画像をアップロード",
+    "clear": "クリア",
+    "dropHere": "ここに画像をドロップ",
+    "placeholders": {
+      "uploadImage": "ドラッグ＆ドロップするか、クリックしてファイルを選択。"
+    },
+    "fileTooLarge": "ファイルが大きすぎます（最大 {maxMb} MB）。",
+    "unsupportedFormat": "未対応の形式です。JPEG、PNG、WebP、GIF、AVIF、BMP を使用してください。",
+    "compressFailed": "圧縮できませんでした。別のファイルや形式を試してください。",
+    "panels": {
+      "original": "元画像",
+      "compressed": "圧縮プレビュー"
+    },
+    "outputFormat": "出力形式",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "品質",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG はブラウザ上で可逆圧縮です。品質スライダーは JPEG と WebP のみ有効です。",
+    "sizes": {
+      "original": "元: {size}",
+      "compressed": "圧縮後: {size}",
+      "saved": "{percent}% 削減"
+    },
+    "largerWarning": "出力が元より大きいです。形式や品質を変えてください。",
+    "download": "ダウンロード",
+    "downloadFilename": "compressed-image",
+    "processing": "圧縮中…",
+    "emptyCompressed": "圧縮プレビューはここに表示されます。"
   },
   "CssGradientBuilder": {
     "title": "CSS グラデーション ビルダー",

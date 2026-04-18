@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-skemagenerator",
     "imageToBase64": "Beeld na Base64",
+    "imageCompressor": "Beeldkompressor",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "Beeld na Base64",
         "description": "Skakel beelde om na Data URI of rou Base64-stringe."
+      },
+      "imageCompressor": {
+        "title": "Beeldkompressor",
+        "description": "Komprimeer JPEG, PNG en WebP plaaslik met ’n kwaliteitsglyer."
       },
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
@@ -2417,6 +2422,42 @@
       "title": "Laai teks af",
       "filename": "image-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "Beeldkompressor",
+    "subtitle": "Verklein JPEG-, PNG- of WebP-uitset plaaslik met kwaliteitbeheer — niks word opgelaai nie.",
+    "upload": "Laai beeld op",
+    "clear": "Maak skoon",
+    "dropHere": "Los beeld hier",
+    "placeholders": {
+      "uploadImage": "Sleep en los ’n beeld, of klik om ’n lêer te kies."
+    },
+    "fileTooLarge": "Lêer is te groot (maks {maxMb} MB).",
+    "unsupportedFormat": "Hierdie lêertipe word nie ondersteun nie. Gebruik JPEG, PNG, WebP, GIF, AVIF of BMP.",
+    "compressFailed": "Kon nie hierdie beeld komprimeer nie. Probeer ’n ander lêer of formaat.",
+    "panels": {
+      "original": "Oorspronklik",
+      "compressed": "Gekompakteerde voorskou"
+    },
+    "outputFormat": "Uitsetformaat",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Kwaliteit",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG is verliesvry in die blaaier; die kwaliteitsglyer geld slegs vir JPEG en WebP.",
+    "sizes": {
+      "original": "Oorspronklik: {size}",
+      "compressed": "Gekompakteer: {size}",
+      "saved": "{percent}% kleiner"
+    },
+    "largerWarning": "Uitset is groter as die invoer — probeer ’n ander formaat of kwaliteit.",
+    "download": "Laai af",
+    "downloadFilename": "gekomprimeerde-beeld",
+    "processing": "Komprimeer…",
+    "emptyCompressed": "Gekompakteerde voorskou verskyn hier."
   },
   "CssGradientBuilder": {
     "title": "CSS Gradient Builder",

@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON 模式生成器",
     "imageToBase64": "图像转 Base64",
+    "imageCompressor": "图片压缩",
     "cssGradientBuilder": "CSS 渐变生成器",
     "gitignoreGenerator": ".gitignore 生成器",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "图像转 Base64",
         "description": "将图像转换为数据 URI 或原始 Base64 字符串。"
+      },
+      "imageCompressor": {
+        "title": "图片压缩",
+        "description": "在本地用质量滑块压缩 JPEG、PNG 和 WebP。"
       },
       "cssGradientBuilder": {
         "title": "CSS 渐变生成器",
@@ -2417,6 +2422,42 @@
       "title": "下载文字",
       "filename": "图像-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "图片压缩",
+    "subtitle": "在本地通过质量设置缩小 JPEG / PNG / WebP 输出 — 不会上传任何内容。",
+    "upload": "上传图片",
+    "clear": "清除",
+    "dropHere": "将图片拖放到此处",
+    "placeholders": {
+      "uploadImage": "拖放图片，或点击选择文件。"
+    },
+    "fileTooLarge": "文件过大（最大 {maxMb} MB）。",
+    "unsupportedFormat": "不支持的文件类型。请使用 JPEG、PNG、WebP、GIF、AVIF 或 BMP。",
+    "compressFailed": "无法压缩此图片。请尝试其他文件或格式。",
+    "panels": {
+      "original": "原图",
+      "compressed": "压缩预览"
+    },
+    "outputFormat": "输出格式",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "质量",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG 在浏览器中为无损；质量滑块仅适用于 JPEG 和 WebP。",
+    "sizes": {
+      "original": "原始：{size}",
+      "compressed": "压缩后：{size}",
+      "saved": "减小 {percent}%"
+    },
+    "largerWarning": "输出大于输入 — 请尝试其他格式或质量。",
+    "download": "下载",
+    "downloadFilename": "compressed-image",
+    "processing": "正在压缩…",
+    "emptyCompressed": "压缩预览将显示在此处。"
   },
   "CssGradientBuilder": {
     "title": "CSS 渐变生成器",

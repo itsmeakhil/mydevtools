@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Генератор JSON-схемы",
     "imageToBase64": "Изображение в Base64",
+    "imageCompressor": "Сжатие изображений",
     "cssGradientBuilder": "Конструктор CSS-градиентов",
     "gitignoreGenerator": "Генератор .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "Изображение в Base64",
         "description": "Преобразуйте изображения в URI данных или необработанные строки Base64."
+      },
+      "imageCompressor": {
+        "title": "Сжатие изображений",
+        "description": "Сжимайте JPEG, PNG и WebP локально с ползунком качества."
       },
       "cssGradientBuilder": {
         "title": "Конструктор CSS-градиентов",
@@ -2417,6 +2422,42 @@
       "title": "Скачать текст",
       "filename": "изображение-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "Сжатие изображений",
+    "subtitle": "Уменьшайте размер JPEG, PNG или WebP локально с настройкой качества — ничего не загружается.",
+    "upload": "Загрузить изображение",
+    "clear": "Очистить",
+    "dropHere": "Перетащите изображение сюда",
+    "placeholders": {
+      "uploadImage": "Перетащите файл или нажмите, чтобы выбрать изображение."
+    },
+    "fileTooLarge": "Файл слишком большой (макс. {maxMb} МБ).",
+    "unsupportedFormat": "Неподдерживаемый тип файла. Используйте JPEG, PNG, WebP, GIF, AVIF или BMP.",
+    "compressFailed": "Не удалось сжать изображение. Попробуйте другой файл или формат.",
+    "panels": {
+      "original": "Исходное",
+      "compressed": "Предпросмотр"
+    },
+    "outputFormat": "Формат вывода",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Качество",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG в браузере без потерь; ползунок качества действует только для JPEG и WebP.",
+    "sizes": {
+      "original": "Исходный: {size}",
+      "compressed": "После сжатия: {size}",
+      "saved": "на {percent}% меньше"
+    },
+    "largerWarning": "Выходной файл больше исходного — смените формат или качество.",
+    "download": "Скачать",
+    "downloadFilename": "сжатое-изображение",
+    "processing": "Сжатие…",
+    "emptyCompressed": "Предпросмотр появится здесь."
   },
   "CssGradientBuilder": {
     "title": "Конструктор CSS-градиентов",

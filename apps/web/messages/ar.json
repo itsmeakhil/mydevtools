@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "مولّد مخطط JSON",
     "imageToBase64": "الصورة إلى Base64",
+    "imageCompressor": "ضغط الصور",
     "cssGradientBuilder": "CSS منشئ التدرج",
     "gitignoreGenerator": ".gitignore مولد",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "الصورة إلى Base64",
         "description": "تحويل الصور إلى Data URI أو سلاسل Base64 الأولية."
+      },
+      "imageCompressor": {
+        "title": "ضغط الصور",
+        "description": "ضغط JPEG وPNG وWebP محليًا باستخدام شريط جودة."
       },
       "cssGradientBuilder": {
         "title": "CSS منشئ التدرج",
@@ -2417,6 +2422,42 @@
       "title": "تنزيل النص",
       "filename": "image-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "ضغط الصور",
+    "subtitle": "صغّر مخرجات JPEG أو PNG أو WebP محليًا مع التحكم بالجودة — لا يتم رفع أي شيء.",
+    "upload": "رفع صورة",
+    "clear": "مسح",
+    "dropHere": "أسقط الصورة هنا",
+    "placeholders": {
+      "uploadImage": "اسحب وأفلت صورة، أو انقر لاختيار ملف."
+    },
+    "fileTooLarge": "الملف كبير جدًا (الحد الأقصى {maxMb} ميجابايت).",
+    "unsupportedFormat": "نوع الملف غير مدعوم. استخدم JPEG أو PNG أو WebP أو GIF أو AVIF أو BMP.",
+    "compressFailed": "تعذر ضغط هذه الصورة. جرّب ملفًا أو تنسيقًا آخر.",
+    "panels": {
+      "original": "الأصل",
+      "compressed": "معاينة مضغوطة"
+    },
+    "outputFormat": "تنسيق الإخراج",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "الجودة",
+    "qualityPercent": "{value}٪",
+    "qualityPngHint": "PNG بلا فقدان في المتصفح؛ شريط الجودة يؤثر على JPEG وWebP فقط.",
+    "sizes": {
+      "original": "الأصل: {size}",
+      "compressed": "بعد الضغط: {size}",
+      "saved": "أصغر بنسبة {percent}٪"
+    },
+    "largerWarning": "حجم المخرجات أكبر من المدخلات — جرّب تنسيقًا أو جودة مختلفة.",
+    "download": "تنزيل",
+    "downloadFilename": "صورة-mضغوطة",
+    "processing": "جاري الضغط…",
+    "emptyCompressed": "تظهر المعاينة المضغوطة هنا."
   },
   "CssGradientBuilder": {
     "title": "CSS منشئ التدرج",

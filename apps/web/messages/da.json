@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-skemagenerator",
     "imageToBase64": "Billede til Base64",
+    "imageCompressor": "Billedkomprimering",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "Billede til Base64",
         "description": "Konverter billeder til data-URI eller rå Base64-strenge."
+      },
+      "imageCompressor": {
+        "title": "Billedkomprimering",
+        "description": "Komprimér JPEG, PNG og WebP lokalt med en kvalitetsskyder."
       },
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
@@ -2417,6 +2422,42 @@
       "title": "Download tekst",
       "filename": "image-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "Billedkomprimering",
+    "subtitle": "Formindsk JPEG-, PNG- eller WebP-output lokalt med kvalitetskontrol — intet uploades.",
+    "upload": "Upload billede",
+    "clear": "Ryd",
+    "dropHere": "Slip billede her",
+    "placeholders": {
+      "uploadImage": "Træk og slip et billede, eller klik for at vælge en fil."
+    },
+    "fileTooLarge": "Filen er for stor (maks. {maxMb} MB).",
+    "unsupportedFormat": "Filtypen understøttes ikke. Brug JPEG, PNG, WebP, GIF, AVIF eller BMP.",
+    "compressFailed": "Kunne ikke komprimere billedet. Prøv en anden fil eller et andet format.",
+    "panels": {
+      "original": "Original",
+      "compressed": "Komprimeret forhåndsvisning"
+    },
+    "outputFormat": "Outputformat",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Kvalitet",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG er tabsfri i browseren; kvalitetsskyderen gælder kun JPEG og WebP.",
+    "sizes": {
+      "original": "Original: {size}",
+      "compressed": "Komprimeret: {size}",
+      "saved": "{percent}% mindre"
+    },
+    "largerWarning": "Output er større end input — prøv et andet format eller en anden kvalitet.",
+    "download": "Download",
+    "downloadFilename": "komprimeret-billede",
+    "processing": "Komprimerer…",
+    "emptyCompressed": "Komprimeret forhåndsvisning vises her."
   },
   "CssGradientBuilder": {
     "title": "CSS Gradient Builder",

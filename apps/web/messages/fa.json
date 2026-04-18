@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "تولیدکنندهٔ طرح JSON",
     "imageToBase64": "تصویر به Base64",
+    "imageCompressor": "فشرده‌ساز تصویر",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "تصویر به Base64",
         "description": "تصاویر را به Data URI یا رشته های Base64 خام تبدیل کنید."
+      },
+      "imageCompressor": {
+        "title": "فشرده‌ساز تصویر",
+        "description": "فشرده‌سازی JPEG و PNG و WebP به‌صورت محلی با لغزنده کیفیت."
       },
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
@@ -2417,6 +2422,42 @@
       "title": "دانلود متن",
       "filename": "image-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "فشرده‌ساز تصویر",
+    "subtitle": "خروجی JPEG یا PNG یا WebP را محلی با کنترل کیفیت کوچک کنید — چیزی آپلود نمی‌شود.",
+    "upload": "بارگذاری تصویر",
+    "clear": "پاک کردن",
+    "dropHere": "تصویر را اینجا رها کنید",
+    "placeholders": {
+      "uploadImage": "تصویر را بکشید و رها کنید، یا برای انتخاب فایل کلیک کنید."
+    },
+    "fileTooLarge": "فایل خیلی بزرگ است (حداکثر {maxMb} مگابایت).",
+    "unsupportedFormat": "این نوع فایل پشتیبانی نمی‌شود. از JPEG، PNG، WebP، GIF، AVIF یا BMP استفاده کنید.",
+    "compressFailed": "فشرده‌سازی ممکن نشد. فایل یا قالب دیگری امتحان کنید.",
+    "panels": {
+      "original": "اصلی",
+      "compressed": "پیش‌نمایش فشرده"
+    },
+    "outputFormat": "قالب خروجی",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "کیفیت",
+    "qualityPercent": "{value}٪",
+    "qualityPngHint": "PNG در مرورگر بدون اتلاف است؛ لغزنده کیفیت فقط برای JPEG و WebP است.",
+    "sizes": {
+      "original": "اصلی: {size}",
+      "compressed": "فشرده: {size}",
+      "saved": "{percent}٪ کوچک‌تر"
+    },
+    "largerWarning": "خروجی از ورودی بزرگ‌تر است — قالب یا کیفیت دیگری امتحان کنید.",
+    "download": "دانلود",
+    "downloadFilename": "تصویر-فشرده",
+    "processing": "در حال فشرده‌سازی…",
+    "emptyCompressed": "پیش‌نمایش فشرده اینجا نمایش داده می‌شود."
   },
   "CssGradientBuilder": {
     "title": "CSS Gradient Builder",

@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON 스키마 생성기",
     "imageToBase64": "이미지를 Base64로",
+    "imageCompressor": "이미지 압축",
     "cssGradientBuilder": "CSS 그라디언트 빌더",
     "gitignoreGenerator": ".gitignore 생성기",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "이미지를 Base64로",
         "description": "이미지를 데이터 URI 또는 ​​원시 Base64 문자열로 변환합니다."
+      },
+      "imageCompressor": {
+        "title": "이미지 압축",
+        "description": "JPEG, PNG, WebP를 브라우저에서 품질 슬라이더로 압축합니다."
       },
       "cssGradientBuilder": {
         "title": "CSS 그라디언트 빌더",
@@ -2417,6 +2422,42 @@
       "title": "텍스트 다운로드",
       "filename": "이미지-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "이미지 압축",
+    "subtitle": "JPEG·PNG·WebP 출력을 품질 조절로 로컬에서 줄입니다. 업로드되지 않습니다.",
+    "upload": "이미지 업로드",
+    "clear": "지우기",
+    "dropHere": "이미지를 여기에 놓으세요",
+    "placeholders": {
+      "uploadImage": "이미지를 끌어다 놓거나 클릭하여 파일을 선택하세요."
+    },
+    "fileTooLarge": "파일이 너무 큽니다(최대 {maxMb}MB).",
+    "unsupportedFormat": "지원하지 않는 형식입니다. JPEG, PNG, WebP, GIF, AVIF 또는 BMP를 사용하세요.",
+    "compressFailed": "이 이미지를 압축할 수 없습니다. 다른 파일이나 형식을 시도하세요.",
+    "panels": {
+      "original": "원본",
+      "compressed": "압축 미리보기"
+    },
+    "outputFormat": "출력 형식",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "품질",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG는 브라우저에서 무손실입니다. 품질 슬라이더는 JPEG와 WebP에만 적용됩니다.",
+    "sizes": {
+      "original": "원본: {size}",
+      "compressed": "압축: {size}",
+      "saved": "{percent}% 감소"
+    },
+    "largerWarning": "출력이 입력보다 큽니다. 형식이나 품질을 바꿔 보세요.",
+    "download": "다운로드",
+    "downloadFilename": "compressed-image",
+    "processing": "압축 중…",
+    "emptyCompressed": "압축 미리보기가 여기에 표시됩니다."
   },
   "CssGradientBuilder": {
     "title": "CSS 그라디언트 빌더",

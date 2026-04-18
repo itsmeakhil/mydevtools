@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON Şema Oluşturucu",
     "imageToBase64": "Base64'e görüntü",
+    "imageCompressor": "Görüntü sıkıştırıcı",
     "cssGradientBuilder": "CSS Degrade Oluşturucu",
     "gitignoreGenerator": ".gitignore Oluşturucu",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "Base64'e görüntü",
         "description": "Görüntüleri Veri URI'sine veya ham Base64 dizelerine dönüştürün."
+      },
+      "imageCompressor": {
+        "title": "Görüntü sıkıştırıcı",
+        "description": "JPEG, PNG ve WebP dosyalarını yerelde kalite kaydırıcısıyla sıkıştırın."
       },
       "cssGradientBuilder": {
         "title": "CSS Degrade Oluşturucu",
@@ -2417,6 +2422,42 @@
       "title": "Metni indir",
       "filename": "image-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "Görüntü sıkıştırıcı",
+    "subtitle": "JPEG, PNG veya WebP çıktısını yerelde kaliteyle küçültün — hiçbir şey yüklenmez.",
+    "upload": "Görüntü yükle",
+    "clear": "Temizle",
+    "dropHere": "Görüntüyü buraya bırakın",
+    "placeholders": {
+      "uploadImage": "Sürükleyip bırakın veya dosya seçmek için tıklayın."
+    },
+    "fileTooLarge": "Dosya çok büyük (en fazla {maxMb} MB).",
+    "unsupportedFormat": "Desteklenmeyen dosya türü. JPEG, PNG, WebP, GIF, AVIF veya BMP kullanın.",
+    "compressFailed": "Bu görüntü sıkıştırılamadı. Başka bir dosya veya biçim deneyin.",
+    "panels": {
+      "original": "Orijinal",
+      "compressed": "Sıkıştırılmış önizleme"
+    },
+    "outputFormat": "Çıktı biçimi",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Kalite",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG tarayıcıda kayıpsızdır; kalite kaydırıcısı yalnızca JPEG ve WebP için geçerlidir.",
+    "sizes": {
+      "original": "Orijinal: {size}",
+      "compressed": "Sıkıştırılmış: {size}",
+      "saved": "{percent}% daha küçük"
+    },
+    "largerWarning": "Çıktı girişten büyük — farklı biçim veya kalite deneyin.",
+    "download": "İndir",
+    "downloadFilename": "sikistirilmis-goruntu",
+    "processing": "Sıkıştırılıyor…",
+    "emptyCompressed": "Sıkıştırılmış önizleme burada görünür."
   },
   "CssGradientBuilder": {
     "title": "CSS Degrade Oluşturucu",

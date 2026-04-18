@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Γεννήτρια JSON Schema",
     "imageToBase64": "Εικόνα στο Base64",
+    "imageCompressor": "Συμπίεση εικόνας",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Γεννήτρια",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "Εικόνα στο Base64",
         "description": "Μετατροπή εικόνων σε Data URI ή σε ακατέργαστες συμβολοσειρές Base64."
+      },
+      "imageCompressor": {
+        "title": "Συμπίεση εικόνας",
+        "description": "Συμπίεση JPEG, PNG και WebP τοπικά με ρυθμιστή ποιότητας."
       },
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
@@ -2417,6 +2422,42 @@
       "title": "Λήψη κειμένου",
       "filename": "image-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "Συμπίεση εικόνας",
+    "subtitle": "Μικρύνετε την έξοδο JPEG, PNG ή WebP τοπικά με έλεγχο ποιότητας — τίποτα δεν ανεβαίνει.",
+    "upload": "Μεταφόρτωση εικόνας",
+    "clear": "Εκκαθάριση",
+    "dropHere": "Αφήστε την εικόνα εδώ",
+    "placeholders": {
+      "uploadImage": "Σύρετε και αφήστε μια εικόνα ή κάντε κλικ για επιλογή αρχείου."
+    },
+    "fileTooLarge": "Το αρχείο είναι πολύ μεγάλο (μέγ. {maxMb} MB).",
+    "unsupportedFormat": "Μη υποστηριζόμενος τύπος αρχείου. Χρησιμοποιήστε JPEG, PNG, WebP, GIF, AVIF ή BMP.",
+    "compressFailed": "Δεν ήταν δυνατή η συμπίεση της εικόνας. Δοκιμάστε άλλο αρχείο ή μορφή.",
+    "panels": {
+      "original": "Πρωτότυπο",
+      "compressed": "Προεπισκόπηση συμπιεσμένου"
+    },
+    "outputFormat": "Μορφή εξόδου",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Ποιότητα",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "Το PNG είναι χωρίς απώλειες στον browser· ο έλεγχος ποιότητας ισχύει μόνο για JPEG και WebP.",
+    "sizes": {
+      "original": "Πρωτότυπο: {size}",
+      "compressed": "Συμπιεσμένο: {size}",
+      "saved": "{percent}% μικρότερο"
+    },
+    "largerWarning": "Η έξοδος είναι μεγαλύτερη από την είσοδο — δοκιμάστε άλλη μορφή ή ποιότητα.",
+    "download": "Λήψη",
+    "downloadFilename": "συμπιεσμένη-εικόνα",
+    "processing": "Συμπίεση…",
+    "emptyCompressed": "Η προεπισκόπηση εμφανίζεται εδώ."
   },
   "CssGradientBuilder": {
     "title": "CSS Gradient Builder",

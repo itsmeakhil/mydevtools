@@ -29,6 +29,7 @@
     "nosqlExplorer": "Explorador NoSQL",
     "jsonSchemaGenerator": "Generador de esquema JSON",
     "imageToBase64": "Imagen a Base64",
+    "imageCompressor": "Compresor de imágenes",
     "cssGradientBuilder": "Generador de degradado CSS",
     "gitignoreGenerator": "Generador .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "Imagen a Base64",
         "description": "Convierta imágenes a URI de datos o cadenas Base64 sin formato."
+      },
+      "imageCompressor": {
+        "title": "Compresor de imágenes",
+        "description": "Comprime JPEG, PNG y WebP en local con un control de calidad."
       },
       "cssGradientBuilder": {
         "title": "Generador de degradado CSS",
@@ -2417,6 +2422,42 @@
       "title": "Descargar texto",
       "filename": "imagen-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "Compresor de imágenes",
+    "subtitle": "Reduce la salida JPEG, PNG o WebP en local con control de calidad: no se sube nada.",
+    "upload": "Subir imagen",
+    "clear": "Borrar",
+    "dropHere": "Suelta la imagen aquí",
+    "placeholders": {
+      "uploadImage": "Arrastra y suelta una imagen, o haz clic para elegir un archivo."
+    },
+    "fileTooLarge": "El archivo es demasiado grande (máx. {maxMb} MB).",
+    "unsupportedFormat": "Tipo de archivo no compatible. Usa JPEG, PNG, WebP, GIF, AVIF o BMP.",
+    "compressFailed": "No se pudo comprimir la imagen. Prueba otro archivo o formato.",
+    "panels": {
+      "original": "Original",
+      "compressed": "Vista previa comprimida"
+    },
+    "outputFormat": "Formato de salida",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Calidad",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG es sin pérdidas en el navegador; el control de calidad solo afecta a JPEG y WebP.",
+    "sizes": {
+      "original": "Original: {size}",
+      "compressed": "Comprimido: {size}",
+      "saved": "{percent}% más pequeño"
+    },
+    "largerWarning": "La salida es mayor que la entrada: prueba otro formato o calidad.",
+    "download": "Descargar",
+    "downloadFilename": "imagen-comprimida",
+    "processing": "Comprimiendo…",
+    "emptyCompressed": "La vista previa comprimida aparece aquí."
   },
   "CssGradientBuilder": {
     "title": "Generador de degradado CSS",

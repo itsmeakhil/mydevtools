@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generatore di schema JSON",
     "imageToBase64": "Immagine su Base64",
+    "imageCompressor": "Compressore immagini",
     "cssGradientBuilder": "Generatore di gradienti CSS",
     "gitignoreGenerator": "Generatore .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "Immagine su Base64",
         "description": "Converti immagini in URI dati o stringhe Base64 non elaborate."
+      },
+      "imageCompressor": {
+        "title": "Compressore immagini",
+        "description": "Comprimi JPEG, PNG e WebP in locale con uno slider di qualità."
       },
       "cssGradientBuilder": {
         "title": "Generatore di gradienti CSS",
@@ -2417,6 +2422,42 @@
       "title": "Scarica testo",
       "filename": "immagine-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "Compressore immagini",
+    "subtitle": "Riduci l’output JPEG, PNG o WebP in locale con controllo qualità — nulla viene caricato.",
+    "upload": "Carica immagine",
+    "clear": "Cancella",
+    "dropHere": "Trascina qui l’immagine",
+    "placeholders": {
+      "uploadImage": "Trascina un’immagine o fai clic per scegliere un file."
+    },
+    "fileTooLarge": "File troppo grande (max {maxMb} MB).",
+    "unsupportedFormat": "Tipo di file non supportato. Usa JPEG, PNG, WebP, GIF, AVIF o BMP.",
+    "compressFailed": "Impossibile comprimere l’immagine. Prova un altro file o formato.",
+    "panels": {
+      "original": "Originale",
+      "compressed": "Anteprima compressa"
+    },
+    "outputFormat": "Formato di output",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Qualità",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "Il PNG è senza perdita nel browser; lo slider riguarda solo JPEG e WebP.",
+    "sizes": {
+      "original": "Originale: {size}",
+      "compressed": "Compresso: {size}",
+      "saved": "{percent}% più piccolo"
+    },
+    "largerWarning": "L’output è più grande dell’input — prova un altro formato o qualità.",
+    "download": "Scarica",
+    "downloadFilename": "immagine-compressa",
+    "processing": "Compressione…",
+    "emptyCompressed": "L’anteprima compressa appare qui."
   },
   "CssGradientBuilder": {
     "title": "Generatore di gradienti CSS",

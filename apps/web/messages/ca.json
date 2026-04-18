@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generador d'esquema JSON",
     "imageToBase64": "Imatge a Base64",
+    "imageCompressor": "Compressor d’imatges",
     "cssGradientBuilder": "Creador de degradats CSS",
     "gitignoreGenerator": "Generador .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "Imatge a Base64",
         "description": "Converteix imatges a URI de dades o cadenes en brut Base64."
+      },
+      "imageCompressor": {
+        "title": "Compressor d’imatges",
+        "description": "Comprimeix JPEG, PNG i WebP localment amb un control de qualitat."
       },
       "cssGradientBuilder": {
         "title": "Creador de degradats CSS",
@@ -2417,6 +2422,42 @@
       "title": "Descarregar text",
       "filename": "image-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "Compressor d’imatges",
+    "subtitle": "Redueix la sortida JPEG, PNG o WebP localment amb control de qualitat — res es puja al servidor.",
+    "upload": "Puja una imatge",
+    "clear": "Neteja",
+    "dropHere": "Deixa anar la imatge aquí",
+    "placeholders": {
+      "uploadImage": "Arrossega i deixa anar una imatge, o fes clic per triar un fitxer."
+    },
+    "fileTooLarge": "El fitxer és massa gran (màx. {maxMb} MB).",
+    "unsupportedFormat": "Aquest tipus de fitxer no és compatible. Usa JPEG, PNG, WebP, GIF, AVIF o BMP.",
+    "compressFailed": "No s’ha pogut comprimir la imatge. Prova un altre fitxer o format.",
+    "panels": {
+      "original": "Original",
+      "compressed": "Vista prèvia comprimida"
+    },
+    "outputFormat": "Format de sortida",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Qualitat",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "El PNG és sense pèrdua al navegador; el control de qualitat només afecta JPEG i WebP.",
+    "sizes": {
+      "original": "Original: {size}",
+      "compressed": "Comprimida: {size}",
+      "saved": "{percent}% més petita"
+    },
+    "largerWarning": "La sortida és més gran que l’entrada — prova un altre format o qualitat.",
+    "download": "Baixa",
+    "downloadFilename": "imatge-comprimida",
+    "processing": "S’està comprimint…",
+    "emptyCompressed": "La vista prèvia comprimida apareix aquí."
   },
   "CssGradientBuilder": {
     "title": "Creador de degradats CSS",

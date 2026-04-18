@@ -179,6 +179,11 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: 'Convert images to Data URI or raw Base64 strings instantly. Drops local images and encodes them purely in the browser.',
         keywords: ['image to base64', 'base64 image', 'data uri generator', 'image converter', 'base64 formatter']
     },
+    'image-compressor': {
+        title: 'Image Compressor',
+        description: 'Compress JPEG, PNG, and WebP images locally in your browser with an adjustable quality slider. No uploads.',
+        keywords: ['compress image', 'jpeg compressor', 'webp compressor', 'png optimize', 'reduce image size', 'client side image compression', 'quality slider']
+    },
     'css-gradient-builder': {
         title: 'CSS Gradient Builder',
         description: 'Visual CSS gradient builder with angle control, color stops, and one-click CSS copy.',

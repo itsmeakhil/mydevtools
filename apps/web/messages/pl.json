@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generator schematu JSON",
     "imageToBase64": "Obraz do Base64",
+    "imageCompressor": "Kompresor obrazów",
     "cssGradientBuilder": "Kreator gradientów CSS",
     "gitignoreGenerator": "Generator .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "Obraz do Base64",
         "description": "Konwertuj obrazy na URI danych lub surowe ciągi Base64."
+      },
+      "imageCompressor": {
+        "title": "Kompresor obrazów",
+        "description": "Kompresuj JPEG, PNG i WebP lokalnie suwakiem jakości."
       },
       "cssGradientBuilder": {
         "title": "Kreator gradientów CSS",
@@ -2417,6 +2422,42 @@
       "title": "Pobierz tekst",
       "filename": "image-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "Kompresor obrazów",
+    "subtitle": "Zmniejsz wyjście JPEG, PNG lub WebP lokalnie z kontrolą jakości — nic nie jest wysyłane.",
+    "upload": "Prześlij obraz",
+    "clear": "Wyczyść",
+    "dropHere": "Upuść obraz tutaj",
+    "placeholders": {
+      "uploadImage": "Przeciągnij i upuść obraz lub kliknij, aby wybrać plik."
+    },
+    "fileTooLarge": "Plik jest za duży (maks. {maxMb} MB).",
+    "unsupportedFormat": "Nieobsługiwany typ pliku. Użyj JPEG, PNG, WebP, GIF, AVIF lub BMP.",
+    "compressFailed": "Nie udało się skompresować obrazu. Spróbuj innego pliku lub formatu.",
+    "panels": {
+      "original": "Oryginał",
+      "compressed": "Podgląd po kompresji"
+    },
+    "outputFormat": "Format wyjściowy",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Jakość",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG jest bezstratny w przeglądarce; suwak jakości dotyczy tylko JPEG i WebP.",
+    "sizes": {
+      "original": "Oryginał: {size}",
+      "compressed": "Po kompresji: {size}",
+      "saved": "o {percent}% mniejszy"
+    },
+    "largerWarning": "Wyjście jest większe niż wejście — spróbuj innego formatu lub jakości.",
+    "download": "Pobierz",
+    "downloadFilename": "obraz-skompresowany",
+    "processing": "Kompresowanie…",
+    "emptyCompressed": "Podgląd po kompresji pojawi się tutaj."
   },
   "CssGradientBuilder": {
     "title": "Kreator gradientów CSS",

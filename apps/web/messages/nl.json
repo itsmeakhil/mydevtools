@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-schema-generator",
     "imageToBase64": "Afbeelding naar Base64",
+    "imageCompressor": "Afbeeldingscompressie",
     "cssGradientBuilder": "CSS-verloopbouwer",
     "gitignoreGenerator": ".gitignore-generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "Afbeelding naar Base64",
         "description": "Converteer afbeeldingen naar gegevens-URI of onbewerkte Base64-tekenreeksen."
+      },
+      "imageCompressor": {
+        "title": "Afbeeldingscompressie",
+        "description": "Comprimeer JPEG, PNG en WebP lokaal met een kwaliteitsschuifregelaar."
       },
       "cssGradientBuilder": {
         "title": "CSS-verloopbouwer",
@@ -2417,6 +2422,42 @@
       "title": "Tekst downloaden",
       "filename": "afbeelding-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "Afbeeldingscompressie",
+    "subtitle": "Verklein JPEG-, PNG- of WebP-uitvoer lokaal met kwaliteitsregeling — er wordt niets geüpload.",
+    "upload": "Afbeelding uploaden",
+    "clear": "Wissen",
+    "dropHere": "Sleep afbeelding hierheen",
+    "placeholders": {
+      "uploadImage": "Sleep een afbeelding of klik om een bestand te kiezen."
+    },
+    "fileTooLarge": "Bestand is te groot (max. {maxMb} MB).",
+    "unsupportedFormat": "Bestandstype wordt niet ondersteund. Gebruik JPEG, PNG, WebP, GIF, AVIF of BMP.",
+    "compressFailed": "Deze afbeelding kan niet worden gecomprimeerd. Probeer een ander bestand of formaat.",
+    "panels": {
+      "original": "Origineel",
+      "compressed": "Gecomprimeerde preview"
+    },
+    "outputFormat": "Uitvoerformaat",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Kwaliteit",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG is in de browser verliesvrij; de kwaliteitsschuif geldt alleen voor JPEG en WebP.",
+    "sizes": {
+      "original": "Origineel: {size}",
+      "compressed": "Gecomprimeerd: {size}",
+      "saved": "{percent}% kleiner"
+    },
+    "largerWarning": "Uitvoer is groter dan invoer — probeer een ander formaat of kwaliteit.",
+    "download": "Downloaden",
+    "downloadFilename": "gecomprimeerde-afbeelding",
+    "processing": "Comprimeren…",
+    "emptyCompressed": "Gecomprimeerde preview verschijnt hier."
   },
   "CssGradientBuilder": {
     "title": "CSS-verloopbouwer",

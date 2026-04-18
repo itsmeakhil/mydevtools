@@ -29,6 +29,7 @@
     "nosqlExplorer": "NoSQL-Explorer",
     "jsonSchemaGenerator": "JSON-Schema-Generator",
     "imageToBase64": "Bild zu Base64",
+    "imageCompressor": "Bildkomprimierung",
     "cssGradientBuilder": "CSS-Verlaufsgenerator",
     "gitignoreGenerator": ".gitignore-Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "Bild zu Base64",
         "description": "Konvertieren Sie Bilder in Daten-URI oder rohe Base64-Strings."
+      },
+      "imageCompressor": {
+        "title": "Bildkomprimierung",
+        "description": "JPEG, PNG und WebP lokal mit einem Qualitätsregler komprimieren."
       },
       "cssGradientBuilder": {
         "title": "CSS-Verlaufsgenerator",
@@ -2417,6 +2422,42 @@
       "title": "Text herunterladen",
       "filename": "image-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "Bildkomprimierung",
+    "subtitle": "JPEG-, PNG- oder WebP-Ausgabe lokal mit Qualitätssteuerung verkleinern — nichts wird hochgeladen.",
+    "upload": "Bild hochladen",
+    "clear": "Zurücksetzen",
+    "dropHere": "Bild hier ablegen",
+    "placeholders": {
+      "uploadImage": "Bild per Drag-and-drop ablegen oder klicken, um eine Datei zu wählen."
+    },
+    "fileTooLarge": "Datei ist zu groß (max. {maxMb} MB).",
+    "unsupportedFormat": "Dieser Dateityp wird nicht unterstützt. Verwenden Sie JPEG, PNG, WebP, GIF, AVIF oder BMP.",
+    "compressFailed": "Bild konnte nicht komprimiert werden. Andere Datei oder ein anderes Format versuchen.",
+    "panels": {
+      "original": "Original",
+      "compressed": "Vorschau (komprimiert)"
+    },
+    "outputFormat": "Ausgabeformat",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Qualität",
+    "qualityPercent": "{value} %",
+    "qualityPngHint": "PNG ist im Browser verlustfrei; der Qualitätsregler gilt nur für JPEG und WebP.",
+    "sizes": {
+      "original": "Original: {size}",
+      "compressed": "Komprimiert: {size}",
+      "saved": "{percent} % kleiner"
+    },
+    "largerWarning": "Ausgabe ist größer als die Eingabe — anderes Format oder Qualität versuchen.",
+    "download": "Herunterladen",
+    "downloadFilename": "komprimiertes-bild",
+    "processing": "Komprimiere…",
+    "emptyCompressed": "Die komprimierte Vorschau erscheint hier."
   },
   "CssGradientBuilder": {
     "title": "CSS-Verlaufsgenerator",

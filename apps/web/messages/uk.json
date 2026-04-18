@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Генератор JSON-схеми",
     "imageToBase64": "Зображення до Base64",
+    "imageCompressor": "Стиснення зображень",
     "cssGradientBuilder": "Конструктор градієнтів CSS",
     "gitignoreGenerator": "Генератор .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -330,6 +331,10 @@
       "imageToBase64": {
         "title": "Зображення до Base64",
         "description": "Перетворюйте зображення на URI даних або необроблені рядки Base64."
+      },
+      "imageCompressor": {
+        "title": "Стиснення зображень",
+        "description": "Стисніть JPEG, PNG і WebP локально повзунком якості."
       },
       "cssGradientBuilder": {
         "title": "Конструктор градієнтів CSS",
@@ -2417,6 +2422,42 @@
       "title": "Завантажити текст",
       "filename": "image-base64.txt"
     }
+  },
+  "ImageCompressor": {
+    "title": "Стиснення зображень",
+    "subtitle": "Зменшуйте JPEG, PNG або WebP локально з керуванням якістю — нічого не надсилається.",
+    "upload": "Завантажити зображення",
+    "clear": "Очистити",
+    "dropHere": "Перетягніть зображення сюди",
+    "placeholders": {
+      "uploadImage": "Перетягніть файл або натисніть, щоб обрати зображення."
+    },
+    "fileTooLarge": "Файл завеликий (макс. {maxMb} МБ).",
+    "unsupportedFormat": "Непідтримуваний тип файлу. Використовуйте JPEG, PNG, WebP, GIF, AVIF або BMP.",
+    "compressFailed": "Не вдалося стиснути зображення. Спробуйте інший файл або формат.",
+    "panels": {
+      "original": "Оригінал",
+      "compressed": "Попередній перегляд"
+    },
+    "outputFormat": "Формат виводу",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Якість",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG у браузері без втрат; повзунок якості лише для JPEG і WebP.",
+    "sizes": {
+      "original": "Оригінал: {size}",
+      "compressed": "Після стиснення: {size}",
+      "saved": "на {percent}% менше"
+    },
+    "largerWarning": "Вихід більший за вхід — змініть формат або якість.",
+    "download": "Завантажити",
+    "downloadFilename": "стиснуте-зображення",
+    "processing": "Стиснення…",
+    "emptyCompressed": "Попередній перегляд з’явиться тут."
   },
   "CssGradientBuilder": {
     "title": "Конструктор градієнтів CSS",
