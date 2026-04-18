@@ -41,6 +41,7 @@
     "numberBaseConverter": "مبدّل مبنا",
     "formatConverter": "مبدّل فرمت",
     "mockDataGenerator": "مولد دادهٔ آزمایشی",
+    "svgOptimizer": "بهینه‌ساز SVG",
     "unitConverter": "مبدل واحد"
   },
   "Help": {
@@ -381,6 +382,10 @@
       "httpStatusCodes": {
         "title": "کدهای وضعیت HTTP",
         "description": "جستجوی کدهای وضعیت HTTP با توضیحات (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "بهینه‌ساز SVG",
+        "description": "SVG را بچسبانید، با SVGO زوائد را حذف کنید و کاهش حجم UTF-8 را ببینید."
       },
       "unitConverter": {
         "title": "مبدل واحد",
@@ -2969,6 +2974,34 @@
       "currency_code": "کد ارز",
       "language_code": "برچسب زبان",
       "custom_list": "فهرست سفارشی"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "بهینه‌ساز SVG",
+    "subtitle": "SVG را بچسبانید، در مرورگر با SVGO فشرده کنید و اندازه UTF-8 را قبل و بعد مقایسه کنید.",
+    "inputLabel": "ورودی",
+    "outputLabel": "بهینه‌شده",
+    "placeholder": "قطعه <svg>…</svg> یا کل فایل را بچسبانید…",
+    "outputPlaceholder": "SVG بهینه‌شده اینجا نمایش داده می‌شود…",
+    "chars": "{count} نویسه • {bytes} بایت (UTF-8)",
+    "preview": "پیش‌نمایش",
+    "localNote": "همه پردازش‌ها به‌صورت محلی در مرورگر است. چیزی آپلود نمی‌شود.",
+    "stats": {
+      "title": "اندازه (UTF-8)",
+      "before": "قبل",
+      "after": "بعد",
+      "savedBytes": "{count} بایت صرفه‌جویی ({percent}%)",
+      "noChange": "کاهشی نیست — از قبل حداقل است یا خروجی خالی است."
+    },
+    "actions": {
+      "clear": "پاک کردن",
+      "sample": "بارگذاری نمونه",
+      "copy": "رونوشت",
+      "copied": "رونوشت شد",
+      "download": "بارگیری"
+    },
+    "errors": {
+      "optimizeFailed": "بهینه‌سازی این SVG ممکن نشد."
     }
   },
   "UnitConverter": {

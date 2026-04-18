@@ -41,6 +41,7 @@
     "numberBaseConverter": "Taban dönüştürücü",
     "formatConverter": "Format Dönüştürücü",
     "mockDataGenerator": "Sahte veri üreticisi",
+    "svgOptimizer": "SVG Optimize",
     "unitConverter": "Birim Dönüştürücü"
   },
   "Help": {
@@ -381,6 +382,10 @@
       "httpStatusCodes": {
         "title": "HTTP Durum Kodları",
         "description": "Açıklamalarla birlikte HTTP durum kodlarını arayın (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "SVG Optimize",
+        "description": "SVG yapıştırın, SVGO ile gereksizleri silin ve UTF-8 boyut kazancını görün."
       },
       "unitConverter": {
         "title": "Birim Dönüştürücü",
@@ -2969,6 +2974,34 @@
       "currency_code": "Para birimi kodu",
       "language_code": "Dil etiketi",
       "custom_list": "Özel liste"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "SVG Optimize",
+    "subtitle": "SVG yapıştırın, tarayıcıda SVGO ile küçültün ve UTF-8 boyutunu önce/sonra karşılaştırın.",
+    "inputLabel": "Girdi",
+    "outputLabel": "Optimize",
+    "placeholder": "<svg>…</svg> parçası veya tüm dosyayı yapıştırın…",
+    "outputPlaceholder": "Optimize SVG burada görünür…",
+    "chars": "{count} karakter • {bytes} bayt (UTF-8)",
+    "preview": "Önizleme",
+    "localNote": "İşlem tamamen tarayıcıda yerel. Hiçbir şey yüklenmez.",
+    "stats": {
+      "title": "Boyut (UTF-8)",
+      "before": "Önce",
+      "after": "Sonra",
+      "savedBytes": "{count} bayt tasarruf ({percent}%)",
+      "noChange": "Azalma yok — zaten minimal veya boş çıktı."
+    },
+    "actions": {
+      "clear": "Temizle",
+      "sample": "Örnek yükle",
+      "copy": "Kopyala",
+      "copied": "Kopyalandı",
+      "download": "İndir"
+    },
+    "errors": {
+      "optimizeFailed": "Bu SVG optimize edilemedi."
     }
   },
   "UnitConverter": {

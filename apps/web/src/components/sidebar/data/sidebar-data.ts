@@ -43,6 +43,7 @@ import {
   IconBrandGraphql,
   IconClipboardData,
   IconRuler,
+  IconFileTypeSvg,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -212,6 +213,14 @@ export const sidebarData: SidebarData = {
           icon: IconPhoto,
           description: 'Convert images to Data URI or raw Base64 strings.',
           hiddenOnMobile: true,
+        },
+        {
+          title: 'SVG Optimizer',
+          url: '/app/svg-optimizer',
+          icon: IconFileTypeSvg,
+          description: 'Paste SVG, strip junk with SVGO, and see UTF-8 size reduction.',
+          hiddenOnMobile: true,
+          badge: 'new',
         },
         {
           title: 'JSON Formatter',

@@ -42,6 +42,7 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/format-converter': 'formatConverter',
   '/app/mock-data-generator': 'mockDataGenerator',
   '/app/unit-converter': 'unitConverter',
+  '/app/svg-optimizer': 'svgOptimizer',
 };
 
 export function getToolMessageKey(pathname: string): string | undefined {

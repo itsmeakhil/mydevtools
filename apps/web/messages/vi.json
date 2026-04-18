@@ -41,6 +41,7 @@
     "numberBaseConverter": "Chuyển đổi cơ số",
     "formatConverter": "Chuyển đổi định dạng",
     "mockDataGenerator": "Trình tạo dữ liệu giả",
+    "svgOptimizer": "Tối ưu SVG",
     "unitConverter": "Chuyển đổi đơn vị"
   },
   "Help": {
@@ -381,6 +382,10 @@
       "httpStatusCodes": {
         "title": "Mã trạng thái HTTP",
         "description": "Tìm kiếm mã trạng thái HTTP với mô tả (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Tối ưu SVG",
+        "description": "Dán SVG, loại bỏ thừa bằng SVGO và xem tiết kiệm kích thước UTF-8."
       },
       "unitConverter": {
         "title": "Chuyển đổi đơn vị",
@@ -2969,6 +2974,34 @@
       "currency_code": "Mã tiền tệ",
       "language_code": "Thẻ ngôn ngữ",
       "custom_list": "Danh sách tùy chỉnh"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "Tối ưu SVG",
+    "subtitle": "Dán SVG, thu gọn bằng SVGO ngay trên trình duyệt và so sánh kích thước UTF-8 trước/sau.",
+    "inputLabel": "Đầu vào",
+    "outputLabel": "Đã tối ưu",
+    "placeholder": "Dán đoạn <svg>…</svg> hoặc toàn bộ tệp…",
+    "outputPlaceholder": "SVG đã tối ưu hiển thị tại đây…",
+    "chars": "{count} ký tự • {bytes} byte (UTF-8)",
+    "preview": "Xem trước",
+    "localNote": "Xử lý hoàn toàn cục bộ trên trình duyệt. Không tải lên máy chủ.",
+    "stats": {
+      "title": "Kích thước (UTF-8)",
+      "before": "Trước",
+      "after": "Sau",
+      "savedBytes": "Tiết kiệm {count} byte ({percent}%)",
+      "noChange": "Không giảm — đã tối thiểu hoặc đầu ra trống."
+    },
+    "actions": {
+      "clear": "Xóa",
+      "sample": "Tải ví dụ",
+      "copy": "Sao chép",
+      "copied": "Đã sao chép",
+      "download": "Tải xuống"
+    },
+    "errors": {
+      "optimizeFailed": "Không thể tối ưu SVG này."
     }
   },
   "UnitConverter": {

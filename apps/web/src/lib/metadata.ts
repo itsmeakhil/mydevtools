@@ -235,6 +235,11 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: 'Convert between 323 units across 43 scientific and engineering categories including length, mass, pressure, viscosity, thermal, electrical, polymer, and materials science units.',
         keywords: ['unit converter', 'unit conversion', 'measurement converter', 'scientific units', 'engineering units', 'SI units', 'metric converter']
     },
+    'svg-optimizer': {
+        title: 'SVG Optimizer / Minifier',
+        description: 'Paste SVG markup and minify it in the browser with SVGO: drop comments, editor metadata, default attributes, and whitespace—then compare UTF-8 size before and after.',
+        keywords: ['svg optimizer', 'svg minify', 'svgo online', 'compress svg', 'optimize svg', 'remove svg metadata', 'svg file size']
+    },
 }
 
 function toolMetaDescription(tool: ToolMetadataEntry): string {

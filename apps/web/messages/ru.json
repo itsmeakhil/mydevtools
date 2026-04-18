@@ -41,6 +41,7 @@
     "numberBaseConverter": "Конвертер систем",
     "formatConverter": "Конвертер форматов",
     "mockDataGenerator": "Генератор тестовых данных",
+    "svgOptimizer": "Оптимизатор SVG",
     "unitConverter": "Конвертер единиц"
   },
   "Help": {
@@ -381,6 +382,10 @@
       "httpStatusCodes": {
         "title": "HTTP-коды состояния",
         "description": "Поиск HTTP-кодов состояния с описаниями (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Оптимизатор SVG",
+        "description": "Вставьте SVG, удалите лишнее через SVGO и посмотрите выигрыш по размеру UTF-8."
       },
       "unitConverter": {
         "title": "Конвертер единиц",
@@ -2969,6 +2974,34 @@
       "currency_code": "Код валюты",
       "language_code": "Языковой тег",
       "custom_list": "Пользовательский список"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "Оптимизатор SVG",
+    "subtitle": "Вставьте SVG, минифицируйте через SVGO в браузере и сравните размер UTF-8 до и после.",
+    "inputLabel": "Ввод",
+    "outputLabel": "Оптимизировано",
+    "placeholder": "Вставьте фрагмент <svg>…</svg> или весь файл…",
+    "outputPlaceholder": "Оптимизированный SVG появится здесь…",
+    "chars": "{count} симв. • {bytes} байт (UTF-8)",
+    "preview": "Предпросмотр",
+    "localNote": "Всё обрабатывается локально в браузере. Ничего не загружается.",
+    "stats": {
+      "title": "Размер (UTF-8)",
+      "before": "До",
+      "after": "После",
+      "savedBytes": "Сэкономлено {count} байт ({percent}%)",
+      "noChange": "Без уменьшения — уже минимально или пустой вывод."
+    },
+    "actions": {
+      "clear": "Очистить",
+      "sample": "Пример",
+      "copy": "Копировать",
+      "copied": "Скопировано",
+      "download": "Скачать"
+    },
+    "errors": {
+      "optimizeFailed": "Не удалось оптимизировать этот SVG."
     }
   },
   "UnitConverter": {

@@ -41,6 +41,7 @@
     "numberBaseConverter": "Převodník soustav",
     "formatConverter": "Převodník formátů",
     "mockDataGenerator": "Generátor testovacích dat",
+    "svgOptimizer": "Optimalizátor SVG",
     "unitConverter": "Převodník jednotek"
   },
   "Help": {
@@ -381,6 +382,10 @@
       "httpStatusCodes": {
         "title": "HTTP stavové kódy",
         "description": "Hledejte HTTP stavové kódy s popisem (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Optimalizátor SVG",
+        "description": "Vložte SVG, odstraňte balast pomocí SVGO a uvidíte úsporu velikosti UTF-8."
       },
       "unitConverter": {
         "title": "Převodník jednotek",
@@ -2969,6 +2974,34 @@
       "currency_code": "Kód měny",
       "language_code": "Jazyková značka",
       "custom_list": "Vlastní seznam"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "Optimalizátor SVG",
+    "subtitle": "Vložte SVG, minifikujte pomocí SVGO v prohlížeči a porovnejte velikost UTF-8 před a po.",
+    "inputLabel": "Vstup",
+    "outputLabel": "Optimalizováno",
+    "placeholder": "Vložte úryvek <svg>…</svg> nebo celý soubor…",
+    "outputPlaceholder": "Optimalizované SVG se zobrazí zde…",
+    "chars": "{count} znaků • {bytes} bajtů (UTF-8)",
+    "preview": "Náhled",
+    "localNote": "Zpracování probíhá lokálně v prohlížeči. Nic se nenahrává.",
+    "stats": {
+      "title": "Velikost (UTF-8)",
+      "before": "Před",
+      "after": "Po",
+      "savedBytes": "Ušetřeno {count} bajtů ({percent}%)",
+      "noChange": "Žádná redukce — už je to minimální nebo prázdný výstup."
+    },
+    "actions": {
+      "clear": "Vymazat",
+      "sample": "Načíst ukázku",
+      "copy": "Kopírovat",
+      "copied": "Zkopírováno",
+      "download": "Stáhnout"
+    },
+    "errors": {
+      "optimizeFailed": "Tento SVG se nepodařilo optimalizovat."
     }
   },
   "UnitConverter": {

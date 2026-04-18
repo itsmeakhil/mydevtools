@@ -41,6 +41,7 @@ import {
   BookKey,
   FlaskConical,
   Ruler,
+  Shrink,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
@@ -123,6 +124,11 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
     title: 'Unit Converter',
     icon: Ruler,
     namespace: 'UnitConverter',
+  },
+  '/app/svg-optimizer': {
+    title: 'SVG Optimizer / Minifier',
+    icon: Shrink,
+    namespace: 'SvgOptimizer',
   },
 };
 

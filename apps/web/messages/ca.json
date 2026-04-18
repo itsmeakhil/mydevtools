@@ -41,6 +41,7 @@
     "numberBaseConverter": "Conversor de base",
     "formatConverter": "Conversor de formats",
     "mockDataGenerator": "Generador de dades de prova",
+    "svgOptimizer": "Optimitzador SVG",
     "unitConverter": "Convertidor d'unitats"
   },
   "Help": {
@@ -381,6 +382,10 @@
       "httpStatusCodes": {
         "title": "Codis d'estat HTTP",
         "description": "Cerca codis d'estat HTTP amb descripcions (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Optimitzador SVG",
+        "description": "Enganxa SVG, elimina soroll amb SVGO i veu la reducció de mida UTF-8."
       },
       "unitConverter": {
         "title": "Convertidor d'unitats",
@@ -2969,6 +2974,34 @@
       "currency_code": "Codi de moneda",
       "language_code": "Etiqueta d’idioma",
       "custom_list": "Llista personalitzada"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "Optimitzador SVG",
+    "subtitle": "Enganxa SVG, minifica amb SVGO al navegador i compara la mida UTF-8 abans i després.",
+    "inputLabel": "Entrada",
+    "outputLabel": "Optimitzat",
+    "placeholder": "Enganxa un fragment <svg>…</svg> o el fitxer sencer…",
+    "outputPlaceholder": "El SVG optimitzat apareix aquí…",
+    "chars": "{count} caràcters • {bytes} bytes (UTF-8)",
+    "preview": "Vista prèvia",
+    "localNote": "Tot es processa localment al navegador. No es puja res.",
+    "stats": {
+      "title": "Mida (UTF-8)",
+      "before": "Abans",
+      "after": "Després",
+      "savedBytes": "{count} bytes estalviats ({percent}%)",
+      "noChange": "Sense reducció — ja és mínim o la sortida és buida."
+    },
+    "actions": {
+      "clear": "Netejar",
+      "sample": "Carregar exemple",
+      "copy": "Copiar",
+      "copied": "Copiat",
+      "download": "Baixar"
+    },
+    "errors": {
+      "optimizeFailed": "No s’ha pogut optimitzar aquest SVG."
     }
   },
   "UnitConverter": {

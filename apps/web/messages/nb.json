@@ -41,6 +41,7 @@
     "numberBaseConverter": "Grunntall-konverter",
     "formatConverter": "Formatkonverterer",
     "mockDataGenerator": "Mock-datagenerator",
+    "svgOptimizer": "SVG-optimalisering",
     "unitConverter": "Enhetsomregner"
   },
   "Help": {
@@ -381,6 +382,10 @@
       "httpStatusCodes": {
         "title": "HTTP-statuskoder",
         "description": "Søk etter HTTP-statuskoder med beskrivelser (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "SVG-optimalisering",
+        "description": "Lim inn SVG, fjern støy med SVGO og se UTF-8-størrelsesbesparelse."
       },
       "unitConverter": {
         "title": "Enhetsomregner",
@@ -2969,6 +2974,34 @@
       "currency_code": "Valutakode",
       "language_code": "Språkkode",
       "custom_list": "Tilpasset liste"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "SVG-optimalisering",
+    "subtitle": "Lim inn SVG, minifiser med SVGO i nettleseren og sammenlign UTF-8-størrelse før og etter.",
+    "inputLabel": "Inndata",
+    "outputLabel": "Optimalisert",
+    "placeholder": "Lim inn et <svg>…</svg>-utdrag eller hele filen…",
+    "outputPlaceholder": "Optimalisert SVG vises her…",
+    "chars": "{count} tegn • {bytes} byte (UTF-8)",
+    "preview": "Forhåndsvisning",
+    "localNote": "All behandling skjer lokalt i nettleseren. Ingenting lastes opp.",
+    "stats": {
+      "title": "Størrelse (UTF-8)",
+      "before": "Før",
+      "after": "Etter",
+      "savedBytes": "{count} byte spart ({percent}%)",
+      "noChange": "Ingen reduksjon — allerede minimal eller tom utdata."
+    },
+    "actions": {
+      "clear": "Tøm",
+      "sample": "Last eksempel",
+      "copy": "Kopier",
+      "copied": "Kopiert",
+      "download": "Last ned"
+    },
+    "errors": {
+      "optimizeFailed": "Kunne ikke optimalisere denne SVG-en."
     }
   },
   "UnitConverter": {

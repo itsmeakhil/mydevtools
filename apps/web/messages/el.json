@@ -41,6 +41,7 @@
     "numberBaseConverter": "Μετατροπέας βάσης",
     "formatConverter": "Μετατροπέας Μορφών",
     "mockDataGenerator": "Γεννήτρια δοκιμαστικών δεδομένων",
+    "svgOptimizer": "Βελτιστοποιητής SVG",
     "unitConverter": "Μετατροπέας Μονάδων"
   },
   "Help": {
@@ -381,6 +382,10 @@
       "httpStatusCodes": {
         "title": "Κωδικοί κατάστασης HTTP",
         "description": "Αναζήτηση κωδικών κατάστασης HTTP με περιγραφές (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Βελτιστοποιητής SVG",
+        "description": "Επικολλήστε SVG, αφαιρέστε περιττά με το SVGO και δείτε εξοικονόμηση UTF-8."
       },
       "unitConverter": {
         "title": "Μετατροπέας Μονάδων",
@@ -2969,6 +2974,34 @@
       "currency_code": "Κωδικός νομίσματος",
       "language_code": "Ετικέτα γλώσσας",
       "custom_list": "Προσαρμοσμένη λίστα"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "Βελτιστοποιητής SVG",
+    "subtitle": "Επικολλήστε SVG, συμπιέστε με SVGO στον browser και συγκρίνετε το μέγεθος UTF-8 πριν/μετά.",
+    "inputLabel": "Είσοδος",
+    "outputLabel": "Βελτιστοποιημένο",
+    "placeholder": "Επικολλήστε απόσπασμα <svg>…</svg> ή ολόκληρο αρχείο…",
+    "outputPlaceholder": "Το βελτιστοποιημένο SVG εμφανίζεται εδώ…",
+    "chars": "{count} χαρακτήρες • {bytes} bytes (UTF-8)",
+    "preview": "Προεπισκόπηση",
+    "localNote": "Όλη η επεξεργασία τοπικά στον browser. Δεν ανεβαίνει τίποτα.",
+    "stats": {
+      "title": "Μέγεθος (UTF-8)",
+      "before": "Πριν",
+      "after": "Μετά",
+      "savedBytes": "Εξοικονόμηση {count} bytes ({percent}%)",
+      "noChange": "Χωρίς μείωση — ήδη ελάχιστο ή κενή έξοδος."
+    },
+    "actions": {
+      "clear": "Εκκαθάριση",
+      "sample": "Φόρτωση δείγματος",
+      "copy": "Αντιγραφή",
+      "copied": "Αντιγράφηκε",
+      "download": "Λήψη"
+    },
+    "errors": {
+      "optimizeFailed": "Δεν ήταν δυνατή η βελτιστοποίηση αυτού του SVG."
     }
   },
   "UnitConverter": {

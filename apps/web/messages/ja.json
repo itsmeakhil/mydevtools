@@ -41,6 +41,7 @@
     "numberBaseConverter": "基数変換",
     "formatConverter": "フォーマット変換",
     "mockDataGenerator": "モックデータジェネレーター",
+    "svgOptimizer": "SVG 最適化",
     "unitConverter": "単位変換器"
   },
   "Help": {
@@ -381,6 +382,10 @@
       "httpStatusCodes": {
         "title": "HTTPステータスコード",
         "description": "説明付きのHTTPステータスコードを検索します (1xx–5xx)。"
+      },
+      "svgOptimizer": {
+        "title": "SVG 最適化",
+        "description": "SVG を貼り付け、SVGO で不要部分を削除し UTF-8 サイズ削減を確認。"
       },
       "unitConverter": {
         "title": "単位変換器",
@@ -2969,6 +2974,34 @@
       "currency_code": "通貨コード",
       "language_code": "言語タグ",
       "custom_list": "カスタム一覧"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "SVG 最適化",
+    "subtitle": "SVG を貼り付け、ブラウザ上で SVGO により圧縮し、UTF-8 サイズを前後比較します。",
+    "inputLabel": "入力",
+    "outputLabel": "最適化後",
+    "placeholder": "<svg>…</svg> の断片またはファイル全体を貼り付け…",
+    "outputPlaceholder": "最適化された SVG がここに表示されます…",
+    "chars": "{count} 文字 • {bytes} バイト（UTF-8）",
+    "preview": "プレビュー",
+    "localNote": "処理はすべてブラウザ内で行われます。アップロードはありません。",
+    "stats": {
+      "title": "サイズ（UTF-8）",
+      "before": "前",
+      "after": "後",
+      "savedBytes": "{count} バイト削減（{percent}%）",
+      "noChange": "変化なし — すでに最小か、出力が空です。"
+    },
+    "actions": {
+      "clear": "クリア",
+      "sample": "サンプルを読み込む",
+      "copy": "コピー",
+      "copied": "コピーしました",
+      "download": "ダウンロード"
+    },
+    "errors": {
+      "optimizeFailed": "この SVG を最適化できませんでした。"
     }
   },
   "UnitConverter": {

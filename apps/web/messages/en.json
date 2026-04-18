@@ -41,6 +41,7 @@
     "numberBaseConverter": "Number Base Converter",
     "formatConverter": "Format Converter",
     "mockDataGenerator": "Mock Data Generator",
+    "svgOptimizer": "SVG Optimizer",
     "unitConverter": "Unit Converter"
   },
   "Help": {
@@ -436,6 +437,10 @@
       "mockDataGenerator": {
         "title": "Mock Data Generator",
         "description": "Schema-based random JSON, CSV, SQL, and XML for development and API testing."
+      },
+      "svgOptimizer": {
+        "title": "SVG Optimizer",
+        "description": "Paste SVG, strip junk with SVGO, and see UTF-8 size reduction."
       },
       "unitConverter": {
         "title": "Unit Converter",
@@ -2970,6 +2975,34 @@
     "copied": "Copied",
     "emptyHint": "Paste a User-Agent string to see the breakdown.",
     "localNote": "Everything runs locally in your browser. Nothing is uploaded."
+  },
+  "SvgOptimizer": {
+    "title": "SVG Optimizer",
+    "subtitle": "Paste SVG, minify with SVGO in your browser, and compare UTF-8 size before and after.",
+    "inputLabel": "Input",
+    "outputLabel": "Optimized",
+    "placeholder": "Paste an <svg>…</svg> snippet or full file…",
+    "outputPlaceholder": "Optimized SVG appears here…",
+    "chars": "{count} chars • {bytes} bytes (UTF-8)",
+    "preview": "Preview",
+    "localNote": "All processing runs locally in your browser. Nothing is uploaded.",
+    "stats": {
+      "title": "Size (UTF-8)",
+      "before": "Before",
+      "after": "After",
+      "savedBytes": "{count} bytes saved ({percent}%)",
+      "noChange": "No reduction — already minimal or empty output."
+    },
+    "actions": {
+      "clear": "Clear",
+      "sample": "Load sample",
+      "copy": "Copy",
+      "copied": "Copied",
+      "download": "Download"
+    },
+    "errors": {
+      "optimizeFailed": "Could not optimize this SVG."
+    }
   },
   "UnitConverter": {
     "title": "Unit Converter",

@@ -41,6 +41,7 @@
     "numberBaseConverter": "Basomvandlare",
     "formatConverter": "Formatkonverterare",
     "mockDataGenerator": "Mock-datagenerator",
+    "svgOptimizer": "SVG-optimering",
     "unitConverter": "Enhetsomvandlare"
   },
   "Help": {
@@ -381,6 +382,10 @@
       "httpStatusCodes": {
         "title": "HTTP-statuskoder",
         "description": "Sök HTTP-statuskoder med beskrivningar (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "SVG-optimering",
+        "description": "Klistra in SVG, ta bort brus med SVGO och se UTF-8-storleksbesparing."
       },
       "unitConverter": {
         "title": "Enhetsomvandlare",
@@ -2969,6 +2974,34 @@
       "currency_code": "Valutakod",
       "language_code": "Språktagg",
       "custom_list": "Anpassad lista"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "SVG-optimering",
+    "subtitle": "Klistra in SVG, minifiera med SVGO i webbläsaren och jämför UTF-8-storlek före och efter.",
+    "inputLabel": "Indata",
+    "outputLabel": "Optimerad",
+    "placeholder": "Klistra in ett <svg>…</svg>-utdrag eller hela filen…",
+    "outputPlaceholder": "Optimerad SVG visas här…",
+    "chars": "{count} tecken • {bytes} byte (UTF-8)",
+    "preview": "Förhandsvisning",
+    "localNote": "All bearbetning sker lokalt i webbläsaren. Inget laddas upp.",
+    "stats": {
+      "title": "Storlek (UTF-8)",
+      "before": "Före",
+      "after": "Efter",
+      "savedBytes": "{count} byte sparade ({percent}%)",
+      "noChange": "Ingen minskning — redan minimalt eller tomt resultat."
+    },
+    "actions": {
+      "clear": "Rensa",
+      "sample": "Ladda exempel",
+      "copy": "Kopiera",
+      "copied": "Kopierat",
+      "download": "Ladda ner"
+    },
+    "errors": {
+      "optimizeFailed": "Kunde inte optimera denna SVG."
     }
   },
   "UnitConverter": {

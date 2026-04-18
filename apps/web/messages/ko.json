@@ -41,6 +41,7 @@
     "numberBaseConverter": "진법 변환기",
     "formatConverter": "포맷 변환기",
     "mockDataGenerator": "모의 데이터 생성기",
+    "svgOptimizer": "SVG 최적화",
     "unitConverter": "단위 변환기"
   },
   "Help": {
@@ -381,6 +382,10 @@
       "httpStatusCodes": {
         "title": "HTTP 상태 코드",
         "description": "설명이 포함된 HTTP 상태 코드를 검색합니다 (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "SVG 최적화",
+        "description": "SVG를 붙여넣고 SVGO로 불필요한 부분을 제거한 뒤 UTF-8 크기 절감을 확인하세요."
       },
       "unitConverter": {
         "title": "단위 변환기",
@@ -2969,6 +2974,34 @@
       "currency_code": "통화 코드",
       "language_code": "언어 태그",
       "custom_list": "사용자 정의 목록"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "SVG 최적화",
+    "subtitle": "SVG를 붙여넣고 브라우저에서 SVGO로 축소한 뒤 UTF-8 크기를 전후로 비교합니다.",
+    "inputLabel": "입력",
+    "outputLabel": "최적화됨",
+    "placeholder": "<svg>…</svg> 조각 또는 전체 파일을 붙여넣기…",
+    "outputPlaceholder": "최적화된 SVG가 여기에 표시됩니다…",
+    "chars": "{count}자 • {bytes}바이트(UTF-8)",
+    "preview": "미리보기",
+    "localNote": "모든 처리는 브라우저에서 로컬로 수행됩니다. 업로드되지 않습니다.",
+    "stats": {
+      "title": "크기(UTF-8)",
+      "before": "이전",
+      "after": "이후",
+      "savedBytes": "{count}바이트 절약({percent}%)",
+      "noChange": "변화 없음 — 이미 최소이거나 출력이 비어 있습니다."
+    },
+    "actions": {
+      "clear": "지우기",
+      "sample": "샘플 불러오기",
+      "copy": "복사",
+      "copied": "복사됨",
+      "download": "다운로드"
+    },
+    "errors": {
+      "optimizeFailed": "이 SVG를 최적화할 수 없습니다."
     }
   },
   "UnitConverter": {

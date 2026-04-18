@@ -41,6 +41,7 @@
     "numberBaseConverter": "Penukar asas",
     "formatConverter": "Penukar Format",
     "mockDataGenerator": "Penjana Data Mock",
+    "svgOptimizer": "Pengoptimum SVG",
     "unitConverter": "Penukar Unit"
   },
   "Help": {
@@ -387,6 +388,10 @@
       "httpStatusCodes": {
         "title": "Kod Status HTTP",
         "description": "Cari kod status HTTP dengan penerangan (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Pengoptimum SVG",
+        "description": "Tampal SVG, buang noise dengan SVGO dan lihat penjimatan saiz UTF-8."
       },
       "unitConverter": {
         "title": "Penukar Unit",
@@ -2969,6 +2974,34 @@
       "currency_code": "Kod mata wang",
       "language_code": "Tag bahasa",
       "custom_list": "Senarai tersuai"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "Pengoptimum SVG",
+    "subtitle": "Tampal SVG, minify dengan SVGO dalam pelayar dan bandingkan saiz UTF-8 sebelum & selepas.",
+    "inputLabel": "Input",
+    "outputLabel": "Dioptimumkan",
+    "placeholder": "Tampal serpihan <svg>…</svg> atau keseluruhan fail…",
+    "outputPlaceholder": "SVG teroptimum dipaparkan di sini…",
+    "chars": "{count} aksara • {bytes} bait (UTF-8)",
+    "preview": "Pratonton",
+    "localNote": "Semua diproses secara tempatan dalam pelayar. Tiada muat naik.",
+    "stats": {
+      "title": "Saiz (UTF-8)",
+      "before": "Sebelum",
+      "after": "Selepas",
+      "savedBytes": "Jimat {count} bait ({percent}%)",
+      "noChange": "Tiada pengurangan — sudah minimum atau output kosong."
+    },
+    "actions": {
+      "clear": "Kosongkan",
+      "sample": "Muat contoh",
+      "copy": "Salin",
+      "copied": "Disalin",
+      "download": "Muat turun"
+    },
+    "errors": {
+      "optimizeFailed": "Tidak dapat mengoptimumkan SVG ini."
     }
   },
   "UnitConverter": {

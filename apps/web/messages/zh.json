@@ -41,6 +41,7 @@
     "numberBaseConverter": "进制转换",
     "formatConverter": "格式转换器",
     "mockDataGenerator": "模拟数据生成器",
+    "svgOptimizer": "SVG 优化",
     "unitConverter": "单位换算器"
   },
   "Help": {
@@ -381,6 +382,10 @@
       "httpStatusCodes": {
         "title": "HTTP 状态码",
         "description": "搜索带有描述的 HTTP 状态码（1xx–5xx）。"
+      },
+      "svgOptimizer": {
+        "title": "SVG 优化",
+        "description": "粘贴 SVG，用 SVGO 去除冗余，查看 UTF-8 体积变化。"
       },
       "unitConverter": {
         "title": "单位换算器",
@@ -2969,6 +2974,34 @@
       "currency_code": "货币代码",
       "language_code": "语言标签",
       "custom_list": "自定义列表"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "SVG 优化",
+    "subtitle": "粘贴 SVG，在浏览器中用 SVGO 压缩，并对比优化前后的 UTF-8 大小。",
+    "inputLabel": "输入",
+    "outputLabel": "已优化",
+    "placeholder": "粘贴 <svg>…</svg> 片段或完整文件…",
+    "outputPlaceholder": "优化后的 SVG 将显示在这里…",
+    "chars": "{count} 个字符 • {bytes} 字节（UTF-8）",
+    "preview": "预览",
+    "localNote": "全部在浏览器本地处理，不会上传任何内容。",
+    "stats": {
+      "title": "大小（UTF-8）",
+      "before": "优化前",
+      "after": "优化后",
+      "savedBytes": "节省 {count} 字节（{percent}%）",
+      "noChange": "无变化 — 已足够精简或输出为空。"
+    },
+    "actions": {
+      "clear": "清空",
+      "sample": "加载示例",
+      "copy": "复制",
+      "copied": "已复制",
+      "download": "下载"
+    },
+    "errors": {
+      "optimizeFailed": "无法优化此 SVG。"
     }
   },
   "UnitConverter": {

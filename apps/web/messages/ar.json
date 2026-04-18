@@ -41,6 +41,7 @@
     "numberBaseConverter": "محوّل الأساس الرقمي",
     "formatConverter": "محوّل الصيغ",
     "mockDataGenerator": "مولّد بيانات وهمية",
+    "svgOptimizer": "محسّن SVG",
     "unitConverter": "محوّل الوحدات"
   },
   "Help": {
@@ -381,6 +382,10 @@
       "httpStatusCodes": {
         "title": "رموز حالة HTTP",
         "description": "ابحث عن رموز حالة HTTP مع الأوصاف (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "محسّن SVG",
+        "description": "الصق SVG، أزل الفوضى باستخدام SVGO وشاهد توفير حجم UTF-8."
       },
       "unitConverter": {
         "title": "محوّل الوحدات",
@@ -2969,6 +2974,34 @@
       "currency_code": "رمز العملة",
       "language_code": "وسم اللغة",
       "custom_list": "قائمة مخصصة"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "محسّن SVG",
+    "subtitle": "الصق SVG، صغّر باستخدام SVGO في المتصفح وقارن حجم UTF-8 قبل وبعد.",
+    "inputLabel": "الإدخال",
+    "outputLabel": "مُحسَّن",
+    "placeholder": "الصق جزء <svg>…</svg> أو الملف كاملاً…",
+    "outputPlaceholder": "يظهر SVG المحسّن هنا…",
+    "chars": "{count} حرفًا • {bytes} بايت (UTF-8)",
+    "preview": "معاينة",
+    "localNote": "كل المعالجة محليًا في المتصفح. لا يتم رفع أي شيء.",
+    "stats": {
+      "title": "الحجم (UTF-8)",
+      "before": "قبل",
+      "after": "بعد",
+      "savedBytes": "تم توفير {count} بايت ({percent}%)",
+      "noChange": "لا يوجد تقليل — بالفعل أدنى حجم أو مخرجات فارغة."
+    },
+    "actions": {
+      "clear": "مسح",
+      "sample": "تحميل مثال",
+      "copy": "نسخ",
+      "copied": "تم النسخ",
+      "download": "تنزيل"
+    },
+    "errors": {
+      "optimizeFailed": "تعذّر تحسين هذا SVG."
     }
   },
   "UnitConverter": {

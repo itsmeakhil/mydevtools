@@ -25,6 +25,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/http-status-codes',
   '/app/nosql-explorer',
   '/app/url-encode',
+  '/app/svg-optimizer',
   '/app/uuid-generator',
   '/app/secret-api-key-generator',
   '/app/qr-code-generator',

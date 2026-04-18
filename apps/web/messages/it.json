@@ -41,6 +41,7 @@
     "numberBaseConverter": "Convertitore di base",
     "formatConverter": "Convertitore di formati",
     "mockDataGenerator": "Generatore di dati mock",
+    "svgOptimizer": "Ottimizzatore SVG",
     "unitConverter": "Convertitore di unità"
   },
   "Help": {
@@ -381,6 +382,10 @@
       "httpStatusCodes": {
         "title": "Codici di stato HTTP",
         "description": "Cerca codici di stato HTTP con descrizioni (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Ottimizzatore SVG",
+        "description": "Incolla SVG, rimuovi il superfluo con SVGO e vedi il risparmio di byte UTF-8."
       },
       "unitConverter": {
         "title": "Convertitore di unità",
@@ -2969,6 +2974,34 @@
       "currency_code": "Codice valuta",
       "language_code": "Tag lingua",
       "custom_list": "Elenco personalizzato"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "Ottimizzatore SVG",
+    "subtitle": "Incolla SVG, minifica con SVGO nel browser e confronta la dimensione UTF-8 prima e dopo.",
+    "inputLabel": "Input",
+    "outputLabel": "Ottimizzato",
+    "placeholder": "Incolla un frammento <svg>…</svg> o il file intero…",
+    "outputPlaceholder": "L’SVG ottimizzato compare qui…",
+    "chars": "{count} caratteri • {bytes} byte (UTF-8)",
+    "preview": "Anteprima",
+    "localNote": "Elaborazione locale nel browser. Nessun caricamento.",
+    "stats": {
+      "title": "Dimensione (UTF-8)",
+      "before": "Prima",
+      "after": "Dopo",
+      "savedBytes": "{count} byte risparmiati ({percent}%)",
+      "noChange": "Nessuna riduzione — già minimo o output vuoto."
+    },
+    "actions": {
+      "clear": "Cancella",
+      "sample": "Carica esempio",
+      "copy": "Copia",
+      "copied": "Copiato",
+      "download": "Scarica"
+    },
+    "errors": {
+      "optimizeFailed": "Impossibile ottimizzare questo SVG."
     }
   },
   "UnitConverter": {

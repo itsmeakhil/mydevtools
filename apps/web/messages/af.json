@@ -41,6 +41,7 @@
     "numberBaseConverter": "Basisomskakelaar",
     "formatConverter": "Formaat Omskakelaer",
     "mockDataGenerator": "Skyn-datagenerator",
+    "svgOptimizer": "SVG-optimaliseerder",
     "unitConverter": "Eenheidsomskakelaar"
   },
   "Help": {
@@ -381,6 +382,10 @@
       "httpStatusCodes": {
         "title": "HTTP-statuskodes",
         "description": "Soek HTTP-statuskodes met beskrywings (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "SVG-optimaliseerder",
+        "description": "Plak SVG, verwyder rommel met SVGO en sien UTF-8-groottebesparing."
       },
       "unitConverter": {
         "title": "Eenheidsomskakelaar",
@@ -2969,6 +2974,34 @@
       "currency_code": "Geldkode",
       "language_code": "Taalkode",
       "custom_list": "Pasgemaakte lys"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "SVG-optimaliseerder",
+    "subtitle": "Plak SVG, minifiseer met SVGO in jou blaaier en vergelyk UTF-8-grootte voor en na.",
+    "inputLabel": "Inset",
+    "outputLabel": "Geoptimaliseer",
+    "placeholder": "Plak 'n <svg>…</svg>-fragment of die hele lêer…",
+    "outputPlaceholder": "Geoptimaliseerde SVG verskyn hier…",
+    "chars": "{count} karakters • {bytes} grepe (UTF-8)",
+    "preview": "Voorskou",
+    "localNote": "Verwerking plaaslik in jou blaaier. Niks word opgelaai nie.",
+    "stats": {
+      "title": "Grootte (UTF-8)",
+      "before": "Voor",
+      "after": "Na",
+      "savedBytes": "{count} grepe bespaar ({percent}%)",
+      "noChange": "Geen vermindering — reeds minimaal of leë uitset."
+    },
+    "actions": {
+      "clear": "Maak skoon",
+      "sample": "Laai voorbeeld",
+      "copy": "Kopieer",
+      "copied": "Gekopieer",
+      "download": "Aflaai"
+    },
+    "errors": {
+      "optimizeFailed": "Kon nie hierdie SVG optimaliseer nie."
     }
   },
   "UnitConverter": {
