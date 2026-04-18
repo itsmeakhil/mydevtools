@@ -40,7 +40,8 @@
     "markdownPreview": "معاينة Markdown",
     "numberBaseConverter": "محوّل الأساس الرقمي",
     "formatConverter": "محوّل الصيغ",
-    "mockDataGenerator": "مولّد بيانات وهمية"
+    "mockDataGenerator": "مولّد بيانات وهمية",
+    "unitConverter": "محوّل الوحدات"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "مولّد بيانات وهمية",
         "description": "عرّف الأعمدة، اختر أنواع البيانات، وصدّر مجموعات للبذور أو Postman أو الاختبار. حتى 5000 صفًا، كل شيء في المتصفح — بلا رفع."
+      },
+      "httpStatusCodes": {
+        "title": "رموز حالة HTTP",
+        "description": "ابحث عن رموز حالة HTTP مع الأوصاف (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "محوّل الوحدات",
+        "description": "تحويل بين 323 وحدة عبر 43 فئة علمية وهندسية."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "الأدوات المفضلة",
       "toolsWithUsage": "أدوات مع تتبع الاستخدام"
     },
-    "signIn": "تسجيل الدخول"
+    "signIn": "تسجيل الدخول",
+    "noResults": "لا توجد أدوات تطابق بحثك",
+    "noResultsHint": "جرّب كلمة مفتاحية مختلفة أو امسح الفلتر.",
+    "filterAll": "الكل",
+    "loginCta": {
+      "description": "سجّل الدخول لتتبع أدواتك المستخدمة مؤخرًا."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "وسم اللغة",
       "custom_list": "قائمة مخصصة"
     }
+  },
+  "UnitConverter": {
+    "title": "محوّل الوحدات",
+    "subtitle": "تحويل بين <strong>323 وحدة</strong> عبر <strong>43 فئة</strong>",
+    "category": "الفئة",
+    "from": "من",
+    "to": "إلى",
+    "value": "القيمة",
+    "result": "النتيجة",
+    "swapUnits": "تبديل الوحدات",
+    "placeholder": "أدخل قيمة",
+    "copyResult": "نسخ النتيجة",
+    "searchCategory": "ابحث عن فئة...",
+    "selectCategory": "اختر فئة",
+    "noResults": "لم يتم العثور على فئة."
   }
 }

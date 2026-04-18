@@ -40,7 +40,8 @@
     "markdownPreview": "Markdown-Vorschau",
     "numberBaseConverter": "Basiskonverter",
     "formatConverter": "Format-Konverter",
-    "mockDataGenerator": "Mock-Datengenerator"
+    "mockDataGenerator": "Mock-Datengenerator",
+    "unitConverter": "Einheitenrechner"
   },
   "Help": {
     "title": "Hilfe & Dokumentation",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "Mock-Datengenerator",
         "description": "Spalten definieren, Datentypen wählen und Fixtures für Seeds, Postman oder Tests exportieren. Bis zu 5000 Zeilen, alles im Browser — nichts wird hochgeladen."
+      },
+      "httpStatusCodes": {
+        "title": "HTTP-Statuscodes",
+        "description": "HTTP-Statuscodes mit Beschreibungen durchsuchen (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "Einheitenrechner",
+        "description": "Konvertieren zwischen 323 Einheiten in 43 wissenschaftlichen und technischen Kategorien."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "Favoriten-Tools",
       "toolsWithUsage": "Tools mit Nutzungsstatistik"
     },
-    "signIn": "Anmelden"
+    "signIn": "Anmelden",
+    "noResults": "Keine Werkzeuge entsprechen deiner Suche",
+    "noResultsHint": "Versuche ein anderes Stichwort oder lösche den Filter.",
+    "filterAll": "Alle",
+    "loginCta": {
+      "description": "Melde dich an, um deine zuletzt verwendeten Werkzeuge zu verfolgen."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "Sprach-Tag",
       "custom_list": "Eigene Liste"
     }
+  },
+  "UnitConverter": {
+    "title": "Einheitenrechner",
+    "subtitle": "Konvertieren zwischen <strong>323 Einheiten</strong> in <strong>43 Kategorien</strong>",
+    "category": "Kategorie",
+    "from": "Von",
+    "to": "Nach",
+    "value": "Wert",
+    "result": "Ergebnis",
+    "swapUnits": "Einheiten tauschen",
+    "placeholder": "Wert eingeben",
+    "copyResult": "Ergebnis kopieren",
+    "searchCategory": "Kategorie suchen...",
+    "selectCategory": "Kategorie auswählen",
+    "noResults": "Keine Kategorie gefunden."
   }
 }

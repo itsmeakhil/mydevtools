@@ -478,7 +478,7 @@ const DashboardPage: React.FC = () => {
 
             <TabsContent value="apps" className="mt-0 space-y-5 md:space-y-8 focus-visible:outline-none">
               {/* Search + category filter chips */}
-              <div className="sticky top-[56px] md:top-0 z-30 space-y-2 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border border-border/40 rounded-xl px-3 py-2">
+              <div className="sticky top-[56px] md:top-0 z-30 space-y-2 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border border-border/40 focus-within:border-primary/50 rounded-xl px-3 py-2 transition-colors">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -486,7 +486,7 @@ const DashboardPage: React.FC = () => {
                     value={searchQuery}
                     onChange={(event) => setSearchQuery(event.target.value)}
                     placeholder={`${t('stats.tools')}...`}
-                    className="pl-9 pr-20 h-10"
+                    className="pl-9 pr-20 h-10 border-transparent bg-transparent shadow-none focus-visible:ring-0 focus-visible:border-transparent"
                   />
                   <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
                     {searchQuery && (

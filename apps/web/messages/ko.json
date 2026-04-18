@@ -40,7 +40,8 @@
     "markdownPreview": "마크다운 미리보기",
     "numberBaseConverter": "진법 변환기",
     "formatConverter": "포맷 변환기",
-    "mockDataGenerator": "모의 데이터 생성기"
+    "mockDataGenerator": "모의 데이터 생성기",
+    "unitConverter": "단위 변환기"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "모의 데이터 생성기",
         "description": "열을 정의하고 유형을 선택한 뒤 시드, Postman 또는 테스트용 데이터를 보냅니다. 최대 5000행, 모두 브라우저에서 처리되며 업로드되지 않습니다."
+      },
+      "httpStatusCodes": {
+        "title": "HTTP 상태 코드",
+        "description": "설명이 포함된 HTTP 상태 코드를 검색합니다 (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "단위 변환기",
+        "description": "43개의 과학 및 공학 카테고리에서 323개의 단위 간 변환."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "즐겨찾는 도구",
       "toolsWithUsage": "사용량이 추적된 도구"
     },
-    "signIn": "로그인"
+    "signIn": "로그인",
+    "noResults": "검색과 일치하는 도구가 없습니다",
+    "noResultsHint": "다른 키워드를 시도하거나 필터를 지우세요.",
+    "filterAll": "전체",
+    "loginCta": {
+      "description": "로그인하여 최근 사용한 도구를 추적하세요."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "언어 태그",
       "custom_list": "사용자 정의 목록"
     }
+  },
+  "UnitConverter": {
+    "title": "단위 변환기",
+    "subtitle": "<strong>43개 카테고리</strong>의 <strong>323개 단위</strong> 간 변환",
+    "category": "카테고리",
+    "from": "변환 전",
+    "to": "변환 후",
+    "value": "값",
+    "result": "결과",
+    "swapUnits": "단위 전환",
+    "placeholder": "값 입력",
+    "copyResult": "결과 복사",
+    "searchCategory": "카테고리 검색...",
+    "selectCategory": "카테고리 선택",
+    "noResults": "카테고리를 찾을 수 없습니다."
   }
 }

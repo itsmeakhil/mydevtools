@@ -40,7 +40,8 @@
     "markdownPreview": "Markdown Preview",
     "numberBaseConverter": "Number Base Converter",
     "formatConverter": "Format Converter",
-    "mockDataGenerator": "Mock Data Generator"
+    "mockDataGenerator": "Mock Data Generator",
+    "unitConverter": "Unit Converter"
   },
   "Help": {
     "title": "Help & documentation",
@@ -435,6 +436,10 @@
       "mockDataGenerator": {
         "title": "Mock Data Generator",
         "description": "Schema-based random JSON, CSV, SQL, and XML for development and API testing."
+      },
+      "unitConverter": {
+        "title": "Unit Converter",
+        "description": "Convert between 323 units across 43 scientific and engineering categories."
       }
     }
   },
@@ -2965,5 +2970,20 @@
     "copied": "Copied",
     "emptyHint": "Paste a User-Agent string to see the breakdown.",
     "localNote": "Everything runs locally in your browser. Nothing is uploaded."
+  },
+  "UnitConverter": {
+    "title": "Unit Converter",
+    "subtitle": "Convert between <strong>323 units</strong> across <strong>43 categories</strong>",
+    "category": "Category",
+    "from": "From",
+    "to": "To",
+    "value": "Value",
+    "result": "Result",
+    "swapUnits": "Swap units",
+    "placeholder": "Enter value",
+    "copyResult": "Copy result",
+    "searchCategory": "Search category...",
+    "selectCategory": "Select a category",
+    "noResults": "No category found."
   }
 }

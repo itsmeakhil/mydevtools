@@ -40,7 +40,8 @@
     "markdownPreview": "Náhled Markdown",
     "numberBaseConverter": "Převodník soustav",
     "formatConverter": "Převodník formátů",
-    "mockDataGenerator": "Generátor testovacích dat"
+    "mockDataGenerator": "Generátor testovacích dat",
+    "unitConverter": "Převodník jednotek"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "Generátor testovacích dat",
         "description": "Definujte sloupce, zvolte typy a exportujte sady pro seedy, Postman nebo testy. Až 5000 řádků, vše v prohlížeči — nic se nenahrává."
+      },
+      "httpStatusCodes": {
+        "title": "HTTP stavové kódy",
+        "description": "Hledejte HTTP stavové kódy s popisem (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "Převodník jednotek",
+        "description": "Převádějte mezi 323 jednotkami ve 43 vědeckých a technických kategoriích."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "Oblíbené nástroje",
       "toolsWithUsage": "Nástroje se sledováním použití"
     },
-    "signIn": "Přihlásit se"
+    "signIn": "Přihlásit se",
+    "noResults": "Žádné nástroje neodpovídají vašemu hledání",
+    "noResultsHint": "Zkuste jiné klíčové slovo nebo vymažte filtr.",
+    "filterAll": "Vše",
+    "loginCta": {
+      "description": "Přihlaste se a sledujte naposledy použité nástroje."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "Jazyková značka",
       "custom_list": "Vlastní seznam"
     }
+  },
+  "UnitConverter": {
+    "title": "Převodník jednotek",
+    "subtitle": "Převádějte mezi <strong>323 jednotkami</strong> ve <strong>43 kategoriích</strong>",
+    "category": "Kategorie",
+    "from": "Z",
+    "to": "Na",
+    "value": "Hodnota",
+    "result": "Výsledek",
+    "swapUnits": "Přehodit jednotky",
+    "placeholder": "Zadejte hodnotu",
+    "copyResult": "Kopírovat výsledek",
+    "searchCategory": "Hledat kategorii...",
+    "selectCategory": "Vyberte kategorii",
+    "noResults": "Žádná kategorie nenalezena."
   }
 }

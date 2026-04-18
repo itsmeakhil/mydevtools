@@ -42,6 +42,7 @@ import {
   IconCertificate,
   IconBrandGraphql,
   IconClipboardData,
+  IconRuler,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -357,6 +358,14 @@ export const sidebarData: SidebarData = {
           icon: IconUserSearch,
           description: 'Paste a user-agent string and get browser, OS, and device details.',
           hiddenOnMobile: true,
+        },
+        {
+          title: 'Unit Converter',
+          url: '/app/unit-converter',
+          icon: IconRuler,
+          description: 'Convert between 323 units across 43 scientific and engineering categories.',
+          hiddenOnMobile: true,
+          badge: 'new',
         },
 
       ],

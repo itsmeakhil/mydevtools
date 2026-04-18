@@ -40,7 +40,8 @@
     "markdownPreview": "Xem trước Markdown",
     "numberBaseConverter": "Chuyển đổi cơ số",
     "formatConverter": "Chuyển đổi định dạng",
-    "mockDataGenerator": "Trình tạo dữ liệu giả"
+    "mockDataGenerator": "Trình tạo dữ liệu giả",
+    "unitConverter": "Chuyển đổi đơn vị"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "Trình tạo dữ liệu giả",
         "description": "Định nghĩa cột, chọn kiểu dữ liệu và xuất bộ dữ liệu cho seed, Postman hoặc kiểm thử. Tối đa 5000 dòng, tất cả trong trình duyệt — không tải lên."
+      },
+      "httpStatusCodes": {
+        "title": "Mã trạng thái HTTP",
+        "description": "Tìm kiếm mã trạng thái HTTP với mô tả (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "Chuyển đổi đơn vị",
+        "description": "Chuyển đổi giữa 323 đơn vị trong 43 danh mục khoa học và kỹ thuật."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "Công cụ yêu thích",
       "toolsWithUsage": "Công cụ có theo dõi sử dụng"
     },
-    "signIn": "Đăng nhập"
+    "signIn": "Đăng nhập",
+    "noResults": "Không có công cụ nào phù hợp với tìm kiếm của bạn",
+    "noResultsHint": "Thử từ khóa khác hoặc xóa bộ lọc.",
+    "filterAll": "Tất cả",
+    "loginCta": {
+      "description": "Đăng nhập để theo dõi các công cụ bạn sử dụng gần đây."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "Thẻ ngôn ngữ",
       "custom_list": "Danh sách tùy chỉnh"
     }
+  },
+  "UnitConverter": {
+    "title": "Chuyển đổi đơn vị",
+    "subtitle": "Chuyển đổi giữa <strong>323 đơn vị</strong> trong <strong>43 danh mục</strong>",
+    "category": "Danh mục",
+    "from": "Từ",
+    "to": "Sang",
+    "value": "Giá trị",
+    "result": "Kết quả",
+    "swapUnits": "Hoán đổi đơn vị",
+    "placeholder": "Nhập giá trị",
+    "copyResult": "Sao chép kết quả",
+    "searchCategory": "Tìm danh mục...",
+    "selectCategory": "Chọn danh mục",
+    "noResults": "Không tìm thấy danh mục."
   }
 }

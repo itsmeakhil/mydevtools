@@ -40,7 +40,8 @@
     "markdownPreview": "Markdown-voorskou",
     "numberBaseConverter": "Basisomskakelaar",
     "formatConverter": "Formaat Omskakelaer",
-    "mockDataGenerator": "Skyn-datagenerator"
+    "mockDataGenerator": "Skyn-datagenerator",
+    "unitConverter": "Eenheidsomskakelaar"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "Skyn-datagenerator",
         "description": "Definieer kolomme, kies datatipes en voer datastelle uit vir saad, Postman of toetse. Tot 5000 rye, alles in die blaaier — niks word opgelaai nie."
+      },
+      "httpStatusCodes": {
+        "title": "HTTP-statuskodes",
+        "description": "Soek HTTP-statuskodes met beskrywings (1xx–5xx)."
+      },
+      "unitConverter": {
+        "title": "Eenheidsomskakelaar",
+        "description": "Skakel tussen 323 eenhede oor 43 wetenskaplike en ingenieurskategorieë."
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "Gunsteling-gereedskap",
       "toolsWithUsage": "Gereedskap met gebruikstatistiek"
     },
-    "signIn": "Meld aan"
+    "signIn": "Meld aan",
+    "noResults": "Geen gereedskap stem ooreen met jou soektog nie",
+    "noResultsHint": "Probeer 'n ander sleutelwoord of maak die filter skoon.",
+    "filterAll": "Alles",
+    "loginCta": {
+      "description": "Meld aan om jou onlangs gebruikte gereedskap te volg."
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "Taalkode",
       "custom_list": "Pasgemaakte lys"
     }
+  },
+  "UnitConverter": {
+    "title": "Eenheidsomskakelaar",
+    "subtitle": "Skakel tussen <strong>323 eenhede</strong> oor <strong>43 kategorieë</strong>",
+    "category": "Kategorie",
+    "from": "Van",
+    "to": "Na",
+    "value": "Waarde",
+    "result": "Resultaat",
+    "swapUnits": "Ruil eenhede",
+    "placeholder": "Voer waarde in",
+    "copyResult": "Kopieer resultaat",
+    "searchCategory": "Soek kategorie...",
+    "selectCategory": "Kies 'n kategorie",
+    "noResults": "Geen kategorie gevind nie."
   }
 }

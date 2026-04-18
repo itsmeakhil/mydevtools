@@ -40,7 +40,8 @@
     "markdownPreview": "Markdown 预览",
     "numberBaseConverter": "进制转换",
     "formatConverter": "格式转换器",
-    "mockDataGenerator": "模拟数据生成器"
+    "mockDataGenerator": "模拟数据生成器",
+    "unitConverter": "单位换算器"
   },
   "Help": {
     "title": "帮助与文档",
@@ -376,6 +377,14 @@
       "mockDataGenerator": {
         "title": "模拟数据生成器",
         "description": "定义列、选择数据类型，并导出用于种子数据、Postman 或测试的数据集。最多 5000 行，全部在浏览器本地完成，不会上传。"
+      },
+      "httpStatusCodes": {
+        "title": "HTTP 状态码",
+        "description": "搜索带有描述的 HTTP 状态码（1xx–5xx）。"
+      },
+      "unitConverter": {
+        "title": "单位换算器",
+        "description": "在 43 个科学和工程类别的 323 个单位之间转换。"
       }
     },
     "tabs": {
@@ -426,7 +435,13 @@
       "favoriteTools": "收藏的工具",
       "toolsWithUsage": "已记录使用情况的工具"
     },
-    "signIn": "登录"
+    "signIn": "登录",
+    "noResults": "没有工具与您的搜索匹配",
+    "noResultsHint": "尝试不同的关键词或清除筛选条件。",
+    "filterAll": "全部",
+    "loginCta": {
+      "description": "登录以跟踪您最近使用的工具。"
+    }
   },
   "Tasks": {
     "page": {
@@ -2955,5 +2970,20 @@
       "language_code": "语言标签",
       "custom_list": "自定义列表"
     }
+  },
+  "UnitConverter": {
+    "title": "单位换算器",
+    "subtitle": "在 <strong>43 个类别</strong>的 <strong>323 个单位</strong>之间转换",
+    "category": "类别",
+    "from": "从",
+    "to": "到",
+    "value": "数值",
+    "result": "结果",
+    "swapUnits": "交换单位",
+    "placeholder": "输入数值",
+    "copyResult": "复制结果",
+    "searchCategory": "搜索类别...",
+    "selectCategory": "选择类别",
+    "noResults": "未找到类别。"
   }
 }
