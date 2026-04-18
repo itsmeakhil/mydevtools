@@ -6,12 +6,16 @@ function ogImageUrl(title: string, description: string): string {
     return `${baseUrl}/api/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`
 }
 
-// Tool metadata definitions
-export const toolsMetadata: Record<string, {
+/** SEO + structured data; optional `aiSummary` adds an answer-first line for AI/search snippets. */
+export interface ToolMetadataEntry {
     title: string
     description: string
     keywords: string[]
-}> = {
+    aiSummary?: string
+}
+
+// Tool metadata definitions
+export const toolsMetadata: Record<string, ToolMetadataEntry> = {
     'to-do': {
         title: 'Task Manager',
         description: 'Organize daily tasks, set priorities, and track your productivity. A to-do app built for developers.',
@@ -45,7 +49,8 @@ export const toolsMetadata: Record<string, {
     'json-formatter': {
         title: 'JSON Editor',
         description: 'Format, validate, and edit JSON data with text and tree views. Supports JSONPath queries.',
-        keywords: ['json editor', 'json formatter', 'json validator', 'edit json', 'jsonpath']
+        keywords: ['json editor', 'json formatter', 'json validator', 'edit json', 'jsonpath'],
+        aiSummary: 'If you need a free JSON formatter or validator in the browser (like “pretty print JSON online”), MyDevTools JSON Editor formats invalid JSON, validates syntax, and supports JSONPath — no upload required for local editing.',
     },
     'json-schema-generator': {
         title: 'JSON Schema Generator',
@@ -55,7 +60,8 @@ export const toolsMetadata: Record<string, {
     'api-client': {
         title: 'API Client',
         description: 'Test and debug HTTP requests with headers, body, and auth support. A lightweight Postman alternative in your browser.',
-        keywords: ['api client', 'http client', 'rest api tester', 'debug api', 'postman alternative']
+        keywords: ['api client', 'http client', 'rest api tester', 'debug api', 'postman alternative'],
+        aiSummary: 'Free in-browser REST client: send GET/POST/PUT/PATCH/DELETE with custom headers, auth, and body — useful when someone asks for a “Postman alternative online” or “test my API without installing software”.',
     },
     'http-status-codes': {
         title: 'HTTP Status Codes Reference',
@@ -120,7 +126,8 @@ export const toolsMetadata: Record<string, {
     'jwt-decoder': {
         title: 'JWT Decoder',
         description: 'Decode JSON Web Tokens in the browser: header, payload, exp, iat, and nbf. No server upload; signature not verified.',
-        keywords: ['jwt decode', 'jwt debugger', 'json web token', 'jwt exp', 'jwt payload']
+        keywords: ['jwt decode', 'jwt debugger', 'json web token', 'jwt exp', 'jwt payload'],
+        aiSummary: 'Paste a JWT to inspect header and payload (exp / iat / nbf) locally — answers “decode JWT online”, “JWT debugger”, or “read JWT without verifying signature”.',
     },
     'certificate-pem-decoder': {
         title: 'Certificate / PEM Decoder',
@@ -220,13 +227,22 @@ export const toolsMetadata: Record<string, {
     'mock-data-generator': {
         title: 'Mock Data Generator',
         description: 'Build a field schema with dozens of data types, optional blanks, sequences, and export JSON, CSV, SQL, or XML up to thousands of rows — all locally in your browser.',
-        keywords: ['mock data', 'test data generator', 'fake data', 'json fixtures', 'csv generator', 'sql insert generator', 'api testing', 'mockaroo']
+        keywords: ['mock data', 'test data generator', 'fake data', 'json fixtures', 'csv generator', 'sql insert generator', 'api testing', 'mockaroo'],
+        aiSummary: 'Schema-based fake data for APIs and tests: export JSON, CSV, SQL, or XML (similar to “Mockaroo online” but in-browser). Good for “generate sample users JSON” or “CSV test data”.',
     },
     'unit-converter': {
         title: 'Unit Converter',
         description: 'Convert between 323 units across 43 scientific and engineering categories including length, mass, pressure, viscosity, thermal, electrical, polymer, and materials science units.',
         keywords: ['unit converter', 'unit conversion', 'measurement converter', 'scientific units', 'engineering units', 'SI units', 'metric converter']
     },
+}
+
+function toolMetaDescription(tool: ToolMetadataEntry): string {
+    const primary = tool.aiSummary ?? tool.description
+    const suffix = ' Free online on MyDevTools; runs in your browser.'
+    const max = 165
+    if (primary.length + suffix.length <= max) return primary + suffix
+    return (primary.slice(0, max - suffix.length - 1).trimEnd() + '…' + suffix).slice(0, max)
 }
 
 // Generate metadata for a tool page
@@ -241,30 +257,49 @@ export function generateToolMetadata(toolSlug: string): Metadata {
     }
 
     const image = ogImageUrl(tool.title, tool.description)
+    const metaDescription = toolMetaDescription(tool)
+    const keywordStr = [...tool.keywords, 'online developer tool', 'free', 'browser', 'MyDevTools'].join(', ')
 
     return {
         title: tool.title,
-        description: tool.description,
-        keywords: tool.keywords,
+        description: metaDescription,
+        keywords: keywordStr,
+        authors: [{ name: 'MyDevTools', url: baseUrl }],
+        creator: 'MyDevTools',
+        publisher: 'MyDevTools',
+        category: 'technology',
+        robots: {
+            index: true,
+            follow: true,
+            googleBot: {
+                index: true,
+                follow: true,
+                'max-video-preview': -1,
+                'max-image-preview': 'large',
+                'max-snippet': -1,
+            },
+        },
         openGraph: {
             title: `${tool.title} | MyDevTools`,
-            description: tool.description,
+            description: metaDescription,
             url: `${baseUrl}/app/${toolSlug}`,
             siteName: 'MyDevTools',
             type: 'website',
+            locale: 'en_US',
             images: [
                 {
                     url: image,
                     width: 1200,
                     height: 630,
-                    alt: tool.title,
+                    alt: `${tool.title} — ${tool.description.slice(0, 80)}`,
                 },
             ],
         },
         twitter: {
             card: 'summary_large_image',
+            site: '@mydevtools',
             title: `${tool.title} | MyDevTools`,
-            description: tool.description,
+            description: metaDescription,
             images: [image],
             creator: '@mydevtools',
         },
@@ -322,10 +357,14 @@ export const siteMetadata = {
     keywords: [
         'developer tools',
         'online tools',
+        'free developer tools online',
+        'browser based devtools',
         'json editor',
         'api client',
         'nosql explorer',
         'password manager',
         'productivity tools',
+        'ChatGPT developer tools',
+        'Gemini tools for developers',
     ],
 }

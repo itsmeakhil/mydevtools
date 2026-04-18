@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next'
+import { toolsMetadata } from '@/lib/metadata'
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
@@ -25,46 +26,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
     ]
 
-    // Tool pages - automatically include all tools
-    const toolPages = [
-        'to-do',
-        'notes',
-        'password-manager',
-        'environment-manager',
-        'bookmarks',
-        'json-formatter',
-        'json-schema-generator',
-        'api-client',
-        'http-status-codes',
-        'nosql-explorer',
-        'url-encode',
-        'uuid-generator',
-        'secret-api-key-generator',
-        'qr-code-generator',
-        'ip-subnet-calculator',
-        'hash-generator',
-        'hmac-generator',
-        'lorem-ipsum',
-        'color-picker',
-        'jwt-decoder',
-        'certificate-pem-decoder',
-        'regex-tester',
-        'timestamp-converter',
-        'cron-builder',
-        'sql-formatter',
-        'graphql-formatter',
-        'diff-checker',
-        'csv-excel-json',
-        'snippet-manager',
-        'markdown-preview-html',
-        'number-base-converter',
-        'mock-data-generator',
-        'unit-converter',
-    ].map((tool) => ({
+    const toolSlugs = Object.keys(toolsMetadata).sort()
+    const toolPages = toolSlugs.map((tool) => ({
         url: `${baseUrl}/app/${tool}`,
         lastModified: new Date(),
         changeFrequency: 'monthly' as const,
-        priority: 0.7,
+        priority: 0.75,
     }))
 
     return [...mainPages, ...toolPages]
