@@ -46,7 +46,8 @@
     "formatConverter": "Convertisseur de formats",
     "mockDataGenerator": "Générateur de données fictives",
     "svgOptimizer": "Optimiseur SVG",
-    "unitConverter": "Convertisseur d'unités"
+    "unitConverter": "Convertisseur d'unités",
+    "dockerComposeGenerator": "Générateur Docker Compose"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -410,6 +411,10 @@
       "unitConverter": {
         "title": "Convertisseur d'unités",
         "description": "Convertissez entre 323 unités dans 43 catégories scientifiques et techniques."
+      },
+      "dockerComposeGenerator": {
+        "title": "Générateur Docker Compose",
+        "description": "Choisissez bases de données, caches, files, proxys et observabilité ; exportez un docker-compose.yml pour le dev local."
       }
     },
     "tabs": {
@@ -3170,5 +3175,80 @@
     "searchCategory": "Rechercher une catégorie...",
     "selectCategory": "Sélectionner une catégorie",
     "noResults": "Aucune catégorie trouvée."
+  },
+  "DockerComposeGenerator": {
+    "title": "Générateur Docker Compose",
+    "subtitle": "Sélectionnez bases de données, caches, files d’attente, proxys inverses et observabilité — copiez un docker-compose.yml prêt pour le développement local.",
+    "searchPlaceholder": "Rechercher (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Services",
+    "selectedCount": "{count, plural, one {# service} other {# services}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Copier",
+    "copied": "Copié !",
+    "download": "Télécharger",
+    "emptyState": "Sélectionnez un ou plusieurs services pour générer le YAML Compose.",
+    "hintPorts": "Les ports hôte par défaut limitent les conflits ; modifiez-les si Docker signale un port déjà utilisé. Remplacez les mots de passe de démo avant tout environnement partagé.",
+    "categories": {
+      "databases": "Bases de données et stockages",
+      "cache": "Cache et mémoire",
+      "queues": "Files d’attente et messagerie",
+      "search": "Recherche et journaux",
+      "storage": "Stockage objet",
+      "proxy": "Proxys inverses et entrée",
+      "observability": "Métriques et traçage",
+      "mail": "E-mail (dev local)",
+      "admin": "Interfaces d’admin et BI"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Effacer"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (compatible Redis)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (compatible Kafka)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (compatible S3)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (capture SMTP)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (mode dev)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
   }
 }

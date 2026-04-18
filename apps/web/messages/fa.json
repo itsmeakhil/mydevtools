@@ -46,7 +46,8 @@
     "formatConverter": "مبدّل فرمت",
     "mockDataGenerator": "مولد دادهٔ آزمایشی",
     "svgOptimizer": "بهینه‌ساز SVG",
-    "unitConverter": "مبدل واحد"
+    "unitConverter": "مبدل واحد",
+    "dockerComposeGenerator": "تولیدکننده Docker Compose"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -410,6 +411,10 @@
       "unitConverter": {
         "title": "مبدل واحد",
         "description": "تبدیل بین 323 واحد در 43 دسته علمی و مهندسی."
+      },
+      "dockerComposeGenerator": {
+        "title": "تولیدکننده Docker Compose",
+        "description": "پایگاه‌داده، کش، صف، پروکسی و تصاویر قابلیت مشاهده را انتخاب کنید؛ docker-compose.yml را برای پشته‌های محلی صادر کنید."
       }
     },
     "tabs": {
@@ -3170,5 +3175,80 @@
     "searchCategory": "جستجوی دسته‌بندی...",
     "selectCategory": "یک دسته انتخاب کنید",
     "noResults": "دسته‌بندی‌ای یافت نشد."
+  },
+  "DockerComposeGenerator": {
+    "title": "تولیدکننده Docker Compose",
+    "subtitle": "پایگاه‌داده‌های رایج، کش، صف پیام، پروکسی معکوس و قابلیت مشاهده را انتخاب کنید — docker-compose.yml آماده توسعه محلی را کپی کنید.",
+    "searchPlaceholder": "جستجو (postgres، redis، kafka، nginx، grafana…)",
+    "selectedLabel": "سرویس‌ها",
+    "selectedCount": "{count, plural, one {# سرویس} other {# سرویس}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "کپی",
+    "copied": "کپی شد!",
+    "download": "دانلود",
+    "emptyState": "برای تولید YAML Compose یک یا چند سرویس انتخاب کنید.",
+    "hintPorts": "پورت‌های میزبان پیش‌فرض برای کاهش تداخل فاصله دارند؛ در صورت خطای اتصال تغییر دهید. قبل از محیط‌های اشتراکی رمزهای نمایشی را عوض کنید.",
+    "categories": {
+      "databases": "پایگاه‌داده و ذخیره‌سازی",
+      "cache": "کش و درون‌حافظه",
+      "queues": "صف و پیام‌رسانی",
+      "search": "جستجو و گزارش‌ها",
+      "storage": "ذخیره‌سازی شیء",
+      "proxy": "پروکسی معکوس و ingress",
+      "observability": "معیارها و ردیابی",
+      "mail": "ایمیل (توسعه محلی)",
+      "admin": "رابط‌های مدیریت و BI"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "پاک کردن"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (سازگار با Redis)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (سازگار با Kafka)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (سازگار با S3)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (ضبط SMTP)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (سرور توسعه)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
   }
 }

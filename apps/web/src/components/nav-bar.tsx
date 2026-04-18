@@ -46,6 +46,7 @@ import {
   Minimize2,
   Timer,
   LockKeyhole,
+  Container,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
@@ -104,6 +105,11 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
   '/app/contrast-checker': { title: 'Contrast Checker', icon: Contrast, namespace: 'ContrastChecker' },
   '/app/css-gradient-builder': { title: 'CSS Gradient Builder', icon: Paintbrush, namespace: 'CssGradientBuilder' },
   '/app/gitignore-generator': { title: '.gitignore Generator', icon: FileMinus, namespace: 'GitignoreGenerator' },
+  '/app/docker-compose-generator': {
+    title: 'Docker Compose Generator',
+    icon: Container,
+    namespace: 'DockerComposeGenerator',
+  },
   '/app/jwt-decoder': { title: 'JWT Decoder', icon: Key, namespace: 'JwtDecoder' },
   '/app/encryption-playground': {
     title: 'Encryption Playground',

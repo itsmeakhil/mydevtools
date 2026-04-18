@@ -78,7 +78,7 @@ function extractTags(title: string, description: string, ...categories: string[]
   if (text.includes('text') || text.includes('string')) tags.add('text');
   if (text.includes('image') || text.includes('qr') || text.includes('code')) tags.add('media');
   if (text.includes('network') || text.includes('ip') || text.includes('subnet')) tags.add('network');
-  if (text.includes('git') || text.includes('cron') || text.includes('chmod')) tags.add('devops');
+  if (text.includes('git') || text.includes('cron') || text.includes('chmod') || text.includes('docker') || text.includes('compose')) tags.add('devops');
   
   return Array.from(tags);
 }

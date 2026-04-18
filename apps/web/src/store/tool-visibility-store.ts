@@ -39,6 +39,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/contrast-checker',
   '/app/markdown-preview-html',
   '/app/mock-data-generator',
+  '/app/docker-compose-generator',
 ];
 
 interface ToolVisibilityStore {

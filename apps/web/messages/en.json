@@ -46,7 +46,8 @@
     "formatConverter": "Format Converter",
     "mockDataGenerator": "Mock Data Generator",
     "svgOptimizer": "SVG Optimizer",
-    "unitConverter": "Unit Converter"
+    "unitConverter": "Unit Converter",
+    "dockerComposeGenerator": "Docker Compose Generator"
   },
   "Help": {
     "title": "Help & documentation",
@@ -465,6 +466,10 @@
       "unitConverter": {
         "title": "Unit Converter",
         "description": "Convert between 323 units across 43 scientific and engineering categories."
+      },
+      "dockerComposeGenerator": {
+        "title": "Docker Compose Generator",
+        "description": "Pick databases, caches, queues, proxies, and observability images; export a docker-compose.yml for local stacks."
       }
     }
   },
@@ -3170,5 +3175,80 @@
     "searchCategory": "Search category...",
     "selectCategory": "Select a category",
     "noResults": "No category found."
+  },
+  "DockerComposeGenerator": {
+    "title": "Docker Compose Generator",
+    "subtitle": "Choose popular databases, caches, queues, proxies, and observability stacks — copy a working docker-compose.yml for local development.",
+    "searchPlaceholder": "Search (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Services",
+    "selectedCount": "{count, plural, one {# service} other {# services}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "download": "Download",
+    "emptyState": "Select one or more services to generate compose YAML.",
+    "hintPorts": "Default host ports are spaced to reduce clashes; change them if Docker reports a bind conflict. Replace demo passwords before any shared environment.",
+    "categories": {
+      "databases": "Databases & stores",
+      "cache": "Cache & in-memory",
+      "queues": "Queues & messaging",
+      "search": "Search & logs",
+      "storage": "Object storage",
+      "proxy": "Reverse proxies & ingress",
+      "observability": "Metrics & tracing",
+      "mail": "Email (local dev)",
+      "admin": "Admin & BI UIs"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Clear"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (Redis-compatible)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (Kafka-compatible)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (S3-compatible)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (SMTP capture)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (dev server)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
   }
 }

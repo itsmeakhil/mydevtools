@@ -46,7 +46,8 @@
     "formatConverter": "Μετατροπέας Μορφών",
     "mockDataGenerator": "Γεννήτρια δοκιμαστικών δεδομένων",
     "svgOptimizer": "Βελτιστοποιητής SVG",
-    "unitConverter": "Μετατροπέας Μονάδων"
+    "unitConverter": "Μετατροπέας Μονάδων",
+    "dockerComposeGenerator": "Δημιουργός Docker Compose"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",
@@ -410,6 +411,10 @@
       "unitConverter": {
         "title": "Μετατροπέας Μονάδων",
         "description": "Μετατροπή μεταξύ 323 μονάδων σε 43 επιστημονικές και μηχανολογικές κατηγορίες."
+      },
+      "dockerComposeGenerator": {
+        "title": "Δημιουργός Docker Compose",
+        "description": "Επιλέξτε βάσεις δεδομένων, cache, ουρές, proxy και εικόνες παρατηρησιμότητας· εξάγετε docker-compose.yml για τοπικές στοίβες."
       }
     },
     "tabs": {
@@ -3170,5 +3175,80 @@
     "searchCategory": "Αναζήτηση κατηγορίας...",
     "selectCategory": "Επιλέξτε κατηγορία",
     "noResults": "Δεν βρέθηκε κατηγορία."
+  },
+  "DockerComposeGenerator": {
+    "title": "Δημιουργός Docker Compose",
+    "subtitle": "Επιλέξτε δημοφιλείς βάσεις δεδομένων, cache, ουρές μηνυμάτων, reverse proxy και παρατηρησιμότητα — αντιγράψτε ένα docker-compose.yml έτοιμο για τοπική ανάπτυξη.",
+    "searchPlaceholder": "Αναζήτηση (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Υπηρεσίες",
+    "selectedCount": "{count, plural, one {# υπηρεσία} other {# υπηρεσίες}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Αντιγραφή",
+    "copied": "Αντιγράφηκε!",
+    "download": "Λήψη",
+    "emptyState": "Επιλέξτε μία ή περισσότερες υπηρεσίες για δημιουργία YAML Compose.",
+    "hintPorts": "Οι προεπιλεγμένες θύρες μειώνουν συγκρούσεις· αλλάξτε τις αν το Docker αναφέρει δέσμευση. Αντικαταστήστε κωδικούς επίδειξης πριν από κοινά περιβάλλοντα.",
+    "categories": {
+      "databases": "Βάσεις δεδομένων και αποθήκευση",
+      "cache": "Cache και in-memory",
+      "queues": "Ουρές και ανταλλαγή μηνυμάτων",
+      "search": "Αναζήτηση και αρχεία καταγραφής",
+      "storage": "Αποθήκευση αντικειμένων",
+      "proxy": "Reverse proxy και ingress",
+      "observability": "Μετρήσεις και ιχνηλάτηση",
+      "mail": "Ηλεκτρονικό ταχυδρομείο (τοπική ανάπτυξη)",
+      "admin": "Διαχειριστικές και BI διεπαφές"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Εκκαθάριση"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (συμβατό με Redis)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (συμβατό με Kafka)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (συμβατό με S3)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (καταγραφή SMTP)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (διακομιστής ανάπτυξης)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
   }
 }

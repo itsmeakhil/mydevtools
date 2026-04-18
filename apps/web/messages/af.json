@@ -46,7 +46,8 @@
     "formatConverter": "Formaat Omskakelaer",
     "mockDataGenerator": "Skyn-datagenerator",
     "svgOptimizer": "SVG-optimaliseerder",
-    "unitConverter": "Eenheidsomskakelaar"
+    "unitConverter": "Eenheidsomskakelaar",
+    "dockerComposeGenerator": "Docker Compose-Generator"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -410,6 +411,10 @@
       "unitConverter": {
         "title": "Eenheidsomskakelaar",
         "description": "Skakel tussen 323 eenhede oor 43 wetenskaplike en ingenieurskategorieë."
+      },
+      "dockerComposeGenerator": {
+        "title": "Docker Compose-Generator",
+        "description": "Kies databasisse, kasse, toue, proxy's en waarneembaarheidbeelde; voer docker-compose.yml uit vir plaaslike stapel."
       }
     },
     "tabs": {
@@ -3170,5 +3175,80 @@
     "searchCategory": "Soek kategorie...",
     "selectCategory": "Kies 'n kategorie",
     "noResults": "Geen kategorie gevind nie."
+  },
+  "DockerComposeGenerator": {
+    "title": "Docker Compose-Generator",
+    "subtitle": "Kies gewilde databasisse, kasse, boodskaptoue, omgekeerde proxy's en waarneembaarheid — kopieer 'n docker-compose.yml vir plaaslike ontwikkeling.",
+    "searchPlaceholder": "Soek (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Dienste",
+    "selectedCount": "{count, plural, one {# diens} other {# dienste}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Kopieer",
+    "copied": "Gekopieer!",
+    "download": "Aflaai",
+    "emptyState": "Kies een of meer dienste om Compose-YAML te genereer.",
+    "hintPorts": "Verstek gasheerpoorte verminder botsings; verander as Docker 'n bindingfout meld. Vervang demo-wagwoorde voor gedeelde omgewings.",
+    "categories": {
+      "databases": "Databasisse en berging",
+      "cache": "Kas en in-geheue",
+      "queues": "Toue en boodskappe",
+      "search": "Soek en logs",
+      "storage": "Voorwerpherging",
+      "proxy": "Omgekeerde proxy's en ingress",
+      "observability": "Metrieke en nasporing",
+      "mail": "E-pos (plaaslike ontwikkeling)",
+      "admin": "Admin- en BI-koppelvlakke"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Maak skoon"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (Redis-versoenbaar)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (Kafka-versoenbaar)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (S3-versoenbaar)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (SMTP-vangs)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (ontwikkelaarbediener)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
   }
 }

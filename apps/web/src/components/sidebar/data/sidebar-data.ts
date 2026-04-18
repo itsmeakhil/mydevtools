@@ -49,6 +49,7 @@ import {
   IconServer,
   IconClock,
   IconShieldLock,
+  IconBrandDocker,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -294,6 +295,15 @@ export const sidebarData: SidebarData = {
           icon: IconFileMinus,
           description: 'Generate merged .gitignore files instantly from 500+ stacks.',
           hiddenOnMobile: true,
+        },
+        {
+          title: 'Docker Compose Generator',
+          url: '/app/docker-compose-generator',
+          icon: IconBrandDocker,
+          description:
+            'Compose local stacks: Postgres, Redis, NGINX, Kafka, Elasticsearch, Prometheus, Grafana, and many more — copy docker-compose.yml.',
+          hiddenOnMobile: true,
+          badge: 'new',
         },
         {
           title: 'Lorem Ipsum',

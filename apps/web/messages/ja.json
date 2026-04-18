@@ -46,7 +46,8 @@
     "formatConverter": "フォーマット変換",
     "mockDataGenerator": "モックデータジェネレーター",
     "svgOptimizer": "SVG 最適化",
-    "unitConverter": "単位変換器"
+    "unitConverter": "単位変換器",
+    "dockerComposeGenerator": "Docker Compose ジェネレーター"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -410,6 +411,10 @@
       "unitConverter": {
         "title": "単位変換器",
         "description": "43の科学・工学カテゴリにわたる323単位間の変換。"
+      },
+      "dockerComposeGenerator": {
+        "title": "Docker Compose ジェネレーター",
+        "description": "データベース、キャッシュ、キュー、プロキシ、可観測性イメージを選び、ローカル用の docker-compose.yml を出力します。"
       }
     },
     "tabs": {
@@ -3170,5 +3175,80 @@
     "searchCategory": "カテゴリを検索...",
     "selectCategory": "カテゴリを選択",
     "noResults": "カテゴリが見つかりません。"
+  },
+  "DockerComposeGenerator": {
+    "title": "Docker Compose ジェネレーター",
+    "subtitle": "代表的なデータベース、キャッシュ、メッセージキュー、リバースプロキシ、可観測性を選んで、ローカル開発向けの docker-compose.yml をコピーできます。",
+    "searchPlaceholder": "検索（postgres, redis, kafka, nginx, grafana…）",
+    "selectedLabel": "サービス",
+    "selectedCount": "{count, plural, other {# 件のサービス}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "コピー",
+    "copied": "コピーしました",
+    "download": "ダウンロード",
+    "emptyState": "Compose YAML を生成するサービスを 1 つ以上選んでください。",
+    "hintPorts": "デフォルトのホストポートは衝突を避ける配置です。バインドエラー時は変更してください。共有環境ではデモ用パスワードを必ず置き換えてください。",
+    "categories": {
+      "databases": "データベースとストア",
+      "cache": "キャッシュ・インメモリ",
+      "queues": "キューとメッセージング",
+      "search": "検索とログ",
+      "storage": "オブジェクトストレージ",
+      "proxy": "リバースプロキシと Ingress",
+      "observability": "メトリクスとトレース",
+      "mail": "メール（ローカル開発）",
+      "admin": "管理画面と BI"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "クリア"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey（Redis 互換）",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda（Kafka 互換）",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO（S3 互換）",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit（SMTP キャプチャ）",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault（開発サーバー）",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg（Chromium / PDF）"
+    }
   }
 }

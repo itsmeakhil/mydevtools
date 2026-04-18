@@ -46,7 +46,8 @@
     "formatConverter": "Conversor de formats",
     "mockDataGenerator": "Generador de dades de prova",
     "svgOptimizer": "Optimitzador SVG",
-    "unitConverter": "Convertidor d'unitats"
+    "unitConverter": "Convertidor d'unitats",
+    "dockerComposeGenerator": "Generador Docker Compose"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -410,6 +411,10 @@
       "unitConverter": {
         "title": "Convertidor d'unitats",
         "description": "Converteix entre 323 unitats en 43 categories científiques i d'enginyeria."
+      },
+      "dockerComposeGenerator": {
+        "title": "Generador Docker Compose",
+        "description": "Trieu bases de dades, memòries cau, cues, proxies i imatges d’observabilitat; exporteu un docker-compose.yml per a piles locals."
       }
     },
     "tabs": {
@@ -3170,5 +3175,80 @@
     "searchCategory": "Cerca categoria...",
     "selectCategory": "Seleccioneu una categoria",
     "noResults": "No s'ha trobat cap categoria."
+  },
+  "DockerComposeGenerator": {
+    "title": "Generador Docker Compose",
+    "subtitle": "Trieu bases de dades populars, memòries cau, cues de missatges, proxies inversos i observabilitat — copieu un docker-compose.yml llest per al desenvolupament local.",
+    "searchPlaceholder": "Cerca (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Serveis",
+    "selectedCount": "{count, plural, one {# servei} other {# serveis}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Copia",
+    "copied": "Copiat!",
+    "download": "Baixa",
+    "emptyState": "Seleccioneu un o més serveis per generar el YAML de Compose.",
+    "hintPorts": "Els ports per defecte redueixen conflictes; canvieu-los si Docker informa d’un port en ús. Substituïu les contrasenyes de demostració abans d’entorns compartits.",
+    "categories": {
+      "databases": "Bases de dades i emmagatzematge",
+      "cache": "Memòria cau i en memòria",
+      "queues": "Cues i missatgeria",
+      "search": "Cerca i registres",
+      "storage": "Emmagatzematge d’objectes",
+      "proxy": "Proxies inversos i ingress",
+      "observability": "Mètriques i traçat",
+      "mail": "Correu (desenvolupament local)",
+      "admin": "Interfícies d’administració i BI"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Neteja"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (compatible amb Redis)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (compatible amb Kafka)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (compatible amb S3)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (captura SMTP)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (servidor de desenvolupament)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
   }
 }

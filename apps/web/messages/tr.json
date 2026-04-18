@@ -46,7 +46,8 @@
     "formatConverter": "Format Dönüştürücü",
     "mockDataGenerator": "Sahte veri üreticisi",
     "svgOptimizer": "SVG Optimize",
-    "unitConverter": "Birim Dönüştürücü"
+    "unitConverter": "Birim Dönüştürücü",
+    "dockerComposeGenerator": "Docker Compose Oluşturucu"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -410,6 +411,10 @@
       "unitConverter": {
         "title": "Birim Dönüştürücü",
         "description": "43 bilimsel ve mühendislik kategorisinde 323 birim arasında dönüştürün."
+      },
+      "dockerComposeGenerator": {
+        "title": "Docker Compose Oluşturucu",
+        "description": "Veritabanları, önbellek, kuyruklar, proxy ve gözlemlenebilirlik görüntülerini seçin; yerel yığınlar için docker-compose.yml dışa aktarın."
       }
     },
     "tabs": {
@@ -3170,5 +3175,80 @@
     "searchCategory": "Kategori ara...",
     "selectCategory": "Bir kategori seçin",
     "noResults": "Kategori bulunamadı."
+  },
+  "DockerComposeGenerator": {
+    "title": "Docker Compose Oluşturucu",
+    "subtitle": "Popüler veritabanları, önbellek, mesaj kuyrukları, ters proxy ve gözlemlenebilirlik seçin — yerel geliştirme için hazır docker-compose.yml kopyalayın.",
+    "searchPlaceholder": "Ara (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Hizmetler",
+    "selectedCount": "{count, plural, one {# hizmet} other {# hizmet}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı!",
+    "download": "İndir",
+    "emptyState": "Compose YAML üretmek için bir veya daha fazla hizmet seçin.",
+    "hintPorts": "Varsayılan ana bilgisayar bağlantı noktaları çakışmaları azaltır; Docker bağlama hatası verirse değiştirin. Paylaşılan ortamlardan önce demo parolalarını değiştirin.",
+    "categories": {
+      "databases": "Veritabanları ve depolar",
+      "cache": "Önbellek ve bellek içi",
+      "queues": "Kuyruklar ve mesajlaşma",
+      "search": "Arama ve günlükler",
+      "storage": "Nesne depolama",
+      "proxy": "Ters proxy ve ingress",
+      "observability": "Metrikler ve izleme",
+      "mail": "E-posta (yerel geliştirme)",
+      "admin": "Yönetim ve BI arayüzleri"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Temizle"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (Redis uyumlu)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (Kafka uyumlu)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (S3 uyumlu)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (SMTP yakalama)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (geliştirme sunucusu)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
   }
 }

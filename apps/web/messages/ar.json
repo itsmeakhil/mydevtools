@@ -46,7 +46,8 @@
     "formatConverter": "محوّل الصيغ",
     "mockDataGenerator": "مولّد بيانات وهمية",
     "svgOptimizer": "محسّن SVG",
-    "unitConverter": "محوّل الوحدات"
+    "unitConverter": "محوّل الوحدات",
+    "dockerComposeGenerator": "مولّد Docker Compose"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -410,6 +411,10 @@
       "unitConverter": {
         "title": "محوّل الوحدات",
         "description": "تحويل بين 323 وحدة عبر 43 فئة علمية وهندسية."
+      },
+      "dockerComposeGenerator": {
+        "title": "مولّد Docker Compose",
+        "description": "اختر قواعد البيانات والتخزين المؤقت والطوابير والوكلاء وصور المراقبة؛ صدّر docker-compose.yml للمكدسات المحلية."
       }
     },
     "tabs": {
@@ -3170,5 +3175,80 @@
     "searchCategory": "ابحث عن فئة...",
     "selectCategory": "اختر فئة",
     "noResults": "لم يتم العثور على فئة."
+  },
+  "DockerComposeGenerator": {
+    "title": "مولّد Docker Compose",
+    "subtitle": "اختر قواعد بيانات شائعة وتخزينًا مؤقتًا وطوابير رسائل ووكلاء عكسيين ومراقبة — انسخ docker-compose.yml جاهزًا للتطوير المحلي.",
+    "searchPlaceholder": "بحث (postgres، redis، kafka، nginx، grafana…)",
+    "selectedLabel": "الخدمات",
+    "selectedCount": "{count, plural, one {خدمة واحدة} other {# خدمات}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "نسخ",
+    "copied": "تم النسخ!",
+    "download": "تنزيل",
+    "emptyState": "اختر خدمة واحدة أو أكثر لإنشاء YAML لـ Compose.",
+    "hintPorts": "تم تباعد منافذ المضيف الافتراضية لتقليل التعارض؛ غيّرها إذا أبلغ Docker عن تعارض. استبدل كلمات مرور العرض قبل البيئات المشتركة.",
+    "categories": {
+      "databases": "قواعد البيانات والتخزين",
+      "cache": "التخزين المؤقت والذاكرة",
+      "queues": "الطوابير والمراسلة",
+      "search": "البحث والسجلات",
+      "storage": "تخزين الكائنات",
+      "proxy": "الوكلاء العكسيون والدخول",
+      "observability": "المقاييس والتتبع",
+      "mail": "البريد (تطوير محلي)",
+      "admin": "واجهات الإدارة وذكاء الأعمال"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "مسح"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (متوافق مع Redis)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (متوافق مع Kafka)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (متوافق مع S3)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (التقاط SMTP)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (خادم تطوير)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
   }
 }

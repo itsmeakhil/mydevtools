@@ -46,7 +46,8 @@
     "formatConverter": "Konverter Format",
     "mockDataGenerator": "Generator data mock",
     "svgOptimizer": "Pengoptimal SVG",
-    "unitConverter": "Konverter Satuan"
+    "unitConverter": "Konverter Satuan",
+    "dockerComposeGenerator": "Generator Docker Compose"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -410,6 +411,10 @@
       "unitConverter": {
         "title": "Konverter Satuan",
         "description": "Konversi antara 323 satuan di 43 kategori ilmiah dan teknik."
+      },
+      "dockerComposeGenerator": {
+        "title": "Generator Docker Compose",
+        "description": "Pilih basis data, cache, antrean, proxy, dan image observabilitas; ekspor docker-compose.yml untuk stack lokal."
       }
     },
     "tabs": {
@@ -3170,5 +3175,80 @@
     "searchCategory": "Cari kategori...",
     "selectCategory": "Pilih kategori",
     "noResults": "Tidak ada kategori ditemukan."
+  },
+  "DockerComposeGenerator": {
+    "title": "Generator Docker Compose",
+    "subtitle": "Pilih basis data populer, cache, antrean pesan, reverse proxy, dan observabilitas — salin docker-compose.yml siap pakai untuk pengembangan lokal.",
+    "searchPlaceholder": "Cari (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Layanan",
+    "selectedCount": "{count, plural, other {# layanan}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Salin",
+    "copied": "Disalin!",
+    "download": "Unduh",
+    "emptyState": "Pilih satu atau lebih layanan untuk menghasilkan YAML Compose.",
+    "hintPorts": "Port host bawaan mengurangi bentrok; ubah jika Docker melaporkan port terpakai. Ganti kata sandi demo sebelum lingkungan bersama.",
+    "categories": {
+      "databases": "Basis data & penyimpanan",
+      "cache": "Cache & dalam memori",
+      "queues": "Antrean & perpesanan",
+      "search": "Pencarian & log",
+      "storage": "Penyimpanan objek",
+      "proxy": "Reverse proxy & ingress",
+      "observability": "Metrik & pelacakan",
+      "mail": "Email (pengembangan lokal)",
+      "admin": "Antarmuka admin & BI"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Bersihkan"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (kompatibel Redis)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (kompatibel Kafka)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (kompatibel S3)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (tangkap SMTP)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (server dev)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
   }
 }
