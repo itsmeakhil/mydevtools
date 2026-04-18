@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Генератор JSON-схемы",
     "imageToBase64": "Изображение в Base64",
+    "imageCompressor": "Сжатие изображений",
     "cssGradientBuilder": "Конструктор CSS-градиентов",
     "gitignoreGenerator": "Генератор .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -41,6 +42,7 @@
     "numberBaseConverter": "Конвертер систем",
     "formatConverter": "Конвертер форматов",
     "mockDataGenerator": "Генератор тестовых данных",
+    "svgOptimizer": "Оптимизатор SVG",
     "unitConverter": "Конвертер единиц"
   },
   "Help": {
@@ -330,6 +332,10 @@
         "title": "Изображение в Base64",
         "description": "Преобразуйте изображения в URI данных или необработанные строки Base64."
       },
+      "imageCompressor": {
+        "title": "Сжатие изображений",
+        "description": "Сжимайте JPEG, PNG и WebP локально с ползунком качества."
+      },
       "cssGradientBuilder": {
         "title": "Конструктор CSS-градиентов",
         "description": "Визуальный конструктор градиентов CSS с контролем угла и остановками цвета."
@@ -381,6 +387,10 @@
       "httpStatusCodes": {
         "title": "HTTP-коды состояния",
         "description": "Поиск HTTP-кодов состояния с описаниями (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Оптимизатор SVG",
+        "description": "Вставьте SVG, удалите лишнее через SVGO и посмотрите выигрыш по размеру UTF-8."
       },
       "unitConverter": {
         "title": "Конвертер единиц",
@@ -2413,6 +2423,42 @@
       "filename": "изображение-base64.txt"
     }
   },
+  "ImageCompressor": {
+    "title": "Сжатие изображений",
+    "subtitle": "Уменьшайте размер JPEG, PNG или WebP локально с настройкой качества — ничего не загружается.",
+    "upload": "Загрузить изображение",
+    "clear": "Очистить",
+    "dropHere": "Перетащите изображение сюда",
+    "placeholders": {
+      "uploadImage": "Перетащите файл или нажмите, чтобы выбрать изображение."
+    },
+    "fileTooLarge": "Файл слишком большой (макс. {maxMb} МБ).",
+    "unsupportedFormat": "Неподдерживаемый тип файла. Используйте JPEG, PNG, WebP, GIF, AVIF или BMP.",
+    "compressFailed": "Не удалось сжать изображение. Попробуйте другой файл или формат.",
+    "panels": {
+      "original": "Исходное",
+      "compressed": "Предпросмотр"
+    },
+    "outputFormat": "Формат вывода",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Качество",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG в браузере без потерь; ползунок качества действует только для JPEG и WebP.",
+    "sizes": {
+      "original": "Исходный: {size}",
+      "compressed": "После сжатия: {size}",
+      "saved": "на {percent}% меньше"
+    },
+    "largerWarning": "Выходной файл больше исходного — смените формат или качество.",
+    "download": "Скачать",
+    "downloadFilename": "сжатое-изображение",
+    "processing": "Сжатие…",
+    "emptyCompressed": "Предпросмотр появится здесь."
+  },
   "CssGradientBuilder": {
     "title": "Конструктор CSS-градиентов",
     "subtitle": "Визуальный конструктор градиентов CSS с контролем угла, остановками цвета и копированием CSS одним щелчком мыши.",
@@ -2969,6 +3015,34 @@
       "currency_code": "Код валюты",
       "language_code": "Языковой тег",
       "custom_list": "Пользовательский список"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "Оптимизатор SVG",
+    "subtitle": "Вставьте SVG, минифицируйте через SVGO в браузере и сравните размер UTF-8 до и после.",
+    "inputLabel": "Ввод",
+    "outputLabel": "Оптимизировано",
+    "placeholder": "Вставьте фрагмент <svg>…</svg> или весь файл…",
+    "outputPlaceholder": "Оптимизированный SVG появится здесь…",
+    "chars": "{count} симв. • {bytes} байт (UTF-8)",
+    "preview": "Предпросмотр",
+    "localNote": "Всё обрабатывается локально в браузере. Ничего не загружается.",
+    "stats": {
+      "title": "Размер (UTF-8)",
+      "before": "До",
+      "after": "После",
+      "savedBytes": "Сэкономлено {count} байт ({percent}%)",
+      "noChange": "Без уменьшения — уже минимально или пустой вывод."
+    },
+    "actions": {
+      "clear": "Очистить",
+      "sample": "Пример",
+      "copy": "Копировать",
+      "copied": "Скопировано",
+      "download": "Скачать"
+    },
+    "errors": {
+      "optimizeFailed": "Не удалось оптимизировать этот SVG."
     }
   },
   "UnitConverter": {

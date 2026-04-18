@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-skemagenerator",
     "imageToBase64": "Billede til Base64",
+    "imageCompressor": "Billedkomprimering",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -41,6 +42,7 @@
     "numberBaseConverter": "Talsystem-konverter",
     "formatConverter": "Formatkonverter",
     "mockDataGenerator": "Mock-datagenerator",
+    "svgOptimizer": "SVG-optimering",
     "unitConverter": "Enhedskonverter"
   },
   "Help": {
@@ -330,6 +332,10 @@
         "title": "Billede til Base64",
         "description": "Konverter billeder til data-URI eller rå Base64-strenge."
       },
+      "imageCompressor": {
+        "title": "Billedkomprimering",
+        "description": "Komprimér JPEG, PNG og WebP lokalt med en kvalitetsskyder."
+      },
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
         "description": "Visuel CSS-gradientbygger med vinkelkontrol og farvestop."
@@ -381,6 +387,10 @@
       "httpStatusCodes": {
         "title": "HTTP-statuskoder",
         "description": "Søg HTTP-statuskoder med beskrivelser (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "SVG-optimering",
+        "description": "Indsæt SVG, fjern støj med SVGO og se UTF-8-størrelsesbesparelse."
       },
       "unitConverter": {
         "title": "Enhedskonverter",
@@ -2413,6 +2423,42 @@
       "filename": "image-base64.txt"
     }
   },
+  "ImageCompressor": {
+    "title": "Billedkomprimering",
+    "subtitle": "Formindsk JPEG-, PNG- eller WebP-output lokalt med kvalitetskontrol — intet uploades.",
+    "upload": "Upload billede",
+    "clear": "Ryd",
+    "dropHere": "Slip billede her",
+    "placeholders": {
+      "uploadImage": "Træk og slip et billede, eller klik for at vælge en fil."
+    },
+    "fileTooLarge": "Filen er for stor (maks. {maxMb} MB).",
+    "unsupportedFormat": "Filtypen understøttes ikke. Brug JPEG, PNG, WebP, GIF, AVIF eller BMP.",
+    "compressFailed": "Kunne ikke komprimere billedet. Prøv en anden fil eller et andet format.",
+    "panels": {
+      "original": "Original",
+      "compressed": "Komprimeret forhåndsvisning"
+    },
+    "outputFormat": "Outputformat",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Kvalitet",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG er tabsfri i browseren; kvalitetsskyderen gælder kun JPEG og WebP.",
+    "sizes": {
+      "original": "Original: {size}",
+      "compressed": "Komprimeret: {size}",
+      "saved": "{percent}% mindre"
+    },
+    "largerWarning": "Output er større end input — prøv et andet format eller en anden kvalitet.",
+    "download": "Download",
+    "downloadFilename": "komprimeret-billede",
+    "processing": "Komprimerer…",
+    "emptyCompressed": "Komprimeret forhåndsvisning vises her."
+  },
   "CssGradientBuilder": {
     "title": "CSS Gradient Builder",
     "subtitle": "Visuel CSS-gradientbygger med vinkelkontrol, farvestop og CSS-kopi med et enkelt klik.",
@@ -2969,6 +3015,34 @@
       "currency_code": "Valutakode",
       "language_code": "Sprogkode",
       "custom_list": "Brugerdefineret liste"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "SVG-optimering",
+    "subtitle": "Indsæt SVG, minificér med SVGO i browseren og sammenlign UTF-8-størrelse før og efter.",
+    "inputLabel": "Input",
+    "outputLabel": "Optimeret",
+    "placeholder": "Indsæt et <svg>…</svg>-uddrag eller hele filen…",
+    "outputPlaceholder": "Optimeret SVG vises her…",
+    "chars": "{count} tegn • {bytes} bytes (UTF-8)",
+    "preview": "Forhåndsvisning",
+    "localNote": "Al behandling sker lokalt i din browser. Intet uploades.",
+    "stats": {
+      "title": "Størrelse (UTF-8)",
+      "before": "Før",
+      "after": "Efter",
+      "savedBytes": "{count} bytes sparet ({percent}%)",
+      "noChange": "Ingen reduktion — allerede minimal eller tom output."
+    },
+    "actions": {
+      "clear": "Ryd",
+      "sample": "Indlæs eksempel",
+      "copy": "Kopiér",
+      "copied": "Kopieret",
+      "download": "Download"
+    },
+    "errors": {
+      "optimizeFailed": "Kunne ikke optimere denne SVG."
     }
   },
   "UnitConverter": {

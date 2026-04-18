@@ -20,6 +20,7 @@
     "cronBuilder": "Cron Builder",
     "base64Encoder": "Base64 Encoder",
     "imageToBase64": "Image to Base64",
+    "imageCompressor": "Image Compressor",
     "urlEncoder": "URL Encoder",
     "urlParser": "URL Parser",
     "uuidGenerator": "UUID / ULID",
@@ -41,6 +42,7 @@
     "numberBaseConverter": "Number Base Converter",
     "formatConverter": "Format Converter",
     "mockDataGenerator": "Mock Data Generator",
+    "svgOptimizer": "SVG Optimizer",
     "unitConverter": "Unit Converter"
   },
   "Help": {
@@ -369,6 +371,10 @@
         "title": "Image to Base64",
         "description": "Convert images to Data URI or raw Base64 strings."
       },
+      "imageCompressor": {
+        "title": "Image Compressor",
+        "description": "Compress JPEG, PNG, and WebP locally with a quality slider."
+      },
       "urlEncoder": {
         "title": "URL Encoder",
         "description": "Percent-encode and decode URL components."
@@ -436,6 +442,10 @@
       "mockDataGenerator": {
         "title": "Mock Data Generator",
         "description": "Schema-based random JSON, CSV, SQL, and XML for development and API testing."
+      },
+      "svgOptimizer": {
+        "title": "SVG Optimizer",
+        "description": "Paste SVG, strip junk with SVGO, and see UTF-8 size reduction."
       },
       "unitConverter": {
         "title": "Unit Converter",
@@ -2685,6 +2695,42 @@
       "filename": "image-base64.txt"
     }
   },
+  "ImageCompressor": {
+    "title": "Image Compressor",
+    "subtitle": "Shrink JPEG, PNG, or WebP output locally with a quality control — nothing is uploaded.",
+    "upload": "Upload image",
+    "clear": "Clear",
+    "dropHere": "Drop image here",
+    "placeholders": {
+      "uploadImage": "Drag and drop an image, or click to choose a file."
+    },
+    "fileTooLarge": "File is too large (max {maxMb} MB).",
+    "unsupportedFormat": "This file type is not supported. Use JPEG, PNG, WebP, GIF, AVIF, or BMP.",
+    "compressFailed": "Could not compress this image. Try another file or format.",
+    "panels": {
+      "original": "Original",
+      "compressed": "Compressed preview"
+    },
+    "outputFormat": "Output format",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Quality",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG is lossless in the browser; the quality slider applies to JPEG and WebP only.",
+    "sizes": {
+      "original": "Original: {size}",
+      "compressed": "Compressed: {size}",
+      "saved": "{percent}% smaller"
+    },
+    "largerWarning": "Output is larger than the input — try a different format or quality.",
+    "download": "Download",
+    "downloadFilename": "compressed-image",
+    "processing": "Compressing…",
+    "emptyCompressed": "Compressed preview appears here."
+  },
   "CssGradientBuilder": {
     "title": "CSS Gradient Builder",
     "subtitle": "Visual CSS gradient builder with angle control, color stops, and one-click CSS copy.",
@@ -2970,6 +3016,34 @@
     "copied": "Copied",
     "emptyHint": "Paste a User-Agent string to see the breakdown.",
     "localNote": "Everything runs locally in your browser. Nothing is uploaded."
+  },
+  "SvgOptimizer": {
+    "title": "SVG Optimizer",
+    "subtitle": "Paste SVG, minify with SVGO in your browser, and compare UTF-8 size before and after.",
+    "inputLabel": "Input",
+    "outputLabel": "Optimized",
+    "placeholder": "Paste an <svg>…</svg> snippet or full file…",
+    "outputPlaceholder": "Optimized SVG appears here…",
+    "chars": "{count} chars • {bytes} bytes (UTF-8)",
+    "preview": "Preview",
+    "localNote": "All processing runs locally in your browser. Nothing is uploaded.",
+    "stats": {
+      "title": "Size (UTF-8)",
+      "before": "Before",
+      "after": "After",
+      "savedBytes": "{count} bytes saved ({percent}%)",
+      "noChange": "No reduction — already minimal or empty output."
+    },
+    "actions": {
+      "clear": "Clear",
+      "sample": "Load sample",
+      "copy": "Copy",
+      "copied": "Copied",
+      "download": "Download"
+    },
+    "errors": {
+      "optimizeFailed": "Could not optimize this SVG."
+    }
   },
   "UnitConverter": {
     "title": "Unit Converter",

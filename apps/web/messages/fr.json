@@ -29,6 +29,7 @@
     "nosqlExplorer": "Explorateur NoSQL",
     "jsonSchemaGenerator": "Générateur de schéma JSON",
     "imageToBase64": "Image vers Base64",
+    "imageCompressor": "Compresseur d’images",
     "cssGradientBuilder": "Générateur de dégradé CSS",
     "gitignoreGenerator": "Générateur .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -41,6 +42,7 @@
     "numberBaseConverter": "Convertisseur de base",
     "formatConverter": "Convertisseur de formats",
     "mockDataGenerator": "Générateur de données fictives",
+    "svgOptimizer": "Optimiseur SVG",
     "unitConverter": "Convertisseur d'unités"
   },
   "Help": {
@@ -330,6 +332,10 @@
         "title": "Image vers Base64",
         "description": "Convertissez les images en URI de données ou en chaînes Base64 brutes."
       },
+      "imageCompressor": {
+        "title": "Compresseur d’images",
+        "description": "Compressez JPEG, PNG et WebP localement avec un curseur de qualité."
+      },
       "cssGradientBuilder": {
         "title": "Générateur de dégradé CSS",
         "description": "Générateur de dégradé visuel CSS avec contrôle d'angle et arrêts de couleur."
@@ -381,6 +387,10 @@
       "httpStatusCodes": {
         "title": "Codes de statut HTTP",
         "description": "Recherchez des codes de statut HTTP avec des descriptions (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Optimiseur SVG",
+        "description": "Collez du SVG, supprimez le superflu avec SVGO et voyez le gain de taille UTF-8."
       },
       "unitConverter": {
         "title": "Convertisseur d'unités",
@@ -2413,6 +2423,42 @@
       "filename": "image-base64.txt"
     }
   },
+  "ImageCompressor": {
+    "title": "Compresseur d’images",
+    "subtitle": "Réduisez la sortie JPEG, PNG ou WebP localement avec un contrôle de qualité — rien n’est envoyé au serveur.",
+    "upload": "Importer une image",
+    "clear": "Effacer",
+    "dropHere": "Déposez l’image ici",
+    "placeholders": {
+      "uploadImage": "Glissez-déposez une image, ou cliquez pour choisir un fichier."
+    },
+    "fileTooLarge": "Fichier trop volumineux (max. {maxMb} Mo).",
+    "unsupportedFormat": "Type de fichier non pris en charge. Utilisez JPEG, PNG, WebP, GIF, AVIF ou BMP.",
+    "compressFailed": "Impossible de compresser cette image. Essayez un autre fichier ou format.",
+    "panels": {
+      "original": "Original",
+      "compressed": "Aperçu compressé"
+    },
+    "outputFormat": "Format de sortie",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Qualité",
+    "qualityPercent": "{value} %",
+    "qualityPngHint": "Le PNG est sans perte dans le navigateur ; le réglage de qualité s’applique uniquement au JPEG et au WebP.",
+    "sizes": {
+      "original": "Original : {size}",
+      "compressed": "Compressé : {size}",
+      "saved": "{percent} % plus léger"
+    },
+    "largerWarning": "La sortie est plus grande que l’entrée — essayez un autre format ou une autre qualité.",
+    "download": "Télécharger",
+    "downloadFilename": "image-compressee",
+    "processing": "Compression…",
+    "emptyCompressed": "L’aperçu compressé s’affiche ici."
+  },
   "CssGradientBuilder": {
     "title": "Générateur de dégradé CSS",
     "subtitle": "Générateur de dégradé CSS visuel avec contrôle de l'angle, arrêts de couleur et copie CSS en un clic.",
@@ -2969,6 +3015,34 @@
       "currency_code": "Code devise",
       "language_code": "Étiquette de langue",
       "custom_list": "Liste personnalisée"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "Optimiseur SVG",
+    "subtitle": "Collez du SVG, minifiez avec SVGO dans le navigateur et comparez la taille UTF-8 avant/après.",
+    "inputLabel": "Entrée",
+    "outputLabel": "Optimisé",
+    "placeholder": "Collez un extrait <svg>…</svg> ou un fichier complet…",
+    "outputPlaceholder": "Le SVG optimisé apparaît ici…",
+    "chars": "{count} caractères • {bytes} octets (UTF-8)",
+    "preview": "Aperçu",
+    "localNote": "Tout est traité localement dans votre navigateur. Rien n’est envoyé.",
+    "stats": {
+      "title": "Taille (UTF-8)",
+      "before": "Avant",
+      "after": "Après",
+      "savedBytes": "{count} octets économisés ({percent}%)",
+      "noChange": "Aucune réduction — déjà minimal ou sortie vide."
+    },
+    "actions": {
+      "clear": "Effacer",
+      "sample": "Exemple",
+      "copy": "Copier",
+      "copied": "Copié",
+      "download": "Télécharger"
+    },
+    "errors": {
+      "optimizeFailed": "Impossible d’optimiser ce SVG."
     }
   },
   "UnitConverter": {

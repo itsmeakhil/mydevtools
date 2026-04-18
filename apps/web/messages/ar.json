@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "مولّد مخطط JSON",
     "imageToBase64": "الصورة إلى Base64",
+    "imageCompressor": "ضغط الصور",
     "cssGradientBuilder": "CSS منشئ التدرج",
     "gitignoreGenerator": ".gitignore مولد",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -41,6 +42,7 @@
     "numberBaseConverter": "محوّل الأساس الرقمي",
     "formatConverter": "محوّل الصيغ",
     "mockDataGenerator": "مولّد بيانات وهمية",
+    "svgOptimizer": "محسّن SVG",
     "unitConverter": "محوّل الوحدات"
   },
   "Help": {
@@ -330,6 +332,10 @@
         "title": "الصورة إلى Base64",
         "description": "تحويل الصور إلى Data URI أو سلاسل Base64 الأولية."
       },
+      "imageCompressor": {
+        "title": "ضغط الصور",
+        "description": "ضغط JPEG وPNG وWebP محليًا باستخدام شريط جودة."
+      },
       "cssGradientBuilder": {
         "title": "CSS منشئ التدرج",
         "description": "منشئ التدرج المرئي لـ CSS مع التحكم في الزاوية وتوقف الألوان."
@@ -381,6 +387,10 @@
       "httpStatusCodes": {
         "title": "رموز حالة HTTP",
         "description": "ابحث عن رموز حالة HTTP مع الأوصاف (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "محسّن SVG",
+        "description": "الصق SVG، أزل الفوضى باستخدام SVGO وشاهد توفير حجم UTF-8."
       },
       "unitConverter": {
         "title": "محوّل الوحدات",
@@ -2413,6 +2423,42 @@
       "filename": "image-base64.txt"
     }
   },
+  "ImageCompressor": {
+    "title": "ضغط الصور",
+    "subtitle": "صغّر مخرجات JPEG أو PNG أو WebP محليًا مع التحكم بالجودة — لا يتم رفع أي شيء.",
+    "upload": "رفع صورة",
+    "clear": "مسح",
+    "dropHere": "أسقط الصورة هنا",
+    "placeholders": {
+      "uploadImage": "اسحب وأفلت صورة، أو انقر لاختيار ملف."
+    },
+    "fileTooLarge": "الملف كبير جدًا (الحد الأقصى {maxMb} ميجابايت).",
+    "unsupportedFormat": "نوع الملف غير مدعوم. استخدم JPEG أو PNG أو WebP أو GIF أو AVIF أو BMP.",
+    "compressFailed": "تعذر ضغط هذه الصورة. جرّب ملفًا أو تنسيقًا آخر.",
+    "panels": {
+      "original": "الأصل",
+      "compressed": "معاينة مضغوطة"
+    },
+    "outputFormat": "تنسيق الإخراج",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "الجودة",
+    "qualityPercent": "{value}٪",
+    "qualityPngHint": "PNG بلا فقدان في المتصفح؛ شريط الجودة يؤثر على JPEG وWebP فقط.",
+    "sizes": {
+      "original": "الأصل: {size}",
+      "compressed": "بعد الضغط: {size}",
+      "saved": "أصغر بنسبة {percent}٪"
+    },
+    "largerWarning": "حجم المخرجات أكبر من المدخلات — جرّب تنسيقًا أو جودة مختلفة.",
+    "download": "تنزيل",
+    "downloadFilename": "صورة-mضغوطة",
+    "processing": "جاري الضغط…",
+    "emptyCompressed": "تظهر المعاينة المضغوطة هنا."
+  },
   "CssGradientBuilder": {
     "title": "CSS منشئ التدرج",
     "subtitle": "منشئ التدرج المرئي لـ CSS مع التحكم في الزاوية وتوقف الألوان ونسخ CSS بنقرة واحدة.",
@@ -2969,6 +3015,34 @@
       "currency_code": "رمز العملة",
       "language_code": "وسم اللغة",
       "custom_list": "قائمة مخصصة"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "محسّن SVG",
+    "subtitle": "الصق SVG، صغّر باستخدام SVGO في المتصفح وقارن حجم UTF-8 قبل وبعد.",
+    "inputLabel": "الإدخال",
+    "outputLabel": "مُحسَّن",
+    "placeholder": "الصق جزء <svg>…</svg> أو الملف كاملاً…",
+    "outputPlaceholder": "يظهر SVG المحسّن هنا…",
+    "chars": "{count} حرفًا • {bytes} بايت (UTF-8)",
+    "preview": "معاينة",
+    "localNote": "كل المعالجة محليًا في المتصفح. لا يتم رفع أي شيء.",
+    "stats": {
+      "title": "الحجم (UTF-8)",
+      "before": "قبل",
+      "after": "بعد",
+      "savedBytes": "تم توفير {count} بايت ({percent}%)",
+      "noChange": "لا يوجد تقليل — بالفعل أدنى حجم أو مخرجات فارغة."
+    },
+    "actions": {
+      "clear": "مسح",
+      "sample": "تحميل مثال",
+      "copy": "نسخ",
+      "copied": "تم النسخ",
+      "download": "تنزيل"
+    },
+    "errors": {
+      "optimizeFailed": "تعذّر تحسين هذا SVG."
     }
   },
   "UnitConverter": {

@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-skjemagenerator",
     "imageToBase64": "Bilde til Base64",
+    "imageCompressor": "Bildekomprimering",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -41,6 +42,7 @@
     "numberBaseConverter": "Grunntall-konverter",
     "formatConverter": "Formatkonverterer",
     "mockDataGenerator": "Mock-datagenerator",
+    "svgOptimizer": "SVG-optimalisering",
     "unitConverter": "Enhetsomregner"
   },
   "Help": {
@@ -330,6 +332,10 @@
         "title": "Bilde til Base64",
         "description": "Konverter bilder til data-URI eller rå Base64-strenger."
       },
+      "imageCompressor": {
+        "title": "Bildekomprimering",
+        "description": "Komprimer JPEG, PNG og WebP lokalt med kvalitetsglidebryter."
+      },
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
         "description": "Visuell CSS-gradientbygger med vinkelkontroll og fargestopper."
@@ -381,6 +387,10 @@
       "httpStatusCodes": {
         "title": "HTTP-statuskoder",
         "description": "Søk etter HTTP-statuskoder med beskrivelser (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "SVG-optimalisering",
+        "description": "Lim inn SVG, fjern støy med SVGO og se UTF-8-størrelsesbesparelse."
       },
       "unitConverter": {
         "title": "Enhetsomregner",
@@ -2413,6 +2423,42 @@
       "filename": "image-base64.txt"
     }
   },
+  "ImageCompressor": {
+    "title": "Bildekomprimering",
+    "subtitle": "Forminsk JPEG-, PNG- eller WebP-resultat lokalt med kvalitetskontroll — ingenting lastes opp.",
+    "upload": "Last opp bilde",
+    "clear": "Tøm",
+    "dropHere": "Slipp bildet her",
+    "placeholders": {
+      "uploadImage": "Dra og slipp et bilde, eller klikk for å velge fil."
+    },
+    "fileTooLarge": "Filen er for stor (maks {maxMb} MB).",
+    "unsupportedFormat": "Filtypen støttes ikke. Bruk JPEG, PNG, WebP, GIF, AVIF eller BMP.",
+    "compressFailed": "Kunne ikke komprimere bildet. Prøv en annen fil eller et annet format.",
+    "panels": {
+      "original": "Original",
+      "compressed": "Komprimert forhåndsvisning"
+    },
+    "outputFormat": "Utdataformat",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Kvalitet",
+    "qualityPercent": "{value} %",
+    "qualityPngHint": "PNG er tapsfritt i nettleseren; kvalitetsglidebryteren gjelder bare JPEG og WebP.",
+    "sizes": {
+      "original": "Original: {size}",
+      "compressed": "Komprimert: {size}",
+      "saved": "{percent} % mindre"
+    },
+    "largerWarning": "Utdata er større enn inndata — prøv et annet format eller en annen kvalitet.",
+    "download": "Last ned",
+    "downloadFilename": "komprimert-bilde",
+    "processing": "Komprimerer…",
+    "emptyCompressed": "Komprimert forhåndsvisning vises her."
+  },
   "CssGradientBuilder": {
     "title": "CSS Gradient Builder",
     "subtitle": "Visuell CSS-gradientbygger med vinkelkontroll, fargestopper og ett-klikks CSS-kopi.",
@@ -2969,6 +3015,34 @@
       "currency_code": "Valutakode",
       "language_code": "Språkkode",
       "custom_list": "Tilpasset liste"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "SVG-optimalisering",
+    "subtitle": "Lim inn SVG, minifiser med SVGO i nettleseren og sammenlign UTF-8-størrelse før og etter.",
+    "inputLabel": "Inndata",
+    "outputLabel": "Optimalisert",
+    "placeholder": "Lim inn et <svg>…</svg>-utdrag eller hele filen…",
+    "outputPlaceholder": "Optimalisert SVG vises her…",
+    "chars": "{count} tegn • {bytes} byte (UTF-8)",
+    "preview": "Forhåndsvisning",
+    "localNote": "All behandling skjer lokalt i nettleseren. Ingenting lastes opp.",
+    "stats": {
+      "title": "Størrelse (UTF-8)",
+      "before": "Før",
+      "after": "Etter",
+      "savedBytes": "{count} byte spart ({percent}%)",
+      "noChange": "Ingen reduksjon — allerede minimal eller tom utdata."
+    },
+    "actions": {
+      "clear": "Tøm",
+      "sample": "Last eksempel",
+      "copy": "Kopier",
+      "copied": "Kopiert",
+      "download": "Last ned"
+    },
+    "errors": {
+      "optimizeFailed": "Kunne ikke optimalisere denne SVG-en."
     }
   },
   "UnitConverter": {

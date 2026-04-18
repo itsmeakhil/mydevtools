@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Penjana Skema JSON",
     "imageToBase64": "Imej ke Base64",
+    "imageCompressor": "Pemampat Imej",
     "cssGradientBuilder": "Pembina Kecerunan CSS",
     "gitignoreGenerator": "Penjana .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -41,6 +42,7 @@
     "numberBaseConverter": "Penukar asas",
     "formatConverter": "Penukar Format",
     "mockDataGenerator": "Penjana Data Mock",
+    "svgOptimizer": "Pengoptimum SVG",
     "unitConverter": "Penukar Unit"
   },
   "Help": {
@@ -340,6 +342,10 @@
         "title": "Imej ke Base64",
         "description": "Tukar imej kepada URI Data atau rentetan Base64 mentah."
       },
+      "imageCompressor": {
+        "title": "Pemampat Imej",
+        "description": "Mampatkan JPEG, PNG dan WebP secara setempat dengan peluncur kualiti."
+      },
       "cssGradientBuilder": {
         "title": "Pembina Kecerunan CSS",
         "description": "Pembina kecerunan CSS visual dengan kawalan sudut dan hentian warna."
@@ -387,6 +393,10 @@
       "httpStatusCodes": {
         "title": "Kod Status HTTP",
         "description": "Cari kod status HTTP dengan penerangan (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Pengoptimum SVG",
+        "description": "Tampal SVG, buang noise dengan SVGO dan lihat penjimatan saiz UTF-8."
       },
       "unitConverter": {
         "title": "Penukar Unit",
@@ -2413,6 +2423,42 @@
       "filename": "image-base64.txt"
     }
   },
+  "ImageCompressor": {
+    "title": "Pemampat Imej",
+    "subtitle": "Kecilkan output JPEG, PNG atau WebP secara setempat dengan kawalan kualiti — tiada muat naik.",
+    "upload": "Muat naik imej",
+    "clear": "Kosongkan",
+    "dropHere": "Lepaskan imej di sini",
+    "placeholders": {
+      "uploadImage": "Seret dan lepas imej, atau klik untuk memilih fail."
+    },
+    "fileTooLarge": "Fail terlalu besar (maks {maxMb} MB).",
+    "unsupportedFormat": "Jenis fail tidak disokong. Gunakan JPEG, PNG, WebP, GIF, AVIF atau BMP.",
+    "compressFailed": "Tidak dapat memampatkan imej ini. Cuba fail atau format lain.",
+    "panels": {
+      "original": "Asal",
+      "compressed": "Pratonton termampat"
+    },
+    "outputFormat": "Format output",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Kualiti",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG tiada rugi dalam pelayar; peluncur kualiti hanya untuk JPEG dan WebP.",
+    "sizes": {
+      "original": "Asal: {size}",
+      "compressed": "Termampat: {size}",
+      "saved": "{percent}% lebih kecil"
+    },
+    "largerWarning": "Output lebih besar daripada input — cuba format atau kualiti lain.",
+    "download": "Muat turun",
+    "downloadFilename": "imej-termampat",
+    "processing": "Memampatkan…",
+    "emptyCompressed": "Pratonton termampat dipaparkan di sini."
+  },
   "CssGradientBuilder": {
     "title": "Pembina Kecerunan CSS",
     "subtitle": "Pembina kecerunan CSS visual dengan kawalan sudut, hentian warna dan salinan CSS satu klik.",
@@ -2969,6 +3015,34 @@
       "currency_code": "Kod mata wang",
       "language_code": "Tag bahasa",
       "custom_list": "Senarai tersuai"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "Pengoptimum SVG",
+    "subtitle": "Tampal SVG, minify dengan SVGO dalam pelayar dan bandingkan saiz UTF-8 sebelum & selepas.",
+    "inputLabel": "Input",
+    "outputLabel": "Dioptimumkan",
+    "placeholder": "Tampal serpihan <svg>…</svg> atau keseluruhan fail…",
+    "outputPlaceholder": "SVG teroptimum dipaparkan di sini…",
+    "chars": "{count} aksara • {bytes} bait (UTF-8)",
+    "preview": "Pratonton",
+    "localNote": "Semua diproses secara tempatan dalam pelayar. Tiada muat naik.",
+    "stats": {
+      "title": "Saiz (UTF-8)",
+      "before": "Sebelum",
+      "after": "Selepas",
+      "savedBytes": "Jimat {count} bait ({percent}%)",
+      "noChange": "Tiada pengurangan — sudah minimum atau output kosong."
+    },
+    "actions": {
+      "clear": "Kosongkan",
+      "sample": "Muat contoh",
+      "copy": "Salin",
+      "copied": "Disalin",
+      "download": "Muat turun"
+    },
+    "errors": {
+      "optimizeFailed": "Tidak dapat mengoptimumkan SVG ini."
     }
   },
   "UnitConverter": {

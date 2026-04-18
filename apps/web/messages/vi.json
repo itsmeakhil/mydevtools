@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Trình tạo lược đồ JSON",
     "imageToBase64": "Hình ảnh tới Base64",
+    "imageCompressor": "Nén ảnh",
     "cssGradientBuilder": "Trình tạo độ dốc CSS",
     "gitignoreGenerator": "Trình tạo .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -41,6 +42,7 @@
     "numberBaseConverter": "Chuyển đổi cơ số",
     "formatConverter": "Chuyển đổi định dạng",
     "mockDataGenerator": "Trình tạo dữ liệu giả",
+    "svgOptimizer": "Tối ưu SVG",
     "unitConverter": "Chuyển đổi đơn vị"
   },
   "Help": {
@@ -330,6 +332,10 @@
         "title": "Hình ảnh tới Base64",
         "description": "Chuyển đổi hình ảnh thành URI dữ liệu hoặc chuỗi Base64 thô."
       },
+      "imageCompressor": {
+        "title": "Nén ảnh",
+        "description": "Nén JPEG, PNG và WebP cục bộ với thanh trượt chất lượng."
+      },
       "cssGradientBuilder": {
         "title": "Trình tạo độ dốc CSS",
         "description": "Trình tạo gradient CSS trực quan với khả năng kiểm soát góc và điểm dừng màu."
@@ -381,6 +387,10 @@
       "httpStatusCodes": {
         "title": "Mã trạng thái HTTP",
         "description": "Tìm kiếm mã trạng thái HTTP với mô tả (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Tối ưu SVG",
+        "description": "Dán SVG, loại bỏ thừa bằng SVGO và xem tiết kiệm kích thước UTF-8."
       },
       "unitConverter": {
         "title": "Chuyển đổi đơn vị",
@@ -2413,6 +2423,42 @@
       "filename": "hình ảnh-base64.txt"
     }
   },
+  "ImageCompressor": {
+    "title": "Nén ảnh",
+    "subtitle": "Giảm kích thước đầu ra JPEG, PNG hoặc WebP cục bộ với chất lượng — không tải lên máy chủ.",
+    "upload": "Tải ảnh lên",
+    "clear": "Xóa",
+    "dropHere": "Thả ảnh vào đây",
+    "placeholders": {
+      "uploadImage": "Kéo thả ảnh hoặc bấm để chọn tệp."
+    },
+    "fileTooLarge": "Tệp quá lớn (tối đa {maxMb} MB).",
+    "unsupportedFormat": "Định dạng không hỗ trợ. Dùng JPEG, PNG, WebP, GIF, AVIF hoặc BMP.",
+    "compressFailed": "Không thể nén ảnh này. Thử tệp hoặc định dạng khác.",
+    "panels": {
+      "original": "Gốc",
+      "compressed": "Xem trước đã nén"
+    },
+    "outputFormat": "Định dạng đầu ra",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Chất lượng",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG không mất dữ liệu trên trình duyệt; thanh chất lượng chỉ áp dụng cho JPEG và WebP.",
+    "sizes": {
+      "original": "Gốc: {size}",
+      "compressed": "Đã nén: {size}",
+      "saved": "nhỏ hơn {percent}%"
+    },
+    "largerWarning": "Đầu ra lớn hơn đầu vào — thử định dạng hoặc chất lượng khác.",
+    "download": "Tải xuống",
+    "downloadFilename": "anh-da-nen",
+    "processing": "Đang nén…",
+    "emptyCompressed": "Xem trước đã nén hiển thị tại đây."
+  },
   "CssGradientBuilder": {
     "title": "Trình tạo độ dốc CSS",
     "subtitle": "Trình tạo gradient CSS trực quan với khả năng kiểm soát góc, điểm dừng màu và sao chép CSS chỉ bằng một cú nhấp chuột.",
@@ -2969,6 +3015,34 @@
       "currency_code": "Mã tiền tệ",
       "language_code": "Thẻ ngôn ngữ",
       "custom_list": "Danh sách tùy chỉnh"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "Tối ưu SVG",
+    "subtitle": "Dán SVG, thu gọn bằng SVGO ngay trên trình duyệt và so sánh kích thước UTF-8 trước/sau.",
+    "inputLabel": "Đầu vào",
+    "outputLabel": "Đã tối ưu",
+    "placeholder": "Dán đoạn <svg>…</svg> hoặc toàn bộ tệp…",
+    "outputPlaceholder": "SVG đã tối ưu hiển thị tại đây…",
+    "chars": "{count} ký tự • {bytes} byte (UTF-8)",
+    "preview": "Xem trước",
+    "localNote": "Xử lý hoàn toàn cục bộ trên trình duyệt. Không tải lên máy chủ.",
+    "stats": {
+      "title": "Kích thước (UTF-8)",
+      "before": "Trước",
+      "after": "Sau",
+      "savedBytes": "Tiết kiệm {count} byte ({percent}%)",
+      "noChange": "Không giảm — đã tối thiểu hoặc đầu ra trống."
+    },
+    "actions": {
+      "clear": "Xóa",
+      "sample": "Tải ví dụ",
+      "copy": "Sao chép",
+      "copied": "Đã sao chép",
+      "download": "Tải xuống"
+    },
+    "errors": {
+      "optimizeFailed": "Không thể tối ưu SVG này."
     }
   },
   "UnitConverter": {

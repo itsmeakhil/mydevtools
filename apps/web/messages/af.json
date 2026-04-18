@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON-skemagenerator",
     "imageToBase64": "Beeld na Base64",
+    "imageCompressor": "Beeldkompressor",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -41,6 +42,7 @@
     "numberBaseConverter": "Basisomskakelaar",
     "formatConverter": "Formaat Omskakelaer",
     "mockDataGenerator": "Skyn-datagenerator",
+    "svgOptimizer": "SVG-optimaliseerder",
     "unitConverter": "Eenheidsomskakelaar"
   },
   "Help": {
@@ -330,6 +332,10 @@
         "title": "Beeld na Base64",
         "description": "Skakel beelde om na Data URI of rou Base64-stringe."
       },
+      "imageCompressor": {
+        "title": "Beeldkompressor",
+        "description": "Komprimeer JPEG, PNG en WebP plaaslik met ’n kwaliteitsglyer."
+      },
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
         "description": "Visuele CSS-gradiëntbouer met hoekbeheer en kleurstops."
@@ -381,6 +387,10 @@
       "httpStatusCodes": {
         "title": "HTTP-statuskodes",
         "description": "Soek HTTP-statuskodes met beskrywings (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "SVG-optimaliseerder",
+        "description": "Plak SVG, verwyder rommel met SVGO en sien UTF-8-groottebesparing."
       },
       "unitConverter": {
         "title": "Eenheidsomskakelaar",
@@ -2413,6 +2423,42 @@
       "filename": "image-base64.txt"
     }
   },
+  "ImageCompressor": {
+    "title": "Beeldkompressor",
+    "subtitle": "Verklein JPEG-, PNG- of WebP-uitset plaaslik met kwaliteitbeheer — niks word opgelaai nie.",
+    "upload": "Laai beeld op",
+    "clear": "Maak skoon",
+    "dropHere": "Los beeld hier",
+    "placeholders": {
+      "uploadImage": "Sleep en los ’n beeld, of klik om ’n lêer te kies."
+    },
+    "fileTooLarge": "Lêer is te groot (maks {maxMb} MB).",
+    "unsupportedFormat": "Hierdie lêertipe word nie ondersteun nie. Gebruik JPEG, PNG, WebP, GIF, AVIF of BMP.",
+    "compressFailed": "Kon nie hierdie beeld komprimeer nie. Probeer ’n ander lêer of formaat.",
+    "panels": {
+      "original": "Oorspronklik",
+      "compressed": "Gekompakteerde voorskou"
+    },
+    "outputFormat": "Uitsetformaat",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Kwaliteit",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG is verliesvry in die blaaier; die kwaliteitsglyer geld slegs vir JPEG en WebP.",
+    "sizes": {
+      "original": "Oorspronklik: {size}",
+      "compressed": "Gekompakteer: {size}",
+      "saved": "{percent}% kleiner"
+    },
+    "largerWarning": "Uitset is groter as die invoer — probeer ’n ander formaat of kwaliteit.",
+    "download": "Laai af",
+    "downloadFilename": "gekomprimeerde-beeld",
+    "processing": "Komprimeer…",
+    "emptyCompressed": "Gekompakteerde voorskou verskyn hier."
+  },
   "CssGradientBuilder": {
     "title": "CSS Gradient Builder",
     "subtitle": "Visuele CSS-gradiëntbouer met hoekbeheer, kleurstops en een-klik CSS-kopie.",
@@ -2969,6 +3015,34 @@
       "currency_code": "Geldkode",
       "language_code": "Taalkode",
       "custom_list": "Pasgemaakte lys"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "SVG-optimaliseerder",
+    "subtitle": "Plak SVG, minifiseer met SVGO in jou blaaier en vergelyk UTF-8-grootte voor en na.",
+    "inputLabel": "Inset",
+    "outputLabel": "Geoptimaliseer",
+    "placeholder": "Plak 'n <svg>…</svg>-fragment of die hele lêer…",
+    "outputPlaceholder": "Geoptimaliseerde SVG verskyn hier…",
+    "chars": "{count} karakters • {bytes} grepe (UTF-8)",
+    "preview": "Voorskou",
+    "localNote": "Verwerking plaaslik in jou blaaier. Niks word opgelaai nie.",
+    "stats": {
+      "title": "Grootte (UTF-8)",
+      "before": "Voor",
+      "after": "Na",
+      "savedBytes": "{count} grepe bespaar ({percent}%)",
+      "noChange": "Geen vermindering — reeds minimaal of leë uitset."
+    },
+    "actions": {
+      "clear": "Maak skoon",
+      "sample": "Laai voorbeeld",
+      "copy": "Kopieer",
+      "copied": "Gekopieer",
+      "download": "Aflaai"
+    },
+    "errors": {
+      "optimizeFailed": "Kon nie hierdie SVG optimaliseer nie."
     }
   },
   "UnitConverter": {

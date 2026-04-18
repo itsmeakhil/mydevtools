@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSONスキーマジェネレーター",
     "imageToBase64": "画像をBase64に変換",
+    "imageCompressor": "画像圧縮",
     "cssGradientBuilder": "CSS グラデーション ビルダー",
     "gitignoreGenerator": ".gitignore ジェネレーター",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -41,6 +42,7 @@
     "numberBaseConverter": "基数変換",
     "formatConverter": "フォーマット変換",
     "mockDataGenerator": "モックデータジェネレーター",
+    "svgOptimizer": "SVG 最適化",
     "unitConverter": "単位変換器"
   },
   "Help": {
@@ -330,6 +332,10 @@
         "title": "画像をBase64に変換",
         "description": "画像をデータ URI または生の Base64 文字列に変換します。"
       },
+      "imageCompressor": {
+        "title": "画像圧縮",
+        "description": "JPEG・PNG・WebPをブラウザ内で品質スライダー付きで圧縮。"
+      },
       "cssGradientBuilder": {
         "title": "CSS グラデーション ビルダー",
         "description": "角度制御とカラーストップを備えたビジュアル CSS グラデーション ビルダー。"
@@ -381,6 +387,10 @@
       "httpStatusCodes": {
         "title": "HTTPステータスコード",
         "description": "説明付きのHTTPステータスコードを検索します (1xx–5xx)。"
+      },
+      "svgOptimizer": {
+        "title": "SVG 最適化",
+        "description": "SVG を貼り付け、SVGO で不要部分を削除し UTF-8 サイズ削減を確認。"
       },
       "unitConverter": {
         "title": "単位変換器",
@@ -2413,6 +2423,42 @@
       "filename": "画像-base64.txt"
     }
   },
+  "ImageCompressor": {
+    "title": "画像圧縮",
+    "subtitle": "JPEG / PNG / WebP を品質調整でローカル圧縮。アップロードはありません。",
+    "upload": "画像をアップロード",
+    "clear": "クリア",
+    "dropHere": "ここに画像をドロップ",
+    "placeholders": {
+      "uploadImage": "ドラッグ＆ドロップするか、クリックしてファイルを選択。"
+    },
+    "fileTooLarge": "ファイルが大きすぎます（最大 {maxMb} MB）。",
+    "unsupportedFormat": "未対応の形式です。JPEG、PNG、WebP、GIF、AVIF、BMP を使用してください。",
+    "compressFailed": "圧縮できませんでした。別のファイルや形式を試してください。",
+    "panels": {
+      "original": "元画像",
+      "compressed": "圧縮プレビュー"
+    },
+    "outputFormat": "出力形式",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "品質",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG はブラウザ上で可逆圧縮です。品質スライダーは JPEG と WebP のみ有効です。",
+    "sizes": {
+      "original": "元: {size}",
+      "compressed": "圧縮後: {size}",
+      "saved": "{percent}% 削減"
+    },
+    "largerWarning": "出力が元より大きいです。形式や品質を変えてください。",
+    "download": "ダウンロード",
+    "downloadFilename": "compressed-image",
+    "processing": "圧縮中…",
+    "emptyCompressed": "圧縮プレビューはここに表示されます。"
+  },
   "CssGradientBuilder": {
     "title": "CSS グラデーション ビルダー",
     "subtitle": "角度コントロール、カラーストップ、ワンクリック CSS コピーを備えたビジュアル CSS グラデーション ビルダー。",
@@ -2969,6 +3015,34 @@
       "currency_code": "通貨コード",
       "language_code": "言語タグ",
       "custom_list": "カスタム一覧"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "SVG 最適化",
+    "subtitle": "SVG を貼り付け、ブラウザ上で SVGO により圧縮し、UTF-8 サイズを前後比較します。",
+    "inputLabel": "入力",
+    "outputLabel": "最適化後",
+    "placeholder": "<svg>…</svg> の断片またはファイル全体を貼り付け…",
+    "outputPlaceholder": "最適化された SVG がここに表示されます…",
+    "chars": "{count} 文字 • {bytes} バイト（UTF-8）",
+    "preview": "プレビュー",
+    "localNote": "処理はすべてブラウザ内で行われます。アップロードはありません。",
+    "stats": {
+      "title": "サイズ（UTF-8）",
+      "before": "前",
+      "after": "後",
+      "savedBytes": "{count} バイト削減（{percent}%）",
+      "noChange": "変化なし — すでに最小か、出力が空です。"
+    },
+    "actions": {
+      "clear": "クリア",
+      "sample": "サンプルを読み込む",
+      "copy": "コピー",
+      "copied": "コピーしました",
+      "download": "ダウンロード"
+    },
+    "errors": {
+      "optimizeFailed": "この SVG を最適化できませんでした。"
     }
   },
   "UnitConverter": {

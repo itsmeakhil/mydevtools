@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generátor JSON schématu",
     "imageToBase64": "Obrázek do Base64",
+    "imageCompressor": "Komprese obrázků",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": "Generátor .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -41,6 +42,7 @@
     "numberBaseConverter": "Převodník soustav",
     "formatConverter": "Převodník formátů",
     "mockDataGenerator": "Generátor testovacích dat",
+    "svgOptimizer": "Optimalizátor SVG",
     "unitConverter": "Převodník jednotek"
   },
   "Help": {
@@ -330,6 +332,10 @@
         "title": "Obrázek do Base64",
         "description": "Převeďte obrázky na Data URI nebo nezpracované řetězce Base64."
       },
+      "imageCompressor": {
+        "title": "Komprese obrázků",
+        "description": "Komprimujte JPEG, PNG a WebP lokálně posuvníkem kvality."
+      },
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
         "description": "Vizuální tvůrce přechodů CSS s ovládáním úhlu a barevnými zarážkami."
@@ -381,6 +387,10 @@
       "httpStatusCodes": {
         "title": "HTTP stavové kódy",
         "description": "Hledejte HTTP stavové kódy s popisem (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Optimalizátor SVG",
+        "description": "Vložte SVG, odstraňte balast pomocí SVGO a uvidíte úsporu velikosti UTF-8."
       },
       "unitConverter": {
         "title": "Převodník jednotek",
@@ -2413,6 +2423,42 @@
       "filename": "image-base64.txt"
     }
   },
+  "ImageCompressor": {
+    "title": "Komprese obrázků",
+    "subtitle": "Zmenšete výstup JPEG, PNG nebo WebP lokálně s ovládáním kvality — nic se nenahrává.",
+    "upload": "Nahrát obrázek",
+    "clear": "Vymazat",
+    "dropHere": "Přetáhněte obrázek sem",
+    "placeholders": {
+      "uploadImage": "Přetáhněte obrázek nebo klikněte pro výběr souboru."
+    },
+    "fileTooLarge": "Soubor je příliš velký (max. {maxMb} MB).",
+    "unsupportedFormat": "Tento typ souboru není podporován. Použijte JPEG, PNG, WebP, GIF, AVIF nebo BMP.",
+    "compressFailed": "Obrázek se nepodařilo zkomprimovat. Zkuste jiný soubor nebo formát.",
+    "panels": {
+      "original": "Originál",
+      "compressed": "Náhled po kompresi"
+    },
+    "outputFormat": "Výstupní formát",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Kvalita",
+    "qualityPercent": "{value} %",
+    "qualityPngHint": "PNG je v prohlížeči bezztrátové; posuvník kvality platí jen pro JPEG a WebP.",
+    "sizes": {
+      "original": "Originál: {size}",
+      "compressed": "Po kompresi: {size}",
+      "saved": "o {percent} % menší"
+    },
+    "largerWarning": "Výstup je větší než vstup — zkuste jiný formát nebo kvalitu.",
+    "download": "Stáhnout",
+    "downloadFilename": "komprimovany-obrazek",
+    "processing": "Komprimuji…",
+    "emptyCompressed": "Náhled po kompresi se zobrazí zde."
+  },
   "CssGradientBuilder": {
     "title": "CSS Gradient Builder",
     "subtitle": "Vizuální tvůrce přechodů CSS s ovládáním úhlu, zarážkami barev a kopírováním CSS jedním kliknutím.",
@@ -2969,6 +3015,34 @@
       "currency_code": "Kód měny",
       "language_code": "Jazyková značka",
       "custom_list": "Vlastní seznam"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "Optimalizátor SVG",
+    "subtitle": "Vložte SVG, minifikujte pomocí SVGO v prohlížeči a porovnejte velikost UTF-8 před a po.",
+    "inputLabel": "Vstup",
+    "outputLabel": "Optimalizováno",
+    "placeholder": "Vložte úryvek <svg>…</svg> nebo celý soubor…",
+    "outputPlaceholder": "Optimalizované SVG se zobrazí zde…",
+    "chars": "{count} znaků • {bytes} bajtů (UTF-8)",
+    "preview": "Náhled",
+    "localNote": "Zpracování probíhá lokálně v prohlížeči. Nic se nenahrává.",
+    "stats": {
+      "title": "Velikost (UTF-8)",
+      "before": "Před",
+      "after": "Po",
+      "savedBytes": "Ušetřeno {count} bajtů ({percent}%)",
+      "noChange": "Žádná redukce — už je to minimální nebo prázdný výstup."
+    },
+    "actions": {
+      "clear": "Vymazat",
+      "sample": "Načíst ukázku",
+      "copy": "Kopírovat",
+      "copied": "Zkopírováno",
+      "download": "Stáhnout"
+    },
+    "errors": {
+      "optimizeFailed": "Tento SVG se nepodařilo optimalizovat."
     }
   },
   "UnitConverter": {

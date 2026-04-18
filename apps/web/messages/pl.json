@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generator schematu JSON",
     "imageToBase64": "Obraz do Base64",
+    "imageCompressor": "Kompresor obrazów",
     "cssGradientBuilder": "Kreator gradientów CSS",
     "gitignoreGenerator": "Generator .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -41,6 +42,7 @@
     "numberBaseConverter": "Konwerter systemów",
     "formatConverter": "Konwerter formatów",
     "mockDataGenerator": "Generator danych testowych",
+    "svgOptimizer": "Optymalizator SVG",
     "unitConverter": "Konwerter jednostek"
   },
   "Help": {
@@ -330,6 +332,10 @@
         "title": "Obraz do Base64",
         "description": "Konwertuj obrazy na URI danych lub surowe ciągi Base64."
       },
+      "imageCompressor": {
+        "title": "Kompresor obrazów",
+        "description": "Kompresuj JPEG, PNG i WebP lokalnie suwakiem jakości."
+      },
       "cssGradientBuilder": {
         "title": "Kreator gradientów CSS",
         "description": "Wizualny kreator gradientów CSS z kontrolą kąta i przystankami kolorów."
@@ -381,6 +387,10 @@
       "httpStatusCodes": {
         "title": "Kody statusu HTTP",
         "description": "Wyszukuj kody statusu HTTP z opisami (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Optymalizator SVG",
+        "description": "Wklej SVG, usuń zbędne elementy przez SVGO i zobacz redukcję rozmiaru UTF-8."
       },
       "unitConverter": {
         "title": "Konwerter jednostek",
@@ -2413,6 +2423,42 @@
       "filename": "image-base64.txt"
     }
   },
+  "ImageCompressor": {
+    "title": "Kompresor obrazów",
+    "subtitle": "Zmniejsz wyjście JPEG, PNG lub WebP lokalnie z kontrolą jakości — nic nie jest wysyłane.",
+    "upload": "Prześlij obraz",
+    "clear": "Wyczyść",
+    "dropHere": "Upuść obraz tutaj",
+    "placeholders": {
+      "uploadImage": "Przeciągnij i upuść obraz lub kliknij, aby wybrać plik."
+    },
+    "fileTooLarge": "Plik jest za duży (maks. {maxMb} MB).",
+    "unsupportedFormat": "Nieobsługiwany typ pliku. Użyj JPEG, PNG, WebP, GIF, AVIF lub BMP.",
+    "compressFailed": "Nie udało się skompresować obrazu. Spróbuj innego pliku lub formatu.",
+    "panels": {
+      "original": "Oryginał",
+      "compressed": "Podgląd po kompresji"
+    },
+    "outputFormat": "Format wyjściowy",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Jakość",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG jest bezstratny w przeglądarce; suwak jakości dotyczy tylko JPEG i WebP.",
+    "sizes": {
+      "original": "Oryginał: {size}",
+      "compressed": "Po kompresji: {size}",
+      "saved": "o {percent}% mniejszy"
+    },
+    "largerWarning": "Wyjście jest większe niż wejście — spróbuj innego formatu lub jakości.",
+    "download": "Pobierz",
+    "downloadFilename": "obraz-skompresowany",
+    "processing": "Kompresowanie…",
+    "emptyCompressed": "Podgląd po kompresji pojawi się tutaj."
+  },
   "CssGradientBuilder": {
     "title": "Kreator gradientów CSS",
     "subtitle": "Wizualny kreator gradientów CSS z kontrolą kąta, przystankami kolorów i kopiowaniem CSS jednym kliknięciem.",
@@ -2969,6 +3015,34 @@
       "currency_code": "Kod waluty",
       "language_code": "Znacznik języka",
       "custom_list": "Lista niestandardowa"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "Optymalizator SVG",
+    "subtitle": "Wklej SVG, minifikuj przez SVGO w przeglądarce i porównaj rozmiar UTF-8 przed i po.",
+    "inputLabel": "Wejście",
+    "outputLabel": "Zoptymalizowano",
+    "placeholder": "Wklej fragment <svg>…</svg> lub cały plik…",
+    "outputPlaceholder": "Zoptymalizowany SVG pojawi się tutaj…",
+    "chars": "{count} znaków • {bytes} bajtów (UTF-8)",
+    "preview": "Podgląd",
+    "localNote": "Przetwarzanie lokalnie w przeglądarce. Nic nie jest wysyłane.",
+    "stats": {
+      "title": "Rozmiar (UTF-8)",
+      "before": "Przed",
+      "after": "Po",
+      "savedBytes": "Zaoszczędzono {count} bajtów ({percent}%)",
+      "noChange": "Brak redukcji — już minimalne lub puste wyjście."
+    },
+    "actions": {
+      "clear": "Wyczyść",
+      "sample": "Wczytaj przykład",
+      "copy": "Kopiuj",
+      "copied": "Skopiowano",
+      "download": "Pobierz"
+    },
+    "errors": {
+      "optimizeFailed": "Nie udało się zoptymalizować tego SVG."
     }
   },
   "UnitConverter": {

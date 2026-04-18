@@ -41,6 +41,8 @@ import {
   BookKey,
   FlaskConical,
   Ruler,
+  Shrink,
+  Minimize2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
@@ -69,6 +71,7 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
     namespace: 'NumberBaseConverter',
   },
   '/app/image-to-base64': { title: 'Image to Base64', icon: ImageIcon, namespace: 'ImageToBase64' },
+  '/app/image-compressor': { title: 'Image Compressor', icon: Minimize2, namespace: 'ImageCompressor' },
   '/app/json-formatter': { title: 'JSON Formatter', icon: Braces, namespace: 'JsonFormatter' },
   '/app/json-schema-generator': {
     title: 'JSON Schema Generator',
@@ -123,6 +126,11 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
     title: 'Unit Converter',
     icon: Ruler,
     namespace: 'UnitConverter',
+  },
+  '/app/svg-optimizer': {
+    title: 'SVG Optimizer / Minifier',
+    icon: Shrink,
+    namespace: 'SvgOptimizer',
   },
 };
 

@@ -23,6 +23,7 @@ const geistMono = NextGeistMono({
 })
 
 import { siteMetadata } from "@/lib/metadata"
+import { SiteWideJsonLd } from "@/components/seo/site-wide-json-ld"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteMetadata.url),
@@ -121,6 +122,7 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
       </head>
       <body suppressHydrationWarning className="min-h-screen bg-background font-sans antialiased">
+        <SiteWideJsonLd />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

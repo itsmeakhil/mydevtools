@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "JSON 模式生成器",
     "imageToBase64": "图像转 Base64",
+    "imageCompressor": "图片压缩",
     "cssGradientBuilder": "CSS 渐变生成器",
     "gitignoreGenerator": ".gitignore 生成器",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -41,6 +42,7 @@
     "numberBaseConverter": "进制转换",
     "formatConverter": "格式转换器",
     "mockDataGenerator": "模拟数据生成器",
+    "svgOptimizer": "SVG 优化",
     "unitConverter": "单位换算器"
   },
   "Help": {
@@ -330,6 +332,10 @@
         "title": "图像转 Base64",
         "description": "将图像转换为数据 URI 或原始 Base64 字符串。"
       },
+      "imageCompressor": {
+        "title": "图片压缩",
+        "description": "在本地用质量滑块压缩 JPEG、PNG 和 WebP。"
+      },
       "cssGradientBuilder": {
         "title": "CSS 渐变生成器",
         "description": "具有角度控制和色标的视觉 CSS 渐变生成器。"
@@ -381,6 +387,10 @@
       "httpStatusCodes": {
         "title": "HTTP 状态码",
         "description": "搜索带有描述的 HTTP 状态码（1xx–5xx）。"
+      },
+      "svgOptimizer": {
+        "title": "SVG 优化",
+        "description": "粘贴 SVG，用 SVGO 去除冗余，查看 UTF-8 体积变化。"
       },
       "unitConverter": {
         "title": "单位换算器",
@@ -2413,6 +2423,42 @@
       "filename": "图像-base64.txt"
     }
   },
+  "ImageCompressor": {
+    "title": "图片压缩",
+    "subtitle": "在本地通过质量设置缩小 JPEG / PNG / WebP 输出 — 不会上传任何内容。",
+    "upload": "上传图片",
+    "clear": "清除",
+    "dropHere": "将图片拖放到此处",
+    "placeholders": {
+      "uploadImage": "拖放图片，或点击选择文件。"
+    },
+    "fileTooLarge": "文件过大（最大 {maxMb} MB）。",
+    "unsupportedFormat": "不支持的文件类型。请使用 JPEG、PNG、WebP、GIF、AVIF 或 BMP。",
+    "compressFailed": "无法压缩此图片。请尝试其他文件或格式。",
+    "panels": {
+      "original": "原图",
+      "compressed": "压缩预览"
+    },
+    "outputFormat": "输出格式",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "质量",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG 在浏览器中为无损；质量滑块仅适用于 JPEG 和 WebP。",
+    "sizes": {
+      "original": "原始：{size}",
+      "compressed": "压缩后：{size}",
+      "saved": "减小 {percent}%"
+    },
+    "largerWarning": "输出大于输入 — 请尝试其他格式或质量。",
+    "download": "下载",
+    "downloadFilename": "compressed-image",
+    "processing": "正在压缩…",
+    "emptyCompressed": "压缩预览将显示在此处。"
+  },
   "CssGradientBuilder": {
     "title": "CSS 渐变生成器",
     "subtitle": "具有角度控制、色标和一键 CSS 复制功能的可视化 CSS 渐变生成器。",
@@ -2969,6 +3015,34 @@
       "currency_code": "货币代码",
       "language_code": "语言标签",
       "custom_list": "自定义列表"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "SVG 优化",
+    "subtitle": "粘贴 SVG，在浏览器中用 SVGO 压缩，并对比优化前后的 UTF-8 大小。",
+    "inputLabel": "输入",
+    "outputLabel": "已优化",
+    "placeholder": "粘贴 <svg>…</svg> 片段或完整文件…",
+    "outputPlaceholder": "优化后的 SVG 将显示在这里…",
+    "chars": "{count} 个字符 • {bytes} 字节（UTF-8）",
+    "preview": "预览",
+    "localNote": "全部在浏览器本地处理，不会上传任何内容。",
+    "stats": {
+      "title": "大小（UTF-8）",
+      "before": "优化前",
+      "after": "优化后",
+      "savedBytes": "节省 {count} 字节（{percent}%）",
+      "noChange": "无变化 — 已足够精简或输出为空。"
+    },
+    "actions": {
+      "clear": "清空",
+      "sample": "加载示例",
+      "copy": "复制",
+      "copied": "已复制",
+      "download": "下载"
+    },
+    "errors": {
+      "optimizeFailed": "无法优化此 SVG。"
     }
   },
   "UnitConverter": {

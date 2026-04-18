@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Generador d'esquema JSON",
     "imageToBase64": "Imatge a Base64",
+    "imageCompressor": "Compressor d’imatges",
     "cssGradientBuilder": "Creador de degradats CSS",
     "gitignoreGenerator": "Generador .gitignore",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -41,6 +42,7 @@
     "numberBaseConverter": "Conversor de base",
     "formatConverter": "Conversor de formats",
     "mockDataGenerator": "Generador de dades de prova",
+    "svgOptimizer": "Optimitzador SVG",
     "unitConverter": "Convertidor d'unitats"
   },
   "Help": {
@@ -330,6 +332,10 @@
         "title": "Imatge a Base64",
         "description": "Converteix imatges a URI de dades o cadenes en brut Base64."
       },
+      "imageCompressor": {
+        "title": "Compressor d’imatges",
+        "description": "Comprimeix JPEG, PNG i WebP localment amb un control de qualitat."
+      },
       "cssGradientBuilder": {
         "title": "Creador de degradats CSS",
         "description": "Creador de degradat CSS visual amb control d'angle i parades de color."
@@ -381,6 +387,10 @@
       "httpStatusCodes": {
         "title": "Codis d'estat HTTP",
         "description": "Cerca codis d'estat HTTP amb descripcions (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Optimitzador SVG",
+        "description": "Enganxa SVG, elimina soroll amb SVGO i veu la reducció de mida UTF-8."
       },
       "unitConverter": {
         "title": "Convertidor d'unitats",
@@ -2413,6 +2423,42 @@
       "filename": "image-base64.txt"
     }
   },
+  "ImageCompressor": {
+    "title": "Compressor d’imatges",
+    "subtitle": "Redueix la sortida JPEG, PNG o WebP localment amb control de qualitat — res es puja al servidor.",
+    "upload": "Puja una imatge",
+    "clear": "Neteja",
+    "dropHere": "Deixa anar la imatge aquí",
+    "placeholders": {
+      "uploadImage": "Arrossega i deixa anar una imatge, o fes clic per triar un fitxer."
+    },
+    "fileTooLarge": "El fitxer és massa gran (màx. {maxMb} MB).",
+    "unsupportedFormat": "Aquest tipus de fitxer no és compatible. Usa JPEG, PNG, WebP, GIF, AVIF o BMP.",
+    "compressFailed": "No s’ha pogut comprimir la imatge. Prova un altre fitxer o format.",
+    "panels": {
+      "original": "Original",
+      "compressed": "Vista prèvia comprimida"
+    },
+    "outputFormat": "Format de sortida",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Qualitat",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "El PNG és sense pèrdua al navegador; el control de qualitat només afecta JPEG i WebP.",
+    "sizes": {
+      "original": "Original: {size}",
+      "compressed": "Comprimida: {size}",
+      "saved": "{percent}% més petita"
+    },
+    "largerWarning": "La sortida és més gran que l’entrada — prova un altre format o qualitat.",
+    "download": "Baixa",
+    "downloadFilename": "imatge-comprimida",
+    "processing": "S’està comprimint…",
+    "emptyCompressed": "La vista prèvia comprimida apareix aquí."
+  },
   "CssGradientBuilder": {
     "title": "Creador de degradats CSS",
     "subtitle": "Creador de degradat CSS visual amb control d'angle, parades de color i còpia CSS d'un sol clic.",
@@ -2969,6 +3015,34 @@
       "currency_code": "Codi de moneda",
       "language_code": "Etiqueta d’idioma",
       "custom_list": "Llista personalitzada"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "Optimitzador SVG",
+    "subtitle": "Enganxa SVG, minifica amb SVGO al navegador i compara la mida UTF-8 abans i després.",
+    "inputLabel": "Entrada",
+    "outputLabel": "Optimitzat",
+    "placeholder": "Enganxa un fragment <svg>…</svg> o el fitxer sencer…",
+    "outputPlaceholder": "El SVG optimitzat apareix aquí…",
+    "chars": "{count} caràcters • {bytes} bytes (UTF-8)",
+    "preview": "Vista prèvia",
+    "localNote": "Tot es processa localment al navegador. No es puja res.",
+    "stats": {
+      "title": "Mida (UTF-8)",
+      "before": "Abans",
+      "after": "Després",
+      "savedBytes": "{count} bytes estalviats ({percent}%)",
+      "noChange": "Sense reducció — ja és mínim o la sortida és buida."
+    },
+    "actions": {
+      "clear": "Netejar",
+      "sample": "Carregar exemple",
+      "copy": "Copiar",
+      "copied": "Copiat",
+      "download": "Baixar"
+    },
+    "errors": {
+      "optimizeFailed": "No s’ha pogut optimitzar aquest SVG."
     }
   },
   "UnitConverter": {

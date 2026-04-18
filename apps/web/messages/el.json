@@ -29,6 +29,7 @@
     "colorPicker": "Color Picker",
     "jsonSchemaGenerator": "Γεννήτρια JSON Schema",
     "imageToBase64": "Εικόνα στο Base64",
+    "imageCompressor": "Συμπίεση εικόνας",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Γεννήτρια",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -41,6 +42,7 @@
     "numberBaseConverter": "Μετατροπέας βάσης",
     "formatConverter": "Μετατροπέας Μορφών",
     "mockDataGenerator": "Γεννήτρια δοκιμαστικών δεδομένων",
+    "svgOptimizer": "Βελτιστοποιητής SVG",
     "unitConverter": "Μετατροπέας Μονάδων"
   },
   "Help": {
@@ -330,6 +332,10 @@
         "title": "Εικόνα στο Base64",
         "description": "Μετατροπή εικόνων σε Data URI ή σε ακατέργαστες συμβολοσειρές Base64."
       },
+      "imageCompressor": {
+        "title": "Συμπίεση εικόνας",
+        "description": "Συμπίεση JPEG, PNG και WebP τοπικά με ρυθμιστή ποιότητας."
+      },
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
         "description": "Visual CSS gradient builder με έλεγχο γωνίας και χρωματικές στάσεις."
@@ -381,6 +387,10 @@
       "httpStatusCodes": {
         "title": "Κωδικοί κατάστασης HTTP",
         "description": "Αναζήτηση κωδικών κατάστασης HTTP με περιγραφές (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Βελτιστοποιητής SVG",
+        "description": "Επικολλήστε SVG, αφαιρέστε περιττά με το SVGO και δείτε εξοικονόμηση UTF-8."
       },
       "unitConverter": {
         "title": "Μετατροπέας Μονάδων",
@@ -2413,6 +2423,42 @@
       "filename": "image-base64.txt"
     }
   },
+  "ImageCompressor": {
+    "title": "Συμπίεση εικόνας",
+    "subtitle": "Μικρύνετε την έξοδο JPEG, PNG ή WebP τοπικά με έλεγχο ποιότητας — τίποτα δεν ανεβαίνει.",
+    "upload": "Μεταφόρτωση εικόνας",
+    "clear": "Εκκαθάριση",
+    "dropHere": "Αφήστε την εικόνα εδώ",
+    "placeholders": {
+      "uploadImage": "Σύρετε και αφήστε μια εικόνα ή κάντε κλικ για επιλογή αρχείου."
+    },
+    "fileTooLarge": "Το αρχείο είναι πολύ μεγάλο (μέγ. {maxMb} MB).",
+    "unsupportedFormat": "Μη υποστηριζόμενος τύπος αρχείου. Χρησιμοποιήστε JPEG, PNG, WebP, GIF, AVIF ή BMP.",
+    "compressFailed": "Δεν ήταν δυνατή η συμπίεση της εικόνας. Δοκιμάστε άλλο αρχείο ή μορφή.",
+    "panels": {
+      "original": "Πρωτότυπο",
+      "compressed": "Προεπισκόπηση συμπιεσμένου"
+    },
+    "outputFormat": "Μορφή εξόδου",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Ποιότητα",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "Το PNG είναι χωρίς απώλειες στον browser· ο έλεγχος ποιότητας ισχύει μόνο για JPEG και WebP.",
+    "sizes": {
+      "original": "Πρωτότυπο: {size}",
+      "compressed": "Συμπιεσμένο: {size}",
+      "saved": "{percent}% μικρότερο"
+    },
+    "largerWarning": "Η έξοδος είναι μεγαλύτερη από την είσοδο — δοκιμάστε άλλη μορφή ή ποιότητα.",
+    "download": "Λήψη",
+    "downloadFilename": "συμπιεσμένη-εικόνα",
+    "processing": "Συμπίεση…",
+    "emptyCompressed": "Η προεπισκόπηση εμφανίζεται εδώ."
+  },
   "CssGradientBuilder": {
     "title": "CSS Gradient Builder",
     "subtitle": "Visual CSS gradient builder με έλεγχο γωνίας, χρωματικές στάσεις και αντιγραφή CSS με ένα κλικ.",
@@ -2969,6 +3015,34 @@
       "currency_code": "Κωδικός νομίσματος",
       "language_code": "Ετικέτα γλώσσας",
       "custom_list": "Προσαρμοσμένη λίστα"
+    }
+  },
+  "SvgOptimizer": {
+    "title": "Βελτιστοποιητής SVG",
+    "subtitle": "Επικολλήστε SVG, συμπιέστε με SVGO στον browser και συγκρίνετε το μέγεθος UTF-8 πριν/μετά.",
+    "inputLabel": "Είσοδος",
+    "outputLabel": "Βελτιστοποιημένο",
+    "placeholder": "Επικολλήστε απόσπασμα <svg>…</svg> ή ολόκληρο αρχείο…",
+    "outputPlaceholder": "Το βελτιστοποιημένο SVG εμφανίζεται εδώ…",
+    "chars": "{count} χαρακτήρες • {bytes} bytes (UTF-8)",
+    "preview": "Προεπισκόπηση",
+    "localNote": "Όλη η επεξεργασία τοπικά στον browser. Δεν ανεβαίνει τίποτα.",
+    "stats": {
+      "title": "Μέγεθος (UTF-8)",
+      "before": "Πριν",
+      "after": "Μετά",
+      "savedBytes": "Εξοικονόμηση {count} bytes ({percent}%)",
+      "noChange": "Χωρίς μείωση — ήδη ελάχιστο ή κενή έξοδος."
+    },
+    "actions": {
+      "clear": "Εκκαθάριση",
+      "sample": "Φόρτωση δείγματος",
+      "copy": "Αντιγραφή",
+      "copied": "Αντιγράφηκε",
+      "download": "Λήψη"
+    },
+    "errors": {
+      "optimizeFailed": "Δεν ήταν δυνατή η βελτιστοποίηση αυτού του SVG."
     }
   },
   "UnitConverter": {
