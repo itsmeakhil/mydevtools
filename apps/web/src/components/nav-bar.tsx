@@ -39,6 +39,7 @@ import {
   List,
   KeyRound,
   BookKey,
+  FlaskConical,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
@@ -112,6 +113,11 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
   '/app/diff-checker': { title: 'Diff checker', icon: GitCompare, namespace: 'DiffChecker' },
   '/app/csv-excel-json': { title: 'CSV / Excel ↔ JSON', icon: FileSpreadsheet, namespace: 'CsvExcelJson' },
   '/app/snippet-manager': { title: 'Code Snippets', icon: FileCode, namespace: 'SnippetManager' },
+  '/app/mock-data-generator': {
+    title: 'Mock Data Generator',
+    icon: FlaskConical,
+    namespace: 'MockDataGenerator',
+  },
 };
 
 export function NavBar() {

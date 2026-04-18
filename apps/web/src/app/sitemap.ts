@@ -58,6 +58,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'snippet-manager',
         'markdown-preview-html',
         'number-base-converter',
+        'mock-data-generator',
     ].map((tool) => ({
         url: `${baseUrl}/app/${tool}`,
         lastModified: new Date(),

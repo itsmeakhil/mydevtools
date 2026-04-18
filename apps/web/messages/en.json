@@ -39,7 +39,8 @@
     "snippetManager": "Code Snippets",
     "markdownPreview": "Markdown Preview",
     "numberBaseConverter": "Number Base Converter",
-    "formatConverter": "Format Converter"
+    "formatConverter": "Format Converter",
+    "mockDataGenerator": "Mock Data Generator"
   },
   "Help": {
     "title": "Help & documentation",
@@ -430,6 +431,10 @@
       "numberBaseConverter": {
         "title": "Number Base Converter",
         "description": "Convert integers between bases 2–36 (binary, decimal, hex, and more)."
+      },
+      "mockDataGenerator": {
+        "title": "Mock Data Generator",
+        "description": "Schema-based random JSON, CSV, SQL, and XML for development and API testing."
       }
     }
   },
@@ -1964,7 +1969,6 @@
       "emptySelection": "Add a selection set before applying."
     }
   },
-
   "RegexTester": {
     "title": "Regex tester",
     "subtitle": "Live JavaScript-style regex against your text. Matches are highlighted in the editor; nothing leaves your browser.",
@@ -2838,6 +2842,106 @@
     "emptyHint": "Enter an extension or filename to look up its MIME type.",
     "notFound": "No MIME type found for that input.",
     "localNote": "Everything runs locally in your browser. Nothing is uploaded."
+  },
+  "MockDataGenerator": {
+    "title": "Mock Data Generator",
+    "subtitle": "Define columns, pick data types, and export fixtures for seeds, Postman, or unit tests. Up to {max} rows, all in your browser — nothing is uploaded.",
+    "mockarooLink": "Mockaroo-style workflow",
+    "rowsLabel": "Rows",
+    "rowsHint": "Maximum {max} rows per generation to keep the tab responsive.",
+    "formatLabel": "Format",
+    "formats": {
+      "json": "JSON",
+      "csv": "CSV",
+      "sql": "SQL INSERT",
+      "xml": "XML"
+    },
+    "tableNameLabel": "SQL table name",
+    "presetsLabel": "Presets",
+    "presetPlaceholder": "Load preset…",
+    "presetDefault": "Starter (user)",
+    "presetUsers": "Users & roles",
+    "presetProducts": "E-commerce SKUs",
+    "presetApiLog": "HTTP request log",
+    "generate": "Generate",
+    "warningDuplicateNames": "Duplicate column names: later columns overwrite earlier ones in JSON objects. Rename fields for distinct keys.",
+    "schemaHeading": "Schema",
+    "addField": "Add column",
+    "removeField": "Remove column",
+    "duplicateField": "Duplicate column",
+    "colName": "Name",
+    "colType": "Type",
+    "colOptions": "Options",
+    "colBlank": "Blank %",
+    "optMin": "min",
+    "optMax": "max",
+    "optDecimals": "dec",
+    "optDateFrom": "from date",
+    "optDateTo": "to date",
+    "optValues": "a, b, c",
+    "optStep": "step",
+    "optRowBase": "base",
+    "output": "Output",
+    "outputPlaceholder": "Click Generate to build data from your schema…",
+    "copy": "Copy",
+    "download": "Download",
+    "copied": "Copied",
+    "groups": {
+      "personal": "Personal",
+      "location": "Location",
+      "internetApi": "Internet & API",
+      "numbersIds": "Numbers & IDs",
+      "dateTime": "Date & time",
+      "textDesign": "Text & design",
+      "custom": "Custom"
+    },
+    "fieldTypes": {
+      "first_name": "First name",
+      "last_name": "Last name",
+      "full_name": "Full name",
+      "email": "Email",
+      "username": "Username",
+      "password": "Password",
+      "phone": "Phone",
+      "company": "Company",
+      "job_title": "Job title",
+      "avatar_url": "Avatar URL",
+      "city": "City",
+      "country": "Country",
+      "country_code": "Country code (ISO)",
+      "street_address": "Street address",
+      "zip_code": "ZIP / postal code",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "url": "URL",
+      "domain": "Domain",
+      "ip_address": "IPv4",
+      "ipv6": "IPv6",
+      "mac_address": "MAC address",
+      "http_method": "HTTP method",
+      "http_status": "HTTP status",
+      "integer": "Integer",
+      "float": "Float",
+      "boolean": "Boolean",
+      "uuid": "UUID",
+      "credit_card": "Credit card (test)",
+      "semver": "SemVer",
+      "row_index": "Row index",
+      "sequence": "Sequence",
+      "date": "Date",
+      "datetime": "Date & time",
+      "unix_timestamp": "Unix timestamp",
+      "timezone": "Timezone",
+      "word": "Word",
+      "sentence": "Sentence",
+      "paragraph": "Paragraph",
+      "slug": "Slug",
+      "hex_color": "Hex color",
+      "rgb_color": "RGB color",
+      "currency_code": "Currency code",
+      "language_code": "Language tag",
+      "custom_list": "Custom list"
+    }
   },
   "UserAgentParser": {
     "title": "User-Agent parser",

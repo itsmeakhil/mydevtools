@@ -40,6 +40,7 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/snippet-manager': 'snippetManager',
   '/app/markdown-preview-html': 'markdownPreview',
   '/app/format-converter': 'formatConverter',
+  '/app/mock-data-generator': 'mockDataGenerator',
 };
 
 export function getToolMessageKey(pathname: string): string | undefined {
