@@ -12,6 +12,7 @@
     "nosqlExplorer": "NoSQL-verkenner",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "Encryptie-speeltuin",
     "jwtDecoder": "JWT-decoder",
     "certificatePemDecoder": "Certificaat- / PEM-decoder",
     "sqlFormatter": "SQL Formatter",
@@ -27,6 +28,7 @@
     "secretApiKeyGenerator": "Geheim / API-sleutel",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Contrastcontrole",
     "jsonSchemaGenerator": "JSON-schema-generator",
     "imageToBase64": "Afbeelding naar Base64",
     "imageCompressor": "Afbeeldingscompressie",
@@ -38,6 +40,7 @@
     "ipSubnetCalculator": "IP-/subnetcalculator",
     "hashGenerator": "Hash-generator",
     "hmacGenerator": "HMAC-generator",
+    "totpGenerator": "TOTP / 2FA-code",
     "markdownPreview": "Markdown-voorbeeld",
     "numberBaseConverter": "Grondtal-converter",
     "formatConverter": "Formaatconverter",
@@ -260,6 +263,10 @@
         "title": "E-mailvalidator",
         "description": "Verifieer en valideer e-mailadressen."
       },
+      "encryptionPlayground": {
+        "title": "Encryptie-speeltuin",
+        "description": "AES-GCM met ruwe sleutel of wachtwoordzin; JSON-bundels, Web Crypto alleen in de browser."
+      },
       "jwtDecoder": {
         "title": "JWT-decoder",
         "description": "Decodeer JWT-header, payload en verloopdatum."
@@ -324,6 +331,10 @@
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
       },
+      "contrastChecker": {
+        "title": "Contrastcontrole",
+        "description": "WCAG 2.1-contrastverhouding tussen tekst en achtergrond (AA / AAA)."
+      },
       "jsonSchemaGenerator": {
         "title": "JSON-schema-generator",
         "description": "Leid een JSON-schema en getypeerde modellen af van voorbeeld-JSON."
@@ -367,6 +378,10 @@
       "hmacGenerator": {
         "title": "HMAC-generator",
         "description": "Webhooks ondertekenen en API-integraties testen met HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "TOTP / 2FA-codegenerator",
+        "description": "Plak een Base32-geheim van je authenticator; de zescijferige code vernieuwt elke 30 s—handig om inloggen en MFA te testen."
       },
       "markdownPreview": {
         "title": "Markdown-voorbeeld",
@@ -2358,6 +2373,32 @@
     "paletteSplit": "Gedeeld compl.",
     "paletteSquare": "Vierkant"
   },
+  "ContrastChecker": {
+    "title": "Contrastcontrole",
+    "subtitle": "Berekent de WCAG 2.1-contrastverhouding tussen voorgrond en achtergrond. Toont AA en AAA voor normale en grote tekst. Alles in uw browser.",
+    "foreground": "Tekst / voorgrond",
+    "background": "Achtergrond",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Kleuren omwisselen",
+    "chooseForeground": "Voorgrondkleur kiezen",
+    "chooseBackground": "Achtergrondkleur kiezen",
+    "eyeDropper": "Pipet",
+    "ratio": "Contrastverhouding",
+    "copyRatio": "Verhouding kopiëren",
+    "copied": "Gekopieerd",
+    "previewHeading": "Voorbeeld",
+    "previewBody": "Pa’s wijze lynx bezag vroom het fikse aquaduct. Quartz-fex, judge my vow: Sphinx of black quartz, judge my vow.",
+    "previewCaption": "Voorbeeldtekst op standaardgrootte.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — normale tekst (4,5:1)",
+    "levelAALarge": "AA — grote tekst (3:1)",
+    "levelAAANormal": "AAA — normale tekst (7:1)",
+    "levelAAALarge": "AAA — grote tekst (4,5:1)",
+    "pass": "Voldoet",
+    "fail": "Voldoet niet",
+    "invalidHex": "Ongeldige HEX-kleur.",
+    "largeTextHint": "Grote tekst: 18 pt+ normaal of 14 pt+ vet (WCAG-definities)."
+  },
   "DiffChecker": {
     "title": "Verschilcontrole",
     "subtitle": "Regel-voor-regel vergelijking van twee teksten naast elkaar. Alles blijft in uw browser.",
@@ -2794,6 +2835,58 @@
     "emptyHintBcrypt": "Voer een wachtwoord in om een bcrypt-hash te berekenen.",
     "securityNoteBcrypt": "Elke bcrypt-uitvoer bevat een willekeurig zout; hetzelfde wachtwoord geeft elke keer een andere string. Dat is verwacht. Gebruik hoge kosten in productie."
   },
+  "EncryptionPlayground": {
+    "title": "Encryptie-speeltuin",
+    "subtitle": "AES-GCM in de browser: versleutel naar een JSON-bundel met wachtwoordzin of ruwe sleutel en ontsleutel lokaal. Educatief en soms praktisch — er wordt niets geüpload.",
+    "tabEncrypt": "Versleutelen",
+    "tabDecrypt": "Ontsleutelen",
+    "keyModeLabel": "Sleutelmateriaal",
+    "modePassphrase": "Wachtwoordzin (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Ruwe AES-sleutel (hex of Base64)",
+    "aesBitsLabel": "AES-sleutellengte",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Codering ruwe sleutel",
+    "encodingAuto": "Auto (hex als het op hex lijkt, anders Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Ruwe sleutel",
+    "rawKeyPlaceholder": "32-byte sleutel als 64 hextekens, of Base64 voor AES-256 (lengte hangt af van gekozen AES-grootte).",
+    "rawKeyPlaceholderDecrypt": "Alleen nodig als de bundel keyDerivation \"none\" heeft.",
+    "passphraseLabel": "Wachtwoordzin",
+    "passphrasePlaceholder": "Wachtwoordzin alleen in uw browser om de sleutel af te leiden.",
+    "passphrasePlaceholderDecrypt": "Alleen nodig als de bundel PBKDF2-SHA256 gebruikt.",
+    "pbkdf2IterLabel": "PBKDF2-iteraties",
+    "pbkdf2Hint": "Begrensd tussen 10.000 en 2.000.000. Standaard sluit aan bij gangbare kluis-instellingen.",
+    "plaintextLabel": "Klare tekst",
+    "plaintextPlaceholder": "Typ of plak het bericht om te versleutelen…",
+    "bundleInputLabel": "Versleutelde bundel (JSON)",
+    "bundlePlaceholder": "Plak de JSON van Versleutelen (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Versleutelde bundel",
+    "plaintextOutputLabel": "Klare tekst",
+    "encryptButton": "Versleutelen",
+    "decryptButton": "Ontsleutelen",
+    "copyBundle": "JSON kopiëren",
+    "copyPlaintext": "Klare tekst kopiëren",
+    "copied": "Gekopieerd",
+    "emptyBundleHint": "Versleutelde JSON verschijnt hier na versleutelen.",
+    "emptyDecryptHint": "Ontsleutelde tekst verschijnt hier.",
+    "decryptKeyHint": "Gebruik ruwe sleutel als keyDerivation \"none\" is; wachtwoordzin bij PBKDF2-SHA256. De bundel bevat salt, iteraties, IV en AES-lengte.",
+    "securityNote": "Sleutels en klare tekst verlaten uw browser niet. Gebruik voor productiegeheimen liever gespecialiseerde tools.",
+    "errors": {
+      "emptyKey": "Voer een ruwe sleutel in die bij de AES-grootte past.",
+      "emptyPassphrase": "Voer een wachtwoordzin in.",
+      "badKeyMaterial": "Sleutel kon niet als hex of Base64 worden gelezen.",
+      "wrongKeyLength": "Sleutellengte komt niet overeen met gekozen AES (16 / 24 / 32 bytes).",
+      "invalidJson": "Geen geldige JSON.",
+      "invalidBundle": "Deze JSON is geen ondersteunde versleutelingsbundel.",
+      "decryptFailed": "Ontsleuteling mislukt — verkeerd geheim, beschadigde bundel of verkeerde parameters.",
+      "encryptFailed": "Versleuteling mislukt. Controleer Web Crypto en invoer."
+    }
+  },
   "HmacGenerator": {
     "title": "HMAC-generator",
     "subtitle": "Voor het ondertekenen van webhooks en het testen van API-integraties. HMAC-SHA1/256/384/512 in hex of Base64—lokaal in je browser berekend.",
@@ -2819,6 +2912,24 @@
     "securityNote": "Deel je signing secret nooit. Deze pagina uploadt geen gegevens—alles draait in je browser.",
     "errors": {
       "cryptoFailed": "HMAC kon niet worden berekend. Controleer Web Crypto-ondersteuning en probeer opnieuw."
+    }
+  },
+  "TotpGenerator": {
+    "title": "TOTP / 2FA-codegenerator",
+    "subtitle": "Plak het Base32-geheim en zie de actuele zescijferige RFC 6238-code (SHA-1, 30 s). Alles lokaal in je browser—handig voor het testen van login of MFA.",
+    "secretLabel": "Geheim (Base32)",
+    "placeholderSecret": "Plak de geheime sleutel (letters A–Z en cijfers 2–7, zoals bij het instellen van de authenticator)…",
+    "codeLabel": "Huidige code",
+    "copyCode": "Code kopiëren",
+    "copied": "Gekopieerd",
+    "nextIn": "Vernieuwt over {seconds} s",
+    "standardHint": "30 s tijdstap, 6 cijfers, HMAC-SHA-1 (compatibel met Google Authenticator).",
+    "emptyHint": "Plak een geheim om een zescijferige code te maken.",
+    "invalidHint": "Corrigeer het geheim om de code te zien.",
+    "securityNote": "Behandel dit als een wachtwoord. Het geheim verlaat je browser niet; er wordt niets geüpload.",
+    "errors": {
+      "invalidSecret": "Dit is geen geldig Base32-geheim.",
+      "cryptoFailed": "TOTP kon niet worden berekend. Controleer Web Crypto en probeer opnieuw."
     }
   },
   "MarkdownPreview": {

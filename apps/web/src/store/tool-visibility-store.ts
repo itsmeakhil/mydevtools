@@ -10,6 +10,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/environment-manager',
   '/app/email-validator',
   '/app/jwt-decoder',
+  '/app/encryption-playground',
   '/app/certificate-pem-decoder',
   '/app/json-formatter',
   '/app/json-schema-generator',
@@ -32,8 +33,10 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/ip-subnet-calculator',
   '/app/hash-generator',
   '/app/hmac-generator',
+  '/app/totp-generator',
   '/app/lorem-ipsum',
   '/app/color-picker',
+  '/app/contrast-checker',
   '/app/markdown-preview-html',
   '/app/mock-data-generator',
 ];

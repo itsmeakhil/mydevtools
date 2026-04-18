@@ -12,6 +12,7 @@
     "nosqlExplorer": "مستكشف NoSQL",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "ملعب التشفير",
     "jwtDecoder": "محلّل JWT",
     "certificatePemDecoder": "فك ترميز الشهادة / PEM",
     "sqlFormatter": "SQL Formatter",
@@ -27,6 +28,7 @@
     "secretApiKeyGenerator": "سر / مفتاح API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "فاحص التباين",
     "jsonSchemaGenerator": "مولّد مخطط JSON",
     "imageToBase64": "الصورة إلى Base64",
     "imageCompressor": "ضغط الصور",
@@ -38,6 +40,7 @@
     "ipSubnetCalculator": "حاسبة IP / الشبكة الفرعية",
     "hashGenerator": "مُولّد الهاش",
     "hmacGenerator": "مُولّد HMAC",
+    "totpGenerator": "رمز TOTP / 2FA",
     "markdownPreview": "معاينة Markdown",
     "numberBaseConverter": "محوّل الأساس الرقمي",
     "formatConverter": "محوّل الصيغ",
@@ -260,6 +263,10 @@
         "title": "التحقق من البريد",
         "description": "تحقق من عناوين البريد الإلكتروني."
       },
+      "encryptionPlayground": {
+        "title": "ملعب التشفير",
+        "description": "AES-GCM بمفتاح خام أو عبارة سر؛ حزم JSON، Web Crypto فقط في المتصفح."
+      },
       "jwtDecoder": {
         "title": "محلّل JWT",
         "description": "فك ترميز ترويسة وبيانات ووقت انتهاء JWT."
@@ -324,6 +331,10 @@
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
       },
+      "contrastChecker": {
+        "title": "فاحص التباين",
+        "description": "نسبة تباين WCAG 2.1 بين النص والخلفية (AA / AAA)."
+      },
       "jsonSchemaGenerator": {
         "title": "مولّد مخطط JSON",
         "description": "استنتج مخطط JSON ونماذج مُنمّطة من عيّنة JSON."
@@ -367,6 +378,10 @@
       "hmacGenerator": {
         "title": "مُولّد HMAC",
         "description": "توقيع خطافات الويب واختبار تكاملات API باستخدام HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "مُولّد رمز TOTP / 2FA",
+        "description": "الصق سرًا Base32 من تطبيق المصادقة؛ يتجدد الرمز المكوّن من ستة أرقام كل 30 ثانية—مفيد لاختبار تسجيل الدخول وMFA."
       },
       "markdownPreview": {
         "title": "معاينة Markdown",
@@ -2358,6 +2373,32 @@
     "paletteSplit": "تكميلي منقسم",
     "paletteSquare": "مربع"
   },
+  "ContrastChecker": {
+    "title": "فاحص التباين",
+    "subtitle": "يحسب نسبة التباين WCAG 2.1 بين المقدّم والخلفية. يعرض مطابقة AA وAAA للنص العادي والكبير. يعمل بالكامل في المتصفح.",
+    "foreground": "النص / المقدّم",
+    "background": "الخلفية",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "تبديل الألوان",
+    "chooseForeground": "اختر لون المقدّم",
+    "chooseBackground": "اختر لون الخلفية",
+    "eyeDropper": "قطّارة",
+    "ratio": "نسبة التباين",
+    "copyRatio": "نسخ النسبة",
+    "copied": "تم النسخ",
+    "previewHeading": "معاينة",
+    "previewBody": "صِف خَلقَ خَودٍ كَمِثْلِ الشَّمْسِ إِذْ بَزَغَتْ يَحْظَى الضَّجِيجُ بِسَوْدَانٍ مِنْ بَعِيدٍ. أبجد هوز حطي كلمن سعفص قرشت ثخذ ضظغ.",
+    "previewCaption": "نص تجريبي بالحجم الافتراضي.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — نص عادي (4.5:1)",
+    "levelAALarge": "AA — نص كبير (3:1)",
+    "levelAAANormal": "AAA — نص عادي (7:1)",
+    "levelAAALarge": "AAA — نص كبير (4.5:1)",
+    "pass": "مطابق",
+    "fail": "غير مطابق",
+    "invalidHex": "لون HEX غير صالح.",
+    "largeTextHint": "النص الكبير: 18 نقطة فأكثر عاديًا، أو 14 نقطة فأكثر غامقًا (تعريفات WCAG)."
+  },
   "DiffChecker": {
     "title": "مدقق الاختلافات",
     "subtitle": "مقارنة الأسطر جنباً إلى جنب بين نصين. كل شيء يبقى في متصفحك.",
@@ -2794,6 +2835,58 @@
     "emptyHintBcrypt": "أدخل كلمة مرور لحساب تجزئة bcrypt.",
     "securityNoteBcrypt": "كل مخرجات bcrypt تتضمن ملحًا عشوائيًا؛ نفس كلمة المرور تعطي سلسلة مختلفة في كل مرة. هذا متوقع. استخدم تكلفة عالية في الإنتاج."
   },
+  "EncryptionPlayground": {
+    "title": "ملعب التشفير",
+    "subtitle": "AES-GCM في المتصفح: شفّر إلى حزمة JSON بعبارة سر أو مفتاح خام، ثم فك التشفير محليًا. تعليمي وأحيانًا عملي — لا يُرفع أي شيء.",
+    "tabEncrypt": "تشفير",
+    "tabDecrypt": "فك التشفير",
+    "keyModeLabel": "مادة المفتاح",
+    "modePassphrase": "عبارة سر (PBKDF2 + AES-GCM)",
+    "modeRawKey": "مفتاح AES خام (hex أو Base64)",
+    "aesBitsLabel": "طول مفتاح AES",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "ترميز المفتاح الخام",
+    "encodingAuto": "تلقائي (hex إذا بدا كhex، وإلا Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "المفتاح الخام",
+    "rawKeyPlaceholder": "مفتاح 32 بايت كـ 64 محرف hex أو Base64 لـ AES-256 (الطول يعتمد على حجم AES أعلاه).",
+    "rawKeyPlaceholderDecrypt": "مطلوب فقط عندما تحتوي الحزمة على keyDerivation \"none\".",
+    "passphraseLabel": "عبارة السر",
+    "passphrasePlaceholder": "تُستخدم عبارة السر فقط في المتصفح لاشتقاق المفتاح.",
+    "passphrasePlaceholderDecrypt": "مطلوب فقط عندما تستخدم الحزمة PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "تكرارات PBKDF2",
+    "pbkdf2Hint": "بين 10,000 و 2,000,000. الافتراضي يطابق إعدادات الخزن الشائعة.",
+    "plaintextLabel": "نص صريح",
+    "plaintextPlaceholder": "اكتب أو الصق الرسالة المراد تشفيرها…",
+    "bundleInputLabel": "حزمة مشفرة (JSON)",
+    "bundlePlaceholder": "الصق JSON من تشفير (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "حزمة مشفرة",
+    "plaintextOutputLabel": "نص صريح",
+    "encryptButton": "تشفير",
+    "decryptButton": "فك التشفير",
+    "copyBundle": "نسخ JSON",
+    "copyPlaintext": "نسخ النص الصريح",
+    "copied": "تم النسخ",
+    "emptyBundleHint": "يظهر JSON المشفر هنا بعد التشفير.",
+    "emptyDecryptHint": "يظهر النص المفكوك هنا.",
+    "decryptKeyHint": "استخدم المفتاح الخام إذا كان keyDerivation \"none\"؛ وعبارة السر لـ PBKDF2-SHA256. تحتفظ الحزمة بالملح والتكرارات وIV وطول AES.",
+    "securityNote": "المفاتيح والنص الصريح لا يغادران متصفحك. لأسرار الإنتاج استخدم أدوات مخصصة.",
+    "errors": {
+      "emptyKey": "أدخل مفتاحًا خامًا يطابق حجم AES.",
+      "emptyPassphrase": "أدخل عبارة سر.",
+      "badKeyMaterial": "تعذر قراءة المفتاح كـ hex أو Base64.",
+      "wrongKeyLength": "طول المفتاح لا يطابق AES (16 / 24 / 32 بايت).",
+      "invalidJson": "JSON غير صالح.",
+      "invalidBundle": "هذا JSON ليس حزمة تشفير مدعومة.",
+      "decryptFailed": "فشل فك التشفير — سر خاطئ أو حزمة تالفة أو معاملات غير متطابقة.",
+      "encryptFailed": "فشل التشفير. تحقق من Web Crypto والمدخلات."
+    }
+  },
   "HmacGenerator": {
     "title": "مُولّد HMAC",
     "subtitle": "لتوقيع خطافات الويب واختبار تكاملات واجهات API. HMAC-SHA1/256/384/512 بصيغة hex أو Base64—يُحسب محليًا في المتصفح.",
@@ -2819,6 +2912,24 @@
     "securityNote": "لا تشارك سر التوقيع أبدًا. لا تُرفع البيانات من هذه الصفحة—كل شيء يعمل في المتصفح.",
     "errors": {
       "cryptoFailed": "تعذّر حساب HMAC. تأكد من دعم Web Crypto وحاول مجددًا."
+    }
+  },
+  "TotpGenerator": {
+    "title": "مُولّد رمز TOTP / 2FA",
+    "subtitle": "الصق سر Base32 من تطبيق المصادقة لعرض رمز RFC 6238 المكوّن من ستة أرقام الحالي (SHA-1، 30 ث). يعمل محليًا في المتصفح—مفيد لاختبار تسجيل الدخول أو MFA.",
+    "secretLabel": "السر (Base32)",
+    "placeholderSecret": "الصق المفتاح السري (أحرف A–Z وأرقام 2–7، كما يظهر عند إعداد تطبيق المصادقة)…",
+    "codeLabel": "الرمز الحالي",
+    "copyCode": "نسخ الرمز",
+    "copied": "تم النسخ",
+    "nextIn": "يتجدد خلال {seconds} ث",
+    "standardHint": "خطوة زمنية 30 ث، 6 أرقام، HMAC-SHA-1 (متوافق مع Google Authenticator).",
+    "emptyHint": "الصق سرًا لإنشاء رمز مكوّن من ستة أرقام.",
+    "invalidHint": "صحّح السر لعرض الرمز.",
+    "securityNote": "عامل السر ككلمة مرور. لا يغادر المتصفح؛ لا يتم رفع أي بيانات.",
+    "errors": {
+      "invalidSecret": "هذا ليس سر Base32 صالحًا.",
+      "cryptoFailed": "تعذّر حساب TOTP. تحقق من Web Crypto وحاول مجددًا."
     }
   },
   "MarkdownPreview": {

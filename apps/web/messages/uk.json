@@ -12,6 +12,7 @@
     "nosqlExplorer": "NoSQL Провідник",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "Пісочниця шифрування",
     "jwtDecoder": "Декодер JWT",
     "certificatePemDecoder": "Декодер сертифіката / PEM",
     "sqlFormatter": "SQL Formatter",
@@ -27,6 +28,7 @@
     "secretApiKeyGenerator": "Секрет / ключ API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Перевірка контрасту",
     "jsonSchemaGenerator": "Генератор JSON-схеми",
     "imageToBase64": "Зображення до Base64",
     "imageCompressor": "Стиснення зображень",
@@ -38,6 +40,7 @@
     "ipSubnetCalculator": "Калькулятор IP / підмережі",
     "hashGenerator": "Генератор хешів",
     "hmacGenerator": "Генератор HMAC",
+    "totpGenerator": "Код TOTP / 2FA",
     "markdownPreview": "Перегляд Markdown",
     "numberBaseConverter": "Конвертер систем",
     "formatConverter": "Конвертер форматів",
@@ -260,6 +263,10 @@
         "title": "Перевірка email",
         "description": "Перевіряйте та валідуйте email-адреси."
       },
+      "encryptionPlayground": {
+        "title": "Пісочниця шифрування",
+        "description": "AES-GCM із сирим ключем або паролем; JSON-пакети, Web Crypto лише в браузері."
+      },
       "jwtDecoder": {
         "title": "Декодер JWT",
         "description": "Декодуйте заголовок, корисне навантаження та строк дії JWT."
@@ -324,6 +331,10 @@
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
       },
+      "contrastChecker": {
+        "title": "Перевірка контрасту",
+        "description": "Коефіцієнт контрасту WCAG 2.1 для тексту й тла (AA / AAA)."
+      },
       "jsonSchemaGenerator": {
         "title": "Генератор JSON-схеми",
         "description": "Виведіть JSON-схему та типізовані моделі з прикладу JSON."
@@ -367,6 +378,10 @@
       "hmacGenerator": {
         "title": "Генератор HMAC",
         "description": "Підписуйте вебхуки та тестуйте інтеграції API з HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "Генератор коду TOTP / 2FA",
+        "description": "Вставте секрет Base32 з автентифікатора; шестизначний код оновлюється кожні 30 с—зручно для перевірки входу та MFA."
       },
       "markdownPreview": {
         "title": "Перегляд Markdown",
@@ -2358,6 +2373,32 @@
     "paletteSplit": "Розділений доп.",
     "paletteSquare": "Квадратний"
   },
+  "ContrastChecker": {
+    "title": "Перевірка контрасту",
+    "subtitle": "Обчислює коефіцієнт контрасту WCAG 2.1 між переднім планом і тлом. Перевіряє AA та AAA для звичайного й великого тексту. Усе в браузері.",
+    "foreground": "Текст / передній план",
+    "background": "Тло",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Поміняти кольори місцями",
+    "chooseForeground": "Обрати колір переднього плану",
+    "chooseBackground": "Обрати колір тла",
+    "eyeDropper": "Піпетка",
+    "ratio": "Коефіцієнт контрасту",
+    "copyRatio": "Копіювати значення",
+    "copied": "Скопійовано",
+    "previewHeading": "Попередній перегляд",
+    "previewBody": "Єхидна, ґава, їжак ще й білка на цьому шляху гризли фундук. Чуєш їх: гам, ґвалт, лай — не хочу я так бути з ними!",
+    "previewCaption": "Зразок тексту стандартного розміру.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — звичайний текст (4,5:1)",
+    "levelAALarge": "AA — великий текст (3:1)",
+    "levelAAANormal": "AAA — звичайний текст (7:1)",
+    "levelAAALarge": "AAA — великий текст (4,5:1)",
+    "pass": "Відповідає",
+    "fail": "Не відповідає",
+    "invalidHex": "Некоректний колір HEX.",
+    "largeTextHint": "Великий текст: 18 pt+ звичайний або 14 pt+ напівжирний (визначення WCAG)."
+  },
   "DiffChecker": {
     "title": "Перевірка різниць",
     "subtitle": "Порядкове порівняння двох текстів поруч. Все залишається у вашому браузері.",
@@ -2794,6 +2835,58 @@
     "emptyHintBcrypt": "Введіть пароль для обчислення bcrypt-хеша.",
     "securityNoteBcrypt": "Кожен вихід bcrypt містить випадкову сіль; той самий пароль дає різний рядок щоразу. Це очікувано. У продакшені використовуйте високу вартість."
   },
+  "EncryptionPlayground": {
+    "title": "Пісочниця шифрування",
+    "subtitle": "AES-GCM у браузері: шифруйте в JSON-пакет паролем або сирим ключем і розшифровуйте локально. Навчальний і іноді практичний — нічого не надсилається.",
+    "tabEncrypt": "Зашифрувати",
+    "tabDecrypt": "Розшифрувати",
+    "keyModeLabel": "Ключовий матеріал",
+    "modePassphrase": "Парольна фраза (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Сирий ключ AES (hex або Base64)",
+    "aesBitsLabel": "Довжина ключа AES",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Кодування сирого ключа",
+    "encodingAuto": "Авто (hex, якщо схоже на hex, інакше Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Сирий ключ",
+    "rawKeyPlaceholder": "Ключ 32 байти як 64 hex-символи або Base64 для AES-256 (довжина залежить від обраного AES вище).",
+    "rawKeyPlaceholderDecrypt": "Потрібно лише якщо в пакеті keyDerivation \"none\".",
+    "passphraseLabel": "Парольна фраза",
+    "passphrasePlaceholder": "Пароль використовується лише в браузері для виведення ключа.",
+    "passphrasePlaceholderDecrypt": "Потрібно лише якщо пакет використовує PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "Ітерації PBKDF2",
+    "pbkdf2Hint": "Від 10 000 до 2 000 000. Типові налаштування сховищ паролів.",
+    "plaintextLabel": "Відкритий текст",
+    "plaintextPlaceholder": "Введіть або вставте повідомлення для шифрування…",
+    "bundleInputLabel": "Зашифрований пакет (JSON)",
+    "bundlePlaceholder": "Вставте JSON з «Зашифрувати» (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Зашифрований пакет",
+    "plaintextOutputLabel": "Відкритий текст",
+    "encryptButton": "Зашифрувати",
+    "decryptButton": "Розшифрувати",
+    "copyBundle": "Копіювати JSON",
+    "copyPlaintext": "Копіювати відкритий текст",
+    "copied": "Скопійовано",
+    "emptyBundleHint": "Зашифрований JSON з’явиться тут після шифрування.",
+    "emptyDecryptHint": "Розшифрований текст з’явиться тут.",
+    "decryptKeyHint": "Використовуйте сирий ключ, якщо keyDerivation — \"none\"; парольну фразу для PBKDF2-SHA256. У пакеті: сіль, ітерації, IV і довжина AES.",
+    "securityNote": "Ключі й відкритий текст не залишають браузер. Для продакшн-секретів використовуйте спеціалізовані інструменти.",
+    "errors": {
+      "emptyKey": "Введіть сирий ключ відповідно до розміру AES.",
+      "emptyPassphrase": "Введіть парольну фразу.",
+      "badKeyMaterial": "Не вдалося прочитати ключ як hex або Base64.",
+      "wrongKeyLength": "Довжина ключа не відповідає AES (16 / 24 / 32 байти).",
+      "invalidJson": "Некоректний JSON.",
+      "invalidBundle": "Цей JSON не є підтримуваним пакетом шифрування.",
+      "decryptFailed": "Розшифрування не вдалося — невірний секрет, пошкоджений пакет або параметри.",
+      "encryptFailed": "Шифрування не вдалося. Перевірте Web Crypto та введення."
+    }
+  },
   "HmacGenerator": {
     "title": "Генератор HMAC",
     "subtitle": "Для підпису вебхуків і тестування інтеграцій API. HMAC-SHA1/256/384/512 у hex або Base64—локально в браузері.",
@@ -2819,6 +2912,24 @@
     "securityNote": "Ніколи не діліться секретом підпису. Ця сторінка не завантажує дані — усе виконується в браузері.",
     "errors": {
       "cryptoFailed": "Не вдалося обчислити HMAC. Перевірте підтримку Web Crypto і спробуйте ще раз."
+    }
+  },
+  "TotpGenerator": {
+    "title": "Генератор коду TOTP / 2FA",
+    "subtitle": "Вставте секрет Base32 і отримайте поточний шестизначний код RFC 6238 (SHA-1, 30 с). Усе локально в браузері—зручно тестувати вхід або MFA.",
+    "secretLabel": "Секрет (Base32)",
+    "placeholderSecret": "Вставте секретний ключ (літери A–Z і цифри 2–7, як під час налаштування автентифікатора)…",
+    "codeLabel": "Поточний код",
+    "copyCode": "Копіювати код",
+    "copied": "Скопійовано",
+    "nextIn": "Оновлення за {seconds} с",
+    "standardHint": "Крок часу 30 с, 6 цифр, HMAC-SHA-1 (сумісно з Google Authenticator).",
+    "emptyHint": "Вставте секрет, щоб згенерувати шестизначний код.",
+    "invalidHint": "Виправте секрет, щоб побачити код.",
+    "securityNote": "Ставтеся до секрету як до пароля. Він не залишає браузер; нічого не надсилається.",
+    "errors": {
+      "invalidSecret": "Це недійсний секрет Base32.",
+      "cryptoFailed": "Не вдалося обчислити TOTP. Перевірте Web Crypto і спробуйте ще раз."
     }
   },
   "MarkdownPreview": {

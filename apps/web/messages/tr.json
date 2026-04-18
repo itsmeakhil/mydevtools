@@ -12,6 +12,7 @@
     "nosqlExplorer": "NoSQL Gezgini",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "Şifreleme oyun alanı",
     "jwtDecoder": "JWT Çözücü",
     "certificatePemDecoder": "Sertifika / PEM çözücü",
     "sqlFormatter": "SQL Formatter",
@@ -27,6 +28,7 @@
     "secretApiKeyGenerator": "Gizli / API anahtarı",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Kontrast denetleyici",
     "jsonSchemaGenerator": "JSON Şema Oluşturucu",
     "imageToBase64": "Base64'e görüntü",
     "imageCompressor": "Görüntü sıkıştırıcı",
@@ -38,6 +40,7 @@
     "ipSubnetCalculator": "IP / alt ağ hesaplayıcı",
     "hashGenerator": "Hash oluşturucu",
     "hmacGenerator": "HMAC Oluşturucu",
+    "totpGenerator": "TOTP / 2FA kodu",
     "markdownPreview": "Markdown Önizleme",
     "numberBaseConverter": "Taban dönüştürücü",
     "formatConverter": "Format Dönüştürücü",
@@ -260,6 +263,10 @@
         "title": "E-posta Doğrulayıcı",
         "description": "E-posta adreslerini doğrulayın ve kontrol edin."
       },
+      "encryptionPlayground": {
+        "title": "Şifreleme oyun alanı",
+        "description": "Ham anahtar veya parola ile AES-GCM; JSON paketleri, Web Crypto yalnızca tarayıcıda."
+      },
       "jwtDecoder": {
         "title": "JWT Çözücü",
         "description": "JWT başlığını, yükünü ve süresini çöz."
@@ -324,6 +331,10 @@
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
       },
+      "contrastChecker": {
+        "title": "Kontrast denetleyici",
+        "description": "Metin ve arka plan için WCAG 2.1 kontrast oranı (AA / AAA)."
+      },
       "jsonSchemaGenerator": {
         "title": "JSON Şema Oluşturucu",
         "description": "Örnek JSON’dan JSON Şeması ve tipli modeller türetin."
@@ -367,6 +378,10 @@
       "hmacGenerator": {
         "title": "HMAC Oluşturucu",
         "description": "HMAC-SHA1/256/384/512 ile webhook imzalama ve API entegrasyonlarını test edin."
+      },
+      "totpGenerator": {
+        "title": "TOTP / 2FA kod üreticisi",
+        "description": "Doğrulayıcıdan Base32 gizli anahtarı yapıştırın; altı haneli kod her 30 sn’de yenilenir—oturum açma ve MFA testleri için kullanışlıdır."
       },
       "markdownPreview": {
         "title": "Markdown Önizleme",
@@ -2358,6 +2373,32 @@
     "paletteSplit": "Bölünmüş tamaml.",
     "paletteSquare": "Kare"
   },
+  "ContrastChecker": {
+    "title": "Kontrast denetleyici",
+    "subtitle": "Ön plan ve arka plan arasında WCAG 2.1 kontrast oranını hesaplar. Normal ve büyük metin için AA ve AAA durumunu gösterir. Tümü tarayıcınızda çalışır.",
+    "foreground": "Metin / ön plan",
+    "background": "Arka plan",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Renkleri değiştir",
+    "chooseForeground": "Ön plan rengini seç",
+    "chooseBackground": "Arka plan rengini seç",
+    "eyeDropper": "Damlalık",
+    "ratio": "Kontrast oranı",
+    "copyRatio": "Oranı kopyala",
+    "copied": "Kopyalandı",
+    "previewHeading": "Ön izleme",
+    "previewBody": "Pijamalı hasta, yağız şoföre çabucak güvendi. Fâni idrak ömrünü, câhil zâhid inkâr etmiş, göçtü.",
+    "previewCaption": "Varsayılan boyutta örnek metin.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — normal metin (4,5:1)",
+    "levelAALarge": "AA — büyük metin (3:1)",
+    "levelAAANormal": "AAA — normal metin (7:1)",
+    "levelAAALarge": "AAA — büyük metin (4,5:1)",
+    "pass": "Uygun",
+    "fail": "Uygun değil",
+    "invalidHex": "Geçersiz HEX rengi.",
+    "largeTextHint": "Büyük metin: 18 pt+ düz veya 14 pt+ kalın (WCAG tanımları)."
+  },
   "DiffChecker": {
     "title": "Fark denetleyici",
     "subtitle": "İki metnin satır satır yan yana karşılaştırması. Her şey tarayıcınızda kalır.",
@@ -2794,6 +2835,58 @@
     "emptyHintBcrypt": "bcrypt özeti hesaplamak için parola girin.",
     "securityNoteBcrypt": "Her bcrypt çıktısı rastgele tuz içerir; aynı parola her seferinde farklı bir dize üretir. Bu beklenendir. Üretimde yüksek maliyet kullanın."
   },
+  "EncryptionPlayground": {
+    "title": "Şifreleme oyun alanı",
+    "subtitle": "Tarayıcıda AES-GCM: parola veya ham anahtarla JSON paketine şifreleyin, yerel olarak çözün. Öğretici ve bazen pratik — hiçbir şey yüklenmez.",
+    "tabEncrypt": "Şifrele",
+    "tabDecrypt": "Şifreyi çöz",
+    "keyModeLabel": "Anahtar malzemesi",
+    "modePassphrase": "Parola (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Ham AES anahtarı (hex veya Base64)",
+    "aesBitsLabel": "AES anahtar uzunluğu",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Ham anahtar kodlaması",
+    "encodingAuto": "Otomatik (hex gibi görünüyorsa hex, değilse Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Ham anahtar",
+    "rawKeyPlaceholder": "AES-256 için 32 bayt anahtar: 64 hex karakter veya Base64 (uzunluk yukarıdaki AES boyutuna bağlı).",
+    "rawKeyPlaceholderDecrypt": "Yalnızca pakette keyDerivation \"none\" ise gerekli.",
+    "passphraseLabel": "Parola",
+    "passphrasePlaceholder": "Parola yalnızca tarayıcıda anahtar türetmek için kullanılır.",
+    "passphrasePlaceholderDecrypt": "Yalnızca paket PBKDF2-SHA256 kullanıyorsa gerekli.",
+    "pbkdf2IterLabel": "PBKDF2 yinelemeleri",
+    "pbkdf2Hint": "10.000 ile 2.000.000 arasında. Varsayılan, yaygın kasa ayarlarıyla uyumludur.",
+    "plaintextLabel": "Düz metin",
+    "plaintextPlaceholder": "Şifrelenecek iletiyi yazın veya yapıştırın…",
+    "bundleInputLabel": "Şifreli paket (JSON)",
+    "bundlePlaceholder": "Şifrele’den JSON yapıştırın (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Şifreli paket",
+    "plaintextOutputLabel": "Düz metin",
+    "encryptButton": "Şifrele",
+    "decryptButton": "Şifreyi çöz",
+    "copyBundle": "JSON kopyala",
+    "copyPlaintext": "Düz metni kopyala",
+    "copied": "Kopyalandı",
+    "emptyBundleHint": "Şifrelemeden sonra şifreli JSON burada görünür.",
+    "emptyDecryptHint": "Çözülmüş metin burada görünür.",
+    "decryptKeyHint": "keyDerivation \"none\" ise ham anahtarı; PBKDF2-SHA256 ise parolayı kullanın. Paket tuz, yineleme, IV ve AES uzunluğunu saklar.",
+    "securityNote": "Anahtarlar ve düz metin tarayıcınızdan çıkmaz. Üretim sırları için özel araçlar tercih edin.",
+    "errors": {
+      "emptyKey": "AES boyutuna uyan bir ham anahtar girin.",
+      "emptyPassphrase": "Bir parola girin.",
+      "badKeyMaterial": "Anahtar hex veya Base64 olarak okunamadı.",
+      "wrongKeyLength": "Anahtar uzunluğu AES ile eşleşmiyor (16 / 24 / 32 bayt).",
+      "invalidJson": "Geçerli bir JSON değil.",
+      "invalidBundle": "Bu JSON desteklenen bir şifre paketi değil.",
+      "decryptFailed": "Şifre çözme başarısız — yanlış gizli, bozuk paket veya uyumsuz parametreler.",
+      "encryptFailed": "Şifreleme başarısız. Web Crypto ve girdileri kontrol edin."
+    }
+  },
   "HmacGenerator": {
     "title": "HMAC oluşturucu",
     "subtitle": "Webhook imzalamak ve API entegrasyonlarını test etmek için. HMAC-SHA1/256/384/512 hex veya Base64—tarayıcıda yerel hesaplanır.",
@@ -2819,6 +2912,24 @@
     "securityNote": "İmzalama sırrını asla paylaşmayın. Bu sayfa veri yüklemez—her şey tarayıcıda çalışır.",
     "errors": {
       "cryptoFailed": "HMAC hesaplanamadı. Web Crypto desteğini kontrol edip yeniden deneyin."
+    }
+  },
+  "TotpGenerator": {
+    "title": "TOTP / 2FA kod üreticisi",
+    "subtitle": "Base32 gizli anahtarı yapıştırın ve güncel altı haneli RFC 6238 kodunu (SHA-1, 30 sn) alın. Tamamen tarayıcıda çalışır—oturum açma veya MFA testleri için uygundur.",
+    "secretLabel": "Gizli anahtar (Base32)",
+    "placeholderSecret": "Gizli anahtarı yapıştırın (A–Z harfleri ve 2–7 rakamları, doğrulayıcı kurulumunda gösterildiği gibi)…",
+    "codeLabel": "Güncel kod",
+    "copyCode": "Kodu kopyala",
+    "copied": "Kopyalandı",
+    "nextIn": "{seconds} sn içinde yenilenir",
+    "standardHint": "30 sn zaman adımı, 6 hane, HMAC-SHA-1 (Google Authenticator ile uyumlu).",
+    "emptyHint": "Altı haneli kod için gizli anahtarı yapıştırın.",
+    "invalidHint": "Kodu görmek için gizli anahtarı düzeltin.",
+    "securityNote": "Bunu parola gibi koruyun. Gizli anahtar tarayıcıdan çıkmaz; hiçbir şey yüklenmez.",
+    "errors": {
+      "invalidSecret": "Geçerli bir Base32 gizli anahtar değil.",
+      "cryptoFailed": "TOTP hesaplanamadı. Web Crypto desteğini kontrol edip tekrar deneyin."
     }
   },
   "MarkdownPreview": {

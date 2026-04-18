@@ -12,6 +12,7 @@
     "nosqlExplorer": "NoSQL-utforskare",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "Krypteringslekplats",
     "jwtDecoder": "JWT-avkodare",
     "certificatePemDecoder": "Certifikat- / PEM-avkodare",
     "sqlFormatter": "SQL Formatter",
@@ -27,6 +28,7 @@
     "secretApiKeyGenerator": "Hemlighet / API-nyckel",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Kontrastkontroll",
     "jsonSchemaGenerator": "JSON-schemagenerator",
     "imageToBase64": "Bild till Base64",
     "imageCompressor": "Bildkomprimering",
@@ -38,6 +40,7 @@
     "ipSubnetCalculator": "IP-/subnetkalkylator",
     "hashGenerator": "Hash-generator",
     "hmacGenerator": "HMAC-generator",
+    "totpGenerator": "TOTP / 2FA-kod",
     "markdownPreview": "Markdown-förhandsgranskning",
     "numberBaseConverter": "Basomvandlare",
     "formatConverter": "Formatkonverterare",
@@ -260,6 +263,10 @@
         "title": "E-postvalidering",
         "description": "Verifiera och validera e-postadresser."
       },
+      "encryptionPlayground": {
+        "title": "Krypteringslekplats",
+        "description": "AES-GCM med rå nyckel eller lösenfras; JSON-paket, Web Crypto endast i webbläsaren."
+      },
       "jwtDecoder": {
         "title": "JWT-avkodare",
         "description": "Avkoda JWT-header, payload och utgångstid."
@@ -324,6 +331,10 @@
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
       },
+      "contrastChecker": {
+        "title": "Kontrastkontroll",
+        "description": "WCAG 2.1-kontrast mellan text och bakgrund (AA / AAA)."
+      },
       "jsonSchemaGenerator": {
         "title": "JSON-schemagenerator",
         "description": "Härled ett JSON-schema och typade modeller från exempel-JSON."
@@ -367,6 +378,10 @@
       "hmacGenerator": {
         "title": "HMAC-generator",
         "description": "Signera webhooks och testa API-integrationer med HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "TOTP / 2FA-kodgenerator",
+        "description": "Klistra in en Base32-hemlighet från autentiseringsappen; sexsiffrig kod uppdateras var 30:e s—bra för att testa inloggning och MFA."
       },
       "markdownPreview": {
         "title": "Markdown-förhandsgranskning",
@@ -2358,6 +2373,32 @@
     "paletteSplit": "Delad kompl.",
     "paletteSquare": "Kvadratisk"
   },
+  "ContrastChecker": {
+    "title": "Kontrastkontroll",
+    "subtitle": "Beräknar WCAG 2.1-kontrasten mellan förgrund och bakgrund. Visar AA och AAA för normal och stor text. Allt körs i din webbläsare.",
+    "foreground": "Text / förgrund",
+    "background": "Bakgrund",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Byt färger",
+    "chooseForeground": "Välj förgrundsfärg",
+    "chooseBackground": "Välj bakgrundsfärg",
+    "eyeDropper": "Pipett",
+    "ratio": "Kontrast",
+    "copyRatio": "Kopiera värde",
+    "copied": "Kopierat",
+    "previewHeading": "Förhandsgranskning",
+    "previewBody": "Yxska kåmpare med vårbyxor och tröjor följer quiz på TV. Flygande bäckasiner söka hwila på mjuka tuvor.",
+    "previewCaption": "Exempeltext i standardstorlek.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — normal text (4,5:1)",
+    "levelAALarge": "AA — stor text (3:1)",
+    "levelAAANormal": "AAA — normal text (7:1)",
+    "levelAAALarge": "AAA — stor text (4,5:1)",
+    "pass": "Godkänd",
+    "fail": "Underkänd",
+    "invalidHex": "Ogiltig HEX-färg.",
+    "largeTextHint": "Stor text: 18 pt+ normal eller 14 pt+ fet (WCAG-definitioner)."
+  },
   "DiffChecker": {
     "title": "Diff-kontroll",
     "subtitle": "Rad-för-rad-jämförelse av två texter sida vid sida. Allt stannar i din webbläsare.",
@@ -2794,6 +2835,58 @@
     "emptyHintBcrypt": "Ange ett lösenord för att beräkna bcrypt-hash.",
     "securityNoteBcrypt": "Varje bcrypt-utdata innehåller ett slumpmässigt salt; samma lösenord ger en ny sträng varje gång. Det förväntas. Använd hög kostnad i produktion."
   },
+  "EncryptionPlayground": {
+    "title": "Krypteringslekplats",
+    "subtitle": "AES-GCM i webbläsaren: kryptera till ett JSON-paket med lösenfras eller rå nyckel och dekryptera lokalt. Pedagogiskt och ibland praktiskt — inget laddas upp.",
+    "tabEncrypt": "Kryptera",
+    "tabDecrypt": "Dekryptera",
+    "keyModeLabel": "Nyckelmaterial",
+    "modePassphrase": "Lösenfras (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Rå AES-nyckel (hex eller Base64)",
+    "aesBitsLabel": "AES-nyckellängd",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Kodning av rå nyckel",
+    "encodingAuto": "Auto (hex om det ser ut som hex, annars Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Rå nyckel",
+    "rawKeyPlaceholder": "32-byte nyckel som 64 hex-tecken eller Base64 för AES-256 (längden beror på AES-storleken ovan).",
+    "rawKeyPlaceholderDecrypt": "Behövs bara om paketet har keyDerivation \"none\".",
+    "passphraseLabel": "Lösenfras",
+    "passphrasePlaceholder": "Lösenfras används bara i webbläsaren för att härleda nyckeln.",
+    "passphrasePlaceholderDecrypt": "Behövs bara om paketet använder PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "PBKDF2-iterationer",
+    "pbkdf2Hint": "Mellan 10 000 och 2 000 000. Standard liknar vanliga valvinställningar.",
+    "plaintextLabel": "Klartext",
+    "plaintextPlaceholder": "Skriv eller klistra in meddelande att kryptera…",
+    "bundleInputLabel": "Krypterat paket (JSON)",
+    "bundlePlaceholder": "Klistra in JSON från Kryptera (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Krypterat paket",
+    "plaintextOutputLabel": "Klartext",
+    "encryptButton": "Kryptera",
+    "decryptButton": "Dekryptera",
+    "copyBundle": "Kopiera JSON",
+    "copyPlaintext": "Kopiera klartext",
+    "copied": "Kopierat",
+    "emptyBundleHint": "Krypterad JSON visas här efter kryptering.",
+    "emptyDecryptHint": "Dekrypterad text visas här.",
+    "decryptKeyHint": "Använd rå nyckel om keyDerivation är \"none\"; lösenfras vid PBKDF2-SHA256. Paketet lagrar salt, iterationer, IV och AES-längd.",
+    "securityNote": "Nycklar och klartext lämnar inte din webbläsare. Använd dedikerade verktyg för produktionshemligheter.",
+    "errors": {
+      "emptyKey": "Ange en rå nyckel som matchar AES-storleken.",
+      "emptyPassphrase": "Ange en lösenfras.",
+      "badKeyMaterial": "Nyckeln kunde inte läsas som hex eller Base64.",
+      "wrongKeyLength": "Nyckellängden matchar inte AES (16 / 24 / 32 byte).",
+      "invalidJson": "Ogiltig JSON.",
+      "invalidBundle": "Denna JSON är inte ett paket som stöds.",
+      "decryptFailed": "Dekryptering misslyckades — fel hemlighet, skadat paket eller fel parametrar.",
+      "encryptFailed": "Kryptering misslyckades. Kontrollera Web Crypto och indata."
+    }
+  },
   "HmacGenerator": {
     "title": "HMAC-generator",
     "subtitle": "För att signera webhooks och testa API-integrationer. HMAC-SHA1/256/384/512 i hex eller Base64—beräknat lokalt i webbläsaren.",
@@ -2819,6 +2912,24 @@
     "securityNote": "Dela aldrig din signeringshemlighet. Den här sidan laddar inte upp data—allt körs i webbläsaren.",
     "errors": {
       "cryptoFailed": "Kunde inte beräkna HMAC. Kontrollera Web Crypto-stöd och försök igen."
+    }
+  },
+  "TotpGenerator": {
+    "title": "TOTP / 2FA-kodgenerator",
+    "subtitle": "Klistra in Base32-hemligheten och se aktuell sexsiffrig RFC 6238-kod (SHA-1, 30 s). Körs lokalt i webbläsaren—användbart vid test av inloggning eller MFA.",
+    "secretLabel": "Hemlighet (Base32)",
+    "placeholderSecret": "Klistra in nyckeln (bokstäver A–Z och siffrorna 2–7, som när du ställer in autentiseraren)…",
+    "codeLabel": "Aktuell kod",
+    "copyCode": "Kopiera kod",
+    "copied": "Kopierat",
+    "nextIn": "Uppdateras om {seconds} s",
+    "standardHint": "30 s tidssteg, 6 siffror, HMAC-SHA-1 (kompatibel med Google Authenticator).",
+    "emptyHint": "Klistra in en hemlighet för att generera en sexsiffrig kod.",
+    "invalidHint": "Rätta hemligheten för att se koden.",
+    "securityNote": "Hantera som ett lösenord. Hemligheten lämnar inte webbläsaren; inget laddas upp.",
+    "errors": {
+      "invalidSecret": "Ogiltig Base32-hemlighet.",
+      "cryptoFailed": "Kunde inte beräkna TOTP. Kontrollera Web Crypto och försök igen."
     }
   },
   "MarkdownPreview": {

@@ -12,6 +12,7 @@
     "nosqlExplorer": "NoSQL 浏览器",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "加密演练场",
     "jwtDecoder": "JWT 解码器",
     "certificatePemDecoder": "证书 / PEM 解码器",
     "sqlFormatter": "SQL Formatter",
@@ -27,6 +28,7 @@
     "secretApiKeyGenerator": "密钥 / API 密钥",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "对比度检查",
     "jsonSchemaGenerator": "JSON 模式生成器",
     "imageToBase64": "图像转 Base64",
     "imageCompressor": "图片压缩",
@@ -38,6 +40,7 @@
     "ipSubnetCalculator": "IP / 子网计算器",
     "hashGenerator": "哈希生成器",
     "hmacGenerator": "HMAC 生成器",
+    "totpGenerator": "TOTP / 2FA 验证码",
     "markdownPreview": "Markdown 预览",
     "numberBaseConverter": "进制转换",
     "formatConverter": "格式转换器",
@@ -260,6 +263,10 @@
         "title": "邮箱验证",
         "description": "验证电子邮件地址。"
       },
+      "encryptionPlayground": {
+        "title": "加密演练场",
+        "description": "使用原始密钥或口令的 AES-GCM；JSON 数据包，Web Crypto 仅在浏览器中运行。"
+      },
       "jwtDecoder": {
         "title": "JWT 解码器",
         "description": "解码 JWT 的头部、载荷和过期时间。"
@@ -324,6 +331,10 @@
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
       },
+      "contrastChecker": {
+        "title": "对比度检查",
+        "description": "文本与背景的 WCAG 2.1 对比度（AA / AAA）。"
+      },
       "jsonSchemaGenerator": {
         "title": "JSON 模式生成器",
         "description": "从示例 JSON 推断 JSON 模式与类型化模型。"
@@ -367,6 +378,10 @@
       "hmacGenerator": {
         "title": "HMAC 生成器",
         "description": "使用 HMAC-SHA1/256/384/512 为 Webhook 签名并测试 API 集成。"
+      },
+      "totpGenerator": {
+        "title": "TOTP / 2FA 验证码生成器",
+        "description": "粘贴身份验证器中的 Base32 密钥；六位数字每 30 秒刷新，便于测试登录与多因素验证。"
       },
       "markdownPreview": {
         "title": "Markdown 预览",
@@ -2358,6 +2373,32 @@
     "paletteSplit": "分裂互补",
     "paletteSquare": "正方形配色"
   },
+  "ContrastChecker": {
+    "title": "对比度检查",
+    "subtitle": "计算前景与背景之间的 WCAG 2.1 对比度，并显示常规与大号文字的 AA、AAA 达标情况。全部在浏览器本地完成。",
+    "foreground": "文字 / 前景",
+    "background": "背景",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "交换颜色",
+    "chooseForeground": "选择前景色",
+    "chooseBackground": "选择背景色",
+    "eyeDropper": "取色器",
+    "ratio": "对比度",
+    "copyRatio": "复制比值",
+    "copied": "已复制",
+    "previewHeading": "预览",
+    "previewBody": "天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。寒来暑往，秋收冬藏。闰余成岁，律吕调阳。",
+    "previewCaption": "默认字号示例正文。",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — 常规文字（4.5:1）",
+    "levelAALarge": "AA — 大号文字（3:1）",
+    "levelAAANormal": "AAA — 常规文字（7:1）",
+    "levelAAALarge": "AAA — 大号文字（4.5:1）",
+    "pass": "通过",
+    "fail": "未通过",
+    "invalidHex": "无效的 HEX 颜色。",
+    "largeTextHint": "大号文字：常规 18pt 及以上，或粗体 14pt 及以上（WCAG 定义）。"
+  },
   "DiffChecker": {
     "title": "差异检查器",
     "subtitle": "并排逐行比较两段文本。所有处理都在您的浏览器中完成。",
@@ -2794,6 +2835,58 @@
     "emptyHintBcrypt": "输入密码以计算 bcrypt 哈希。",
     "securityNoteBcrypt": "每次 bcrypt 输出都包含随机盐；同一密码每次会得到不同字符串，这是预期行为。生产环境请使用足够高的成本。"
   },
+  "EncryptionPlayground": {
+    "title": "加密演练场",
+    "subtitle": "在浏览器中使用 AES-GCM：用口令或原始密钥加密为 JSON 包，再在本地解密。适合学习与偶尔实用 — 不会上传任何内容。",
+    "tabEncrypt": "加密",
+    "tabDecrypt": "解密",
+    "keyModeLabel": "密钥材料",
+    "modePassphrase": "口令（PBKDF2 + AES-GCM）",
+    "modeRawKey": "原始 AES 密钥（十六进制或 Base64）",
+    "aesBitsLabel": "AES 密钥长度",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "原始密钥编码",
+    "encodingAuto": "自动（看似十六进制则用十六进制，否则 Base64）",
+    "encodingHex": "十六进制",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "原始密钥",
+    "rawKeyPlaceholder": "32 字节密钥可写为 64 个十六进制字符，或 AES-256 的 Base64（长度取决于上方 AES 位数）。",
+    "rawKeyPlaceholderDecrypt": "仅当数据包中 keyDerivation 为 \"none\" 时需要填写。",
+    "passphraseLabel": "口令",
+    "passphrasePlaceholder": "口令仅在浏览器中用于派生密钥。",
+    "passphrasePlaceholderDecrypt": "仅当数据包使用 PBKDF2-SHA256 时需要填写。",
+    "pbkdf2IterLabel": "PBKDF2 迭代次数",
+    "pbkdf2Hint": "限制在 10,000 至 2,000,000 之间。默认值与常见密码库设置一致。",
+    "plaintextLabel": "明文",
+    "plaintextPlaceholder": "输入或粘贴要加密的消息…",
+    "bundleInputLabel": "加密数据包（JSON）",
+    "bundlePlaceholder": "粘贴来自「加密」的 JSON（v、alg、ivB64、cipherB64 等）。",
+    "bundleOutputLabel": "加密数据包",
+    "plaintextOutputLabel": "明文",
+    "encryptButton": "加密",
+    "decryptButton": "解密",
+    "copyBundle": "复制 JSON",
+    "copyPlaintext": "复制明文",
+    "copied": "已复制",
+    "emptyBundleHint": "加密后，加密后的 JSON 将显示在此处。",
+    "emptyDecryptHint": "解密后的文本将显示在此处。",
+    "decryptKeyHint": "若 keyDerivation 为 \"none\" 请使用原始密钥；若为 PBKDF2-SHA256 请使用口令。数据包包含盐、迭代次数、IV 与 AES 长度。",
+    "securityNote": "密钥与明文不会离开您的浏览器。生产环境机密请使用专用工具。",
+    "errors": {
+      "emptyKey": "请输入与 AES 长度匹配的原始密钥。",
+      "emptyPassphrase": "请输入口令。",
+      "badKeyMaterial": "无法将密钥解析为十六进制或 Base64。",
+      "wrongKeyLength": "密钥长度与所选 AES（16 / 24 / 32 字节）不符。",
+      "invalidJson": "不是有效的 JSON。",
+      "invalidBundle": "此 JSON 不是受支持的加密数据包。",
+      "decryptFailed": "解密失败 — 密钥错误、数据包损坏或参数不匹配。",
+      "encryptFailed": "加密失败。请检查 Web Crypto 与输入。"
+    }
+  },
   "HmacGenerator": {
     "title": "HMAC 生成器",
     "subtitle": "用于 Webhook 签名与 API 集成测试。支持 HMAC-SHA1/256/384/512，输出 hex 或 Base64—均在浏览器本地计算。",
@@ -2819,6 +2912,24 @@
     "securityNote": "切勿泄露签名密钥。本页不会上传数据，一切在浏览器中运行。",
     "errors": {
       "cryptoFailed": "无法计算 HMAC。请检查浏览器是否支持 Web Crypto 后重试。"
+    }
+  },
+  "TotpGenerator": {
+    "title": "TOTP / 2FA 验证码生成器",
+    "subtitle": "粘贴 Base32 密钥，获取当前六位 RFC 6238 验证码（SHA-1，30 秒）。全部在浏览器本地完成，适合测试登录或多因素验证流程。",
+    "secretLabel": "密钥（Base32）",
+    "placeholderSecret": "粘贴密钥（字母 A–Z 与数字 2–7，与设置身份验证器时相同）…",
+    "codeLabel": "当前验证码",
+    "copyCode": "复制验证码",
+    "copied": "已复制",
+    "nextIn": "{seconds} 秒后刷新",
+    "standardHint": "30 秒时间步长，6 位数字，HMAC-SHA-1（兼容 Google Authenticator）。",
+    "emptyHint": "粘贴密钥以生成六位验证码。",
+    "invalidHint": "请修正密钥以显示验证码。",
+    "securityNote": "请像密码一样保管。密钥不会离开浏览器；不会上传任何数据。",
+    "errors": {
+      "invalidSecret": "不是有效的 Base32 密钥。",
+      "cryptoFailed": "无法计算 TOTP。请检查 Web Crypto 是否可用并重试。"
     }
   },
   "MarkdownPreview": {

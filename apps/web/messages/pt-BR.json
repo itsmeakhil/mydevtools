@@ -12,6 +12,7 @@
     "nosqlExplorer": "Explorador NoSQL",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "Laboratório de criptografia",
     "jwtDecoder": "Decodificador JWT",
     "certificatePemDecoder": "Decodificador de certificado / PEM",
     "sqlFormatter": "SQL Formatter",
@@ -27,6 +28,7 @@
     "secretApiKeyGenerator": "Segredo / chave de API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Verificador de contraste",
     "jsonSchemaGenerator": "Gerador de esquema JSON",
     "imageToBase64": "Imagem para Base64",
     "imageCompressor": "Compressor de imagens",
@@ -38,6 +40,7 @@
     "ipSubnetCalculator": "Calculadora IP / sub-rede",
     "hashGenerator": "Gerador de hash",
     "hmacGenerator": "Gerador HMAC",
+    "totpGenerator": "Código TOTP / 2FA",
     "markdownPreview": "Pré-visualização Markdown",
     "numberBaseConverter": "Conversor de base",
     "formatConverter": "Conversor de formatos",
@@ -260,6 +263,10 @@
         "title": "Validador de E-mail",
         "description": "Verifique e valide endereços de e-mail."
       },
+      "encryptionPlayground": {
+        "title": "Laboratório de criptografia",
+        "description": "AES-GCM com chave bruta ou senha; pacotes JSON, Web Crypto só no navegador."
+      },
       "jwtDecoder": {
         "title": "Decodificador JWT",
         "description": "Decodifique cabeçalho, payload e expiração do JWT."
@@ -324,6 +331,10 @@
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
       },
+      "contrastChecker": {
+        "title": "Verificador de contraste",
+        "description": "Proporção de contraste WCAG 2.1 entre texto e fundo (AA / AAA)."
+      },
       "jsonSchemaGenerator": {
         "title": "Gerador de esquema JSON",
         "description": "Infira um esquema JSON e modelos tipados a partir de uma amostra JSON."
@@ -367,6 +378,10 @@
       "hmacGenerator": {
         "title": "Gerador HMAC",
         "description": "Assine webhooks e teste integrações de API com HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "Gerador de código TOTP / 2FA",
+        "description": "Cole um segredo Base32 do autenticador; o código de seis dígitos atualiza a cada 30 s para testar login e MFA."
       },
       "markdownPreview": {
         "title": "Pré-visualização Markdown",
@@ -2358,6 +2373,32 @@
     "paletteSplit": "Compl. dividido",
     "paletteSquare": "Quadrado"
   },
+  "ContrastChecker": {
+    "title": "Verificador de contraste",
+    "subtitle": "Calcula a proporção de contraste WCAG 2.1 entre primeiro plano e fundo. Verifica AA e AAA para texto normal e grande. Tudo roda no seu navegador.",
+    "foreground": "Texto / primeiro plano",
+    "background": "Fundo",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Trocar cores",
+    "chooseForeground": "Escolher cor do primeiro plano",
+    "chooseBackground": "Escolher cor de fundo",
+    "eyeDropper": "Conta-gotas",
+    "ratio": "Proporção de contraste",
+    "copyRatio": "Copiar proporção",
+    "copied": "Copiado",
+    "previewHeading": "Pré-visualização",
+    "previewBody": "Vejo xá gritando que fez show sem playback. À noite, vovô Kowalsky vê o ímã cair no pé do pinguim queixoso e feliz.",
+    "previewCaption": "Texto de exemplo no tamanho padrão.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — texto normal (4,5:1)",
+    "levelAALarge": "AA — texto grande (3:1)",
+    "levelAAANormal": "AAA — texto normal (7:1)",
+    "levelAAALarge": "AAA — texto grande (4,5:1)",
+    "pass": "Aprovado",
+    "fail": "Reprovado",
+    "invalidHex": "Cor HEX inválida.",
+    "largeTextHint": "Texto grande: 18 pt+ regular ou 14 pt+ em negrito (definições WCAG)."
+  },
   "DiffChecker": {
     "title": "Verificador de diferenças",
     "subtitle": "Comparação linha a linha de dois textos lado a lado. Tudo permanece no seu navegador.",
@@ -2794,6 +2835,58 @@
     "emptyHintBcrypt": "Digite uma senha para calcular o hash bcrypt.",
     "securityNoteBcrypt": "Cada saída bcrypt inclui sal aleatório; a mesma senha produz uma string diferente a cada vez. É esperado. Use custo alto em produção."
   },
+  "EncryptionPlayground": {
+    "title": "Laboratório de criptografia",
+    "subtitle": "AES-GCM no navegador: criptografar em um pacote JSON com senha ou chave bruta e descriptografar localmente. Educacional e às vezes prático — nada é enviado.",
+    "tabEncrypt": "Criptografar",
+    "tabDecrypt": "Descriptografar",
+    "keyModeLabel": "Material da chave",
+    "modePassphrase": "Senha (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Chave AES bruta (hex ou Base64)",
+    "aesBitsLabel": "Tamanho da chave AES",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Codificação da chave bruta",
+    "encodingAuto": "Automático (hex se parecer hex, senão Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Chave bruta",
+    "rawKeyPlaceholder": "Chave de 32 bytes como 64 caracteres hex, ou Base64 para AES-256 (o tamanho depende do AES escolhido acima).",
+    "rawKeyPlaceholderDecrypt": "Só necessário se o pacote tiver keyDerivation \"none\".",
+    "passphraseLabel": "Senha",
+    "passphrasePlaceholder": "Senha usada apenas no navegador para derivar a chave.",
+    "passphrasePlaceholderDecrypt": "Só necessário se o pacote usar PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "Iterações PBKDF2",
+    "pbkdf2Hint": "Entre 10.000 e 2.000.000. O padrão segue configurações comuns de cofres.",
+    "plaintextLabel": "Texto plano",
+    "plaintextPlaceholder": "Digite ou cole a mensagem para criptografar…",
+    "bundleInputLabel": "Pacote criptografado (JSON)",
+    "bundlePlaceholder": "Cole o JSON de Criptografar (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Pacote criptografado",
+    "plaintextOutputLabel": "Texto plano",
+    "encryptButton": "Criptografar",
+    "decryptButton": "Descriptografar",
+    "copyBundle": "Copiar JSON",
+    "copyPlaintext": "Copiar texto plano",
+    "copied": "Copiado",
+    "emptyBundleHint": "O JSON criptografado aparece aqui após criptografar.",
+    "emptyDecryptHint": "O texto descriptografado aparece aqui.",
+    "decryptKeyHint": "Use a chave bruta se keyDerivation for \"none\"; a senha se for PBKDF2-SHA256. O pacote armazena salt, iterações, IV e tamanho AES.",
+    "securityNote": "Chaves e texto plano não saem do navegador. Para segredos de produção prefira ferramentas dedicadas.",
+    "errors": {
+      "emptyKey": "Insira uma chave bruta compatível com o tamanho AES.",
+      "emptyPassphrase": "Insira uma senha.",
+      "badKeyMaterial": "Não foi possível ler a chave como hex ou Base64.",
+      "wrongKeyLength": "O tamanho da chave não corresponde ao AES escolhido (16 / 24 / 32 bytes).",
+      "invalidJson": "JSON inválido.",
+      "invalidBundle": "Este JSON não é um pacote de criptografia suportado.",
+      "decryptFailed": "Falha na descriptografia — segredo errado, pacote corrompido ou parâmetros incorretos.",
+      "encryptFailed": "Falha na criptografia. Verifique Web Crypto e as entradas."
+    }
+  },
   "HmacGenerator": {
     "title": "Gerador HMAC",
     "subtitle": "Para assinar webhooks e testar integrações de API. HMAC-SHA1/256/384/512 em hex ou Base64—calculado localmente no navegador.",
@@ -2819,6 +2912,24 @@
     "securityNote": "Nunca compartilhe o segredo de assinatura. Esta página não envia dados; tudo roda no navegador.",
     "errors": {
       "cryptoFailed": "Não foi possível calcular o HMAC. Verifique o suporte a Web Crypto e tente novamente."
+    }
+  },
+  "TotpGenerator": {
+    "title": "Gerador de código TOTP / 2FA",
+    "subtitle": "Cole o segredo Base32 do autenticador e veja o código de seis dígitos RFC 6238 atual (SHA-1, 30 s). Roda localmente no navegador—útil para testar login ou MFA.",
+    "secretLabel": "Segredo (Base32)",
+    "placeholderSecret": "Cole a chave secreta (letras A–Z e dígitos 2–7, como ao configurar o app autenticador)…",
+    "codeLabel": "Código atual",
+    "copyCode": "Copiar código",
+    "copied": "Copiado",
+    "nextIn": "Atualiza em {seconds} s",
+    "standardHint": "Intervalo de 30 s, 6 dígitos, HMAC-SHA-1 (compatível com Google Authenticator).",
+    "emptyHint": "Cole um segredo para gerar um código de seis dígitos.",
+    "invalidHint": "Corrija o segredo para ver o código.",
+    "securityNote": "Trate como uma senha. O segredo não sai do navegador; nada é enviado.",
+    "errors": {
+      "invalidSecret": "Esse não é um segredo Base32 válido.",
+      "cryptoFailed": "Não foi possível calcular o TOTP. Verifique o Web Crypto e tente de novo."
     }
   },
   "MarkdownPreview": {

@@ -12,6 +12,7 @@
     "nosqlExplorer": "NoSQLエクスプローラー",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "暗号化プレイグラウンド",
     "jwtDecoder": "JWTデコーダー",
     "certificatePemDecoder": "証明書 / PEM デコーダ",
     "sqlFormatter": "SQL Formatter",
@@ -27,6 +28,7 @@
     "secretApiKeyGenerator": "シークレット / APIキー",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "コントラストチェッカー",
     "jsonSchemaGenerator": "JSONスキーマジェネレーター",
     "imageToBase64": "画像をBase64に変換",
     "imageCompressor": "画像圧縮",
@@ -38,6 +40,7 @@
     "ipSubnetCalculator": "IP／サブネット計算",
     "hashGenerator": "ハッシュ生成",
     "hmacGenerator": "HMACジェネレーター",
+    "totpGenerator": "TOTP / 2FA コード",
     "markdownPreview": "Markdownプレビュー",
     "numberBaseConverter": "基数変換",
     "formatConverter": "フォーマット変換",
@@ -260,6 +263,10 @@
         "title": "メールバリデーター",
         "description": "メールアドレスの検証と確認を行います。"
       },
+      "encryptionPlayground": {
+        "title": "暗号化プレイグラウンド",
+        "description": "生キーまたはパスフレーズで AES-GCM。JSON バンドル、Web Crypto はブラウザ内のみ。"
+      },
       "jwtDecoder": {
         "title": "JWTデコーダー",
         "description": "JWT のヘッダー、ペイロード、有効期限をデコードします。"
@@ -324,6 +331,10 @@
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
       },
+      "contrastChecker": {
+        "title": "コントラストチェッカー",
+        "description": "テキストと背景の WCAG 2.1 コントラスト比（AA / AAA）。"
+      },
       "jsonSchemaGenerator": {
         "title": "JSONスキーマジェネレーター",
         "description": "サンプルJSONからJSONスキーマと型付きモデルを推論します。"
@@ -367,6 +378,10 @@
       "hmacGenerator": {
         "title": "HMACジェネレーター",
         "description": "Webhookの署名とAPI連携のテストに HMAC-SHA1/256/384/512。"
+      },
+      "totpGenerator": {
+        "title": "TOTP / 2FA コードジェネレーター",
+        "description": "認証アプリの Base32 秘密鍵を貼り付け；6桁コードが30秒ごとに更新されます。ログインやMFAのテストに便利です。"
       },
       "markdownPreview": {
         "title": "Markdownプレビュー",
@@ -2358,6 +2373,32 @@
     "paletteSplit": "分裂補色",
     "paletteSquare": "スクエア"
   },
+  "ContrastChecker": {
+    "title": "コントラストチェッカー",
+    "subtitle": "前景色と背景色の WCAG 2.1 コントラスト比を計算します。通常テキスト・大きいテキストの AA / AAA を表示。すべてブラウザ内で処理されます。",
+    "foreground": "テキスト / 前景",
+    "background": "背景",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "色を入れ替え",
+    "chooseForeground": "前景色を選ぶ",
+    "chooseBackground": "背景色を選ぶ",
+    "eyeDropper": "スポイト",
+    "ratio": "コントラスト比",
+    "copyRatio": "比率をコピー",
+    "copied": "コピーしました",
+    "previewHeading": "プレビュー",
+    "previewBody": "いろはにほへと　ちりぬるを　わかよたれそ　つねならむ　うゐのおくやま　けふこえて　あさきゆめみし　ゑひもせすん。",
+    "previewCaption": "標準サイズのサンプルテキスト。",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — 通常テキスト（4.5:1）",
+    "levelAALarge": "AA — 大きいテキスト（3:1）",
+    "levelAAANormal": "AAA — 通常テキスト（7:1）",
+    "levelAAALarge": "AAA — 大きいテキスト（4.5:1）",
+    "pass": "適合",
+    "fail": "不適合",
+    "invalidHex": "無効な HEX 色です。",
+    "largeTextHint": "大きいテキスト：18pt 以上の通常、または 14pt 以上の太字（WCAG の定義）。"
+  },
   "DiffChecker": {
     "title": "差分チェッカー",
     "subtitle": "2つのテキストを並べて行単位で比較します。すべてブラウザ内で処理されます。",
@@ -2794,6 +2835,58 @@
     "emptyHintBcrypt": "bcrypt ハッシュを計算するにはパスワードを入力してください。",
     "securityNoteBcrypt": "bcrypt の出力には毎回ランダムなソルトが含まれます。同じパスワードでも毎回異なる文字列になります。本番では十分なコストを設定してください。"
   },
+  "EncryptionPlayground": {
+    "title": "暗号化プレイグラウンド",
+    "subtitle": "ブラウザ上の AES-GCM：パスフレーズまたは生キーで JSON バンドルに暗号化し、ローカルで復号。学習向けで時には実用的 — アップロードはありません。",
+    "tabEncrypt": "暗号化",
+    "tabDecrypt": "復号",
+    "keyModeLabel": "鍵素材",
+    "modePassphrase": "パスフレーズ（PBKDF2 + AES-GCM）",
+    "modeRawKey": "生の AES 鍵（hex または Base64）",
+    "aesBitsLabel": "AES 鍵長",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "生キーのエンコード",
+    "encodingAuto": "自動（hex に見えれば hex、それ以外は Base64）",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "生キー",
+    "rawKeyPlaceholder": "32 バイト鍵は 64 文字の hex、または AES-256 なら Base64（長さは上の AES サイズに依存）。",
+    "rawKeyPlaceholderDecrypt": "バンドルに keyDerivation \"none\" がある場合のみ必要です。",
+    "passphraseLabel": "パスフレーズ",
+    "passphrasePlaceholder": "パスフレーズは鍵導出のためブラウザ内でのみ使われます。",
+    "passphrasePlaceholderDecrypt": "バンドルが PBKDF2-SHA256 の場合のみ必要です。",
+    "pbkdf2IterLabel": "PBKDF2 反復回数",
+    "pbkdf2Hint": "10,000〜2,000,000 に制限。既定は一般的な保管庫設定に合わせています。",
+    "plaintextLabel": "平文",
+    "plaintextPlaceholder": "暗号化するメッセージを入力または貼り付け…",
+    "bundleInputLabel": "暗号化バンドル（JSON）",
+    "bundlePlaceholder": "「暗号化」で得た JSON を貼り付け（v, alg, ivB64, cipherB64, …）。",
+    "bundleOutputLabel": "暗号化バンドル",
+    "plaintextOutputLabel": "平文",
+    "encryptButton": "暗号化",
+    "decryptButton": "復号",
+    "copyBundle": "JSON をコピー",
+    "copyPlaintext": "平文をコピー",
+    "copied": "コピーしました",
+    "emptyBundleHint": "暗号化後、暗号化された JSON がここに表示されます。",
+    "emptyDecryptHint": "復号されたテキストがここに表示されます。",
+    "decryptKeyHint": "keyDerivation が \"none\" なら生キー、PBKDF2-SHA256 ならパスフレーズを使います。バンドルにソルト、反復、IV、AES 長が含まれます。",
+    "securityNote": "鍵と平文はブラウザの外に出ません。本番の秘密には専用ツールを使ってください。",
+    "errors": {
+      "emptyKey": "AES サイズに合う生キーを入力してください。",
+      "emptyPassphrase": "パスフレーズを入力してください。",
+      "badKeyMaterial": "鍵を hex または Base64 として読み取れませんでした。",
+      "wrongKeyLength": "鍵長が選択した AES（16 / 24 / 32 バイト）と一致しません。",
+      "invalidJson": "有効な JSON ではありません。",
+      "invalidBundle": "この JSON はサポートされている暗号バンドルではありません。",
+      "decryptFailed": "復号に失敗しました — 秘密が違う、破損、またはパラメータ不一致。",
+      "encryptFailed": "暗号化に失敗しました。Web Crypto と入力を確認してください。"
+    }
+  },
   "HmacGenerator": {
     "title": "HMACジェネレーター",
     "subtitle": "Webhookの署名とAPI連携のテスト用。HMAC-SHA1/256/384/512 を hex または Base64 で出力—すべてブラウザ内で計算。",
@@ -2819,6 +2912,24 @@
     "securityNote": "署名用シークレットは共有しないでください。データはアップロードされず、すべてブラウザ内で処理されます。",
     "errors": {
       "cryptoFailed": "HMACを計算できませんでした。Web Crypto の対応を確認して再試行してください。"
+    }
+  },
+  "TotpGenerator": {
+    "title": "TOTP / 2FA コードジェネレーター",
+    "subtitle": "認証アプリの Base32 秘密鍵を貼り付けて、現在の6桁 RFC 6238 コード（SHA-1、30秒）を表示。ブラウザ内のみで処理—ログインやMFAのテストに便利です。",
+    "secretLabel": "秘密鍵（Base32）",
+    "placeholderSecret": "秘密鍵を貼り付け（A–Z と 2–7 の数字、認証アプリ設定時と同じ形式）…",
+    "codeLabel": "現在のコード",
+    "copyCode": "コードをコピー",
+    "copied": "コピーしました",
+    "nextIn": "{seconds} 秒後に更新",
+    "standardHint": "30秒タイムステップ、6桁、HMAC-SHA-1（Google Authenticator 互換）。",
+    "emptyHint": "秘密鍵を貼り付けて6桁コードを生成します。",
+    "invalidHint": "コードを表示するには秘密鍵を修正してください。",
+    "securityNote": "パスワード同様に扱ってください。秘密鍵はブラウザ外に出ません。アップロードはありません。",
+    "errors": {
+      "invalidSecret": "有効な Base32 秘密鍵ではありません。",
+      "cryptoFailed": "TOTP を計算できませんでした。Web Crypto を確認して再試行してください。"
     }
   },
   "MarkdownPreview": {

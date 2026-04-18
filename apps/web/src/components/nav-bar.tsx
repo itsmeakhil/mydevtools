@@ -15,6 +15,7 @@ import {
   Fingerprint,
   TextQuote,
   Palette,
+  Contrast,
   Key,
   Regex,
   Clock,
@@ -43,6 +44,8 @@ import {
   Ruler,
   Shrink,
   Minimize2,
+  Timer,
+  LockKeyhole,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
@@ -93,13 +96,20 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
   '/app/ip-subnet-calculator': { title: 'IP / Subnet Calculator', icon: Calculator, namespace: 'IpSubnetCalculator' },
   '/app/hash-generator': { title: 'Hash Generator', icon: Hash, namespace: 'HashGenerator' },
   '/app/hmac-generator': { title: 'HMAC Generator', icon: ShieldCheck, namespace: 'HmacGenerator' },
+  '/app/totp-generator': { title: 'TOTP / 2FA Code Generator', icon: Timer, namespace: 'TotpGenerator' },
   '/app/markdown-preview-html': { title: 'Markdown Preview', icon: FileDown, namespace: 'MarkdownPreview' },
   '/app/format-converter': { title: 'Format Converter', icon: FileCode, namespace: 'FormatConverter' },
   '/app/lorem-ipsum': { title: 'Lorem Ipsum Generator', icon: TextQuote, namespace: 'LoremIpsum' },
   '/app/color-picker': { title: 'Color Picker', icon: Palette, namespace: 'ColorPicker' },
+  '/app/contrast-checker': { title: 'Contrast Checker', icon: Contrast, namespace: 'ContrastChecker' },
   '/app/css-gradient-builder': { title: 'CSS Gradient Builder', icon: Paintbrush, namespace: 'CssGradientBuilder' },
   '/app/gitignore-generator': { title: '.gitignore Generator', icon: FileMinus, namespace: 'GitignoreGenerator' },
   '/app/jwt-decoder': { title: 'JWT Decoder', icon: Key, namespace: 'JwtDecoder' },
+  '/app/encryption-playground': {
+    title: 'Encryption Playground',
+    icon: LockKeyhole,
+    namespace: 'EncryptionPlayground',
+  },
   '/app/certificate-pem-decoder': {
     title: 'Certificate / PEM Decoder',
     icon: BookKey,

@@ -12,6 +12,7 @@
     "nosqlExplorer": "NoSQL-utforsker",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "Krypteringslekeplass",
     "jwtDecoder": "JWT-dekoder",
     "certificatePemDecoder": "Sertifikat- / PEM-dekoder",
     "sqlFormatter": "SQL Formatter",
@@ -27,6 +28,7 @@
     "secretApiKeyGenerator": "Hemmelighet / API-nøkkel",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Kontrastkontroll",
     "jsonSchemaGenerator": "JSON-skjemagenerator",
     "imageToBase64": "Bilde til Base64",
     "imageCompressor": "Bildekomprimering",
@@ -38,6 +40,7 @@
     "ipSubnetCalculator": "IP-/subnettkalkulator",
     "hashGenerator": "Hash-generator",
     "hmacGenerator": "HMAC-generator",
+    "totpGenerator": "TOTP / 2FA-kode",
     "markdownPreview": "Markdown-forhåndsvisning",
     "numberBaseConverter": "Grunntall-konverter",
     "formatConverter": "Formatkonverterer",
@@ -260,6 +263,10 @@
         "title": "E-postvalidering",
         "description": "Verifiser og valider e-postadresser."
       },
+      "encryptionPlayground": {
+        "title": "Krypteringslekeplass",
+        "description": "AES-GCM med rå nøkkel eller passordfrase; JSON-pakker, Web Crypto kun i nettleseren."
+      },
       "jwtDecoder": {
         "title": "JWT-dekoder",
         "description": "Dekod JWT-header, payload og utløp."
@@ -324,6 +331,10 @@
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
       },
+      "contrastChecker": {
+        "title": "Kontrastkontroll",
+        "description": "WCAG 2.1-kontrastforhold mellom tekst og bakgrunn (AA / AAA)."
+      },
       "jsonSchemaGenerator": {
         "title": "JSON-skjemagenerator",
         "description": "Utled et JSON-skjema og typede modeller fra eksempel-JSON."
@@ -367,6 +378,10 @@
       "hmacGenerator": {
         "title": "HMAC-generator",
         "description": "Signer webhooks og test API-integrasjoner med HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "TOTP / 2FA-kodegenerator",
+        "description": "Lim inn en Base32-hemmelighet fra autentiseringsappen; seksifret kode oppdateres hvert 30. sekund—nyttig for å teste innlogging og MFA."
       },
       "markdownPreview": {
         "title": "Markdown-forhåndsvisning",
@@ -2358,6 +2373,32 @@
     "paletteSplit": "Delt kompl.",
     "paletteSquare": "Kvadratisk"
   },
+  "ContrastChecker": {
+    "title": "Kontrastkontroll",
+    "subtitle": "Beregner WCAG 2.1-kontrastforholdet mellom forgrunn og bakgrunn. Viser AA og AAA for normal og stor tekst. Alt skjer i nettleseren.",
+    "foreground": "Tekst / forgrunn",
+    "background": "Bakgrunn",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Bytt farger",
+    "chooseForeground": "Velg forgrunnsfarge",
+    "chooseBackground": "Velg bakgrunnsfarge",
+    "eyeDropper": "Pipette",
+    "ratio": "Kontrastforhold",
+    "copyRatio": "Kopier forhold",
+    "copied": "Kopiert",
+    "previewHeading": "Forhåndsvisning",
+    "previewBody": "Vår sære Zulu fra badeøya spilte jo whist og quickstep i min taxi. Høvdingens kjære squaw får litt pizza i Mexico by.",
+    "previewCaption": "Eksempeltekst i standardstørrelse.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — normal tekst (4,5:1)",
+    "levelAALarge": "AA — stor tekst (3:1)",
+    "levelAAANormal": "AAA — normal tekst (7:1)",
+    "levelAAALarge": "AAA — stor tekst (4,5:1)",
+    "pass": "Bestått",
+    "fail": "Ikke bestått",
+    "invalidHex": "Ugyldig HEX-farge.",
+    "largeTextHint": "Stor tekst: 18 pt+ vanlig eller 14 pt+ fet (WCAG-definisjoner)."
+  },
   "DiffChecker": {
     "title": "Diff-sjekker",
     "subtitle": "Side-ved-side-linjediff av to tekster. Alt forblir i nettleseren din.",
@@ -2794,6 +2835,58 @@
     "emptyHintBcrypt": "Skriv inn et passord for å beregne bcrypt-hash.",
     "securityNoteBcrypt": "Hver bcrypt-utdata inneholder tilfeldig salt; samme passord gir en ny streng hver gang. Dette er forventet. Bruk høy kostnad i produksjon."
   },
+  "EncryptionPlayground": {
+    "title": "Krypteringslekeplass",
+    "subtitle": "AES-GCM i nettleseren: krypter til en JSON-pakke med passordfrase eller rå nøkkel og dekrypter lokalt. Lærerikt og av og til praktisk — ingenting lastes opp.",
+    "tabEncrypt": "Krypter",
+    "tabDecrypt": "Dekrypter",
+    "keyModeLabel": "Nøkkelmateriale",
+    "modePassphrase": "Passordfrase (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Rå AES-nøkkel (hex eller Base64)",
+    "aesBitsLabel": "AES-nøkkellengde",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Koding av rå nøkkel",
+    "encodingAuto": "Auto (hex hvis det ser ut som hex, ellers Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Rå nøkkel",
+    "rawKeyPlaceholder": "32-byte nøkkel som 64 hex-tegn eller Base64 for AES-256 (lengden avhenger av AES-størrelsen over).",
+    "rawKeyPlaceholderDecrypt": "Bare nødvendig hvis pakken har keyDerivation \"none\".",
+    "passphraseLabel": "Passordfrase",
+    "passphrasePlaceholder": "Passordfrase brukes bare i nettleseren for å utlede nøkkelen.",
+    "passphrasePlaceholderDecrypt": "Bare nødvendig hvis pakken bruker PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "PBKDF2-iterasjoner",
+    "pbkdf2Hint": "Mellom 10 000 og 2 000 000. Standard samsvarer med vanlig hvelv-oppsett.",
+    "plaintextLabel": "Klartekst",
+    "plaintextPlaceholder": "Skriv eller lim inn melding som skal krypteres…",
+    "bundleInputLabel": "Kryptert pakke (JSON)",
+    "bundlePlaceholder": "Lim inn JSON fra Krypter (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Kryptert pakke",
+    "plaintextOutputLabel": "Klartekst",
+    "encryptButton": "Krypter",
+    "decryptButton": "Dekrypter",
+    "copyBundle": "Kopier JSON",
+    "copyPlaintext": "Kopier klartekst",
+    "copied": "Kopiert",
+    "emptyBundleHint": "Kryptert JSON vises her etter kryptering.",
+    "emptyDecryptHint": "Dekryptert tekst vises her.",
+    "decryptKeyHint": "Bruk rå nøkkel hvis keyDerivation er \"none\"; passordfrase ved PBKDF2-SHA256. Pakken lagrer salt, iterasjoner, IV og AES-lengde.",
+    "securityNote": "Nøkler og klartekst forlater ikke nettleseren. Bruk dedikerte verktøy for produksjonshemmeligheter.",
+    "errors": {
+      "emptyKey": "Skriv inn en rå nøkkel som matcher AES-størrelsen.",
+      "emptyPassphrase": "Skriv inn en passordfrase.",
+      "badKeyMaterial": "Nøkkelen kunne ikke leses som hex eller Base64.",
+      "wrongKeyLength": "Nøkkellengden matcher ikke AES (16 / 24 / 32 byte).",
+      "invalidJson": "Ugyldig JSON.",
+      "invalidBundle": "Denne JSON-en er ikke en støttet krypteringspakke.",
+      "decryptFailed": "Dekryptering mislyktes — feil hemmelighet, ødelagt pakke eller feil parametre.",
+      "encryptFailed": "Kryptering mislyktes. Sjekk Web Crypto og inndata."
+    }
+  },
   "HmacGenerator": {
     "title": "HMAC-generator",
     "subtitle": "For signering av webhooks og testing av API-integrasjoner. HMAC-SHA1/256/384/512 i hex eller Base64—beregnet lokalt i nettleseren.",
@@ -2819,6 +2912,24 @@
     "securityNote": "Del aldri signeringshemmeligheten. Denne siden laster ikke opp data—alt kjører i nettleseren.",
     "errors": {
       "cryptoFailed": "Kunne ikke beregne HMAC. Sjekk Web Crypto-støtte og prøv igjen."
+    }
+  },
+  "TotpGenerator": {
+    "title": "TOTP / 2FA-kodegenerator",
+    "subtitle": "Lim inn Base32-hemmeligheten og få gjeldende seksifret RFC 6238-kode (SHA-1, 30 s). Kjører lokalt i nettleseren—nyttig for testing av innlogging eller MFA.",
+    "secretLabel": "Hemmelighet (Base32)",
+    "placeholderSecret": "Lim inn den hemmelige nøkkelen (bokstaver A–Z og sifrene 2–7, som ved oppsett av autentisering)…",
+    "codeLabel": "Gjeldende kode",
+    "copyCode": "Kopier kode",
+    "copied": "Kopiert",
+    "nextIn": "Oppdateres om {seconds} s",
+    "standardHint": "30 s tidssteg, 6 siffer, HMAC-SHA-1 (kompatibel med Google Authenticator).",
+    "emptyHint": "Lim inn en hemmelighet for å generere en seksifret kode.",
+    "invalidHint": "Rett hemmeligheten for å se koden.",
+    "securityNote": "Behandle som et passord. Hemmeligheten forlater ikke nettleseren; ingenting lastes opp.",
+    "errors": {
+      "invalidSecret": "Ugyldig Base32-hemmelighet.",
+      "cryptoFailed": "Kunne ikke beregne TOTP. Sjekk Web Crypto og prøv igjen."
     }
   },
   "MarkdownPreview": {

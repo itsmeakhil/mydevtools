@@ -113,6 +113,16 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: 'Compute HMAC-SHA1, HMAC-SHA256, HMAC-SHA384, and HMAC-SHA512 signatures in hex or Base64 for webhook signing and API integration testing. Runs entirely in your browser.',
         keywords: ['hmac', 'hmac sha256', 'webhook signature', 'api signing', 'stripe webhook', 'github webhook', 'message authentication']
     },
+    'encryption-playground': {
+        title: 'Encryption Playground',
+        description: 'AES-GCM encrypt and decrypt in the browser with a raw key (hex or Base64) or a passphrase (PBKDF2-SHA256 + AES-GCM). Outputs a small JSON bundle you can copy and decrypt locally—educational and occasionally practical. Nothing is uploaded.',
+        keywords: ['aes gcm', 'encrypt decrypt online', 'web crypto', 'pbkdf2', 'passphrase encryption', 'aes-256-gcm', 'client side encryption', 'browser encryption']
+    },
+    'totp-generator': {
+        title: 'TOTP / 2FA Code Generator',
+        description: 'Paste a Base32 authenticator secret and see the current six-digit RFC 6238 TOTP code refresh every 30 seconds. SHA-1, 30-second step—ideal for testing MFA and sign-in flows. Runs entirely in your browser.',
+        keywords: ['totp', '2fa', 'two factor', 'authenticator', 'google authenticator', 'RFC 6238', 'one-time password', 'MFA test', 'otp']
+    },
     'lorem-ipsum': {
         title: 'Lorem Ipsum Generator',
         description: 'Generate classical Lorem Ipsum as paragraphs, sentences, words, or lists. Export plain text or HTML.',
@@ -122,6 +132,11 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         title: 'Color Picker & Converter',
         description: 'Pick colors, convert between HEX, RGB, and HSL, and explore harmonic palettes — shades, complementary, triadic, and more.',
         keywords: ['color picker', 'hex to rgb', 'rgb to hsl', 'color converter', 'palette generator']
+    },
+    'contrast-checker': {
+        title: 'WCAG Contrast Checker',
+        description: 'Measure WCAG 2.1 contrast between two HEX colors, see AA and AAA pass/fail for normal and large text, and preview typography on the background.',
+        keywords: ['wcag contrast', 'contrast ratio', 'aa aaa', 'accessibility checker', 'color contrast', 'text contrast', 'wcag 2.1']
     },
     'jwt-decoder': {
         title: 'JWT Decoder',

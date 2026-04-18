@@ -19,6 +19,14 @@ export const ColorPickerToolLayoutLazy = dynamic(
   { ssr: false, loading: toolLoading }
 )
 
+export const ContrastCheckerToolLayoutLazy = dynamic(
+  () =>
+    import('@/components/contrast-checker-tool/contrast-checker-tool-layout').then(
+      m => m.ContrastCheckerToolLayout
+    ),
+  { ssr: false, loading: toolLoading }
+)
+
 export const CronBuilderLayoutLazy = dynamic(
   () =>
     import('@/components/cron-builder/cron-builder-layout').then(
