@@ -9,6 +9,7 @@
     "bookmarks": "Bookmarks",
     "emailValidator": "Email Validator",
     "jwtDecoder": "JWT Decoder",
+    "encryptionPlayground": "Encryption Playground",
     "certificatePemDecoder": "Certificate / PEM Decoder",
     "jsonFormatter": "JSON Formatter",
     "jsonSchemaGenerator": "JSON Schema Generator",
@@ -29,6 +30,7 @@
     "ipSubnetCalculator": "IP / Subnet Calculator",
     "hashGenerator": "Hash Generator",
     "hmacGenerator": "HMAC Generator",
+    "totpGenerator": "TOTP / 2FA Code",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
     "contrastChecker": "Contrast Checker",
@@ -328,6 +330,10 @@
         "title": "Certificate / PEM Decoder",
         "description": "Decode X.509 certificates and CSRs: subject, issuer, validity, SANs."
       },
+      "encryptionPlayground": {
+        "title": "Encryption Playground",
+        "description": "AES-GCM with a raw key or passphrase; JSON bundles, Web Crypto only in your browser."
+      },
       "jsonFormatter": {
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
@@ -407,6 +413,10 @@
       "hmacGenerator": {
         "title": "HMAC Generator",
         "description": "Sign webhooks and test API integrations with HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "TOTP / 2FA code generator",
+        "description": "Paste a Base32 authenticator secret and see the six-digit RFC 6238 code refresh every 30 seconds—handy for testing sign-in and MFA."
       },
       "loremIpsum": {
         "title": "Lorem Ipsum",
@@ -2577,6 +2587,58 @@
       "fileReadFailed": "Could not read this file."
     }
   },
+  "EncryptionPlayground": {
+    "title": "Encryption playground",
+    "subtitle": "AES-GCM in the browser: encrypt to a JSON bundle with a passphrase or raw key, then decrypt locally. Educational and occasionally practical—nothing is uploaded.",
+    "tabEncrypt": "Encrypt",
+    "tabDecrypt": "Decrypt",
+    "keyModeLabel": "Key material",
+    "modePassphrase": "Passphrase (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Raw AES key (hex or Base64)",
+    "aesBitsLabel": "AES key length",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Raw key encoding",
+    "encodingAuto": "Auto (hex if it looks hex, else Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Raw key",
+    "rawKeyPlaceholder": "32-byte key as 64 hex chars, or Base64 for AES-256 (length depends on AES size above).",
+    "rawKeyPlaceholderDecrypt": "Only needed when the bundle has keyDerivation \"none\".",
+    "passphraseLabel": "Passphrase",
+    "passphrasePlaceholder": "Passphrase used only in your browser to derive the key.",
+    "passphrasePlaceholderDecrypt": "Only needed when the bundle uses PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "PBKDF2 iterations",
+    "pbkdf2Hint": "Clamped between 10,000 and 2,000,000. Default matches common vault-style settings.",
+    "plaintextLabel": "Plaintext",
+    "plaintextPlaceholder": "Type or paste the message to encrypt…",
+    "bundleInputLabel": "Encrypted bundle (JSON)",
+    "bundlePlaceholder": "Paste the JSON from Encrypt (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Encrypted bundle",
+    "plaintextOutputLabel": "Plaintext",
+    "encryptButton": "Encrypt",
+    "decryptButton": "Decrypt",
+    "copyBundle": "Copy JSON",
+    "copyPlaintext": "Copy plaintext",
+    "copied": "Copied",
+    "emptyBundleHint": "Encrypted JSON appears here after you encrypt.",
+    "emptyDecryptHint": "Decrypted text appears here.",
+    "decryptKeyHint": "Use the raw key field if the bundle says keyDerivation \"none\"; use the passphrase if it says PBKDF2-SHA256. The bundle stores salt, iterations, IV, and AES length.",
+    "securityNote": "Keys and plaintext never leave your browser. Prefer dedicated tools for production secrets.",
+    "errors": {
+      "emptyKey": "Enter a raw key that matches the AES size.",
+      "emptyPassphrase": "Enter a passphrase.",
+      "badKeyMaterial": "Could not read the key as hex or Base64.",
+      "wrongKeyLength": "Key length does not match the selected AES size (16 / 24 / 32 bytes).",
+      "invalidJson": "That is not valid JSON.",
+      "invalidBundle": "This JSON is not a supported encryption bundle.",
+      "decryptFailed": "Decryption failed—wrong secret, corrupted bundle, or mismatched parameters.",
+      "encryptFailed": "Encryption failed. Check Web Crypto support and inputs."
+    }
+  },
   "HmacGenerator": {
     "title": "HMAC generator",
     "subtitle": "For signing webhooks and testing API integrations. HMAC-SHA1/256/384/512 in hex or Base64—computed locally in your browser.",
@@ -2602,6 +2664,24 @@
     "securityNote": "Never share your signing secret. This page does not upload data—everything runs in your browser.",
     "errors": {
       "cryptoFailed": "Could not compute HMAC. Check your browser supports Web Crypto and try again."
+    }
+  },
+  "TotpGenerator": {
+    "title": "TOTP / 2FA code generator",
+    "subtitle": "Paste an authenticator Base32 secret and get the current six-digit RFC 6238 code (SHA-1, 30 s). Runs locally in your browser—useful when testing sign-in or MFA flows.",
+    "secretLabel": "Secret (Base32)",
+    "placeholderSecret": "Paste the secret key (letters A–Z and digits 2–7, as shown when you set up an authenticator app)…",
+    "codeLabel": "Current code",
+    "copyCode": "Copy code",
+    "copied": "Copied",
+    "nextIn": "Refreshes in {seconds} s",
+    "standardHint": "30-second time step, 6 digits, HMAC-SHA-1 (Google Authenticator–compatible).",
+    "emptyHint": "Paste a secret to generate a six-digit code.",
+    "invalidHint": "Fix the secret to see the code.",
+    "securityNote": "Treat this like a password. The secret never leaves your browser; nothing is uploaded.",
+    "errors": {
+      "invalidSecret": "That is not a valid Base32 secret.",
+      "cryptoFailed": "Could not compute TOTP. Check that Web Crypto is available and try again."
     }
   },
   "NumberBaseConverter": {

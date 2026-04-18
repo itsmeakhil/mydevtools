@@ -47,6 +47,8 @@ import {
   IconArrowsDiagonalMinimize2,
   IconWand,
   IconServer,
+  IconClock,
+  IconShieldLock,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -119,6 +121,13 @@ export const sidebarData: SidebarData = {
           description: 'Decode X.509 certificates and CSRs: subject, issuer, validity, SANs.',
           hiddenOnMobile: true,
           badge: 'new',
+        },
+        {
+          title: 'Encryption Playground',
+          url: '/app/encryption-playground',
+          icon: IconShieldLock,
+          description: 'AES-GCM with a raw key or passphrase; encrypt/decrypt JSON bundles locally.',
+          hiddenOnMobile: true,
         },
         {
           title: 'Password Manager',
@@ -320,6 +329,13 @@ export const sidebarData: SidebarData = {
           url: '/app/hmac-generator',
           icon: IconCircleKey,
           description: 'HMAC-SHA1/256/384/512 for webhooks and API signing tests in your browser.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'TOTP / 2FA Code Generator',
+          url: '/app/totp-generator',
+          icon: IconClock,
+          description: 'Paste a Base32 authenticator secret and see the six-digit code refresh every 30 seconds.',
           hiddenOnMobile: true,
         },
       ],

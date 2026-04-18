@@ -12,6 +12,7 @@
     "nosqlExplorer": "NoSQL Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "Sân chơi mã hóa",
     "jwtDecoder": "Trình giải mã JWT",
     "certificatePemDecoder": "Bộ giải mã chứng chỉ / PEM",
     "sqlFormatter": "SQL Formatter",
@@ -39,6 +40,7 @@
     "ipSubnetCalculator": "Máy tính IP / mạng con",
     "hashGenerator": "Trình tạo hash",
     "hmacGenerator": "Trình tạo HMAC",
+    "totpGenerator": "Mã TOTP / 2FA",
     "markdownPreview": "Xem trước Markdown",
     "numberBaseConverter": "Chuyển đổi cơ số",
     "formatConverter": "Chuyển đổi định dạng",
@@ -261,6 +263,10 @@
         "title": "Xác thực Email",
         "description": "Xác minh và kiểm tra địa chỉ email."
       },
+      "encryptionPlayground": {
+        "title": "Sân chơi mã hóa",
+        "description": "AES-GCM với khóa thô hoặc cụm mật khẩu; gói JSON, Web Crypto chỉ trong trình duyệt."
+      },
       "jwtDecoder": {
         "title": "Trình giải mã JWT",
         "description": "Giải mã header, payload và thời gian hết hạn của JWT."
@@ -372,6 +378,10 @@
       "hmacGenerator": {
         "title": "Trình tạo HMAC",
         "description": "Ký webhook và kiểm thử tích hợp API với HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "Trình tạo mã TOTP / 2FA",
+        "description": "Dán bí mật Base32 từ ứng dụng xác thực; mã sáu chữ số làm mới mỗi 30 giây—tiện để thử đăng nhập và MFA."
       },
       "markdownPreview": {
         "title": "Xem trước Markdown",
@@ -2825,6 +2835,58 @@
     "emptyHintBcrypt": "Nhập mật khẩu để tính băm bcrypt.",
     "securityNoteBcrypt": "Mỗi đầu ra bcrypt có muối ngẫu nhiên; cùng mật khẩu cho chuỗi khác nhau mỗi lần. Điều này là bình thường. Dùng chi phí cao trong môi trường production."
   },
+  "EncryptionPlayground": {
+    "title": "Sân chơi mã hóa",
+    "subtitle": "AES-GCM trong trình duyệt: mã hóa thành gói JSON bằng cụm mật khẩu hoặc khóa thô, rồi giải mã cục bộ. Mang tính học tập và đôi khi thực dụng — không tải dữ liệu lên.",
+    "tabEncrypt": "Mã hóa",
+    "tabDecrypt": "Giải mã",
+    "keyModeLabel": "Nguyên liệu khóa",
+    "modePassphrase": "Cụm mật khẩu (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Khóa AES thô (hex hoặc Base64)",
+    "aesBitsLabel": "Độ dài khóa AES",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Mã hóa khóa thô",
+    "encodingAuto": "Tự động (hex nếu trông giống hex, không thì Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Khóa thô",
+    "rawKeyPlaceholder": "Khóa 32 byte dưới dạng 64 ký tự hex hoặc Base64 cho AES-256 (độ dài phụ thuộc kích thước AES ở trên).",
+    "rawKeyPlaceholderDecrypt": "Chỉ cần khi gói có keyDerivation \"none\".",
+    "passphraseLabel": "Cụm mật khẩu",
+    "passphrasePlaceholder": "Cụm mật khẩu chỉ dùng trong trình duyệt để dẫn xuất khóa.",
+    "passphrasePlaceholderDecrypt": "Chỉ cần khi gói dùng PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "Số vòng PBKDF2",
+    "pbkdf2Hint": "Giới hạn từ 10.000 đến 2.000.000. Mặc định giống cài đặt kho mật thông dụng.",
+    "plaintextLabel": "Văn bản thuần",
+    "plaintextPlaceholder": "Nhập hoặc dán nội dung cần mã hóa…",
+    "bundleInputLabel": "Gói đã mã hóa (JSON)",
+    "bundlePlaceholder": "Dán JSON từ Mã hóa (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Gói đã mã hóa",
+    "plaintextOutputLabel": "Văn bản thuần",
+    "encryptButton": "Mã hóa",
+    "decryptButton": "Giải mã",
+    "copyBundle": "Sao chép JSON",
+    "copyPlaintext": "Sao chép văn bản thuần",
+    "copied": "Đã sao chép",
+    "emptyBundleHint": "JSON đã mã hóa hiển thị ở đây sau khi mã hóa.",
+    "emptyDecryptHint": "Văn bản đã giải mã hiển thị ở đây.",
+    "decryptKeyHint": "Dùng khóa thô nếu keyDerivation là \"none\"; dùng cụm mật khẩu nếu là PBKDF2-SHA256. Gói lưu muối, số vòng, IV và độ dài AES.",
+    "securityNote": "Khóa và văn bản thuần không rời khỏi trình duyệt. Bí mật production nên dùng công cụ chuyên dụng.",
+    "errors": {
+      "emptyKey": "Nhập khóa thô khớp kích thước AES.",
+      "emptyPassphrase": "Nhập cụm mật khẩu.",
+      "badKeyMaterial": "Không đọc được khóa dưới dạng hex hoặc Base64.",
+      "wrongKeyLength": "Độ dài khóa không khớp AES (16 / 24 / 32 byte).",
+      "invalidJson": "JSON không hợp lệ.",
+      "invalidBundle": "JSON này không phải gói mã hóa được hỗ trợ.",
+      "decryptFailed": "Giải mã thất bại — sai bí mật, gói hỏng hoặc tham số không khớp.",
+      "encryptFailed": "Mã hóa thất bại. Kiểm tra Web Crypto và đầu vào."
+    }
+  },
   "HmacGenerator": {
     "title": "Trình tạo HMAC",
     "subtitle": "Để ký webhook và kiểm thử tích hợp API. HMAC-SHA1/256/384/512 dạng hex hoặc Base64—tính cục bộ trong trình duyệt.",
@@ -2850,6 +2912,24 @@
     "securityNote": "Không bao giờ chia sẻ bí mật ký. Trang này không tải dữ liệu lên—mọi thứ chạy trong trình duyệt.",
     "errors": {
       "cryptoFailed": "Không thể tính HMAC. Kiểm tra hỗ trợ Web Crypto và thử lại."
+    }
+  },
+  "TotpGenerator": {
+    "title": "Trình tạo mã TOTP / 2FA",
+    "subtitle": "Dán bí mật Base32 và lấy mã sáu chữ số RFC 6238 hiện tại (SHA-1, 30 giây). Chạy cục bộ trong trình duyệt—hữu ích khi thử đăng nhập hoặc MFA.",
+    "secretLabel": "Bí mật (Base32)",
+    "placeholderSecret": "Dán khóa bí mật (chữ A–Z và số 2–7, như khi thiết lập ứng dụng xác thực)…",
+    "codeLabel": "Mã hiện tại",
+    "copyCode": "Sao chép mã",
+    "copied": "Đã sao chép",
+    "nextIn": "Làm mới sau {seconds} giây",
+    "standardHint": "Bước thời gian 30 giây, 6 chữ số, HMAC-SHA-1 (tương thích Google Authenticator).",
+    "emptyHint": "Dán bí mật để tạo mã sáu chữ số.",
+    "invalidHint": "Sửa bí mật để xem mã.",
+    "securityNote": "Coi như mật khẩu. Bí mật không rời khỏi trình duyệt; không tải dữ liệu lên.",
+    "errors": {
+      "invalidSecret": "Đây không phải bí mật Base32 hợp lệ.",
+      "cryptoFailed": "Không thể tính TOTP. Kiểm tra Web Crypto và thử lại."
     }
   },
   "MarkdownPreview": {

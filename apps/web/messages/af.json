@@ -12,6 +12,7 @@
     "nosqlExplorer": "NoSQL-verkenner",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "Enkripsie-speelgrond",
     "jwtDecoder": "JWT-dekodeerder",
     "certificatePemDecoder": "Sertifikaat / PEM-dekodeerder",
     "sqlFormatter": "SQL Formatter",
@@ -39,6 +40,7 @@
     "ipSubnetCalculator": "IP-/subnetrekenaar",
     "hashGenerator": "Hash-generator",
     "hmacGenerator": "HMAC-generator",
+    "totpGenerator": "TOTP / 2FA-kode",
     "markdownPreview": "Markdown-voorskou",
     "numberBaseConverter": "Basisomskakelaar",
     "formatConverter": "Formaat Omskakelaer",
@@ -261,6 +263,10 @@
         "title": "E-posvalidator",
         "description": "Verifieer en valideer e-posadresse."
       },
+      "encryptionPlayground": {
+        "title": "Enkripsie-speelgrond",
+        "description": "AES-GCM met rou sleutel of wagfrase; JSON-bondels, Web Crypto net in die blaaier."
+      },
       "jwtDecoder": {
         "title": "JWT-dekodeerder",
         "description": "Dekodeer JWT-kop, payload en vervaldatum."
@@ -372,6 +378,10 @@
       "hmacGenerator": {
         "title": "HMAC-generator",
         "description": "Teken webhooks en toets API-integrasies met HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "TOTP / 2FA-kodegenerator",
+        "description": "Plak 'n Base32-geheim vanaf die verifikasie-app; die sesyfer-kode verfris elke 30 s—nuttig om aanmelding en MFA te toets."
       },
       "markdownPreview": {
         "title": "Markdown-voorskou",
@@ -2825,6 +2835,58 @@
     "emptyHintBcrypt": "Voer ’n wagwoord in om ’n bcrypt-hash te bereken.",
     "securityNoteBcrypt": "Elke bcrypt-uitset sluit ’n lukrake sout in; dieselfde wagwoord gee elke keer ’n ander string. Dit is verwag. Gebruik sterk koste in produksie."
   },
+  "EncryptionPlayground": {
+    "title": "Enkripsie-speelgrond",
+    "subtitle": "AES-GCM in die blaaier: enkripteer na ’n JSON-bondel met wagfrase of rou sleutel en dekripteer plaaslik. Opvoedkundig en soms prakties — niks word opgelaai nie.",
+    "tabEncrypt": "Enkripteer",
+    "tabDecrypt": "Dekripteer",
+    "keyModeLabel": "Sleutelmateriaal",
+    "modePassphrase": "Wagfrase (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Rou AES-sleutel (hex of Base64)",
+    "aesBitsLabel": "AES-sleutellengte",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Kodering van rou sleutel",
+    "encodingAuto": "Outo (hex as dit soos hex lyk, anders Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Rou sleutel",
+    "rawKeyPlaceholder": "32-greep sleutel as 64 hex-karakters of Base64 vir AES-256 (lengte hang van AES-grootte af).",
+    "rawKeyPlaceholderDecrypt": "Slegs nodig as die bondel keyDerivation \"none\" het.",
+    "passphraseLabel": "Wagfrase",
+    "passphrasePlaceholder": "Wagfrase word net in die blaaier gebruik om die sleutel af te lei.",
+    "passphrasePlaceholderDecrypt": "Slegs nodig as die bondel PBKDF2-SHA256 gebruik.",
+    "pbkdf2IterLabel": "PBKDF2-iterasies",
+    "pbkdf2Hint": "Tussen 10 000 en 2 000 000. Verstek stem ooreen met gewone kluis-instellings.",
+    "plaintextLabel": "Duidelike teks",
+    "plaintextPlaceholder": "Tik of plak die boodskap om te enkripteer…",
+    "bundleInputLabel": "Geënkripteerde bondel (JSON)",
+    "bundlePlaceholder": "Plak die JSON van Enkripteer (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Geënkripteerde bondel",
+    "plaintextOutputLabel": "Duidelike teks",
+    "encryptButton": "Enkripteer",
+    "decryptButton": "Dekripteer",
+    "copyBundle": "Kopieer JSON",
+    "copyPlaintext": "Kopieer duidelike teks",
+    "copied": "Gekopieer",
+    "emptyBundleHint": "Geënkripteerde JSON verskyn hier na enkripsie.",
+    "emptyDecryptHint": "Gedekripteerde teks verskyn hier.",
+    "decryptKeyHint": "Gebruik rou sleutel as keyDerivation \"none\" is; wagfrase by PBKDF2-SHA256. Die bondel stoor sout, iterasies, IV en AES-lengte.",
+    "securityNote": "Sleutels en duidelike teks verlaat nie jou blaaier nie. Gebruik toegewyde gereedskap vir produksiegeheime.",
+    "errors": {
+      "emptyKey": "Voer ’n rou sleutel in wat by die AES-grootte pas.",
+      "emptyPassphrase": "Voer ’n wagfrase in.",
+      "badKeyMaterial": "Sleutel kon nie as hex of Base64 gelees word nie.",
+      "wrongKeyLength": "Sleutellengte pas nie by AES (16 / 24 / 32 grepe) nie.",
+      "invalidJson": "Ongeldige JSON.",
+      "invalidBundle": "Hierdie JSON is nie ’n ondersteunde enkripsiebondel nie.",
+      "decryptFailed": "Dekripsie het misluk — verkeerde geheim, beskadigde bondel of verkeerde parameters.",
+      "encryptFailed": "Enkripsie het misluk. Kontroleer Web Crypto en invoer."
+    }
+  },
   "HmacGenerator": {
     "title": "HMAC-generator",
     "subtitle": "Vir die ondertekening van webhooks en die toets van API-integrasies. HMAC-SHA1/256/384/512 in heks of Base64—plaaslik in jou blaaier bereken.",
@@ -2850,6 +2912,24 @@
     "securityNote": "Deel nooit jou ondertekeningsgeheim nie. Hierdie bladsy laai niks op nie—alles loop in jou blaaier.",
     "errors": {
       "cryptoFailed": "Kon nie HMAC bereken nie. Kontroleer Web Crypto-steun en probeer weer."
+    }
+  },
+  "TotpGenerator": {
+    "title": "TOTP / 2FA-kodegenerator",
+    "subtitle": "Plak die Base32-geheim en kry die huidige sesyfer RFC 6238-kode (SHA-1, 30 s). Loop plaaslik in die blaaier—nuttig om aanmelding of MFA te toets.",
+    "secretLabel": "Geheim (Base32)",
+    "placeholderSecret": "Plak die geheime sleutel (letters A–Z en syfers 2–7, soos by die opstel van die verifikasie-app)…",
+    "codeLabel": "Huidige kode",
+    "copyCode": "Kopieer kode",
+    "copied": "Gekopieer",
+    "nextIn": "Verfris oor {seconds} s",
+    "standardHint": "30 s tydstap, 6 syfers, HMAC-SHA-1 (versoenbaar met Google Authenticator).",
+    "emptyHint": "Plak 'n geheim om 'n sesyfer-kode te genereer.",
+    "invalidHint": "Regstel die geheim om die kode te sien.",
+    "securityNote": "Hanteer soos 'n wagwoord. Die geheim verlaat nie die blaaier nie; niks word opgelaai nie.",
+    "errors": {
+      "invalidSecret": "Ongeldige Base32-geheim.",
+      "cryptoFailed": "Kon nie TOTP bereken nie. Kontroleer Web Crypto en probeer weer."
     }
   },
   "MarkdownPreview": {

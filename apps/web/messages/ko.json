@@ -12,6 +12,7 @@
     "nosqlExplorer": "NoSQL 탐색기",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "암호화 연습장",
     "jwtDecoder": "JWT 디코더",
     "certificatePemDecoder": "인증서 / PEM 디코더",
     "sqlFormatter": "SQL Formatter",
@@ -39,6 +40,7 @@
     "ipSubnetCalculator": "IP / 서브넷 계산기",
     "hashGenerator": "해시 생성기",
     "hmacGenerator": "HMAC 생성기",
+    "totpGenerator": "TOTP / 2FA 코드",
     "markdownPreview": "마크다운 미리보기",
     "numberBaseConverter": "진법 변환기",
     "formatConverter": "포맷 변환기",
@@ -261,6 +263,10 @@
         "title": "이메일 검증기",
         "description": "이메일 주소를 검증하세요."
       },
+      "encryptionPlayground": {
+        "title": "암호화 연습장",
+        "description": "원시 키 또는 암호로 AES-GCM, JSON 번들, Web Crypto는 브라우저에서만."
+      },
       "jwtDecoder": {
         "title": "JWT 디코더",
         "description": "JWT 헤더, 페이로드, 만료 시간을 디코딩합니다."
@@ -372,6 +378,10 @@
       "hmacGenerator": {
         "title": "HMAC 생성기",
         "description": "HMAC-SHA1/256/384/512로 웹훅 서명 및 API 연동 테스트."
+      },
+      "totpGenerator": {
+        "title": "TOTP / 2FA 코드 생성기",
+        "description": "인증 앱의 Base32 비밀키를 붙여넣으면 6자리 코드가 30초마다 갱신됩니다. 로그인·MFA 테스트에 유용합니다."
       },
       "markdownPreview": {
         "title": "마크다운 미리보기",
@@ -2825,6 +2835,58 @@
     "emptyHintBcrypt": "bcrypt 해시를 계산하려면 비밀번호를 입력하세요.",
     "securityNoteBcrypt": "bcrypt 출력에는 매번 무작위 솔트가 포함됩니다. 같은 비밀번호라도 매번 다른 문자열이 나옵니다. 운영 환경에서는 높은 비용을 사용하세요."
   },
+  "EncryptionPlayground": {
+    "title": "암호화 연습장",
+    "subtitle": "브라우저의 AES-GCM: 암호 또는 원시 키로 JSON 번들에 암호화한 뒤 로컬에서 복호화합니다. 교육용이며 가끔 실용적 — 업로드 없음.",
+    "tabEncrypt": "암호화",
+    "tabDecrypt": "복호화",
+    "keyModeLabel": "키 자료",
+    "modePassphrase": "암호문구 (PBKDF2 + AES-GCM)",
+    "modeRawKey": "원시 AES 키 (hex 또는 Base64)",
+    "aesBitsLabel": "AES 키 길이",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "원시 키 인코딩",
+    "encodingAuto": "자동 (hex처럼 보이면 hex, 아니면 Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "원시 키",
+    "rawKeyPlaceholder": "32바이트 키는 64자 hex 또는 AES-256용 Base64 (길이는 위 AES 크기에 따름).",
+    "rawKeyPlaceholderDecrypt": "번들에 keyDerivation \"none\"일 때만 필요합니다.",
+    "passphraseLabel": "암호문구",
+    "passphrasePlaceholder": "암호문구는 키 유도를 위해 브라우저에서만 사용됩니다.",
+    "passphrasePlaceholderDecrypt": "번들이 PBKDF2-SHA256일 때만 필요합니다.",
+    "pbkdf2IterLabel": "PBKDF2 반복",
+    "pbkdf2Hint": "10,000~2,000,000으로 제한. 기본값은 일반적인 금고 설정과 유사합니다.",
+    "plaintextLabel": "평문",
+    "plaintextPlaceholder": "암호화할 메시지를 입력하거나 붙여넣기…",
+    "bundleInputLabel": "암호화된 번들 (JSON)",
+    "bundlePlaceholder": "암호화에서 나온 JSON 붙여넣기 (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "암호화된 번들",
+    "plaintextOutputLabel": "평문",
+    "encryptButton": "암호화",
+    "decryptButton": "복호화",
+    "copyBundle": "JSON 복사",
+    "copyPlaintext": "평문 복사",
+    "copied": "복사됨",
+    "emptyBundleHint": "암호화 후 암호화된 JSON이 여기에 표시됩니다.",
+    "emptyDecryptHint": "복호화된 텍스트가 여기에 표시됩니다.",
+    "decryptKeyHint": "keyDerivation이 \"none\"이면 원시 키, PBKDF2-SHA256이면 암호문구를 사용하세요. 번들에 솔트, 반복, IV, AES 길이가 저장됩니다.",
+    "securityNote": "키와 평문은 브라우저를 벗어나지 않습니다. 프로덕션 비밀은 전용 도구를 사용하세요.",
+    "errors": {
+      "emptyKey": "AES 크기에 맞는 원시 키를 입력하세요.",
+      "emptyPassphrase": "암호문구를 입력하세요.",
+      "badKeyMaterial": "키를 hex 또는 Base64로 읽을 수 없습니다.",
+      "wrongKeyLength": "키 길이가 선택한 AES(16 / 24 / 32바이트)와 맞지 않습니다.",
+      "invalidJson": "올바른 JSON이 아닙니다.",
+      "invalidBundle": "지원되는 암호 번들이 아닙니다.",
+      "decryptFailed": "복호화 실패 — 잘못된 비밀, 손상된 번들 또는 매개변수 불일치.",
+      "encryptFailed": "암호화 실패. Web Crypto와 입력을 확인하세요."
+    }
+  },
   "HmacGenerator": {
     "title": "HMAC 생성기",
     "subtitle": "웹훅 서명과 API 연동 테스트용. HMAC-SHA1/256/384/512를 hex 또는 Base64로—브라우저에서 로컬 계산.",
@@ -2850,6 +2912,24 @@
     "securityNote": "서명 비밀값은 절대 공유하지 마세요. 이 페이지는 데이터를 업로드하지 않으며 모두 브라우저에서 실행됩니다.",
     "errors": {
       "cryptoFailed": "HMAC을 계산할 수 없습니다. Web Crypto 지원을 확인하고 다시 시도하세요."
+    }
+  },
+  "TotpGenerator": {
+    "title": "TOTP / 2FA 코드 생성기",
+    "subtitle": "Base32 비밀키를 붙여넣어 현재 6자리 RFC 6238 코드(SHA-1, 30초)를 확인합니다. 브라우저에서만 처리—로그인 또는 MFA 테스트에 적합합니다.",
+    "secretLabel": "비밀키(Base32)",
+    "placeholderSecret": "비밀키를 붙여넣기(A–Z와 2–7 숫자, 인증 앱 설정 시와 동일)…",
+    "codeLabel": "현재 코드",
+    "copyCode": "코드 복사",
+    "copied": "복사됨",
+    "nextIn": "{seconds}초 후 갱신",
+    "standardHint": "30초 간격, 6자리, HMAC-SHA-1(Google Authenticator 호환).",
+    "emptyHint": "6자리 코드를 만들려면 비밀키를 붙여넣으세요.",
+    "invalidHint": "코드를 보려면 비밀키를 수정하세요.",
+    "securityNote": "비밀번호처럼 다루세요. 비밀키는 브라우저를 벗어나지 않으며 업로드되지 않습니다.",
+    "errors": {
+      "invalidSecret": "유효한 Base32 비밀키가 아닙니다.",
+      "cryptoFailed": "TOTP를 계산할 수 없습니다. Web Crypto를 확인하고 다시 시도하세요."
     }
   },
   "MarkdownPreview": {

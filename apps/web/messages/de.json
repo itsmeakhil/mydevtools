@@ -8,6 +8,7 @@
     "environmentManager": "Umgebungs-Manager",
     "bookmarks": "Lesezeichen",
     "emailValidator": "E-Mail-Validator",
+    "encryptionPlayground": "Verschlüsselungs-Spielplatz",
     "jwtDecoder": "JWT-Decoder",
     "certificatePemDecoder": "Zertifikat- / PEM-Decoder",
     "jsonFormatter": "JSON-Formatierer",
@@ -39,6 +40,7 @@
     "ipSubnetCalculator": "IP-/Subnetz-Rechner",
     "hashGenerator": "Hash-Generator",
     "hmacGenerator": "HMAC-Generator",
+    "totpGenerator": "TOTP / 2FA-Code",
     "markdownPreview": "Markdown-Vorschau",
     "numberBaseConverter": "Basiskonverter",
     "formatConverter": "Format-Konverter",
@@ -261,6 +263,10 @@
         "title": "E-Mail-Validator",
         "description": "E-Mail-Adressen prüfen und validieren."
       },
+      "encryptionPlayground": {
+        "title": "Verschlüsselungs-Spielplatz",
+        "description": "AES-GCM mit Rohschlüssel oder Passphrase; JSON-Bündel, Web Crypto nur im Browser."
+      },
       "jwtDecoder": {
         "title": "JWT-Decoder",
         "description": "JWT-Header, Nutzdaten und Ablaufzeit dekodieren."
@@ -372,6 +378,10 @@
       "hmacGenerator": {
         "title": "HMAC-Generator",
         "description": "Webhooks signieren und API-Integrationen mit HMAC-SHA1/256/384/512 testen."
+      },
+      "totpGenerator": {
+        "title": "TOTP- / 2FA-Codegenerator",
+        "description": "Base32-Geheimnis einfügen; der sechsstellige Code erneuert sich alle 30 Sekunden—praktisch zum Testen von Login und MFA."
       },
       "markdownPreview": {
         "title": "Markdown-Vorschau",
@@ -2825,6 +2835,58 @@
     "emptyHintBcrypt": "Geben Sie ein Passwort ein, um einen bcrypt-Hash zu berechnen.",
     "securityNoteBcrypt": "Jede bcrypt-Ausgabe enthält ein zufälliges Salz; dasselbe Passwort ergibt jedes Mal eine andere Zeichenkette. Das ist erwartet. In Produktion hohe Kosten verwenden."
   },
+  "EncryptionPlayground": {
+    "title": "Verschlüsselungs-Spielplatz",
+    "subtitle": "AES-GCM im Browser: mit Passphrase oder Rohschlüssel verschlüsseln, als JSON-Bündel speichern und lokal wieder entschlüsseln. Lehrreich und gelegentlich praktisch — nichts wird hochgeladen.",
+    "tabEncrypt": "Verschlüsseln",
+    "tabDecrypt": "Entschlüsseln",
+    "keyModeLabel": "Schlüsselmaterial",
+    "modePassphrase": "Passphrase (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Roh-AES-Schlüssel (Hex oder Base64)",
+    "aesBitsLabel": "AES-Schlüssellänge",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Kodierung des Rohschlüssels",
+    "encodingAuto": "Automatisch (Hex, wenn es wie Hex aussieht, sonst Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Rohschlüssel",
+    "rawKeyPlaceholder": "32-Byte-Schlüssel als 64 Hex-Zeichen oder Base64 für AES-256 (Länge hängt von der gewählten AES-Größe ab).",
+    "rawKeyPlaceholderDecrypt": "Nur nötig, wenn im Bündel keyDerivation \"none\" steht.",
+    "passphraseLabel": "Passphrase",
+    "passphrasePlaceholder": "Passphrase — nur im Browser zur Schlüsselableitung.",
+    "passphrasePlaceholderDecrypt": "Nur nötig, wenn das Bündel PBKDF2-SHA256 verwendet.",
+    "pbkdf2IterLabel": "PBKDF2-Iterationen",
+    "pbkdf2Hint": "Begrenzt auf 10.000 bis 2.000.000. Standard entspricht gängigen Tresor-Einstellungen.",
+    "plaintextLabel": "Klartext",
+    "plaintextPlaceholder": "Nachricht zum Verschlüsseln eingeben oder einfügen …",
+    "bundleInputLabel": "Verschlüsseltes Bündel (JSON)",
+    "bundlePlaceholder": "JSON aus „Verschlüsseln“ einfügen (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Verschlüsseltes Bündel",
+    "plaintextOutputLabel": "Klartext",
+    "encryptButton": "Verschlüsseln",
+    "decryptButton": "Entschlüsseln",
+    "copyBundle": "JSON kopieren",
+    "copyPlaintext": "Klartext kopieren",
+    "copied": "Kopiert",
+    "emptyBundleHint": "Nach dem Verschlüsseln erscheint hier das JSON.",
+    "emptyDecryptHint": "Entschlüsselter Text erscheint hier.",
+    "decryptKeyHint": "Rohschlüssel nutzen, wenn keyDerivation \"none\" lautet; Passphrase, wenn PBKDF2-SHA256. Das Bündel enthält Salt, Iterationen, IV und AES-Länge.",
+    "securityNote": "Schlüssel und Klartext verlassen Ihren Browser nicht. Für produktive Geheimnisse lieber spezialisierte Werkzeuge.",
+    "errors": {
+      "emptyKey": "Geben Sie einen Rohschlüssel passend zur AES-Größe ein.",
+      "emptyPassphrase": "Geben Sie eine Passphrase ein.",
+      "badKeyMaterial": "Schlüssel konnte weder als Hex noch als Base64 gelesen werden.",
+      "wrongKeyLength": "Schlüssellänge passt nicht zur gewählten AES-Größe (16 / 24 / 32 Byte).",
+      "invalidJson": "Kein gültiges JSON.",
+      "invalidBundle": "Dieses JSON ist kein unterstütztes Verschlüsselungsbündel.",
+      "decryptFailed": "Entschlüsselung fehlgeschlagen — falsches Geheimnis, beschädigtes Bündel oder falsche Parameter.",
+      "encryptFailed": "Verschlüsselung fehlgeschlagen. Prüfen Sie Web Crypto und die Eingaben."
+    }
+  },
   "HmacGenerator": {
     "title": "HMAC-Generator",
     "subtitle": "Zum Signieren von Webhooks und Testen von API-Integrationen. HMAC-SHA1/256/384/512 als Hex oder Base64—lokal im Browser berechnet.",
@@ -2850,6 +2912,24 @@
     "securityNote": "Teilen Sie Ihr Signing-Secret niemals. Diese Seite lädt keine Daten hoch—alles läuft im Browser.",
     "errors": {
       "cryptoFailed": "HMAC konnte nicht berechnet werden. Prüfen Sie Web Crypto und versuchen Sie es erneut."
+    }
+  },
+  "TotpGenerator": {
+    "title": "TOTP- / 2FA-Codegenerator",
+    "subtitle": "Authenticator-Geheimnis (Base32) einfügen und den aktuellen sechsstelligen RFC-6238-Code (SHA-1, 30 s) erhalten. Läuft lokal im Browser—nützlich zum Testen von Anmeldung oder MFA.",
+    "secretLabel": "Geheimnis (Base32)",
+    "placeholderSecret": "Geheimen Schlüssel einfügen (Buchstaben A–Z und Ziffern 2–7, wie bei der Einrichtung der Authenticator-App)…",
+    "codeLabel": "Aktueller Code",
+    "copyCode": "Code kopieren",
+    "copied": "Kopiert",
+    "nextIn": "Erneuert in {seconds} s",
+    "standardHint": "30-Sekunden-Zeitschritt, 6 Ziffern, HMAC-SHA-1 (kompatibel mit Google Authenticator).",
+    "emptyHint": "Geheimnis einfügen, um einen sechsstelligen Code zu erzeugen.",
+    "invalidHint": "Korrigieren Sie das Geheimnis, um den Code zu sehen.",
+    "securityNote": "Behandeln Sie das wie ein Passwort. Das Geheimnis verlässt nie Ihren Browser; es wird nichts hochgeladen.",
+    "errors": {
+      "invalidSecret": "Das ist kein gültiges Base32-Geheimnis.",
+      "cryptoFailed": "TOTP konnte nicht berechnet werden. Prüfen Sie Web Crypto und versuchen Sie es erneut."
     }
   },
   "MarkdownPreview": {

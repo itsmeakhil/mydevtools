@@ -12,6 +12,7 @@
     "nosqlExplorer": "NoSQL Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "Χώρος δοκιμών κρυπτογράφησης",
     "jwtDecoder": "Αποκωδικοποιητής JWT",
     "certificatePemDecoder": "Αποκωδικοποιητής πιστοποιητικού / PEM",
     "sqlFormatter": "SQL Formatter",
@@ -39,6 +40,7 @@
     "ipSubnetCalculator": "Υπολογιστής IP / υποδικτύου",
     "hashGenerator": "Γεννήτρια hash",
     "hmacGenerator": "Γεννήτρια HMAC",
+    "totpGenerator": "Κωδικός TOTP / 2FA",
     "markdownPreview": "Προεπισκόπηση Markdown",
     "numberBaseConverter": "Μετατροπέας βάσης",
     "formatConverter": "Μετατροπέας Μορφών",
@@ -261,6 +263,10 @@
         "title": "Επικύρωση email",
         "description": "Επαληθεύστε και επικυρώστε διευθύνσεις email."
       },
+      "encryptionPlayground": {
+        "title": "Χώρος δοκιμών κρυπτογράφησης",
+        "description": "AES-GCM με ακατέργαστο κλειδί ή συνθηματική φράση· δέσμες JSON, Web Crypto μόνο στον browser."
+      },
       "jwtDecoder": {
         "title": "Αποκωδικοποιητής JWT",
         "description": "Αποκωδικοποιήστε κεφαλίδα, payload και λήξη JWT."
@@ -372,6 +378,10 @@
       "hmacGenerator": {
         "title": "Γεννήτρια HMAC",
         "description": "Υπογράψτε webhooks και δοκιμάστε ενσωματώσεις API με HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "Γεννήτρια κωδικού TOTP / 2FA",
+        "description": "Επικολλήστε μυστικό Base32 από την εφαρμογή ελέγχου ταυτότητας· ο εξαψήφιος κωδικός ανανεώνεται κάθε 30 δ—χρήσιμο για δοκιμές σύνδεσης και MFA."
       },
       "markdownPreview": {
         "title": "Προεπισκόπηση Markdown",
@@ -2825,6 +2835,58 @@
     "emptyHintBcrypt": "Εισάγετε κωδικό για υπολογισμό bcrypt.",
     "securityNoteBcrypt": "Κάθε έξοδος bcrypt περιλαμβάνει τυχαίο αλάτι· ο ίδιος κωδικός δίνει διαφορετική συμβολοσειρά κάθε φορά. Αυτό αναμένεται. Χρησιμοποιήστε υψηλό κόστος σε παραγωγή."
   },
+  "EncryptionPlayground": {
+    "title": "Χώρος δοκιμών κρυπτογράφησης",
+    "subtitle": "AES-GCM στον browser: κρυπτογράφηση σε δέσμη JSON με συνθηματική ή ακατέργαστο κλειδί και αποκρυπτογράφηση τοπικά. Εκπαιδευτικό και περιστασιακά πρακτικό — δεν ανεβαίνει τίποτα.",
+    "tabEncrypt": "Κρυπτογράφηση",
+    "tabDecrypt": "Αποκρυπτογράφηση",
+    "keyModeLabel": "Υλικό κλειδιού",
+    "modePassphrase": "Συνθηματική φράση (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Ακατέργαστο κλειδί AES (hex ή Base64)",
+    "aesBitsLabel": "Μήκος κλειδιού AES",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Κωδικοποίηση ακατέργαστου κλειδιού",
+    "encodingAuto": "Αυτόματο (hex αν μοιάζει με hex, αλλιώς Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Ακατέργαστο κλειδί",
+    "rawKeyPlaceholder": "Κλειδί 32 byte ως 64 hex χαρακτήρες ή Base64 για AES-256 (το μήκος εξαρτάται από το AES παραπάνω).",
+    "rawKeyPlaceholderDecrypt": "Χρειάζεται μόνο όταν η δέσμη έχει keyDerivation \"none\".",
+    "passphraseLabel": "Συνθηματική φράση",
+    "passphrasePlaceholder": "Η φράση χρησιμοποιείται μόνο στον browser για παραγωγή κλειδιού.",
+    "passphrasePlaceholderDecrypt": "Χρειάζεται μόνο όταν η δέσμη χρησιμοποιεί PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "Επαναλήψεις PBKDF2",
+    "pbkdf2Hint": "Μεταξύ 10.000 και 2.000.000. Η προεπιλογή ταιριάζει με κοινές ρυθμίσεις vault.",
+    "plaintextLabel": "Απλό κείμενο",
+    "plaintextPlaceholder": "Πληκτρολογήστε ή επικολλήστε το μήνυμα προς κρυπτογράφηση…",
+    "bundleInputLabel": "Κρυπτογραφημένη δέσμη (JSON)",
+    "bundlePlaceholder": "Επικολλήστε το JSON από Κρυπτογράφηση (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Κρυπτογραφημένη δέσμη",
+    "plaintextOutputLabel": "Απλό κείμενο",
+    "encryptButton": "Κρυπτογράφηση",
+    "decryptButton": "Αποκρυπτογράφηση",
+    "copyBundle": "Αντιγραφή JSON",
+    "copyPlaintext": "Αντιγραφή απλού κειμένου",
+    "copied": "Αντιγράφηκε",
+    "emptyBundleHint": "Το κρυπτογραφημένο JSON εμφανίζεται εδώ μετά την κρυπτογράφηση.",
+    "emptyDecryptHint": "Το αποκρυπτογραφημένο κείμενο εμφανίζεται εδώ.",
+    "decryptKeyHint": "Χρησιμοποιήστε ακατέργαστο κλειδί αν keyDerivation είναι \"none\"· τη συνθηματική για PBKDF2-SHA256. Η δέσμη αποθηκεύει αλάτι, επαναλήψεις, IV και μήκος AES.",
+    "securityNote": "Τα κλειδιά και το απλό κείμενο δεν εγκαταλείπουν τον browser. Για μυστικά παραγωγής προτιμήστε εξειδικευμένα εργαλεία.",
+    "errors": {
+      "emptyKey": "Εισάγετε ακατέργαστο κλειδί που ταιριάζει στο μέγεθος AES.",
+      "emptyPassphrase": "Εισάγετε συνθηματική φράση.",
+      "badKeyMaterial": "Δεν ήταν δυνατή η ανάγνωση του κλειδιού ως hex ή Base64.",
+      "wrongKeyLength": "Το μήκος κλειδιού δεν ταιριάζει στο AES (16 / 24 / 32 byte).",
+      "invalidJson": "Μη έγκυρο JSON.",
+      "invalidBundle": "Αυτό το JSON δεν είναι υποστηριζόμενη δέσμη κρυπτογράφησης.",
+      "decryptFailed": "Η αποκρυπτογράφηση απέτυχε — λάθος μυστικό, κατεστραμμένη δέσμη ή παράμετροι.",
+      "encryptFailed": "Η κρυπτογράφηση απέτυχε. Ελέγξτε το Web Crypto και τις εισόδους."
+    }
+  },
   "HmacGenerator": {
     "title": "Γεννήτρια HMAC",
     "subtitle": "Για υπογραφή webhooks και δοκιμή ενσωματώσεων API. HMAC-SHA1/256/384/512 σε hex ή Base64—υπολογισμός τοπικά στον περιηγητή.",
@@ -2850,6 +2912,24 @@
     "securityNote": "Μην μοιράζεστε ποτέ το μυστικό υπογραφής. Αυτή η σελίδα δεν ανεβάζει δεδομένα—όλα εκτελούνται στον περιηγητή.",
     "errors": {
       "cryptoFailed": "Αδυναμία υπολογισμού HMAC. Ελέγξτε την υποστήριξη Web Crypto και δοκιμάστε ξανά."
+    }
+  },
+  "TotpGenerator": {
+    "title": "Γεννήτρια κωδικού TOTP / 2FA",
+    "subtitle": "Επικολλήστε το μυστικό Base32 και λάβετε τον τρέχοντα εξαψήφιο κωδικό RFC 6238 (SHA-1, 30 δ). Τοπικά στον περιηγητή—χρήσιμο για δοκιμές σύνδεσης ή MFA.",
+    "secretLabel": "Μυστικό (Base32)",
+    "placeholderSecret": "Επικολλήστε το μυστικό κλειδί (γράμματα A–Z και ψηφία 2–7, όπως κατά τη ρύθμιση του authenticator)…",
+    "codeLabel": "Τρέχων κωδικός",
+    "copyCode": "Αντιγραφή κωδικού",
+    "copied": "Αντιγράφηκε",
+    "nextIn": "Ανανέωση σε {seconds} δ",
+    "standardHint": "Βήμα χρόνου 30 δ, 6 ψηφία, HMAC-SHA-1 (συμβατό με Google Authenticator).",
+    "emptyHint": "Επικολλήστε μυστικό για εξαψήφιο κωδικό.",
+    "invalidHint": "Διορθώστε το μυστικό για να εμφανιστεί ο κωδικός.",
+    "securityNote": "Αντιμετωπίστε το ως κωδικό πρόσβασης. Το μυστικό δεν εγκαταλείπει τον περιηγητή· δεν γίνεται μεταφόρτωση.",
+    "errors": {
+      "invalidSecret": "Μη έγκυρο μυστικό Base32.",
+      "cryptoFailed": "Δεν ήταν δυνατός ο υπολογισμός TOTP. Ελέγξτε το Web Crypto και δοκιμάστε ξανά."
     }
   },
   "MarkdownPreview": {

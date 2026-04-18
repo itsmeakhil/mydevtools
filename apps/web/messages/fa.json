@@ -12,6 +12,7 @@
     "nosqlExplorer": "NoSQL Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "زمین بازی رمزنگاری",
     "jwtDecoder": "رمزگشای JWT",
     "certificatePemDecoder": "رمزگشای گواهی / PEM",
     "sqlFormatter": "SQL Formatter",
@@ -39,6 +40,7 @@
     "ipSubnetCalculator": "ماشین‌حساب IP / زیرشبکه",
     "hashGenerator": "تولیدکنندهٔ هش",
     "hmacGenerator": "تولیدکنندهٔ HMAC",
+    "totpGenerator": "کد TOTP / 2FA",
     "markdownPreview": "پیش‌نمایش Markdown",
     "numberBaseConverter": "مبدّل مبنا",
     "formatConverter": "مبدّل فرمت",
@@ -261,6 +263,10 @@
         "title": "اعتبار سنجی ایمیل",
         "description": "آدرس های ایمیل را تأیید و تأیید کنید."
       },
+      "encryptionPlayground": {
+        "title": "زمین بازی رمزنگاری",
+        "description": "AES-GCM با کلید خام یا عبارت عبور؛ بسته‌های JSON، Web Crypto فقط در مرورگر."
+      },
       "jwtDecoder": {
         "title": "رمزگشای JWT",
         "description": "هدر، بار داده و زمان انقضای JWT را رمزگشایی کنید."
@@ -372,6 +378,10 @@
       "hmacGenerator": {
         "title": "تولیدکنندهٔ HMAC",
         "description": "امضای وب‌هوک و آزمایش یکپارچگی API با HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "تولیدکنندهٔ کد TOTP / 2FA",
+        "description": "راز Base32 برنامهٔ احراز هویت را بچسبانید؛ کد شش‌رقمی هر ۳۰ ثانیه تازه می‌شود—برای آزمایش ورود و MFA مفید است."
       },
       "markdownPreview": {
         "title": "پیش‌نمایش Markdown",
@@ -2825,6 +2835,58 @@
     "emptyHintBcrypt": "برای محاسبهٔ هش bcrypt گذرواژه وارد کنید.",
     "securityNoteBcrypt": "هر خروجی bcrypt نمک تصادفی دارد؛ همان گذرواژه هر بار رشتهٔ متفاوتی می‌دهد. این طبیعی است. در تولید هزینهٔ بالا بگذارید."
   },
+  "EncryptionPlayground": {
+    "title": "زمین بازی رمزنگاری",
+    "subtitle": "AES-GCM در مرورگر: رمزنگاری به بسته JSON با عبارت عبور یا کلید خام و رمزگشایی محلی. آموزشی و گاهی کاربردی — چیزی آپلود نمی‌شود.",
+    "tabEncrypt": "رمزنگاری",
+    "tabDecrypt": "رمزگشایی",
+    "keyModeLabel": "ماده کلیدی",
+    "modePassphrase": "عبارت عبور (PBKDF2 + AES-GCM)",
+    "modeRawKey": "کلید خام AES (هگز یا Base64)",
+    "aesBitsLabel": "طول کلید AES",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "کدگذاری کلید خام",
+    "encodingAuto": "خودکار (هگز اگر شبیه هگز باشد، وگرنه Base64)",
+    "encodingHex": "هگز",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "کلید خام",
+    "rawKeyPlaceholder": "کلید ۳۲ بایتی به صورت ۶۴ نویسه هگز یا Base64 برای AES-۲۵۶ (طول به اندازه AES بالا بستگی دارد).",
+    "rawKeyPlaceholderDecrypt": "فقط وقتی لازم است که بسته keyDerivation برابر \"none\" داشته باشد.",
+    "passphraseLabel": "عبارت عبور",
+    "passphrasePlaceholder": "عبارت عبور فقط در مرورگر برای استخراج کلید استفاده می‌شود.",
+    "passphrasePlaceholderDecrypt": "فقط وقتی لازم است که بسته از PBKDF2-SHA256 استفاده کند.",
+    "pbkdf2IterLabel": "تکرارهای PBKDF2",
+    "pbkdf2Hint": "بین ۱۰٬۰۰۰ و ۲٬۰۰۰٬۰۰۰. پیش‌فرض با تنظیمات رایج گاوصندوق هم‌خوان است.",
+    "plaintextLabel": "متن آشکار",
+    "plaintextPlaceholder": "پیام را برای رمزنگاری تایپ یا جای‌گذاری کنید…",
+    "bundleInputLabel": "بسته رمزنگاری‌شده (JSON)",
+    "bundlePlaceholder": "JSON حاصل از رمزنگاری را بچسبانید (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "بسته رمزنگاری‌شده",
+    "plaintextOutputLabel": "متن آشکار",
+    "encryptButton": "رمزنگاری",
+    "decryptButton": "رمزگشایی",
+    "copyBundle": "کپی JSON",
+    "copyPlaintext": "کپی متن آشکار",
+    "copied": "کپی شد",
+    "emptyBundleHint": "JSON رمزنگاری‌شده پس از رمزنگاری اینجا نمایش داده می‌شود.",
+    "emptyDecryptHint": "متن رمزگشایی‌شده اینجا نمایش داده می‌شود.",
+    "decryptKeyHint": "اگر keyDerivation برابر \"none\" است از کلید خام؛ برای PBKDF2-SHA256 از عبارت عبور استفاده کنید. بسته نمک، تکرارها، IV و طول AES را نگه می‌دارد.",
+    "securityNote": "کلیدها و متن آشکار مرورگر شما را ترک نمی‌کنند. برای اسرار تولیدی از ابزارهای تخصصی استفاده کنید.",
+    "errors": {
+      "emptyKey": "کلید خام متناسب با اندازه AES وارد کنید.",
+      "emptyPassphrase": "عبارت عبور را وارد کنید.",
+      "badKeyMaterial": "کلید به صورت هگز یا Base64 خوانده نشد.",
+      "wrongKeyLength": "طول کلید با AES انتخاب‌شده مطابقت ندارد (۱۶ / ۲۴ / ۳۲ بایت).",
+      "invalidJson": "JSON معتبر نیست.",
+      "invalidBundle": "این JSON بسته رمزنگاری پشتیبانی‌شده نیست.",
+      "decryptFailed": "رمزگشایی ناموفق — راز اشتباه، بسته آسیب‌دیده یا پارامترهای نادرست.",
+      "encryptFailed": "رمزنگاری ناموفق. Web Crypto و ورودی‌ها را بررسی کنید."
+    }
+  },
   "HmacGenerator": {
     "title": "تولیدکنندهٔ HMAC",
     "subtitle": "برای امضای وب‌هوک‌ها و آزمایش یکپارچگی API. HMAC-SHA1/256/384/512 به صورت hex یا Base64—به‌صورت محلی در مرورگر.",
@@ -2850,6 +2912,24 @@
     "securityNote": "هرگز رمز امضا را به اشتراک نگذارید. این صفحه داده‌ای آپلود نمی‌کند؛ همه‌چیز در مرورگر اجرا می‌شود.",
     "errors": {
       "cryptoFailed": "محاسبهٔ HMAC ممکن نشد. پشتیبانی Web Crypto را بررسی و دوباره امتحان کنید."
+    }
+  },
+  "TotpGenerator": {
+    "title": "تولیدکنندهٔ کد TOTP / 2FA",
+    "subtitle": "راز Base32 را بچسبانید و کد شش‌رقمی فعلی RFC 6238 (SHA-1، ۳۰ ث) را بگیرید. همه‌چیز محلی در مرورگر—مفید برای آزمایش ورود یا MFA.",
+    "secretLabel": "راز (Base32)",
+    "placeholderSecret": "کلید مخفی را بچسبانید (حروف A–Z و ارقام ۲–۷، همان‌طور که در راه‌اندازی نمایش داده می‌شود)…",
+    "codeLabel": "کد فعلی",
+    "copyCode": "کپی کد",
+    "copied": "کپی شد",
+    "nextIn": "تازه‌سازی تا {seconds} ث",
+    "standardHint": "گام زمانی ۳۰ ث، ۶ رقم، HMAC-SHA-1 (سازگار با Google Authenticator).",
+    "emptyHint": "برای ساخت کد شش‌رقمی یک راز بچسبانید.",
+    "invalidHint": "راز را اصلاح کنید تا کد دیده شود.",
+    "securityNote": "مثل رمز عبور با آن رفتار کنید. راز مرورگر را ترک نمی‌کند؛ چیزی آپلود نمی‌شود.",
+    "errors": {
+      "invalidSecret": "این یک راز Base32 معتبر نیست.",
+      "cryptoFailed": "محاسبهٔ TOTP ممکن نشد. Web Crypto را بررسی و دوباره امتحان کنید."
     }
   },
   "MarkdownPreview": {

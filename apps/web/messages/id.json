@@ -12,6 +12,7 @@
     "nosqlExplorer": "NoSQL Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "Arena enkripsi",
     "jwtDecoder": "Dekoder JWT",
     "certificatePemDecoder": "Dekoder sertifikat / PEM",
     "sqlFormatter": "SQL Formatter",
@@ -39,6 +40,7 @@
     "ipSubnetCalculator": "Kalkulator IP / subnet",
     "hashGenerator": "Generator hash",
     "hmacGenerator": "Generator HMAC",
+    "totpGenerator": "Kode TOTP / 2FA",
     "markdownPreview": "Pratinjau Markdown",
     "numberBaseConverter": "Konverter basis",
     "formatConverter": "Konverter Format",
@@ -261,6 +263,10 @@
         "title": "Validator Email",
         "description": "Verifikasi dan validasi alamat email."
       },
+      "encryptionPlayground": {
+        "title": "Arena enkripsi",
+        "description": "AES-GCM dengan kunci mentah atau frasa sandi; paket JSON, Web Crypto hanya di peramban."
+      },
       "jwtDecoder": {
         "title": "Dekoder JWT",
         "description": "Decode header, payload, dan kedaluwarsa JWT."
@@ -372,6 +378,10 @@
       "hmacGenerator": {
         "title": "Generator HMAC",
         "description": "Menandatangani webhook dan menguji integrasi API dengan HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "Generator kode TOTP / 2FA",
+        "description": "Tempel rahasia Base32 dari aplikasi autentikator; kode enam digit diperbarui setiap 30 dtk—berguna untuk menguji login dan MFA."
       },
       "markdownPreview": {
         "title": "Pratinjau Markdown",
@@ -2825,6 +2835,58 @@
     "emptyHintBcrypt": "Masukkan kata sandi untuk menghitung hash bcrypt.",
     "securityNoteBcrypt": "Setiap keluaran bcrypt menyertakan garam acak; kata sandi yang sama menghasilkan string berbeda setiap kali. Ini wajar. Gunakan biaya tinggi di produksi."
   },
+  "EncryptionPlayground": {
+    "title": "Arena enkripsi",
+    "subtitle": "AES-GCM di peramban: enkripsi ke paket JSON dengan frasa sandi atau kunci mentah, lalu dekripsi secara lokal. Edukatif dan kadang praktis — tidak ada unggahan.",
+    "tabEncrypt": "Enkripsi",
+    "tabDecrypt": "Dekripsi",
+    "keyModeLabel": "Material kunci",
+    "modePassphrase": "Frasa sandi (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Kunci AES mentah (hex atau Base64)",
+    "aesBitsLabel": "Panjang kunci AES",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Pengodean kunci mentah",
+    "encodingAuto": "Otomatis (hex jika tampak seperti hex, jika tidak Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Kunci mentah",
+    "rawKeyPlaceholder": "Kunci 32 byte sebagai 64 karakter hex, atau Base64 untuk AES-256 (panjang tergantung ukuran AES di atas).",
+    "rawKeyPlaceholderDecrypt": "Hanya diperlukan jika paket memiliki keyDerivation \"none\".",
+    "passphraseLabel": "Frasa sandi",
+    "passphrasePlaceholder": "Frasa sandi hanya digunakan di peramban untuk menurunkan kunci.",
+    "passphrasePlaceholderDecrypt": "Hanya diperlukan jika paket memakai PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "Iterasi PBKDF2",
+    "pbkdf2Hint": "Antara 10.000 dan 2.000.000. Default mengikuti pengaturan brankas umum.",
+    "plaintextLabel": "Teks biasa",
+    "plaintextPlaceholder": "Ketik atau tempel pesan untuk dienkripsi…",
+    "bundleInputLabel": "Paket terenkripsi (JSON)",
+    "bundlePlaceholder": "Tempel JSON dari Enkripsi (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Paket terenkripsi",
+    "plaintextOutputLabel": "Teks biasa",
+    "encryptButton": "Enkripsi",
+    "decryptButton": "Dekripsi",
+    "copyBundle": "Salin JSON",
+    "copyPlaintext": "Salin teks biasa",
+    "copied": "Disalin",
+    "emptyBundleHint": "JSON terenkripsi muncul di sini setelah enkripsi.",
+    "emptyDecryptHint": "Teks terdekripsi muncul di sini.",
+    "decryptKeyHint": "Gunakan kunci mentah jika keyDerivation \"none\"; frasa sandi untuk PBKDF2-SHA256. Paket menyimpan garam, iterasi, IV, dan panjang AES.",
+    "securityNote": "Kunci dan teks biasa tidak meninggalkan peramban. Untuk rahasia produksi gunakan alat khusus.",
+    "errors": {
+      "emptyKey": "Masukkan kunci mentah yang sesuai ukuran AES.",
+      "emptyPassphrase": "Masukkan frasa sandi.",
+      "badKeyMaterial": "Tidak dapat membaca kunci sebagai hex atau Base64.",
+      "wrongKeyLength": "Panjang kunci tidak cocok dengan AES (16 / 24 / 32 byte).",
+      "invalidJson": "Bukan JSON yang valid.",
+      "invalidBundle": "JSON ini bukan paket enkripsi yang didukung.",
+      "decryptFailed": "Dekripsi gagal — rahasia salah, paket rusak, atau parameter tidak cocok.",
+      "encryptFailed": "Enkripsi gagal. Periksa Web Crypto dan masukan."
+    }
+  },
   "HmacGenerator": {
     "title": "Generator HMAC",
     "subtitle": "Untuk menandatangani webhook dan menguji integrasi API. HMAC-SHA1/256/384/512 dalam hex atau Base64—dihitung secara lokal di peramban.",
@@ -2850,6 +2912,24 @@
     "securityNote": "Jangan pernah membagikan rahasia penandatanganan. Halaman ini tidak mengunggah data—semua berjalan di peramban.",
     "errors": {
       "cryptoFailed": "Tidak dapat menghitung HMAC. Periksa dukungan Web Crypto dan coba lagi."
+    }
+  },
+  "TotpGenerator": {
+    "title": "Generator kode TOTP / 2FA",
+    "subtitle": "Tempel rahasia Base32 dan dapatkan kode enam digit RFC 6238 saat ini (SHA-1, 30 dtk). Berjalan lokal di browser—berguna untuk menguji login atau MFA.",
+    "secretLabel": "Rahasia (Base32)",
+    "placeholderSecret": "Tempel kunci rahasia (huruf A–Z dan angka 2–7, seperti saat menyiapkan autentikator)…",
+    "codeLabel": "Kode saat ini",
+    "copyCode": "Salin kode",
+    "copied": "Disalin",
+    "nextIn": "Diperbarui dalam {seconds} dtk",
+    "standardHint": "Langkah waktu 30 dtk, 6 digit, HMAC-SHA-1 (kompatibel Google Authenticator).",
+    "emptyHint": "Tempel rahasia untuk membuat kode enam digit.",
+    "invalidHint": "Perbaiki rahasia untuk melihat kode.",
+    "securityNote": "Perlakukan seperti sandi. Rahasia tidak meninggalkan browser; tidak ada unggahan.",
+    "errors": {
+      "invalidSecret": "Bukan rahasia Base32 yang valid.",
+      "cryptoFailed": "Tidak dapat menghitung TOTP. Periksa Web Crypto dan coba lagi."
     }
   },
   "MarkdownPreview": {

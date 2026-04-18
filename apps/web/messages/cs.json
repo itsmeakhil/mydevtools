@@ -12,6 +12,7 @@
     "nosqlExplorer": "Průzkumník NoSQL",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "Hraviště šifrování",
     "jwtDecoder": "Dekodér JWT",
     "certificatePemDecoder": "Dekodér certifikátů / PEM",
     "sqlFormatter": "SQL Formatter",
@@ -39,6 +40,7 @@
     "ipSubnetCalculator": "Kalkulačka IP / podsítě",
     "hashGenerator": "Generátor hashů",
     "hmacGenerator": "Generátor HMAC",
+    "totpGenerator": "Kód TOTP / 2FA",
     "markdownPreview": "Náhled Markdown",
     "numberBaseConverter": "Převodník soustav",
     "formatConverter": "Převodník formátů",
@@ -261,6 +263,10 @@
         "title": "Validátor e-mailu",
         "description": "Ověřujte a validujte e-mailové adresy."
       },
+      "encryptionPlayground": {
+        "title": "Hraviště šifrování",
+        "description": "AES-GCM s holým klíčem nebo přístupovou frází; JSON balíčky, Web Crypto jen v prohlížeči."
+      },
       "jwtDecoder": {
         "title": "Dekodér JWT",
         "description": "Dekódujte hlavičku, payload a vypršení JWT."
@@ -372,6 +378,10 @@
       "hmacGenerator": {
         "title": "Generátor HMAC",
         "description": "Podepisujte webhooky a testujte integrace API pomocí HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "Generátor kódu TOTP / 2FA",
+        "description": "Vložte Base32 tajemství z autentikátoru; šestimístný kód se obnoví každých 30 s—vhodné pro testování přihlášení a MFA."
       },
       "markdownPreview": {
         "title": "Náhled Markdown",
@@ -2825,6 +2835,58 @@
     "emptyHintBcrypt": "Zadejte heslo pro výpočet bcrypt hashe.",
     "securityNoteBcrypt": "Každý výstup bcrypt obsahuje náhodnou sůl; stejné heslo dá pokaždé jiný řetězec. To je očekávané. V produkci používejte vyšší náklad."
   },
+  "EncryptionPlayground": {
+    "title": "Hraviště šifrování",
+    "subtitle": "AES-GCM v prohlížeči: šifrovat do JSON balíčku přístupovou frází nebo holým klíčem a dešifrovat lokálně. Výukové a občas praktické — nic se nenahrává.",
+    "tabEncrypt": "Zašifrovat",
+    "tabDecrypt": "Dešifrovat",
+    "keyModeLabel": "Klíčový materiál",
+    "modePassphrase": "Přístupová fráze (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Holý klíč AES (hex nebo Base64)",
+    "aesBitsLabel": "Délka klíče AES",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Kódování holého klíče",
+    "encodingAuto": "Auto (hex pokud to vypadá jako hex, jinak Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Holý klíč",
+    "rawKeyPlaceholder": "Klíč 32 bajtů jako 64 hex znaků nebo Base64 pro AES-256 (délka závisí na zvolené velikosti AES).",
+    "rawKeyPlaceholderDecrypt": "Potřeba jen pokud balíček má keyDerivation \"none\".",
+    "passphraseLabel": "Přístupová fráze",
+    "passphrasePlaceholder": "Fráze použitá jen v prohlížeči k odvození klíče.",
+    "passphrasePlaceholderDecrypt": "Potřeba jen pokud balíček používá PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "Iterace PBKDF2",
+    "pbkdf2Hint": "Mezi 10 000 a 2 000 000. Výchozí odpovídá běžným trezorům.",
+    "plaintextLabel": "Otevřený text",
+    "plaintextPlaceholder": "Zadejte nebo vložte zprávu k zašifrování…",
+    "bundleInputLabel": "Zašifrovaný balíček (JSON)",
+    "bundlePlaceholder": "Vložte JSON z Zašifrovat (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Zašifrovaný balíček",
+    "plaintextOutputLabel": "Otevřený text",
+    "encryptButton": "Zašifrovat",
+    "decryptButton": "Dešifrovat",
+    "copyBundle": "Kopírovat JSON",
+    "copyPlaintext": "Kopírovat otevřený text",
+    "copied": "Zkopírováno",
+    "emptyBundleHint": "Zašifrovaný JSON se zobrazí po zašifrování.",
+    "emptyDecryptHint": "Dešifrovaný text se zobrazí zde.",
+    "decryptKeyHint": "Použijte holý klíč při keyDerivation \"none\"; frázi u PBKDF2-SHA256. Balíček obsahuje sůl, iterace, IV a délku AES.",
+    "securityNote": "Klíče a otevřený text neopouštějí prohlížeč. Pro produkční tajemství použijte specializované nástroje.",
+    "errors": {
+      "emptyKey": "Zadejte holý klíč odpovídající velikosti AES.",
+      "emptyPassphrase": "Zadejte přístupovou frázi.",
+      "badKeyMaterial": "Klíč nelze přečíst jako hex ani Base64.",
+      "wrongKeyLength": "Délka klíče neodpovídá AES (16 / 24 / 32 bajtů).",
+      "invalidJson": "Neplatný JSON.",
+      "invalidBundle": "Tento JSON není podporovaný šifrovací balíček.",
+      "decryptFailed": "Dešifrování selhalo — špatné tajemství, poškozený balíček nebo parametry.",
+      "encryptFailed": "Šifrování selhalo. Zkontrolujte Web Crypto a vstupy."
+    }
+  },
   "HmacGenerator": {
     "title": "Generátor HMAC",
     "subtitle": "Pro podepisování webhooků a testování integrací API. HMAC-SHA1/256/384/512 v hex nebo Base64—počítáno lokálně v prohlížeči.",
@@ -2850,6 +2912,24 @@
     "securityNote": "Nikdy nesdílejte podpisové tajemství. Tato stránka nic neodesílá—vše běží v prohlížeči.",
     "errors": {
       "cryptoFailed": "HMAC se nepodařilo vypočítat. Zkontrolujte podporu Web Crypto a zkuste znovu."
+    }
+  },
+  "TotpGenerator": {
+    "title": "Generátor kódu TOTP / 2FA",
+    "subtitle": "Vložte Base32 tajemství a získejte aktuální šestimístný kód RFC 6238 (SHA-1, 30 s). Vše lokálně v prohlížeči—užitečné pro testování přihlášení nebo MFA.",
+    "secretLabel": "Tajemství (Base32)",
+    "placeholderSecret": "Vložte tajný klíč (písmena A–Z a číslice 2–7, jako při nastavení autentikátoru)…",
+    "codeLabel": "Aktuální kód",
+    "copyCode": "Kopírovat kód",
+    "copied": "Zkopírováno",
+    "nextIn": "Obnoví se za {seconds} s",
+    "standardHint": "Časový krok 30 s, 6 číslic, HMAC-SHA-1 (kompatibilní s Google Authenticator).",
+    "emptyHint": "Vložte tajemství pro vygenerování šestimístného kódu.",
+    "invalidHint": "Opravte tajemství pro zobrazení kódu.",
+    "securityNote": "Chraňte to jako heslo. Tajemství neopustí prohlížeč; nic se nenahrává.",
+    "errors": {
+      "invalidSecret": "Neplatné Base32 tajemství.",
+      "cryptoFailed": "TOTP se nepodařilo spočítat. Zkontrolujte Web Crypto a zkuste znovu."
     }
   },
   "MarkdownPreview": {

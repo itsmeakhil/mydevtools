@@ -12,6 +12,7 @@
     "nosqlExplorer": "Penjelajah NoSQL",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "Taman permainan penyulitanan",
     "jwtDecoder": "Penyahkod JWT",
     "certificatePemDecoder": "Pengecam sijil / PEM",
     "sqlFormatter": "SQL Formatter",
@@ -39,6 +40,7 @@
     "ipSubnetCalculator": "Kalkulator IP / subnet",
     "hashGenerator": "Penjana hash",
     "hmacGenerator": "Penjana HMAC",
+    "totpGenerator": "Kod TOTP / 2FA",
     "markdownPreview": "Pratonton Markdown",
     "numberBaseConverter": "Penukar asas",
     "formatConverter": "Penukar Format",
@@ -267,6 +269,10 @@
         "title": "Pengesah E-mel",
         "description": "Sahkan dan pengesahan alamat e-mel."
       },
+      "encryptionPlayground": {
+        "title": "Taman permainan penyulitanan",
+        "description": "AES-GCM dengan kunci mentah atau frasa laluan; bungkusan JSON, Web Crypto hanya dalam pelayar."
+      },
       "jwtDecoder": {
         "title": "Penyahkod JWT",
         "description": "Nyahkod pengepala, payload dan tamat tempoh JWT."
@@ -382,6 +388,10 @@
       "hmacGenerator": {
         "title": "Penjana HMAC",
         "description": "Tandatangani webhook dan uji integrasi API dengan HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "Penjana kod TOTP / 2FA",
+        "description": "Tampal rahsia Base32 daripada aplikasi pengesah; kod enam digit disegar setiap 30 s—berguna untuk ujian log masuk dan MFA."
       },
       "markdownPreview": {
         "title": "Pratonton Markdown",
@@ -2825,6 +2835,58 @@
     "emptyHintBcrypt": "Masukkan kata laluan untuk mengira hash bcrypt.",
     "securityNoteBcrypt": "Setiap output bcrypt merangkumi garam rawak; kata laluan yang sama menghasilkan rentetan berbeza setiap kali. Ini dijangka. Gunakan kos tinggi dalam produksi."
   },
+  "EncryptionPlayground": {
+    "title": "Taman permainan penyulitanan",
+    "subtitle": "AES-GCM dalam pelayar: sulitkan ke bungkusan JSON dengan frasa laluan atau kunci mentah, kemudian nyahsulitkan secara setempat. Bersifat pendidikan dan kadang praktikal — tiada muat naik.",
+    "tabEncrypt": "Sulitkan",
+    "tabDecrypt": "Nyahsulitkan",
+    "keyModeLabel": "Bahan kunci",
+    "modePassphrase": "Frasa laluan (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Kunci AES mentah (hex atau Base64)",
+    "aesBitsLabel": "Panjang kunci AES",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Pengekodan kunci mentah",
+    "encodingAuto": "Auto (hex jika kelihatan seperti hex, jika tidak Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Kunci mentah",
+    "rawKeyPlaceholder": "Kunci 32 bait sebagai 64 aksara hex, atau Base64 untuk AES-256 (panjang bergantung pada saiz AES di atas).",
+    "rawKeyPlaceholderDecrypt": "Hanya diperlukan jika bungkusan mempunyai keyDerivation \"none\".",
+    "passphraseLabel": "Frasa laluan",
+    "passphrasePlaceholder": "Frasa laluan digunakan hanya dalam pelayar untuk menurunkan kunci.",
+    "passphrasePlaceholderDecrypt": "Hanya diperlukan jika bungkusan menggunakan PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "Lelaran PBKDF2",
+    "pbkdf2Hint": "Antara 10,000 dan 2,000,000. Lalai sejajar dengan tetapan peti biasa.",
+    "plaintextLabel": "Teks jelas",
+    "plaintextPlaceholder": "Taip atau tampal mesej untuk disulitkan…",
+    "bundleInputLabel": "Bungkusan disulitkan (JSON)",
+    "bundlePlaceholder": "Tampal JSON daripada Sulitkan (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Bungkusan disulitkan",
+    "plaintextOutputLabel": "Teks jelas",
+    "encryptButton": "Sulitkan",
+    "decryptButton": "Nyahsulitkan",
+    "copyBundle": "Salin JSON",
+    "copyPlaintext": "Salin teks jelas",
+    "copied": "Disalin",
+    "emptyBundleHint": "JSON disulitkan dipaparkan di sini selepas penyulitanan.",
+    "emptyDecryptHint": "Teks dinyahsulitkan dipaparkan di sini.",
+    "decryptKeyHint": "Gunakan kunci mentah jika keyDerivation ialah \"none\"; frasa laluan untuk PBKDF2-SHA256. Bungkusan menyimpan garam, lelaran, IV dan panjang AES.",
+    "securityNote": "Kunci dan teks jelas tidak meninggalkan pelayar anda. Untuk rahsia pengeluaran, gunakan alat khusus.",
+    "errors": {
+      "emptyKey": "Masukkan kunci mentah yang sepadan dengan saiz AES.",
+      "emptyPassphrase": "Masukkan frasa laluan.",
+      "badKeyMaterial": "Kunci tidak boleh dibaca sebagai hex atau Base64.",
+      "wrongKeyLength": "Panjang kunci tidak sepadan dengan AES (16 / 24 / 32 bait).",
+      "invalidJson": "JSON tidak sah.",
+      "invalidBundle": "JSON ini bukan bungkusan penyulitanan yang disokong.",
+      "decryptFailed": "Nyahsulitanan gagal — rahsia salah, bungkusan rosak atau parameter tidak sepadan.",
+      "encryptFailed": "Penyulitanan gagal. Semak Web Crypto dan input."
+    }
+  },
   "HmacGenerator": {
     "title": "Penjana HMAC",
     "subtitle": "Untuk menandatangani webhook dan menguji integrasi API. HMAC-SHA1/256/384/512 dalam hex atau Base64—dikira secara setempat dalam pelayar.",
@@ -2850,6 +2912,24 @@
     "securityNote": "Jangan kongsi rahsia penandatanganan. Halaman ini tidak memuat naik data—semua berjalan dalam pelayar.",
     "errors": {
       "cryptoFailed": "Tidak dapat mengira HMAC. Semak sokongan Web Crypto dan cuba lagi."
+    }
+  },
+  "TotpGenerator": {
+    "title": "Penjana kod TOTP / 2FA",
+    "subtitle": "Tampal rahsia Base32 dan dapatkan kod enam digit RFC 6238 semasa (SHA-1, 30 s). Berjalan secara setempat dalam pelayar—berguna untuk menguji log masuk atau MFA.",
+    "secretLabel": "Rahsia (Base32)",
+    "placeholderSecret": "Tampal kunci rahsia (huruf A–Z dan digit 2–7, seperti semasa menyediakan pengesah)…",
+    "codeLabel": "Kod semasa",
+    "copyCode": "Salin kod",
+    "copied": "Disalin",
+    "nextIn": "Disegar dalam {seconds} s",
+    "standardHint": "Langkah masa 30 s, 6 digit, HMAC-SHA-1 (serasi Google Authenticator).",
+    "emptyHint": "Tampal rahsia untuk menjana kod enam digit.",
+    "invalidHint": "Betulkan rahsia untuk melihat kod.",
+    "securityNote": "Layannya seperti kata laluan. Rahsia tidak meninggalkan pelayar; tiada muat naik.",
+    "errors": {
+      "invalidSecret": "Bukan rahsia Base32 yang sah.",
+      "cryptoFailed": "Tidak dapat mengira TOTP. Semak Web Crypto dan cuba lagi."
     }
   },
   "MarkdownPreview": {

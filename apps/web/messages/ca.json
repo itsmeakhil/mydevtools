@@ -12,6 +12,7 @@
     "nosqlExplorer": "Explorador NoSQL",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "Terreny de joc del xifratge",
     "jwtDecoder": "Descodificador JWT",
     "certificatePemDecoder": "Descodificador de certificats / PEM",
     "sqlFormatter": "SQL Formatter",
@@ -39,6 +40,7 @@
     "ipSubnetCalculator": "Calculadora IP / subxarxa",
     "hashGenerator": "Generador de hash",
     "hmacGenerator": "Generador HMAC",
+    "totpGenerator": "Codi TOTP / 2FA",
     "markdownPreview": "Previsualització Markdown",
     "numberBaseConverter": "Conversor de base",
     "formatConverter": "Conversor de formats",
@@ -261,6 +263,10 @@
         "title": "Validador de correu",
         "description": "Verifica i valida adreces de correu."
       },
+      "encryptionPlayground": {
+        "title": "Terreny de joc del xifratge",
+        "description": "AES-GCM amb clau en brut o contrasenya; paquets JSON, Web Crypto només al navegador."
+      },
       "jwtDecoder": {
         "title": "Descodificador JWT",
         "description": "Descodifica la capçalera, el payload i la caducitat del JWT."
@@ -372,6 +378,10 @@
       "hmacGenerator": {
         "title": "Generador HMAC",
         "description": "Signa webhooks i prova integracions API amb HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "Generador de codi TOTP / 2FA",
+        "description": "Enganxa un secret Base32 de l’autenticador; el codi de sis xifres es renova cada 30 s—útil per provar inici de sessió i MFA."
       },
       "markdownPreview": {
         "title": "Previsualització Markdown",
@@ -2825,6 +2835,58 @@
     "emptyHintBcrypt": "Introduïu una contrasenya per calcular el resum bcrypt.",
     "securityNoteBcrypt": "Cada sortida bcrypt inclou una sal aleatòria; la mateixa contrasenya dona una cadena diferent cada vegada. És esperat. Useu costos alts en producció."
   },
+  "EncryptionPlayground": {
+    "title": "Terreny de joc del xifratge",
+    "subtitle": "AES-GCM al navegador: xifra en un paquet JSON amb contrasenya o clau en brut i desxifra localment. Educatiu i de vegades pràctic — no es puja res.",
+    "tabEncrypt": "Xifrar",
+    "tabDecrypt": "Desxifrar",
+    "keyModeLabel": "Material de clau",
+    "modePassphrase": "Contrasenya (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Clau AES en brut (hex o Base64)",
+    "aesBitsLabel": "Longitud de clau AES",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Codificació de la clau en brut",
+    "encodingAuto": "Auto (hex si sembla hex, si no Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Clau en brut",
+    "rawKeyPlaceholder": "Clau de 32 bytes com a 64 caràcters hex o Base64 per AES-256 (la longitud depèn de la mida AES de dalt).",
+    "rawKeyPlaceholderDecrypt": "Només cal si el paquet té keyDerivation \"none\".",
+    "passphraseLabel": "Contrasenya",
+    "passphrasePlaceholder": "La contrasenya només s’usa al navegador per derivar la clau.",
+    "passphrasePlaceholderDecrypt": "Només cal si el paquet usa PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "Iteracions PBKDF2",
+    "pbkdf2Hint": "Entre 10.000 i 2.000.000. El valor per defecte segueix configuracions habituals de cofres.",
+    "plaintextLabel": "Text en clar",
+    "plaintextPlaceholder": "Escriviu o enganxeu el missatge a xifrar…",
+    "bundleInputLabel": "Paquet xifrat (JSON)",
+    "bundlePlaceholder": "Enganxeu el JSON de Xifrar (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Paquet xifrat",
+    "plaintextOutputLabel": "Text en clar",
+    "encryptButton": "Xifrar",
+    "decryptButton": "Desxifrar",
+    "copyBundle": "Copiar JSON",
+    "copyPlaintext": "Copiar text en clar",
+    "copied": "Copiat",
+    "emptyBundleHint": "El JSON xifrat apareix aquí després de xifrar.",
+    "emptyDecryptHint": "El text desxifrat apareix aquí.",
+    "decryptKeyHint": "Useu la clau en brut si keyDerivation és \"none\"; la contrasenya amb PBKDF2-SHA256. El paquet emmagatzema sal, iteracions, IV i longitud AES.",
+    "securityNote": "Les claus i el text en clar no surten del navegador. Per a secrets de producció preferiu eines dedicades.",
+    "errors": {
+      "emptyKey": "Introduïu una clau en brut que coincideixi amb la mida AES.",
+      "emptyPassphrase": "Introduïu una contrasenya.",
+      "badKeyMaterial": "No s’ha pogut llegir la clau com a hex o Base64.",
+      "wrongKeyLength": "La longitud de clau no coincideix amb l’AES (16 / 24 / 32 bytes).",
+      "invalidJson": "JSON no vàlid.",
+      "invalidBundle": "Aquest JSON no és un paquet de xifratge compatible.",
+      "decryptFailed": "Ha fallat el desxifratge — secret incorrecte, paquet malmès o paràmetres incorrectes.",
+      "encryptFailed": "Ha fallat el xifratge. Comproveu Web Crypto i les entrades."
+    }
+  },
   "HmacGenerator": {
     "title": "Generador HMAC",
     "subtitle": "Per signar webhooks i provar integracions d’API. HMAC-SHA1/256/384/512 en hex o Base64—calculat localment al navegador.",
@@ -2850,6 +2912,24 @@
     "securityNote": "No compartiu mai el secret de signatura. Aquesta pàgina no puja dades; tot s’executa al navegador.",
     "errors": {
       "cryptoFailed": "No s’ha pogut calcular l’HMAC. Comproveu el suport de Web Crypto i torneu-ho a provar."
+    }
+  },
+  "TotpGenerator": {
+    "title": "Generador de codi TOTP / 2FA",
+    "subtitle": "Enganxa el secret Base32 i obtén el codi actual de sis xifres RFC 6238 (SHA-1, 30 s). Tot al navegador—útil per provar inici de sessió o MFA.",
+    "secretLabel": "Secret (Base32)",
+    "placeholderSecret": "Enganxa la clau secreta (lletres A–Z i dígits 2–7, com en configurar l’autenticador)…",
+    "codeLabel": "Codi actual",
+    "copyCode": "Copia el codi",
+    "copied": "Copiat",
+    "nextIn": "Es renova en {seconds} s",
+    "standardHint": "Pas de temps de 30 s, 6 xifres, HMAC-SHA-1 (compatible amb Google Authenticator).",
+    "emptyHint": "Enganxa un secret per generar un codi de sis xifres.",
+    "invalidHint": "Corregeix el secret per veure el codi.",
+    "securityNote": "Tracta’l com una contrasenya. El secret no surt del navegador; no es puja res.",
+    "errors": {
+      "invalidSecret": "Aquest no és un secret Base32 vàlid.",
+      "cryptoFailed": "No s’ha pogut calcular el TOTP. Comproveu Web Crypto i torneu-ho a provar."
     }
   },
   "MarkdownPreview": {

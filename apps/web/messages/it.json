@@ -12,6 +12,7 @@
     "nosqlExplorer": "Esploratore NoSQL",
     "toDo": "Tasks",
     "notes": "Notes",
+    "encryptionPlayground": "Sandbox crittografia",
     "jwtDecoder": "Decodificatore JWT",
     "certificatePemDecoder": "Decodificatore certificati / PEM",
     "sqlFormatter": "SQL Formatter",
@@ -39,6 +40,7 @@
     "ipSubnetCalculator": "Calcolatrice IP / subnet",
     "hashGenerator": "Generatore di hash",
     "hmacGenerator": "Generatore HMAC",
+    "totpGenerator": "Codice TOTP / 2FA",
     "markdownPreview": "Anteprima Markdown",
     "numberBaseConverter": "Convertitore di base",
     "formatConverter": "Convertitore di formati",
@@ -261,6 +263,10 @@
         "title": "Validatore di posta elettronica",
         "description": "Verificare e convalidare gli indirizzi e-mail."
       },
+      "encryptionPlayground": {
+        "title": "Sandbox crittografia",
+        "description": "AES-GCM con chiave grezza o passphrase; pacchetti JSON, Web Crypto solo nel browser."
+      },
       "jwtDecoder": {
         "title": "Decodificatore JWT",
         "description": "Decodifica intestazione, payload e scadenza dei JWT."
@@ -372,6 +378,10 @@
       "hmacGenerator": {
         "title": "Generatore HMAC",
         "description": "Firma webhook e testa integrazioni API con HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "Generatore di codice TOTP / 2FA",
+        "description": "Incolla un segreto Base32 dell’autenticatore; il codice a sei cifre si aggiorna ogni 30 s per testare accesso e MFA."
       },
       "markdownPreview": {
         "title": "Anteprima Markdown",
@@ -2825,6 +2835,58 @@
     "emptyHintBcrypt": "Inserisci una password per calcolare l’hash bcrypt.",
     "securityNoteBcrypt": "Ogni output bcrypt include un sale casuale; la stessa password produce una stringa diversa ogni volta. È normale. Usa costi elevati in produzione."
   },
+  "EncryptionPlayground": {
+    "title": "Sandbox crittografia",
+    "subtitle": "AES-GCM nel browser: cifra in un bundle JSON con passphrase o chiave grezza, poi decifra in locale. Didattico e talvolta utile — nulla viene caricato.",
+    "tabEncrypt": "Cifra",
+    "tabDecrypt": "Decifra",
+    "keyModeLabel": "Materiale della chiave",
+    "modePassphrase": "Passphrase (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Chiave AES grezza (hex o Base64)",
+    "aesBitsLabel": "Lunghezza chiave AES",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Codifica chiave grezza",
+    "encodingAuto": "Auto (hex se sembra hex, altrimenti Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Chiave grezza",
+    "rawKeyPlaceholder": "Chiave da 32 byte come 64 caratteri hex, o Base64 per AES-256 (la lunghezza dipende dalla dimensione AES sopra).",
+    "rawKeyPlaceholderDecrypt": "Serve solo se nel bundle c’è keyDerivation \"none\".",
+    "passphraseLabel": "Passphrase",
+    "passphrasePlaceholder": "Passphrase usata solo nel browser per derivare la chiave.",
+    "passphrasePlaceholderDecrypt": "Serve solo se il bundle usa PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "Iterazioni PBKDF2",
+    "pbkdf2Hint": "Tra 10.000 e 2.000.000. Il default segue impostazioni comuni dei vault.",
+    "plaintextLabel": "Testo in chiaro",
+    "plaintextPlaceholder": "Digita o incolla il messaggio da cifrare…",
+    "bundleInputLabel": "Bundle cifrato (JSON)",
+    "bundlePlaceholder": "Incolla il JSON da Cifra (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Bundle cifrato",
+    "plaintextOutputLabel": "Testo in chiaro",
+    "encryptButton": "Cifra",
+    "decryptButton": "Decifra",
+    "copyBundle": "Copia JSON",
+    "copyPlaintext": "Copia testo in chiaro",
+    "copied": "Copiato",
+    "emptyBundleHint": "Il JSON cifrato apparirà qui dopo la cifratura.",
+    "emptyDecryptHint": "Il testo decifrato apparirà qui.",
+    "decryptKeyHint": "Usa la chiave grezza se keyDerivation è \"none\"; la passphrase se è PBKDF2-SHA256. Il bundle contiene salt, iterazioni, IV e lunghezza AES.",
+    "securityNote": "Chiavi e testo in chiaro non lasciano il browser. Per segreti di produzione usa strumenti dedicati.",
+    "errors": {
+      "emptyKey": "Inserisci una chiave grezza coerente con la dimensione AES.",
+      "emptyPassphrase": "Inserisci una passphrase.",
+      "badKeyMaterial": "Impossibile leggere la chiave come hex o Base64.",
+      "wrongKeyLength": "La lunghezza della chiave non corrisponde alla dimensione AES (16 / 24 / 32 byte).",
+      "invalidJson": "JSON non valido.",
+      "invalidBundle": "Questo JSON non è un bundle di cifratura supportato.",
+      "decryptFailed": "Decifra fallita — segreto errato, bundle corrotto o parametri non coincidenti.",
+      "encryptFailed": "Cifratura fallita. Controlla Web Crypto e gli input."
+    }
+  },
   "HmacGenerator": {
     "title": "Generatore HMAC",
     "subtitle": "Per firmare webhook e testare integrazioni API. HMAC-SHA1/256/384/512 in hex o Base64—calcolato localmente nel browser.",
@@ -2850,6 +2912,24 @@
     "securityNote": "Non condividere mai il secret di firma. Questa pagina non carica dati; tutto viene eseguito nel browser.",
     "errors": {
       "cryptoFailed": "Impossibile calcolare l’HMAC. Verifica il supporto a Web Crypto e riprova."
+    }
+  },
+  "TotpGenerator": {
+    "title": "Generatore di codice TOTP / 2FA",
+    "subtitle": "Incolla il segreto Base32 dell’autenticatore e ottieni il codice a sei cifre RFC 6238 corrente (SHA-1, 30 s). Eseguito localmente nel browser—utile per testare login o MFA.",
+    "secretLabel": "Segreto (Base32)",
+    "placeholderSecret": "Incolla la chiave segreta (lettere A–Z e cifre 2–7, come mostrato nella configurazione dell’autenticatore)…",
+    "codeLabel": "Codice attuale",
+    "copyCode": "Copia codice",
+    "copied": "Copiato",
+    "nextIn": "Si aggiorna tra {seconds} s",
+    "standardHint": "Passo temporale 30 s, 6 cifre, HMAC-SHA-1 (compatibile con Google Authenticator).",
+    "emptyHint": "Incolla un segreto per generare un codice a sei cifre.",
+    "invalidHint": "Correggi il segreto per vedere il codice.",
+    "securityNote": "Trattalo come una password. Il segreto non lascia il browser; nulla viene caricato.",
+    "errors": {
+      "invalidSecret": "Non è un segreto Base32 valido.",
+      "cryptoFailed": "Impossibile calcolare il TOTP. Verifica Web Crypto e riprova."
     }
   },
   "MarkdownPreview": {
