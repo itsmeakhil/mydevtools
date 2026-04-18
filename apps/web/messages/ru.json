@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "Секрет / ключ API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Проверка контраста",
     "jsonSchemaGenerator": "Генератор JSON-схемы",
     "imageToBase64": "Изображение в Base64",
     "imageCompressor": "Сжатие изображений",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Проверка контраста",
+        "description": "Коэффициент контраста WCAG 2.1 для текста и фона (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "Генератор JSON-схемы",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Аналогичный",
     "paletteSplit": "Разделённый доп.",
     "paletteSquare": "Квадратный"
+  },
+  "ContrastChecker": {
+    "title": "Проверка контраста",
+    "subtitle": "Считает коэффициент контраста WCAG 2.1 между передним планом и фоном. Показывает AA и AAA для обычного и крупного текста. Всё в браузере.",
+    "foreground": "Текст / передний план",
+    "background": "Фон",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Поменять цвета местами",
+    "chooseForeground": "Выбрать цвет переднего плана",
+    "chooseBackground": "Выбрать цвет фона",
+    "eyeDropper": "Пипетка",
+    "ratio": "Коэффициент контраста",
+    "copyRatio": "Копировать значение",
+    "copied": "Скопировано",
+    "previewHeading": "Предпросмотр",
+    "previewBody": "В чащах юга жил бы цитрус? Да, но фальшивый экземпляр! Широкая электрификация южных губерний даст мощный толчок подъёму сельского хозяйства.",
+    "previewCaption": "Пример текста обычного размера.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — обычный текст (4,5:1)",
+    "levelAALarge": "AA — крупный текст (3:1)",
+    "levelAAANormal": "AAA — обычный текст (7:1)",
+    "levelAAALarge": "AAA — крупный текст (4,5:1)",
+    "pass": "Соответствует",
+    "fail": "Не соответствует",
+    "invalidHex": "Некорректный цвет HEX.",
+    "largeTextHint": "Крупный текст: от 18 pt обычного или от 14 pt полужирного (по WCAG)."
   },
   "DiffChecker": {
     "title": "Сравнение различий",

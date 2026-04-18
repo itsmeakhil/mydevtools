@@ -31,6 +31,7 @@
     "hmacGenerator": "HMAC Generator",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Contrast Checker",
     "apiClient": "API Client",
     "httpStatusCodes": "HTTP status codes",
     "nosqlExplorer": "NoSQL Explorer",
@@ -414,6 +415,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Contrast Checker",
+        "description": "WCAG 2.1 contrast ratio for text and background (AA / AAA)."
       },
       "cssGradientBuilder": {
         "title": "CSS Gradient Builder",
@@ -2655,6 +2660,32 @@
     "paletteAnalogous": "Analogous",
     "paletteSplit": "Split comp.",
     "paletteSquare": "Square"
+  },
+  "ContrastChecker": {
+    "title": "Contrast checker",
+    "subtitle": "Compute WCAG 2.1 contrast ratio between foreground and background. Check AA and AAA for normal and large text. Everything runs in your browser.",
+    "foreground": "Text / foreground",
+    "background": "Background",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Swap colors",
+    "chooseForeground": "Pick foreground color",
+    "chooseBackground": "Pick background color",
+    "eyeDropper": "Eye dropper",
+    "ratio": "Contrast ratio",
+    "copyRatio": "Copy ratio",
+    "copied": "Copied",
+    "previewHeading": "Preview",
+    "previewBody": "The quick brown fox jumps over the lazy dog. PACK MY BOX WITH FIVE DOZEN LIQUOR JUGS.",
+    "previewCaption": "Sample body text at default size.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — normal text (4.5:1)",
+    "levelAALarge": "AA — large text (3:1)",
+    "levelAAANormal": "AAA — normal text (7:1)",
+    "levelAAALarge": "AAA — large text (4.5:1)",
+    "pass": "Pass",
+    "fail": "Fail",
+    "invalidHex": "Invalid HEX color.",
+    "largeTextHint": "Large text: 18pt+ regular, or 14pt+ bold (WCAG definitions)."
   },
   "DiffChecker": {
     "title": "Diff checker",

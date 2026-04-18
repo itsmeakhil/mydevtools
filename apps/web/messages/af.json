@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "Geheim / API-sleutel",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Kontrasttoetser",
     "jsonSchemaGenerator": "JSON-skemagenerator",
     "imageToBase64": "Beeld na Base64",
     "imageCompressor": "Beeldkompressor",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Kontrasttoetser",
+        "description": "WCAG 2.1-kontrastverhouding tussen teks en agtergrond (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "JSON-skemagenerator",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Analoog",
     "paletteSplit": "Gesplete komp.",
     "paletteSquare": "Vierkantig"
+  },
+  "ContrastChecker": {
+    "title": "Kontrasttoetser",
+    "subtitle": "Bereken die WCAG 2.1-kontrastverhouding tussen voorgrond en agtergrond. Wys AA en AAA vir normale en groot teks. Alles in jou blaaier.",
+    "foreground": "Teks / voorgrond",
+    "background": "Agtergrond",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Ruil kleure",
+    "chooseForeground": "Kies voorgrondkleur",
+    "chooseBackground": "Kies agtergrondkleur",
+    "eyeDropper": "Druppelaar",
+    "ratio": "Kontrastverhouding",
+    "copyRatio": "Kopieer verhouding",
+    "copied": "Gekopieer",
+    "previewHeading": "Voorskou",
+    "previewBody": "Die quick brown fox jumps over the lazy dog. My vrou se skoene het ses sole en haar duim is groen.",
+    "previewCaption": "Voorbeeldteks by verstekgrootte.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — normale teks (4,5:1)",
+    "levelAALarge": "AA — groot teks (3:1)",
+    "levelAAANormal": "AAA — normale teks (7:1)",
+    "levelAAALarge": "AAA — groot teks (4,5:1)",
+    "pass": "Voldoen",
+    "fail": "Voldoen nie",
+    "invalidHex": "Ongeldige HEX-kleur.",
+    "largeTextHint": "Groot teks: 18 pt+ gewone of 14 pt+ vet (WCAG-definisies)."
   },
   "DiffChecker": {
     "title": "Verskilvindeling",

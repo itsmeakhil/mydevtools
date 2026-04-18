@@ -41,6 +41,7 @@ import {
   IconCertificate,
   IconBrandGraphql,
   IconClipboardData,
+  IconContrast,
   IconRuler,
   IconFileTypeSvg,
   IconArrowsDiagonalMinimize2,
@@ -391,6 +392,13 @@ export const sidebarData: SidebarData = {
           url: '/app/color-picker',
           icon: IconPalette,
           description: 'Convert HEX, RGB, HSL and explore color palettes.',
+          hiddenOnMobile: true,
+        },
+        {
+          title: 'Contrast Checker',
+          url: '/app/contrast-checker',
+          icon: IconContrast,
+          description: 'WCAG 2.1 contrast ratio for text and background (AA / AAA).',
           hiddenOnMobile: true,
         },
         {

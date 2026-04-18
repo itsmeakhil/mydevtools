@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "سر / مفتاح API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "فاحص التباين",
     "jsonSchemaGenerator": "مولّد مخطط JSON",
     "imageToBase64": "الصورة إلى Base64",
     "imageCompressor": "ضغط الصور",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "فاحص التباين",
+        "description": "نسبة تباين WCAG 2.1 بين النص والخلفية (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "مولّد مخطط JSON",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "تناظري",
     "paletteSplit": "تكميلي منقسم",
     "paletteSquare": "مربع"
+  },
+  "ContrastChecker": {
+    "title": "فاحص التباين",
+    "subtitle": "يحسب نسبة التباين WCAG 2.1 بين المقدّم والخلفية. يعرض مطابقة AA وAAA للنص العادي والكبير. يعمل بالكامل في المتصفح.",
+    "foreground": "النص / المقدّم",
+    "background": "الخلفية",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "تبديل الألوان",
+    "chooseForeground": "اختر لون المقدّم",
+    "chooseBackground": "اختر لون الخلفية",
+    "eyeDropper": "قطّارة",
+    "ratio": "نسبة التباين",
+    "copyRatio": "نسخ النسبة",
+    "copied": "تم النسخ",
+    "previewHeading": "معاينة",
+    "previewBody": "صِف خَلقَ خَودٍ كَمِثْلِ الشَّمْسِ إِذْ بَزَغَتْ يَحْظَى الضَّجِيجُ بِسَوْدَانٍ مِنْ بَعِيدٍ. أبجد هوز حطي كلمن سعفص قرشت ثخذ ضظغ.",
+    "previewCaption": "نص تجريبي بالحجم الافتراضي.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — نص عادي (4.5:1)",
+    "levelAALarge": "AA — نص كبير (3:1)",
+    "levelAAANormal": "AAA — نص عادي (7:1)",
+    "levelAAALarge": "AAA — نص كبير (4.5:1)",
+    "pass": "مطابق",
+    "fail": "غير مطابق",
+    "invalidHex": "لون HEX غير صالح.",
+    "largeTextHint": "النص الكبير: 18 نقطة فأكثر عاديًا، أو 14 نقطة فأكثر غامقًا (تعريفات WCAG)."
   },
   "DiffChecker": {
     "title": "مدقق الاختلافات",

@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "Segreto / chiave API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Controllo contrasto",
     "jsonSchemaGenerator": "Generatore di schema JSON",
     "imageToBase64": "Immagine su Base64",
     "imageCompressor": "Compressore immagini",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Controllo contrasto",
+        "description": "Rapporto di contrasto WCAG 2.1 tra testo e sfondo (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "Generatore di schema JSON",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Analogo",
     "paletteSplit": "Compl. diviso",
     "paletteSquare": "Quadrato"
+  },
+  "ContrastChecker": {
+    "title": "Controllo contrasto",
+    "subtitle": "Calcola il rapporto di contrasto WCAG 2.1 tra primo piano e sfondo. Verifica AA e AAA per testo normale e grande. Tutto nel browser.",
+    "foreground": "Testo / primo piano",
+    "background": "Sfondo",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Scambia colori",
+    "chooseForeground": "Scegli colore primo piano",
+    "chooseBackground": "Scegli colore di sfondo",
+    "eyeDropper": "Contagocce",
+    "ratio": "Rapporto di contrasto",
+    "copyRatio": "Copia rapporto",
+    "copied": "Copiato",
+    "previewHeading": "Anteprima",
+    "previewBody": "Ma la volpe, col suo balzo, ha raggiunto il quieto Fido. Quel fez serbato dagli struzzi còi bufali osserva tal quiz.",
+    "previewCaption": "Testo di esempio a dimensione predefinita.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — testo normale (4,5:1)",
+    "levelAALarge": "AA — testo grande (3:1)",
+    "levelAAANormal": "AAA — testo normale (7:1)",
+    "levelAAALarge": "AAA — testo grande (4,5:1)",
+    "pass": "Superato",
+    "fail": "Non superato",
+    "invalidHex": "Colore HEX non valido.",
+    "largeTextHint": "Testo grande: 18 pt+ regolare o 14 pt+ grassetto (definizioni WCAG)."
   },
   "DiffChecker": {
     "title": "Controllo differenze",

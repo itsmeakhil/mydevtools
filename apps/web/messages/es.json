@@ -24,6 +24,7 @@
     "secretApiKeyGenerator": "Secreto / clave API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Selector de color",
+    "contrastChecker": "Comprobador de contraste",
     "apiClient": "Cliente API",
     "httpStatusCodes": "Códigos de estado HTTP",
     "nosqlExplorer": "Explorador NoSQL",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Selector de color",
         "description": "Convierte HEX, RGB, HSL y explora paletas."
+      },
+      "contrastChecker": {
+        "title": "Comprobador de contraste",
+        "description": "Ratio de contraste WCAG 2.1 entre texto y fondo (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "Generador de esquema JSON",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Análogo",
     "paletteSplit": "Comp. dividido",
     "paletteSquare": "Cuadrado"
+  },
+  "ContrastChecker": {
+    "title": "Comprobador de contraste",
+    "subtitle": "Calcula el ratio de contraste WCAG 2.1 entre primer plano y fondo. Comprueba AA y AAA para texto normal y grande. Todo se ejecuta en tu navegador.",
+    "foreground": "Texto / primer plano",
+    "background": "Fondo",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Intercambiar colores",
+    "chooseForeground": "Elegir color de primer plano",
+    "chooseBackground": "Elegir color de fondo",
+    "eyeDropper": "Cuentagotas",
+    "ratio": "Ratio de contraste",
+    "copyRatio": "Copiar ratio",
+    "copied": "Copiado",
+    "previewHeading": "Vista previa",
+    "previewBody": "El veloz murciélago hindú comía feliz cardillo y kiwi. La cigüeña tocaba el saxofón detrás del palenque de paja.",
+    "previewCaption": "Texto de ejemplo a tamaño predeterminado.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — texto normal (4,5:1)",
+    "levelAALarge": "AA — texto grande (3:1)",
+    "levelAAANormal": "AAA — texto normal (7:1)",
+    "levelAAALarge": "AAA — texto grande (4,5:1)",
+    "pass": "Cumple",
+    "fail": "No cumple",
+    "invalidHex": "Color HEX no válido.",
+    "largeTextHint": "Texto grande: 18 pt+ regular o 14 pt+ en negrita (definiciones WCAG)."
   },
   "DiffChecker": {
     "title": "Comparador de diferencias",

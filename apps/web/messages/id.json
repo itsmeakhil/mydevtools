@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "Rahasia / kunci API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Pemeriksa kontras",
     "jsonSchemaGenerator": "Generator Skema JSON",
     "imageToBase64": "Gambar ke Base64",
     "imageCompressor": "Kompresor gambar",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Pemeriksa kontras",
+        "description": "Rasio kontras WCAG 2.1 teks dan latar (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "Generator Skema JSON",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Analog",
     "paletteSplit": "Komp. terpisah",
     "paletteSquare": "Persegi"
+  },
+  "ContrastChecker": {
+    "title": "Pemeriksa kontras",
+    "subtitle": "Menghitung rasio kontras WCAG 2.1 antara latar depan dan latar belakang. Memeriksa AA dan AAA untuk teks normal dan besar. Semua di browser Anda.",
+    "foreground": "Teks / latar depan",
+    "background": "Latar belakang",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Tukar warna",
+    "chooseForeground": "Pilih warna latar depan",
+    "chooseBackground": "Pilih warna latar belakang",
+    "eyeDropper": "Pipet",
+    "ratio": "Rasio kontras",
+    "copyRatio": "Salin rasio",
+    "copied": "Disalin",
+    "previewHeading": "Pratinjau",
+    "previewBody": "Selamat datang. Uji kontras teks ini agar mudah dibaca di layar. Pencinta alam menjaga hutan, sungai, dan satwa demi generasi mendatang.",
+    "previewCaption": "Contoh teks ukuran bawaan.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — teks normal (4,5:1)",
+    "levelAALarge": "AA — teks besar (3:1)",
+    "levelAAANormal": "AAA — teks normal (7:1)",
+    "levelAAALarge": "AAA — teks besar (4,5:1)",
+    "pass": "Lulus",
+    "fail": "Tidak lulus",
+    "invalidHex": "Warna HEX tidak valid.",
+    "largeTextHint": "Teks besar: 18 pt+ reguler atau 14 pt+ tebal (definisi WCAG)."
   },
   "DiffChecker": {
     "title": "Pemeriksa Perbedaan",

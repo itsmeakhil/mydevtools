@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "Rahsia / kunci API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Pemeriksa kontras",
     "jsonSchemaGenerator": "Penjana Skema JSON",
     "imageToBase64": "Imej ke Base64",
     "imageCompressor": "Pemampat Imej",
@@ -333,6 +334,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Pemeriksa kontras",
+        "description": "Nisbah kontras WCAG 2.1 teks dan latar (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "Penjana Skema JSON",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Analog",
     "paletteSplit": "Komp. berpecah",
     "paletteSquare": "Segi empat"
+  },
+  "ContrastChecker": {
+    "title": "Pemeriksa kontras",
+    "subtitle": "Mengira nisbah kontras WCAG 2.1 antara latar depan dan latar belakang. Semak AA dan AAA untuk teks biasa dan besar. Semuanya dalam pelayar anda.",
+    "foreground": "Teks / latar depan",
+    "background": "Latar belakang",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Tukar warna",
+    "chooseForeground": "Pilih warna latar depan",
+    "chooseBackground": "Pilih warna latar belakang",
+    "eyeDropper": "Pipet",
+    "ratio": "Nisbah kontras",
+    "copyRatio": "Salin nisbah",
+    "copied": "Disalin",
+    "previewHeading": "Pratonton",
+    "previewBody": "Muzaffar mempunyai 1246 dawai biola tempaannya di Qatar. The quick brown fox jumps over the lazy dog — contoh teks campuran.",
+    "previewCaption": "Contoh teks pada saiz lalai.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — teks biasa (4,5:1)",
+    "levelAALarge": "AA — teks besar (3:1)",
+    "levelAAANormal": "AAA — teks biasa (7:1)",
+    "levelAAALarge": "AAA — teks besar (4,5:1)",
+    "pass": "Lulus",
+    "fail": "Gagal",
+    "invalidHex": "Warna HEX tidak sah.",
+    "largeTextHint": "Teks besar: 18 pt+ biasa atau 14 pt+ tebal (takrifan WCAG)."
   },
   "DiffChecker": {
     "title": "Pemeriksa Perbezaan",

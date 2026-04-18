@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "Geheim / API-sleutel",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Contrastcontrole",
     "jsonSchemaGenerator": "JSON-schema-generator",
     "imageToBase64": "Afbeelding naar Base64",
     "imageCompressor": "Afbeeldingscompressie",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Contrastcontrole",
+        "description": "WCAG 2.1-contrastverhouding tussen tekst en achtergrond (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "JSON-schema-generator",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Analoog",
     "paletteSplit": "Gedeeld compl.",
     "paletteSquare": "Vierkant"
+  },
+  "ContrastChecker": {
+    "title": "Contrastcontrole",
+    "subtitle": "Berekent de WCAG 2.1-contrastverhouding tussen voorgrond en achtergrond. Toont AA en AAA voor normale en grote tekst. Alles in uw browser.",
+    "foreground": "Tekst / voorgrond",
+    "background": "Achtergrond",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Kleuren omwisselen",
+    "chooseForeground": "Voorgrondkleur kiezen",
+    "chooseBackground": "Achtergrondkleur kiezen",
+    "eyeDropper": "Pipet",
+    "ratio": "Contrastverhouding",
+    "copyRatio": "Verhouding kopiëren",
+    "copied": "Gekopieerd",
+    "previewHeading": "Voorbeeld",
+    "previewBody": "Pa’s wijze lynx bezag vroom het fikse aquaduct. Quartz-fex, judge my vow: Sphinx of black quartz, judge my vow.",
+    "previewCaption": "Voorbeeldtekst op standaardgrootte.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — normale tekst (4,5:1)",
+    "levelAALarge": "AA — grote tekst (3:1)",
+    "levelAAANormal": "AAA — normale tekst (7:1)",
+    "levelAAALarge": "AAA — grote tekst (4,5:1)",
+    "pass": "Voldoet",
+    "fail": "Voldoet niet",
+    "invalidHex": "Ongeldige HEX-kleur.",
+    "largeTextHint": "Grote tekst: 18 pt+ normaal of 14 pt+ vet (WCAG-definities)."
   },
   "DiffChecker": {
     "title": "Verschilcontrole",

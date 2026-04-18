@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "Gizli / API anahtarı",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Kontrast denetleyici",
     "jsonSchemaGenerator": "JSON Şema Oluşturucu",
     "imageToBase64": "Base64'e görüntü",
     "imageCompressor": "Görüntü sıkıştırıcı",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Kontrast denetleyici",
+        "description": "Metin ve arka plan için WCAG 2.1 kontrast oranı (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "JSON Şema Oluşturucu",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Benzer",
     "paletteSplit": "Bölünmüş tamaml.",
     "paletteSquare": "Kare"
+  },
+  "ContrastChecker": {
+    "title": "Kontrast denetleyici",
+    "subtitle": "Ön plan ve arka plan arasında WCAG 2.1 kontrast oranını hesaplar. Normal ve büyük metin için AA ve AAA durumunu gösterir. Tümü tarayıcınızda çalışır.",
+    "foreground": "Metin / ön plan",
+    "background": "Arka plan",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Renkleri değiştir",
+    "chooseForeground": "Ön plan rengini seç",
+    "chooseBackground": "Arka plan rengini seç",
+    "eyeDropper": "Damlalık",
+    "ratio": "Kontrast oranı",
+    "copyRatio": "Oranı kopyala",
+    "copied": "Kopyalandı",
+    "previewHeading": "Ön izleme",
+    "previewBody": "Pijamalı hasta, yağız şoföre çabucak güvendi. Fâni idrak ömrünü, câhil zâhid inkâr etmiş, göçtü.",
+    "previewCaption": "Varsayılan boyutta örnek metin.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — normal metin (4,5:1)",
+    "levelAALarge": "AA — büyük metin (3:1)",
+    "levelAAANormal": "AAA — normal metin (7:1)",
+    "levelAAALarge": "AAA — büyük metin (4,5:1)",
+    "pass": "Uygun",
+    "fail": "Uygun değil",
+    "invalidHex": "Geçersiz HEX rengi.",
+    "largeTextHint": "Büyük metin: 18 pt+ düz veya 14 pt+ kalın (WCAG tanımları)."
   },
   "DiffChecker": {
     "title": "Fark denetleyici",

@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "Μυστικό / κλειδί API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Έλεγχος αντίθεσης",
     "jsonSchemaGenerator": "Γεννήτρια JSON Schema",
     "imageToBase64": "Εικόνα στο Base64",
     "imageCompressor": "Συμπίεση εικόνας",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Έλεγχος αντίθεσης",
+        "description": "Αναλογία αντίθεσης WCAG 2.1 κειμένου και φόντου (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "Γεννήτρια JSON Schema",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Ανάλογο",
     "paletteSplit": "Διαιρ. συμπλ.",
     "paletteSquare": "Τετράγωνο"
+  },
+  "ContrastChecker": {
+    "title": "Έλεγχος αντίθεσης",
+    "subtitle": "Υπολογίζει την αναλογία αντίθεσης WCAG 2.1 μεταξύ προσκηνίου και φόντου. Ελέγχει AA και AAA για κανονικό και μεγάλο κείμενο. Όλα στον περιηγητή σας.",
+    "foreground": "Κείμενο / προσκήνιο",
+    "background": "Φόντο",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Εναλλαγή χρωμάτων",
+    "chooseForeground": "Επιλογή χρώματος προσκηνίου",
+    "chooseBackground": "Επιλογή χρώματος φόντου",
+    "eyeDropper": "Σταγονόμετρο",
+    "ratio": "Αναλογία αντίθεσης",
+    "copyRatio": "Αντιγραφή αναλογίας",
+    "copied": "Αντιγράφηκε",
+    "previewHeading": "Προεπισκόπηση",
+    "previewBody": "Ταχίστη αλώπηξ βαφής ψημένη γης δρασκελίζει υπέρ νωθρού κυνός. Ξεσκεπάζω την ψυχοφθόρα βδελυγμία.",
+    "previewCaption": "Δείγμα κειμένου στο προεπιλεγμένο μέγεθος.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — κανονικό κείμενο (4,5:1)",
+    "levelAALarge": "AA — μεγάλο κείμενο (3:1)",
+    "levelAAANormal": "AAA — κανονικό κείμενο (7:1)",
+    "levelAAALarge": "AAA — μεγάλο κείμενο (4,5:1)",
+    "pass": "Περνάει",
+    "fail": "Αποτυγχάνει",
+    "invalidHex": "Μη έγκυρο χρώμα HEX.",
+    "largeTextHint": "Μεγάλο κείμενο: 18 pt+ κανονικό ή 14 pt+ έντονο (ορισμοί WCAG)."
   },
   "DiffChecker": {
     "title": "Έλεγχος διαφορών",

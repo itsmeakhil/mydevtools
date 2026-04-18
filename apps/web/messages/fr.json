@@ -24,6 +24,7 @@
     "secretApiKeyGenerator": "Secret / clé API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Sélecteur de couleurs",
+    "contrastChecker": "Vérificateur de contraste",
     "apiClient": "Client API",
     "httpStatusCodes": "Codes d’état HTTP",
     "nosqlExplorer": "Explorateur NoSQL",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Sélecteur de couleurs",
         "description": "Convertir HEX, RVB, TSL et explorer des palettes."
+      },
+      "contrastChecker": {
+        "title": "Vérificateur de contraste",
+        "description": "Ratio de contraste WCAG 2.1 entre texte et fond (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "Générateur de schéma JSON",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Analogue",
     "paletteSplit": "Compl. divisé",
     "paletteSquare": "Carré"
+  },
+  "ContrastChecker": {
+    "title": "Vérificateur de contraste",
+    "subtitle": "Calcule le ratio de contraste WCAG 2.1 entre premier plan et arrière-plan. Indique AA et AAA pour le texte courant et grand. Tout s’exécute dans votre navigateur.",
+    "foreground": "Texte / premier plan",
+    "background": "Arrière-plan",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Échanger les couleurs",
+    "chooseForeground": "Choisir la couleur du premier plan",
+    "chooseBackground": "Choisir la couleur d'arrière-plan",
+    "eyeDropper": "Pipette",
+    "ratio": "Ratio de contraste",
+    "copyRatio": "Copier le ratio",
+    "copied": "Copié",
+    "previewHeading": "Aperçu",
+    "previewBody": "Portez ce vieux whisky au juge blond qui fume. Voyez le brick géant que j’examine près du wharf.",
+    "previewCaption": "Exemple de texte courant à taille par défaut.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — texte courant (4,5:1)",
+    "levelAALarge": "AA — grand texte (3:1)",
+    "levelAAANormal": "AAA — texte courant (7:1)",
+    "levelAAALarge": "AAA — grand texte (4,5:1)",
+    "pass": "Réussi",
+    "fail": "Échoué",
+    "invalidHex": "Couleur HEX invalide.",
+    "largeTextHint": "Grand texte : 18 pt+ en normal, ou 14 pt+ en gras (définitions WCAG)."
   },
   "DiffChecker": {
     "title": "Vérificateur de différences",

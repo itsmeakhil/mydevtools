@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "Secret / clau API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Verificador de contrast",
     "jsonSchemaGenerator": "Generador d'esquema JSON",
     "imageToBase64": "Imatge a Base64",
     "imageCompressor": "Compressor d’imatges",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Verificador de contrast",
+        "description": "Ràtio de contrast WCAG 2.1 entre text i fons (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "Generador d'esquema JSON",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Anàleg",
     "paletteSplit": "Comp. dividida",
     "paletteSquare": "Quadrat"
+  },
+  "ContrastChecker": {
+    "title": "Verificador de contrast",
+    "subtitle": "Calcula la ràtio de contrast WCAG 2.1 entre primer pla i fons. Comprova AA i AAA per a text normal i gran. Tot al navegador.",
+    "foreground": "Text / primer pla",
+    "background": "Fons",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Intercanviar colors",
+    "chooseForeground": "Trieu el color de primer pla",
+    "chooseBackground": "Trieu el color de fons",
+    "eyeDropper": "Comptagotes",
+    "ratio": "Ràtio de contrast",
+    "copyRatio": "Copia la ràtio",
+    "copied": "Copiat",
+    "previewHeading": "Vista prèvia",
+    "previewBody": "Jove xef, porti whisky amb quinze glaçons d’hidrogen, coi! Aquest zebra al mig del fòrum es banyava en oli de codony.",
+    "previewCaption": "Text de mostra a mida per defecte.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — text normal (4,5:1)",
+    "levelAALarge": "AA — text gran (3:1)",
+    "levelAAANormal": "AAA — text normal (7:1)",
+    "levelAAALarge": "AAA — text gran (4,5:1)",
+    "pass": "Aprova",
+    "fail": "No aprova",
+    "invalidHex": "Color HEX no vàlid.",
+    "largeTextHint": "Text gran: 18 pt+ normal o 14 pt+ negreta (definicions WCAG)."
   },
   "DiffChecker": {
     "title": "Comparador de diferències",

@@ -30,6 +30,7 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/hmac-generator': 'hmacGenerator',
   '/app/lorem-ipsum': 'loremIpsum',
   '/app/color-picker': 'colorPicker',
+  '/app/contrast-checker': 'contrastChecker',
   '/app/api-client': 'apiClient',
   '/app/http-status-codes': 'httpStatusCodes',
   '/app/nosql-explorer': 'nosqlExplorer',

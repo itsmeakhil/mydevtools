@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "비밀 / API 키",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "대비 검사기",
     "jsonSchemaGenerator": "JSON 스키마 생성기",
     "imageToBase64": "이미지를 Base64로",
     "imageCompressor": "이미지 압축",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "대비 검사기",
+        "description": "텍스트와 배경의 WCAG 2.1 대비 비율(AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "JSON 스키마 생성기",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "유사색",
     "paletteSplit": "분할 보색",
     "paletteSquare": "사각형"
+  },
+  "ContrastChecker": {
+    "title": "대비 검사기",
+    "subtitle": "전경과 배경 사이의 WCAG 2.1 대비 비율을 계산합니다. 일반 텍스트와 큰 텍스트에 대한 AA·AAA 준수 여부를 표시합니다. 모두 브라우저에서 처리됩니다.",
+    "foreground": "텍스트 / 전경",
+    "background": "배경",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "색 바꾸기",
+    "chooseForeground": "전경색 선택",
+    "chooseBackground": "배경색 선택",
+    "eyeDropper": "스포이드",
+    "ratio": "대비 비율",
+    "copyRatio": "비율 복사",
+    "copied": "복사됨",
+    "previewHeading": "미리보기",
+    "previewBody": "다람쥐 헌 쳇바퀴에 타고파. 키스의 고유조건은 입술끼리 만나야 하고 특별한 기술은 필요치 않다.",
+    "previewCaption": "기본 크기의 예시 텍스트.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — 일반 텍스트(4.5:1)",
+    "levelAALarge": "AA — 큰 텍스트(3:1)",
+    "levelAAANormal": "AAA — 일반 텍스트(7:1)",
+    "levelAAALarge": "AAA — 큰 텍스트(4.5:1)",
+    "pass": "통과",
+    "fail": "미통과",
+    "invalidHex": "잘못된 HEX 색입니다.",
+    "largeTextHint": "큰 텍스트: 일반 18pt 이상 또는 굵게 14pt 이상(WCAG 정의)."
   },
   "DiffChecker": {
     "title": "차이 확인기",

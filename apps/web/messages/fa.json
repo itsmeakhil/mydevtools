@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "رمز / کلید API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "بررسی کنتراست",
     "jsonSchemaGenerator": "تولیدکنندهٔ طرح JSON",
     "imageToBase64": "تصویر به Base64",
     "imageCompressor": "فشرده‌ساز تصویر",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "بررسی کنتراست",
+        "description": "نسبت کنتراست WCAG 2.1 متن و پس‌زمینه (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "تولیدکنندهٔ طرح JSON",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "مشابه",
     "paletteSplit": "مکمل منقسم",
     "paletteSquare": "مربع"
+  },
+  "ContrastChecker": {
+    "title": "بررسی کنتراست",
+    "subtitle": "نسبت کنتراست WCAG 2.1 بین پیش‌زمینه و پس‌زمینه را محاسبه می‌کند. انطباق AA و AAA را برای متن معمولی و بزرگ نشان می‌دهد. همه در مرورگر شما.",
+    "foreground": "متن / پیش‌زمینه",
+    "background": "پس‌زمینه",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "جابه‌جایی رنگ‌ها",
+    "chooseForeground": "انتخاب رنگ پیش‌زمینه",
+    "chooseBackground": "انتخاب رنگ پس‌زمینه",
+    "eyeDropper": "قطره‌چکان",
+    "ratio": "نسبت کنتراست",
+    "copyRatio": "کپی نسبت",
+    "copied": "کپی شد",
+    "previewHeading": "پیش‌نمایش",
+    "previewBody": "می‌خواهیم زندگی بهتر و آزادی بیشتری داشته باشیم. پَرَستُشِ گَردِشِ چُرخِ فَلَک، بَر کَسَم نَرَسَد اَز دَهر.",
+    "previewCaption": "نمونه متن در اندازه پیش‌فرض.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — متن معمولی (۴٫۵:۱)",
+    "levelAALarge": "AA — متن بزرگ (۳:۱)",
+    "levelAAANormal": "AAA — متن معمولی (۷:۱)",
+    "levelAAALarge": "AAA — متن بزرگ (۴٫۵:۱)",
+    "pass": "مطابق",
+    "fail": "نامطابق",
+    "invalidHex": "رنگ HEX نامعتبر است.",
+    "largeTextHint": "متن بزرگ: ۱۸ پوینت به بالا معمولی یا ۱۴ پوینت به بالا پررنگ (تعاریف WCAG)."
   },
   "DiffChecker": {
     "title": "مقایسه تفاوت‌ها",

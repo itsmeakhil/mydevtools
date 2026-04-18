@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "シークレット / APIキー",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "コントラストチェッカー",
     "jsonSchemaGenerator": "JSONスキーマジェネレーター",
     "imageToBase64": "画像をBase64に変換",
     "imageCompressor": "画像圧縮",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "コントラストチェッカー",
+        "description": "テキストと背景の WCAG 2.1 コントラスト比（AA / AAA）。"
       },
       "jsonSchemaGenerator": {
         "title": "JSONスキーマジェネレーター",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "アナログ",
     "paletteSplit": "分裂補色",
     "paletteSquare": "スクエア"
+  },
+  "ContrastChecker": {
+    "title": "コントラストチェッカー",
+    "subtitle": "前景色と背景色の WCAG 2.1 コントラスト比を計算します。通常テキスト・大きいテキストの AA / AAA を表示。すべてブラウザ内で処理されます。",
+    "foreground": "テキスト / 前景",
+    "background": "背景",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "色を入れ替え",
+    "chooseForeground": "前景色を選ぶ",
+    "chooseBackground": "背景色を選ぶ",
+    "eyeDropper": "スポイト",
+    "ratio": "コントラスト比",
+    "copyRatio": "比率をコピー",
+    "copied": "コピーしました",
+    "previewHeading": "プレビュー",
+    "previewBody": "いろはにほへと　ちりぬるを　わかよたれそ　つねならむ　うゐのおくやま　けふこえて　あさきゆめみし　ゑひもせすん。",
+    "previewCaption": "標準サイズのサンプルテキスト。",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — 通常テキスト（4.5:1）",
+    "levelAALarge": "AA — 大きいテキスト（3:1）",
+    "levelAAANormal": "AAA — 通常テキスト（7:1）",
+    "levelAAALarge": "AAA — 大きいテキスト（4.5:1）",
+    "pass": "適合",
+    "fail": "不適合",
+    "invalidHex": "無効な HEX 色です。",
+    "largeTextHint": "大きいテキスト：18pt 以上の通常、または 14pt 以上の太字（WCAG の定義）。"
   },
   "DiffChecker": {
     "title": "差分チェッカー",

@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "Hemmelighet / API-nøkkel",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Kontrastkontroll",
     "jsonSchemaGenerator": "JSON-skjemagenerator",
     "imageToBase64": "Bilde til Base64",
     "imageCompressor": "Bildekomprimering",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Kontrastkontroll",
+        "description": "WCAG 2.1-kontrastforhold mellom tekst og bakgrunn (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "JSON-skjemagenerator",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Analog",
     "paletteSplit": "Delt kompl.",
     "paletteSquare": "Kvadratisk"
+  },
+  "ContrastChecker": {
+    "title": "Kontrastkontroll",
+    "subtitle": "Beregner WCAG 2.1-kontrastforholdet mellom forgrunn og bakgrunn. Viser AA og AAA for normal og stor tekst. Alt skjer i nettleseren.",
+    "foreground": "Tekst / forgrunn",
+    "background": "Bakgrunn",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Bytt farger",
+    "chooseForeground": "Velg forgrunnsfarge",
+    "chooseBackground": "Velg bakgrunnsfarge",
+    "eyeDropper": "Pipette",
+    "ratio": "Kontrastforhold",
+    "copyRatio": "Kopier forhold",
+    "copied": "Kopiert",
+    "previewHeading": "Forhåndsvisning",
+    "previewBody": "Vår sære Zulu fra badeøya spilte jo whist og quickstep i min taxi. Høvdingens kjære squaw får litt pizza i Mexico by.",
+    "previewCaption": "Eksempeltekst i standardstørrelse.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — normal tekst (4,5:1)",
+    "levelAALarge": "AA — stor tekst (3:1)",
+    "levelAAANormal": "AAA — normal tekst (7:1)",
+    "levelAAALarge": "AAA — stor tekst (4,5:1)",
+    "pass": "Bestått",
+    "fail": "Ikke bestått",
+    "invalidHex": "Ugyldig HEX-farge.",
+    "largeTextHint": "Stor tekst: 18 pt+ vanlig eller 14 pt+ fet (WCAG-definisjoner)."
   },
   "DiffChecker": {
     "title": "Diff-sjekker",

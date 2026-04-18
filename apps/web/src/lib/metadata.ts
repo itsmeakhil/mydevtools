@@ -123,6 +123,11 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: 'Pick colors, convert between HEX, RGB, and HSL, and explore harmonic palettes — shades, complementary, triadic, and more.',
         keywords: ['color picker', 'hex to rgb', 'rgb to hsl', 'color converter', 'palette generator']
     },
+    'contrast-checker': {
+        title: 'WCAG Contrast Checker',
+        description: 'Measure WCAG 2.1 contrast between two HEX colors, see AA and AAA pass/fail for normal and large text, and preview typography on the background.',
+        keywords: ['wcag contrast', 'contrast ratio', 'aa aaa', 'accessibility checker', 'color contrast', 'text contrast', 'wcag 2.1']
+    },
     'jwt-decoder': {
         title: 'JWT Decoder',
         description: 'Decode JSON Web Tokens in the browser: header, payload, exp, iat, and nbf. No server upload; signature not verified.',

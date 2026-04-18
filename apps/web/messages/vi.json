@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "Bí mật / khóa API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Kiểm tra độ tương phản",
     "jsonSchemaGenerator": "Trình tạo lược đồ JSON",
     "imageToBase64": "Hình ảnh tới Base64",
     "imageCompressor": "Nén ảnh",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Kiểm tra độ tương phản",
+        "description": "Tỷ lệ tương phản WCAG 2.1 giữa chữ và nền (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "Trình tạo lược đồ JSON",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Tương tự",
     "paletteSplit": "Bổ sung phân chia",
     "paletteSquare": "Hình vuông"
+  },
+  "ContrastChecker": {
+    "title": "Kiểm tra độ tương phản",
+    "subtitle": "Tính tỷ lệ tương phản WCAG 2.1 giữa chữ và nền. Kiểm tra AA và AAA cho chữ thường và chữ lớn. Chạy hoàn toàn trên trình duyệt.",
+    "foreground": "Chữ / tiền cảnh",
+    "background": "Nền",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Hoán đổi màu",
+    "chooseForeground": "Chọn màu chữ / tiền cảnh",
+    "chooseBackground": "Chọn màu nền",
+    "eyeDropper": "Ống hút màu",
+    "ratio": "Tỷ lệ tương phản",
+    "copyRatio": "Sao chép tỷ lệ",
+    "copied": "Đã sao chép",
+    "previewHeading": "Xem trước",
+    "previewBody": "Do bách phục vị yêu cầu giáo dục thể chất và tinh thần minh bạch. Không có quý tộc, chỉ có bình đẳng — ai cũng xứng đáng tự do.",
+    "previewCaption": "Văn bản mẫu cỡ mặc định.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — chữ thường (4,5:1)",
+    "levelAALarge": "AA — chữ lớn (3:1)",
+    "levelAAANormal": "AAA — chữ thường (7:1)",
+    "levelAAALarge": "AAA — chữ lớn (4,5:1)",
+    "pass": "Đạt",
+    "fail": "Không đạt",
+    "invalidHex": "Màu HEX không hợp lệ.",
+    "largeTextHint": "Chữ lớn: từ 18 pt thường hoặc từ 14 pt đậm (theo WCAG)."
   },
   "DiffChecker": {
     "title": "Kiểm tra sự khác biệt",

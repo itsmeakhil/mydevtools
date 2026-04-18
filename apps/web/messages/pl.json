@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "Sekret / klucz API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Sprawdzanie kontrastu",
     "jsonSchemaGenerator": "Generator schematu JSON",
     "imageToBase64": "Obraz do Base64",
     "imageCompressor": "Kompresor obrazów",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Sprawdzanie kontrastu",
+        "description": "Współczynnik kontrastu WCAG 2.1 tekstu i tła (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "Generator schematu JSON",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Analogiczny",
     "paletteSplit": "Dopeł. podzielony",
     "paletteSquare": "Kwadratowy"
+  },
+  "ContrastChecker": {
+    "title": "Sprawdzanie kontrastu",
+    "subtitle": "Oblicza współczynnik kontrastu WCAG 2.1 między pierwszym planem a tłem. Sprawdza AA i AAA dla zwykłego i dużego tekstu. Wszystko w przeglądarce.",
+    "foreground": "Tekst / pierwszy plan",
+    "background": "Tło",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Zamień kolory",
+    "chooseForeground": "Wybierz kolor pierwszego planu",
+    "chooseBackground": "Wybierz kolor tła",
+    "eyeDropper": "Pipeta",
+    "ratio": "Współczynnik kontrastu",
+    "copyRatio": "Kopiuj współczynnik",
+    "copied": "Skopiowano",
+    "previewHeading": "Podgląd",
+    "previewBody": "Pchnąć w tę łódź jeża lub ośm skrzyń fig. Zażółć gęślą jaźń, Stróż pchnął kość w quiz gędźb vel fax myjń.",
+    "previewCaption": "Przykładowy tekst w domyślnym rozmiarze.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — zwykły tekst (4,5:1)",
+    "levelAALarge": "AA — duży tekst (3:1)",
+    "levelAAANormal": "AAA — zwykły tekst (7:1)",
+    "levelAAALarge": "AAA — duży tekst (4,5:1)",
+    "pass": "Zaliczone",
+    "fail": "Niezaliczone",
+    "invalidHex": "Nieprawidłowy kolor HEX.",
+    "largeTextHint": "Duży tekst: 18 pt+ zwykły lub 14 pt+ pogrubiony (definicje WCAG)."
   },
   "DiffChecker": {
     "title": "Sprawdzanie różnic",

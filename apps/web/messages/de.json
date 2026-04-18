@@ -24,6 +24,7 @@
     "secretApiKeyGenerator": "Geheimnis / API-Schlüssel",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Farbauswahl",
+    "contrastChecker": "Kontrastprüfung",
     "apiClient": "API-Client",
     "httpStatusCodes": "HTTP-Statuscodes",
     "nosqlExplorer": "NoSQL-Explorer",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Farbauswahl",
         "description": "HEX, RGB, HSL umrechnen und Farbpaletten erkunden."
+      },
+      "contrastChecker": {
+        "title": "Kontrastprüfung",
+        "description": "WCAG-2.1-Kontrastverhältnis für Text und Hintergrund (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "JSON-Schema-Generator",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Analog",
     "paletteSplit": "Geteiltes Kompl.",
     "paletteSquare": "Quadratisch"
+  },
+  "ContrastChecker": {
+    "title": "Kontrastprüfung",
+    "subtitle": "Berechnet das WCAG-2.1-Kontrastverhältnis zwischen Vorder- und Hintergrundfarbe. Prüft AA und AAA für normalen und großen Text. Alles läuft in Ihrem Browser.",
+    "foreground": "Text / Vordergrund",
+    "background": "Hintergrund",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Farben tauschen",
+    "chooseForeground": "Vordergrundfarbe wählen",
+    "chooseBackground": "Hintergrundfarbe wählen",
+    "eyeDropper": "Pipette",
+    "ratio": "Kontrastverhältnis",
+    "copyRatio": "Verhältnis kopieren",
+    "copied": "Kopiert",
+    "previewHeading": "Vorschau",
+    "previewBody": "Victor jagt zwölf Boxkämpfer quer über den großen Sylter Deich. Falsches Üben von Xylophonmusik quält jeden größeren Zwerg.",
+    "previewCaption": "Beispieltext in normaler Größe.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — normaler Text (4,5:1)",
+    "levelAALarge": "AA — großer Text (3:1)",
+    "levelAAANormal": "AAA — normaler Text (7:1)",
+    "levelAAALarge": "AAA — großer Text (4,5:1)",
+    "pass": "Bestanden",
+    "fail": "Nicht bestanden",
+    "invalidHex": "Ungültige HEX-Farbe.",
+    "largeTextHint": "Großer Text: 18 pt+ regulär oder 14 pt+ fett (Definitionen nach WCAG)."
   },
   "DiffChecker": {
     "title": "Diff-Prüfer",

@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "Секрет / ключ API",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Перевірка контрасту",
     "jsonSchemaGenerator": "Генератор JSON-схеми",
     "imageToBase64": "Зображення до Base64",
     "imageCompressor": "Стиснення зображень",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Перевірка контрасту",
+        "description": "Коефіцієнт контрасту WCAG 2.1 для тексту й тла (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "Генератор JSON-схеми",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Аналогічний",
     "paletteSplit": "Розділений доп.",
     "paletteSquare": "Квадратний"
+  },
+  "ContrastChecker": {
+    "title": "Перевірка контрасту",
+    "subtitle": "Обчислює коефіцієнт контрасту WCAG 2.1 між переднім планом і тлом. Перевіряє AA та AAA для звичайного й великого тексту. Усе в браузері.",
+    "foreground": "Текст / передній план",
+    "background": "Тло",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Поміняти кольори місцями",
+    "chooseForeground": "Обрати колір переднього плану",
+    "chooseBackground": "Обрати колір тла",
+    "eyeDropper": "Піпетка",
+    "ratio": "Коефіцієнт контрасту",
+    "copyRatio": "Копіювати значення",
+    "copied": "Скопійовано",
+    "previewHeading": "Попередній перегляд",
+    "previewBody": "Єхидна, ґава, їжак ще й білка на цьому шляху гризли фундук. Чуєш їх: гам, ґвалт, лай — не хочу я так бути з ними!",
+    "previewCaption": "Зразок тексту стандартного розміру.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — звичайний текст (4,5:1)",
+    "levelAALarge": "AA — великий текст (3:1)",
+    "levelAAANormal": "AAA — звичайний текст (7:1)",
+    "levelAAALarge": "AAA — великий текст (4,5:1)",
+    "pass": "Відповідає",
+    "fail": "Не відповідає",
+    "invalidHex": "Некоректний колір HEX.",
+    "largeTextHint": "Великий текст: 18 pt+ звичайний або 14 pt+ напівжирний (визначення WCAG)."
   },
   "DiffChecker": {
     "title": "Перевірка різниць",

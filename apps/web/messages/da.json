@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "Hemmelighed / API-nøgle",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Kontrastkontrol",
     "jsonSchemaGenerator": "JSON-skemagenerator",
     "imageToBase64": "Billede til Base64",
     "imageCompressor": "Billedkomprimering",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Kontrastkontrol",
+        "description": "WCAG 2.1-kontrastforhold mellem tekst og baggrund (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "JSON-skemagenerator",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Analog",
     "paletteSplit": "Delt kompl.",
     "paletteSquare": "Firkantet"
+  },
+  "ContrastChecker": {
+    "title": "Kontrastkontrol",
+    "subtitle": "Beregner WCAG 2.1-kontrastforholdet mellem forgrund og baggrund. Viser AA og AAA for normal og stor tekst. Kører i din browser.",
+    "foreground": "Tekst / forgrund",
+    "background": "Baggrund",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Byt farver",
+    "chooseForeground": "Vælg forgrundsfarve",
+    "chooseBackground": "Vælg baggrundsfarve",
+    "eyeDropper": "Pipette",
+    "ratio": "Kontrastforhold",
+    "copyRatio": "Kopiér forhold",
+    "copied": "Kopieret",
+    "previewHeading": "Forhåndsvisning",
+    "previewBody": "Quizdeltagerne spiste jordbær med fløde, mens cirkusklovnen Walther spillede på xylofon.",
+    "previewCaption": "Eksempeltekst i standardstørrelse.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — normal tekst (4,5:1)",
+    "levelAALarge": "AA — stor tekst (3:1)",
+    "levelAAANormal": "AAA — normal tekst (7:1)",
+    "levelAAALarge": "AAA — stor tekst (4,5:1)",
+    "pass": "Bestået",
+    "fail": "Ikke bestået",
+    "invalidHex": "Ugyldig HEX-farve.",
+    "largeTextHint": "Stor tekst: 18 pt+ almindelig eller 14 pt+ fed (WCAG-definitioner)."
   },
   "DiffChecker": {
     "title": "Diff-kontrol",

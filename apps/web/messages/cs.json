@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "Tajemství / API klíč",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Kontrola kontrastu",
     "jsonSchemaGenerator": "Generátor JSON schématu",
     "imageToBase64": "Obrázek do Base64",
     "imageCompressor": "Komprese obrázků",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Kontrola kontrastu",
+        "description": "Kontrastní poměr WCAG 2.1 mezi textem a pozadím (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "Generátor JSON schématu",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Analogický",
     "paletteSplit": "Dělený dopl.",
     "paletteSquare": "Čtvercový"
+  },
+  "ContrastChecker": {
+    "title": "Kontrola kontrastu",
+    "subtitle": "Vypočítá kontrastní poměr WCAG 2.1 mezi popředím a pozadím. Zkontroluje AA a AAA pro běžný a velký text. Vše v prohlížeči.",
+    "foreground": "Text / popředí",
+    "background": "Pozadí",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Prohodit barvy",
+    "chooseForeground": "Vybrat barvu popředí",
+    "chooseBackground": "Vybrat barvu pozadí",
+    "eyeDropper": "Kapátko",
+    "ratio": "Kontrastní poměr",
+    "copyRatio": "Kopírovat poměr",
+    "copied": "Zkopírováno",
+    "previewHeading": "Náhled",
+    "previewBody": "Příliš žluťoučký kůň úpěl ďábelské ódy. Nechtějí být ve víře řádů kódu šíleně zpívajícího ďábla.",
+    "previewCaption": "Ukázkový text ve výchozí velikosti.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — běžný text (4,5:1)",
+    "levelAALarge": "AA — velký text (3:1)",
+    "levelAAANormal": "AAA — běžný text (7:1)",
+    "levelAAALarge": "AAA — velký text (4,5:1)",
+    "pass": "Vyhovuje",
+    "fail": "Nevyhovuje",
+    "invalidHex": "Neplatná barva HEX.",
+    "largeTextHint": "Velký text: 18 pt+ řezný nebo 14 pt+ tučný (definice WCAG)."
   },
   "DiffChecker": {
     "title": "Porovnávač rozdílů",

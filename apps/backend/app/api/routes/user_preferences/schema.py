@@ -37,6 +37,7 @@ DEFAULT_ENABLED_TOOLS = [
     "/app/hmac-generator",
     "/app/lorem-ipsum",
     "/app/color-picker",
+    "/app/contrast-checker",
     "/app/markdown-preview-html",
 ]
 

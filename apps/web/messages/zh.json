@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "密钥 / API 密钥",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "对比度检查",
     "jsonSchemaGenerator": "JSON 模式生成器",
     "imageToBase64": "图像转 Base64",
     "imageCompressor": "图片压缩",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "对比度检查",
+        "description": "文本与背景的 WCAG 2.1 对比度（AA / AAA）。"
       },
       "jsonSchemaGenerator": {
         "title": "JSON 模式生成器",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "邻近色",
     "paletteSplit": "分裂互补",
     "paletteSquare": "正方形配色"
+  },
+  "ContrastChecker": {
+    "title": "对比度检查",
+    "subtitle": "计算前景与背景之间的 WCAG 2.1 对比度，并显示常规与大号文字的 AA、AAA 达标情况。全部在浏览器本地完成。",
+    "foreground": "文字 / 前景",
+    "background": "背景",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "交换颜色",
+    "chooseForeground": "选择前景色",
+    "chooseBackground": "选择背景色",
+    "eyeDropper": "取色器",
+    "ratio": "对比度",
+    "copyRatio": "复制比值",
+    "copied": "已复制",
+    "previewHeading": "预览",
+    "previewBody": "天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。寒来暑往，秋收冬藏。闰余成岁，律吕调阳。",
+    "previewCaption": "默认字号示例正文。",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — 常规文字（4.5:1）",
+    "levelAALarge": "AA — 大号文字（3:1）",
+    "levelAAANormal": "AAA — 常规文字（7:1）",
+    "levelAAALarge": "AAA — 大号文字（4.5:1）",
+    "pass": "通过",
+    "fail": "未通过",
+    "invalidHex": "无效的 HEX 颜色。",
+    "largeTextHint": "大号文字：常规 18pt 及以上，或粗体 14pt 及以上（WCAG 定义）。"
   },
   "DiffChecker": {
     "title": "差异检查器",

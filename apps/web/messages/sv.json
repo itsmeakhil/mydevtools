@@ -27,6 +27,7 @@
     "secretApiKeyGenerator": "Hemlighet / API-nyckel",
     "loremIpsum": "Lorem Ipsum",
     "colorPicker": "Color Picker",
+    "contrastChecker": "Kontrastkontroll",
     "jsonSchemaGenerator": "JSON-schemagenerator",
     "imageToBase64": "Bild till Base64",
     "imageCompressor": "Bildkomprimering",
@@ -323,6 +324,10 @@
       "colorPicker": {
         "title": "Color Picker",
         "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Kontrastkontroll",
+        "description": "WCAG 2.1-kontrast mellan text och bakgrund (AA / AAA)."
       },
       "jsonSchemaGenerator": {
         "title": "JSON-schemagenerator",
@@ -2357,6 +2362,32 @@
     "paletteAnalogous": "Analog",
     "paletteSplit": "Delad kompl.",
     "paletteSquare": "Kvadratisk"
+  },
+  "ContrastChecker": {
+    "title": "Kontrastkontroll",
+    "subtitle": "Beräknar WCAG 2.1-kontrasten mellan förgrund och bakgrund. Visar AA och AAA för normal och stor text. Allt körs i din webbläsare.",
+    "foreground": "Text / förgrund",
+    "background": "Bakgrund",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Byt färger",
+    "chooseForeground": "Välj förgrundsfärg",
+    "chooseBackground": "Välj bakgrundsfärg",
+    "eyeDropper": "Pipett",
+    "ratio": "Kontrast",
+    "copyRatio": "Kopiera värde",
+    "copied": "Kopierat",
+    "previewHeading": "Förhandsgranskning",
+    "previewBody": "Yxska kåmpare med vårbyxor och tröjor följer quiz på TV. Flygande bäckasiner söka hwila på mjuka tuvor.",
+    "previewCaption": "Exempeltext i standardstorlek.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — normal text (4,5:1)",
+    "levelAALarge": "AA — stor text (3:1)",
+    "levelAAANormal": "AAA — normal text (7:1)",
+    "levelAAALarge": "AAA — stor text (4,5:1)",
+    "pass": "Godkänd",
+    "fail": "Underkänd",
+    "invalidHex": "Ogiltig HEX-färg.",
+    "largeTextHint": "Stor text: 18 pt+ normal eller 14 pt+ fet (WCAG-definitioner)."
   },
   "DiffChecker": {
     "title": "Diff-kontroll",
