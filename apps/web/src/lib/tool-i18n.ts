@@ -48,6 +48,10 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/mock-data-generator': 'mockDataGenerator',
   '/app/unit-converter': 'unitConverter',
   '/app/svg-optimizer': 'svgOptimizer',
+  '/app/pdf-unlocker': 'pdfUnlocker',
+  '/app/pdf-locker': 'pdfLocker',
+  '/app/pdf-splitter': 'pdfSplitter',
+  '/app/pdf-merge': 'pdfMerge',
 };
 
 export function getToolMessageKey(pathname: string): string | undefined {

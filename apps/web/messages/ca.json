@@ -47,7 +47,10 @@
     "mockDataGenerator": "Generador de dades de prova",
     "svgOptimizer": "Optimitzador SVG",
     "unitConverter": "Convertidor d'unitats",
-    "dockerComposeGenerator": "Generador Docker Compose"
+    "dockerComposeGenerator": "Generador Docker Compose",
+    "pdfUnlocker": "Desbloquejar PDF",
+    "pdfLocker": "Protegir PDF",
+    "pdfMerge": "Fusionar PDF"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "Generador Docker Compose",
         "description": "Trieu bases de dades, memòries cau, cues, proxies i imatges d’observabilitat; exporteu un docker-compose.yml per a piles locals."
+      },
+      "pdfUnlocker": {
+        "title": "Desbloquejar PDF",
+        "description": "Elimina la contrasenya d’obertura d’un PDF i baixa una còpia desbloquejada al navegador."
+      },
+      "pdfLocker": {
+        "title": "Protegir PDF",
+        "description": "Protegeix un PDF amb contrasenya (AES-256) i baixa una còpia protegida al navegador."
+      },
+      "pdfMerge": {
+        "title": "Fusionar fitxers PDF",
+        "description": "Combina PDFs en l’ordre que vulguis de la manera més senzilla — tot al navegador."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "El fitxer no surt mai d’aquest navegador.",
+    "chooseFile": "Tria PDF",
+    "dialogTitle": "Contrasenya del PDF",
+    "dialogDescription": "El fitxer està protegit. Introdueix la contrasenya d’obertura i desbloqueja.",
+    "passwordLabel": "Contrasenya",
+    "passwordPlaceholder": "Contrasenya d’obertura actual",
+    "cancel": "Cancel·la",
+    "unlock": "Desbloquejar",
+    "processing": "Desbloquejant…",
+    "download": "Baixa el PDF desbloquejat",
+    "reset": "Un altre fitxer",
+    "invalidPdf": "No s’ha pogut llegir el fitxer com a PDF.",
+    "wrongPassword": "Contrasenya incorrecta o xifrat no compatible amb aquest PDF."
+  },
+  "PdfLocker": {
+    "privacyNote": "El fitxer no surt mai d’aquest navegador.",
+    "chooseFile": "Tria PDF",
+    "dialogTitle": "Protegir aquest PDF",
+    "dialogDescription": "Tria una contrasenya d’obertura. Ha de coincidir als dos camps.",
+    "passwordLabel": "Contrasenya",
+    "passwordPlaceholder": "Nova contrasenya d’obertura",
+    "confirmLabel": "Confirma la contrasenya",
+    "confirmPlaceholder": "Repeteix la contrasenya",
+    "cancel": "Cancel·la",
+    "lock": "Protegir PDF",
+    "processing": "Xifrant…",
+    "download": "Baixa el PDF protegit",
+    "reset": "Un altre fitxer",
+    "invalidPdf": "No s’ha pogut llegir el fitxer com a PDF.",
+    "alreadyEncrypted": "Aquest PDF ja està protegit. Desbloqueja’l primer i torna a protegir-lo si cal.",
+    "passwordRequired": "Introdueix una contrasenya.",
+    "passwordMismatch": "Les contrasenyes no coincideixen.",
+    "genericError": "No s’ha pogut xifrar aquest PDF. Prova un altre fitxer o una contrasenya més curta."
+  },
+  "PdfMerge": {
+    "intro": "Combina PDFs en l’ordre que vulguis amb la fusió més senzilla.",
+    "privacyNote": "Els fitxers no surten d’aquest navegador.",
+    "orderHint": "Els fitxers a dalt van primers al PDF fusionat. Reordena amb les fletxes.",
+    "addPdfs": "Afegeix PDF",
+    "clearAll": "Buida la llista",
+    "mergeDownload": "Fusiona i descarrega",
+    "merging": "Fusionant…",
+    "pages": "{count} pàgines",
+    "moveUpAria": "Amunt",
+    "moveDownAria": "Avall",
+    "removeFileAria": "Treure de la llista",
+    "minTwoPdfs": "Afegeix almenys dos fitxers PDF per fusionar.",
+    "invalidPdf": "No s’ha pogut llegir aquest fitxer com a PDF.",
+    "mergeFailed": "No s’ha pogut fusionar. Treu PDF protegits o malmesos i torna-ho a provar."
   }
 }

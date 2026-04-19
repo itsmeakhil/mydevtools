@@ -47,7 +47,10 @@
     "mockDataGenerator": "مولّد بيانات وهمية",
     "svgOptimizer": "محسّن SVG",
     "unitConverter": "محوّل الوحدات",
-    "dockerComposeGenerator": "مولّد Docker Compose"
+    "dockerComposeGenerator": "مولّد Docker Compose",
+    "pdfUnlocker": "إلغاء قفل PDF",
+    "pdfLocker": "قفل PDF",
+    "pdfMerge": "دمج ملفات PDF"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "مولّد Docker Compose",
         "description": "اختر قواعد البيانات والتخزين المؤقت والطوابير والوكلاء وصور المراقبة؛ صدّر docker-compose.yml للمكدسات المحلية."
+      },
+      "pdfUnlocker": {
+        "title": "إلغاء قفل PDF",
+        "description": "أزل كلمة مرور فتح ملف PDF وحمّل نسخة غير مقفلة في المتصفح."
+      },
+      "pdfLocker": {
+        "title": "قفل PDF",
+        "description": "احمِ ملف PDF بكلمة مرور (AES-256) وحمّل نسخة مقفلة في المتصفح."
+      },
+      "pdfMerge": {
+        "title": "دمج ملفات PDF",
+        "description": "ادمج ملفات PDF بالترتيب الذي تريده بأبسط طريقة — كل شيء في المتصفح."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "ملفك لا يغادر هذا المتصفح.",
+    "chooseFile": "اختر PDF",
+    "dialogTitle": "كلمة مرور PDF",
+    "dialogDescription": "الملف محمي بكلمة مرور. أدخل كلمة مرور الفتح ثم ألغِ القفل.",
+    "passwordLabel": "كلمة المرور",
+    "passwordPlaceholder": "كلمة مرور الفتح الحالية",
+    "cancel": "إلغاء",
+    "unlock": "إلغاء القفل",
+    "processing": "جارٍ إلغاء القفل…",
+    "download": "تنزيل PDF غير مقفل",
+    "reset": "ملف آخر",
+    "invalidPdf": "تعذّر قراءة هذا الملف كـ PDF.",
+    "wrongPassword": "كلمة مرور خاطئة أو تشفير غير مدعوم لهذا الملف."
+  },
+  "PdfLocker": {
+    "privacyNote": "ملفك لا يغادر هذا المتصفح.",
+    "chooseFile": "اختر PDF",
+    "dialogTitle": "قفل هذا PDF",
+    "dialogDescription": "اختر كلمة مرور للفتح. يجب أن تتطابق في الحقلين.",
+    "passwordLabel": "كلمة المرور",
+    "passwordPlaceholder": "كلمة مرور فتح جديدة",
+    "confirmLabel": "تأكيد كلمة المرور",
+    "confirmPlaceholder": "أعد إدخال كلمة المرور",
+    "cancel": "إلغاء",
+    "lock": "قفل PDF",
+    "processing": "جارٍ التشفير…",
+    "download": "تنزيل PDF المقفل",
+    "reset": "ملف آخر",
+    "invalidPdf": "تعذّر قراءة هذا الملف كـ PDF.",
+    "alreadyEncrypted": "هذا PDF محمي بالفعل. ألغِ القفل أولاً ثم أعد القفل إن لزم.",
+    "passwordRequired": "أدخل كلمة مرور.",
+    "passwordMismatch": "كلمتا المرور غير متطابقتين.",
+    "genericError": "تعذّر تشفير هذا PDF. جرّب ملفاً آخر أو كلمة مرور أقصر."
+  },
+  "PdfMerge": {
+    "intro": "ادمج ملفات PDF بالترتيب الذي تريده بأبسط أداة دمج.",
+    "privacyNote": "ملفاتك لا تغادر هذا المتصفح.",
+    "orderHint": "الملفات في الأعلى تأتي أولاً في ملف PDF المدمج. أعد الترتيب بالأسهم.",
+    "addPdfs": "إضافة PDF",
+    "clearAll": "مسح القائمة",
+    "mergeDownload": "دمج وتنزيل",
+    "merging": "جارٍ الدمج…",
+    "pages": "{count} صفحة",
+    "moveUpAria": "تحريك لأعلى",
+    "moveDownAria": "تحريك لأسفل",
+    "removeFileAria": "إزالة من القائمة",
+    "minTwoPdfs": "أضف ملفي PDF على الأقل للدمج.",
+    "invalidPdf": "تعذّر قراءة هذا الملف كـ PDF.",
+    "mergeFailed": "تعذّر الدمج. أزل ملفات PDF المحمية أو التالفة وحاول مجددًا."
   }
 }

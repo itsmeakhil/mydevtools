@@ -47,7 +47,10 @@
     "mockDataGenerator": "Mock-Datengenerator",
     "svgOptimizer": "SVG-Optimierer",
     "unitConverter": "Einheitenrechner",
-    "dockerComposeGenerator": "Docker-Compose-Generator"
+    "dockerComposeGenerator": "Docker-Compose-Generator",
+    "pdfUnlocker": "PDF entsperren",
+    "pdfLocker": "PDF sperren",
+    "pdfMerge": "PDF-Dateien zusammenführen"
   },
   "Help": {
     "title": "Hilfe & Dokumentation",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "Docker-Compose-Generator",
         "description": "Datenbanken, Caches, Warteschlangen, Proxys und Observability wählen; docker-compose.yml für lokale Stacks exportieren."
+      },
+      "pdfUnlocker": {
+        "title": "PDF entsperren",
+        "description": "Entfernen Sie das Öffnungskennwort eines PDFs und laden Sie eine ungeschützte Kopie im Browser herunter."
+      },
+      "pdfLocker": {
+        "title": "PDF sperren",
+        "description": "Schützen Sie ein PDF mit Kennwort (AES-256) und laden Sie eine gesperrte Kopie im Browser herunter."
+      },
+      "pdfMerge": {
+        "title": "PDF-Dateien zusammenführen",
+        "description": "PDFs in der gewünschten Reihenfolge kombinieren — der einfachste PDF-Merger, komplett im Browser."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Ihre Datei verlässt diesen Browser nicht.",
+    "chooseFile": "PDF wählen",
+    "dialogTitle": "PDF-Kennwort",
+    "dialogDescription": "Diese Datei ist kennwortgeschützt. Geben Sie das Öffnungskennwort ein und entsperren Sie sie.",
+    "passwordLabel": "Kennwort",
+    "passwordPlaceholder": "Aktuelles Öffnungskennwort",
+    "cancel": "Abbrechen",
+    "unlock": "Entsperren",
+    "processing": "Wird entsperrt…",
+    "download": "Entsperrtes PDF herunterladen",
+    "reset": "Andere Datei",
+    "invalidPdf": "Diese Datei konnte nicht als PDF gelesen werden.",
+    "wrongPassword": "Falsches Kennwort oder Verschlüsselung wird für dieses PDF nicht unterstützt."
+  },
+  "PdfLocker": {
+    "privacyNote": "Ihre Datei verlässt diesen Browser nicht.",
+    "chooseFile": "PDF wählen",
+    "dialogTitle": "PDF schützen",
+    "dialogDescription": "Wählen Sie ein Öffnungskennwort. Es muss in beiden Feldern übereinstimmen.",
+    "passwordLabel": "Kennwort",
+    "passwordPlaceholder": "Neues Öffnungskennwort",
+    "confirmLabel": "Kennwort bestätigen",
+    "confirmPlaceholder": "Kennwort wiederholen",
+    "cancel": "Abbrechen",
+    "lock": "PDF schützen",
+    "processing": "Wird verschlüsselt…",
+    "download": "Geschütztes PDF herunterladen",
+    "reset": "Andere Datei",
+    "invalidPdf": "Diese Datei konnte nicht als PDF gelesen werden.",
+    "alreadyEncrypted": "Dieses PDF ist bereits kennwortgeschützt. Entsperren Sie es zuerst und sperren Sie es bei Bedarf erneut.",
+    "passwordRequired": "Bitte ein Kennwort eingeben.",
+    "passwordMismatch": "Die Kennwörter stimmen nicht überein.",
+    "genericError": "Dieses PDF konnte nicht verschlüsselt werden. Andere Datei oder kürzeres Kennwort versuchen."
+  },
+  "PdfMerge": {
+    "intro": "PDFs in der gewünschten Reihenfolge kombinieren — mit dem einfachsten PDF-Merger.",
+    "privacyNote": "Ihre Dateien verlassen diesen Browser nicht.",
+    "orderHint": "Oben stehende Dateien erscheinen zuerst im zusammengeführten PDF. Mit den Pfeilen sortieren.",
+    "addPdfs": "PDFs hinzufügen",
+    "clearAll": "Liste leeren",
+    "mergeDownload": "Zusammenführen & herunterladen",
+    "merging": "Wird zusammengeführt…",
+    "pages": "{count} Seiten",
+    "moveUpAria": "Nach oben",
+    "moveDownAria": "Nach unten",
+    "removeFileAria": "Aus Liste entfernen",
+    "minTwoPdfs": "Mindestens zwei PDF-Dateien zum Zusammenführen hinzufügen.",
+    "invalidPdf": "Diese Datei konnte nicht als PDF gelesen werden.",
+    "mergeFailed": "Zusammenführen fehlgeschlagen. Entfernen Sie passwortgeschützte oder beschädigte Dateien."
   }
 }

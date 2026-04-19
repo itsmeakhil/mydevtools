@@ -47,7 +47,10 @@
     "mockDataGenerator": "Генератор тестових даних",
     "svgOptimizer": "Оптимізатор SVG",
     "unitConverter": "Конвертер одиниць",
-    "dockerComposeGenerator": "Генератор Docker Compose"
+    "dockerComposeGenerator": "Генератор Docker Compose",
+    "pdfUnlocker": "Розблокування PDF",
+    "pdfLocker": "Захист PDF",
+    "pdfMerge": "Об’єднати PDF"
   },
   "Help": {
     "title": "Довідка та документація",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "Генератор Docker Compose",
         "description": "Оберіть бази даних, кеші, черги, проксі та образи спостережуваності; експортуйте docker-compose.yml для локальних стеків."
+      },
+      "pdfUnlocker": {
+        "title": "Розблокування PDF",
+        "description": "Зніміть пароль відкриття з PDF і завантажте розблоковану копію у браузері."
+      },
+      "pdfLocker": {
+        "title": "Захист PDF",
+        "description": "Захистіть PDF паролем (AES-256) і завантажте захищену копію у браузері."
+      },
+      "pdfMerge": {
+        "title": "Об’єднання PDF-файлів",
+        "description": "Об’єднуйте PDF у потрібному порядку найпростішим способом — усе в браузері."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Файл не залишає цей браузер.",
+    "chooseFile": "Обрати PDF",
+    "dialogTitle": "Пароль PDF",
+    "dialogDescription": "Файл захищено паролем. Введіть пароль відкриття й розблокуйте.",
+    "passwordLabel": "Пароль",
+    "passwordPlaceholder": "Поточний пароль відкриття",
+    "cancel": "Скасувати",
+    "unlock": "Розблокувати",
+    "processing": "Розблокування…",
+    "download": "Завантажити розблокований PDF",
+    "reset": "Інший файл",
+    "invalidPdf": "Не вдалося прочитати файл як PDF.",
+    "wrongPassword": "Невірний пароль або шифрування не підтримується для цього PDF."
+  },
+  "PdfLocker": {
+    "privacyNote": "Файл не залишає цей браузер.",
+    "chooseFile": "Обрати PDF",
+    "dialogTitle": "Захистити цей PDF",
+    "dialogDescription": "Оберіть пароль відкриття. Він має збігатися в обох полях.",
+    "passwordLabel": "Пароль",
+    "passwordPlaceholder": "Новий пароль відкриття",
+    "confirmLabel": "Підтвердіть пароль",
+    "confirmPlaceholder": "Повторіть пароль",
+    "cancel": "Скасувати",
+    "lock": "Захистити PDF",
+    "processing": "Шифрування…",
+    "download": "Завантажити захищений PDF",
+    "reset": "Інший файл",
+    "invalidPdf": "Не вдалося прочитати файл як PDF.",
+    "alreadyEncrypted": "Цей PDF уже захищено. Спочатку зніміть захист, потім за потреби захистіть знову.",
+    "passwordRequired": "Введіть пароль.",
+    "passwordMismatch": "Паролі не збігаються.",
+    "genericError": "Не вдалося зашифрувати PDF. Спробуйте інший файл або коротший пароль."
+  },
+  "PdfMerge": {
+    "intro": "Об’єднуйте PDF у потрібному порядку — найпростіший спосіб.",
+    "privacyNote": "Ваші файли не залишають цей браузер.",
+    "orderHint": "Файли зверху йдуть першими в підсумковому PDF. Змінюйте порядок стрілками.",
+    "addPdfs": "Додати PDF",
+    "clearAll": "Очистити список",
+    "mergeDownload": "Об’єднати й завантажити",
+    "merging": "Об’єднання…",
+    "pages": "{count} стор.",
+    "moveUpAria": "Вгору",
+    "moveDownAria": "Вниз",
+    "removeFileAria": "Прибрати зі списку",
+    "minTwoPdfs": "Додайте принаймні два PDF для об’єднання.",
+    "invalidPdf": "Не вдалося прочитати файл як PDF.",
+    "mergeFailed": "Не вдалося об’єднати. Приберіть захищені або пошкоджені PDF і спробуйте знову."
   }
 }

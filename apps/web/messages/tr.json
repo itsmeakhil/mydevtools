@@ -47,7 +47,10 @@
     "mockDataGenerator": "Sahte veri üreticisi",
     "svgOptimizer": "SVG Optimize",
     "unitConverter": "Birim Dönüştürücü",
-    "dockerComposeGenerator": "Docker Compose Oluşturucu"
+    "dockerComposeGenerator": "Docker Compose Oluşturucu",
+    "pdfUnlocker": "PDF kilidini aç",
+    "pdfLocker": "PDF kilitle",
+    "pdfMerge": "PDF birleştir"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "Docker Compose Oluşturucu",
         "description": "Veritabanları, önbellek, kuyruklar, proxy ve gözlemlenebilirlik görüntülerini seçin; yerel yığınlar için docker-compose.yml dışa aktarın."
+      },
+      "pdfUnlocker": {
+        "title": "PDF kilidini aç",
+        "description": "Bir PDF’nin açılış parolasını kaldırın ve tarayıcınızda kilitsiz bir kopya indirin."
+      },
+      "pdfLocker": {
+        "title": "PDF kilitle",
+        "description": "Bir PDF’yi parola ile koruyun (AES-256) ve tarayıcınızda kilitli bir kopya indirin."
+      },
+      "pdfMerge": {
+        "title": "PDF dosyalarını birleştir",
+        "description": "PDF’leri istediğiniz sırada en kolay şekilde birleştirin — tamamı tarayıcıda."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Dosyanız bu tarayıcıdan çıkmaz.",
+    "chooseFile": "PDF seç",
+    "dialogTitle": "PDF parolası",
+    "dialogDescription": "Bu dosya parola korumalı. Açılış parolasını girin ve kilidi açın.",
+    "passwordLabel": "Parola",
+    "passwordPlaceholder": "Mevcut açılış parolası",
+    "cancel": "İptal",
+    "unlock": "Kilidi aç",
+    "processing": "Kilit açılıyor…",
+    "download": "Kilitsiz PDF’yi indir",
+    "reset": "Başka dosya",
+    "invalidPdf": "Bu dosya PDF olarak okunamadı.",
+    "wrongPassword": "Yanlış parola veya bu PDF için desteklenmeyen şifreleme."
+  },
+  "PdfLocker": {
+    "privacyNote": "Dosyanız bu tarayıcıdan çıkmaz.",
+    "chooseFile": "PDF seç",
+    "dialogTitle": "Bu PDF’yi kilitle",
+    "dialogDescription": "Açılış için bir parola seçin. Her iki alanda da aynı olmalıdır.",
+    "passwordLabel": "Parola",
+    "passwordPlaceholder": "Yeni açılış parolası",
+    "confirmLabel": "Parolayı onayla",
+    "confirmPlaceholder": "Parolayı tekrarlayın",
+    "cancel": "İptal",
+    "lock": "PDF’yi kilitle",
+    "processing": "Şifreleniyor…",
+    "download": "Kilitli PDF’yi indir",
+    "reset": "Başka dosya",
+    "invalidPdf": "Bu dosya PDF olarak okunamadı.",
+    "alreadyEncrypted": "Bu PDF zaten parola korumalı. Önce kilidi açın, gerekirse yeniden kilitleyin.",
+    "passwordRequired": "Bir parola girin.",
+    "passwordMismatch": "Parolalar eşleşmiyor.",
+    "genericError": "Bu PDF şifrelenemedi. Başka bir dosya veya daha kısa bir parola deneyin."
+  },
+  "PdfMerge": {
+    "intro": "PDF’leri istediğiniz sırada en kolay birleştiriciyle birleştirin.",
+    "privacyNote": "Dosyalarınız bu tarayıcıdan çıkmaz.",
+    "orderHint": "Üstteki dosyalar birleşik PDF’te önce gelir. Oklarla sıralayın.",
+    "addPdfs": "PDF ekle",
+    "clearAll": "Listeyi temizle",
+    "mergeDownload": "Birleştir ve indir",
+    "merging": "Birleştiriliyor…",
+    "pages": "{count} sayfa",
+    "moveUpAria": "Yukarı taşı",
+    "moveDownAria": "Aşağı taşı",
+    "removeFileAria": "Listeden kaldır",
+    "minTwoPdfs": "Birleştirmek için en az iki PDF ekleyin.",
+    "invalidPdf": "Bu dosya PDF olarak okunamadı.",
+    "mergeFailed": "Birleştirilemedi. Parola korumalı veya bozuk PDF’leri çıkarıp yeniden deneyin."
   }
 }

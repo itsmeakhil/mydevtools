@@ -47,7 +47,10 @@
     "mockDataGenerator": "Mock-datagenerator",
     "svgOptimizer": "SVG-optimalisatie",
     "unitConverter": "Eenhedenconverter",
-    "dockerComposeGenerator": "Docker Compose-generator"
+    "dockerComposeGenerator": "Docker Compose-generator",
+    "pdfUnlocker": "PDF ontgrendelen",
+    "pdfLocker": "PDF vergrendelen",
+    "pdfMerge": "PDF’s samenvoegen"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "Docker Compose-generator",
         "description": "Kies databases, caches, wachtrijen, proxy’s en observability-images; exporteer een docker-compose.yml voor lokale stacks."
+      },
+      "pdfUnlocker": {
+        "title": "PDF ontgrendelen",
+        "description": "Verwijder het openwachtwoord van een PDF en download een ontgrendelde kopie in uw browser."
+      },
+      "pdfLocker": {
+        "title": "PDF vergrendelen",
+        "description": "Beveilig een PDF met een wachtwoord (AES-256) en download een vergrendelde kopie in uw browser."
+      },
+      "pdfMerge": {
+        "title": "PDF-bestanden samenvoegen",
+        "description": "Combineer PDF’s in de gewenste volgorde op de eenvoudigste manier — lokaal in uw browser."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Uw bestand verlaat deze browser niet.",
+    "chooseFile": "PDF kiezen",
+    "dialogTitle": "PDF-wachtwoord",
+    "dialogDescription": "Dit bestand is beveiligd. Voer het openwachtwoord in en ontgrendel.",
+    "passwordLabel": "Wachtwoord",
+    "passwordPlaceholder": "Huidig openwachtwoord",
+    "cancel": "Annuleren",
+    "unlock": "Ontgrendelen",
+    "processing": "Bezig met ontgrendelen…",
+    "download": "Ontgrendelde PDF downloaden",
+    "reset": "Ander bestand",
+    "invalidPdf": "Dit bestand kon niet als PDF worden gelezen.",
+    "wrongPassword": "Onjuist wachtwoord of encryptie wordt voor deze PDF niet ondersteund."
+  },
+  "PdfLocker": {
+    "privacyNote": "Uw bestand verlaat deze browser niet.",
+    "chooseFile": "PDF kiezen",
+    "dialogTitle": "Deze PDF vergrendelen",
+    "dialogDescription": "Kies een openwachtwoord. Het moet in beide velden overeenkomen.",
+    "passwordLabel": "Wachtwoord",
+    "passwordPlaceholder": "Nieuw openwachtwoord",
+    "confirmLabel": "Wachtwoord bevestigen",
+    "confirmPlaceholder": "Wachtwoord herhalen",
+    "cancel": "Annuleren",
+    "lock": "PDF vergrendelen",
+    "processing": "Bezig met versleutelen…",
+    "download": "Beveiligde PDF downloaden",
+    "reset": "Ander bestand",
+    "invalidPdf": "Dit bestand kon niet als PDF worden gelezen.",
+    "alreadyEncrypted": "Deze PDF is al beveiligd. Ontgrendel eerst en vergrendel opnieuw indien nodig.",
+    "passwordRequired": "Voer een wachtwoord in.",
+    "passwordMismatch": "De wachtwoorden komen niet overeen.",
+    "genericError": "Deze PDF kon niet worden versleuteld. Probeer een ander bestand of een korter wachtwoord."
+  },
+  "PdfMerge": {
+    "intro": "Combineer PDF’s in de gewenste volgorde met de eenvoudigste PDF-samenvoeger.",
+    "privacyNote": "Uw bestanden verlaten deze browser niet.",
+    "orderHint": "Bestanden bovenaan komen eerst in het samengevoegde PDF. Met pijlen herschikken.",
+    "addPdfs": "PDF’s toevoegen",
+    "clearAll": "Lijst wissen",
+    "mergeDownload": "Samenvoegen en downloaden",
+    "merging": "Bezig met samenvoegen…",
+    "pages": "{count} pagina’s",
+    "moveUpAria": "Omhoog",
+    "moveDownAria": "Omlaag",
+    "removeFileAria": "Uit lijst verwijderen",
+    "minTwoPdfs": "Voeg minstens twee PDF-bestanden toe om samen te voegen.",
+    "invalidPdf": "Dit bestand kon niet als PDF worden gelezen.",
+    "mergeFailed": "Samenvoegen mislukt. Verwijder beveiligde of beschadigde PDF’s en probeer opnieuw."
   }
 }

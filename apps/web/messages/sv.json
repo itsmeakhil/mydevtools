@@ -47,7 +47,10 @@
     "mockDataGenerator": "Mock-datagenerator",
     "svgOptimizer": "SVG-optimering",
     "unitConverter": "Enhetsomvandlare",
-    "dockerComposeGenerator": "Docker Compose-generator"
+    "dockerComposeGenerator": "Docker Compose-generator",
+    "pdfUnlocker": "Lås upp PDF",
+    "pdfLocker": "Lås PDF",
+    "pdfMerge": "Sammanfoga PDF"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "Docker Compose-generator",
         "description": "Välj databaser, cache, köer, proxys och observabilitetsbilder; exportera docker-compose.yml för lokala stackar."
+      },
+      "pdfUnlocker": {
+        "title": "Lås upp PDF",
+        "description": "Ta bort öppningslösenordet från en PDF och ladda ner en upplåst kopia i webbläsaren."
+      },
+      "pdfLocker": {
+        "title": "Lås PDF",
+        "description": "Skydda en PDF med lösenord (AES-256) och ladda ner en låst kopia i webbläsaren."
+      },
+      "pdfMerge": {
+        "title": "Sammanfoga PDF-filer",
+        "description": "Kombinera PDF:er i den ordning du vill — enklast möjligt, helt i webbläsaren."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Din fil lämnar aldrig den här webbläsaren.",
+    "chooseFile": "Välj PDF",
+    "dialogTitle": "PDF-lösenord",
+    "dialogDescription": "Filen är lösenordsskyddad. Ange öppningslösenordet och lås upp.",
+    "passwordLabel": "Lösenord",
+    "passwordPlaceholder": "Nuvarande öppningslösenord",
+    "cancel": "Avbryt",
+    "unlock": "Lås upp",
+    "processing": "Låser upp…",
+    "download": "Ladda ner upplåst PDF",
+    "reset": "Annan fil",
+    "invalidPdf": "Kunde inte läsa filen som PDF.",
+    "wrongPassword": "Fel lösenord eller kryptering som inte stöds för denna PDF."
+  },
+  "PdfLocker": {
+    "privacyNote": "Din fil lämnar aldrig den här webbläsaren.",
+    "chooseFile": "Välj PDF",
+    "dialogTitle": "Lås denna PDF",
+    "dialogDescription": "Välj ett öppningslösenord. Det måste stämma i båda fälten.",
+    "passwordLabel": "Lösenord",
+    "passwordPlaceholder": "Nytt öppningslösenord",
+    "confirmLabel": "Bekräfta lösenord",
+    "confirmPlaceholder": "Upprepa lösenord",
+    "cancel": "Avbryt",
+    "lock": "Lås PDF",
+    "processing": "Krypterar…",
+    "download": "Ladda ner låst PDF",
+    "reset": "Annan fil",
+    "invalidPdf": "Kunde inte läsa filen som PDF.",
+    "alreadyEncrypted": "Denna PDF är redan lösenordsskyddad. Lås upp först och lås sedan igen vid behov.",
+    "passwordRequired": "Ange ett lösenord.",
+    "passwordMismatch": "Lösenorden matchar inte.",
+    "genericError": "Kunde inte kryptera denna PDF. Prova en annan fil eller ett kortare lösenord."
+  },
+  "PdfMerge": {
+    "intro": "Kombinera PDF:er i den ordning du vill med den enklaste sammanslagningen.",
+    "privacyNote": "Dina filer lämnar aldrig den här webbläsaren.",
+    "orderHint": "Filer högst upp kommer först i den sammanslagna PDF:en. Ordna om med pilarna.",
+    "addPdfs": "Lägg till PDF:er",
+    "clearAll": "Töm listan",
+    "mergeDownload": "Sammanfoga och ladda ner",
+    "merging": "Sammanfogar…",
+    "pages": "{count} sidor",
+    "moveUpAria": "Flytta upp",
+    "moveDownAria": "Flytta ner",
+    "removeFileAria": "Ta bort från listan",
+    "minTwoPdfs": "Lägg till minst två PDF-filer att sammanfoga.",
+    "invalidPdf": "Kunde inte läsa filen som PDF.",
+    "mergeFailed": "Kunde inte sammanfoga. Ta bort lösenordsskyddade eller skadade PDF:er och försök igen."
   }
 }

@@ -47,7 +47,10 @@
     "mockDataGenerator": "Generator danych testowych",
     "svgOptimizer": "Optymalizator SVG",
     "unitConverter": "Konwerter jednostek",
-    "dockerComposeGenerator": "Generator Docker Compose"
+    "dockerComposeGenerator": "Generator Docker Compose",
+    "pdfUnlocker": "Odblokuj PDF",
+    "pdfLocker": "Zabezpiecz PDF",
+    "pdfMerge": "Scalaj PDF"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "Generator Docker Compose",
         "description": "Wybierz bazy danych, pamięć podręczną, kolejki, proxy i obserwowalność; eksportuj docker-compose.yml dla lokalnych stacków."
+      },
+      "pdfUnlocker": {
+        "title": "Odblokuj PDF",
+        "description": "Usuń hasło otwarcia z pliku PDF i pobierz odblokowaną kopię w przeglądarce."
+      },
+      "pdfLocker": {
+        "title": "Zabezpiecz PDF",
+        "description": "Chroń plik PDF hasłem (AES-256) i pobierz zablokowaną kopię w przeglądarce."
+      },
+      "pdfMerge": {
+        "title": "Scalanie plików PDF",
+        "description": "Łącz PDF-y w wybranej kolejności w najprostszy sposób — wszystko w przeglądarce."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Plik nie opuszcza tej przeglądarki.",
+    "chooseFile": "Wybierz PDF",
+    "dialogTitle": "Hasło do PDF",
+    "dialogDescription": "Plik jest chroniony hasłem. Wprowadź hasło otwarcia, a następnie odblokuj.",
+    "passwordLabel": "Hasło",
+    "passwordPlaceholder": "Obecne hasło otwarcia",
+    "cancel": "Anuluj",
+    "unlock": "Odblokuj",
+    "processing": "Odblokowywanie…",
+    "download": "Pobierz odblokowany PDF",
+    "reset": "Inny plik",
+    "invalidPdf": "Nie można odczytać tego pliku jako PDF.",
+    "wrongPassword": "Nieprawidłowe hasło lub szyfrowanie nieobsługiwane dla tego PDF."
+  },
+  "PdfLocker": {
+    "privacyNote": "Plik nie opuszcza tej przeglądarki.",
+    "chooseFile": "Wybierz PDF",
+    "dialogTitle": "Zabezpiecz ten PDF",
+    "dialogDescription": "Wybierz hasło otwarcia. Musi być takie samo w obu polach.",
+    "passwordLabel": "Hasło",
+    "passwordPlaceholder": "Nowe hasło otwarcia",
+    "confirmLabel": "Potwierdź hasło",
+    "confirmPlaceholder": "Powtórz hasło",
+    "cancel": "Anuluj",
+    "lock": "Zabezpiecz PDF",
+    "processing": "Szyfrowanie…",
+    "download": "Pobierz zabezpieczony PDF",
+    "reset": "Inny plik",
+    "invalidPdf": "Nie można odczytać tego pliku jako PDF.",
+    "alreadyEncrypted": "Ten PDF jest już chroniony. Najpierw odblokuj go, a następnie zabezpiecz ponownie w razie potrzeby.",
+    "passwordRequired": "Wprowadź hasło.",
+    "passwordMismatch": "Hasła nie są zgodne.",
+    "genericError": "Nie można zaszyfrować tego PDF. Spróbuj innego pliku lub krótszego hasła."
+  },
+  "PdfMerge": {
+    "intro": "Łącz PDF-y w wybranej kolejności — najprostszy sposób scalania.",
+    "privacyNote": "Twoje pliki nie opuszczają tej przeglądarki.",
+    "orderHint": "Pliki u góry są pierwsze w scalonym PDF. Strzałkami zmieniaj kolejność.",
+    "addPdfs": "Dodaj PDF",
+    "clearAll": "Wyczyść listę",
+    "mergeDownload": "Scal i pobierz",
+    "merging": "Scalanie…",
+    "pages": "{count} stron",
+    "moveUpAria": "W górę",
+    "moveDownAria": "W dół",
+    "removeFileAria": "Usuń z listy",
+    "minTwoPdfs": "Dodaj co najmniej dwa pliki PDF do scalenia.",
+    "invalidPdf": "Nie można odczytać tego pliku jako PDF.",
+    "mergeFailed": "Nie udało się scalić. Usuń pliki chronione hasłem lub uszkodzone i spróbuj ponownie."
   }
 }

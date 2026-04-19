@@ -47,7 +47,10 @@
     "mockDataGenerator": "Генератор тестовых данных",
     "svgOptimizer": "Оптимизатор SVG",
     "unitConverter": "Конвертер единиц",
-    "dockerComposeGenerator": "Генератор Docker Compose"
+    "dockerComposeGenerator": "Генератор Docker Compose",
+    "pdfUnlocker": "Разблокировка PDF",
+    "pdfLocker": "Защита PDF",
+    "pdfMerge": "Объединить PDF"
   },
   "Help": {
     "title": "Справка и документация",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "Генератор Docker Compose",
         "description": "Выберите СУБД, кэши, очереди, прокси и образы наблюдаемости; экспортируйте docker-compose.yml для локальных стеков."
+      },
+      "pdfUnlocker": {
+        "title": "Разблокировка PDF",
+        "description": "Снимите пароль открытия с PDF и скачайте разблокированную копию в браузере."
+      },
+      "pdfLocker": {
+        "title": "Защита PDF",
+        "description": "Защитите PDF паролем (AES-256) и скачайте защищённую копию в браузере."
+      },
+      "pdfMerge": {
+        "title": "Объединение PDF-файлов",
+        "description": "Объединяйте PDF в нужном порядке самым простым способом — всё в браузере."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Файл не покидает этот браузер.",
+    "chooseFile": "Выбрать PDF",
+    "dialogTitle": "Пароль PDF",
+    "dialogDescription": "Файл защищён паролем. Введите пароль открытия и разблокируйте.",
+    "passwordLabel": "Пароль",
+    "passwordPlaceholder": "Текущий пароль открытия",
+    "cancel": "Отмена",
+    "unlock": "Разблокировать",
+    "processing": "Разблокировка…",
+    "download": "Скачать разблокированный PDF",
+    "reset": "Другой файл",
+    "invalidPdf": "Не удалось прочитать файл как PDF.",
+    "wrongPassword": "Неверный пароль или шифрование не поддерживается для этого PDF."
+  },
+  "PdfLocker": {
+    "privacyNote": "Файл не покидает этот браузер.",
+    "chooseFile": "Выбрать PDF",
+    "dialogTitle": "Защитить этот PDF",
+    "dialogDescription": "Задайте пароль открытия. Он должен совпадать в обоих полях.",
+    "passwordLabel": "Пароль",
+    "passwordPlaceholder": "Новый пароль открытия",
+    "confirmLabel": "Подтвердите пароль",
+    "confirmPlaceholder": "Повторите пароль",
+    "cancel": "Отмена",
+    "lock": "Защитить PDF",
+    "processing": "Шифрование…",
+    "download": "Скачать защищённый PDF",
+    "reset": "Другой файл",
+    "invalidPdf": "Не удалось прочитать файл как PDF.",
+    "alreadyEncrypted": "Этот PDF уже защищён. Сначала снимите защиту, затем при необходимости защитите снова.",
+    "passwordRequired": "Введите пароль.",
+    "passwordMismatch": "Пароли не совпадают.",
+    "genericError": "Не удалось зашифровать PDF. Попробуйте другой файл или более короткий пароль."
+  },
+  "PdfMerge": {
+    "intro": "Объединяйте PDF в нужном порядке — самый простой способ слияния.",
+    "privacyNote": "Ваши файлы не покидают этот браузер.",
+    "orderHint": "Файлы сверху идут первыми в итоговом PDF. Меняйте порядок стрелками.",
+    "addPdfs": "Добавить PDF",
+    "clearAll": "Очистить список",
+    "mergeDownload": "Объединить и скачать",
+    "merging": "Объединение…",
+    "pages": "{count} стр.",
+    "moveUpAria": "Выше",
+    "moveDownAria": "Ниже",
+    "removeFileAria": "Убрать из списка",
+    "minTwoPdfs": "Добавьте хотя бы два PDF для объединения.",
+    "invalidPdf": "Не удалось прочитать файл как PDF.",
+    "mergeFailed": "Не удалось объединить. Удалите защищённые или повреждённые PDF и повторите."
   }
 }

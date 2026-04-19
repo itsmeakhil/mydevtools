@@ -47,7 +47,11 @@
     "mockDataGenerator": "Mock Data Generator",
     "svgOptimizer": "SVG Optimizer",
     "unitConverter": "Unit Converter",
-    "dockerComposeGenerator": "Docker Compose Generator"
+    "dockerComposeGenerator": "Docker Compose Generator",
+    "pdfUnlocker": "PDF Unlocker",
+    "pdfLocker": "PDF Locker",
+    "pdfMerge": "Merge PDF files",
+    "pdfSplitter": "PDF Splitter"
   },
   "Help": {
     "title": "Help & documentation",
@@ -470,8 +474,96 @@
       "dockerComposeGenerator": {
         "title": "Docker Compose Generator",
         "description": "Pick databases, caches, queues, proxies, and observability images; export a docker-compose.yml for local stacks."
+      },
+      "pdfUnlocker": {
+        "title": "PDF Unlocker",
+        "description": "Remove the open password from a PDF and download an unlocked copy in your browser."
+      },
+      "pdfLocker": {
+        "title": "PDF Locker",
+        "description": "Password-protect a PDF with AES-256 and download a locked copy in your browser."
+      },
+      "pdfMerge": {
+        "title": "Merge PDF files",
+        "description": "Combine PDFs in the order you want with the easiest PDF merger available — all in your browser."
+      },
+      "pdfSplitter": {
+        "title": "PDF Splitter",
+        "description": "Split a PDF into individual pages or extract a page range as a new PDF in your browser."
       }
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Your file never leaves this browser.",
+    "chooseFile": "Choose PDF",
+    "dialogTitle": "Enter PDF password",
+    "dialogDescription": "This file is password-protected. Enter the password you use to open it, then unlock.",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Current PDF password",
+    "cancel": "Cancel",
+    "unlock": "Unlock",
+    "processing": "Unlocking…",
+    "download": "Download unlocked PDF",
+    "reset": "Another file",
+    "invalidPdf": "Could not read this file as a PDF.",
+    "wrongPassword": "Wrong password or this PDF uses encryption we cannot remove."
+  },
+  "PdfLocker": {
+    "privacyNote": "Your file never leaves this browser.",
+    "chooseFile": "Choose PDF",
+    "dialogTitle": "Lock this PDF",
+    "dialogDescription": "Choose a password you will use to open the file. It must match in both fields.",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "New open password",
+    "confirmLabel": "Confirm password",
+    "confirmPlaceholder": "Repeat password",
+    "cancel": "Cancel",
+    "lock": "Lock PDF",
+    "processing": "Encrypting…",
+    "download": "Download locked PDF",
+    "reset": "Another file",
+    "invalidPdf": "Could not read this file as a PDF.",
+    "alreadyEncrypted": "This PDF is already password-protected. Unlock it first, then lock it again if needed.",
+    "passwordRequired": "Enter a password.",
+    "passwordMismatch": "Passwords do not match.",
+    "genericError": "Could not encrypt this PDF. Try a different file or a shorter password."
+  },
+  "PdfMerge": {
+    "intro": "Combine PDFs in the order you want with the easiest PDF merger available.",
+    "privacyNote": "Your files never leave this browser.",
+    "orderHint": "Files at the top come first in the merged PDF. Use the arrows to reorder.",
+    "addPdfs": "Add PDFs",
+    "clearAll": "Clear list",
+    "mergeDownload": "Merge & download",
+    "merging": "Merging…",
+    "pages": "{count} pages",
+    "moveUpAria": "Move up",
+    "moveDownAria": "Move down",
+    "removeFileAria": "Remove from list",
+    "minTwoPdfs": "Add at least two PDF files to merge.",
+    "invalidPdf": "Could not read this file as a PDF.",
+    "mergeFailed": "Could not merge these PDFs. Remove password-protected or damaged files and try again."
+  },
+  "PdfSplitter": {
+    "privacyNote": "Your file never leaves this browser.",
+    "chooseFile": "Choose PDF",
+    "pageCount": "{count, plural, one {# page} other {# pages}}",
+    "tabExtract": "Extract pages",
+    "tabSplit": "Split all pages",
+    "extractHint": "Enter page numbers or ranges to extract into a single PDF (e.g. 1, 3-5, 8).",
+    "rangeLabel": "Pages",
+    "rangePlaceholder": "e.g. 1-3, 5, 7 (total: {total})",
+    "extractButton": "Extract & Download",
+    "splitHint": "Download each page as its own PDF file ({count} files total). Your browser may ask for download permission.",
+    "splitButton": "Split & Download All ({count})",
+    "splitProgress": "Downloading {current} of {total}…",
+    "processing": "Processing…",
+    "reset": "Another file",
+    "noValidPages": "No valid pages in that range. Check your input and try again.",
+    "extractSuccess": "{count, plural, one {Extracted # page.} other {Extracted # pages.}}",
+    "splitSuccess": "{count, plural, one {Split into # file.} other {Split into # files.}}",
+    "invalidPdf": "Could not read this file as a PDF.",
+    "genericError": "Could not process this PDF. Try a different file."
   },
   "Tasks": {
     "page": {

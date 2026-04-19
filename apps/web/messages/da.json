@@ -47,7 +47,10 @@
     "mockDataGenerator": "Mock-datagenerator",
     "svgOptimizer": "SVG-optimering",
     "unitConverter": "Enhedskonverter",
-    "dockerComposeGenerator": "Docker Compose-generator"
+    "dockerComposeGenerator": "Docker Compose-generator",
+    "pdfUnlocker": "Lås PDF op",
+    "pdfLocker": "Lås PDF",
+    "pdfMerge": "Flet PDF-filer"
   },
   "Help": {
     "title": "Hjælp og dokumentation",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "Docker Compose-generator",
         "description": "Vælg databaser, caches, køer, proxyer og observabilitets-images; eksporter docker-compose.yml til lokale stacks."
+      },
+      "pdfUnlocker": {
+        "title": "Lås PDF op",
+        "description": "Fjern åbningsadgangskoden fra en PDF og download en ulåst kopi i din browser."
+      },
+      "pdfLocker": {
+        "title": "Lås PDF",
+        "description": "Beskyt en PDF med adgangskode (AES-256) og download en låst kopi i din browser."
+      },
+      "pdfMerge": {
+        "title": "Flet PDF-filer",
+        "description": "Kombinér PDF’er i den rækkefølge du ønsker — nemmest muligt, i din browser."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Din fil forlader aldrig denne browser.",
+    "chooseFile": "Vælg PDF",
+    "dialogTitle": "PDF-adgangskode",
+    "dialogDescription": "Filen er adgangskodebeskyttet. Indtast åbningsadgangskoden og lås op.",
+    "passwordLabel": "Adgangskode",
+    "passwordPlaceholder": "Nuværende åbningsadgangskode",
+    "cancel": "Annuller",
+    "unlock": "Lås op",
+    "processing": "Låser op…",
+    "download": "Download ulåst PDF",
+    "reset": "Anden fil",
+    "invalidPdf": "Kunne ikke læse filen som PDF.",
+    "wrongPassword": "Forkert adgangskode eller kryptering understøttes ikke for denne PDF."
+  },
+  "PdfLocker": {
+    "privacyNote": "Din fil forlader aldrig denne browser.",
+    "chooseFile": "Vælg PDF",
+    "dialogTitle": "Lås denne PDF",
+    "dialogDescription": "Vælg en åbningsadgangskode. Den skal matche i begge felter.",
+    "passwordLabel": "Adgangskode",
+    "passwordPlaceholder": "Ny åbningsadgangskode",
+    "confirmLabel": "Bekræft adgangskode",
+    "confirmPlaceholder": "Gentag adgangskode",
+    "cancel": "Annuller",
+    "lock": "Lås PDF",
+    "processing": "Krypterer…",
+    "download": "Download låst PDF",
+    "reset": "Anden fil",
+    "invalidPdf": "Kunne ikke læse filen som PDF.",
+    "alreadyEncrypted": "Denne PDF er allerede beskyttet. Lås den op først og lås igen om nødvendigt.",
+    "passwordRequired": "Indtast en adgangskode.",
+    "passwordMismatch": "Adgangskoderne stemmer ikke overens.",
+    "genericError": "Kunne ikke kryptere denne PDF. Prøv en anden fil eller en kortere adgangskode."
+  },
+  "PdfMerge": {
+    "intro": "Kombinér PDF’er i den rækkefølge du ønsker, på den nemmeste måde.",
+    "privacyNote": "Dine filer forlader ikke denne browser.",
+    "orderHint": "Filer øverst kommer først i den flettede PDF. Brug pilene til at omarrangere.",
+    "addPdfs": "Tilføj PDF’er",
+    "clearAll": "Ryd liste",
+    "mergeDownload": "Flet og download",
+    "merging": "Fletter…",
+    "pages": "{count} sider",
+    "moveUpAria": "Flyt op",
+    "moveDownAria": "Flyt ned",
+    "removeFileAria": "Fjern fra listen",
+    "minTwoPdfs": "Tilføj mindst to PDF-filer at flette.",
+    "invalidPdf": "Kunne ikke læse filen som PDF.",
+    "mergeFailed": "Kunne ikke flette. Fjern adgangskodebeskyttede eller beskadigede PDF’er og prøv igen."
   }
 }

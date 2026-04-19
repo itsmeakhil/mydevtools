@@ -278,6 +278,28 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: 'Paste SVG markup and minify it in the browser with SVGO: drop comments, editor metadata, default attributes, and whitespace—then compare UTF-8 size before and after.',
         keywords: ['svg optimizer', 'svg minify', 'svgo online', 'compress svg', 'optimize svg', 'remove svg metadata', 'svg file size']
     },
+    'pdf-unlocker': {
+        title: 'PDF Unlocker',
+        description: 'Upload a password-protected PDF, enter the open password, and download an unlocked copy. Processing stays in your browser.',
+        keywords: ['pdf unlock', 'remove pdf password', 'pdf decrypt', 'unlock pdf online', 'pdf password remover', 'client side pdf']
+    },
+    'pdf-locker': {
+        title: 'PDF Locker',
+        description: 'Upload a PDF, set an open password with confirmation, and download an AES-256 encrypted copy. Processing stays in your browser.',
+        keywords: ['pdf lock', 'password protect pdf', 'pdf encrypt', 'secure pdf', 'aes pdf', 'client side pdf']
+    },
+    'pdf-splitter': {
+        title: 'PDF Splitter',
+        description: 'Split a PDF into individual pages or extract a custom page range into a new PDF. Processing stays in your browser — nothing is uploaded.',
+        keywords: ['pdf splitter', 'split pdf', 'extract pdf pages', 'pdf page extractor', 'separate pdf pages', 'pdf tools', 'client side pdf'],
+        aiSummary: 'Free in-browser PDF splitter: extract a page range (e.g. 1–5, 7) into a single PDF, or split every page into its own file — no upload required.',
+    },
+    'pdf-merge': {
+        title: 'Merge PDF files',
+        description: 'Combine PDFs in the order you want with the easiest PDF merger available. Reorder files to set page order; processing stays in your browser.',
+        keywords: ['merge pdf', 'combine pdf', 'pdf merger', 'join pdf', 'pdf concat', 'merge pdf online', 'client side pdf'],
+        aiSummary: 'Combine multiple PDFs into one file in your browser: add files, reorder with one tap, download merged.pdf — no upload.',
+    },
 }
 
 function toolMetaDescription(tool: ToolMetadataEntry): string {

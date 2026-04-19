@@ -40,6 +40,10 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/markdown-preview-html',
   '/app/mock-data-generator',
   '/app/docker-compose-generator',
+  '/app/pdf-unlocker',
+  '/app/pdf-locker',
+  '/app/pdf-splitter',
+  '/app/pdf-merge',
 ];
 
 interface ToolVisibilityStore {

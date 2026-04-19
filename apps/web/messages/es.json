@@ -47,7 +47,10 @@
     "mockDataGenerator": "Generador de datos de prueba",
     "svgOptimizer": "Optimizador SVG",
     "unitConverter": "Convertidor de unidades",
-    "dockerComposeGenerator": "Generador Docker Compose"
+    "dockerComposeGenerator": "Generador Docker Compose",
+    "pdfUnlocker": "Desbloquear PDF",
+    "pdfLocker": "Proteger PDF",
+    "pdfMerge": "Combinar PDF"
   },
   "Help": {
     "title": "Ayuda y documentación",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "Generador Docker Compose",
         "description": "Elige bases de datos, cachés, colas, proxies e imágenes de observabilidad; exporta un docker-compose.yml para entornos locales."
+      },
+      "pdfUnlocker": {
+        "title": "Desbloquear PDF",
+        "description": "Quita la contraseña de apertura de un PDF y descarga una copia sin protección en tu navegador."
+      },
+      "pdfLocker": {
+        "title": "Proteger PDF",
+        "description": "Protege un PDF con contraseña (AES-256) y descarga una copia cifrada en tu navegador."
+      },
+      "pdfMerge": {
+        "title": "Combinar archivos PDF",
+        "description": "Combina PDF en el orden que quieras con la fusión más sencilla, todo en tu navegador."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Tu archivo no sale de este navegador.",
+    "chooseFile": "Elegir PDF",
+    "dialogTitle": "Contraseña del PDF",
+    "dialogDescription": "Este archivo está protegido. Introduce la contraseña de apertura y desbloquéalo.",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Contraseña de apertura actual",
+    "cancel": "Cancelar",
+    "unlock": "Desbloquear",
+    "processing": "Desbloqueando…",
+    "download": "Descargar PDF desbloqueado",
+    "reset": "Otro archivo",
+    "invalidPdf": "No se pudo leer este archivo como PDF.",
+    "wrongPassword": "Contraseña incorrecta o cifrado no compatible con este PDF."
+  },
+  "PdfLocker": {
+    "privacyNote": "Tu archivo no sale de este navegador.",
+    "chooseFile": "Elegir PDF",
+    "dialogTitle": "Proteger este PDF",
+    "dialogDescription": "Elige una contraseña de apertura. Debe coincidir en ambos campos.",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Nueva contraseña de apertura",
+    "confirmLabel": "Confirmar contraseña",
+    "confirmPlaceholder": "Repetir contraseña",
+    "cancel": "Cancelar",
+    "lock": "Proteger PDF",
+    "processing": "Cifrando…",
+    "download": "Descargar PDF protegido",
+    "reset": "Otro archivo",
+    "invalidPdf": "No se pudo leer este archivo como PDF.",
+    "alreadyEncrypted": "Este PDF ya está protegido. Desbloquéalo primero y vuelve a protegerlo si lo necesitas.",
+    "passwordRequired": "Introduce una contraseña.",
+    "passwordMismatch": "Las contraseñas no coinciden.",
+    "genericError": "No se pudo cifrar este PDF. Prueba otro archivo o una contraseña más corta."
+  },
+  "PdfMerge": {
+    "intro": "Combina PDF en el orden que quieras con la fusión más sencilla.",
+    "privacyNote": "Tus archivos no salen de este navegador.",
+    "orderHint": "Los archivos arriba van primero en el PDF unido. Reordena con las flechas.",
+    "addPdfs": "Añadir PDF",
+    "clearAll": "Vaciar lista",
+    "mergeDownload": "Combinar y descargar",
+    "merging": "Combinando…",
+    "pages": "{count} páginas",
+    "moveUpAria": "Subir",
+    "moveDownAria": "Bajar",
+    "removeFileAria": "Quitar de la lista",
+    "minTwoPdfs": "Añade al menos dos archivos PDF para combinar.",
+    "invalidPdf": "No se pudo leer este archivo como PDF.",
+    "mergeFailed": "No se pudieron combinar. Quita PDF con contraseña o dañados e inténtalo de nuevo."
   }
 }

@@ -47,7 +47,10 @@
     "mockDataGenerator": "Trình tạo dữ liệu giả",
     "svgOptimizer": "Tối ưu SVG",
     "unitConverter": "Chuyển đổi đơn vị",
-    "dockerComposeGenerator": "Trình tạo Docker Compose"
+    "dockerComposeGenerator": "Trình tạo Docker Compose",
+    "pdfUnlocker": "Mở khóa PDF",
+    "pdfLocker": "Khóa PDF",
+    "pdfMerge": "Gộp PDF"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "Trình tạo Docker Compose",
         "description": "Chọn cơ sở dữ liệu, bộ nhớ đệm, hàng đợi, proxy và image quan sát; xuất docker-compose.yml cho stack cục bộ."
+      },
+      "pdfUnlocker": {
+        "title": "Mở khóa PDF",
+        "description": "Gỡ mật khẩu mở file PDF và tải bản đã mở khóa ngay trong trình duyệt."
+      },
+      "pdfLocker": {
+        "title": "Khóa PDF",
+        "description": "Bảo vệ PDF bằng mật khẩu (AES-256) và tải bản đã khóa ngay trong trình duyệt."
+      },
+      "pdfMerge": {
+        "title": "Gộp tệp PDF",
+        "description": "Gộp các PDF theo thứ tự bạn muốn, cách đơn giản nhất — hoàn toàn trên trình duyệt."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Tệp của bạn không rời khỏi trình duyệt này.",
+    "chooseFile": "Chọn PDF",
+    "dialogTitle": "Mật khẩu PDF",
+    "dialogDescription": "Tệp được bảo vệ bằng mật khẩu. Nhập mật khẩu mở rồi mở khóa.",
+    "passwordLabel": "Mật khẩu",
+    "passwordPlaceholder": "Mật khẩu mở hiện tại",
+    "cancel": "Hủy",
+    "unlock": "Mở khóa",
+    "processing": "Đang mở khóa…",
+    "download": "Tải PDF đã mở khóa",
+    "reset": "Tệp khác",
+    "invalidPdf": "Không đọc được tệp này dưới dạng PDF.",
+    "wrongPassword": "Sai mật khẩu hoặc mã hóa không được hỗ trợ cho PDF này."
+  },
+  "PdfLocker": {
+    "privacyNote": "Tệp của bạn không rời khỏi trình duyệt này.",
+    "chooseFile": "Chọn PDF",
+    "dialogTitle": "Khóa PDF này",
+    "dialogDescription": "Chọn mật khẩu mở. Phải trùng khớp ở cả hai ô.",
+    "passwordLabel": "Mật khẩu",
+    "passwordPlaceholder": "Mật khẩu mở mới",
+    "confirmLabel": "Xác nhận mật khẩu",
+    "confirmPlaceholder": "Nhập lại mật khẩu",
+    "cancel": "Hủy",
+    "lock": "Khóa PDF",
+    "processing": "Đang mã hóa…",
+    "download": "Tải PDF đã khóa",
+    "reset": "Tệp khác",
+    "invalidPdf": "Không đọc được tệp này dưới dạng PDF.",
+    "alreadyEncrypted": "PDF này đã được bảo vệ mật khẩu. Hãy mở khóa trước, rồi khóa lại nếu cần.",
+    "passwordRequired": "Nhập mật khẩu.",
+    "passwordMismatch": "Hai mật khẩu không khớp.",
+    "genericError": "Không mã hóa được PDF này. Thử tệp khác hoặc mật khẩu ngắn hơn."
+  },
+  "PdfMerge": {
+    "intro": "Gộp PDF theo thứ tự bạn muốn với công cụ gộp đơn giản nhất.",
+    "privacyNote": "Tệp của bạn không rời khỏi trình duyệt này.",
+    "orderHint": "Tệp ở trên cùng sẽ đứng trước trong PDF đã gộp. Dùng mũi tên để sắp xếp lại.",
+    "addPdfs": "Thêm PDF",
+    "clearAll": "Xóa danh sách",
+    "mergeDownload": "Gộp và tải xuống",
+    "merging": "Đang gộp…",
+    "pages": "{count} trang",
+    "moveUpAria": "Lên trên",
+    "moveDownAria": "Xuống dưới",
+    "removeFileAria": "Xóa khỏi danh sách",
+    "minTwoPdfs": "Thêm ít nhất hai tệp PDF để gộp.",
+    "invalidPdf": "Không đọc được tệp này dưới dạng PDF.",
+    "mergeFailed": "Không gộp được. Hãy bỏ các PDF có mật khẩu hoặc bị hỏng rồi thử lại."
   }
 }

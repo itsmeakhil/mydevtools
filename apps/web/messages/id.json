@@ -47,7 +47,10 @@
     "mockDataGenerator": "Generator data mock",
     "svgOptimizer": "Pengoptimal SVG",
     "unitConverter": "Konverter Satuan",
-    "dockerComposeGenerator": "Generator Docker Compose"
+    "dockerComposeGenerator": "Generator Docker Compose",
+    "pdfUnlocker": "Buka kunci PDF",
+    "pdfLocker": "Kunci PDF",
+    "pdfMerge": "Gabung PDF"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "Generator Docker Compose",
         "description": "Pilih basis data, cache, antrean, proxy, dan image observabilitas; ekspor docker-compose.yml untuk stack lokal."
+      },
+      "pdfUnlocker": {
+        "title": "Buka kunci PDF",
+        "description": "Hapus kata sandi buka berkas PDF dan unduh salinan tidak terkunci di peramban Anda."
+      },
+      "pdfLocker": {
+        "title": "Kunci PDF",
+        "description": "Lindungi PDF dengan kata sandi (AES-256) dan unduh salinan terkunci di peramban Anda."
+      },
+      "pdfMerge": {
+        "title": "Gabung file PDF",
+        "description": "Gabungkan PDF sesuai urutan yang Anda inginkan dengan cara termudah — semua di peramban."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Berkas Anda tidak pernah meninggalkan peramban ini.",
+    "chooseFile": "Pilih PDF",
+    "dialogTitle": "Kata sandi PDF",
+    "dialogDescription": "Berkas ini dilindungi kata sandi. Masukkan kata sandi buka, lalu buka kuncinya.",
+    "passwordLabel": "Kata sandi",
+    "passwordPlaceholder": "Kata sandi buka saat ini",
+    "cancel": "Batal",
+    "unlock": "Buka kunci",
+    "processing": "Membuka kunci…",
+    "download": "Unduh PDF yang tidak terkunci",
+    "reset": "Berkas lain",
+    "invalidPdf": "Tidak dapat membaca berkas ini sebagai PDF.",
+    "wrongPassword": "Kata sandi salah atau enkripsi tidak didukung untuk PDF ini."
+  },
+  "PdfLocker": {
+    "privacyNote": "Berkas Anda tidak pernah meninggalkan peramban ini.",
+    "chooseFile": "Pilih PDF",
+    "dialogTitle": "Kunci PDF ini",
+    "dialogDescription": "Pilih kata sandi buka. Harus sama di kedua kolom.",
+    "passwordLabel": "Kata sandi",
+    "passwordPlaceholder": "Kata sandi buka baru",
+    "confirmLabel": "Konfirmasi kata sandi",
+    "confirmPlaceholder": "Ulangi kata sandi",
+    "cancel": "Batal",
+    "lock": "Kunci PDF",
+    "processing": "Mengenkripsi…",
+    "download": "Unduh PDF terkunci",
+    "reset": "Berkas lain",
+    "invalidPdf": "Tidak dapat membaca berkas ini sebagai PDF.",
+    "alreadyEncrypted": "PDF ini sudah dilindungi kata sandi. Buka kunci dulu, lalu kunci lagi jika perlu.",
+    "passwordRequired": "Masukkan kata sandi.",
+    "passwordMismatch": "Kata sandi tidak cocok.",
+    "genericError": "Tidak dapat mengenkripsi PDF ini. Coba berkas lain atau kata sandi yang lebih pendek."
+  },
+  "PdfMerge": {
+    "intro": "Gabungkan PDF sesuai urutan yang Anda inginkan dengan penggabung paling mudah.",
+    "privacyNote": "Berkas Anda tidak meninggalkan peramban ini.",
+    "orderHint": "Berkas di atas muncul lebih dulu di PDF gabungan. Atur urutan dengan panah.",
+    "addPdfs": "Tambah PDF",
+    "clearAll": "Kosongkan daftar",
+    "mergeDownload": "Gabung & unduh",
+    "merging": "Menggabungkan…",
+    "pages": "{count} halaman",
+    "moveUpAria": "Naik",
+    "moveDownAria": "Turun",
+    "removeFileAria": "Hapus dari daftar",
+    "minTwoPdfs": "Tambahkan setidaknya dua berkas PDF untuk digabung.",
+    "invalidPdf": "Tidak dapat membaca berkas ini sebagai PDF.",
+    "mergeFailed": "Tidak dapat menggabungkan. Hapus PDF yang terlindungi kata sandi atau rusak lalu coba lagi."
   }
 }

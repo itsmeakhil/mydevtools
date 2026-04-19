@@ -47,7 +47,10 @@
     "mockDataGenerator": "Skyn-datagenerator",
     "svgOptimizer": "SVG-optimaliseerder",
     "unitConverter": "Eenheidsomskakelaar",
-    "dockerComposeGenerator": "Docker Compose-Generator"
+    "dockerComposeGenerator": "Docker Compose-Generator",
+    "pdfUnlocker": "Ontsluit PDF",
+    "pdfLocker": "Sluit PDF",
+    "pdfMerge": "Voeg PDF’s saam"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "Docker Compose-Generator",
         "description": "Kies databasisse, kasse, toue, proxy's en waarneembaarheidbeelde; voer docker-compose.yml uit vir plaaslike stapel."
+      },
+      "pdfUnlocker": {
+        "title": "Ontsluit PDF",
+        "description": "Verwyder die oopwagwoord van ’n PDF en laai ’n ontsluite kopie in jou blaaier af."
+      },
+      "pdfLocker": {
+        "title": "Sluit PDF",
+        "description": "Beskerm ’n PDF met ’n wagwoord (AES-256) en laai ’n gesluite kopie in jou blaaier af."
+      },
+      "pdfMerge": {
+        "title": "Voeg PDF-lêers saam",
+        "description": "Kombineer PDF’s in die volgorde wat jy wil, op die maklikste manier — alles in jou blaaier."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Jou lêer verlaat nooit hierdie blaaier nie.",
+    "chooseFile": "Kies PDF",
+    "dialogTitle": "PDF-wagwoord",
+    "dialogDescription": "Hierdie lêer is wagwoordbeskermd. Voer die oopwagwoord in en ontsluit.",
+    "passwordLabel": "Wagwoord",
+    "passwordPlaceholder": "Huidige oopwagwoord",
+    "cancel": "Kanselleer",
+    "unlock": "Ontsluit",
+    "processing": "Ontsluit tans…",
+    "download": "Laai ontsluite PDF af",
+    "reset": "Ander lêer",
+    "invalidPdf": "Kon nie hierdie lêer as ’n PDF lees nie.",
+    "wrongPassword": "Verkeerde wagwoord of enkripsie word vir hierdie PDF nie ondersteun nie."
+  },
+  "PdfLocker": {
+    "privacyNote": "Jou lêer verlaat nooit hierdie blaaier nie.",
+    "chooseFile": "Kies PDF",
+    "dialogTitle": "Sluit hierdie PDF",
+    "dialogDescription": "Kies ’n oopwagwoord. Dit moet in albei velde ooreenstem.",
+    "passwordLabel": "Wagwoord",
+    "passwordPlaceholder": "Nuwe oopwagwoord",
+    "confirmLabel": "Bevestig wagwoord",
+    "confirmPlaceholder": "Herhaal wagwoord",
+    "cancel": "Kanselleer",
+    "lock": "Sluit PDF",
+    "processing": "Enkripteer tans…",
+    "download": "Laai gesluite PDF af",
+    "reset": "Ander lêer",
+    "invalidPdf": "Kon nie hierdie lêer as ’n PDF lees nie.",
+    "alreadyEncrypted": "Hierdie PDF is reeds wagwoordbeskermd. Ontsluit eers en sluit weer indien nodig.",
+    "passwordRequired": "Voer ’n wagwoord in.",
+    "passwordMismatch": "Die wagwoorde stem nie ooreen nie.",
+    "genericError": "Kon nie hierdie PDF enkripteer nie. Probeer ’n ander lêer of ’n korter wagwoord."
+  },
+  "PdfMerge": {
+    "intro": "Kombineer PDF’s in die volgorde wat jy wil met die maklikste saamvoeger.",
+    "privacyNote": "Jou lêers verlaat nie hierdie blaaier nie.",
+    "orderHint": "Lêers boaan kom eerste in die saamgevoegde PDF. Herrangskik met die pyle.",
+    "addPdfs": "Voeg PDF’s by",
+    "clearAll": "Maak lys skoon",
+    "mergeDownload": "Voeg saam en laai af",
+    "merging": "Besig om saam te voeg…",
+    "pages": "{count} bladsye",
+    "moveUpAria": "Skuif op",
+    "moveDownAria": "Skuif af",
+    "removeFileAria": "Verwyder uit lys",
+    "minTwoPdfs": "Voeg minstens twee PDF-lêers by om saam te voeg.",
+    "invalidPdf": "Kon nie hierdie lêer as ’n PDF lees nie.",
+    "mergeFailed": "Kon nie saamvoeg nie. Verwyder wagwoordbeskermde of beskadigde PDF’s en probeer weer."
   }
 }

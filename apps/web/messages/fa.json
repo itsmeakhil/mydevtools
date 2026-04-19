@@ -47,7 +47,10 @@
     "mockDataGenerator": "مولد دادهٔ آزمایشی",
     "svgOptimizer": "بهینه‌ساز SVG",
     "unitConverter": "مبدل واحد",
-    "dockerComposeGenerator": "تولیدکننده Docker Compose"
+    "dockerComposeGenerator": "تولیدکننده Docker Compose",
+    "pdfUnlocker": "باز کردن قفل PDF",
+    "pdfLocker": "قفل PDF",
+    "pdfMerge": "ادغام PDF"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "تولیدکننده Docker Compose",
         "description": "پایگاه‌داده، کش، صف، پروکسی و تصاویر قابلیت مشاهده را انتخاب کنید؛ docker-compose.yml را برای پشته‌های محلی صادر کنید."
+      },
+      "pdfUnlocker": {
+        "title": "باز کردن قفل PDF",
+        "description": "گذرواژهٔ باز کردن PDF را بردارید و نسخهٔ بدون قفل را در مرورگر دانلود کنید."
+      },
+      "pdfLocker": {
+        "title": "قفل PDF",
+        "description": "PDF را با گذرواژه (AES-256) محافظت کنید و نسخهٔ قفل‌شده را در مرورگر دانلود کنید."
+      },
+      "pdfMerge": {
+        "title": "ادغام فایل‌های PDF",
+        "description": "PDFها را به ترتیب دلخواه با ساده‌ترین روش ترکیب کنید — همه‌چیز در مرورگر شما."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "پروندهٔ شما هرگز این مرورگر را ترک نمی‌کند.",
+    "chooseFile": "انتخاب PDF",
+    "dialogTitle": "گذرواژهٔ PDF",
+    "dialogDescription": "این پرونده با گذرواژه محافظت شده است. گذرواژهٔ باز کردن را وارد کنید و قفل را باز کنید.",
+    "passwordLabel": "گذرواژه",
+    "passwordPlaceholder": "گذرواژهٔ فعلی باز کردن",
+    "cancel": "لغو",
+    "unlock": "باز کردن قفل",
+    "processing": "در حال باز کردن قفل…",
+    "download": "دانلود PDF بدون قفل",
+    "reset": "پروندهٔ دیگر",
+    "invalidPdf": "خواندن این پرونده به‌عنوان PDF ممکن نیست.",
+    "wrongPassword": "گذرواژه نادرست است یا رمزنگاری برای این PDF پشتیبانی نمی‌شود."
+  },
+  "PdfLocker": {
+    "privacyNote": "پروندهٔ شما هرگز این مرورگر را ترک نمی‌کند.",
+    "chooseFile": "انتخاب PDF",
+    "dialogTitle": "قفل کردن این PDF",
+    "dialogDescription": "گذرواژهٔ باز کردن را انتخاب کنید. باید در هر دو فیلد یکسان باشد.",
+    "passwordLabel": "گذرواژه",
+    "passwordPlaceholder": "گذرواژهٔ جدید باز کردن",
+    "confirmLabel": "تأیید گذرواژه",
+    "confirmPlaceholder": "تکرار گذرواژه",
+    "cancel": "لغو",
+    "lock": "قفل PDF",
+    "processing": "در حال رمزنگاری…",
+    "download": "دانلود PDF قفل‌شده",
+    "reset": "پروندهٔ دیگر",
+    "invalidPdf": "خواندن این پرونده به‌عنوان PDF ممکن نیست.",
+    "alreadyEncrypted": "این PDF از قبل با گذرواژه محافظت شده است. ابتدا قفل را باز کنید، سپس در صورت نیاز دوباره قفل کنید.",
+    "passwordRequired": "گذرواژه را وارد کنید.",
+    "passwordMismatch": "گذرواژه‌ها یکسان نیستند.",
+    "genericError": "رمزنگاری این PDF ممکن نیست. پروندهٔ دیگری یا گذرواژهٔ کوتاه‌تر امتحان کنید."
+  },
+  "PdfMerge": {
+    "intro": "PDFها را به ترتیب دلخواه با ساده‌ترین ادغام‌گر ترکیب کنید.",
+    "privacyNote": "فایل‌های شما این مرورگر را ترک نمی‌کنند.",
+    "orderHint": "فایل‌های بالای فهرست در PDF نهایی اول می‌آیند. با فلش‌ها مرتب کنید.",
+    "addPdfs": "افزودن PDF",
+    "clearAll": "پاک‌کردن فهرست",
+    "mergeDownload": "ادغام و بارگیری",
+    "merging": "در حال ادغام…",
+    "pages": "{count} صفحه",
+    "moveUpAria": "بالا",
+    "moveDownAria": "پایین",
+    "removeFileAria": "حذف از فهرست",
+    "minTwoPdfs": "حداقل دو فایل PDF برای ادغام اضافه کنید.",
+    "invalidPdf": "خواندن این فایل به‌عنوان PDF ممکن نبود.",
+    "mergeFailed": "ادغام نشد. فایل‌های محافظت‌شده یا آسیب‌دیده را بردارید و دوباره تلاش کنید."
   }
 }

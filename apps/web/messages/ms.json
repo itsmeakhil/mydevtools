@@ -47,7 +47,10 @@
     "mockDataGenerator": "Penjana Data Mock",
     "svgOptimizer": "Pengoptimum SVG",
     "unitConverter": "Penukar Unit",
-    "dockerComposeGenerator": "Penjana Docker Compose"
+    "dockerComposeGenerator": "Penjana Docker Compose",
+    "pdfUnlocker": "Buka kunci PDF",
+    "pdfLocker": "Kunci PDF",
+    "pdfMerge": "Gabung PDF"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -421,6 +424,18 @@
       "dockerComposeGenerator": {
         "title": "Penjana Docker Compose",
         "description": "Pilih pangkalan data, cache, baris gilir, proksi dan imej kebolehcerapan; eksport docker-compose.yml untuk setempat."
+      },
+      "pdfUnlocker": {
+        "title": "Buka kunci PDF",
+        "description": "Alih keluar kata laluan buka daripada PDF dan muat turun salinan tidak berkunci dalam pelayar anda."
+      },
+      "pdfLocker": {
+        "title": "Kunci PDF",
+        "description": "Lindungi PDF dengan kata laluan (AES-256) dan muat turun salinan berkunci dalam pelayar anda."
+      },
+      "pdfMerge": {
+        "title": "Gabung fail PDF",
+        "description": "Gabung PDF mengikut turutan yang anda mahu dengan cara paling mudah — semuanya dalam pelayar."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Fail anda tidak pernah meninggalkan pelayar ini.",
+    "chooseFile": "Pilih PDF",
+    "dialogTitle": "Kata laluan PDF",
+    "dialogDescription": "Fail ini dilindungi kata laluan. Masukkan kata laluan buka, kemudian buka kunci.",
+    "passwordLabel": "Kata laluan",
+    "passwordPlaceholder": "Kata laluan buka semasa",
+    "cancel": "Batal",
+    "unlock": "Buka kunci",
+    "processing": "Membuka kunci…",
+    "download": "Muat turun PDF tidak berkunci",
+    "reset": "Fail lain",
+    "invalidPdf": "Tidak dapat membaca fail ini sebagai PDF.",
+    "wrongPassword": "Kata laluan salah atau penyulitan tidak disokong untuk PDF ini."
+  },
+  "PdfLocker": {
+    "privacyNote": "Fail anda tidak pernah meninggalkan pelayar ini.",
+    "chooseFile": "Pilih PDF",
+    "dialogTitle": "Kunci PDF ini",
+    "dialogDescription": "Pilih kata laluan buka. Mesti sama pada kedua-dua medan.",
+    "passwordLabel": "Kata laluan",
+    "passwordPlaceholder": "Kata laluan buka baharu",
+    "confirmLabel": "Sahkan kata laluan",
+    "confirmPlaceholder": "Ulang kata laluan",
+    "cancel": "Batal",
+    "lock": "Kunci PDF",
+    "processing": "Menyenkripsi…",
+    "download": "Muat turun PDF berkunci",
+    "reset": "Fail lain",
+    "invalidPdf": "Tidak dapat membaca fail ini sebagai PDF.",
+    "alreadyEncrypted": "PDF ini sudah dilindungi kata laluan. Buka kunci dahulu, kemudian kunci semula jika perlu.",
+    "passwordRequired": "Masukkan kata laluan.",
+    "passwordMismatch": "Kata laluan tidak sepadan.",
+    "genericError": "Tidak dapat menyulit PDF ini. Cuba fail lain atau kata laluan yang lebih pendek."
+  },
+  "PdfMerge": {
+    "intro": "Gabung PDF mengikut turutan yang anda mahu dengan penggabung paling mudah.",
+    "privacyNote": "Fail anda tidak pernah meninggalkan pelayar ini.",
+    "orderHint": "Fail di atas akan didahulukan dalam PDF bergabung. Susun semula dengan anak panah.",
+    "addPdfs": "Tambah PDF",
+    "clearAll": "Kosongkan senarai",
+    "mergeDownload": "Gabung & muat turun",
+    "merging": "Menggabungkan…",
+    "pages": "{count} halaman",
+    "moveUpAria": "Naik",
+    "moveDownAria": "Turun",
+    "removeFileAria": "Buang daripada senarai",
+    "minTwoPdfs": "Tambah sekurang-kurangnya dua fail PDF untuk digabung.",
+    "invalidPdf": "Tidak dapat membaca fail ini sebagai PDF.",
+    "mergeFailed": "Tidak dapat menggabung. Buang PDF dilindungi kata laluan atau rosak dan cuba lagi."
   }
 }

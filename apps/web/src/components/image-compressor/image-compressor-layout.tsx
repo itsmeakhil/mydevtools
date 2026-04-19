@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useIsMobile } from '@/components/hooks/use-mobile';
 import { useTranslations } from 'next-intl';
 import {
   Upload,
@@ -67,6 +68,8 @@ function defaultOutputMime(inputMime: string): OutputMime {
 
 export function ImageCompressorLayout() {
   const t = useTranslations('ImageCompressor');
+  const isMobile = useIsMobile();
+  const [mobileTab, setMobileTab] = useState<'original' | 'compressed'>('original');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [sourceFile, setSourceFile] = useState<File | null>(null);
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
@@ -133,6 +136,7 @@ export function ImageCompressorLayout() {
         setCompressedBlob(blob);
         setCompressedUrl(url);
         setCompressedBytes(blob.size);
+        if (isMobile) setMobileTab('compressed');
       } catch {
         setError(t('compressFailed'));
       } finally {
@@ -280,10 +284,29 @@ export function ImageCompressorLayout() {
         )}
       </Card>
 
-      <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 md:grid-cols-2">
-        <Card
+      {isMobile && (
+        <div className="flex shrink-0 rounded-lg border bg-muted/40 p-1 gap-1">
+          {(['original', 'compressed'] as const).map((tab) => (
+            <button
+              key={tab}
+              type="button"
+              onClick={() => setMobileTab(tab)}
+              className={`flex-1 rounded-md px-3 py-2 text-sm font-medium capitalize transition-all ${
+                mobileTab === tab
+                  ? 'bg-background text-foreground shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {tab === 'original' ? t('panels.original') : t('panels.compressed')}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div className={`min-h-0 flex-1 ${isMobile ? 'flex flex-col' : 'grid grid-cols-2 gap-4'}`}>
+        {(!isMobile || mobileTab === 'original') && <Card
           className={cn(
-            'relative flex min-h-[220px] flex-col overflow-hidden transition-colors',
+            'relative flex min-h-[220px] flex-col overflow-hidden transition-colors flex-1',
             isDragging && 'border-primary/50 bg-primary/5',
             !sourceUrl && 'border-dashed'
           )}
@@ -340,9 +363,9 @@ export function ImageCompressorLayout() {
               <span>{error}</span>
             </div>
           )}
-        </Card>
+        </Card>}
 
-        <Card className="flex min-h-[220px] flex-col overflow-hidden">
+        {(!isMobile || mobileTab === 'compressed') && <Card className="flex min-h-[220px] flex-col overflow-hidden flex-1">
           <div className="flex shrink-0 items-center justify-between border-b border-border/50 bg-muted/30 px-4 py-2.5">
             <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
               {t('panels.compressed')}
@@ -372,7 +395,7 @@ export function ImageCompressorLayout() {
               <p className="text-center text-sm text-muted-foreground">{t('emptyCompressed')}</p>
             ) : null}
           </div>
-        </Card>
+        </Card>}
       </div>
     </div>
   );

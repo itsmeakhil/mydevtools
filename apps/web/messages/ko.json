@@ -47,7 +47,10 @@
     "mockDataGenerator": "모의 데이터 생성기",
     "svgOptimizer": "SVG 최적화",
     "unitConverter": "단위 변환기",
-    "dockerComposeGenerator": "Docker Compose 생성기"
+    "dockerComposeGenerator": "Docker Compose 생성기",
+    "pdfUnlocker": "PDF 잠금 해제",
+    "pdfLocker": "PDF 잠금",
+    "pdfMerge": "PDF 병합"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "Docker Compose 생성기",
         "description": "데이터베이스, 캐시, 큐, 프록시, 관측 가능성 이미지를 선택하고 로컬 스택용 docker-compose.yml을 보냅니다."
+      },
+      "pdfUnlocker": {
+        "title": "PDF 잠금 해제",
+        "description": "PDF의 열기 암호를 제거하고 브라우저에서 잠금 해제된 사본을 다운로드합니다."
+      },
+      "pdfLocker": {
+        "title": "PDF 잠금",
+        "description": "암호(AES-256)로 PDF를 보호하고 브라우저에서 잠긴 사본을 다운로드합니다."
+      },
+      "pdfMerge": {
+        "title": "PDF 파일 병합",
+        "description": "원하는 순서로 PDF를 가장 쉽게 합칩니다. 모두 브라우저에서 처리됩니다."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg(Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "파일은 이 브라우저를 벗어나지 않습니다.",
+    "chooseFile": "PDF 선택",
+    "dialogTitle": "PDF 암호",
+    "dialogDescription": "이 파일은 암호로 보호되어 있습니다. 열기 암호를 입력한 뒤 잠금을 해제하세요.",
+    "passwordLabel": "암호",
+    "passwordPlaceholder": "현재 열기 암호",
+    "cancel": "취소",
+    "unlock": "잠금 해제",
+    "processing": "잠금 해제 중…",
+    "download": "잠금 해제된 PDF 받기",
+    "reset": "다른 파일",
+    "invalidPdf": "이 파일을 PDF로 읽을 수 없습니다.",
+    "wrongPassword": "암호가 올바르지 않거나 이 PDF의 암호화는 지원되지 않습니다."
+  },
+  "PdfLocker": {
+    "privacyNote": "파일은 이 브라우저를 벗어나지 않습니다.",
+    "chooseFile": "PDF 선택",
+    "dialogTitle": "이 PDF 잠그기",
+    "dialogDescription": "열기에 사용할 암호를 입력하세요. 두 칸이 같아야 합니다.",
+    "passwordLabel": "암호",
+    "passwordPlaceholder": "새 열기 암호",
+    "confirmLabel": "암호 확인",
+    "confirmPlaceholder": "암호 다시 입력",
+    "cancel": "취소",
+    "lock": "PDF 잠금",
+    "processing": "암호화 중…",
+    "download": "잠긴 PDF 받기",
+    "reset": "다른 파일",
+    "invalidPdf": "이 파일을 PDF로 읽을 수 없습니다.",
+    "alreadyEncrypted": "이 PDF는 이미 암호로 보호되어 있습니다. 먼저 잠금을 해제한 뒤 필요하면 다시 잠그세요.",
+    "passwordRequired": "암호를 입력하세요.",
+    "passwordMismatch": "암호가 일치하지 않습니다.",
+    "genericError": "이 PDF를 암호화할 수 없습니다. 다른 파일이나 더 짧은 암호를 시도하세요."
+  },
+  "PdfMerge": {
+    "intro": "원하는 순서로 PDF를 가장 쉽게 합칠 수 있습니다.",
+    "privacyNote": "파일은 이 브라우저를 벗어나지 않습니다.",
+    "orderHint": "위에 있는 파일이 병합 PDF에서 먼저 옵니다. 화살표로 순서를 바꿉니다.",
+    "addPdfs": "PDF 추가",
+    "clearAll": "목록 지우기",
+    "mergeDownload": "병합 후 다운로드",
+    "merging": "병합 중…",
+    "pages": "{count}페이지",
+    "moveUpAria": "위로",
+    "moveDownAria": "아래로",
+    "removeFileAria": "목록에서 제거",
+    "minTwoPdfs": "병합하려면 PDF를 두 개 이상 추가하세요.",
+    "invalidPdf": "이 파일을 PDF로 읽을 수 없습니다.",
+    "mergeFailed": "병합할 수 없습니다. 암호가 걸리거나 손상된 PDF를 제거하고 다시 시도하세요."
   }
 }

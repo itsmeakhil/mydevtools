@@ -47,7 +47,10 @@
     "mockDataGenerator": "Γεννήτρια δοκιμαστικών δεδομένων",
     "svgOptimizer": "Βελτιστοποιητής SVG",
     "unitConverter": "Μετατροπέας Μονάδων",
-    "dockerComposeGenerator": "Δημιουργός Docker Compose"
+    "dockerComposeGenerator": "Δημιουργός Docker Compose",
+    "pdfUnlocker": "Ξεκλείδωμα PDF",
+    "pdfLocker": "Κλείδωμα PDF",
+    "pdfMerge": "Συγχώνευση PDF"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "Δημιουργός Docker Compose",
         "description": "Επιλέξτε βάσεις δεδομένων, cache, ουρές, proxy και εικόνες παρατηρησιμότητας· εξάγετε docker-compose.yml για τοπικές στοίβες."
+      },
+      "pdfUnlocker": {
+        "title": "Ξεκλείδωμα PDF",
+        "description": "Αφαιρέστε τον κωδικό ανοίγματος από ένα PDF και κατεβάστε ξεκλείδωτο αντίγραφο στον browser."
+      },
+      "pdfLocker": {
+        "title": "Κλείδωμα PDF",
+        "description": "Προστατεύστε PDF με κωδικό (AES-256) και κατεβάστε κλειδωμένο αντίγραφο στον browser."
+      },
+      "pdfMerge": {
+        "title": "Συγχώνευση αρχείων PDF",
+        "description": "Συνδυάστε PDF με τη σειρά που θέλετε με τον πιο απλό τρόπο — όλα στον browser."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Το αρχείο σας δεν φεύγει ποτέ από αυτόν τον browser.",
+    "chooseFile": "Επιλογή PDF",
+    "dialogTitle": "Κωδικός PDF",
+    "dialogDescription": "Το αρχείο είναι προστατευμένο. Εισάγετε τον κωδικό ανοίγματος και ξεκλειδώστε.",
+    "passwordLabel": "Κωδικός",
+    "passwordPlaceholder": "Τρέχων κωδικός ανοίγματος",
+    "cancel": "Ακύρωση",
+    "unlock": "Ξεκλείδωμα",
+    "processing": "Ξεκλείδωμα…",
+    "download": "Λήψη ξεκλειδωμένου PDF",
+    "reset": "Άλλο αρχείο",
+    "invalidPdf": "Δεν ήταν δυνατή η ανάγνωση ως PDF.",
+    "wrongPassword": "Λάθος κωδικός ή μη υποστηριζόμενη κρυπτογράφηση για αυτό το PDF."
+  },
+  "PdfLocker": {
+    "privacyNote": "Το αρχείο σας δεν φεύγει ποτέ από αυτόν τον browser.",
+    "chooseFile": "Επιλογή PDF",
+    "dialogTitle": "Κλείδωμα αυτού του PDF",
+    "dialogDescription": "Επιλέξτε κωδικό ανοίγματος. Πρέπει να ταιριάζει και στα δύο πεδία.",
+    "passwordLabel": "Κωδικός",
+    "passwordPlaceholder": "Νέος κωδικός ανοίγματος",
+    "confirmLabel": "Επιβεβαίωση κωδικού",
+    "confirmPlaceholder": "Επανάληψη κωδικού",
+    "cancel": "Ακύρωση",
+    "lock": "Κλείδωμα PDF",
+    "processing": "Κρυπτογράφηση…",
+    "download": "Λήψη κλειδωμένου PDF",
+    "reset": "Άλλο αρχείο",
+    "invalidPdf": "Δεν ήταν δυνατή η ανάγνωση ως PDF.",
+    "alreadyEncrypted": "Αυτό το PDF είναι ήδη προστατευμένο. Ξεκλειδώστε πρώτα και κλειδώστε ξανά αν χρειάζεται.",
+    "passwordRequired": "Εισάγετε κωδικό.",
+    "passwordMismatch": "Οι κωδικοί δεν ταιριάζουν.",
+    "genericError": "Δεν ήταν δυνατή η κρυπτογράφηση. Δοκιμάστε άλλο αρχείο ή συντομότερο κωδικό."
+  },
+  "PdfMerge": {
+    "intro": "Συνδυάστε PDF με τη σειρά που θέλετε με τον πιο απλό συγχωνευτή.",
+    "privacyNote": "Τα αρχεία σας δεν φεύγουν από αυτόν τον browser.",
+    "orderHint": "Τα αρχεία πάνω εμφανίζονται πρώτα στο τελικό PDF. Αναδιάταξη με τα βέλη.",
+    "addPdfs": "Προσθήκη PDF",
+    "clearAll": "Εκκαθάριση λίστας",
+    "mergeDownload": "Συγχώνευση και λήψη",
+    "merging": "Συγχώνευση…",
+    "pages": "{count} σελίδες",
+    "moveUpAria": "Πάνω",
+    "moveDownAria": "Κάτω",
+    "removeFileAria": "Αφαίρεση από τη λίστα",
+    "minTwoPdfs": "Προσθέστε τουλάχιστον δύο PDF για συγχώνευση.",
+    "invalidPdf": "Δεν ήταν δυνατή η ανάγνωση ως PDF.",
+    "mergeFailed": "Αποτυχία συγχώνευσης. Αφαιρέστε κρυπτογραφημένα ή κατεστραμμένα PDF και δοκιμάστε ξανά."
   }
 }

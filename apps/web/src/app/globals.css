@@ -862,6 +862,13 @@ body {
      MOBILE-FIRST UTILITIES & TOUCH OPTIMIZATION
      ============================================ */
 
+  /* Prevent iOS Safari auto-zoom on inputs with font-size < 16px */
+  @media (max-width: 768px) {
+    input, textarea, select {
+      font-size: 16px;
+    }
+  }
+
   /* Touch Target Sizing - Minimum 44px for accessibility */
   .touch-target {
     min-height: 44px;

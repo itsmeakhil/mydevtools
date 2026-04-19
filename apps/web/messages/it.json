@@ -47,7 +47,10 @@
     "mockDataGenerator": "Generatore di dati mock",
     "svgOptimizer": "Ottimizzatore SVG",
     "unitConverter": "Convertitore di unità",
-    "dockerComposeGenerator": "Generatore Docker Compose"
+    "dockerComposeGenerator": "Generatore Docker Compose",
+    "pdfUnlocker": "Sblocca PDF",
+    "pdfLocker": "Proteggi PDF",
+    "pdfMerge": "Unisci PDF"
   },
   "Help": {
     "title": "Aiuto e documentazione",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "Generatore Docker Compose",
         "description": "Scegli database, cache, code, proxy e immagini di osservabilità; esporta un docker-compose.yml per stack locali."
+      },
+      "pdfUnlocker": {
+        "title": "Sblocca PDF",
+        "description": "Rimuovi la password di apertura da un PDF e scarica una copia sbloccata nel browser."
+      },
+      "pdfLocker": {
+        "title": "Proteggi PDF",
+        "description": "Proteggi un PDF con password (AES-256) e scarica una copia protetta nel browser."
+      },
+      "pdfMerge": {
+        "title": "Unisci file PDF",
+        "description": "Combina i PDF nell’ordine che vuoi con il modo più semplice, tutto nel browser."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Il file non esce mai da questo browser.",
+    "chooseFile": "Scegli PDF",
+    "dialogTitle": "Password del PDF",
+    "dialogDescription": "Questo file è protetto da password. Inserisci la password di apertura, poi sblocca.",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Password di apertura attuale",
+    "cancel": "Annulla",
+    "unlock": "Sblocca",
+    "processing": "Sblocco in corso…",
+    "download": "Scarica PDF sbloccato",
+    "reset": "Altro file",
+    "invalidPdf": "Impossibile leggere questo file come PDF.",
+    "wrongPassword": "Password errata o crittografia non supportata per questo PDF."
+  },
+  "PdfLocker": {
+    "privacyNote": "Il file non esce mai da questo browser.",
+    "chooseFile": "Scegli PDF",
+    "dialogTitle": "Proteggi questo PDF",
+    "dialogDescription": "Scegli una password di apertura. Deve coincidere in entrambi i campi.",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Nuova password di apertura",
+    "confirmLabel": "Conferma password",
+    "confirmPlaceholder": "Ripeti password",
+    "cancel": "Annulla",
+    "lock": "Proteggi PDF",
+    "processing": "Crittografia in corso…",
+    "download": "Scarica PDF protetto",
+    "reset": "Altro file",
+    "invalidPdf": "Impossibile leggere questo file come PDF.",
+    "alreadyEncrypted": "Questo PDF è già protetto da password. Sbloccalo prima, poi proteggilo di nuovo se serve.",
+    "passwordRequired": "Inserisci una password.",
+    "passwordMismatch": "Le password non coincidono.",
+    "genericError": "Impossibile crittografare questo PDF. Prova un altro file o una password più breve."
+  },
+  "PdfMerge": {
+    "intro": "Combina i PDF nell’ordine che vuoi con il modo più semplice.",
+    "privacyNote": "I tuoi file non lasciano questo browser.",
+    "orderHint": "I file in alto vengono per primi nel PDF unito. Riordina con le frecce.",
+    "addPdfs": "Aggiungi PDF",
+    "clearAll": "Svuota elenco",
+    "mergeDownload": "Unisci e scarica",
+    "merging": "Unione in corso…",
+    "pages": "{count} pagine",
+    "moveUpAria": "Sposta su",
+    "moveDownAria": "Sposta giù",
+    "removeFileAria": "Rimuovi dall’elenco",
+    "minTwoPdfs": "Aggiungi almeno due file PDF da unire.",
+    "invalidPdf": "Impossibile leggere questo file come PDF.",
+    "mergeFailed": "Impossibile unire. Rimuovi PDF protetti o danneggiati e riprova."
   }
 }

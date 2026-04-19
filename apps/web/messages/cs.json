@@ -47,7 +47,10 @@
     "mockDataGenerator": "Generátor testovacích dat",
     "svgOptimizer": "Optimalizátor SVG",
     "unitConverter": "Převodník jednotek",
-    "dockerComposeGenerator": "Generátor Docker Compose"
+    "dockerComposeGenerator": "Generátor Docker Compose",
+    "pdfUnlocker": "Odemknout PDF",
+    "pdfLocker": "Zamknout PDF",
+    "pdfMerge": "Sloučit PDF"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -415,6 +418,18 @@
       "dockerComposeGenerator": {
         "title": "Generátor Docker Compose",
         "description": "Vyberte databáze, cache, fronty, proxy a observabilitu; exportujte docker-compose.yml pro lokální stacky."
+      },
+      "pdfUnlocker": {
+        "title": "Odemknout PDF",
+        "description": "Odstraňte heslo pro otevření z PDF a stáhněte odemčenou kopii v prohlížeči."
+      },
+      "pdfLocker": {
+        "title": "Zamknout PDF",
+        "description": "Chraňte PDF heslem (AES-256) a stáhněte zamčenou kopii v prohlížeči."
+      },
+      "pdfMerge": {
+        "title": "Sloučení souborů PDF",
+        "description": "Kombinujte PDF v pořadí, které chcete, co nejjednodušeji — vše v prohlížeči."
       }
     },
     "tabs": {
@@ -3250,5 +3265,56 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Soubor tento prohlížeč neopouští.",
+    "chooseFile": "Vybrat PDF",
+    "dialogTitle": "Heslo k PDF",
+    "dialogDescription": "Soubor je chráněn heslem. Zadejte heslo pro otevření a odemkněte.",
+    "passwordLabel": "Heslo",
+    "passwordPlaceholder": "Současné heslo pro otevření",
+    "cancel": "Zrušit",
+    "unlock": "Odemknout",
+    "processing": "Odemykání…",
+    "download": "Stáhnout odemčené PDF",
+    "reset": "Jiný soubor",
+    "invalidPdf": "Soubor nelze přečíst jako PDF.",
+    "wrongPassword": "Nesprávné heslo nebo šifrování tohoto PDF není podporováno."
+  },
+  "PdfLocker": {
+    "privacyNote": "Soubor tento prohlížeč neopouští.",
+    "chooseFile": "Vybrat PDF",
+    "dialogTitle": "Zamknout toto PDF",
+    "dialogDescription": "Zvolte heslo pro otevření. Musí se shodovat v obou polích.",
+    "passwordLabel": "Heslo",
+    "passwordPlaceholder": "Nové heslo pro otevření",
+    "confirmLabel": "Potvrzení hesla",
+    "confirmPlaceholder": "Zopakujte heslo",
+    "cancel": "Zrušit",
+    "lock": "Zamknout PDF",
+    "processing": "Šifrování…",
+    "download": "Stáhnout zamčené PDF",
+    "reset": "Jiný soubor",
+    "invalidPdf": "Soubor nelze přečíst jako PDF.",
+    "alreadyEncrypted": "Toto PDF je již chráněno heslem. Nejprve ho odemkněte a případně znovu zamkněte.",
+    "passwordRequired": "Zadejte heslo.",
+    "passwordMismatch": "Hesla se neshodují.",
+    "genericError": "Toto PDF nelze zašifrovat. Zkuste jiný soubor nebo kratší heslo."
+  },
+  "PdfMerge": {
+    "intro": "Kombinujte PDF v pořadí, které chcete, nejjednodušeji.",
+    "privacyNote": "Vaše soubory tento prohlížeč neopouštějí.",
+    "orderHint": "Soubory nahoře jsou ve sloučeném PDF první. Pořadí měňte šipkami.",
+    "addPdfs": "Přidat PDF",
+    "clearAll": "Vymazat seznam",
+    "mergeDownload": "Sloučit a stáhnout",
+    "merging": "Slučování…",
+    "pages": "{count} str.",
+    "moveUpAria": "Nahoru",
+    "moveDownAria": "Dolů",
+    "removeFileAria": "Odebrat ze seznamu",
+    "minTwoPdfs": "Přidejte alespoň dva soubory PDF ke sloučení.",
+    "invalidPdf": "Tento soubor nelze přečíst jako PDF.",
+    "mergeFailed": "Sloučení se nezdařilo. Odeberte chráněná nebo poškozená PDF a zkuste to znovu."
   }
 }
