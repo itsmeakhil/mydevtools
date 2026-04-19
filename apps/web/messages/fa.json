@@ -50,7 +50,10 @@
     "dockerComposeGenerator": "تولیدکننده Docker Compose",
     "pdfUnlocker": "باز کردن قفل PDF",
     "pdfLocker": "قفل PDF",
-    "pdfMerge": "ادغام PDF"
+    "pdfMerge": "ادغام PDF",
+    "pdfCompressor": "فشرده‌سازی فایل‌های PDF",
+    "jpgToPdf": "JPG به PDF",
+    "pdfToJpg": "PDF به JPG"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -430,6 +433,18 @@
       "pdfMerge": {
         "title": "ادغام فایل‌های PDF",
         "description": "PDFها را به ترتیب دلخواه با ساده‌ترین روش ترکیب کنید — همه‌چیز در مرورگر شما."
+      },
+      "pdfCompressor": {
+        "title": "فشرده‌سازی فایل‌های PDF",
+        "description": "کاهش حجم فایل با حفظ بیشترین کیفیت PDF — همه در مرورگر شما."
+      },
+      "jpgToPdf": {
+        "title": "JPG به PDF",
+        "description": "تصاویر JPG را در چند ثانیه به PDF تبدیل کنید. جهت‌گیری و حاشیه را به‌راحتی تنظیم کنید."
+      },
+      "pdfToJpg": {
+        "title": "PDF به JPG",
+        "description": "هر صفحهٔ PDF را به JPEG تبدیل کنید یا تصاویر جاسازی‌شده را استخراج کنید — همه در مرورگر."
       }
     },
     "tabs": {
@@ -3266,6 +3281,28 @@
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
   },
+  "PdfToJpg": {
+    "privacyNote": "فایل شما این مرورگر را ترک نمی‌کند. worker کتابخانهٔ PDF.js بار اول از یک CDN بارگذاری می‌شود.",
+    "chooseFile": "انتخاب PDF",
+    "pageCount": "{count, plural, one {# صفحه} other {# صفحه}}",
+    "qualityLabel": "کیفیت JPEG",
+    "scaleLabel": "وضوح صفحه (مقیاس)",
+    "tabPages": "صفحات به JPG",
+    "tabEmbedded": "تصاویر جاسازی‌شده",
+    "pagesHint": "هر صفحه را با پس‌زمینهٔ سفید به‌صورت JPEG رندر می‌کند. مقیاس بالاتر یعنی متن واضح‌تر و فایل‌های بزرگ‌تر.",
+    "embeddedHint": "تصاویر XObject و درون‌خطی (RGB، RGBA یا بیت‌مپ) را پیدا می‌کند. ماسک‌های JPEG/JPX و تصاویر ۱بیتی ممکن است رد شوند.",
+    "downloadPages": "دانلود همهٔ صفحات به‌صورت JPG",
+    "downloadEmbedded": "استخراج و دانلود تصاویر",
+    "processing": "در حال پردازش…",
+    "progressPage": "صفحهٔ {current} از {total}…",
+    "reset": "فایل دیگر",
+    "invalidPdf": "خواندن این فایل به‌عنوان PDF ممکن نشد.",
+    "passwordRequired": "این PDF رمز دارد. ابتدا از باز کردن قفل PDF استفاده کنید و دوباره تلاش کنید.",
+    "genericError": "پردازش این PDF ممکن نشد. فایل دیگری امتحان کنید.",
+    "pagesSuccess": "{count, plural, one {# صفحه به‌صورت JPG ذخیره شد.} other {# صفحه به‌صورت JPG ذخیره شدند.}}",
+    "embeddedSuccess": "{count, plural, one {# تصویر جاسازی‌شده ذخیره شد.} other {# تصویر جاسازی‌شده ذخیره شدند.}}",
+    "noEmbeddedImages": "هیچ تصویر جاسازی‌شدهٔ قابل‌استخراجی در این صفحات یافت نشد."
+  },
   "PdfUnlocker": {
     "privacyNote": "پروندهٔ شما هرگز این مرورگر را ترک نمی‌کند.",
     "chooseFile": "انتخاب PDF",
@@ -3316,5 +3353,44 @@
     "minTwoPdfs": "حداقل دو فایل PDF برای ادغام اضافه کنید.",
     "invalidPdf": "خواندن این فایل به‌عنوان PDF ممکن نبود.",
     "mergeFailed": "ادغام نشد. فایل‌های محافظت‌شده یا آسیب‌دیده را بردارید و دوباره تلاش کنید."
+  },
+  "PdfCompressor": {
+    "intro": "کاهش حجم فایل با حفظ بیشترین کیفیت PDF.",
+    "privacyNote": "فایل شما هرگز این مرورگر را ترک نمی‌کند.",
+    "methodHint": "PDF را با جریان‌های شیء فشرده بازمی‌سازیم (بدون اتلاف برای محتوای صفحه). فایل‌های رمزدار پشتیبانی نمی‌شوند — ابتدا از باز کردن قفل PDF استفاده کنید.",
+    "chooseFile": "انتخاب PDF",
+    "reset": "فایل دیگر",
+    "pageCount": "{count, plural, one {# صفحه} other {# صفحه}}",
+    "originalSize": "اصلی: {size}",
+    "compressDownload": "فشرده‌سازی و دانلود",
+    "compressing": "در حال فشرده‌سازی…",
+    "invalidPdf": "خواندن این فایل به‌عنوان PDF ممکن نشد.",
+    "encryptedPdf": "این PDF با رمز محافظت شده است. ابتدا با باز کردن قفل PDF آن را باز کنید و دوباره تلاش کنید.",
+    "compressFailed": "فشرده‌سازی این PDF انجام نشد. فایل دیگری امتحان کنید.",
+    "noSavingsTitle": "کاهش حجم ناچیز یا بدون تغییر",
+    "noSavingsHint": "PDF شما از قبل فشرده بود. فایل دانلودشده همچنان نسخه‌ای تمیز و استاندارد است.",
+    "savedToast": "حدود {percent}٪ کوچک‌تر ({before} → {after})"
+  },
+  "JpgToPdf": {
+    "intro": "تصاویر JPG را در چند ثانیه به PDF تبدیل کنید. جهت‌گیری و حاشیه را به‌راحتی تنظیم کنید.",
+    "privacyNote": "فایل‌های شما هرگز این مرورگر را ترک نمی‌کنند.",
+    "orderHint": "فایل‌های بالای فهرست، صفحات اول PDF می‌شوند. با فلش‌ها ترتیب را عوض کنید.",
+    "rotationLabel": "چرخش (همهٔ صفحات)",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "حاشیه یکنواخت",
+    "marginValue": "{mm} mm",
+    "addImages": "افزودن JPEG",
+    "clearAll": "پاک‌کردن فهرست",
+    "downloadPdf": "ایجاد PDF و بارگیری",
+    "building": "در حال ساخت PDF…",
+    "moveUpAria": "بالا بردن",
+    "moveDownAria": "پایین بردن",
+    "removeFileAria": "حذف از فهرست",
+    "minOneJpeg": "حداقل یک فایل JPEG اضافه کنید.",
+    "invalidJpeg": "این فایل JPEG (JPG) معتبری نیست.",
+    "buildFailed": "ساخت PDF ممکن نشد. فایل‌های پشتیبانی‌نشده را بردارید و دوباره امتحان کنید."
   }
 }

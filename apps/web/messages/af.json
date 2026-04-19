@@ -50,7 +50,10 @@
     "dockerComposeGenerator": "Docker Compose-Generator",
     "pdfUnlocker": "Ontsluit PDF",
     "pdfLocker": "Sluit PDF",
-    "pdfMerge": "Voeg PDF’s saam"
+    "pdfMerge": "Voeg PDF’s saam",
+    "pdfCompressor": "Komprimeer PDF-lêers",
+    "jpgToPdf": "JPG na PDF",
+    "pdfToJpg": "PDF na JPG"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -430,6 +433,18 @@
       "pdfMerge": {
         "title": "Voeg PDF-lêers saam",
         "description": "Kombineer PDF’s in die volgorde wat jy wil, op die maklikste manier — alles in jou blaaier."
+      },
+      "pdfCompressor": {
+        "title": "Komprimeer PDF-lêers",
+        "description": "Verminder lêergrootte terwyl maksimale PDF-kwaliteit geoptimaliseer word — in jou blaaier."
+      },
+      "jpgToPdf": {
+        "title": "JPG na PDF",
+        "description": "Skakel JPG-beelde na PDF in sekondes. Pas oriëntasie en kante maklik aan."
+      },
+      "pdfToJpg": {
+        "title": "PDF na JPG",
+        "description": "Rasteriseer elke PDF-bladsy na JPEG of onttrek ingebedde beelde — alles in jou blaaier."
       }
     },
     "tabs": {
@@ -3266,6 +3281,28 @@
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
   },
+  "PdfToJpg": {
+    "privacyNote": "Jou lêer verlaat nooit hierdie blaaier nie. Die PDF.js-werker laai die eerste keer vanaf 'n CDN.",
+    "chooseFile": "Kies PDF",
+    "pageCount": "{count, plural, one {# bladsy} other {# bladsye}}",
+    "qualityLabel": "JPEG-kwaliteit",
+    "scaleLabel": "Bladsyresolusie (skaal)",
+    "tabPages": "Bladsye na JPG",
+    "tabEmbedded": "Ingebedde beelde",
+    "pagesHint": "Teken elke bladsy met 'n wit agtergrond as JPEG. Hoër skaal beteken skerper teks en groter lêers.",
+    "embeddedHint": "Soek XObject- en inline-beelde (RGB, RGBA of bitmap). JPEG/JPX-maskers en 1bis-beelde kan oorgeslaan word.",
+    "downloadPages": "Laai alle bladsye as JPG af",
+    "downloadEmbedded": "Onttrek en laai beelde af",
+    "processing": "Besig…",
+    "progressPage": "Bladsy {current} van {total}…",
+    "reset": "Ander lêer",
+    "invalidPdf": "Kon nie hierdie lêer as 'n PDF lees nie.",
+    "passwordRequired": "Hierdie PDF benodig 'n wagwoord. Gebruik eers Ontsluit PDF, probeer dan weer.",
+    "genericError": "Kon nie hierdie PDF verwerk nie. Probeer 'n ander lêer.",
+    "pagesSuccess": "{count, plural, one {# bladsy as JPG gestoor.} other {# bladsye as JPG gestoor.}}",
+    "embeddedSuccess": "{count, plural, one {# ingebedde beeld gestoor.} other {# ingebedde beelde gestoor.}}",
+    "noEmbeddedImages": "Geen onttrekkbare ingebedde beelde op hierdie bladsye nie."
+  },
   "PdfUnlocker": {
     "privacyNote": "Jou lêer verlaat nooit hierdie blaaier nie.",
     "chooseFile": "Kies PDF",
@@ -3316,5 +3353,44 @@
     "minTwoPdfs": "Voeg minstens twee PDF-lêers by om saam te voeg.",
     "invalidPdf": "Kon nie hierdie lêer as ’n PDF lees nie.",
     "mergeFailed": "Kon nie saamvoeg nie. Verwyder wagwoordbeskermde of beskadigde PDF’s en probeer weer."
+  },
+  "PdfCompressor": {
+    "intro": "Verminder lêergrootte terwyl maksimale PDF-kwaliteit geoptimaliseer word.",
+    "privacyNote": "Jou lêer verlaat nooit hierdie blaaier nie.",
+    "methodHint": "Ons bou die PDF met saamgeperste objekstrome (verliesloos vir bladsy-inhoud). Lêers met wagwoorde word nie ondersteun nie — gebruik eers Ontsluit PDF.",
+    "chooseFile": "Kies PDF",
+    "reset": "Ander lêer",
+    "pageCount": "{count, plural, one {# bladsy} other {# bladsye}}",
+    "originalSize": "Oorspronklik: {size}",
+    "compressDownload": "Komprimeer en aflaai",
+    "compressing": "Komprimeer tans…",
+    "invalidPdf": "Kon nie hierdie lêer as ’n PDF lees nie.",
+    "encryptedPdf": "Hierdie PDF is wagwoordbeskerm. Ontsluit dit eers met Ontsluit PDF, en probeer weer.",
+    "compressFailed": "Kon nie hierdie PDF komprimeer nie. Probeer ’n ander lêer.",
+    "noSavingsTitle": "Min of geen groottebesparing",
+    "noSavingsHint": "Jou PDF was reeds kompak. Die afgelaaide lêer is steeds ’n skoon, standaardgebaseerde kopie.",
+    "savedToast": "Ongeveer {percent}% kleiner ({before} → {after})"
+  },
+  "JpgToPdf": {
+    "intro": "Skakel JPG-beelde na PDF in sekondes. Pas oriëntasie en kante maklik aan.",
+    "privacyNote": "Jou lêers verlaat nooit hierdie blaaier nie.",
+    "orderHint": "Lêers bo word die eerste bladsye in die PDF. Gebruik pyle om te herskik.",
+    "rotationLabel": "Rotasie (alle bladsye)",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "Eenvormige kant",
+    "marginValue": "{mm} mm",
+    "addImages": "Voeg JPEG's by",
+    "clearAll": "Maak lys skoon",
+    "downloadPdf": "Skep PDF en laai af",
+    "building": "Skep PDF…",
+    "moveUpAria": "Skuif op",
+    "moveDownAria": "Skuif af",
+    "removeFileAria": "Verwyder uit lys",
+    "minOneJpeg": "Voeg minstens een JPEG-lêer by.",
+    "invalidJpeg": "Hierdie lêer is nie 'n geldige JPEG (JPG) nie.",
+    "buildFailed": "Kon nie die PDF skep nie. Verwyder nie-ondersteunde lêers en probeer weer."
   }
 }

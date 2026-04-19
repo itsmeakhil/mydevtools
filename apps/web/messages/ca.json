@@ -50,7 +50,10 @@
     "dockerComposeGenerator": "Generador Docker Compose",
     "pdfUnlocker": "Desbloquejar PDF",
     "pdfLocker": "Protegir PDF",
-    "pdfMerge": "Fusionar PDF"
+    "pdfMerge": "Fusionar PDF",
+    "pdfCompressor": "Comprimeix fitxers PDF",
+    "jpgToPdf": "JPG a PDF",
+    "pdfToJpg": "PDF a JPG"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -430,6 +433,18 @@
       "pdfMerge": {
         "title": "Fusionar fitxers PDF",
         "description": "Combina PDFs en l’ordre que vulguis de la manera més senzilla — tot al navegador."
+      },
+      "pdfCompressor": {
+        "title": "Comprimeix fitxers PDF",
+        "description": "Redueix la mida del fitxer optimitzant la qualitat màxima del PDF — al navegador."
+      },
+      "jpgToPdf": {
+        "title": "JPG a PDF",
+        "description": "Converteix imatges JPG a PDF en segons. Ajusta fàcilment l'orientació i els marges."
+      },
+      "pdfToJpg": {
+        "title": "PDF a JPG",
+        "description": "Rasteritza cada pàgina del PDF a JPEG o extreu imatges incrustades: tot al navegador."
       }
     },
     "tabs": {
@@ -3266,6 +3281,28 @@
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
   },
+  "PdfToJpg": {
+    "privacyNote": "El fitxer no surt mai d'aquest navegador. El worker de PDF.js es carrega des d'una CDN el primer cop.",
+    "chooseFile": "Trieu un PDF",
+    "pageCount": "{count, plural, one {# pàgina} other {# pàgines}}",
+    "qualityLabel": "Qualitat JPEG",
+    "scaleLabel": "Resolució de pàgina (escala)",
+    "tabPages": "Pàgines a JPG",
+    "tabEmbedded": "Imatges incrustades",
+    "pagesHint": "Renderitza cada pàgina com a JPEG amb fons blanc. Una escala més alta vol dir text més net i fitxers més grans.",
+    "embeddedHint": "Troba imatges XObject i en línia (RGB, RGBA o mapa de bits). Es poden ometre màscares JPEG/JPX i imatges d'1 bit.",
+    "downloadPages": "Baixa totes les pàgines com a JPG",
+    "downloadEmbedded": "Extreu i baixa imatges",
+    "processing": "Treballant…",
+    "progressPage": "Pàgina {current} de {total}…",
+    "reset": "Un altre fitxer",
+    "invalidPdf": "No s'ha pogut llegir aquest fitxer com a PDF.",
+    "passwordRequired": "Aquest PDF està protegit amb contrasenya. Useu primer Desbloquejar PDF i torneu-ho a provar.",
+    "genericError": "No s'ha pogut processar aquest PDF. Proveu un altre fitxer.",
+    "pagesSuccess": "{count, plural, one {S'ha desat # pàgina com a JPG.} other {S'han desat # pàgines com a JPG.}}",
+    "embeddedSuccess": "{count, plural, one {S'ha desat # imatge incrustada.} other {S'han desat # imatges incrustades.}}",
+    "noEmbeddedImages": "No s'han trobat imatges incrustades extraïbles en aquestes pàgines."
+  },
   "PdfUnlocker": {
     "privacyNote": "El fitxer no surt mai d’aquest navegador.",
     "chooseFile": "Tria PDF",
@@ -3316,5 +3353,44 @@
     "minTwoPdfs": "Afegeix almenys dos fitxers PDF per fusionar.",
     "invalidPdf": "No s’ha pogut llegir aquest fitxer com a PDF.",
     "mergeFailed": "No s’ha pogut fusionar. Treu PDF protegits o malmesos i torna-ho a provar."
+  },
+  "PdfCompressor": {
+    "intro": "Redueix la mida del fitxer optimitzant la qualitat màxima del PDF.",
+    "privacyNote": "El fitxer no surt mai d’aquest navegador.",
+    "methodHint": "Reconstruïm el PDF amb fluxos d’objectes comprimits (sense pèrdua al contingut de pàgina). Els fitxers amb contrasenya no s’admeten — primer usa Desbloquejar PDF.",
+    "chooseFile": "Tria un PDF",
+    "reset": "Un altre fitxer",
+    "pageCount": "{count, plural, one {# pàgina} other {# pàgines}}",
+    "originalSize": "Original: {size}",
+    "compressDownload": "Comprimeix i descarrega",
+    "compressing": "S’està comprimint…",
+    "invalidPdf": "No s’ha pogut llegir aquest fitxer com a PDF.",
+    "encryptedPdf": "Aquest PDF està protegit amb contrasenya. Desbloca’l amb Desbloquejar PDF i torna-ho a provar.",
+    "compressFailed": "No s’ha pogut comprimir aquest PDF. Prova un altre fitxer.",
+    "noSavingsTitle": "Poca o cap reducció de mida",
+    "noSavingsHint": "El teu PDF ja era compacte. El fitxer descarregat continua sent una còpia neta i basada en estàndards.",
+    "savedToast": "Un ~{percent}% més petit ({before} → {after})"
+  },
+  "JpgToPdf": {
+    "intro": "Converteix imatges JPG a PDF en segons. Ajusta fàcilment l'orientació i els marges.",
+    "privacyNote": "Els teus fitxers no surten mai d'aquest navegador.",
+    "orderHint": "Els fitxers de dalt es converteixen en les primeres pàgines del PDF. Fletxes per reordenar.",
+    "rotationLabel": "Rotació (totes les pàgines)",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "Marge uniforme",
+    "marginValue": "{mm} mm",
+    "addImages": "Afegeix JPEG",
+    "clearAll": "Buida la llista",
+    "downloadPdf": "Crea el PDF i descarrega",
+    "building": "S'està creant el PDF…",
+    "moveUpAria": "Puja",
+    "moveDownAria": "Baixa",
+    "removeFileAria": "Treu de la llista",
+    "minOneJpeg": "Afegeix com a mínim un fitxer JPEG.",
+    "invalidJpeg": "Aquest fitxer no és un JPEG (JPG) vàlid.",
+    "buildFailed": "No s'ha pogut crear el PDF. Elimina fitxers no compatibles i torna-ho a provar."
   }
 }

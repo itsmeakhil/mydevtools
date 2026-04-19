@@ -50,7 +50,10 @@
     "dockerComposeGenerator": "Docker Compose-generator",
     "pdfUnlocker": "PDF ontgrendelen",
     "pdfLocker": "PDF vergrendelen",
-    "pdfMerge": "PDF’s samenvoegen"
+    "pdfMerge": "PDF’s samenvoegen",
+    "pdfCompressor": "PDF-bestanden comprimeren",
+    "jpgToPdf": "JPG naar PDF",
+    "pdfToJpg": "PDF naar JPG"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -430,6 +433,18 @@
       "pdfMerge": {
         "title": "PDF-bestanden samenvoegen",
         "description": "Combineer PDF’s in de gewenste volgorde op de eenvoudigste manier — lokaal in uw browser."
+      },
+      "pdfCompressor": {
+        "title": "PDF-bestanden comprimeren",
+        "description": "Verklein de bestandsgrootte met behoud van maximale PDF-kwaliteit — in je browser."
+      },
+      "jpgToPdf": {
+        "title": "JPG naar PDF",
+        "description": "Zet JPG-afbeeldingen in enkele seconden om naar PDF. Pas eenvoudig oriëntatie en marges aan."
+      },
+      "pdfToJpg": {
+        "title": "PDF naar JPG",
+        "description": "Rasteriseer elke PDF-pagina naar JPEG of extraheer ingesloten afbeeldingen — alles in je browser."
       }
     },
     "tabs": {
@@ -3266,6 +3281,28 @@
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
   },
+  "PdfToJpg": {
+    "privacyNote": "Je bestand verlaat deze browser nooit. De PDF.js-worker wordt de eerste keer vanaf een CDN geladen.",
+    "chooseFile": "PDF kiezen",
+    "pageCount": "{count, plural, one {# pagina} other {# pagina's}}",
+    "qualityLabel": "JPEG-kwaliteit",
+    "scaleLabel": "Paginaresolutie (schaal)",
+    "tabPages": "Pagina's naar JPG",
+    "tabEmbedded": "Ingesloten afbeeldingen",
+    "pagesHint": "Rendert elke pagina als JPEG met een witte achtergrond. Hogere schaal betekent scherpere tekst en grotere bestanden.",
+    "embeddedHint": "Zoekt XObject- en inline-afbeeldingen (RGB, RGBA of bitmap). JPEG/JPX-maskers en 1-bit afbeeldingen kunnen worden overgeslagen.",
+    "downloadPages": "Alle pagina's als JPG downloaden",
+    "downloadEmbedded": "Afbeeldingen extraheren en downloaden",
+    "processing": "Bezig…",
+    "progressPage": "Pagina {current} van {total}…",
+    "reset": "Ander bestand",
+    "invalidPdf": "Dit bestand kan niet als PDF worden gelezen.",
+    "passwordRequired": "Deze PDF is beveiligd met een wachtwoord. Gebruik eerst PDF ontgrendelen en probeer opnieuw.",
+    "genericError": "Deze PDF kan niet worden verwerkt. Probeer een ander bestand.",
+    "pagesSuccess": "{count, plural, one {# pagina opgeslagen als JPG.} other {# pagina's opgeslagen als JPG.}}",
+    "embeddedSuccess": "{count, plural, one {# ingesloten afbeelding opgeslagen.} other {# ingesloten afbeeldingen opgeslagen.}}",
+    "noEmbeddedImages": "Geen extraheerbare ingesloten afbeeldingen op deze pagina's gevonden."
+  },
   "PdfUnlocker": {
     "privacyNote": "Uw bestand verlaat deze browser niet.",
     "chooseFile": "PDF kiezen",
@@ -3316,5 +3353,44 @@
     "minTwoPdfs": "Voeg minstens twee PDF-bestanden toe om samen te voegen.",
     "invalidPdf": "Dit bestand kon niet als PDF worden gelezen.",
     "mergeFailed": "Samenvoegen mislukt. Verwijder beveiligde of beschadigde PDF’s en probeer opnieuw."
+  },
+  "PdfCompressor": {
+    "intro": "Verklein de bestandsgrootte met behoud van maximale PDF-kwaliteit.",
+    "privacyNote": "Je bestand verlaat deze browser nooit.",
+    "methodHint": "We bouwen de PDF opnieuw met gecomprimeerde objectstreams (verliesvrij voor pagina-inhoud). Met een wachtwoord beveiligde bestanden worden niet ondersteund — gebruik eerst PDF ontgrendelen.",
+    "chooseFile": "PDF kiezen",
+    "reset": "Ander bestand",
+    "pageCount": "{count, plural, one {# pagina} other {# pagina’s}}",
+    "originalSize": "Origineel: {size}",
+    "compressDownload": "Comprimeren en downloaden",
+    "compressing": "Bezig met comprimeren…",
+    "invalidPdf": "Dit bestand kon niet als PDF worden gelezen.",
+    "encryptedPdf": "Deze PDF is met een wachtwoord beveiligd. Ontgrendel hem met PDF ontgrendelen en probeer opnieuw.",
+    "compressFailed": "Deze PDF kon niet worden gecomprimeerd. Probeer een ander bestand.",
+    "noSavingsTitle": "Weinig of geen groottereductie",
+    "noSavingsHint": "Je PDF was al compact. Het gedownloade bestand is nog steeds een schone, standaardconforme kopie.",
+    "savedToast": "Ongeveer {percent}% kleiner ({before} → {after})"
+  },
+  "JpgToPdf": {
+    "intro": "Zet JPG-afbeeldingen in enkele seconden om naar PDF. Pas eenvoudig oriëntatie en marges aan.",
+    "privacyNote": "Uw bestanden verlaten deze browser nooit.",
+    "orderHint": "Bestanden bovenaan worden de eerste pagina's van de PDF. Gebruik de pijlen om te herschikken.",
+    "rotationLabel": "Rotatie (alle pagina's)",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "Uniforme marge",
+    "marginValue": "{mm} mm",
+    "addImages": "JPEG's toevoegen",
+    "clearAll": "Lijst wissen",
+    "downloadPdf": "PDF maken en downloaden",
+    "building": "PDF wordt gemaakt…",
+    "moveUpAria": "Omhoog",
+    "moveDownAria": "Omlaag",
+    "removeFileAria": "Uit lijst verwijderen",
+    "minOneJpeg": "Voeg minstens één JPEG-bestand toe.",
+    "invalidJpeg": "Dit bestand is geen geldige JPEG (JPG).",
+    "buildFailed": "Kan de PDF niet maken. Verwijder niet-ondersteunde bestanden en probeer opnieuw."
   }
 }

@@ -50,7 +50,10 @@
     "dockerComposeGenerator": "Generador Docker Compose",
     "pdfUnlocker": "Desbloquear PDF",
     "pdfLocker": "Proteger PDF",
-    "pdfMerge": "Combinar PDF"
+    "pdfMerge": "Combinar PDF",
+    "pdfCompressor": "Comprimir archivos PDF",
+    "jpgToPdf": "JPG a PDF",
+    "pdfToJpg": "PDF a JPG"
   },
   "Help": {
     "title": "Ayuda y documentación",
@@ -430,6 +433,18 @@
       "pdfMerge": {
         "title": "Combinar archivos PDF",
         "description": "Combina PDF en el orden que quieras con la fusión más sencilla, todo en tu navegador."
+      },
+      "pdfCompressor": {
+        "title": "Comprimir archivos PDF",
+        "description": "Reduce el tamaño del archivo optimizando la máxima calidad PDF — en tu navegador."
+      },
+      "jpgToPdf": {
+        "title": "JPG a PDF",
+        "description": "Convierte imágenes JPG a PDF en segundos. Ajusta fácilmente la orientación y los márgenes."
+      },
+      "pdfToJpg": {
+        "title": "PDF a JPG",
+        "description": "Rasteriza cada página del PDF a JPEG o extrae imágenes incrustadas: todo en el navegador."
       }
     },
     "tabs": {
@@ -3266,6 +3281,28 @@
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
   },
+  "PdfToJpg": {
+    "privacyNote": "Tu archivo no sale de este navegador. El worker de PDF.js se carga desde una CDN la primera vez.",
+    "chooseFile": "Elegir PDF",
+    "pageCount": "{count, plural, one {# página} other {# páginas}}",
+    "qualityLabel": "Calidad JPEG",
+    "scaleLabel": "Resolución de página (escala)",
+    "tabPages": "Páginas a JPG",
+    "tabEmbedded": "Imágenes incrustadas",
+    "pagesHint": "Renderiza cada página como JPEG con fondo blanco. Más escala implica texto más nítido y archivos más grandes.",
+    "embeddedHint": "Busca imágenes XObject e inline (RGB, RGBA o mapa de bits). Se pueden omitir máscaras JPEG/JPX e imágenes de 1 bit.",
+    "downloadPages": "Descargar todas las páginas como JPG",
+    "downloadEmbedded": "Extraer y descargar imágenes",
+    "processing": "Trabajando…",
+    "progressPage": "Página {current} de {total}…",
+    "reset": "Otro archivo",
+    "invalidPdf": "No se pudo leer este archivo como PDF.",
+    "passwordRequired": "Este PDF requiere contraseña. Usa primero Desbloquear PDF e inténtalo de nuevo.",
+    "genericError": "No se pudo procesar este PDF. Prueba con otro archivo.",
+    "pagesSuccess": "{count, plural, one {Se guardó # página como JPG.} other {Se guardaron # páginas como JPG.}}",
+    "embeddedSuccess": "{count, plural, one {Se guardó # imagen incrustada.} other {Se guardaron # imágenes incrustadas.}}",
+    "noEmbeddedImages": "No se encontraron imágenes incrustadas extraíbles en estas páginas."
+  },
   "PdfUnlocker": {
     "privacyNote": "Tu archivo no sale de este navegador.",
     "chooseFile": "Elegir PDF",
@@ -3316,5 +3353,44 @@
     "minTwoPdfs": "Añade al menos dos archivos PDF para combinar.",
     "invalidPdf": "No se pudo leer este archivo como PDF.",
     "mergeFailed": "No se pudieron combinar. Quita PDF con contraseña o dañados e inténtalo de nuevo."
+  },
+  "PdfCompressor": {
+    "intro": "Reduce el tamaño del archivo optimizando la máxima calidad PDF.",
+    "privacyNote": "Tu archivo no sale nunca de este navegador.",
+    "methodHint": "Reconstruimos el PDF con flujos de objetos comprimidos (sin pérdida para el contenido de página). No se admiten archivos con contraseña: usa primero Desbloquear PDF.",
+    "chooseFile": "Elegir PDF",
+    "reset": "Otro archivo",
+    "pageCount": "{count, plural, one {# página} other {# páginas}}",
+    "originalSize": "Original: {size}",
+    "compressDownload": "Comprimir y descargar",
+    "compressing": "Comprimiendo…",
+    "invalidPdf": "No se pudo leer este archivo como PDF.",
+    "encryptedPdf": "Este PDF está protegido con contraseña. Desbloquéalo con Desbloquear PDF e inténtalo de nuevo.",
+    "compressFailed": "No se pudo comprimir este PDF. Prueba con otro archivo.",
+    "noSavingsTitle": "Poca o ninguna reducción de tamaño",
+    "noSavingsHint": "Tu PDF ya era compacto. El archivo descargado sigue siendo una copia limpia basada en estándares.",
+    "savedToast": "Aprox. un {percent}% más pequeño ({before} → {after})"
+  },
+  "JpgToPdf": {
+    "intro": "Convierte imágenes JPG a PDF en segundos. Ajusta fácilmente la orientación y los márgenes.",
+    "privacyNote": "Tus archivos nunca salen de este navegador.",
+    "orderHint": "Los archivos de arriba serán las primeras páginas del PDF. Usa las flechas para reordenar.",
+    "rotationLabel": "Rotación (todas las páginas)",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "Margen uniforme",
+    "marginValue": "{mm} mm",
+    "addImages": "Añadir JPEG",
+    "clearAll": "Vaciar lista",
+    "downloadPdf": "Crear PDF y descargar",
+    "building": "Creando el PDF…",
+    "moveUpAria": "Subir",
+    "moveDownAria": "Bajar",
+    "removeFileAria": "Quitar de la lista",
+    "minOneJpeg": "Añade al menos un archivo JPEG.",
+    "invalidJpeg": "Este archivo no es un JPEG (JPG) válido.",
+    "buildFailed": "No se pudo crear el PDF. Quita archivos no compatibles e inténtalo de nuevo."
   }
 }

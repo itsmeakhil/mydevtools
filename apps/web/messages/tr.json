@@ -50,7 +50,10 @@
     "dockerComposeGenerator": "Docker Compose Oluşturucu",
     "pdfUnlocker": "PDF kilidini aç",
     "pdfLocker": "PDF kilitle",
-    "pdfMerge": "PDF birleştir"
+    "pdfMerge": "PDF birleştir",
+    "pdfCompressor": "PDF dosyalarını sıkıştır",
+    "jpgToPdf": "JPG'den PDF'e",
+    "pdfToJpg": "PDF'den JPG'ye"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -430,6 +433,18 @@
       "pdfMerge": {
         "title": "PDF dosyalarını birleştir",
         "description": "PDF’leri istediğiniz sırada en kolay şekilde birleştirin — tamamı tarayıcıda."
+      },
+      "pdfCompressor": {
+        "title": "PDF dosyalarını sıkıştır",
+        "description": "Maksimum PDF kalitesini koruyarak dosya boyutunu küçültün — tarayıcınızda."
+      },
+      "jpgToPdf": {
+        "title": "JPG'den PDF'e",
+        "description": "JPG görsellerini saniyeler içinde PDF'ye dönüştürün. Yönelimi ve kenar boşluklarını kolayca ayarlayın."
+      },
+      "pdfToJpg": {
+        "title": "PDF'den JPG'ye",
+        "description": "Her PDF sayfasını JPEG'e dönüştürün veya gömülü görselleri çıkarın — hepsi tarayıcıda."
       }
     },
     "tabs": {
@@ -3266,6 +3281,28 @@
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
   },
+  "PdfToJpg": {
+    "privacyNote": "Dosyanız bu tarayıcıdan çıkmaz. PDF.js worker ilk dönüşümde bir CDN'den yüklenir.",
+    "chooseFile": "PDF seç",
+    "pageCount": "{count, plural, one {# sayfa} other {# sayfa}}",
+    "qualityLabel": "JPEG kalitesi",
+    "scaleLabel": "Sayfa çözünürlüğü (ölçek)",
+    "tabPages": "Sayfaları JPG yap",
+    "tabEmbedded": "Gömülü görseller",
+    "pagesHint": "Her sayfayı beyaz arka planlı JPEG olarak oluşturur. Daha yüksek ölçek daha keskin metin ve daha büyük dosya demektir.",
+    "embeddedHint": "XObject ve satır içi görselleri (RGB, RGBA veya bit eşlem) bulur. JPEG/JPX maskeleri ve 1 bit görseller atlanabilir.",
+    "downloadPages": "Tüm sayfaları JPG olarak indir",
+    "downloadEmbedded": "Görselleri çıkar ve indir",
+    "processing": "İşleniyor…",
+    "progressPage": "Sayfa {current} / {total}…",
+    "reset": "Başka dosya",
+    "invalidPdf": "Bu dosya PDF olarak okunamadı.",
+    "passwordRequired": "Bu PDF parola gerektiriyor. Önce PDF kilidini aç kullanın, sonra tekrar deneyin.",
+    "genericError": "Bu PDF işlenemedi. Başka bir dosya deneyin.",
+    "pagesSuccess": "{count, plural, one {# sayfa JPG olarak kaydedildi.} other {# sayfa JPG olarak kaydedildi.}}",
+    "embeddedSuccess": "{count, plural, one {# gömülü görsel kaydedildi.} other {# gömülü görsel kaydedildi.}}",
+    "noEmbeddedImages": "Bu sayfalarda çıkarılabilir gömülü görsel bulunamadı."
+  },
   "PdfUnlocker": {
     "privacyNote": "Dosyanız bu tarayıcıdan çıkmaz.",
     "chooseFile": "PDF seç",
@@ -3316,5 +3353,44 @@
     "minTwoPdfs": "Birleştirmek için en az iki PDF ekleyin.",
     "invalidPdf": "Bu dosya PDF olarak okunamadı.",
     "mergeFailed": "Birleştirilemedi. Parola korumalı veya bozuk PDF’leri çıkarıp yeniden deneyin."
+  },
+  "PdfCompressor": {
+    "intro": "Maksimum PDF kalitesini koruyarak dosya boyutunu küçültün.",
+    "privacyNote": "Dosyanız bu tarayıcıdan hiç çıkmaz.",
+    "methodHint": "PDF’yi sıkıştırılmış nesne akışlarıyla yeniden oluşturuz (sayfa içeriği kayıpsız). Parola korumalı dosyalar desteklenmez — önce PDF kilidini aç aracını kullanın.",
+    "chooseFile": "PDF seç",
+    "reset": "Başka dosya",
+    "pageCount": "{count, plural, one {# sayfa} other {# sayfa}}",
+    "originalSize": "Orijinal: {size}",
+    "compressDownload": "Sıkıştır ve indir",
+    "compressing": "Sıkıştırılıyor…",
+    "invalidPdf": "Bu dosya PDF olarak okunamadı.",
+    "encryptedPdf": "Bu PDF parola korumalı. Önce PDF kilidini aç ile kilidi kaldırın, sonra yeniden deneyin.",
+    "compressFailed": "Bu PDF sıkıştırılamadı. Farklı bir dosya deneyin.",
+    "noSavingsTitle": "Az veya hiç boyut azalması",
+    "noSavingsHint": "PDF’niz zaten kompaktı. İndirilen dosya yine de temiz, standartlara uygun bir kopyadır.",
+    "savedToast": "Yaklaşık {percent}% daha küçük ({before} → {after})"
+  },
+  "JpgToPdf": {
+    "intro": "JPG görsellerini saniyeler içinde PDF'ye dönüştürün. Yönelimi ve kenar boşluklarını kolayca ayarlayın.",
+    "privacyNote": "Dosyalarınız bu tarayıcıdan hiç çıkmaz.",
+    "orderHint": "Üstteki dosyalar PDF'teki ilk sayfalar olur. Sıralamayı değiştirmek için okları kullanın.",
+    "rotationLabel": "Döndürme (tüm sayfalar)",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "Tek tip kenar boşluğu",
+    "marginValue": "{mm} mm",
+    "addImages": "JPEG ekle",
+    "clearAll": "Listeyi temizle",
+    "downloadPdf": "PDF oluştur ve indir",
+    "building": "PDF oluşturuluyor…",
+    "moveUpAria": "Yukarı taşı",
+    "moveDownAria": "Aşağı taşı",
+    "removeFileAria": "Listeden kaldır",
+    "minOneJpeg": "En az bir JPEG dosyası ekleyin.",
+    "invalidJpeg": "Bu dosya geçerli bir JPEG (JPG) değil.",
+    "buildFailed": "PDF oluşturulamadı. Desteklenmeyen dosyaları kaldırıp yeniden deneyin."
   }
 }

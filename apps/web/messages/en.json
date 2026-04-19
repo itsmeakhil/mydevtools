@@ -51,7 +51,11 @@
     "pdfUnlocker": "PDF Unlocker",
     "pdfLocker": "PDF Locker",
     "pdfMerge": "Merge PDF files",
-    "pdfSplitter": "PDF Splitter"
+    "pdfSplitter": "PDF Splitter",
+    "pdfCompressor": "Compress PDF files",
+    "jpgToPdf": "JPG to PDF",
+    "pdfToJpg": "PDF to JPG",
+    "htmlToPdf": "HTML to PDF"
   },
   "Help": {
     "title": "Help & documentation",
@@ -490,8 +494,46 @@
       "pdfSplitter": {
         "title": "PDF Splitter",
         "description": "Split a PDF into individual pages or extract a page range as a new PDF in your browser."
+      },
+      "pdfCompressor": {
+        "title": "Compress PDF files",
+        "description": "Reduce file size while optimizing for maximal PDF quality — in your browser."
+      },
+      "jpgToPdf": {
+        "title": "JPG to PDF",
+        "description": "Convert JPG images to PDF in seconds. Easily adjust orientation and margins."
+      },
+      "pdfToJpg": {
+        "title": "PDF to JPG",
+        "description": "Rasterize each PDF page to JPEG or extract embedded images — all in your browser."
+      },
+      "htmlToPdf": {
+        "title": "HTML to PDF",
+        "description": "Paste HTML with CSS and convert it to a PDF using your browser's print engine."
       }
     }
+  },
+  "PdfToJpg": {
+    "privacyNote": "Your file never leaves this browser. The PDF.js worker loads from a CDN the first time you convert.",
+    "chooseFile": "Choose PDF",
+    "pageCount": "{count, plural, one {# page} other {# pages}}",
+    "qualityLabel": "JPEG quality",
+    "scaleLabel": "Page resolution (scale)",
+    "tabPages": "Pages to JPG",
+    "tabEmbedded": "Embedded images",
+    "pagesHint": "Renders each page to a white-background JPEG. Higher scale means sharper text and larger files.",
+    "embeddedHint": "Finds XObject and inline images (RGB, RGBA, or bitmap). JPEG/JPX masks and 1-bit images may be skipped.",
+    "downloadPages": "Download all pages as JPG",
+    "downloadEmbedded": "Extract & download images",
+    "processing": "Working…",
+    "progressPage": "Page {current} of {total}…",
+    "reset": "Another file",
+    "invalidPdf": "Could not read this file as a PDF.",
+    "passwordRequired": "This PDF needs a password. Unlock it with PDF Unlocker first, then try again.",
+    "genericError": "Could not process this PDF. Try a different file.",
+    "pagesSuccess": "{count, plural, one {Saved # page as JPG.} other {Saved # pages as JPG.}}",
+    "embeddedSuccess": "{count, plural, one {Saved # embedded image.} other {Saved # embedded images.}}",
+    "noEmbeddedImages": "No extractable embedded images were found on these pages."
   },
   "PdfUnlocker": {
     "privacyNote": "Your file never leaves this browser.",
@@ -544,6 +586,28 @@
     "invalidPdf": "Could not read this file as a PDF.",
     "mergeFailed": "Could not merge these PDFs. Remove password-protected or damaged files and try again."
   },
+  "JpgToPdf": {
+    "intro": "Convert JPG images to PDF in seconds. Easily adjust orientation and margins.",
+    "privacyNote": "Your files never leave this browser.",
+    "orderHint": "Files at the top become the first pages in the PDF. Use the arrows to reorder.",
+    "rotationLabel": "Rotation (every page)",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "Uniform margin",
+    "marginValue": "{mm} mm",
+    "addImages": "Add JPEGs",
+    "clearAll": "Clear list",
+    "downloadPdf": "Create PDF & download",
+    "building": "Building PDF…",
+    "moveUpAria": "Move up",
+    "moveDownAria": "Move down",
+    "removeFileAria": "Remove from list",
+    "minOneJpeg": "Add at least one JPEG file.",
+    "invalidJpeg": "This file is not a valid JPEG (JPG).",
+    "buildFailed": "Could not build the PDF. Remove unsupported files and try again."
+  },
   "PdfSplitter": {
     "privacyNote": "Your file never leaves this browser.",
     "chooseFile": "Choose PDF",
@@ -564,6 +628,34 @@
     "splitSuccess": "{count, plural, one {Split into # file.} other {Split into # files.}}",
     "invalidPdf": "Could not read this file as a PDF.",
     "genericError": "Could not process this PDF. Try a different file."
+  },
+  "PdfCompressor": {
+    "intro": "Reduce file size while optimizing for maximal PDF quality.",
+    "privacyNote": "Your file never leaves this browser.",
+    "methodHint": "We rebuild the PDF with compressed object streams (lossless for page content). Password-protected files are not supported — use PDF Unlocker first.",
+    "chooseFile": "Choose PDF",
+    "reset": "Another file",
+    "pageCount": "{count, plural, one {# page} other {# pages}}",
+    "originalSize": "Original: {size}",
+    "compressDownload": "Compress & download",
+    "compressing": "Compressing…",
+    "invalidPdf": "Could not read this file as a PDF.",
+    "encryptedPdf": "This PDF is password-protected. Unlock it with PDF Unlocker, then try again.",
+    "compressFailed": "Could not compress this PDF. Try a different file.",
+    "noSavingsTitle": "Little or no size reduction",
+    "noSavingsHint": "Your PDF was already compact. The downloaded file is still a clean, standards-based copy.",
+    "savedToast": "About {percent}% smaller ({before} → {after})"
+  },
+  "HtmlToPdf": {
+    "hint": "Write or paste HTML with CSS, preview it, then print it as a PDF. Use your browser's 'Save as PDF' option in the print dialog.",
+    "pageSizeLabel": "Page size",
+    "printButton": "Print / Save as PDF",
+    "showPreview": "Show preview",
+    "hidePreview": "Hide preview",
+    "reset": "Reset to example",
+    "editorLabel": "HTML source",
+    "previewLabel": "Preview",
+    "popupBlocked": "Popup was blocked. Please allow popups for this site and try again."
   },
   "Tasks": {
     "page": {

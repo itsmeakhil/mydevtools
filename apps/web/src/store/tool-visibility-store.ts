@@ -44,6 +44,10 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/pdf-locker',
   '/app/pdf-splitter',
   '/app/pdf-merge',
+  '/app/pdf-compressor',
+  '/app/jpg-to-pdf',
+  '/app/pdf-to-jpg',
+  '/app/html-to-pdf',
 ];
 
 interface ToolVisibilityStore {

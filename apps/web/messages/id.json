@@ -50,7 +50,10 @@
     "dockerComposeGenerator": "Generator Docker Compose",
     "pdfUnlocker": "Buka kunci PDF",
     "pdfLocker": "Kunci PDF",
-    "pdfMerge": "Gabung PDF"
+    "pdfMerge": "Gabung PDF",
+    "pdfCompressor": "Kompres file PDF",
+    "jpgToPdf": "JPG ke PDF",
+    "pdfToJpg": "PDF ke JPG"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -430,6 +433,18 @@
       "pdfMerge": {
         "title": "Gabung file PDF",
         "description": "Gabungkan PDF sesuai urutan yang Anda inginkan dengan cara termudah — semua di peramban."
+      },
+      "pdfCompressor": {
+        "title": "Kompres file PDF",
+        "description": "Perkecil ukuran file sambil mengoptimalkan kualitas PDF maksimal — di browser Anda."
+      },
+      "jpgToPdf": {
+        "title": "JPG ke PDF",
+        "description": "Ubah gambar JPG menjadi PDF dalam hitungan detik. Atur orientasi dan margin dengan mudah."
+      },
+      "pdfToJpg": {
+        "title": "PDF ke JPG",
+        "description": "Raster setiap halaman PDF ke JPEG atau ekstrak gambar tersemat — semuanya di peramban."
       }
     },
     "tabs": {
@@ -3266,6 +3281,28 @@
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
   },
+  "PdfToJpg": {
+    "privacyNote": "Berkas Anda tidak pernah meninggalkan peramban ini. Worker PDF.js dimuat dari CDN saat pertama kali mengonversi.",
+    "chooseFile": "Pilih PDF",
+    "pageCount": "{count, plural, other {# halaman}}",
+    "qualityLabel": "Kualitas JPEG",
+    "scaleLabel": "Resolusi halaman (skala)",
+    "tabPages": "Halaman ke JPG",
+    "tabEmbedded": "Gambar tersemat",
+    "pagesHint": "Merender setiap halaman sebagai JPEG dengan latar putih. Skala lebih tinggi berarti teks lebih tajam dan berkas lebih besar.",
+    "embeddedHint": "Menemukan gambar XObject dan inline (RGB, RGBA, atau bitmap). Mask JPEG/JPX dan gambar 1-bit mungkin dilewati.",
+    "downloadPages": "Unduh semua halaman sebagai JPG",
+    "downloadEmbedded": "Ekstrak & unduh gambar",
+    "processing": "Memproses…",
+    "progressPage": "Halaman {current} dari {total}…",
+    "reset": "Berkas lain",
+    "invalidPdf": "Tidak dapat membaca berkas ini sebagai PDF.",
+    "passwordRequired": "PDF ini memerlukan sandi. Gunakan Buka kunci PDF terlebih dahulu, lalu coba lagi.",
+    "genericError": "Tidak dapat memproses PDF ini. Coba berkas lain.",
+    "pagesSuccess": "{count, plural, other {Menyimpan # halaman sebagai JPG.}}",
+    "embeddedSuccess": "{count, plural, other {Menyimpan # gambar tersemat.}}",
+    "noEmbeddedImages": "Tidak ada gambar tersemat yang dapat diekstrak di halaman ini."
+  },
   "PdfUnlocker": {
     "privacyNote": "Berkas Anda tidak pernah meninggalkan peramban ini.",
     "chooseFile": "Pilih PDF",
@@ -3316,5 +3353,44 @@
     "minTwoPdfs": "Tambahkan setidaknya dua berkas PDF untuk digabung.",
     "invalidPdf": "Tidak dapat membaca berkas ini sebagai PDF.",
     "mergeFailed": "Tidak dapat menggabungkan. Hapus PDF yang terlindungi kata sandi atau rusak lalu coba lagi."
+  },
+  "PdfCompressor": {
+    "intro": "Perkecil ukuran file sambil mengoptimalkan kualitas PDF maksimal.",
+    "privacyNote": "File Anda tidak pernah meninggalkan browser ini.",
+    "methodHint": "Kami membangun ulang PDF dengan aliran objek terkompresi (tanpa loss untuk konten halaman). File berpassword tidak didukung — gunakan Buka Kunci PDF dulu.",
+    "chooseFile": "Pilih PDF",
+    "reset": "File lain",
+    "pageCount": "{count, plural, one {# halaman} other {# halaman}}",
+    "originalSize": "Asli: {size}",
+    "compressDownload": "Kompres & unduh",
+    "compressing": "Mengompres…",
+    "invalidPdf": "Tidak dapat membaca file ini sebagai PDF.",
+    "encryptedPdf": "PDF ini dilindungi kata sandi. Buka kuncinya dengan Buka Kunci PDF, lalu coba lagi.",
+    "compressFailed": "Tidak dapat mengompres PDF ini. Coba file lain.",
+    "noSavingsTitle": "Sedikit atau tidak ada pengurangan ukuran",
+    "noSavingsHint": "PDF Anda sudah ringkas. File yang diunduh tetap salinan bersih sesuai standar.",
+    "savedToast": "Sekitar {percent}% lebih kecil ({before} → {after})"
+  },
+  "JpgToPdf": {
+    "intro": "Ubah gambar JPG menjadi PDF dalam hitungan detik. Atur orientasi dan margin dengan mudah.",
+    "privacyNote": "Berkas Anda tidak pernah meninggalkan browser ini.",
+    "orderHint": "Berkas di atas menjadi halaman pertama PDF. Gunakan panah untuk mengurutkan ulang.",
+    "rotationLabel": "Rotasi (semua halaman)",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "Margin seragam",
+    "marginValue": "{mm} mm",
+    "addImages": "Tambah JPEG",
+    "clearAll": "Kosongkan daftar",
+    "downloadPdf": "Buat PDF & unduh",
+    "building": "Membuat PDF…",
+    "moveUpAria": "Pindah ke atas",
+    "moveDownAria": "Pindah ke bawah",
+    "removeFileAria": "Hapus dari daftar",
+    "minOneJpeg": "Tambahkan setidaknya satu berkas JPEG.",
+    "invalidJpeg": "Berkas ini bukan JPEG (JPG) yang valid.",
+    "buildFailed": "Tidak dapat membuat PDF. Hapus berkas yang tidak didukung dan coba lagi."
   }
 }

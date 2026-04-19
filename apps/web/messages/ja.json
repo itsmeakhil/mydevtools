@@ -50,7 +50,10 @@
     "dockerComposeGenerator": "Docker Compose ジェネレーター",
     "pdfUnlocker": "PDFのロック解除",
     "pdfLocker": "PDFの保護",
-    "pdfMerge": "PDFを結合"
+    "pdfMerge": "PDFを結合",
+    "pdfCompressor": "PDFを圧縮",
+    "jpgToPdf": "JPGをPDFへ",
+    "pdfToJpg": "PDFをJPGへ"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -430,6 +433,18 @@
       "pdfMerge": {
         "title": "PDFファイルの結合",
         "description": "希望の順序でPDFを結合。最も簡単な方法で、すべてブラウザ内で処理します。"
+      },
+      "pdfCompressor": {
+        "title": "PDFを圧縮",
+        "description": "画質をできるだけ保ちながらファイルサイズを小さくします。すべてブラウザ内で処理されます。"
+      },
+      "jpgToPdf": {
+        "title": "JPGをPDFへ",
+        "description": "JPG画像を数秒でPDFに変換。向きと余白を簡単に調整できます。"
+      },
+      "pdfToJpg": {
+        "title": "PDFをJPGへ",
+        "description": "各PDFページをJPEGにラスタ化、または埋め込み画像を抽出します。すべてブラウザ内で処理。"
       }
     },
     "tabs": {
@@ -3266,6 +3281,28 @@
       "gotenberg": "Gotenberg（Chromium / PDF）"
     }
   },
+  "PdfToJpg": {
+    "privacyNote": "ファイルがブラウザ外に送信されることはありません。初回変換時にPDF.jsワーカーがCDNから読み込まれます。",
+    "chooseFile": "PDFを選択",
+    "pageCount": "{count, plural, other {#ページ}}",
+    "qualityLabel": "JPEG品質",
+    "scaleLabel": "ページ解像度（倍率）",
+    "tabPages": "ページをJPG",
+    "tabEmbedded": "埋め込み画像",
+    "pagesHint": "各ページを白背景のJPEGとして描画します。倍率が高いほど文字が鮮明になり、ファイルも大きくなります。",
+    "embeddedHint": "XObjectおよびインライン画像（RGB、RGBA、ビットマップ）を検出します。JPEG/JPXマスクや1ビット画像は省略される場合があります。",
+    "downloadPages": "全ページをJPGでダウンロード",
+    "downloadEmbedded": "画像を抽出してダウンロード",
+    "processing": "処理中…",
+    "progressPage": "{total}ページ中 {current}ページ目…",
+    "reset": "別のファイル",
+    "invalidPdf": "このファイルをPDFとして読み取れませんでした。",
+    "passwordRequired": "このPDFはパスワードが必要です。先にPDFのロック解除で解除してから再度お試しください。",
+    "genericError": "このPDFを処理できませんでした。別のファイルをお試しください。",
+    "pagesSuccess": "{count, plural, other {#ページをJPGとして保存しました。}}",
+    "embeddedSuccess": "{count, plural, other {#件の埋め込み画像を保存しました。}}",
+    "noEmbeddedImages": "これらのページから抽出可能な埋め込み画像は見つかりませんでした。"
+  },
   "PdfUnlocker": {
     "privacyNote": "ファイルはこのブラウザの外に送信されません。",
     "chooseFile": "PDFを選択",
@@ -3316,5 +3353,44 @@
     "minTwoPdfs": "結合するにはPDFを2つ以上追加してください。",
     "invalidPdf": "このファイルをPDFとして読み取れませんでした。",
     "mergeFailed": "結合できませんでした。パスワード付きや破損したPDFを外して再試行してください。"
+  },
+  "PdfCompressor": {
+    "intro": "画質をできるだけ保ちながらファイルサイズを小さくします。",
+    "privacyNote": "ファイルはこのブラウザの外に送信されません。",
+    "methodHint": "圧縮されたオブジェクトストリームでPDFを再構築します（ページ内容は可逆）。パスワード付きPDFは未対応です。先に「PDFのロック解除」をご利用ください。",
+    "chooseFile": "PDFを選択",
+    "reset": "別のファイル",
+    "pageCount": "{count, plural, other {#ページ}}",
+    "originalSize": "元のサイズ: {size}",
+    "compressDownload": "圧縮してダウンロード",
+    "compressing": "圧縮中…",
+    "invalidPdf": "このファイルをPDFとして読み取れませんでした。",
+    "encryptedPdf": "このPDFはパスワード保護されています。「PDFのロック解除」で解除してから再度お試しください。",
+    "compressFailed": "このPDFを圧縮できませんでした。別のファイルをお試しください。",
+    "noSavingsTitle": "サイズ削減がほとんどありません",
+    "noSavingsHint": "すでに十分小さいPDFでした。ダウンロードしたファイルは規格に沿ったクリーンなコピーです。",
+    "savedToast": "約{percent}%小さくなりました（{before} → {after}）"
+  },
+  "JpgToPdf": {
+    "intro": "JPG画像を数秒でPDFに変換。向きと余白を簡単に調整できます。",
+    "privacyNote": "ファイルがこのブラウザの外に出ることはありません。",
+    "orderHint": "上にあるファイルがPDFの先頭ページになります。矢印で並べ替えられます。",
+    "rotationLabel": "回転（すべてのページ）",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "四辺の余白（同一）",
+    "marginValue": "{mm} mm",
+    "addImages": "JPEGを追加",
+    "clearAll": "一覧をクリア",
+    "downloadPdf": "PDFを作成してダウンロード",
+    "building": "PDFを作成中…",
+    "moveUpAria": "上へ",
+    "moveDownAria": "下へ",
+    "removeFileAria": "一覧から削除",
+    "minOneJpeg": "JPEGファイルを1つ以上追加してください。",
+    "invalidJpeg": "有効なJPEG（JPG）ではありません。",
+    "buildFailed": "PDFを作成できませんでした。対応していないファイルを外して再度お試しください。"
   }
 }

@@ -52,6 +52,7 @@ import {
   IconBrandDocker,
   IconFileTypePdf,
   IconFileStack,
+  IconPhotoPlus,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -407,6 +408,38 @@ export const sidebarData: SidebarData = {
           url: '/app/pdf-merge',
           icon: IconFileStack,
           description: 'Combine PDFs in the order you want with the easiest PDF merger available. Runs locally in your browser.',
+          hiddenOnMobile: true,
+          badge: 'new',
+        },
+        {
+          title: 'Compress PDF files',
+          url: '/app/pdf-compressor',
+          icon: IconArrowsDiagonalMinimize2,
+          description: 'Reduce file size while optimizing for maximal PDF quality. Runs locally in your browser.',
+          hiddenOnMobile: true,
+          badge: 'new',
+        },
+        {
+          title: 'JPG to PDF',
+          url: '/app/jpg-to-pdf',
+          icon: IconPhotoPlus,
+          description: 'Convert JPG images to PDF with orientation and margin controls. Runs locally in your browser.',
+          hiddenOnMobile: true,
+          badge: 'new',
+        },
+        {
+          title: 'PDF to JPG',
+          url: '/app/pdf-to-jpg',
+          icon: IconPhoto,
+          description: 'Rasterize each page to JPEG or extract embedded images from a PDF. Runs locally in your browser.',
+          hiddenOnMobile: true,
+          badge: 'new',
+        },
+        {
+          title: 'HTML to PDF',
+          url: '/app/html-to-pdf',
+          icon: IconFileTypePdf,
+          description: "Paste or type HTML and convert it to a PDF using your browser's print engine. Runs locally.",
           hiddenOnMobile: true,
           badge: 'new',
         },

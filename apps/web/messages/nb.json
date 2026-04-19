@@ -50,7 +50,10 @@
     "dockerComposeGenerator": "Docker Compose-generator",
     "pdfUnlocker": "Lås opp PDF",
     "pdfLocker": "Lås PDF",
-    "pdfMerge": "Slå sammen PDF"
+    "pdfMerge": "Slå sammen PDF",
+    "pdfCompressor": "Komprimer PDF-filer",
+    "jpgToPdf": "JPG til PDF",
+    "pdfToJpg": "PDF til JPG"
   },
   "Help": {
     "title": "Hjelp og dokumentasjon",
@@ -430,6 +433,18 @@
       "pdfMerge": {
         "title": "Slå sammen PDF-filer",
         "description": "Kombiner PDF-filer i ønsket rekkefølge på enklest mulig måte — i nettleseren."
+      },
+      "pdfCompressor": {
+        "title": "Komprimer PDF-filer",
+        "description": "Reduser filstørrelsen og optimaliser for maksimal PDF-kvalitet — i nettleseren din."
+      },
+      "jpgToPdf": {
+        "title": "JPG til PDF",
+        "description": "Konverter JPG-bilder til PDF på noen sekunder. Juster retning og marginer enkelt."
+      },
+      "pdfToJpg": {
+        "title": "PDF til JPG",
+        "description": "Rasteriser hver PDF-side til JPEG, eller trekk ut innebygde bilder — alt i nettleseren."
       }
     },
     "tabs": {
@@ -3266,6 +3281,28 @@
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
   },
+  "PdfToJpg": {
+    "privacyNote": "Filen din forlater aldri denne nettleseren. PDF.js-arbeideren lastes fra en CDN første gang du konverterer.",
+    "chooseFile": "Velg PDF",
+    "pageCount": "{count, plural, one {# side} other {# sider}}",
+    "qualityLabel": "JPEG-kvalitet",
+    "scaleLabel": "Sideoppløsning (skala)",
+    "tabPages": "Sider til JPG",
+    "tabEmbedded": "Innebygde bilder",
+    "pagesHint": "Gjengir hver side som JPEG med hvit bakgrunn. Høyere skala gir skarpere tekst og større filer.",
+    "embeddedHint": "Finner XObject- og inline-bilder (RGB, RGBA eller bitmap). JPEG/JPX-masker og 1-bits bilder kan hoppes over.",
+    "downloadPages": "Last ned alle sider som JPG",
+    "downloadEmbedded": "Trekk ut og last ned bilder",
+    "processing": "Arbeider…",
+    "progressPage": "Side {current} av {total}…",
+    "reset": "Annen fil",
+    "invalidPdf": "Kunne ikke lese denne filen som PDF.",
+    "passwordRequired": "Denne PDF-en krever passord. Bruk Lås opp PDF først, og prøv igjen.",
+    "genericError": "Kunne ikke behandle denne PDF-en. Prøv en annen fil.",
+    "pagesSuccess": "{count, plural, one {# side lagret som JPG.} other {# sider lagret som JPG.}}",
+    "embeddedSuccess": "{count, plural, one {# innebygd bilde lagret.} other {# innebygde bilder lagret.}}",
+    "noEmbeddedImages": "Ingen uttrekkbare innebygde bilder ble funnet på disse sidene."
+  },
   "PdfUnlocker": {
     "privacyNote": "Filen din forlater aldri denne nettleseren.",
     "chooseFile": "Velg PDF",
@@ -3316,5 +3353,44 @@
     "minTwoPdfs": "Legg til minst to PDF-filer som skal slås sammen.",
     "invalidPdf": "Kunne ikke lese filen som PDF.",
     "mergeFailed": "Kunne ikke slå sammen. Fjern passordbeskyttede eller skadede PDF-er og prøv igjen."
+  },
+  "PdfCompressor": {
+    "intro": "Reduser filstørrelsen og optimaliser for maksimal PDF-kvalitet.",
+    "privacyNote": "Filen din forlater aldri denne nettleseren.",
+    "methodHint": "Vi bygger PDF-en på nytt med komprimerte objektstrømmer (tapfritt for sideinnhold). Passordbeskyttede filer støttes ikke — bruk Lås opp PDF først.",
+    "chooseFile": "Velg PDF",
+    "reset": "Annen fil",
+    "pageCount": "{count, plural, one {# side} other {# sider}}",
+    "originalSize": "Original: {size}",
+    "compressDownload": "Komprimer og last ned",
+    "compressing": "Komprimerer…",
+    "invalidPdf": "Kunne ikke lese denne filen som en PDF.",
+    "encryptedPdf": "Denne PDF-en er passordbeskyttet. Lås den opp med Lås opp PDF, og prøv igjen.",
+    "compressFailed": "Kunne ikke komprimere denne PDF-en. Prøv en annen fil.",
+    "noSavingsTitle": "Liten eller ingen størrelsesreduksjon",
+    "noSavingsHint": "PDF-en var allerede kompakt. Den nedlastede filen er fortsatt en ren, standardbasert kopi.",
+    "savedToast": "Ca. {percent} % mindre ({before} → {after})"
+  },
+  "JpgToPdf": {
+    "intro": "Konverter JPG-bilder til PDF på noen sekunder. Juster retning og marginer enkelt.",
+    "privacyNote": "Filene dine forlater aldri denne nettleseren.",
+    "orderHint": "Filer øverst blir de første sidene i PDF-en. Bruk pilene for å sortere om.",
+    "rotationLabel": "Rotasjon (alle sider)",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "Lik margin",
+    "marginValue": "{mm} mm",
+    "addImages": "Legg til JPEG-filer",
+    "clearAll": "Tøm listen",
+    "downloadPdf": "Lag PDF og last ned",
+    "building": "Lager PDF…",
+    "moveUpAria": "Flytt opp",
+    "moveDownAria": "Flytt ned",
+    "removeFileAria": "Fjern fra listen",
+    "minOneJpeg": "Legg til minst én JPEG-fil.",
+    "invalidJpeg": "Denne filen er ikke en gyldig JPEG (JPG).",
+    "buildFailed": "Kunne ikke lage PDF-en. Fjern filer som ikke støttes, og prøv igjen."
   }
 }

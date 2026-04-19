@@ -300,6 +300,30 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['merge pdf', 'combine pdf', 'pdf merger', 'join pdf', 'pdf concat', 'merge pdf online', 'client side pdf'],
         aiSummary: 'Combine multiple PDFs into one file in your browser: add files, reorder with one tap, download merged.pdf — no upload.',
     },
+    'pdf-compressor': {
+        title: 'Compress PDF files',
+        description: 'Reduce file size while optimizing for maximal PDF quality. Rewrites the PDF with compressed object streams in your browser — nothing is uploaded.',
+        keywords: ['compress pdf', 'pdf compressor', 'reduce pdf size', 'shrink pdf', 'optimize pdf', 'pdf smaller', 'client side pdf'],
+        aiSummary: 'Shrink a PDF in the browser by rebuilding it with object streams (lossless for page content). Encrypted PDFs: unlock first with PDF Unlocker.',
+    },
+    'jpg-to-pdf': {
+        title: 'JPG to PDF',
+        description: 'Convert JPG images to PDF in seconds. Easily adjust orientation and margins; reorder pages — all in your browser.',
+        keywords: ['jpg to pdf', 'jpeg to pdf', 'images to pdf', 'convert jpg pdf', 'pdf from photos', 'client side pdf', 'browser pdf'],
+        aiSummary: 'Turn JPEGs into one PDF: pick files, set rotation (0–270°) and uniform margins in millimeters, reorder, download — no upload.',
+    },
+    'pdf-to-jpg': {
+        title: 'PDF to JPG',
+        description: 'Turn each PDF page into a JPEG, or pull embedded raster images out of a PDF. Rendering uses PDF.js in your browser; nothing is uploaded.',
+        keywords: ['pdf to jpg', 'pdf to jpeg', 'convert pdf to images', 'extract images from pdf', 'pdf pages to jpg', 'client side pdf'],
+        aiSummary: 'Export every page as a .jpg (quality and scale sliders) or scan page streams for embedded RGB/RGBA/bitmap images and download them as JPEGs.',
+    },
+    'html-to-pdf': {
+        title: 'HTML to PDF Converter',
+        description: "Paste or write HTML with CSS and convert it to a PDF using your browser's print engine. Supports full CSS, tables, and custom fonts. Nothing is uploaded.",
+        keywords: ['html to pdf', 'convert html to pdf', 'html pdf converter', 'web page to pdf', 'html print pdf', 'browser pdf', 'client side pdf'],
+        aiSummary: "Free in-browser HTML-to-PDF: paste any HTML (with CSS) and print it as a PDF — no upload, no server. Good for 'convert HTML to PDF online' or 'save webpage as PDF'.",
+    },
 }
 
 function toolMetaDescription(tool: ToolMetadataEntry): string {
