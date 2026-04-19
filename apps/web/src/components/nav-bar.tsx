@@ -47,6 +47,7 @@ import {
   Timer,
   LockKeyhole,
   Container,
+  Pencil,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
@@ -147,6 +148,16 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
     title: 'SVG Optimizer / Minifier',
     icon: Shrink,
     namespace: 'SvgOptimizer',
+  },
+  '/app/pdf-compare': {
+    title: 'Compare PDF',
+    icon: GitCompare,
+    namespace: 'PdfCompare',
+  },
+  '/app/pdf-editor': {
+    title: 'PDF Editor',
+    icon: Pencil,
+    namespace: 'PdfEditor',
   },
 };
 
