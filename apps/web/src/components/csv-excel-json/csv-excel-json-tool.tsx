@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import {
   IconCopy,
   IconDownload,
@@ -16,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { ToolHeader } from "@/components/tools/tool-header";
-import { ToolWrapper } from "@/components/tools/tool-wrapper";
+import { useToolUsage } from "@/hooks/use-tool-usage";
 import { cn } from "@/lib/utils";
 import {
   csvTextToRows,
@@ -34,11 +35,17 @@ const SAMPLE_JSON = `[
 
 export function CsvExcelJsonTool() {
   const t = useTranslations("CsvExcelJson");
+  const pathname = usePathname();
+  const { trackToolUsage } = useToolUsage();
   const [jsonText, setJsonText] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const [copied, setCopied] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    trackToolUsage("csv-excel-json", pathname);
+  }, [pathname, trackToolUsage]);
 
   const applyRows = useCallback((rows: Record<string, unknown>[]) => {
     setJsonText(JSON.stringify(rows, null, 2));
@@ -145,7 +152,7 @@ export function CsvExcelJsonTool() {
   };
 
   return (
-    <ToolWrapper toolId="csv-excel-json" maxWidth="5xl">
+    <div className="flex flex-col h-full min-h-0 overflow-auto pb-4">
       <Card className="border-border/60 shadow-sm">
         <ToolHeader
           title={t("title")}
@@ -272,6 +279,6 @@ export function CsvExcelJsonTool() {
           </p>
         </CardContent>
       </Card>
-    </ToolWrapper>
+    </div>
   );
 }

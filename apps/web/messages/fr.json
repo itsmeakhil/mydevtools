@@ -47,7 +47,13 @@
     "mockDataGenerator": "Générateur de données fictives",
     "svgOptimizer": "Optimiseur SVG",
     "unitConverter": "Convertisseur d'unités",
-    "dockerComposeGenerator": "Générateur Docker Compose"
+    "dockerComposeGenerator": "Générateur Docker Compose",
+    "pdfUnlocker": "Déverrouillage PDF",
+    "pdfLocker": "Protection PDF",
+    "pdfMerge": "Fusionner des PDF",
+    "pdfCompressor": "Compresser des fichiers PDF",
+    "jpgToPdf": "JPG vers PDF",
+    "pdfToJpg": "PDF vers JPG"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -415,6 +421,30 @@
       "dockerComposeGenerator": {
         "title": "Générateur Docker Compose",
         "description": "Choisissez bases de données, caches, files, proxys et observabilité ; exportez un docker-compose.yml pour le dev local."
+      },
+      "pdfUnlocker": {
+        "title": "Déverrouillage PDF",
+        "description": "Supprimez le mot de passe d’ouverture d’un PDF et téléchargez une copie déverrouillée dans votre navigateur."
+      },
+      "pdfLocker": {
+        "title": "Protection PDF",
+        "description": "Protégez un PDF par mot de passe (AES-256) et téléchargez une copie verrouillée dans votre navigateur."
+      },
+      "pdfMerge": {
+        "title": "Fusionner des fichiers PDF",
+        "description": "Combinez des PDF dans l’ordre souhaité avec la fusion la plus simple — tout dans votre navigateur."
+      },
+      "pdfCompressor": {
+        "title": "Compresser des fichiers PDF",
+        "description": "Réduisez la taille du fichier tout en optimisant la qualité PDF maximale — dans votre navigateur."
+      },
+      "jpgToPdf": {
+        "title": "JPG vers PDF",
+        "description": "Convertissez des images JPG en PDF en quelques secondes. Ajustez facilement l'orientation et les marges."
+      },
+      "pdfToJpg": {
+        "title": "PDF vers JPG",
+        "description": "Rasterisez chaque page PDF en JPEG ou extrayez les images intégrées — le tout dans le navigateur."
       }
     },
     "tabs": {
@@ -3250,5 +3280,117 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfToJpg": {
+    "privacyNote": "Votre fichier ne quitte jamais ce navigateur. Le worker PDF.js est chargé depuis un CDN la première fois.",
+    "chooseFile": "Choisir un PDF",
+    "pageCount": "{count, plural, one {# page} other {# pages}}",
+    "qualityLabel": "Qualité JPEG",
+    "scaleLabel": "Résolution de page (échelle)",
+    "tabPages": "Pages en JPG",
+    "tabEmbedded": "Images intégrées",
+    "pagesHint": "Rend chaque page en JPEG sur fond blanc. Une échelle plus élevée donne un texte plus net et des fichiers plus volumineux.",
+    "embeddedHint": "Repère les images XObject et inline (RVB, RVBA ou bitmap). Les masques JPEG/JPX et les images 1 bit peuvent être ignorés.",
+    "downloadPages": "Télécharger toutes les pages en JPG",
+    "downloadEmbedded": "Extraire et télécharger les images",
+    "processing": "Traitement…",
+    "progressPage": "Page {current} sur {total}…",
+    "reset": "Autre fichier",
+    "invalidPdf": "Impossible de lire ce fichier comme PDF.",
+    "passwordRequired": "Ce PDF est protégé par mot de passe. Utilisez d’abord Déverrouillage PDF, puis réessayez.",
+    "genericError": "Impossible de traiter ce PDF. Essayez un autre fichier.",
+    "pagesSuccess": "{count, plural, one {# page enregistrée en JPG.} other {# pages enregistrées en JPG.}}",
+    "embeddedSuccess": "{count, plural, one {# image intégrée enregistrée.} other {# images intégrées enregistrées.}}",
+    "noEmbeddedImages": "Aucune image intégrée extractible n’a été trouvée sur ces pages."
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Votre fichier ne quitte jamais ce navigateur.",
+    "chooseFile": "Choisir un PDF",
+    "dialogTitle": "Mot de passe du PDF",
+    "dialogDescription": "Ce fichier est protégé par mot de passe. Saisissez le mot de passe d’ouverture, puis déverrouillez.",
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "Mot de passe d’ouverture actuel",
+    "cancel": "Annuler",
+    "unlock": "Déverrouiller",
+    "processing": "Déverrouillage…",
+    "download": "Télécharger le PDF déverrouillé",
+    "reset": "Autre fichier",
+    "invalidPdf": "Impossible de lire ce fichier comme PDF.",
+    "wrongPassword": "Mot de passe incorrect ou chiffrement non pris en charge pour ce PDF."
+  },
+  "PdfLocker": {
+    "privacyNote": "Votre fichier ne quitte jamais ce navigateur.",
+    "chooseFile": "Choisir un PDF",
+    "dialogTitle": "Protéger ce PDF",
+    "dialogDescription": "Choisissez un mot de passe d’ouverture. Il doit être identique dans les deux champs.",
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "Nouveau mot de passe d’ouverture",
+    "confirmLabel": "Confirmer le mot de passe",
+    "confirmPlaceholder": "Répéter le mot de passe",
+    "cancel": "Annuler",
+    "lock": "Protéger le PDF",
+    "processing": "Chiffrement…",
+    "download": "Télécharger le PDF protégé",
+    "reset": "Autre fichier",
+    "invalidPdf": "Impossible de lire ce fichier comme PDF.",
+    "alreadyEncrypted": "Ce PDF est déjà protégé par mot de passe. Déverrouillez-le d’abord, puis protégez-le à nouveau si besoin.",
+    "passwordRequired": "Saisissez un mot de passe.",
+    "passwordMismatch": "Les mots de passe ne correspondent pas.",
+    "genericError": "Impossible de chiffrer ce PDF. Essayez un autre fichier ou un mot de passe plus court."
+  },
+  "PdfMerge": {
+    "intro": "Combinez des PDF dans l’ordre souhaité avec la fusion la plus simple.",
+    "privacyNote": "Vos fichiers ne quittent pas ce navigateur.",
+    "orderHint": "Les fichiers en haut apparaissent en premier dans le PDF fusionné. Réordonnez avec les flèches.",
+    "addPdfs": "Ajouter des PDF",
+    "clearAll": "Vider la liste",
+    "mergeDownload": "Fusionner et télécharger",
+    "merging": "Fusion en cours…",
+    "pages": "{count} pages",
+    "moveUpAria": "Monter",
+    "moveDownAria": "Descendre",
+    "removeFileAria": "Retirer de la liste",
+    "minTwoPdfs": "Ajoutez au moins deux fichiers PDF à fusionner.",
+    "invalidPdf": "Impossible de lire ce fichier comme PDF.",
+    "mergeFailed": "Fusion impossible. Retirez les PDF protégés ou endommagés et réessayez."
+  },
+  "PdfCompressor": {
+    "intro": "Réduisez la taille du fichier tout en optimisant la qualité PDF maximale.",
+    "privacyNote": "Votre fichier ne quitte jamais ce navigateur.",
+    "methodHint": "Nous reconstruisons le PDF avec des flux d’objets compressés (sans perte pour le contenu des pages). Les fichiers protégés par mot de passe ne sont pas pris en charge — utilisez d’abord Déverrouillage PDF.",
+    "chooseFile": "Choisir un PDF",
+    "reset": "Autre fichier",
+    "pageCount": "{count, plural, one {# page} other {# pages}}",
+    "originalSize": "Original : {size}",
+    "compressDownload": "Compresser et télécharger",
+    "compressing": "Compression…",
+    "invalidPdf": "Impossible de lire ce fichier comme un PDF.",
+    "encryptedPdf": "Ce PDF est protégé par mot de passe. Déverrouillez-le avec Déverrouillage PDF, puis réessayez.",
+    "compressFailed": "Impossible de compresser ce PDF. Essayez un autre fichier.",
+    "noSavingsTitle": "Peu ou pas de réduction de taille",
+    "noSavingsHint": "Votre PDF était déjà compact. Le fichier téléchargé reste une copie propre et conforme aux normes.",
+    "savedToast": "Environ {percent} % plus petit ({before} → {after})"
+  },
+  "JpgToPdf": {
+    "intro": "Convertissez des images JPG en PDF en quelques secondes. Ajustez facilement l'orientation et les marges.",
+    "privacyNote": "Vos fichiers ne quittent jamais ce navigateur.",
+    "orderHint": "Les fichiers en haut deviennent les premières pages du PDF. Utilisez les flèches pour réordonner.",
+    "rotationLabel": "Rotation (toutes les pages)",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "Marge uniforme",
+    "marginValue": "{mm} mm",
+    "addImages": "Ajouter des JPEG",
+    "clearAll": "Effacer la liste",
+    "downloadPdf": "Créer le PDF et télécharger",
+    "building": "Création du PDF…",
+    "moveUpAria": "Monter",
+    "moveDownAria": "Descendre",
+    "removeFileAria": "Retirer de la liste",
+    "minOneJpeg": "Ajoutez au moins un fichier JPEG.",
+    "invalidJpeg": "Ce fichier n'est pas un JPEG (JPG) valide.",
+    "buildFailed": "Impossible de créer le PDF. Retirez les fichiers non pris en charge et réessayez."
   }
 }

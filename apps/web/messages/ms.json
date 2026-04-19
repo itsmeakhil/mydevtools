@@ -47,7 +47,13 @@
     "mockDataGenerator": "Penjana Data Mock",
     "svgOptimizer": "Pengoptimum SVG",
     "unitConverter": "Penukar Unit",
-    "dockerComposeGenerator": "Penjana Docker Compose"
+    "dockerComposeGenerator": "Penjana Docker Compose",
+    "pdfUnlocker": "Buka kunci PDF",
+    "pdfLocker": "Kunci PDF",
+    "pdfMerge": "Gabung PDF",
+    "pdfCompressor": "Mampatkan fail PDF",
+    "jpgToPdf": "JPG ke PDF",
+    "pdfToJpg": "PDF ke JPG"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -421,6 +427,30 @@
       "dockerComposeGenerator": {
         "title": "Penjana Docker Compose",
         "description": "Pilih pangkalan data, cache, baris gilir, proksi dan imej kebolehcerapan; eksport docker-compose.yml untuk setempat."
+      },
+      "pdfUnlocker": {
+        "title": "Buka kunci PDF",
+        "description": "Alih keluar kata laluan buka daripada PDF dan muat turun salinan tidak berkunci dalam pelayar anda."
+      },
+      "pdfLocker": {
+        "title": "Kunci PDF",
+        "description": "Lindungi PDF dengan kata laluan (AES-256) dan muat turun salinan berkunci dalam pelayar anda."
+      },
+      "pdfMerge": {
+        "title": "Gabung fail PDF",
+        "description": "Gabung PDF mengikut turutan yang anda mahu dengan cara paling mudah — semuanya dalam pelayar."
+      },
+      "pdfCompressor": {
+        "title": "Mampatkan fail PDF",
+        "description": "Kurangkan saiz fail dengan mengoptimumkan kualiti PDF maksimum — dalam pelayar anda."
+      },
+      "jpgToPdf": {
+        "title": "JPG ke PDF",
+        "description": "Tukar imej JPG kepada PDF dalam beberapa saat. Laraskan orientasi dan margin dengan mudah."
+      },
+      "pdfToJpg": {
+        "title": "PDF ke JPG",
+        "description": "Raster setiap halaman PDF kepada JPEG atau ekstrak imej terbenam — semuanya dalam pelayar anda."
       }
     },
     "tabs": {
@@ -3250,5 +3280,117 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfToJpg": {
+    "privacyNote": "Fail anda tidak pernah meninggalkan pelayar ini. Pekerja PDF.js dimuat daripada CDN kali pertama anda menukar.",
+    "chooseFile": "Pilih PDF",
+    "pageCount": "{count, plural, other {# halaman}}",
+    "qualityLabel": "Kualiti JPEG",
+    "scaleLabel": "Resolusi halaman (skala)",
+    "tabPages": "Halaman ke JPG",
+    "tabEmbedded": "Imej terbenam",
+    "pagesHint": "Merender setiap halaman sebagai JPEG dengan latar belakang putih. Skala lebih tinggi bermaksud teks lebih tajam dan fail lebih besar.",
+    "embeddedHint": "Mencari imej XObject dan sebaris (RGB, RGBA atau bitmap). Topeng JPEG/JPX dan imej 1-bit mungkin dilangkau.",
+    "downloadPages": "Muat turun semua halaman sebagai JPG",
+    "downloadEmbedded": "Ekstrak & muat turun imej",
+    "processing": "Sedang diproses…",
+    "progressPage": "Halaman {current} daripada {total}…",
+    "reset": "Fail lain",
+    "invalidPdf": "Tidak dapat membaca fail ini sebagai PDF.",
+    "passwordRequired": "PDF ini memerlukan kata laluan. Gunakan Buka kunci PDF dahulu, kemudian cuba lagi.",
+    "genericError": "Tidak dapat memproses PDF ini. Cuba fail lain.",
+    "pagesSuccess": "{count, plural, other {Disimpan # halaman sebagai JPG.}}",
+    "embeddedSuccess": "{count, plural, other {Disimpan # imej terbenam.}}",
+    "noEmbeddedImages": "Tiada imej terbenam yang boleh diekstrak ditemui pada halaman ini."
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Fail anda tidak pernah meninggalkan pelayar ini.",
+    "chooseFile": "Pilih PDF",
+    "dialogTitle": "Kata laluan PDF",
+    "dialogDescription": "Fail ini dilindungi kata laluan. Masukkan kata laluan buka, kemudian buka kunci.",
+    "passwordLabel": "Kata laluan",
+    "passwordPlaceholder": "Kata laluan buka semasa",
+    "cancel": "Batal",
+    "unlock": "Buka kunci",
+    "processing": "Membuka kunci…",
+    "download": "Muat turun PDF tidak berkunci",
+    "reset": "Fail lain",
+    "invalidPdf": "Tidak dapat membaca fail ini sebagai PDF.",
+    "wrongPassword": "Kata laluan salah atau penyulitan tidak disokong untuk PDF ini."
+  },
+  "PdfLocker": {
+    "privacyNote": "Fail anda tidak pernah meninggalkan pelayar ini.",
+    "chooseFile": "Pilih PDF",
+    "dialogTitle": "Kunci PDF ini",
+    "dialogDescription": "Pilih kata laluan buka. Mesti sama pada kedua-dua medan.",
+    "passwordLabel": "Kata laluan",
+    "passwordPlaceholder": "Kata laluan buka baharu",
+    "confirmLabel": "Sahkan kata laluan",
+    "confirmPlaceholder": "Ulang kata laluan",
+    "cancel": "Batal",
+    "lock": "Kunci PDF",
+    "processing": "Menyenkripsi…",
+    "download": "Muat turun PDF berkunci",
+    "reset": "Fail lain",
+    "invalidPdf": "Tidak dapat membaca fail ini sebagai PDF.",
+    "alreadyEncrypted": "PDF ini sudah dilindungi kata laluan. Buka kunci dahulu, kemudian kunci semula jika perlu.",
+    "passwordRequired": "Masukkan kata laluan.",
+    "passwordMismatch": "Kata laluan tidak sepadan.",
+    "genericError": "Tidak dapat menyulit PDF ini. Cuba fail lain atau kata laluan yang lebih pendek."
+  },
+  "PdfMerge": {
+    "intro": "Gabung PDF mengikut turutan yang anda mahu dengan penggabung paling mudah.",
+    "privacyNote": "Fail anda tidak pernah meninggalkan pelayar ini.",
+    "orderHint": "Fail di atas akan didahulukan dalam PDF bergabung. Susun semula dengan anak panah.",
+    "addPdfs": "Tambah PDF",
+    "clearAll": "Kosongkan senarai",
+    "mergeDownload": "Gabung & muat turun",
+    "merging": "Menggabungkan…",
+    "pages": "{count} halaman",
+    "moveUpAria": "Naik",
+    "moveDownAria": "Turun",
+    "removeFileAria": "Buang daripada senarai",
+    "minTwoPdfs": "Tambah sekurang-kurangnya dua fail PDF untuk digabung.",
+    "invalidPdf": "Tidak dapat membaca fail ini sebagai PDF.",
+    "mergeFailed": "Tidak dapat menggabung. Buang PDF dilindungi kata laluan atau rosak dan cuba lagi."
+  },
+  "PdfCompressor": {
+    "intro": "Kurangkan saiz fail dengan mengoptimumkan kualiti PDF maksimum.",
+    "privacyNote": "Fail anda tidak pernah meninggalkan pelayar ini.",
+    "methodHint": "Kami membina semula PDF dengan strim objek termampat (tiada kehilangan untuk kandungan halaman). Fail berkata laluan tidak disokong — gunakan Buka Kunci PDF dahulu.",
+    "chooseFile": "Pilih PDF",
+    "reset": "Fail lain",
+    "pageCount": "{count, plural, one {# halaman} other {# halaman}}",
+    "originalSize": "Asal: {size}",
+    "compressDownload": "Mampat & muat turun",
+    "compressing": "Memampatkan…",
+    "invalidPdf": "Tidak dapat membaca fail ini sebagai PDF.",
+    "encryptedPdf": "PDF ini dilindungi kata laluan. Buka kuncinya dengan Buka Kunci PDF, kemudian cuba lagi.",
+    "compressFailed": "Tidak dapat memampatkan PDF ini. Cuba fail lain.",
+    "noSavingsTitle": "Sedikit atau tiada pengurangan saiz",
+    "noSavingsHint": "PDF anda sudah padat. Fail yang dimuat turun kekal salinan bersih mengikut piawaian.",
+    "savedToast": "Lebih kurang {percent}% lebih kecil ({before} → {after})"
+  },
+  "JpgToPdf": {
+    "intro": "Tukar imej JPG kepada PDF dalam beberapa saat. Laraskan orientasi dan margin dengan mudah.",
+    "privacyNote": "Fail anda tidak pernah meninggalkan pelayar ini.",
+    "orderHint": "Fail di atas menjadi halaman pertama PDF. Gunakan anak panah untuk menyusun semula.",
+    "rotationLabel": "Putaran (semua halaman)",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "Margin sekata",
+    "marginValue": "{mm} mm",
+    "addImages": "Tambah JPEG",
+    "clearAll": "Kosongkan senarai",
+    "downloadPdf": "Cipta PDF & muat turun",
+    "building": "Mencipta PDF…",
+    "moveUpAria": "Alih ke atas",
+    "moveDownAria": "Alih ke bawah",
+    "removeFileAria": "Buang daripada senarai",
+    "minOneJpeg": "Tambah sekurang-kurangnya satu fail JPEG.",
+    "invalidJpeg": "Fail ini bukan JPEG (JPG) yang sah.",
+    "buildFailed": "Tidak dapat mencipta PDF. Buang fail yang tidak disokong dan cuba lagi."
   }
 }

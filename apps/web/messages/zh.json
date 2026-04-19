@@ -47,7 +47,13 @@
     "mockDataGenerator": "模拟数据生成器",
     "svgOptimizer": "SVG 优化",
     "unitConverter": "单位换算器",
-    "dockerComposeGenerator": "Docker Compose 生成器"
+    "dockerComposeGenerator": "Docker Compose 生成器",
+    "pdfUnlocker": "PDF 解锁",
+    "pdfLocker": "PDF 加密",
+    "pdfMerge": "合并 PDF",
+    "pdfCompressor": "压缩 PDF 文件",
+    "jpgToPdf": "JPG 转 PDF",
+    "pdfToJpg": "PDF 转 JPG"
   },
   "Help": {
     "title": "帮助与文档",
@@ -415,6 +421,30 @@
       "dockerComposeGenerator": {
         "title": "Docker Compose 生成器",
         "description": "选择数据库、缓存、队列、代理与可观测性镜像；导出用于本地栈的 docker-compose.yml。"
+      },
+      "pdfUnlocker": {
+        "title": "PDF 解锁",
+        "description": "移除 PDF 的打开密码，并在浏览器中下载未加密的副本。"
+      },
+      "pdfLocker": {
+        "title": "PDF 加密",
+        "description": "使用密码（AES-256）保护 PDF，并在浏览器中下载加密后的副本。"
+      },
+      "pdfMerge": {
+        "title": "合并 PDF 文件",
+        "description": "按所需顺序合并 PDF，最简单的方式，全部在浏览器中完成。"
+      },
+      "pdfCompressor": {
+        "title": "压缩 PDF 文件",
+        "description": "在尽量保持 PDF 画质的同时减小文件体积 — 全部在浏览器中完成。"
+      },
+      "jpgToPdf": {
+        "title": "JPG 转 PDF",
+        "description": "几秒内将 JPG 图片转为 PDF。轻松调整方向和页边距。"
+      },
+      "pdfToJpg": {
+        "title": "PDF 转 JPG",
+        "description": "将每一页 PDF 栅格化为 JPEG，或提取内嵌图片——全部在浏览器中完成。"
       }
     },
     "tabs": {
@@ -3250,5 +3280,117 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg（Chromium / PDF）"
     }
+  },
+  "PdfToJpg": {
+    "privacyNote": "文件不会离开本浏览器。首次转换时从 CDN 加载 PDF.js 辅助线程。",
+    "chooseFile": "选择 PDF",
+    "pageCount": "{count, plural, other {# 页}}",
+    "qualityLabel": "JPEG 质量",
+    "scaleLabel": "页面分辨率（缩放）",
+    "tabPages": "页面转 JPG",
+    "tabEmbedded": "内嵌图片",
+    "pagesHint": "将每页渲染为白底 JPEG。缩放越高，文字越清晰，文件也越大。",
+    "embeddedHint": "查找 XObject 与内联图片（RGB、RGBA 或位图）。JPEG/JPX 蒙版与 1 位图可能被跳过。",
+    "downloadPages": "下载全部页面为 JPG",
+    "downloadEmbedded": "提取并下载图片",
+    "processing": "处理中…",
+    "progressPage": "第 {current} / {total} 页…",
+    "reset": "更换文件",
+    "invalidPdf": "无法将此文件读取为 PDF。",
+    "passwordRequired": "此 PDF 需要密码。请先使用 PDF 解锁 解锁后再试。",
+    "genericError": "无法处理此 PDF。请尝试其他文件。",
+    "pagesSuccess": "{count, plural, other {已保存 # 页为 JPG。}}",
+    "embeddedSuccess": "{count, plural, other {已保存 # 张内嵌图片。}}",
+    "noEmbeddedImages": "这些页面未找到可提取的内嵌图片。"
+  },
+  "PdfUnlocker": {
+    "privacyNote": "您的文件不会离开本浏览器。",
+    "chooseFile": "选择 PDF",
+    "dialogTitle": "输入 PDF 密码",
+    "dialogDescription": "此文件受密码保护。请输入打开密码后解锁。",
+    "passwordLabel": "密码",
+    "passwordPlaceholder": "当前打开密码",
+    "cancel": "取消",
+    "unlock": "解锁",
+    "processing": "正在解锁…",
+    "download": "下载已解锁的 PDF",
+    "reset": "换一份文件",
+    "invalidPdf": "无法将此文件识别为 PDF。",
+    "wrongPassword": "密码错误，或此 PDF 的加密方式不受支持。"
+  },
+  "PdfLocker": {
+    "privacyNote": "您的文件不会离开本浏览器。",
+    "chooseFile": "选择 PDF",
+    "dialogTitle": "加密此 PDF",
+    "dialogDescription": "设置用于打开的密码，两个输入框必须一致。",
+    "passwordLabel": "密码",
+    "passwordPlaceholder": "新的打开密码",
+    "confirmLabel": "确认密码",
+    "confirmPlaceholder": "再次输入密码",
+    "cancel": "取消",
+    "lock": "加密 PDF",
+    "processing": "正在加密…",
+    "download": "下载已加密的 PDF",
+    "reset": "换一份文件",
+    "invalidPdf": "无法将此文件识别为 PDF。",
+    "alreadyEncrypted": "此 PDF 已受密码保护。请先解锁，如有需要再重新加密。",
+    "passwordRequired": "请输入密码。",
+    "passwordMismatch": "两次输入的密码不一致。",
+    "genericError": "无法加密此 PDF。请尝试其他文件或更短的密码。"
+  },
+  "PdfMerge": {
+    "intro": "按所需顺序合并 PDF，使用最简单的合并方式。",
+    "privacyNote": "您的文件不会离开本浏览器。",
+    "orderHint": "越靠上的文件在合并后的 PDF 中越靠前。使用箭头调整顺序。",
+    "addPdfs": "添加 PDF",
+    "clearAll": "清空列表",
+    "mergeDownload": "合并并下载",
+    "merging": "正在合并…",
+    "pages": "{count} 页",
+    "moveUpAria": "上移",
+    "moveDownAria": "下移",
+    "removeFileAria": "从列表移除",
+    "minTwoPdfs": "请至少添加两个 PDF 文件以合并。",
+    "invalidPdf": "无法将此文件识别为 PDF。",
+    "mergeFailed": "无法合并。请移除受密码保护或损坏的 PDF 后重试。"
+  },
+  "PdfCompressor": {
+    "intro": "在尽量保持 PDF 画质的同时减小文件体积。",
+    "privacyNote": "您的文件不会离开本浏览器。",
+    "methodHint": "我们通过压缩对象流重建 PDF（页面内容无损）。不支持受密码保护的文件 — 请先用 PDF 解锁处理。",
+    "chooseFile": "选择 PDF",
+    "reset": "更换文件",
+    "pageCount": "{count, plural, other {# 页}}",
+    "originalSize": "原始大小：{size}",
+    "compressDownload": "压缩并下载",
+    "compressing": "正在压缩…",
+    "invalidPdf": "无法将此文件识别为 PDF。",
+    "encryptedPdf": "此 PDF 受密码保护。请先用 PDF 解锁解锁后再试。",
+    "compressFailed": "无法压缩此 PDF。请尝试其他文件。",
+    "noSavingsTitle": "体积几乎未减小",
+    "noSavingsHint": "您的 PDF 本身已很精简。下载的文件仍是干净、符合标准的副本。",
+    "savedToast": "约缩小 {percent}%（{before} → {after}）"
+  },
+  "JpgToPdf": {
+    "intro": "几秒内将 JPG 图片转为 PDF。轻松调整方向和页边距。",
+    "privacyNote": "您的文件不会离开本浏览器。",
+    "orderHint": "列表顶部的文件将成为 PDF 的前几页。使用箭头可调整顺序。",
+    "rotationLabel": "旋转（应用于所有页面）",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "统一页边距",
+    "marginValue": "{mm} mm",
+    "addImages": "添加 JPEG",
+    "clearAll": "清空列表",
+    "downloadPdf": "生成 PDF 并下载",
+    "building": "正在生成 PDF…",
+    "moveUpAria": "上移",
+    "moveDownAria": "下移",
+    "removeFileAria": "从列表移除",
+    "minOneJpeg": "请至少添加一个 JPEG 文件。",
+    "invalidJpeg": "该文件不是有效的 JPEG（JPG）。",
+    "buildFailed": "无法生成 PDF。请移除不支持的文件后重试。"
   }
 }

@@ -47,7 +47,13 @@
     "mockDataGenerator": "Генератор тестових даних",
     "svgOptimizer": "Оптимізатор SVG",
     "unitConverter": "Конвертер одиниць",
-    "dockerComposeGenerator": "Генератор Docker Compose"
+    "dockerComposeGenerator": "Генератор Docker Compose",
+    "pdfUnlocker": "Розблокування PDF",
+    "pdfLocker": "Захист PDF",
+    "pdfMerge": "Об’єднати PDF",
+    "pdfCompressor": "Стиснути PDF-файли",
+    "jpgToPdf": "JPG у PDF",
+    "pdfToJpg": "PDF у JPG"
   },
   "Help": {
     "title": "Довідка та документація",
@@ -415,6 +421,30 @@
       "dockerComposeGenerator": {
         "title": "Генератор Docker Compose",
         "description": "Оберіть бази даних, кеші, черги, проксі та образи спостережуваності; експортуйте docker-compose.yml для локальних стеків."
+      },
+      "pdfUnlocker": {
+        "title": "Розблокування PDF",
+        "description": "Зніміть пароль відкриття з PDF і завантажте розблоковану копію у браузері."
+      },
+      "pdfLocker": {
+        "title": "Захист PDF",
+        "description": "Захистіть PDF паролем (AES-256) і завантажте захищену копію у браузері."
+      },
+      "pdfMerge": {
+        "title": "Об’єднання PDF-файлів",
+        "description": "Об’єднуйте PDF у потрібному порядку найпростішим способом — усе в браузері."
+      },
+      "pdfCompressor": {
+        "title": "Стиснути PDF-файли",
+        "description": "Зменште розмір файлу, зберігаючи максимальну якість PDF — у браузері."
+      },
+      "jpgToPdf": {
+        "title": "JPG у PDF",
+        "description": "Конвертуйте зображення JPG у PDF за секунди. Легко налаштуйте орієнтацію та поля."
+      },
+      "pdfToJpg": {
+        "title": "PDF у JPG",
+        "description": "Експортуйте кожну сторінку PDF у JPEG або витягніть вбудовані зображення — усе в браузері."
       }
     },
     "tabs": {
@@ -3250,5 +3280,117 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfToJpg": {
+    "privacyNote": "Файл не залишає цей браузер. Worker PDF.js під час першого перетворення завантажується з CDN.",
+    "chooseFile": "Вибрати PDF",
+    "pageCount": "{count, plural, one {# сторінка} few {# сторінки} many {# сторінок} other {# сторінки}}",
+    "qualityLabel": "Якість JPEG",
+    "scaleLabel": "Роздільність сторінки (масштаб)",
+    "tabPages": "Сторінки в JPG",
+    "tabEmbedded": "Вбудовані зображення",
+    "pagesHint": "Кожна сторінка рендериться в JPEG із білим тлом. Більший масштаб — чіткіший текст і більші файли.",
+    "embeddedHint": "Шукає XObject та inline-зображення (RGB, RGBA або растр). Маски JPEG/JPX і 1-бітні зображення можуть бути пропущені.",
+    "downloadPages": "Завантажити всі сторінки як JPG",
+    "downloadEmbedded": "Витягти й завантажити зображення",
+    "processing": "Обробка…",
+    "progressPage": "Сторінка {current} з {total}…",
+    "reset": "Інший файл",
+    "invalidPdf": "Не вдалося прочитати цей файл як PDF.",
+    "passwordRequired": "Цей PDF захищено паролем. Спочатку скористайтеся Розблокування PDF, потім повторіть спробу.",
+    "genericError": "Не вдалося обробити цей PDF. Спробуйте інший файл.",
+    "pagesSuccess": "{count, plural, one {Збережено # сторінку як JPG.} few {Збережено # сторінки як JPG.} many {Збережено # сторінок як JPG.} other {Збережено # сторінок як JPG.}}",
+    "embeddedSuccess": "{count, plural, one {Збережено # вбудоване зображення.} few {Збережено # вбудовані зображення.} many {Збережено # вбудованих зображень.} other {Збережено # вбудованих зображень.}}",
+    "noEmbeddedImages": "На цих сторінках не знайдено вбудованих зображень, які можна витягти."
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Файл не залишає цей браузер.",
+    "chooseFile": "Обрати PDF",
+    "dialogTitle": "Пароль PDF",
+    "dialogDescription": "Файл захищено паролем. Введіть пароль відкриття й розблокуйте.",
+    "passwordLabel": "Пароль",
+    "passwordPlaceholder": "Поточний пароль відкриття",
+    "cancel": "Скасувати",
+    "unlock": "Розблокувати",
+    "processing": "Розблокування…",
+    "download": "Завантажити розблокований PDF",
+    "reset": "Інший файл",
+    "invalidPdf": "Не вдалося прочитати файл як PDF.",
+    "wrongPassword": "Невірний пароль або шифрування не підтримується для цього PDF."
+  },
+  "PdfLocker": {
+    "privacyNote": "Файл не залишає цей браузер.",
+    "chooseFile": "Обрати PDF",
+    "dialogTitle": "Захистити цей PDF",
+    "dialogDescription": "Оберіть пароль відкриття. Він має збігатися в обох полях.",
+    "passwordLabel": "Пароль",
+    "passwordPlaceholder": "Новий пароль відкриття",
+    "confirmLabel": "Підтвердіть пароль",
+    "confirmPlaceholder": "Повторіть пароль",
+    "cancel": "Скасувати",
+    "lock": "Захистити PDF",
+    "processing": "Шифрування…",
+    "download": "Завантажити захищений PDF",
+    "reset": "Інший файл",
+    "invalidPdf": "Не вдалося прочитати файл як PDF.",
+    "alreadyEncrypted": "Цей PDF уже захищено. Спочатку зніміть захист, потім за потреби захистіть знову.",
+    "passwordRequired": "Введіть пароль.",
+    "passwordMismatch": "Паролі не збігаються.",
+    "genericError": "Не вдалося зашифрувати PDF. Спробуйте інший файл або коротший пароль."
+  },
+  "PdfMerge": {
+    "intro": "Об’єднуйте PDF у потрібному порядку — найпростіший спосіб.",
+    "privacyNote": "Ваші файли не залишають цей браузер.",
+    "orderHint": "Файли зверху йдуть першими в підсумковому PDF. Змінюйте порядок стрілками.",
+    "addPdfs": "Додати PDF",
+    "clearAll": "Очистити список",
+    "mergeDownload": "Об’єднати й завантажити",
+    "merging": "Об’єднання…",
+    "pages": "{count} стор.",
+    "moveUpAria": "Вгору",
+    "moveDownAria": "Вниз",
+    "removeFileAria": "Прибрати зі списку",
+    "minTwoPdfs": "Додайте принаймні два PDF для об’єднання.",
+    "invalidPdf": "Не вдалося прочитати файл як PDF.",
+    "mergeFailed": "Не вдалося об’єднати. Приберіть захищені або пошкоджені PDF і спробуйте знову."
+  },
+  "PdfCompressor": {
+    "intro": "Зменште розмір файлу, зберігаючи максимальну якість PDF.",
+    "privacyNote": "Ваш файл не залишає цей браузер.",
+    "methodHint": "Ми перезбираємо PDF зі стиснутими потоками об’єктів (без втрат для вмісту сторінок). Файли з паролем не підтримуються — спочатку скористайтеся «Розблокування PDF».",
+    "chooseFile": "Вибрати PDF",
+    "reset": "Інший файл",
+    "pageCount": "{count, plural, one {# сторінка} few {# сторінки} many {# сторінок} other {# сторінок}}",
+    "originalSize": "Початковий розмір: {size}",
+    "compressDownload": "Стиснути й завантажити",
+    "compressing": "Стиснення…",
+    "invalidPdf": "Не вдалося прочитати цей файл як PDF.",
+    "encryptedPdf": "Цей PDF захищено паролем. Розблокуйте його за допомогою «Розблокування PDF» і спробуйте ще раз.",
+    "compressFailed": "Не вдалося стиснути цей PDF. Спробуйте інший файл.",
+    "noSavingsTitle": "Мало або немає зменшення розміру",
+    "noSavingsHint": "Ваш PDF уже був компактним. Завантажений файл лишається чистою копією за стандартами.",
+    "savedToast": "Приблизно на {percent}% менший ({before} → {after})"
+  },
+  "JpgToPdf": {
+    "intro": "Конвертуйте зображення JPG у PDF за секунди. Легко налаштуйте орієнтацію та поля.",
+    "privacyNote": "Ваші файли ніколи не залишають цей браузер.",
+    "orderHint": "Файли зверху стануть першими сторінками PDF. Стрілками змінюйте порядок.",
+    "rotationLabel": "Поворот (усі сторінки)",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "Однакові поля",
+    "marginValue": "{mm} мм",
+    "addImages": "Додати JPEG",
+    "clearAll": "Очистити список",
+    "downloadPdf": "Створити PDF і завантажити",
+    "building": "Створення PDF…",
+    "moveUpAria": "Вгору",
+    "moveDownAria": "Вниз",
+    "removeFileAria": "Прибрати зі списку",
+    "minOneJpeg": "Додайте принаймні один файл JPEG.",
+    "invalidJpeg": "Цей файл не є дійсним JPEG (JPG).",
+    "buildFailed": "Не вдалося створити PDF. Приберіть непідтримувані файли й спробуйте знову."
   }
 }

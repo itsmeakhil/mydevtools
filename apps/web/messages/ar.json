@@ -47,7 +47,13 @@
     "mockDataGenerator": "مولّد بيانات وهمية",
     "svgOptimizer": "محسّن SVG",
     "unitConverter": "محوّل الوحدات",
-    "dockerComposeGenerator": "مولّد Docker Compose"
+    "dockerComposeGenerator": "مولّد Docker Compose",
+    "pdfUnlocker": "إلغاء قفل PDF",
+    "pdfLocker": "قفل PDF",
+    "pdfMerge": "دمج ملفات PDF",
+    "pdfCompressor": "ضغط ملفات PDF",
+    "jpgToPdf": "من JPG إلى PDF",
+    "pdfToJpg": "PDF إلى JPG"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -415,6 +421,30 @@
       "dockerComposeGenerator": {
         "title": "مولّد Docker Compose",
         "description": "اختر قواعد البيانات والتخزين المؤقت والطوابير والوكلاء وصور المراقبة؛ صدّر docker-compose.yml للمكدسات المحلية."
+      },
+      "pdfUnlocker": {
+        "title": "إلغاء قفل PDF",
+        "description": "أزل كلمة مرور فتح ملف PDF وحمّل نسخة غير مقفلة في المتصفح."
+      },
+      "pdfLocker": {
+        "title": "قفل PDF",
+        "description": "احمِ ملف PDF بكلمة مرور (AES-256) وحمّل نسخة مقفلة في المتصفح."
+      },
+      "pdfMerge": {
+        "title": "دمج ملفات PDF",
+        "description": "ادمج ملفات PDF بالترتيب الذي تريده بأبسط طريقة — كل شيء في المتصفح."
+      },
+      "pdfCompressor": {
+        "title": "ضغط ملفات PDF",
+        "description": "تقليل حجم الملف مع تحسين جودة PDF قدر الإمكان — في متصفحك."
+      },
+      "jpgToPdf": {
+        "title": "من JPG إلى PDF",
+        "description": "حوّل صور JPG إلى PDF في ثوانٍ. اضبط الاتجاه والهوامش بسهولة."
+      },
+      "pdfToJpg": {
+        "title": "PDF إلى JPG",
+        "description": "حوّل كل صفحة PDF إلى JPEG أو استخرج الصور المضمّنة — كل ذلك داخل المتصفح."
       }
     },
     "tabs": {
@@ -3250,5 +3280,117 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfToJpg": {
+    "privacyNote": "ملفك لا يغادر هذا المتصفح. يُحمّل عامل PDF.js من شبكة CDN عند أول تحويل.",
+    "chooseFile": "اختر PDF",
+    "pageCount": "{count, plural, one {# صفحة} other {# صفحات}}",
+    "qualityLabel": "جودة JPEG",
+    "scaleLabel": "دقة الصفحة (المقياس)",
+    "tabPages": "صفحات إلى JPG",
+    "tabEmbedded": "صور مضمّنة",
+    "pagesHint": "يعرض كل صفحة كـ JPEG بخلفية بيضاء. مقياس أعلى يعني نصًا أوضح وملفات أكبر.",
+    "embeddedHint": "يعثر على صور XObject والصور المضمّنة (RGB أو RGBA أو نقطية). قد تُتخطى أقنعة JPEG/JPX والصور أحادية البت.",
+    "downloadPages": "تنزيل كل الصفحات كـ JPG",
+    "downloadEmbedded": "استخراج الصور وتنزيلها",
+    "processing": "جارٍ العمل…",
+    "progressPage": "الصفحة {current} من {total}…",
+    "reset": "ملف آخر",
+    "invalidPdf": "تعذّر قراءة هذا الملف كـ PDF.",
+    "passwordRequired": "هذا PDF محمي بكلمة مرور. استخدم «إلغاء قفل PDF» أولًا ثم أعد المحاولة.",
+    "genericError": "تعذّر معالجة هذا PDF. جرّب ملفًا آخر.",
+    "pagesSuccess": "{count, plural, one {تم حفظ صفحة واحدة كـ JPG.} other {تم حفظ # صفحات كـ JPG.}}",
+    "embeddedSuccess": "{count, plural, one {تم حفظ صورة مضمّنة واحدة.} other {تم حفظ # صور مضمّنة.}}",
+    "noEmbeddedImages": "لم يُعثر على صور مضمّنة قابلة للاستخراج في هذه الصفحات."
+  },
+  "PdfUnlocker": {
+    "privacyNote": "ملفك لا يغادر هذا المتصفح.",
+    "chooseFile": "اختر PDF",
+    "dialogTitle": "كلمة مرور PDF",
+    "dialogDescription": "الملف محمي بكلمة مرور. أدخل كلمة مرور الفتح ثم ألغِ القفل.",
+    "passwordLabel": "كلمة المرور",
+    "passwordPlaceholder": "كلمة مرور الفتح الحالية",
+    "cancel": "إلغاء",
+    "unlock": "إلغاء القفل",
+    "processing": "جارٍ إلغاء القفل…",
+    "download": "تنزيل PDF غير مقفل",
+    "reset": "ملف آخر",
+    "invalidPdf": "تعذّر قراءة هذا الملف كـ PDF.",
+    "wrongPassword": "كلمة مرور خاطئة أو تشفير غير مدعوم لهذا الملف."
+  },
+  "PdfLocker": {
+    "privacyNote": "ملفك لا يغادر هذا المتصفح.",
+    "chooseFile": "اختر PDF",
+    "dialogTitle": "قفل هذا PDF",
+    "dialogDescription": "اختر كلمة مرور للفتح. يجب أن تتطابق في الحقلين.",
+    "passwordLabel": "كلمة المرور",
+    "passwordPlaceholder": "كلمة مرور فتح جديدة",
+    "confirmLabel": "تأكيد كلمة المرور",
+    "confirmPlaceholder": "أعد إدخال كلمة المرور",
+    "cancel": "إلغاء",
+    "lock": "قفل PDF",
+    "processing": "جارٍ التشفير…",
+    "download": "تنزيل PDF المقفل",
+    "reset": "ملف آخر",
+    "invalidPdf": "تعذّر قراءة هذا الملف كـ PDF.",
+    "alreadyEncrypted": "هذا PDF محمي بالفعل. ألغِ القفل أولاً ثم أعد القفل إن لزم.",
+    "passwordRequired": "أدخل كلمة مرور.",
+    "passwordMismatch": "كلمتا المرور غير متطابقتين.",
+    "genericError": "تعذّر تشفير هذا PDF. جرّب ملفاً آخر أو كلمة مرور أقصر."
+  },
+  "PdfMerge": {
+    "intro": "ادمج ملفات PDF بالترتيب الذي تريده بأبسط أداة دمج.",
+    "privacyNote": "ملفاتك لا تغادر هذا المتصفح.",
+    "orderHint": "الملفات في الأعلى تأتي أولاً في ملف PDF المدمج. أعد الترتيب بالأسهم.",
+    "addPdfs": "إضافة PDF",
+    "clearAll": "مسح القائمة",
+    "mergeDownload": "دمج وتنزيل",
+    "merging": "جارٍ الدمج…",
+    "pages": "{count} صفحة",
+    "moveUpAria": "تحريك لأعلى",
+    "moveDownAria": "تحريك لأسفل",
+    "removeFileAria": "إزالة من القائمة",
+    "minTwoPdfs": "أضف ملفي PDF على الأقل للدمج.",
+    "invalidPdf": "تعذّر قراءة هذا الملف كـ PDF.",
+    "mergeFailed": "تعذّر الدمج. أزل ملفات PDF المحمية أو التالفة وحاول مجددًا."
+  },
+  "PdfCompressor": {
+    "intro": "تقليل حجم الملف مع تحسين جودة PDF قدر الإمكان.",
+    "privacyNote": "ملفك لا يغادر هذا المتصفح.",
+    "methodHint": "نعيد بناء ملف PDF باستخدام تدفقات كائنات مضغوطة (دون فقدان لمحتوى الصفحات). الملفات المحمية بكلمة مرور غير مدعومة — استخدم إلغاء قفل PDF أولاً.",
+    "chooseFile": "اختر PDF",
+    "reset": "ملف آخر",
+    "pageCount": "{count, plural, one {# صفحة} other {# صفحات}}",
+    "originalSize": "الأصل: {size}",
+    "compressDownload": "ضغط وتنزيل",
+    "compressing": "جارٍ الضغط…",
+    "invalidPdf": "تعذّر قراءة هذا الملف كملف PDF.",
+    "encryptedPdf": "هذا PDF محمي بكلمة مرور. افتح قفله باستخدام إلغاء قفل PDF، ثم أعد المحاولة.",
+    "compressFailed": "تعذّر ضغط هذا PDF. جرّب ملفًا آخر.",
+    "noSavingsTitle": "تقليل حجم طفيف أو معدوم",
+    "noSavingsHint": "كان ملف PDF مضغوطًا بالفعل. الملف الذي تم تنزيله لا يزال نسخة نظيفة ومتوافقة مع المعايير.",
+    "savedToast": "أصغر بحوالي {percent}% ({before} → {after})"
+  },
+  "JpgToPdf": {
+    "intro": "حوّل صور JPG إلى PDF في ثوانٍ. اضبط الاتجاه والهوامش بسهولة.",
+    "privacyNote": "ملفاتك لا تغادر هذا المتصفح أبدًا.",
+    "orderHint": "الملفات في الأعلى تصبح الصفحات الأولى في ملف PDF. استخدم الأسهم لإعادة الترتيب.",
+    "rotationLabel": "الاستدارة (كل الصفحات)",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "هامش موحّد",
+    "marginValue": "{mm} مم",
+    "addImages": "إضافة ملفات JPEG",
+    "clearAll": "مسح القائمة",
+    "downloadPdf": "إنشاء PDF وتنزيله",
+    "building": "جارٍ إنشاء PDF…",
+    "moveUpAria": "تحريك لأعلى",
+    "moveDownAria": "تحريك لأسفل",
+    "removeFileAria": "إزالة من القائمة",
+    "minOneJpeg": "أضف ملف JPEG واحدًا على الأقل.",
+    "invalidJpeg": "هذا الملف ليس JPEG (JPG) صالحًا.",
+    "buildFailed": "تعذّر إنشاء ملف PDF. أزل الملفات غير المدعومة وحاول مرة أخرى."
   }
 }

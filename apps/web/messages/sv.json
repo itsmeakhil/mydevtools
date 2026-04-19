@@ -47,7 +47,13 @@
     "mockDataGenerator": "Mock-datagenerator",
     "svgOptimizer": "SVG-optimering",
     "unitConverter": "Enhetsomvandlare",
-    "dockerComposeGenerator": "Docker Compose-generator"
+    "dockerComposeGenerator": "Docker Compose-generator",
+    "pdfUnlocker": "Lås upp PDF",
+    "pdfLocker": "Lås PDF",
+    "pdfMerge": "Sammanfoga PDF",
+    "pdfCompressor": "Komprimera PDF-filer",
+    "jpgToPdf": "JPG till PDF",
+    "pdfToJpg": "PDF till JPG"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -415,6 +421,30 @@
       "dockerComposeGenerator": {
         "title": "Docker Compose-generator",
         "description": "Välj databaser, cache, köer, proxys och observabilitetsbilder; exportera docker-compose.yml för lokala stackar."
+      },
+      "pdfUnlocker": {
+        "title": "Lås upp PDF",
+        "description": "Ta bort öppningslösenordet från en PDF och ladda ner en upplåst kopia i webbläsaren."
+      },
+      "pdfLocker": {
+        "title": "Lås PDF",
+        "description": "Skydda en PDF med lösenord (AES-256) och ladda ner en låst kopia i webbläsaren."
+      },
+      "pdfMerge": {
+        "title": "Sammanfoga PDF-filer",
+        "description": "Kombinera PDF:er i den ordning du vill — enklast möjligt, helt i webbläsaren."
+      },
+      "pdfCompressor": {
+        "title": "Komprimera PDF-filer",
+        "description": "Minska filstorleken och optimera för maximal PDF-kvalitet — i din webbläsare."
+      },
+      "jpgToPdf": {
+        "title": "JPG till PDF",
+        "description": "Konvertera JPG-bilder till PDF på några sekunder. Justera enkelt orientering och marginaler."
+      },
+      "pdfToJpg": {
+        "title": "PDF till JPG",
+        "description": "Rasterisera varje PDF-sida till JPEG eller extrahera inbäddade bilder — allt i webbläsaren."
       }
     },
     "tabs": {
@@ -3250,5 +3280,117 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfToJpg": {
+    "privacyNote": "Din fil lämnar aldrig den här webbläsaren. PDF.js-arbetaren laddas från ett CDN första gången du konverterar.",
+    "chooseFile": "Välj PDF",
+    "pageCount": "{count, plural, one {# sida} other {# sidor}}",
+    "qualityLabel": "JPEG-kvalitet",
+    "scaleLabel": "Sidupplösning (skala)",
+    "tabPages": "Sidor till JPG",
+    "tabEmbedded": "Inbäddade bilder",
+    "pagesHint": "Renderar varje sida som JPEG med vit bakgrund. Högre skala ger skarpare text och större filer.",
+    "embeddedHint": "Hittar XObject- och inline-bilder (RGB, RGBA eller bitmap). JPEG/JPX-masker och 1-bitarsbilder kan hoppas över.",
+    "downloadPages": "Ladda ner alla sidor som JPG",
+    "downloadEmbedded": "Extrahera och ladda ner bilder",
+    "processing": "Arbetar…",
+    "progressPage": "Sida {current} av {total}…",
+    "reset": "Annan fil",
+    "invalidPdf": "Kunde inte läsa den här filen som PDF.",
+    "passwordRequired": "Den här PDF:en kräver lösenord. Använd Lås upp PDF först och försök igen.",
+    "genericError": "Kunde inte bearbeta den här PDF:en. Prova en annan fil.",
+    "pagesSuccess": "{count, plural, one {# sida sparad som JPG.} other {# sidor sparade som JPG.}}",
+    "embeddedSuccess": "{count, plural, one {# inbäddad bild sparad.} other {# inbäddade bilder sparade.}}",
+    "noEmbeddedImages": "Inga extraherbara inbäddade bilder hittades på dessa sidor."
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Din fil lämnar aldrig den här webbläsaren.",
+    "chooseFile": "Välj PDF",
+    "dialogTitle": "PDF-lösenord",
+    "dialogDescription": "Filen är lösenordsskyddad. Ange öppningslösenordet och lås upp.",
+    "passwordLabel": "Lösenord",
+    "passwordPlaceholder": "Nuvarande öppningslösenord",
+    "cancel": "Avbryt",
+    "unlock": "Lås upp",
+    "processing": "Låser upp…",
+    "download": "Ladda ner upplåst PDF",
+    "reset": "Annan fil",
+    "invalidPdf": "Kunde inte läsa filen som PDF.",
+    "wrongPassword": "Fel lösenord eller kryptering som inte stöds för denna PDF."
+  },
+  "PdfLocker": {
+    "privacyNote": "Din fil lämnar aldrig den här webbläsaren.",
+    "chooseFile": "Välj PDF",
+    "dialogTitle": "Lås denna PDF",
+    "dialogDescription": "Välj ett öppningslösenord. Det måste stämma i båda fälten.",
+    "passwordLabel": "Lösenord",
+    "passwordPlaceholder": "Nytt öppningslösenord",
+    "confirmLabel": "Bekräfta lösenord",
+    "confirmPlaceholder": "Upprepa lösenord",
+    "cancel": "Avbryt",
+    "lock": "Lås PDF",
+    "processing": "Krypterar…",
+    "download": "Ladda ner låst PDF",
+    "reset": "Annan fil",
+    "invalidPdf": "Kunde inte läsa filen som PDF.",
+    "alreadyEncrypted": "Denna PDF är redan lösenordsskyddad. Lås upp först och lås sedan igen vid behov.",
+    "passwordRequired": "Ange ett lösenord.",
+    "passwordMismatch": "Lösenorden matchar inte.",
+    "genericError": "Kunde inte kryptera denna PDF. Prova en annan fil eller ett kortare lösenord."
+  },
+  "PdfMerge": {
+    "intro": "Kombinera PDF:er i den ordning du vill med den enklaste sammanslagningen.",
+    "privacyNote": "Dina filer lämnar aldrig den här webbläsaren.",
+    "orderHint": "Filer högst upp kommer först i den sammanslagna PDF:en. Ordna om med pilarna.",
+    "addPdfs": "Lägg till PDF:er",
+    "clearAll": "Töm listan",
+    "mergeDownload": "Sammanfoga och ladda ner",
+    "merging": "Sammanfogar…",
+    "pages": "{count} sidor",
+    "moveUpAria": "Flytta upp",
+    "moveDownAria": "Flytta ner",
+    "removeFileAria": "Ta bort från listan",
+    "minTwoPdfs": "Lägg till minst två PDF-filer att sammanfoga.",
+    "invalidPdf": "Kunde inte läsa filen som PDF.",
+    "mergeFailed": "Kunde inte sammanfoga. Ta bort lösenordsskyddade eller skadade PDF:er och försök igen."
+  },
+  "PdfCompressor": {
+    "intro": "Minska filstorleken och optimera för maximal PDF-kvalitet.",
+    "privacyNote": "Din fil lämnar aldrig den här webbläsaren.",
+    "methodHint": "Vi bygger om PDF:en med komprimerade objektströmmar (förlustfritt för sidinnehåll). Lösenordsskyddade filer stöds inte — använd Lås upp PDF först.",
+    "chooseFile": "Välj PDF",
+    "reset": "Annan fil",
+    "pageCount": "{count, plural, one {# sida} other {# sidor}}",
+    "originalSize": "Original: {size}",
+    "compressDownload": "Komprimera och ladda ner",
+    "compressing": "Komprimerar…",
+    "invalidPdf": "Kunde inte läsa den här filen som en PDF.",
+    "encryptedPdf": "Den här PDF:en är lösenordsskyddad. Lås upp den med Lås upp PDF och försök igen.",
+    "compressFailed": "Kunde inte komprimera den här PDF:en. Prova en annan fil.",
+    "noSavingsTitle": "Liten eller ingen storleksminskning",
+    "noSavingsHint": "Din PDF var redan kompakt. Den nedladdade filen är fortfarande en ren, standardbaserad kopia.",
+    "savedToast": "Ungefär {percent} % mindre ({before} → {after})"
+  },
+  "JpgToPdf": {
+    "intro": "Konvertera JPG-bilder till PDF på några sekunder. Justera enkelt orientering och marginaler.",
+    "privacyNote": "Dina filer lämnar aldrig den här webbläsaren.",
+    "orderHint": "Filer högst upp blir de första sidorna i PDF:en. Använd pilarna för att ändra ordning.",
+    "rotationLabel": "Rotation (alla sidor)",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "Enhetlig marginal",
+    "marginValue": "{mm} mm",
+    "addImages": "Lägg till JPEG-filer",
+    "clearAll": "Rensa listan",
+    "downloadPdf": "Skapa PDF och ladda ner",
+    "building": "Skapar PDF…",
+    "moveUpAria": "Flytta upp",
+    "moveDownAria": "Flytta ned",
+    "removeFileAria": "Ta bort från listan",
+    "minOneJpeg": "Lägg till minst en JPEG-fil.",
+    "invalidJpeg": "Den här filen är inte en giltig JPEG (JPG).",
+    "buildFailed": "Det gick inte att skapa PDF:en. Ta bort filer som inte stöds och försök igen."
   }
 }

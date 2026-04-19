@@ -61,8 +61,6 @@ export function NavGroup({ title, items, collapsible, icon: Icon, hiddenOnMobile
   // Filter items based on mobile state and tool availability
   const visibleItems = items
     .filter((item) => {
-      if (isMobile && item.hiddenOnMobile) return false;
-      
       const itemUrl = typeof item.url === "string" ? item.url : item.url?.toString() || '';
       if (itemUrl.startsWith('/app/') && !isToolEnabled(itemUrl)) {
         return false;
@@ -89,8 +87,7 @@ export function NavGroup({ title, items, collapsible, icon: Icon, hiddenOnMobile
       return true;
     });
 
-  // If group is hidden on mobile or has no visible items, don't render
-  if ((isMobile && hiddenOnMobile) || visibleItems.length === 0) {
+  if (visibleItems.length === 0) {
     return null;
   }
 

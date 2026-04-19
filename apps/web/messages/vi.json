@@ -47,7 +47,13 @@
     "mockDataGenerator": "Trình tạo dữ liệu giả",
     "svgOptimizer": "Tối ưu SVG",
     "unitConverter": "Chuyển đổi đơn vị",
-    "dockerComposeGenerator": "Trình tạo Docker Compose"
+    "dockerComposeGenerator": "Trình tạo Docker Compose",
+    "pdfUnlocker": "Mở khóa PDF",
+    "pdfLocker": "Khóa PDF",
+    "pdfMerge": "Gộp PDF",
+    "pdfCompressor": "Nén tệp PDF",
+    "jpgToPdf": "JPG sang PDF",
+    "pdfToJpg": "PDF sang JPG"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -415,6 +421,30 @@
       "dockerComposeGenerator": {
         "title": "Trình tạo Docker Compose",
         "description": "Chọn cơ sở dữ liệu, bộ nhớ đệm, hàng đợi, proxy và image quan sát; xuất docker-compose.yml cho stack cục bộ."
+      },
+      "pdfUnlocker": {
+        "title": "Mở khóa PDF",
+        "description": "Gỡ mật khẩu mở file PDF và tải bản đã mở khóa ngay trong trình duyệt."
+      },
+      "pdfLocker": {
+        "title": "Khóa PDF",
+        "description": "Bảo vệ PDF bằng mật khẩu (AES-256) và tải bản đã khóa ngay trong trình duyệt."
+      },
+      "pdfMerge": {
+        "title": "Gộp tệp PDF",
+        "description": "Gộp các PDF theo thứ tự bạn muốn, cách đơn giản nhất — hoàn toàn trên trình duyệt."
+      },
+      "pdfCompressor": {
+        "title": "Nén tệp PDF",
+        "description": "Giảm dung lượng tối ưu cho chất lượng PDF tối đa — ngay trên trình duyệt."
+      },
+      "jpgToPdf": {
+        "title": "JPG sang PDF",
+        "description": "Chuyển ảnh JPG sang PDF trong vài giây. Điều chỉnh hướng và lề dễ dàng."
+      },
+      "pdfToJpg": {
+        "title": "PDF sang JPG",
+        "description": "Raster hóa từng trang PDF thành JPEG hoặc trích ảnh nhúng — tất cả trong trình duyệt."
       }
     },
     "tabs": {
@@ -3250,5 +3280,117 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfToJpg": {
+    "privacyNote": "Tệp của bạn không rời khỏi trình duyệt này. Worker PDF.js được tải từ CDN lần đầu bạn chuyển đổi.",
+    "chooseFile": "Chọn PDF",
+    "pageCount": "{count, plural, other {# trang}}",
+    "qualityLabel": "Chất lượng JPEG",
+    "scaleLabel": "Độ phân giải trang (tỷ lệ)",
+    "tabPages": "Trang sang JPG",
+    "tabEmbedded": "Ảnh nhúng",
+    "pagesHint": "Kết xuất mỗi trang thành JPEG nền trắng. Tỷ lệ cao hơn cho chữ sắc nét hơn và tệp lớn hơn.",
+    "embeddedHint": "Tìm ảnh XObject và inline (RGB, RGBA hoặc bitmap). Mặt nạ JPEG/JPX và ảnh 1 bit có thể bị bỏ qua.",
+    "downloadPages": "Tải xuống tất cả trang dạng JPG",
+    "downloadEmbedded": "Trích xuất và tải ảnh",
+    "processing": "Đang xử lý…",
+    "progressPage": "Trang {current} / {total}…",
+    "reset": "Tệp khác",
+    "invalidPdf": "Không đọc được tệp này dưới dạng PDF.",
+    "passwordRequired": "PDF này cần mật khẩu. Hãy dùng Mở khóa PDF trước, rồi thử lại.",
+    "genericError": "Không xử lý được PDF này. Hãy thử tệp khác.",
+    "pagesSuccess": "{count, plural, other {Đã lưu # trang dưới dạng JPG.}}",
+    "embeddedSuccess": "{count, plural, other {Đã lưu # ảnh nhúng.}}",
+    "noEmbeddedImages": "Không tìm thấy ảnh nhúng có thể trích trên các trang này."
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Tệp của bạn không rời khỏi trình duyệt này.",
+    "chooseFile": "Chọn PDF",
+    "dialogTitle": "Mật khẩu PDF",
+    "dialogDescription": "Tệp được bảo vệ bằng mật khẩu. Nhập mật khẩu mở rồi mở khóa.",
+    "passwordLabel": "Mật khẩu",
+    "passwordPlaceholder": "Mật khẩu mở hiện tại",
+    "cancel": "Hủy",
+    "unlock": "Mở khóa",
+    "processing": "Đang mở khóa…",
+    "download": "Tải PDF đã mở khóa",
+    "reset": "Tệp khác",
+    "invalidPdf": "Không đọc được tệp này dưới dạng PDF.",
+    "wrongPassword": "Sai mật khẩu hoặc mã hóa không được hỗ trợ cho PDF này."
+  },
+  "PdfLocker": {
+    "privacyNote": "Tệp của bạn không rời khỏi trình duyệt này.",
+    "chooseFile": "Chọn PDF",
+    "dialogTitle": "Khóa PDF này",
+    "dialogDescription": "Chọn mật khẩu mở. Phải trùng khớp ở cả hai ô.",
+    "passwordLabel": "Mật khẩu",
+    "passwordPlaceholder": "Mật khẩu mở mới",
+    "confirmLabel": "Xác nhận mật khẩu",
+    "confirmPlaceholder": "Nhập lại mật khẩu",
+    "cancel": "Hủy",
+    "lock": "Khóa PDF",
+    "processing": "Đang mã hóa…",
+    "download": "Tải PDF đã khóa",
+    "reset": "Tệp khác",
+    "invalidPdf": "Không đọc được tệp này dưới dạng PDF.",
+    "alreadyEncrypted": "PDF này đã được bảo vệ mật khẩu. Hãy mở khóa trước, rồi khóa lại nếu cần.",
+    "passwordRequired": "Nhập mật khẩu.",
+    "passwordMismatch": "Hai mật khẩu không khớp.",
+    "genericError": "Không mã hóa được PDF này. Thử tệp khác hoặc mật khẩu ngắn hơn."
+  },
+  "PdfMerge": {
+    "intro": "Gộp PDF theo thứ tự bạn muốn với công cụ gộp đơn giản nhất.",
+    "privacyNote": "Tệp của bạn không rời khỏi trình duyệt này.",
+    "orderHint": "Tệp ở trên cùng sẽ đứng trước trong PDF đã gộp. Dùng mũi tên để sắp xếp lại.",
+    "addPdfs": "Thêm PDF",
+    "clearAll": "Xóa danh sách",
+    "mergeDownload": "Gộp và tải xuống",
+    "merging": "Đang gộp…",
+    "pages": "{count} trang",
+    "moveUpAria": "Lên trên",
+    "moveDownAria": "Xuống dưới",
+    "removeFileAria": "Xóa khỏi danh sách",
+    "minTwoPdfs": "Thêm ít nhất hai tệp PDF để gộp.",
+    "invalidPdf": "Không đọc được tệp này dưới dạng PDF.",
+    "mergeFailed": "Không gộp được. Hãy bỏ các PDF có mật khẩu hoặc bị hỏng rồi thử lại."
+  },
+  "PdfCompressor": {
+    "intro": "Giảm dung lượng tối ưu cho chất lượng PDF tối đa.",
+    "privacyNote": "Tệp của bạn không bao giờ rời khỏi trình duyệt này.",
+    "methodHint": "Chúng tôi dựng lại PDF bằng luồng đối tượng nén (không mất dữ liệu nội dung trang). Không hỗ trợ tệp có mật khẩu — hãy dùng Mở khóa PDF trước.",
+    "chooseFile": "Chọn PDF",
+    "reset": "Tệp khác",
+    "pageCount": "{count, plural, other {# trang}}",
+    "originalSize": "Gốc: {size}",
+    "compressDownload": "Nén và tải xuống",
+    "compressing": "Đang nén…",
+    "invalidPdf": "Không đọc được tệp này dưới dạng PDF.",
+    "encryptedPdf": "PDF này được bảo vệ bằng mật khẩu. Hãy mở khóa bằng Mở khóa PDF rồi thử lại.",
+    "compressFailed": "Không thể nén PDF này. Hãy thử tệp khác.",
+    "noSavingsTitle": "Giảm dung lượng ít hoặc không có",
+    "noSavingsHint": "PDF của bạn đã khá gọn. Tệp tải xuống vẫn là bản sao sạch, tuân thủ chuẩn.",
+    "savedToast": "Giảm khoảng {percent}% ({before} → {after})"
+  },
+  "JpgToPdf": {
+    "intro": "Chuyển ảnh JPG sang PDF trong vài giây. Điều chỉnh hướng và lề dễ dàng.",
+    "privacyNote": "Tệp của bạn không bao giờ rời khỏi trình duyệt này.",
+    "orderHint": "Tệp ở trên cùng sẽ thành các trang đầu của PDF. Dùng mũi tên để sắp xếp lại.",
+    "rotationLabel": "Xoay (mọi trang)",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "Lề đều",
+    "marginValue": "{mm} mm",
+    "addImages": "Thêm JPEG",
+    "clearAll": "Xóa danh sách",
+    "downloadPdf": "Tạo PDF và tải xuống",
+    "building": "Đang tạo PDF…",
+    "moveUpAria": "Lên trên",
+    "moveDownAria": "Xuống dưới",
+    "removeFileAria": "Xóa khỏi danh sách",
+    "minOneJpeg": "Thêm ít nhất một tệp JPEG.",
+    "invalidJpeg": "Tệp này không phải JPEG (JPG) hợp lệ.",
+    "buildFailed": "Không thể tạo PDF. Hãy bỏ các tệp không được hỗ trợ và thử lại."
   }
 }

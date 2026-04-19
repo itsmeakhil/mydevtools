@@ -53,7 +53,7 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/85 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
+    <header className="glass-nav sticky top-0 z-50 w-full">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -166,7 +166,7 @@ export function Header() {
               exit="closed"
               className="md:hidden overflow-hidden relative z-50"
             >
-              <nav className="bg-background/95 backdrop-blur-xl border-t border-border/40">
+              <nav className="bg-background/95 backdrop-blur-xl border-t border-border/40 dark:border-white/5">
                 <div className="px-4 py-4 space-y-1">
                   {mobileNavLinks.map((link, index) => (
                     <motion.div

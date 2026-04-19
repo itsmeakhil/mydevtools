@@ -47,7 +47,13 @@
     "mockDataGenerator": "Generator danych testowych",
     "svgOptimizer": "Optymalizator SVG",
     "unitConverter": "Konwerter jednostek",
-    "dockerComposeGenerator": "Generator Docker Compose"
+    "dockerComposeGenerator": "Generator Docker Compose",
+    "pdfUnlocker": "Odblokuj PDF",
+    "pdfLocker": "Zabezpiecz PDF",
+    "pdfMerge": "Scalaj PDF",
+    "pdfCompressor": "Kompresja plików PDF",
+    "jpgToPdf": "JPG do PDF",
+    "pdfToJpg": "PDF do JPG"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -415,6 +421,30 @@
       "dockerComposeGenerator": {
         "title": "Generator Docker Compose",
         "description": "Wybierz bazy danych, pamięć podręczną, kolejki, proxy i obserwowalność; eksportuj docker-compose.yml dla lokalnych stacków."
+      },
+      "pdfUnlocker": {
+        "title": "Odblokuj PDF",
+        "description": "Usuń hasło otwarcia z pliku PDF i pobierz odblokowaną kopię w przeglądarce."
+      },
+      "pdfLocker": {
+        "title": "Zabezpiecz PDF",
+        "description": "Chroń plik PDF hasłem (AES-256) i pobierz zablokowaną kopię w przeglądarce."
+      },
+      "pdfMerge": {
+        "title": "Scalanie plików PDF",
+        "description": "Łącz PDF-y w wybranej kolejności w najprostszy sposób — wszystko w przeglądarce."
+      },
+      "pdfCompressor": {
+        "title": "Kompresja plików PDF",
+        "description": "Zmniejsz rozmiar pliku, zachowując maksymalną jakość PDF — w przeglądarce."
+      },
+      "jpgToPdf": {
+        "title": "JPG do PDF",
+        "description": "Konwertuj obrazy JPG na PDF w kilka sekund. Łatwo dostosuj orientację i marginesy."
+      },
+      "pdfToJpg": {
+        "title": "PDF do JPG",
+        "description": "Rasteruj każdą stronę PDF do JPEG lub wyodrębnij osadzone obrazy — wszystko w przeglądarce."
       }
     },
     "tabs": {
@@ -3250,5 +3280,117 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfToJpg": {
+    "privacyNote": "Plik nie opuszcza tej przeglądarki. Worker PDF.js jest ładowany z CDN przy pierwszej konwersji.",
+    "chooseFile": "Wybierz PDF",
+    "pageCount": "{count, plural, one {# strona} few {# strony} many {# stron} other {# strony}}",
+    "qualityLabel": "Jakość JPEG",
+    "scaleLabel": "Rozdzielczość strony (skala)",
+    "tabPages": "Strony do JPG",
+    "tabEmbedded": "Obrazy osadzone",
+    "pagesHint": "Renderuje każdą stronę jako JPEG z białym tłem. Wyższa skala oznacza ostrzejszy tekst i większe pliki.",
+    "embeddedHint": "Wykrywa obrazy XObject i inline (RGB, RGBA lub mapa bitowa). Maski JPEG/JPX i obrazy 1-bitowe mogą zostać pominięte.",
+    "downloadPages": "Pobierz wszystkie strony jako JPG",
+    "downloadEmbedded": "Wyodrębnij i pobierz obrazy",
+    "processing": "Przetwarzanie…",
+    "progressPage": "Strona {current} z {total}…",
+    "reset": "Inny plik",
+    "invalidPdf": "Nie można odczytać tego pliku jako PDF.",
+    "passwordRequired": "Ten PDF wymaga hasła. Najpierw użyj Odblokuj PDF i spróbuj ponownie.",
+    "genericError": "Nie można przetworzyć tego PDF. Spróbuj innego pliku.",
+    "pagesSuccess": "{count, plural, one {Zapisano # stronę jako JPG.} few {Zapisano # strony jako JPG.} many {Zapisano # stron jako JPG.} other {Zapisano # stron jako JPG.}}",
+    "embeddedSuccess": "{count, plural, one {Zapisano # osadzony obraz.} few {Zapisano # osadzone obrazy.} many {Zapisano # osadzonych obrazów.} other {Zapisano # osadzonych obrazów.}}",
+    "noEmbeddedImages": "Nie znaleziono wyodrębnialnych obrazów osadzonych na tych stronach."
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Plik nie opuszcza tej przeglądarki.",
+    "chooseFile": "Wybierz PDF",
+    "dialogTitle": "Hasło do PDF",
+    "dialogDescription": "Plik jest chroniony hasłem. Wprowadź hasło otwarcia, a następnie odblokuj.",
+    "passwordLabel": "Hasło",
+    "passwordPlaceholder": "Obecne hasło otwarcia",
+    "cancel": "Anuluj",
+    "unlock": "Odblokuj",
+    "processing": "Odblokowywanie…",
+    "download": "Pobierz odblokowany PDF",
+    "reset": "Inny plik",
+    "invalidPdf": "Nie można odczytać tego pliku jako PDF.",
+    "wrongPassword": "Nieprawidłowe hasło lub szyfrowanie nieobsługiwane dla tego PDF."
+  },
+  "PdfLocker": {
+    "privacyNote": "Plik nie opuszcza tej przeglądarki.",
+    "chooseFile": "Wybierz PDF",
+    "dialogTitle": "Zabezpiecz ten PDF",
+    "dialogDescription": "Wybierz hasło otwarcia. Musi być takie samo w obu polach.",
+    "passwordLabel": "Hasło",
+    "passwordPlaceholder": "Nowe hasło otwarcia",
+    "confirmLabel": "Potwierdź hasło",
+    "confirmPlaceholder": "Powtórz hasło",
+    "cancel": "Anuluj",
+    "lock": "Zabezpiecz PDF",
+    "processing": "Szyfrowanie…",
+    "download": "Pobierz zabezpieczony PDF",
+    "reset": "Inny plik",
+    "invalidPdf": "Nie można odczytać tego pliku jako PDF.",
+    "alreadyEncrypted": "Ten PDF jest już chroniony. Najpierw odblokuj go, a następnie zabezpiecz ponownie w razie potrzeby.",
+    "passwordRequired": "Wprowadź hasło.",
+    "passwordMismatch": "Hasła nie są zgodne.",
+    "genericError": "Nie można zaszyfrować tego PDF. Spróbuj innego pliku lub krótszego hasła."
+  },
+  "PdfMerge": {
+    "intro": "Łącz PDF-y w wybranej kolejności — najprostszy sposób scalania.",
+    "privacyNote": "Twoje pliki nie opuszczają tej przeglądarki.",
+    "orderHint": "Pliki u góry są pierwsze w scalonym PDF. Strzałkami zmieniaj kolejność.",
+    "addPdfs": "Dodaj PDF",
+    "clearAll": "Wyczyść listę",
+    "mergeDownload": "Scal i pobierz",
+    "merging": "Scalanie…",
+    "pages": "{count} stron",
+    "moveUpAria": "W górę",
+    "moveDownAria": "W dół",
+    "removeFileAria": "Usuń z listy",
+    "minTwoPdfs": "Dodaj co najmniej dwa pliki PDF do scalenia.",
+    "invalidPdf": "Nie można odczytać tego pliku jako PDF.",
+    "mergeFailed": "Nie udało się scalić. Usuń pliki chronione hasłem lub uszkodzone i spróbuj ponownie."
+  },
+  "PdfCompressor": {
+    "intro": "Zmniejsz rozmiar pliku, zachowując maksymalną jakość PDF.",
+    "privacyNote": "Plik nie opuszcza tej przeglądarki.",
+    "methodHint": "Odbudowujemy PDF ze skompresowanymi strumieniami obiektów (bezstratnie dla treści stron). Pliki chronione hasłem nie są obsługiwane — najpierw użyj Odblokuj PDF.",
+    "chooseFile": "Wybierz PDF",
+    "reset": "Inny plik",
+    "pageCount": "{count, plural, one {# strona} few {# strony} many {# stron} other {# stron}}",
+    "originalSize": "Oryginał: {size}",
+    "compressDownload": "Kompresuj i pobierz",
+    "compressing": "Kompresowanie…",
+    "invalidPdf": "Nie można odczytać tego pliku jako PDF.",
+    "encryptedPdf": "Ten PDF jest chroniony hasłem. Odblokuj go za pomocą Odblokuj PDF i spróbuj ponownie.",
+    "compressFailed": "Nie udało się skompresować tego PDF. Spróbuj innego pliku.",
+    "noSavingsTitle": "Niewielka lub brak redukcji rozmiaru",
+    "noSavingsHint": "Twój PDF był już zwarty. Pobrany plik to nadal czysta kopia zgodna ze standardami.",
+    "savedToast": "O ok. {percent}% mniejszy ({before} → {after})"
+  },
+  "JpgToPdf": {
+    "intro": "Konwertuj obrazy JPG na PDF w kilka sekund. Łatwo dostosuj orientację i marginesy.",
+    "privacyNote": "Twoje pliki nigdy nie opuszczają tej przeglądarki.",
+    "orderHint": "Pliki u góry stają się pierwszymi stronami PDF. Strzałkami zmienisz kolejność.",
+    "rotationLabel": "Obrót (wszystkie strony)",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "Jednolity margines",
+    "marginValue": "{mm} mm",
+    "addImages": "Dodaj pliki JPEG",
+    "clearAll": "Wyczyść listę",
+    "downloadPdf": "Utwórz PDF i pobierz",
+    "building": "Tworzenie PDF…",
+    "moveUpAria": "W górę",
+    "moveDownAria": "W dół",
+    "removeFileAria": "Usuń z listy",
+    "minOneJpeg": "Dodaj co najmniej jeden plik JPEG.",
+    "invalidJpeg": "Ten plik nie jest prawidłowym JPEG (JPG).",
+    "buildFailed": "Nie można utworzyć PDF. Usuń nieobsługiwane pliki i spróbuj ponownie."
   }
 }

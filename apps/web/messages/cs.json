@@ -47,7 +47,13 @@
     "mockDataGenerator": "Generátor testovacích dat",
     "svgOptimizer": "Optimalizátor SVG",
     "unitConverter": "Převodník jednotek",
-    "dockerComposeGenerator": "Generátor Docker Compose"
+    "dockerComposeGenerator": "Generátor Docker Compose",
+    "pdfUnlocker": "Odemknout PDF",
+    "pdfLocker": "Zamknout PDF",
+    "pdfMerge": "Sloučit PDF",
+    "pdfCompressor": "Komprimovat soubory PDF",
+    "jpgToPdf": "JPG do PDF",
+    "pdfToJpg": "PDF do JPG"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -415,6 +421,30 @@
       "dockerComposeGenerator": {
         "title": "Generátor Docker Compose",
         "description": "Vyberte databáze, cache, fronty, proxy a observabilitu; exportujte docker-compose.yml pro lokální stacky."
+      },
+      "pdfUnlocker": {
+        "title": "Odemknout PDF",
+        "description": "Odstraňte heslo pro otevření z PDF a stáhněte odemčenou kopii v prohlížeči."
+      },
+      "pdfLocker": {
+        "title": "Zamknout PDF",
+        "description": "Chraňte PDF heslem (AES-256) a stáhněte zamčenou kopii v prohlížeči."
+      },
+      "pdfMerge": {
+        "title": "Sloučení souborů PDF",
+        "description": "Kombinujte PDF v pořadí, které chcete, co nejjednodušeji — vše v prohlížeči."
+      },
+      "pdfCompressor": {
+        "title": "Komprimovat soubory PDF",
+        "description": "Zmenšete velikost souboru při zachování co nejvyšší kvality PDF — v prohlížeči."
+      },
+      "jpgToPdf": {
+        "title": "JPG do PDF",
+        "description": "Převádějte obrázky JPG do PDF během několika sekund. Snadno upravíte orientaci a okraje."
+      },
+      "pdfToJpg": {
+        "title": "PDF do JPG",
+        "description": "Převeďte každou stránku PDF na JPEG nebo extrahujte vložené obrázky — vše v prohlížeči."
       }
     },
     "tabs": {
@@ -3250,5 +3280,117 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
+  },
+  "PdfToJpg": {
+    "privacyNote": "Soubor neopouští tento prohlížeč. Worker PDF.js se při prvním převodu načte z CDN.",
+    "chooseFile": "Vybrat PDF",
+    "pageCount": "{count, plural, one {# stránka} few {# stránky} other {# stránek}}",
+    "qualityLabel": "Kvalita JPEG",
+    "scaleLabel": "Rozlišení stránky (měřítko)",
+    "tabPages": "Stránky do JPG",
+    "tabEmbedded": "Vložené obrázky",
+    "pagesHint": "Vykreslí každou stránku jako JPEG s bílým pozadím. Vyšší měřítko znamená ostřejší text a větší soubory.",
+    "embeddedHint": "Hledá obrázky XObject a vložené (RGB, RGBA nebo bitmapa). Masky JPEG/JPX a 1bitové obrázky mohou být přeskočeny.",
+    "downloadPages": "Stáhnout všechny stránky jako JPG",
+    "downloadEmbedded": "Extrahovat a stáhnout obrázky",
+    "processing": "Zpracovávání…",
+    "progressPage": "Stránka {current} z {total}…",
+    "reset": "Jiný soubor",
+    "invalidPdf": "Tento soubor nelze přečíst jako PDF.",
+    "passwordRequired": "Toto PDF je chráněno heslem. Nejprve použijte Odemknout PDF a zkuste to znovu.",
+    "genericError": "Toto PDF nelze zpracovat. Zkuste jiný soubor.",
+    "pagesSuccess": "{count, plural, one {Uložena # stránka jako JPG.} few {Uloženy # stránky jako JPG.} other {Uloženo # stránek jako JPG.}}",
+    "embeddedSuccess": "{count, plural, one {Uložen # vložený obrázek.} few {Uloženy # vložené obrázky.} other {Uloženo # vložených obrázků.}}",
+    "noEmbeddedImages": "Na těchto stránkách nebyly nalezeny žádné extrahovatelné vložené obrázky."
+  },
+  "PdfUnlocker": {
+    "privacyNote": "Soubor tento prohlížeč neopouští.",
+    "chooseFile": "Vybrat PDF",
+    "dialogTitle": "Heslo k PDF",
+    "dialogDescription": "Soubor je chráněn heslem. Zadejte heslo pro otevření a odemkněte.",
+    "passwordLabel": "Heslo",
+    "passwordPlaceholder": "Současné heslo pro otevření",
+    "cancel": "Zrušit",
+    "unlock": "Odemknout",
+    "processing": "Odemykání…",
+    "download": "Stáhnout odemčené PDF",
+    "reset": "Jiný soubor",
+    "invalidPdf": "Soubor nelze přečíst jako PDF.",
+    "wrongPassword": "Nesprávné heslo nebo šifrování tohoto PDF není podporováno."
+  },
+  "PdfLocker": {
+    "privacyNote": "Soubor tento prohlížeč neopouští.",
+    "chooseFile": "Vybrat PDF",
+    "dialogTitle": "Zamknout toto PDF",
+    "dialogDescription": "Zvolte heslo pro otevření. Musí se shodovat v obou polích.",
+    "passwordLabel": "Heslo",
+    "passwordPlaceholder": "Nové heslo pro otevření",
+    "confirmLabel": "Potvrzení hesla",
+    "confirmPlaceholder": "Zopakujte heslo",
+    "cancel": "Zrušit",
+    "lock": "Zamknout PDF",
+    "processing": "Šifrování…",
+    "download": "Stáhnout zamčené PDF",
+    "reset": "Jiný soubor",
+    "invalidPdf": "Soubor nelze přečíst jako PDF.",
+    "alreadyEncrypted": "Toto PDF je již chráněno heslem. Nejprve ho odemkněte a případně znovu zamkněte.",
+    "passwordRequired": "Zadejte heslo.",
+    "passwordMismatch": "Hesla se neshodují.",
+    "genericError": "Toto PDF nelze zašifrovat. Zkuste jiný soubor nebo kratší heslo."
+  },
+  "PdfMerge": {
+    "intro": "Kombinujte PDF v pořadí, které chcete, nejjednodušeji.",
+    "privacyNote": "Vaše soubory tento prohlížeč neopouštějí.",
+    "orderHint": "Soubory nahoře jsou ve sloučeném PDF první. Pořadí měňte šipkami.",
+    "addPdfs": "Přidat PDF",
+    "clearAll": "Vymazat seznam",
+    "mergeDownload": "Sloučit a stáhnout",
+    "merging": "Slučování…",
+    "pages": "{count} str.",
+    "moveUpAria": "Nahoru",
+    "moveDownAria": "Dolů",
+    "removeFileAria": "Odebrat ze seznamu",
+    "minTwoPdfs": "Přidejte alespoň dva soubory PDF ke sloučení.",
+    "invalidPdf": "Tento soubor nelze přečíst jako PDF.",
+    "mergeFailed": "Sloučení se nezdařilo. Odeberte chráněná nebo poškozená PDF a zkuste to znovu."
+  },
+  "PdfCompressor": {
+    "intro": "Zmenšete velikost souboru při zachování co nejvyšší kvality PDF.",
+    "privacyNote": "Soubor z tohoto prohlížeče neodchází.",
+    "methodHint": "PDF znovu sestavíme se stlačenými objektovými proudy (bezztrátově pro obsah stránek). Heslem chráněné soubory nejsou podporovány — nejdřív použijte Odemknout PDF.",
+    "chooseFile": "Vybrat PDF",
+    "reset": "Jiný soubor",
+    "pageCount": "{count, plural, one {# strana} few {# strany} many {# stran} other {# stran}}",
+    "originalSize": "Původní: {size}",
+    "compressDownload": "Komprimovat a stáhnout",
+    "compressing": "Komprimuji…",
+    "invalidPdf": "Tento soubor se nepodařilo načíst jako PDF.",
+    "encryptedPdf": "Toto PDF je chráněno heslem. Nejdřív ho odemkněte pomocí Odemknout PDF a zkuste to znovu.",
+    "compressFailed": "Toto PDF se nepodařilo zkomprimovat. Zkuste jiný soubor.",
+    "noSavingsTitle": "Málo nebo žádné zmenšení",
+    "noSavingsHint": "Vaše PDF už bylo kompaktní. Stažený soubor je stále čistá kopie podle standardů.",
+    "savedToast": "Přibližně o {percent} % menší ({before} → {after})"
+  },
+  "JpgToPdf": {
+    "intro": "Převádějte obrázky JPG do PDF během několika sekund. Snadno upravíte orientaci a okraje.",
+    "privacyNote": "Vaše soubory tento prohlížeč nikdy neopustí.",
+    "orderHint": "Soubory nahoře se stanou prvními stránkami PDF. Šipkami je přeuspořádejte.",
+    "rotationLabel": "Otočení (všechny stránky)",
+    "rotation0": "0°",
+    "rotation90": "90°",
+    "rotation180": "180°",
+    "rotation270": "270°",
+    "marginLabel": "Stejné okraje",
+    "marginValue": "{mm} mm",
+    "addImages": "Přidat JPEG",
+    "clearAll": "Vymazat seznam",
+    "downloadPdf": "Vytvořit PDF a stáhnout",
+    "building": "Vytváření PDF…",
+    "moveUpAria": "Nahoru",
+    "moveDownAria": "Dolů",
+    "removeFileAria": "Odebrat ze seznamu",
+    "minOneJpeg": "Přidejte alespoň jeden soubor JPEG.",
+    "invalidJpeg": "Tento soubor není platný JPEG (JPG).",
+    "buildFailed": "PDF se nepodařilo vytvořit. Odstraňte nepodporované soubory a zkuste to znovu."
   }
 }

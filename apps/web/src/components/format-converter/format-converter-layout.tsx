@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo, useCallback } from 'react';
+import { useIsMobile } from '@/components/hooks/use-mobile';
 import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
 import { useTranslations } from 'next-intl';
@@ -57,6 +58,8 @@ export function FormatConverterLayout() {
   const t = useTranslations('FormatConverter');
   const { resolvedTheme } = useTheme();
   const monacoTheme = resolvedTheme === 'dark' ? 'vs-dark' : 'light';
+  const isMobile = useIsMobile();
+  const [mobileTab, setMobileTab] = useState<'input' | 'output'>('input');
 
   const [from, setFrom] = useState<Format>('json');
   const [to, setTo] = useState<Format>('yaml');
@@ -101,62 +104,39 @@ export function FormatConverterLayout() {
         <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
       </div>
 
-      <div className="grid h-full min-h-0 grid-cols-1 gap-4 lg:grid-cols-2">
+      {isMobile && (
+        <div className="flex shrink-0 rounded-lg border bg-muted/40 p-1 gap-1">
+          {(['input', 'output'] as const).map((tab) => (
+            <button
+              key={tab}
+              type="button"
+              onClick={() => setMobileTab(tab)}
+              className={`flex-1 rounded-md px-3 py-2 text-sm font-medium capitalize transition-all ${
+                mobileTab === tab
+                  ? 'bg-background text-foreground shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {tab === 'input' ? t('fromLabel') : t('toLabel')}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div className={`min-h-0 flex-1 ${isMobile ? 'flex flex-col' : 'grid grid-cols-2 gap-4'}`}>
         {/* Input */}
-        <Card className="flex flex-col gap-3 overflow-hidden p-4">
-          <div className="flex shrink-0 items-center gap-3">
-            <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              {t('fromLabel')}
-            </Label>
-            <Select value={from} onValueChange={(v) => handleFromChange(v as Format)}>
-              <SelectTrigger className="h-7 w-28 text-xs">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {ALL_FORMATS.map((f) => (
-                  <SelectItem key={f} value={f} className="text-xs">
-                    {FORMAT_LABELS[f]}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="relative flex-1 min-h-[300px]">
-            <MonacoEditor
-              height="100%"
-              className="absolute inset-0"
-              language={MONACO_LANG[from]}
-              value={input}
-              onChange={(v) => setInput(v ?? '')}
-              theme={monacoTheme}
-              options={{
-                ...EDITOR_OPTIONS_BASE,
-                formatOnPaste: true,
-                formatOnType: true,
-                placeholder: PLACEHOLDERS[from],
-              }}
-            />
-          </div>
-
-          <p className="shrink-0 text-xs text-muted-foreground">
-            {t('charCount', { count: input.length })}
-          </p>
-        </Card>
-
-        {/* Output */}
-        <Card className="flex flex-col gap-3 overflow-hidden p-4">
-          <div className="flex shrink-0 flex-wrap items-center justify-between gap-2">
-            <div className="flex items-center gap-3">
+        {(!isMobile || mobileTab === 'input') && (
+          <Card className="flex flex-col gap-3 overflow-hidden p-4 flex-1">
+            <div className="flex shrink-0 items-center gap-3">
               <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                {t('toLabel')}
+                {t('fromLabel')}
               </Label>
-              <Select value={to} onValueChange={(v) => setTo(v as Format)}>
+              <Select value={from} onValueChange={(v) => handleFromChange(v as Format)}>
                 <SelectTrigger className="h-7 w-28 text-xs">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {toFormats.map((f) => (
+                  {ALL_FORMATS.map((f) => (
                     <SelectItem key={f} value={f} className="text-xs">
                       {FORMAT_LABELS[f]}
                     </SelectItem>
@@ -165,52 +145,101 @@ export function FormatConverterLayout() {
               </Select>
             </div>
 
-            <div className="flex gap-2">
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={handleSwap}
-                disabled={!output}
-                title={t('swapTitle')}
-              >
-                <ArrowLeftRight className="h-4 w-4" />
-                {t('swap')}
-              </Button>
-              <Button size="sm" variant="secondary" disabled={!output} onClick={handleCopy}>
-                {copied
-                  ? <Check className="mr-1.5 h-4 w-4 text-emerald-600" />
-                  : <Copy className="mr-1.5 h-4 w-4" />}
-                {copied ? t('copied') : t('copy')}
-              </Button>
-            </div>
-          </div>
-
-          {error ? (
-            <div className="flex flex-1 min-h-[300px] gap-2 rounded-md border border-destructive/40 bg-destructive/5 p-4">
-              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
-              <span className="font-mono text-xs text-destructive break-all">{error}</span>
-            </div>
-          ) : (
             <div className="relative flex-1 min-h-[300px]">
               <MonacoEditor
                 height="100%"
                 className="absolute inset-0"
-                language={MONACO_LANG[to]}
-                value={output}
+                language={MONACO_LANG[from]}
+                value={input}
+                onChange={(v) => {
+                  setInput(v ?? '');
+                  if (isMobile && (v ?? '').trim()) setMobileTab('output');
+                }}
                 theme={monacoTheme}
                 options={{
                   ...EDITOR_OPTIONS_BASE,
-                  readOnly: true,
-                  domReadOnly: true,
-                  cursorStyle: 'line' as const,
-                  renderLineHighlight: 'none' as const,
+                  formatOnPaste: true,
+                  formatOnType: true,
+                  placeholder: PLACEHOLDERS[from],
                 }}
               />
             </div>
-          )}
 
-          <p className="shrink-0 text-xs text-muted-foreground">{t('localNote')}</p>
-        </Card>
+            <p className="shrink-0 text-xs text-muted-foreground">
+              {t('charCount', { count: input.length })}
+            </p>
+          </Card>
+        )}
+
+        {/* Output */}
+        {(!isMobile || mobileTab === 'output') && (
+          <Card className="flex flex-col gap-3 overflow-hidden p-4 flex-1">
+            <div className="flex shrink-0 flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-3">
+                <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  {t('toLabel')}
+                </Label>
+                <Select value={to} onValueChange={(v) => setTo(v as Format)}>
+                  <SelectTrigger className="h-7 w-28 text-xs">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {toFormats.map((f) => (
+                      <SelectItem key={f} value={f} className="text-xs">
+                        {FORMAT_LABELS[f]}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex gap-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={handleSwap}
+                  disabled={!output}
+                  title={t('swapTitle')}
+                >
+                  <ArrowLeftRight className="h-4 w-4" />
+                  {t('swap')}
+                </Button>
+                <Button size="sm" variant="secondary" disabled={!output} onClick={handleCopy}>
+                  {copied
+                    ? <Check className="mr-1.5 h-4 w-4 text-emerald-600" />
+                    : <Copy className="mr-1.5 h-4 w-4" />}
+                  {copied ? t('copied') : t('copy')}
+                </Button>
+              </div>
+            </div>
+
+            {error ? (
+              <div className="flex flex-1 min-h-[300px] gap-2 rounded-md border border-destructive/40 bg-destructive/5 p-4">
+                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
+                <span className="font-mono text-xs text-destructive break-all">{error}</span>
+              </div>
+            ) : (
+              <div className="relative flex-1 min-h-[300px]">
+                <MonacoEditor
+                  height="100%"
+                  className="absolute inset-0"
+                  language={MONACO_LANG[to]}
+                  value={output}
+                  theme={monacoTheme}
+                  options={{
+                    ...EDITOR_OPTIONS_BASE,
+                    readOnly: true,
+                    domReadOnly: true,
+                    cursorStyle: 'line' as const,
+                    renderLineHighlight: 'none' as const,
+                  }}
+                />
+              </div>
+            )}
+
+            <p className="shrink-0 text-xs text-muted-foreground">{t('localNote')}</p>
+          </Card>
+        )}
       </div>
     </div>
   );

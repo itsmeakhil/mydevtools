@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useMemo, useState } from 'react';
+import { useIsMobile } from '@/components/hooks/use-mobile';
 import { useTranslations } from 'next-intl';
 import { AlertCircle, Check, Copy, FileJson, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
@@ -39,6 +40,8 @@ const defaultSample = `{
 
 export function JsonSchemaGeneratorLayout() {
   const t = useTranslations('JsonSchemaGenerator');
+  const isMobile = useIsMobile();
+  const [mobileTab, setMobileTab] = useState<'input' | 'output'>('input');
   const [input, setInput] = useState(defaultSample);
   const [language, setLanguage] = useState<OutputLanguage>('python');
   const [copied, setCopied] = useState(false);
@@ -133,64 +136,87 @@ export function JsonSchemaGeneratorLayout() {
         </div>
       </div>
 
-      <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 md:grid-cols-2">
-        <Card className="flex min-h-[280px] flex-col overflow-hidden md:min-h-[420px]">
-          <div className="shrink-0 border-b border-border/50 bg-muted/30 px-4 py-2.5">
-            <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              {t('inputLabel')}
-            </Label>
-          </div>
-          <div className="relative min-h-0 min-h-[200px] flex-1">
-            <JsonSchemaInputEditor
-              value={input}
-              onChange={setInput}
-              ariaLabel={`${t('inputLabel')}. ${t('inputPlaceholder')}`}
-            />
-          </div>
-        </Card>
+      {isMobile && (
+        <div className="flex shrink-0 rounded-lg border bg-muted/40 p-1 gap-1">
+          {(['input', 'output'] as const).map((tab) => (
+            <button
+              key={tab}
+              type="button"
+              onClick={() => setMobileTab(tab)}
+              className={`flex-1 rounded-md px-3 py-2 text-sm font-medium capitalize transition-all ${
+                mobileTab === tab
+                  ? 'bg-background text-foreground shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {tab === 'input' ? t('inputLabel') : t('outputLabel')}
+            </button>
+          ))}
+        </div>
+      )}
 
-        <Card
-          className={cn(
-            'flex min-h-[280px] flex-col overflow-hidden md:min-h-[420px]',
-            error && 'border-destructive/40'
-          )}
-        >
-          <div className="shrink-0 border-b border-border/50 bg-muted/30 px-4 py-2.5">
-            <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              {t('outputLabel')}
-            </Label>
-          </div>
-          <div className="relative min-h-0 flex-1 min-h-[200px]">
-            {error ? (
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4 text-center">
-                <AlertCircle className="h-8 w-8 text-destructive" aria-hidden />
-                <p className="text-sm text-destructive">{t('parseError')}</p>
-                <p className="max-w-sm font-mono text-xs text-muted-foreground">{error}</p>
-              </div>
-            ) : (
-              <ScrollArea className="absolute inset-0 h-full">
-                <div
-                  className="json-schema-hl min-h-full"
-                  role="region"
-                  aria-label={t('outputLabel')}
-                >
-                  {output ? (
-                    <pre className="m-0 font-mono">
-                      <code
-                        className="hljs"
-                        dangerouslySetInnerHTML={{ __html: highlightedOutput }}
-                      />
-                    </pre>
-                  ) : (
-                    <p className="p-4 text-sm text-muted-foreground">
-                      {t('outputPlaceholder')}
-                    </p>
-                  )}
-                </div>
-              </ScrollArea>
+      <div className={`min-h-0 flex-1 ${isMobile ? 'flex flex-col' : 'grid grid-cols-2 gap-4'}`}>
+        {(!isMobile || mobileTab === 'input') && (
+          <Card className="flex min-h-[300px] flex-col overflow-hidden">
+            <div className="shrink-0 border-b border-border/50 bg-muted/30 px-4 py-2.5">
+              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                {t('inputLabel')}
+              </Label>
+            </div>
+            <div className="relative min-h-0 min-h-[260px] flex-1">
+              <JsonSchemaInputEditor
+                value={input}
+                onChange={setInput}
+                ariaLabel={`${t('inputLabel')}. ${t('inputPlaceholder')}`}
+              />
+            </div>
+          </Card>
+        )}
+
+        {(!isMobile || mobileTab === 'output') && (
+          <Card
+            className={cn(
+              'flex min-h-[300px] flex-col overflow-hidden',
+              error && 'border-destructive/40'
             )}
-          </div>
-        </Card>
+          >
+            <div className="shrink-0 border-b border-border/50 bg-muted/30 px-4 py-2.5">
+              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                {t('outputLabel')}
+              </Label>
+            </div>
+            <div className="relative min-h-0 flex-1 min-h-[260px]">
+              {error ? (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4 text-center">
+                  <AlertCircle className="h-8 w-8 text-destructive" aria-hidden />
+                  <p className="text-sm text-destructive">{t('parseError')}</p>
+                  <p className="max-w-sm font-mono text-xs text-muted-foreground">{error}</p>
+                </div>
+              ) : (
+                <ScrollArea className="absolute inset-0 h-full">
+                  <div
+                    className="json-schema-hl min-h-full"
+                    role="region"
+                    aria-label={t('outputLabel')}
+                  >
+                    {output ? (
+                      <pre className="m-0 font-mono">
+                        <code
+                          className="hljs"
+                          dangerouslySetInnerHTML={{ __html: highlightedOutput }}
+                        />
+                      </pre>
+                    ) : (
+                      <p className="p-4 text-sm text-muted-foreground">
+                        {t('outputPlaceholder')}
+                      </p>
+                    )}
+                  </div>
+                </ScrollArea>
+              )}
+            </div>
+          </Card>
+        )}
       </div>
     </div>
   );

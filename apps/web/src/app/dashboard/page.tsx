@@ -221,7 +221,6 @@ const DashboardPage: React.FC = () => {
       return item ? { id: usage.toolId, ...item } : null;
     }).filter((item): item is FavoriteItem => {
       if (!item) return false;
-      if (isMobile && item.hiddenOnMobile) return false;
       return true;
     });
 
@@ -243,23 +242,18 @@ const DashboardPage: React.FC = () => {
 
   // Group titles for category filter chips
   const groupTitles = useMemo(() => {
-    return sidebarData.navGroups
-      .filter(g => !(isMobile && g.hiddenOnMobile))
-      .map(g => g.title);
-  }, [isMobile]);
+    return sidebarData.navGroups.map(g => g.title);
+  }, []);
 
   // Tools with a badge — shown in the "What's New" section
   const whatsNewItems = useMemo<RenderToolItem[]>(() => {
     const items: RenderToolItem[] = [];
     sidebarData.navGroups.forEach((group, groupIndex) => {
-      if (isMobile && group.hiddenOnMobile) return;
       group.items.forEach((item, itemIndex) => {
-        if (isMobile && item.hiddenOnMobile) return;
         if (item.badge) {
           items.push({ ...item, originalId: createItemId(groupIndex, itemIndex) });
         }
         item.items?.forEach((subItem, subIndex) => {
-          if (isMobile && subItem.hiddenOnMobile) return;
           if (subItem.badge) {
             items.push({ ...subItem, icon: subItem.icon || item.icon, originalId: createItemId(groupIndex, itemIndex, subIndex) });
           }
@@ -267,22 +261,19 @@ const DashboardPage: React.FC = () => {
       });
     });
     return items;
-  }, [isMobile]);
+  }, []);
 
   // Pinned tools — derived from URL-keyed store, preserving pin order
   const pinnedItems = useMemo<RenderToolItem[]>(() => {
     if (pinnedToolUrls.length === 0) return [];
     const found: RenderToolItem[] = [];
     sidebarData.navGroups.forEach((group, groupIndex) => {
-      if (isMobile && group.hiddenOnMobile) return;
       group.items.forEach((item, itemIndex) => {
-        if (isMobile && item.hiddenOnMobile) return;
         const url = item.url?.toString() ?? '';
         if (pinnedToolUrls.includes(url)) {
           found.push({ ...item, originalId: createItemId(groupIndex, itemIndex) });
         }
         item.items?.forEach((subItem, subIndex) => {
-          if (isMobile && subItem.hiddenOnMobile) return;
           const subUrl = subItem.url?.toString() ?? '';
           if (pinnedToolUrls.includes(subUrl)) {
             found.push({ ...subItem, icon: subItem.icon || item.icon, originalId: createItemId(groupIndex, itemIndex, subIndex) });
@@ -294,18 +285,16 @@ const DashboardPage: React.FC = () => {
     return pinnedToolUrls
       .map(url => found.find(i => i.url?.toString() === url))
       .filter((i): i is RenderToolItem => !!i);
-  }, [pinnedToolUrls, isMobile]);
+  }, [pinnedToolUrls]);
 
   // Filter tools based on search query, mobile visibility, and active group filter
   const filteredGroups = useMemo<RenderGroup[]>(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
     const mobileFilteredGroups = sidebarData.navGroups.map((group, groupIndex) => {
-      if (isMobile && group.hiddenOnMobile) return null;
       if (filterGroup && group.title !== filterGroup) return null;
 
       const visibleItems = group.items
-        .map((item, itemIndex) => ({ item, itemIndex }))
-        .filter(({ item }) => !(isMobile && item.hiddenOnMobile));
+        .map((item, itemIndex) => ({ item, itemIndex }));
 
       const searchableItems = visibleItems.flatMap<RenderToolItem>(({ item, itemIndex }) => {
 
@@ -379,7 +368,7 @@ const DashboardPage: React.FC = () => {
     }).filter((group): group is RenderGroup => group !== null);
 
     return mobileFilteredGroups;
-  }, [isMobile, searchQuery, filterGroup]);
+  }, [searchQuery, filterGroup]);
 
   // Total tools count
   const totalTools = useMemo(() => {
@@ -552,7 +541,7 @@ const DashboardPage: React.FC = () => {
                   <div className="md:hidden -mx-4 px-4">
                     <div className="flex gap-3 overflow-x-auto scroll-snap-x pb-2 mobile-scrollbar-hide">
                       {pinnedItems.map((item, index) => (
-                        <div key={`pinned-mobile-${item.originalId}`} className="scroll-snap-item w-[280px] flex-shrink-0">
+                        <div key={`pinned-mobile-${item.originalId}`} className="scroll-snap-item w-[min(280px,75vw)] flex-shrink-0">
                           <ToolCard item={item} id={item.originalId!} index={index} {...toolCardProps} />
                         </div>
                       ))}
@@ -581,7 +570,7 @@ const DashboardPage: React.FC = () => {
                   <div className="md:hidden -mx-4 px-4">
                     <div className="flex gap-3 overflow-x-auto scroll-snap-x pb-2 mobile-scrollbar-hide">
                       {whatsNewItems.map((item, index) => (
-                        <div key={`new-mobile-${item.originalId}`} className="scroll-snap-item w-[280px] flex-shrink-0">
+                        <div key={`new-mobile-${item.originalId}`} className="scroll-snap-item w-[min(280px,75vw)] flex-shrink-0">
                           <ToolCard item={item} id={item.originalId!} index={index} {...toolCardProps} />
                         </div>
                       ))}
@@ -613,7 +602,7 @@ const DashboardPage: React.FC = () => {
                   <div className="md:hidden -mx-4 px-4">
                     <div className="flex gap-3 overflow-x-auto scroll-snap-x pb-2 mobile-scrollbar-hide">
                       {recentlyUsedItems.map((item, index) => (
-                        <div key={`recent-mobile-${item.id}`} className="scroll-snap-item w-[280px] flex-shrink-0">
+                        <div key={`recent-mobile-${item.id}`} className="scroll-snap-item w-[min(280px,75vw)] flex-shrink-0">
                           <ToolCard item={item} id={item.id} index={index} {...toolCardProps} />
                         </div>
                       ))}

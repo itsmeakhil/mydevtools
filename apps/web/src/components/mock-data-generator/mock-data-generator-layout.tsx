@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useId, useMemo, useState } from 'react'
+import { useIsMobile } from '@/components/hooks/use-mobile'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { Copy, Check, Download, Plus, Trash2, RefreshCw, CopyPlus } from 'lucide-react'
@@ -79,6 +80,8 @@ export function MockDataGeneratorLayout() {
   const tg = useTranslations('MockDataGenerator.groups')
   const tf = useTranslations('MockDataGenerator.fieldTypes')
   const baseId = useId()
+  const isMobile = useIsMobile()
+  const [mobileTab, setMobileTab] = useState<'schema' | 'output'>('schema')
   const [schemaRows, setSchemaRows] = useState<SchemaRow[]>(DEFAULT_ROWS)
   const [rowCount, setRowCount] = useState(25)
   const [format, setFormat] = useState<OutputFormat>('json')
@@ -119,7 +122,8 @@ export function MockDataGeneratorLayout() {
         tableName: format === 'sql' ? tableName : undefined,
       })
     )
-  }, [schema, rowCount, format, tableName])
+    if (isMobile) setMobileTab('output')
+  }, [schema, rowCount, format, tableName, isMobile])
 
   const handleCopy = async () => {
     if (!output) return
@@ -200,8 +204,28 @@ export function MockDataGeneratorLayout() {
         </Link>
       </p>
 
-      <div className="flex-1 grid grid-cols-1 xl:grid-cols-[1fr_minmax(280px,38%)] gap-4 min-h-0">
-        <Card className="flex flex-col gap-4 p-4 min-h-0 overflow-hidden">
+      {isMobile && (
+        <div className="flex shrink-0 rounded-lg border bg-muted/40 p-1 gap-1">
+          {(['schema', 'output'] as const).map((tab) => (
+            <button
+              key={tab}
+              type="button"
+              onClick={() => setMobileTab(tab)}
+              className={`flex-1 rounded-md px-3 py-2 text-sm font-medium capitalize transition-all ${
+                mobileTab === tab
+                  ? 'bg-background text-foreground shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {tab === 'schema' ? t('schemaHeading') : t('output')}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div className={`flex-1 min-h-0 ${isMobile ? 'flex flex-col' : 'grid grid-cols-1 xl:grid-cols-[1fr_minmax(280px,38%)] gap-4'}`}>
+        {(!isMobile || mobileTab === 'schema') && (
+        <Card className="flex flex-col gap-4 p-4 min-h-0 overflow-hidden flex-1">
           <div className="flex flex-wrap items-end gap-3">
             <div className="space-y-1.5">
               <Label htmlFor={`${baseId}-rows`} className="text-xs text-muted-foreground uppercase tracking-wider">
@@ -419,8 +443,10 @@ export function MockDataGeneratorLayout() {
             {t('rowsHint', { max: MAX_MOCK_ROWS })}
           </p>
         </Card>
+        )}
 
-        <Card className="flex flex-col gap-3 p-4 min-h-0">
+        {(!isMobile || mobileTab === 'output') && (
+        <Card className="flex flex-col gap-3 p-4 min-h-0 flex-1">
           <div className="flex items-center justify-between gap-2 shrink-0">
             <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
               {t('output')}
@@ -446,6 +472,7 @@ export function MockDataGeneratorLayout() {
             )}
           />
         </Card>
+        )}
       </div>
     </div>
   )

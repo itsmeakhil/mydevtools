@@ -6,5 +6,9 @@ export function generateMetadata() {
 }
 
 export default function GitignoreGeneratorPage() {
-  return <GitignoreLayout />
+  return (
+    <div className="h-full w-full min-h-0 p-2 md:p-4">
+      <GitignoreLayout />
+    </div>
+  )
 }
