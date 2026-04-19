@@ -53,9 +53,13 @@
     "pdfMerge": "Merge PDF files",
     "pdfSplitter": "PDF Splitter",
     "pdfCompressor": "Compress PDF files",
+    "pdfWatermark": "PDF Watermark",
     "jpgToPdf": "JPG to PDF",
+    "excelToPdf": "Excel to PDF",
     "pdfToJpg": "PDF to JPG",
-    "htmlToPdf": "HTML to PDF"
+    "htmlToPdf": "HTML to PDF",
+    "pdfCompare": "Compare PDF",
+    "pdfToPdfA": "PDF to PDF/A"
   },
   "Help": {
     "title": "Help & documentation",
@@ -499,9 +503,17 @@
         "title": "Compress PDF files",
         "description": "Reduce file size while optimizing for maximal PDF quality — in your browser."
       },
+      "pdfWatermark": {
+        "title": "PDF Watermark",
+        "description": "Stamp text or a PNG/JPEG on every page with typography, transparency, and position — in your browser."
+      },
       "jpgToPdf": {
         "title": "JPG to PDF",
         "description": "Convert JPG images to PDF in seconds. Easily adjust orientation and margins."
+      },
+      "excelToPdf": {
+        "title": "Excel to PDF",
+        "description": "Make Excel spreadsheets easy to read by converting them to PDF in your browser."
       },
       "pdfToJpg": {
         "title": "PDF to JPG",
@@ -510,6 +522,14 @@
       "htmlToPdf": {
         "title": "HTML to PDF",
         "description": "Paste HTML with CSS and convert it to a PDF using your browser's print engine."
+      },
+      "pdfCompare": {
+        "title": "Compare PDF",
+        "description": "Easily display the differences between two similar files. Text is extracted with PDF.js and compared locally — nothing is uploaded."
+      },
+      "pdfToPdfA": {
+        "title": "PDF to PDF/A",
+        "description": "Convert PDFs to PDF/A for archival preservation and pick an ISO conformance level — all in your browser."
       }
     }
   },
@@ -586,6 +606,23 @@
     "invalidPdf": "Could not read this file as a PDF.",
     "mergeFailed": "Could not merge these PDFs. Remove password-protected or damaged files and try again."
   },
+  "ExcelToPdf": {
+    "intro": "Make Excel spreadsheets easy to read by converting them to PDF.",
+    "privacyNote": "Your file never leaves this browser.",
+    "includeSheets": "Sheets to include",
+    "allSheets": "All sheets",
+    "firstSheetOnly": "First sheet only",
+    "chooseFile": "Choose Excel file",
+    "clearFile": "Clear",
+    "downloadPdf": "Download PDF",
+    "building": "Building PDF…",
+    "noFile": "Choose an Excel file first.",
+    "emptyWorkbook": "No sheet in this workbook had table data we could export.",
+    "unsupportedFile": "Use a .xlsx or .xls file.",
+    "readFailed": "Could not read this spreadsheet.",
+    "buildFailed": "Could not build the PDF. Try a smaller workbook or fewer sheets.",
+    "sheetHeading": "Sheet: {name}"
+  },
   "JpgToPdf": {
     "intro": "Convert JPG images to PDF in seconds. Easily adjust orientation and margins.",
     "privacyNote": "Your files never leave this browser.",
@@ -646,6 +683,44 @@
     "noSavingsHint": "Your PDF was already compact. The downloaded file is still a clean, standards-based copy.",
     "savedToast": "About {percent}% smaller ({before} → {after})"
   },
+  "PdfWatermark": {
+    "intro": "Stamp an image or text over your PDF in seconds. Choose the typography, transparency and position.",
+    "privacyNote": "Your file never leaves this browser.",
+    "choosePdf": "Choose PDF",
+    "reset": "Another file",
+    "pageCount": "{count, plural, one {# page} other {# pages}}",
+    "tabText": "Text",
+    "tabImage": "Image",
+    "textLabel": "Watermark text",
+    "textPlaceholder": "e.g. DRAFT",
+    "fontLabel": "Font",
+    "sizeLabel": "Text size",
+    "rotationLabel": "Rotation",
+    "colorLabel": "Color",
+    "chooseImage": "Choose image",
+    "imageHint": "PNG or JPEG. Transparency in PNGs is preserved.",
+    "imageWidthLabel": "Width (relative to page)",
+    "positionLabel": "Position",
+    "posCenter": "Center",
+    "posTl": "Top left",
+    "posTr": "Top right",
+    "posBl": "Bottom left",
+    "posBr": "Bottom right",
+    "opacityLabel": "Opacity",
+    "download": "Apply watermark & download",
+    "working": "Working…",
+    "done": "Watermarked PDF downloaded.",
+    "invalidPdf": "Could not read this file as a PDF.",
+    "encryptedPdf": "This PDF is password-protected. Unlock it with PDF Unlocker, then try again.",
+    "stampFailed": "Could not watermark this PDF. Try a different file.",
+    "invalidImage": "Use a PNG or JPEG image.",
+    "emptyText": "Enter some watermark text.",
+    "needImage": "Choose a PNG or JPEG watermark image.",
+    "fontHelvetica": "Helvetica",
+    "fontHelveticaBold": "Helvetica Bold",
+    "fontTimes": "Times Roman",
+    "fontCourier": "Courier"
+  },
   "HtmlToPdf": {
     "hint": "Write or paste HTML with CSS, preview it, then print it as a PDF. Use your browser's 'Save as PDF' option in the print dialog.",
     "pageSizeLabel": "Page size",
@@ -656,6 +731,27 @@
     "editorLabel": "HTML source",
     "previewLabel": "Preview",
     "popupBlocked": "Popup was blocked. Please allow popups for this site and try again."
+  },
+  "PdfCompare": {
+    "title": "Compare PDF",
+    "subtitle": "Upload two PDFs to compare their text layer side by side. Runs locally in your browser with PDF.js.",
+    "privacyNote": "Your files never leave this browser. The PDF.js worker loads from a CDN the first time you compare.",
+    "firstPdf": "First PDF",
+    "secondPdf": "Second PDF",
+    "chooseFile": "Choose file",
+    "removeFile": "Remove",
+    "clearAll": "Clear all",
+    "extracting": "Extracting text…",
+    "comparisonLabel": "Text diff",
+    "emptyState": "Choose two PDFs to see additions and removals side by side.",
+    "truncatedWarning": "Showing first {max} rows.",
+    "limitExceeded": "Extracted text is limited to {max} characters per file.",
+    "noTextHint": "Little or no text was found in one or both PDFs (common for scanned pages).",
+    "mobileTabFiles": "PDFs",
+    "mobileTabDiff": "Diff",
+    "invalidPdf": "Could not read this file as a PDF.",
+    "passwordRequired": "This PDF needs a password. Unlock it with PDF Unlocker first, then try again.",
+    "genericError": "Could not process this PDF. Try a different file."
   },
   "Tasks": {
     "page": {
@@ -3433,6 +3529,29 @@
       "portainer": "Portainer CE",
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
+  },
+  "PdfToPdfA": {
+    "intro": "Convert PDF documents to PDF/A for archiving and long-term preservation.",
+    "privacyNote": "Your file never leaves this browser.",
+    "disclaimer": "This rebuilds your PDF with PDF/A identification (XMP pdfaid, sRGB output intent, and MarkInfo). Complex PDFs may still fail strict ISO validators (fonts, transparency, attachments). Use dedicated archival software if you need guaranteed compliance.",
+    "chooseFile": "Choose PDF",
+    "reset": "Another file",
+    "pageCount": "{count, plural, one {# page} other {# pages}}",
+    "levelLabel": "PDF/A conformance",
+    "levelHint": "PDF/A-1b disables object streams for older archival expectations. PDF/A-2 and PDF/A-3 target modern PDF 1.7 workflows; \"U\" declares Unicode text assumptions.",
+    "download": "Convert & download",
+    "working": "Working…",
+    "done": "PDF/A-tagged file downloaded.",
+    "invalidPdf": "Could not read this file as a PDF.",
+    "encryptedPdf": "This PDF is password-protected. Unlock it with PDF Unlocker, then try again.",
+    "convertFailed": "Could not convert this PDF. Try a different file.",
+    "level": {
+      "1b": "PDF/A-1b (part 1, conformance B)",
+      "2b": "PDF/A-2b (part 2, conformance B)",
+      "2u": "PDF/A-2u (part 2, conformance U)",
+      "3b": "PDF/A-3b (part 3, conformance B)",
+      "3u": "PDF/A-3u (part 3, conformance U)"
     }
   }
 }

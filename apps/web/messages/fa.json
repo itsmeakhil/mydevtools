@@ -52,8 +52,12 @@
     "pdfLocker": "قفل PDF",
     "pdfMerge": "ادغام PDF",
     "pdfCompressor": "فشرده‌سازی فایل‌های PDF",
+    "pdfWatermark": "واترمارک PDF",
+    "excelToPdf": "Excel به PDF",
     "jpgToPdf": "JPG به PDF",
-    "pdfToJpg": "PDF به JPG"
+    "pdfToJpg": "PDF به JPG",
+    "pdfCompare": "مقایسه PDF",
+    "pdfToPdfA": "PDF به PDF/A"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -438,6 +442,14 @@
         "title": "فشرده‌سازی فایل‌های PDF",
         "description": "کاهش حجم فایل با حفظ بیشترین کیفیت PDF — همه در مرورگر شما."
       },
+      "pdfWatermark": {
+        "title": "واترمارک PDF",
+        "description": "متن یا PNG/JPEG را روی هر صفحه با تایپوگرافی، شفافیت و موقعیت اضافه کنید — همه در مرورگر."
+      },
+      "excelToPdf": {
+        "title": "Excel به PDF",
+        "description": "صفحه‌های Excel را با تبدیل به PDF در مرورگر راحت‌تر بخوانید."
+      },
       "jpgToPdf": {
         "title": "JPG به PDF",
         "description": "تصاویر JPG را در چند ثانیه به PDF تبدیل کنید. جهت‌گیری و حاشیه را به‌راحتی تنظیم کنید."
@@ -445,6 +457,14 @@
       "pdfToJpg": {
         "title": "PDF به JPG",
         "description": "هر صفحهٔ PDF را به JPEG تبدیل کنید یا تصاویر جاسازی‌شده را استخراج کنید — همه در مرورگر."
+      },
+      "pdfCompare": {
+        "title": "مقایسه PDF",
+        "description": "تفاوت‌های دو فایل مشابه را به‌سادگی نمایش دهید. متن با PDF.js به‌صورت محلی استخراج و مقایسه می‌شود — چیزی آپلود نمی‌شود."
+      },
+      "pdfToPdfA": {
+        "title": "PDF به PDF/A",
+        "description": "PDFها را برای بایگانی و حفظ بلندمدت به PDF/A تبدیل کنید و سطح انطباق ISO را انتخاب کنید — همه در مرورگر."
       }
     },
     "tabs": {
@@ -3371,6 +3391,23 @@
     "noSavingsHint": "PDF شما از قبل فشرده بود. فایل دانلودشده همچنان نسخه‌ای تمیز و استاندارد است.",
     "savedToast": "حدود {percent}٪ کوچک‌تر ({before} → {after})"
   },
+  "ExcelToPdf": {
+    "intro": "صفحه‌های Excel را با تبدیل به PDF راحت‌تر بخوانید.",
+    "privacyNote": "فایل شما هرگز این مرورگر را ترک نمی‌کند.",
+    "includeSheets": "برگه‌های شامل",
+    "allSheets": "همه برگه‌ها",
+    "firstSheetOnly": "فقط اولین برگه",
+    "chooseFile": "انتخاب فایل Excel",
+    "clearFile": "پاک کردن",
+    "downloadPdf": "دانلود PDF",
+    "building": "در حال ساخت PDF…",
+    "noFile": "ابتدا یک فایل Excel انتخاب کنید.",
+    "emptyWorkbook": "هیچ برگه‌ای در این کتاب دادهٔ جدولی برای خروجی نداشت.",
+    "unsupportedFile": "از فایل .xlsx یا .xls استفاده کنید.",
+    "readFailed": "خواندن این صفحه گسترده ممکن نشد.",
+    "buildFailed": "ساخت PDF ممکن نشد. کتاب کوچک‌تر یا برگه‌های کمتر امتحان کنید.",
+    "sheetHeading": "برگه: {name}"
+  },
   "JpgToPdf": {
     "intro": "تصاویر JPG را در چند ثانیه به PDF تبدیل کنید. جهت‌گیری و حاشیه را به‌راحتی تنظیم کنید.",
     "privacyNote": "فایل‌های شما هرگز این مرورگر را ترک نمی‌کنند.",
@@ -3392,5 +3429,87 @@
     "minOneJpeg": "حداقل یک فایل JPEG اضافه کنید.",
     "invalidJpeg": "این فایل JPEG (JPG) معتبری نیست.",
     "buildFailed": "ساخت PDF ممکن نشد. فایل‌های پشتیبانی‌نشده را بردارید و دوباره امتحان کنید."
+  },
+  "PdfWatermark": {
+    "intro": "در چند ثانیه تصویر یا متن روی PDF بگذارید. تایپوگرافی، شفافیت و موقعیت را انتخاب کنید.",
+    "privacyNote": "فایل شما هرگز این مرورگر را ترک نمی‌کند.",
+    "choosePdf": "انتخاب PDF",
+    "reset": "فایل دیگر",
+    "pageCount": "{count, plural, one {# صفحه} other {# صفحه}}",
+    "tabText": "متن",
+    "tabImage": "تصویر",
+    "textLabel": "متن واترمارک",
+    "textPlaceholder": "مثال: پیش‌نویس",
+    "fontLabel": "فونت",
+    "sizeLabel": "اندازه متن",
+    "rotationLabel": "چرخش",
+    "colorLabel": "رنگ",
+    "chooseImage": "انتخاب تصویر",
+    "imageHint": "PNG یا JPEG. شفافیت PNG حفظ می‌شود.",
+    "imageWidthLabel": "عرض (نسبت به صفحه)",
+    "positionLabel": "موقعیت",
+    "posCenter": "مرکز",
+    "posTl": "بالا چپ",
+    "posTr": "بالا راست",
+    "posBl": "پایین چپ",
+    "posBr": "پایین راست",
+    "opacityLabel": "کدورت",
+    "download": "اعمال واترمارک و دانلود",
+    "working": "در حال پردازش…",
+    "done": "PDF واترمارک‌شده دانلود شد.",
+    "invalidPdf": "خواندن این فایل به‌عنوان PDF ممکن نبود.",
+    "encryptedPdf": "این PDF با رمز محافظت شده است. ابتدا با باز کردن قفل PDF آن را باز کنید.",
+    "stampFailed": "اعمال واترمارک روی این PDF ممکن نبود. فایل دیگری امتحان کنید.",
+    "invalidImage": "از تصویر PNG یا JPEG استفاده کنید.",
+    "emptyText": "متن واترمارک را وارد کنید.",
+    "needImage": "یک تصویر PNG یا JPEG برای واترمارک انتخاب کنید.",
+    "fontHelvetica": "Helvetica",
+    "fontHelveticaBold": "Helvetica Bold",
+    "fontTimes": "Times Roman",
+    "fontCourier": "Courier"
+  },
+  "PdfCompare": {
+    "title": "مقایسه PDF",
+    "subtitle": "دو فایل PDF بارگذاری کنید تا لایهٔ متن را کنار هم مقایسه کنید. به‌صورت محلی در مرورگر با PDF.js اجرا می‌شود.",
+    "privacyNote": "فایل‌های شما این مرورگر را ترک نمی‌کنند. worker مربوط به PDF.js بار اول از CDN بارگذاری می‌شود.",
+    "firstPdf": "PDF اول",
+    "secondPdf": "PDF دوم",
+    "chooseFile": "انتخاب فایل",
+    "removeFile": "حذف",
+    "clearAll": "پاک‌سازی همه",
+    "extracting": "در حال استخراج متن…",
+    "comparisonLabel": "تفاوت متن",
+    "emptyState": "دو PDF انتخاب کنید تا افزوده‌ها و حذف‌ها را کنار هم ببینید.",
+    "truncatedWarning": "نمایش {max} سطر اول.",
+    "limitExceeded": "متن استخراج‌شده به {max} نویسه در هر فایل محدود است.",
+    "noTextHint": "در یک یا هر دو PDF متن کمی یا اصلاً یافت نشد (در اسکن‌ها رایج است).",
+    "mobileTabFiles": "فایل‌های PDF",
+    "mobileTabDiff": "تفاوت",
+    "invalidPdf": "خواندن این فایل به‌عنوان PDF ممکن نشد.",
+    "passwordRequired": "این PDF رمز دارد. ابتدا از باز کردن قفل PDF استفاده کنید و دوباره تلاش کنید.",
+    "genericError": "پردازش این PDF ممکن نشد. فایل دیگری امتحان کنید."
+  },
+  "PdfToPdfA": {
+    "intro": "اسناد PDF را برای بایگانی و حفظ بلندمدت به PDF/A تبدیل کنید.",
+    "privacyNote": "فایل شما هرگز این مرورگر را ترک نمی‌کند.",
+    "disclaimer": "این کار PDF را با شناسایی PDF/A (XMP pdfaid، قصد خروجی sRGB و MarkInfo) بازسازی می‌کند. PDFهای پیچیده ممکن است در اعتبارسنج‌های سخت‌گیر ISO رد شوند (فونت‌ها، شفافیت، پیوست‌ها). برای انطباق تضمین‌شده از نرم‌افزار بایگانی تخصصی استفاده کنید.",
+    "chooseFile": "انتخاب PDF",
+    "reset": "فایل دیگر",
+    "pageCount": "{count, plural, one {# صفحه} other {# صفحه}}",
+    "levelLabel": "انطباق PDF/A",
+    "levelHint": "PDF/A-1b جریان‌های شیء را برای انتظارات بایگانی قدیمی‌تر غیرفعال می‌کند. PDF/A-2 و PDF/A-3 برای گردش کار مدرن PDF 1.7 هستند؛ «U» فرضیات متن یونیکد را اعلام می‌کند.",
+    "download": "تبدیل و بارگیری",
+    "working": "در حال پردازش…",
+    "done": "فایل برچسب‌دار PDF/A بارگیری شد.",
+    "invalidPdf": "خواندن این فایل به‌عنوان PDF ممکن نشد.",
+    "encryptedPdf": "این PDF با رمز محافظت شده است. ابتدا با باز کردن قفل PDF آن را باز کنید و دوباره تلاش کنید.",
+    "convertFailed": "تبدیل این PDF ممکن نشد. فایل دیگری امتحان کنید.",
+    "level": {
+      "1b": "PDF/A-1b (بخش ۱، انطباق B)",
+      "2b": "PDF/A-2b (بخش ۲، انطباق B)",
+      "2u": "PDF/A-2u (بخش ۲، انطباق U)",
+      "3b": "PDF/A-3b (بخش ۳، انطباق B)",
+      "3u": "PDF/A-3u (بخش ۳، انطباق U)"
+    }
   }
 }

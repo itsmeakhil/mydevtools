@@ -306,11 +306,43 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['compress pdf', 'pdf compressor', 'reduce pdf size', 'shrink pdf', 'optimize pdf', 'pdf smaller', 'client side pdf'],
         aiSummary: 'Shrink a PDF in the browser by rebuilding it with object streams (lossless for page content). Encrypted PDFs: unlock first with PDF Unlocker.',
     },
+    'pdf-watermark': {
+        title: 'PDF Watermark',
+        description:
+            'Stamp an image or text over your PDF in seconds. Choose the typography, transparency and position. Processing stays in your browser — nothing is uploaded.',
+        keywords: [
+            'pdf watermark',
+            'watermark pdf',
+            'stamp pdf',
+            'overlay pdf',
+            'text watermark',
+            'image watermark',
+            'client side pdf',
+        ],
+        aiSummary:
+            'Add a text or PNG/JPEG watermark on every page: pick font, size, color, rotation, opacity, and corner or center placement — all client-side.',
+    },
     'jpg-to-pdf': {
         title: 'JPG to PDF',
         description: 'Convert JPG images to PDF in seconds. Easily adjust orientation and margins; reorder pages — all in your browser.',
         keywords: ['jpg to pdf', 'jpeg to pdf', 'images to pdf', 'convert jpg pdf', 'pdf from photos', 'client side pdf', 'browser pdf'],
         aiSummary: 'Turn JPEGs into one PDF: pick files, set rotation (0–270°) and uniform margins in millimeters, reorder, download — no upload.',
+    },
+    'excel-to-pdf': {
+        title: 'Excel to PDF',
+        description:
+            'Make Excel spreadsheets easy to read by converting them to PDF. Each sheet becomes a readable table with automatic page breaks — all in your browser.',
+        keywords: [
+            'excel to pdf',
+            'xlsx to pdf',
+            'spreadsheet to pdf',
+            'convert excel pdf',
+            'xls to pdf',
+            'client side pdf',
+            'browser pdf',
+        ],
+        aiSummary:
+            'Upload .xlsx or .xls, choose the first sheet or every sheet, and download a landscape PDF with grid tables — no upload to a server.',
     },
     'pdf-to-jpg': {
         title: 'PDF to JPG',
@@ -323,6 +355,12 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: "Paste or write HTML with CSS and convert it to a PDF using your browser's print engine. Supports full CSS, tables, and custom fonts. Nothing is uploaded.",
         keywords: ['html to pdf', 'convert html to pdf', 'html pdf converter', 'web page to pdf', 'html print pdf', 'browser pdf', 'client side pdf'],
         aiSummary: "Free in-browser HTML-to-PDF: paste any HTML (with CSS) and print it as a PDF — no upload, no server. Good for 'convert HTML to PDF online' or 'save webpage as PDF'.",
+    },
+    'pdf-compare': {
+        title: 'Compare PDF',
+        description: 'Easily display the differences between two similar PDFs. Extracts text with PDF.js and shows a side-by-side line diff in your browser — nothing is uploaded.',
+        keywords: ['compare pdf', 'pdf diff', 'pdf compare', 'difference between pdfs', 'pdf text compare', 'side by side pdf', 'client side pdf'],
+        aiSummary: 'Upload two PDFs to compare their text layers line-by-line (additions in green, removals in red). Scanned PDFs without a text layer may show little or no text — unlock password-protected files with PDF Unlocker first.',
     },
 }
 

@@ -52,8 +52,12 @@
     "pdfLocker": "Zamknout PDF",
     "pdfMerge": "Sloučit PDF",
     "pdfCompressor": "Komprimovat soubory PDF",
+    "pdfWatermark": "Vodoznak PDF",
+    "excelToPdf": "Excel do PDF",
     "jpgToPdf": "JPG do PDF",
-    "pdfToJpg": "PDF do JPG"
+    "pdfToJpg": "PDF do JPG",
+    "pdfCompare": "Porovnat PDF",
+    "pdfToPdfA": "PDF do PDF/A"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -438,6 +442,14 @@
         "title": "Komprimovat soubory PDF",
         "description": "Zmenšete velikost souboru při zachování co nejvyšší kvality PDF — v prohlížeči."
       },
+      "pdfWatermark": {
+        "title": "Vodoznak PDF",
+        "description": "Přidejte na každou stránku text nebo PNG/JPEG s písmem, průhledností a pozicí — vše v prohlížeči."
+      },
+      "excelToPdf": {
+        "title": "Excel do PDF",
+        "description": "Udělejte tabulky Excel snáze čitelné jejich převodem na PDF v prohlížeči."
+      },
       "jpgToPdf": {
         "title": "JPG do PDF",
         "description": "Převádějte obrázky JPG do PDF během několika sekund. Snadno upravíte orientaci a okraje."
@@ -445,6 +457,14 @@
       "pdfToJpg": {
         "title": "PDF do JPG",
         "description": "Převeďte každou stránku PDF na JPEG nebo extrahujte vložené obrázky — vše v prohlížeči."
+      },
+      "pdfCompare": {
+        "title": "Porovnat PDF",
+        "description": "Snadno ukažte rozdíly mezi dvěma podobnými soubory. Text se extrahuje pomocí PDF.js a porovnává lokálně — nic se nenahrává."
+      },
+      "pdfToPdfA": {
+        "title": "PDF do PDF/A",
+        "description": "Převeďte PDF do PDF/A pro archivaci a dlouhodobou ochranu, s úrovní shody ISO dle výběru — vše v prohlížeči."
       }
     },
     "tabs": {
@@ -3371,6 +3391,23 @@
     "noSavingsHint": "Vaše PDF už bylo kompaktní. Stažený soubor je stále čistá kopie podle standardů.",
     "savedToast": "Přibližně o {percent} % menší ({before} → {after})"
   },
+  "ExcelToPdf": {
+    "intro": "Udělejte tabulky Excel snáze čitelné převodem na PDF.",
+    "privacyNote": "Soubor tento prohlížeč nikdy neopustí.",
+    "includeSheets": "Listy k zahrnutí",
+    "allSheets": "Všechny listy",
+    "firstSheetOnly": "Pouze první list",
+    "chooseFile": "Vybrat soubor Excel",
+    "clearFile": "Vymazat",
+    "downloadPdf": "Stáhnout PDF",
+    "building": "Vytváření PDF…",
+    "noFile": "Nejprve vyberte soubor Excel.",
+    "emptyWorkbook": "Žádný list v tomto sešitu neobsahoval exportovatelná tabulková data.",
+    "unsupportedFile": "Použijte soubor .xlsx nebo .xls.",
+    "readFailed": "Tento sešit nelze přečíst.",
+    "buildFailed": "PDF se nepodařilo vytvořit. Zkuste menší sešit nebo méně listů.",
+    "sheetHeading": "List: {name}"
+  },
   "JpgToPdf": {
     "intro": "Převádějte obrázky JPG do PDF během několika sekund. Snadno upravíte orientaci a okraje.",
     "privacyNote": "Vaše soubory tento prohlížeč nikdy neopustí.",
@@ -3392,5 +3429,87 @@
     "minOneJpeg": "Přidejte alespoň jeden soubor JPEG.",
     "invalidJpeg": "Tento soubor není platný JPEG (JPG).",
     "buildFailed": "PDF se nepodařilo vytvořit. Odstraňte nepodporované soubory a zkuste to znovu."
+  },
+  "PdfWatermark": {
+    "intro": "V několika sekundách překryjte PDF obrázkem nebo textem. Zvolte typografii, průhlednost a pozici.",
+    "privacyNote": "Soubor z tohoto prohlížeče neodchází.",
+    "choosePdf": "Vybrat PDF",
+    "reset": "Jiný soubor",
+    "pageCount": "{count, plural, one {# strana} few {# strany} many {# stran} other {# stran}}",
+    "tabText": "Text",
+    "tabImage": "Obrázek",
+    "textLabel": "Text vodoznaku",
+    "textPlaceholder": "např. KONCEPT",
+    "fontLabel": "Písmo",
+    "sizeLabel": "Velikost textu",
+    "rotationLabel": "Otočení",
+    "colorLabel": "Barva",
+    "chooseImage": "Vybrat obrázek",
+    "imageHint": "PNG nebo JPEG. Průhlednost u PNG se zachová.",
+    "imageWidthLabel": "Šířka (vzhledem ke stránce)",
+    "positionLabel": "Pozice",
+    "posCenter": "Střed",
+    "posTl": "Vlevo nahoře",
+    "posTr": "Vpravo nahoře",
+    "posBl": "Vlevo dole",
+    "posBr": "Vpravo dole",
+    "opacityLabel": "Neprůhlednost",
+    "download": "Použít vodoznak a stáhnout",
+    "working": "Zpracování…",
+    "done": "PDF s vodoznakem staženo.",
+    "invalidPdf": "Tento soubor nelze přečíst jako PDF.",
+    "encryptedPdf": "Tento PDF je chráněn heslem. Nejprve jej odemkněte pomocí Odemknout PDF.",
+    "stampFailed": "Na tento PDF nelze vodoznak aplikovat. Zkuste jiný soubor.",
+    "invalidImage": "Použijte obrázek PNG nebo JPEG.",
+    "emptyText": "Zadejte text vodoznaku.",
+    "needImage": "Vyberte obrázek PNG nebo JPEG jako vodoznak.",
+    "fontHelvetica": "Helvetica",
+    "fontHelveticaBold": "Helvetica Bold",
+    "fontTimes": "Times Roman",
+    "fontCourier": "Courier"
+  },
+  "PdfCompare": {
+    "title": "Porovnat PDF",
+    "subtitle": "Nahrajte dvě PDF a porovnejte jejich textovou vrstvu vedle sebe. Běží lokálně v prohlížeči s PDF.js.",
+    "privacyNote": "Soubory neopouštějí tento prohlížeč. Worker PDF.js se při prvním porovnání načte z CDN.",
+    "firstPdf": "První PDF",
+    "secondPdf": "Druhé PDF",
+    "chooseFile": "Vybrat soubor",
+    "removeFile": "Odebrat",
+    "clearAll": "Vymazat vše",
+    "extracting": "Extrahuji text…",
+    "comparisonLabel": "Textový rozdíl",
+    "emptyState": "Vyberte dvě PDF a uvidíte přidané a odebrané řádky vedle sebe.",
+    "truncatedWarning": "Zobrazuji prvních {max} řádků.",
+    "limitExceeded": "Extrahovaný text je omezen na {max} znaků na soubor.",
+    "noTextHint": "V jednom nebo obou PDF je málo nebo žádný text (běžné u skenů).",
+    "mobileTabFiles": "PDF",
+    "mobileTabDiff": "Rozdíl",
+    "invalidPdf": "Tento soubor nelze přečíst jako PDF.",
+    "passwordRequired": "Toto PDF je chráněno heslem. Nejprve použijte Odemknout PDF a zkuste to znovu.",
+    "genericError": "Toto PDF nelze zpracovat. Zkuste jiný soubor."
+  },
+  "PdfToPdfA": {
+    "intro": "Převeďte dokumenty PDF do PDF/A pro archivaci a dlouhodobou ochranu.",
+    "privacyNote": "Váš soubor tento prohlížeč nikdy neopustí.",
+    "disclaimer": "Tím se PDF znovu sestaví s identifikací PDF/A (XMP pdfaid, výstupní záměr sRGB a MarkInfo). Složitá PDF mohou stále selhat u přísných ISO validátorů (písma, průhlednost, přílohy). Pro zaručenou shodu použijte specializovaný archivační software.",
+    "chooseFile": "Vybrat PDF",
+    "reset": "Jiný soubor",
+    "pageCount": "{count, plural, one {# strana} few {# strany} many {# stran} other {# stran}}",
+    "levelLabel": "Shoda PDF/A",
+    "levelHint": "PDF/A-1b vypíná objektové streamy kvůli starším archivním očekáváním. PDF/A-2 a PDF/A-3 cílí na moderní pracovní postupy PDF 1.7; „U“ označuje předpoklady Unicode textu.",
+    "download": "Převést a stáhnout",
+    "working": "Zpracování…",
+    "done": "Soubor označený jako PDF/A byl stažen.",
+    "invalidPdf": "Tento soubor se nepodařilo načíst jako PDF.",
+    "encryptedPdf": "Toto PDF je chráněno heslem. Nejdřív ho odemkněte pomocí Odemknout PDF a zkuste to znovu.",
+    "convertFailed": "Tento PDF soubor se nepodařilo převést. Zkuste jiný soubor.",
+    "level": {
+      "1b": "PDF/A-1b (část 1, shoda B)",
+      "2b": "PDF/A-2b (část 2, shoda B)",
+      "2u": "PDF/A-2u (část 2, shoda U)",
+      "3b": "PDF/A-3b (část 3, shoda B)",
+      "3u": "PDF/A-3u (část 3, shoda U)"
+    }
   }
 }

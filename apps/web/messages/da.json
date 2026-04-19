@@ -52,8 +52,12 @@
     "pdfLocker": "Lås PDF",
     "pdfMerge": "Flet PDF-filer",
     "pdfCompressor": "Komprimer PDF-filer",
+    "pdfWatermark": "PDF-vandmærke",
+    "excelToPdf": "Excel til PDF",
     "jpgToPdf": "JPG til PDF",
-    "pdfToJpg": "PDF til JPG"
+    "pdfToJpg": "PDF til JPG",
+    "pdfCompare": "Sammenlign PDF",
+    "pdfToPdfA": "PDF til PDF/A"
   },
   "Help": {
     "title": "Hjælp og dokumentation",
@@ -438,6 +442,14 @@
         "title": "Komprimer PDF-filer",
         "description": "Reducer filstørrelsen og optimer for maksimal PDF-kvalitet — i din browser."
       },
+      "pdfWatermark": {
+        "title": "PDF-vandmærke",
+        "description": "Tilføj tekst eller PNG/JPEG på hver side med typografi, gennemsigtighed og placering — alt i browseren."
+      },
+      "excelToPdf": {
+        "title": "Excel til PDF",
+        "description": "Gør Excel-regneark lettere at læse ved at konvertere dem til PDF i browseren."
+      },
       "jpgToPdf": {
         "title": "JPG til PDF",
         "description": "Konverter JPG-billeder til PDF på få sekunder. Juster nemt orientering og margener."
@@ -445,6 +457,14 @@
       "pdfToJpg": {
         "title": "PDF til JPG",
         "description": "Rasteriser hver PDF-side til JPEG, eller udtræk indlejrede billeder — alt i browseren."
+      },
+      "pdfCompare": {
+        "title": "Sammenlign PDF",
+        "description": "Vis nemt forskelle mellem to lignende filer. Tekst udtrækkes med PDF.js og sammenlignes lokalt — intet uploades."
+      },
+      "pdfToPdfA": {
+        "title": "PDF til PDF/A",
+        "description": "Konvertér PDF-filer til PDF/A til arkivering og langtidsbevaring med valgfrit ISO-overensstemmelsesniveau — alt i din browser."
       }
     },
     "tabs": {
@@ -3371,6 +3391,23 @@
     "noSavingsHint": "Din PDF var allerede kompakt. Den downloadede fil er stadig en ren, standardbaseret kopi.",
     "savedToast": "Ca. {percent} % mindre ({before} → {after})"
   },
+  "ExcelToPdf": {
+    "intro": "Gør Excel-regneark lettere at læse ved at konvertere dem til PDF.",
+    "privacyNote": "Din fil forlader aldrig denne browser.",
+    "includeSheets": "Ark der skal medtages",
+    "allSheets": "Alle ark",
+    "firstSheetOnly": "Kun første ark",
+    "chooseFile": "Vælg Excel-fil",
+    "clearFile": "Ryd",
+    "downloadPdf": "Download PDF",
+    "building": "Opretter PDF…",
+    "noFile": "Vælg først en Excel-fil.",
+    "emptyWorkbook": "Intet ark i denne projektmappe indeholdt tabeldata, vi kunne eksportere.",
+    "unsupportedFile": "Brug en .xlsx- eller .xls-fil.",
+    "readFailed": "Kunne ikke læse dette regneark.",
+    "buildFailed": "Kunne ikke oprette PDF. Prøv en mindre projektmappe eller færre ark.",
+    "sheetHeading": "Ark: {name}"
+  },
   "JpgToPdf": {
     "intro": "Konverter JPG-billeder til PDF på få sekunder. Juster nemt orientering og margener.",
     "privacyNote": "Dine filer forlader aldrig denne browser.",
@@ -3392,5 +3429,87 @@
     "minOneJpeg": "Tilføj mindst én JPEG-fil.",
     "invalidJpeg": "Denne fil er ikke en gyldig JPEG (JPG).",
     "buildFailed": "PDF'en kunne ikke oprettes. Fjern filer, der ikke understøttes, og prøv igen."
+  },
+  "PdfWatermark": {
+    "intro": "Stempel et billede eller tekst på din PDF på få sekunder. Vælg typografi, gennemsigtighed og placering.",
+    "privacyNote": "Din fil forlader aldrig denne browser.",
+    "choosePdf": "Vælg PDF",
+    "reset": "Anden fil",
+    "pageCount": "{count, plural, one {# side} other {# sider}}",
+    "tabText": "Tekst",
+    "tabImage": "Billede",
+    "textLabel": "Vandmærketekst",
+    "textPlaceholder": "f.eks. KLADDE",
+    "fontLabel": "Skrifttype",
+    "sizeLabel": "Tekststørrelse",
+    "rotationLabel": "Rotation",
+    "colorLabel": "Farve",
+    "chooseImage": "Vælg billede",
+    "imageHint": "PNG eller JPEG. Gennemsigtighed i PNG bevares.",
+    "imageWidthLabel": "Bredde (i forhold til siden)",
+    "positionLabel": "Placering",
+    "posCenter": "Midt",
+    "posTl": "Øverst til venstre",
+    "posTr": "Øverst til højre",
+    "posBl": "Nederst til venstre",
+    "posBr": "Nederst til højre",
+    "opacityLabel": "Uigennemsigtighed",
+    "download": "Anvend vandmærke og download",
+    "working": "Arbejder…",
+    "done": "PDF med vandmærke downloadet.",
+    "invalidPdf": "Kunne ikke læse denne fil som en PDF.",
+    "encryptedPdf": "Denne PDF er adgangskodebeskyttet. Lås den op med PDF-oplåsning, og prøv igen.",
+    "stampFailed": "Kunne ikke tilføje vandmærke til denne PDF. Prøv en anden fil.",
+    "invalidImage": "Brug et PNG- eller JPEG-billede.",
+    "emptyText": "Indtast vandmærketekst.",
+    "needImage": "Vælg et PNG- eller JPEG-billede som vandmærke.",
+    "fontHelvetica": "Helvetica",
+    "fontHelveticaBold": "Helvetica Bold",
+    "fontTimes": "Times Roman",
+    "fontCourier": "Courier"
+  },
+  "PdfCompare": {
+    "title": "Sammenlign PDF",
+    "subtitle": "Upload to PDF-filer for at sammenligne tekstlag side om side. Kører lokalt i din browser med PDF.js.",
+    "privacyNote": "Dine filer forlader ikke denne browser. PDF.js-worker indlæses fra et CDN første gang.",
+    "firstPdf": "Første PDF",
+    "secondPdf": "Anden PDF",
+    "chooseFile": "Vælg fil",
+    "removeFile": "Fjern",
+    "clearAll": "Ryd alt",
+    "extracting": "Udtrækker tekst…",
+    "comparisonLabel": "Tekstdiff",
+    "emptyState": "Vælg to PDF-filer for at se tilføjelser og fjernelser side om side.",
+    "truncatedWarning": "Viser de første {max} rækker.",
+    "limitExceeded": "Udtrukket tekst er begrænset til {max} tegn pr. fil.",
+    "noTextHint": "Der blev fundet lidt eller ingen tekst i en eller begge PDF'er (almindeligt ved scanninger).",
+    "mobileTabFiles": "PDF'er",
+    "mobileTabDiff": "Diff",
+    "invalidPdf": "Kunne ikke læse denne fil som PDF.",
+    "passwordRequired": "Denne PDF er adgangskodebeskyttet. Brug Lås PDF op først, og prøv igen.",
+    "genericError": "Kunne ikke behandle denne PDF. Prøv en anden fil."
+  },
+  "PdfToPdfA": {
+    "intro": "Konvertér PDF-dokumenter til PDF/A til arkivering og langtidsbevaring.",
+    "privacyNote": "Din fil forlader aldrig denne browser.",
+    "disclaimer": "Dette genopbygger PDF’en med PDF/A-markering (XMP pdfaid, sRGB-outputintent og MarkInfo). Komplekse PDF’er kan stadig fejle over for strenge ISO-validatorer (skrifttyper, gennemsigtighed, vedhæftninger). Brug dedikeret arkiveringssoftware, hvis du skal have garanteret overensstemmelse.",
+    "chooseFile": "Vælg PDF",
+    "reset": "Anden fil",
+    "pageCount": "{count, plural, one {# side} other {# sider}}",
+    "levelLabel": "PDF/A-overensstemmelse",
+    "levelHint": "PDF/A-1b deaktiverer objektstreams til ældre arkivforventninger. PDF/A-2 og PDF/A-3 sigter mod moderne PDF 1.7-workflows; \"U\" angiver antagelser om Unicode-tekst.",
+    "download": "Konvertér og download",
+    "working": "Arbejder…",
+    "done": "PDF/A-mærket fil downloadet.",
+    "invalidPdf": "Kunne ikke læse denne fil som en PDF.",
+    "encryptedPdf": "Denne PDF er beskyttet med adgangskode. Lås den op med Lås PDF op, og prøv igen.",
+    "convertFailed": "Denne PDF kunne ikke konverteres. Prøv en anden fil.",
+    "level": {
+      "1b": "PDF/A-1b (del 1, overensstemmelse B)",
+      "2b": "PDF/A-2b (del 2, overensstemmelse B)",
+      "2u": "PDF/A-2u (del 2, overensstemmelse U)",
+      "3b": "PDF/A-3b (del 3, overensstemmelse B)",
+      "3u": "PDF/A-3u (del 3, overensstemmelse U)"
+    }
   }
 }

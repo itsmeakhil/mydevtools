@@ -52,8 +52,12 @@
     "pdfLocker": "قفل PDF",
     "pdfMerge": "دمج ملفات PDF",
     "pdfCompressor": "ضغط ملفات PDF",
+    "pdfWatermark": "علامة مائية PDF",
+    "excelToPdf": "Excel إلى PDF",
     "jpgToPdf": "من JPG إلى PDF",
-    "pdfToJpg": "PDF إلى JPG"
+    "pdfToJpg": "PDF إلى JPG",
+    "pdfCompare": "مقارنة PDF",
+    "pdfToPdfA": "PDF إلى PDF/A"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -438,6 +442,14 @@
         "title": "ضغط ملفات PDF",
         "description": "تقليل حجم الملف مع تحسين جودة PDF قدر الإمكان — في متصفحك."
       },
+      "pdfWatermark": {
+        "title": "علامة مائية PDF",
+        "description": "أضف نصًا أو PNG/JPEG على كل صفحة مع الخط والشفافية والموضع — كل ذلك في المتصفح."
+      },
+      "excelToPdf": {
+        "title": "Excel إلى PDF",
+        "description": "اجعل جداول Excel أسهل للقراءة بتحويلها إلى PDF داخل المتصفح."
+      },
       "jpgToPdf": {
         "title": "من JPG إلى PDF",
         "description": "حوّل صور JPG إلى PDF في ثوانٍ. اضبط الاتجاه والهوامش بسهولة."
@@ -445,6 +457,14 @@
       "pdfToJpg": {
         "title": "PDF إلى JPG",
         "description": "حوّل كل صفحة PDF إلى JPEG أو استخرج الصور المضمّنة — كل ذلك داخل المتصفح."
+      },
+      "pdfCompare": {
+        "title": "مقارنة PDF",
+        "description": "اعرض الاختلافات بين ملفين متشابهين بسهولة. يُستخرج النص محليًا باستخدام PDF.js ويُقارن دون رفع الملفات إلى خادم."
+      },
+      "pdfToPdfA": {
+        "title": "PDF إلى PDF/A",
+        "description": "حوّل ملفات PDF إلى PDF/A للأرشفة والحفظ طويل الأمد مع مستوى مطابقة ISO الذي تختاره — كله داخل المتصفح."
       }
     },
     "tabs": {
@@ -3371,6 +3391,23 @@
     "noSavingsHint": "كان ملف PDF مضغوطًا بالفعل. الملف الذي تم تنزيله لا يزال نسخة نظيفة ومتوافقة مع المعايير.",
     "savedToast": "أصغر بحوالي {percent}% ({before} → {after})"
   },
+  "ExcelToPdf": {
+    "intro": "اجعل جداول Excel أسهل للقراءة بتحويلها إلى PDF.",
+    "privacyNote": "ملفك لا يغادر هذا المتصفح أبدًا.",
+    "includeSheets": "الأوراق المضمّنة",
+    "allSheets": "كل الأوراق",
+    "firstSheetOnly": "الورقة الأولى فقط",
+    "chooseFile": "اختر ملف Excel",
+    "clearFile": "مسح",
+    "downloadPdf": "تنزيل PDF",
+    "building": "جارٍ إنشاء PDF…",
+    "noFile": "اختر ملف Excel أولًا.",
+    "emptyWorkbook": "لم يحتوِ أي ورقة في هذا المصنف على بيانات جدول يمكن تصديرها.",
+    "unsupportedFile": "استخدم ملف .xlsx أو .xls.",
+    "readFailed": "تعذّر قراءة هذا الجدول.",
+    "buildFailed": "تعذّر إنشاء PDF. جرّب مصنفًا أصغر أو عددًا أقل من الأوراق.",
+    "sheetHeading": "الورقة: {name}"
+  },
   "JpgToPdf": {
     "intro": "حوّل صور JPG إلى PDF في ثوانٍ. اضبط الاتجاه والهوامش بسهولة.",
     "privacyNote": "ملفاتك لا تغادر هذا المتصفح أبدًا.",
@@ -3392,5 +3429,87 @@
     "minOneJpeg": "أضف ملف JPEG واحدًا على الأقل.",
     "invalidJpeg": "هذا الملف ليس JPEG (JPG) صالحًا.",
     "buildFailed": "تعذّر إنشاء ملف PDF. أزل الملفات غير المدعومة وحاول مرة أخرى."
+  },
+  "PdfWatermark": {
+    "intro": "ضع صورة أو نصًا فوق ملف PDF في ثوانٍ. اختر الخط والشفافية والموضع.",
+    "privacyNote": "ملفك لا يغادر هذا المتصفح أبدًا.",
+    "choosePdf": "اختر PDF",
+    "reset": "ملف آخر",
+    "pageCount": "{count, plural, one {# صفحة} other {# صفحات}}",
+    "tabText": "نص",
+    "tabImage": "صورة",
+    "textLabel": "نص العلامة المائية",
+    "textPlaceholder": "مثال: مسودة",
+    "fontLabel": "الخط",
+    "sizeLabel": "حجم النص",
+    "rotationLabel": "الدوران",
+    "colorLabel": "اللون",
+    "chooseImage": "اختر صورة",
+    "imageHint": "PNG أو JPEG. تُحفظ شفافية ملفات PNG.",
+    "imageWidthLabel": "العرض (نسبة إلى الصفحة)",
+    "positionLabel": "الموضع",
+    "posCenter": "الوسط",
+    "posTl": "أعلى اليسار",
+    "posTr": "أعلى اليمين",
+    "posBl": "أسفل اليسار",
+    "posBr": "أسفل اليمين",
+    "opacityLabel": "العتامة",
+    "download": "تطبيق العلامة المائية وتنزيل",
+    "working": "جارٍ العمل…",
+    "done": "تم تنزيل PDF مع علامة مائية.",
+    "invalidPdf": "تعذّر قراءة هذا الملف كملف PDF.",
+    "encryptedPdf": "هذا PDF محمي بكلمة مرور. افتح قفله باستخدام إلغاء قفل PDF، ثم أعد المحاولة.",
+    "stampFailed": "تعذّر وضع علامة مائية على هذا PDF. جرّب ملفًا آخر.",
+    "invalidImage": "استخدم صورة PNG أو JPEG.",
+    "emptyText": "أدخل نص العلامة المائية.",
+    "needImage": "اختر صورة PNG أو JPEG للعلامة المائية.",
+    "fontHelvetica": "Helvetica",
+    "fontHelveticaBold": "Helvetica Bold",
+    "fontTimes": "Times Roman",
+    "fontCourier": "Courier"
+  },
+  "PdfCompare": {
+    "title": "مقارنة PDF",
+    "subtitle": "ارفع ملفي PDF لمقارنة طبقة النص جنبًا إلى جنب. يعمل محليًا في المتصفح عبر PDF.js.",
+    "privacyNote": "ملفاتك لا تغادر هذا المتصفح. يُحمّل عامل PDF.js من شبكة CDN عند أول مقارنة.",
+    "firstPdf": "ملف PDF الأول",
+    "secondPdf": "ملف PDF الثاني",
+    "chooseFile": "اختر ملفًا",
+    "removeFile": "إزالة",
+    "clearAll": "مسح الكل",
+    "extracting": "جارٍ استخراج النص…",
+    "comparisonLabel": "فرق النص",
+    "emptyState": "اختر ملفي PDF لعرض الإضافات والحذف جنبًا إلى جنب.",
+    "truncatedWarning": "عرض أول {max} صفًا.",
+    "limitExceeded": "النص المستخرج محدود بـ {max} حرفًا لكل ملف.",
+    "noTextHint": "لم يُعثر على نص تقريبًا في أحد الملفين أو كليهما (شائع في المستندات الممسوحة ضوئيًا).",
+    "mobileTabFiles": "ملفات PDF",
+    "mobileTabDiff": "الفروقات",
+    "invalidPdf": "تعذّر قراءة هذا الملف كـ PDF.",
+    "passwordRequired": "هذا PDF محمي بكلمة مرور. استخدم «إلغاء قفل PDF» أولًا ثم أعد المحاولة.",
+    "genericError": "تعذّر معالجة هذا PDF. جرّب ملفًا آخر."
+  },
+  "PdfToPdfA": {
+    "intro": "حوّل مستندات PDF إلى PDF/A للأرشفة والحفظ طويل الأمد.",
+    "privacyNote": "ملفك لا يغادر هذا المتصفح أبدًا.",
+    "disclaimer": "يعيد هذا بناء ملف PDF مع تعريف PDF/A (XMP pdfaid ونية الإخراج sRGB وMarkInfo). قد تفشل ملفات PDF المعقدة في مراجعي ISO الصارمين (الخطوط، الشفافية، المرفقات). استخدم برامج أرشفة متخصصة إذا كنت بحاجة إلى مطابقة مضمونة.",
+    "chooseFile": "اختر PDF",
+    "reset": "ملف آخر",
+    "pageCount": "{count, plural, one {# صفحة} other {# صفحات}}",
+    "levelLabel": "مطابقة PDF/A",
+    "levelHint": "يعطّل PDF/A-1b تدفقات الكائنات لتوقعات الأرشفة الأقدم. يستهدف PDF/A-2 وPDF/A-3 سير عمل PDF 1.7 الحديثة؛ «U» يعلن عن افتراضات نص يونيكود.",
+    "download": "تحويل وتنزيل",
+    "working": "جارٍ العمل…",
+    "done": "تم تنزيل الملف الموسوم بـ PDF/A.",
+    "invalidPdf": "تعذّر قراءة هذا الملف كملف PDF.",
+    "encryptedPdf": "هذا PDF محمي بكلمة مرور. افتح قفله باستخدام إلغاء قفل PDF، ثم أعد المحاولة.",
+    "convertFailed": "تعذر تحويل ملف PDF هذا. جرّب ملفًا آخر.",
+    "level": {
+      "1b": "PDF/A-1b (الجزء 1، مطابقة B)",
+      "2b": "PDF/A-2b (الجزء 2، مطابقة B)",
+      "2u": "PDF/A-2u (الجزء 2، مطابقة U)",
+      "3b": "PDF/A-3b (الجزء 3، مطابقة B)",
+      "3u": "PDF/A-3u (الجزء 3، مطابقة U)"
+    }
   }
 }

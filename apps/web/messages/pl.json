@@ -52,8 +52,12 @@
     "pdfLocker": "Zabezpiecz PDF",
     "pdfMerge": "Scalaj PDF",
     "pdfCompressor": "Kompresja plików PDF",
+    "pdfWatermark": "Znak wodny PDF",
+    "excelToPdf": "Excel do PDF",
     "jpgToPdf": "JPG do PDF",
-    "pdfToJpg": "PDF do JPG"
+    "pdfToJpg": "PDF do JPG",
+    "pdfCompare": "Porównaj PDF",
+    "pdfToPdfA": "PDF do PDF/A"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -438,6 +442,14 @@
         "title": "Kompresja plików PDF",
         "description": "Zmniejsz rozmiar pliku, zachowując maksymalną jakość PDF — w przeglądarce."
       },
+      "pdfWatermark": {
+        "title": "Znak wodny PDF",
+        "description": "Dodaj tekst lub PNG/JPEG na każdej stronie: typografia, przezroczystość i położenie — wszystko w przeglądarce."
+      },
+      "excelToPdf": {
+        "title": "Excel do PDF",
+        "description": "Ułatwiaj czytanie arkuszy Excel, konwertując je do PDF w przeglądarce."
+      },
       "jpgToPdf": {
         "title": "JPG do PDF",
         "description": "Konwertuj obrazy JPG na PDF w kilka sekund. Łatwo dostosuj orientację i marginesy."
@@ -445,6 +457,14 @@
       "pdfToJpg": {
         "title": "PDF do JPG",
         "description": "Rasteruj każdą stronę PDF do JPEG lub wyodrębnij osadzone obrazy — wszystko w przeglądarce."
+      },
+      "pdfCompare": {
+        "title": "Porównaj PDF",
+        "description": "Łatwo pokaż różnice między dwoma podobnymi plikami. Tekst jest wyciągany przez PDF.js i porównywany lokalnie — nic nie jest wysyłane."
+      },
+      "pdfToPdfA": {
+        "title": "PDF do PDF/A",
+        "description": "Konwertuj pliki PDF do PDF/A w celu archiwizacji i długotrwałego przechowywania, wybierając poziom zgodności ISO — wszystko w przeglądarce."
       }
     },
     "tabs": {
@@ -3371,6 +3391,23 @@
     "noSavingsHint": "Twój PDF był już zwarty. Pobrany plik to nadal czysta kopia zgodna ze standardami.",
     "savedToast": "O ok. {percent}% mniejszy ({before} → {after})"
   },
+  "ExcelToPdf": {
+    "intro": "Ułatwiaj czytanie arkuszy Excel, konwertując je do PDF.",
+    "privacyNote": "Plik nigdy nie opuszcza tej przeglądarki.",
+    "includeSheets": "Arkusze do uwzględnienia",
+    "allSheets": "Wszystkie arkusze",
+    "firstSheetOnly": "Tylko pierwszy arkusz",
+    "chooseFile": "Wybierz plik Excel",
+    "clearFile": "Wyczyść",
+    "downloadPdf": "Pobierz PDF",
+    "building": "Tworzenie PDF…",
+    "noFile": "Najpierw wybierz plik Excel.",
+    "emptyWorkbook": "Żaden arkusz w tym skoroszycie nie zawierał danych tabelarycznych do eksportu.",
+    "unsupportedFile": "Użyj pliku .xlsx lub .xls.",
+    "readFailed": "Nie można odczytać tego arkusza.",
+    "buildFailed": "Nie można utworzyć PDF. Spróbuj mniejszego skoroszytu lub mniej arkuszy.",
+    "sheetHeading": "Arkusz: {name}"
+  },
   "JpgToPdf": {
     "intro": "Konwertuj obrazy JPG na PDF w kilka sekund. Łatwo dostosuj orientację i marginesy.",
     "privacyNote": "Twoje pliki nigdy nie opuszczają tej przeglądarki.",
@@ -3392,5 +3429,87 @@
     "minOneJpeg": "Dodaj co najmniej jeden plik JPEG.",
     "invalidJpeg": "Ten plik nie jest prawidłowym JPEG (JPG).",
     "buildFailed": "Nie można utworzyć PDF. Usuń nieobsługiwane pliki i spróbuj ponownie."
+  },
+  "PdfWatermark": {
+    "intro": "Nałóż obraz lub tekst na PDF w kilka sekund. Wybierz typografię, przezroczystość i położenie.",
+    "privacyNote": "Plik nie opuszcza tej przeglądarki.",
+    "choosePdf": "Wybierz PDF",
+    "reset": "Inny plik",
+    "pageCount": "{count, plural, one {# strona} few {# strony} many {# stron} other {# stron}}",
+    "tabText": "Tekst",
+    "tabImage": "Obraz",
+    "textLabel": "Tekst znaku wodnego",
+    "textPlaceholder": "np. SZKIC",
+    "fontLabel": "Czcionka",
+    "sizeLabel": "Rozmiar tekstu",
+    "rotationLabel": "Obrót",
+    "colorLabel": "Kolor",
+    "chooseImage": "Wybierz obraz",
+    "imageHint": "PNG lub JPEG. Przezroczystość PNG jest zachowana.",
+    "imageWidthLabel": "Szerokość (względem strony)",
+    "positionLabel": "Położenie",
+    "posCenter": "Środek",
+    "posTl": "Górny lewy",
+    "posTr": "Górny prawy",
+    "posBl": "Dolny lewy",
+    "posBr": "Dolny prawy",
+    "opacityLabel": "Krycie",
+    "download": "Zastosuj znak wodny i pobierz",
+    "working": "Przetwarzanie…",
+    "done": "Pobrano PDF ze znakiem wodnym.",
+    "invalidPdf": "Nie można odczytać tego pliku jako PDF.",
+    "encryptedPdf": "Ten PDF jest chroniony hasłem. Odblokuj go narzędziem Odblokuj PDF i spróbuj ponownie.",
+    "stampFailed": "Nie można dodać znaku wodnego do tego PDF. Spróbuj innego pliku.",
+    "invalidImage": "Użyj obrazu PNG lub JPEG.",
+    "emptyText": "Wpisz tekst znaku wodnego.",
+    "needImage": "Wybierz obraz PNG lub JPEG jako znak wodny.",
+    "fontHelvetica": "Helvetica",
+    "fontHelveticaBold": "Helvetica Bold",
+    "fontTimes": "Times Roman",
+    "fontCourier": "Courier"
+  },
+  "PdfCompare": {
+    "title": "Porównaj PDF",
+    "subtitle": "Prześlij dwa pliki PDF, aby porównać warstwę tekstową obok siebie. Działa lokalnie w przeglądarce z PDF.js.",
+    "privacyNote": "Twoje pliki nie opuszczają tej przeglądarki. Worker PDF.js ładuje się z CDN przy pierwszym porównaniu.",
+    "firstPdf": "Pierwszy PDF",
+    "secondPdf": "Drugi PDF",
+    "chooseFile": "Wybierz plik",
+    "removeFile": "Usuń",
+    "clearAll": "Wyczyść wszystko",
+    "extracting": "Wyciąganie tekstu…",
+    "comparisonLabel": "Różnice tekstu",
+    "emptyState": "Wybierz dwa pliki PDF, aby zobaczyć dodania i usunięcia obok siebie.",
+    "truncatedWarning": "Wyświetlane są pierwsze {max} wierszy.",
+    "limitExceeded": "Wyciągnięty tekst jest ograniczony do {max} znaków na plik.",
+    "noTextHint": "W jednym lub obu plikach PDF jest mało lub brak tekstu (częste przy skanach).",
+    "mobileTabFiles": "PDF",
+    "mobileTabDiff": "Różnice",
+    "invalidPdf": "Nie można odczytać tego pliku jako PDF.",
+    "passwordRequired": "Ten PDF wymaga hasła. Najpierw użyj Odblokuj PDF i spróbuj ponownie.",
+    "genericError": "Nie można przetworzyć tego PDF. Spróbuj innego pliku."
+  },
+  "PdfToPdfA": {
+    "intro": "Konwertuj dokumenty PDF do formatu PDF/A w celu archiwizacji i długotrwałego przechowywania.",
+    "privacyNote": "Twój plik nigdy nie opuszcza tej przeglądarki.",
+    "disclaimer": "To odbudowuje plik PDF ze znacznikami PDF/A (XMP pdfaid, intencja wyjścia sRGB i MarkInfo). Złożone pliki PDF mogą nadal nie przejść ścisłych walidatorów ISO (czcionki, przezroczystość, załączniki). Użyj dedykowanego oprogramowania archiwizacyjnego, jeśli potrzebujesz gwarantowanej zgodności.",
+    "chooseFile": "Wybierz PDF",
+    "reset": "Inny plik",
+    "pageCount": "{count, plural, one {# strona} few {# strony} many {# stron} other {# stron}}",
+    "levelLabel": "Zgodność PDF/A",
+    "levelHint": "PDF/A-1b wyłącza strumienie obiektów pod starsze oczekiwania archiwalne. PDF/A-2 i PDF/A-3 są dla nowoczesnych przepływów PDF 1.7; „U” oznacza założenia dotyczące tekstu Unicode.",
+    "download": "Konwertuj i pobierz",
+    "working": "Przetwarzanie…",
+    "done": "Oznaczony plik PDF/A został pobrany.",
+    "invalidPdf": "Nie można odczytać tego pliku jako PDF.",
+    "encryptedPdf": "Ten PDF jest chroniony hasłem. Odblokuj go za pomocą Odblokuj PDF i spróbuj ponownie.",
+    "convertFailed": "Nie udało się przekonwertować tego pliku PDF. Spróbuj innego pliku.",
+    "level": {
+      "1b": "PDF/A-1b (część 1, zgodność B)",
+      "2b": "PDF/A-2b (część 2, zgodność B)",
+      "2u": "PDF/A-2u (część 2, zgodność U)",
+      "3b": "PDF/A-3b (część 3, zgodność B)",
+      "3u": "PDF/A-3u (część 3, zgodność U)"
+    }
   }
 }

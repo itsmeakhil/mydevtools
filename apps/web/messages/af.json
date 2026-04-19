@@ -52,8 +52,12 @@
     "pdfLocker": "Sluit PDF",
     "pdfMerge": "Voeg PDF’s saam",
     "pdfCompressor": "Komprimeer PDF-lêers",
+    "pdfWatermark": "PDF-watermerk",
+    "excelToPdf": "Excel na PDF",
     "jpgToPdf": "JPG na PDF",
-    "pdfToJpg": "PDF na JPG"
+    "pdfToJpg": "PDF na JPG",
+    "pdfCompare": "Vergelyk PDF",
+    "pdfToPdfA": "PDF na PDF/A"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -438,6 +442,14 @@
         "title": "Komprimeer PDF-lêers",
         "description": "Verminder lêergrootte terwyl maksimale PDF-kwaliteit geoptimaliseer word — in jou blaaier."
       },
+      "pdfWatermark": {
+        "title": "PDF-watermerk",
+        "description": "Voeg teks of PNG/JPEG op elke bladsy by met tipografie, deursigtigheid en posisie — alles in die blaaier."
+      },
+      "excelToPdf": {
+        "title": "Excel na PDF",
+        "description": "Maak Excel-spruitstukke makliker om te lees deur dit in die blaaier na PDF om te skakel."
+      },
       "jpgToPdf": {
         "title": "JPG na PDF",
         "description": "Skakel JPG-beelde na PDF in sekondes. Pas oriëntasie en kante maklik aan."
@@ -445,6 +457,14 @@
       "pdfToJpg": {
         "title": "PDF na JPG",
         "description": "Rasteriseer elke PDF-bladsy na JPEG of onttrek ingebedde beelde — alles in jou blaaier."
+      },
+      "pdfCompare": {
+        "title": "Vergelyk PDF",
+        "description": "Wys maklik die verskille tussen twee soortgelyke lêers. Teks word met PDF.js plaaslik onttrek en vergelyk — niks word opgelaai nie."
+      },
+      "pdfToPdfA": {
+        "title": "PDF na PDF/A",
+        "description": "Skakel PDF’s om na PDF/A vir argivering en langtermynbewaring, met die ISO-voldoeningsvlak van jou keuse — alles in jou blaaier."
       }
     },
     "tabs": {
@@ -3371,6 +3391,23 @@
     "noSavingsHint": "Jou PDF was reeds kompak. Die afgelaaide lêer is steeds ’n skoon, standaardgebaseerde kopie.",
     "savedToast": "Ongeveer {percent}% kleiner ({before} → {after})"
   },
+  "ExcelToPdf": {
+    "intro": "Maak Excel-spruitstukke makliker om te lees deur dit na PDF om te skakel.",
+    "privacyNote": "Jou lêer verlaat nooit hierdie blaaier nie.",
+    "includeSheets": "Blaaie om in te sluit",
+    "allSheets": "Alle blaaie",
+    "firstSheetOnly": "Slegs eerste blad",
+    "chooseFile": "Kies Excel-lêer",
+    "clearFile": "Maak skoon",
+    "downloadPdf": "Laai PDF af",
+    "building": "Bou PDF…",
+    "noFile": "Kies eers ’n Excel-lêer.",
+    "emptyWorkbook": "Geen blad in hierdie werkboek het tabeldata gehad wat ons kon uitvoer nie.",
+    "unsupportedFile": "Gebruik ’n .xlsx- of .xls-lêer.",
+    "readFailed": "Kon nie hierdie sigblad lees nie.",
+    "buildFailed": "Kon nie die PDF bou nie. Probeer ’n kleiner werkboek of minder blaaie.",
+    "sheetHeading": "Blad: {name}"
+  },
   "JpgToPdf": {
     "intro": "Skakel JPG-beelde na PDF in sekondes. Pas oriëntasie en kante maklik aan.",
     "privacyNote": "Jou lêers verlaat nooit hierdie blaaier nie.",
@@ -3392,5 +3429,87 @@
     "minOneJpeg": "Voeg minstens een JPEG-lêer by.",
     "invalidJpeg": "Hierdie lêer is nie 'n geldige JPEG (JPG) nie.",
     "buildFailed": "Kon nie die PDF skep nie. Verwyder nie-ondersteunde lêers en probeer weer."
+  },
+  "PdfWatermark": {
+    "intro": "Stempel 'n beeld of teks oor jou PDF in sekondes. Kies tipografie, deursigtigheid en posisie.",
+    "privacyNote": "Jou lêer verlaat nooit hierdie blaaier nie.",
+    "choosePdf": "Kies PDF",
+    "reset": "Ander lêer",
+    "pageCount": "{count, plural, one {# bladsy} other {# bladsye}}",
+    "tabText": "Teks",
+    "tabImage": "Beeld",
+    "textLabel": "Watermerkteks",
+    "textPlaceholder": "bv. KONSEP",
+    "fontLabel": "Lettertipe",
+    "sizeLabel": "Teksgrootte",
+    "rotationLabel": "Rotasie",
+    "colorLabel": "Kleur",
+    "chooseImage": "Kies beeld",
+    "imageHint": "PNG of JPEG. Deursigtigheid in PNG's bly behoue.",
+    "imageWidthLabel": "Breedte (relatief tot bladsy)",
+    "positionLabel": "Posisie",
+    "posCenter": "Middel",
+    "posTl": "Links bo",
+    "posTr": "Regs bo",
+    "posBl": "Links onder",
+    "posBr": "Regs onder",
+    "opacityLabel": "Ondeursigtigheid",
+    "download": "Pas watermerk toe & laai af",
+    "working": "Besig…",
+    "done": "PDF met watermerk afgelaai.",
+    "invalidPdf": "Kon nie hierdie lêer as 'n PDF lees nie.",
+    "encryptedPdf": "Hierdie PDF is wagwoordbeskerm. Ontsluit dit eers met PDF-ontsluiting en probeer weer.",
+    "stampFailed": "Kon nie watermerk op hierdie PDF plaas nie. Probeer 'n ander lêer.",
+    "invalidImage": "Gebruik 'n PNG- of JPEG-beeld.",
+    "emptyText": "Voer watermerkteks in.",
+    "needImage": "Kies 'n PNG- of JPEG-beeld vir die watermerk.",
+    "fontHelvetica": "Helvetica",
+    "fontHelveticaBold": "Helvetica Bold",
+    "fontTimes": "Times Roman",
+    "fontCourier": "Courier"
+  },
+  "PdfCompare": {
+    "title": "Vergelyk PDF",
+    "subtitle": "Laai twee PDF's op om hul tekslaag sy aan sy te vergelyk. Gebeur plaaslik in jou blaaier met PDF.js.",
+    "privacyNote": "Jou lêers verlaat nie hierdie blaaier nie. Die PDF.js-werker laai die eerste keer vanaf 'n CDN.",
+    "firstPdf": "Eerste PDF",
+    "secondPdf": "Tweede PDF",
+    "chooseFile": "Kies lêer",
+    "removeFile": "Verwyder",
+    "clearAll": "Maak alles skoon",
+    "extracting": "Onttrek teks…",
+    "comparisonLabel": "Teksverskil",
+    "emptyState": "Kies twee PDF's om byvoegings en verwyderings sy aan sy te sien.",
+    "truncatedWarning": "Wys eerste {max} rye.",
+    "limitExceeded": "Onttrekte teks is beperk tot {max} karakters per lêer.",
+    "noTextHint": "Min of geen teks in een of beide PDF's (gewoon by geskandeerde bladsye).",
+    "mobileTabFiles": "PDF's",
+    "mobileTabDiff": "Verskil",
+    "invalidPdf": "Kon nie hierdie lêer as 'n PDF lees nie.",
+    "passwordRequired": "Hierdie PDF benodig 'n wagwoord. Gebruik eers Ontsluit PDF, probeer dan weer.",
+    "genericError": "Kon nie hierdie PDF verwerk nie. Probeer 'n ander lêer."
+  },
+  "PdfToPdfA": {
+    "intro": "Skakel PDF-dokumente om na PDF/A vir argivering en langtermynbewaring.",
+    "privacyNote": "Jou lêer verlaat nooit hierdie blaaier nie.",
+    "disclaimer": "Hierdie bou die PDF weer op met PDF/A-identifikasie (XMP pdfaid, sRGB-uitsetbedoeling en MarkInfo). Komplekse PDF’s kan steeds misluk by streng ISO-valideerders (lettertipes, deursigtigheid, aanhegsels). Gebruik toegewyde argiveringsprogrammatuur as jy gewaarborgde voldoening benodig.",
+    "chooseFile": "Kies PDF",
+    "reset": "Ander lêer",
+    "pageCount": "{count, plural, one {# bladsy} other {# bladsye}}",
+    "levelLabel": "PDF/A-voldoening",
+    "levelHint": "PDF/A-1b skakel voorwerpstrome af vir ouer argiveringsverwagtinge. PDF/A-2 en PDF/A-3 teiken moderne PDF 1.7-werksvloei; \"U\" verklaar Unicode-teksaanames.",
+    "download": "Skakel om en laai af",
+    "working": "Besig…",
+    "done": "PDF/A-gemerkte lêer afgelaai.",
+    "invalidPdf": "Kon nie hierdie lêer as ’n PDF lees nie.",
+    "encryptedPdf": "Hierdie PDF is wagwoordbeskerm. Ontsluit dit eers met Ontsluit PDF, en probeer weer.",
+    "convertFailed": "Kon nie hierdie PDF omskakel nie. Probeer ’n ander lêer.",
+    "level": {
+      "1b": "PDF/A-1b (deel 1, voldoening B)",
+      "2b": "PDF/A-2b (deel 2, voldoening B)",
+      "2u": "PDF/A-2u (deel 2, voldoening U)",
+      "3b": "PDF/A-3b (deel 3, voldoening B)",
+      "3u": "PDF/A-3u (deel 3, voldoening U)"
+    }
   }
 }

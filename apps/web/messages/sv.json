@@ -52,8 +52,12 @@
     "pdfLocker": "Lås PDF",
     "pdfMerge": "Sammanfoga PDF",
     "pdfCompressor": "Komprimera PDF-filer",
+    "pdfWatermark": "PDF-vattenstämpel",
+    "excelToPdf": "Excel till PDF",
     "jpgToPdf": "JPG till PDF",
-    "pdfToJpg": "PDF till JPG"
+    "pdfToJpg": "PDF till JPG",
+    "pdfCompare": "Jämför PDF",
+    "pdfToPdfA": "PDF till PDF/A"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -438,6 +442,14 @@
         "title": "Komprimera PDF-filer",
         "description": "Minska filstorleken och optimera för maximal PDF-kvalitet — i din webbläsare."
       },
+      "pdfWatermark": {
+        "title": "PDF-vattenstämpel",
+        "description": "Lägg text eller PNG/JPEG på varje sida med typografi, transparens och position — allt i webbläsaren."
+      },
+      "excelToPdf": {
+        "title": "Excel till PDF",
+        "description": "Gör Excel-kalkylblad lättare att läsa genom att konvertera dem till PDF i webbläsaren."
+      },
       "jpgToPdf": {
         "title": "JPG till PDF",
         "description": "Konvertera JPG-bilder till PDF på några sekunder. Justera enkelt orientering och marginaler."
@@ -445,6 +457,14 @@
       "pdfToJpg": {
         "title": "PDF till JPG",
         "description": "Rasterisera varje PDF-sida till JPEG eller extrahera inbäddade bilder — allt i webbläsaren."
+      },
+      "pdfCompare": {
+        "title": "Jämför PDF",
+        "description": "Visa enkelt skillnaderna mellan två liknande filer. Text extraheras med PDF.js och jämförs lokalt — inget laddas upp."
+      },
+      "pdfToPdfA": {
+        "title": "PDF till PDF/A",
+        "description": "Konvertera PDF till PDF/A för arkivering och långtidsbevarande med valfri ISO-konformitetsnivå — allt i din webbläsare."
       }
     },
     "tabs": {
@@ -3371,6 +3391,23 @@
     "noSavingsHint": "Din PDF var redan kompakt. Den nedladdade filen är fortfarande en ren, standardbaserad kopia.",
     "savedToast": "Ungefär {percent} % mindre ({before} → {after})"
   },
+  "ExcelToPdf": {
+    "intro": "Gör Excel-kalkylblad lättare att läsa genom att konvertera dem till PDF.",
+    "privacyNote": "Din fil lämnar aldrig den här webbläsaren.",
+    "includeSheets": "Blad att inkludera",
+    "allSheets": "Alla blad",
+    "firstSheetOnly": "Endast första bladet",
+    "chooseFile": "Välj Excel-fil",
+    "clearFile": "Rensa",
+    "downloadPdf": "Ladda ner PDF",
+    "building": "Skapar PDF…",
+    "noFile": "Välj en Excel-fil först.",
+    "emptyWorkbook": "Inget blad i den här arbetsboken innehöll tabelldata som vi kunde exportera.",
+    "unsupportedFile": "Använd en .xlsx- eller .xls-fil.",
+    "readFailed": "Kunde inte läsa detta kalkylblad.",
+    "buildFailed": "Kunde inte skapa PDF. Prova en mindre arbetsbok eller färre blad.",
+    "sheetHeading": "Blad: {name}"
+  },
   "JpgToPdf": {
     "intro": "Konvertera JPG-bilder till PDF på några sekunder. Justera enkelt orientering och marginaler.",
     "privacyNote": "Dina filer lämnar aldrig den här webbläsaren.",
@@ -3392,5 +3429,87 @@
     "minOneJpeg": "Lägg till minst en JPEG-fil.",
     "invalidJpeg": "Den här filen är inte en giltig JPEG (JPG).",
     "buildFailed": "Det gick inte att skapa PDF:en. Ta bort filer som inte stöds och försök igen."
+  },
+  "PdfWatermark": {
+    "intro": "Stämpla en bild eller text på din PDF på några sekunder. Välj typografi, transparens och position.",
+    "privacyNote": "Din fil lämnar aldrig den här webbläsaren.",
+    "choosePdf": "Välj PDF",
+    "reset": "Annan fil",
+    "pageCount": "{count, plural, one {# sida} other {# sidor}}",
+    "tabText": "Text",
+    "tabImage": "Bild",
+    "textLabel": "Vattenstämpeltext",
+    "textPlaceholder": "t.ex. UTKAST",
+    "fontLabel": "Teckensnitt",
+    "sizeLabel": "Textstorlek",
+    "rotationLabel": "Rotation",
+    "colorLabel": "Färg",
+    "chooseImage": "Välj bild",
+    "imageHint": "PNG eller JPEG. Transparens i PNG behålls.",
+    "imageWidthLabel": "Bredd (i förhållande till sidan)",
+    "positionLabel": "Position",
+    "posCenter": "Mitten",
+    "posTl": "Övre vänster",
+    "posTr": "Övre höger",
+    "posBl": "Nedre vänster",
+    "posBr": "Nedre höger",
+    "opacityLabel": "Opacitet",
+    "download": "Använd vattenstämpel och ladda ner",
+    "working": "Arbetar…",
+    "done": "PDF med vattenstämpel nedladdad.",
+    "invalidPdf": "Kunde inte läsa den här filen som en PDF.",
+    "encryptedPdf": "Den här PDF:en är lösenordsskyddad. Lås upp den med PDF-upplåsare och försök igen.",
+    "stampFailed": "Kunde inte lägga vattenstämpel på den här PDF:en. Prova en annan fil.",
+    "invalidImage": "Använd en PNG- eller JPEG-bild.",
+    "emptyText": "Ange text för vattenstämpeln.",
+    "needImage": "Välj en PNG- eller JPEG-bild som vattenstämpel.",
+    "fontHelvetica": "Helvetica",
+    "fontHelveticaBold": "Helvetica Bold",
+    "fontTimes": "Times Roman",
+    "fontCourier": "Courier"
+  },
+  "PdfCompare": {
+    "title": "Jämför PDF",
+    "subtitle": "Ladda upp två PDF-filer för att jämföra textlagret sida vid sida. Körs lokalt i webbläsaren med PDF.js.",
+    "privacyNote": "Dina filer lämnar inte den här webbläsaren. PDF.js-arbetaren laddas från ett CDN första gången.",
+    "firstPdf": "Första PDF",
+    "secondPdf": "Andra PDF",
+    "chooseFile": "Välj fil",
+    "removeFile": "Ta bort",
+    "clearAll": "Rensa allt",
+    "extracting": "Extraherar text…",
+    "comparisonLabel": "Textdiff",
+    "emptyState": "Välj två PDF-filer för att se tillägg och borttagningar sida vid sida.",
+    "truncatedWarning": "Visar de första {max} raderna.",
+    "limitExceeded": "Extraherad text är begränsad till {max} tecken per fil.",
+    "noTextHint": "Lite eller ingen text i en eller båda PDF:erna (vanligt vid skanning).",
+    "mobileTabFiles": "PDF",
+    "mobileTabDiff": "Diff",
+    "invalidPdf": "Kunde inte läsa den här filen som PDF.",
+    "passwordRequired": "Den här PDF:en kräver lösenord. Använd Lås upp PDF först och försök igen.",
+    "genericError": "Kunde inte bearbeta den här PDF:en. Prova en annan fil."
+  },
+  "PdfToPdfA": {
+    "intro": "Konvertera PDF-dokument till PDF/A för arkivering och långtidsbevarande.",
+    "privacyNote": "Din fil lämnar aldrig den här webbläsaren.",
+    "disclaimer": "Detta bygger om PDF:en med PDF/A-markering (XMP pdfaid, sRGB-utdataavsikt och MarkInfo). Komplexa PDF:er kan fortfarande fallera mot strikta ISO-validerare (typsnitt, transparens, bilagor). Använd dedikerad arkivprogramvara om du behöver garanterad efterlevnad.",
+    "chooseFile": "Välj PDF",
+    "reset": "Annan fil",
+    "pageCount": "{count, plural, one {# sida} other {# sidor}}",
+    "levelLabel": "PDF/A-konformitet",
+    "levelHint": "PDF/A-1b inaktiverar objektströmmar för äldre arkivförväntningar. PDF/A-2 och PDF/A-3 riktar sig mot moderna PDF 1.7-arbetsflöden; \"U\" anger Unicode-textantaganden.",
+    "download": "Konvertera och ladda ner",
+    "working": "Arbetar…",
+    "done": "PDF/A-märkt fil nedladdad.",
+    "invalidPdf": "Kunde inte läsa den här filen som en PDF.",
+    "encryptedPdf": "Den här PDF:en är lösenordsskyddad. Lås upp den med Lås upp PDF och försök igen.",
+    "convertFailed": "Det gick inte att konvertera den här PDF:en. Prova en annan fil.",
+    "level": {
+      "1b": "PDF/A-1b (del 1, konformitet B)",
+      "2b": "PDF/A-2b (del 2, konformitet B)",
+      "2u": "PDF/A-2u (del 2, konformitet U)",
+      "3b": "PDF/A-3b (del 3, konformitet B)",
+      "3u": "PDF/A-3u (del 3, konformitet U)"
+    }
   }
 }

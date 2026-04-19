@@ -148,6 +148,11 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
     icon: Shrink,
     namespace: 'SvgOptimizer',
   },
+  '/app/pdf-compare': {
+    title: 'Compare PDF',
+    icon: GitCompare,
+    namespace: 'PdfCompare',
+  },
 };
 
 export function NavBar() {

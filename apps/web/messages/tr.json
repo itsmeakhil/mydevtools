@@ -52,8 +52,12 @@
     "pdfLocker": "PDF kilitle",
     "pdfMerge": "PDF birleştir",
     "pdfCompressor": "PDF dosyalarını sıkıştır",
+    "pdfWatermark": "PDF filigranı",
+    "excelToPdf": "Excel'den PDF",
     "jpgToPdf": "JPG'den PDF'e",
-    "pdfToJpg": "PDF'den JPG'ye"
+    "pdfToJpg": "PDF'den JPG'ye",
+    "pdfCompare": "PDF karşılaştır",
+    "pdfToPdfA": "PDF’den PDF/A’ya"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -438,6 +442,14 @@
         "title": "PDF dosyalarını sıkıştır",
         "description": "Maksimum PDF kalitesini koruyarak dosya boyutunu küçültün — tarayıcınızda."
       },
+      "pdfWatermark": {
+        "title": "PDF filigranı",
+        "description": "Her sayfaya tipografi, şeffaflık ve konumla metin veya PNG/JPEG ekleyin — hepsi tarayıcıda."
+      },
+      "excelToPdf": {
+        "title": "Excel'den PDF'ye",
+        "description": "Excel sayfalarını tarayıcıda PDF'ye dönüştürerek okunmasını kolaylaştırın."
+      },
       "jpgToPdf": {
         "title": "JPG'den PDF'e",
         "description": "JPG görsellerini saniyeler içinde PDF'ye dönüştürün. Yönelimi ve kenar boşluklarını kolayca ayarlayın."
@@ -445,6 +457,14 @@
       "pdfToJpg": {
         "title": "PDF'den JPG'ye",
         "description": "Her PDF sayfasını JPEG'e dönüştürün veya gömülü görselleri çıkarın — hepsi tarayıcıda."
+      },
+      "pdfCompare": {
+        "title": "PDF karşılaştır",
+        "description": "İki benzer dosya arasındaki farkları kolayca gösterin. Metin PDF.js ile yerel olarak çıkarılır ve karşılaştırılır — hiçbir şey yüklenmez."
+      },
+      "pdfToPdfA": {
+        "title": "PDF’den PDF/A’ya",
+        "description": "Arşivleme ve uzun süreli saklama için PDF’leri PDF/A’ya dönüştürün; istediğiniz ISO uyumluluk düzeyi — hepsi tarayıcınızda."
       }
     },
     "tabs": {
@@ -3371,6 +3391,23 @@
     "noSavingsHint": "PDF’niz zaten kompaktı. İndirilen dosya yine de temiz, standartlara uygun bir kopyadır.",
     "savedToast": "Yaklaşık {percent}% daha küçük ({before} → {after})"
   },
+  "ExcelToPdf": {
+    "intro": "Excel sayfalarını PDF'ye dönüştürerek okunmasını kolaylaştırın.",
+    "privacyNote": "Dosyanız bu tarayıcıdan hiç ayrılmaz.",
+    "includeSheets": "Dahil edilecek sayfalar",
+    "allSheets": "Tüm sayfalar",
+    "firstSheetOnly": "Yalnızca ilk sayfa",
+    "chooseFile": "Excel dosyası seç",
+    "clearFile": "Temizle",
+    "downloadPdf": "PDF indir",
+    "building": "PDF oluşturuluyor…",
+    "noFile": "Önce bir Excel dosyası seçin.",
+    "emptyWorkbook": "Bu çalışma kitabındaki hiçbir sayfada dışa aktarılabilir tablo verisi yoktu.",
+    "unsupportedFile": ".xlsx veya .xls dosyası kullanın.",
+    "readFailed": "Bu e-tablo okunamadı.",
+    "buildFailed": "PDF oluşturulamadı. Daha küçük bir çalışma kitabı veya daha az sayfa deneyin.",
+    "sheetHeading": "Sayfa: {name}"
+  },
   "JpgToPdf": {
     "intro": "JPG görsellerini saniyeler içinde PDF'ye dönüştürün. Yönelimi ve kenar boşluklarını kolayca ayarlayın.",
     "privacyNote": "Dosyalarınız bu tarayıcıdan hiç çıkmaz.",
@@ -3392,5 +3429,87 @@
     "minOneJpeg": "En az bir JPEG dosyası ekleyin.",
     "invalidJpeg": "Bu dosya geçerli bir JPEG (JPG) değil.",
     "buildFailed": "PDF oluşturulamadı. Desteklenmeyen dosyaları kaldırıp yeniden deneyin."
+  },
+  "PdfWatermark": {
+    "intro": "PDF'nize saniyeler içinde görüntü veya metin damgalayın. Tipografi, şeffaflık ve konumu seçin.",
+    "privacyNote": "Dosyanız bu tarayıcıdan hiç çıkmaz.",
+    "choosePdf": "PDF seç",
+    "reset": "Başka dosya",
+    "pageCount": "{count, plural, one {# sayfa} other {# sayfa}}",
+    "tabText": "Metin",
+    "tabImage": "Görüntü",
+    "textLabel": "Filigran metni",
+    "textPlaceholder": "ör. TASLAK",
+    "fontLabel": "Yazı tipi",
+    "sizeLabel": "Metin boyutu",
+    "rotationLabel": "Döndürme",
+    "colorLabel": "Renk",
+    "chooseImage": "Görüntü seç",
+    "imageHint": "PNG veya JPEG. PNG şeffaflığı korunur.",
+    "imageWidthLabel": "Genişlik (sayfaya göre)",
+    "positionLabel": "Konum",
+    "posCenter": "Orta",
+    "posTl": "Sol üst",
+    "posTr": "Sağ üst",
+    "posBl": "Sol alt",
+    "posBr": "Sağ alt",
+    "opacityLabel": "Opaklık",
+    "download": "Filigranı uygula ve indir",
+    "working": "İşleniyor…",
+    "done": "Filigranlı PDF indirildi.",
+    "invalidPdf": "Bu dosya PDF olarak okunamadı.",
+    "encryptedPdf": "Bu PDF parola korumalı. Önce PDF kilidini açın, sonra tekrar deneyin.",
+    "stampFailed": "Bu PDF'ye filigran eklenemedi. Başka bir dosya deneyin.",
+    "invalidImage": "PNG veya JPEG görüntü kullanın.",
+    "emptyText": "Filigran metni girin.",
+    "needImage": "Filigran için PNG veya JPEG seçin.",
+    "fontHelvetica": "Helvetica",
+    "fontHelveticaBold": "Helvetica Bold",
+    "fontTimes": "Times Roman",
+    "fontCourier": "Courier"
+  },
+  "PdfCompare": {
+    "title": "PDF karşılaştır",
+    "subtitle": "Metin katmanını yan yana karşılaştırmak için iki PDF yükleyin. PDF.js ile tarayıcıda yerel çalışır.",
+    "privacyNote": "Dosyalarınız bu tarayıcıdan çıkmaz. PDF.js worker ilk karşılaştırmada bir CDN’den yüklenir.",
+    "firstPdf": "Birinci PDF",
+    "secondPdf": "İkinci PDF",
+    "chooseFile": "Dosya seç",
+    "removeFile": "Kaldır",
+    "clearAll": "Tümünü temizle",
+    "extracting": "Metin çıkarılıyor…",
+    "comparisonLabel": "Metin farkı",
+    "emptyState": "Eklemeleri ve silmeleri yan yana görmek için iki PDF seçin.",
+    "truncatedWarning": "İlk {max} satır gösteriliyor.",
+    "limitExceeded": "Çıkarılan metin dosya başına {max} karakterle sınırlıdır.",
+    "noTextHint": "Bir veya her iki PDF’de az veya hiç metin yok (taranmış sayfalarda yaygın).",
+    "mobileTabFiles": "PDF’ler",
+    "mobileTabDiff": "Fark",
+    "invalidPdf": "Bu dosya PDF olarak okunamadı.",
+    "passwordRequired": "Bu PDF parola gerektiriyor. Önce PDF kilidini aç kullanın, sonra tekrar deneyin.",
+    "genericError": "Bu PDF işlenemedi. Başka bir dosya deneyin."
+  },
+  "PdfToPdfA": {
+    "intro": "Arşivleme ve uzun süreli saklama için PDF belgelerini PDF/A formatına dönüştürün.",
+    "privacyNote": "Dosyanız bu tarayıcıdan asla çıkmaz.",
+    "disclaimer": "Bu işlem, PDF’yi PDF/A tanımlaması (XMP pdfaid, sRGB çıktı niyeti ve MarkInfo) ile yeniden oluşturur. Karmaşık PDF’ler katı ISO doğrulayıcılarında hâlâ başarısız olabilir (yazı tipleri, şeffaflık, ekler). Garanti uyumluluk için özel arşiv yazılımı kullanın.",
+    "chooseFile": "PDF seç",
+    "reset": "Başka dosya",
+    "pageCount": "{count, plural, one {# sayfa} other {# sayfa}}",
+    "levelLabel": "PDF/A uyumluluğu",
+    "levelHint": "PDF/A-1b, eski arşiv beklentileri için nesne akışlarını kapatır. PDF/A-2 ve PDF/A-3 modern PDF 1.7 iş akışları içindir; «U» Unicode metin varsayımlarını belirtir.",
+    "download": "Dönüştür ve indir",
+    "working": "İşleniyor…",
+    "done": "PDF/A etiketli dosya indirildi.",
+    "invalidPdf": "Bu dosya PDF olarak okunamadı.",
+    "encryptedPdf": "Bu PDF parola korumalı. Önce PDF kilidini aç ile kilidi kaldırın, sonra yeniden deneyin.",
+    "convertFailed": "Bu PDF dönüştürülemedi. Başka bir dosya deneyin.",
+    "level": {
+      "1b": "PDF/A-1b (bölüm 1, B uyumluluğu)",
+      "2b": "PDF/A-2b (bölüm 2, B uyumluluğu)",
+      "2u": "PDF/A-2u (bölüm 2, U uyumluluğu)",
+      "3b": "PDF/A-3b (bölüm 3, B uyumluluğu)",
+      "3u": "PDF/A-3u (bölüm 3, U uyumluluğu)"
+    }
   }
 }

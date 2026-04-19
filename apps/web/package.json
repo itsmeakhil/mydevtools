@@ -67,6 +67,8 @@
     "js-yaml": "^4.1.1",
     "jsonpath-plus": "^10.3.0",
     "jsonrepair": "^3.13.1",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.7",
     "katex": "^0.16.25",
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",

@@ -52,8 +52,12 @@
     "pdfLocker": "Kunci PDF",
     "pdfMerge": "Gabung PDF",
     "pdfCompressor": "Kompres file PDF",
+    "pdfWatermark": "Tanda air PDF",
+    "excelToPdf": "Excel ke PDF",
     "jpgToPdf": "JPG ke PDF",
-    "pdfToJpg": "PDF ke JPG"
+    "pdfToJpg": "PDF ke JPG",
+    "pdfCompare": "Bandingkan PDF",
+    "pdfToPdfA": "PDF ke PDF/A"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -438,6 +442,14 @@
         "title": "Kompres file PDF",
         "description": "Perkecil ukuran file sambil mengoptimalkan kualitas PDF maksimal — di browser Anda."
       },
+      "pdfWatermark": {
+        "title": "Tanda air PDF",
+        "description": "Tambahkan teks atau PNG/JPEG di setiap halaman dengan tipografi, transparansi, dan posisi — semua di browser."
+      },
+      "excelToPdf": {
+        "title": "Excel ke PDF",
+        "description": "Buat lembar Excel lebih mudah dibaca dengan mengonversinya ke PDF di browser."
+      },
       "jpgToPdf": {
         "title": "JPG ke PDF",
         "description": "Ubah gambar JPG menjadi PDF dalam hitungan detik. Atur orientasi dan margin dengan mudah."
@@ -445,6 +457,14 @@
       "pdfToJpg": {
         "title": "PDF ke JPG",
         "description": "Raster setiap halaman PDF ke JPEG atau ekstrak gambar tersemat — semuanya di peramban."
+      },
+      "pdfCompare": {
+        "title": "Bandingkan PDF",
+        "description": "Tampilkan perbedaan antara dua file serupa dengan mudah. Teks diekstrak dengan PDF.js dan dibandingkan secara lokal — tidak ada unggahan."
+      },
+      "pdfToPdfA": {
+        "title": "PDF ke PDF/A",
+        "description": "Ubah PDF ke PDF/A untuk arsip dan pelestarian jangka panjang, dengan tingkat kesesuaian ISO pilihan Anda — semuanya di browser."
       }
     },
     "tabs": {
@@ -3371,6 +3391,23 @@
     "noSavingsHint": "PDF Anda sudah ringkas. File yang diunduh tetap salinan bersih sesuai standar.",
     "savedToast": "Sekitar {percent}% lebih kecil ({before} → {after})"
   },
+  "ExcelToPdf": {
+    "intro": "Buat lembar Excel lebih mudah dibaca dengan mengonversinya ke PDF.",
+    "privacyNote": "Berkas Anda tidak pernah meninggalkan browser ini.",
+    "includeSheets": "Lembar yang disertakan",
+    "allSheets": "Semua lembar",
+    "firstSheetOnly": "Hanya lembar pertama",
+    "chooseFile": "Pilih berkas Excel",
+    "clearFile": "Hapus",
+    "downloadPdf": "Unduh PDF",
+    "building": "Membuat PDF…",
+    "noFile": "Pilih berkas Excel terlebih dahulu.",
+    "emptyWorkbook": "Tidak ada lembar dalam buku kerja ini yang berisi data tabel untuk diekspor.",
+    "unsupportedFile": "Gunakan berkas .xlsx atau .xls.",
+    "readFailed": "Tidak dapat membaca spreadsheet ini.",
+    "buildFailed": "Tidak dapat membuat PDF. Coba buku kerja yang lebih kecil atau lebih sedikit lembar.",
+    "sheetHeading": "Lembar: {name}"
+  },
   "JpgToPdf": {
     "intro": "Ubah gambar JPG menjadi PDF dalam hitungan detik. Atur orientasi dan margin dengan mudah.",
     "privacyNote": "Berkas Anda tidak pernah meninggalkan browser ini.",
@@ -3392,5 +3429,87 @@
     "minOneJpeg": "Tambahkan setidaknya satu berkas JPEG.",
     "invalidJpeg": "Berkas ini bukan JPEG (JPG) yang valid.",
     "buildFailed": "Tidak dapat membuat PDF. Hapus berkas yang tidak didukung dan coba lagi."
+  },
+  "PdfWatermark": {
+    "intro": "Stempel gambar atau teks ke PDF Anda dalam hitungan detik. Pilih tipografi, transparansi, dan posisi.",
+    "privacyNote": "Berkas Anda tidak pernah meninggalkan browser ini.",
+    "choosePdf": "Pilih PDF",
+    "reset": "Berkas lain",
+    "pageCount": "{count, plural, one {# halaman} other {# halaman}}",
+    "tabText": "Teks",
+    "tabImage": "Gambar",
+    "textLabel": "Teks tanda air",
+    "textPlaceholder": "mis. DRAF",
+    "fontLabel": "Font",
+    "sizeLabel": "Ukuran teks",
+    "rotationLabel": "Rotasi",
+    "colorLabel": "Warna",
+    "chooseImage": "Pilih gambar",
+    "imageHint": "PNG atau JPEG. Transparansi PNG dipertahankan.",
+    "imageWidthLabel": "Lebar (relatif ke halaman)",
+    "positionLabel": "Posisi",
+    "posCenter": "Tengah",
+    "posTl": "Kiri atas",
+    "posTr": "Kanan atas",
+    "posBl": "Kiri bawah",
+    "posBr": "Kanan bawah",
+    "opacityLabel": "Opasitas",
+    "download": "Terapkan tanda air & unduh",
+    "working": "Memproses…",
+    "done": "PDF bertanda air diunduh.",
+    "invalidPdf": "Tidak dapat membaca berkas ini sebagai PDF.",
+    "encryptedPdf": "PDF ini dilindungi kata sandi. Buka kuncinya dengan Buka Kunci PDF, lalu coba lagi.",
+    "stampFailed": "Tidak dapat menambahkan tanda air ke PDF ini. Coba berkas lain.",
+    "invalidImage": "Gunakan gambar PNG atau JPEG.",
+    "emptyText": "Masukkan teks tanda air.",
+    "needImage": "Pilih gambar PNG atau JPEG untuk tanda air.",
+    "fontHelvetica": "Helvetica",
+    "fontHelveticaBold": "Helvetica Bold",
+    "fontTimes": "Times Roman",
+    "fontCourier": "Courier"
+  },
+  "PdfCompare": {
+    "title": "Bandingkan PDF",
+    "subtitle": "Unggah dua PDF untuk membandingkan lapisan teks berdampingan. Berjalan lokal di browser dengan PDF.js.",
+    "privacyNote": "File Anda tidak meninggalkan browser ini. Worker PDF.js dimuat dari CDN saat pertama kali membandingkan.",
+    "firstPdf": "PDF pertama",
+    "secondPdf": "PDF kedua",
+    "chooseFile": "Pilih file",
+    "removeFile": "Hapus",
+    "clearAll": "Bersihkan semua",
+    "extracting": "Mengekstrak teks…",
+    "comparisonLabel": "Diff teks",
+    "emptyState": "Pilih dua PDF untuk melihat penambahan dan penghapusan berdampingan.",
+    "truncatedWarning": "Menampilkan {max} baris pertama.",
+    "limitExceeded": "Teks yang diekstrak dibatasi hingga {max} karakter per file.",
+    "noTextHint": "Sedikit atau tidak ada teks di salah satu atau kedua PDF (umum pada hasil pindaian).",
+    "mobileTabFiles": "PDF",
+    "mobileTabDiff": "Diff",
+    "invalidPdf": "Tidak dapat membaca berkas ini sebagai PDF.",
+    "passwordRequired": "PDF ini memerlukan sandi. Gunakan Buka kunci PDF terlebih dahulu, lalu coba lagi.",
+    "genericError": "Tidak dapat memproses PDF ini. Coba berkas lain."
+  },
+  "PdfToPdfA": {
+    "intro": "Ubah dokumen PDF ke PDF/A untuk pengarsipan dan pelestarian jangka panjang.",
+    "privacyNote": "Berkas Anda tidak pernah meninggalkan browser ini.",
+    "disclaimer": "Ini membangun ulang PDF dengan identifikasi PDF/A (XMP pdfaid, output intent sRGB, dan MarkInfo). PDF kompleks mungkin masih gagal pada validator ISO ketat (font, transparansi, lampiran). Gunakan perangkat lunak arsip khusus jika Anda membutuhkan kepatuhan terjamin.",
+    "chooseFile": "Pilih PDF",
+    "reset": "File lain",
+    "pageCount": "{count, plural, one {# halaman} other {# halaman}}",
+    "levelLabel": "Kesesuaian PDF/A",
+    "levelHint": "PDF/A-1b menonaktifkan aliran objek untuk ekspektasi arsip lama. PDF/A-2 dan PDF/A-3 untuk alur kerja PDF 1.7 modern; «U» menyatakan asumsi teks Unicode.",
+    "download": "Konversi & unduh",
+    "working": "Memproses…",
+    "done": "Berkas bertanda PDF/A telah diunduh.",
+    "invalidPdf": "Tidak dapat membaca file ini sebagai PDF.",
+    "encryptedPdf": "PDF ini dilindungi kata sandi. Buka kuncinya dengan Buka Kunci PDF, lalu coba lagi.",
+    "convertFailed": "Tidak dapat mengonversi PDF ini. Coba berkas lain.",
+    "level": {
+      "1b": "PDF/A-1b (bagian 1, kesesuaian B)",
+      "2b": "PDF/A-2b (bagian 2, kesesuaian B)",
+      "2u": "PDF/A-2u (bagian 2, kesesuaian U)",
+      "3b": "PDF/A-3b (bagian 3, kesesuaian B)",
+      "3u": "PDF/A-3u (bagian 3, kesesuaian U)"
+    }
   }
 }

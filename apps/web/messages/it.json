@@ -52,8 +52,12 @@
     "pdfLocker": "Proteggi PDF",
     "pdfMerge": "Unisci PDF",
     "pdfCompressor": "Comprimi file PDF",
+    "pdfWatermark": "Filigrana PDF",
+    "excelToPdf": "Excel in PDF",
     "jpgToPdf": "JPG in PDF",
-    "pdfToJpg": "PDF in JPG"
+    "pdfToJpg": "PDF in JPG",
+    "pdfCompare": "Confronta PDF",
+    "pdfToPdfA": "PDF in PDF/A"
   },
   "Help": {
     "title": "Aiuto e documentazione",
@@ -438,6 +442,14 @@
         "title": "Comprimi file PDF",
         "description": "Riduci le dimensioni del file ottimizzando la qualità PDF massima — nel browser."
       },
+      "pdfWatermark": {
+        "title": "Filigrana PDF",
+        "description": "Aggiungi testo o PNG/JPEG su ogni pagina con tipografia, trasparenza e posizione — tutto nel browser."
+      },
+      "excelToPdf": {
+        "title": "Excel in PDF",
+        "description": "Rendi i fogli Excel più leggibili convertendoli in PDF nel browser."
+      },
       "jpgToPdf": {
         "title": "JPG in PDF",
         "description": "Converti immagini JPG in PDF in pochi secondi. Regola facilmente orientazione e margini."
@@ -445,6 +457,14 @@
       "pdfToJpg": {
         "title": "PDF in JPG",
         "description": "Rasterizza ogni pagina PDF in JPEG oppure estrai le immagini incorporate — tutto nel browser."
+      },
+      "pdfCompare": {
+        "title": "Confronta PDF",
+        "description": "Mostra facilmente le differenze tra due file simili. Il testo viene estratto con PDF.js e confrontato in locale — nulla viene caricato."
+      },
+      "pdfToPdfA": {
+        "title": "PDF in PDF/A",
+        "description": "Converti i PDF in PDF/A per archiviazione e conservazione a lungo termine, con il livello di conformità ISO desiderato — tutto nel browser."
       }
     },
     "tabs": {
@@ -3371,6 +3391,23 @@
     "noSavingsHint": "Il PDF era già compatto. Il file scaricato resta una copia pulita e conforme agli standard.",
     "savedToast": "Circa il {percent}% più piccolo ({before} → {after})"
   },
+  "ExcelToPdf": {
+    "intro": "Rendi i fogli Excel più leggibili convertendoli in PDF.",
+    "privacyNote": "Il file non lascia mai questo browser.",
+    "includeSheets": "Fogli da includere",
+    "allSheets": "Tutti i fogli",
+    "firstSheetOnly": "Solo il primo foglio",
+    "chooseFile": "Scegli file Excel",
+    "clearFile": "Cancella",
+    "downloadPdf": "Scarica PDF",
+    "building": "Creazione PDF…",
+    "noFile": "Scegli prima un file Excel.",
+    "emptyWorkbook": "Nessun foglio di questa cartella conteneva dati tabulari esportabili.",
+    "unsupportedFile": "Usa un file .xlsx o .xls.",
+    "readFailed": "Impossibile leggere questo foglio di calcolo.",
+    "buildFailed": "Impossibile creare il PDF. Prova una cartella più piccola o meno fogli.",
+    "sheetHeading": "Foglio: {name}"
+  },
   "JpgToPdf": {
     "intro": "Converti immagini JPG in PDF in pochi secondi. Regola facilmente orientazione e margini.",
     "privacyNote": "I tuoi file non lasciano mai questo browser.",
@@ -3392,5 +3429,87 @@
     "minOneJpeg": "Aggiungi almeno un file JPEG.",
     "invalidJpeg": "Questo file non è un JPEG (JPG) valido.",
     "buildFailed": "Impossibile creare il PDF. Rimuovi i file non supportati e riprova."
+  },
+  "PdfWatermark": {
+    "intro": "Applica un'immagine o un testo al PDF in pochi secondi. Scegli tipografia, trasparenza e posizione.",
+    "privacyNote": "Il file non esce mai da questo browser.",
+    "choosePdf": "Scegli PDF",
+    "reset": "Altro file",
+    "pageCount": "{count, plural, one {# pagina} other {# pagine}}",
+    "tabText": "Testo",
+    "tabImage": "Immagine",
+    "textLabel": "Testo filigrana",
+    "textPlaceholder": "es. BOZZA",
+    "fontLabel": "Carattere",
+    "sizeLabel": "Dimensione testo",
+    "rotationLabel": "Rotazione",
+    "colorLabel": "Colore",
+    "chooseImage": "Scegli immagine",
+    "imageHint": "PNG o JPEG. La trasparenza dei PNG viene mantenuta.",
+    "imageWidthLabel": "Larghezza (rispetto alla pagina)",
+    "positionLabel": "Posizione",
+    "posCenter": "Centro",
+    "posTl": "In alto a sinistra",
+    "posTr": "In alto a destra",
+    "posBl": "In basso a sinistra",
+    "posBr": "In basso a destra",
+    "opacityLabel": "Opacità",
+    "download": "Applica filigrana e scarica",
+    "working": "Elaborazione…",
+    "done": "PDF con filigrana scaricato.",
+    "invalidPdf": "Impossibile leggere questo file come PDF.",
+    "encryptedPdf": "Questo PDF è protetto da password. Sbloccalo con Sblocca PDF e riprova.",
+    "stampFailed": "Impossibile applicare la filigrana a questo PDF. Prova un altro file.",
+    "invalidImage": "Usa un'immagine PNG o JPEG.",
+    "emptyText": "Inserisci il testo della filigrana.",
+    "needImage": "Scegli un'immagine filigrana PNG o JPEG.",
+    "fontHelvetica": "Helvetica",
+    "fontHelveticaBold": "Helvetica Bold",
+    "fontTimes": "Times Roman",
+    "fontCourier": "Courier"
+  },
+  "PdfCompare": {
+    "title": "Confronta PDF",
+    "subtitle": "Carica due PDF per confrontare il livello testo affiancato. Funziona in locale nel browser con PDF.js.",
+    "privacyNote": "I tuoi file non lasciano questo browser. Il worker PDF.js viene caricato da un CDN la prima volta.",
+    "firstPdf": "Primo PDF",
+    "secondPdf": "Secondo PDF",
+    "chooseFile": "Scegli file",
+    "removeFile": "Rimuovi",
+    "clearAll": "Cancella tutto",
+    "extracting": "Estrazione testo…",
+    "comparisonLabel": "Diff testo",
+    "emptyState": "Scegli due PDF per vedere aggiunte e rimozioni affiancate.",
+    "truncatedWarning": "Prime {max} righe mostrate.",
+    "limitExceeded": "Il testo estratto è limitato a {max} caratteri per file.",
+    "noTextHint": "Poco o nessun testo in uno o entrambi i PDF (frequente con pagine scansionate).",
+    "mobileTabFiles": "PDF",
+    "mobileTabDiff": "Diff",
+    "invalidPdf": "Impossibile leggere questo file come PDF.",
+    "passwordRequired": "Questo PDF è protetto da password. Usa prima Sblocca PDF e riprova.",
+    "genericError": "Impossibile elaborare questo PDF. Prova un altro file."
+  },
+  "PdfToPdfA": {
+    "intro": "Converti documenti PDF in PDF/A per archiviazione e conservazione a lungo termine.",
+    "privacyNote": "Il tuo file non lascia mai questo browser.",
+    "disclaimer": "Questo ricostruisce il PDF con identificazione PDF/A (XMP pdfaid, output intent sRGB e MarkInfo). I PDF complessi possono ancora non superare validatori ISO rigidi (font, trasparenza, allegati). Usa software di archiviazione dedicato per una conformità garantita.",
+    "chooseFile": "Scegli PDF",
+    "reset": "Altro file",
+    "pageCount": "{count, plural, one {# pagina} other {# pagine}}",
+    "levelLabel": "Conformità PDF/A",
+    "levelHint": "PDF/A-1b disabilita gli object stream per aspettative di archiviazione più datate. PDF/A-2 e PDF/A-3 sono per flussi di lavoro PDF 1.7 moderni; «U» indica assunzioni sul testo Unicode.",
+    "download": "Converti e scarica",
+    "working": "Elaborazione…",
+    "done": "File contrassegnato PDF/A scaricato.",
+    "invalidPdf": "Impossibile leggere questo file come PDF.",
+    "encryptedPdf": "Questo PDF è protetto da password. Sbloccalo con Sblocca PDF, poi riprova.",
+    "convertFailed": "Impossibile convertire questo PDF. Prova un altro file.",
+    "level": {
+      "1b": "PDF/A-1b (parte 1, conformità B)",
+      "2b": "PDF/A-2b (parte 2, conformità B)",
+      "2u": "PDF/A-2u (parte 2, conformità U)",
+      "3b": "PDF/A-3b (parte 3, conformità B)",
+      "3u": "PDF/A-3u (parte 3, conformità U)"
+    }
   }
 }

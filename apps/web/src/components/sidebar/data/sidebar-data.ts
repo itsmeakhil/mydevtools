@@ -52,7 +52,9 @@ import {
   IconBrandDocker,
   IconFileTypePdf,
   IconFileStack,
+  IconArchive,
   IconPhotoPlus,
+  IconDroplet,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -420,10 +422,28 @@ export const sidebarData: SidebarData = {
           badge: 'new',
         },
         {
+          title: 'PDF Watermark',
+          url: '/app/pdf-watermark',
+          icon: IconDroplet,
+          description:
+            'Stamp text or an image over every page with adjustable typography, transparency, and position. Runs locally in your browser.',
+          hiddenOnMobile: true,
+          badge: 'new',
+        },
+        {
           title: 'JPG to PDF',
           url: '/app/jpg-to-pdf',
           icon: IconPhotoPlus,
           description: 'Convert JPG images to PDF with orientation and margin controls. Runs locally in your browser.',
+          hiddenOnMobile: true,
+          badge: 'new',
+        },
+        {
+          title: 'Excel to PDF',
+          url: '/app/excel-to-pdf',
+          icon: IconFileSpreadsheet,
+          description:
+            'Make Excel spreadsheets easy to read by converting them to PDF. Runs locally in your browser.',
           hiddenOnMobile: true,
           badge: 'new',
         },
@@ -440,6 +460,14 @@ export const sidebarData: SidebarData = {
           url: '/app/html-to-pdf',
           icon: IconFileTypePdf,
           description: "Paste or type HTML and convert it to a PDF using your browser's print engine. Runs locally.",
+          hiddenOnMobile: true,
+          badge: 'new',
+        },
+        {
+          title: 'Compare PDF',
+          url: '/app/pdf-compare',
+          icon: IconGitCompare,
+          description: 'Easily display the differences between two similar files. Text is extracted locally and compared side by side.',
           hiddenOnMobile: true,
           badge: 'new',
         },

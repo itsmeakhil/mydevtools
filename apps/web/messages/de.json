@@ -52,8 +52,12 @@
     "pdfLocker": "PDF sperren",
     "pdfMerge": "PDF-Dateien zusammenführen",
     "pdfCompressor": "PDF-Dateien komprimieren",
+    "pdfWatermark": "PDF-Wasserzeichen",
+    "excelToPdf": "Excel zu PDF",
     "jpgToPdf": "JPG zu PDF",
-    "pdfToJpg": "PDF zu JPG"
+    "pdfToJpg": "PDF zu JPG",
+    "pdfCompare": "PDF vergleichen",
+    "pdfToPdfA": "PDF nach PDF/A"
   },
   "Help": {
     "title": "Hilfe & Dokumentation",
@@ -438,6 +442,14 @@
         "title": "PDF-Dateien komprimieren",
         "description": "Dateigröße reduzieren und dabei maximale PDF-Qualität anstreben — in Ihrem Browser."
       },
+      "pdfWatermark": {
+        "title": "PDF-Wasserzeichen",
+        "description": "Text oder PNG/JPEG auf jeder Seite platzieren – Schrift, Transparenz und Position einstellbar, alles im Browser."
+      },
+      "excelToPdf": {
+        "title": "Excel zu PDF",
+        "description": "Machen Sie Excel-Tabellen leichter lesbar, indem Sie sie im Browser in PDF umwandeln."
+      },
       "jpgToPdf": {
         "title": "JPG zu PDF",
         "description": "Wandeln Sie JPG-Bilder in Sekunden in PDF um. Ausrichtung und Ränder lassen sich einfach anpassen."
@@ -445,6 +457,14 @@
       "pdfToJpg": {
         "title": "PDF zu JPG",
         "description": "Jede PDF-Seite als JPEG rasterisieren oder eingebettete Bilder extrahieren — alles im Browser."
+      },
+      "pdfCompare": {
+        "title": "PDF vergleichen",
+        "description": "Unterschiede zwischen zwei ähnlichen Dateien einfach anzeigen. Text wird mit PDF.js lokal extrahiert und verglichen — kein Upload."
+      },
+      "pdfToPdfA": {
+        "title": "PDF nach PDF/A",
+        "description": "Wandeln Sie PDFs für Archivierung und Langzeitbewahrung in PDF/A um und wählen Sie die ISO-Konformitätsstufe – alles in Ihrem Browser."
       }
     },
     "tabs": {
@@ -3371,6 +3391,23 @@
     "noSavingsHint": "Ihr PDF war bereits kompakt. Die heruntergeladene Datei ist weiterhin eine saubere, standardskonforme Kopie.",
     "savedToast": "Etwa {percent} % kleiner ({before} → {after})"
   },
+  "ExcelToPdf": {
+    "intro": "Machen Sie Excel-Tabellen leichter lesbar, indem Sie sie in PDF umwandeln.",
+    "privacyNote": "Ihre Datei verlässt diesen Browser nie.",
+    "includeSheets": "Einzubeziehende Blätter",
+    "allSheets": "Alle Blätter",
+    "firstSheetOnly": "Nur erstes Blatt",
+    "chooseFile": "Excel-Datei wählen",
+    "clearFile": "Zurücksetzen",
+    "downloadPdf": "PDF herunterladen",
+    "building": "PDF wird erstellt…",
+    "noFile": "Wählen Sie zuerst eine Excel-Datei.",
+    "emptyWorkbook": "Kein Blatt in dieser Arbeitsmappe enthielt exportierbare Tabellendaten.",
+    "unsupportedFile": "Verwenden Sie eine .xlsx- oder .xls-Datei.",
+    "readFailed": "Diese Tabelle konnte nicht gelesen werden.",
+    "buildFailed": "PDF konnte nicht erstellt werden. Versuchen Sie eine kleinere Datei oder weniger Blätter.",
+    "sheetHeading": "Blatt: {name}"
+  },
   "JpgToPdf": {
     "intro": "Wandeln Sie JPG-Bilder in Sekunden in PDF um. Ausrichtung und Ränder lassen sich einfach anpassen.",
     "privacyNote": "Ihre Dateien verlassen diesen Browser nie.",
@@ -3392,5 +3429,87 @@
     "minOneJpeg": "Fügen Sie mindestens eine JPEG-Datei hinzu.",
     "invalidJpeg": "Diese Datei ist kein gültiges JPEG (JPG).",
     "buildFailed": "PDF konnte nicht erstellt werden. Nicht unterstützte Dateien entfernen und erneut versuchen."
+  },
+  "PdfWatermark": {
+    "intro": "Bringen Sie in Sekunden ein Bild oder einen Text als Wasserzeichen auf Ihr PDF. Wählen Sie Typografie, Transparenz und Position.",
+    "privacyNote": "Ihre Datei verlässt diesen Browser nicht.",
+    "choosePdf": "PDF auswählen",
+    "reset": "Andere Datei",
+    "pageCount": "{count, plural, one {# Seite} other {# Seiten}}",
+    "tabText": "Text",
+    "tabImage": "Bild",
+    "textLabel": "Wasserzeichentext",
+    "textPlaceholder": "z. B. ENTWURF",
+    "fontLabel": "Schriftart",
+    "sizeLabel": "Schriftgröße",
+    "rotationLabel": "Drehung",
+    "colorLabel": "Farbe",
+    "chooseImage": "Bild auswählen",
+    "imageHint": "PNG oder JPEG. Transparenz in PNGs bleibt erhalten.",
+    "imageWidthLabel": "Breite (relativ zur Seite)",
+    "positionLabel": "Position",
+    "posCenter": "Mitte",
+    "posTl": "Oben links",
+    "posTr": "Oben rechts",
+    "posBl": "Unten links",
+    "posBr": "Unten rechts",
+    "opacityLabel": "Deckkraft",
+    "download": "Wasserzeichen anwenden & herunterladen",
+    "working": "Wird verarbeitet…",
+    "done": "Wasserzeichen-PDF wurde heruntergeladen.",
+    "invalidPdf": "Diese Datei konnte nicht als PDF gelesen werden.",
+    "encryptedPdf": "Dieses PDF ist kennwortgeschützt. Entsperren Sie es zuerst mit „PDF entsperren“, und versuchen Sie es erneut.",
+    "stampFailed": "Dieses PDF konnte nicht mit einem Wasserzeichen versehen werden. Versuchen Sie eine andere Datei.",
+    "invalidImage": "Verwenden Sie ein PNG- oder JPEG-Bild.",
+    "emptyText": "Geben Sie einen Wasserzeichentext ein.",
+    "needImage": "Wählen Sie ein Wasserzeichenbild (PNG oder JPEG).",
+    "fontHelvetica": "Helvetica",
+    "fontHelveticaBold": "Helvetica Bold",
+    "fontTimes": "Times Roman",
+    "fontCourier": "Courier"
+  },
+  "PdfCompare": {
+    "title": "PDF vergleichen",
+    "subtitle": "Zwei PDFs hochladen und die Textebene nebeneinander vergleichen. Läuft lokal im Browser mit PDF.js.",
+    "privacyNote": "Ihre Dateien verlassen diesen Browser nicht. Der PDF.js-Worker wird beim ersten Vergleich von einem CDN geladen.",
+    "firstPdf": "Erstes PDF",
+    "secondPdf": "Zweites PDF",
+    "chooseFile": "Datei wählen",
+    "removeFile": "Entfernen",
+    "clearAll": "Alles löschen",
+    "extracting": "Text wird extrahiert…",
+    "comparisonLabel": "Textdiff",
+    "emptyState": "Wählen Sie zwei PDFs, um Hinzufügungen und Entfernungen nebeneinander zu sehen.",
+    "truncatedWarning": "Es werden die ersten {max} Zeilen angezeigt.",
+    "limitExceeded": "Extrahierter Text ist auf {max} Zeichen pro Datei begrenzt.",
+    "noTextHint": "In einem oder beiden PDFs wurde wenig oder kein Text gefunden (häufig bei Scans).",
+    "mobileTabFiles": "PDFs",
+    "mobileTabDiff": "Diff",
+    "invalidPdf": "Diese Datei konnte nicht als PDF gelesen werden.",
+    "passwordRequired": "Dieses PDF ist passwortgeschützt. Verwenden Sie zuerst „PDF entsperren“, und versuchen Sie es erneut.",
+    "genericError": "Dieses PDF konnte nicht verarbeitet werden. Versuchen Sie eine andere Datei."
+  },
+  "PdfToPdfA": {
+    "intro": "Wandeln Sie PDF-Dokumente für Archivierung und Langzeitbewahrung in PDF/A um.",
+    "privacyNote": "Ihre Datei verlässt diesen Browser nicht.",
+    "disclaimer": "Dies erstellt die PDF mit PDF/A-Kennzeichnung (XMP pdfaid, sRGB-Ausgabeintent und MarkInfo) neu. Komplexe PDFs können strenge ISO-Prüfungen dennoch nicht bestehen (Schriftarten, Transparenz, Anhänge). Für garantierte Konformität nutzen Sie spezialisierte Archivsoftware.",
+    "chooseFile": "PDF auswählen",
+    "reset": "Andere Datei",
+    "pageCount": "{count, plural, one {# Seite} other {# Seiten}}",
+    "levelLabel": "PDF/A-Konformität",
+    "levelHint": "PDF/A-1b deaktiviert Objektstreams für ältere Archiverwartungen. PDF/A-2 und PDF/A-3 richten sich an moderne PDF-1.7-Workflows; \"U\" steht für Unicode-Textannahmen.",
+    "download": "Konvertieren & herunterladen",
+    "working": "Wird verarbeitet…",
+    "done": "Die mit PDF/A gekennzeichnete Datei wurde heruntergeladen.",
+    "invalidPdf": "Diese Datei konnte nicht als PDF gelesen werden.",
+    "encryptedPdf": "Dieses PDF ist kennwortgeschützt. Entsperren Sie es zuerst mit „PDF entsperren“, und versuchen Sie es erneut.",
+    "convertFailed": "Dieses PDF konnte nicht konvertiert werden. Versuchen Sie eine andere Datei.",
+    "level": {
+      "1b": "PDF/A-1b (Teil 1, Konformität B)",
+      "2b": "PDF/A-2b (Teil 2, Konformität B)",
+      "2u": "PDF/A-2u (Teil 2, Konformität U)",
+      "3b": "PDF/A-3b (Teil 3, Konformität B)",
+      "3u": "PDF/A-3u (Teil 3, Konformität U)"
+    }
   }
 }

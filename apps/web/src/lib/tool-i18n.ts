@@ -53,9 +53,12 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/pdf-splitter': 'pdfSplitter',
   '/app/pdf-merge': 'pdfMerge',
   '/app/pdf-compressor': 'pdfCompressor',
+  '/app/pdf-watermark': 'pdfWatermark',
   '/app/jpg-to-pdf': 'jpgToPdf',
+  '/app/excel-to-pdf': 'excelToPdf',
   '/app/pdf-to-jpg': 'pdfToJpg',
   '/app/html-to-pdf': 'htmlToPdf',
+  '/app/pdf-compare': 'pdfCompare',
 };
 
 export function getToolMessageKey(pathname: string): string | undefined {

@@ -52,8 +52,12 @@
     "pdfLocker": "Khóa PDF",
     "pdfMerge": "Gộp PDF",
     "pdfCompressor": "Nén tệp PDF",
+    "pdfWatermark": "Hình mờ PDF",
+    "excelToPdf": "Excel sang PDF",
     "jpgToPdf": "JPG sang PDF",
-    "pdfToJpg": "PDF sang JPG"
+    "pdfToJpg": "PDF sang JPG",
+    "pdfCompare": "So sánh PDF",
+    "pdfToPdfA": "PDF sang PDF/A"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -438,6 +442,14 @@
         "title": "Nén tệp PDF",
         "description": "Giảm dung lượng tối ưu cho chất lượng PDF tối đa — ngay trên trình duyệt."
       },
+      "pdfWatermark": {
+        "title": "Hình mờ PDF",
+        "description": "Thêm chữ hoặc PNG/JPEG vào mỗi trang với kiểu chữ, độ trong suốt và vị trí — tất cả trên trình duyệt."
+      },
+      "excelToPdf": {
+        "title": "Excel sang PDF",
+        "description": "Giúp bảng Excel dễ đọc hơn bằng cách chuyển sang PDF ngay trên trình duyệt."
+      },
       "jpgToPdf": {
         "title": "JPG sang PDF",
         "description": "Chuyển ảnh JPG sang PDF trong vài giây. Điều chỉnh hướng và lề dễ dàng."
@@ -445,6 +457,14 @@
       "pdfToJpg": {
         "title": "PDF sang JPG",
         "description": "Raster hóa từng trang PDF thành JPEG hoặc trích ảnh nhúng — tất cả trong trình duyệt."
+      },
+      "pdfCompare": {
+        "title": "So sánh PDF",
+        "description": "Dễ dàng hiển thị khác biệt giữa hai tệp tương tự. Văn bản được trích xuất bằng PDF.js và so sánh cục bộ — không tải lên máy chủ."
+      },
+      "pdfToPdfA": {
+        "title": "PDF sang PDF/A",
+        "description": "Chuyển PDF sang PDF/A để lưu trữ và bảo quản lâu dài, chọn mức tuân thủ ISO — hoàn toàn trong trình duyệt."
       }
     },
     "tabs": {
@@ -3371,6 +3391,23 @@
     "noSavingsHint": "PDF của bạn đã khá gọn. Tệp tải xuống vẫn là bản sao sạch, tuân thủ chuẩn.",
     "savedToast": "Giảm khoảng {percent}% ({before} → {after})"
   },
+  "ExcelToPdf": {
+    "intro": "Giúp bảng Excel dễ đọc hơn bằng cách chuyển sang PDF.",
+    "privacyNote": "Tệp của bạn không bao giờ rời khỏi trình duyệt này.",
+    "includeSheets": "Trang tính cần gồm",
+    "allSheets": "Tất cả trang tính",
+    "firstSheetOnly": "Chỉ trang tính đầu tiên",
+    "chooseFile": "Chọn tệp Excel",
+    "clearFile": "Xóa",
+    "downloadPdf": "Tải PDF",
+    "building": "Đang tạo PDF…",
+    "noFile": "Hãy chọn tệp Excel trước.",
+    "emptyWorkbook": "Không trang tính nào trong sổ làm việc này có dữ liệu bảng để xuất.",
+    "unsupportedFile": "Dùng tệp .xlsx hoặc .xls.",
+    "readFailed": "Không đọc được bảng tính này.",
+    "buildFailed": "Không tạo được PDF. Hãy thử sổ làm việc nhỏ hơn hoặc ít trang tính hơn.",
+    "sheetHeading": "Trang tính: {name}"
+  },
   "JpgToPdf": {
     "intro": "Chuyển ảnh JPG sang PDF trong vài giây. Điều chỉnh hướng và lề dễ dàng.",
     "privacyNote": "Tệp của bạn không bao giờ rời khỏi trình duyệt này.",
@@ -3392,5 +3429,87 @@
     "minOneJpeg": "Thêm ít nhất một tệp JPEG.",
     "invalidJpeg": "Tệp này không phải JPEG (JPG) hợp lệ.",
     "buildFailed": "Không thể tạo PDF. Hãy bỏ các tệp không được hỗ trợ và thử lại."
+  },
+  "PdfWatermark": {
+    "intro": "Đóng dấu ảnh hoặc chữ lên PDF trong vài giây. Chọn kiểu chữ, độ trong suốt và vị trí.",
+    "privacyNote": "Tệp của bạn không bao giờ rời khỏi trình duyệt này.",
+    "choosePdf": "Chọn PDF",
+    "reset": "Tệp khác",
+    "pageCount": "{count, plural, other {# trang}}",
+    "tabText": "Chữ",
+    "tabImage": "Ảnh",
+    "textLabel": "Chữ hình mờ",
+    "textPlaceholder": "vd: BẢN NHÁP",
+    "fontLabel": "Phông chữ",
+    "sizeLabel": "Cỡ chữ",
+    "rotationLabel": "Xoay",
+    "colorLabel": "Màu",
+    "chooseImage": "Chọn ảnh",
+    "imageHint": "PNG hoặc JPEG. Độ trong suốt của PNG được giữ.",
+    "imageWidthLabel": "Chiều rộng (so với trang)",
+    "positionLabel": "Vị trí",
+    "posCenter": "Giữa",
+    "posTl": "Trên trái",
+    "posTr": "Trên phải",
+    "posBl": "Dưới trái",
+    "posBr": "Dưới phải",
+    "opacityLabel": "Độ mờ",
+    "download": "Áp dụng hình mờ & tải xuống",
+    "working": "Đang xử lý…",
+    "done": "Đã tải PDF có hình mờ.",
+    "invalidPdf": "Không đọc được tệp này dưới dạng PDF.",
+    "encryptedPdf": "PDF này được bảo vệ bằng mật khẩu. Mở khóa bằng Mở khóa PDF rồi thử lại.",
+    "stampFailed": "Không thể thêm hình mờ vào PDF này. Hãy thử tệp khác.",
+    "invalidImage": "Dùng ảnh PNG hoặc JPEG.",
+    "emptyText": "Nhập chữ hình mờ.",
+    "needImage": "Chọn ảnh PNG hoặc JPEG làm hình mờ.",
+    "fontHelvetica": "Helvetica",
+    "fontHelveticaBold": "Helvetica Bold",
+    "fontTimes": "Times Roman",
+    "fontCourier": "Courier"
+  },
+  "PdfCompare": {
+    "title": "So sánh PDF",
+    "subtitle": "Tải lên hai PDF để so sánh lớp văn bản cạnh nhau. Chạy cục bộ trong trình duyệt với PDF.js.",
+    "privacyNote": "Tệp của bạn không rời khỏi trình duyệt này. Worker PDF.js được tải từ CDN lần đầu so sánh.",
+    "firstPdf": "PDF thứ nhất",
+    "secondPdf": "PDF thứ hai",
+    "chooseFile": "Chọn tệp",
+    "removeFile": "Gỡ",
+    "clearAll": "Xóa tất cả",
+    "extracting": "Đang trích xuất văn bản…",
+    "comparisonLabel": "Khác biệt văn bản",
+    "emptyState": "Chọn hai PDF để xem phần thêm và phần xóa cạnh nhau.",
+    "truncatedWarning": "Hiển thị {max} dòng đầu tiên.",
+    "limitExceeded": "Văn bản trích xuất giới hạn {max} ký tự mỗi tệp.",
+    "noTextHint": "Ít hoặc không có văn bản trong một hoặc cả hai PDF (thường gặp với trang quét).",
+    "mobileTabFiles": "PDF",
+    "mobileTabDiff": "Khác biệt",
+    "invalidPdf": "Không đọc được tệp này dưới dạng PDF.",
+    "passwordRequired": "PDF này cần mật khẩu. Hãy dùng Mở khóa PDF trước, rồi thử lại.",
+    "genericError": "Không xử lý được PDF này. Hãy thử tệp khác."
+  },
+  "PdfToPdfA": {
+    "intro": "Chuyển tài liệu PDF sang PDF/A để lưu trữ và bảo quản lâu dài.",
+    "privacyNote": "Tệp của bạn không bao giờ rời khỏi trình duyệt này.",
+    "disclaimer": "Thao tác này tái tạo PDF với định danh PDF/A (XMP pdfaid, output intent sRGB và MarkInfo). PDF phức tạp vẫn có thể không qua được bộ kiểm tra ISO nghiêm ngặt (phông chữ, độ trong suốt, tệp đính kèm). Hãy dùng phần mềm lưu trữ chuyên dụng nếu cần tuân thủ chắc chắn.",
+    "chooseFile": "Chọn PDF",
+    "reset": "Tệp khác",
+    "pageCount": "{count, plural, other {# trang}}",
+    "levelLabel": "Tuân thủ PDF/A",
+    "levelHint": "PDF/A-1b tắt luồng đối tượng cho kỳ vọng lưu trữ cũ hơn. PDF/A-2 và PDF/A-3 hướng tới quy trình PDF 1.7 hiện đại; «U» khai báo giả định văn bản Unicode.",
+    "download": "Chuyển đổi & tải xuống",
+    "working": "Đang xử lý…",
+    "done": "Đã tải xuống tệp gắn nhãn PDF/A.",
+    "invalidPdf": "Không đọc được tệp này dưới dạng PDF.",
+    "encryptedPdf": "PDF này được bảo vệ bằng mật khẩu. Hãy mở khóa bằng Mở khóa PDF rồi thử lại.",
+    "convertFailed": "Không thể chuyển đổi PDF này. Hãy thử tệp khác.",
+    "level": {
+      "1b": "PDF/A-1b (phần 1, tuân thủ B)",
+      "2b": "PDF/A-2b (phần 2, tuân thủ B)",
+      "2u": "PDF/A-2u (phần 2, tuân thủ U)",
+      "3b": "PDF/A-3b (phần 3, tuân thủ B)",
+      "3u": "PDF/A-3u (phần 3, tuân thủ U)"
+    }
   }
 }

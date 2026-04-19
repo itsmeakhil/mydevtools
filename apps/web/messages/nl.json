@@ -52,8 +52,12 @@
     "pdfLocker": "PDF vergrendelen",
     "pdfMerge": "PDF’s samenvoegen",
     "pdfCompressor": "PDF-bestanden comprimeren",
+    "pdfWatermark": "PDF-watermerk",
+    "excelToPdf": "Excel naar PDF",
     "jpgToPdf": "JPG naar PDF",
-    "pdfToJpg": "PDF naar JPG"
+    "pdfToJpg": "PDF naar JPG",
+    "pdfCompare": "PDF vergelijken",
+    "pdfToPdfA": "PDF naar PDF/A"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -438,6 +442,14 @@
         "title": "PDF-bestanden comprimeren",
         "description": "Verklein de bestandsgrootte met behoud van maximale PDF-kwaliteit — in je browser."
       },
+      "pdfWatermark": {
+        "title": "PDF-watermerk",
+        "description": "Tekst of PNG/JPEG op elke pagina met lettertype, transparantie en positie — alles in de browser."
+      },
+      "excelToPdf": {
+        "title": "Excel naar PDF",
+        "description": "Maak Excel-spreadsheets makkelijker leesbaar door ze in de browser naar PDF te zetten."
+      },
       "jpgToPdf": {
         "title": "JPG naar PDF",
         "description": "Zet JPG-afbeeldingen in enkele seconden om naar PDF. Pas eenvoudig oriëntatie en marges aan."
@@ -445,6 +457,14 @@
       "pdfToJpg": {
         "title": "PDF naar JPG",
         "description": "Rasteriseer elke PDF-pagina naar JPEG of extraheer ingesloten afbeeldingen — alles in je browser."
+      },
+      "pdfCompare": {
+        "title": "PDF vergelijken",
+        "description": "Toon eenvoudig de verschillen tussen twee vergelijkbare bestanden. Tekst wordt met PDF.js lokaal geëxtraheerd en vergeleken — er wordt niets geüpload."
+      },
+      "pdfToPdfA": {
+        "title": "PDF naar PDF/A",
+        "description": "Zet PDF’s om naar PDF/A voor archivering en langetermijnbewaring, met het gewenste ISO-conformiteitsniveau — volledig in je browser."
       }
     },
     "tabs": {
@@ -3371,6 +3391,23 @@
     "noSavingsHint": "Je PDF was al compact. Het gedownloade bestand is nog steeds een schone, standaardconforme kopie.",
     "savedToast": "Ongeveer {percent}% kleiner ({before} → {after})"
   },
+  "ExcelToPdf": {
+    "intro": "Maak Excel-spreadsheets makkelijker leesbaar door ze naar PDF te zetten.",
+    "privacyNote": "Uw bestand verlaat deze browser nooit.",
+    "includeSheets": "Te verwerken werkbladen",
+    "allSheets": "Alle werkbladen",
+    "firstSheetOnly": "Alleen eerste werkblad",
+    "chooseFile": "Excelbestand kiezen",
+    "clearFile": "Wissen",
+    "downloadPdf": "PDF downloaden",
+    "building": "PDF wordt gemaakt…",
+    "noFile": "Kies eerst een Excelbestand.",
+    "emptyWorkbook": "Geen werkblad in deze map bevatte exporteerbare tabelgegevens.",
+    "unsupportedFile": "Gebruik een .xlsx- of .xls-bestand.",
+    "readFailed": "Kon deze spreadsheet niet lezen.",
+    "buildFailed": "Kon de PDF niet maken. Probeer een kleinere map of minder werkbladen.",
+    "sheetHeading": "Werkblad: {name}"
+  },
   "JpgToPdf": {
     "intro": "Zet JPG-afbeeldingen in enkele seconden om naar PDF. Pas eenvoudig oriëntatie en marges aan.",
     "privacyNote": "Uw bestanden verlaten deze browser nooit.",
@@ -3392,5 +3429,87 @@
     "minOneJpeg": "Voeg minstens één JPEG-bestand toe.",
     "invalidJpeg": "Dit bestand is geen geldige JPEG (JPG).",
     "buildFailed": "Kan de PDF niet maken. Verwijder niet-ondersteunde bestanden en probeer opnieuw."
+  },
+  "PdfWatermark": {
+    "intro": "Plak in seconden een afbeelding of tekst op uw PDF. Kies typografie, transparantie en positie.",
+    "privacyNote": "Uw bestand verlaat deze browser niet.",
+    "choosePdf": "PDF kiezen",
+    "reset": "Ander bestand",
+    "pageCount": "{count, plural, one {# pagina} other {# pagina’s}}",
+    "tabText": "Tekst",
+    "tabImage": "Afbeelding",
+    "textLabel": "Watermerktekst",
+    "textPlaceholder": "bijv. CONCEPT",
+    "fontLabel": "Lettertype",
+    "sizeLabel": "Tekstgrootte",
+    "rotationLabel": "Rotatie",
+    "colorLabel": "Kleur",
+    "chooseImage": "Afbeelding kiezen",
+    "imageHint": "PNG of JPEG. Transparantie in PNG's blijft behouden.",
+    "imageWidthLabel": "Breedte (t.o.v. de pagina)",
+    "positionLabel": "Positie",
+    "posCenter": "Midden",
+    "posTl": "Linksboven",
+    "posTr": "Rechtsboven",
+    "posBl": "Linksonder",
+    "posBr": "Rechtsonder",
+    "opacityLabel": "Dekking",
+    "download": "Watermerk toepassen & downloaden",
+    "working": "Bezig…",
+    "done": "PDF met watermerk gedownload.",
+    "invalidPdf": "Dit bestand kon niet als PDF worden gelezen.",
+    "encryptedPdf": "Deze PDF is met een wachtwoord beveiligd. Ontgrendel eerst met PDF ontgrendelen en probeer opnieuw.",
+    "stampFailed": "Kon geen watermerk op deze PDF plaatsen. Probeer een ander bestand.",
+    "invalidImage": "Gebruik een PNG- of JPEG-afbeelding.",
+    "emptyText": "Voer watermerktekst in.",
+    "needImage": "Kies een PNG- of JPEG-afbeelding voor het watermerk.",
+    "fontHelvetica": "Helvetica",
+    "fontHelveticaBold": "Helvetica Bold",
+    "fontTimes": "Times Roman",
+    "fontCourier": "Courier"
+  },
+  "PdfCompare": {
+    "title": "PDF vergelijken",
+    "subtitle": "Upload twee PDF’s om de tekstlaag naast elkaar te vergelijken. Draait lokaal in je browser met PDF.js.",
+    "privacyNote": "Je bestanden verlaten deze browser niet. De PDF.js-worker wordt de eerste keer vanaf een CDN geladen.",
+    "firstPdf": "Eerste PDF",
+    "secondPdf": "Tweede PDF",
+    "chooseFile": "Bestand kiezen",
+    "removeFile": "Verwijderen",
+    "clearAll": "Alles wissen",
+    "extracting": "Tekst extraheren…",
+    "comparisonLabel": "Tekstverschil",
+    "emptyState": "Kies twee PDF’s om toevoegingen en verwijderingen naast elkaar te zien.",
+    "truncatedWarning": "Eerste {max} rijen worden getoond.",
+    "limitExceeded": "Geëxtraheerde tekst is beperkt tot {max} tekens per bestand.",
+    "noTextHint": "Weinig of geen tekst in een of beide PDF’s (gebruikelijk bij scans).",
+    "mobileTabFiles": "PDF’s",
+    "mobileTabDiff": "Diff",
+    "invalidPdf": "Dit bestand kan niet als PDF worden gelezen.",
+    "passwordRequired": "Deze PDF is beveiligd met een wachtwoord. Gebruik eerst PDF ontgrendelen en probeer opnieuw.",
+    "genericError": "Deze PDF kan niet worden verwerkt. Probeer een ander bestand."
+  },
+  "PdfToPdfA": {
+    "intro": "Zet PDF-documenten om naar PDF/A voor archivering en langetermijnbewaring.",
+    "privacyNote": "Je bestand verlaat deze browser nooit.",
+    "disclaimer": "Dit bouwt de PDF opnieuw op met PDF/A-markering (XMP pdfaid, sRGB-outputintent en MarkInfo). Complexe PDF’s kunnen nog steeds falen voor strikte ISO-validators (lettertypen, transparantie, bijlagen). Gebruik gespecialiseerde archiveringssoftware voor gegarandeerde conformiteit.",
+    "chooseFile": "PDF kiezen",
+    "reset": "Ander bestand",
+    "pageCount": "{count, plural, one {# pagina} other {# pagina’s}}",
+    "levelLabel": "PDF/A-conformiteit",
+    "levelHint": "PDF/A-1b schakelt objectstreams uit voor oudere archiefverwachtingen. PDF/A-2 en PDF/A-3 richten zich op moderne PDF 1.7-workflows; \"U\" betekent Unicode-tekstveronderstellingen.",
+    "download": "Converteren en downloaden",
+    "working": "Bezig…",
+    "done": "PDF/A-gemarkeerd bestand gedownload.",
+    "invalidPdf": "Dit bestand kon niet als PDF worden gelezen.",
+    "encryptedPdf": "Deze PDF is met een wachtwoord beveiligd. Ontgrendel hem met PDF ontgrendelen en probeer opnieuw.",
+    "convertFailed": "Deze PDF kon niet worden geconverteerd. Probeer een ander bestand.",
+    "level": {
+      "1b": "PDF/A-1b (deel 1, conformiteit B)",
+      "2b": "PDF/A-2b (deel 2, conformiteit B)",
+      "2u": "PDF/A-2u (deel 2, conformiteit U)",
+      "3b": "PDF/A-3b (deel 3, conformiteit B)",
+      "3u": "PDF/A-3u (deel 3, conformiteit U)"
+    }
   }
 }
