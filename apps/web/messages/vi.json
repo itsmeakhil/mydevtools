@@ -57,7 +57,9 @@
     "jpgToPdf": "JPG sang PDF",
     "pdfToJpg": "PDF sang JPG",
     "pdfCompare": "So sánh PDF",
-    "pdfToPdfA": "PDF sang PDF/A"
+    "pdfToPdfA": "PDF sang PDF/A",
+    "pdfSign": "Ký PDF",
+    "pdfEditor": "Trình sửa PDF"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -465,6 +467,14 @@
       "pdfToPdfA": {
         "title": "PDF sang PDF/A",
         "description": "Chuyển PDF sang PDF/A để lưu trữ và bảo quản lâu dài, chọn mức tuân thủ ISO — hoàn toàn trong trình duyệt."
+      },
+      "pdfSign": {
+        "title": "Ký PDF",
+        "description": "Ký PDF trong trình duyệt (vẽ, gõ chữ hoặc ảnh) hoặc chia sẻ mẫu để thu thập chữ ký."
+      },
+      "pdfEditor": {
+        "title": "Trình sửa PDF",
+        "description": "Chỉnh sửa PDF bằng cách thêm chữ, hình, ghi chú và tô sáng. An toàn, đơn giản — tất cả trên trình duyệt."
       }
     },
     "tabs": {
@@ -3511,5 +3521,85 @@
       "3b": "PDF/A-3b (phần 3, tuân thủ B)",
       "3u": "PDF/A-3u (phần 3, tuân thủ U)"
     }
+  },
+  "PdfSign": {
+    "choosePdf": "Chọn PDF",
+    "reset": "Tệp khác",
+    "pageCount": "{count, plural, other {# trang}}",
+    "invalidPdf": "Không đọc được tệp này dưới dạng PDF.",
+    "encryptedPdf": "PDF này được bảo vệ bằng mật khẩu. Mở khóa bằng Mở khóa PDF rồi thử lại.",
+    "positionLabel": "Vị trí",
+    "posCenter": "Giữa",
+    "posTl": "Trên trái",
+    "posTr": "Trên phải",
+    "posBl": "Dưới trái",
+    "posBr": "Dưới phải",
+    "invalidImage": "Dùng ảnh PNG hoặc JPEG.",
+    "working": "Đang xử lý…",
+    "intro": "Công cụ ký tài liệu điện tử của bạn. Tự ký hoặc gửi yêu cầu ký cho người khác.",
+    "privacyNote": "Tệp không rời khỏi trình duyệt này. Chúng tôi không lưu PDF và không gửi email thay bạn.",
+    "mainTabSign": "Tự ký",
+    "mainTabRequest": "Nhờ người khác",
+    "tabDraw": "Vẽ",
+    "tabType": "Gõ",
+    "tabUpload": "Ảnh",
+    "drawLabel": "Vẽ chữ ký của bạn",
+    "clearDrawing": "Xóa vùng vẽ",
+    "typeLabel": "Họ tên",
+    "typePlaceholder": "vd: Nguyễn Văn A",
+    "chooseImage": "Chọn ảnh chữ ký",
+    "widthLabel": "Độ rộng chữ ký ({pct}% trang)",
+    "pagesAll": "Tất cả trang",
+    "pagesFrom": "Trang đầu",
+    "pagesTo": "Trang cuối",
+    "download": "Áp dụng chữ ký và tải xuống",
+    "done": "Đã tải PDF đã ký.",
+    "signFailed": "Không thể ký PDF này. Hãy thử tệp khác.",
+    "needDrawing": "Hãy vẽ chữ ký trên vùng vẽ trước.",
+    "emptyTypeName": "Nhập tên cho chữ ký dạng chữ.",
+    "needUpload": "Chọn ảnh chữ ký PNG hoặc JPEG.",
+    "requestTitle": "Thu thập chữ ký từ người khác",
+    "requestBody": "MyDevTools không tải PDF của bạn lên máy chủ và không gửi email thay bạn. Tải tệp xuống, đính kèm trong Gmail, Outlook, Slack hoặc kênh bạn dùng và nhờ mọi người ký tại đây rồi gửi lại bản sao. Bạn có thể sao chép tin ngắn kèm liên kết công cụ bên dưới.",
+    "copyTemplate": "Sao chép mẫu tin nhắn",
+    "requestTemplate": "Xin chào,\n\nvui lòng xem tệp PDF đính kèm. Bạn có thể thêm chữ ký bằng công cụ miễn phí trong trình duyệt (bản thân công cụ không tải dữ liệu lên máy chủ):\n{link}\n\nCảm ơn!",
+    "copiedTemplate": "Đã sao chép vào clipboard.",
+    "copyFailed": "Không thể sao chép. Hãy chọn và sao chép thủ công."
+  },
+  "PdfEditor": {
+    "title": "Trình sửa PDF",
+    "subtitle": "Chỉnh sửa PDF bằng cách thêm chữ, hình, ghi chú và tô sáng. An toàn, đơn giản.",
+    "privacyNote": "Tệp không rời khỏi trình duyệt này. Xem trước bằng PDF.js; xuất bằng pdf-lib. Worker PDF.js tải từ CDN lần đầu mở.",
+    "chooseFile": "Chọn PDF",
+    "download": "Tải PDF đã chỉnh sửa",
+    "anotherFile": "Tệp khác",
+    "pagePrev": "Trang trước",
+    "pageNext": "Trang sau",
+    "pageLabel": "Trang {current} / {total}",
+    "zoomLabel": "Thu phóng xem trước",
+    "zoomHint": "Thu phóng chỉ ảnh hưởng xem trước trên màn hình. Chú thích xuất khớp kích thước trang PDF thực.",
+    "toolsLabel": "Công cụ",
+    "toolSelect": "Chọn",
+    "toolHighlight": "Tô sáng",
+    "toolRect": "Hình chữ nhật",
+    "toolText": "Chữ",
+    "toolComment": "Ghi chú",
+    "deleteSelected": "Xóa phần đã chọn",
+    "clearPage": "Xóa trang này",
+    "highlightColor": "Màu tô sáng",
+    "strokeColor": "Màu hình",
+    "textColor": "Màu chữ",
+    "hintTools": "Kéo trên trang để tô sáng và hình chữ nhật. Nhấp để thêm chữ hoặc hộp ghi chú. Dùng Chọn để nhấp chú thích và xóa.",
+    "dialogTextTitle": "Thêm chữ",
+    "dialogCommentTitle": "Thêm ghi chú",
+    "dialogTextPlaceholder": "Nhập chữ đặt lên trang…",
+    "dialogCommentPlaceholder": "Viết ghi chú của bạn…",
+    "dialogSave": "Đặt lên trang",
+    "dialogCancel": "Hủy",
+    "invalidPdf": "Không đọc được tệp này dưới dạng PDF.",
+    "encryptedPdf": "PDF này được bảo vệ bằng mật khẩu. Hãy mở khóa bằng PDF Unlocker rồi thử lại.",
+    "exportError": "Không tạo được PDF đã chỉnh sửa. Thử tệp khác.",
+    "exportSuccess": "Đã tải xuống PDF đã chỉnh sửa.",
+    "emptyState": "Chọn PDF để chú thích. Không tải lên máy chủ.",
+    "busy": "Đang xuất…"
   }
 }

@@ -57,7 +57,9 @@
     "jpgToPdf": "JPG به PDF",
     "pdfToJpg": "PDF به JPG",
     "pdfCompare": "مقایسه PDF",
-    "pdfToPdfA": "PDF به PDF/A"
+    "pdfToPdfA": "PDF به PDF/A",
+    "pdfSign": "امضای PDF",
+    "pdfEditor": "ویرایشگر PDF"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -465,6 +467,14 @@
       "pdfToPdfA": {
         "title": "PDF به PDF/A",
         "description": "PDFها را برای بایگانی و حفظ بلندمدت به PDF/A تبدیل کنید و سطح انطباق ISO را انتخاب کنید — همه در مرورگر."
+      },
+      "pdfSign": {
+        "title": "امضای PDF",
+        "description": "امضای PDF در مرورگر (رسم، تایپ یا تصویر) یا اشتراک قالب برای جمع‌آوری امضا."
+      },
+      "pdfEditor": {
+        "title": "ویرایشگر PDF",
+        "description": "با افزودن متن، شکل، نظر و برجسته‌سازی PDF را ویرایش کنید. ابزاری امن و ساده — همه‌چیز در مرورگر."
       }
     },
     "tabs": {
@@ -3511,5 +3521,85 @@
       "3b": "PDF/A-3b (بخش ۳، انطباق B)",
       "3u": "PDF/A-3u (بخش ۳، انطباق U)"
     }
+  },
+  "PdfSign": {
+    "choosePdf": "انتخاب PDF",
+    "reset": "فایل دیگر",
+    "pageCount": "{count, plural, one {# صفحه} other {# صفحه}}",
+    "invalidPdf": "خواندن این فایل به‌عنوان PDF ممکن نبود.",
+    "encryptedPdf": "این PDF با رمز محافظت شده است. ابتدا با باز کردن قفل PDF آن را باز کنید.",
+    "positionLabel": "موقعیت",
+    "posCenter": "مرکز",
+    "posTl": "بالا چپ",
+    "posTr": "بالا راست",
+    "posBl": "پایین چپ",
+    "posBr": "پایین راست",
+    "invalidImage": "از تصویر PNG یا JPEG استفاده کنید.",
+    "working": "در حال پردازش…",
+    "intro": "ابزار شما برای امضای الکترونیکی. خودتان امضا کنید یا از دیگران بخواهید.",
+    "privacyNote": "فایل شما این مرورگر را ترک نمی‌کند. PDF ذخیره نمی‌کنیم و ایمیل جای شما نمی‌فرستیم.",
+    "mainTabSign": "امضای خودم",
+    "mainTabRequest": "درخواست از دیگران",
+    "tabDraw": "رسم",
+    "tabType": "تایپ",
+    "tabUpload": "تصویر",
+    "drawLabel": "امضای خود را بکشید",
+    "clearDrawing": "پاک کردن بوم",
+    "typeLabel": "نام شما",
+    "typePlaceholder": "مثال: علی رضایی",
+    "chooseImage": "انتخاب تصویر امضا",
+    "widthLabel": "عرض امضا ({pct}% صفحه)",
+    "pagesAll": "همه صفحات",
+    "pagesFrom": "صفحه اول",
+    "pagesTo": "صفحه آخر",
+    "download": "اعمال امضا و دانلود",
+    "done": "PDF امضاشده دانلود شد.",
+    "signFailed": "امضای این PDF ممکن نشد. فایل دیگری امتحان کنید.",
+    "needDrawing": "ابتدا روی بوم امضا بکشید.",
+    "emptyTypeName": "نام را برای امضای متنی وارد کنید.",
+    "needUpload": "تصویر امضای PNG یا JPEG انتخاب کنید.",
+    "requestTitle": "جمع‌آوری امضا از دیگران",
+    "requestBody": "MyDevTools فایل PDF شما را آپلود نمی‌کند و ایمیل جای شما نمی‌فرستد. فایل را دانلود کنید، در Gmail، Outlook، Slack یا کانال خود ضمیمه کنید و از افراد بخواهید اینجا امضا کنند و نسخه برگردانند. می‌توانید متن کوتاهی با لینک این ابزار را از پایین کپی کنید.",
+    "copyTemplate": "کپی قالب پیام",
+    "requestTemplate": "سلام،\n\nلطفاً PDF پیوست را بررسی کنید. می‌توانید با این ابزار رایگان در مرورگر امضا اضافه کنید (خود ابزار چیزی به سرور آپلود نمی‌کند):\n{link}\n\nمتشکرم!",
+    "copiedTemplate": "پیام در کلیپ‌بورد کپی شد.",
+    "copyFailed": "کپی نشد. متن را دستی انتخاب و کپی کنید."
+  },
+  "PdfEditor": {
+    "title": "ویرایشگر PDF",
+    "subtitle": "با افزودن متن، شکل، نظر و برجسته‌سازی PDF را ویرایش کنید. ابزاری امن و ساده.",
+    "privacyNote": "فایل شما این مرورگر را ترک نمی‌کند. پیش‌نمایش با PDF.js؛ خروجی با pdf-lib. worker PDF.js بار اول از CDN بارگذاری می‌شود.",
+    "chooseFile": "انتخاب PDF",
+    "download": "دانلود PDF ویرایش‌شده",
+    "anotherFile": "فایل دیگر",
+    "pagePrev": "صفحه قبل",
+    "pageNext": "صفحه بعد",
+    "pageLabel": "صفحه {current} از {total}",
+    "zoomLabel": "بزرگنمایی پیش‌نمایش",
+    "zoomHint": "بزرگنمایی فقط پیش‌نمایش روی صفحه را تغییر می‌دهد. حاشیه‌نویسی‌های خروجی با اندازه واقعی صفحه PDF هم‌خوان است.",
+    "toolsLabel": "ابزارها",
+    "toolSelect": "انتخاب",
+    "toolHighlight": "برجسته",
+    "toolRect": "مستطیل",
+    "toolText": "متن",
+    "toolComment": "نظر",
+    "deleteSelected": "حذف انتخاب‌شده",
+    "clearPage": "پاک‌کردن این صفحه",
+    "highlightColor": "رنگ برجسته",
+    "strokeColor": "رنگ شکل",
+    "textColor": "رنگ متن",
+    "hintTools": "روی صفحه بکشید برای برجسته و مستطیل. برای متن یا جعبه نظر کلیک کنید. با انتخاب روی حاشیه‌نویسی کلیک کنید و حذف کنید.",
+    "dialogTextTitle": "افزودن متن",
+    "dialogCommentTitle": "افزودن نظر",
+    "dialogTextPlaceholder": "متنی که روی صفحه قرار می‌گیرد را بنویسید…",
+    "dialogCommentPlaceholder": "نظر خود را بنویسید…",
+    "dialogSave": "قرار دادن روی صفحه",
+    "dialogCancel": "لغو",
+    "invalidPdf": "این فایل به‌عنوان PDF خوانده نشد.",
+    "encryptedPdf": "این PDF با رمز محافظت شده است. ابتدا با PDF Unlocker باز کنید و دوباره تلاش کنید.",
+    "exportError": "ساخت PDF ویرایش‌شده ممکن نشد. فایل دیگری امتحان کنید.",
+    "exportSuccess": "PDF ویرایش‌شده دانلود شد.",
+    "emptyState": "یک PDF برای حاشیه‌نویسی انتخاب کنید. چیزی به سرور ارسال نمی‌شود.",
+    "busy": "در حال خروجی گرفتن…"
   }
 }

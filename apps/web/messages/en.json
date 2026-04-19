@@ -59,7 +59,9 @@
     "pdfToJpg": "PDF to JPG",
     "htmlToPdf": "HTML to PDF",
     "pdfCompare": "Compare PDF",
-    "pdfToPdfA": "PDF to PDF/A"
+    "pdfToPdfA": "PDF to PDF/A",
+    "pdfSign": "Sign PDF",
+    "pdfEditor": "PDF Editor"
   },
   "Help": {
     "title": "Help & documentation",
@@ -530,6 +532,14 @@
       "pdfToPdfA": {
         "title": "PDF to PDF/A",
         "description": "Convert PDFs to PDF/A for archival preservation and pick an ISO conformance level — all in your browser."
+      },
+      "pdfEditor": {
+        "title": "PDF Editor",
+        "description": "Edit PDF by adding text, shapes, comments and highlights. Your secure and simple tool to edit PDF — all in your browser."
+      },
+      "pdfSign": {
+        "title": "Sign PDF",
+        "description": "eSign PDFs in your browser—draw, type, or image—or share a template to collect signatures from others."
       }
     }
   },
@@ -732,6 +742,49 @@
     "previewLabel": "Preview",
     "popupBlocked": "Popup was blocked. Please allow popups for this site and try again."
   },
+  "PdfSign": {
+    "choosePdf": "Choose PDF",
+    "reset": "Another file",
+    "pageCount": "{count, plural, one {# page} other {# pages}}",
+    "invalidPdf": "Could not read this file as a PDF.",
+    "encryptedPdf": "This PDF is password-protected. Unlock it with PDF Unlocker, then try again.",
+    "positionLabel": "Position",
+    "posCenter": "Center",
+    "posTl": "Top left",
+    "posTr": "Top right",
+    "posBl": "Bottom left",
+    "posBr": "Bottom right",
+    "invalidImage": "Use a PNG or JPEG image.",
+    "working": "Working…",
+    "intro": "Your tool to eSign documents. Sign a document yourself or send a signature request to others.",
+    "privacyNote": "Your file never leaves this browser. We do not store PDFs or send email for you.",
+    "mainTabSign": "Sign yourself",
+    "mainTabRequest": "Request from others",
+    "tabDraw": "Draw",
+    "tabType": "Type",
+    "tabUpload": "Image",
+    "drawLabel": "Draw your signature",
+    "clearDrawing": "Clear pad",
+    "typeLabel": "Your name",
+    "typePlaceholder": "e.g. Jane Doe",
+    "chooseImage": "Choose signature image",
+    "widthLabel": "Signature width ({pct}% of page)",
+    "pagesAll": "All pages",
+    "pagesFrom": "First page",
+    "pagesTo": "Last page",
+    "download": "Apply signature & download",
+    "done": "Signed PDF downloaded.",
+    "signFailed": "Could not sign this PDF. Try a different file.",
+    "needDrawing": "Draw your signature on the pad first.",
+    "emptyTypeName": "Enter your name for the typed signature.",
+    "needUpload": "Choose a PNG or JPEG signature image.",
+    "requestTitle": "Collect signatures from others",
+    "requestBody": "MyDevTools never uploads your PDF or sends email on your behalf. Download your file, attach it to a message in Gmail, Outlook, Slack, or any channel you already use, and ask people to sign it here and send a copy back. You can copy a short message below that includes a link to this tool.",
+    "copyTemplate": "Copy message template",
+    "requestTemplate": "Hi,\n\nPlease review the attached PDF. You can add a signature using this free in-browser tool (nothing is uploaded to a server from the tool itself):\n{link}\n\nThank you!",
+    "copiedTemplate": "Message copied to clipboard.",
+    "copyFailed": "Could not copy. Select and copy the text manually."
+  },
   "PdfCompare": {
     "title": "Compare PDF",
     "subtitle": "Upload two PDFs to compare their text layer side by side. Runs locally in your browser with PDF.js.",
@@ -752,6 +805,43 @@
     "invalidPdf": "Could not read this file as a PDF.",
     "passwordRequired": "This PDF needs a password. Unlock it with PDF Unlocker first, then try again.",
     "genericError": "Could not process this PDF. Try a different file."
+  },
+  "PdfEditor": {
+    "title": "PDF Editor",
+    "subtitle": "Edit PDF by adding text, shapes, comments and highlights. Your secure and simple tool to edit PDF.",
+    "privacyNote": "Your file never leaves this browser. Preview uses PDF.js; export uses pdf-lib. The PDF.js worker loads from a CDN the first time you open a file.",
+    "chooseFile": "Choose PDF",
+    "download": "Download edited PDF",
+    "anotherFile": "Another file",
+    "pagePrev": "Previous page",
+    "pageNext": "Next page",
+    "pageLabel": "Page {current} / {total}",
+    "zoomLabel": "Preview zoom",
+    "zoomHint": "Zoom only affects the on-screen preview. Exported annotations match the real PDF page size.",
+    "toolsLabel": "Tools",
+    "toolSelect": "Select",
+    "toolHighlight": "Highlight",
+    "toolRect": "Rectangle",
+    "toolText": "Text",
+    "toolComment": "Comment",
+    "deleteSelected": "Delete selected",
+    "clearPage": "Clear this page",
+    "highlightColor": "Highlight color",
+    "strokeColor": "Shape color",
+    "textColor": "Text color",
+    "hintTools": "Drag on the page for highlights and rectangles. Click for text or a comment box. Use Select to click an annotation and delete it.",
+    "dialogTextTitle": "Add text",
+    "dialogCommentTitle": "Add comment",
+    "dialogTextPlaceholder": "Type the text to place on the page…",
+    "dialogCommentPlaceholder": "Write your comment…",
+    "dialogSave": "Place on page",
+    "dialogCancel": "Cancel",
+    "invalidPdf": "Could not read this file as a PDF.",
+    "encryptedPdf": "This PDF is password-protected. Unlock it with PDF Unlocker, then try again.",
+    "exportError": "Could not build the edited PDF. Try a different file.",
+    "exportSuccess": "Edited PDF downloaded.",
+    "emptyState": "Choose a PDF to annotate. Nothing is uploaded to a server.",
+    "busy": "Exporting…"
   },
   "Tasks": {
     "page": {

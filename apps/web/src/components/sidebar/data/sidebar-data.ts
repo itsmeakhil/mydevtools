@@ -55,6 +55,8 @@ import {
   IconArchive,
   IconPhotoPlus,
   IconDroplet,
+  IconPencil,
+  IconSignature,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -431,6 +433,15 @@ export const sidebarData: SidebarData = {
           badge: 'new',
         },
         {
+          title: 'PDF Editor',
+          url: '/app/pdf-editor',
+          icon: IconPencil,
+          description:
+            'Edit PDF by adding text, shapes, comments and highlights. Your secure and simple tool to edit PDF. Runs locally in your browser.',
+          hiddenOnMobile: true,
+          badge: 'new',
+        },
+        {
           title: 'JPG to PDF',
           url: '/app/jpg-to-pdf',
           icon: IconPhotoPlus,
@@ -468,6 +479,15 @@ export const sidebarData: SidebarData = {
           url: '/app/pdf-compare',
           icon: IconGitCompare,
           description: 'Easily display the differences between two similar files. Text is extracted locally and compared side by side.',
+          hiddenOnMobile: true,
+          badge: 'new',
+        },
+        {
+          title: 'Sign PDF',
+          url: '/app/pdf-sign',
+          icon: IconSignature,
+          description:
+            'Your tool to eSign documents. Sign a document yourself or send a signature request to others. Runs locally in your browser.',
           hiddenOnMobile: true,
           badge: 'new',
         },

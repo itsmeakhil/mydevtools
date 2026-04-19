@@ -60,3 +60,4 @@ __pycache__/
 .ruff_cache/
 .venv/
 apps/backend/.venv/
+app_summary/

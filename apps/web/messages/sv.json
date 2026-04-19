@@ -57,7 +57,9 @@
     "jpgToPdf": "JPG till PDF",
     "pdfToJpg": "PDF till JPG",
     "pdfCompare": "Jämför PDF",
-    "pdfToPdfA": "PDF till PDF/A"
+    "pdfToPdfA": "PDF till PDF/A",
+    "pdfSign": "Signera PDF",
+    "pdfEditor": "PDF-redigerare"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -465,6 +467,14 @@
       "pdfToPdfA": {
         "title": "PDF till PDF/A",
         "description": "Konvertera PDF till PDF/A för arkivering och långtidsbevarande med valfri ISO-konformitetsnivå — allt i din webbläsare."
+      },
+      "pdfSign": {
+        "title": "Signera PDF",
+        "description": "Signera PDF i webbläsaren (rita, skriva eller bild) eller dela en mall för att samla in signaturer."
+      },
+      "pdfEditor": {
+        "title": "PDF-redigerare",
+        "description": "Redigera PDF genom att lägga till text, former, kommentarer och markeringar. Säkert och enkelt — allt i webbläsaren."
       }
     },
     "tabs": {
@@ -3511,5 +3521,85 @@
       "3b": "PDF/A-3b (del 3, konformitet B)",
       "3u": "PDF/A-3u (del 3, konformitet U)"
     }
+  },
+  "PdfSign": {
+    "choosePdf": "Välj PDF",
+    "reset": "Annan fil",
+    "pageCount": "{count, plural, one {# sida} other {# sidor}}",
+    "invalidPdf": "Kunde inte läsa den här filen som en PDF.",
+    "encryptedPdf": "Den här PDF:en är lösenordsskyddad. Lås upp den med PDF-upplåsare och försök igen.",
+    "positionLabel": "Position",
+    "posCenter": "Mitten",
+    "posTl": "Övre vänster",
+    "posTr": "Övre höger",
+    "posBl": "Nedre vänster",
+    "posBr": "Nedre höger",
+    "invalidImage": "Använd en PNG- eller JPEG-bild.",
+    "working": "Arbetar…",
+    "intro": "Ditt verktyg för e‑signering. Signera själv eller be andra om signatur.",
+    "privacyNote": "Din fil lämnar aldrig den här webbläsaren. Vi lagrar inte PDF:er och skickar inte e‑post åt dig.",
+    "mainTabSign": "Signera själv",
+    "mainTabRequest": "Be andra",
+    "tabDraw": "Rita",
+    "tabType": "Skriv",
+    "tabUpload": "Bild",
+    "drawLabel": "Rita din signatur",
+    "clearDrawing": "Rensa yta",
+    "typeLabel": "Ditt namn",
+    "typePlaceholder": "t.ex. Anna Andersson",
+    "chooseImage": "Välj signaturbild",
+    "widthLabel": "Signaturbredd ({pct}% av sidan)",
+    "pagesAll": "Alla sidor",
+    "pagesFrom": "Första sidan",
+    "pagesTo": "Sista sidan",
+    "download": "Använd signatur och ladda ner",
+    "done": "Signerad PDF nedladdad.",
+    "signFailed": "Kunde inte signera PDF:en. Prova en annan fil.",
+    "needDrawing": "Rita först din signatur på ytan.",
+    "emptyTypeName": "Ange ditt namn för textsignaturen.",
+    "needUpload": "Välj en PNG‑ eller JPEG‑bild av signaturen.",
+    "requestTitle": "Samla signaturer från andra",
+    "requestBody": "MyDevTools laddar inte upp din PDF och skickar inte e‑post åt dig. Ladda ner filen, bifoga i Gmail, Outlook, Slack eller annan kanal och be folk signera här och skicka tillbaka en kopia. Du kan kopiera ett kort meddelande med länk till verktyget nedan.",
+    "copyTemplate": "Kopiera meddelandemall",
+    "requestTemplate": "Hej,\n\nvänligen granska bifogad PDF. Du kan lägga till signatur med detta kostnadsfria webbläsarverktyg (själva verktyget laddar inte upp något till en server):\n{link}\n\nTack!",
+    "copiedTemplate": "Meddelande kopierat till urklipp.",
+    "copyFailed": "Kunde inte kopiera. Markera och kopiera texten manuellt."
+  },
+  "PdfEditor": {
+    "title": "PDF-redigerare",
+    "subtitle": "Redigera PDF genom att lägga till text, former, kommentarer och markeringar. Säkert och enkelt.",
+    "privacyNote": "Din fil lämnar inte den här webbläsaren. Förhandsvisning med PDF.js; export med pdf-lib. PDF.js-arbetaren laddas från ett CDN första gången.",
+    "chooseFile": "Välj PDF",
+    "download": "Ladda ner redigerad PDF",
+    "anotherFile": "Annan fil",
+    "pagePrev": "Föregående sida",
+    "pageNext": "Nästa sida",
+    "pageLabel": "Sida {current} av {total}",
+    "zoomLabel": "Förhandsgranskningszoom",
+    "zoomHint": "Zoom gäller bara förhandsvisningen på skärmen. Exporterade annoteringar matchar PDF-sidans verkliga storlek.",
+    "toolsLabel": "Verktyg",
+    "toolSelect": "Markera",
+    "toolHighlight": "Markering",
+    "toolRect": "Rektangel",
+    "toolText": "Text",
+    "toolComment": "Kommentar",
+    "deleteSelected": "Ta bort markerat",
+    "clearPage": "Rensa den här sidan",
+    "highlightColor": "Markeringsfärg",
+    "strokeColor": "Formfärg",
+    "textColor": "Textfärg",
+    "hintTools": "Dra på sidan för markeringar och rektanglar. Klicka för text eller kommentarruta. Använd Markera för att klicka en annotering och ta bort den.",
+    "dialogTextTitle": "Lägg till text",
+    "dialogCommentTitle": "Lägg till kommentar",
+    "dialogTextPlaceholder": "Skriv texten som ska placeras på sidan…",
+    "dialogCommentPlaceholder": "Skriv din kommentar…",
+    "dialogSave": "Placera på sidan",
+    "dialogCancel": "Avbryt",
+    "invalidPdf": "Kunde inte läsa filen som en PDF.",
+    "encryptedPdf": "Den här PDF:en är lösenordsskyddad. Lås upp med PDF Unlocker och försök igen.",
+    "exportError": "Kunde inte skapa den redigerade PDF:en. Prova en annan fil.",
+    "exportSuccess": "Redigerad PDF nedladdad.",
+    "emptyState": "Välj en PDF att annotera. Inget laddas upp till en server.",
+    "busy": "Exporterar…"
   }
 }

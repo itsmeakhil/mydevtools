@@ -57,7 +57,9 @@
     "jpgToPdf": "JPG ke PDF",
     "pdfToJpg": "PDF ke JPG",
     "pdfCompare": "Bandingkan PDF",
-    "pdfToPdfA": "PDF ke PDF/A"
+    "pdfToPdfA": "PDF ke PDF/A",
+    "pdfSign": "Tandatangani PDF",
+    "pdfEditor": "Editor PDF"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -471,6 +473,14 @@
       "pdfToPdfA": {
         "title": "PDF ke PDF/A",
         "description": "Tukar PDF ke PDF/A untuk arkib dan pemeliharaan jangka panjang, dengan tahap pematuhan ISO pilihan anda — semuanya dalam pelayar."
+      },
+      "pdfSign": {
+        "title": "Tandatangani PDF",
+        "description": "Tandatangani PDF dalam pelayar (lukis, taip atau imej) atau kongsi templat untuk mengumpul tandatangan."
+      },
+      "pdfEditor": {
+        "title": "Editor PDF",
+        "description": "Edit PDF dengan menambah teks, bentuk, komen dan sorotan. Selamat dan mudah — semuanya dalam pelayar."
       }
     },
     "tabs": {
@@ -3511,5 +3521,85 @@
       "3b": "PDF/A-3b (bahagian 3, pematuhan B)",
       "3u": "PDF/A-3u (bahagian 3, pematuhan U)"
     }
+  },
+  "PdfSign": {
+    "choosePdf": "Pilih PDF",
+    "reset": "Fail lain",
+    "pageCount": "{count, plural, one {# halaman} other {# halaman}}",
+    "invalidPdf": "Tidak dapat membaca fail ini sebagai PDF.",
+    "encryptedPdf": "PDF ini dilindungi kata laluan. Buka kuncinya dengan Buka Kunci PDF, kemudian cuba lagi.",
+    "positionLabel": "Kedudukan",
+    "posCenter": "Tengah",
+    "posTl": "Kiri atas",
+    "posTr": "Kanan atas",
+    "posBl": "Kiri bawah",
+    "posBr": "Kanan bawah",
+    "invalidImage": "Gunakan imej PNG atau JPEG.",
+    "working": "Memproses…",
+    "intro": "Alat anda untuk e-tandatangan dokumen. Tandatangani sendiri atau minta orang lain menandatangani.",
+    "privacyNote": "Fail anda tidak meninggalkan pelayar ini. Kami tidak menyimpan PDF dan tidak menghantar e-mel bagi pihak anda.",
+    "mainTabSign": "Tandatangani sendiri",
+    "mainTabRequest": "Minta orang lain",
+    "tabDraw": "Lukis",
+    "tabType": "Taip",
+    "tabUpload": "Imej",
+    "drawLabel": "Lukis tandatangan anda",
+    "clearDrawing": "Kosongkan pad",
+    "typeLabel": "Nama anda",
+    "typePlaceholder": "cth. Ahmad bin Ali",
+    "chooseImage": "Pilih imej tandatangan",
+    "widthLabel": "Lebar tandatangan ({pct}% halaman)",
+    "pagesAll": "Semua halaman",
+    "pagesFrom": "Halaman pertama",
+    "pagesTo": "Halaman terakhir",
+    "download": "Gunakan tandatangan & muat turun",
+    "done": "PDF bertandatangan dimuat turun.",
+    "signFailed": "Tidak dapat menandatangani PDF ini. Cuba fail lain.",
+    "needDrawing": "Lukis tandatangan pada pad dahulu.",
+    "emptyTypeName": "Masukkan nama untuk tandatangan teks.",
+    "needUpload": "Pilih imej tandatangan PNG atau JPEG.",
+    "requestTitle": "Kumpul tandatangan daripada orang lain",
+    "requestBody": "MyDevTools tidak memuat naik PDF anda dan tidak menghantar e-mel bagi pihak anda. Muat turun fail, lampirkan dalam Gmail, Outlook, Slack atau saluran lain, dan minta orang menandatangani di sini serta menghantar salinan balik. Anda boleh menyalin mesej ringkas dengan pautan ke alat ini di bawah.",
+    "copyTemplate": "Salin templat mesej",
+    "requestTemplate": "Helo,\n\nsila semak PDF yang dilampirkan. Anda boleh menambah tandatangan menggunakan alat percuma dalam pelayar ini (alat itu sendiri tidak memuat naik apa-apa ke pelayan):\n{link}\n\nTerima kasih!",
+    "copiedTemplate": "Mesej disalin ke papan keratan.",
+    "copyFailed": "Tidak dapat menyalin. Pilih dan salin teks secara manual."
+  },
+  "PdfEditor": {
+    "title": "Editor PDF",
+    "subtitle": "Edit PDF dengan menambah teks, bentuk, komen dan sorotan. Selamat dan mudah.",
+    "privacyNote": "Fail anda tidak meninggalkan pelayar ini. Pratonton guna PDF.js; eksport guna pdf-lib. Pekerja PDF.js dimuat dari CDN kali pertama dibuka.",
+    "chooseFile": "Pilih PDF",
+    "download": "Muat turun PDF yang diedit",
+    "anotherFile": "Fail lain",
+    "pagePrev": "Halaman sebelum",
+    "pageNext": "Halaman seterus",
+    "pageLabel": "Halaman {current} daripada {total}",
+    "zoomLabel": "Zum pratonton",
+    "zoomHint": "Zum hanya menjejaskan pratonton skrin. Anotasi dieksport sepadan dengan saiz halaman PDF sebenar.",
+    "toolsLabel": "Alat",
+    "toolSelect": "Pilih",
+    "toolHighlight": "Sorot",
+    "toolRect": "Segi empat",
+    "toolText": "Teks",
+    "toolComment": "Komen",
+    "deleteSelected": "Padam terpilih",
+    "clearPage": "Kosongkan halaman ini",
+    "highlightColor": "Warna sorot",
+    "strokeColor": "Warna bentuk",
+    "textColor": "Warna teks",
+    "hintTools": "Seret pada halaman untuk sorotan dan segi empat. Klik untuk teks atau kotak komen. Guna Pilih untuk klik anotasi dan padamkannya.",
+    "dialogTextTitle": "Tambah teks",
+    "dialogCommentTitle": "Tambah komen",
+    "dialogTextPlaceholder": "Taip teks untuk diletakkan pada halaman…",
+    "dialogCommentPlaceholder": "Tulis komen anda…",
+    "dialogSave": "Letak pada halaman",
+    "dialogCancel": "Batal",
+    "invalidPdf": "Tidak dapat membaca fail ini sebagai PDF.",
+    "encryptedPdf": "PDF ini dilindungi kata laluan. Buka kunci dahulu dengan PDF Unlocker dan cuba lagi.",
+    "exportError": "Tidak dapat membina PDF yang diedit. Cuba fail lain.",
+    "exportSuccess": "PDF yang diedit dimuat turun.",
+    "emptyState": "Pilih PDF untuk anotasi. Tiada apa dimuat naik ke pelayan.",
+    "busy": "Mengeksport…"
   }
 }

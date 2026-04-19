@@ -57,7 +57,9 @@
     "jpgToPdf": "من JPG إلى PDF",
     "pdfToJpg": "PDF إلى JPG",
     "pdfCompare": "مقارنة PDF",
-    "pdfToPdfA": "PDF إلى PDF/A"
+    "pdfToPdfA": "PDF إلى PDF/A",
+    "pdfSign": "توقيع PDF",
+    "pdfEditor": "محرر PDF"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -465,6 +467,14 @@
       "pdfToPdfA": {
         "title": "PDF إلى PDF/A",
         "description": "حوّل ملفات PDF إلى PDF/A للأرشفة والحفظ طويل الأمد مع مستوى مطابقة ISO الذي تختاره — كله داخل المتصفح."
+      },
+      "pdfSign": {
+        "title": "توقيع PDF",
+        "description": "وقّع ملفات PDF في المتصفح (رسم أو نص أو صورة) أو شارك قالبًا لجمع التوقيعات."
+      },
+      "pdfEditor": {
+        "title": "محرر PDF",
+        "description": "حرّر ملفات PDF بإضافة نصوص وأشكال وتعليقات وتمييزات. أداة آمنة وبسيطة — كل شيء في المتصفح."
       }
     },
     "tabs": {
@@ -3511,5 +3521,85 @@
       "3b": "PDF/A-3b (الجزء 3، مطابقة B)",
       "3u": "PDF/A-3u (الجزء 3، مطابقة U)"
     }
+  },
+  "PdfSign": {
+    "choosePdf": "اختر PDF",
+    "reset": "ملف آخر",
+    "pageCount": "{count, plural, one {# صفحة} other {# صفحات}}",
+    "invalidPdf": "تعذّر قراءة هذا الملف كملف PDF.",
+    "encryptedPdf": "هذا PDF محمي بكلمة مرور. افتح قفله باستخدام إلغاء قفل PDF، ثم أعد المحاولة.",
+    "positionLabel": "الموضع",
+    "posCenter": "الوسط",
+    "posTl": "أعلى اليسار",
+    "posTr": "أعلى اليمين",
+    "posBl": "أسفل اليسار",
+    "posBr": "أسفل اليمين",
+    "invalidImage": "استخدم صورة PNG أو JPEG.",
+    "working": "جارٍ العمل…",
+    "intro": "أداتك لتوقيع المستندات إلكترونيًا. وقّع بنفسك أو أرسل طلب توقيع إلى آخرين.",
+    "privacyNote": "ملفك لا يغادر هذا المتصفح. لا نخزّن ملفات PDF ولا نرسل بريدًا نيابةً عنك.",
+    "mainTabSign": "توقيع بنفسي",
+    "mainTabRequest": "طلب من آخرين",
+    "tabDraw": "رسم",
+    "tabType": "كتابة",
+    "tabUpload": "صورة",
+    "drawLabel": "ارسم توقيعك",
+    "clearDrawing": "مسح اللوحة",
+    "typeLabel": "اسمك",
+    "typePlaceholder": "مثال: أحمد محمد",
+    "chooseImage": "اختر صورة التوقيع",
+    "widthLabel": "عرض التوقيع ({pct}% من الصفحة)",
+    "pagesAll": "كل الصفحات",
+    "pagesFrom": "الصفحة الأولى",
+    "pagesTo": "الصفحة الأخيرة",
+    "download": "تطبيق التوقيع وتنزيل",
+    "done": "تم تنزيل PDF موقّع.",
+    "signFailed": "تعذّر توقيع هذا PDF. جرّب ملفًا آخر.",
+    "needDrawing": "ارسم توقيعك على اللوحة أولًا.",
+    "emptyTypeName": "أدخل اسمك للتوقيع النصي.",
+    "needUpload": "اختر صورة توقيع بصيغة PNG أو JPEG.",
+    "requestTitle": "جمع توقيعات من الآخرين",
+    "requestBody": "لا يرفع MyDevTools ملف PDF الخاص بك ولا يرسل بريدًا نيابةً عنك. نزّل الملف وأرفقه في Gmail أو Outlook أو Slack أو أي قناة تستخدمها، واطلب من الأشخاص التوقيع هنا وإعادة نسخة. يمكنك نسخ رسالة قصيرة تتضمن رابطًا لهذه الأداة أدناه.",
+    "copyTemplate": "نسخ قالب الرسالة",
+    "requestTemplate": "مرحبًا،\n\nيرجى مراجعة ملف PDF المرفق. يمكنك إضافة توقيع باستخدام هذه الأداة المجانية في المتصفح (الأداة نفسها لا ترفع أي شيء إلى خادم):\n{link}\n\nشكرًا لك!",
+    "copiedTemplate": "تم نسخ الرسالة إلى الحافظة.",
+    "copyFailed": "تعذّر النسخ. حدّد النص وانسخه يدويًا."
+  },
+  "PdfEditor": {
+    "title": "محرر PDF",
+    "subtitle": "حرّر ملفات PDF بإضافة نصوص وأشكال وتعليقات وتمييزات. أداة آمنة وبسيطة.",
+    "privacyNote": "ملفك لا يغادر هذا المتصفح. المعاينة بـ PDF.js والتصدير بـ pdf-lib. يُحمّل عامل PDF.js من شبكة CDN عند أول فتح.",
+    "chooseFile": "اختر PDF",
+    "download": "تنزيل PDF المحرّر",
+    "anotherFile": "ملف آخر",
+    "pagePrev": "الصفحة السابقة",
+    "pageNext": "الصفحة التالية",
+    "pageLabel": "صفحة {current} من {total}",
+    "zoomLabel": "تكبير المعاينة",
+    "zoomHint": "التكبير يؤثر على المعاينة فقط. التعليقات المُصدَّرة تطابق الحجم الفعلي لصفحة PDF.",
+    "toolsLabel": "الأدوات",
+    "toolSelect": "تحديد",
+    "toolHighlight": "تمييز",
+    "toolRect": "مستطيل",
+    "toolText": "نص",
+    "toolComment": "تعليق",
+    "deleteSelected": "حذف المحدد",
+    "clearPage": "مسح هذه الصفحة",
+    "highlightColor": "لون التمييز",
+    "strokeColor": "لون الشكل",
+    "textColor": "لون النص",
+    "hintTools": "اسحب على الصفحة للتمييز والمستطيلات. انقر لإضافة نص أو مربع تعليق. استخدم التحديد للنقر على تعليق وحذفه.",
+    "dialogTextTitle": "إضافة نص",
+    "dialogCommentTitle": "إضافة تعليق",
+    "dialogTextPlaceholder": "اكتب النص لوضعه في الصفحة…",
+    "dialogCommentPlaceholder": "اكتب تعليقك…",
+    "dialogSave": "وضع في الصفحة",
+    "dialogCancel": "إلغاء",
+    "invalidPdf": "تعذّر قراءة هذا الملف كـ PDF.",
+    "encryptedPdf": "هذا PDF محمي بكلمة مرور. افتحه أولاً بأداة PDF Unlocker ثم أعد المحاولة.",
+    "exportError": "تعذّر إنشاء PDF المحرّر. جرّب ملفًا آخر.",
+    "exportSuccess": "تم تنزيل PDF المحرّر.",
+    "emptyState": "اختر PDF للتعليق عليه. لا يُرفع شيء إلى خادم.",
+    "busy": "جارٍ التصدير…"
   }
 }

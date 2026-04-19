@@ -57,7 +57,9 @@
     "jpgToPdf": "JPG zu PDF",
     "pdfToJpg": "PDF zu JPG",
     "pdfCompare": "PDF vergleichen",
-    "pdfToPdfA": "PDF nach PDF/A"
+    "pdfToPdfA": "PDF nach PDF/A",
+    "pdfSign": "PDF signieren",
+    "pdfEditor": "PDF-Editor"
   },
   "Help": {
     "title": "Hilfe & Dokumentation",
@@ -465,6 +467,14 @@
       "pdfToPdfA": {
         "title": "PDF nach PDF/A",
         "description": "Wandeln Sie PDFs für Archivierung und Langzeitbewahrung in PDF/A um und wählen Sie die ISO-Konformitätsstufe – alles in Ihrem Browser."
+      },
+      "pdfSign": {
+        "title": "PDF signieren",
+        "description": "PDFs im Browser signieren (zeichnen, tippen oder Bild) oder eine Vorlage teilen, um Unterschriften einzuholen."
+      },
+      "pdfEditor": {
+        "title": "PDF-Editor",
+        "description": "PDFs bearbeiten mit Text, Formen, Kommentaren und Markierungen. Sicher und einfach — alles im Browser."
       }
     },
     "tabs": {
@@ -3511,5 +3521,85 @@
       "3b": "PDF/A-3b (Teil 3, Konformität B)",
       "3u": "PDF/A-3u (Teil 3, Konformität U)"
     }
+  },
+  "PdfSign": {
+    "choosePdf": "PDF auswählen",
+    "reset": "Andere Datei",
+    "pageCount": "{count, plural, one {# Seite} other {# Seiten}}",
+    "invalidPdf": "Diese Datei konnte nicht als PDF gelesen werden.",
+    "encryptedPdf": "Dieses PDF ist kennwortgeschützt. Entsperren Sie es zuerst mit „PDF entsperren“, und versuchen Sie es erneut.",
+    "positionLabel": "Position",
+    "posCenter": "Mitte",
+    "posTl": "Oben links",
+    "posTr": "Oben rechts",
+    "posBl": "Unten links",
+    "posBr": "Unten rechts",
+    "invalidImage": "Verwenden Sie ein PNG- oder JPEG-Bild.",
+    "working": "Wird verarbeitet…",
+    "intro": "Ihr Tool zum elektronischen Signieren. Signieren Sie selbst oder bitten Sie andere um eine Unterschrift.",
+    "privacyNote": "Ihre Datei verlässt diesen Browser nicht. Wir speichern keine PDFs und versenden keine E-Mails für Sie.",
+    "mainTabSign": "Selbst signieren",
+    "mainTabRequest": "Andere bitten",
+    "tabDraw": "Zeichnen",
+    "tabType": "Tippen",
+    "tabUpload": "Bild",
+    "drawLabel": "Signatur zeichnen",
+    "clearDrawing": "Feld leeren",
+    "typeLabel": "Ihr Name",
+    "typePlaceholder": "z. B. Max Mustermann",
+    "chooseImage": "Signaturbild wählen",
+    "widthLabel": "Signaturbreite ({pct} % der Seite)",
+    "pagesAll": "Alle Seiten",
+    "pagesFrom": "Erste Seite",
+    "pagesTo": "Letzte Seite",
+    "download": "Signatur anwenden & herunterladen",
+    "done": "Signiertes PDF heruntergeladen.",
+    "signFailed": "PDF konnte nicht signiert werden. Andere Datei versuchen.",
+    "needDrawing": "Zeichnen Sie zuerst Ihre Signatur.",
+    "emptyTypeName": "Namen für die Textsignatur eingeben.",
+    "needUpload": "PNG- oder JPEG-Signaturbild wählen.",
+    "requestTitle": "Unterschriften von anderen einholen",
+    "requestBody": "MyDevTools lädt Ihr PDF nicht hoch und versendet keine E-Mails. Laden Sie die Datei herunter, hängen Sie sie in Gmail, Outlook, Slack o. Ä. an und bitten Sie andere, hier zu signieren und eine Kopie zurückzusenden. Unten können Sie eine kurze Nachricht mit Link kopieren.",
+    "copyTemplate": "Nachrichtenvorlage kopieren",
+    "requestTemplate": "Hallo,\n\nbitte prüfen Sie das angehängte PDF. Eine Signatur können Sie mit diesem kostenlosen Browser-Tool hinzufügen (von der Anwendung selbst wird nichts auf einen Server hochgeladen):\n{link}\n\nVielen Dank!",
+    "copiedTemplate": "Nachricht in die Zwischenablage kopiert.",
+    "copyFailed": "Kopieren fehlgeschlagen. Text bitte manuell markieren und kopieren."
+  },
+  "PdfEditor": {
+    "title": "PDF-Editor",
+    "subtitle": "PDFs bearbeiten mit Text, Formen, Kommentaren und Markierungen. Sicher und einfach.",
+    "privacyNote": "Ihre Datei verlässt diesen Browser nicht. Vorschau mit PDF.js, Export mit pdf-lib. Der PDF.js-Worker wird beim ersten Öffnen von einem CDN geladen.",
+    "chooseFile": "PDF wählen",
+    "download": "Bearbeitetes PDF herunterladen",
+    "anotherFile": "Andere Datei",
+    "pagePrev": "Vorherige Seite",
+    "pageNext": "Nächste Seite",
+    "pageLabel": "Seite {current} / {total}",
+    "zoomLabel": "Vorschau-Zoom",
+    "zoomHint": "Zoom gilt nur für die Bildschirmvorschau. Exportierte Anmerkungen entsprechen der echten PDF-Seitengröße.",
+    "toolsLabel": "Werkzeuge",
+    "toolSelect": "Auswählen",
+    "toolHighlight": "Markierung",
+    "toolRect": "Rechteck",
+    "toolText": "Text",
+    "toolComment": "Kommentar",
+    "deleteSelected": "Auswahl löschen",
+    "clearPage": "Diese Seite leeren",
+    "highlightColor": "Markierungsfarbe",
+    "strokeColor": "Formfarbe",
+    "textColor": "Textfarbe",
+    "hintTools": "Zum Markieren und für Rechtecke auf der Seite ziehen. Für Text oder Kommentarfeld klicken. Mit Auswählen eine Anmerkung anklicken und löschen.",
+    "dialogTextTitle": "Text hinzufügen",
+    "dialogCommentTitle": "Kommentar hinzufügen",
+    "dialogTextPlaceholder": "Text eingeben, der auf der Seite platziert wird…",
+    "dialogCommentPlaceholder": "Kommentar schreiben…",
+    "dialogSave": "Auf Seite platzieren",
+    "dialogCancel": "Abbrechen",
+    "invalidPdf": "Diese Datei konnte nicht als PDF gelesen werden.",
+    "encryptedPdf": "Dieses PDF ist passwortgeschützt. Entsperren Sie es zuerst mit PDF-Entsperrer und versuchen Sie es erneut.",
+    "exportError": "Das bearbeitete PDF konnte nicht erstellt werden. Andere Datei versuchen.",
+    "exportSuccess": "Bearbeitetes PDF wurde heruntergeladen.",
+    "emptyState": "PDF zum Annotieren wählen. Es wird nichts auf einen Server hochgeladen.",
+    "busy": "Export läuft…"
   }
 }

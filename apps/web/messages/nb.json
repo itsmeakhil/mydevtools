@@ -57,7 +57,9 @@
     "jpgToPdf": "JPG til PDF",
     "pdfToJpg": "PDF til JPG",
     "pdfCompare": "Sammenlign PDF",
-    "pdfToPdfA": "PDF til PDF/A"
+    "pdfToPdfA": "PDF til PDF/A",
+    "pdfSign": "Signer PDF",
+    "pdfEditor": "PDF-redigerer"
   },
   "Help": {
     "title": "Hjelp og dokumentasjon",
@@ -465,6 +467,14 @@
       "pdfToPdfA": {
         "title": "PDF til PDF/A",
         "description": "Konverter PDF-filer til PDF/A for arkivering og langtidsbevaring med ønsket ISO-samsvarsnivå — alt i nettleseren din."
+      },
+      "pdfSign": {
+        "title": "Signer PDF",
+        "description": "Signer PDF i nettleseren (tegne, skrive eller bilde) eller del en mal for å samle inn signaturer."
+      },
+      "pdfEditor": {
+        "title": "PDF-redigerer",
+        "description": "Rediger PDF ved å legge til tekst, former, kommentarer og utheving. Trygt og enkelt — alt i nettleseren."
       }
     },
     "tabs": {
@@ -3511,5 +3521,85 @@
       "3b": "PDF/A-3b (del 3, samsvar B)",
       "3u": "PDF/A-3u (del 3, samsvar U)"
     }
+  },
+  "PdfSign": {
+    "choosePdf": "Velg PDF",
+    "reset": "Annen fil",
+    "pageCount": "{count, plural, one {# side} other {# sider}}",
+    "invalidPdf": "Kunne ikke lese denne filen som en PDF.",
+    "encryptedPdf": "Denne PDF-en er passordbeskyttet. Lås den opp med PDF-opplåsing, og prøv igjen.",
+    "positionLabel": "Plassering",
+    "posCenter": "Senter",
+    "posTl": "Øvre venstre",
+    "posTr": "Øvre høyre",
+    "posBl": "Nedre venstre",
+    "posBr": "Nedre høyre",
+    "invalidImage": "Bruk et PNG- eller JPEG-bilde.",
+    "working": "Arbeider…",
+    "intro": "Verktøyet ditt for e‑signering. Signer selv eller be andre om signatur.",
+    "privacyNote": "Filen din forlater ikke denne nettleseren. Vi lagrer ikke PDF‑er og sender ikke e‑post på dine vegne.",
+    "mainTabSign": "Signer selv",
+    "mainTabRequest": "Be andre",
+    "tabDraw": "Tegn",
+    "tabType": "Skriv",
+    "tabUpload": "Bilde",
+    "drawLabel": "Tegn signaturen din",
+    "clearDrawing": "Tøm felt",
+    "typeLabel": "Navnet ditt",
+    "typePlaceholder": "f.eks. Kari Nordmann",
+    "chooseImage": "Velg signaturbilde",
+    "widthLabel": "Signaturbredde ({pct}% av siden)",
+    "pagesAll": "Alle sider",
+    "pagesFrom": "Første side",
+    "pagesTo": "Siste side",
+    "download": "Bruk signatur og last ned",
+    "done": "Signert PDF lastet ned.",
+    "signFailed": "Kunne ikke signere PDF. Prøv en annen fil.",
+    "needDrawing": "Tegn signaturen i feltet først.",
+    "emptyTypeName": "Skriv inn navn for tekstsignatur.",
+    "needUpload": "Velg et PNG‑ eller JPEG‑bilde av signaturen.",
+    "requestTitle": "Samle signaturer fra andre",
+    "requestBody": "MyDevTools laster ikke opp PDF‑en din og sender ikke e‑post for deg. Last ned filen, legg den ved i Gmail, Outlook, Slack eller annen kanal, og be folk signere her og sende kopi tilbake. Du kan kopiere en kort melding med lenke til verktøyet nedenfor.",
+    "copyTemplate": "Kopier meldingsmal",
+    "requestTemplate": "Hei,\n\nvennligst se gjennom vedlagt PDF. Du kan legge til signatur med dette gratis nettleserverktøyet (selve verktøyet laster ikke opp noe til en server):\n{link}\n\nTakk!",
+    "copiedTemplate": "Melding kopiert til utklippstavlen.",
+    "copyFailed": "Kunne ikke kopiere. Marker og kopier teksten manuelt."
+  },
+  "PdfEditor": {
+    "title": "PDF-redigerer",
+    "subtitle": "Rediger PDF ved å legge til tekst, former, kommentarer og utheving. Trygt og enkelt.",
+    "privacyNote": "Filen forlater ikke denne nettleseren. Forhåndsvisning med PDF.js; eksport med pdf-lib. PDF.js-worker lastes fra CDN første gang.",
+    "chooseFile": "Velg PDF",
+    "download": "Last ned redigert PDF",
+    "anotherFile": "Annen fil",
+    "pagePrev": "Forrige side",
+    "pageNext": "Neste side",
+    "pageLabel": "Side {current} av {total}",
+    "zoomLabel": "Forhåndsvisningszoom",
+    "zoomHint": "Zoom gjelder bare skjermforhåndsvisningen. Eksporterte merknader svarer til faktisk PDF-sidestørrelse.",
+    "toolsLabel": "Verktøy",
+    "toolSelect": "Velg",
+    "toolHighlight": "Utheving",
+    "toolRect": "Rektangel",
+    "toolText": "Tekst",
+    "toolComment": "Kommentar",
+    "deleteSelected": "Slett valgt",
+    "clearPage": "Tøm denne siden",
+    "highlightColor": "Uthevingsfarge",
+    "strokeColor": "Formfarge",
+    "textColor": "Tekstfarge",
+    "hintTools": "Dra på siden for uthevinger og rektangler. Klikk for tekst eller kommentarfelt. Bruk Velg for å klikke en merknad og slette den.",
+    "dialogTextTitle": "Legg til tekst",
+    "dialogCommentTitle": "Legg til kommentar",
+    "dialogTextPlaceholder": "Skriv inn teksten som skal plasseres på siden…",
+    "dialogCommentPlaceholder": "Skriv kommentaren din…",
+    "dialogSave": "Plasser på siden",
+    "dialogCancel": "Avbryt",
+    "invalidPdf": "Kunne ikke lese denne filen som PDF.",
+    "encryptedPdf": "Denne PDF-en er passordbeskyttet. Lås den opp med PDF Unlocker og prøv igjen.",
+    "exportError": "Kunne ikke bygge den redigerte PDF-en. Prøv en annen fil.",
+    "exportSuccess": "Redigert PDF lastet ned.",
+    "emptyState": "Velg en PDF å merke. Ingenting lastes opp til en server.",
+    "busy": "Eksporterer…"
   }
 }

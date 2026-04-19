@@ -57,7 +57,9 @@
     "jpgToPdf": "JPG para PDF",
     "pdfToJpg": "PDF para JPG",
     "pdfCompare": "Comparar PDF",
-    "pdfToPdfA": "PDF para PDF/A"
+    "pdfToPdfA": "PDF para PDF/A",
+    "pdfSign": "Assinar PDF",
+    "pdfEditor": "Editor de PDF"
   },
   "Help": {
     "title": "Ajuda e documentação",
@@ -465,6 +467,14 @@
       "pdfToPdfA": {
         "title": "PDF para PDF/A",
         "description": "Converta PDFs para PDF/A para arquivamento e preservação a longo prazo, com o nível de conformidade ISO desejado — tudo no seu navegador."
+      },
+      "pdfSign": {
+        "title": "Assinar PDF",
+        "description": "Assine PDFs no navegador (desenho, texto ou imagem) ou compartilhe um modelo para coletar assinaturas."
+      },
+      "pdfEditor": {
+        "title": "Editor de PDF",
+        "description": "Edite PDF adicionando texto, formas, comentários e destaques. Ferramenta segura e simples — tudo no navegador."
       }
     },
     "tabs": {
@@ -3511,5 +3521,85 @@
       "3b": "PDF/A-3b (parte 3, conformidade B)",
       "3u": "PDF/A-3u (parte 3, conformidade U)"
     }
+  },
+  "PdfSign": {
+    "choosePdf": "Escolher PDF",
+    "reset": "Outro arquivo",
+    "pageCount": "{count, plural, one {# página} other {# páginas}}",
+    "invalidPdf": "Não foi possível ler este arquivo como PDF.",
+    "encryptedPdf": "Este PDF está protegido por senha. Desbloqueie com Desbloquear PDF e tente de novo.",
+    "positionLabel": "Posição",
+    "posCenter": "Centro",
+    "posTl": "Superior esquerdo",
+    "posTr": "Superior direito",
+    "posBl": "Inferior esquerdo",
+    "posBr": "Inferior direito",
+    "invalidImage": "Use uma imagem PNG ou JPEG.",
+    "working": "Processando…",
+    "intro": "Sua ferramenta para assinar documentos. Assine você mesmo ou envie uma solicitação de assinatura a outras pessoas.",
+    "privacyNote": "Seu arquivo não sai deste navegador. Não armazenamos PDFs nem enviamos e-mail por você.",
+    "mainTabSign": "Assinar eu mesmo",
+    "mainTabRequest": "Pedir a outros",
+    "tabDraw": "Desenhar",
+    "tabType": "Digitar",
+    "tabUpload": "Imagem",
+    "drawLabel": "Desenhe sua assinatura",
+    "clearDrawing": "Limpar quadro",
+    "typeLabel": "Seu nome",
+    "typePlaceholder": "ex.: Maria Silva",
+    "chooseImage": "Escolher imagem da assinatura",
+    "widthLabel": "Largura da assinatura ({pct}% da página)",
+    "pagesAll": "Todas as páginas",
+    "pagesFrom": "Primeira página",
+    "pagesTo": "Última página",
+    "download": "Aplicar assinatura e baixar",
+    "done": "PDF assinado baixado.",
+    "signFailed": "Não foi possível assinar este PDF. Tente outro arquivo.",
+    "needDrawing": "Desenhe sua assinatura no quadro primeiro.",
+    "emptyTypeName": "Digite seu nome para a assinatura em texto.",
+    "needUpload": "Escolha uma imagem PNG ou JPEG da assinatura.",
+    "requestTitle": "Coletar assinaturas de outras pessoas",
+    "requestBody": "O MyDevTools não envia seu PDF para servidores nem envia e-mail por você. Baixe o arquivo, anexe no Gmail, Outlook, Slack ou outro canal e peça para assinarem aqui e devolverem uma cópia. Você pode copiar uma mensagem curta com link para esta ferramenta.",
+    "copyTemplate": "Copiar modelo de mensagem",
+    "requestTemplate": "Olá,\n\nPor favor, revise o PDF em anexo. Você pode adicionar uma assinatura com esta ferramenta gratuita no navegador (nada é enviado a um servidor pela própria ferramenta):\n{link}\n\nObrigado!",
+    "copiedTemplate": "Mensagem copiada para a área de transferência.",
+    "copyFailed": "Não foi possível copiar. Selecione e copie o texto manualmente."
+  },
+  "PdfEditor": {
+    "title": "Editor de PDF",
+    "subtitle": "Edite PDF adicionando texto, formas, comentários e destaques. Ferramenta segura e simples.",
+    "privacyNote": "Seu arquivo não sai deste navegador. Pré-visualização com PDF.js; exportação com pdf-lib. O worker do PDF.js é carregado de uma CDN na primeira vez.",
+    "chooseFile": "Escolher PDF",
+    "download": "Baixar PDF editado",
+    "anotherFile": "Outro arquivo",
+    "pagePrev": "Página anterior",
+    "pageNext": "Próxima página",
+    "pageLabel": "Página {current} de {total}",
+    "zoomLabel": "Zoom da pré-visualização",
+    "zoomHint": "O zoom afeta apenas a pré-visualização na tela. As anotações exportadas correspondem ao tamanho real da página do PDF.",
+    "toolsLabel": "Ferramentas",
+    "toolSelect": "Selecionar",
+    "toolHighlight": "Destaque",
+    "toolRect": "Retângulo",
+    "toolText": "Texto",
+    "toolComment": "Comentário",
+    "deleteSelected": "Excluir seleção",
+    "clearPage": "Limpar esta página",
+    "highlightColor": "Cor do destaque",
+    "strokeColor": "Cor da forma",
+    "textColor": "Cor do texto",
+    "hintTools": "Arraste na página para destaques e retângulos. Clique para texto ou caixa de comentário. Use Selecionar para clicar em uma anotação e excluí-la.",
+    "dialogTextTitle": "Adicionar texto",
+    "dialogCommentTitle": "Adicionar comentário",
+    "dialogTextPlaceholder": "Digite o texto a colocar na página…",
+    "dialogCommentPlaceholder": "Escreva seu comentário…",
+    "dialogSave": "Colocar na página",
+    "dialogCancel": "Cancelar",
+    "invalidPdf": "Não foi possível ler este arquivo como PDF.",
+    "encryptedPdf": "Este PDF está protegido por senha. Desbloqueie primeiro com o PDF Unlocker e tente novamente.",
+    "exportError": "Não foi possível gerar o PDF editado. Tente outro arquivo.",
+    "exportSuccess": "PDF editado baixado.",
+    "emptyState": "Escolha um PDF para anotar. Nada é enviado a um servidor.",
+    "busy": "Exportando…"
   }
 }

@@ -57,7 +57,9 @@
     "jpgToPdf": "JPG naar PDF",
     "pdfToJpg": "PDF naar JPG",
     "pdfCompare": "PDF vergelijken",
-    "pdfToPdfA": "PDF naar PDF/A"
+    "pdfToPdfA": "PDF naar PDF/A",
+    "pdfSign": "PDF ondertekenen",
+    "pdfEditor": "PDF-editor"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -465,6 +467,14 @@
       "pdfToPdfA": {
         "title": "PDF naar PDF/A",
         "description": "Zet PDF’s om naar PDF/A voor archivering en langetermijnbewaring, met het gewenste ISO-conformiteitsniveau — volledig in je browser."
+      },
+      "pdfSign": {
+        "title": "PDF ondertekenen",
+        "description": "PDF’s in de browser ondertekenen (tekenen, typen of afbeelding) of een sjabloon delen om handtekeningen te verzamelen."
+      },
+      "pdfEditor": {
+        "title": "PDF-editor",
+        "description": "Bewerk PDF’s met tekst, vormen, opmerkingen en markeringen. Veilig en eenvoudig — alles in je browser."
       }
     },
     "tabs": {
@@ -3511,5 +3521,85 @@
       "3b": "PDF/A-3b (deel 3, conformiteit B)",
       "3u": "PDF/A-3u (deel 3, conformiteit U)"
     }
+  },
+  "PdfSign": {
+    "choosePdf": "PDF kiezen",
+    "reset": "Ander bestand",
+    "pageCount": "{count, plural, one {# pagina} other {# pagina’s}}",
+    "invalidPdf": "Dit bestand kon niet als PDF worden gelezen.",
+    "encryptedPdf": "Deze PDF is met een wachtwoord beveiligd. Ontgrendel eerst met PDF ontgrendelen en probeer opnieuw.",
+    "positionLabel": "Positie",
+    "posCenter": "Midden",
+    "posTl": "Linksboven",
+    "posTr": "Rechtsboven",
+    "posBl": "Linksonder",
+    "posBr": "Rechtsonder",
+    "invalidImage": "Gebruik een PNG- of JPEG-afbeelding.",
+    "working": "Bezig…",
+    "intro": "Jouw tool voor e‑ondertekening. Onderteken zelf of vraag anderen om een handtekening.",
+    "privacyNote": "Je bestand verlaat deze browser niet. We slaan geen PDF’s op en sturen geen e‑mail namens jou.",
+    "mainTabSign": "Zelf ondertekenen",
+    "mainTabRequest": "Anderen vragen",
+    "tabDraw": "Tekenen",
+    "tabType": "Typen",
+    "tabUpload": "Afbeelding",
+    "drawLabel": "Teken je handtekening",
+    "clearDrawing": "Veld wissen",
+    "typeLabel": "Je naam",
+    "typePlaceholder": "bijv. Jan Jansen",
+    "chooseImage": "Handtekeningafbeelding kiezen",
+    "widthLabel": "Breedte handtekening ({pct}% van pagina)",
+    "pagesAll": "Alle pagina’s",
+    "pagesFrom": "Eerste pagina",
+    "pagesTo": "Laatste pagina",
+    "download": "Handtekening toepassen & downloaden",
+    "done": "Ondertekende PDF gedownload.",
+    "signFailed": "PDF kon niet worden ondertekend. Probeer een ander bestand.",
+    "needDrawing": "Teken eerst je handtekening op het veld.",
+    "emptyTypeName": "Vul je naam in voor de getypte handtekening.",
+    "needUpload": "Kies een PNG- of JPEG-afbeelding van je handtekening.",
+    "requestTitle": "Handtekeningen van anderen verzamelen",
+    "requestBody": "MyDevTools uploadt je PDF niet en stuurt geen e‑mail voor je. Download het bestand, voeg het toe in Gmail, Outlook, Slack of een ander kanaal en vraag mensen hier te tekenen en een kopie terug te sturen. Hieronder kun je een kort bericht met link kopiëren.",
+    "copyTemplate": "Berichtsjabloon kopiëren",
+    "requestTemplate": "Hallo,\n\nWil je de bijgevoegde PDF bekijken? Je kunt een handtekening toevoegen met deze gratis tool in de browser (de tool zelf uploadt niets naar een server):\n{link}\n\nBedankt!",
+    "copiedTemplate": "Bericht gekopieerd naar het klembord.",
+    "copyFailed": "Kopiëren mislukt. Selecteer en kopieer de tekst handmatig."
+  },
+  "PdfEditor": {
+    "title": "PDF-editor",
+    "subtitle": "Bewerk PDF’s met tekst, vormen, opmerkingen en markeringen. Veilig en eenvoudig.",
+    "privacyNote": "Je bestand verlaat deze browser niet. Voorbeeld met PDF.js; export met pdf-lib. De PDF.js-worker wordt de eerste keer van een CDN geladen.",
+    "chooseFile": "PDF kiezen",
+    "download": "Bewerkte PDF downloaden",
+    "anotherFile": "Ander bestand",
+    "pagePrev": "Vorige pagina",
+    "pageNext": "Volgende pagina",
+    "pageLabel": "Pagina {current} van {total}",
+    "zoomLabel": "Voorbeeldzoom",
+    "zoomHint": "Zoom geldt alleen voor het schermvoorbeeld. Geëxporteerde annotaties komen overeen met de echte PDF-paginagrootte.",
+    "toolsLabel": "Hulpmiddelen",
+    "toolSelect": "Selecteren",
+    "toolHighlight": "Markering",
+    "toolRect": "Rechthoek",
+    "toolText": "Tekst",
+    "toolComment": "Opmerking",
+    "deleteSelected": "Selectie verwijderen",
+    "clearPage": "Deze pagina wissen",
+    "highlightColor": "Markeringskleur",
+    "strokeColor": "Vormkleur",
+    "textColor": "Tekstkleur",
+    "hintTools": "Sleep op de pagina voor markeringen en rechthoeken. Klik voor tekst of een opmerkingsvak. Gebruik Selecteren om een annotatie aan te klikken en te verwijderen.",
+    "dialogTextTitle": "Tekst toevoegen",
+    "dialogCommentTitle": "Opmerking toevoegen",
+    "dialogTextPlaceholder": "Typ de tekst die op de pagina moet komen…",
+    "dialogCommentPlaceholder": "Schrijf je opmerking…",
+    "dialogSave": "Op pagina plaatsen",
+    "dialogCancel": "Annuleren",
+    "invalidPdf": "Dit bestand kon niet als PDF worden gelezen.",
+    "encryptedPdf": "Deze PDF is met een wachtwoord beveiligd. Ontgrendel eerst met PDF Unlocker en probeer opnieuw.",
+    "exportError": "De bewerkte PDF kon niet worden gemaakt. Probeer een ander bestand.",
+    "exportSuccess": "Bewerkte PDF gedownload.",
+    "emptyState": "Kies een PDF om te annoteren. Er wordt niets naar een server geüpload.",
+    "busy": "Exporteren…"
   }
 }

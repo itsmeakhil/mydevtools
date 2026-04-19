@@ -57,7 +57,9 @@
     "jpgToPdf": "JPG do PDF",
     "pdfToJpg": "PDF do JPG",
     "pdfCompare": "Porovnat PDF",
-    "pdfToPdfA": "PDF do PDF/A"
+    "pdfToPdfA": "PDF do PDF/A",
+    "pdfSign": "Podepsat PDF",
+    "pdfEditor": "Editor PDF"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -465,6 +467,14 @@
       "pdfToPdfA": {
         "title": "PDF do PDF/A",
         "description": "Převeďte PDF do PDF/A pro archivaci a dlouhodobou ochranu, s úrovní shody ISO dle výběru — vše v prohlížeči."
+      },
+      "pdfSign": {
+        "title": "Podepsat PDF",
+        "description": "Podepisujte PDF v prohlížeči (kresba, text nebo obrázek) nebo sdílejte šablonu pro sběr podpisů."
+      },
+      "pdfEditor": {
+        "title": "Editor PDF",
+        "description": "Upravujte PDF přidáním textu, tvarů, komentářů a zvýraznění. Bezpečně a jednoduše — vše v prohlížeči."
       }
     },
     "tabs": {
@@ -3511,5 +3521,85 @@
       "3b": "PDF/A-3b (část 3, shoda B)",
       "3u": "PDF/A-3u (část 3, shoda U)"
     }
+  },
+  "PdfSign": {
+    "choosePdf": "Vybrat PDF",
+    "reset": "Jiný soubor",
+    "pageCount": "{count, plural, one {# strana} few {# strany} many {# stran} other {# stran}}",
+    "invalidPdf": "Tento soubor nelze přečíst jako PDF.",
+    "encryptedPdf": "Tento PDF je chráněn heslem. Nejprve jej odemkněte pomocí Odemknout PDF.",
+    "positionLabel": "Pozice",
+    "posCenter": "Střed",
+    "posTl": "Vlevo nahoře",
+    "posTr": "Vpravo nahoře",
+    "posBl": "Vlevo dole",
+    "posBr": "Vpravo dole",
+    "invalidImage": "Použijte obrázek PNG nebo JPEG.",
+    "working": "Zpracování…",
+    "intro": "Váš nástroj pro elektronický podpis. Podepište dokument sami nebo požádejte o podpis ostatní.",
+    "privacyNote": "Soubor neopouští tento prohlížeč. PDF neukládáme a e‑maily za vás neodesíláme.",
+    "mainTabSign": "Podepsat sám",
+    "mainTabRequest": "Požádat ostatní",
+    "tabDraw": "Kreslit",
+    "tabType": "Psát",
+    "tabUpload": "Obrázek",
+    "drawLabel": "Nakreslete podpis",
+    "clearDrawing": "Vymazat plochu",
+    "typeLabel": "Vaše jméno",
+    "typePlaceholder": "např. Jan Novák",
+    "chooseImage": "Vybrat obrázek podpisu",
+    "widthLabel": "Šířka podpisu ({pct} % stránky)",
+    "pagesAll": "Všechny stránky",
+    "pagesFrom": "První stránka",
+    "pagesTo": "Poslední stránka",
+    "download": "Použít podpis a stáhnout",
+    "done": "Podepsané PDF staženo.",
+    "signFailed": "PDF se nepodařilo podepsat. Zkuste jiný soubor.",
+    "needDrawing": "Nejprve nakreslete podpis na plochu.",
+    "emptyTypeName": "Zadejte jméno pro textový podpis.",
+    "needUpload": "Vyberte obrázek podpisu PNG nebo JPEG.",
+    "requestTitle": "Shromáždit podpisy od ostatních",
+    "requestBody": "MyDevTools nenahrává váš PDF na server ani neodesílá e‑maily za vás. Stáhněte soubor, přiložte ho v Gmailu, Outlooku, Slacku nebo jiném kanálu a požádejte lidi, aby podepsali zde a poslali kopii zpět. Níže můžete zkopírovat krátkou zprávu s odkazem na tento nástroj.",
+    "copyTemplate": "Kopírovat šablonu zprávy",
+    "requestTemplate": "Dobrý den,\n\nprosím o kontrolu přiloženého PDF. Podpis můžete přidat v tomto bezplatném nástroji v prohlížeči (samotný nástroj nic na server nenahrává):\n{link}\n\nDěkuji!",
+    "copiedTemplate": "Zpráva zkopírována do schránky.",
+    "copyFailed": "Kopírování se nezdařilo. Text vyberte a zkopírujte ručně."
+  },
+  "PdfEditor": {
+    "title": "Editor PDF",
+    "subtitle": "Upravujte PDF přidáním textu, tvarů, komentářů a zvýraznění. Bezpečně a jednoduše.",
+    "privacyNote": "Soubor neopouští tento prohlížeč. Náhled PDF.js, export pdf-lib. Worker PDF.js se při prvním otevření načte z CDN.",
+    "chooseFile": "Vybrat PDF",
+    "download": "Stáhnout upravené PDF",
+    "anotherFile": "Jiný soubor",
+    "pagePrev": "Předchozí stránka",
+    "pageNext": "Další stránka",
+    "pageLabel": "Stránka {current} z {total}",
+    "zoomLabel": "Přiblížení náhledu",
+    "zoomHint": "Zoom ovlivňuje jen náhled na obrazovce. Exportované anotace odpovídají skutečné velikosti stránky PDF.",
+    "toolsLabel": "Nástroje",
+    "toolSelect": "Výběr",
+    "toolHighlight": "Zvýraznění",
+    "toolRect": "Obdélník",
+    "toolText": "Text",
+    "toolComment": "Komentář",
+    "deleteSelected": "Smazat výběr",
+    "clearPage": "Vymazat tuto stránku",
+    "highlightColor": "Barva zvýraznění",
+    "strokeColor": "Barva tvaru",
+    "textColor": "Barva textu",
+    "hintTools": "Tažením po stránce přidáte zvýraznění a obdélníky. Kliknutím text nebo rámeček komentáře. Režim Výběr — klik na anotaci a smazání.",
+    "dialogTextTitle": "Přidat text",
+    "dialogCommentTitle": "Přidat komentář",
+    "dialogTextPlaceholder": "Zadejte text k umístění na stránku…",
+    "dialogCommentPlaceholder": "Napište komentář…",
+    "dialogSave": "Umístit na stránku",
+    "dialogCancel": "Zrušit",
+    "invalidPdf": "Tento soubor nelze přečíst jako PDF.",
+    "encryptedPdf": "Toto PDF je chráněno heslem. Nejprve odemkněte pomocí PDF Unlocker a zkuste znovu.",
+    "exportError": "Upravené PDF se nepodařilo vytvořit. Zkuste jiný soubor.",
+    "exportSuccess": "Upravené PDF staženo.",
+    "emptyState": "Vyberte PDF k anotaci. Nic se nenahrává na server.",
+    "busy": "Exportuji…"
   }
 }

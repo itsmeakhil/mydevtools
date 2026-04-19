@@ -57,7 +57,9 @@
     "jpgToPdf": "JPG vers PDF",
     "pdfToJpg": "PDF vers JPG",
     "pdfCompare": "Comparer des PDF",
-    "pdfToPdfA": "PDF vers PDF/A"
+    "pdfToPdfA": "PDF vers PDF/A",
+    "pdfSign": "Signer un PDF",
+    "pdfEditor": "Éditeur PDF"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -465,6 +467,14 @@
       "pdfToPdfA": {
         "title": "PDF vers PDF/A",
         "description": "Convertissez des PDF en PDF/A pour l’archivage et la conservation longue durée, avec un niveau de conformité ISO au choix — le tout dans votre navigateur."
+      },
+      "pdfSign": {
+        "title": "Signer un PDF",
+        "description": "Signez des PDF dans le navigateur (dessin, texte ou image) ou partagez un modèle pour recueillir des signatures."
+      },
+      "pdfEditor": {
+        "title": "Éditeur PDF",
+        "description": "Modifiez un PDF en ajoutant du texte, des formes, des commentaires et des surlignages. Outil simple et sécurisé — tout dans le navigateur."
       }
     },
     "tabs": {
@@ -3511,5 +3521,85 @@
       "3b": "PDF/A-3b (partie 3, conformité B)",
       "3u": "PDF/A-3u (partie 3, conformité U)"
     }
+  },
+  "PdfSign": {
+    "choosePdf": "Choisir un PDF",
+    "reset": "Autre fichier",
+    "pageCount": "{count, plural, one {# page} other {# pages}}",
+    "invalidPdf": "Impossible de lire ce fichier comme PDF.",
+    "encryptedPdf": "Ce PDF est protégé par mot de passe. Déverrouillez-le avec Déverrouiller PDF, puis réessayez.",
+    "positionLabel": "Position",
+    "posCenter": "Centre",
+    "posTl": "Haut gauche",
+    "posTr": "Haut droite",
+    "posBl": "Bas gauche",
+    "posBr": "Bas droite",
+    "invalidImage": "Utilisez une image PNG ou JPEG.",
+    "working": "Traitement…",
+    "intro": "Votre outil pour signer des documents. Signez vous-même ou demandez une signature à d’autres.",
+    "privacyNote": "Votre fichier ne quitte jamais ce navigateur. Nous ne stockons pas les PDF et n’envoyons pas d’e-mails à votre place.",
+    "mainTabSign": "Signer moi-même",
+    "mainTabRequest": "Demander à d’autres",
+    "tabDraw": "Dessiner",
+    "tabType": "Texte",
+    "tabUpload": "Image",
+    "drawLabel": "Dessinez votre signature",
+    "clearDrawing": "Effacer le bloc",
+    "typeLabel": "Votre nom",
+    "typePlaceholder": "ex. Marie Dupont",
+    "chooseImage": "Choisir une image de signature",
+    "widthLabel": "Largeur de la signature ({pct} % de la page)",
+    "pagesAll": "Toutes les pages",
+    "pagesFrom": "Première page",
+    "pagesTo": "Dernière page",
+    "download": "Appliquer la signature et télécharger",
+    "done": "PDF signé téléchargé.",
+    "signFailed": "Impossible de signer ce PDF. Essayez un autre fichier.",
+    "needDrawing": "Dessinez d’abord votre signature sur le bloc.",
+    "emptyTypeName": "Saisissez votre nom pour la signature texte.",
+    "needUpload": "Choisissez une image de signature PNG ou JPEG.",
+    "requestTitle": "Recueillir des signatures",
+    "requestBody": "MyDevTools ne téléverse pas votre PDF et n’envoie pas d’e-mails à votre place. Téléchargez le fichier, joignez-le dans Gmail, Outlook, Slack ou tout autre canal, et demandez aux personnes de signer ici puis de vous renvoyer une copie. Vous pouvez copier ci-dessous un court message incluant un lien vers cet outil.",
+    "copyTemplate": "Copier le modèle de message",
+    "requestTemplate": "Bonjour,\n\nMerci de consulter le PDF joint. Vous pouvez ajouter une signature avec cet outil gratuit dans le navigateur (rien n’est téléversé vers un serveur depuis l’outil lui-même) :\n{link}\n\nMerci !",
+    "copiedTemplate": "Message copié dans le presse-papiers.",
+    "copyFailed": "Copie impossible. Sélectionnez et copiez le texte manuellement."
+  },
+  "PdfEditor": {
+    "title": "Éditeur PDF",
+    "subtitle": "Modifiez un PDF en ajoutant du texte, des formes, des commentaires et des surlignages. Outil simple et sécurisé.",
+    "privacyNote": "Votre fichier ne quitte pas ce navigateur. Aperçu avec PDF.js, export avec pdf-lib. Le worker PDF.js est chargé depuis un CDN la première fois.",
+    "chooseFile": "Choisir un PDF",
+    "download": "Télécharger le PDF modifié",
+    "anotherFile": "Autre fichier",
+    "pagePrev": "Page précédente",
+    "pageNext": "Page suivante",
+    "pageLabel": "Page {current} / {total}",
+    "zoomLabel": "Zoom de l’aperçu",
+    "zoomHint": "Le zoom ne concerne que l’aperçu à l’écran. Les annotations exportées correspondent à la taille réelle de la page PDF.",
+    "toolsLabel": "Outils",
+    "toolSelect": "Sélection",
+    "toolHighlight": "Surlignage",
+    "toolRect": "Rectangle",
+    "toolText": "Texte",
+    "toolComment": "Commentaire",
+    "deleteSelected": "Supprimer la sélection",
+    "clearPage": "Effacer cette page",
+    "highlightColor": "Couleur du surlignage",
+    "strokeColor": "Couleur de la forme",
+    "textColor": "Couleur du texte",
+    "hintTools": "Glissez sur la page pour surligner et des rectangles. Cliquez pour du texte ou une bulle de commentaire. Utilisez Sélection pour cliquer une annotation et la supprimer.",
+    "dialogTextTitle": "Ajouter du texte",
+    "dialogCommentTitle": "Ajouter un commentaire",
+    "dialogTextPlaceholder": "Saisissez le texte à placer sur la page…",
+    "dialogCommentPlaceholder": "Écrivez votre commentaire…",
+    "dialogSave": "Placer sur la page",
+    "dialogCancel": "Annuler",
+    "invalidPdf": "Impossible de lire ce fichier comme PDF.",
+    "encryptedPdf": "Ce PDF est protégé par mot de passe. Déverrouillez-le avec PDF Unlocker, puis réessayez.",
+    "exportError": "Impossible de créer le PDF modifié. Essayez un autre fichier.",
+    "exportSuccess": "PDF modifié téléchargé.",
+    "emptyState": "Choisissez un PDF à annoter. Rien n’est envoyé sur un serveur.",
+    "busy": "Export en cours…"
   }
 }

@@ -57,7 +57,9 @@
     "jpgToPdf": "JPG a PDF",
     "pdfToJpg": "PDF a JPG",
     "pdfCompare": "Comparar PDF",
-    "pdfToPdfA": "PDF a PDF/A"
+    "pdfToPdfA": "PDF a PDF/A",
+    "pdfSign": "Signar PDF",
+    "pdfEditor": "Editor de PDF"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -465,6 +467,14 @@
       "pdfToPdfA": {
         "title": "PDF a PDF/A",
         "description": "Converteix PDF a PDF/A per a arxivatge i preservació a llarg termini, amb el nivell de conformitat ISO que triïs — tot al navegador."
+      },
+      "pdfSign": {
+        "title": "Signar PDF",
+        "description": "Signeu PDF al navegador (dibuix, text o imatge) o compartiu una plantilla per recollir signatures."
+      },
+      "pdfEditor": {
+        "title": "Editor de PDF",
+        "description": "Edita PDF afegint text, formes, comentaris i ressaltats. Eina segura i senzilla — tot al navegador."
       }
     },
     "tabs": {
@@ -3511,5 +3521,85 @@
       "3b": "PDF/A-3b (part 3, conformitat B)",
       "3u": "PDF/A-3u (part 3, conformitat U)"
     }
+  },
+  "PdfSign": {
+    "choosePdf": "Trieu PDF",
+    "reset": "Un altre fitxer",
+    "pageCount": "{count, plural, one {# pàgina} other {# pàgines}}",
+    "invalidPdf": "No s'ha pogut llegir aquest fitxer com a PDF.",
+    "encryptedPdf": "Aquest PDF està protegit amb contrasenya. Desbloqueja'l amb Desbloquejar PDF i torna-ho a provar.",
+    "positionLabel": "Posició",
+    "posCenter": "Centre",
+    "posTl": "Dalt a l'esquerra",
+    "posTr": "Dalt a la dreta",
+    "posBl": "Baix a l'esquerra",
+    "posBr": "Baix a la dreta",
+    "invalidImage": "Utilitza una imatge PNG o JPEG.",
+    "working": "S'està processant…",
+    "intro": "La vostra eina per signar documents. Signeu-vos mateixos o sol·liciteu la signatura d’altres.",
+    "privacyNote": "El fitxer no surt mai d’aquest navegador. No emmagatzemem PDF ni enviem correu per vosaltres.",
+    "mainTabSign": "Signar jo mateix",
+    "mainTabRequest": "Demanar a altres",
+    "tabDraw": "Dibuixar",
+    "tabType": "Escriure",
+    "tabUpload": "Imatge",
+    "drawLabel": "Dibuixeu la vostra signatura",
+    "clearDrawing": "Esborrar àrea",
+    "typeLabel": "El vostre nom",
+    "typePlaceholder": "p. ex. Anna Puig",
+    "chooseImage": "Trieu imatge de signatura",
+    "widthLabel": "Amplada de la signatura ({pct}% de la pàgina)",
+    "pagesAll": "Totes les pàgines",
+    "pagesFrom": "Primera pàgina",
+    "pagesTo": "Última pàgina",
+    "download": "Aplicar signatura i baixar",
+    "done": "PDF signat baixat.",
+    "signFailed": "No s’ha pogut signar aquest PDF. Proveu un altre fitxer.",
+    "needDrawing": "Dibuixeu primer la signatura a l’àrea.",
+    "emptyTypeName": "Introduïu el nom per a la signatura escrita.",
+    "needUpload": "Trieu una imatge PNG o JPEG de la signatura.",
+    "requestTitle": "Recollir signatures d’altres",
+    "requestBody": "MyDevTools no penja el vostre PDF ni envia correu per vosaltres. Baixeu el fitxer, adjunteu-lo a Gmail, Outlook, Slack o un altre canal i demaneu que signin aquí i us retornin una còpia. Podeu copiar un missatge breu amb l’enllaç a aquesta eina.",
+    "copyTemplate": "Copiar plantilla de missatge",
+    "requestTemplate": "Hola,\n\nsi us plau reviseu el PDF adjunt. Podeu afegir una signatura amb aquesta eina gratuïta al navegador (l’eina en si no penja res a cap servidor):\n{link}\n\nGràcies!",
+    "copiedTemplate": "Missatge copiat al porta-retalls.",
+    "copyFailed": "No s’ha pogut copiar. Seleccioneu i copieu el text manualment."
+  },
+  "PdfEditor": {
+    "title": "Editor de PDF",
+    "subtitle": "Edita PDF afegint text, formes, comentaris i ressaltats. Eina segura i senzilla.",
+    "privacyNote": "El fitxer no surt d’aquest navegador. Previsualització amb PDF.js; exportació amb pdf-lib. El worker de PDF.js es carrega des d’un CDN el primer cop.",
+    "chooseFile": "Trieu un PDF",
+    "download": "Baixa el PDF editat",
+    "anotherFile": "Un altre fitxer",
+    "pagePrev": "Pàgina anterior",
+    "pageNext": "Pàgina següent",
+    "pageLabel": "Pàgina {current} de {total}",
+    "zoomLabel": "Zoom de previsualització",
+    "zoomHint": "El zoom només afecta la previsualització a pantalla. Les anotacions exportades coincideixen amb la mida real de la pàgina PDF.",
+    "toolsLabel": "Eines",
+    "toolSelect": "Selecciona",
+    "toolHighlight": "Ressaltat",
+    "toolRect": "Rectangle",
+    "toolText": "Text",
+    "toolComment": "Comentari",
+    "deleteSelected": "Suprimeix la selecció",
+    "clearPage": "Neteja aquesta pàgina",
+    "highlightColor": "Color del ressaltat",
+    "strokeColor": "Color de la forma",
+    "textColor": "Color del text",
+    "hintTools": "Arrossegueu per la pàgina per ressaltats i rectangles. Feu clic per text o caixa de comentari. Useu Selecciona per clicar una anotació i suprimir-la.",
+    "dialogTextTitle": "Afegeix text",
+    "dialogCommentTitle": "Afegeix comentari",
+    "dialogTextPlaceholder": "Escriviu el text a col·locar a la pàgina…",
+    "dialogCommentPlaceholder": "Escriviu el comentari…",
+    "dialogSave": "Col·loca a la pàgina",
+    "dialogCancel": "Cancel·la",
+    "invalidPdf": "No s’ha pogut llegir aquest fitxer com a PDF.",
+    "encryptedPdf": "Aquest PDF està protegit amb contrasenya. Desbloquegeu-lo primer amb PDF Unlocker i torneu-ho a provar.",
+    "exportError": "No s’ha pogut generar el PDF editat. Proveu un altre fitxer.",
+    "exportSuccess": "PDF editat baixat.",
+    "emptyState": "Trieu un PDF per anotar. No es puja res a cap servidor.",
+    "busy": "S’està exportant…"
   }
 }

@@ -57,7 +57,9 @@
     "jpgToPdf": "JPG na PDF",
     "pdfToJpg": "PDF na JPG",
     "pdfCompare": "Vergelyk PDF",
-    "pdfToPdfA": "PDF na PDF/A"
+    "pdfToPdfA": "PDF na PDF/A",
+    "pdfSign": "Teken PDF",
+    "pdfEditor": "PDF-redigeerder"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -465,6 +467,14 @@
       "pdfToPdfA": {
         "title": "PDF na PDF/A",
         "description": "Skakel PDF’s om na PDF/A vir argivering en langtermynbewaring, met die ISO-voldoeningsvlak van jou keuse — alles in jou blaaier."
+      },
+      "pdfSign": {
+        "title": "Teken PDF",
+        "description": "Teken PDF’s in die blaaier (teken, tik of beeld) of deel ’n sjabloon om handtekeninge in te samel."
+      },
+      "pdfEditor": {
+        "title": "PDF-redigeerder",
+        "description": "Redigeer PDF’s deur teks, vorms, opmerkings en merke by te voeg. Veilig en eenvoudig — alles in jou blaaier."
       }
     },
     "tabs": {
@@ -3511,5 +3521,85 @@
       "3b": "PDF/A-3b (deel 3, voldoening B)",
       "3u": "PDF/A-3u (deel 3, voldoening U)"
     }
+  },
+  "PdfSign": {
+    "choosePdf": "Kies PDF",
+    "reset": "Ander lêer",
+    "pageCount": "{count, plural, one {# bladsy} other {# bladsye}}",
+    "invalidPdf": "Kon nie hierdie lêer as 'n PDF lees nie.",
+    "encryptedPdf": "Hierdie PDF is wagwoordbeskerm. Ontsluit dit eers met PDF-ontsluiting en probeer weer.",
+    "positionLabel": "Posisie",
+    "posCenter": "Middel",
+    "posTl": "Links bo",
+    "posTr": "Regs bo",
+    "posBl": "Links onder",
+    "posBr": "Regs onder",
+    "invalidImage": "Gebruik 'n PNG- of JPEG-beeld.",
+    "working": "Besig…",
+    "intro": "Jou hulpmiddel vir elektroniese ondertekening. Teken self of vra ander om te teken.",
+    "privacyNote": "Jou lêer verlaat nooit hierdie blaaier nie. Ons stoor nie PDF’s nie en stuur nie e-pos namens jou nie.",
+    "mainTabSign": "Teken self",
+    "mainTabRequest": "Vra ander",
+    "tabDraw": "Teken",
+    "tabType": "Tik",
+    "tabUpload": "Beeld",
+    "drawLabel": "Teken jou handtekening",
+    "clearDrawing": "Vee oppervlak uit",
+    "typeLabel": "Jou naam",
+    "typePlaceholder": "bv. Jan de Vries",
+    "chooseImage": "Kies handtekeningbeeld",
+    "widthLabel": "Handtekeningwydte ({pct}% van bladsy)",
+    "pagesAll": "Alle bladsye",
+    "pagesFrom": "Eerste bladsy",
+    "pagesTo": "Laaste bladsy",
+    "download": "Pas handtekening toe en laai af",
+    "done": "Getekende PDF afgelaai.",
+    "signFailed": "Kon nie hierdie PDF teken nie. Probeer ’n ander lêer.",
+    "needDrawing": "Teken eers jou handtekening op die oppervlak.",
+    "emptyTypeName": "Voer jou naam vir die getikte handtekening in.",
+    "needUpload": "Kies ’n PNG- of JPEG-handtekeningbeeld.",
+    "requestTitle": "Vra handtekeninge van ander",
+    "requestBody": "MyDevTools laai nie jou PDF op nie en stuur nie e-pos vir jou nie. Laai die lêer af, heg dit in Gmail, Outlook, Slack of ’n ander kanaal aan en vra mense om hier te teken en ’n kopie terug te stuur. Jy kan ’n kort boodskap met ’n skakel na hierdie hulpmiddel hier onder kopieer.",
+    "copyTemplate": "Kopieer boodskapsjabloon",
+    "requestTemplate": "Hallo,\n\nbeskou asseblief die aangehegte PDF. Jy kan ’n handtekening byvoeg met hierdie gratis blaaier-hulpmiddel (die hulpmiddel self laai niks na ’n bediener op nie):\n{link}\n\nDankie!",
+    "copiedTemplate": "Boodskap na knipbord gekopieer.",
+    "copyFailed": "Kon nie kopieer nie. Merk en kopieer die teks handmatig."
+  },
+  "PdfEditor": {
+    "title": "PDF-redigeerder",
+    "subtitle": "Redigeer PDF’s deur teks, vorms, opmerkings en merke by te voeg. Veilig en eenvoudig.",
+    "privacyNote": "Jou lêer verlaat nie hierdie blaaier nie. Voorskou met PDF.js; uitvoer met pdf-lib. Die PDF.js-werker laai vanaf ’n CDN die eerste keer.",
+    "chooseFile": "Kies PDF",
+    "download": "Laai gewysigde PDF af",
+    "anotherFile": "Ander lêer",
+    "pagePrev": "Vorige bladsy",
+    "pageNext": "Volgende bladsy",
+    "pageLabel": "Bladsy {current} van {total}",
+    "zoomLabel": "Voorskou-zoom",
+    "zoomHint": "Zoom beïnvloed slegs die skermvoorskou. Geëkspoteerde merke pas by die werklike PDF-bladsygrootte.",
+    "toolsLabel": "Nutsgoed",
+    "toolSelect": "Kies",
+    "toolHighlight": "Merk",
+    "toolRect": "Reghoek",
+    "toolText": "Teks",
+    "toolComment": "Opmerking",
+    "deleteSelected": "Skrap gekose",
+    "clearPage": "Maak hierdie bladsy skoon",
+    "highlightColor": "Merkkleur",
+    "strokeColor": "Vormkleur",
+    "textColor": "Tekskleur",
+    "hintTools": "Sleep op die bladsy vir merke en reghoeke. Klik vir teks of opmerkingsboks. Gebruik Kies om op ’n merking te klik en dit te skrap.",
+    "dialogTextTitle": "Voeg teks by",
+    "dialogCommentTitle": "Voeg opmerking by",
+    "dialogTextPlaceholder": "Tik die teks om op die bladsy te plaas…",
+    "dialogCommentPlaceholder": "Skryf jou opmerking…",
+    "dialogSave": "Plaas op bladsy",
+    "dialogCancel": "Kanselleer",
+    "invalidPdf": "Kon nie hierdie lêer as PDF lees nie.",
+    "encryptedPdf": "Hierdie PDF is wagwoordbeskerm. Ontsluit eers met PDF Unlocker en probeer weer.",
+    "exportError": "Kon nie die gewysigde PDF bou nie. Probeer ’n ander lêer.",
+    "exportSuccess": "Gewysigde PDF afgelaai.",
+    "emptyState": "Kies ’n PDF om te annoteer. Niks word na ’n bediener opgelaai nie.",
+    "busy": "Voer uit…"
   }
 }

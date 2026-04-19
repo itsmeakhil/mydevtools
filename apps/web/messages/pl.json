@@ -57,7 +57,9 @@
     "jpgToPdf": "JPG do PDF",
     "pdfToJpg": "PDF do JPG",
     "pdfCompare": "Porównaj PDF",
-    "pdfToPdfA": "PDF do PDF/A"
+    "pdfToPdfA": "PDF do PDF/A",
+    "pdfSign": "Podpisz PDF",
+    "pdfEditor": "Edytor PDF"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -465,6 +467,14 @@
       "pdfToPdfA": {
         "title": "PDF do PDF/A",
         "description": "Konwertuj pliki PDF do PDF/A w celu archiwizacji i długotrwałego przechowywania, wybierając poziom zgodności ISO — wszystko w przeglądarce."
+      },
+      "pdfSign": {
+        "title": "Podpisz PDF",
+        "description": "Podpisuj PDF w przeglądarce (rysunek, tekst lub obraz) lub udostępnij szablon, by zebrać podpisy."
+      },
+      "pdfEditor": {
+        "title": "Edytor PDF",
+        "description": "Edytuj PDF, dodając tekst, kształty, komentarze i podświetlenia. Proste i bezpieczne narzędzie — wszystko w przeglądarce."
       }
     },
     "tabs": {
@@ -3511,5 +3521,85 @@
       "3b": "PDF/A-3b (część 3, zgodność B)",
       "3u": "PDF/A-3u (część 3, zgodność U)"
     }
+  },
+  "PdfSign": {
+    "choosePdf": "Wybierz PDF",
+    "reset": "Inny plik",
+    "pageCount": "{count, plural, one {# strona} few {# strony} many {# stron} other {# stron}}",
+    "invalidPdf": "Nie można odczytać tego pliku jako PDF.",
+    "encryptedPdf": "Ten PDF jest chroniony hasłem. Odblokuj go narzędziem Odblokuj PDF i spróbuj ponownie.",
+    "positionLabel": "Położenie",
+    "posCenter": "Środek",
+    "posTl": "Górny lewy",
+    "posTr": "Górny prawy",
+    "posBl": "Dolny lewy",
+    "posBr": "Dolny prawy",
+    "invalidImage": "Użyj obrazu PNG lub JPEG.",
+    "working": "Przetwarzanie…",
+    "intro": "Narzędzie do podpisywania dokumentów. Podpisz sam lub poproś innych o podpis.",
+    "privacyNote": "Plik nie opuszcza tej przeglądarki. Nie przechowujemy PDF ani nie wysyłamy e‑maili w Twoim imieniu.",
+    "mainTabSign": "Podpisz sam",
+    "mainTabRequest": "Poproś innych",
+    "tabDraw": "Rysuj",
+    "tabType": "Tekst",
+    "tabUpload": "Obraz",
+    "drawLabel": "Narysuj podpis",
+    "clearDrawing": "Wyczyść pole",
+    "typeLabel": "Twoje imię i nazwisko",
+    "typePlaceholder": "np. Jan Kowalski",
+    "chooseImage": "Wybierz obraz podpisu",
+    "widthLabel": "Szerokość podpisu ({pct}% strony)",
+    "pagesAll": "Wszystkie strony",
+    "pagesFrom": "Pierwsza strona",
+    "pagesTo": "Ostatnia strona",
+    "download": "Zastosuj podpis i pobierz",
+    "done": "Podpisany PDF pobrany.",
+    "signFailed": "Nie udało się podpisać tego PDF. Spróbuj innego pliku.",
+    "needDrawing": "Najpierw narysuj podpis na polu.",
+    "emptyTypeName": "Wpisz imię i nazwisko dla podpisu tekstowego.",
+    "needUpload": "Wybierz obraz PNG lub JPEG podpisu.",
+    "requestTitle": "Zbieranie podpisów od innych",
+    "requestBody": "MyDevTools nie przesyła Twojego PDF na serwer ani nie wysyła e‑maili za Ciebie. Pobierz plik, dołącz go w Gmailu, Outlooku, Slacku lub innym kanale i poproś o podpis tutaj i odesłanie kopii. Poniżej możesz skopiować krótką wiadomość z linkiem do tego narzędzia.",
+    "copyTemplate": "Kopiuj szablon wiadomości",
+    "requestTemplate": "Cześć,\n\nproszę o zapoznanie się z załączonym PDF. Podpis możesz dodać w tej darmowej przeglądarkowej aplikacji (samo narzędzie nic nie wysyła na serwer):\n{link}\n\nDziękuję!",
+    "copiedTemplate": "Wiadomość skopiowana do schowka.",
+    "copyFailed": "Nie udało się skopiować. Zaznacz i skopiuj tekst ręcznie."
+  },
+  "PdfEditor": {
+    "title": "Edytor PDF",
+    "subtitle": "Edytuj PDF, dodając tekst, kształty, komentarze i podświetlenia. Proste i bezpieczne narzędzie.",
+    "privacyNote": "Plik nie opuszcza tej przeglądarki. Podgląd w PDF.js, eksport w pdf-lib. Worker PDF.js ładuje się z CDN przy pierwszym otwarciu.",
+    "chooseFile": "Wybierz PDF",
+    "download": "Pobierz edytowany PDF",
+    "anotherFile": "Inny plik",
+    "pagePrev": "Poprzednia strona",
+    "pageNext": "Następna strona",
+    "pageLabel": "Strona {current} z {total}",
+    "zoomLabel": "Powiększenie podglądu",
+    "zoomHint": "Zoom dotyczy tylko podglądu na ekranie. Wyeksportowane adnotacje odpowiadają rzeczywistemu rozmiarowi strony PDF.",
+    "toolsLabel": "Narzędzia",
+    "toolSelect": "Zaznaczanie",
+    "toolHighlight": "Podświetlenie",
+    "toolRect": "Prostokąt",
+    "toolText": "Tekst",
+    "toolComment": "Komentarz",
+    "deleteSelected": "Usuń zaznaczone",
+    "clearPage": "Wyczyść tę stronę",
+    "highlightColor": "Kolor podświetlenia",
+    "strokeColor": "Kolor kształtu",
+    "textColor": "Kolor tekstu",
+    "hintTools": "Przeciągnij po stronie, aby dodać podświetlenia i prostokąty. Kliknij, aby dodać tekst lub pole komentarza. Użyj Zaznaczania, aby kliknąć adnotację i usunąć ją.",
+    "dialogTextTitle": "Dodaj tekst",
+    "dialogCommentTitle": "Dodaj komentarz",
+    "dialogCommentPlaceholder": "Napisz komentarz…",
+    "dialogTextPlaceholder": "Wpisz tekst do umieszczenia na stronie…",
+    "dialogSave": "Umieść na stronie",
+    "dialogCancel": "Anuluj",
+    "invalidPdf": "Nie można odczytać tego pliku jako PDF.",
+    "encryptedPdf": "Ten PDF jest chroniony hasłem. Najpierw odblokuj go narzędziem PDF Unlocker i spróbuj ponownie.",
+    "exportError": "Nie udało się utworzyć edytowanego PDF. Spróbuj innego pliku.",
+    "exportSuccess": "Edytowany PDF został pobrany.",
+    "emptyState": "Wybierz PDF do adnotacji. Nic nie jest wysyłane na serwer.",
+    "busy": "Eksportowanie…"
   }
 }
