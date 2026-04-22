@@ -395,6 +395,12 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         aiSummary:
             'Free in-browser PDF editor: highlights, rectangle shapes, text, and comment boxes on any page; download a flattened edited PDF — nothing uploaded.',
     },
+    'break-room/2048': {
+        title: '2048',
+        description: 'Slide and merge tiles to reach the 2048 tile. A classic number puzzle to clear your head between coding sessions.',
+        keywords: ['2048 game', '2048 puzzle', 'number puzzle', 'tile game', 'brain game', 'relaxing game', 'developer break'],
+        aiSummary: 'Play 2048 in your browser: arrow keys to slide tiles, merge matching numbers, reach 2048. Score and best score tracked locally.',
+    },
 }
 
 function toolMetaDescription(tool: ToolMetadataEntry): string {

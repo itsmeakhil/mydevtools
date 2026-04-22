@@ -57,6 +57,7 @@ import {
   IconDroplet,
   IconPencil,
   IconSignature,
+  IconDeviceGamepad2,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -526,6 +527,19 @@ export const sidebarData: SidebarData = {
           url: '/app/svg-optimizer',
           icon: IconFileTypeSvg,
           description: 'Paste SVG, strip junk with SVGO, and see UTF-8 size reduction.',
+          badge: 'new',
+        },
+      ],
+    },
+    {
+      title: 'Break Room',
+      icon: IconDeviceGamepad2,
+      items: [
+        {
+          title: '2048',
+          url: '/app/break-room/2048',
+          icon: IconDeviceGamepad2,
+          description: 'Slide and merge tiles to reach 2048. Classic number puzzle game.',
           badge: 'new',
         },
       ],

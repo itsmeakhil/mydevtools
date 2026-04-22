@@ -3643,5 +3643,18 @@
       "3b": "PDF/A-3b (part 3, conformance B)",
       "3u": "PDF/A-3u (part 3, conformance U)"
     }
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Slide tiles and merge them to reach 2048",
+    "score": "Score",
+    "best": "Best",
+    "newGame": "New Game",
+    "howToPlay": "Use arrow keys (or swipe on mobile) to move tiles. Tiles with the same number merge. Reach 2048 to win!",
+    "youWin": "You reached 2048!",
+    "keepGoing": "Keep Going",
+    "gameOver": "Game Over",
+    "tryAgain": "Try Again",
+    "gameOverMessage": "No more moves left."
   }
 }
