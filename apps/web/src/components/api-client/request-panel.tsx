@@ -23,12 +23,14 @@ interface RequestPanelProps {
     url: string
     setUrl: (url: string) => void
     onSend: () => void
+    onCancel?: () => void
     isLoading: boolean
     collections: Collection[]
     onSave: (parentId: string, name: string) => void
     saveDefaultName?: string
     onPaste: (text: string) => void
     activeEnvironmentVariables: Record<string, string>
+    urlHistory?: string[]
 }
 
 const METHODS: RequestMethod[] = ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"]
@@ -61,21 +63,30 @@ export function RequestPanel({
     url,
     setUrl,
     onSend,
+    onCancel,
     isLoading,
     collections,
     onSave,
     saveDefaultName,
     onPaste,
     activeEnvironmentVariables,
+    urlHistory = [],
 }: RequestPanelProps) {
     const t = useTranslations("ApiClient.requestPanel")
     const urlInputRef = React.useRef<HTMLInputElement | null>(null)
+    const [showSuggestions, setShowSuggestions] = React.useState(false)
     const [hoveredVariable, setHoveredVariable] = React.useState<{
         key: string
         value?: string
         status: "resolved" | "missing"
         left: number
     } | null>(null)
+
+    const urlSuggestions = React.useMemo(() => {
+        if (!url.trim() || urlHistory.length === 0) return []
+        const lower = url.toLowerCase()
+        return urlHistory.filter((h) => h.toLowerCase().includes(lower) && h !== url).slice(0, 8)
+    }, [url, urlHistory])
 
     const variableTokens = React.useMemo(() => {
         const tokens: Array<{ key: string; start: number; end: number; value?: string; status: "resolved" | "missing" }> = []
@@ -154,13 +165,13 @@ export function RequestPanel({
                 </Select>
 
                 <div className="relative flex-1 min-w-0 group">
-                    <Globe className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+                    <Globe className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
                     {hoveredVariable && (
                         <TooltipProvider>
                             <Tooltip open>
                                 <TooltipTrigger asChild>
                                     <span
-                                        className="absolute top-1/2 -translate-y-1/2 h-4 w-px pointer-events-none"
+                                        className="absolute top-1/2 -translate-y-1/2 h-4 w-px pointer-events-none z-10"
                                         style={{ left: `${hoveredVariable.left}px` }}
                                     />
                                 </TooltipTrigger>
@@ -178,10 +189,14 @@ export function RequestPanel({
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                         className="h-10 pl-9 pr-10 font-mono text-xs bg-muted/30 border-muted group-hover:border-border transition-colors"
+                        onFocus={() => setShowSuggestions(true)}
+                        onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
                         onKeyDown={(e) => {
                             if (e.key === "Enter" && url) {
+                                setShowSuggestions(false)
                                 onSend()
                             }
+                            if (e.key === "Escape") setShowSuggestions(false)
                         }}
                         onPaste={(e) => {
                             const text = e.clipboardData.getData("text")
@@ -196,13 +211,40 @@ export function RequestPanel({
                     {url && (
                         <button
                             onClick={() => setUrl("")}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6 flex items-center justify-center rounded-full hover:bg-muted text-muted-foreground transition-colors"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6 flex items-center justify-center rounded-full hover:bg-muted text-muted-foreground transition-colors z-10"
                         >
                             <X className="h-3.5 w-3.5" />
                         </button>
                     )}
+                    {showSuggestions && urlSuggestions.length > 0 && (
+                        <div className="absolute top-full left-0 right-0 mt-1 z-50 bg-popover border rounded-lg shadow-lg overflow-hidden">
+                            {urlSuggestions.map((suggestion) => (
+                                <button
+                                    key={suggestion}
+                                    className="w-full text-left px-3 py-2 text-xs font-mono hover:bg-muted/60 transition-colors truncate text-foreground"
+                                    onMouseDown={(e) => {
+                                        e.preventDefault()
+                                        setUrl(suggestion)
+                                        setShowSuggestions(false)
+                                    }}
+                                >
+                                    {suggestion}
+                                </button>
+                            ))}
+                        </div>
+                    )}
                 </div>
 
+                {isLoading && onCancel ? (
+                    <Button
+                        onClick={onCancel}
+                        variant="outline"
+                        className="h-10 px-4 font-bold border-rose-500/50 text-rose-500 hover:bg-rose-500/10 hover:text-rose-500"
+                    >
+                        <X className="h-4 w-4 mr-2" />
+                        Cancel
+                    </Button>
+                ) : (
                 <Button
                     onClick={onSend}
                     disabled={isLoading || !url}
@@ -215,6 +257,7 @@ export function RequestPanel({
                     )}
                     {isLoading ? t("sending") : t("send")}
                 </Button>
+                )}
 
                 <div className="border-l pl-2 flex items-center ml-1">
                     <SaveRequestDialog

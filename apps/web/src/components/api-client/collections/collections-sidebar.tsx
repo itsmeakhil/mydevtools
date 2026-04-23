@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collection, CollectionFolder, CollectionRequest, HistoryRequest } from "../types"
 import { CollectionItem } from "./collection-item"
-import { FolderPlus, ChevronRight, ChevronLeft, Trash2, Pencil, MoreHorizontal } from "lucide-react"
+import { FolderPlus, ChevronRight, ChevronLeft, Trash2, Pencil, MoreHorizontal, Search, X } from "lucide-react"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
 import {
@@ -56,6 +56,7 @@ export function CollectionsSidebar({
     const t = useTranslations("ApiClient.collectionsSidebar")
     const tRoot = useTranslations("ApiClient")
     const [collapsed, setCollapsed] = React.useState(false)
+    const [historySearch, setHistorySearch] = React.useState("")
     const [newFolderDialogOpen, setNewFolderDialogOpen] = React.useState(false)
     const [newCollectionDialogOpen, setNewCollectionDialogOpen] = React.useState(false)
     const [renameCollectionDialogOpen, setRenameCollectionDialogOpen] = React.useState(false)
@@ -217,9 +218,33 @@ export function CollectionsSidebar({
                             {t("clearAll")}
                         </Button>
                     </div>
+                    <div className="px-3 py-2 border-b shrink-0">
+                        <div className="relative">
+                            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
+                            <input
+                                type="text"
+                                placeholder="Search history..."
+                                value={historySearch}
+                                onChange={(e) => setHistorySearch(e.target.value)}
+                                className="w-full pl-8 pr-7 py-1.5 text-xs bg-muted/40 border border-border/50 rounded-md outline-none focus:border-primary/50 transition-colors"
+                            />
+                            {historySearch && (
+                                <button
+                                    onClick={() => setHistorySearch("")}
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 flex items-center justify-center text-muted-foreground hover:text-foreground"
+                                >
+                                    <X className="h-3 w-3" />
+                                </button>
+                            )}
+                        </div>
+                    </div>
                     <ScrollArea className="flex-1">
                         <div className="p-2 space-y-1">
-                            {history?.map((item) => (
+                            {history?.filter((item) => {
+                                if (!historySearch.trim()) return true
+                                const q = historySearch.toLowerCase()
+                                return item.url?.toLowerCase().includes(q) || item.name?.toLowerCase().includes(q) || item.method?.toLowerCase().includes(q)
+                            }).map((item) => (
                                 <div 
                                     key={item.id} 
                                     className="group flex flex-col p-2.5 hover:bg-muted/60 rounded-lg cursor-pointer transition-all duration-200 text-sm" 
@@ -280,6 +305,12 @@ export function CollectionsSidebar({
                                     <p className="text-sm font-medium">{t("noHistoryTitle")}</p>
                                     <p className="text-xs text-muted-foreground mt-1">{t("noHistoryHint")}</p>
                                 </div>
+                            )}
+                            {!!history?.length && historySearch && !history.filter((item) => {
+                                const q = historySearch.toLowerCase()
+                                return item.url?.toLowerCase().includes(q) || item.name?.toLowerCase().includes(q) || item.method?.toLowerCase().includes(q)
+                            }).length && (
+                                <div className="text-xs text-muted-foreground text-center py-6">No results for "{historySearch}"</div>
                             )}
                         </div>
                     </ScrollArea>
