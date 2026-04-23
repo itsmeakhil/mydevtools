@@ -179,7 +179,8 @@ export function JpgToPdfPanel() {
       const raw = await pdf.save();
       const out = new Uint8Array(raw.length);
       out.set(raw);
-      const blob = new Blob([out], { type: "application/pdf" });
+      const pdfBytes = out.buffer.slice(out.byteOffset, out.byteOffset + out.byteLength);
+      const blob = new Blob([pdfBytes], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;

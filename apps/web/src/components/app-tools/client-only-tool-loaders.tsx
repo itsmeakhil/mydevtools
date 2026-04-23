@@ -74,3 +74,19 @@ export const GraphqlFormatterLayoutLazy = dynamic(
     ),
   { ssr: false, loading: toolLoading }
 )
+
+export const Game2048LayoutLazy = dynamic(
+  () =>
+    import('@/components/break-room/2048/game-2048-layout').then(
+      m => m.Game2048Layout
+    ),
+  { ssr: false, loading: toolLoading }
+)
+
+export const SudokuLayoutLazy = dynamic(
+  () =>
+    import('@/components/break-room/sudoku/sudoku-layout').then(
+      m => m.SudokuLayout
+    ),
+  { ssr: false, loading: toolLoading }
+)
