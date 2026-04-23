@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { ConnectionForm } from "@/components/nosql-explorer/connection-form";
 import { ExplorerSidebar } from "@/components/nosql-explorer/explorer-sidebar";
@@ -375,6 +375,117 @@ export default function NoSQLExplorerPage() {
         }
     };
 
+    const handleBulkDelete = async (ids: string[]) => {
+        if (!activeTab || !user || !encryptionKey) return;
+        const connections = await getConnections(user.uid, encryptionKey);
+        const conn = connections.find(c => c.id === activeTab.connectionId);
+        if (!conn) throw new Error("Connection not found");
+
+        const res = await fetch("/api/nosql/bulk-delete", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                connectionString: conn.connectionString,
+                dbName: activeTab.dbName,
+                collectionName: activeTab.collectionName,
+                documentIds: ids,
+            }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        handleRefresh();
+    };
+
+    const handleImport = async (documents: any[]) => {
+        if (!activeTab || !user || !encryptionKey) return;
+        const connections = await getConnections(user.uid, encryptionKey);
+        const conn = connections.find(c => c.id === activeTab.connectionId);
+        if (!conn) throw new Error("Connection not found");
+
+        const res = await fetch("/api/nosql/import", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                connectionString: conn.connectionString,
+                dbName: activeTab.dbName,
+                collectionName: activeTab.collectionName,
+                documents,
+            }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        handleRefresh();
+    };
+
+    const handleLoadSchema = useCallback(async () => {
+        if (!activeTab || !user || !encryptionKey) throw new Error("No active tab");
+        const connections = await getConnections(user.uid, encryptionKey);
+        const conn = connections.find(c => c.id === activeTab.connectionId);
+        if (!conn) throw new Error("Connection not found");
+
+        const res = await fetch(
+            `/api/nosql/schema?connectionString=${encodeURIComponent(conn.connectionString)}&dbName=${activeTab.dbName}&collectionName=${activeTab.collectionName}`
+        );
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        return data;
+    }, [activeTab?.id, user, encryptionKey]);
+
+    const handleLoadIndexes = useCallback(async () => {
+        if (!activeTab || !user || !encryptionKey) throw new Error("No active tab");
+        const connections = await getConnections(user.uid, encryptionKey);
+        const conn = connections.find(c => c.id === activeTab.connectionId);
+        if (!conn) throw new Error("Connection not found");
+
+        const res = await fetch(
+            `/api/nosql/indexes?connectionString=${encodeURIComponent(conn.connectionString)}&dbName=${activeTab.dbName}&collectionName=${activeTab.collectionName}`
+        );
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        return data;
+    }, [activeTab?.id, user, encryptionKey]);
+
+    const handleDropIndex = async (indexName: string) => {
+        if (!activeTab || !user || !encryptionKey) return;
+        const connections = await getConnections(user.uid, encryptionKey);
+        const conn = connections.find(c => c.id === activeTab.connectionId);
+        if (!conn) throw new Error("Connection not found");
+
+        const res = await fetch("/api/nosql/indexes", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                connectionString: conn.connectionString,
+                dbName: activeTab.dbName,
+                collectionName: activeTab.collectionName,
+                indexName,
+            }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+    };
+
+    const handleCreateIndex = async (keys: Record<string, number>, options: Record<string, any>) => {
+        if (!activeTab || !user || !encryptionKey) return;
+        const connections = await getConnections(user.uid, encryptionKey);
+        const conn = connections.find(c => c.id === activeTab.connectionId);
+        if (!conn) throw new Error("Connection not found");
+
+        const res = await fetch("/api/nosql/indexes", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                connectionString: conn.connectionString,
+                dbName: activeTab.dbName,
+                collectionName: activeTab.collectionName,
+                keys,
+                options,
+            }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+    };
+
     const performFetch = async (tab: ExplorerTab) => {
         if (user && encryptionKey) {
             const connections = await getConnections(user.uid, encryptionKey);
@@ -384,6 +495,39 @@ export default function NoSQLExplorerPage() {
             }
         }
     };
+
+    // Keyboard shortcuts
+    useEffect(() => {
+        const handler = (e: KeyboardEvent) => {
+            const mod = e.metaKey || e.ctrlKey;
+            if (!mod) return;
+
+            // Ctrl/Cmd+W — close active tab
+            if (e.key === 'w' && activeTabId) {
+                e.preventDefault();
+                handleTabClose(activeTabId);
+                return;
+            }
+            // Ctrl/Cmd+Tab — next tab
+            if (e.key === 'Tab' && !e.shiftKey && tabs.length > 1) {
+                e.preventDefault();
+                const idx = tabs.findIndex(t => t.id === activeTabId);
+                const next = tabs[(idx + 1) % tabs.length];
+                setActiveTabId(next.id);
+                return;
+            }
+            // Ctrl/Cmd+Shift+Tab — prev tab
+            if (e.key === 'Tab' && e.shiftKey && tabs.length > 1) {
+                e.preventDefault();
+                const idx = tabs.findIndex(t => t.id === activeTabId);
+                const prev = tabs[(idx - 1 + tabs.length) % tabs.length];
+                setActiveTabId(prev.id);
+                return;
+            }
+        };
+        document.addEventListener('keydown', handler);
+        return () => document.removeEventListener('keydown', handler);
+    }, [activeTabId, tabs]);
 
     const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
     const [sidebarWidth, setSidebarWidth] = useState(256);
@@ -544,6 +688,12 @@ export default function NoSQLExplorerPage() {
                             onPageChange={handlePageChange}
                             onLimitChange={handleLimitChange}
                             onSortChange={handleSortChange}
+                            onBulkDelete={handleBulkDelete}
+                            onImport={handleImport}
+                            onLoadSchema={handleLoadSchema}
+                            onLoadIndexes={handleLoadIndexes}
+                            onDropIndex={handleDropIndex}
+                            onCreateIndex={handleCreateIndex}
                         />
                     ) : (
                         <div className="flex flex-col items-center justify-center h-full text-muted-foreground p-8 animate-in fade-in zoom-in duration-300">

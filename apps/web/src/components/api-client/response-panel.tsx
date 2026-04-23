@@ -10,6 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { CheckCircle2, AlertCircle, Copy, Download, Search, Info, Clock, Database } from "lucide-react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
+import type { editor } from "monaco-editor"
 
 function normalizeContentType(headers: Record<string, string>): string {
     const raw =
@@ -37,6 +38,11 @@ interface ResponsePanelProps {
 export function ResponsePanel({ response }: ResponsePanelProps) {
     const t = useTranslations("ApiClient.responsePanel")
     const tApi = useTranslations("ApiClient")
+    const bodyEditorRef = React.useRef<editor.IStandaloneCodeEditor | null>(null)
+
+    const handleOpenSearch = () => {
+        bodyEditorRef.current?.getAction("actions.find")?.run()
+    }
     if (!response) {
         return (
             <div className="h-full flex flex-col items-center justify-center text-muted-foreground border-2 border-dashed rounded-xl min-h-0 bg-muted/5 p-8 text-center space-y-4">
@@ -177,6 +183,9 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
                             <Database className="h-3.5 w-3.5 text-muted-foreground/70" />
                             <span className="text-xs font-mono font-semibold">{(response.size / 1024).toFixed(2)} KB</span>
                         </div>
+                        <Button variant="outline" size="icon" className="h-9 w-9 rounded-lg" onClick={handleOpenSearch} title="Search in body (Ctrl+F)">
+                            <Search className="h-4 w-4" />
+                        </Button>
                         <Button variant="outline" size="icon" className="h-9 w-9 rounded-lg" onClick={handleCopy} title={t("copyBody")}>
                             <Copy className="h-4 w-4" />
                         </Button>
@@ -191,6 +200,7 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
                             value={response.isBase64 ? t("binaryRawView") : response.body}
                             language={getLanguage()}
                             readOnly
+                            onMount={(ed) => { bodyEditorRef.current = ed }}
                         />
                     </TabsContent>
                     {hasPreview && (

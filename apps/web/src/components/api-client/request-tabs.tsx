@@ -139,7 +139,10 @@ export function RequestTabs({
                 </TabsTrigger>
                 <TabsTrigger value="body" className="flex items-center gap-2 px-4">
                     {t("body")}
-                    {body.type !== "none" && (
+                    {body.type === "json" && (() => {
+                        try { JSON.parse(body.content || "{}"); return <div className="h-1.5 w-1.5 rounded-full bg-primary" /> } catch { return <div className="h-1.5 w-1.5 rounded-full bg-rose-500" title="Invalid JSON" /> }
+                    })()}
+                    {body.type !== "none" && body.type !== "json" && (
                         <div className="h-1.5 w-1.5 rounded-full bg-primary" />
                     )}
                 </TabsTrigger>
@@ -177,12 +180,19 @@ export function RequestTabs({
                         </Select>
                     </div>
                     {normalizedBody.type === "json" || normalizedBody.type === "text" ? (
-                        <div className="flex-1 border rounded-lg overflow-hidden shadow-sm">
-                            <CodeEditor
-                                value={normalizedBody.content}
-                                onChange={(v) => updateBody({ content: v })}
-                                language={normalizedBody.type === "json" ? "json" : "plaintext"}
-                            />
+                        <div className="flex-1 flex flex-col gap-2 min-h-0">
+                            {normalizedBody.type === "json" && (() => {
+                                if (!normalizedBody.content) return null
+                                try { JSON.parse(normalizedBody.content); return null }
+                                catch (e) { return <div className="text-xs text-rose-500 bg-rose-500/10 border border-rose-500/20 rounded-md px-3 py-1.5 font-mono shrink-0">{(e as Error).message}</div> }
+                            })()}
+                            <div className="flex-1 border rounded-lg overflow-hidden shadow-sm min-h-0">
+                                <CodeEditor
+                                    value={normalizedBody.content}
+                                    onChange={(v) => updateBody({ content: v })}
+                                    language={normalizedBody.type === "json" ? "json" : "plaintext"}
+                                />
+                            </div>
                         </div>
                     ) : normalizedBody.type === "form-data" ? (
                         <div className="rounded-lg border bg-background flex-1 min-h-0">

@@ -79,6 +79,7 @@ export function ApiClient() {
     const [tabs, setTabs] = React.useState<ApiRequestState[]>([createNewTab()])
     const [activeTabId, setActiveTabId] = React.useState<string>(tabs[0].id)
     const [isInitialized, setIsInitialized] = React.useState(false)
+    const abortControllerRef = React.useRef<AbortController | null>(null)
     const { collections, addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection } = useCollections()
     const { history, addHistoryItem, clearHistory, deleteHistoryItem } = useHistory()
     const {
@@ -108,6 +109,40 @@ export function ApiClient() {
             return acc
         }, {} as Record<string, string>)
     }, [environments, activeEnvId])
+
+    const urlHistory = React.useMemo(() => {
+        const seen = new Set<string>()
+        const urls: string[] = []
+        for (const item of history) {
+            if (item.url && !seen.has(item.url)) {
+                seen.add(item.url)
+                urls.push(item.url)
+            }
+        }
+        return urls
+    }, [history])
+
+    // Keyboard shortcuts
+    React.useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            const isMac = navigator.platform.toUpperCase().includes("MAC")
+            const mod = isMac ? e.metaKey : e.ctrlKey
+
+            if (mod && e.key === "t") {
+                e.preventDefault()
+                handleAddTab()
+            } else if (mod && e.key === "w") {
+                e.preventDefault()
+                handleCloseTab(activeTabId)
+            } else if (mod && e.key === "Enter") {
+                e.preventDefault()
+                handleSend()
+            }
+        }
+        window.addEventListener("keydown", handleKeyDown)
+        return () => window.removeEventListener("keydown", handleKeyDown)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeTabId, tabs])
 
     // Load state from localStorage
     React.useEffect(() => {
@@ -227,6 +262,14 @@ export function ApiClient() {
         updateActiveTab({ name })
     }
 
+    const handleTabRename = (id: string, name: string) => {
+        setTabs((prev) => prev.map((tab) => tab.id === id ? { ...tab, name } : tab))
+    }
+
+    const handleTabReorder = (reordered: ApiRequestState[]) => {
+        setTabs(reordered)
+    }
+
     const handleLoadRequest = (request: CollectionRequest) => {
         const newTab: ApiRequestState = {
             ...createNewTab(),
@@ -239,8 +282,18 @@ export function ApiClient() {
         setActiveTabId(newTab.id)
     }
 
+    const handleCancel = () => {
+        abortControllerRef.current?.abort()
+        abortControllerRef.current = null
+        updateActiveTab({ isLoading: false })
+    }
+
     const handleSend = async () => {
         if (!activeTab.url?.trim()) return
+
+        abortControllerRef.current?.abort()
+        const controller = new AbortController()
+        abortControllerRef.current = controller
 
         updateActiveTab({ isLoading: true, response: null })
         if (isMobile) setMobilePanel('response')
@@ -355,6 +408,7 @@ export function ApiClient() {
             // Send via Proxy
             const res = await fetch("/api/proxy", {
                 method: "POST",
+                signal: controller.signal,
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -401,6 +455,7 @@ export function ApiClient() {
             }, activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : activeTab.url, proxyData.status)
 
         } catch (error) {
+            if ((error as Error).name === "AbortError") return
             console.error(error)
             toast.error(t("toasts.requestFailed", { message: (error as Error).message }))
             updateActiveTab({
@@ -515,6 +570,8 @@ export function ApiClient() {
                         onTabChange={setActiveTabId}
                         onTabClose={handleCloseTab}
                         onTabAdd={handleAddTab}
+                        onTabRename={handleTabRename}
+                        onTabReorder={handleTabReorder}
                     />
 
                     {/* Mobile Request/Response tab switcher */}
@@ -564,12 +621,14 @@ export function ApiClient() {
                                             url={activeTab.url}
                                             setUrl={(url) => updateActiveTab({ url, name: url || API_CLIENT_DEFAULT_TAB_NAME })}
                                             onSend={handleSend}
+                                            onCancel={handleCancel}
                                             isLoading={activeTab.isLoading}
                                             collections={collections}
                                             onSave={handleSaveRequest}
                                             saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
                                             onPaste={handleCurlPaste}
                                             activeEnvironmentVariables={activeEnvironmentVariables}
+                                            urlHistory={urlHistory}
                                         />
                                         <RequestTabs
                                             params={activeTab.params}
@@ -599,12 +658,14 @@ export function ApiClient() {
                                             url={activeTab.url}
                                             setUrl={(url) => updateActiveTab({ url, name: url || API_CLIENT_DEFAULT_TAB_NAME })}
                                             onSend={handleSend}
+                                            onCancel={handleCancel}
                                             isLoading={activeTab.isLoading}
                                             collections={collections}
                                             onSave={handleSaveRequest}
                                             saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
                                             onPaste={handleCurlPaste}
                                             activeEnvironmentVariables={activeEnvironmentVariables}
+                                            urlHistory={urlHistory}
                                         />
                                         <div className="flex-1 min-h-0">
                                             <RequestTabs

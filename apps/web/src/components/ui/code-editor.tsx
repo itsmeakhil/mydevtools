@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
+import type { editor } from 'monaco-editor';
 
 // Dynamically import Monaco — ~3 MB, only loads when a code editor is first rendered
 const Editor = dynamic(
@@ -22,6 +23,7 @@ interface CodeEditorProps {
     language?: string;
     readOnly?: boolean;
     minimap?: boolean;
+    onMount?: (editor: editor.IStandaloneCodeEditor) => void;
 }
 
 export default function CodeEditor({
@@ -29,7 +31,8 @@ export default function CodeEditor({
     onChange,
     language = "json",
     readOnly = false,
-    minimap = false
+    minimap = false,
+    onMount,
 }: CodeEditorProps) {
     const { theme } = useTheme();
 
@@ -41,6 +44,7 @@ export default function CodeEditor({
                 language={language}
                 value={value}
                 onChange={(newValue) => onChange?.(newValue || '')}
+                onMount={onMount}
                 theme={theme === 'dark' ? 'vs-dark' : 'light'}
                 options={{
                     minimap: { enabled: minimap },
