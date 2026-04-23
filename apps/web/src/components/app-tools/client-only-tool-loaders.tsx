@@ -82,3 +82,11 @@ export const Game2048LayoutLazy = dynamic(
     ),
   { ssr: false, loading: toolLoading }
 )
+
+export const SudokuLayoutLazy = dynamic(
+  () =>
+    import('@/components/break-room/sudoku/sudoku-layout').then(
+      m => m.SudokuLayout
+    ),
+  { ssr: false, loading: toolLoading }
+)

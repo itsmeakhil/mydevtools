@@ -540,6 +540,12 @@ export const sidebarData: SidebarData = {
           url: '/app/break-room/2048',
           icon: IconDeviceGamepad2,
           description: 'Slide and merge tiles to reach 2048. Classic number puzzle game.',
+        },
+        {
+          title: 'Sudoku',
+          url: '/app/break-room/sudoku',
+          icon: IconDeviceGamepad2,
+          description: 'Classic number puzzle. 3 difficulty levels, 150 stages each.',
           badge: 'new',
         },
       ],

@@ -1,0 +1,7 @@
+/.github
+/docs
+/apps/backend/tests
+/apps/web/node_modules
+/apps/web/.next
+/apps/web/out
+/apps/web/build

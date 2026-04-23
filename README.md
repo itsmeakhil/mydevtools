@@ -23,7 +23,7 @@
   <img src="https://img.shields.io/badge/FastAPI-Python-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" />
   <img src="https://img.shields.io/badge/Firebase-12-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase" />
   <img src="https://img.shields.io/badge/MongoDB-supported-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
-  <img src="https://img.shields.io/badge/License-Personal%20use%20%2B%20commercial%20license-purple?style=for-the-badge" alt="License" />
+  <img src="https://img.shields.io/badge/License-GPL%203.0-blue?style=for-the-badge" alt="License" />
 </p>
 
 <p align="center">
@@ -42,7 +42,7 @@ Most developer tools are scattered across dozens of tabs, riddled with ads, or s
 - 🔒 **Privacy by design** — No ad tracking, no data harvesting. Your vault stays yours.
 - 🎨 **Premium UI/UX** — Dark/light mode, silky animations, fully responsive across all devices.
 - 🌍 **Internationalization** — Built-in i18n support via `next-intl`.
-- 💯 **Free for personal use** — Source-available; commercial use requires a license or permission. See [LICENSE](LICENSE).
+- 💯 **Open source** — Licensed under **GNU GPLv3**. See [LICENSE](LICENSE).
 
 ---
 
@@ -296,7 +296,7 @@ If MyDevTools saves you time, consider giving it a **star** on GitHub — it hel
 
 ## 📄 License
 
-Licensed under the **MyDevTools.tech License** ([LICENSE](LICENSE)): free for **personal individual, non-commercial** use; other uses require a **commercial license** or **prior written permission** from the copyright holders.
+This project is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html) — see [LICENSE](LICENSE) for the full text.
 
 ---
 
