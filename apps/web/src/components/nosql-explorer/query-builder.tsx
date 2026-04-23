@@ -55,11 +55,27 @@ export function QueryBuilder({
     const [user] = useAuthState(auth);
     const { theme } = useTheme();
     const [advancedOpen, setAdvancedOpen] = useState(false);
+    const [queryError, setQueryError] = useState<string | null>(null);
 
     // Sync internal state with props
     useEffect(() => {
         setTextQuery(query);
     }, [query]);
+
+    // Inline JSON validation
+    useEffect(() => {
+        const q = textQuery.trim();
+        if (!q || q === '{}' || q === '[]') {
+            setQueryError(null);
+            return;
+        }
+        try {
+            JSON.parse(q);
+            setQueryError(null);
+        } catch (e: any) {
+            setQueryError(e.message?.replace(/^JSON.parse: /, '') || 'Invalid JSON');
+        }
+    }, [textQuery]);
 
     // Load query history from API (+ one-time localStorage migration when server is empty)
     useEffect(() => {
@@ -300,16 +316,17 @@ export function QueryBuilder({
     };
 
     return (
+        <div className="flex flex-col w-full gap-0.5">
         <div className="flex items-center w-full">
             <div className="relative flex-1 group">
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                    <IconBraces className="h-3.5 w-3.5" />
+                    <IconBraces className={cn("h-3.5 w-3.5", queryError && "text-destructive")} />
                 </div>
                 <Input
                     value={textQuery}
                     onChange={(e) => setTextQuery(e.target.value)}
                     placeholder={queryPlaceholder}
-                    className="pl-8 pr-[175px] font-mono text-xs h-9 bg-background"
+                    className={cn("pl-8 pr-[175px] font-mono text-xs h-9 bg-background", queryError && "border-destructive focus-visible:ring-destructive/50")}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") handleTextSearch();
                     }}
@@ -518,6 +535,12 @@ export function QueryBuilder({
                     </Popover>
                 </div>
             </div>
+        </div>
+        {queryError && (
+            <p className="text-[10px] text-destructive font-mono px-1 truncate" title={queryError}>
+                {queryError}
+            </p>
+        )}
 
             <Dialog open={advancedOpen} onOpenChange={setAdvancedOpen}>
                 <DialogContent className="max-w-4xl w-[90vw] h-[80vh] flex flex-col p-0 gap-0 [&>button]:hidden">

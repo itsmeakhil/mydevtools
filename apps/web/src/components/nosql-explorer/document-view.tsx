@@ -1,16 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Document } from "./types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
-    IconPlus, IconRefresh, IconTrash, IconPencil, IconCode, IconTable,
+    IconPlus, IconRefresh, IconTrash, IconPencil, IconTable,
     IconCopy, IconAlignLeft, IconMinimize, IconJson, IconBinaryTree,
     IconHistory, IconX, IconDownload, IconMaximize, IconChevronLeft,
     IconChevronRight, IconServer, IconDatabase, IconFolder, IconFolderOpen,
-    IconRowInsertBottom, IconLayoutRows, IconArrowsMaximize, IconArrowsMinimize
+    IconRowInsertBottom, IconLayoutRows, IconArrowsMaximize, IconArrowsMinimize,
+    IconUpload, IconListDetails, IconSchema,
 } from "@tabler/icons-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
@@ -21,11 +23,23 @@ import { JsonTree } from "./json-tree";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ExportDialog } from "./export-dialog";
+import { ImportDialog } from "./import-dialog";
+import { IndexManager } from "./index-manager";
 import { QueryBuilder } from "./query-builder";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface DocumentViewProps {
     connectionName: string;
@@ -46,9 +60,74 @@ interface DocumentViewProps {
     sortField?: string | null;
     sortDirection?: 'asc' | 'desc';
     onSortChange: (field: string, direction: 'asc' | 'desc') => void;
+    onBulkDelete?: (ids: string[]) => Promise<void>;
+    onImport?: (documents: any[]) => Promise<void>;
+    onLoadSchema?: () => Promise<{ fields: any[]; sampleSize: number }>;
+    onLoadIndexes?: () => Promise<{ indexes: any[]; totalIndexSize?: number }>;
+    onDropIndex?: (indexName: string) => Promise<void>;
+    onCreateIndex?: (keys: Record<string, number>, options: Record<string, any>) => Promise<void>;
 }
 
-// Typed cell renderer for table view
+// ── helpers ──────────────────────────────────────────────────────────────────
+
+function getRelativeTime(date: Date): string {
+    const diffMs = Date.now() - date.getTime();
+    const abs = Math.abs(diffMs);
+    const sec = Math.floor(abs / 1000);
+    const min = Math.floor(sec / 60);
+    const hr = Math.floor(min / 60);
+    const day = Math.floor(hr / 24);
+    const mo = Math.floor(day / 30);
+    const yr = Math.floor(day / 365);
+    const suffix = diffMs < 0 ? ' from now' : ' ago';
+    if (sec < 60) return 'just now';
+    if (min < 60) return `${min}m${suffix}`;
+    if (hr < 24) return `${hr}h${suffix}`;
+    if (day < 30) return `${day}d${suffix}`;
+    if (mo < 12) return `${mo}mo${suffix}`;
+    return `${yr}y${suffix}`;
+}
+
+const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}(T[\d:.\-Z+]+)?$/;
+const OBJECTID_RE = /^[0-9a-fA-F]{24}$/;
+
+// ── sub-components ───────────────────────────────────────────────────────────
+
+function DateCell({ date }: { date: Date }) {
+    return (
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <span className="inline-flex items-center font-mono text-[10px] bg-orange-500/10 text-orange-600 dark:text-orange-400 px-1.5 py-0.5 rounded cursor-default">
+                        {getRelativeTime(date)}
+                    </span>
+                </TooltipTrigger>
+                <TooltipContent>
+                    <p className="font-mono text-xs">{date.toLocaleString()}</p>
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
+    );
+}
+
+function ObjectIdCell({ value }: { value: string }) {
+    return (
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <span className="inline-flex items-center gap-1 font-mono text-[10px] bg-purple-500/10 text-purple-600 dark:text-purple-400 px-1.5 py-0.5 rounded cursor-default">
+                        <span className="opacity-60 text-[9px]">ObjId</span>
+                        <span className="truncate max-w-[110px]">{value}</span>
+                    </span>
+                </TooltipTrigger>
+                <TooltipContent>
+                    <p className="font-mono text-xs">{value}</p>
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
+    );
+}
+
 function CellValue({ value, onViewClick }: { value: any; onViewClick: (v: any) => void }) {
     const t = useTranslations("NoSqlExplorer.document");
     if (value === undefined) return null;
@@ -71,13 +150,21 @@ function CellValue({ value, onViewClick }: { value: any; onViewClick: (v: any) =
     }
 
     if (typeof value === 'number') {
-        return <span className="text-blue-600 dark:text-blue-400 font-mono text-xs">{value}</span>;
+        return <span className="text-blue-600 dark:text-blue-400 font-mono text-xs">{value.toLocaleString()}</span>;
     }
 
     if (typeof value === 'object') {
+        // MongoDB extended JSON: ObjectId
+        if (value.$oid) return <ObjectIdCell value={value.$oid} />;
+        // MongoDB extended JSON: Date
+        if (value.$date) {
+            const ts = typeof value.$date === 'object' ? value.$date.$numberLong : value.$date;
+            return <DateCell date={new Date(ts)} />;
+        }
+
         return (
             <Popover>
-                <PopoverTrigger className="text-blue-500 hover:underline focus:outline-none outline-none text-xs font-mono">
+                <PopoverTrigger className="text-blue-500 hover:underline focus:outline-none outline-none text-xs font-mono cursor-pointer">
                     {Array.isArray(value) ? t("cellArray", { length: value.length }) : "{...}"}
                 </PopoverTrigger>
                 <PopoverContent className="w-[350px] p-0 shadow-lg" align="start" side="bottom">
@@ -99,21 +186,44 @@ function CellValue({ value, onViewClick }: { value: any; onViewClick: (v: any) =
         );
     }
 
-    // String
+    // String value
     const str = String(value);
+
+    // ObjectId string
+    if (OBJECTID_RE.test(str)) return <ObjectIdCell value={str} />;
+
+    // ISO date string
+    if (ISO_DATE_RE.test(str)) {
+        const d = new Date(str);
+        if (!isNaN(d.getTime())) return <DateCell date={d} />;
+    }
+
+    // Long string — show truncated with expand button opening view dialog
+    if (str.length > 120) {
+        return (
+            <span className="font-mono text-xs">
+                {str.slice(0, 80)}
+                <button
+                    className="ml-1 text-blue-500 hover:underline text-[10px]"
+                    onClick={() => onViewClick(str)}
+                >
+                    +{str.length - 80} chars
+                </button>
+            </span>
+        );
+    }
+
     return <span className="font-mono text-xs">{str}</span>;
 }
 
-// Skeleton shimmer row
 function SkeletonRow({ colCount }: { colCount: number }) {
     return (
         <tr className="border-b animate-pulse">
-            <td className="px-4 py-3">
-                <div className="h-3 w-6 bg-muted rounded" />
-            </td>
+            <td className="px-3 py-3"><div className="h-3.5 w-3.5 bg-muted rounded" /></td>
+            <td className="px-4 py-3"><div className="h-3 w-6 bg-muted rounded" /></td>
             {Array.from({ length: colCount }).map((_, i) => (
                 <td key={i} className="px-4 py-3">
-                    <div className="h-3 rounded bg-muted" style={{ width: `${40 + Math.random() * 50}%` }} />
+                    <div className="h-3 rounded bg-muted" style={{ width: `${40 + (i * 17) % 50}%` }} />
                 </td>
             ))}
             <td className="px-4 py-3">
@@ -124,6 +234,130 @@ function SkeletonRow({ colCount }: { colCount: number }) {
         </tr>
     );
 }
+
+// ── SchemaView ────────────────────────────────────────────────────────────────
+
+function SchemaView({
+    onLoad,
+}: {
+    onLoad: () => Promise<{ fields: any[]; sampleSize: number }>;
+}) {
+    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState<{ fields: any[]; sampleSize: number } | null>(null);
+    const [error, setError] = useState<string | null>(null);
+
+    const load = useCallback(async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const result = await onLoad();
+            setData(result);
+        } catch (e: any) {
+            setError(e.message || 'Failed to analyze schema');
+        } finally {
+            setLoading(false);
+        }
+    }, [onLoad]);
+
+    useEffect(() => { load(); }, []);
+
+    const typeColor: Record<string, string> = {
+        string: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
+        number: 'bg-green-500/10 text-green-600 dark:text-green-400',
+        boolean: 'bg-yellow-500/10 text-yellow-600 dark:text-yellow-400',
+        ObjectId: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
+        Date: 'bg-orange-500/10 text-orange-600 dark:text-orange-400',
+        Array: 'bg-pink-500/10 text-pink-600 dark:text-pink-400',
+        Object: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400',
+        null: 'bg-muted text-muted-foreground',
+    };
+
+    if (loading) {
+        return (
+            <div className="h-full flex items-center justify-center">
+                <div className="text-sm text-muted-foreground animate-pulse">Analyzing schema...</div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="h-full flex flex-col items-center justify-center gap-3">
+                <p className="text-sm text-destructive">{error}</p>
+                <Button variant="outline" size="sm" onClick={load}>
+                    <IconRefresh className="h-3.5 w-3.5 mr-1.5" />
+                    Retry
+                </Button>
+            </div>
+        );
+    }
+
+    if (!data || data.fields.length === 0) {
+        return (
+            <div className="h-full flex items-center justify-center">
+                <p className="text-sm text-muted-foreground">No documents to analyze</p>
+            </div>
+        );
+    }
+
+    return (
+        <div className="h-full flex flex-col">
+            <div className="px-4 py-2 border-b bg-muted/10 text-xs text-muted-foreground shrink-0 flex items-center justify-between">
+                <span>Sampled {data.sampleSize} documents · {data.fields.length} fields</span>
+                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={load}>
+                    <IconRefresh className="h-3 w-3" />
+                </Button>
+            </div>
+            <ScrollArea className="flex-1">
+                <table className="min-w-full text-sm">
+                    <thead className="text-xs text-muted-foreground uppercase bg-muted sticky top-0">
+                        <tr>
+                            <th className="px-4 py-2.5 text-left font-medium">Field</th>
+                            <th className="px-4 py-2.5 text-left font-medium">Types</th>
+                            <th className="px-4 py-2.5 text-right font-medium w-24">Coverage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.fields.map((field, i) => (
+                            <tr key={field.name} className={cn("border-b", i % 2 === 0 ? "" : "bg-muted/20")}>
+                                <td className="px-4 py-2.5 font-mono text-xs font-medium">{field.name}</td>
+                                <td className="px-4 py-2.5">
+                                    <div className="flex flex-wrap gap-1">
+                                        {Object.entries(field.types as Record<string, number>).map(([type, count]) => (
+                                            <span
+                                                key={type}
+                                                className={cn(
+                                                    "inline-flex items-center gap-1 text-[10px] font-mono px-1.5 py-0.5 rounded",
+                                                    typeColor[type] || 'bg-muted text-muted-foreground'
+                                                )}
+                                            >
+                                                {type}
+                                                <span className="opacity-70">×{count}</span>
+                                            </span>
+                                        ))}
+                                    </div>
+                                </td>
+                                <td className="px-4 py-2.5 text-right">
+                                    <div className="flex items-center justify-end gap-2">
+                                        <div className="w-20 h-1.5 bg-muted rounded-full overflow-hidden">
+                                            <div
+                                                className="h-full bg-primary rounded-full transition-all"
+                                                style={{ width: `${field.coverage}%` }}
+                                            />
+                                        </div>
+                                        <span className="text-xs font-mono text-muted-foreground w-9 text-right">{field.coverage}%</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </ScrollArea>
+        </div>
+    );
+}
+
+// ── main component ────────────────────────────────────────────────────────────
 
 export function DocumentView({
     connectionName,
@@ -144,42 +378,75 @@ export function DocumentView({
     sortField,
     sortDirection,
     onSortChange,
+    onBulkDelete,
+    onImport,
+    onLoadSchema,
+    onLoadIndexes,
+    onDropIndex,
+    onCreateIndex,
 }: DocumentViewProps) {
     const t = useTranslations("NoSqlExplorer.document");
-    const [viewMode, setViewMode] = useState<"table" | "json" | "tree">("table");
+    const [viewMode, setViewMode] = useState<"table" | "json" | "tree" | "schema" | "indexes">("table");
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedDoc, setSelectedDoc] = useState<Document | null>(null);
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [isInsertDialogOpen, setIsInsertDialogOpen] = useState(false);
     const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
+    const [isImportDialogOpen, setIsImportDialogOpen] = useState(false);
     const [editorContent, setEditorContent] = useState("");
     const [viewValue, setViewValue] = useState<string>("");
     const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
     const [jsonViewContent, setJsonViewContent] = useState("");
     const [columnWidths, setColumnWidths] = useState<Record<string, number>>({});
     const [treeExpandAll, setTreeExpandAll] = useState(false);
+    const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+    const [bulkDeleteConfirm, setBulkDeleteConfirm] = useState(false);
+    const [bulkDeleteLoading, setBulkDeleteLoading] = useState(false);
+    const [indexesData, setIndexesData] = useState<{ indexes: any[]; totalIndexSize?: number } | null>(null);
+    const [indexesLoading, setIndexesLoading] = useState(false);
+    const [indexesError, setIndexesError] = useState<string | null>(null);
     const { theme } = useTheme();
 
     useEffect(() => {
         setJsonViewContent(JSON.stringify(documents, null, 2));
     }, [documents]);
 
+    // Clear selection when documents change
+    useEffect(() => {
+        setSelectedIds(new Set());
+    }, [documents]);
+
+    // Load indexes when switching to indexes view
+    useEffect(() => {
+        if (viewMode === 'indexes' && !indexesData && onLoadIndexes) {
+            loadIndexes();
+        }
+    }, [viewMode]);
+
+    const loadIndexes = async () => {
+        if (!onLoadIndexes) return;
+        setIndexesLoading(true);
+        setIndexesError(null);
+        try {
+            const data = await onLoadIndexes();
+            setIndexesData(data);
+        } catch (e: any) {
+            setIndexesError(e.message || 'Failed to load indexes');
+        } finally {
+            setIndexesLoading(false);
+        }
+    };
+
     const handlePrettify = () => {
         try {
-            const parsed = JSON.parse(jsonViewContent);
-            setJsonViewContent(JSON.stringify(parsed, null, 2));
-        } catch (e) {
-            toast.error(t("invalidJson"));
-        }
+            setJsonViewContent(JSON.stringify(JSON.parse(jsonViewContent), null, 2));
+        } catch { toast.error(t("invalidJson")); }
     };
 
     const handleMinify = () => {
         try {
-            const parsed = JSON.parse(jsonViewContent);
-            setJsonViewContent(JSON.stringify(parsed));
-        } catch (e) {
-            toast.error(t("invalidJson"));
-        }
+            setJsonViewContent(JSON.stringify(JSON.parse(jsonViewContent)));
+        } catch { toast.error(t("invalidJson")); }
     };
 
     const handleCopy = () => {
@@ -188,7 +455,7 @@ export function DocumentView({
     };
 
     const handleViewValue = (value: any) => {
-        setViewValue(JSON.stringify(value, null, 2));
+        setViewValue(typeof value === 'string' ? value : JSON.stringify(value, null, 2));
         setIsViewDialogOpen(true);
     };
 
@@ -207,9 +474,7 @@ export function DocumentView({
                 toast.success(t("docUpdated"));
                 onRefresh();
             }
-        } catch (e) {
-            toast.error(t("invalidJsonShort"));
-        }
+        } catch { toast.error(t("invalidJsonShort")); }
     };
 
     const handleInsert = async () => {
@@ -219,9 +484,7 @@ export function DocumentView({
             setIsInsertDialogOpen(false);
             toast.success(t("docInserted"));
             onRefresh();
-        } catch (e) {
-            toast.error(t("invalidJsonShort"));
-        }
+        } catch { toast.error(t("invalidJsonShort")); }
     };
 
     const openInsertDialog = () => {
@@ -230,9 +493,9 @@ export function DocumentView({
     };
 
     const handleDuplicate = (doc: Document) => {
-        const docCopy: any = { ...doc };
-        delete docCopy._id;
-        setEditorContent(JSON.stringify(docCopy, null, 2));
+        const copy: any = { ...doc };
+        delete copy._id;
+        setEditorContent(JSON.stringify(copy, null, 2));
         setIsInsertDialogOpen(true);
     };
 
@@ -243,20 +506,40 @@ export function DocumentView({
 
     const handleSort = (field: string) => {
         if (sortField === field) {
-            if (sortDirection === 'asc') {
-                onSortChange(field, 'desc');
-            } else {
-                onSortChange('', 'asc');
-            }
+            onSortChange(sortDirection === 'asc' ? field : '', sortDirection === 'asc' ? 'desc' : 'asc');
         } else {
             onSortChange(field, 'asc');
         }
     };
 
-    const fields = Array.from(new Set(documents.flatMap(Object.keys))).filter(key => key !== "_id");
-    const allFields = Array.from(new Set(documents.flatMap(Object.keys)))
-        .filter(key => key !== "_id")
-        .reduce((acc, key) => [...acc, key], ["_id"]);
+    const handleSelectAll = () => {
+        if (selectedIds.size === documents.length && documents.length > 0) {
+            setSelectedIds(new Set());
+        } else {
+            setSelectedIds(new Set(documents.map(d => d._id)));
+        }
+    };
+
+    const handleSelectRow = (id: string) => {
+        const next = new Set(selectedIds);
+        if (next.has(id)) next.delete(id); else next.add(id);
+        setSelectedIds(next);
+    };
+
+    const handleBulkDelete = async () => {
+        if (!onBulkDelete || selectedIds.size === 0) return;
+        setBulkDeleteLoading(true);
+        try {
+            await onBulkDelete(Array.from(selectedIds));
+            toast.success(`${selectedIds.size} document${selectedIds.size > 1 ? 's' : ''} deleted`);
+            setSelectedIds(new Set());
+            setBulkDeleteConfirm(false);
+        } catch (e: any) {
+            toast.error(e.message || 'Bulk delete failed');
+        } finally {
+            setBulkDeleteLoading(false);
+        }
+    };
 
     const handleColumnResize = (key: string, e: React.MouseEvent) => {
         e.preventDefault();
@@ -265,23 +548,24 @@ export function DocumentView({
         const th = (e.currentTarget as HTMLElement).parentElement;
         const initialWidth = th ? th.getBoundingClientRect().width : (columnWidths[key] || 300);
 
-        const onMouseMove = (moveEvent: MouseEvent) => {
-            const newWidth = Math.max(50, initialWidth + (moveEvent.pageX - startX));
-            setColumnWidths(prev => ({ ...prev, [key]: newWidth }));
+        const onMouseMove = (ev: MouseEvent) => {
+            setColumnWidths(prev => ({ ...prev, [key]: Math.max(50, initialWidth + (ev.pageX - startX)) }));
         };
-
         const onMouseUp = () => {
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
             document.body.style.cursor = 'default';
         };
-
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
         document.body.style.cursor = 'col-resize';
     };
 
+    const fields = Array.from(new Set(documents.flatMap(Object.keys))).filter(k => k !== "_id");
+    const allFields = ["_id", ...fields];
     const totalPages = Math.ceil(total / limit) || 1;
+    const isAllSelected = documents.length > 0 && selectedIds.size === documents.length;
+    const isIndeterminate = selectedIds.size > 0 && selectedIds.size < documents.length;
 
     const isFilterActive = (() => {
         try {
@@ -291,9 +575,11 @@ export function DocumentView({
         } catch { return false; }
     })();
 
+    const showSelectMode = viewMode === 'table' && !!onBulkDelete;
+
     return (
         <div className="flex flex-col h-full">
-            {/* Breadcrumb context header */}
+            {/* Breadcrumb */}
             <div className="flex items-center gap-1.5 px-4 py-1.5 border-b bg-muted/20 text-xs text-muted-foreground overflow-x-auto no-scrollbar shrink-0">
                 <IconServer className="h-3 w-3 text-purple-500 shrink-0" />
                 <span className="truncate max-w-[120px]">{connectionName}</span>
@@ -308,7 +594,9 @@ export function DocumentView({
                         <span className="text-border ml-auto shrink-0">·</span>
                         <span className="shrink-0 ml-1">
                             {t("docsBreadcrumb", {
-                                n: total >= 1_000_000 ? `${(total / 1_000_000).toFixed(1)}M` : total >= 1_000 ? `${(total / 1_000).toFixed(1)}K` : String(total),
+                                n: total >= 1_000_000 ? `${(total / 1_000_000).toFixed(1)}M`
+                                    : total >= 1_000 ? `${(total / 1_000).toFixed(1)}K`
+                                    : String(total),
                             })}
                         </span>
                     </>
@@ -316,7 +604,7 @@ export function DocumentView({
             </div>
 
             {/* Toolbar */}
-            <div className="min-h-14 border-b flex flex-col md:flex-row items-center justify-between px-4 py-2 md:py-0 gap-2 md:gap-4 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="min-h-14 border-b flex flex-col md:flex-row items-center justify-between px-4 py-2 md:py-0 gap-2 md:gap-4 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shrink-0">
                 <div className="w-full md:flex-1 md:max-w-2xl">
                     <QueryBuilder
                         query={searchQuery}
@@ -332,50 +620,31 @@ export function DocumentView({
                 </div>
 
                 <div className="flex w-full md:w-auto items-center justify-between md:justify-end gap-2 md:gap-4 overflow-x-auto no-scrollbar">
+                    {/* View mode switcher */}
                     <div className="flex items-center bg-muted/50 p-1 rounded-lg border flex-shrink-0">
                         <TooltipProvider>
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <Button
-                                        variant={viewMode === "table" ? "secondary" : "ghost"}
-                                        size="sm"
-                                        className={cn("h-7 px-2 md:px-3 text-xs", viewMode === "table" && "bg-background shadow-sm")}
-                                        onClick={() => setViewMode("table")}
-                                    >
-                                        <IconTable className="h-3.5 w-3.5 md:mr-1.5" />
-                                        <span className="hidden md:inline">{t("table")}</span>
-                                    </Button>
-                                </TooltipTrigger>
-                                <TooltipContent>{t("tooltipTable")}</TooltipContent>
-                            </Tooltip>
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <Button
-                                        variant={viewMode === "json" ? "secondary" : "ghost"}
-                                        size="sm"
-                                        className={cn("h-7 px-2 md:px-3 text-xs", viewMode === "json" && "bg-background shadow-sm")}
-                                        onClick={() => setViewMode("json")}
-                                    >
-                                        <IconJson className="h-3.5 w-3.5 md:mr-1.5" />
-                                        <span className="hidden md:inline">{t("json")}</span>
-                                    </Button>
-                                </TooltipTrigger>
-                                <TooltipContent>{t("tooltipJson")}</TooltipContent>
-                            </Tooltip>
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <Button
-                                        variant={viewMode === "tree" ? "secondary" : "ghost"}
-                                        size="sm"
-                                        className={cn("h-7 px-2 md:px-3 text-xs", viewMode === "tree" && "bg-background shadow-sm")}
-                                        onClick={() => setViewMode("tree")}
-                                    >
-                                        <IconBinaryTree className="h-3.5 w-3.5 md:mr-1.5" />
-                                        <span className="hidden md:inline">{t("tree")}</span>
-                                    </Button>
-                                </TooltipTrigger>
-                                <TooltipContent>{t("tooltipTree")}</TooltipContent>
-                            </Tooltip>
+                            {[
+                                { mode: 'table', icon: IconTable, label: t("table"), tooltip: t("tooltipTable") },
+                                { mode: 'json', icon: IconJson, label: t("json"), tooltip: t("tooltipJson") },
+                                { mode: 'tree', icon: IconBinaryTree, label: t("tree"), tooltip: t("tooltipTree") },
+                                { mode: 'schema', icon: IconListDetails, label: 'Schema', tooltip: 'Collection Schema' },
+                                { mode: 'indexes', icon: IconDatabase, label: 'Indexes', tooltip: 'Index Manager' },
+                            ].map(({ mode, icon: Icon, label, tooltip }) => (
+                                <Tooltip key={mode}>
+                                    <TooltipTrigger asChild>
+                                        <Button
+                                            variant={viewMode === mode ? "secondary" : "ghost"}
+                                            size="sm"
+                                            className={cn("h-7 px-2 md:px-3 text-xs", viewMode === mode && "bg-background shadow-sm")}
+                                            onClick={() => setViewMode(mode as any)}
+                                        >
+                                            <Icon className="h-3.5 w-3.5 md:mr-1.5" />
+                                            <span className="hidden md:inline">{label}</span>
+                                        </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>{tooltip}</TooltipContent>
+                                </Tooltip>
+                            ))}
                         </TooltipProvider>
                     </div>
 
@@ -385,34 +654,19 @@ export function DocumentView({
                             className="h-full bg-transparent text-[10px] font-mono text-muted-foreground border-none outline-none cursor-pointer"
                             value={limit}
                             onChange={(e) => onLimitChange(Number(e.target.value))}
-                            title={t("itemsPerPage")}
                         >
-                            {[50, 100, 200, 500, 1000, 2000].map((val) => (
+                            {[50, 100, 200, 500, 1000, 2000].map(val => (
                                 <option key={val} value={val}>{t("perPage", { n: val })}</option>
                             ))}
                         </select>
                         <div className="w-[1px] h-3 bg-border mx-1" />
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-5 w-5 rounded-sm"
-                            onClick={() => onPageChange(page - 1)}
-                            disabled={page <= 1}
-                            title={t("prevPage")}
-                        >
+                        <Button variant="ghost" size="icon" className="h-5 w-5 rounded-sm" onClick={() => onPageChange(page - 1)} disabled={page <= 1}>
                             <IconChevronLeft className="h-3.5 w-3.5" />
                         </Button>
                         <span className="text-[10px] font-mono text-muted-foreground px-1 min-w-[30px] md:min-w-[60px] text-center">
                             {page} / {totalPages}
                         </span>
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-5 w-5 rounded-sm"
-                            onClick={() => onPageChange(page + 1)}
-                            disabled={page >= totalPages}
-                            title={t("nextPage")}
-                        >
+                        <Button variant="ghost" size="icon" className="h-5 w-5 rounded-sm" onClick={() => onPageChange(page + 1)} disabled={page >= totalPages}>
                             <IconChevronRight className="h-3.5 w-3.5" />
                         </Button>
                     </div>
@@ -421,7 +675,6 @@ export function DocumentView({
 
                     <div className="flex items-center gap-2 flex-shrink-0 ml-auto md:ml-0">
                         <TooltipProvider>
-                            {/* Tree expand/collapse — only shown in tree mode */}
                             {viewMode === "tree" && (
                                 <>
                                     <Tooltip>
@@ -456,6 +709,12 @@ export function DocumentView({
                             <IconPlus className="h-4 w-4 md:mr-1.5" />
                             <span className="hidden md:inline">{t("insert")}</span>
                         </Button>
+                        {onImport && (
+                            <Button size="sm" variant="outline" onClick={() => setIsImportDialogOpen(true)} className="h-9 px-2 md:px-4">
+                                <IconUpload className="h-4 w-4 md:mr-1.5" />
+                                <span className="hidden md:inline">Import</span>
+                            </Button>
+                        )}
                         <Button size="sm" variant="outline" onClick={() => setIsExportDialogOpen(true)} className="h-9 px-2 md:px-4">
                             <IconDownload className="h-4 w-4 md:mr-1.5" />
                             <span className="hidden md:inline">{t("export")}</span>
@@ -464,16 +723,65 @@ export function DocumentView({
                 </div>
             </div>
 
+            {/* Bulk action bar */}
+            {selectedIds.size > 0 && (
+                <div className="flex items-center gap-3 px-4 py-2 border-b bg-primary/5 shrink-0 animate-in slide-in-from-top-1 duration-150">
+                    <span className="text-sm font-medium text-primary">
+                        {selectedIds.size} document{selectedIds.size > 1 ? 's' : ''} selected
+                    </span>
+                    <Button
+                        variant="destructive"
+                        size="sm"
+                        className="h-7 text-xs"
+                        onClick={() => setBulkDeleteConfirm(true)}
+                    >
+                        <IconTrash className="h-3.5 w-3.5 mr-1.5" />
+                        Delete Selected
+                    </Button>
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-7 text-xs ml-auto"
+                        onClick={() => setSelectedIds(new Set())}
+                    >
+                        <IconX className="h-3.5 w-3.5 mr-1" />
+                        Clear
+                    </Button>
+                </div>
+            )}
+
             {/* Content area */}
             <div className="flex-1 overflow-hidden min-h-0">
-                {loading ? (
-                    /* Loading skeleton */
+                {viewMode === 'schema' && onLoadSchema ? (
+                    <SchemaView onLoad={onLoadSchema} />
+                ) : viewMode === 'indexes' ? (
+                    <IndexManager
+                        indexes={indexesData?.indexes || []}
+                        totalIndexSize={indexesData?.totalIndexSize}
+                        loading={indexesLoading}
+                        error={indexesError}
+                        onRefresh={() => { setIndexesData(null); loadIndexes(); }}
+                        onDropIndex={async (name) => {
+                            if (!onDropIndex) throw new Error('Not supported');
+                            await onDropIndex(name);
+                            setIndexesData(null);
+                            loadIndexes();
+                        }}
+                        onCreateIndex={async (keys, opts) => {
+                            if (!onCreateIndex) throw new Error('Not supported');
+                            await onCreateIndex(keys, opts);
+                            setIndexesData(null);
+                            loadIndexes();
+                        }}
+                    />
+                ) : loading ? (
                     <div className="h-full w-full overflow-auto">
                         <table className="min-w-full text-sm text-left">
                             <thead className="text-xs text-muted-foreground uppercase bg-muted">
                                 <tr>
+                                    <th className="px-3 py-3 w-[40px]" />
                                     <th className="px-4 py-3 w-[50px]">#</th>
-                                    {(documents.length > 0 ? allFields : ["field1", "field2", "field3", "field4"]).map(k => (
+                                    {(documents.length > 0 ? allFields : ["f1", "f2", "f3", "f4"]).map(k => (
                                         <th key={k} className="px-4 py-3 whitespace-nowrap">
                                             <div className="h-3 w-16 bg-muted-foreground/20 rounded animate-pulse" />
                                         </th>
@@ -489,7 +797,6 @@ export function DocumentView({
                         </table>
                     </div>
                 ) : documents.length === 0 ? (
-                    /* Improved empty state */
                     <div className="flex flex-col items-center justify-center h-full text-center px-6 py-10 gap-4">
                         <div className="w-14 h-14 rounded-2xl bg-muted flex items-center justify-center">
                             <IconFolderOpen className="w-7 h-7 text-muted-foreground" />
@@ -500,14 +807,7 @@ export function DocumentView({
                                     <p className="font-medium text-foreground">{t("emptyFilterTitle")}</p>
                                     <p className="text-sm text-muted-foreground mt-1">{t("emptyFilterHint")}</p>
                                 </div>
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() => {
-                                        setSearchQuery("{}");
-                                        onSearch("{}");
-                                    }}
-                                >
+                                <Button variant="outline" size="sm" onClick={() => { setSearchQuery("{}"); onSearch("{}"); }}>
                                     <IconX className="h-3.5 w-3.5 mr-1.5" />
                                     {t("clearFilter")}
                                 </Button>
@@ -518,10 +818,18 @@ export function DocumentView({
                                     <p className="font-medium text-foreground">{t("emptyCollectionTitle")}</p>
                                     <p className="text-sm text-muted-foreground mt-1">{t("emptyCollectionHint")}</p>
                                 </div>
-                                <Button size="sm" onClick={openInsertDialog}>
-                                    <IconPlus className="h-3.5 w-3.5 mr-1.5" />
-                                    {t("insertDocument")}
-                                </Button>
+                                <div className="flex gap-2">
+                                    <Button size="sm" onClick={openInsertDialog}>
+                                        <IconPlus className="h-3.5 w-3.5 mr-1.5" />
+                                        {t("insertDocument")}
+                                    </Button>
+                                    {onImport && (
+                                        <Button size="sm" variant="outline" onClick={() => setIsImportDialogOpen(true)}>
+                                            <IconUpload className="h-3.5 w-3.5 mr-1.5" />
+                                            Import JSON
+                                        </Button>
+                                    )}
+                                </div>
                             </>
                         )}
                     </div>
@@ -571,10 +879,10 @@ export function DocumentView({
                             {documents.map((doc, index) => (
                                 <div key={doc._id} className="border rounded-lg p-2 bg-card relative group">
                                     <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2 z-10">
-                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyDocument(doc)} title={t("copyJson")}>
+                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyDocument(doc)}>
                                             <IconCopy className="h-3 w-3" />
                                         </Button>
-                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)} title={t("duplicate")}>
+                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)}>
                                             <IconPlus className="h-3 w-3 text-blue-500" />
                                         </Button>
                                         <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleEdit(doc)}>
@@ -595,11 +903,22 @@ export function DocumentView({
                         </div>
                     </ScrollArea>
                 ) : (
-                    /* Table view with typed cells */
+                    /* Table view */
                     <div className="h-full w-full overflow-auto">
                         <table className="min-w-full w-max text-sm text-left relative">
                             <thead className="text-xs text-muted-foreground uppercase bg-muted">
                                 <tr>
+                                    {showSelectMode && (
+                                        <th className="px-3 py-3 w-[44px] sticky left-0 top-0 z-30 bg-muted">
+                                            <Checkbox
+                                                checked={isAllSelected}
+                                                onCheckedChange={handleSelectAll}
+                                                aria-label="Select all"
+                                                className={cn(isIndeterminate && "data-[state=checked]:bg-primary/50")}
+                                                data-state={isIndeterminate ? "indeterminate" : isAllSelected ? "checked" : "unchecked"}
+                                            />
+                                        </th>
+                                    )}
                                     <th className="px-4 py-3 w-[50px] whitespace-nowrap font-medium text-center sticky left-0 top-0 z-30 bg-muted">#</th>
                                     {allFields.map((key) => (
                                         <th
@@ -626,44 +945,75 @@ export function DocumentView({
                                 </tr>
                             </thead>
                             <tbody>
-                                {documents.map((doc, index) => (
-                                    <tr key={doc._id} className="border-b hover:bg-muted/50 group">
-                                        <td className="px-4 py-3 font-mono text-xs text-center text-muted-foreground sticky left-0 z-10 bg-background group-hover:bg-muted/50">
-                                            {index + 1 + (page - 1) * limit}
-                                        </td>
-                                        {allFields.map((key) => (
-                                            <td
-                                                key={key}
-                                                className="px-4 py-3 align-top truncate border-r relative overflow-hidden"
-                                                style={{
-                                                    maxWidth: columnWidths[key] ? `${columnWidths[key]}px` : '300px',
-                                                    width: columnWidths[key] ? `${columnWidths[key]}px` : 'auto'
-                                                }}
-                                            >
-                                                <CellValue value={doc[key]} onViewClick={handleViewValue} />
+                                {documents.map((doc, index) => {
+                                    const isSelected = selectedIds.has(doc._id);
+                                    return (
+                                        <tr
+                                            key={doc._id}
+                                            className={cn(
+                                                "border-b hover:bg-muted/50 group transition-colors",
+                                                isSelected && "bg-primary/5 hover:bg-primary/10"
+                                            )}
+                                        >
+                                            {showSelectMode && (
+                                                <td className={cn("px-3 py-3 sticky left-0 z-10 bg-background group-hover:bg-muted/50 transition-colors", isSelected && "bg-primary/5 group-hover:bg-primary/10")}>
+                                                    <Checkbox
+                                                        checked={isSelected}
+                                                        onCheckedChange={() => handleSelectRow(doc._id)}
+                                                        aria-label="Select row"
+                                                    />
+                                                </td>
+                                            )}
+                                            <td className={cn("px-4 py-3 font-mono text-xs text-center text-muted-foreground sticky left-0 z-10 bg-background group-hover:bg-muted/50 transition-colors", isSelected && "bg-primary/5 group-hover:bg-primary/10")}>
+                                                {index + 1 + (page - 1) * limit}
                                             </td>
-                                        ))}
-                                        <td className="px-4 py-3 align-top">
-                                            <div className="flex gap-1 opacity-50 group-hover:opacity-100 transition-opacity">
-                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyDocument(doc)} title={t("copyJson")}>
-                                                    <IconCopy className="h-3 w-3" />
-                                                </Button>
-                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)} title={t("duplicate")}>
-                                                    <IconPlus className="h-3 w-3 text-blue-500" />
-                                                </Button>
-                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleEdit(doc)} title={t("editDoc")}>
-                                                    <IconPencil className="h-3 w-3" />
-                                                </Button>
-                                                <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => onDelete(doc._id)} title={t("deleteDoc")}>
-                                                    <IconTrash className="h-3 w-3" />
-                                                </Button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))}
+                                            {allFields.map((key) => (
+                                                <td
+                                                    key={key}
+                                                    className="px-4 py-3 align-top truncate border-r relative overflow-hidden"
+                                                    style={{
+                                                        maxWidth: columnWidths[key] ? `${columnWidths[key]}px` : '300px',
+                                                        width: columnWidths[key] ? `${columnWidths[key]}px` : 'auto'
+                                                    }}
+                                                >
+                                                    <CellValue value={doc[key]} onViewClick={handleViewValue} />
+                                                </td>
+                                            ))}
+                                            <td className="px-4 py-3 align-top">
+                                                <div className="flex gap-1 opacity-50 group-hover:opacity-100 transition-opacity">
+                                                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyDocument(doc)} title={t("copyJson")}>
+                                                        <IconCopy className="h-3 w-3" />
+                                                    </Button>
+                                                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)} title={t("duplicate")}>
+                                                        <IconPlus className="h-3 w-3 text-blue-500" />
+                                                    </Button>
+                                                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleEdit(doc)} title={t("editDoc")}>
+                                                        <IconPencil className="h-3 w-3" />
+                                                    </Button>
+                                                    <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => onDelete(doc._id)} title={t("deleteDoc")}>
+                                                        <IconTrash className="h-3 w-3" />
+                                                    </Button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>
+                )}
+            </div>
+
+            {/* Status bar */}
+            <div className="border-t bg-muted/10 px-4 py-1.5 flex items-center justify-between text-[10px] text-muted-foreground font-mono shrink-0">
+                <span>
+                    {loading ? 'Loading...' : documents.length > 0
+                        ? `Showing ${(page - 1) * limit + 1}–${Math.min((page - 1) * limit + documents.length, total)} of ${total.toLocaleString()} documents`
+                        : `0 documents`
+                    }
+                </span>
+                {selectedIds.size > 0 && (
+                    <span className="text-primary font-medium">{selectedIds.size} selected</span>
                 )}
             </div>
 
@@ -678,7 +1028,7 @@ export function DocumentView({
                             height="100%"
                             defaultLanguage="json"
                             value={editorContent}
-                            onChange={(value) => setEditorContent(value || "")}
+                            onChange={(v) => setEditorContent(v || "")}
                             theme={theme === 'dark' ? 'vs-dark' : 'light'}
                             options={{ minimap: { enabled: false }, fontSize: 14 }}
                         />
@@ -700,7 +1050,7 @@ export function DocumentView({
                             height="100%"
                             defaultLanguage="json"
                             value={editorContent}
-                            onChange={(value) => setEditorContent(value || "")}
+                            onChange={(v) => setEditorContent(v || "")}
                             theme={theme === 'dark' ? 'vs-dark' : 'light'}
                             options={{ minimap: { enabled: false }, fontSize: 14 }}
                         />
@@ -723,14 +1073,7 @@ export function DocumentView({
                             defaultLanguage="json"
                             value={viewValue}
                             theme={theme === 'dark' ? 'vs-dark' : 'light'}
-                            options={{
-                                minimap: { enabled: false },
-                                fontSize: 14,
-                                readOnly: true,
-                                folding: true,
-                                formatOnPaste: true,
-                                formatOnType: true,
-                            }}
+                            options={{ minimap: { enabled: false }, fontSize: 14, readOnly: true, folding: true }}
                         />
                     </div>
                     <DialogFooter>
@@ -745,6 +1088,37 @@ export function DocumentView({
                 documents={documents}
                 fields={fields}
             />
+
+            {onImport && (
+                <ImportDialog
+                    open={isImportDialogOpen}
+                    onOpenChange={setIsImportDialogOpen}
+                    onImport={onImport}
+                    collectionName={collectionName}
+                />
+            )}
+
+            {/* Bulk delete confirmation */}
+            <AlertDialog open={bulkDeleteConfirm} onOpenChange={setBulkDeleteConfirm}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Delete {selectedIds.size} document{selectedIds.size > 1 ? 's' : ''}?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This will permanently delete {selectedIds.size} document{selectedIds.size > 1 ? 's' : ''} from <strong>{collectionName}</strong>. This cannot be undone.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel disabled={bulkDeleteLoading}>{t("cancel")}</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={handleBulkDelete}
+                            disabled={bulkDeleteLoading}
+                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                        >
+                            {bulkDeleteLoading ? 'Deleting...' : 'Delete All'}
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     );
 }
