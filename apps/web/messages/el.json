@@ -59,7 +59,10 @@
     "pdfCompare": "Σύγκριση PDF",
     "pdfToPdfA": "PDF σε PDF/A",
     "pdfSign": "Υπογραφή PDF",
-    "pdfEditor": "Επεξεργαστής PDF"
+    "pdfEditor": "Επεξεργαστής PDF",
+    "breakRoom": "Αίθουσα διαλειμμάτων",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "Επεξεργαστής PDF",
         "description": "Επεξεργαστείτε PDF προσθέτοντας κείμενο, σχήματα, σχόλια και επισημάνσεις. Ασφαλές και απλό — όλα στον browser."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Σύρετε και συγχωνεύστε τα πλακίδια για να φτάσετε στο 2048. Κλασικό παιχνίδι παζλ αριθμών."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Κλασικό αριθμητικό παζλ. 3 επίπεδα δυσκολίας, 150 στάδια το καθένα."
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "Λήψη επεξεργασμένου PDF.",
     "emptyState": "Επιλέξτε PDF για σχολιασμό. Δεν μεταφορτώνεται τίποτα σε διακομιστή.",
     "busy": "Εξαγωγή…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Σύρετε τα πλακίδια και συγχωνεύστε τα για να φτάσετε στο 2048",
+    "score": "Βαθμολογία",
+    "best": "Άριστες",
+    "newGame": "#-#-#-#-#  five-or-more.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο παιχνίδι#-#-#-#-#  gnome-mahjongg.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο παιχνίδι#-#-#-#-#  gnome-nibbles.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο Παιχνίδι#-#-#-#-#  tali.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο παιχνίδι#-#-#-#-#  iagno.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο Παιχνίδι#-#-#-#-#  gnome-mines.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο Παιχνίδι#-#-#-#-#  aisleriot.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο παιχνίδι#-#-#-#-#  gnome-klotski.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο Παιχνίδι#-#-#-#-#  gnome-robots.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο Παιχνίδι#-#-#-#-#  quadrapassel.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο παιχνίδι#-#-#-#-#  gnome-tetravex.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο παιχνίδι#-#-#-#-#  gnome-sudoku.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο Παιχνίδι#-#-#-#-#  lightsoff.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο Παιχνίδι#-#-#-#-#  swell-foop.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο παιχνίδι#-#-#-#-#  four-in-a-row.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο Παιχνίδι",
+    "howToPlay": "Χρησιμοποιήστε τα πλήκτρα βέλους (ή σύρετε στο κινητό) για να μετακινήσετε τα πλακίδια. Τα πλακίδια με τον ίδιο αριθμό συγχωνεύονται. Φτάστε στο 2048 για να κερδίσετε!",
+    "youWin": "Φτάσατε στο 2048!",
+    "keepGoing": "Συνεχίζει.",
+    "gameOver": "Τέλος παιχνιδιού",
+    "tryAgain": "Δοκιμάστε ξανά",
+    "gameOverMessage": "Δεν έχεις άλλες κινήσεις"
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "ολοκληρώθηκαν τα στάδια",
+    "time": "Χρόνος",
+    "best": "Άριστες",
+    "difficulty": {
+      "easy": "Εύκολο",
+      "medium": "Μεσαίες",
+      "hard": "Δύσκολο"
+    },
+    "stage": "Φάση",
+    "solved": "Επιλύθηκε",
+    "score": "Βαθμολογία",
+    "nextStage": "Επόμενο στάδιο της διαδικασίας",
+    "replay": "Επανάληψη",
+    "erase": "Σβήσιμο",
+    "howToPlay": "Κάντε κλικ σε ένα κελί και, στη συνέχεια, πατήστε σε έναν αριθμό ή πατήστε 1–9. Το Backspace ή το Delete διαγράφει το κελί. Οι έντονοι αριθμοί είναι ενδείξεις. Γεμίστε το πλέγμα έτσι ώστε κάθε σειρά, στήλη και πλαίσιο 3×3 να περιέχει 1–9 χωρίς επαναλήψεις."
   }
 }

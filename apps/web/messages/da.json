@@ -59,7 +59,10 @@
     "pdfCompare": "Sammenlign PDF",
     "pdfToPdfA": "PDF til PDF/A",
     "pdfSign": "Underskriv PDF",
-    "pdfEditor": "PDF-editor"
+    "pdfEditor": "PDF-editor",
+    "breakRoom": "Pauserum",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Hjælp og dokumentation",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "PDF-editor",
         "description": "Rediger PDF ved at tilføje tekst, former, kommentarer og fremhævninger. Sikkert og enkelt — alt i browseren."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Skub og flet fliser for at nå 2048. Klassisk nummerpuslespil."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Klassisk nummerpuslespil. 3 sværhedsgrader, 150 faser hver."
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "Redigeret PDF downloadet.",
     "emptyState": "Vælg en PDF at annotere. Intet uploades til en server.",
     "busy": "Eksporterer…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Skub fliserne, og flet dem sammen for at nå 2048",
+    "score": "Score",
+    "best": "Bedst",
+    "newGame": "Nyt spil",
+    "howToPlay": "Brug piletasterne (eller stryg på mobilen) til at flytte fliser. Fliser med samme nummer flettes. Nå 2048 for at vinde!",
+    "youWin": "Du har nået 2048!",
+    "keepGoing": "\"Fortsæt.\"",
+    "gameOver": "Spil forbi",
+    "tryAgain": "Prøv igen",
+    "gameOverMessage": "Ikke flere bevægelser tilbage."
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "faser gennemført",
+    "time": "Tidspunkt",
+    "best": "Bedst",
+    "difficulty": {
+      "easy": "Nemt",
+      "medium": "Mellemstor",
+      "hard": "Svær"
+    },
+    "stage": "Näyttämö",
+    "solved": "Besvaret",
+    "score": "Score",
+    "nextStage": "De næste skridt",
+    "replay": "Besvar",
+    "erase": "Slet",
+    "howToPlay": "Klik på en celle, og tryk derefter på et tal, eller tryk på 1–9. Backspace eller Delete rydder cellen. Dristige tal er ledetråde. Udfyld gitteret, så hver række, kolonne og 3×3 boks indeholder 1–9 uden gentagelser."
   }
 }

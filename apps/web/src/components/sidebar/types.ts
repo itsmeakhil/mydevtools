@@ -8,6 +8,8 @@ interface User {
 
 interface BaseNavItem {
   title: string
+  /** When set, sidebar uses `Navigation.{titleKey}` instead of `title` for this row. */
+  titleKey?: string
   badge?: string
   icon?: React.ElementType
   description?: string // ✅ Added description here
@@ -29,6 +31,8 @@ type NavItem = NavCollapsible | NavLink
 
 interface NavGroup {
   title: string
+  /** When set, sidebar shows `Navigation.{titleKey}` instead of `title`. */
+  titleKey?: string
   items: NavItem[]
   collapsible?: boolean // ✅ Added collapsible property
   icon?: React.ElementType // ✅ Added icon property for group labels

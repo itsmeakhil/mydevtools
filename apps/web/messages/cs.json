@@ -59,7 +59,10 @@
     "pdfCompare": "Porovnat PDF",
     "pdfToPdfA": "PDF do PDF/A",
     "pdfSign": "Podepsat PDF",
-    "pdfEditor": "Editor PDF"
+    "pdfEditor": "Editor PDF",
+    "breakRoom": "PŘESTÁVKOVÁ MÍSTNOST",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "Editor PDF",
         "description": "Upravujte PDF přidáním textu, tvarů, komentářů a zvýraznění. Bezpečně a jednoduše — vše v prohlížeči."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Posunutím a sloučením dlaždic dosáhneš roku 2048. Klasická číselná logická hra."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Klasické číslo puzzle. 3 úrovně obtížnosti, 150 stupňů každý."
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "Upravené PDF staženo.",
     "emptyState": "Vyberte PDF k anotaci. Nic se nenahrává na server.",
     "busy": "Exportuji…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Posuň dlaždice a slouč je do roku 2048",
+    "score": "Skóre",
+    "best": "Nejlepší",
+    "newGame": "Nová hra",
+    "howToPlay": "Pomocí kláves se šipkami (nebo přejeďte na mobilu) přesuňte dlaždice. Dlaždice se stejným číslem se sloučí. Dosáhněte roku 2048 a vyhrajte!",
+    "youWin": "Dosáhli jste roku 2048!",
+    "keepGoing": "Neohlížej se",
+    "gameOver": "Konec Hry",
+    "tryAgain": "Zkusit to znovu",
+    "gameOverMessage": "Už žádné tahy."
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "etapy dokončeny",
+    "time": "Hod",
+    "best": "Nejlepší",
+    "difficulty": {
+      "easy": "Lehká",
+      "medium": "Střední",
+      "hard": "Tvrdé"
+    },
+    "stage": "Míra",
+    "solved": "Vyřešeno",
+    "score": "Skóre",
+    "nextStage": "Další etapa",
+    "replay": "Znovu přehrát",
+    "erase": "Smazat",
+    "howToPlay": "Klikněte na buňku a potom klepněte na číslo nebo stiskněte 1–9. Backspace nebo Delete vymaže buňku. Tučná čísla jsou vodítka. Vyplňte mřížku tak, aby každý řádek, sloupec a 3×3 pole obsahovaly 1–9 bez opakování."
   }
 }

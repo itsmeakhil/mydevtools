@@ -59,7 +59,10 @@
     "pdfCompare": "Comparar PDF",
     "pdfToPdfA": "PDF a PDF/A",
     "pdfSign": "Signar PDF",
-    "pdfEditor": "Editor de PDF"
+    "pdfEditor": "Editor de PDF",
+    "breakRoom": "Sala de descans",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "Editor de PDF",
         "description": "Edita PDF afegint text, formes, comentaris i ressaltats. Eina segura i senzilla — tot al navegador."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Llisca i fusiona les rajoles per arribar al 2048. Joc clàssic de trencaclosques de nombres."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Trencaclosques de números clàssics. 3 nivells de dificultat, 150 etapes cadascun."
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "PDF editat baixat.",
     "emptyState": "Trieu un PDF per anotar. No es puja res a cap servidor.",
     "busy": "S’està exportant…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Llisca les rajoles i fusiona-les per arribar al 2048",
+    "score": "Puntuació",
+    "best": "Òptim",
+    "newGame": "Nova partida",
+    "howToPlay": "Utilitza les tecles de fletxa (o llisca el mòbil) per moure les rajoles. Les rajoles amb el mateix nombre es fusionen. Fes el 2048 per guanyar!",
+    "youWin": "Has arribat al 2048!",
+    "keepGoing": "- Segueix.",
+    "gameOver": "La partida ha acabat",
+    "tryAgain": "Torna a intentar-ho",
+    "gameOverMessage": "No queden més moviments."
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "etapes completades",
+    "time": "Hora",
+    "best": "Òptim",
+    "difficulty": {
+      "easy": "Fàcil",
+      "medium": "Suport",
+      "hard": "Dur"
+    },
+    "stage": "Fase",
+    "solved": "Solucionat",
+    "score": "Puntuació",
+    "nextStage": "Següent etapa",
+    "replay": "& Repetició",
+    "erase": "Esborrar",
+    "howToPlay": "Fes clic a una cel·la i, a continuació, toca un número o prem 1–9. Backspace o Suprimeix neteja la cel·la. Els números en negreta són pistes. Omple la graella perquè cada fila, columna i quadre de 3×3 contingui de l'1 al 9 sense repeticions."
   }
 }

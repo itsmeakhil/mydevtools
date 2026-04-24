@@ -91,6 +91,30 @@ export const SudokuLayoutLazy = dynamic(
   { ssr: false, loading: toolLoading }
 )
 
+export const SnakeLayoutLazy = dynamic(
+  () =>
+    import('@/components/break-room/snake/snake-layout').then(
+      m => m.SnakeLayout
+    ),
+  { ssr: false, loading: toolLoading }
+)
+
+export const MinesweeperLayoutLazy = dynamic(
+  () =>
+    import('@/components/break-room/minesweeper/minesweeper-layout').then(
+      m => m.MinesweeperLayout
+    ),
+  { ssr: false, loading: toolLoading }
+)
+
+export const TetrisLayoutLazy = dynamic(
+  () =>
+    import('@/components/break-room/tetris/tetris-layout').then(
+      m => m.TetrisLayout
+    ),
+  { ssr: false, loading: toolLoading }
+)
+
 export const PdfToJpgPanelLazy = dynamic(
   () => import('@/components/pdf-to-jpg/pdf-to-jpg-panel').then(m => m.PdfToJpgPanel),
   { ssr: false, loading: toolLoading }

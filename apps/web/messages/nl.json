@@ -59,7 +59,10 @@
     "pdfCompare": "PDF vergelijken",
     "pdfToPdfA": "PDF naar PDF/A",
     "pdfSign": "PDF ondertekenen",
-    "pdfEditor": "PDF-editor"
+    "pdfEditor": "PDF-editor",
+    "breakRoom": "Pauzeruimte",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "PDF-editor",
         "description": "Bewerk PDF’s met tekst, vormen, opmerkingen en markeringen. Veilig en eenvoudig — alles in je browser."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Schuif en voeg tegels samen om 2048 te bereiken. Klassiek nummerpuzzelspel."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Klassieke nummerpuzzel. 3 moeilijkheidsgraden, elk 150 levels."
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "Bewerkte PDF gedownload.",
     "emptyState": "Kies een PDF om te annoteren. Er wordt niets naar een server geüpload.",
     "busy": "Exporteren…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Schuif tegels en voeg ze samen om 2048 te bereiken",
+    "score": "Score",
+    "best": "Beste",
+    "newGame": "Nieuw Spel",
+    "howToPlay": "Gebruik de pijltjestoetsen (of veeg op mobiel) om tegels te verplaatsen. Tegels met hetzelfde nummer samenvoegen. Bereik 2048 om te winnen!",
+    "youWin": "Je hebt 2048 bereikt!",
+    "keepGoing": "Doorgaan",
+    "gameOver": "Game Over",
+    "tryAgain": "Probeer het opnieuw",
+    "gameOverMessage": "GEEN ZETTEN MEER!"
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "voltooide fasen",
+    "time": "Tijd",
+    "best": "Beste",
+    "difficulty": {
+      "easy": "Gemakkelijk",
+      "medium": "Gemiddeld",
+      "hard": "Directe"
+    },
+    "stage": "Stadium",
+    "solved": "Solved",
+    "score": "Score",
+    "nextStage": "Het vervolg",
+    "replay": "Opnieuw afspelen",
+    "erase": "wissen",
+    "howToPlay": "Klik op een cel en tik vervolgens op een nummer of druk op 1–9. Backspace of Delete wist de cel. Vetgedrukte getallen zijn aanwijzingen. Vul het raster zodat elke rij, kolom en 3×3 doos 1–9 bevat zonder herhalingen."
   }
 }

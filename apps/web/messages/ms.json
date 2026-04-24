@@ -59,7 +59,10 @@
     "pdfCompare": "Bandingkan PDF",
     "pdfToPdfA": "PDF ke PDF/A",
     "pdfSign": "Tandatangani PDF",
-    "pdfEditor": "Editor PDF"
+    "pdfEditor": "Editor PDF",
+    "breakRoom": "Bilik Rehat",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -481,6 +484,14 @@
       "pdfEditor": {
         "title": "Editor PDF",
         "description": "Edit PDF dengan menambah teks, bentuk, komen dan sorotan. Selamat dan mudah — semuanya dalam pelayar."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Luncur dan gabungkan jubin untuk mencapai 2048. Permainan teka-teki nombor klasik."
+      },
+      "sudoku": {
+        "title": "Stone GNOME",
+        "description": "Teka-teki nombor klasik. 3 tahap kesukaran, 150 peringkat setiap satu."
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "PDF yang diedit dimuat turun.",
     "emptyState": "Pilih PDF untuk anotasi. Tiada apa dimuat naik ke pelayan.",
     "busy": "Mengeksport…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Gelongsor jubin dan gabungkannya untuk mencapai 2048",
+    "score": "Markah",
+    "best": "Terbaik",
+    "newGame": "Permaina_n Baru",
+    "howToPlay": "Gunakan kekunci anak panah (atau leret pada telefon bimbit) untuk mengalihkan jubin. Jubin dengan nombor yang sama bergabung. Capai 2048 untuk menang!",
+    "youWin": "Anda telah mencapai 2048!",
+    "keepGoing": "Teruskan",
+    "gameOver": "Permainan Tamat",
+    "tryAgain": "Cuba Sekali Lagi",
+    "gameOverMessage": "Tiada lagi pergerakan yang tinggal."
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "peringkat selesai",
+    "time": "Masa",
+    "best": "Terbaik",
+    "difficulty": {
+      "easy": "Mudah",
+      "medium": "Sederhana",
+      "hard": "Susah"
+    },
+    "stage": "Tahap",
+    "solved": "TELAH DISELESAIKAN",
+    "score": "Markah",
+    "nextStage": "Peringkat seterusnya",
+    "replay": "Penapis",
+    "erase": "Padam",
+    "howToPlay": "Klik sel, kemudian ketik nombor atau tekan 1–9. Backspace atau Delete membersihkan sel. Nombor tebal adalah petunjuk. Isi grid supaya setiap baris, lajur, dan kotak 3×3 mengandungi 1–9 tanpa ulangan."
   }
 }

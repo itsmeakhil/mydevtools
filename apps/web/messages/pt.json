@@ -59,7 +59,10 @@
     "pdfCompare": "Comparar PDF",
     "pdfToPdfA": "PDF para PDF/A",
     "pdfSign": "Assinar PDF",
-    "pdfEditor": "Editor de PDF"
+    "pdfEditor": "Editor de PDF",
+    "breakRoom": "Sala de descanso",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Ajuda e documentação",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "Editor de PDF",
         "description": "Edite PDF adicionando texto, formas, comentários e realces. Ferramenta segura e simples — tudo no navegador."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Deslize e mescle as peças para chegar a 2048. Clássico jogo de quebra-cabeças numéricos."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Puzzle numérico clássico. 3 níveis de dificuldade, 150 estágios cada."
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "PDF editado descarregado.",
     "emptyState": "Escolha um PDF para anotar. Nada é enviado para um servidor.",
     "busy": "A exportar…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Deslize as peças e mescle-as para chegar a 2048",
+    "score": "Pontuação",
+    "best": "Cumprimentos",
+    "newGame": "Novo jogo ",
+    "howToPlay": "Use as teclas de seta (ou deslize o dedo no celular) para mover as peças. Blocos com o mesmo número são mesclados. Chegue a 2048 para ganhar!",
+    "youWin": "Atingiu 2048!",
+    "keepGoing": "Continua",
+    "gameOver": "Acabou o Jogo",
+    "tryAgain": "Tentar novamente",
+    "gameOverMessage": "Não há mais movimentos!"
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "etapas concluídas",
+    "time": "Hora",
+    "best": "Cumprimentos",
+    "difficulty": {
+      "easy": "Fácil",
+      "medium": "Médio",
+      "hard": "Dura"
+    },
+    "stage": "Etapa",
+    "solved": "Resolvido",
+    "score": "Pontuação",
+    "nextStage": "Próxima fase",
+    "replay": "Repetir",
+    "erase": "",
+    "howToPlay": "Clique numa célula e, em seguida, toque num número ou prima 1–9. Backspace ou Delete limpa a célula. Números em negrito são pistas. Preencha a grade para que cada linha, coluna e caixa 3×3 contenha 1–9 sem repetições."
   }
 }

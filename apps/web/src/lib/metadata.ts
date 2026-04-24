@@ -407,6 +407,24 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['sudoku', 'sudoku online', 'sudoku game', 'sudoku puzzle', 'easy sudoku', 'hard sudoku', 'brain game', 'developer break'],
         aiSummary: 'Play Sudoku with 450 unique puzzles (150 per difficulty: easy, medium, hard). Arrow-key navigation, conflict highlighting, timer, and score tracking — sign in to save progress.',
     },
+    'break-room/snake': {
+        title: 'Snake',
+        description: 'Play the classic Snake game in your browser. Eat food, grow your snake, avoid walls and yourself. Speed increases as your score climbs.',
+        keywords: ['snake game', 'snake online', 'classic snake', 'browser game', 'developer break', 'brain break'],
+        aiSummary: 'Classic Snake game: arrow keys or WASD to move, eat food to grow, avoid walls and yourself. Speed ramps up every 50 points. Best score saved locally.',
+    },
+    'break-room/minesweeper': {
+        title: 'Minesweeper',
+        description: 'Play classic Minesweeper in your browser. Three difficulty levels: beginner, intermediate, and expert. Left click to reveal, right click to flag.',
+        keywords: ['minesweeper', 'minesweeper online', 'classic minesweeper', 'browser game', 'developer break', 'puzzle game'],
+        aiSummary: 'Classic Minesweeper: left click to reveal, right click to flag. Beginner (9×9, 10 mines), intermediate (16×16, 40 mines), expert (30×16, 99 mines). First click is always safe.',
+    },
+    'break-room/tetris': {
+        title: 'Tetris',
+        description: 'Play classic Tetris in your browser. Stack falling pieces, clear lines, and level up. Arrow keys to move, Space for hard drop.',
+        keywords: ['tetris', 'tetris online', 'classic tetris', 'browser game', 'developer break', 'block puzzle'],
+        aiSummary: 'Classic Tetris: arrow keys to move and rotate, Space for hard drop, P to pause. Ghost piece preview, speed increases per level. Best score saved locally.',
+    },
 }
 
 function toolMetaDescription(tool: ToolMetadataEntry): string {

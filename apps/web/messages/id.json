@@ -59,7 +59,10 @@
     "pdfCompare": "Bandingkan PDF",
     "pdfToPdfA": "PDF ke PDF/A",
     "pdfSign": "Tandatangani PDF",
-    "pdfEditor": "Editor PDF"
+    "pdfEditor": "Editor PDF",
+    "breakRoom": "Ruang Istirahat",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "Editor PDF",
         "description": "Edit PDF dengan menambahkan teks, bentuk, komentar, dan sorotan. Aman dan sederhana — semua di peramban."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Geser dan gabungkan ubin untuk mencapai 2048. Permainan puzzle angka klasik."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Teka - teki angka klasik. 3 tingkat kesulitan, masing - masing 150 tahap."
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "PDF yang diedit telah diunduh.",
     "emptyState": "Pilih PDF untuk dianotasi. Tidak ada yang diunggah ke server.",
     "busy": "Mengekspor…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Geser ubin dan gabungkan untuk mencapai 2048",
+    "score": "Skor",
+    "best": "Terbaik",
+    "newGame": "Permainan Baru",
+    "howToPlay": "Gunakan tombol panah (atau geser di ponsel) untuk memindahkan ubin. Ubin dengan jumlah yang sama bergabung. Raih 2048 untuk menang!",
+    "youWin": "Anda mencapai 2048!",
+    "keepGoing": "Teruskan",
+    "gameOver": "Permainan Berakhir",
+    "tryAgain": "Coba Lagi",
+    "gameOverMessage": "Tidak ada lagi gerakan yang tersisa."
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "tahapan selesai",
+    "time": "Waktu",
+    "best": "Terbaik",
+    "difficulty": {
+      "easy": "Mudah",
+      "medium": "Sedang",
+      "hard": "Sulit"
+    },
+    "stage": "Babak",
+    "solved": "Solved",
+    "score": "Skor",
+    "nextStage": "Tahap berikutnya",
+    "replay": "Putar Ulang",
+    "erase": "Hapus",
+    "howToPlay": "Klik sel, lalu ketuk angka atau tekan 1 -9. Backspace atau Delete membersihkan sel. Angka tebal adalah petunjuk. Isi grid sehingga setiap baris, kolom, dan kotak 3×3 berisi 1 -9 tanpa pengulangan."
   }
 }

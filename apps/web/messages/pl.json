@@ -59,7 +59,10 @@
     "pdfCompare": "Porównaj PDF",
     "pdfToPdfA": "PDF do PDF/A",
     "pdfSign": "Podpisz PDF",
-    "pdfEditor": "Edytor PDF"
+    "pdfEditor": "Edytor PDF",
+    "breakRoom": "Pomieszczenie socjalne",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "Edytor PDF",
         "description": "Edytuj PDF, dodając tekst, kształty, komentarze i podświetlenia. Proste i bezpieczne narzędzie — wszystko w przeglądarce."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Przesuń i połącz płytki, aby osiągnąć 2048 rok. Klasyczna gra logiczna z liczbami."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Klasyczna łamigłówka z numerem. 3 poziomy trudności, po 150 etapów."
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "Edytowany PDF został pobrany.",
     "emptyState": "Wybierz PDF do adnotacji. Nic nie jest wysyłane na serwer.",
     "busy": "Eksportowanie…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Przesuń płytki i połącz je, aby osiągnąć 2048",
+    "score": "Wynik",
+    "best": "Z poważaniem",
+    "newGame": "Nowa gra",
+    "howToPlay": "Użyj klawiszy strzałek (lub przesuń palcem po telefonie komórkowym), aby przesunąć kafelki. Kafelki o tej samej liczbie scalają się. Osiągnij 2048, aby wygrać!",
+    "youWin": "Osiągnąłeś 2048 rok!",
+    "keepGoing": "Nie przerywaj",
+    "gameOver": "Koniec gry",
+    "tryAgain": "Ponów",
+    "gameOverMessage": "Nie ma więcej ruchów."
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "etapy ukończone",
+    "time": "Okres",
+    "best": "Z poważaniem",
+    "difficulty": {
+      "easy": "Łatwo",
+      "medium": "Średni",
+      "hard": "Twarda"
+    },
+    "stage": "Etap",
+    "solved": "Rozwiązane",
+    "score": "Wynik",
+    "nextStage": "Następny etap",
+    "replay": "Powtórka",
+    "erase": "Wymaż",
+    "howToPlay": "Kliknij komórkę, a następnie naciśnij liczbę lub naciśnij 1–9. Backspace lub Delete czyści komórkę. Pogrubione liczby są wskazówkami. Wypełnij siatkę tak, aby każdy wiersz, kolumna i pole 3×3 zawierały 1–9 bez powtórzeń."
   }
 }

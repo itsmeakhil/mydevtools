@@ -59,7 +59,10 @@
     "pdfCompare": "Jämför PDF",
     "pdfToPdfA": "PDF till PDF/A",
     "pdfSign": "Signera PDF",
-    "pdfEditor": "PDF-redigerare"
+    "pdfEditor": "PDF-redigerare",
+    "breakRoom": "Pausrum",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "PDF-redigerare",
         "description": "Redigera PDF genom att lägga till text, former, kommentarer och markeringar. Säkert och enkelt — allt i webbläsaren."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Skjut och slå samman plattor för att nå 2048. Klassiskt nummerpusselspel."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Klassiskt nummerpussel. 3 svårighetsgrader, 150 steg vardera."
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "Redigerad PDF nedladdad.",
     "emptyState": "Välj en PDF att annotera. Inget laddas upp till en server.",
     "busy": "Exporterar…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Skjut brickor och slå ihop dem för att nå 2048",
+    "score": "Poäng",
+    "best": "Bäst",
+    "newGame": "Nytt spel",
+    "howToPlay": "Använd piltangenterna (eller svep på mobilen) för att flytta brickor. Plattor med samma nummer slås samman. Nå 2048 för att vinna!",
+    "youWin": "Du har nått 2048!",
+    "keepGoing": "Fortsätt så!",
+    "gameOver": "Spelet är slut",
+    "tryAgain": "Försök igen",
+    "gameOverMessage": "Inga fler rörelser kvar."
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "etapper slutförda",
+    "time": "Tid",
+    "best": "Bäst",
+    "difficulty": {
+      "easy": "Lätt",
+      "medium": "Medium",
+      "hard": "Svår"
+    },
+    "stage": "Stage",
+    "solved": "Löst",
+    "score": "Poäng",
+    "nextStage": "Andra linje",
+    "replay": "Repris",
+    "erase": "Radera",
+    "howToPlay": "Klicka på en cell och tryck sedan på ett nummer eller tryck på 1–9. Backsteg eller Radera rensar cellen. Djärva siffror är ledtrådar. Fyll rutnätet så att varje rad, kolumn och 3× 3-ruta innehåller 1–9 utan upprepningar."
   }
 }
