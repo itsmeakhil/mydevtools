@@ -8,10 +8,20 @@ import { MobileNav } from '@/components/mobile-nav';
 import useAuth from '@/utils/useAuth';
 import { EnsureBackendSession } from '@/components/ensure-backend-session';
 import { MasterPasswordGate } from '@/components/master-password-gate';
+import { Loader2 } from 'lucide-react';
 
 export function AppContent({ children }: { children: React.ReactNode }) {
   const { state } = useSidebar();
-  const { user } = useAuth(false);
+  const { user, loading } = useAuth(true);
+
+  if (loading || !user) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center gap-3 bg-background">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" aria-hidden />
+        <p className="text-sm text-muted-foreground">Loading…</p>
+      </div>
+    );
+  }
 
   return (
     <div
