@@ -45,8 +45,8 @@ export function AppContent({ children }: { children: React.ReactNode }) {
           <div className="shrink-0 z-20 bg-background">
             <NavBar />
           </div>
-          <div className="flex-1 flex flex-col z-10 min-w-0 min-h-0 overflow-hidden">
-            <div className="flex-1 min-w-0 min-h-0 overflow-hidden">
+          <div className="z-10 flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+            <div className="h-full min-h-0 min-w-0 flex-1 overflow-hidden">
               <EnsureBackendSession user={user}>
                 <MasterPasswordGate>
                   {children}

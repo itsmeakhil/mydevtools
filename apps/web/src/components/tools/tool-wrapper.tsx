@@ -4,12 +4,15 @@ import { ReactNode, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useToolUsage } from '@/hooks/use-tool-usage';
 import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 interface ToolWrapperProps {
   children: ReactNode;
   toolId: string;
   className?: string;
   maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '4xl' | '5xl' | 'full';
+  /** Fill the app main column with minimal padding (full-height tools). */
+  fillMain?: boolean;
 }
 
 const maxWidthClasses = {
@@ -32,6 +35,7 @@ export function ToolWrapper({
   toolId,
   className = '',
   maxWidth = '4xl',
+  fillMain = false,
 }: ToolWrapperProps) {
   const pathname = usePathname();
   const { trackToolUsage } = useToolUsage();
@@ -42,9 +46,30 @@ export function ToolWrapper({
   }, [toolId, pathname, trackToolUsage]);
 
   return (
-    <div className={`min-h-screen bg-background text-foreground p-2 md:p-4 ${className}`}>
-      <Card className={`${maxWidthClasses[maxWidth]} mx-auto`}>
-        <CardContent className="pt-6">
+    <div
+      className={cn(
+        'bg-background text-foreground',
+        fillMain
+          ? 'flex h-full min-h-0 flex-col p-1 md:p-2'
+          : 'min-h-screen p-2 md:p-4',
+        className
+      )}
+    >
+      <Card
+        className={cn(
+          maxWidthClasses[maxWidth],
+          'mx-auto w-full',
+          fillMain &&
+            'flex min-h-0 flex-1 flex-col rounded-none border-0 bg-transparent shadow-none'
+        )}
+      >
+        <CardContent
+          className={cn(
+            fillMain
+              ? 'flex min-h-0 flex-1 flex-col p-1 pt-1 sm:p-2 sm:pt-2'
+              : 'pt-6'
+          )}
+        >
           {children}
         </CardContent>
       </Card>

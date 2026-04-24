@@ -35,7 +35,7 @@ import {
   SNIPPET_LANGUAGE_AUTO,
   SNIPPET_MONACO_LANGUAGES,
 } from "@/lib/snippet-language";
-import { ToolHeader } from "@/components/tools/tool-header";
+import { ToolPinButton } from "@/components/tools/tool-header";
 import { ToolWrapper } from "@/components/tools/tool-wrapper";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -705,8 +705,13 @@ export function SnippetManagerTool() {
 
   if (!selectedId && snippets.length === 0) {
     return (
-      <ToolWrapper toolId="snippet-manager" maxWidth="full" className="p-4">
-        <Button onClick={handleNew}>{t("newSnippet")}</Button>
+      <ToolWrapper toolId="snippet-manager" maxWidth="full" fillMain className="min-h-0">
+        <div className="flex flex-1 flex-col items-center justify-center gap-3 p-4">
+          <div className="flex items-center gap-2">
+            <Button onClick={handleNew}>{t("newSnippet")}</Button>
+            <ToolPinButton toolId="snippet-manager" className="h-9 w-9" />
+          </div>
+        </div>
       </ToolWrapper>
     );
   }
@@ -715,16 +720,10 @@ export function SnippetManagerTool() {
 
   if (isMobile) {
     return (
-      <ToolWrapper toolId="snippet-manager" maxWidth="full" className="min-h-0">
-        <div className="flex h-full min-h-0 flex-1 flex-col gap-3 p-2">
-          <ToolHeader
-            title={t("title")}
-            description={t("subtitle")}
-            toolId="snippet-manager"
-          />
-
+      <ToolWrapper toolId="snippet-manager" maxWidth="full" fillMain className="min-h-0">
+        <div className="flex min-h-0 flex-1 flex-col gap-2">
           {/* Mobile top bar */}
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5">
             <Sheet open={listOpen} onOpenChange={setListOpen}>
               <SheetTrigger asChild>
                 <button
@@ -757,11 +756,12 @@ export function SnippetManagerTool() {
                 <div className="h-[calc(75vh-4rem)] p-4">{snippetList}</div>
               </SheetContent>
             </Sheet>
+            <ToolPinButton toolId="snippet-manager" className="h-9 w-9 shrink-0" />
             <Button
               type="button"
               size="icon"
               variant="secondary"
-              className="h-10 w-10 shrink-0 cursor-pointer"
+              className="h-9 w-9 shrink-0 cursor-pointer"
               onClick={handleNew}
               aria-label={t("newSnippet")}
             >
@@ -788,36 +788,33 @@ export function SnippetManagerTool() {
   // ── Desktop layout ────────────────────────────────────────────────────────
 
   return (
-    <ToolWrapper toolId="snippet-manager" maxWidth="full" className="min-h-0">
-      <div className="flex h-full min-h-0 flex-1 flex-col gap-3 p-4">
-        <ToolHeader
-          title={t("title")}
-          description={t("subtitle")}
-          toolId="snippet-manager"
-        />
-
+    <ToolWrapper toolId="snippet-manager" maxWidth="full" fillMain className="min-h-0">
+      <div className="flex min-h-0 flex-1 flex-col gap-1.5">
         <ResizablePanelGroup
           direction="horizontal"
-          className="min-h-[520px] flex-1 overflow-hidden rounded-xl border border-border/50"
+          className="min-h-0 flex-1 overflow-hidden rounded-lg border border-border/50 md:rounded-xl"
         >
           {/* List panel */}
           <ResizablePanel defaultSize={26} minSize={18} maxSize={38}>
-            <div className="flex h-full flex-col border-r border-border/50">
+            <div className="flex h-full min-h-0 flex-col border-r border-border/50">
               {/* List header */}
-              <div className="flex shrink-0 items-center justify-between border-b border-border/50 px-3 py-2">
-                <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              <div className="flex shrink-0 items-center justify-between gap-2 border-b border-border/50 px-2 py-1.5 sm:px-3 sm:py-2">
+                <span className="min-w-0 truncate text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                   {t("snippets")}
                 </span>
-                <Button
-                  type="button"
-                  size="icon"
-                  variant="ghost"
-                  className="h-6 w-6 cursor-pointer"
-                  onClick={handleNew}
-                  aria-label={t("newSnippet")}
-                >
-                  <IconPlus className="h-3.5 w-3.5" />
-                </Button>
+                <div className="flex shrink-0 items-center gap-0.5">
+                  <ToolPinButton toolId="snippet-manager" className="h-6 w-6" />
+                  <Button
+                    type="button"
+                    size="icon"
+                    variant="ghost"
+                    className="h-6 w-6 cursor-pointer"
+                    onClick={handleNew}
+                    aria-label={t("newSnippet")}
+                  >
+                    <IconPlus className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
               </div>
 
               {/* Search */}
