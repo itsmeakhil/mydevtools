@@ -533,6 +533,7 @@ export const sidebarData: SidebarData = {
     },
     {
       title: 'Break Room',
+      titleKey: 'breakRoom',
       icon: IconDeviceGamepad2,
       items: [
         {
@@ -546,6 +547,26 @@ export const sidebarData: SidebarData = {
           url: '/app/break-room/sudoku',
           icon: IconDeviceGamepad2,
           description: 'Classic number puzzle. 3 difficulty levels, 150 stages each.',
+        },
+        {
+          title: 'Snake',
+          url: '/app/break-room/snake',
+          icon: IconDeviceGamepad2,
+          description: 'Classic snake game. Eat food, grow, avoid walls and yourself.',
+          badge: 'new',
+        },
+        {
+          title: 'Minesweeper',
+          url: '/app/break-room/minesweeper',
+          icon: IconDeviceGamepad2,
+          description: 'Classic Minesweeper. Beginner, intermediate, and expert modes.',
+          badge: 'new',
+        },
+        {
+          title: 'Tetris',
+          url: '/app/break-room/tetris',
+          icon: IconDeviceGamepad2,
+          description: 'Classic Tetris. Stack pieces, clear lines, level up.',
           badge: 'new',
         },
       ],

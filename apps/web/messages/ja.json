@@ -59,7 +59,10 @@
     "pdfCompare": "PDF を比較",
     "pdfToPdfA": "PDFをPDF/Aへ",
     "pdfSign": "PDF に署名",
-    "pdfEditor": "PDFエディター"
+    "pdfEditor": "PDFエディター",
+    "breakRoom": "休憩室",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "PDFエディター",
         "description": "テキスト・図形・コメント・ハイライトでPDFを編集。安全でシンプル — すべてブラウザ内で処理。"
+      },
+      "game2048": {
+        "title": "2048年",
+        "description": "タイルをスライドさせてマージし、2048に到達します。クラシックなナンバーパズルゲーム。"
+      },
+      "sudoku": {
+        "title": "数独",
+        "description": "クラシックな数字パズル。3つの難易度、それぞれ150ステージ。"
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "編集済みPDFをダウンロードしました。",
     "emptyState": "注釈を付けるPDFを選択してください。サーバーへはアップロードされません。",
     "busy": "書き出し中…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "タイルをスライドさせてマージし、2048に到達します",
+    "score": "スコア",
+    "best": "おすすめ",
+    "newGame": "新しいゲーム",
+    "howToPlay": "タイルを移動するには、矢印キー（またはモバイルでスワイプ）を使用します。同じ番号のタイルがマージされます。2048年に到達して勝利しましょう！",
+    "youWin": "2048に到達しました！",
+    "keepGoing": "立ち止まるな",
+    "gameOver": "ゲームオーバー",
+    "tryAgain": "再試行してください。",
+    "gameOverMessage": "これ以上のムーブはありません。"
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "個のステージが完了しました",
+    "time": "時刻",
+    "best": "おすすめ",
+    "difficulty": {
+      "easy": "イージー",
+      "medium": "中",
+      "hard": "ハード"
+    },
+    "stage": "段階",
+    "solved": "解決済",
+    "score": "スコア",
+    "nextStage": "ステージ",
+    "replay": "リプレイ",
+    "erase": "删除",
+    "howToPlay": "セルをクリックし、数字をタップするか、1 -9を押します。BackspaceまたはDeleteを選択すると、セルがクリアされます。太字の数字は手がかりです。すべての行、列、および3 × 3ボックスに1 -9が繰り返されないように、グリッドを塗りつぶします。"
   }
 }

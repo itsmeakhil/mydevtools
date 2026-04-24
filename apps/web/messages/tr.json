@@ -59,7 +59,10 @@
     "pdfCompare": "PDF karşılaştır",
     "pdfToPdfA": "PDF’den PDF/A’ya",
     "pdfSign": "PDF imzala",
-    "pdfEditor": "PDF düzenleyici"
+    "pdfEditor": "PDF düzenleyici",
+    "breakRoom": "Mola Odası",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "PDF düzenleyici",
         "description": "Metin, şekil, yorum ve vurgu ekleyerek PDF düzenleyin. Güvenli ve basit — tamamen tarayıcıda."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "2048 'e ulaşmak için döşemeleri kaydır ve birleştir. Klasik sayı bulmaca oyunu."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Klasik sayı bulmacası. 3 zorluk seviyesi, her biri 150 aşama."
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "Düzenlenmiş PDF indirildi.",
     "emptyState": "Not eklemek için bir PDF seçin. Sunucuya hiçbir şey yüklenmez.",
     "busy": "Dışa aktarılıyor…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "2048 'e ulaşmak için döşemeleri kaydır ve birleştir",
+    "score": "Not",
+    "best": "En iyi",
+    "newGame": "Yeni oyun",
+    "howToPlay": "Taşları taşımak için ok tuşlarını kullanın (veya mobil cihazlarda kaydırın). Aynı sayıdaki döşemeler birleşir. Kazanmak için 2048 'e ulaş!",
+    "youWin": "2048 'e ulaştınız!",
+    "keepGoing": "Devam Et",
+    "gameOver": "Oyun bitti",
+    "tryAgain": "Tekrar Deneyin",
+    "gameOverMessage": "Başka hamle kalmadı."
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "tamamlanan aşamalar",
+    "time": "Zaman",
+    "best": "En iyi",
+    "difficulty": {
+      "easy": "Basit ",
+      "medium": "Orta",
+      "hard": "Zor"
+    },
+    "stage": "Aşama",
+    "solved": "Çözüldü",
+    "score": "Not",
+    "nextStage": "Bir Sonraki Aşama",
+    "replay": "Tekrar Oynayın",
+    "erase": "Sil",
+    "howToPlay": "Bir hücreye tıklayın, ardından bir numaraya dokunun veya 1 -9 'a basın. Backspace veya Delete hücreyi temizler. Cesur sayılar ipucudur. Gridi doldurun, böylece her satır, sütun ve 3×3 kutu tekrarsız 1 -9 içerir."
   }
 }

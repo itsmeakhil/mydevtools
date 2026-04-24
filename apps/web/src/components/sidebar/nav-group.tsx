@@ -45,6 +45,7 @@ import { usePinnedToolsStore } from "@/store/pinned-tools-store";
 // Define the props interface for NavGroup
 interface NavGroupProps {
   title: string;
+  titleKey?: string;
   items: (NavLink | NavCollapsible)[];
   collapsible?: boolean;
   icon?: React.ElementType;
@@ -52,11 +53,13 @@ interface NavGroupProps {
 }
 
 // Main NavGroup Component
-export function NavGroup({ title, items, collapsible, icon: Icon, hiddenOnMobile }: NavGroupProps) {
+export function NavGroup({ title, titleKey, items, collapsible, icon: Icon, hiddenOnMobile }: NavGroupProps) {
   const { state, isMobile } = useSidebar();
   const pathname = usePathname();
   const { user, loading } = useAuth(false); // Check auth state with loading
   const { isToolEnabled } = useToolVisibility();
+  const tNav = useTranslations("Navigation");
+  const groupTitle = titleKey ? tNav(titleKey as never) : title;
 
   // Filter items based on mobile state and tool availability
   const visibleItems = items
@@ -154,10 +157,10 @@ export function NavGroup({ title, items, collapsible, icon: Icon, hiddenOnMobile
                   <TooltipTrigger asChild>
                     <Icon className="mr-2 group-data-[collapsible=icon]:mr-0 group-data-[collapsible=icon]:size-4" size={16} />
                   </TooltipTrigger>
-                  <TooltipContent side="right" align="center" className="capitalize">{title}</TooltipContent>
+                  <TooltipContent side="right" align="center" className="capitalize">{groupTitle}</TooltipContent>
                 </Tooltip>
               )}
-              <span className="group-data-[collapsible=icon]:hidden">{title}</span>
+              <span className="group-data-[collapsible=icon]:hidden">{groupTitle}</span>
               <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 group-data-[collapsible=icon]:hidden" />
             </CollapsibleTrigger>
           </SidebarGroupLabel>
@@ -179,10 +182,10 @@ export function NavGroup({ title, items, collapsible, icon: Icon, hiddenOnMobile
             <TooltipTrigger asChild>
               <Icon className="mr-2" size={16} />
             </TooltipTrigger>
-            <TooltipContent side="right" align="center" className="capitalize">{title}</TooltipContent>
+            <TooltipContent side="right" align="center" className="capitalize">{groupTitle}</TooltipContent>
           </Tooltip>
         )}
-        {title}
+        {groupTitle}
       </SidebarGroupLabel>
       {content}
     </SidebarGroup>
@@ -270,6 +273,8 @@ const SidebarMenuCollapsible = ({
 }) => {
   const { setOpenMobile } = useSidebar();
   const { user, loading } = useAuth(false);
+  const tNav = useTranslations("Navigation");
+  const parentLabel = item.titleKey ? tNav(item.titleKey as never) : item.title;
 
   // Use centralized requiresAuth function from tool-config
 
@@ -292,9 +297,9 @@ const SidebarMenuCollapsible = ({
     >
       <SidebarMenuItem>
         <CollapsibleTrigger asChild>
-          <SidebarMenuButton tooltip={item.title}>
+          <SidebarMenuButton tooltip={parentLabel}>
             {item.icon && <item.icon />}
-            <span>{item.title}</span>
+            <span>{parentLabel}</span>
             {item.badge && <NavBadge>{item.badge}</NavBadge>}
             <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
           </SidebarMenuButton>
@@ -362,6 +367,8 @@ const SidebarMenuCollapsedDropdown = ({
   href: string;
 }) => {
   const { user, loading } = useAuth(false);
+  const tNav = useTranslations("Navigation");
+  const parentLabel = item.titleKey ? tNav(item.titleKey as never) : item.title;
 
   // Use centralized requiresAuth function from tool-config
 
@@ -382,18 +389,18 @@ const SidebarMenuCollapsedDropdown = ({
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
-              tooltip={item.title}
+              tooltip={parentLabel}
               isActive={checkIsActive(href, item)}
             >
               {item.icon && <item.icon />}
-              <span>{item.title}</span>
+              <span>{parentLabel}</span>
               {item.badge && <NavBadge>{item.badge}</NavBadge>}
               <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent side="right" align="start" sideOffset={4}>
             <DropdownMenuLabel>
-              {item.title} {item.badge ? `(${item.badge})` : ""}
+              {parentLabel} {item.badge ? `(${item.badge})` : ""}
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             {item.items.map((sub) => {

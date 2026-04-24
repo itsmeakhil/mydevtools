@@ -59,7 +59,10 @@
     "pdfCompare": "Vergelyk PDF",
     "pdfToPdfA": "PDF na PDF/A",
     "pdfSign": "Teken PDF",
-    "pdfEditor": "PDF-redigeerder"
+    "pdfEditor": "PDF-redigeerder",
+    "breakRoom": "Breek Kamer",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "PDF-redigeerder",
         "description": "Redigeer PDF’s deur teks, vorms, opmerkings en merke by te voeg. Veilig en eenvoudig — alles in jou blaaier."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Skuif en saamsmelt teëls om 2048 te bereik. Klassieke nommer legkaart spel."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Klassieke getal legkaart. 3 moeilikheidsgraad, 150 stadiums elk."
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "Gewysigde PDF afgelaai.",
     "emptyState": "Kies ’n PDF om te annoteer. Niks word na ’n bediener opgelaai nie.",
     "busy": "Voer uit…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Skuif teëls en smelt hulle saam om 2048 te bereik",
+    "score": "Telling",
+    "best": "Best",
+    "newGame": "Nuwe Spel",
+    "howToPlay": "Gebruik pyltjie sleutels (of krap op mobiele) teëls te beweeg. Teëls met dieselfde nommer smelt saam. Bereik 2048 om te winnen!",
+    "youWin": "Jy het 2048 bereik!",
+    "keepGoing": "Gaan voort",
+    "gameOver": "Speletjie Verby",
+    "tryAgain": " Probeer weer",
+    "gameOverMessage": "Geen beweeg meer nie."
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "fases voltooi",
+    "time": "Tyd",
+    "best": "Best",
+    "difficulty": {
+      "easy": "Maklik",
+      "medium": "Gemiddeld",
+      "hard": ""
+    },
+    "stage": "Stadium",
+    "solved": "opgelos",
+    "score": "Telling",
+    "nextStage": "Volgende fase",
+    "replay": "Speel Weer",
+    "erase": "Uitvee",
+    "howToPlay": "Klik op 'n sel, tik dan op 'n nommer of druk 1–9. Agterruimte of Uitvee maak die sel skoon. Vet getalle is leidrade. Vul die rooster sodat elke ry, kolom, en 3x3 boks bevat 1–9 met geen herhalings."
   }
 }

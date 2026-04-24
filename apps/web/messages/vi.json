@@ -59,7 +59,10 @@
     "pdfCompare": "So sánh PDF",
     "pdfToPdfA": "PDF sang PDF/A",
     "pdfSign": "Ký PDF",
-    "pdfEditor": "Trình sửa PDF"
+    "pdfEditor": "Trình sửa PDF",
+    "breakRoom": "Phòng Nghỉ",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "Trình sửa PDF",
         "description": "Chỉnh sửa PDF bằng cách thêm chữ, hình, ghi chú và tô sáng. An toàn, đơn giản — tất cả trên trình duyệt."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Trượt và hợp nhất các ô để đạt đến năm 2048. Trò chơi giải đố số cổ điển."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Câu đố số cổ điển. 3 cấp độ khó, mỗi cấp độ 150 cấp độ."
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "Đã tải xuống PDF đã chỉnh sửa.",
     "emptyState": "Chọn PDF để chú thích. Không tải lên máy chủ.",
     "busy": "Đang xuất…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Trượt các ô và hợp nhất chúng để đạt đến năm 2048",
+    "score": "Điểm",
+    "best": "Trân trọng",
+    "newGame": "Trò chơi Same",
+    "howToPlay": "Sử dụng các phím mũi tên (hoặc vuốt trên thiết bị di động) để di chuyển các ô. Các ô có cùng số hợp nhất. Đạt đến 2048 để giành chiến thắng!",
+    "youWin": "Bạn đã đạt đến năm 2048!",
+    "keepGoing": "Hãy phát huy",
+    "gameOver": "Kết thúc Trò chơi",
+    "tryAgain": "Thử lại",
+    "gameOverMessage": "Không còn động thái nào nữa."
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "đã hoàn thành các giai đoạn",
+    "time": "Thời gian",
+    "best": "Trân trọng",
+    "difficulty": {
+      "easy": "Dễ",
+      "medium": "Trung bình",
+      "hard": "Khó"
+    },
+    "stage": "Giai đoạn",
+    "solved": "Đã được chấp nhận",
+    "score": "Điểm",
+    "nextStage": "GIAI ĐOẠN TIẾP THEO",
+    "replay": "Phát lại",
+    "erase": "Xóa",
+    "howToPlay": "Nhấp vào một ô, sau đó nhấn vào một số hoặc nhấn 1–9. Backspace hoặc Delete sẽ xóa ô. Những con số đậm là manh mối. Điền vào lưới để mỗi hàng, cột và hộp 3×3 chứa 1–9 mà không lặp lại."
   }
 }

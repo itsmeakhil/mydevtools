@@ -59,7 +59,10 @@
     "pdfCompare": "Comparer des PDF",
     "pdfToPdfA": "PDF vers PDF/A",
     "pdfSign": "Signer un PDF",
-    "pdfEditor": "Éditeur PDF"
+    "pdfEditor": "Éditeur PDF",
+    "breakRoom": "Salle de pause",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "Éditeur PDF",
         "description": "Modifiez un PDF en ajoutant du texte, des formes, des commentaires et des surlignages. Outil simple et sécurisé — tout dans le navigateur."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Faites glisser et fusionnez les carreaux pour atteindre 2048. Jeu de puzzle à numéro classique."
+      },
+      "sudoku": {
+        "title": "Patience",
+        "description": "Puzzle à numéro classique. 3 niveaux de difficulté, 150 niveaux chacun."
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "PDF modifié téléchargé.",
     "emptyState": "Choisissez un PDF à annoter. Rien n’est envoyé sur un serveur.",
     "busy": "Export en cours…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Faites glisser les carreaux et fusionnez-les pour atteindre 2048",
+    "score": "Score",
+    "best": "Meilleur",
+    "newGame": "Nouveau",
+    "howToPlay": "Utilisez les touches fléchées (ou faites glisser sur le mobile) pour déplacer les tuiles. Les tuiles avec le même numéro fusionnent. Atteignez 2048 pour gagner !",
+    "youWin": "Vous avez atteint 2048 !",
+    "keepGoing": "Continue",
+    "gameOver": "Fin de partie ",
+    "tryAgain": "Réessayez",
+    "gameOverMessage": "Plus de mouvements à gauche."
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "Toutes les étapes sont terminées.",
+    "time": "Heure",
+    "best": "Meilleur",
+    "difficulty": {
+      "easy": "Facile",
+      "medium": "Moyen",
+      "hard": "Dure"
+    },
+    "stage": "Étape",
+    "solved": "Résolu! ",
+    "score": "Score",
+    "nextStage": "Étape suivante",
+    "replay": "Relire",
+    "erase": "Effacer",
+    "howToPlay": "Cliquez sur une cellule, puis appuyez sur un numéro ou appuyez sur 1–9. Le retour arrière ou la suppression efface la cellule. Les chiffres en gras sont des indices. Remplissez la grille de sorte que chaque ligne, colonne et case 3×3 contienne 1 à 9 sans répétition."
   }
 }

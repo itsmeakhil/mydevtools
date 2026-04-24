@@ -59,7 +59,10 @@
     "pdfCompare": "比较 PDF",
     "pdfToPdfA": "PDF 转 PDF/A",
     "pdfSign": "签署 PDF",
-    "pdfEditor": "PDF 编辑器"
+    "pdfEditor": "PDF 编辑器",
+    "breakRoom": "休闲角",
+    "game2048": "2048",
+    "sudoku": "数独"
   },
   "Help": {
     "title": "帮助与文档",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "PDF 编辑器",
         "description": "通过添加文本、形状、评论和高亮来编辑 PDF。安全简单 — 全部在浏览器中完成。"
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "滑动合并方块，合成 2048。经典数字益智游戏。"
+      },
+      "sudoku": {
+        "title": "数独",
+        "description": "经典数字填空游戏。三种难度，每种 150 关。"
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "已下载编辑后的 PDF。",
     "emptyState": "选择要标注的 PDF。不会上传到服务器。",
     "busy": "正在导出…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "滑动方块，合并相同数字，达成 2048",
+    "score": "分数",
+    "best": "最高分",
+    "newGame": "新游戏",
+    "howToPlay": "用方向键（或在手机上滑动）移动方块。相同数字会合并。合成 2048 即可获胜！",
+    "youWin": "你达到了 2048！",
+    "keepGoing": "继续玩",
+    "gameOver": "游戏结束",
+    "tryAgain": "再试一次",
+    "gameOverMessage": "没有可走的步了。"
+  },
+  "Sudoku": {
+    "title": "数独",
+    "stagesCompleted": "已完成关卡",
+    "time": "时间",
+    "best": "最佳",
+    "difficulty": {
+      "easy": "简单",
+      "medium": "中等",
+      "hard": "困难"
+    },
+    "stage": "关卡",
+    "solved": "完成！",
+    "score": "得分",
+    "nextStage": "下一关",
+    "replay": "重玩",
+    "erase": "清除",
+    "howToPlay": "先点选格子，再点数字或按 1–9。退格或删除可清空。加粗数字为提示。填满九宫格，使每行、每列和每个 3×3 宫格都包含 1–9 且不重复。"
   }
 }

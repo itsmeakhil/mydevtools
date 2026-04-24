@@ -59,7 +59,10 @@
     "pdfCompare": "Comparar PDF",
     "pdfToPdfA": "PDF a PDF/A",
     "pdfSign": "Firmar PDF",
-    "pdfEditor": "Editor de PDF"
+    "pdfEditor": "Editor de PDF",
+    "breakRoom": "Sala de descanso",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Ayuda y documentación",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "Editor de PDF",
         "description": "Edita PDF añadiendo texto, formas, comentarios y resaltados. Herramienta segura y sencilla — todo en el navegador."
+      },
+      "game2048": {
+        "title": "2048 \t",
+        "description": "Desliza y fusiona los mosaicos para llegar a 2048. Juego clásico de rompecabezas de números."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Rompecabezas de números clásicos. 3 niveles de dificultad, 150 etapas cada uno."
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "PDF editado descargado.",
     "emptyState": "Elige un PDF para anotar. No se sube nada a un servidor.",
     "busy": "Exportando…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Deslice los mosaicos y combínelos para llegar a 2048",
+    "score": "Puntuación",
+    "best": "El mejor",
+    "newGame": "Nueva partida",
+    "howToPlay": "Utilice las teclas de flecha (o deslice el dedo en el móvil) para mover los mosaicos. Los mosaicos con el mismo número se fusionan. ¡Llega a 2048 para ganar!",
+    "youWin": "¡Has llegado a 2048!",
+    "keepGoing": "Continuar",
+    "gameOver": "Juego terminado",
+    "tryAgain": "Intentar de nuevo",
+    "gameOverMessage": "No hay más movimientos posibles. "
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "etapas completadas",
+    "time": "Time (tiempo)",
+    "best": "El mejor",
+    "difficulty": {
+      "easy": "Fácil",
+      "medium": "Medio",
+      "hard": "Duro"
+    },
+    "stage": "Fase",
+    "solved": "Concluído",
+    "score": "Puntuación",
+    "nextStage": "Siguiente etapa",
+    "replay": "Volver a reproducir",
+    "erase": "Borrar",
+    "howToPlay": "Haz clic en una celda y, a continuación, pulsa un número o pulsa 1–9. Backspace o Delete borra la celda. Los números en negrita son pistas. Rellena la cuadrícula para que cada fila, columna y cuadro de 3×3 contenga del 1 al 9 sin repeticiones."
   }
 }

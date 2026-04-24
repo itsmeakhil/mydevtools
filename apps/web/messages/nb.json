@@ -59,7 +59,10 @@
     "pdfCompare": "Sammenlign PDF",
     "pdfToPdfA": "PDF til PDF/A",
     "pdfSign": "Signer PDF",
-    "pdfEditor": "PDF-redigerer"
+    "pdfEditor": "PDF-redigerer",
+    "breakRoom": "Pauserom",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Hjelp og dokumentasjon",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "PDF-redigerer",
         "description": "Rediger PDF ved å legge til tekst, former, kommentarer og utheving. Trygt og enkelt — alt i nettleseren."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Skyv og slå sammen brikker for å nå 2048. Klassisk tallpuslespill."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Klassisk tallpuslespill. 3 vanskelighetsgrader, 150 nivåer hver."
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "Redigert PDF lastet ned.",
     "emptyState": "Velg en PDF å merke. Ingenting lastes opp til en server.",
     "busy": "Eksporterer…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Skyv fliser og slå dem sammen for å nå 2048",
+    "score": "Poengsum",
+    "best": "Best",
+    "newGame": "Nytt spill",
+    "howToPlay": "Bruk piltastene (eller sveip på mobilen) for å flytte brikker. Brikker med samme tall slås sammen. Nå 2048 for å vinne!",
+    "youWin": "Du har nådd 2048!",
+    "keepGoing": "Fortsett slik!",
+    "gameOver": "Spill slutt",
+    "tryAgain": "Prøv igjen",
+    "gameOverMessage": "Ingen flere trekk igjen."
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "Alle faser er fullført!",
+    "time": "Tid",
+    "best": "Best",
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hardhet"
+    },
+    "stage": "Fase",
+    "solved": "Løst",
+    "score": "Poengsum",
+    "nextStage": "Neste fase",
+    "replay": "Spill av på nytt",
+    "erase": "Slett",
+    "howToPlay": "Klikk på en celle, og trykk deretter på et tall eller trykk på 1–9. Tilbaketasten eller Delete-tasten fjerner cellen. Uthevede tall er ledetråder. Fyll rutenettet slik at hver rad, kolonne og 3×3-boks inneholder 1–9 uten repetisjoner."
   }
 }

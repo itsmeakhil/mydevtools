@@ -61,7 +61,10 @@
     "pdfCompare": "Compare PDF",
     "pdfToPdfA": "PDF to PDF/A",
     "pdfSign": "Sign PDF",
-    "pdfEditor": "PDF Editor"
+    "pdfEditor": "PDF Editor",
+    "breakRoom": "Break Room",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Help & documentation",
@@ -540,6 +543,14 @@
       "pdfSign": {
         "title": "Sign PDF",
         "description": "eSign PDFs in your browser—draw, type, or image—or share a template to collect signatures from others."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Slide and merge tiles to reach 2048. Classic number puzzle game."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Classic number puzzle. 3 difficulty levels, 150 stages each."
       }
     }
   },
@@ -3644,6 +3655,24 @@
       "3u": "PDF/A-3u (part 3, conformance U)"
     }
   },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "stages completed",
+    "time": "Time",
+    "best": "Best",
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "stage": "Stage",
+    "solved": "Solved!",
+    "score": "Score",
+    "nextStage": "Next stage",
+    "replay": "Replay",
+    "erase": "Erase",
+    "howToPlay": "Click a cell, then tap a number or press 1–9. Backspace or Delete clears the cell. Bold numbers are clues. Fill the grid so every row, column, and 3×3 box contains 1–9 with no repeats."
+  },
   "Game2048": {
     "title": "2048",
     "subtitle": "Slide tiles and merge them to reach 2048",
@@ -3656,5 +3685,47 @@
     "gameOver": "Game Over",
     "tryAgain": "Try Again",
     "gameOverMessage": "No more moves left."
+  },
+  "Snake": {
+    "title": "Snake",
+    "subtitle": "Eat food, grow, avoid walls and yourself",
+    "score": "Score",
+    "best": "Best",
+    "startPrompt": "Press any arrow key",
+    "startButton": "Start Game",
+    "gameOver": "Game Over",
+    "playAgain": "Play Again",
+    "howToPlay": "Use arrow keys or WASD to move. Eat food to grow. Speed increases every 50 points."
+  },
+  "Minesweeper": {
+    "title": "Minesweeper",
+    "subtitle": "Left click reveal · Right click flag",
+    "mines": "Mines",
+    "newGame": "New Game",
+    "win": "You Win!",
+    "loss": "Boom!",
+    "playAgain": "Play Again",
+    "tryAgain": "Try Again",
+    "startPrompt": "Click any cell to start",
+    "difficulty": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "expert": "Expert"
+    }
+  },
+  "Tetris": {
+    "title": "Tetris",
+    "subtitle": "Arrow keys · Space = hard drop · P = pause",
+    "next": "Next",
+    "score": "Score",
+    "best": "Best",
+    "lines": "Lines",
+    "level": "Level",
+    "pause": "Pause",
+    "resume": "Resume",
+    "start": "Start",
+    "restart": "Restart",
+    "paused": "Paused",
+    "gameOver": "Game Over"
   }
 }

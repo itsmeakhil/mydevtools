@@ -59,7 +59,10 @@
     "pdfCompare": "Confronta PDF",
     "pdfToPdfA": "PDF in PDF/A",
     "pdfSign": "Firma PDF",
-    "pdfEditor": "Editor PDF"
+    "pdfEditor": "Editor PDF",
+    "breakRoom": "Spazio per le pause di lavoro",
+    "game2048": "2048",
+    "sudoku": "Sudoku"
   },
   "Help": {
     "title": "Aiuto e documentazione",
@@ -475,6 +478,14 @@
       "pdfEditor": {
         "title": "Editor PDF",
         "description": "Modifica PDF aggiungendo testo, forme, commenti ed evidenziazioni. Strumento sicuro e semplice — tutto nel browser."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Fai scorrere e unisci le tessere per raggiungere il 2048. Classico gioco di puzzle numerico."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Classico puzzle numerico. 3 livelli di difficoltà, 150 livelli ciascuno."
       }
     },
     "tabs": {
@@ -3601,5 +3612,36 @@
     "exportSuccess": "PDF modificato scaricato.",
     "emptyState": "Scegli un PDF da annotare. Nulla viene caricato su un server.",
     "busy": "Esportazione…"
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Fai scorrere le tessere e uniscile per raggiungere il 2048",
+    "score": "Punteggio",
+    "best": "Migliore",
+    "newGame": "Nuova partita",
+    "howToPlay": "Usa i tasti freccia (o scorri sul cellulare) per spostare le tessere. Le tessere con lo stesso numero si uniscono. Raggiungi il 2048 per vincere!",
+    "youWin": "Hai raggiunto il 2048!",
+    "keepGoing": "Continua pure",
+    "gameOver": "Fine partita",
+    "tryAgain": "Riprova",
+    "gameOverMessage": "NON CI SONO PIÙ MOSSE"
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "fasi completate",
+    "time": "Ora",
+    "best": "Migliore",
+    "difficulty": {
+      "easy": "Facile",
+      "medium": "Medio",
+      "hard": "Difficile"
+    },
+    "stage": "Scena",
+    "solved": "Risolto",
+    "score": "Punteggio",
+    "nextStage": "Fase successiva",
+    "replay": "Ripeti (Replay)",
+    "erase": "Cancella",
+    "howToPlay": "Fare clic su una cella, quindi toccare un numero o premere 1–9. Backspace o Delete cancella la cella. I numeri in grassetto sono indizi. Riempi la griglia in modo che ogni riga, colonna e casella 3×3 contenga 1–9 senza ripetizioni."
   }
 }
