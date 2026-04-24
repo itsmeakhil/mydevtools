@@ -41,6 +41,7 @@ const nextConfig: NextConfig = {
   },
 };
 
-const analyzer = withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' });
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const analyzer = (withBundleAnalyzer as any)({ enabled: process.env.ANALYZE === 'true' });
 
 export default analyzer(withNextIntl(nextConfig));

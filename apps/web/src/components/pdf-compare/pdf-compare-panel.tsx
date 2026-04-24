@@ -168,9 +168,9 @@ export function PdfComparePanel() {
         return;
       }
       try {
-        ensurePdfWorker();
+        const pdfjs = await getPdfjsLib();
         const bytes = new Uint8Array(await file.arrayBuffer());
-        await getDocument({ data: bytes.slice() }).promise;
+        await pdfjs.getDocument({ data: bytes.slice() }).promise;
         const slot = { name: file.name, bytes };
         if (side === "left") setLeft(slot);
         else setRight(slot);

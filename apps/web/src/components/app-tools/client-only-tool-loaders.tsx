@@ -90,3 +90,73 @@ export const SudokuLayoutLazy = dynamic(
     ),
   { ssr: false, loading: toolLoading }
 )
+
+export const PdfToJpgPanelLazy = dynamic(
+  () => import('@/components/pdf-to-jpg/pdf-to-jpg-panel').then(m => m.PdfToJpgPanel),
+  { ssr: false, loading: toolLoading }
+)
+
+export const PdfSplitterPanelLazy = dynamic(
+  () => import('@/components/pdf-splitter/pdf-splitter-panel').then(m => m.PdfSplitterPanel),
+  { ssr: false, loading: toolLoading }
+)
+
+export const JpgToPdfPanelLazy = dynamic(
+  () => import('@/components/jpg-to-pdf/jpg-to-pdf-panel').then(m => m.JpgToPdfPanel),
+  { ssr: false, loading: toolLoading }
+)
+
+export const PdfCompressorPanelLazy = dynamic(
+  () => import('@/components/pdf-compressor/pdf-compressor-panel').then(m => m.PdfCompressorPanel),
+  { ssr: false, loading: toolLoading }
+)
+
+export const PdfMergePanelLazy = dynamic(
+  () => import('@/components/pdf-merge/pdf-merge-panel').then(m => m.PdfMergePanel),
+  { ssr: false, loading: toolLoading }
+)
+
+export const PdfSignPanelLazy = dynamic(
+  () => import('@/components/pdf-sign/pdf-sign-panel').then(m => m.PdfSignPanel),
+  { ssr: false, loading: toolLoading }
+)
+
+export const PdfToPdfaPanelLazy = dynamic(
+  () => import('@/components/pdf-to-pdfa/pdf-to-pdfa-panel').then(m => m.PdfToPdfaPanel),
+  { ssr: false, loading: toolLoading }
+)
+
+export const PdfComparePanelLazy = dynamic(
+  () => import('@/components/pdf-compare/pdf-compare-panel').then(m => m.PdfComparePanel),
+  { ssr: false, loading: toolLoading }
+)
+
+export const PdfWatermarkPanelLazy = dynamic(
+  () => import('@/components/pdf-watermark/pdf-watermark-panel').then(m => m.PdfWatermarkPanel),
+  { ssr: false, loading: toolLoading }
+)
+
+export const PdfUnlockerPanelLazy = dynamic(
+  () => import('@/components/pdf-unlocker/pdf-unlocker-panel').then(m => m.PdfUnlockerPanel),
+  { ssr: false, loading: toolLoading }
+)
+
+export const PdfLockerPanelLazy = dynamic(
+  () => import('@/components/pdf-locker/pdf-locker-panel').then(m => m.PdfLockerPanel),
+  { ssr: false, loading: toolLoading }
+)
+
+export const PdfEditorPanelLazy = dynamic(
+  () => import('@/components/pdf-editor/pdf-editor-panel').then(m => m.PdfEditorPanel),
+  { ssr: false, loading: toolLoading }
+)
+
+export const HtmlToPdfPanelLazy = dynamic(
+  () => import('@/components/html-to-pdf/html-to-pdf-panel').then(m => m.HtmlToPdfPanel),
+  { ssr: false, loading: toolLoading }
+)
+
+export const ExcelToPdfPanelLazy = dynamic(
+  () => import('@/components/excel-to-pdf/excel-to-pdf-panel').then(m => m.ExcelToPdfPanel),
+  { ssr: false, loading: toolLoading }
+)
