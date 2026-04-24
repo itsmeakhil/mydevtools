@@ -83,9 +83,9 @@ export default function PublicProfilePage() {
   return (
     <div className="min-h-screen bg-background relative isolate overflow-hidden flex flex-col">
       {/* ── Decorative ambient gradients ── */}
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(120,119,198,0.15),transparent_70%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(120,119,198,0.08),transparent_70%)]" />
-        <div className="absolute bottom-0 right-0 w-[500px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.08),transparent_70%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.04),transparent_70%)]" />
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute -top-1/3 left-1/2 -translate-x-1/2 w-[140%] h-[80%] bg-[radial-gradient(ellipse_at_center,rgba(120,119,198,0.07),transparent_50%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(120,119,198,0.04),transparent_50%)] blur-3xl" />
+        <div className="absolute -bottom-1/4 -right-1/4 w-[80%] h-[60%] bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.04),transparent_50%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.02),transparent_50%)] blur-3xl" />
       </div>
 
       {/* ── Top Navigation Bar ── */}

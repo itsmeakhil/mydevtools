@@ -54,33 +54,87 @@ Most developer tools are scattered across dozens of tabs, riddled with ads, or s
 |------|-------------|
 | **📡 API Client** | Test & debug REST APIs with a Postman-like interface — headers, query params, body, response inspector |
 | **🔤 Base64** | Encode and decode Base64 strings with one click |
+| **🔏 Certificate PEM Decoder** | Decode and inspect SSL/TLS certificates from PEM format |
 | **🎨 Color Picker** | Pick, convert, and preview colors across HEX, RGB, HSL formats and more |
+| **♿ Contrast Checker** | Check foreground/background color contrast ratios for WCAG accessibility compliance |
 | **⏰ Cron Builder** | Build and validate cron expressions visually with human-readable output |
+| **📊 CSV / Excel / JSON Converter** | Convert between CSV, Excel, and JSON data formats |
 | **🔀 Diff Checker** | Side-by-side text diff viewer with inline change highlighting |
+| **🐳 Docker Compose Generator** | Generate `docker-compose.yml` files visually for common service stacks |
 | **📧 Email Validator** | Validate email address format and DNS structure instantly |
+| **🔐 Encryption Playground** | Encrypt and decrypt data with common algorithms (AES, RSA, etc.) |
 | **🌿 Environment Manager** | Manage `.env` files — import, export, diff environments, keep secrets organized |
+| **🔄 Format Converter** | Convert between data formats like YAML, TOML, JSON, XML, and more |
+| **📊 GraphQL Formatter** | Format and prettify GraphQL queries and schemas |
+| **#️⃣ Hash Generator** | Generate MD5, SHA-1, SHA-256, SHA-512, and other hashes from any input |
+| **🔑 HMAC Generator** | Generate HMAC signatures with configurable keys and hash algorithms |
+| **📖 HTTP Status Codes** | Quick reference for all HTTP status codes with descriptions |
+| **🖼️ Image Compressor** | Compress images client-side with quality control and format output |
 | **🖼️ Image to Base64** | Convert images to Data URI or raw Base64 strings with a visual dropzone |
+| **🌐 IP Subnet Calculator** | Calculate subnets, CIDR ranges, broadcast addresses, and host counts |
 | **📝 JSON Formatter** | Beautify, validate, minify, and explore JSON with Monaco Editor |
 | **📐 JSON Schema Generator** | Auto-generate JSON Schema from any JSON input instantly |
 | **🙈 .gitignore Generator** | Generate merged .gitignore files instantly from 500+ tech stacks |
 | **🔑 JWT Decoder** | Decode and inspect JWT tokens — header, payload, and signature at a glance |
 | **📋 Lorem Ipsum Generator** | Generate placeholder text in paragraphs, words, or sentences |
+| **📝 Markdown Preview** | Write Markdown and preview rendered HTML output side-by-side |
+| **📂 MIME Type Lookup** | Look up MIME types by file extension or content type string |
+| **🎲 Mock Data Generator** | Generate realistic fake data (names, emails, addresses, etc.) in bulk |
+| **🔢 Number Base Converter** | Convert numbers between binary, octal, decimal, and hexadecimal |
 | **🗄️ NoSQL Explorer** | Connect to MongoDB, browse databases & collections, and run queries with a visual data viewer |
 | **🧬 Regex Tester** | Test regular expressions in real time with match highlighting and capture group breakdown |
+| **📱 QR Code Generator** | Generate QR codes from URLs, text, or custom data |
+| **🔑 Secret / API Key Generator** | Generate cryptographically secure API keys and secrets |
+| **💾 Snippet Manager** | Save, organize, and search code snippets with syntax highlighting |
+| **🛢️ SQL Client** | Connect to SQL databases and run queries with a visual interface |
 | **🛢️ SQL Formatter** | Format and prettify SQL queries with dialect support |
+| **🖌️ SVG Optimizer** | Optimize and minify SVG files while preserving visual output |
 | **⏱️ Timestamp Converter** | Convert Unix timestamps to human-readable dates and vice versa |
-| **🎨 CSS Gradient Builder** | Visual builder for linear and radial CSS gradients with color stops |
+| **🔐 TOTP Generator** | Generate time-based one-time passwords (TOTP/2FA codes) |
+| **📏 Unit Converter** | Convert between units of length, weight, temperature, area, and more |
 | **🌐 URL Encoder/Decoder** | Encode and decode URL components instantly |
+| **🔍 URL Parser** | Parse and inspect URL components — protocol, host, path, query, fragment |
+| **🕵️ User Agent Parser** | Parse and decode browser user agent strings |
 | **🔢 UUID Generator** | Generate UUIDs (v1, v4) in bulk with copy support |
+| **🎨 CSS Gradient Builder** | Visual builder for linear and radial CSS gradients with color stops |
+
+### 📄 PDF Tools
+
+| Tool | Description |
+|------|-------------|
+| **📊 Excel to PDF** | Convert Excel spreadsheets to PDF documents |
+| **🌐 HTML to PDF** | Convert HTML pages or markup to PDF |
+| **🖼️ JPG to PDF** | Combine images into a single PDF document |
+| **🔍 PDF Compare** | Diff two PDF documents side-by-side and highlight changes |
+| **🗜️ PDF Compressor** | Reduce PDF file size while maintaining quality |
+| **✏️ PDF Editor** | Edit text, annotations, and metadata in PDF files |
+| **🔒 PDF Locker** | Password-protect PDF documents |
+| **🔗 PDF Merge** | Combine multiple PDFs into one document |
+| **✍️ PDF Sign** | Add digital signatures to PDF files |
+| **✂️ PDF Splitter** | Split a PDF into multiple documents by page range |
+| **🖼️ PDF to JPG** | Convert PDF pages to high-quality JPG images |
+| **📄 PDF to PDF/A** | Convert PDFs to archival PDF/A format |
+| **🔓 PDF Unlocker** | Remove password protection from PDFs |
+| **💧 PDF Watermark** | Add text or image watermarks to PDF documents |
 
 ### 📱 Productivity Apps
 
 | Tool | Description |
 |------|-------------|
 | **🔖 Bookmarks** | Save, organize, and manage your favorite links in one central place |
+| **🎮 Break Room** | Quick games and activities to recharge during work breaks |
 | **📓 Notes** | Rich-text note-taking powered by Tiptap — headings, lists, code blocks, images & more |
 | **🔐 Password Manager** | Store credentials securely with client-side encryption. Your vault, your keys |
 | **✅ Task Manager** | Organize tasks with priorities, statuses, and drag-and-drop reordering |
+
+### 👤 Public Developer Profile
+
+Share your developer identity with a public profile page at `mydevtools.tech/<username>`:
+
+- Display name, avatar, and bio
+- Social links (Twitter/X, LinkedIn, GitHub, Instagram, YouTube, Dev.to, Hashnode, personal website)
+- GitHub contribution calendar and streak stats
+- Shareable URL — no account required to view
 
 ---
 
@@ -195,31 +249,74 @@ mydevtools.tech/
 │   ├── web/                          # Next.js 16 frontend (App Router)
 │   │   ├── src/
 │   │   │   ├── app/
-│   │   │   │   ├── app/              # Tool pages
+│   │   │   │   ├── [username]/       # Public developer profile pages
+│   │   │   │   ├── app/              # Tool pages (70+ tools)
 │   │   │   │   │   ├── api-client/
 │   │   │   │   │   ├── base64/
 │   │   │   │   │   ├── bookmarks/
+│   │   │   │   │   ├── break-room/
+│   │   │   │   │   ├── certificate-pem-decoder/
 │   │   │   │   │   ├── color-picker/
+│   │   │   │   │   ├── contrast-checker/
 │   │   │   │   │   ├── cron-builder/
+│   │   │   │   │   ├── csv-excel-json/
 │   │   │   │   │   ├── diff-checker/
+│   │   │   │   │   ├── docker-compose-generator/
 │   │   │   │   │   ├── email-validator/
+│   │   │   │   │   ├── encryption-playground/
 │   │   │   │   │   ├── environment-manager/
+│   │   │   │   │   ├── excel-to-pdf/
+│   │   │   │   │   ├── format-converter/
+│   │   │   │   │   ├── graphql-formatter/
+│   │   │   │   │   ├── hash-generator/
+│   │   │   │   │   ├── hmac-generator/
+│   │   │   │   │   ├── html-to-pdf/
+│   │   │   │   │   ├── http-status-codes/
+│   │   │   │   │   ├── image-compressor/
+│   │   │   │   │   ├── image-to-base64/
+│   │   │   │   │   ├── ip-subnet-calculator/
+│   │   │   │   │   ├── jpg-to-pdf/
 │   │   │   │   │   ├── json-formatter/
 │   │   │   │   │   ├── json-schema-generator/
 │   │   │   │   │   ├── jwt-decoder/
 │   │   │   │   │   ├── lorem-ipsum/
+│   │   │   │   │   ├── markdown-preview-html/
+│   │   │   │   │   ├── mime-type-lookup/
+│   │   │   │   │   ├── mock-data-generator/
 │   │   │   │   │   ├── nosql-explorer/
 │   │   │   │   │   ├── notes/
+│   │   │   │   │   ├── number-base-converter/
 │   │   │   │   │   ├── password-manager/
+│   │   │   │   │   ├── pdf-compare/
+│   │   │   │   │   ├── pdf-compressor/
+│   │   │   │   │   ├── pdf-editor/
+│   │   │   │   │   ├── pdf-locker/
+│   │   │   │   │   ├── pdf-merge/
+│   │   │   │   │   ├── pdf-sign/
+│   │   │   │   │   ├── pdf-splitter/
+│   │   │   │   │   ├── pdf-to-jpg/
+│   │   │   │   │   ├── pdf-to-pdfa/
+│   │   │   │   │   ├── pdf-unlocker/
+│   │   │   │   │   ├── pdf-watermark/
+│   │   │   │   │   ├── qr-code-generator/
 │   │   │   │   │   ├── regex-tester/
+│   │   │   │   │   ├── secret-api-key-generator/
+│   │   │   │   │   ├── snippet-manager/
+│   │   │   │   │   ├── sql-client/
 │   │   │   │   │   ├── sql-formatter/
+│   │   │   │   │   ├── svg-optimizer/
 │   │   │   │   │   ├── timestamp-converter/
 │   │   │   │   │   ├── to-do/
+│   │   │   │   │   ├── totp-generator/
+│   │   │   │   │   ├── unit-converter/
 │   │   │   │   │   ├── url-encode/
+│   │   │   │   │   ├── url-parser/
+│   │   │   │   │   ├── user-agent-parser/
 │   │   │   │   │   └── uuid-generator/
 │   │   │   │   ├── api/              # Next.js route handlers
 │   │   │   │   ├── dashboard/        # User dashboard
 │   │   │   │   ├── login/            # Auth page
+│   │   │   │   ├── profile/          # User profile settings
 │   │   │   │   └── settings/         # App settings
 │   │   │   ├── components/           # Shared UI components
 │   │   │   ├── store/                # Zustand state stores
@@ -243,6 +340,7 @@ mydevtools.tech/
 │       │   │       ├── api_client/
 │       │   │       ├── environment_manager/
 │       │   │       ├── analytics/
+│       │   │       ├── users/
 │       │   │       └── user_preferences/
 │       │   ├── core/                 # Config, DB, Firebase admin, auth
 │       │   └── main.py               # FastAPI app entry point
