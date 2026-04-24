@@ -9,18 +9,13 @@ import { PinnedToolsPreferencesSync } from "@/components/pinned-tools-preference
 import { AppUpdateNotifier } from "@/components/app-update-notifier"
 import { GlobalCommandPalette } from "@/components/global-command-palette"
 import { cn } from "@/lib/utils"
-import { Geist_Mono as NextGeistMono } from 'next/font/google'
+import { GeistMono } from 'geist/font/mono'
 
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 
 import "./globals.css";
 
-const geistMono = NextGeistMono({
-  subsets: ['latin'],
-  variable: '--font-mono',
-  display: 'swap'
-})
 
 import { siteMetadata } from "@/lib/metadata"
 import { SiteWideJsonLd } from "@/components/seo/site-wide-json-ld"
@@ -110,7 +105,7 @@ export default async function RootLayout({
 
   return (
     <html lang={htmlLang} dir={dir} suppressHydrationWarning className={cn(
-      geistMono.variable
+      GeistMono.variable
     )}>
       <head>
         {/* Firebase Auth & token refresh */}

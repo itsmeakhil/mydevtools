@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { PDFDocument } from "pdf-lib";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Upload, Download, FileText, Scissors, Layers } from "lucide-react";
@@ -38,6 +37,7 @@ function parsePageRanges(input: string, totalPages: number): number[] {
 }
 
 async function buildPdf(srcBytes: Uint8Array, pageNums: number[]): Promise<Uint8Array> {
+  const { PDFDocument } = await import("pdf-lib");
   const src = await PDFDocument.load(srcBytes);
   const out = await PDFDocument.create();
   const copied = await out.copyPages(src, pageNums.map((n) => n - 1));
@@ -90,6 +90,7 @@ export function PdfSplitterPanel() {
       }
       setBusy(true);
       try {
+        const { PDFDocument } = await import("pdf-lib");
         const buf = new Uint8Array(await file.arrayBuffer());
         const doc = await PDFDocument.load(buf);
         setFileName(file.name);

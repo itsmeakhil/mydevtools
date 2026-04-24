@@ -42,7 +42,6 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { motion } from "framer-motion";
-import * as XLSX from "xlsx";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { useTranslations } from "next-intl";
 
@@ -215,7 +214,7 @@ export function EmailValidator() {
                         });
                     }
                 } else {
-                    // Parse Excel file (xlsx, xls)
+                    const XLSX = await import("xlsx");
                     const wb = XLSX.read(content, { type: "binary" });
                     const wsname = wb.SheetNames[0];
                     const ws = wb.Sheets[wsname];
@@ -316,7 +315,7 @@ export function EmailValidator() {
         setDragActive(false);
     };
 
-    const exportToExcel = (validOnly: boolean = false) => {
+    const exportToExcel = async (validOnly: boolean = false) => {
         const dataToExport = validOnly
             ? bulkResults.filter(r => r.status === "VALID")
             : bulkResults;
@@ -329,6 +328,8 @@ export function EmailValidator() {
             });
             return;
         }
+
+        const XLSX = await import("xlsx");
 
         const col = (key: "email" | "status" | "score" | "syntax" | "domain" | "mx" | "mailbox" | "disposable" | "roleBased") =>
             t(`exportColumns.${key}`);
@@ -428,7 +429,8 @@ export function EmailValidator() {
         });
     };
 
-    const downloadTemplate = () => {
+    const downloadTemplate = async () => {
+        const XLSX = await import("xlsx");
         const data = [{ email: "john.doe@example.com" }, { email: "support@mydevtools.tech" }];
         const ws = XLSX.utils.json_to_sheet(data);
         const wb = XLSX.utils.book_new();

@@ -1,13 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  getDocument,
-  GlobalWorkerOptions,
-  ImageKind,
-  OPS,
-  version,
-} from "pdfjs-dist";
 import type { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
@@ -17,12 +10,15 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-let workerSrcSet = false;
+let _pdfjsLib: typeof import("pdfjs-dist") | null = null;
 
-function ensurePdfWorker() {
-  if (workerSrcSet || typeof window === "undefined") return;
-  GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
-  workerSrcSet = true;
+async function getPdfjsLib() {
+  if (!_pdfjsLib) {
+    const lib = await import("pdfjs-dist");
+    lib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${lib.version}/build/pdf.worker.min.mjs`;
+    _pdfjsLib = lib;
+  }
+  return _pdfjsLib;
 }
 
 function looksLikePdf(file: File): boolean {
@@ -82,12 +78,12 @@ async function inlineImageToJpeg(
     const kind = imgData.kind as number | undefined;
     if (!data || kind === undefined) return null;
 
-    if (kind === ImageKind.RGBA_32BPP) {
+    if (kind === _pdfjsLib!.ImageKind.RGBA_32BPP) {
       const src = data instanceof Uint8ClampedArray ? data : new Uint8ClampedArray(data);
       const rgba = new Uint8ClampedArray(width * height * 4);
       rgba.set(src);
       ctx.putImageData(new ImageData(rgba, width, height), 0, 0);
-    } else if (kind === ImageKind.RGB_24BPP) {
+    } else if (kind === _pdfjsLib!.ImageKind.RGB_24BPP) {
       const src = data instanceof Uint8Array ? data : new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
       const rgba = new Uint8ClampedArray(width * height * 4);
       let o = 0;
@@ -148,7 +144,7 @@ async function extractEmbeddedJpegsFromPage(
     const fn = fnArray[i];
     const args = argsArray[i] as unknown[];
 
-    if (fn === OPS.paintImageXObject || fn === OPS.paintImageXObjectRepeat) {
+    if (fn === _pdfjsLib!.OPS.paintImageXObject || fn === _pdfjsLib!.OPS.paintImageXObjectRepeat) {
       const objId = args[0] as string;
       if (!objId || seenXObjectIds.has(objId)) continue;
       seenXObjectIds.add(objId);
@@ -159,7 +155,7 @@ async function extractEmbeddedJpegsFromPage(
       count += 1;
       downloadBlob(blob, `${baseStem}-p${pageNum}-img-${count}.jpg`);
       await new Promise((r) => setTimeout(r, 120));
-    } else if (fn === OPS.paintInlineImageXObject) {
+    } else if (fn === _pdfjsLib!.OPS.paintInlineImageXObject) {
       const raw = args[0];
       if (!raw || typeof raw !== "object") continue;
       inlineSeq += 1;
@@ -186,7 +182,7 @@ export function PdfToJpgPanel() {
   const [scale, setScale] = useState(1.75);
 
   useEffect(() => {
-    ensurePdfWorker();
+    void getPdfjsLib();
   }, []);
 
   const reset = useCallback(() => {
@@ -214,10 +210,10 @@ export function PdfToJpgPanel() {
 
       setBusy(true);
       try {
-        ensurePdfWorker();
+        const pdfjs = await getPdfjsLib();
         const raw = new Uint8Array(await file.arrayBuffer());
         const dataCopy = new Uint8Array(raw);
-        const loadingTask = getDocument({ data: dataCopy });
+        const loadingTask = pdfjs.getDocument({ data: dataCopy });
         const pdf = await loadingTask.promise;
         setFileName(file.name);
         setSourceCopy(raw);
@@ -250,9 +246,9 @@ export function PdfToJpgPanel() {
     const stem = fileName.replace(/\.pdf$/i, "");
     let pdf: PDFDocumentProxy | null = null;
     try {
-      ensurePdfWorker();
+      const pdfjs = await getPdfjsLib();
       const dataCopy = new Uint8Array(sourceCopy);
-      pdf = await getDocument({ data: dataCopy }).promise;
+      pdf = await pdfjs.getDocument({ data: dataCopy }).promise;
       const n = pdf.numPages;
       for (let p = 1; p <= n; p++) {
         setProgress(t("progressPage", { current: p, total: n }));
@@ -280,9 +276,9 @@ export function PdfToJpgPanel() {
     const stem = fileName.replace(/\.pdf$/i, "");
     let pdf: PDFDocumentProxy | null = null;
     try {
-      ensurePdfWorker();
+      const pdfjs = await getPdfjsLib();
       const dataCopy = new Uint8Array(sourceCopy);
-      pdf = await getDocument({ data: dataCopy }).promise;
+      pdf = await pdfjs.getDocument({ data: dataCopy }).promise;
       const n = pdf.numPages;
       const seen = new Set<string>();
       let total = 0;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { EncryptedPDFError, PDFDocument, type PDFImage } from "pdf-lib";
+import type { PDFDocument, PDFImage } from "pdf-lib";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Upload, Download, FileText, ImageIcon, Eraser, Copy } from "lucide-react";
@@ -180,6 +180,7 @@ export function PdfSignPanel() {
         return;
       }
 
+      const { PDFDocument, EncryptedPDFError } = await import("pdf-lib");
       setBusy(true);
       try {
         const bytes = new Uint8Array(await file.arrayBuffer());
@@ -216,6 +217,7 @@ export function PdfSignPanel() {
       }
 
       try {
+        const { PDFDocument } = await import("pdf-lib");
         const bytes = new Uint8Array(await file.arrayBuffer());
         await embedRaster(await PDFDocument.create(), bytes);
         setUploadBytes(bytes);
@@ -315,6 +317,7 @@ export function PdfSignPanel() {
       return;
     }
 
+    const { PDFDocument, EncryptedPDFError } = await import("pdf-lib");
     setBusy(true);
     try {
       const src = await PDFDocument.load(originalBytes, { ignoreEncryption: false });

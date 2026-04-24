@@ -1,9 +1,6 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import * as XLSX from "xlsx";
-import { jsPDF } from "jspdf";
-import autoTable from "jspdf-autotable";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Download, FileSpreadsheet, Upload } from "lucide-react";
@@ -24,7 +21,7 @@ function cellToString(v: unknown): string {
   return String(v);
 }
 
-function sheetToStringMatrix(ws: XLSX.WorkSheet): string[][] {
+function sheetToStringMatrix(ws: import("xlsx").WorkSheet, XLSX: typeof import("xlsx")): string[][] {
   const data = XLSX.utils.sheet_to_json<unknown[]>(ws, {
     header: 1,
     raw: false,
@@ -116,8 +113,14 @@ export function ExcelToPdfPanel() {
 
     setBusy(true);
     try {
+      const [XLSX, { jsPDF }, { default: autoTable }] = await Promise.all([
+        import("xlsx"),
+        import("jspdf"),
+        import("jspdf-autotable"),
+      ]);
+
       const buf = await file.arrayBuffer();
-      let wb: XLSX.WorkBook;
+      let wb: import("xlsx").WorkBook;
       try {
         wb = XLSX.read(buf, { type: "array", cellDates: true });
       } catch {
@@ -147,7 +150,7 @@ export function ExcelToPdfPanel() {
       for (const sheetName of names) {
         const ws = wb.Sheets[sheetName];
         if (!ws) continue;
-        const matrix = sheetToStringMatrix(ws);
+        const matrix = sheetToStringMatrix(ws, XLSX);
         if (!matrix.length) continue;
 
         const headRow = matrix[0] ?? [];

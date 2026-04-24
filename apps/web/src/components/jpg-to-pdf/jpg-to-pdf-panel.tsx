@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { PDFDocument, degrees } from "pdf-lib";
+import type { PDFDocument } from "pdf-lib";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import {
@@ -53,6 +53,7 @@ async function appendJpgPage(
   rotationDeg: number,
   marginPt: number
 ): Promise<void> {
+  const { degrees } = await import("pdf-lib");
   const jpg = await pdf.embedJpg(jpgBytes);
   const iw = jpg.width;
   const ih = jpg.height;
@@ -116,6 +117,7 @@ export function JpgToPdfPanel() {
 
       setBusy(true);
       try {
+        const { PDFDocument } = await import("pdf-lib");
         const appended: JpgItem[] = [];
         const probe = await PDFDocument.create();
         for (const file of Array.from(list)) {
@@ -170,6 +172,7 @@ export function JpgToPdfPanel() {
 
     setBusy(true);
     try {
+      const { PDFDocument } = await import("pdf-lib");
       const pdf = await PDFDocument.create();
       const rot = Number(rotation);
       const marginPt = marginMm * MM_TO_PT;

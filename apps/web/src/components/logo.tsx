@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface LogoProps {
     size?: number;
@@ -10,16 +11,14 @@ export function Logo({ size = 32, className = '', showText = true }: LogoProps) 
     return (
         <div className={`flex items-center space-x-3 ${className}`}>
             <div className="relative flex items-center justify-center">
-                {/* Light Mode Logo (Dark Color) */}
-                <img
+                <Image
                     src="/logo-dark.png"
                     alt="Logo"
                     width={size}
                     height={size}
                     className="dark:hidden object-contain"
                 />
-                {/* Dark Mode Logo (Light Color) */}
-                <img
+                <Image
                     src="/logo-light.png"
                     alt="Logo"
                     width={size}
@@ -29,17 +28,17 @@ export function Logo({ size = 32, className = '', showText = true }: LogoProps) 
             </div>
             {showText && (
                 <div className="relative h-8 w-32">
-                    {/* Light Mode Text (Dark Color) */}
-                    <img
+                    <Image
                         src="/logo-text-light.png"
                         alt="MyDevTools"
-                        className="dark:hidden object-contain h-full w-full"
+                        fill
+                        className="dark:hidden object-contain"
                     />
-                    {/* Dark Mode Text (Light Color) */}
-                    <img
+                    <Image
                         src="/logo-text-dark.png"
                         alt="MyDevTools"
-                        className="hidden dark:block object-contain h-full w-full"
+                        fill
+                        className="hidden dark:block object-contain"
                     />
                 </div>
             )}

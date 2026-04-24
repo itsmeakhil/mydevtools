@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { PDFDocument } from "pdf-lib";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import {
@@ -55,6 +54,7 @@ export function PdfMergePanel() {
             continue;
           }
           try {
+            const { PDFDocument } = await import("pdf-lib");
             const bytes = new Uint8Array(await file.arrayBuffer());
             const doc = await PDFDocument.load(bytes);
             appended.push({
@@ -102,6 +102,7 @@ export function PdfMergePanel() {
 
     setBusy(true);
     try {
+      const { PDFDocument } = await import("pdf-lib");
       const merged = await PDFDocument.create();
       for (const item of items) {
         const src = await PDFDocument.load(item.bytes);

@@ -17,7 +17,7 @@ import {
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import Editor from "@monaco-editor/react";
+import Editor from "@/components/lazy/LazyMonaco";
 import CodeEditor from "@/components/ui/code-editor";
 import { JsonTree } from "./json-tree";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";

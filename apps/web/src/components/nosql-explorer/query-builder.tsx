@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { auth } from "@/database/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getNosqlQueryHistory, putNosqlQueryHistory } from "@/lib/user-preferences-api";
-import Editor from "@monaco-editor/react";
+import Editor from "@/components/lazy/LazyMonaco";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { IconSearch, IconHistory, IconX, IconPlus, IconTrash, IconCheck, IconFilter, IconMaximize, IconBraces, IconPlayerPlay } from "@tabler/icons-react";
 import { useTheme } from "next-themes";

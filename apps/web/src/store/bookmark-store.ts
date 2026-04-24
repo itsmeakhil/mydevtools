@@ -1,3 +1,4 @@
+import { useMemo } from "react"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 import { auth } from "@/database/firebase"
@@ -517,18 +518,15 @@ export const useBookmarkStore = create<BookmarkStore>()(
 export const useFilteredBookmarks = () => {
     const { bookmarks, folders, selectedFolderId, searchQuery } = useBookmarkStore()
 
-    return bookmarks.filter((bookmark) => {
-        // Filter by folder
+    return useMemo(() => bookmarks.filter((bookmark) => {
         if (selectedFolderId === 'uncategorized') {
             if (bookmark.folderId !== null) return false
         } else if (selectedFolderId !== null) {
-            // Include bookmarks from selected folder and all its descendants
             const descendantIds = getDescendantFolderIds(selectedFolderId, folders)
             const validFolderIds = [selectedFolderId, ...descendantIds]
             if (!validFolderIds.includes(bookmark.folderId || '')) return false
         }
 
-        // Filter by search query
         if (searchQuery) {
             const query = searchQuery.toLowerCase()
             const matchesTitle = bookmark.title.toLowerCase().includes(query)
@@ -541,41 +539,36 @@ export const useFilteredBookmarks = () => {
         }
 
         return true
-    })
+    }), [bookmarks, folders, selectedFolderId, searchQuery])
 }
 
 // Get all unique tags
 export const useAllTags = () => {
     const { bookmarks } = useBookmarkStore()
-    const allTags = bookmarks.flatMap(b => b.tags)
-    return [...new Set(allTags)].sort()
+    return useMemo(() => [...new Set(bookmarks.flatMap(b => b.tags))].sort(), [bookmarks])
 }
 
 // Get folder by ID
 export const useFolderById = (id: string | null) => {
     const { folders } = useBookmarkStore()
-    return folders.find(f => f.id === id)
+    return useMemo(() => folders.find(f => f.id === id), [folders, id])
 }
 
 // Get child folders
 export const useChildFolders = (parentId: string | null) => {
     const { folders } = useBookmarkStore()
-    return folders.filter(f => f.parentId === parentId)
+    return useMemo(() => folders.filter(f => f.parentId === parentId), [folders, parentId])
 }
 
 // Get bookmark count for a folder (including descendants)
 export const useFolderBookmarkCount = (folderId: string | null) => {
     const { bookmarks, folders } = useBookmarkStore()
 
-    if (folderId === null) {
-        return bookmarks.length
-    }
-
-    if (folderId === 'uncategorized') {
-        return bookmarks.filter(b => b.folderId === null).length
-    }
-
-    const descendantIds = getDescendantFolderIds(folderId, folders)
-    const validFolderIds = [folderId, ...descendantIds]
-    return bookmarks.filter(b => validFolderIds.includes(b.folderId || '')).length
+    return useMemo(() => {
+        if (folderId === null) return bookmarks.length
+        if (folderId === 'uncategorized') return bookmarks.filter(b => b.folderId === null).length
+        const descendantIds = getDescendantFolderIds(folderId, folders)
+        const validFolderIds = [folderId, ...descendantIds]
+        return bookmarks.filter(b => validFolderIds.includes(b.folderId || '')).length
+    }, [bookmarks, folders, folderId])
 }

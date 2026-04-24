@@ -1,7 +1,12 @@
-import { JpgToPdfPanel } from "@/components/jpg-to-pdf/jpg-to-pdf-panel";
+import dynamic from "next/dynamic";
 import { generateToolMetadata } from "@/lib/metadata";
 
 export const metadata = generateToolMetadata("jpg-to-pdf");
+
+const JpgToPdfPanel = dynamic(
+  () => import("@/components/jpg-to-pdf/jpg-to-pdf-panel").then(m => m.JpgToPdfPanel),
+  { ssr: false, loading: () => <div className="h-full w-full bg-muted/20 animate-pulse rounded-lg" /> }
+);
 
 export default function JpgToPdfPage() {
   return (

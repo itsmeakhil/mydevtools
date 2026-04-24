@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import {
   Sidebar,
   SidebarContent,
@@ -116,17 +117,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </div>
           <div className="flex flex-col justify-center transition-all duration-300 origin-left group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:translate-x-[-10px]">
             <div className="relative h-6 w-28 -ml-1 whitespace-nowrap">
-              {/* Light Mode Text (Dark Color) */}
-              <img
+              <Image
                 src="/logo-text-light.png"
                 alt="MyDevTools"
-                className="dark:hidden object-contain h-full w-full object-left"
+                fill
+                className="dark:hidden object-contain object-left"
               />
-              {/* Dark Mode Text (Light Color) */}
-              <img
+              <Image
                 src="/logo-text-dark.png"
                 alt="MyDevTools"
-                className="hidden dark:block object-contain h-full w-full object-left"
+                fill
+                className="hidden dark:block object-contain object-left"
               />
             </div>
             <p className="text-[10px] text-muted-foreground/80 font-medium tracking-wider uppercase pl-0.5 whitespace-nowrap">Developer&apos;s Toolkit</p>

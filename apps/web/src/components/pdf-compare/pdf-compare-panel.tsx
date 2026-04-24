@@ -1,11 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  getDocument,
-  GlobalWorkerOptions,
-  version,
-} from "pdfjs-dist";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { FileText, Trash2, Upload } from "lucide-react";
@@ -21,12 +16,15 @@ import {
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/components/hooks/use-mobile";
 
-let workerSrcSet = false;
+let _pdfjsLib: typeof import("pdfjs-dist") | null = null;
 
-function ensurePdfWorker() {
-  if (workerSrcSet || typeof window === "undefined") return;
-  GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
-  workerSrcSet = true;
+async function getPdfjsLib() {
+  if (!_pdfjsLib) {
+    const lib = await import("pdfjs-dist");
+    lib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${lib.version}/build/pdf.worker.min.mjs`;
+    _pdfjsLib = lib;
+  }
+  return _pdfjsLib;
 }
 
 function looksLikePdf(file: File): boolean {
@@ -35,9 +33,9 @@ function looksLikePdf(file: File): boolean {
 }
 
 async function extractTextFromPdf(bytes: Uint8Array): Promise<string> {
-  ensurePdfWorker();
+  const pdfjs = await getPdfjsLib();
   const data = bytes.slice();
-  const pdf = await getDocument({ data }).promise;
+  const pdf = await pdfjs.getDocument({ data }).promise;
   try {
     const chunks: string[] = [];
     for (let p = 1; p <= pdf.numPages; p++) {

@@ -1,18 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  getDocument,
-  GlobalWorkerOptions,
-  version,
-} from "pdfjs-dist";
 import type { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
-import {
-  EncryptedPDFError,
-  PDFDocument,
-  StandardFonts,
-  rgb,
-} from "pdf-lib";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import {
@@ -42,12 +31,15 @@ import {
 import { cn } from "@/lib/utils";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
-let workerSrcSet = false;
+let _pdfjsLib: typeof import("pdfjs-dist") | null = null;
 
-function ensurePdfWorker() {
-  if (workerSrcSet || typeof window === "undefined") return;
-  GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
-  workerSrcSet = true;
+async function getPdfjsLib() {
+  if (!_pdfjsLib) {
+    const lib = await import("pdfjs-dist");
+    lib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${lib.version}/build/pdf.worker.min.mjs`;
+    _pdfjsLib = lib;
+  }
+  return _pdfjsLib;
 }
 
 function looksLikePdf(file: File): boolean {
@@ -175,6 +167,7 @@ async function exportAnnotatedPdf(
   sourceBytes: Uint8Array,
   annotations: Annotation[]
 ): Promise<Uint8Array> {
+  const { PDFDocument, StandardFonts, rgb } = await import("pdf-lib");
   const pdfDoc = await PDFDocument.load(sourceBytes);
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
@@ -351,10 +344,10 @@ export function PdfEditorPanel() {
   }, [closePdf]);
 
   const loadPdfJs = useCallback(async (bytes: Uint8Array) => {
-    ensurePdfWorker();
+    const pdfjs = await getPdfjsLib();
     await closePdf();
     const data = bytes.slice();
-    const pdf = await getDocument({ data }).promise;
+    const pdf = await pdfjs.getDocument({ data }).promise;
     pdfRef.current = pdf;
     setNumPages(pdf.numPages);
     setPageIndex(0);
@@ -369,6 +362,7 @@ export function PdfEditorPanel() {
         if (file) toast.error(t("invalidPdf"));
         return;
       }
+      const { PDFDocument, EncryptedPDFError } = await import("pdf-lib");
       try {
         const buf = new Uint8Array(await file.arrayBuffer());
         await PDFDocument.load(buf);

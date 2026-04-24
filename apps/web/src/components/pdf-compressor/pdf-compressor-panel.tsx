@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { EncryptedPDFError, PDFDocument } from "pdf-lib";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Upload, Download, FileText } from "lucide-react";
@@ -54,6 +53,7 @@ export function PdfCompressorPanel() {
         return;
       }
 
+      const { PDFDocument, EncryptedPDFError } = await import("pdf-lib");
       setBusy(true);
       try {
         const bytes = new Uint8Array(await file.arrayBuffer());
@@ -78,6 +78,7 @@ export function PdfCompressorPanel() {
   const compressAndDownload = useCallback(async () => {
     if (!originalBytes || !fileName) return;
 
+    const { PDFDocument, EncryptedPDFError } = await import("pdf-lib");
     setBusy(true);
     try {
       const src = await PDFDocument.load(originalBytes, { ignoreEncryption: false });

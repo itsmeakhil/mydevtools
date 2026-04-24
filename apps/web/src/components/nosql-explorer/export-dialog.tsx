@@ -8,7 +8,6 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { IconDownload } from "@tabler/icons-react";
-import * as XLSX from "xlsx";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 
@@ -40,18 +39,18 @@ export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDi
         }
     };
 
-    const handleExport = () => {
+    const handleExport = async () => {
         if (selectedFields.length === 0) {
             toast.error(t("selectFieldsError"));
             return;
         }
 
         try {
-            // Filter data to include only selected fields
+            const XLSX = await import("xlsx");
+
             const dataToExport = documents.map(doc => {
                 const newDoc: any = {};
                 selectedFields.forEach(field => {
-                    // Handle nested objects/arrays by stringifying them for better CSV/Excel compatibility
                     const value = doc[field];
                     if (typeof value === 'object' && value !== null) {
                         newDoc[field] = JSON.stringify(value);
