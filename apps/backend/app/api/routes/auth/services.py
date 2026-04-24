@@ -81,4 +81,5 @@ def get_current_user(uid: str = Depends(get_current_uid)) -> UserProfileResponse
         disabled=bool(doc.get("disabled")),
         github_username=doc.get("github_username"),
         username=doc.get("username"),
+        social_links=doc.get("social_links"),
     )
