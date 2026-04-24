@@ -46,6 +46,10 @@ def is_username_taken(username: str, exclude_uid: str) -> bool:
     return count > 0
 
 
+def get_user_doc_by_username(username: str) -> dict[str, Any] | None:
+    return users_collection().find_one({"username": username})
+
+
 def update_user_profile(uid: str, updates: dict[str, Any]) -> None:
     if not updates:
         return
