@@ -22,6 +22,7 @@ import {
   IconSearch,
   IconMenu2,
   IconPencil,
+  IconCode,
 } from "@tabler/icons-react";
 import { toast } from "sonner";
 import { useIsMobile } from "@/components/hooks/use-mobile";
@@ -38,7 +39,6 @@ import { ToolHeader } from "@/components/tools/tool-header";
 import { ToolWrapper } from "@/components/tools/tool-wrapper";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -61,7 +61,6 @@ import {
 import {
   Sheet,
   SheetContent,
-
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
@@ -77,6 +76,94 @@ import {
 } from "./snippet-monaco";
 
 type EditorMode = "view" | "edit";
+
+// ── Language color dots ───────────────────────────────────────────────────────
+
+const LANG_COLORS: Record<string, string> = {
+  javascript:  "bg-yellow-400",
+  typescript:  "bg-blue-400",
+  python:      "bg-sky-500",
+  json:        "bg-green-400",
+  html:        "bg-orange-400",
+  css:         "bg-pink-400",
+  scss:        "bg-pink-500",
+  less:        "bg-indigo-300",
+  shell:       "bg-slate-400",
+  sql:         "bg-indigo-400",
+  markdown:    "bg-slate-400",
+  yaml:        "bg-purple-400",
+  xml:         "bg-orange-500",
+  go:          "bg-cyan-400",
+  rust:        "bg-orange-600",
+  java:        "bg-red-500",
+  php:         "bg-violet-400",
+  csharp:      "bg-purple-500",
+  dockerfile:  "bg-sky-400",
+  ini:         "bg-stone-400",
+  plaintext:   "bg-muted-foreground",
+};
+
+function LangDot({ lang }: { lang: string }) {
+  return (
+    <span
+      className={cn(
+        "inline-block h-2 w-2 shrink-0 rounded-full",
+        LANG_COLORS[lang] ?? "bg-muted-foreground"
+      )}
+    />
+  );
+}
+
+// ── Snippet list item ─────────────────────────────────────────────────────────
+
+function SnippetListItem({
+  sn,
+  selected,
+  onClick,
+  t,
+}: {
+  sn: CodeSnippet;
+  selected: boolean;
+  onClick: () => void;
+  t: ReturnType<typeof useTranslations<"SnippetManager">>;
+}) {
+  const lang = resolveEditorLanguage(sn.language, sn.code);
+  const firstLine = sn.code.split("\n").find((l) => l.trim()) ?? "";
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        "group flex w-full flex-col gap-1 rounded-lg border px-3 py-2.5 text-left transition-all duration-150",
+        selected
+          ? "border-primary/30 bg-primary/8 dark:bg-primary/10"
+          : "border-transparent hover:border-border/60 hover:bg-muted/60"
+      )}
+    >
+      {/* Title row */}
+      <div className="flex min-w-0 items-center gap-2">
+        <LangDot lang={lang} />
+        <span className="flex-1 truncate text-sm font-medium leading-tight">
+          {sn.title}
+        </span>
+        <span className="shrink-0 rounded bg-muted px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
+          {sn.language === SNIPPET_LANGUAGE_AUTO
+            ? t("badgeAuto", { lang: t(`languages.${lang}` as never) })
+            : t(`languages.${sn.language}` as never)}
+        </span>
+      </div>
+      {/* Code preview */}
+      {firstLine && (
+        <p className="truncate pl-4 font-mono text-[11px] leading-tight text-muted-foreground/55">
+          {firstLine}
+        </p>
+      )}
+    </button>
+  );
+}
+
+// ── Main component ────────────────────────────────────────────────────────────
 
 export function SnippetManagerTool() {
   const t = useTranslations("SnippetManager");
@@ -141,7 +228,6 @@ export function SnippetManagerTool() {
   const guestBootstrapped = useRef(false);
   const serverBootstrappedUid = useRef<string | null>(null);
   const serverBootstrapInFlight = useRef(false);
-  /** Bumps when the snippet list is replaced from the server so drafts re-sync (selectedId may be unchanged). */
   const [remoteListEpoch, setRemoteListEpoch] = useState(0);
 
   useEffect(() => {
@@ -411,70 +497,211 @@ export function SnippetManagerTool() {
 
   const isMobile = useIsMobile();
 
+  // ── Snippet list panel ───────────────────────────────────────────────────────
+
   const snippetList = (
-    <div className="flex h-full min-h-0 flex-col border-border/60 md:border-r md:pr-2">
-      <div className="mb-2 flex gap-2">
+    <div className="flex h-full min-h-0 flex-col">
+      {/* Search + new */}
+      <div className="mb-3 flex gap-1.5">
         <div className="relative flex-1">
-          <IconSearch className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <IconSearch className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t("searchPlaceholder")}
-            className="h-9 pl-8"
+            className="h-8 pl-8 text-xs"
             aria-label={t("searchAria")}
           />
         </div>
         <Button
           type="button"
           size="icon"
-          variant="secondary"
-          className="h-9 w-9 shrink-0"
+          variant="ghost"
+          className="h-8 w-8 shrink-0 cursor-pointer"
           onClick={handleNew}
           aria-label={t("newSnippet")}
         >
-          <IconPlus className="h-4 w-4" />
+          <IconPlus className="h-3.5 w-3.5" />
         </Button>
       </div>
-      <ScrollArea className="min-h-0 flex-1 pr-2">
-        <ul className="space-y-1 pb-2">
+
+      {/* List */}
+      <ScrollArea className="min-h-0 flex-1">
+        <ul className="space-y-0.5 pb-2 pr-1">
           {filtered.map((sn) => (
             <li key={sn.id}>
-              <button
-                type="button"
+              <SnippetListItem
+                sn={sn}
+                selected={selectedId === sn.id}
+                t={t}
                 onClick={() => {
                   debouncedSaveCode.flush();
                   setSelectedId(sn.id);
                   setListOpen(false);
                 }}
-                className={cn(
-                  "flex w-full flex-col rounded-lg border px-3 py-2 text-left text-sm transition-colors",
-                  selectedId === sn.id
-                    ? "border-primary/50 bg-primary/10"
-                    : "border-transparent hover:bg-muted/80"
-                )}
-              >
-                <span className="truncate font-medium">{sn.title}</span>
-                <span className="truncate text-xs text-muted-foreground">
-                  {sn.language === SNIPPET_LANGUAGE_AUTO
-                    ? t("badgeAuto", {
-                        lang: t(
-                          `languages.${resolveEditorLanguage(SNIPPET_LANGUAGE_AUTO, sn.code)}` as never
-                        ),
-                      })
-                    : t(`languages.${sn.language}` as never)}
-                </span>
-              </button>
+              />
             </li>
           ))}
         </ul>
         {filtered.length === 0 && (
-          <p className="py-6 text-center text-sm text-muted-foreground">
-            {t("emptySearch")}
-          </p>
+          <div className="flex flex-col items-center gap-2 py-10 text-center">
+            <IconCode className="h-8 w-8 text-muted-foreground/30" />
+            <p className="text-xs text-muted-foreground">{t("emptySearch")}</p>
+          </div>
         )}
       </ScrollArea>
+
+      {/* Count footer */}
+      {filtered.length > 0 && (
+        <div className="border-t border-border/50 pt-2">
+          <p className="text-center text-[11px] text-muted-foreground/60">
+            {filtered.length} {filtered.length === 1 ? "snippet" : "snippets"}
+          </p>
+        </div>
+      )}
     </div>
   );
+
+  // ── Editor panel — shared across mobile + desktop ─────────────────────────
+
+  const editorPanel = (
+    <div className="flex h-full min-h-0 flex-col">
+      {/* Compact single-row toolbar */}
+      <div className="flex shrink-0 items-center gap-1.5 border-b border-border/60 px-3 py-1.5">
+        {/* Inline title */}
+        <Input
+          id="snippet-title-d"
+          value={draftTitle}
+          onChange={(e) => {
+            const v = e.target.value;
+            setDraftTitle(v);
+            persistTitleLang(v, draftLanguage);
+          }}
+          placeholder={t("snippetTitlePlaceholder")}
+          className="h-7 flex-1 border-0 bg-transparent px-1 text-sm font-medium shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          aria-label={t("snippetTitle")}
+        />
+
+        {/* Separator */}
+        <div className="h-4 w-px shrink-0 bg-border/60" />
+
+        {/* Language select */}
+        <Select
+          value={draftLanguage}
+          onValueChange={(v) => {
+            setDraftLanguage(v);
+            persistTitleLang(draftTitle, v);
+          }}
+        >
+          <SelectTrigger
+            aria-label={t("language")}
+            className="h-7 w-auto cursor-pointer gap-1.5 border-0 bg-muted/50 px-2 text-xs shadow-none focus:ring-0 hover:bg-muted [&>span]:max-w-[80px]"
+          >
+            <LangDot lang={effectiveLanguage} />
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value={SNIPPET_LANGUAGE_AUTO}>
+              {t("languages.auto")}
+            </SelectItem>
+            {SNIPPET_MONACO_LANGUAGES.map((id) => (
+              <SelectItem key={id} value={id}>
+                {t(`languages.${id}` as never)}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {/* Auto-detect hint */}
+        {draftLanguage === SNIPPET_LANGUAGE_AUTO && (
+          <span className="hidden items-center gap-1 text-[11px] text-muted-foreground sm:flex">
+            <IconSparkles className="h-3 w-3 shrink-0" />
+            {t(`languages.${effectiveLanguage}` as never)}
+          </span>
+        )}
+
+        {/* Right-side actions */}
+        <div className="ml-auto flex items-center gap-1">
+          {/* View / Edit toggle */}
+          <Tabs
+            value={mode}
+            onValueChange={(v) => setMode(v as EditorMode)}
+          >
+            <TabsList className="h-7">
+              <TabsTrigger value="view" className="h-6 gap-1 px-2.5 text-xs">
+                <IconEye className="h-3 w-3" />
+                <span className="hidden sm:inline">{t("modeView")}</span>
+              </TabsTrigger>
+              <TabsTrigger value="edit" className="h-6 gap-1 px-2.5 text-xs">
+                <IconPencil className="h-3 w-3" />
+                <span className="hidden sm:inline">{t("modeEdit")}</span>
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+
+          <div className="mx-1 h-4 w-px shrink-0 bg-border/60" />
+
+          {/* Format */}
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="h-7 w-7 cursor-pointer"
+            onClick={handleFormat}
+            disabled={!draftCode.trim()}
+            title={t("format")}
+          >
+            <IconSparkles className="h-3.5 w-3.5" />
+          </Button>
+
+          {/* Copy */}
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="h-7 w-7 cursor-pointer"
+            onClick={handleCopy}
+            title={copied ? t("copied") : t("copy")}
+          >
+            {copied ? (
+              <IconCheck className="h-3.5 w-3.5 text-emerald-500" />
+            ) : (
+              <IconCopy className="h-3.5 w-3.5" />
+            )}
+          </Button>
+
+          {/* Delete */}
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="h-7 w-7 cursor-pointer text-muted-foreground hover:text-destructive"
+            onClick={() => {
+              const sn = snippets.find((s) => s.id === selectedId);
+              if (sn) setDeleteTarget(sn);
+            }}
+            title={t("deleteTitle")}
+          >
+            <IconTrash className="h-3.5 w-3.5" />
+          </Button>
+        </div>
+      </div>
+
+      {/* Monaco editor — fills remaining space */}
+      <div className="min-h-0 flex-1">
+        <SnippetMonaco
+          ref={monacoRef}
+          value={draftCode}
+          onChange={mode === "edit" ? onCodeChange : undefined}
+          language={effectiveLanguage}
+          readOnly={mode === "view"}
+          aria-label={t("editorAria")}
+        />
+      </div>
+    </div>
+  );
+
+  // ── Empty state ───────────────────────────────────────────────────────────
 
   if (!selectedId && snippets.length === 0) {
     return (
@@ -484,337 +711,217 @@ export function SnippetManagerTool() {
     );
   }
 
+  // ── Mobile layout ─────────────────────────────────────────────────────────
+
+  if (isMobile) {
+    return (
+      <ToolWrapper toolId="snippet-manager" maxWidth="full" className="min-h-0">
+        <div className="flex h-full min-h-0 flex-1 flex-col gap-3 p-2">
+          <ToolHeader
+            title={t("title")}
+            description={t("subtitle")}
+            toolId="snippet-manager"
+          />
+
+          {/* Mobile top bar */}
+          <div className="flex shrink-0 items-center gap-2">
+            <Sheet open={listOpen} onOpenChange={setListOpen}>
+              <SheetTrigger asChild>
+                <button
+                  type="button"
+                  className="flex min-w-0 flex-1 cursor-pointer items-center gap-2 rounded-lg border border-border/60 bg-muted/40 px-3 py-2 text-left transition-colors hover:bg-muted"
+                >
+                  <IconMenu2 className="h-4 w-4 shrink-0 text-muted-foreground" />
+                  <span className="flex-1 truncate text-sm font-medium">
+                    {draftTitle || t("snippets")}
+                  </span>
+                  <span className="ml-auto shrink-0 text-xs text-muted-foreground">
+                    {filtered.length}
+                  </span>
+                </button>
+              </SheetTrigger>
+              <SheetContent side="bottom" className="h-[75vh] rounded-t-2xl p-0">
+                <div className="flex items-center justify-between border-b px-4 py-3">
+                  <SheetTitle className="text-base">{t("snippets")}</SheetTitle>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="secondary"
+                    className="h-8 gap-1.5"
+                    onClick={handleNew}
+                  >
+                    <IconPlus className="h-3.5 w-3.5" />
+                    {t("newSnippet")}
+                  </Button>
+                </div>
+                <div className="h-[calc(75vh-4rem)] p-4">{snippetList}</div>
+              </SheetContent>
+            </Sheet>
+            <Button
+              type="button"
+              size="icon"
+              variant="secondary"
+              className="h-10 w-10 shrink-0 cursor-pointer"
+              onClick={handleNew}
+              aria-label={t("newSnippet")}
+            >
+              <IconPlus className="h-4 w-4" />
+            </Button>
+          </div>
+
+          {/* Editor card */}
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-border/50">
+            {editorPanel}
+          </div>
+        </div>
+
+        <DeleteDialog
+          target={deleteTarget}
+          onClose={() => setDeleteTarget(null)}
+          onConfirm={confirmDelete}
+          t={t}
+        />
+      </ToolWrapper>
+    );
+  }
+
+  // ── Desktop layout ────────────────────────────────────────────────────────
+
   return (
     <ToolWrapper toolId="snippet-manager" maxWidth="full" className="min-h-0">
-      <div className="flex h-full min-h-0 flex-1 flex-col gap-3 p-2 md:p-4">
+      <div className="flex h-full min-h-0 flex-1 flex-col gap-3 p-4">
         <ToolHeader
           title={t("title")}
           description={t("subtitle")}
           toolId="snippet-manager"
         />
 
-        <div className="flex min-h-0 flex-1 flex-col gap-3">
-          {isMobile ? (
-            <div className="flex items-center gap-2 shrink-0">
-              {/* Current snippet name + open list button */}
-              <Sheet open={listOpen} onOpenChange={setListOpen}>
-                <SheetTrigger asChild>
-                  <button
-                    type="button"
-                    className="flex flex-1 min-w-0 items-center gap-2 rounded-lg border bg-muted/40 px-3 py-2 text-left transition-colors hover:bg-muted"
-                  >
-                    <IconMenu2 className="h-4 w-4 shrink-0 text-muted-foreground" />
-                    <span className="truncate text-sm font-medium">
-                      {draftTitle || t("snippets")}
-                    </span>
-                    <span className="ml-auto shrink-0 text-xs text-muted-foreground">
-                      {filtered.length}
-                    </span>
-                  </button>
-                </SheetTrigger>
-                <SheetContent side="bottom" className="h-[75vh] rounded-t-2xl p-0">
-                  <div className="flex items-center justify-between border-b px-4 py-3">
-                    <SheetTitle className="text-base">{t("snippets")}</SheetTitle>
-                    <Button
-                      type="button"
-                      size="sm"
-                      variant="secondary"
-                      className="gap-1.5 h-8"
-                      onClick={handleNew}
-                    >
-                      <IconPlus className="h-3.5 w-3.5" />
-                      {t("newSnippet")}
-                    </Button>
-                  </div>
-                  <div className="p-4 h-[calc(75vh-4rem)]">{snippetList}</div>
-                </SheetContent>
-              </Sheet>
-              <Button
-                type="button"
-                size="sm"
-                variant="secondary"
-                className="h-10 w-10 shrink-0 p-0"
-                onClick={handleNew}
-                aria-label={t("newSnippet")}
-              >
-                <IconPlus className="h-4 w-4" />
-              </Button>
-            </div>
-          ) : null}
+        <ResizablePanelGroup
+          direction="horizontal"
+          className="min-h-[520px] flex-1 overflow-hidden rounded-xl border border-border/50"
+        >
+          {/* List panel */}
+          <ResizablePanel defaultSize={26} minSize={18} maxSize={38}>
+            <div className="flex h-full flex-col border-r border-border/50">
+              {/* List header */}
+              <div className="flex shrink-0 items-center justify-between border-b border-border/50 px-3 py-2">
+                <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  {t("snippets")}
+                </span>
+                <Button
+                  type="button"
+                  size="icon"
+                  variant="ghost"
+                  className="h-6 w-6 cursor-pointer"
+                  onClick={handleNew}
+                  aria-label={t("newSnippet")}
+                >
+                  <IconPlus className="h-3.5 w-3.5" />
+                </Button>
+              </div>
 
-          {isMobile ? (
-            <div className="flex flex-1 min-h-0 flex-col rounded-lg border border-border/50">
-              <div className="flex h-full min-h-0 flex-col gap-3 p-3">
-                <div className="flex flex-wrap items-end gap-3">
-                  <div className="grid min-w-[140px] flex-1 gap-1.5">
-                    <Label htmlFor="snippet-title">{t("snippetTitle")}</Label>
-                    <Input
-                      id="snippet-title"
-                      value={draftTitle}
-                      onChange={(e) => {
-                        const v = e.target.value;
-                        setDraftTitle(v);
-                        persistTitleLang(v, draftLanguage);
-                      }}
-                      placeholder={t("snippetTitlePlaceholder")}
-                    />
-                  </div>
-                  <div className="grid w-full min-w-[160px] max-w-xs gap-1.5 sm:w-auto">
-                    <Label>{t("language")}</Label>
-                    <Select
-                      value={draftLanguage}
-                      onValueChange={(v) => {
-                        setDraftLanguage(v);
-                        persistTitleLang(draftTitle, v);
-                      }}
-                    >
-                      <SelectTrigger aria-label={t("language")}>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value={SNIPPET_LANGUAGE_AUTO}>
-                          {t("languages.auto")}
-                        </SelectItem>
-                        {SNIPPET_MONACO_LANGUAGES.map((id) => (
-                          <SelectItem key={id} value={id}>
-                            {t(`languages.${id}` as never)}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                {draftLanguage === SNIPPET_LANGUAGE_AUTO && (
-                  <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                    <IconSparkles className="h-3.5 w-3.5 shrink-0" />
-                    {t("detectedHint", {
-                      lang: t(`languages.${effectiveLanguage}` as never),
-                    })}
-                  </p>
-                )}
-
-                <div className="flex flex-wrap items-center gap-2">
-                  <Tabs
-                    value={mode}
-                    onValueChange={(v) => setMode(v as EditorMode)}
-                  >
-                    <TabsList className="h-9">
-                      <TabsTrigger value="view" className="gap-1.5 px-3">
-                        <IconEye className="h-3.5 w-3.5" />
-                        {t("modeView")}
-                      </TabsTrigger>
-                      <TabsTrigger value="edit" className="gap-1.5 px-3">
-                        <IconPencil className="h-3.5 w-3.5" />
-                        {t("modeEdit")}
-                      </TabsTrigger>
-                    </TabsList>
-                  </Tabs>
-                  <div className="ml-auto flex flex-wrap gap-2">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      className="gap-1.5"
-                      onClick={handleCopy}
-                    >
-                      {copied ? (
-                        <IconCheck className="h-4 w-4 text-emerald-500" />
-                      ) : (
-                        <IconCopy className="h-4 w-4" />
-                      )}
-                      {copied ? t("copied") : t("copy")}
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="secondary"
-                      size="sm"
-                      onClick={handleFormat}
-                      disabled={!draftCode.trim()}
-                    >
-                      {t("format")}
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      className="text-destructive hover:text-destructive"
-                      onClick={() => {
-                        const sn = snippets.find((s) => s.id === selectedId);
-                        if (sn) setDeleteTarget(sn);
-                      }}
-                    >
-                      <IconTrash className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="min-h-0 flex-1">
-                  <SnippetMonaco
-                    ref={monacoRef}
-                    value={draftCode}
-                    onChange={mode === "edit" ? onCodeChange : undefined}
-                    language={effectiveLanguage}
-                    readOnly={mode === "view"}
-                    aria-label={t("editorAria")}
+              {/* Search */}
+              <div className="shrink-0 px-3 py-2">
+                <div className="relative">
+                  <IconSearch className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+                  <Input
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder={t("searchPlaceholder")}
+                    className="h-7 pl-8 text-xs"
+                    aria-label={t("searchAria")}
                   />
                 </div>
               </div>
-            </div>
-          ) : (
-            <ResizablePanelGroup
-              direction="horizontal"
-              className="min-h-[480px] flex-1 rounded-lg border border-border/50"
-            >
-              <ResizablePanel defaultSize={28} minSize={18} maxSize={40}>
-                <div className="h-full p-3">{snippetList}</div>
-              </ResizablePanel>
-              <ResizableHandle withHandle />
-              <ResizablePanel defaultSize={72} minSize={40}>
-                <div className="flex h-full min-h-0 flex-col gap-3 p-3">
-                  <div className="flex flex-wrap items-end gap-3">
-                    <div className="grid min-w-[140px] flex-1 gap-1.5">
-                      <Label htmlFor="snippet-title-d">{t("snippetTitle")}</Label>
-                      <Input
-                        id="snippet-title-d"
-                        value={draftTitle}
-                        onChange={(e) => {
-                          const v = e.target.value;
-                          setDraftTitle(v);
-                          persistTitleLang(v, draftLanguage);
-                        }}
-                        placeholder={t("snippetTitlePlaceholder")}
-                      />
-                    </div>
-                    <div className="grid w-full min-w-[160px] max-w-xs gap-1.5 sm:w-auto">
-                      <Label>{t("language")}</Label>
-                      <Select
-                        value={draftLanguage}
-                        onValueChange={(v) => {
-                          setDraftLanguage(v);
-                          persistTitleLang(draftTitle, v);
-                        }}
-                      >
-                        <SelectTrigger aria-label={t("language")}>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value={SNIPPET_LANGUAGE_AUTO}>
-                            {t("languages.auto")}
-                          </SelectItem>
-                          {SNIPPET_MONACO_LANGUAGES.map((id) => (
-                            <SelectItem key={id} value={id}>
-                              {t(`languages.${id}` as never)}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
 
-                  {draftLanguage === SNIPPET_LANGUAGE_AUTO && (
-                    <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                      <IconSparkles className="h-3.5 w-3.5 shrink-0" />
-                      {t("detectedHint", {
-                        lang: t(`languages.${effectiveLanguage}` as never),
-                      })}
-                    </p>
-                  )}
-
-                  <div className="flex flex-wrap items-center gap-2">
-                    <Tabs
-                      value={mode}
-                      onValueChange={(v) => setMode(v as EditorMode)}
-                    >
-                      <TabsList className="h-9">
-                        <TabsTrigger value="view" className="gap-1.5 px-3">
-                          <IconEye className="h-3.5 w-3.5" />
-                          {t("modeView")}
-                        </TabsTrigger>
-                        <TabsTrigger value="edit" className="gap-1.5 px-3">
-                          <IconPencil className="h-3.5 w-3.5" />
-                          {t("modeEdit")}
-                        </TabsTrigger>
-                      </TabsList>
-                    </Tabs>
-                    <div className="ml-auto flex flex-wrap gap-2">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="gap-1.5"
-                        onClick={handleCopy}
-                      >
-                        {copied ? (
-                          <IconCheck className="h-4 w-4 text-emerald-500" />
-                        ) : (
-                          <IconCopy className="h-4 w-4" />
-                        )}
-                        {copied ? t("copied") : t("copy")}
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="secondary"
-                        size="sm"
-                        onClick={handleFormat}
-                        disabled={!draftCode.trim()}
-                      >
-                        {t("format")}
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="text-destructive hover:text-destructive"
+              {/* List */}
+              <ScrollArea className="min-h-0 flex-1 px-2 pb-2">
+                <ul className="space-y-0.5">
+                  {filtered.map((sn) => (
+                    <li key={sn.id}>
+                      <SnippetListItem
+                        sn={sn}
+                        selected={selectedId === sn.id}
+                        t={t}
                         onClick={() => {
-                          const sn = snippets.find((s) => s.id === selectedId);
-                          if (sn) setDeleteTarget(sn);
+                          debouncedSaveCode.flush();
+                          setSelectedId(sn.id);
                         }}
-                      >
-                        <IconTrash className="h-4 w-4" />
-                      </Button>
-                    </div>
+                      />
+                    </li>
+                  ))}
+                </ul>
+                {filtered.length === 0 && (
+                  <div className="flex flex-col items-center gap-2 py-10 text-center">
+                    <IconCode className="h-8 w-8 text-muted-foreground/30" />
+                    <p className="text-xs text-muted-foreground">{t("emptySearch")}</p>
                   </div>
+                )}
+              </ScrollArea>
 
-                  <div className="min-h-0 flex-1">
-                    <SnippetMonaco
-                      ref={monacoRef}
-                      value={draftCode}
-                      onChange={mode === "edit" ? onCodeChange : undefined}
-                      language={effectiveLanguage}
-                      readOnly={mode === "view"}
-                      aria-label={t("editorAria")}
-                    />
-                  </div>
+              {/* Count */}
+              {filtered.length > 0 && (
+                <div className="shrink-0 border-t border-border/50 px-3 py-2">
+                  <p className="text-center text-[11px] text-muted-foreground/60">
+                    {filtered.length}{" "}
+                    {filtered.length === 1 ? "snippet" : "snippets"}
+                  </p>
                 </div>
-              </ResizablePanel>
-            </ResizablePanelGroup>
-          )}
-        </div>
+              )}
+            </div>
+          </ResizablePanel>
+
+          <ResizableHandle withHandle />
+
+          {/* Editor panel */}
+          <ResizablePanel defaultSize={74} minSize={40}>
+            {editorPanel}
+          </ResizablePanel>
+        </ResizablePanelGroup>
       </div>
 
-      <AlertDialog
-        open={!!deleteTarget}
-        onOpenChange={(o) => !o && setDeleteTarget(null)}
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>{t("deleteTitle")}</AlertDialogTitle>
-            <AlertDialogDescription>
-              {t("deleteDescription", { title: deleteTarget?.title ?? "" })}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={confirmDelete}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-            >
-              {t("deleteConfirm")}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <DeleteDialog
+        target={deleteTarget}
+        onClose={() => setDeleteTarget(null)}
+        onConfirm={confirmDelete}
+        t={t}
+      />
     </ToolWrapper>
+  );
+}
+
+// ── Delete dialog ─────────────────────────────────────────────────────────────
+
+function DeleteDialog({
+  target,
+  onClose,
+  onConfirm,
+  t,
+}: {
+  target: CodeSnippet | null;
+  onClose: () => void;
+  onConfirm: () => void;
+  t: ReturnType<typeof useTranslations<"SnippetManager">>;
+}) {
+  return (
+    <AlertDialog open={!!target} onOpenChange={(o) => !o && onClose()}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{t("deleteTitle")}</AlertDialogTitle>
+          <AlertDialogDescription>
+            {t("deleteDescription", { title: target?.title ?? "" })}
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+          <AlertDialogAction
+            onClick={onConfirm}
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+          >
+            {t("deleteConfirm")}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

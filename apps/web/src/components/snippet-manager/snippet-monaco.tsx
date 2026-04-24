@@ -73,7 +73,8 @@ export const SnippetMonaco = forwardRef<SnippetMonacoHandle, Props>(
           ariaLabel,
           readOnly,
           minimap: { enabled: false },
-          fontSize: 13,
+          fontSize: 14,
+          lineHeight: 22,
           lineNumbers: "on",
           glyphMargin: false,
           scrollBeyondLastLine: false,
@@ -84,25 +85,33 @@ export const SnippetMonaco = forwardRef<SnippetMonacoHandle, Props>(
           wordWrap: "on",
           wrappingIndent: "indent",
           folding: true,
+          foldingHighlight: true,
           formatOnPaste: !readOnly,
           formatOnType: !readOnly,
-          padding: { top: 12, bottom: 12 },
+          padding: { top: 16, bottom: 16 },
           renderLineHighlight: readOnly ? "none" : "line",
+          bracketPairColorization: { enabled: true },
+          renderWhitespace: readOnly ? "none" : "selection",
+          smoothScrolling: true,
+          cursorBlinking: "smooth",
+          cursorSmoothCaretAnimation: "on",
           scrollbar: {
-            verticalScrollbarSize: 10,
-            horizontalScrollbarSize: 10,
+            verticalScrollbarSize: 8,
+            horizontalScrollbarSize: 8,
+            useShadows: false,
           },
           domReadOnly: readOnly,
+          overviewRulerLanes: 0,
         }) satisfies MEditor.IStandaloneEditorConstructionOptions,
       [ariaLabel, readOnly]
     );
 
     return (
-      <div className="relative h-full min-h-[240px] w-full overflow-hidden rounded-lg border border-border/60">
+      <div className="relative h-full min-h-[320px] w-full overflow-hidden">
         <MonacoEditor
           loading={<SnippetMonacoLoading />}
           height="100%"
-          className="absolute inset-0 min-h-[240px]"
+          className="absolute inset-0 min-h-[320px]"
           language={language}
           theme={theme}
           value={value}
