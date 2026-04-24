@@ -1,31 +1,32 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
+// ─── Types ────────────────────────────────────────────────────────────────────
+
 type CellState = 'hidden' | 'revealed' | 'flagged'
-
-interface Cell {
-  mine: boolean
-  adjacent: number
-  state: CellState
-}
-
+interface Cell { mine: boolean; adjacent: number; state: CellState }
 type Difficulty = 'beginner' | 'intermediate' | 'expert'
+type Status = 'idle' | 'playing' | 'won' | 'lost'
 
-const CONFIG: Record<Difficulty, { rows: number; cols: number; mines: number }> = {
-  beginner: { rows: 9, cols: 9, mines: 10 },
-  intermediate: { rows: 16, cols: 16, mines: 40 },
-  expert: { rows: 16, cols: 30, mines: 99 },
+// ─── Config ───────────────────────────────────────────────────────────────────
+
+const CONFIG: Record<Difficulty, { rows: number; cols: number; mines: number; cell: number }> = {
+  beginner:     { rows: 9,  cols: 9,  mines: 10, cell: 52 },
+  intermediate: { rows: 16, cols: 16, mines: 40, cell: 40 },
+  expert:       { rows: 16, cols: 30, mines: 99, cell: 32 },
 }
+
+const BEST_KEY = (d: Difficulty) => `mydevtools-ms-best-${d}`
+
+// ─── Engine ───────────────────────────────────────────────────────────────────
 
 function buildBoard(rows: number, cols: number, mines: number, safeR: number, safeC: number): Cell[][] {
   const board: Cell[][] = Array.from({ length: rows }, () =>
     Array.from({ length: cols }, () => ({ mine: false, adjacent: 0, state: 'hidden' as CellState }))
   )
-
-  // Place mines avoiding safe zone (3x3 around first click)
   let placed = 0
   while (placed < mines) {
     const r = Math.floor(Math.random() * rows)
@@ -35,9 +36,7 @@ function buildBoard(rows: number, cols: number, mines: number, safeR: number, sa
     board[r]![c]!.mine = true
     placed++
   }
-
-  // Compute adjacency
-  for (let r = 0; r < rows; r++) {
+  for (let r = 0; r < rows; r++)
     for (let c = 0; c < cols; c++) {
       if (board[r]![c]!.mine) continue
       let count = 0
@@ -48,84 +47,143 @@ function buildBoard(rows: number, cols: number, mines: number, safeR: number, sa
         }
       board[r]![c]!.adjacent = count
     }
-  }
   return board
 }
 
-function floodReveal(board: Cell[][], rows: number, cols: number, r: number, c: number): Cell[][] {
+// Returns board + BFS-distance map for animation stagger
+function floodReveal(
+  board: Cell[][], rows: number, cols: number, r: number, c: number
+): { board: Cell[][]; distances: Record<string, number> } {
   const next = board.map(row => row.map(cell => ({ ...cell })))
-  const queue: [number, number][] = [[r, c]]
+  const distances: Record<string, number> = {}
+  const visited = new Set<string>()
+  const queue: [number, number, number][] = [[r, c, 0]]
+
   while (queue.length > 0) {
-    const [cr, cc] = queue.shift()!
+    const [cr, cc, dist] = queue.shift()!
+    const key = `${cr},${cc}`
+    if (visited.has(key)) continue
+    visited.add(key)
     const cell = next[cr]![cc]!
     if (cell.state === 'revealed' || cell.state === 'flagged' || cell.mine) continue
     cell.state = 'revealed'
+    distances[key] = dist
     if (cell.adjacent === 0) {
       for (let dr = -1; dr <= 1; dr++)
         for (let dc = -1; dc <= 1; dc++) {
           const nr = cr + dr, nc = cc + dc
           if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && next[nr]![nc]!.state === 'hidden')
-            queue.push([nr, nc])
+            queue.push([nr, nc, dist + 1])
         }
     }
   }
-  return next
+  return { board: next, distances }
 }
 
 function checkWin(board: Cell[][]): boolean {
   return board.every(row => row.every(cell => cell.mine ? cell.state !== 'revealed' : cell.state === 'revealed'))
 }
 
+// ─── Number colors ────────────────────────────────────────────────────────────
+
 const NUM_COLOR: Record<number, string> = {
-  1: 'text-blue-600 dark:text-blue-400',
-  2: 'text-green-600 dark:text-green-400',
-  3: 'text-red-600 dark:text-red-400',
-  4: 'text-purple-800 dark:text-purple-400',
-  5: 'text-red-900 dark:text-red-300',
-  6: 'text-teal-600 dark:text-teal-400',
-  7: 'text-black dark:text-white',
-  8: 'text-gray-500',
+  1: '#3B82F6', 2: '#22C55E', 3: '#EF4444',
+  4: '#7C3AED', 5: '#B91C1C', 6: '#0891B2',
+  7: '#1F2937', 8: '#6B7280',
 }
 
-export function MinesweeperLayout() {
-  const [difficulty, setDifficulty] = useState<Difficulty>('beginner')
-  const [board, setBoard] = useState<Cell[][] | null>(null)
-  const [status, setStatus] = useState<'idle' | 'playing' | 'won' | 'lost'>('idle')
-  const [flagCount, setFlagCount] = useState(0)
-  const [firstClick, setFirstClick] = useState(true)
+function formatTime(s: number) {
+  const m = Math.floor(s / 60).toString().padStart(2, '0')
+  const sec = (s % 60).toString().padStart(2, '0')
+  return `${m}:${sec}`
+}
 
-  const { rows, cols, mines } = CONFIG[difficulty]
+// ─── Component ────────────────────────────────────────────────────────────────
+
+export function MinesweeperLayout() {
+  const [difficulty, setDifficulty]     = useState<Difficulty>('beginner')
+  const [board, setBoard]               = useState<Cell[][] | null>(null)
+  const [status, setStatus]             = useState<Status>('idle')
+  const [flagCount, setFlagCount]       = useState(0)
+  const [firstClick, setFirstClick]     = useState(true)
+  const [timer, setTimer]               = useState(0)
+  const [bestTimes, setBestTimes]       = useState<Partial<Record<Difficulty, number>>>(() => {
+    if (typeof window === 'undefined') return {}
+    const out: Partial<Record<Difficulty, number>> = {}
+    for (const d of ['beginner', 'intermediate', 'expert'] as Difficulty[]) {
+      const v = localStorage.getItem(BEST_KEY(d))
+      if (v) out[d] = parseInt(v, 10)
+    }
+    return out
+  })
+
+  // Animation state: maps "r,c" → delay_ms for cell reveal
+  const revealDelaysRef = useRef<Record<string, number>>({})
+  // Mine stagger delays: "r,c" → delay_ms for mine explosion
+  const mineDelaysRef   = useRef<Record<string, number>>({})
+  // Win ripple delays: "r,c" → delay_ms
+  const winDelaysRef    = useRef<Record<string, number>>({})
+
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const { rows, cols, mines, cell: cellSize } = CONFIG[difficulty]
+
+  const stopTimer = useCallback(() => {
+    if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null }
+  }, [])
+
+  const startTimer = useCallback(() => {
+    stopTimer()
+    timerRef.current = setInterval(() => setTimer(t => t + 1), 1000)
+  }, [stopTimer])
+
+  useEffect(() => () => stopTimer(), [stopTimer])
 
   const newGame = useCallback((diff?: Difficulty) => {
-    const d = diff ?? difficulty
+    stopTimer()
+    revealDelaysRef.current = {}
+    mineDelaysRef.current   = {}
+    winDelaysRef.current    = {}
     setBoard(null)
     setStatus('idle')
     setFlagCount(0)
     setFirstClick(true)
-  }, [difficulty])
+    setTimer(0)
+    if (diff && diff !== difficulty) setDifficulty(diff)
+  }, [difficulty, stopTimer])
 
-  const changeDifficulty = (d: Difficulty) => {
-    setDifficulty(d)
-    newGame(d)
-  }
-
-  const handleReveal = (r: number, c: number) => {
+  const handleReveal = useCallback((r: number, c: number) => {
     if (status === 'won' || status === 'lost') return
 
     let currentBoard = board
-    let isFirst = firstClick
-
-    if (!currentBoard || isFirst) {
-      currentBoard = buildBoard(rows, cols, mines, r, c)
+    if (!currentBoard || firstClick) {
+      const cfg = board ? CONFIG[difficulty] : CONFIG[difficulty]
+      currentBoard = buildBoard(cfg.rows, cfg.cols, cfg.mines, r, c)
+      revealDelaysRef.current = {}
+      mineDelaysRef.current   = {}
       setFirstClick(false)
-      isFirst = false
+      startTimer()
     }
 
     const cell = currentBoard[r]![c]!
     if (cell.state === 'flagged' || cell.state === 'revealed') return
 
     if (cell.mine) {
-      // Reveal all mines
+      stopTimer()
+      // Reveal all mines with distance-based stagger from clicked mine
+      const allMines: { r: number; c: number; dist: number }[] = []
+      currentBoard.forEach((row, mr) =>
+        row.forEach((cl, mc) => {
+          if (cl.mine) {
+            const dist = Math.abs(mr - r) + Math.abs(mc - c)
+            allMines.push({ r: mr, c: mc, dist })
+          }
+        })
+      )
+      allMines.sort((a, b) => a.dist - b.dist)
+      allMines.forEach(({ r: mr, c: mc, dist }) => {
+        mineDelaysRef.current[`${mr},${mc}`] = dist * 55
+      })
+
       const lost = currentBoard.map(row =>
         row.map(cl => cl.mine ? { ...cl, state: 'revealed' as CellState } : { ...cl })
       )
@@ -134,12 +192,36 @@ export function MinesweeperLayout() {
       return
     }
 
-    const revealed = floodReveal(currentBoard, rows, cols, r, c)
-    setBoard(revealed)
-    setStatus(checkWin(revealed) ? 'won' : 'playing')
-  }
+    const { board: revealed, distances } = floodReveal(currentBoard, rows, cols, r, c)
+    // Merge distances into revealDelays (scale: 28ms per BFS step)
+    Object.entries(distances).forEach(([key, dist]) => {
+      revealDelaysRef.current[key] = dist * 28
+    })
 
-  const handleFlag = (e: React.MouseEvent, r: number, c: number) => {
+    const won = checkWin(revealed)
+    setBoard(revealed)
+    setStatus(won ? 'won' : 'playing')
+
+    if (won) {
+      stopTimer()
+      // Win ripple from center
+      const cr = Math.floor(rows / 2), cc = Math.floor(cols / 2)
+      revealed.forEach((row, wr) =>
+        row.forEach((_, wc) => {
+          const dist = Math.abs(wr - cr) + Math.abs(wc - cc)
+          winDelaysRef.current[`${wr},${wc}`] = dist * 18
+        })
+      )
+      const t = timer + 1
+      const prev = bestTimes[difficulty]
+      if (prev === undefined || t < prev) {
+        localStorage.setItem(BEST_KEY(difficulty), String(t))
+        setBestTimes(b => ({ ...b, [difficulty]: t }))
+      }
+    }
+  }, [status, board, firstClick, difficulty, rows, cols, mines, timer, bestTimes, startTimer, stopTimer])
+
+  const handleFlag = useCallback((e: React.MouseEvent, r: number, c: number) => {
     e.preventDefault()
     if (!board || status === 'won' || status === 'lost') return
     const cell = board[r]![c]!
@@ -153,98 +235,265 @@ export function MinesweeperLayout() {
       setFlagCount(f => f - 1)
     }
     setBoard(next)
-  }
+  }, [board, status])
 
-  const cellSize = difficulty === 'expert' ? 28 : difficulty === 'intermediate' ? 32 : 40
+  // Chord click: reveal neighbors if correct flags placed
+  const handleChord = useCallback((r: number, c: number) => {
+    if (!board) return
+    const cell = board[r]![c]!
+    if (cell.state !== 'revealed' || cell.adjacent === 0) return
+    let flagged = 0
+    for (let dr = -1; dr <= 1; dr++)
+      for (let dc = -1; dc <= 1; dc++) {
+        const nr = r + dr, nc = c + dc
+        if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && board[nr]![nc]!.state === 'flagged') flagged++
+      }
+    if (flagged !== cell.adjacent) return
+    // Reveal all hidden neighbors
+    let current = board.map(row => row.map(cl => ({ ...cl })))
+    for (let dr = -1; dr <= 1; dr++)
+      for (let dc = -1; dc <= 1; dc++) {
+        const nr = r + dr, nc = c + dc
+        if (nr < 0 || nr >= rows || nc < 0 || nc >= cols) continue
+        if (current[nr]![nc]!.state !== 'hidden') continue
+        if (current[nr]![nc]!.mine) {
+          // Hit a mine via chord
+          const allMines: { r: number; c: number; dist: number }[] = []
+          current.forEach((row, mr) => row.forEach((cl, mc) => {
+            if (cl.mine) allMines.push({ r: mr, c: mc, dist: Math.abs(mr - nr) + Math.abs(mc - nc) })
+          }))
+          allMines.sort((a, b) => a.dist - b.dist)
+          allMines.forEach(({ r: mr, c: mc, dist }) => { mineDelaysRef.current[`${mr},${mc}`] = dist * 55 })
+          const lost = current.map(row => row.map(cl => cl.mine ? { ...cl, state: 'revealed' as CellState } : { ...cl }))
+          setBoard(lost); setStatus('lost'); stopTimer(); return
+        }
+        const { board: fb, distances } = floodReveal(current, rows, cols, nr, nc)
+        Object.entries(distances).forEach(([key, dist]) => { revealDelaysRef.current[key] = dist * 28 })
+        current = fb
+      }
+    const won = checkWin(current)
+    setBoard(current)
+    setStatus(won ? 'won' : 'playing')
+    if (won) {
+      stopTimer()
+      const cr = Math.floor(rows / 2), cc = Math.floor(cols / 2)
+      current.forEach((row, wr) => row.forEach((_, wc) => {
+        winDelaysRef.current[`${wr},${wc}`] = (Math.abs(wr - cr) + Math.abs(wc - cc)) * 18
+      }))
+    }
+  }, [board, rows, cols, stopTimer])
+
+  const minesLeft = mines - flagCount
+  const bestTime = bestTimes[difficulty]
 
   return (
-    <div className="flex flex-col items-center gap-4 select-none py-2 md:py-6">
-      <div className="flex items-start justify-between w-full max-w-2xl">
-        <div>
-          <h1 className="text-4xl font-extrabold tracking-tight leading-none">Minesweeper</h1>
-          <p className="text-xs text-muted-foreground mt-1">Left click reveal · Right click flag</p>
-        </div>
-        <div className="flex gap-2 items-center">
-          <div className="bg-muted rounded-lg px-3 py-1.5 text-center min-w-[64px]">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Mines</div>
-            <div className="text-lg font-bold leading-tight">{mines - flagCount}</div>
+    <>
+      <style>{`
+        @keyframes ms-reveal {
+          from { transform: scale(0.4) rotateX(40deg); opacity: 0; }
+          60%  { transform: scale(1.06) rotateX(-4deg); opacity: 1; }
+          to   { transform: scale(1) rotateX(0deg); opacity: 1; }
+        }
+        @keyframes ms-flag {
+          0%  { transform: scale(0) rotate(-40deg); }
+          55% { transform: scale(1.25) rotate(8deg); }
+          100% { transform: scale(1) rotate(0deg); }
+        }
+        @keyframes ms-mine {
+          0%   { transform: scale(0); opacity: 0; }
+          45%  { transform: scale(1.4); opacity: 1; background-color: #FF6B6B; }
+          70%  { transform: scale(0.9); }
+          100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes ms-win-pulse {
+          0%,100% { filter: brightness(1); }
+          50%      { filter: brightness(1.35) saturate(1.4); }
+        }
+        @keyframes ms-shake {
+          0%,100% { transform: translateX(0); }
+          15%  { transform: translateX(-6px); }
+          35%  { transform: translateX(6px); }
+          55%  { transform: translateX(-4px); }
+          75%  { transform: translateX(4px); }
+        }
+        @keyframes ms-won-board {
+          0%,100% { box-shadow: 0 0 0 2px #16a34a33, 0 8px 32px rgba(0,0,0,0.3); }
+          50%      { box-shadow: 0 0 0 3px #4ade8088, 0 0 40px rgba(74,222,128,0.35), 0 8px 32px rgba(0,0,0,0.3); }
+        }
+        @keyframes ms-counter-pulse {
+          0%,100% { transform: scale(1); }
+          50%      { transform: scale(1.12); }
+        }
+      `}</style>
+
+      <div className="flex flex-col items-center gap-4 select-none py-2 md:py-6 px-2">
+
+        {/* Header */}
+        <div className="flex items-start justify-between w-full max-w-3xl">
+          <div>
+            <h1 className="text-4xl font-extrabold tracking-tight leading-none">Minesweeper</h1>
+            <p className="text-xs text-muted-foreground mt-1">Left click reveal · Right click flag · Double-click chord</p>
           </div>
-          <Button size="sm" variant="outline" onClick={() => newGame()}>New Game</Button>
+          {/* Counters */}
+          <div className="flex gap-2 items-start flex-shrink-0">
+            <div className="rounded-xl px-4 py-2 text-center min-w-[72px]"
+              style={{ background: 'hsl(var(--muted))', animation: minesLeft <= 3 && status === 'playing' ? 'ms-counter-pulse 0.8s ease infinite' : undefined }}>
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">💣</div>
+              <div className="text-xl font-bold tabular-nums" style={{ color: minesLeft <= 0 ? '#EF4444' : undefined }}>{minesLeft}</div>
+            </div>
+            <div className="rounded-xl px-4 py-2 text-center min-w-[72px]" style={{ background: 'hsl(var(--muted))' }}>
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">⏱</div>
+              <div className="text-xl font-bold tabular-nums font-mono">{formatTime(timer)}</div>
+            </div>
+            <Button size="sm" variant="outline" onClick={() => newGame()} className="self-center">New</Button>
+          </div>
         </div>
-      </div>
 
-      {/* Difficulty */}
-      <div className="flex gap-1 bg-muted rounded-lg p-1 w-full max-w-2xl">
-        {(['beginner', 'intermediate', 'expert'] as Difficulty[]).map(d => (
-          <button
-            key={d}
-            onClick={() => changeDifficulty(d)}
-            className={cn(
-              'flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors capitalize',
-              difficulty === d ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'
-            )}
+        {/* Difficulty tabs */}
+        <div className="flex gap-1 p-1 rounded-xl w-full max-w-3xl" style={{ background: 'hsl(var(--muted))' }}>
+          {(['beginner', 'intermediate', 'expert'] as Difficulty[]).map(d => (
+            <button key={d} onClick={() => newGame(d)}
+              className={cn(
+                'flex-1 rounded-lg px-3 py-2 text-sm font-semibold transition-all capitalize flex flex-col items-center gap-0.5',
+                difficulty === d ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'
+              )}>
+              <span>{d}</span>
+              {bestTimes[d] !== undefined && (
+                <span className="text-[10px] font-normal" style={{ color: difficulty === d ? 'hsl(var(--muted-foreground))' : 'transparent' }}>
+                  best {formatTime(bestTimes[d]!)}
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Board */}
+        <div className="overflow-auto max-w-full w-full flex justify-center">
+          <div
+            className="rounded-2xl overflow-hidden"
+            style={{
+              display: 'inline-grid',
+              gridTemplateColumns: `repeat(${cols}, ${cellSize}px)`,
+              gap: 0,
+              padding: 4,
+              background: 'hsl(var(--muted))',
+              boxShadow: status === 'won'
+                ? '0 0 0 2px #16a34a44, 0 0 40px rgba(74,222,128,0.25), 0 8px 32px rgba(0,0,0,0.15)'
+                : status === 'lost'
+                ? '0 0 0 2px #ef444444, 0 8px 32px rgba(0,0,0,0.2)'
+                : '0 4px 24px rgba(0,0,0,0.12)',
+              animation: status === 'won'
+                ? 'ms-won-board 1.8s ease infinite'
+                : status === 'lost'
+                ? 'ms-shake 0.45s ease'
+                : undefined,
+            }}
+            onContextMenu={e => e.preventDefault()}
           >
-            {d}
-          </button>
-        ))}
-      </div>
+            {Array.from({ length: rows }, (_, r) =>
+              Array.from({ length: cols }, (_, c) => {
+                const cell = board?.[r]?.[c]
+                const state = cell?.state ?? 'hidden'
+                const isRevealed = state === 'revealed'
+                const isMine = !!(cell?.mine && isRevealed)
+                const isFlagged = state === 'flagged'
+                const adj = cell?.adjacent ?? 0
+                const key = `${r},${c}`
 
-      {/* Board */}
-      <div className="overflow-auto max-w-full">
-        <div
-          className="border-2 border-border rounded-lg overflow-hidden"
-          style={{ display: 'grid', gridTemplateColumns: `repeat(${cols}, ${cellSize}px)` }}
-          onContextMenu={e => e.preventDefault()}
-        >
-          {Array.from({ length: rows }, (_, r) =>
-            Array.from({ length: cols }, (_, c) => {
-              const cell = board?.[r]?.[c]
-              const state = cell?.state ?? 'hidden'
-              const isRevealed = state === 'revealed'
-              const isMine = cell?.mine && isRevealed
-              const isFlagged = state === 'flagged'
-              const adj = cell?.adjacent ?? 0
+                const revealDelay = revealDelaysRef.current[key] ?? 0
+                const mineDelay   = mineDelaysRef.current[key] ?? 0
+                const winDelay    = winDelaysRef.current[key] ?? 0
 
-              return (
-                <div
-                  key={`${r}-${c}`}
-                  onClick={() => handleReveal(r, c)}
-                  onContextMenu={e => handleFlag(e, r, c)}
-                  style={{ width: cellSize, height: cellSize, fontSize: cellSize * 0.45 }}
-                  className={cn(
-                    'flex items-center justify-center border border-border/30 font-bold cursor-pointer transition-colors',
-                    isRevealed
-                      ? isMine
-                        ? 'bg-red-500 dark:bg-red-700'
-                        : 'bg-muted/40'
-                      : 'bg-muted hover:bg-muted/70 active:bg-muted/50',
-                    adj > 0 && isRevealed && NUM_COLOR[adj],
-                  )}
-                >
-                  {isMine ? '💣' : isFlagged ? '🚩' : isRevealed && adj > 0 ? adj : ''}
-                </div>
-              )
-            })
+                const isNewlyRevealed = isRevealed && !isMine && revealDelaysRef.current[key] !== undefined
+                const isExplodingMine = isMine
+
+                return (
+                  <div
+                    key={key}
+                    onClick={() => handleReveal(r, c)}
+                    onDoubleClick={() => handleChord(r, c)}
+                    onContextMenu={e => handleFlag(e, r, c)}
+                    style={{
+                      width: cellSize, height: cellSize,
+                      fontSize: Math.round(cellSize * 0.42),
+                      fontWeight: 700,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      cursor: status === 'won' || status === 'lost' ? 'default' : 'pointer',
+                      borderRadius: 4,
+                      margin: 1,
+                      userSelect: 'none',
+                      transition: 'background-color 0.1s ease',
+                      position: 'relative',
+                      overflow: 'hidden',
+                      ...(isExplodingMine ? {
+                        backgroundColor: '#1f1f1f',
+                        animation: `ms-mine 0.5s ease both`,
+                        animationDelay: `${mineDelay}ms`,
+                      } : isRevealed ? {
+                        backgroundColor: 'hsl(var(--background))',
+                        boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.12)',
+                        ...(isNewlyRevealed ? {
+                          animation: 'ms-reveal 0.28s cubic-bezier(0.34,1.56,0.64,1) both',
+                          animationDelay: `${revealDelay}ms`,
+                        } : {}),
+                        ...(status === 'won' ? {
+                          animation: `ms-win-pulse 1.2s ease ${winDelay}ms infinite`,
+                        } : {}),
+                      } : {
+                        backgroundColor: 'hsl(var(--muted))',
+                        boxShadow: `inset 0 2px 0 rgba(255,255,255,0.18), inset 0 -2px 0 rgba(0,0,0,0.15), inset 2px 0 0 rgba(255,255,255,0.1), inset -2px 0 0 rgba(0,0,0,0.1)`,
+                      }),
+                    }}>
+                    {/* Content */}
+                    {isExplodingMine ? (
+                      <span style={{
+                        fontSize: Math.round(cellSize * 0.52),
+                        animation: `ms-mine 0.5s ease both`,
+                        animationDelay: `${mineDelay}ms`,
+                      }}>💣</span>
+                    ) : isFlagged ? (
+                      <span style={{
+                        fontSize: Math.round(cellSize * 0.52),
+                        display: 'inline-block',
+                        animation: 'ms-flag 0.3s cubic-bezier(0.34,1.56,0.64,1) both',
+                      }}>🚩</span>
+                    ) : isRevealed && adj > 0 ? (
+                      <span style={{ color: NUM_COLOR[adj], lineHeight: 1 }}>{adj}</span>
+                    ) : null}
+                  </div>
+                )
+              })
+            )}
+          </div>
+        </div>
+
+        {/* Status bar */}
+        <div className="flex items-center gap-3 min-h-[48px]">
+          {status === 'won' && (
+            <>
+              <span className="text-2xl font-extrabold" style={{ color: '#4ADE80' }}>You cleared it! 🎉</span>
+              <span className="text-sm text-muted-foreground">{formatTime(timer)}</span>
+              {bestTimes[difficulty] === timer && (
+                <span className="text-sm font-bold" style={{ color: '#FFD700' }}>🏆 New best!</span>
+              )}
+              <Button onClick={() => newGame()} className="ml-2 bg-green-600 hover:bg-green-700 text-white">Play Again</Button>
+            </>
+          )}
+          {status === 'lost' && (
+            <>
+              <span className="text-2xl font-extrabold text-red-500">Boom! 💥</span>
+              <Button onClick={() => newGame()} variant="destructive" className="ml-2">Try Again</Button>
+            </>
+          )}
+          {status === 'idle' && (
+            <p className="text-sm text-muted-foreground">Click any cell to start — first click is always safe</p>
+          )}
+          {status === 'playing' && (
+            <p className="text-xs text-muted-foreground">{flagCount} / {mines} flagged</p>
           )}
         </div>
-      </div>
 
-      {/* Status */}
-      {status === 'won' && (
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl font-extrabold text-green-600 dark:text-green-400">You Win! 🎉</p>
-          <Button onClick={() => newGame()} className="bg-green-600 hover:bg-green-700 text-white">Play Again</Button>
-        </div>
-      )}
-      {status === 'lost' && (
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl font-extrabold text-red-600 dark:text-red-400">Boom! 💥</p>
-          <Button onClick={() => newGame()} variant="destructive">Try Again</Button>
-        </div>
-      )}
-      {status === 'idle' && (
-        <p className="text-sm text-muted-foreground">Click any cell to start</p>
-      )}
-    </div>
+      </div>
+    </>
   )
 }
