@@ -46,3 +46,27 @@ class MasterVaultOut(BaseModel):
     salt: str
     verifier: KeyVerifier
     createdAt: int
+
+
+# ── Backup codes ──────────────────────────────────────────────────────────────
+
+class BackupCodeEntry(BaseModel):
+    codeId: str = Field(min_length=1)
+    codeSalt: str = Field(min_length=1)
+    encrypted: str = Field(min_length=1)
+    iv: str = Field(min_length=1)
+    used: bool = False
+
+
+class StoreBackupCodesRequest(BaseModel):
+    codes: list[BackupCodeEntry] = Field(min_length=1, max_length=8)
+
+
+class BackupCodeLookupRequest(BaseModel):
+    codeId: str = Field(min_length=1)
+
+
+class BackupCodeDataOut(BaseModel):
+    codeSalt: str
+    encrypted: str
+    iv: str

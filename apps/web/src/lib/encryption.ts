@@ -110,3 +110,38 @@ export async function verifyKey(key: CryptoKey, encrypted: string, iv: string): 
         return false;
     }
 }
+
+// ── Backup codes ──────────────────────────────────────────────────────────────
+
+const BACKUP_CODE_CHARSET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"
+
+export function generateBackupCodes(count = 8): string[] {
+    return Array.from({ length: count }, () => {
+        const bytes = window.crypto.getRandomValues(new Uint8Array(18))
+        const chars = Array.from(bytes).map(b => BACKUP_CODE_CHARSET[b % BACKUP_CODE_CHARSET.length])
+        return `${chars.slice(0, 6).join("")}-${chars.slice(6, 12).join("")}-${chars.slice(12, 18).join("")}`
+    })
+}
+
+export async function encryptWithBackupCode(
+    code: string,
+    masterPassword: string,
+): Promise<{ codeId: string; codeSalt: string; encrypted: string; iv: string }> {
+    const normalized = code.replace(/-/g, "")
+    const codeId = code.slice(0, 6)
+    const codeSalt = await generateSalt()
+    const key = await deriveKey(normalized, codeSalt)
+    const { encrypted, iv } = await encryptData(key, masterPassword)
+    return { codeId, codeSalt, encrypted, iv }
+}
+
+export async function decryptWithBackupCode(
+    code: string,
+    codeSalt: string,
+    encrypted: string,
+    iv: string,
+): Promise<string> {
+    const normalized = code.replace(/-/g, "")
+    const key = await deriveKey(normalized, codeSalt)
+    return decryptData(key, encrypted, iv)
+}

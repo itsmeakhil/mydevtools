@@ -5,10 +5,13 @@ from fastapi import APIRouter, Cookie, Depends, Header, HTTPException, Response,
 
 from app.api.routes.auth.cookie_attach import attach_auth_cookies, clear_auth_cookies
 from app.api.routes.auth.schema import (
+    BackupCodeDataOut,
+    BackupCodeLookupRequest,
     MasterVaultOut,
     MasterVaultSetupRequest,
     OkResponse,
     SessionRequest,
+    StoreBackupCodesRequest,
     UserProfileResponse,
 )
 from app.api.routes.auth.services import get_current_uid, get_current_user, verify_id_token
@@ -21,8 +24,11 @@ from app.api.routes.auth.tokens import (
 from app.api.routes.auth.users_repo import (
     clear_refresh_token_hash,
     find_uid_by_refresh_hash,
+    get_backup_code_by_id,
     get_master_vault,
     get_user_doc,
+    mark_backup_code_used,
+    set_backup_codes,
     set_master_vault,
     set_refresh_token_hash,
     upsert_user_from_firebase_claims,
@@ -187,3 +193,55 @@ def setup_master_vault_endpoint(
     }
     set_master_vault(uid, vault)
     return MasterVaultOut(**vault)
+
+
+# ── Backup codes ──────────────────────────────────────────────────────────────
+
+
+@router.post(
+    "/backup-codes",
+    response_model=OkResponse,
+    status_code=status.HTTP_201_CREATED,
+    summary="Store encrypted backup codes (replaces any existing set)",
+)
+def store_backup_codes_endpoint(
+    payload: StoreBackupCodesRequest,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> OkResponse:
+    set_backup_codes(uid, [c.model_dump() for c in payload.codes])
+    return OkResponse(ok=True)
+
+
+@router.post(
+    "/backup-codes/lookup",
+    response_model=BackupCodeDataOut,
+    summary="Return encrypted blob for a backup code ID (does not consume the code)",
+)
+def lookup_backup_code_endpoint(
+    payload: BackupCodeLookupRequest,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> BackupCodeDataOut:
+    code = get_backup_code_by_id(uid, payload.codeId)
+    if not code:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Backup code not found or already used.",
+        )
+    return BackupCodeDataOut(
+        codeSalt=code["codeSalt"],
+        encrypted=code["encrypted"],
+        iv=code["iv"],
+    )
+
+
+@router.post(
+    "/backup-codes/use",
+    response_model=OkResponse,
+    summary="Mark a backup code as used (one-time consumption)",
+)
+def use_backup_code_endpoint(
+    payload: BackupCodeLookupRequest,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> OkResponse:
+    mark_backup_code_used(uid, payload.codeId)
+    return OkResponse(ok=True)

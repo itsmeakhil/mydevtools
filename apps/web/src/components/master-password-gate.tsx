@@ -4,6 +4,9 @@ import React, { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
     AlertTriangle,
+    CheckCircle2,
+    Copy,
+    Download,
     Eye,
     EyeOff,
     KeyRound,
@@ -18,9 +21,24 @@ import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
 import useAuth from "@/utils/useAuth"
-import { deriveKey, generateSalt, createKeyVerifier, verifyKey } from "@/lib/encryption"
+import {
+    deriveKey,
+    generateSalt,
+    createKeyVerifier,
+    verifyKey,
+    generateBackupCodes,
+    encryptWithBackupCode,
+    decryptWithBackupCode,
+} from "@/lib/encryption"
 import { saveMasterKey, loadMasterKey, clearMasterKey } from "@/lib/key-storage"
-import { getMasterVaultOrNull, setupMasterVault, type MasterVaultOut } from "@/lib/global-vault-api"
+import {
+    getMasterVaultOrNull,
+    setupMasterVault,
+    storeBackupCodes,
+    lookupBackupCode,
+    markBackupCodeUsed,
+    type MasterVaultOut,
+} from "@/lib/global-vault-api"
 import { useMasterKeyStore } from "@/store/master-key-store"
 
 // ── Password-strength helpers ─────────────────────────────────────────────────
@@ -71,9 +89,53 @@ function calcStrength(pw: string): StrengthResult {
     }
 }
 
+// ── Download helper ───────────────────────────────────────────────────────────
+
+function downloadBackupCodesFile(codes: string[], userEmail?: string | null) {
+    const date = new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    })
+    const lines = [
+        "========================================",
+        "  MYDEVTOOLS — MASTER PASSWORD BACKUP",
+        "========================================",
+        "",
+        `Account : ${userEmail ?? "unknown"}`,
+        `Created : ${date}`,
+        "",
+        "BACKUP CODES",
+        "------------",
+        "Each code can be used exactly once to recover access",
+        "if you forget your master password.",
+        "",
+        ...codes.map((c, i) => `  ${String(i + 1).padStart(2, "0")}. ${c}`),
+        "",
+        "INSTRUCTIONS",
+        "------------",
+        "1. On the unlock screen, click \"Use backup code instead\".",
+        "2. Enter one of the codes above (dashes optional).",
+        "3. The code will be consumed — cross it off this list.",
+        "4. Once all codes are used, generate new ones from Settings.",
+        "",
+        "Keep this file somewhere safe (password manager, printed copy).",
+        "Anyone with these codes can access your encrypted data.",
+        "",
+        "========================================",
+    ]
+    const blob = new Blob([lines.join("\n")], { type: "text/plain" })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = "mydevtools-backup-codes.txt"
+    a.click()
+    URL.revokeObjectURL(url)
+}
+
 // ── Gate component ────────────────────────────────────────────────────────────
 
-type GateMode = "loading" | "setup" | "unlock"
+type GateMode = "loading" | "setup" | "backup-codes" | "unlock" | "use-backup-code"
 
 interface MasterPasswordGateProps {
     children: React.ReactNode
@@ -91,6 +153,10 @@ export function MasterPasswordGate({ children }: MasterPasswordGateProps) {
     const [error, setError] = useState("")
     const [submitting, setSubmitting] = useState(false)
     const [shake, setShake] = useState(false)
+    const [backupCodes, setBackupCodes] = useState<string[]>([])
+    const [backupCodesAcknowledged, setBackupCodesAcknowledged] = useState(false)
+    const [backupCodeInput, setBackupCodeInput] = useState("")
+    const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
     const initRef = useRef(false)
 
     const strength = calcStrength(password)
@@ -99,7 +165,6 @@ export function MasterPasswordGate({ children }: MasterPasswordGateProps) {
     // ── initialisation ──────────────────────────────────────────────────────
 
     useEffect(() => {
-        // Skip if: already unlocked, no user, or already initialised this mount
         if (isUnlocked || !user || initRef.current) return
         initRef.current = true
         initGate()
@@ -107,12 +172,8 @@ export function MasterPasswordGate({ children }: MasterPasswordGateProps) {
     }, [user, isUnlocked])
 
     const initGate = async () => {
-        // Fast path: vault not configured — no network call needed
         if (vaultStatus === "not-configured") { setMode("setup"); return }
 
-        // Always fetch vault data so local component state is populated.
-        // We cannot skip this even when vaultStatus === "locked" because `vault`
-        // is local React state that resets on every component mount.
         try {
             const vaultData = await getMasterVaultOrNull()
 
@@ -126,7 +187,6 @@ export function MasterPasswordGate({ children }: MasterPasswordGateProps) {
             setVaultStatus("locked")
             setMode("unlock")
 
-            // Attempt auto-unlock from IndexedDB
             const savedKey = await loadMasterKey()
             if (savedKey) {
                 const valid = await verifyKey(
@@ -138,7 +198,6 @@ export function MasterPasswordGate({ children }: MasterPasswordGateProps) {
                     setKey(savedKey)
                     return
                 }
-                // Key invalid / stale → clear and ask for password
                 await clearMasterKey()
             }
         } catch (err) {
@@ -159,6 +218,12 @@ export function MasterPasswordGate({ children }: MasterPasswordGateProps) {
         setPassword("")
         setConfirmPassword("")
         setError("")
+    }
+
+    const copyCode = async (code: string, index: number) => {
+        await navigator.clipboard.writeText(code)
+        setCopiedIndex(index)
+        setTimeout(() => setCopiedIndex(null), 1500)
     }
 
     // ── form handlers ────────────────────────────────────────────────────────
@@ -182,16 +247,26 @@ export function MasterPasswordGate({ children }: MasterPasswordGateProps) {
         setError("")
         try {
             const salt = await generateSalt()
-            const key  = await deriveKey(password, salt)
+            const key = await deriveKey(password, salt)
             const verifierData = await createKeyVerifier(key)
 
             const vaultData = await setupMasterVault({ salt, verifier: verifierData })
             setVault(vaultData)
 
+            // Generate backup codes and encrypt each one with the master password
+            const codes = generateBackupCodes(8)
+            const encryptedCodes = await Promise.all(
+                codes.map(code => encryptWithBackupCode(code, password))
+            )
+            await storeBackupCodes(encryptedCodes)
+
             await saveMasterKey(key)
             setKey(key)
+            setBackupCodes(codes)
             resetForm()
-            toast.success("Master password created — your data is protected.")
+
+            // Show backup codes step before passing through
+            setMode("backup-codes")
         } catch (err: any) {
             console.error("[MasterPasswordGate] setup error:", err)
             setError(err?.message ?? "Failed to create master password. Please try again.")
@@ -207,7 +282,7 @@ export function MasterPasswordGate({ children }: MasterPasswordGateProps) {
         setSubmitting(true)
         setError("")
         try {
-            const key   = await deriveKey(password, vault.salt)
+            const key = await deriveKey(password, vault.salt)
             const valid = await verifyKey(key, vault.verifier.encrypted, vault.verifier.iv)
 
             if (valid) {
@@ -226,15 +301,55 @@ export function MasterPasswordGate({ children }: MasterPasswordGateProps) {
         }
     }
 
+    const handleBackupCodeUnlock = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if (!backupCodeInput || !vault) return
+
+        const normalized = backupCodeInput.trim().toUpperCase().replace(/\s/g, "")
+        // Accept with or without dashes; reconstruct codeId from first 6 non-dash chars
+        const stripped = normalized.replace(/-/g, "")
+        // Reformat as XXXXXX-XXXXXX-XXXXXX to extract codeId
+        const withDashes = `${stripped.slice(0, 6)}-${stripped.slice(6, 12)}-${stripped.slice(12, 18)}`
+        const codeId = withDashes.slice(0, 6)
+
+        setSubmitting(true)
+        setError("")
+        try {
+            const codeData = await lookupBackupCode(codeId)
+            const masterPassword = await decryptWithBackupCode(
+                withDashes,
+                codeData.codeSalt,
+                codeData.encrypted,
+                codeData.iv,
+            )
+
+            const key = await deriveKey(masterPassword, vault.salt)
+            const valid = await verifyKey(key, vault.verifier.encrypted, vault.verifier.iv)
+
+            if (!valid) {
+                setError("Backup code is incorrect.")
+                triggerShake()
+                return
+            }
+
+            await markBackupCodeUsed(codeId)
+            await saveMasterKey(key)
+            setKey(key)
+            toast.success("Unlocked via backup code. That code is now consumed.")
+        } catch (err: any) {
+            console.error("[MasterPasswordGate] backup code unlock error:", err)
+            setError(err?.message ?? "Invalid backup code. Please try another.")
+            triggerShake()
+        } finally {
+            setSubmitting(false)
+        }
+    }
+
     // ── render ───────────────────────────────────────────────────────────────
 
-    // Pass-through: not authenticated (auth guards handle the redirect)
     if (!user) return <>{children}</>
+    if (isUnlocked && (mode !== "backup-codes" || backupCodesAcknowledged)) return <>{children}</>
 
-    // Pass-through: already unlocked
-    if (isUnlocked) return <>{children}</>
-
-    // Loading spinner while the vault check is in flight
     if (mode === "loading") {
         return (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
@@ -243,12 +358,90 @@ export function MasterPasswordGate({ children }: MasterPasswordGateProps) {
         )
     }
 
-    // ── full-screen overlay (setup | unlock) ──────────────────────────────────
+    // ── backup codes display (post-setup) ─────────────────────────────────────
+    if (mode === "backup-codes") {
+        return (
+            <>
+                <div aria-hidden className="pointer-events-none opacity-0 select-none">
+                    {children}
+                </div>
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm px-4">
+                    <motion.div
+                        className="w-full max-w-[480px]"
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4 }}
+                    >
+                        <div className="mb-6 flex flex-col items-center text-center">
+                            <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-green-500/20 to-emerald-500/10">
+                                <CheckCircle2 className="h-10 w-10 text-green-500" />
+                            </div>
+                            <h1 className="text-2xl font-bold">Save Your Backup Codes</h1>
+                            <p className="mt-2 max-w-sm text-sm text-muted-foreground">
+                                Master password created. Store these codes securely — each works once
+                                to recover access if you forget your password.
+                            </p>
+                        </div>
+
+                        <Alert className="mb-4 border-orange-500/40 bg-orange-500/5">
+                            <AlertTriangle className="h-4 w-4 text-orange-500" />
+                            <AlertDescription className="text-xs leading-relaxed">
+                                <strong>Download or copy these now.</strong> You cannot view them again after leaving this screen.
+                            </AlertDescription>
+                        </Alert>
+
+                        <div className="mb-4 grid grid-cols-2 gap-2">
+                            {backupCodes.map((code, i) => (
+                                <button
+                                    key={i}
+                                    type="button"
+                                    onClick={() => copyCode(code, i)}
+                                    className="group flex items-center justify-between rounded-md border border-border bg-muted/40 px-3 py-2 text-left text-sm font-mono transition-colors hover:bg-muted"
+                                >
+                                    <span className="text-muted-foreground mr-1.5 text-xs">{i + 1}.</span>
+                                    <span className="flex-1 tracking-wide">{code}</span>
+                                    {copiedIndex === i ? (
+                                        <CheckCircle2 className="h-3.5 w-3.5 text-green-500 shrink-0" />
+                                    ) : (
+                                        <Copy className="h-3.5 w-3.5 text-muted-foreground/50 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
+                                    )}
+                                </button>
+                            ))}
+                        </div>
+
+                        <div className="flex gap-2">
+                            <Button
+                                variant="outline"
+                                className="flex-1"
+                                onClick={() => downloadBackupCodesFile(backupCodes, user?.email)}
+                            >
+                                <Download className="mr-2 h-4 w-4" />
+                                Download codes
+                            </Button>
+                            <Button
+                                className="flex-1"
+                                onClick={() => setBackupCodesAcknowledged(true)}
+                            >
+                                I've saved my codes
+                            </Button>
+                        </div>
+
+                        <div className="mt-4 flex items-center justify-center gap-1.5 text-muted-foreground/60">
+                            <Shield className="h-3.5 w-3.5" />
+                            <span className="text-xs">Zero-knowledge · Encrypted locally · Never sent to our servers</span>
+                        </div>
+                    </motion.div>
+                </div>
+            </>
+        )
+    }
+
+    // ── full-screen overlay (setup | unlock | use-backup-code) ────────────────
     const isSetup = mode === "setup"
+    const isBackupCodeMode = mode === "use-backup-code"
 
     return (
         <>
-            {/* Render children behind the overlay so layout stays mounted */}
             <div aria-hidden className="pointer-events-none opacity-0 select-none">
                 {children}
             </div>
@@ -282,11 +475,17 @@ export function MasterPasswordGate({ children }: MasterPasswordGateProps) {
                         </div>
 
                         <h1 className="text-2xl font-bold">
-                            {isSetup ? "Create Your Master Password" : "Unlock Your Data"}
+                            {isSetup
+                                ? "Create Your Master Password"
+                                : isBackupCodeMode
+                                ? "Use Backup Code"
+                                : "Unlock Your Data"}
                         </h1>
                         <p className="mt-2 max-w-xs text-sm text-muted-foreground">
                             {isSetup
                                 ? "Your master password encrypts all your data client-side. It never leaves your device."
+                                : isBackupCodeMode
+                                ? "Enter one of your saved backup codes to recover access."
                                 : "Enter your master password to decrypt and access your data."}
                         </p>
                     </motion.div>
@@ -313,163 +512,247 @@ export function MasterPasswordGate({ children }: MasterPasswordGateProps) {
                         )}
                     </AnimatePresence>
 
-                    {/* Form */}
-                    <motion.form
-                        onSubmit={isSetup ? handleSetup : handleUnlock}
-                        className="space-y-4"
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.1 }}
-                    >
-                        {/* Password field */}
-                        <div className="space-y-1.5">
-                            <Label htmlFor="mp-password">Master password</Label>
-                            <div className="relative">
-                                <KeyRound className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                                <Input
-                                    id="mp-password"
-                                    type={showPassword ? "text" : "password"}
-                                    placeholder={
-                                        isSetup
-                                            ? "Create a strong master password"
-                                            : "Enter your master password"
-                                    }
-                                    value={password}
-                                    onChange={(e) => {
-                                        setPassword(e.target.value)
-                                        setError("")
-                                    }}
-                                    className="pl-9 pr-10"
-                                    autoFocus
-                                    autoComplete={isSetup ? "new-password" : "current-password"}
-                                    disabled={submitting}
-                                />
+                    {/* Backup code form */}
+                    <AnimatePresence mode="wait">
+                        {isBackupCodeMode ? (
+                            <motion.form
+                                key="backup-code-form"
+                                onSubmit={handleBackupCodeUnlock}
+                                className="space-y-4"
+                                initial={{ opacity: 0, y: 16 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -8 }}
+                                transition={{ duration: 0.25 }}
+                            >
+                                <div className="space-y-1.5">
+                                    <Label htmlFor="backup-code">Backup code</Label>
+                                    <Input
+                                        id="backup-code"
+                                        placeholder="XXXXXX-XXXXXX-XXXXXX"
+                                        value={backupCodeInput}
+                                        onChange={(e) => {
+                                            setBackupCodeInput(e.target.value)
+                                            setError("")
+                                        }}
+                                        className="font-mono tracking-widest"
+                                        autoFocus
+                                        autoComplete="off"
+                                        disabled={submitting}
+                                    />
+                                    <p className="text-xs text-muted-foreground">
+                                        Each code can only be used once.
+                                    </p>
+                                </div>
+
+                                <AnimatePresence>
+                                    {error && (
+                                        <motion.div
+                                            key="error"
+                                            initial={{ opacity: 0, y: -4 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0 }}
+                                        >
+                                            <Alert variant="destructive" className="py-2">
+                                                <AlertTriangle className="h-4 w-4" />
+                                                <AlertDescription className="text-sm">{error}</AlertDescription>
+                                            </Alert>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+
+                                <Button
+                                    type="submit"
+                                    className="w-full"
+                                    size="lg"
+                                    disabled={submitting || !backupCodeInput.trim()}
+                                >
+                                    {submitting && (
+                                        <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />
+                                    )}
+                                    Recover access
+                                </Button>
+
                                 <button
                                     type="button"
-                                    onClick={() => setShowPassword((v) => !v)}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
-                                    tabIndex={-1}
-                                    aria-label={showPassword ? "Hide password" : "Show password"}
+                                    onClick={() => { setMode("unlock"); setError("") }}
+                                    className="w-full text-center text-xs text-muted-foreground hover:text-foreground transition-colors"
                                 >
-                                    {showPassword ? (
-                                        <EyeOff className="h-4 w-4" />
-                                    ) : (
-                                        <Eye className="h-4 w-4" />
-                                    )}
+                                    ← Back to password unlock
                                 </button>
-                            </div>
-                        </div>
-
-                        {/* Strength meter (setup only) */}
-                        <AnimatePresence>
-                            {isSetup && password && (
-                                <motion.div
-                                    key="strength"
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={{ opacity: 1, height: "auto" }}
-                                    exit={{ opacity: 0, height: 0 }}
-                                    className="overflow-hidden"
-                                >
-                                    <div className="flex gap-1">
-                                        {[1, 2, 3, 4, 5].map((i) => (
-                                            <div
-                                                key={i}
-                                                className={cn(
-                                                    "h-1 flex-1 rounded-full transition-colors duration-300",
-                                                    i <= strength.score
-                                                        ? strength.barColor
-                                                        : "bg-muted",
-                                                )}
-                                            />
-                                        ))}
-                                    </div>
-                                    <div className="mt-1 flex items-center justify-between">
-                                        <span className="text-xs font-medium text-muted-foreground">
-                                            {strength.label}
-                                        </span>
-                                        {strength.hint && (
-                                            <span className="text-xs text-muted-foreground/70">
-                                                Tip: {strength.hint}
-                                            </span>
-                                        )}
-                                    </div>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-
-                        {/* Confirm password (setup only) */}
-                        <AnimatePresence>
-                            {isSetup && (
-                                <motion.div
-                                    key="confirm"
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={{ opacity: 1, height: "auto" }}
-                                    exit={{ opacity: 0, height: 0 }}
-                                    className="overflow-hidden space-y-1.5"
-                                >
-                                    <Label htmlFor="mp-confirm">Confirm master password</Label>
+                            </motion.form>
+                        ) : (
+                            /* Password form (setup | unlock) */
+                            <motion.form
+                                key="password-form"
+                                onSubmit={isSetup ? handleSetup : handleUnlock}
+                                className="space-y-4"
+                                initial={{ opacity: 0, y: 16 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -8 }}
+                                transition={{ duration: 0.25 }}
+                            >
+                                {/* Password field */}
+                                <div className="space-y-1.5">
+                                    <Label htmlFor="mp-password">Master password</Label>
                                     <div className="relative">
                                         <KeyRound className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                                         <Input
-                                            id="mp-confirm"
+                                            id="mp-password"
                                             type={showPassword ? "text" : "password"}
-                                            placeholder="Re-enter your master password"
-                                            value={confirmPassword}
+                                            placeholder={
+                                                isSetup
+                                                    ? "Create a strong master password"
+                                                    : "Enter your master password"
+                                            }
+                                            value={password}
                                             onChange={(e) => {
-                                                setConfirmPassword(e.target.value)
+                                                setPassword(e.target.value)
                                                 setError("")
                                             }}
-                                            className={cn(
-                                                "pl-9",
-                                                confirmMismatch && "border-destructive focus-visible:ring-destructive",
-                                            )}
-                                            autoComplete="new-password"
+                                            className="pl-9 pr-10"
+                                            autoFocus
+                                            autoComplete={isSetup ? "new-password" : "current-password"}
                                             disabled={submitting}
                                         />
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowPassword((v) => !v)}
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
+                                            tabIndex={-1}
+                                            aria-label={showPassword ? "Hide password" : "Show password"}
+                                        >
+                                            {showPassword ? (
+                                                <EyeOff className="h-4 w-4" />
+                                            ) : (
+                                                <Eye className="h-4 w-4" />
+                                            )}
+                                        </button>
                                     </div>
-                                    {confirmMismatch && (
-                                        <p className="text-xs text-destructive">
-                                            Passwords do not match.
-                                        </p>
+                                </div>
+
+                                {/* Strength meter (setup only) */}
+                                <AnimatePresence>
+                                    {isSetup && password && (
+                                        <motion.div
+                                            key="strength"
+                                            initial={{ opacity: 0, height: 0 }}
+                                            animate={{ opacity: 1, height: "auto" }}
+                                            exit={{ opacity: 0, height: 0 }}
+                                            className="overflow-hidden"
+                                        >
+                                            <div className="flex gap-1">
+                                                {[1, 2, 3, 4, 5].map((i) => (
+                                                    <div
+                                                        key={i}
+                                                        className={cn(
+                                                            "h-1 flex-1 rounded-full transition-colors duration-300",
+                                                            i <= strength.score
+                                                                ? strength.barColor
+                                                                : "bg-muted",
+                                                        )}
+                                                    />
+                                                ))}
+                                            </div>
+                                            <div className="mt-1 flex items-center justify-between">
+                                                <span className="text-xs font-medium text-muted-foreground">
+                                                    {strength.label}
+                                                </span>
+                                                {strength.hint && (
+                                                    <span className="text-xs text-muted-foreground/70">
+                                                        Tip: {strength.hint}
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </motion.div>
                                     )}
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                                </AnimatePresence>
 
-                        {/* Error */}
-                        <AnimatePresence>
-                            {error && (
-                                <motion.div
-                                    key="error"
-                                    initial={{ opacity: 0, y: -4 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0 }}
+                                {/* Confirm password (setup only) */}
+                                <AnimatePresence>
+                                    {isSetup && (
+                                        <motion.div
+                                            key="confirm"
+                                            initial={{ opacity: 0, height: 0 }}
+                                            animate={{ opacity: 1, height: "auto" }}
+                                            exit={{ opacity: 0, height: 0 }}
+                                            className="overflow-hidden space-y-1.5"
+                                        >
+                                            <Label htmlFor="mp-confirm">Confirm master password</Label>
+                                            <div className="relative">
+                                                <KeyRound className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                                                <Input
+                                                    id="mp-confirm"
+                                                    type={showPassword ? "text" : "password"}
+                                                    placeholder="Re-enter your master password"
+                                                    value={confirmPassword}
+                                                    onChange={(e) => {
+                                                        setConfirmPassword(e.target.value)
+                                                        setError("")
+                                                    }}
+                                                    className={cn(
+                                                        "pl-9",
+                                                        confirmMismatch && "border-destructive focus-visible:ring-destructive",
+                                                    )}
+                                                    autoComplete="new-password"
+                                                    disabled={submitting}
+                                                />
+                                            </div>
+                                            {confirmMismatch && (
+                                                <p className="text-xs text-destructive">
+                                                    Passwords do not match.
+                                                </p>
+                                            )}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+
+                                {/* Error */}
+                                <AnimatePresence>
+                                    {error && (
+                                        <motion.div
+                                            key="error"
+                                            initial={{ opacity: 0, y: -4 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0 }}
+                                        >
+                                            <Alert variant="destructive" className="py-2">
+                                                <AlertTriangle className="h-4 w-4" />
+                                                <AlertDescription className="text-sm">{error}</AlertDescription>
+                                            </Alert>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+
+                                {/* Submit */}
+                                <Button
+                                    type="submit"
+                                    className="w-full"
+                                    size="lg"
+                                    disabled={
+                                        submitting ||
+                                        !password ||
+                                        (isSetup && confirmMismatch)
+                                    }
                                 >
-                                    <Alert variant="destructive" className="py-2">
-                                        <AlertTriangle className="h-4 w-4" />
-                                        <AlertDescription className="text-sm">{error}</AlertDescription>
-                                    </Alert>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                                    {submitting && (
+                                        <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />
+                                    )}
+                                    {isSetup ? "Create Master Password" : "Unlock"}
+                                </Button>
 
-                        {/* Submit */}
-                        <Button
-                            type="submit"
-                            className="w-full"
-                            size="lg"
-                            disabled={
-                                submitting ||
-                                !password ||
-                                (isSetup && confirmMismatch)
-                            }
-                        >
-                            {submitting && (
-                                <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />
-                            )}
-                            {isSetup ? "Create Master Password" : "Unlock"}
-                        </Button>
-                    </motion.form>
+                                {/* Backup code fallback (unlock only) */}
+                                {!isSetup && (
+                                    <button
+                                        type="button"
+                                        onClick={() => { setMode("use-backup-code"); setError("") }}
+                                        className="w-full text-center text-xs text-muted-foreground hover:text-foreground transition-colors"
+                                    >
+                                        Forgot your password? Use a backup code
+                                    </button>
+                                )}
+                            </motion.form>
+                        )}
+                    </AnimatePresence>
 
                     {/* Zero-knowledge footer */}
                     <motion.div

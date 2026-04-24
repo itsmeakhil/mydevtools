@@ -60,3 +60,49 @@ export async function setupMasterVault(
     }
     return (await res.json()) as MasterVaultOut
 }
+
+// ── Backup codes ──────────────────────────────────────────────────────────────
+
+export type BackupCodeEntry = {
+    codeId: string
+    codeSalt: string
+    encrypted: string
+    iv: string
+    used?: boolean
+}
+
+export type BackupCodeDataOut = {
+    codeSalt: string
+    encrypted: string
+    iv: string
+}
+
+export async function storeBackupCodes(codes: BackupCodeEntry[]): Promise<void> {
+    const res = await backendFetch("/api/backend/auth/backup-codes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ codes }),
+    })
+    if (!res.ok) {
+        throw new Error(`Failed to store backup codes (${res.status})`)
+    }
+}
+
+export async function lookupBackupCode(codeId: string): Promise<BackupCodeDataOut> {
+    const res = await backendFetch("/api/backend/auth/backup-codes/lookup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ codeId }),
+    })
+    if (res.status === 404) throw new Error("Invalid or already-used backup code.")
+    if (!res.ok) throw new Error(`Backup code lookup failed (${res.status})`)
+    return (await res.json()) as BackupCodeDataOut
+}
+
+export async function markBackupCodeUsed(codeId: string): Promise<void> {
+    await backendFetch("/api/backend/auth/backup-codes/use", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ codeId }),
+    })
+}
