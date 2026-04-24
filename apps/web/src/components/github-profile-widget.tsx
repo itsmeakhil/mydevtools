@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Github, Edit2, Trophy, ChartBar, GitCommit, CheckCircle2 } from 'lucide-react'
+import { Github, Edit2, Flame, ChartBar, GitCommit, CheckCircle2 } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useTranslations } from 'next-intl'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -171,17 +171,17 @@ export function GithubProfileWidget() {
               </div>
             </div>
 
-            {/* Trophies */}
+            {/* Streak Stats */}
             <div className="space-y-3">
               <div className="flex items-center gap-2 text-sm font-medium text-foreground tracking-tight">
-                <Trophy className="h-4 w-4 text-amber-500" />
-                <span>Trophies</span>
+                <Flame className="h-4 w-4 text-orange-500" />
+                <span>Streak Stats</span>
               </div>
               <div className="overflow-x-auto pb-2 custom-scrollbar">
                 <img 
-                  src={`https://github-profile-trophy.vercel.app/?username=${savedUsername}&theme=${isDark ? 'radical' : 'flat'}&row=1&column=7&margin-w=15&margin-h=15`} 
-                  alt={`${savedUsername}'s GitHub Trophies`} 
-                  className="max-w-none h-36 object-contain"
+                  src={`https://github-readme-streak-stats.herokuapp.com/?user=${savedUsername}&theme=${isDark ? 'transparent&ring=40c463&fire=40c463&currStreakLabel=40c463&stroke=ffffff20&text=ccc&sideNums=ccc&sideLabels=ccc' : 'transparent&ring=40c463&fire=40c463&currStreakLabel=40c463&stroke=00000020&text=333&sideNums=333&sideLabels=333'}&hide_border=true&background=00000000`} 
+                  alt={`${savedUsername}'s GitHub Streak`} 
+                  className="w-full h-40 object-contain pointer-events-none"
                 />
               </div>
             </div>
