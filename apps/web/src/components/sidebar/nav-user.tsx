@@ -178,6 +178,12 @@ export function NavUser({ user, onSignout }: NavUserProps) {
 
             <DropdownMenuGroup className="p-1.5">
               <DropdownMenuItem asChild className={menuItemClass}>
+                <Link href="/profile" className="flex w-full items-center">
+                  <UserIcon className="size-4" />
+                  <span>Profile</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild className={menuItemClass}>
                 <Link href="/help" className="flex w-full items-center">
                   <HelpCircle className="size-4" />
                   <span>Help</span>

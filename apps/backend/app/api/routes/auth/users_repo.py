@@ -41,6 +41,19 @@ def get_user_doc(uid: str) -> dict[str, Any] | None:
     return users_collection().find_one({"_id": uid})
 
 
+def is_username_taken(username: str, exclude_uid: str) -> bool:
+    count = users_collection().count_documents({"username": username, "_id": {"$ne": exclude_uid}})
+    return count > 0
+
+
+def update_user_profile(uid: str, updates: dict[str, Any]) -> None:
+    if not updates:
+        return
+    now = _now_ms()
+    updates["updated_at"] = now
+    users_collection().update_one({"_id": uid}, {"$set": updates})
+
+
 def set_refresh_token_hash(uid: str, token_hash: str) -> None:
     now = _now_ms()
     users_collection().update_one(
