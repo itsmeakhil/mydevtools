@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { User, Edit2, CheckCircle2, X, AlertCircle } from 'lucide-react'
+import { User, Edit2, CheckCircle2, X, AlertCircle, Link as LinkIcon, Globe, Twitter, Linkedin, Instagram, Youtube, Hash } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -20,6 +20,20 @@ export default function ProfilePage() {
   const [editUsernameVal, setEditUsernameVal] = useState('')
   const [isEditingUsername, setIsEditingUsername] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
+  
+  const [socialLinks, setSocialLinks] = useState<Record<string, string>>({})
+  const [isEditingSocial, setIsEditingSocial] = useState(false)
+  const [editSocialLinks, setEditSocialLinks] = useState<Record<string, string>>({})
+
+  const SOCIAL_PLATFORMS = [
+    { id: 'website', label: 'Website', icon: Globe, placeholder: 'https://example.com' },
+    { id: 'twitter', label: 'Twitter', icon: Twitter, placeholder: 'https://twitter.com/username' },
+    { id: 'linkedin', label: 'LinkedIn', icon: Linkedin, placeholder: 'https://linkedin.com/in/username' },
+    { id: 'instagram', label: 'Instagram', icon: Instagram, placeholder: 'https://instagram.com/username' },
+    { id: 'youtube', label: 'YouTube', icon: Youtube, placeholder: 'https://youtube.com/@username' },
+    { id: 'devto', label: 'Dev.to', icon: LinkIcon, placeholder: 'https://dev.to/username' },
+    { id: 'hashnode', label: 'Hashnode', icon: Hash, placeholder: 'https://hashnode.com/@username' },
+  ]
 
   useEffect(() => {
     setMounted(true)
@@ -29,6 +43,9 @@ export default function ProfilePage() {
         if (res.ok) {
           const profile = await res.json()
           setUsername(profile.username)
+          if (profile.social_links) {
+            setSocialLinks(profile.social_links)
+          }
         }
       } catch (err) {
         console.error('Failed to resolve profile', err)
@@ -57,6 +74,24 @@ export default function ProfilePage() {
       }
     } catch (err) {
       setErrorMsg('Network error.')
+    }
+  }
+
+  const handleSaveSocial = async () => {
+    try {
+      const res = await backendFetch('/api/backend/auth/profile', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ social_links: editSocialLinks })
+      })
+      if (res.ok) {
+        setSocialLinks(editSocialLinks)
+        setIsEditingSocial(false)
+      } else {
+        alert("Failed to update social links")
+      }
+    } catch (err) {
+      alert("Network error.")
     }
   }
 
@@ -154,6 +189,90 @@ export default function ProfilePage() {
             ) : (
               <div className="text-sm text-muted-foreground">
                 {t('userProfile.notLoggedIn')}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <div className="space-y-1">
+              <CardTitle className="flex items-center gap-2">
+                <LinkIcon className="h-5 w-5 opacity-70" />
+                Social Links
+              </CardTitle>
+              <CardDescription>
+                Share your presence across the web.
+              </CardDescription>
+            </div>
+            {!isEditingSocial && (
+               <Button variant="ghost" size="sm" onClick={() => { setEditSocialLinks(socialLinks || {}); setIsEditingSocial(true) }} className="h-8 gap-2 border">
+                 <Edit2 className="h-3.5 w-3.5" />
+                 Edit Links
+               </Button>
+            )}
+          </CardHeader>
+          <CardContent className="pt-4">
+            {isEditingSocial ? (
+              <div className="space-y-4 max-w-2xl">
+                {SOCIAL_PLATFORMS.map((platform) => {
+                  const Icon = platform.icon
+                  return (
+                    <div key={platform.id} className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-muted/30 flex items-center justify-center shrink-0">
+                        <Icon className="h-4 w-4 opacity-70" />
+                      </div>
+                      <Input 
+                        placeholder={platform.placeholder}
+                        value={editSocialLinks[platform.id] || ''}
+                        onChange={(e) => setEditSocialLinks({...editSocialLinks, [platform.id]: e.target.value})}
+                        className="flex-1"
+                      />
+                    </div>
+                  )
+                })}
+                <div className="flex items-center gap-2 pt-2">
+                  <Button onClick={handleSaveSocial} className="gap-2">
+                    <CheckCircle2 className="h-4 w-4" />
+                    Save Links
+                  </Button>
+                  <Button variant="outline" onClick={() => setIsEditingSocial(false)}>
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-wrap gap-4">
+                {Object.keys(socialLinks).length === 0 || !Object.values(socialLinks).some(val => val && val.trim().length > 0) ? (
+                  <p className="text-sm text-muted-foreground italic">No social links configured yet.</p>
+                ) : (
+                  SOCIAL_PLATFORMS.map((platform) => {
+                    const val = socialLinks[platform.id]
+                    if (!val || val.trim() === '') return null
+                    const Icon = platform.icon
+                    const formattedUrl = val.startsWith('http') ? val : `https://${val}`
+
+                    return (
+                      <TooltipProvider key={platform.id}>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <a 
+                              href={formattedUrl}
+                              target="_blank" 
+                              rel="noreferrer"
+                              className="w-10 h-10 rounded-full border bg-background hover:bg-muted/50 flex items-center justify-center transition-colors"
+                            >
+                              <Icon className="h-4 w-4 opacity-80" />
+                            </a>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>{platform.label}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    )
+                  })
+                )}
               </div>
             )}
           </CardContent>

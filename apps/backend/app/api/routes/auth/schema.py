@@ -9,6 +9,16 @@ class SessionRequest(BaseModel):
     check_revoked: bool = True
 
 
+class SocialLinks(BaseModel):
+    website: str | None = None
+    twitter: str | None = None
+    instagram: str | None = None
+    linkedin: str | None = None
+    youtube: str | None = None
+    devto: str | None = None
+    hashnode: str | None = None
+
+
 class UserProfileResponse(BaseModel):
     uid: str
     email: str | None = None
@@ -18,11 +28,13 @@ class UserProfileResponse(BaseModel):
     disabled: bool
     github_username: str | None = None
     username: str | None = None
+    social_links: SocialLinks | None = None
 
 
 class UpdateProfileRequest(BaseModel):
     github_username: str | None = None
     username: str | None = None
+    social_links: SocialLinks | None = None
 
 
 class OkResponse(BaseModel):

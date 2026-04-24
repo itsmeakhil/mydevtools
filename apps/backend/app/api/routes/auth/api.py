@@ -171,6 +171,9 @@ def update_profile(
             # Nullify
             updates["username"] = None
 
+    if payload.social_links is not None:
+        updates["social_links"] = payload.social_links.model_dump()
+
     if updates:
         update_user_profile(current_user.uid, updates)
 
@@ -179,6 +182,8 @@ def update_profile(
         current_user.github_username = updates["github_username"]
     if "username" in updates:
         current_user.username = updates["username"]
+    if "social_links" in updates:
+        current_user.social_links = payload.social_links
 
     return current_user
 
