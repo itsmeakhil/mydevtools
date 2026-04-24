@@ -83,3 +83,33 @@ def set_master_vault(uid: str, vault: dict[str, Any]) -> None:
         {"_id": uid},
         {"$set": {"master_vault": vault, "updated_at": now}},
     )
+
+
+# ── Backup codes ──────────────────────────────────────────────────────────────
+
+
+def set_backup_codes(uid: str, codes: list[dict[str, Any]]) -> None:
+    now = _now_ms()
+    users_collection().update_one(
+        {"_id": uid},
+        {"$set": {"backup_codes": codes, "updated_at": now}},
+    )
+
+
+def get_backup_code_by_id(uid: str, code_id: str) -> dict[str, Any] | None:
+    doc = get_user_doc(uid)
+    if not doc:
+        return None
+    codes: list[dict] = doc.get("backup_codes") or []
+    for code in codes:
+        if code.get("codeId") == code_id and not code.get("used"):
+            return code
+    return None
+
+
+def mark_backup_code_used(uid: str, code_id: str) -> None:
+    now = _now_ms()
+    users_collection().update_one(
+        {"_id": uid, "backup_codes.codeId": code_id},
+        {"$set": {"backup_codes.$.used": True, "updated_at": now}},
+    )
