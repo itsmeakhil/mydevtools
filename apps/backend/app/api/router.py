@@ -15,6 +15,7 @@ from app.api.routes.analytics.api import router as analytics_router
 from app.api.routes.code_snippets.api import router as code_snippets_router
 from app.api.routes.sql_client.api import router as sql_client_router
 from app.api.routes.game_scores.api import router as game_scores_router
+from app.api.routes.users.api import router as users_router
 
 api_router = APIRouter()
 api_router.include_router(health_router)
@@ -32,3 +33,4 @@ api_router.include_router(analytics_router)
 api_router.include_router(code_snippets_router)
 api_router.include_router(sql_client_router)
 api_router.include_router(game_scores_router)
+api_router.include_router(users_router)

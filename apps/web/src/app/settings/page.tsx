@@ -4,8 +4,9 @@ import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Moon, Sun, Monitor, Globe, User, List, Palette, Check } from 'lucide-react'
+import { Moon, Sun, Monitor, Globe, User, List, Palette, Check, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
 import { Switch } from '@/components/ui/switch'
@@ -79,12 +80,22 @@ export default function SettingsPage() {
               if (groupTools.length === 0) return null;
 
               return (
-                <div key={group.title} className="space-y-3">
-                  <div className="flex items-center gap-2 pb-1 border-b border-border/50">
-                    {group.icon && <group.icon className="h-4 w-4 text-muted-foreground" />}
-                    <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">{group.title}</h4>
+                <Collapsible key={group.title} className="space-y-3">
+                  <div className="flex items-center justify-between pb-1 border-b border-border/50">
+                    <div className="flex items-center gap-2">
+                      {group.icon && <group.icon className="h-4 w-4 text-muted-foreground" />}
+                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">{group.title}</h4>
+                    </div>
+                    <CollapsibleTrigger asChild>
+                      <Button variant="ghost" size="sm" className="h-7 gap-2 px-2 text-xs text-muted-foreground hover:text-foreground">
+                        <span>
+                          {groupTools.filter((t: any) => isToolEnabled(typeof t.url === 'string' ? t.url : t.url?.toString() || '')).length} / {groupTools.length} active
+                        </span>
+                        <ChevronDown className="h-3.5 w-3.5 opacity-50" />
+                      </Button>
+                    </CollapsibleTrigger>
                   </div>
-                  <div className="grid gap-3 sm:grid-cols-2">
+                  <CollapsibleContent className="grid gap-3 sm:grid-cols-2 pt-2 transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
                     {groupTools.map((item: any) => {
                       const url = typeof item.url === 'string' ? item.url : item.url?.toString() || '';
                       const isEnabled = isToolEnabled(url);
@@ -104,8 +115,8 @@ export default function SettingsPage() {
                         </div>
                       )
                     })}
-                  </div>
-                </div>
+                  </CollapsibleContent>
+                </Collapsible>
               )
             })}
           </CardContent>

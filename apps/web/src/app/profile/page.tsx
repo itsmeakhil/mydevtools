@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { User, Edit2, CheckCircle2, X, AlertCircle, Link as LinkIcon, Globe, Twitter, Linkedin, Instagram, Youtube, Hash } from 'lucide-react'
+import { User, Edit2, CheckCircle2, X, AlertCircle, Link as LinkIcon, Globe, Twitter, Linkedin, Instagram, Youtube, Hash, ExternalLink } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
@@ -106,6 +107,14 @@ export default function ProfilePage() {
           <h2 className="text-3xl font-bold tracking-tight">Your Profile</h2>
           <p className="text-muted-foreground">Manage your identity, achievements, and GitHub stats.</p>
         </div>
+        {username && (
+          <Button asChild variant="outline" className="gap-2 shadow-sm rounded-full bg-primary/5 hover:bg-primary/10 border-primary/20 hover:border-primary/40 text-primary transition-all">
+            <Link href={`/${username}`} target="_blank">
+              View Public Profile
+              <ExternalLink className="h-4 w-4" />
+            </Link>
+          </Button>
+        )}
       </div>
 
       <div className="grid gap-6">
