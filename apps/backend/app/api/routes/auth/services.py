@@ -79,4 +79,6 @@ def get_current_user(uid: str = Depends(get_current_uid)) -> UserProfileResponse
         photo_url=doc.get("photo_url"),
         email_verified=bool(doc.get("email_verified")),
         disabled=bool(doc.get("disabled")),
+        github_username=doc.get("github_username"),
+        username=doc.get("username"),
     )

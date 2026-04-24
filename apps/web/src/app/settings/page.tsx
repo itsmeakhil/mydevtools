@@ -8,8 +8,6 @@ import { Moon, Sun, Monitor, Globe, User, List, Palette, Check } from 'lucide-re
 import { Button } from '@/components/ui/button'
 import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import useAuth from '@/utils/useAuth'
 import { Switch } from '@/components/ui/switch'
 import { sidebarData } from '@/components/sidebar/data/sidebar-data'
 import { useToolVisibility } from '@/hooks/use-tool-visibility'
@@ -17,7 +15,6 @@ import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { COLOR_THEME_OPTIONS, type ColorTheme, useColorTheme } from '@/hooks/use-color-theme'
 import { getToolMessageKey } from '@/lib/tool-i18n'
-
 const colorDisplay: Record<ColorTheme, { swatchClass: string; name: string }> = {
   cyan: { swatchClass: 'bg-cyan-500', name: 'Teal' },
   blue: { swatchClass: 'bg-blue-500', name: 'Blue' },
@@ -36,7 +33,6 @@ export default function SettingsPage() {
   const router = useRouter()
   const { theme, setTheme } = useTheme()
   const { colorTheme, setColorTheme } = useColorTheme()
-  const { user } = useAuth()
   const { isToolEnabled, toggleTool } = useToolVisibility()
   const [mounted, setMounted] = useState(false)
 
@@ -63,35 +59,6 @@ export default function SettingsPage() {
       </div>
 
       <div className="grid gap-6">
-        <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <User className="h-5 w-5 opacity-70" />
-              {t('userProfile.title')}
-            </CardTitle>
-            <CardDescription>
-              {t('userProfile.description')}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {user ? (
-              <div className="flex items-center gap-4">
-                <Avatar className="h-16 w-16">
-                  <AvatarImage src={user.photoURL || undefined} alt={user.displayName || t('userProfile.avatarAlt')} />
-                  <AvatarFallback>{user.displayName?.charAt(0) || 'U'}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <h3 className="text-xl font-medium">{user.displayName || t('userProfile.anonymousUser')}</h3>
-                  <p className="text-sm text-muted-foreground">{user.email || t('userProfile.noEmailProvided')}</p>
-                </div>
-              </div>
-            ) : (
-              <div className="text-sm text-muted-foreground">
-                {t('userProfile.notLoggedIn')}
-              </div>
-            )}
-          </CardContent>
-        </Card>
 
         <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
           <CardHeader>

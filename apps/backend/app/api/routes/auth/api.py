@@ -13,6 +13,7 @@ from app.api.routes.auth.schema import (
     SessionRequest,
     StoreBackupCodesRequest,
     UserProfileResponse,
+    UpdateProfileRequest,
 )
 from app.api.routes.auth.services import get_current_uid, get_current_user, verify_id_token
 from app.api.routes.auth.tokens import (
@@ -32,6 +33,8 @@ from app.api.routes.auth.users_repo import (
     set_master_vault,
     set_refresh_token_hash,
     upsert_user_from_firebase_claims,
+    update_user_profile,
+    is_username_taken,
 )
 from app.core.auth_cookies import ACCESS_COOKIE_NAME, REFRESH_COOKIE_NAME
 
@@ -138,6 +141,45 @@ def logout(
 def me(
     current_user: Annotated[UserProfileResponse, Depends(get_current_user)],
 ) -> UserProfileResponse:
+    return current_user
+
+
+@router.patch(
+    "/profile",
+    response_model=UserProfileResponse,
+    summary="Update current user profile in MongoDB",
+)
+def update_profile(
+    payload: UpdateProfileRequest,
+    current_user: Annotated[UserProfileResponse, Depends(get_current_user)],
+) -> UserProfileResponse:
+    updates = {}
+    if payload.github_username is not None:
+        updates["github_username"] = payload.github_username
+        
+    if payload.username is not None:
+        # Check uniqueness constraint
+        if payload.username.strip():
+            candidate = payload.username.strip().lower()
+            if is_username_taken(candidate, current_user.uid):
+                raise HTTPException(
+                    status_code=status.HTTP_409_CONFLICT,
+                    detail="Username is already taken.",
+                )
+            updates["username"] = candidate
+        else:
+            # Nullify
+            updates["username"] = None
+
+    if updates:
+        update_user_profile(current_user.uid, updates)
+
+    # Return the updated profile manually since we just modified it
+    if "github_username" in updates:
+        current_user.github_username = updates["github_username"]
+    if "username" in updates:
+        current_user.username = updates["username"]
+
     return current_user
 
 

@@ -16,6 +16,13 @@ class UserProfileResponse(BaseModel):
     photo_url: str | None = None
     email_verified: bool
     disabled: bool
+    github_username: str | None = None
+    username: str | None = None
+
+
+class UpdateProfileRequest(BaseModel):
+    github_username: str | None = None
+    username: str | None = None
 
 
 class OkResponse(BaseModel):
