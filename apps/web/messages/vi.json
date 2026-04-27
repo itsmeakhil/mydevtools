@@ -3624,7 +3624,8 @@
     "keepGoing": "Hãy phát huy",
     "gameOver": "Kết thúc Trò chơi",
     "tryAgain": "Thử lại",
-    "gameOverMessage": "Không còn động thái nào nữa."
+    "gameOverMessage": "Không còn động thái nào nữa.",
+    "undo": "Hoàn tác"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "GIAI ĐOẠN TIẾP THEO",
     "replay": "Phát lại",
     "erase": "Xóa",
-    "howToPlay": "Nhấp vào một ô, sau đó nhấn vào một số hoặc nhấn 1–9. Backspace hoặc Delete sẽ xóa ô. Những con số đậm là manh mối. Điền vào lưới để mỗi hàng, cột và hộp 3×3 chứa 1–9 mà không lặp lại."
+    "howToPlay": "Nhấp vào một ô, sau đó nhấn vào một số hoặc nhấn 1–9. Backspace hoặc Delete sẽ xóa ô. Những con số đậm là manh mối. Điền vào lưới để mỗi hàng, cột và hộp 3×3 chứa 1–9 mà không lặp lại.",
+    "pencil": "Pencil",
+    "undo": "Undo",
+    "hint": "Hint",
+    "hintsUsed": "hints used",
+    "mistakes": "Mistakes",
+    "failed": "Failed!",
+    "mistakeMode": "3-mistake mode"
+  },
+  "Snake": {
+    "title": "Rắn",
+    "subtitle": "Ăn thức ăn, lớn lên, tránh tường và chính mình",
+    "score": "Điểm",
+    "best": "Tốt nhất",
+    "startPrompt": "Nhấn phím mũi tên bất kỳ",
+    "startButton": "Bắt đầu chơi",
+    "gameOver": "Trò chơi kết thúc",
+    "playAgain": "Chơi lại",
+    "howToPlay": "Dùng phím mũi tên hoặc WASD. Ăn để lớn hơn. Tốc độ tăng mỗi 50 điểm.",
+    "diffEasy": "Dễ",
+    "diffNormal": "Bình thường",
+    "diffHard": "Khó",
+    "diffInfinite": "Vô hạn",
+    "orTap": "hoặc nhấn bên dưới",
+    "howToPlayInfinite": "Tường nối liền — không chết vì tường. Ăn để lớn hơn.",
+    "shieldActive": "Shield Active",
+    "speedBoost": "Speed Boost",
+    "powerSpeed": "Speed x2 (10 ticks)",
+    "powerShield": "Survive one death",
+    "powerShrink": "Shortens tail"
   }
 }

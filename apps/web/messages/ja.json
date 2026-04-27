@@ -3624,7 +3624,8 @@
     "keepGoing": "立ち止まるな",
     "gameOver": "ゲームオーバー",
     "tryAgain": "再試行してください。",
-    "gameOverMessage": "これ以上のムーブはありません。"
+    "gameOverMessage": "これ以上のムーブはありません。",
+    "undo": "元に戻す"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "ステージ",
     "replay": "リプレイ",
     "erase": "删除",
-    "howToPlay": "セルをクリックし、数字をタップするか、1 -9を押します。BackspaceまたはDeleteを選択すると、セルがクリアされます。太字の数字は手がかりです。すべての行、列、および3 × 3ボックスに1 -9が繰り返されないように、グリッドを塗りつぶします。"
+    "howToPlay": "セルをクリックし、数字をタップするか、1 -9を押します。BackspaceまたはDeleteを選択すると、セルがクリアされます。太字の数字は手がかりです。すべての行、列、および3 × 3ボックスに1 -9が繰り返されないように、グリッドを塗りつぶします。",
+    "pencil": "メモ",
+    "undo": "元に戻す",
+    "hint": "ヒント",
+    "hintsUsed": "ヒント使用",
+    "mistakes": "ミス",
+    "failed": "失敗!",
+    "mistakeMode": "3ミスモード"
+  },
+  "Snake": {
+    "title": "スネーク",
+    "subtitle": "食べ物を食べ、成長し、壁と自分自身を避けよう",
+    "score": "スコア",
+    "best": "ベスト",
+    "startPrompt": "矢印キーを押してください",
+    "startButton": "ゲーム開始",
+    "gameOver": "ゲームオーバー",
+    "playAgain": "もう一度プレイ",
+    "howToPlay": "矢印キーまたはWASDで移動。食べ物を食べて成長しよう。50点ごとに速度が上がる。",
+    "diffEasy": "簡単",
+    "diffNormal": "普通",
+    "diffHard": "難しい",
+    "diffInfinite": "無限",
+    "orTap": "または下をタップ",
+    "howToPlayInfinite": "壁がループする — 壁での死なし。食べ物を食べて成長しよう。",
+    "shieldActive": "シールド有効",
+    "speedBoost": "スピードブースト",
+    "powerSpeed": "速度 x2",
+    "powerShield": "死を一回回避",
+    "powerShrink": "尾を短縮"
   }
 }

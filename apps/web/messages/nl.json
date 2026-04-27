@@ -3624,7 +3624,8 @@
     "keepGoing": "Doorgaan",
     "gameOver": "Game Over",
     "tryAgain": "Probeer het opnieuw",
-    "gameOverMessage": "GEEN ZETTEN MEER!"
+    "gameOverMessage": "GEEN ZETTEN MEER!",
+    "undo": "Ongedaan maken"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "Het vervolg",
     "replay": "Opnieuw afspelen",
     "erase": "wissen",
-    "howToPlay": "Klik op een cel en tik vervolgens op een nummer of druk op 1–9. Backspace of Delete wist de cel. Vetgedrukte getallen zijn aanwijzingen. Vul het raster zodat elke rij, kolom en 3×3 doos 1–9 bevat zonder herhalingen."
+    "howToPlay": "Klik op een cel en tik vervolgens op een nummer of druk op 1–9. Backspace of Delete wist de cel. Vetgedrukte getallen zijn aanwijzingen. Vul het raster zodat elke rij, kolom en 3×3 doos 1–9 bevat zonder herhalingen.",
+    "pencil": "Potlood",
+    "undo": "Ongedaan maken",
+    "hint": "Hint",
+    "hintsUsed": "hints gebruikt",
+    "mistakes": "Fouten",
+    "failed": "Mislukt!",
+    "mistakeMode": "3-fout modus"
+  },
+  "Snake": {
+    "title": "Snake",
+    "subtitle": "Eet voedsel, groei, vermijd muren en jezelf",
+    "score": "Score",
+    "best": "Beste",
+    "startPrompt": "Druk een pijltoets",
+    "startButton": "Spel starten",
+    "gameOver": "Spel voorbij",
+    "playAgain": "Opnieuw spelen",
+    "howToPlay": "Gebruik pijltoetsen of WASD. Eet om te groeien. Snelheid neemt toe elke 50 punten.",
+    "diffEasy": "Makkelijk",
+    "diffNormal": "Normaal",
+    "diffHard": "Moeilijk",
+    "diffInfinite": "Oneindig",
+    "orTap": "of tik hieronder",
+    "howToPlayInfinite": "Muren lopen door — geen muurdood. Eet om te groeien.",
+    "shieldActive": "Schild actief",
+    "speedBoost": "Snelheidsboost",
+    "powerSpeed": "Snelheid x2",
+    "powerShield": "Overleef één dood",
+    "powerShrink": "Verkort staart"
   }
 }

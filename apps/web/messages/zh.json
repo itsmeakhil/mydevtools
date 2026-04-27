@@ -3624,7 +3624,8 @@
     "keepGoing": "继续玩",
     "gameOver": "游戏结束",
     "tryAgain": "再试一次",
-    "gameOverMessage": "没有可走的步了。"
+    "gameOverMessage": "没有可走的步了。",
+    "undo": "撤销"
   },
   "Sudoku": {
     "title": "数独",
@@ -3642,6 +3643,35 @@
     "nextStage": "下一关",
     "replay": "重玩",
     "erase": "清除",
-    "howToPlay": "先点选格子，再点数字或按 1–9。退格或删除可清空。加粗数字为提示。填满九宫格，使每行、每列和每个 3×3 宫格都包含 1–9 且不重复。"
+    "howToPlay": "先点选格子，再点数字或按 1–9。退格或删除可清空。加粗数字为提示。填满九宫格，使每行、每列和每个 3×3 宫格都包含 1–9 且不重复。",
+    "pencil": "铅笔",
+    "undo": "撤销",
+    "hint": "提示",
+    "hintsUsed": "提示已使用",
+    "mistakes": "错误",
+    "failed": "失败!",
+    "mistakeMode": "3错误模式"
+  },
+  "Snake": {
+    "title": "贪吃蛇",
+    "subtitle": "吃食物、成长、避开墙壁和自己",
+    "score": "分数",
+    "best": "最佳",
+    "startPrompt": "按任意方向键",
+    "startButton": "开始游戏",
+    "gameOver": "游戏结束",
+    "playAgain": "再玩一次",
+    "howToPlay": "用方向键或WASD移动。吃食物来成长。每50分速度加快。",
+    "diffEasy": "简单",
+    "diffNormal": "普通",
+    "diffHard": "困难",
+    "diffInfinite": "无限",
+    "orTap": "或点击下方",
+    "howToPlayInfinite": "穿墙模式 — 不会因碰墙死亡。吃食物来成长。",
+    "shieldActive": "护盾激活",
+    "speedBoost": "速度提升",
+    "powerSpeed": "速度 x2",
+    "powerShield": "免疫一次死亡",
+    "powerShrink": "缩短尾巴"
   }
 }

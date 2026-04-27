@@ -3624,7 +3624,8 @@
     "keepGoing": "Devam Et",
     "gameOver": "Oyun bitti",
     "tryAgain": "Tekrar Deneyin",
-    "gameOverMessage": "Başka hamle kalmadı."
+    "gameOverMessage": "Başka hamle kalmadı.",
+    "undo": "Geri al"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "Bir Sonraki Aşama",
     "replay": "Tekrar Oynayın",
     "erase": "Sil",
-    "howToPlay": "Bir hücreye tıklayın, ardından bir numaraya dokunun veya 1 -9 'a basın. Backspace veya Delete hücreyi temizler. Cesur sayılar ipucudur. Gridi doldurun, böylece her satır, sütun ve 3×3 kutu tekrarsız 1 -9 içerir."
+    "howToPlay": "Bir hücreye tıklayın, ardından bir numaraya dokunun veya 1 -9 'a basın. Backspace veya Delete hücreyi temizler. Cesur sayılar ipucudur. Gridi doldurun, böylece her satır, sütun ve 3×3 kutu tekrarsız 1 -9 içerir.",
+    "pencil": "Kalem",
+    "undo": "Geri Al",
+    "hint": "İpucu",
+    "hintsUsed": "ipucu kullanıldı",
+    "mistakes": "Hatalar",
+    "failed": "Başarısız!",
+    "mistakeMode": "3-hata modu"
+  },
+  "Snake": {
+    "title": "Yılan",
+    "subtitle": "Yemek ye, büyü, duvarlardan ve kendinden kaçın",
+    "score": "Puan",
+    "best": "En İyi",
+    "startPrompt": "Herhangi bir ok tuşuna basın",
+    "startButton": "Oyunu Başlat",
+    "gameOver": "Oyun Bitti",
+    "playAgain": "Tekrar Oyna",
+    "howToPlay": "Ok tuşlarını veya WASD'ı kullan. Büyümek için ye. Hız her 50 puanda artar.",
+    "diffEasy": "Kolay",
+    "diffNormal": "Normal",
+    "diffHard": "Zor",
+    "diffInfinite": "Sonsuz",
+    "orTap": "veya aşağıya dokun",
+    "howToPlayInfinite": "Duvarlar sarılır — duvar ölümü yok. Büyümek için ye.",
+    "shieldActive": "Kalkan aktif",
+    "speedBoost": "Hız artışı",
+    "powerSpeed": "Hız x2",
+    "powerShield": "Bir ölümden kurtar",
+    "powerShrink": "Kuyruğu kısalt"
   }
 }

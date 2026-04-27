@@ -3624,7 +3624,8 @@
     "keepGoing": "Teruskan",
     "gameOver": "Permainan Tamat",
     "tryAgain": "Cuba Sekali Lagi",
-    "gameOverMessage": "Tiada lagi pergerakan yang tinggal."
+    "gameOverMessage": "Tiada lagi pergerakan yang tinggal.",
+    "undo": "Batal"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "Peringkat seterusnya",
     "replay": "Penapis",
     "erase": "Padam",
-    "howToPlay": "Klik sel, kemudian ketik nombor atau tekan 1–9. Backspace atau Delete membersihkan sel. Nombor tebal adalah petunjuk. Isi grid supaya setiap baris, lajur, dan kotak 3×3 mengandungi 1–9 tanpa ulangan."
+    "howToPlay": "Klik sel, kemudian ketik nombor atau tekan 1–9. Backspace atau Delete membersihkan sel. Nombor tebal adalah petunjuk. Isi grid supaya setiap baris, lajur, dan kotak 3×3 mengandungi 1–9 tanpa ulangan.",
+    "pencil": "Pencil",
+    "undo": "Undo",
+    "hint": "Hint",
+    "hintsUsed": "hints used",
+    "mistakes": "Mistakes",
+    "failed": "Failed!",
+    "mistakeMode": "3-mistake mode"
+  },
+  "Snake": {
+    "title": "Ular",
+    "subtitle": "Makan makanan, membesar, elak dinding dan diri sendiri",
+    "score": "Skor",
+    "best": "Terbaik",
+    "startPrompt": "Tekan mana-mana kekunci anak panah",
+    "startButton": "Mulakan Permainan",
+    "gameOver": "Permainan Tamat",
+    "playAgain": "Main Semula",
+    "howToPlay": "Gunakan kekunci anak panah atau WASD. Makan untuk membesar. Kelajuan meningkat setiap 50 mata.",
+    "diffEasy": "Mudah",
+    "diffNormal": "Biasa",
+    "diffHard": "Susah",
+    "diffInfinite": "Tanpa Had",
+    "orTap": "atau ketik di bawah",
+    "howToPlayInfinite": "Dinding bersambung — tiada kematian dinding. Makan untuk membesar.",
+    "shieldActive": "Shield Active",
+    "speedBoost": "Speed Boost",
+    "powerSpeed": "Speed x2 (10 ticks)",
+    "powerShield": "Survive one death",
+    "powerShrink": "Shortens tail"
   }
 }

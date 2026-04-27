@@ -3624,7 +3624,8 @@
     "keepGoing": "Continua",
     "gameOver": "Acabou o Jogo",
     "tryAgain": "Tentar novamente",
-    "gameOverMessage": "Não há mais movimentos!"
+    "gameOverMessage": "Não há mais movimentos!",
+    "undo": "Desfazer"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "Próxima fase",
     "replay": "Repetir",
     "erase": "",
-    "howToPlay": "Clique numa célula e, em seguida, toque num número ou prima 1–9. Backspace ou Delete limpa a célula. Números em negrito são pistas. Preencha a grade para que cada linha, coluna e caixa 3×3 contenha 1–9 sem repetições."
+    "howToPlay": "Clique numa célula e, em seguida, toque num número ou prima 1–9. Backspace ou Delete limpa a célula. Números em negrito são pistas. Preencha a grade para que cada linha, coluna e caixa 3×3 contenha 1–9 sem repetições.",
+    "pencil": "Pencil",
+    "undo": "Undo",
+    "hint": "Hint",
+    "hintsUsed": "hints used",
+    "mistakes": "Mistakes",
+    "failed": "Failed!",
+    "mistakeMode": "3-mistake mode"
+  },
+  "Snake": {
+    "title": "Cobra",
+    "subtitle": "Coma comida, cresça, evite paredes e a si mesmo",
+    "score": "Pontuação",
+    "best": "Melhor",
+    "startPrompt": "Pressione qualquer tecla de seta",
+    "startButton": "Iniciar jogo",
+    "gameOver": "Fim de jogo",
+    "playAgain": "Jogar de novo",
+    "howToPlay": "Use as teclas de seta ou WASD. Coma para crescer. A velocidade aumenta a cada 50 pontos.",
+    "diffEasy": "Fácil",
+    "diffNormal": "Normal",
+    "diffHard": "Difícil",
+    "diffInfinite": "Infinito",
+    "orTap": "ou toque abaixo",
+    "howToPlayInfinite": "As paredes se enrolam — sem mortes por paredes. Coma para crescer.",
+    "shieldActive": "Shield Active",
+    "speedBoost": "Speed Boost",
+    "powerSpeed": "Speed x2 (10 ticks)",
+    "powerShield": "Survive one death",
+    "powerShrink": "Shortens tail"
   }
 }

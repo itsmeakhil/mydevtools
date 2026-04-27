@@ -3624,7 +3624,8 @@
     "keepGoing": "Continua pure",
     "gameOver": "Fine partita",
     "tryAgain": "Riprova",
-    "gameOverMessage": "NON CI SONO PIÙ MOSSE"
+    "gameOverMessage": "NON CI SONO PIÙ MOSSE",
+    "undo": "Annulla"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "Fase successiva",
     "replay": "Ripeti (Replay)",
     "erase": "Cancella",
-    "howToPlay": "Fare clic su una cella, quindi toccare un numero o premere 1–9. Backspace o Delete cancella la cella. I numeri in grassetto sono indizi. Riempi la griglia in modo che ogni riga, colonna e casella 3×3 contenga 1–9 senza ripetizioni."
+    "howToPlay": "Fare clic su una cella, quindi toccare un numero o premere 1–9. Backspace o Delete cancella la cella. I numeri in grassetto sono indizi. Riempi la griglia in modo che ogni riga, colonna e casella 3×3 contenga 1–9 senza ripetizioni.",
+    "pencil": "Matita",
+    "undo": "Annulla",
+    "hint": "Suggerimento",
+    "hintsUsed": "suggerimenti usati",
+    "mistakes": "Errori",
+    "failed": "Fallito!",
+    "mistakeMode": "Modalità 3 errori"
+  },
+  "Snake": {
+    "title": "Snake",
+    "subtitle": "Mangia, cresci, evita muri e te stesso",
+    "score": "Punteggio",
+    "best": "Migliore",
+    "startPrompt": "Premi un tasto freccia",
+    "startButton": "Inizia gioco",
+    "gameOver": "Game Over",
+    "playAgain": "Gioca ancora",
+    "howToPlay": "Usa i tasti freccia o WASD. Mangia per crescere. La velocità aumenta ogni 50 punti.",
+    "diffEasy": "Facile",
+    "diffNormal": "Normale",
+    "diffHard": "Difficile",
+    "diffInfinite": "Infinito",
+    "orTap": "o tocca sotto",
+    "howToPlayInfinite": "I muri si avvolgono — nessuna morte per i muri. Mangia per crescere.",
+    "shieldActive": "Scudo attivo",
+    "speedBoost": "Boost velocità",
+    "powerSpeed": "Velocità x2",
+    "powerShield": "Sopravvivi a una morte",
+    "powerShrink": "Accorcia la coda"
   }
 }

@@ -3624,7 +3624,8 @@
     "keepGoing": "계속 이대로만 하세요.",
     "gameOver": "게임 오버",
     "tryAgain": "다시 시도",
-    "gameOverMessage": "더 이상 이동할 수 없습니다."
+    "gameOverMessage": "더 이상 이동할 수 없습니다.",
+    "undo": "실행 취소"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "이벤트 규칙:\n1. 이벤트 기간에 각 라인과 대응되는 수량의 블러드 다이아몬드를 소모하면 대응되는 아이템을 획득할 수 있습니다. \n2. 각 라인의 아이템을 한 번만 구매할 수 있으며 중복으로 구매할 수 없습니다.\n3. 획득한 아이템은 당신의 \"내 아이템\"으로 바로 발급됩니다.",
     "replay": "재생",
     "erase": "지우기",
-    "howToPlay": "셀을 클릭한 다음 숫자를 누르거나 1-9를 누릅니다. 백스페이스 또는 삭제는 셀을 지웁니다. 굵은 숫자는 단서입니다. 모든 행, 열 및 3 × 3 상자에 반복 없이 1-9가 포함되도록 그리드를 채웁니다."
+    "howToPlay": "셀을 클릭한 다음 숫자를 누르거나 1-9를 누릅니다. 백스페이스 또는 삭제는 셀을 지웁니다. 굵은 숫자는 단서입니다. 모든 행, 열 및 3 × 3 상자에 반복 없이 1-9가 포함되도록 그리드를 채웁니다.",
+    "pencil": "연필",
+    "undo": "실행 취소",
+    "hint": "힌트",
+    "hintsUsed": "힌트 사용",
+    "mistakes": "실수",
+    "failed": "실패!",
+    "mistakeMode": "3실수 모드"
+  },
+  "Snake": {
+    "title": "스네이크",
+    "subtitle": "먹이를 먹고, 성장하고, 벽과 자신을 피하세요",
+    "score": "점수",
+    "best": "최고",
+    "startPrompt": "화살표 키를 누르세요",
+    "startButton": "게임 시작",
+    "gameOver": "게임 오버",
+    "playAgain": "다시 플레이",
+    "howToPlay": "화살표 키나 WASD로 이동. 먹어서 성장하세요. 50점마다 속도가 빨라집니다.",
+    "diffEasy": "쉬움",
+    "diffNormal": "보통",
+    "diffHard": "어려움",
+    "diffInfinite": "무한",
+    "orTap": "또는 아래를 탭하세요",
+    "howToPlayInfinite": "벽이 연결됩니다 — 벽으로 죽지 않습니다. 먹어서 성장하세요.",
+    "shieldActive": "실드 활성",
+    "speedBoost": "속도 부스트",
+    "powerSpeed": "속도 x2",
+    "powerShield": "죽음 한 번 면제",
+    "powerShrink": "꼬리 단축"
   }
 }

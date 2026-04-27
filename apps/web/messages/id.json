@@ -3624,7 +3624,8 @@
     "keepGoing": "Teruskan",
     "gameOver": "Permainan Berakhir",
     "tryAgain": "Coba Lagi",
-    "gameOverMessage": "Tidak ada lagi gerakan yang tersisa."
+    "gameOverMessage": "Tidak ada lagi gerakan yang tersisa.",
+    "undo": "Urungkan"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "Tahap berikutnya",
     "replay": "Putar Ulang",
     "erase": "Hapus",
-    "howToPlay": "Klik sel, lalu ketuk angka atau tekan 1 -9. Backspace atau Delete membersihkan sel. Angka tebal adalah petunjuk. Isi grid sehingga setiap baris, kolom, dan kotak 3×3 berisi 1 -9 tanpa pengulangan."
+    "howToPlay": "Klik sel, lalu ketuk angka atau tekan 1 -9. Backspace atau Delete membersihkan sel. Angka tebal adalah petunjuk. Isi grid sehingga setiap baris, kolom, dan kotak 3×3 berisi 1 -9 tanpa pengulangan.",
+    "pencil": "Pensil",
+    "undo": "Batalkan",
+    "hint": "Petunjuk",
+    "hintsUsed": "petunjuk digunakan",
+    "mistakes": "Kesalahan",
+    "failed": "Gagal!",
+    "mistakeMode": "Mode 3 kesalahan"
+  },
+  "Snake": {
+    "title": "Ular",
+    "subtitle": "Makan makanan, tumbuh, hindari dinding dan dirimu",
+    "score": "Skor",
+    "best": "Terbaik",
+    "startPrompt": "Tekan tombol panah mana saja",
+    "startButton": "Mulai Permainan",
+    "gameOver": "Permainan Selesai",
+    "playAgain": "Main Lagi",
+    "howToPlay": "Gunakan tombol panah atau WASD. Makan untuk tumbuh. Kecepatan meningkat setiap 50 poin.",
+    "diffEasy": "Mudah",
+    "diffNormal": "Normal",
+    "diffHard": "Sulit",
+    "diffInfinite": "Tak Terbatas",
+    "orTap": "atau ketuk di bawah",
+    "howToPlayInfinite": "Dinding melingkar — tidak mati karena dinding. Makan untuk tumbuh.",
+    "shieldActive": "Perisai aktif",
+    "speedBoost": "Boost kecepatan",
+    "powerSpeed": "Kecepatan x2",
+    "powerShield": "Bertahan dari kematian",
+    "powerShrink": "Mempersingkat ekor"
   }
 }

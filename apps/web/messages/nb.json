@@ -3624,7 +3624,8 @@
     "keepGoing": "Fortsett slik!",
     "gameOver": "Spill slutt",
     "tryAgain": "Prøv igjen",
-    "gameOverMessage": "Ingen flere trekk igjen."
+    "gameOverMessage": "Ingen flere trekk igjen.",
+    "undo": "Angre"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "Neste fase",
     "replay": "Spill av på nytt",
     "erase": "Slett",
-    "howToPlay": "Klikk på en celle, og trykk deretter på et tall eller trykk på 1–9. Tilbaketasten eller Delete-tasten fjerner cellen. Uthevede tall er ledetråder. Fyll rutenettet slik at hver rad, kolonne og 3×3-boks inneholder 1–9 uten repetisjoner."
+    "howToPlay": "Klikk på en celle, og trykk deretter på et tall eller trykk på 1–9. Tilbaketasten eller Delete-tasten fjerner cellen. Uthevede tall er ledetråder. Fyll rutenettet slik at hver rad, kolonne og 3×3-boks inneholder 1–9 uten repetisjoner.",
+    "pencil": "Pencil",
+    "undo": "Undo",
+    "hint": "Hint",
+    "hintsUsed": "hints used",
+    "mistakes": "Mistakes",
+    "failed": "Failed!",
+    "mistakeMode": "3-mistake mode"
+  },
+  "Snake": {
+    "title": "Slange",
+    "subtitle": "Spis mat, voks, unngå vegger og deg selv",
+    "score": "Poeng",
+    "best": "Best",
+    "startPrompt": "Trykk en piletast",
+    "startButton": "Start spill",
+    "gameOver": "Spill over",
+    "playAgain": "Spill igjen",
+    "howToPlay": "Bruk piltaster eller WASD. Spis mat for å vokse. Hastighet øker hvert 50. poeng.",
+    "diffEasy": "Lett",
+    "diffNormal": "Normal",
+    "diffHard": "Vanskelig",
+    "diffInfinite": "Uendelig",
+    "orTap": "eller trykk nedenfor",
+    "howToPlayInfinite": "Vegger går rundt — ingen veggdød. Spis mat for å vokse.",
+    "shieldActive": "Shield Active",
+    "speedBoost": "Speed Boost",
+    "powerSpeed": "Speed x2 (10 ticks)",
+    "powerShield": "Survive one death",
+    "powerShrink": "Shortens tail"
   }
 }

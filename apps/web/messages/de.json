@@ -3624,7 +3624,8 @@
     "keepGoing": "Bleibt unaufhaltsam",
     "gameOver": "Game Over",
     "tryAgain": "Erneut versuchen",
-    "gameOverMessage": "Keine Spielzüge mehr."
+    "gameOverMessage": "Keine Spielzüge mehr.",
+    "undo": "Rückgängig"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "Nächster Schritt",
     "replay": "Erneut wiedergeben",
     "erase": "Löschen",
-    "howToPlay": "Klicken Sie auf eine Zelle und tippen Sie dann auf eine Zahl oder drücken Sie 1-9. Rücktaste oder Löschen löscht die Zelle. Fettgedruckte Zahlen sind Hinweise. Füllen Sie das Raster so aus, dass jede Zeile, Spalte und 3× 3-Box 1–9 ohne Wiederholungen enthält."
+    "howToPlay": "Klicken Sie auf eine Zelle und tippen Sie dann auf eine Zahl oder drücken Sie 1-9. Rücktaste oder Löschen löscht die Zelle. Fettgedruckte Zahlen sind Hinweise. Füllen Sie das Raster so aus, dass jede Zeile, Spalte und 3× 3-Box 1–9 ohne Wiederholungen enthält.",
+    "pencil": "Bleistift",
+    "undo": "Rückgängig",
+    "hint": "Hinweis",
+    "hintsUsed": "Hinweise verwendet",
+    "mistakes": "Fehler",
+    "failed": "Gescheitert!",
+    "mistakeMode": "3-Fehler-Modus"
+  },
+  "Snake": {
+    "title": "Snake",
+    "subtitle": "Iss Essen, wachse, vermeide Wände und dich selbst",
+    "score": "Punkte",
+    "best": "Beste",
+    "startPrompt": "Pfeiltaste drücken",
+    "startButton": "Spiel starten",
+    "gameOver": "Spiel vorbei",
+    "playAgain": "Nochmal spielen",
+    "howToPlay": "Pfeiltasten oder WASD zum Bewegen. Iss Essen zum Wachsen. Geschwindigkeit steigt alle 50 Punkte.",
+    "diffEasy": "Leicht",
+    "diffNormal": "Normal",
+    "diffHard": "Schwer",
+    "diffInfinite": "Unendlich",
+    "orTap": "oder unten tippen",
+    "howToPlayInfinite": "Wände umwickeln — kein Wandtod. Iss Essen zum Wachsen.",
+    "shieldActive": "Schild aktiv",
+    "speedBoost": "Geschwindigkeitsboost",
+    "powerSpeed": "Tempo x2",
+    "powerShield": "Überlebt einen Tod",
+    "powerShrink": "Kürzt den Schwanz"
   }
 }

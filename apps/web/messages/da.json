@@ -3624,7 +3624,8 @@
     "keepGoing": "\"Fortsæt.\"",
     "gameOver": "Spil forbi",
     "tryAgain": "Prøv igen",
-    "gameOverMessage": "Ikke flere bevægelser tilbage."
+    "gameOverMessage": "Ikke flere bevægelser tilbage.",
+    "undo": "Fortryd"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "De næste skridt",
     "replay": "Besvar",
     "erase": "Slet",
-    "howToPlay": "Klik på en celle, og tryk derefter på et tal, eller tryk på 1–9. Backspace eller Delete rydder cellen. Dristige tal er ledetråde. Udfyld gitteret, så hver række, kolonne og 3×3 boks indeholder 1–9 uden gentagelser."
+    "howToPlay": "Klik på en celle, og tryk derefter på et tal, eller tryk på 1–9. Backspace eller Delete rydder cellen. Dristige tal er ledetråde. Udfyld gitteret, så hver række, kolonne og 3×3 boks indeholder 1–9 uden gentagelser.",
+    "pencil": "Blyant",
+    "undo": "Fortryd",
+    "hint": "Tip",
+    "hintsUsed": "tips brugt",
+    "mistakes": "Fejl",
+    "failed": "Mislykkedes!",
+    "mistakeMode": "3-fejl tilstand"
+  },
+  "Snake": {
+    "title": "Snake",
+    "subtitle": "Spis mad, voks, undgå vægge og dig selv",
+    "score": "Point",
+    "best": "Bedste",
+    "startPrompt": "Tryk en piletast",
+    "startButton": "Start spil",
+    "gameOver": "Spil slut",
+    "playAgain": "Spil igen",
+    "howToPlay": "Brug piletaster eller WASD. Spis mad for at vokse. Hastighed stiger hvert 50. point.",
+    "diffEasy": "Let",
+    "diffNormal": "Normal",
+    "diffHard": "Svær",
+    "diffInfinite": "Uendelig",
+    "orTap": "eller tryk nedenfor",
+    "howToPlayInfinite": "Vægge wrap rundt — ingen vægdød. Spis mad for at vokse.",
+    "shieldActive": "Skjold aktivt",
+    "speedBoost": "Hastighedsforøgelse",
+    "powerSpeed": "Hastighed x2",
+    "powerShield": "Overlev én død",
+    "powerShrink": "Forkorter halen"
   }
 }

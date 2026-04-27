@@ -3624,7 +3624,8 @@
     "keepGoing": "Neohlížej se",
     "gameOver": "Konec Hry",
     "tryAgain": "Zkusit to znovu",
-    "gameOverMessage": "Už žádné tahy."
+    "gameOverMessage": "Už žádné tahy.",
+    "undo": "Zpět"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "Další etapa",
     "replay": "Znovu přehrát",
     "erase": "Smazat",
-    "howToPlay": "Klikněte na buňku a potom klepněte na číslo nebo stiskněte 1–9. Backspace nebo Delete vymaže buňku. Tučná čísla jsou vodítka. Vyplňte mřížku tak, aby každý řádek, sloupec a 3×3 pole obsahovaly 1–9 bez opakování."
+    "howToPlay": "Klikněte na buňku a potom klepněte na číslo nebo stiskněte 1–9. Backspace nebo Delete vymaže buňku. Tučná čísla jsou vodítka. Vyplňte mřížku tak, aby každý řádek, sloupec a 3×3 pole obsahovaly 1–9 bez opakování.",
+    "pencil": "Tužka",
+    "undo": "Zpět",
+    "hint": "Nápověda",
+    "hintsUsed": "nápovědy použity",
+    "mistakes": "Chyby",
+    "failed": "Neúspěch!",
+    "mistakeMode": "Režim 3 chyb"
+  },
+  "Snake": {
+    "title": "Had",
+    "subtitle": "Jez jídlo, roste, vyhýbej se zdím a sobě",
+    "score": "Skóre",
+    "best": "Nejlepší",
+    "startPrompt": "Stiskni jakoukoli šipku",
+    "startButton": "Spustit hru",
+    "gameOver": "Konec hry",
+    "playAgain": "Hrát znovu",
+    "howToPlay": "Pohybuj se šipkami nebo WASD. Jez a roste. Rychlost roste každých 50 bodů.",
+    "diffEasy": "Lehké",
+    "diffNormal": "Normální",
+    "diffHard": "Těžké",
+    "diffInfinite": "Nekonečno",
+    "orTap": "nebo klepni níže",
+    "howToPlayInfinite": "Zdi se opakují — žádná smrt od zdí. Jez a roste.",
+    "shieldActive": "Štít aktivní",
+    "speedBoost": "Zrychlení",
+    "powerSpeed": "Rychlost x2",
+    "powerShield": "Přežij jednu smrt",
+    "powerShrink": "Zkrátí ocas"
   }
 }

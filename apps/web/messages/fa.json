@@ -3624,7 +3624,8 @@
     "keepGoing": "ادامه بدید",
     "gameOver": "بازی",
     "tryAgain": "دوباره امتحان کنید",
-    "gameOverMessage": "جُم نخورید."
+    "gameOverMessage": "جُم نخورید.",
+    "undo": "واگرد"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "مرحله بعد",
     "replay": "بازپخش",
     "erase": "پاک کردن",
-    "howToPlay": "روی یک سلول کلیک کنید، سپس روی یک عدد ضربه بزنید یا ۱ تا ۹ را فشار دهید. کلید Backspace یا Delete سلول را پاک می‌کند. اعداد پررنگ سرنخ هستند. جدول را طوری پر کنید که هر سطر، ستون و کادر ۳×۳ شامل اعداد ۱ تا ۹ بدون تکرار باشد."
+    "howToPlay": "روی یک سلول کلیک کنید، سپس روی یک عدد ضربه بزنید یا ۱ تا ۹ را فشار دهید. کلید Backspace یا Delete سلول را پاک می‌کند. اعداد پررنگ سرنخ هستند. جدول را طوری پر کنید که هر سطر، ستون و کادر ۳×۳ شامل اعداد ۱ تا ۹ بدون تکرار باشد.",
+    "pencil": "Pencil",
+    "undo": "Undo",
+    "hint": "Hint",
+    "hintsUsed": "hints used",
+    "mistakes": "Mistakes",
+    "failed": "Failed!",
+    "mistakeMode": "3-mistake mode"
+  },
+  "Snake": {
+    "title": "مار",
+    "subtitle": "غذا بخور، رشد کن، از دیوارها و خودت دوری کن",
+    "score": "امتیاز",
+    "best": "بهترین",
+    "startPrompt": "یک کلید جهت را فشار دهید",
+    "startButton": "شروع بازی",
+    "gameOver": "بازی تمام شد",
+    "playAgain": "دوباره بازی کن",
+    "howToPlay": "از کلیدهای جهت یا WASD استفاده کن. غذا بخور تا رشد کنی. هر ۵۰ امتیاز سرعت افزایش می‌یابد.",
+    "diffEasy": "آسان",
+    "diffNormal": "معمولی",
+    "diffHard": "سخت",
+    "diffInfinite": "بی‌نهایت",
+    "orTap": "یا زیر را لمس کنید",
+    "howToPlayInfinite": "دیوارها تکرار می‌شوند — بدون مرگ دیواری. غذا بخور تا رشد کنی.",
+    "shieldActive": "Shield Active",
+    "speedBoost": "Speed Boost",
+    "powerSpeed": "Speed x2 (10 ticks)",
+    "powerShield": "Survive one death",
+    "powerShrink": "Shortens tail"
   }
 }

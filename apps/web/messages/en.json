@@ -3671,7 +3671,14 @@
     "nextStage": "Next stage",
     "replay": "Replay",
     "erase": "Erase",
-    "howToPlay": "Click a cell, then tap a number or press 1–9. Backspace or Delete clears the cell. Bold numbers are clues. Fill the grid so every row, column, and 3×3 box contains 1–9 with no repeats."
+    "howToPlay": "Click a cell, then tap a number or press 1–9. Backspace or Delete clears the cell. Bold numbers are clues. Fill the grid so every row, column, and 3×3 box contains 1–9 with no repeats.",
+    "pencil": "Pencil",
+    "undo": "Undo",
+    "hint": "Hint",
+    "hintsUsed": "hints used",
+    "mistakes": "Mistakes",
+    "failed": "Failed!",
+    "mistakeMode": "3-mistake mode"
   },
   "Game2048": {
     "title": "2048",
@@ -3684,7 +3691,8 @@
     "keepGoing": "Keep Going",
     "gameOver": "Game Over",
     "tryAgain": "Try Again",
-    "gameOverMessage": "No more moves left."
+    "gameOverMessage": "No more moves left.",
+    "undo": "Undo"
   },
   "Snake": {
     "title": "Snake",
@@ -3695,7 +3703,18 @@
     "startButton": "Start Game",
     "gameOver": "Game Over",
     "playAgain": "Play Again",
-    "howToPlay": "Use arrow keys or WASD to move. Eat food to grow. Speed increases every 50 points."
+    "howToPlay": "Use arrow keys or WASD to move. Eat food to grow. Speed increases every 50 points.",
+    "diffEasy": "Easy",
+    "diffNormal": "Normal",
+    "diffHard": "Hard",
+    "diffInfinite": "Infinite",
+    "orTap": "or tap below",
+    "howToPlayInfinite": "Walls wrap around — no wall deaths. Eat food to grow. Speed increases every 50 points.",
+    "shieldActive": "Shield Active",
+    "speedBoost": "Speed Boost",
+    "powerSpeed": "Speed x2 (10 ticks)",
+    "powerShield": "Survive one death",
+    "powerShrink": "Shortens tail"
   },
   "Minesweeper": {
     "title": "Minesweeper",

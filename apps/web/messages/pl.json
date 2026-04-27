@@ -3624,7 +3624,8 @@
     "keepGoing": "Nie przerywaj",
     "gameOver": "Koniec gry",
     "tryAgain": "Ponów",
-    "gameOverMessage": "Nie ma więcej ruchów."
+    "gameOverMessage": "Nie ma więcej ruchów.",
+    "undo": "Cofnij"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "Następny etap",
     "replay": "Powtórka",
     "erase": "Wymaż",
-    "howToPlay": "Kliknij komórkę, a następnie naciśnij liczbę lub naciśnij 1–9. Backspace lub Delete czyści komórkę. Pogrubione liczby są wskazówkami. Wypełnij siatkę tak, aby każdy wiersz, kolumna i pole 3×3 zawierały 1–9 bez powtórzeń."
+    "howToPlay": "Kliknij komórkę, a następnie naciśnij liczbę lub naciśnij 1–9. Backspace lub Delete czyści komórkę. Pogrubione liczby są wskazówkami. Wypełnij siatkę tak, aby każdy wiersz, kolumna i pole 3×3 zawierały 1–9 bez powtórzeń.",
+    "pencil": "Ołówek",
+    "undo": "Cofnij",
+    "hint": "Podpowiedź",
+    "hintsUsed": "podpowiedzi użyte",
+    "mistakes": "Błędy",
+    "failed": "Niepowodzenie!",
+    "mistakeMode": "Tryb 3 błędów"
+  },
+  "Snake": {
+    "title": "Wąż",
+    "subtitle": "Jedz jedzenie, rośnij, unikaj ścian i siebie",
+    "score": "Wynik",
+    "best": "Najlepszy",
+    "startPrompt": "Naciśnij dowolny klawisz strzałki",
+    "startButton": "Rozpocznij grę",
+    "gameOver": "Koniec gry",
+    "playAgain": "Zagraj ponownie",
+    "howToPlay": "Używaj klawiszy strzałek lub WASD. Jedz jedzenie, aby rosnąć. Prędkość rośnie co 50 punktów.",
+    "diffEasy": "Łatwy",
+    "diffNormal": "Normalny",
+    "diffHard": "Trudny",
+    "diffInfinite": "Nieskończony",
+    "orTap": "lub stuknij poniżej",
+    "howToPlayInfinite": "Ściany się owijają — brak śmierci od ścian. Jedz jedzenie, aby rosnąć.",
+    "shieldActive": "Tarcza aktywna",
+    "speedBoost": "Przyspieszenie",
+    "powerSpeed": "Prędkość x2",
+    "powerShield": "Przeżyj jedną śmierć",
+    "powerShrink": "Skraca ogon"
   }
 }

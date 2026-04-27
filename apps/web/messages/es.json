@@ -3624,7 +3624,8 @@
     "keepGoing": "Continuar",
     "gameOver": "Juego terminado",
     "tryAgain": "Intentar de nuevo",
-    "gameOverMessage": "No hay más movimientos posibles. "
+    "gameOverMessage": "No hay más movimientos posibles. ",
+    "undo": "Deshacer"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "Siguiente etapa",
     "replay": "Volver a reproducir",
     "erase": "Borrar",
-    "howToPlay": "Haz clic en una celda y, a continuación, pulsa un número o pulsa 1–9. Backspace o Delete borra la celda. Los números en negrita son pistas. Rellena la cuadrícula para que cada fila, columna y cuadro de 3×3 contenga del 1 al 9 sin repeticiones."
+    "howToPlay": "Haz clic en una celda y, a continuación, pulsa un número o pulsa 1–9. Backspace o Delete borra la celda. Los números en negrita son pistas. Rellena la cuadrícula para que cada fila, columna y cuadro de 3×3 contenga del 1 al 9 sin repeticiones.",
+    "pencil": "Lápiz",
+    "undo": "Deshacer",
+    "hint": "Pista",
+    "hintsUsed": "pistas usadas",
+    "mistakes": "Errores",
+    "failed": "¡Fallido!",
+    "mistakeMode": "Modo 3 errores"
+  },
+  "Snake": {
+    "title": "Snake",
+    "subtitle": "Come comida, crece, evita paredes y a ti mismo",
+    "score": "Puntos",
+    "best": "Mejor",
+    "startPrompt": "Pulsa cualquier tecla de flecha",
+    "startButton": "Iniciar juego",
+    "gameOver": "Fin del juego",
+    "playAgain": "Jugar de nuevo",
+    "howToPlay": "Usa las teclas de flecha o WASD. Come para crecer. La velocidad aumenta cada 50 puntos.",
+    "diffEasy": "Fácil",
+    "diffNormal": "Normal",
+    "diffHard": "Difícil",
+    "diffInfinite": "Infinito",
+    "orTap": "o toca abajo",
+    "howToPlayInfinite": "Las paredes se envuelven — sin muertes por paredes. Come para crecer.",
+    "shieldActive": "Escudo activo",
+    "speedBoost": "Aumento de velocidad",
+    "powerSpeed": "Velocidad x2",
+    "powerShield": "Sobrevive una muerte",
+    "powerShrink": "Acorta la cola"
   }
 }

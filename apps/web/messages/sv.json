@@ -3624,7 +3624,8 @@
     "keepGoing": "Fortsätt så!",
     "gameOver": "Spelet är slut",
     "tryAgain": "Försök igen",
-    "gameOverMessage": "Inga fler rörelser kvar."
+    "gameOverMessage": "Inga fler rörelser kvar.",
+    "undo": "Ångra"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "Andra linje",
     "replay": "Repris",
     "erase": "Radera",
-    "howToPlay": "Klicka på en cell och tryck sedan på ett nummer eller tryck på 1–9. Backsteg eller Radera rensar cellen. Djärva siffror är ledtrådar. Fyll rutnätet så att varje rad, kolumn och 3× 3-ruta innehåller 1–9 utan upprepningar."
+    "howToPlay": "Klicka på en cell och tryck sedan på ett nummer eller tryck på 1–9. Backsteg eller Radera rensar cellen. Djärva siffror är ledtrådar. Fyll rutnätet så att varje rad, kolumn och 3× 3-ruta innehåller 1–9 utan upprepningar.",
+    "pencil": "Penna",
+    "undo": "Ångra",
+    "hint": "Tips",
+    "hintsUsed": "tips använda",
+    "mistakes": "Misstag",
+    "failed": "Misslyckades!",
+    "mistakeMode": "3-misstag läge"
+  },
+  "Snake": {
+    "title": "Snake",
+    "subtitle": "Ät mat, väx, undvik väggar och dig själv",
+    "score": "Poäng",
+    "best": "Bäst",
+    "startPrompt": "Tryck en piltangent",
+    "startButton": "Starta spel",
+    "gameOver": "Spelet slut",
+    "playAgain": "Spela igen",
+    "howToPlay": "Använd piltangenter eller WASD. Ät mat för att växa. Hastigheten ökar var 50:e poäng.",
+    "diffEasy": "Lätt",
+    "diffNormal": "Normal",
+    "diffHard": "Svår",
+    "diffInfinite": "Oändlig",
+    "orTap": "eller tryck nedan",
+    "howToPlayInfinite": "Väggar wrappas — ingen vägdöd. Ät mat för att växa.",
+    "shieldActive": "Sköld aktiv",
+    "speedBoost": "Hastighetsnöjning",
+    "powerSpeed": "Hastighet x2",
+    "powerShield": "Överlev ett dödsfall",
+    "powerShrink": "Förkortar svansen"
   }
 }

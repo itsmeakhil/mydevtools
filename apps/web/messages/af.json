@@ -3624,7 +3624,8 @@
     "keepGoing": "Gaan voort",
     "gameOver": "Speletjie Verby",
     "tryAgain": " Probeer weer",
-    "gameOverMessage": "Geen beweeg meer nie."
+    "gameOverMessage": "Geen beweeg meer nie.",
+    "undo": "Ontdoen"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "Volgende fase",
     "replay": "Speel Weer",
     "erase": "Uitvee",
-    "howToPlay": "Klik op 'n sel, tik dan op 'n nommer of druk 1–9. Agterruimte of Uitvee maak die sel skoon. Vet getalle is leidrade. Vul die rooster sodat elke ry, kolom, en 3x3 boks bevat 1–9 met geen herhalings."
+    "howToPlay": "Klik op 'n sel, tik dan op 'n nommer of druk 1–9. Agterruimte of Uitvee maak die sel skoon. Vet getalle is leidrade. Vul die rooster sodat elke ry, kolom, en 3x3 boks bevat 1–9 met geen herhalings.",
+    "pencil": "Potlood",
+    "undo": "Ontdoen",
+    "hint": "Wenk",
+    "hintsUsed": "leidrade gebruik",
+    "mistakes": "Foute",
+    "failed": "Misluk!",
+    "mistakeMode": "3-fout modus"
+  },
+  "Snake": {
+    "title": "Snake",
+    "subtitle": "Eet kos, groei, vermy mure en jouself",
+    "score": "Telling",
+    "best": "Beste",
+    "startPrompt": "Druk enige pyltjietoets",
+    "startButton": "Begin Spel",
+    "gameOver": "Spel Verby",
+    "playAgain": "Speel Weer",
+    "howToPlay": "Gebruik pyltjietoetse of WASD om te beweeg. Eet kos om te groei. Spoed neem toe elke 50 punte.",
+    "diffEasy": "Maklik",
+    "diffNormal": "Normaal",
+    "diffHard": "Moeilik",
+    "diffInfinite": "Oneindig",
+    "orTap": "of tik hieronder",
+    "howToPlayInfinite": "Mure draai om — geen muursterfte. Eet kos om te groei.",
+    "shieldActive": "Skild Aktief",
+    "speedBoost": "Spoedverhoging",
+    "powerSpeed": "Spoed x2 (10 beurte)",
+    "powerShield": "Een dood oorleef",
+    "powerShrink": "Stert verkort"
   }
 }

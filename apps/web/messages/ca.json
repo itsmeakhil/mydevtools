@@ -3624,7 +3624,8 @@
     "keepGoing": "- Segueix.",
     "gameOver": "La partida ha acabat",
     "tryAgain": "Torna a intentar-ho",
-    "gameOverMessage": "No queden més moviments."
+    "gameOverMessage": "No queden més moviments.",
+    "undo": "Desfer"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "Següent etapa",
     "replay": "& Repetició",
     "erase": "Esborrar",
-    "howToPlay": "Fes clic a una cel·la i, a continuació, toca un número o prem 1–9. Backspace o Suprimeix neteja la cel·la. Els números en negreta són pistes. Omple la graella perquè cada fila, columna i quadre de 3×3 contingui de l'1 al 9 sense repeticions."
+    "howToPlay": "Fes clic a una cel·la i, a continuació, toca un número o prem 1–9. Backspace o Suprimeix neteja la cel·la. Els números en negreta són pistes. Omple la graella perquè cada fila, columna i quadre de 3×3 contingui de l'1 al 9 sense repeticions.",
+    "pencil": "Llapis",
+    "undo": "Desfer",
+    "hint": "Pista",
+    "hintsUsed": "pistes usades",
+    "mistakes": "Errors",
+    "failed": "Fracassat!",
+    "mistakeMode": "Mode 3 errors"
+  },
+  "Snake": {
+    "title": "Snake",
+    "subtitle": "Menja, creix, evita les parets i tu mateix",
+    "score": "Punts",
+    "best": "Millor",
+    "startPrompt": "Prem qualsevol tecla de fletxa",
+    "startButton": "Iniciar Joc",
+    "gameOver": "Fi del Joc",
+    "playAgain": "Jugar de nou",
+    "howToPlay": "Usa les tecles de fletxa o WASD per moure't. Menja per créixer. La velocitat augmenta cada 50 punts.",
+    "diffEasy": "Fàcil",
+    "diffNormal": "Normal",
+    "diffHard": "Difícil",
+    "diffInfinite": "Infinit",
+    "orTap": "o toca a baix",
+    "howToPlayInfinite": "Les parets s'emboliquen — sense morts per parets. Menja per créixer.",
+    "shieldActive": "Escut actiu",
+    "speedBoost": "Augment velocitat",
+    "powerSpeed": "Velocitat x2",
+    "powerShield": "Sobreviu una mort",
+    "powerShrink": "Escurça la cua"
   }
 }

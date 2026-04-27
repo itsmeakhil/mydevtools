@@ -3624,7 +3624,8 @@
     "keepGoing": "Continue",
     "gameOver": "Fin de partie ",
     "tryAgain": "Réessayez",
-    "gameOverMessage": "Plus de mouvements à gauche."
+    "gameOverMessage": "Plus de mouvements à gauche.",
+    "undo": "Annuler"
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3642,6 +3643,35 @@
     "nextStage": "Étape suivante",
     "replay": "Relire",
     "erase": "Effacer",
-    "howToPlay": "Cliquez sur une cellule, puis appuyez sur un numéro ou appuyez sur 1–9. Le retour arrière ou la suppression efface la cellule. Les chiffres en gras sont des indices. Remplissez la grille de sorte que chaque ligne, colonne et case 3×3 contienne 1 à 9 sans répétition."
+    "howToPlay": "Cliquez sur une cellule, puis appuyez sur un numéro ou appuyez sur 1–9. Le retour arrière ou la suppression efface la cellule. Les chiffres en gras sont des indices. Remplissez la grille de sorte que chaque ligne, colonne et case 3×3 contienne 1 à 9 sans répétition.",
+    "pencil": "Crayon",
+    "undo": "Annuler",
+    "hint": "Indice",
+    "hintsUsed": "indices utilisés",
+    "mistakes": "Erreurs",
+    "failed": "Échec!",
+    "mistakeMode": "Mode 3 erreurs"
+  },
+  "Snake": {
+    "title": "Snake",
+    "subtitle": "Mange, grandis, évite les murs et toi-même",
+    "score": "Score",
+    "best": "Meilleur",
+    "startPrompt": "Appuie sur une touche fléchée",
+    "startButton": "Démarrer",
+    "gameOver": "Partie terminée",
+    "playAgain": "Rejouer",
+    "howToPlay": "Utilise les flèches ou WASD pour te déplacer. Mange pour grandir. La vitesse augmente tous les 50 points.",
+    "diffEasy": "Facile",
+    "diffNormal": "Normal",
+    "diffHard": "Difficile",
+    "diffInfinite": "Infini",
+    "orTap": "ou tapez ci-dessous",
+    "howToPlayInfinite": "Les murs se rejoignent — pas de mort par les murs. Mange pour grandir.",
+    "shieldActive": "Bouclier actif",
+    "speedBoost": "Boost de vitesse",
+    "powerSpeed": "Vitesse x2",
+    "powerShield": "Survive à une mort",
+    "powerShrink": "Raccourcit la queue"
   }
 }
