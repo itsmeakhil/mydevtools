@@ -12,6 +12,7 @@ dependencies = [
   "pymongo[srv]",
   "python-jose[cryptography]>=3.5.0",
   "boto3>=1.38.0",
+  "slowapi>=0.1.9",
 ]
 
 [project.optional-dependencies]

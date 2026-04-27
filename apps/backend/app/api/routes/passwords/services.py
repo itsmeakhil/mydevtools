@@ -1,16 +1,7 @@
-import random
-import string
-import time
 from typing import Any, Optional
 
 from fastapi import HTTPException, status
-
-try:
-    from pymongo.collection import Collection
-    from pymongo.errors import PyMongoError
-except Exception:  # pragma: no cover
-    Collection = Any  # type: ignore
-    PyMongoError = Exception  # type: ignore
+from pymongo.errors import PyMongoError
 
 from app.api.routes.passwords.schema import (
     KeyVerifier,
@@ -20,29 +11,9 @@ from app.api.routes.passwords.schema import (
     VaultOut,
     VaultSetupRequest,
 )
-from app.core.db import get_db
 from app.utils.collection_name import PASSWORD_ENTRIES, PASSWORD_VAULTS
+from app.utils.utils import col, now_ms, new_id
 
-
-def now_ms() -> int:
-    return int(time.time() * 1000)
-
-
-def new_client_style_id() -> str:
-    """
-    Mirror the "client-generated id" pattern already used by bookmarks.
-    This keeps entry ids stable and easy to use in PATCH/DELETE.
-    """
-    suffix = "".join(random.choices(string.ascii_lowercase + string.digits, k=9))
-    return f"{now_ms()}-{suffix}"
-
-
-def _vaults_col() -> Collection:
-    return get_db()[PASSWORD_VAULTS]
-
-
-def _entries_col() -> Collection:
-    return get_db()[PASSWORD_ENTRIES]
 
 
 def _vault_doc_to_out(doc: dict[str, Any]) -> VaultOut:
@@ -86,7 +57,7 @@ def _entry_doc_to_out(doc: dict[str, Any], *, entry_id: str) -> PasswordEntryOut
 
 
 def get_vault(uid: str) -> VaultOut:
-    doc = _vaults_col().find_one({"created_by": uid})
+    doc = col(PASSWORD_VAULTS).find_one({"created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Vault not found.")
     return _vault_doc_to_out(doc)
@@ -105,7 +76,7 @@ def setup_vault(uid: str, body: VaultSetupRequest) -> VaultOut:
     }
 
     try:
-        _vaults_col().replace_one({"created_by": uid}, doc, upsert=True)
+        col(PASSWORD_VAULTS).replace_one({"created_by": uid}, doc, upsert=True)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -123,7 +94,7 @@ def list_entries(
     offset: int = 0,
 ) -> list[PasswordEntryOut]:
     q = {"created_by": uid}
-    cursor = _entries_col().find(q).sort([("updatedAt", -1), ("createdAt", -1)]).skip(max(0, offset))
+    cursor = col(PASSWORD_ENTRIES).find(q).sort([("updatedAt", -1), ("createdAt", -1)]).skip(max(0, offset))
     if limit is not None:
         cursor = cursor.limit(limit)
     docs = list(cursor)
@@ -135,7 +106,7 @@ def list_entries(
 
 
 def create_entry(uid: str, body: PasswordEntryCreate) -> PasswordEntryOut:
-    eid = new_client_style_id()
+    eid = new_id()
     ts = now_ms()
     created_at = int(body.createdAt) if body.createdAt is not None else ts
     updated_at = int(body.updatedAt) if body.updatedAt is not None else created_at
@@ -150,7 +121,7 @@ def create_entry(uid: str, body: PasswordEntryCreate) -> PasswordEntryOut:
     }
 
     try:
-        _entries_col().insert_one(doc)
+        col(PASSWORD_ENTRIES).insert_one(doc)
     except PyMongoError as exc:
         # Likely collision on _id; treat like conflict to keep consistent with other modules.
         msg = str(exc).lower()
@@ -162,7 +133,7 @@ def create_entry(uid: str, body: PasswordEntryCreate) -> PasswordEntryOut:
 
 
 def get_entry(uid: str, entry_id: str) -> PasswordEntryOut:
-    doc = _entries_col().find_one({"_id": entry_id, "created_by": uid})
+    doc = col(PASSWORD_ENTRIES).find_one({"_id": entry_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Entry not found.")
     return _entry_doc_to_out(doc, entry_id=entry_id)
@@ -178,7 +149,7 @@ def update_entry(uid: str, entry_id: str, body: PasswordEntryUpdate) -> Password
     }
 
     try:
-        result = _entries_col().update_one({"_id": entry_id, "created_by": uid}, {"$set": patch})
+        result = col(PASSWORD_ENTRIES).update_one({"_id": entry_id, "created_by": uid}, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update entry.") from exc
 
@@ -189,14 +160,14 @@ def update_entry(uid: str, entry_id: str, body: PasswordEntryUpdate) -> Password
 
 
 def delete_entry(uid: str, entry_id: str) -> None:
-    result = _entries_col().delete_one({"_id": entry_id, "created_by": uid})
+    result = col(PASSWORD_ENTRIES).delete_one({"_id": entry_id, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Entry not found.")
 
 
 def clear_entries(uid: str) -> dict[str, int]:
     try:
-        res = _entries_col().delete_many({"created_by": uid})
+        res = col(PASSWORD_ENTRIES).delete_many({"created_by": uid})
     except PyMongoError as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to clear entries.") from exc
     return {"entriesDeleted": int(res.deleted_count)}
@@ -206,7 +177,7 @@ def clear_vault(uid: str) -> dict[str, int]:
     # Delete entries first so references never “survive” vault deletion.
     entries_deleted = clear_entries(uid)["entriesDeleted"]
     try:
-        res = _vaults_col().delete_many({"created_by": uid})
+        res = col(PASSWORD_VAULTS).delete_many({"created_by": uid})
     except PyMongoError as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to clear vault.") from exc
     return {"entriesDeleted": entries_deleted, "vaultDeleted": int(res.deleted_count)}

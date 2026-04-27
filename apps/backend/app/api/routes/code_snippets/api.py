@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends
+from typing import Optional
+
+from fastapi import APIRouter, Depends, Query
 
 from app.api.routes.auth.services import get_current_uid
 from app.api.routes.code_snippets.schema import CodeSnippetCreate, CodeSnippetOut, CodeSnippetUpdate
@@ -8,8 +10,12 @@ router = APIRouter(prefix="/code-snippets", tags=["code-snippets"])
 
 
 @router.get("", response_model=list[CodeSnippetOut], summary="List code snippets for current user")
-def list_snippets(uid: str = Depends(get_current_uid)) -> list[CodeSnippetOut]:
-    return snippet_svc.list_code_snippets(uid)
+def list_snippets(
+    uid: str = Depends(get_current_uid),
+    skip: int = Query(default=0, ge=0),
+    limit: Optional[int] = Query(default=None, ge=1, le=500),
+) -> list[CodeSnippetOut]:
+    return snippet_svc.list_code_snippets(uid, skip=skip, limit=limit)
 
 
 @router.post("", response_model=CodeSnippetOut, summary="Create a code snippet")

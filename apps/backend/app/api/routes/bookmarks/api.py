@@ -51,8 +51,10 @@ def list_bookmarks(
         alias="folderId",
         description="Omit for all; use 'uncategorized' for root; else a folder id",
     ),
+    skip: int = Query(default=0, ge=0),
+    limit: Optional[int] = Query(default=None, ge=1, le=500),
 ) -> list[BookmarkOut]:
-    return bm_svc.list_bookmarks(uid, folder_id=folder_id)
+    return bm_svc.list_bookmarks(uid, folder_id=folder_id, skip=skip, limit=limit)
 
 
 @bookmarks_router.post("", response_model=BookmarkOut, summary="Create bookmark (addBookmark)")
@@ -102,8 +104,12 @@ def remove_bookmark(
 
 
 @folders_router.get("", response_model=list[BookmarkFolderOut], summary="List folders (tree source)")
-def list_folders(uid: str = Depends(get_current_uid)) -> list[BookmarkFolderOut]:
-    return bm_svc.list_folders(uid)
+def list_folders(
+    uid: str = Depends(get_current_uid),
+    skip: int = Query(default=0, ge=0),
+    limit: Optional[int] = Query(default=None, ge=1, le=500),
+) -> list[BookmarkFolderOut]:
+    return bm_svc.list_folders(uid, skip=skip, limit=limit)
 
 
 @folders_router.post("", response_model=BookmarkFolderOut, summary="Create folder (addFolder)")

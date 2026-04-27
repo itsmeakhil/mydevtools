@@ -192,7 +192,7 @@ def _history_doc_to_out(doc: dict[str, Any]) -> ApiClientHistoryOut:
     )
 
 
-def _trim_history(uid: str) -> None:
+def trim_history(uid: str) -> None:
     col = _history_col()
     filt = {"created_by": uid}
     total = col.count_documents(filt)
@@ -234,7 +234,6 @@ def create_history(uid: str, body: ApiClientHistoryCreate) -> ApiClientHistoryOu
             detail="Failed to save history entry.",
         ) from exc
     doc["_id"] = result.inserted_id
-    _trim_history(uid)
     return _history_doc_to_out(doc)
 
 

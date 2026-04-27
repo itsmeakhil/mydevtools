@@ -4,25 +4,17 @@ from typing import Any
 from bson import ObjectId
 from bson.errors import InvalidId
 from fastapi import HTTPException, status
-
-try:
-    from pymongo.collection import Collection
-    from pymongo.errors import PyMongoError
-except Exception:  # pragma: no cover
-    Collection = Any  # type: ignore
-    PyMongoError = Exception  # type: ignore
+from pymongo.errors import PyMongoError
 
 from app.api.routes.json_formatter.schema import (
     JsonFormatterDocumentCreate,
     JsonFormatterDocumentOut,
     JsonFormatterDocumentUpdate,
 )
-from app.core.db import get_db
-from app.utils.collection_name import JSON_FORMATTER_DOCUMENTS
+from app.utils.collection_name import JSON_FORMATTER_DOCUMENTS as JSON
+from app.utils.utils import col
 
 
-def _col() -> Collection:
-    return get_db()[JSON_FORMATTER_DOCUMENTS]
 
 
 def _parse_oid(doc_id: str) -> ObjectId:
@@ -63,7 +55,7 @@ def _doc_to_out(doc: dict[str, Any]) -> JsonFormatterDocumentOut:
 
 
 def list_documents(uid: str) -> list[JsonFormatterDocumentOut]:
-    cursor = _col().find({"created_by": uid}).sort([("updatedAt", -1)])
+    cursor = col(JSON).find({"created_by": uid}).sort([("updatedAt", -1)])
     return [_doc_to_out(d) for d in cursor]
 
 
@@ -78,7 +70,7 @@ def create_document(uid: str, body: JsonFormatterDocumentCreate) -> JsonFormatte
         "updatedAt": now,
     }
     try:
-        result = _col().insert_one(doc)
+        result = col(JSON).insert_one(doc)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -90,7 +82,7 @@ def create_document(uid: str, body: JsonFormatterDocumentCreate) -> JsonFormatte
 
 def get_document(uid: str, doc_id: str) -> JsonFormatterDocumentOut:
     oid = _parse_oid(doc_id)
-    doc = _col().find_one({"_id": oid, "created_by": uid})
+    doc = col(JSON).find_one({"_id": oid, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")
     return _doc_to_out(doc)
@@ -98,7 +90,7 @@ def get_document(uid: str, doc_id: str) -> JsonFormatterDocumentOut:
 
 def update_document(uid: str, doc_id: str, body: JsonFormatterDocumentUpdate) -> JsonFormatterDocumentOut:
     oid = _parse_oid(doc_id)
-    col = _col()
+    col = col(JSON)
     existing = col.find_one({"_id": oid, "created_by": uid})
     if not existing:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")
@@ -121,6 +113,6 @@ def update_document(uid: str, doc_id: str, body: JsonFormatterDocumentUpdate) ->
 
 def delete_document(uid: str, doc_id: str) -> None:
     oid = _parse_oid(doc_id)
-    result = _col().delete_one({"_id": oid, "created_by": uid})
+    result = col(JSON).delete_one({"_id": oid, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")

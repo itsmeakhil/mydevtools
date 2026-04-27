@@ -27,6 +27,9 @@ class Settings(BaseSettings):
     # HttpOnly cookies: use Secure=true over HTTPS (recommended in production).
     AUTH_COOKIE_SECURE: bool = False
 
+    # Comma-separated allowed CORS origins, e.g. "https://app.mydevtools.tech,https://mydevtools.tech"
+    ALLOWED_ORIGINS: str = "http://localhost:3000,http://localhost:5173,https://mydevtools-tech.vercel.app/"
+
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
     def model_post_init(self, __context: object) -> None:  # type: ignore[override]
@@ -34,6 +37,10 @@ class Settings(BaseSettings):
         if self.APP_ENV == "production" and self.JWT_SECRET_KEY == dev_placeholder:
             raise ValueError(
                 "JWT_SECRET_KEY must be set in the environment when APP_ENV=production",
+            )
+        if self.APP_ENV == "production" and not self.AUTH_COOKIE_SECURE:
+            raise ValueError(
+                "AUTH_COOKIE_SECURE must be true when APP_ENV=production",
             )
 
 

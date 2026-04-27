@@ -1,37 +1,18 @@
-import random
-import string
-import time
 from typing import Any, Optional
 
 from fastapi import HTTPException, status
-
-try:
-    from pymongo.collection import Collection
-    from pymongo.errors import PyMongoError
-except Exception:  # pragma: no cover
-    Collection = Any  # type: ignore
-    PyMongoError = Exception  # type: ignore
+from pymongo.errors import PyMongoError
 
 from app.api.routes.environment_manager.schema import (
     EnvSetEntryCreate,
     EnvSetEntryOut,
     EnvSetEntryUpdate,
 )
-from app.core.db import get_db
 from app.utils.collection_name import ENV_MANAGER_ENTRIES
+from app.utils.utils import now_ms, new_id, col
 
 
-def now_ms() -> int:
-    return int(time.time() * 1000)
 
-
-def new_client_style_id() -> str:
-    suffix = "".join(random.choices(string.ascii_lowercase + string.digits, k=9))
-    return f"{now_ms()}-{suffix}"
-
-
-def _entries_col() -> Collection:
-    return get_db()[ENV_MANAGER_ENTRIES]
 
 
 def _entry_doc_to_out(doc: dict[str, Any], *, entry_id: str) -> EnvSetEntryOut:
@@ -53,7 +34,7 @@ def list_entries(
     offset: int = 0,
 ) -> list[EnvSetEntryOut]:
     q = {"created_by": uid}
-    cursor = _entries_col().find(q).sort([("updatedAt", -1), ("createdAt", -1)]).skip(max(0, offset))
+    cursor = col(ENV_MANAGER_ENTRIES).find(q).sort([("updatedAt", -1), ("createdAt", -1)]).skip(max(0, offset))
     if limit is not None:
         cursor = cursor.limit(limit)
     docs = list(cursor)
@@ -65,7 +46,7 @@ def list_entries(
 
 
 def create_entry(uid: str, body: EnvSetEntryCreate) -> EnvSetEntryOut:
-    eid = new_client_style_id()
+    eid = new_id()
     ts = now_ms()
     created_at = int(body.createdAt) if body.createdAt is not None else ts
     updated_at = int(body.updatedAt) if body.updatedAt is not None else created_at
@@ -80,7 +61,7 @@ def create_entry(uid: str, body: EnvSetEntryCreate) -> EnvSetEntryOut:
     }
 
     try:
-        _entries_col().insert_one(doc)
+        col(ENV_MANAGER_ENTRIES).insert_one(doc)
     except PyMongoError as exc:
         msg = str(exc).lower()
         if "duplicate" in msg or "e11000" in msg:
@@ -94,7 +75,7 @@ def create_entry(uid: str, body: EnvSetEntryCreate) -> EnvSetEntryOut:
 
 
 def get_entry(uid: str, entry_id: str) -> EnvSetEntryOut:
-    doc = _entries_col().find_one({"_id": entry_id, "created_by": uid})
+    doc = col(ENV_MANAGER_ENTRIES).find_one({"_id": entry_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Entry not found.")
     return _entry_doc_to_out(doc, entry_id=entry_id)
@@ -110,7 +91,7 @@ def update_entry(uid: str, entry_id: str, body: EnvSetEntryUpdate) -> EnvSetEntr
     }
 
     try:
-        result = _entries_col().update_one({"_id": entry_id, "created_by": uid}, {"$set": patch})
+        result = col(ENV_MANAGER_ENTRIES).update_one({"_id": entry_id, "created_by": uid}, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -124,6 +105,6 @@ def update_entry(uid: str, entry_id: str, body: EnvSetEntryUpdate) -> EnvSetEntr
 
 
 def delete_entry(uid: str, entry_id: str) -> None:
-    result = _entries_col().delete_one({"_id": entry_id, "created_by": uid})
+    result = col(ENV_MANAGER_ENTRIES).delete_one({"_id": entry_id, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Entry not found.")

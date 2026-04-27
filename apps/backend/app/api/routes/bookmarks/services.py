@@ -92,6 +92,8 @@ def list_bookmarks(
     uid: str,
     *,
     folder_id: Optional[str] = None,
+    skip: int = 0,
+    limit: Optional[int] = None,
 ) -> list[BookmarkOut]:
     col = _bookmarks_col()
     q: dict[str, Any] = {"created_by": uid}
@@ -100,7 +102,9 @@ def list_bookmarks(
     elif folder_id is not None and folder_id != "":
         q["folderId"] = folder_id
 
-    cursor = col.find(q).sort([("updatedAt", -1), ("createdAt", -1)])
+    cursor = col.find(q).sort([("updatedAt", -1), ("createdAt", -1)]).skip(skip)
+    if limit is not None:
+        cursor = cursor.limit(limit)
     return [_bookmark_doc_to_out(d) for d in cursor]
 
 
@@ -249,9 +253,11 @@ def snapshot(uid: str) -> BookmarkSnapshotOut:
     )
 
 
-def list_folders(uid: str) -> list[BookmarkFolderOut]:
+def list_folders(uid: str, *, skip: int = 0, limit: Optional[int] = None) -> list[BookmarkFolderOut]:
     col = _folders_col()
-    cursor = col.find({"created_by": uid}).sort("createdAt", 1)
+    cursor = col.find({"created_by": uid}).sort("createdAt", 1).skip(skip)
+    if limit is not None:
+        cursor = cursor.limit(limit)
     return [_folder_doc_to_out(d) for d in cursor]
 
 
@@ -319,8 +325,25 @@ def set_folder_expanded(uid: str, folder_id: str, is_expanded: bool) -> Bookmark
 def delete_folder(uid: str, folder_id: str) -> None:
     fcol = _folders_col()
     bcol = _bookmarks_col()
-    all_folders = list(fcol.find({"created_by": uid}))
-    to_remove = [folder_id, *_descendant_folder_ids(folder_id, all_folders)]
+    # Use $graphLookup to fetch only the subtree rooted at folder_id.
+    pipeline = [
+        {"$match": {"_id": folder_id, "created_by": uid}},
+        {
+            "$graphLookup": {
+                "from": fcol.name,
+                "startWith": "$_id",
+                "connectFromField": "_id",
+                "connectToField": "parentId",
+                "as": "descendants",
+                "restrictSearchWithMatch": {"created_by": uid},
+            }
+        },
+        {"$project": {"descendants._id": 1}},
+    ]
+    results = list(fcol.aggregate(pipeline))
+    if not results:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Folder not found.")
+    to_remove = [folder_id, *[str(d["_id"]) for d in results[0].get("descendants", [])]]
     try:
         fcol.delete_many({"_id": {"$in": to_remove}, "created_by": uid})
         bcol.update_many(

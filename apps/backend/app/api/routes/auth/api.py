@@ -1,7 +1,9 @@
 import time
 from typing import Annotated
 
-from fastapi import APIRouter, Cookie, Depends, Header, HTTPException, Response, status
+from fastapi import APIRouter, Cookie, Depends, Header, HTTPException, Request, Response, status
+
+from app.core.limiter import limiter
 
 from app.api.routes.auth.cookie_attach import attach_auth_cookies, clear_auth_cookies
 from app.api.routes.auth.schema import (
@@ -42,7 +44,8 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 
 @router.post("/session", response_model=UserProfileResponse, summary="Firebase login → JWT cookies")
-def create_session(payload: SessionRequest, response: Response) -> UserProfileResponse:
+@limiter.limit("10/minute")
+def create_session(request: Request, payload: SessionRequest, response: Response) -> UserProfileResponse:
     decoded = verify_id_token(payload.id_token, check_revoked=payload.check_revoked)
     uid = decoded.get("uid")
     if not uid:
@@ -74,7 +77,9 @@ def create_session(payload: SessionRequest, response: Response) -> UserProfileRe
 
 
 @router.post("/refresh", response_model=OkResponse, summary="Rotate tokens using refresh cookie")
+@limiter.limit("10/minute")
 def refresh_session(
+    request: Request,
     response: Response,
     mdt_rt: Annotated[str | None, Cookie(alias=REFRESH_COOKIE_NAME)] = None,
 ) -> OkResponse:
@@ -264,7 +269,9 @@ def store_backup_codes_endpoint(
     response_model=BackupCodeDataOut,
     summary="Return encrypted blob for a backup code ID (does not consume the code)",
 )
+@limiter.limit("20/minute")
 def lookup_backup_code_endpoint(
+    request: Request,
     payload: BackupCodeLookupRequest,
     uid: Annotated[str, Depends(get_current_uid)],
 ) -> BackupCodeDataOut:

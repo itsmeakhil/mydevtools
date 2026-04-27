@@ -1,40 +1,17 @@
-import time
 from datetime import datetime, timezone
 from typing import Any, Optional
 
 from fastapi import HTTPException, status
-
-try:
-    from pymongo.collection import Collection
-    from pymongo.errors import PyMongoError
-except Exception:  # pragma: no cover
-    Collection = Any  # type: ignore
-    PyMongoError = Exception  # type: ignore
+from pymongo.errors import PyMongoError
 
 from app.api.routes.notes.schema import NoteCreate, NoteOut, NoteUpdate
-from app.core.db import get_db
 from app.utils.collection_name import NOTES
-
-
-def now_ms() -> int:
-    return int(time.time() * 1000)
-
+from app.utils.utils import col, new_id, now_ms
 
 def isoformat_utc(dt: datetime) -> str:
     if dt.tzinfo is None:
         dt = dt.replace(tzinfo=timezone.utc)
     return dt.astimezone(timezone.utc).isoformat()
-
-
-def _notes_col() -> Collection:
-    return get_db()[NOTES]
-
-
-def new_client_style_id() -> str:
-    # Keep id format simple for frontend parentId referencing.
-    # (Matches the general "client-generated" style used in bookmarks/passwords.)
-    suffix = str(now_ms())[-6:]
-    return f"{now_ms()}-{suffix}"
 
 
 def _doc_to_out(doc: dict[str, Any]) -> NoteOut:
@@ -65,13 +42,13 @@ def _doc_to_out(doc: dict[str, Any]) -> NoteOut:
 
 
 def list_notes(uid: str) -> list[NoteOut]:
-    cursor = _notes_col().find({"created_by": uid}).sort("createdAt", 1)
+    cursor = col(NOTES).find({"created_by": uid}).sort("createdAt", 1)
     return [_doc_to_out(d) for d in cursor]
 
 
 def create_note(uid: str, body: NoteCreate) -> NoteOut:
     ts = datetime.now(timezone.utc)
-    note_id = new_client_style_id()
+    note_id = new_id()
 
     doc = {
         "_id": note_id,
@@ -86,7 +63,7 @@ def create_note(uid: str, body: NoteCreate) -> NoteOut:
     }
 
     try:
-        _notes_col().insert_one(doc)
+        col(NOTES).insert_one(doc)
     except PyMongoError as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create note.") from exc
 
@@ -94,7 +71,7 @@ def create_note(uid: str, body: NoteCreate) -> NoteOut:
 
 
 def get_note(uid: str, note_id: str) -> NoteOut:
-    doc = _notes_col().find_one({"_id": note_id, "created_by": uid})
+    doc = col(NOTES).find_one({"_id": note_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
     return _doc_to_out(doc)
@@ -110,14 +87,14 @@ def update_note(uid: str, note_id: str, body: NoteUpdate) -> NoteOut:
 
     # Convert explicit nulls correctly: keep parentId as null if provided.
     try:
-        result = _notes_col().update_one({"_id": note_id, "created_by": uid}, {"$set": patch})
+        result = col(NOTES).update_one({"_id": note_id, "created_by": uid}, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update note.") from exc
 
     if result.matched_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
 
-    doc = _notes_col().find_one({"_id": note_id, "created_by": uid})
+    doc = col(NOTES).find_one({"_id": note_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
     return _doc_to_out(doc)
@@ -125,7 +102,7 @@ def update_note(uid: str, note_id: str, body: NoteUpdate) -> NoteOut:
 
 def _descendant_ids(uid: str, root_id: str) -> list[str]:
     # Simple in-memory tree expansion; keeps Mongo queries low for typical note counts.
-    docs = list(_notes_col().find({"created_by": uid}, {"_id": 1, "parentId": 1}))
+    docs = list(col(NOTES).find({"created_by": uid}, {"_id": 1, "parentId": 1}))
     by_parent: dict[Optional[str], list[str]] = {}
     for d in docs:
         pid = d.get("parentId")
@@ -148,12 +125,12 @@ def _descendant_ids(uid: str, root_id: str) -> list[str]:
 def delete_note(uid: str, note_id: str, *, recursive: bool = True) -> None:
     if recursive:
         ids = _descendant_ids(uid, note_id)
-        result = _notes_col().delete_many({"created_by": uid, "_id": {"$in": ids}})
+        result = col(NOTES).delete_many({"created_by": uid, "_id": {"$in": ids}})
         if result.deleted_count == 0:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
         return
 
-    result = _notes_col().delete_one({"created_by": uid, "_id": note_id})
+    result = col(NOTES).delete_one({"created_by": uid, "_id": note_id})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
 

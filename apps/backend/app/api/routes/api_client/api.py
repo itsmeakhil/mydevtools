@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, BackgroundTasks, Depends, Query
 
 from app.api.routes.auth.services import get_current_uid
 from app.api.routes.api_client import services as api_client_svc
@@ -91,9 +91,12 @@ def list_history(
 @router.post("/history", response_model=ApiClientHistoryOut, summary="Append API client history entry")
 def create_history(
     body: ApiClientHistoryCreate,
+    background_tasks: BackgroundTasks,
     uid: str = Depends(get_current_uid),
 ) -> ApiClientHistoryOut:
-    return api_client_svc.create_history(uid, body)
+    entry = api_client_svc.create_history(uid, body)
+    background_tasks.add_task(api_client_svc.trim_history, uid)
+    return entry
 
 
 @router.delete("/history/clear", status_code=204, summary="Clear all API client history")

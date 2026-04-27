@@ -14,7 +14,8 @@ import {
     IconX,
     IconDotsVertical,
     IconCheck,
-    IconTrash
+    IconTrash,
+    IconLoader2
 } from "@tabler/icons-react"
 import { useBookmarkStore, useFilteredBookmarks, useAllTags } from "@/store/bookmark-store"
 import { cn } from "@/lib/utils"
@@ -22,6 +23,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
+import { useInfiniteScroll } from "@/hooks/use-infinite-scroll"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import FolderTree from "./folder-tree"
 import BookmarkGrid from "./bookmark-grid"
@@ -49,6 +51,7 @@ export default function BookmarksManager() {
     const [selectedBookmarkIds, setSelectedBookmarkIds] = useState<Set<string>>(new Set())
     const [sortBy, setSortBy] = useState<"recent" | "alphabetical">("recent")
     const searchInputRef = useRef<HTMLInputElement>(null)
+    const bookmarkScrollRef = useRef<HTMLDivElement>(null)
 
     const {
         searchQuery,
@@ -112,6 +115,15 @@ export default function BookmarksManager() {
         }
         return list
     }, [filteredBookmarks, sortBy])
+
+    const bookmarkScrollResetKey = `${selectedFolderId ?? 'all'}-${searchQuery}-${sortBy}-${viewMode}`
+    const { displayCount: bmDisplayCount, sentinelRef: bmSentinelRef, hasMore: bmHasMore } = useInfiniteScroll({
+        totalCount: displayedBookmarks.length,
+        resetKey: bookmarkScrollResetKey,
+        pageSize: 24,
+        scrollContainerRef: bookmarkScrollRef,
+    })
+    const visibleBookmarks = displayedBookmarks.slice(0, bmDisplayCount)
 
     const clearSelection = useCallback(() => {
         setSelectedBookmarkIds(new Set())
@@ -497,18 +509,28 @@ export default function BookmarksManager() {
                 </div>
 
                 {/* Bookmarks Grid/List - Only this section scrolls */}
-                <ScrollArea className="flex-1 min-h-0">
+                <div ref={bookmarkScrollRef} className="flex-1 min-h-0 overflow-y-auto">
                     <div className="p-4">
                         <BookmarkGrid
-                            bookmarks={displayedBookmarks}
+                            bookmarks={visibleBookmarks}
                             viewMode={viewMode}
                             onEdit={handleEditBookmark}
                             selectionMode={selectionMode}
                             selectedBookmarkIds={selectedBookmarkIds}
                             onToggleSelect={toggleBookmarkSelected}
                         />
+                        {bmHasMore && (
+                            <div ref={bmSentinelRef} className="flex items-center justify-center py-8">
+                                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground/50" />
+                            </div>
+                        )}
+                        {!bmHasMore && displayedBookmarks.length > 24 && (
+                            <p className="py-6 text-center text-xs text-muted-foreground/40">
+                                All {displayedBookmarks.length} bookmarks loaded
+                            </p>
+                        )}
                     </div>
-                </ScrollArea>
+                </div>
             </div>
 
             {/* Dialogs */}

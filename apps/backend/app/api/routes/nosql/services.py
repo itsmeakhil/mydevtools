@@ -1,34 +1,13 @@
-import random
-import string
-import time
-from typing import Any, Optional
+from typing import Any
 
 from fastapi import HTTPException, status
+from pymongo.errors import PyMongoError
 
-try:
-    from pymongo.collection import Collection
-    from pymongo.errors import PyMongoError
-except Exception:  # pragma: no cover
-    Collection = Any  # type: ignore
-    PyMongoError = Exception  # type: ignore
-
-from app.api.routes.auth.services import get_current_uid  # noqa: F401
 from app.api.routes.nosql.schema import ConnectionCreate, ConnectionOut, ConnectionUpdate
-from app.core.db import get_db
 from app.utils.collection_name import NOSQL_CONNECTIONS
+from app.utils.utils import col, now_ms, new_id
 
 
-def now_ms() -> int:
-    return int(time.time() * 1000)
-
-
-def new_client_style_id() -> str:
-    suffix = "".join(random.choices(string.ascii_lowercase + string.digits, k=9))
-    return f"{now_ms()}-{suffix}"
-
-
-def _connections_col() -> Collection:
-    return get_db()[NOSQL_CONNECTIONS]
 
 
 def _doc_to_out(doc: dict[str, Any], *, connection_id: str) -> ConnectionOut:
@@ -49,7 +28,7 @@ def _doc_to_out(doc: dict[str, Any], *, connection_id: str) -> ConnectionOut:
 def list_connections(uid: str) -> list[ConnectionOut]:
     # Only return documents that have been saved with the encrypted format.
     # Legacy docs that only contain a plain `connectionString` are excluded.
-    cursor = _connections_col().find(
+    cursor = col(NOSQL_CONNECTIONS).find(
         {"created_by": uid, "encryptedData": {"$exists": True}, "iv": {"$exists": True}}
     ).sort([("lastUsedAt", -1), ("createdAt", -1)])
     return [_doc_to_out(doc, connection_id=str(doc.get("_id", ""))) for doc in cursor]
@@ -58,9 +37,9 @@ def list_connections(uid: str) -> list[ConnectionOut]:
 def upsert_connection(uid: str, body: ConnectionCreate) -> ConnectionOut:
     """Always inserts a new connection record (deduplication is handled client-side)."""
     ts = now_ms()
-    new_id = new_client_style_id()
+    _id = new_id()
     doc: dict[str, Any] = {
-        "_id": new_id,
+        "_id": _id,
         "created_by": uid,
         "encryptedData": body.encryptedData,
         "iv": body.iv,
@@ -69,17 +48,17 @@ def upsert_connection(uid: str, body: ConnectionCreate) -> ConnectionOut:
         "lastUsedAt": ts,
     }
     try:
-        _connections_col().insert_one(doc)
+        col(NOSQL_CONNECTIONS).insert_one(doc)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to create connection.",
         ) from exc
-    return _doc_to_out(doc, connection_id=new_id)
+    return _doc_to_out(doc, connection_id=_id)
 
 
 def update_connection(uid: str, connection_id: str, body: ConnectionUpdate) -> ConnectionOut:
-    existing = _connections_col().find_one({"_id": connection_id, "created_by": uid})
+    existing = col(NOSQL_CONNECTIONS).find_one({"_id": connection_id, "created_by": uid})
     if not existing:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found."
@@ -96,7 +75,7 @@ def update_connection(uid: str, connection_id: str, body: ConnectionUpdate) -> C
         patch["name"] = body.name
 
     try:
-        _connections_col().update_one(
+        col(NOSQL_CONNECTIONS).update_one(
             {"_id": connection_id, "created_by": uid}, {"$set": patch}
         )
     except PyMongoError as exc:
@@ -105,7 +84,7 @@ def update_connection(uid: str, connection_id: str, body: ConnectionUpdate) -> C
             detail="Failed to update connection.",
         ) from exc
 
-    updated = _connections_col().find_one({"_id": connection_id, "created_by": uid})
+    updated = col(NOSQL_CONNECTIONS).find_one({"_id": connection_id, "created_by": uid})
     if not updated:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found."
@@ -114,7 +93,7 @@ def update_connection(uid: str, connection_id: str, body: ConnectionUpdate) -> C
 
 
 def delete_connection(uid: str, connection_id: str) -> None:
-    res = _connections_col().delete_one({"_id": connection_id, "created_by": uid})
+    res = col(NOSQL_CONNECTIONS).delete_one({"_id": connection_id, "created_by": uid})
     if res.deleted_count == 0:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found."

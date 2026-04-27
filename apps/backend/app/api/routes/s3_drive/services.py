@@ -1,7 +1,6 @@
-import random
-import string
-import time
-from typing import Any, Optional
+import functools
+import hashlib
+from typing import Any
 
 from fastapi import HTTPException, status
 
@@ -12,12 +11,7 @@ try:
 except ImportError:  # pragma: no cover
     boto3 = None  # type: ignore
 
-try:
-    from pymongo.collection import Collection
-    from pymongo.errors import PyMongoError
-except Exception:  # pragma: no cover
-    Collection = Any  # type: ignore
-    PyMongoError = Exception  # type: ignore
+from pymongo.errors import PyMongoError
 
 from app.api.routes.s3_drive.schema import (
     S3ConnectionCreate,
@@ -36,26 +30,14 @@ from app.api.routes.s3_drive.schema import (
     PresignedUrlResponse,
     BucketInfo,
 )
-from app.core.db import get_db
 from app.utils.collection_name import S3_CONNECTIONS
+from app.utils.utils import now_ms, new_id, col
 
-
-def _now_ms() -> int:
-    return int(time.time() * 1000)
-
-
-def _new_id() -> str:
-    suffix = "".join(random.choices(string.ascii_lowercase + string.digits, k=9))
-    return f"{_now_ms()}-{suffix}"
-
-
-def _col() -> Collection:
-    return get_db()[S3_CONNECTIONS]
 
 
 def _doc_to_out(doc: dict[str, Any]) -> S3ConnectionOut:
     conn_id = str(doc.get("_id", ""))
-    created_at = int(doc.get("createdAt", 0)) or _now_ms()
+    created_at = int(doc.get("createdAt", 0)) or now_ms()
     updated_at = int(doc.get("updatedAt", 0)) or created_at
     return S3ConnectionOut(
         id=conn_id,
@@ -71,13 +53,13 @@ def _doc_to_out(doc: dict[str, Any]) -> S3ConnectionOut:
 # ── Connection CRUD ───────────────────────────────────────────────────────────
 
 def list_connections(uid: str) -> list[S3ConnectionOut]:
-    docs = list(_col().find({"created_by": uid}).sort([("updatedAt", -1)]))
+    docs = list(col(S3_CONNECTIONS).find({"created_by": uid}).sort([("updatedAt", -1)]))
     return [_doc_to_out(d) for d in docs]
 
 
 def create_connection(uid: str, body: S3ConnectionCreate) -> S3ConnectionOut:
-    conn_id = _new_id()
-    ts = _now_ms()
+    conn_id = new_id()
+    ts = now_ms()
     created_at = int(body.createdAt) if body.createdAt is not None else ts
     doc: dict[str, Any] = {
         "_id": conn_id,
@@ -90,7 +72,7 @@ def create_connection(uid: str, body: S3ConnectionCreate) -> S3ConnectionOut:
         "updatedAt": ts,
     }
     try:
-        _col().insert_one(doc)
+        col(S3_CONNECTIONS).insert_one(doc)
     except PyMongoError as exc:
         msg = str(exc).lower()
         if "duplicate" in msg or "e11000" in msg:
@@ -100,14 +82,14 @@ def create_connection(uid: str, body: S3ConnectionCreate) -> S3ConnectionOut:
 
 
 def get_connection(uid: str, conn_id: str) -> S3ConnectionOut:
-    doc = _col().find_one({"_id": conn_id, "created_by": uid})
+    doc = col(S3_CONNECTIONS).find_one({"_id": conn_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
     return _doc_to_out(doc)
 
 
 def update_connection(uid: str, conn_id: str, body: S3ConnectionUpdate) -> S3ConnectionOut:
-    patch: dict[str, Any] = {"updatedAt": int(body.updatedAt) if body.updatedAt is not None else _now_ms()}
+    patch: dict[str, Any] = {"updatedAt": int(body.updatedAt) if body.updatedAt is not None else now_ms()}
     if body.name is not None:
         patch["name"] = body.name
     if body.provider is not None:
@@ -117,7 +99,7 @@ def update_connection(uid: str, conn_id: str, body: S3ConnectionUpdate) -> S3Con
     if body.iv is not None:
         patch["iv"] = body.iv
     try:
-        result = _col().update_one({"_id": conn_id, "created_by": uid}, {"$set": patch})
+        result = col(S3_CONNECTIONS).update_one({"_id": conn_id, "created_by": uid}, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update connection.") from exc
     if result.matched_count == 0:
@@ -126,25 +108,32 @@ def update_connection(uid: str, conn_id: str, body: S3ConnectionUpdate) -> S3Con
 
 
 def delete_connection(uid: str, conn_id: str) -> None:
-    result = _col().delete_one({"_id": conn_id, "created_by": uid})
+    result = col(S3_CONNECTIONS).delete_one({"_id": conn_id, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
 
 
 # ── S3 client factory ─────────────────────────────────────────────────────────
 
+@functools.lru_cache(maxsize=128)
+def _cached_s3_client(cache_key: str, access_key: str, secret_key: str, region: str, endpoint: str | None):
+    kwargs: dict[str, Any] = {
+        "aws_access_key_id": access_key,
+        "aws_secret_access_key": secret_key,
+        "region_name": region,
+        "config": Config(signature_version="s3v4", connect_timeout=10, read_timeout=30),
+    }
+    if endpoint:
+        kwargs["endpoint_url"] = endpoint
+    return boto3.client("s3", **kwargs)
+
+
 def _s3_client(creds: S3Credentials):
     if boto3 is None:
         raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="boto3 not installed.")
-    kwargs: dict[str, Any] = {
-        "aws_access_key_id": creds.accessKey,
-        "aws_secret_access_key": creds.secretKey,
-        "region_name": creds.region,
-        "config": Config(signature_version="s3v4", connect_timeout=10, read_timeout=30),
-    }
-    if creds.endpoint:
-        kwargs["endpoint_url"] = creds.endpoint
-    return boto3.client("s3", **kwargs)
+    raw = f"{creds.accessKey}:{creds.secretKey}:{creds.region}:{creds.endpoint or ''}"
+    cache_key = hashlib.sha256(raw.encode()).hexdigest()
+    return _cached_s3_client(cache_key, creds.accessKey, creds.secretKey, creds.region, creds.endpoint)
 
 
 def _s3_error(exc: Exception) -> HTTPException:
