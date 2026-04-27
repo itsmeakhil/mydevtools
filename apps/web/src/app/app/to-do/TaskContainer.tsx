@@ -174,7 +174,7 @@ export const TaskContainer = () => {
   }, [hasSearchFilter, isMobile]);
 
   return (
-    <div className="h-screen bg-background w-full flex flex-col overflow-hidden relative mobile-nav-offset">
+    <div className="h-full min-h-0 w-full bg-background flex flex-col overflow-hidden relative mobile-nav-offset">
       {/* Mobile-specific Header */}
       {isMobile && (
         <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-xl border-b pb-2 pt-2">

@@ -1,3 +1,4 @@
+from calendar import c
 from typing import Any, Optional
 
 from fastapi import HTTPException, status
@@ -67,22 +68,20 @@ def list_bookmarks(
     skip: int = 0,
     limit: Optional[int] = None,
 ) -> list[BookmarkOut]:
-    col = col(BOOKMARKS)
     q: dict[str, Any] = {"created_by": uid}
     if folder_id == "uncategorized":
         q["$or"] = [{"folderId": None}, {"folderId": {"$exists": False}}]
     elif folder_id is not None and folder_id != "":
         q["folderId"] = folder_id
 
-    cursor = col.find(q).sort([("updatedAt", -1), ("createdAt", -1)]).skip(skip)
+    cursor = col(BOOKMARKS).find(q).sort([("updatedAt", -1), ("createdAt", -1)]).skip(skip)
     if limit is not None:
         cursor = cursor.limit(limit)
     return [_bookmark_doc_to_out(d) for d in cursor]
 
 
 def get_bookmark(uid: str, bookmark_id: str) -> BookmarkOut:
-    col = col(BOOKMARKS)
-    doc = col.find_one({"_id": bookmark_id, "created_by": uid})
+    doc = col(BOOKMARKS).find_one({"_id": bookmark_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Bookmark not found.")
     return _bookmark_doc_to_out(doc)
@@ -119,13 +118,12 @@ def create_bookmark(uid: str, body: BookmarkCreate) -> BookmarkOut:
 
 
 def update_bookmark(uid: str, bookmark_id: str, body: BookmarkUpdate) -> BookmarkOut:
-    col = col(BOOKMARKS)
     patch = body.model_dump(exclude_unset=True)
     if not patch:
         return get_bookmark(uid, bookmark_id)
     patch["updatedAt"] = now_ms()
     try:
-        result = col.find_one_and_update(
+        result = col(BOOKMARKS).find_one_and_update(
             {"_id": bookmark_id, "created_by": uid},
             {"$set": patch},
             return_document=ReturnDocument.AFTER,
@@ -149,16 +147,13 @@ def move_bookmark(uid: str, bookmark_id: str, body: BookmarkMove) -> BookmarkOut
 
 
 def delete_bookmark(uid: str, bookmark_id: str) -> None:
-    col = col(BOOKMARKS)
-    result = col.delete_one({"_id": bookmark_id, "created_by": uid})
+    result = col(BOOKMARKS).delete_one({"_id": bookmark_id, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Bookmark not found.")
 
 
 def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]:
     """Upsert folders then bookmarks (same merge semantics as client ``importBookmarks``)."""
-    fcol = col(FOLDERS)
-    bcol = col(BOOKMARKS)
     folder_count = 0
     bookmark_count = 0
     try:
@@ -178,7 +173,7 @@ def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]:
                 "isExpanded": row.get("isExpanded", False),
                 "createdAt": int(row.get("createdAt", now_ms())),
             }
-            fcol.replace_one({"_id": doc["_id"], "created_by": uid}, doc, upsert=True)
+            col(FOLDERS).replace_one({"_id": doc["_id"], "created_by": uid}, doc, upsert=True)
             folder_count += 1
 
         for raw in body.bookmarks:
@@ -200,7 +195,7 @@ def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]:
                 "createdAt": int(row.get("createdAt", ts)),
                 "updatedAt": int(row.get("updatedAt", ts)),
             }
-            bcol.replace_one({"_id": doc["_id"], "created_by": uid}, doc, upsert=True)
+            col(BOOKMARKS).replace_one({"_id": doc["_id"], "created_by": uid}, doc, upsert=True)
             bookmark_count += 1
     except PyMongoError as exc:
         raise HTTPException(
@@ -211,10 +206,8 @@ def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]:
 
 
 def clear_all_bookmarks(uid: str) -> dict[str, int]:
-    bcol = col(BOOKMARKS)
-    fcol = col(FOLDERS)
-    br = bcol.delete_many({"created_by": uid})
-    fr = fcol.delete_many({"created_by": uid})
+    br = col(BOOKMARKS).delete_many({"created_by": uid})
+    fr = col(FOLDERS).delete_many({"created_by": uid})
     return {"bookmarksDeleted": br.deleted_count, "foldersDeleted": fr.deleted_count}
 
 
@@ -226,16 +219,14 @@ def snapshot(uid: str) -> BookmarkSnapshotOut:
 
 
 def list_folders(uid: str, *, skip: int = 0, limit: Optional[int] = None) -> list[BookmarkFolderOut]:
-    col = col(FOLDERS)
-    cursor = col.find({"created_by": uid}).sort("createdAt", 1).skip(skip)
+    cursor = col(FOLDERS).find({"created_by": uid}).sort("createdAt", 1).skip(skip)
     if limit is not None:
         cursor = cursor.limit(limit)
     return [_folder_doc_to_out(d) for d in cursor]
 
 
 def get_folder(uid: str, folder_id: str) -> BookmarkFolderOut:
-    col = col(FOLDERS)
-    doc = col.find_one({"_id": folder_id, "created_by": uid})
+    doc = col(FOLDERS).find_one({"_id": folder_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Folder not found.")
     return _folder_doc_to_out(doc)
@@ -270,12 +261,11 @@ def create_folder(uid: str, body: BookmarkFolderCreate) -> BookmarkFolderOut:
 
 
 def update_folder(uid: str, folder_id: str, body: BookmarkFolderUpdate) -> BookmarkFolderOut:
-    col = col(FOLDERS)
     patch = body.model_dump(exclude_unset=True)
     if not patch:
         return get_folder(uid, folder_id)
     try:
-        result = col.find_one_and_update(
+        result = col(FOLDERS).find_one_and_update(
             {"_id": folder_id, "created_by": uid},
             {"$set": patch},
             return_document=ReturnDocument.AFTER,
@@ -295,14 +285,12 @@ def set_folder_expanded(uid: str, folder_id: str, is_expanded: bool) -> Bookmark
 
 
 def delete_folder(uid: str, folder_id: str) -> None:
-    fcol = col(FOLDERS)
-    bcol = col(BOOKMARKS)
     # Use $graphLookup to fetch only the subtree rooted at folder_id.
     pipeline = [
         {"$match": {"_id": folder_id, "created_by": uid}},
         {
             "$graphLookup": {
-                "from": fcol.name,
+                "from": FOLDERS,
                 "startWith": "$_id",
                 "connectFromField": "_id",
                 "connectToField": "parentId",
@@ -312,13 +300,13 @@ def delete_folder(uid: str, folder_id: str) -> None:
         },
         {"$project": {"descendants._id": 1}},
     ]
-    results = list(fcol.aggregate(pipeline))
+    results = list(col(FOLDERS).aggregate(pipeline))
     if not results:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Folder not found.")
     to_remove = [folder_id, *[str(d["_id"]) for d in results[0].get("descendants", [])]]
     try:
-        fcol.delete_many({"_id": {"$in": to_remove}, "created_by": uid})
-        bcol.update_many(
+        col(FOLDERS).delete_many({"_id": {"$in": to_remove}, "created_by": uid})
+        col(BOOKMARKS).update_many(
             {"created_by": uid, "folderId": {"$in": to_remove}},
             {"$set": {"folderId": None, "updatedAt": now_ms()}},
         )

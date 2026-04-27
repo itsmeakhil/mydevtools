@@ -14,10 +14,10 @@ export default function NotesClientLayout({ children }: { children: React.ReactN
 
     return (
         <NotesProvider>
-            <div className="flex h-screen overflow-hidden bg-background mobile-nav-offset">
+            <div className="flex h-full min-h-0 w-full overflow-hidden bg-background mobile-nav-offset">
                 {isDesktop && <NotesSidebar />}
 
-                <main className="flex-1 overflow-hidden relative flex flex-col pt-12 md:pt-0">
+                <main className="flex-1 h-full min-h-0 overflow-hidden relative flex flex-col pt-12 md:pt-0">
                     {!isDesktop && (
                         <div className="absolute top-3 left-4 z-50">
                             <Sheet>

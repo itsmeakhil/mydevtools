@@ -12,7 +12,7 @@ export default function ToDoPage() {
 
   if (loading) {
     return (
-      <div className="h-full flex flex-col container mx-auto px-4 md:px-6 lg:px-8">
+      <div className="h-full min-h-0 w-full flex flex-1 flex-col container mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex justify-between items-center py-6 shrink-0">
           <Skeleton className="h-9 w-32" />
           <div className="flex gap-2">

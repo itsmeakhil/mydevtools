@@ -500,7 +500,7 @@ export function ApiClient() {
     }
 
     return (
-        <div className="flex flex-col lg:flex-row h-[calc(100vh-4rem)] gap-4 mobile-nav-offset">
+        <div className="flex h-full min-h-0 w-full flex-col gap-4 mobile-nav-offset lg:flex-row">
             <div className="flex-1 flex flex-col gap-4 min-w-0 h-full">
                 <div className="flex flex-wrap justify-between items-center gap-2">
                     {/* Mobile Collections Button */}
