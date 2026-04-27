@@ -5,6 +5,7 @@
 
 export const AUTH_REQUIRED_URLS = [
   '/app/to-do',
+  '/app/s3-drive',
 ] as const;
 
 /**

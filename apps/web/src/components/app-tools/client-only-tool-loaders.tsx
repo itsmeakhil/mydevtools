@@ -140,10 +140,6 @@ export const PdfMergePanelLazy = dynamic(
   { ssr: false, loading: toolLoading }
 )
 
-export const PdfSignPanelLazy = dynamic(
-  () => import('@/components/pdf-sign/pdf-sign-panel').then(m => m.PdfSignPanel),
-  { ssr: false, loading: toolLoading }
-)
 
 export const PdfToPdfaPanelLazy = dynamic(
   () => import('@/components/pdf-to-pdfa/pdf-to-pdfa-panel').then(m => m.PdfToPdfaPanel),
@@ -170,10 +166,6 @@ export const PdfLockerPanelLazy = dynamic(
   { ssr: false, loading: toolLoading }
 )
 
-export const PdfEditorPanelLazy = dynamic(
-  () => import('@/components/pdf-editor/pdf-editor-panel').then(m => m.PdfEditorPanel),
-  { ssr: false, loading: toolLoading }
-)
 
 export const HtmlToPdfPanelLazy = dynamic(
   () => import('@/components/html-to-pdf/html-to-pdf-panel').then(m => m.HtmlToPdfPanel),

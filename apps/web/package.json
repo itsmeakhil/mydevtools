@@ -70,6 +70,7 @@
     "jsonrepair": "^3.13.1",
     "jspdf": "^4.2.1",
     "jspdf-autotable": "^5.0.7",
+    "jszip": "^3.10.1",
     "katex": "^0.16.25",
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
