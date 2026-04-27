@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collection, CollectionFolder, CollectionRequest, HistoryRequest } from "../types"
 import { CollectionItem } from "./collection-item"
-import { FolderPlus, ChevronRight, ChevronLeft, Trash2, Pencil, MoreHorizontal, Search, X } from "lucide-react"
+import { FolderPlus, ChevronRight, ChevronLeft, Trash2, Pencil, MoreHorizontal, Search, X, Loader2 } from "lucide-react"
+import { useInfiniteScroll } from "@/hooks/use-infinite-scroll"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
 import {
@@ -57,6 +58,26 @@ export function CollectionsSidebar({
     const tRoot = useTranslations("ApiClient")
     const [collapsed, setCollapsed] = React.useState(false)
     const [historySearch, setHistorySearch] = React.useState("")
+
+    const filteredHistory = React.useMemo(() => {
+        if (!history) return []
+        if (!historySearch.trim()) return history
+        const q = historySearch.toLowerCase()
+        return history.filter(item =>
+            item.url?.toLowerCase().includes(q) ||
+            item.name?.toLowerCase().includes(q) ||
+            item.method?.toLowerCase().includes(q)
+        )
+    }, [history, historySearch])
+
+    const historyScrollRef = React.useRef<HTMLDivElement>(null)
+    const { displayCount: historyDisplayCount, sentinelRef: historySentinelRef, hasMore: historyHasMore } = useInfiniteScroll({
+        totalCount: filteredHistory.length,
+        resetKey: historySearch,
+        pageSize: 30,
+        scrollContainerRef: historyScrollRef,
+    })
+    const visibleHistory = filteredHistory.slice(0, historyDisplayCount)
     const [newFolderDialogOpen, setNewFolderDialogOpen] = React.useState(false)
     const [newCollectionDialogOpen, setNewCollectionDialogOpen] = React.useState(false)
     const [renameCollectionDialogOpen, setRenameCollectionDialogOpen] = React.useState(false)
@@ -238,13 +259,9 @@ export function CollectionsSidebar({
                             )}
                         </div>
                     </div>
-                    <ScrollArea className="flex-1">
+                    <div ref={historyScrollRef} className="flex-1 overflow-y-auto">
                         <div className="p-2 space-y-1">
-                            {history?.filter((item) => {
-                                if (!historySearch.trim()) return true
-                                const q = historySearch.toLowerCase()
-                                return item.url?.toLowerCase().includes(q) || item.name?.toLowerCase().includes(q) || item.method?.toLowerCase().includes(q)
-                            }).map((item) => (
+                            {visibleHistory.map((item) => (
                                 <div 
                                     key={item.id} 
                                     className="group flex flex-col p-2.5 hover:bg-muted/60 rounded-lg cursor-pointer transition-all duration-200 text-sm" 
@@ -297,6 +314,11 @@ export function CollectionsSidebar({
                                     </div>
                                 </div>
                             ))}
+                            {historyHasMore && (
+                                <div ref={historySentinelRef} className="flex justify-center py-3">
+                                    <Loader2 className="h-4 w-4 animate-spin text-muted-foreground/50" />
+                                </div>
+                            )}
                             {!history?.length && (
                                 <div className="flex flex-col items-center justify-center p-8 text-center">
                                     <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center mb-3">
@@ -306,14 +328,11 @@ export function CollectionsSidebar({
                                     <p className="text-xs text-muted-foreground mt-1">{t("noHistoryHint")}</p>
                                 </div>
                             )}
-                            {!!history?.length && historySearch && !history.filter((item) => {
-                                const q = historySearch.toLowerCase()
-                                return item.url?.toLowerCase().includes(q) || item.name?.toLowerCase().includes(q) || item.method?.toLowerCase().includes(q)
-                            }).length && (
-                                <div className="text-xs text-muted-foreground text-center py-6">No results for "{historySearch}"</div>
+                            {!!history?.length && historySearch && !filteredHistory.length && (
+                                <div className="text-xs text-muted-foreground text-center py-6">No results for &quot;{historySearch}&quot;</div>
                             )}
                         </div>
-                    </ScrollArea>
+                    </div>
                 </TabsContent>
             </Tabs>
 

@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import { useNotes } from "@/app/app/notes/context/NotesContext";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
+
 import { Input } from "@/components/ui/input";
 import {
     ChevronRight,
@@ -14,6 +15,7 @@ import {
     Trash2,
     Search,
     X,
+    Loader2,
 } from "lucide-react";
 import {
     DropdownMenu,
@@ -178,6 +180,15 @@ export default function NotesSidebar() {
         )
         : rootNotes;
 
+    const notesScrollRef = useRef<HTMLDivElement>(null);
+    const { displayCount: notesDisplayCount, sentinelRef: notesSentinelRef, hasMore: notesHasMore } = useInfiniteScroll({
+        totalCount: filteredNotes.length,
+        resetKey: searchQuery,
+        pageSize: 30,
+        scrollContainerRef: notesScrollRef,
+    });
+    const visibleNotes = filteredNotes.slice(0, notesDisplayCount);
+
     const noteById = useMemo(() => new Map(notes.map((note) => [note.id, note])), [notes]);
 
     const expandPath = (noteId: string) => {
@@ -274,7 +285,7 @@ export default function NotesSidebar() {
                     </div>
                 </div>
 
-                <ScrollArea className="flex-1">
+                <div ref={notesScrollRef} className="flex-1 overflow-y-auto">
                     <div className="p-2">
                         {isLoading ? (
                             <div className="p-4 text-xs text-muted-foreground text-center">{t("loading")}</div>
@@ -283,7 +294,7 @@ export default function NotesSidebar() {
                                 {searchQuery ? t("noNotesFound") : t("noNotesYet")}
                             </div>
                         ) : (
-                            filteredNotes.map(note => {
+                            visibleNotes.map(note => {
                                 const parent = searchQuery && note.parentId ? notes.find(n => n.id === note.parentId) : undefined;
                                 return (
                                     <NoteItem
@@ -300,8 +311,13 @@ export default function NotesSidebar() {
                                 );
                             })
                         )}
+                        {notesHasMore && (
+                            <div ref={notesSentinelRef} className="flex justify-center py-3">
+                                <Loader2 className="h-4 w-4 animate-spin text-muted-foreground/50" />
+                            </div>
+                        )}
                     </div>
-                </ScrollArea>
+                </div>
             </div>
 
             <AlertDialog open={!!noteToDelete} onOpenChange={(open) => !open && setNoteToDelete(null)}>

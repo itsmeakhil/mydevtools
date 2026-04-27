@@ -2,11 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Database, Collection, SavedConnection } from "./types";
-import { IconDatabase, IconFolder, IconChevronRight, IconChevronDown, IconRefresh, IconSearch, IconPlus, IconServer, IconPencil, IconCheck, IconX, IconDotsVertical, IconTrash, IconEdit, IconCopy, IconAlertCircle } from "@tabler/icons-react";
+import { IconDatabase, IconFolder, IconChevronRight, IconChevronDown, IconRefresh, IconSearch, IconPlus, IconServer, IconPencil, IconCheck, IconX, IconDotsVertical, IconTrash, IconEdit, IconCopy, IconAlertCircle, IconLoader2 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import useAuth from "@/utils/useAuth";
 import { useMasterKeyStore } from "@/store/master-key-store";
 import { getConnections, updateConnectionName, deleteConnection } from "./connection-service";
@@ -368,6 +368,15 @@ export function ExplorerSidebar({
         return hasMatchingDb;
     });
 
+    const nosqlScrollRef = useRef<HTMLDivElement>(null);
+    const { displayCount: nosqlDisplayCount, sentinelRef: nosqlSentinelRef, hasMore: nosqlHasMore } = useInfiniteScroll({
+        totalCount: filteredConnections.length,
+        resetKey: searchQuery,
+        pageSize: 20,
+        scrollContainerRef: nosqlScrollRef,
+    });
+    const visibleConnections = filteredConnections.slice(0, nosqlDisplayCount);
+
     return (
         <div
             className="border-r bg-muted/10 flex flex-col h-full flex-shrink-0 overflow-hidden"
@@ -413,14 +422,14 @@ export function ExplorerSidebar({
                     />
                 </div>
             </div>
-            <ScrollArea className="flex-1">
+            <div ref={nosqlScrollRef} className="flex-1 overflow-y-auto">
                 <div className="p-2 space-y-1">
                     {loading ? (
                         <div className="text-xs text-muted-foreground text-center p-4">{t("loadingConnections")}</div>
                     ) : filteredConnections.length === 0 ? (
                         <div className="text-xs text-muted-foreground text-center p-4">{t("noConnectionsFound")}</div>
                     ) : (
-                        filteredConnections.map((node, index) => (
+                        visibleConnections.map((node, index) => (
                             <div key={node.connection.id}>
                                 <div className="flex items-center group touch-none">
                                     {editingConnectionId === node.connection.id ? (
@@ -665,8 +674,13 @@ export function ExplorerSidebar({
                             </div>
                         ))
                     )}
+                    {nosqlHasMore && (
+                        <div ref={nosqlSentinelRef} className="flex justify-center py-3">
+                            <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground/50" />
+                        </div>
+                    )}
                 </div>
-            </ScrollArea>
+            </div>
 
             <Dialog open={renameCollectionDialog.open} onOpenChange={(open) => setRenameCollectionDialog(prev => ({ ...prev, open }))}>
                 <DialogContent>

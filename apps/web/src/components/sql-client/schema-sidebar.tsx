@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import {
     IconChevronRight,
     IconChevronDown,
@@ -11,6 +11,7 @@ import {
     IconPlus,
     IconDatabase,
     IconEye,
+    IconLoader2,
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import { SavedSqlConnection, SchemaInfo, TableInfo } from "./types";
@@ -108,6 +109,15 @@ export function SchemaSidebar({
         onSelectTable(conn, table);
     };
 
+    const sqlScrollRef = useRef<HTMLDivElement>(null);
+    const { displayCount: sqlDisplayCount, sentinelRef: sqlSentinelRef, hasMore: sqlHasMore } = useInfiniteScroll({
+        totalCount: connections.length,
+        resetKey: "",
+        pageSize: 20,
+        scrollContainerRef: sqlScrollRef,
+    });
+    const visibleConnections = connections.slice(0, sqlDisplayCount);
+
     return (
         <div
             className="flex flex-col h-full border-r bg-sidebar overflow-hidden"
@@ -130,7 +140,7 @@ export function SchemaSidebar({
                 </Button>
             </div>
 
-            <ScrollArea className="flex-1">
+            <div ref={sqlScrollRef} className="flex-1 overflow-y-auto">
                 <div className="p-2 space-y-1">
                     {connections.length === 0 && (
                         <div className="text-center py-8 text-muted-foreground text-xs">
@@ -138,7 +148,7 @@ export function SchemaSidebar({
                         </div>
                     )}
 
-                    {connections.map((conn) => {
+                    {visibleConnections.map((conn) => {
                         const s = getState(conn.id);
                         const isActive = activeConnectionId === conn.id;
 
@@ -264,8 +274,13 @@ export function SchemaSidebar({
                             </div>
                         );
                     })}
+                    {sqlHasMore && (
+                        <div ref={sqlSentinelRef} className="flex justify-center py-3">
+                            <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground/50" />
+                        </div>
+                    )}
                 </div>
-            </ScrollArea>
+            </div>
         </div>
     );
 }

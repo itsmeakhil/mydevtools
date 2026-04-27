@@ -1,24 +1,12 @@
-import random
-import string
-import time
 from typing import Any, Optional
 
 from fastapi import HTTPException, status
-try:
-    from pymongo.collection import Collection
-    from pymongo.errors import PyMongoError
-    from pymongo import ReturnDocument
-except Exception:  # pragma: no cover
-    # Allow backend to start and run unit tests without a working PyMongo/OpenSSL stack.
-    Collection = Any  # type: ignore
-    PyMongoError = Exception  # type: ignore
-
-    class ReturnDocument:  # type: ignore
-        AFTER = "after"
+from pymongo.errors import PyMongoError
+from pymongo import ReturnDocument
+from app.utils.utils import now_ms, new_id, col
+from app.utils.collection_name import BOOKMARK_FOLDERS as FOLDERS, BOOKMARKS
 
 from app.api.routes.bookmarks.schema import (
-    COLLECTION_BOOKMARK_FOLDERS,
-    COLLECTION_BOOKMARKS,
     BookmarkCreate,
     BookmarkFolderCreate,
     BookmarkFolderOut,
@@ -29,24 +17,8 @@ from app.api.routes.bookmarks.schema import (
     BookmarkSnapshotOut,
     BookmarkUpdate,
 )
-from app.core.db import get_db
 
 
-def now_ms() -> int:
-    return int(time.time() * 1000)
-
-
-def new_client_style_id() -> str:
-    suffix = "".join(random.choices(string.ascii_lowercase + string.digits, k=9))
-    return f"{now_ms()}-{suffix}"
-
-
-def _bookmarks_col() -> Collection:
-    return get_db()[COLLECTION_BOOKMARKS]
-
-
-def _folders_col() -> Collection:
-    return get_db()[COLLECTION_BOOKMARK_FOLDERS]
 
 
 def _bookmark_doc_to_out(doc: dict[str, Any]) -> BookmarkOut:
@@ -95,7 +67,7 @@ def list_bookmarks(
     skip: int = 0,
     limit: Optional[int] = None,
 ) -> list[BookmarkOut]:
-    col = _bookmarks_col()
+    col = col(BOOKMARKS)
     q: dict[str, Any] = {"created_by": uid}
     if folder_id == "uncategorized":
         q["$or"] = [{"folderId": None}, {"folderId": {"$exists": False}}]
@@ -109,7 +81,7 @@ def list_bookmarks(
 
 
 def get_bookmark(uid: str, bookmark_id: str) -> BookmarkOut:
-    col = _bookmarks_col()
+    col = col(BOOKMARKS)
     doc = col.find_one({"_id": bookmark_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Bookmark not found.")
@@ -117,7 +89,7 @@ def get_bookmark(uid: str, bookmark_id: str) -> BookmarkOut:
 
 
 def create_bookmark(uid: str, body: BookmarkCreate) -> BookmarkOut:
-    bid = body.id or new_client_style_id()
+    bid = body.id or new_id()
     ts = now_ms()
     doc: dict[str, Any] = {
         "_id": bid,
@@ -132,7 +104,7 @@ def create_bookmark(uid: str, body: BookmarkCreate) -> BookmarkOut:
         "updatedAt": ts,
     }
     try:
-        _bookmarks_col().insert_one(doc)
+        col(BOOKMARKS).insert_one(doc)
     except PyMongoError as exc:
         if "duplicate" in str(exc).lower() or "E11000" in str(exc):
             raise HTTPException(
@@ -147,7 +119,7 @@ def create_bookmark(uid: str, body: BookmarkCreate) -> BookmarkOut:
 
 
 def update_bookmark(uid: str, bookmark_id: str, body: BookmarkUpdate) -> BookmarkOut:
-    col = _bookmarks_col()
+    col = col(BOOKMARKS)
     patch = body.model_dump(exclude_unset=True)
     if not patch:
         return get_bookmark(uid, bookmark_id)
@@ -177,7 +149,7 @@ def move_bookmark(uid: str, bookmark_id: str, body: BookmarkMove) -> BookmarkOut
 
 
 def delete_bookmark(uid: str, bookmark_id: str) -> None:
-    col = _bookmarks_col()
+    col = col(BOOKMARKS)
     result = col.delete_one({"_id": bookmark_id, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Bookmark not found.")
@@ -185,8 +157,8 @@ def delete_bookmark(uid: str, bookmark_id: str) -> None:
 
 def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]:
     """Upsert folders then bookmarks (same merge semantics as client ``importBookmarks``)."""
-    fcol = _folders_col()
-    bcol = _bookmarks_col()
+    fcol = col(FOLDERS)
+    bcol = col(BOOKMARKS)
     folder_count = 0
     bookmark_count = 0
     try:
@@ -195,7 +167,7 @@ def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]:
             row.pop("created_by", None)
             fid = row.pop("id", None) or row.pop("_id", None)
             if not fid:
-                fid = new_client_style_id()
+                fid = new_id()
             doc = {
                 "_id": str(fid),
                 "created_by": uid,
@@ -214,7 +186,7 @@ def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]:
             row.pop("created_by", None)
             bid = row.pop("id", None) or row.pop("_id", None)
             if not bid:
-                bid = new_client_style_id()
+                bid = new_id()
             ts = now_ms()
             doc = {
                 "_id": str(bid),
@@ -239,8 +211,8 @@ def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]:
 
 
 def clear_all_bookmarks(uid: str) -> dict[str, int]:
-    bcol = _bookmarks_col()
-    fcol = _folders_col()
+    bcol = col(BOOKMARKS)
+    fcol = col(FOLDERS)
     br = bcol.delete_many({"created_by": uid})
     fr = fcol.delete_many({"created_by": uid})
     return {"bookmarksDeleted": br.deleted_count, "foldersDeleted": fr.deleted_count}
@@ -254,7 +226,7 @@ def snapshot(uid: str) -> BookmarkSnapshotOut:
 
 
 def list_folders(uid: str, *, skip: int = 0, limit: Optional[int] = None) -> list[BookmarkFolderOut]:
-    col = _folders_col()
+    col = col(FOLDERS)
     cursor = col.find({"created_by": uid}).sort("createdAt", 1).skip(skip)
     if limit is not None:
         cursor = cursor.limit(limit)
@@ -262,7 +234,7 @@ def list_folders(uid: str, *, skip: int = 0, limit: Optional[int] = None) -> lis
 
 
 def get_folder(uid: str, folder_id: str) -> BookmarkFolderOut:
-    col = _folders_col()
+    col = col(FOLDERS)
     doc = col.find_one({"_id": folder_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Folder not found.")
@@ -270,7 +242,7 @@ def get_folder(uid: str, folder_id: str) -> BookmarkFolderOut:
 
 
 def create_folder(uid: str, body: BookmarkFolderCreate) -> BookmarkFolderOut:
-    fid = body.id or new_client_style_id()
+    fid = body.id or new_id()
     ts = now_ms()
     doc: dict[str, Any] = {
         "_id": fid,
@@ -283,7 +255,7 @@ def create_folder(uid: str, body: BookmarkFolderCreate) -> BookmarkFolderOut:
         "createdAt": ts,
     }
     try:
-        _folders_col().insert_one(doc)
+        col(FOLDERS).insert_one(doc)
     except PyMongoError as exc:
         if "duplicate" in str(exc).lower() or "E11000" in str(exc):
             raise HTTPException(
@@ -298,7 +270,7 @@ def create_folder(uid: str, body: BookmarkFolderCreate) -> BookmarkFolderOut:
 
 
 def update_folder(uid: str, folder_id: str, body: BookmarkFolderUpdate) -> BookmarkFolderOut:
-    col = _folders_col()
+    col = col(FOLDERS)
     patch = body.model_dump(exclude_unset=True)
     if not patch:
         return get_folder(uid, folder_id)
@@ -323,8 +295,8 @@ def set_folder_expanded(uid: str, folder_id: str, is_expanded: bool) -> Bookmark
 
 
 def delete_folder(uid: str, folder_id: str) -> None:
-    fcol = _folders_col()
-    bcol = _bookmarks_col()
+    fcol = col(FOLDERS)
+    bcol = col(BOOKMARKS)
     # Use $graphLookup to fetch only the subtree rooted at folder_id.
     pipeline = [
         {"$match": {"_id": folder_id, "created_by": uid}},
