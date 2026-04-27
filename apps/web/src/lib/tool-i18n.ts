@@ -59,8 +59,7 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/pdf-to-jpg': 'pdfToJpg',
   '/app/html-to-pdf': 'htmlToPdf',
   '/app/pdf-compare': 'pdfCompare',
-  '/app/pdf-sign': 'pdfSign',
-  '/app/pdf-editor': 'pdfEditor',
+
   '/app/break-room/2048': 'game2048',
   '/app/break-room/sudoku': 'sudoku',
 };
