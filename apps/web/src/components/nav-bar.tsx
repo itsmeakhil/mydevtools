@@ -47,7 +47,6 @@ import {
   Timer,
   LockKeyhole,
   Container,
-  Pencil,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
@@ -154,11 +153,7 @@ const routeConfig: Record<string, { title: string; icon: React.ElementType; name
     icon: GitCompare,
     namespace: 'PdfCompare',
   },
-  '/app/pdf-editor': {
-    title: 'PDF Editor',
-    icon: Pencil,
-    namespace: 'PdfEditor',
-  },
+
 };
 
 export function NavBar() {

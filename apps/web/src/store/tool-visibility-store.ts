@@ -51,8 +51,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/pdf-to-jpg',
   '/app/html-to-pdf',
   '/app/pdf-compare',
-  '/app/pdf-sign',
-  '/app/pdf-editor',
+
 ];
 
 interface ToolVisibilityStore {

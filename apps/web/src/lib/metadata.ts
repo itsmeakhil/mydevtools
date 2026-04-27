@@ -73,6 +73,12 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: 'Explore and manage your MongoDB databases directly from your browser.',
         keywords: ['nosql explorer', 'mongodb manager', 'database explorer', 'mongo ui', 'mongodb browser']
     },
+    's3-drive': {
+        title: 'S3 Drive',
+        description: 'Manage AWS S3 and DigitalOcean Spaces buckets. Browse, upload, download, and delete files with end-to-end encrypted credentials.',
+        keywords: ['s3 browser', 'aws s3 manager', 'digitalocean spaces', 's3 client', 'bucket manager', 'cloud storage browser', 's3 file manager'],
+        aiSummary: 'S3 Drive lets you connect multiple AWS S3 or DigitalOcean Spaces buckets, browse folders, upload and download files, and manage objects — all with credentials encrypted locally before being stored.',
+    },
     'url-encode': {
         title: 'URL Encoder / Decoder',
         description: 'Percent-encode or decode text for query strings and URI components with UTF-8 support.',
@@ -362,39 +368,7 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['compare pdf', 'pdf diff', 'pdf compare', 'difference between pdfs', 'pdf text compare', 'side by side pdf', 'client side pdf'],
         aiSummary: 'Upload two PDFs to compare their text layers line-by-line (additions in green, removals in red). Scanned PDFs without a text layer may show little or no text — unlock password-protected files with PDF Unlocker first.',
     },
-    'pdf-sign': {
-        title: 'Sign PDF',
-        description:
-            'eSign PDFs in your browser: draw a signature, type your name, or use an image, then stamp it on every page or a page range. Nothing is uploaded. To involve others, share the PDF and a link to this tool—MyDevTools does not send email on your behalf.',
-        keywords: [
-            'sign pdf',
-            'esign pdf',
-            'pdf signature',
-            'electronic signature',
-            'sign document online',
-            'draw signature pdf',
-            'client side pdf',
-        ],
-        aiSummary:
-            'Client-side PDF signing: draw on a pad, type a script-style name, or upload PNG/JPEG, pick corner placement and width, then download a signed copy. For “signature requests,” use your own email/Slack and point people here—no file storage or outbound mail from the app.',
-    },
-    'pdf-editor': {
-        title: 'PDF Editor',
-        description:
-            'Edit PDF by adding text, shapes, comments and highlights. Your secure and simple tool to edit PDF — preview with PDF.js, flatten annotations with pdf-lib, all in your browser.',
-        keywords: [
-            'pdf editor',
-            'edit pdf',
-            'annotate pdf',
-            'pdf highlight',
-            'pdf comments',
-            'add text to pdf',
-            'client side pdf',
-            'browser pdf editor',
-        ],
-        aiSummary:
-            'Free in-browser PDF editor: highlights, rectangle shapes, text, and comment boxes on any page; download a flattened edited PDF — nothing uploaded.',
-    },
+
     'break-room/2048': {
         title: '2048',
         description: 'Slide and merge tiles to reach the 2048 tile. A classic number puzzle to clear your head between coding sessions.',

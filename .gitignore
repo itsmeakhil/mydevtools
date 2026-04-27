@@ -61,3 +61,6 @@ __pycache__/
 .venv/
 apps/backend/.venv/
 app_summary/
+apps/web/.agents
+apps/web/scripts
+apps/web/.codex
