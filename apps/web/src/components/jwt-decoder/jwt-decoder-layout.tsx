@@ -9,7 +9,9 @@ import { decodeJwt, type RelativeUnit } from '@/lib/jwt-decode';
 import { cn } from '@/lib/utils';
 import { AlertCircle, Check, Copy, Trash2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 import { JwtSignerLayout } from './jwt-signer-layout';
+import { SendToMenu } from '@/components/ui/send-to-menu';
 
 function CopyBtn({ text, title }: { text: string; title: string }) {
   const [done, setDone] = useState(false);
@@ -50,7 +52,10 @@ function JsonPanel({
         <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
           {title}
         </Label>
-        <CopyBtn text={content} title={copyLabel} />
+        <div className="flex items-center gap-1">
+          <CopyBtn text={content} title={copyLabel} />
+          <SendToMenu content={content} disabled={!content} />
+        </div>
       </div>
       <div className="flex-1 min-h-[140px] max-h-[280px] relative">
         <pre className="absolute inset-0 overflow-auto p-3 text-xs font-mono leading-relaxed whitespace-pre-wrap break-all">
@@ -63,7 +68,9 @@ function JsonPanel({
 
 function JwtDecodePanel() {
   const t = useTranslations('JwtDecoder');
-  const [input, setInput] = useState('');
+  const searchParams = useSearchParams();
+  const initialInput = searchParams.get('input') || '';
+  const [input, setInput] = useState(initialInput);
   const result = useMemo(() => decodeJwt(input), [input]);
 
   const relativeText = (n: number, unit: RelativeUnit, direction: 'future' | 'past') => {

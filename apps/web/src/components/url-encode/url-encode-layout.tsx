@@ -16,12 +16,16 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
+import { SendToMenu } from '@/components/ui/send-to-menu';
 
 type Mode = 'encode' | 'decode';
 
 export function UrlEncodeLayout() {
   const t = useTranslations('UrlEncode');
-  const [input, setInput] = useState('');
+  const searchParams = useSearchParams();
+  const initialInput = searchParams.get('input') || '';
+  const [input, setInput] = useState(initialInput);
   const [output, setOutput] = useState('');
   const [mode, setMode] = useState<Mode>('encode');
   const [error, setError] = useState('');
@@ -51,8 +55,16 @@ export function UrlEncodeLayout() {
           : t('errors.encodeFailed')
       );
       setOutput('');
+      }
+    },
+    [t]
+  );
+
+  React.useEffect(() => {
+    if (initialInput) {
+      processInput(initialInput, 'encode');
     }
-  }, [t]);
+  }, [initialInput, processInput]);
 
   const handleInputChange = (value: string) => {
     processInput(value, mode);
@@ -286,6 +298,9 @@ export function UrlEncodeLayout() {
                   <Copy className="h-3 w-3" />
                 )}
               </Button>
+              <div className="ml-2 border-l pl-2 border-border/50">
+                <SendToMenu content={output} disabled={!output} />
+              </div>
             </div>
           </div>
           <div className="flex-1 min-h-0 relative">

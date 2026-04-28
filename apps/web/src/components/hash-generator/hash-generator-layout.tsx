@@ -18,6 +18,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Copy, Check, Upload, X } from 'lucide-react';
 import { HASH_ALGORITHMS, computeBcrypt, computeHash, type HashAlgorithmId } from '@/lib/hash-digest';
 import { cn } from '@/lib/utils';
+import { useAutoCopyStore } from '@/store/auto-copy-store';
+import { useSearchParams } from 'next/navigation';
+import { SendToMenu } from '@/components/ui/send-to-menu';
 
 const MAX_FILE_BYTES = 32 * 1024 * 1024;
 
@@ -34,16 +37,19 @@ const ALGO_MSG: Record<HashAlgorithmId, string> = {
 
 export function HashGeneratorLayout() {
   const t = useTranslations('HashGenerator');
+  const searchParams = useSearchParams();
+  const initialInput = searchParams.get('input') || '';
   const [mode, setMode] = useState<'text' | 'file'>('text');
   const [algorithm, setAlgorithm] = useState<HashAlgorithmId>('SHA-256');
   const [bcryptRounds, setBcryptRounds] = useState<number>(10);
-  const [text, setText] = useState('');
+  const [text, setText] = useState(initialInput);
   const [file, setFile] = useState<File | null>(null);
   const [fileBytes, setFileBytes] = useState<Uint8Array | null>(null);
   const [hashOut, setHashOut] = useState('');
   const [hashing, setHashing] = useState(false);
   const [copied, setCopied] = useState(false);
   const [fileError, setFileError] = useState<string | null>(null);
+  const autoCopy = useAutoCopyStore((state) => state.autoCopy);
 
   const textBytes = useMemo(() => new TextEncoder().encode(text), [text]);
 
@@ -117,7 +123,7 @@ export function HashGeneratorLayout() {
     }
   };
 
-  const handleCopy = async () => {
+  const handleCopy = useCallback(async () => {
     if (!hashOut) return;
     try {
       await navigator.clipboard.writeText(hashOut);
@@ -126,7 +132,13 @@ export function HashGeneratorLayout() {
     } catch {
       /* ignore */
     }
-  };
+  }, [hashOut]);
+
+  useEffect(() => {
+    if (autoCopy && hashOut) {
+      void handleCopy();
+    }
+  }, [hashOut, autoCopy, handleCopy]);
 
   const inputSize = mode === 'text' ? textBytes.length : fileBytes?.length ?? 0;
   const isBcrypt = algorithm === 'BCRYPT';

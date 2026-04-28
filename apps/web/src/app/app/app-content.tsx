@@ -9,6 +9,7 @@ import useAuth from '@/utils/useAuth';
 import { EnsureBackendSession } from '@/components/ensure-backend-session';
 import { MasterPasswordGate } from '@/components/master-password-gate';
 import { Loader2 } from 'lucide-react';
+import { GlobalCommandPalette } from '@/components/global-command-palette';
 
 export function AppContent({ children }: { children: React.ReactNode }) {
   const { state } = useSidebar();
@@ -57,6 +58,7 @@ export function AppContent({ children }: { children: React.ReactNode }) {
           <MobileNav />
         </main>
       </div>
+      <GlobalCommandPalette />
     </div>
   );
 }

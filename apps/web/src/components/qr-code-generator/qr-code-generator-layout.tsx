@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -55,9 +56,11 @@ const CORNER_DOT_LABEL_KEYS = {
 
 export function QrCodeGeneratorLayout() {
   const t = useTranslations('QrCodeGenerator');
+  const searchParams = useSearchParams();
+  const initialInput = searchParams.get('input') || 'https://mydevtools.tech';
 
   // Content
-  const [content, setContent] = useState('https://mydevtools.tech');
+  const [content, setContent] = useState(initialInput);
 
   // QR Options
   const [ecc, setEcc] = useState<Ecc>('M');

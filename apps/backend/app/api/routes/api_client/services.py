@@ -57,7 +57,11 @@ def _env_to_out(doc: dict[str, Any]) -> ApiClientEnvironmentOut:
 
 
 def list_collections(uid: str) -> list[ApiClientCollectionOut]:
-    cursor = col(API_CLIENT_COLLECTIONS).find({"created_by": uid}).sort("name", 1)
+    cursor = (
+        col(API_CLIENT_COLLECTIONS)
+        .find({"created_by": uid}, {"_id": 1, "name": 1, "items": 1})
+        .sort([("name", 1), ("_id", 1)])
+    )
     return [_collection_to_out(d) for d in cursor]
 
 
@@ -108,7 +112,11 @@ def delete_collection(uid: str, collection_id: str) -> None:
 
 # Environments
 def list_environments(uid: str) -> list[ApiClientEnvironmentOut]:
-    cursor = col(API_CLIENT_ENVIRONMENTS).find({"created_by": uid}).sort("name", 1)
+    cursor = (
+        col(API_CLIENT_ENVIRONMENTS)
+        .find({"created_by": uid}, {"_id": 1, "name": 1, "variables": 1})
+        .sort([("name", 1), ("_id", 1)])
+    )
     return [_env_to_out(d) for d in cursor]
 
 

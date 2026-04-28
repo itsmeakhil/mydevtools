@@ -21,17 +21,7 @@ import {
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-const MonacoEditor = dynamic(
-  () => import('@monaco-editor/react').then((m) => m.Editor),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="flex h-full min-h-[200px] items-center justify-center text-sm text-muted-foreground bg-muted/10">
-        Loading editor…
-      </div>
-    ),
-  }
-);
+import CodeEditor from '@/components/ui/code-editor';
 
 const SAMPLE = `query UserPosts($userId: ID!, $first: Int = 10) {
   user(id: $userId) {
@@ -50,22 +40,7 @@ const SAMPLE = `query UserPosts($userId: ID!, $first: Int = 10) {
 
 const MAX_LEN = 500_000;
 
-const EDITOR_OPTS = {
-  minimap: { enabled: false },
-  fontSize: 13,
-  lineNumbers: 'on' as const,
-  glyphMargin: false,
-  scrollBeyondLastLine: false,
-  automaticLayout: true,
-  tabSize: 2,
-  insertSpaces: true,
-  detectIndentation: false,
-  wordWrap: 'on' as const,
-  wrappingIndent: 'indent' as const,
-  folding: true,
-  padding: { top: 12, bottom: 12 },
-  scrollbar: { verticalScrollbarSize: 8, horizontalScrollbarSize: 8 },
-};
+// Editor options are now largely handled by CodeEditor internally.
 
 type OutputMode = 'pretty' | 'minify';
 
@@ -310,15 +285,12 @@ export function GraphqlFormatterLayout() {
                 {t('inputPanel')}
               </Label>
             </div>
-            <div className="flex-1 min-h-[240px] relative">
-              <MonacoEditor
-                className="absolute inset-0"
+            <div className="flex-1 min-h-[240px] relative p-1">
+              <CodeEditor
                 language="graphql"
-                theme={monacoTheme}
                 value={input}
                 onChange={(v) => setInput(v ?? '')}
                 beforeMount={(monaco) => registerGraphqlMonarch(monaco)}
-                options={{ ...EDITOR_OPTS, readOnly: false, formatOnPaste: false, formatOnType: false }}
               />
             </div>
           </Card>
@@ -342,14 +314,12 @@ export function GraphqlFormatterLayout() {
                 {copied ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
               </Button>
             </div>
-            <div className="flex-1 min-h-[240px] relative">
-              <MonacoEditor
-                className="absolute inset-0"
+            <div className="flex-1 min-h-[240px] relative p-1">
+              <CodeEditor
                 language="graphql"
-                theme={monacoTheme}
                 value={output}
                 beforeMount={(monaco) => registerGraphqlMonarch(monaco)}
-                options={{ ...EDITOR_OPTS, readOnly: true, domReadOnly: true }}
+                readOnly
               />
             </div>
           </Card>

@@ -75,6 +75,11 @@ import {
     IconCopy,
     IconLink,
     IconPackage,
+    IconArrowsMove,
+    IconShare,
+    IconAlertCircle,
+    IconMinus,
+    IconChevronDown,
 } from "@tabler/icons-react"
 import { listObjects, deleteObjects, getPresignedDownloadUrl, getPresignedUploadUrl, moveObject } from "@/lib/s3-drive-api"
 import type { S3Credentials, S3ObjectItem } from "@/lib/s3-drive-api"
@@ -118,7 +123,7 @@ function getFileType(name: string) {
 }
 
 function isPreviewable(type: string): boolean {
-    return ["image", "pdf", "code", "doc"].includes(type)
+    return ["image", "pdf", "code", "doc", "video", "audio"].includes(type)
 }
 
 const TYPE_ICON_COLOR: Record<string, string> = {
@@ -233,6 +238,22 @@ function FilePreviewDialog({
                 />
             )
         }
+        if (preview.fileType === "video") {
+            return (
+                <div className="flex items-center justify-center bg-black min-h-72 max-h-[80vh]">
+                    {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+                    <video controls src={preview.url} className="max-w-full max-h-[75vh] outline-none" />
+                </div>
+            )
+        }
+        if (preview.fileType === "audio") {
+            return (
+                <div className="flex items-center justify-center bg-muted/30 min-h-40 p-8">
+                    {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+                    <audio controls src={preview.url} className="w-full" />
+                </div>
+            )
+        }
         if (preview.fileType === "code" || preview.fileType === "doc") {
             if (preview.textContent !== undefined) {
                 return (
@@ -317,6 +338,327 @@ function RenameDialog({
     )
 }
 
+// ── Module-level helpers ──────────────────────────────────────────────────────
+
+async function moveFolderRecursive(credentials: S3Credentials, oldPrefix: string, newPrefix: string) {
+    let token: string | undefined
+    do {
+        const res = await listObjects(credentials, oldPrefix, token, "")
+        await Promise.all(
+            res.objects.map((obj) =>
+                moveObject(credentials, obj.key, newPrefix + obj.key.slice(oldPrefix.length)),
+            ),
+        )
+        token = res.nextContinuationToken
+    } while (token)
+}
+
+function uploadFileXHR(url: string, file: File, onProgress: (p: number) => void): Promise<void> {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.upload.onprogress = (e) => { if (e.lengthComputable) onProgress(e.loaded / e.total) }
+        xhr.onload = () => (xhr.status >= 200 && xhr.status < 300 ? resolve() : reject(new Error(`HTTP ${xhr.status}`)))
+        xhr.onerror = () => reject(new Error("Network error"))
+        xhr.open("PUT", url)
+        xhr.setRequestHeader("Content-Type", file.type || "application/octet-stream")
+        xhr.send(file)
+    })
+}
+
+// ── Upload progress panel ─────────────────────────────────────────────────────
+
+type FileUploadStatus = {
+    name: string
+    status: "queued" | "uploading" | "done" | "error"
+    progress: number
+}
+
+function UploadProgressPanel({
+    queue, onClearCompleted, onDismiss,
+}: {
+    queue: FileUploadStatus[]
+    onClearCompleted: () => void
+    onDismiss: () => void
+}) {
+    const [collapsed, setCollapsed] = useState(false)
+    const activeCount = queue.filter((f) => f.status === "uploading").length
+    const doneCount = queue.filter((f) => f.status === "done" || f.status === "error").length
+    const allDone = doneCount === queue.length
+
+    if (queue.length === 0) return null
+
+    return (
+        <div className="fixed bottom-4 right-4 z-50 w-72 rounded-xl border bg-background shadow-xl overflow-hidden">
+            <div className="flex items-center gap-1.5 px-3 py-2 border-b bg-muted/50">
+                <span className="text-xs font-semibold flex-1 truncate">
+                    {allDone ? `${doneCount}/${queue.length} done` : `Uploading ${activeCount} file${activeCount !== 1 ? "s" : ""}…`}
+                </span>
+                {allDone && (
+                    <Button size="icon" variant="ghost" className="size-6 shrink-0" onClick={onClearCompleted}>
+                        <IconCheck className="size-3 text-muted-foreground" />
+                    </Button>
+                )}
+                <Button size="icon" variant="ghost" className="size-6 shrink-0" onClick={() => setCollapsed((c) => !c)}>
+                    {collapsed
+                        ? <IconChevronDown className="size-3 text-muted-foreground" />
+                        : <IconMinus className="size-3 text-muted-foreground" />
+                    }
+                </Button>
+                <Button size="icon" variant="ghost" className="size-6 shrink-0" onClick={onDismiss}>
+                    <IconX className="size-3 text-muted-foreground" />
+                </Button>
+            </div>
+            {!collapsed && (
+                <div className="max-h-60 overflow-y-auto">
+                    {queue.map((f, i) => (
+                        <div key={i} className="px-3 py-2 border-b border-border/40 last:border-0">
+                            <div className="flex items-center gap-2">
+                                {f.status === "done" && <IconCheck className="size-3.5 text-emerald-500 shrink-0" />}
+                                {f.status === "error" && <IconAlertCircle className="size-3.5 text-destructive shrink-0" />}
+                                {f.status === "uploading" && <IconLoader2 className="size-3.5 animate-spin text-blue-500 shrink-0" />}
+                                {f.status === "queued" && <div className="size-3.5 rounded-full border-2 border-muted-foreground/30 shrink-0" />}
+                                <span className="text-xs truncate flex-1">{f.name}</span>
+                                {f.status === "uploading" && (
+                                    <span className="text-[10px] text-muted-foreground shrink-0">{Math.round(f.progress * 100)}%</span>
+                                )}
+                                {f.status === "done" && <span className="text-[10px] text-emerald-500 shrink-0">Done</span>}
+                                {f.status === "error" && <span className="text-[10px] text-destructive shrink-0">Failed</span>}
+                            </div>
+                            {f.status === "uploading" && (
+                                <div className="mt-1.5 h-1 bg-muted rounded-full overflow-hidden">
+                                    <div
+                                        className="h-full bg-blue-500 transition-[width] duration-200"
+                                        style={{ width: `${f.progress * 100}%` }}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+    )
+}
+
+// ── Move to folder dialog ─────────────────────────────────────────────────────
+
+function MoveToDialog({
+    open, items, credentials, currentPrefix, onClose, onMoved,
+}: {
+    open: boolean
+    items: { key: string; isFolder: boolean }[]
+    credentials: S3Credentials
+    currentPrefix: string
+    onClose: () => void
+    onMoved: () => void
+}) {
+    const [targetPrefix, setTargetPrefix] = useState("")
+    const [folders, setFolders] = useState<string[]>([])
+    const [loading, setLoading] = useState(false)
+    const [moving, setMoving] = useState(false)
+
+    useEffect(() => { if (open) setTargetPrefix("") }, [open])
+
+    useEffect(() => {
+        if (!open) return
+        setLoading(true)
+        listObjects(credentials, targetPrefix)
+            .then((res) => setFolders(res.prefixes))
+            .catch(() => {})
+            .finally(() => setLoading(false))
+    }, [open, credentials, targetPrefix])
+
+    function canMove() {
+        if (targetPrefix === currentPrefix) return false
+        return !items.some((item) => item.isFolder && targetPrefix.startsWith(item.key))
+    }
+
+    async function handleMove() {
+        setMoving(true)
+        try {
+            for (const item of items) {
+                const basename = item.key.replace(/\/$/, "").split("/").pop()!
+                if (item.isFolder) {
+                    await moveFolderRecursive(credentials, item.key, targetPrefix + basename + "/")
+                } else {
+                    await moveObject(credentials, item.key, targetPrefix + basename)
+                }
+            }
+            toast.success(`Moved ${items.length} item${items.length > 1 ? "s" : ""}`)
+            onMoved()
+            onClose()
+        } catch (err) {
+            toast.error(err instanceof Error ? err.message : "Move failed")
+        } finally {
+            setMoving(false)
+        }
+    }
+
+    const breadcrumbs = targetPrefix ? targetPrefix.replace(/\/$/, "").split("/") : []
+
+    return (
+        <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
+            <DialogContent className="max-w-sm">
+                <DialogHeader>
+                    <DialogTitle>Move {items.length} item{items.length > 1 ? "s" : ""} to…</DialogTitle>
+                </DialogHeader>
+                <div className="flex items-center gap-1 flex-wrap text-xs text-muted-foreground min-h-5">
+                    <button className="hover:text-foreground hover:underline" onClick={() => setTargetPrefix("")}>
+                        Root
+                    </button>
+                    {breadcrumbs.map((part, i) => {
+                        const prefix = breadcrumbs.slice(0, i + 1).join("/") + "/"
+                        return (
+                            <span key={prefix} className="flex items-center gap-1">
+                                <IconChevronRight className="size-3" />
+                                <button className="hover:text-foreground hover:underline" onClick={() => setTargetPrefix(prefix)}>
+                                    {part}
+                                </button>
+                            </span>
+                        )
+                    })}
+                </div>
+                <div className="border rounded-lg overflow-hidden" style={{ minHeight: "8rem" }}>
+                    <ScrollArea className="max-h-56">
+                        {loading ? (
+                            <div className="flex items-center justify-center h-32">
+                                <IconLoader2 className="size-5 animate-spin text-muted-foreground" />
+                            </div>
+                        ) : folders.length === 0 ? (
+                            <div className="flex items-center justify-center h-32 text-xs text-muted-foreground">
+                                No subfolders here
+                            </div>
+                        ) : (
+                            <div className="p-1">
+                                {folders.map((f) => {
+                                    const name = f.slice(targetPrefix.length).replace(/\/$/, "")
+                                    const disabled = items.some((item) => item.isFolder && f.startsWith(item.key))
+                                    return (
+                                        <button
+                                            key={f}
+                                            disabled={disabled}
+                                            className={cn(
+                                                "flex items-center gap-2 w-full px-3 py-2 rounded-md text-sm text-left transition-colors",
+                                                disabled ? "opacity-40 cursor-not-allowed" : "hover:bg-muted",
+                                            )}
+                                            onClick={() => setTargetPrefix(f)}
+                                        >
+                                            <IconFolder className="size-4 text-amber-500 shrink-0" />
+                                            <span className="truncate flex-1">{name}</span>
+                                            <IconChevronRight className="size-3.5 text-muted-foreground shrink-0" />
+                                        </button>
+                                    )
+                                })}
+                            </div>
+                        )}
+                    </ScrollArea>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                    Destination: <span className="font-mono text-foreground">{targetPrefix || "/"}</span>
+                </p>
+                <div className="flex justify-end gap-2">
+                    <Button variant="outline" onClick={onClose} disabled={moving}>Cancel</Button>
+                    <Button onClick={handleMove} disabled={!canMove() || moving}>
+                        {moving ? "Moving…" : "Move here"}
+                    </Button>
+                </div>
+            </DialogContent>
+        </Dialog>
+    )
+}
+
+// ── Share link dialog ─────────────────────────────────────────────────────────
+
+function ShareLinkDialog({
+    open, fileKey, credentials, onClose,
+}: {
+    open: boolean
+    fileKey: string | null
+    credentials: S3Credentials
+    onClose: () => void
+}) {
+    const [expiresIn, setExpiresIn] = useState(3600)
+    const [url, setUrl] = useState<string | null>(null)
+    const [loading, setLoading] = useState(false)
+    const fileName = fileKey?.split("/").pop() ?? ""
+
+    useEffect(() => { if (!open) { setUrl(null); setExpiresIn(3600) } }, [open])
+
+    async function generate() {
+        if (!fileKey) return
+        setLoading(true)
+        try {
+            const res = await getPresignedDownloadUrl(credentials, fileKey, expiresIn)
+            setUrl(res.url)
+        } catch (err) {
+            toast.error(err instanceof Error ? err.message : "Failed to generate link")
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const presets = [
+        { label: "1 hour", value: 3600 },
+        { label: "6 hours", value: 21600 },
+        { label: "12 hours", value: 43200 },
+        { label: "24 hours", value: 86400 },
+    ]
+
+    return (
+        <Dialog open={open && !!fileKey} onOpenChange={(o) => !o && onClose()}>
+            <DialogContent className="max-w-md">
+                <DialogHeader><DialogTitle>Share link</DialogTitle></DialogHeader>
+                <p className="text-sm text-muted-foreground truncate">{fileName}</p>
+                <div className="space-y-3">
+                    <p className="text-xs font-medium text-muted-foreground">Expires in</p>
+                    <div className="flex gap-2 flex-wrap">
+                        {presets.map((p) => (
+                            <Button
+                                key={p.value}
+                                size="sm"
+                                variant={expiresIn === p.value ? "default" : "outline"}
+                                className="h-7 text-xs"
+                                onClick={() => { setExpiresIn(p.value); setUrl(null) }}
+                            >
+                                {p.label}
+                            </Button>
+                        ))}
+                    </div>
+                    {url ? (
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2 p-2.5 bg-muted rounded-lg border">
+                                <span className="text-xs font-mono truncate flex-1 select-all">{url}</span>
+                            </div>
+                            <div className="flex gap-2">
+                                <Button
+                                    size="sm"
+                                    className="flex-1 gap-1.5"
+                                    onClick={() => { navigator.clipboard.writeText(url); toast.success("Copied!") }}
+                                >
+                                    <IconCopy className="size-3.5" /> Copy
+                                </Button>
+                                <Button
+                                    size="sm"
+                                    variant="outline"
+                                    className="flex-1 gap-1.5"
+                                    onClick={() => window.open(url, "_blank")}
+                                >
+                                    <IconLink className="size-3.5" /> Open
+                                </Button>
+                            </div>
+                        </div>
+                    ) : (
+                        <Button onClick={generate} disabled={loading} className="w-full gap-1.5">
+                            {loading && <IconLoader2 className="size-4 animate-spin" />}
+                            Generate link
+                        </Button>
+                    )}
+                </div>
+            </DialogContent>
+        </Dialog>
+    )
+}
+
 // ── Sort header ───────────────────────────────────────────────────────────────
 
 function SortHeader({
@@ -358,8 +700,10 @@ type ItemActionProps = {
     onDownload: () => void
     onDelete: () => void
     onRename: () => void
+    onMoveOpen: () => void
     onCopyPath: () => void
     onCopyLink: (() => void) | null
+    onShareLink: (() => void) | null
 }
 
 function WithContextMenu({ children, ...actions }: { children: React.ReactNode } & ItemActionProps) {
@@ -385,6 +729,9 @@ function WithContextMenu({ children, ...actions }: { children: React.ReactNode }
                 <ContextMenuItem onClick={actions.onRename}>
                     <IconPencil className="size-4 mr-2" /> Rename
                 </ContextMenuItem>
+                <ContextMenuItem onClick={actions.onMoveOpen}>
+                    <IconArrowsMove className="size-4 mr-2" /> Move to…
+                </ContextMenuItem>
                 <ContextMenuSeparator />
                 <ContextMenuItem onClick={actions.onCopyPath}>
                     <IconCopy className="size-4 mr-2" /> Copy S3 path
@@ -392,6 +739,11 @@ function WithContextMenu({ children, ...actions }: { children: React.ReactNode }
                 {actions.onCopyLink && (
                     <ContextMenuItem onClick={actions.onCopyLink}>
                         <IconLink className="size-4 mr-2" /> Copy link
+                    </ContextMenuItem>
+                )}
+                {actions.onShareLink && (
+                    <ContextMenuItem onClick={actions.onShareLink}>
+                        <IconShare className="size-4 mr-2" /> Share link…
                     </ContextMenuItem>
                 )}
                 <ContextMenuSeparator />
@@ -422,11 +774,14 @@ export function FileBrowser({ credentials, connectionName }: Props) {
     const [createFolderOpen, setCreateFolderOpen] = useState(false)
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
     const [deleting, setDeleting] = useState(false)
-    const [uploading, setUploading] = useState(false)
-    const [uploadProgress, setUploadProgress] = useState<{ done: number; total: number; label: string } | null>(null)
+    const [uploadQueue, setUploadQueue] = useState<FileUploadStatus[]>([])
+    const [uploadPanelOpen, setUploadPanelOpen] = useState(false)
+    const [zipProgress, setZipProgress] = useState<{ done: number; total: number } | null>(null)
     const [preview, setPreview] = useState<PreviewState | null>(null)
     const [isDragOver, setIsDragOver] = useState(false)
     const [renameTarget, setRenameTarget] = useState<RenameTarget | null>(null)
+    const [moveItems, setMoveItems] = useState<{ key: string; isFolder: boolean }[] | null>(null)
+    const [shareLinkTarget, setShareLinkTarget] = useState<string | null>(null)
     const fileInputRef = useRef<HTMLInputElement>(null)
     const dropZoneRef = useRef<HTMLDivElement>(null)
 
@@ -583,29 +938,48 @@ export function FileBrowser({ credentials, connectionName }: Props) {
     async function onUploadFiles(files: FileList | File[]) {
         const arr = Array.from(files)
         if (!arr.length) return
-        setUploading(true)
-        setUploadProgress({ done: 0, total: arr.length, label: "Uploading" })
-        let ok = 0
-        for (const file of arr) {
+
+        const initial: FileUploadStatus[] = arr.map((f) => ({ name: f.name, status: "queued", progress: 0 }))
+        setUploadQueue(initial)
+        setUploadPanelOpen(true)
+
+        const CONCURRENCY = 4
+        let successCount = 0
+
+        const updateFile = (idx: number, update: Partial<FileUploadStatus>) =>
+            setUploadQueue((prev) => prev.map((f, j) => (j === idx ? { ...f, ...update } : f)))
+
+        async function uploadOne(idx: number, file: File) {
+            updateFile(idx, { status: "uploading", progress: 0 })
             try {
                 const key = `${currentPrefix}${file.name}`
                 const { url } = await getPresignedUploadUrl(credentials, key, file.type || "application/octet-stream")
-                await fetch(url, { method: "PUT", body: file, headers: { "Content-Type": file.type || "application/octet-stream" } })
-                ok++
-                setUploadProgress({ done: ok, total: arr.length, label: "Uploading" })
+                await uploadFileXHR(url, file, (p) => updateFile(idx, { progress: p }))
+                updateFile(idx, { status: "done", progress: 1 })
+                successCount++
             } catch {
-                toast.error(`Failed to upload ${file.name}`)
+                updateFile(idx, { status: "error" })
             }
         }
-        setUploading(false)
-        setUploadProgress(null)
-        if (ok > 0) { toast.success(`Uploaded ${ok} file${ok > 1 ? "s" : ""}`); loadObjects(currentPrefix) }
+
+        for (let i = 0; i < arr.length; i += CONCURRENCY) {
+            const batch = arr.slice(i, i + CONCURRENCY)
+            await Promise.allSettled(batch.map((file, j) => uploadOne(i + j, file)))
+        }
+
+        if (successCount > 0) {
+            toast.success(`Uploaded ${successCount} file${successCount > 1 ? "s" : ""}`)
+            loadObjects(currentPrefix)
+        }
+        if (successCount < arr.length) {
+            toast.error(`${arr.length - successCount} file${arr.length - successCount > 1 ? "s" : ""} failed`)
+        }
     }
 
     async function onDownloadZip() {
         const fileKeys = Array.from(selectedKeys).filter((k) => !k.endsWith("/"))
         if (!fileKeys.length) { toast.error("No files selected (folders are skipped)"); return }
-        setUploadProgress({ done: 0, total: fileKeys.length, label: "Zipping" })
+        setZipProgress({ done: 0, total: fileKeys.length })
         const zip = new JSZip()
         let ok = 0
         for (const key of fileKeys) {
@@ -615,7 +989,7 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                 const blob = await res.blob()
                 zip.file(key.split("/").pop() ?? key, blob)
                 ok++
-                setUploadProgress({ done: ok, total: fileKeys.length, label: "Zipping" })
+                setZipProgress({ done: ok, total: fileKeys.length })
             } catch {
                 toast.error(`Failed to fetch ${key.split("/").pop()}`)
             }
@@ -624,7 +998,7 @@ export function FileBrowser({ credentials, connectionName }: Props) {
             const blob = await zip.generateAsync({ type: "blob" })
             saveAs(blob, `download-${Date.now()}.zip`)
         }
-        setUploadProgress(null)
+        setZipProgress(null)
     }
 
     function onCopyS3Path(key: string) {
@@ -660,16 +1034,7 @@ export function FileBrowser({ credentials, connectionName }: Props) {
     }
 
     async function renameFolderRecursive(oldPrefix: string, newPrefix: string) {
-        let token: string | undefined
-        do {
-            const res = await listObjects(credentials, oldPrefix, token, "")
-            await Promise.all(
-                res.objects.map((obj) =>
-                    moveObject(credentials, obj.key, newPrefix + obj.key.slice(oldPrefix.length)),
-                ),
-            )
-            token = res.nextContinuationToken
-        } while (token)
+        await moveFolderRecursive(credentials, oldPrefix, newPrefix)
     }
 
     // Drag-and-drop
@@ -730,6 +1095,8 @@ export function FileBrowser({ credentials, connectionName }: Props) {
         onCopyS3Path,
         onCopyLink,
         onRenameOpen: (key, isFolder, displayName) => setRenameTarget({ key, isFolder, displayName }),
+        onMoveOpen: (items) => setMoveItems(items),
+        onShareLinkOpen: (key) => setShareLinkTarget(key),
     }
 
     return (
@@ -856,8 +1223,8 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                 </Tooltip>
                 <Tooltip>
                     <TooltipTrigger asChild>
-                        <Button size="icon" variant="ghost" className="size-8 text-muted-foreground shrink-0" onClick={() => fileInputRef.current?.click()} disabled={uploading}>
-                            <IconUpload className={cn("size-4", uploading && "animate-pulse")} />
+                        <Button size="icon" variant="ghost" className="size-8 text-muted-foreground shrink-0" onClick={() => fileInputRef.current?.click()}>
+                            <IconUpload className="size-4" />
                         </Button>
                     </TooltipTrigger>
                     <TooltipContent>Upload files</TooltipContent>
@@ -865,12 +1232,12 @@ export function FileBrowser({ credentials, connectionName }: Props) {
 
                 <input ref={fileInputRef} type="file" multiple className="hidden" onChange={(e) => e.target.files && onUploadFiles(e.target.files)} />
 
-                {/* Progress bar (upload or zip) */}
-                {uploadProgress && (
+                {/* Zip progress bar */}
+                {zipProgress && (
                     <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-muted">
                         <div
                             className="h-full bg-blue-500 transition-[width] duration-300 ease-out"
-                            style={{ width: `${(uploadProgress.done / uploadProgress.total) * 100}%` }}
+                            style={{ width: `${(zipProgress.done / zipProgress.total) * 100}%` }}
                         />
                     </div>
                 )}
@@ -939,13 +1306,10 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                                 variant="outline"
                                 className="h-7 text-xs gap-1.5 border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900"
                                 onClick={onDownloadZip}
-                                disabled={!!uploadProgress}
+                                disabled={!!zipProgress}
                             >
                                 <IconPackage className="size-3.5" />
-                                {uploadProgress?.label === "Zipping"
-                                    ? `${uploadProgress.done}/${uploadProgress.total}`
-                                    : "Download ZIP"
-                                }
+                                {zipProgress ? `${zipProgress.done}/${zipProgress.total}` : "Download ZIP"}
                             </Button>
                         ) : (
                             <Button
@@ -957,6 +1321,14 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                                 <IconDownload className="size-3.5" /> Download
                             </Button>
                         )}
+                        <Button
+                            size="sm"
+                            variant="outline"
+                            className="h-7 text-xs gap-1.5 border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900"
+                            onClick={() => setMoveItems(Array.from(selectedKeys).map((k) => ({ key: k, isFolder: k.endsWith("/") })))}
+                        >
+                            <IconArrowsMove className="size-3.5" /> Move
+                        </Button>
                         <Button size="sm" variant="destructive" className="h-7 text-xs gap-1.5" onClick={() => setDeleteConfirmOpen(true)} disabled={deleting}>
                             <IconTrash className="size-3.5" /> Delete
                         </Button>
@@ -998,6 +1370,27 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                 onClose={() => setRenameTarget(null)}
                 onRename={onRename}
             />
+            <MoveToDialog
+                open={!!moveItems}
+                items={moveItems ?? []}
+                credentials={credentials}
+                currentPrefix={currentPrefix}
+                onClose={() => setMoveItems(null)}
+                onMoved={() => { clearSelection(); loadObjects(currentPrefix) }}
+            />
+            <ShareLinkDialog
+                open={!!shareLinkTarget}
+                fileKey={shareLinkTarget}
+                credentials={credentials}
+                onClose={() => setShareLinkTarget(null)}
+            />
+            {uploadPanelOpen && (
+                <UploadProgressPanel
+                    queue={uploadQueue}
+                    onClearCompleted={() => setUploadQueue([])}
+                    onDismiss={() => setUploadPanelOpen(false)}
+                />
+            )}
         </div>
     )
 }
@@ -1018,6 +1411,8 @@ type SharedProps = {
     onCopyS3Path: (key: string) => void
     onCopyLink: (key: string) => void
     onRenameOpen: (key: string, isFolder: boolean, displayName: string) => void
+    onMoveOpen: (items: { key: string; isFolder: boolean }[]) => void
+    onShareLinkOpen: (key: string) => void
 }
 
 // ── List view ─────────────────────────────────────────────────────────────────
@@ -1025,7 +1420,7 @@ type SharedProps = {
 function ListView({
     filteredPrefixes, filteredObjects, currentPrefix, selectedKeys, hasSelection,
     allSelected, someSelected, onSelectAll, onToggleKey, onNavigateInto, onDownload, onOpenPreview, onDeleteSingle,
-    onCopyS3Path, onCopyLink, onRenameOpen,
+    onCopyS3Path, onCopyLink, onRenameOpen, onMoveOpen, onShareLinkOpen,
     sortCol, sortDir, onSort,
     focusedIndex, onFocusRow,
 }: SharedProps & {
@@ -1058,8 +1453,10 @@ function ListView({
                         onDownload: () => {},
                         onDelete: () => onDeleteSingle(prefix),
                         onRename: () => onRenameOpen(prefix, true, name),
+                        onMoveOpen: () => onMoveOpen([{ key: prefix, isFolder: true }]),
                         onCopyPath: () => onCopyS3Path(prefix),
                         onCopyLink: null,
+                        onShareLink: null,
                     }
                     return (
                         <WithContextMenu key={prefix} {...actions}>
@@ -1110,8 +1507,10 @@ function ListView({
                         onDownload: () => onDownload(obj.key),
                         onDelete: () => onDeleteSingle(obj.key),
                         onRename: () => onRenameOpen(obj.key, false, name),
+                        onMoveOpen: () => onMoveOpen([{ key: obj.key, isFolder: false }]),
                         onCopyPath: () => onCopyS3Path(obj.key),
                         onCopyLink: () => onCopyLink(obj.key),
+                        onShareLink: () => onShareLinkOpen(obj.key),
                     }
                     return (
                         <WithContextMenu key={obj.key} {...actions}>
@@ -1164,7 +1563,7 @@ function ListView({
 function GridView({
     filteredPrefixes, filteredObjects, currentPrefix, selectedKeys, hasSelection,
     onToggleKey, onNavigateInto, onDownload, onOpenPreview, onDeleteSingle,
-    onCopyS3Path, onCopyLink, onRenameOpen,
+    onCopyS3Path, onCopyLink, onRenameOpen, onMoveOpen, onShareLinkOpen,
 }: SharedProps) {
     return (
         <div className="p-5 grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-3">
@@ -1177,8 +1576,10 @@ function GridView({
                     onDownload: () => {},
                     onDelete: () => onDeleteSingle(prefix),
                     onRename: () => onRenameOpen(prefix, true, name),
+                    onMoveOpen: () => onMoveOpen([{ key: prefix, isFolder: true }]),
                     onCopyPath: () => onCopyS3Path(prefix),
                     onCopyLink: null,
+                    onShareLink: null,
                 }
                 return (
                     <WithContextMenu key={prefix} {...actions}>
@@ -1230,8 +1631,10 @@ function GridView({
                     onDownload: () => onDownload(obj.key),
                     onDelete: () => onDeleteSingle(obj.key),
                     onRename: () => onRenameOpen(obj.key, false, name),
+                    onMoveOpen: () => onMoveOpen([{ key: obj.key, isFolder: false }]),
                     onCopyPath: () => onCopyS3Path(obj.key),
                     onCopyLink: () => onCopyLink(obj.key),
+                    onShareLink: () => onShareLinkOpen(obj.key),
                 }
                 return (
                     <WithContextMenu key={obj.key} {...actions}>
@@ -1287,7 +1690,7 @@ function GridView({
 // ── Row actions (dropdown) ────────────────────────────────────────────────────
 
 function RowActions({
-    isFolder, isPreviewable: prevable, onNavigate, onPreview, onDownload, onDelete, onRename, onCopyPath, onCopyLink,
+    isFolder, isPreviewable: prevable, onNavigate, onPreview, onDownload, onDelete, onRename, onMoveOpen, onCopyPath, onCopyLink, onShareLink,
 }: ItemActionProps) {
     return (
         <DropdownMenu>
@@ -1315,6 +1718,9 @@ function RowActions({
                 <DropdownMenuItem onClick={(e) => { e.stopPropagation(); onRename() }}>
                     <IconPencil className="size-4 mr-2" /> Rename
                 </DropdownMenuItem>
+                <DropdownMenuItem onClick={(e) => { e.stopPropagation(); onMoveOpen() }}>
+                    <IconArrowsMove className="size-4 mr-2" /> Move to…
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={(e) => { e.stopPropagation(); onCopyPath() }}>
                     <IconCopy className="size-4 mr-2" /> Copy S3 path
@@ -1322,6 +1728,11 @@ function RowActions({
                 {onCopyLink && (
                     <DropdownMenuItem onClick={(e) => { e.stopPropagation(); onCopyLink() }}>
                         <IconLink className="size-4 mr-2" /> Copy link
+                    </DropdownMenuItem>
+                )}
+                {onShareLink && (
+                    <DropdownMenuItem onClick={(e) => { e.stopPropagation(); onShareLink() }}>
+                        <IconShare className="size-4 mr-2" /> Share link…
                     </DropdownMenuItem>
                 )}
                 <DropdownMenuSeparator />

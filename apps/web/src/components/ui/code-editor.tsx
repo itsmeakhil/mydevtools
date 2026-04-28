@@ -24,6 +24,7 @@ interface CodeEditorProps {
     readOnly?: boolean;
     minimap?: boolean;
     onMount?: (editor: editor.IStandaloneCodeEditor) => void;
+    beforeMount?: (monaco: typeof import('monaco-editor')) => void;
 }
 
 export default function CodeEditor({
@@ -33,6 +34,7 @@ export default function CodeEditor({
     readOnly = false,
     minimap = false,
     onMount,
+    beforeMount,
 }: CodeEditorProps) {
     const { theme } = useTheme();
 
@@ -44,6 +46,7 @@ export default function CodeEditor({
                 language={language}
                 value={value}
                 onChange={(newValue) => onChange?.(newValue || '')}
+                beforeMount={beforeMount}
                 onMount={onMount}
                 theme={theme === 'dark' ? 'vs-dark' : 'light'}
                 options={{

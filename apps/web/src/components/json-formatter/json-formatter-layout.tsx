@@ -15,9 +15,11 @@ import { toast } from 'sonner'
 import { Mode, toTextContent, type Content, type OnChangeStatus } from 'vanilla-jsoneditor'
 import { Card, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { SendToMenu } from '@/components/ui/send-to-menu'
 import useAuth from '@/utils/useAuth'
 import { backendFetch } from '@/lib/backend-auth'
 import { VanillaEditor } from './vanilla-editor'
+import { useSearchParams } from 'next/navigation'
 import {
   ResizableHandle,
   ResizablePanel,
@@ -72,6 +74,8 @@ const createPaneState = (initialName: string): PaneState => ({
 export function JsonFormatterLayout() {
   const t = useTranslations('JsonFormatter')
   const { user } = useAuth(false)
+  const searchParams = useSearchParams()
+  const initialInputParam = searchParams.get('input')
 
   const authedFetch = useCallback(
     async (path: string, init?: RequestInit) => {
@@ -91,9 +95,20 @@ export function JsonFormatterLayout() {
     },
     [user]
   )
-  const [leftPane, setLeftPane] = useState<PaneState>(() =>
-    createPaneState(t('documentNameText', { n: 1 }))
-  )
+  const [leftPane, setLeftPane] = useState<PaneState>(() => {
+    let content: Content = { json: initialJson };
+    if (initialInputParam) {
+      try {
+        content = { json: JSON.parse(initialInputParam) };
+      } catch {
+        content = { text: initialInputParam };
+      }
+    }
+    return {
+      ...createPaneState(t('documentNameText', { n: 1 })),
+      content,
+    };
+  })
   const [rightPane, setRightPane] = useState<PaneState>(() =>
     createPaneState(t('documentNameTree', { n: 1 }))
   )
@@ -281,6 +296,7 @@ export function JsonFormatterLayout() {
           <IconCopy className="mr-1.5 h-4 w-4" />
           {t('copy')}
         </Button>
+        <SendToMenu content={toTextContent(state.content).text} />
         <Button variant="outline" size="sm" onClick={() => openLoadDialog(pane)}>
           <IconFolderOpen className="mr-1.5 h-4 w-4" />
           {t.has('load') ? t('load') : 'Load'}

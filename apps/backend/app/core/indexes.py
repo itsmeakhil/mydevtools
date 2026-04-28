@@ -1,6 +1,8 @@
 from app.core.db import get_db
 from app.utils.collection_name import (
     API_CLIENT_HISTORY,
+    API_CLIENT_COLLECTIONS,
+    API_CLIENT_ENVIRONMENTS,
     BOOKMARK_FOLDERS,
     BOOKMARKS,
     CODE_SNIPPETS,
@@ -59,5 +61,14 @@ def ensure_indexes() -> None:
 
     db[API_CLIENT_HISTORY].create_index(
         [("created_by", 1), ("timestamp", -1)],
+        background=True,
+    )
+
+    db[API_CLIENT_COLLECTIONS].create_index(
+        [("created_by", 1), ("name", 1), ("_id", 1)],
+        background=True,
+    )
+    db[API_CLIENT_ENVIRONMENTS].create_index(
+        [("created_by", 1), ("name", 1), ("_id", 1)],
         background=True,
     )

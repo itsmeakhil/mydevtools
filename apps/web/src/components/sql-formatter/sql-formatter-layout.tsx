@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/select';
 import { AlertCircle, Check, Copy, Trash2, Wand2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import CodeEditor from '@/components/ui/code-editor';
 
 const DIALECTS: { value: SqlLanguage; key: 'mysql' | 'postgresql' | 'sqlite' }[] = [
   { value: 'mysql', key: 'mysql' },
@@ -207,13 +208,11 @@ export function SqlFormatterLayout() {
                 {t('inputPanel')}
               </Label>
             </div>
-            <div className="flex-1 min-h-0 relative">
-              <textarea
+            <div className="flex-1 min-h-0 relative p-1">
+              <CodeEditor
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
-                spellCheck={false}
-                className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm font-mono focus:outline-none placeholder:text-muted-foreground/50"
-                placeholder={t('inputPlaceholder')}
+                onChange={setInput}
+                language="sql"
               />
             </div>
           </Card>
@@ -237,13 +236,11 @@ export function SqlFormatterLayout() {
                 {copied ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
               </Button>
             </div>
-            <div className="flex-1 min-h-0 relative">
-              <textarea
+            <div className="flex-1 min-h-0 relative p-1">
+              <CodeEditor
                 value={output}
                 readOnly
-                placeholder={t('outputPlaceholder')}
-                spellCheck={false}
-                className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm font-mono focus:outline-none placeholder:text-muted-foreground/50"
+                language="sql"
               />
             </div>
           </Card>

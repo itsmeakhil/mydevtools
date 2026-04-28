@@ -169,8 +169,8 @@ export async function createFolder(credentials: S3Credentials, prefix: string): 
     return s3Request<{ key: string }>("POST", `${BASE}/operations/create-folder`, { credentials, prefix })
 }
 
-export async function getPresignedDownloadUrl(credentials: S3Credentials, key: string): Promise<PresignedUrlResponse> {
-    return s3Request<PresignedUrlResponse>("POST", `${BASE}/operations/presigned-download`, { credentials, key })
+export async function getPresignedDownloadUrl(credentials: S3Credentials, key: string, expiresIn = 3600): Promise<PresignedUrlResponse> {
+    return s3Request<PresignedUrlResponse>("POST", `${BASE}/operations/presigned-download`, { credentials, key, expiresIn })
 }
 
 export async function getPresignedUploadUrl(

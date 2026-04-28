@@ -23,6 +23,8 @@ import {
 } from '@/lib/generate-ids';
 import { useTranslations } from 'next-intl';
 import { useIsMobile } from '@/components/hooks/use-mobile';
+import { useAutoCopyStore } from '@/store/auto-copy-store';
+import { useEffect } from 'react';
 
 const KIND_OPTIONS: { value: IdKind; label: string }[] = [
   { value: 'ulid', label: 'ULID' },
@@ -91,6 +93,7 @@ export function UuidGeneratorLayout() {
   const [outputLines, setOutputLines] = useState<string[]>([]);
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
+  const autoCopy = useAutoCopyStore((state) => state.autoCopy);
 
   const needsName = kind === 'uuid3' || kind === 'uuid5';
   const kindMeta = useMemo(() => KIND_OPTIONS.find((o) => o.value === kind), [kind]);
@@ -121,14 +124,20 @@ export function UuidGeneratorLayout() {
 
   const output = outputLines.join('\n');
 
-  const handleCopyAll = async () => {
+  const handleCopyAll = useCallback(async () => {
     if (!output) return;
     try {
       await navigator.clipboard.writeText(output);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch { /* ignore */ }
-  };
+  }, [output]);
+
+  useEffect(() => {
+    if (autoCopy && output) {
+      void handleCopyAll();
+    }
+  }, [output, autoCopy, handleCopyAll]);
 
   const handleDownload = () => {
     if (!output) return;
