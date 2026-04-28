@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useAuth from "@/utils/useAuth";
 import { Loader2 } from "lucide-react";
-import { EnsureBackendSession } from "@/components/ensure-backend-session";
 
 export function RequireAuth({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth(false);
@@ -26,9 +25,5 @@ export function RequireAuth({ children }: { children: React.ReactNode }) {
     );
   }
 
-  return (
-    <EnsureBackendSession user={user}>
-      {children}
-    </EnsureBackendSession>
-  );
+  return <>{children}</>;
 }
