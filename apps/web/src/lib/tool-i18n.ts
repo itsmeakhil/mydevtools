@@ -48,18 +48,6 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/mock-data-generator': 'mockDataGenerator',
   '/app/unit-converter': 'unitConverter',
   '/app/svg-optimizer': 'svgOptimizer',
-  '/app/pdf-unlocker': 'pdfUnlocker',
-  '/app/pdf-locker': 'pdfLocker',
-  '/app/pdf-splitter': 'pdfSplitter',
-  '/app/pdf-merge': 'pdfMerge',
-  '/app/pdf-compressor': 'pdfCompressor',
-  '/app/pdf-watermark': 'pdfWatermark',
-  '/app/jpg-to-pdf': 'jpgToPdf',
-  '/app/excel-to-pdf': 'excelToPdf',
-  '/app/pdf-to-jpg': 'pdfToJpg',
-  '/app/html-to-pdf': 'htmlToPdf',
-  '/app/pdf-compare': 'pdfCompare',
-
   '/app/break-room/2048': 'game2048',
   '/app/break-room/sudoku': 'sudoku',
 };

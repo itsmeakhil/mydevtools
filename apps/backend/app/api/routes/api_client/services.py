@@ -56,7 +56,6 @@ def _env_to_out(doc: dict[str, Any]) -> ApiClientEnvironmentOut:
     )
 
 
-# Collections
 def list_collections(uid: str) -> list[ApiClientCollectionOut]:
     cursor = col(API_CLIENT_COLLECTIONS).find({"created_by": uid}).sort("name", 1)
     return [_collection_to_out(d) for d in cursor]

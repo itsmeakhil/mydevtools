@@ -574,7 +574,10 @@
     "genericError": "Could not process this PDF. Try a different file.",
     "pagesSuccess": "{count, plural, one {Saved # page as JPG.} other {Saved # pages as JPG.}}",
     "embeddedSuccess": "{count, plural, one {Saved # embedded image.} other {Saved # embedded images.}}",
-    "noEmbeddedImages": "No extractable embedded images were found on these pages."
+    "noEmbeddedImages": "No extractable embedded images were found on these pages.",
+    "dropzoneTitle": "Drop PDF here",
+    "dropzoneHint": "Drag and drop your PDF file here to convert or extract images.",
+    "exportSettings": "Export settings"
   },
   "PdfUnlocker": {
     "privacyNote": "Your file never leaves this browser.",
@@ -589,7 +592,10 @@
     "download": "Download unlocked PDF",
     "reset": "Another file",
     "invalidPdf": "Could not read this file as a PDF.",
-    "wrongPassword": "Wrong password or this PDF uses encryption we cannot remove."
+    "wrongPassword": "Wrong password or this PDF uses encryption we cannot remove.",
+    "dropzoneTitle": "Drop PDF here",
+    "dropzoneHint": "Drag and drop your PDF file here to unlock it.",
+    "unlockSettings": "Unlock settings"
   },
   "PdfLocker": {
     "privacyNote": "Your file never leaves this browser.",
@@ -625,7 +631,13 @@
     "removeFileAria": "Remove from list",
     "minTwoPdfs": "Add at least two PDF files to merge.",
     "invalidPdf": "Could not read this file as a PDF.",
-    "mergeFailed": "Could not merge these PDFs. Remove password-protected or damaged files and try again."
+    "mergeFailed": "Could not merge these PDFs. Remove password-protected or damaged files and try again.",
+    "dropzoneTitle": "Drop PDF files here",
+    "dropzoneHint": "Drag and drop your PDF files here, or click to browse. You can reorder them after adding.",
+    "addMore": "Add more",
+    "mergeSettings": "Merge settings",
+    "file": "file",
+    "files": "files"
   },
   "ExcelToPdf": {
     "intro": "Make Excel spreadsheets easy to read by converting them to PDF.",
@@ -642,7 +654,10 @@
     "unsupportedFile": "Use a .xlsx or .xls file.",
     "readFailed": "Could not read this spreadsheet.",
     "buildFailed": "Could not build the PDF. Try a smaller workbook or fewer sheets.",
-    "sheetHeading": "Sheet: {name}"
+    "sheetHeading": "Sheet: {name}",
+    "dropzoneTitle": "Drop Excel file here",
+    "dropzoneHint": "Drag and drop your .xlsx or .xls file here to convert it.",
+    "pdfSettings": "PDF settings"
   },
   "JpgToPdf": {
     "intro": "Convert JPG images to PDF in seconds. Easily adjust orientation and margins.",
@@ -664,7 +679,13 @@
     "removeFileAria": "Remove from list",
     "minOneJpeg": "Add at least one JPEG file.",
     "invalidJpeg": "This file is not a valid JPEG (JPG).",
-    "buildFailed": "Could not build the PDF. Remove unsupported files and try again."
+    "buildFailed": "Could not build the PDF. Remove unsupported files and try again.",
+    "dropzoneTitle": "Drop JPEG images here",
+    "dropzoneHint": "Drag and drop your JPEG files here, or click to browse. You can reorder them after adding.",
+    "addMore": "Add more",
+    "pdfSettings": "PDF settings",
+    "image": "image",
+    "images": "images"
   },
   "PdfSplitter": {
     "privacyNote": "Your file never leaves this browser.",
@@ -685,7 +706,14 @@
     "extractSuccess": "{count, plural, one {Extracted # page.} other {Extracted # pages.}}",
     "splitSuccess": "{count, plural, one {Split into # file.} other {Split into # files.}}",
     "invalidPdf": "Could not read this file as a PDF.",
-    "genericError": "Could not process this PDF. Try a different file."
+    "genericError": "Could not process this PDF. Try a different file.",
+    "dropzoneTitle": "Drop PDF here",
+    "dropzoneHint": "Drag and drop your PDF file here, or click to browse.",
+    "selectAll": "Select all",
+    "clearSelection": "Clear selection",
+    "splitSettings": "Split settings",
+    "visualExtractHint": "Click pages to select them. Selected pages will be combined into a single PDF.",
+    "selectedPages": "Selected pages:"
   },
   "PdfCompressor": {
     "intro": "Reduce file size while optimizing for maximal PDF quality.",
@@ -702,7 +730,10 @@
     "compressFailed": "Could not compress this PDF. Try a different file.",
     "noSavingsTitle": "Little or no size reduction",
     "noSavingsHint": "Your PDF was already compact. The downloaded file is still a clean, standards-based copy.",
-    "savedToast": "About {percent}% smaller ({before} → {after})"
+    "savedToast": "About {percent}% smaller ({before} → {after})",
+    "dropzoneTitle": "Drop PDF here",
+    "dropzoneHint": "Drag and drop your PDF file here to compress it.",
+    "compressSettings": "Compression details"
   },
   "PdfWatermark": {
     "intro": "Stamp an image or text over your PDF in seconds. Choose the typography, transparency and position.",
@@ -740,7 +771,10 @@
     "fontHelvetica": "Helvetica",
     "fontHelveticaBold": "Helvetica Bold",
     "fontTimes": "Times Roman",
-    "fontCourier": "Courier"
+    "fontCourier": "Courier",
+    "dropzoneTitle": "Drop PDF here",
+    "dropzoneHint": "Drag and drop your PDF file here to add a watermark.",
+    "watermarkSettings": "Watermark settings"
   },
   "HtmlToPdf": {
     "hint": "Write or paste HTML with CSS, preview it, then print it as a PDF. Use your browser's 'Save as PDF' option in the print dialog.",
@@ -3653,7 +3687,11 @@
       "2u": "PDF/A-2u (part 2, conformance U)",
       "3b": "PDF/A-3b (part 3, conformance B)",
       "3u": "PDF/A-3u (part 3, conformance U)"
-    }
+    },
+    "dropzoneTitle": "Drop PDF here",
+    "dropzoneHint": "Drag and drop your PDF file here to convert to PDF/A.",
+    "pdfaSettings": "PDF/A settings"
+  }
   },
   "Sudoku": {
     "title": "Sudoku",

@@ -40,17 +40,6 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/markdown-preview-html',
   '/app/mock-data-generator',
   '/app/docker-compose-generator',
-  '/app/pdf-unlocker',
-  '/app/pdf-locker',
-  '/app/pdf-splitter',
-  '/app/pdf-merge',
-  '/app/pdf-compressor',
-  '/app/pdf-watermark',
-  '/app/jpg-to-pdf',
-  '/app/excel-to-pdf',
-  '/app/pdf-to-jpg',
-  '/app/html-to-pdf',
-  '/app/pdf-compare',
 
 ];
 
