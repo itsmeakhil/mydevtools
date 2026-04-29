@@ -35,7 +35,7 @@ function Layout({ children }: { children: React.ReactNode }) {
             <NavBar />
           </div>
           <div className="z-10 flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
-            <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+            <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto">
               <EnsureBackendSession user={user}>
                 {children}
               </EnsureBackendSession>

@@ -181,7 +181,7 @@ export default function PublicProfilePage() {
   /* ── Error / 404 state ── */
   if (error || !profile) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-background relative overflow-hidden">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background relative">
         {/* Ambient glow */}
         <div className="pointer-events-none fixed inset-0 -z-10">
           <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[60%] h-[40%] bg-[radial-gradient(ellipse_at_center,hsl(var(--destructive)/0.06),transparent_60%)] blur-3xl" />
@@ -230,7 +230,7 @@ export default function PublicProfilePage() {
   const initials = displayName?.charAt(0)?.toUpperCase() || '?'
 
   return (
-    <div className="min-h-screen bg-background relative isolate overflow-hidden flex flex-col">
+    <div className="min-h-screen bg-background relative isolate flex flex-col">
       {/* ── Keyframes injected via style tag ── */}
       <style jsx global>{`
         @keyframes profileFadeUp {

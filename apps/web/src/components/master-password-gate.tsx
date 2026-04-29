@@ -134,7 +134,7 @@ function downloadBackupCodesFile(codes: string[], userEmail?: string | null) {
 
 function GateBackground({ children }: { children: React.ReactNode }) {
     return (
-        <div className="relative min-h-screen overflow-hidden bg-background">
+        <div className="fixed inset-0 z-50 overflow-hidden bg-background">
             {/* Primary radial glow at top — same as login page */}
             <div
                 className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_55%_at_50%_-8%,hsl(var(--primary)/0.14),transparent_55%)]"
@@ -152,7 +152,7 @@ function GateBackground({ children }: { children: React.ReactNode }) {
             />
 
             {/* Content */}
-            <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-10">
+            <div className="relative z-10 flex h-full items-center justify-center overflow-y-auto px-4 py-10">
                 {children}
             </div>
         </div>
@@ -371,12 +371,96 @@ export function MasterPasswordGate({ children }: MasterPasswordGateProps) {
     // Loading
     if (mode === "loading") {
         return (
-            <GateBackground>
-                <div className="flex flex-col items-center gap-3">
-                    <div className="h-7 w-7 animate-spin rounded-full border-2 border-border border-t-foreground" />
-                    <p className="text-sm text-muted-foreground">Checking vault…</p>
-                </div>
-            </GateBackground>
+            <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background overflow-hidden">
+                {/* Background gradients — match GateBackground */}
+                <div
+                    className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_55%_at_50%_-8%,hsl(var(--primary)/0.14),transparent_55%)]"
+                    aria-hidden
+                />
+                <div
+                    className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,hsl(var(--background))_58%)]"
+                    aria-hidden
+                />
+                <div
+                    className="pointer-events-none absolute inset-0 opacity-[0.4] dark:opacity-[0.22] [background-image:linear-gradient(hsl(var(--border)/0.55)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--border)/0.55)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_35%,black,transparent)]"
+                    aria-hidden
+                />
+
+                {/* Content */}
+                <motion.div
+                    className="relative z-10 flex flex-col items-center gap-8"
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                >
+                    {/* Logo */}
+                    <Logo size={36} showText />
+
+                    {/* Animated shield */}
+                    <div className="relative flex items-center justify-center">
+                        {/* Outer pulse ring */}
+                        <motion.div
+                            className="absolute h-24 w-24 rounded-full border border-primary/20"
+                            animate={{ scale: [1, 1.5, 1], opacity: [0.6, 0, 0.6] }}
+                            transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                        />
+                        {/* Middle pulse ring */}
+                        <motion.div
+                            className="absolute h-16 w-16 rounded-full border border-primary/30"
+                            animate={{ scale: [1, 1.4, 1], opacity: [0.7, 0, 0.7] }}
+                            transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+                        />
+                        {/* Icon circle */}
+                        <motion.div
+                            className="relative flex h-14 w-14 items-center justify-center rounded-full border border-border bg-card/80 shadow-xl shadow-black/10 backdrop-blur-sm"
+                            animate={{ scale: [1, 1.04, 1] }}
+                            transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                        >
+                            <motion.div
+                                animate={{ opacity: [0.7, 1, 0.7] }}
+                                transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                            >
+                                <Shield className="h-6 w-6 text-primary" />
+                            </motion.div>
+                        </motion.div>
+                    </div>
+
+                    {/* Text + progress bar */}
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="flex flex-col items-center gap-1.5">
+                            <motion.p
+                                className="text-sm font-medium text-foreground/80"
+                                animate={{ opacity: [0.6, 1, 0.6] }}
+                                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                            >
+                                Checking vault…
+                            </motion.p>
+                            <p className="text-xs text-muted-foreground/50">Verifying your encryption keys</p>
+                        </div>
+
+                        {/* Animated progress bar */}
+                        <div className="h-[2px] w-48 overflow-hidden rounded-full bg-border/50">
+                            <motion.div
+                                className="h-full rounded-full bg-gradient-to-r from-primary/40 via-primary to-primary/40"
+                                animate={{ x: ["-100%", "200%"] }}
+                                transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                                style={{ width: "50%" }}
+                            />
+                        </div>
+                    </div>
+                </motion.div>
+
+                {/* Bottom badge */}
+                <motion.p
+                    className="absolute bottom-8 flex items-center gap-1.5 text-xs text-muted-foreground/40"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.6 }}
+                >
+                    <Shield className="h-3 w-3" />
+                    Zero-knowledge · Encrypted locally
+                </motion.p>
+            </div>
         )
     }
 
