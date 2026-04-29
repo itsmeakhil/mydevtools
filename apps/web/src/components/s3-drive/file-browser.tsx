@@ -78,6 +78,7 @@ import {
     IconArrowsMove,
     IconShare,
     IconAlertCircle,
+    IconPlus,
     IconMinus,
     IconChevronDown,
 } from "@tabler/icons-react"
@@ -272,18 +273,23 @@ function FilePreviewDialog({
     return (
         <Dialog open onOpenChange={(o) => !o && onClose()}>
             <DialogContent className="max-w-5xl w-full p-0 overflow-hidden gap-0 flex flex-col">
-                <DialogHeader className="flex flex-row items-center justify-between px-5 py-3 border-b shrink-0">
-                    <DialogTitle className="text-sm font-medium truncate max-w-lg">{name}</DialogTitle>
+                <DialogHeader className="flex flex-row items-center justify-between px-5 py-3 border-b shrink-0 bg-muted/20">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                        <div className={cn("size-7 rounded-lg flex items-center justify-center shrink-0", TYPE_BG_CLASS[preview.fileType] ?? "bg-muted")}>
+                            <FileIconComp type={preview.fileType} className="size-4" />
+                        </div>
+                        <DialogTitle className="text-sm font-medium truncate max-w-lg">{name}</DialogTitle>
+                    </div>
                     <div className="flex items-center gap-1 shrink-0 ml-4">
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <Button size="icon" variant="ghost" className="size-8" onClick={() => onDownload(preview.key)}>
+                                <Button size="icon" variant="ghost" className="size-8 rounded-lg" onClick={() => onDownload(preview.key)}>
                                     <IconDownload className="size-4" />
                                 </Button>
                             </TooltipTrigger>
                             <TooltipContent>Download</TooltipContent>
                         </Tooltip>
-                        <Button size="icon" variant="ghost" className="size-8" onClick={onClose}>
+                        <Button size="icon" variant="ghost" className="size-8 rounded-lg" onClick={onClose}>
                             <IconX className="size-4" />
                         </Button>
                     </div>
@@ -388,30 +394,31 @@ function UploadProgressPanel({
     if (queue.length === 0) return null
 
     return (
-        <div className="fixed bottom-4 right-4 z-50 w-72 rounded-xl border bg-background shadow-xl overflow-hidden">
-            <div className="flex items-center gap-1.5 px-3 py-2 border-b bg-muted/50">
+        <div className="fixed bottom-4 right-4 z-50 w-80 rounded-2xl border border-border/60 bg-background/95 backdrop-blur-xl shadow-2xl shadow-black/10 dark:shadow-black/40 overflow-hidden ring-1 ring-black/[0.03] dark:ring-white/[0.06]">
+            <div className="flex items-center gap-1.5 px-3.5 py-2.5 border-b bg-muted/30">
+                <IconCloudUpload className="size-4 text-blue-500 shrink-0" />
                 <span className="text-xs font-semibold flex-1 truncate">
-                    {allDone ? `${doneCount}/${queue.length} done` : `Uploading ${activeCount} file${activeCount !== 1 ? "s" : ""}…`}
+                    {allDone ? `${doneCount}/${queue.length} complete` : `Uploading ${activeCount} file${activeCount !== 1 ? "s" : ""}…`}
                 </span>
                 {allDone && (
-                    <Button size="icon" variant="ghost" className="size-6 shrink-0" onClick={onClearCompleted}>
-                        <IconCheck className="size-3 text-muted-foreground" />
+                    <Button size="icon" variant="ghost" className="size-6 shrink-0 rounded-lg" onClick={onClearCompleted}>
+                        <IconCheck className="size-3 text-emerald-500" />
                     </Button>
                 )}
-                <Button size="icon" variant="ghost" className="size-6 shrink-0" onClick={() => setCollapsed((c) => !c)}>
+                <Button size="icon" variant="ghost" className="size-6 shrink-0 rounded-lg" onClick={() => setCollapsed((c) => !c)}>
                     {collapsed
                         ? <IconChevronDown className="size-3 text-muted-foreground" />
                         : <IconMinus className="size-3 text-muted-foreground" />
                     }
                 </Button>
-                <Button size="icon" variant="ghost" className="size-6 shrink-0" onClick={onDismiss}>
+                <Button size="icon" variant="ghost" className="size-6 shrink-0 rounded-lg" onClick={onDismiss}>
                     <IconX className="size-3 text-muted-foreground" />
                 </Button>
             </div>
             {!collapsed && (
                 <div className="max-h-60 overflow-y-auto">
                     {queue.map((f, i) => (
-                        <div key={i} className="px-3 py-2 border-b border-border/40 last:border-0">
+                        <div key={i} className="px-3.5 py-2 border-b border-border/30 last:border-0">
                             <div className="flex items-center gap-2">
                                 {f.status === "done" && <IconCheck className="size-3.5 text-emerald-500 shrink-0" />}
                                 {f.status === "error" && <IconAlertCircle className="size-3.5 text-destructive shrink-0" />}
@@ -427,13 +434,19 @@ function UploadProgressPanel({
                             {f.status === "uploading" && (
                                 <div className="mt-1.5 h-1 bg-muted rounded-full overflow-hidden">
                                     <div
-                                        className="h-full bg-blue-500 transition-[width] duration-200"
+                                        className="h-full bg-gradient-to-r from-blue-500 to-blue-400 transition-[width] duration-200 rounded-full"
                                         style={{ width: `${f.progress * 100}%` }}
                                     />
                                 </div>
                             )}
                         </div>
                     ))}
+                </div>
+            )}
+            {/* Overall progress */}
+            {!allDone && (
+                <div className="h-0.5 bg-muted">
+                    <div className="h-full bg-gradient-to-r from-blue-500 to-blue-400 transition-[width] duration-300" style={{ width: `${(doneCount / queue.length) * 100}%` }} />
                 </div>
             )}
         </div>
@@ -1108,15 +1121,22 @@ export function FileBrowser({ credentials, connectionName }: Props) {
             onDrop={onDrop}
         >
             {isDragOver && (
-                <div className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-blue-50/90 dark:bg-blue-950/80 border-2 border-dashed border-blue-400 dark:border-blue-500 rounded-none pointer-events-none">
-                    <IconCloudUpload className="size-14 text-blue-500 animate-bounce" />
-                    <p className="text-base font-semibold text-blue-700 dark:text-blue-300">Drop files to upload</p>
-                    <p className="text-sm text-blue-500/80">Files will be uploaded to the current folder</p>
+                <div className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-blue-50/80 dark:bg-blue-950/70 backdrop-blur-md border-2 border-dashed border-blue-400/60 dark:border-blue-500/50 pointer-events-none">
+                    <div className="relative">
+                        <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-xl animate-pulse" />
+                        <div className="relative size-20 rounded-2xl bg-blue-500/10 flex items-center justify-center border border-blue-300/30 dark:border-blue-600/30">
+                            <IconCloudUpload className="size-10 text-blue-500 animate-bounce" />
+                        </div>
+                    </div>
+                    <div className="text-center space-y-1">
+                        <p className="text-base font-semibold text-blue-700 dark:text-blue-300">Drop files to upload</p>
+                        <p className="text-sm text-blue-500/70">Files will be uploaded to the current folder</p>
+                    </div>
                 </div>
             )}
 
             {/* Toolbar */}
-            <div className="flex items-center gap-1.5 px-3 py-2 border-b shrink-0 relative">
+            <div className="flex items-center gap-1.5 px-3 py-2.5 border-b shrink-0 relative bg-background/80 backdrop-blur-sm">
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <Button size="icon" variant="ghost" className="size-8 text-muted-foreground shrink-0" onClick={navigateUp} disabled={!currentPrefix || isLoading}>
@@ -1247,19 +1267,29 @@ export function FileBrowser({ credentials, connectionName }: Props) {
             <ScrollArea className="flex-1">
                 {isLoading && allCount === 0 ? (
                     <div className="flex flex-col items-center justify-center h-56 gap-3 text-muted-foreground">
-                        <IconLoader2 className="size-7 animate-spin" />
+                        <div className="relative">
+                            <div className="absolute inset-0 rounded-full bg-primary/10 blur-lg animate-pulse" />
+                            <IconLoader2 className="relative size-7 animate-spin" />
+                        </div>
                         <p className="text-sm">Loading…</p>
                     </div>
                 ) : allCount === 0 ? (
                     <div
-                        className="flex flex-col items-center justify-center h-full min-h-64 gap-3 text-muted-foreground cursor-pointer select-none"
+                        className="flex flex-col items-center justify-center h-full min-h-64 gap-4 text-muted-foreground cursor-pointer select-none group/empty"
                         onClick={() => fileInputRef.current?.click()}
                     >
-                        <div className="size-20 rounded-3xl bg-muted flex items-center justify-center mb-1">
-                            <IconCloudUpload className="size-10 opacity-40" />
+                        <div className="relative">
+                            <div className="size-24 rounded-3xl bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center border border-border/30 transition-transform duration-300 group-hover/empty:scale-105">
+                                <IconCloudUpload className="size-11 opacity-30 transition-opacity group-hover/empty:opacity-50" />
+                            </div>
+                            <div className="absolute -bottom-1 -right-1 size-8 rounded-xl bg-primary/10 flex items-center justify-center ring-3 ring-background">
+                                <IconPlus className="size-3.5 text-primary/60" />
+                            </div>
                         </div>
-                        <p className="text-sm font-medium text-foreground/60">This folder is empty</p>
-                        <p className="text-xs opacity-50">Drop files or click to upload</p>
+                        <div className="text-center space-y-1">
+                            <p className="text-sm font-medium text-foreground/60">This folder is empty</p>
+                            <p className="text-xs opacity-50">Drop files or click to upload</p>
+                        </div>
                     </div>
                 ) : viewMode === "list" ? (
                     <ListView
@@ -1289,7 +1319,7 @@ export function FileBrowser({ credentials, connectionName }: Props) {
 
             {/* Selection bar */}
             {hasSelection && (
-                <div className="flex items-center gap-3 px-4 py-2.5 border-t bg-blue-50/80 dark:bg-blue-950/30 shrink-0">
+                <div className="flex items-center gap-3 px-4 py-2.5 border-t border-blue-200/50 dark:border-blue-800/50 bg-blue-50/90 dark:bg-blue-950/40 backdrop-blur-sm shrink-0 animate-in slide-in-from-bottom-2 duration-200">
                     <Checkbox
                         checked={allSelected}
                         indeterminate={someSelected}
@@ -1297,14 +1327,14 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                     />
                     <span className="text-sm font-medium text-blue-700 dark:text-blue-300 flex-1">
                         {selectedKeys.size} selected
-                        <span className="ml-2 text-blue-500/70 font-normal text-xs hidden sm:inline">· Esc to deselect · Del to delete</span>
+                        <span className="ml-2 text-blue-500/60 font-normal text-[11px] hidden sm:inline">Esc to deselect · Del to delete</span>
                     </span>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5">
                         {selectedFileCount > 1 ? (
                             <Button
                                 size="sm"
                                 variant="outline"
-                                className="h-7 text-xs gap-1.5 border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900"
+                                className="h-7 text-xs gap-1.5 border-blue-200/60 dark:border-blue-800/60 bg-white/50 dark:bg-white/5 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-lg"
                                 onClick={onDownloadZip}
                                 disabled={!!zipProgress}
                             >
@@ -1315,7 +1345,7 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                             <Button
                                 size="sm"
                                 variant="outline"
-                                className="h-7 text-xs gap-1.5 border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900"
+                                className="h-7 text-xs gap-1.5 border-blue-200/60 dark:border-blue-800/60 bg-white/50 dark:bg-white/5 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-lg"
                                 onClick={() => Array.from(selectedKeys).filter((k) => !k.endsWith("/")).forEach((k) => onDownload(k))}
                             >
                                 <IconDownload className="size-3.5" /> Download
@@ -1324,18 +1354,28 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                         <Button
                             size="sm"
                             variant="outline"
-                            className="h-7 text-xs gap-1.5 border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900"
+                            className="h-7 text-xs gap-1.5 border-blue-200/60 dark:border-blue-800/60 bg-white/50 dark:bg-white/5 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-lg"
                             onClick={() => setMoveItems(Array.from(selectedKeys).map((k) => ({ key: k, isFolder: k.endsWith("/") })))}
                         >
                             <IconArrowsMove className="size-3.5" /> Move
                         </Button>
-                        <Button size="sm" variant="destructive" className="h-7 text-xs gap-1.5" onClick={() => setDeleteConfirmOpen(true)} disabled={deleting}>
+                        <Button size="sm" variant="destructive" className="h-7 text-xs gap-1.5 rounded-lg shadow-sm" onClick={() => setDeleteConfirmOpen(true)} disabled={deleting}>
                             <IconTrash className="size-3.5" /> Delete
                         </Button>
-                        <Button size="icon" variant="ghost" className="size-7 text-muted-foreground" onClick={clearSelection}>
+                        <Button size="icon" variant="ghost" className="size-7 text-blue-500/60 hover:text-blue-600 rounded-lg" onClick={clearSelection}>
                             <IconX className="size-4" />
                         </Button>
                     </div>
+                </div>
+            )}
+
+            {/* Status bar */}
+            {!hasSelection && allCount > 0 && (
+                <div className="flex items-center gap-3 px-4 py-1.5 border-t text-[11px] text-muted-foreground/60 shrink-0 bg-muted/20">
+                    <span>{filteredPrefixes.length + filteredObjects.length} items</span>
+                    {filteredPrefixes.length > 0 && <span>· {filteredPrefixes.length} folder{filteredPrefixes.length !== 1 ? "s" : ""}</span>}
+                    {filteredObjects.length > 0 && <span>· {filteredObjects.length} file{filteredObjects.length !== 1 ? "s" : ""}</span>}
+                    {currentPrefix && <span className="ml-auto font-mono text-[10px] truncate max-w-xs">/{currentPrefix.replace(/\/$/, "")}</span>}
                 </div>
             )}
 
@@ -1585,10 +1625,10 @@ function GridView({
                     <WithContextMenu key={prefix} {...actions}>
                         <div
                             className={cn(
-                                "group relative flex flex-col rounded-xl border overflow-hidden cursor-pointer select-none transition-all duration-100",
+                                "group relative flex flex-col rounded-xl border overflow-hidden cursor-pointer select-none transition-all duration-200",
                                 selected
                                     ? "border-blue-400 dark:border-blue-600 ring-2 ring-blue-200 dark:ring-blue-900 shadow-sm"
-                                    : "border-border/60 hover:border-border hover:shadow-md",
+                                    : "border-border/60 hover:border-border hover:shadow-lg hover:-translate-y-0.5",
                             )}
                             onClick={(e) => { if (!isCheckboxClick(e)) onNavigateInto(prefix) }}
                         >
@@ -1640,10 +1680,10 @@ function GridView({
                     <WithContextMenu key={obj.key} {...actions}>
                         <div
                             className={cn(
-                                "group relative flex flex-col rounded-xl border overflow-hidden cursor-pointer select-none transition-all duration-100",
+                                "group relative flex flex-col rounded-xl border overflow-hidden cursor-pointer select-none transition-all duration-200",
                                 selected
                                     ? "border-blue-400 dark:border-blue-600 ring-2 ring-blue-200 dark:ring-blue-900 shadow-sm"
-                                    : "border-border/60 hover:border-border hover:shadow-md",
+                                    : "border-border/60 hover:border-border hover:shadow-lg hover:-translate-y-0.5",
                             )}
                             onClick={(e) => { if (!isCheckboxClick(e)) onToggleKey(obj.key) }}
                             onDoubleClick={() => prevable ? onOpenPreview(obj.key) : onDownload(obj.key)}
