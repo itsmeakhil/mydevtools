@@ -188,3 +188,10 @@ export async function moveObject(
 ): Promise<{ sourceKey: string; destinationKey: string }> {
     return s3Request("POST", `${BASE}/operations/move`, { credentials, sourceKey, destinationKey })
 }
+
+export async function configureBucketCors(
+    credentials: S3Credentials,
+    allowedOrigins: string[] = ["*"],
+): Promise<{ bucket: string; status: string }> {
+    return s3Request("POST", `${BASE}/operations/configure-cors`, { credentials, allowedOrigins })
+}

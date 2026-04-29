@@ -15,6 +15,7 @@ from app.api.routes.s3_drive.schema import (
     MoveObjectRequest,
     ListBucketsRequest,
     BucketInfo,
+    ConfigureCorsRequest,
 )
 from app.api.routes.s3_drive import services as svc
 
@@ -83,3 +84,8 @@ def presigned_upload(body: PresignedUploadRequest, uid: str = Depends(get_curren
 @router.post("/operations/move", response_model=dict)
 def move_object(body: MoveObjectRequest, uid: str = Depends(get_current_uid)) -> dict:
     return svc.move_object(body)
+
+
+@router.post("/operations/configure-cors", response_model=dict, summary="Set bucket CORS rules to allow browser presigned URL requests")
+def configure_cors(body: ConfigureCorsRequest, _uid: str = Depends(get_current_uid)) -> dict:
+    return svc.configure_bucket_cors(body, body.allowedOrigins)

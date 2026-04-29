@@ -10,6 +10,8 @@ import { TabBar } from "@/components/nosql-explorer/tab-bar";
 import { toast } from "sonner";
 import useAuth from "@/utils/useAuth";
 import { useMasterKeyStore } from "@/store/master-key-store";
+import { useVaultGuard } from "@/hooks/use-vault-guard";
+import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder";
 import { getConnections } from "@/components/nosql-explorer/connection-service";
 import { cn } from "@/lib/utils";
 import { IconDatabase, IconServer, IconBrandMongodb, IconSearch, IconPlus, IconArrowLeft } from "@tabler/icons-react";
@@ -39,6 +41,7 @@ export default function NoSQLExplorerPage() {
     const t = useTranslations("NoSqlExplorer.page");
     const { user } = useAuth();
     const { encryptionKey } = useMasterKeyStore();
+    const { isUnlocked } = useVaultGuard();
     // We still keep some state for the "active" context if needed, but mostly driven by tabs now
     const [state, setState] = useState<ConnectionState>({
         isConnected: false,
@@ -577,6 +580,8 @@ export default function NoSQLExplorerPage() {
     }, [isResizing]);
 
     const isDesktop = useMediaQuery("(min-width: 768px)");
+
+    if (!isUnlocked) return <VaultLockedPlaceholder appName="NoSQL Explorer" />
 
     return (
         <div className="flex h-full min-h-0 w-full overflow-hidden relative mobile-nav-offset">

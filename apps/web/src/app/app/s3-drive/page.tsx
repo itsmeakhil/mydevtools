@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react"
 import { toast } from "sonner"
 import useAuth from "@/utils/useAuth"
 import { useMasterKeyStore } from "@/store/master-key-store"
+import { useVaultGuard } from "@/hooks/use-vault-guard"
+import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder"
 import { useS3DriveStore } from "@/store/s3-drive-store"
 import { listConnections } from "@/lib/s3-drive-api"
 import { decryptData } from "@/lib/encryption"
@@ -16,6 +18,7 @@ import { cn } from "@/lib/utils"
 export default function S3DrivePage() {
     const { user, loading: authLoading } = useAuth(true)
     const { encryptionKey, isUnlocked } = useMasterKeyStore()
+    useVaultGuard()
     const { connections, activeConnectionId, setConnections } = useS3DriveStore()
     const [booting, setBooting] = useState(true)
     const loadedRef = useRef(false)
@@ -101,16 +104,7 @@ export default function S3DrivePage() {
         )
     }
 
-    if (!isUnlocked || !encryptionKey) {
-        return (
-            <div className="flex items-center justify-center h-full">
-                <div className="text-center space-y-2">
-                    <IconBucket className="size-12 mx-auto text-muted-foreground opacity-40" />
-                    <p className="text-sm text-muted-foreground">Unlock your vault to access S3 Drive</p>
-                </div>
-            </div>
-        )
-    }
+    if (!isUnlocked || !encryptionKey) return <VaultLockedPlaceholder appName="S3 Drive" />
 
     const activeConn = connections.find((c) => c.id === activeConnectionId) ?? null
 

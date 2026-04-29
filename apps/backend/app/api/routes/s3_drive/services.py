@@ -259,6 +259,30 @@ def presigned_upload(body: PresignedUploadRequest) -> PresignedUrlResponse:
     return PresignedUrlResponse(url=url, key=body.key)
 
 
+def configure_bucket_cors(body: ListBucketsRequest, allowed_origins: list[str]) -> dict[str, str]:
+    """Set CORS rules on the bucket so browsers can use presigned URLs directly."""
+    client = _s3_client(body.credentials)
+    cors_config = {
+        "CORSRules": [
+            {
+                "AllowedHeaders": ["*"],
+                "AllowedMethods": ["GET", "PUT", "POST", "DELETE", "HEAD"],
+                "AllowedOrigins": allowed_origins,
+                "ExposeHeaders": ["ETag", "Content-Length", "Content-Type"],
+                "MaxAgeSeconds": 3600,
+            }
+        ]
+    }
+    try:
+        client.put_bucket_cors(
+            Bucket=body.credentials.bucket,
+            CORSConfiguration=cors_config,
+        )
+    except (ClientError, BotoCoreError) as exc:
+        raise _s3_error(exc) from exc
+    return {"bucket": body.credentials.bucket, "status": "cors_configured"}
+
+
 def move_object(body: MoveObjectRequest) -> dict[str, str]:
     client = _s3_client(body.credentials)
     try:

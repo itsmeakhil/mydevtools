@@ -87,6 +87,11 @@ class ListBucketsRequest(BaseModel):
     credentials: S3Credentials
 
 
+class ConfigureCorsRequest(BaseModel):
+    credentials: S3Credentials
+    allowedOrigins: list[str] = Field(default_factory=lambda: ["*"])
+
+
 # ── Operation response models ─────────────────────────────────────────────────
 
 class S3ObjectItem(BaseModel):

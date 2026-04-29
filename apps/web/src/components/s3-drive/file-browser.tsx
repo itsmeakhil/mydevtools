@@ -82,7 +82,7 @@ import {
     IconMinus,
     IconChevronDown,
 } from "@tabler/icons-react"
-import { listObjects, deleteObjects, getPresignedDownloadUrl, getPresignedUploadUrl, moveObject } from "@/lib/s3-drive-api"
+import { listObjects, deleteObjects, getPresignedDownloadUrl, getPresignedUploadUrl, moveObject, configureBucketCors } from "@/lib/s3-drive-api"
 import type { S3Credentials, S3ObjectItem } from "@/lib/s3-drive-api"
 import { useS3DriveStore } from "@/store/s3-drive-store"
 import { CreateFolderDialog } from "./create-folder-dialog"
@@ -797,6 +797,7 @@ export function FileBrowser({ credentials, connectionName }: Props) {
     const [shareLinkTarget, setShareLinkTarget] = useState<string | null>(null)
     const fileInputRef = useRef<HTMLInputElement>(null)
     const dropZoneRef = useRef<HTMLDivElement>(null)
+    const corsConfiguredRef = useRef(false)
 
     const loadObjects = useCallback(async (prefix: string, token?: string) => {
         setLoading(true)
@@ -955,6 +956,15 @@ export function FileBrowser({ credentials, connectionName }: Props) {
         const initial: FileUploadStatus[] = arr.map((f) => ({ name: f.name, status: "queued", progress: 0 }))
         setUploadQueue(initial)
         setUploadPanelOpen(true)
+
+        if (!corsConfiguredRef.current) {
+            try {
+                await configureBucketCors(credentials)
+                corsConfiguredRef.current = true
+            } catch {
+                // Non-fatal: CORS may already be configured or user may lack permission
+            }
+        }
 
         const CONCURRENCY = 4
         let successCount = 0

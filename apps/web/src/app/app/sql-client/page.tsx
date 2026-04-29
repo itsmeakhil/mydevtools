@@ -18,6 +18,8 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/u
 
 import useAuth from "@/utils/useAuth";
 import { useMasterKeyStore } from "@/store/master-key-store";
+import { useVaultGuard } from "@/hooks/use-vault-guard";
+import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { useTranslations } from "next-intl";
 
@@ -35,6 +37,7 @@ export default function SqlClientPage() {
     const t = useTranslations("SqlClient.page");
     const { user } = useAuth();
     const { encryptionKey } = useMasterKeyStore();
+    const { isUnlocked } = useVaultGuard();
     const isDesktop = useMediaQuery("(min-width: 768px)");
 
     const [connections, setConnections] = useState<SavedSqlConnection[]>([]);
@@ -158,6 +161,8 @@ export default function SqlClientPage() {
             onSelectConnection={handleSelectConnection}
         />
     );
+
+    if (!isUnlocked) return <VaultLockedPlaceholder appName="SQL Client" />
 
     return (
         <div className="flex h-full min-h-0 w-full overflow-hidden mobile-nav-offset">
