@@ -25,6 +25,7 @@ export const TECH_CATALOG: TechItem[] = [
   { name: 'JavaScript', slug: 'javascript', color: 'F7DF1E', category: 'Languages' },
   { name: 'TypeScript', slug: 'typescript', color: '3178C6', category: 'Languages' },
   { name: 'Python', slug: 'python', color: '3776AB', category: 'Languages' },
+  { name: 'Rust', slug: 'rust', color: 'CE422B', category: 'Languages' },
   { name: 'Go', slug: 'go', color: '00ADD8', category: 'Languages' },
   { name: 'Java', slug: 'openjdk', color: 'ED8B00', category: 'Languages' },
   { name: 'C#', slug: 'dotnet', color: '512BD4', category: 'Languages' },
