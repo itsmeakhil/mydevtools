@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from app.api.routes.auth.schema import SocialLinks
 
 class PublicUserProfileResponse(BaseModel):
@@ -7,3 +7,4 @@ class PublicUserProfileResponse(BaseModel):
     photo_url: str | None = None
     github_username: str | None = None
     social_links: SocialLinks | None = None
+    tech_stacks: list[str] = Field(default_factory=list)

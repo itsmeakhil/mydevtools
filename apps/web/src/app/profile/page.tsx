@@ -2,16 +2,18 @@
 
 import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { User, Edit2, CheckCircle2, X, AlertCircle, Link as LinkIcon, Globe, Twitter, Linkedin, Instagram, Youtube, Hash, ExternalLink } from 'lucide-react'
+import { User, Edit2, CheckCircle2, X, AlertCircle, Link as LinkIcon, Globe, Twitter, Linkedin, Instagram, Youtube, Hash, ExternalLink, Layers } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { Badge } from '@/components/ui/badge'
 import useAuth from '@/utils/useAuth'
 import { useTranslations } from 'next-intl'
 import { GithubProfileWidget } from '@/components/github-profile-widget'
 import { backendFetch } from '@/lib/backend-auth'
+import { TechStackPicker, TECH_CATALOG } from '@/components/tech-stack-picker'
 
 export default function ProfilePage() {
   const t = useTranslations('SettingsPage')
@@ -25,6 +27,10 @@ export default function ProfilePage() {
   const [socialLinks, setSocialLinks] = useState<Record<string, string>>({})
   const [isEditingSocial, setIsEditingSocial] = useState(false)
   const [editSocialLinks, setEditSocialLinks] = useState<Record<string, string>>({})
+
+  const [techStacks, setTechStacks] = useState<string[]>([])
+  const [isEditingTech, setIsEditingTech] = useState(false)
+  const [editTechStacks, setEditTechStacks] = useState<string[]>([])
 
   const SOCIAL_PLATFORMS = [
     { id: 'website', label: 'Website', icon: Globe, placeholder: 'https://example.com' },
@@ -46,6 +52,9 @@ export default function ProfilePage() {
           setUsername(profile.username)
           if (profile.social_links) {
             setSocialLinks(profile.social_links)
+          }
+          if (profile.tech_stacks) {
+            setTechStacks(profile.tech_stacks)
           }
         }
       } catch (err) {
@@ -75,6 +84,24 @@ export default function ProfilePage() {
       }
     } catch (err) {
       setErrorMsg('Network error.')
+    }
+  }
+
+  const handleSaveTechStacks = async () => {
+    try {
+      const res = await backendFetch('/api/backend/auth/profile', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tech_stacks: editTechStacks }),
+      })
+      if (res.ok) {
+        setTechStacks(editTechStacks)
+        setIsEditingTech(false)
+      } else {
+        alert('Failed to update tech stacks.')
+      }
+    } catch {
+      alert('Network error.')
     }
   }
 
@@ -279,6 +306,68 @@ export default function ProfilePage() {
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
+                    )
+                  })
+                )}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <div className="space-y-1">
+              <CardTitle className="flex items-center gap-2">
+                <Layers className="h-5 w-5 opacity-70" />
+                Tech Stack
+              </CardTitle>
+              <CardDescription>
+                Technologies and tools you work with or are interested in.
+              </CardDescription>
+            </div>
+            {!isEditingTech && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => { setEditTechStacks([...techStacks]); setIsEditingTech(true) }}
+                className="h-8 gap-2 border"
+              >
+                <Edit2 className="h-3.5 w-3.5" />
+                Edit
+              </Button>
+            )}
+          </CardHeader>
+          <CardContent className="pt-4">
+            {isEditingTech ? (
+              <div className="space-y-4 max-w-2xl">
+                <TechStackPicker value={editTechStacks} onChange={setEditTechStacks} />
+                <div className="flex items-center gap-2 pt-1">
+                  <Button onClick={handleSaveTechStacks} className="gap-2">
+                    <CheckCircle2 className="h-4 w-4" />
+                    Save
+                  </Button>
+                  <Button variant="outline" onClick={() => setIsEditingTech(false)}>
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-wrap gap-2">
+                {techStacks.length === 0 ? (
+                  <p className="text-sm text-muted-foreground italic">No tech stacks added yet.</p>
+                ) : (
+                  techStacks.map((tech) => {
+                    const meta = TECH_CATALOG.find((t) => t.name === tech)
+                    const src = meta ? (meta.iconUrl ?? `https://cdn.simpleicons.org/${meta.slug}/${meta.color}`) : null
+                    return meta ? (
+                      <Badge key={tech} variant="secondary" className="gap-1.5 pl-2 pr-3 py-1 text-sm">
+                        {src && <img src={src} alt={tech} width={14} height={14} className="w-3.5 h-3.5 object-contain shrink-0" />}
+                        {tech}
+                      </Badge>
+                    ) : (
+                      <Badge key={tech} variant="secondary" className="px-3 py-1 text-sm">
+                        {tech}
+                      </Badge>
                     )
                   })
                 )}

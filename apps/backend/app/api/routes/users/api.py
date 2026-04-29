@@ -33,4 +33,5 @@ def get_public_user_profile(request: Request, username: str) -> PublicUserProfil
         photo_url=doc.get("photo_url"),
         github_username=doc.get("github_username"),
         social_links=doc.get("social_links"),
+        tech_stacks=doc.get("tech_stacks") or [],
     )

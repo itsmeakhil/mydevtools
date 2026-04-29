@@ -82,4 +82,5 @@ def get_current_user(uid: str = Depends(get_current_uid)) -> UserProfileResponse
         github_username=doc.get("github_username"),
         username=doc.get("username"),
         social_links=doc.get("social_links"),
+        tech_stacks=doc.get("tech_stacks") or [],
     )

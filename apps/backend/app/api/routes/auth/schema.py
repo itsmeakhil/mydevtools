@@ -29,12 +29,14 @@ class UserProfileResponse(BaseModel):
     github_username: str | None = None
     username: str | None = None
     social_links: SocialLinks | None = None
+    tech_stacks: list[str] = Field(default_factory=list)
 
 
 class UpdateProfileRequest(BaseModel):
     github_username: str | None = None
     username: str | None = None
     social_links: SocialLinks | None = None
+    tech_stacks: list[str] | None = None
 
 
 class OkResponse(BaseModel):
