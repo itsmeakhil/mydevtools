@@ -1,4 +1,4 @@
-from app.core.db import get_db
+from app.database.db import get_db
 from app.utils.collection_name import (
     API_CLIENT_HISTORY,
     API_CLIENT_COLLECTIONS,

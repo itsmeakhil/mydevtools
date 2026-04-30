@@ -5,7 +5,7 @@ import string
 import time
 from pymongo.collection import Collection
 from pymongo.errors import PyMongoError
-from app.core.db import get_db
+from app.database.db import get_db
 
 def now_ms() -> int:
     return int(time.time() * 1000)

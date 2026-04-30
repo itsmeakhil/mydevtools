@@ -27,7 +27,7 @@ from firebase_admin import credentials, firestore
 from pymongo.collection import Collection
 
 from app.core.config import get_settings
-from app.core.db import get_db
+from app.database.db import get_db
 
 LEGACY_FIRESTORE_COLLECTION = "mongodb_connections"
 TARGET_MONGODB_COLLECTION = "mongodb_connections"

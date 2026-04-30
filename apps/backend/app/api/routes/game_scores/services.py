@@ -1,7 +1,7 @@
 import time
 from bson import ObjectId
 
-from app.core.db import get_db
+from app.database.db import get_db
 from app.utils.collection_name import GAME_SCORES
 from app.api.routes.game_scores.schema import GameScoreCreate, GameScoreOut
 

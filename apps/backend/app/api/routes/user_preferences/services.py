@@ -20,7 +20,7 @@ from app.api.routes.user_preferences.schema import (
     UserPreferencesOut,
     UserPreferencesUpdate,
 )
-from app.core.db import get_db
+from app.database.db import get_db
 from app.utils.collection_name import NOSQL_QUERY_HISTORY, USER_PREFERENCES
 
 

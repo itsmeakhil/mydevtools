@@ -24,7 +24,7 @@ from app.api.routes.tasks.schema import (
     TaskStatusUpdate,
     TaskUpdate,
 )
-from app.core.db import get_db
+from app.database.db import get_db
 
 STATUS_ORDER_MAP: dict[TaskStatus, int] = {
     "ongoing": 1,
