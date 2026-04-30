@@ -399,15 +399,15 @@ export default function Page() {
                     <div className="w-3 h-3 rounded-full bg-amber-400/70" />
                     <div className="w-3 h-3 rounded-full bg-emerald-400/70" />
                   </div>
-                  <div className="flex-1 mx-4 h-6 rounded-md bg-background/60 border border-border/40 text-xs text-muted-foreground flex items-center px-3">
-                    mydevtools.tech/app
+                  <div className="flex-1 mx-4 min-w-0 h-6 rounded-md bg-background/60 border border-border/40 text-xs text-muted-foreground flex items-center px-3">
+                    <span className="truncate">https://mydevtools.tech/dashboard</span>
                   </div>
                 </div>
                 <Image
                   src="/images/dashboard-dark.png"
-                  alt="MyDevTools dashboard"
-                  width={1200}
-                  height={700}
+                  alt="MyDevTools dashboard with pinned tools, search, and app grid"
+                  width={1024}
+                  height={597}
                   priority
                   className="w-full h-auto"
                 />
@@ -973,7 +973,7 @@ export default function Page() {
                 variant="outline"
                 size="lg"
                 className="rounded-full h-11 px-7 text-sm cursor-pointer hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
-                onClick={goToLogin}
+                onClick={() => router.push("/dashboard")}
               >
                 Open dashboard
                 <ArrowRight className="ml-2 h-4 w-4" />
