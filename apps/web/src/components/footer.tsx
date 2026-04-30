@@ -9,6 +9,7 @@ import { Logo } from "./logo";
 const footerLinks = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/#features", label: "Features" },
+  { href: "/#pricing", label: "Pricing" },
   { href: "/#tools", label: "Tools" },
   { href: "/help", label: "Help" },
   {
@@ -34,7 +35,7 @@ export function Footer() {
               <Logo size={22} showText={false} />
               <span>
                 © {year} <span className="font-semibold text-foreground">MyDevTools</span>{" "}
-                · MIT
+                · GPL-3.0
               </span>
             </Link>
 

@@ -29,6 +29,9 @@ import {
   Globe,
   CheckCircle2,
   Search,
+  Server,
+  Cloud,
+  Crown,
 } from "lucide-react";
 import { sidebarData } from "@/components/sidebar/data/sidebar-data";
 
@@ -133,7 +136,7 @@ const howItWorks = [
     step: "01",
     title: "Sign In Instantly",
     description:
-      "One-click Google Sign-In. No email, no password, no credit card required.",
+      "One-click Google Sign-In on our cloud. No email or password friction. Self-hosting the full app stays free forever; hosted cloud billing is coming soon.",
     icon: LogIn,
     gradient: "from-sky-500 to-cyan-400",
   },
@@ -157,7 +160,11 @@ const howItWorks = [
 const faqItems = [
   {
     q: "Is MyDevTools really free?",
-    a: "Yes — free forever, no paid tiers, no credit card required. MyDevTools is open source (MIT license) and will always be free to use.",
+    a: "The full product is open source under the GNU General Public License v3.0 (GPL-3.0). You can self-host the entire application yourself at no cost, forever. We are introducing paid plans for our hosted cloud and optional Premium features; final pricing will be published on this page when billing goes live.",
+  },
+  {
+    q: "What is the difference between self-hosting and MyDevTools Cloud?",
+    a: "Self-hosting is the same codebase running on your own infrastructure—you own the data and pay nothing to us. MyDevTools Cloud is the managed service we operate for convenience and sync; it will become a paid option when we turn on billing.",
   },
   {
     q: "Is my data secure?",
@@ -169,7 +176,7 @@ const faqItems = [
   },
   {
     q: "Is this truly open source?",
-    a: "Yes. Full source code is available on GitHub under the MIT license. You can audit, contribute, or self-host it.",
+    a: "Yes. Full source code is available on GitHub under the GPL-3.0 license. You can audit, contribute, or self-host it.",
   },
   {
     q: "Does it work offline?",
@@ -229,8 +236,8 @@ export default function Page() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background font-sans overflow-x-hidden">
-      <Header />
+    <div className="dark flex flex-col min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
+      <Header showThemeToggle={false} />
 
       {/* ── Hero ────────────────────────────────────────────────────────────── */}
       <section className="relative py-24 sm:py-32 md:py-40 lg:py-48 overflow-hidden">
@@ -327,7 +334,9 @@ export default function Page() {
               className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             >
               Access a comprehensive suite of developer tools in one place — from
-              formatters to explorers, everything you need to ship faster.
+              formatters to explorers, everything you need to ship faster. Self-host
+              the full stack for free forever, or use our cloud while we introduce
+              pricing.
             </motion.p>
 
             {/* CTAs */}
@@ -394,22 +403,13 @@ export default function Page() {
                     mydevtools.tech/app
                   </div>
                 </div>
-                {/* Screenshot — light/dark via CSS */}
-                <Image
-                  src="/images/dashboard-light.png"
-                  alt="MyDevTools dashboard"
-                  width={1200}
-                  height={700}
-                  priority
-                  className="w-full h-auto dark:hidden"
-                />
                 <Image
                   src="/images/dashboard-dark.png"
                   alt="MyDevTools dashboard"
                   width={1200}
                   height={700}
                   priority
-                  className="w-full h-auto hidden dark:block"
+                  className="w-full h-auto"
                 />
               </div>
               {/* Glow beneath the screenshot */}
@@ -428,7 +428,7 @@ export default function Page() {
                 className="inline-block hover:opacity-90 hover:scale-105 transition-all duration-300"
               >
                 <Image
-                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1041847&theme=light&t=1764002797983"
+                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1041847&theme=dark&t=1764002797983"
                   alt="MyDevTools - Essential tools for developers | Product Hunt"
                   width={250}
                   height={54}
@@ -670,6 +670,174 @@ export default function Page() {
         </div>
       </section>
 
+      {/* ── Pricing ─────────────────────────────────────────────────────────── */}
+      <section
+        id="pricing"
+        className="py-16 md:py-28 relative overflow-hidden scroll-mt-28"
+      >
+        <div className="absolute inset-0 -z-10 bg-muted/20" />
+        <div className="container px-4 md:px-6 mx-auto">
+          <Section>
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12 md:mb-14"
+            >
+              <Badge
+                variant="secondary"
+                className="mb-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium"
+              >
+                <Sparkles className="w-3 h-3" />
+                Pricing
+              </Badge>
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
+                Self-host free. Cloud &amp; Premium soon.
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                The same open-source product everywhere. Run it yourself at no
+                cost, or let us host it when paid plans go live.
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-3 gap-4 md:gap-5 max-w-5xl mx-auto">
+              {/* Self-host */}
+              <motion.div
+                variants={fadeUp}
+                transition={{ duration: 0.55 }}
+                className="relative flex flex-col rounded-2xl glass-overlay p-7 md:p-8 border border-emerald-500/20 shadow-lg shadow-emerald-500/5"
+              >
+                <div className="mb-6 w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-400 p-px shadow-md">
+                  <div className="w-full h-full rounded-[11px] bg-card dark:bg-[hsl(var(--surface-2))] flex items-center justify-center">
+                    <Server className="w-5 h-5 text-foreground" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-semibold mb-1">Self-hosted</h3>
+                <p className="text-3xl font-bold tracking-tight mb-1">
+                  $0{" "}
+                  <span className="text-base font-normal text-muted-foreground">
+                    forever
+                  </span>
+                </p>
+                <p className="text-sm text-muted-foreground mb-6 flex-1 leading-relaxed">
+                  Clone the repo, deploy the web app and backend, and use every
+                  tool with no license fee and no usage limits from us.
+                </p>
+                <ul className="space-y-2.5 text-sm text-muted-foreground mb-8">
+                  {[
+                    "Full source under GPL-3.0",
+                    "All tools and features included",
+                    "You control data & infrastructure",
+                  ].map((line) => (
+                    <li key={line} className="flex gap-2">
+                      <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-500 mt-0.5" />
+                      <span>{line}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href="https://github.com/itsmeakhil/mydevtools.tech"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded-full border border-border/60 dark:border-white/10 bg-background/60 px-5 py-2.5 text-sm font-medium hover:bg-muted transition-colors"
+                >
+                  View on GitHub
+                  <ExternalLink className="ml-2 h-3.5 w-3.5 opacity-70" />
+                </Link>
+              </motion.div>
+
+              {/* Cloud */}
+              <motion.div
+                variants={fadeUp}
+                transition={{ duration: 0.55, delay: 0.06 }}
+                className="relative flex flex-col rounded-2xl glass-overlay p-7 md:p-8 border border-sky-500/25"
+              >
+                <Badge className="absolute top-5 right-5 rounded-full text-[11px] font-medium px-2.5 py-0.5 bg-sky-500/15 text-sky-400 border border-sky-500/30">
+                  Coming soon
+                </Badge>
+                <div className="mb-6 w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500 to-cyan-400 p-px shadow-md">
+                  <div className="w-full h-full rounded-[11px] bg-card dark:bg-[hsl(var(--surface-2))] flex items-center justify-center">
+                    <Cloud className="w-5 h-5 text-foreground" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-semibold mb-1">MyDevTools Cloud</h3>
+                <p className="text-3xl font-bold tracking-tight mb-1">
+                  Paid plans
+                </p>
+                <p className="text-sm font-medium text-muted-foreground mb-6">
+                  Billing not enabled yet — using the cloud is still free for now.
+                </p>
+                <p className="text-sm text-muted-foreground mb-6 flex-1 leading-relaxed">
+                  We will charge for managed hosting, convenience, and synced
+                  infrastructure so we can sustain the service. Pricing tiers will
+                  be announced before billing starts.
+                </p>
+                <ul className="space-y-2.5 text-sm text-muted-foreground mb-8">
+                  {[
+                    "Same product, zero deploy hassle",
+                    "Secure sync and backups from us",
+                    "Fair notice before any charges",
+                  ].map((line) => (
+                    <li key={line} className="flex gap-2">
+                      <CheckCircle2 className="w-4 h-4 shrink-0 text-sky-500 mt-0.5" />
+                      <span>{line}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button
+                  variant="outline"
+                  className="rounded-full w-full border-dashed opacity-90 cursor-default"
+                  disabled
+                >
+                  Pricing TBA
+                </Button>
+              </motion.div>
+
+              {/* Premium */}
+              <motion.div
+                variants={fadeUp}
+                transition={{ duration: 0.55, delay: 0.12 }}
+                className="relative flex flex-col rounded-2xl glass-overlay p-7 md:p-8 border border-violet-500/25"
+              >
+                <Badge className="absolute top-5 right-5 rounded-full text-[11px] font-medium px-2.5 py-0.5 bg-violet-500/15 text-violet-300 border border-violet-500/30">
+                  Coming soon
+                </Badge>
+                <div className="mb-6 w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-purple-400 p-px shadow-md">
+                  <div className="w-full h-full rounded-[11px] bg-card dark:bg-[hsl(var(--surface-2))] flex items-center justify-center">
+                    <Crown className="w-5 h-5 text-foreground" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-semibold mb-1">Premium</h3>
+                <p className="text-3xl font-bold tracking-tight mb-1">Add-ons</p>
+                <p className="text-sm text-muted-foreground mb-6 flex-1 leading-relaxed">
+                  Optional paid capabilities on top of Cloud — aimed at power
+                  users and teams. Details will ship with Premium; nothing
+                  essential will be locked away from self-hosters.
+                </p>
+                <ul className="space-y-2.5 text-sm text-muted-foreground mb-8">
+                  {[
+                    "Advanced workflows (scope TBA)",
+                    "Team-oriented features (scope TBA)",
+                    "Self-host remains fully capable",
+                  ].map((line) => (
+                    <li key={line} className="flex gap-2">
+                      <CheckCircle2 className="w-4 h-4 shrink-0 text-violet-400 mt-0.5" />
+                      <span>{line}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button
+                  variant="outline"
+                  className="rounded-full w-full border-dashed opacity-90 cursor-default"
+                  disabled
+                >
+                  Coming soon
+                </Button>
+              </motion.div>
+            </div>
+          </Section>
+        </div>
+      </section>
+
       {/* ── Tools ───────────────────────────────────────────────────────────── */}
       <section
         id="tools"
@@ -850,7 +1018,7 @@ export default function Page() {
                     100% Open Source
                   </h3>
                   <p className="relative z-10 text-muted-foreground leading-relaxed text-sm md:text-base mb-5 flex-1">
-                    MIT licensed. Full source on GitHub. Audit every line,
+                    GPL-3.0 licensed. Full source on GitHub. Audit every line,
                     contribute features, or self-host.
                   </p>
                   <Link
@@ -894,7 +1062,7 @@ export default function Page() {
                     className="relative z-10 inline-block hover:opacity-90 hover:scale-105 transition-all duration-300 self-start"
                   >
                     <Image
-                      src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1041847&theme=light&t=1764002797983"
+                      src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1041847&theme=dark&t=1764002797983"
                       alt="MyDevTools on Product Hunt"
                       width={180}
                       height={39}
@@ -1017,7 +1185,7 @@ export default function Page() {
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium"
                   >
                     <GitFork className="w-3 h-3" />
-                    Free &amp; Open Source Forever
+                    Open source · Self-host free forever
                   </Badge>
                 </div>
 
@@ -1038,7 +1206,8 @@ export default function Page() {
                   className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
                 >
                   Join developers who use MyDevTools to streamline their daily
-                  workflow. Open source, free, and privacy-focused — always.
+                  workflow. Privacy-focused and GPL-3.0-licensed — self-host at no
+                  cost, with optional cloud and Premium when we roll out billing.
                 </motion.p>
 
                 <motion.div
