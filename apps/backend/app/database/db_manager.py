@@ -83,8 +83,8 @@ def aggregate(db, collection_name, query):
     return list(data)
 
 
-def create_index(db, collection_name, field):
-    db[collection_name].create_index(field)
+def create_index(db, collection_name, field, unique=False, sparse=False, background=False):
+    db[collection_name].create_index(field, unique=unique, sparse=sparse, background=background)
 
 
 def drop_index(db, collection_name, name):

@@ -1,5 +1,5 @@
 import time
-from apps.backend.app.database import db_manager
+from app.database import db_manager
 
 from app.utils.collection_name import GAME_SCORES
 from app.api.routes.game_scores.schema import GameScoreCreate, GameScoreOut
