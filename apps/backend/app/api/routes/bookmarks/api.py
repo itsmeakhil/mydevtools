@@ -49,7 +49,6 @@ def list_bookmarks(
     folder_id: Optional[str] = Query(
         default=None,
         alias="folderId",
-        description="Omit for all; use 'uncategorized' for root; else a folder id",
     ),
     skip: int = Query(default=0, ge=0),
     limit: Optional[int] = Query(default=None, ge=1, le=500),
