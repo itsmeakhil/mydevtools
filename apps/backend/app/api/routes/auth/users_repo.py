@@ -3,16 +3,13 @@ from __future__ import annotations
 import time
 from typing import Any
 
-from app.database.db import get_db
 from app.utils.collection_name import USERS
-
+from app.database import db_manager
 
 def _now_ms() -> int:
     return int(time.time() * 1000)
 
 
-def users_collection():
-    return get_db()[USERS]
 
 
 def upsert_user_from_firebase_claims(decoded: dict[str, Any]) -> None:
@@ -30,24 +27,19 @@ def upsert_user_from_firebase_claims(decoded: dict[str, Any]) -> None:
         "disabled": False,
         "updated_at": now,
     }
-    users_collection().update_one(
-        {"_id": uid},
-        {"$set": doc, "$setOnInsert": {"created_at": now}},
-        upsert=True,
-    )
-
-
+    db_manager.update_one(USERS, {"_id": uid}, {"$set": doc, "$setOnInsert": {"created_at": now}}, upsert=True)
+        
 def get_user_doc(uid: str) -> dict[str, Any] | None:
-    return users_collection().find_one({"_id": uid})
+    return db_manager.find_one(USERS, {"_id": uid})
 
 
 def is_username_taken(username: str, exclude_uid: str) -> bool:
-    count = users_collection().count_documents({"username": username, "_id": {"$ne": exclude_uid}})
+    count = db_manager.count_documents(USERS, {"username": username, "_id": {"$ne": exclude_uid}})
     return count > 0
 
 
 def get_user_doc_by_username(username: str) -> dict[str, Any] | None:
-    return users_collection().find_one({"username": username})
+    return db_manager.find_one(USERS, {"username": username})
 
 
 def update_user_profile(uid: str, updates: dict[str, Any]) -> None:
@@ -55,27 +47,25 @@ def update_user_profile(uid: str, updates: dict[str, Any]) -> None:
         return
     now = _now_ms()
     updates["updated_at"] = now
-    users_collection().update_one({"_id": uid}, {"$set": updates})
+    db_manager.update_one(USERS, {"_id": uid}, {"$set": updates})
 
 
 def set_refresh_token_hash(uid: str, token_hash: str) -> None:
     now = _now_ms()
-    users_collection().update_one(
+    db_manager.update_one(USERS, {
         {"_id": uid},
         {"$set": {"refresh_token_hash": token_hash, "updated_at": now}},
+    }
     )
 
 
 def clear_refresh_token_hash(uid: str) -> None:
     now = _now_ms()
-    users_collection().update_one(
-        {"_id": uid},
-        {"$unset": {"refresh_token_hash": ""}, "$set": {"updated_at": now}},
-    )
+    db_manager.update_one(USERS, {"_id": uid}, {"$unset": {"refresh_token_hash": ""}, "$set": {"updated_at": now}})
 
 
 def find_uid_by_refresh_hash(token_hash: str) -> str | None:
-    doc = users_collection().find_one({"refresh_token_hash": token_hash}, projection={"_id": 1})
+    doc = db_manager.find_one(USERS, {"refresh_token_hash": token_hash}, projection={"_id": 1})
     if not doc:
         return None
     uid = doc.get("_id")
@@ -96,10 +86,7 @@ def get_master_vault(uid: str) -> dict[str, Any] | None:
 def set_master_vault(uid: str, vault: dict[str, Any]) -> None:
     """Persist master-vault metadata on the user document (idempotent upsert)."""
     now = _now_ms()
-    users_collection().update_one(
-        {"_id": uid},
-        {"$set": {"master_vault": vault, "updated_at": now}},
-    )
+    db_manager.update_one(USERS, {"_id": uid}, {"$set": {"master_vault": vault, "updated_at": now}})
 
 
 # ── Backup codes ──────────────────────────────────────────────────────────────
@@ -107,10 +94,7 @@ def set_master_vault(uid: str, vault: dict[str, Any]) -> None:
 
 def set_backup_codes(uid: str, codes: list[dict[str, Any]]) -> None:
     now = _now_ms()
-    users_collection().update_one(
-        {"_id": uid},
-        {"$set": {"backup_codes": codes, "updated_at": now}},
-    )
+    db_manager.update_one(USERS, {"_id": uid}, {"$set": {"backup_codes": codes, "updated_at": now}})
 
 
 def get_backup_code_by_id(uid: str, code_id: str) -> dict[str, Any] | None:
@@ -126,7 +110,4 @@ def get_backup_code_by_id(uid: str, code_id: str) -> dict[str, Any] | None:
 
 def mark_backup_code_used(uid: str, code_id: str) -> None:
     now = _now_ms()
-    users_collection().update_one(
-        {"_id": uid, "backup_codes.codeId": code_id},
-        {"$set": {"backup_codes.$.used": True, "updated_at": now}},
-    )
+    db_manager.update_one(USERS, {"_id": uid, "backup_codes.codeId": code_id}, {"$set": {"backup_codes.$.used": True, "updated_at": now}})
