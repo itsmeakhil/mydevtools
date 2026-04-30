@@ -41,12 +41,18 @@ const menuItemVariants = {
   }),
 };
 
-export function Header() {
+type HeaderProps = {
+  /** When false, theme toggle is hidden (e.g. marketing page fixed to dark). */
+  showThemeToggle?: boolean;
+};
+
+export function Header({ showThemeToggle = true }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const mobileNavLinks = [
     { href: "/", label: "Home" },
     { href: "/#features", label: "Features" },
+    { href: "/#pricing", label: "Pricing" },
     { href: "/#tools", label: "Tools" },
     { href: "/login", label: "Get Started", isPrimary: true },
     { href: "https://github.com/itsmeakhil/mydevtools.tech", label: "GitHub", icon: Github, external: true },
@@ -75,6 +81,12 @@ export function Header() {
                 className="relative py-2 transition-colors hover:text-foreground/80 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-foreground after:transition-all hover:after:w-full"
               >
                 Features
+              </Link>
+              <Link
+                href="/#pricing"
+                className="relative py-2 transition-colors hover:text-foreground/80 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-foreground after:transition-all hover:after:w-full"
+              >
+                Pricing
               </Link>
               <Link
                 href="/#tools"
@@ -123,7 +135,7 @@ export function Header() {
 
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-3">
-              <ModeToggle />
+              {showThemeToggle ? <ModeToggle /> : null}
               <Link href="https://github.com/itsmeakhil/mydevtools.tech" target="_blank" rel="noreferrer">
                 <Button
                   variant="outline"
@@ -196,19 +208,20 @@ export function Header() {
                     </motion.div>
                   ))}
 
-                  {/* Settings toggles in Mobile */}
-                  <motion.div
-                    custom={mobileNavLinks.length}
-                    variants={menuItemVariants}
-                    initial="closed"
-                    animate="open"
-                    className="pt-2 border-t border-border/40 mt-2"
-                  >
-                    <div className="flex items-center justify-between px-4 py-3">
-                      <span className="text-sm font-medium text-muted-foreground">Theme</span>
-                      <ModeToggle />
-                    </div>
-                  </motion.div>
+                  {showThemeToggle ? (
+                    <motion.div
+                      custom={mobileNavLinks.length}
+                      variants={menuItemVariants}
+                      initial="closed"
+                      animate="open"
+                      className="pt-2 border-t border-border/40 mt-2"
+                    >
+                      <div className="flex items-center justify-between px-4 py-3">
+                        <span className="text-sm font-medium text-muted-foreground">Theme</span>
+                        <ModeToggle />
+                      </div>
+                    </motion.div>
+                  ) : null}
                 </div>
               </nav>
             </motion.div>
