@@ -1,15 +1,13 @@
 from datetime import datetime, timezone
 from typing import Any, Optional
 
+from app.database import db_manager
 from bson import ObjectId
 from bson.errors import InvalidId
 from fastapi import HTTPException, status
-try:
-    from pymongo.collection import Collection
-    from pymongo.errors import PyMongoError
-except Exception:  # pragma: no cover
-    Collection = Any  # type: ignore
-    PyMongoError = Exception  # type: ignore
+from pymongo.errors import PyMongoError
+
+
 from app.utils.collection_name import TASKS, PROJECTS
 from app.api.routes.tasks.schema import (
     ProjectCreate,
@@ -24,7 +22,6 @@ from app.api.routes.tasks.schema import (
     TaskStatusUpdate,
     TaskUpdate,
 )
-from app.core.db import get_db
 
 STATUS_ORDER_MAP: dict[TaskStatus, int] = {
     "ongoing": 1,
@@ -33,12 +30,6 @@ STATUS_ORDER_MAP: dict[TaskStatus, int] = {
 }
 
 
-def _tasks_col() -> Collection:
-    return get_db()[TASKS]
-
-
-def _projects_col() -> Collection:
-    return get_db()[PROJECTS]
 
 
 def _parse_object_id(task_id: str) -> ObjectId:
@@ -121,16 +112,10 @@ def list_tasks(
     page_size: int = 10,
 ) -> TaskListResponse:
     filt = _task_filter(uid, status_filter, project_filter)
-    col = _tasks_col()
-    total = col.count_documents(filt)
+    total = db_manager.count_documents(TASKS, filt)
     total_pages = max(1, (total + page_size - 1) // page_size) if total else 1
     skip = max(0, (page - 1) * page_size)
-    cursor = (
-        col.find(filt)
-        .sort([("statusOrder", 1), ("createdAt", -1)])
-        .skip(skip)
-        .limit(page_size)
-    )
+    cursor = db_manager.find(TASKS, filt, sort=[("statusOrder", 1), ("createdAt", -1)],skip=skip,limit=page_size)
     items = [_task_doc_to_out(d) for d in cursor]
     return TaskListResponse(
         items=items,
@@ -142,13 +127,12 @@ def list_tasks(
 
 
 def get_task_stats(uid: str) -> TaskStatsOut:
-    col = _tasks_col()
-    base = {"created_by": uid}
+    total = db_manager.count_documents(TASKS, {"created_by": uid})
     return TaskStatsOut(
-        total=col.count_documents(base),
-        completed=col.count_documents({**base, "status": "completed"}),
-        ongoing=col.count_documents({**base, "status": "ongoing"}),
-        notStarted=col.count_documents({**base, "status": "not-started"}),
+        total=total,
+        completed=db_manager.count_documents(TASKS, {"created_by": uid, "status": "completed"}),
+        ongoing=db_manager.count_documents(TASKS, {"created_by": uid, "status": "ongoing"}),
+        notStarted=db_manager.count_documents(TASKS, {"created_by": uid, "status": "not-started"}),
     )
 
 
@@ -159,8 +143,7 @@ def export_tasks(
     project_filter: str = "all",
 ) -> list[TaskOut]:
     filt = _task_filter(uid, status_filter, project_filter)
-    col = _tasks_col()
-    cursor = col.find(filt).sort([("statusOrder", 1), ("createdAt", -1)])
+    cursor = db_manager.find(TASKS, filt, sort=[("statusOrder", 1), ("createdAt", -1)])
     return [_task_doc_to_out(d) for d in cursor]
 
 
@@ -175,7 +158,7 @@ def create_task(uid: str, body: TaskCreate) -> TaskOut:
         "projectId": body.projectId,
     }
     try:
-        result = _tasks_col().insert_one(doc)
+        result = db_manager.insert_one(TASKS, doc)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -185,8 +168,8 @@ def create_task(uid: str, body: TaskCreate) -> TaskOut:
     return _task_doc_to_out(doc)
 
 
-def _assert_task_owner(col: Collection, uid: str, oid: ObjectId) -> dict[str, Any]:
-    doc = col.find_one({"_id": oid, "created_by": uid})
+def _assert_task_owner(uid: str, oid: ObjectId) -> dict[str, Any]:
+    doc = db_manager.find_one(TASKS, {"_id": oid, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found.")
     return doc
@@ -194,8 +177,7 @@ def _assert_task_owner(col: Collection, uid: str, oid: ObjectId) -> dict[str, An
 
 def update_task(uid: str, task_id: str, body: TaskUpdate) -> TaskOut:
     oid = _parse_object_id(task_id)
-    col = _tasks_col()
-    _assert_task_owner(col, uid, oid)
+    _assert_task_owner(uid, oid)
 
     patch = body.model_dump(exclude_unset=True)
     patch.pop("id", None)
@@ -205,24 +187,23 @@ def update_task(uid: str, task_id: str, body: TaskUpdate) -> TaskOut:
         patch["completedAt"] = datetime.now(timezone.utc)
 
     if not patch:
-        doc = col.find_one({"_id": oid})
+        doc = db_manager.find_one(TASKS, {"_id": oid})
         return _task_doc_to_out(doc)  # type: ignore[arg-type]
 
     try:
-        col.update_one({"_id": oid, "created_by": uid}, {"$set": patch})
+        db_manager.update_one(TASKS, {"_id": oid, "created_by": uid}, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to update task.",
         ) from exc
-    doc = col.find_one({"_id": oid})
+    doc = db_manager.find_one(TASKS, {"_id": oid})
     return _task_doc_to_out(doc)  # type: ignore[arg-type]
 
 
 def update_task_status(uid: str, task_id: str, body: TaskStatusUpdate) -> TaskOut:
     oid = _parse_object_id(task_id)
-    col = _tasks_col()
-    _assert_task_owner(col, uid, oid)
+    _assert_task_owner(uid, oid)
     new_status = body.status
     patch: dict[str, Any] = {
         "status": new_status,
@@ -231,33 +212,30 @@ def update_task_status(uid: str, task_id: str, body: TaskStatusUpdate) -> TaskOu
     if new_status == "completed":
         patch["completedAt"] = datetime.now(timezone.utc)
     try:
-        col.update_one({"_id": oid, "created_by": uid}, {"$set": patch})
+        db_manager.update_one(TASKS, {"_id": oid, "created_by": uid}, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to update task status.",
         ) from exc
-    doc = col.find_one({"_id": oid})
+    doc = db_manager.find_one(TASKS, {"_id": oid})
     return _task_doc_to_out(doc)  # type: ignore[arg-type]
 
 
 def get_task(uid: str, task_id: str) -> TaskOut:
     oid = _parse_object_id(task_id)
-    col = _tasks_col()
-    doc = _assert_task_owner(col, uid, oid)
+    doc = _assert_task_owner(uid, oid)
     return _task_doc_to_out(doc)
 
 
 def delete_task(uid: str, task_id: str) -> None:
     oid = _parse_object_id(task_id)
-    col = _tasks_col()
-    result = col.delete_one({"_id": oid, "created_by": uid})
+    result = db_manager.delete_one(TASKS, {"_id": oid, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found.")
 
 
 def import_tasks(uid: str, body: TaskImportRequest) -> dict[str, int]:
-    col = _tasks_col()
     now = datetime.now(timezone.utc)
     docs: list[dict[str, Any]] = []
     for raw in body.tasks:
@@ -277,7 +255,7 @@ def import_tasks(uid: str, body: TaskImportRequest) -> dict[str, int]:
     if not docs:
         return {"inserted": 0}
     try:
-        result = col.insert_many(docs)
+        result = db_manager.insert_many(TASKS, docs)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -287,8 +265,7 @@ def import_tasks(uid: str, body: TaskImportRequest) -> dict[str, int]:
 
 
 def list_projects(uid: str) -> list[ProjectOut]:
-    col = _projects_col()
-    cursor = col.find({"created_by": uid}).sort("createdAt", 1)
+    cursor = db_manager.find(PROJECTS, {"created_by": uid}, sort=[("createdAt", 1)])
     return [_project_doc_to_out(d) for d in cursor]
 
 
@@ -301,7 +278,7 @@ def create_project(uid: str, body: ProjectCreate) -> ProjectOut:
         "createdAt": now,
     }
     try:
-        result = _projects_col().insert_one(doc)
+        result = db_manager.insert_one(PROJECTS, doc)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -323,23 +300,21 @@ def _parse_project_id(project_id: str) -> ObjectId:
 
 def update_project(uid: str, project_id: str, body: ProjectUpdate) -> ProjectOut:
     oid = _parse_project_id(project_id)
-    col = _projects_col()
     patch = body.model_dump(exclude_unset=True)
     if not patch:
-        doc = col.find_one({"_id": oid, "created_by": uid})
+        doc = db_manager.find_one(PROJECTS, {"_id": oid, "created_by": uid})
         if not doc:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found.")
         return _project_doc_to_out(doc)
-    result = col.update_one({"_id": oid, "created_by": uid}, {"$set": patch})
+    result = db_manager.update_one(PROJECTS, {"_id": oid, "created_by": uid}, {"$set": patch})
     if result.matched_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found.")
-    doc = col.find_one({"_id": oid})
+    doc = db_manager.find_one(PROJECTS, {"_id": oid})
     return _project_doc_to_out(doc)  # type: ignore[arg-type]
 
 
 def delete_project(uid: str, project_id: str) -> None:
     oid = _parse_project_id(project_id)
-    col = _projects_col()
-    result = col.delete_one({"_id": oid, "created_by": uid})
+    result = db_manager.delete_one(PROJECTS, {"_id": oid, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found.")

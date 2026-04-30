@@ -14,31 +14,30 @@ from app.utils.collection_name import (
     PROJECTS,
 )
 from app.api.routes.analytics.schema import DashboardAnalyticsOut
-from app.utils.utils import col
+from app.database import db_manager
 
-
-def get_dashboard_analytics(uid: str) -> DashboardAnalyticsOut:
+def get_dashboard_analytics(uid: str):
     base = {"created_by": uid}
     task_stats: TaskStatsOut = task_svc.get_task_stats(uid)
 
-    password_entries = col(PASSWORD_ENTRIES).count_documents(base)
-    bookmarks = col(BOOKMARKS).count_documents(base)
-    bookmark_folders = col(BOOKMARK_FOLDERS).count_documents(base)
-    projects = col(PROJECTS).count_documents(base)
+    password_entries = db_manager.count_documents(PASSWORD_ENTRIES, base)
+    bookmarks = db_manager.count_documents(BOOKMARKS, base)
+    bookmark_folders = db_manager.count_documents(BOOKMARK_FOLDERS, base)
+    projects = db_manager.count_documents(PROJECTS, base)
 
     nosql_filter = {
         **base,
         "encryptedData": {"$exists": True},
         "iv": {"$exists": True},
     }
-    nosql_connections = col(NOSQL_CONNECTIONS).count_documents(nosql_filter)
+    nosql_connections = db_manager.count_documents(NOSQL_CONNECTIONS, nosql_filter)
 
-    notes = col(NOTES).count_documents(base)
-    api_collections = col(API_CLIENT_COLLECTIONS).count_documents(base)
-    api_envs = col(API_CLIENT_ENVIRONMENTS).count_documents(base)
-    api_history = col(API_CLIENT_HISTORY).count_documents(base)
-    json_docs = col(JSON_FORMATTER_DOCUMENTS).count_documents(base)
-    code_snippets = col(CODE_SNIPPETS).count_documents(base)
+    notes = db_manager.count_documents(NOTES, base)
+    api_collections = db_manager.count_documents(API_CLIENT_COLLECTIONS, base)
+    api_envs = db_manager.count_documents(API_CLIENT_ENVIRONMENTS, base)
+    api_history = db_manager.count_documents(API_CLIENT_HISTORY, base)
+    json_docs = db_manager.count_documents(JSON_FORMATTER_DOCUMENTS, base)
+    code_snippets = db_manager.count_documents(CODE_SNIPPETS, base)
 
     return DashboardAnalyticsOut(
         passwordEntries=password_entries,
