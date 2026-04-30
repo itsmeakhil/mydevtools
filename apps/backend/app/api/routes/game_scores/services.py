@@ -1,7 +1,6 @@
 import time
-from bson import ObjectId
+from apps.backend.app.database import db_manager
 
-from app.database.db import get_db
 from app.utils.collection_name import GAME_SCORES
 from app.api.routes.game_scores.schema import GameScoreCreate, GameScoreOut
 
@@ -20,16 +19,12 @@ def _to_out(doc: dict) -> GameScoreOut:
 
 
 def list_scores(uid: str, game: str) -> list[GameScoreOut]:
-    db = get_db()
-    docs = db[GAME_SCORES].find({"created_by": uid, "game": game})
+    docs = db_manager.find(GAME_SCORES, {"created_by": uid, "game": game})
     return [_to_out(d) for d in docs]
 
 
 def upsert_score(uid: str, body: GameScoreCreate) -> GameScoreOut:
-    db = get_db()
-    col = db[GAME_SCORES]
-
-    existing = col.find_one({
+    existing = db_manager.find_one(GAME_SCORES, {
         "created_by": uid,
         "game": body.game,
         "level": body.level,
@@ -42,15 +37,12 @@ def upsert_score(uid: str, body: GameScoreCreate) -> GameScoreOut:
         return _to_out(existing)
 
     if existing:
-        col.update_one(
-            {"_id": existing["_id"]},
-            {"$set": {
+        db_manager.update_one(GAME_SCORES, {"_id": existing["_id"]}, {"$set": {
                 "score": body.score,
                 "time_seconds": body.time_seconds,
                 "completed_at": now,
-            }},
-        )
-        updated = col.find_one({"_id": existing["_id"]})
+            }})
+        updated = db_manager.find_one(GAME_SCORES, {"_id": existing["_id"]})
         return _to_out(updated)
 
     doc = {
@@ -62,6 +54,6 @@ def upsert_score(uid: str, body: GameScoreCreate) -> GameScoreOut:
         "time_seconds": body.time_seconds,
         "completed_at": now,
     }
-    result = col.insert_one(doc)
+    result = db_manager.insert_one(GAME_SCORES, doc)
     doc["_id"] = result.inserted_id
     return _to_out(doc)
