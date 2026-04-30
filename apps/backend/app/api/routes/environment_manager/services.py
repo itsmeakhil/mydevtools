@@ -9,14 +9,15 @@ from app.api.routes.environment_manager.schema import (
     EnvSetEntryUpdate,
 )
 from app.utils.collection_name import ENV_MANAGER_ENTRIES
-from app.utils.utils import now_ms, new_id, col
+from app.utils.utils import create_timestamp, new_id
+from app.database import db_manager
 
 
 
 
 
 def _entry_doc_to_out(doc: dict[str, Any], *, entry_id: str) -> EnvSetEntryOut:
-    created_at = int(doc.get("createdAt", 0)) or now_ms()
+    created_at = int(doc.get("createdAt", 0)) or create_timestamp()
     updated_at = int(doc.get("updatedAt", 0)) or created_at
     return EnvSetEntryOut(
         id=entry_id,
@@ -34,9 +35,10 @@ def list_entries(
     offset: int = 0,
 ) -> list[EnvSetEntryOut]:
     q = {"created_by": uid}
-    cursor = col(ENV_MANAGER_ENTRIES).find(q).sort([("updatedAt", -1), ("createdAt", -1)]).skip(max(0, offset))
     if limit is not None:
-        cursor = cursor.limit(limit)
+        cursor = db_manager.find(ENV_MANAGER_ENTRIES, q, sort=[("updatedAt", -1), ("createdAt", -1)], skip=max(0, offset), limit=limit)
+    else:
+        cursor = db_manager.find(ENV_MANAGER_ENTRIES, q, sort=[("updatedAt", -1), ("createdAt", -1)], skip=max(0, offset))
     docs = list(cursor)
     out: list[EnvSetEntryOut] = []
     for d in docs:
@@ -47,7 +49,7 @@ def list_entries(
 
 def create_entry(uid: str, body: EnvSetEntryCreate) -> EnvSetEntryOut:
     eid = new_id()
-    ts = now_ms()
+    ts = create_timestamp()
     created_at = int(body.createdAt) if body.createdAt is not None else ts
     updated_at = int(body.updatedAt) if body.updatedAt is not None else created_at
 
@@ -61,7 +63,7 @@ def create_entry(uid: str, body: EnvSetEntryCreate) -> EnvSetEntryOut:
     }
 
     try:
-        col(ENV_MANAGER_ENTRIES).insert_one(doc)
+        db_manager.insert_one(ENV_MANAGER_ENTRIES, doc)
     except PyMongoError as exc:
         msg = str(exc).lower()
         if "duplicate" in msg or "e11000" in msg:
@@ -75,14 +77,14 @@ def create_entry(uid: str, body: EnvSetEntryCreate) -> EnvSetEntryOut:
 
 
 def get_entry(uid: str, entry_id: str) -> EnvSetEntryOut:
-    doc = col(ENV_MANAGER_ENTRIES).find_one({"_id": entry_id, "created_by": uid})
+    doc = db_manager.find_one(ENV_MANAGER_ENTRIES, {"_id": entry_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Entry not found.")
     return _entry_doc_to_out(doc, entry_id=entry_id)
 
 
 def update_entry(uid: str, entry_id: str, body: EnvSetEntryUpdate) -> EnvSetEntryOut:
-    ts_updated = int(body.updatedAt) if body.updatedAt is not None else now_ms()
+    ts_updated = int(body.updatedAt) if body.updatedAt is not None else create_timestamp()
 
     patch: dict[str, Any] = {
         "encryptedData": body.encryptedData,
@@ -91,7 +93,7 @@ def update_entry(uid: str, entry_id: str, body: EnvSetEntryUpdate) -> EnvSetEntr
     }
 
     try:
-        result = col(ENV_MANAGER_ENTRIES).update_one({"_id": entry_id, "created_by": uid}, {"$set": patch})
+        result = db_manager.update_one(ENV_MANAGER_ENTRIES, {"_id": entry_id, "created_by": uid}, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -105,6 +107,6 @@ def update_entry(uid: str, entry_id: str, body: EnvSetEntryUpdate) -> EnvSetEntr
 
 
 def delete_entry(uid: str, entry_id: str) -> None:
-    result = col(ENV_MANAGER_ENTRIES).delete_one({"_id": entry_id, "created_by": uid})
+    result = db_manager.delete_one(ENV_MANAGER_ENTRIES, {"_id": entry_id, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Entry not found.")

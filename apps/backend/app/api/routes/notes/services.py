@@ -6,7 +6,8 @@ from pymongo.errors import PyMongoError
 
 from app.api.routes.notes.schema import NoteCreate, NoteOut, NoteUpdate
 from app.utils.collection_name import NOTES
-from app.utils.utils import col, new_id, now_ms
+from app.utils.utils import new_id
+from app.database import db_manager
 
 def isoformat_utc(dt: datetime) -> str:
     if dt.tzinfo is None:
@@ -42,7 +43,7 @@ def _doc_to_out(doc: dict[str, Any]) -> NoteOut:
 
 
 def list_notes(uid: str) -> list[NoteOut]:
-    cursor = col(NOTES).find({"created_by": uid}).sort("createdAt", 1)
+    cursor = db_manager.find(NOTES, {"created_by": uid}, sort=[("createdAt", 1)])
     return [_doc_to_out(d) for d in cursor]
 
 
@@ -63,7 +64,7 @@ def create_note(uid: str, body: NoteCreate) -> NoteOut:
     }
 
     try:
-        col(NOTES).insert_one(doc)
+        db_manager.insert_one(NOTES, doc)
     except PyMongoError as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create note.") from exc
 
@@ -71,7 +72,7 @@ def create_note(uid: str, body: NoteCreate) -> NoteOut:
 
 
 def get_note(uid: str, note_id: str) -> NoteOut:
-    doc = col(NOTES).find_one({"_id": note_id, "created_by": uid})
+    doc = db_manager.find_one(NOTES, {"_id": note_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
     return _doc_to_out(doc)
@@ -87,14 +88,14 @@ def update_note(uid: str, note_id: str, body: NoteUpdate) -> NoteOut:
 
     # Convert explicit nulls correctly: keep parentId as null if provided.
     try:
-        result = col(NOTES).update_one({"_id": note_id, "created_by": uid}, {"$set": patch})
+        result = db_manager.update_one(NOTES, {"_id": note_id, "created_by": uid}, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update note.") from exc
 
     if result.matched_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
 
-    doc = col(NOTES).find_one({"_id": note_id, "created_by": uid})
+    doc = db_manager.find_one(NOTES, {"_id": note_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
     return _doc_to_out(doc)
@@ -102,7 +103,7 @@ def update_note(uid: str, note_id: str, body: NoteUpdate) -> NoteOut:
 
 def _descendant_ids(uid: str, root_id: str) -> list[str]:
     # Simple in-memory tree expansion; keeps Mongo queries low for typical note counts.
-    docs = list(col(NOTES).find({"created_by": uid}, {"_id": 1, "parentId": 1}))
+    docs = list(db_manager.find(NOTES, {"created_by": uid}, {"_id": 1, "parentId": 1}))
     by_parent: dict[Optional[str], list[str]] = {}
     for d in docs:
         pid = d.get("parentId")
@@ -125,12 +126,12 @@ def _descendant_ids(uid: str, root_id: str) -> list[str]:
 def delete_note(uid: str, note_id: str, *, recursive: bool = True) -> None:
     if recursive:
         ids = _descendant_ids(uid, note_id)
-        result = col(NOTES).delete_many({"created_by": uid, "_id": {"$in": ids}})
+        result = db_manager.delete_many(NOTES, {"created_by": uid, "_id": {"$in": ids}})
         if result.deleted_count == 0:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
         return
 
-    result = col(NOTES).delete_one({"created_by": uid, "_id": note_id})
+    result = db_manager.delete_one(NOTES, {"created_by": uid, "_id": note_id})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
 

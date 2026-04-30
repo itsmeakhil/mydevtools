@@ -1,12 +1,13 @@
-from calendar import c
 from typing import Any, Optional
 
 from fastapi import HTTPException, status
 from pymongo.errors import PyMongoError
 from pymongo import ReturnDocument
-from app.utils.utils import now_ms, new_id, col
-from app.utils.collection_name import BOOKMARK_FOLDERS as FOLDERS, BOOKMARKS
+from app.utils.utils import new_id, create_timestamp
 
+
+from app.utils.collection_name import BOOKMARK_FOLDERS as FOLDERS, BOOKMARKS
+from app.database import db_manager
 from app.api.routes.bookmarks.schema import (
     BookmarkCreate,
     BookmarkFolderCreate,
@@ -74,14 +75,15 @@ def list_bookmarks(
     elif folder_id is not None and folder_id != "":
         q["folderId"] = folder_id
 
-    cursor = col(BOOKMARKS).find(q).sort([("updatedAt", -1), ("createdAt", -1)]).skip(skip)
     if limit is not None:
-        cursor = cursor.limit(limit)
+        cursor = db_manager.find(BOOKMARKS, q, sort=[("updatedAt", -1), ("createdAt", -1)], skip=skip, limit=limit)
+    else:
+        cursor = db_manager.find(BOOKMARKS, q, sort=[("updatedAt", -1), ("createdAt", -1)], skip=skip)
     return [_bookmark_doc_to_out(d) for d in cursor]
 
 
 def get_bookmark(uid: str, bookmark_id: str) -> BookmarkOut:
-    doc = col(BOOKMARKS).find_one({"_id": bookmark_id, "created_by": uid})
+    doc = db_manager.find_one(BOOKMARKS, {"_id": bookmark_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Bookmark not found.")
     return _bookmark_doc_to_out(doc)
@@ -89,7 +91,7 @@ def get_bookmark(uid: str, bookmark_id: str) -> BookmarkOut:
 
 def create_bookmark(uid: str, body: BookmarkCreate) -> BookmarkOut:
     bid = body.id or new_id()
-    ts = now_ms()
+    ts = create_timestamp()
     doc: dict[str, Any] = {
         "_id": bid,
         "created_by": uid,
@@ -103,7 +105,7 @@ def create_bookmark(uid: str, body: BookmarkCreate) -> BookmarkOut:
         "updatedAt": ts,
     }
     try:
-        col(BOOKMARKS).insert_one(doc)
+        db_manager.insert_one(BOOKMARKS, doc)
     except PyMongoError as exc:
         if "duplicate" in str(exc).lower() or "E11000" in str(exc):
             raise HTTPException(
@@ -121,9 +123,9 @@ def update_bookmark(uid: str, bookmark_id: str, body: BookmarkUpdate) -> Bookmar
     patch = body.model_dump(exclude_unset=True)
     if not patch:
         return get_bookmark(uid, bookmark_id)
-    patch["updatedAt"] = now_ms()
+    patch["updatedAt"] = create_timestamp()
     try:
-        result = col(BOOKMARKS).find_one_and_update(
+        result = db_manager.find_one_and_update(BOOKMARKS,
             {"_id": bookmark_id, "created_by": uid},
             {"$set": patch},
             return_document=ReturnDocument.AFTER,
@@ -147,7 +149,7 @@ def move_bookmark(uid: str, bookmark_id: str, body: BookmarkMove) -> BookmarkOut
 
 
 def delete_bookmark(uid: str, bookmark_id: str) -> None:
-    result = col(BOOKMARKS).delete_one({"_id": bookmark_id, "created_by": uid})
+    result = db_manager.delete_one(BOOKMARKS, {"_id": bookmark_id, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Bookmark not found.")
 
@@ -171,9 +173,9 @@ def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]:
                 "color": row.get("color"),
                 "icon": row.get("icon"),
                 "isExpanded": row.get("isExpanded", False),
-                "createdAt": int(row.get("createdAt", now_ms())),
+                "createdAt": int(row.get("createdAt", create_timestamp())),
             }
-            col(FOLDERS).replace_one({"_id": doc["_id"], "created_by": uid}, doc, upsert=True)
+            db_manager.replace_one(FOLDERS, {"_id": doc["_id"], "created_by": uid}, doc, upsert=True)
             folder_count += 1
 
         for raw in body.bookmarks:
@@ -182,7 +184,7 @@ def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]:
             bid = row.pop("id", None) or row.pop("_id", None)
             if not bid:
                 bid = new_id()
-            ts = now_ms()
+            ts = create_timestamp()
             doc = {
                 "_id": str(bid),
                 "created_by": uid,
@@ -195,7 +197,7 @@ def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]:
                 "createdAt": int(row.get("createdAt", ts)),
                 "updatedAt": int(row.get("updatedAt", ts)),
             }
-            col(BOOKMARKS).replace_one({"_id": doc["_id"], "created_by": uid}, doc, upsert=True)
+            db_manager.replace_one(BOOKMARKS, {"_id": doc["_id"], "created_by": uid}, doc, upsert=True)
             bookmark_count += 1
     except PyMongoError as exc:
         raise HTTPException(
@@ -206,8 +208,8 @@ def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]:
 
 
 def clear_all_bookmarks(uid: str) -> dict[str, int]:
-    br = col(BOOKMARKS).delete_many({"created_by": uid})
-    fr = col(FOLDERS).delete_many({"created_by": uid})
+    br = db_manager.delete_many(BOOKMARKS, {"created_by": uid})
+    fr = db_manager.delete_many(FOLDERS, {"created_by": uid})
     return {"bookmarksDeleted": br.deleted_count, "foldersDeleted": fr.deleted_count}
 
 
@@ -219,14 +221,15 @@ def snapshot(uid: str) -> BookmarkSnapshotOut:
 
 
 def list_folders(uid: str, *, skip: int = 0, limit: Optional[int] = None) -> list[BookmarkFolderOut]:
-    cursor = col(FOLDERS).find({"created_by": uid}).sort("createdAt", 1).skip(skip)
     if limit is not None:
-        cursor = cursor.limit(limit)
+        cursor = db_manager.find(FOLDERS, {"created_by": uid}, sort=[("createdAt", 1)], skip=skip, limit=limit)
+    else:
+        cursor = db_manager.find(FOLDERS, {"created_by": uid}, sort=[("createdAt", 1)], skip=skip)
     return [_folder_doc_to_out(d) for d in cursor]
 
 
 def get_folder(uid: str, folder_id: str) -> BookmarkFolderOut:
-    doc = col(FOLDERS).find_one({"_id": folder_id, "created_by": uid})
+    doc = db_manager.find_one(FOLDERS, {"_id": folder_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Folder not found.")
     return _folder_doc_to_out(doc)
@@ -234,7 +237,7 @@ def get_folder(uid: str, folder_id: str) -> BookmarkFolderOut:
 
 def create_folder(uid: str, body: BookmarkFolderCreate) -> BookmarkFolderOut:
     fid = body.id or new_id()
-    ts = now_ms()
+    ts = create_timestamp()
     doc: dict[str, Any] = {
         "_id": fid,
         "created_by": uid,
@@ -246,7 +249,7 @@ def create_folder(uid: str, body: BookmarkFolderCreate) -> BookmarkFolderOut:
         "createdAt": ts,
     }
     try:
-        col(FOLDERS).insert_one(doc)
+        db_manager.insert_one(FOLDERS, doc)
     except PyMongoError as exc:
         if "duplicate" in str(exc).lower() or "E11000" in str(exc):
             raise HTTPException(
@@ -265,7 +268,7 @@ def update_folder(uid: str, folder_id: str, body: BookmarkFolderUpdate) -> Bookm
     if not patch:
         return get_folder(uid, folder_id)
     try:
-        result = col(FOLDERS).find_one_and_update(
+        result = db_manager.find_one_and_update(FOLDERS,
             {"_id": folder_id, "created_by": uid},
             {"$set": patch},
             return_document=ReturnDocument.AFTER,
@@ -300,15 +303,15 @@ def delete_folder(uid: str, folder_id: str) -> None:
         },
         {"$project": {"descendants._id": 1}},
     ]
-    results = list(col(FOLDERS).aggregate(pipeline))
+    results = list(db_manager.aggregate(FOLDERS, pipeline))
     if not results:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Folder not found.")
     to_remove = [folder_id, *[str(d["_id"]) for d in results[0].get("descendants", [])]]
     try:
-        col(FOLDERS).delete_many({"_id": {"$in": to_remove}, "created_by": uid})
-        col(BOOKMARKS).update_many(
+        db_manager.delete_many(FOLDERS, {"_id": {"$in": to_remove}, "created_by": uid})
+        db_manager.update_many(BOOKMARKS,
             {"created_by": uid, "folderId": {"$in": to_remove}},
-            {"$set": {"folderId": None, "updatedAt": now_ms()}},
+            {"$set": {"folderId": None, "updatedAt": create_timestamp()}},
         )
     except PyMongoError as exc:
         raise HTTPException(

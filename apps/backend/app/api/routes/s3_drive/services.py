@@ -31,13 +31,14 @@ from app.api.routes.s3_drive.schema import (
     BucketInfo,
 )
 from app.utils.collection_name import S3_CONNECTIONS
-from app.utils.utils import now_ms, new_id, col
+from app.utils.utils import create_timestamp, new_id
+from app.database import db_manager
 
 
 
 def _doc_to_out(doc: dict[str, Any]) -> S3ConnectionOut:
     conn_id = str(doc.get("_id", ""))
-    created_at = int(doc.get("createdAt", 0)) or now_ms()
+    created_at = int(doc.get("createdAt", 0)) or create_timestamp()
     updated_at = int(doc.get("updatedAt", 0)) or created_at
     return S3ConnectionOut(
         id=conn_id,
@@ -53,13 +54,13 @@ def _doc_to_out(doc: dict[str, Any]) -> S3ConnectionOut:
 # ── Connection CRUD ───────────────────────────────────────────────────────────
 
 def list_connections(uid: str) -> list[S3ConnectionOut]:
-    docs = list(col(S3_CONNECTIONS).find({"created_by": uid}).sort([("updatedAt", -1)]))
+    docs = list(db_manager.find(S3_CONNECTIONS, {"created_by": uid}, sort=[("updatedAt", -1)]))
     return [_doc_to_out(d) for d in docs]
 
 
 def create_connection(uid: str, body: S3ConnectionCreate) -> S3ConnectionOut:
     conn_id = new_id()
-    ts = now_ms()
+    ts = create_timestamp()
     created_at = int(body.createdAt) if body.createdAt is not None else ts
     doc: dict[str, Any] = {
         "_id": conn_id,
@@ -72,7 +73,7 @@ def create_connection(uid: str, body: S3ConnectionCreate) -> S3ConnectionOut:
         "updatedAt": ts,
     }
     try:
-        col(S3_CONNECTIONS).insert_one(doc)
+        db_manager.insert_one(S3_CONNECTIONS, doc)
     except PyMongoError as exc:
         msg = str(exc).lower()
         if "duplicate" in msg or "e11000" in msg:
@@ -82,14 +83,14 @@ def create_connection(uid: str, body: S3ConnectionCreate) -> S3ConnectionOut:
 
 
 def get_connection(uid: str, conn_id: str) -> S3ConnectionOut:
-    doc = col(S3_CONNECTIONS).find_one({"_id": conn_id, "created_by": uid})
+    doc = db_manager.find_one(S3_CONNECTIONS, {"_id": conn_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
     return _doc_to_out(doc)
 
 
 def update_connection(uid: str, conn_id: str, body: S3ConnectionUpdate) -> S3ConnectionOut:
-    patch: dict[str, Any] = {"updatedAt": int(body.updatedAt) if body.updatedAt is not None else now_ms()}
+    patch: dict[str, Any] = {"updatedAt": int(body.updatedAt) if body.updatedAt is not None else create_timestamp()}
     if body.name is not None:
         patch["name"] = body.name
     if body.provider is not None:
@@ -99,7 +100,7 @@ def update_connection(uid: str, conn_id: str, body: S3ConnectionUpdate) -> S3Con
     if body.iv is not None:
         patch["iv"] = body.iv
     try:
-        result = col(S3_CONNECTIONS).update_one({"_id": conn_id, "created_by": uid}, {"$set": patch})
+        result = db_manager.update_one(S3_CONNECTIONS, {"_id": conn_id, "created_by": uid}, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update connection.") from exc
     if result.matched_count == 0:
@@ -108,7 +109,7 @@ def update_connection(uid: str, conn_id: str, body: S3ConnectionUpdate) -> S3Con
 
 
 def delete_connection(uid: str, conn_id: str) -> None:
-    result = col(S3_CONNECTIONS).delete_one({"_id": conn_id, "created_by": uid})
+    result = db_manager.delete_one(S3_CONNECTIONS, {"_id": conn_id, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
 

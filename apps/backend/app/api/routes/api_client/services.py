@@ -23,9 +23,7 @@ from app.api.routes.api_client.schema import (
     ApiClientHistoryOut,
     HISTORY_MAX_ITEMS,
 )
-
-
-from app.utils.utils import col
+from app.database import db_manager
 
 
 def _parse_oid(raw: str, *, kind: str) -> ObjectId:
@@ -57,11 +55,7 @@ def _env_to_out(doc: dict[str, Any]) -> ApiClientEnvironmentOut:
 
 
 def list_collections(uid: str) -> list[ApiClientCollectionOut]:
-    cursor = (
-        col(API_CLIENT_COLLECTIONS)
-        .find({"created_by": uid}, {"_id": 1, "name": 1, "items": 1})
-        .sort([("name", 1), ("_id", 1)])
-    )
+    cursor = db_manager.find(API_CLIENT_COLLECTIONS, {"created_by": uid}, {"_id": 1, "name": 1, "items": 1},sort=[("name", 1), ("_id", 1)])
     return [_collection_to_out(d) for d in cursor]
 
 
@@ -72,7 +66,7 @@ def create_collection(uid: str, body: ApiClientCollectionCreate) -> ApiClientCol
         "items": [],
     }
     try:
-        result = col(API_CLIENT_COLLECTIONS).insert_one(doc)
+        result = db_manager.insert_one(API_CLIENT_COLLECTIONS, doc)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -86,12 +80,12 @@ def patch_collection(uid: str, collection_id: str, body: ApiClientCollectionUpda
     oid = _parse_oid(collection_id, kind="collection")
     patch = body.model_dump(exclude_unset=True)
     if not patch:
-        doc = col(API_CLIENT_COLLECTIONS).find_one({"_id": oid, "created_by": uid})
+        doc = db_manager.find_one(API_CLIENT_COLLECTIONS, {"_id": oid, "created_by": uid})
         if not doc:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Collection not found.")
         return _collection_to_out(doc)
     try:
-        result = col(API_CLIENT_COLLECTIONS).update_one({"_id": oid, "created_by": uid}, {"$set": patch})
+        result = db_manager.update_one(API_CLIENT_COLLECTIONS, {"_id": oid, "created_by": uid}, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -99,24 +93,20 @@ def patch_collection(uid: str, collection_id: str, body: ApiClientCollectionUpda
         ) from exc
     if result.matched_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Collection not found.")
-    doc = col(API_CLIENT_COLLECTIONS).find_one({"_id": oid})
+    doc = db_manager.find_one(API_CLIENT_COLLECTIONS, {"_id": oid})
     return _collection_to_out(doc)  # type: ignore[arg-type]
 
 
 def delete_collection(uid: str, collection_id: str) -> None:
     oid = _parse_oid(collection_id, kind="collection")
-    result = col(API_CLIENT_COLLECTIONS).delete_one({"_id": oid, "created_by": uid})
+    result = db_manager.delete_one(API_CLIENT_COLLECTIONS, {"_id": oid, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Collection not found.")
 
 
 # Environments
 def list_environments(uid: str) -> list[ApiClientEnvironmentOut]:
-    cursor = (
-        col(API_CLIENT_ENVIRONMENTS)
-        .find({"created_by": uid}, {"_id": 1, "name": 1, "variables": 1})
-        .sort([("name", 1), ("_id", 1)])
-    )
+    cursor = db_manager.find(API_CLIENT_ENVIRONMENTS, {"created_by": uid}, {"_id": 1, "name": 1, "variables": 1}, sort=[("name", 1), ("_id", 1)])
     return [_env_to_out(d) for d in cursor]
 
 
@@ -127,7 +117,7 @@ def create_environment(uid: str, body: ApiClientEnvironmentCreate) -> ApiClientE
         "variables": [],
     }
     try:
-        result = col(API_CLIENT_ENVIRONMENTS).insert_one(doc)
+        result = db_manager.insert_one(API_CLIENT_ENVIRONMENTS, doc)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -141,12 +131,12 @@ def patch_environment(uid: str, environment_id: str, body: ApiClientEnvironmentU
     oid = _parse_oid(environment_id, kind="environment")
     patch = body.model_dump(exclude_unset=True)
     if not patch:
-        doc = col(API_CLIENT_ENVIRONMENTS).find_one({"_id": oid, "created_by": uid})
+        doc = db_manager.find_one(API_CLIENT_ENVIRONMENTS, {"_id": oid, "created_by": uid})
         if not doc:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Environment not found.")
         return _env_to_out(doc)
     try:
-        result = col(API_CLIENT_ENVIRONMENTS).update_one({"_id": oid, "created_by": uid}, {"$set": patch})
+        result = db_manager.update_one(API_CLIENT_ENVIRONMENTS, {"_id": oid, "created_by": uid}, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -154,13 +144,13 @@ def patch_environment(uid: str, environment_id: str, body: ApiClientEnvironmentU
         ) from exc
     if result.matched_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Environment not found.")
-    doc = col(API_CLIENT_ENVIRONMENTS).find_one({"_id": oid})
+    doc = db_manager.find_one(API_CLIENT_ENVIRONMENTS, {"_id": oid})
     return _env_to_out(doc)  # type: ignore[arg-type]
 
 
 def delete_environment(uid: str, environment_id: str) -> None:
     oid = _parse_oid(environment_id, kind="environment")
-    result = col(API_CLIENT_ENVIRONMENTS).delete_one({"_id": oid, "created_by": uid})
+    result = db_manager.delete_one(API_CLIENT_ENVIRONMENTS, {"_id": oid, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Environment not found.")
 
@@ -185,22 +175,21 @@ def _history_doc_to_out(doc: dict[str, Any]) -> ApiClientHistoryOut:
 
 
 def trim_history(uid: str) -> None:
-    history_col = col(API_CLIENT_HISTORY)
     filt = {"created_by": uid}
-    total = history_col.count_documents(filt)
+    total = db_manager.count_documents(API_CLIENT_HISTORY, filt)
     if total <= HISTORY_MAX_ITEMS:
         return
     excess = total - HISTORY_MAX_ITEMS
-    oldest = list(history_col.find(filt, {"_id": 1}).sort("timestamp", 1).limit(excess))
+    oldest = list(db_manager.find(API_CLIENT_HISTORY, filt, {"_id": 1}, sort=[("timestamp", 1)], limit=excess))
     if not oldest:
         return
     ids = [d["_id"] for d in oldest]
-    history_col.delete_many({"_id": {"$in": ids}, "created_by": uid})
+    db_manager.delete_many(API_CLIENT_HISTORY, {"_id": {"$in": ids}, "created_by": uid})
 
 
 def list_history(uid: str, *, limit: int = HISTORY_MAX_ITEMS) -> list[ApiClientHistoryOut]:
     lim = max(1, min(limit, HISTORY_MAX_ITEMS))
-    cursor = col(API_CLIENT_HISTORY).find({"created_by": uid}).sort("timestamp", -1).limit(lim)
+    cursor = db_manager.find(API_CLIENT_HISTORY, {"created_by": uid}, sort=[("timestamp", -1)], limit=lim)
     return [_history_doc_to_out(d) for d in cursor]
 
 
@@ -219,7 +208,7 @@ def create_history(uid: str, body: ApiClientHistoryCreate) -> ApiClientHistoryOu
         "status": body.status,
     }
     try:
-        result = col(API_CLIENT_HISTORY).insert_one(doc)
+        result = db_manager.insert_one(API_CLIENT_HISTORY, doc)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -231,14 +220,14 @@ def create_history(uid: str, body: ApiClientHistoryCreate) -> ApiClientHistoryOu
 
 def delete_history_entry(uid: str, entry_id: str) -> None:
     oid = _parse_oid(entry_id, kind="history")
-    result = col(API_CLIENT_HISTORY).delete_one({"_id": oid, "created_by": uid})
+    result = db_manager.delete_one(API_CLIENT_HISTORY, {"_id": oid, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="History entry not found.")
 
 
 def clear_history(uid: str) -> None:
     try:
-        col(API_CLIENT_HISTORY).delete_many({"created_by": uid})
+        db_manager.delete_many(API_CLIENT_HISTORY, {"created_by": uid})
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

@@ -4,17 +4,15 @@ import random
 import string
 import time
 from pymongo.collection import Collection
-from pymongo.errors import PyMongoError
-from app.database.db import get_db
 
-def now_ms() -> int:
+def create_timestamp() -> int:
     return int(time.time() * 1000)
 
 
 def new_id() -> str:
     suffix = "".join(random.choices(string.ascii_lowercase + string.digits, k=9))
-    return f"{now_ms()}-{suffix}"
+    return f"{create_timestamp()}-{suffix}"
 
 
-def col(name: str) -> Collection:
-    return get_db()[name]
+# def col(name: str) -> Collection:
+#     return get_db()[name]

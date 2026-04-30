@@ -9,12 +9,13 @@ from app.api.routes.sql_client.schema import (
     SqlConnectionUpdate,
 )
 from app.utils.collection_name import SQL_CONNECTIONS
-from app.utils.utils import now_ms, new_id, col
+from app.utils.utils import create_timestamp, new_id
+from app.database import db_manager
 
 
 
 def _doc_to_out(doc: dict[str, Any], *, connection_id: str) -> SqlConnectionOut:
-    created_at = int(doc.get("createdAt", 0)) or now_ms()
+    created_at = int(doc.get("createdAt", 0)) or create_timestamp()
     last_used_at = int(doc.get("lastUsedAt", 0)) or created_at
 
     return SqlConnectionOut(
@@ -30,16 +31,13 @@ def _doc_to_out(doc: dict[str, Any], *, connection_id: str) -> SqlConnectionOut:
 
 
 def list_connections(uid: str) -> list[SqlConnectionOut]:
-    cursor = (
-        col(SQL_CONNECTIONS)
-        .find({"created_by": uid, "encryptedData": {"$exists": True}, "iv": {"$exists": True}})
-        .sort([("lastUsedAt", -1), ("createdAt", -1)])
-    )
+    cursor = db_manager.find(SQL_CONNECTIONS,{"created_by": uid, "encryptedData": {"$exists": True}, "iv": {"$exists": True}},sort=[("lastUsedAt", -1), ("createdAt", -1)])
+    
     return [_doc_to_out(doc, connection_id=str(doc.get("_id", ""))) for doc in cursor]
 
 
 def create_connection(uid: str, body: SqlConnectionCreate) -> SqlConnectionOut:
-    ts = now_ms()
+    ts = create_timestamp()
     _id = new_id()
     doc: dict[str, Any] = {
         "_id": _id,
@@ -52,7 +50,7 @@ def create_connection(uid: str, body: SqlConnectionCreate) -> SqlConnectionOut:
         "lastUsedAt": ts,
     }
     try:
-        col(SQL_CONNECTIONS).insert_one(doc)
+        db_manager.insert_one(SQL_CONNECTIONS, doc)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -62,11 +60,11 @@ def create_connection(uid: str, body: SqlConnectionCreate) -> SqlConnectionOut:
 
 
 def update_connection(uid: str, connection_id: str, body: SqlConnectionUpdate) -> SqlConnectionOut:
-    existing = col(SQL_CONNECTIONS).find_one({"_id": connection_id, "created_by": uid})
+    existing = db_manager.find_one(SQL_CONNECTIONS, {"_id": connection_id, "created_by": uid})
     if not existing:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
 
-    ts = now_ms()
+    ts = create_timestamp()
     patch: dict[str, Any] = {"lastUsedAt": ts}
 
     if body.encryptedData is not None:
@@ -79,28 +77,27 @@ def update_connection(uid: str, connection_id: str, body: SqlConnectionUpdate) -
         patch["type"] = body.type
 
     try:
-        col(SQL_CONNECTIONS).update_one({"_id": connection_id, "created_by": uid}, {"$set": patch})
+        db_manager.update_one(SQL_CONNECTIONS, {"_id": connection_id, "created_by": uid}, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to update connection.",
         ) from exc
 
-    updated = col(SQL_CONNECTIONS).find_one({"_id": connection_id, "created_by": uid})
+    updated = db_manager.find_one(SQL_CONNECTIONS, {"_id": connection_id, "created_by": uid})
     if not updated:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
     return _doc_to_out(updated, connection_id=connection_id)
 
 
 def delete_connection(uid: str, connection_id: str) -> None:
-    res = col(SQL_CONNECTIONS).delete_one({"_id": connection_id, "created_by": uid})
+    res = db_manager.delete_one(SQL_CONNECTIONS, {"_id": connection_id, "created_by": uid})
     if res.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
 
 
 def touch_connection(uid: str, connection_id: str) -> None:
-    """Update lastUsedAt without changing any other fields."""
-    col(SQL_CONNECTIONS).update_one(
+    db_manager.update_one(SQL_CONNECTIONS,
         {"_id": connection_id, "created_by": uid},
-        {"$set": {"lastUsedAt": now_ms()}},
+        {"$set": {"lastUsedAt": create_timestamp()}},
     )

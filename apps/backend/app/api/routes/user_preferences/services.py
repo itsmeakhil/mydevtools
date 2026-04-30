@@ -4,12 +4,7 @@ from typing import Any
 
 from fastapi import HTTPException, status
 
-try:
-    from pymongo.collection import Collection
-    from pymongo.errors import PyMongoError
-except Exception:  # pragma: no cover
-    Collection = Any  # type: ignore
-    PyMongoError = Exception  # type: ignore
+from pymongo.errors import PyMongoError
 
 from app.api.routes.user_preferences.schema import (
     DEFAULT_ENABLED_TOOLS,
@@ -20,24 +15,12 @@ from app.api.routes.user_preferences.schema import (
     UserPreferencesOut,
     UserPreferencesUpdate,
 )
-from app.database.db import get_db
+from app.database import db_manager
 from app.utils.collection_name import NOSQL_QUERY_HISTORY, USER_PREFERENCES
-
-
-def now_ms() -> int:
-    return int(time.time() * 1000)
-
+from app.utils.utils import create_timestamp
 
 def _iso_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-
-
-def _prefs_col() -> Collection:
-    return get_db()[USER_PREFERENCES]
-
-
-def _history_col() -> Collection:
-    return get_db()[NOSQL_QUERY_HISTORY]
 
 
 def _tool_stats_list_to_dict(raw: Any) -> dict[str, ToolStatOut]:
@@ -80,7 +63,7 @@ def _default_prefs_doc(uid: str, ts: int) -> dict[str, Any]:
 
 
 def _doc_to_out(doc: dict[str, Any]) -> UserPreferencesOut:
-    created_at = int(doc.get("createdAt", 0)) or now_ms()
+    created_at = int(doc.get("createdAt", 0)) or create_timestamp()
     updated_at = int(doc.get("updatedAt", 0)) or created_at
     raw_enabled = doc.get("enabledTools")
     if raw_enabled is None:
@@ -106,9 +89,9 @@ def _doc_to_out(doc: dict[str, Any]) -> UserPreferencesOut:
 
 
 def get_preferences(uid: str) -> UserPreferencesOut:
-    doc = _prefs_col().find_one({"created_by": uid})
+    doc = db_manager.find_one(USER_PREFERENCES, {"created_by": uid})
     if not doc:
-        ts = now_ms()
+        ts = create_timestamp()
         return _doc_to_out(_default_prefs_doc(uid, ts))
     return _doc_to_out(doc)
 
@@ -118,7 +101,7 @@ def patch_preferences(uid: str, body: UserPreferencesUpdate) -> UserPreferencesO
     patch.pop("createdAt", None)
     patch.pop("updatedAt", None)
 
-    ts = now_ms()
+    ts = create_timestamp()
     set_fields: dict[str, Any] = {"updatedAt": ts}
 
     if "toolStats" in patch and patch["toolStats"] is not None:
@@ -134,18 +117,18 @@ def patch_preferences(uid: str, body: UserPreferencesUpdate) -> UserPreferencesO
     set_fields.update({k: v for k, v in patch.items() if v is not None})
 
     try:
-        existing = _prefs_col().find_one({"created_by": uid})
+        existing = db_manager.find_one(USER_PREFERENCES, {"created_by": uid})
         if not existing:
             doc = _default_prefs_doc(uid, ts)
             for k, v in set_fields.items():
                 if k != "updatedAt":
                     doc[k] = v
             doc["updatedAt"] = ts
-            _prefs_col().insert_one(doc)
+            db_manager.insert_one(USER_PREFERENCES, doc)
             return _doc_to_out(doc)
 
-        _prefs_col().update_one({"created_by": uid}, {"$set": set_fields})
-        updated = _prefs_col().find_one({"created_by": uid})
+        db_manager.update_one(USER_PREFERENCES, {"created_by": uid}, {"$set": set_fields})
+        updated = db_manager.find_one(USER_PREFERENCES, {"created_by": uid})
         if not updated:
             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Preferences missing.")
         return _doc_to_out(updated)
@@ -157,16 +140,15 @@ def patch_preferences(uid: str, body: UserPreferencesUpdate) -> UserPreferencesO
 
 
 def track_tool_usage(uid: str, tool_id: str) -> None:
-    ts = now_ms()
+    ts = create_timestamp()
     now_iso = _iso_now()
-    col = _prefs_col()
 
     try:
-        doc = col.find_one({"created_by": uid})
+        doc = db_manager.find_one(USER_PREFERENCES, {"created_by": uid})
         if not doc:
             new_doc = _default_prefs_doc(uid, ts)
             new_doc["toolStatsList"] = [{"toolId": tool_id, "usageCount": 1, "lastUsed": now_iso}]
-            col.insert_one(new_doc)
+            db_manager.insert_one(USER_PREFERENCES, new_doc)
             return
 
         stats_list = list(doc.get("toolStatsList") or [])
@@ -183,7 +165,7 @@ def track_tool_usage(uid: str, tool_id: str) -> None:
         if not found:
             stats_list.append({"toolId": tool_id, "usageCount": 1, "lastUsed": now_iso})
 
-        col.update_one({"created_by": uid}, {"$set": {"toolStatsList": stats_list, "updatedAt": ts}})
+        db_manager.update_one(USER_PREFERENCES, {"created_by": uid}, {"$set": {"toolStatsList": stats_list, "updatedAt": ts}})
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -207,14 +189,14 @@ def get_nosql_query_history(
     db_name: str,
     collection_name: str,
 ) -> NosqlQueryHistoryOut:
-    doc = _history_col().find_one(_history_filter(uid, connection_name, db_name, collection_name))
+    doc = db_manager.find_one(NOSQL_QUERY_HISTORY, _history_filter(uid, connection_name, db_name, collection_name))
     if not doc:
         return NosqlQueryHistoryOut(
             connectionName=connection_name,
             dbName=db_name,
             collectionName=collection_name,
             queries=[],
-            updatedAt=now_ms(),
+            updatedAt=create_timestamp(),
         )
     queries = doc.get("queries") or []
     if not isinstance(queries, list):
@@ -224,12 +206,12 @@ def get_nosql_query_history(
         dbName=db_name,
         collectionName=collection_name,
         queries=[str(q) for q in queries][:MAX_NOSQL_HISTORY_QUERIES],
-        updatedAt=int(doc.get("updatedAt", 0)) or now_ms(),
+        updatedAt=int(doc.get("updatedAt", 0)) or create_timestamp(),
     )
 
 
 def put_nosql_query_history(uid: str, body: NosqlQueryHistoryPut) -> NosqlQueryHistoryOut:
-    ts = now_ms()
+    ts = create_timestamp()
     queries = body.queries[:MAX_NOSQL_HISTORY_QUERIES]
     flt = _history_filter(uid, body.connectionName, body.dbName, body.collectionName)
     doc = {
@@ -239,12 +221,12 @@ def put_nosql_query_history(uid: str, body: NosqlQueryHistoryPut) -> NosqlQueryH
     }
 
     try:
-        existing = _history_col().find_one(flt)
+        existing = db_manager.find_one(NOSQL_QUERY_HISTORY, flt)
         if not existing:
             doc["createdAt"] = ts
-            _history_col().insert_one(doc)
+            db_manager.insert_one(NOSQL_QUERY_HISTORY, doc)
         else:
-            _history_col().update_one(flt, {"$set": {"queries": queries, "updatedAt": ts}})
+            db_manager.update_one(NOSQL_QUERY_HISTORY, flt, {"$set": {"queries": queries, "updatedAt": ts}})
         return get_nosql_query_history(
             uid,
             connection_name=body.connectionName,

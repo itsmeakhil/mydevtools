@@ -4,11 +4,8 @@ import time
 from typing import Any
 
 from app.utils.collection_name import USERS
+from app.utils.utils import create_timestamp
 from app.database import db_manager
-
-def _now_ms() -> int:
-    return int(time.time() * 1000)
-
 
 
 
@@ -16,7 +13,7 @@ def upsert_user_from_firebase_claims(decoded: dict[str, Any]) -> None:
     uid = decoded.get("uid")
     if not uid:
         return
-    now = _now_ms()
+    now = create_timestamp()
     doc = {
         "_id": uid,
         "uid": uid,
@@ -45,13 +42,13 @@ def get_user_doc_by_username(username: str) -> dict[str, Any] | None:
 def update_user_profile(uid: str, updates: dict[str, Any]) -> None:
     if not updates:
         return
-    now = _now_ms()
+    now = create_timestamp()
     updates["updated_at"] = now
     db_manager.update_one(USERS, {"_id": uid}, {"$set": updates})
 
 
 def set_refresh_token_hash(uid: str, token_hash: str) -> None:
-    now = _now_ms()
+    now = create_timestamp()
     db_manager.update_one(USERS, {
         {"_id": uid},
         {"$set": {"refresh_token_hash": token_hash, "updated_at": now}},
@@ -60,7 +57,7 @@ def set_refresh_token_hash(uid: str, token_hash: str) -> None:
 
 
 def clear_refresh_token_hash(uid: str) -> None:
-    now = _now_ms()
+    now = create_timestamp()
     db_manager.update_one(USERS, {"_id": uid}, {"$unset": {"refresh_token_hash": ""}, "$set": {"updated_at": now}})
 
 
@@ -85,7 +82,7 @@ def get_master_vault(uid: str) -> dict[str, Any] | None:
 
 def set_master_vault(uid: str, vault: dict[str, Any]) -> None:
     """Persist master-vault metadata on the user document (idempotent upsert)."""
-    now = _now_ms()
+    now = create_timestamp()
     db_manager.update_one(USERS, {"_id": uid}, {"$set": {"master_vault": vault, "updated_at": now}})
 
 
@@ -93,7 +90,7 @@ def set_master_vault(uid: str, vault: dict[str, Any]) -> None:
 
 
 def set_backup_codes(uid: str, codes: list[dict[str, Any]]) -> None:
-    now = _now_ms()
+    now = create_timestamp()
     db_manager.update_one(USERS, {"_id": uid}, {"$set": {"backup_codes": codes, "updated_at": now}})
 
 
@@ -109,5 +106,5 @@ def get_backup_code_by_id(uid: str, code_id: str) -> dict[str, Any] | None:
 
 
 def mark_backup_code_used(uid: str, code_id: str) -> None:
-    now = _now_ms()
+    now = create_timestamp()
     db_manager.update_one(USERS, {"_id": uid, "backup_codes.codeId": code_id}, {"$set": {"backup_codes.$.used": True, "updated_at": now}})

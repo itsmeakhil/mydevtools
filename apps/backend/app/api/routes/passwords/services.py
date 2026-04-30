@@ -12,7 +12,8 @@ from app.api.routes.passwords.schema import (
     VaultSetupRequest,
 )
 from app.utils.collection_name import PASSWORD_ENTRIES, PASSWORD_VAULTS
-from app.utils.utils import col, now_ms, new_id
+from app.utils.utils import create_timestamp, new_id
+from app.database import db_manager
 
 
 
@@ -35,7 +36,7 @@ def _vault_doc_to_out(doc: dict[str, Any]) -> VaultOut:
     )
     created_at = int(doc.get("createdAt", 0))
     if created_at <= 0:
-        created_at = now_ms()
+        created_at = create_timestamp()
 
     return VaultOut(
         salt=str(salt),
@@ -45,7 +46,7 @@ def _vault_doc_to_out(doc: dict[str, Any]) -> VaultOut:
 
 
 def _entry_doc_to_out(doc: dict[str, Any], *, entry_id: str) -> PasswordEntryOut:
-    created_at = int(doc.get("createdAt", 0)) or now_ms()
+    created_at = int(doc.get("createdAt", 0)) or create_timestamp()
     updated_at = int(doc.get("updatedAt", 0)) or created_at
     return PasswordEntryOut(
         id=entry_id,
@@ -57,15 +58,15 @@ def _entry_doc_to_out(doc: dict[str, Any], *, entry_id: str) -> PasswordEntryOut
 
 
 def get_vault(uid: str) -> VaultOut:
-    doc = col(PASSWORD_VAULTS).find_one({"created_by": uid})
+    doc = db_manager.find_one(PASSWORD_VAULTS, {"created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Vault not found.")
     return _vault_doc_to_out(doc)
 
 
 def setup_vault(uid: str, body: VaultSetupRequest) -> VaultOut:
-    ts_created = int(body.createdAt) if body.createdAt is not None else now_ms()
-    ts_updated = now_ms()
+    ts_created = int(body.createdAt) if body.createdAt is not None else create_timestamp()
+    ts_updated = create_timestamp()
 
     doc: dict[str, Any] = {
         "created_by": uid,
@@ -76,7 +77,7 @@ def setup_vault(uid: str, body: VaultSetupRequest) -> VaultOut:
     }
 
     try:
-        col(PASSWORD_VAULTS).replace_one({"created_by": uid}, doc, upsert=True)
+        db_manager.update_one(PASSWORD_VAULTS, {"created_by": uid}, doc, upsert=True)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -94,7 +95,7 @@ def list_entries(
     offset: int = 0,
 ) -> list[PasswordEntryOut]:
     q = {"created_by": uid}
-    cursor = col(PASSWORD_ENTRIES).find(q).sort([("updatedAt", -1), ("createdAt", -1)]).skip(max(0, offset))
+    cursor = db_manager.find(PASSWORD_ENTRIES, q, sort=[("updatedAt", -1), ("createdAt", -1)], skip=max(0, offset))
     if limit is not None:
         cursor = cursor.limit(limit)
     docs = list(cursor)
@@ -107,7 +108,7 @@ def list_entries(
 
 def create_entry(uid: str, body: PasswordEntryCreate) -> PasswordEntryOut:
     eid = new_id()
-    ts = now_ms()
+    ts = create_timestamp()
     created_at = int(body.createdAt) if body.createdAt is not None else ts
     updated_at = int(body.updatedAt) if body.updatedAt is not None else created_at
 
@@ -121,7 +122,7 @@ def create_entry(uid: str, body: PasswordEntryCreate) -> PasswordEntryOut:
     }
 
     try:
-        col(PASSWORD_ENTRIES).insert_one(doc)
+        db_manager.insert_one(PASSWORD_ENTRIES, doc)
     except PyMongoError as exc:
         # Likely collision on _id; treat like conflict to keep consistent with other modules.
         msg = str(exc).lower()
@@ -133,14 +134,14 @@ def create_entry(uid: str, body: PasswordEntryCreate) -> PasswordEntryOut:
 
 
 def get_entry(uid: str, entry_id: str) -> PasswordEntryOut:
-    doc = col(PASSWORD_ENTRIES).find_one({"_id": entry_id, "created_by": uid})
+    doc = db_manager.find_one(PASSWORD_ENTRIES, {"_id": entry_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Entry not found.")
     return _entry_doc_to_out(doc, entry_id=entry_id)
 
 
 def update_entry(uid: str, entry_id: str, body: PasswordEntryUpdate) -> PasswordEntryOut:
-    ts_updated = int(body.updatedAt) if body.updatedAt is not None else now_ms()
+    ts_updated = int(body.updatedAt) if body.updatedAt is not None else create_timestamp()
 
     patch: dict[str, Any] = {
         "encryptedData": body.encryptedData,
@@ -149,7 +150,7 @@ def update_entry(uid: str, entry_id: str, body: PasswordEntryUpdate) -> Password
     }
 
     try:
-        result = col(PASSWORD_ENTRIES).update_one({"_id": entry_id, "created_by": uid}, {"$set": patch})
+        result = db_manager.update_one(PASSWORD_ENTRIES, {"_id": entry_id, "created_by": uid}, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update entry.") from exc
 
@@ -160,14 +161,14 @@ def update_entry(uid: str, entry_id: str, body: PasswordEntryUpdate) -> Password
 
 
 def delete_entry(uid: str, entry_id: str) -> None:
-    result = col(PASSWORD_ENTRIES).delete_one({"_id": entry_id, "created_by": uid})
+    result = db_manager.delete_one(PASSWORD_ENTRIES, {"_id": entry_id, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Entry not found.")
 
 
 def clear_entries(uid: str) -> dict[str, int]:
     try:
-        res = col(PASSWORD_ENTRIES).delete_many({"created_by": uid})
+        res = db_manager.delete_many(PASSWORD_ENTRIES, {"created_by": uid})
     except PyMongoError as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to clear entries.") from exc
     return {"entriesDeleted": int(res.deleted_count)}
@@ -177,7 +178,7 @@ def clear_vault(uid: str) -> dict[str, int]:
     # Delete entries first so references never “survive” vault deletion.
     entries_deleted = clear_entries(uid)["entriesDeleted"]
     try:
-        res = col(PASSWORD_VAULTS).delete_many({"created_by": uid})
+        res = db_manager.delete_many(PASSWORD_VAULTS, {"created_by": uid})
     except PyMongoError as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to clear vault.") from exc
     return {"entriesDeleted": entries_deleted, "vaultDeleted": int(res.deleted_count)}
