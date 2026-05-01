@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+export const runtime = 'edge';
+
 export async function GET() {
   try {
     // Fetch the real-time data from the external analytics API

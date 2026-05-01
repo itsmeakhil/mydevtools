@@ -1,5 +1,7 @@
 import { buildLlmsTxtBody } from '@/lib/seo/structured-data'
 
+export const runtime = 'edge';
+
 export function GET() {
   return new Response(buildLlmsTxtBody(), {
     headers: {

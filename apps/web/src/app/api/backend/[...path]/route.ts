@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 
+export const runtime = 'edge';
+
 const FASTAPI_BASE_URL = process.env.NEXT_PUBLIC_FASTAPI_BASE_URL
 
 function requireBaseUrl() {

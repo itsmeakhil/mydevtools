@@ -1,5 +1,25 @@
 import { NextRequest, NextResponse } from "next/server"
 
+export const runtime = 'edge';
+
+function arrayBufferToBase64(buffer: ArrayBuffer): string {
+    const bytes = new Uint8Array(buffer);
+    let binary = '';
+    for (let i = 0; i < bytes.byteLength; i++) {
+        binary += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binary);
+}
+
+function base64ToArrayBuffer(base64: string): ArrayBuffer {
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+    }
+    return bytes.buffer;
+}
+
 export async function POST(req: NextRequest) {
     try {
         const { url, method, headers, body } = await req.json()
@@ -39,7 +59,7 @@ export async function POST(req: NextRequest) {
 
                 if (entry.type === "file") {
                     if (!entry.fileContentBase64) continue
-                    const fileBuffer = Buffer.from(entry.fileContentBase64, "base64")
+                    const fileBuffer = base64ToArrayBuffer(entry.fileContentBase64)
                     const blob = new Blob([fileBuffer], { type: entry.fileType || "application/octet-stream" })
                     form.append(entry.key, blob, entry.fileName || "upload.bin")
                 } else {
@@ -74,13 +94,18 @@ export async function POST(req: NextRequest) {
 
         if (contentType.includes("image/") || contentType.includes("application/pdf") || contentType.includes("audio/") || contentType.includes("video/")) {
             const buffer = await response.arrayBuffer()
-            responseBody = Buffer.from(buffer).toString("base64")
+            responseBody = arrayBufferToBase64(buffer)
             isBase64 = true
         } else {
             responseBody = await response.text()
         }
 
-        const size = Number(response.headers.get("content-length")) || (isBase64 ? Buffer.from(responseBody, "base64").length : responseBody.length)
+        const contentLength = response.headers.get("content-length")
+        const size = contentLength
+            ? Number(contentLength)
+            : isBase64
+                ? Math.round((responseBody.length * 3) / 4)
+                : new TextEncoder().encode(responseBody).length
 
         return NextResponse.json({
             status: response.status,

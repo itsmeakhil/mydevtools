@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Toaster } from 'sonner'
 import { ThemeProvider } from "@/components/theme-provider"
 import { UserPreferencesSync } from "@/components/user-preferences-sync"
@@ -113,8 +111,6 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://securetoken.googleapis.com" />
         {/* Firebase Storage */}
         <link rel="preconnect" href="https://firebasestorage.googleapis.com" />
-        {/* Vercel Speed Insights */}
-        <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
       </head>
       <body suppressHydrationWarning className="min-h-screen bg-background font-sans antialiased">
         <SiteWideJsonLd />
@@ -131,8 +127,6 @@ export default async function RootLayout({
             <AppUpdateNotifier />
             <GlobalCommandPalette />
             {children}
-            <Analytics />
-            <SpeedInsights />
             <Toaster />
           </NextIntlClientProvider>
         </ThemeProvider>

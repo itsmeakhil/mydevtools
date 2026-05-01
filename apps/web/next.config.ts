@@ -7,6 +7,7 @@ const withNextIntl = createNextIntlPlugin();
 /** Baked into client + server at build time; set APP_BUILD_ID in CI for non-Vercel deploys. */
 function getAppBuildId(): string {
   return (
+    process.env.CF_PAGES_COMMIT_SHA ||
     process.env.VERCEL_DEPLOYMENT_ID ||
     process.env.VERCEL_GIT_COMMIT_SHA ||
     process.env.APP_BUILD_ID ||
