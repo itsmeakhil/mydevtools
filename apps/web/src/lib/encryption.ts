@@ -115,10 +115,22 @@ export async function verifyKey(key: CryptoKey, encrypted: string, iv: string): 
 
 const BACKUP_CODE_CHARSET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"
 
+/**
+ * M-9 fix: uniform random character selection using rejection sampling.
+ * Avoids modulo bias that would make some characters ~12% more likely.
+ */
+function uniformRandomChar(charset: string): string {
+    const maxValid = 256 - (256 % charset.length) // Largest multiple of charset.length that fits in a byte
+    let byte: number
+    do {
+        byte = window.crypto.getRandomValues(new Uint8Array(1))[0]!
+    } while (byte >= maxValid)
+    return charset[byte % charset.length]!
+}
+
 export function generateBackupCodes(count = 8): string[] {
     return Array.from({ length: count }, () => {
-        const bytes = window.crypto.getRandomValues(new Uint8Array(18))
-        const chars = Array.from(bytes).map(b => BACKUP_CODE_CHARSET[b % BACKUP_CODE_CHARSET.length])
+        const chars = Array.from({ length: 18 }, () => uniformRandomChar(BACKUP_CODE_CHARSET))
         return `${chars.slice(0, 6).join("")}-${chars.slice(6, 12).join("")}-${chars.slice(12, 18).join("")}`
     })
 }
@@ -128,7 +140,9 @@ export async function encryptWithBackupCode(
     masterPassword: string,
 ): Promise<{ codeId: string; codeSalt: string; encrypted: string; iv: string }> {
     const normalized = code.replace(/-/g, "")
-    const codeId = code.slice(0, 6)
+    // H-7 fix: use first 10 chars for codeId (30^10 ≈ 590T possibilities)
+    // instead of 6 chars (30^6 ≈ 729M) to prevent brute-force enumeration.
+    const codeId = normalized.slice(0, 10)
     const codeSalt = await generateSalt()
     const key = await deriveKey(normalized, codeSalt)
     const { encrypted, iv } = await encryptData(key, masterPassword)

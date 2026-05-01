@@ -1,6 +1,6 @@
 from typing import Optional
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Request
 
 from app.api.routes.auth.services import get_current_uid
 from app.api.routes.passwords.schema import (
@@ -11,6 +11,7 @@ from app.api.routes.passwords.schema import (
     VaultSetupRequest,
 )
 from app.api.routes.passwords import services as pw_svc
+from app.core.limiter import limiter
 
 
 router = APIRouter(prefix="/password-manager", tags=["password-manager"])
@@ -22,7 +23,8 @@ def get_vault(uid: str = Depends(get_current_uid)) -> VaultOut:
 
 
 @router.post("/vault/setup", response_model=VaultOut, summary="Setup/replace password vault")
-def setup_vault(body: VaultSetupRequest, uid: str = Depends(get_current_uid)) -> VaultOut:
+@limiter.limit("3/minute")
+def setup_vault(request: Request, body: VaultSetupRequest, uid: str = Depends(get_current_uid)) -> VaultOut:
     return pw_svc.setup_vault(uid, body)
 
 
@@ -30,7 +32,8 @@ def setup_vault(body: VaultSetupRequest, uid: str = Depends(get_current_uid)) ->
     "/vault/clear",
     summary="Delete vault + all encrypted entries (clearAll equivalent)",
 )
-def clear_vault(uid: str = Depends(get_current_uid)) -> dict[str, int]:
+@limiter.limit("3/minute")
+def clear_vault(request: Request, uid: str = Depends(get_current_uid)) -> dict[str, int]:
     return pw_svc.clear_vault(uid)
 
 
@@ -52,7 +55,8 @@ def list_entries(
     response_model=PasswordEntryOut,
     summary="Create password entry (encrypted blob)",
 )
-def create_entry(body: PasswordEntryCreate, uid: str = Depends(get_current_uid)) -> PasswordEntryOut:
+@limiter.limit("30/minute")
+def create_entry(request: Request, body: PasswordEntryCreate, uid: str = Depends(get_current_uid)) -> PasswordEntryOut:
     return pw_svc.create_entry(uid, body)
 
 
@@ -85,4 +89,3 @@ def patch_entry(
 )
 def delete_entry(entry_id: str, uid: str = Depends(get_current_uid)) -> None:
     pw_svc.delete_entry(uid, entry_id)
-

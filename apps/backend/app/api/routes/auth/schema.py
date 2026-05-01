@@ -28,6 +28,7 @@ class UserProfileResponse(BaseModel):
     disabled: bool
     github_username: str | None = None
     username: str | None = None
+    bio: str | None = None
     social_links: SocialLinks | None = None
     tech_stacks: list[str] = Field(default_factory=list)
 
@@ -35,6 +36,7 @@ class UserProfileResponse(BaseModel):
 class UpdateProfileRequest(BaseModel):
     github_username: str | None = None
     username: str | None = None
+    bio: str | None = None
     social_links: SocialLinks | None = None
     tech_stacks: list[str] | None = None
 

@@ -6,7 +6,7 @@ from app.core.config import get_settings
 
 def attach_auth_cookies(response: Response, access: str, refresh_plain: str) -> None:
     settings = get_settings()
-    access_max = settings.ACCESS_TOKEN_EXPIRE_DAYS * 24 * 3600
+    access_max = settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60
     refresh_max = settings.REFRESH_TOKEN_EXPIRE_DAYS * 24 * 3600
     common: dict = {
         "httponly": True,

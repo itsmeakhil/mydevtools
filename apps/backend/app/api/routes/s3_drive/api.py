@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 
 from app.api.routes.auth.services import get_current_uid
 from app.api.routes.s3_drive.schema import (
@@ -18,6 +18,7 @@ from app.api.routes.s3_drive.schema import (
     ConfigureCorsRequest,
 )
 from app.api.routes.s3_drive import services as svc
+from app.core.limiter import limiter
 
 router = APIRouter(prefix="/s3-drive", tags=["s3-drive"])
 
@@ -30,7 +31,8 @@ def list_connections(uid: str = Depends(get_current_uid)) -> list[S3ConnectionOu
 
 
 @router.post("/connections", response_model=S3ConnectionOut, status_code=201)
-def create_connection(body: S3ConnectionCreate, uid: str = Depends(get_current_uid)) -> S3ConnectionOut:
+@limiter.limit("20/minute")
+def create_connection(request: Request, body: S3ConnectionCreate, uid: str = Depends(get_current_uid)) -> S3ConnectionOut:
     return svc.create_connection(uid, body)
 
 
@@ -52,40 +54,48 @@ def delete_connection(conn_id: str, uid: str = Depends(get_current_uid)) -> None
 # ── S3 operations (credentials sent per-request, never stored plaintext) ──────
 
 @router.post("/operations/buckets", response_model=list[BucketInfo])
-def list_buckets(body: ListBucketsRequest, uid: str = Depends(get_current_uid)) -> list[BucketInfo]:
+@limiter.limit("30/minute")
+def list_buckets(request: Request, body: ListBucketsRequest, uid: str = Depends(get_current_uid)) -> list[BucketInfo]:
     return svc.list_buckets(body)
 
 
 @router.post("/operations/list", response_model=ListObjectsResponse)
-def list_objects(body: ListObjectsRequest, uid: str = Depends(get_current_uid)) -> ListObjectsResponse:
+@limiter.limit("60/minute")
+def list_objects(request: Request, body: ListObjectsRequest, uid: str = Depends(get_current_uid)) -> ListObjectsResponse:
     return svc.list_objects(body)
 
 
 @router.post("/operations/delete", response_model=dict)
-def delete_objects(body: DeleteObjectsRequest, uid: str = Depends(get_current_uid)) -> dict:
+@limiter.limit("20/minute")
+def delete_objects(request: Request, body: DeleteObjectsRequest, uid: str = Depends(get_current_uid)) -> dict:
     return svc.delete_objects(body)
 
 
 @router.post("/operations/create-folder", response_model=dict)
-def create_folder(body: CreateFolderRequest, uid: str = Depends(get_current_uid)) -> dict:
+@limiter.limit("30/minute")
+def create_folder(request: Request, body: CreateFolderRequest, uid: str = Depends(get_current_uid)) -> dict:
     return svc.create_folder(body)
 
 
 @router.post("/operations/presigned-download", response_model=PresignedUrlResponse)
-def presigned_download(body: PresignedDownloadRequest, uid: str = Depends(get_current_uid)) -> PresignedUrlResponse:
+@limiter.limit("60/minute")
+def presigned_download(request: Request, body: PresignedDownloadRequest, uid: str = Depends(get_current_uid)) -> PresignedUrlResponse:
     return svc.presigned_download(body)
 
 
 @router.post("/operations/presigned-upload", response_model=PresignedUrlResponse)
-def presigned_upload(body: PresignedUploadRequest, uid: str = Depends(get_current_uid)) -> PresignedUrlResponse:
+@limiter.limit("60/minute")
+def presigned_upload(request: Request, body: PresignedUploadRequest, uid: str = Depends(get_current_uid)) -> PresignedUrlResponse:
     return svc.presigned_upload(body)
 
 
 @router.post("/operations/move", response_model=dict)
-def move_object(body: MoveObjectRequest, uid: str = Depends(get_current_uid)) -> dict:
+@limiter.limit("20/minute")
+def move_object(request: Request, body: MoveObjectRequest, uid: str = Depends(get_current_uid)) -> dict:
     return svc.move_object(body)
 
 
 @router.post("/operations/configure-cors", response_model=dict, summary="Set bucket CORS rules to allow browser presigned URL requests")
-def configure_cors(body: ConfigureCorsRequest, _uid: str = Depends(get_current_uid)) -> dict:
+@limiter.limit("5/minute")
+def configure_cors(request: Request, body: ConfigureCorsRequest, _uid: str = Depends(get_current_uid)) -> dict:
     return svc.configure_bucket_cors(body, body.allowedOrigins)

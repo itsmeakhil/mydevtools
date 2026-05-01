@@ -959,7 +959,7 @@ export function FileBrowser({ credentials, connectionName }: Props) {
 
         if (!corsConfiguredRef.current) {
             try {
-                await configureBucketCors(credentials)
+                await configureBucketCors(credentials, [window.location.origin])
                 corsConfiguredRef.current = true
             } catch {
                 // Non-fatal: CORS may already be configured or user may lack permission

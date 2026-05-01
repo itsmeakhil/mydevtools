@@ -65,6 +65,14 @@ def get_vault(uid: str) -> VaultOut:
 
 
 def setup_vault(uid: str, body: VaultSetupRequest) -> VaultOut:
+    # H-3 fix: prevent overwriting an existing vault (would make all entries undecryptable).
+    existing = db_manager.find_one(PASSWORD_VAULTS, {"created_by": uid})
+    if existing:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Vault already exists. Delete the existing vault first.",
+        )
+
     ts_created = int(body.createdAt) if body.createdAt is not None else create_timestamp()
     ts_updated = create_timestamp()
 
@@ -77,7 +85,7 @@ def setup_vault(uid: str, body: VaultSetupRequest) -> VaultOut:
     }
 
     try:
-        db_manager.update_one(PASSWORD_VAULTS, {"created_by": uid}, doc, upsert=True)
+        db_manager.insert_one(PASSWORD_VAULTS, doc)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -95,10 +103,15 @@ def list_entries(
     offset: int = 0,
 ) -> list[PasswordEntryOut]:
     q = {"created_by": uid}
-    cursor = db_manager.find(PASSWORD_ENTRIES, q, sort=[("updatedAt", -1), ("createdAt", -1)], skip=max(0, offset))
-    if limit is not None:
-        cursor = cursor.limit(limit)
-    docs = list(cursor)
+    # H-4 fix: db_manager.find() already returns a list, so pass limit/skip as args
+    # instead of chaining .limit() on the result (which would crash).
+    docs = db_manager.find(
+        PASSWORD_ENTRIES,
+        q,
+        sort=[("updatedAt", -1), ("createdAt", -1)],
+        skip=max(0, offset),
+        limit=limit or 0,
+    )
     out: list[PasswordEntryOut] = []
     for d in docs:
         eid = str(d.get("_id", "")) if d.get("_id") is not None else ""

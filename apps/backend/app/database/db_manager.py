@@ -72,24 +72,24 @@ def count_documents(collection_name, query):
     return cursor
 
 
-def distinct(db, collection_name, field, query):
+def distinct(collection_name, field, query):
     if query is None:
         query = {}
     return db[collection_name].distinct(field, query)
 
 
-def aggregate(db, collection_name, query):
+def aggregate(collection_name, query):
     data = db[collection_name].aggregate(query)
     return list(data)
 
 
-def create_index(db, collection_name, field, unique=False, sparse=False, background=False):
+def create_index(collection_name, field, unique=False, sparse=False, background=False):
     db[collection_name].create_index(field, unique=unique, sparse=sparse, background=background)
 
 
-def drop_index(db, collection_name, name):
+def drop_index(collection_name, name):
     db[collection_name].drop_index(name)
 
 
-def list_indexes(db, collection_name):
+def list_indexes(collection_name):
     db[collection_name].list_indexes()

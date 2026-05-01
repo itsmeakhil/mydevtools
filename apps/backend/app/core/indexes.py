@@ -1,4 +1,4 @@
-from apps.backend.app.database import db_manager
+from app.database import db_manager
 from app.utils.collection_name import (
     API_CLIENT_HISTORY,
     API_CLIENT_COLLECTIONS,

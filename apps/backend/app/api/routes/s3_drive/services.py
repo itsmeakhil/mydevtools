@@ -1,5 +1,6 @@
-import functools
 import hashlib
+import threading
+import time
 from typing import Any
 
 from fastapi import HTTPException, status
@@ -114,27 +115,50 @@ def delete_connection(uid: str, conn_id: str) -> None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
 
 
-# ── S3 client factory ─────────────────────────────────────────────────────────
+# ── S3 client factory (TTL-based, secrets never stored as cache-key args) ─────
 
-@functools.lru_cache(maxsize=128)
-def _cached_s3_client(cache_key: str, access_key: str, secret_key: str, region: str, endpoint: str | None):
-    kwargs: dict[str, Any] = {
-        "aws_access_key_id": access_key,
-        "aws_secret_access_key": secret_key,
-        "region_name": region,
-        "config": Config(signature_version="s3v4", connect_timeout=10, read_timeout=30),
-    }
-    if endpoint:
-        kwargs["endpoint_url"] = endpoint
-    return boto3.client("s3", **kwargs)
+_CLIENT_CACHE: dict[str, tuple[float, Any]] = {}  # cache_key → (expires_at, client)
+_CLIENT_CACHE_TTL = 300  # 5 minutes
+_CLIENT_CACHE_MAX = 64
+_CLIENT_CACHE_LOCK = threading.Lock()
 
 
 def _s3_client(creds: S3Credentials):
     if boto3 is None:
         raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="boto3 not installed.")
+
     raw = f"{creds.accessKey}:{creds.secretKey}:{creds.region}:{creds.endpoint or ''}"
     cache_key = hashlib.sha256(raw.encode()).hexdigest()
-    return _cached_s3_client(cache_key, creds.accessKey, creds.secretKey, creds.region, creds.endpoint)
+    now = time.monotonic()
+
+    with _CLIENT_CACHE_LOCK:
+        entry = _CLIENT_CACHE.get(cache_key)
+        if entry and entry[0] > now:
+            return entry[1]
+
+    kwargs: dict[str, Any] = {
+        "aws_access_key_id": creds.accessKey,
+        "aws_secret_access_key": creds.secretKey,
+        "region_name": creds.region,
+        "config": Config(signature_version="s3v4", connect_timeout=10, read_timeout=30),
+    }
+    if creds.endpoint:
+        kwargs["endpoint_url"] = creds.endpoint
+    client = boto3.client("s3", **kwargs)
+
+    with _CLIENT_CACHE_LOCK:
+        # Evict expired entries if cache is too large
+        if len(_CLIENT_CACHE) >= _CLIENT_CACHE_MAX:
+            expired = [k for k, (exp, _) in _CLIENT_CACHE.items() if exp <= now]
+            for k in expired:
+                del _CLIENT_CACHE[k]
+            # If still too large after eviction, drop oldest
+            if len(_CLIENT_CACHE) >= _CLIENT_CACHE_MAX:
+                oldest_key = min(_CLIENT_CACHE, key=lambda k: _CLIENT_CACHE[k][0])
+                del _CLIENT_CACHE[oldest_key]
+        _CLIENT_CACHE[cache_key] = (now + _CLIENT_CACHE_TTL, client)
+
+    return client
 
 
 def _s3_error(exc: Exception) -> HTTPException:

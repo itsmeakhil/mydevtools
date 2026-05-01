@@ -1,5 +1,48 @@
 import { NextRequest, NextResponse } from "next/server"
 
+// ── SSRF Protection: only allow proxying to the configured backend ────────────
+const FASTAPI_BASE_URL = process.env.NEXT_PUBLIC_FASTAPI_BASE_URL || "http://localhost:8000"
+
+/** Resolve the allowed backend host once at module load. */
+function getAllowedHost(): string {
+    try {
+        return new URL(FASTAPI_BASE_URL).host
+    } catch {
+        return "localhost:8000"
+    }
+}
+
+const ALLOWED_HOST = getAllowedHost()
+
+/** Check if a hostname resolves to a private/internal IP range. */
+function isBlockedHostname(hostname: string): boolean {
+    // Block common internal/metadata endpoints
+    const blocked = [
+        "169.254.169.254",  // AWS/GCP metadata
+        "metadata.google.internal",
+        "metadata.google",
+        "100.100.100.200",  // Alibaba metadata
+        "fd00::",
+        "[::1]",
+        "0.0.0.0",
+    ]
+    if (blocked.some((b) => hostname === b)) return true
+
+    // Block private IP ranges
+    const parts = hostname.split(".")
+    if (parts.length === 4 && parts.every((p) => /^\d+$/.test(p))) {
+        const a = parseInt(parts[0]!)
+        const b = parseInt(parts[1]!)
+        if (a === 10) return true                           // 10.0.0.0/8
+        if (a === 172 && b >= 16 && b <= 31) return true    // 172.16.0.0/12
+        if (a === 192 && b === 168) return true             // 192.168.0.0/16
+        if (a === 127) return true                          // 127.0.0.0/8
+        if (a === 0) return true                            // 0.0.0.0/8
+    }
+
+    return false
+}
+
 export async function POST(req: NextRequest) {
     try {
         const { url, method, headers, body } = await req.json()
@@ -8,8 +51,9 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "URL is required" }, { status: 400 })
         }
 
+        let parsed: URL
         try {
-            new URL(url)
+            parsed = new URL(url)
         } catch {
             return NextResponse.json({
                 status: 400,
@@ -22,13 +66,43 @@ export async function POST(req: NextRequest) {
             })
         }
 
+        // ── SSRF guard: block internal/metadata IPs ──────────────────────────
+        if (isBlockedHostname(parsed.hostname)) {
+            return NextResponse.json({
+                status: 403,
+                statusText: "Forbidden",
+                headers: {},
+                body: "Requests to internal/private addresses are not allowed",
+                time: 0,
+                size: 0,
+                error: "Blocked by SSRF protection",
+            })
+        }
+
+        // ── Only allow file:// and other dangerous schemes to be blocked ─────
+        if (!["http:", "https:"].includes(parsed.protocol)) {
+            return NextResponse.json({
+                status: 403,
+                statusText: "Forbidden",
+                headers: {},
+                body: "Only HTTP(S) URLs are allowed",
+                time: 0,
+                size: 0,
+                error: "Blocked protocol",
+            })
+        }
+
         const startTime = performance.now()
 
         const requestHeaders = { ...(headers || {}) } as Record<string, string>
+
+        // ── Cookie forwarding: ONLY forward cookies to the trusted backend ───
+        const isBackendRequest = parsed.host === ALLOWED_HOST
         const incomingCookie = req.headers.get("cookie")
-        if (incomingCookie && !Object.keys(requestHeaders).some((k) => k.toLowerCase() === "cookie")) {
+        if (isBackendRequest && incomingCookie && !Object.keys(requestHeaders).some((k) => k.toLowerCase() === "cookie")) {
             requestHeaders["cookie"] = incomingCookie
         }
+
         let requestBody: BodyInit | undefined = body || undefined
 
         if (body && typeof body === "object" && body.mode === "form-data" && Array.isArray(body.entries)) {

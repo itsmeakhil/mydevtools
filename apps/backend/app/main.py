@@ -1,3 +1,4 @@
+import logging
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request, Response
@@ -19,17 +20,17 @@ async def lifespan(_app: FastAPI):
     try:
         from app.core.indexes import ensure_indexes
         ensure_indexes()
-    except Exception:
-        pass
+    except Exception as exc:
+        logging.getLogger(__name__).warning("Index creation failed: %s", exc)
     yield
 
 
 app = FastAPI(
     title=settings.APP_NAME,
     debug=settings.APP_DEBUG,
-    docs_url="/docs",
-    redoc_url="/redoc",
-    openapi_url="/openapi.json",
+    docs_url="/docs" if settings.APP_DEBUG else None,
+    redoc_url="/redoc" if settings.APP_DEBUG else None,
+    openapi_url="/openapi.json" if settings.APP_DEBUG else None,
     lifespan=lifespan,
 )
 
@@ -53,6 +54,15 @@ async def security_headers(request: Request, call_next) -> Response:
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
     response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
+    # M-5 fix: add Content-Security-Policy
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; "
+        "script-src 'self'; "
+        "style-src 'self' 'unsafe-inline'; "
+        "img-src 'self' data: https:; "
+        "font-src 'self' https://fonts.gstatic.com; "
+        "connect-src 'self'"
+    )
     if settings.APP_ENV == "production":
         response.headers["Strict-Transport-Security"] = "max-age=63072000; includeSubDomains"
     return response

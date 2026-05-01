@@ -22,13 +22,12 @@ class Settings(BaseSettings):
         min_length=16,
     )
     JWT_ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_DAYS: int = 15
-    REFRESH_TOKEN_EXPIRE_DAYS: int = 60
+    ACCESS_TOKEN_EXPIRE_MINUTES: int
+    REFRESH_TOKEN_EXPIRE_DAYS: int 
     # HttpOnly cookies: use Secure=true over HTTPS (recommended in production).
     AUTH_COOKIE_SECURE: bool = False
 
-    # Comma-separated allowed CORS origins, e.g. "https://app.mydevtools.tech,https://mydevtools.tech"
-    ALLOWED_ORIGINS: str = "http://localhost:3000,http://localhost:5173,https://mydevtools-tech.vercel.app/"
+    ALLOWED_ORIGINS: str
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
@@ -41,6 +40,11 @@ class Settings(BaseSettings):
         if self.APP_ENV == "production" and not self.AUTH_COOKIE_SECURE:
             raise ValueError(
                 "AUTH_COOKIE_SECURE must be true when APP_ENV=production",
+            )
+        # L-2 fix: prevent debug mode in production
+        if self.APP_ENV == "production" and self.APP_DEBUG:
+            raise ValueError(
+                "APP_DEBUG must be false when APP_ENV=production",
             )
 
 

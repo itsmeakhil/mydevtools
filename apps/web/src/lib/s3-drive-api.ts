@@ -191,7 +191,7 @@ export async function moveObject(
 
 export async function configureBucketCors(
     credentials: S3Credentials,
-    allowedOrigins: string[] = ["*"],
+    allowedOrigins: string[],
 ): Promise<{ bucket: string; status: string }> {
     return s3Request("POST", `${BASE}/operations/configure-cors`, { credentials, allowedOrigins })
 }

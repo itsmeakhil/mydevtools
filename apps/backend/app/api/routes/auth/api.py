@@ -1,3 +1,4 @@
+import re
 import time
 from typing import Annotated
 
@@ -166,6 +167,19 @@ def update_profile(
         # Check uniqueness constraint
         if payload.username.strip():
             candidate = payload.username.strip().lower()
+            # L-6 fix: validate username format
+            if not re.match(r"^[a-z0-9][a-z0-9_-]{1,28}[a-z0-9]$", candidate):
+                raise HTTPException(
+                    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                    detail="Username must be 3-30 characters, alphanumeric with hyphens/underscores, and start/end with a letter or digit.",
+                )
+            # Block reserved words that could conflict with routes
+            reserved = {"admin", "api", "settings", "login", "logout", "profile", "dashboard", "app", "help", "null", "undefined"}
+            if candidate in reserved:
+                raise HTTPException(
+                    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                    detail="This username is reserved.",
+                )
             if is_username_taken(candidate, current_user.uid):
                 raise HTTPException(
                     status_code=status.HTTP_409_CONFLICT,
@@ -233,7 +247,9 @@ def get_master_vault_endpoint(
     status_code=status.HTTP_201_CREATED,
     summary="Set up master vault once (salt + key-verifier blob; raw password never sent)",
 )
+@limiter.limit("3/minute")
 def setup_master_vault_endpoint(
+    request: Request,
     payload: MasterVaultSetupRequest,
     uid: Annotated[str, Depends(get_current_uid)],
 ) -> MasterVaultOut:
@@ -261,7 +277,9 @@ def setup_master_vault_endpoint(
     status_code=status.HTTP_201_CREATED,
     summary="Store encrypted backup codes (replaces any existing set)",
 )
+@limiter.limit("10/minute")
 def store_backup_codes_endpoint(
+    request: Request,
     payload: StoreBackupCodesRequest,
     uid: Annotated[str, Depends(get_current_uid)],
 ) -> OkResponse:
@@ -298,7 +316,9 @@ def lookup_backup_code_endpoint(
     response_model=OkResponse,
     summary="Mark a backup code as used (one-time consumption)",
 )
+@limiter.limit("10/minute")
 def use_backup_code_endpoint(
+    request: Request,
     payload: BackupCodeLookupRequest,
     uid: Annotated[str, Depends(get_current_uid)],
 ) -> OkResponse:

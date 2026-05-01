@@ -89,7 +89,7 @@ class ListBucketsRequest(BaseModel):
 
 class ConfigureCorsRequest(BaseModel):
     credentials: S3Credentials
-    allowedOrigins: list[str] = Field(default_factory=lambda: ["*"])
+    allowedOrigins: list[str] = Field(min_length=1, description="Allowed CORS origins for the S3 bucket. Must be explicitly provided.")
 
 
 # ── Operation response models ─────────────────────────────────────────────────

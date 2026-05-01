@@ -3,6 +3,7 @@
 const DB_NAME = "PasswordManagerDB";
 const STORE_NAME = "keys";
 const KEY_ID = "vaultKey";
+const IS_DEV = typeof process !== "undefined" && process.env?.NODE_ENV === "development";
 
 export const openDB = (): Promise<IDBDatabase> => {
     return new Promise((resolve, reject) => {
@@ -34,22 +35,19 @@ export const saveKey = async (key: CryptoKey): Promise<void> => {
         });
 
         // Verify the key was actually saved (important for mobile browsers)
-        console.log("[Key Storage] Key saved to IndexedDB, verifying...");
         const savedKey = await loadKey();
         if (!savedKey) {
-            console.error("[Key Storage] Verification failed: Key was not found after saving");
+            if (IS_DEV) console.error("[Key Storage] Verification failed: Key was not found after saving");
             throw new Error("Failed to verify key persistence");
         }
-        console.log("[Key Storage] Key verified successfully in IndexedDB");
     } catch (e) {
-        console.error("[Key Storage] Failed to save key:", e);
+        if (IS_DEV) console.error("[Key Storage] Failed to save key:", e);
         throw e; // Re-throw so calling code knows save failed
     }
 };
 
 export const loadKey = async (): Promise<CryptoKey | null> => {
     try {
-        console.log("[Key Storage] Attempting to load key from IndexedDB...");
         const db = await openDB();
         const key = await new Promise<CryptoKey | null>((resolve, reject) => {
             const tx = db.transaction(STORE_NAME, "readonly");
@@ -59,14 +57,9 @@ export const loadKey = async (): Promise<CryptoKey | null> => {
             request.onerror = () => reject(request.error);
         });
 
-        if (key) {
-            console.log("[Key Storage] Key loaded successfully from IndexedDB");
-        } else {
-            console.log("[Key Storage] No key found in IndexedDB");
-        }
         return key;
     } catch (e) {
-        console.error("[Key Storage] Failed to load key:", e);
+        if (IS_DEV) console.error("[Key Storage] Failed to load key:", e);
         return null;
     }
 };
@@ -82,7 +75,7 @@ export const clearKey = async (): Promise<void> => {
             request.onerror = () => reject(request.error);
         });
     } catch (e) {
-        console.error("Failed to clear key:", e);
+        if (IS_DEV) console.error("Failed to clear key:", e);
     }
 };
 
@@ -146,6 +139,6 @@ export const clearMasterKey = async (): Promise<void> => {
             tx.onerror = () => reject(tx.error);
         });
     } catch (e) {
-        console.error("[MasterKey] Failed to clear master key:", e);
+        if (IS_DEV) console.error("[MasterKey] Failed to clear master key:", e);
     }
 };

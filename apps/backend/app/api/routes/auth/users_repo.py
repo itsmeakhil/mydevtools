@@ -49,10 +49,10 @@ def update_user_profile(uid: str, updates: dict[str, Any]) -> None:
 
 def set_refresh_token_hash(uid: str, token_hash: str) -> None:
     now = create_timestamp()
-    db_manager.update_one(USERS, {
+    db_manager.update_one(
+        USERS,
         {"_id": uid},
         {"$set": {"refresh_token_hash": token_hash, "updated_at": now}},
-    }
     )
 
 

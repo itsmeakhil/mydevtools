@@ -24,7 +24,7 @@ def new_refresh_token() -> str:
 
 def create_access_token(uid: str) -> str:
     settings = get_settings()
-    expire = _utcnow() + timedelta(days=settings.ACCESS_TOKEN_EXPIRE_DAYS)
+    expire = _utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     payload: dict[str, Any] = {
         "sub": uid,
         "typ": "access",
