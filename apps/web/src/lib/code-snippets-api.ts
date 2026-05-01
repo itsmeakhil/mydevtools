@@ -67,7 +67,7 @@ export type CodeSnippetCreatePayload = Pick<
   CodeSnippet,
   "title" | "language" | "code"
 > &
-  Partial<Pick<CodeSnippet, "id" | "createdAt" | "updatedAt">>;
+  Partial<Pick<CodeSnippet, "id" | "tags" | "pinned" | "createdAt" | "updatedAt">>;
 
 export async function createCodeSnippetApi(
   user: User | null | undefined,
@@ -79,7 +79,7 @@ export async function createCodeSnippetApi(
 export async function patchCodeSnippetApi(
   user: User | null | undefined,
   id: string,
-  patch: Partial<Pick<CodeSnippet, "title" | "language" | "code">>
+  patch: Partial<Pick<CodeSnippet, "title" | "language" | "code" | "tags" | "pinned">>
 ): Promise<CodeSnippet> {
   return proxyJson<CodeSnippet>(user, "PATCH", `/api/v1/code-snippets/${id}`, patch);
 }

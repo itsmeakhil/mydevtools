@@ -25,6 +25,10 @@ import {
   IconPencil,
   IconCode,
   IconLoader2,
+  IconPin,
+  IconPinFilled,
+  IconX,
+  IconTag,
 } from "@tabler/icons-react";
 import { toast } from "sonner";
 import { useIsMobile } from "@/components/hooks/use-mobile";
@@ -121,11 +125,13 @@ function SnippetListItem({
   sn,
   selected,
   onClick,
+  onPin,
   t,
 }: {
   sn: CodeSnippet;
   selected: boolean;
   onClick: () => void;
+  onPin?: () => void;
   t: ReturnType<typeof useTranslations<"SnippetManager">>;
 }) {
   const lang = resolveEditorLanguage(sn.language, sn.code);
@@ -136,7 +142,7 @@ function SnippetListItem({
       type="button"
       onClick={onClick}
       className={cn(
-        "group flex w-full flex-col gap-1 rounded-lg border px-3 py-2.5 text-left transition-all duration-150",
+        "group/item flex w-full flex-col gap-1 rounded-lg border px-3 py-2.5 text-left transition-all duration-150",
         selected
           ? "border-primary/30 bg-primary/8 dark:bg-primary/10"
           : "border-transparent hover:border-border/60 hover:bg-muted/60"
@@ -148,6 +154,21 @@ function SnippetListItem({
         <span className="flex-1 truncate text-sm font-medium leading-tight">
           {sn.title}
         </span>
+        {onPin && (
+          <span
+            role="button"
+            tabIndex={-1}
+            onClick={(e) => { e.stopPropagation(); onPin(); }}
+            onKeyDown={(e) => { if (e.key === "Enter") { e.stopPropagation(); onPin(); } }}
+            className={cn(
+              "shrink-0 rounded p-0.5 text-muted-foreground transition-all hover:text-foreground",
+              sn.pinned ? "opacity-100 text-primary/70" : "opacity-0 group-hover/item:opacity-100"
+            )}
+            title={sn.pinned ? "Unpin" : "Pin to top"}
+          >
+            {sn.pinned ? <IconPinFilled className="h-3 w-3" /> : <IconPin className="h-3 w-3" />}
+          </span>
+        )}
         <span className="shrink-0 rounded bg-muted px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
           {sn.language === SNIPPET_LANGUAGE_AUTO
             ? t("badgeAuto", { lang: t(`languages.${lang}` as never) })
@@ -159,6 +180,16 @@ function SnippetListItem({
         <p className="truncate pl-4 font-mono text-[11px] leading-tight text-muted-foreground/55">
           {firstLine}
         </p>
+      )}
+      {/* Tags */}
+      {sn.tags.length > 0 && (
+        <div className="flex flex-wrap gap-1 pl-4">
+          {sn.tags.map((tag) => (
+            <span key={tag} className="rounded bg-muted px-1.5 py-0 text-[10px] text-muted-foreground">
+              {tag}
+            </span>
+          ))}
+        </div>
       )}
     </button>
   );
@@ -177,11 +208,14 @@ export function SnippetManagerTool() {
   const updateSnippet = useSnippetManagerStore((s) => s.updateSnippet);
   const removeSnippet = useSnippetManagerStore((s) => s.removeSnippet);
   const importSnippets = useSnippetManagerStore((s) => s.importSnippets);
+  const mergeSnippetFromRemote = useSnippetManagerStore((s) => s.mergeSnippetFromRemote);
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [draftTitle, setDraftTitle] = useState("");
   const [draftLanguage, setDraftLanguage] = useState(SNIPPET_LANGUAGE_AUTO);
   const [draftCode, setDraftCode] = useState("");
+  const [draftTags, setDraftTags] = useState<string[]>([]);
+  const [tagInput, setTagInput] = useState("");
   const [search, setSearch] = useState("");
   const [mode, setMode] = useState<EditorMode>("edit");
   const [copied, setCopied] = useState(false);
@@ -335,15 +369,25 @@ export function SnippetManagerTool() {
     setDraftTitle(sn.title);
     setDraftLanguage(sn.language);
     setDraftCode(sn.code);
+    setDraftTags(sn.tags ?? []);
+    setTagInput("");
   }, [selectedId, debouncedSaveCode, remoteListEpoch]);
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
-    if (!q) return snippets;
-    return snippets.filter(
-      (s) =>
-        s.title.toLowerCase().includes(q) || s.code.toLowerCase().includes(q)
-    );
+    const list = !q
+      ? snippets
+      : snippets.filter(
+          (s) =>
+            s.title.toLowerCase().includes(q) ||
+            s.code.toLowerCase().includes(q) ||
+            s.tags.some((tag) => tag.includes(q))
+        );
+    return [...list].sort((a, b) => {
+      if (a.pinned && !b.pinned) return -1;
+      if (!a.pinned && b.pinned) return 1;
+      return 0;
+    });
   }, [snippets, search]);
 
   const snippetScrollRef = useRef<HTMLDivElement>(null);
@@ -354,6 +398,8 @@ export function SnippetManagerTool() {
     scrollContainerRef: snippetScrollRef,
   });
   const visibleSnippets = filtered.slice(0, snDisplayCount);
+  const pinnedVisible = visibleSnippets.filter((s) => s.pinned);
+  const unpinnedVisible = visibleSnippets.filter((s) => !s.pinned);
 
   const effectiveLanguage = useMemo(
     () => resolveEditorLanguage(draftLanguage, draftCode),
@@ -382,6 +428,55 @@ export function SnippetManagerTool() {
       }
     },
     [selectedId, updateSnippet, t]
+  );
+
+  const handlePin = useCallback(
+    (id: string) => {
+      const sn = snippets.find((s) => s.id === id);
+      if (!sn) return;
+      const newPinned = !sn.pinned;
+      updateSnippet(id, { pinned: newPinned });
+      const u = userRef.current;
+      if (u) {
+        void patchCodeSnippetApi(u, id, { pinned: newPinned })
+          .then((s) => mergeSnippetFromRemote(s))
+          .catch(() => toast.error(t("toastSyncFailed")));
+      }
+    },
+    [snippets, updateSnippet, mergeSnippetFromRemote, t]
+  );
+
+  const handleAddTag = useCallback(
+    (tag: string) => {
+      const trimmed = tag.trim().toLowerCase();
+      if (!trimmed || draftTags.includes(trimmed) || !selectedId) return;
+      const next = [...draftTags, trimmed];
+      setDraftTags(next);
+      updateSnippet(selectedId, { tags: next });
+      const u = userRef.current;
+      if (u) {
+        void patchCodeSnippetApi(u, selectedId, { tags: next })
+          .then((s) => mergeSnippetFromRemote(s))
+          .catch(() => toast.error(t("toastSyncFailed")));
+      }
+    },
+    [draftTags, selectedId, updateSnippet, mergeSnippetFromRemote, t]
+  );
+
+  const handleRemoveTag = useCallback(
+    (tag: string) => {
+      if (!selectedId) return;
+      const next = draftTags.filter((tg) => tg !== tag);
+      setDraftTags(next);
+      updateSnippet(selectedId, { tags: next });
+      const u = userRef.current;
+      if (u) {
+        void patchCodeSnippetApi(u, selectedId, { tags: next })
+          .then((s) => mergeSnippetFromRemote(s))
+          .catch(() => toast.error(t("toastSyncFailed")));
+      }
+    },
+    [draftTags, selectedId, updateSnippet, mergeSnippetFromRemote, t]
   );
 
   const handleNew = async () => {
@@ -537,22 +632,46 @@ export function SnippetManagerTool() {
 
       {/* List */}
       <div ref={snippetScrollRef} className="min-h-0 flex-1 overflow-y-auto">
-        <ul className="space-y-0.5 pb-2 pr-1">
-          {visibleSnippets.map((sn) => (
-            <li key={sn.id}>
-              <SnippetListItem
-                sn={sn}
-                selected={selectedId === sn.id}
-                t={t}
-                onClick={() => {
-                  debouncedSaveCode.flush();
-                  setSelectedId(sn.id);
-                  setListOpen(false);
-                }}
-              />
-            </li>
+        <div className="space-y-0.5 pb-2 pr-1">
+          {pinnedVisible.length > 0 && (
+            <p className="px-1 pb-0.5 pt-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+              Pinned
+            </p>
+          )}
+          {pinnedVisible.map((sn) => (
+            <SnippetListItem
+              key={sn.id}
+              sn={sn}
+              selected={selectedId === sn.id}
+              t={t}
+              onPin={() => handlePin(sn.id)}
+              onClick={() => {
+                debouncedSaveCode.flush();
+                setSelectedId(sn.id);
+                setListOpen(false);
+              }}
+            />
           ))}
-        </ul>
+          {pinnedVisible.length > 0 && unpinnedVisible.length > 0 && (
+            <p className="px-1 pb-0.5 pt-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+              Snippets
+            </p>
+          )}
+          {unpinnedVisible.map((sn) => (
+            <SnippetListItem
+              key={sn.id}
+              sn={sn}
+              selected={selectedId === sn.id}
+              t={t}
+              onPin={() => handlePin(sn.id)}
+              onClick={() => {
+                debouncedSaveCode.flush();
+                setSelectedId(sn.id);
+                setListOpen(false);
+              }}
+            />
+          ))}
+        </div>
         {snHasMore && (
           <div ref={snSentinelRef} className="flex justify-center py-3">
             <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground/50" />
@@ -703,8 +822,52 @@ export function SnippetManagerTool() {
         </div>
       </div>
 
+      {/* Tags row */}
+      {selectedId && (
+        <div className="flex shrink-0 flex-wrap items-center gap-1 border-b border-border/60 px-3 py-1.5 min-h-[32px]">
+          <IconTag className="h-3 w-3 shrink-0 text-muted-foreground/50" />
+          {draftTags.map((tag) => (
+            <span
+              key={tag}
+              className="flex items-center gap-0.5 rounded bg-muted px-1.5 py-0.5 text-[11px] text-muted-foreground"
+            >
+              {tag}
+              <button
+                type="button"
+                onClick={() => handleRemoveTag(tag)}
+                className="ml-0.5 cursor-pointer rounded hover:text-destructive"
+              >
+                <IconX className="h-2.5 w-2.5" />
+              </button>
+            </span>
+          ))}
+          <input
+            value={tagInput}
+            onChange={(e) => setTagInput(e.target.value)}
+            onKeyDown={(e) => {
+              if ((e.key === "Enter" || e.key === ",") && tagInput.trim()) {
+                e.preventDefault();
+                handleAddTag(tagInput);
+                setTagInput("");
+              }
+              if (e.key === "Backspace" && !tagInput && draftTags.length > 0) {
+                handleRemoveTag(draftTags[draftTags.length - 1]);
+              }
+            }}
+            onBlur={() => {
+              if (tagInput.trim()) {
+                handleAddTag(tagInput);
+                setTagInput("");
+              }
+            }}
+            placeholder={draftTags.length === 0 ? "Add tags…" : ""}
+            className="h-5 min-w-[72px] flex-1 bg-transparent text-[11px] outline-none placeholder:text-muted-foreground/40"
+          />
+        </div>
+      )}
+
       {/* Monaco editor — fills remaining space */}
-      <div className="min-h-0 flex-1">
+      <div className="group/monaco relative min-h-0 flex-1">
         <SnippetMonaco
           ref={monacoRef}
           value={draftCode}
@@ -713,6 +876,20 @@ export function SnippetManagerTool() {
           readOnly={mode === "view"}
           aria-label={t("editorAria")}
         />
+        {draftCode && (
+          <button
+            type="button"
+            onClick={handleCopy}
+            className="absolute right-3 top-3 z-10 flex cursor-pointer items-center gap-1.5 rounded-md border border-border/60 bg-background/80 px-2.5 py-1.5 text-xs font-medium shadow-sm backdrop-blur-sm transition-opacity duration-150 hover:bg-muted opacity-0 group-hover/monaco:opacity-100"
+          >
+            {copied ? (
+              <IconCheck className="h-3.5 w-3.5 text-emerald-500" />
+            ) : (
+              <IconCopy className="h-3.5 w-3.5" />
+            )}
+            {copied ? t("copied") : t("copy")}
+          </button>
+        )}
       </div>
     </div>
   );
@@ -849,21 +1026,44 @@ export function SnippetManagerTool() {
 
               {/* List */}
               <div ref={snippetScrollRef} className="min-h-0 flex-1 overflow-y-auto px-2 pb-2">
-                <ul className="space-y-0.5">
-                  {visibleSnippets.map((sn) => (
-                    <li key={sn.id}>
-                      <SnippetListItem
-                        sn={sn}
-                        selected={selectedId === sn.id}
-                        t={t}
-                        onClick={() => {
-                          debouncedSaveCode.flush();
-                          setSelectedId(sn.id);
-                        }}
-                      />
-                    </li>
+                <div className="space-y-0.5">
+                  {pinnedVisible.length > 0 && (
+                    <p className="px-1 pb-0.5 pt-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      Pinned
+                    </p>
+                  )}
+                  {pinnedVisible.map((sn) => (
+                    <SnippetListItem
+                      key={sn.id}
+                      sn={sn}
+                      selected={selectedId === sn.id}
+                      t={t}
+                      onPin={() => handlePin(sn.id)}
+                      onClick={() => {
+                        debouncedSaveCode.flush();
+                        setSelectedId(sn.id);
+                      }}
+                    />
                   ))}
-                </ul>
+                  {pinnedVisible.length > 0 && unpinnedVisible.length > 0 && (
+                    <p className="px-1 pb-0.5 pt-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      Snippets
+                    </p>
+                  )}
+                  {unpinnedVisible.map((sn) => (
+                    <SnippetListItem
+                      key={sn.id}
+                      sn={sn}
+                      selected={selectedId === sn.id}
+                      t={t}
+                      onPin={() => handlePin(sn.id)}
+                      onClick={() => {
+                        debouncedSaveCode.flush();
+                        setSelectedId(sn.id);
+                      }}
+                    />
+                  ))}
+                </div>
                 {snHasMore && (
                   <div ref={snSentinelRef} className="flex justify-center py-3">
                     <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground/50" />

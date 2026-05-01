@@ -50,10 +50,12 @@ interface NavGroupProps {
   collapsible?: boolean;
   icon?: React.ElementType;
   hiddenOnMobile?: boolean;
+  /** Show links even when the tool is hidden from other sidebar groups (e.g. user-pinned favorites). */
+  ignoreToolVisibility?: boolean;
 }
 
 // Main NavGroup Component
-export function NavGroup({ title, titleKey, items, collapsible, icon: Icon, hiddenOnMobile }: NavGroupProps) {
+export function NavGroup({ title, titleKey, items, collapsible, icon: Icon, hiddenOnMobile, ignoreToolVisibility }: NavGroupProps) {
   const { state, isMobile } = useSidebar();
   const pathname = usePathname();
   const { user, loading } = useAuth(false); // Check auth state with loading
@@ -65,7 +67,7 @@ export function NavGroup({ title, titleKey, items, collapsible, icon: Icon, hidd
   const visibleItems = items
     .filter((item) => {
       const itemUrl = typeof item.url === "string" ? item.url : item.url?.toString() || '';
-      if (itemUrl.startsWith('/app/') && !isToolEnabled(itemUrl)) {
+      if (!ignoreToolVisibility && itemUrl.startsWith('/app/') && !isToolEnabled(itemUrl)) {
         return false;
       }
       return true;
@@ -76,7 +78,7 @@ export function NavGroup({ title, titleKey, items, collapsible, icon: Icon, hidd
           ...item,
           items: (item as NavCollapsible).items.filter((sub) => {
             const subUrl = typeof sub.url === "string" ? sub.url : sub.url?.toString() || '';
-            if (subUrl.startsWith('/app/') && !isToolEnabled(subUrl)) {
+            if (!ignoreToolVisibility && subUrl.startsWith('/app/') && !isToolEnabled(subUrl)) {
               return false;
             }
             return true;

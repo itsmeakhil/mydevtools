@@ -10,6 +10,8 @@ class NoteCreate(BaseModel):
     content: Any = Field(default_factory=dict)
     parentId: Optional[str] = None
     icon: Optional[str] = None
+    pinned: Optional[bool] = None
+    tags: Optional[list[str]] = None
 
 
 class NoteUpdate(BaseModel):
@@ -19,6 +21,8 @@ class NoteUpdate(BaseModel):
     content: Optional[Any] = None
     parentId: Optional[str] = None
     icon: Optional[str] = None
+    pinned: Optional[bool] = None
+    tags: Optional[list[str]] = None
 
 
 class NoteOut(BaseModel):
@@ -29,6 +33,8 @@ class NoteOut(BaseModel):
     content: Any
     parentId: Optional[str] = None
     icon: Optional[str] = None
+    pinned: bool = False
+    tags: list[str] = Field(default_factory=list)
     userId: str
     createdAt: str
     updatedAt: str

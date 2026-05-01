@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { formatElapsed, getElapsedMinutes } from "@/app/app/to-do/utils/taskTimeUtils";
 import {
   Select,
   SelectTrigger,
@@ -12,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import DeleteButton from "../../../components/ui/DeleteButton";
 import {
-  Edit, Calendar, Tag, MoreVertical, Copy, Check, Trash2, CheckCircle2, Archive
+  Edit, Calendar, Tag, MoreVertical, Copy, Check, Trash2, CheckCircle2, Archive, ArchiveRestore, Play, Pause, Timer
 } from "lucide-react";
 import TaskEditDialog from "./TaskEditDialog";
 import { differenceInDays, isPast, parseISO, format, isValid, parse } from "date-fns";
@@ -158,6 +159,24 @@ export default function TaskItem({
   const [isHovered, setIsHovered] = useState(false);
   const [justCompleted, setJustCompleted] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [elapsed, setElapsed] = useState(() => getElapsedMinutes(task));
+
+  useEffect(() => {
+    setElapsed(getElapsedMinutes(task));
+    if (!task.isTimerRunning) return;
+    const interval = setInterval(() => setElapsed(getElapsedMinutes(task)), 1000);
+    return () => clearInterval(interval);
+  }, [task.isTimerRunning, task.timeLogged, task.timerStartedAt]);
+
+  const handleStartTimer = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onUpdateTask(task.id, { isTimerRunning: true, timerStartedAt: new Date().toISOString() });
+  };
+
+  const handleStopTimer = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onUpdateTask(task.id, { isTimerRunning: false, timeLogged: Math.round(getElapsedMinutes(task)) });
+  };
   const { projects } = useProjectContext();
   const project = task.projectId ? projects.find(p => p.id === task.projectId) : null;
 
@@ -416,10 +435,29 @@ export default function TaskItem({
                   </div>
                 )}
 
-                {/* Time Estimate */}
-                {task.timeEstimate && (
-                  <div className="flex items-center gap-1 px-1.5 py-0 h-5 rounded-md bg-muted/50 text-[10px] text-muted-foreground font-medium">
-                    <span>{task.timeEstimate}m</span>
+                {/* Timer chip */}
+                {(elapsed > 0 || task.isTimerRunning || task.timeEstimate) && (
+                  <div
+                    className={cn(
+                      "flex items-center gap-1 px-1.5 py-0 h-5 rounded-md text-[10px] font-medium select-none",
+                      task.isTimerRunning
+                        ? "bg-orange-50 dark:bg-orange-950/30 text-orange-600 dark:text-orange-400"
+                        : "bg-muted/50 text-muted-foreground"
+                    )}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <button
+                      onClick={task.isTimerRunning ? handleStopTimer : handleStartTimer}
+                      className="hover:opacity-70 transition-opacity cursor-pointer"
+                      aria-label={task.isTimerRunning ? "Stop timer" : "Start timer"}
+                    >
+                      {task.isTimerRunning ? <Pause className="h-3 w-3" /> : <Play className="h-3 w-3" />}
+                    </button>
+                    <Timer className="h-3 w-3" />
+                    <span>
+                      {elapsed > 0 ? formatElapsed(elapsed) : "0m"}
+                      {task.timeEstimate ? ` / ${formatElapsed(task.timeEstimate)}` : ""}
+                    </span>
                   </div>
                 )}
               </div>
@@ -502,6 +540,19 @@ export default function TaskItem({
                         ))}
                       </div>
                     </div>
+                    <DropdownMenuItem onClick={() => onUpdateTask(task.id, { archived: !task.archived })}>
+                      {task.archived ? (
+                        <>
+                          <ArchiveRestore className="h-4 w-4 mr-2" />
+                          Restore
+                        </>
+                      ) : (
+                        <>
+                          <Archive className="h-4 w-4 mr-2" />
+                          Archive
+                        </>
+                      )}
+                    </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
                       onClick={() => onDeleteTask(task.id)}
@@ -527,6 +578,19 @@ export default function TaskItem({
                   aria-label={tItem("editTaskAria")}
                 >
                   <Edit className="h-4 w-4" />
+                </Button>
+
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onUpdateTask(task.id, { archived: !task.archived })}
+                  className={cn(
+                    "h-8 w-8 p-0 transition-opacity",
+                    isHovered ? "opacity-100" : "opacity-0 group-hover:opacity-70"
+                  )}
+                  aria-label={task.archived ? "Restore task" : "Archive task"}
+                >
+                  {task.archived ? <ArchiveRestore className="h-4 w-4" /> : <Archive className="h-4 w-4" />}
                 </Button>
 
                 <div className={cn(

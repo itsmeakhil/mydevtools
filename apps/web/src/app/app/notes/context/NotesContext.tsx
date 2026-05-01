@@ -16,9 +16,12 @@ interface NotesContextType {
     isLoading: boolean;
     activeNoteId: string | null;
     setActiveNoteId: (id: string | null) => void;
+    focusMode: boolean;
+    setFocusMode: (v: boolean) => void;
     createNote: (parentId?: string | null) => Promise<string>;
     updateNote: (id: string, updates: Partial<Note>) => Promise<void>;
     deleteNote: (id: string) => Promise<void>;
+    pinNote: (id: string, pinned: boolean) => Promise<void>;
 }
 
 const NotesContext = createContext<NotesContextType | undefined>(undefined);
@@ -29,6 +32,7 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     const [notes, setNotes] = useState<Note[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [activeNoteId, setActiveNoteId] = useState<string | null>(null);
+    const [focusMode, setFocusMode] = useState(false);
 
     const apiRequest = useCallback(
         async <T,>(method: string, path: string, body?: unknown): Promise<T> => {
@@ -123,6 +127,10 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
         setNotes((prev) => prev.map((n) => (n.id === updated.id ? updated : n)));
     }, [apiRequest, user]);
 
+    const pinNote = useCallback(async (id: string, pinned: boolean) => {
+        await updateNote(id, { pinned });
+    }, [updateNote]);
+
     const deleteNote = useCallback(async (id: string) => {
         if (!user) return;
         await apiRequest<void>("DELETE", `/api/v1/notes/${id}?recursive=true`);
@@ -139,9 +147,12 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
                 isLoading,
                 activeNoteId,
                 setActiveNoteId,
+                focusMode,
+                setFocusMode,
                 createNote,
                 updateNote,
                 deleteNote,
+                pinNote,
             }}
         >
             {children}

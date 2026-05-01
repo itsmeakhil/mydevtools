@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { GripVertical, Edit, Calendar, Tag, CheckCircle2, MoreHorizontal, Trash2, Copy, Check } from "lucide-react";
+import { GripVertical, Edit, Calendar, Tag, CheckCircle2, MoreHorizontal, Trash2, Copy, Check, Play, Pause, Timer, Archive, ArchiveRestore } from "lucide-react";
+import { formatElapsed, getElapsedMinutes } from "@/app/app/to-do/utils/taskTimeUtils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Task } from "@/app/app/to-do/types/Task";
@@ -138,6 +139,24 @@ interface KanbanCardProps {
 export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanCardProps) {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [elapsed, setElapsed] = useState(() => getElapsedMinutes(task));
+
+  useEffect(() => {
+    setElapsed(getElapsedMinutes(task));
+    if (!task.isTimerRunning) return;
+    const interval = setInterval(() => setElapsed(getElapsedMinutes(task)), 1000);
+    return () => clearInterval(interval);
+  }, [task.isTimerRunning, task.timeLogged, task.timerStartedAt]);
+
+  const handleStartTimer = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onUpdateTask(task.id, { isTimerRunning: true, timerStartedAt: new Date().toISOString() });
+  };
+
+  const handleStopTimer = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onUpdateTask(task.id, { isTimerRunning: false, timeLogged: Math.round(getElapsedMinutes(task)) });
+  };
   const {
     attributes,
     listeners,
@@ -324,6 +343,31 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
         {/* Footer with Date and Actions - Enhanced */}
         <div className="flex items-center justify-between text-xs text-muted-foreground gap-2 pt-2 border-t border-border/50">
           <div className="flex flex-col gap-1 truncate min-w-0 flex-1">
+            {/* Timer chip */}
+            {(elapsed > 0 || task.isTimerRunning || task.timeEstimate) && (
+              <div
+                className={cn(
+                  "flex items-center gap-1 w-fit rounded-md px-1.5 py-0.5 text-[10px] select-none",
+                  task.isTimerRunning
+                    ? "bg-orange-50 dark:bg-orange-950/30 text-orange-600 dark:text-orange-400"
+                    : "bg-muted/50 text-muted-foreground"
+                )}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  onClick={task.isTimerRunning ? handleStopTimer : handleStartTimer}
+                  className="hover:opacity-70 transition-opacity cursor-pointer"
+                  aria-label={task.isTimerRunning ? "Stop timer" : "Start timer"}
+                >
+                  {task.isTimerRunning ? <Pause className="h-3 w-3" /> : <Play className="h-3 w-3" />}
+                </button>
+                <Timer className="h-3 w-3" />
+                <span>
+                  {elapsed > 0 ? formatElapsed(elapsed) : "0m"}
+                  {task.timeEstimate ? ` / ${formatElapsed(task.timeEstimate)}` : ""}
+                </span>
+              </div>
+            )}
             {task.dueDate && (
               <TooltipProvider>
                 <Tooltip>
@@ -377,6 +421,18 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
               <Button
                 variant="ghost"
                 size="sm"
+                className="h-7 w-7 p-0 hover:bg-muted"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onUpdateTask(task.id, { archived: !task.archived });
+                }}
+                aria-label={task.archived ? "Restore task" : "Archive task"}
+              >
+                {task.archived ? <ArchiveRestore className="h-3.5 w-3.5" /> : <Archive className="h-3.5 w-3.5" />}
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
                 className="h-7 w-7 p-0 hover:bg-red-50 hover:text-red-500"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -416,6 +472,19 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
                       <>
                         <Copy className="h-4 w-4 mr-2" />
                         Copy Task
+                      </>
+                    )}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => onUpdateTask(task.id, { archived: !task.archived })}>
+                    {task.archived ? (
+                      <>
+                        <ArchiveRestore className="h-4 w-4 mr-2" />
+                        Restore
+                      </>
+                    ) : (
+                      <>
+                        <Archive className="h-4 w-4 mr-2" />
+                        Archive
                       </>
                     )}
                   </DropdownMenuItem>

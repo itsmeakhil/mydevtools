@@ -36,6 +36,8 @@ def _doc_to_out(doc: dict[str, Any]) -> NoteOut:
         content=doc.get("content", {}),
         parentId=doc.get("parentId"),
         icon=doc.get("icon"),
+        pinned=bool(doc.get("pinned", False)),
+        tags=list(doc.get("tags") or []),
         userId=str(doc.get("created_by", "")),
         createdAt=_to_iso(created_at_raw),
         updatedAt=_to_iso(updated_at_raw),
@@ -57,8 +59,9 @@ def create_note(uid: str, body: NoteCreate) -> NoteOut:
         "title": body.title or "Untitled",
         "content": body.content if body.content is not None else {},
         "parentId": body.parentId,
-        # Keep backend ASCII-only; UI falls back to an emoji if icon is missing.
         "icon": body.icon,
+        "pinned": body.pinned or False,
+        "tags": body.tags or [],
         "createdAt": ts,
         "updatedAt": ts,
     }

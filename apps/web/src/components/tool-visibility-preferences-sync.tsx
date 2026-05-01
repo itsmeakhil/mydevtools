@@ -119,6 +119,26 @@ export function ToolVisibilityPreferencesSync() {
           : DEFAULT_ENABLED_TOOLS;
         if (isLegacyFourToolList(next)) {
           next = [...DEFAULT_ENABLED_TOOLS];
+        } else {
+          try {
+            const hasMigrated = localStorage.getItem("migrated-backend-tools-v1");
+            if (!hasMigrated) {
+              const nextSet = new Set(next);
+              let changed = false;
+              DEFAULT_ENABLED_TOOLS.forEach((tool) => {
+                if (!nextSet.has(tool)) {
+                  next.push(tool);
+                  changed = true;
+                }
+              });
+              if (changed) {
+                next = normalizeToolList(next);
+              }
+              localStorage.setItem("migrated-backend-tools-v1", "true");
+            }
+          } catch {
+            // ignore localStorage errors
+          }
         }
         lastSavedNormRef.current = normalizeToolsJson(next);
         setEnabledTools(next);

@@ -136,7 +136,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent className="mt-2 md:mt-0">
         {pinnedNavItems.length > 0 && (
-          <NavGroup title="Pinned" items={pinnedNavItems} icon={IconPin} />
+          <NavGroup
+            title="Pinned"
+            items={pinnedNavItems}
+            icon={IconPin}
+            ignoreToolVisibility
+          />
         )}
         {sidebarData.navGroups.map((group) => {
           const filteredItems = group.items

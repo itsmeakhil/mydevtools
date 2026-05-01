@@ -10,7 +10,7 @@ import PaginationDemo from "@/app/app/to-do/PaginationS";
 import ExportImportDialog from "@/app/app/to-do/ExportImportDialog";
 import { useTaskContext } from "@/app/app/to-do/context/TaskContext";
 import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
-import { ListTodo, Circle, LayoutGrid, List, Search, X, Plus, Folder } from "lucide-react";
+import { ListTodo, Circle, LayoutGrid, List, Search, X, Plus, Folder, Archive, ArchiveRestore } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { STATUS_CONFIG } from "./config/constants";
@@ -74,30 +74,27 @@ export const TaskContainer = () => {
     deleteTask,
     filterProject,
     setFilterProject,
+    showArchived,
+    setShowArchived,
   } = useTaskContext();
   const { projects } = useProjectContext();
 
-  // Filter tasks based on search query
+  // Filter tasks based on search query + archive state
   const searchFilteredTasks = useMemo(() => {
-    if (!searchQuery.trim()) return tasks;
+    const archiveFiltered = tasks.filter(task =>
+      showArchived ? task.archived === true : !task.archived
+    );
+    if (!searchQuery.trim()) return archiveFiltered;
 
     const query = searchQuery.toLowerCase();
-    return tasks.filter(task => {
-      // Search in task text
+    return archiveFiltered.filter(task => {
       if (task.text.toLowerCase().includes(query)) return true;
-
-      // Search in description
       if (task.description?.toLowerCase().includes(query)) return true;
-
-      // Search in tags
       if (task.tags?.some(tag => tag.name.toLowerCase().includes(query))) return true;
-
-      // Search in subtasks
       if (task.subTasks?.some(st => st.text.toLowerCase().includes(query))) return true;
-
       return false;
     });
-  }, [tasks, searchQuery]);
+  }, [tasks, searchQuery, showArchived]);
 
   // Filter tasks based on filterStatus for list view
   // For kanban view, always show all tasks (filtering is handled by columns)
@@ -385,6 +382,20 @@ export const TaskContainer = () => {
                     ))}
                   </SelectContent>
                 </Select>
+
+                {/* Archive Toggle */}
+                <Button
+                  variant={showArchived ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setShowArchived(!showArchived)}
+                  className="h-9 px-3 gap-2"
+                  title={showArchived ? "Hide archived" : "Show archived"}
+                >
+                  {showArchived ? <ArchiveRestore className="h-3.5 w-3.5" /> : <Archive className="h-3.5 w-3.5" />}
+                  <span className="hidden sm:inline text-xs font-medium">
+                    {showArchived ? "Archived" : "Archive"}
+                  </span>
+                </Button>
 
                 {/* Export Button */}
                 <Button

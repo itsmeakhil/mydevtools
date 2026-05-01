@@ -1,5 +1,9 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import {
+  normalizePinnedToolPath,
+  normalizePinnedToolsList,
+} from '@/lib/pinned-tools-path'
 
 interface PinnedToolsStore {
   pinnedTools: string[]
@@ -11,14 +15,44 @@ export const usePinnedToolsStore = create<PinnedToolsStore>()(
   persist(
     (set) => ({
       pinnedTools: [],
-      setPinnedTools: (tools) => set({ pinnedTools: tools }),
+      setPinnedTools: (tools) =>
+        set({ pinnedTools: normalizePinnedToolsList(tools) }),
       togglePin: (toolUrl) =>
-        set((state) => ({
-          pinnedTools: state.pinnedTools.includes(toolUrl)
-            ? state.pinnedTools.filter((url) => url !== toolUrl)
-            : [...state.pinnedTools, toolUrl],
-        })),
+        set((state) => {
+          const list = normalizePinnedToolsList(state.pinnedTools)
+          const key = normalizePinnedToolPath(toolUrl)
+          const has = list.includes(key)
+          return {
+            pinnedTools: has
+              ? list.filter((url) => url !== key)
+              : [...list, key],
+          }
+        }),
     }),
-    { name: 'pinned-tools-storage' }
+    {
+      name: 'pinned-tools-storage',
+      version: 1,
+      // migrate only runs when stored `version` is a number and !== options.version.
+      // Legacy entries often omit version, so normalization must happen in merge too.
+      merge: (persistedState, currentState) => {
+        const p = (persistedState ?? {}) as Partial<PinnedToolsStore>
+        const raw = Array.isArray(p.pinnedTools)
+          ? p.pinnedTools
+          : currentState.pinnedTools
+        return {
+          ...currentState,
+          ...p,
+          pinnedTools: normalizePinnedToolsList(raw),
+        }
+      },
+      migrate: (persistedState) => {
+        const p = (persistedState ?? {}) as Partial<PinnedToolsStore>
+        const raw = Array.isArray(p.pinnedTools) ? p.pinnedTools : []
+        return {
+          ...p,
+          pinnedTools: normalizePinnedToolsList(raw),
+        } as never
+      },
+    }
   )
 )

@@ -25,6 +25,8 @@ class CodeSnippetCreate(BaseModel):
     title: str = Field(default="Untitled snippet", min_length=1)
     language: str = Field(default="auto", min_length=1)
     code: str = ""
+    tags: Optional[list[str]] = None
+    pinned: Optional[bool] = None
     createdAt: Optional[int] = Field(default=None, description="Unix ms; server defaults if omitted")
     updatedAt: Optional[int] = Field(default=None, description="Unix ms; server defaults if omitted")
 
@@ -35,6 +37,8 @@ class CodeSnippetUpdate(BaseModel):
     title: Optional[str] = Field(default=None, min_length=1)
     language: Optional[str] = Field(default=None, min_length=1)
     code: Optional[str] = None
+    tags: Optional[list[str]] = None
+    pinned: Optional[bool] = None
 
 
 class CodeSnippetOut(BaseModel):
@@ -44,5 +48,7 @@ class CodeSnippetOut(BaseModel):
     title: str
     language: str
     code: str
+    tags: list[str] = Field(default_factory=list)
+    pinned: bool = False
     createdAt: int
     updatedAt: int

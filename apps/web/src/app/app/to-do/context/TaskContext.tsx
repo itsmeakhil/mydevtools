@@ -18,6 +18,8 @@ interface TaskContextType {
   setFilterStatus: (status: "all" | "not-started" | "ongoing" | "completed") => void;
   filterProject: string | "all";
   setFilterProject: (projectId: string | "all") => void;
+  showArchived: boolean;
+  setShowArchived: (show: boolean) => void;
   allTaskStats: {
     total: number;
     completed: number;
@@ -31,6 +33,8 @@ interface TaskContextType {
   updateTask: (taskId: string, updates: Partial<Task>) => Promise<void>;
   updateTaskStatus: (taskId: string, newStatus: "not-started" | "ongoing" | "completed") => Promise<void>;
   deleteTask: (taskId: string) => Promise<void>;
+  archiveTask: (taskId: string) => Promise<void>;
+  restoreTask: (taskId: string) => Promise<void>;
   importTasks: (tasks: Task[]) => Promise<void>;
   getFilteredTasksForExport: () => Promise<Task[]>;
 }
@@ -54,6 +58,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
   const [totalTaskCount, setTotalTaskCount] = useState(0);
   const [filterStatus, setFilterStatus] = useState<"all" | "not-started" | "ongoing" | "completed">("all");
   const [filterProject, setFilterProject] = useState<string | "all">("all");
+  const [showArchived, setShowArchived] = useState(false);
   const [allTaskStats, setAllTaskStats] = useState({
     total: 0,
     completed: 0,
@@ -109,6 +114,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
       params.set("projectId", filterProject);
       params.set("page", String(currentPage));
       params.set("pageSize", String(tasksPerPage));
+      params.set("archived", String(showArchived));
 
       const res = await authedFetch(`/api/backend/tasks?${params.toString()}`, { method: "GET" });
       const data = await res.json();
@@ -118,12 +124,12 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setIsLoading(false);
     }
-  }, [user, authedFetch, currentPage, tasksPerPage, filterStatus, filterProject]);
+  }, [user, authedFetch, currentPage, tasksPerPage, filterStatus, filterProject, showArchived]);
 
   // Reset to page 1 when filter changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [filterStatus, filterProject]);
+  }, [filterStatus, filterProject, showArchived]);
 
   useEffect(() => {
     if (!user) {
@@ -376,6 +382,16 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
     }, 3000); // 3 second delay before permanent deletion
   };
 
+  const archiveTask = async (taskId: string): Promise<void> => {
+    await updateTask(taskId, { archived: true });
+    setTasks((prev) => prev.filter((t) => t.id !== taskId));
+  };
+
+  const restoreTask = async (taskId: string): Promise<void> => {
+    await updateTask(taskId, { archived: false });
+    setTasks((prev) => prev.filter((t) => t.id !== taskId));
+  };
+
   const importTasks = async (importedTasks: Task[]): Promise<void> => {
     if (!user) return;
 
@@ -420,6 +436,8 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
         setFilterStatus,
         filterProject,
         setFilterProject,
+        showArchived,
+        setShowArchived,
         allTaskStats,
         fetchNextPage,
         fetchPreviousPage,
@@ -428,6 +446,8 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
         updateTask,
         updateTaskStatus,
         deleteTask,
+        archiveTask,
+        restoreTask,
         importTasks,
         getFilteredTasksForExport,
       }}

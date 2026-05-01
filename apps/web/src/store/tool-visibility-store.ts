@@ -65,6 +65,22 @@ export const useToolVisibilityStore = create<ToolVisibilityStore>()(
     }),
     {
       name: 'tool-visibility-storage',
+      version: 1,
+      migrate: (persistedState: unknown, version: number) => {
+        if (version === 0) {
+          const state = persistedState as ToolVisibilityStore | null;
+          if (state && Array.isArray(state.enabledTools)) {
+            const newTools = [...state.enabledTools];
+            DEFAULT_ENABLED_TOOLS.forEach((tool) => {
+              if (!newTools.includes(tool)) {
+                newTools.push(tool);
+              }
+            });
+            return { ...state, enabledTools: newTools } as ToolVisibilityStore;
+          }
+        }
+        return persistedState as ToolVisibilityStore;
+      },
     }
   )
 );

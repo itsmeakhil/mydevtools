@@ -36,6 +36,8 @@ export interface CodeSnippet {
   /** Monaco id or "auto" */
   language: string;
   code: string;
+  tags: string[];
+  pinned: boolean;
   createdAt: number;
   updatedAt: number;
 }
@@ -68,6 +70,8 @@ export const useSnippetManagerStore = create<SnippetManagerState>()(
           title: overrides?.title ?? "Untitled snippet",
           language: overrides?.language ?? SNIPPET_LANGUAGE_AUTO,
           code: overrides?.code ?? "",
+          tags: overrides?.tags ?? [],
+          pinned: overrides?.pinned ?? false,
           createdAt: overrides?.createdAt ?? now,
           updatedAt: overrides?.updatedAt ?? now,
         };

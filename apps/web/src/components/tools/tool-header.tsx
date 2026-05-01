@@ -4,6 +4,7 @@ import { Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { usePinnedToolsStore } from '@/store/pinned-tools-store';
+import { normalizePinnedToolPath } from '@/lib/pinned-tools-path';
 import { cn } from '@/lib/utils';
 
 export function ToolPinButton({
@@ -17,7 +18,8 @@ export function ToolPinButton({
 }) {
   const pinnedTools = usePinnedToolsStore((s) => s.pinnedTools);
   const togglePin = usePinnedToolsStore((s) => s.togglePin);
-  const isPinned = pinnedTools.includes(toolId);
+  const canonical = normalizePinnedToolPath(toolId);
+  const isPinned = pinnedTools.includes(canonical);
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.preventDefault();

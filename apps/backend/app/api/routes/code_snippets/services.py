@@ -20,6 +20,8 @@ def _doc_to_out(doc: dict[str, Any]) -> CodeSnippetOut:
         title=str(doc.get("title", "")),
         language=str(doc.get("language", "auto")),
         code=str(doc.get("code", "")),
+        tags=list(doc.get("tags") or []),
+        pinned=bool(doc.get("pinned", False)),
         createdAt=int(doc.get("createdAt", 0)),
         updatedAt=int(doc.get("updatedAt", 0)),
     )
@@ -43,6 +45,8 @@ def create_code_snippet(uid: str, body: CodeSnippetCreate) -> CodeSnippetOut:
         "title": body.title,
         "language": body.language,
         "code": body.code,
+        "tags": body.tags or [],
+        "pinned": body.pinned or False,
         "createdAt": created,
         "updatedAt": updated,
     }
