@@ -14,7 +14,7 @@ type Props = {
  * When Firebase has a user, ensures HttpOnly JWT cookies exist (new login or expired cookies).
  */
 export function EnsureBackendSession({ user, children }: Props) {
-    const [ready, setReady] = useState(true)
+    const [ready, setReady] = useState(!user)
 
     useEffect(() => {
         if (!user) {
@@ -39,8 +39,9 @@ export function EnsureBackendSession({ user, children }: Props) {
 
     if (user && !ready) {
         return (
-            <div className="flex h-full min-h-0 w-full flex-1 flex-col items-center justify-center">
+            <div className="min-h-screen flex flex-col items-center justify-center gap-3 bg-background">
                 <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" aria-hidden />
+                <p className="text-sm text-muted-foreground">Loading…</p>
             </div>
         )
     }

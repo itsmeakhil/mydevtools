@@ -4,13 +4,10 @@ import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { AppSidebar } from "./app-sidebar";
 import { NavBar } from '@/components/nav-bar';
 import { MobileNav } from '@/components/mobile-nav';
-import useAuth from '@/utils/useAuth';
-import { EnsureBackendSession } from '@/components/ensure-backend-session';
 import { GlobalCommandPalette } from '@/components/global-command-palette';
 
 function Layout({ children }: { children: React.ReactNode }) {
   const { state } = useSidebar();
-  const { user } = useAuth(false);
 
   return (
     <div
@@ -36,9 +33,7 @@ function Layout({ children }: { children: React.ReactNode }) {
           </div>
           <div className="z-10 flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
             <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto">
-              <EnsureBackendSession user={user}>
-                {children}
-              </EnsureBackendSession>
+              {children}
             </div>
           </div>
           <MobileNav />
