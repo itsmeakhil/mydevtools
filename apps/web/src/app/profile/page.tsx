@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { Badge } from '@/components/ui/badge'
+import { Textarea } from '@/components/ui/textarea'
 import useAuth from '@/utils/useAuth'
 import { useTranslations } from 'next-intl'
 import { GithubProfileWidget } from '@/components/github-profile-widget'
@@ -32,6 +33,10 @@ export default function ProfilePage() {
   const [isEditingTech, setIsEditingTech] = useState(false)
   const [editTechStacks, setEditTechStacks] = useState<string[]>([])
 
+  const [bio, setBio] = useState<string | null>(null)
+  const [isEditingBio, setIsEditingBio] = useState(false)
+  const [editBioVal, setEditBioVal] = useState('')
+
   const SOCIAL_PLATFORMS = [
     { id: 'website', label: 'Website', icon: Globe, placeholder: 'https://example.com' },
     { id: 'twitter', label: 'Twitter', icon: Twitter, placeholder: 'https://twitter.com/username' },
@@ -50,6 +55,7 @@ export default function ProfilePage() {
         if (res.ok) {
           const profile = await res.json()
           setUsername(profile.username)
+          setBio(profile.bio ?? null)
           if (profile.social_links) {
             setSocialLinks(profile.social_links)
           }
@@ -63,6 +69,24 @@ export default function ProfilePage() {
     }
     loadProfile()
   }, [])
+
+  const handleSaveBio = async () => {
+    try {
+      const res = await backendFetch('/api/backend/auth/profile', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bio: editBioVal }),
+      })
+      if (res.ok) {
+        setBio(editBioVal)
+        setIsEditingBio(false)
+      } else {
+        alert('Failed to update bio.')
+      }
+    } catch {
+      alert('Network error.')
+    }
+  }
 
   const handleSaveUsername = async () => {
     setErrorMsg('')
@@ -225,6 +249,70 @@ export default function ProfilePage() {
             ) : (
               <div className="text-sm text-muted-foreground">
                 {t('userProfile.notLoggedIn')}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <div className="space-y-1">
+              <CardTitle className="flex items-center gap-2">
+                <Edit2 className="h-5 w-5 opacity-70" />
+                Bio
+              </CardTitle>
+              <CardDescription>
+                A short intro shown on your public profile.
+              </CardDescription>
+            </div>
+            {!isEditingBio && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => { setEditBioVal(bio || ''); setIsEditingBio(true) }}
+                className="h-8 gap-2 border"
+              >
+                <Edit2 className="h-3.5 w-3.5" />
+                Edit Bio
+              </Button>
+            )}
+          </CardHeader>
+          <CardContent className="pt-4">
+            {isEditingBio ? (
+              <div className="space-y-4 max-w-2xl">
+                <Textarea
+                  value={editBioVal}
+                  onChange={(e) => setEditBioVal(e.target.value)}
+                  placeholder="Tell people what you do, what you’re building, or what you’re into."
+                  className="min-h-[110px]"
+                  maxLength={280}
+                />
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <span>Max 280 characters.</span>
+                  <span className="tabular-nums">{editBioVal.length}/280</span>
+                </div>
+                <div className="flex items-center gap-2 pt-1">
+                  <Button onClick={handleSaveBio} className="gap-2">
+                    <CheckCircle2 className="h-4 w-4" />
+                    Save Bio
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => { setIsEditingBio(false); setEditBioVal(bio || '') }}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="max-w-2xl">
+                {!bio || bio.trim().length === 0 ? (
+                  <p className="text-sm text-muted-foreground italic">No bio yet.</p>
+                ) : (
+                  <p className="text-sm text-foreground/80 whitespace-pre-wrap leading-relaxed">
+                    {bio}
+                  </p>
+                )}
               </div>
             )}
           </CardContent>

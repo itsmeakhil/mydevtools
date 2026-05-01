@@ -6,5 +6,6 @@ class PublicUserProfileResponse(BaseModel):
     display_name: str | None = None
     photo_url: str | None = None
     github_username: str | None = None
+    bio: str | None = None
     social_links: SocialLinks | None = None
     tech_stacks: list[str] = Field(default_factory=list)

@@ -27,12 +27,27 @@ import { GitHubCalendar } from 'react-github-calendar'
 import { Logo } from '@/components/logo'
 import { TECH_CATALOG } from '@/components/tech-stack-picker'
 
+type PublicProfile = {
+  username: string
+  display_name?: string | null
+  photo_url?: string | null
+  github_username?: string | null
+  bio?: string | null
+  social_links?: Record<string, string> | null
+  tech_stacks?: string[] | null
+}
+
 /* ──────────────────────────────────────────────────────────────────────── */
 /*  Social platform config                                                 */
 /* ──────────────────────────────────────────────────────────────────────── */
 const SOCIAL_PLATFORMS: Record<
   string,
-  { label: string; icon: React.ComponentType<any>; hoverColor: string; bgAccent: string }
+  {
+    label: string
+    icon: React.ComponentType<{ className?: string }>
+    hoverColor: string
+    bgAccent: string
+  }
 > = {
   website: {
     label: 'Website',
@@ -146,7 +161,7 @@ function StaggerChild({
 export default function PublicProfilePage() {
   const { username } = useParams()
   const { theme } = useTheme()
-  const [profile, setProfile] = useState<any>(null)
+  const [profile, setProfile] = useState<PublicProfile | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -157,12 +172,12 @@ export default function PublicProfilePage() {
       try {
         const res = await fetch(`/api/backend/users/${username}`)
         if (res.ok) {
-          const data = await res.json()
+          const data = (await res.json()) as PublicProfile
           setProfile(data)
         } else {
           setError(true)
         }
-      } catch (err) {
+      } catch {
         setError(true)
       } finally {
         setLoading(false)
@@ -224,7 +239,7 @@ export default function PublicProfilePage() {
   const isDark = theme === 'dark'
   const hasSocials =
     profile.social_links &&
-    Object.values(profile.social_links).some((val: any) => val && val.trim() !== '')
+    Object.values(profile.social_links).some((val) => typeof val === 'string' && val.trim() !== '')
   const hasGithub = !!profile.github_username
   const displayName = profile.display_name || profile.username
   const initials = displayName?.charAt(0)?.toUpperCase() || '?'
@@ -338,6 +353,11 @@ export default function PublicProfilePage() {
               <AtSign className="h-3.5 w-3.5 opacity-50" />
               <span>{profile.username}</span>
             </p>
+            {profile.bio && String(profile.bio).trim().length > 0 && (
+              <p className="text-sm md:text-base text-foreground/70 max-w-2xl mx-auto leading-relaxed mt-3 whitespace-pre-wrap">
+                {profile.bio}
+              </p>
+            )}
           </StaggerChild>
 
           {/* ── Social Links ── */}

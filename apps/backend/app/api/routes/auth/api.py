@@ -196,6 +196,9 @@ def update_profile(
     if payload.tech_stacks is not None:
         updates["tech_stacks"] = payload.tech_stacks
 
+    if payload.bio is not None:
+        updates["bio"] = payload.bio
+
     if updates:
         update_user_profile(current_user.uid, updates)
 
@@ -208,6 +211,8 @@ def update_profile(
         current_user.social_links = payload.social_links
     if "tech_stacks" in updates:
         current_user.tech_stacks = updates["tech_stacks"]
+    if "bio" in updates:
+        current_user.bio = updates["bio"]
 
     return current_user
 
