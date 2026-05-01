@@ -39,7 +39,7 @@ export function EnsureBackendSession({ user, children }: Props) {
 
     if (user && !ready) {
         return (
-            <div className="min-h-screen flex flex-col items-center justify-center gap-3 bg-background">
+            <div className="fixed inset-0 z-[9999] flex h-[100dvh] w-[100dvw] flex-col items-center justify-center gap-3 bg-background">
                 <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" aria-hidden />
                 <p className="text-sm text-muted-foreground">Loading…</p>
             </div>
