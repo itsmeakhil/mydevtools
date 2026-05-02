@@ -58,6 +58,15 @@ class PortfolioSettings(BaseModel):
 
 
 
+class PersonalInfo(BaseModel):
+    phone: str | None = None
+    location: str | None = None
+    date_of_birth: str | None = None
+    nationality: str | None = None
+    languages: list[str] = Field(default_factory=list)
+    hobbies: list[str] = Field(default_factory=list)
+
+
 class UserProfileResponse(BaseModel):
     uid: str
     email: str | None = None
@@ -74,6 +83,7 @@ class UserProfileResponse(BaseModel):
     projects: list[Project] = Field(default_factory=list)
     education: list[Education] = Field(default_factory=list)
     portfolio_settings: PortfolioSettings | None = None
+    personal_info: PersonalInfo | None = None
 
 
 class UpdateProfileRequest(BaseModel):
@@ -86,6 +96,7 @@ class UpdateProfileRequest(BaseModel):
     projects: list[Project] | None = None
     education: list[Education] | None = None
     portfolio_settings: PortfolioSettings | None = None
+    personal_info: PersonalInfo | None = None
 
 
 class OkResponse(BaseModel):

@@ -30,6 +30,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import useAuth from '@/utils/useAuth'
 import { useTranslations } from 'next-intl'
+import { toast } from 'sonner'
 import { GithubProfileWidget } from '@/components/github-profile-widget'
 import { backendFetch } from '@/lib/backend-auth'
 import { TechStackPicker, TECH_CATALOG } from '@/components/tech-stack-picker'
@@ -38,10 +39,12 @@ import {
   ProjectsBuilder,
   EducationBuilder,
   PortfolioSettingsCard,
+  PersonalInfoCard,
   type Experience,
   type Project,
   type Education,
   type PortfolioSettings,
+  type PersonalInfo,
 } from '@/components/portfolio-builder'
 
 export default function ProfilePage() {
@@ -69,6 +72,7 @@ export default function ProfilePage() {
   const [projects, setProjects] = useState<Project[]>([])
   const [education, setEducation] = useState<Education[]>([])
   const [portfolioSettings, setPortfolioSettings] = useState<PortfolioSettings>({})
+  const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({ languages: [], hobbies: [] })
 
   const SOCIAL_PLATFORMS = [
     { id: 'website', label: 'Website', icon: Globe, placeholder: 'https://example.com' },
@@ -95,6 +99,7 @@ export default function ProfilePage() {
           if (profile.projects) setProjects(profile.projects)
           if (profile.education) setEducation(profile.education)
           if (profile.portfolio_settings) setPortfolioSettings(profile.portfolio_settings)
+          if (profile.personal_info) setPersonalInfo(profile.personal_info)
         }
       } catch (err) {
         console.error('Failed to resolve profile', err)
@@ -113,11 +118,12 @@ export default function ProfilePage() {
       if (res.ok) {
         setBio(editBioVal)
         setIsEditingBio(false)
+        toast.success('Bio updated.')
       } else {
-        alert('Failed to update bio.')
+        toast.error('Failed to update bio.')
       }
     } catch {
-      alert('Network error.')
+      toast.error('Network error.')
     }
   }
 
@@ -153,11 +159,12 @@ export default function ProfilePage() {
       if (res.ok) {
         setTechStacks(editTechStacks)
         setIsEditingTech(false)
+        toast.success('Tech stack updated.')
       } else {
-        alert('Failed to update tech stacks.')
+        toast.error('Failed to update tech stack.')
       }
     } catch {
-      alert('Network error.')
+      toast.error('Network error.')
     }
   }
 
@@ -171,11 +178,12 @@ export default function ProfilePage() {
       if (res.ok) {
         setSocialLinks(editSocialLinks)
         setIsEditingSocial(false)
+        toast.success('Social links updated.')
       } else {
-        alert('Failed to update social links')
+        toast.error('Failed to update social links.')
       }
     } catch {
-      alert('Network error.')
+      toast.error('Network error.')
     }
   }
 
@@ -183,6 +191,20 @@ export default function ProfilePage() {
 
   const displayName = user?.displayName || username || 'Your Name'
   const initials = displayName.charAt(0).toUpperCase()
+
+  const completenessItems = [
+    { label: 'Username', done: !!username },
+    { label: 'Bio', done: !!bio && bio.trim().length > 0 },
+    { label: 'Social link', done: Object.values(socialLinks).some((v) => v?.trim()) },
+    { label: 'Tech stack', done: techStacks.length > 0 },
+    { label: 'Experience', done: experiences.length > 0 },
+    { label: 'Project', done: projects.length > 0 },
+    { label: 'Education', done: education.length > 0 },
+    { label: 'Personal info', done: !!(personalInfo.phone || personalInfo.location) },
+  ]
+  const completedCount = completenessItems.filter((i) => i.done).length
+  const completenessPercent = Math.round((completedCount / completenessItems.length) * 100)
+  const missing = completenessItems.filter((i) => !i.done)
 
   return (
     <div className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-8 pt-20 lg:pt-10 pb-16 space-y-8">
@@ -280,6 +302,42 @@ export default function ProfilePage() {
         </div>
       </div>
 
+      {/* ── Completeness bar ── */}
+      {completenessPercent < 100 && (
+        <div className="rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-4 space-y-3">
+          <div className="flex items-center justify-between text-sm">
+            <span className="font-medium">Profile completeness</span>
+            <span className={completenessPercent >= 80 ? 'text-emerald-500 font-semibold' : 'text-muted-foreground'}>
+              {completenessPercent}%
+            </span>
+          </div>
+          <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
+            <div
+              className="h-full rounded-full transition-all duration-500"
+              style={{
+                width: `${completenessPercent}%`,
+                background: completenessPercent >= 80
+                  ? 'hsl(var(--primary))'
+                  : completenessPercent >= 50
+                  ? 'hsl(var(--primary) / 0.7)'
+                  : 'hsl(var(--primary) / 0.4)',
+              }}
+            />
+          </div>
+          {missing.length > 0 && (
+            <p className="text-xs text-muted-foreground">
+              Missing:{' '}
+              {missing.map((m, i) => (
+                <span key={m.label}>
+                  <span className="font-medium text-foreground/70">{m.label}</span>
+                  {i < missing.length - 1 ? ', ' : ''}
+                </span>
+              ))}
+            </p>
+          )}
+        </div>
+      )}
+
       {/* ── Tabs ── */}
       <Tabs defaultValue="details">
         <TabsList className="w-full sm:w-auto">
@@ -295,6 +353,9 @@ export default function ProfilePage() {
 
         {/* ── Details Tab ── */}
         <TabsContent value="details" className="space-y-6 mt-6">
+          {/* Personal Info */}
+          <PersonalInfoCard info={personalInfo} onChange={setPersonalInfo} />
+
           {/* Bio */}
           <div className="rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm">
             <div className="flex items-center justify-between p-5 pb-3">

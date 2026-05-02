@@ -435,7 +435,7 @@ export default function PublicProfilePage() {
         </section>
 
         {/* ── Tech Stack ── */}
-        {profile.tech_stacks?.length > 0 && (
+        {(profile.tech_stacks?.length ?? 0) > 0 && (
           <section className="w-full mt-12">
             <StaggerChild index={3}>
               <div className="flex items-center gap-2.5 mb-5">
@@ -449,7 +449,7 @@ export default function PublicProfilePage() {
               </div>
               <div className="rounded-2xl border border-border/40 bg-card/30 backdrop-blur-md p-5 shadow-sm">
                 <div className="flex flex-wrap gap-2">
-                  {profile.tech_stacks.map((tech: string) => {
+                  {profile.tech_stacks!.map((tech: string) => {
                     const meta = TECH_CATALOG.find((t) => t.name === tech)
                     const src = meta ? (meta.iconUrl ?? `https://cdn.simpleicons.org/${meta.slug}/${meta.color}`) : null
                     return (
@@ -508,7 +508,7 @@ export default function PublicProfilePage() {
                   </div>
                   <div className="w-full flex justify-center overflow-x-auto custom-scrollbar pb-1">
                     <GitHubCalendar
-                      username={profile.github_username}
+                      username={profile.github_username!}
                       colorScheme={isDark ? 'dark' : 'light'}
                       blockSize={12}
                       blockMargin={3}

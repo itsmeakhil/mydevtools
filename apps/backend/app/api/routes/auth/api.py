@@ -211,6 +211,9 @@ def update_profile(
     if payload.portfolio_settings is not None:
         updates["portfolio_settings"] = payload.portfolio_settings.model_dump()
 
+    if payload.personal_info is not None:
+        updates["personal_info"] = payload.personal_info.model_dump()
+
     if updates:
         update_user_profile(current_user.uid, updates)
 
@@ -233,6 +236,8 @@ def update_profile(
         current_user.education = payload.education
     if "portfolio_settings" in updates:
         current_user.portfolio_settings = payload.portfolio_settings
+    if "personal_info" in updates:
+        current_user.personal_info = payload.personal_info
 
     return current_user
 

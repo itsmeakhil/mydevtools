@@ -19,6 +19,7 @@ import {
   Check,
 } from 'lucide-react'
 import { backendFetch } from '@/lib/backend-auth'
+import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 
 export interface PortfolioSettings {
@@ -79,11 +80,12 @@ export function PortfolioSettingsCard({ settings, onChange }: PortfolioSettingsC
       if (res.ok) {
         onChange(form)
         setIsEditing(false)
+        toast.success('Portfolio settings saved.')
       } else {
-        alert('Failed to save settings.')
+        toast.error('Failed to save settings.')
       }
     } catch {
-      alert('Network error.')
+      toast.error('Network error.')
     } finally {
       setSaving(false)
     }
