@@ -51,6 +51,7 @@ export interface Education {
 interface EducationBuilderProps {
   education: Education[]
   onChange: (education: Education[]) => void
+  flat?: boolean
 }
 
 function generateId(): string {
@@ -184,7 +185,7 @@ function SortableEducationItem({
   )
 }
 
-export function EducationBuilder({ education, onChange }: EducationBuilderProps) {
+export function EducationBuilder({ education, onChange, flat = false }: EducationBuilderProps) {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [isAdding, setIsAdding] = useState(false)
   const [isCollapsed, setIsCollapsed] = useState(true)
@@ -228,66 +229,82 @@ export function EducationBuilder({ education, onChange }: EducationBuilderProps)
     }
   }
 
+  const header = (
+    <div className="flex items-center justify-between px-5 pt-4 pb-3">
+      <div className="space-y-0.5 flex-1 min-w-0">
+        <p className="font-semibold text-sm flex items-center gap-2">
+          <GraduationCap className="h-4 w-4 opacity-60" />
+          Education
+        </p>
+        <p className="text-xs text-muted-foreground truncate">
+          {isCollapsed ? summary : 'Your academic background and certifications.'}
+        </p>
+      </div>
+      <div className="flex items-center gap-0.5 shrink-0 ml-2">
+        {!isCollapsed && !isAdding && !editingId && (
+          <Button variant="ghost" size="icon" onClick={() => { setIsCollapsed(false); setIsAdding(true) }} className="h-7 w-7 text-muted-foreground hover:text-foreground" disabled={saving}>
+            <Plus className="h-3.5 w-3.5" />
+          </Button>
+        )}
+        <Button variant="ghost" size="icon" onClick={() => setIsCollapsed(!isCollapsed)} className="h-7 w-7 text-muted-foreground hover:text-foreground">
+          <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', !isCollapsed && 'rotate-180')} />
+        </Button>
+      </div>
+    </div>
+  )
+
+  const body = (
+    <div className="px-5 pb-5 space-y-3">
+      {isAdding && (
+        <EducationForm
+          education={{ id: generateId(), ...emptyEducation }}
+          onSave={(edu) => { persist([...education, edu], 'Education added.'); setIsAdding(false) }}
+          onCancel={() => setIsAdding(false)}
+        />
+      )}
+      {education.length === 0 && !isAdding ? (
+        <p className="text-sm text-muted-foreground italic">No education added yet.</p>
+      ) : (
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <SortableContext items={education.map((e) => e.id)} strategy={verticalListSortingStrategy}>
+            <div className="space-y-3">
+              {education.map((edu) =>
+                editingId === edu.id ? (
+                  <EducationForm
+                    key={edu.id}
+                    education={edu}
+                    onSave={(updated) => { persist(education.map((e) => e.id === updated.id ? updated : e), 'Education updated.'); setEditingId(null) }}
+                    onCancel={() => setEditingId(null)}
+                  />
+                ) : (
+                  <SortableEducationItem
+                    key={edu.id}
+                    education={edu}
+                    onEdit={() => setEditingId(edu.id)}
+                    onDelete={() => persist(education.filter((e) => e.id !== edu.id), 'Education removed.')}
+                  />
+                )
+              )}
+            </div>
+          </SortableContext>
+        </DndContext>
+      )}
+    </div>
+  )
+
+  if (flat) {
+    return (
+      <>
+        {header}
+        {!isCollapsed && body}
+      </>
+    )
+  }
+
   return (
     <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
-      <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <div className="space-y-1 flex-1 min-w-0">
-          <CardTitle className="flex items-center gap-2">
-            <GraduationCap className="h-5 w-5 opacity-70" />
-            Education
-          </CardTitle>
-          {isCollapsed
-            ? <p className="text-xs text-muted-foreground">{summary}</p>
-            : <CardDescription>Your academic background and certifications.</CardDescription>
-          }
-        </div>
-        <div className="flex items-center gap-0.5 shrink-0 ml-2">
-          {!isAdding && !editingId && (
-            <Button variant="ghost" size="icon" onClick={() => { setIsCollapsed(false); setIsAdding(true) }} className="h-7 w-7 text-muted-foreground hover:text-foreground" disabled={saving}>
-              <Plus className="h-3.5 w-3.5" />
-            </Button>
-          )}
-          <Button variant="ghost" size="icon" onClick={() => setIsCollapsed(!isCollapsed)} className="h-7 w-7 text-muted-foreground hover:text-foreground">
-            <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', !isCollapsed && 'rotate-180')} />
-          </Button>
-        </div>
-      </CardHeader>
-      {!isCollapsed && <CardContent className="pt-4 space-y-3">
-        {isAdding && (
-          <EducationForm
-            education={{ id: generateId(), ...emptyEducation }}
-            onSave={(edu) => { persist([...education, edu], 'Education added.'); setIsAdding(false) }}
-            onCancel={() => setIsAdding(false)}
-          />
-        )}
-        {education.length === 0 && !isAdding ? (
-          <p className="text-sm text-muted-foreground italic">No education added yet.</p>
-        ) : (
-          <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-            <SortableContext items={education.map((e) => e.id)} strategy={verticalListSortingStrategy}>
-              <div className="space-y-3">
-                {education.map((edu) =>
-                  editingId === edu.id ? (
-                    <EducationForm
-                      key={edu.id}
-                      education={edu}
-                      onSave={(updated) => { persist(education.map((e) => e.id === updated.id ? updated : e), 'Education updated.'); setEditingId(null) }}
-                      onCancel={() => setEditingId(null)}
-                    />
-                  ) : (
-                    <SortableEducationItem
-                      key={edu.id}
-                      education={edu}
-                      onEdit={() => setEditingId(edu.id)}
-                      onDelete={() => persist(education.filter((e) => e.id !== edu.id), 'Education removed.')}
-                    />
-                  )
-                )}
-              </div>
-            </SortableContext>
-          </DndContext>
-        )}
-      </CardContent>}
+      {header}
+      {!isCollapsed && <CardContent className="pt-0">{body}</CardContent>}
     </Card>
   )
 }

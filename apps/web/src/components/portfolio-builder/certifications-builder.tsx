@@ -50,6 +50,7 @@ export interface Certification {
 interface CertificationsBuilderProps {
   certifications: Certification[]
   onChange: (certifications: Certification[]) => void
+  flat?: boolean
 }
 
 function generateId(): string {
@@ -193,7 +194,7 @@ function SortableCertificationItem({
   )
 }
 
-export function CertificationsBuilder({ certifications, onChange }: CertificationsBuilderProps) {
+export function CertificationsBuilder({ certifications, onChange, flat = false }: CertificationsBuilderProps) {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [isAdding, setIsAdding] = useState(false)
   const [isCollapsed, setIsCollapsed] = useState(true)
@@ -237,66 +238,82 @@ export function CertificationsBuilder({ certifications, onChange }: Certificatio
     }
   }
 
+  const header = (
+    <div className="flex items-center justify-between px-5 pt-4 pb-3">
+      <div className="space-y-0.5 flex-1 min-w-0">
+        <p className="font-semibold text-sm flex items-center gap-2">
+          <Award className="h-4 w-4 opacity-60" />
+          Certifications
+        </p>
+        <p className="text-xs text-muted-foreground truncate">
+          {isCollapsed ? summary : 'Professional certifications and licenses.'}
+        </p>
+      </div>
+      <div className="flex items-center gap-0.5 shrink-0 ml-2">
+        {!isCollapsed && !isAdding && !editingId && (
+          <Button variant="ghost" size="icon" onClick={() => { setIsCollapsed(false); setIsAdding(true) }} className="h-7 w-7 text-muted-foreground hover:text-foreground" disabled={saving}>
+            <Plus className="h-3.5 w-3.5" />
+          </Button>
+        )}
+        <Button variant="ghost" size="icon" onClick={() => setIsCollapsed(!isCollapsed)} className="h-7 w-7 text-muted-foreground hover:text-foreground">
+          <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', !isCollapsed && 'rotate-180')} />
+        </Button>
+      </div>
+    </div>
+  )
+
+  const body = (
+    <div className="px-5 pb-5 space-y-3">
+      {isAdding && (
+        <CertificationForm
+          certification={{ id: generateId(), ...emptyCertification }}
+          onSave={(cert) => { persist([...certifications, cert], 'Certification added.'); setIsAdding(false) }}
+          onCancel={() => setIsAdding(false)}
+        />
+      )}
+      {certifications.length === 0 && !isAdding ? (
+        <p className="text-sm text-muted-foreground italic">No certifications added yet.</p>
+      ) : (
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <SortableContext items={certifications.map((c) => c.id)} strategy={verticalListSortingStrategy}>
+            <div className="space-y-3">
+              {certifications.map((cert) =>
+                editingId === cert.id ? (
+                  <CertificationForm
+                    key={cert.id}
+                    certification={cert}
+                    onSave={(updated) => { persist(certifications.map((c) => c.id === updated.id ? updated : c), 'Certification updated.'); setEditingId(null) }}
+                    onCancel={() => setEditingId(null)}
+                  />
+                ) : (
+                  <SortableCertificationItem
+                    key={cert.id}
+                    certification={cert}
+                    onEdit={() => setEditingId(cert.id)}
+                    onDelete={() => persist(certifications.filter((c) => c.id !== cert.id), 'Certification removed.')}
+                  />
+                )
+              )}
+            </div>
+          </SortableContext>
+        </DndContext>
+      )}
+    </div>
+  )
+
+  if (flat) {
+    return (
+      <>
+        {header}
+        {!isCollapsed && body}
+      </>
+    )
+  }
+
   return (
     <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
-      <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <div className="space-y-1 flex-1 min-w-0">
-          <CardTitle className="flex items-center gap-2">
-            <Award className="h-5 w-5 opacity-70" />
-            Certifications
-          </CardTitle>
-          {isCollapsed
-            ? <p className="text-xs text-muted-foreground">{summary}</p>
-            : <CardDescription>Professional certifications and licenses.</CardDescription>
-          }
-        </div>
-        <div className="flex items-center gap-0.5 shrink-0 ml-2">
-          {!isAdding && !editingId && (
-            <Button variant="ghost" size="icon" onClick={() => { setIsCollapsed(false); setIsAdding(true) }} className="h-7 w-7 text-muted-foreground hover:text-foreground" disabled={saving}>
-              <Plus className="h-3.5 w-3.5" />
-            </Button>
-          )}
-          <Button variant="ghost" size="icon" onClick={() => setIsCollapsed(!isCollapsed)} className="h-7 w-7 text-muted-foreground hover:text-foreground">
-            <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', !isCollapsed && 'rotate-180')} />
-          </Button>
-        </div>
-      </CardHeader>
-      {!isCollapsed && <CardContent className="pt-4 space-y-3">
-        {isAdding && (
-          <CertificationForm
-            certification={{ id: generateId(), ...emptyCertification }}
-            onSave={(cert) => { persist([...certifications, cert], 'Certification added.'); setIsAdding(false) }}
-            onCancel={() => setIsAdding(false)}
-          />
-        )}
-        {certifications.length === 0 && !isAdding ? (
-          <p className="text-sm text-muted-foreground italic">No certifications added yet.</p>
-        ) : (
-          <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-            <SortableContext items={certifications.map((c) => c.id)} strategy={verticalListSortingStrategy}>
-              <div className="space-y-3">
-                {certifications.map((cert) =>
-                  editingId === cert.id ? (
-                    <CertificationForm
-                      key={cert.id}
-                      certification={cert}
-                      onSave={(updated) => { persist(certifications.map((c) => c.id === updated.id ? updated : c), 'Certification updated.'); setEditingId(null) }}
-                      onCancel={() => setEditingId(null)}
-                    />
-                  ) : (
-                    <SortableCertificationItem
-                      key={cert.id}
-                      certification={cert}
-                      onEdit={() => setEditingId(cert.id)}
-                      onDelete={() => persist(certifications.filter((c) => c.id !== cert.id), 'Certification removed.')}
-                    />
-                  )
-                )}
-              </div>
-            </SortableContext>
-          </DndContext>
-        )}
-      </CardContent>}
+      {header}
+      {!isCollapsed && <CardContent className="pt-0">{body}</CardContent>}
     </Card>
   )
 }

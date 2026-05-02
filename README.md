@@ -98,25 +98,6 @@ Most developer tools are scattered across dozens of tabs, riddled with ads, or s
 | **🔢 UUID Generator** | Generate UUIDs (v1, v4) in bulk with copy support |
 | **🎨 CSS Gradient Builder** | Visual builder for linear and radial CSS gradients with color stops |
 
-### 📄 PDF Tools
-
-| Tool | Description |
-|------|-------------|
-| **📊 Excel to PDF** | Convert Excel spreadsheets to PDF documents |
-| **🌐 HTML to PDF** | Convert HTML pages or markup to PDF |
-| **🖼️ JPG to PDF** | Combine images into a single PDF document |
-| **🔍 PDF Compare** | Diff two PDF documents side-by-side and highlight changes |
-| **🗜️ PDF Compressor** | Reduce PDF file size while maintaining quality |
-| **✏️ PDF Editor** | Edit text, annotations, and metadata in PDF files |
-| **🔒 PDF Locker** | Password-protect PDF documents |
-| **🔗 PDF Merge** | Combine multiple PDFs into one document |
-| **✍️ PDF Sign** | Add digital signatures to PDF files |
-| **✂️ PDF Splitter** | Split a PDF into multiple documents by page range |
-| **🖼️ PDF to JPG** | Convert PDF pages to high-quality JPG images |
-| **📄 PDF to PDF/A** | Convert PDFs to archival PDF/A format |
-| **🔓 PDF Unlocker** | Remove password protection from PDFs |
-| **💧 PDF Watermark** | Add text or image watermarks to PDF documents |
-
 ### 📱 Productivity Apps
 
 | Tool | Description |
@@ -190,7 +171,7 @@ Share your developer identity with a public profile page at `mydevtools.tech/<us
 
 ### Prerequisites
 
-- **Node.js** ≥ 18
+- **Node.js** ≥ 22
 - **pnpm** ≥ 9 (recommended)
 - **Python** ≥ 3.10 (for backend)
 
@@ -287,17 +268,6 @@ mydevtools.tech/
 │   │   │   │   │   ├── notes/
 │   │   │   │   │   ├── number-base-converter/
 │   │   │   │   │   ├── password-manager/
-│   │   │   │   │   ├── pdf-compare/
-│   │   │   │   │   ├── pdf-compressor/
-│   │   │   │   │   ├── pdf-editor/
-│   │   │   │   │   ├── pdf-locker/
-│   │   │   │   │   ├── pdf-merge/
-│   │   │   │   │   ├── pdf-sign/
-│   │   │   │   │   ├── pdf-splitter/
-│   │   │   │   │   ├── pdf-to-jpg/
-│   │   │   │   │   ├── pdf-to-pdfa/
-│   │   │   │   │   ├── pdf-unlocker/
-│   │   │   │   │   ├── pdf-watermark/
 │   │   │   │   │   ├── qr-code-generator/
 │   │   │   │   │   ├── regex-tester/
 │   │   │   │   │   ├── secret-api-key-generator/

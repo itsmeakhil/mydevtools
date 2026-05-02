@@ -35,6 +35,7 @@ export interface PortfolioSettings {
 interface PortfolioSettingsCardProps {
   settings: PortfolioSettings
   onChange: (settings: PortfolioSettings) => void
+  flat?: boolean
 }
 
 const THEMES = [
@@ -60,7 +61,7 @@ const ACCENT_COLORS = [
   { id: '#f97316', label: 'Orange', className: 'bg-orange-500' },
 ] as const
 
-export function PortfolioSettingsCard({ settings, onChange }: PortfolioSettingsCardProps) {
+export function PortfolioSettingsCard({ settings, onChange, flat = false }: PortfolioSettingsCardProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [isCollapsed, setIsCollapsed] = useState(true)
   const [form, setForm] = useState<PortfolioSettings>({ ...settings })
@@ -98,31 +99,32 @@ export function PortfolioSettingsCard({ settings, onChange }: PortfolioSettingsC
   const currentColor = ACCENT_COLORS.find((c) => c.id === (settings.accentColor || '#3b82f6'))
   const summary = `${currentTheme?.label || 'Bento Grid'} · ${currentFont?.label || 'Sans Serif'} · ${currentColor?.label || 'Blue'}`
 
-  return (
-    <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
-      <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <div className="space-y-1 flex-1 min-w-0">
-          <CardTitle className="flex items-center gap-2">
-            <Settings2 className="h-5 w-5 opacity-70" />
-            Portfolio Settings
-          </CardTitle>
-          {isCollapsed
-            ? <p className="text-xs text-muted-foreground">{summary}</p>
-            : <CardDescription>Customize your public portfolio&apos;s appearance and integrations.</CardDescription>
-          }
-        </div>
-        <div className="flex items-center gap-0.5 shrink-0 ml-2">
-          {!isEditing && (
-            <Button variant="ghost" size="icon" onClick={startEditing} className="h-7 w-7 text-muted-foreground hover:text-foreground">
-              <Edit2 className="h-3.5 w-3.5" />
-            </Button>
-          )}
-          <Button variant="ghost" size="icon" onClick={() => setIsCollapsed(!isCollapsed)} className="h-7 w-7 text-muted-foreground hover:text-foreground">
-            <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', !isCollapsed && 'rotate-180')} />
+  const header = (
+    <div className="flex items-center justify-between px-5 pt-4 pb-3">
+      <div className="space-y-0.5 flex-1 min-w-0">
+        <p className="font-semibold text-sm flex items-center gap-2">
+          <Settings2 className="h-4 w-4 opacity-60" />
+          Portfolio Settings
+        </p>
+        <p className="text-xs text-muted-foreground truncate">
+          {isCollapsed ? summary : "Customize your public portfolio's appearance and integrations."}
+        </p>
+      </div>
+      <div className="flex items-center gap-0.5 shrink-0 ml-2">
+        {!isCollapsed && !isEditing && (
+          <Button variant="ghost" size="icon" onClick={startEditing} className="h-7 w-7 text-muted-foreground hover:text-foreground">
+            <Edit2 className="h-3.5 w-3.5" />
           </Button>
-        </div>
-      </CardHeader>
-      {!isCollapsed && <CardContent className="pt-4">
+        )}
+        <Button variant="ghost" size="icon" onClick={() => setIsCollapsed(!isCollapsed)} className="h-7 w-7 text-muted-foreground hover:text-foreground">
+          <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', !isCollapsed && 'rotate-180')} />
+        </Button>
+      </div>
+    </div>
+  )
+
+  const body = (
+    <div className="px-5 pb-5">
         {isEditing ? (
           <div className="space-y-6 max-w-2xl">
             {/* Theme Picker */}
@@ -320,7 +322,22 @@ export function PortfolioSettingsCard({ settings, onChange }: PortfolioSettingsC
             )}
           </div>
         )}
-      </CardContent>}
+    </div>
+  )
+
+  if (flat) {
+    return (
+      <>
+        {header}
+        {!isCollapsed && body}
+      </>
+    )
+  }
+
+  return (
+    <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
+      {header}
+      {!isCollapsed && <CardContent className="pt-0">{body}</CardContent>}
     </Card>
   )
 }

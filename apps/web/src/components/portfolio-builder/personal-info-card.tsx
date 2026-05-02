@@ -232,7 +232,7 @@ export function PersonalInfoCard({ info, onChange, flat = false }: PersonalInfoC
         </p>
       </div>
       <div className="flex items-center gap-0.5 shrink-0 ml-2">
-        {!isEditing && (
+        {!isCollapsed && !isEditing && (
           <Button variant="ghost" size="icon" onClick={startEditing} className="h-7 w-7 text-muted-foreground hover:text-foreground">
             <Edit2 className="h-3.5 w-3.5" />
           </Button>
