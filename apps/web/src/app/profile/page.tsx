@@ -19,6 +19,8 @@ import {
   Briefcase,
   Mail,
   AtSign,
+  Github,
+  ChevronDown,
 } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Link from 'next/link'
@@ -33,6 +35,7 @@ import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
 import { GithubProfileWidget } from '@/components/github-profile-widget'
 import { backendFetch } from '@/lib/backend-auth'
+import { cn } from '@/lib/utils'
 import { TechStackPicker, TECH_CATALOG } from '@/components/tech-stack-picker'
 import {
   ExperienceBuilder,
@@ -40,11 +43,13 @@ import {
   EducationBuilder,
   PortfolioSettingsCard,
   PersonalInfoCard,
+  CertificationsBuilder,
   type Experience,
   type Project,
   type Education,
   type PortfolioSettings,
   type PersonalInfo,
+  type Certification,
 } from '@/components/portfolio-builder'
 
 export default function ProfilePage() {
@@ -58,26 +63,31 @@ export default function ProfilePage() {
 
   const [socialLinks, setSocialLinks] = useState<Record<string, string>>({})
   const [isEditingSocial, setIsEditingSocial] = useState(false)
+  const [isCollapsedSocial, setIsCollapsedSocial] = useState(true)
   const [editSocialLinks, setEditSocialLinks] = useState<Record<string, string>>({})
 
   const [techStacks, setTechStacks] = useState<string[]>([])
   const [isEditingTech, setIsEditingTech] = useState(false)
+  const [isCollapsedTech, setIsCollapsedTech] = useState(true)
   const [editTechStacks, setEditTechStacks] = useState<string[]>([])
 
   const [bio, setBio] = useState<string | null>(null)
   const [isEditingBio, setIsEditingBio] = useState(false)
+  const [isCollapsedBio, setIsCollapsedBio] = useState(true)
   const [editBioVal, setEditBioVal] = useState('')
 
   const [experiences, setExperiences] = useState<Experience[]>([])
   const [projects, setProjects] = useState<Project[]>([])
   const [education, setEducation] = useState<Education[]>([])
+  const [certifications, setCertifications] = useState<Certification[]>([])
   const [portfolioSettings, setPortfolioSettings] = useState<PortfolioSettings>({})
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({ languages: [], hobbies: [] })
 
   const SOCIAL_PLATFORMS = [
     { id: 'website', label: 'Website', icon: Globe, placeholder: 'https://example.com' },
-    { id: 'twitter', label: 'Twitter', icon: Twitter, placeholder: 'https://twitter.com/username' },
+    { id: 'github', label: 'GitHub', icon: Github, placeholder: 'https://github.com/username' },
     { id: 'linkedin', label: 'LinkedIn', icon: Linkedin, placeholder: 'https://linkedin.com/in/username' },
+    { id: 'twitter', label: 'Twitter', icon: Twitter, placeholder: 'https://twitter.com/username' },
     { id: 'instagram', label: 'Instagram', icon: Instagram, placeholder: 'https://instagram.com/username' },
     { id: 'youtube', label: 'YouTube', icon: Youtube, placeholder: 'https://youtube.com/@username' },
     { id: 'devto', label: 'Dev.to', icon: LinkIcon, placeholder: 'https://dev.to/username' },
@@ -98,6 +108,7 @@ export default function ProfilePage() {
           if (profile.experiences) setExperiences(profile.experiences)
           if (profile.projects) setProjects(profile.projects)
           if (profile.education) setEducation(profile.education)
+          if (profile.certifications) setCertifications(profile.certifications)
           if (profile.portfolio_settings) setPortfolioSettings(profile.portfolio_settings)
           if (profile.personal_info) setPersonalInfo(profile.personal_info)
         }
@@ -195,11 +206,13 @@ export default function ProfilePage() {
   const completenessItems = [
     { label: 'Username', done: !!username },
     { label: 'Bio', done: !!bio && bio.trim().length > 0 },
+    { label: 'Headline', done: !!personalInfo.headline },
     { label: 'Social link', done: Object.values(socialLinks).some((v) => v?.trim()) },
     { label: 'Tech stack', done: techStacks.length > 0 },
     { label: 'Experience', done: experiences.length > 0 },
     { label: 'Project', done: projects.length > 0 },
     { label: 'Education', done: education.length > 0 },
+    { label: 'Certification', done: certifications.length > 0 },
     { label: 'Personal info', done: !!(personalInfo.phone || personalInfo.location) },
   ]
   const completedCount = completenessItems.filter((i) => i.done).length
@@ -358,71 +371,91 @@ export default function ProfilePage() {
 
           {/* Bio */}
           <div className="rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm">
-            <div className="flex items-center justify-between p-5 pb-3">
-              <div>
+            <div className="flex items-center justify-between px-5 pt-4 pb-3">
+              <div className="flex-1 min-w-0">
                 <h4 className="font-semibold flex items-center gap-2 text-sm">
                   <Edit2 className="h-4 w-4 opacity-60" />
                   Bio
                 </h4>
-                <p className="text-xs text-muted-foreground mt-0.5">Short intro shown on your public profile.</p>
+                {isCollapsedBio
+                  ? <p className="text-xs text-muted-foreground mt-0.5 truncate">{bio && bio.trim() ? bio : 'Not set'}</p>
+                  : <p className="text-xs text-muted-foreground mt-0.5">Short intro shown on your public profile.</p>
+                }
               </div>
-              {!isEditingBio && (
-                <Button variant="ghost" size="sm" onClick={() => { setEditBioVal(bio || ''); setIsEditingBio(true) }} className="h-8 gap-2 border text-xs">
-                  <Edit2 className="h-3.5 w-3.5" />
-                  Edit
+              <div className="flex items-center gap-0.5 shrink-0 ml-2">
+                {!isEditingBio && (
+                  <Button variant="ghost" size="icon" onClick={() => { setEditBioVal(bio || ''); setIsEditingBio(true); setIsCollapsedBio(false) }} className="h-7 w-7 text-muted-foreground hover:text-foreground">
+                    <Edit2 className="h-3.5 w-3.5" />
+                  </Button>
+                )}
+                <Button variant="ghost" size="icon" onClick={() => setIsCollapsedBio(!isCollapsedBio)} className="h-7 w-7 text-muted-foreground hover:text-foreground">
+                  <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', !isCollapsedBio && 'rotate-180')} />
                 </Button>
-              )}
+              </div>
             </div>
-            <div className="px-5 pb-5">
-              {isEditingBio ? (
-                <div className="space-y-3">
-                  <Textarea
-                    value={editBioVal}
-                    onChange={(e) => setEditBioVal(e.target.value)}
-                    placeholder="Tell people what you do, what you're building, or what you're into."
-                    className="min-h-[100px]"
-                    maxLength={280}
-                  />
-                  <div className="flex items-center justify-between text-xs text-muted-foreground">
-                    <span>Max 280 characters.</span>
-                    <span className="tabular-nums">{editBioVal.length}/280</span>
+            {!isCollapsedBio && (
+              <div className="px-5 pb-5">
+                {isEditingBio ? (
+                  <div className="space-y-3">
+                    <Textarea
+                      value={editBioVal}
+                      onChange={(e) => setEditBioVal(e.target.value)}
+                      placeholder="Tell people what you do, what you're building, or what you're into."
+                      className="min-h-[100px]"
+                      maxLength={280}
+                    />
+                    <div className="flex items-center justify-between text-xs text-muted-foreground">
+                      <span>Max 280 characters.</span>
+                      <span className="tabular-nums">{editBioVal.length}/280</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button onClick={handleSaveBio} size="sm" className="gap-2">
+                        <CheckCircle2 className="h-4 w-4" />
+                        Save Bio
+                      </Button>
+                      <Button variant="outline" size="sm" onClick={() => { setIsEditingBio(false); setEditBioVal(bio || '') }}>
+                        Cancel
+                      </Button>
+                    </div>
                   </div>
-                  <div className="flex gap-2">
-                    <Button onClick={handleSaveBio} size="sm" className="gap-2">
-                      <CheckCircle2 className="h-4 w-4" />
-                      Save Bio
-                    </Button>
-                    <Button variant="outline" size="sm" onClick={() => { setIsEditingBio(false); setEditBioVal(bio || '') }}>
-                      Cancel
-                    </Button>
-                  </div>
-                </div>
-              ) : (
-                !bio || bio.trim().length === 0
-                  ? <p className="text-sm text-muted-foreground italic">No bio yet.</p>
-                  : <p className="text-sm text-foreground/80 whitespace-pre-wrap leading-relaxed">{bio}</p>
-              )}
-            </div>
+                ) : (
+                  !bio || bio.trim().length === 0
+                    ? <p className="text-sm text-muted-foreground italic">No bio yet.</p>
+                    : <p className="text-sm text-foreground/80 whitespace-pre-wrap leading-relaxed">{bio}</p>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Social Links */}
           <div className="rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm">
-            <div className="flex items-center justify-between p-5 pb-3">
-              <div>
+            <div className="flex items-center justify-between px-5 pt-4 pb-3">
+              <div className="flex-1 min-w-0">
                 <h4 className="font-semibold flex items-center gap-2 text-sm">
                   <LinkIcon className="h-4 w-4 opacity-60" />
                   Social Links
                 </h4>
-                <p className="text-xs text-muted-foreground mt-0.5">Share your presence across the web.</p>
+                {isCollapsedSocial
+                  ? <p className="text-xs text-muted-foreground mt-0.5">
+                      {Object.values(socialLinks).filter(v => v?.trim()).length > 0
+                        ? `${Object.values(socialLinks).filter(v => v?.trim()).length} link${Object.values(socialLinks).filter(v => v?.trim()).length !== 1 ? 's' : ''} configured`
+                        : 'Not configured'}
+                    </p>
+                  : <p className="text-xs text-muted-foreground mt-0.5">Share your presence across the web.</p>
+                }
               </div>
-              {!isEditingSocial && (
-                <Button variant="ghost" size="sm" onClick={() => { setEditSocialLinks(socialLinks || {}); setIsEditingSocial(true) }} className="h-8 gap-2 border text-xs">
-                  <Edit2 className="h-3.5 w-3.5" />
-                  Edit
+              <div className="flex items-center gap-0.5 shrink-0 ml-2">
+                {!isEditingSocial && (
+                  <Button variant="ghost" size="icon" onClick={() => { setEditSocialLinks(socialLinks || {}); setIsEditingSocial(true); setIsCollapsedSocial(false) }} className="h-7 w-7 text-muted-foreground hover:text-foreground">
+                    <Edit2 className="h-3.5 w-3.5" />
+                  </Button>
+                )}
+                <Button variant="ghost" size="icon" onClick={() => setIsCollapsedSocial(!isCollapsedSocial)} className="h-7 w-7 text-muted-foreground hover:text-foreground">
+                  <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', !isCollapsedSocial && 'rotate-180')} />
                 </Button>
-              )}
+              </div>
             </div>
-            <div className="px-5 pb-5">
+            {!isCollapsedSocial && <div className="px-5 pb-5">
               {isEditingSocial ? (
                 <div className="space-y-3 max-w-2xl">
                   {SOCIAL_PLATFORMS.map((platform) => {
@@ -476,7 +509,7 @@ export default function ProfilePage() {
                   }
                 </div>
               )}
-            </div>
+            </div>}
           </div>
         </TabsContent>
 
@@ -484,22 +517,31 @@ export default function ProfilePage() {
         <TabsContent value="career" className="space-y-6 mt-6">
           {/* Tech Stack */}
           <div className="rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm">
-            <div className="flex items-center justify-between p-5 pb-3">
-              <div>
+            <div className="flex items-center justify-between px-5 pt-4 pb-3">
+              <div className="flex-1 min-w-0">
                 <h4 className="font-semibold flex items-center gap-2 text-sm">
                   <Layers className="h-4 w-4 opacity-60" />
                   Tech Stack
                 </h4>
-                <p className="text-xs text-muted-foreground mt-0.5">Technologies and tools you work with.</p>
+                {isCollapsedTech
+                  ? <p className="text-xs text-muted-foreground mt-0.5">
+                      {techStacks.length === 0 ? 'Not set' : techStacks.slice(0, 4).join(', ') + (techStacks.length > 4 ? ` +${techStacks.length - 4} more` : '')}
+                    </p>
+                  : <p className="text-xs text-muted-foreground mt-0.5">Technologies and tools you work with.</p>
+                }
               </div>
-              {!isEditingTech && (
-                <Button variant="ghost" size="sm" onClick={() => { setEditTechStacks([...techStacks]); setIsEditingTech(true) }} className="h-8 gap-2 border text-xs">
-                  <Edit2 className="h-3.5 w-3.5" />
-                  Edit
+              <div className="flex items-center gap-0.5 shrink-0 ml-2">
+                {!isEditingTech && (
+                  <Button variant="ghost" size="icon" onClick={() => { setEditTechStacks([...techStacks]); setIsEditingTech(true); setIsCollapsedTech(false) }} className="h-7 w-7 text-muted-foreground hover:text-foreground">
+                    <Edit2 className="h-3.5 w-3.5" />
+                  </Button>
+                )}
+                <Button variant="ghost" size="icon" onClick={() => setIsCollapsedTech(!isCollapsedTech)} className="h-7 w-7 text-muted-foreground hover:text-foreground">
+                  <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', !isCollapsedTech && 'rotate-180')} />
                 </Button>
-              )}
+              </div>
             </div>
-            <div className="px-5 pb-5">
+            {!isCollapsedTech && <div className="px-5 pb-5">
               {isEditingTech ? (
                 <div className="space-y-3 max-w-2xl">
                   <TechStackPicker value={editTechStacks} onChange={setEditTechStacks} />
@@ -532,12 +574,13 @@ export default function ProfilePage() {
                   }
                 </div>
               )}
-            </div>
+            </div>}
           </div>
 
           <ExperienceBuilder experiences={experiences} onChange={setExperiences} />
           <ProjectsBuilder projects={projects} onChange={setProjects} />
           <EducationBuilder education={education} onChange={setEducation} />
+          <CertificationsBuilder certifications={certifications} onChange={setCertifications} />
           <PortfolioSettingsCard settings={portfolioSettings} onChange={setPortfolioSettings} />
           <GithubProfileWidget />
         </TabsContent>

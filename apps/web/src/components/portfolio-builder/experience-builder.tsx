@@ -16,6 +16,7 @@ import {
   Calendar,
   Building2,
   GripVertical,
+  MapPin,
 } from 'lucide-react'
 import {
   DndContext,
@@ -38,6 +39,11 @@ import { backendFetch } from '@/lib/backend-auth'
 import { toast } from 'sonner'
 import { TechStackPicker, TECH_CATALOG } from '@/components/tech-stack-picker'
 import { MonthPicker, PRESENT_VALUE } from '@/components/ui/month-picker'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { cn } from '@/lib/utils'
+import { ChevronDown } from 'lucide-react'
+
+export const EMPLOYMENT_TYPES = ['Full-time', 'Part-time', 'Contract', 'Freelance', 'Internship', 'Apprenticeship'] as const
 
 export interface Experience {
   id: string
@@ -47,6 +53,8 @@ export interface Experience {
   endDate?: string | null
   description?: string | null
   technologies: string[]
+  employmentType?: string | null
+  location?: string | null
 }
 
 interface ExperienceBuilderProps {
@@ -65,6 +73,8 @@ const emptyExperience: Omit<Experience, 'id'> = {
   endDate: null,
   description: null,
   technologies: [],
+  employmentType: null,
+  location: null,
 }
 
 function fmtMonth(val: string): string {
@@ -112,6 +122,27 @@ function ExperienceForm({
         <div className="space-y-1.5">
           <Label className="text-xs font-medium text-muted-foreground">End Date</Label>
           <MonthPicker value={form.endDate || ''} onChange={(val) => setForm({ ...form, endDate: val || null })} placeholder="Pick end month" allowPresent />
+        </div>
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="space-y-1.5">
+          <Label className="text-xs font-medium text-muted-foreground">Employment Type</Label>
+          <Select value={form.employmentType || ''} onValueChange={(val) => setForm({ ...form, employmentType: val || null })}>
+            <SelectTrigger className="h-9">
+              <SelectValue placeholder="Select type" />
+            </SelectTrigger>
+            <SelectContent>
+              {EMPLOYMENT_TYPES.map((t) => (
+                <SelectItem key={t} value={t}>{t}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-1.5">
+          <Label className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
+            <MapPin className="h-3 w-3" /> Location
+          </Label>
+          <Input value={form.location || ''} onChange={(e) => setForm({ ...form, location: e.target.value || null })} placeholder="e.g. Remote, New York, NY" className="h-9" />
         </div>
       </div>
       <div className="space-y-1.5">
@@ -177,11 +208,18 @@ function SortableExperienceItem({
             <Button variant="ghost" size="icon" onClick={onDelete} className="h-7 w-7 text-destructive hover:text-destructive"><Trash2 className="h-3 w-3" /></Button>
           </div>
         </div>
-        <div className="flex items-center gap-1.5 mt-1 text-xs text-muted-foreground">
-          <Calendar className="h-3 w-3" />
-          <span>{fmtMonth(experience.startDate)}</span>
-          <span>—</span>
-          <span>{experience.endDate ? fmtMonth(experience.endDate) : 'Present'}</span>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1 text-xs text-muted-foreground">
+          <span className="flex items-center gap-1">
+            <Calendar className="h-3 w-3" />
+            {fmtMonth(experience.startDate)} — {experience.endDate ? fmtMonth(experience.endDate) : 'Present'}
+          </span>
+          {experience.employmentType && <span>{experience.employmentType}</span>}
+          {experience.location && (
+            <span className="flex items-center gap-1">
+              <MapPin className="h-3 w-3" />
+              {experience.location}
+            </span>
+          )}
         </div>
         {experience.description && (
           <p className="mt-2 text-xs text-muted-foreground/80 leading-relaxed whitespace-pre-wrap">{experience.description}</p>
@@ -208,7 +246,11 @@ function SortableExperienceItem({
 export function ExperienceBuilder({ experiences, onChange }: ExperienceBuilderProps) {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [isAdding, setIsAdding] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(true)
   const [saving, setSaving] = useState(false)
+
+  const count = experiences.length
+  const summary = count === 0 ? 'No positions added' : `${count} position${count !== 1 ? 's' : ''}`
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -248,21 +290,28 @@ export function ExperienceBuilder({ experiences, onChange }: ExperienceBuilderPr
   return (
     <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <div className="space-y-1">
+        <div className="space-y-1 flex-1 min-w-0">
           <CardTitle className="flex items-center gap-2">
             <Briefcase className="h-5 w-5 opacity-70" />
             Work Experience
           </CardTitle>
-          <CardDescription>Your professional journey and career highlights.</CardDescription>
+          {isCollapsed
+            ? <p className="text-xs text-muted-foreground">{summary}</p>
+            : <CardDescription>Your professional journey and career highlights.</CardDescription>
+          }
         </div>
-        {!isAdding && !editingId && (
-          <Button variant="ghost" size="sm" onClick={() => setIsAdding(true)} className="h-8 gap-2 border" disabled={saving}>
-            <Plus className="h-3.5 w-3.5" />
-            Add
+        <div className="flex items-center gap-0.5 shrink-0 ml-2">
+          {!isAdding && !editingId && (
+            <Button variant="ghost" size="icon" onClick={() => { setIsCollapsed(false); setIsAdding(true) }} className="h-7 w-7 text-muted-foreground hover:text-foreground" disabled={saving}>
+              <Plus className="h-3.5 w-3.5" />
+            </Button>
+          )}
+          <Button variant="ghost" size="icon" onClick={() => setIsCollapsed(!isCollapsed)} className="h-7 w-7 text-muted-foreground hover:text-foreground">
+            <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', !isCollapsed && 'rotate-180')} />
           </Button>
-        )}
+        </div>
       </CardHeader>
-      <CardContent className="pt-4 space-y-3">
+      {!isCollapsed && <CardContent className="pt-4 space-y-3">
         {isAdding && (
           <ExperienceForm
             experience={{ id: generateId(), ...emptyExperience }}
@@ -297,7 +346,7 @@ export function ExperienceBuilder({ experiences, onChange }: ExperienceBuilderPr
             </SortableContext>
           </DndContext>
         )}
-      </CardContent>
+      </CardContent>}
     </Card>
   )
 }

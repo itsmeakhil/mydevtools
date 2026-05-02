@@ -4,16 +4,15 @@ import React, { useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import {
-  GraduationCap,
+  Award,
   Edit2,
   CheckCircle2,
   Plus,
   Trash2,
+  ExternalLink,
   Calendar,
-  School,
   GripVertical,
 } from 'lucide-react'
 import {
@@ -35,39 +34,38 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 import { backendFetch } from '@/lib/backend-auth'
 import { toast } from 'sonner'
-import { MonthPicker, PRESENT_VALUE } from '@/components/ui/month-picker'
+import { MonthPicker } from '@/components/ui/month-picker'
 import { cn } from '@/lib/utils'
 import { ChevronDown } from 'lucide-react'
 
-export interface Education {
+export interface Certification {
   id: string
-  institution: string
-  degree: string
-  startDate: string
-  endDate?: string | null
-  description?: string | null
+  name: string
+  issuer: string
+  issueDate?: string | null
+  expiryDate?: string | null
+  credentialUrl?: string | null
 }
 
-interface EducationBuilderProps {
-  education: Education[]
-  onChange: (education: Education[]) => void
+interface CertificationsBuilderProps {
+  certifications: Certification[]
+  onChange: (certifications: Certification[]) => void
 }
 
 function generateId(): string {
-  return `edu_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+  return `cert_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
 }
 
-const emptyEducation: Omit<Education, 'id'> = {
-  institution: '',
-  degree: '',
-  startDate: '',
-  endDate: null,
-  description: null,
+const emptyCertification: Omit<Certification, 'id'> = {
+  name: '',
+  issuer: '',
+  issueDate: null,
+  expiryDate: null,
+  credentialUrl: null,
 }
 
 function fmtMonth(val: string): string {
   if (!val) return ''
-  if (val === PRESENT_VALUE) return 'Present'
   if (/^\d{4}-\d{2}$/.test(val)) {
     const [y, m] = val.split('-')
     return new Date(parseInt(y), parseInt(m) - 1).toLocaleDateString('en-US', {
@@ -78,43 +76,45 @@ function fmtMonth(val: string): string {
   return val
 }
 
-function EducationForm({
-  education,
+function CertificationForm({
+  certification,
   onSave,
   onCancel,
 }: {
-  education: Education
-  onSave: (edu: Education) => void
+  certification: Certification
+  onSave: (cert: Certification) => void
   onCancel: () => void
 }) {
-  const [form, setForm] = useState<Education>({ ...education })
-  const isValid = form.institution.trim() && form.degree.trim() && form.startDate.trim()
+  const [form, setForm] = useState<Certification>({ ...certification })
+  const isValid = form.name.trim() && form.issuer.trim()
 
   return (
     <div className="space-y-4 rounded-xl border border-primary/20 bg-primary/[0.02] p-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-1.5">
-          <Label className="text-xs font-medium text-muted-foreground">Institution *</Label>
-          <Input value={form.institution} onChange={(e) => setForm({ ...form, institution: e.target.value })} placeholder="e.g. MIT" className="h-9" />
+          <Label className="text-xs font-medium text-muted-foreground">Certification Name *</Label>
+          <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="e.g. AWS Solutions Architect" className="h-9" />
         </div>
         <div className="space-y-1.5">
-          <Label className="text-xs font-medium text-muted-foreground">Degree *</Label>
-          <Input value={form.degree} onChange={(e) => setForm({ ...form, degree: e.target.value })} placeholder="e.g. B.S. Computer Science" className="h-9" />
+          <Label className="text-xs font-medium text-muted-foreground">Issuing Organization *</Label>
+          <Input value={form.issuer} onChange={(e) => setForm({ ...form, issuer: e.target.value })} placeholder="e.g. Amazon Web Services" className="h-9" />
         </div>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-1.5">
-          <Label className="text-xs font-medium text-muted-foreground">Start Date *</Label>
-          <MonthPicker value={form.startDate} onChange={(val) => setForm({ ...form, startDate: val })} placeholder="Pick start month" />
+          <Label className="text-xs font-medium text-muted-foreground">Issue Date</Label>
+          <MonthPicker value={form.issueDate || ''} onChange={(val) => setForm({ ...form, issueDate: val || null })} placeholder="Pick issue month" />
         </div>
         <div className="space-y-1.5">
-          <Label className="text-xs font-medium text-muted-foreground">End Date</Label>
-          <MonthPicker value={form.endDate || ''} onChange={(val) => setForm({ ...form, endDate: val || null })} placeholder="Pick end month" allowPresent />
+          <Label className="text-xs font-medium text-muted-foreground">Expiry Date</Label>
+          <MonthPicker value={form.expiryDate || ''} onChange={(val) => setForm({ ...form, expiryDate: val || null })} placeholder="Pick expiry month (optional)" />
         </div>
       </div>
       <div className="space-y-1.5">
-        <Label className="text-xs font-medium text-muted-foreground">Description</Label>
-        <Textarea value={form.description || ''} onChange={(e) => setForm({ ...form, description: e.target.value || null })} placeholder="GPA, honours, relevant coursework, etc." className="min-h-[80px] resize-none" />
+        <Label className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
+          <ExternalLink className="h-3 w-3" /> Credential URL
+        </Label>
+        <Input value={form.credentialUrl || ''} onChange={(e) => setForm({ ...form, credentialUrl: e.target.value || null })} placeholder="https://..." className="h-9" />
       </div>
       <div className="flex items-center gap-2 pt-1">
         <Button onClick={() => isValid && onSave(form)} disabled={!isValid} className="gap-2" size="sm">
@@ -127,16 +127,16 @@ function EducationForm({
   )
 }
 
-function SortableEducationItem({
-  education,
+function SortableCertificationItem({
+  certification,
   onEdit,
   onDelete,
 }: {
-  education: Education
+  certification: Certification
   onEdit: () => void
   onDelete: () => void
 }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: education.id })
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: certification.id })
 
   return (
     <div
@@ -154,63 +154,72 @@ function SortableEducationItem({
 
       <div className="flex flex-col items-center pt-1 ml-4">
         <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-          <School className="h-4 w-4 text-primary" />
+          <Award className="h-4 w-4 text-primary" />
         </div>
-        <div className="mt-2 flex-1 w-px bg-border/50" />
       </div>
 
       <div className="flex-1 min-w-0">
         <div className="flex items-start justify-between gap-2">
           <div>
-            <h4 className="text-sm font-semibold text-foreground">{education.degree}</h4>
-            <p className="text-sm text-muted-foreground">{education.institution}</p>
+            <div className="flex items-center gap-2">
+              <h4 className="text-sm font-semibold text-foreground">{certification.name}</h4>
+              {certification.credentialUrl && (
+                <a href={certification.credentialUrl} target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" onClick={(e) => e.stopPropagation()}>
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              )}
+            </div>
+            <p className="text-sm text-muted-foreground">{certification.issuer}</p>
           </div>
           <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
             <Button variant="ghost" size="icon" onClick={onEdit} className="h-7 w-7"><Edit2 className="h-3 w-3" /></Button>
             <Button variant="ghost" size="icon" onClick={onDelete} className="h-7 w-7 text-destructive hover:text-destructive"><Trash2 className="h-3 w-3" /></Button>
           </div>
         </div>
-        <div className="flex items-center gap-1.5 mt-1 text-xs text-muted-foreground">
-          <Calendar className="h-3 w-3" />
-          <span>{fmtMonth(education.startDate)}</span>
-          <span>—</span>
-          <span>{education.endDate ? fmtMonth(education.endDate) : 'Present'}</span>
-        </div>
-        {education.description && (
-          <p className="mt-2 text-xs text-muted-foreground/80 leading-relaxed whitespace-pre-wrap">{education.description}</p>
+        {(certification.issueDate || certification.expiryDate) && (
+          <div className="flex items-center gap-1.5 mt-1 text-xs text-muted-foreground">
+            <Calendar className="h-3 w-3" />
+            {certification.issueDate && <span>{fmtMonth(certification.issueDate)}</span>}
+            {certification.expiryDate && (
+              <>
+                <span>—</span>
+                <span>Expires {fmtMonth(certification.expiryDate)}</span>
+              </>
+            )}
+          </div>
         )}
       </div>
     </div>
   )
 }
 
-export function EducationBuilder({ education, onChange }: EducationBuilderProps) {
+export function CertificationsBuilder({ certifications, onChange }: CertificationsBuilderProps) {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [isAdding, setIsAdding] = useState(false)
   const [isCollapsed, setIsCollapsed] = useState(true)
   const [saving, setSaving] = useState(false)
 
-  const count = education.length
-  const summary = count === 0 ? 'No education added' : `${count} degree${count !== 1 ? 's' : ''}`
+  const count = certifications.length
+  const summary = count === 0 ? 'No certifications added' : `${count} certification${count !== 1 ? 's' : ''}`
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   )
 
-  const persist = async (updated: Education[], successMsg?: string) => {
+  const persist = async (updated: Certification[], successMsg?: string) => {
     setSaving(true)
     try {
       const res = await backendFetch('/api/backend/auth/profile', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ education: updated }),
+        body: JSON.stringify({ certifications: updated }),
       })
       if (res.ok) {
         onChange(updated)
         if (successMsg) toast.success(successMsg)
       } else {
-        toast.error('Failed to save education.')
+        toast.error('Failed to save certifications.')
       }
     } catch {
       toast.error('Network error.')
@@ -222,9 +231,9 @@ export function EducationBuilder({ education, onChange }: EducationBuilderProps)
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
     if (over && active.id !== over.id) {
-      const oldIndex = education.findIndex((e) => e.id === active.id)
-      const newIndex = education.findIndex((e) => e.id === over.id)
-      persist(arrayMove(education, oldIndex, newIndex))
+      const oldIndex = certifications.findIndex((c) => c.id === active.id)
+      const newIndex = certifications.findIndex((c) => c.id === over.id)
+      persist(arrayMove(certifications, oldIndex, newIndex))
     }
   }
 
@@ -233,12 +242,12 @@ export function EducationBuilder({ education, onChange }: EducationBuilderProps)
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <div className="space-y-1 flex-1 min-w-0">
           <CardTitle className="flex items-center gap-2">
-            <GraduationCap className="h-5 w-5 opacity-70" />
-            Education
+            <Award className="h-5 w-5 opacity-70" />
+            Certifications
           </CardTitle>
           {isCollapsed
             ? <p className="text-xs text-muted-foreground">{summary}</p>
-            : <CardDescription>Your academic background and certifications.</CardDescription>
+            : <CardDescription>Professional certifications and licenses.</CardDescription>
           }
         </div>
         <div className="flex items-center gap-0.5 shrink-0 ml-2">
@@ -254,32 +263,32 @@ export function EducationBuilder({ education, onChange }: EducationBuilderProps)
       </CardHeader>
       {!isCollapsed && <CardContent className="pt-4 space-y-3">
         {isAdding && (
-          <EducationForm
-            education={{ id: generateId(), ...emptyEducation }}
-            onSave={(edu) => { persist([...education, edu], 'Education added.'); setIsAdding(false) }}
+          <CertificationForm
+            certification={{ id: generateId(), ...emptyCertification }}
+            onSave={(cert) => { persist([...certifications, cert], 'Certification added.'); setIsAdding(false) }}
             onCancel={() => setIsAdding(false)}
           />
         )}
-        {education.length === 0 && !isAdding ? (
-          <p className="text-sm text-muted-foreground italic">No education added yet.</p>
+        {certifications.length === 0 && !isAdding ? (
+          <p className="text-sm text-muted-foreground italic">No certifications added yet.</p>
         ) : (
           <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-            <SortableContext items={education.map((e) => e.id)} strategy={verticalListSortingStrategy}>
+            <SortableContext items={certifications.map((c) => c.id)} strategy={verticalListSortingStrategy}>
               <div className="space-y-3">
-                {education.map((edu) =>
-                  editingId === edu.id ? (
-                    <EducationForm
-                      key={edu.id}
-                      education={edu}
-                      onSave={(updated) => { persist(education.map((e) => e.id === updated.id ? updated : e), 'Education updated.'); setEditingId(null) }}
+                {certifications.map((cert) =>
+                  editingId === cert.id ? (
+                    <CertificationForm
+                      key={cert.id}
+                      certification={cert}
+                      onSave={(updated) => { persist(certifications.map((c) => c.id === updated.id ? updated : c), 'Certification updated.'); setEditingId(null) }}
                       onCancel={() => setEditingId(null)}
                     />
                   ) : (
-                    <SortableEducationItem
-                      key={edu.id}
-                      education={edu}
-                      onEdit={() => setEditingId(edu.id)}
-                      onDelete={() => persist(education.filter((e) => e.id !== edu.id), 'Education removed.')}
+                    <SortableCertificationItem
+                      key={cert.id}
+                      certification={cert}
+                      onEdit={() => setEditingId(cert.id)}
+                      onDelete={() => persist(certifications.filter((c) => c.id !== cert.id), 'Certification removed.')}
                     />
                   )
                 )}

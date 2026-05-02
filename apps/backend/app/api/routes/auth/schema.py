@@ -1,5 +1,5 @@
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class SessionRequest(BaseModel):
@@ -17,6 +17,7 @@ class SocialLinks(BaseModel):
     youtube: str | None = None
     devto: str | None = None
     hashnode: str | None = None
+    github: str | None = None
 
 
 class Experience(BaseModel):
@@ -27,6 +28,8 @@ class Experience(BaseModel):
     endDate: str | None = None
     description: str | None = None
     technologies: list[str] = Field(default_factory=list)
+    employmentType: str | None = None
+    location: str | None = None
 
 
 class Project(BaseModel):
@@ -58,13 +61,33 @@ class PortfolioSettings(BaseModel):
 
 
 
+class Language(BaseModel):
+    name: str
+    level: str = "Fluent"
+
+
+class Certification(BaseModel):
+    id: str
+    name: str
+    issuer: str
+    issueDate: str | None = None
+    expiryDate: str | None = None
+    credentialUrl: str | None = None
+
+
 class PersonalInfo(BaseModel):
     phone: str | None = None
     location: str | None = None
     date_of_birth: str | None = None
     nationality: str | None = None
-    languages: list[str] = Field(default_factory=list)
+    headline: str | None = None
+    languages: list[Language] = Field(default_factory=list)
     hobbies: list[str] = Field(default_factory=list)
+
+    @field_validator("languages", mode="before")
+    @classmethod
+    def coerce_languages(cls, v: list) -> list:
+        return [{"name": item, "level": "Fluent"} if isinstance(item, str) else item for item in v]
 
 
 class UserProfileResponse(BaseModel):
@@ -82,6 +105,7 @@ class UserProfileResponse(BaseModel):
     experiences: list[Experience] = Field(default_factory=list)
     projects: list[Project] = Field(default_factory=list)
     education: list[Education] = Field(default_factory=list)
+    certifications: list[Certification] = Field(default_factory=list)
     portfolio_settings: PortfolioSettings | None = None
     personal_info: PersonalInfo | None = None
 
@@ -95,6 +119,7 @@ class UpdateProfileRequest(BaseModel):
     experiences: list[Experience] | None = None
     projects: list[Project] | None = None
     education: list[Education] | None = None
+    certifications: list[Certification] | None = None
     portfolio_settings: PortfolioSettings | None = None
     personal_info: PersonalInfo | None = None
 

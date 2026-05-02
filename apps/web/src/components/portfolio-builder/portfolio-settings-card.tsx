@@ -17,6 +17,7 @@ import {
   Github,
   FileText,
   Check,
+  ChevronDown,
 } from 'lucide-react'
 import { backendFetch } from '@/lib/backend-auth'
 import { toast } from 'sonner'
@@ -61,6 +62,7 @@ const ACCENT_COLORS = [
 
 export function PortfolioSettingsCard({ settings, onChange }: PortfolioSettingsCardProps) {
   const [isEditing, setIsEditing] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(true)
   const [form, setForm] = useState<PortfolioSettings>({ ...settings })
   const [saving, setSaving] = useState(false)
 
@@ -93,27 +95,34 @@ export function PortfolioSettingsCard({ settings, onChange }: PortfolioSettingsC
 
   const currentTheme = THEMES.find((t) => t.id === (settings.theme || 'bento'))
   const currentFont = FONTS.find((f) => f.id === (settings.font || 'sans'))
+  const currentColor = ACCENT_COLORS.find((c) => c.id === (settings.accentColor || '#3b82f6'))
+  const summary = `${currentTheme?.label || 'Bento Grid'} · ${currentFont?.label || 'Sans Serif'} · ${currentColor?.label || 'Blue'}`
 
   return (
     <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <div className="space-y-1">
+        <div className="space-y-1 flex-1 min-w-0">
           <CardTitle className="flex items-center gap-2">
             <Settings2 className="h-5 w-5 opacity-70" />
             Portfolio Settings
           </CardTitle>
-          <CardDescription>
-            Customize your public portfolio&apos;s appearance and integrations.
-          </CardDescription>
+          {isCollapsed
+            ? <p className="text-xs text-muted-foreground">{summary}</p>
+            : <CardDescription>Customize your public portfolio&apos;s appearance and integrations.</CardDescription>
+          }
         </div>
-        {!isEditing && (
-          <Button variant="ghost" size="sm" onClick={startEditing} className="h-8 gap-2 border">
-            <Edit2 className="h-3.5 w-3.5" />
-            Edit
+        <div className="flex items-center gap-0.5 shrink-0 ml-2">
+          {!isEditing && (
+            <Button variant="ghost" size="icon" onClick={startEditing} className="h-7 w-7 text-muted-foreground hover:text-foreground">
+              <Edit2 className="h-3.5 w-3.5" />
+            </Button>
+          )}
+          <Button variant="ghost" size="icon" onClick={() => setIsCollapsed(!isCollapsed)} className="h-7 w-7 text-muted-foreground hover:text-foreground">
+            <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', !isCollapsed && 'rotate-180')} />
           </Button>
-        )}
+        </div>
       </CardHeader>
-      <CardContent className="pt-4">
+      {!isCollapsed && <CardContent className="pt-4">
         {isEditing ? (
           <div className="space-y-6 max-w-2xl">
             {/* Theme Picker */}
@@ -311,7 +320,7 @@ export function PortfolioSettingsCard({ settings, onChange }: PortfolioSettingsC
             )}
           </div>
         )}
-      </CardContent>
+      </CardContent>}
     </Card>
   )
 }

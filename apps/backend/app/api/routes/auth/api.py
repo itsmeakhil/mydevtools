@@ -208,6 +208,9 @@ def update_profile(
     if payload.education is not None:
         updates["education"] = [e.model_dump() for e in payload.education]
 
+    if payload.certifications is not None:
+        updates["certifications"] = [c.model_dump() for c in payload.certifications]
+
     if payload.portfolio_settings is not None:
         updates["portfolio_settings"] = payload.portfolio_settings.model_dump()
 
@@ -234,6 +237,8 @@ def update_profile(
         current_user.projects = payload.projects
     if "education" in updates:
         current_user.education = payload.education
+    if "certifications" in updates:
+        current_user.certifications = payload.certifications
     if "portfolio_settings" in updates:
         current_user.portfolio_settings = payload.portfolio_settings
     if "personal_info" in updates:

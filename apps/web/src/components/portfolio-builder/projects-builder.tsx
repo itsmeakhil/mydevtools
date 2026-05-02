@@ -39,6 +39,8 @@ import { CSS } from '@dnd-kit/utilities'
 import { backendFetch } from '@/lib/backend-auth'
 import { toast } from 'sonner'
 import { TechStackPicker, TECH_CATALOG } from '@/components/tech-stack-picker'
+import { cn } from '@/lib/utils'
+import { ChevronDown } from 'lucide-react'
 
 export interface Project {
   id: string
@@ -206,7 +208,11 @@ function SortableProjectItem({
 export function ProjectsBuilder({ projects, onChange }: ProjectsBuilderProps) {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [isAdding, setIsAdding] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(true)
   const [saving, setSaving] = useState(false)
+
+  const count = projects.length
+  const summary = count === 0 ? 'No projects added' : `${count} project${count !== 1 ? 's' : ''}`
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -246,21 +252,28 @@ export function ProjectsBuilder({ projects, onChange }: ProjectsBuilderProps) {
   return (
     <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <div className="space-y-1">
+        <div className="space-y-1 flex-1 min-w-0">
           <CardTitle className="flex items-center gap-2">
             <FolderKanban className="h-5 w-5 opacity-70" />
             Projects
           </CardTitle>
-          <CardDescription>Showcase your best work and side projects.</CardDescription>
+          {isCollapsed
+            ? <p className="text-xs text-muted-foreground">{summary}</p>
+            : <CardDescription>Showcase your best work and side projects.</CardDescription>
+          }
         </div>
-        {!isAdding && !editingId && (
-          <Button variant="ghost" size="sm" onClick={() => setIsAdding(true)} className="h-8 gap-2 border" disabled={saving}>
-            <Plus className="h-3.5 w-3.5" />
-            Add
+        <div className="flex items-center gap-0.5 shrink-0 ml-2">
+          {!isAdding && !editingId && (
+            <Button variant="ghost" size="icon" onClick={() => { setIsCollapsed(false); setIsAdding(true) }} className="h-7 w-7 text-muted-foreground hover:text-foreground" disabled={saving}>
+              <Plus className="h-3.5 w-3.5" />
+            </Button>
+          )}
+          <Button variant="ghost" size="icon" onClick={() => setIsCollapsed(!isCollapsed)} className="h-7 w-7 text-muted-foreground hover:text-foreground">
+            <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', !isCollapsed && 'rotate-180')} />
           </Button>
-        )}
+        </div>
       </CardHeader>
-      <CardContent className="pt-4 space-y-3">
+      {!isCollapsed && <CardContent className="pt-4 space-y-3">
         {isAdding && (
           <ProjectForm
             project={{ id: generateId(), ...emptyProject }}
@@ -295,7 +308,7 @@ export function ProjectsBuilder({ projects, onChange }: ProjectsBuilderProps) {
             </SortableContext>
           </DndContext>
         )}
-      </CardContent>
+      </CardContent>}
     </Card>
   )
 }
