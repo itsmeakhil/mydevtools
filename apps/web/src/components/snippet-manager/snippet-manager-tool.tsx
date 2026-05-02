@@ -182,7 +182,7 @@ function SnippetListItem({
         </p>
       )}
       {/* Tags */}
-      {sn.tags.length > 0 && (
+      {sn.tags?.length > 0 && (
         <div className="flex flex-wrap gap-1 pl-4">
           {sn.tags.map((tag) => (
             <span key={tag} className="rounded bg-muted px-1.5 py-0 text-[10px] text-muted-foreground">
