@@ -2,7 +2,7 @@ from typing import Annotated
 
 from fastapi import Cookie, Depends, Header, HTTPException, status
 
-from app.api.routes.auth.schema import UserProfileResponse
+from app.api.routes.auth.schema import UserProfileResponse, PersonalInfo, Certification
 from app.api.routes.auth.tokens import decode_access_token
 from app.api.routes.auth.users_repo import get_user_doc
 from app.core.auth_cookies import ACCESS_COOKIE_NAME
@@ -84,4 +84,10 @@ def get_current_user(uid: str = Depends(get_current_uid)) -> UserProfileResponse
         bio=doc.get("bio"),
         social_links=doc.get("social_links"),
         tech_stacks=doc.get("tech_stacks") or [],
+        experiences=doc.get("experiences") or [],
+        projects=doc.get("projects") or [],
+        education=doc.get("education") or [],
+        certifications=[Certification(**c) for c in doc.get("certifications") or []],
+        portfolio_settings=doc.get("portfolio_settings"),
+        personal_info=PersonalInfo(**doc["personal_info"]) if doc.get("personal_info") else None,
     )

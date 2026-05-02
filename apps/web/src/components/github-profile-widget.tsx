@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Github, Edit2, Flame, ChartBar, GitCommit, CheckCircle2 } from 'lucide-react'
+import { Github, Edit2, Flame, ChartBar, GitCommit, CheckCircle2, AlertCircle } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useTranslations } from 'next-intl'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -19,6 +19,9 @@ export function GithubProfileWidget() {
   const { theme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [selectedYear, setSelectedYear] = useState<string>('last')
+  const [streakError, setStreakError] = useState(false)
+  const [statsError, setStatsError] = useState(false)
+  const [langsError, setLangsError] = useState(false)
   const currentYear = new Date().getFullYear()
   const years = ['last', ...Array.from({length: 5}, (_, i) => String(currentYear - i))]
 
@@ -59,6 +62,9 @@ export function GithubProfileWidget() {
       if (res.ok) {
         setSavedUsername(trimmed || null)
         setIsEditing(false)
+        setStreakError(false)
+        setStatsError(false)
+        setLangsError(false)
       }
     } catch (err) {
       console.error(err)
@@ -178,37 +184,61 @@ export function GithubProfileWidget() {
                 <span>Streak Stats</span>
               </div>
               <div className="overflow-x-auto pb-2 custom-scrollbar">
-                <img 
-                  src={`https://github-readme-streak-stats.herokuapp.com/?user=${savedUsername}&theme=${isDark ? 'transparent&ring=40c463&fire=40c463&currStreakLabel=40c463&stroke=ffffff20&text=ccc&sideNums=ccc&sideLabels=ccc' : 'transparent&ring=40c463&fire=40c463&currStreakLabel=40c463&stroke=00000020&text=333&sideNums=333&sideLabels=333'}&hide_border=true&background=00000000`} 
-                  alt={`${savedUsername}'s GitHub Streak`} 
-                  className="w-full h-40 object-contain pointer-events-none"
-                />
+                {streakError ? (
+                  <div className="flex items-center gap-2 rounded-xl border bg-muted/30 px-4 py-6 text-xs text-muted-foreground">
+                    <AlertCircle className="h-4 w-4 shrink-0" />
+                    Streak stats unavailable — the external service may be down.
+                  </div>
+                ) : (
+                  <img
+                    src={`https://streak-stats.demolab.com/?user=${savedUsername}&theme=${isDark ? 'transparent&ring=40c463&fire=40c463&currStreakLabel=40c463&stroke=ffffff20&text=ccc&sideNums=ccc&sideLabels=ccc' : 'transparent&ring=40c463&fire=40c463&currStreakLabel=40c463&stroke=00000020&text=333&sideNums=333&sideLabels=333'}&hide_border=true&background=00000000`}
+                    alt={`${savedUsername}'s GitHub Streak`}
+                    className="w-full h-40 object-contain pointer-events-none"
+                    onError={() => setStreakError(true)}
+                  />
+                )}
               </div>
             </div>
 
             {/* Stats and Languages */}
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
               <div className="space-y-3 w-full overflow-hidden">
-                 <div className="flex items-center gap-2 text-sm font-medium text-foreground tracking-tight">
+                <div className="flex items-center gap-2 text-sm font-medium text-foreground tracking-tight">
                   <ChartBar className="h-4 w-4 text-blue-500" />
                   <span>Overview Stats</span>
                 </div>
-                <img 
-                  src={`https://github-readme-stats.vercel.app/api?username=${savedUsername}&show_icons=true&theme=${isDark ? 'transparent&text_color=ccc&icon_color=40c463&title_color=fff' : 'transparent&text_color=333&icon_color=40c463&title_color=000'}&hide_border=true&bg_color=00000000`}
-                  alt="GitHub Stats" 
-                  className="rounded-xl border bg-card dark:bg-zinc-950/20 shadow-sm h-full w-full object-contain object-left pointer-events-none"
-                />
+                {statsError ? (
+                  <div className="flex items-center gap-2 rounded-xl border bg-muted/30 px-4 py-6 text-xs text-muted-foreground">
+                    <AlertCircle className="h-4 w-4 shrink-0" />
+                    Stats unavailable right now.
+                  </div>
+                ) : (
+                  <img
+                    src={`https://github-readme-stats.vercel.app/api?username=${savedUsername}&show_icons=true&theme=${isDark ? 'transparent&text_color=ccc&icon_color=40c463&title_color=fff' : 'transparent&text_color=333&icon_color=40c463&title_color=000'}&hide_border=true&bg_color=00000000`}
+                    alt="GitHub Stats"
+                    className="rounded-xl border bg-card dark:bg-zinc-950/20 shadow-sm h-full w-full object-contain object-left pointer-events-none"
+                    onError={() => setStatsError(true)}
+                  />
+                )}
               </div>
               <div className="space-y-3 w-full overflow-hidden">
-                 <div className="flex items-center gap-2 text-sm font-medium text-foreground tracking-tight">
+                <div className="flex items-center gap-2 text-sm font-medium text-foreground tracking-tight">
                   <ChartBar className="h-4 w-4 text-indigo-500" />
                   <span>Top Languages</span>
                 </div>
-                <img 
-                  src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${savedUsername}&layout=compact&theme=${isDark ? 'transparent&text_color=ccc&title_color=fff' : 'transparent&text_color=333&title_color=000'}&hide_border=true&bg_color=00000000`}
-                  alt="Top Languages" 
-                  className="rounded-xl border bg-card dark:bg-zinc-950/20 shadow-sm h-full w-full object-contain object-left pointer-events-none"
-                />
+                {langsError ? (
+                  <div className="flex items-center gap-2 rounded-xl border bg-muted/30 px-4 py-6 text-xs text-muted-foreground">
+                    <AlertCircle className="h-4 w-4 shrink-0" />
+                    Languages unavailable right now.
+                  </div>
+                ) : (
+                  <img
+                    src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${savedUsername}&layout=compact&theme=${isDark ? 'transparent&text_color=ccc&title_color=fff' : 'transparent&text_color=333&title_color=000'}&hide_border=true&bg_color=00000000`}
+                    alt="Top Languages"
+                    className="rounded-xl border bg-card dark:bg-zinc-950/20 shadow-sm h-full w-full object-contain object-left pointer-events-none"
+                    onError={() => setLangsError(true)}
+                  />
+                )}
               </div>
             </div>
             
