@@ -35,6 +35,40 @@ type PublicProfile = {
   bio?: string | null
   social_links?: Record<string, string> | null
   tech_stacks?: string[] | null
+  experiences?: Array<{
+    id: string
+    company: string
+    role: string
+    startDate: string
+    endDate?: string | null
+    description?: string | null
+    technologies: string[]
+  }> | null
+  projects?: Array<{
+    id: string
+    title: string
+    description: string
+    imageUrl?: string | null
+    githubUrl?: string | null
+    liveUrl?: string | null
+    technologies: string[]
+  }> | null
+  education?: Array<{
+    id: string
+    institution: string
+    degree: string
+    startDate: string
+    endDate?: string | null
+    description?: string | null
+  }> | null
+  portfolio_settings?: {
+    theme?: string | null
+    font?: string | null
+    accentColor?: string | null
+    rssFeedUrl?: string | null
+    showGithubStats?: boolean
+    resumePdfUrl?: string | null
+  } | null
 }
 
 /* ──────────────────────────────────────────────────────────────────────── */

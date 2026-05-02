@@ -199,6 +199,18 @@ def update_profile(
     if payload.bio is not None:
         updates["bio"] = payload.bio
 
+    if payload.experiences is not None:
+        updates["experiences"] = [e.model_dump() for e in payload.experiences]
+
+    if payload.projects is not None:
+        updates["projects"] = [p.model_dump() for p in payload.projects]
+
+    if payload.education is not None:
+        updates["education"] = [e.model_dump() for e in payload.education]
+
+    if payload.portfolio_settings is not None:
+        updates["portfolio_settings"] = payload.portfolio_settings.model_dump()
+
     if updates:
         update_user_profile(current_user.uid, updates)
 
@@ -213,6 +225,14 @@ def update_profile(
         current_user.tech_stacks = updates["tech_stacks"]
     if "bio" in updates:
         current_user.bio = updates["bio"]
+    if "experiences" in updates:
+        current_user.experiences = payload.experiences
+    if "projects" in updates:
+        current_user.projects = payload.projects
+    if "education" in updates:
+        current_user.education = payload.education
+    if "portfolio_settings" in updates:
+        current_user.portfolio_settings = payload.portfolio_settings
 
     return current_user
 

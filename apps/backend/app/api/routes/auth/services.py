@@ -84,4 +84,8 @@ def get_current_user(uid: str = Depends(get_current_uid)) -> UserProfileResponse
         bio=doc.get("bio"),
         social_links=doc.get("social_links"),
         tech_stacks=doc.get("tech_stacks") or [],
+        experiences=doc.get("experiences") or [],
+        projects=doc.get("projects") or [],
+        education=doc.get("education") or [],
+        portfolio_settings=doc.get("portfolio_settings"),
     )

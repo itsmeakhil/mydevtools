@@ -1,8 +1,25 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { User, Edit2, CheckCircle2, X, AlertCircle, Link as LinkIcon, Globe, Twitter, Linkedin, Instagram, Youtube, Hash, ExternalLink, Layers } from 'lucide-react'
+import {
+  User,
+  Edit2,
+  CheckCircle2,
+  X,
+  AlertCircle,
+  Link as LinkIcon,
+  Globe,
+  Twitter,
+  Linkedin,
+  Instagram,
+  Youtube,
+  Hash,
+  ExternalLink,
+  Layers,
+  Briefcase,
+  Mail,
+  AtSign,
+} from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
@@ -10,11 +27,22 @@ import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { Badge } from '@/components/ui/badge'
 import { Textarea } from '@/components/ui/textarea'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import useAuth from '@/utils/useAuth'
 import { useTranslations } from 'next-intl'
 import { GithubProfileWidget } from '@/components/github-profile-widget'
 import { backendFetch } from '@/lib/backend-auth'
 import { TechStackPicker, TECH_CATALOG } from '@/components/tech-stack-picker'
+import {
+  ExperienceBuilder,
+  ProjectsBuilder,
+  EducationBuilder,
+  PortfolioSettingsCard,
+  type Experience,
+  type Project,
+  type Education,
+  type PortfolioSettings,
+} from '@/components/portfolio-builder'
 
 export default function ProfilePage() {
   const t = useTranslations('SettingsPage')
@@ -24,7 +52,7 @@ export default function ProfilePage() {
   const [editUsernameVal, setEditUsernameVal] = useState('')
   const [isEditingUsername, setIsEditingUsername] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
-  
+
   const [socialLinks, setSocialLinks] = useState<Record<string, string>>({})
   const [isEditingSocial, setIsEditingSocial] = useState(false)
   const [editSocialLinks, setEditSocialLinks] = useState<Record<string, string>>({})
@@ -36,6 +64,11 @@ export default function ProfilePage() {
   const [bio, setBio] = useState<string | null>(null)
   const [isEditingBio, setIsEditingBio] = useState(false)
   const [editBioVal, setEditBioVal] = useState('')
+
+  const [experiences, setExperiences] = useState<Experience[]>([])
+  const [projects, setProjects] = useState<Project[]>([])
+  const [education, setEducation] = useState<Education[]>([])
+  const [portfolioSettings, setPortfolioSettings] = useState<PortfolioSettings>({})
 
   const SOCIAL_PLATFORMS = [
     { id: 'website', label: 'Website', icon: Globe, placeholder: 'https://example.com' },
@@ -56,12 +89,12 @@ export default function ProfilePage() {
           const profile = await res.json()
           setUsername(profile.username)
           setBio(profile.bio ?? null)
-          if (profile.social_links) {
-            setSocialLinks(profile.social_links)
-          }
-          if (profile.tech_stacks) {
-            setTechStacks(profile.tech_stacks)
-          }
+          if (profile.social_links) setSocialLinks(profile.social_links)
+          if (profile.tech_stacks) setTechStacks(profile.tech_stacks)
+          if (profile.experiences) setExperiences(profile.experiences)
+          if (profile.projects) setProjects(profile.projects)
+          if (profile.education) setEducation(profile.education)
+          if (profile.portfolio_settings) setPortfolioSettings(profile.portfolio_settings)
         }
       } catch (err) {
         console.error('Failed to resolve profile', err)
@@ -91,12 +124,11 @@ export default function ProfilePage() {
   const handleSaveUsername = async () => {
     setErrorMsg('')
     const trimmed = editUsernameVal.trim().toLowerCase()
-    
     try {
       const res = await backendFetch('/api/backend/auth/profile', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: trimmed || null })
+        body: JSON.stringify({ username: trimmed || null }),
       })
       if (res.ok) {
         setUsername(trimmed || null)
@@ -106,7 +138,7 @@ export default function ProfilePage() {
       } else {
         setErrorMsg('Failed to update username.')
       }
-    } catch (err) {
+    } catch {
       setErrorMsg('Network error.')
     }
   }
@@ -134,29 +166,31 @@ export default function ProfilePage() {
       const res = await backendFetch('/api/backend/auth/profile', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ social_links: editSocialLinks })
+        body: JSON.stringify({ social_links: editSocialLinks }),
       })
       if (res.ok) {
         setSocialLinks(editSocialLinks)
         setIsEditingSocial(false)
       } else {
-        alert("Failed to update social links")
+        alert('Failed to update social links')
       }
-    } catch (err) {
-      alert("Network error.")
+    } catch {
+      alert('Network error.')
     }
   }
 
-  if (!mounted) {
-    return null
-  }
+  if (!mounted) return null
+
+  const displayName = user?.displayName || username || 'Your Name'
+  const initials = displayName.charAt(0).toUpperCase()
 
   return (
-    <div className="flex-1 space-y-8 p-8 max-w-5xl mx-auto w-full pt-20 lg:pt-8 bg-background/50">
-      <div className="flex items-center justify-between space-y-2">
+    <div className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-8 pt-20 lg:pt-10 pb-16 space-y-8">
+      {/* ── Page header ── */}
+      <div className="flex items-center justify-between">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Your Profile</h2>
-          <p className="text-muted-foreground">Manage your identity, achievements, and GitHub stats.</p>
+          <p className="text-muted-foreground text-sm mt-1">Manage your identity and developer portfolio.</p>
         </div>
         {username && (
           <Button asChild variant="outline" className="gap-2 shadow-sm rounded-full bg-primary/5 hover:bg-primary/10 border-primary/20 hover:border-primary/40 text-primary transition-all">
@@ -168,304 +202,285 @@ export default function ProfilePage() {
         )}
       </div>
 
-      <div className="grid gap-6">
-        <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <User className="h-5 w-5 opacity-70" />
-              {t('userProfile.title')}
-            </CardTitle>
-            <CardDescription>
-              {t('userProfile.description')}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {user ? (
-              <div className="flex items-center gap-4">
-                <Avatar className="h-16 w-16">
-                  <AvatarImage src={user.photoURL || undefined} alt={user.displayName || t('userProfile.avatarAlt')} />
-                  <AvatarFallback>{user.displayName?.charAt(0) || 'U'}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <h3 className="text-xl font-medium flex items-center gap-2">
-                    {user.displayName || t('userProfile.anonymousUser')}
-                  </h3>
-                  
-                  <div className="mt-1 flex items-center min-h-[32px]">
-                    {isEditingUsername ? (
-                      <div className="flex flex-col gap-1">
-                        <div className="flex items-center gap-2">
-                          <Input 
-                            value={editUsernameVal} 
-                            onChange={(e) => setEditUsernameVal(e.target.value)} 
-                            placeholder="Alphanumeric unique handle"
-                            className="h-8 max-w-[200px] text-sm"
-                            onKeyDown={(e) => e.key === 'Enter' && handleSaveUsername()}
-                            autoFocus
-                          />
-                          <Button variant="ghost" size="icon" onClick={handleSaveUsername} className="h-8 w-8 text-green-600 hover:text-green-700 hover:bg-green-100 dark:hover:bg-green-900/30">
-                            <CheckCircle2 className="h-4 w-4" />
-                          </Button>
-                          <Button variant="ghost" size="icon" onClick={() => { setIsEditingUsername(false); setErrorMsg('') }} className="h-8 w-8 text-muted-foreground hover:text-foreground">
-                            <X className="h-4 w-4" />
-                          </Button>
-                        </div>
-                        {errorMsg && (
-                          <div className="flex items-center gap-1 text-[10px] text-red-500 font-medium">
-                            <AlertCircle className="h-3 w-3" />
-                            <span>{errorMsg}</span>
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-2 group">
-                        <span className="text-sm font-semibold tracking-tight text-primary bg-primary/10 px-2 py-0.5 rounded-md">
-                          @{username || 'set_username'}
-                        </span>
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button 
-                                variant="ghost" 
-                                size="icon" 
-                                onClick={() => { setEditUsernameVal(username || ''); setIsEditingUsername(true) }} 
-                                className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100 text-muted-foreground hover:text-foreground"
-                              >
-                                <Edit2 className="h-3 w-3" />
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Edit MyDevTools username</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      </div>
-                    )}
+      {/* ── Identity card ── */}
+      <div className="rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-6 flex flex-col sm:flex-row items-center sm:items-start gap-5">
+        <Avatar className="h-20 w-20 shrink-0 ring-2 ring-primary/10 ring-offset-2 ring-offset-background">
+          <AvatarImage src={user?.photoURL || undefined} alt={displayName} />
+          <AvatarFallback className="text-2xl font-bold bg-gradient-to-br from-primary/10 to-primary/5 text-primary">
+            {initials}
+          </AvatarFallback>
+        </Avatar>
+
+        <div className="flex flex-col items-center sm:items-start gap-2 text-center sm:text-left">
+          {/* Display name */}
+          <h3 className="text-xl font-semibold flex items-center gap-2">
+            <User className="h-4 w-4 opacity-40" />
+            {user?.displayName || t('userProfile.anonymousUser')}
+          </h3>
+
+          {/* Username */}
+          <div className="flex items-center min-h-[32px]">
+            {isEditingUsername ? (
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2">
+                  <Input
+                    value={editUsernameVal}
+                    onChange={(e) => setEditUsernameVal(e.target.value)}
+                    placeholder="Alphanumeric unique handle"
+                    className="h-8 max-w-[200px] text-sm"
+                    onKeyDown={(e) => e.key === 'Enter' && handleSaveUsername()}
+                    autoFocus
+                  />
+                  <Button variant="ghost" size="icon" onClick={handleSaveUsername} className="h-8 w-8 text-green-600 hover:text-green-700 hover:bg-green-100 dark:hover:bg-green-900/30">
+                    <CheckCircle2 className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="icon" onClick={() => { setIsEditingUsername(false); setErrorMsg('') }} className="h-8 w-8 text-muted-foreground">
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+                {errorMsg && (
+                  <div className="flex items-center gap-1 text-[10px] text-red-500 font-medium">
+                    <AlertCircle className="h-3 w-3" />
+                    <span>{errorMsg}</span>
                   </div>
-
-                  <p className="text-sm text-muted-foreground mt-1.5">{user.email || t('userProfile.noEmailProvided')}</p>
-                </div>
-              </div>
-            ) : (
-              <div className="text-sm text-muted-foreground">
-                {t('userProfile.notLoggedIn')}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <div className="space-y-1">
-              <CardTitle className="flex items-center gap-2">
-                <Edit2 className="h-5 w-5 opacity-70" />
-                Bio
-              </CardTitle>
-              <CardDescription>
-                A short intro shown on your public profile.
-              </CardDescription>
-            </div>
-            {!isEditingBio && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => { setEditBioVal(bio || ''); setIsEditingBio(true) }}
-                className="h-8 gap-2 border"
-              >
-                <Edit2 className="h-3.5 w-3.5" />
-                Edit Bio
-              </Button>
-            )}
-          </CardHeader>
-          <CardContent className="pt-4">
-            {isEditingBio ? (
-              <div className="space-y-4 max-w-2xl">
-                <Textarea
-                  value={editBioVal}
-                  onChange={(e) => setEditBioVal(e.target.value)}
-                  placeholder="Tell people what you do, what you’re building, or what you’re into."
-                  className="min-h-[110px]"
-                  maxLength={280}
-                />
-                <div className="flex items-center justify-between text-xs text-muted-foreground">
-                  <span>Max 280 characters.</span>
-                  <span className="tabular-nums">{editBioVal.length}/280</span>
-                </div>
-                <div className="flex items-center gap-2 pt-1">
-                  <Button onClick={handleSaveBio} className="gap-2">
-                    <CheckCircle2 className="h-4 w-4" />
-                    Save Bio
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => { setIsEditingBio(false); setEditBioVal(bio || '') }}
-                  >
-                    Cancel
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <div className="max-w-2xl">
-                {!bio || bio.trim().length === 0 ? (
-                  <p className="text-sm text-muted-foreground italic">No bio yet.</p>
-                ) : (
-                  <p className="text-sm text-foreground/80 whitespace-pre-wrap leading-relaxed">
-                    {bio}
-                  </p>
                 )}
               </div>
-            )}
-          </CardContent>
-        </Card>
-
-        <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <div className="space-y-1">
-              <CardTitle className="flex items-center gap-2">
-                <LinkIcon className="h-5 w-5 opacity-70" />
-                Social Links
-              </CardTitle>
-              <CardDescription>
-                Share your presence across the web.
-              </CardDescription>
-            </div>
-            {!isEditingSocial && (
-               <Button variant="ghost" size="sm" onClick={() => { setEditSocialLinks(socialLinks || {}); setIsEditingSocial(true) }} className="h-8 gap-2 border">
-                 <Edit2 className="h-3.5 w-3.5" />
-                 Edit Links
-               </Button>
-            )}
-          </CardHeader>
-          <CardContent className="pt-4">
-            {isEditingSocial ? (
-              <div className="space-y-4 max-w-2xl">
-                {SOCIAL_PLATFORMS.map((platform) => {
-                  const Icon = platform.icon
-                  return (
-                    <div key={platform.id} className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-muted/30 flex items-center justify-center shrink-0">
-                        <Icon className="h-4 w-4 opacity-70" />
-                      </div>
-                      <Input 
-                        placeholder={platform.placeholder}
-                        value={editSocialLinks[platform.id] || ''}
-                        onChange={(e) => setEditSocialLinks({...editSocialLinks, [platform.id]: e.target.value})}
-                        className="flex-1"
-                      />
-                    </div>
-                  )
-                })}
-                <div className="flex items-center gap-2 pt-2">
-                  <Button onClick={handleSaveSocial} className="gap-2">
-                    <CheckCircle2 className="h-4 w-4" />
-                    Save Links
-                  </Button>
-                  <Button variant="outline" onClick={() => setIsEditingSocial(false)}>
-                    Cancel
-                  </Button>
-                </div>
-              </div>
             ) : (
-              <div className="flex flex-wrap gap-4">
-                {Object.keys(socialLinks).length === 0 || !Object.values(socialLinks).some(val => val && val.trim().length > 0) ? (
-                  <p className="text-sm text-muted-foreground italic">No social links configured yet.</p>
-                ) : (
-                  SOCIAL_PLATFORMS.map((platform) => {
-                    const val = socialLinks[platform.id]
-                    if (!val || val.trim() === '') return null
-                    const Icon = platform.icon
-                    const formattedUrl = val.startsWith('http') ? val : `https://${val}`
-
-                    return (
-                      <TooltipProvider key={platform.id}>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <a 
-                              href={formattedUrl}
-                              target="_blank" 
-                              rel="noreferrer"
-                              className="w-10 h-10 rounded-full border bg-background hover:bg-muted/50 flex items-center justify-center transition-colors"
-                            >
-                              <Icon className="h-4 w-4 opacity-80" />
-                            </a>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>{platform.label}</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    )
-                  })
-                )}
+              <div className="flex items-center gap-2 group">
+                <AtSign className="h-3.5 w-3.5 text-muted-foreground/50" />
+                <span className="text-sm font-semibold tracking-tight text-primary bg-primary/10 px-2 py-0.5 rounded-md">
+                  {username || 'set_username'}
+                </span>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => { setEditUsernameVal(username || ''); setIsEditingUsername(true) }}
+                        className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100 text-muted-foreground hover:text-foreground"
+                      >
+                        <Edit2 className="h-3 w-3" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent><p>Edit username</p></TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             )}
-          </CardContent>
-        </Card>
+          </div>
 
-        <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <div className="space-y-1">
-              <CardTitle className="flex items-center gap-2">
-                <Layers className="h-5 w-5 opacity-70" />
-                Tech Stack
-              </CardTitle>
-              <CardDescription>
-                Technologies and tools you work with or are interested in.
-              </CardDescription>
-            </div>
-            {!isEditingTech && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => { setEditTechStacks([...techStacks]); setIsEditingTech(true) }}
-                className="h-8 gap-2 border"
-              >
-                <Edit2 className="h-3.5 w-3.5" />
-                Edit
-              </Button>
-            )}
-          </CardHeader>
-          <CardContent className="pt-4">
-            {isEditingTech ? (
-              <div className="space-y-4 max-w-2xl">
-                <TechStackPicker value={editTechStacks} onChange={setEditTechStacks} />
-                <div className="flex items-center gap-2 pt-1">
-                  <Button onClick={handleSaveTechStacks} className="gap-2">
-                    <CheckCircle2 className="h-4 w-4" />
-                    Save
-                  </Button>
-                  <Button variant="outline" onClick={() => setIsEditingTech(false)}>
-                    Cancel
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <div className="flex flex-wrap gap-2">
-                {techStacks.length === 0 ? (
-                  <p className="text-sm text-muted-foreground italic">No tech stacks added yet.</p>
-                ) : (
-                  techStacks.map((tech) => {
-                    const meta = TECH_CATALOG.find((t) => t.name === tech)
-                    const src = meta ? (meta.iconUrl ?? `https://cdn.simpleicons.org/${meta.slug}/${meta.color}`) : null
-                    return meta ? (
-                      <Badge key={tech} variant="secondary" className="gap-1.5 pl-2 pr-3 py-1 text-sm">
-                        {src && <img src={src} alt={tech} width={14} height={14} className="w-3.5 h-3.5 object-contain shrink-0" />}
-                        {tech}
-                      </Badge>
-                    ) : (
-                      <Badge key={tech} variant="secondary" className="px-3 py-1 text-sm">
-                        {tech}
-                      </Badge>
-                    )
-                  })
-                )}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        <GithubProfileWidget />
+          {/* Email */}
+          {(user?.email) && (
+            <p className="text-sm text-muted-foreground flex items-center gap-1.5">
+              <Mail className="h-3.5 w-3.5 opacity-50" />
+              {user.email}
+            </p>
+          )}
+        </div>
       </div>
+
+      {/* ── Tabs ── */}
+      <Tabs defaultValue="details">
+        <TabsList className="w-full sm:w-auto">
+          <TabsTrigger value="details" className="flex-1 sm:flex-none gap-2">
+            <LinkIcon className="h-3.5 w-3.5" />
+            Details
+          </TabsTrigger>
+          <TabsTrigger value="career" className="flex-1 sm:flex-none gap-2">
+            <Briefcase className="h-3.5 w-3.5" />
+            Career
+          </TabsTrigger>
+        </TabsList>
+
+        {/* ── Details Tab ── */}
+        <TabsContent value="details" className="space-y-6 mt-6">
+          {/* Bio */}
+          <div className="rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm">
+            <div className="flex items-center justify-between p-5 pb-3">
+              <div>
+                <h4 className="font-semibold flex items-center gap-2 text-sm">
+                  <Edit2 className="h-4 w-4 opacity-60" />
+                  Bio
+                </h4>
+                <p className="text-xs text-muted-foreground mt-0.5">Short intro shown on your public profile.</p>
+              </div>
+              {!isEditingBio && (
+                <Button variant="ghost" size="sm" onClick={() => { setEditBioVal(bio || ''); setIsEditingBio(true) }} className="h-8 gap-2 border text-xs">
+                  <Edit2 className="h-3.5 w-3.5" />
+                  Edit
+                </Button>
+              )}
+            </div>
+            <div className="px-5 pb-5">
+              {isEditingBio ? (
+                <div className="space-y-3">
+                  <Textarea
+                    value={editBioVal}
+                    onChange={(e) => setEditBioVal(e.target.value)}
+                    placeholder="Tell people what you do, what you're building, or what you're into."
+                    className="min-h-[100px]"
+                    maxLength={280}
+                  />
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                    <span>Max 280 characters.</span>
+                    <span className="tabular-nums">{editBioVal.length}/280</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button onClick={handleSaveBio} size="sm" className="gap-2">
+                      <CheckCircle2 className="h-4 w-4" />
+                      Save Bio
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={() => { setIsEditingBio(false); setEditBioVal(bio || '') }}>
+                      Cancel
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                !bio || bio.trim().length === 0
+                  ? <p className="text-sm text-muted-foreground italic">No bio yet.</p>
+                  : <p className="text-sm text-foreground/80 whitespace-pre-wrap leading-relaxed">{bio}</p>
+              )}
+            </div>
+          </div>
+
+          {/* Social Links */}
+          <div className="rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm">
+            <div className="flex items-center justify-between p-5 pb-3">
+              <div>
+                <h4 className="font-semibold flex items-center gap-2 text-sm">
+                  <LinkIcon className="h-4 w-4 opacity-60" />
+                  Social Links
+                </h4>
+                <p className="text-xs text-muted-foreground mt-0.5">Share your presence across the web.</p>
+              </div>
+              {!isEditingSocial && (
+                <Button variant="ghost" size="sm" onClick={() => { setEditSocialLinks(socialLinks || {}); setIsEditingSocial(true) }} className="h-8 gap-2 border text-xs">
+                  <Edit2 className="h-3.5 w-3.5" />
+                  Edit
+                </Button>
+              )}
+            </div>
+            <div className="px-5 pb-5">
+              {isEditingSocial ? (
+                <div className="space-y-3 max-w-2xl">
+                  {SOCIAL_PLATFORMS.map((platform) => {
+                    const Icon = platform.icon
+                    return (
+                      <div key={platform.id} className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-muted/30 flex items-center justify-center shrink-0">
+                          <Icon className="h-4 w-4 opacity-70" />
+                        </div>
+                        <Input
+                          placeholder={platform.placeholder}
+                          value={editSocialLinks[platform.id] || ''}
+                          onChange={(e) => setEditSocialLinks({ ...editSocialLinks, [platform.id]: e.target.value })}
+                          className="flex-1"
+                        />
+                      </div>
+                    )
+                  })}
+                  <div className="flex gap-2 pt-1">
+                    <Button onClick={handleSaveSocial} size="sm" className="gap-2">
+                      <CheckCircle2 className="h-4 w-4" />
+                      Save Links
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={() => setIsEditingSocial(false)}>
+                      Cancel
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-wrap gap-3">
+                  {Object.keys(socialLinks).length === 0 || !Object.values(socialLinks).some(val => val && val.trim().length > 0)
+                    ? <p className="text-sm text-muted-foreground italic">No social links configured yet.</p>
+                    : SOCIAL_PLATFORMS.map((platform) => {
+                        const val = socialLinks[platform.id]
+                        if (!val || val.trim() === '') return null
+                        const Icon = platform.icon
+                        const formattedUrl = val.startsWith('http') ? val : `https://${val}`
+                        return (
+                          <TooltipProvider key={platform.id}>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <a href={formattedUrl} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border bg-background hover:bg-muted/50 flex items-center justify-center transition-colors">
+                                  <Icon className="h-4 w-4 opacity-80" />
+                                </a>
+                              </TooltipTrigger>
+                              <TooltipContent><p>{platform.label}</p></TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        )
+                      })
+                  }
+                </div>
+              )}
+            </div>
+          </div>
+        </TabsContent>
+
+        {/* ── Career Tab ── */}
+        <TabsContent value="career" className="space-y-6 mt-6">
+          {/* Tech Stack */}
+          <div className="rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm">
+            <div className="flex items-center justify-between p-5 pb-3">
+              <div>
+                <h4 className="font-semibold flex items-center gap-2 text-sm">
+                  <Layers className="h-4 w-4 opacity-60" />
+                  Tech Stack
+                </h4>
+                <p className="text-xs text-muted-foreground mt-0.5">Technologies and tools you work with.</p>
+              </div>
+              {!isEditingTech && (
+                <Button variant="ghost" size="sm" onClick={() => { setEditTechStacks([...techStacks]); setIsEditingTech(true) }} className="h-8 gap-2 border text-xs">
+                  <Edit2 className="h-3.5 w-3.5" />
+                  Edit
+                </Button>
+              )}
+            </div>
+            <div className="px-5 pb-5">
+              {isEditingTech ? (
+                <div className="space-y-3 max-w-2xl">
+                  <TechStackPicker value={editTechStacks} onChange={setEditTechStacks} />
+                  <div className="flex gap-2 pt-1">
+                    <Button onClick={handleSaveTechStacks} size="sm" className="gap-2">
+                      <CheckCircle2 className="h-4 w-4" />
+                      Save
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={() => setIsEditingTech(false)}>
+                      Cancel
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-wrap gap-2">
+                  {techStacks.length === 0
+                    ? <p className="text-sm text-muted-foreground italic">No tech stacks added yet.</p>
+                    : techStacks.map((tech) => {
+                        const meta = TECH_CATALOG.find((t) => t.name === tech)
+                        const src = meta ? (meta.iconUrl ?? `https://cdn.simpleicons.org/${meta.slug}/${meta.color}`) : null
+                        return meta ? (
+                          <Badge key={tech} variant="secondary" className="gap-1.5 pl-2 pr-3 py-1 text-sm">
+                            {src && <img src={src} alt={tech} width={14} height={14} className="w-3.5 h-3.5 object-contain shrink-0" />}
+                            {tech}
+                          </Badge>
+                        ) : (
+                          <Badge key={tech} variant="secondary" className="px-3 py-1 text-sm">{tech}</Badge>
+                        )
+                      })
+                  }
+                </div>
+              )}
+            </div>
+          </div>
+
+          <ExperienceBuilder experiences={experiences} onChange={setExperiences} />
+          <ProjectsBuilder projects={projects} onChange={setProjects} />
+          <EducationBuilder education={education} onChange={setEducation} />
+          <PortfolioSettingsCard settings={portfolioSettings} onChange={setPortfolioSettings} />
+          <GithubProfileWidget />
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }

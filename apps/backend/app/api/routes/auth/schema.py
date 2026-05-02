@@ -19,6 +19,45 @@ class SocialLinks(BaseModel):
     hashnode: str | None = None
 
 
+class Experience(BaseModel):
+    id: str
+    company: str
+    role: str
+    startDate: str
+    endDate: str | None = None
+    description: str | None = None
+    technologies: list[str] = Field(default_factory=list)
+
+
+class Project(BaseModel):
+    id: str
+    title: str
+    description: str
+    imageUrl: str | None = None
+    githubUrl: str | None = None
+    liveUrl: str | None = None
+    technologies: list[str] = Field(default_factory=list)
+
+
+class Education(BaseModel):
+    id: str
+    institution: str
+    degree: str
+    startDate: str
+    endDate: str | None = None
+    description: str | None = None
+
+
+class PortfolioSettings(BaseModel):
+    theme: str | None = "bento"
+    font: str | None = "sans"
+    accentColor: str | None = "#3b82f6"
+    rssFeedUrl: str | None = None
+    showGithubStats: bool = True
+    resumePdfUrl: str | None = None
+
+
+
 class UserProfileResponse(BaseModel):
     uid: str
     email: str | None = None
@@ -31,6 +70,10 @@ class UserProfileResponse(BaseModel):
     bio: str | None = None
     social_links: SocialLinks | None = None
     tech_stacks: list[str] = Field(default_factory=list)
+    experiences: list[Experience] = Field(default_factory=list)
+    projects: list[Project] = Field(default_factory=list)
+    education: list[Education] = Field(default_factory=list)
+    portfolio_settings: PortfolioSettings | None = None
 
 
 class UpdateProfileRequest(BaseModel):
@@ -39,6 +82,10 @@ class UpdateProfileRequest(BaseModel):
     bio: str | None = None
     social_links: SocialLinks | None = None
     tech_stacks: list[str] | None = None
+    experiences: list[Experience] | None = None
+    projects: list[Project] | None = None
+    education: list[Education] | None = None
+    portfolio_settings: PortfolioSettings | None = None
 
 
 class OkResponse(BaseModel):
