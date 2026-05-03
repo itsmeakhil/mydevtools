@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Search, X } from "lucide-react";
 import { sidebarData } from "@/components/sidebar/data/sidebar-data";
 import { toolsMetadata } from "@/lib/metadata";
 import { toolCategoryMap } from "@/lib/tool-categories";
@@ -63,14 +63,43 @@ const allTools: ToolEntry[] = categories.flatMap((c) => c.tools);
 
 export function ToolsGrid() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
 
-  const visibleTools = useMemo(
-    () => activeCategory === "All" ? allTools : allTools.filter((t) => t.category === activeCategory),
-    [activeCategory]
-  );
+  const visibleTools = useMemo(() => {
+    const byCategory = activeCategory === "All" ? allTools : allTools.filter((t) => t.category === activeCategory);
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return byCategory;
+    return byCategory.filter(
+      (t) => t.title.toLowerCase().includes(q) || t.description.toLowerCase().includes(q)
+    );
+  }, [activeCategory, searchQuery]);
 
   return (
     <div>
+      {/* Search bar */}
+      <div className="relative mb-6 max-w-lg mx-auto">
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+        <input
+          ref={searchRef}
+          type="search"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder={`Search ${allTools.length}+ tools…`}
+          className="w-full h-11 pl-10 pr-10 rounded-full border border-border/60 bg-muted/40 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/50 transition-colors"
+        />
+        {searchQuery && (
+          <button
+            type="button"
+            onClick={() => setSearchQuery("")}
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-muted transition-colors"
+            aria-label="Clear search"
+          >
+            <X className="h-3.5 w-3.5 text-muted-foreground" />
+          </button>
+        )}
+      </div>
+
       {/* Category filter pills */}
       <div className="flex flex-wrap justify-center gap-2 mb-8 md:mb-10">
         {[
@@ -141,6 +170,20 @@ export function ToolsGrid() {
           })}
         </AnimatePresence>
       </div>
+
+      {visibleTools.length === 0 && (
+        <div className="py-16 text-center">
+          <p className="text-sm font-medium text-foreground">No tools match your search</p>
+          <p className="mt-1 text-xs text-muted-foreground">Try a different keyword or clear the filter.</p>
+          <button
+            type="button"
+            onClick={() => { setSearchQuery(""); setActiveCategory("All"); }}
+            className="mt-4 text-xs text-primary hover:underline"
+          >
+            Clear filters
+          </button>
+        </div>
+      )}
     </div>
   );
 }

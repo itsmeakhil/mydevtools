@@ -240,9 +240,9 @@ const DashboardPage: React.FC = () => {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // Group titles for category filter chips
-  const groupTitles = useMemo(() => {
-    return sidebarData.navGroups.map(g => g.title);
+  // Groups for category filter chips
+  const filterGroups = useMemo(() => {
+    return sidebarData.navGroups.map(g => ({ title: g.title, icon: g.icon }));
   }, []);
 
   // Tools with a badge — shown in the "What's New" section
@@ -474,7 +474,7 @@ const DashboardPage: React.FC = () => {
                     ref={searchInputRef}
                     value={searchQuery}
                     onChange={(event) => setSearchQuery(event.target.value)}
-                    placeholder={`${t('stats.tools')}...`}
+                    placeholder={`Search ${totalTools}+ tools…`}
                     className="pl-9 pr-20 h-10 border-transparent bg-transparent shadow-none focus-visible:ring-0 focus-visible:border-transparent"
                   />
                   <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
@@ -508,18 +508,19 @@ const DashboardPage: React.FC = () => {
                   >
                     {t('filterAll')}
                   </button>
-                  {groupTitles.map((title) => (
+                  {filterGroups.map(({ title, icon: GroupIcon }) => (
                     <button
                       key={title}
                       type="button"
                       onClick={() => setFilterGroup(filterGroup === title ? null : title)}
                       className={cn(
-                        "px-3 py-1 rounded-full text-xs font-medium border transition-colors",
+                        "inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border transition-colors",
                         filterGroup === title
                           ? "bg-primary text-primary-foreground border-primary"
                           : "bg-muted/50 text-muted-foreground border-border/50 hover:border-primary/40 hover:text-foreground"
                       )}
                     >
+                      {GroupIcon && <GroupIcon className="w-3 h-3 shrink-0" />}
                       {groupDisplayTitle(title, t)}
                     </button>
                   ))}
@@ -559,7 +560,7 @@ const DashboardPage: React.FC = () => {
               {whatsNewItems.length > 0 && !searchQuery && !filterGroup && (
                 <section className="space-y-3 md:space-y-5">
                   <div className="flex items-center gap-3 section-header-line pb-2">
-                    <div className="p-2 rounded-xl bg-violet-500/10 text-violet-500">
+                    <div className="p-2 rounded-xl bg-primary/10 text-primary">
                       <Wand2 size={18} strokeWidth={1.5} />
                     </div>
                     <h2 className="text-xl font-semibold">{t('sections.whatsNew')}</h2>
