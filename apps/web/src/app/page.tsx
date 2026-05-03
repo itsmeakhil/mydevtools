@@ -316,10 +316,10 @@ export default function Page() {
               transition={{ duration: 0.6, delay: 0.08 }}
               className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.08]"
             >
-              <span className="text-foreground">Simplify Your</span>
+              <span className="text-foreground">Online</span>
               <br />
               <span className="bg-gradient-to-r from-sky-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
-                Dev Workflow
+                Developer Tools
               </span>
             </motion.h1>
 
@@ -329,9 +329,9 @@ export default function Page() {
               transition={{ duration: 0.6, delay: 0.16 }}
               className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             >
-              Access a comprehensive suite of developer tools in one place — from
-              formatters to explorers, everything you need to ship faster. Self-host
-              the full stack for free forever, or subscribe to our managed cloud.
+              JSON formatter, JWT decoder, API client, regex tester, UUID generator,
+              and {allAppTools.length - 5}+ more — all in your browser. No install, no bloat.
+              Self-host free forever or subscribe to our managed cloud.
             </motion.p>
 
             {/* CTAs */}

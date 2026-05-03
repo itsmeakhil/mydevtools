@@ -47,6 +47,7 @@ import {
   FileSearch,
   UserCheck,
   SplitSquareHorizontal,
+  Gamepad2,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -108,6 +109,11 @@ export const routeConfig: Record<string, RouteConfig> = {
   '/app/user-agent-parser': { title: 'User Agent Parser', icon: UserCheck },
   '/app/sql-client': { title: 'SQL Client', icon: Server },
   '/app/s3-drive': { title: 'S3 Drive', icon: HardDrive },
+  '/app/break-room/2048': { title: '2048', icon: Gamepad2 },
+  '/app/break-room/sudoku': { title: 'Sudoku', icon: Gamepad2 },
+  '/app/break-room/snake': { title: 'Snake', icon: Gamepad2 },
+  '/app/break-room/minesweeper': { title: 'Minesweeper', icon: Gamepad2 },
+  '/app/break-room/tetris': { title: 'Tetris', icon: Gamepad2 },
 }
 
 export const TAB_ENABLED_PREFIX = '/app/'

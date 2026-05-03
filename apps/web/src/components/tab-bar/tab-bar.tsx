@@ -13,6 +13,15 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 
+const iconColors = [
+  'text-sky-400',
+  'text-violet-400',
+  'text-emerald-400',
+  'text-rose-400',
+  'text-amber-400',
+  'text-indigo-400',
+]
+
 interface TabBarProps {
   onNewTab?: () => void
 }
@@ -46,7 +55,6 @@ export function TabBar({ onNewTab }: TabBarProps) {
     }
   }, [tabs, updateScrollState])
 
-  // Scroll active tab into view when it changes
   useEffect(() => {
     const btn = activeTabRef.current
     const container = scrollRef.current
@@ -60,7 +68,6 @@ export function TabBar({ onNewTab }: TabBarProps) {
     }
   }, [activeTabPath])
 
-  // Horizontal scroll via mouse wheel
   useEffect(() => {
     const el = scrollRef.current
     if (!el) return
@@ -97,14 +104,14 @@ export function TabBar({ onNewTab }: TabBarProps) {
 
   return (
     <TooltipProvider delayDuration={500}>
-      <div className="flex h-9 w-full shrink-0 items-end border-b bg-muted/30 px-1 gap-0.5">
+      <div className="flex h-11 w-full shrink-0 items-center border-b bg-background px-2 gap-1">
 
         {/* Left scroll arrow */}
         <button
           onClick={() => scroll('left')}
           aria-hidden={!canScrollLeft}
           className={cn(
-            'mb-0.5 flex h-6 w-5 shrink-0 items-center justify-center rounded text-muted-foreground transition-all hover:bg-muted hover:text-foreground',
+            'flex h-6 w-5 shrink-0 items-center justify-center rounded text-muted-foreground transition-all hover:bg-muted hover:text-foreground',
             canScrollLeft ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
           )}
         >
@@ -114,14 +121,15 @@ export function TabBar({ onNewTab }: TabBarProps) {
         {/* Scrollable tab list */}
         <div
           ref={scrollRef}
-          className="flex min-w-0 flex-1 items-end gap-0.5 overflow-x-auto"
+          className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto py-1.5"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {tabs.map((tab) => {
+          {tabs.map((tab, i) => {
             const config = getRouteConfig(tab.path)
             const Icon = config?.icon
             const title = config?.title ?? tab.path.split('/').pop() ?? tab.path
             const isActive = tab.path === activeTabPath
+            const iconColor = iconColors[i % iconColors.length]
 
             return (
               <Tooltip key={tab.path}>
@@ -130,33 +138,35 @@ export function TabBar({ onNewTab }: TabBarProps) {
                     ref={isActive ? activeTabRef : null}
                     onClick={() => handleTabClick(tab.path)}
                     className={cn(
-                      'group relative flex h-8 max-w-[200px] min-w-[90px] shrink-0 cursor-pointer items-center gap-1.5 rounded-t-md border px-2.5 text-xs transition-all duration-150',
+                      'group relative flex h-7 max-w-[200px] min-w-[80px] shrink-0 cursor-pointer items-center gap-1.5 rounded-full px-3 text-xs font-medium transition-all duration-150',
                       isActive
-                        ? 'border-border border-b-background bg-background text-foreground shadow-sm z-10'
-                        : 'border-transparent bg-transparent text-muted-foreground hover:bg-background/60 hover:text-foreground hover:border-border/50'
+                        ? 'bg-secondary text-secondary-foreground shadow-sm'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
                     )}
                   >
                     {Icon && (
                       <Icon
                         className={cn(
-                          'h-3 w-3 shrink-0 transition-colors',
-                          isActive ? 'text-primary' : 'text-muted-foreground/70 group-hover:text-muted-foreground'
+                          'h-3.5 w-3.5 shrink-0 transition-colors',
+                          isActive ? iconColor : 'text-muted-foreground/50 group-hover:text-muted-foreground'
                         )}
                         strokeWidth={2}
                       />
                     )}
-                    <span className="min-w-0 flex-1 truncate text-left font-medium leading-none tracking-tight">
+
+                    <span className="min-w-0 flex-1 truncate text-left leading-none tracking-tight">
                       {title}
                     </span>
+
                     <span
                       role="button"
                       aria-label={`Close ${title}`}
                       onClick={(e) => handleClose(e, tab.path)}
                       className={cn(
-                        'ml-0.5 flex h-4 w-4 shrink-0 cursor-pointer items-center justify-center rounded transition-all duration-100',
+                        'flex h-3.5 w-3.5 shrink-0 cursor-pointer items-center justify-center rounded-full transition-all duration-100',
                         isActive
-                          ? 'text-muted-foreground/60 hover:bg-muted hover:text-foreground opacity-100'
-                          : 'text-muted-foreground/40 hover:bg-muted hover:text-foreground opacity-0 group-hover:opacity-100'
+                          ? 'text-muted-foreground hover:bg-muted hover:text-foreground opacity-100'
+                          : 'text-muted-foreground/30 hover:bg-muted hover:text-foreground opacity-0 group-hover:opacity-100'
                       )}
                     >
                       <X className="h-2.5 w-2.5" strokeWidth={2.5} />
@@ -176,7 +186,7 @@ export function TabBar({ onNewTab }: TabBarProps) {
           onClick={() => scroll('right')}
           aria-hidden={!canScrollRight}
           className={cn(
-            'mb-0.5 flex h-6 w-5 shrink-0 items-center justify-center rounded text-muted-foreground transition-all hover:bg-muted hover:text-foreground',
+            'flex h-6 w-5 shrink-0 items-center justify-center rounded text-muted-foreground transition-all hover:bg-muted hover:text-foreground',
             canScrollRight ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
           )}
         >
@@ -184,14 +194,14 @@ export function TabBar({ onNewTab }: TabBarProps) {
         </button>
 
         {/* Divider */}
-        <div className="mb-1 mx-0.5 h-4 w-px shrink-0 bg-border/60" />
+        <div className="mx-0.5 h-4 w-px shrink-0 bg-border/60" />
 
         {/* New tab button */}
         <Tooltip>
           <TooltipTrigger asChild>
             <button
               onClick={onNewTab}
-              className="mb-0.5 flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               aria-label="Open tool (⌘K)"
             >
               <Plus className="h-3.5 w-3.5" strokeWidth={2.5} />
