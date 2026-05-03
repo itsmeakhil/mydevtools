@@ -306,7 +306,7 @@ export default function Page() {
                 >
                   <Sparkles className="w-3.5 h-3.5" />
                 </motion.span>
-                The Ultimate Developer Toolkit
+                One browser tab for all your dev needs
               </Badge>
             </motion.div>
 
@@ -330,8 +330,8 @@ export default function Page() {
               className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             >
               JSON formatter, JWT decoder, API client, regex tester, UUID generator,
-              and {allAppTools.length - 5}+ more — all in your browser. No install, no bloat.
-              Self-host free forever or subscribe to our managed cloud.
+              and {allAppTools.length - 5}+ more — all in a single browser tab.
+              No install, no context switching. Self-host free forever or subscribe to our managed cloud.
             </motion.p>
 
             {/* CTAs */}
