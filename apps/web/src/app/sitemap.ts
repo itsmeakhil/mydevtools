@@ -1,10 +1,10 @@
 import { MetadataRoute } from 'next'
 import { toolsMetadata } from '@/lib/metadata'
+import { publicToolSlugs } from '@/lib/tool-categories'
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 
-    // Main pages
     const mainPages = [
         {
             url: baseUrl,
@@ -24,15 +24,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'weekly' as const,
             priority: 0.8,
         },
+        {
+            url: `${baseUrl}/tools`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly' as const,
+            priority: 0.9,
+        },
     ]
 
-    const toolSlugs = Object.keys(toolsMetadata).sort()
-    const toolPages = toolSlugs.map((tool) => ({
-        url: `${baseUrl}/app/${tool}`,
+    // Public SEO landing pages — primary indexing target
+    const toolLandingPages = publicToolSlugs.map((slug) => ({
+        url: `${baseUrl}/tools/${slug}`,
         lastModified: new Date(),
         changeFrequency: 'monthly' as const,
-        priority: 0.75,
+        priority: 0.85,
     }))
 
-    return [...mainPages, ...toolPages]
+    // App pages — still indexable, lower priority than landing pages
+    const toolSlugs = Object.keys(toolsMetadata).sort()
+    const appToolPages = toolSlugs.map((slug) => ({
+        url: `${baseUrl}/app/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.6,
+    }))
+
+    return [...mainPages, ...toolLandingPages, ...appToolPages]
 }

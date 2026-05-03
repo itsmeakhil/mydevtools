@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect, useMemo, useSyncExternalStore } from "react";
+import React, { useRef, useState, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -13,7 +13,7 @@ import {
   CollapsibleTrigger,
   CollapsibleContent,
 } from "@/components/ui/collapsible";
-import { motion, useInView, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   Zap,
@@ -136,7 +136,7 @@ const howItWorks = [
     step: "01",
     title: "Sign In Instantly",
     description:
-      "One-click Google Sign-In on our cloud. No email or password friction. Self-hosting the full app stays free forever; hosted cloud billing is coming soon.",
+      "One-click Google Sign-In on our cloud. No email or password friction. Self-hosting is free forever; the hosted cloud is a paid subscription.",
     icon: LogIn,
     gradient: "from-sky-500 to-cyan-400",
   },
@@ -159,12 +159,12 @@ const howItWorks = [
 
 const faqItems = [
   {
-    q: "Is MyDevTools really free?",
-    a: "The full product is open source under the GNU General Public License v3.0 (GPL-3.0). You can self-host the entire application yourself at no cost, forever. We are introducing paid plans for our hosted cloud and optional Premium features; final pricing will be published on this page when billing goes live.",
+    q: "Is MyDevTools free?",
+    a: "Self-hosting is free forever — clone the repo, deploy it yourself, no fees, no limits from us. The hosted cloud (mydevtools.tech) is a paid service. Pricing details are on the pricing section of this page.",
   },
   {
     q: "What is the difference between self-hosting and MyDevTools Cloud?",
-    a: "Self-hosting is the same codebase running on your own infrastructure—you own the data and pay nothing to us. MyDevTools Cloud is the managed service we operate for convenience and sync; it will become a paid option when we turn on billing.",
+    a: "Self-hosting is the same codebase running on your own infrastructure — you own the data and pay nothing to us. MyDevTools Cloud is our managed service; it is a paid subscription that covers hosting, sync, and backups.",
   },
   {
     q: "Is my data secure?",
@@ -199,7 +199,7 @@ export default function Page() {
   const reduceMotion = useReducedMotion();
   const [githubStars, setGithubStars] = useState<number | null>(null);
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);
-  const [activeToolCategory, setActiveToolCategory] = useState<string>("All");
+
   const modKey = useSyncExternalStore(
     subscribeNoop,
     getModKeyClient,
@@ -217,10 +217,6 @@ export default function Page() {
     );
   };
 
-  const visibleTools = useMemo(() => {
-    if (activeToolCategory === "All") return allAppTools;
-    return allAppTools.filter((t) => t.category === activeToolCategory);
-  }, [activeToolCategory]);
 
   useEffect(() => {
     fetch("https://api.github.com/repos/itsmeakhil/mydevtools.tech", {
@@ -310,7 +306,7 @@ export default function Page() {
                 >
                   <Sparkles className="w-3.5 h-3.5" />
                 </motion.span>
-                The Ultimate Developer Toolkit
+                One browser tab for all your dev needs
               </Badge>
             </motion.div>
 
@@ -320,10 +316,10 @@ export default function Page() {
               transition={{ duration: 0.6, delay: 0.08 }}
               className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.08]"
             >
-              <span className="text-foreground">Simplify Your</span>
+              <span className="text-foreground">Online</span>
               <br />
               <span className="bg-gradient-to-r from-sky-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
-                Dev Workflow
+                Developer Tools
               </span>
             </motion.h1>
 
@@ -333,10 +329,9 @@ export default function Page() {
               transition={{ duration: 0.6, delay: 0.16 }}
               className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             >
-              Access a comprehensive suite of developer tools in one place — from
-              formatters to explorers, everything you need to ship faster. Self-host
-              the full stack for free forever, or use our cloud while we introduce
-              pricing.
+              JSON formatter, JWT decoder, API client, regex tester, UUID generator,
+              and {allAppTools.length - 5}+ more — all in a single browser tab.
+              No install, no context switching. Self-host free forever or subscribe to our managed cloud.
             </motion.p>
 
             {/* CTAs */}
@@ -349,7 +344,7 @@ export default function Page() {
                 onClick={goToLogin}
                 className="inline-flex items-center justify-center h-12 px-8 rounded-full text-sm font-medium bg-foreground text-background hover:bg-foreground/90 shadow-md hover:shadow-lg hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 w-full sm:w-auto"
               >
-                Get Started Free
+                Get Started
                 <ArrowRight className="ml-2 h-4 w-4" />
               </button>
               <Link
@@ -691,11 +686,11 @@ export default function Page() {
                 Pricing
               </Badge>
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
-                Self-host free. Cloud &amp; Premium soon.
+                Self-host free. Cloud is paid.
               </h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                The same open-source product everywhere. Run it yourself at no
-                cost, or let us host it when paid plans go live.
+                Same open-source product everywhere. Run it yourself at no cost,
+                or let us handle hosting with a paid subscription.
               </p>
             </motion.div>
 
@@ -749,10 +744,10 @@ export default function Page() {
               <motion.div
                 variants={fadeUp}
                 transition={{ duration: 0.55, delay: 0.06 }}
-                className="relative flex flex-col rounded-2xl glass-overlay p-7 md:p-8 border border-sky-500/25"
+                className="relative flex flex-col rounded-2xl glass-overlay p-7 md:p-8 border border-sky-500/25 ring-1 ring-sky-500/20"
               >
                 <Badge className="absolute top-5 right-5 rounded-full text-[11px] font-medium px-2.5 py-0.5 bg-sky-500/15 text-sky-400 border border-sky-500/30">
-                  Coming soon
+                  Paid
                 </Badge>
                 <div className="mb-6 w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500 to-cyan-400 p-px shadow-md">
                   <div className="w-full h-full rounded-[11px] bg-card dark:bg-[hsl(var(--surface-2))] flex items-center justify-center">
@@ -761,21 +756,20 @@ export default function Page() {
                 </div>
                 <h3 className="text-xl font-semibold mb-1">MyDevTools Cloud</h3>
                 <p className="text-3xl font-bold tracking-tight mb-1">
-                  Paid plans
+                  Subscription
                 </p>
                 <p className="text-sm font-medium text-muted-foreground mb-6">
-                  Billing not enabled yet — using the cloud is still free for now.
+                  Managed hosting — pricing announced soon.
                 </p>
                 <p className="text-sm text-muted-foreground mb-6 flex-1 leading-relaxed">
-                  We will charge for managed hosting, convenience, and synced
-                  infrastructure so we can sustain the service. Pricing tiers will
-                  be announced before billing starts.
+                  We run the infrastructure so you don't have to. Your data stays
+                  encrypted end-to-end; we never see your plaintext.
                 </p>
                 <ul className="space-y-2.5 text-sm text-muted-foreground mb-8">
                   {[
                     "Same product, zero deploy hassle",
                     "Secure sync and backups from us",
-                    "Fair notice before any charges",
+                    "Cancel any time",
                   ].map((line) => (
                     <li key={line} className="flex gap-2">
                       <CheckCircle2 className="w-4 h-4 shrink-0 text-sky-500 mt-0.5" />
@@ -784,11 +778,13 @@ export default function Page() {
                   ))}
                 </ul>
                 <Button
-                  variant="outline"
-                  className="rounded-full w-full border-dashed opacity-90 cursor-default"
-                  disabled
+                  asChild
+                  className="rounded-full w-full bg-sky-500 hover:bg-sky-400 text-white"
                 >
-                  Pricing TBA
+                  <Link href="/login">
+                    Get Started
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
                 </Button>
               </motion.div>
 
@@ -838,120 +834,72 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── Tools ───────────────────────────────────────────────────────────── */}
-      <section
-        id="tools"
-        className="py-16 md:py-28 relative overflow-hidden scroll-mt-28"
-      >
+      {/* ── Tools teaser ────────────────────────────────────────────────────── */}
+      <section className="py-16 md:py-24 relative overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-muted/20" />
         <div className="container px-4 md:px-6 mx-auto">
           <Section>
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.6 }}
-              className="text-center mb-8 md:mb-10"
+              className="text-center mb-10 md:mb-12"
             >
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
-                Tools
+                {allAppTools.length}+ Tools, One Dashboard
               </h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                The full catalog from the app — open any utility in one click.
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
+                From JSON formatters to database explorers — everything you need, in one tab.
               </p>
-
-              {/* Command palette quick-search hint */}
-              <button
-                type="button"
-                onClick={openCommandPalette}
-                aria-label="Open command palette to search tools"
-                className="mt-6 inline-flex items-center gap-3 px-4 py-2.5 rounded-full glass-overlay text-sm text-muted-foreground hover:text-foreground transition-all duration-200 cursor-pointer active:scale-[0.98]"
-              >
-                <Search className="w-4 h-4" />
-                <span>Search tools…</span>
-                <kbd className="ml-1 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded border border-border/60 bg-muted/60 text-[11px] font-mono text-foreground/80">
-                  <span>{modKey}</span>
-                  <span>K</span>
-                </kbd>
-              </button>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                <Link
+                  href="/tools"
+                  className="inline-flex items-center justify-center h-11 px-7 rounded-full text-sm font-medium bg-foreground text-background hover:bg-foreground/90 shadow-md hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+                >
+                  Browse all tools
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+                <button
+                  type="button"
+                  onClick={openCommandPalette}
+                  aria-label="Open command palette to search tools"
+                  className="inline-flex items-center gap-3 h-11 px-5 rounded-full glass-overlay text-sm text-muted-foreground hover:text-foreground transition-all duration-200 cursor-pointer active:scale-[0.98]"
+                >
+                  <Search className="w-4 h-4" />
+                  <span>Search tools…</span>
+                  <kbd className="ml-1 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded border border-border/60 bg-muted/60 text-[11px] font-mono text-foreground/80">
+                    <span>{modKey}</span>
+                    <span>K</span>
+                  </kbd>
+                </button>
+              </div>
             </motion.div>
 
-            {/* Category filter pills */}
-            <motion.div
-              variants={fadeUp}
-              transition={{ duration: 0.5 }}
-              className="flex flex-wrap justify-center gap-2 mb-8 md:mb-10"
-            >
-              {[
-                { key: "All", count: allAppTools.length, icon: undefined as React.ElementType | undefined },
-                ...toolCategories.map((c) => ({
-                  key: c.title,
-                  count: c.tools.length,
-                  icon: c.icon,
-                })),
-              ].map((pill) => {
-                const active = activeToolCategory === pill.key;
-                const Icon = pill.icon;
-                return (
-                  <button
-                    key={pill.key}
-                    onClick={() => setActiveToolCategory(pill.key)}
-                    aria-pressed={active}
-                    className={`cursor-pointer inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200 active:scale-[0.97] ${
-                      active
-                        ? "bg-foreground text-background border-foreground shadow-md"
-                        : "glass-overlay text-foreground hover:border-border/70 hover:scale-[1.02]"
-                    }`}
-                  >
-                    {Icon ? <Icon className="w-3.5 h-3.5" /> : null}
-                    <span>{pill.key}</span>
-                    <span
-                      className={`text-xs tabular-nums ${
-                        active ? "opacity-80" : "text-muted-foreground"
-                      }`}
-                    >
-                      {pill.count}
-                    </span>
-                  </button>
-                );
-              })}
-            </motion.div>
-
+            {/* Featured tool cards — first 6 */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-              <AnimatePresence mode="popLayout">
-              {visibleTools.map((tool, i) => {
+              {allAppTools.slice(0, 6).map((tool, i) => {
                 const g = toolListGradients[i % toolListGradients.length];
                 const Icon = tool.icon;
                 return (
                   <motion.div
                     key={tool.url}
-                    layout
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{
-                      duration: 0.32,
-                      delay: Math.min(i * 0.02, 0.18),
-                    }}
+                    variants={fadeUp}
+                    transition={{ duration: 0.45, delay: i * 0.07 }}
                   >
                     <Link
-                      href={tool.url}
+                      href={`/tools/${tool.url.replace(/^\/app\//, "")}`}
                       className="group block h-full rounded-xl glass-overlay p-4 hover:scale-[1.02] hover:shadow-xl dark:hover:shadow-black/30 transition-all duration-300"
                     >
                       <div className="flex gap-3 items-start">
                         {Icon ? (
-                          <div
-                            className={`shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br ${g} flex items-center justify-center shadow-md group-hover:scale-105 transition-transform duration-300`}
-                          >
-                            <Icon
-                              className="w-5 h-5 text-white"
-                              stroke={1.75}
-                            />
+                          <div className={`shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br ${g} flex items-center justify-center shadow-md group-hover:scale-105 transition-transform duration-300`}>
+                            <Icon className="w-5 h-5 text-white" stroke={1.75} />
                           </div>
                         ) : null}
                         <div className="min-w-0 flex-1">
-                          <h3 className="font-semibold text-sm sm:text-base mb-0.5 flex items-center gap-1.5">
+                          <p className="font-semibold text-sm sm:text-base mb-0.5 flex items-center gap-1.5">
                             {tool.title}
                             <ArrowRight className="w-3.5 h-3.5 shrink-0 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                          </h3>
+                          </p>
                           <p className="text-xs sm:text-sm text-muted-foreground leading-snug line-clamp-2">
                             {tool.description}
                           </p>
@@ -961,23 +909,20 @@ export default function Page() {
                   </motion.div>
                 );
               })}
-              </AnimatePresence>
             </div>
 
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.55, delay: 0.15 }}
-              className="mt-10 md:mt-12 text-center"
+              className="mt-8 text-center"
             >
-              <Button
-                variant="outline"
-                size="lg"
-                className="rounded-full h-11 px-7 text-sm cursor-pointer hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
-                onClick={() => router.push("/dashboard")}
+              <Link
+                href="/tools"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
-                Open dashboard
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+                See all {allAppTools.length} tools
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </motion.div>
           </Section>
         </div>
@@ -1207,7 +1152,7 @@ export default function Page() {
                 >
                   Join developers who use MyDevTools to streamline their daily
                   workflow. Privacy-focused and GPL-3.0-licensed — self-host at no
-                  cost, with optional cloud and Premium when we roll out billing.
+                  cost forever, or subscribe to our managed cloud.
                 </motion.p>
 
                 <motion.div

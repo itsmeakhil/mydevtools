@@ -220,8 +220,13 @@ export function GlobalCommandPalette() {
       e.preventDefault()
       setOpen(true)
     }
+    const openPalette = () => setOpen(true)
     document.addEventListener('keydown', down)
-    return () => document.removeEventListener('keydown', down)
+    document.addEventListener('open-command-palette', openPalette)
+    return () => {
+      document.removeEventListener('keydown', down)
+      document.removeEventListener('open-command-palette', openPalette)
+    }
   }, [open])
 
   const run = React.useCallback(

@@ -318,7 +318,7 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
 
 function toolMetaDescription(tool: ToolMetadataEntry): string {
     const primary = tool.aiSummary ?? tool.description
-    const suffix = ' Free online on MyDevTools; runs in your browser.'
+    const suffix = ' Online developer tools on MyDevTools; runs in your browser.'
     const max = 165
     if (primary.length + suffix.length <= max) return primary + suffix
     return (primary.slice(0, max - suffix.length - 1).trimEnd() + '…' + suffix).slice(0, max)
@@ -331,7 +331,7 @@ export function generateToolMetadata(toolSlug: string): Metadata {
     if (!tool) {
         return {
             title: 'Developer Tool - MyDevTools',
-            description: 'Free online developer tools and utilities.',
+            description: 'Online developer tools and utilities.',
         }
     }
 
@@ -429,21 +429,22 @@ export function generatePageMetadata(opts: {
 // Base site metadata
 export const siteMetadata = {
     name: 'MyDevTools',
-    title: 'MyDevTools - Essential Tools for Developers',
-    description: 'Your Ultimate Developer Toolkit. Access free online tools including JSON editor, API client, password manager, and more. Boost productivity with client-side processing.',
+    title: 'MyDevTools — Online Developer Tools',
+    description: '50+ free online developer tools in your browser: JSON formatter, JWT decoder, API client, regex tester, UUID generator, base64 encoder, and more. No install required.',
     url: baseUrl,
-    ogImage: ogImageUrl('MyDevTools', 'Essential Tools for Developers'),
+    ogImage: ogImageUrl('MyDevTools — Online Developer Tools', 'JSON formatter, JWT decoder, API client, regex tester, and 50+ more browser tools for developers.'),
     keywords: [
-        'developer tools',
-        'online tools',
-        'free developer tools online',
-        'browser based devtools',
-        'json editor',
-        'api client',
-        'nosql explorer',
-        'password manager',
-        'productivity tools',
-        'ChatGPT developer tools',
-        'Gemini tools for developers',
+        'online developer tools',
+        'developer tools online',
+        'json formatter online',
+        'jwt decoder',
+        'api client online',
+        'regex tester',
+        'uuid generator',
+        'base64 encoder',
+        'browser developer tools',
+        'free dev tools',
+        'developer toolkit',
+        'web developer tools',
     ],
 }
