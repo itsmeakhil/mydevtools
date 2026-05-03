@@ -318,7 +318,7 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
 
 function toolMetaDescription(tool: ToolMetadataEntry): string {
     const primary = tool.aiSummary ?? tool.description
-    const suffix = ' Free online on MyDevTools; runs in your browser.'
+    const suffix = ' Online developer tools on MyDevTools; runs in your browser.'
     const max = 165
     if (primary.length + suffix.length <= max) return primary + suffix
     return (primary.slice(0, max - suffix.length - 1).trimEnd() + '…' + suffix).slice(0, max)
@@ -331,7 +331,7 @@ export function generateToolMetadata(toolSlug: string): Metadata {
     if (!tool) {
         return {
             title: 'Developer Tool - MyDevTools',
-            description: 'Free online developer tools and utilities.',
+            description: 'Online developer tools and utilities.',
         }
     }
 
@@ -430,13 +430,13 @@ export function generatePageMetadata(opts: {
 export const siteMetadata = {
     name: 'MyDevTools',
     title: 'MyDevTools - Essential Tools for Developers',
-    description: 'Your Ultimate Developer Toolkit. Access free online tools including JSON editor, API client, password manager, and more. Boost productivity with client-side processing.',
+    description: 'Your Ultimate Developer Toolkit. Access online developer tools including JSON editor, API client, password manager, and more. Boost productivity with client-side processing.',
     url: baseUrl,
     ogImage: ogImageUrl('MyDevTools', 'Essential Tools for Developers'),
     keywords: [
         'developer tools',
         'online tools',
-        'free developer tools online',
+        'online developer tools',
         'browser based devtools',
         'json editor',
         'api client',

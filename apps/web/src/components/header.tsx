@@ -53,7 +53,7 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
     { href: "/", label: "Home" },
     { href: "/#features", label: "Features" },
     { href: "/#pricing", label: "Pricing" },
-    { href: "/#tools", label: "Tools" },
+    { href: "/tools", label: "Tools" },
     { href: "/login", label: "Get Started", isPrimary: true },
     { href: "https://github.com/itsmeakhil/mydevtools.tech", label: "GitHub", icon: Github, external: true },
   ];
@@ -89,7 +89,7 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
                 Pricing
               </Link>
               <Link
-                href="/#tools"
+                href="/tools"
                 className="relative py-2 transition-colors hover:text-foreground/80 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-foreground after:transition-all hover:after:w-full"
               >
                 Tools

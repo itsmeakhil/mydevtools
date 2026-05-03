@@ -58,7 +58,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 
   // Open command palette for new tab via "+" button
   const openCommandPalette = useCallback(() => {
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true, bubbles: true }));
+    document.dispatchEvent(new CustomEvent('open-command-palette'));
   }, []);
 
   const inTabMode = isTabRoute(pathname) && tabs.length > 0;
