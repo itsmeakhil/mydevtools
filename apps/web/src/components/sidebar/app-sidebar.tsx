@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/sidebar'
 import { NavGroup } from './nav-group'
 import { NavUser } from './nav-user'
+import { FeedbackDialog } from '@/components/feedback-dialog'
 import { Logo } from '../logo'
 import { sidebarData } from './data/sidebar-data'
 import { onAuthStateChanged, signOut as firebaseSignOut } from 'firebase/auth'
@@ -160,6 +161,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         })}
       </SidebarContent>
       <SidebarFooter className="hidden md:block border-t border-border/30 dark:border-white/5">
+        <FeedbackDialog variant="sidebar" />
         <NavUser user={user} onSignout={handleSignOut} />
       </SidebarFooter>
       <SidebarRail />

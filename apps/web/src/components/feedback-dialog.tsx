@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { MessageSquarePlus, X, Loader2, CheckCircle2, Star } from "lucide-react";
+import { MessageSquarePlus, Loader2, CheckCircle2, Star } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import useAuth from "@/utils/useAuth";
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
 
 type FeedbackType = "bug" | "feature" | "general";
@@ -73,7 +74,7 @@ function StarRating({
   );
 }
 
-export function FeedbackDialog() {
+export function FeedbackDialog({ variant }: { variant?: "sidebar" }) {
   const { user } = useAuth(false);
   const pathname = usePathname();
 
@@ -124,9 +125,143 @@ export function FeedbackDialog() {
     }
   }
 
+  const dialog = (
+    <Dialog open={open} onOpenChange={handleClose}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <MessageSquarePlus className="w-4 h-4 text-primary" />
+            Share your feedback
+          </DialogTitle>
+        </DialogHeader>
+
+        {status === "success" ? (
+          <div className="flex flex-col items-center gap-3 py-8 text-center">
+            <CheckCircle2 className="w-12 h-12 text-emerald-500" />
+            <p className="font-semibold">Thanks for the feedback!</p>
+            <p className="text-sm text-muted-foreground">We read every submission.</p>
+            <Button
+              variant="outline"
+              className="mt-2 rounded-full"
+              onClick={() => { reset(); setOpen(false); }}
+            >
+              Close
+            </Button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="space-y-2">
+              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                Type
+              </Label>
+              <div className="flex gap-2 flex-wrap">
+                {TYPES.map((t) => (
+                  <button
+                    key={t.value}
+                    type="button"
+                    onClick={() => setType(t.value)}
+                    className={cn(
+                      "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm border transition-all",
+                      type === t.value
+                        ? "bg-primary text-primary-foreground border-primary"
+                        : "border-border/60 text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                    )}
+                  >
+                    <span>{t.emoji}</span>
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="fb-message" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                Message
+              </Label>
+              <Textarea
+                id="fb-message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder={
+                  type === "bug"
+                    ? "Describe what happened and how to reproduce it…"
+                    : type === "feature"
+                    ? "What would you like to see added or improved?"
+                    : "Tell us anything on your mind…"
+                }
+                rows={4}
+                maxLength={2000}
+                className="resize-none"
+              />
+              <div className="flex justify-between text-xs">
+                <span className={cn(message.length > 0 && message.trim().length < 10 ? "text-destructive" : "text-muted-foreground")}>
+                  Min. 10 characters
+                </span>
+                <span className="text-muted-foreground">{message.length}/2000</span>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                Rating <span className="normal-case text-muted-foreground/60">(optional)</span>
+              </Label>
+              <StarRating value={rating} onChange={setRating} />
+            </div>
+
+            {errorMsg && (
+              <p className="text-sm text-destructive">{errorMsg}</p>
+            )}
+
+            <div className="flex justify-end gap-2 pt-1">
+              <Button
+                type="button"
+                variant="ghost"
+                className="rounded-full"
+                onClick={() => setOpen(false)}
+                disabled={status === "loading"}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                className="rounded-full"
+                disabled={status === "loading" || message.trim().length < 10}
+              >
+                {status === "loading" ? (
+                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Sending…</>
+                ) : (
+                  "Send feedback"
+                )}
+              </Button>
+            </div>
+          </form>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+
+  if (variant === "sidebar") {
+    return (
+      <>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              onClick={() => setOpen(true)}
+              tooltip="Feedback"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              <MessageSquarePlus className="size-4" />
+              <span>Feedback</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+        {dialog}
+      </>
+    );
+  }
+
   return (
     <>
-      {/* Floating trigger button */}
       <button
         type="button"
         onClick={() => setOpen(true)}
@@ -136,123 +271,7 @@ export function FeedbackDialog() {
         <MessageSquarePlus className="w-4 h-4 shrink-0" />
         <span className="hidden sm:inline">Feedback</span>
       </button>
-
-      <Dialog open={open} onOpenChange={handleClose}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <MessageSquarePlus className="w-4 h-4 text-primary" />
-              Share your feedback
-            </DialogTitle>
-          </DialogHeader>
-
-          {status === "success" ? (
-            <div className="flex flex-col items-center gap-3 py-8 text-center">
-              <CheckCircle2 className="w-12 h-12 text-emerald-500" />
-              <p className="font-semibold">Thanks for the feedback!</p>
-              <p className="text-sm text-muted-foreground">We read every submission.</p>
-              <Button
-                variant="outline"
-                className="mt-2 rounded-full"
-                onClick={() => { reset(); setOpen(false); }}
-              >
-                Close
-              </Button>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Type selector */}
-              <div className="space-y-2">
-                <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Type
-                </Label>
-                <div className="flex gap-2 flex-wrap">
-                  {TYPES.map((t) => (
-                    <button
-                      key={t.value}
-                      type="button"
-                      onClick={() => setType(t.value)}
-                      className={cn(
-                        "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm border transition-all",
-                        type === t.value
-                          ? "bg-primary text-primary-foreground border-primary"
-                          : "border-border/60 text-muted-foreground hover:border-primary/40 hover:text-foreground"
-                      )}
-                    >
-                      <span>{t.emoji}</span>
-                      {t.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Message */}
-              <div className="space-y-2">
-                <Label htmlFor="fb-message" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Message
-                </Label>
-                <Textarea
-                  id="fb-message"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder={
-                    type === "bug"
-                      ? "Describe what happened and how to reproduce it…"
-                      : type === "feature"
-                      ? "What would you like to see added or improved?"
-                      : "Tell us anything on your mind…"
-                  }
-                  rows={4}
-                  maxLength={2000}
-                  className="resize-none"
-                  required
-                />
-                <div className="flex justify-between text-xs">
-                  <span className={cn(message.length > 0 && message.trim().length < 10 ? "text-destructive" : "text-muted-foreground")}>
-                    Min. 10 characters
-                  </span>
-                  <span className="text-muted-foreground">{message.length}/2000</span>
-                </div>
-              </div>
-
-              {/* Rating */}
-              <div className="space-y-2">
-                <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Rating <span className="normal-case text-muted-foreground/60">(optional)</span>
-                </Label>
-                <StarRating value={rating} onChange={setRating} />
-              </div>
-
-              {errorMsg && (
-                <p className="text-sm text-destructive">{errorMsg}</p>
-              )}
-
-              <div className="flex justify-end gap-2 pt-1">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="rounded-full"
-                  onClick={() => setOpen(false)}
-                  disabled={status === "loading"}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  className="rounded-full"
-                  disabled={status === "loading" || message.trim().length < 10}
-                >
-                  {status === "loading" ? (
-                    <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Sending…</>
-                  ) : (
-                    "Send feedback"
-                  )}
-                </Button>
-              </div>
-            </form>
-          )}
-        </DialogContent>
-      </Dialog>
+      {dialog}
     </>
   );
 }
