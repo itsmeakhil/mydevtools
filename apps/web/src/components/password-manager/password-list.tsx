@@ -8,7 +8,7 @@ import { clearMasterKey } from "@/lib/key-storage"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Search, Copy, Eye, EyeOff, Trash2, ExternalLink, LayoutGrid, List, Lock, Pencil, MoreVertical, FileJson, Plus, ShieldCheck, AlertTriangle, Repeat, Link2Off, X } from "lucide-react"
+import { Search, Copy, Eye, EyeOff, Trash2, ExternalLink, LayoutGrid, List, Lock, Pencil, MoreVertical, FileJson, Plus, ShieldCheck, AlertTriangle, Repeat, Link2Off, X, ShieldX } from "lucide-react"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { toast } from "sonner"
 import { auth } from "@/database/firebase"
@@ -29,15 +29,18 @@ import { PasswordItemSwipeable } from "./password-item-swipeable"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { PasswordCard } from "./password-card"
 import { SecurityDashboard } from "./security-dashboard"
+import { BreachCheckDialog } from "./breach-check-dialog"
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer"
 import { useTranslations } from "next-intl"
+import { checkPasswordsBreached } from "@/lib/hibp"
 
 export function PasswordList() {
     const t = useTranslations("PasswordManager.list")
     const tToast = useTranslations("PasswordManager.toasts")
-    const { passwords, deletePassword, clearPasswords, isLoading } = usePasswordStore()
+    const { passwords, deletePassword, clearPasswords, isLoading, breachCounts, breachStatus, setBreachResults, setBreachStatus, setBreachProgress, clearBreachResults } = usePasswordStore()
     const { clearKey: clearMasterKeyStore } = useMasterKeyStore()
     const [searchTerm, setSearchTerm] = useState("")
+    const [breachDialogOpen, setBreachDialogOpen] = useState(false)
     const [visiblePasswords, setVisiblePasswords] = useState<Set<string>>(new Set())
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
     const [quickFilter, setQuickFilter] = useState<"all" | "weak" | "reused" | "no-url">("all")
@@ -93,6 +96,30 @@ export function PasswordList() {
     )
     const reusedCount = reusedPasswordIds.size
     const hasActiveQuickFilter = quickFilter !== "all"
+
+    // Auto-run breach check in background when vault unlocks
+    useEffect(() => {
+        if (passwords.length > 0 && breachStatus === "idle") {
+            const run = async () => {
+                setBreachStatus("checking")
+                try {
+                    const results = await checkPasswordsBreached(
+                        passwords.map((p) => ({ id: p.id, password: p.password })),
+                        (checked, total) => setBreachProgress(checked, total)
+                    )
+                    setBreachResults(results)
+                    setBreachStatus("done")
+                } catch {
+                    setBreachStatus("error")
+                }
+            }
+            void run()
+        }
+    }, [passwords.length, breachStatus]) // eslint-disable-line react-hooks/exhaustive-deps
+
+    const breachedCount = breachStatus === "done"
+        ? passwords.filter((p) => (breachCounts.get(p.id) ?? 0) > 0).length
+        : 0
 
     // Each scroll context has its own container ref + infinite scroll hook instance.
     // This is required because app-content.tsx uses overflow-hidden on the outer wrapper,
@@ -329,6 +356,15 @@ export function PasswordList() {
                                         <FileJson className="mr-2 h-4 w-4" /> {t("importExport")}
                                     </Button>
                                 </ImportExportDialog>
+                                <DropdownMenuItem onClick={() => setBreachDialogOpen(true)} className="gap-2">
+                                    <ShieldX className="h-4 w-4" />
+                                    <span>Breach Check</span>
+                                    {breachedCount > 0 && (
+                                        <span className="ml-auto h-5 min-w-5 rounded-full bg-red-500 text-[10px] text-white flex items-center justify-center font-bold px-1">
+                                            {breachedCount}
+                                        </span>
+                                    )}
+                                </DropdownMenuItem>
                                 <DropdownMenuItem onClick={handleLock}>
                                     <Lock className="mr-2 h-4 w-4" /> {t("lockVault")}
                                 </DropdownMenuItem>
@@ -423,6 +459,20 @@ export function PasswordList() {
                     </Button>
                     <Button variant="outline" size="sm" onClick={hideAllVisible} className="h-10 text-xs">
                         <EyeOff className="h-3.5 w-3.5 mr-1.5" /> Hide all
+                    </Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setBreachDialogOpen(true)}
+                        className="h-10 text-xs relative"
+                        title="Check passwords against data breaches"
+                    >
+                        <ShieldX className="h-3.5 w-3.5 mr-1.5" /> Breach Check
+                        {breachedCount > 0 && (
+                            <span className="absolute -top-1.5 -right-1.5 h-4 w-4 rounded-full bg-red-500 text-[10px] text-white flex items-center justify-center font-bold">
+                                {breachedCount}
+                            </span>
+                        )}
                     </Button>
                     <Button variant="outline" size="icon" onClick={handleLock} title={t("lockVault")} className="h-10 w-10">
                         <Lock className="h-4 w-4" />
@@ -674,6 +724,8 @@ export function PasswordList() {
                     onOpenChange={(open) => !open && setEditingPassword(null)}
                 />
             )}
+
+            <BreachCheckDialog open={breachDialogOpen} onOpenChange={setBreachDialogOpen} />
         </div>
     )
 }

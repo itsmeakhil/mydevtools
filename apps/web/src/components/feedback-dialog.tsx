@@ -207,9 +207,11 @@ export function FeedbackDialog() {
                   className="resize-none"
                   required
                 />
-                <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>{message.length < 10 && message.length > 0 ? "At least 10 characters" : ""}</span>
-                  <span>{message.length}/2000</span>
+                <div className="flex justify-between text-xs">
+                  <span className={cn(message.length > 0 && message.trim().length < 10 ? "text-destructive" : "text-muted-foreground")}>
+                    Min. 10 characters
+                  </span>
+                  <span className="text-muted-foreground">{message.length}/2000</span>
                 </div>
               </div>
 
