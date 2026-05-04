@@ -19,16 +19,16 @@ router = APIRouter(prefix="/api-client", tags=["api-client"])
 
 
 @router.get("/collections", response_model=list[ApiClientCollectionOut], summary="List API client collections")
-def list_collections(uid: str = Depends(get_current_uid)) -> list[ApiClientCollectionOut]:
-    return api_client_svc.list_collections(uid)
+async def list_collections(uid: str = Depends(get_current_uid)) -> list[ApiClientCollectionOut]:
+    return await api_client_svc.list_collections(uid)
 
 
 @router.post("/collections", response_model=ApiClientCollectionOut, summary="Create API client collection")
-def create_collection(
+async def create_collection(
     body: ApiClientCollectionCreate,
     uid: str = Depends(get_current_uid),
 ) -> ApiClientCollectionOut:
-    return api_client_svc.create_collection(uid, body)
+    return await api_client_svc.create_collection(uid, body)
 
 
 @router.patch(
@@ -36,30 +36,30 @@ def create_collection(
     response_model=ApiClientCollectionOut,
     summary="Update API client collection (partial)",
 )
-def patch_collection(
+async def patch_collection(
     collection_id: str,
     body: ApiClientCollectionUpdate,
     uid: str = Depends(get_current_uid),
 ) -> ApiClientCollectionOut:
-    return api_client_svc.patch_collection(uid, collection_id, body)
+    return await api_client_svc.patch_collection(uid, collection_id, body)
 
 
 @router.delete("/collections/{collection_id}", status_code=204, summary="Delete API client collection")
-def delete_collection(collection_id: str, uid: str = Depends(get_current_uid)) -> None:
-    api_client_svc.delete_collection(uid, collection_id)
+async def delete_collection(collection_id: str, uid: str = Depends(get_current_uid)) -> None:
+    await api_client_svc.delete_collection(uid, collection_id)
 
 
 @router.get("/environments", response_model=list[ApiClientEnvironmentOut], summary="List API client environments")
-def list_environments(uid: str = Depends(get_current_uid)) -> list[ApiClientEnvironmentOut]:
-    return api_client_svc.list_environments(uid)
+async def list_environments(uid: str = Depends(get_current_uid)) -> list[ApiClientEnvironmentOut]:
+    return await api_client_svc.list_environments(uid)
 
 
 @router.post("/environments", response_model=ApiClientEnvironmentOut, summary="Create API client environment")
-def create_environment(
+async def create_environment(
     body: ApiClientEnvironmentCreate,
     uid: str = Depends(get_current_uid),
 ) -> ApiClientEnvironmentOut:
-    return api_client_svc.create_environment(uid, body)
+    return await api_client_svc.create_environment(uid, body)
 
 
 @router.patch(
@@ -67,44 +67,43 @@ def create_environment(
     response_model=ApiClientEnvironmentOut,
     summary="Update API client environment (partial)",
 )
-def patch_environment(
+async def patch_environment(
     environment_id: str,
     body: ApiClientEnvironmentUpdate,
     uid: str = Depends(get_current_uid),
 ) -> ApiClientEnvironmentOut:
-    return api_client_svc.patch_environment(uid, environment_id, body)
+    return await api_client_svc.patch_environment(uid, environment_id, body)
 
 
 @router.delete("/environments/{environment_id}", status_code=204, summary="Delete API client environment")
-def delete_environment(environment_id: str, uid: str = Depends(get_current_uid)) -> None:
-    api_client_svc.delete_environment(uid, environment_id)
+async def delete_environment(environment_id: str, uid: str = Depends(get_current_uid)) -> None:
+    await api_client_svc.delete_environment(uid, environment_id)
 
 
 @router.get("/history", response_model=list[ApiClientHistoryOut], summary="List API client request history")
-def list_history(
+async def list_history(
     uid: str = Depends(get_current_uid),
     limit: int = Query(default=HISTORY_MAX_ITEMS, ge=1, le=HISTORY_MAX_ITEMS),
 ) -> list[ApiClientHistoryOut]:
-    return api_client_svc.list_history(uid, limit=limit)
+    return await api_client_svc.list_history(uid, limit=limit)
 
 
 @router.post("/history", response_model=ApiClientHistoryOut, summary="Append API client history entry")
-def create_history(
+async def create_history(
     body: ApiClientHistoryCreate,
     background_tasks: BackgroundTasks,
     uid: str = Depends(get_current_uid),
 ) -> ApiClientHistoryOut:
-    entry = api_client_svc.create_history(uid, body)
+    entry = await api_client_svc.create_history(uid, body)
     background_tasks.add_task(api_client_svc.trim_history, uid)
     return entry
 
 
 @router.delete("/history/clear", status_code=204, summary="Clear all API client history")
-def clear_history(uid: str = Depends(get_current_uid)) -> None:
-    api_client_svc.clear_history(uid)
+async def clear_history(uid: str = Depends(get_current_uid)) -> None:
+    await api_client_svc.clear_history(uid)
 
 
 @router.delete("/history/{entry_id}", status_code=204, summary="Delete one history entry")
-def delete_history_entry(entry_id: str, uid: str = Depends(get_current_uid)) -> None:
-    api_client_svc.delete_history_entry(uid, entry_id)
-
+async def delete_history_entry(entry_id: str, uid: str = Depends(get_current_uid)) -> None:
+    await api_client_svc.delete_history_entry(uid, entry_id)

@@ -4,7 +4,6 @@ from typing import Any
 from bson import ObjectId
 from bson.errors import InvalidId
 from fastapi import HTTPException, status
-
 from pymongo.errors import PyMongoError
 
 from app.utils.collection_name import (
@@ -54,103 +53,100 @@ def _env_to_out(doc: dict[str, Any]) -> ApiClientEnvironmentOut:
     )
 
 
-def list_collections(uid: str) -> list[ApiClientCollectionOut]:
-    cursor = db_manager.find(API_CLIENT_COLLECTIONS, {"created_by": uid}, {"_id": 1, "name": 1, "items": 1},sort=[("name", 1), ("_id", 1)])
-    return [_collection_to_out(d) for d in cursor]
+async def list_collections(uid: str) -> list[ApiClientCollectionOut]:
+    docs = await db_manager.find(
+        API_CLIENT_COLLECTIONS,
+        {"created_by": uid},
+        {"_id": 1, "name": 1, "items": 1},
+        sort=[("name", 1), ("_id", 1)],
+    )
+    return [_collection_to_out(d) for d in docs]
 
 
-def create_collection(uid: str, body: ApiClientCollectionCreate) -> ApiClientCollectionOut:
-    doc: dict[str, Any] = {
-        "created_by": uid,
-        "name": body.name,
-        "items": [],
-    }
+async def create_collection(uid: str, body: ApiClientCollectionCreate) -> ApiClientCollectionOut:
+    doc: dict[str, Any] = {"created_by": uid, "name": body.name, "items": []}
     try:
-        result = db_manager.insert_one(API_CLIENT_COLLECTIONS, doc)
+        result = await db_manager.insert_one(API_CLIENT_COLLECTIONS, doc)
     except PyMongoError as exc:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to create collection.",
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create collection."
         ) from exc
     doc["_id"] = result.inserted_id
     return _collection_to_out(doc)
 
 
-def patch_collection(uid: str, collection_id: str, body: ApiClientCollectionUpdate) -> ApiClientCollectionOut:
+async def patch_collection(uid: str, collection_id: str, body: ApiClientCollectionUpdate) -> ApiClientCollectionOut:
     oid = _parse_oid(collection_id, kind="collection")
     patch = body.model_dump(exclude_unset=True)
     if not patch:
-        doc = db_manager.find_one(API_CLIENT_COLLECTIONS, {"_id": oid, "created_by": uid})
+        doc = await db_manager.find_one(API_CLIENT_COLLECTIONS, {"_id": oid, "created_by": uid})
         if not doc:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Collection not found.")
         return _collection_to_out(doc)
     try:
-        result = db_manager.update_one(API_CLIENT_COLLECTIONS, {"_id": oid, "created_by": uid}, {"$set": patch})
+        result = await db_manager.update_one(API_CLIENT_COLLECTIONS, {"_id": oid, "created_by": uid}, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to update collection.",
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update collection."
         ) from exc
     if result.matched_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Collection not found.")
-    doc = db_manager.find_one(API_CLIENT_COLLECTIONS, {"_id": oid})
+    doc = await db_manager.find_one(API_CLIENT_COLLECTIONS, {"_id": oid})
     return _collection_to_out(doc)  # type: ignore[arg-type]
 
 
-def delete_collection(uid: str, collection_id: str) -> None:
+async def delete_collection(uid: str, collection_id: str) -> None:
     oid = _parse_oid(collection_id, kind="collection")
-    result = db_manager.delete_one(API_CLIENT_COLLECTIONS, {"_id": oid, "created_by": uid})
+    result = await db_manager.delete_one(API_CLIENT_COLLECTIONS, {"_id": oid, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Collection not found.")
 
 
-# Environments
-def list_environments(uid: str) -> list[ApiClientEnvironmentOut]:
-    cursor = db_manager.find(API_CLIENT_ENVIRONMENTS, {"created_by": uid}, {"_id": 1, "name": 1, "variables": 1}, sort=[("name", 1), ("_id", 1)])
-    return [_env_to_out(d) for d in cursor]
+async def list_environments(uid: str) -> list[ApiClientEnvironmentOut]:
+    docs = await db_manager.find(
+        API_CLIENT_ENVIRONMENTS,
+        {"created_by": uid},
+        {"_id": 1, "name": 1, "variables": 1},
+        sort=[("name", 1), ("_id", 1)],
+    )
+    return [_env_to_out(d) for d in docs]
 
 
-def create_environment(uid: str, body: ApiClientEnvironmentCreate) -> ApiClientEnvironmentOut:
-    doc: dict[str, Any] = {
-        "created_by": uid,
-        "name": body.name,
-        "variables": [],
-    }
+async def create_environment(uid: str, body: ApiClientEnvironmentCreate) -> ApiClientEnvironmentOut:
+    doc: dict[str, Any] = {"created_by": uid, "name": body.name, "variables": []}
     try:
-        result = db_manager.insert_one(API_CLIENT_ENVIRONMENTS, doc)
+        result = await db_manager.insert_one(API_CLIENT_ENVIRONMENTS, doc)
     except PyMongoError as exc:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to create environment.",
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create environment."
         ) from exc
     doc["_id"] = result.inserted_id
     return _env_to_out(doc)
 
 
-def patch_environment(uid: str, environment_id: str, body: ApiClientEnvironmentUpdate) -> ApiClientEnvironmentOut:
+async def patch_environment(uid: str, environment_id: str, body: ApiClientEnvironmentUpdate) -> ApiClientEnvironmentOut:
     oid = _parse_oid(environment_id, kind="environment")
     patch = body.model_dump(exclude_unset=True)
     if not patch:
-        doc = db_manager.find_one(API_CLIENT_ENVIRONMENTS, {"_id": oid, "created_by": uid})
+        doc = await db_manager.find_one(API_CLIENT_ENVIRONMENTS, {"_id": oid, "created_by": uid})
         if not doc:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Environment not found.")
         return _env_to_out(doc)
     try:
-        result = db_manager.update_one(API_CLIENT_ENVIRONMENTS, {"_id": oid, "created_by": uid}, {"$set": patch})
+        result = await db_manager.update_one(API_CLIENT_ENVIRONMENTS, {"_id": oid, "created_by": uid}, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to update environment.",
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update environment."
         ) from exc
     if result.matched_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Environment not found.")
-    doc = db_manager.find_one(API_CLIENT_ENVIRONMENTS, {"_id": oid})
+    doc = await db_manager.find_one(API_CLIENT_ENVIRONMENTS, {"_id": oid})
     return _env_to_out(doc)  # type: ignore[arg-type]
 
 
-def delete_environment(uid: str, environment_id: str) -> None:
+async def delete_environment(uid: str, environment_id: str) -> None:
     oid = _parse_oid(environment_id, kind="environment")
-    result = db_manager.delete_one(API_CLIENT_ENVIRONMENTS, {"_id": oid, "created_by": uid})
+    result = await db_manager.delete_one(API_CLIENT_ENVIRONMENTS, {"_id": oid, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Environment not found.")
 
@@ -174,26 +170,26 @@ def _history_doc_to_out(doc: dict[str, Any]) -> ApiClientHistoryOut:
     )
 
 
-def trim_history(uid: str) -> None:
+async def trim_history(uid: str) -> None:
     filt = {"created_by": uid}
-    total = db_manager.count_documents(API_CLIENT_HISTORY, filt)
+    total = await db_manager.count_documents(API_CLIENT_HISTORY, filt)
     if total <= HISTORY_MAX_ITEMS:
         return
     excess = total - HISTORY_MAX_ITEMS
-    oldest = list(db_manager.find(API_CLIENT_HISTORY, filt, {"_id": 1}, sort=[("timestamp", 1)], limit=excess))
+    oldest = await db_manager.find(API_CLIENT_HISTORY, filt, {"_id": 1}, sort=[("timestamp", 1)], limit=excess)
     if not oldest:
         return
     ids = [d["_id"] for d in oldest]
-    db_manager.delete_many(API_CLIENT_HISTORY, {"_id": {"$in": ids}, "created_by": uid})
+    await db_manager.delete_many(API_CLIENT_HISTORY, {"_id": {"$in": ids}, "created_by": uid})
 
 
-def list_history(uid: str, *, limit: int = HISTORY_MAX_ITEMS) -> list[ApiClientHistoryOut]:
+async def list_history(uid: str, *, limit: int = HISTORY_MAX_ITEMS) -> list[ApiClientHistoryOut]:
     lim = max(1, min(limit, HISTORY_MAX_ITEMS))
-    cursor = db_manager.find(API_CLIENT_HISTORY, {"created_by": uid}, sort=[("timestamp", -1)], limit=lim)
-    return [_history_doc_to_out(d) for d in cursor]
+    docs = await db_manager.find(API_CLIENT_HISTORY, {"created_by": uid}, sort=[("timestamp", -1)], limit=lim)
+    return [_history_doc_to_out(d) for d in docs]
 
 
-def create_history(uid: str, body: ApiClientHistoryCreate) -> ApiClientHistoryOut:
+async def create_history(uid: str, body: ApiClientHistoryCreate) -> ApiClientHistoryOut:
     ts = body.timestamp if body.timestamp is not None else int(time.time() * 1000)
     doc: dict[str, Any] = {
         "created_by": uid,
@@ -208,29 +204,26 @@ def create_history(uid: str, body: ApiClientHistoryCreate) -> ApiClientHistoryOu
         "status": body.status,
     }
     try:
-        result = db_manager.insert_one(API_CLIENT_HISTORY, doc)
+        result = await db_manager.insert_one(API_CLIENT_HISTORY, doc)
     except PyMongoError as exc:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to save history entry.",
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to save history entry."
         ) from exc
     doc["_id"] = result.inserted_id
     return _history_doc_to_out(doc)
 
 
-def delete_history_entry(uid: str, entry_id: str) -> None:
+async def delete_history_entry(uid: str, entry_id: str) -> None:
     oid = _parse_oid(entry_id, kind="history")
-    result = db_manager.delete_one(API_CLIENT_HISTORY, {"_id": oid, "created_by": uid})
+    result = await db_manager.delete_one(API_CLIENT_HISTORY, {"_id": oid, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="History entry not found.")
 
 
-def clear_history(uid: str) -> None:
+async def clear_history(uid: str) -> None:
     try:
-        db_manager.delete_many(API_CLIENT_HISTORY, {"created_by": uid})
+        await db_manager.delete_many(API_CLIENT_HISTORY, {"created_by": uid})
     except PyMongoError as exc:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to clear history.",
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to clear history."
         ) from exc
-

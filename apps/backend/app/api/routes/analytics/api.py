@@ -7,6 +7,6 @@ from app.api.routes.auth.services import get_current_uid
 router = APIRouter(prefix="/analytics", tags=["analytics"])
 
 
-@router.get("/summary",summary="Dashboard analytics counts",)
-def dashboard_summary(uid: str = Depends(get_current_uid)):
-    return analytics_svc.get_dashboard_analytics(uid)
+@router.get("/summary", summary="Dashboard analytics counts")
+async def dashboard_summary(uid: str = Depends(get_current_uid)):
+    return await analytics_svc.get_dashboard_analytics(uid)

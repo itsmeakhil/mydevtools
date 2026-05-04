@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import time
 from typing import Any
 
 from app.utils.collection_name import USERS
@@ -8,8 +7,7 @@ from app.utils.utils import create_timestamp
 from app.database import db_manager
 
 
-
-def upsert_user_from_firebase_claims(decoded: dict[str, Any]) -> None:
+async def upsert_user_from_firebase_claims(decoded: dict[str, Any]) -> None:
     uid = decoded.get("uid")
     if not uid:
         return
@@ -24,78 +22,73 @@ def upsert_user_from_firebase_claims(decoded: dict[str, Any]) -> None:
         "disabled": False,
         "updated_at": now,
     }
-    db_manager.update_one(USERS, {"_id": uid}, {"$set": doc, "$setOnInsert": {"created_at": now}}, upsert=True)
-        
-def get_user_doc(uid: str) -> dict[str, Any] | None:
-    return db_manager.find_one(USERS, {"_id": uid})
+    await db_manager.update_one(USERS, {"_id": uid}, {"$set": doc, "$setOnInsert": {"created_at": now}}, upsert=True)
 
 
-def is_username_taken(username: str, exclude_uid: str) -> bool:
-    count = db_manager.count_documents(USERS, {"username": username, "_id": {"$ne": exclude_uid}})
+async def get_user_doc(uid: str) -> dict[str, Any] | None:
+    return await db_manager.find_one(USERS, {"_id": uid})
+
+
+async def is_username_taken(username: str, exclude_uid: str) -> bool:
+    count = await db_manager.count_documents(USERS, {"username": username, "_id": {"$ne": exclude_uid}})
     return count > 0
 
 
-def get_user_doc_by_username(username: str) -> dict[str, Any] | None:
-    return db_manager.find_one(USERS, {"username": username})
+async def get_user_doc_by_username(username: str) -> dict[str, Any] | None:
+    return await db_manager.find_one(USERS, {"username": username})
 
 
-def update_user_profile(uid: str, updates: dict[str, Any]) -> None:
+async def update_user_profile(uid: str, updates: dict[str, Any]) -> None:
     if not updates:
         return
     now = create_timestamp()
     updates["updated_at"] = now
-    db_manager.update_one(USERS, {"_id": uid}, {"$set": updates})
+    await db_manager.update_one(USERS, {"_id": uid}, {"$set": updates})
 
 
-def set_refresh_token_hash(uid: str, token_hash: str) -> None:
+async def set_refresh_token_hash(uid: str, token_hash: str) -> None:
     now = create_timestamp()
-    db_manager.update_one(
+    await db_manager.update_one(
         USERS,
         {"_id": uid},
         {"$set": {"refresh_token_hash": token_hash, "updated_at": now}},
     )
 
 
-def clear_refresh_token_hash(uid: str) -> None:
+async def clear_refresh_token_hash(uid: str) -> None:
     now = create_timestamp()
-    db_manager.update_one(USERS, {"_id": uid}, {"$unset": {"refresh_token_hash": ""}, "$set": {"updated_at": now}})
+    await db_manager.update_one(
+        USERS, {"_id": uid}, {"$unset": {"refresh_token_hash": ""}, "$set": {"updated_at": now}}
+    )
 
 
-def find_uid_by_refresh_hash(token_hash: str) -> str | None:
-    doc = db_manager.find_one(USERS, {"refresh_token_hash": token_hash}, projection={"_id": 1})
+async def find_uid_by_refresh_hash(token_hash: str) -> str | None:
+    doc = await db_manager.find_one(USERS, {"refresh_token_hash": token_hash}, projection={"_id": 1})
     if not doc:
         return None
     uid = doc.get("_id")
     return str(uid) if uid is not None else None
 
 
-# ── Master-password vault ─────────────────────────────────────────────────────
-
-
-def get_master_vault(uid: str) -> dict[str, Any] | None:
-    """Return the stored master-vault metadata for *uid*, or None if not set up."""
-    doc = get_user_doc(uid)
+async def get_master_vault(uid: str) -> dict[str, Any] | None:
+    doc = await get_user_doc(uid)
     if not doc:
         return None
     return doc.get("master_vault") or None
 
 
-def set_master_vault(uid: str, vault: dict[str, Any]) -> None:
-    """Persist master-vault metadata on the user document (idempotent upsert)."""
+async def set_master_vault(uid: str, vault: dict[str, Any]) -> None:
     now = create_timestamp()
-    db_manager.update_one(USERS, {"_id": uid}, {"$set": {"master_vault": vault, "updated_at": now}})
+    await db_manager.update_one(USERS, {"_id": uid}, {"$set": {"master_vault": vault, "updated_at": now}})
 
 
-# ── Backup codes ──────────────────────────────────────────────────────────────
-
-
-def set_backup_codes(uid: str, codes: list[dict[str, Any]]) -> None:
+async def set_backup_codes(uid: str, codes: list[dict[str, Any]]) -> None:
     now = create_timestamp()
-    db_manager.update_one(USERS, {"_id": uid}, {"$set": {"backup_codes": codes, "updated_at": now}})
+    await db_manager.update_one(USERS, {"_id": uid}, {"$set": {"backup_codes": codes, "updated_at": now}})
 
 
-def get_backup_code_by_id(uid: str, code_id: str) -> dict[str, Any] | None:
-    doc = get_user_doc(uid)
+async def get_backup_code_by_id(uid: str, code_id: str) -> dict[str, Any] | None:
+    doc = await get_user_doc(uid)
     if not doc:
         return None
     codes: list[dict] = doc.get("backup_codes") or []
@@ -105,6 +98,10 @@ def get_backup_code_by_id(uid: str, code_id: str) -> dict[str, Any] | None:
     return None
 
 
-def mark_backup_code_used(uid: str, code_id: str) -> None:
+async def mark_backup_code_used(uid: str, code_id: str) -> None:
     now = create_timestamp()
-    db_manager.update_one(USERS, {"_id": uid, "backup_codes.codeId": code_id}, {"$set": {"backup_codes.$.used": True, "updated_at": now}})
+    await db_manager.update_one(
+        USERS,
+        {"_id": uid, "backup_codes.codeId": code_id},
+        {"$set": {"backup_codes.$.used": True, "updated_at": now}},
+    )

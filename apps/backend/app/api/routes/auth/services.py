@@ -60,8 +60,8 @@ def get_current_uid(
     return decode_access_token(token)
 
 
-def get_current_user(uid: str = Depends(get_current_uid)) -> UserProfileResponse:
-    doc = get_user_doc(uid)
+async def get_current_user(uid: str = Depends(get_current_uid)) -> UserProfileResponse:
+    doc = await get_user_doc(uid)
     if not doc:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

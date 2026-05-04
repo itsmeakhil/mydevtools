@@ -15,21 +15,21 @@ router = APIRouter(prefix="/user-preferences", tags=["user-preferences"])
 
 
 @router.get("", response_model=UserPreferencesOut, summary="Get user preferences")
-def get_prefs(uid: str = Depends(get_current_uid)) -> UserPreferencesOut:
-    return pref_svc.get_preferences(uid)
+async def get_prefs(uid: str = Depends(get_current_uid)) -> UserPreferencesOut:
+    return await pref_svc.get_preferences(uid)
 
 
 @router.patch("", response_model=UserPreferencesOut, summary="Update user preferences (partial)")
-def patch_prefs(body: UserPreferencesUpdate, uid: str = Depends(get_current_uid)) -> UserPreferencesOut:
-    return pref_svc.patch_preferences(uid, body)
+async def patch_prefs(body: UserPreferencesUpdate, uid: str = Depends(get_current_uid)) -> UserPreferencesOut:
+    return await pref_svc.patch_preferences(uid, body)
 
 
 @router.post(
     "/tool-usage",
     summary="Increment per-tool usage count (authenticated analytics)",
 )
-def track_tool_usage(body: ToolUsageTrackRequest, uid: str = Depends(get_current_uid)) -> dict[str, bool]:
-    pref_svc.track_tool_usage(uid, body.toolId)
+async def track_tool_usage(body: ToolUsageTrackRequest, uid: str = Depends(get_current_uid)) -> dict[str, bool]:
+    await pref_svc.track_tool_usage(uid, body.toolId)
     return {"ok": True}
 
 
@@ -38,13 +38,13 @@ def track_tool_usage(body: ToolUsageTrackRequest, uid: str = Depends(get_current
     response_model=NosqlQueryHistoryOut,
     summary="Load NoSQL explorer query history for a collection context",
 )
-def get_nosql_query_history(
+async def get_nosql_query_history(
     connection_name: str = Query(..., alias="connectionName"),
     db_name: str = Query(..., alias="dbName"),
     collection_name: str = Query(..., alias="collectionName"),
     uid: str = Depends(get_current_uid),
 ) -> NosqlQueryHistoryOut:
-    return pref_svc.get_nosql_query_history(
+    return await pref_svc.get_nosql_query_history(
         uid,
         connection_name=connection_name,
         db_name=db_name,
@@ -57,5 +57,5 @@ def get_nosql_query_history(
     response_model=NosqlQueryHistoryOut,
     summary="Replace NoSQL explorer query history (max 10 queries)",
 )
-def put_nosql_query_history(body: NosqlQueryHistoryPut, uid: str = Depends(get_current_uid)) -> NosqlQueryHistoryOut:
-    return pref_svc.put_nosql_query_history(uid, body)
+async def put_nosql_query_history(body: NosqlQueryHistoryPut, uid: str = Depends(get_current_uid)) -> NosqlQueryHistoryOut:
+    return await pref_svc.put_nosql_query_history(uid, body)

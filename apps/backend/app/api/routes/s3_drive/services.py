@@ -32,9 +32,8 @@ from app.api.routes.s3_drive.schema import (
     BucketInfo,
 )
 from app.utils.collection_name import S3_CONNECTIONS
-from app.utils.utils import create_timestamp, new_id
+from app.utils.utils import create_timestamp, is_duplicate_key_error, new_id
 from app.database import db_manager
-
 
 
 def _doc_to_out(doc: dict[str, Any]) -> S3ConnectionOut:
@@ -52,14 +51,14 @@ def _doc_to_out(doc: dict[str, Any]) -> S3ConnectionOut:
     )
 
 
-# ── Connection CRUD ───────────────────────────────────────────────────────────
+# ── Connection CRUD (async — uses DB) ─────────────────────────────────────────
 
-def list_connections(uid: str) -> list[S3ConnectionOut]:
-    docs = list(db_manager.find(S3_CONNECTIONS, {"created_by": uid}, sort=[("updatedAt", -1)]))
+async def list_connections(uid: str) -> list[S3ConnectionOut]:
+    docs = await db_manager.find(S3_CONNECTIONS, {"created_by": uid}, sort=[("updatedAt", -1)])
     return [_doc_to_out(d) for d in docs]
 
 
-def create_connection(uid: str, body: S3ConnectionCreate) -> S3ConnectionOut:
+async def create_connection(uid: str, body: S3ConnectionCreate) -> S3ConnectionOut:
     conn_id = new_id()
     ts = create_timestamp()
     created_at = int(body.createdAt) if body.createdAt is not None else ts
@@ -74,23 +73,22 @@ def create_connection(uid: str, body: S3ConnectionCreate) -> S3ConnectionOut:
         "updatedAt": ts,
     }
     try:
-        db_manager.insert_one(S3_CONNECTIONS, doc)
+        await db_manager.insert_one(S3_CONNECTIONS, doc)
     except PyMongoError as exc:
-        msg = str(exc).lower()
-        if "duplicate" in msg or "e11000" in msg:
+        if is_duplicate_key_error(exc):
             raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Connection id collision.") from exc
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create connection.") from exc
     return _doc_to_out(doc)
 
 
-def get_connection(uid: str, conn_id: str) -> S3ConnectionOut:
-    doc = db_manager.find_one(S3_CONNECTIONS, {"_id": conn_id, "created_by": uid})
+async def get_connection(uid: str, conn_id: str) -> S3ConnectionOut:
+    doc = await db_manager.find_one(S3_CONNECTIONS, {"_id": conn_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
     return _doc_to_out(doc)
 
 
-def update_connection(uid: str, conn_id: str, body: S3ConnectionUpdate) -> S3ConnectionOut:
+async def update_connection(uid: str, conn_id: str, body: S3ConnectionUpdate) -> S3ConnectionOut:
     patch: dict[str, Any] = {"updatedAt": int(body.updatedAt) if body.updatedAt is not None else create_timestamp()}
     if body.name is not None:
         patch["name"] = body.name
@@ -101,24 +99,24 @@ def update_connection(uid: str, conn_id: str, body: S3ConnectionUpdate) -> S3Con
     if body.iv is not None:
         patch["iv"] = body.iv
     try:
-        result = db_manager.update_one(S3_CONNECTIONS, {"_id": conn_id, "created_by": uid}, {"$set": patch})
+        result = await db_manager.update_one(S3_CONNECTIONS, {"_id": conn_id, "created_by": uid}, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update connection.") from exc
     if result.matched_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
-    return get_connection(uid, conn_id)
+    return await get_connection(uid, conn_id)
 
 
-def delete_connection(uid: str, conn_id: str) -> None:
-    result = db_manager.delete_one(S3_CONNECTIONS, {"_id": conn_id, "created_by": uid})
+async def delete_connection(uid: str, conn_id: str) -> None:
+    result = await db_manager.delete_one(S3_CONNECTIONS, {"_id": conn_id, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
 
 
-# ── S3 client factory (TTL-based, secrets never stored as cache-key args) ─────
+# ── S3 client factory (TTL-based cache) ───────────────────────────────────────
 
-_CLIENT_CACHE: dict[str, tuple[float, Any]] = {}  # cache_key → (expires_at, client)
-_CLIENT_CACHE_TTL = 300  # 5 minutes
+_CLIENT_CACHE: dict[str, tuple[float, Any]] = {}
+_CLIENT_CACHE_TTL = 300
 _CLIENT_CACHE_MAX = 64
 _CLIENT_CACHE_LOCK = threading.Lock()
 
@@ -147,12 +145,10 @@ def _s3_client(creds: S3Credentials):
     client = boto3.client("s3", **kwargs)
 
     with _CLIENT_CACHE_LOCK:
-        # Evict expired entries if cache is too large
         if len(_CLIENT_CACHE) >= _CLIENT_CACHE_MAX:
             expired = [k for k, (exp, _) in _CLIENT_CACHE.items() if exp <= now]
             for k in expired:
                 del _CLIENT_CACHE[k]
-            # If still too large after eviction, drop oldest
             if len(_CLIENT_CACHE) >= _CLIENT_CACHE_MAX:
                 oldest_key = min(_CLIENT_CACHE, key=lambda k: _CLIENT_CACHE[k][0])
                 del _CLIENT_CACHE[oldest_key]
@@ -173,7 +169,7 @@ def _s3_error(exc: Exception) -> HTTPException:
     return HTTPException(status_code=status.HTTP_502_BAD_GATEWAY, detail=str(exc))
 
 
-# ── S3 operations ─────────────────────────────────────────────────────────────
+# ── S3 operations (sync — boto3 is blocking) ──────────────────────────────────
 
 def list_buckets(body: ListBucketsRequest) -> list[BucketInfo]:
     client = _s3_client(body.credentials)
@@ -219,7 +215,6 @@ def list_objects(body: ListObjectsRequest) -> ListObjectsResponse:
         ))
 
     prefixes = [p.get("Prefix", "") for p in resp.get("CommonPrefixes", [])]
-
     return ListObjectsResponse(
         objects=objects,
         prefixes=prefixes,
@@ -285,7 +280,6 @@ def presigned_upload(body: PresignedUploadRequest) -> PresignedUrlResponse:
 
 
 def configure_bucket_cors(body: ListBucketsRequest, allowed_origins: list[str]) -> dict[str, str]:
-    """Set CORS rules on the bucket so browsers can use presigned URLs directly."""
     client = _s3_client(body.credentials)
     cors_config = {
         "CORSRules": [
@@ -299,10 +293,7 @@ def configure_bucket_cors(body: ListBucketsRequest, allowed_origins: list[str]) 
         ]
     }
     try:
-        client.put_bucket_cors(
-            Bucket=body.credentials.bucket,
-            CORSConfiguration=cors_config,
-        )
+        client.put_bucket_cors(Bucket=body.credentials.bucket, CORSConfiguration=cors_config)
     except (ClientError, BotoCoreError) as exc:
         raise _s3_error(exc) from exc
     return {"bucket": body.credentials.bucket, "status": "cors_configured"}

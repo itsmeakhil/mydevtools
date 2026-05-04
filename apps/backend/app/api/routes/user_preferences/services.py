@@ -3,7 +3,6 @@ from datetime import datetime, timezone
 from typing import Any
 
 from fastapi import HTTPException, status
-
 from pymongo.errors import PyMongoError
 
 from app.api.routes.user_preferences.schema import (
@@ -18,6 +17,7 @@ from app.api.routes.user_preferences.schema import (
 from app.database import db_manager
 from app.utils.collection_name import NOSQL_QUERY_HISTORY, USER_PREFERENCES
 from app.utils.utils import create_timestamp
+
 
 def _iso_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
@@ -66,9 +66,7 @@ def _doc_to_out(doc: dict[str, Any]) -> UserPreferencesOut:
     created_at = int(doc.get("createdAt", 0)) or create_timestamp()
     updated_at = int(doc.get("updatedAt", 0)) or created_at
     raw_enabled = doc.get("enabledTools")
-    if raw_enabled is None:
-        enabled = list(DEFAULT_ENABLED_TOOLS)
-    elif not isinstance(raw_enabled, list):
+    if raw_enabled is None or not isinstance(raw_enabled, list):
         enabled = list(DEFAULT_ENABLED_TOOLS)
     else:
         enabled = [str(x) for x in raw_enabled]
@@ -88,15 +86,15 @@ def _doc_to_out(doc: dict[str, Any]) -> UserPreferencesOut:
     )
 
 
-def get_preferences(uid: str) -> UserPreferencesOut:
-    doc = db_manager.find_one(USER_PREFERENCES, {"created_by": uid})
+async def get_preferences(uid: str) -> UserPreferencesOut:
+    doc = await db_manager.find_one(USER_PREFERENCES, {"created_by": uid})
     if not doc:
         ts = create_timestamp()
         return _doc_to_out(_default_prefs_doc(uid, ts))
     return _doc_to_out(doc)
 
 
-def patch_preferences(uid: str, body: UserPreferencesUpdate) -> UserPreferencesOut:
+async def patch_preferences(uid: str, body: UserPreferencesUpdate) -> UserPreferencesOut:
     patch = body.model_dump(exclude_unset=True)
     patch.pop("createdAt", None)
     patch.pop("updatedAt", None)
@@ -117,38 +115,37 @@ def patch_preferences(uid: str, body: UserPreferencesUpdate) -> UserPreferencesO
     set_fields.update({k: v for k, v in patch.items() if v is not None})
 
     try:
-        existing = db_manager.find_one(USER_PREFERENCES, {"created_by": uid})
+        existing = await db_manager.find_one(USER_PREFERENCES, {"created_by": uid})
         if not existing:
             doc = _default_prefs_doc(uid, ts)
             for k, v in set_fields.items():
                 if k != "updatedAt":
                     doc[k] = v
             doc["updatedAt"] = ts
-            db_manager.insert_one(USER_PREFERENCES, doc)
+            await db_manager.insert_one(USER_PREFERENCES, doc)
             return _doc_to_out(doc)
 
-        db_manager.update_one(USER_PREFERENCES, {"created_by": uid}, {"$set": set_fields})
-        updated = db_manager.find_one(USER_PREFERENCES, {"created_by": uid})
+        await db_manager.update_one(USER_PREFERENCES, {"created_by": uid}, {"$set": set_fields})
+        updated = await db_manager.find_one(USER_PREFERENCES, {"created_by": uid})
         if not updated:
             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Preferences missing.")
         return _doc_to_out(updated)
     except PyMongoError as exc:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to update preferences.",
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update preferences."
         ) from exc
 
 
-def track_tool_usage(uid: str, tool_id: str) -> None:
+async def track_tool_usage(uid: str, tool_id: str) -> None:
     ts = create_timestamp()
     now_iso = _iso_now()
 
     try:
-        doc = db_manager.find_one(USER_PREFERENCES, {"created_by": uid})
+        doc = await db_manager.find_one(USER_PREFERENCES, {"created_by": uid})
         if not doc:
             new_doc = _default_prefs_doc(uid, ts)
             new_doc["toolStatsList"] = [{"toolId": tool_id, "usageCount": 1, "lastUsed": now_iso}]
-            db_manager.insert_one(USER_PREFERENCES, new_doc)
+            await db_manager.insert_one(USER_PREFERENCES, new_doc)
             return
 
         stats_list = list(doc.get("toolStatsList") or [])
@@ -165,11 +162,14 @@ def track_tool_usage(uid: str, tool_id: str) -> None:
         if not found:
             stats_list.append({"toolId": tool_id, "usageCount": 1, "lastUsed": now_iso})
 
-        db_manager.update_one(USER_PREFERENCES, {"created_by": uid}, {"$set": {"toolStatsList": stats_list, "updatedAt": ts}})
+        await db_manager.update_one(
+            USER_PREFERENCES,
+            {"created_by": uid},
+            {"$set": {"toolStatsList": stats_list, "updatedAt": ts}},
+        )
     except PyMongoError as exc:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to track tool usage.",
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to track tool usage."
         ) from exc
 
 
@@ -182,14 +182,12 @@ def _history_filter(uid: str, connection_name: str, db_name: str, collection_nam
     }
 
 
-def get_nosql_query_history(
-    uid: str,
-    *,
-    connection_name: str,
-    db_name: str,
-    collection_name: str,
+async def get_nosql_query_history(
+    uid: str, *, connection_name: str, db_name: str, collection_name: str
 ) -> NosqlQueryHistoryOut:
-    doc = db_manager.find_one(NOSQL_QUERY_HISTORY, _history_filter(uid, connection_name, db_name, collection_name))
+    doc = await db_manager.find_one(
+        NOSQL_QUERY_HISTORY, _history_filter(uid, connection_name, db_name, collection_name)
+    )
     if not doc:
         return NosqlQueryHistoryOut(
             connectionName=connection_name,
@@ -210,24 +208,22 @@ def get_nosql_query_history(
     )
 
 
-def put_nosql_query_history(uid: str, body: NosqlQueryHistoryPut) -> NosqlQueryHistoryOut:
+async def put_nosql_query_history(uid: str, body: NosqlQueryHistoryPut) -> NosqlQueryHistoryOut:
     ts = create_timestamp()
     queries = body.queries[:MAX_NOSQL_HISTORY_QUERIES]
     flt = _history_filter(uid, body.connectionName, body.dbName, body.collectionName)
-    doc = {
-        **flt,
-        "queries": queries,
-        "updatedAt": ts,
-    }
+    doc = {**flt, "queries": queries, "updatedAt": ts}
 
     try:
-        existing = db_manager.find_one(NOSQL_QUERY_HISTORY, flt)
+        existing = await db_manager.find_one(NOSQL_QUERY_HISTORY, flt)
         if not existing:
             doc["createdAt"] = ts
-            db_manager.insert_one(NOSQL_QUERY_HISTORY, doc)
+            await db_manager.insert_one(NOSQL_QUERY_HISTORY, doc)
         else:
-            db_manager.update_one(NOSQL_QUERY_HISTORY, flt, {"$set": {"queries": queries, "updatedAt": ts}})
-        return get_nosql_query_history(
+            await db_manager.update_one(
+                NOSQL_QUERY_HISTORY, flt, {"$set": {"queries": queries, "updatedAt": ts}}
+            )
+        return await get_nosql_query_history(
             uid,
             connection_name=body.connectionName,
             db_name=body.dbName,
@@ -235,6 +231,5 @@ def put_nosql_query_history(uid: str, body: NosqlQueryHistoryPut) -> NosqlQueryH
         )
     except PyMongoError as exc:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to save query history.",
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to save query history."
         ) from exc

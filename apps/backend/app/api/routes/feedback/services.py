@@ -32,7 +32,7 @@ def _doc_to_out(doc: dict[str, Any]) -> FeedbackOut:
     )
 
 
-def create_feedback(body: FeedbackCreate, uid: Optional[str] = None) -> FeedbackOut:
+async def create_feedback(body: FeedbackCreate, uid: Optional[str] = None) -> FeedbackOut:
     ts = datetime.now(timezone.utc)
     doc = {
         "_id": new_id(),
@@ -44,5 +44,5 @@ def create_feedback(body: FeedbackCreate, uid: Optional[str] = None) -> Feedback
         "userId": uid,
         "createdAt": ts,
     }
-    db_manager.insert_one(FEEDBACK, doc)
+    await db_manager.insert_one(FEEDBACK, doc)
     return _doc_to_out(doc)

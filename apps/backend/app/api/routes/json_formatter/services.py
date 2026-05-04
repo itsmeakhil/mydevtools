@@ -15,7 +15,6 @@ from app.utils.collection_name import JSON_FORMATTER_DOCUMENTS as JSON
 from app.database import db_manager
 
 
-
 def _parse_oid(doc_id: str) -> ObjectId:
     try:
         return ObjectId(doc_id)
@@ -53,12 +52,12 @@ def _doc_to_out(doc: dict[str, Any]) -> JsonFormatterDocumentOut:
     )
 
 
-def list_documents(uid: str) -> list[JsonFormatterDocumentOut]:
-    cursor = db_manager.find(JSON, {"created_by": uid}, sort=[("updatedAt", -1)])
-    return [_doc_to_out(d) for d in cursor]
+async def list_documents(uid: str) -> list[JsonFormatterDocumentOut]:
+    docs = await db_manager.find(JSON, {"created_by": uid}, sort=[("updatedAt", -1)])
+    return [_doc_to_out(d) for d in docs]
 
 
-def create_document(uid: str, body: JsonFormatterDocumentCreate) -> JsonFormatterDocumentOut:
+async def create_document(uid: str, body: JsonFormatterDocumentCreate) -> JsonFormatterDocumentOut:
     now = datetime.now(timezone.utc)
     doc: dict[str, Any] = {
         "created_by": uid,
@@ -69,7 +68,7 @@ def create_document(uid: str, body: JsonFormatterDocumentCreate) -> JsonFormatte
         "updatedAt": now,
     }
     try:
-        result = db_manager.insert_one(JSON, doc)
+        result = await db_manager.insert_one(JSON, doc)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -79,17 +78,17 @@ def create_document(uid: str, body: JsonFormatterDocumentCreate) -> JsonFormatte
     return _doc_to_out(doc)
 
 
-def get_document(uid: str, doc_id: str) -> JsonFormatterDocumentOut:
+async def get_document(uid: str, doc_id: str) -> JsonFormatterDocumentOut:
     oid = _parse_oid(doc_id)
-    doc = db_manager.find_one(JSON, {"_id": oid, "created_by": uid})
+    doc = await db_manager.find_one(JSON, {"_id": oid, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")
     return _doc_to_out(doc)
 
 
-def update_document(uid: str, doc_id: str, body: JsonFormatterDocumentUpdate) -> JsonFormatterDocumentOut:
+async def update_document(uid: str, doc_id: str, body: JsonFormatterDocumentUpdate) -> JsonFormatterDocumentOut:
     oid = _parse_oid(doc_id)
-    existing = db_manager.find_one(JSON, {"_id": oid, "created_by": uid})
+    existing = await db_manager.find_one(JSON, {"_id": oid, "created_by": uid})
     if not existing:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")
 
@@ -99,18 +98,17 @@ def update_document(uid: str, doc_id: str, body: JsonFormatterDocumentUpdate) ->
 
     patch["updatedAt"] = datetime.now(timezone.utc)
     try:
-        db_manager.update_one(JSON, {"_id": oid, "created_by": uid}, {"$set": patch})
+        await db_manager.update_one(JSON, {"_id": oid, "created_by": uid}, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to update document.",
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update document."
         ) from exc
-    updated = db_manager.find_one(JSON, {"_id": oid})
+    updated = await db_manager.find_one(JSON, {"_id": oid})
     return _doc_to_out(updated)  # type: ignore[arg-type]
 
 
-def delete_document(uid: str, doc_id: str) -> None:
+async def delete_document(uid: str, doc_id: str) -> None:
     oid = _parse_oid(doc_id)
-    result = db_manager.delete_one(JSON, {"_id": oid, "created_by": uid})
+    result = await db_manager.delete_one(JSON, {"_id": oid, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")

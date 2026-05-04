@@ -33,9 +33,9 @@ def get_optional_uid(
 
 @router.post("", response_model=FeedbackOut, summary="Submit feedback")
 @limiter.limit("5/hour")
-def submit_feedback(
+async def submit_feedback(
     request: Request,
     body: FeedbackCreate,
     uid: Optional[str] = Depends(get_optional_uid),
 ) -> FeedbackOut:
-    return feedback_svc.create_feedback(body, uid)
+    return await feedback_svc.create_feedback(body, uid)

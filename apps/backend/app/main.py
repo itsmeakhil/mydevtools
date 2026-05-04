@@ -19,7 +19,7 @@ settings = get_settings()
 async def lifespan(_app: FastAPI):
     try:
         from app.core.indexes import ensure_indexes
-        ensure_indexes()
+        await ensure_indexes()
     except Exception as exc:
         logging.getLogger(__name__).warning("Index creation failed: %s", exc)
     yield
