@@ -454,26 +454,45 @@ export function PasswordList() {
                         </ToggleGroup>
                     </div>
                     <ImportExportDialog />
-                    <Button variant="outline" size="sm" onClick={showAllVisible} className="h-10 text-xs">
-                        <Eye className="h-3.5 w-3.5 mr-1.5" /> Show all
+                    <Button variant="outline" size="sm" onClick={visiblePasswords.size > 0 ? hideAllVisible : showAllVisible} className="h-10 text-xs">
+                        {visiblePasswords.size > 0 ? <><EyeOff className="h-3.5 w-3.5 mr-1.5" /> Hide all</> : <><Eye className="h-3.5 w-3.5 mr-1.5" /> Show all</>}
                     </Button>
-                    <Button variant="outline" size="sm" onClick={hideAllVisible} className="h-10 text-xs">
-                        <EyeOff className="h-3.5 w-3.5 mr-1.5" /> Hide all
-                    </Button>
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setBreachDialogOpen(true)}
-                        className="h-10 text-xs relative"
-                        title="Check passwords against data breaches"
+                    <div
+                        className="relative inline-flex rounded-md"
+                        style={{
+                            filter: breachedCount > 0
+                                ? "drop-shadow(0 0 4px rgb(239 68 68 / 0.7))"
+                                : "drop-shadow(0 0 4px hsl(var(--primary) / 0.6))"
+                        }}
                     >
-                        <ShieldX className="h-3.5 w-3.5 mr-1.5" /> Breach Check
-                        {breachedCount > 0 && (
-                            <span className="absolute -top-1.5 -right-1.5 h-4 w-4 rounded-full bg-red-500 text-[10px] text-white flex items-center justify-center font-bold">
-                                {breachedCount}
-                            </span>
-                        )}
-                    </Button>
+                        <span className="absolute inset-0 rounded-md overflow-hidden pointer-events-none">
+                            <span
+                                className="absolute -inset-full animate-spin [animation-duration:2s]"
+                                style={{
+                                    background: breachedCount > 0
+                                        ? "conic-gradient(from 0deg, rgb(239 68 68/.2) 0deg, rgb(239 68 68) 45deg, rgb(239 68 68/.15) 90deg, rgb(239 68 68/.1) 180deg, rgb(239 68 68/.2) 270deg, rgb(239 68 68) 315deg, rgb(239 68 68/.2) 360deg)"
+                                        : "conic-gradient(from 0deg, hsl(var(--primary)/.2) 0deg, hsl(var(--primary)) 45deg, hsl(var(--primary)/.15) 90deg, hsl(var(--primary)/.1) 180deg, hsl(var(--primary)/.2) 270deg, hsl(var(--primary)) 315deg, hsl(var(--primary)/.2) 360deg)"
+                                }}
+                            />
+                        </span>
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setBreachDialogOpen(true)}
+                            title="Check passwords against data breaches"
+                            className={cn(
+                                "relative z-10 m-[1.5px] h-[calc(2.5rem-3px)] text-xs border-0 bg-background dark:bg-background hover:bg-background dark:hover:bg-background shadow-none rounded-[5px]",
+                                breachedCount > 0 && "text-red-500"
+                            )}
+                        >
+                            <ShieldX className="h-3.5 w-3.5 mr-1.5" /> Breach Check
+                            {breachedCount > 0 && (
+                                <span className="absolute -top-1.5 -right-1.5 h-4 w-4 rounded-full bg-red-500 text-[10px] text-white flex items-center justify-center font-bold">
+                                    {breachedCount}
+                                </span>
+                            )}
+                        </Button>
+                    </div>
                     <Button variant="outline" size="icon" onClick={handleLock} title={t("lockVault")} className="h-10 w-10">
                         <Lock className="h-4 w-4" />
                     </Button>
