@@ -11,26 +11,22 @@ export interface AuthState {
 }
 
 const useAuth = (requireAuth: boolean = false): AuthState => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  // auth.currentUser is synchronously available once Firebase has resolved auth state.
+  // On client-side navigation within the app it is already populated, so we avoid
+  // a spurious full-screen loading flash on every route change.
+  const [user, setUser] = useState<User | null>(() => auth.currentUser);
+  const [loading, setLoading] = useState(() => auth.currentUser === null);
   const router = useRouter();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const unsubscribe = auth.onAuthStateChanged((user) => {
-        if (user) {
-          setUser(user);
-        } else {
-          setUser(null);
-          if (requireAuth) {
-            router.push("/login");
-          }
-        }
-        setLoading(false);
-      });
-
-      return () => unsubscribe();
-    }
+    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
+      setUser(firebaseUser);
+      setLoading(false);
+      if (!firebaseUser && requireAuth) {
+        router.push("/login");
+      }
+    });
+    return () => unsubscribe();
   }, [router, requireAuth]);
 
   return { user, loading };

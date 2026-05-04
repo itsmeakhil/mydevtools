@@ -46,14 +46,7 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
         score -= (reusedCount * 5)
         score = Math.max(0, Math.min(100, score))
 
-        return {
-            total,
-            weakCount,
-            mediumCount,
-            strongCount,
-            reusedCount,
-            score
-        }
+        return { total, weakCount, mediumCount, strongCount, reusedCount, score }
     }, [passwords])
 
     if (!metrics) return null
@@ -182,7 +175,7 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
         )
     }
 
-    // Desktop view (original)
+    // Desktop view
     return (
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-6">
             <Card className="col-span-full lg:col-span-1 bg-card/50 backdrop-blur-sm border-muted/60">
@@ -269,4 +262,3 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
         </div>
     )
 }
-
