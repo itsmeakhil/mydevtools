@@ -12,6 +12,8 @@ import { NavGroup } from './nav-group'
 import { NavUser } from './nav-user'
 import { FeedbackDialog } from '@/components/feedback-dialog'
 import { Logo } from '../logo'
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
+import { LayoutDashboard } from 'lucide-react'
 import { sidebarData } from './data/sidebar-data'
 import { onAuthStateChanged, signOut as firebaseSignOut } from 'firebase/auth'
 import { auth } from '../../database/firebase'
@@ -136,6 +138,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </div>
       </SidebarHeader>
       <SidebarContent className="mt-2 md:mt-0">
+        <SidebarMenu className="px-2 mb-1">
+          <SidebarMenuItem>
+            <SidebarMenuButton onClick={() => router.push('/dashboard')} tooltip="Dashboard">
+              <LayoutDashboard className="size-4" />
+              <span>Dashboard</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
         {pinnedNavItems.length > 0 && (
           <NavGroup
             title="Pinned"
