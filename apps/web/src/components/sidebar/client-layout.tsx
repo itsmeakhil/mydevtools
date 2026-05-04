@@ -6,6 +6,7 @@ import { AppSidebar } from "./app-sidebar";
 import { NavBar } from '@/components/nav-bar';
 import { MobileNav } from '@/components/mobile-nav';
 import { GlobalCommandPalette } from '@/components/global-command-palette';
+import { FeedbackDialog } from '@/components/feedback-dialog';
 import { TabBar } from '@/components/tab-bar/tab-bar';
 import { useTabStore } from '@/store/tab-store';
 import { isTabRoute } from '@/lib/route-config';
@@ -105,6 +106,7 @@ function Layout({ children }: { children: React.ReactNode }) {
         </main>
       </div>
       <GlobalCommandPalette />
+      <FeedbackDialog />
     </div>
   );
 }

@@ -10,14 +10,26 @@ type Props = {
     children: React.ReactNode
 }
 
+// Module-level cache: tracks which uid already has a valid backend session this page session.
+// Cleared when the user changes (logout), preventing stale entries.
+let confirmedSessionUid: string | null = null
+
 /**
  * When Firebase has a user, ensures HttpOnly JWT cookies exist (new login or expired cookies).
+ * Caches the result per-uid so client-side re-navigation between routes never re-shows
+ * the full-screen spinner for an already-confirmed session.
  */
 export function EnsureBackendSession({ user, children }: Props) {
-    const [ready, setReady] = useState(!user)
+    const alreadyConfirmed = !!user && user.uid === confirmedSessionUid
+    const [ready, setReady] = useState(!user || alreadyConfirmed)
 
     useEffect(() => {
         if (!user) {
+            confirmedSessionUid = null
+            setReady(true)
+            return
+        }
+        if (user.uid === confirmedSessionUid) {
             setReady(true)
             return
         }
@@ -26,6 +38,7 @@ export function EnsureBackendSession({ user, children }: Props) {
         ;(async () => {
             try {
                 await ensureBackendSession(user)
+                confirmedSessionUid = user.uid
             } catch (e) {
                 console.error("Backend session sync failed:", e)
             } finally {
