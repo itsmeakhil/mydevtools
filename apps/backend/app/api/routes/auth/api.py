@@ -46,7 +46,7 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.post("/session", response_model=UserProfileResponse, summary="Firebase login → JWT cookies")
 @limiter.limit("10/minute")
-def create_session(request: Request, payload: SessionRequest, response: Response) -> UserProfileResponse:
+async def create_session(request: Request, payload: SessionRequest, response: Response) -> UserProfileResponse:
     decoded = verify_id_token(payload.id_token, check_revoked=payload.check_revoked)
     uid = decoded.get("uid")
     if not uid:
@@ -55,13 +55,13 @@ def create_session(request: Request, payload: SessionRequest, response: Response
             detail="Token payload missing user id.",
         )
 
-    upsert_user_from_firebase_claims(decoded)
+    await upsert_user_from_firebase_claims(decoded)
     access = create_access_token(uid)
     raw_refresh = new_refresh_token()
-    set_refresh_token_hash(uid, hash_refresh_token(raw_refresh))
+    await set_refresh_token_hash(uid, hash_refresh_token(raw_refresh))
     attach_auth_cookies(response, access, raw_refresh)
 
-    doc = get_user_doc(uid)
+    doc = await get_user_doc(uid)
     if not doc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -79,7 +79,7 @@ def create_session(request: Request, payload: SessionRequest, response: Response
 
 @router.post("/refresh", response_model=OkResponse, summary="Rotate tokens using refresh cookie")
 @limiter.limit("10/minute")
-def refresh_session(
+async def refresh_session(
     request: Request,
     response: Response,
     mdt_rt: Annotated[str | None, Cookie(alias=REFRESH_COOKIE_NAME)] = None,
@@ -92,7 +92,7 @@ def refresh_session(
         )
 
     token_hash = hash_refresh_token(mdt_rt.strip())
-    uid = find_uid_by_refresh_hash(token_hash)
+    uid = await find_uid_by_refresh_hash(token_hash)
     if not uid:
         clear_auth_cookies(response)
         raise HTTPException(
@@ -101,7 +101,7 @@ def refresh_session(
         )
 
     new_raw = new_refresh_token()
-    set_refresh_token_hash(uid, hash_refresh_token(new_raw))
+    await set_refresh_token_hash(uid, hash_refresh_token(new_raw))
     access = create_access_token(uid)
     attach_auth_cookies(response, access, new_raw)
     return OkResponse(ok=True)
@@ -112,7 +112,7 @@ def refresh_session(
     response_model=OkResponse,
     summary="Logout: clear cookies and server refresh hash",
 )
-def logout(
+async def logout(
     response: Response,
     authorization: Annotated[str | None, Header(alias="Authorization")] = None,
     mdt_at: Annotated[str | None, Cookie(alias=ACCESS_COOKIE_NAME)] = None,
@@ -131,11 +131,11 @@ def logout(
         uid = try_decode_access_token_uid(token)
 
     if uid is None and mdt_rt and mdt_rt.strip():
-        uid = find_uid_by_refresh_hash(hash_refresh_token(mdt_rt.strip()))
+        uid = await find_uid_by_refresh_hash(hash_refresh_token(mdt_rt.strip()))
 
     clear_auth_cookies(response)
     if uid:
-        clear_refresh_token_hash(uid)
+        await clear_refresh_token_hash(uid)
     return OkResponse(ok=True)
 
 
@@ -144,7 +144,7 @@ def logout(
     response_model=UserProfileResponse,
     summary="Current user profile from MongoDB",
 )
-def me(
+async def me(
     current_user: Annotated[UserProfileResponse, Depends(get_current_user)],
 ) -> UserProfileResponse:
     return current_user
@@ -155,39 +155,35 @@ def me(
     response_model=UserProfileResponse,
     summary="Update current user profile in MongoDB",
 )
-def update_profile(
+async def update_profile(
     payload: UpdateProfileRequest,
     current_user: Annotated[UserProfileResponse, Depends(get_current_user)],
 ) -> UserProfileResponse:
     updates = {}
     if payload.github_username is not None:
         updates["github_username"] = payload.github_username
-        
+
     if payload.username is not None:
-        # Check uniqueness constraint
         if payload.username.strip():
             candidate = payload.username.strip().lower()
-            # L-6 fix: validate username format
             if not re.match(r"^[a-z0-9][a-z0-9_-]{1,28}[a-z0-9]$", candidate):
                 raise HTTPException(
                     status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                     detail="Username must be 3-30 characters, alphanumeric with hyphens/underscores, and start/end with a letter or digit.",
                 )
-            # Block reserved words that could conflict with routes
             reserved = {"admin", "api", "settings", "login", "logout", "profile", "dashboard", "app", "help", "null", "undefined"}
             if candidate in reserved:
                 raise HTTPException(
                     status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                     detail="This username is reserved.",
                 )
-            if is_username_taken(candidate, current_user.uid):
+            if await is_username_taken(candidate, current_user.uid):
                 raise HTTPException(
                     status_code=status.HTTP_409_CONFLICT,
                     detail="Username is already taken.",
                 )
             updates["username"] = candidate
         else:
-            # Nullify
             updates["username"] = None
 
     if payload.social_links is not None:
@@ -218,9 +214,8 @@ def update_profile(
         updates["personal_info"] = payload.personal_info.model_dump()
 
     if updates:
-        update_user_profile(current_user.uid, updates)
+        await update_user_profile(current_user.uid, updates)
 
-    # Return the updated profile manually since we just modified it
     if "github_username" in updates:
         current_user.github_username = updates["github_username"]
     if "username" in updates:
@@ -252,7 +247,7 @@ def update_profile(
     response_model=OkResponse,
     summary="Validates access JWT (200 if ok)",
 )
-def session_check(_uid: Annotated[str, Depends(get_current_uid)]) -> OkResponse:
+async def session_check(_uid: Annotated[str, Depends(get_current_uid)]) -> OkResponse:
     return OkResponse(ok=True)
 
 
@@ -264,10 +259,10 @@ def session_check(_uid: Annotated[str, Depends(get_current_uid)]) -> OkResponse:
     response_model=MasterVaultOut,
     summary="Retrieve master-vault metadata (salt + verifier) for the current user",
 )
-def get_master_vault_endpoint(
+async def get_master_vault_endpoint(
     uid: Annotated[str, Depends(get_current_uid)],
 ) -> MasterVaultOut:
-    vault = get_master_vault(uid)
+    vault = await get_master_vault(uid)
     if not vault:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -283,12 +278,12 @@ def get_master_vault_endpoint(
     summary="Set up master vault once (salt + key-verifier blob; raw password never sent)",
 )
 @limiter.limit("3/minute")
-def setup_master_vault_endpoint(
+async def setup_master_vault_endpoint(
     request: Request,
     payload: MasterVaultSetupRequest,
     uid: Annotated[str, Depends(get_current_uid)],
 ) -> MasterVaultOut:
-    if get_master_vault(uid):
+    if await get_master_vault(uid):
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="Master vault already configured.",
@@ -299,7 +294,7 @@ def setup_master_vault_endpoint(
         "verifier": payload.verifier.model_dump(),
         "createdAt": created_at,
     }
-    set_master_vault(uid, vault)
+    await set_master_vault(uid, vault)
     return MasterVaultOut(**vault)
 
 
@@ -313,12 +308,12 @@ def setup_master_vault_endpoint(
     summary="Store encrypted backup codes (replaces any existing set)",
 )
 @limiter.limit("10/minute")
-def store_backup_codes_endpoint(
+async def store_backup_codes_endpoint(
     request: Request,
     payload: StoreBackupCodesRequest,
     uid: Annotated[str, Depends(get_current_uid)],
 ) -> OkResponse:
-    set_backup_codes(uid, [c.model_dump() for c in payload.codes])
+    await set_backup_codes(uid, [c.model_dump() for c in payload.codes])
     return OkResponse(ok=True)
 
 
@@ -328,12 +323,12 @@ def store_backup_codes_endpoint(
     summary="Return encrypted blob for a backup code ID (does not consume the code)",
 )
 @limiter.limit("20/minute")
-def lookup_backup_code_endpoint(
+async def lookup_backup_code_endpoint(
     request: Request,
     payload: BackupCodeLookupRequest,
     uid: Annotated[str, Depends(get_current_uid)],
 ) -> BackupCodeDataOut:
-    code = get_backup_code_by_id(uid, payload.codeId)
+    code = await get_backup_code_by_id(uid, payload.codeId)
     if not code:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -352,10 +347,10 @@ def lookup_backup_code_endpoint(
     summary="Mark a backup code as used (one-time consumption)",
 )
 @limiter.limit("10/minute")
-def use_backup_code_endpoint(
+async def use_backup_code_endpoint(
     request: Request,
     payload: BackupCodeLookupRequest,
     uid: Annotated[str, Depends(get_current_uid)],
 ) -> OkResponse:
-    mark_backup_code_used(uid, payload.codeId)
+    await mark_backup_code_used(uid, payload.codeId)
     return OkResponse(ok=True)

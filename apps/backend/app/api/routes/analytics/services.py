@@ -16,28 +16,29 @@ from app.utils.collection_name import (
 from app.api.routes.analytics.schema import DashboardAnalyticsOut
 from app.database import db_manager
 
-def get_dashboard_analytics(uid: str):
-    base = {"created_by": uid}
-    task_stats: TaskStatsOut = task_svc.get_task_stats(uid)
 
-    password_entries = db_manager.count_documents(PASSWORD_ENTRIES, base)
-    bookmarks = db_manager.count_documents(BOOKMARKS, base)
-    bookmark_folders = db_manager.count_documents(BOOKMARK_FOLDERS, base)
-    projects = db_manager.count_documents(PROJECTS, base)
+async def get_dashboard_analytics(uid: str) -> DashboardAnalyticsOut:
+    base = {"created_by": uid}
+    task_stats: TaskStatsOut = await task_svc.get_task_stats(uid)
+
+    password_entries = await db_manager.count_documents(PASSWORD_ENTRIES, base)
+    bookmarks = await db_manager.count_documents(BOOKMARKS, base)
+    bookmark_folders = await db_manager.count_documents(BOOKMARK_FOLDERS, base)
+    projects = await db_manager.count_documents(PROJECTS, base)
 
     nosql_filter = {
         **base,
         "encryptedData": {"$exists": True},
         "iv": {"$exists": True},
     }
-    nosql_connections = db_manager.count_documents(NOSQL_CONNECTIONS, nosql_filter)
+    nosql_connections = await db_manager.count_documents(NOSQL_CONNECTIONS, nosql_filter)
 
-    notes = db_manager.count_documents(NOTES, base)
-    api_collections = db_manager.count_documents(API_CLIENT_COLLECTIONS, base)
-    api_envs = db_manager.count_documents(API_CLIENT_ENVIRONMENTS, base)
-    api_history = db_manager.count_documents(API_CLIENT_HISTORY, base)
-    json_docs = db_manager.count_documents(JSON_FORMATTER_DOCUMENTS, base)
-    code_snippets = db_manager.count_documents(CODE_SNIPPETS, base)
+    notes = await db_manager.count_documents(NOTES, base)
+    api_collections = await db_manager.count_documents(API_CLIENT_COLLECTIONS, base)
+    api_envs = await db_manager.count_documents(API_CLIENT_ENVIRONMENTS, base)
+    api_history = await db_manager.count_documents(API_CLIENT_HISTORY, base)
+    json_docs = await db_manager.count_documents(JSON_FORMATTER_DOCUMENTS, base)
+    code_snippets = await db_manager.count_documents(CODE_SNIPPETS, base)
 
     return DashboardAnalyticsOut(
         passwordEntries=password_entries,

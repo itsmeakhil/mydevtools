@@ -9,13 +9,13 @@ router = APIRouter(prefix="/nosql", tags=["nosql"])
 
 
 @router.get("/connections", response_model=list[ConnectionOut], summary="List saved MongoDB connections")
-def list_connections(uid: str = Depends(get_current_uid)) -> list[ConnectionOut]:
-    return nosql_svc.list_connections(uid)
+async def list_connections(uid: str = Depends(get_current_uid)) -> list[ConnectionOut]:
+    return await nosql_svc.list_connections(uid)
 
 
 @router.post("/connections", response_model=ConnectionOut, summary="Save (upsert) a connection")
-def save_connection(body: ConnectionCreate, uid: str = Depends(get_current_uid)) -> ConnectionOut:
-    return nosql_svc.upsert_connection(uid, body)
+async def save_connection(body: ConnectionCreate, uid: str = Depends(get_current_uid)) -> ConnectionOut:
+    return await nosql_svc.upsert_connection(uid, body)
 
 
 @router.patch(
@@ -23,12 +23,12 @@ def save_connection(body: ConnectionCreate, uid: str = Depends(get_current_uid))
     response_model=ConnectionOut,
     summary="Update a saved connection",
 )
-def update_connection(
+async def update_connection(
     connection_id: str,
     body: ConnectionUpdate,
     uid: str = Depends(get_current_uid),
 ) -> ConnectionOut:
-    return nosql_svc.update_connection(uid, connection_id, body)
+    return await nosql_svc.update_connection(uid, connection_id, body)
 
 
 @router.delete(
@@ -36,6 +36,5 @@ def update_connection(
     status_code=204,
     summary="Delete a saved connection",
 )
-def delete_connection(connection_id: str, uid: str = Depends(get_current_uid)) -> None:
-    nosql_svc.delete_connection(uid, connection_id)
-
+async def delete_connection(connection_id: str, uid: str = Depends(get_current_uid)) -> None:
+    await nosql_svc.delete_connection(uid, connection_id)

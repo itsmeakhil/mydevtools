@@ -18,13 +18,13 @@ def _to_out(doc: dict) -> GameScoreOut:
     )
 
 
-def list_scores(uid: str, game: str) -> list[GameScoreOut]:
-    docs = db_manager.find(GAME_SCORES, {"created_by": uid, "game": game})
+async def list_scores(uid: str, game: str) -> list[GameScoreOut]:
+    docs = await db_manager.find(GAME_SCORES, {"created_by": uid, "game": game})
     return [_to_out(d) for d in docs]
 
 
-def upsert_score(uid: str, body: GameScoreCreate) -> GameScoreOut:
-    existing = db_manager.find_one(GAME_SCORES, {
+async def upsert_score(uid: str, body: GameScoreCreate) -> GameScoreOut:
+    existing = await db_manager.find_one(GAME_SCORES, {
         "created_by": uid,
         "game": body.game,
         "level": body.level,
@@ -37,12 +37,12 @@ def upsert_score(uid: str, body: GameScoreCreate) -> GameScoreOut:
         return _to_out(existing)
 
     if existing:
-        db_manager.update_one(GAME_SCORES, {"_id": existing["_id"]}, {"$set": {
-                "score": body.score,
-                "time_seconds": body.time_seconds,
-                "completed_at": now,
-            }})
-        updated = db_manager.find_one(GAME_SCORES, {"_id": existing["_id"]})
+        await db_manager.update_one(GAME_SCORES, {"_id": existing["_id"]}, {"$set": {
+            "score": body.score,
+            "time_seconds": body.time_seconds,
+            "completed_at": now,
+        }})
+        updated = await db_manager.find_one(GAME_SCORES, {"_id": existing["_id"]})
         return _to_out(updated)
 
     doc = {
@@ -54,6 +54,6 @@ def upsert_score(uid: str, body: GameScoreCreate) -> GameScoreOut:
         "time_seconds": body.time_seconds,
         "completed_at": now,
     }
-    result = db_manager.insert_one(GAME_SCORES, doc)
+    result = await db_manager.insert_one(GAME_SCORES, doc)
     doc["_id"] = result.inserted_id
     return _to_out(doc)

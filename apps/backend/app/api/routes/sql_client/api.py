@@ -16,8 +16,8 @@ router = APIRouter(prefix="/sql-client", tags=["sql-client"])
     response_model=list[SqlConnectionOut],
     summary="List saved SQL connections",
 )
-def list_connections(uid: str = Depends(get_current_uid)) -> list[SqlConnectionOut]:
-    return svc.list_connections(uid)
+async def list_connections(uid: str = Depends(get_current_uid)) -> list[SqlConnectionOut]:
+    return await svc.list_connections(uid)
 
 
 @router.post(
@@ -25,10 +25,10 @@ def list_connections(uid: str = Depends(get_current_uid)) -> list[SqlConnectionO
     response_model=SqlConnectionOut,
     summary="Save a new SQL connection",
 )
-def create_connection(
+async def create_connection(
     body: SqlConnectionCreate, uid: str = Depends(get_current_uid)
 ) -> SqlConnectionOut:
-    return svc.create_connection(uid, body)
+    return await svc.create_connection(uid, body)
 
 
 @router.patch(
@@ -36,12 +36,12 @@ def create_connection(
     response_model=SqlConnectionOut,
     summary="Update a saved SQL connection",
 )
-def update_connection(
+async def update_connection(
     connection_id: str,
     body: SqlConnectionUpdate,
     uid: str = Depends(get_current_uid),
 ) -> SqlConnectionOut:
-    return svc.update_connection(uid, connection_id, body)
+    return await svc.update_connection(uid, connection_id, body)
 
 
 @router.delete(
@@ -49,10 +49,10 @@ def update_connection(
     status_code=204,
     summary="Delete a saved SQL connection",
 )
-def delete_connection(
+async def delete_connection(
     connection_id: str, uid: str = Depends(get_current_uid)
 ) -> None:
-    svc.delete_connection(uid, connection_id)
+    await svc.delete_connection(uid, connection_id)
 
 
 @router.post(
@@ -60,7 +60,7 @@ def delete_connection(
     status_code=204,
     summary="Update lastUsedAt for a connection",
 )
-def touch_connection(
+async def touch_connection(
     connection_id: str, uid: str = Depends(get_current_uid)
 ) -> None:
-    svc.touch_connection(uid, connection_id)
+    await svc.touch_connection(uid, connection_id)

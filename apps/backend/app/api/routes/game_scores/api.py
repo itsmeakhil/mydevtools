@@ -12,11 +12,11 @@ router = APIRouter(tags=["game-scores"])
     response_model=list[GameScoreOut],
     summary="Get all scores for the current user filtered by game name",
 )
-def get_scores(
+async def get_scores(
     game: str = Query(..., min_length=1, description="Game name, e.g. 'sudoku'"),
     uid: str = Depends(get_current_uid),
 ) -> list[GameScoreOut]:
-    return svc.list_scores(uid, game)
+    return await svc.list_scores(uid, game)
 
 
 @router.post(
@@ -24,8 +24,8 @@ def get_scores(
     response_model=GameScoreOut,
     summary="Save or update best score for a game stage (upserts if new score is higher)",
 )
-def save_score(
+async def save_score(
     body: GameScoreCreate,
     uid: str = Depends(get_current_uid),
 ) -> GameScoreOut:
-    return svc.upsert_score(uid, body)
+    return await svc.upsert_score(uid, body)

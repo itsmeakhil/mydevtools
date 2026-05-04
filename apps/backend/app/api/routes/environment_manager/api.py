@@ -18,12 +18,12 @@ router = APIRouter(prefix="/environment-manager", tags=["environment-manager"])
     response_model=list[EnvSetEntryOut],
     summary="List encrypted environment sets (per project / environment)",
 )
-def list_entries(
+async def list_entries(
     uid: str = Depends(get_current_uid),
     limit: Optional[int] = Query(default=None, ge=1, le=1000),
     offset: int = Query(default=0, ge=0),
 ) -> list[EnvSetEntryOut]:
-    return env_svc.list_entries(uid, limit=limit, offset=offset)
+    return await env_svc.list_entries(uid, limit=limit, offset=offset)
 
 
 @router.post(
@@ -31,8 +31,8 @@ def list_entries(
     response_model=EnvSetEntryOut,
     summary="Create environment set (encrypted blob)",
 )
-def create_entry(body: EnvSetEntryCreate, uid: str = Depends(get_current_uid)) -> EnvSetEntryOut:
-    return env_svc.create_entry(uid, body)
+async def create_entry(body: EnvSetEntryCreate, uid: str = Depends(get_current_uid)) -> EnvSetEntryOut:
+    return await env_svc.create_entry(uid, body)
 
 
 @router.get(
@@ -40,8 +40,8 @@ def create_entry(body: EnvSetEntryCreate, uid: str = Depends(get_current_uid)) -
     response_model=EnvSetEntryOut,
     summary="Get one environment set",
 )
-def get_entry(entry_id: str, uid: str = Depends(get_current_uid)) -> EnvSetEntryOut:
-    return env_svc.get_entry(uid, entry_id)
+async def get_entry(entry_id: str, uid: str = Depends(get_current_uid)) -> EnvSetEntryOut:
+    return await env_svc.get_entry(uid, entry_id)
 
 
 @router.patch(
@@ -49,12 +49,12 @@ def get_entry(entry_id: str, uid: str = Depends(get_current_uid)) -> EnvSetEntry
     response_model=EnvSetEntryOut,
     summary="Update environment set (encrypted blob)",
 )
-def patch_entry(
+async def patch_entry(
     entry_id: str,
     body: EnvSetEntryUpdate,
     uid: str = Depends(get_current_uid),
 ) -> EnvSetEntryOut:
-    return env_svc.update_entry(uid, entry_id, body)
+    return await env_svc.update_entry(uid, entry_id, body)
 
 
 @router.delete(
@@ -62,5 +62,5 @@ def patch_entry(
     status_code=204,
     summary="Delete environment set",
 )
-def delete_entry(entry_id: str, uid: str = Depends(get_current_uid)) -> None:
-    env_svc.delete_entry(uid, entry_id)
+async def delete_entry(entry_id: str, uid: str = Depends(get_current_uid)) -> None:
+    await env_svc.delete_entry(uid, entry_id)
