@@ -64,7 +64,8 @@
     "pdfEditor": "PDF Editor",
     "breakRoom": "Break Room",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Help & documentation",
@@ -3691,7 +3692,6 @@
     "dropzoneTitle": "Drop PDF here",
     "dropzoneHint": "Drag and drop your PDF file here to convert to PDF/A.",
     "pdfaSettings": "PDF/A settings"
-  }
   },
   "Sudoku": {
     "title": "Sudoku",
@@ -3709,80 +3709,24 @@
     "nextStage": "Next stage",
     "replay": "Replay",
     "erase": "Erase",
-    "howToPlay": "Click a cell, then tap a number or press 1–9. Backspace or Delete clears the cell. Bold numbers are clues. Fill the grid so every row, column, and 3×3 box contains 1–9 with no repeats.",
+    "howToPlay": "Click a cell, then tap a number or press 1–9. Backspace or Delete clears the cell. Bold numbers are clues. Fill the grid so every row, column, and 3×3 box contains 1–9 without repeats.",
     "pencil": "Pencil",
     "undo": "Undo",
     "hint": "Hint",
-    "hintsUsed": "hints used",
+    "hintsUsed": "Hints used",
     "mistakes": "Mistakes",
     "failed": "Failed!",
-    "mistakeMode": "3-mistake mode"
+    "mistakeMode": "3-Mistake Mode"
   },
-  "Game2048": {
-    "title": "2048",
-    "subtitle": "Slide tiles and merge them to reach 2048",
-    "score": "Score",
-    "best": "Best",
-    "newGame": "New Game",
-    "howToPlay": "Use arrow keys (or swipe on mobile) to move tiles. Tiles with the same number merge. Reach 2048 to win!",
-    "youWin": "You reached 2048!",
-    "keepGoing": "Keep Going",
-    "gameOver": "Game Over",
-    "tryAgain": "Try Again",
-    "gameOverMessage": "No more moves left.",
-    "undo": "Undo"
-  },
-  "Snake": {
-    "title": "Snake",
-    "subtitle": "Eat food, grow, avoid walls and yourself",
-    "score": "Score",
-    "best": "Best",
-    "startPrompt": "Press any arrow key",
-    "startButton": "Start Game",
-    "gameOver": "Game Over",
-    "playAgain": "Play Again",
-    "howToPlay": "Use arrow keys or WASD to move. Eat food to grow. Speed increases every 50 points.",
-    "diffEasy": "Easy",
-    "diffNormal": "Normal",
-    "diffHard": "Hard",
-    "diffInfinite": "Infinite",
-    "orTap": "or tap below",
-    "howToPlayInfinite": "Walls wrap around — no wall deaths. Eat food to grow. Speed increases every 50 points.",
-    "shieldActive": "Shield Active",
-    "speedBoost": "Speed Boost",
-    "powerSpeed": "Speed x2 (10 ticks)",
-    "powerShield": "Survive one death",
-    "powerShrink": "Shortens tail"
-  },
-  "Minesweeper": {
-    "title": "Minesweeper",
-    "subtitle": "Left click reveal · Right click flag",
-    "mines": "Mines",
-    "newGame": "New Game",
-    "win": "You Win!",
-    "loss": "Boom!",
-    "playAgain": "Play Again",
-    "tryAgain": "Try Again",
-    "startPrompt": "Click any cell to start",
-    "difficulty": {
-      "beginner": "Beginner",
-      "intermediate": "Intermediate",
-      "expert": "Expert"
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Redis Connections",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Connect to Redis instances. Browse keys, edit values, run commands. Credentials are encrypted in your browser and never stored in plaintext.",
+      "heroAddConnection": "Add Connection",
+      "vaultLockedTitle": "Vault Locked",
+      "vaultLockedDesc": "Unlock your vault to access saved connections."
     }
-  },
-  "Tetris": {
-    "title": "Tetris",
-    "subtitle": "Arrow keys · Space = hard drop · P = pause",
-    "next": "Next",
-    "score": "Score",
-    "best": "Best",
-    "lines": "Lines",
-    "level": "Level",
-    "pause": "Pause",
-    "resume": "Resume",
-    "start": "Start",
-    "restart": "Restart",
-    "paused": "Paused",
-    "gameOver": "Game Over"
   }
 }

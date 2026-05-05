@@ -62,7 +62,8 @@
     "pdfEditor": "PDF 编辑器",
     "breakRoom": "休闲角",
     "game2048": "2048",
-    "sudoku": "数独"
+    "sudoku": "数独",
+    "redisCommander": "Redis 指挥官"
   },
   "Help": {
     "title": "帮助与文档",
@@ -3673,5 +3674,16 @@
     "powerSpeed": "速度 x2",
     "powerShield": "免疫一次死亡",
     "powerShrink": "缩短尾巴"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis 指挥官",
+      "dialogTitle": "Redis 连接",
+      "heroTitle": "Redis 指挥官",
+      "heroDesc": "连接到 Redis 实例。浏览键、编辑值并执行命令。凭据在您的浏览器中加密存储。",
+      "heroAddConnection": "添加连接",
+      "vaultLockedTitle": "保险库已锁定",
+      "vaultLockedDesc": "解锁保险库以访问已保存的连接。"
+    }
   }
 }

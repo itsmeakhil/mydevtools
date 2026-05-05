@@ -62,7 +62,8 @@
     "pdfEditor": "PDF-redigeerder",
     "breakRoom": "Breek Kamer",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Bestuurder"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -3673,5 +3674,16 @@
     "powerSpeed": "Spoed x2 (10 beurte)",
     "powerShield": "Een dood oorleef",
     "powerShrink": "Stert verkort"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Bestuurder",
+      "dialogTitle": "Redis Verbindings",
+      "heroTitle": "Redis Bestuurder",
+      "heroDesc": "Verbind met Redis-instansies. Blaai deur sleutels, redigeer waardes, voer opdragte uit. Geloofsbriewe word in u blaaier versleutel.",
+      "heroAddConnection": "Voeg Verbinding By",
+      "vaultLockedTitle": "Kluis Gesluit",
+      "vaultLockedDesc": "Ontsluit u kluis om toegang tot gestoorde verbindings te kry."
+    }
   }
 }

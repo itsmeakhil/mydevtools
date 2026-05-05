@@ -62,7 +62,8 @@
     "pdfEditor": "PDF düzenleyici",
     "breakRoom": "Mola Odası",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -3673,5 +3674,16 @@
     "powerSpeed": "Hız x2",
     "powerShield": "Bir ölümden kurtar",
     "powerShrink": "Kuyruğu kısalt"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Redis Bağlantıları",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Redis örneklerine bağlanın. Anahtarlara göz atın, değerleri düzenleyin ve komutlar çalıştırın. Kimlik bilgileri tarayıcınızda şifrelenir.",
+      "heroAddConnection": "Bağlantı Ekle",
+      "vaultLockedTitle": "Kasa kilitli",
+      "vaultLockedDesc": "Kayıtlı bağlantılara erişmek için kasanızı açın."
+    }
   }
 }

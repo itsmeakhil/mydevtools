@@ -62,7 +62,8 @@
     "pdfEditor": "PDF-redigerer",
     "breakRoom": "Pauserom",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Hjelp og dokumentasjon",
@@ -3673,5 +3674,16 @@
     "powerSpeed": "Speed x2 (10 ticks)",
     "powerShield": "Survive one death",
     "powerShrink": "Shortens tail"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Redis-tilkoblinger",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Koble til Redis-instanser. Bla gjennom nøkler, rediger verdier og kjør kommandoer. Legitimasjon krypteres i nettleseren din.",
+      "heroAddConnection": "Legg til tilkobling",
+      "vaultLockedTitle": "Hvelvet er låst",
+      "vaultLockedDesc": "Lås opp hvelvet for å få tilgang til lagrede tilkoblinger."
+    }
   }
 }

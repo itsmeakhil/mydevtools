@@ -63,6 +63,7 @@
     "geist": "^1.5.1",
     "graphql": "^16.11.0",
     "highlight.js": "^11.11.1",
+    "ioredis": "^5.10.1",
     "ipaddr.js": "^2.3.0",
     "js-md5": "^0.8.3",
     "js-yaml": "^4.1.1",

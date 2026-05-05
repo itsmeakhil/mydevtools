@@ -62,7 +62,8 @@
     "pdfEditor": "PDF-editor",
     "breakRoom": "Pauzeruimte",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -3673,5 +3674,16 @@
     "powerSpeed": "Snelheid x2",
     "powerShield": "Overleef één dood",
     "powerShrink": "Verkort staart"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Redis-verbindingen",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Maak verbinding met Redis-instanties. Blader door sleutels, bewerk waarden en voer commando's uit. Inloggegevens worden versleuteld in uw browser.",
+      "heroAddConnection": "Verbinding toevoegen",
+      "vaultLockedTitle": "Kluis vergrendeld",
+      "vaultLockedDesc": "Ontgrendel uw kluis om toegang te krijgen tot opgeslagen verbindingen."
+    }
   }
 }

@@ -62,7 +62,8 @@
     "pdfEditor": "Editor PDF",
     "breakRoom": "Bilik Rehat",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -3673,5 +3674,16 @@
     "powerSpeed": "Speed x2 (10 ticks)",
     "powerShield": "Survive one death",
     "powerShrink": "Shortens tail"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Sambungan Redis",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Sambung ke contoh Redis. Semak kunci, edit nilai dan jalankan arahan. Kelayakan disulitkan dalam pelayar anda.",
+      "heroAddConnection": "Tambah Sambungan",
+      "vaultLockedTitle": "Peti besi dikunci",
+      "vaultLockedDesc": "Buka kunci peti besi untuk mengakses sambungan yang disimpan."
+    }
   }
 }

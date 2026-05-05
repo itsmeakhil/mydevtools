@@ -62,7 +62,8 @@
     "pdfEditor": "Редактор PDF",
     "breakRoom": "Комната отдыха",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Справка и документация",
@@ -3673,5 +3674,16 @@
     "powerSpeed": "Скорость x2",
     "powerShield": "Пережить одну смерть",
     "powerShrink": "Укорачивает хвост"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Подключения Redis",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Подключайтесь к экземплярам Redis. Просматривайте ключи, редактируйте значения и выполняйте команды. Учётные данные шифруются в браузере.",
+      "heroAddConnection": "Добавить подключение",
+      "vaultLockedTitle": "Хранилище заблокировано",
+      "vaultLockedDesc": "Разблокируйте хранилище для доступа к сохранённым подключениям."
+    }
   }
 }

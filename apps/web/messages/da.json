@@ -62,7 +62,8 @@
     "pdfEditor": "PDF-editor",
     "breakRoom": "Pauserum",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Hjælp og dokumentation",
@@ -3673,5 +3674,16 @@
     "powerSpeed": "Hastighed x2",
     "powerShield": "Overlev én død",
     "powerShrink": "Forkorter halen"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Redis-forbindelser",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Opret forbindelse til Redis-instanser. Gennemse nøgler, rediger værdier og kør kommandoer. Legitimationsoplysninger krypteres i din browser.",
+      "heroAddConnection": "Tilføj forbindelse",
+      "vaultLockedTitle": "Boks låst",
+      "vaultLockedDesc": "Lås boksen op for at få adgang til gemte forbindelser."
+    }
   }
 }

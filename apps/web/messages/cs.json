@@ -62,7 +62,8 @@
     "pdfEditor": "Editor PDF",
     "breakRoom": "PŘESTÁVKOVÁ MÍSTNOST",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -3673,5 +3674,16 @@
     "powerSpeed": "Rychlost x2",
     "powerShield": "Přežij jednu smrt",
     "powerShrink": "Zkrátí ocas"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Redis připojení",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Připojte se k instancím Redis. Procházejte klíče, upravujte hodnoty a spouštějte příkazy. Přihlašovací údaje jsou šifrovány v prohlížeči.",
+      "heroAddConnection": "Přidat připojení",
+      "vaultLockedTitle": "Trezor zamčen",
+      "vaultLockedDesc": "Odemkněte trezor pro přístup k uloženým připojením."
+    }
   }
 }

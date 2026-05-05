@@ -62,7 +62,8 @@
     "pdfEditor": "Éditeur PDF",
     "breakRoom": "Salle de pause",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -3673,5 +3674,16 @@
     "powerSpeed": "Vitesse x2",
     "powerShield": "Survive à une mort",
     "powerShrink": "Raccourcit la queue"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Connexions Redis",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Connectez-vous à des instances Redis. Parcourez les clés, modifiez les valeurs et exécutez des commandes. Les identifiants sont chiffrés dans votre navigateur.",
+      "heroAddConnection": "Ajouter une connexion",
+      "vaultLockedTitle": "Coffre verrouillé",
+      "vaultLockedDesc": "Déverrouillez votre coffre pour accéder aux connexions enregistrées."
+    }
   }
 }

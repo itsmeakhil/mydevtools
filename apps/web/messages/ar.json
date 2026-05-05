@@ -62,7 +62,8 @@
     "pdfEditor": "محرر PDF",
     "breakRoom": "غرفة الاستراحة",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "منفّذ Redis"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -3673,5 +3674,16 @@
     "powerSpeed": "سرعة x2",
     "powerShield": "تجنب موت واحد",
     "powerShrink": "اختصار الذيل"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "منفّذ Redis",
+      "dialogTitle": "اتصالات Redis",
+      "heroTitle": "منفّذ Redis",
+      "heroDesc": "اتصل بمثيلات Redis. تصفح المفاتيح، وعدّل القيم، ونفّذ الأوامر. بيانات الاعتماد مشفرة في متصفحك.",
+      "heroAddConnection": "إضافة اتصال",
+      "vaultLockedTitle": "الخزنة مقفلة",
+      "vaultLockedDesc": "افتح الخزنة للوصول إلى الاتصالات المحفوظة."
+    }
   }
 }

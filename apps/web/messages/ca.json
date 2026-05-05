@@ -62,7 +62,8 @@
     "pdfEditor": "Editor de PDF",
     "breakRoom": "Sala de descans",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -3673,5 +3674,16 @@
     "powerSpeed": "Velocitat x2",
     "powerShield": "Sobreviu una mort",
     "powerShrink": "Escurça la cua"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Connexions Redis",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Connecta't a instàncies Redis. Navega per claus, edita valors i executa ordres. Les credencials s'encripten al navegador.",
+      "heroAddConnection": "Afegir connexió",
+      "vaultLockedTitle": "Caixa forta bloquejada",
+      "vaultLockedDesc": "Desbloqueja la caixa forta per accedir a les connexions desades."
+    }
   }
 }

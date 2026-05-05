@@ -36,6 +36,7 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/api-client': 'apiClient',
   '/app/http-status-codes': 'httpStatusCodes',
   '/app/nosql-explorer': 'nosqlExplorer',
+  '/app/redis-commander': 'redisCommander',
   '/app/image-to-base64': 'imageToBase64',
   '/app/image-compressor': 'imageCompressor',
   '/app/css-gradient-builder': 'cssGradientBuilder',

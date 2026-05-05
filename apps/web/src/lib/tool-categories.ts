@@ -46,6 +46,7 @@ export const toolCategoryMap: Record<string, string> = {
   'sql-client': 'Database',
   'nosql-explorer': 'Database',
   's3-drive': 'Database',
+  'redis-commander': 'Database',
   'color-picker': 'Media & Design',
   'contrast-checker': 'Media & Design',
   'css-gradient-builder': 'Media & Design',
