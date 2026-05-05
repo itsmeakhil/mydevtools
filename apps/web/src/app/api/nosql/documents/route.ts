@@ -1,101 +1,21 @@
 import { NextResponse } from 'next/server';
 import { MongoClient, ObjectId } from 'mongodb';
+import { requireNosqlAuth } from '@/app/api/nosql/_auth';
+import { validateMongoConnectionString } from '@/app/api/nosql/_mongo-safety';
 
 export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
-    const connectionString = searchParams.get('connectionString');
-    const dbName = searchParams.get('dbName');
-    const collectionName = searchParams.get('collectionName');
-    const limit = parseInt(searchParams.get('limit') || '20');
-    const skip = parseInt(searchParams.get('skip') || '0');
-    const queryStr = searchParams.get('query') || '{}';
-    const sortField = searchParams.get('sortField');
-    const sortDirection = searchParams.get('sortDirection') === 'desc' ? -1 : 1;
-
-    if (!connectionString || !dbName || !collectionName) {
-        return NextResponse.json(
-            { error: 'Connection string, database name, and collection name are required' },
-            { status: 400 }
-        );
-    }
-
-    try {
-        const client = new MongoClient(connectionString);
-        await client.connect();
-
-        const db = client.db(dbName);
-        const collection = db.collection(collectionName);
-
-        let query: any = {};
-        let isAggregation = false;
-
-        try {
-            query = JSON.parse(queryStr);
-
-            // Helper to recursively convert ObjectId strings
-            const convertObjectIds = (obj: any): any => {
-                if (Array.isArray(obj)) {
-                    return obj.map(convertObjectIds);
-                } else if (typeof obj === 'object' && obj !== null) {
-                    for (const key in obj) {
-                        if (key === '_id' && typeof obj[key] === 'string' && ObjectId.isValid(obj[key])) {
-                            obj[key] = new ObjectId(obj[key]);
-                        } else {
-                            obj[key] = convertObjectIds(obj[key]);
-                        }
-                    }
-                }
-                return obj;
-            };
-
-            query = convertObjectIds(query);
-            isAggregation = Array.isArray(query);
-        } catch (e) {
-            // Invalid JSON query, ignore or handle
-            console.error("Invalid JSON query", e);
-        }
-
-        let documents;
-        let total = 0;
-
-        if (isAggregation) {
-            // Aggregation Pipeline
-            const countPipeline = [...query, { $count: "total" }];
-            const countResult = await collection.aggregate(countPipeline).toArray();
-            total = countResult.length > 0 ? countResult[0].total : 0;
-
-            const paginationPipeline: any[] = [
-                ...query
-            ];
-
-            if (sortField) {
-                paginationPipeline.push({ $sort: { [sortField]: sortDirection } });
-            }
-
-            paginationPipeline.push({ $skip: skip }, { $limit: limit });
-            documents = await collection.aggregate(paginationPipeline).toArray();
-        } else {
-            // Standard Find
-            let cursor = collection.find(query);
-            if (sortField) {
-                cursor = cursor.sort({ [sortField]: sortDirection });
-            }
-            documents = await cursor.skip(skip).limit(limit).toArray();
-            total = await collection.countDocuments(query);
-        }
-
-        await client.close();
-
-        return NextResponse.json({ documents, total });
-    } catch (error: any) {
-        return NextResponse.json(
-            { error: error.message || 'Failed to fetch documents' },
-            { status: 500 }
-        );
-    }
+    return NextResponse.json(
+        {
+            error: 'GET is disabled for security. Use POST /api/nosql/documents/query with a JSON body.',
+        },
+        { status: 405 }
+    );
 }
 
 export async function POST(request: Request) {
+    const authError = await requireNosqlAuth(request);
+    if (authError) return authError;
+
     try {
         const { connectionString, dbName, collectionName, document } = await request.json();
 
@@ -104,6 +24,10 @@ export async function POST(request: Request) {
                 { error: 'Missing required fields' },
                 { status: 400 }
             );
+        }
+        const connectionError = validateMongoConnectionString(connectionString);
+        if (connectionError) {
+            return NextResponse.json({ error: connectionError }, { status: 400 });
         }
 
         const client = new MongoClient(connectionString);
@@ -141,6 +65,9 @@ export async function POST(request: Request) {
 }
 
 export async function PUT(request: Request) {
+    const authError = await requireNosqlAuth(request);
+    if (authError) return authError;
+
     try {
         const { connectionString, dbName, collectionName, documentId, update } = await request.json();
 
@@ -149,6 +76,10 @@ export async function PUT(request: Request) {
                 { error: 'Missing required fields' },
                 { status: 400 }
             );
+        }
+        const connectionError = validateMongoConnectionString(connectionString);
+        if (connectionError) {
+            return NextResponse.json({ error: connectionError }, { status: 400 });
         }
 
         const client = new MongoClient(connectionString);
@@ -183,6 +114,9 @@ export async function PUT(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+    const authError = await requireNosqlAuth(request);
+    if (authError) return authError;
+
     try {
         const { connectionString, dbName, collectionName, documentId } = await request.json();
 
@@ -191,6 +125,10 @@ export async function DELETE(request: Request) {
                 { error: 'Missing required fields' },
                 { status: 400 }
             );
+        }
+        const connectionError = validateMongoConnectionString(connectionString);
+        if (connectionError) {
+            return NextResponse.json({ error: connectionError }, { status: 400 });
         }
 
         const client = new MongoClient(connectionString);

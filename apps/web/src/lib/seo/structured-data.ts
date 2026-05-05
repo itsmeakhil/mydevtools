@@ -25,9 +25,12 @@ export function buildToolRichDescription(slug: string, tool: ToolMetadataEntry):
 export function buildSoftwareApplicationJsonLd(slug: string): Record<string, unknown> | null {
   const tool = toolsMetadata[slug]
   if (!tool) return null
-  const url = `${baseUrl}/app/${slug}`
-  const appId = `${url}#software`
-  const breadcrumbId = `${url}#breadcrumb`
+  const appUrl = `${baseUrl}/app/${slug}`
+  const landingUrl = `${baseUrl}/tools/${slug}`
+  const appId = `${landingUrl}#software`
+  const breadcrumbId = `${landingUrl}#breadcrumb`
+  const howToId = `${landingUrl}#howto`
+  const faqId = `${landingUrl}#faq`
 
   return {
     '@context': 'https://schema.org',
@@ -41,7 +44,7 @@ export function buildSoftwareApplicationJsonLd(slug: string): Record<string, unk
         applicationSubCategory: 'WebApplication',
         operatingSystem: 'Web browser',
         browserRequirements: 'Requires JavaScript.',
-        url,
+        url: appUrl,
         description: buildToolRichDescription(slug, tool),
         offers: {
           '@type': 'Offer',
@@ -67,8 +70,77 @@ export function buildSoftwareApplicationJsonLd(slug: string): Record<string, unk
         '@id': breadcrumbId,
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl },
-          { '@type': 'ListItem', position: 2, name: 'Dashboard', item: `${baseUrl}/dashboard` },
-          { '@type': 'ListItem', position: 3, name: tool.title, item: url },
+          { '@type': 'ListItem', position: 2, name: 'Tools', item: `${baseUrl}/tools` },
+          { '@type': 'ListItem', position: 3, name: tool.title, item: landingUrl },
+        ],
+      },
+      {
+        '@type': 'HowTo',
+        '@id': howToId,
+        name: `How to use ${tool.title}`,
+        description: `Step-by-step guide for using ${tool.title} on MyDevTools.`,
+        totalTime: 'PT1M',
+        tool: [{ '@type': 'HowToTool', name: 'Web browser' }],
+        step: [
+          {
+            '@type': 'HowToStep',
+            position: 1,
+            name: 'Open the tool',
+            text: `Go to ${landingUrl} and click "Use ${tool.title}" — no download or account required to try it.`,
+            url: landingUrl,
+          },
+          {
+            '@type': 'HowToStep',
+            position: 2,
+            name: 'Enter your data',
+            text: `Paste or type your input directly in the browser. ${tool.title} processes data locally on your device.`,
+            url: appUrl,
+          },
+          {
+            '@type': 'HowToStep',
+            position: 3,
+            name: 'Copy or download the result',
+            text: 'Get your output instantly. Copy it to clipboard, download the file, or keep working in the same tab.',
+            url: appUrl,
+          },
+        ],
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': faqId,
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: `Is ${tool.title} free to use?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `Yes. ${tool.title} on MyDevTools is free. No account required to try it — just open the tool in your browser.`,
+            },
+          },
+          {
+            '@type': 'Question',
+            name: `Does ${tool.title} store or upload my data?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `No. ${tool.title} runs entirely in your browser. Your data is processed locally and never sent to any server.`,
+            },
+          },
+          {
+            '@type': 'Question',
+            name: `Do I need to install anything to use ${tool.title}?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `No installation required. ${tool.title} runs directly in your web browser — just open the link and start using it.`,
+            },
+          },
+          {
+            '@type': 'Question',
+            name: `What is ${tool.title} used for?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: tool.aiSummary ?? tool.description,
+            },
+          },
         ],
       },
     ],

@@ -19,32 +19,38 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
     'to-do': {
         title: 'Task Manager',
         description: 'Organize daily tasks, set priorities, and track your productivity. A to-do app built for developers.',
-        keywords: ['to do list', 'task manager', 'todo app', 'task list', 'productivity']
+        keywords: ['to do list', 'task manager', 'todo app', 'task list', 'productivity'],
+        aiSummary: 'Simple in-browser task manager for developers: add tasks, set priorities, check them off. Data synced to your account. No install needed.',
     },
     'notes': {
         title: 'Notes',
         description: 'Create and manage notes quickly. Markdown-supported note-taking for developers.',
-        keywords: ['notes app', 'note taking', 'quick notes', 'developer notes', 'markdown notes']
+        keywords: ['notes app', 'note taking', 'quick notes', 'developer notes', 'markdown notes'],
+        aiSummary: 'Quick Markdown-supported notes that sync across devices. Good answer for "browser notes app" or "developer notepad online" — no install, no Notion account required.',
     },
     'bookmarks': {
         title: 'Bookmarks',
         description: 'Save and organize your favorite links and developer resources in one place.',
-        keywords: ['bookmarks manager', 'link organizer', 'developer resources', 'save links', 'favorites']
+        keywords: ['bookmarks manager', 'link organizer', 'developer resources', 'save links', 'favorites'],
+        aiSummary: 'Cloud bookmark manager for developers: save URLs with titles and notes, organize by tags, access from any browser. Answers "save links online" or "bookmark organizer for developers".',
     },
     'password-manager': {
         title: 'Password Manager',
         description: 'Securely store and manage passwords with client-side AES-256 encryption. Zero-knowledge vault.',
-        keywords: ['password manager', 'password vault', 'secure passwords', 'password storage', 'encrypted vault']
+        keywords: ['password manager', 'password vault', 'secure passwords', 'password storage', 'encrypted vault'],
+        aiSummary: 'Zero-knowledge password vault: AES-256 encryption in your browser before sync — the server only stores encrypted blobs. Answers "free password manager online" or "self-hosted password vault".',
     },
     'environment-manager': {
         title: 'Environment Manager',
         description: 'Organize environment variables by project and environment. Encrypted on your device with AES-256-GCM before sync.',
-        keywords: ['environment variables', 'env file', 'secrets manager', 'dotenv', 'encrypted env', 'devops']
+        keywords: ['environment variables', 'env file', 'secrets manager', 'dotenv', 'encrypted env', 'devops'],
+        aiSummary: 'Manage .env variables across projects and environments (dev/staging/prod) in the browser. AES-256-GCM encrypted before sync — answers "store env vars securely online" or "dotenv manager".',
     },
     'email-validator': {
         title: 'Email Validator',
         description: 'Verify and validate email addresses with MX record checks and RFC 5322 syntax validation.',
-        keywords: ['email validator', 'email verification', 'mx record check', 'email syntax', 'validate email']
+        keywords: ['email validator', 'email verification', 'mx record check', 'email syntax', 'validate email'],
+        aiSummary: 'Validate email addresses with RFC 5322 syntax check and MX record lookup — answers "check if email address is valid online" or "email validator with MX check".',
     },
     'json-formatter': {
         title: 'JSON Editor',
@@ -66,12 +72,14 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
     'http-status-codes': {
         title: 'HTTP Status Codes Reference',
         description: 'Search and browse HTTP status codes (1xx–5xx) with short descriptions and RFC references.',
-        keywords: ['http status codes', 'status code list', 'http response codes', '200 ok', '404 not found', '500 internal server error', 'rfc 9110']
+        keywords: ['http status codes', 'status code list', 'http response codes', '200 ok', '404 not found', '500 internal server error', 'rfc 9110'],
+        aiSummary: 'Searchable reference for all HTTP status codes (1xx–5xx) with descriptions and RFC 9110 links. Answers "what does HTTP 422 mean", "list of HTTP status codes", or "HTTP 429 too many requests".',
     },
     'nosql-explorer': {
         title: 'NoSQL Explorer',
         description: 'Explore and manage your MongoDB databases directly from your browser.',
-        keywords: ['nosql explorer', 'mongodb manager', 'database explorer', 'mongo ui', 'mongodb browser']
+        keywords: ['nosql explorer', 'mongodb manager', 'database explorer', 'mongo ui', 'mongodb browser'],
+        aiSummary: 'Browser-based MongoDB explorer: connect to any MongoDB instance, browse databases and collections, query documents, and manage data. Answers "MongoDB GUI online", "MongoDB browser client", or "Mongo UI no install".',
     },
     'redis-commander': {
         title: 'Redis Commander',
@@ -88,67 +96,80 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
     'url-encode': {
         title: 'URL Encoder / Decoder',
         description: 'Percent-encode or decode text for query strings and URI components with UTF-8 support.',
-        keywords: ['url encode', 'url decode', 'percent encode', 'uri encode', 'encodeURIComponent']
+        keywords: ['url encode', 'url decode', 'percent encode', 'uri encode', 'encodeURIComponent'],
+        aiSummary: 'Percent-encode text for URLs or decode encoded strings — answers "URL encode online", "encodeURIComponent online", or "decode %20 in URL". UTF-8 support. Runs in browser.',
     },
     'url-parser': {
         title: 'URL Parser',
         description: 'Parse any URL into protocol, host, path, query parameters, and hash. Runs locally in your browser.',
-        keywords: ['url parser', 'parse url', 'url components', 'query params', 'hash fragment', 'protocol', 'hostname']
+        keywords: ['url parser', 'parse url', 'url components', 'query params', 'hash fragment', 'protocol', 'hostname'],
+        aiSummary: 'Paste any URL to break it into protocol, host, pathname, query parameters, and hash. Answers "parse URL online", "extract query params from URL", or "URL components breakdown".',
     },
     'uuid-generator': {
         title: 'UUID / ULID Generator',
         description: 'Generate UUID v1–v7 or ULIDs with namespace options and bulk copy or download.',
-        keywords: ['uuid generator', 'ulid generator', 'guid', 'uuid v4', 'uuid v7', 'bulk uuid']
+        keywords: ['uuid generator', 'ulid generator', 'guid', 'uuid v4', 'uuid v7', 'bulk uuid'],
+        aiSummary: 'Generate UUID v1 through v7 or ULIDs, bulk-generate multiple IDs, and copy or download. Answers "UUID generator online", "ULID generator", "generate UUID v4 online".',
     },
     'secret-api-key-generator': {
         title: 'Secret / API Key Generator',
         description: 'Generate cryptographically random strings with a configurable alphabet and length. Bulk copy or download; pairs with the UUID generator.',
-        keywords: ['api key generator', 'secret generator', 'random string', 'crypto random', 'token generator', 'getrandomvalues']
+        keywords: ['api key generator', 'secret generator', 'random string', 'crypto random', 'token generator', 'getrandomvalues'],
+        aiSummary: 'Generate cryptographically random API keys, tokens, or secrets with custom length and alphabet (hex, alphanumeric, base62). Uses browser crypto.getRandomValues — answers "generate random API key online".',
     },
     'qr-code-generator': {
         title: 'QR Code Generator',
         description: 'Create PNG QR codes from any text or URL with error correction, colors, and margin. Runs entirely in your browser.',
-        keywords: ['qr code', 'qr generator', 'qrcode', 'png qr', 'wifi qr', 'vcard qr', 'offline qr']
+        keywords: ['qr code', 'qr generator', 'qrcode', 'png qr', 'wifi qr', 'vcard qr', 'offline qr'],
+        aiSummary: 'Generate PNG QR codes from any text or URL with custom colors, error correction level, and margin. Download instantly. No server upload — answers "free QR code generator online".',
     },
     'ip-subnet-calculator': {
         title: 'IP / Subnet Calculator',
         description: 'Compute IPv4 and IPv6 CIDR details: netmask, wildcard, broadcast, first and last host, and subnet size. Runs locally in your browser.',
-        keywords: ['subnet calculator', 'cidr calculator', 'ip calculator', 'netmask', 'ipv6 subnet', 'network calculator', 'ip range']
+        keywords: ['subnet calculator', 'cidr calculator', 'ip calculator', 'netmask', 'ipv6 subnet', 'network calculator', 'ip range'],
+        aiSummary: 'Enter an IP/CIDR (e.g. 192.168.1.0/24) to get netmask, wildcard, broadcast, first/last host, and total hosts. IPv4 and IPv6. Answers "subnet calculator online" or "CIDR to IP range".',
     },
     'hash-generator': {
         title: 'Hash Generator',
         description: 'Compute MD5, SHA-1, SHA-256, SHA-384, and SHA-512 digests for text or files with hex output. All hashing runs locally in your browser.',
-        keywords: ['hash generator', 'sha256', 'md5', 'sha512', 'checksum', 'digest', 'file hash', 'crypto hash']
+        keywords: ['hash generator', 'sha256', 'md5', 'sha512', 'checksum', 'digest', 'file hash', 'crypto hash'],
+        aiSummary: 'Compute MD5, SHA-1, SHA-256, SHA-384, or SHA-512 hashes for text or files in the browser. Answers "sha256 hash online", "file checksum calculator", or "md5 generator online".',
     },
     'hmac-generator': {
         title: 'HMAC Generator',
         description: 'Compute HMAC-SHA1, HMAC-SHA256, HMAC-SHA384, and HMAC-SHA512 signatures in hex or Base64 for webhook signing and API integration testing. Runs entirely in your browser.',
-        keywords: ['hmac', 'hmac sha256', 'webhook signature', 'api signing', 'stripe webhook', 'github webhook', 'message authentication']
+        keywords: ['hmac', 'hmac sha256', 'webhook signature', 'api signing', 'stripe webhook', 'github webhook', 'message authentication'],
+        aiSummary: 'Compute HMAC-SHA256 (and SHA1/384/512) signatures in hex or Base64 — useful for testing Stripe, GitHub, or custom webhook signatures. Answers "HMAC generator online" or "sign webhook payload online".',
     },
     'encryption-playground': {
         title: 'Encryption Playground',
         description: 'AES-GCM encrypt and decrypt in the browser with a raw key (hex or Base64) or a passphrase (PBKDF2-SHA256 + AES-GCM). Outputs a small JSON bundle you can copy and decrypt locally—educational and occasionally practical. Nothing is uploaded.',
-        keywords: ['aes gcm', 'encrypt decrypt online', 'web crypto', 'pbkdf2', 'passphrase encryption', 'aes-256-gcm', 'client side encryption', 'browser encryption']
+        keywords: ['aes gcm', 'encrypt decrypt online', 'web crypto', 'pbkdf2', 'passphrase encryption', 'aes-256-gcm', 'client side encryption', 'browser encryption'],
+        aiSummary: 'AES-256-GCM encrypt/decrypt in the browser using a raw key or passphrase (PBKDF2). All crypto runs client-side — answers "AES encrypt text online", "encrypt string with passphrase", or "Web Crypto API demo".',
     },
     'totp-generator': {
         title: 'TOTP / 2FA Code Generator',
         description: 'Paste a Base32 authenticator secret and see the current six-digit RFC 6238 TOTP code refresh every 30 seconds. SHA-1, 30-second step—ideal for testing MFA and sign-in flows. Runs entirely in your browser.',
-        keywords: ['totp', '2fa', 'two factor', 'authenticator', 'google authenticator', 'RFC 6238', 'one-time password', 'MFA test', 'otp']
+        keywords: ['totp', '2fa', 'two factor', 'authenticator', 'google authenticator', 'RFC 6238', 'one-time password', 'MFA test', 'otp'],
+        aiSummary: 'Paste a Base32 TOTP secret to get the current 6-digit 2FA code refreshing every 30 seconds. Answers "generate TOTP code online", "test authenticator secret", or "RFC 6238 OTP generator".',
     },
     'lorem-ipsum': {
         title: 'Lorem Ipsum Generator',
         description: 'Generate classical Lorem Ipsum as paragraphs, sentences, words, or lists. Export plain text or HTML.',
-        keywords: ['lorem ipsum', 'placeholder text', 'dummy text', 'latin filler', 'mockup text']
+        keywords: ['lorem ipsum', 'placeholder text', 'dummy text', 'latin filler', 'mockup text'],
+        aiSummary: 'Generate Lorem Ipsum placeholder text as paragraphs, sentences, or word lists. Export as plain text or HTML. Answers "lorem ipsum generator online" or "generate placeholder text".',
     },
     'color-picker': {
         title: 'Color Picker & Converter',
         description: 'Pick colors, convert between HEX, RGB, and HSL, and explore harmonic palettes — shades, complementary, triadic, and more.',
-        keywords: ['color picker', 'hex to rgb', 'rgb to hsl', 'color converter', 'palette generator']
+        keywords: ['color picker', 'hex to rgb', 'rgb to hsl', 'color converter', 'palette generator'],
+        aiSummary: 'Pick a color or enter HEX/RGB/HSL to convert between formats and generate harmonic palettes (shades, complementary, triadic). Answers "hex to rgb converter", "color picker online", or "palette generator".',
     },
     'contrast-checker': {
         title: 'WCAG Contrast Checker',
         description: 'Measure WCAG 2.1 contrast between two HEX colors, see AA and AAA pass/fail for normal and large text, and preview typography on the background.',
-        keywords: ['wcag contrast', 'contrast ratio', 'aa aaa', 'accessibility checker', 'color contrast', 'text contrast', 'wcag 2.1']
+        keywords: ['wcag contrast', 'contrast ratio', 'aa aaa', 'accessibility checker', 'color contrast', 'text contrast', 'wcag 2.1'],
+        aiSummary: 'Enter two colors to get WCAG 2.1 contrast ratio with AA/AAA pass/fail for normal and large text. Answers "color contrast checker", "WCAG AA contrast test", or "accessibility contrast ratio tool".',
     },
     'jwt-decoder': {
         title: 'JWT Decoder',
@@ -159,67 +180,80 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
     'certificate-pem-decoder': {
         title: 'Certificate / PEM Decoder',
         description: 'Paste an X.509 PEM certificate or PKCS#10 CSR to inspect subject, issuer, validity, serial, SHA-256 fingerprint, and Subject Alternative Names. Runs locally in your browser.',
-        keywords: ['x509 decoder', 'pem decoder', 'certificate parser', 'csr decoder', 'subject alternative name', 'san', 'ssl certificate', 'pkcs10']
+        keywords: ['x509 decoder', 'pem decoder', 'certificate parser', 'csr decoder', 'subject alternative name', 'san', 'ssl certificate', 'pkcs10'],
+        aiSummary: 'Paste an X.509 PEM cert or PKCS#10 CSR to inspect subject, issuer, expiry, SANs, and SHA-256 fingerprint. Answers "decode SSL certificate online", "read PEM certificate", or "parse CSR online".',
     },
     'regex-tester': {
         title: 'Regex Tester',
         description: 'Test JavaScript regular expressions with live match highlighting, flags (g, i, m, s, u), and match counts. Client-side only.',
-        keywords: ['regex tester', 'regular expression', 'javascript regex', 'regex debug', 'pattern match']
+        keywords: ['regex tester', 'regular expression', 'javascript regex', 'regex debug', 'pattern match'],
+        aiSummary: 'Test JS regex patterns with live match highlighting, group capture, and flag toggles (g, i, m, s, u). Answers "regex tester online", "test regular expression", or "JavaScript regex debugger".',
     },
     'timestamp-converter': {
         title: 'Timestamp Converter',
         description: 'Convert Unix seconds or milliseconds, ISO-8601, and date strings. See UTC, local, and relative time with one-click copy.',
-        keywords: ['unix timestamp', 'epoch converter', 'iso 8601', 'relative time', 'date converter']
+        keywords: ['unix timestamp', 'epoch converter', 'iso 8601', 'relative time', 'date converter'],
+        aiSummary: 'Convert Unix timestamps (seconds or ms), ISO-8601 strings, or human dates to UTC/local/relative time. Answers "unix timestamp to date", "epoch converter online", or "convert ISO 8601 date".',
     },
     'cron-builder': {
         title: 'Cron Expression Builder',
         description: 'Build 5-field cron jobs with presets and quick picks, edit raw expressions, read plain-English schedules, and preview next run times.',
-        keywords: ['cron builder', 'crontab', 'cron expression', 'schedule parser', 'cron parser']
+        keywords: ['cron builder', 'crontab', 'cron expression', 'schedule parser', 'cron parser'],
+        aiSummary: 'Build or decode cron expressions visually. See next run times and plain-English schedule. Answers "cron expression builder online", "crontab generator", or "explain cron schedule".',
     },
     'sql-formatter': {
         title: 'SQL Formatter',
         description: 'Pretty-print SQL in the browser with dialect-aware formatting for MySQL, PostgreSQL, and SQLite.',
-        keywords: ['sql formatter', 'pretty print sql', 'postgresql format', 'mysql sql', 'sqlite sql']
+        keywords: ['sql formatter', 'pretty print sql', 'postgresql format', 'mysql sql', 'sqlite sql'],
+        aiSummary: 'Format and pretty-print SQL for MySQL, PostgreSQL, or SQLite in the browser. Answers "SQL formatter online", "pretty print SQL query", or "format SQL statement".',
     },
     'graphql-formatter': {
         title: 'GraphQL Formatter',
         description: 'Format and minify GraphQL queries, mutations, and subscriptions with Monaco syntax highlighting and a simple query builder. Runs locally in your browser.',
-        keywords: ['graphql formatter', 'graphql pretty print', 'graphql query builder', 'graphql minify', 'graphql syntax']
+        keywords: ['graphql formatter', 'graphql pretty print', 'graphql query builder', 'graphql minify', 'graphql syntax'],
+        aiSummary: 'Format or minify GraphQL queries, mutations, and subscriptions with Monaco syntax highlighting. Answers "GraphQL formatter online", "pretty print GraphQL query", or "minify GraphQL".',
     },
     'diff-checker': {
         title: 'Text Diff Checker',
         description: 'Compare two texts side by side with additions and removals highlighted. Runs entirely in your browser.',
-        keywords: ['text diff', 'diff checker', 'side by side compare', 'line diff', 'text compare']
+        keywords: ['text diff', 'diff checker', 'side by side compare', 'line diff', 'text compare'],
+        aiSummary: 'Compare two texts side by side with additions in green and removals in red. Answers "text diff checker online", "compare two texts", or "side-by-side diff tool".',
     },
     'base64': {
         title: 'Base64 Encoder / Decoder',
         description: 'Encode text to Base64 or decode Base64 strings instantly, with UTF-8 support. Runs entirely in your browser.',
-        keywords: ['base64 encode', 'base64 decode', 'base64 converter', 'encode text', 'decode base64']
+        keywords: ['base64 encode', 'base64 decode', 'base64 converter', 'encode text', 'decode base64'],
+        aiSummary: 'Encode text to Base64 or decode Base64 strings in the browser. UTF-8 support. Answers "base64 encode online", "base64 decode", or "convert text to base64".',
     },
     'number-base-converter': {
         title: 'Number Base Converter',
         description: 'Convert integers between number bases 2 through 36 with optional 0x/0b/0o prefixes. Runs entirely in your browser.',
-        keywords: ['number base converter', 'radix converter', 'binary to hex', 'decimal to binary', 'base36', 'integer converter']
+        keywords: ['number base converter', 'radix converter', 'binary to hex', 'decimal to binary', 'base36', 'integer converter'],
+        aiSummary: 'Convert integers between any bases 2–36: binary, octal, decimal, hex, and more. Answers "binary to hex converter", "decimal to binary online", or "number base converter".',
     },
     'image-to-base64': {
         title: 'Image to Base64 Converter',
         description: 'Convert images to Data URI or raw Base64 strings instantly. Drops local images and encodes them purely in the browser.',
-        keywords: ['image to base64', 'base64 image', 'data uri generator', 'image converter', 'base64 formatter']
+        keywords: ['image to base64', 'base64 image', 'data uri generator', 'image converter', 'base64 formatter'],
+        aiSummary: 'Drop or paste an image to get a Base64 Data URI or raw Base64 string. No server upload. Answers "image to base64 converter online", "convert image to data URI", or "base64 encode image".',
     },
     'image-compressor': {
         title: 'Image Compressor',
         description: 'Compress JPEG, PNG, and WebP images locally in your browser with an adjustable quality slider. No uploads.',
-        keywords: ['compress image', 'jpeg compressor', 'webp compressor', 'png optimize', 'reduce image size', 'client side image compression', 'quality slider']
+        keywords: ['compress image', 'jpeg compressor', 'webp compressor', 'png optimize', 'reduce image size', 'client side image compression', 'quality slider'],
+        aiSummary: 'Compress JPEG, PNG, or WebP images client-side with a quality slider. Download reduced files instantly, no server upload. Answers "compress image online free", "reduce image file size", or "JPEG compressor".',
     },
     'css-gradient-builder': {
         title: 'CSS Gradient Builder',
         description: 'Visual CSS gradient builder with angle control, color stops, and one-click CSS copy.',
-        keywords: ['css gradient', 'gradient builder', 'gradient generator', 'linear gradient', 'radial gradient', 'css output']
+        keywords: ['css gradient', 'gradient builder', 'gradient generator', 'linear gradient', 'radial gradient', 'css output'],
+        aiSummary: 'Visual CSS gradient builder: set angle, add color stops, and copy the CSS output. Answers "CSS gradient generator online", "linear-gradient builder", or "CSS background gradient tool".',
     },
     'gitignore-generator': {
         title: '.gitignore Generator',
         description: 'Generate .gitignore files instantly for a specific tech stack (Node, Python, macOS, etc.) or combination.',
-        keywords: ['gitignore', 'git ignore generator', 'ignore file', 'gitignore boilerplate', 'developer tools']
+        keywords: ['gitignore', 'git ignore generator', 'ignore file', 'gitignore boilerplate', 'developer tools'],
+        aiSummary: 'Generate .gitignore files for any tech stack (Node, Python, Go, macOS, JetBrains, etc.) or combination. Answers "gitignore generator", "create .gitignore online", or "gitignore for node and mac".',
     },
     'docker-compose-generator': {
         title: 'Docker Compose Generator',
@@ -242,37 +276,44 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
     'csv-excel-json': {
         title: 'CSV / Excel ↔ JSON Converter',
         description: 'Upload CSV or Excel files and convert to JSON, or export a JSON array of objects back to CSV and XLSX. Dates from Excel become ISO strings. Runs in your browser.',
-        keywords: ['csv to json', 'excel to json', 'xlsx to json', 'json to csv', 'json to excel', 'spreadsheet converter', 'tabular data']
+        keywords: ['csv to json', 'excel to json', 'xlsx to json', 'json to csv', 'json to excel', 'spreadsheet converter', 'tabular data'],
+        aiSummary: 'Convert CSV or Excel (.xlsx) files to JSON, or export JSON arrays back to CSV/Excel. Dates from Excel convert to ISO strings. Answers "CSV to JSON converter online", "Excel to JSON", or "JSON to CSV download".',
     },
     'snippet-manager': {
         title: 'Code Snippet Manager',
         description: 'Save, edit, and copy code snippets with Monaco syntax highlighting, auto-detect language, view and edit modes, and format JSON, SQL, and more. Stored locally in your browser.',
-        keywords: ['code snippets', 'snippet manager', 'syntax highlighting', 'paste bin', 'developer snippets', 'monaco editor']
+        keywords: ['code snippets', 'snippet manager', 'syntax highlighting', 'paste bin', 'developer snippets', 'monaco editor'],
+        aiSummary: 'Save and organize code snippets with Monaco syntax highlighting and auto language detection. Format JSON/SQL, copy with one click. Answers "code snippet manager online" or "developer snippet organizer".',
     },
     'markdown-preview-html': {
         title: 'Markdown Preview & HTML Converter',
         description: 'Live Markdown renderer with syntax highlighting, HTML export, and HTML → Markdown conversion. Runs entirely in your browser.',
-        keywords: ['markdown preview', 'markdown to html', 'html to markdown', 'markdown renderer', 'markdown editor', 'export html', 'markdown converter']
+        keywords: ['markdown preview', 'markdown to html', 'html to markdown', 'markdown renderer', 'markdown editor', 'export html', 'markdown converter'],
+        aiSummary: 'Live Markdown preview with syntax highlighting; export to HTML or convert HTML back to Markdown. Answers "markdown preview online", "markdown to HTML converter", or "HTML to markdown tool".',
     },
     'format-converter': {
         title: 'Format Converter',
         description: 'Convert between JSON, YAML, TOML, and XML in any direction. All 12 combinations supported. Runs entirely in your browser.',
-        keywords: ['json to yaml', 'yaml to json', 'json to toml', 'toml to json', 'xml to json', 'json to xml', 'yaml to toml', 'toml to yaml', 'format converter', 'data format']
+        keywords: ['json to yaml', 'yaml to json', 'json to toml', 'toml to json', 'xml to json', 'json to xml', 'yaml to toml', 'toml to yaml', 'format converter', 'data format'],
+        aiSummary: 'Convert between JSON, YAML, TOML, and XML in any direction (all 12 combinations). Runs in browser. Answers "JSON to YAML converter", "YAML to TOML online", or "XML to JSON converter".',
     },
     'mime-type-lookup': {
         title: 'MIME Type Lookup',
         description: 'Look up MIME types by file extension or filename and copy the result instantly. Runs entirely in your browser.',
-        keywords: ['mime type', 'content-type', 'media type', 'file extension', 'mime lookup', 'http headers']
+        keywords: ['mime type', 'content-type', 'media type', 'file extension', 'mime lookup', 'http headers'],
+        aiSummary: 'Look up MIME / Content-Type for any file extension or filename instantly. Answers "MIME type for .svg", "what is Content-Type for JSON", or "file extension to MIME type".',
     },
     'user-agent-parser': {
         title: 'User-Agent Parser',
         description: 'Paste a User-Agent string to see browser, OS, engine, device, and CPU breakdown instantly. Runs entirely in your browser.',
-        keywords: ['user agent', 'ua parser', 'browser detection', 'os detection', 'device detection', 'client hints', 'http headers']
+        keywords: ['user agent', 'ua parser', 'browser detection', 'os detection', 'device detection', 'client hints', 'http headers'],
+        aiSummary: 'Paste a User-Agent header string to get browser name/version, OS, rendering engine, device type, and CPU. Answers "user agent parser online", "parse UA string", or "what browser is this user agent".',
     },
     'sql-client': {
         title: 'SQL Client',
         description: 'Connect to PostgreSQL, MySQL, and MariaDB databases from your browser. Run queries, explore schemas, and export results. Credentials encrypted with AES-256 before storage.',
-        keywords: ['sql client', 'postgresql client', 'mysql client', 'mariadb client', 'sql query', 'database browser', 'sql explorer']
+        keywords: ['sql client', 'postgresql client', 'mysql client', 'mariadb client', 'sql query', 'database browser', 'sql explorer'],
+        aiSummary: 'Browser SQL client for PostgreSQL, MySQL, and MariaDB: run queries, browse schemas, and export results. Credentials AES-256 encrypted. Answers "browser SQL client", "PostgreSQL GUI online", or "MySQL client no install".',
     },
     'mock-data-generator': {
         title: 'Mock Data Generator',
@@ -283,12 +324,14 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
     'unit-converter': {
         title: 'Unit Converter',
         description: 'Convert between 323 units across 43 scientific and engineering categories including length, mass, pressure, viscosity, thermal, electrical, polymer, and materials science units.',
-        keywords: ['unit converter', 'unit conversion', 'measurement converter', 'scientific units', 'engineering units', 'SI units', 'metric converter']
+        keywords: ['unit converter', 'unit conversion', 'measurement converter', 'scientific units', 'engineering units', 'SI units', 'metric converter'],
+        aiSummary: '323 units across 43 categories: length, mass, pressure, temperature, viscosity, electrical, polymer, and materials science. Answers "unit converter online", "convert km to miles", or "engineering unit conversion".',
     },
     'svg-optimizer': {
         title: 'SVG Optimizer / Minifier',
         description: 'Paste SVG markup and minify it in the browser with SVGO: drop comments, editor metadata, default attributes, and whitespace—then compare UTF-8 size before and after.',
-        keywords: ['svg optimizer', 'svg minify', 'svgo online', 'compress svg', 'optimize svg', 'remove svg metadata', 'svg file size']
+        keywords: ['svg optimizer', 'svg minify', 'svgo online', 'compress svg', 'optimize svg', 'remove svg metadata', 'svg file size'],
+        aiSummary: 'Minify SVG with SVGO in the browser: removes comments, editor metadata, and whitespace. Shows size before/after. Answers "SVGO online", "optimize SVG file", or "compress SVG markup".',
     },
     'break-room/2048': {
         title: '2048',

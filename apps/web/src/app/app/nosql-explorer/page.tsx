@@ -176,15 +176,20 @@ export default function NoSQLExplorerPage() {
         updateTab(tab.id, { loading: true, error: null });
         try {
             const skip = (tab.page - 1) * tab.limit;
-            let url = `/api/nosql/documents?connectionString=${encodeURIComponent(
-                connectionString
-            )}&dbName=${tab.dbName}&collectionName=${tab.collectionName}&query=${encodeURIComponent(tab.query)}&limit=${tab.limit}&skip=${skip}`;
-
-            if (tab.sortField) {
-                url += `&sortField=${encodeURIComponent(tab.sortField)}&sortDirection=${tab.sortDirection || 'asc'}`;
-            }
-
-            const res = await fetch(url);
+            const res = await fetch("/api/nosql/documents/query", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    connectionString,
+                    dbName: tab.dbName,
+                    collectionName: tab.collectionName,
+                    query: tab.query,
+                    limit: tab.limit,
+                    skip,
+                    sortField: tab.sortField,
+                    sortDirection: tab.sortDirection || "asc",
+                }),
+            });
             const data = await res.json();
 
             if (!res.ok) throw new Error(data.error);
@@ -426,9 +431,15 @@ export default function NoSQLExplorerPage() {
         const conn = connections.find(c => c.id === activeTab.connectionId);
         if (!conn) throw new Error("Connection not found");
 
-        const res = await fetch(
-            `/api/nosql/schema?connectionString=${encodeURIComponent(conn.connectionString)}&dbName=${activeTab.dbName}&collectionName=${activeTab.collectionName}`
-        );
+        const res = await fetch("/api/nosql/schema", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                connectionString: conn.connectionString,
+                dbName: activeTab.dbName,
+                collectionName: activeTab.collectionName,
+            }),
+        });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error);
         return data;
@@ -440,9 +451,15 @@ export default function NoSQLExplorerPage() {
         const conn = connections.find(c => c.id === activeTab.connectionId);
         if (!conn) throw new Error("Connection not found");
 
-        const res = await fetch(
-            `/api/nosql/indexes?connectionString=${encodeURIComponent(conn.connectionString)}&dbName=${activeTab.dbName}&collectionName=${activeTab.collectionName}`
-        );
+        const res = await fetch("/api/nosql/indexes/list", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                connectionString: conn.connectionString,
+                dbName: activeTab.dbName,
+                collectionName: activeTab.collectionName,
+            }),
+        });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error);
         return data;

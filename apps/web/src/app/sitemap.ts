@@ -1,5 +1,4 @@
 import { MetadataRoute } from 'next'
-import { toolsMetadata } from '@/lib/metadata'
 import { publicToolSlugs } from '@/lib/tool-categories'
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -40,14 +39,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.85,
     }))
 
-    // App pages — still indexable, lower priority than landing pages
-    const toolSlugs = Object.keys(toolsMetadata).sort()
-    const appToolPages = toolSlugs.map((slug) => ({
-        url: `${baseUrl}/app/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: 'monthly' as const,
-        priority: 0.6,
-    }))
-
-    return [...mainPages, ...toolLandingPages, ...appToolPages]
+    // /app/* pages require authentication — excluded to preserve crawl budget
+    return [...mainPages, ...toolLandingPages]
 }

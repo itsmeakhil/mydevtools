@@ -1,18 +1,33 @@
 import { NextResponse } from 'next/server';
 import { MongoClient } from 'mongodb';
+import { requireNosqlAuth } from '@/app/api/nosql/_auth';
+import { validateMongoConnectionString } from '@/app/api/nosql/_mongo-safety';
 
 export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
-    const connectionString = searchParams.get('connectionString');
-    const dbName = searchParams.get('dbName');
-    const collectionName = searchParams.get('collectionName');
-    const sampleSize = Math.min(parseInt(searchParams.get('sampleSize') || '200'), 1000);
+    return NextResponse.json(
+        {
+            error: 'GET is disabled for security. Use POST /api/nosql/schema with a JSON body.',
+        },
+        { status: 405 }
+    );
+}
 
-    if (!connectionString || !dbName || !collectionName) {
-        return NextResponse.json({ error: 'Missing required parameters' }, { status: 400 });
-    }
+export async function POST(request: Request) {
+    const authError = await requireNosqlAuth(request);
+    if (authError) return authError;
 
     try {
+        const { connectionString, dbName, collectionName, sampleSize: rawSampleSize } = await request.json();
+        const sampleSize = Math.min(parseInt(String(rawSampleSize ?? '200')), 1000);
+
+        if (!connectionString || !dbName || !collectionName) {
+            return NextResponse.json({ error: 'Missing required parameters' }, { status: 400 });
+        }
+        const connectionError = validateMongoConnectionString(connectionString);
+        if (connectionError) {
+            return NextResponse.json({ error: connectionError }, { status: 400 });
+        }
+
         const client = new MongoClient(connectionString);
         await client.connect();
         const collection = client.db(dbName).collection(collectionName);

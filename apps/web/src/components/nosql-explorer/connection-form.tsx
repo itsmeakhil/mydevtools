@@ -117,9 +117,11 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
             } else {
                 await saveConnection(user.uid, connectionString, name, encryptionKey);
             }
-            loadConnections();
+            await loadConnections();
         } catch (e) {
             console.error("Failed to save connection", e);
+            toast.error(t("toastConnectFail", { name }));
+            return;
         }
 
         setEditingId(null);
