@@ -194,11 +194,14 @@ export function ExplorerSidebar({
     const refreshCollections = async (connIndex: number, dbName: string) => {
         const node = connections[connIndex];
         try {
-            const res = await fetch(
-                `/api/nosql/collections?connectionString=${encodeURIComponent(
-                    node.connection.connectionString
-                )}&dbName=${dbName}`
-            );
+            const res = await fetch("/api/nosql/collections", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    connectionString: node.connection.connectionString,
+                    dbName,
+                }),
+            });
             const data = await res.json();
 
             if (!res.ok) throw new Error(data.error);

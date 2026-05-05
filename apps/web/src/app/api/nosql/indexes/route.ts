@@ -1,38 +1,29 @@
 import { NextResponse } from 'next/server';
 import { MongoClient } from 'mongodb';
+import { requireNosqlAuth } from '@/app/api/nosql/_auth';
+import { validateMongoConnectionString } from '@/app/api/nosql/_mongo-safety';
 
 export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
-    const connectionString = searchParams.get('connectionString');
-    const dbName = searchParams.get('dbName');
-    const collectionName = searchParams.get('collectionName');
-
-    if (!connectionString || !dbName || !collectionName) {
-        return NextResponse.json({ error: 'Missing required parameters' }, { status: 400 });
-    }
-
-    try {
-        const client = new MongoClient(connectionString);
-        await client.connect();
-        const collection = client.db(dbName).collection(collectionName);
-        const indexes = await collection.indexes();
-        let totalIndexSize: number | undefined;
-        try {
-            const stats = await collection.aggregate([{ $collStats: { storageStats: {} } }]).toArray();
-            totalIndexSize = stats[0]?.storageStats?.totalIndexSize;
-        } catch { /* ignore if unsupported */ }
-        await client.close();
-        return NextResponse.json({ indexes, totalIndexSize });
-    } catch (error: any) {
-        return NextResponse.json({ error: error.message || 'Failed to list indexes' }, { status: 500 });
-    }
+    return NextResponse.json(
+        {
+            error: 'GET is disabled for security. Use POST /api/nosql/indexes/list with a JSON body.',
+        },
+        { status: 405 }
+    );
 }
 
 export async function POST(request: Request) {
+    const authError = await requireNosqlAuth(request);
+    if (authError) return authError;
+
     try {
         const { connectionString, dbName, collectionName, keys, options } = await request.json();
         if (!connectionString || !dbName || !collectionName || !keys) {
             return NextResponse.json({ error: 'Missing required parameters' }, { status: 400 });
+        }
+        const connectionError = validateMongoConnectionString(connectionString);
+        if (connectionError) {
+            return NextResponse.json({ error: connectionError }, { status: 400 });
         }
         const client = new MongoClient(connectionString);
         await client.connect();
@@ -46,10 +37,17 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+    const authError = await requireNosqlAuth(request);
+    if (authError) return authError;
+
     try {
         const { connectionString, dbName, collectionName, indexName } = await request.json();
         if (!connectionString || !dbName || !collectionName || !indexName) {
             return NextResponse.json({ error: 'Missing required parameters' }, { status: 400 });
+        }
+        const connectionError = validateMongoConnectionString(connectionString);
+        if (connectionError) {
+            return NextResponse.json({ error: connectionError }, { status: 400 });
         }
         const client = new MongoClient(connectionString);
         await client.connect();

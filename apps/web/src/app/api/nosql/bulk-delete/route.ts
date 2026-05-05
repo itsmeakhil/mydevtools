@@ -1,12 +1,21 @@
 import { NextResponse } from 'next/server';
 import { MongoClient, ObjectId } from 'mongodb';
+import { requireNosqlAuth } from '@/app/api/nosql/_auth';
+import { validateMongoConnectionString } from '@/app/api/nosql/_mongo-safety';
 
 export async function POST(request: Request) {
+    const authError = await requireNosqlAuth(request);
+    if (authError) return authError;
+
     try {
         const { connectionString, dbName, collectionName, documentIds } = await request.json();
 
         if (!connectionString || !dbName || !collectionName || !Array.isArray(documentIds)) {
             return NextResponse.json({ error: 'Missing required parameters' }, { status: 400 });
+        }
+        const connectionError = validateMongoConnectionString(connectionString);
+        if (connectionError) {
+            return NextResponse.json({ error: connectionError }, { status: 400 });
         }
         if (documentIds.length === 0) {
             return NextResponse.json({ error: 'No document IDs provided' }, { status: 400 });
