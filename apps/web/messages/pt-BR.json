@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Puzzle numérico clássico. 3 níveis de dificuldade, 150 estágios cada."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Navegue por chaves, inspecione valores e execute comandos em qualquer instância Redis."
       }
     },
     "tabs": {

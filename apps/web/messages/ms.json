@@ -433,6 +433,10 @@
       "sudoku": {
         "title": "Stone GNOME",
         "description": "Teka-teki nombor klasik. 3 tahap kesukaran, 150 peringkat setiap satu."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Semak kunci, periksa nilai dan jalankan arahan pada mana-mana contoh Redis."
       }
     },
     "tabs": {

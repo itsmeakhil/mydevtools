@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "Patience",
         "description": "Puzzle à numéro classique. 3 niveaux de difficulté, 150 niveaux chacun."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Parcourez les clés, inspectez les valeurs et exécutez des commandes sur n'importe quelle instance Redis."
       }
     },
     "tabs": {

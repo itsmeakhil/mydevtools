@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Klassisk nummerpuslespil. 3 sværhedsgrader, 150 faser hver."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Gennemse nøgler, undersøg værdier og kør kommandoer på enhver Redis-instans."
       }
     },
     "tabs": {

@@ -2,8 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import { toast } from "sonner"
-import JSZip from "jszip"
-import { saveAs } from "file-saver"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -1003,6 +1001,10 @@ export function FileBrowser({ credentials, connectionName }: Props) {
         const fileKeys = Array.from(selectedKeys).filter((k) => !k.endsWith("/"))
         if (!fileKeys.length) { toast.error("No files selected (folders are skipped)"); return }
         setZipProgress({ done: 0, total: fileKeys.length })
+        const [{ default: JSZip }, { saveAs }] = await Promise.all([
+            import("jszip"),
+            import("file-saver"),
+        ])
         const zip = new JSZip()
         let ok = 0
         for (const key of fileKeys) {

@@ -38,6 +38,7 @@ type PaletteEntry = {
 }
 
 const CATEGORY_ORDER = ['Site', 'Productivity', 'Security', 'Formatters', 'Converters', 'Generators', 'Network & API', 'Database', 'PDF', 'Media & Design'] as const
+const RECENT_STORAGE_KEY = 'mdt:palette:recent'
 
 const STATIC_ENTRIES: Omit<PaletteEntry, 'searchValue'>[] = [
   {
@@ -118,6 +119,7 @@ function buildSearchValue(entry: {
 export function GlobalCommandPalette() {
   const [open, setOpen] = React.useState(false)
   const [modLabel, setModLabel] = React.useState('⌘')
+  const [recentEntries, setRecentEntries] = React.useState<PaletteEntry[]>([])
   const router = useRouter()
   const { user } = useAuth(false)
   const pinnedTools = usePinnedToolsStore((s) => s.pinnedTools)
@@ -186,6 +188,19 @@ export function GlobalCommandPalette() {
   }, [entries])
 
   React.useEffect(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem(RECENT_STORAGE_KEY) ?? '[]') as string[]
+      if (!Array.isArray(stored) || stored.length === 0) return
+      const mapped = stored
+        .map((url) => entries.find((e) => e.url === url))
+        .filter(Boolean) as PaletteEntry[]
+      if (mapped.length) setRecentEntries(mapped)
+    } catch {
+      // ignore storage errors
+    }
+  }, [entries])
+
+  React.useEffect(() => {
     setModLabel(
       typeof navigator !== 'undefined' &&
         /Mac|iPhone|iPad|iPod/.test(navigator.userAgent)
@@ -236,10 +251,22 @@ export function GlobalCommandPalette() {
         setOpen(false)
         return
       }
+      setRecentEntries((prev) => {
+        const nextUrls = [entry.url, ...prev.map((e) => e.url).filter((u) => u !== entry.url)].slice(0, 8)
+        const mapped = nextUrls
+          .map((url) => entries.find((e) => e.url === url))
+          .filter(Boolean) as PaletteEntry[]
+        try {
+          localStorage.setItem(RECENT_STORAGE_KEY, JSON.stringify(nextUrls))
+        } catch {
+          // ignore storage errors
+        }
+        return mapped
+      })
       router.push(entry.url)
       setOpen(false)
     },
-    [router, user]
+    [router, user, entries]
   )
 
   const commandSurfaceClass =
@@ -263,9 +290,39 @@ export function GlobalCommandPalette() {
           shouldFilter
           loop
         >
-          <CommandInput placeholder="Search tools and pages…" />
+          <CommandInput placeholder="Search tools and pages…" aria-label="Search tools and pages" />
           <CommandList className="max-h-[min(60vh,480px)] overflow-y-auto">
             <CommandEmpty>No results found.</CommandEmpty>
+            {recentEntries.length > 0 && (
+              <React.Fragment>
+                <CommandGroup heading="Recent">
+                  {recentEntries.map((entry) => {
+                    const ItemIcon = entry.Icon
+                    return (
+                      <CommandItem
+                        key={`recent-${entry.url}`}
+                        value={`recent ${entry.searchValue} ${entry.url}`}
+                        onSelect={() => run(entry)}
+                        className="flex items-start gap-3 py-2.5 aria-selected:bg-accent"
+                      >
+                        <ItemIcon className="mt-0.5 h-4 w-4 shrink-0 opacity-70" aria-hidden />
+                        <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                          <span className="truncate font-medium leading-none">
+                            {entry.title}
+                          </span>
+                          {entry.description ? (
+                            <span className="line-clamp-2 text-xs text-muted-foreground">
+                              {entry.description}
+                            </span>
+                          ) : null}
+                        </span>
+                      </CommandItem>
+                    )
+                  })}
+                </CommandGroup>
+                <CommandSeparator />
+              </React.Fragment>
+            )}
             {pinnedEntries.length > 0 && (
               <React.Fragment>
                 <CommandGroup heading="Pinned">

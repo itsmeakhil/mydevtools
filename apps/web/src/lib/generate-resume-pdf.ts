@@ -1,4 +1,3 @@
-import jsPDF from 'jspdf'
 import type { Experience, Education, Project, Certification, PersonalInfo } from '@/components/portfolio-builder'
 
 export interface ResumeData {
@@ -41,7 +40,8 @@ function formatSingleDate(s: string): string {
   return d ? d.toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : s
 }
 
-export function generateResumePdf(data: ResumeData): void {
+export async function generateResumePdf(data: ResumeData): Promise<void> {
+  const { default: jsPDF } = await import('jspdf')
   const doc = new jsPDF({ unit: 'mm', format: 'a4' })
   let y = MARGIN
 

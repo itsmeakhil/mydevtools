@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "스도쿠",
         "description": "클래식 숫자 퍼즐. 3개의 난이도 레벨, 각 스테이지 150개."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Redis 인스턴스에서 키를 탐색하고 값을 검사하며 명령을 실행합니다."
       }
     },
     "tabs": {

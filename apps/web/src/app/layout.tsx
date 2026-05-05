@@ -1,18 +1,11 @@
 import type { Metadata } from "next";
-import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Toaster } from 'sonner'
 import { ThemeProvider } from "@/components/theme-provider"
-import { UserPreferencesSync } from "@/components/user-preferences-sync"
-import { ToolVisibilityPreferencesSync } from "@/components/tool-visibility-preferences-sync"
-import { PinnedToolsPreferencesSync } from "@/components/pinned-tools-preferences-sync"
-import { AppUpdateNotifier } from "@/components/app-update-notifier"
-import { GlobalCommandPalette } from "@/components/global-command-palette"
 import { cn } from "@/lib/utils"
 import { GeistMono } from 'geist/font/mono'
 
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
+import { ClientShell } from "@/components/client-shell";
 
 import "./globals.css";
 
@@ -125,15 +118,9 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <NextIntlClientProvider messages={messages}>
-            <UserPreferencesSync />
-            <ToolVisibilityPreferencesSync />
-            <PinnedToolsPreferencesSync />
-            <AppUpdateNotifier />
-            <GlobalCommandPalette />
-            {children}
-            <Analytics />
-            <SpeedInsights />
-            <Toaster />
+            <ClientShell>
+              {children}
+            </ClientShell>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

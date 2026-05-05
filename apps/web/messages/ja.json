@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "数独",
         "description": "クラシックな数字パズル。3つの難易度、それぞれ150ステージ。"
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Redisインスタンスのキーを閲覧し、値を検査し、コマンドを実行します。"
       }
     },
     "tabs": {

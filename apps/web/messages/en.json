@@ -482,6 +482,10 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Classic number puzzle. 3 difficulty levels, 150 stages each."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Browse keys, inspect values, and run commands on any Redis instance."
       }
     }
   },
@@ -3307,5 +3311,72 @@
       "vaultLockedTitle": "Vault Locked",
       "vaultLockedDesc": "Unlock your vault to access saved connections."
     }
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Slide tiles and merge them to reach 2048",
+    "score": "Score",
+    "best": "Best",
+    "newGame": "New Game",
+    "howToPlay": "Use arrow keys (or swipe on mobile) to move tiles. Tiles with the same number merge. Reach 2048 to win!",
+    "youWin": "You reached 2048!",
+    "keepGoing": "Keep Going",
+    "gameOver": "Game Over",
+    "tryAgain": "Try Again",
+    "gameOverMessage": "No more moves left.",
+    "undo": "Undo"
+  },
+  "Snake": {
+    "title": "Snake",
+    "subtitle": "Eat food, grow, avoid walls and yourself",
+    "score": "Score",
+    "best": "Best",
+    "startPrompt": "Press any arrow key",
+    "startButton": "Start Game",
+    "gameOver": "Game Over",
+    "playAgain": "Play Again",
+    "howToPlay": "Use arrow keys or WASD to move. Eat food to grow. Speed increases every 50 points.",
+    "diffEasy": "Easy",
+    "diffNormal": "Normal",
+    "diffHard": "Hard",
+    "diffInfinite": "Infinite",
+    "orTap": "or tap below",
+    "howToPlayInfinite": "Walls wrap around — no wall deaths. Eat food to grow. Speed increases every 50 points.",
+    "shieldActive": "Shield Active",
+    "speedBoost": "Speed Boost",
+    "powerSpeed": "Speed x2 (10 ticks)",
+    "powerShield": "Survive one death",
+    "powerShrink": "Shortens tail"
+  },
+  "Minesweeper": {
+    "title": "Minesweeper",
+    "subtitle": "Left click reveal · Right click flag",
+    "mines": "Mines",
+    "newGame": "New Game",
+    "win": "You Win!",
+    "loss": "Boom!",
+    "playAgain": "Play Again",
+    "tryAgain": "Try Again",
+    "startPrompt": "Click any cell to start",
+    "difficulty": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "expert": "Expert"
+    }
+  },
+  "Tetris": {
+    "title": "Tetris",
+    "subtitle": "Arrow keys · Space = hard drop · P = pause",
+    "next": "Next",
+    "score": "Score",
+    "best": "Best",
+    "lines": "Lines",
+    "level": "Level",
+    "pause": "Pause",
+    "resume": "Resume",
+    "start": "Start",
+    "restart": "Restart",
+    "paused": "Paused",
+    "gameOver": "Game Over"
   }
 }
