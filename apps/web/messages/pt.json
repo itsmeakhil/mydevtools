@@ -3342,7 +3342,8 @@
       "heroAddConnection": "Adicionar ligação",
       "vaultLockedTitle": "Cofre bloqueado",
       "vaultLockedDesc": "Desbloqueie o cofre para aceder às ligações guardadas."
-    },
+    }
+  },
   "Minesweeper": {
     "title": "Campo minado",
     "subtitle": "Encontre todas as células seguras sem detonar uma mina",

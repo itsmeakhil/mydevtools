@@ -3342,7 +3342,8 @@
       "heroAddConnection": "Tambah Koneksi",
       "vaultLockedTitle": "Vault Terkunci",
       "vaultLockedDesc": "Buka kunci vault untuk mengakses koneksi yang tersimpan."
-    },
+    }
+  },
   "Minesweeper": {
     "title": "Penyapu Ranjau",
     "subtitle": "Temukan semua sel aman tanpa meledakkan ranjau",

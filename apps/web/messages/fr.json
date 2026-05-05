@@ -3342,7 +3342,8 @@
       "heroAddConnection": "Ajouter une connexion",
       "vaultLockedTitle": "Coffre verrouillé",
       "vaultLockedDesc": "Déverrouillez votre coffre pour accéder aux connexions enregistrées."
-    },
+    }
+  },
   "Minesweeper": {
     "title": "Démineur",
     "subtitle": "Trouvez toutes les cases sûres sans déclencher de mine",

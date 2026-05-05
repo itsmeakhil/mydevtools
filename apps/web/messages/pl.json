@@ -3342,7 +3342,8 @@
       "heroAddConnection": "Dodaj połączenie",
       "vaultLockedTitle": "Skarbiec zablokowany",
       "vaultLockedDesc": "Odblokuj skarbiec, aby uzyskać dostęp do zapisanych połączeń."
-    },
+    }
+  },
   "Minesweeper": {
     "title": "Saper",
     "subtitle": "Znajdź wszystkie bezpieczne pola bez detonacji miny",

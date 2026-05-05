@@ -3342,7 +3342,8 @@
       "heroAddConnection": "연결 추가",
       "vaultLockedTitle": "볼트 잠김",
       "vaultLockedDesc": "저장된 연결에 액세스하려면 볼트를 잠금 해제하세요."
-    },
+    }
+  },
   "Minesweeper": {
     "title": "지뢰찾기",
     "subtitle": "지뢰를 터뜨리지 않고 모든 안전한 칸을 찾으세요",

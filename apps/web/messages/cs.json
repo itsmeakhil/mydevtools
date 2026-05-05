@@ -3342,7 +3342,8 @@
       "heroAddConnection": "Přidat připojení",
       "vaultLockedTitle": "Trezor zamčen",
       "vaultLockedDesc": "Odemkněte trezor pro přístup k uloženým připojením."
-    },
+    }
+  },
   "Minesweeper": {
     "title": "Hledání min",
     "subtitle": "Najděte všechna bezpečná pole bez odpálení miny",

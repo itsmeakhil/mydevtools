@@ -3342,7 +3342,8 @@
       "heroAddConnection": "Tambah Sambungan",
       "vaultLockedTitle": "Peti besi dikunci",
       "vaultLockedDesc": "Buka kunci peti besi untuk mengakses sambungan yang disimpan."
-    },
+    }
+  },
   "Minesweeper": {
     "title": "Penyapu Min",
     "subtitle": "Cari semua sel selamat tanpa meletupkan min",

@@ -3342,7 +3342,8 @@
       "heroAddConnection": "Thêm kết nối",
       "vaultLockedTitle": "Kho bị khóa",
       "vaultLockedDesc": "Mở khóa kho của bạn để truy cập các kết nối đã lưu."
-    },
+    }
+  },
   "Minesweeper": {
     "title": "Dò mìn",
     "subtitle": "Tìm tất cả ô an toàn mà không kích nổ mìn",

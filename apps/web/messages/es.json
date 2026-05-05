@@ -3342,7 +3342,8 @@
       "heroAddConnection": "Agregar conexión",
       "vaultLockedTitle": "Bóveda bloqueada",
       "vaultLockedDesc": "Desbloquea tu bóveda para acceder a las conexiones guardadas."
-    },
+    }
+  },
   "Minesweeper": {
     "title": "Buscaminas",
     "subtitle": "Encuentra todas las casillas seguras sin detonar una mina",

@@ -3342,7 +3342,8 @@
       "heroAddConnection": "接続を追加",
       "vaultLockedTitle": "ボルトがロックされています",
       "vaultLockedDesc": "保存された接続にアクセスするにはボルトをアンロックしてください。"
-    },
+    }
+  },
   "Minesweeper": {
     "title": "マインスイーパー",
     "subtitle": "地雷を爆発させずにすべての安全なマスを見つけよう",

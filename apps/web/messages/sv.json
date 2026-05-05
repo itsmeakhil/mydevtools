@@ -3342,7 +3342,8 @@
       "heroAddConnection": "Lägg till anslutning",
       "vaultLockedTitle": "Valvet är låst",
       "vaultLockedDesc": "Lås upp valvet för att komma åt sparade anslutningar."
-    },
+    }
+  },
   "Minesweeper": {
     "title": "Minröjaren",
     "subtitle": "Hitta alla säkra rutor utan att utlösa en mina",

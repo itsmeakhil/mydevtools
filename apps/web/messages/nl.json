@@ -3342,7 +3342,8 @@
       "heroAddConnection": "Verbinding toevoegen",
       "vaultLockedTitle": "Kluis vergrendeld",
       "vaultLockedDesc": "Ontgrendel uw kluis om toegang te krijgen tot opgeslagen verbindingen."
-    },
+    }
+  },
   "Minesweeper": {
     "title": "Mijnenveger",
     "subtitle": "Vind alle veilige cellen zonder een mijn te laten ontploffen",

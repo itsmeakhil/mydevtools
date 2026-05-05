@@ -3342,7 +3342,8 @@
       "heroAddConnection": "Bağlantı Ekle",
       "vaultLockedTitle": "Kasa kilitli",
       "vaultLockedDesc": "Kayıtlı bağlantılara erişmek için kasanızı açın."
-    },
+    }
+  },
   "Minesweeper": {
     "title": "Mayın Tarlası",
     "subtitle": "Bir mayına basmadan tüm güvenli hücreleri bulun",

@@ -3342,7 +3342,8 @@
       "heroAddConnection": "Tilføj forbindelse",
       "vaultLockedTitle": "Boks låst",
       "vaultLockedDesc": "Lås boksen op for at få adgang til gemte forbindelser."
-    },
+    }
+  },
   "Minesweeper": {
     "title": "Minestryger",
     "subtitle": "Find alle sikre felter uden at ramme en mine",

@@ -3342,7 +3342,8 @@
       "heroAddConnection": "Verbindung hinzufügen",
       "vaultLockedTitle": "Tresor gesperrt",
       "vaultLockedDesc": "Entsperren Sie den Tresor, um auf gespeicherte Verbindungen zuzugreifen."
-    },
+    }
+  },
   "Minesweeper": {
     "title": "Minesweeper",
     "subtitle": "Finde alle sicheren Felder, ohne eine Mine auszulösen",

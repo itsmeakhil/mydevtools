@@ -3342,7 +3342,8 @@
       "heroAddConnection": "Aggiungi connessione",
       "vaultLockedTitle": "Vault bloccato",
       "vaultLockedDesc": "Sblocca il vault per accedere alle connessioni salvate."
-    },
+    }
+  },
   "Minesweeper": {
     "title": "Campo minato",
     "subtitle": "Trova tutte le celle sicure senza far esplodere una mina",

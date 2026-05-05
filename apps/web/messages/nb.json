@@ -3342,7 +3342,8 @@
       "heroAddConnection": "Legg til tilkobling",
       "vaultLockedTitle": "Hvelvet er låst",
       "vaultLockedDesc": "Lås opp hvelvet for å få tilgang til lagrede tilkoblinger."
-    },
+    }
+  },
   "Minesweeper": {
     "title": "Minesveiper",
     "subtitle": "Finn alle trygge ruter uten å utløse en mine",
