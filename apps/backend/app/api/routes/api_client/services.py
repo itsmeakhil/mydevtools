@@ -4,6 +4,7 @@ from typing import Any
 from bson import ObjectId
 from bson.errors import InvalidId
 from fastapi import HTTPException, status
+from pymongo import ReturnDocument
 from pymongo.errors import PyMongoError
 
 from app.utils.collection_name import (
@@ -23,6 +24,8 @@ from app.api.routes.api_client.schema import (
     HISTORY_MAX_ITEMS,
 )
 from app.database import db_manager
+
+HISTORY_TRIM_BATCH_SIZE = 500
 
 
 def _parse_oid(raw: str, *, kind: str) -> ObjectId:
@@ -84,15 +87,19 @@ async def patch_collection(uid: str, collection_id: str, body: ApiClientCollecti
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Collection not found.")
         return _collection_to_out(doc)
     try:
-        result = await db_manager.update_one(API_CLIENT_COLLECTIONS, {"_id": oid, "created_by": uid}, {"$set": patch})
+        doc = await db_manager.find_one_and_update(
+            API_CLIENT_COLLECTIONS,
+            {"_id": oid, "created_by": uid},
+            {"$set": patch},
+            return_document=ReturnDocument.AFTER,
+        )
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update collection."
         ) from exc
-    if result.matched_count == 0:
+    if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Collection not found.")
-    doc = await db_manager.find_one(API_CLIENT_COLLECTIONS, {"_id": oid})
-    return _collection_to_out(doc)  # type: ignore[arg-type]
+    return _collection_to_out(doc)
 
 
 async def delete_collection(uid: str, collection_id: str) -> None:
@@ -133,15 +140,19 @@ async def patch_environment(uid: str, environment_id: str, body: ApiClientEnviro
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Environment not found.")
         return _env_to_out(doc)
     try:
-        result = await db_manager.update_one(API_CLIENT_ENVIRONMENTS, {"_id": oid, "created_by": uid}, {"$set": patch})
+        doc = await db_manager.find_one_and_update(
+            API_CLIENT_ENVIRONMENTS,
+            {"_id": oid, "created_by": uid},
+            {"$set": patch},
+            return_document=ReturnDocument.AFTER,
+        )
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update environment."
         ) from exc
-    if result.matched_count == 0:
+    if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Environment not found.")
-    doc = await db_manager.find_one(API_CLIENT_ENVIRONMENTS, {"_id": oid})
-    return _env_to_out(doc)  # type: ignore[arg-type]
+    return _env_to_out(doc)
 
 
 async def delete_environment(uid: str, environment_id: str) -> None:
@@ -172,14 +183,17 @@ def _history_doc_to_out(doc: dict[str, Any]) -> ApiClientHistoryOut:
 
 async def trim_history(uid: str) -> None:
     filt = {"created_by": uid}
-    total = await db_manager.count_documents(API_CLIENT_HISTORY, filt)
-    if total <= HISTORY_MAX_ITEMS:
+    stale_docs = await db_manager.find(
+        API_CLIENT_HISTORY,
+        filt,
+        {"_id": 1},
+        sort=[("timestamp", -1), ("_id", -1)],
+        skip=HISTORY_MAX_ITEMS,
+        limit=HISTORY_TRIM_BATCH_SIZE,
+    )
+    if not stale_docs:
         return
-    excess = total - HISTORY_MAX_ITEMS
-    oldest = await db_manager.find(API_CLIENT_HISTORY, filt, {"_id": 1}, sort=[("timestamp", 1)], limit=excess)
-    if not oldest:
-        return
-    ids = [d["_id"] for d in oldest]
+    ids = [d["_id"] for d in stale_docs]
     await db_manager.delete_many(API_CLIENT_HISTORY, {"_id": {"$in": ids}, "created_by": uid})
 
 

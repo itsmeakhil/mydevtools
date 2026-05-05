@@ -5,11 +5,13 @@ import { Note } from "../types/Note";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/database/firebase";
 import { useTranslations } from "next-intl";
+import { fetchAllPages } from "@/lib/fetch-all-pages";
 
 const BACKEND_BASE_URL: string =
     process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
     process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
     "http://localhost:8000";
+const NOTES_PAGE_SIZE = 500;
 
 interface NotesContextType {
     notes: Note[];
@@ -78,9 +80,16 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
 
     const refreshNotes = useCallback(async () => {
         if (!user) return;
-        const data = await apiRequest<Note[]>("GET", "/api/v1/notes");
+        const allNotes = await fetchAllPages<Note>({
+            pageSize: NOTES_PAGE_SIZE,
+            fetchPage: (skip, limit) =>
+                apiRequest<Note[]>(
+                    "GET",
+                    `/api/v1/notes?skip=${skip}&limit=${limit}`
+                ),
+        });
         // Keep stable ordering in case server ordering changes.
-        setNotes([...data].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
+        setNotes([...allNotes].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
     }, [apiRequest, user]);
 
     useEffect(() => {

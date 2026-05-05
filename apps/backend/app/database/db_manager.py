@@ -39,8 +39,8 @@ async def delete_many(collection_name, query):
     return await db[collection_name].delete_many(query)
 
 
-async def bulk_write(collection_name, data):
-    return await db[collection_name].bulk_write(data)
+async def bulk_write(collection_name, data, ordered=True):
+    return await db[collection_name].bulk_write(data, ordered=ordered)
 
 
 async def find_one(collection_name, query, projection=None):

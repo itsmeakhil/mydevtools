@@ -1,3 +1,4 @@
+import asyncio
 import re
 import time
 from typing import Annotated
@@ -47,7 +48,11 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 @router.post("/session", response_model=UserProfileResponse, summary="Firebase login → JWT cookies")
 @limiter.limit("10/minute")
 async def create_session(request: Request, payload: SessionRequest, response: Response) -> UserProfileResponse:
-    decoded = verify_id_token(payload.id_token, check_revoked=payload.check_revoked)
+    decoded = await asyncio.to_thread(
+        verify_id_token,
+        payload.id_token,
+        payload.check_revoked,
+    )
     uid = decoded.get("uid")
     if not uid:
         raise HTTPException(

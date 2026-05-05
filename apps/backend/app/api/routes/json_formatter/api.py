@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 
 from app.api.routes.auth.services import get_current_uid
 from app.api.routes.json_formatter import services as jf_svc
@@ -12,8 +12,12 @@ router = APIRouter(prefix="/json-formatter", tags=["json-formatter"])
 
 
 @router.get("/documents", response_model=list[JsonFormatterDocumentOut], summary="List saved JSON documents")
-async def list_documents(uid: str = Depends(get_current_uid)) -> list[JsonFormatterDocumentOut]:
-    return await jf_svc.list_documents(uid)
+async def list_documents(
+    uid: str = Depends(get_current_uid),
+    skip: int = Query(default=0, ge=0),
+    limit: int = Query(default=200, ge=1, le=1000),
+) -> list[JsonFormatterDocumentOut]:
+    return await jf_svc.list_documents_paginated(uid, skip=skip, limit=limit)
 
 
 @router.post("/documents", response_model=JsonFormatterDocumentOut, summary="Save new JSON document")
