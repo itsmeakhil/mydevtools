@@ -3342,7 +3342,8 @@
       "heroAddConnection": "添加连接",
       "vaultLockedTitle": "保险库已锁定",
       "vaultLockedDesc": "解锁保险库以访问已保存的连接。"
-    },
+    }
+  },
   "Minesweeper": {
     "title": "扫雷",
     "subtitle": "找出所有安全格子，不要引爆地雷",
