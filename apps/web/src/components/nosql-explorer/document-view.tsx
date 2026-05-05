@@ -12,9 +12,10 @@ import {
     IconHistory, IconX, IconDownload, IconMaximize, IconChevronLeft,
     IconChevronRight, IconServer, IconDatabase, IconFolder, IconFolderOpen,
     IconRowInsertBottom, IconLayoutRows, IconArrowsMaximize, IconArrowsMinimize,
-    IconUpload, IconListDetails, IconSchema,
+    IconUpload, IconListDetails, IconSchema, IconArrowsExchange, IconChevronDown,
 } from "@tabler/icons-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import Editor from "@/components/lazy/LazyMonaco";
@@ -393,6 +394,7 @@ export function DocumentView({
     const [isInsertDialogOpen, setIsInsertDialogOpen] = useState(false);
     const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
     const [isImportDialogOpen, setIsImportDialogOpen] = useState(false);
+    const [isImportExportChooserOpen, setIsImportExportChooserOpen] = useState(false);
     const [editorContent, setEditorContent] = useState("");
     const [viewValue, setViewValue] = useState<string>("");
     const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
@@ -406,6 +408,16 @@ export function DocumentView({
     const [indexesLoading, setIndexesLoading] = useState(false);
     const [indexesError, setIndexesError] = useState<string | null>(null);
     const { theme } = useTheme();
+
+    const openImportFromChooser = () => {
+        setIsImportExportChooserOpen(false);
+        setIsImportDialogOpen(true);
+    };
+
+    const openExportFromChooser = () => {
+        setIsImportExportChooserOpen(false);
+        setIsExportDialogOpen(true);
+    };
 
     useEffect(() => {
         setJsonViewContent(JSON.stringify(documents, null, 2));
@@ -577,6 +589,14 @@ export function DocumentView({
 
     const showSelectMode = viewMode === 'table' && !!onBulkDelete;
 
+    const viewModeOptions = [
+        { mode: 'table', icon: IconTable, label: t("table") },
+        { mode: 'json', icon: IconJson, label: t("json") },
+        { mode: 'tree', icon: IconBinaryTree, label: t("tree") },
+        { mode: 'schema', icon: IconListDetails, label: t("schema") },
+        { mode: 'indexes', icon: IconDatabase, label: t("indexes") },
+    ] as const;
+
     return (
         <div className="flex flex-col h-full">
             {/* Breadcrumb */}
@@ -619,37 +639,59 @@ export function DocumentView({
                     />
                 </div>
 
-                <div className="flex w-full md:w-auto items-center justify-between md:justify-end gap-2 md:gap-4 overflow-x-auto no-scrollbar">
-                    {/* View mode switcher */}
-                    <div className="flex items-center bg-muted/50 p-1 rounded-lg border flex-shrink-0">
-                        <TooltipProvider>
-                            {[
-                                { mode: 'table', icon: IconTable, label: t("table"), tooltip: t("tooltipTable") },
-                                { mode: 'json', icon: IconJson, label: t("json"), tooltip: t("tooltipJson") },
-                                { mode: 'tree', icon: IconBinaryTree, label: t("tree"), tooltip: t("tooltipTree") },
-                                { mode: 'schema', icon: IconListDetails, label: 'Schema', tooltip: 'Collection Schema' },
-                                { mode: 'indexes', icon: IconDatabase, label: 'Indexes', tooltip: 'Index Manager' },
-                            ].map(({ mode, icon: Icon, label, tooltip }) => (
-                                <Tooltip key={mode}>
-                                    <TooltipTrigger asChild>
-                                        <Button
-                                            variant={viewMode === mode ? "secondary" : "ghost"}
-                                            size="sm"
-                                            className={cn("h-7 px-2 md:px-3 text-xs", viewMode === mode && "bg-background shadow-sm")}
-                                            onClick={() => setViewMode(mode as any)}
-                                        >
-                                            <Icon className="h-3.5 w-3.5 md:mr-1.5" />
-                                            <span className="hidden md:inline">{label}</span>
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent>{tooltip}</TooltipContent>
-                                </Tooltip>
+                <div className="flex w-full md:w-auto items-center justify-between md:justify-end gap-1.5 md:gap-2 overflow-x-auto no-scrollbar">
+                    {/* View mode dropdown */}
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="outline" size="sm" className="h-8 gap-1.5 text-xs px-2.5 flex-shrink-0">
+                                {(() => {
+                                    const ActiveIcon = viewModeOptions.find(o => o.mode === viewMode)?.icon ?? IconTable;
+                                    return <ActiveIcon className="h-3.5 w-3.5" />;
+                                })()}
+                                <span className="hidden sm:inline">{viewModeOptions.find(o => o.mode === viewMode)?.label ?? t("table")}</span>
+                                <IconChevronDown className="h-3 w-3 opacity-50" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="start" className="min-w-[160px]">
+                            {viewModeOptions.map(({ mode, icon: Icon, label }) => (
+                                <DropdownMenuItem
+                                    key={mode}
+                                    onClick={() => setViewMode(mode as any)}
+                                    className={cn("gap-2 text-xs", viewMode === mode && "bg-accent font-medium")}
+                                >
+                                    <Icon className="h-3.5 w-3.5" />
+                                    {label}
+                                </DropdownMenuItem>
                             ))}
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+
+                    {/* Contextual view actions */}
+                    {viewMode === "tree" && (
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button variant="ghost" size="icon" onClick={() => setTreeExpandAll(true)} className="h-8 w-8">
+                                        <IconArrowsMaximize className="h-3.5 w-3.5" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>{t("expandAll")}</TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button variant="ghost" size="icon" onClick={() => setTreeExpandAll(false)} className="h-8 w-8">
+                                        <IconArrowsMinimize className="h-3.5 w-3.5" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>{t("collapseAll")}</TooltipContent>
+                            </Tooltip>
                         </TooltipProvider>
-                    </div>
+                    )}
+
+                    <div className="h-4 w-[1px] bg-border hidden md:block flex-shrink-0" />
 
                     {/* Pagination */}
-                    <div className="flex items-center gap-1 border rounded-md bg-background shadow-sm h-7 px-1 flex-shrink-0">
+                    <div className="flex items-center gap-0.5 border rounded-md bg-background shadow-sm h-8 px-1 flex-shrink-0">
                         <select
                             className="h-full bg-transparent text-[10px] font-mono text-muted-foreground border-none outline-none cursor-pointer"
                             value={limit}
@@ -659,65 +701,45 @@ export function DocumentView({
                                 <option key={val} value={val}>{t("perPage", { n: val })}</option>
                             ))}
                         </select>
-                        <div className="w-[1px] h-3 bg-border mx-1" />
-                        <Button variant="ghost" size="icon" className="h-5 w-5 rounded-sm" onClick={() => onPageChange(page - 1)} disabled={page <= 1}>
+                        <div className="w-[1px] h-3 bg-border mx-0.5" />
+                        <Button variant="ghost" size="icon" className="h-6 w-6 rounded-sm" onClick={() => onPageChange(page - 1)} disabled={page <= 1}>
                             <IconChevronLeft className="h-3.5 w-3.5" />
                         </Button>
-                        <span className="text-[10px] font-mono text-muted-foreground px-1 min-w-[30px] md:min-w-[60px] text-center">
-                            {page} / {totalPages}
+                        <span className="text-[10px] font-mono text-muted-foreground px-1 min-w-[30px] md:min-w-[50px] text-center">
+                            {page}/{totalPages}
                         </span>
-                        <Button variant="ghost" size="icon" className="h-5 w-5 rounded-sm" onClick={() => onPageChange(page + 1)} disabled={page >= totalPages}>
+                        <Button variant="ghost" size="icon" className="h-6 w-6 rounded-sm" onClick={() => onPageChange(page + 1)} disabled={page >= totalPages}>
                             <IconChevronRight className="h-3.5 w-3.5" />
                         </Button>
                     </div>
 
-                    <div className="h-4 w-[1px] bg-border hidden md:block" />
+                    <div className="h-4 w-[1px] bg-border hidden md:block flex-shrink-0" />
 
-                    <div className="flex items-center gap-2 flex-shrink-0 ml-auto md:ml-0">
+                    {/* Actions */}
+                    <div className="flex items-center gap-1 flex-shrink-0 ml-auto md:ml-0">
                         <TooltipProvider>
-                            {viewMode === "tree" && (
-                                <>
-                                    <Tooltip>
-                                        <TooltipTrigger asChild>
-                                            <Button variant="ghost" size="icon" onClick={() => setTreeExpandAll(true)} className="h-9 w-9">
-                                                <IconArrowsMaximize className="h-4 w-4" />
-                                            </Button>
-                                        </TooltipTrigger>
-                                        <TooltipContent>{t("expandAll")}</TooltipContent>
-                                    </Tooltip>
-                                    <Tooltip>
-                                        <TooltipTrigger asChild>
-                                            <Button variant="ghost" size="icon" onClick={() => setTreeExpandAll(false)} className="h-9 w-9">
-                                                <IconArrowsMinimize className="h-4 w-4" />
-                                            </Button>
-                                        </TooltipTrigger>
-                                        <TooltipContent>{t("collapseAll")}</TooltipContent>
-                                    </Tooltip>
-                                </>
-                            )}
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Button variant="ghost" size="icon" onClick={onRefresh} disabled={loading} className="h-9 w-9">
-                                        <IconRefresh className={cn("h-4 w-4", loading && "animate-spin")} />
+                                    <Button variant="ghost" size="icon" onClick={onRefresh} disabled={loading} className="h-8 w-8">
+                                        <IconRefresh className={cn("h-3.5 w-3.5", loading && "animate-spin")} />
                                     </Button>
                                 </TooltipTrigger>
                                 <TooltipContent>{t("refreshData")}</TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
 
-                        <Button size="sm" onClick={openInsertDialog} className="h-9 px-2 md:px-4">
-                            <IconPlus className="h-4 w-4 md:mr-1.5" />
+                        <Button size="sm" onClick={openInsertDialog} className="h-8 px-2 md:px-3 text-xs">
+                            <IconPlus className="h-3.5 w-3.5 md:mr-1" />
                             <span className="hidden md:inline">{t("insert")}</span>
                         </Button>
-                        {onImport && (
-                            <Button size="sm" variant="outline" onClick={() => setIsImportDialogOpen(true)} className="h-9 px-2 md:px-4">
-                                <IconUpload className="h-4 w-4 md:mr-1.5" />
-                                <span className="hidden md:inline">Import</span>
-                            </Button>
-                        )}
-                        <Button size="sm" variant="outline" onClick={() => setIsExportDialogOpen(true)} className="h-9 px-2 md:px-4">
-                            <IconDownload className="h-4 w-4 md:mr-1.5" />
-                            <span className="hidden md:inline">{t("export")}</span>
+                        <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => setIsImportExportChooserOpen(true)}
+                            className="h-8 px-2 md:px-3 text-xs"
+                        >
+                            <IconArrowsExchange className="h-3.5 w-3.5 md:mr-1" />
+                            <span className="hidden md:inline">{t("importExport")}</span>
                         </Button>
                     </div>
                 </div>
@@ -818,17 +840,15 @@ export function DocumentView({
                                     <p className="font-medium text-foreground">{t("emptyCollectionTitle")}</p>
                                     <p className="text-sm text-muted-foreground mt-1">{t("emptyCollectionHint")}</p>
                                 </div>
-                                <div className="flex gap-2">
+                                <div className="flex flex-wrap gap-2 justify-center">
                                     <Button size="sm" onClick={openInsertDialog}>
                                         <IconPlus className="h-3.5 w-3.5 mr-1.5" />
                                         {t("insertDocument")}
                                     </Button>
-                                    {onImport && (
-                                        <Button size="sm" variant="outline" onClick={() => setIsImportDialogOpen(true)}>
-                                            <IconUpload className="h-3.5 w-3.5 mr-1.5" />
-                                            Import JSON
-                                        </Button>
-                                    )}
+                                    <Button size="sm" variant="outline" onClick={() => setIsImportExportChooserOpen(true)}>
+                                        <IconArrowsExchange className="h-3.5 w-3.5 mr-1.5" />
+                                        {t("importExport")}
+                                    </Button>
                                 </div>
                             </>
                         )}
@@ -1079,6 +1099,49 @@ export function DocumentView({
                     <DialogFooter>
                         <Button onClick={() => setIsViewDialogOpen(false)}>{t("close")}</Button>
                     </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            <Dialog open={isImportExportChooserOpen} onOpenChange={setIsImportExportChooserOpen}>
+                <DialogContent className="sm:max-w-sm p-0 gap-0 overflow-hidden">
+                    <DialogHeader className="px-5 pt-5 pb-3">
+                        <DialogTitle className="text-base">{t("importExportTitle")}</DialogTitle>
+                        <DialogDescription className="text-xs">
+                            {t("importExportDescription")}
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="px-3 pb-4 space-y-1.5">
+                        {onImport && (
+                            <button
+                                type="button"
+                                className="w-full flex items-center gap-3 rounded-lg px-3 py-3 text-left transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
+                                onClick={openImportFromChooser}
+                            >
+                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors">
+                                    <IconUpload className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                                </div>
+                                <div className="min-w-0 flex-1">
+                                    <p className="text-sm font-medium">{t("import")}</p>
+                                    <p className="text-xs text-muted-foreground truncate">{t("importExportImportHint")}</p>
+                                </div>
+                                <IconChevronRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                            </button>
+                        )}
+                        <button
+                            type="button"
+                            className="w-full flex items-center gap-3 rounded-lg px-3 py-3 text-left transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
+                            onClick={openExportFromChooser}
+                        >
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 group-hover:bg-emerald-500/20 transition-colors">
+                                <IconDownload className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                                <p className="text-sm font-medium">{t("export")}</p>
+                                <p className="text-xs text-muted-foreground truncate">{t("importExportExportHint")}</p>
+                            </div>
+                            <IconChevronRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                        </button>
+                    </div>
                 </DialogContent>
             </Dialog>
 
