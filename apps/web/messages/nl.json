@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Klassieke nummerpuzzel. 3 moeilijkheidsgraden, elk 150 levels."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Blader door sleutels, bekijk waarden en voer opdrachten uit op elke Redis-instantie."
       }
     },
     "tabs": {

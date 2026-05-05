@@ -78,6 +78,8 @@ export default function ProfilePage() {
   const [isCollapsedBio, setIsCollapsedBio] = useState(true)
   const [editBioVal, setEditBioVal] = useState('')
 
+  const [isExportingResume, setIsExportingResume] = useState(false)
+
   const [experiences, setExperiences] = useState<Experience[]>([])
   const [projects, setProjects] = useState<Project[]>([])
   const [education, setEducation] = useState<Education[]>([])
@@ -205,20 +207,29 @@ export default function ProfilePage() {
   const displayName = user?.displayName || username || 'Your Name'
   const initials = displayName.charAt(0).toUpperCase()
 
-  const handleExportResume = () => {
-    generateResumePdf({
-      displayName,
-      email: user?.email,
-      username,
-      bio,
-      personalInfo,
-      socialLinks,
-      techStacks,
-      experiences,
-      projects,
-      education,
-      certifications,
-    })
+  const handleExportResume = async () => {
+    try {
+      setIsExportingResume(true)
+      await generateResumePdf({
+        displayName,
+        email: user?.email,
+        username,
+        bio,
+        personalInfo,
+        socialLinks,
+        techStacks,
+        experiences,
+        projects,
+        education,
+        certifications,
+      })
+      toast.success('Resume exported')
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Failed to export resume'
+      toast.error(msg)
+    } finally {
+      setIsExportingResume(false)
+    }
   }
 
   const completenessItems = [
@@ -249,10 +260,11 @@ export default function ProfilePage() {
           <Button
             variant="outline"
             onClick={handleExportResume}
+            disabled={isExportingResume}
             className="gap-2 shadow-sm rounded-full bg-muted/30 hover:bg-muted/60 border-border/50 hover:border-border transition-all"
           >
             <FileDown className="h-4 w-4" />
-            Export Resume
+            {isExportingResume ? 'Exporting…' : 'Export Resume'}
           </Button>
           {username && (
             <Button asChild variant="outline" className="gap-2 shadow-sm rounded-full bg-primary/5 hover:bg-primary/10 border-primary/20 hover:border-primary/40 text-primary transition-all">

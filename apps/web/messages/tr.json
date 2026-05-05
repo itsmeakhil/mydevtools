@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Klasik sayı bulmacası. 3 zorluk seviyesi, her biri 150 aşama."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Herhangi bir Redis örneğinde anahtarlara göz atın, değerleri inceleyin ve komutlar çalıştırın."
       }
     },
     "tabs": {

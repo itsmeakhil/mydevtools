@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Klassiskt nummerpussel. 3 svårighetsgrader, 150 steg vardera."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Bläddra bland nycklar, undersök värden och kör kommandon på valfri Redis-instans."
       }
     },
     "tabs": {

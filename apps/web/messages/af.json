@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Klassieke getal legkaart. 3 moeilikheidsgraad, 150 stadiums elk."
+      },
+      "redisCommander": {
+        "title": "Redis Bestuurder",
+        "description": "Blaai deur sleutels, inspekteer waardes en voer opdragte op Redis uit."
       }
     },
     "tabs": {

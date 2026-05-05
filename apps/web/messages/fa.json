@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "سودوکو",
         "description": "معمای اعداد کلاسیک. ۳ سطح دشواری، هر کدام ۱۵۰ مرحله."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "کلیدها را مرور کنید، مقادیر را بررسی کنید و دستورات را روی هر نمونه Redis اجرا کنید."
       }
     },
     "tabs": {

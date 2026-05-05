@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Klasické číslo puzzle. 3 úrovně obtížnosti, 150 stupňů každý."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Procházejte klíče, kontrolujte hodnoty a spouštějte příkazy na jakékoli instanci Redis."
       }
     },
     "tabs": {

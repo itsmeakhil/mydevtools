@@ -38,6 +38,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { exportBookmarksToHTML, exportBookmarksToJSON } from "@/lib/bookmark-parser"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function BookmarksManager() {
     const t = useTranslations("Bookmarks.manager")
@@ -520,8 +521,29 @@ export default function BookmarksManager() {
                             onToggleSelect={toggleBookmarkSelected}
                         />
                         {bmHasMore && (
-                            <div ref={bmSentinelRef} className="flex items-center justify-center py-8">
-                                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground/50" />
+                            <div className="space-y-4">
+                                <div ref={bmSentinelRef} className="flex items-center justify-center py-6">
+                                    <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground/50" />
+                                </div>
+                                <div
+                                    aria-hidden
+                                    className={cn(
+                                        viewMode === 'grid'
+                                            ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4"
+                                            : "flex flex-col gap-3"
+                                    )}
+                                >
+                                    {Array.from({ length: viewMode === 'grid' ? 4 : 3 }).map((_, idx) => (
+                                        <Skeleton
+                                            key={idx}
+                                            className={cn(
+                                                viewMode === 'grid'
+                                                    ? "h-32 rounded-xl border border-border/60"
+                                                    : "h-20 rounded-lg border border-border/60"
+                                            )}
+                                        />
+                                    ))}
+                                </div>
                             </div>
                         )}
                         {!bmHasMore && displayedBookmarks.length > 24 && (

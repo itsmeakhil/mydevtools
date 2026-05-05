@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Klasyczna łamigłówka z numerem. 3 poziomy trudności, po 150 etapów."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Przeglądaj klucze, sprawdzaj wartości i uruchamiaj polecenia na dowolnej instancji Redis."
       }
     },
     "tabs": {

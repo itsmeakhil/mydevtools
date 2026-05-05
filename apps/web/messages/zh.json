@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "数独",
         "description": "经典数字填空游戏。三种难度，每种 150 关。"
+      },
+      "redisCommander": {
+        "title": "Redis 指挥官",
+        "description": "浏览键、检查值并在任意 Redis 实例上执行命令。"
       }
     },
     "tabs": {

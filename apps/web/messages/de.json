@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Klassisches Zahlenrätsel. 3 Schwierigkeitsgrade mit je 150 Stufen."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Schlüssel durchsuchen, Werte prüfen und Befehle auf einer Redis-Instanz ausführen."
       }
     },
     "tabs": {

@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Rompecabezas de números clásicos. 3 niveles de dificultad, 150 etapas cada uno."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Explora claves, inspecciona valores y ejecuta comandos en cualquier instancia Redis."
       }
     },
     "tabs": {

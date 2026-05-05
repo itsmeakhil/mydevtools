@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Klassisk tallpuslespill. 3 vanskelighetsgrader, 150 nivåer hver."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Bla gjennom nøkler, undersøk verdier og kjør kommandoer på enhver Redis-instans."
       }
     },
     "tabs": {

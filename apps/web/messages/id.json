@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Teka - teki angka klasik. 3 tingkat kesulitan, masing - masing 150 tahap."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Jelajahi kunci, periksa nilai, dan jalankan perintah di instans Redis mana pun."
       }
     },
     "tabs": {

@@ -427,6 +427,10 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Câu đố số cổ điển. 3 cấp độ khó, mỗi cấp độ 150 cấp độ."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Duyệt khóa, kiểm tra giá trị và chạy lệnh trên bất kỳ phiên bản Redis nào."
       }
     },
     "tabs": {
