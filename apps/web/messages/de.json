@@ -50,7 +50,8 @@
     "dockerComposeGenerator": "Docker-Compose-Generator",
     "breakRoom": "Pausenraum",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Hilfe & Dokumentation",
@@ -3331,6 +3332,17 @@
     "powerSpeed": "Tempo x2",
     "powerShield": "Überlebt einen Tod",
     "powerShrink": "Kürzt den Schwanz"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Redis-Verbindungen",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Verbinden Sie sich mit Redis-Instanzen. Schlüssel durchsuchen, Werte bearbeiten und Befehle ausführen. Anmeldedaten werden im Browser verschlüsselt.",
+      "heroAddConnection": "Verbindung hinzufügen",
+      "vaultLockedTitle": "Tresor gesperrt",
+      "vaultLockedDesc": "Entsperren Sie den Tresor, um auf gespeicherte Verbindungen zuzugreifen."
+    }
   },
   "Minesweeper": {
     "title": "Minesweeper",

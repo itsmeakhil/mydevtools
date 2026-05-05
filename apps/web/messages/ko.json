@@ -50,7 +50,8 @@
     "dockerComposeGenerator": "Docker Compose 생성기",
     "breakRoom": "휴게실",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -3331,6 +3332,17 @@
     "powerSpeed": "속도 x2",
     "powerShield": "죽음 한 번 면제",
     "powerShrink": "꼬리 단축"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Redis 연결",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Redis 인스턴스에 연결합니다. 키를 탐색하고 값을 편집하며 명령을 실행합니다. 자격 증명은 브라우저에서 암호화됩니다.",
+      "heroAddConnection": "연결 추가",
+      "vaultLockedTitle": "볼트 잠김",
+      "vaultLockedDesc": "저장된 연결에 액세스하려면 볼트를 잠금 해제하세요."
+    }
   },
   "Minesweeper": {
     "title": "지뢰찾기",

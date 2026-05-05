@@ -50,7 +50,8 @@
     "dockerComposeGenerator": "تولیدکننده Docker Compose",
     "breakRoom": "اتاق استراحت؛",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -3331,6 +3332,17 @@
     "powerSpeed": "Speed x2 (10 ticks)",
     "powerShield": "Survive one death",
     "powerShrink": "Shortens tail"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "اتصالات Redis",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "به نمونه‌های Redis متصل شوید. کلیدها را مرور کنید، مقادیر را ویرایش کنید و دستورات را اجرا کنید. اعتبارنامه‌ها در مرورگر شما رمزگذاری می‌شوند.",
+      "heroAddConnection": "افزودن اتصال",
+      "vaultLockedTitle": "صندوق قفل است",
+      "vaultLockedDesc": "صندوق را باز کنید تا به اتصالات ذخیره شده دسترسی داشته باشید."
+    }
   },
   "Minesweeper": {
     "title": "مین‌یاب",

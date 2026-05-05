@@ -50,7 +50,8 @@
     "dockerComposeGenerator": "Gerador Docker Compose",
     "breakRoom": "Sala de descanso",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Ajuda e documentação",
@@ -3331,6 +3332,17 @@
     "powerSpeed": "Velocidade x2",
     "powerShield": "Sobrevive uma morte",
     "powerShrink": "Encurta a cauda"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Ligações Redis",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Ligue-se a instâncias Redis. Navegue por chaves, edite valores e execute comandos. As credenciais são encriptadas no navegador.",
+      "heroAddConnection": "Adicionar ligação",
+      "vaultLockedTitle": "Cofre bloqueado",
+      "vaultLockedDesc": "Desbloqueie o cofre para aceder às ligações guardadas."
+    }
   },
   "Minesweeper": {
     "title": "Campo minado",

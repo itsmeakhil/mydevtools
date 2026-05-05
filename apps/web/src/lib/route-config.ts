@@ -109,6 +109,7 @@ export const routeConfig: Record<string, RouteConfig> = {
   '/app/user-agent-parser': { title: 'User Agent Parser', icon: UserCheck },
   '/app/sql-client': { title: 'SQL Client', icon: Server },
   '/app/s3-drive': { title: 'S3 Drive', icon: HardDrive },
+  '/app/redis-commander': { title: 'Redis Commander', icon: Database },
   '/app/break-room/2048': { title: '2048', icon: Gamepad2 },
   '/app/break-room/sudoku': { title: 'Sudoku', icon: Gamepad2 },
   '/app/break-room/snake': { title: 'Snake', icon: Gamepad2 },

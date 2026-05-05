@@ -50,7 +50,8 @@
     "dockerComposeGenerator": "Generador Docker Compose",
     "breakRoom": "Sala de descans",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -3331,36 +3332,5 @@
     "powerSpeed": "Velocitat x2",
     "powerShield": "Sobreviu una mort",
     "powerShrink": "Escurça la cua"
-  },
-  "Minesweeper": {
-    "title": "Buscamines",
-    "subtitle": "Troba totes les cel·les segures sense detonar una mina",
-    "mines": "Mines",
-    "newGame": "Nova partida",
-    "win": "Has guanyat!",
-    "loss": "Has perdut!",
-    "playAgain": "Torna a jugar",
-    "tryAgain": "Torna-ho a provar",
-    "startPrompt": "Fes clic a qualsevol cel·la per començar",
-    "difficulty": {
-      "beginner": "Principiant",
-      "intermediate": "Intermedi",
-      "expert": "Expert"
-    }
-  },
-  "Tetris": {
-    "title": "Tetris",
-    "subtitle": "Organitza els blocs que cauen per completar files",
-    "next": "Següent",
-    "score": "Puntuació",
-    "best": "Millor",
-    "lines": "Línies",
-    "level": "Nivell",
-    "pause": "Pausa",
-    "resume": "Reprèn",
-    "start": "Comença",
-    "restart": "Reinicia",
-    "paused": "En pausa",
-    "gameOver": "Fi de partida"
   }
 }

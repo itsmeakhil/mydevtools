@@ -50,7 +50,8 @@
     "dockerComposeGenerator": "Δημιουργός Docker Compose",
     "breakRoom": "Αίθουσα διαλειμμάτων",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",
@@ -3331,6 +3332,17 @@
     "powerSpeed": "Ταχύτητα x2",
     "powerShield": "Επιβίωση θανάτου",
     "powerShrink": "Συντομεύει ουρά"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Συνδέσεις Redis",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Συνδεθείτε σε στιγμιότυπα Redis. Περιηγηθείτε σε κλειδιά, επεξεργαστείτε τιμές και εκτελέστε εντολές. Τα διαπιστευτήρια κρυπτογραφούνται στο πρόγραμμα περιήγησής σας.",
+      "heroAddConnection": "Προσθήκη σύνδεσης",
+      "vaultLockedTitle": "Θησαυροφυλάκιο κλειδωμένο",
+      "vaultLockedDesc": "Ξεκλειδώστε το θησαυροφυλάκιο για πρόσβαση στις αποθηκευμένες συνδέσεις."
+    }
   },
   "Minesweeper": {
     "title": "Ναρκαλιευτής",

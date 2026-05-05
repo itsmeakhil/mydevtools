@@ -50,7 +50,8 @@
     "dockerComposeGenerator": "Trình tạo Docker Compose",
     "breakRoom": "Phòng Nghỉ",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -3331,6 +3332,17 @@
     "powerSpeed": "Speed x2 (10 ticks)",
     "powerShield": "Survive one death",
     "powerShrink": "Shortens tail"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Kết nối Redis",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Kết nối với các phiên bản Redis. Duyệt khóa, chỉnh sửa giá trị và chạy lệnh. Thông tin xác thực được mã hóa trong trình duyệt của bạn.",
+      "heroAddConnection": "Thêm kết nối",
+      "vaultLockedTitle": "Kho bị khóa",
+      "vaultLockedDesc": "Mở khóa kho của bạn để truy cập các kết nối đã lưu."
+    }
   },
   "Minesweeper": {
     "title": "Dò mìn",

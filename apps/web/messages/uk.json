@@ -50,7 +50,8 @@
     "dockerComposeGenerator": "Генератор Docker Compose",
     "breakRoom": "Кімната відпочинку",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Довідка та документація",
@@ -3331,6 +3332,17 @@
     "powerSpeed": "Швидкість x2",
     "powerShield": "Пережити одну смерть",
     "powerShrink": "Вкорочує хвіст"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Підключення Redis",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Підключайтеся до екземплярів Redis. Переглядайте ключі, редагуйте значення та виконуйте команди. Облікові дані шифруються у браузері.",
+      "heroAddConnection": "Додати підключення",
+      "vaultLockedTitle": "Сховище заблоковано",
+      "vaultLockedDesc": "Розблокуйте сховище для доступу до збережених підключень."
+    }
   },
   "Minesweeper": {
     "title": "Сапер",

@@ -50,7 +50,8 @@
     "dockerComposeGenerator": "Generator Docker Compose",
     "breakRoom": "Ruang Istirahat",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -3331,6 +3332,17 @@
     "powerSpeed": "Kecepatan x2",
     "powerShield": "Bertahan dari kematian",
     "powerShrink": "Mempersingkat ekor"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Koneksi Redis",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Hubungkan ke instans Redis. Jelajahi kunci, edit nilai, dan jalankan perintah. Kredensial dienkripsi di browser Anda.",
+      "heroAddConnection": "Tambah Koneksi",
+      "vaultLockedTitle": "Vault Terkunci",
+      "vaultLockedDesc": "Buka kunci vault untuk mengakses koneksi yang tersimpan."
+    }
   },
   "Minesweeper": {
     "title": "Penyapu Ranjau",

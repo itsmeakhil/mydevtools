@@ -50,7 +50,8 @@
     "dockerComposeGenerator": "Docker Compose ジェネレーター",
     "breakRoom": "休憩室",
     "game2048": "2048",
-    "sudoku": "Sudoku"
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -3331,6 +3332,17 @@
     "powerSpeed": "速度 x2",
     "powerShield": "死を一回回避",
     "powerShrink": "尾を短縮"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Redis接続",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Redisインスタンスに接続します。キーを閲覧し、値を編集し、コマンドを実行します。認証情報はブラウザで暗号化されます。",
+      "heroAddConnection": "接続を追加",
+      "vaultLockedTitle": "ボルトがロックされています",
+      "vaultLockedDesc": "保存された接続にアクセスするにはボルトをアンロックしてください。"
+    }
   },
   "Minesweeper": {
     "title": "マインスイーパー",

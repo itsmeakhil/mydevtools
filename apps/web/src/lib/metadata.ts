@@ -73,6 +73,12 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: 'Explore and manage your MongoDB databases directly from your browser.',
         keywords: ['nosql explorer', 'mongodb manager', 'database explorer', 'mongo ui', 'mongodb browser']
     },
+    'redis-commander': {
+        title: 'Redis Commander',
+        description: 'Browse keys, inspect values, run raw commands, and flush patterns against any Redis instance. Credentials are encrypted in your browser.',
+        keywords: ['redis client', 'redis manager', 'redis browser', 'redis gui', 'redis commander', 'redis keys', 'redis cli'],
+        aiSummary: 'Redis Commander lets you connect to Redis instances, browse and edit all key types (string, list, set, zset, hash), run raw commands via a console, and flush keys by pattern — with credentials encrypted locally.',
+    },
     's3-drive': {
         title: 'S3 Drive',
         description: 'Manage AWS S3 and DigitalOcean Spaces buckets. Browse, upload, download, and delete files with end-to-end encrypted credentials.',
