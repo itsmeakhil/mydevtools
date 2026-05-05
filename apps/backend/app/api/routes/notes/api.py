@@ -11,8 +11,12 @@ router = APIRouter(prefix="/notes", tags=["notes"])
 
 
 @router.get("", response_model=list[NoteOut], summary="List notes for current user")
-async def list_notes(uid: str = Depends(get_current_uid)) -> list[NoteOut]:
-    return await note_svc.list_notes(uid)
+async def list_notes(
+    uid: str = Depends(get_current_uid),
+    skip: int = Query(default=0, ge=0),
+    limit: int = Query(default=200, ge=1, le=1000),
+) -> list[NoteOut]:
+    return await note_svc.list_notes_paginated(uid, skip=skip, limit=limit)
 
 
 @router.post("", response_model=NoteOut, summary="Create a note")

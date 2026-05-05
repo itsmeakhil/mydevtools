@@ -29,8 +29,16 @@ async def export_tasks(
     uid: str = Depends(get_current_uid),
     status: str = Query(default="all"),
     project_id: str = Query(default="all", alias="projectId"),
+    skip: int = Query(default=0, ge=0),
+    limit: int = Query(default=2000, ge=1, le=10000),
 ) -> list[TaskOut]:
-    return await task_svc.export_tasks(uid, status_filter=status, project_filter=project_id)
+    return await task_svc.export_tasks(
+        uid,
+        status_filter=status,
+        project_filter=project_id,
+        skip=skip,
+        limit=limit,
+    )
 
 
 @tasks_router.post("/import", summary="Batch import tasks")

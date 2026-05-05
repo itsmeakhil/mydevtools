@@ -43,7 +43,22 @@ def _doc_to_out(doc: dict[str, Any]) -> NoteOut:
 
 
 async def list_notes(uid: str) -> list[NoteOut]:
-    docs = await db_manager.find(NOTES, {"created_by": uid}, sort=[("createdAt", 1)])
+    docs = await db_manager.find(
+        NOTES,
+        {"created_by": uid},
+        sort=[("createdAt", 1)],
+    )
+    return [_doc_to_out(d) for d in docs]
+
+
+async def list_notes_paginated(uid: str, *, skip: int = 0, limit: int = 200) -> list[NoteOut]:
+    docs = await db_manager.find(
+        NOTES,
+        {"created_by": uid},
+        sort=[("createdAt", 1)],
+        skip=max(0, skip),
+        limit=max(1, limit),
+    )
     return [_doc_to_out(d) for d in docs]
 
 

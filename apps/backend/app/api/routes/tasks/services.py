@@ -137,9 +137,22 @@ async def get_task_stats(uid: str) -> TaskStatsOut:
     )
 
 
-async def export_tasks(uid: str, *, status_filter: str = "all", project_filter: str = "all") -> list[TaskOut]:
+async def export_tasks(
+    uid: str,
+    *,
+    status_filter: str = "all",
+    project_filter: str = "all",
+    skip: int = 0,
+    limit: int = 2000,
+) -> list[TaskOut]:
     filt = _task_filter(uid, status_filter, project_filter)
-    docs = await db_manager.find(TASKS, filt, sort=[("statusOrder", 1), ("createdAt", -1)])
+    docs = await db_manager.find(
+        TASKS,
+        filt,
+        sort=[("statusOrder", 1), ("createdAt", -1)],
+        skip=max(0, skip),
+        limit=max(1, limit),
+    )
     return [_task_doc_to_out(d) for d in docs]
 
 

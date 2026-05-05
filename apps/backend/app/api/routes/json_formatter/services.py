@@ -57,6 +57,17 @@ async def list_documents(uid: str) -> list[JsonFormatterDocumentOut]:
     return [_doc_to_out(d) for d in docs]
 
 
+async def list_documents_paginated(uid: str, *, skip: int = 0, limit: int = 200) -> list[JsonFormatterDocumentOut]:
+    docs = await db_manager.find(
+        JSON,
+        {"created_by": uid},
+        sort=[("updatedAt", -1)],
+        skip=max(0, skip),
+        limit=max(1, limit),
+    )
+    return [_doc_to_out(d) for d in docs]
+
+
 async def create_document(uid: str, body: JsonFormatterDocumentCreate) -> JsonFormatterDocumentOut:
     now = datetime.now(timezone.utc)
     doc: dict[str, Any] = {

@@ -1,6 +1,7 @@
 from typing import Any, Optional
 
 from fastapi import HTTPException, status
+from pymongo import ReplaceOne
 from pymongo.errors import PyMongoError
 from pymongo import ReturnDocument
 from app.utils.utils import new_id, create_timestamp, is_duplicate_key_error
@@ -138,6 +139,8 @@ async def delete_bookmark(uid: str, bookmark_id: str) -> None:
 async def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]:
     folder_count = 0
     bookmark_count = 0
+    folder_ops: list[ReplaceOne] = []
+    bookmark_ops: list[ReplaceOne] = []
     try:
         for raw in body.folders:
             row = dict(raw)
@@ -155,7 +158,13 @@ async def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]
                 "isExpanded": row.get("isExpanded", False),
                 "createdAt": int(row.get("createdAt", create_timestamp())),
             }
-            await db_manager.replace_one(FOLDERS, {"_id": doc["_id"], "created_by": uid}, doc, upsert=True)
+            folder_ops.append(
+                ReplaceOne(
+                    {"_id": doc["_id"], "created_by": uid},
+                    doc,
+                    upsert=True,
+                )
+            )
             folder_count += 1
 
         for raw in body.bookmarks:
@@ -177,8 +186,19 @@ async def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]
                 "createdAt": int(row.get("createdAt", ts)),
                 "updatedAt": int(row.get("updatedAt", ts)),
             }
-            await db_manager.replace_one(BOOKMARKS, {"_id": doc["_id"], "created_by": uid}, doc, upsert=True)
+            bookmark_ops.append(
+                ReplaceOne(
+                    {"_id": doc["_id"], "created_by": uid},
+                    doc,
+                    upsert=True,
+                )
+            )
             bookmark_count += 1
+
+        if folder_ops:
+            await db_manager.bulk_write(FOLDERS, folder_ops, ordered=False)
+        if bookmark_ops:
+            await db_manager.bulk_write(BOOKMARKS, bookmark_ops, ordered=False)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to import bookmarks."

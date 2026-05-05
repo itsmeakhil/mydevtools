@@ -5,6 +5,7 @@ import { Task, NewTask } from "@/app/app/to-do/types/Task";
 import { format } from "date-fns";
 import useAuth, { AuthState } from "@/utils/useAuth";
 import { backendFetch } from "@/lib/backend-auth";
+import { fetchAllPages } from "@/lib/fetch-all-pages";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 
@@ -46,6 +47,7 @@ interface StatusOrderMap {
 }
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
+const TASK_EXPORT_PAGE_SIZE = 1000;
 
 export function TaskProvider({ children }: { children: React.ReactNode }) {
   const { user }: AuthState = useAuth(); // Single declaration of user
@@ -417,11 +419,18 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
 
   const getFilteredTasksForExport = async (): Promise<Task[]> => {
     if (!user) return [];
-    const params = new URLSearchParams();
-    params.set("status", filterStatus);
-    params.set("projectId", filterProject);
-    const res = await authedFetch(`/api/backend/tasks/export?${params.toString()}`, { method: "GET" });
-    return (await res.json()) as Task[];
+    return fetchAllPages<Task>({
+      pageSize: TASK_EXPORT_PAGE_SIZE,
+      fetchPage: async (skip, limit) => {
+        const params = new URLSearchParams();
+        params.set("status", filterStatus);
+        params.set("projectId", filterProject);
+        params.set("skip", String(skip));
+        params.set("limit", String(limit));
+        const res = await authedFetch(`/api/backend/tasks/export?${params.toString()}`, { method: "GET" });
+        return (await res.json()) as Task[];
+      },
+    });
   };
 
   return (

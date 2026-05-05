@@ -13,6 +13,7 @@ import {
 } from '@tabler/icons-react'
 import { toast } from 'sonner'
 import { Mode, toTextContent, type Content, type OnChangeStatus } from 'vanilla-jsoneditor'
+import { fetchAllPages } from '@/lib/fetch-all-pages'
 import { Card, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { SendToMenu } from '@/components/ui/send-to-menu'
@@ -62,6 +63,8 @@ type JsonFormatterDocumentOut = {
   createdAt: string
   updatedAt: string
 }
+
+const DOCS_PAGE_SIZE = 500
 
 const createPaneState = (initialName: string): PaneState => ({
   content: { json: initialJson },
@@ -226,9 +229,17 @@ export function JsonFormatterLayout() {
   }
 
   const fetchDocuments = async () => {
-    const res = await authedFetch('/api/backend/json-formatter/documents')
-    const list = (await res.json()) as JsonFormatterDocumentOut[]
-    setDocs(Array.isArray(list) ? list : [])
+    const allDocs = await fetchAllPages<JsonFormatterDocumentOut>({
+      pageSize: DOCS_PAGE_SIZE,
+      fetchPage: async (skip, limit) => {
+        const res = await authedFetch(
+          `/api/backend/json-formatter/documents?skip=${skip}&limit=${limit}`
+        )
+        return (await res.json()) as JsonFormatterDocumentOut[]
+      },
+    })
+
+    setDocs(allDocs)
   }
 
   const openLoadDialog = async (pane: PaneKey) => {
