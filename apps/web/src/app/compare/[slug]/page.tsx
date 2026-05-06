@@ -25,8 +25,9 @@ export async function generateMetadata({
   if (!page) return { title: 'Comparison Not Found' }
 
   const url = `${baseUrl}/compare/${slug}`
+  const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(page.title)}&description=${encodeURIComponent(page.description)}`
   return {
-    title: page.title,
+    title: { absolute: `${page.title} | MyDevTools` },
     description: page.description,
     alternates: { canonical: url },
     openGraph: {
@@ -35,11 +36,13 @@ export async function generateMetadata({
       url,
       siteName: 'MyDevTools',
       type: 'article',
+      images: [{ url: ogImage, width: 1200, height: 630, alt: page.title }],
     },
     twitter: {
       card: 'summary_large_image',
       title: `${page.title} | MyDevTools`,
       description: page.description,
+      images: [ogImage],
     },
   }
 }

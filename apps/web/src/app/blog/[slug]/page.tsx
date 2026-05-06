@@ -24,11 +24,11 @@ export async function generateMetadata({
 
   const url = `${baseUrl}/blog/${slug}`
   const title = `${post.title} | MyDevTools Blog`
+  const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(post.title)}&description=${encodeURIComponent(post.description)}`
 
   return {
-    title,
+    title: { absolute: title },
     description: post.description,
-    keywords: post.keywords,
     alternates: { canonical: url },
     openGraph: {
       title,
@@ -38,11 +38,13 @@ export async function generateMetadata({
       type: 'article',
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt ?? post.publishedAt,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: post.title }],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description: post.description,
+      images: [ogImage],
     },
   }
 }
@@ -59,8 +61,25 @@ export default async function BlogPostPage({
   const relatedTool = post.toolSlug ? toolsMetadata[post.toolSlug] : null
   const toolUrl = post.toolSlug ? `/tools/${post.toolSlug}` : null
   const appUrl = post.toolSlug ? `/app/${post.toolSlug}` : null
+  const relatedPosts = blogPosts
+    .filter((candidate) => candidate.slug !== post.slug)
+    .map((candidate) => {
+      const sharedKeywords = candidate.keywords.filter((keyword) =>
+        post.keywords.includes(keyword),
+      ).length
+      const score =
+        (candidate.category === post.category ? 3 : 0) +
+        (candidate.toolSlug && candidate.toolSlug === post.toolSlug ? 4 : 0) +
+        sharedKeywords
+      return { post: candidate, score }
+    })
+    .filter((entry) => entry.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3)
+    .map((entry) => entry.post)
 
   const url = `${baseUrl}/blog/${slug}`
+  const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(post.title)}&description=${encodeURIComponent(post.description)}`
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -80,8 +99,14 @@ export default async function BlogPostPage({
           name: 'MyDevTools',
           url: baseUrl,
         },
+        author: {
+          '@type': 'Organization',
+          name: 'MyDevTools',
+          url: baseUrl,
+        },
         breadcrumb: { '@id': `${url}#breadcrumb` },
         mainEntityOfPage: { '@id': url },
+        image: ogImage,
       },
       {
         '@type': 'BreadcrumbList',
@@ -288,6 +313,33 @@ export default async function BlogPostPage({
                     View tool details
                   </Link>
                 </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {relatedPosts.length > 0 && (
+          <section className="py-12 md:py-16 border-t border-border/40 bg-muted/20">
+            <div className="container mx-auto max-w-3xl px-4 md:px-6">
+              <h2 className="text-2xl md:text-3xl font-bold mb-8">
+                Related developer guides
+              </h2>
+              <div className="grid gap-4">
+                {relatedPosts.map((relatedPost) => (
+                  <Link
+                    key={relatedPost.slug}
+                    href={`/blog/${relatedPost.slug}`}
+                    className="group rounded-2xl border border-border/50 bg-background/60 p-5 transition-all hover:bg-muted/30 hover:border-border/80 hover:scale-[1.01]"
+                  >
+                    <h3 className="mb-2 flex items-start gap-1.5 font-semibold">
+                      {relatedPost.title}
+                      <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+                    </h3>
+                    <p className="text-sm leading-relaxed text-muted-foreground line-clamp-2">
+                      {relatedPost.description}
+                    </p>
+                  </Link>
+                ))}
               </div>
             </div>
           </section>

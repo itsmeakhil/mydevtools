@@ -345,6 +345,61 @@ export const comparisonPages: ComparisonPage[] = [
     ],
   },
   {
+    slug: 'mydevtools-vs-postman',
+    title: 'MyDevTools vs Postman',
+    description:
+      'Compare MyDevTools with Postman for browser-based API testing, developer utilities, JSON formatting, JWT decoding, and lightweight request debugging.',
+    eyebrow: 'Comparison',
+    heading: 'MyDevTools vs Postman: lightweight browser API testing',
+    intro:
+      'Postman is a full API platform for teams, collections, environments, and API lifecycle workflows. MyDevTools is a browser-based developer toolkit with a lightweight API client plus JSON, JWT, URL, timestamp, mock data, and security tools for quick debugging sessions.',
+    competitor: 'Postman',
+    toolSlug: 'api-client',
+    primaryCta: { href: '/tools/api-client', label: 'Try API Client' },
+    sections: [
+      {
+        title: 'Choose Postman when',
+        body:
+          'Postman is strongest when API work is a team process with shared collections, governance, documentation, mock servers, and automated tests.',
+        bullets: [
+          'You need a complete API lifecycle platform.',
+          'Your team collaborates on large shared request collections.',
+          'You rely on Postman-specific environments, monitors, and governance features.',
+        ],
+      },
+      {
+        title: 'Choose MyDevTools when',
+        body:
+          'MyDevTools is better for quick browser-based debugging where an API request is only one part of a larger utility workflow.',
+        bullets: [
+          'Send a request, format the JSON response, decode a JWT, and parse URLs in the same toolkit.',
+          'Use a lightweight browser workflow without installing a desktop API client.',
+          'Self-host the open-source toolkit if you need internal access and infrastructure control.',
+        ],
+      },
+      {
+        title: 'Verdict',
+        body:
+          'Postman remains the better full API platform. MyDevTools is the better lightweight browser alternative for quick API debugging plus surrounding developer utilities.',
+        bullets: [
+          'Best enterprise API platform: Postman.',
+          'Best browser-based quick API workflow: MyDevTools.',
+          'Best API client plus 50+ utility toolkit: MyDevTools.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is MyDevTools a Postman replacement?',
+        a: 'Not for full enterprise API lifecycle management. MyDevTools is a lightweight online alternative when you need quick API requests plus related developer tools.',
+      },
+      {
+        q: 'What makes MyDevTools useful for API debugging?',
+        a: 'API debugging often requires formatting JSON, decoding JWTs, parsing URLs, converting timestamps, and generating mock data. MyDevTools keeps those tools near the API client.',
+      },
+    ],
+  },
+  {
     slug: 'uuid-generator-online',
     title: 'Best Free UUID Generator Online',
     description:
@@ -666,6 +721,223 @@ export const comparisonPages: ComparisonPage[] = [
       {
         q: 'What file formats can I download QR codes in?',
         a: 'MyDevTools QR Code Generator supports PNG download. SVG output preserves crispness at any print size.',
+      },
+    ],
+  },
+  {
+    slug: 'mydevtools-vs-it-tools-tech',
+    title: 'MyDevTools vs it-tools.tech',
+    description:
+      'Compare MyDevTools with it-tools.tech for browser-based developer utilities, self-hosting, tool coverage, and everyday workflow fit.',
+    eyebrow: 'Comparison',
+    heading: 'MyDevTools vs it-tools.tech',
+    intro:
+      'it-tools.tech is a strong open-source collection of developer utilities. MyDevTools targets similar daily developer needs while adding product-style landing pages, workspace flows, cloud/self-host positioning, and tools such as API, database, productivity, and secure sync workflows.',
+    competitor: 'it-tools.tech',
+    primaryCta: { href: '/developer-tools', label: 'Explore MyDevTools' },
+    sections: [
+      {
+        title: 'Choose it-tools.tech when',
+        body:
+          'it-tools.tech is excellent when you want a lightweight open-source utility collection with many simple browser tools.',
+        bullets: [
+          'You want a familiar open-source utility collection.',
+          'You only need local single-purpose transforms and generators.',
+          'You prefer its exact tool catalog and interface.',
+        ],
+      },
+      {
+        title: 'Choose MyDevTools when',
+        body:
+          'MyDevTools is a better fit when you want a broader product experience around daily development tasks, public tool pages, and optional account-backed workflows.',
+        bullets: [
+          'Use API, database, productivity, formatter, converter, generator, and security tools together.',
+          'Use public /tools pages for discovery and a dashboard for daily use.',
+          'Self-host the codebase or use the managed cloud path.',
+        ],
+      },
+      {
+        title: 'Verdict',
+        body:
+          'Both projects are useful. it-tools.tech is a focused utility collection; MyDevTools is positioned as a broader open-source developer tools platform.',
+        bullets: [
+          'Best lightweight utility collection: it-tools.tech.',
+          'Best broader developer tools platform: MyDevTools.',
+          'Best mixed cloud/self-host product direction: MyDevTools.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is MyDevTools an alternative to it-tools.tech?',
+        a: 'Yes. MyDevTools overlaps on many browser-based utility workflows while also adding a broader dashboard, public landing pages, and additional developer productivity tools.',
+      },
+      {
+        q: 'Are both projects open source?',
+        a: 'Yes. Both are open-source developer tool projects, but their tool catalogs and product direction differ.',
+      },
+    ],
+  },
+  {
+    slug: 'mydevtools-vs-it-tools',
+    title: 'MyDevTools vs IT Tools',
+    description:
+      'Compare MyDevTools with IT Tools / it-tools.tech for online developer utilities, self-hosting, tool coverage, and browser-based workflows.',
+    eyebrow: 'Comparison',
+    heading: 'MyDevTools vs IT Tools: open-source developer utility platforms',
+    intro:
+      'IT Tools (it-tools.tech) is a popular open-source collection of browser utilities. MyDevTools targets the same everyday developer utility need while adding public tool landing pages, dashboard flows, cloud/self-host positioning, and a broader product surface.',
+    competitor: 'IT Tools',
+    primaryCta: { href: '/developer-tools', label: 'Explore MyDevTools' },
+    sections: [
+      {
+        title: 'Choose IT Tools when',
+        body:
+          'IT Tools is excellent when you want a focused utility collection with many small local tools and a familiar open-source interface.',
+        bullets: [
+          'You want a lightweight collection of one-off utilities.',
+          'You prefer the exact it-tools.tech catalog and layout.',
+          'You only need quick local transforms, encoders, decoders, and generators.',
+        ],
+      },
+      {
+        title: 'Choose MyDevTools when',
+        body:
+          'MyDevTools is built as a broader developer tools platform with public SEO pages, app dashboard, self-hosting, and optional cloud workflows.',
+        bullets: [
+          'Use utilities plus API, database, productivity, security, and sync-oriented workflows.',
+          'Link to canonical /tools pages for each utility.',
+          'Self-host or use managed cloud depending on your deployment preference.',
+        ],
+      },
+      {
+        title: 'Verdict',
+        body:
+          'Both are useful open-source developer utility platforms. IT Tools is strongest as a focused utility collection; MyDevTools is strongest as a broader developer tools product.',
+        bullets: [
+          'Best simple utility collection: IT Tools.',
+          'Best broader platform and content structure: MyDevTools.',
+          'Best cloud/self-host product path: MyDevTools.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is MyDevTools an IT Tools alternative?',
+        a: 'Yes. MyDevTools overlaps with many browser utility workflows while adding a broader dashboard, public tool pages, and product-oriented platform pages.',
+      },
+      {
+        q: 'Which is better for self-hosting?',
+        a: 'Both can fit self-hosting workflows. MyDevTools emphasizes self-hosting as a core product path alongside managed cloud.',
+      },
+    ],
+  },
+  {
+    slug: 'mydevtools-vs-devutils-app',
+    title: 'MyDevTools vs DevUtils.app',
+    description:
+      'Compare MyDevTools with DevUtils.app for developer utilities, browser-based tools, self-hosting, and cross-device workflows.',
+    eyebrow: 'Comparison',
+    heading: 'MyDevTools vs DevUtils.app',
+    intro:
+      'DevUtils.app is a native Mac app for offline developer utilities. MyDevTools is browser-based, open-source, and self-hostable, making it easier to use across devices and operating systems without installing a desktop app.',
+    competitor: 'DevUtils.app',
+    primaryCta: { href: '/tools', label: 'Browse Browser Tools' },
+    sections: [
+      {
+        title: 'Choose DevUtils.app when',
+        body:
+          'A native desktop app is ideal when you want offline-first performance and a polished Mac-specific utility experience.',
+        bullets: [
+          'You primarily work on macOS.',
+          'You prefer local desktop apps over browser tabs.',
+          'You want a native utility launcher for personal use.',
+        ],
+      },
+      {
+        title: 'Choose MyDevTools when',
+        body:
+          'A browser-based toolkit is better when you switch machines, use multiple operating systems, or want a self-hostable web app.',
+        bullets: [
+          'Open tools from any modern browser without installing a Mac app.',
+          'Use the same toolkit on macOS, Windows, Linux, or shared machines.',
+          'Self-host MyDevTools for internal team access.',
+        ],
+      },
+      {
+        title: 'Verdict',
+        body:
+          'DevUtils.app wins for native Mac utility workflows. MyDevTools wins for browser access, self-hosting, and cross-device availability.',
+        bullets: [
+          'Best native Mac utility app: DevUtils.app.',
+          'Best browser-based toolkit: MyDevTools.',
+          'Best self-hostable web option: MyDevTools.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is MyDevTools a DevUtils.app alternative?',
+        a: 'Yes, for browser-based developer utility workflows. DevUtils.app remains stronger if you specifically want a native Mac app.',
+      },
+      {
+        q: 'Does MyDevTools work on Windows and Linux?',
+        a: 'Yes. MyDevTools runs in the browser, so it is not tied to macOS.',
+      },
+    ],
+  },
+  {
+    slug: 'insomnia-alternative-online',
+    title: 'Online Insomnia Alternative',
+    description:
+      'Compare MyDevTools with Insomnia for lightweight browser-based API testing and surrounding developer utilities.',
+    eyebrow: 'Alternative',
+    heading: 'Online Insomnia alternative for lightweight API debugging',
+    intro:
+      'Insomnia is a dedicated desktop API client. MyDevTools offers a lightweight browser API client alongside JSON, JWT, URL, timestamp, mock data, and security tools that are often needed during API debugging.',
+    competitor: 'Insomnia',
+    toolSlug: 'api-client',
+    primaryCta: { href: '/tools/api-client', label: 'Try API Client' },
+    sections: [
+      {
+        title: 'Choose Insomnia when',
+        body:
+          'Insomnia is better for dedicated API development with desktop collections, environments, plugins, and team workflows.',
+        bullets: [
+          'You need a full desktop API client.',
+          'You manage complex request collections.',
+          'Your team already standardizes on Insomnia.',
+        ],
+      },
+      {
+        title: 'Choose MyDevTools when',
+        body:
+          'MyDevTools is useful for quick API debugging in a browser, especially when the request workflow connects to common utility tasks.',
+        bullets: [
+          'Test API requests and then format JSON responses nearby.',
+          'Decode JWTs, parse URLs, convert timestamps, and generate mock data in one toolkit.',
+          'Use a browser-based tool when installing a desktop client is unnecessary.',
+        ],
+      },
+      {
+        title: 'Verdict',
+        body:
+          'Insomnia is the better full API client. MyDevTools is a lightweight online alternative for quick debugging plus related developer utilities.',
+        bullets: [
+          'Best dedicated desktop API client: Insomnia.',
+          'Best browser toolkit around API debugging: MyDevTools.',
+          'Best no-install quick workflow: MyDevTools.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is MyDevTools a full Insomnia replacement?',
+        a: 'No. It is a lightweight browser-based API client inside a larger toolkit, not a complete desktop API platform.',
+      },
+      {
+        q: 'Why use MyDevTools for API testing?',
+        a: 'Use it when you want quick API requests plus JSON, JWT, URL, timestamp, and mock data tools in the same browser workspace.',
       },
     ],
   },

@@ -11,6 +11,10 @@ import { getComparisonPagesForTool } from '@/lib/seo/comparison-pages'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 
+function featureSentence(keyword: string, toolTitle: string) {
+  return `${toolTitle} supports ${keyword} workflows for quick browser-based developer tasks.`
+}
+
 export function generateStaticParams() {
   return publicToolSlugs.map((slug) => ({ slug }))
 }
@@ -30,7 +34,7 @@ export async function generateMetadata({
   const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(tool.title)}&description=${encodeURIComponent(tool.description)}`
 
   return {
-    title,
+    title: { absolute: title },
     description,
     alternates: { canonical: url },
     openGraph: {
@@ -174,7 +178,7 @@ export default async function ToolLandingPage({
               {tool.keywords.slice(0, 8).map((kw) => (
                 <li key={kw} className="flex items-center gap-2.5 text-sm text-muted-foreground">
                   <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-500" />
-                  <span className="capitalize">{kw}</span>
+                  <span>{featureSentence(kw, tool.title)}</span>
                 </li>
               ))}
               <li className="flex items-center gap-2.5 text-sm text-muted-foreground">

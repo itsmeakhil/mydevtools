@@ -260,9 +260,10 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description:
             'Pick PostgreSQL, Redis, NGINX, Kafka, Elasticsearch, Prometheus, Grafana, and dozens of other images — get a ready-to-edit docker-compose.yml for local development.',
         keywords: [
+            'docker compose generator',
+            'docker compose generator online',
             'docker compose',
             'docker-compose.yml',
-            'compose generator',
             'postgres docker',
             'redis docker',
             'nginx docker',

@@ -7,6 +7,7 @@ import { ToolsGrid } from '@/components/tools-grid'
 import { publicToolSlugs } from '@/lib/tool-categories'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
+const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('Online Developer Tools')}&description=${encodeURIComponent('Browse 50+ browser-based developer tools. No install required.')}`
 
 export const metadata: Metadata = {
   title: 'Online Developer Tools | MyDevTools',
@@ -19,6 +20,13 @@ export const metadata: Metadata = {
     url: `${baseUrl}/tools`,
     siteName: 'MyDevTools',
     type: 'website',
+    images: [{ url: ogImage, width: 1200, height: 630, alt: 'Online Developer Tools | MyDevTools' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Online Developer Tools | MyDevTools',
+    description: 'Browse 50+ browser-based developer tools. No install required.',
+    images: [ogImage],
   },
 }
 
