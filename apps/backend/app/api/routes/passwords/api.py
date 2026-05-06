@@ -1,5 +1,3 @@
-from typing import Optional
-
 from fastapi import APIRouter, Depends, Query, Request
 
 from app.api.routes.auth.services import get_current_uid
@@ -44,7 +42,7 @@ async def clear_vault(request: Request, uid: str = Depends(get_current_uid)) -> 
 )
 async def list_entries(
     uid: str = Depends(get_current_uid),
-    limit: Optional[int] = Query(default=None, ge=1, le=1000),
+    limit: int = Query(default=200, ge=1, le=1000),
     offset: int = Query(default=0, ge=0),
 ) -> list[PasswordEntryOut]:
     return await pw_svc.list_entries(uid, limit=limit, offset=offset)

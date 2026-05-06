@@ -8,9 +8,13 @@ import { Logo } from "./logo";
 
 const footerLinks = [
   { href: "/dashboard", label: "Dashboard" },
-  { href: "/#features", label: "Features" },
-  { href: "/#pricing", label: "Pricing" },
+  { href: "/developer-tools", label: "Platform" },
+  { href: "/features", label: "Features" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/#tools", label: "Tools" },
+  { href: "/security", label: "Security" },
+  { href: "/open-source", label: "Open Source" },
+  { href: "/self-host", label: "Self-host" },
   { href: "/help", label: "Help" },
   {
     href: "https://github.com/itsmeakhil/mydevtools.tech",

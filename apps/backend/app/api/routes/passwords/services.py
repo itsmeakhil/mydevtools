@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 from fastapi import HTTPException, status
 from pymongo import ReturnDocument
@@ -86,13 +86,13 @@ async def setup_vault(uid: str, body: VaultSetupRequest) -> VaultOut:
     return await get_vault(uid)
 
 
-async def list_entries(uid: str, *, limit: Optional[int] = None, offset: int = 0) -> list[PasswordEntryOut]:
+async def list_entries(uid: str, *, limit: int = 200, offset: int = 0) -> list[PasswordEntryOut]:
     docs = await db_manager.find(
         PASSWORD_ENTRIES,
         {"created_by": uid},
         sort=[("updatedAt", -1), ("createdAt", -1)],
         skip=max(0, offset),
-        limit=limit or 0,
+        limit=max(1, limit),
     )
     return [_entry_doc_to_out(d, entry_id=str(d.get("_id", ""))) for d in docs]
 

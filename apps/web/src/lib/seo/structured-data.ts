@@ -1,4 +1,5 @@
 import { toolsMetadata, siteMetadata, type ToolMetadataEntry } from '@/lib/metadata'
+import { platformSeoPages } from '@/lib/seo/platform-pages'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 
@@ -10,10 +11,10 @@ export function toolSlugFromPathname(pathname: string): string | null {
 
 /** Long-form description for AI crawlers / JSON-LD (not the HTML meta description cap). */
 export function buildToolRichDescription(slug: string, tool: ToolMetadataEntry): string {
-  const url = `${baseUrl}/app/${slug}`
+  const url = `${baseUrl}/tools/${slug}`
   const parts = [
     tool.aiSummary ?? tool.description,
-    `Open this tool: ${url}.`,
+    `Learn about this tool: ${url}.`,
     'Free web app on MyDevTools; most tools run client-side in your browser (no install).',
   ]
   if (tool.keywords?.length) {
@@ -122,7 +123,7 @@ export function buildSoftwareApplicationJsonLd(slug: string): Record<string, unk
             name: `Does ${tool.title} store or upload my data?`,
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `No. ${tool.title} runs entirely in your browser. Your data is processed locally and never sent to any server.`,
+              text: `${tool.title} is designed for browser-based use. Many MyDevTools utilities process data locally; tools that require sync or external connections may send only the data needed for that workflow.`,
             },
           },
           {
@@ -151,7 +152,7 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
   const toolSlugs = Object.keys(toolsMetadata)
   const itemListElement = toolSlugs.map((slug, i) => {
     const t = toolsMetadata[slug]
-    const itemUrl = `${baseUrl}/app/${slug}`
+    const itemUrl = `${baseUrl}/tools/${slug}`
     return {
       '@type': 'ListItem',
       position: i + 1,
@@ -160,6 +161,40 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
       item: itemUrl,
     }
   })
+  const platformPageList = platformSeoPages.map((page, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: page.title,
+    description: page.description,
+    item: `${baseUrl}/${page.slug}`,
+  }))
+  const homepageFaq = [
+    {
+      question: 'What is MyDevTools?',
+      answer:
+        'MyDevTools is an online developer tools platform with browser-based utilities for formatting data, testing APIs, generating IDs and secrets, decoding tokens, managing secure data, and reducing context switching.',
+    },
+    {
+      question: 'Is MyDevTools free?',
+      answer:
+        'The MyDevTools codebase is GPL-3.0 open source and can be self-hosted for free. The hosted MyDevTools Cloud service is a managed paid option.',
+    },
+    {
+      question: 'Can I self-host MyDevTools?',
+      answer:
+        'Yes. Developers can self-host MyDevTools from the public source code to control infrastructure, storage, access, and deployment.',
+    },
+    {
+      question: 'Do the tools run in the browser?',
+      answer:
+        'Many formatter, parser, converter, and generator tools run locally in the browser. Tools that connect to external services, sync data, or validate network records use the network as required for that workflow.',
+    },
+    {
+      question: 'How does MyDevTools protect sensitive data?',
+      answer:
+        'Sensitive synced data is encrypted in the browser before transmission where supported, so the server stores encrypted blobs rather than readable vault plaintext.',
+    },
+  ]
 
   return {
     '@context': 'https://schema.org',
@@ -179,7 +214,47 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
         name: siteMetadata.name,
         url: baseUrl,
         logo: `${baseUrl}/icon-192x192.png`,
-        sameAs: ['https://github.com/itsmeakhil/mydevtools.tech'],
+        sameAs: [
+          'https://github.com/itsmeakhil/mydevtools.tech',
+          'https://www.producthunt.com/products/mydevtools',
+        ],
+      },
+      {
+        '@type': 'WebApplication',
+        '@id': `${baseUrl}/#webapp`,
+        name: 'MyDevTools',
+        applicationCategory: 'DeveloperApplication',
+        applicationSubCategory: 'Online Developer Tools',
+        operatingSystem: 'Web browser',
+        url: baseUrl,
+        description: siteMetadata.description,
+        browserRequirements: 'Requires JavaScript.',
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+          availability: 'https://schema.org/InStock',
+          description: 'Self-hosted MyDevTools is available with no license fee.',
+        },
+        isAccessibleForFree: true,
+        featureList: [
+          'Online developer tools',
+          'JSON formatter and validator',
+          'JWT decoder',
+          'API client',
+          'Regex tester',
+          'UUID generator',
+          'Base64 encoder and decoder',
+          'Self-hosted developer toolkit',
+        ],
+        publisher: { '@id': `${baseUrl}/#organization` },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${baseUrl}/#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl },
+        ],
       },
       {
         '@type': 'ItemList',
@@ -189,6 +264,27 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
           'Index of free browser-based developer tools (JSON, API, crypto, SQL, regex, JWT, and more). Use this list for discovery in search and AI assistants.',
         numberOfItems: itemListElement.length,
         itemListElement,
+      },
+      {
+        '@type': 'ItemList',
+        '@id': `${baseUrl}/#platform-pages`,
+        name: 'MyDevTools platform SEO pages',
+        description:
+          'Public pages explaining the MyDevTools developer tools platform, features, security, open source model, self-hosting, pricing, and use cases.',
+        numberOfItems: platformPageList.length,
+        itemListElement: platformPageList,
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': `${baseUrl}/#faq`,
+        mainEntity: homepageFaq.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
       },
     ],
   }
@@ -201,6 +297,7 @@ export function buildLlmsTxtBody(): string {
     '',
     '## Site',
     `- ${baseUrl}`,
+    ...platformSeoPages.map((page) => `- ${baseUrl}/${page.slug}`),
     `- ${baseUrl}/help`,
     `- ${baseUrl}/dashboard`,
     `- ${baseUrl}/sitemap.xml`,
@@ -208,7 +305,7 @@ export function buildLlmsTxtBody(): string {
     '## Tools (canonical URLs)',
   ]
   for (const slug of Object.keys(toolsMetadata).sort()) {
-    lines.push(`- ${baseUrl}/app/${slug}`)
+    lines.push(`- ${baseUrl}/tools/${slug}`)
   }
   lines.push(
     '',

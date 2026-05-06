@@ -51,8 +51,9 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
 
   const mobileNavLinks = [
     { href: "/", label: "Home" },
-    { href: "/#features", label: "Features" },
-    { href: "/#pricing", label: "Pricing" },
+    { href: "/features", label: "Features" },
+    { href: "/pricing", label: "Pricing" },
+    { href: "/developer-tools", label: "Platform" },
     { href: "/tools", label: "Tools" },
     { href: "/login", label: "Get Started", isPrimary: true },
     { href: "https://github.com/itsmeakhil/mydevtools.tech", label: "GitHub", icon: Github, external: true },
@@ -77,13 +78,19 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
                 Home
               </Link>
               <Link
-                href="/#features"
+                href="/features"
                 className="relative py-2 transition-colors hover:text-foreground/80 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-foreground after:transition-all hover:after:w-full"
               >
                 Features
               </Link>
               <Link
-                href="/#pricing"
+                href="/developer-tools"
+                className="relative py-2 transition-colors hover:text-foreground/80 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-foreground after:transition-all hover:after:w-full"
+              >
+                Platform
+              </Link>
+              <Link
+                href="/pricing"
                 className="relative py-2 transition-colors hover:text-foreground/80 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-foreground after:transition-all hover:after:w-full"
               >
                 Pricing
