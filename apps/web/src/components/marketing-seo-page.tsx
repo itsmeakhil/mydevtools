@@ -1,0 +1,160 @@
+import Link from 'next/link'
+import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import { Header } from '@/components/header'
+import { Footer } from '@/components/footer'
+import type { PlatformSeoPage } from '@/lib/seo/platform-pages'
+import { publicToolSlugs } from '@/lib/tool-categories'
+import { toolsMetadata } from '@/lib/metadata'
+
+const popularToolSlugs = [
+  'json-formatter',
+  'jwt-decoder',
+  'api-client',
+  'regex-tester',
+  'uuid-generator',
+  'base64',
+]
+
+function isExternalHref(href: string) {
+  return href.startsWith('http://') || href.startsWith('https://')
+}
+
+function CtaLink({
+  href,
+  label,
+  variant = 'primary',
+}: {
+  href: string
+  label: string
+  variant?: 'primary' | 'secondary'
+}) {
+  const external = isExternalHref(href)
+  return (
+    <Link
+      href={href}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noreferrer' : undefined}
+      className={
+        variant === 'primary'
+          ? 'inline-flex h-12 items-center justify-center rounded-full bg-foreground px-7 text-sm font-medium text-background shadow-md transition-all hover:bg-foreground/90 hover:scale-[1.03] active:scale-[0.98]'
+          : 'inline-flex h-12 items-center justify-center rounded-full border border-border/60 bg-background/60 px-7 text-sm font-medium text-foreground transition-all hover:bg-muted hover:scale-[1.03] active:scale-[0.98]'
+      }
+    >
+      {label}
+      <ArrowRight className="ml-2 h-4 w-4" />
+    </Link>
+  )
+}
+
+export function MarketingSeoPage({ page }: { page: PlatformSeoPage }) {
+  const popularTools = popularToolSlugs
+    .filter((slug) => publicToolSlugs.includes(slug) && toolsMetadata[slug])
+    .map((slug) => ({ slug, ...toolsMetadata[slug] }))
+
+  return (
+    <div className="dark flex min-h-screen flex-col bg-background text-foreground font-sans">
+      <Header showThemeToggle={false} />
+      <main className="flex-1">
+        <section className="relative overflow-hidden py-20 md:py-28">
+          <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+            <div className="absolute -top-32 left-1/4 h-[420px] w-[520px] rounded-full bg-violet-500/10 blur-[120px]" />
+            <div className="absolute top-0 right-0 h-[420px] w-[420px] rounded-full bg-sky-500/10 blur-[100px]" />
+          </div>
+
+          <div className="container mx-auto max-w-5xl px-4 text-center md:px-6">
+            <nav
+              className="mb-6 flex items-center justify-center gap-2 text-sm text-muted-foreground"
+              aria-label="Breadcrumb"
+            >
+              <Link href="/" className="hover:text-foreground transition-colors">
+                Home
+              </Link>
+              <span>/</span>
+              <span className="text-foreground">{page.eyebrow}</span>
+            </nav>
+
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-sky-400">
+              {page.eyebrow}
+            </p>
+            <h1 className="mx-auto mb-6 max-w-4xl text-4xl font-bold tracking-tight leading-[1.08] sm:text-5xl md:text-6xl">
+              {page.heading}
+            </h1>
+            <p className="mx-auto mb-8 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+              {page.intro}
+            </p>
+            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+              {page.primaryCta ? <CtaLink {...page.primaryCta} /> : null}
+              {page.secondaryCta ? (
+                <CtaLink {...page.secondaryCta} variant="secondary" />
+              ) : null}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-y border-border/40 bg-muted/20 py-14 md:py-20">
+          <div className="container mx-auto grid max-w-6xl gap-5 px-4 md:grid-cols-3 md:px-6">
+            {page.sections.map((section) => (
+              <article
+                key={section.title}
+                className="rounded-2xl border border-border/50 bg-background/60 p-6 shadow-sm"
+              >
+                <h2 className="mb-3 text-xl font-semibold">{section.title}</h2>
+                <p className="mb-5 text-sm leading-relaxed text-muted-foreground">
+                  {section.body}
+                </p>
+                <ul className="space-y-3 text-sm text-muted-foreground">
+                  {section.bullets.map((bullet) => (
+                    <li key={bullet} className="flex gap-2">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-sky-400" />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="py-14 md:py-20">
+          <div className="container mx-auto max-w-6xl px-4 md:px-6">
+            <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+              <div>
+                <h2 className="text-2xl font-bold md:text-3xl">
+                  Popular online developer tools
+                </h2>
+                <p className="mt-2 max-w-2xl text-muted-foreground">
+                  Continue from the platform page into canonical public tool pages.
+                </p>
+              </div>
+              <Link
+                href="/tools"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-sky-400 hover:text-sky-300"
+              >
+                See all {publicToolSlugs.length} tools
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {popularTools.map((tool) => (
+                <Link
+                  key={tool.slug}
+                  href={`/tools/${tool.slug}`}
+                  className="group rounded-xl border border-border/50 bg-background/60 p-4 transition-all hover:bg-muted/30 hover:scale-[1.01]"
+                >
+                  <h3 className="mb-1 flex items-center gap-1.5 font-semibold">
+                    {tool.title}
+                    <ArrowRight className="h-3.5 w-3.5 opacity-0 transition-all group-hover:opacity-100" />
+                  </h3>
+                  <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                    {tool.description}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </div>
+  )
+}

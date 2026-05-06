@@ -306,7 +306,7 @@ export default function Page() {
                 >
                   <Sparkles className="w-3.5 h-3.5" />
                 </motion.span>
-                One browser tab for all your dev needs
+                Online developer tools in one browser tab
               </Badge>
             </motion.div>
 
@@ -316,10 +316,10 @@ export default function Page() {
               transition={{ duration: 0.6, delay: 0.08 }}
               className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.08]"
             >
-              <span className="text-foreground">Online</span>
+              <span className="text-foreground">Online Developer</span>
               <br />
               <span className="bg-gradient-to-r from-sky-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
-                Developer Tools
+                Toolkit
               </span>
             </motion.h1>
 
@@ -329,9 +329,9 @@ export default function Page() {
               transition={{ duration: 0.6, delay: 0.16 }}
               className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             >
-              JSON formatter, JWT decoder, API client, regex tester, UUID generator,
-              and {allAppTools.length - 5}+ more — all in a single browser tab.
-              No install, no context switching. Self-host free forever or subscribe to our managed cloud.
+              {allAppTools.length}+ browser-based developer tools for formatting,
+              testing, debugging, securing, and shipping code. No install, less
+              context switching, open source, and self-hostable.
             </motion.p>
 
             {/* CTAs */}
@@ -355,21 +355,27 @@ export default function Page() {
                 <Star className="mr-2 h-4 w-4" />
                 Star on GitHub
               </Link>
+              <Link
+                href="/developer-tools"
+                className="inline-flex items-center justify-center h-12 px-8 rounded-full text-sm font-medium border border-border/60 dark:border-white/10 bg-background/50 backdrop-blur-md text-foreground hover:bg-muted hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 w-full sm:w-auto"
+              >
+                Explore Platform
+              </Link>
             </motion.div>
 
             {/* Stats row */}
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.6, delay: 0.32 }}
-              className="pt-6 grid grid-cols-3 gap-6 max-w-sm mx-auto"
+              className="pt-6 grid grid-cols-3 gap-4 sm:gap-6 max-w-md mx-auto"
             >
               {[
-                { value: `${allAppTools.length}+`, label: "Dev Tools" },
-                { value: "100%", label: "Open Source" },
-                { value: "E2E", label: "Encrypted" },
+                { value: `${allAppTools.length}+`, label: "Online Tools" },
+                { value: "GPL-3.0", label: "Open Source" },
+                { value: "Self-host", label: "Free Forever" },
               ].map((s, i) => (
                 <div key={i} className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-sky-500 to-violet-500 bg-clip-text text-transparent">
+                  <div className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight whitespace-nowrap bg-gradient-to-r from-sky-500 to-violet-500 bg-clip-text text-transparent">
                     {s.value}
                   </div>
                   <div className="text-xs md:text-sm text-muted-foreground mt-1 leading-snug">
@@ -436,7 +442,7 @@ export default function Page() {
       </section>
 
       {/* ── How It Works ────────────────────────────────────────────────────── */}
-      <section className="py-16 md:py-24 relative overflow-hidden">
+      <section id="tools" className="py-16 md:py-24 relative overflow-hidden scroll-mt-28">
         <div className="container px-4 md:px-6 mx-auto">
           <Section>
             <motion.div
@@ -520,7 +526,7 @@ export default function Page() {
                 className="md:col-span-2 md:row-span-2"
               >
                 <Link
-                  href="/app/json-formatter"
+                  href="/tools/json-formatter"
                   className="group relative flex h-full min-h-[380px] flex-col overflow-hidden rounded-2xl glass-overlay p-6 md:p-8 transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl dark:hover:shadow-black/40"
                 >
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 bg-gradient-to-br from-amber-500 to-orange-400" />
@@ -566,7 +572,7 @@ export default function Page() {
                   </div>
 
                   <div className="relative z-10 mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors">
-                    <span>Open JSON Formatter</span>
+                    <span>Explore JSON Formatter</span>
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                   </div>
                 </Link>
@@ -578,7 +584,7 @@ export default function Page() {
                 transition={{ duration: 0.55, delay: 0.1 }}
               >
                 <Link
-                  href="/app/password-manager"
+                  href="/tools/password-manager"
                   className="group relative flex h-full min-h-[180px] flex-col overflow-hidden rounded-2xl glass-overlay p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl dark:hover:shadow-black/40"
                 >
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 bg-gradient-to-br from-emerald-500 to-teal-400" />
@@ -623,7 +629,7 @@ export default function Page() {
                 transition={{ duration: 0.55, delay: 0.2 }}
               >
                 <Link
-                  href="/app/api-client"
+                  href="/tools/api-client"
                   className="group relative flex h-full min-h-[180px] flex-col overflow-hidden rounded-2xl glass-overlay p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl dark:hover:shadow-black/40"
                 >
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 bg-gradient-to-br from-violet-500 to-blue-400" />
@@ -759,11 +765,11 @@ export default function Page() {
                   Subscription
                 </p>
                 <p className="text-sm font-medium text-muted-foreground mb-6">
-                  Managed hosting — pricing announced soon.
+                  Managed hosting with secure sync and backups.
                 </p>
                 <p className="text-sm text-muted-foreground mb-6 flex-1 leading-relaxed">
-                  We run the infrastructure so you don't have to. Your data stays
-                  encrypted end-to-end; we never see your plaintext.
+                  We run the infrastructure so you do not have to. Your sensitive
+                  data stays encrypted before sync; plaintext stays in your browser.
                 </p>
                 <ul className="space-y-2.5 text-sm text-muted-foreground mb-8">
                   {[
@@ -805,14 +811,14 @@ export default function Page() {
                 <h3 className="text-xl font-semibold mb-1">Premium</h3>
                 <p className="text-3xl font-bold tracking-tight mb-1">Add-ons</p>
                 <p className="text-sm text-muted-foreground mb-6 flex-1 leading-relaxed">
-                  Optional paid capabilities on top of Cloud — aimed at power
-                  users and teams. Details will ship with Premium; nothing
-                  essential will be locked away from self-hosters.
+                  Optional paid capabilities on top of Cloud for teams, advanced
+                  workflows, and managed collaboration. Self-hosting remains fully
+                  capable for individual developers.
                 </p>
                 <ul className="space-y-2.5 text-sm text-muted-foreground mb-8">
                   {[
-                    "Advanced workflows (scope TBA)",
-                    "Team-oriented features (scope TBA)",
+                    "Advanced workflows for power users",
+                    "Team-oriented collaboration features",
                     "Self-host remains fully capable",
                   ].map((line) => (
                     <li key={line} className="flex gap-2">
@@ -848,7 +854,8 @@ export default function Page() {
                 {allAppTools.length}+ Tools, One Dashboard
               </h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
-                From JSON formatters to database explorers — everything you need, in one tab.
+                From JSON formatters to API clients, generators, and database
+                explorers — everything you need in one online developer toolkit.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                 <Link
@@ -872,6 +879,27 @@ export default function Page() {
                   </kbd>
                 </button>
               </div>
+            </motion.div>
+
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.55, delay: 0.1 }}
+              className="mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"
+            >
+              {[
+                { href: "/developer-tools", label: "Developer tools platform" },
+                { href: "/features", label: "Product features" },
+                { href: "/security", label: "Security and privacy" },
+                { href: "/self-host", label: "Self-host MyDevTools" },
+              ].map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="rounded-xl border border-border/50 bg-background/50 px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
             </motion.div>
 
             {/* Featured tool cards — first 6 */}
@@ -939,10 +967,11 @@ export default function Page() {
               className="text-center mb-14"
             >
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
-                Trusted by the Developer Community
+                Built on Trust Signals Developers Can Verify
               </h2>
               <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-                Open source, privacy-first, and community-verified.
+                Open-source code, public community proof, self-hosting, and
+                browser-side encryption instead of vague promises.
               </p>
             </motion.div>
 
@@ -963,8 +992,8 @@ export default function Page() {
                     100% Open Source
                   </h3>
                   <p className="relative z-10 text-muted-foreground leading-relaxed text-sm md:text-base mb-5 flex-1">
-                    GPL-3.0 licensed. Full source on GitHub. Audit every line,
-                    contribute features, or self-host.
+                    GPL-3.0 licensed. Full source on GitHub so developers can
+                    inspect the code, contribute features, fork, or self-host.
                   </p>
                   <Link
                     href="https://github.com/itsmeakhil/mydevtools.tech"
@@ -998,8 +1027,8 @@ export default function Page() {
                     Featured on Product Hunt
                   </h3>
                   <p className="relative z-10 text-muted-foreground leading-relaxed text-sm md:text-base mb-5 flex-1">
-                    Recognized by the developer community. Try it and leave your
-                    review.
+                    Public launch and feedback surface for real developer
+                    discovery, reviews, and community validation.
                   </p>
                   <a
                     href="https://www.producthunt.com/products/mydevtools?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-mydevtools"
@@ -1033,9 +1062,9 @@ export default function Page() {
                     Zero-Knowledge Privacy
                   </h3>
                   <p className="relative z-10 text-muted-foreground leading-relaxed text-sm md:text-base flex-1">
-                    Sensitive data is AES-256 encrypted in your browser before
-                    transmission. The server only receives encrypted blobs — it
-                    never sees your plaintext.
+                    Sensitive synced data is encrypted in your browser before
+                    transmission. The server stores encrypted blobs, not your
+                    readable vault data.
                   </p>
                 </div>
               </motion.div>
@@ -1167,6 +1196,12 @@ export default function Page() {
                     Start Using Tools Now
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </button>
+                  <Link
+                    href="/developer-tools"
+                    className="inline-flex items-center justify-center h-14 px-10 rounded-full text-base font-medium border border-border/60 dark:border-white/10 bg-background/60 backdrop-blur-sm text-foreground hover:bg-muted hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 w-full sm:w-auto"
+                  >
+                    View Developer Toolkit
+                  </Link>
                   <Link
                     href="https://github.com/itsmeakhil/mydevtools.tech"
                     target="_blank"

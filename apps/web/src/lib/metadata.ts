@@ -478,13 +478,14 @@ export function generatePageMetadata(opts: {
 // Base site metadata
 export const siteMetadata = {
     name: 'MyDevTools',
-    title: 'MyDevTools — Online Developer Tools',
-    description: '50+ free online developer tools in your browser: JSON formatter, JWT decoder, API client, regex tester, UUID generator, base64 encoder, and more. No install required.',
+    title: 'MyDevTools — Online Developer Tools & Developer Toolkit',
+    description: '50+ online developer tools in one browser-based toolkit: JSON formatter, JWT decoder, API client, regex tester, UUID generator, base64 encoder, and more. Open source and self-hostable.',
     url: baseUrl,
-    ogImage: ogImageUrl('MyDevTools — Online Developer Tools', 'JSON formatter, JWT decoder, API client, regex tester, and 50+ more browser tools for developers.'),
+    ogImage: ogImageUrl('MyDevTools — Online Developer Tools', 'A browser-based developer toolkit with JSON, JWT, API, regex, UUID, Base64, and 50+ more tools.'),
     keywords: [
         'online developer tools',
         'developer tools online',
+        'online developer toolkit',
         'json formatter online',
         'jwt decoder',
         'api client online',
@@ -492,6 +493,8 @@ export const siteMetadata = {
         'uuid generator',
         'base64 encoder',
         'browser developer tools',
+        'self hosted developer tools',
+        'open source developer tools',
         'free dev tools',
         'developer toolkit',
         'web developer tools',

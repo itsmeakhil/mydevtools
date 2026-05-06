@@ -52,6 +52,10 @@ export const metadata: Metadata = {
     images: [siteMetadata.ogImage],
     creator: '@mydevtools',
   },
+  alternates: {
+    canonical: siteMetadata.url,
+  },
+  manifest: '/manifest.json',
   robots: {
     index: true,
     follow: true,
@@ -81,8 +85,6 @@ export const viewport = {
   ],
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
   viewportFit: 'cover',
 }
 
