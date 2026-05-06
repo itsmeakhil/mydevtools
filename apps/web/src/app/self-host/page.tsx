@@ -4,6 +4,7 @@ import { getPlatformSeoPage } from '@/lib/seo/platform-pages'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 const page = getPlatformSeoPage('self-host')
+const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(page?.title ?? 'MyDevTools')}&description=${encodeURIComponent(page?.description ?? 'Online developer tools')}`
 
 export const metadata: Metadata = {
   title: page?.title,
@@ -15,6 +16,13 @@ export const metadata: Metadata = {
     url: `${baseUrl}/self-host`,
     siteName: 'MyDevTools',
     type: 'website',
+    images: [{ url: ogImage, width: 1200, height: 630, alt: page?.title ?? 'MyDevTools' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${page?.title} | MyDevTools`,
+    description: page?.description,
+    images: [ogImage],
   },
 }
 

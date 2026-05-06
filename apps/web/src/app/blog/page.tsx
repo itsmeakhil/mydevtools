@@ -6,9 +6,10 @@ import { Footer } from '@/components/footer'
 import { blogPosts } from '@/lib/blog/posts'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
+const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('Developer Blog — MyDevTools')}&description=${encodeURIComponent('Practical developer guides on JWTs, JSON, regex, timestamps, UUIDs, cron, and more.')}`
 
 export const metadata: Metadata = {
-  title: 'Developer Blog — Guides, Tips & Tool Tutorials | MyDevTools',
+  title: { absolute: 'Developer Blog — Guides, Tips & Tool Tutorials | MyDevTools' },
   description:
     'Practical guides for developers: how to decode JWTs, format JSON, write regex patterns, understand HTTP status codes, generate UUIDs, work with timestamps, and more.',
   alternates: { canonical: `${baseUrl}/blog` },
@@ -18,11 +19,13 @@ export const metadata: Metadata = {
     url: `${baseUrl}/blog`,
     siteName: 'MyDevTools',
     type: 'website',
+    images: [{ url: ogImage, width: 1200, height: 630, alt: 'Developer Blog — MyDevTools' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Developer Blog — MyDevTools',
     description: 'Practical developer guides on JWTs, JSON, regex, timestamps, UUIDs, cron, and more.',
+    images: [ogImage],
   },
 }
 

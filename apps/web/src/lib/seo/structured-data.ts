@@ -64,7 +64,7 @@ export function buildSoftwareApplicationJsonLd(slug: string): Record<string, unk
     '@context': 'https://schema.org',
     '@graph': [
       {
-        '@type': 'SoftwareApplication',
+        '@type': ['SoftwareApplication', 'WebApplication'],
         '@id': appId,
         name: `${tool.title} — MyDevTools`,
         alternateName: tool.keywords?.slice(0, 5),
