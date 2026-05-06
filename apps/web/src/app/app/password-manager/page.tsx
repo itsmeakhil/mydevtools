@@ -14,6 +14,9 @@ import { listPasswordEntries } from "@/lib/password-manager-api"
 import { decryptData } from "@/lib/encryption"
 import { toast } from "sonner"
 import { Skeleton } from "@/components/ui/skeleton"
+import { fetchAllPages } from "@/lib/fetch-all-pages"
+
+const PASSWORDS_PAGE_SIZE = 500
 
 export default function PasswordManagerPage() {
     const t = useTranslations("PasswordManager.page")
@@ -40,7 +43,10 @@ export default function PasswordManagerPage() {
     const loadPasswords = async (key: CryptoKey) => {
         setLoading(true)
         try {
-            const rows = await listPasswordEntries()
+            const rows = await fetchAllPages({
+                pageSize: PASSWORDS_PAGE_SIZE,
+                fetchPage: (skip, limit) => listPasswordEntries({ skip, limit }),
+            })
 
             const decrypted = await Promise.all(
                 rows.map(async (row) => {

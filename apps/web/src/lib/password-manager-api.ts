@@ -96,8 +96,23 @@ async function passwordManagerRequest<T>(method: string, path: string, body?: un
     return data as T
 }
 
-export async function listPasswordEntries(): Promise<PasswordEntryOut[]> {
-    return passwordManagerRequest<PasswordEntryOut[]>("GET", `${BASE}/entries`)
+export async function listPasswordEntries({
+    skip,
+    limit,
+}: {
+    skip?: number
+    limit?: number
+} = {}): Promise<PasswordEntryOut[]> {
+    const params = new URLSearchParams()
+    if (typeof skip === "number" && Number.isFinite(skip) && skip >= 0) {
+        params.set("offset", String(Math.floor(skip)))
+    }
+    if (typeof limit === "number" && Number.isFinite(limit) && limit > 0) {
+        params.set("limit", String(Math.floor(limit)))
+    }
+    const qs = params.toString()
+    const path = qs ? `${BASE}/entries?${qs}` : `${BASE}/entries`
+    return passwordManagerRequest<PasswordEntryOut[]>("GET", path)
 }
 
 export async function createPasswordEntry(body: PasswordEntryCreate): Promise<PasswordEntryOut> {
