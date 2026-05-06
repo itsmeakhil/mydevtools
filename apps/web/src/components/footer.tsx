@@ -8,6 +8,7 @@ import { Logo } from "./logo";
 
 const footerLinks = [
   { href: "/dashboard", label: "Dashboard" },
+  { href: "/blog", label: "Blog" },
   { href: "/developer-tools", label: "Platform" },
   { href: "/features", label: "Features" },
   { href: "/pricing", label: "Pricing" },
