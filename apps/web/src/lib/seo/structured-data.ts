@@ -3,6 +3,33 @@ import { platformSeoPages } from '@/lib/seo/platform-pages'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 
+export const homepageFaqItems = [
+  {
+    q: 'Is MyDevTools free?',
+    a: 'Self-hosting is free forever — clone the repo, deploy it yourself, no fees, no limits from us. The hosted cloud (mydevtools.tech) is a paid service.',
+  },
+  {
+    q: 'What is the difference between self-hosting and MyDevTools Cloud?',
+    a: 'Self-hosting is the same codebase running on your own infrastructure — you own the data and pay nothing to us. MyDevTools Cloud is our managed service; it is a paid subscription that covers hosting, sync, and backups.',
+  },
+  {
+    q: 'Is my data secure?',
+    a: 'Sensitive data is encrypted in your browser before it reaches the server where supported. The server stores encrypted blobs for vault-style data instead of readable plaintext.',
+  },
+  {
+    q: 'Do I need an account to use the tools?',
+    a: 'Google Sign-In is required to save your data across sessions. Many public tool pages can be explored before opening the full app experience.',
+  },
+  {
+    q: 'Is this truly open source?',
+    a: 'Yes. Full source code is available on GitHub under the GPL-3.0 license. You can audit, contribute, fork, or self-host it.',
+  },
+  {
+    q: 'Does it work offline?',
+    a: 'Many tools are fully client-side and can work without server processing. Tools that connect to external services, sync data, or send API requests need a network connection.',
+  },
+]
+
 /** Slug from pathname like `/app/json-formatter` → `json-formatter` */
 export function toolSlugFromPathname(pathname: string): string | null {
   const m = pathname.split('?')[0]?.match(/^\/app\/([^/]+)/)
@@ -148,6 +175,80 @@ export function buildSoftwareApplicationJsonLd(slug: string): Record<string, unk
   }
 }
 
+export function buildPlatformPageJsonLd(slug: string): Record<string, unknown> | null {
+  const page = platformSeoPages.find((entry) => entry.slug === slug)
+  if (!page) return null
+
+  const pageUrl = `${baseUrl}/${slug}`
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: page.title,
+        description: page.description,
+        inLanguage: 'en',
+        isPartOf: { '@id': `${baseUrl}/#website` },
+        about: { '@id': `${baseUrl}/#webapp` },
+        breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl },
+          { '@type': 'ListItem', position: 2, name: page.eyebrow, item: pageUrl },
+        ],
+      },
+      {
+        '@type': 'WebApplication',
+        '@id': `${baseUrl}/#webapp`,
+        name: 'MyDevTools',
+        applicationCategory: 'DeveloperApplication',
+        applicationSubCategory: 'Online Developer Tools',
+        operatingSystem: 'Web browser',
+        url: baseUrl,
+        description: siteMetadata.description,
+        browserRequirements: 'Requires JavaScript.',
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+          availability: 'https://schema.org/InStock',
+          description: 'Self-hosted MyDevTools is available with no license fee.',
+        },
+        isAccessibleForFree: true,
+        publisher: {
+          '@type': 'Organization',
+          name: 'MyDevTools',
+          url: baseUrl,
+        },
+        featureList: [
+          'Online developer tools',
+          'Browser-based developer toolkit',
+          'Public tool landing pages',
+          'Self-hosted deployment',
+          'Managed cloud hosting',
+        ],
+      },
+      {
+        '@type': 'ItemList',
+        '@id': `${pageUrl}#sections`,
+        name: `${page.title} sections`,
+        itemListElement: page.sections.map((section, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: section.title,
+          description: section.body,
+        })),
+      },
+    ],
+  }
+}
+
 export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
   const toolSlugs = Object.keys(toolsMetadata)
   const itemListElement = toolSlugs.map((slug, i) => {
@@ -168,34 +269,6 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
     description: page.description,
     item: `${baseUrl}/${page.slug}`,
   }))
-  const homepageFaq = [
-    {
-      question: 'What is MyDevTools?',
-      answer:
-        'MyDevTools is an online developer tools platform with browser-based utilities for formatting data, testing APIs, generating IDs and secrets, decoding tokens, managing secure data, and reducing context switching.',
-    },
-    {
-      question: 'Is MyDevTools free?',
-      answer:
-        'The MyDevTools codebase is GPL-3.0 open source and can be self-hosted for free. The hosted MyDevTools Cloud service is a managed paid option.',
-    },
-    {
-      question: 'Can I self-host MyDevTools?',
-      answer:
-        'Yes. Developers can self-host MyDevTools from the public source code to control infrastructure, storage, access, and deployment.',
-    },
-    {
-      question: 'Do the tools run in the browser?',
-      answer:
-        'Many formatter, parser, converter, and generator tools run locally in the browser. Tools that connect to external services, sync data, or validate network records use the network as required for that workflow.',
-    },
-    {
-      question: 'How does MyDevTools protect sensitive data?',
-      answer:
-        'Sensitive synced data is encrypted in the browser before transmission where supported, so the server stores encrypted blobs rather than readable vault plaintext.',
-    },
-  ]
-
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -277,12 +350,12 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
       {
         '@type': 'FAQPage',
         '@id': `${baseUrl}/#faq`,
-        mainEntity: homepageFaq.map((item) => ({
+        mainEntity: homepageFaqItems.map((item) => ({
           '@type': 'Question',
-          name: item.question,
+          name: item.q,
           acceptedAnswer: {
             '@type': 'Answer',
-            text: item.answer,
+            text: item.a,
           },
         })),
       },

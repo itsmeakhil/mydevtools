@@ -6,9 +6,12 @@ import { LoginRedirectIfAuthed } from "@/components/login-redirect-if-authed";
 import { Logo } from "@/components/logo";
 import { ArrowLeft } from "lucide-react";
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mydevtools.tech";
+
 export const metadata: Metadata = {
   title: "Login - MyDevTools",
   description: "Login to access your developer tools and workspace",
+  alternates: { canonical: `${baseUrl}/login` },
 };
 
 export default function LoginPage() {

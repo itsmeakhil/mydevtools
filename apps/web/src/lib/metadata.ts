@@ -373,6 +373,15 @@ function toolMetaDescription(tool: ToolMetadataEntry): string {
     return (primary.slice(0, max - suffix.length - 1).trimEnd() + '…' + suffix).slice(0, max)
 }
 
+export function toolSeoTitle(tool: ToolMetadataEntry): string {
+    const primaryKeyword = tool.keywords.find((keyword) => /formatter|decoder|tester|generator|validator|converter|client|parser/i.test(keyword)) ?? tool.title
+    const label = primaryKeyword
+        .split(/\s+/)
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(' ')
+    return `Free ${label} Online`
+}
+
 // Generate metadata for a tool page
 export function generateToolMetadata(toolSlug: string): Metadata {
     const tool = toolsMetadata[toolSlug]
@@ -386,12 +395,11 @@ export function generateToolMetadata(toolSlug: string): Metadata {
 
     const image = ogImageUrl(tool.title, tool.description)
     const metaDescription = toolMetaDescription(tool)
-    const keywordStr = [...tool.keywords, 'online developer tool', 'free', 'browser', 'MyDevTools'].join(', ')
+    const title = toolSeoTitle(tool)
 
     return {
-        title: tool.title,
+        title,
         description: metaDescription,
-        keywords: keywordStr,
         authors: [{ name: 'MyDevTools', url: baseUrl }],
         creator: 'MyDevTools',
         publisher: 'MyDevTools',
@@ -408,9 +416,9 @@ export function generateToolMetadata(toolSlug: string): Metadata {
             },
         },
         openGraph: {
-            title: `${tool.title} | MyDevTools`,
+            title: `${title} | MyDevTools`,
             description: metaDescription,
-            url: `${baseUrl}/app/${toolSlug}`,
+            url: `${baseUrl}/tools/${toolSlug}`,
             siteName: 'MyDevTools',
             type: 'website',
             locale: 'en_US',
@@ -426,13 +434,13 @@ export function generateToolMetadata(toolSlug: string): Metadata {
         twitter: {
             card: 'summary_large_image',
             site: '@mydevtools',
-            title: `${tool.title} | MyDevTools`,
+            title: `${title} | MyDevTools`,
             description: metaDescription,
             images: [image],
             creator: '@mydevtools',
         },
         alternates: {
-            canonical: `${baseUrl}/app/${toolSlug}`,
+            canonical: `${baseUrl}/tools/${toolSlug}`,
         },
     }
 }
@@ -482,21 +490,4 @@ export const siteMetadata = {
     description: '50+ online developer tools in one browser-based toolkit: JSON formatter, JWT decoder, API client, regex tester, UUID generator, base64 encoder, and more. Open source and self-hostable.',
     url: baseUrl,
     ogImage: ogImageUrl('MyDevTools — Online Developer Tools', 'A browser-based developer toolkit with JSON, JWT, API, regex, UUID, Base64, and 50+ more tools.'),
-    keywords: [
-        'online developer tools',
-        'developer tools online',
-        'online developer toolkit',
-        'json formatter online',
-        'jwt decoder',
-        'api client online',
-        'regex tester',
-        'uuid generator',
-        'base64 encoder',
-        'browser developer tools',
-        'self hosted developer tools',
-        'open source developer tools',
-        'free dev tools',
-        'developer toolkit',
-        'web developer tools',
-    ],
 }

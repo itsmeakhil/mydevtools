@@ -8,7 +8,6 @@ const page = getPlatformSeoPage('open-source')
 export const metadata: Metadata = {
   title: page?.title,
   description: page?.description,
-  keywords: page?.keywords,
   alternates: { canonical: `${baseUrl}/open-source` },
   openGraph: {
     title: `${page?.title} | MyDevTools`,

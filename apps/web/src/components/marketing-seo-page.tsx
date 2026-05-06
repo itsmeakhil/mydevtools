@@ -5,6 +5,7 @@ import { Footer } from '@/components/footer'
 import type { PlatformSeoPage } from '@/lib/seo/platform-pages'
 import { publicToolSlugs } from '@/lib/tool-categories'
 import { toolsMetadata } from '@/lib/metadata'
+import { buildPlatformPageJsonLd } from '@/lib/seo/structured-data'
 
 const popularToolSlugs = [
   'json-formatter',
@@ -50,9 +51,16 @@ export function MarketingSeoPage({ page }: { page: PlatformSeoPage }) {
   const popularTools = popularToolSlugs
     .filter((slug) => publicToolSlugs.includes(slug) && toolsMetadata[slug])
     .map((slug) => ({ slug, ...toolsMetadata[slug] }))
+  const jsonLd = buildPlatformPageJsonLd(page.slug)
 
   return (
     <div className="dark flex min-h-screen flex-col bg-background text-foreground font-sans">
+      {jsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      ) : null}
       <Header showThemeToggle={false} />
       <main className="flex-1">
         <section className="relative overflow-hidden py-20 md:py-28">

@@ -4,9 +4,10 @@ import type { Metadata } from 'next'
 import { ArrowRight, CheckCircle2, ExternalLink, Layers } from 'lucide-react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
-import { toolsMetadata } from '@/lib/metadata'
+import { toolsMetadata, toolSeoTitle } from '@/lib/metadata'
 import { buildSoftwareApplicationJsonLd } from '@/lib/seo/structured-data'
 import { publicToolSlugs, getRelatedTools, toolCategoryMap } from '@/lib/tool-categories'
+import { getComparisonPagesForTool } from '@/lib/seo/comparison-pages'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 
@@ -23,7 +24,7 @@ export async function generateMetadata({
   const tool = toolsMetadata[slug]
   if (!tool) return { title: 'Tool Not Found' }
 
-  const title = `${tool.title} — Online Developer Tool | MyDevTools`
+  const title = `${toolSeoTitle(tool)} — ${tool.title} | MyDevTools`
   const description = tool.aiSummary ?? tool.description
   const url = `${baseUrl}/tools/${slug}`
   const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(tool.title)}&description=${encodeURIComponent(tool.description)}`
@@ -31,7 +32,6 @@ export async function generateMetadata({
   return {
     title,
     description,
-    keywords: [...tool.keywords, 'online developer tool', 'browser tool', 'MyDevTools'].join(', '),
     alternates: { canonical: url },
     openGraph: {
       title,
@@ -61,8 +61,11 @@ export default async function ToolLandingPage({
 
   const appUrl = `/app/${slug}`
   const category = toolCategoryMap[slug] ?? 'Developer Tools'
-  const related = getRelatedTools(slug)
+  const related = getRelatedTools(slug, 8)
+  const comparisons = getComparisonPagesForTool(slug)
   const jsonLd = buildSoftwareApplicationJsonLd(slug)
+  const h1 = toolSeoTitle(tool)
+  const primaryKeyword = tool.keywords[0] ?? tool.title.toLowerCase()
 
   return (
     <div className="dark flex flex-col min-h-screen bg-background text-foreground font-sans">
@@ -99,9 +102,9 @@ export default async function ToolLandingPage({
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 leading-[1.1]">
-              {tool.title}
+              {h1}
               <span className="block text-2xl sm:text-3xl md:text-4xl bg-gradient-to-r from-sky-500 via-violet-500 to-pink-500 bg-clip-text text-transparent mt-2 font-semibold">
-                Online Developer Tool
+                {tool.title} on MyDevTools
               </span>
             </h1>
 
@@ -135,6 +138,37 @@ export default async function ToolLandingPage({
               {tool.description} Runs entirely in your browser — no installation, no account required to try it.
             </p>
 
+            <div className="grid gap-5 md:grid-cols-2 mb-10">
+              <div className="rounded-2xl border border-border/40 bg-card/40 p-5">
+                <h3 className="text-lg font-semibold mb-3">
+                  Common {tool.title} use cases
+                </h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  Use {tool.title} when you need a fast, browser-based way to work
+                  with {primaryKeyword}. It is useful during API debugging, code
+                  reviews, documentation cleanup, test data preparation, and quick
+                  checks on a new machine where you do not want to install a desktop
+                  app. Because MyDevTools keeps related utilities together, you can
+                  move from {tool.title} into nearby tools like formatters,
+                  converters, generators, encoders, decoders, and API helpers
+                  without leaving the same toolkit.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-border/40 bg-card/40 p-5">
+                <h3 className="text-lg font-semibold mb-3">
+                  Example workflow
+                </h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  A typical workflow starts by pasting or typing your input into
+                  {` ${tool.title}`}. Review the result, copy the cleaned or generated
+                  output, then continue with a related task such as validating a
+                  payload, decoding a token, parsing a URL, generating an identifier,
+                  or testing an API request. This makes {tool.title} part of a
+                  practical developer workflow instead of a one-off utility page.
+                </p>
+              </div>
+            </div>
+
             <h3 className="text-lg font-semibold mb-4">Key Features</h3>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {tool.keywords.slice(0, 8).map((kw) => (
@@ -152,6 +186,45 @@ export default async function ToolLandingPage({
                 <span>Free to use, always</span>
               </li>
             </ul>
+          </div>
+        </section>
+
+        {/* ── FAQ copy ── */}
+        <section className="py-12 md:py-16 border-t border-border/40">
+          <div className="container px-4 md:px-6 mx-auto max-w-4xl">
+            <h2 className="text-2xl md:text-3xl font-bold mb-8">
+              {tool.title} FAQ
+            </h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              {[
+                {
+                  q: `Is ${tool.title} free to use?`,
+                  a: `Yes. ${tool.title} is available through MyDevTools with a public landing page and browser-based app experience.`,
+                },
+                {
+                  q: `Do I need to install anything for ${tool.title}?`,
+                  a: `No. ${tool.title} runs in a web browser, so you can open it from any modern device without installing a desktop utility.`,
+                },
+                {
+                  q: `What is ${tool.title} best for?`,
+                  a: tool.aiSummary ?? tool.description,
+                },
+                {
+                  q: `What should I use with ${tool.title}?`,
+                  a: `Most developers pair ${tool.title} with related MyDevTools utilities such as formatters, parsers, encoders, generators, API tools, and security helpers.`,
+                },
+              ].map((item) => (
+                <article
+                  key={item.q}
+                  className="rounded-2xl border border-border/40 bg-card/40 p-5"
+                >
+                  <h3 className="font-semibold mb-2">{item.q}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {item.a}
+                  </p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -220,6 +293,33 @@ export default async function ToolLandingPage({
                   View all {category} tools
                   <ArrowRight className="w-4 h-4" />
                 </Link>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {comparisons.length > 0 && (
+          <section className="py-12 md:py-16 border-t border-border/40 bg-muted/20">
+            <div className="container px-4 md:px-6 mx-auto max-w-4xl">
+              <h2 className="text-2xl md:text-3xl font-bold mb-8">
+                {tool.title} comparisons and alternatives
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {comparisons.map((comparison) => (
+                  <Link
+                    key={comparison.slug}
+                    href={`/compare/${comparison.slug}`}
+                    className="group rounded-xl border border-border/40 bg-card/50 hover:bg-card hover:border-border/70 p-5 transition-all duration-200 hover:scale-[1.01]"
+                  >
+                    <span className="font-semibold text-sm flex items-center gap-1.5">
+                      {comparison.title}
+                      <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+                    </span>
+                    <span className="mt-1.5 block text-xs text-muted-foreground leading-snug line-clamp-2">
+                      {comparison.description}
+                    </span>
+                  </Link>
+                ))}
               </div>
             </div>
           </section>

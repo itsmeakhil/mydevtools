@@ -20,7 +20,6 @@ export const metadata: Metadata = {
     template: '%s | MyDevTools'
   },
   description: siteMetadata.description,
-  keywords: siteMetadata.keywords,
   authors: [{ name: 'MyDevTools' }],
   creator: 'MyDevTools',
   publisher: 'MyDevTools',
@@ -110,9 +109,10 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://firebasestorage.googleapis.com" />
         {/* Vercel Speed Insights */}
         <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
+        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+        <SiteWideJsonLd />
       </head>
       <body suppressHydrationWarning className="min-h-screen bg-background font-sans antialiased">
-        <SiteWideJsonLd />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
