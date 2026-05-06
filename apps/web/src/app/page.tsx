@@ -34,6 +34,7 @@ import {
   Crown,
 } from "lucide-react";
 import { sidebarData } from "@/components/sidebar/data/sidebar-data";
+import { homepageFaqItems } from "@/lib/seo/structured-data";
 
 // ─── Animation Variants ────────────────────────────────────────────────────────
 
@@ -131,6 +132,25 @@ const toolListGradients = [
   "from-indigo-500 to-blue-400",
 ] as const;
 
+const homepageToolSlugs = [
+  'json-formatter',
+  'jwt-decoder',
+  'api-client',
+  'regex-tester',
+  'uuid-generator',
+  'base64',
+  'hash-generator',
+  'url-parser',
+  'timestamp-converter',
+  'cron-builder',
+  'mock-data-generator',
+  'docker-compose-generator',
+] as const;
+
+const homepageTools = homepageToolSlugs
+  .map((slug) => allAppTools.find((tool) => tool.url === `/app/${slug}`))
+  .filter((tool): tool is HomeToolEntry => Boolean(tool));
+
 const howItWorks = [
   {
     step: "01",
@@ -157,32 +177,7 @@ const howItWorks = [
   },
 ];
 
-const faqItems = [
-  {
-    q: "Is MyDevTools free?",
-    a: "Self-hosting is free forever — clone the repo, deploy it yourself, no fees, no limits from us. The hosted cloud (mydevtools.tech) is a paid service. Pricing details are on the pricing section of this page.",
-  },
-  {
-    q: "What is the difference between self-hosting and MyDevTools Cloud?",
-    a: "Self-hosting is the same codebase running on your own infrastructure — you own the data and pay nothing to us. MyDevTools Cloud is our managed service; it is a paid subscription that covers hosting, sync, and backups.",
-  },
-  {
-    q: "Is my data secure?",
-    a: "Sensitive data is AES-256 encrypted in your browser before it reaches the server. The server only stores encrypted blobs it cannot read — zero-knowledge by design.",
-  },
-  {
-    q: "Do I need an account to use the tools?",
-    a: "Google Sign-In is required to save your data across sessions. It's one click — no email or password needed.",
-  },
-  {
-    q: "Is this truly open source?",
-    a: "Yes. Full source code is available on GitHub under the GPL-3.0 license. You can audit, contribute, or self-host it.",
-  },
-  {
-    q: "Does it work offline?",
-    a: "Most tools are fully client-side and work offline (JSON Editor, Password Manager, Notes, etc.). Tools that connect to external services (NoSQL Explorer, API Client) need a network connection.",
-  },
-];
+const faqItems = homepageFaqItems;
 
 // Empty subscriber — modKey is read once after hydration; we don't react to platform changes.
 const subscribeNoop = () => () => {};
@@ -316,10 +311,10 @@ export default function Page() {
               transition={{ duration: 0.6, delay: 0.08 }}
               className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.08]"
             >
-              <span className="text-foreground">Online Developer</span>
+              <span className="text-foreground">Free Online Developer Tools</span>
               <br />
               <span className="bg-gradient-to-r from-sky-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
-                Toolkit
+                JSON, JWT, Regex &amp; {allAppTools.length}+ More
               </span>
             </motion.h1>
 
@@ -329,9 +324,9 @@ export default function Page() {
               transition={{ duration: 0.6, delay: 0.16 }}
               className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             >
-              {allAppTools.length}+ browser-based developer tools for formatting,
-              testing, debugging, securing, and shipping code. No install, less
-              context switching, open source, and self-hostable.
+              Format JSON, decode JWTs, test APIs, build regexes, generate UUIDs,
+              encode Base64, and use dozens more browser-based developer tools in
+              one open-source toolkit.
             </motion.p>
 
             {/* CTAs */}
@@ -902,9 +897,9 @@ export default function Page() {
               ))}
             </motion.div>
 
-            {/* Featured tool cards — first 6 */}
+            {/* Featured tool cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-              {allAppTools.slice(0, 6).map((tool, i) => {
+              {homepageTools.map((tool, i) => {
                 const g = toolListGradients[i % toolListGradients.length];
                 const Icon = tool.icon;
                 return (

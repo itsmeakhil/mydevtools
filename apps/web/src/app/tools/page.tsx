@@ -12,8 +12,6 @@ export const metadata: Metadata = {
   title: 'Online Developer Tools | MyDevTools',
   description:
     'Browse 50+ browser-based developer tools: JSON formatter, JWT decoder, API client, UUID generator, regex tester, and more. No install required.',
-  keywords:
-    'developer tools online, json formatter online, jwt decoder, api client, uuid generator, regex tester, base64 encoder, browser dev tools',
   alternates: { canonical: `${baseUrl}/tools` },
   openGraph: {
     title: 'Online Developer Tools | MyDevTools',

@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { publicToolSlugs } from '@/lib/tool-categories'
 import { platformSeoPageSlugs } from '@/lib/seo/platform-pages'
+import { comparisonPageSlugs } from '@/lib/seo/comparison-pages'
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
@@ -45,6 +46,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: slug === 'developer-tools' ? 0.92 : 0.82,
     }))
 
+    const comparisonPages = comparisonPageSlugs.map((slug) => ({
+        url: `${baseUrl}/compare/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.78,
+    }))
+
     // Public SEO landing pages — primary indexing target
     const toolLandingPages = publicToolSlugs.map((slug) => ({
         url: `${baseUrl}/tools/${slug}`,
@@ -54,5 +62,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
 
     // /app/* pages require authentication — excluded to preserve crawl budget
-    return [...mainPages, ...platformPages, ...toolLandingPages]
+    return [...mainPages, ...platformPages, ...comparisonPages, ...toolLandingPages]
 }
