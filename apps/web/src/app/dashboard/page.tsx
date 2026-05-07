@@ -404,9 +404,6 @@ const DashboardPage: React.FC = () => {
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-base font-bold tracking-tight">{t('brandName')}</h1>
-                <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-primary ring-1 ring-primary/20">
-                  Beta
-                </span>
               </div>
               <p className="text-[11px] text-muted-foreground">
                 {dashboardGreeting(t)}
@@ -439,9 +436,6 @@ const DashboardPage: React.FC = () => {
                       ? t('welcomeBackNamed', { name: user.displayName.split(' ')[0] })
                       : t('welcomeBack')}
                   </h1>
-                  <span className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-primary ring-1 ring-primary/20">
-                    Beta
-                  </span>
                 </div>
                 <p className="text-muted-foreground">
                   {t('tagline')}

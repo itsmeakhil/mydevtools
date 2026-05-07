@@ -119,19 +119,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <Logo size={36} showText={false} />
           </div>
           <div className="flex flex-col justify-center transition-all duration-300 origin-left group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:translate-x-[-10px]">
-            <div className="relative h-6 w-28 -ml-1 whitespace-nowrap">
-              <Image
-                src="/logo-text-light.png"
-                alt="MyDevTools"
-                fill
-                className="dark:hidden object-contain object-left"
-              />
-              <Image
-                src="/logo-text-dark.png"
-                alt="MyDevTools"
-                fill
-                className="hidden dark:block object-contain object-left"
-              />
+            <div className="flex items-center gap-1.5">
+              <div className="relative h-6 w-28 -ml-1 whitespace-nowrap shrink-0">
+                <Image
+                  src="/logo-text-light.png"
+                  alt="MyDevTools"
+                  fill
+                  className="dark:hidden object-contain object-left"
+                />
+                <Image
+                  src="/logo-text-dark.png"
+                  alt="MyDevTools"
+                  fill
+                  className="hidden dark:block object-contain object-left"
+                />
+              </div>
+              <span className="inline-flex items-center rounded-full bg-primary/10 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-primary ring-1 ring-primary/20 whitespace-nowrap">
+                Beta
+              </span>
             </div>
             <p className="text-[10px] text-muted-foreground/80 font-medium tracking-wider uppercase pl-0.5 whitespace-nowrap">Developer&apos;s Toolkit</p>
           </div>
