@@ -27,11 +27,9 @@ from app.utils.collection_name import (
 async def ensure_indexes() -> None:
     await db_manager.create_index(USERS, "refresh_token_hash", sparse=True)
     await db_manager.create_index(USERS, "username", unique=True, sparse=True)
-
     await db_manager.create_index(TASKS, [("created_by", 1), ("status", 1), ("statusOrder", 1), ("createdAt", -1)])
     await db_manager.create_index(TASKS, [("created_by", 1), ("projectId", 1), ("status", 1), ("statusOrder", 1)])
     await db_manager.create_index(PROJECTS, [("created_by", 1), ("createdAt", 1)])
-
     await db_manager.create_index(BOOKMARKS, [("created_by", 1), ("folderId", 1)])
     await db_manager.create_index(BOOKMARKS, [("created_by", 1), ("updatedAt", -1)])
     await db_manager.create_index(BOOKMARK_FOLDERS, [("created_by", 1), ("parentId", 1)])

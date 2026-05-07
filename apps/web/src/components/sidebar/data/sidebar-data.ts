@@ -121,7 +121,6 @@ export const sidebarData: SidebarData = {
           url: '/app/certificate-pem-decoder',
           icon: IconCertificate,
           description: 'Decode X.509 certificates and CSRs: subject, issuer, validity, SANs.',
-          badge: 'new',
         },
         {
           title: 'Encryption Playground',
@@ -164,7 +163,6 @@ export const sidebarData: SidebarData = {
           url: '/app/graphql-formatter',
           icon: IconBrandGraphql,
           description: 'Format GraphQL with syntax highlighting and a query builder.',
-          badge: 'new',
         },
         {
           title: 'Markdown Preview',
@@ -231,7 +229,6 @@ export const sidebarData: SidebarData = {
           url: '/app/unit-converter',
           icon: IconRuler,
           description: 'Convert between 323 units across 43 scientific and engineering categories.',
-          badge: 'new',
         },
         {
           title: 'CSV / Excel ↔ JSON',
@@ -281,7 +278,6 @@ export const sidebarData: SidebarData = {
           icon: IconBrandDocker,
           description:
             'Compose local stacks: Postgres, Redis, NGINX, Kafka, Elasticsearch, Prometheus, Grafana, and many more — copy docker-compose.yml.',
-          badge: 'new',
         },
         {
           title: 'Lorem Ipsum',
@@ -294,7 +290,6 @@ export const sidebarData: SidebarData = {
           url: '/app/mock-data-generator',
           icon: IconClipboardData,
           description: 'Define a schema and export random JSON, CSV, SQL, or XML for dev and API testing.',
-          badge: 'new',
         },
         {
           title: 'Cron Builder',
@@ -379,14 +374,12 @@ export const sidebarData: SidebarData = {
           url: '/app/s3-drive',
           icon: IconBucket,
           description: 'Manage AWS S3 and DigitalOcean Spaces buckets. Browse, upload, and delete files with encrypted credentials.',
-          badge: 'new',
         },
         {
           title: 'Redis Commander',
           url: '/app/redis-commander',
           icon: IconBrandRedux,
           description: 'Browse keys, inspect values, run raw commands, and flush patterns — encrypted credential store.',
-          badge: 'new',
         },
       ],
     },
@@ -423,7 +416,6 @@ export const sidebarData: SidebarData = {
           url: '/app/svg-optimizer',
           icon: IconFileTypeSvg,
           description: 'Paste SVG, strip junk with SVGO, and see UTF-8 size reduction.',
-          badge: 'new',
         },
       ],
     },
@@ -449,21 +441,18 @@ export const sidebarData: SidebarData = {
           url: '/app/break-room/snake',
           icon: IconDeviceGamepad2,
           description: 'Classic snake game. Eat food, grow, avoid walls and yourself.',
-          badge: 'new',
         },
         {
           title: 'Minesweeper',
           url: '/app/break-room/minesweeper',
           icon: IconDeviceGamepad2,
           description: 'Classic Minesweeper. Beginner, intermediate, and expert modes.',
-          badge: 'new',
         },
         {
           title: 'Tetris',
           url: '/app/break-room/tetris',
           icon: IconDeviceGamepad2,
           description: 'Classic Tetris. Stack pieces, clear lines, level up.',
-          badge: 'new',
         },
       ],
     },

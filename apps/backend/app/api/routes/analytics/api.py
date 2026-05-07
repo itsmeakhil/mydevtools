@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends
 
-from app.api.routes.analytics.schema import DashboardAnalyticsOut
 from app.api.routes.analytics import services as analytics_svc
 from app.api.routes.auth.services import get_current_uid
 

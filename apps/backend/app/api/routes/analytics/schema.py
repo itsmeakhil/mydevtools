@@ -6,7 +6,6 @@ from app.api.routes.tasks.schema import TaskStatsOut
 
 
 class DashboardAnalyticsOut(BaseModel):
-
     passwordEntries: int = Field(ge=0)
     bookmarks: int = Field(ge=0)
     bookmarkFolders: int = Field(ge=0)
