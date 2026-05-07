@@ -16,7 +16,6 @@ import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { COLOR_THEME_OPTIONS, type ColorTheme, useColorTheme } from '@/hooks/use-color-theme'
 import { getToolMessageKey } from '@/lib/tool-i18n'
-import { useAutoCopyStore } from '@/store/auto-copy-store'
 const colorDisplay: Record<ColorTheme, { swatchClass: string; name: string }> = {
   cyan: { swatchClass: 'bg-cyan-500', name: 'Teal' },
   blue: { swatchClass: 'bg-blue-500', name: 'Blue' },
@@ -36,7 +35,6 @@ export default function SettingsPage() {
   const { theme, setTheme } = useTheme()
   const { colorTheme, setColorTheme } = useColorTheme()
   const { isToolEnabled, toggleTool } = useToolVisibility()
-  const { autoCopy, setAutoCopy } = useAutoCopyStore()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -135,54 +133,19 @@ export default function SettingsPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="flex items-center justify-between rounded-lg border p-4 bg-background/50 shadow-sm">
-              <div className="space-y-0.5">
-                <Label className="text-base">Auto-copy outputs</Label>
-                <p className="text-sm text-muted-foreground">Automatically copy generated text/hashes to clipboard when using real-time tools.</p>
-              </div>
-              <Switch
-                checked={autoCopy}
-                onCheckedChange={setAutoCopy}
-              />
-            </div>
-            
-            <div className="space-y-4">
+
+            <div className="space-y-4 max-w-xs">
               <Label>{t('appearance.themePreference')}</Label>
-              <div className="grid grid-cols-3 gap-2 sm:gap-4">
-                <Button
-                  variant="outline"
-                  className={cn(
-                    "h-16 sm:h-24 flex-col gap-2 sm:gap-3 justify-center border-2 border-muted hover:border-foreground/50 transition-all",
-                    theme === 'light' && "border-foreground bg-foreground/5"
-                  )}
-                  onClick={() => setTheme('light')}
-                >
-                  <Sun className="h-6 w-6" />
-                  <span>{t('appearance.themes.light')}</span>
-                </Button>
-                <Button
-                  variant="outline"
-                  className={cn(
-                    "h-16 sm:h-24 flex-col gap-2 sm:gap-3 justify-center border-2 border-muted hover:border-foreground/50 transition-all",
-                    theme === 'dark' && "border-foreground bg-foreground/5"
-                  )}
-                  onClick={() => setTheme('dark')}
-                >
-                  <Moon className="h-6 w-6" />
-                  <span>{t('appearance.themes.dark')}</span>
-                </Button>
-                <Button
-                  variant="outline"
-                  className={cn(
-                    "h-16 sm:h-24 flex-col gap-2 sm:gap-3 justify-center border-2 border-muted hover:border-foreground/50 transition-all",
-                    theme === 'system' && "border-foreground bg-foreground/5"
-                  )}
-                  onClick={() => setTheme('system')}
-                >
-                  <Monitor className="h-6 w-6" />
-                  <span>{t('appearance.themes.system')}</span>
-                </Button>
-              </div>
+              <Select value={theme} onValueChange={setTheme}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select theme" />
+                </SelectTrigger>
+                <SelectContent className="rounded-lg">
+                  <SelectItem value="light">{t('appearance.themes.light')}</SelectItem>
+                  <SelectItem value="dark">{t('appearance.themes.dark')}</SelectItem>
+                  <SelectItem value="system">{t('appearance.themes.system')}</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="space-y-4">
