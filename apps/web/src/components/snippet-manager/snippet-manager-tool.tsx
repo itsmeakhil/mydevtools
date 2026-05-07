@@ -234,7 +234,7 @@ export function SnippetManagerTool() {
         useSnippetManagerStore.getState().updateSnippet(id, { code });
         const u = userRef.current;
         if (u) {
-          void patchCodeSnippetApi(u, id, { code })
+          void patchCodeSnippetApi(id, { code })
             .then((s) =>
               useSnippetManagerStore.getState().mergeSnippetFromRemote(s)
             )
@@ -296,7 +296,7 @@ export function SnippetManagerTool() {
     let cancelled = false;
     (async () => {
       try {
-        const remote = await listCodeSnippetsApi(user);
+        const remote = await listCodeSnippetsApi();
         if (cancelled) return;
         if (remote.length > 0) {
           importSnippets(remote);
@@ -305,7 +305,7 @@ export function SnippetManagerTool() {
           const local = useSnippetManagerStore.getState().snippets;
           for (const sn of local) {
             try {
-              await createCodeSnippetApi(user, {
+              await createCodeSnippetApi({
                 id: sn.id,
                 title: sn.title,
                 language: sn.language,
@@ -317,7 +317,7 @@ export function SnippetManagerTool() {
               if (!isSnippetDuplicateError(e)) throw e;
             }
           }
-          const again = await listCodeSnippetsApi(user);
+          const again = await listCodeSnippetsApi();
           if (cancelled) return;
           importSnippets(again.length > 0 ? again : local);
           setRemoteListEpoch((e) => e + 1);
@@ -325,7 +325,7 @@ export function SnippetManagerTool() {
 
         let list = useSnippetManagerStore.getState().snippets;
         if (list.length === 0) {
-          const created = await createCodeSnippetApi(user, {
+          const created = await createCodeSnippetApi({
             title: t("defaultSnippetTitle"),
             language: SNIPPET_LANGUAGE_AUTO,
             code: t("defaultSnippetCode"),
@@ -420,7 +420,7 @@ export function SnippetManagerTool() {
       updateSnippet(selectedId, { title, language });
       const u = userRef.current;
       if (u) {
-        void patchCodeSnippetApi(u, selectedId, { title, language })
+        void patchCodeSnippetApi(selectedId, { title, language })
           .then((s) =>
             useSnippetManagerStore.getState().mergeSnippetFromRemote(s)
           )
@@ -438,7 +438,7 @@ export function SnippetManagerTool() {
       updateSnippet(id, { pinned: newPinned });
       const u = userRef.current;
       if (u) {
-        void patchCodeSnippetApi(u, id, { pinned: newPinned })
+        void patchCodeSnippetApi(id, { pinned: newPinned })
           .then((s) => mergeSnippetFromRemote(s))
           .catch(() => toast.error(t("toastSyncFailed")));
       }
@@ -455,7 +455,7 @@ export function SnippetManagerTool() {
       updateSnippet(selectedId, { tags: next });
       const u = userRef.current;
       if (u) {
-        void patchCodeSnippetApi(u, selectedId, { tags: next })
+        void patchCodeSnippetApi(selectedId, { tags: next })
           .then((s) => mergeSnippetFromRemote(s))
           .catch(() => toast.error(t("toastSyncFailed")));
       }
@@ -471,7 +471,7 @@ export function SnippetManagerTool() {
       updateSnippet(selectedId, { tags: next });
       const u = userRef.current;
       if (u) {
-        void patchCodeSnippetApi(u, selectedId, { tags: next })
+        void patchCodeSnippetApi(selectedId, { tags: next })
           .then((s) => mergeSnippetFromRemote(s))
           .catch(() => toast.error(t("toastSyncFailed")));
       }
@@ -489,7 +489,7 @@ export function SnippetManagerTool() {
     };
     if (u) {
       try {
-        const created = await createCodeSnippetApi(u, payload);
+        const created = await createCodeSnippetApi(payload);
         useSnippetManagerStore.getState().mergeSnippetFromRemote(created);
         setSelectedId(created.id);
       } catch {
@@ -532,7 +532,7 @@ export function SnippetManagerTool() {
           updateSnippet(selectedId, { code: next });
           const u = userRef.current;
           if (u) {
-            void patchCodeSnippetApi(u, selectedId, { code: next })
+            void patchCodeSnippetApi(selectedId, { code: next })
               .then((s) =>
                 useSnippetManagerStore.getState().mergeSnippetFromRemote(s)
               )
@@ -556,7 +556,7 @@ export function SnippetManagerTool() {
           updateSnippet(selectedId, { code: next });
           const u = userRef.current;
           if (u) {
-            void patchCodeSnippetApi(u, selectedId, { code: next })
+            void patchCodeSnippetApi(selectedId, { code: next })
               .then((s) =>
                 useSnippetManagerStore.getState().mergeSnippetFromRemote(s)
               )
@@ -585,7 +585,7 @@ export function SnippetManagerTool() {
     const u = userRef.current;
     if (u) {
       try {
-        await deleteCodeSnippetApi(u, id);
+        await deleteCodeSnippetApi(id);
       } catch {
         toast.error(t("toastSyncFailed"));
         return;

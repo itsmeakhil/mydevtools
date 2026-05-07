@@ -1,4 +1,5 @@
 import type { User } from "firebase/auth"
+import { auth } from "@/database/firebase"
 
 /** Same-origin refresh endpoint (used by fetch helpers). */
 export const BACKEND_AUTH_REFRESH_PATH = "/api/backend/auth/refresh"
@@ -116,6 +117,88 @@ function forceLogout(reason: "session-expired" | "unauthorized"): void {
         new CustomEvent("mydevtools:force-logout", { detail: { reason } })
     )
 }
+
+// ── Shared proxy helper (used by feature API libs) ─────────────────────────
+
+type ProxyResponse = {
+    status: number
+    statusText: string
+    headers: Record<string, string>
+    body: string
+    isBase64?: boolean
+    time: number
+    size: number
+    error?: string
+}
+
+async function rawProxyJson<T>(
+    backendBaseUrl: string,
+    method: string,
+    path: string,
+    body?: unknown
+): Promise<{ status: number; data: T | null }> {
+    const url = new URL(path, backendBaseUrl).toString()
+    const headersObj: Record<string, string> = {}
+    const proxyBody = body !== undefined ? JSON.stringify(body) : undefined
+    if (proxyBody !== undefined && method !== "GET" && method !== "HEAD") {
+        headersObj["Content-Type"] = "application/json"
+    }
+    const proxyRes = await fetch("/api/proxy", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, method, headers: headersObj, body: proxyBody }),
+    })
+    const proxyData = (await proxyRes.json()) as ProxyResponse
+    if (!proxyData.body) return { status: proxyData.status, data: null }
+    try {
+        return { status: proxyData.status, data: JSON.parse(proxyData.body) as T }
+    } catch {
+        return { status: proxyData.status, data: proxyData.body as unknown as T }
+    }
+}
+
+/**
+ * Authenticated proxy call to the backend via `/api/proxy`.
+ * On 401: tries token refresh, then Firebase session re-exchange.
+ * On persistent 401/403: dispatches force-logout.
+ */
+export async function proxyJsonAuthed<T>(
+    backendBaseUrl: string,
+    method: string,
+    path: string,
+    body?: unknown
+): Promise<{ status: number; data: T | null }> {
+    const u = auth.currentUser
+    if (u) await ensureBackendSession(u)
+
+    let result = await rawProxyJson<T>(backendBaseUrl, method, path, body)
+
+    if (result.status === 401) {
+        const refr = await fetch(BACKEND_AUTH_REFRESH_PATH, {
+            method: "POST",
+            credentials: "include",
+            cache: "no-store",
+        })
+        if (refr.ok) {
+            result = await rawProxyJson<T>(backendBaseUrl, method, path, body)
+        }
+    }
+
+    if (result.status === 401) {
+        const u2 = auth.currentUser
+        if (u2) await ensureBackendSession(u2)
+        result = await rawProxyJson<T>(backendBaseUrl, method, path, body)
+    }
+
+    if (result.status === 401 || result.status === 403) {
+        forceLogout(result.status === 403 ? "unauthorized" : "session-expired")
+    }
+
+    return result
+}
+
+// ── /api/backend/... fetch helper ──────────────────────────────────────────
 
 /**
  * Same-origin fetch to `/api/backend/...` with cookies; refreshes access token on 401 once.

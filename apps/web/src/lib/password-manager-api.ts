@@ -1,3 +1,5 @@
+import { proxyJsonAuthed } from "@/lib/backend-auth"
+
 const BACKEND_BASE_URL: string =
     process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
     process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
@@ -26,54 +28,6 @@ export type PasswordEntryUpdate = {
     updatedAt?: number
 }
 
-type ProxyResponse = {
-    status: number
-    statusText: string
-    headers: Record<string, string>
-    body: string
-    isBase64?: boolean
-    time: number
-    size: number
-    error?: string
-}
-
-async function proxyJson<T>(
-    method: string,
-    path: string,
-    body?: unknown
-): Promise<{ status: number; data: T | null }> {
-    const url = new URL(path, BACKEND_BASE_URL).toString()
-
-    const headersObj: Record<string, string> = {}
-
-    const proxyBody = body !== undefined ? JSON.stringify(body) : undefined
-    if (proxyBody !== undefined && method !== "GET" && method !== "HEAD") {
-        headersObj["Content-Type"] = "application/json"
-    }
-
-    const proxyRes = await fetch("/api/proxy", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            url,
-            method,
-            headers: headersObj,
-            body: proxyBody,
-        }),
-    })
-
-    const proxyData = (await proxyRes.json()) as ProxyResponse
-    if (!proxyData.body) {
-        return { status: proxyData.status, data: null }
-    }
-    try {
-        return { status: proxyData.status, data: JSON.parse(proxyData.body) as T }
-    } catch {
-        return { status: proxyData.status, data: proxyData.body as unknown as T }
-    }
-}
-
 function backendErrorMessage(data: unknown): string {
     if (typeof data === "string" && data.trim()) return data
     if (data && typeof data === "object" && "detail" in data) {
@@ -89,7 +43,7 @@ function backendErrorMessage(data: unknown): string {
 }
 
 async function passwordManagerRequest<T>(method: string, path: string, body?: unknown): Promise<T> {
-    const { status, data } = await proxyJson<T>(method, path, body)
+    const { status, data } = await proxyJsonAuthed<T>(BACKEND_BASE_URL, method, path, body)
     if (status < 200 || status >= 300) {
         throw new Error(backendErrorMessage(data))
     }
