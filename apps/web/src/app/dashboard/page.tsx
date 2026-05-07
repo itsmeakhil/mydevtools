@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import { Card, CardContent } from "@/components/ui/card";
 import { sidebarData } from "../../components/sidebar/data/sidebar-data";
 import Link, { LinkProps } from "next/link";
-import { Clock, ArrowRight, Sparkles, Layers, Zap, Search, X, LayoutGrid, BarChart3, LogIn, Wand2, Pin } from 'lucide-react';
+import { Clock, ArrowRight, Sparkles, Layers, Zap, Search, X, LayoutGrid, BarChart3, LogIn, Wand2, Pin, SlidersHorizontal } from 'lucide-react';
 import { requiresAuth } from '@/lib/tool-config';
 import { usePinnedToolsStore } from '@/store/pinned-tools-store';
 import { useToolUsage } from '@/hooks/use-tool-usage';
@@ -17,6 +17,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Skeleton } from '@/components/ui/skeleton';
 import { TOOL_PATH_TO_MESSAGE_KEY } from '@/lib/tool-i18n';
 import { cn } from '@/lib/utils';
+
+// Popular tool slugs shown in the no-results state
+const POPULAR_TOOL_URLS = [
+  '/app/json-formatter',
+  '/app/jwt-decoder',
+  '/app/api-client',
+  '/app/regex-tester',
+  '/app/uuid-generator',
+  '/app/base64',
+];
 
 // Lazy-load the analytics panel — it's behind a tab click, not in the critical path
 const DashboardAnalyticsPanel = dynamic(
@@ -61,6 +71,7 @@ interface ToolItem {
 
 interface FavoriteItem extends ToolItem {
   id: string;
+  timestamp?: number;
 }
 
 interface RenderToolItem extends ToolItem {
@@ -111,6 +122,14 @@ const findItemById = (id: string | undefined | null): ToolItem | undefined => {
   }
 };
 
+// Wraps a horizontal scroll row with a right-edge fade affordance
+const HScrollFade = ({ children }: { children: React.ReactNode }) => (
+  <div className="relative">
+    {children}
+    <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-background/80 to-transparent rounded-r-xl" />
+  </div>
+);
+
 // ToolCard is defined outside DashboardPage to prevent remount on every render
 interface ToolCardProps {
   item: ToolItem;
@@ -119,9 +138,22 @@ interface ToolCardProps {
   user: { displayName?: string | null } | null;
   isPinned: (url: string) => boolean;
   togglePin: (url: string) => void;
+  timestamp?: number;
 }
 
-const ToolCard = ({ item, id, index, user, isPinned, togglePin }: ToolCardProps) => {
+function formatRelativeTime(ts: number): string {
+  const diff = Date.now() - ts;
+  const mins = Math.floor(diff / 60_000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  const days = Math.floor(hrs / 24);
+  if (days === 1) return 'yesterday';
+  return `${days}d ago`;
+}
+
+const ToolCard = ({ item, id, index, user, isPinned, togglePin, timestamp }: ToolCardProps) => {
   const tCard = useTranslations('Dashboard');
   const tTools = useTranslations('Dashboard.tools');
   const pathname = item.url?.toString().split('?')[0] ?? '';
@@ -146,7 +178,7 @@ const ToolCard = ({ item, id, index, user, isPinned, togglePin }: ToolCardProps)
       style={{ animationDelay: `${Math.min(index * 50, 300)}ms`, animationFillMode: 'both' }}
     >
       <Link href={item.url || "#"} className="block group h-full" onClick={handleClick}>
-        <Card className="glass-card border-border/30 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 h-full min-h-[130px] md:min-h-[180px] relative overflow-hidden group-hover:-translate-y-0.5 md:group-hover:-translate-y-1.5">
+        <Card className="glass-card border-border/30 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 h-full relative overflow-hidden group-hover:-translate-y-0.5 md:group-hover:-translate-y-1.5">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
           <CardContent className="p-3 md:p-5 h-full flex flex-col justify-between relative z-10">
@@ -187,9 +219,14 @@ const ToolCard = ({ item, id, index, user, isPinned, togglePin }: ToolCardProps)
               <p className="text-muted-foreground/80 text-xs md:text-sm line-clamp-2 group-hover:text-muted-foreground transition-colors">
                 {displayDescription}
               </p>
+              {timestamp && (
+                <p className="mt-1 text-[10px] text-muted-foreground/50 tabular-nums">
+                  {formatRelativeTime(timestamp)}
+                </p>
+              )}
             </div>
 
-            <div className="mt-2 md:mt-3 flex items-center text-[10px] md:text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-[-10px] group-hover:translate-x-0">
+            <div className="mt-2 md:mt-3 flex items-center text-[10px] md:text-xs font-medium text-primary opacity-40 group-hover:opacity-100 transition-all duration-300 transform translate-x-[-4px] group-hover:translate-x-0">
               {tCard('toolCard.launchTool')} <ArrowRight size={10} className="md:w-3 md:h-3 ml-1 md:ml-1.5 group-hover:translate-x-1 transition-transform" />
             </div>
           </CardContent>
@@ -210,6 +247,7 @@ const DashboardPage: React.FC = () => {
   const [recentlyUsedItems, setRecentlyUsedItems] = useState<FavoriteItem[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterGroup, setFilterGroup] = useState<string | null>(null);
+  const [showFilters, setShowFilters] = useState(false);
   const isMobile = useMediaQuery("(max-width: 768px)");
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -218,7 +256,7 @@ const DashboardPage: React.FC = () => {
     const recent = getRecentlyUsedTools(5);
     const items = recent.map(usage => {
       const item = findItemById(usage.toolId);
-      return item ? { id: usage.toolId, ...item } : null;
+      return item ? { id: usage.toolId, timestamp: usage.timestamp, ...item } : null;
     }).filter((item): item is FavoriteItem => {
       if (!item) return false;
       return true;
@@ -379,6 +417,28 @@ const DashboardPage: React.FC = () => {
     }, 0);
   }, []);
 
+  // Popular tools shown in the no-results state
+  const popularItems = useMemo<RenderToolItem[]>(() => {
+    const found: RenderToolItem[] = [];
+    sidebarData.navGroups.forEach((group, gi) => {
+      group.items.forEach((item, ii) => {
+        const url = item.url?.toString() ?? '';
+        if (POPULAR_TOOL_URLS.includes(url)) {
+          found.push({ ...item, originalId: createItemId(gi, ii) });
+        }
+        item.items?.forEach((sub, si) => {
+          const subUrl = sub.url?.toString() ?? '';
+          if (POPULAR_TOOL_URLS.includes(subUrl)) {
+            found.push({ ...sub, icon: sub.icon || item.icon, originalId: createItemId(gi, ii, si) });
+          }
+        });
+      });
+    });
+    return POPULAR_TOOL_URLS
+      .map(url => found.find(i => i.url?.toString() === url))
+      .filter((i): i is RenderToolItem => !!i);
+  }, []);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
@@ -471,8 +531,8 @@ const DashboardPage: React.FC = () => {
 
             <TabsContent value="apps" className="mt-0 space-y-5 md:space-y-8 focus-visible:outline-none">
               {/* Search + category filter chips */}
-              <div className="sticky top-[56px] md:top-0 z-30 space-y-2 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border border-border/40 focus-within:border-primary/50 rounded-xl px-3 py-2 transition-colors">
-                <div className="relative">
+              <div className="sticky top-[56px] md:top-0 z-30 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border border-border/40 focus-within:border-primary/50 rounded-xl px-3 py-2 transition-colors">
+                <div className="relative flex items-center gap-1">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     ref={searchInputRef}
@@ -493,18 +553,29 @@ const DashboardPage: React.FC = () => {
                         <X className="h-4 w-4" />
                       </Button>
                     )}
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className={cn("h-7 w-7", (showFilters || filterGroup) && "text-primary bg-primary/10")}
+                      onClick={() => setShowFilters(v => !v)}
+                      aria-label="Toggle category filters"
+                    >
+                      <SlidersHorizontal className="h-3.5 w-3.5" />
+                    </Button>
                     <span className="hidden md:inline-flex items-center rounded-md border border-border/60 px-1.5 py-0.5 text-[10px] text-muted-foreground">
                       Ctrl/⌘ K
                     </span>
                   </div>
                 </div>
-                {/* Category filter chips */}
-                <div className="flex flex-wrap gap-1.5">
+                {/* Category filter chips — hidden until toggled */}
+                {(showFilters || filterGroup !== null) && (
+                <div className="flex gap-1.5 overflow-x-auto pb-0.5 mobile-scrollbar-hide">
                   <button
                     type="button"
                     onClick={() => setFilterGroup(null)}
                     className={cn(
-                      "px-3 py-1 rounded-full text-xs font-medium border transition-colors",
+                      "shrink-0 px-3 py-1 rounded-full text-xs font-medium border transition-colors",
                       filterGroup === null
                         ? "bg-primary text-primary-foreground border-primary"
                         : "bg-muted/50 text-muted-foreground border-border/50 hover:border-primary/40 hover:text-foreground"
@@ -518,7 +589,7 @@ const DashboardPage: React.FC = () => {
                       type="button"
                       onClick={() => setFilterGroup(filterGroup === title ? null : title)}
                       className={cn(
-                        "inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border transition-colors",
+                        "shrink-0 inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border transition-colors",
                         filterGroup === title
                           ? "bg-primary text-primary-foreground border-primary"
                           : "bg-muted/50 text-muted-foreground border-border/50 hover:border-primary/40 hover:text-foreground"
@@ -529,9 +600,23 @@ const DashboardPage: React.FC = () => {
                     </button>
                   ))}
                 </div>
+                )}
               </div>
 
               {/* Pinned — shown first, always visible unless searching or group-filtering */}
+              {/* Pinned empty state — shown once, only when nothing is pinned */}
+              {pinnedItems.length === 0 && !searchQuery && !filterGroup && (
+                <div className="flex items-start gap-3 rounded-xl border border-dashed border-border/50 bg-muted/20 px-4 py-3.5">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary mt-0.5">
+                    <Pin size={16} strokeWidth={1.5} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-foreground">{t('sections.pinned')}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{t('pinnedEmpty')}</p>
+                  </div>
+                </div>
+              )}
+
               {pinnedItems.length > 0 && !searchQuery && !filterGroup && (
                 <section className="space-y-3 md:space-y-5">
                   <div className="flex items-center gap-3 section-header-line pb-2">
@@ -544,13 +629,15 @@ const DashboardPage: React.FC = () => {
                     </span>
                   </div>
                   <div className="md:hidden -mx-4 px-4">
-                    <div className="flex gap-3 overflow-x-auto scroll-snap-x pb-2 mobile-scrollbar-hide">
-                      {pinnedItems.map((item, index) => (
-                        <div key={`pinned-mobile-${item.originalId}`} className="scroll-snap-item w-[min(280px,75vw)] flex-shrink-0">
-                          <ToolCard item={item} id={item.originalId!} index={index} {...toolCardProps} />
-                        </div>
-                      ))}
-                    </div>
+                    <HScrollFade>
+                      <div className="flex gap-3 overflow-x-auto scroll-snap-x pb-2 mobile-scrollbar-hide">
+                        {pinnedItems.map((item, index) => (
+                          <div key={`pinned-mobile-${item.originalId}`} className="scroll-snap-item w-[min(280px,75vw)] flex-shrink-0">
+                            <ToolCard item={item} id={item.originalId!} index={index} {...toolCardProps} />
+                          </div>
+                        ))}
+                      </div>
+                    </HScrollFade>
                   </div>
                   <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-4">
                     {pinnedItems.map((item, index) => (
@@ -562,24 +649,26 @@ const DashboardPage: React.FC = () => {
 
               {/* What's New — only visible when not searching and no group filter active */}
               {whatsNewItems.length > 0 && !searchQuery && !filterGroup && (
-                <section className="space-y-3 md:space-y-5">
-                  <div className="flex items-center gap-3 section-header-line pb-2">
-                    <div className="p-2 rounded-xl bg-primary/10 text-primary">
+                <section className="space-y-3 md:space-y-5 rounded-2xl border border-amber-500/20 bg-amber-500/[0.03] p-4 md:p-5">
+                  <div className="flex items-center gap-3 pb-2 border-b border-amber-500/15">
+                    <div className="p-2 rounded-xl bg-amber-500/15 text-amber-500">
                       <Wand2 size={18} strokeWidth={1.5} />
                     </div>
                     <h2 className="text-xl font-semibold">{t('sections.whatsNew')}</h2>
-                    <span className="text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
+                    <span className="text-xs font-medium text-amber-600/80 dark:text-amber-400/80 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
                       {whatsNewItems.length}
                     </span>
                   </div>
                   <div className="md:hidden -mx-4 px-4">
-                    <div className="flex gap-3 overflow-x-auto scroll-snap-x pb-2 mobile-scrollbar-hide">
-                      {whatsNewItems.map((item, index) => (
-                        <div key={`new-mobile-${item.originalId}`} className="scroll-snap-item w-[min(280px,75vw)] flex-shrink-0">
-                          <ToolCard item={item} id={item.originalId!} index={index} {...toolCardProps} />
-                        </div>
-                      ))}
-                    </div>
+                    <HScrollFade>
+                      <div className="flex gap-3 overflow-x-auto scroll-snap-x pb-2 mobile-scrollbar-hide">
+                        {whatsNewItems.map((item, index) => (
+                          <div key={`new-mobile-${item.originalId}`} className="scroll-snap-item w-[min(280px,75vw)] flex-shrink-0">
+                            <ToolCard item={item} id={item.originalId!} index={index} {...toolCardProps} />
+                          </div>
+                        ))}
+                      </div>
+                    </HScrollFade>
                   </div>
                   <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-4">
                     {whatsNewItems.map((item, index) => (
@@ -605,17 +694,19 @@ const DashboardPage: React.FC = () => {
                   </div>
                   {/* Horizontal scroll on mobile, grid on larger screens */}
                   <div className="md:hidden -mx-4 px-4">
-                    <div className="flex gap-3 overflow-x-auto scroll-snap-x pb-2 mobile-scrollbar-hide">
-                      {recentlyUsedItems.map((item, index) => (
-                        <div key={`recent-mobile-${item.id}`} className="scroll-snap-item w-[min(280px,75vw)] flex-shrink-0">
-                          <ToolCard item={item} id={item.id} index={index} {...toolCardProps} />
-                        </div>
-                      ))}
-                    </div>
+                    <HScrollFade>
+                      <div className="flex gap-3 overflow-x-auto scroll-snap-x pb-2 mobile-scrollbar-hide">
+                        {recentlyUsedItems.map((item, index) => (
+                          <div key={`recent-mobile-${item.id}`} className="scroll-snap-item w-[min(280px,75vw)] flex-shrink-0">
+                            <ToolCard item={item} id={item.id} index={index} timestamp={item.timestamp} {...toolCardProps} />
+                          </div>
+                        ))}
+                      </div>
+                    </HScrollFade>
                   </div>
                   <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-4">
                     {recentlyUsedItems.map((item, index) => (
-                      <ToolCard key={`recent-${item.id}`} item={item} id={item.id} index={index} {...toolCardProps} />
+                      <ToolCard key={`recent-${item.id}`} item={item} id={item.id} index={index} timestamp={item.timestamp} {...toolCardProps} />
                     ))}
                   </div>
                 </section>
@@ -623,14 +714,28 @@ const DashboardPage: React.FC = () => {
 
               {/* Non-auth CTA — shown when logged out and not searching */}
               {!user && !searchQuery && (
-                <div className="flex items-center gap-3 rounded-xl border border-border/40 bg-muted/30 px-4 py-3">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                    <LogIn size={18} strokeWidth={1.5} />
+                <div className="relative rounded-2xl border border-border/40 overflow-hidden">
+                  {/* Ghost cards preview */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-4 pointer-events-none select-none" aria-hidden>
+                    {[...Array(4)].map((_, i) => (
+                      <div key={i} className="rounded-xl border border-border/30 bg-card/40 p-4 space-y-3 blur-[2px] opacity-60">
+                        <div className="w-8 h-8 rounded-lg bg-primary/10" />
+                        <div className="h-3 w-3/4 rounded bg-muted-foreground/20" />
+                        <div className="h-2.5 w-full rounded bg-muted-foreground/10" />
+                        <div className="h-2.5 w-2/3 rounded bg-muted-foreground/10" />
+                      </div>
+                    ))}
                   </div>
-                  <p className="flex-1 text-sm text-muted-foreground">{t('loginCta.description')}</p>
-                  <Button size="sm" className="shrink-0 rounded-lg" asChild>
-                    <Link href="/login">{t('signIn')}</Link>
-                  </Button>
+                  {/* Overlay CTA */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-background/60 backdrop-blur-[2px]">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                      <LogIn size={20} strokeWidth={1.5} />
+                    </div>
+                    <p className="text-sm text-muted-foreground text-center max-w-xs px-4">{t('loginCta.description')}</p>
+                    <Button size="sm" className="rounded-xl shadow-sm" asChild>
+                      <Link href="/login">{t('signIn')}</Link>
+                    </Button>
+                  </div>
                 </div>
               )}
 
@@ -678,9 +783,27 @@ const DashboardPage: React.FC = () => {
                   </section>
                 ))}
                 {(searchQuery || filterGroup) && filteredGroups.length === 0 && (
-                  <div className="rounded-xl border border-dashed border-border p-10 text-center">
-                    <p className="text-sm font-medium text-foreground">{t('noResults')}</p>
-                    <p className="mt-1 text-xs text-muted-foreground">{t('noResultsHint')}</p>
+                  <div className="space-y-5">
+                    <div className="rounded-xl border border-dashed border-border p-8 text-center">
+                      <p className="text-sm font-medium text-foreground">{t('noResults')}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">{t('noResultsHint')}</p>
+                    </div>
+                    {popularItems.length > 0 && (
+                      <div className="space-y-3">
+                        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider px-1">{t('popularTools')}</p>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
+                          {popularItems.map((item, index) => (
+                            <ToolCard
+                              key={`popular-${item.originalId}`}
+                              item={item}
+                              id={item.originalId!}
+                              index={index}
+                              {...toolCardProps}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
