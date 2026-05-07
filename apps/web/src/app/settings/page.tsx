@@ -134,58 +134,57 @@ export default function SettingsPage() {
           </CardHeader>
           <CardContent className="space-y-6">
 
-            <div className="space-y-4 max-w-xs">
-              <Label>{t('appearance.themePreference')}</Label>
-              <Select value={theme} onValueChange={setTheme}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select theme" />
-                </SelectTrigger>
-                <SelectContent className="rounded-lg">
-                  <SelectItem value="light">{t('appearance.themes.light')}</SelectItem>
-                  <SelectItem value="dark">{t('appearance.themes.dark')}</SelectItem>
-                  <SelectItem value="system">{t('appearance.themes.system')}</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Palette className="h-4 w-4 text-muted-foreground" />
-                <Label>Accent color</Label>
+            <div className="flex flex-col sm:flex-row sm:items-start gap-6">
+              <div className="space-y-2 sm:min-w-[180px]">
+                <Label>{t('appearance.themePreference')}</Label>
+                <Select value={theme} onValueChange={setTheme}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select theme" />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-lg">
+                    <SelectItem value="light">{t('appearance.themes.light')}</SelectItem>
+                    <SelectItem value="dark">{t('appearance.themes.dark')}</SelectItem>
+                    <SelectItem value="system">{t('appearance.themes.system')}</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
-              <div className="flex flex-wrap items-center gap-2">
-                {COLOR_THEME_OPTIONS.map((color) => {
-                  const isSelected = colorTheme === color
-                  const { swatchClass, name } = colorDisplay[color]
 
-                  return (
-                    <button
-                      key={color}
-                      type="button"
-                      onClick={() => setColorTheme(color)}
-                      className={cn(
-                        'relative h-10 w-10 rounded-full border-2 transition-all',
-                        isSelected
-                          ? 'border-primary scale-105 shadow-md shadow-primary/25'
-                          : 'border-transparent hover:border-border'
-                      )}
-                      aria-label={`Use ${name} accent color`}
-                      aria-pressed={isSelected}
-                      title={name}
-                    >
-                      <span className={cn('block h-full w-full rounded-full', swatchClass)} />
-                      {isSelected ? (
-                        <span className="absolute inset-0 flex items-center justify-center text-white">
-                          <Check className="h-4 w-4 drop-shadow-sm" />
-                        </span>
-                      ) : null}
-                    </button>
-                  )
-                })}
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Palette className="h-4 w-4 text-muted-foreground" />
+                  <Label>Accent color</Label>
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  {COLOR_THEME_OPTIONS.map((color) => {
+                    const isSelected = colorTheme === color
+                    const { swatchClass, name } = colorDisplay[color]
+
+                    return (
+                      <button
+                        key={color}
+                        type="button"
+                        onClick={() => setColorTheme(color)}
+                        className={cn(
+                          'relative h-10 w-10 rounded-full border-2 transition-all',
+                          isSelected
+                            ? 'border-primary scale-105 shadow-md shadow-primary/25'
+                            : 'border-transparent hover:border-border'
+                        )}
+                        aria-label={`Use ${name} accent color`}
+                        aria-pressed={isSelected}
+                        title={name}
+                      >
+                        <span className={cn('block h-full w-full rounded-full', swatchClass)} />
+                        {isSelected ? (
+                          <span className="absolute inset-0 flex items-center justify-center text-white">
+                            <Check className="h-4 w-4 drop-shadow-sm" />
+                          </span>
+                        ) : null}
+                      </button>
+                    )
+                  })}
+                </div>
               </div>
-              <p className="text-xs text-muted-foreground">
-                Selected: {colorDisplay[colorTheme].name}
-              </p>
             </div>
           </CardContent>
         </Card>
