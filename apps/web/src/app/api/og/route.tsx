@@ -85,7 +85,7 @@ export async function GET(request: NextRequest) {
                             display: 'flex',
                         }}
                     />
-                    Free developer tools — runs in your browser
+                    Online developer tools — runs in your browser
                 </div>
             </div>
         ),

@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { flushSync } from 'react-dom'
 import { useRouter } from 'next/navigation'
 import {
   Command,
@@ -247,8 +248,10 @@ export function GlobalCommandPalette() {
   const run = React.useCallback(
     (entry: PaletteEntry) => {
       if (entry.requiresAuth && !user) {
-        window.location.href = '/login'
         setOpen(false)
+        setTimeout(() => {
+          window.location.href = '/login'
+        }, 0)
         return
       }
       setRecentEntries((prev) => {
@@ -263,8 +266,10 @@ export function GlobalCommandPalette() {
         }
         return mapped
       })
-      router.push(entry.url)
       setOpen(false)
+      setTimeout(() => {
+        router.push(entry.url)
+      }, 0)
     },
     [router, user, entries]
   )
@@ -301,7 +306,7 @@ export function GlobalCommandPalette() {
                     return (
                       <CommandItem
                         key={`recent-${entry.url}`}
-                        value={`recent ${entry.searchValue} ${entry.url}`}
+                        value={`recent ${entry.searchValue} ${entry.url}`.toLowerCase()}
                         onSelect={() => run(entry)}
                         className="flex items-start gap-3 py-2.5 aria-selected:bg-accent"
                       >
@@ -331,7 +336,7 @@ export function GlobalCommandPalette() {
                     return (
                       <CommandItem
                         key={`pinned-${entry.url}`}
-                        value={`pinned ${entry.searchValue} ${entry.url}`}
+                        value={`pinned ${entry.searchValue} ${entry.url}`.toLowerCase()}
                         onSelect={() => run(entry)}
                         className="flex items-start gap-3 py-2.5 aria-selected:bg-accent"
                       >
@@ -369,7 +374,7 @@ export function GlobalCommandPalette() {
                     return (
                     <CommandItem
                       key={entry.url}
-                      value={`${entry.searchValue} ${entry.url}`}
+                      value={`${entry.searchValue} ${entry.url}`.toLowerCase()}
                       onSelect={() => run(entry)}
                       className="flex items-start gap-3 py-2.5 aria-selected:bg-accent"
                     >

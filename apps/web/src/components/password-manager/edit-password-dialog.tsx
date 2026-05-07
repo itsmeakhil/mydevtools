@@ -38,7 +38,8 @@ export function EditPasswordDialog({ entry, open, onOpenChange }: EditPasswordDi
         password: entry.password,
         url: entry.url || "",
         notes: entry.notes || "",
-        tags: entry.tags || []
+        tags: entry.tags || [],
+        totpSecret: entry.totpSecret || "",
     })
     const [tagInput, setTagInput] = useState("")
     const [showGenerator, setShowGenerator] = useState(false)
@@ -51,7 +52,8 @@ export function EditPasswordDialog({ entry, open, onOpenChange }: EditPasswordDi
             password: entry.password,
             url: entry.url || "",
             notes: entry.notes || "",
-            tags: entry.tags || []
+            tags: entry.tags || [],
+            totpSecret: entry.totpSecret || "",
         })
     }, [entry])
 
@@ -229,6 +231,20 @@ export function EditPasswordDialog({ entry, open, onOpenChange }: EditPasswordDi
                     value={formData.url}
                     onChange={(e) => setFormData({ ...formData, url: e.target.value })}
                 />
+            </div>
+
+            <div className="space-y-2">
+                <Label htmlFor="edit-totp-secret">2FA / TOTP Secret <span className="text-muted-foreground font-normal">(optional)</span></Label>
+                <Input
+                    id="edit-totp-secret"
+                    placeholder="JBSWY3DPEHPK3PXP"
+                    value={formData.totpSecret}
+                    onChange={(e) => setFormData({ ...formData, totpSecret: e.target.value.replace(/\s/g, "").toUpperCase() })}
+                    className="font-mono"
+                    autoComplete="off"
+                    spellCheck={false}
+                />
+                <p className="text-[11px] text-muted-foreground">Paste the Base32 secret from the service&apos;s 2FA setup page. Stored encrypted.</p>
             </div>
 
             <div className="space-y-2">

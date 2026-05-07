@@ -8,6 +8,7 @@ export interface PasswordEntry {
     url?: string
     notes?: string
     tags?: string[]
+    totpSecret?: string
     createdAt: number
     updatedAt: number
 }

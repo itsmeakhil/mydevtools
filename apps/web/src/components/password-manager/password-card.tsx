@@ -1,9 +1,11 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { PasswordEntry } from "@/store/password-store"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Copy, Eye, EyeOff, Trash2, ExternalLink, Pencil, MoreVertical } from "lucide-react"
+import { computeTotp, decodeBase32Secret, getTotpSecondsRemaining } from "@/lib/totp-compute"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { calculatePasswordStrength, getStrengthColor, getFaviconUrl } from "@/lib/password-utils"
 import { Badge } from "@/components/ui/badge"
@@ -11,6 +13,64 @@ import { formatDistanceToNow } from "date-fns"
 import { cn } from "@/lib/utils"
 import { motion } from "framer-motion"
 import { useTranslations } from "next-intl"
+
+const TOTP_PERIOD = 30
+
+function TotpChip({ secret, onCopy }: { secret: string; onCopy: (code: string) => void }) {
+    const [code, setCode] = useState<string | null>(null)
+    const [remaining, setRemaining] = useState(TOTP_PERIOD)
+
+    useEffect(() => {
+        let mounted = true
+        let secretBytes: Uint8Array
+        try {
+            secretBytes = decodeBase32Secret(secret)
+        } catch {
+            return
+        }
+        async function tick() {
+            const now = Date.now()
+            try {
+                const c = await computeTotp(secretBytes, now, TOTP_PERIOD, 6)
+                if (mounted) {
+                    setCode(c)
+                    setRemaining(getTotpSecondsRemaining(now, TOTP_PERIOD))
+                }
+            } catch { /* ignore */ }
+        }
+        tick()
+        const id = setInterval(tick, 1000)
+        return () => { mounted = false; clearInterval(id) }
+    }, [secret])
+
+    if (!code) return null
+
+    const r = 9
+    const circ = 2 * Math.PI * r
+    const urgent = remaining <= 5
+
+    return (
+        <div className="flex items-center gap-2 bg-muted/30 p-1 pl-3 pr-1 rounded-xl border border-transparent hover:border-primary/10 hover:bg-muted/50 transition-all">
+            <svg width="22" height="22" className="-rotate-90 shrink-0">
+                <circle cx="11" cy="11" r={r} fill="none" strokeWidth="2" className="stroke-muted-foreground/20" />
+                <circle
+                    cx="11" cy="11" r={r} fill="none" strokeWidth="2"
+                    className={urgent ? "stroke-red-500" : "stroke-primary"}
+                    strokeDasharray={circ}
+                    strokeDashoffset={circ * (1 - remaining / TOTP_PERIOD)}
+                    strokeLinecap="round"
+                />
+            </svg>
+            <span className={cn("font-mono text-sm tracking-widest font-semibold flex-1", urgent ? "text-red-500" : "text-foreground/80")}>
+                {code.slice(0, 3)}&thinsp;{code.slice(3)}
+            </span>
+            <span className="text-[10px] text-muted-foreground tabular-nums w-5 shrink-0">{remaining}s</span>
+            <Button variant="ghost" size="icon" className="h-7 w-7 hover:bg-background hover:text-primary rounded-lg" onClick={() => onCopy(code)}>
+                <Copy className="h-3.5 w-3.5" />
+            </Button>
+        </div>
+    )
+}
 
 interface PasswordCardProps {
     entry: PasswordEntry
@@ -156,6 +216,13 @@ export function PasswordCard({
                                 </div>
                             </div>
                         </div>
+
+                        {entry.totpSecret && (
+                            <TotpChip
+                                secret={entry.totpSecret}
+                                onCopy={(code) => onCopy(code, "Password")}
+                            />
+                        )}
 
                         <div className="space-y-1.5">
                             <div className="flex items-center justify-between text-[10px] text-muted-foreground px-1">

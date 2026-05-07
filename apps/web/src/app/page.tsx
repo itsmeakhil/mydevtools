@@ -311,7 +311,7 @@ export default function Page() {
               transition={{ duration: 0.6, delay: 0.08 }}
               className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.08]"
             >
-              <span className="text-foreground">Free Online Developer Tools</span>
+              <span className="text-foreground">Online Developer Tools</span>
               <br />
               <span className="bg-gradient-to-r from-sky-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
                 JSON, JWT, Regex &amp; {allAppTools.length}+ More
