@@ -40,7 +40,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/markdown-preview-html',
   '/app/mock-data-generator',
   '/app/docker-compose-generator',
-
+  '/app/url-shortener',
 ];
 
 interface ToolVisibilityStore {
@@ -65,19 +65,17 @@ export const useToolVisibilityStore = create<ToolVisibilityStore>()(
     }),
     {
       name: 'tool-visibility-storage',
-      version: 1,
+      version: 2,
       migrate: (persistedState: unknown, version: number) => {
-        if (version === 0) {
-          const state = persistedState as ToolVisibilityStore | null;
-          if (state && Array.isArray(state.enabledTools)) {
-            const newTools = [...state.enabledTools];
-            DEFAULT_ENABLED_TOOLS.forEach((tool) => {
-              if (!newTools.includes(tool)) {
-                newTools.push(tool);
-              }
-            });
-            return { ...state, enabledTools: newTools } as ToolVisibilityStore;
-          }
+        const state = persistedState as ToolVisibilityStore | null;
+        if ((version === 0 || version === 1) && state && Array.isArray(state.enabledTools)) {
+          const newTools = [...state.enabledTools];
+          DEFAULT_ENABLED_TOOLS.forEach((tool) => {
+            if (!newTools.includes(tool)) {
+              newTools.push(tool);
+            }
+          });
+          return { ...state, enabledTools: newTools } as ToolVisibilityStore;
         }
         return persistedState as ToolVisibilityStore;
       },

@@ -110,6 +110,7 @@ export const routeConfig: Record<string, RouteConfig> = {
   '/app/sql-client': { title: 'SQL Client', icon: Server },
   '/app/s3-drive': { title: 'S3 Drive', icon: HardDrive },
   '/app/redis-commander': { title: 'Redis Commander', icon: Database },
+  '/app/url-shortener': { title: 'URL Shortener', icon: Link2 },
   '/app/break-room/2048': { title: '2048', icon: Gamepad2 },
   '/app/break-room/sudoku': { title: 'Sudoku', icon: Gamepad2 },
   '/app/break-room/snake': { title: 'Snake', icon: Gamepad2 },

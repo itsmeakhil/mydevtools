@@ -54,6 +54,7 @@ export function KeyBrowser({
             try {
                 const res = await fetch("/api/redis-commander/keys", {
                     method: "POST",
+                    credentials: "include",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         redisUrl,

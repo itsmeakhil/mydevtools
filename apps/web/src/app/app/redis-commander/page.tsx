@@ -130,6 +130,7 @@ export default function RedisCommanderPage() {
         try {
             const res = await fetch("/api/redis-commander/flush", {
                 method: "POST",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     redisUrl: activeTab.redisUrl,

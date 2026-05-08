@@ -69,6 +69,7 @@ export function SchemaSidebar({
         try {
             const res = await fetch("/api/sql-client/tables", {
                 method: "POST",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(conn.config),
             });

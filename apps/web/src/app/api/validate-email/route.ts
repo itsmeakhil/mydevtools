@@ -1,6 +1,10 @@
+import { requireBackendSession } from '@/lib/require-backend-session';
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
+    const authError = await requireBackendSession(request);
+    if (authError) return authError;
+
     const { searchParams } = new URL(request.url);
     const email = searchParams.get('email');
 
@@ -38,6 +42,9 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
     try {
+        const authError = await requireBackendSession(request);
+        if (authError) return authError;
+
         const body = await request.json();
         const { emails } = body;
 

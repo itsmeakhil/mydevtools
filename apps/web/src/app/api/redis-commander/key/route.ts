@@ -1,3 +1,4 @@
+import { requireBackendSession } from "@/lib/require-backend-session";
 import { NextResponse } from "next/server";
 import Redis from "ioredis";
 
@@ -10,6 +11,9 @@ function makeClient(redisUrl: string) {
 }
 
 export async function POST(request: Request) {
+    const authError = await requireBackendSession(request);
+    if (authError) return authError;
+
     try {
         const { redisUrl, key } = await request.json() as { redisUrl: string; key: string };
 
@@ -59,6 +63,9 @@ export async function POST(request: Request) {
 }
 
 export async function PUT(request: Request) {
+    const authError = await requireBackendSession(request);
+    if (authError) return authError;
+
     try {
         const { redisUrl, key, type, value, ttl } = await request.json() as {
             redisUrl: string;
@@ -136,6 +143,9 @@ export async function PUT(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+    const authError = await requireBackendSession(request);
+    if (authError) return authError;
+
     try {
         const { redisUrl, key } = await request.json() as { redisUrl: string; key: string };
 

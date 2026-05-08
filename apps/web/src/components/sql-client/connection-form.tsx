@@ -86,6 +86,7 @@ export function ConnectionForm({
         try {
             const res = await fetch("/api/sql-client/connect", {
                 method: "POST",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(config),
             });

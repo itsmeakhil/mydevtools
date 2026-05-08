@@ -1,3 +1,4 @@
+import { requireBackendSession } from "@/lib/require-backend-session"
 import { NextRequest, NextResponse } from "next/server"
 
 // ── SSRF Protection: only allow proxying to the configured backend ────────────
@@ -14,8 +15,47 @@ function getAllowedHost(): string {
 
 const ALLOWED_HOST = getAllowedHost()
 
-/** Check if a hostname resolves to a private/internal IP range. */
-function isBlockedHostname(hostname: string): boolean {
+/** In `next dev`, NODE_ENV is `development` — allow localhost/private targets without extra env (metadata still blocked). */
+function allowPrivateProxyTargets(): boolean {
+    return (
+        (process.env.ALLOW_PRIVATE_PROXY_TARGETS || "").toLowerCase() === "true" ||
+        process.env.NODE_ENV !== "production"
+    )
+}
+
+/**
+ * Block SSRF-prone targets. Always allows the configured FastAPI host (port must match).
+ * In non-production, allows localhost/private IPs except well-known metadata endpoints.
+ */
+function isBlockedRequestTarget(hostname: string, host: string): boolean {
+    if (host === ALLOWED_HOST) {
+        return false
+    }
+
+    const hl = hostname.toLowerCase()
+
+    if (allowPrivateProxyTargets()) {
+        const metadataHosts = [
+            "169.254.169.254",
+            "metadata.google.internal",
+            "metadata.google",
+            "100.100.100.200",
+        ]
+        return metadataHosts.some((b) => hl === b)
+    }
+
+    const ipv6Bare = hl.replace(/^\[|\]$/g, "")
+    const probablyIpv6 = hl.includes(":")
+
+    if (hl === "localhost" || hl.endsWith(".localhost")) return true
+    if (hl.endsWith(".local")) return true
+    if (hl.endsWith(".internal")) return true
+    if (ipv6Bare === "::1") return true
+    if (probablyIpv6) {
+        if (ipv6Bare.startsWith("fe80:")) return true
+        if (ipv6Bare.startsWith("fc") || ipv6Bare.startsWith("fd")) return true
+    }
+
     // Block common internal/metadata endpoints
     const blocked = [
         "169.254.169.254",  // AWS/GCP metadata
@@ -45,6 +85,9 @@ function isBlockedHostname(hostname: string): boolean {
 
 export async function POST(req: NextRequest) {
     try {
+        const authError = await requireBackendSession(req)
+        if (authError) return authError
+
         const { url, method, headers, body } = await req.json()
 
         if (!url) {
@@ -67,7 +110,7 @@ export async function POST(req: NextRequest) {
         }
 
         // ── SSRF guard: block internal/metadata IPs ──────────────────────────
-        if (isBlockedHostname(parsed.hostname)) {
+        if (isBlockedRequestTarget(parsed.hostname, parsed.host)) {
             return NextResponse.json({
                 status: 403,
                 statusText: "Forbidden",

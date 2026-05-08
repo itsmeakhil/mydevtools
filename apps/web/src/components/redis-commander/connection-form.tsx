@@ -42,6 +42,7 @@ export function ConnectionForm({
         try {
             const res = await fetch("/api/redis-commander/connect", {
                 method: "POST",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ redisUrl }),
             });

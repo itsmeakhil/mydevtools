@@ -56,6 +56,7 @@ export function CommandPanel({ redisUrl }: CommandPanelProps) {
         try {
             const res = await fetch("/api/redis-commander/execute", {
                 method: "POST",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ redisUrl, command }),
             });

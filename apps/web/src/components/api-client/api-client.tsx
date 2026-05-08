@@ -408,6 +408,7 @@ export function ApiClient() {
             // Send via Proxy
             const res = await fetch("/api/proxy", {
                 method: "POST",
+                credentials: "include",
                 signal: controller.signal,
                 headers: {
                     "Content-Type": "application/json",
