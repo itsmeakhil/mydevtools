@@ -255,7 +255,7 @@ const SidebarMenuLink = ({
           className={cn(
             "absolute right-1.5 top-1/2 -translate-y-1/2 z-10 p-0.5 rounded transition-all duration-150 cursor-pointer",
             "opacity-0 group-hover:opacity-100",
-            isPinned ? "opacity-100 text-primary" : "text-muted-foreground hover:text-foreground"
+            isPinned ? "text-primary" : "text-muted-foreground hover:text-foreground"
           )}
         >
           <Star className={cn("h-3 w-3", isPinned && "fill-primary")} />

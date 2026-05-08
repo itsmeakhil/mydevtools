@@ -79,7 +79,7 @@ export const ToolCard = React.memo(function ToolCard({
               </div>
               {item.url && (
                 <div
-                  className="p-2 rounded-full hover:bg-muted/80 transition-colors z-20 cursor-pointer"
+                  className="p-2 rounded-full hover:bg-muted/80 transition-all z-20 cursor-pointer opacity-0 group-hover:opacity-100"
                   onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
