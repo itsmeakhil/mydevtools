@@ -71,7 +71,7 @@ interface ToolItem {
 
 interface FavoriteItem extends ToolItem {
   id: string;
-  timestamp?: number;
+  timestamp: number;
 }
 
 interface RenderToolItem extends ToolItem {
