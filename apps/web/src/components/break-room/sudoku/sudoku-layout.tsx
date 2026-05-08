@@ -378,6 +378,8 @@ export function SudokuLayout() {
   // Keyboard input
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return
       if ((e.ctrlKey || e.metaKey) && e.key === 'z') { e.preventDefault(); undo(); return }
       if (e.key === 'p' || e.key === 'P') { e.preventDefault(); setPencilMode(m => !m); return }
       if (e.key >= '1' && e.key <= '9') { e.preventDefault(); inputNumber(parseInt(e.key)) }

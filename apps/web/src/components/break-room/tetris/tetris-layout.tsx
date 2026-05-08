@@ -525,6 +525,8 @@ export function TetrisLayout() {
 
   useEffect(() => {
     const onDown = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return
       if (!started) { if (e.key === 'Enter' || e.key === ' ') startGame(); return }
       switch (e.key) {
         case 'ArrowLeft':  e.preventDefault(); startDAS('LEFT');  break

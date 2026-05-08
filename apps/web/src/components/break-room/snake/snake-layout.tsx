@@ -233,6 +233,8 @@ export function SnakeLayout() {
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return
       const map: Record<string, Dir> = {
         ArrowUp: 'UP', ArrowDown: 'DOWN', ArrowLeft: 'LEFT', ArrowRight: 'RIGHT',
         w: 'UP', s: 'DOWN', a: 'LEFT', d: 'RIGHT',
