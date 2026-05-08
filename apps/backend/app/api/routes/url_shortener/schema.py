@@ -1,7 +1,8 @@
 from typing import Optional
-from pydantic import BaseModel, ConfigDict, Field, HttpUrl
+from pydantic import BaseModel, ConfigDict, Field
 
 COLLECTION = "url_links"
+CLICKS_COLLECTION = "url_click_events"
 
 
 class ShortLinkCreate(BaseModel):
@@ -32,3 +33,25 @@ class ShortLinkOut(BaseModel):
 class ShortLinkResolve(BaseModel):
     original_url: str
     active: bool
+
+
+# ── Analytics ──────────────────────────────────────────────────────────────
+
+
+class DailyClicks(BaseModel):
+    date: str
+    clicks: int
+
+
+class StatEntry(BaseModel):
+    label: str
+    clicks: int
+
+
+class LinkAnalytics(BaseModel):
+    total_clicks: int
+    daily: list[DailyClicks]
+    referrers: list[StatEntry]
+    devices: list[StatEntry]
+    os: list[StatEntry]
+    browsers: list[StatEntry]

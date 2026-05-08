@@ -59,3 +59,26 @@ export async function updateShortLink(code: string, body: ShortLinkUpdate): Prom
 export async function deleteShortLink(code: string): Promise<void> {
     await request<void>('DELETE', `${BASE}/${encodeURIComponent(code)}`)
 }
+
+export interface StatEntry {
+    label: string
+    clicks: number
+}
+
+export interface DailyClicks {
+    date: string
+    clicks: number
+}
+
+export interface LinkAnalytics {
+    total_clicks: number
+    daily: DailyClicks[]
+    referrers: StatEntry[]
+    devices: StatEntry[]
+    os: StatEntry[]
+    browsers: StatEntry[]
+}
+
+export async function getLinkAnalytics(code: string, days = 30): Promise<LinkAnalytics> {
+    return request<LinkAnalytics>('GET', `${BASE}/${encodeURIComponent(code)}/analytics?days=${days}`)
+}

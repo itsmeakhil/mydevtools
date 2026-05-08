@@ -11,10 +11,14 @@ from app.database import db_manager
 from app.utils.utils import create_timestamp
 from app.api.routes.url_shortener.schema import (
     COLLECTION,
+    CLICKS_COLLECTION,
     ShortLinkCreate,
     ShortLinkOut,
     ShortLinkResolve,
     ShortLinkUpdate,
+    LinkAnalytics,
+    DailyClicks,
+    StatEntry,
 )
 
 _FORBIDDEN_SCHEME = re.compile(r"^\s*([a-zA-Z][a-zA-Z0-9+.-]*):")
@@ -88,6 +92,63 @@ def _doc_to_out(doc: dict[str, Any]) -> ShortLinkOut:
     )
 
 
+def _parse_ua(ua: str) -> tuple[str, str, str]:
+    """Returns (device, os_name, browser) from a User-Agent string."""
+    u = ua.lower()
+
+    if "ipad" in u or "tablet" in u:
+        device = "Tablet"
+    elif "mobile" in u or ("android" in u and "mobile" in u):
+        device = "Mobile"
+    else:
+        device = "Desktop"
+
+    if "windows nt" in u:
+        os_name = "Windows"
+    elif "iphone" in u or "ipad" in u:
+        os_name = "iOS"
+    elif "android" in u:
+        os_name = "Android"
+    elif "mac os x" in u or "macos" in u:
+        os_name = "macOS"
+    elif "cros" in u:
+        os_name = "ChromeOS"
+    elif "linux" in u:
+        os_name = "Linux"
+    else:
+        os_name = "Other"
+
+    # Order matters: Edge/Opera check before Chrome/Safari
+    if "edg/" in u or "edge/" in u:
+        browser = "Edge"
+    elif "opr/" in u or "opera" in u:
+        browser = "Opera"
+    elif "samsungbrowser" in u:
+        browser = "Samsung"
+    elif "chrome/" in u or "chromium" in u or "crios/" in u:
+        browser = "Chrome"
+    elif "firefox/" in u or "fxios/" in u:
+        browser = "Firefox"
+    elif "safari/" in u:
+        browser = "Safari"
+    else:
+        browser = "Other"
+
+    return device, os_name, browser
+
+
+def _parse_referrer(ref: str) -> str:
+    if not ref or not ref.strip():
+        return "Direct"
+    try:
+        hostname = urlparse(ref).hostname or ""
+        if not hostname:
+            return "Direct"
+        return re.sub(r"^www\.", "", hostname.lower())
+    except Exception:
+        return "Direct"
+
+
 async def create_link(uid: str, body: ShortLinkCreate) -> ShortLinkOut:
     db = db_manager.get_db()
     col = db[COLLECTION]
@@ -156,10 +217,80 @@ async def resolve_link(code: str) -> ShortLinkResolve:
     return ShortLinkResolve(original_url=str(original_url), active=bool(doc.get("active", True)))
 
 
-async def record_click(code: str) -> None:
+async def record_click(code: str, ua: str = "", referrer: str = "") -> None:
     db = db_manager.get_db()
-    col = db[COLLECTION]
-    await col.update_one({"_id": code}, {"$inc": {"clicks": 1}})
+    device, os_name, browser = _parse_ua(ua)
+    ref_label = _parse_referrer(referrer)
+
+    event = {
+        "code": code,
+        "ts": create_timestamp(),
+        "referrer": ref_label,
+        "device": device,
+        "os": os_name,
+        "browser": browser,
+    }
+    await db[CLICKS_COLLECTION].insert_one(event)
+    await db[COLLECTION].update_one({"_id": code}, {"$inc": {"clicks": 1}})
+
+
+async def get_analytics(uid: str, code: str, days: int = 30) -> LinkAnalytics:
+    db = db_manager.get_db()
+
+    doc = await db[COLLECTION].find_one({"_id": code, "created_by": uid}, {"clicks": 1})
+    if not doc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Short link not found.")
+
+    events_col = db[CLICKS_COLLECTION]
+    since = create_timestamp() - days * 86_400_000
+
+    base_match: dict[str, Any] = {"code": code, "ts": {"$gte": since}}
+
+    # Daily clicks grouped by UTC date string
+    daily_raw = await events_col.aggregate([
+        {"$match": base_match},
+        {"$group": {
+            "_id": {"$dateToString": {"format": "%Y-%m-%d", "date": {"$toDate": "$ts"}}},
+            "clicks": {"$sum": 1},
+        }},
+        {"$sort": {"_id": 1}},
+    ]).to_list(None)
+
+    referrers_raw = await events_col.aggregate([
+        {"$match": base_match},
+        {"$group": {"_id": "$referrer", "clicks": {"$sum": 1}}},
+        {"$sort": {"clicks": -1}},
+        {"$limit": 10},
+    ]).to_list(None)
+
+    devices_raw = await events_col.aggregate([
+        {"$match": base_match},
+        {"$group": {"_id": "$device", "clicks": {"$sum": 1}}},
+        {"$sort": {"clicks": -1}},
+    ]).to_list(None)
+
+    os_raw = await events_col.aggregate([
+        {"$match": base_match},
+        {"$group": {"_id": "$os", "clicks": {"$sum": 1}}},
+        {"$sort": {"clicks": -1}},
+        {"$limit": 8},
+    ]).to_list(None)
+
+    browsers_raw = await events_col.aggregate([
+        {"$match": base_match},
+        {"$group": {"_id": "$browser", "clicks": {"$sum": 1}}},
+        {"$sort": {"clicks": -1}},
+        {"$limit": 8},
+    ]).to_list(None)
+
+    return LinkAnalytics(
+        total_clicks=int(doc.get("clicks", 0)),
+        daily=[DailyClicks(date=d["_id"], clicks=d["clicks"]) for d in daily_raw],
+        referrers=[StatEntry(label=r["_id"] or "Direct", clicks=r["clicks"]) for r in referrers_raw],
+        devices=[StatEntry(label=d["_id"] or "Unknown", clicks=d["clicks"]) for d in devices_raw],
+        os=[StatEntry(label=o["_id"] or "Unknown", clicks=o["clicks"]) for o in os_raw],
+        browsers=[StatEntry(label=b["_id"] or "Unknown", clicks=b["clicks"]) for b in browsers_raw],
+    )
 
 
 async def update_link(uid: str, code: str, body: ShortLinkUpdate) -> ShortLinkOut:

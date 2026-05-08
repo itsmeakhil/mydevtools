@@ -35,10 +35,14 @@ export async function GET(
             )
         }
 
-        // Fire-and-forget click tracking
+        // Fire-and-forget click tracking — forward browser headers for analytics
         fetch(`${FASTAPI_BASE}/api/v1/url-shortener/${encodeURIComponent(code)}/click`, {
             method: 'POST',
             cache: 'no-store',
+            headers: {
+                'user-agent': req.headers.get('user-agent') ?? '',
+                'referer': req.headers.get('referer') ?? '',
+            },
         }).catch(() => {})
 
         return NextResponse.redirect(original_url, { status: 302 })

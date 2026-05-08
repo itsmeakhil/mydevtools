@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Request
 
 from app.api.routes.auth.services import get_current_uid
 from app.api.routes.url_shortener import services as svc
@@ -7,6 +7,7 @@ from app.api.routes.url_shortener.schema import (
     ShortLinkOut,
     ShortLinkResolve,
     ShortLinkUpdate,
+    LinkAnalytics,
 )
 
 router = APIRouter(prefix="/url-shortener", tags=["url-shortener"])
@@ -35,8 +36,19 @@ async def resolve_link(code: str) -> ShortLinkResolve:
 
 
 @router.post("/{code}/click", status_code=204, summary="Record a click (public)")
-async def record_click(code: str) -> None:
-    await svc.record_click(code)
+async def record_click(code: str, request: Request) -> None:
+    ua = request.headers.get("user-agent", "")
+    referrer = request.headers.get("referer", "")
+    await svc.record_click(code, ua=ua, referrer=referrer)
+
+
+@router.get("/{code}/analytics", response_model=LinkAnalytics, summary="Get click analytics for a link")
+async def get_analytics(
+    code: str,
+    days: int = Query(default=30, ge=1, le=365),
+    uid: str = Depends(get_current_uid),
+) -> LinkAnalytics:
+    return await svc.get_analytics(uid, code, days=days)
 
 
 @router.patch("/{code}", response_model=ShortLinkOut, summary="Update title or active state")
