@@ -114,7 +114,7 @@ async def update_document(uid: str, doc_id: str, body: JsonFormatterDocumentUpda
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update document."
         ) from exc
-    updated = await db_manager.find_one(JSON, {"_id": oid})
+    updated = await db_manager.find_one(JSON, {"_id": oid, "created_by": uid})
     return _doc_to_out(updated)  # type: ignore[arg-type]
 
 

@@ -351,6 +351,12 @@ export const sidebarData: SidebarData = {
           icon: IconFileInfo,
           description: 'Find the MIME type for a file extension or filename.',
         },
+        {
+          title: 'URL Shortener',
+          url: '/app/url-shortener',
+          icon: IconLink,
+          description: 'Shorten long URLs, track clicks, manage links, and generate QR codes.',
+        },
       ],
     },
     {

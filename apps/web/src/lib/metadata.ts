@@ -75,6 +75,12 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['http status codes', 'status code list', 'http response codes', '200 ok', '404 not found', '500 internal server error', 'rfc 9110'],
         aiSummary: 'Searchable reference for all HTTP status codes (1xx–5xx) with descriptions and RFC 9110 links. Answers "what does HTTP 422 mean", "list of HTTP status codes", or "HTTP 429 too many requests".',
     },
+    'url-shortener': {
+        title: 'URL Shortener',
+        description: 'Shorten long URLs, track clicks, manage links, and generate QR codes. Fast, private, and stored to your account.',
+        keywords: ['url shortener', 'link shortener', 'short link', 'url tracker', 'click tracking', 'qr code link'],
+        aiSummary: 'URL shortener with click analytics and QR code export — answers "free URL shortener with stats" or "private link shortener". Links are tied to your account, not shared publicly.',
+    },
     'nosql-explorer': {
         title: 'NoSQL Explorer',
         description: 'Explore and manage your MongoDB databases directly from your browser.',

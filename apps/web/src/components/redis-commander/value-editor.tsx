@@ -38,6 +38,7 @@ export function ValueEditor({ redisUrl, selectedKey, onKeyDeleted, onRefreshKeys
         try {
             const res = await fetch("/api/redis-commander/key", {
                 method: "POST",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ redisUrl, key }),
             });
@@ -103,6 +104,7 @@ export function ValueEditor({ redisUrl, selectedKey, onKeyDeleted, onRefreshKeys
             const ttl = ttlInput ? parseInt(ttlInput) : -1;
             const res = await fetch("/api/redis-commander/key", {
                 method: "PUT",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ redisUrl, key: detail.key, type: detail.type, value, ttl }),
             });
@@ -122,6 +124,7 @@ export function ValueEditor({ redisUrl, selectedKey, onKeyDeleted, onRefreshKeys
         try {
             const res = await fetch("/api/redis-commander/key", {
                 method: "DELETE",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ redisUrl, key: detail.key }),
             });

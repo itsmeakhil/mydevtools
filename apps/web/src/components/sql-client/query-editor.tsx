@@ -45,6 +45,7 @@ export function QueryEditor({ tab, connection, onQueryChange, onResult, onClose 
         try {
             const res = await fetch("/api/sql-client/query", {
                 method: "POST",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ ...connection.config, query }),
             });

@@ -1,9 +1,13 @@
+import { requireBackendSession } from "@/lib/require-backend-session";
 import { NextResponse } from "next/server";
 import Redis from "ioredis";
 
 const DANGER_ZONE = process.env.DANGER_ZONE === "true";
 
 export async function POST(request: Request) {
+    const authError = await requireBackendSession(request);
+    if (authError) return authError;
+
     try {
         const { redisUrl, pattern } = await request.json() as {
             redisUrl: string;

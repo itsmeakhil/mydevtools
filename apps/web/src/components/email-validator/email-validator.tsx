@@ -151,7 +151,7 @@ export function EmailValidator() {
         try {
             const response = await fetch(
                 `/api/validate-email?email=${encodeURIComponent(email)}`,
-                { headers: { accept: "application/json" } }
+                { credentials: "include", headers: { accept: "application/json" } }
             );
 
             if (!response.ok) throw new Error("Failed to validate email");
@@ -263,6 +263,7 @@ export function EmailValidator() {
                     const batch = emails.slice(i * batchSize, (i + 1) * batchSize);
                     const response = await fetch("/api/validate-email", {
                         method: "POST",
+                        credentials: "include",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ emails: batch }),
                     });

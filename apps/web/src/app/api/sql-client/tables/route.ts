@@ -1,8 +1,12 @@
+import { requireBackendSession } from "@/lib/require-backend-session";
 import { NextResponse } from "next/server";
 import { Pool as PgPool } from "pg";
 import mysql from "mysql2/promise";
 
 export async function POST(request: Request) {
+    const authError = await requireBackendSession(request);
+    if (authError) return authError;
+
     try {
         const { type, host, port, database, username, password, ssl } = await request.json();
 
