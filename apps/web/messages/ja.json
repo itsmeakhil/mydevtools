@@ -1990,6 +1990,27 @@
       "couldNotFormat": "このSQLを整形できませんでした。"
     }
   },
+  "YamlFormatter": {
+    "title": "YAMLフォーマッター",
+    "subtitle": "YAMLをブラウザ内で整形・検証・変換します。アップロードされません。",
+    "outputLabel": "出力",
+    "outputModes": {
+      "yaml": "YAML（整形済み）",
+      "json": "JSON"
+    },
+    "indentLabel": "インデント",
+    "spaces": "{n} スペース",
+    "format": "整形",
+    "clear": "クリア",
+    "copy": "コピー",
+    "counter": "{current} / {max} 文字",
+    "inputPanel": "入力",
+    "outputPanel": "出力",
+    "errors": {
+      "tooLong": "入力は {max} 文字以内にしてください。",
+      "couldNotFormat": "このYAMLを解析できませんでした。"
+    }
+  },
   "GraphqlFormatter": {
     "title": "GraphQL フォーマッター",
     "subtitle": "ブラウザで GraphQL のクエリ・ミューテーション・サブスクリプションを整形します。アップロードは行われません。",

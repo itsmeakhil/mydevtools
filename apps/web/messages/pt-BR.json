@@ -1990,6 +1990,27 @@
       "couldNotFormat": "Não foi possível formatar este SQL."
     }
   },
+  "YamlFormatter": {
+    "title": "Formatador YAML",
+    "subtitle": "Formate, valide e converta YAML no navegador. Nada é enviado.",
+    "outputLabel": "Saída",
+    "outputModes": {
+      "yaml": "YAML (formatado)",
+      "json": "JSON"
+    },
+    "indentLabel": "Recuo",
+    "spaces": "{n} espaços",
+    "format": "Formatar",
+    "clear": "Limpar",
+    "copy": "Copiar",
+    "counter": "{current} / {max} caracteres",
+    "inputPanel": "Entrada",
+    "outputPanel": "Saída",
+    "errors": {
+      "tooLong": "A entrada é limitada a {max} caracteres.",
+      "couldNotFormat": "Não foi possível analisar este YAML."
+    }
+  },
   "GraphqlFormatter": {
     "title": "Formatador GraphQL",
     "subtitle": "Formate consultas, mutações e assinaturas GraphQL no navegador. Nada é enviado.",

@@ -1990,6 +1990,27 @@
       "couldNotFormat": "تعذر تنسيق SQL."
     }
   },
+  "YamlFormatter": {
+    "title": "منسّق YAML",
+    "subtitle": "نسّق YAML وتحقق منه وحوّله في متصفحك. لا يتم رفع أي شيء.",
+    "outputLabel": "الإخراج",
+    "outputModes": {
+      "yaml": "YAML (منسّق)",
+      "json": "JSON"
+    },
+    "indentLabel": "الإزاحة",
+    "spaces": "{n} مسافات",
+    "format": "تنسيق",
+    "clear": "مسح",
+    "copy": "نسخ",
+    "counter": "{current} / {max} حرف",
+    "inputPanel": "الإدخال",
+    "outputPanel": "الإخراج",
+    "errors": {
+      "tooLong": "الإدخال محدود بـ {max} حرف.",
+      "couldNotFormat": "تعذّر تحليل هذا YAML."
+    }
+  },
   "GraphqlFormatter": {
     "title": "منسّق GraphQL",
     "subtitle": "نسّق استعلامات GraphQL والطفرات والاشتراكات داخل المتصفح. لا يتم رفع أي شيء.",

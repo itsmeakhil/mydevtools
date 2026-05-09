@@ -1992,6 +1992,27 @@
       "couldNotFormat": "Could not format this SQL."
     }
   },
+  "YamlFormatter": {
+    "title": "YAML Formatter",
+    "subtitle": "Format, validate, and convert YAML in your browser. Nothing is uploaded.",
+    "outputLabel": "Output",
+    "outputModes": {
+      "yaml": "YAML (formatted)",
+      "json": "JSON"
+    },
+    "indentLabel": "Indent",
+    "spaces": "{n} spaces",
+    "format": "Format",
+    "clear": "Clear",
+    "copy": "Copy",
+    "counter": "{current} / {max} characters",
+    "inputPanel": "Input",
+    "outputPanel": "Output",
+    "errors": {
+      "tooLong": "Input is limited to {max} characters.",
+      "couldNotFormat": "Could not parse this YAML."
+    }
+  },
   "GraphqlFormatter": {
     "title": "GraphQL formatter",
     "subtitle": "Format GraphQL queries, mutations, and subscriptions in your browser. Nothing is uploaded.",

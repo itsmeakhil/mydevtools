@@ -1990,6 +1990,27 @@
       "couldNotFormat": "Не вдалося відформатувати цей SQL."
     }
   },
+  "YamlFormatter": {
+    "title": "Форматувальник YAML",
+    "subtitle": "Форматуйте, перевіряйте та конвертуйте YAML у браузері. Нічого не завантажується.",
+    "outputLabel": "Вивід",
+    "outputModes": {
+      "yaml": "YAML (відформатований)",
+      "json": "JSON"
+    },
+    "indentLabel": "Відступ",
+    "spaces": "{n} пробіли",
+    "format": "Форматувати",
+    "clear": "Очистити",
+    "copy": "Копіювати",
+    "counter": "{current} / {max} символів",
+    "inputPanel": "Введення",
+    "outputPanel": "Вивід",
+    "errors": {
+      "tooLong": "Введення обмежено {max} символами.",
+      "couldNotFormat": "Не вдалося розібрати цей YAML."
+    }
+  },
   "GraphqlFormatter": {
     "title": "Форматувач GraphQL",
     "subtitle": "Форматуйте запити, мутації й підписки GraphQL у браузері. Нічого не завантажується.",

@@ -1990,6 +1990,27 @@
       "couldNotFormat": "Kunde inte formatera denna SQL."
     }
   },
+  "YamlFormatter": {
+    "title": "YAML-formaterare",
+    "subtitle": "Formatera, validera och konvertera YAML i webbläsaren. Ingenting laddas upp.",
+    "outputLabel": "Utdata",
+    "outputModes": {
+      "yaml": "YAML (formaterat)",
+      "json": "JSON"
+    },
+    "indentLabel": "Indragning",
+    "spaces": "{n} mellanslag",
+    "format": "Formatera",
+    "clear": "Rensa",
+    "copy": "Kopiera",
+    "counter": "{current} / {max} tecken",
+    "inputPanel": "Indata",
+    "outputPanel": "Utdata",
+    "errors": {
+      "tooLong": "Indata är begränsad till {max} tecken.",
+      "couldNotFormat": "Kunde inte tolka denna YAML."
+    }
+  },
   "GraphqlFormatter": {
     "title": "GraphQL-formaterare",
     "subtitle": "Formatera GraphQL-frågor, mutationer och prenumerationer i webbläsaren. Inget laddas upp.",

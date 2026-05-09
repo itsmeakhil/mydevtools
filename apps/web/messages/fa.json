@@ -1990,6 +1990,27 @@
       "couldNotFormat": "فرمت‌کردن این SQL ممکن نبود."
     }
   },
+  "YamlFormatter": {
+    "title": "قالب‌بند YAML",
+    "subtitle": "YAML را در مرورگر خود قالب‌بندی، اعتبارسنجی و تبدیل کنید. هیچ چیز آپلود نمی‌شود.",
+    "outputLabel": "خروجی",
+    "outputModes": {
+      "yaml": "YAML (قالب‌بندی‌شده)",
+      "json": "JSON"
+    },
+    "indentLabel": "تورفتگی",
+    "spaces": "{n} فاصله",
+    "format": "قالب‌بندی",
+    "clear": "پاک کردن",
+    "copy": "کپی",
+    "counter": "{current} / {max} کاراکتر",
+    "inputPanel": "ورودی",
+    "outputPanel": "خروجی",
+    "errors": {
+      "tooLong": "ورودی محدود به {max} کاراکتر است.",
+      "couldNotFormat": "این YAML قابل تجزیه نیست."
+    }
+  },
   "GraphqlFormatter": {
     "title": "قالب‌بند GraphQL",
     "subtitle": "پرس‌وجوها، جهش‌ها و اشتراک‌های GraphQL را در مرورگر قالب‌بندی کنید. چیزی آپلود نمی‌شود.",

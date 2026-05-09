@@ -1990,6 +1990,27 @@
       "couldNotFormat": "Kon nie hierdie SQL formateer nie."
     }
   },
+  "YamlFormatter": {
+    "title": "YAML Formatteerder",
+    "subtitle": "Formateer, valideer en omskep YAML in jou blaaier. Niks word opgelaai nie.",
+    "outputLabel": "Uitvoer",
+    "outputModes": {
+      "yaml": "YAML (geformateer)",
+      "json": "JSON"
+    },
+    "indentLabel": "Inkeping",
+    "spaces": "{n} spasies",
+    "format": "Formateer",
+    "clear": "Vee uit",
+    "copy": "Kopieer",
+    "counter": "{current} / {max} karakters",
+    "inputPanel": "Invoer",
+    "outputPanel": "Uitvoer",
+    "errors": {
+      "tooLong": "Invoer is beperk tot {max} karakters.",
+      "couldNotFormat": "Kon hierdie YAML nie ontleed nie."
+    }
+  },
   "GraphqlFormatter": {
     "title": "GraphQL-formateerder",
     "subtitle": "Formateer GraphQL-navrae, mutasies en intekeninge in jou blaaier. Niks word opgelaai nie.",

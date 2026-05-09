@@ -1990,6 +1990,27 @@
       "couldNotFormat": "Bu SQL biçimlendirilemedi."
     }
   },
+  "YamlFormatter": {
+    "title": "YAML Biçimleyici",
+    "subtitle": "YAML'ı tarayıcınızda biçimlendirin, doğrulayın ve dönüştürün. Hiçbir şey yüklenmez.",
+    "outputLabel": "Çıktı",
+    "outputModes": {
+      "yaml": "YAML (biçimlendirilmiş)",
+      "json": "JSON"
+    },
+    "indentLabel": "Girinti",
+    "spaces": "{n} boşluk",
+    "format": "Biçimlendir",
+    "clear": "Temizle",
+    "copy": "Kopyala",
+    "counter": "{current} / {max} karakter",
+    "inputPanel": "Girdi",
+    "outputPanel": "Çıktı",
+    "errors": {
+      "tooLong": "Girdi {max} karakterle sınırlıdır.",
+      "couldNotFormat": "Bu YAML ayrıştırılamadı."
+    }
+  },
   "GraphqlFormatter": {
     "title": "GraphQL biçimlendirici",
     "subtitle": "GraphQL sorgularını, mutasyonlarını ve aboneliklerini tarayıcıda biçimlendirin. Hiçbir şey yüklenmez.",

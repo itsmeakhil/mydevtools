@@ -15,6 +15,7 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/json-schema-generator': 'jsonSchemaGenerator',
   '/app/sql-formatter': 'sqlFormatter',
   '/app/graphql-formatter': 'graphqlFormatter',
+  '/app/yaml-formatter': 'yamlFormatter',
   '/app/diff-checker': 'diffChecker',
   '/app/regex-tester': 'regexTester',
   '/app/timestamp-converter': 'timestampConverter',

@@ -1990,6 +1990,27 @@
       "couldNotFormat": "Tidak dapat memformat SQL ini."
     }
   },
+  "YamlFormatter": {
+    "title": "Pemformat YAML",
+    "subtitle": "Format, validasi, dan konversi YAML di browser Anda. Tidak ada yang diunggah.",
+    "outputLabel": "Keluaran",
+    "outputModes": {
+      "yaml": "YAML (diformat)",
+      "json": "JSON"
+    },
+    "indentLabel": "Indentasi",
+    "spaces": "{n} spasi",
+    "format": "Format",
+    "clear": "Hapus",
+    "copy": "Salin",
+    "counter": "{current} / {max} karakter",
+    "inputPanel": "Masukan",
+    "outputPanel": "Keluaran",
+    "errors": {
+      "tooLong": "Masukan dibatasi hingga {max} karakter.",
+      "couldNotFormat": "Tidak dapat mengurai YAML ini."
+    }
+  },
   "GraphqlFormatter": {
     "title": "Pemformat GraphQL",
     "subtitle": "Format kueri, mutasi, dan langganan GraphQL di peramban. Tidak ada yang diunggah.",

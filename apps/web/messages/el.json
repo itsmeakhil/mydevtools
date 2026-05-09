@@ -1990,6 +1990,27 @@
       "couldNotFormat": "Δεν ήταν δυνατή η μορφοποίηση αυτού του SQL."
     }
   },
+  "YamlFormatter": {
+    "title": "Μορφοποιητής YAML",
+    "subtitle": "Μορφοποιήστε, επαληθεύστε και μετατρέψτε YAML στον περιηγητή σας. Τίποτα δεν ανεβαίνει.",
+    "outputLabel": "Έξοδος",
+    "outputModes": {
+      "yaml": "YAML (μορφοποιημένο)",
+      "json": "JSON"
+    },
+    "indentLabel": "Εσοχή",
+    "spaces": "{n} κενά",
+    "format": "Μορφοποίηση",
+    "clear": "Καθαρισμός",
+    "copy": "Αντιγραφή",
+    "counter": "{current} / {max} χαρακτήρες",
+    "inputPanel": "Είσοδος",
+    "outputPanel": "Έξοδος",
+    "errors": {
+      "tooLong": "Η είσοδος περιορίζεται σε {max} χαρακτήρες.",
+      "couldNotFormat": "Δεν ήταν δυνατή η ανάλυση αυτού του YAML."
+    }
+  },
   "GraphqlFormatter": {
     "title": "Μορφοποιητής GraphQL",
     "subtitle": "Μορφοποιήστε ερωτήματα, μεταλλάξεις και συνδρομές GraphQL στο πρόγραμμα περιήγησης. Δεν ανεβαίνει τίποτα.",

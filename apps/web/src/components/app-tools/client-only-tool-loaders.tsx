@@ -77,6 +77,14 @@ export const GraphqlFormatterLayoutLazy = dynamic(
   { ssr: false, loading: toolLoading }
 )
 
+export const YamlFormatterLayoutLazy = dynamic(
+  () =>
+    import('@/components/yaml-formatter/yaml-formatter-layout').then(
+      m => m.YamlFormatterLayout
+    ),
+  { ssr: false, loading: toolLoading }
+)
+
 export const Game2048LayoutLazy = dynamic(
   () =>
     import('@/components/break-room/2048/game-2048-layout').then(

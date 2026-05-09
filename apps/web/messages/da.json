@@ -1990,6 +1990,27 @@
       "couldNotFormat": "Kunne ikke formatere denne SQL."
     }
   },
+  "YamlFormatter": {
+    "title": "YAML-formatering",
+    "subtitle": "Formater, valider og konverter YAML i din browser. Intet uploades.",
+    "outputLabel": "Output",
+    "outputModes": {
+      "yaml": "YAML (formateret)",
+      "json": "JSON"
+    },
+    "indentLabel": "Indrykning",
+    "spaces": "{n} mellemrum",
+    "format": "Formater",
+    "clear": "Ryd",
+    "copy": "Kopiér",
+    "counter": "{current} / {max} tegn",
+    "inputPanel": "Input",
+    "outputPanel": "Output",
+    "errors": {
+      "tooLong": "Input er begrænset til {max} tegn.",
+      "couldNotFormat": "Kunne ikke fortolke dette YAML."
+    }
+  },
   "GraphqlFormatter": {
     "title": "GraphQL-formater",
     "subtitle": "Formatér GraphQL-forespørgsler, mutationer og abonnementer i browseren. Intet uploades.",

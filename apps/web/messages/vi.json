@@ -1990,6 +1990,27 @@
       "couldNotFormat": "Không thể định dạng SQL này."
     }
   },
+  "YamlFormatter": {
+    "title": "Trình định dạng YAML",
+    "subtitle": "Định dạng, xác thực và chuyển đổi YAML trong trình duyệt. Không có gì được tải lên.",
+    "outputLabel": "Đầu ra",
+    "outputModes": {
+      "yaml": "YAML (đã định dạng)",
+      "json": "JSON"
+    },
+    "indentLabel": "Thụt lề",
+    "spaces": "{n} khoảng trắng",
+    "format": "Định dạng",
+    "clear": "Xóa",
+    "copy": "Sao chép",
+    "counter": "{current} / {max} ký tự",
+    "inputPanel": "Đầu vào",
+    "outputPanel": "Đầu ra",
+    "errors": {
+      "tooLong": "Đầu vào giới hạn {max} ký tự.",
+      "couldNotFormat": "Không thể phân tích cú pháp YAML này."
+    }
+  },
   "GraphqlFormatter": {
     "title": "Trình định dạng GraphQL",
     "subtitle": "Định dạng truy vấn, mutation và subscription GraphQL trong trình duyệt. Không tải dữ liệu lên.",

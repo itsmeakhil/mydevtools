@@ -1990,6 +1990,27 @@
       "couldNotFormat": "Tento SQL se nepodařilo naformátovat."
     }
   },
+  "YamlFormatter": {
+    "title": "Formátovač YAML",
+    "subtitle": "Formátujte, ověřujte a převádějte YAML v prohlížeči. Nic se nenahrává.",
+    "outputLabel": "Výstup",
+    "outputModes": {
+      "yaml": "YAML (formátovaný)",
+      "json": "JSON"
+    },
+    "indentLabel": "Odsazení",
+    "spaces": "{n} mezery",
+    "format": "Formátovat",
+    "clear": "Vymazat",
+    "copy": "Kopírovat",
+    "counter": "{current} / {max} znaků",
+    "inputPanel": "Vstup",
+    "outputPanel": "Výstup",
+    "errors": {
+      "tooLong": "Vstup je omezen na {max} znaků.",
+      "couldNotFormat": "Nepodařilo se analyzovat tento YAML."
+    }
+  },
   "GraphqlFormatter": {
     "title": "Formátovač GraphQL",
     "subtitle": "Formátujte dotazy, mutace a odběry GraphQL v prohlížeči. Nic se neodesílá.",

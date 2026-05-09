@@ -1990,6 +1990,27 @@
       "couldNotFormat": "이 SQL을 포맷할 수 없습니다."
     }
   },
+  "YamlFormatter": {
+    "title": "YAML 포매터",
+    "subtitle": "브라우저에서 YAML을 형식화, 유효성 검사, 변환합니다. 업로드되지 않습니다.",
+    "outputLabel": "출력",
+    "outputModes": {
+      "yaml": "YAML (형식화됨)",
+      "json": "JSON"
+    },
+    "indentLabel": "들여쓰기",
+    "spaces": "{n} 칸",
+    "format": "형식화",
+    "clear": "지우기",
+    "copy": "복사",
+    "counter": "{current} / {max} 자",
+    "inputPanel": "입력",
+    "outputPanel": "출력",
+    "errors": {
+      "tooLong": "입력은 {max}자로 제한됩니다.",
+      "couldNotFormat": "이 YAML을 파싱할 수 없습니다."
+    }
+  },
   "GraphqlFormatter": {
     "title": "GraphQL 포매터",
     "subtitle": "브라우저에서 GraphQL 쿼리·뮤테이션·구독을 포맷합니다. 업로드되지 않습니다.",
