@@ -51,7 +51,9 @@
     "breakRoom": "Pausrum",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander"
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "YAML-formaterare",
+    "sshKeyGenerator": "SSH / RSA-nyckelgenerator"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -3378,5 +3380,28 @@
     "restart": "Starta om",
     "paused": "Pausad",
     "gameOver": "Spelet slut"
+  },
+  "SshKeyGenerator": {
+    "title": "SSH / RSA-nyckelgenerator",
+    "subtitle": "Generera Ed25519- eller RSA-nyckelpar i din webbläsare. Ladda ned privata och offentliga nycklar i OpenSSH- och PEM-format. Inget laddas upp.",
+    "keyTypeLabel": "Nyckeltyp",
+    "recommended": "rekommenderas",
+    "ed25519Desc": "Snabb, liten och modern. Stöds av GitHub, GitLab och alla större SSH-servrar.",
+    "rsa2048Desc": "Brett kompatibel. Säker för de flesta användningsområden.",
+    "rsa4096Desc": "Maximal kompatibilitet och styrka för äldre system.",
+    "commentLabel": "Kommentar (valfritt)",
+    "commentHint": "Läggs till i OpenSSH-nyckelraden.",
+    "generateBtn": "Generera nyckelpar",
+    "generating": "Genererar…",
+    "generatingLong": "Genererar (kan ta en stund)…",
+    "copy": "Kopiera",
+    "download": "Ladda ned",
+    "privateKeyLabel": "Privat nyckel (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "Offentlig nyckel (OpenSSH-format)",
+    "publicKeySpkiLabel": "Offentlig nyckel (SPKI PEM)",
+    "browserNote": "Alla nycklar genereras i din webbläsare. Inget skickas till någon server.",
+    "errors": {
+      "generationFailed": "Nyckelgenerering misslyckades"
+    }
   }
 }

@@ -51,7 +51,9 @@
     "breakRoom": "غرفة الاستراحة",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "منفّذ Redis"
+    "redisCommander": "منفّذ Redis",
+    "yamlFormatter": "منسق YAML",
+    "sshKeyGenerator": "مولد مفاتيح SSH / RSA"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -3378,5 +3380,28 @@
     "restart": "إعادة",
     "paused": "متوقف مؤقتًا",
     "gameOver": "انتهت اللعبة"
+  },
+  "SshKeyGenerator": {
+    "title": "مولد مفاتيح SSH / RSA",
+    "subtitle": "أنشئ أزواج مفاتيح Ed25519 أو RSA في متصفحك. نزّل المفاتيح الخاصة والعامة بصيغتي OpenSSH وPEM. لا يُرفع أي شيء.",
+    "keyTypeLabel": "نوع المفتاح",
+    "recommended": "موصى به",
+    "ed25519Desc": "سريع وصغير وحديث. مدعوم من GitHub وGitLab وجميع خوادم SSH الرئيسية.",
+    "rsa2048Desc": "توافق واسع. آمن لمعظم الاستخدامات.",
+    "rsa4096Desc": "أقصى توافق وقوة للأنظمة القديمة.",
+    "commentLabel": "تعليق (اختياري)",
+    "commentHint": "يُضاف إلى سطر المفتاح العام في OpenSSH.",
+    "generateBtn": "إنشاء زوج المفاتيح",
+    "generating": "جارٍ الإنشاء…",
+    "generatingLong": "جارٍ الإنشاء (قد يستغرق لحظة)…",
+    "copy": "نسخ",
+    "download": "تنزيل",
+    "privateKeyLabel": "المفتاح الخاص (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "المفتاح العام (صيغة OpenSSH)",
+    "publicKeySpkiLabel": "المفتاح العام (SPKI PEM)",
+    "browserNote": "جميع المفاتيح تُنشأ في متصفحك. لا يُرسل شيء إلى أي خادم.",
+    "errors": {
+      "generationFailed": "فشل إنشاء المفتاح"
+    }
   }
 }

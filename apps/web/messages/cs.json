@@ -51,7 +51,9 @@
     "breakRoom": "PŘESTÁVKOVÁ MÍSTNOST",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander"
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "Formátovač YAML",
+    "sshKeyGenerator": "Generátor klíčů SSH / RSA"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -3378,5 +3380,28 @@
     "restart": "Restart",
     "paused": "Pozastaveno",
     "gameOver": "Konec hry"
+  },
+  "SshKeyGenerator": {
+    "title": "Generátor klíčů SSH / RSA",
+    "subtitle": "Generujte páry klíčů Ed25519 nebo RSA ve svém prohlížeči. Stáhněte soukromé a veřejné klíče ve formátech OpenSSH a PEM. Nic se nenahrává.",
+    "keyTypeLabel": "Typ klíče",
+    "recommended": "doporučeno",
+    "ed25519Desc": "Rychlý, malý, moderní. Podporován GitHubem, GitLabem a všemi hlavními SSH servery.",
+    "rsa2048Desc": "Široce kompatibilní. Bezpečný pro většinu použití.",
+    "rsa4096Desc": "Maximální kompatibilita a síla pro starší systémy.",
+    "commentLabel": "Komentář (volitelné)",
+    "commentHint": "Přidán k řádku veřejného klíče OpenSSH.",
+    "generateBtn": "Generovat pár klíčů",
+    "generating": "Generuji…",
+    "generatingLong": "Generuji (může chvíli trvat)…",
+    "copy": "Kopírovat",
+    "download": "Stáhnout",
+    "privateKeyLabel": "Soukromý klíč (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "Veřejný klíč (formát OpenSSH)",
+    "publicKeySpkiLabel": "Veřejný klíč (SPKI PEM)",
+    "browserNote": "Všechny klíče jsou generovány ve vašem prohlížeči. Nic není odesíláno na žádný server.",
+    "errors": {
+      "generationFailed": "Generování klíče selhalo"
+    }
   }
 }

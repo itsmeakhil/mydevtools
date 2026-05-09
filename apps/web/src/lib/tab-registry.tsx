@@ -58,6 +58,7 @@ const TAB_REGISTRY: Record<string, React.ComponentType> = {
   '/app/jwt-decoder': dynamic(() => import('@/app/app/jwt-decoder/page'), { ssr: false, loading }),
   '/app/encryption-playground': dynamic(() => import('@/app/app/encryption-playground/page'), { ssr: false, loading }),
   '/app/certificate-pem-decoder': dynamic(() => import('@/app/app/certificate-pem-decoder/page'), { ssr: false, loading }),
+  '/app/ssh-key-generator': dynamic(() => import('@/app/app/ssh-key-generator/page'), { ssr: false, loading }),
   '/app/regex-tester': dynamic(() => import('@/app/app/regex-tester/page'), { ssr: false, loading }),
   '/app/timestamp-converter': dynamic(() => import('@/app/app/timestamp-converter/page'), { ssr: false, loading }),
   '/app/cron-builder': dynamic(() => import('@/app/app/cron-builder/page'), { ssr: false, loading }),

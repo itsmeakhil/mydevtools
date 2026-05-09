@@ -51,7 +51,9 @@
     "breakRoom": "Pauzeruimte",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander"
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "YAML-formatter",
+    "sshKeyGenerator": "SSH / RSA-sleutelgenerator"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -3378,5 +3380,28 @@
     "restart": "Herstarten",
     "paused": "Gepauzeerd",
     "gameOver": "Game over"
+  },
+  "SshKeyGenerator": {
+    "title": "SSH / RSA-sleutelgenerator",
+    "subtitle": "Genereer Ed25519- of RSA-sleutelparen in je browser. Download privé- en openbare sleutels in OpenSSH- en PEM-formaten. Er wordt niets geüpload.",
+    "keyTypeLabel": "Sleuteltype",
+    "recommended": "aanbevolen",
+    "ed25519Desc": "Snel, klein en modern. Ondersteund door GitHub, GitLab en alle grote SSH-servers.",
+    "rsa2048Desc": "Breed compatibel. Veilig voor de meeste toepassingen.",
+    "rsa4096Desc": "Maximale compatibiliteit en sterkte voor verouderde systemen.",
+    "commentLabel": "Opmerking (optioneel)",
+    "commentHint": "Toegevoegd aan de OpenSSH openbare sleutelregel.",
+    "generateBtn": "Genereer sleutelpaar",
+    "generating": "Genereren…",
+    "generatingLong": "Genereren (kan even duren)…",
+    "copy": "Kopiëren",
+    "download": "Downloaden",
+    "privateKeyLabel": "Privésleutel (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "Openbare sleutel (OpenSSH-formaat)",
+    "publicKeySpkiLabel": "Openbare sleutel (SPKI PEM)",
+    "browserNote": "Alle sleutels worden gegenereerd in je browser. Er wordt niets naar een server gestuurd.",
+    "errors": {
+      "generationFailed": "Sleutelgeneratie mislukt"
+    }
   }
 }

@@ -51,7 +51,9 @@
     "breakRoom": "Комната отдыха",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander"
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "Форматировщик YAML",
+    "sshKeyGenerator": "Генератор ключей SSH / RSA"
   },
   "Help": {
     "title": "Справка и документация",
@@ -3378,5 +3380,28 @@
     "restart": "Заново",
     "paused": "На паузе",
     "gameOver": "Игра окончена"
+  },
+  "SshKeyGenerator": {
+    "title": "Генератор ключей SSH / RSA",
+    "subtitle": "Генерируйте пары ключей Ed25519 или RSA прямо в браузере. Скачивайте приватные и публичные ключи в форматах OpenSSH и PEM. Ничего не загружается на сервер.",
+    "keyTypeLabel": "Тип ключа",
+    "recommended": "рекомендуется",
+    "ed25519Desc": "Быстрый, компактный, современный. Поддерживается GitHub, GitLab и всеми основными SSH-серверами.",
+    "rsa2048Desc": "Широкая совместимость. Безопасен для большинства задач.",
+    "rsa4096Desc": "Максимальная совместимость и надёжность для устаревших систем.",
+    "commentLabel": "Комментарий (необязательно)",
+    "commentHint": "Добавляется к строке публичного ключа OpenSSH.",
+    "generateBtn": "Сгенерировать пару ключей",
+    "generating": "Генерация…",
+    "generatingLong": "Генерация (может занять немного времени)…",
+    "copy": "Копировать",
+    "download": "Скачать",
+    "privateKeyLabel": "Приватный ключ (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "Публичный ключ (формат OpenSSH)",
+    "publicKeySpkiLabel": "Публичный ключ (SPKI PEM)",
+    "browserNote": "Все ключи генерируются в вашем браузере. Ничего не отправляется на сервер.",
+    "errors": {
+      "generationFailed": "Ошибка генерации ключа"
+    }
   }
 }

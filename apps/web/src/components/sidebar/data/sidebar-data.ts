@@ -123,6 +123,12 @@ export const sidebarData: SidebarData = {
           description: 'Decode X.509 certificates and CSRs: subject, issuer, validity, SANs.',
         },
         {
+          title: 'SSH / RSA Key Generator',
+          url: '/app/ssh-key-generator',
+          icon: IconFingerprint,
+          description: 'Generate Ed25519 or RSA key pairs in your browser. Download in OpenSSH and PEM formats.',
+        },
+        {
           title: 'Encryption Playground',
           url: '/app/encryption-playground',
           icon: IconShieldLock,

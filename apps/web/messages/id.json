@@ -51,7 +51,9 @@
     "breakRoom": "Ruang Istirahat",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander"
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "Pemformat YAML",
+    "sshKeyGenerator": "Generator Kunci SSH / RSA"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -3378,5 +3380,28 @@
     "restart": "Mulai ulang",
     "paused": "Dijeda",
     "gameOver": "Permainan berakhir"
+  },
+  "SshKeyGenerator": {
+    "title": "Generator Kunci SSH / RSA",
+    "subtitle": "Buat pasangan kunci Ed25519 atau RSA di browser Anda. Unduh kunci privat dan publik dalam format OpenSSH dan PEM. Tidak ada yang diunggah.",
+    "keyTypeLabel": "Jenis Kunci",
+    "recommended": "disarankan",
+    "ed25519Desc": "Cepat, kecil, modern. Didukung oleh GitHub, GitLab, dan semua server SSH utama.",
+    "rsa2048Desc": "Kompatibilitas luas. Aman untuk sebagian besar penggunaan.",
+    "rsa4096Desc": "Kompatibilitas dan kekuatan maksimum untuk sistem lama.",
+    "commentLabel": "Komentar (opsional)",
+    "commentHint": "Ditambahkan ke baris kunci publik OpenSSH.",
+    "generateBtn": "Buat Pasangan Kunci",
+    "generating": "Membuat…",
+    "generatingLong": "Membuat (mungkin perlu beberapa saat)…",
+    "copy": "Salin",
+    "download": "Unduh",
+    "privateKeyLabel": "Kunci Privat (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "Kunci Publik (format OpenSSH)",
+    "publicKeySpkiLabel": "Kunci Publik (SPKI PEM)",
+    "browserNote": "Semua kunci dibuat di browser Anda. Tidak ada yang dikirim ke server mana pun.",
+    "errors": {
+      "generationFailed": "Pembuatan kunci gagal"
+    }
   }
 }

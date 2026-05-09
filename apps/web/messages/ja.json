@@ -51,7 +51,9 @@
     "breakRoom": "休憩室",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander"
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "YAMLフォーマッター",
+    "sshKeyGenerator": "SSH / RSAキージェネレーター"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -3378,5 +3380,28 @@
     "restart": "リスタート",
     "paused": "一時停止中",
     "gameOver": "ゲームオーバー"
+  },
+  "SshKeyGenerator": {
+    "title": "SSH / RSA 鍵ジェネレーター",
+    "subtitle": "ブラウザでEd25519またはRSA鍵ペアを生成します。OpenSSHとPEM形式で秘密鍵と公開鍵をダウンロードできます。何もアップロードされません。",
+    "keyTypeLabel": "鍵の種類",
+    "recommended": "推奨",
+    "ed25519Desc": "高速、コンパクト、モダン。GitHub、GitLab、および主要なSSHサーバーすべてで対応。",
+    "rsa2048Desc": "広く互換性があります。ほとんどの用途に安全です。",
+    "rsa4096Desc": "レガシーシステム向けに最大の互換性と強度。",
+    "commentLabel": "コメント（任意）",
+    "commentHint": "OpenSSH公開鍵の行に追加されます。",
+    "generateBtn": "鍵ペアを生成",
+    "generating": "生成中…",
+    "generatingLong": "生成中（しばらくかかる場合があります）…",
+    "copy": "コピー",
+    "download": "ダウンロード",
+    "privateKeyLabel": "秘密鍵（PKCS#8 PEM）",
+    "publicKeyOpenSSHLabel": "公開鍵（OpenSSH形式）",
+    "publicKeySpkiLabel": "公開鍵（SPKI PEM）",
+    "browserNote": "すべての鍵はブラウザで生成されます。サーバーには何も送信されません。",
+    "errors": {
+      "generationFailed": "鍵の生成に失敗しました"
+    }
   }
 }

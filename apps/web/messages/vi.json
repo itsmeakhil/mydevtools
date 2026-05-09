@@ -51,7 +51,9 @@
     "breakRoom": "Phòng Nghỉ",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander"
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "Định dạng YAML",
+    "sshKeyGenerator": "Trình tạo khóa SSH / RSA"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -3378,5 +3380,28 @@
     "restart": "Chơi lại",
     "paused": "Đã tạm dừng",
     "gameOver": "Kết thúc"
+  },
+  "SshKeyGenerator": {
+    "title": "Trình tạo khóa SSH / RSA",
+    "subtitle": "Tạo cặp khóa Ed25519 hoặc RSA trong trình duyệt của bạn. Tải xuống khóa riêng tư và công khai ở định dạng OpenSSH và PEM. Không có gì được tải lên.",
+    "keyTypeLabel": "Loại khóa",
+    "recommended": "khuyến nghị",
+    "ed25519Desc": "Nhanh, nhỏ và hiện đại. Được hỗ trợ bởi GitHub, GitLab và tất cả các máy chủ SSH lớn.",
+    "rsa2048Desc": "Tương thích rộng rãi. An toàn cho hầu hết các mục đích sử dụng.",
+    "rsa4096Desc": "Tương thích tối đa và mạnh mẽ cho các hệ thống cũ.",
+    "commentLabel": "Bình luận (tùy chọn)",
+    "commentHint": "Được thêm vào dòng khóa công khai OpenSSH.",
+    "generateBtn": "Tạo cặp khóa",
+    "generating": "Đang tạo…",
+    "generatingLong": "Đang tạo (có thể mất một lúc)…",
+    "copy": "Sao chép",
+    "download": "Tải xuống",
+    "privateKeyLabel": "Khóa riêng tư (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "Khóa công khai (định dạng OpenSSH)",
+    "publicKeySpkiLabel": "Khóa công khai (SPKI PEM)",
+    "browserNote": "Tất cả các khóa được tạo trong trình duyệt của bạn. Không có gì được gửi đến bất kỳ máy chủ nào.",
+    "errors": {
+      "generationFailed": "Tạo khóa thất bại"
+    }
   }
 }
