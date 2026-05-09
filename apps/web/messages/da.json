@@ -292,6 +292,10 @@
         "title": "GraphQL-formater",
         "description": "Formatér GraphQL med syntaksfremhævning og en enkel forespørgselsbygger."
       },
+      "yamlFormatter": {
+        "title": "YAML-formatering",
+        "description": "Formater, valider og konverter YAML til JSON i browseren."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
@@ -1988,6 +1992,27 @@
     "errors": {
       "tooLong": "Input er begrænset til {max} tegn.",
       "couldNotFormat": "Kunne ikke formatere denne SQL."
+    }
+  },
+  "YamlFormatter": {
+    "title": "YAML-formatering",
+    "subtitle": "Formater, valider og konverter YAML i din browser. Intet uploades.",
+    "outputLabel": "Output",
+    "outputModes": {
+      "yaml": "YAML (formateret)",
+      "json": "JSON"
+    },
+    "indentLabel": "Indrykning",
+    "spaces": "{n} mellemrum",
+    "format": "Formater",
+    "clear": "Ryd",
+    "copy": "Kopiér",
+    "counter": "{current} / {max} tegn",
+    "inputPanel": "Input",
+    "outputPanel": "Output",
+    "errors": {
+      "tooLong": "Input er begrænset til {max} tegn.",
+      "couldNotFormat": "Kunne ikke fortolke dette YAML."
     }
   },
   "GraphqlFormatter": {

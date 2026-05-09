@@ -292,6 +292,10 @@
         "title": "Formattatore GraphQL",
         "description": "Formatta GraphQL con evidenziazione della sintassi e un editor di query semplice."
       },
+      "yamlFormatter": {
+        "title": "Formattatore YAML",
+        "description": "Formatta, valida e converti YAML in JSON nel browser."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
@@ -1988,6 +1992,27 @@
     "errors": {
       "tooLong": "L’input è limitato a {max} caratteri.",
       "couldNotFormat": "Impossibile formattare questo SQL."
+    }
+  },
+  "YamlFormatter": {
+    "title": "Formattatore YAML",
+    "subtitle": "Formatta, valida e converti YAML nel browser. Nulla viene caricato.",
+    "outputLabel": "Output",
+    "outputModes": {
+      "yaml": "YAML (formattato)",
+      "json": "JSON"
+    },
+    "indentLabel": "Rientro",
+    "spaces": "{n} spazi",
+    "format": "Formatta",
+    "clear": "Cancella",
+    "copy": "Copia",
+    "counter": "{current} / {max} caratteri",
+    "inputPanel": "Input",
+    "outputPanel": "Output",
+    "errors": {
+      "tooLong": "L'input è limitato a {max} caratteri.",
+      "couldNotFormat": "Impossibile analizzare questo YAML."
     }
   },
   "GraphqlFormatter": {

@@ -15,6 +15,7 @@ export const toolCategoryMap: Record<string, string> = {
   'json-schema-generator': 'Formatters',
   'sql-formatter': 'Formatters',
   'graphql-formatter': 'Formatters',
+  'yaml-formatter': 'Formatters',
   'markdown-preview-html': 'Formatters',
   'format-converter': 'Formatters',
   'diff-checker': 'Formatters',

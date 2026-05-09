@@ -63,6 +63,7 @@ const TAB_REGISTRY: Record<string, React.ComponentType> = {
   '/app/cron-builder': dynamic(() => import('@/app/app/cron-builder/page'), { ssr: false, loading }),
   '/app/sql-formatter': dynamic(() => import('@/app/app/sql-formatter/page'), { ssr: false, loading }),
   '/app/graphql-formatter': dynamic(() => import('@/app/app/graphql-formatter/page'), { ssr: false, loading }),
+  '/app/yaml-formatter': dynamic(() => import('@/app/app/yaml-formatter/page'), { ssr: false, loading }),
   '/app/diff-checker': dynamic(() => import('@/app/app/diff-checker/page'), { ssr: false, loading }),
   '/app/csv-excel-json': dynamic(() => import('@/app/app/csv-excel-json/page'), { ssr: false, loading }),
   '/app/snippet-manager': dynamic(() => import('@/app/app/snippet-manager/page'), { ssr: false, loading }),

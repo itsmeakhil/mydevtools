@@ -298,6 +298,10 @@
         "title": "Pemformat GraphQL",
         "description": "Format GraphQL dengan pensyntaksan sorotan dan pembina pertanyaan ringkas."
       },
+      "yamlFormatter": {
+        "title": "Pemformat YAML",
+        "description": "Format, sahkan dan tukarkan YAML ke JSON dalam pelayar."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
@@ -1988,6 +1992,27 @@
     "errors": {
       "tooLong": "Input dihadkan kepada {max} aksara.",
       "couldNotFormat": "Tidak dapat memformat SQL ini."
+    }
+  },
+  "YamlFormatter": {
+    "title": "Pemformat YAML",
+    "subtitle": "Format, sahkan dan tukarkan YAML dalam pelayar anda. Tiada yang dimuat naik.",
+    "outputLabel": "Output",
+    "outputModes": {
+      "yaml": "YAML (diformatkan)",
+      "json": "JSON"
+    },
+    "indentLabel": "Inden",
+    "spaces": "{n} ruang",
+    "format": "Format",
+    "clear": "Kosongkan",
+    "copy": "Salin",
+    "counter": "{current} / {max} aksara",
+    "inputPanel": "Input",
+    "outputPanel": "Output",
+    "errors": {
+      "tooLong": "Input terhad kepada {max} aksara.",
+      "couldNotFormat": "Tidak dapat menghurai YAML ini."
     }
   },
   "GraphqlFormatter": {

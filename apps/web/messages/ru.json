@@ -292,6 +292,10 @@
         "title": "Форматтер GraphQL",
         "description": "Форматируйте GraphQL с подсветкой синтаксиса и простым конструктором запросов."
       },
+      "yamlFormatter": {
+        "title": "Форматировщик YAML",
+        "description": "Форматируйте, проверяйте и конвертируйте YAML в JSON в браузере."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
@@ -1988,6 +1992,27 @@
     "errors": {
       "tooLong": "Ввод ограничен {max} символами.",
       "couldNotFormat": "Не удалось отформатировать этот SQL."
+    }
+  },
+  "YamlFormatter": {
+    "title": "Форматировщик YAML",
+    "subtitle": "Форматируйте, проверяйте и конвертируйте YAML в браузере. Ничего не загружается.",
+    "outputLabel": "Вывод",
+    "outputModes": {
+      "yaml": "YAML (форматированный)",
+      "json": "JSON"
+    },
+    "indentLabel": "Отступ",
+    "spaces": "{n} пробела",
+    "format": "Форматировать",
+    "clear": "Очистить",
+    "copy": "Копировать",
+    "counter": "{current} / {max} символов",
+    "inputPanel": "Ввод",
+    "outputPanel": "Вывод",
+    "errors": {
+      "tooLong": "Ввод ограничен {max} символами.",
+      "couldNotFormat": "Не удалось разобрать этот YAML."
     }
   },
   "GraphqlFormatter": {

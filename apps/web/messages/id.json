@@ -292,6 +292,10 @@
         "title": "Pemformat GraphQL",
         "description": "Format GraphQL dengan penyorotan sintaks dan pembangun kueri sederhana."
       },
+      "yamlFormatter": {
+        "title": "Pemformat YAML",
+        "description": "Format, validasi, dan konversi YAML ke JSON di browser."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
@@ -1988,6 +1992,27 @@
     "errors": {
       "tooLong": "Input dibatasi hingga {max} karakter.",
       "couldNotFormat": "Tidak dapat memformat SQL ini."
+    }
+  },
+  "YamlFormatter": {
+    "title": "Pemformat YAML",
+    "subtitle": "Format, validasi, dan konversi YAML di browser Anda. Tidak ada yang diunggah.",
+    "outputLabel": "Keluaran",
+    "outputModes": {
+      "yaml": "YAML (diformat)",
+      "json": "JSON"
+    },
+    "indentLabel": "Indentasi",
+    "spaces": "{n} spasi",
+    "format": "Format",
+    "clear": "Hapus",
+    "copy": "Salin",
+    "counter": "{current} / {max} karakter",
+    "inputPanel": "Masukan",
+    "outputPanel": "Keluaran",
+    "errors": {
+      "tooLong": "Masukan dibatasi hingga {max} karakter.",
+      "couldNotFormat": "Tidak dapat mengurai YAML ini."
     }
   },
   "GraphqlFormatter": {

@@ -292,6 +292,10 @@
         "title": "GraphQL-formateerder",
         "description": "Formateer GraphQL met sintaksuitligting en ’n eenvoudige navrae-bouer."
       },
+      "yamlFormatter": {
+        "title": "YAML Formatteerder",
+        "description": "Formateer, valideer en omskep YAML na JSON in die blaaier."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
@@ -1988,6 +1992,27 @@
     "errors": {
       "tooLong": "Invoer is beperk tot {max} karakters.",
       "couldNotFormat": "Kon nie hierdie SQL formateer nie."
+    }
+  },
+  "YamlFormatter": {
+    "title": "YAML Formatteerder",
+    "subtitle": "Formateer, valideer en omskep YAML in jou blaaier. Niks word opgelaai nie.",
+    "outputLabel": "Uitvoer",
+    "outputModes": {
+      "yaml": "YAML (geformateer)",
+      "json": "JSON"
+    },
+    "indentLabel": "Inkeping",
+    "spaces": "{n} spasies",
+    "format": "Formateer",
+    "clear": "Vee uit",
+    "copy": "Kopieer",
+    "counter": "{current} / {max} karakters",
+    "inputPanel": "Invoer",
+    "outputPanel": "Uitvoer",
+    "errors": {
+      "tooLong": "Invoer is beperk tot {max} karakters.",
+      "couldNotFormat": "Kon hierdie YAML nie ontleed nie."
     }
   },
   "GraphqlFormatter": {

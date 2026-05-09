@@ -292,6 +292,10 @@
         "title": "Formátovač GraphQL",
         "description": "Formátujte GraphQL se zvýrazněním syntaxe a jednoduchým editorem dotazů."
       },
+      "yamlFormatter": {
+        "title": "Formátovač YAML",
+        "description": "Formátujte, ověřujte a převádějte YAML do JSON v prohlížeči."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
@@ -1988,6 +1992,27 @@
     "errors": {
       "tooLong": "Vstup je omezen na {max} znaků.",
       "couldNotFormat": "Tento SQL se nepodařilo naformátovat."
+    }
+  },
+  "YamlFormatter": {
+    "title": "Formátovač YAML",
+    "subtitle": "Formátujte, ověřujte a převádějte YAML v prohlížeči. Nic se nenahrává.",
+    "outputLabel": "Výstup",
+    "outputModes": {
+      "yaml": "YAML (formátovaný)",
+      "json": "JSON"
+    },
+    "indentLabel": "Odsazení",
+    "spaces": "{n} mezery",
+    "format": "Formátovat",
+    "clear": "Vymazat",
+    "copy": "Kopírovat",
+    "counter": "{current} / {max} znaků",
+    "inputPanel": "Vstup",
+    "outputPanel": "Výstup",
+    "errors": {
+      "tooLong": "Vstup je omezen na {max} znaků.",
+      "couldNotFormat": "Nepodařilo se analyzovat tento YAML."
     }
   },
   "GraphqlFormatter": {

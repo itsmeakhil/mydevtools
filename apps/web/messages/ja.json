@@ -292,6 +292,10 @@
         "title": "GraphQL フォーマッター",
         "description": "GraphQL を整形し、シンタックスハイライトとシンプルなクエリビルダーを提供します。"
       },
+      "yamlFormatter": {
+        "title": "YAMLフォーマッター",
+        "description": "ブラウザでYAMLを整形・検証・JSON変換します。"
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
@@ -1988,6 +1992,27 @@
     "errors": {
       "tooLong": "入力は {max} 文字までです。",
       "couldNotFormat": "このSQLを整形できませんでした。"
+    }
+  },
+  "YamlFormatter": {
+    "title": "YAMLフォーマッター",
+    "subtitle": "YAMLをブラウザ内で整形・検証・変換します。アップロードされません。",
+    "outputLabel": "出力",
+    "outputModes": {
+      "yaml": "YAML（整形済み）",
+      "json": "JSON"
+    },
+    "indentLabel": "インデント",
+    "spaces": "{n} スペース",
+    "format": "整形",
+    "clear": "クリア",
+    "copy": "コピー",
+    "counter": "{current} / {max} 文字",
+    "inputPanel": "入力",
+    "outputPanel": "出力",
+    "errors": {
+      "tooLong": "入力は {max} 文字以内にしてください。",
+      "couldNotFormat": "このYAMLを解析できませんでした。"
     }
   },
   "GraphqlFormatter": {

@@ -292,6 +292,10 @@
         "title": "GraphQL-Formatierer",
         "description": "GraphQL mit Syntaxhervorhebung formatieren und mit einem einfachen Abfrage-Editor zusammenstellen."
       },
+      "yamlFormatter": {
+        "title": "YAML-Formatierer",
+        "description": "YAML im Browser formatieren, validieren und in JSON konvertieren."
+      },
       "diffChecker": {
         "title": "Textvergleich",
         "description": "Zwei Texte zeilenweise nebeneinander vergleichen."
@@ -1988,6 +1992,27 @@
     "errors": {
       "tooLong": "Eingabe ist auf {max} Zeichen begrenzt.",
       "couldNotFormat": "SQL konnte nicht formatiert werden."
+    }
+  },
+  "YamlFormatter": {
+    "title": "YAML-Formatierer",
+    "subtitle": "YAML im Browser formatieren, validieren und konvertieren. Es wird nichts hochgeladen.",
+    "outputLabel": "Ausgabe",
+    "outputModes": {
+      "yaml": "YAML (formatiert)",
+      "json": "JSON"
+    },
+    "indentLabel": "Einzug",
+    "spaces": "{n} Leerzeichen",
+    "format": "Formatieren",
+    "clear": "Löschen",
+    "copy": "Kopieren",
+    "counter": "{current} / {max} Zeichen",
+    "inputPanel": "Eingabe",
+    "outputPanel": "Ausgabe",
+    "errors": {
+      "tooLong": "Die Eingabe ist auf {max} Zeichen begrenzt.",
+      "couldNotFormat": "Dieses YAML konnte nicht verarbeitet werden."
     }
   },
   "GraphqlFormatter": {

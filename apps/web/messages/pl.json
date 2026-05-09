@@ -292,6 +292,10 @@
         "title": "Formatter GraphQL",
         "description": "Formatuj GraphQL z podświetlaniem składni i prostym edytorem zapytań."
       },
+      "yamlFormatter": {
+        "title": "Formatyzator YAML",
+        "description": "Formatuj, weryfikuj i konwertuj YAML do JSON w przeglądarce."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
@@ -1988,6 +1992,27 @@
     "errors": {
       "tooLong": "Wejście jest ograniczone do {max} znaków.",
       "couldNotFormat": "Nie udało się sformatować tego SQL."
+    }
+  },
+  "YamlFormatter": {
+    "title": "Formatyzator YAML",
+    "subtitle": "Formatuj, weryfikuj i konwertuj YAML w przeglądarce. Nic nie jest przesyłane.",
+    "outputLabel": "Wyjście",
+    "outputModes": {
+      "yaml": "YAML (sformatowany)",
+      "json": "JSON"
+    },
+    "indentLabel": "Wcięcie",
+    "spaces": "{n} spacje",
+    "format": "Formatuj",
+    "clear": "Wyczyść",
+    "copy": "Kopiuj",
+    "counter": "{current} / {max} znaków",
+    "inputPanel": "Wejście",
+    "outputPanel": "Wyjście",
+    "errors": {
+      "tooLong": "Wejście jest ograniczone do {max} znaków.",
+      "couldNotFormat": "Nie można przetworzyć tego YAML."
     }
   },
   "GraphqlFormatter": {

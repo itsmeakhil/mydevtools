@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
+import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 
 import { NextIntlClientProvider } from 'next-intl';
@@ -99,6 +100,7 @@ export default async function RootLayout({
 
   return (
     <html lang={htmlLang} dir={dir} suppressHydrationWarning className={cn(
+      GeistSans.variable,
       GeistMono.variable
     )}>
       <head>

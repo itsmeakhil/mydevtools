@@ -292,6 +292,10 @@
         "title": "Formatador GraphQL",
         "description": "Formata GraphQL amb ressaltat de sintaxi i un editor de consultes senzill."
       },
+      "yamlFormatter": {
+        "title": "Formatador YAML",
+        "description": "Formata, valida i converteix YAML a JSON al navegador."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
@@ -1988,6 +1992,27 @@
     "errors": {
       "tooLong": "L’entrada està limitada a {max} caràcters.",
       "couldNotFormat": "No s’ha pogut formatar aquest SQL."
+    }
+  },
+  "YamlFormatter": {
+    "title": "Formatador YAML",
+    "subtitle": "Formata, valida i converteix YAML al teu navegador. Res no es puja.",
+    "outputLabel": "Sortida",
+    "outputModes": {
+      "yaml": "YAML (formatat)",
+      "json": "JSON"
+    },
+    "indentLabel": "Sagnat",
+    "spaces": "{n} espais",
+    "format": "Formata",
+    "clear": "Esborra",
+    "copy": "Copia",
+    "counter": "{current} / {max} caràcters",
+    "inputPanel": "Entrada",
+    "outputPanel": "Sortida",
+    "errors": {
+      "tooLong": "L'entrada està limitada a {max} caràcters.",
+      "couldNotFormat": "No s'ha pogut analitzar aquest YAML."
     }
   },
   "GraphqlFormatter": {

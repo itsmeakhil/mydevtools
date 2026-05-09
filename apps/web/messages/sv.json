@@ -292,6 +292,10 @@
         "title": "GraphQL-formaterare",
         "description": "Formatera GraphQL med syntaxmarkering och en enkel frågebyggare."
       },
+      "yamlFormatter": {
+        "title": "YAML-formaterare",
+        "description": "Formatera, validera och konvertera YAML till JSON i webbläsaren."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
@@ -1988,6 +1992,27 @@
     "errors": {
       "tooLong": "Inmatning är begränsad till {max} tecken.",
       "couldNotFormat": "Kunde inte formatera denna SQL."
+    }
+  },
+  "YamlFormatter": {
+    "title": "YAML-formaterare",
+    "subtitle": "Formatera, validera och konvertera YAML i webbläsaren. Ingenting laddas upp.",
+    "outputLabel": "Utdata",
+    "outputModes": {
+      "yaml": "YAML (formaterat)",
+      "json": "JSON"
+    },
+    "indentLabel": "Indragning",
+    "spaces": "{n} mellanslag",
+    "format": "Formatera",
+    "clear": "Rensa",
+    "copy": "Kopiera",
+    "counter": "{current} / {max} tecken",
+    "inputPanel": "Indata",
+    "outputPanel": "Utdata",
+    "errors": {
+      "tooLong": "Indata är begränsad till {max} tecken.",
+      "couldNotFormat": "Kunde inte tolka denna YAML."
     }
   },
   "GraphqlFormatter": {

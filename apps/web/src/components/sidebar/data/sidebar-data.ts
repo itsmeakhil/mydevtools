@@ -165,6 +165,12 @@ export const sidebarData: SidebarData = {
           description: 'Format GraphQL with syntax highlighting and a query builder.',
         },
         {
+          title: 'YAML Formatter',
+          url: '/app/yaml-formatter',
+          icon: IconFileCode,
+          description: 'Format, validate, and convert YAML to JSON in the browser.',
+        },
+        {
           title: 'Markdown Preview',
           url: '/app/markdown-preview-html',
           icon: IconMarkdown,

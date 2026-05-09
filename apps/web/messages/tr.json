@@ -292,6 +292,10 @@
         "title": "GraphQL Biçimlendirici",
         "description": "Sözdizimi vurgulama ve basit bir sorgu oluşturucuyla GraphQL biçimlendirin."
       },
+      "yamlFormatter": {
+        "title": "YAML Biçimleyici",
+        "description": "YAML'ı tarayıcıda biçimlendirin, doğrulayın ve JSON'a dönüştürün."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
@@ -1988,6 +1992,27 @@
     "errors": {
       "tooLong": "Girdi {max} karakter ile sınırlıdır.",
       "couldNotFormat": "Bu SQL biçimlendirilemedi."
+    }
+  },
+  "YamlFormatter": {
+    "title": "YAML Biçimleyici",
+    "subtitle": "YAML'ı tarayıcınızda biçimlendirin, doğrulayın ve dönüştürün. Hiçbir şey yüklenmez.",
+    "outputLabel": "Çıktı",
+    "outputModes": {
+      "yaml": "YAML (biçimlendirilmiş)",
+      "json": "JSON"
+    },
+    "indentLabel": "Girinti",
+    "spaces": "{n} boşluk",
+    "format": "Biçimlendir",
+    "clear": "Temizle",
+    "copy": "Kopyala",
+    "counter": "{current} / {max} karakter",
+    "inputPanel": "Girdi",
+    "outputPanel": "Çıktı",
+    "errors": {
+      "tooLong": "Girdi {max} karakterle sınırlıdır.",
+      "couldNotFormat": "Bu YAML ayrıştırılamadı."
     }
   },
   "GraphqlFormatter": {

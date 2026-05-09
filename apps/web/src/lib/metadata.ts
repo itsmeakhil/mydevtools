@@ -219,6 +219,12 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['graphql formatter', 'graphql pretty print', 'graphql query builder', 'graphql minify', 'graphql syntax'],
         aiSummary: 'Format or minify GraphQL queries, mutations, and subscriptions with Monaco syntax highlighting. Answers "GraphQL formatter online", "pretty print GraphQL query", or "minify GraphQL".',
     },
+    'yaml-formatter': {
+        title: 'YAML Formatter & Validator',
+        description: 'Format and validate YAML in the browser. Supports pretty-printing, indentation control, and conversion to JSON. Nothing is uploaded.',
+        keywords: ['yaml formatter', 'yaml validator', 'yaml to json', 'json to yaml', 'yaml pretty print', 'format yaml online', 'yaml lint'],
+        aiSummary: 'Format, validate, and pretty-print YAML in the browser with optional JSON conversion. Answers "yaml formatter online", "validate yaml", "yaml to json converter", or "pretty print yaml".',
+    },
     'diff-checker': {
         title: 'Text Diff Checker',
         description: 'Compare two texts side by side with additions and removals highlighted. Runs entirely in your browser.',

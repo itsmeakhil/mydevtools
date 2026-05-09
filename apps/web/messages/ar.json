@@ -292,6 +292,10 @@
         "title": "منسّق GraphQL",
         "description": "نسّق GraphQL مع تمييز الصيغة ومُنشئ استعلامات بسيط."
       },
+      "yamlFormatter": {
+        "title": "منسّق YAML",
+        "description": "نسّق YAML وتحقق منه وحوّله إلى JSON في المتصفح."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
@@ -1988,6 +1992,27 @@
     "errors": {
       "tooLong": "المدخلات محدودة إلى {max} حرفًا.",
       "couldNotFormat": "تعذر تنسيق SQL."
+    }
+  },
+  "YamlFormatter": {
+    "title": "منسّق YAML",
+    "subtitle": "نسّق YAML وتحقق منه وحوّله في متصفحك. لا يتم رفع أي شيء.",
+    "outputLabel": "الإخراج",
+    "outputModes": {
+      "yaml": "YAML (منسّق)",
+      "json": "JSON"
+    },
+    "indentLabel": "الإزاحة",
+    "spaces": "{n} مسافات",
+    "format": "تنسيق",
+    "clear": "مسح",
+    "copy": "نسخ",
+    "counter": "{current} / {max} حرف",
+    "inputPanel": "الإدخال",
+    "outputPanel": "الإخراج",
+    "errors": {
+      "tooLong": "الإدخال محدود بـ {max} حرف.",
+      "couldNotFormat": "تعذّر تحليل هذا YAML."
     }
   },
   "GraphqlFormatter": {
