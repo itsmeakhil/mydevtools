@@ -51,7 +51,9 @@
     "breakRoom": "Mola Odası",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander"
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "YAML Biçimleyici",
+    "sshKeyGenerator": "SSH / RSA Anahtar Oluşturucu"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -3403,5 +3405,28 @@
     "restart": "Yeniden başla",
     "paused": "Duraklatıldı",
     "gameOver": "Oyun bitti"
+  },
+  "SshKeyGenerator": {
+    "title": "SSH / RSA Anahtar Oluşturucu",
+    "subtitle": "Tarayıcınızda Ed25519 veya RSA anahtar çiftleri oluşturun. Özel ve genel anahtarları OpenSSH ve PEM formatlarında indirin. Hiçbir şey yüklenmez.",
+    "keyTypeLabel": "Anahtar Türü",
+    "recommended": "önerilen",
+    "ed25519Desc": "Hızlı, küçük ve modern. GitHub, GitLab ve tüm büyük SSH sunucuları tarafından desteklenir.",
+    "rsa2048Desc": "Geniş uyumluluk. Çoğu kullanım için güvenli.",
+    "rsa4096Desc": "Eski sistemler için maksimum uyumluluk ve güç.",
+    "commentLabel": "Yorum (isteğe bağlı)",
+    "commentHint": "OpenSSH genel anahtar satırına eklenir.",
+    "generateBtn": "Anahtar Çifti Oluştur",
+    "generating": "Oluşturuluyor…",
+    "generatingLong": "Oluşturuluyor (biraz zaman alabilir)…",
+    "copy": "Kopyala",
+    "download": "İndir",
+    "privateKeyLabel": "Özel Anahtar (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "Genel Anahtar (OpenSSH formatı)",
+    "publicKeySpkiLabel": "Genel Anahtar (SPKI PEM)",
+    "browserNote": "Tüm anahtarlar tarayıcınızda oluşturulur. Hiçbir şey herhangi bir sunucuya gönderilmez.",
+    "errors": {
+      "generationFailed": "Anahtar oluşturma başarısız"
+    }
   }
 }

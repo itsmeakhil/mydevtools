@@ -51,7 +51,9 @@
     "breakRoom": "休闲角",
     "game2048": "2048",
     "sudoku": "数独",
-    "redisCommander": "Redis 指挥官"
+    "redisCommander": "Redis 指挥官",
+    "yamlFormatter": "YAML格式化工具",
+    "sshKeyGenerator": "SSH / RSA 密钥生成器"
   },
   "Help": {
     "title": "帮助与文档",
@@ -3403,5 +3405,28 @@
     "restart": "重新开始",
     "paused": "已暂停",
     "gameOver": "游戏结束"
+  },
+  "SshKeyGenerator": {
+    "title": "SSH / RSA 密钥生成器",
+    "subtitle": "在浏览器中生成 Ed25519 或 RSA 密钥对。以 OpenSSH 和 PEM 格式下载私钥和公钥。不会上传任何内容。",
+    "keyTypeLabel": "密钥类型",
+    "recommended": "推荐",
+    "ed25519Desc": "快速、紧凑、现代。受 GitHub、GitLab 及所有主要 SSH 服务器支持。",
+    "rsa2048Desc": "广泛兼容。适合大多数用途。",
+    "rsa4096Desc": "为旧版系统提供最大兼容性和强度。",
+    "commentLabel": "注释（可选）",
+    "commentHint": "附加到 OpenSSH 公钥行。",
+    "generateBtn": "生成密钥对",
+    "generating": "生成中…",
+    "generatingLong": "生成中（可能需要片刻）…",
+    "copy": "复制",
+    "download": "下载",
+    "privateKeyLabel": "私钥（PKCS#8 PEM）",
+    "publicKeyOpenSSHLabel": "公钥（OpenSSH 格式）",
+    "publicKeySpkiLabel": "公钥（SPKI PEM）",
+    "browserNote": "所有密钥均在您的浏览器中生成。不会向任何服务器发送任何内容。",
+    "errors": {
+      "generationFailed": "密钥生成失败"
+    }
   }
 }

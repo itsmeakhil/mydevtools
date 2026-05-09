@@ -50,6 +50,8 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/mock-data-generator': 'mockDataGenerator',
   '/app/unit-converter': 'unitConverter',
   '/app/svg-optimizer': 'svgOptimizer',
+  '/app/yaml-formatter': 'yamlFormatter',
+  '/app/ssh-key-generator': 'sshKeyGenerator',
   '/app/break-room/2048': 'game2048',
   '/app/break-room/sudoku': 'sudoku',
 };

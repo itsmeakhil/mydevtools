@@ -183,6 +183,12 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['jwt decode', 'jwt debugger', 'json web token', 'jwt exp', 'jwt payload'],
         aiSummary: 'Paste a JWT to inspect header and payload (exp / iat / nbf) locally — answers “decode JWT online”, “JWT debugger”, or “read JWT without verifying signature”.',
     },
+    'ssh-key-generator': {
+        title: 'SSH / RSA Key Generator',
+        description: 'Generate Ed25519 or RSA key pairs (2048/4096-bit) in your browser. Download private key (PKCS#8 PEM) and public key in OpenSSH and SPKI PEM formats. Nothing is uploaded.',
+        keywords: ['ssh key generator', 'rsa key generator', 'ed25519 key', 'generate ssh key', 'public private key pair', 'openssh key', 'pkcs8', 'rsa 4096'],
+        aiSummary: 'Generate Ed25519 or RSA-2048/4096 key pairs entirely in the browser. Outputs PKCS#8 private key PEM, OpenSSH public key (.pub), and SPKI PEM. Answers "generate SSH key online", "create RSA key pair", or "Ed25519 key generator".',
+    },
     'certificate-pem-decoder': {
         title: 'Certificate / PEM Decoder',
         description: 'Paste an X.509 PEM certificate or PKCS#10 CSR to inspect subject, issuer, validity, serial, SHA-256 fingerprint, and Subject Alternative Names. Runs locally in your browser.',

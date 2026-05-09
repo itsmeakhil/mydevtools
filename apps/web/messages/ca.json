@@ -51,7 +51,9 @@
     "breakRoom": "Sala de descans",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander"
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "Formatador YAML",
+    "sshKeyGenerator": "Generador de claus SSH / RSA"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -3402,6 +3404,29 @@
       "heroAddConnection": "Afegeix connexió",
       "vaultLockedTitle": "Caixa forta bloquejada",
       "vaultLockedDesc": "Desbloquegeu la caixa forta per accedir a les connexions desades."
+    }
+  },
+  "SshKeyGenerator": {
+    "title": "Generador de claus SSH / RSA",
+    "subtitle": "Genera parells de claus Ed25519 o RSA al teu navegador. Descarrega les claus privada i pública en formats OpenSSH i PEM. Res no es puja.",
+    "keyTypeLabel": "Tipus de clau",
+    "recommended": "recomanat",
+    "ed25519Desc": "Ràpid, petit i modern. Compatible amb GitHub, GitLab i tots els servidors SSH principals.",
+    "rsa2048Desc": "Àmpliament compatible. Segur per a la majoria d'usos.",
+    "rsa4096Desc": "Màxima compatibilitat i fortalesa per a sistemes antics.",
+    "commentLabel": "Comentari (opcional)",
+    "commentHint": "S'afegeix a la línia de clau pública d'OpenSSH.",
+    "generateBtn": "Genera el parell de claus",
+    "generating": "Generant…",
+    "generatingLong": "Generant (pot trigar un moment)…",
+    "copy": "Copia",
+    "download": "Descarrega",
+    "privateKeyLabel": "Clau privada (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "Clau pública (format OpenSSH)",
+    "publicKeySpkiLabel": "Clau pública (SPKI PEM)",
+    "browserNote": "Totes les claus es generen al teu navegador. Res no s'envia a cap servidor.",
+    "errors": {
+      "generationFailed": "La generació de la clau ha fallat"
     }
   }
 }

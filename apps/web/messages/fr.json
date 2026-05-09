@@ -51,7 +51,9 @@
     "breakRoom": "Salle de pause",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander"
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "Formateur YAML",
+    "sshKeyGenerator": "Générateur de clés SSH / RSA"
   },
   "Help": {
     "title": "Aide et documentation",
@@ -3403,5 +3405,28 @@
     "restart": "Recommencer",
     "paused": "En pause",
     "gameOver": "Partie terminée"
+  },
+  "SshKeyGenerator": {
+    "title": "Générateur de clés SSH / RSA",
+    "subtitle": "Générez des paires de clés Ed25519 ou RSA dans votre navigateur. Téléchargez les clés privée et publique aux formats OpenSSH et PEM. Rien n'est téléversé.",
+    "keyTypeLabel": "Type de clé",
+    "recommended": "recommandé",
+    "ed25519Desc": "Rapide, compact et moderne. Pris en charge par GitHub, GitLab et tous les principaux serveurs SSH.",
+    "rsa2048Desc": "Largement compatible. Sûr pour la plupart des usages.",
+    "rsa4096Desc": "Compatibilité et robustesse maximales pour les systèmes anciens.",
+    "commentLabel": "Commentaire (optionnel)",
+    "commentHint": "Ajouté à la ligne de clé publique OpenSSH.",
+    "generateBtn": "Générer la paire de clés",
+    "generating": "Génération…",
+    "generatingLong": "Génération (peut prendre un moment)…",
+    "copy": "Copier",
+    "download": "Télécharger",
+    "privateKeyLabel": "Clé privée (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "Clé publique (format OpenSSH)",
+    "publicKeySpkiLabel": "Clé publique (SPKI PEM)",
+    "browserNote": "Toutes les clés sont générées dans votre navigateur. Rien n'est envoyé à aucun serveur.",
+    "errors": {
+      "generationFailed": "Échec de la génération de la clé"
+    }
   }
 }

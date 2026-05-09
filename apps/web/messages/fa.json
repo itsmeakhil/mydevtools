@@ -51,7 +51,9 @@
     "breakRoom": "اتاق استراحت؛",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander"
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "قالب‌بندی YAML",
+    "sshKeyGenerator": "تولیدکننده کلید SSH / RSA"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -3403,5 +3405,28 @@
     "restart": "شروع مجدد",
     "paused": "متوقف شده",
     "gameOver": "پایان بازی"
+  },
+  "SshKeyGenerator": {
+    "title": "تولیدکننده کلید SSH / RSA",
+    "subtitle": "جفت کلیدهای Ed25519 یا RSA را در مرورگرتان تولید کنید. کلیدهای خصوصی و عمومی را در قالب‌های OpenSSH و PEM دانلود کنید. هیچ چیزی آپلود نمی‌شود.",
+    "keyTypeLabel": "نوع کلید",
+    "recommended": "پیشنهادی",
+    "ed25519Desc": "سریع، کوچک و مدرن. پشتیبانی‌شده توسط GitHub، GitLab و تمام سرورهای SSH اصلی.",
+    "rsa2048Desc": "سازگاری گسترده. ایمن برای اکثر کاربردها.",
+    "rsa4096Desc": "حداکثر سازگاری و قدرت برای سیستم‌های قدیمی.",
+    "commentLabel": "توضیح (اختیاری)",
+    "commentHint": "به خط کلید عمومی OpenSSH اضافه می‌شود.",
+    "generateBtn": "تولید جفت کلید",
+    "generating": "در حال تولید…",
+    "generatingLong": "در حال تولید (ممکن است کمی طول بکشد)…",
+    "copy": "کپی",
+    "download": "دانلود",
+    "privateKeyLabel": "کلید خصوصی (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "کلید عمومی (فرمت OpenSSH)",
+    "publicKeySpkiLabel": "کلید عمومی (SPKI PEM)",
+    "browserNote": "تمام کلیدها در مرورگر شما تولید می‌شوند. هیچ چیزی به هیچ سروری ارسال نمی‌شود.",
+    "errors": {
+      "generationFailed": "تولید کلید ناموفق بود"
+    }
   }
 }

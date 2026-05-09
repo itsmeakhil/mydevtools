@@ -51,7 +51,9 @@
     "breakRoom": "Break Room",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander"
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "YAML Formatter",
+    "sshKeyGenerator": "SSH / RSA Key Generator"
   },
   "Help": {
     "title": "Help & documentation",
@@ -3405,5 +3407,28 @@
     "restart": "Restart",
     "paused": "Paused",
     "gameOver": "Game Over"
+  },
+  "SshKeyGenerator": {
+    "title": "SSH / RSA Key Generator",
+    "subtitle": "Generate Ed25519 or RSA key pairs in your browser. Download private and public keys in OpenSSH and PEM formats. Nothing is uploaded.",
+    "keyTypeLabel": "Key Type",
+    "recommended": "recommended",
+    "ed25519Desc": "Fast, small, modern. Supported by GitHub, GitLab, and all major SSH servers.",
+    "rsa2048Desc": "Widely compatible. Safe for most uses.",
+    "rsa4096Desc": "Maximum compatibility and strength for legacy systems.",
+    "commentLabel": "Comment (optional)",
+    "commentHint": "Appended to the OpenSSH public key line.",
+    "generateBtn": "Generate Key Pair",
+    "generating": "Generating…",
+    "generatingLong": "Generating (may take a moment)…",
+    "copy": "Copy",
+    "download": "Download",
+    "privateKeyLabel": "Private Key (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "Public Key (OpenSSH format)",
+    "publicKeySpkiLabel": "Public Key (SPKI PEM)",
+    "browserNote": "All keys generated in your browser. Nothing is sent to any server.",
+    "errors": {
+      "generationFailed": "Key generation failed"
+    }
   }
 }

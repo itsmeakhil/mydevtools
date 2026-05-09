@@ -51,7 +51,9 @@
     "breakRoom": "휴게실",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander"
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "YAML 포매터",
+    "sshKeyGenerator": "SSH / RSA 키 생성기"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -3403,5 +3405,28 @@
     "restart": "다시 시작",
     "paused": "일시정지됨",
     "gameOver": "게임 오버"
+  },
+  "SshKeyGenerator": {
+    "title": "SSH / RSA 키 생성기",
+    "subtitle": "브라우저에서 Ed25519 또는 RSA 키 쌍을 생성합니다. OpenSSH 및 PEM 형식으로 개인 키와 공개 키를 다운로드하세요. 아무것도 업로드되지 않습니다.",
+    "keyTypeLabel": "키 유형",
+    "recommended": "권장",
+    "ed25519Desc": "빠르고 작고 현대적입니다. GitHub, GitLab 및 모든 주요 SSH 서버에서 지원됩니다.",
+    "rsa2048Desc": "광범위하게 호환됩니다. 대부분의 용도에 안전합니다.",
+    "rsa4096Desc": "레거시 시스템을 위한 최대 호환성과 강도.",
+    "commentLabel": "댓글 (선택 사항)",
+    "commentHint": "OpenSSH 공개 키 줄에 추가됩니다.",
+    "generateBtn": "키 쌍 생성",
+    "generating": "생성 중…",
+    "generatingLong": "생성 중 (잠시 시간이 걸릴 수 있습니다)…",
+    "copy": "복사",
+    "download": "다운로드",
+    "privateKeyLabel": "개인 키 (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "공개 키 (OpenSSH 형식)",
+    "publicKeySpkiLabel": "공개 키 (SPKI PEM)",
+    "browserNote": "모든 키는 브라우저에서 생성됩니다. 어떤 서버에도 전송되지 않습니다.",
+    "errors": {
+      "generationFailed": "키 생성 실패"
+    }
   }
 }
