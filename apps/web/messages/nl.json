@@ -282,6 +282,10 @@
         "title": "Certificaat- / PEM-decoder",
         "description": "Decodeer X.509-certificaten en CSR’s: subject, uitgever, geldigheid en SAN’s."
       },
+      "sshKeyGenerator": {
+        "title": "SSH / RSA-sleutelgenerator",
+        "description": "Genereer Ed25519- of RSA-sleutelparen in uw browser. Download in OpenSSH- en PEM-formaat."
+      },
       "jsonFormatter": {
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
@@ -381,6 +385,10 @@
       "ipSubnetCalculator": {
         "title": "IP-/subnetcalculator",
         "description": "IPv4 en IPv6 CIDR: netmasker, bereiken en adressen."
+      },
+      "dnsLookup": {
+        "title": "DNS-opzoeking",
+        "description": "Zoek DNS-records op voor elk domein — A, AAAA, MX, TXT, NS, CNAME."
       },
       "hashGenerator": {
         "title": "Hash-generator",

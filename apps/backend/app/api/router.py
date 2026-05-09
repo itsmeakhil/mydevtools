@@ -20,6 +20,7 @@ from app.api.routes.s3_drive.api import router as s3_drive_router
 from app.api.routes.feedback.api import router as feedback_router
 from app.api.routes.redis_commander.api import router as redis_commander_router
 from app.api.routes.url_shortener.api import router as url_shortener_router
+from app.api.routes.dns_lookup.api import router as dns_lookup_router
 
 api_router = APIRouter()
 api_router.include_router(health_router)
@@ -42,3 +43,4 @@ api_router.include_router(s3_drive_router)
 api_router.include_router(feedback_router)
 api_router.include_router(redis_commander_router)
 api_router.include_router(url_shortener_router)
+api_router.include_router(dns_lookup_router)

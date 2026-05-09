@@ -282,6 +282,10 @@
         "title": "인증서 / PEM 디코더",
         "description": "X.509 인증서와 CSR 디코딩: 주체, 발급자, 유효 기간, SAN."
       },
+      "sshKeyGenerator": {
+        "title": "SSH / RSA 키 생성기",
+        "description": "브라우저에서 Ed25519 또는 RSA 키 쌍을 생성합니다. OpenSSH 및 PEM 형식으로 다운로드."
+      },
       "jsonFormatter": {
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
@@ -381,6 +385,10 @@
       "ipSubnetCalculator": {
         "title": "IP / 서브넷 계산기",
         "description": "IPv4·IPv6 CIDR: 넷마스크, 범위, 주소 수."
+      },
+      "dnsLookup": {
+        "title": "DNS 조회",
+        "description": "도메인의 DNS 레코드를 조회합니다 — A, AAAA, MX, TXT, NS, CNAME."
       },
       "hashGenerator": {
         "title": "해시 생성기",

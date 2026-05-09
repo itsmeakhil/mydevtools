@@ -282,6 +282,10 @@
         "title": "رمزگشای گواهی / PEM",
         "description": "رمزگشایی گواهی‌های X.509 و CSR: موضوع، صادرکننده، اعتبار و SAN."
       },
+      "sshKeyGenerator": {
+        "title": "مولد کلید SSH / RSA",
+        "description": "در مرورگر جفت کلید Ed25519 یا RSA تولید کنید. در قالب‌های OpenSSH و PEM دانلود کنید."
+      },
       "jsonFormatter": {
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
@@ -381,6 +385,10 @@
       "ipSubnetCalculator": {
         "title": "ماشین‌حساب IP / زیرشبکه",
         "description": "IPv4 و IPv6 CIDR: ماسک، ناحیه، و تعداد آدرس."
+      },
+      "dnsLookup": {
+        "title": "جستجوی DNS",
+        "description": "رکوردهای DNS هر دامنه را جستجو کنید — A، AAAA، MX، TXT، NS، CNAME."
       },
       "hashGenerator": {
         "title": "تولیدکنندهٔ هش",

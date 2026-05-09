@@ -282,6 +282,10 @@
         "title": "Bộ giải mã chứng chỉ / PEM",
         "description": "Giải mã chứng chỉ X.509 và CSR: chủ thể, nhà phát hành, hiệu lực và SAN."
       },
+      "sshKeyGenerator": {
+        "title": "Trình tạo khóa SSH / RSA",
+        "description": "Tạo cặp khóa Ed25519 hoặc RSA trong trình duyệt. Tải xuống ở định dạng OpenSSH và PEM."
+      },
       "jsonFormatter": {
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
@@ -381,6 +385,10 @@
       "ipSubnetCalculator": {
         "title": "Máy tính IP / mạng con",
         "description": "IPv4 và IPv6 CIDR: mặt nạ, dải và số địa chỉ."
+      },
+      "dnsLookup": {
+        "title": "Tra cứu DNS",
+        "description": "Truy vấn bản ghi DNS cho bất kỳ tên miền nào — A, AAAA, MX, TXT, NS, CNAME."
       },
       "hashGenerator": {
         "title": "Trình tạo hash",

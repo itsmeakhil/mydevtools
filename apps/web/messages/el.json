@@ -282,6 +282,10 @@
         "title": "Αποκωδικοποιητής πιστοποιητικού / PEM",
         "description": "Αποκωδικοποίηση πιστοποιητικών X.509 και CSR: θέμα, εκδότης, ισχύς, SAN."
       },
+      "sshKeyGenerator": {
+        "title": "Γεννήτρια κλειδιών SSH / RSA",
+        "description": "Δημιουργία ζευγών κλειδιών Ed25519 ή RSA στο πρόγραμμα περιήγησης. Λήψη σε μορφές OpenSSH και PEM."
+      },
       "jsonFormatter": {
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
@@ -381,6 +385,10 @@
       "ipSubnetCalculator": {
         "title": "Υπολογιστής IP / υποδικτύου",
         "description": "IPv4 και IPv6 CIDR: μάσκα, εύρη και πλήθος διευθύνσεων."
+      },
+      "dnsLookup": {
+        "title": "Αναζήτηση DNS",
+        "description": "Αναζητήστε εγγραφές DNS για οποιοδήποτε τομέα — A, AAAA, MX, TXT, NS, CNAME."
       },
       "hashGenerator": {
         "title": "Γεννήτρια hash",

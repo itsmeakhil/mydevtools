@@ -282,6 +282,10 @@
         "title": "Certifikat- / PEM-avkodare",
         "description": "Avkoda X.509-certifikat och CSR:er: ämne, utfärdare, giltighet och SAN."
       },
+      "sshKeyGenerator": {
+        "title": "SSH / RSA-nyckelgenerator",
+        "description": "Generera Ed25519- eller RSA-nyckelpar i webbläsaren. Ladda ner i OpenSSH- och PEM-format."
+      },
       "jsonFormatter": {
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
@@ -381,6 +385,10 @@
       "ipSubnetCalculator": {
         "title": "IP-/subnetkalkylator",
         "description": "IPv4 och IPv6 CIDR: nätmask, intervall och adressantal."
+      },
+      "dnsLookup": {
+        "title": "DNS-sökning",
+        "description": "Fråga DNS-poster för valfri domän — A, AAAA, MX, TXT, NS, CNAME."
       },
       "hashGenerator": {
         "title": "Hash-generator",

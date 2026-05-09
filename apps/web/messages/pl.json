@@ -282,6 +282,10 @@
         "title": "Dekoder certyfikatu / PEM",
         "description": "Dekoduj certyfikaty X.509 i CSR: podmiot, wystawca, ważność i SAN."
       },
+      "sshKeyGenerator": {
+        "title": "Generator kluczy SSH / RSA",
+        "description": "Generuj pary kluczy Ed25519 lub RSA w przeglądarce. Pobierz w formatach OpenSSH i PEM."
+      },
       "jsonFormatter": {
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
@@ -381,6 +385,10 @@
       "ipSubnetCalculator": {
         "title": "Kalkulator IP / podsieci",
         "description": "IPv4 i IPv6 CIDR: maska, zakresy i liczba adresów."
+      },
+      "dnsLookup": {
+        "title": "Wyszukiwanie DNS",
+        "description": "Zapytaj rekordy DNS dla dowolnej domeny — A, AAAA, MX, TXT, NS, CNAME."
       },
       "hashGenerator": {
         "title": "Generator skrótów",

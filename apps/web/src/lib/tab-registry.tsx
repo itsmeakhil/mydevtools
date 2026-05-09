@@ -43,6 +43,7 @@ const TAB_REGISTRY: Record<string, React.ComponentType> = {
   '/app/uuid-generator': dynamic(() => import('@/app/app/uuid-generator/page'), { ssr: false, loading }),
   '/app/secret-api-key-generator': dynamic(() => import('@/app/app/secret-api-key-generator/page'), { ssr: false, loading }),
   '/app/qr-code-generator': dynamic(() => import('@/app/app/qr-code-generator/page'), { ssr: false, loading }),
+  '/app/dns-lookup': dynamic(() => import('@/app/app/dns-lookup/page'), { ssr: false, loading }),
   '/app/ip-subnet-calculator': dynamic(() => import('@/app/app/ip-subnet-calculator/page'), { ssr: false, loading }),
   '/app/hash-generator': dynamic(() => import('@/app/app/hash-generator/page'), { ssr: false, loading }),
   '/app/hmac-generator': dynamic(() => import('@/app/app/hmac-generator/page'), { ssr: false, loading }),
