@@ -282,6 +282,10 @@
         "title": "证书 / PEM 解码器",
         "description": "解码 X.509 证书与 CSR：主题、颁发者、有效期与 SAN。"
       },
+      "sshKeyGenerator": {
+        "title": "SSH / RSA 密钥生成器",
+        "description": "在浏览器中生成 Ed25519 或 RSA 密钥对，以 OpenSSH 和 PEM 格式下载。"
+      },
       "jsonFormatter": {
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
@@ -381,6 +385,10 @@
       "ipSubnetCalculator": {
         "title": "IP / 子网计算器",
         "description": "IPv4 与 IPv6 CIDR：掩码、范围与地址数量。"
+      },
+      "dnsLookup": {
+        "title": "DNS 查询",
+        "description": "查询任意域名的 DNS 记录 — A、AAAA、MX、TXT、NS、CNAME、SOA。"
       },
       "hashGenerator": {
         "title": "哈希生成器",

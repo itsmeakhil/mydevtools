@@ -129,6 +129,12 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['qr code', 'qr generator', 'qrcode', 'png qr', 'wifi qr', 'vcard qr', 'offline qr'],
         aiSummary: 'Generate PNG QR codes from any text or URL with custom colors, error correction level, and margin. Download instantly. No server upload — answers "free QR code generator online".',
     },
+    'dns-lookup': {
+        title: 'DNS Lookup',
+        description: 'Query DNS records for any domain: A, AAAA, MX, TXT, NS, CNAME, SOA, CAA, and PTR. See TTL, mail server priority, and SOA details.',
+        keywords: ['dns lookup', 'dns checker', 'mx record lookup', 'txt record lookup', 'nameserver lookup', 'dns records', 'cname lookup', 'dns query', 'ptr record'],
+        aiSummary: 'Look up DNS records (A, AAAA, MX, TXT, NS, CNAME, SOA, CAA, PTR) for any domain. Shows TTL values, MX priority, and SOA fields. Answers "check DNS records online", "MX record lookup", or "DNS propagation checker".',
+    },
     'ip-subnet-calculator': {
         title: 'IP / Subnet Calculator',
         description: 'Compute IPv4 and IPv6 CIDR details: netmask, wildcard, broadcast, first and last host, and subnet size. Runs locally in your browser.',

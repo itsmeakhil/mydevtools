@@ -282,6 +282,10 @@
         "title": "証明書 / PEM デコーダ",
         "description": "X.509 証明書と CSR をデコード: サブジェクト、発行者、有効期間、SAN。"
       },
+      "sshKeyGenerator": {
+        "title": "SSH / RSA キー生成器",
+        "description": "ブラウザで Ed25519 または RSA キーペアを生成。OpenSSH および PEM 形式でダウンロード。"
+      },
       "jsonFormatter": {
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
@@ -381,6 +385,10 @@
       "ipSubnetCalculator": {
         "title": "IP／サブネット計算",
         "description": "IPv4／IPv6 CIDR：ネットマスク、範囲、件数。"
+      },
+      "dnsLookup": {
+        "title": "DNS ルックアップ",
+        "description": "任意のドメインの DNS レコードを照会 — A、AAAA、MX、TXT、NS、CNAME。"
       },
       "hashGenerator": {
         "title": "ハッシュ生成",

@@ -282,6 +282,10 @@
         "title": "Dekodér certifikátů / PEM",
         "description": "Dekódujte certifikáty X.509 a CSR: subjekt, vydavatel, platnost a SAN."
       },
+      "sshKeyGenerator": {
+        "title": "Generátor klíčů SSH / RSA",
+        "description": "Generujte páry klíčů Ed25519 nebo RSA v prohlížeči. Stáhněte ve formátech OpenSSH a PEM."
+      },
       "jsonFormatter": {
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
@@ -381,6 +385,10 @@
       "ipSubnetCalculator": {
         "title": "Kalkulačka IP / podsítě",
         "description": "IPv4 a IPv6 CIDR: maska, rozsahy a počty adres."
+      },
+      "dnsLookup": {
+        "title": "Vyhledávání DNS",
+        "description": "Dotazujte DNS záznamy pro libovolnou doménu — A, AAAA, MX, TXT, NS, CNAME."
       },
       "hashGenerator": {
         "title": "Generátor hashů",

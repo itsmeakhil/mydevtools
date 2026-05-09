@@ -54,6 +54,7 @@ import {
   IconDeviceGamepad2,
   IconBucket,
   IconBrandRedux,
+  IconWorld,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -344,6 +345,12 @@ export const sidebarData: SidebarData = {
           url: '/app/http-status-codes',
           icon: IconListNumbers,
           description: 'Search HTTP status codes with descriptions (1xx–5xx).',
+        },
+        {
+          title: 'DNS Lookup',
+          url: '/app/dns-lookup',
+          icon: IconWorld,
+          description: 'Query A, AAAA, MX, TXT, NS, CNAME, SOA, CAA, and PTR records for any domain.',
         },
         {
           title: 'IP / Subnet Calculator',

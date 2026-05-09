@@ -288,6 +288,10 @@
         "title": "Pengecam sijil / PEM",
         "description": "Nyahkod sijil X.509 dan CSR: subjek, penerbit, kesahan, dan SAN."
       },
+      "sshKeyGenerator": {
+        "title": "Penjana Kunci SSH / RSA",
+        "description": "Jana pasangan kunci Ed25519 atau RSA dalam pelayar. Muat turun dalam format OpenSSH dan PEM."
+      },
       "jsonFormatter": {
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
@@ -391,6 +395,10 @@
       "ipSubnetCalculator": {
         "title": "Kalkulator IP / subnet",
         "description": "IPv4 dan IPv6 CIDR: topeng rangkaian, julat, dan bilangan alamat."
+      },
+      "dnsLookup": {
+        "title": "Carian DNS",
+        "description": "Pertanyaan rekod DNS untuk mana-mana domain — A, AAAA, MX, TXT, NS, CNAME."
       },
       "hashGenerator": {
         "title": "Penjana hash",

@@ -282,6 +282,10 @@
         "title": "فك ترميز الشهادة / PEM",
         "description": "فك ترميز شهادات X.509 وطلبات CSR: الموضوع، المصدر، الصلاحية، وأسماء SAN."
       },
+      "sshKeyGenerator": {
+        "title": "مولد مفاتيح SSH / RSA",
+        "description": "توليد أزواج مفاتيح Ed25519 أو RSA في المتصفح. التنزيل بتنسيقات OpenSSH و PEM."
+      },
       "jsonFormatter": {
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
@@ -381,6 +385,10 @@
       "ipSubnetCalculator": {
         "title": "حاسبة IP / الشبكة الفرعية",
         "description": "IPv4 وIPv6 CIDR: قناع الشبكة، النطاقات، وعدد العناوين."
+      },
+      "dnsLookup": {
+        "title": "بحث DNS",
+        "description": "استعلام عن سجلات DNS لأي نطاق — A، AAAA، MX، TXT، NS، CNAME."
       },
       "hashGenerator": {
         "title": "مُولّد الهاش",

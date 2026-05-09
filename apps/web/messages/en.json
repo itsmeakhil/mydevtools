@@ -339,6 +339,10 @@
         "title": "Certificate / PEM Decoder",
         "description": "Decode X.509 certificates and CSRs: subject, issuer, validity, SANs."
       },
+      "sshKeyGenerator": {
+        "title": "SSH / RSA Key Generator",
+        "description": "Generate Ed25519 or RSA key pairs. Download private and public keys in OpenSSH and PEM formats."
+      },
       "encryptionPlayground": {
         "title": "Encryption Playground",
         "description": "AES-GCM with a raw key or passphrase; JSON bundles, Web Crypto only in your browser."
@@ -418,6 +422,10 @@
       "ipSubnetCalculator": {
         "title": "IP / Subnet Calculator",
         "description": "IPv4 and IPv6 CIDR: netmask, ranges, and address counts."
+      },
+      "dnsLookup": {
+        "title": "DNS Lookup",
+        "description": "Query DNS records for any domain — A, AAAA, MX, TXT, NS, CNAME, SOA, CAA, PTR."
       },
       "hashGenerator": {
         "title": "Hash Generator",
@@ -3429,6 +3437,20 @@
     "browserNote": "All keys generated in your browser. Nothing is sent to any server.",
     "errors": {
       "generationFailed": "Key generation failed"
+    }
+  },
+  "DnsLookup": {
+    "title": "DNS Lookup",
+    "subtitle": "Query DNS records for any domain — A, AAAA, MX, TXT, NS, CNAME, SOA, CAA, PTR.",
+    "placeholder": "Enter domain (e.g. github.com)",
+    "lookupBtn": "Lookup",
+    "looking": "Looking up…",
+    "refreshBtn": "Refresh",
+    "recordTypesLabel": "Record types",
+    "allBtn": "All",
+    "tryLabel": "Try:",
+    "errors": {
+      "lookupFailed": "DNS lookup failed"
     }
   }
 }

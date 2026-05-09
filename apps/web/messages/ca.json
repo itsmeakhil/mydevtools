@@ -282,6 +282,10 @@
         "title": "Descodificador de certificats / PEM",
         "description": "Descodifica certificats X.509 i CSR: subjecte, emissor, validesa i SAN."
       },
+      "sshKeyGenerator": {
+        "title": "Generador de claus SSH / RSA",
+        "description": "Genereu parells de claus Ed25519 o RSA al navegador. Descarregueu en formats OpenSSH i PEM."
+      },
       "jsonFormatter": {
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
@@ -381,6 +385,10 @@
       "ipSubnetCalculator": {
         "title": "Calculadora IP / subxarxa",
         "description": "IPv4 i IPv6 CIDR: màscara, intervals i recompte d’adreces."
+      },
+      "dnsLookup": {
+        "title": "Cerca DNS",
+        "description": "Consulta els registres DNS de qualsevol domini — A, AAAA, MX, TXT, NS, CNAME."
       },
       "hashGenerator": {
         "title": "Generador de hash",

@@ -282,6 +282,10 @@
         "title": "Sertifika / PEM çözücü",
         "description": "X.509 sertifikalarını ve CSR’ları çözümleyin: konu, veren, geçerlilik ve SAN."
       },
+      "sshKeyGenerator": {
+        "title": "SSH / RSA Anahtar Üreticisi",
+        "description": "Tarayıcınızda Ed25519 veya RSA anahtar çiftleri oluşturun. OpenSSH ve PEM formatlarında indirin."
+      },
       "jsonFormatter": {
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
@@ -381,6 +385,10 @@
       "ipSubnetCalculator": {
         "title": "IP / alt ağ hesaplayıcı",
         "description": "IPv4 ve IPv6 CIDR: maske, aralıklar ve adres sayısı."
+      },
+      "dnsLookup": {
+        "title": "DNS Sorgulama",
+        "description": "Herhangi bir alan adı için DNS kayıtlarını sorgulayın — A, AAAA, MX, TXT, NS, CNAME."
       },
       "hashGenerator": {
         "title": "Hash oluşturucu",

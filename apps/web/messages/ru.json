@@ -282,6 +282,10 @@
         "title": "Декодер сертификата / PEM",
         "description": "Декодируйте сертификаты X.509 и CSR: субъект, издатель, срок действия, SAN."
       },
+      "sshKeyGenerator": {
+        "title": "Генератор ключей SSH / RSA",
+        "description": "Генерируйте пары ключей Ed25519 или RSA в браузере. Скачивайте в форматах OpenSSH и PEM."
+      },
       "jsonFormatter": {
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
@@ -381,6 +385,10 @@
       "ipSubnetCalculator": {
         "title": "Калькулятор IP / подсети",
         "description": "IPv4 и IPv6 CIDR: маска, диапазоны и число адресов."
+      },
+      "dnsLookup": {
+        "title": "DNS-запрос",
+        "description": "Запрашивайте DNS-записи для любого домена — A, AAAA, MX, TXT, NS, CNAME."
       },
       "hashGenerator": {
         "title": "Генератор хешей",
