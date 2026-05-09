@@ -292,6 +292,10 @@
         "title": "Μορφοποιητής GraphQL",
         "description": "Μορφοποιήστε GraphQL με επισήμανση σύνταξης και απλό επεξεργαστή ερωτημάτων."
       },
+      "yamlFormatter": {
+        "title": "Μορφοποιητής YAML",
+        "description": "Μορφοποίηση, επαλήθευση και μετατροπή YAML σε JSON στον περιηγητή."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."

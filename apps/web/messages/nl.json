@@ -292,6 +292,10 @@
         "title": "GraphQL-formatter",
         "description": "Formatteer GraphQL met syntax highlighting en een eenvoudige querybouwer."
       },
+      "yamlFormatter": {
+        "title": "YAML-formatter",
+        "description": "Formatteer, valideer en converteer YAML naar JSON in de browser."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."

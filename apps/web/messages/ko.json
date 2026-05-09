@@ -292,6 +292,10 @@
         "title": "GraphQL 포매터",
         "description": "구문 강조와 간단한 쿼리 빌더로 GraphQL을 포맷합니다."
       },
+      "yamlFormatter": {
+        "title": "YAML 포매터",
+        "description": "브라우저에서 YAML을 형식화, 유효성 검사, JSON 변환합니다."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."

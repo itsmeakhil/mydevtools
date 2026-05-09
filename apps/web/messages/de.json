@@ -292,6 +292,10 @@
         "title": "GraphQL-Formatierer",
         "description": "GraphQL mit Syntaxhervorhebung formatieren und mit einem einfachen Abfrage-Editor zusammenstellen."
       },
+      "yamlFormatter": {
+        "title": "YAML-Formatierer",
+        "description": "YAML im Browser formatieren, validieren und in JSON konvertieren."
+      },
       "diffChecker": {
         "title": "Textvergleich",
         "description": "Zwei Texte zeilenweise nebeneinander vergleichen."

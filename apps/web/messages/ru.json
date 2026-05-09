@@ -292,6 +292,10 @@
         "title": "Форматтер GraphQL",
         "description": "Форматируйте GraphQL с подсветкой синтаксиса и простым конструктором запросов."
       },
+      "yamlFormatter": {
+        "title": "Форматировщик YAML",
+        "description": "Форматируйте, проверяйте и конвертируйте YAML в JSON в браузере."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."

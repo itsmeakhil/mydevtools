@@ -292,6 +292,10 @@
         "title": "GraphQL フォーマッター",
         "description": "GraphQL を整形し、シンタックスハイライトとシンプルなクエリビルダーを提供します。"
       },
+      "yamlFormatter": {
+        "title": "YAMLフォーマッター",
+        "description": "ブラウザでYAMLを整形・検証・JSON変換します。"
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."

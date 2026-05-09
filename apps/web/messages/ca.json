@@ -292,6 +292,10 @@
         "title": "Formatador GraphQL",
         "description": "Formata GraphQL amb ressaltat de sintaxi i un editor de consultes senzill."
       },
+      "yamlFormatter": {
+        "title": "Formatador YAML",
+        "description": "Formata, valida i converteix YAML a JSON al navegador."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."

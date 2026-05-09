@@ -292,6 +292,10 @@
         "title": "قالب‌بند GraphQL",
         "description": "GraphQL را با برجسته‌سازی نحو و ویرایشگر سادهٔ پرس‌وجو قالب‌بندی کنید."
       },
+      "yamlFormatter": {
+        "title": "قالب‌بند YAML",
+        "description": "قالب‌بندی، اعتبارسنجی و تبدیل YAML به JSON در مرورگر."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."

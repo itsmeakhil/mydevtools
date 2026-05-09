@@ -292,6 +292,10 @@
         "title": "Trình định dạng GraphQL",
         "description": "Định dạng GraphQL với tô sáng cú pháp và trình xây dựng truy vấn đơn giản."
       },
+      "yamlFormatter": {
+        "title": "Trình định dạng YAML",
+        "description": "Định dạng, xác thực và chuyển đổi YAML sang JSON trong trình duyệt."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."

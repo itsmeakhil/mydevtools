@@ -292,6 +292,10 @@
         "title": "Formátovač GraphQL",
         "description": "Formátujte GraphQL se zvýrazněním syntaxe a jednoduchým editorem dotazů."
       },
+      "yamlFormatter": {
+        "title": "Formátovač YAML",
+        "description": "Formátujte, ověřujte a převádějte YAML do JSON v prohlížeči."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."

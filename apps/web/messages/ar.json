@@ -292,6 +292,10 @@
         "title": "منسّق GraphQL",
         "description": "نسّق GraphQL مع تمييز الصيغة ومُنشئ استعلامات بسيط."
       },
+      "yamlFormatter": {
+        "title": "منسّق YAML",
+        "description": "نسّق YAML وتحقق منه وحوّله إلى JSON في المتصفح."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."

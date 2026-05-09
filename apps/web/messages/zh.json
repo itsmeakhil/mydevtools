@@ -292,6 +292,10 @@
         "title": "GraphQL 格式化",
         "description": "格式化 GraphQL，提供语法高亮与简易查询构建器。"
       },
+      "yamlFormatter": {
+        "title": "YAML 格式化",
+        "description": "在浏览器中格式化、验证并将 YAML 转换为 JSON。"
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."

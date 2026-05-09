@@ -292,6 +292,10 @@
         "title": "Formateur GraphQL",
         "description": "Formatez du GraphQL avec coloration syntaxique et un éditeur de requêtes simple."
       },
+      "yamlFormatter": {
+        "title": "Formateur YAML",
+        "description": "Formatez, validez et convertissez du YAML en JSON dans le navigateur."
+      },
       "diffChecker": {
         "title": "Comparateur de différences",
         "description": "Différences ligne par ligne côte à côte entre deux textes."

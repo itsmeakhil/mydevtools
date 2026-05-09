@@ -292,6 +292,10 @@
         "title": "GraphQL Biçimlendirici",
         "description": "Sözdizimi vurgulama ve basit bir sorgu oluşturucuyla GraphQL biçimlendirin."
       },
+      "yamlFormatter": {
+        "title": "YAML Biçimleyici",
+        "description": "YAML'ı tarayıcıda biçimlendirin, doğrulayın ve JSON'a dönüştürün."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."

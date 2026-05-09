@@ -298,6 +298,10 @@
         "title": "Pemformat GraphQL",
         "description": "Format GraphQL dengan pensyntaksan sorotan dan pembina pertanyaan ringkas."
       },
+      "yamlFormatter": {
+        "title": "Pemformat YAML",
+        "description": "Format, sahkan dan tukarkan YAML ke JSON dalam pelayar."
+      },
       "diffChecker": {
         "title": "Diff checker",
         "description": "Side-by-side line diff of two texts."
