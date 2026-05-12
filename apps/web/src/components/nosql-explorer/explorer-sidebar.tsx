@@ -125,7 +125,7 @@ export function ExplorerSidebar({
             const idx = expandedConnIds.indexOf(node.connection.id);
             if (idx !== -1) expandedConnIds.splice(idx, 1);
         }
-        localStorage.setItem("nosql_expanded_connections", JSON.stringify(expandedConnIds));
+        try { localStorage.setItem("nosql_expanded_connections", JSON.stringify(expandedConnIds)); } catch (e) { console.warn("nosql sidebar: localStorage write failed", e); }
 
         if (newExpandedState) {
             await refreshDatabases(index);
@@ -178,9 +178,13 @@ export function ExplorerSidebar({
 
         // Update localStorage
         if (node.connection.id) {
-            const expandedDbsMap = JSON.parse(localStorage.getItem("nosql_expanded_dbs") || "{}");
-            expandedDbsMap[node.connection.id] = Array.from(newExpanded);
-            localStorage.setItem("nosql_expanded_dbs", JSON.stringify(expandedDbsMap));
+            try {
+                const expandedDbsMap = JSON.parse(localStorage.getItem("nosql_expanded_dbs") || "{}");
+                expandedDbsMap[node.connection.id] = Array.from(newExpanded);
+                localStorage.setItem("nosql_expanded_dbs", JSON.stringify(expandedDbsMap));
+            } catch (e) {
+                console.warn("nosql sidebar: localStorage write failed", e);
+            }
         }
 
         if (!isDbExpanded) {

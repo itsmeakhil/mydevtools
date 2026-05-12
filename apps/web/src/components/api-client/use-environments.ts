@@ -137,10 +137,14 @@ export function useEnvironments() {
 
     // Persist active env to local storage
     React.useEffect(() => {
-        if (activeEnvId) {
-            localStorage.setItem(ACTIVE_ENV_KEY, activeEnvId)
-        } else {
-            localStorage.removeItem(ACTIVE_ENV_KEY)
+        try {
+            if (activeEnvId) {
+                localStorage.setItem(ACTIVE_ENV_KEY, activeEnvId)
+            } else {
+                localStorage.removeItem(ACTIVE_ENV_KEY)
+            }
+        } catch (e) {
+            console.warn("api-client active env: localStorage write failed", e)
         }
     }, [activeEnvId])
 

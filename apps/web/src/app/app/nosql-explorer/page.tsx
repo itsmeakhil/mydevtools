@@ -94,9 +94,19 @@ export default function NoSQLExplorerPage() {
 
         if (savedTabs) {
             try {
-                setTabs(JSON.parse(savedTabs));
+                const parsed = JSON.parse(savedTabs) as ExplorerTab[];
+                // Strip any persisted runtime fields from older builds — refetched on activation.
+                const rehydrated = parsed.map((t) => ({
+                    ...t,
+                    documents: [],
+                    total: 0,
+                    loading: false,
+                    error: null,
+                }));
+                setTabs(rehydrated);
             } catch (e) {
                 console.error("Failed to parse saved tabs", e);
+                localStorage.removeItem(`nosql_tabs_${user.uid}`);
             }
         }
 
@@ -106,19 +116,40 @@ export default function NoSQLExplorerPage() {
         setIsInitialized(true);
     }, [user]);
 
-    // Save tabs to localStorage whenever they change
+    // Save tabs to localStorage whenever they change — persist only structural fields,
+    // never `documents`/`total` (can be MBs, blows the per-origin localStorage quota).
     useEffect(() => {
         if (!isInitialized || !user) return;
-        localStorage.setItem(`nosql_tabs_${user.uid}`, JSON.stringify(tabs));
+        const slim = tabs.map((t) => ({
+            id: t.id,
+            connectionId: t.connectionId,
+            connectionName: t.connectionName,
+            dbName: t.dbName,
+            collectionName: t.collectionName,
+            page: t.page,
+            limit: t.limit,
+            query: t.query,
+            sortField: t.sortField ?? null,
+            sortDirection: t.sortDirection ?? 'asc',
+        }));
+        const key = `nosql_tabs_${user.uid}`;
+        try {
+            localStorage.setItem(key, JSON.stringify(slim));
+        } catch (e) {
+            console.warn("nosql tabs: localStorage write failed, dropping persisted state", e);
+            try { localStorage.removeItem(key); } catch { /* noop */ }
+        }
     }, [tabs, isInitialized, user]);
 
     // Save activeTabId to localStorage whenever it changes
     useEffect(() => {
         if (!isInitialized || !user) return;
-        if (activeTabId) {
-            localStorage.setItem(`nosql_active_tab_id_${user.uid}`, activeTabId);
-        } else {
-            localStorage.removeItem(`nosql_active_tab_id_${user.uid}`);
+        const key = `nosql_active_tab_id_${user.uid}`;
+        try {
+            if (activeTabId) localStorage.setItem(key, activeTabId);
+            else localStorage.removeItem(key);
+        } catch (e) {
+            console.warn("nosql active tab: localStorage write failed", e);
         }
     }, [activeTabId, isInitialized, user]);
 
@@ -515,6 +546,19 @@ export default function NoSQLExplorerPage() {
             }
         }
     };
+
+    // Auto-fetch active tab once after hydration — persisted tabs no longer carry
+    // documents (would blow the localStorage quota), so we lazily refetch on activate.
+    const autoFetchedTabsRef = useRef<Set<string>>(new Set());
+    useEffect(() => {
+        if (!isInitialized || !isUnlocked || !user || !encryptionKey || !activeTabId) return;
+        const tab = tabs.find((t) => t.id === activeTabId);
+        if (!tab) return;
+        if (tab.loading || tab.documents.length > 0) return;
+        if (autoFetchedTabsRef.current.has(tab.id)) return;
+        autoFetchedTabsRef.current.add(tab.id);
+        performFetch(tab);
+    }, [isInitialized, isUnlocked, user, encryptionKey, activeTabId, tabs]);
 
     // Keyboard shortcuts
     useEffect(() => {

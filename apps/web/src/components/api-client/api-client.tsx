@@ -153,29 +153,51 @@ export function ApiClient() {
             try {
                 const parsedTabs = JSON.parse(storedTabs)
                 if (Array.isArray(parsedTabs) && parsedTabs.length > 0) {
-                    setTabs(parsedTabs)
+                    // Drop persisted responses from older builds — they could carry MB-sized
+                    // bodies that blow the per-origin localStorage quota.
+                    const sanitized = parsedTabs.map((t: ApiRequestState) => ({
+                        ...t,
+                        response: null,
+                        isLoading: false,
+                    }))
+                    setTabs(sanitized)
                     if (storedActiveTabId) {
                         setActiveTabId(storedActiveTabId)
                     } else {
-                        setActiveTabId(parsedTabs[0].id)
+                        setActiveTabId(sanitized[0].id)
                     }
                 }
             } catch (e) {
                 console.error("Failed to parse stored tabs", e)
+                try { localStorage.removeItem(TABS_STORAGE_KEY) } catch { /* noop */ }
             }
         }
         setIsInitialized(true)
     }, [])
 
-    // Save state to localStorage
+    // Save state to localStorage — strip `response`/`isLoading` (responses can be MBs and
+    // would blow the per-origin localStorage quota).
     React.useEffect(() => {
         if (!isInitialized) return
-        localStorage.setItem(TABS_STORAGE_KEY, JSON.stringify(tabs))
+        const slim = tabs.map((t) => {
+            const { response: _r, isLoading: _l, ...rest } = t
+            return rest
+        })
+        try {
+            localStorage.setItem(TABS_STORAGE_KEY, JSON.stringify(slim))
+        } catch (e) {
+            console.warn("api-client tabs: localStorage write failed, dropping persisted state", e)
+            try { localStorage.removeItem(TABS_STORAGE_KEY) } catch { /* noop */ }
+        }
     }, [tabs, isInitialized])
 
     React.useEffect(() => {
         if (!isInitialized) return
-        localStorage.setItem(ACTIVE_TAB_STORAGE_KEY, activeTabId)
+        try {
+            localStorage.setItem(ACTIVE_TAB_STORAGE_KEY, activeTabId)
+        } catch (e) {
+            console.warn("api-client active tab: localStorage write failed", e)
+        }
     }, [activeTabId, isInitialized])
 
     const updateActiveTab = (updates: Partial<ApiRequestState>) => {

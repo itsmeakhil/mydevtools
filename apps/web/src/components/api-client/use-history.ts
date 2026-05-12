@@ -156,7 +156,12 @@ export function useHistory() {
                     status,
                 }
                 const next = [newItem, ...prev].slice(0, HISTORY_LIMIT)
-                localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(next))
+                try {
+                    localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(next))
+                } catch (e) {
+                    console.warn("api-client history: localStorage write failed", e)
+                    try { localStorage.removeItem(HISTORY_STORAGE_KEY) } catch { /* noop */ }
+                }
                 return next
             })
         },
@@ -174,7 +179,9 @@ export function useHistory() {
             return
         }
         setHistory([])
-        localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify([]))
+        try {
+            localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify([]))
+        } catch { /* noop */ }
     }, [user, authedFetch])
 
     const deleteHistoryItem = useCallback(
@@ -190,7 +197,11 @@ export function useHistory() {
             }
             setHistory((prev) => {
                 const next = prev.filter((item) => item.id !== id)
-                localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(next))
+                try {
+                    localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(next))
+                } catch (e) {
+                    console.warn("api-client history: localStorage write failed", e)
+                }
                 return next
             })
         },
