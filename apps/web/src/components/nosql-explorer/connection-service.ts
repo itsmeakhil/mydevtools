@@ -89,7 +89,13 @@ export const getConnections = async (
     _userId: string,
     encryptionKey: CryptoKey
 ): Promise<SavedConnection[]> => {
-    const raw = (await proxyRequest<ConnectionRaw[]>("GET", "/api/v1/nosql/connections")) ?? [];
+    const rawAll = (await proxyRequest<ConnectionRaw[]>("GET", "/api/v1/nosql/connections")) ?? [];
+    // Drop malformed rows — any item missing `id`/`encryptedData`/`iv` would crash
+    // downstream renders that key off `conn.id`.
+    const raw = rawAll.filter(
+        (c): c is ConnectionRaw =>
+            !!c && typeof c === "object" && typeof c.id === "string" && !!c.encryptedData && !!c.iv
+    );
 
     const results = await Promise.allSettled(
         raw.map(async (conn): Promise<SavedConnection> => {

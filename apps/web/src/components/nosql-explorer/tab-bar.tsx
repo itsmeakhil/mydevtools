@@ -33,11 +33,15 @@ export function TabBar({ tabs, activeTabId, onTabChange, onTabClose, onCloseAll 
         return <div className="border-b h-[37px] bg-muted/10" />;
     }
 
+    // Defensive: filter out malformed entries — a single undefined/missing-id tab
+    // would crash the whole component (`tab.id` read on undefined inside .map).
+    const safeTabs = tabs.filter((t): t is ExplorerTab => !!t && typeof t.id === "string");
+
     return (
         <div className="flex items-center border-b bg-muted/10">
             <ScrollArea className="flex-1 w-full whitespace-nowrap">
                 <div className="flex items-center px-1">
-                    {tabs.map((tab) => {
+                    {safeTabs.map((tab) => {
                         const isActive = activeTabId === tab.id;
                         const isFiltered = hasActiveQuery(tab);
                         return (

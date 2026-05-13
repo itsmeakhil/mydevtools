@@ -363,6 +363,9 @@ export function ExplorerSidebar({
     const matchesSearch = (text: string) => text.toLowerCase().includes(searchQuery.toLowerCase());
 
     const filteredConnections = connections.filter(node => {
+        // Drop malformed nodes — any entry missing `connection.id` would crash
+        // the renderer (which reads `node.connection.id` as the React key).
+        if (!node?.connection || typeof node.connection.id !== "string") return false;
         if (!searchQuery) return true;
         if (matchesSearch(node.connection.name)) return true;
 
