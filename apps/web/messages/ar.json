@@ -37,6 +37,7 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "مقاطع الشيفرة",
     "qrCodeGenerator": "مُولّد رمز QR",
+    "dnsLookup": "بحث DNS",
     "ipSubnetCalculator": "حاسبة IP / الشبكة الفرعية",
     "hashGenerator": "مُولّد الهاش",
     "hmacGenerator": "مُولّد HMAC",
@@ -3435,6 +3436,20 @@
     "browserNote": "جميع المفاتيح تُنشأ في متصفحك. لا يُرسل شيء إلى أي خادم.",
     "errors": {
       "generationFailed": "فشل إنشاء المفتاح"
+    }
+  },
+  "DnsLookup": {
+    "title": "بحث DNS",
+    "subtitle": "استعلام عن سجلات DNS لأي نطاق — A، AAAA، MX، TXT، NS، CNAME.",
+    "placeholder": "أدخل النطاق (مثل github.com)",
+    "lookupBtn": "بحث",
+    "looking": "جارٍ البحث…",
+    "refreshBtn": "تحديث",
+    "recordTypesLabel": "أنواع السجلات",
+    "allBtn": "الكل",
+    "tryLabel": "جرّب:",
+    "errors": {
+      "lookupFailed": "فشل بحث DNS"
     }
   }
 }

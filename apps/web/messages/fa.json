@@ -37,6 +37,7 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "قطعه‌کدها",
     "qrCodeGenerator": "تولیدکنندهٔ QR",
+    "dnsLookup": "جستجوی DNS",
     "ipSubnetCalculator": "ماشین‌حساب IP / زیرشبکه",
     "hashGenerator": "تولیدکنندهٔ هش",
     "hmacGenerator": "تولیدکنندهٔ HMAC",
@@ -3435,6 +3436,20 @@
     "browserNote": "تمام کلیدها در مرورگر شما تولید می‌شوند. هیچ چیزی به هیچ سروری ارسال نمی‌شود.",
     "errors": {
       "generationFailed": "تولید کلید ناموفق بود"
+    }
+  },
+  "DnsLookup": {
+    "title": "جستجوی DNS",
+    "subtitle": "رکوردهای DNS هر دامنه را جستجو کنید — A، AAAA، MX، TXT، NS، CNAME.",
+    "placeholder": "دامنه را وارد کنید (مثلاً github.com)",
+    "lookupBtn": "جستجو",
+    "looking": "در حال جستجو…",
+    "refreshBtn": "تازه‌سازی",
+    "recordTypesLabel": "انواع رکورد",
+    "allBtn": "همه",
+    "tryLabel": "امتحان کنید:",
+    "errors": {
+      "lookupFailed": "جستجوی DNS ناموفق بود"
     }
   }
 }

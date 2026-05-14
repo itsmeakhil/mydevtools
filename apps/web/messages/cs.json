@@ -37,6 +37,7 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Úryvky kódu",
     "qrCodeGenerator": "Generátor QR kódů",
+    "dnsLookup": "Vyhledávání DNS",
     "ipSubnetCalculator": "Kalkulačka IP / podsítě",
     "hashGenerator": "Generátor hashů",
     "hmacGenerator": "Generátor HMAC",
@@ -3435,6 +3436,20 @@
     "browserNote": "Všechny klíče jsou generovány ve vašem prohlížeči. Nic není odesíláno na žádný server.",
     "errors": {
       "generationFailed": "Generování klíče selhalo"
+    }
+  },
+  "DnsLookup": {
+    "title": "Vyhledávání DNS",
+    "subtitle": "Dotazujte DNS záznamy pro libovolnou doménu — A, AAAA, MX, TXT, NS, CNAME.",
+    "placeholder": "Zadejte doménu (např. github.com)",
+    "lookupBtn": "Vyhledat",
+    "looking": "Vyhledávám…",
+    "refreshBtn": "Obnovit",
+    "recordTypesLabel": "Typy záznamů",
+    "allBtn": "Vše",
+    "tryLabel": "Zkusit:",
+    "errors": {
+      "lookupFailed": "Vyhledávání DNS selhalo"
     }
   }
 }

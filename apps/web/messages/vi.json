@@ -37,6 +37,7 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Đoạn mã",
     "qrCodeGenerator": "Trình tạo mã QR",
+    "dnsLookup": "Tra cứu DNS",
     "ipSubnetCalculator": "Máy tính IP / mạng con",
     "hashGenerator": "Trình tạo hash",
     "hmacGenerator": "Trình tạo HMAC",
@@ -3435,6 +3436,20 @@
     "browserNote": "Tất cả các khóa được tạo trong trình duyệt của bạn. Không có gì được gửi đến bất kỳ máy chủ nào.",
     "errors": {
       "generationFailed": "Tạo khóa thất bại"
+    }
+  },
+  "DnsLookup": {
+    "title": "Tra cứu DNS",
+    "subtitle": "Truy vấn bản ghi DNS cho bất kỳ tên miền nào — A, AAAA, MX, TXT, NS, CNAME.",
+    "placeholder": "Nhập tên miền (vd: github.com)",
+    "lookupBtn": "Tra cứu",
+    "looking": "Đang tra cứu…",
+    "refreshBtn": "Làm mới",
+    "recordTypesLabel": "Loại bản ghi",
+    "allBtn": "Tất cả",
+    "tryLabel": "Thử:",
+    "errors": {
+      "lookupFailed": "Tra cứu DNS thất bại"
     }
   }
 }
