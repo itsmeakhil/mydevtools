@@ -527,14 +527,13 @@ export function OnboardingModal({ onComplete }: OnboardingModalProps) {
   }, [])
 
   const handleNext = async () => {
+    // Advance tour slides before completing
+    if (step === 2 && tourSlide < TOUR_SLIDES.length - 1) {
+      setTourSlide((s) => s + 1)
+      return
+    }
+
     if (step < STEPS.length - 1) {
-      if (step === 1) {
-        // tour step — advance slide first
-        if (tourSlide < TOUR_SLIDES.length - 1) {
-          setTourSlide((s) => s + 1)
-          return
-        }
-      }
       setStep((s) => s + 1)
       setTourSlide(0)
       return
