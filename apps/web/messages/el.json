@@ -37,6 +37,7 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Αποσπάσματα κώδικα",
     "qrCodeGenerator": "Δημιουργός κωδικών QR",
+    "dnsLookup": "Αναζήτηση DNS",
     "ipSubnetCalculator": "Υπολογιστής IP / υποδικτύου",
     "hashGenerator": "Γεννήτρια hash",
     "hmacGenerator": "Γεννήτρια HMAC",
@@ -3435,6 +3436,20 @@
     "browserNote": "Όλα τα κλειδιά δημιουργούνται στο πρόγραμμα περιήγησής σας. Τίποτα δεν αποστέλλεται σε κανένα διακομιστή.",
     "errors": {
       "generationFailed": "Η δημιουργία κλειδιού απέτυχε"
+    }
+  },
+  "DnsLookup": {
+    "title": "Αναζήτηση DNS",
+    "subtitle": "Αναζητήστε εγγραφές DNS για οποιοδήποτε τομέα — A, AAAA, MX, TXT, NS, CNAME.",
+    "placeholder": "Εισαγάγετε τομέα (π.χ. github.com)",
+    "lookupBtn": "Αναζήτηση",
+    "looking": "Γίνεται αναζήτηση…",
+    "refreshBtn": "Ανανέωση",
+    "recordTypesLabel": "Τύποι εγγραφών",
+    "allBtn": "Όλα",
+    "tryLabel": "Δοκιμάστε:",
+    "errors": {
+      "lookupFailed": "Η αναζήτηση DNS απέτυχε"
     }
   }
 }

@@ -22,7 +22,12 @@ async def upsert_user_from_firebase_claims(decoded: dict[str, Any]) -> None:
         "disabled": False,
         "updated_at": now,
     }
-    await db_manager.update_one(USERS, {"_id": uid}, {"$set": doc, "$setOnInsert": {"created_at": now}}, upsert=True)
+    await db_manager.update_one(
+        USERS,
+        {"_id": uid},
+        {"$set": doc, "$setOnInsert": {"created_at": now, "onboarding_completed": False}},
+        upsert=True,
+    )
 
 
 async def get_user_doc(uid: str) -> dict[str, Any] | None:
@@ -96,6 +101,13 @@ async def get_backup_code_by_id(uid: str, code_id: str) -> dict[str, Any] | None
         if code.get("codeId") == code_id and not code.get("used"):
             return code
     return None
+
+
+async def complete_onboarding(uid: str) -> None:
+    now = create_timestamp()
+    await db_manager.update_one(
+        USERS, {"_id": uid}, {"$set": {"onboarding_completed": True, "updated_at": now}}
+    )
 
 
 async def mark_backup_code_used(uid: str, code_id: str) -> None:

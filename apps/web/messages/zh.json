@@ -37,6 +37,7 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "代码片段",
     "qrCodeGenerator": "二维码生成器",
+    "dnsLookup": "DNS 查询",
     "ipSubnetCalculator": "IP / 子网计算器",
     "hashGenerator": "哈希生成器",
     "hmacGenerator": "HMAC 生成器",
@@ -3435,6 +3436,20 @@
     "browserNote": "所有密钥均在您的浏览器中生成。不会向任何服务器发送任何内容。",
     "errors": {
       "generationFailed": "密钥生成失败"
+    }
+  },
+  "DnsLookup": {
+    "title": "DNS 查询",
+    "subtitle": "查询任意域名的 DNS 记录 — A、AAAA、MX、TXT、NS、CNAME、SOA。",
+    "placeholder": "输入域名（例如 github.com）",
+    "lookupBtn": "查询",
+    "looking": "正在查询…",
+    "refreshBtn": "刷新",
+    "recordTypesLabel": "记录类型",
+    "allBtn": "全部",
+    "tryLabel": "试试：",
+    "errors": {
+      "lookupFailed": "DNS 查询失败"
     }
   }
 }

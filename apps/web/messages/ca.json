@@ -37,6 +37,7 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Fragments de codi",
     "qrCodeGenerator": "Generador de codis QR",
+    "dnsLookup": "Cerca DNS",
     "ipSubnetCalculator": "Calculadora IP / subxarxa",
     "hashGenerator": "Generador de hash",
     "hmacGenerator": "Generador HMAC",
@@ -3435,6 +3436,20 @@
     "browserNote": "Totes les claus es generen al teu navegador. Res no s'envia a cap servidor.",
     "errors": {
       "generationFailed": "La generació de la clau ha fallat"
+    }
+  },
+  "DnsLookup": {
+    "title": "Cerca DNS",
+    "subtitle": "Consulta els registres DNS de qualsevol domini — A, AAAA, MX, TXT, NS, CNAME.",
+    "placeholder": "Introdueix un domini (p. ex. github.com)",
+    "lookupBtn": "Cerca",
+    "looking": "Cercant…",
+    "refreshBtn": "Actualitza",
+    "recordTypesLabel": "Tipus de registres",
+    "allBtn": "Tots",
+    "tryLabel": "Prova:",
+    "errors": {
+      "lookupFailed": "Ha fallat la consulta DNS"
     }
   }
 }

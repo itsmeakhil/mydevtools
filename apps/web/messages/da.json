@@ -37,6 +37,7 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Kodestykker",
     "qrCodeGenerator": "QR-kodegenerator",
+    "dnsLookup": "DNS-opslag",
     "ipSubnetCalculator": "IP-/subnetberegner",
     "hashGenerator": "Hash-generator",
     "hmacGenerator": "HMAC-generator",
@@ -3435,6 +3436,20 @@
     "browserNote": "Alle nøgler genereres i din browser. Intet sendes til nogen server.",
     "errors": {
       "generationFailed": "Nøglegenerering mislykkedes"
+    }
+  },
+  "DnsLookup": {
+    "title": "DNS-opslag",
+    "subtitle": "Forespørg DNS-poster for ethvert domæne — A, AAAA, MX, TXT, NS, CNAME.",
+    "placeholder": "Indtast domæne (f.eks. github.com)",
+    "lookupBtn": "Slå op",
+    "looking": "Slår op…",
+    "refreshBtn": "Opdater",
+    "recordTypesLabel": "Posttyper",
+    "allBtn": "Alle",
+    "tryLabel": "Prøv:",
+    "errors": {
+      "lookupFailed": "DNS-opslag mislykkedes"
     }
   }
 }

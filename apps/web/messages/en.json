@@ -27,6 +27,7 @@
     "uuidGenerator": "UUID / ULID",
     "secretApiKeyGenerator": "Secret / API key",
     "qrCodeGenerator": "QR Code Generator",
+    "dnsLookup": "DNS Lookup",
     "ipSubnetCalculator": "IP / Subnet Calculator",
     "hashGenerator": "Hash Generator",
     "hmacGenerator": "HMAC Generator",

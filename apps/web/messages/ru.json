@@ -37,6 +37,7 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Фрагменты кода",
     "qrCodeGenerator": "Генератор QR-кодов",
+    "dnsLookup": "DNS-запрос",
     "ipSubnetCalculator": "Калькулятор IP / подсети",
     "hashGenerator": "Генератор хешей",
     "hmacGenerator": "Генератор HMAC",
@@ -3435,6 +3436,20 @@
     "browserNote": "Все ключи генерируются в вашем браузере. Ничего не отправляется на сервер.",
     "errors": {
       "generationFailed": "Ошибка генерации ключа"
+    }
+  },
+  "DnsLookup": {
+    "title": "DNS-запрос",
+    "subtitle": "Запрашивайте DNS-записи для любого домена — A, AAAA, MX, TXT, NS, CNAME.",
+    "placeholder": "Введите домен (например github.com)",
+    "lookupBtn": "Запрос",
+    "looking": "Выполняется запрос…",
+    "refreshBtn": "Обновить",
+    "recordTypesLabel": "Типы записей",
+    "allBtn": "Все",
+    "tryLabel": "Попробовать:",
+    "errors": {
+      "lookupFailed": "Ошибка DNS-запроса"
     }
   }
 }

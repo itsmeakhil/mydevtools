@@ -37,6 +37,7 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "Kod parçacıkları",
     "qrCodeGenerator": "QR kod oluşturucu",
+    "dnsLookup": "DNS Sorgulama",
     "ipSubnetCalculator": "IP / alt ağ hesaplayıcı",
     "hashGenerator": "Hash oluşturucu",
     "hmacGenerator": "HMAC Oluşturucu",
@@ -3435,6 +3436,20 @@
     "browserNote": "Tüm anahtarlar tarayıcınızda oluşturulur. Hiçbir şey herhangi bir sunucuya gönderilmez.",
     "errors": {
       "generationFailed": "Anahtar oluşturma başarısız"
+    }
+  },
+  "DnsLookup": {
+    "title": "DNS Sorgulama",
+    "subtitle": "Herhangi bir alan adı için DNS kayıtlarını sorgulayın — A, AAAA, MX, TXT, NS, CNAME.",
+    "placeholder": "Alan adını girin (ör. github.com)",
+    "lookupBtn": "Sorgula",
+    "looking": "Sorgulanıyor…",
+    "refreshBtn": "Yenile",
+    "recordTypesLabel": "Kayıt türleri",
+    "allBtn": "Tümü",
+    "tryLabel": "Dene:",
+    "errors": {
+      "lookupFailed": "DNS sorgusu başarısız"
     }
   }
 }

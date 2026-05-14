@@ -28,6 +28,7 @@ from app.api.routes.auth.tokens import (
 )
 from app.api.routes.auth.users_repo import (
     clear_refresh_token_hash,
+    complete_onboarding,
     find_uid_by_refresh_hash,
     get_backup_code_by_id,
     get_master_vault,
@@ -79,6 +80,7 @@ async def create_session(request: Request, payload: SessionRequest, response: Re
         photo_url=doc.get("photo_url"),
         email_verified=bool(doc.get("email_verified")),
         disabled=bool(doc.get("disabled")),
+        onboarding_completed=bool(doc.get("onboarding_completed", False)),
     )
 
 
@@ -358,4 +360,21 @@ async def use_backup_code_endpoint(
     uid: Annotated[str, Depends(get_current_uid)],
 ) -> OkResponse:
     await mark_backup_code_used(uid, payload.codeId)
+    return OkResponse(ok=True)
+
+
+# ── Onboarding ────────────────────────────────────────────────────────────────
+
+
+@router.post(
+    "/onboarding/complete",
+    response_model=OkResponse,
+    summary="Mark onboarding as completed for the current user",
+)
+@limiter.limit("10/minute")
+async def complete_onboarding_endpoint(
+    request: Request,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> OkResponse:
+    await complete_onboarding(uid)
     return OkResponse(ok=True)

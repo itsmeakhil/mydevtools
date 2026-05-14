@@ -37,6 +37,7 @@
     "csvExcelJson": "CSV / Excel ↔ JSON",
     "snippetManager": "코드 스니펫",
     "qrCodeGenerator": "QR 코드 생성기",
+    "dnsLookup": "DNS 조회",
     "ipSubnetCalculator": "IP / 서브넷 계산기",
     "hashGenerator": "해시 생성기",
     "hmacGenerator": "HMAC 생성기",
@@ -3435,6 +3436,20 @@
     "browserNote": "모든 키는 브라우저에서 생성됩니다. 어떤 서버에도 전송되지 않습니다.",
     "errors": {
       "generationFailed": "키 생성 실패"
+    }
+  },
+  "DnsLookup": {
+    "title": "DNS 조회",
+    "subtitle": "도메인의 DNS 레코드를 조회합니다 — A, AAAA, MX, TXT, NS, CNAME.",
+    "placeholder": "도메인 입력 (예: github.com)",
+    "lookupBtn": "조회",
+    "looking": "조회 중…",
+    "refreshBtn": "새로고침",
+    "recordTypesLabel": "레코드 유형",
+    "allBtn": "전체",
+    "tryLabel": "시도:",
+    "errors": {
+      "lookupFailed": "DNS 조회에 실패했습니다"
     }
   }
 }
