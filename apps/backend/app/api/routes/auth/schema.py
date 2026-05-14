@@ -108,6 +108,7 @@ class UserProfileResponse(BaseModel):
     certifications: list[Certification] = Field(default_factory=list)
     portfolio_settings: PortfolioSettings | None = None
     personal_info: PersonalInfo | None = None
+    onboarding_completed: bool = False
 
 
 class UpdateProfileRequest(BaseModel):
