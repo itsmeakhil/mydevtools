@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { completeOnboarding } from "@/lib/onboarding-api"
-import { useToolVisibilityStore, DEFAULT_ENABLED_TOOLS } from "@/store/tool-visibility-store"
+import { useToolVisibilityStore } from "@/store/tool-visibility-store"
 import { patchUserPreferences } from "@/lib/user-preferences-api"
 import {
   IconRocket,
@@ -496,11 +496,10 @@ export function OnboardingModal({ onComplete }: OnboardingModalProps) {
 
   const setEnabledTools = useToolVisibilityStore((s) => s.setEnabledTools)
 
-  // Pre-select DEFAULT_ENABLED_TOOLS. New tools added to sidebarData always appear
-  // in the picker (via buildCategories) but are unselected until added to DEFAULT_ENABLED_TOOLS.
-  const [selectedUrls, setSelectedUrls] = useState<Set<string>>(
-    () => new Set(DEFAULT_ENABLED_TOOLS)
-  )
+  const [selectedUrls, setSelectedUrls] = useState<Set<string>>(() => {
+    const productivity = buildCategories().find((c) => c.title === "Productivity")
+    return new Set(productivity?.tools.map((t) => t.url) ?? [])
+  })
 
   const handleToggleTool = useCallback((url: string) => {
     setSelectedUrls((prev) => {
