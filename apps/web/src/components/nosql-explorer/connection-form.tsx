@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { IconDatabase, IconTrash, IconHistory, IconPencil, IconPlugConnected, IconCheck, IconX, IconBrandMongodb, IconServer, IconCopy } from "@tabler/icons-react";
 import { SavedConnection } from "./types";
 import { getConnections, deleteConnection, saveConnection, updateConnectionDetails } from "./connection-service";
+import { backendFetch } from "@/lib/backend-auth";
 import useAuth from "@/utils/useAuth";
 import { useMasterKeyStore } from "@/store/master-key-store";
 import { toast } from "sonner";
@@ -90,7 +91,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
         if (!connectionString) return;
         setIsTesting(true);
         try {
-            const res = await fetch("/api/nosql/connect", {
+            const res = await backendFetch("/api/nosql/connect", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ connectionString }),

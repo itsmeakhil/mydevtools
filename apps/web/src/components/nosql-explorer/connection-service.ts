@@ -1,5 +1,6 @@
 import { auth } from "@/database/firebase";
 import { encryptData, decryptData } from "@/lib/encryption";
+import { proxyJsonAuthed } from "@/lib/backend-auth";
 import { toast } from "sonner";
 import { SavedConnection } from "./types";
 
@@ -8,52 +9,27 @@ const BACKEND_BASE_URL: string =
     process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
     "http://localhost:8000";
 
-// ── proxy helper ──────────────────────────────────────────────────────────────
-
-type ProxyResponse = {
-    status: number;
-    statusText: string;
-    headers: Record<string, string>;
-    body: string;
-    isBase64: boolean;
-    time: number;
-    size: number;
-    error?: string;
-};
+// ── proxy helper (with automatic token refresh on 401) ───────────────────────
 
 const proxyRequest = async <T,>(
     method: string,
     path: string,
     body?: unknown
 ): Promise<T> => {
-    const currentUser = auth.currentUser;
-    if (!currentUser) throw new Error("Not authenticated.");
+    if (!auth.currentUser) throw new Error("Not authenticated.");
 
-    const url = new URL(path, BACKEND_BASE_URL).toString();
-    const headersObj: Record<string, string> = {};
-    const proxyBody = body !== undefined ? JSON.stringify(body) : undefined;
-    if (proxyBody !== undefined && method !== "GET" && method !== "HEAD") {
-        headersObj["Content-Type"] = "application/json";
+    const { status, data } = await proxyJsonAuthed<T>(BACKEND_BASE_URL, method, path, body);
+
+    if (status < 200 || status >= 300) {
+        const err = data as Record<string, unknown> | null;
+        throw new Error(
+            (typeof err?.detail === "string" ? err.detail : null) ||
+            (typeof err?.error === "string" ? err.error : null) ||
+            `Request failed (${status})`
+        );
     }
 
-    const proxyRes = await fetch("/api/proxy", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url, method, headers: headersObj, body: proxyBody }),
-    });
-
-    const proxyData = (await proxyRes.json()) as ProxyResponse;
-    if (proxyData.status < 200 || proxyData.status >= 300) {
-        throw new Error(proxyData.body || proxyData.statusText || proxyData.error || "Request failed");
-    }
-
-    if (!proxyData.body) return undefined as T;
-    try {
-        return JSON.parse(proxyData.body) as T;
-    } catch {
-        return proxyData.body as unknown as T;
-    }
+    return data as T;
 };
 
 // ── raw type returned by backend (no decrypted connectionString) ──────────────

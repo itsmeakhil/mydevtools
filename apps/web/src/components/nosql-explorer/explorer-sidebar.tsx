@@ -10,6 +10,7 @@ import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import useAuth from "@/utils/useAuth";
 import { useMasterKeyStore } from "@/store/master-key-store";
 import { getConnections, updateConnectionName, deleteConnection } from "./connection-service";
+import { backendFetch } from "@/lib/backend-auth";
 import { toast } from "sonner";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import {
@@ -138,7 +139,7 @@ export function ExplorerSidebar({
 
         setConnections(prev => prev.map((c, i) => i === index ? { ...c, isLoading: true, error: null } : c));
         try {
-            const res = await fetch("/api/nosql/connect", {
+            const res = await backendFetch("/api/nosql/connect", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ connectionString: connection.connectionString }),
@@ -198,7 +199,7 @@ export function ExplorerSidebar({
     const refreshCollections = async (connIndex: number, dbName: string) => {
         const node = connections[connIndex];
         try {
-            const res = await fetch("/api/nosql/collections", {
+            const res = await backendFetch("/api/nosql/collections", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -264,7 +265,7 @@ export function ExplorerSidebar({
 
         const node = connections[connIndex];
         try {
-            const res = await fetch("/api/nosql/database/drop", {
+            const res = await backendFetch("/api/nosql/database/drop", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ connectionString: node.connection.connectionString, dbName }),
@@ -284,7 +285,7 @@ export function ExplorerSidebar({
 
         const node = connections[connIndex];
         try {
-            const res = await fetch("/api/nosql/collection/drop", {
+            const res = await backendFetch("/api/nosql/collection/drop", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ connectionString: node.connection.connectionString, dbName, collectionName }),
@@ -304,7 +305,7 @@ export function ExplorerSidebar({
         if (!connection || !newName) return;
 
         try {
-            const res = await fetch("/api/nosql/collection/rename", {
+            const res = await backendFetch("/api/nosql/collection/rename", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -335,7 +336,7 @@ export function ExplorerSidebar({
         if (!connection || !newName) return;
 
         try {
-            const res = await fetch("/api/nosql/database/rename", {
+            const res = await backendFetch("/api/nosql/database/rename", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
