@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { usePasswordStore } from "@/store/password-store"
+import { usePasswordStore, BreachStatus } from "@/store/password-store"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { calculatePasswordStrength } from "@/lib/password-utils"
 import { ShieldCheck, ShieldAlert, AlertTriangle, CheckCircle2, Lock, ChevronDown } from "lucide-react"
@@ -13,7 +13,7 @@ import { useTranslations } from "next-intl"
 
 export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
     const t = useTranslations("PasswordManager.security")
-    const { passwords } = usePasswordStore()
+    const { passwords, breachCounts, breachStatus } = usePasswordStore()
     const isMobile = useIsMobile()
     const [expanded, setExpanded] = useState(false)
 
@@ -26,6 +26,7 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
         let strongCount = 0
         const reusedMap = new Map<string, number>()
         let reusedCount = 0
+        let breachedCount = 0
 
         passwords.forEach(p => {
             const strength = calculatePasswordStrength(p.password)
@@ -34,6 +35,8 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
             else strongCount++
 
             reusedMap.set(p.password, (reusedMap.get(p.password) || 0) + 1)
+
+            if (breachStatus === "done" && (breachCounts.get(p.id) ?? 0) > 0) breachedCount++
         })
 
         reusedMap.forEach(count => {
@@ -44,10 +47,11 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
         score -= (weakCount * 10)
         score -= (mediumCount * 2)
         score -= (reusedCount * 5)
+        score -= (breachedCount * 15)
         score = Math.max(0, Math.min(100, score))
 
-        return { total, weakCount, mediumCount, strongCount, reusedCount, score }
-    }, [passwords])
+        return { total, weakCount, mediumCount, strongCount, reusedCount, breachedCount, score }
+    }, [passwords, breachCounts, breachStatus])
 
     if (!metrics) return null
 
@@ -143,7 +147,7 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
                                 exit={{ height: 0, opacity: 0 }}
                                 transition={{ duration: 0.2 }}
                             >
-                                <div className="px-4 pb-4 pt-0 grid grid-cols-3 gap-3">
+                                <div className="px-4 pb-4 pt-0 grid grid-cols-2 gap-3">
                                     <div className="bg-muted/30 rounded-xl p-3 text-center">
                                         <div className="text-lg font-bold">{metrics.total}</div>
                                         <div className="text-[10px] text-muted-foreground uppercase tracking-wide">{t("total")}</div>
@@ -166,6 +170,15 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
                                         </div>
                                         <div className="text-[10px] text-muted-foreground uppercase tracking-wide">{t("reused")}</div>
                                     </div>
+                                    <div className={cn(
+                                        "rounded-xl p-3 text-center",
+                                        metrics.breachedCount > 0 ? "bg-red-500/10" : "bg-muted/30"
+                                    )}>
+                                        <div className={cn("text-lg font-bold", metrics.breachedCount > 0 && "text-red-500")}>
+                                            {breachStatus === "checking" ? "…" : metrics.breachedCount}
+                                        </div>
+                                        <div className="text-[10px] text-muted-foreground uppercase tracking-wide">Breached</div>
+                                    </div>
                                 </div>
                             </motion.div>
                         )}
@@ -177,7 +190,7 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
 
     // Desktop view
     return (
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-6">
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-5 mb-6">
             <Card className="col-span-full lg:col-span-1 bg-card/50 backdrop-blur-sm border-muted/60">
                 <CardHeader className="pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">{t("vaultHealth")}</CardTitle>
@@ -255,6 +268,25 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
                     {metrics.reusedCount === 0 && (
                         <div className="mt-4 flex items-center gap-2 text-xs text-green-600 dark:text-green-400">
                             <CheckCircle2 className="h-3 w-3" /> {t("unique")}
+                        </div>
+                    )}
+                </CardContent>
+            </Card>
+
+            <Card className={cn("bg-card/50 backdrop-blur-sm border-muted/60", metrics.breachedCount > 0 && "border-red-500/30 bg-red-500/5")}>
+                <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium text-muted-foreground">Breached</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className={cn("text-2xl font-bold", metrics.breachedCount > 0 ? "text-red-500" : "text-foreground")}>
+                        {breachStatus === "checking" ? "…" : metrics.breachedCount}
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">
+                        {breachStatus === "idle" ? "Run breach check to scan" : breachStatus === "checking" ? "Checking…" : "Found in data breaches"}
+                    </p>
+                    {breachStatus === "done" && metrics.breachedCount === 0 && (
+                        <div className="mt-4 flex items-center gap-2 text-xs text-green-600 dark:text-green-400">
+                            <CheckCircle2 className="h-3 w-3" /> None found
                         </div>
                     )}
                 </CardContent>

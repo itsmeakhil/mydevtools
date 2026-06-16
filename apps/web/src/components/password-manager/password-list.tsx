@@ -8,7 +8,8 @@ import { clearMasterKey } from "@/lib/key-storage"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Search, Copy, Eye, EyeOff, Trash2, ExternalLink, LayoutGrid, List, Lock, Pencil, MoreVertical, FileJson, Plus, ShieldCheck, AlertTriangle, Repeat, Link2Off, X, ShieldX } from "lucide-react"
+import { Search, Copy, Eye, EyeOff, Trash2, ExternalLink, LayoutGrid, List, Lock, Pencil, MoreVertical, FileJson, Plus, ShieldCheck, AlertTriangle, Repeat, Link2Off, X, ShieldX, Clock, ArrowUpDown } from "lucide-react"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { toast } from "sonner"
 import { auth } from "@/database/firebase"
@@ -20,7 +21,7 @@ import { EditPasswordDialog } from "./edit-password-dialog"
 import { AddPasswordDialog } from "./add-password-dialog"
 import { PasswordEntry } from "@/store/password-store"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { calculatePasswordStrength, getStrengthColor, getFaviconUrl } from "@/lib/password-utils"
+import { calculatePasswordStrength, getStrengthColor, getFaviconUrl, getPasswordAgeStatus, getPasswordAgeBadge, getPasswordAgeDateColor } from "@/lib/password-utils"
 import { Badge } from "@/components/ui/badge"
 import { formatDistanceToNow } from "date-fns"
 import { ImportExportDialog } from "./import-export-dialog"
@@ -44,6 +45,7 @@ export function PasswordList() {
     const [visiblePasswords, setVisiblePasswords] = useState<Set<string>>(new Set())
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
     const [quickFilter, setQuickFilter] = useState<"all" | "weak" | "reused" | "no-url">("all")
+    const [sortBy, setSortBy] = useState<"name" | "date" | "strength">("name")
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
     const [passwordToDelete, setPasswordToDelete] = useState<string | null>(null)
     const [editingPassword, setEditingPassword] = useState<PasswordEntry | null>(null)
@@ -74,17 +76,21 @@ export function PasswordList() {
             p.tags?.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
         )
 
+        let filtered = bySearch
         if (quickFilter === "weak") {
-            return bySearch.filter((entry) => calculatePasswordStrength(entry.password) <= 2)
+            filtered = bySearch.filter((entry) => calculatePasswordStrength(entry.password) <= 2)
+        } else if (quickFilter === "reused") {
+            filtered = bySearch.filter((entry) => reusedPasswordIds.has(entry.id))
+        } else if (quickFilter === "no-url") {
+            filtered = bySearch.filter((entry) => !entry.url?.trim())
         }
-        if (quickFilter === "reused") {
-            return bySearch.filter((entry) => reusedPasswordIds.has(entry.id))
-        }
-        if (quickFilter === "no-url") {
-            return bySearch.filter((entry) => !entry.url?.trim())
-        }
-        return bySearch
-    }, [passwords, searchTerm, quickFilter, reusedPasswordIds])
+
+        return [...filtered].sort((a, b) => {
+            if (sortBy === "date") return b.updatedAt - a.updatedAt
+            if (sortBy === "strength") return calculatePasswordStrength(b.password) - calculatePasswordStrength(a.password)
+            return a.service.localeCompare(b.service)
+        })
+    }, [passwords, searchTerm, quickFilter, reusedPasswordIds, sortBy])
 
     const weakCount = useMemo(
         () => passwords.filter((entry) => calculatePasswordStrength(entry.password) <= 2).length,
@@ -97,25 +103,20 @@ export function PasswordList() {
     const reusedCount = reusedPasswordIds.size
     const hasActiveQuickFilter = quickFilter !== "all"
 
-    // Auto-run breach check in background when vault unlocks
-    useEffect(() => {
-        if (passwords.length > 0 && breachStatus === "idle") {
-            const run = async () => {
-                setBreachStatus("checking")
-                try {
-                    const results = await checkPasswordsBreached(
-                        passwords.map((p) => ({ id: p.id, password: p.password })),
-                        (checked, total) => setBreachProgress(checked, total)
-                    )
-                    setBreachResults(results)
-                    setBreachStatus("done")
-                } catch {
-                    setBreachStatus("error")
-                }
-            }
-            void run()
+    const runBreachCheck = async () => {
+        if (breachStatus === "checking") return
+        setBreachStatus("checking")
+        try {
+            const results = await checkPasswordsBreached(
+                passwords.map((p) => ({ id: p.id, password: p.password })),
+                (checked, total) => setBreachProgress(checked, total)
+            )
+            setBreachResults(results)
+            setBreachStatus("done")
+        } catch {
+            setBreachStatus("error")
         }
-    }, [passwords.length, breachStatus]) // eslint-disable-line react-hooks/exhaustive-deps
+    }
 
     const breachedCount = breachStatus === "done"
         ? passwords.filter((p) => (breachCounts.get(p.id) ?? 0) > 0).length
@@ -168,9 +169,19 @@ export function PasswordList() {
         setVisiblePasswords(new Set())
     }
 
-    const copyToClipboard = (text: string, type: "Password" | "Username" = "Password") => {
+    const copyToClipboard = (text: string, type: "Password" | "Username" | "TOTP" = "Password") => {
         navigator.clipboard.writeText(text)
-        toast.success(type === "Username" ? tToast("copiedUsername") : tToast("copiedPassword"))
+        const label = type === "Username" ? tToast("copiedUsername") : type === "TOTP" ? "TOTP code copied" : tToast("copiedPassword")
+        const toastId = toast.success(label, {
+            description: "Clipboard will clear in 30s",
+            duration: 30000,
+        })
+        const timer = setTimeout(() => {
+            navigator.clipboard.writeText("").catch(() => {})
+            toast.dismiss(toastId)
+        }, 30000)
+        // Cancel the clear if the user manually dismisses
+        return () => clearTimeout(timer)
     }
 
     const handleDeleteClick = (id: string) => {
@@ -356,7 +367,7 @@ export function PasswordList() {
                                         <FileJson className="mr-2 h-4 w-4" /> {t("importExport")}
                                     </Button>
                                 </ImportExportDialog>
-                                <DropdownMenuItem onClick={() => setBreachDialogOpen(true)} className="gap-2">
+                                <DropdownMenuItem onClick={() => { setBreachDialogOpen(true); void runBreachCheck() }} className="gap-2">
                                     <ShieldX className="h-4 w-4" />
                                     <span>Breach Check</span>
                                     {breachedCount > 0 && (
@@ -394,17 +405,17 @@ export function PasswordList() {
                         </Drawer>
                     </div>
                     <div className="px-4 pb-2 flex items-center gap-2 overflow-x-auto scrollbar-hide">
-                        <Button size="sm" variant={quickFilter === "all" ? "default" : "outline"} className="h-7 rounded-full text-xs" onClick={() => setQuickFilter("all")}>
+                        <Button size="sm" variant={quickFilter === "all" ? "default" : "outline"} className="h-7 rounded-full text-xs shrink-0" onClick={() => setQuickFilter("all")}>
                             All
                         </Button>
-                        <Button size="sm" variant={quickFilter === "weak" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5" onClick={() => setQuickFilter("weak")}>
-                            <AlertTriangle className="h-3 w-3" /> {weakCount}
+                        <Button size="sm" variant={quickFilter === "weak" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5 shrink-0" onClick={() => setQuickFilter("weak")}>
+                            <AlertTriangle className="h-3 w-3" /> Weak {weakCount > 0 && <span className="font-bold">({weakCount})</span>}
                         </Button>
-                        <Button size="sm" variant={quickFilter === "reused" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5" onClick={() => setQuickFilter("reused")}>
-                            <Repeat className="h-3 w-3" /> {reusedCount}
+                        <Button size="sm" variant={quickFilter === "reused" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5 shrink-0" onClick={() => setQuickFilter("reused")}>
+                            <Repeat className="h-3 w-3" /> Reused {reusedCount > 0 && <span className="font-bold">({reusedCount})</span>}
                         </Button>
-                        <Button size="sm" variant={quickFilter === "no-url" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5" onClick={() => setQuickFilter("no-url")}>
-                            <Link2Off className="h-3 w-3" /> {noUrlCount}
+                        <Button size="sm" variant={quickFilter === "no-url" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5 shrink-0" onClick={() => setQuickFilter("no-url")}>
+                            <Link2Off className="h-3 w-3" /> No URL {noUrlCount > 0 && <span className="font-bold">({noUrlCount})</span>}
                         </Button>
                     </div>
                 </div>
@@ -453,6 +464,17 @@ export function PasswordList() {
                             </ToggleGroupItem>
                         </ToggleGroup>
                     </div>
+                    <Select value={sortBy} onValueChange={(v) => setSortBy(v as typeof sortBy)}>
+                        <SelectTrigger className="h-10 w-[130px] text-xs gap-1.5">
+                            <ArrowUpDown className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="name">Name</SelectItem>
+                            <SelectItem value="date">Last updated</SelectItem>
+                            <SelectItem value="strength">Strength</SelectItem>
+                        </SelectContent>
+                    </Select>
                     <ImportExportDialog />
                     <Button variant="outline" size="sm" onClick={visiblePasswords.size > 0 ? hideAllVisible : showAllVisible} className="h-10 text-xs">
                         {visiblePasswords.size > 0 ? <><EyeOff className="h-3.5 w-3.5 mr-1.5" /> Hide all</> : <><Eye className="h-3.5 w-3.5 mr-1.5" /> Show all</>}
@@ -478,7 +500,7 @@ export function PasswordList() {
                         <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => setBreachDialogOpen(true)}
+                            onClick={() => { setBreachDialogOpen(true); void runBreachCheck() }}
                             title="Check passwords against data breaches"
                             className={cn(
                                 "relative z-10 m-[1.5px] h-[calc(2.5rem-3px)] text-xs border-0 bg-background dark:bg-background hover:bg-background dark:hover:bg-background shadow-none rounded-[5px]",
@@ -640,15 +662,22 @@ export function PasswordList() {
                                                     </div>
                                                     <div className="flex flex-col">
                                                         <span className="truncate font-medium">{entry.service}</span>
-                                                        {entry.tags && entry.tags.length > 0 && (
-                                                            <div className="flex gap-1 mt-0.5">
-                                                                {entry.tags.slice(0, 2).map(tag => (
-                                                                    <span key={tag} className="text-[10px] text-muted-foreground bg-muted px-1 rounded">
-                                                                        {tag}
+                                                        <div className="flex gap-1 mt-0.5 flex-wrap">
+                                                            {entry.tags && entry.tags.slice(0, 2).map(tag => (
+                                                                <span key={tag} className="text-[10px] text-muted-foreground bg-muted px-1 rounded">
+                                                                    {tag}
+                                                                </span>
+                                                            ))}
+                                                            {(() => {
+                                                                const badge = getPasswordAgeBadge(getPasswordAgeStatus(entry.updatedAt))
+                                                                if (!badge) return null
+                                                                return (
+                                                                    <span className={cn("text-[10px] px-1 rounded flex items-center gap-0.5", badge.className)} title={`Last updated: ${new Date(entry.updatedAt).toLocaleDateString()}`}>
+                                                                        <Clock className="h-2.5 w-2.5" />{badge.label}
                                                                     </span>
-                                                                ))}
-                                                            </div>
-                                                        )}
+                                                                )
+                                                            })()}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </TableCell>

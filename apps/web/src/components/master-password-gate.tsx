@@ -286,8 +286,13 @@ export function MasterPasswordGate() {
         setSubmitting(true)
         setError("")
         try {
-            const key = await deriveKey(password, vault.salt)
-            const valid = await verifyKey(key, vault.verifier.encrypted, vault.verifier.iv)
+            // Try current iteration count first, then legacy 100k for existing vaults
+            let key = await deriveKey(password, vault.salt, 600000)
+            let valid = await verifyKey(key, vault.verifier.encrypted, vault.verifier.iv)
+            if (!valid) {
+                key = await deriveKey(password, vault.salt, 100000)
+                valid = await verifyKey(key, vault.verifier.encrypted, vault.verifier.iv)
+            }
 
             if (valid) {
                 await saveMasterKey(key)
@@ -324,8 +329,12 @@ export function MasterPasswordGate() {
                 codeData.encrypted,
                 codeData.iv,
             )
-            const key = await deriveKey(masterPassword, vault.salt)
-            const valid = await verifyKey(key, vault.verifier.encrypted, vault.verifier.iv)
+            let key = await deriveKey(masterPassword, vault.salt, 600000)
+            let valid = await verifyKey(key, vault.verifier.encrypted, vault.verifier.iv)
+            if (!valid) {
+                key = await deriveKey(masterPassword, vault.salt, 100000)
+                valid = await verifyKey(key, vault.verifier.encrypted, vault.verifier.iv)
+            }
 
             if (!valid) {
                 setError("Backup code is incorrect.")

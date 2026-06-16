@@ -1,13 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { PasswordEntry } from "@/store/password-store"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Copy, Eye, EyeOff, Trash2, ExternalLink, Pencil, MoreVertical } from "lucide-react"
+import { Copy, Eye, EyeOff, Trash2, ExternalLink, Pencil, MoreVertical, Clock, ChevronDown } from "lucide-react"
 import { computeTotp, decodeBase32Secret, getTotpSecondsRemaining } from "@/lib/totp-compute"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { calculatePasswordStrength, getStrengthColor, getFaviconUrl } from "@/lib/password-utils"
+import { calculatePasswordStrength, getStrengthColor, getFaviconUrl, getPasswordAgeStatus, getPasswordAgeBadge, getPasswordAgeDateColor } from "@/lib/password-utils"
 import { Badge } from "@/components/ui/badge"
 import { formatDistanceToNow } from "date-fns"
 import { cn } from "@/lib/utils"
@@ -77,7 +77,7 @@ interface PasswordCardProps {
     isVisible: boolean
     isReused?: boolean
     onToggleVisibility: (id: string) => void
-    onCopy: (text: string, type?: "Password" | "Username") => void
+    onCopy: (text: string, type?: "Password" | "Username" | "TOTP") => void
     onDelete: (id: string) => void
     onEdit: (entry: PasswordEntry) => void
 }
@@ -93,8 +93,12 @@ export function PasswordCard({
 }: PasswordCardProps) {
     const t = useTranslations("PasswordManager.card")
     const tList = useTranslations("PasswordManager.list")
+    const [showNotes, setShowNotes] = useState(false)
     const strength = calculatePasswordStrength(entry.password)
     const strengthColor = getStrengthColor(strength)
+    const ageStatus = getPasswordAgeStatus(entry.updatedAt)
+    const ageBadge = getPasswordAgeBadge(ageStatus)
+    const ageDateColor = getPasswordAgeDateColor(ageStatus)
 
     return (
         <motion.div
@@ -191,6 +195,12 @@ export function PasswordCard({
                                 Reused
                             </Badge>
                         )}
+                        {ageBadge && (
+                            <Badge variant="secondary" className={cn("text-[10px] h-5 px-2 gap-1", ageBadge.className)}>
+                                <Clock className="h-2.5 w-2.5" />
+                                {ageBadge.label}
+                            </Badge>
+                        )}
                         {entry.tags?.map(tag => (
                             <Badge key={tag} variant="secondary" className="text-[10px] h-5 px-2 bg-muted/50 text-muted-foreground hover:bg-muted/80 transition-colors">
                                 {tag}
@@ -220,14 +230,17 @@ export function PasswordCard({
                         {entry.totpSecret && (
                             <TotpChip
                                 secret={entry.totpSecret}
-                                onCopy={(code) => onCopy(code, "Password")}
+                                onCopy={(code) => onCopy(code, "TOTP")}
                             />
                         )}
 
                         <div className="space-y-1.5">
-                            <div className="flex items-center justify-between text-[10px] text-muted-foreground px-1">
-                                <span>{t("strength")}</span>
-                                <span>{formatDistanceToNow(entry.updatedAt, { addSuffix: true })}</span>
+                            <div className="flex items-center justify-between text-[10px] px-1">
+                                <span className="text-muted-foreground">{t("strength")}</span>
+                                <span className={cn("flex items-center gap-1", ageDateColor)} title={`Last updated: ${new Date(entry.updatedAt).toLocaleDateString()}`}>
+                                    {ageStatus !== "fresh" && <Clock className="h-2.5 w-2.5" />}
+                                    {formatDistanceToNow(entry.updatedAt, { addSuffix: true })}
+                                </span>
                             </div>
                             <div className="h-1.5 w-full bg-muted/50 rounded-full overflow-hidden">
                                 <motion.div
@@ -240,8 +253,20 @@ export function PasswordCard({
                         </div>
 
                         {entry.notes && (
-                            <div className="text-xs text-muted-foreground bg-muted/20 p-2.5 rounded-lg border border-border/30 italic line-clamp-2 min-h-[50px]">
-                                {entry.notes}
+                            <div>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowNotes(v => !v)}
+                                    className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors w-full px-1"
+                                >
+                                    <ChevronDown className={cn("h-3 w-3 transition-transform duration-200", showNotes && "rotate-180")} />
+                                    {showNotes ? "Hide notes" : "Show notes"}
+                                </button>
+                                {showNotes && (
+                                    <div className="mt-1.5 text-xs text-muted-foreground bg-muted/20 p-2.5 rounded-lg border border-border/30 italic whitespace-pre-wrap break-words">
+                                        {entry.notes}
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>

@@ -8,13 +8,14 @@ import { useIsMobile } from "@/components/hooks/use-mobile"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Plus, Wand2, RefreshCw, Check, Copy, ChevronDown, ChevronUp } from "lucide-react"
+import { Plus, Wand2, RefreshCw, Check, Copy, ChevronDown, ChevronUp, Eye, EyeOff } from "lucide-react"
 import { usePasswordStore, PasswordEntry } from "@/store/password-store"
 import { useMasterKeyStore } from "@/store/master-key-store"
 import { AdvancedGenerator } from "./advanced-generator"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Badge } from "@/components/ui/badge"
 import { encryptData } from "@/lib/encryption"
+import { validateTotpSecret, calculatePasswordStrength, getStrengthColor, getStrengthLabel } from "@/lib/password-utils"
 import { auth } from "@/database/firebase"
 import { createPasswordEntry } from "@/lib/password-manager-api"
 import { cn } from "@/lib/utils"
@@ -38,25 +39,9 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
     })
     const [tagInput, setTagInput] = useState("")
     const [showGenerator, setShowGenerator] = useState(false)
-    const [strength, setStrength] = useState(0)
+    const [showPassword, setShowPassword] = useState(false)
 
-    useEffect(() => {
-        calculateStrength(formData.password)
-    }, [formData.password])
-
-    const calculateStrength = (pass: string) => {
-        if (!pass) {
-            setStrength(0)
-            return
-        }
-        let score = 0
-        if (pass.length >= 8) score += 1
-        if (pass.length >= 12) score += 1
-        if (/[A-Z]/.test(pass)) score += 1
-        if (/[0-9]/.test(pass)) score += 1
-        if (/[^A-Za-z0-9]/.test(pass)) score += 1
-        setStrength(score)
-    }
+    const strength = calculatePasswordStrength(formData.password)
 
     const handleAddTag = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ',') {
@@ -76,6 +61,14 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         if (!encryptionKey || !auth.currentUser) return
+
+        if (formData.totpSecret) {
+            const totpError = validateTotpSecret(formData.totpSecret)
+            if (totpError) {
+                toast.error(totpError)
+                return
+            }
+        }
 
         setLoading(true)
         try {
@@ -110,20 +103,6 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
         } finally {
             setLoading(false)
         }
-    }
-
-    const getStrengthColor = (score: number) => {
-        if (score === 0) return "bg-muted"
-        if (score <= 2) return "bg-red-500"
-        if (score <= 3) return "bg-yellow-500"
-        return "bg-green-500"
-    }
-
-    const getStrengthLabel = (score: number) => {
-        if (score === 0) return ""
-        if (score <= 2) return t("strengthWeak")
-        if (score <= 3) return t("strengthMedium")
-        return t("strengthStrong")
     }
 
     const handlePasswordChange = useCallback((pass: string) => {
@@ -163,13 +142,23 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
                 <div className="relative">
                     <Input
                         id="password"
-                        type="text"
+                        type={showPassword ? "text" : "password"}
                         value={formData.password}
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                         required
-                        className="font-mono"
+                        className="font-mono pr-10"
                         placeholder={t("placeholderPassword")}
+                        autoComplete="new-password"
                     />
+                    <button
+                        type="button"
+                        onClick={() => setShowPassword(v => !v)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                        tabIndex={-1}
+                        aria-label={showPassword ? "Hide password" : "Show password"}
+                    >
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
                 </div>
 
                 {formData.password && (

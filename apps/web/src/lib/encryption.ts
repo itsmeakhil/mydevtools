@@ -11,7 +11,7 @@ export async function generateIV(): Promise<string> {
     return bufferToBase64(iv);
 }
 
-export async function deriveKey(password: string, saltBase64: string): Promise<CryptoKey> {
+export async function deriveKey(password: string, saltBase64: string, iterations = 600000): Promise<CryptoKey> {
     const enc = new TextEncoder();
     const keyMaterial = await window.crypto.subtle.importKey(
         "raw",
@@ -27,12 +27,12 @@ export async function deriveKey(password: string, saltBase64: string): Promise<C
         {
             name: "PBKDF2",
             salt: salt as any,
-            iterations: 100000,
+            iterations,
             hash: "SHA-256",
         },
         keyMaterial,
         { name: "AES-GCM", length: 256 },
-        false, // Key is not extractable
+        false,
         ["encrypt", "decrypt"]
     );
 }
@@ -98,16 +98,21 @@ function base64ToBuffer(base64: string): Uint8Array {
     return bytes;
 }
 
+// Prefix in the plaintext allows verifying decryption without a static known string.
+// The rest of the bytes are random so the full plaintext is never predictable.
+const VERIFIER_PREFIX = "VAULTOK:"
+
 export async function createKeyVerifier(key: CryptoKey): Promise<{ encrypted: string; iv: string }> {
-    return encryptData(key, "VERIFICATION_TOKEN");
+    const random = bufferToBase64(window.crypto.getRandomValues(new Uint8Array(24)))
+    return encryptData(key, VERIFIER_PREFIX + random)
 }
 
 export async function verifyKey(key: CryptoKey, encrypted: string, iv: string): Promise<boolean> {
     try {
-        const decrypted = await decryptData(key, encrypted, iv);
-        return decrypted === "VERIFICATION_TOKEN";
+        const decrypted = await decryptData(key, encrypted, iv)
+        return decrypted.startsWith(VERIFIER_PREFIX) || decrypted === "VERIFICATION_TOKEN"
     } catch {
-        return false;
+        return false
     }
 }
 
