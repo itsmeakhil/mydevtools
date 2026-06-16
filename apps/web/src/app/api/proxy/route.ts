@@ -137,6 +137,10 @@ export async function POST(req: NextRequest) {
 
         const startTime = performance.now()
 
+        const PROXY_TIMEOUT_MS = 30_000
+        const proxyController = new AbortController()
+        const proxyTimeout = setTimeout(() => proxyController.abort(), PROXY_TIMEOUT_MS)
+
         const requestHeaders = { ...(headers || {}) } as Record<string, string>
 
         // ── Cookie forwarding: ONLY forward cookies to the trusted backend ───
@@ -175,7 +179,8 @@ export async function POST(req: NextRequest) {
             method,
             headers: requestHeaders,
             body: requestBody,
-        })
+            signal: proxyController.signal,
+        }).finally(() => clearTimeout(proxyTimeout))
 
         const endTime = performance.now()
         const time = Math.round(endTime - startTime)

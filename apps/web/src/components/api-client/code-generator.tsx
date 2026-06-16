@@ -71,6 +71,7 @@ export function CodeGenerator({ request }: CodeGeneratorProps) {
                             <SelectContent>
                                 <SelectItem value="curl">{t("languageCurl")}</SelectItem>
                                 <SelectItem value="javascript">{t("languageJavaScript")}</SelectItem>
+                                <SelectItem value="typescript">TypeScript</SelectItem>
                                 <SelectItem value="python">{t("languagePython")}</SelectItem>
                                 <SelectItem value="go">{t("languageGo")}</SelectItem>
                             </SelectContent>

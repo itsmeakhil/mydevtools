@@ -7,10 +7,50 @@ import { ApiResponse, API_CLIENT_ERROR_STATUS_TEXT } from "./types"
 import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { CheckCircle2, AlertCircle, Copy, Download, Search, Info, Clock, Database } from "lucide-react"
+import { CheckCircle2, AlertCircle, Copy, Download, Search, Info, Clock, Database, Cookie } from "lucide-react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import type { editor } from "monaco-editor"
+
+interface ParsedCookie {
+    name: string
+    value: string
+    path?: string
+    domain?: string
+    expires?: string
+    maxAge?: string
+    httpOnly?: boolean
+    secure?: boolean
+    sameSite?: string
+}
+
+function parseSetCookieHeaders(headers: Record<string, string>): ParsedCookie[] {
+    const raw = Object.entries(headers).find(([k]) => k.toLowerCase() === "set-cookie")?.[1]
+    if (!raw) return []
+    // Multiple Set-Cookie headers are joined with ", " by the Fetch Headers API.
+    // Split on ", " followed by a token that looks like "name=" to separate cookies.
+    const cookieStrings = raw.split(/,(?=\s*[A-Za-z0-9_\-]+=)/g)
+    return cookieStrings.flatMap(str => {
+        const parts = str.split(";").map(s => s.trim())
+        const nameValue = parts[0] ?? ""
+        const eqIdx = nameValue.indexOf("=")
+        const name = eqIdx >= 0 ? nameValue.slice(0, eqIdx).trim() : nameValue.trim()
+        const value = eqIdx >= 0 ? nameValue.slice(eqIdx + 1) : ""
+        if (!name) return []
+        const cookie: ParsedCookie = { name, value }
+        parts.slice(1).forEach(attr => {
+            const lower = attr.toLowerCase()
+            if (lower === "httponly") { cookie.httpOnly = true }
+            else if (lower === "secure") { cookie.secure = true }
+            else if (lower.startsWith("path=")) { cookie.path = attr.slice(5) }
+            else if (lower.startsWith("domain=")) { cookie.domain = attr.slice(7) }
+            else if (lower.startsWith("expires=")) { cookie.expires = attr.slice(8) }
+            else if (lower.startsWith("max-age=")) { cookie.maxAge = attr.slice(8) }
+            else if (lower.startsWith("samesite=")) { cookie.sameSite = attr.slice(9) }
+        })
+        return [cookie]
+    })
+}
 
 function normalizeContentType(headers: Record<string, string>): string {
     const raw =
@@ -83,9 +123,17 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
 
     const handleDownload = () => {
         if (!response?.body) return
-        const blob = new Blob([response.body], {
-            type: contentType || (isHtmlResponse ? "text/html" : "text/plain"),
-        })
+        let blob: Blob
+        if (response.isBase64) {
+            const binary = atob(response.body)
+            const bytes = new Uint8Array(binary.length)
+            for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i)
+            blob = new Blob([bytes], { type: contentType || "application/octet-stream" })
+        } else {
+            blob = new Blob([response.body], {
+                type: contentType || (isHtmlResponse ? "text/html" : "text/plain"),
+            })
+        }
         const url = URL.createObjectURL(blob)
         const a = document.createElement("a")
         a.href = url
@@ -128,6 +176,7 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
         )
     }
 
+    const cookies = parseSetCookieHeaders(response.headers)
     const hasPreview = response.isBase64 || isHtmlResponse
     const defaultTab =
         (isHtmlResponse && !response.isBase64) ||
@@ -153,6 +202,13 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
                         <TabsTrigger value="body" className="px-4">{t("bodyTab")}</TabsTrigger>
                         {hasPreview && <TabsTrigger value="preview" className="px-4">{t("previewTab")}</TabsTrigger>}
                         <TabsTrigger value="headers" className="px-4">{t("headersTab")}</TabsTrigger>
+                        {cookies.length > 0 && (
+                            <TabsTrigger value="cookies" className="px-4 flex items-center gap-1.5">
+                                <Cookie className="h-3.5 w-3.5" />
+                                Cookies
+                                <span className="text-[10px] bg-primary/10 text-primary px-1 rounded">{cookies.length}</span>
+                            </TabsTrigger>
+                        )}
                     </TabsList>
                     <div className="ml-auto flex items-center flex-wrap justify-end gap-2">
                         <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border bg-background/80">
@@ -222,6 +278,31 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
                             </div>
                         </ScrollArea>
                     </TabsContent>
+                    {cookies.length > 0 && (
+                        <TabsContent value="cookies" className="mt-0 h-full absolute inset-0">
+                            <ScrollArea className="h-full">
+                                <div className="p-4 space-y-3">
+                                    {cookies.map((cookie, i) => (
+                                        <div key={i} className="border rounded-lg p-3 bg-muted/20 space-y-2">
+                                            <div className="flex items-center gap-2 flex-wrap">
+                                                <span className="text-xs font-bold text-foreground">{cookie.name}</span>
+                                                <span className="text-xs font-mono text-muted-foreground break-all">{cookie.value}</span>
+                                            </div>
+                                            <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-muted-foreground">
+                                                {cookie.path && <span>Path: <code className="font-mono">{cookie.path}</code></span>}
+                                                {cookie.domain && <span>Domain: <code className="font-mono">{cookie.domain}</code></span>}
+                                                {cookie.expires && <span>Expires: {cookie.expires}</span>}
+                                                {cookie.maxAge && <span>Max-Age: {cookie.maxAge}s</span>}
+                                                {cookie.sameSite && <span>SameSite: {cookie.sameSite}</span>}
+                                                {cookie.httpOnly && <span className="text-amber-600 font-medium">HttpOnly</span>}
+                                                {cookie.secure && <span className="text-emerald-600 font-medium">Secure</span>}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </ScrollArea>
+                        </TabsContent>
+                    )}
                 </div>
             </Tabs>
         </div>

@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { X, Plus } from "lucide-react"
+import { X, Plus, Copy } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
@@ -18,6 +18,7 @@ interface TabBarProps {
     onTabAdd: () => void
     onTabRename?: (id: string, name: string) => void
     onTabReorder?: (reordered: ApiRequestState[]) => void
+    onTabDuplicate?: (id: string) => void
 }
 
 const getMethodColor = (method: string) => {
@@ -39,6 +40,7 @@ export function TabBar({
     onTabAdd,
     onTabRename,
     onTabReorder,
+    onTabDuplicate,
 }: TabBarProps) {
     const t = useTranslations("ApiClient")
     const tTab = useTranslations("ApiClient.tabBar")
@@ -162,6 +164,18 @@ export function TabBar({
                                     </span>
                                 )}
 
+                                {onTabDuplicate && (
+                                    <button
+                                        className="flex items-center justify-center h-4 w-4 rounded-full transition-all opacity-0 group-hover:opacity-100 hover:bg-muted text-muted-foreground hover:text-foreground"
+                                        onClick={(e) => {
+                                            e.stopPropagation()
+                                            onTabDuplicate(tab.id)
+                                        }}
+                                        title="Duplicate tab"
+                                    >
+                                        <Copy className="h-2.5 w-2.5" />
+                                    </button>
+                                )}
                                 <button
                                     className={cn(
                                         "flex items-center justify-center h-4 w-4 rounded-full transition-all",

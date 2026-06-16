@@ -1,8 +1,4 @@
 import { UrlShortenerTool } from '@/components/url-shortener/url-shortener-tool'
-import { generateToolMetadata } from '@/lib/metadata'
-
-export const metadata = generateToolMetadata('url-shortener')
-
 export default function UrlShortenerPage() {
     return (
         <div className="h-full w-full min-h-0 overflow-y-auto p-2 md:p-4">

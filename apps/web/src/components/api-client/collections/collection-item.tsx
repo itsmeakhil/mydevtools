@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ChevronRight, ChevronDown, Folder, FileCode, MoreHorizontal, Trash2, FolderPlus } from "lucide-react"
+import { ChevronRight, ChevronDown, Folder, MoreHorizontal, Trash2, FolderPlus, Pencil } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { CollectionFolder, CollectionRequest } from "../types"
 import {
@@ -21,6 +21,7 @@ interface CollectionItemProps {
     onDelete: (id: string) => void
     onAddFolder: (parentId: string) => void
     onLoadRequest: (request: CollectionRequest) => void
+    onRenameFolder?: (folderId: string, newName: string) => void
 }
 
 export function CollectionItem({
@@ -30,11 +31,30 @@ export function CollectionItem({
     onDelete,
     onAddFolder,
     onLoadRequest,
+    onRenameFolder,
 }: CollectionItemProps) {
     const t = useTranslations("ApiClient.collectionItem")
     const tRoot = useTranslations("ApiClient")
     const isFolder = "type" in item && item.type === "folder"
     const paddingLeft = `${level * 12 + 12}px`
+
+    const [isRenaming, setIsRenaming] = React.useState(false)
+    const [renameValue, setRenameValue] = React.useState("")
+    const renameInputRef = React.useRef<HTMLInputElement>(null)
+
+    const startRename = () => {
+        setRenameValue(item.name)
+        setIsRenaming(true)
+        setTimeout(() => renameInputRef.current?.select(), 0)
+    }
+
+    const commitRename = () => {
+        const trimmed = renameValue.trim()
+        if (trimmed && trimmed !== item.name && onRenameFolder) {
+            onRenameFolder(item.id, trimmed)
+        }
+        setIsRenaming(false)
+    }
 
     return (
         <div>
@@ -45,6 +65,7 @@ export function CollectionItem({
                 )}
                 style={{ paddingLeft }}
                 onClick={() => {
+                    if (isRenaming) return
                     if (isFolder) {
                         onToggle(item.id)
                     } else {
@@ -60,7 +81,23 @@ export function CollectionItem({
                             <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground/70" />
                         )}
                         <Folder className="h-4 w-4 shrink-0 text-blue-500 fill-blue-500/20" />
-                        <span className="truncate font-medium text-xs text-foreground/90">{item.name}</span>
+                        {isRenaming ? (
+                            <input
+                                ref={renameInputRef}
+                                className="flex-1 text-xs bg-transparent border-b border-primary outline-none min-w-0 text-foreground"
+                                value={renameValue}
+                                onChange={(e) => setRenameValue(e.target.value)}
+                                onBlur={commitRename}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") commitRename()
+                                    if (e.key === "Escape") setIsRenaming(false)
+                                    e.stopPropagation()
+                                }}
+                                onClick={(e) => e.stopPropagation()}
+                            />
+                        ) : (
+                            <span className="truncate font-medium text-xs text-foreground/90">{item.name}</span>
+                        )}
                     </div>
                 ) : (
                     <div className="flex items-center gap-2.5 flex-1 min-w-0">
@@ -94,13 +131,24 @@ export function CollectionItem({
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="w-40 rounded-xl">
                         {isFolder && (
-                            <DropdownMenuItem onClick={(e) => {
-                                e.stopPropagation()
-                                onAddFolder(item.id)
-                            }}>
-                                <FolderPlus className="h-4 w-4 mr-2" />
-                                {t("newFolder")}
-                            </DropdownMenuItem>
+                            <>
+                                <DropdownMenuItem onClick={(e) => {
+                                    e.stopPropagation()
+                                    onAddFolder(item.id)
+                                }}>
+                                    <FolderPlus className="h-4 w-4 mr-2" />
+                                    {t("newFolder")}
+                                </DropdownMenuItem>
+                                {onRenameFolder && (
+                                    <DropdownMenuItem onClick={(e) => {
+                                        e.stopPropagation()
+                                        startRename()
+                                    }}>
+                                        <Pencil className="h-4 w-4 mr-2" />
+                                        Rename
+                                    </DropdownMenuItem>
+                                )}
+                            </>
                         )}
                         <DropdownMenuItem
                             className="text-destructive focus:text-destructive"
@@ -118,9 +166,9 @@ export function CollectionItem({
 
             {isFolder && (item as CollectionFolder).isOpen && (
                 <div className="relative">
-                    <div 
-                        className="absolute left-0 top-0 bottom-0 w-px bg-border/50" 
-                        style={{ marginLeft: `${Number(paddingLeft.replace('px','')) + 6}px` }} 
+                    <div
+                        className="absolute left-0 top-0 bottom-0 w-px bg-border/50"
+                        style={{ marginLeft: `${Number(paddingLeft.replace('px','')) + 6}px` }}
                     />
                     <div className="py-0.5">
                         {(item as CollectionFolder).items.map((child) => (
@@ -132,6 +180,7 @@ export function CollectionItem({
                                 onDelete={onDelete}
                                 onAddFolder={onAddFolder}
                                 onLoadRequest={onLoadRequest}
+                                onRenameFolder={onRenameFolder}
                             />
                         ))}
                         {(item as CollectionFolder).items.length === 0 && (

@@ -135,6 +135,13 @@ export function useEnvironments() {
         }
     }, [])
 
+    // Clear activeEnvId if the env no longer exists (deleted on another device)
+    React.useEffect(() => {
+        if (isLoading || !activeEnvId) return
+        const exists = environments.some(e => e.id === activeEnvId)
+        if (!exists) setActiveEnvId(null)
+    }, [environments, isLoading, activeEnvId])
+
     // Persist active env to local storage
     React.useEffect(() => {
         try {

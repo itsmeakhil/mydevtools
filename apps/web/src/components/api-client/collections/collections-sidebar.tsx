@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collection, CollectionFolder, CollectionRequest, HistoryRequest } from "../types"
 import { CollectionItem } from "./collection-item"
-import { FolderPlus, ChevronRight, ChevronLeft, Trash2, Pencil, MoreHorizontal, Search, X, Loader2 } from "lucide-react"
+import { FolderPlus, Trash2, Pencil, MoreHorizontal, Search, X, Loader2 } from "lucide-react"
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
@@ -31,12 +31,14 @@ import { getApiClientRequestDisplayName } from "../display-name"
 
 interface CollectionsSidebarProps {
     collections: Collection[]
+    isLoading?: boolean
     onAddFolder: (parentId: string, name: string) => void
     onDelete: (id: string) => void
     onToggle: (id: string) => void
     onLoadRequest: (request: CollectionRequest) => void
     onCreateCollection: (name: string) => void
     onRenameCollection: (id: string, name: string) => void
+    onRenameFolder?: (folderId: string, newName: string) => void
     history?: HistoryRequest[]
     onClearHistory?: () => void
     onDeleteHistoryItem?: (id: string) => void
@@ -44,19 +46,20 @@ interface CollectionsSidebarProps {
 
 export function CollectionsSidebar({
     collections,
+    isLoading,
     onAddFolder,
     onDelete,
     onToggle,
     onLoadRequest,
     onCreateCollection,
     onRenameCollection,
+    onRenameFolder,
     history,
     onClearHistory,
     onDeleteHistoryItem,
 }: CollectionsSidebarProps) {
     const t = useTranslations("ApiClient.collectionsSidebar")
     const tRoot = useTranslations("ApiClient")
-    const [collapsed, setCollapsed] = React.useState(false)
     const [historySearch, setHistorySearch] = React.useState("")
 
     const filteredHistory = React.useMemo(() => {
@@ -149,7 +152,11 @@ export function CollectionsSidebar({
                 <TabsContent value="collections" className="flex-1 flex flex-col min-h-0 m-0 data-[state=inactive]:hidden outline-none">
                     <ScrollArea className="flex-1">
                         <div className="p-3">
-                            {collections.length === 0 ? (
+                            {isLoading ? (
+                                <div className="flex items-center justify-center p-8">
+                                    <Loader2 className="h-5 w-5 animate-spin text-muted-foreground/50" />
+                                </div>
+                            ) : collections.length === 0 ? (
                                 <div className="flex flex-col items-center justify-center p-8 text-center border border-dashed rounded-xl bg-muted/30 mx-2 mt-4">
                                     <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-3">
                                         <FolderPlus className="h-5 w-5 text-primary" />
@@ -215,6 +222,7 @@ export function CollectionsSidebar({
                                                     onDelete={onDelete}
                                                     onAddFolder={openAddFolderDialog}
                                                     onLoadRequest={onLoadRequest}
+                                                    onRenameFolder={onRenameFolder}
                                                 />
                                             ))}
                                             {collection.items.length === 0 && (
@@ -305,7 +313,9 @@ export function CollectionsSidebar({
                                             {item.status && (
                                                 <span className={cn(
                                                     "font-medium",
-                                                    item.status >= 200 && item.status < 300 ? "text-green-500" : "text-destructive"
+                                                    item.status >= 200 && item.status < 300 ? "text-green-500"
+                                                        : item.status >= 300 && item.status < 400 ? "text-amber-500"
+                                                        : "text-destructive"
                                                 )}>
                                                     {item.status}
                                                 </span>

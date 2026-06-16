@@ -80,7 +80,7 @@ export function ApiClient() {
     const [activeTabId, setActiveTabId] = React.useState<string>(tabs[0].id)
     const [isInitialized, setIsInitialized] = React.useState(false)
     const abortControllerRef = React.useRef<AbortController | null>(null)
-    const { collections, addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection } = useCollections()
+    const { collections, addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, isLoading: collectionsLoading } = useCollections()
     const { history, addHistoryItem, clearHistory, deleteHistoryItem } = useHistory()
     const {
         environments,
@@ -125,7 +125,7 @@ export function ApiClient() {
     // Keyboard shortcuts
     React.useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            const isMac = navigator.platform.toUpperCase().includes("MAC")
+            const isMac = /Mac|iPhone|iPad/i.test(navigator.userAgent)
             const mod = isMac ? e.metaKey : e.ctrlKey
 
             if (mod && e.key === "t") {
@@ -216,17 +216,38 @@ export function ApiClient() {
 
     const handleCloseTab = (id: string) => {
         if (tabs.length === 1) {
-            // Don't close the last tab, just reset it
-            setTabs([createNewTab()])
+            const newTab = createNewTab()
+            setTabs([newTab])
+            setActiveTabId(newTab.id)
             return
         }
 
+        const closedIdx = tabs.findIndex((t) => t.id === id)
         const newTabs = tabs.filter((t) => t.id !== id)
         setTabs(newTabs)
 
         if (activeTabId === id) {
-            setActiveTabId(newTabs[newTabs.length - 1].id)
+            const nextIdx = Math.min(closedIdx, newTabs.length - 1)
+            setActiveTabId(newTabs[nextIdx]!.id)
         }
+    }
+
+    const handleDuplicateTab = (id: string) => {
+        const source = tabs.find((t) => t.id === id)
+        if (!source) return
+        const newTab: ApiRequestState = {
+            ...source,
+            id: crypto.randomUUID(),
+            response: null,
+            isLoading: false,
+        }
+        const sourceIdx = tabs.findIndex((t) => t.id === id)
+        setTabs((prev) => {
+            const next = [...prev]
+            next.splice(sourceIdx + 1, 0, newTab)
+            return next
+        })
+        setActiveTabId(newTab.id)
     }
 
     const replaceUrlWithEnvBaseUrl = React.useCallback((url: string | undefined) => {
@@ -540,6 +561,7 @@ export function ApiClient() {
                                 <div className="px-4 h-full overflow-hidden">
                                     <CollectionsSidebar
                                         collections={collections}
+                                        isLoading={collectionsLoading}
                                         onAddFolder={addFolder}
                                         onDelete={deleteItem}
                                         onToggle={toggleFolder}
@@ -549,6 +571,7 @@ export function ApiClient() {
                                         }}
                                         onCreateCollection={createCollection}
                                         onRenameCollection={renameCollection}
+                                        onRenameFolder={renameFolder}
                                         history={history}
                                         onClearHistory={clearHistory}
                                         onDeleteHistoryItem={deleteHistoryItem}
@@ -595,6 +618,7 @@ export function ApiClient() {
                         onTabAdd={handleAddTab}
                         onTabRename={handleTabRename}
                         onTabReorder={handleTabReorder}
+                        onTabDuplicate={handleDuplicateTab}
                     />
 
                     {/* Mobile Request/Response tab switcher */}
@@ -728,12 +752,14 @@ export function ApiClient() {
                 >
                     <CollectionsSidebar
                         collections={collections}
+                        isLoading={collectionsLoading}
                         onAddFolder={addFolder}
                         onDelete={deleteItem}
                         onToggle={toggleFolder}
                         onLoadRequest={handleLoadRequest}
                         onCreateCollection={createCollection}
                         onRenameCollection={renameCollection}
+                        onRenameFolder={renameFolder}
                         history={history}
                         onClearHistory={clearHistory}
                         onDeleteHistoryItem={deleteHistoryItem}

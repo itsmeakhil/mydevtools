@@ -243,6 +243,27 @@ export function useCollections() {
         }
     }
 
+    const renameFolder = async (folderId: string, name: string) => {
+        if (!user) return
+
+        const targetCollection = collections.find(c => findItemInCollection(c.items, folderId))
+        if (!targetCollection) return
+
+        const updatedItems = renameFolderInItems(targetCollection.items, folderId, name)
+
+        try {
+            const res = await authedFetch(`/api/backend/api-client/collections/${targetCollection.id}`, {
+                method: "PATCH",
+                body: JSON.stringify({ items: updatedItems }),
+            })
+            const updated = (await res.json()) as Collection
+            setCollections((prev) => sortCollections(prev.map((c) => (c.id === updated.id ? updated : c))))
+        } catch (e) {
+            console.error("Error renaming folder", e)
+            toast.error("Failed to rename folder")
+        }
+    }
+
     // Helper functions
     const findItemInCollection = (items: (CollectionFolder | CollectionRequest)[], targetId: string): boolean => {
         for (const item of items) {
@@ -282,6 +303,20 @@ export function useCollections() {
                 }
                 return item
             })
+    }
+
+    const renameFolderInItems = (
+        items: (CollectionFolder | CollectionRequest)[],
+        folderId: string,
+        name: string
+    ): (CollectionFolder | CollectionRequest)[] => {
+        return items.map((item) => {
+            if ("type" in item && item.type === "folder") {
+                if (item.id === folderId) return { ...item, name }
+                return { ...item, items: renameFolderInItems(item.items, folderId, name) }
+            }
+            return item
+        })
     }
 
     const toggleInItems = (
@@ -340,6 +375,7 @@ export function useCollections() {
         toggleFolder,
         createCollection,
         renameCollection,
+        renameFolder,
         isLoading
     }
 }
