@@ -112,14 +112,17 @@ export function UrlShortenerTool() {
             <ShortenForm
                 isAuthenticated={!!user}
                 onCreated={handleCreated}
+                shortBase={shortBase}
             />
 
-            {/* Stats strip */}
-            <StatsStrip
-                totalLinks={links.length}
-                activeCount={activeCount}
-                totalClicks={totalClicks}
-            />
+            {/* Stats strip — only shown when no filter/search is active */}
+            {!search && statusFilter === 'all' && (
+                <StatsStrip
+                    totalLinks={links.length}
+                    activeCount={activeCount}
+                    totalClicks={totalClicks}
+                />
+            )}
 
             {/* Search / Filter / Sort toolbar */}
             <SearchFilterBar

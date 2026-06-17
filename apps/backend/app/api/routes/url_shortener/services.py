@@ -1,3 +1,4 @@
+import asyncio
 import re
 import secrets
 import string
@@ -96,9 +97,9 @@ def _parse_ua(ua: str) -> tuple[str, str, str]:
     """Returns (device, os_name, browser) from a User-Agent string."""
     u = ua.lower()
 
-    if "ipad" in u or "tablet" in u:
+    if "ipad" in u or ("tablet" in u) or ("android" in u and "mobile" not in u):
         device = "Tablet"
-    elif "mobile" in u or ("android" in u and "mobile" in u):
+    elif "mobile" in u:
         device = "Mobile"
     else:
         device = "Desktop"
@@ -246,42 +247,46 @@ async def get_analytics(uid: str, code: str, days: int = 30) -> LinkAnalytics:
 
     base_match: dict[str, Any] = {"code": code, "ts": {"$gte": since}}
 
-    # Daily clicks grouped by UTC date string
-    daily_raw = await events_col.aggregate([
-        {"$match": base_match},
-        {"$group": {
-            "_id": {"$dateToString": {"format": "%Y-%m-%d", "date": {"$toDate": "$ts"}}},
-            "clicks": {"$sum": 1},
-        }},
-        {"$sort": {"_id": 1}},
-    ]).to_list(None)
-
-    referrers_raw = await events_col.aggregate([
-        {"$match": base_match},
-        {"$group": {"_id": "$referrer", "clicks": {"$sum": 1}}},
-        {"$sort": {"clicks": -1}},
-        {"$limit": 10},
-    ]).to_list(None)
-
-    devices_raw = await events_col.aggregate([
-        {"$match": base_match},
-        {"$group": {"_id": "$device", "clicks": {"$sum": 1}}},
-        {"$sort": {"clicks": -1}},
-    ]).to_list(None)
-
-    os_raw = await events_col.aggregate([
-        {"$match": base_match},
-        {"$group": {"_id": "$os", "clicks": {"$sum": 1}}},
-        {"$sort": {"clicks": -1}},
-        {"$limit": 8},
-    ]).to_list(None)
-
-    browsers_raw = await events_col.aggregate([
-        {"$match": base_match},
-        {"$group": {"_id": "$browser", "clicks": {"$sum": 1}}},
-        {"$sort": {"clicks": -1}},
-        {"$limit": 8},
-    ]).to_list(None)
+    # Daily clicks grouped by UTC date string — all 5 queries run concurrently
+    (
+        daily_raw,
+        referrers_raw,
+        devices_raw,
+        os_raw,
+        browsers_raw,
+    ) = await asyncio.gather(
+        events_col.aggregate([
+            {"$match": base_match},
+            {"$group": {
+                "_id": {"$dateToString": {"format": "%Y-%m-%d", "date": {"$toDate": "$ts"}}},
+                "clicks": {"$sum": 1},
+            }},
+            {"$sort": {"_id": 1}},
+        ]).to_list(None),
+        events_col.aggregate([
+            {"$match": base_match},
+            {"$group": {"_id": "$referrer", "clicks": {"$sum": 1}}},
+            {"$sort": {"clicks": -1}},
+            {"$limit": 10},
+        ]).to_list(None),
+        events_col.aggregate([
+            {"$match": base_match},
+            {"$group": {"_id": "$device", "clicks": {"$sum": 1}}},
+            {"$sort": {"clicks": -1}},
+        ]).to_list(None),
+        events_col.aggregate([
+            {"$match": base_match},
+            {"$group": {"_id": "$os", "clicks": {"$sum": 1}}},
+            {"$sort": {"clicks": -1}},
+            {"$limit": 8},
+        ]).to_list(None),
+        events_col.aggregate([
+            {"$match": base_match},
+            {"$group": {"_id": "$browser", "clicks": {"$sum": 1}}},
+            {"$sort": {"clicks": -1}},
+            {"$limit": 8},
+        ]).to_list(None),
+    )
 
     return LinkAnalytics(
         total_clicks=int(doc.get("clicks", 0)),

@@ -47,6 +47,6 @@ export async function GET(
 
         return NextResponse.redirect(original_url, { status: 302 })
     } catch {
-        return NextResponse.redirect(`${origin}/`, { status: 302 })
+        return NextResponse.redirect(`${origin}/not-found`, { status: 302 })
     }
 }
