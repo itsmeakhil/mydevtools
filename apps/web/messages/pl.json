@@ -973,6 +973,7 @@
       "foldersHeading": "Folders",
       "tagsHeading": "Tags",
       "tagsMore": "+{count} more",
+      "tagsShowLess": "Show less",
       "searchPlaceholder": "Search your bookmarks...",
       "import": "Import",
       "export": "Export",

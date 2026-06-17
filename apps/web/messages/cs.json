@@ -973,6 +973,7 @@
       "foldersHeading": "Složky",
       "tagsHeading": "Štítky",
       "tagsMore": "+{count} dalších",
+      "tagsShowLess": "Show less",
       "searchPlaceholder": "Hledat v záložkách...",
       "import": "Import",
       "export": "Export",

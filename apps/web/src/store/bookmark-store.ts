@@ -424,24 +424,13 @@ export const useBookmarkStore = create<BookmarkStore>()(
                     folders: state.folders.map((f) => (f.id === id ? { ...f, isExpanded: nextExpanded } : f)),
                 }))
 
-                void (async () => {
-                    try {
-                        const updated = await proxyRequest<BookmarkFolderOut>(
-                            "PATCH",
-                            `/api/v1/bookmark-folders/${id}/expanded`,
-                            { isExpanded: nextExpanded }
-                        )
-                        set((state) => ({
-                            folders: state.folders.map((f) => (f.id === updated.id ? mapFolderOut(updated) : f)),
-                        }))
-                    } catch (e) {
-                        console.error("[Bookmarks] toggleFolderExpanded failed:", e)
-                        if (syncTimer) clearTimeout(syncTimer)
-                        syncTimer = setTimeout(() => {
-                            void get().syncFromBackend(true)
-                        }, 500)
-                    }
-                })()
+                void proxyRequest<BookmarkFolderOut>(
+                    "PATCH",
+                    `/api/v1/bookmark-folders/${id}/expanded`,
+                    { isExpanded: nextExpanded }
+                ).catch((e) => {
+                    console.error("[Bookmarks] toggleFolderExpanded failed:", e)
+                })
             },
 
             // UI actions
@@ -528,13 +517,19 @@ export const useFilteredBookmarks = () => {
         }
 
         if (searchQuery) {
-            const query = searchQuery.toLowerCase()
-            const matchesTitle = bookmark.title.toLowerCase().includes(query)
-            const matchesUrl = bookmark.url.toLowerCase().includes(query)
-            const matchesDescription = bookmark.description?.toLowerCase().includes(query)
+            const raw = searchQuery.toLowerCase()
+            const isTagSearch = raw.startsWith('#')
+            const query = isTagSearch ? raw.slice(1) : raw
             const matchesTags = bookmark.tags.some(tag => tag.toLowerCase().includes(query))
-            if (!matchesTitle && !matchesUrl && !matchesDescription && !matchesTags) {
-                return false
+            if (isTagSearch) {
+                if (!matchesTags) return false
+            } else {
+                const matchesTitle = bookmark.title.toLowerCase().includes(query)
+                const matchesUrl = bookmark.url.toLowerCase().includes(query)
+                const matchesDescription = bookmark.description?.toLowerCase().includes(query)
+                if (!matchesTitle && !matchesUrl && !matchesDescription && !matchesTags) {
+                    return false
+                }
             }
         }
 

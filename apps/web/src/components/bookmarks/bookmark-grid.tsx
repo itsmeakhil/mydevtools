@@ -6,6 +6,7 @@ import { motion } from "framer-motion"
 import { IconBookmarkOff } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
+import { useIsMobile } from "@/components/hooks/use-mobile"
 
 interface BookmarkGridProps {
     bookmarks: Bookmark[]
@@ -14,6 +15,7 @@ interface BookmarkGridProps {
     selectionMode: boolean
     selectedBookmarkIds: Set<string>
     onToggleSelect: (id: string) => void
+    onTagClick?: (tag: string) => void
 }
 
 export default function BookmarkGrid({
@@ -22,9 +24,11 @@ export default function BookmarkGrid({
     onEdit,
     selectionMode,
     selectedBookmarkIds,
-    onToggleSelect
+    onToggleSelect,
+    onTagClick,
 }: BookmarkGridProps) {
     const tEmpty = useTranslations("Bookmarks.grid")
+    const isMobile = useIsMobile()
 
     if (bookmarks.length === 0) {
         return (
@@ -62,6 +66,8 @@ export default function BookmarkGrid({
                     selectionMode={selectionMode}
                     isSelected={selectedBookmarkIds.has(bookmark.id)}
                     onToggleSelect={onToggleSelect}
+                    isMobile={isMobile}
+                    onTagClick={onTagClick}
                 />
             ))}
         </div>

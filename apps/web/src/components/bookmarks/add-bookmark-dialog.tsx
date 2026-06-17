@@ -1,9 +1,9 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useMemo } from "react"
 import { IconLink, IconTag, IconFolder, IconX, IconLoader2 } from "@tabler/icons-react"
 import { useBookmarkStore, Bookmark, useAllTags } from "@/store/bookmark-store"
-import { getFaviconUrl, normalizeUrl, isValidUrl } from "@/lib/favicon-utils"
+import { normalizeUrl, isValidUrl } from "@/lib/favicon-utils"
 import {
     Dialog,
     DialogContent,
@@ -81,17 +81,7 @@ export default function AddBookmarkDialog({ open, onOpenChange, editingId }: Add
         setUrlError("")
         setUrl(normalizedUrl)
 
-        // Auto-fill title if empty
-        if (!title) {
-            try {
-                // Try to extract domain as title
-                const urlObj = new URL(normalizedUrl)
-                const domain = urlObj.hostname.replace(/^www\./, '')
-                setTitle(domain.charAt(0).toUpperCase() + domain.slice(1))
-            } catch {
-                // Ignore errors
-            }
-        }
+        // Leave title empty — domain fallback produces low-quality titles
     }, [url, title, t])
 
     const handleAddTag = useCallback(() => {
@@ -126,12 +116,22 @@ export default function AddBookmarkDialog({ open, onOpenChange, editingId }: Add
             return
         }
 
+        if (!editingId) {
+            const duplicate = bookmarks.find(b => b.url === normalizedUrl)
+            if (duplicate) {
+                toast.error(`Already saved as "${duplicate.title}"`)
+                return
+            }
+        }
+
+        setIsLoading(true)
+
         const bookmarkData: Bookmark = {
-            id: editingId || `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+            id: editingId || `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
             url: normalizedUrl,
             title: title.trim(),
             description: description.trim() || undefined,
-            favicon: getFaviconUrl(normalizedUrl),
+            favicon: undefined,
             folderId: folderId === "none" ? null : folderId,
             tags,
             createdAt: editingId ? bookmarks.find(b => b.id === editingId)?.createdAt || Date.now() : Date.now(),
@@ -146,26 +146,21 @@ export default function AddBookmarkDialog({ open, onOpenChange, editingId }: Add
             toast.success(t("toastAdded"))
         }
 
+        setIsLoading(false)
         onOpenChange(false)
     }, [url, title, description, folderId, tags, editingId, bookmarks, addBookmark, updateBookmark, onOpenChange, t])
 
-    // Build folder options with hierarchy
-    const buildFolderOptions = useCallback(() => {
+    const folderOptions = useMemo(() => {
         const options: { id: string; name: string; depth: number }[] = []
-
         const addFolder = (parentId: string | null, depth: number) => {
-            const children = folders.filter(f => f.parentId === parentId)
-            for (const folder of children) {
+            for (const folder of folders.filter(f => f.parentId === parentId)) {
                 options.push({ id: folder.id, name: folder.name, depth })
                 addFolder(folder.id, depth + 1)
             }
         }
-
         addFolder(null, 0)
         return options
     }, [folders])
-
-    const folderOptions = buildFolderOptions()
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
@@ -227,7 +222,7 @@ export default function AddBookmarkDialog({ open, onOpenChange, editingId }: Add
                                 <IconFolder className="h-4 w-4 mr-2 text-muted-foreground" />
                                 <SelectValue placeholder={t("folderPlaceholder")} />
                             </SelectTrigger>
-                            <SelectContent>
+                            <SelectContent className="max-h-60 overflow-y-auto">
                                 <SelectItem value="none">
                                     {t("noFolder")}
                                 </SelectItem>

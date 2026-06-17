@@ -973,6 +973,7 @@
       "foldersHeading": "Mappar",
       "tagsHeading": "Taggar",
       "tagsMore": "+{count} fler",
+      "tagsShowLess": "Show less",
       "searchPlaceholder": "Sök bland dina bokmärken...",
       "import": "Importera",
       "export": "Exportera",

@@ -11,7 +11,7 @@ import {
     IconTag,
     IconFolder
 } from "@tabler/icons-react"
-import { Bookmark, useBookmarkStore, useFolderById } from "@/store/bookmark-store"
+import { Bookmark, useBookmarkStore } from "@/store/bookmark-store"
 import { getFaviconUrl, getDomainFromUrl } from "@/lib/favicon-utils"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -36,7 +36,6 @@ import {
 import { toast } from "sonner"
 import { useTranslations } from "next-intl"
 
-import { useIsMobile } from "@/components/hooks/use-mobile"
 import { Checkbox } from "@/components/ui/checkbox"
 
 interface BookmarkCardProps {
@@ -47,6 +46,8 @@ interface BookmarkCardProps {
     selectionMode: boolean
     isSelected: boolean
     onToggleSelect: (id: string) => void
+    isMobile: boolean
+    onTagClick?: (tag: string) => void
 }
 
 export default function BookmarkCard({
@@ -56,17 +57,18 @@ export default function BookmarkCard({
     index,
     selectionMode,
     isSelected,
-    onToggleSelect
+    onToggleSelect,
+    isMobile,
+    onTagClick,
 }: BookmarkCardProps) {
     const t = useTranslations("Bookmarks.card")
-    const { deleteBookmark, folders } = useBookmarkStore()
+    const { deleteBookmark, addBookmark, folders } = useBookmarkStore()
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
     const [imageError, setImageError] = useState(false)
 
     const folder = folders.find(f => f.id === bookmark.folderId)
-    const faviconUrl = bookmark.favicon || getFaviconUrl(bookmark.url)
+    const faviconUrl = getFaviconUrl(bookmark.url)
     const domain = getDomainFromUrl(bookmark.url)
-    const isMobile = useIsMobile()
 
     const handleOpenLink = useCallback(() => {
         window.open(bookmark.url, '_blank', 'noopener,noreferrer')
@@ -78,10 +80,16 @@ export default function BookmarkCard({
     }, [bookmark.url, t])
 
     const handleDelete = useCallback(() => {
+        const snapshot = { ...bookmark }
         deleteBookmark(bookmark.id)
         setDeleteConfirmOpen(false)
-        toast.success(t("bookmarkDeleted"))
-    }, [bookmark.id, deleteBookmark, t])
+        toast.success(t("bookmarkDeleted"), {
+            action: {
+                label: "Undo",
+                onClick: () => addBookmark(snapshot),
+            },
+        })
+    }, [bookmark, deleteBookmark, addBookmark, t])
 
     const handlePrimaryAction = useCallback(() => {
         if (selectionMode) {
@@ -97,7 +105,7 @@ export default function BookmarkCard({
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.2, delay: index * 0.03 }}
+                    transition={{ duration: 0.2, delay: Math.min(index, 6) * 0.03 }}
                     className={cn(
                         "group flex items-center gap-4 p-3 rounded-lg border border-border/50",
                         "hover:border-primary/30 hover:bg-muted/30 transition-all cursor-pointer",
@@ -138,7 +146,12 @@ export default function BookmarkCard({
                     {/* Tags */}
                     <div className="hidden sm:flex items-center gap-1">
                         {bookmark.tags.slice(0, 2).map(tag => (
-                            <Badge key={tag} variant="secondary" className="text-xs">
+                            <Badge
+                                key={tag}
+                                variant="secondary"
+                                className="text-xs cursor-pointer hover:bg-secondary/70"
+                                onClick={(e) => { e.stopPropagation(); onTagClick?.(tag) }}
+                            >
                                 {tag}
                             </Badge>
                         ))}
@@ -217,7 +230,7 @@ export default function BookmarkCard({
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.2, delay: index * 0.03 }}
+                transition={{ duration: 0.2, delay: Math.min(index, 6) * 0.03 }}
                 className={cn(
                     "group relative flex flex-col p-4 rounded-xl border border-border/40",
                     "bg-gradient-to-br from-background via-background to-muted/10",
@@ -318,7 +331,8 @@ export default function BookmarkCard({
                             <Badge
                                 key={tag}
                                 variant="secondary"
-                                className="text-[10px] px-1.5 py-0.5 h-5 font-medium bg-secondary/50 hover:bg-secondary/70 transition-colors"
+                                className="text-[10px] px-1.5 py-0.5 h-5 font-medium bg-secondary/50 hover:bg-secondary/70 transition-colors cursor-pointer"
+                                onClick={(e) => { e.stopPropagation(); onTagClick?.(tag) }}
                             >
                                 {tag}
                             </Badge>

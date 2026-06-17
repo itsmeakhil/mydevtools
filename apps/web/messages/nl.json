@@ -973,6 +973,7 @@
       "foldersHeading": "Mappen",
       "tagsHeading": "Tags",
       "tagsMore": "+{count} meer",
+      "tagsShowLess": "Show less",
       "searchPlaceholder": "Zoek je bladwijzers...",
       "import": "Importeren",
       "export": "Exporteren",

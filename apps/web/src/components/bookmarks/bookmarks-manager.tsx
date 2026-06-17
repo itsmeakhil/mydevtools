@@ -51,6 +51,7 @@ export default function BookmarksManager() {
     const [selectionMode, setSelectionMode] = useState(false)
     const [selectedBookmarkIds, setSelectedBookmarkIds] = useState<Set<string>>(new Set())
     const [sortBy, setSortBy] = useState<"recent" | "alphabetical">("recent")
+    const [showAllTags, setShowAllTags] = useState(false)
     const searchInputRef = useRef<HTMLInputElement>(null)
     const bookmarkScrollRef = useRef<HTMLDivElement>(null)
 
@@ -117,7 +118,7 @@ export default function BookmarksManager() {
         return list
     }, [filteredBookmarks, sortBy])
 
-    const bookmarkScrollResetKey = `${selectedFolderId ?? 'all'}-${searchQuery}-${sortBy}-${viewMode}`
+    const bookmarkScrollResetKey = `${selectedFolderId ?? 'all'}-${searchQuery}-${sortBy}`
     const { displayCount: bmDisplayCount, sentinelRef: bmSentinelRef, hasMore: bmHasMore } = useInfiniteScroll({
         totalCount: displayedBookmarks.length,
         resetKey: bookmarkScrollResetKey,
@@ -255,7 +256,7 @@ export default function BookmarksManager() {
                                     <div className="p-4">
                                         <h3 className="text-sm font-medium text-muted-foreground mb-2">{t("tagsHeading")}</h3>
                                         <div className="flex flex-wrap gap-1">
-                                            {allTags.slice(0, 10).map(tag => (
+                                            {(showAllTags ? allTags : allTags.slice(0, 10)).map(tag => (
                                                 <button
                                                     key={tag}
                                                     onClick={() => setSearchQuery(`#${tag}`)}
@@ -265,9 +266,12 @@ export default function BookmarksManager() {
                                                 </button>
                                             ))}
                                             {allTags.length > 10 && (
-                                                <span className="text-xs text-muted-foreground">
-                                                    {t("tagsMore", { count: allTags.length - 10 })}
-                                                </span>
+                                                <button
+                                                    onClick={() => setShowAllTags(prev => !prev)}
+                                                    className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground hover:bg-muted/80 transition-colors"
+                                                >
+                                                    {showAllTags ? t("tagsShowLess") : t("tagsMore", { count: allTags.length - 10 })}
+                                                </button>
                                             )}
                                         </div>
                                     </div>
@@ -519,6 +523,7 @@ export default function BookmarksManager() {
                             selectionMode={selectionMode}
                             selectedBookmarkIds={selectedBookmarkIds}
                             onToggleSelect={toggleBookmarkSelected}
+                            onTagClick={(tag) => setSearchQuery(`#${tag}`)}
                         />
                         {bmHasMore && (
                             <div className="space-y-4">

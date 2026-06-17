@@ -973,6 +973,7 @@
       "foldersHeading": "Dossiers",
       "tagsHeading": "Étiquettes",
       "tagsMore": "+{count} de plus",
+      "tagsShowLess": "Show less",
       "searchPlaceholder": "Rechercher des signets…",
       "import": "Importer",
       "export": "Exporter",

@@ -973,6 +973,7 @@
       "foldersHeading": "Cartelle",
       "tagsHeading": "Tag",
       "tagsMore": "+{count} altro",
+      "tagsShowLess": "Show less",
       "searchPlaceholder": "Cerca nei tuoi segnalibri...",
       "import": "Importare",
       "export": "Esportare",

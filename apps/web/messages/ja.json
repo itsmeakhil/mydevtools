@@ -973,6 +973,7 @@
       "foldersHeading": "フォルダー",
       "tagsHeading": "タグ",
       "tagsMore": "+{count}件",
+      "tagsShowLess": "Show less",
       "searchPlaceholder": "ブックマークを検索...",
       "import": "インポート",
       "export": "エクスポート",

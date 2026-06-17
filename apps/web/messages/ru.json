@@ -973,6 +973,7 @@
       "foldersHeading": "Папки",
       "tagsHeading": "Теги",
       "tagsMore": "+{count} ещё",
+      "tagsShowLess": "Show less",
       "searchPlaceholder": "Поиск закладок...",
       "import": "Импорт",
       "export": "Экспорт",

@@ -33,7 +33,6 @@ def _bookmark_doc_to_out(doc: dict[str, Any]) -> BookmarkOut:
         folderId=doc.get("folderId"),
         createdAt=int(doc.get("createdAt", 0)),
         updatedAt=int(doc.get("updatedAt", 0)),
-        created_by=doc.get("created_by", ""),
     )
 
 
@@ -47,7 +46,6 @@ def _folder_doc_to_out(doc: dict[str, Any]) -> BookmarkFolderOut:
         icon=doc.get("icon"),
         isExpanded=doc.get("isExpanded"),
         createdAt=int(doc.get("createdAt", 0)),
-        created_by=doc.get("created_by", ""),
     )
 
 
@@ -137,63 +135,39 @@ async def delete_bookmark(uid: str, bookmark_id: str) -> None:
 
 
 async def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]:
-    folder_count = 0
-    bookmark_count = 0
     folder_ops: list[ReplaceOne] = []
     bookmark_ops: list[ReplaceOne] = []
     try:
-        for raw in body.folders:
-            row = dict(raw)
-            row.pop("created_by", None)
-            fid = row.pop("id", None) or row.pop("_id", None)
-            if not fid:
-                fid = new_id()
+        for folder in body.folders:
+            fid = str(folder.id or new_id())
             doc = {
-                "_id": str(fid),
+                "_id": fid,
                 "created_by": uid,
-                "name": row.get("name", "Untitled"),
-                "parentId": row.get("parentId"),
-                "color": row.get("color"),
-                "icon": row.get("icon"),
-                "isExpanded": row.get("isExpanded", False),
-                "createdAt": int(row.get("createdAt", create_timestamp())),
+                "name": folder.name,
+                "parentId": folder.parentId,
+                "color": folder.color,
+                "icon": folder.icon,
+                "isExpanded": folder.isExpanded or False,
+                "createdAt": create_timestamp(),
             }
-            folder_ops.append(
-                ReplaceOne(
-                    {"_id": doc["_id"], "created_by": uid},
-                    doc,
-                    upsert=True,
-                )
-            )
-            folder_count += 1
+            folder_ops.append(ReplaceOne({"_id": fid, "created_by": uid}, doc, upsert=True))
 
-        for raw in body.bookmarks:
-            row = dict(raw)
-            row.pop("created_by", None)
-            bid = row.pop("id", None) or row.pop("_id", None)
-            if not bid:
-                bid = new_id()
+        for bookmark in body.bookmarks:
+            bid = str(bookmark.id or new_id())
             ts = create_timestamp()
             doc = {
-                "_id": str(bid),
+                "_id": bid,
                 "created_by": uid,
-                "title": row.get("title", ""),
-                "url": row.get("url", ""),
-                "description": row.get("description"),
-                "favicon": row.get("favicon"),
-                "tags": list(row.get("tags") or []),
-                "folderId": row.get("folderId"),
-                "createdAt": int(row.get("createdAt", ts)),
-                "updatedAt": int(row.get("updatedAt", ts)),
+                "title": bookmark.title,
+                "url": bookmark.url,
+                "description": bookmark.description,
+                "favicon": bookmark.favicon,
+                "tags": list(bookmark.tags),
+                "folderId": bookmark.folderId,
+                "createdAt": ts,
+                "updatedAt": ts,
             }
-            bookmark_ops.append(
-                ReplaceOne(
-                    {"_id": doc["_id"], "created_by": uid},
-                    doc,
-                    upsert=True,
-                )
-            )
-            bookmark_count += 1
+            bookmark_ops.append(ReplaceOne({"_id": bid, "created_by": uid}, doc, upsert=True))
 
         if folder_ops:
             await db_manager.bulk_write(FOLDERS, folder_ops, ordered=False)
@@ -203,7 +177,7 @@ async def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to import bookmarks."
         ) from exc
-    return {"foldersUpserted": folder_count, "bookmarksUpserted": bookmark_count}
+    return {"foldersUpserted": len(folder_ops), "bookmarksUpserted": len(bookmark_ops)}
 
 
 async def clear_all_bookmarks(uid: str) -> dict[str, int]:
