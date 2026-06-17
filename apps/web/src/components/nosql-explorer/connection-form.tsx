@@ -14,6 +14,7 @@ import { useMasterKeyStore } from "@/store/master-key-store";
 import { toast } from "sonner";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatDistanceToNow } from "date-fns";
+import type { Locale } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useTranslations, useLocale } from "next-intl";
 import { af, ar, ca, cs as csLocale, da, de, el, enUS, es, faIR, fr as frLocale, ms, nb, nl, pt, zhCN } from "date-fns/locale";
@@ -27,38 +28,11 @@ interface ConnectionFormProps {
 export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProps) {
     const t = useTranslations("NoSqlExplorer.connection");
     const locale = useLocale();
-    const dateLocale =
-      locale === "fr"
-        ? frLocale
-        : locale === "es"
-        ? es
-        : locale === "ar"
-          ? ar
-          : locale === "ca"
-            ? ca
-            : locale === "zh"
-              ? zhCN
-              : locale === "cs"
-                ? csLocale
-                : locale === "el"
-                  ? el
-                  : locale === "de"
-                    ? de
-                    : locale === "da"
-                      ? da
-                      : locale === "af"
-                        ? af
-                        : locale === "fa"
-                          ? faIR
-                          : locale === "ms"
-                            ? ms
-                            : locale === "nb"
-                              ? nb
-                              : locale === "nl"
-                                ? nl
-                              : locale === "pt"
-                                ? pt
-                        : enUS;
+    const DATE_LOCALE_MAP: Record<string, Locale> = {
+        fr: frLocale, es, ar, ca, zh: zhCN, cs: csLocale,
+        el, de, da, af, fa: faIR, ms, nb, nl, pt,
+    };
+    const dateLocale = DATE_LOCALE_MAP[locale] ?? enUS;
     const [connectionString, setConnectionString] = useState("");
     const [name, setName] = useState("My Connection");
     const [savedConnections, setSavedConnections] = useState<SavedConnection[]>([]);

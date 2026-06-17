@@ -22,12 +22,23 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { useTranslations } from "next-intl";
 
 interface ExplorerSidebarProps {
     onSelectCollection: (connection: SavedConnection, dbName: string, collectionName: string) => void;
     onRefresh: () => void;
     onAddConnection: () => void;
+    onConnectionsLoaded?: (connections: SavedConnection[]) => void;
     width?: number;
 }
 
@@ -45,6 +56,7 @@ export function ExplorerSidebar({
     onSelectCollection,
     onRefresh,
     onAddConnection,
+    onConnectionsLoaded,
     width = 256,
 }: ExplorerSidebarProps) {
     const t = useTranslations("NoSqlExplorer.sidebar");
@@ -59,6 +71,15 @@ export function ExplorerSidebar({
     // Dialog states
     const [renameCollectionDialog, setRenameCollectionDialog] = useState<{ open: boolean, connection: SavedConnection | null, dbName: string, collectionName: string, newName: string }>({ open: false, connection: null, dbName: "", collectionName: "", newName: "" });
     const [renameDatabaseDialog, setRenameDatabaseDialog] = useState<{ open: boolean, connection: SavedConnection | null, dbName: string, newName: string }>({ open: false, connection: null, dbName: "", newName: "" });
+    const [deleteConnDialog, setDeleteConnDialog] = useState<{ open: boolean; index: number | null }>({
+        open: false, index: null,
+    });
+    const [dropDbDialog, setDropDbDialog] = useState<{ open: boolean; connIndex: number | null; dbName: string }>({
+        open: false, connIndex: null, dbName: "",
+    });
+    const [dropCollDialog, setDropCollDialog] = useState<{ open: boolean; connIndex: number | null; dbName: string; collectionName: string }>({
+        open: false, connIndex: null, dbName: "", collectionName: "",
+    });
 
     useEffect(() => {
         if (user && encryptionKey) {
@@ -92,6 +113,7 @@ export function ExplorerSidebar({
             });
 
             setConnections(newConnections);
+            onConnectionsLoaded?.(saved);
 
             // Trigger refresh for expanded connections to load databases
             newConnections.forEach((node, index) => {
@@ -247,22 +269,34 @@ export function ExplorerSidebar({
     };
 
     const handleDeleteConnection = async (index: number) => {
+        setDeleteConnDialog({ open: true, index });
+        return;
+    };
+
+    const confirmDeleteConnection = async () => {
+        const index = deleteConnDialog.index;
+        if (index === null) return;
         const node = connections[index];
         if (!user || !node.connection.id) return;
-        if (!confirm(t("confirmDeleteConnection", { name: node.connection.name }))) return;
-
         try {
             await deleteConnection(user.uid, node.connection.id);
             setConnections(prev => prev.filter((_, i) => i !== index));
             toast.success(t("toastDeleted"));
         } catch (error) {
             toast.error(t("toastDeleteConnFail"));
+        } finally {
+            setDeleteConnDialog({ open: false, index: null });
         }
     };
 
     const handleDropDatabase = async (connIndex: number, dbName: string) => {
-        if (!confirm(t("confirmDropDb", { name: dbName }))) return;
+        setDropDbDialog({ open: true, connIndex, dbName });
+        return;
+    };
 
+    const confirmDropDatabase = async () => {
+        const { connIndex, dbName } = dropDbDialog;
+        if (connIndex === null) return;
         const node = connections[connIndex];
         try {
             const res = await backendFetch("/api/nosql/database/drop", {
@@ -272,17 +306,23 @@ export function ExplorerSidebar({
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
-
             toast.success(t("toastDbDropped", { name: dbName }));
             refreshDatabases(connIndex);
         } catch (error: any) {
             toast.error(error.message);
+        } finally {
+            setDropDbDialog({ open: false, connIndex: null, dbName: "" });
         }
     };
 
     const handleDropCollection = async (connIndex: number, dbName: string, collectionName: string) => {
-        if (!confirm(t("confirmDropCollection", { name: collectionName }))) return;
+        setDropCollDialog({ open: true, connIndex, dbName, collectionName });
+        return;
+    };
 
+    const confirmDropCollection = async () => {
+        const { connIndex, dbName, collectionName } = dropCollDialog;
+        if (connIndex === null) return;
         const node = connections[connIndex];
         try {
             const res = await backendFetch("/api/nosql/collection/drop", {
@@ -292,11 +332,12 @@ export function ExplorerSidebar({
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
-
             toast.success(t("toastCollectionDropped", { name: collectionName }));
             refreshCollections(connIndex, dbName);
         } catch (error: any) {
             toast.error(error.message);
+        } finally {
+            setDropCollDialog({ open: false, connIndex: null, dbName: "", collectionName: "" });
         }
     };
 
@@ -525,7 +566,7 @@ export function ExplorerSidebar({
                                                     </Button>
                                                 </TooltipTrigger>
                                                 <TooltipContent side="right">
-                                                    <p className="font-mono text-xs">{node.connection.connectionString}</p>
+                                                    <p className="font-mono text-xs">{node.connection.connectionString.replace(/:([^@]+)@/, ":****@")}</p>
                                                     {node.error && <p className="text-destructive text-xs mt-1">{node.error}</p>}
                                                 </TooltipContent>
                                             </Tooltip>
@@ -730,6 +771,51 @@ export function ExplorerSidebar({
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
+
+            <AlertDialog open={deleteConnDialog.open} onOpenChange={(open) => setDeleteConnDialog(prev => ({ ...prev, open }))}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>{t("confirmDeleteConnection", { name: deleteConnDialog.index !== null ? connections[deleteConnDialog.index]?.connection.name : "" })}</AlertDialogTitle>
+                        <AlertDialogDescription>{t("confirmDeleteConnectionDesc")}</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+                        <AlertDialogAction onClick={confirmDeleteConnection} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                            {t("menuDeleteConnection")}
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
+            <AlertDialog open={dropDbDialog.open} onOpenChange={(open) => setDropDbDialog(prev => ({ ...prev, open }))}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>{t("confirmDropDb", { name: dropDbDialog.dbName })}</AlertDialogTitle>
+                        <AlertDialogDescription>{t("confirmDropDbDesc")}</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+                        <AlertDialogAction onClick={confirmDropDatabase} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                            {t("dropDatabase")}
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
+            <AlertDialog open={dropCollDialog.open} onOpenChange={(open) => setDropCollDialog(prev => ({ ...prev, open }))}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>{t("confirmDropCollection", { name: dropCollDialog.collectionName })}</AlertDialogTitle>
+                        <AlertDialogDescription>{t("confirmDropCollectionDesc")}</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+                        <AlertDialogAction onClick={confirmDropCollection} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                            {t("dropCollection")}
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     );
 }

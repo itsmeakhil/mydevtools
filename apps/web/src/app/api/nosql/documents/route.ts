@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
-import { MongoClient, ObjectId } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import { requireNosqlAuth } from '@/app/api/nosql/_auth';
+import { sanitizeError } from '@/lib/nosql-error-sanitizer';
 import { validateMongoConnectionString } from '@/app/api/nosql/_mongo-safety';
+import { getMongoClient, releaseMongoClient } from '@/lib/nosql-client-pool';
 
 export async function GET(request: Request) {
     return NextResponse.json(
@@ -30,8 +32,7 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: connectionError }, { status: 400 });
         }
 
-        const client = new MongoClient(connectionString);
-        await client.connect();
+        const client = await getMongoClient(connectionString);
 
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
@@ -52,13 +53,12 @@ export async function POST(request: Request) {
         }
 
         const result = await collection.insertOne(document);
-
-        await client.close();
+        releaseMongoClient(connectionString);
 
         return NextResponse.json({ result });
     } catch (error: any) {
         return NextResponse.json(
-            { error: error.message || 'Failed to insert document' },
+            { error: sanitizeError(error) },
             { status: 500 }
         );
     }
@@ -82,8 +82,7 @@ export async function PUT(request: Request) {
             return NextResponse.json({ error: connectionError }, { status: 400 });
         }
 
-        const client = new MongoClient(connectionString);
-        await client.connect();
+        const client = await getMongoClient(connectionString);
 
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
@@ -101,13 +100,12 @@ export async function PUT(request: Request) {
         delete update._id;
 
         const result = await collection.updateOne(filter, { $set: update });
-
-        await client.close();
+        releaseMongoClient(connectionString);
 
         return NextResponse.json({ result });
     } catch (error: any) {
         return NextResponse.json(
-            { error: error.message || 'Failed to update document' },
+            { error: sanitizeError(error) },
             { status: 500 }
         );
     }
@@ -131,8 +129,7 @@ export async function DELETE(request: Request) {
             return NextResponse.json({ error: connectionError }, { status: 400 });
         }
 
-        const client = new MongoClient(connectionString);
-        await client.connect();
+        const client = await getMongoClient(connectionString);
 
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
@@ -147,13 +144,12 @@ export async function DELETE(request: Request) {
         }
 
         const result = await collection.deleteOne(filter);
-
-        await client.close();
+        releaseMongoClient(connectionString);
 
         return NextResponse.json({ result });
     } catch (error: any) {
         return NextResponse.json(
-            { error: error.message || 'Failed to delete document' },
+            { error: sanitizeError(error) },
             { status: 500 }
         );
     }

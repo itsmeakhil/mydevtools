@@ -14,12 +14,11 @@ import { useVaultGuard } from "@/hooks/use-vault-guard";
 import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder";
 import { getConnections } from "@/components/nosql-explorer/connection-service";
 import { cn } from "@/lib/utils";
-import { IconDatabase, IconServer, IconBrandMongodb, IconSearch, IconPlus, IconArrowLeft } from "@tabler/icons-react";
+import { IconDatabase, IconServer, IconBrandMongodb, IconSearch, IconPlus, IconArrowLeft, IconMenu2 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { Menu } from "lucide-react";
 import {
     ResponsiveModal,
     ResponsiveModalBody,
@@ -247,12 +246,15 @@ export default function NoSQLExplorerPage() {
     };
 
     const handleTabClose = (tabId: string) => {
-        setTabs((prev) => prev.filter((t) => t.id !== tabId));
-        if (activeTabId === tabId) {
-            const index = tabs.findIndex((t) => t.id === tabId);
-            const newActiveTab = tabs[index - 1] || tabs[index + 1];
-            setActiveTabId(newActiveTab ? newActiveTab.id : null);
-        }
+        setTabs((prev) => {
+            const next = prev.filter((t) => t.id !== tabId);
+            if (activeTabId === tabId) {
+                const idx = prev.findIndex((t) => t.id === tabId);
+                const nextTab = prev[idx - 1] ?? prev[idx + 1] ?? null;
+                setActiveTabId(nextTab?.id ?? null);
+            }
+            return next;
+        });
     };
 
     const handleCloseAllTabs = () => {
@@ -268,36 +270,34 @@ export default function NoSQLExplorerPage() {
 
     const activeTab = tabs.find((t) => t.id === activeTabId);
 
-    // We need to get the connection string for the active tab to perform actions
-    // Since we don't store it in the tab (security/size), we might need to fetch it or pass it.
-    // For simplicity, let's assume we can re-fetch it or store it in the tab.
-    // Storing in tab is easiest for now.
-    // Wait, we have connectionId. We can fetch it from a cache or just store it in tab.
-    // Let's store connectionString in tab for now to make it work easily, 
-    // but strictly speaking we should look it up.
-    // Actually, let's just fetch the connection string again using getConnections if needed, 
-    // OR just store it in the tab. Storing in tab is fine for client-side state.
-    // I'll update ExplorerTab to include connectionString in a separate hidden field or just use the one passed to fetchDocuments.
-    // Let's update fetchDocumentsForTab to take connectionString.
-    // But for refresh/insert/update/delete we need it too.
-    // Let's add connectionString to ExplorerTab for convenience.
+    const connectionCacheRef = useRef<Map<string, SavedConnection>>(new Map());
+
+    const getConnectionForTab = useCallback(async (tab: ExplorerTab) => {
+        const cached = connectionCacheRef.current.get(tab.connectionId);
+        if (cached) return cached;
+        if (!user || !encryptionKey) throw new Error("Not authenticated");
+        const connections = await getConnections(user.uid, encryptionKey);
+        connections.forEach(c => connectionCacheRef.current.set(c.id, c));
+        const conn = connections.find(c => c.id === tab.connectionId);
+        if (!conn) throw new Error("Connection not found — try refreshing the sidebar");
+        return conn;
+    }, [user, encryptionKey]);
 
     const handleRefresh = async () => {
-        if (activeTab && user && encryptionKey) {
-            const connections = await getConnections(user.uid, encryptionKey);
-            const conn = connections.find(c => c.id === activeTab.connectionId);
-            if (conn) {
+        if (activeTab) {
+            try {
+                const conn = await getConnectionForTab(activeTab);
                 fetchDocumentsForTab(activeTab, conn.connectionString);
+            } catch (e: any) {
+                updateTab(activeTab.id, { loading: false, error: e.message });
             }
         }
     };
 
     const handleInsert = async (doc: any) => {
-        if (!activeTab || !user || !encryptionKey) return;
+        if (!activeTab) return;
         try {
-            const connections = await getConnections(user.uid, encryptionKey);
-            const conn = connections.find(c => c.id === activeTab.connectionId);
-            if (!conn) throw new Error("Connection not found");
+            const conn = await getConnectionForTab(activeTab);
 
             const res = await fetch("/api/nosql/documents", {
                 method: "POST",
@@ -318,11 +318,9 @@ export default function NoSQLExplorerPage() {
     };
 
     const handleUpdate = async (id: string, update: any) => {
-        if (!activeTab || !user || !encryptionKey) return;
+        if (!activeTab) return;
         try {
-            const connections = await getConnections(user.uid, encryptionKey);
-            const conn = connections.find(c => c.id === activeTab.connectionId);
-            if (!conn) throw new Error("Connection not found");
+            const conn = await getConnectionForTab(activeTab);
 
             const res = await fetch("/api/nosql/documents", {
                 method: "PUT",
@@ -349,12 +347,10 @@ export default function NoSQLExplorerPage() {
 
     const confirmDelete = async () => {
         const id = deleteConfirmation.documentId;
-        if (!activeTab || !user || !id) return;
+        if (!activeTab || !id) return;
 
         try {
-            const connections = await getConnections(user.uid, encryptionKey!);
-            const conn = connections.find(c => c.id === activeTab.connectionId);
-            if (!conn) throw new Error("Connection not found");
+            const conn = await getConnectionForTab(activeTab);
 
             const res = await fetch("/api/nosql/documents", {
                 method: "DELETE",
@@ -415,10 +411,8 @@ export default function NoSQLExplorerPage() {
     };
 
     const handleBulkDelete = async (ids: string[]) => {
-        if (!activeTab || !user || !encryptionKey) return;
-        const connections = await getConnections(user.uid, encryptionKey);
-        const conn = connections.find(c => c.id === activeTab.connectionId);
-        if (!conn) throw new Error("Connection not found");
+        if (!activeTab) return;
+        const conn = await getConnectionForTab(activeTab);
 
         const res = await fetch("/api/nosql/bulk-delete", {
             method: "POST",
@@ -436,10 +430,8 @@ export default function NoSQLExplorerPage() {
     };
 
     const handleImport = async (documents: any[]) => {
-        if (!activeTab || !user || !encryptionKey) return;
-        const connections = await getConnections(user.uid, encryptionKey);
-        const conn = connections.find(c => c.id === activeTab.connectionId);
-        if (!conn) throw new Error("Connection not found");
+        if (!activeTab) return;
+        const conn = await getConnectionForTab(activeTab);
 
         const res = await fetch("/api/nosql/import", {
             method: "POST",
@@ -457,10 +449,8 @@ export default function NoSQLExplorerPage() {
     };
 
     const handleLoadSchema = useCallback(async () => {
-        if (!activeTab || !user || !encryptionKey) throw new Error("No active tab");
-        const connections = await getConnections(user.uid, encryptionKey);
-        const conn = connections.find(c => c.id === activeTab.connectionId);
-        if (!conn) throw new Error("Connection not found");
+        if (!activeTab) throw new Error("No active tab");
+        const conn = await getConnectionForTab(activeTab);
 
         const res = await fetch("/api/nosql/schema", {
             method: "POST",
@@ -474,13 +464,11 @@ export default function NoSQLExplorerPage() {
         const data = await res.json();
         if (!res.ok) throw new Error(data.error);
         return data;
-    }, [activeTab?.id, user, encryptionKey]);
+    }, [activeTab, getConnectionForTab]);
 
     const handleLoadIndexes = useCallback(async () => {
-        if (!activeTab || !user || !encryptionKey) throw new Error("No active tab");
-        const connections = await getConnections(user.uid, encryptionKey);
-        const conn = connections.find(c => c.id === activeTab.connectionId);
-        if (!conn) throw new Error("Connection not found");
+        if (!activeTab) throw new Error("No active tab");
+        const conn = await getConnectionForTab(activeTab);
 
         const res = await fetch("/api/nosql/indexes/list", {
             method: "POST",
@@ -494,13 +482,11 @@ export default function NoSQLExplorerPage() {
         const data = await res.json();
         if (!res.ok) throw new Error(data.error);
         return data;
-    }, [activeTab?.id, user, encryptionKey]);
+    }, [activeTab, getConnectionForTab]);
 
     const handleDropIndex = async (indexName: string) => {
-        if (!activeTab || !user || !encryptionKey) return;
-        const connections = await getConnections(user.uid, encryptionKey);
-        const conn = connections.find(c => c.id === activeTab.connectionId);
-        if (!conn) throw new Error("Connection not found");
+        if (!activeTab) return;
+        const conn = await getConnectionForTab(activeTab);
 
         const res = await fetch("/api/nosql/indexes", {
             method: "DELETE",
@@ -517,10 +503,8 @@ export default function NoSQLExplorerPage() {
     };
 
     const handleCreateIndex = async (keys: Record<string, number>, options: Record<string, any>) => {
-        if (!activeTab || !user || !encryptionKey) return;
-        const connections = await getConnections(user.uid, encryptionKey);
-        const conn = connections.find(c => c.id === activeTab.connectionId);
-        if (!conn) throw new Error("Connection not found");
+        if (!activeTab) return;
+        const conn = await getConnectionForTab(activeTab);
 
         const res = await fetch("/api/nosql/indexes", {
             method: "POST",
@@ -538,18 +522,18 @@ export default function NoSQLExplorerPage() {
     };
 
     const performFetch = async (tab: ExplorerTab) => {
-        if (user && encryptionKey) {
-            const connections = await getConnections(user.uid, encryptionKey);
-            const conn = connections.find(c => c.id === tab.connectionId);
-            if (conn) {
-                fetchDocumentsForTab(tab, conn.connectionString);
-            }
+        try {
+            const conn = await getConnectionForTab(tab);
+            fetchDocumentsForTab(tab, conn.connectionString);
+        } catch (e: any) {
+            updateTab(tab.id, { loading: false, error: e.message });
         }
     };
 
     // Auto-fetch active tab once after hydration — persisted tabs no longer carry
     // documents (would blow the localStorage quota), so we lazily refetch on activate.
     const autoFetchedTabsRef = useRef<Set<string>>(new Set());
+
     useEffect(() => {
         if (!isInitialized || !isUnlocked || !user || !encryptionKey || !activeTabId) return;
         const tab = tabs.find((t) => t.id === activeTabId);
@@ -653,6 +637,10 @@ export default function NoSQLExplorerPage() {
                         onSelectCollection={handleSelectCollection}
                         onRefresh={() => { /* Sidebar handles its own refresh */ }}
                         onAddConnection={() => setIsConnectionDialogOpen(true)}
+                        onConnectionsLoaded={(conns) => {
+                            connectionCacheRef.current.clear();
+                            conns.forEach(c => connectionCacheRef.current.set(c.id, c));
+                        }}
                     />
                     <div
                         className={cn(
@@ -678,6 +666,10 @@ export default function NoSQLExplorerPage() {
                                 setMobileSidebarOpen(false);
                                 setIsConnectionDialogOpen(true);
                             }}
+                            onConnectionsLoaded={(conns) => {
+                                connectionCacheRef.current.clear();
+                                conns.forEach(c => connectionCacheRef.current.set(c.id, c));
+                            }}
                         />
                     </SheetContent>
                 </Sheet>
@@ -694,7 +686,7 @@ export default function NoSQLExplorerPage() {
                             onClick={() => setMobileSidebarOpen(true)}
                             aria-label="Open collections"
                         >
-                            <Menu className="h-4 w-4" />
+                            <IconMenu2 className="h-4 w-4" />
                         </Button>
                         <div className="flex-1 min-w-0">
                             {activeTab ? (
@@ -836,6 +828,7 @@ export default function NoSQLExplorerPage() {
                         onConnect={async () => {
                             setIsConnectionDialogOpen(false);
                             setHasConnections(true);
+                            connectionCacheRef.current.clear();
                             toast.success(t("toastConnectionAdded"));
                         }}
                         loading={false}

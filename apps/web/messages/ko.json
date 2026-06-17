@@ -1313,7 +1313,10 @@
       "menuCopyConnectionString": "연결 문자열 복사",
       "menuDeleteConnection": "연결 삭제",
       "toastSidebarStringCopied": "연결 문자열이 복사되었습니다!",
-      "cancel": "취소"
+      "cancel": "취소",
+      "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
+      "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
     },
     "document": {
       "docsBreadcrumb": "{n}개 문서",

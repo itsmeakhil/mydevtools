@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
-import { MongoClient } from 'mongodb';
 import { requireNosqlAuth } from '@/app/api/nosql/_auth';
+import { sanitizeError } from '@/lib/nosql-error-sanitizer';
 import { validateMongoConnectionString } from '@/app/api/nosql/_mongo-safety';
+import { getMongoClient, releaseMongoClient } from '@/lib/nosql-client-pool';
 
 export async function GET(request: Request) {
     return NextResponse.json(
@@ -28,12 +29,11 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: connectionError }, { status: 400 });
         }
 
-        const client = new MongoClient(connectionString);
-        await client.connect();
+        const client = await getMongoClient(connectionString);
         const collection = client.db(dbName).collection(collectionName);
 
         const docs = await collection.aggregate([{ $sample: { size: sampleSize } }]).toArray();
-        await client.close();
+        releaseMongoClient(connectionString);
 
         if (docs.length === 0) {
             return NextResponse.json({ fields: [], sampleSize: 0 });
@@ -89,6 +89,6 @@ export async function POST(request: Request) {
 
         return NextResponse.json({ fields, sampleSize: docs.length });
     } catch (error: any) {
-        return NextResponse.json({ error: error.message || 'Failed to analyze schema' }, { status: 500 });
+        return NextResponse.json({ error: sanitizeError(error) }, { status: 500 });
     }
 }

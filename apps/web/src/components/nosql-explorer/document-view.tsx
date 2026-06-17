@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import { useVirtualizer } from "@tanstack/react-virtual";
 import { Document } from "./types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -409,6 +410,15 @@ export function DocumentView({
     const [indexesError, setIndexesError] = useState<string | null>(null);
     const { theme } = useTheme();
 
+    const tableContainerRef = useRef<HTMLDivElement>(null);
+
+    const rowVirtualizer = useVirtualizer({
+        count: documents.length,
+        getScrollElement: () => tableContainerRef.current,
+        estimateSize: () => 48,
+        overscan: 10,
+    });
+
     const openImportFromChooser = () => {
         setIsImportExportChooserOpen(false);
         setIsImportDialogOpen(true);
@@ -420,7 +430,14 @@ export function DocumentView({
     };
 
     useEffect(() => {
-        setJsonViewContent(JSON.stringify(documents, null, 2));
+        if (documents.length === 0) {
+            setJsonViewContent("[]");
+            return;
+        }
+        const id = setTimeout(() => {
+            setJsonViewContent(JSON.stringify(documents, null, 2));
+        }, 0);
+        return () => clearTimeout(id);
     }, [documents]);
 
     // Clear selection when documents change
@@ -573,19 +590,27 @@ export function DocumentView({
         document.body.style.cursor = 'col-resize';
     };
 
-    const fields = Array.from(new Set(documents.flatMap(Object.keys))).filter(k => k !== "_id");
-    const allFields = ["_id", ...fields];
-    const totalPages = Math.ceil(total / limit) || 1;
-    const isAllSelected = documents.length > 0 && selectedIds.size === documents.length;
-    const isIndeterminate = selectedIds.size > 0 && selectedIds.size < documents.length;
-
-    const isFilterActive = (() => {
+    const fields = useMemo(
+        () => Array.from(new Set(documents.flatMap(Object.keys))).filter(k => k !== "_id"),
+        [documents]
+    );
+    const allFields = useMemo(() => ["_id", ...fields], [fields]);
+    const totalPages = useMemo(() => Math.ceil(total / limit) || 1, [total, limit]);
+    const isAllSelected = useMemo(
+        () => documents.length > 0 && selectedIds.size === documents.length,
+        [selectedIds, documents]
+    );
+    const isIndeterminate = useMemo(
+        () => selectedIds.size > 0 && selectedIds.size < documents.length,
+        [selectedIds, documents]
+    );
+    const isFilterActive = useMemo(() => {
         try {
             const q = searchQuery?.trim();
             if (!q || q === "{}") return false;
             return Object.keys(JSON.parse(q)).length > 0;
         } catch { return false; }
-    })();
+    }, [searchQuery]);
 
     const showSelectMode = viewMode === 'table' && !!onBulkDelete;
 
@@ -798,7 +823,7 @@ export function DocumentView({
                     />
                 ) : loading ? (
                     <div className="h-full w-full overflow-auto">
-                        <table className="min-w-full text-sm text-left">
+                        <table aria-busy="true" aria-label="Loading documents" className="min-w-full text-sm text-left">
                             <thead className="text-xs text-muted-foreground uppercase bg-muted">
                                 <tr>
                                     <th className="px-3 py-3 w-[40px]" />
@@ -924,18 +949,19 @@ export function DocumentView({
                     </ScrollArea>
                 ) : (
                     /* Table view */
-                    <div className="h-full w-full overflow-auto">
-                        <table className="min-w-full w-max text-sm text-left relative">
+                    <div ref={tableContainerRef} className="h-full w-full overflow-auto">
+                        <table
+                            className="min-w-full w-max text-sm text-left relative"
+                            aria-label={`${collectionName} documents`}
+                        >
                             <thead className="text-xs text-muted-foreground uppercase bg-muted">
                                 <tr>
                                     {showSelectMode && (
                                         <th className="px-3 py-3 w-[44px] sticky left-0 top-0 z-30 bg-muted">
                                             <Checkbox
-                                                checked={isAllSelected}
+                                                checked={isIndeterminate ? "indeterminate" : isAllSelected}
                                                 onCheckedChange={handleSelectAll}
                                                 aria-label="Select all"
-                                                className={cn(isIndeterminate && "data-[state=checked]:bg-primary/50")}
-                                                data-state={isIndeterminate ? "indeterminate" : isAllSelected ? "checked" : "unchecked"}
                                             />
                                         </th>
                                     )}
@@ -964,12 +990,25 @@ export function DocumentView({
                                     <th className="px-4 py-3 w-[120px] bg-muted whitespace-nowrap font-medium sticky top-0 z-20">{t("actions")}</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {documents.map((doc, index) => {
+                            <tbody
+                                style={{ height: `${rowVirtualizer.getTotalSize()}px`, position: "relative" }}
+                            >
+                                {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+                                    const doc = documents[virtualRow.index];
+                                    const index = virtualRow.index;
                                     const isSelected = selectedIds.has(doc._id);
                                     return (
                                         <tr
                                             key={doc._id}
+                                            data-index={virtualRow.index}
+                                            ref={rowVirtualizer.measureElement}
+                                            style={{
+                                                position: "absolute",
+                                                top: 0,
+                                                left: 0,
+                                                width: "100%",
+                                                transform: `translateY(${virtualRow.start}px)`,
+                                            }}
                                             className={cn(
                                                 "border-b hover:bg-muted/50 group transition-colors",
                                                 isSelected && "bg-primary/5 hover:bg-primary/10"
