@@ -189,20 +189,25 @@ export function KeyBrowser({
         [allKeys, searchState.userModeOverride, debouncedSearch]
     );
 
+    const allKeysRef = useRef<RedisKeyInfo[]>([]);
+    useEffect(() => {
+        allKeysRef.current = allKeys;
+    }, [allKeys]);
+
     const handleClearSearch = useCallback(() => {
         if (debouncedSearchRef.current) {
             clearTimeout(debouncedSearchRef.current);
         }
-        setDisplayedKeys(allKeys);
+        setDisplayedKeys(allKeysRef.current);
         setSearchState((prev) => ({
             ...prev,
             input: "",
             regexError: null,
-            matchCount: 0,
+            matchCount: allKeysRef.current.length,
             detectedMode: "fuzzy",
             userModeOverride: null,
         }));
-    }, [allKeys]);
+    }, []); // No allKeys dep — uses ref so identity stays stable
 
     const handleModeChange = useCallback(
         (mode: SearchMode) => {
