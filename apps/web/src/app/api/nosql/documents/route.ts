@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 import { requireNosqlAuth } from '@/app/api/nosql/_auth';
+import { sanitizeError } from '@/lib/nosql-error-sanitizer';
 import { validateMongoConnectionString } from '@/app/api/nosql/_mongo-safety';
 import { getMongoClient, releaseMongoClient } from '@/lib/nosql-client-pool';
 
@@ -57,7 +58,7 @@ export async function POST(request: Request) {
         return NextResponse.json({ result });
     } catch (error: any) {
         return NextResponse.json(
-            { error: error.message || 'Failed to insert document' },
+            { error: sanitizeError(error) },
             { status: 500 }
         );
     }
@@ -104,7 +105,7 @@ export async function PUT(request: Request) {
         return NextResponse.json({ result });
     } catch (error: any) {
         return NextResponse.json(
-            { error: error.message || 'Failed to update document' },
+            { error: sanitizeError(error) },
             { status: 500 }
         );
     }
@@ -148,7 +149,7 @@ export async function DELETE(request: Request) {
         return NextResponse.json({ result });
     } catch (error: any) {
         return NextResponse.json(
-            { error: error.message || 'Failed to delete document' },
+            { error: sanitizeError(error) },
             { status: 500 }
         );
     }

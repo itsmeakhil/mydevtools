@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server"
-import { MongoClient, ObjectId } from "mongodb"
+import { ObjectId } from "mongodb"
 import { requireNosqlAuth } from "@/app/api/nosql/_auth"
 import { validateMongoConnectionString } from "@/app/api/nosql/_mongo-safety"
 import { getMongoClient, releaseMongoClient } from "@/lib/nosql-client-pool"
 import { validateAggregationPipeline } from "@/lib/nosql-aggregation-validator"
+import { sanitizeError } from "@/lib/nosql-error-sanitizer"
 
 export async function POST(request: Request) {
   const authError = await requireNosqlAuth(request)
@@ -108,7 +109,7 @@ export async function POST(request: Request) {
     }
   } catch (error: any) {
     return NextResponse.json(
-      { error: error.message || "Failed to fetch documents" },
+      { error: sanitizeError(error) },
       { status: 500 }
     )
   }

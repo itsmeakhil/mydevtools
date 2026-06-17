@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 import { requireNosqlAuth } from '@/app/api/nosql/_auth';
+import { sanitizeError } from '@/lib/nosql-error-sanitizer';
 import { validateMongoConnectionString } from '@/app/api/nosql/_mongo-safety';
 import { getMongoClient, releaseMongoClient } from '@/lib/nosql-client-pool';
 
@@ -36,6 +37,6 @@ export async function POST(request: Request) {
 
         return NextResponse.json({ deletedCount: result.deletedCount });
     } catch (error: any) {
-        return NextResponse.json({ error: error.message || 'Failed to delete documents' }, { status: 500 });
+        return NextResponse.json({ error: sanitizeError(error) }, { status: 500 });
     }
 }

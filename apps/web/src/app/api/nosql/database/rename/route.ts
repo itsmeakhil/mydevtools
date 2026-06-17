@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { requireNosqlAuth } from '@/app/api/nosql/_auth';
 import { validateMongoConnectionString } from '@/app/api/nosql/_mongo-safety';
 import { getMongoClient, releaseMongoClient } from '@/lib/nosql-client-pool';
+import { sanitizeError, validateDbName } from '@/lib/nosql-error-sanitizer';
 
 export async function POST(request: Request) {
     const authError = await requireNosqlAuth(request);
@@ -16,6 +17,16 @@ export async function POST(request: Request) {
         const connectionError = validateMongoConnectionString(connectionString);
         if (connectionError) {
             return NextResponse.json({ error: connectionError }, { status: 400 });
+        }
+
+        const oldNameValidation = validateDbName(oldDbName);
+        if (!oldNameValidation.valid) {
+            return NextResponse.json({ error: oldNameValidation.error }, { status: 400 });
+        }
+
+        const newNameValidation = validateDbName(newDbName);
+        if (!newNameValidation.valid) {
+            return NextResponse.json({ error: newNameValidation.error }, { status: 400 });
         }
 
         const client = await getMongoClient(connectionString);
@@ -41,6 +52,6 @@ export async function POST(request: Request) {
             releaseMongoClient(connectionString);
         }
     } catch (error: any) {
-        return NextResponse.json({ error: error.message || 'Failed to rename database' }, { status: 500 });
+        return NextResponse.json({ error: sanitizeError(error) }, { status: 500 });
     }
 }

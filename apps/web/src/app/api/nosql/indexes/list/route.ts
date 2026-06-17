@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { requireNosqlAuth } from "@/app/api/nosql/_auth"
+import { sanitizeError } from '@/lib/nosql-error-sanitizer';
 import { validateMongoConnectionString } from "@/app/api/nosql/_mongo-safety"
 import { getMongoClient, releaseMongoClient } from "@/lib/nosql-client-pool"
 
