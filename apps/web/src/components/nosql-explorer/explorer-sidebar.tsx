@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Database, Collection, SavedConnection } from "./types";
 import { IconDatabase, IconFolder, IconChevronRight, IconChevronDown, IconRefresh, IconSearch, IconPlus, IconServer, IconPencil, IconCheck, IconX, IconDotsVertical, IconTrash, IconEdit, IconCopy, IconAlertCircle, IconLoader2 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import useAuth from "@/utils/useAuth";
 import { useMasterKeyStore } from "@/store/master-key-store";
@@ -80,6 +80,28 @@ export function ExplorerSidebar({
     const [dropCollDialog, setDropCollDialog] = useState<{ open: boolean; connIndex: number | null; dbName: string; collectionName: string }>({
         open: false, connIndex: null, dbName: "", collectionName: "",
     });
+
+    // Multiselect state
+    const [selectedCollections, setSelectedCollections] = React.useState<Set<string>>(new Set());
+    const [bulkDeleteDialog, setBulkDeleteDialog] = useState<{ open: boolean }>({ open: false });
+    const [isBulkDeleting, setIsBulkDeleting] = useState(false);
+
+    const toggleCollectionSelection = (connectionId: string, dbName: string, collectionName: string) => {
+        const key = `${connectionId}|${dbName}|${collectionName}`;
+        setSelectedCollections(prev => {
+            const next = new Set(prev);
+            if (next.has(key)) {
+                next.delete(key);
+            } else {
+                next.add(key);
+            }
+            return next;
+        });
+    };
+
+    const clearSelection = () => {
+        setSelectedCollections(new Set());
+    };
 
     useEffect(() => {
         if (user && encryptionKey) {
@@ -335,6 +357,42 @@ export function ExplorerSidebar({
             toast.error(error.message);
         } finally {
             setDropCollDialog({ open: false, connIndex: null, dbName: "", collectionName: "" });
+        }
+    };
+
+    const confirmBulkDelete = async () => {
+        setIsBulkDeleting(true);
+        const toDelete = Array.from(selectedCollections);
+        const errors: string[] = [];
+
+        for (const key of toDelete) {
+            const [connectionId, dbName, collectionName] = key.split("|");
+            const connIndex = connections.findIndex(c => c.connection.id === connectionId);
+            if (connIndex === -1) continue;
+            const node = connections[connIndex];
+            try {
+                const res = await backendFetch("/api/nosql/collection/drop", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ connectionString: node.connection.connectionString, dbName, collectionName }),
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error);
+                // Refresh collections for this db
+                refreshCollections(connIndex, dbName);
+            } catch (error: any) {
+                errors.push(`${collectionName}: ${error.message}`);
+            }
+        }
+
+        setIsBulkDeleting(false);
+        setBulkDeleteDialog({ open: false });
+        clearSelection();
+
+        if (errors.length > 0) {
+            toast.error(`Failed to delete ${errors.length} collection(s)`);
+        } else {
+            toast.success(`Deleted ${toDelete.length} collection(s)`);
         }
     };
 
@@ -668,8 +726,19 @@ export function ExplorerSidebar({
                                                                             return matchesSearch(col.name);
                                                                         })
                                                                         .sort((a, b) => a.name.localeCompare(b.name))
-                                                                        .map((col) => (
+                                                                        .map((col) => {
+                                                                            const selKey = `${node.connection.id}|${db.name}|${col.name}`;
+                                                                            const isSelected = selectedCollections.has(selKey);
+                                                                            return (
                                                                             <div key={col.name} className="group/col flex items-center pr-2">
+                                                                                <input
+                                                                                    type="checkbox"
+                                                                                    checked={isSelected}
+                                                                                    onChange={() => toggleCollectionSelection(node.connection.id || "", db.name, col.name)}
+                                                                                    onClick={(e) => e.stopPropagation()}
+                                                                                    className="ml-1 mr-1 h-3 w-3 shrink-0 cursor-pointer accent-primary"
+                                                                                    aria-label={`Select ${col.name}`}
+                                                                                />
                                                                                 <Button
                                                                                     variant="ghost"
                                                                                     size="sm"
@@ -711,7 +780,8 @@ export function ExplorerSidebar({
                                                                                     </DropdownMenuContent>
                                                                                 </DropdownMenu>
                                                                             </div>
-                                                                        ))
+                                                                            );
+                                                                        })
                                                                 )}
                                                             </div>
                                                         )}
@@ -730,6 +800,20 @@ export function ExplorerSidebar({
                     )}
                 </div>
             </div>
+
+            {selectedCollections.size > 0 && (
+                <div className="p-2 border-t">
+                    <Button
+                        variant="destructive"
+                        size="sm"
+                        className="w-full text-xs"
+                        onClick={() => setBulkDeleteDialog({ open: true })}
+                    >
+                        <IconTrash className="h-3 w-3 mr-1.5" />
+                        Delete ({selectedCollections.size}) Collection{selectedCollections.size !== 1 ? "s" : ""}
+                    </Button>
+                </div>
+            )}
 
             <Dialog open={renameCollectionDialog.open} onOpenChange={(open) => setRenameCollectionDialog(prev => ({ ...prev, open }))}>
                 <DialogContent>
@@ -809,6 +893,46 @@ export function ExplorerSidebar({
                         <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
                         <AlertDialogAction onClick={confirmDropCollection} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
                             {t("dropCollection")}
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
+            <AlertDialog open={bulkDeleteDialog.open} onOpenChange={(open) => setBulkDeleteDialog({ open })}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Delete {selectedCollections.size} Collection{selectedCollections.size !== 1 ? "s" : ""}?</AlertDialogTitle>
+                        <AlertDialogDescription asChild>
+                            <div>
+                                <p className="mb-2">The following collections will be permanently deleted:</p>
+                                <ul className="max-h-48 overflow-y-auto space-y-1">
+                                    {Array.from(selectedCollections).map(key => {
+                                        const [connId, dbName, collName] = key.split("|");
+                                        const connNode = connections.find(c => c.connection.id === connId);
+                                        return (
+                                            <li key={key} className="text-xs font-mono bg-muted rounded px-2 py-1">
+                                                <span className="text-muted-foreground">{connNode?.connection.name ?? connId} / {dbName} / </span>
+                                                <span className="font-semibold text-foreground">{collName}</span>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                                <p className="mt-2 text-destructive font-medium">This action cannot be undone.</p>
+                            </div>
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel disabled={isBulkDeleting}>{t("cancel")}</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={confirmBulkDelete}
+                            disabled={isBulkDeleting}
+                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                        >
+                            {isBulkDeleting ? (
+                                <><IconLoader2 className="h-3 w-3 mr-1.5 animate-spin" />Deleting...</>
+                            ) : (
+                                <>Delete {selectedCollections.size} Collection{selectedCollections.size !== 1 ? "s" : ""}</>
+                            )}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
