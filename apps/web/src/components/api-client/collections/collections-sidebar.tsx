@@ -509,11 +509,15 @@ export function CollectionsSidebar({
                                 setIsDeleting(true)
                                 try {
                                     await onDeleteMultiple?.(Array.from(selectedCollections))
+                                    // Only close dialog and clear selection on successful deletion
+                                    setDeleteBulkDialogOpen(false)
+                                    clearSelection()
+                                } catch (error) {
+                                    // Keep dialog open if deletion failed so user can retry
+                                    console.error("Error deleting collections:", error)
                                 } finally {
                                     setIsDeleting(false)
                                 }
-                                setDeleteBulkDialogOpen(false)
-                                clearSelection()
                             }}
                         >
                             {isDeleting ? "Deleting..." : (t("delete") || "Delete")}
