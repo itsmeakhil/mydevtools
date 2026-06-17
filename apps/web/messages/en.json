@@ -918,7 +918,14 @@
       "cancel": "Cancel",
       "confirmDelete": "Delete",
       "deleteDialogTitle": "Delete environment set?",
-      "deleteDialogDescription": "This removes the encrypted blob from your account. You cannot undo this."
+      "deleteDialogDescription": "This removes the encrypted blob from your account. You cannot undo this.",
+      "noResultsTitle": "No results",
+      "noResultsHint": "No sets match your search or filter. Try adjusting your query.",
+      "sort": {
+        "updatedDesc": "Newest first",
+        "updatedAsc": "Oldest first",
+        "nameAsc": "Name A→Z"
+      }
     },
     "toasts": {
       "copiedDotEnv": ".env copied to clipboard",
@@ -964,7 +971,9 @@
       "toastUpdateFailed": "Failed to update",
       "toastPasteEmpty": "No KEY=value lines found",
       "toastPasteApplied": "Merged {count} variables from paste",
-      "toastProjectEnvRequired": "Project and environment are required"
+      "toastProjectEnvRequired": "Project and environment are required",
+      "showValues": "Show values",
+      "hideValues": "Hide values"
     }
   },
   "Bookmarks": {

@@ -22,8 +22,7 @@ type EnvPasteCollapsibleProps = {
     plainCommentLines: number
     onPendingCommentedChange: (rows: EnvVariableRow[]) => void
     onPlainCommentLinesChange: (n: number) => void
-    setVariables: React.Dispatch<React.SetStateAction<EnvVariableRow[]>>
-    emptyRow: EnvVariableRow
+    onMergeVariables: (incoming: EnvVariableRow[]) => void
     t: (key: string, values?: Record<string, string | number | boolean | Date>) => string
 }
 
@@ -36,8 +35,7 @@ export function EnvPasteCollapsible({
     plainCommentLines,
     onPendingCommentedChange,
     onPlainCommentLinesChange,
-    setVariables,
-    emptyRow,
+    onMergeVariables,
     t,
 }: EnvPasteCollapsibleProps) {
     const handlePaste = (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
@@ -52,17 +50,16 @@ export function EnvPasteCollapsible({
         onPasteTextChange("")
 
         if (d.active.length > 0) {
-            setVariables((prev) => mergeEnvVariableRows(prev, d.active, emptyRow))
+            onMergeVariables(d.active)
             toast.success(t("toastPasteAutoMerged", { count: d.active.length }))
         } else {
             toast.info(t("toastPasteCommentedOnly"))
         }
-
     }
 
     const addCommentedVariables = () => {
         if (pendingCommented.length === 0) return
-        setVariables((prev) => mergeEnvVariableRows(prev, pendingCommented, emptyRow))
+        onMergeVariables(pendingCommented)
         toast.success(t("toastCommentedAdded", { count: pendingCommented.length }))
         onPendingCommentedChange([])
     }

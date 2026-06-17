@@ -8,7 +8,7 @@ import { useIsMobile } from "@/components/hooks/use-mobile"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Plus, Trash2 } from "lucide-react"
+import { Plus, Trash2, Eye, EyeOff } from "lucide-react"
 import {
     useEnvironmentManagerStore,
     type EnvSetEntry,
@@ -24,8 +24,10 @@ import { cn } from "@/lib/utils"
 import { toast } from "sonner"
 import { useTranslations } from "next-intl"
 
-function emptyVariable(): EnvVariableRow {
-    return { key: "", value: "" }
+type VarRow = EnvVariableRow & { _uid: string }
+
+function emptyVariable(): VarRow {
+    return { key: "", value: "", _uid: crypto.randomUUID() }
 }
 
 type EditEnvironmentSetDialogProps = {
@@ -39,9 +41,10 @@ export function EditEnvironmentSetDialog({ entry, open, onOpenChange }: EditEnvi
     const { encryptionKey } = useMasterKeyStore()
     const { updateSet } = useEnvironmentManagerStore()
     const [loading, setLoading] = useState(false)
+    const [showValues, setShowValues] = useState(false)
     const [project, setProject] = useState("")
     const [environment, setEnvironment] = useState("")
-    const [variables, setVariables] = useState<EnvVariableRow[]>([emptyVariable()])
+    const [variables, setVariables] = useState<VarRow[]>([emptyVariable()])
     const [tags, setTags] = useState<string[]>([])
     const [tagInput, setTagInput] = useState("")
     const [notes, setNotes] = useState("")
@@ -54,7 +57,12 @@ export function EditEnvironmentSetDialog({ entry, open, onOpenChange }: EditEnvi
         if (!entry || !open) return
         setProject(entry.project)
         setEnvironment(entry.environment)
-        setVariables(entry.variables.length ? [...entry.variables] : [emptyVariable()])
+        setVariables(
+            entry.variables.length
+                ? entry.variables.map((v) => ({ ...v, _uid: crypto.randomUUID() }))
+                : [emptyVariable()]
+        )
+        setShowValues(false)
         setTags([...entry.tags])
         setNotes(entry.notes)
         setTagInput("")
@@ -89,7 +97,9 @@ export function EditEnvironmentSetDialog({ entry, open, onOpenChange }: EditEnvi
             return
         }
 
-        const cleanedVars = variables.filter((r) => r.key.trim())
+        const cleanedVars = variables
+            .filter((r) => r.key.trim())
+            .map(({ key, value }) => ({ key, value }))
         const payload = { project: proj, environment: env, variables: cleanedVars, tags, notes }
 
         setLoading(true)
@@ -152,28 +162,55 @@ export function EditEnvironmentSetDialog({ entry, open, onOpenChange }: EditEnvi
                 plainCommentLines={plainCommentLines}
                 onPendingCommentedChange={setPendingCommented}
                 onPlainCommentLinesChange={setPlainCommentLines}
-                setVariables={setVariables}
-                emptyRow={emptyVariable()}
+                onMergeVariables={(incoming) =>
+                    setVariables((prev) => {
+                        const base = prev.filter((r) => r.key.trim() || r.value.trim())
+                        const keyIndex = new Map(base.map((r, i) => [r.key, i]))
+                        const result = [...base]
+                        for (const row of incoming) {
+                            const idx = keyIndex.get(row.key)
+                            if (idx !== undefined) {
+                                result[idx] = { ...row, _uid: result[idx]._uid }
+                            } else {
+                                keyIndex.set(row.key, result.length)
+                                result.push({ ...row, _uid: crypto.randomUUID() })
+                            }
+                        }
+                        return result.length > 0 ? result : [emptyVariable()]
+                    })
+                }
                 t={t as (key: string, values?: Record<string, string | number | boolean | Date>) => string}
             />
 
             <div className="space-y-2">
                 <div className="flex items-center justify-between">
                     <Label>{t("variables")}</Label>
-                    <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        className="h-8"
-                        onClick={() => setVariables((v) => [...v, emptyVariable()])}
-                    >
-                        <Plus className="h-4 w-4 mr-1" />
-                        {t("addRow")}
-                    </Button>
+                    <div className="flex items-center gap-1">
+                        <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            className="h-8 gap-1"
+                            onClick={() => setShowValues((v) => !v)}
+                        >
+                            {showValues ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+                            {showValues ? t("hideValues") : t("showValues")}
+                        </Button>
+                        <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            className="h-8"
+                            onClick={() => setVariables((v) => [...v, emptyVariable()])}
+                        >
+                            <Plus className="h-4 w-4 mr-1" />
+                            {t("addRow")}
+                        </Button>
+                    </div>
                 </div>
                 <div className="space-y-2 max-h-[240px] overflow-y-auto pr-1">
                     {variables.map((row, i) => (
-                        <div key={i} className="flex gap-2 items-start">
+                        <div key={row._uid} className="flex gap-2 items-start">
                             <Input
                                 placeholder={t("keyPlaceholder")}
                                 value={row.key}
@@ -187,7 +224,7 @@ export function EditEnvironmentSetDialog({ entry, open, onOpenChange }: EditEnvi
                             <Input
                                 placeholder={t("valuePlaceholder")}
                                 value={row.value}
-                                type="password"
+                                type={showValues ? "text" : "password"}
                                 className="font-mono text-sm flex-1 min-w-0"
                                 onChange={(e) => {
                                     const next = [...variables]
@@ -214,6 +251,7 @@ export function EditEnvironmentSetDialog({ entry, open, onOpenChange }: EditEnvi
                 <Label htmlFor="em-edit-notes">{t("notesOptional")}</Label>
                 <Textarea
                     id="em-edit-notes"
+                    placeholder={t("placeholderNotes")}
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     className="min-h-[72px]"

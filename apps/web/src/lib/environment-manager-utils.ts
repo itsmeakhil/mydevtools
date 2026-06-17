@@ -77,8 +77,18 @@ export function mergeEnvVariableRows(
     emptyRow: EnvVariableRow
 ): EnvVariableRow[] {
     const base = prev.filter((r) => r.key.trim() || r.value.trim())
-    const merged = [...base, ...incoming]
-    return merged.length > 0 ? merged : [emptyRow]
+    const keyIndex = new Map(base.map((r, i) => [r.key, i]))
+    const result = [...base]
+    for (const row of incoming) {
+        const idx = keyIndex.get(row.key)
+        if (idx !== undefined) {
+            result[idx] = row
+        } else {
+            keyIndex.set(row.key, result.length)
+            result.push(row)
+        }
+    }
+    return result.length > 0 ? result : [emptyRow]
 }
 
 export function parseDotEnvBlock(text: string): EnvVariableRow[] {
