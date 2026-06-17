@@ -18,6 +18,16 @@ import type { Locale } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useTranslations, useLocale } from "next-intl";
 import { af, ar, ca, cs as csLocale, da, de, el, enUS, es, faIR, fr as frLocale, ms, nb, nl, pt, zhCN } from "date-fns/locale";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface ConnectionFormProps {
     onConnect: (connectionString: string) => Promise<void>;
@@ -41,6 +51,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
     const [isLoadingConnections, setIsLoadingConnections] = useState(false);
     const [isTesting, setIsTesting] = useState(false);
     const [editingId, setEditingId] = useState<string | null>(null);
+    const [deleteConnDialog, setDeleteConnDialog] = useState<{ open: boolean; id: string | null }>({ open: false, id: null });
 
     useEffect(() => {
         if (user) {
@@ -124,16 +135,22 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
 
     const handleDeleteConnection = async (e: React.MouseEvent, id: string) => {
         e.stopPropagation();
-        if (!user) return;
-        if (!confirm(t("confirmDelete"))) return;
+        setDeleteConnDialog({ open: true, id });
+    };
+
+    const confirmDeleteConnection = async () => {
+        const id = deleteConnDialog.id;
+        if (!user || !id) return;
 
         try {
             await deleteConnection(user.uid, id);
             toast.success(t("toastDeletedConn"));
             if (editingId === id) handleCancelEdit();
-            loadConnections();
+            await loadConnections();
         } catch (error) {
             toast.error(t("toastDeleteFail"));
+        } finally {
+            setDeleteConnDialog({ open: false, id: null });
         }
     };
 
@@ -313,6 +330,21 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                     </CardContent>
                 </Card>
             </div>
+
+            <AlertDialog open={deleteConnDialog.open} onOpenChange={(open) => setDeleteConnDialog(prev => ({ ...prev, open }))}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>{t("confirmDelete")}</AlertDialogTitle>
+                        <AlertDialogDescription>{t("toastDeletedConn")}</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+                        <AlertDialogAction onClick={confirmDeleteConnection} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                            {t("menuDeleteConnection")}
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     );
 }
