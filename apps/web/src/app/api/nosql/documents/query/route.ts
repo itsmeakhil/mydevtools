@@ -2,6 +2,8 @@ import { NextResponse } from "next/server"
 import { MongoClient, ObjectId } from "mongodb"
 import { requireNosqlAuth } from "@/app/api/nosql/_auth"
 import { validateMongoConnectionString } from "@/app/api/nosql/_mongo-safety"
+import { getMongoClient, releaseMongoClient } from "@/lib/nosql-client-pool"
+import { validateAggregationPipeline } from "@/lib/nosql-aggregation-validator"
 
 export async function POST(request: Request) {
   const authError = await requireNosqlAuth(request)
@@ -59,12 +61,19 @@ export async function POST(request: Request) {
 
       query = convertObjectIds(query)
       isAggregation = Array.isArray(query)
+
+      // Validate aggregation pipeline for security
+      if (isAggregation) {
+        const validation = validateAggregationPipeline(query)
+        if (!validation.valid) {
+          return NextResponse.json({ error: validation.error }, { status: 400 })
+        }
+      }
     } catch {
       return NextResponse.json({ error: "Invalid JSON in query parameter" }, { status: 400 })
     }
 
-    const client = new MongoClient(connectionString)
-    await client.connect()
+    const client = await getMongoClient(connectionString)
 
     try {
       const db = client.db(dbName)
@@ -95,7 +104,7 @@ export async function POST(request: Request) {
 
       return NextResponse.json({ documents, total })
     } finally {
-      await client.close()
+      releaseMongoClient(connectionString)
     }
   } catch (error: any) {
     return NextResponse.json(

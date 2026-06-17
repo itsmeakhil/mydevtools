@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { MongoClient } from 'mongodb';
 import { requireNosqlAuth } from '@/app/api/nosql/_auth';
 import { validateMongoConnectionString } from '@/app/api/nosql/_mongo-safety';
+import { getMongoClient, releaseMongoClient } from '@/lib/nosql-client-pool';
 
 export async function GET(request: Request) {
     return NextResponse.json(
@@ -30,12 +30,10 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: connectionError }, { status: 400 });
         }
 
-        const client = new MongoClient(connectionString);
-        await client.connect();
+        const client = await getMongoClient(connectionString);
 
         const dbs = await client.db().admin().listDatabases();
-
-        await client.close();
+        releaseMongoClient(connectionString);
 
         return NextResponse.json({ databases: dbs.databases });
     } catch (error: any) {

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { MongoClient } from 'mongodb';
 import { requireNosqlAuth } from '@/app/api/nosql/_auth';
 import { validateMongoConnectionString } from '@/app/api/nosql/_mongo-safety';
+import { getMongoClient, releaseMongoClient } from '@/lib/nosql-client-pool';
 
 export async function POST(request: Request) {
     const authError = await requireNosqlAuth(request);
@@ -24,11 +24,10 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Maximum 10,000 documents per import' }, { status: 400 });
         }
 
-        const client = new MongoClient(connectionString);
-        await client.connect();
+        const client = await getMongoClient(connectionString);
         const collection = client.db(dbName).collection(collectionName);
         const result = await collection.insertMany(documents, { ordered: false });
-        await client.close();
+        releaseMongoClient(connectionString);
 
         return NextResponse.json({ insertedCount: result.insertedCount });
     } catch (error: any) {
