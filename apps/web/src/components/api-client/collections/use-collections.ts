@@ -367,6 +367,66 @@ export function useCollections() {
         }
     }
 
+    const deleteMultipleCollections = async (ids: string[]) => {
+        if (!user) return
+        if (ids.length === 0) return
+
+        try {
+            // Use Promise.allSettled to handle partial failures gracefully
+            const deleteResults = await Promise.allSettled(
+                ids.map((id) =>
+                    authedFetch(`/api/backend/api-client/collections/${id}`, { method: "DELETE" })
+                )
+            )
+
+            const successfulIds: string[] = []
+            const failedIds: string[] = []
+
+            deleteResults.forEach((result, index) => {
+                if (result.status === "fulfilled") {
+                    if (result.value.ok) {
+                        successfulIds.push(ids[index])
+                    } else {
+                        failedIds.push(ids[index])
+                    }
+                } else {
+                    failedIds.push(ids[index])
+                }
+            })
+
+            // Remove successfully deleted collections from state
+            if (successfulIds.length > 0) {
+                setCollections((prev) => prev.filter((c) => !successfulIds.includes(c.id)))
+            }
+
+            // Handle results with appropriate feedback
+            if (failedIds.length === 0) {
+                // All successful
+                toast.success(ids.length === 1 ? "Collection deleted" : `${ids.length} collections deleted`)
+            } else if (successfulIds.length === 0) {
+                // All failed
+                console.error("Failed to delete collections:", failedIds)
+                toast.error(ids.length === 1 ? "Failed to delete collection" : "Failed to delete collections")
+                throw new Error("All collections failed to delete")
+            } else {
+                // Partial failure
+                const failedNames = failedIds
+                    .map(id => collections.find(c => c.id === id)?.name)
+                    .filter(Boolean)
+                    .join(", ")
+                console.error("Partial failure deleting collections:", failedIds)
+                toast.error(`Deleted ${successfulIds.length} of ${ids.length} collections. Failed: ${failedNames || "unknown"}`)
+                throw new Error(`Partial failure: ${failedIds.length} collections failed to delete`)
+            }
+        } catch (error) {
+            console.error("Failed to delete collections:", error)
+            if (!(error instanceof Error) || !error.message.includes("Partial failure")) {
+                toast.error("Failed to delete collections")
+            }
+            throw error // Re-throw so caller knows deletion failed
+        }
+    }
+
     return {
         collections,
         addFolder,
@@ -376,6 +436,7 @@ export function useCollections() {
         createCollection,
         renameCollection,
         renameFolder,
+        deleteMultipleCollections,
         isLoading
     }
 }
