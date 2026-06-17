@@ -91,6 +91,7 @@ export function CollectionsSidebar({
     const [targetParentId, setTargetParentId] = React.useState<string | null>(null)
     const [targetCollectionId, setTargetCollectionId] = React.useState<string | null>(null)
     const [selectedCollections, setSelectedCollections] = React.useState<Set<string>>(new Set())
+    const [deleteBulkDialogOpen, setDeleteBulkDialogOpen] = React.useState(false)
 
     const handleAddFolder = () => {
         if (newFolderName && targetParentId) {
@@ -151,15 +152,28 @@ export function CollectionsSidebar({
                 <div className="px-4 py-3 border-b flex flex-col gap-3 shrink-0 bg-card/40 backdrop-blur-sm">
                     <div className="flex items-center justify-between">
                         <h3 className="font-semibold text-sm tracking-tight">{t("title")}</h3>
-                        <Button 
-                            variant="ghost" 
-                            size="icon" 
-                            className="h-7 w-7 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors" 
-                            onClick={() => setNewCollectionDialogOpen(true)} 
-                            title={t("newCollection")}
-                        >
-                            <FolderPlus className="h-4 w-4" />
-                        </Button>
+                        <div className="flex items-center gap-2">
+                            {selectedCollections.size > 0 && (
+                                <Button
+                                    variant="destructive"
+                                    size="sm"
+                                    className="h-7 px-3 rounded-lg text-xs font-medium gap-2"
+                                    onClick={() => setDeleteBulkDialogOpen(true)}
+                                >
+                                    <Trash2 className="h-3.5 w-3.5" />
+                                    Delete ({selectedCollections.size})
+                                </Button>
+                            )}
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-7 w-7 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors"
+                                onClick={() => setNewCollectionDialogOpen(true)}
+                                title={t("newCollection")}
+                            >
+                                <FolderPlus className="h-4 w-4" />
+                            </Button>
+                        </div>
                     </div>
                     <TabsList className="w-full grid grid-cols-2 p-1 bg-muted/50 rounded-lg">
                         <TabsTrigger value="collections" className="rounded-md text-xs font-medium">{t("tabCollections")}</TabsTrigger>
