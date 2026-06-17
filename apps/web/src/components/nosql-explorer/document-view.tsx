@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { Document } from "./types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -420,7 +420,14 @@ export function DocumentView({
     };
 
     useEffect(() => {
-        setJsonViewContent(JSON.stringify(documents, null, 2));
+        if (documents.length === 0) {
+            setJsonViewContent("[]");
+            return;
+        }
+        const id = setTimeout(() => {
+            setJsonViewContent(JSON.stringify(documents, null, 2));
+        }, 0);
+        return () => clearTimeout(id);
     }, [documents]);
 
     // Clear selection when documents change
@@ -573,19 +580,27 @@ export function DocumentView({
         document.body.style.cursor = 'col-resize';
     };
 
-    const fields = Array.from(new Set(documents.flatMap(Object.keys))).filter(k => k !== "_id");
-    const allFields = ["_id", ...fields];
-    const totalPages = Math.ceil(total / limit) || 1;
-    const isAllSelected = documents.length > 0 && selectedIds.size === documents.length;
-    const isIndeterminate = selectedIds.size > 0 && selectedIds.size < documents.length;
-
-    const isFilterActive = (() => {
+    const fields = useMemo(
+        () => Array.from(new Set(documents.flatMap(Object.keys))).filter(k => k !== "_id"),
+        [documents]
+    );
+    const allFields = useMemo(() => ["_id", ...fields], [fields]);
+    const totalPages = useMemo(() => Math.ceil(total / limit) || 1, [total, limit]);
+    const isAllSelected = useMemo(
+        () => documents.length > 0 && selectedIds.size === documents.length,
+        [selectedIds, documents]
+    );
+    const isIndeterminate = useMemo(
+        () => selectedIds.size > 0 && selectedIds.size < documents.length,
+        [selectedIds, documents]
+    );
+    const isFilterActive = useMemo(() => {
         try {
             const q = searchQuery?.trim();
             if (!q || q === "{}") return false;
             return Object.keys(JSON.parse(q)).length > 0;
         } catch { return false; }
-    })();
+    }, [searchQuery]);
 
     const showSelectMode = viewMode === 'table' && !!onBulkDelete;
 

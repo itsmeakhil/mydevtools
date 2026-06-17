@@ -43,6 +43,7 @@
     "@radix-ui/react-tooltip": "^1.2.8",
     "@space-man/react-theme-animation": "^1.1.1",
     "@tabler/icons-react": "^3.35.0",
+    "@tanstack/react-virtual": "^3.14.3",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "ajv": "^8.17.1",
