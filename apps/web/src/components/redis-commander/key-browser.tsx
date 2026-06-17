@@ -8,7 +8,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { IconSearch, IconRefresh, IconChevronRight, IconDatabase } from "@tabler/icons-react";
 import { RedisKeyInfo, RedisValueType, SearchMode } from "./types";
 import { cn } from "@/lib/utils";
-import { detectSearchMode, globMatch, regexMatch, fuzzyMatch } from "./search-utils";
+import { detectSearchMode, globMatch, regexMatch, fuzzyMatch, getMatchIndices } from "./search-utils";
 import { SearchBar } from "./search-bar";
 import { AdvancedSearchPanel } from "./advanced-search-panel";
 
@@ -20,6 +20,52 @@ const TYPE_COLORS: Record<RedisValueType | string, string> = {
     hash: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
     none: "bg-muted text-muted-foreground",
 };
+
+interface HighlightedKeyTextProps {
+    text: string;
+    indices: number[];
+    mode: SearchMode;
+}
+
+function HighlightedKeyText({ text, indices, mode }: HighlightedKeyTextProps) {
+    if (indices.length === 0) return <span>{text}</span>;
+
+    if (mode === "fuzzy") {
+        // indices are individual char positions
+        // Create a Set for fast lookup
+        const indexSet = new Set(indices);
+        const chars = text.split("");
+        const elements: React.ReactNode[] = [];
+
+        chars.forEach((char, i) => {
+            if (indexSet.has(i)) {
+                elements.push(
+                    <span key={i} className="bg-yellow-200/50 dark:bg-yellow-900/50">
+                        {char}
+                    </span>
+                );
+            } else {
+                elements.push(char);
+            }
+        });
+
+        return <span>{elements}</span>;
+    } else {
+        // glob or regex: indices are [start, end]
+        const start = indices[0] ?? 0;
+        const end = indices[1] ?? text.length;
+
+        return (
+            <span>
+                {text.slice(0, start)}
+                <span className="bg-blue-200/50 dark:bg-blue-900/50">
+                    {text.slice(start, end)}
+                </span>
+                {text.slice(end)}
+            </span>
+        );
+    }
+}
 
 interface SearchState {
     input: string;
@@ -348,32 +394,43 @@ export function KeyBrowser({
                     </div>
                 )}
                 <div className="p-1">
-                    {displayedKeys.map((item) => (
-                        <button
-                            key={item.key}
-                            onClick={() => onSelectKey(item.key)}
-                            className={cn(
-                                "flex w-full items-center gap-2 rounded px-2 py-1.5 text-left transition-colors hover:bg-accent",
-                                selectedKey === item.key && "bg-accent"
-                            )}
-                        >
-                            <span
+                    {displayedKeys.map((item) => {
+                        const highlightIndices = searchState.input
+                            ? getMatchIndices(item.key, searchState.input, searchState.userModeOverride || searchState.detectedMode)
+                            : [];
+                        return (
+                            <button
+                                key={item.key}
+                                onClick={() => onSelectKey(item.key)}
                                 className={cn(
-                                    "shrink-0 rounded px-1 py-0.5 text-[10px] font-mono font-semibold uppercase",
-                                    TYPE_COLORS[item.type] ?? TYPE_COLORS.none
+                                    "flex w-full items-center gap-2 rounded px-2 py-1.5 text-left transition-colors hover:bg-accent",
+                                    selectedKey === item.key && "bg-accent"
                                 )}
                             >
-                                {item.type}
-                            </span>
-                            <span className="flex-1 truncate font-mono text-xs">{item.key}</span>
-                            {item.ttl > 0 && (
-                                <Badge variant="outline" className="shrink-0 text-[10px] h-4 px-1">
-                                    {item.ttl}s
-                                </Badge>
-                            )}
-                            <IconChevronRight className="size-3 shrink-0 text-muted-foreground" />
-                        </button>
-                    ))}
+                                <span
+                                    className={cn(
+                                        "shrink-0 rounded px-1 py-0.5 text-[10px] font-mono font-semibold uppercase",
+                                        TYPE_COLORS[item.type] ?? TYPE_COLORS.none
+                                    )}
+                                >
+                                    {item.type}
+                                </span>
+                                <span className="flex-1 truncate font-mono text-xs">
+                                    <HighlightedKeyText
+                                        text={item.key}
+                                        indices={highlightIndices}
+                                        mode={searchState.userModeOverride || searchState.detectedMode}
+                                    />
+                                </span>
+                                {item.ttl > 0 && (
+                                    <Badge variant="outline" className="shrink-0 text-[10px] h-4 px-1">
+                                        {item.ttl}s
+                                    </Badge>
+                                )}
+                                <IconChevronRight className="size-3 shrink-0 text-muted-foreground" />
+                            </button>
+                        );
+                    })}
                 </div>
 
                 {/* Infinite scroll sentinel */}
