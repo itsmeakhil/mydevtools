@@ -209,12 +209,11 @@ export function CollectionsSidebar({
                                     <div key={collection.id} className="mb-4">
                                         <div className="flex items-center justify-between px-2 py-1.5 mb-1 group rounded-md hover:bg-muted/50 transition-colors">
                                             <div className="flex items-center gap-2 flex-1 min-w-0">
-                                                <div className="flex items-center mr-2">
-                                                    <input
-                                                        type="checkbox"
+                                                <div className="flex items-center">
+                                                    <Checkbox
                                                         checked={selectedCollections.has(collection.id)}
-                                                        onChange={() => toggleCollectionSelection(collection.id)}
-                                                        className="h-4 w-4 cursor-pointer"
+                                                        onCheckedChange={() => toggleCollectionSelection(collection.id)}
+                                                        className="h-4 w-4"
                                                     />
                                                 </div>
                                                 <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider truncate flex-1 px-1">
