@@ -94,6 +94,7 @@ export function CollectionsSidebar({
     const [targetCollectionId, setTargetCollectionId] = React.useState<string | null>(null)
     const [selectedCollections, setSelectedCollections] = React.useState<Set<string>>(new Set())
     const [deleteBulkDialogOpen, setDeleteBulkDialogOpen] = React.useState(false)
+    const [isDeleting, setIsDeleting] = React.useState(false)
 
     const handleAddFolder = () => {
         if (newFolderName && targetParentId) {
@@ -503,13 +504,19 @@ export function CollectionsSidebar({
                         </Button>
                         <Button
                             variant="destructive"
-                            onClick={() => {
-                                onDeleteMultiple?.(Array.from(selectedCollections))
+                            disabled={isDeleting}
+                            onClick={async () => {
+                                setIsDeleting(true)
+                                try {
+                                    await onDeleteMultiple?.(Array.from(selectedCollections))
+                                } finally {
+                                    setIsDeleting(false)
+                                }
                                 setDeleteBulkDialogOpen(false)
                                 clearSelection()
                             }}
                         >
-                            {t("delete") || "Delete"}
+                            {isDeleting ? "Deleting..." : (t("delete") || "Delete")}
                         </Button>
                     </DialogFooter>
                 </DialogContent>
