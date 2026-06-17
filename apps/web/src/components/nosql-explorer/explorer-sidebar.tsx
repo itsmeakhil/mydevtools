@@ -38,6 +38,7 @@ interface ExplorerSidebarProps {
     onSelectCollection: (connection: SavedConnection, dbName: string, collectionName: string) => void;
     onRefresh: () => void;
     onAddConnection: () => void;
+    onConnectionsLoaded?: (connections: SavedConnection[]) => void;
     width?: number;
 }
 
@@ -55,6 +56,7 @@ export function ExplorerSidebar({
     onSelectCollection,
     onRefresh,
     onAddConnection,
+    onConnectionsLoaded,
     width = 256,
 }: ExplorerSidebarProps) {
     const t = useTranslations("NoSqlExplorer.sidebar");
@@ -111,6 +113,7 @@ export function ExplorerSidebar({
             });
 
             setConnections(newConnections);
+            onConnectionsLoaded?.(saved);
 
             // Trigger refresh for expanded connections to load databases
             newConnections.forEach((node, index) => {
