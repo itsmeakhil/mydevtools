@@ -89,6 +89,7 @@ export function CollectionsSidebar({
     const [renameCollectionName, setRenameCollectionName] = React.useState("")
     const [targetParentId, setTargetParentId] = React.useState<string | null>(null)
     const [targetCollectionId, setTargetCollectionId] = React.useState<string | null>(null)
+    const [selectedCollections, setSelectedCollections] = React.useState<Set<string>>(new Set())
 
     const handleAddFolder = () => {
         if (newFolderName && targetParentId) {
@@ -125,6 +126,22 @@ export function CollectionsSidebar({
         setTargetCollectionId(collection.id)
         setRenameCollectionName(collection.name)
         setRenameCollectionDialogOpen(true)
+    }
+
+    const toggleCollectionSelection = (collectionId: string) => {
+        setSelectedCollections(prev => {
+            const next = new Set(prev)
+            if (next.has(collectionId)) {
+                next.delete(collectionId)
+            } else {
+                next.add(collectionId)
+            }
+            return next
+        })
+    }
+
+    const clearSelection = () => {
+        setSelectedCollections(new Set())
     }
 
     return (
