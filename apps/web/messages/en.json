@@ -1556,7 +1556,10 @@
       "dialogRenameCollectionTitle": "Rename collection",
       "dialogRenameCollectionDescription": "Enter a new name for the collection.",
       "placeholderRenameCollection": "Collection name",
-      "renameAction": "Rename"
+      "renameAction": "Rename",
+      "dialogDeleteBulkTitle": "Delete Collections",
+      "dialogDeleteBulkDescription": "This action cannot be undone. The following collections will be permanently deleted:",
+      "cancel": "Cancel"
     },
     "collectionItem": {
       "newFolder": "New folder",
