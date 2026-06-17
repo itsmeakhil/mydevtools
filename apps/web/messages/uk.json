@@ -973,6 +973,7 @@
       "foldersHeading": "Теки",
       "tagsHeading": "Теги",
       "tagsMore": "+{count} ще",
+      "tagsShowLess": "Show less",
       "searchPlaceholder": "Пошук закладок...",
       "import": "Імпорт",
       "export": "Експорт",

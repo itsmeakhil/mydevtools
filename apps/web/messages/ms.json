@@ -973,6 +973,7 @@
       "foldersHeading": "Folder",
       "tagsHeading": "Tag",
       "tagsMore": "+{count} lagi",
+      "tagsShowLess": "Show less",
       "searchPlaceholder": "Cari penanda halaman anda...",
       "import": "Import",
       "export": "Eksport",

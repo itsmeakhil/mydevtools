@@ -973,6 +973,7 @@
       "foldersHeading": "Mapper",
       "tagsHeading": "Tags",
       "tagsMore": "+{count} mere",
+      "tagsShowLess": "Show less",
       "searchPlaceholder": "Søg i dine bogmærker...",
       "import": "Importere",
       "export": "Eksportere",

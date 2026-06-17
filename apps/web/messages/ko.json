@@ -973,6 +973,7 @@
       "foldersHeading": "폴더",
       "tagsHeading": "태그",
       "tagsMore": "+{count}개 더",
+      "tagsShowLess": "Show less",
       "searchPlaceholder": "북마크 검색...",
       "import": "가져오기",
       "export": "내보내기",

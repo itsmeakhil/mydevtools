@@ -67,7 +67,6 @@ class BookmarkOut(BookmarkBase):
     id: str
     createdAt: int
     updatedAt: int
-    created_by: str
 
 
 class BookmarkFolderBase(BaseModel):
@@ -101,14 +100,13 @@ class BookmarkFolderExpanded(BaseModel):
 class BookmarkFolderOut(BookmarkFolderBase):
     id: str
     createdAt: int
-    created_by: str
 
 
 class BookmarkImportBody(BaseModel):
     """Same shape as ``exportBookmarksToJSON`` / ``parseBookmarkJSON`` output."""
 
-    bookmarks: list[dict] = Field(default_factory=list)
-    folders: list[dict] = Field(default_factory=list)
+    bookmarks: list[BookmarkCreate] = Field(default_factory=list)
+    folders: list[BookmarkFolderCreate] = Field(default_factory=list)
 
 
 class BookmarkSnapshotOut(BaseModel):

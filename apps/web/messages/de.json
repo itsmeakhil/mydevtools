@@ -973,6 +973,7 @@
       "foldersHeading": "Ordner",
       "tagsHeading": "Tags",
       "tagsMore": "+{count} weitere",
+      "tagsShowLess": "Show less",
       "searchPlaceholder": "Lesezeichen suchen...",
       "import": "Importieren",
       "export": "Exportieren",

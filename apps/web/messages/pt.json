@@ -973,6 +973,7 @@
       "foldersHeading": "Pastas",
       "tagsHeading": "Etiquetas",
       "tagsMore": "+{count} mais",
+      "tagsShowLess": "Show less",
       "searchPlaceholder": "Pesquisar marcadores...",
       "import": "Importar",
       "export": "Exportar",

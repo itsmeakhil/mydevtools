@@ -973,6 +973,7 @@
       "foldersHeading": "文件夹",
       "tagsHeading": "标签",
       "tagsMore": "另外 {count} 个",
+      "tagsShowLess": "Show less",
       "searchPlaceholder": "搜索书签…",
       "import": "导入",
       "export": "导出",

@@ -973,6 +973,7 @@
       "foldersHeading": "Carpetas",
       "tagsHeading": "Etiquetas",
       "tagsMore": "+{count} más",
+      "tagsShowLess": "Show less",
       "searchPlaceholder": "Buscar en tus marcadores...",
       "import": "Importar",
       "export": "Exportar",
