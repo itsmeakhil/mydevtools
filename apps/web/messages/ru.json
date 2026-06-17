@@ -916,7 +916,14 @@
       "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
       "viewNoVariables": "No variables in this set.",
       "viewNotesHeading": "Notes",
-      "closeView": "Close"
+      "closeView": "Close",
+      "noResultsTitle": "No results",
+      "noResultsHint": "No sets match your search or filter. Try adjusting your query.",
+      "sort": {
+        "updatedDesc": "Newest first",
+        "updatedAsc": "Oldest first",
+        "nameAsc": "Name A→Z"
+      }
     },
     "toasts": {
       "copiedDotEnv": ".env скопирован в буфер обмена",
@@ -962,7 +969,9 @@
       "addCommentedVariables": "Add commented variables",
       "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
       "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
-      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}"
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
+      "showValues": "Show values",
+      "hideValues": "Hide values"
     }
   },
   "Bookmarks": {

@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useMemo, useState, useEffect, useRef } from "react"
 import { highlightDotEnvSource } from "@/lib/hljs-dotenv"
 import "./dotenv-modal-highlighter.css"
 import { useEnvironmentManagerStore, type EnvSetEntry } from "@/store/environment-manager-store"
@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Search, Copy, Pencil, Trash2, FileCode2, Eye } from "lucide-react"
+import { Search, Copy, Pencil, Trash2, FileCode2, Eye, ArrowUpDown } from "lucide-react"
 import { toast } from "sonner"
 import { deleteEnvSetEntry } from "@/lib/environment-manager-api"
 import { formatDotEnv } from "@/lib/environment-manager-utils"
@@ -24,6 +24,18 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { EditEnvironmentSetDialog } from "./edit-environment-set-dialog"
 import { formatDistanceToNow } from "date-fns"
 import { cn } from "@/lib/utils"
@@ -45,6 +57,19 @@ import {
 } from "@/components/ui/drawer"
 import { ScrollArea } from "@/components/ui/scroll-area"
 
+type SortOrder = "updatedDesc" | "updatedAsc" | "nameAsc"
+
+function useDebounce<T>(value: T, delay: number): T {
+    const [debounced, setDebounced] = useState(value)
+    const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
+    useEffect(() => {
+        if (timer.current) clearTimeout(timer.current)
+        timer.current = setTimeout(() => setDebounced(value), delay)
+        return () => { if (timer.current) clearTimeout(timer.current) }
+    }, [value, delay])
+    return debounced
+}
+
 export function EnvironmentSetList() {
     const t = useTranslations("EnvironmentManager.list")
     const tToast = useTranslations("EnvironmentManager.toasts")
@@ -52,11 +77,13 @@ export function EnvironmentSetList() {
     const { copyToClipboard } = useCopyToClipboard()
     const [search, setSearch] = useState("")
     const [tagFilter, setTagFilter] = useState("")
+    const [sortOrder, setSortOrder] = useState<SortOrder>("updatedDesc")
     const [editing, setEditing] = useState<EnvSetEntry | null>(null)
     const [editOpen, setEditOpen] = useState(false)
-    const [deleteId, setDeleteId] = useState<string | null>(null)
+    const [deleteEntry, setDeleteEntry] = useState<EnvSetEntry | null>(null)
     const [viewingEntry, setViewingEntry] = useState<EnvSetEntry | null>(null)
     const isMobile = useIsMobile()
+    const debouncedSearch = useDebounce(search, 200)
 
     const allTags = useMemo(() => {
         const s = new Set<string>()
@@ -65,33 +92,42 @@ export function EnvironmentSetList() {
     }, [sets])
 
     const filtered = useMemo(() => {
-        const q = search.toLowerCase().trim()
+        const q = debouncedSearch.toLowerCase().trim()
         const tf = tagFilter.toLowerCase().trim()
-        return sets.filter((e) => {
+        const result = sets.filter((e) => {
             const matchTag =
                 !tf || e.tags.some((x) => x.toLowerCase().includes(tf)) || tf === e.project.toLowerCase()
             if (!q) return matchTag
-            const blob = `${e.project} ${e.environment} ${e.tags.join(" ")} ${e.notes}`.toLowerCase()
-            return matchTag && blob.includes(q)
+            const blob = `${e.project} ${e.environment} ${e.tags.join(" ")}`.toLowerCase()
+            const notesMatch = e.notes.toLowerCase().includes(q)
+            return matchTag && (blob.includes(q) || notesMatch)
         })
-    }, [sets, search, tagFilter])
+        return result.sort((a, b) => {
+            if (sortOrder === "updatedDesc") return b.updatedAt - a.updatedAt
+            if (sortOrder === "updatedAsc") return a.updatedAt - b.updatedAt
+            return `${a.project}/${a.environment}`.localeCompare(`${b.project}/${b.environment}`)
+        })
+    }, [sets, debouncedSearch, tagFilter, sortOrder])
 
-    const viewDotEnvRaw = viewingEntry ? formatDotEnv(viewingEntry.variables).trim() : ""
+    const viewDotEnvRaw = useMemo(
+        () => (viewingEntry ? formatDotEnv(viewingEntry.variables).trim() : ""),
+        [viewingEntry]
+    )
     const viewDotEnvHtml = useMemo(
         () => (viewDotEnvRaw ? highlightDotEnvSource(viewDotEnvRaw) : ""),
         [viewDotEnvRaw]
     )
 
     const confirmDelete = async () => {
-        if (!deleteId) return
+        if (!deleteEntry) return
         try {
-            await deleteEnvSetEntry(deleteId)
-            deleteSet(deleteId)
+            await deleteEnvSetEntry(deleteEntry.id)
+            deleteSet(deleteEntry.id)
             toast.success(tToast("deleted"))
         } catch {
             toast.error(tToast("deleteFailed"))
         } finally {
-            setDeleteId(null)
+            setDeleteEntry(null)
         }
     }
 
@@ -121,7 +157,7 @@ export function EnvironmentSetList() {
                         />
                     </div>
                     <Input
-                        className="sm:max-w-[200px]"
+                        className="sm:max-w-[180px]"
                         placeholder={t("tagFilterPlaceholder")}
                         value={tagFilter}
                         onChange={(e) => setTagFilter(e.target.value)}
@@ -132,104 +168,146 @@ export function EnvironmentSetList() {
                             <option key={tag} value={tag} />
                         ))}
                     </datalist>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="outline" size="sm" className="gap-1.5 shrink-0 h-9">
+                                <ArrowUpDown className="h-3.5 w-3.5" />
+                                {t(`sort.${sortOrder}`)}
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => setSortOrder("updatedDesc")}>{t("sort.updatedDesc")}</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => setSortOrder("updatedAsc")}>{t("sort.updatedAsc")}</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => setSortOrder("nameAsc")}>{t("sort.nameAsc")}</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
 
                 {isLoading ? (
                     <p className="text-muted-foreground text-sm">{t("loading")}</p>
-                ) : filtered.length === 0 ? (
+                ) : sets.length === 0 ? (
                     <div className="flex flex-col items-center justify-center py-16 text-center text-muted-foreground">
                         <FileCode2 className="h-12 w-12 mb-3 opacity-40" />
                         <p className="font-medium text-foreground">{t("emptyTitle")}</p>
                         <p className="text-sm mt-1 max-w-sm">{t("emptyHint")}</p>
                     </div>
-                ) : (
-                    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 overflow-y-auto pb-4">
-                        {filtered.map((entry) => (
-                            <Card key={entry.id} className="flex flex-col">
-                                <CardHeader className="pb-2 space-y-1">
-                                    <CardTitle className="text-base leading-tight">
-                                        {entry.project}
-                                        <span className="text-muted-foreground font-normal"> / </span>
-                                        <span className="font-semibold">{entry.environment}</span>
-                                    </CardTitle>
-                                    <p className="text-xs text-muted-foreground">
-                                        {t("updatedAgo", {
-                                            time: formatDistanceToNow(entry.updatedAt, { addSuffix: true }),
-                                        })}
-                                    </p>
-                                </CardHeader>
-                                <CardContent className="flex-1 flex flex-col gap-3 pt-0">
-                                    {entry.tags.length > 0 && (
-                                        <div className="flex flex-wrap gap-1">
-                                            {entry.tags.map((tag) => (
-                                                <Badge key={tag} variant="secondary" className="text-xs">
-                                                    {tag}
-                                                </Badge>
-                                            ))}
-                                        </div>
-                                    )}
-                                    <p className="text-sm text-muted-foreground">
-                                        {t("variableCount", {
-                                            count: entry.variables.filter((v) => v.key.trim()).length,
-                                        })}
-                                    </p>
-                                    {entry.notes.trim() && (
-                                        <p className="text-xs text-muted-foreground line-clamp-2">{entry.notes}</p>
-                                    )}
-                                    <div className="flex flex-wrap gap-2 mt-auto pt-2">
-                                        <Button
-                                            type="button"
-                                            variant="outline"
-                                            size="sm"
-                                            className="gap-1"
-                                            onClick={() =>
-                                                copyToClipboard(
-                                                    formatDotEnv(entry.variables),
-                                                    tToast("copiedDotEnv")
-                                                )
-                                            }
-                                        >
-                                            <Copy className="h-3.5 w-3.5" />
-                                            {t("copyDotEnv")}
-                                        </Button>
-                                        <Button
-                                            type="button"
-                                            variant="outline"
-                                            size="sm"
-                                            className="gap-1"
-                                            onClick={() => setViewingEntry(entry)}
-                                        >
-                                            <Eye className="h-3.5 w-3.5" />
-                                            {t("view")}
-                                        </Button>
-                                        <Button
-                                            type="button"
-                                            variant="ghost"
-                                            size="sm"
-                                            className="gap-1"
-                                            onClick={() => {
-                                                setEditing(entry)
-                                                setEditOpen(true)
-                                            }}
-                                        >
-                                            <Pencil className="h-3.5 w-3.5" />
-                                            {t("edit")}
-                                        </Button>
-                                        <Button
-                                            type="button"
-                                            variant="ghost"
-                                            size="sm"
-                                            className="gap-1 text-destructive hover:text-destructive"
-                                            onClick={() => setDeleteId(entry.id)}
-                                        >
-                                            <Trash2 className="h-3.5 w-3.5" />
-                                            {t("delete")}
-                                        </Button>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        ))}
+                ) : filtered.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center py-16 text-center text-muted-foreground">
+                        <Search className="h-12 w-12 mb-3 opacity-40" />
+                        <p className="font-medium text-foreground">{t("noResultsTitle")}</p>
+                        <p className="text-sm mt-1 max-w-sm">{t("noResultsHint")}</p>
                     </div>
+                ) : (
+                    <TooltipProvider>
+                        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 overflow-y-auto pb-4">
+                            {filtered.map((entry) => (
+                                <Card key={entry.id} className="flex flex-col">
+                                    <CardHeader className="pb-2 space-y-1">
+                                        <CardTitle className="text-base leading-tight">
+                                            {entry.project}
+                                            <span className="text-muted-foreground font-normal"> / </span>
+                                            <span className="font-semibold">{entry.environment}</span>
+                                        </CardTitle>
+                                        <p className="text-xs text-muted-foreground">
+                                            {t("updatedAgo", {
+                                                time: formatDistanceToNow(entry.updatedAt, { addSuffix: true }),
+                                            })}
+                                        </p>
+                                    </CardHeader>
+                                    <CardContent className="flex-1 flex flex-col gap-3 pt-0">
+                                        {entry.tags.length > 0 && (
+                                            <div className="flex flex-wrap gap-1">
+                                                {entry.tags.map((tag) => (
+                                                    <Badge
+                                                        key={tag}
+                                                        variant="secondary"
+                                                        className="text-xs cursor-pointer hover:bg-primary/10"
+                                                        onClick={() => setTagFilter(tag)}
+                                                    >
+                                                        {tag}
+                                                    </Badge>
+                                                ))}
+                                            </div>
+                                        )}
+                                        <p className="text-sm text-muted-foreground">
+                                            {t("variableCount", {
+                                                count: entry.variables.filter((v) => v.key.trim()).length,
+                                            })}
+                                        </p>
+                                        {entry.notes.trim() && (
+                                            <p className="text-xs text-muted-foreground line-clamp-2">{entry.notes}</p>
+                                        )}
+                                        <div className="flex gap-1 mt-auto pt-2">
+                                            <Tooltip>
+                                                <TooltipTrigger asChild>
+                                                    <Button
+                                                        type="button"
+                                                        variant="outline"
+                                                        size="icon"
+                                                        className="h-8 w-8"
+                                                        onClick={() =>
+                                                            copyToClipboard(
+                                                                formatDotEnv(entry.variables),
+                                                                tToast("copiedDotEnv")
+                                                            )
+                                                        }
+                                                    >
+                                                        <Copy className="h-3.5 w-3.5" />
+                                                    </Button>
+                                                </TooltipTrigger>
+                                                <TooltipContent>{t("copyDotEnv")}</TooltipContent>
+                                            </Tooltip>
+                                            <Tooltip>
+                                                <TooltipTrigger asChild>
+                                                    <Button
+                                                        type="button"
+                                                        variant="outline"
+                                                        size="icon"
+                                                        className="h-8 w-8"
+                                                        onClick={() => setViewingEntry(entry)}
+                                                    >
+                                                        <Eye className="h-3.5 w-3.5" />
+                                                    </Button>
+                                                </TooltipTrigger>
+                                                <TooltipContent>{t("view")}</TooltipContent>
+                                            </Tooltip>
+                                            <Tooltip>
+                                                <TooltipTrigger asChild>
+                                                    <Button
+                                                        type="button"
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        className="h-8 w-8"
+                                                        onClick={() => {
+                                                            setEditing(entry)
+                                                            setEditOpen(true)
+                                                        }}
+                                                    >
+                                                        <Pencil className="h-3.5 w-3.5" />
+                                                    </Button>
+                                                </TooltipTrigger>
+                                                <TooltipContent>{t("edit")}</TooltipContent>
+                                            </Tooltip>
+                                            <Tooltip>
+                                                <TooltipTrigger asChild>
+                                                    <Button
+                                                        type="button"
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        className="h-8 w-8 text-destructive hover:text-destructive ml-auto"
+                                                        onClick={() => setDeleteEntry(entry)}
+                                                    >
+                                                        <Trash2 className="h-3.5 w-3.5" />
+                                                    </Button>
+                                                </TooltipTrigger>
+                                                <TooltipContent>{t("delete")}</TooltipContent>
+                                            </Tooltip>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            ))}
+                        </div>
+                    </TooltipProvider>
                 )}
             </div>
 
@@ -310,7 +388,7 @@ export function EnvironmentSetList() {
                 </Drawer>
             ) : (
                 <Dialog open={!!viewingEntry} onOpenChange={(o) => !o && setViewingEntry(null)}>
-                    <DialogContent className="flex h-[min(92vh,920px)] w-[min(95vw,1320px)] max-w-[min(95vw,1320px)] max-h-[min(92vh,920px)] flex-col gap-0 overflow-hidden p-0 sm:max-w-[min(95vw,1320px)]">
+                    <DialogContent className="flex h-[min(92vh,800px)] w-[min(95vw,780px)] max-w-[min(95vw,780px)] max-h-[min(92vh,800px)] flex-col gap-0 overflow-hidden p-0 sm:max-w-[min(95vw,780px)]">
                         {viewingEntry && (
                             <>
                                 <DialogHeader className="shrink-0 space-y-1 px-6 pb-2 pt-6 text-left">
@@ -376,11 +454,19 @@ export function EnvironmentSetList() {
                 </Dialog>
             )}
 
-            <AlertDialog open={!!deleteId} onOpenChange={(o) => !o && setDeleteId(null)}>
+            <AlertDialog open={!!deleteEntry} onOpenChange={(o) => !o && setDeleteEntry(null)}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>{t("deleteDialogTitle")}</AlertDialogTitle>
-                        <AlertDialogDescription>{t("deleteDialogDescription")}</AlertDialogDescription>
+                        <AlertDialogDescription>
+                            {deleteEntry && (
+                                <span>
+                                    <strong>{deleteEntry.project} / {deleteEntry.environment}</strong>
+                                    {" — "}
+                                </span>
+                            )}
+                            {t("deleteDialogDescription")}
+                        </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>

@@ -28,19 +28,22 @@ export default function EnvironmentManagerPage() {
     useEffect(() => {
         if (!encryptionKey || loadedRef.current) return
         loadedRef.current = true
-        loadSets(encryptionKey)
+        let cancelled = false
+        loadSets(encryptionKey, () => cancelled)
 
         return () => {
+            cancelled = true
             clearSets()
             loadedRef.current = false
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [encryptionKey])
 
-    const loadSets = async (key: CryptoKey) => {
+    const loadSets = async (key: CryptoKey, isCancelled: () => boolean) => {
         setLoading(true)
         try {
             const rows = await listEnvSetEntries()
+            if (isCancelled()) return
             const decrypted = await Promise.all(
                 rows.map(async (row) => {
                     try {
@@ -58,11 +61,12 @@ export default function EnvironmentManagerPage() {
                     }
                 })
             )
+            if (isCancelled()) return
             setSets(decrypted.filter((x): x is EnvSetEntry => x !== null))
         } catch {
-            toast.error(t("loadFailed"))
+            if (!isCancelled()) toast.error(t("loadFailed"))
         } finally {
-            setLoading(false)
+            if (!isCancelled()) setLoading(false)
         }
     }
 
