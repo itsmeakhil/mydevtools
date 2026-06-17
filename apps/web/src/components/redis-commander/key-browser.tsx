@@ -318,6 +318,11 @@ export function KeyBrowser({
         return () => observer.disconnect();
     }, [hasMore, fetchPage]);
 
+    // Clear search when connection changes
+    useEffect(() => {
+        handleClearSearch();
+    }, [redisUrl, handleClearSearch]);
+
     function handleSearch() {
         cursorRef.current = "0";
         setAllKeys([]);
