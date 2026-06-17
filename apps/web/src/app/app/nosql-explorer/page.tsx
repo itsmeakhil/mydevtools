@@ -246,12 +246,15 @@ export default function NoSQLExplorerPage() {
     };
 
     const handleTabClose = (tabId: string) => {
-        setTabs((prev) => prev.filter((t) => t.id !== tabId));
-        if (activeTabId === tabId) {
-            const index = tabs.findIndex((t) => t.id === tabId);
-            const newActiveTab = tabs[index - 1] || tabs[index + 1];
-            setActiveTabId(newActiveTab ? newActiveTab.id : null);
-        }
+        setTabs((prev) => {
+            const next = prev.filter((t) => t.id !== tabId);
+            if (activeTabId === tabId) {
+                const idx = prev.findIndex((t) => t.id === tabId);
+                const nextTab = prev[idx - 1] ?? prev[idx + 1] ?? null;
+                setActiveTabId(nextTab?.id ?? null);
+            }
+            return next;
+        });
     };
 
     const handleCloseAllTabs = () => {
