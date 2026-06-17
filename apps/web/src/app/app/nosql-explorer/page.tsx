@@ -267,19 +267,18 @@ export default function NoSQLExplorerPage() {
 
     const activeTab = tabs.find((t) => t.id === activeTabId);
 
-    // We need to get the connection string for the active tab to perform actions
-    // Since we don't store it in the tab (security/size), we might need to fetch it or pass it.
-    // For simplicity, let's assume we can re-fetch it or store it in the tab.
-    // Storing in tab is easiest for now.
-    // Wait, we have connectionId. We can fetch it from a cache or just store it in tab.
-    // Let's store connectionString in tab for now to make it work easily, 
-    // but strictly speaking we should look it up.
-    // Actually, let's just fetch the connection string again using getConnections if needed, 
-    // OR just store it in the tab. Storing in tab is fine for client-side state.
-    // I'll update ExplorerTab to include connectionString in a separate hidden field or just use the one passed to fetchDocuments.
-    // Let's update fetchDocumentsForTab to take connectionString.
-    // But for refresh/insert/update/delete we need it too.
-    // Let's add connectionString to ExplorerTab for convenience.
+    const connectionCacheRef = useRef<Map<string, SavedConnection>>(new Map());
+
+    const getConnectionForTab = useCallback(async (tab: ExplorerTab) => {
+        const cached = connectionCacheRef.current.get(tab.connectionId);
+        if (cached) return cached;
+        if (!user || !encryptionKey) throw new Error("Not authenticated");
+        const connections = await getConnections(user.uid, encryptionKey);
+        connections.forEach(c => connectionCacheRef.current.set(c.id, c));
+        const conn = connections.find(c => c.id === tab.connectionId);
+        if (!conn) throw new Error("Connection not found — try refreshing the sidebar");
+        return conn;
+    }, [user, encryptionKey]);
 
     const handleRefresh = async () => {
         if (activeTab) {
@@ -531,18 +530,6 @@ export default function NoSQLExplorerPage() {
     // Auto-fetch active tab once after hydration — persisted tabs no longer carry
     // documents (would blow the localStorage quota), so we lazily refetch on activate.
     const autoFetchedTabsRef = useRef<Set<string>>(new Set());
-    const connectionCacheRef = useRef<Map<string, SavedConnection>>(new Map());
-
-    const getConnectionForTab = useCallback(async (tab: ExplorerTab) => {
-        const cached = connectionCacheRef.current.get(tab.connectionId);
-        if (cached) return cached;
-        if (!user || !encryptionKey) throw new Error("Not authenticated");
-        const connections = await getConnections(user.uid, encryptionKey);
-        connections.forEach(c => connectionCacheRef.current.set(c.id, c));
-        const conn = connections.find(c => c.id === tab.connectionId);
-        if (!conn) throw new Error("Connection not found — try refreshing the sidebar");
-        return conn;
-    }, [user, encryptionKey]);
 
     useEffect(() => {
         if (!isInitialized || !isUnlocked || !user || !encryptionKey || !activeTabId) return;
