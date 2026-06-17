@@ -268,9 +268,8 @@ export function ExplorerSidebar({
         }
     };
 
-    const handleDeleteConnection = async (index: number) => {
+    const handleDeleteConnection = (index: number) => {
         setDeleteConnDialog({ open: true, index });
-        return;
     };
 
     const confirmDeleteConnection = async () => {
@@ -289,9 +288,8 @@ export function ExplorerSidebar({
         }
     };
 
-    const handleDropDatabase = async (connIndex: number, dbName: string) => {
+    const handleDropDatabase = (connIndex: number, dbName: string) => {
         setDropDbDialog({ open: true, connIndex, dbName });
-        return;
     };
 
     const confirmDropDatabase = async () => {
@@ -315,9 +313,8 @@ export function ExplorerSidebar({
         }
     };
 
-    const handleDropCollection = async (connIndex: number, dbName: string, collectionName: string) => {
+    const handleDropCollection = (connIndex: number, dbName: string, collectionName: string) => {
         setDropCollDialog({ open: true, connIndex, dbName, collectionName });
-        return;
     };
 
     const confirmDropCollection = async () => {
