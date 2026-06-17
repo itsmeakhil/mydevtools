@@ -1313,7 +1313,10 @@
       "menuCopyConnectionString": "Αντιγραφή συμβολοσειράς σύνδεσης",
       "menuDeleteConnection": "Διαγραφή σύνδεσης",
       "toastSidebarStringCopied": "Η συμβολοσειρά σύνδεσης αντιγράφηκε!",
-      "cancel": "Ματαίωση"
+      "cancel": "Ματαίωση",
+      "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
+      "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
     },
     "document": {
       "docsBreadcrumb": "{n} έγγραφα",

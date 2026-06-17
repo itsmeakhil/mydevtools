@@ -1313,7 +1313,10 @@
       "menuCopyConnectionString": "复制连接字符串",
       "menuDeleteConnection": "删除连接",
       "toastSidebarStringCopied": "连接字符串已复制！",
-      "cancel": "取消"
+      "cancel": "取消",
+      "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
+      "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
     },
     "document": {
       "docsBreadcrumb": "{n} 条文档",

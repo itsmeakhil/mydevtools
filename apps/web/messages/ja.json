@@ -1313,7 +1313,10 @@
       "menuCopyConnectionString": "接続文字列をコピー",
       "menuDeleteConnection": "接続を削除",
       "toastSidebarStringCopied": "接続文字列をコピーしました！",
-      "cancel": "キャンセル"
+      "cancel": "キャンセル",
+      "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
+      "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
     },
     "document": {
       "docsBreadcrumb": "{n}件のドキュメント",
