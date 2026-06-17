@@ -525,7 +525,7 @@ export function ExplorerSidebar({
                                                     </Button>
                                                 </TooltipTrigger>
                                                 <TooltipContent side="right">
-                                                    <p className="font-mono text-xs">{node.connection.connectionString}</p>
+                                                    <p className="font-mono text-xs">{node.connection.connectionString.replace(/:([^@]+)@/, ":****@")}</p>
                                                     {node.error && <p className="text-destructive text-xs mt-1">{node.error}</p>}
                                                 </TooltipContent>
                                             </Tooltip>

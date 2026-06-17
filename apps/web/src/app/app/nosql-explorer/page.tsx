@@ -14,12 +14,11 @@ import { useVaultGuard } from "@/hooks/use-vault-guard";
 import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder";
 import { getConnections } from "@/components/nosql-explorer/connection-service";
 import { cn } from "@/lib/utils";
-import { IconDatabase, IconServer, IconBrandMongodb, IconSearch, IconPlus, IconArrowLeft } from "@tabler/icons-react";
+import { IconDatabase, IconServer, IconBrandMongodb, IconSearch, IconPlus, IconArrowLeft, IconMenu2 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { Menu } from "lucide-react";
 import {
     ResponsiveModal,
     ResponsiveModalBody,
@@ -694,7 +693,7 @@ export default function NoSQLExplorerPage() {
                             onClick={() => setMobileSidebarOpen(true)}
                             aria-label="Open collections"
                         >
-                            <Menu className="h-4 w-4" />
+                            <IconMenu2 className="h-4 w-4" />
                         </Button>
                         <div className="flex-1 min-w-0">
                             {activeTab ? (
