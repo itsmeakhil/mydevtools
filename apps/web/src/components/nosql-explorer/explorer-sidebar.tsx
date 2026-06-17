@@ -731,14 +731,16 @@ export function ExplorerSidebar({
                                                                             const isSelected = selectedCollections.has(selKey);
                                                                             return (
                                                                             <div key={col.name} className="group/col flex items-center pr-2">
-                                                                                <input
-                                                                                    type="checkbox"
-                                                                                    checked={isSelected}
-                                                                                    onChange={() => toggleCollectionSelection(node.connection.id || "", db.name, col.name)}
-                                                                                    onClick={(e) => e.stopPropagation()}
-                                                                                    className="ml-1 mr-1 h-3 w-3 shrink-0 cursor-pointer accent-primary"
-                                                                                    aria-label={`Select ${col.name}`}
-                                                                                />
+                                                                                <div className="opacity-0 group-hover/col:opacity-100 transition-opacity">
+                                                                                    <input
+                                                                                        type="checkbox"
+                                                                                        checked={isSelected}
+                                                                                        onChange={() => toggleCollectionSelection(node.connection.id || "", db.name, col.name)}
+                                                                                        onClick={(e) => e.stopPropagation()}
+                                                                                        className="ml-1 mr-1 h-3 w-3 shrink-0 cursor-pointer accent-primary"
+                                                                                        aria-label={`Select ${col.name}`}
+                                                                                    />
+                                                                                </div>
                                                                                 <Button
                                                                                     variant="ghost"
                                                                                     size="sm"
