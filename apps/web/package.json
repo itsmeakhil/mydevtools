@@ -8,6 +8,8 @@
     "analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "eslint .",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "clean-install": "rimraf node_modules && pnpm install --filter @mydevtools/web..."
   },
   "dependencies": {
