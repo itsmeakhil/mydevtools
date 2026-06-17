@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useTranslations } from "next-intl";
@@ -29,6 +29,7 @@ import {
   IconPinFilled,
   IconX,
   IconTag,
+  IconFiles,
 } from "@tabler/icons-react";
 import { toast } from "sonner";
 import { useIsMobile } from "@/components/hooks/use-mobile";
@@ -82,6 +83,13 @@ import {
 
 type EditorMode = "view" | "edit";
 
+// ── Languages that have a formatting provider ─────────────────────────────────
+
+const FORMAT_SUPPORTED_LANGS = new Set([
+  "json", "sql", "javascript", "typescript", "html", "css", "scss",
+  "less", "xml", "yaml", "go", "rust", "java", "php", "csharp", "python",
+]);
+
 // ── Language color dots ───────────────────────────────────────────────────────
 
 const LANG_COLORS: Record<string, string> = {
@@ -121,7 +129,7 @@ function LangDot({ lang }: { lang: string }) {
 
 // ── Snippet list item ─────────────────────────────────────────────────────────
 
-function SnippetListItem({
+const SnippetListItem = memo(function SnippetListItem({
   sn,
   selected,
   onClick,
@@ -193,6 +201,84 @@ function SnippetListItem({
       )}
     </button>
   );
+});
+
+// ── Snippet list content (shared between mobile sheet + desktop panel) ─────────
+
+function SnippetListContent({
+  scrollRef,
+  className,
+  pinnedVisible,
+  unpinnedVisible,
+  filtered,
+  selectedId,
+  snHasMore,
+  snDisplayCount,
+  sentinelRef,
+  t,
+  onPin,
+  onSelect,
+}: {
+  scrollRef: RefObject<HTMLDivElement | null>;
+  className?: string;
+  pinnedVisible: CodeSnippet[];
+  unpinnedVisible: CodeSnippet[];
+  filtered: CodeSnippet[];
+  selectedId: string | null;
+  snHasMore: boolean;
+  snDisplayCount: number;
+  sentinelRef: (el: HTMLDivElement | null) => void;
+  t: ReturnType<typeof useTranslations<"SnippetManager">>;
+  onPin: (id: string) => void;
+  onSelect: (id: string) => void;
+}) {
+  return (
+    <div ref={scrollRef} className={cn("min-h-0 flex-1 overflow-y-auto", className)}>
+      <div className="space-y-0.5 pb-2 pr-1">
+        {pinnedVisible.length > 0 && (
+          <p className="px-1 pb-0.5 pt-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+            Pinned
+          </p>
+        )}
+        {pinnedVisible.map((sn) => (
+          <SnippetListItem
+            key={sn.id}
+            sn={sn}
+            selected={selectedId === sn.id}
+            t={t}
+            onPin={() => onPin(sn.id)}
+            onClick={() => onSelect(sn.id)}
+          />
+        ))}
+        {pinnedVisible.length > 0 && unpinnedVisible.length > 0 && (
+          <p className="px-1 pb-0.5 pt-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+            Snippets
+          </p>
+        )}
+        {unpinnedVisible.map((sn) => (
+          <SnippetListItem
+            key={sn.id}
+            sn={sn}
+            selected={selectedId === sn.id}
+            t={t}
+            onPin={() => onPin(sn.id)}
+            onClick={() => onSelect(sn.id)}
+          />
+        ))}
+      </div>
+      {snHasMore && (
+        <div ref={sentinelRef} className="flex justify-center py-3">
+          <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground/50" />
+        </div>
+      )}
+      {filtered.length === 0 && (
+        <div className="flex flex-col items-center gap-2 py-10 text-center">
+          <IconCode className="h-8 w-8 text-muted-foreground/30" />
+          <p className="text-xs text-muted-foreground">{t("emptySearch")}</p>
+        </div>
+      )}
+    </div>
+  );
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
@@ -214,6 +300,7 @@ export function SnippetManagerTool() {
   const [draftTitle, setDraftTitle] = useState("");
   const [draftLanguage, setDraftLanguage] = useState(SNIPPET_LANGUAGE_AUTO);
   const [draftCode, setDraftCode] = useState("");
+  const [debouncedCode, setDebouncedCode] = useState("");
   const [draftTags, setDraftTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
   const [search, setSearch] = useState("");
@@ -244,7 +331,35 @@ export function SnippetManagerTool() {
     [t]
   );
 
-  useEffect(() => () => debouncedSaveCode.cancel(), [debouncedSaveCode]);
+  const debouncedSetLangCode = useMemo(
+    () => debounce((code: string) => setDebouncedCode(code), 300),
+    []
+  );
+
+  const debouncedPersistTitleLang = useMemo(
+    () =>
+      debounce((title: string, language: string, id: string) => {
+        useSnippetManagerStore.getState().updateSnippet(id, { title, language });
+        const u = userRef.current;
+        if (u) {
+          void patchCodeSnippetApi(id, { title, language })
+            .then((s) =>
+              useSnippetManagerStore.getState().mergeSnippetFromRemote(s)
+            )
+            .catch(() => toast.error(t("toastSyncFailed")));
+        }
+      }, 400),
+    [t]
+  );
+
+  useEffect(
+    () => () => {
+      debouncedSaveCode.cancel();
+      debouncedSetLangCode.cancel();
+      debouncedPersistTitleLang.cancel();
+    },
+    [debouncedSaveCode, debouncedSetLangCode, debouncedPersistTitleLang]
+  );
 
   const [storeHydrated, setStoreHydrated] = useState(() => {
     const p = useSnippetManagerStore.persist;
@@ -369,6 +484,7 @@ export function SnippetManagerTool() {
     setDraftTitle(sn.title);
     setDraftLanguage(sn.language);
     setDraftCode(sn.code);
+    setDebouncedCode(sn.code);
     setDraftTags(sn.tags ?? []);
     setTagInput("");
   }, [selectedId, debouncedSaveCode, remoteListEpoch]);
@@ -386,7 +502,7 @@ export function SnippetManagerTool() {
     return [...list].sort((a, b) => {
       if (a.pinned && !b.pinned) return -1;
       if (!a.pinned && b.pinned) return 1;
-      return 0;
+      return b.updatedAt - a.updatedAt;
     });
   }, [snippets, search]);
 
@@ -402,32 +518,30 @@ export function SnippetManagerTool() {
   const unpinnedVisible = visibleSnippets.filter((s) => !s.pinned);
 
   const effectiveLanguage = useMemo(
-    () => resolveEditorLanguage(draftLanguage, draftCode),
-    [draftLanguage, draftCode]
+    () => resolveEditorLanguage(draftLanguage, debouncedCode),
+    [draftLanguage, debouncedCode]
   );
 
   const onCodeChange = useCallback(
     (code: string) => {
       setDraftCode(code);
       debouncedSaveCode(code);
+      debouncedSetLangCode(code);
     },
-    [debouncedSaveCode]
+    [debouncedSaveCode, debouncedSetLangCode]
   );
 
-  const persistTitleLang = useCallback(
-    (title: string, language: string) => {
-      if (!selectedId) return;
-      updateSnippet(selectedId, { title, language });
+  const persistCode = useCallback(
+    (id: string, code: string) => {
+      updateSnippet(id, { code });
       const u = userRef.current;
       if (u) {
-        void patchCodeSnippetApi(selectedId, { title, language })
-          .then((s) =>
-            useSnippetManagerStore.getState().mergeSnippetFromRemote(s)
-          )
+        void patchCodeSnippetApi(id, { code })
+          .then((s) => useSnippetManagerStore.getState().mergeSnippetFromRemote(s))
           .catch(() => toast.error(t("toastSyncFailed")));
       }
     },
-    [selectedId, updateSnippet, t]
+    [updateSnippet, t]
   );
 
   const handlePin = useCallback(
@@ -479,6 +593,21 @@ export function SnippetManagerTool() {
     [draftTags, selectedId, updateSnippet, mergeSnippetFromRemote, t]
   );
 
+  const handleNewRef = useRef<() => void>(() => {});
+  const handleFormatRef = useRef<() => void>(() => {});
+
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      const mod = e.metaKey || e.ctrlKey;
+      if (!mod) return;
+      if (e.key === "n") { e.preventDefault(); handleNewRef.current(); }
+      else if (e.key === "s") { e.preventDefault(); debouncedSaveCode.flush(); }
+      else if (e.key === "/") { e.preventDefault(); handleFormatRef.current(); }
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [debouncedSaveCode]);
+
   const handleNew = async () => {
     debouncedSaveCode.flush();
     const u = userRef.current;
@@ -504,6 +633,34 @@ export function SnippetManagerTool() {
     setListOpen(false);
   };
 
+  const handleDuplicate = useCallback(async () => {
+    if (!selectedId) return;
+    const sn = snippets.find((s) => s.id === selectedId);
+    if (!sn) return;
+    debouncedSaveCode.flush();
+    const payload = {
+      title: `Copy of ${sn.title}`,
+      code: sn.code,
+      language: sn.language,
+    };
+    const u = userRef.current;
+    if (u) {
+      try {
+        const created = await createCodeSnippetApi(payload);
+        useSnippetManagerStore.getState().mergeSnippetFromRemote(created);
+        setSelectedId(created.id);
+      } catch {
+        toast.error(t("toastSyncFailed"));
+        return;
+      }
+    } else {
+      const id = addSnippet(payload);
+      setSelectedId(id);
+    }
+    setMode("edit");
+    setListOpen(false);
+  }, [selectedId, snippets, debouncedSaveCode, addSnippet, t]);
+
   const handleCopy = async () => {
     if (!draftCode) {
       toast.message(t("toastNothingToCopy"));
@@ -528,17 +685,7 @@ export function SnippetManagerTool() {
         const parsed = JSON.parse(draftCode);
         const next = JSON.stringify(parsed, null, 2);
         setDraftCode(next);
-        if (selectedId) {
-          updateSnippet(selectedId, { code: next });
-          const u = userRef.current;
-          if (u) {
-            void patchCodeSnippetApi(selectedId, { code: next })
-              .then((s) =>
-                useSnippetManagerStore.getState().mergeSnippetFromRemote(s)
-              )
-              .catch(() => toast.error(t("toastSyncFailed")));
-          }
-        }
+        if (selectedId) persistCode(selectedId, next);
         toast.success(t("toastFormatted"));
         return;
       } catch {
@@ -552,17 +699,7 @@ export function SnippetManagerTool() {
         const { format } = await import("sql-formatter");
         const next = format(draftCode, { language: "sql" });
         setDraftCode(next);
-        if (selectedId) {
-          updateSnippet(selectedId, { code: next });
-          const u = userRef.current;
-          if (u) {
-            void patchCodeSnippetApi(selectedId, { code: next })
-              .then((s) =>
-                useSnippetManagerStore.getState().mergeSnippetFromRemote(s)
-              )
-              .catch(() => toast.error(t("toastSyncFailed")));
-          }
-        }
+        if (selectedId) persistCode(selectedId, next);
         toast.success(t("toastFormatted"));
         return;
       } catch {
@@ -578,6 +715,9 @@ export function SnippetManagerTool() {
       toast.message(t("toastFormatUnsupported"));
     }
   };
+
+  handleNewRef.current = () => { void handleNew(); };
+  handleFormatRef.current = () => { void handleFormat(); };
 
   const confirmDelete = async () => {
     if (!deleteTarget) return;
@@ -631,59 +771,23 @@ export function SnippetManagerTool() {
       </div>
 
       {/* List */}
-      <div ref={snippetScrollRef} className="min-h-0 flex-1 overflow-y-auto">
-        <div className="space-y-0.5 pb-2 pr-1">
-          {pinnedVisible.length > 0 && (
-            <p className="px-1 pb-0.5 pt-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-              Pinned
-            </p>
-          )}
-          {pinnedVisible.map((sn) => (
-            <SnippetListItem
-              key={sn.id}
-              sn={sn}
-              selected={selectedId === sn.id}
-              t={t}
-              onPin={() => handlePin(sn.id)}
-              onClick={() => {
-                debouncedSaveCode.flush();
-                setSelectedId(sn.id);
-                setListOpen(false);
-              }}
-            />
-          ))}
-          {pinnedVisible.length > 0 && unpinnedVisible.length > 0 && (
-            <p className="px-1 pb-0.5 pt-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-              Snippets
-            </p>
-          )}
-          {unpinnedVisible.map((sn) => (
-            <SnippetListItem
-              key={sn.id}
-              sn={sn}
-              selected={selectedId === sn.id}
-              t={t}
-              onPin={() => handlePin(sn.id)}
-              onClick={() => {
-                debouncedSaveCode.flush();
-                setSelectedId(sn.id);
-                setListOpen(false);
-              }}
-            />
-          ))}
-        </div>
-        {snHasMore && (
-          <div ref={snSentinelRef} className="flex justify-center py-3">
-            <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground/50" />
-          </div>
-        )}
-        {filtered.length === 0 && (
-          <div className="flex flex-col items-center gap-2 py-10 text-center">
-            <IconCode className="h-8 w-8 text-muted-foreground/30" />
-            <p className="text-xs text-muted-foreground">{t("emptySearch")}</p>
-          </div>
-        )}
-      </div>
+      <SnippetListContent
+        scrollRef={snippetScrollRef}
+        pinnedVisible={pinnedVisible}
+        unpinnedVisible={unpinnedVisible}
+        filtered={filtered}
+        selectedId={selectedId}
+        snHasMore={snHasMore}
+        snDisplayCount={snDisplayCount}
+        sentinelRef={snSentinelRef}
+        t={t}
+        onPin={handlePin}
+        onSelect={(id) => {
+          debouncedSaveCode.flush();
+          setSelectedId(id);
+          setListOpen(false);
+        }}
+      />
 
       {/* Count footer */}
       {filtered.length > 0 && (
@@ -710,7 +814,7 @@ export function SnippetManagerTool() {
           onChange={(e) => {
             const v = e.target.value;
             setDraftTitle(v);
-            persistTitleLang(v, draftLanguage);
+            if (selectedId) debouncedPersistTitleLang(v, draftLanguage, selectedId);
           }}
           placeholder={t("snippetTitlePlaceholder")}
           className="h-7 flex-1 border-0 bg-transparent px-1 text-sm font-medium shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
@@ -725,7 +829,7 @@ export function SnippetManagerTool() {
           value={draftLanguage}
           onValueChange={(v) => {
             setDraftLanguage(v);
-            persistTitleLang(draftTitle, v);
+            if (selectedId) debouncedPersistTitleLang(draftTitle, v, selectedId);
           }}
         >
           <SelectTrigger
@@ -776,6 +880,19 @@ export function SnippetManagerTool() {
 
           <div className="mx-1 h-4 w-px shrink-0 bg-border/60" />
 
+          {/* Duplicate */}
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="h-7 w-7 cursor-pointer"
+            onClick={() => { void handleDuplicate(); }}
+            disabled={!selectedId}
+            title="Duplicate snippet"
+          >
+            <IconFiles className="h-3.5 w-3.5" />
+          </Button>
+
           {/* Format */}
           <Button
             type="button"
@@ -783,7 +900,7 @@ export function SnippetManagerTool() {
             size="icon"
             className="h-7 w-7 cursor-pointer"
             onClick={handleFormat}
-            disabled={!draftCode.trim()}
+            disabled={!draftCode.trim() || !FORMAT_SUPPORTED_LANGS.has(effectiveLanguage)}
             title={t("format")}
           >
             <IconSparkles className="h-3.5 w-3.5" />
@@ -1025,57 +1142,23 @@ export function SnippetManagerTool() {
               </div>
 
               {/* List */}
-              <div ref={snippetScrollRef} className="min-h-0 flex-1 overflow-y-auto px-2 pb-2">
-                <div className="space-y-0.5">
-                  {pinnedVisible.length > 0 && (
-                    <p className="px-1 pb-0.5 pt-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                      Pinned
-                    </p>
-                  )}
-                  {pinnedVisible.map((sn) => (
-                    <SnippetListItem
-                      key={sn.id}
-                      sn={sn}
-                      selected={selectedId === sn.id}
-                      t={t}
-                      onPin={() => handlePin(sn.id)}
-                      onClick={() => {
-                        debouncedSaveCode.flush();
-                        setSelectedId(sn.id);
-                      }}
-                    />
-                  ))}
-                  {pinnedVisible.length > 0 && unpinnedVisible.length > 0 && (
-                    <p className="px-1 pb-0.5 pt-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                      Snippets
-                    </p>
-                  )}
-                  {unpinnedVisible.map((sn) => (
-                    <SnippetListItem
-                      key={sn.id}
-                      sn={sn}
-                      selected={selectedId === sn.id}
-                      t={t}
-                      onPin={() => handlePin(sn.id)}
-                      onClick={() => {
-                        debouncedSaveCode.flush();
-                        setSelectedId(sn.id);
-                      }}
-                    />
-                  ))}
-                </div>
-                {snHasMore && (
-                  <div ref={snSentinelRef} className="flex justify-center py-3">
-                    <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground/50" />
-                  </div>
-                )}
-                {filtered.length === 0 && (
-                  <div className="flex flex-col items-center gap-2 py-10 text-center">
-                    <IconCode className="h-8 w-8 text-muted-foreground/30" />
-                    <p className="text-xs text-muted-foreground">{t("emptySearch")}</p>
-                  </div>
-                )}
-              </div>
+              <SnippetListContent
+                scrollRef={snippetScrollRef}
+                className="px-2"
+                pinnedVisible={pinnedVisible}
+                unpinnedVisible={unpinnedVisible}
+                filtered={filtered}
+                selectedId={selectedId}
+                snHasMore={snHasMore}
+                snDisplayCount={snDisplayCount}
+                sentinelRef={snSentinelRef}
+                t={t}
+                onPin={handlePin}
+                onSelect={(id) => {
+                  debouncedSaveCode.flush();
+                  setSelectedId(id);
+                }}
+              />
 
               {/* Count */}
               {filtered.length > 0 && (
