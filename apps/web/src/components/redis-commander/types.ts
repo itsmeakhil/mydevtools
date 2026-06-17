@@ -1,5 +1,37 @@
 export type RedisValueType = "string" | "list" | "set" | "zset" | "hash" | "none";
 
+/**
+ * Search mode type for Redis key searching
+ * - 'glob': Pattern matching with * (any chars) and ? (single char) wildcards
+ * - 'regex': Regular expression pattern matching
+ * - 'fuzzy': Fuzzy matching where all characters appear in order (case-insensitive)
+ */
+export type SearchMode = 'glob' | 'regex' | 'fuzzy';
+
+/**
+ * Search state for managing key search in KeyBrowser
+ * Tracks search input, detected mode, user overrides, errors, and UI state
+ */
+export interface SearchState {
+  /** Current search input string */
+  input: string;
+
+  /** Auto-detected search mode based on pattern analysis */
+  detectedMode: SearchMode;
+
+  /** User-selected search mode override (null if using auto-detect) */
+  userModeOverride: SearchMode | null;
+
+  /** Error message if regex compilation fails, null if valid */
+  regexError: string | null;
+
+  /** Count of keys matching the current search pattern */
+  matchCount: number;
+
+  /** Whether the advanced search panel is open */
+  showAdvanced: boolean;
+}
+
 export interface RedisConnectionConfig {
     redisUrl: string;
 }
