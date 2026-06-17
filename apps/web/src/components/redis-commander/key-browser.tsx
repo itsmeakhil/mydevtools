@@ -6,8 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { IconSearch, IconRefresh, IconChevronRight, IconDatabase } from "@tabler/icons-react";
-import { RedisKeyInfo, RedisValueType } from "./types";
+import { RedisKeyInfo, RedisValueType, SearchMode } from "./types";
 import { cn } from "@/lib/utils";
+import { detectSearchMode, globMatch, regexMatch, fuzzyMatch } from "./search-utils";
+import { SearchBar } from "./search-bar";
+import { AdvancedSearchPanel } from "./advanced-search-panel";
 
 const TYPE_COLORS: Record<RedisValueType | string, string> = {
     string: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
@@ -17,6 +20,15 @@ const TYPE_COLORS: Record<RedisValueType | string, string> = {
     hash: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
     none: "bg-muted text-muted-foreground",
 };
+
+interface SearchState {
+    input: string;
+    detectedMode: SearchMode;
+    userModeOverride: SearchMode | null;
+    regexError: string | null;
+    matchCount: number;
+    showAdvanced: boolean;
+}
 
 interface KeyBrowserProps {
     redisUrl: string;
@@ -34,14 +46,136 @@ export function KeyBrowser({
     onDbSizeChange,
 }: KeyBrowserProps) {
     const [pattern, setPattern] = useState("*");
-    const [keys, setKeys] = useState<RedisKeyInfo[]>([]);
-    const [cursor, setCursor] = useState("0");
+    const [allKeys, setAllKeys] = useState<RedisKeyInfo[]>([]);
+    const [displayedKeys, setDisplayedKeys] = useState<RedisKeyInfo[]>([]);
     const [hasMore, setHasMore] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [filter, setFilter] = useState("");
+    const [searchState, setSearchState] = useState<SearchState>({
+        input: "",
+        detectedMode: "fuzzy",
+        userModeOverride: null,
+        regexError: null,
+        matchCount: 0,
+        showAdvanced: false,
+    });
     const sentinelRef = useRef<HTMLDivElement>(null);
     const loadingRef = useRef(false);
     const cursorRef = useRef("0");
+    const debouncedSearchRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    // ─── Search / filter logic ────────────────────────────────────────────────
+
+    const performSearch = useCallback(
+        (
+            input: string,
+            keys: RedisKeyInfo[],
+            modeOverride: SearchMode | null = null
+        ) => {
+            if (!input) {
+                setDisplayedKeys(keys);
+                setSearchState((prev) => ({
+                    ...prev,
+                    input: "",
+                    matchCount: 0,
+                    regexError: null,
+                    detectedMode: "fuzzy",
+                }));
+                return;
+            }
+
+            const detected = detectSearchMode(input);
+            const activeMode: SearchMode = modeOverride ?? detected;
+            const keyStrings = keys.map((k) => k.key);
+            let matchedKeys: string[] = [];
+            let regexError: string | null = null;
+
+            if (activeMode === "glob") {
+                matchedKeys = globMatch(keyStrings, input);
+            } else if (activeMode === "regex") {
+                const result = regexMatch(keyStrings, input);
+                if (result.error) {
+                    // Fall back to fuzzy on regex error
+                    regexError = result.error;
+                    matchedKeys = fuzzyMatch(keyStrings, input);
+                } else {
+                    matchedKeys = result.matches;
+                }
+            } else {
+                matchedKeys = fuzzyMatch(keyStrings, input);
+            }
+
+            const matchSet = new Set(matchedKeys);
+            const filtered = keys.filter((k) => matchSet.has(k.key));
+
+            setDisplayedKeys(filtered);
+            setSearchState((prev) => ({
+                ...prev,
+                input,
+                detectedMode: detected,
+                regexError,
+                matchCount: filtered.length,
+            }));
+        },
+        []
+    );
+
+    // Debounced wrapper — rebuilds only when performSearch changes (stable)
+    const debouncedSearch = useCallback(
+        (input: string, keys: RedisKeyInfo[], modeOverride: SearchMode | null) => {
+            if (debouncedSearchRef.current) {
+                clearTimeout(debouncedSearchRef.current);
+            }
+            debouncedSearchRef.current = setTimeout(() => {
+                performSearch(input, keys, modeOverride);
+            }, 300);
+        },
+        [performSearch]
+    );
+
+    // ─── Search handlers ──────────────────────────────────────────────────────
+
+    const handleSearchChange = useCallback(
+        (input: string) => {
+            // Update input immediately for responsive UI
+            setSearchState((prev) => ({ ...prev, input }));
+            debouncedSearch(input, allKeys, searchState.userModeOverride);
+        },
+        [allKeys, searchState.userModeOverride, debouncedSearch]
+    );
+
+    const handleClearSearch = useCallback(() => {
+        if (debouncedSearchRef.current) {
+            clearTimeout(debouncedSearchRef.current);
+        }
+        setDisplayedKeys(allKeys);
+        setSearchState((prev) => ({
+            ...prev,
+            input: "",
+            regexError: null,
+            matchCount: 0,
+            detectedMode: "fuzzy",
+            userModeOverride: null,
+        }));
+    }, [allKeys]);
+
+    const handleModeChange = useCallback(
+        (mode: SearchMode) => {
+            setSearchState((prev) => ({ ...prev, userModeOverride: mode }));
+            performSearch(searchState.input, allKeys, mode);
+        },
+        [searchState.input, allKeys, performSearch]
+    );
+
+    const handleResetMode = useCallback(() => {
+        setSearchState((prev) => ({ ...prev, userModeOverride: null }));
+        performSearch(searchState.input, allKeys, null);
+    }, [searchState.input, allKeys, performSearch]);
+
+    const handleToggleAdvanced = useCallback(() => {
+        setSearchState((prev) => ({ ...prev, showAdvanced: !prev.showAdvanced }));
+    }, []);
+
+    // ─── Data fetching ────────────────────────────────────────────────────────
 
     const fetchPage = useCallback(
         async (reset: boolean) => {
@@ -63,7 +197,7 @@ export function KeyBrowser({
                         count: 200,
                     }),
                 });
-                const data = await res.json() as {
+                const data = (await res.json()) as {
                     cursor: string;
                     keys: RedisKeyInfo[];
                     dbSize: number;
@@ -71,8 +205,36 @@ export function KeyBrowser({
                 };
                 if (data.error) throw new Error(data.error);
                 cursorRef.current = data.cursor;
-                setCursor(data.cursor);
-                setKeys((prev) => (reset ? data.keys : [...prev, ...data.keys]));
+
+                setAllKeys((prev) => {
+                    const updated = reset ? data.keys : [...prev, ...data.keys];
+                    // Re-apply search against the updated key set
+                    setDisplayedKeys(
+                        searchState.input
+                            ? (() => {
+                                  const active =
+                                      searchState.userModeOverride ??
+                                      searchState.detectedMode;
+                                  const keyStrings = updated.map((k) => k.key);
+                                  let matched: string[] = [];
+                                  if (active === "glob") {
+                                      matched = globMatch(keyStrings, searchState.input);
+                                  } else if (active === "regex") {
+                                      const r = regexMatch(keyStrings, searchState.input);
+                                      matched = r.error
+                                          ? fuzzyMatch(keyStrings, searchState.input)
+                                          : r.matches;
+                                  } else {
+                                      matched = fuzzyMatch(keyStrings, searchState.input);
+                                  }
+                                  const s = new Set(matched);
+                                  return updated.filter((k) => s.has(k.key));
+                              })()
+                            : updated
+                    );
+                    return updated;
+                });
+
                 setHasMore(data.cursor !== "0");
                 onDbSizeChange(data.dbSize);
             } catch {
@@ -82,14 +244,14 @@ export function KeyBrowser({
                 setLoading(false);
             }
         },
-        [redisUrl, pattern, onDbSizeChange]
+        [redisUrl, pattern, onDbSizeChange, searchState.input, searchState.userModeOverride, searchState.detectedMode]
     );
 
     // Reset on redisUrl change
     useEffect(() => {
         cursorRef.current = "0";
-        setKeys([]);
-        setCursor("0");
+        setAllKeys([]);
+        setDisplayedKeys([]);
         setHasMore(false);
         fetchPage(true);
     }, [redisUrl]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -110,14 +272,10 @@ export function KeyBrowser({
         return () => observer.disconnect();
     }, [hasMore, fetchPage]);
 
-    const filtered = filter
-        ? keys.filter((k) => k.key.toLowerCase().includes(filter.toLowerCase()))
-        : keys;
-
     function handleSearch() {
         cursorRef.current = "0";
-        setKeys([]);
-        setCursor("0");
+        setAllKeys([]);
+        setDisplayedKeys([]);
         setHasMore(false);
         fetchPage(true);
     }
@@ -146,34 +304,51 @@ export function KeyBrowser({
                         <IconRefresh className={cn("size-3.5", loading && "animate-spin")} />
                     </Button>
                 </div>
-                <div className="relative">
-                    <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3 text-muted-foreground" />
-                    <Input
-                        placeholder="Filter loaded keys…"
-                        value={filter}
-                        onChange={(e) => setFilter(e.target.value)}
-                        className="h-7 text-xs pl-7"
-                    />
-                </div>
+
+                {/* Search bar with mode detection */}
+                <SearchBar
+                    value={searchState.input}
+                    onChange={handleSearchChange}
+                    onClear={handleClearSearch}
+                    detectedMode={searchState.detectedMode}
+                    matchCount={searchState.matchCount}
+                    showAdvanced={searchState.showAdvanced}
+                    onToggleAdvanced={handleToggleAdvanced}
+                    regexError={searchState.regexError}
+                />
+
                 <div className="flex items-center gap-1 text-xs text-muted-foreground">
                     <IconDatabase className="size-3" />
-                    <span>
-                        {dbSize.toLocaleString()} total
-                    </span>
+                    <span>{dbSize.toLocaleString()} total</span>
                     <span className="mx-1">·</span>
-                    <span>{keys.length} loaded</span>
-                    {filter && <span className="ml-auto">{filtered.length} match</span>}
+                    <span>{allKeys.length} loaded</span>
+                    {searchState.input && (
+                        <span className="ml-auto">{searchState.matchCount} match</span>
+                    )}
                 </div>
             </div>
 
+            {/* Advanced search panel */}
+            {searchState.showAdvanced && (
+                <AdvancedSearchPanel
+                    currentMode={searchState.userModeOverride ?? searchState.detectedMode}
+                    onModeChange={handleModeChange}
+                    onResetToAuto={handleResetMode}
+                />
+            )}
+
             <ScrollArea className="flex-1">
-                {filtered.length === 0 && !loading && (
+                {displayedKeys.length === 0 && !loading && (
                     <div className="p-4 text-center text-sm text-muted-foreground">
-                        No keys found
+                        {searchState.input ? (
+                            <>No keys match &quot;{searchState.input}&quot;</>
+                        ) : (
+                            "No keys found"
+                        )}
                     </div>
                 )}
                 <div className="p-1">
-                    {filtered.map((item) => (
+                    {displayedKeys.map((item) => (
                         <button
                             key={item.key}
                             onClick={() => onSelectKey(item.key)}
@@ -209,9 +384,9 @@ export function KeyBrowser({
                         Loading…
                     </div>
                 )}
-                {!hasMore && keys.length > 0 && !filter && (
+                {!hasMore && allKeys.length > 0 && !searchState.input && (
                     <div className="pb-2 text-center text-[10px] text-muted-foreground/50">
-                        All {keys.length} keys loaded
+                        All {allKeys.length} keys loaded
                     </div>
                 )}
             </ScrollArea>
