@@ -367,6 +367,33 @@ export function useCollections() {
         }
     }
 
+    const deleteMultipleCollections = async (ids: string[]) => {
+        if (!user) return
+        if (ids.length === 0) return
+
+        try {
+            const deleteResults = await Promise.all(
+                ids.map((id) =>
+                    authedFetch(`/api/backend/api-client/collections/${id}`, { method: "DELETE" })
+                )
+            )
+
+            const allSuccess = deleteResults.every((res) => res.ok)
+            if (!allSuccess) {
+                console.error("Some collections failed to delete")
+                toast.error("Some collections failed to delete")
+                return
+            }
+
+            // Remove deleted collections from state
+            setCollections((prev) => prev.filter((c) => !ids.includes(c.id)))
+            toast.success(ids.length === 1 ? "Collection deleted" : `${ids.length} collections deleted`)
+        } catch (error) {
+            console.error("Failed to delete collections:", error)
+            toast.error("Failed to delete collections")
+        }
+    }
+
     return {
         collections,
         addFolder,
@@ -376,6 +403,7 @@ export function useCollections() {
         createCollection,
         renameCollection,
         renameFolder,
+        deleteMultipleCollections,
         isLoading
     }
 }

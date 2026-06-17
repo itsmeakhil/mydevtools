@@ -80,7 +80,7 @@ export function ApiClient() {
     const [activeTabId, setActiveTabId] = React.useState<string>(tabs[0].id)
     const [isInitialized, setIsInitialized] = React.useState(false)
     const abortControllerRef = React.useRef<AbortController | null>(null)
-    const { collections, addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, isLoading: collectionsLoading } = useCollections()
+    const { collections, addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, deleteMultipleCollections, isLoading: collectionsLoading } = useCollections()
     const { history, addHistoryItem, clearHistory, deleteHistoryItem } = useHistory()
     const {
         environments,
@@ -530,7 +530,7 @@ export function ApiClient() {
         try {
             const parsed = parseCurlCommand(curl)
             const resolvedUrl = replaceUrlWithEnvBaseUrl(parsed.url)
-            
+
             updateActiveTab({
                 ...parsed,
                 url: resolvedUrl || activeTab.url,
@@ -541,6 +541,10 @@ export function ApiClient() {
             console.error(error)
             toast.error(t("toasts.curlParseFailed"))
         }
+    }
+
+    const handleDeleteMultipleCollections = async (ids: string[]) => {
+        await deleteMultipleCollections(ids)
     }
 
     return (
@@ -575,6 +579,7 @@ export function ApiClient() {
                                         history={history}
                                         onClearHistory={clearHistory}
                                         onDeleteHistoryItem={deleteHistoryItem}
+                                        onDeleteMultiple={handleDeleteMultipleCollections}
                                     />
                                 </div>
                             </SheetContent>
@@ -763,6 +768,7 @@ export function ApiClient() {
                         history={history}
                         onClearHistory={clearHistory}
                         onDeleteHistoryItem={deleteHistoryItem}
+                        onDeleteMultiple={handleDeleteMultipleCollections}
                     />
                 </div>
             )}
