@@ -42,10 +42,14 @@ def _doc_to_out(doc: dict[str, Any]) -> NoteOut:
     )
 
 
+_LIST_PROJECTION = {"content": 0}
+
+
 async def list_notes(uid: str) -> list[NoteOut]:
     docs = await db_manager.find(
         NOTES,
         {"created_by": uid},
+        projection=_LIST_PROJECTION,
         sort=[("createdAt", 1)],
     )
     return [_doc_to_out(d) for d in docs]
@@ -55,6 +59,7 @@ async def list_notes_paginated(uid: str, *, skip: int = 0, limit: int = 200) -> 
     docs = await db_manager.find(
         NOTES,
         {"created_by": uid},
+        projection=_LIST_PROJECTION,
         sort=[("createdAt", 1)],
         skip=max(0, skip),
         limit=max(1, limit),
@@ -112,24 +117,26 @@ async def update_note(uid: str, note_id: str, body: NoteUpdate) -> NoteOut:
 
 
 async def _descendant_ids(uid: str, root_id: str) -> list[str]:
-    docs = await db_manager.find(NOTES, {"created_by": uid}, {"_id": 1, "parentId": 1})
-    by_parent: dict[Optional[str], list[str]] = {}
-    for d in docs:
-        pid = d.get("parentId")
-        by_parent.setdefault(pid, []).append(str(d.get("_id")))
+    """BFS using targeted per-level queries instead of loading all user notes."""
+    collected: list[str] = [root_id]
+    frontier: list[str] = [root_id]
+    visited: set[str] = {root_id}
 
-    out: list[str] = []
-    stack = [root_id]
-    visited: set[str] = set()
-    while stack:
-        nid = stack.pop()
-        if nid in visited:
-            continue
-        visited.add(nid)
-        out.append(nid)
-        for child in by_parent.get(nid, []):
-            stack.append(child)
-    return out
+    while frontier:
+        docs = await db_manager.find(
+            NOTES,
+            {"created_by": uid, "parentId": {"$in": frontier}},
+            projection={"_id": 1},
+        )
+        frontier = []
+        for d in docs:
+            nid = str(d.get("_id"))
+            if nid not in visited:
+                visited.add(nid)
+                collected.append(nid)
+                frontier.append(nid)
+
+    return collected
 
 
 async def delete_note(uid: str, note_id: str, *, recursive: bool = True) -> None:

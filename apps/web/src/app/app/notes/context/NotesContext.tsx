@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
+import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from "react";
 import { Note } from "../types/Note";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/database/firebase";
@@ -16,6 +16,7 @@ const NOTES_PAGE_SIZE = 500;
 interface NotesContextType {
     notes: Note[];
     isLoading: boolean;
+    isContentLoading: boolean;
     activeNoteId: string | null;
     setActiveNoteId: (id: string | null) => void;
     focusMode: boolean;
@@ -24,6 +25,8 @@ interface NotesContextType {
     updateNote: (id: string, updates: Partial<Note>) => Promise<void>;
     deleteNote: (id: string) => Promise<void>;
     pinNote: (id: string, pinned: boolean) => Promise<void>;
+    duplicateNote: (id: string) => Promise<string>;
+    moveNote: (id: string, newParentId: string | null) => Promise<void>;
 }
 
 const NotesContext = createContext<NotesContextType | undefined>(undefined);
@@ -33,8 +36,11 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     const [user] = useAuthState(auth);
     const [notes, setNotes] = useState<Note[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isContentLoading, setIsContentLoading] = useState(false);
     const [activeNoteId, setActiveNoteId] = useState<string | null>(null);
     const [focusMode, setFocusMode] = useState(false);
+    // Tracks which note IDs have full content loaded in state
+    const contentLoadedIds = useRef<Set<string>>(new Set());
 
     const apiRequest = useCallback(
         async <T,>(method: string, path: string, body?: unknown): Promise<T> => {
@@ -88,9 +94,25 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
                     `/api/v1/notes?skip=${skip}&limit=${limit}`
                 ),
         });
-        // Keep stable ordering in case server ordering changes.
+        contentLoadedIds.current.clear();
         setNotes([...allNotes].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
     }, [apiRequest, user]);
+
+    // Lazy-load full content when active note changes
+    useEffect(() => {
+        if (!activeNoteId || contentLoadedIds.current.has(activeNoteId)) return;
+        let cancelled = false;
+        setIsContentLoading(true);
+        apiRequest<Note>("GET", `/api/v1/notes/${activeNoteId}`)
+            .then((full) => {
+                if (cancelled) return;
+                contentLoadedIds.current.add(activeNoteId);
+                setNotes((prev) => prev.map((n) => (n.id === full.id ? full : n)));
+            })
+            .catch(() => { /* note may have been deleted */ })
+            .finally(() => { if (!cancelled) setIsContentLoading(false); });
+        return () => { cancelled = true; };
+    }, [activeNoteId, apiRequest]);
 
     useEffect(() => {
         if (!user) {
@@ -116,9 +138,9 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
             title: t("defaultTitle"),
             content: {},
             parentId,
-            // Backend/UI uses `note.icon || "📄"` fallback.
             icon: undefined,
         });
+        contentLoadedIds.current.add(created.id);
         setActiveNoteId(created.id);
         setNotes((prev) => [...prev, created].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
         return created.id;
@@ -126,13 +148,16 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
 
     const updateNote = useCallback(async (id: string, updates: Partial<Note>) => {
         if (!user) return;
-        const payload: Partial<Pick<Note, "title" | "content" | "parentId" | "icon">> = {};
+        const payload: Partial<Pick<Note, "title" | "content" | "parentId" | "icon" | "pinned" | "tags">> = {};
         if (updates.title !== undefined) payload.title = updates.title;
         if (updates.content !== undefined) payload.content = updates.content;
         if (updates.parentId !== undefined) payload.parentId = updates.parentId;
         if (updates.icon !== undefined) payload.icon = updates.icon;
+        if (updates.pinned !== undefined) payload.pinned = updates.pinned;
+        if (updates.tags !== undefined) payload.tags = updates.tags;
 
         const updated = await apiRequest<Note>("PATCH", `/api/v1/notes/${id}`, payload);
+        if (updates.content !== undefined) contentLoadedIds.current.add(id);
         setNotes((prev) => prev.map((n) => (n.id === updated.id ? updated : n)));
     }, [apiRequest, user]);
 
@@ -140,9 +165,38 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
         await updateNote(id, { pinned });
     }, [updateNote]);
 
+    const duplicateNote = useCallback(async (id: string) => {
+        const src = notes.find((n) => n.id === id);
+        if (!src) throw new Error("Note not found");
+        // Fetch full content if not yet loaded
+        let content = src.content;
+        if (!contentLoadedIds.current.has(id)) {
+            const full = await apiRequest<Note>("GET", `/api/v1/notes/${id}`);
+            contentLoadedIds.current.add(id);
+            setNotes((prev) => prev.map((n) => (n.id === full.id ? full : n)));
+            content = full.content;
+        }
+        const created = await apiRequest<Note>("POST", "/api/v1/notes", {
+            title: `${src.title || t("defaultTitle")} (copy)`,
+            content,
+            parentId: src.parentId ?? null,
+            icon: src.icon,
+            tags: src.tags,
+        });
+        contentLoadedIds.current.add(created.id);
+        setActiveNoteId(created.id);
+        setNotes((prev) => [...prev, created].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
+        return created.id;
+    }, [apiRequest, notes, t]);
+
+    const moveNote = useCallback(async (id: string, newParentId: string | null) => {
+        await updateNote(id, { parentId: newParentId });
+    }, [updateNote]);
+
     const deleteNote = useCallback(async (id: string) => {
         if (!user) return;
         await apiRequest<void>("DELETE", `/api/v1/notes/${id}?recursive=true`);
+        contentLoadedIds.current.delete(id);
         if (activeNoteId === id) {
             setActiveNoteId(null);
         }
@@ -154,6 +208,7 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
             value={{
                 notes,
                 isLoading,
+                isContentLoading,
                 activeNoteId,
                 setActiveNoteId,
                 focusMode,
@@ -162,6 +217,8 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
                 updateNote,
                 deleteNote,
                 pinNote,
+                duplicateNote,
+                moveNote,
             }}
         >
             {children}
