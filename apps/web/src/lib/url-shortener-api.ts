@@ -48,7 +48,7 @@ export async function createShortLink(body: ShortLinkCreate): Promise<ShortLink>
     return request<ShortLink>('POST', BASE, body)
 }
 
-export async function listShortLinks(skip = 0, limit = 100): Promise<ShortLink[]> {
+export async function listShortLinks(skip = 0, limit = 500): Promise<ShortLink[]> {
     return request<ShortLink[]>('GET', `${BASE}?skip=${skip}&limit=${limit}`)
 }
 

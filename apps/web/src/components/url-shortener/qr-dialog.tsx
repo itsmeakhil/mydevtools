@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
     Check,
     Copy,
@@ -24,16 +24,24 @@ interface QrDialogProps {
 
 export function QrDialog({ url, open, onClose }: QrDialogProps) {
     const [dataUrl, setDataUrl] = useState<string | null>(null)
+    const cachedUrl = useRef<string | null>(null)
     const { copied, copy } = useCopy()
 
     useEffect(() => {
         if (!open) return
+        if (cachedUrl.current) {
+            setDataUrl(cachedUrl.current)
+            return
+        }
         QRCode.toDataURL(url, {
             width: 280,
             margin: 2,
             color: { dark: '#000000', light: '#ffffff' },
             errorCorrectionLevel: 'M',
-        }).then(setDataUrl).catch(() => {})
+        }).then((result) => {
+            cachedUrl.current = result
+            setDataUrl(result)
+        }).catch(() => {})
     }, [open, url])
 
     const download = () => {

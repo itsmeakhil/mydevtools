@@ -114,7 +114,12 @@ export function AnalyticsDialog({ link, open, onClose }: AnalyticsDialogProps) {
                 </div>
 
                 {/* Body */}
-                <div className="overflow-y-auto flex-1 px-5 py-4 space-y-6">
+                <div className="overflow-y-auto flex-1 px-5 py-4 space-y-6 relative">
+                    {loading && data && (
+                        <div className="absolute inset-0 z-10 flex items-center justify-center bg-background/60 backdrop-blur-[1px]">
+                            <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                        </div>
+                    )}
                     {loading && !data ? (
                         <div className="flex h-40 items-center justify-center">
                             <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />

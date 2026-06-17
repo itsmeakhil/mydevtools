@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import {
     Check,
@@ -10,6 +10,7 @@ import {
     Plus,
     Zap,
 } from 'lucide-react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -19,9 +20,10 @@ import { useCopy } from './hooks/use-copy'
 interface ShortenFormProps {
     isAuthenticated: boolean
     onCreated: (link: ShortLink) => void
+    shortBase: string
 }
 
-export function ShortenForm({ isAuthenticated, onCreated }: ShortenFormProps) {
+export function ShortenForm({ isAuthenticated, onCreated, shortBase }: ShortenFormProps) {
     const [url, setUrl] = useState('')
     const [title, setTitle] = useState('')
     const [customCode, setCustomCode] = useState('')
@@ -31,11 +33,20 @@ export function ShortenForm({ isAuthenticated, onCreated }: ShortenFormProps) {
 
     const { copied, copy } = useCopy()
 
-    const shortBase = typeof window !== 'undefined' ? window.location.origin : ''
     const justCreatedUrl = justCreated ? `${shortBase}/s/${justCreated.code}` : ''
+
+    useEffect(() => {
+        if (!justCreated) return
+        const t = setTimeout(() => setJustCreated(null), 8000)
+        return () => clearTimeout(t)
+    }, [justCreated])
 
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault()
+        if (!isAuthenticated) {
+            toast.error('Sign in to create short links')
+            return
+        }
         if (!url.trim()) return
         setCreating(true)
         try {
@@ -89,7 +100,7 @@ export function ShortenForm({ isAuthenticated, onCreated }: ShortenFormProps) {
                             </div>
                             <Button
                                 type="submit"
-                                disabled={creating || !isAuthenticated}
+                                disabled={creating}
                                 className="h-11 gap-2 px-5 bg-gradient-to-r from-primary to-violet-600 text-primary-foreground shadow-md shadow-primary/20 hover:shadow-primary/30 hover:opacity-90 transition-all"
                             >
                                 {creating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
@@ -133,7 +144,7 @@ export function ShortenForm({ isAuthenticated, onCreated }: ShortenFormProps) {
 
                     {!isAuthenticated && (
                         <p className="text-xs text-amber-600 dark:text-amber-400">
-                            Sign in to create and manage your short links.
+                            <Link href="/login" className="underline underline-offset-2 hover:opacity-80">Sign in</Link> to create and manage your short links.
                         </p>
                     )}
                 </div>

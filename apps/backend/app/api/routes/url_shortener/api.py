@@ -1,3 +1,6 @@
+import time
+from collections import defaultdict
+
 from fastapi import APIRouter, Depends, Query, Request
 
 from app.api.routes.auth.services import get_current_uid
@@ -11,6 +14,10 @@ from app.api.routes.url_shortener.schema import (
 )
 
 router = APIRouter(prefix="/url-shortener", tags=["url-shortener"])
+
+_click_rate: dict[str, list[float]] = defaultdict(list)
+_CLICK_WINDOW = 60.0   # seconds
+_CLICK_MAX = 5         # per IP per code per window
 
 
 @router.post("", response_model=ShortLinkOut, summary="Create a short link")
@@ -37,6 +44,13 @@ async def resolve_link(code: str) -> ShortLinkResolve:
 
 @router.post("/{code}/click", status_code=204, summary="Record a click (public)")
 async def record_click(code: str, request: Request) -> None:
+    ip = request.headers.get("x-forwarded-for", request.client.host if request.client else "unknown").split(",")[0].strip()
+    key = f"{ip}:{code}"
+    now = time.time()
+    _click_rate[key] = [t for t in _click_rate[key] if now - t < _CLICK_WINDOW]
+    if len(_click_rate[key]) >= _CLICK_MAX:
+        return  # silently ignore, don't error
+    _click_rate[key].append(now)
     ua = request.headers.get("user-agent", "")
     referrer = request.headers.get("referer", "")
     await svc.record_click(code, ua=ua, referrer=referrer)

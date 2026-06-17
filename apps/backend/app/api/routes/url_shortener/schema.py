@@ -10,7 +10,7 @@ class ShortLinkCreate(BaseModel):
 
     original_url: str = Field(min_length=1, max_length=2048)
     title: Optional[str] = Field(default=None, max_length=200)
-    custom_code: Optional[str] = Field(default=None, min_length=3, max_length=20)
+    custom_code: Optional[str] = Field(default=None, min_length=3, max_length=20, pattern=r'^[a-zA-Z0-9][a-zA-Z0-9\-_]*$')
 
 
 class ShortLinkUpdate(BaseModel):
