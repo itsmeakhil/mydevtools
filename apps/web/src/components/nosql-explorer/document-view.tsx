@@ -931,11 +931,9 @@ export function DocumentView({
                                     {showSelectMode && (
                                         <th className="px-3 py-3 w-[44px] sticky left-0 top-0 z-30 bg-muted">
                                             <Checkbox
-                                                checked={isAllSelected}
+                                                checked={isIndeterminate ? "indeterminate" : isAllSelected}
                                                 onCheckedChange={handleSelectAll}
                                                 aria-label="Select all"
-                                                className={cn(isIndeterminate && "data-[state=checked]:bg-primary/50")}
-                                                data-state={isIndeterminate ? "indeterminate" : isAllSelected ? "checked" : "unchecked"}
                                             />
                                         </th>
                                     )}
