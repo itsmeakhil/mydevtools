@@ -1,5 +1,13 @@
 export type RedisValueType = "string" | "list" | "set" | "zset" | "hash" | "none";
 
+/**
+ * Search mode type for Redis key searching
+ * - 'glob': Pattern matching with * (any chars) and ? (single char) wildcards
+ * - 'regex': Regular expression pattern matching
+ * - 'fuzzy': Fuzzy matching where all characters appear in order (case-insensitive)
+ */
+export type SearchMode = 'glob' | 'regex' | 'fuzzy';
+
 export interface RedisConnectionConfig {
     redisUrl: string;
 }
