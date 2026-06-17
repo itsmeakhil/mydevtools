@@ -43,6 +43,7 @@ interface CollectionsSidebarProps {
     history?: HistoryRequest[]
     onClearHistory?: () => void
     onDeleteHistoryItem?: (id: string) => void
+    onDeleteMultiple?: (ids: string[]) => void
 }
 
 export function CollectionsSidebar({
@@ -58,6 +59,7 @@ export function CollectionsSidebar({
     history,
     onClearHistory,
     onDeleteHistoryItem,
+    onDeleteMultiple,
 }: CollectionsSidebarProps) {
     const t = useTranslations("ApiClient.collectionsSidebar")
     const tRoot = useTranslations("ApiClient")
@@ -470,6 +472,45 @@ export function CollectionsSidebar({
                     </div>
                     <DialogFooter>
                         <Button onClick={handleRenameCollection}>{t("renameAction")}</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            <Dialog open={deleteBulkDialogOpen} onOpenChange={setDeleteBulkDialogOpen}>
+                <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                        <DialogTitle>{t("dialogDeleteBulkTitle") || "Delete Collections"}</DialogTitle>
+                        <DialogDescription>
+                            {t("dialogDeleteBulkDescription") || "This action cannot be undone. The following collections will be permanently deleted:"}
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="py-4">
+                        <div className="space-y-2 max-h-[200px] overflow-y-auto">
+                            {Array.from(selectedCollections).map(collectionId => {
+                                const collection = collections.find(c => c.id === collectionId)
+                                return (
+                                    <div key={collectionId} className="flex items-center gap-2 px-3 py-2 bg-muted/50 rounded-md border border-border/50">
+                                        <Trash2 className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                                        <span className="text-sm font-medium truncate">{collection?.name || "Unknown"}</span>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setDeleteBulkDialogOpen(false)}>
+                            {t("cancel") || "Cancel"}
+                        </Button>
+                        <Button
+                            variant="destructive"
+                            onClick={() => {
+                                onDeleteMultiple?.(Array.from(selectedCollections))
+                                setDeleteBulkDialogOpen(false)
+                                clearSelection()
+                            }}
+                        >
+                            {t("delete") || "Delete"}
+                        </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
