@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collection, CollectionFolder, CollectionRequest, HistoryRequest } from "../types"
 import { CollectionItem } from "./collection-item"
@@ -190,9 +191,18 @@ export function CollectionsSidebar({
                                 collections.map((collection) => (
                                     <div key={collection.id} className="mb-4">
                                         <div className="flex items-center justify-between px-2 py-1.5 mb-1 group rounded-md hover:bg-muted/50 transition-colors">
-                                            <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider truncate flex-1 mr-2 px-1">
-                                                {collection.name}
-                                            </span>
+                                            <div className="flex items-center gap-2 flex-1 min-w-0">
+                                                <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center">
+                                                    <Checkbox
+                                                        checked={selectedCollections.has(collection.id)}
+                                                        onCheckedChange={() => toggleCollectionSelection(collection.id)}
+                                                        className="h-4 w-4"
+                                                    />
+                                                </div>
+                                                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider truncate flex-1 px-1">
+                                                    {collection.name}
+                                                </span>
+                                            </div>
                                             <div className="flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
                                                 <Button
                                                     variant="ghost"
@@ -217,14 +227,14 @@ export function CollectionsSidebar({
                                                         <DropdownMenuItem onClick={() => openRenameCollectionDialog(collection)}>
                                                             <Pencil className="h-4 w-4 mr-2" />
                                                             {t("rename")}
-                        </DropdownMenuItem>
+                                                        </DropdownMenuItem>
                                                         <DropdownMenuItem
                                                             className="text-destructive focus:text-destructive"
                                                             onClick={() => onDelete(collection.id)}
                                                         >
                                                             <Trash2 className="h-4 w-4 mr-2" />
                                                             {t("delete")}
-                        </DropdownMenuItem>
+                                                        </DropdownMenuItem>
                                                     </DropdownMenuContent>
                                                 </DropdownMenu>
                                             </div>
