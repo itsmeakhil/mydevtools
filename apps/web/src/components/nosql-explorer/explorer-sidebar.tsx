@@ -731,7 +731,7 @@ export function ExplorerSidebar({
                                                                             const isSelected = selectedCollections.has(selKey);
                                                                             return (
                                                                             <div key={col.name} className="group/col flex items-center pr-2">
-                                                                                <div className="opacity-0 group-hover/col:opacity-100 transition-opacity">
+                                                                                <div className={isSelected ? "opacity-100" : "opacity-0 group-hover/col:opacity-100 transition-opacity"}>
                                                                                     <input
                                                                                         type="checkbox"
                                                                                         checked={isSelected}
