@@ -209,7 +209,7 @@ export function CollectionsSidebar({
                                     <div key={collection.id} className="mb-4">
                                         <div className="flex items-center justify-between px-2 py-1.5 mb-1 group rounded-md hover:bg-muted/50 transition-colors">
                                             <div className="flex items-center gap-2 flex-1 min-w-0">
-                                                <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center">
+                                                <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center pointer-events-auto">
                                                     <Checkbox
                                                         checked={selectedCollections.has(collection.id)}
                                                         onCheckedChange={() => toggleCollectionSelection(collection.id)}
