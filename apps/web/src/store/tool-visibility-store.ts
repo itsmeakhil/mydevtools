@@ -25,7 +25,7 @@ export const DEFAULT_ENABLED_TOOLS = [
   '/app/csv-excel-json',
   '/app/api-client',
   '/app/http-status-codes',
-  '/app/nosql-explorer',
+  '/app/database-explorer',
   '/app/url-encode',
   '/app/svg-optimizer',
   '/app/uuid-generator',
