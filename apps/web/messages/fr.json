@@ -28,7 +28,7 @@
     "contrastChecker": "Vérificateur de contraste",
     "apiClient": "Client API",
     "httpStatusCodes": "Codes d’état HTTP",
-    "nosqlExplorer": "Explorateur NoSQL",
+    "nosqlExplorer": "Explorateur de base de données",
     "jsonSchemaGenerator": "Générateur de schéma JSON",
     "imageToBase64": "Image vers Base64",
     "imageCompressor": "Compresseur d’images",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "Utilisez un mot de passe maître fort et unique pour les fonctions de coffre.",
         "apiClient": "Traitez le Client API comme tout client HTTP : évitez de coller des secrets de production dans des environnements partagés sans savoir qui peut les voir.",
-        "nosql": "L’Explorateur NoSQL se connecte à des bases que vous configurez ; utilisez des comptes au moindre privilège et des règles réseau si possible.",
+        "nosql": "L’Explorateur de base de données se connecte à des bases que vous configurez ; utilisez des comptes au moindre privilège et des règles réseau si possible.",
         "json": "Le formateur JSON fonctionne localement dans le navigateur—évitez quand même de coller des données très sensibles sur des machines partagées.",
         "settings": "Personnalisez les outils visibles dans Paramètres pour garder la barre latérale focalisée."
       }
