@@ -401,7 +401,7 @@ export default function Page() {
                 </div>
                 <Image
                   src="/images/dashboard-dark.png"
-                  alt="MyDevTools dashboard with pinned tools, search, and app grid"
+                  alt="MyDevTools dashboard interface showing unified developer toolkit: SQL client, NoSQL explorer, API client, JSON formatter, and 60+ tools in one workspace"
                   width={1024}
                   height={597}
                   priority
@@ -431,6 +431,34 @@ export default function Page() {
                   unoptimized
                 />
               </a>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── USP Intro ────────────────────────────────────────────────────────── */}
+      <section className="py-16 md:py-20 bg-muted/30 border-y border-border/40">
+        <div className="container px-4 md:px-6 mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={stagger}
+            className="max-w-4xl mx-auto space-y-6"
+          >
+            <motion.div
+              variants={fadeUp}
+              className="prose prose-invert max-w-none text-center text-foreground/90 space-y-4"
+            >
+              <p className="text-lg leading-relaxed">
+                MyDevTools is the unified developer toolkit that brings together everything you need: a powerful SQL, NoSQL (MongoDB), and Redis database client alongside 60+ utility tools. Stop switching between tabs and apps—format JSON, test APIs, decode JWTs, build regexes, generate UUIDs, and manage databases all in one workspace.
+              </p>
+              <p className="text-lg leading-relaxed">
+                Privacy-first architecture means your data is processed in your browser whenever possible. Sensitive credentials are AES-256 encrypted before sync. Whether you're testing REST endpoints, debugging database queries, or working with cryptographic tools, everything runs with zero-knowledge encryption. Self-host for free or use our managed cloud with paid subscription.
+              </p>
+              <p className="text-lg leading-relaxed">
+                Open source (GPL-3.0), fully self-hostable, and trusted by developers. No ads, no tracking, no data harvesting. Compare MyDevTools to Postman (API client alternative), DBeaver (database GUI), single-purpose online tools, and other dev tool platforms—we unify what others scatter across 20 tabs.
+              </p>
             </motion.div>
           </motion.div>
         </div>
