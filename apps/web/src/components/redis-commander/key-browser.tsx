@@ -144,7 +144,7 @@ export function KeyBrowser({
                     regexError = result.error;
                     matchedKeys = fuzzyMatch(keyStrings, input);
                 } else {
-                    matchedKeys = result.matches;
+                    matchedKeys = result.keys;
                 }
             } else {
                 matchedKeys = fuzzyMatch(keyStrings, input);
@@ -274,7 +274,7 @@ export function KeyBrowser({
                                       const r = regexMatch(keyStrings, searchState.input);
                                       matched = r.error
                                           ? fuzzyMatch(keyStrings, searchState.input)
-                                          : r.matches;
+                                          : r.keys;
                                   } else {
                                       matched = fuzzyMatch(keyStrings, searchState.input);
                                   }
