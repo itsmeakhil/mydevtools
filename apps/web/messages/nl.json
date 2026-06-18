@@ -9,7 +9,7 @@
     "bookmarks": "Bladwijzers",
     "jsonFormatter": "JSON-formatter",
     "emailValidator": "E-mailvalidator",
-    "nosqlExplorer": "NoSQL-verkenner",
+    "nosqlExplorer": "Databaseverkenner",
     "toDo": "Tasks",
     "notes": "Notes",
     "encryptionPlayground": "Encryptie-speeltuin",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "Gebruik een sterk, uniek masterwachtwoord voor vault-functies.",
         "apiClient": "Behandel de API-client als elke HTTP-client: plak geen productiegeheimen in gedeelde omgevingen als je niet weet wie ze kan zien.",
-        "nosql": "De NoSQL-verkenner maakt verbinding met databases die jij configureert; gebruik accounts met minimale rechten en netwerkregels waar mogelijk.",
+        "nosql": "De Databaseverkenner maakt verbinding met databases die jij configureert; gebruik accounts met minimale rechten en netwerkregels waar mogelijk.",
         "json": "De JSON-formatter werkt lokaal in de browser—plak alsnog geen zeer gevoelige data op gedeelde apparaten.",
         "settings": "Pas zichtbare tools aan in Instellingen om de zijbalk gefocust te houden."
       }
