@@ -9,7 +9,7 @@
     "bookmarks": "Bogmærker",
     "jsonFormatter": "JSON-formatering",
     "emailValidator": "E-mailvalidering",
-    "nosqlExplorer": "NoSQL-udforsker",
+    "nosqlExplorer": "Databaseudforsker",
     "toDo": "Tasks",
     "notes": "Notes",
     "encryptionPlayground": "Krypteringslegeplads",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "Brug en stærk og unik masteradgangskode til vault‑funktioner.",
         "apiClient": "Behandl API‑klienten som enhver HTTP‑klient: undgå at indsætte produktions‑secrets i delte miljøer, hvis du ikke ved hvem der kan se dem.",
-        "nosql": "NoSQL‑udforskeren forbinder til databaser du konfigurerer; brug mindst‑privilegerede brugere og netværksregler hvor muligt.",
+        "nosql": "Databaseudforskeren forbinder til databaser du konfigurerer; brug mindst‑privilegerede brugere og netværksregler hvor muligt.",
         "json": "JSON‑formateringen kører lokalt i browseren—undgå stadig at indsætte meget følsomme data på delte maskiner.",
         "settings": "Tilpas synlige værktøjer i Indstillinger for at holde sidebaren fokuseret."
       }
