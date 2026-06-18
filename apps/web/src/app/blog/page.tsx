@@ -6,16 +6,16 @@ import { Footer } from '@/components/footer'
 import { blogPosts } from '@/lib/blog/posts'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
-const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('Developer Blog — MyDevTools')}&description=${encodeURIComponent('Practical developer guides on JWTs, JSON, regex, timestamps, UUIDs, cron, and more.')}`
+const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('Developer Blog — MyDevTools')}&description=${encodeURIComponent('33 SEO-optimized guides: JWT decoding, JSON formatting, regex, SQL, cryptography, data conversion, and more.')}`
 
 export const metadata: Metadata = {
-  title: { absolute: 'Developer Blog — Guides, Tips & Tool Tutorials | MyDevTools' },
+  title: { absolute: 'Developer Blog — 33 Guides on Tools & Coding | MyDevTools' },
   description:
-    'Practical guides for developers: how to decode JWTs, format JSON, write regex patterns, understand HTTP status codes, generate UUIDs, work with timestamps, and more.',
+    '33 practical developer guides: JWT decoding, JSON formatting, regex patterns, SQL queries, hash generation, URL parsing, CSV conversion, SSH keys, QR codes, encryption, email validation, Redis, certificates, and more.',
   alternates: { canonical: `${baseUrl}/blog` },
   openGraph: {
     title: 'Developer Blog — MyDevTools',
-    description: 'Practical developer guides on JWTs, JSON, regex, timestamps, UUIDs, cron, and more.',
+    description: '33 SEO-optimized guides: JWT decoding, JSON formatting, regex, SQL, cryptography, data conversion, and more.',
     url: `${baseUrl}/blog`,
     siteName: 'MyDevTools',
     type: 'website',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Developer Blog — MyDevTools',
-    description: 'Practical developer guides on JWTs, JSON, regex, timestamps, UUIDs, cron, and more.',
+    description: '33 practical guides: decode JWTs, format JSON, parse URLs, query SQL, generate hashes, validate emails, and more.',
     images: [ogImage],
   },
 }
@@ -35,6 +35,9 @@ const categoryColors: Record<string, string> = {
   Converters: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
   Generators: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
   'Network & API': 'bg-sky-500/10 text-sky-400 border-sky-500/20',
+  Databases: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
+  Utilities: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+  Validators: 'bg-rose-500/10 text-rose-400 border-rose-500/20',
 }
 
 export default function BlogPage() {
@@ -89,11 +92,10 @@ export default function BlogPage() {
             </nav>
 
             <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl leading-[1.08]">
-              Developer guides &amp; tutorials
+              33 SEO-optimized developer guides
             </h1>
             <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-              Practical explanations on tools every developer reaches for: JWT decoding, JSON formatting,
-              regex patterns, timestamp conversion, UUID generation, cron expressions, HTTP status codes, and more.
+              In-depth explanations covering databases (SQL, Redis, MongoDB), cryptography (SSH keys, encryption, hashing), data conversion (CSV, YAML, JSON), utilities (URL parsing, email validation, QR codes), and more. Written for search engines and AI agents.
             </p>
           </div>
         </section>
