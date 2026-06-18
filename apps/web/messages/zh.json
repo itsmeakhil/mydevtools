@@ -9,7 +9,7 @@
     "bookmarks": "书签",
     "jsonFormatter": "JSON 格式化器",
     "emailValidator": "邮箱验证",
-    "nosqlExplorer": "NoSQL 浏览器",
+    "nosqlExplorer": "数据库浏览器",
     "toDo": "Tasks",
     "notes": "Notes",
     "encryptionPlayground": "加密演练场",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "为保险库功能设置强且唯一的主密码。",
         "apiClient": "将 API 客户端视为普通 HTTP 客户端：不了解可见范围时，避免在共享环境中粘贴生产密钥。",
-        "nosql": "NoSQL 浏览器连接到你配置的数据库；尽量使用最小权限账号与网络规则。",
+        "nosql": "数据库浏览器连接到你配置的数据库；尽量使用最小权限账号与网络规则。",
         "json": "JSON 格式化在浏览器本地运行——在共享设备上仍应避免粘贴高度敏感数据。",
         "settings": "在设置中自定义可见工具，让侧边栏更聚焦。"
       }
