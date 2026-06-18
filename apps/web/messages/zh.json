@@ -264,7 +264,7 @@
         "description": "测试与调试 HTTP 请求。"
       },
       "nosqlExplorer": {
-        "title": "NoSQL 浏览器",
+        "title": "Database Explorer",
         "description": "浏览 MongoDB 数据库。"
       },
       "emailValidator": {

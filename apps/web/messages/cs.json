@@ -264,7 +264,7 @@
         "description": "Testujte a laděte HTTP požadavky."
       },
       "nosqlExplorer": {
-        "title": "NoSQL průzkumník",
+        "title": "Database Explorer",
         "description": "Prozkoumejte databáze MongoDB."
       },
       "emailValidator": {

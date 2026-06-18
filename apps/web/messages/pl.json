@@ -264,8 +264,8 @@
         "description": "Test and debug HTTP requests."
       },
       "nosqlExplorer": {
-        "title": "NoSQL Explorer",
-        "description": "Explore MongoDB databases."
+        "title": "Database Explorer",
+        "description": "Explore MongoDB and SQL databases."
       },
       "emailValidator": {
         "title": "Email Validator",

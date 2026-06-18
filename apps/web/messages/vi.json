@@ -264,7 +264,7 @@
         "description": "Kiểm tra và gỡ lỗi các yêu cầu HTTP."
       },
       "nosqlExplorer": {
-        "title": "NoSQL Explorer",
+        "title": "Database Explorer",
         "description": "Khám phá cơ sở dữ liệu MongoDB."
       },
       "emailValidator": {

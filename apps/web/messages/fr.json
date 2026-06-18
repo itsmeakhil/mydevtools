@@ -264,7 +264,7 @@
         "description": "Testez et déboguez les requêtes HTTP."
       },
       "nosqlExplorer": {
-        "title": "Explorateur NoSQL",
+        "title": "Database Explorer",
         "description": "Explorez les bases de données MongoDB."
       },
       "emailValidator": {

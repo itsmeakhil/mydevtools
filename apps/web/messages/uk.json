@@ -264,7 +264,7 @@
         "description": "Тестуйте та налагоджуйте HTTP-запити."
       },
       "nosqlExplorer": {
-        "title": "NoSQL Провідник",
+        "title": "Database Explorer",
         "description": "Досліджуйте бази даних MongoDB."
       },
       "emailValidator": {

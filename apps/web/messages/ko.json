@@ -264,7 +264,7 @@
         "description": "HTTP 요청을 테스트하고 디버그하세요."
       },
       "nosqlExplorer": {
-        "title": "NoSQL 탐색기",
+        "title": "Database Explorer",
         "description": "MongoDB 데이터베이스를 탐색하세요."
       },
       "emailValidator": {

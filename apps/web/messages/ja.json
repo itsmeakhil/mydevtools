@@ -264,7 +264,7 @@
         "description": "HTTPリクエストのテストとデバッグを行います。"
       },
       "nosqlExplorer": {
-        "title": "NoSQLエクスプローラー",
+        "title": "Database Explorer",
         "description": "MongoDBデータベースを探索します。"
       },
       "emailValidator": {

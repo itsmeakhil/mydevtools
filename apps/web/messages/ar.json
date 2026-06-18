@@ -264,7 +264,7 @@
         "description": "اختبر طلبات HTTP وصححها."
       },
       "nosqlExplorer": {
-        "title": "مستكشف NoSQL",
+        "title": "Database Explorer",
         "description": "استكشف قواعد بيانات MongoDB."
       },
       "emailValidator": {

@@ -264,7 +264,7 @@
         "description": "درخواست های HTTP را تست و اشکال زدایی کنید."
       },
       "nosqlExplorer": {
-        "title": "NoSQL Explorer",
+        "title": "Database Explorer",
         "description": "پایگاه داده های MongoDB را کاوش کنید."
       },
       "emailValidator": {

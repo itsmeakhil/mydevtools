@@ -325,8 +325,8 @@
         "description": "Search HTTP status codes with descriptions (1xx–5xx)."
       },
       "nosqlExplorer": {
-        "title": "NoSQL Explorer",
-        "description": "Explore MongoDB databases."
+        "title": "Database Explorer",
+        "description": "Explore MongoDB and SQL databases."
       },
       "emailValidator": {
         "title": "Email Validator",

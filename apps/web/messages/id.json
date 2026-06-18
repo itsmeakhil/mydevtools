@@ -264,7 +264,7 @@
         "description": "Uji dan debug permintaan HTTP."
       },
       "nosqlExplorer": {
-        "title": "NoSQL Explorer",
+        "title": "Database Explorer",
         "description": "Jelajahi basis data MongoDB."
       },
       "emailValidator": {

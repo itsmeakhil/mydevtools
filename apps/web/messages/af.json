@@ -264,7 +264,7 @@
         "description": "Toets en ontfout HTTP-versoeke."
       },
       "nosqlExplorer": {
-        "title": "NoSQL-verkenner",
+        "title": "Database Explorer",
         "description": "Verken MongoDB-databasisse."
       },
       "emailValidator": {

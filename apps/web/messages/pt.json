@@ -264,7 +264,7 @@
         "description": "Testa e depura pedidos HTTP."
       },
       "nosqlExplorer": {
-        "title": "Explorador NoSQL",
+        "title": "Database Explorer",
         "description": "Explora bases de dados MongoDB."
       },
       "emailValidator": {

@@ -270,7 +270,7 @@
         "description": "Uji dan nyahpepijat permintaan HTTP."
       },
       "nosqlExplorer": {
-        "title": "Penjelajah NoSQL",
+        "title": "Database Explorer",
         "description": "Terokai pangkalan data MongoDB."
       },
       "emailValidator": {

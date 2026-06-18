@@ -264,7 +264,7 @@
         "description": "Test og fejlfind HTTP-anmodninger."
       },
       "nosqlExplorer": {
-        "title": "NoSQL-udforsker",
+        "title": "Database Explorer",
         "description": "Udforsk MongoDB-databaser."
       },
       "emailValidator": {

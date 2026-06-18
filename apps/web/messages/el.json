@@ -264,7 +264,7 @@
         "description": "Δοκιμάστε και αποσφαλματώστε αιτήματα HTTP."
       },
       "nosqlExplorer": {
-        "title": "Εξερευνητής NoSQL",
+        "title": "Database Explorer",
         "description": "Εξερευνήστε βάσεις δεδομένων MongoDB."
       },
       "emailValidator": {

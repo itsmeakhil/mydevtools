@@ -264,7 +264,7 @@
         "description": "Test en debug HTTP-verzoeken."
       },
       "nosqlExplorer": {
-        "title": "NoSQL-verkenner",
+        "title": "Database Explorer",
         "description": "Verken MongoDB-databases."
       },
       "emailValidator": {

@@ -264,7 +264,7 @@
         "description": "HTTP isteklerini test edin ve hata ayıklayın."
       },
       "nosqlExplorer": {
-        "title": "NoSQL Gezgini",
+        "title": "Database Explorer",
         "description": "MongoDB veritabanlarını keşfedin."
       },
       "emailValidator": {

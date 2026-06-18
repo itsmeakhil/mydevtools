@@ -264,7 +264,7 @@
         "description": "HTTP-Anfragen testen und debuggen."
       },
       "nosqlExplorer": {
-        "title": "NoSQL-Explorer",
+        "title": "Database Explorer",
         "description": "MongoDB-Datenbanken erkunden."
       },
       "emailValidator": {
