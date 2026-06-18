@@ -9,7 +9,7 @@
     "bookmarks": "Yer İmleri",
     "jsonFormatter": "JSON biçimleyici",
     "emailValidator": "E-posta Doğrulayıcı",
-    "nosqlExplorer": "NoSQL Gezgini",
+    "nosqlExplorer": "Veritabanı Gezgini",
     "toDo": "Tasks",
     "notes": "Notes",
     "encryptionPlayground": "Şifreleme oyun alanı",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "Kasa özellikleri için güçlü ve benzersiz bir ana parola kullanın.",
         "apiClient": "API İstemcisini herhangi bir HTTP istemcisi gibi kullanın: kimlerin görebileceğini bilmiyorsanız üretim sırlarını paylaşılan ortamlara yapıştırmayın.",
-        "nosql": "NoSQL Gezgini sizin yapılandırdığınız veritabanlarına bağlanır; mümkünse en az ayrıcalıklı kullanıcıları ve ağ kurallarını kullanın.",
+        "nosql": "Veritabanı Gezgini sizin yapılandırdığınız veritabanlarına bağlanır; mümkünse en az ayrıcalıklı kullanıcıları ve ağ kurallarını kullanın.",
         "json": "JSON biçimleyici tarayıcıda yerel çalışır—yine de paylaşılan cihazlarda çok hassas verileri yapıştırmaktan kaçının.",
         "settings": "Yan menüyü odaklı tutmak için Ayarlar’dan görünür araçları özelleştirin."
       }
