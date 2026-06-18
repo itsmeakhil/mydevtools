@@ -28,7 +28,7 @@
     "contrastChecker": "Comprobador de contraste",
     "apiClient": "Cliente API",
     "httpStatusCodes": "Códigos de estado HTTP",
-    "nosqlExplorer": "Explorador NoSQL",
+    "nosqlExplorer": "Explorador de bases de datos",
     "jsonSchemaGenerator": "Generador de esquema JSON",
     "imageToBase64": "Imagen a Base64",
     "imageCompressor": "Compresor de imágenes",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "Usa una contraseña maestra fuerte y única para las funciones del cofre.",
         "apiClient": "Trata el Cliente API como cualquier cliente HTTP: evita pegar secretos de producción en entornos compartidos si no sabes quién puede verlos.",
-        "nosql": "El Explorador NoSQL se conecta a bases que configuras; usa usuarios con privilegios mínimos y reglas de red cuando sea posible.",
+        "nosql": "El Explorador de bases de datos se conecta a bases que configuras; usa usuarios con privilegios mínimos y reglas de red cuando sea posible.",
         "json": "El Formateador JSON es local al navegador—aun así evita pegar datos muy sensibles en máquinas compartidas.",
         "settings": "Personaliza las herramientas visibles en Configuraciones para mantener la barra lateral enfocada."
       }
