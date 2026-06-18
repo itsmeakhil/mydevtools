@@ -1,13 +1,14 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { ArrowRight, CheckCircle2, ExternalLink, Layers } from 'lucide-react'
+import { ArrowRight, CheckCircle2, ExternalLink, Layers, BookOpen } from 'lucide-react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { toolsMetadata, toolSeoTitle } from '@/lib/metadata'
 import { buildSoftwareApplicationJsonLd } from '@/lib/seo/structured-data'
 import { publicToolSlugs, getRelatedTools, toolCategoryMap } from '@/lib/tool-categories'
 import { getComparisonPagesForTool } from '@/lib/seo/comparison-pages'
+import { getBlogPost, blogPosts } from '@/lib/blog/posts'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 
@@ -70,6 +71,7 @@ export default async function ToolLandingPage({
   const jsonLd = buildSoftwareApplicationJsonLd(slug)
   const h1 = toolSeoTitle(tool)
   const primaryKeyword = tool.keywords[0] ?? tool.title.toLowerCase()
+  const blogPost = blogPosts.find((p) => p.toolSlug === slug)
 
   return (
     <div className="dark flex flex-col min-h-screen bg-background text-foreground font-sans">
@@ -265,6 +267,36 @@ export default async function ToolLandingPage({
             </div>
           </div>
         </section>
+
+        {/* ── Blog Article ── */}
+        {blogPost && (
+          <section className="py-12 md:py-16 border-t border-border/40 bg-muted/20">
+            <div className="container px-4 md:px-6 mx-auto max-w-4xl">
+              <div className="rounded-2xl border border-border/40 bg-card p-8 flex flex-col md:flex-row gap-6">
+                <div className="flex-1">
+                  <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full border border-border/50 bg-muted/60 text-xs font-medium text-muted-foreground">
+                    <BookOpen className="w-3 h-3" />
+                    Learn
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-3">{blogPost.title}</h2>
+                  <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-6">{blogPost.description}</p>
+                  <div className="flex items-center gap-4 text-xs text-muted-foreground mb-6">
+                    <span>{blogPost.readingTimeMin} min read</span>
+                    <span>•</span>
+                    <span>{blogPost.category}</span>
+                  </div>
+                  <Link
+                    href={`/blog/${blogPost.slug}`}
+                    className="inline-flex items-center justify-center h-11 px-6 rounded-full text-sm font-medium bg-foreground text-background hover:bg-foreground/90 shadow-md hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+                  >
+                    Read Article
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* ── Related tools ── */}
         {related.length > 0 && (
