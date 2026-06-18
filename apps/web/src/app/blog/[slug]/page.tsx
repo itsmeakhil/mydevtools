@@ -78,6 +78,11 @@ export default async function BlogPostPage({
     .slice(0, 3)
     .map((entry) => entry.post)
 
+  const categoryGuides = blogPosts
+    .filter((candidate) => candidate.slug !== post.slug && candidate.category === post.category)
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+    .slice(0, 4)
+
   const url = `${baseUrl}/blog/${slug}`
   const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(post.title)}&description=${encodeURIComponent(post.description)}`
   const jsonLd = {
@@ -107,6 +112,14 @@ export default async function BlogPostPage({
         breadcrumb: { '@id': `${url}#breadcrumb` },
         mainEntityOfPage: { '@id': url },
         image: ogImage,
+        ...(relatedTool && {
+          mentions: {
+            '@type': 'SoftwareApplication',
+            name: relatedTool.title,
+            url: `${baseUrl}/tools/${post.toolSlug}`,
+            applicationCategory: 'DeveloperApplication',
+          },
+        }),
       },
       {
         '@type': 'BreadcrumbList',
@@ -338,6 +351,36 @@ export default async function BlogPostPage({
                     <p className="text-sm leading-relaxed text-muted-foreground line-clamp-2">
                       {relatedPost.description}
                     </p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {categoryGuides.length > 0 && (
+          <section className="py-12 md:py-16 border-t border-border/40">
+            <div className="container mx-auto max-w-3xl px-4 md:px-6">
+              <h2 className="text-2xl md:text-3xl font-bold mb-8">
+                Other {post.category} guides
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {categoryGuides.map((guide) => (
+                  <Link
+                    key={guide.slug}
+                    href={`/blog/${guide.slug}`}
+                    className="group rounded-xl border border-border/40 bg-card/50 hover:bg-card hover:border-border/70 p-4 transition-all duration-200 hover:scale-[1.02]"
+                  >
+                    <h3 className="font-semibold text-sm mb-2 flex items-center gap-1.5">
+                      {guide.title}
+                      <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+                    </h3>
+                    <p className="text-xs text-muted-foreground leading-snug line-clamp-2 mb-3">
+                      {guide.description}
+                    </p>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <span>{guide.readingTimeMin} min read</span>
+                    </div>
                   </Link>
                 ))}
               </div>
