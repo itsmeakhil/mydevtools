@@ -2607,6 +2607,1149 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
       },
     ],
   },
+  {
+    slug: 'task-manager-todo-list-for-developers',
+    title: 'Task Manager: To-Do List for Developers',
+    description: 'Organize your work with a simple, browser-based to-do list. Track tasks, set priorities, and boost productivity without leaving your workflow.',
+    publishedAt: '2026-01-20',
+    category: 'Utilities',
+    toolSlug: 'to-do',
+    keywords: ['to do list', 'task manager', 'productivity app', 'todo list online', 'task organizer'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'Why developers need a task manager',
+        body: `Coding involves context switching: bug fixes, features, code reviews, meetings, and interruptions. Without a clear task list, work gets scattered across browser tabs, Slack messages, and mental overhead.\n\nA simple to-do list helps you:\n\n- **Capture work instantly** — jot down tasks without leaving your editor.\n- **Prioritize** — decide what's urgent vs. deferrable.\n- **Reduce cognitive load** — stop remembering; let the tool track it.\n- **See progress** — checking off tasks is motivating and shows productivity.`,
+      },
+      {
+        heading: 'Features of MyDevTools Task Manager',
+        body: `- **Add tasks quickly** — keyboard-friendly interface.\n- **Set priority levels** — high, medium, low to focus on what matters.\n- **Check off completed tasks** — visual feedback as you work.\n- **Organize by project** — keep work grouped logically.\n- **Persistent storage** — tasks sync to your account, available across devices.\n- **No bloat** — simple and focused, not a complex project management tool.`,
+      },
+      {
+        heading: 'How to use the task manager',
+        body: `1. Click "Add Task" and type a task name.\n2. Optionally set priority (high/medium/low).\n3. Click the checkbox to mark complete.\n4. Delete or edit as needed.\n\nTasks are saved automatically. Use it for sprint planning, daily standups, or just keeping track of your current work.`,
+      },
+      {
+        heading: 'Best practices for task management',
+        body: `**Be specific** — "Fix login bug on mobile" beats "fix stuff".\n\n**Break down large tasks** — "Ship API endpoint" is too big; split it into "write tests," "implement endpoint," "update docs".\n\n**Review daily** — each morning, look at your list and reprioritize.\n\n**Capture everything** — don't rely on memory; tasks go into the list immediately.\n\n**Done is done** — completed tasks stay in history or archive.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can I share tasks with my team?',
+        a: 'MyDevTools Task Manager is personal to your account. For team collaboration, export your list or use a team tool like Asana or Monday.com.',
+      },
+      {
+        q: 'Can I set due dates?',
+        a: 'The current version prioritizes simplicity over features. For due dates and reminders, consider extending with browser automation or switching to a richer tool.',
+      },
+      {
+        q: 'Are my tasks backed up?',
+        a: 'Yes, tasks sync to your account. Sign in to any device and your tasks are there.',
+      },
+    ],
+  },
+  {
+    slug: 'markdown-notes-app-for-developers',
+    title: 'Markdown Notes: Quick Note-Taking for Developers',
+    description: 'Create and organize Markdown notes online with zero friction. Sync across devices, search, and keep your knowledge base accessible.',
+    publishedAt: '2026-01-21',
+    category: 'Utilities',
+    toolSlug: 'notes',
+    keywords: ['notes app', 'markdown notes', 'quick notes online', 'developer notes', 'note-taking tool'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'Why Markdown notes for developers?',
+        body: `Developers write a lot: code snippets, API documentation, architectural decisions, debugging notes, and quick reference guides. A Markdown-based note app is perfect because:\n\n- **Markdown is universal** — use the same format everywhere (GitHub, Notion, Hugo, etc.).\n- **Version-friendly** — plain text diff cleanly in git.\n- **Syntax highlighting** — code blocks are readable.\n- **Lightweight** — no bloated UI, just your text.`,
+      },
+      {
+        heading: 'Markdown syntax quick reference',
+        body: `- **Bold:** \`**text**\`\n- **Italic:** \`*text*\`\n- **Heading:** \`# Title\`\n- **Lists:** \`- item\`\n- **Code block:**\n\`\`\`\ncode here\n\`\`\`\n- **Link:** \`[text](url)\`\n- **Blockquote:** \`> quote\``,
+      },
+      {
+        heading: 'How to organize your notes',
+        body: `**By project** — one note per project, link-rich with setup steps.\n\n**By topic** — \`API design patterns,\` \`deployment checklist,\` \`debugging tips.\`\n\n**Quick reference** — terminal commands, environment setup, common errors.\n\n**Learning journal** — capture what you learned after each bug or feature.`,
+      },
+      {
+        heading: 'MyDevTools Notes features',
+        body: `- **Live Markdown preview** — see formatting as you type.\n- **Full-text search** — find notes by keyword.\n- **Cross-device sync** — write on desktop, read on phone.\n- **No install** — browser-based, zero friction.\n- **Encrypted on sync** — sensitive notes stay private.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can I export my notes?',
+        a: 'Download notes as Markdown files and use them anywhere. Copy-paste into GitHub, Notion, or your own site.',
+      },
+      {
+        q: 'Is there offline support?',
+        a: 'Notes sync when online. For offline editing, use a local Markdown editor and sync later.',
+      },
+      {
+        q: 'Can I collaborate on notes?',
+        a: 'Current version is personal. For team notes, export to a shared Git repo or collaborative tool.',
+      },
+    ],
+  },
+  {
+    slug: 'bookmark-manager-for-developer-resources',
+    title: 'Bookmark Manager: Organize Developer Resources Online',
+    description: 'Save and tag your favorite developer links, articles, and tools. Instant access from anywhere without browser clutter.',
+    publishedAt: '2026-01-22',
+    category: 'Utilities',
+    toolSlug: 'bookmarks',
+    keywords: ['bookmark manager', 'link organizer', 'save links online', 'developer bookmarks', 'bookmark organizer'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'Why a centralized bookmark manager?',
+        body: `Browser bookmarks are siloed per device. A cloud-based bookmark manager lets you:\n\n- **Keep one master list** — accessible from any browser or device.\n- **Tag and categorize** — find links by topic in seconds.\n- **Share links** — copy public links to send colleagues.\n- **Search full-text** — search note content, not just titles.\n- **Never lose a link** — backup all your research and resources.`,
+      },
+      {
+        heading: 'Organizing bookmarks effectively',
+        body: `**By topic:** \`JavaScript patterns,\` \`DevOps,\` \`CSS tricks,\` \`API docs.\`\n\n**By purpose:** \`must-read,\` \`tools,\` \`learning,\` \`reference.\`\n\n**By status:** \`backlog,\` \`reading,\` \`done.\`\n\nAdd descriptions to bookmarks so you remember why you saved it.`,
+      },
+      {
+        heading: 'Bookmark manager workflow',
+        body: `1. **Find a resource** — article, tool, documentation.\n2. **Click "Save"** — add title, URL, tags, and notes.\n3. **Tag it** — assign categories for later discovery.\n4. **Search later** — full-text search across title, URL, and notes.\n5. **Share** — copy the link to send to teammates.`,
+      },
+      {
+        heading: 'MyDevTools Bookmarks features',
+        body: `- **Tags and folders** — organize hundreds of links.\n- **Full-text search** — find by keyword, not just title.\n- **Public/private** — share specific bookmarks or keep personal.\n- **Rich notes** — add context to why you saved a link.\n- **Sync across devices** — your bookmarks follow you.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can I import from browser bookmarks?',
+        a: 'Export from your browser as HTML and import into MyDevTools to migrate your collection.',
+      },
+      {
+        q: 'Can I export my bookmarks?',
+        a: 'Yes, export as HTML or JSON for backup or migration to another tool.',
+      },
+      {
+        q: 'What if a link dies (404)?',
+        a: 'Bookmarks point to live URLs. Archive services like archive.org can retrieve old pages if links disappear.',
+      },
+    ],
+  },
+  {
+    slug: 'environment-variables-manager-dotenv-online',
+    title: 'Environment Manager: Secure .env Variable Storage',
+    description: 'Store and organize environment variables across projects and environments (dev/staging/prod). AES-256 encrypted on your device.',
+    publishedAt: '2026-01-23',
+    category: 'Security',
+    toolSlug: 'environment-manager',
+    keywords: ['environment variables', 'env file', 'dotenv manager', 'secrets manager', 'encrypted env', 'devops'],
+    readingTimeMin: 6,
+    sections: [
+      {
+        heading: 'Why a centralized env var manager?',
+        body: `Environment variables configure applications across different environments. Storing them securely and organizing them is critical:\n\n- **Never commit secrets to git** — \`.env\` files belong in \`.gitignore\`.\n- **Sync safely** — developers need the same values locally.\n- **Per-environment config** — dev, staging, and production have different values.\n- **No plaintext** — encrypt sensitive credentials.\n- **Access control** — team members see only what they need.`,
+      },
+      {
+        heading: 'Environment variable structure',
+        body: `Variables are typically key-value pairs:\n\n\`\`\`\nDATABASE_URL=postgresql://user:pass@host/db\nAPI_KEY=sk_live_abc123xyz...\nJWT_SECRET=your_secret_key_here\nLOG_LEVEL=debug\nNODE_ENV=development\n\`\`\`\n\nEach environment (dev/staging/prod) has different values for the same keys.`,
+        codeLanguage: 'bash',
+      },
+      {
+        heading: 'Managing .env files securely',
+        body: `**Local development:** Copy \`.env.example\` (no secrets) and fill in local values.\n\n**Team sharing:** Use MyDevTools or a secrets manager to distribute values securely.\n\n**CI/CD:** Inject vars at build time, never check them in.\n\n**Rotation:** Change secrets regularly, especially API keys and database passwords.`,
+      },
+      {
+        heading: 'MyDevTools Environment Manager',
+        body: `- **Encrypted storage** — AES-256-GCM encryption in your browser before sync.\n- **Per-project organization** — separate vars for different apps.\n- **Environment templates** — dev/staging/prod presets.\n- **Export to .env format** — copy directly into your project.\n- **Search and filter** — find vars by key or project.`,
+      },
+      {
+        heading: 'Best practices for environment secrets',
+        body: `- **Never hardcode secrets** — always use environment variables.\n- **Rotate regularly** — change API keys quarterly or after team changes.\n- **Limit access** — only developers who need a value see it.\n- **Audit logs** — track who accessed sensitive vars.\n- **Use .env.example** — document required vars without values.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is it safe to store passwords in an online tool?',
+        a: 'MyDevTools encrypts secrets in your browser with AES-256 before sending to servers. For maximum security, use a dedicated secrets manager like 1Password, Vault, or AWS Secrets Manager.',
+      },
+      {
+        q: 'Can I share environment vars with my team?',
+        a: 'Export from MyDevTools and securely distribute (encrypted email, password-protected link). For team workflows, consider HashiCorp Vault or cloud-native secrets managers.',
+      },
+      {
+        q: 'What variables are usually needed?',
+        a: 'Database URL, API keys, JWT secrets, OAuth credentials, feature flags, log levels, and third-party service credentials.',
+      },
+    ],
+  },
+  {
+    slug: 'json-schema-generator-type-models-online',
+    title: 'JSON Schema Generator: Create Type Models from JSON',
+    description: 'Generate JSON Schema or typed models (TypeScript, Python, Go, Rust, Java) from sample JSON instantly. No install required.',
+    publishedAt: '2026-01-24',
+    category: 'Formatters',
+    toolSlug: 'json-schema-generator',
+    keywords: ['json schema', 'json schema generator', 'typescript types from json', 'pydantic model', 'go struct'],
+    readingTimeMin: 6,
+    sections: [
+      {
+        heading: 'What is JSON Schema?',
+        body: `JSON Schema is a declarative language for validating and documenting JSON. It defines:\n\n- Which fields are required.\n- Expected data types (string, number, object, array).\n- Constraints (min/max, pattern matching, enum values).\n- Nested object structures.\n\nYou can use JSON Schema to validate API responses, generate type definitions, and auto-generate documentation.`,
+      },
+      {
+        heading: 'From JSON sample to typed models',
+        body: `If you have a sample API response, you can infer a schema and generate type definitions. MyDevTools scans your JSON and produces:\n\n- **JSON Schema** (Draft 2020-12) — for API documentation and validation.\n- **TypeScript types** — export interfaces for type safety.\n- **Python models** — Pydantic dataclasses.\n- **Go structs** — Unmarshal into typed structs.\n- **Rust types** — serde-compatible.\n- **Java / C# / Dart / Swift** — language-specific types.`,
+      },
+      {
+        heading: 'Example: API response to TypeScript',
+        body: `Sample JSON response:\n\n\`\`\`json\n{\n  "id": 123,\n  "name": "Alice",\n  "email": "alice@example.com",\n  "posts": [\n    {"title": "First Post", "published": true}\n  ]\n}\n\`\`\`\n\nGenerated TypeScript:\n\n\`\`\`typescript\ninterface User {\n  id: number;\n  name: string;\n  email: string;\n  posts: Post[];\n}\n\ninterface Post {\n  title: string;\n  published: boolean;\n}\n\`\`\``,
+        codeLanguage: 'typescript',
+      },
+      {
+        heading: 'When to use schema generation',
+        body: `- **API integration** — model responses from third-party APIs.\n- **Backend validation** — validate incoming JSON with schema rules.\n- **Frontend type safety** — strong types in TypeScript/Python.\n- **Documentation** — auto-generate API schema docs.\n- **Testing** — generate mock data matching the schema.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can I generate models from incomplete JSON samples?',
+        a: 'Yes, but inferred types may be loose. Add more examples to refine. Optional fields are inferred if some samples lack them.',
+      },
+      {
+        q: 'Does this support OpenAPI / Swagger?',
+        a: 'Current version generates JSON Schema and language-specific types. OpenAPI spec generation may be added later.',
+      },
+      {
+        q: 'Can I customize the generated code?',
+        a: 'Yes, export and edit. The generator is a starting point; refine constraints and field names in your IDE.',
+      },
+    ],
+  },
+  {
+    slug: 'url-shortener-with-analytics-online',
+    title: 'URL Shortener: Create Short Links with Click Tracking',
+    description: 'Shorten long URLs, track clicks, manage your links, and generate QR codes. Private and stored to your account.',
+    publishedAt: '2026-01-25',
+    category: 'Network & API',
+    toolSlug: 'url-shortener',
+    keywords: ['url shortener', 'link shortener', 'short link creator', 'click tracking', 'qr code generator'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'Why shorten URLs?',
+        body: `Long URLs are ugly, hard to share, and error-prone:\n\n\`\`\`\nhttps://www.example.com/blog/2026/01/how-to-debug-javascript-in-production?utm_source=twitter&utm_medium=social&utm_campaign=launch\n\`\`\`\n\nA short URL is clean, memorable, and trackable:\n\n\`\`\`\nhttps://mydevtools.net/s/abc123\n\`\`\``,
+      },
+      {
+        heading: 'Benefits of URL shortening',
+        body: `- **Readability** — fits in tweets, QR codes, and print materials.\n- **Tracking** — monitor how many people click your link.\n- **Management** — edit destination or disable a link later.\n- **QR codes** — generate codes from short links for offline distribution.\n- **Branding** — use your own domain for custom short links.`,
+      },
+      {
+        heading: 'URL shortener features',
+        body: `- **Create short links** — paste a long URL, get a short one.\n- **View click stats** — see daily/weekly/monthly clicks.\n- **Edit or disable** — change destination or deactivate anytime.\n- **QR code export** — download PNG codes for physical sharing.\n- **Link history** — browse all links you've created.\n- **Custom aliases** — optionally name your short link (slug).`,
+      },
+      {
+        heading: 'Use cases',
+        body: `- **Social media** — share in tweets, Instagram bios, Slack.\n- **Email campaigns** — track engagement on links.\n- **Print materials** — QR code on flyers links to your landing page.\n- **Affiliate links** — track referrals.\n- **Analytics dashboard** — see which links drive traffic.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Are short links permanent?',
+        a: 'Links persist as long as your account is active. You can disable a link anytime, but reactivate it later if needed.',
+      },
+      {
+        q: 'Can I see who clicked my link?',
+        a: 'Click count and timestamps are tracked. Full device/geographic data requires a more advanced analytics tool.',
+      },
+      {
+        q: 'Do short links work offline?',
+        a: 'No, short links require internet to redirect. QR codes must be scanned online.',
+      },
+    ],
+  },
+  {
+    slug: 's3-drive-aws-bucket-manager-online',
+    title: 'S3 Drive: Browse and Manage AWS S3 Buckets Online',
+    description: 'Connect to AWS S3 or DigitalOcean Spaces, browse objects, upload/download files. Credentials encrypted locally before storage.',
+    publishedAt: '2026-01-26',
+    category: 'Databases',
+    toolSlug: 's3-drive',
+    keywords: ['s3 bucket manager', 'aws s3 client', 'digitalocean spaces', 's3 browser', 'cloud storage manager'],
+    readingTimeMin: 6,
+    sections: [
+      {
+        heading: 'Manage cloud storage without the CLI',
+        body: `AWS S3 and DigitalOcean Spaces are object storage services. The AWS CLI is powerful but requires installation and terminal familiarity. A web-based S3 manager offers:\n\n- **Browse buckets** — navigate folder-like structures.\n- **Upload files** — drag-and-drop or select files.\n- **Download objects** — fetch any file directly.\n- **Delete or move** — manage objects without CLI commands.\n- **Credentials encrypted** — your AWS keys stay local, never exposed to servers.`,
+      },
+      {
+        heading: 'S3 bucket structure',
+        body: `S3 is flat object storage, but you can use \`/\` in object keys to simulate folders:\n\n\`\`\`\nbucket-name/\n  uploads/\n    image.jpg\n  logs/\n    2026-01/\n      access.log\n\`\`\`\n\nS3 Drive displays this as a tree, like a file system.`,
+        codeLanguage: 'text',
+      },
+      {
+        heading: 'Getting AWS credentials',
+        body: `1. Open AWS IAM console.\n2. Create an access key pair (Access Key ID + Secret Access Key).\n3. Optionally attach a policy limiting access to specific buckets.\n4. Paste credentials into S3 Drive (encrypted locally).\n\nNever share or commit credentials. Use IAM roles in production.`,
+      },
+      {
+        heading: 'Features',
+        body: `- **Multi-bucket support** — manage multiple buckets from one dashboard.\n- **Drag-and-drop upload** — works in modern browsers.\n- **Batch operations** — delete multiple objects at once.\n- **Object metadata** — view size, modified date, and storage class.\n- **Signed URLs** — generate temporary public links (optional).`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is it safe to paste AWS credentials into a web tool?',
+        a: 'MyDevTools encrypts credentials with AES-256 in your browser before sync. For maximum security, use AWS temporary credentials (STS) or bucket-specific IAM policies.',
+      },
+      {
+        q: 'Can I upload large files?',
+        a: 'Browser uploads are limited by RAM. For large files, use S3\\\'s multipart upload via the CLI or AWS Console.',
+      },
+      {
+        q: 'Does S3 Drive work with other cloud storage?',
+        a: 'DigitalOcean Spaces is S3-compatible. Any S3-compatible service should work.',
+      },
+    ],
+  },
+  {
+    slug: 'url-encoder-decoder-percent-encoding',
+    title: 'URL Encoder/Decoder: Encode Text for URLs & URIs',
+    description: 'Percent-encode text for query strings and URI components. Decode encoded text back to readable format. UTF-8 support.',
+    publishedAt: '2026-01-27',
+    category: 'Converters',
+    toolSlug: 'url-encode',
+    keywords: ['url encode', 'url decode', 'percent encode', 'uri encoding', 'query string encode'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'Why encode URLs?',
+        body: `URLs have reserved characters (\`?\`, \`&\`, \`=\`, \`#\`) that have special meaning. To include these in data (query strings, fragments), they must be percent-encoded:\n\n\`hello world\` → \`hello%20world\`\n\n\`user@example.com\` → \`user%40example.com\`\n\nThis ensures URLs are unambiguous and parseable.`,
+      },
+      {
+        heading: 'Percent-encoding basics',
+        body: `Percent-encoding replaces special characters with \`%\` followed by a hex code:\n\n- Space \` \` = \`%20\`\n- Hash \`#\` = \`%23\`\n- Ampersand \`&\` = \`%26\`\n- Equals \`=\` = \`%3D\`\n- At \`@\` = \`%40\`\n\nNon-ASCII characters (accents, emojis, etc.) are UTF-8 encoded then percent-encoded.`,
+      },
+      {
+        heading: 'URL encoding in practice',
+        body: `**Query string:**\n\n\`\`\`\nhttps://example.com/search?q=hello+world&sort=date\n\`\`\`\n\nHere, \`hello+world\` is encoded (spaces as \`+\` or \`%20\`).\n\n**Fragment / Anchor:**\n\n\`\`\`\nhttps://example.com/page#section-with-spaces\n\`\`\`\n\nFragments are also percent-encoded for special chars.`,
+        codeLanguage: 'text',
+      },
+      {
+        heading: 'Common encoding scenarios',
+        body: `- **Search queries** — user input with spaces and punctuation.\n- **API parameters** — encoding user data sent as query strings.\n- **Email links** — mailto: links with subject lines.\n- **File paths** — spaces and special chars in file names.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is \`+\` or \`%20\` better for spaces?',
+        a: 'In query strings, \`+\` is traditional but \`%20\` is more universal. Use \`%20\` for fragments and paths.',
+      },
+      {
+        q: 'Do I need to encode the entire URL?',
+        a: 'No, only encode the data portion (query values, fragment). The protocol and domain are left as-is.',
+      },
+      {
+        q: 'What about international characters?',
+        a: 'Encode as UTF-8 first, then percent-encode each byte. A tool does this automatically.',
+      },
+    ],
+  },
+  {
+    slug: 'generate-random-api-keys-secrets-online',
+    title: 'Secret Generator: Create Random API Keys & Tokens Online',
+    description: 'Generate cryptographically random secrets, API keys, and tokens with customizable length and alphabet.',
+    publishedAt: '2026-01-28',
+    category: 'Security',
+    toolSlug: 'secret-api-key-generator',
+    keywords: ['api key generator', 'secret generator', 'random token', 'crypto random string', 'key generator'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'Why generate strong secrets?',
+        body: `API keys and secrets must be unpredictable and long. Weak secrets are vulnerable to brute force and attacks:\n\n- **Bad:** \`secret123\`, \`password\`, sequential numbers.\n- **Good:** 32+ character random strings using crypto-secure randomness.\n\nCryptographic randomness ensures no patterns or repetition.`,
+      },
+      {
+        heading: 'Types of secrets you might generate',
+        body: `- **API keys** — authenticate requests to your API.\n- **OAuth tokens** — long-lived or refresh tokens.\n- **Webhook secrets** — sign webhook payloads for verification.\n- **JWT secrets** — sign JSON Web Tokens (HMAC-SHA256).\n- **Database passwords** — strong random credentials.\n- **Session tokens** — temporary identifiers for user sessions.`,
+      },
+      {
+        heading: 'Configurable secret generation',
+        body: `**Length:** Longer is better. 32-64 characters recommended.\n\n**Alphabet:**\n- Alphanumeric (a-z, A-Z, 0-9)\n- Hex (0-9, a-f) — safer for some systems.\n- Full ASCII — includes symbols like \`!@#\`.\n- Base62 — alphanumeric without symbols.\n- Custom — select specific characters.\n\nMyDevTools uses \`crypto.getRandomValues()\` for cryptographic strength.`,
+      },
+      {
+        heading: 'Best practices for secrets',
+        body: `- **Generate offline** — use a browser-based tool, no server transmission.\n- **Store securely** — environment variables, secrets manager, not hardcoded.\n- **Rotate regularly** — change secrets quarterly or after incidents.\n- **Audit access** — track who has each secret.\n- **Never commit** — exclude \`.env\` and secrets from version control.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is browser-based generation truly random?',
+        a: 'Yes, \`crypto.getRandomValues()\` is cryptographically secure. It uses OS randomness (entropy from hardware and kernel).',
+      },
+      {
+        q: 'Can I regenerate the same secret?',
+        a: 'No, cryptographic randomness is non-deterministic. Regenerating produces a different secret each time.',
+      },
+      {
+        q: 'How do I store generated secrets?',
+        a: 'Use environment variables, secrets managers (AWS Secrets Manager, HashiCorp Vault, 1Password), or encrypted config files. Never hardcode.',
+      },
+    ],
+  },
+  {
+    slug: 'dns-lookup-records-checker-online',
+    title: 'DNS Lookup: Check A, MX, TXT, NS Records Online',
+    description: 'Query DNS records for any domain: A, AAAA, MX, CNAME, TXT, NS, SOA, CAA, and PTR. Instant lookup with TTL and details.',
+    publishedAt: '2026-01-29',
+    category: 'Network & API',
+    toolSlug: 'dns-lookup',
+    keywords: ['dns lookup', 'dns checker', 'mx record lookup', 'txt record lookup', 'dns records'],
+    readingTimeMin: 6,
+    sections: [
+      {
+        heading: 'What is DNS?',
+        body: `The Domain Name System (DNS) translates human-readable domain names to IP addresses. When you type \`example.com\` in a browser, DNS queries nameservers to find the IP of the server hosting that domain.\n\nDNS records are stored in different types, each serving a purpose:`,
+      },
+      {
+        heading: 'Common DNS record types',
+        body: `- **A** — Maps domain to IPv4 address. \`example.com → 93.184.216.34\`\n- **AAAA** — Maps to IPv6 address.\n- **CNAME** — Canonical name (alias). \`www.example.com → example.com\`\n- **MX** — Mail exchange servers. Routes email to mail servers.\n- **TXT** — Text records. Used for email authentication (SPF, DKIM, DMARC).\n- **NS** — Nameservers. Authoritative servers for the domain.\n- **SOA** — Start of Authority. Metadata about the zone.\n- **CAA** — Certification Authority Authorization. Restricts SSL cert issuance.`,
+      },
+      {
+        heading: 'DNS lookup scenarios',
+        body: `**Email issues** — Check MX records to ensure mail is routing correctly.\n\n**SSL certificate warnings** — Verify domain A record matches server IP.\n\n**Email spoofing prevention** — Check SPF/DKIM/DMARC TXT records.\n\n**Domain migration** — Update A/CNAME records when moving servers.\n\n**Debugging nameservers** — Verify NS records point to correct nameservers.`,
+      },
+      {
+        heading: 'How to read DNS lookup results',
+        body: `**TTL (Time To Live)** — Seconds before DNS caches expire. Lower TTL = faster updates but more queries.\n\n**Priority (MX records)** — Lower number = higher priority. Mail servers are tried in order.\n\n**Flags (SOA, DKIM)** — Metadata about record flags and policies.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Why does my DNS change take time?',
+        a: 'DNS changes propagate via caches. TTL determines how long caches hold old records. Wait for TTL to expire before rechecking.',
+      },
+      {
+        q: 'Can I change DNS records with this tool?',
+        a: 'This tool is read-only. Changes are made in your domain registrar or hosting DNS panel.',
+      },
+      {
+        q: 'What if a record is missing?',
+        a: 'The nameserver has no record for that type. Add it in your DNS provider\\\'s control panel.',
+      },
+    ],
+  },
+  {
+    slug: 'encrypt-decrypt-text-aes-gcm-online',
+    title: 'Encryption Playground: AES-256-GCM Encrypt/Decrypt Online',
+    description: 'Encrypt text using AES-GCM with a passphrase or raw key. Decrypt messages. Educational and client-side secure.',
+    publishedAt: '2026-01-30',
+    category: 'Security',
+    toolSlug: 'encryption-playground',
+    keywords: ['aes gcm', 'aes 256 encryption', 'encrypt online', 'decrypt text', 'web crypto api'],
+    readingTimeMin: 6,
+    sections: [
+      {
+        heading: 'AES-GCM encryption basics',
+        body: `AES-GCM (Galois/Counter Mode) is a symmetric encryption algorithm that:\n\n- **Encrypts** — scrambles plaintext so only someone with the key can read it.\n- **Authenticates** — verifies the data hasn't been tampered with.\n- **256-bit key** — extremely strong (2^256 possible keys).\n\nAES-GCM is used in:\n- TLS/HTTPS (your browser uses it).\n- File encryption tools (7-Zip, VeraCrypt).\n- Password managers (1Password, Bitwarden).`,
+      },
+      {
+        heading: 'Symmetric vs asymmetric encryption',
+        body: `**Symmetric** (AES-GCM) — same key encrypts and decrypts. Fast, but both parties need the key.\n\n**Asymmetric** (RSA) — public key encrypts, private key decrypts. Slower, enables key exchange.\n\nFor this playground, we use symmetric: you encrypt with a passphrase, decrypt with the same passphrase.`,
+      },
+      {
+        heading: 'How encryption works in MyDevTools',
+        body: `1. **Raw key mode** — Provide a 32-byte hex key (256 bits). Use for deterministic encryption.\n2. **Passphrase mode** — Enter a password. PBKDF2-SHA256 derives a 256-bit key, then encrypts.\n\nThe output is a JSON bundle:\n\n\`\`\`json\n{\n  "ciphertext": "...",\n  "iv": "...",\n  "tag": "..."\n}\n\`\`\`\n\nShare this bundle; decrypt by pasting it back with the same passphrase.`,
+        codeLanguage: 'json',
+      },
+      {
+        heading: 'Encryption workflow',
+        body: `1. **Type or paste plaintext.**\n2. **Choose mode:** raw key or passphrase.\n3. **Encrypt.** Output is a JSON bundle.\n4. **Share safely** — paste the JSON to someone.\n5. **Decrypt** — they paste the JSON and enter your passphrase.`,
+      },
+      {
+        heading: 'When to use',
+        body: `- **Learning** — understand how encryption works.\n- **Quick encryption** — share sensitive data via email (encrypted, not plaintext).\n- **Testing** — verify encryption/decryption in applications.\n- **Not for production** — use dedicated security libraries and key management.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is this secure for real use?',
+        a: 'Encryption is secure, but browser-based key management is not enterprise-grade. Use a password manager or key vault for production secrets.',
+      },
+      {
+        q: 'What if I forget the passphrase?',
+        a: 'The encrypted data is unrecoverable. Always store passphrases securely.',
+      },
+      {
+        q: 'Can I encrypt files?',
+        a: 'Current version handles text. For files, use dedicated tools like 7-Zip, VeraCrypt, or gpg.',
+      },
+    ],
+  },
+  {
+    slug: 'lorem-ipsum-placeholder-text-generator',
+    title: 'Lorem Ipsum Generator: Placeholder Text for Mockups',
+    description: 'Generate Lorem Ipsum text as paragraphs, sentences, words, or lists. Export as plain text or HTML.',
+    publishedAt: '2026-01-31',
+    category: 'Generators',
+    toolSlug: 'lorem-ipsum',
+    keywords: ['lorem ipsum', 'placeholder text', 'dummy text', 'latin filler', 'mockup text'],
+    readingTimeMin: 4,
+    sections: [
+      {
+        heading: 'What is Lorem Ipsum?',
+        body: `Lorem Ipsum is dummy text based on classical Latin. Designers use it to fill layouts before real content is ready. It looks like readable prose but contains no meaningful words, letting you focus on design rather than reading.\n\nSample: "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."`,
+      },
+      {
+        heading: 'Why use placeholder text?',
+        body: `- **Design mockups** — test layout with various text lengths.\n- **Wireframes** — fill content areas before copy is written.\n- **Presentations** — show design without distracting content.\n- **Avoiding bias** — neutral placeholder instead of real data.\n- **Print/PDF testing** — ensure text wraps correctly.`,
+      },
+      {
+        heading: 'Types of Lorem Ipsum',
+        body: `- **Paragraphs** — full blocks for body content.\n- **Sentences** — single sentences for short copy.\n- **Words** — individual words for lists or tags.\n- **Lists** — bulleted items for navbar or sidebars.\n\nCustomize length: 1, 2, 3+ sentences/paragraphs.`,
+      },
+      {
+        heading: 'Export formats',
+        body: `- **Plain text** — copy-paste into editors.\n- **HTML** — \`<p>\`, \`<li>\` tags for web layouts.\n- **Markdown** — for documentation.\n- **Copy button** — one-click copying to clipboard.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is Lorem Ipsum the only option?',
+        a: 'Other placeholder text exists (Bacon Ipsum, Hipster Ipsum). Lorem Ipsum is the standard and most universal.',
+      },
+      {
+        q: 'Should I ship Lorem Ipsum to production?',
+        a: 'No, always replace with real copy before launching. Use for design and testing only.',
+      },
+      {
+        q: 'Can I customize the content?',
+        a: 'Standard Lorem Ipsum is fixed. For custom placeholder, write your own or use a list tool.',
+      },
+    ],
+  },
+  {
+    slug: 'color-picker-converter-hex-rgb-hsl',
+    title: 'Color Picker & Converter: HEX, RGB, HSL Online',
+    description: 'Pick colors or convert between HEX, RGB, and HSL formats. Generate harmonic palettes (shades, complementary, triadic).',
+    publishedAt: '2026-02-01',
+    category: 'Formatters',
+    toolSlug: 'color-picker',
+    keywords: ['color picker', 'hex to rgb', 'rgb to hsl', 'color converter', 'palette generator'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'Color formats explained',
+        body: `Designers and developers use different color formats:\n\n**HEX** — \`#FF5733\`. Compact, used in CSS and design tools.\n\n**RGB** — \`rgb(255, 87, 51)\`. Red, Green, Blue values (0-255). Used in web and programming.\n\n**HSL** — \`hsl(9, 100%, 60%)\`. Hue (0-360°), Saturation (0-100%), Lightness (0-100%). Intuitive for designers.`,
+      },
+      {
+        heading: 'Using a color picker',
+        body: `1. **Click the color picker** — opens a visual selector.\n2. **Select a hue** — drag along the color spectrum.\n3. **Pick saturation & lightness** — adjust in the square.\n4. **Copy the result** — grab HEX, RGB, or HSL.\n\nEasy for quick color exploration without guessing hex codes.`,
+      },
+      {
+        heading: 'Color conversion',
+        body: `Convert between formats seamlessly:\n\n\`#FF5733\` ↔ \`rgb(255, 87, 51)\` ↔ \`hsl(9, 100%, 60%)\`\n\nUseful when copying colors between tools (design software, CSS, iOS app code).`,
+      },
+      {
+        heading: 'Generating harmonic palettes',
+        body: `A harmonic palette is a set of colors that look good together:\n\n- **Shades** — darker and lighter versions of the base color.\n- **Complementary** — opposite color on the color wheel (high contrast).\n- **Triadic** — three colors evenly spaced (vibrant).\n- **Analogous** — nearby colors (harmonious).\n- **Monochromatic** — single hue with varying lightness.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Which format should I use in CSS?',
+        a: 'All three work. HEX is compact, RGB is precise, HSL is intuitive. Use your preference.',
+      },
+      {
+        q: 'Can I pick colors from an image?',
+        a: 'Current version uses a visual picker. To sample from images, upload to a color sampling tool or use browser DevTools.',
+      },
+      {
+        q: 'What is color blindness accessibility?',
+        a: 'Some users can\'t distinguish red/green or blue/yellow. Use contrast and shape cues, not just color. A contrast checker tool helps verify.',
+      },
+    ],
+  },
+  {
+    slug: 'wcag-contrast-checker-accessibility-colors',
+    title: 'WCAG Contrast Checker: Ensure Text Accessibility',
+    description: 'Measure WCAG 2.1 contrast between colors. Check AA and AAA pass/fail for normal and large text.',
+    publishedAt: '2026-02-02',
+    category: 'Validators',
+    toolSlug: 'contrast-checker',
+    keywords: ['wcag contrast', 'contrast ratio', 'aa aaa', 'accessibility checker', 'color contrast ratio'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'Why contrast matters',
+        body: `Web Content Accessibility Guidelines (WCAG) require sufficient contrast between text and background. This ensures:\n\n- **Readability for everyone** — people with low vision.\n- **Legal compliance** — ADA (US), AODA (Canada), EN 301 549 (EU).\n- **User experience** — readable text on all devices.`,
+      },
+      {
+        heading: 'WCAG contrast levels',
+        body: `**Level AA** (minimum standard)\n- Normal text (< 18pt): 4.5:1 ratio\n- Large text (≥ 18pt): 3:1 ratio\n\n**Level AAA** (enhanced)\n- Normal text: 7:1 ratio\n- Large text: 4.5:1 ratio\n\n**Level A** (insufficient) — 3:1 ratio (for large text only)\n\nStrive for AA or AAA. Higher ratio = easier to read.`,
+      },
+      {
+        heading: 'Testing your design',
+        body: `1. **Pick text color** (foreground).\n2. **Pick background color**.\n3. **See the contrast ratio.**\n4. **Check AA/AAA status.**\n5. **Adjust if needed** — increase contrast or darken/lighten colors.`,
+      },
+      {
+        heading: 'Common failures',
+        body: `- Light gray text (#CCCCCC) on white — fails most standards.\n- Colored text on colored backgrounds — must have high ratio.\n- Small text requires higher contrast than large text (due to visual acuity).`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'What\'s a "large" text size?',
+        a: '18pt or 24px (1.5em) and larger, or 14pt and bold.',
+      },
+      {
+        q: 'Does this check images and icons?',
+        a: 'Current version checks text. Graphical elements have different rules (3:1 minimum).',
+      },
+      {
+        q: 'Is AA sufficient?',
+        a: 'AA is standard. AAA is recommended for critical content (healthcare, legal). Aim high.',
+      },
+    ],
+  },
+  {
+    slug: 'text-diff-checker-side-by-side-compare',
+    title: 'Text Diff Checker: Compare Text Side by Side',
+    description: 'Compare two texts and highlight additions (green) and deletions (red). Fast, browser-based diff tool.',
+    publishedAt: '2026-02-03',
+    category: 'Formatters',
+    toolSlug: 'diff-checker',
+    keywords: ['text diff', 'diff checker', 'side by side compare', 'line diff', 'text compare'],
+    readingTimeMin: 4,
+    sections: [
+      {
+        heading: 'Why use a diff tool?',
+        body: `Comparing two texts manually is tedious and error-prone. A diff tool:\n\n- **Highlights changes** — green for additions, red for deletions.\n- **Line-by-line** — shows exactly what changed.\n- **Ignores whitespace** — optionally ignore spacing changes.\n- **Fast feedback** — instant results, no waiting.`,
+      },
+      {
+        heading: 'Use cases',
+        body: `- **Code review** — compare old and new versions of code.\n- **Document edits** — see what changed between drafts.\n- **Configuration changes** — verify before deploying.\n- **Data validation** — compare expected vs. actual output.\n- **Git commit diffs** — visualize changes without terminal.`,
+      },
+      {
+        heading: 'How to use',
+        body: `1. **Paste text 1** into the left pane (original).\n2. **Paste text 2** into the right pane (modified).\n3. **Click "Compare"** or auto-diff on paste.\n4. **Review highlights** — red = removed, green = added.\n5. **Adjust options** — ignore case, ignore whitespace, etc.`,
+      },
+      {
+        heading: 'Reading diff output',
+        body: `- **Red lines** — deleted from text 1.\n- **Green lines** — added in text 2.\n- **Gray lines** — unchanged context.\n- **Inline highlights** — specific character changes within a line.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can I compare files?',
+        a: 'Copy-paste file contents or upload. Browser tools are limited by memory for very large files.',
+      },
+      {
+        q: 'Does it handle binary files?',
+        a: 'No, diff is for text. Use git or specialized tools for binary diffs.',
+      },
+      {
+        q: 'Is "ignore whitespace" helpful?',
+        a: 'Yes, if comparing code with formatting changes. Toggle it to see meaningful vs. stylistic changes.',
+      },
+    ],
+  },
+  {
+    slug: 'image-compressor-online-reduce-file-size',
+    title: 'Image Compressor: Reduce JPEG, PNG, WebP File Size',
+    description: 'Compress images locally in your browser with a quality slider. No server upload, instant download.',
+    publishedAt: '2026-02-04',
+    category: 'Converters',
+    toolSlug: 'image-compressor',
+    keywords: ['compress image', 'image compressor', 'reduce image size', 'jpeg compression', 'png optimize'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'Why compress images?',
+        body: `Images are often the largest assets on web pages. Compression reduces file size, improving:\n\n- **Page load speed** — faster downloads, better Core Web Vitals.\n- **Bandwidth costs** — less data served = lower bills.\n- **Mobile experience** — smaller files for users on slow networks.\n- **SEO** — faster pages rank better.`,
+      },
+      {
+        heading: 'Image formats and compression',
+        body: `**JPEG** — Lossy compression. Photos compress well (good for photos).\n\n**PNG** — Lossless compression. Best for graphics and transparency.\n\n**WebP** — Modern format, smaller than JPEG/PNG. Not all browsers support it yet.\n\n**AVIF** — Newer, even smaller, but limited browser support.`,
+      },
+      {
+        heading: 'Lossy vs lossless',
+        body: `**Lossy** — Removes some data but is imperceptible. JPEG quality slider trades quality for size. 70-80% quality is usually ideal.\n\n**Lossless** — Keeps all data, compresses redundancy. PNG is lossless; file sizes are larger.`,
+      },
+      {
+        heading: 'Compression workflow',
+        body: `1. **Upload image** — drag and drop or select file.\n2. **Set quality** — slider from 0 (tiny, ugly) to 100 (large, perfect).\n3. **Preview** — see the result side by side.\n4. **Download** — save compressed version to your device.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'What\'s the ideal quality setting?',
+        a: '70-85% is typical. Check visually; compression artifacts become noticeable below 60%.',
+      },
+      {
+        q: 'Can I batch compress multiple images?',
+        a: 'Current version is one-at-a-time. Use ImageMagick, ImageOptim, or bulk tools for batch compression.',
+      },
+      {
+        q: 'Should I use WebP?',
+        a: 'Yes, for new projects. Provide JPEG fallback for old browsers. Use <picture> tag for browser-specific serving.',
+      },
+    ],
+  },
+  {
+    slug: 'css-gradient-builder-linear-radial-online',
+    title: 'CSS Gradient Builder: Visual Gradient Generator',
+    description: 'Create linear and radial CSS gradients visually. Add color stops, adjust angles, copy CSS instantly.',
+    publishedAt: '2026-02-05',
+    category: 'Formatters',
+    toolSlug: 'css-gradient-builder',
+    keywords: ['css gradient', 'gradient builder', 'gradient generator', 'linear gradient', 'radial gradient'],
+    readingTimeMin: 4,
+    sections: [
+      {
+        heading: 'What are CSS gradients?',
+        body: `CSS gradients blend colors smoothly across a background. Two types:\n\n**Linear** — color changes along a line (e.g., left to right).\n\n**Radial** — color changes from center outward (circular).`,
+      },
+      {
+        heading: 'Linear gradient syntax',
+        body: `\`\`\`css\nbackground: linear-gradient(90deg, #FF5733 0%, #FFC300 100%);\n\`\`\`\n\nParameters:\n- **Angle** — 90deg (left-to-right), 180deg (top-to-bottom), etc.\n- **Color stops** — colors and their position (0%, 50%, 100%).`,
+        codeLanguage: 'css',
+      },
+      {
+        heading: 'Radial gradient syntax',
+        body: `\`\`\`css\nbackground: radial-gradient(circle, #FF5733 0%, #FFC300 100%);\n\`\`\`\n\nParameters:\n- **Shape** — circle or ellipse.\n- **Color stops** — same as linear.`,
+        codeLanguage: 'css',
+      },
+      {
+        heading: 'Gradient builder workflow',
+        body: `1. **Select type** — linear or radial.\n2. **Set angle** (linear) or shape (radial).\n3. **Add color stops** — click to add, drag to reposition.\n4. **Copy CSS** — paste into your stylesheet.\n5. **Preview** — see live gradient preview.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can I use gradients as images?',
+        a: 'Yes, \`background-image: linear-gradient(...)\` applies a gradient as background.',
+      },
+      {
+        q: 'Do all browsers support CSS gradients?',
+        a: 'Yes, linear and radial gradients are well-supported. Use vendor prefixes (-webkit-, -moz-) for older browsers.',
+      },
+      {
+        q: 'Can I blend more than 2 colors?',
+        a: 'Yes, add as many color stops as you want.',
+      },
+    ],
+  },
+  {
+    slug: 'code-snippet-manager-save-organize-snippets',
+    title: 'Code Snippet Manager: Save & Organize Code Snippets',
+    description: 'Save code snippets with syntax highlighting. Auto-detect language, format JSON/SQL, copy with one click.',
+    publishedAt: '2026-02-06',
+    category: 'Utilities',
+    toolSlug: 'snippet-manager',
+    keywords: ['code snippets', 'snippet manager', 'syntax highlighting', 'code organizer', 'paste bin'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'Why save code snippets?',
+        body: `As you code, you discover useful patterns, utilities, or solutions. Saving them:\n\n- **Reuse across projects** — don't reinvent regex patterns or algorithms.\n- **Learn from your code** — review past solutions.\n- **Share with team** — snippets are documentation.\n- **Quick reference** — fast lookup without searching git history.`,
+      },
+      {
+        heading: 'Types of snippets',
+        body: `- **Algorithms** — sorting, searching, string manipulation.\n- **Boilerplate** — project setup, configuration templates.\n- **Regular expressions** — email validation, URL parsing, etc.\n- **SQL queries** — common patterns for your database.\n- **API calls** — curl or fetch examples.\n- **Config files** — .env, docker-compose, etc.`,
+      },
+      {
+        heading: 'Organizing snippets',
+        body: `- **By language** — JavaScript, Python, SQL, etc.\n- **By purpose** — string utils, API helpers, data structures.\n- **By project** — snippets specific to a codebase.\n- **Favorites** — pin most-used snippets.\n- **Tags** — cross-cutting categories (e.g., "regex", "async").`,
+      },
+      {
+        heading: 'Snippet manager features',
+        body: `- **Syntax highlighting** — color-coded code for readability.\n- **Auto language detection** — detect language from code.\n- **Copy button** — one-click copy to clipboard.\n- **Format JSON/SQL** — prettify or minify.\n- **Search** — find snippets by title, tag, or content.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can I export snippets?',
+        a: 'Copy individual snippets or export collection as a file for backup.',
+      },
+      {
+        q: 'Should I use this or a Git repo?',
+        a: 'Use this for quick, reusable snippets. Use Git for versioned, project-specific code.',
+      },
+      {
+        q: 'Is it searchable?',
+        a: 'Yes, full-text search across title, content, and tags.',
+      },
+    ],
+  },
+  {
+    slug: 'mime-type-lookup-file-extension-content-type',
+    title: 'MIME Type Lookup: Find Content-Type by Extension',
+    description: 'Look up MIME/Content-Type for any file extension or filename. Instant lookup, no server required.',
+    publishedAt: '2026-02-07',
+    category: 'Utilities',
+    toolSlug: 'mime-type-lookup',
+    keywords: ['mime type', 'content-type', 'media type', 'file extension', 'http headers'],
+    readingTimeMin: 4,
+    sections: [
+      {
+        heading: 'What is a MIME type?',
+        body: `MIME (Multipurpose Internet Mail Extensions) types describe data format. Servers use them to tell browsers how to handle files:\n\n\`Content-Type: image/jpeg\` → browser displays as image\n\`Content-Type: application/pdf\` → browser offers download\n\`Content-Type: text/plain\` → browser renders as text\n\nFile extension alone doesn't tell the browser how to handle it; MIME type does.`,
+      },
+      {
+        heading: 'Common MIME types',
+        body: `**Text files:**\n- \`.txt\` → \`text/plain\`\n- \`.html\` → \`text/html\`\n- \`.css\` → \`text/css\`\n\n**Images:**\n- \`.jpg\` → \`image/jpeg\`\n- \`.png\` → \`image/png\`\n- \`.gif\` → \`image/gif\`\n\n**Application files:**\n- \`.pdf\` → \`application/pdf\`\n- \`.zip\` → \`application/zip\`\n- \`.json\` → \`application/json\``,
+      },
+      {
+        heading: 'Why MIME types matter',
+        body: `- **HTTP headers** — \`Content-Type\` tells clients how to interpret response.\n- **File uploads** — validate uploaded file types.\n- **Email attachments** — specify file formats.\n- **APIs** — tell client what format data is in.`,
+      },
+      {
+        heading: 'Lookup workflow',
+        body: `1. **Type filename or extension** — e.g., \`document.pdf\` or \`.xlsx\`.\n2. **Click lookup** or instant search.\n3. **Copy MIME type** — grab \`application/vnd.ms-excel\`.\n4. **Use in code** — set HTTP header or validation.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can one extension have multiple MIME types?',
+        a: 'Rarely. \`.js\` is almost always \`application/javascript\`. Server configuration can override defaults.',
+      },
+      {
+        q: 'What if the MIME type is wrong?',
+        a: 'Browsers may misinterpret files. Verify in your web server config (\`.htaccess\`, nginx, etc.).',
+      },
+      {
+        q: 'Are there unofficial MIME types?',
+        a: 'Yes, apps use custom types like \`application/vnd.custom\`. Lookup tools show official types.',
+      },
+    ],
+  },
+  {
+    slug: 'user-agent-parser-browser-os-detection',
+    title: 'User-Agent Parser: Detect Browser, OS, Device',
+    description: 'Paste a User-Agent header to parse browser name/version, OS, device type, and rendering engine instantly.',
+    publishedAt: '2026-02-08',
+    category: 'Network & API',
+    toolSlug: 'user-agent-parser',
+    keywords: ['user agent', 'ua parser', 'browser detection', 'os detection', 'device detection'],
+    readingTimeMin: 4,
+    sections: [
+      {
+        heading: 'What is a User-Agent string?',
+        body: `A User-Agent is an HTTP header that identifies the client (browser). Servers use it for analytics, compatibility, and debugging.\n\nExample:\n\n\`\`\`\nMozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36\n\`\`\`\n\nThis identifies: Windows 10, 64-bit, Chrome 120.`,
+        codeLanguage: 'text',
+      },
+      {
+        heading: 'Why parse User-Agent?',
+        body: `- **Analytics** — track which browsers visit your site.\n- **Compatibility** — serve alternate content for old browsers.\n- **Debugging** — understand what user reported a bug from.\n- **Security** — detect spoofed User-Agents or bots.\n- **Feature detection** — enable/disable features based on browser capabilities.`,
+      },
+      {
+        heading: 'User-Agent format breakdown',
+        body: `A typical UA contains:\n- **Product/Version** — \`Mozilla/5.0\` (mostly legacy).\n- **Operating System** — \`Windows NT 10.0\`, \`Macintosh\`, \`Linux\`.\n- **Engine/Version** — \`AppleWebKit\`, \`Gecko\`, \`Trident\`.\n- **Browser/Version** — \`Chrome/120\`, \`Safari/537\`, \`Firefox/121\`.\n- **Device** — \`Mobile\`, \`Tablet\`, or omitted for desktop.`,
+      },
+      {
+        heading: 'Parsing workflow',
+        body: `1. **Copy User-Agent** from HTTP headers or request logs.\n2. **Paste into parser.**\n3. **See breakdown** — browser, version, OS, device.\n4. **Use for compatibility** — test in that specific browser.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can User-Agent be spoofed?',
+        a: 'Yes, any header can be faked. Don\'t rely on UA for security; use server-side checks.',
+      },
+      {
+        q: 'Are User-Agent strings standardized?',
+        a: 'No, each browser formats them differently. Parsing requires pattern matching and heuristics.',
+      },
+      {
+        q: 'How do I get a User-Agent?',
+        a: 'Browser DevTools (Network tab) show it in request headers. \`navigator.userAgent\` in JavaScript.',
+      },
+    ],
+  },
+  {
+    slug: 'unit-converter-scientific-engineering-units',
+    title: 'Unit Converter: 323 Units Across 43 Categories',
+    description: 'Convert between length, mass, pressure, temperature, electrical, and other scientific units. Instant conversion online.',
+    publishedAt: '2026-02-09',
+    category: 'Converters',
+    toolSlug: 'unit-converter',
+    keywords: ['unit converter', 'unit conversion', 'measurement converter', 'scientific units', 'engineering units'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'Why a unit converter?',
+        body: `Scientific and engineering work involves many units:\n\n- **Metric vs imperial** — kilometers, miles, liters, gallons.\n- **Specialized units** — pascals, joules, amperes.\n- **Easy mistakes** — confusing units costs money (Mars probe lost to unit error).\n\nA converter eliminates guessing and ensures accuracy.`,
+      },
+      {
+        heading: 'Unit categories',
+        body: `**Fundamental:**\n- Length (meter, foot, mile, kilometer)\n- Mass (kilogram, pound, ton, ounce)\n- Time (second, minute, hour, day)\n- Temperature (Celsius, Fahrenheit, Kelvin)\n\n**Derived:**\n- Area, volume, pressure, energy, power, force, velocity\n- Electrical (ampere, volt, watt, ohm)\n- Thermal (specific heat, thermal conductivity)\n- Polymer and materials science units`,
+      },
+      {
+        heading: 'Common conversions',
+        body: `- 1 mile = 1.609 km\n- 1 pound = 0.454 kg\n- 1 gallon = 3.785 liters\n- 1 inch = 2.54 cm\n- 32°F = 0°C\n- 1 kilowatt = 1000 watts`,
+      },
+      {
+        heading: 'Conversion workflow',
+        body: `1. **Select category** — length, mass, energy, etc.\n2. **Enter value** — e.g., 5 miles.\n3. **Select units** — from miles, to kilometers.\n4. **See result** — 8.05 km.\n5. **Copy** — grab the result for use.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is temperature conversion T(K) = T(°C) + 273.15 correct?',
+        a: 'Yes, that\'s the standard formula. Converters handle it automatically.',
+      },
+      {
+        q: 'What about currency or crypto?',
+        a: 'This tool focuses on scientific units. Exchange rates change constantly; use a currency converter for that.',
+      },
+      {
+        q: 'Can I convert between unusual units?',
+        a: '323 units across 43 categories covers most scientific needs. Niche units may not be included.',
+      },
+    ],
+  },
+  {
+    slug: 'svg-optimizer-minify-compress-svgo-online',
+    title: 'SVG Optimizer: Minify & Compress SVG Files',
+    description: 'Paste SVG markup and minify with SVGO. Remove comments, metadata, default attributes, and whitespace.',
+    publishedAt: '2026-02-10',
+    category: 'Formatters',
+    toolSlug: 'svg-optimizer',
+    keywords: ['svg optimizer', 'svg minify', 'svgo online', 'compress svg', 'optimize svg'],
+    readingTimeMin: 4,
+    sections: [
+      {
+        heading: 'Why optimize SVG?',
+        body: `SVG (Scalable Vector Graphics) are text-based and often include editor metadata, comments, and redundant code. Optimization:\n\n- **Reduces file size** — smaller downloads.\n- **Removes editor junk** — Illustrator/Figma metadata.\n- **Strips whitespace** — minification like JavaScript.\n- **Preserves quality** — no visual loss, only metadata removed.`,
+      },
+      {
+        heading: 'What SVGO does',
+        body: `- Removes comments (\`<!-- ... -->\`).\n- Strips editor metadata (Illustrator, Figma attributes).\n- Removes default attributes (e.g., \`fill="black"\` if already default).\n- Minifies whitespace and newlines.\n- Simplifies paths where possible.\n- Removes hidden layers and unused definitions.`,
+      },
+      {
+        heading: 'SVG optimization example',
+        body: `**Before (editor export):**\n\`\`\`xml\n<!-- Exported from Figma -->\n<svg width="100\" height=\"100\" viewBox=\"0 0 100 100\">\n  <circle cx=\"50\" cy=\"50\" r=\"50\" fill=\"black\" />\n</svg>\n\`\`\`\n\n**After (optimized):**\n\`\`\`xml\n<svg width=\"100\" height=\"100\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"50\" fill=\"black\"/></svg>\n\`\`\``,
+        codeLanguage: 'xml',
+      },
+      {
+        heading: 'Best practices',
+        body: `- **Export from design tools** — Illustrator, Figma, Sketch.\n- **Optimize before use** — smaller files = faster pages.\n- **Inspect manually** — ensure important paths aren't lost.\n- **Use inline SVG** — embed SVG directly in HTML for styles.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Does optimization affect visual appearance?',
+        a: 'No, optimized SVGs look identical. Only metadata and whitespace are removed.',
+      },
+      {
+        q: 'Can I undo optimization?',
+        a: 'Save the original. Optimization is lossy for metadata but preserves vector data.',
+      },
+      {
+        q: 'Should I minify SVG for production?',
+        a: 'Yes, especially for large icons or illustrations. Minified SVGs load faster.',
+      },
+    ],
+  },
+  {
+    slug: '2048-game-puzzle-break',
+    title: 'Play 2048: Slide and Merge Tiles Online',
+    description: 'Slide tiles to merge matching numbers and reach 2048. A classic puzzle game to clear your head between coding.',
+    publishedAt: '2026-02-11',
+    category: 'Generators',
+    toolSlug: 'break-room/2048',
+    keywords: ['2048 game', '2048 puzzle', 'number puzzle', 'tile game', 'brain game'],
+    readingTimeMin: 3,
+    sections: [
+      {
+        heading: 'How to play 2048',
+        body: `1. **Start** — you begin with a 4×4 grid and two tiles.\n2. **Move** — use arrow keys to slide all tiles in a direction.\n3. **Merge** — when two tiles with the same number touch, they merge into one with double the value (2+2=4, 4+4=8, etc.).\n4. **Goal** — reach the 2048 tile (take your time; it's fun, not a race).\n5. **Game over** — when no more moves are possible.`,
+      },
+      {
+        heading: 'Strategy tips',
+        body: `- **Keep high tiles in a corner** — prevents them from getting blocked.\n- **Build one direction** — avoid scattered merges.\n- **Plan ahead** — think two or three moves ahead.\n- **Use larger gaps** — gives space for merges to happen.`,
+      },
+      {
+        heading: 'Why play?',
+        body: `2048 is a quick mental break. A typical game is 5–15 minutes. It requires focus and planning but isn't stressful. Perfect for clearing your head between coding sessions.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can I beat 2048?',
+        a: 'Yes, with planning. The tile keeps growing beyond 2048 if you keep playing.',
+      },
+      {
+        q: 'Is the grid always 4×4?',
+        a: 'Yes. Larger grids exist in variants, but the original is 4×4.',
+      },
+      {
+        q: 'Is there undo?',
+        a: 'Current version doesn\'t have undo. Plan carefully.',
+      },
+    ],
+  },
+  {
+    slug: 'sudoku-game-online-puzzles',
+    title: 'Play Sudoku: 450 Unique Puzzles Online',
+    description: 'Play Sudoku with 150 puzzles per difficulty (easy, medium, hard). Sign in to save progress.',
+    publishedAt: '2026-02-12',
+    category: 'Generators',
+    toolSlug: 'break-room/sudoku',
+    keywords: ['sudoku', 'sudoku online', 'sudoku game', 'sudoku puzzle', 'brain game'],
+    readingTimeMin: 4,
+    sections: [
+      {
+        heading: 'Sudoku rules',
+        body: `1. Fill a 9×9 grid so every row, column, and 3×3 box contains digits 1–9.\n2. Each number appears exactly once per row, column, and box.\n3. Some cells are pre-filled; these are givens.\n4. No arithmetic required; pure logic.`,
+      },
+      {
+        heading: 'How to play',
+        body: `- **Click a cell** to select it.\n- **Type a digit** (1–9) or use arrow keys to navigate.\n- **Highlight conflicts** — impossible numbers are grayed out.\n- **Check progress** — see if you've completed rows/columns.\n- **Clear cell** — delete or press backspace.`,
+      },
+      {
+        heading: 'Difficulty levels',
+        body: `- **Easy** — many givens, logical deduction only.\n- **Medium** — fewer givens, requires planning.\n- **Hard** — minimal givens, advanced techniques needed.\n\n450 puzzles (150 per level) keep you challenged without repeats.`,
+      },
+      {
+        heading: 'Strategies',
+        body: `- **Naked singles** — find cells with only one possible value.\n- **Hidden singles** — find values that fit only one cell in a row/column/box.\n- **Pairs/Triples** — eliminate candidates by logical inference.\n- **Advanced** — X-wings, Y-wings, swordfish (look these up if interested).`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can I get hints?',
+        a: 'Highlighting conflicts is the main aid. Hint buttons or solver features may be added.',
+      },
+      {
+        q: 'Can I undo moves?',
+        a: 'Click to clear cells. Full game undo may come later.',
+      },
+      {
+        q: 'Is there a timer?',
+        a: 'Yes, tracks solve time. Compete against yourself to improve.',
+      },
+    ],
+  },
+  {
+    slug: 'snake-game-online-classic',
+    title: 'Play Snake: Classic Game Online',
+    description: 'Play the classic Snake game in your browser. Eat food, grow your snake, avoid walls and yourself.',
+    publishedAt: '2026-02-13',
+    category: 'Generators',
+    toolSlug: 'break-room/snake',
+    keywords: ['snake game', 'snake online', 'classic snake', 'browser game', 'developer break'],
+    readingTimeMin: 3,
+    sections: [
+      {
+        heading: 'How to play Snake',
+        body: `1. **Start** — a snake of length 3 is placed in the center.\n2. **Move** — use arrow keys or WASD to move up, down, left, right.\n3. **Eat food** — eat the square to grow and gain points.\n4. **Avoid** — don't hit walls or your own tail.\n5. **Speed increases** — every 50 points, the snake gets faster.\n6. **Game over** — collision ends the game.`,
+      },
+      {
+        heading: 'Strategy',
+        body: `- **Plan paths** — don't box yourself in.\n- **Use full grid** — maximize space for growth.\n- **Spiral strategy** — fill the grid in a spiral to avoid dead ends.\n- **Don't panic** — faster speeds require calm decision-making.`,
+      },
+      {
+        heading: 'Why play?',
+        body: `Snake is simple, quick, and addictive. A game is 2–5 minutes. It's the perfect break-room game: no stress, no story, just pure gameplay.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'What\'s the highest score possible?',
+        a: 'Theoretically, fill the entire 20×20 grid (minus 1 for the head). Practically, most stop around 50–100 points.',
+      },
+      {
+        q: 'Can I pause?',
+        a: 'Yes, or just stop moving. Restart to try again.',
+      },
+      {
+        q: 'Is there an easy mode?',
+        a: 'Snake difficulty is determined by speed increases. Start calm; it gets challenging fast.',
+      },
+    ],
+  },
+  {
+    slug: 'minesweeper-game-online-classic',
+    title: 'Play Minesweeper: Classic Puzzle Game',
+    description: 'Play classic Minesweeper with three difficulty levels: beginner, intermediate, expert. First click is always safe.',
+    publishedAt: '2026-02-14',
+    category: 'Generators',
+    toolSlug: 'break-room/minesweeper',
+    keywords: ['minesweeper', 'minesweeper online', 'classic minesweeper', 'puzzle game', 'brain game'],
+    readingTimeMin: 4,
+    sections: [
+      {
+        heading: 'Minesweeper rules',
+        body: `1. **Board** — a grid of hidden cells covering mines.\n2. **Click to reveal** — uncover a cell.\n3. **Number clue** — if safe, a number shows mines in adjacent cells (0–8).\n4. **Flag mines** — right-click to flag suspected mines.\n5. **Win** — reveal all non-mine cells.\n6. **Lose** — click a mine; game over.`,
+      },
+      {
+        heading: 'Difficulty levels',
+        body: `- **Beginner** — 9×9 board, 10 mines. Easy for learning.\n- **Intermediate** — 16×16 board, 40 mines. Medium challenge.\n- **Expert** — 30×16 board, 99 mines. Hard, requires advanced logic.`,
+      },
+      {
+        heading: 'Strategy',
+        body: `- **Numbers are clues** — a \"3\" means exactly 3 adjacent mines.\n- **Empty cells** — 0 mines adjacent. Cascade reveals many cells.\n- **Mark and reason** — flag cells, then deduce from numbers.\n- **Isolated regions** — focus on one area first, then expand.`,
+      },
+      {
+        heading: 'Tips',
+        body: `- **First click is safe** — the board generates after your first move.\n- **Work from edges** — borders have fewer adjacent cells, easier to deduce.\n- **Probability guessing** — when stuck, pick the cell with fewest adjacent mines.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is there a cheat?',
+        a: 'No cheating in pure Minesweeper. Logic and probability are your tools.',
+      },
+      {
+        q: 'Can I flag flags?',
+        a: 'Right-click again to unflag. Flags help you mark suspected mines.',
+      },
+      {
+        q: 'What\'s the average time to win?',
+        a: 'Beginner: 1–2 min. Intermediate: 3–10 min. Expert: 10–30+ min (or much longer if tough).',
+      },
+    ],
+  },
+  {
+    slug: 'tetris-game-online-classic',
+    title: 'Play Tetris: Classic Block Puzzle Game',
+    description: 'Play classic Tetris in your browser. Stack falling Tetrimino pieces, clear lines, and level up.',
+    publishedAt: '2026-02-15',
+    category: 'Generators',
+    toolSlug: 'break-room/tetris',
+    keywords: ['tetris', 'tetris online', 'classic tetris', 'block puzzle', 'browser game'],
+    readingTimeMin: 3,
+    sections: [
+      {
+        heading: 'How to play Tetris',
+        body: `1. **Pieces fall** — Tetriminos (7-piece types) drop from the top.\n2. **Move & rotate** — arrow keys to move, up arrow to rotate.\n3. **Stack them** — place pieces to fill rows.\n4. **Clear rows** — complete rows disappear, gain points.\n5. **Level up** — every 10 cleared lines, speed increases.\n6. **Game over** — pieces reach the top of the screen.`,
+      },
+      {
+        heading: 'Tetris pieces (Tetriminos)',
+        body: `- **I** — straight line (4 cells).\n- **O** — square (4 cells).\n- **T** — T-shape (4 cells).\n- **S/Z** — S and Z shapes (4 cells each).\n- **L/J** — L and J shapes (4 cells each).\n\nEach piece can be rotated. Plan rotations and placement.`,
+      },
+      {
+        heading: 'Strategy',
+        body: `- **Build from bottom** — create solid foundation.\n- **Aim for T-spins** — advanced move for bonus points.\n- **Don't stack too high** — keep room for pieces to maneuver.\n- **Watch the preview** — next piece is shown on the side.`,
+      },
+      {
+        heading: 'Tips',
+        body: `- **Hard drop (Space)** — instantly place piece at bottom.\n- **Pause (P)** — take a breather.\n- **Highest score** — get a high score and beat it.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'What\'s a T-spin?',
+        a: 'A T-piece rotated into a tight spot. Clears a row and bonus points. Advanced move.',
+      },
+      {
+        q: 'Can I slow the game down?',
+        a: 'Speed is tied to level. Start on easier levels; they\'re slower.',
+      },
+      {
+        q: 'Is there practice mode?',
+        a: 'Play as many games as you want; there\'s no separate practice mode.',
+      },
+    ],
+  },
 ]
 
 export const blogPostSlugs = blogPosts.map((p) => p.slug)
