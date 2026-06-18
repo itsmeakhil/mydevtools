@@ -9,7 +9,7 @@
     "bookmarks": "Bookmarks",
     "jsonFormatter": "Formatowanie JSON",
     "emailValidator": "Email Validator",
-    "nosqlExplorer": "NoSQL Explorer",
+    "nosqlExplorer": "Eksplorator baz danych",
     "toDo": "Tasks",
     "notes": "Notes",
     "encryptionPlayground": "Piaskownica szyfrowania",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "Używaj silnego, unikalnego hasła głównego dla funkcji sejfu.",
         "apiClient": "Traktuj API Client jak każdy klient HTTP: nie wklejaj sekretów produkcyjnych do współdzielonych środowisk, jeśli nie wiesz, kto może je zobaczyć.",
-        "nosql": "NoSQL Explorer łączy się z bazami, które konfigurujesz; używaj kont z minimalnymi uprawnieniami i reguł sieciowych, jeśli to możliwe.",
+        "nosql": "Eksplorator baz danych łączy się z bazami, które konfigurujesz; używaj kont z minimalnymi uprawnieniami i reguł sieciowych, jeśli to możliwe.",
         "json": "Formatowanie JSON działa lokalnie w przeglądarce—mimo to unikaj wklejania bardzo wrażliwych danych na współdzielonych urządzeniach.",
         "settings": "Dostosuj widoczne narzędzia w Settings, aby pasek boczny był bardziej przejrzysty."
       }
