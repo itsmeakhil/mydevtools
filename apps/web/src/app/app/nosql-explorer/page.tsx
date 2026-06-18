@@ -626,7 +626,7 @@ export default function NoSQLExplorerPage() {
 
     const isDesktop = useMediaQuery("(min-width: 768px)");
 
-    if (!isUnlocked) return <VaultLockedPlaceholder appName="NoSQL Explorer" />
+    if (!isUnlocked) return <VaultLockedPlaceholder appName="Database Explorer" />
 
     return (
         <div className="flex h-full min-h-0 w-full overflow-hidden relative mobile-nav-offset">
