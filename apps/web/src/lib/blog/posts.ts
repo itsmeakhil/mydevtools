@@ -1728,6 +1728,885 @@ git config --global core.excludesfile ~/.gitignore_global`,
       },
     ],
   },
+  {
+    slug: 'how-to-query-sql-databases-online',
+    title: 'How to Query SQL Databases Online: Connect PostgreSQL, MySQL, MariaDB',
+    description: 'Connect to PostgreSQL, MySQL, or MariaDB from your browser. Run SQL queries, explore schemas, and export results without installing a database client. All credentials are AES-256 encrypted.',
+    publishedAt: '2026-01-05',
+    category: 'Databases',
+    toolSlug: 'sql-client',
+    keywords: ['sql client online', 'query database browser', 'postgresql gui online', 'mysql client', 'sql query tool'],
+    readingTimeMin: 6,
+    sections: [
+      {
+        heading: 'Why use an online SQL client?',
+        body: `Database clients like DBeaver, TablePlus, and pgAdmin are desktop or web apps that connect to your database. But they require installation, local memory, and management. A browser-based SQL client eliminates setup friction: open your browser, enter your connection details, and start querying—no download, no configuration, no persistence on your machine.\n\nMyDevTools SQL Client runs in your browser, encrypts your credentials with AES-256 before storing them, and keeps your connection details local. You can run SELECT, INSERT, UPDATE, DELETE, and administrative queries directly against PostgreSQL, MySQL, and MariaDB instances.`,
+      },
+      {
+        heading: 'How to connect to your database',
+        body: `You need four pieces of information:\n\n- **Host** — Domain or IP of the database server (e.g., \`db.example.com\` or \`localhost:5432\`).\n- **Port** — Default ports: PostgreSQL 5432, MySQL/MariaDB 3306.\n- **Username** — Your database user.\n- **Password** — Your user password.\n\nOptionally provide a database name to start in a specific database context. Enter these details into the SQL Client, and it will attempt a connection. If successful, you can immediately start writing queries.`,
+        code: `-- PostgreSQL connection example
+Host: postgres.railway.app
+Port: 5432
+User: postgres
+Password: ••••••••
+
+-- MySQL connection example
+Host: localhost
+Port: 3306
+User: root
+Password: ••••••••`,
+        codeLanguage: 'text',
+      },
+      {
+        heading: 'Running queries and exploring schemas',
+        body: `Once connected, write any SQL query. The interface shows results in a table, with column headers, data types, and row counts. For larger result sets, pagination prevents the browser from loading millions of rows at once.\n\nOn the left sidebar, you can browse your database structure: list tables, columns, and their types. This schema explorer saves you from memorizing table names and column definitions.`,
+        code: `-- List all tables
+SELECT table_name FROM information_schema.tables
+WHERE table_schema = 'public';
+
+-- Count rows in a table
+SELECT COUNT(*) FROM users;
+
+-- Query with conditions
+SELECT id, email, created_at FROM users
+WHERE created_at > NOW() - INTERVAL '7 days'
+ORDER BY created_at DESC;`,
+        codeLanguage: 'sql',
+      },
+      {
+        heading: 'Exporting results and managing connections',
+        body: `Results can be exported to CSV for further analysis in spreadsheet tools. Multiple database connections can be saved securely—your credentials are encrypted with AES-256 in your browser storage before any sync, so the server never sees plaintext passwords.\n\nUse the browser-based storage to quickly switch between development, staging, and production databases (with appropriate caution and role-based permissions on your database users).`,
+      },
+      {
+        heading: 'Security: credentials and encrypted storage',
+        body: `Your database credentials are sensitive. MyDevTools SQL Client encrypts them with AES-256 in the browser before storing locally, so plaintext passwords never leave your machine. For production databases, follow your organization's credential policies: use temporary tokens, short-lived credentials, or SSH tunneling if available.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is it safe to paste my database password into an online SQL client?',
+        a: 'Use a browser-based client that encrypts credentials locally before storage. MyDevTools SQL Client uses AES-256 encryption in your browser, so passwords never reach the server unencrypted. Avoid clients that send credentials over unencrypted connections.',
+      },
+      {
+        q: 'Can I use SQL Client to manage production databases?',
+        a: 'Yes, but follow your organization security policy. Use read-only credentials for production or temporary tokens with expiration. Never save production passwords in a shared tool.',
+      },
+      {
+        q: 'Does SQL Client support PostgreSQL, MySQL, and MariaDB?',
+        a: 'Yes, all three are supported. MariaDB is MySQL-compatible, so the same connection method works.',
+      },
+      {
+        q: 'Can I run administrative commands like CREATE TABLE or DROP?',
+        a: 'Yes, any SQL query that your user role permits. Make sure your user permissions match your intent (e.g., read-only for exploration, write access only for development).',
+      },
+    ],
+  },
+  {
+    slug: 'hash-generator-md5-sha256-online',
+    title: 'Hash Generator: MD5, SHA-256, SHA-512 Online Tool',
+    description: 'Generate MD5, SHA-256, SHA-384, SHA-512, and other cryptographic hashes online. Hash text or files instantly in your browser without any upload.',
+    publishedAt: '2026-01-06',
+    category: 'Security',
+    toolSlug: 'hash-generator',
+    keywords: ['hash generator online', 'sha256 hash', 'md5 hash generator', 'sha512 online', 'file hash calculator'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'What are cryptographic hashes?',
+        body: `A cryptographic hash function takes input of any size and produces a fixed-size string of bytes, called a hash or digest. The key property: even a tiny change in input produces a completely different hash.\n\nCommon use cases: verifying file integrity (download a file and its hash, then verify they match), storing password hashes instead of plaintext passwords, generating checksums for data deduplication, and creating digital signatures.\n\nUnlike encryption, hashing is one-way — you cannot reverse a hash back to the original input (for good hash functions). That makes it suitable for storing sensitive information like passwords: even if a hash is exposed, the original password cannot be recovered.`,
+      },
+      {
+        heading: 'Common hash algorithms',
+        body: `**MD5** — 128-bit hash, widely deployed but cryptographically broken. Avoid for security; acceptable for simple checksums.\n\n**SHA-1** — 160-bit hash, also compromised. Deprecated in modern systems but still seen in version control and code signing.\n\n**SHA-256** — 256-bit hash, part of SHA-2 family, currently secure. The gold standard for most applications (password hashing, file integrity, digital signatures).\n\n**SHA-384, SHA-512** — 384-bit and 512-bit variants. Overkill for most use cases but appropriate for high-security contexts (military, financial cryptography).\n\nFor new projects: use SHA-256 for hashing text, and bcrypt/Argon2 (specialized password hashing) for passwords.`,
+        code: `// JavaScript (browser, Node.js 15+)
+const data = "hello world";
+
+// SHA-256
+const hash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(data));
+console.log(Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join(''));
+// → 7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069
+
+// Command line (macOS, Linux)
+echo -n "hello world" | sha256sum
+# → 7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069`,
+        codeLanguage: 'javascript',
+      },
+      {
+        heading: 'Hash generator use cases',
+        body: `**Verify downloads** — Check that a downloaded file matches its published hash to detect corruption or tampering.\n\n**Password storage** — Hash passwords with salt before storing in a database (use bcrypt, not plain SHA-256).\n\n**API integrity** — Include a hash of sensitive data in a request signature to detect tampering.\n\n**File deduplication** — Use file hashes to identify identical files without comparing entire contents.\n\n**Git commits** — Git uses SHA-1 hashes to identify commits and content (though migration to SHA-256 is underway).`,
+      },
+      {
+        heading: 'Why not plain SHA-256 for passwords?',
+        body: `SHA-256 hashes the same password to the same hash every time. An attacker with a password hash and a hash table of common passwords can crack it in milliseconds. Password hashing functions like bcrypt, scrypt, Argon2 add salt (random data) and slowing (repeated hashing) to make brute-force attacks computationally expensive.\n\nAlways use a password-specific algorithm (bcrypt, Argon2) rather than a general-purpose hash function.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'What is the difference between MD5 and SHA-256?',
+        a: 'MD5 produces a 128-bit hash and is cryptographically broken (collision attacks exist). SHA-256 produces a 256-bit hash and is currently secure. Use SHA-256 for security-sensitive applications.',
+      },
+      {
+        q: 'Can I reverse a hash to get the original input?',
+        a: 'No, not for secure hash functions. A good hash function is one-way by design — the whole point is that you cannot recover the original from the hash.',
+      },
+      {
+        q: 'Should I use the same hash algorithm for everything?',
+        a: 'Use SHA-256 for most general-purpose hashing. For passwords, use bcrypt, scrypt, or Argon2. For HMAC (signed hashes), use SHA-256 with a key.',
+      },
+      {
+        q: 'Is it safe to hash a password with a publicly known algorithm like SHA-256?',
+        a: 'No. Always use a password hashing algorithm like bcrypt that includes salt and slow iterations. Plain SHA-256 of a password is insecure.',
+      },
+    ],
+  },
+  {
+    slug: 'url-parser-extract-components',
+    title: 'URL Parser: Extract URL Components Online',
+    description: 'Parse any URL into protocol, host, pathname, query parameters, and hash. Understand URL structure instantly.',
+    publishedAt: '2026-01-07',
+    category: 'Utilities',
+    toolSlug: 'url-parser',
+    keywords: ['url parser online', 'parse url', 'url components', 'extract query params', 'url structure'],
+    readingTimeMin: 4,
+    sections: [
+      {
+        heading: 'Understanding URL structure',
+        body: `A URL is composed of several parts:\n\n**Protocol** — \`https://\` or \`http://\` determines how the request is made (secure or not).\n\n**Host** — Domain name or IP address where the resource lives.\n\n**Port** — Optional numeric port (defaults: 80 for HTTP, 443 for HTTPS). Only needed if non-standard.\n\n**Pathname** — Path to the resource on the server (e.g., \`/users/123\`).\n\n**Query String** — Key-value pairs after the \`?\` (e.g., \`?page=2&sort=name\`).\n\n**Fragment (Hash)** — After the \`#\`, used for navigation within a page (not sent to the server).\n\nUnderstanding these parts is essential when parsing URLs programmatically, building redirects, validating links, or analyzing incoming requests.`,
+        code: `// Full URL with all components
+https://mydevtools.tech:443/tools/json-formatter?lang=en&sort=asc#features
+
+// Breakdown:
+Protocol: https
+Host: mydevtools.tech
+Port: 443 (implicit for https, can be omitted)
+Pathname: /tools/json-formatter
+Query: lang=en&sort=asc
+Fragment: features`,
+        codeLanguage: 'text',
+      },
+      {
+        heading: 'Using the URL Parser online',
+        body: `Paste any URL and instantly see all components broken down: protocol, host, port, pathname, individual query parameters, and fragment. Useful when debugging URLs in logs, understanding API redirects, or validating user-provided URLs.`,
+      },
+      {
+        heading: 'JavaScript URL parsing',
+        body: `The browser \`URL\` class parses any URL:`,
+        code: `const url = new URL('https://mydevtools.tech/tools?lang=en&page=1#section');
+
+console.log(url.protocol);    // "https:"
+console.log(url.hostname);    // "mydevtools.tech"
+console.log(url.pathname);    // "/tools"
+console.log(url.search);      // "?lang=en&page=1"
+console.log(url.hash);        // "#section"
+
+// Access individual query parameters
+console.log(url.searchParams.get('lang')); // "en"
+console.log(url.searchParams.get('page')); // "1"`,
+        codeLanguage: 'javascript',
+      },
+      {
+        heading: 'Common URL parsing tasks',
+        body: `**Extract the domain from a URL** — Get just the host without protocol or path.\n\n**List all query parameters** — Iterate over every key-value pair in the query string.\n\n**Build a URL dynamically** — Construct a URL by setting components programmatically.\n\n**Validate URL format** — Check if a string is a valid URL (use try/catch with new URL()).\n\n**Relative vs absolute URLs** — Resolve relative URLs against a base URL for proper link following.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'What is the difference between hash and query parameters?',
+        a: 'Query parameters (?key=value) are sent to the server. The hash (#section) is used only in the browser for navigation and is not sent to the server.',
+      },
+      {
+        q: 'How do I extract query parameters in JavaScript?',
+        a: 'Use the URL class: new URL(urlString).searchParams.get("paramName")',
+      },
+      {
+        q: 'Is a URL with special characters in the query string valid?',
+        a: 'Special characters should be percent-encoded (e.g., space becomes %20). Use encodeURIComponent() to safely encode values before adding them to a URL.',
+      },
+    ],
+  },
+  {
+    slug: 'convert-csv-excel-to-json-online',
+    title: 'Convert CSV to JSON, Excel to JSON Online',
+    description: 'Upload CSV or Excel files and convert to JSON instantly. Export JSON arrays back to CSV or XLSX. All processing happens in your browser.',
+    publishedAt: '2026-01-08',
+    category: 'Converters',
+    toolSlug: 'csv-excel-json',
+    keywords: ['csv to json converter', 'excel to json', 'xlsx to json', 'json to csv', 'convert spreadsheet'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'Why convert CSV to JSON?',
+        body: `CSV (Comma-Separated Values) is human-readable and spreadsheet-compatible but lacks structure for nested data. JSON is hierarchical, supports arrays and objects, and parses directly into JavaScript.\n\nConverting CSV to JSON is common when importing spreadsheet data into a database, feeding data into an API, or processing user-uploaded files. Conversely, exporting JSON to CSV makes it easy to open results in Excel for further analysis.`,
+      },
+      {
+        heading: 'How CSV to JSON conversion works',
+        body: `The first row of your CSV becomes the object keys. Each subsequent row becomes an object with those keys. The result is an array of objects, ready to parse in JavaScript or send to an API.`,
+        code: `// CSV input (with header)
+name,age,email
+Alice,30,alice@example.com
+Bob,25,bob@example.com
+
+// JSON output
+[
+  { "name": "Alice", "age": 30, "email": "alice@example.com" },
+  { "name": "Bob", "age": 25, "email": "bob@example.com" }
+]`,
+        codeLanguage: 'json',
+      },
+      {
+        heading: 'Excel to JSON with date handling',
+        body: `When converting XLSX (Excel) files, dates are automatically converted to ISO 8601 strings. For example, an Excel date like "Jan 15, 2025" becomes "2025-01-15T00:00:00Z" in JSON, which is universally parseable.`,
+        code: `// Excel columns: Name, Hired, Salary
+Name,Hired,Salary
+Alice,2025-01-15,75000
+Bob,2024-06-20,65000
+
+// Becomes
+[
+  { "Name": "Alice", "Hired": "2025-01-15T00:00:00Z", "Salary": 75000 },
+  { "Name": "Bob", "Hired": "2024-06-20T00:00:00Z", "Salary": 65000 }
+]`,
+        codeLanguage: 'json',
+      },
+      {
+        heading: 'JSON to CSV export',
+        body: `Export an array of JSON objects back to CSV for use in spreadsheet tools. MyDevTools extracts all unique keys from the objects and creates headers, then writes each row with values in the same column order.`,
+      },
+      {
+        heading: 'Use cases',
+        body: `**Data import** — Convert user-uploaded spreadsheets into JSON for bulk inserts into a database.\n\n**Integration testing** — Load test data from a CSV, convert to JSON, and feed into an API.\n\n**Reports** — Export API results as JSON, convert to CSV, open in Excel for pivot tables and charts.\n\n**ETL workflows** — Transform CSV data, process it, and export back to CSV or another format.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'What if my CSV has quoted fields with commas inside?',
+        a: 'Standard CSV parsing handles quoted fields correctly. Wrap values containing commas in double quotes.',
+      },
+      {
+        q: 'Can I convert nested JSON to CSV?',
+        a: 'Nested objects or arrays cannot be directly represented in CSV (which is flat). Flatten the JSON first or export a simplified structure.',
+      },
+      {
+        q: 'Is the file upload secure?',
+        a: 'MyDevTools CSV/Excel converter processes files entirely in your browser. Nothing is uploaded to a server — your file stays on your machine.',
+      },
+    ],
+  },
+  {
+    slug: 'yaml-formatter-validator-online',
+    title: 'Format YAML Online: Validator & Converter',
+    description: 'Format YAML with indentation validation. Convert YAML to JSON and back. Check for syntax errors instantly.',
+    publishedAt: '2026-01-09',
+    category: 'Formatters',
+    toolSlug: 'yaml-formatter',
+    keywords: ['yaml formatter online', 'yaml validator', 'yaml to json', 'json to yaml', 'format yaml'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'What is YAML and why format it?',
+        body: `YAML (YAML Ain't Markup Language) is a human-readable data serialization language used widely in configuration files (Kubernetes, Docker Compose, Ansible, CI/CD pipelines). Unlike JSON or XML, YAML uses indentation and minimal punctuation, making it easy to read but strict about whitespace.\n\nYAML errors are almost always indentation mistakes: inconsistent spacing, tabs instead of spaces, or wrong nesting depth. A YAML formatter catches these instantly and either fixes them or shows you exactly where the problem is.`,
+      },
+      {
+        heading: 'YAML syntax basics',
+        body: `**Keys and values** — \`key: value\` format. No quotes needed for simple strings.\n\n**Indentation** — Nesting is determined by spaces (typically 2 spaces per level). Mixing tabs and spaces breaks parsing.\n\n**Lists** — \`- item\` syntax for arrays.\n\n**Strings** — Simple strings don't need quotes. Use quotes for strings with special characters or leading/trailing whitespace.\n\n**Multiline strings** — Use \`|\` for literal blocks or \`>\` for folded (wrapped) text.`,
+        code: `# Valid YAML
+name: Alice
+age: 30
+tags:
+  - developer
+  - security
+  - devops
+config:
+  debug: true
+  timeout: 30
+
+# Invalid YAML (mixed indentation, wrong spacing)
+name: Alice
+ age: 30        # <- incorrect indent depth
+  tags:         # <- inconsistent with above
+  - developer`,
+        codeLanguage: 'yaml',
+      },
+      {
+        heading: 'Converting between YAML and JSON',
+        body: `YAML and JSON represent the same data structures (objects, arrays, strings, numbers). MyDevTools YAML Formatter lets you convert between them:\n\n- Paste YAML → see equivalent JSON.\n- Paste JSON → see equivalent YAML.\n\nThis is useful when integrating YAML-based tools with JSON APIs, or when you need to validate YAML structure by converting it to JSON and back.`,
+      },
+      {
+        heading: 'Common YAML errors and fixes',
+        body: `**"Expected block mapping" or "Bad indentation"** — Check that your indentation is consistent (all 2 spaces, no tabs). Each nested level should increase by exactly 2 spaces.\n\n**"Cannot read property of undefined"** — A required key is missing or misspelled.\n\n**Unexpected character or "Bad anchor"** — YAML anchors (\`&ref\`) and aliases (\`*ref\`) have specific syntax — check for typos.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can I mix tabs and spaces in YAML?',
+        a: 'No. YAML does not allow mixing tabs and spaces. Always use spaces (typically 2 per indent level).',
+      },
+      {
+        q: 'What is the difference between YAML and JSON?',
+        a: 'YAML is more human-readable with minimal punctuation. JSON is stricter, requires quotes around keys, and works directly in JavaScript. Both represent the same data structures.',
+      },
+      {
+        q: 'Can I convert complex YAML with anchors and aliases to JSON?',
+        a: 'Yes, YAML anchors (&ref) and aliases (*ref) resolve to the same object in JSON, producing merged or referenced structures.',
+      },
+    ],
+  },
+  {
+    slug: 'graphql-formatter-minify-online',
+    title: 'Format GraphQL Queries Online: Minify & Pretty Print',
+    description: 'Format and minify GraphQL queries, mutations, and subscriptions instantly in your browser. Check syntax and beautify complex queries.',
+    publishedAt: '2026-01-10',
+    category: 'Formatters',
+    toolSlug: 'graphql-formatter',
+    keywords: ['graphql formatter', 'graphql minify', 'format graphql', 'pretty print graphql', 'graphql query tool'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'Why format GraphQL?',
+        body: `GraphQL queries can become deeply nested and hard to read, especially with multiple levels of fields, aliases, and variables. Formatting (pretty-printing) adds indentation and line breaks so relationships between fields are immediately visible.\n\nMinifying removes all whitespace for production: smaller HTTP payload, faster transmission, less bandwidth used. Both formatting and minifying are useful at different stages: formatting during development, minifying before sending to production.`,
+      },
+      {
+        heading: 'GraphQL query structure',
+        body: `A GraphQL query has three main parts: the operation type (query, mutation, subscription), optional variables, and the selection set of fields.`,
+        code: `# Unformatted (hard to read)
+query GetUser($id:ID!) { user(id:$id) { id name email posts { title createdAt } } }
+
+# Formatted (easy to read)
+query GetUser($id: ID!) {
+  user(id: $id) {
+    id
+    name
+    email
+    posts {
+      title
+      createdAt
+    }
+  }
+}`,
+        codeLanguage: 'graphql',
+      },
+      {
+        heading: 'Minifying GraphQL for production',
+        body: `Minified queries have all whitespace removed and variable names shortened (if you control the server). Minification saves 20-40% on HTTP payload size for large queries.`,
+        code: `# Minified query
+query GetUser($id:ID!){user(id:$id){id name email posts{title createdAt}}}
+
+# Original minified size: ~70 chars
+# Original formatted size: ~150 chars
+# Savings: ~53%`,
+        codeLanguage: 'graphql',
+      },
+      {
+        heading: 'Common GraphQL formatting issues',
+        body: `**Unbalanced braces or parentheses** — Check that every opening \`{\` has a matching \`}\` and every field argument is enclosed in parentheses.\n\n**Undefined variables** — If a query uses \`$variableName\`, it must be declared in the query signature.\n\n**Invalid field names** — Queries can only request fields that exist in the schema. Use a formatter to catch typos.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Should I send formatted or minified queries to my GraphQL server?',
+        a: 'The server does not care about formatting. Minified is smaller over the wire; formatted is easier to debug. Choose based on your needs.',
+      },
+      {
+        q: 'Can I format a GraphQL mutation or subscription the same way as a query?',
+        a: 'Yes, all GraphQL operations (query, mutation, subscription) use the same formatting rules.',
+      },
+      {
+        q: 'Does formatting validate my GraphQL?',
+        a: 'A formatter checks for basic syntax (balanced braces, valid structure). It does not validate against a schema — only your GraphQL server does that.',
+      },
+    ],
+  },
+  {
+    slug: 'convert-image-to-base64-data-uri',
+    title: 'Convert Images to Base64: Data URI Generator',
+    description: 'Convert PNG, JPG, WebP images to Base64 or Data URI instantly. Embed images in HTML and CSS without separate HTTP requests.',
+    publishedAt: '2026-01-11',
+    category: 'Converters',
+    toolSlug: 'image-to-base64',
+    keywords: ['image to base64', 'data uri generator', 'base64 image', 'embed image in html'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'Why convert images to Base64?',
+        body: `Normally, an image URL in HTML or CSS triggers a separate HTTP request. For small icons and inline graphics, embedding the image directly as Base64 saves the round-trip.\n\nBenefit: fewer HTTP requests = faster page load (especially important on mobile). Downside: the HTML/CSS file gets slightly larger, and the browser cannot cache the image separately. Use Base64 embedding for small critical images (favicons, tiny icons, essential SVGs) but not for large photos.`,
+      },
+      {
+        heading: 'Data URIs: embedding images in HTML',
+        body: `A Data URI embeds the image bytes directly in an \`<img src>\` attribute:`,
+        code: `<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="tiny transparent pixel" />`,
+        codeLanguage: 'html',
+      },
+      {
+        heading: 'Embedding Base64 images in CSS',
+        body: `Use Data URIs in CSS background images:`,
+        code: `/* 1x1 transparent PNG */
+.logo {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==");
+  background-size: 16px 16px;
+}`,
+        codeLanguage: 'css',
+      },
+      {
+        heading: 'When to use Base64 vs separate image files',
+        body: `**Use Base64 (Data URIs):**\n- Tiny critical icons (< 2KB)\n- Images required for above-the-fold rendering\n- Favicons and app icons\n- Inline SVGs (even better: embed SVG directly without Base64)\n\n**Use separate image files:**\n- Photos and large images (> 10KB)\n- Images loaded below the fold\n- Images reused across multiple pages (benefit from browser caching)`,
+      },
+      {
+        heading: 'Image format considerations',
+        body: `**PNG** — Lossless, supports transparency, good for icons and graphics.\n\n**JPG** — Lossy, smaller file size for photos, no transparency.\n\n**WebP** — Modern format with better compression, good for web. May not be supported in older browsers.\n\n**SVG** — Vector format, scales infinitely, smallest for simple graphics. Best embedded directly without Base64.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'How much smaller are Data URIs compared to separate files?',
+        a: 'Data URIs are about 33% larger due to Base64 encoding overhead. For a 3KB image, expect a 4KB Data URI. Only worth it for tiny critical images.',
+      },
+      {
+        q: 'Can I use Data URIs for responsive images?',
+        a: 'Not easily. Data URIs do not support srcset or picture elements well. For responsive images, stick with separate image files and let the browser cache them.',
+      },
+      {
+        q: 'Is it safe to embed user-uploaded images as Base64?',
+        a: 'Yes, embedding as Base64 prevents the image file from being directly served. However, always validate file type and size before accepting uploads.',
+      },
+    ],
+  },
+  {
+    slug: 'generate-ssh-keys-online',
+    title: 'Generate SSH Keys Online: Ed25519 vs RSA, OpenSSH Format',
+    description: 'Generate Ed25519 or RSA (2048/4096-bit) SSH key pairs in your browser. Download PKCS#8 private keys and OpenSSH public keys instantly.',
+    publishedAt: '2026-01-12',
+    category: 'Security',
+    toolSlug: 'ssh-key-generator',
+    keywords: ['ssh key generator', 'generate ssh key online', 'ed25519 key', 'rsa key pair', 'openssh format'],
+    readingTimeMin: 6,
+    sections: [
+      {
+        heading: 'Why generate SSH keys online?',
+        body: `SSH keys are the secure way to authenticate to servers, Git repositories, and cloud platforms without typing a password. Generating them locally (with \`ssh-keygen\`) is standard, but an online generator in the browser is convenient for quick key creation without leaving your browser.\n\nMyDevTools SSH Key Generator creates key pairs entirely client-side — the private key never leaves your machine. Download it, store it securely, and add the public key to your servers or platforms.`,
+      },
+      {
+        heading: 'Ed25519 vs RSA: which should you use?',
+        body: `**Ed25519:**\n- 256-bit key, very small (~68 bytes).\n- Modern, faster, fewer implementation bugs than RSA.\n- Recommended for new setups.\n- Supported by all modern SSH implementations (OpenSSH 6.5+, GitHub, GitLab, AWS).\n\n**RSA 2048-bit:**\n- Still secure, widely supported.\n- Larger keys (~1700 bytes).\n- Slower to generate and verify.\n- Safe if you cannot use Ed25519, but not recommended for new keys.\n\n**RSA 4096-bit:**\n- Larger than 2048, but overkill for SSH.\n- Marginal security benefit over 2048, significantly slower.\n- Only use if your organization mandates it.\n\n**Recommendation:** Use Ed25519 for new keys. Use RSA 2048 only if your systems do not support Ed25519.`,
+      },
+      {
+        heading: 'Key formats: PKCS#8 vs OpenSSH format',
+        body: `SSH keys come in different formats:\n\n**PKCS#8** — Standard private key format, works with most cryptographic tools (OpenSSL, Java, Python). Use this for interoperability.\n\n**OpenSSH format** — Native SSH format, used by \`ssh-keygen\`. Default for Linux/macOS. Slightly different structure than PKCS#8.\n\n**Public key** — Usually in OpenSSH format (\`ssh-rsa ...\` or \`ssh-ed25519 ...\`). Add this to \`~/.ssh/authorized_keys\` on servers or to GitHub/GitLab.`,
+        code: `# OpenSSH public key format
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIm8Ij... user@hostname
+
+# PKCS#8 private key format (PEM)
+-----BEGIN PRIVATE KEY-----
+MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCx...
+-----END PRIVATE KEY-----`,
+        codeLanguage: 'text',
+      },
+      {
+        heading: 'Using your generated SSH key',
+        body: `1. Download the private key and save it to \`~/.ssh/id_ed25519\` (or \`id_rsa\` for RSA).\n2. Set permissions: \`chmod 600 ~/.ssh/id_ed25519\` (private key must not be world-readable).\n3. Add the public key to your server's \`~/.ssh/authorized_keys\` or GitHub/GitLab account.\n4. Test the connection: \`ssh -i ~/.ssh/id_ed25519 user@host\`.\n\nIf using Git with SSH, configure your Git client to use the key: \`git config core.sshCommand \"ssh -i ~/.ssh/id_ed25519\"\`.`,
+      },
+      {
+        heading: 'Security: protecting your private key',
+        body: `Your private key is like a password — never share it, never commit it to version control, never store it in the cloud. Keep it on your local machine with filesystem permissions (\`chmod 600\`) restricting access.\n\nIf you suspect a private key has been compromised, regenerate it and update the public key on all servers and platforms that use it.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can I use a password-protected SSH key?',
+        a: 'Yes. When generating a key locally with ssh-keygen, you can set a passphrase. The key generator online does not support passphrases yet — protect the downloaded file with your OS file system security.',
+      },
+      {
+        q: 'What if I lose my private key?',
+        a: 'Regenerate a new key pair and update the public key on all servers/platforms. The old private key becomes useless.',
+      },
+      {
+        q: 'Can I use the same SSH key on multiple servers?',
+        a: 'Yes, add the same public key to authorized_keys on all servers. Using the same key across multiple systems is fine.',
+      },
+      {
+        q: 'Is it safe to generate SSH keys in a browser?',
+        a: 'Yes, if the generator runs locally in the browser with no server upload. MyDevTools SSH Key Generator is client-side only.',
+      },
+    ],
+  },
+  {
+    slug: 'number-base-converter-binary-hex',
+    title: 'Number Base Converter: Binary, Hex, Decimal, Octal Online',
+    description: 'Convert integers between number bases 2-36 instantly. Convert binary to hex, decimal to octal, and more.',
+    publishedAt: '2026-01-13',
+    category: 'Converters',
+    toolSlug: 'number-base-converter',
+    keywords: ['number base converter', 'binary to hex', 'decimal to binary', 'octal converter', 'hex converter'],
+    readingTimeMin: 4,
+    sections: [
+      {
+        heading: 'Understanding number bases',
+        body: `Every number can be represented in different bases (radix). Humans use base 10 (decimal), but computers use base 2 (binary), base 16 (hexadecimal), and sometimes base 8 (octal).\n\nThe same value represented in different bases:\n- **Decimal (base 10):** 255\n- **Binary (base 2):** 11111111\n- **Octal (base 8):** 377\n- **Hexadecimal (base 16):** FF\n\nBase conversion is essential in low-level programming (bit manipulation), color codes (hex), IP addresses (decimal), and cryptography (hex for binary data).`,
+      },
+      {
+        heading: 'Common number bases',
+        body: `**Binary (base 2)** — Digits 0–1. Used by computers at the hardware level.\n\n**Octal (base 8)** — Digits 0–7. Historical significance in Unix file permissions, but less common today.\n\n**Decimal (base 10)** — Digits 0–9. Human default.\n\n**Hexadecimal (base 16)** — Digits 0–9, A–F. Compact representation of binary data. Used in colors (#FF5733), memory addresses, and cryptography.\n\n**Any base 2–36** — MyDevTools supports arbitrary bases using 0–9 and A–Z.`,
+        code: `// Decimal to Hex (common in color codes)
+255 (decimal) = FF (hex)
+
+// Binary representation
+42 (decimal) = 101010 (binary)
+
+// Octal (Unix file permissions)
+755 (octal) = 493 (decimal) = rwxr-xr-x in Unix`,
+        codeLanguage: 'text',
+      },
+      {
+        heading: 'Practical use cases',
+        body: `**Hex color codes** — #FF5733 breaks down as FF (red), 57 (green), 33 (blue) in hexadecimal.\n\n**Unicode and character codes** — Characters are stored as numbers; hex is compact for display.\n\n**Bitwise operations** — Convert to binary to understand which bits are set.\n\n**Network subnets** — IP addresses and CIDR notation involve binary and decimal conversions.\n\n**File permissions** — Unix \`chmod 755\` is octal; 7 = read+write+execute (binary 111), 5 = read+execute (binary 101).`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Why do programmers use hexadecimal?',
+        a: 'Hex is compact: 8 binary digits (11111111) compress into 2 hex digits (FF). This makes large binary numbers readable and writable.',
+      },
+      {
+        q: 'How do I convert binary to hex quickly?',
+        a: 'Group binary digits in sets of 4 (right to left), then convert each group to a hex digit: 1101 1010 → DA.',
+      },
+      {
+        q: 'Can I convert negative numbers?',
+        a: 'Yes. The converter handles negative numbers using standard two\'s complement representation for binary.',
+      },
+    ],
+  },
+  {
+    slug: 'format-converter-json-yaml-toml-xml',
+    title: 'Format Converter: JSON to YAML, TOML, XML Online',
+    description: 'Convert between JSON, YAML, TOML, and XML instantly. All 12 combinations supported. Validate syntax instantly.',
+    publishedAt: '2026-01-14',
+    category: 'Converters',
+    toolSlug: 'format-converter',
+    keywords: ['format converter online', 'json to yaml', 'yaml to json', 'json to xml', 'toml converter'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'When to convert between data formats',
+        body: `Different tools and languages prefer different formats:\n\n- **JSON** — JavaScript, APIs, web.\n- **YAML** — Configuration files (Kubernetes, Ansible, Docker Compose).\n- **TOML** — Configuration (Python Poetry, Rust Cargo).\n- **XML** — Legacy systems, SOAP APIs, document-oriented data.\n\nOften you need to convert between them: take a JSON API response and convert to YAML for a config file, or read a TOML config and output JSON for processing. MyDevTools Format Converter handles all 12 combinations.`,
+      },
+      {
+        heading: 'Data structure equivalents',
+        body: `All four formats represent the same data structures: objects/maps, arrays/lists, strings, numbers, and booleans. The syntax differs, but the underlying meaning is identical.`,
+        code: `// Same data in four formats
+
+// JSON
+{"name": "Alice", "age": 30, "active": true}
+
+// YAML
+name: Alice
+age: 30
+active: true
+
+// TOML
+name = "Alice"
+age = 30
+active = true
+
+// XML
+<root>
+  <name>Alice</name>
+  <age>30</age>
+  <active>true</active>
+</root>`,
+        codeLanguage: 'text',
+      },
+      {
+        heading: 'Conversion workflow examples',
+        body: `**API to Config** — Fetch JSON from an API, convert to YAML, edit in a text editor, convert back to JSON for processing.\n\n**Migration** — Convert legacy XML config to JSON or YAML for modern tooling.\n\n**Multi-language compatibility** — Convert JSON schema to TOML for Rust projects or YAML for Python projects.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'What if my data has nested structures?',
+        a: 'All formats support nesting. Arrays become lists in YAML, arrays in JSON, sequences in TOML, and XML elements.',
+      },
+      {
+        q: 'Can I convert XML with attributes?',
+        a: 'Yes, XML attributes are preserved in the conversion and typically become regular object properties in JSON/YAML/TOML.',
+      },
+      {
+        q: 'Is there data loss when converting?',
+        a: 'Minimal, if any. All four formats support the same core data types. Some format-specific features (XML namespaces, YAML anchors) may not map perfectly.',
+      },
+    ],
+  },
+  {
+    slug: 'generate-qr-codes-online',
+    title: 'Generate QR Codes Online: Text, URL, WiFi',
+    description: 'Create QR codes from URLs, text, WiFi credentials, or vCards instantly. Download as PNG or SVG. No upload, fully browser-based.',
+    publishedAt: '2026-01-15',
+    category: 'Generators',
+    toolSlug: 'qr-code-generator',
+    keywords: ['qr code generator online', 'generate qr code', 'qr code maker', 'wifi qr code', 'qr code png'],
+    readingTimeMin: 4,
+    sections: [
+      {
+        heading: 'What are QR codes and why use them?',
+        body: `QR (Quick Response) codes are 2D barcodes that store data — URLs, text, phone numbers, WiFi credentials — in a pattern that smartphones can scan. A single QR code replaces typing a long URL or password by hand.\n\nCommon uses: linking physical products to web pages, sharing WiFi passwords, contact information (vCards), event registrations, and payment details.`,
+      },
+      {
+        heading: 'Types of QR code content',
+        body: `**URL** — Most common. Scanned phones are redirected to the URL.\n\n**Plain text** — Display any message or data when scanned.\n\n**WiFi** — Encode SSID, password, and security type. Scanned phones auto-connect to the WiFi network.\n\n**vCard** — Store contact info (name, phone, email, address) as a scannable contact.\n\n**Phone number** — Initiate a call when scanned.\n\n**Email** — Compose an email when scanned.\n\n**SMS** — Send a preset text message when scanned.`,
+      },
+      {
+        heading: 'QR code error correction and customization',
+        body: `QR codes have built-in error correction: even if 30% of the code is damaged or obscured, it remains scannable. Higher error correction levels allow larger customizations (adding logos, colors).`,
+        code: `// WiFi QR code data format
+WIFI:T:WPA;S:NetworkName;P:Password;;
+
+// vCard QR code
+BEGIN:VCARD
+FN:Alice Smith
+TEL:+1234567890
+EMAIL:alice@example.com
+END:VCARD`,
+        codeLanguage: 'text',
+      },
+      {
+        heading: 'Download formats and sizing',
+        body: `QR codes can be downloaded as PNG (raster) or SVG (vector). PNG is fine for fixed sizes; SVG scales infinitely without quality loss. MyDevTools lets you set size and error correction level before downloading.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can I add a logo to the center of a QR code?',
+        a: 'Logos are possible but reduce scannability. Use error correction level "H" (highest) if you plan to overlay a logo.',
+      },
+      {
+        q: 'What if my QR code is damaged or partially obscured?',
+        a: 'QR codes with "H" error correction can recover if up to 30% of the code is damaged. Higher error correction makes the code more robust but slightly larger.',
+      },
+      {
+        q: 'Is it safe to generate QR codes in a browser?',
+        a: 'Yes, QR generation is client-side only. Nothing leaves your browser.',
+      },
+    ],
+  },
+  {
+    slug: 'markdown-to-html-live-preview',
+    title: 'Markdown to HTML: Live Preview & Converter',
+    description: 'Write Markdown and preview HTML output side-by-side. Convert Markdown to HTML instantly in your browser.',
+    publishedAt: '2026-01-16',
+    category: 'Converters',
+    toolSlug: 'markdown-preview-html',
+    keywords: ['markdown to html', 'markdown converter', 'markdown preview online', 'html to markdown'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'What is Markdown and why convert to HTML?',
+        body: `Markdown is a simple, readable text format for creating rich documents. It uses plain-text syntax (*, **, ##) instead of tags, making it fast to write while staying readable even in raw form.\n\nHTML is the web standard but more verbose. Converting Markdown to HTML lets you:\n\n- Write documentation in a human-friendly format.\n- Generate web pages from Markdown sources.\n- Create blog posts or READMEs that render on GitHub and personal sites.\n- Build documentation sites (like this one).`,
+      },
+      {
+        heading: 'Markdown syntax essentials',
+        body: `**Headers** — \`# H1\`, \`## H2\`, etc.\n\n**Bold and italic** — \`**bold**\`, \`*italic*\`.\n\n**Lists** — \`-\` for unordered, \`1.\` for ordered.\n\n**Links** — \`[text](url)\`.\n\n**Code** — Backticks for inline (\`code\`), triple backticks for blocks.\n\n**Images** — \`![alt](url)\`.`,
+        code: `# My Heading
+This is **bold** and *italic* text.
+
+- Item 1
+- Item 2
+
+[Link to example](https://example.com)
+
+\`\`\`javascript
+console.log("code block");
+\`\`\``,
+        codeLanguage: 'markdown',
+      },
+      {
+        heading: 'Markdown to HTML conversion',
+        body: `MyDevTools Markdown Preview lets you write Markdown on the left and see rendered HTML on the right in real time. Changes update instantly. You can also export the HTML for use on your site.`,
+      },
+      {
+        heading: 'HTML to Markdown conversion',
+        body: `Reverse the process: paste HTML and convert back to Markdown. Useful when you have old HTML content and want to migrate it to a Markdown-based system like a static site generator (Jekyll, Hugo, Next.js).`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can I use HTML tags inside Markdown?',
+        a: 'Yes, most Markdown renderers allow raw HTML. Inline HTML like <strong>bold</strong> or <div> blocks are passed through.',
+      },
+      {
+        q: 'What is the difference between Markdown and Markdown Extra?',
+        a: 'Markdown Extra adds features like tables, footnotes, and definition lists. MyDevTools Markdown Preview uses a standard Markdown parser.',
+      },
+      {
+        q: 'Can I export the HTML for use on a website?',
+        a: 'Yes, copy the rendered HTML or download it. You may need to wrap it in proper <html> and <body> tags if using outside a framework.',
+      },
+    ],
+  },
+  {
+    slug: 'email-address-validator-online',
+    title: 'Email Validation: Check Address Format & MX Records',
+    description: 'Validate email address format and check MX records instantly. Verify if an email domain has a mail server.',
+    publishedAt: '2026-01-17',
+    category: 'Validators',
+    toolSlug: 'email-validator',
+    keywords: ['email validator', 'email validation online', 'check email', 'mx record lookup', 'email checker'],
+    readingTimeMin: 5,
+    sections: [
+      {
+        heading: 'Why validate email addresses?',
+        body: `Email validation catches typos and invalid formats before sending. There are two levels:\n\n1. **Syntax validation** — Check if the email matches RFC 5322 format (\`user@domain.ext\`).\n2. **Domain validation** — Check if the domain has mail servers (MX records).\n\nSyntax validation is fast and catches obvious typos. MX record checking confirms a domain actually receives email, but requires a DNS lookup and adds latency.`,
+      },
+      {
+        heading: 'Email address format (RFC 5322)',
+        body: `A valid email has:\n\n- A **local part** (username) — alphanumeric and special characters (. _ - + etc.)\n- An **@ symbol**\n- A **domain name** — must have at least one dot (example.com).\n- A **top-level domain** — at least 2 characters (com, org, uk, etc.)\n\nCommon invalid patterns:\n- Missing @ or domain.\n- Double @ signs.\n- Spaces or special characters in the local part (unless quoted).\n- Domain with no dots or invalid TLD.`,
+        code: `// Valid emails
+alice@example.com
+alice.smith@example.co.uk
+alice+tag@example.com
+
+// Invalid emails
+alice@example          (no TLD)
+alice.example.com      (no @ sign)
+alice@@example.com     (double @)
+alice@.example.com     (empty local part)`,
+        codeLanguage: 'text',
+      },
+      {
+        heading: 'MX record checking',
+        body: `An MX (Mail Exchange) record tells the internet how to deliver email to a domain. Every legitimate email domain should have at least one MX record pointing to a mail server.\n\nMyDevTools Email Validator checks if a domain has MX records, confirming it actually accepts email. This is more thorough than syntax checking but requires a DNS lookup from the server.`,
+      },
+      {
+        heading: 'When to validate and when not to',
+        body: `**Always validate:**\n- On signup forms (catch typos before account creation).\n- Before sending transactional emails (confirmation, reset links).\n\n**Consider MX checking:**\n- On critical workflows (newsletter signup, account recovery).\n- Not needed for every form — syntax validation alone is often sufficient.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'What characters are valid in the local part of an email?',
+        a: 'Alphanumerics (a-z, 0-9), dots (.), dashes (-), underscores (_), plus (+). Spaces and some special chars require quoting.',
+      },
+      {
+        q: 'Can an email without an MX record still receive mail?',
+        a: 'Technically no — without an MX record, mail servers do not know where to send email. Most legitimate domains have MX records.',
+      },
+      {
+        q: 'Is email validation 100% accurate?',
+        a: 'No tool is 100% accurate. Syntax validation catches obvious errors. MX checking confirms a domain can receive mail but does not validate the specific user account.',
+      },
+    ],
+  },
+  {
+    slug: 'redis-cli-alternative-gui-online',
+    title: 'Redis Commander: CLI Alternative for Connecting & Managing Redis',
+    description: 'Connect to Redis instances from your browser. Browse keys, edit values, run commands, and flush patterns. No install needed.',
+    publishedAt: '2026-01-18',
+    category: 'Databases',
+    toolSlug: 'redis-commander',
+    keywords: ['redis cli online', 'redis gui', 'redis commander', 'redis browser', 'manage redis online'],
+    readingTimeMin: 6,
+    sections: [
+      {
+        heading: 'What is Redis and why use a GUI?',
+        body: `Redis is an in-memory data store and cache used for sessions, real-time counters, pub/sub messaging, and job queues. The standard way to interact with Redis is the \`redis-cli\` command-line tool.\n\nA GUI alternative is useful when:\n\n- You want a visual interface to browse keys.\n- You need to inspect complex data types (hashes, lists, sets) without memorizing commands.\n- You want to manage Redis from a browser without SSH or \`redis-cli\` installed.\n- You are debugging and need to see what data is in Redis at a glance.`,
+      },
+      {
+        heading: 'Connecting to Redis',
+        body: `Redis requires a host, port, and optionally a password. Enter these into the Redis Commander:`,
+        code: `// Local Redis (development)
+Host: localhost
+Port: 6379
+Password: (empty)
+
+// Remote Redis (production example)
+Host: redis.example.com
+Port: 6380
+Password: your_redis_password`,
+        codeLanguage: 'text',
+      },
+      {
+        heading: 'Redis data types and operations',
+        body: `Redis supports several data structures:\n\n**Strings** — Simple key-value pairs. \`SET mykey "Hello"\`.\n\n**Lists** — Ordered collections. \`LPUSH mylist "item1"\`.\n\n**Sets** — Unordered unique collections. \`SADD myset "member1"\`.\n\n**Hashes** — Key-value pairs within a key (like nested objects). \`HSET user:1 name "Alice"\`.\n\n**Sorted Sets** — Sets with scores for ordering. \`ZADD leaderboard 100 "player1"\`.\n\nRedis Commander lets you view and edit each type through an intuitive interface without memorizing command syntax.`,
+      },
+      {
+        heading: 'Common use cases',
+        body: `**Session storage** — Redis stores session data for web apps. Browse active sessions by key prefix.\n\n**Caching** — Store computed results with TTL. Monitor cache hits/misses.\n\n**Rate limiting** — Track request counts per user/IP.\n\n**Job queues** — Redis FIFO lists for background jobs. Check queue depth and pending items.\n\n**Leaderboards** — Sorted sets for game scores or rankings.`,
+      },
+      {
+        heading: 'Security: credentials and encryption',
+        body: `Redis credentials are sensitive. MyDevTools Redis Commander encrypts credentials with AES-256 in the browser before storage, so the server does not see plaintext passwords. For production, use Redis with password authentication or network-level security (firewall, VPN, SSH tunnel).`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is it safe to connect to a production Redis instance from an online tool?',
+        a: 'Use an encrypted connection tool (HTTPS) and credentials encryption (like MyDevTools). For maximum security, use a firewall or SSH tunnel to restrict access.',
+      },
+      {
+        q: 'Can I delete keys and clear data with Redis Commander?',
+        a: 'Yes, the interface lets you delete keys and flush patterns. Be careful with production data — make backups first.',
+      },
+      {
+        q: 'Does Redis Commander support Sentinel or Cluster modes?',
+        a: 'MyDevTools Redis Commander connects to single Redis instances. For Sentinel or Cluster, use the native \`redis-cli\` tool or a more specialized client.',
+      },
+    ],
+  },
+  {
+    slug: 'decode-ssl-certificate-pem-online',
+    title: 'How to Decode SSL Certificates: Read PEM, X.509, CSR Online',
+    description: 'Paste an SSL certificate (PEM format) or CSR and inspect subject, issuer, expiry, SANs, and SHA-256 fingerprint instantly.',
+    publishedAt: '2026-01-19',
+    category: 'Security',
+    toolSlug: 'certificate-pem-decoder',
+    keywords: ['certificate decoder', 'pem decoder', 'ssl certificate parser', 'x509 certificate', 'csr decoder'],
+    readingTimeMin: 6,
+    sections: [
+      {
+        heading: 'Why decode SSL certificates?',
+        body: `SSL/TLS certificates authenticate servers and encrypt traffic. A certificate contains metadata: the domain it covers (Common Name and Subject Alternative Names), who issued it, and when it expires.\n\nDecoding a certificate helps when:\n\n- Debugging HTTPS connection errors.\n- Verifying a certificate matches a domain before deployment.\n- Checking expiration dates to prevent outages.\n- Inspecting Certificate Signing Requests (CSRs) before signing.\n- Auditing a server's certificate chain.`,
+      },
+      {
+        heading: 'SSL certificate structure (X.509)',
+        body: `An X.509 certificate contains:\n\n**Subject** — The domain owner (Common Name and Organization).\n\n**Subject Alternative Names (SANs)** — Additional domains covered by the certificate (example.com, *.example.com, www.example.com).\n\n**Issuer** — The Certificate Authority (CA) that signed it.\n\n**Valid From / Valid To** — Expiration dates. HTTPS warnings occur when the current date is outside this range.\n\n**Public Key** — Used to establish the encrypted connection.\n\n**Signature** — Cryptographic proof that the CA issued the certificate.\n\n**Serial Number** — Unique identifier for the certificate.\n\n**SHA-256 Fingerprint** — Hash of the entire certificate, useful for pinning.`,
+        code: `# PEM format (begins and ends with header/footer)
+-----BEGIN CERTIFICATE-----
+MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA...
+...
+-----END CERTIFICATE-----`,
+        codeLanguage: 'text',
+      },
+      {
+        heading: 'Reading certificate output',
+        body: `MyDevTools Certificate Decoder parses the PEM format and displays:\n\n- **Subject CN** — The primary domain (example.com).\n- **SANs** — Wildcard and additional domains covered.\n- **Valid From/To** — Expiration dates and remaining validity.\n- **Issuer** — Which CA signed it (Let's Encrypt, DigiCert, etc.).\n- **Key Type** — RSA, ECDSA, etc.\n- **SHA-256 Fingerprint** — For certificate pinning.\n\nLook for warnings: expired certificates, mismatched domains, or untrusted issuers.`,
+      },
+      {
+        heading: 'Certificate Signing Requests (CSRs)',
+        body: `A CSR is a request to a CA to sign a certificate. It contains the public key and subject information but is not yet signed. Decode CSRs to verify the domain and key before sending to a CA.`,
+      },
+      {
+        heading: 'Common certificate issues',
+        body: `**Expired certificate** — Renew before the "Valid To" date. Many hosting providers auto-renew (Let\'s Encrypt, managed SSL).\n\n**Domain mismatch** — The certificate CN or SANs do not match the domain being accessed. Re-issue or add the domain as a SAN.\n\n**Untrusted issuer** — The CA is not in the browser\'s trust store. Ensure the full certificate chain is served.\n\n**Self-signed certificate** — Valid for encryption but causes browser warnings. Use for internal testing only.`,
+      },
+    ],
+    faqs: [
+      {
+        q: 'What is a SHA-256 fingerprint and why use it?',
+        a: 'A fingerprint is a hash of the certificate. Use it for certificate pinning in apps: instead of trusting all CAs, pin specific certificates and reject others.',
+      },
+      {
+        q: 'Can I decode a certificate without the private key?',
+        a: 'Yes. The public certificate (PEM) contains all the metadata. The private key is separate and never included in the certificate.',
+      },
+      {
+        q: 'How long is a typical SSL certificate valid?',
+        a: 'Usually 1 year (Let\'s Encrypt, modern CA standard). Some CAs issue multi-year certificates, but renewal before expiry is best practice.',
+      },
+      {
+        q: 'Can a certificate cover multiple domains?',
+        a: 'Yes, via Subject Alternative Names (SANs). A single certificate can cover example.com, *.example.com, www.example.com, and other specified domains.',
+      },
+    ],
+  },
 ]
 
 export const blogPostSlugs = blogPosts.map((p) => p.slug)
