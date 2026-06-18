@@ -9,7 +9,7 @@
     "bookmarks": "Dấu trang",
     "jsonFormatter": "Trình định dạng JSON",
     "emailValidator": "Xác thực email",
-    "nosqlExplorer": "NoSQL Explorer",
+    "nosqlExplorer": "Trình khám phá cơ sở dữ liệu",
     "toDo": "Tasks",
     "notes": "Notes",
     "encryptionPlayground": "Sân chơi mã hóa",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "Dùng mật khẩu chính mạnh và duy nhất cho các tính năng vault.",
         "apiClient": "Hãy coi API Client như mọi HTTP client: tránh dán bí mật production vào môi trường dùng chung nếu bạn không biết ai có thể xem.",
-        "nosql": "NoSQL Explorer kết nối tới DB do bạn cấu hình; hãy dùng tài khoản tối thiểu quyền và quy tắc mạng khi có thể.",
+        "nosql": "Trình khám phá cơ sở dữ liệu kết nối tới DB do bạn cấu hình; hãy dùng tài khoản tối thiểu quyền và quy tắc mạng khi có thể.",
         "json": "Trình định dạng JSON chạy cục bộ trong trình duyệt—dù vậy vẫn nên tránh dán dữ liệu cực kỳ nhạy cảm trên máy dùng chung.",
         "settings": "Tùy chỉnh công cụ hiển thị trong Cài đặt để thanh bên gọn và tập trung hơn."
       }
@@ -264,7 +264,7 @@
         "description": "Kiểm tra và gỡ lỗi các yêu cầu HTTP."
       },
       "nosqlExplorer": {
-        "title": "NoSQL Explorer",
+        "title": "Database Explorer",
         "description": "Khám phá cơ sở dữ liệu MongoDB."
       },
       "emailValidator": {

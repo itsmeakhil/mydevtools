@@ -9,7 +9,7 @@
     "bookmarks": "Penanda",
     "jsonFormatter": "Pemformat JSON",
     "emailValidator": "Validator Email",
-    "nosqlExplorer": "NoSQL Explorer",
+    "nosqlExplorer": "Penjelajah Basis Data",
     "toDo": "Tasks",
     "notes": "Notes",
     "encryptionPlayground": "Arena enkripsi",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "Gunakan kata sandi utama yang kuat dan unik untuk fitur vault.",
         "apiClient": "Perlakukan API Client seperti HTTP client lainnya: hindari menempelkan rahasia produksi ke lingkungan bersama jika Anda tidak tahu siapa yang bisa melihatnya.",
-        "nosql": "NoSQL Explorer terhubung ke database yang Anda konfigurasi; gunakan akun dengan hak minimum dan aturan jaringan bila memungkinkan.",
+        "nosql": "Penjelajah Basis Data terhubung ke database yang Anda konfigurasi; gunakan akun dengan hak minimum dan aturan jaringan bila memungkinkan.",
         "json": "Pemformat JSON berjalan lokal di browser—tetap hindari menempelkan data sangat sensitif di mesin bersama.",
         "settings": "Sesuaikan tools yang terlihat di Pengaturan agar sidebar tetap fokus."
       }
@@ -264,7 +264,7 @@
         "description": "Uji dan debug permintaan HTTP."
       },
       "nosqlExplorer": {
-        "title": "NoSQL Explorer",
+        "title": "Database Explorer",
         "description": "Jelajahi basis data MongoDB."
       },
       "emailValidator": {

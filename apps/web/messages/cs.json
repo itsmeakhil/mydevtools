@@ -9,7 +9,7 @@
     "bookmarks": "Záložky",
     "jsonFormatter": "Formátovač JSON",
     "emailValidator": "Validátor e-mailů",
-    "nosqlExplorer": "Průzkumník NoSQL",
+    "nosqlExplorer": "Průzkumník databází",
     "toDo": "Tasks",
     "notes": "Notes",
     "encryptionPlayground": "Hraviště šifrování",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "Používejte silné, jedinečné hlavní heslo pro funkce trezoru.",
         "apiClient": "S API klientem zacházejte jako s běžným HTTP klientem: nevkládejte produkční tajemství do sdílených prostředí, pokud nevíte, kdo je může vidět.",
-        "nosql": "Průzkumník NoSQL se připojuje k databázím, které nastavíte; používejte účty s minimálními právy a síťová pravidla, pokud je to možné.",
+        "nosql": "Průzkumník databází se připojuje k databázím, které nastavíte; používejte účty s minimálními právy a síťová pravidla, pokud je to možné.",
         "json": "Formátovač JSON běží lokálně v prohlížeči—i tak se vyhněte vkládání velmi citlivých dat na sdílených počítačích.",
         "settings": "Přizpůsobte viditelné nástroje v Nastavení, aby postranní panel zůstal přehledný."
       }
@@ -264,7 +264,7 @@
         "description": "Testujte a laděte HTTP požadavky."
       },
       "nosqlExplorer": {
-        "title": "NoSQL průzkumník",
+        "title": "Database Explorer",
         "description": "Prozkoumejte databáze MongoDB."
       },
       "emailValidator": {

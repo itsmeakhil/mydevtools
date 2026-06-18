@@ -9,7 +9,7 @@
     "bookmarks": "북마크",
     "jsonFormatter": "JSON 포맷터",
     "emailValidator": "이메일 검증기",
-    "nosqlExplorer": "NoSQL 탐색기",
+    "nosqlExplorer": "데이터베이스 탐색기",
     "toDo": "Tasks",
     "notes": "Notes",
     "encryptionPlayground": "암호화 연습장",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "볼트 기능에는 강력하고 고유한 마스터 비밀번호를 사용하세요.",
         "apiClient": "API 클라이언트는 일반 HTTP 클라이언트처럼 사용하세요. 공유 환경에서는 누가 볼 수 있는지 모르면 운영 비밀키를 붙여넣지 마세요.",
-        "nosql": "NoSQL 탐색기는 사용자가 설정한 DB에 연결합니다. 가능하면 최소 권한 계정과 네트워크 규칙을 사용하세요.",
+        "nosql": "데이터베이스 탐색기는 사용자가 설정한 DB에 연결합니다. 가능하면 최소 권한 계정과 네트워크 규칙을 사용하세요.",
         "json": "JSON 포맷터는 브라우저에서 로컬로 동작하지만, 공유 기기에서는 민감한 데이터를 붙여넣지 마세요.",
         "settings": "설정에서 표시할 도구를 선택해 사이드바를 더 깔끔하게 유지하세요."
       }
@@ -264,7 +264,7 @@
         "description": "HTTP 요청을 테스트하고 디버그하세요."
       },
       "nosqlExplorer": {
-        "title": "NoSQL 탐색기",
+        "title": "Database Explorer",
         "description": "MongoDB 데이터베이스를 탐색하세요."
       },
       "emailValidator": {

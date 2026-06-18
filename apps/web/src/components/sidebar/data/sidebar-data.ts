@@ -389,7 +389,7 @@ export const sidebarData: SidebarData = {
           description: 'Connect to PostgreSQL, MySQL, and MariaDB. Run queries with an encrypted credential store.',
         },
         {
-          title: 'NoSQL Explorer',
+          title: 'Database Explorer',
           url: '/app/nosql-explorer',
           icon: IconDatabase,
           description: 'Explore MongoDB databases.',

@@ -9,7 +9,7 @@
     "bookmarks": "Favoritos",
     "jsonFormatter": "Formatador JSON",
     "emailValidator": "Validador de E-mail",
-    "nosqlExplorer": "Explorador NoSQL",
+    "nosqlExplorer": "Explorador de banco de dados",
     "toDo": "Tasks",
     "notes": "Notes",
     "encryptionPlayground": "Laboratório de criptografia",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "Use uma senha mestra forte e única para recursos do cofre.",
         "apiClient": "Trate o Cliente API como qualquer cliente HTTP: evite colar segredos de produção em ambientes compartilhados sem saber quem pode vê-los.",
-        "nosql": "O Explorador NoSQL se conecta a bancos que você configura; use usuários com menor privilégio e regras de rede quando possível.",
+        "nosql": "O Explorador de banco de dados se conecta a bancos que você configura; use usuários com menor privilégio e regras de rede quando possível.",
         "json": "O Formatador JSON é local no navegador—mesmo assim evite colar dados muito sensíveis em máquinas compartilhadas.",
         "settings": "Personalize as ferramentas visíveis em Configurações para manter a barra lateral focada."
       }
@@ -264,7 +264,7 @@
         "description": "Teste e depure requisições HTTP."
       },
       "nosqlExplorer": {
-        "title": "Explorador NoSQL",
+        "title": "Database Explorer",
         "description": "Explore bancos de dados MongoDB."
       },
       "emailValidator": {

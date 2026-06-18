@@ -37,7 +37,7 @@
     "contrastChecker": "Contrast Checker",
     "apiClient": "API Client",
     "httpStatusCodes": "HTTP status codes",
-    "nosqlExplorer": "NoSQL Explorer",
+    "nosqlExplorer": "Database Explorer",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "Use a strong, unique master password for vault features.",
         "apiClient": "Treat the API Client like any HTTP client: avoid pasting production secrets into shared environments unless you understand who can see them.",
-        "nosql": "NoSQL Explorer connects to databases you configure; use least-privilege users and network rules where possible.",
+        "nosql": "Database Explorer connects to databases you configure; use least-privilege users and network rules where possible.",
         "json": "JSON Formatter is local to the browser—still avoid pasting highly sensitive data on shared machines.",
         "settings": "Customize visible tools in Settings to keep the sidebar focused."
       }
@@ -325,8 +325,8 @@
         "description": "Search HTTP status codes with descriptions (1xx–5xx)."
       },
       "nosqlExplorer": {
-        "title": "NoSQL Explorer",
-        "description": "Explore MongoDB databases."
+        "title": "Database Explorer",
+        "description": "Explore MongoDB and SQL databases."
       },
       "emailValidator": {
         "title": "Email Validator",

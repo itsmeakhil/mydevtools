@@ -9,7 +9,7 @@
     "bookmarks": "Bokmerker",
     "jsonFormatter": "JSON-formaterer",
     "emailValidator": "E-postvalidering",
-    "nosqlExplorer": "NoSQL-utforsker",
+    "nosqlExplorer": "Databaseutforsker",
     "toDo": "Tasks",
     "notes": "Notes",
     "encryptionPlayground": "Krypteringslekeplass",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "Bruk et sterkt og unikt hovedpassord for vault‑funksjoner.",
         "apiClient": "Behandle API‑klienten som enhver HTTP‑klient: unngå å lime inn produksjonshemmeligheter i delte miljøer hvis du ikke vet hvem som kan se dem.",
-        "nosql": "NoSQL‑utforskeren kobler til databaser du konfigurerer; bruk brukere med minst mulig rettigheter og nettverksregler når mulig.",
+        "nosql": "Databaseutforskeren kobler til databaser du konfigurerer; bruk brukere med minst mulig rettigheter og nettverksregler når mulig.",
         "json": "JSON‑formatereren kjører lokalt i nettleseren—unngå likevel å lime inn svært sensitive data på delte maskiner.",
         "settings": "Tilpass synlige verktøy i Innstillinger for å holde sidebaren fokusert."
       }
@@ -264,7 +264,7 @@
         "description": "Test og feilsøk HTTP-forespørsler."
       },
       "nosqlExplorer": {
-        "title": "NoSQL-utforsker",
+        "title": "Database Explorer",
         "description": "Utforsk MongoDB-databaser."
       },
       "emailValidator": {
