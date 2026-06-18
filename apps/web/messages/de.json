@@ -28,7 +28,7 @@
     "contrastChecker": "Kontrastprüfung",
     "apiClient": "API-Client",
     "httpStatusCodes": "HTTP-Statuscodes",
-    "nosqlExplorer": "NoSQL-Explorer",
+    "nosqlExplorer": "Datenbank-Explorer",
     "jsonSchemaGenerator": "JSON-Schema-Generator",
     "imageToBase64": "Bild zu Base64",
     "imageCompressor": "Bildkomprimierung",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "Nutze ein starkes, einzigartiges Master‑Passwort für Vault‑Funktionen.",
         "apiClient": "Behandle den API‑Client wie jeden HTTP‑Client: füge keine Produktions‑Secrets in geteilte Umgebungen ein, wenn du nicht weißt, wer sie sieht.",
-        "nosql": "Der NoSQL‑Explorer verbindet sich mit von dir konfigurierten Datenbanken; nutze Least‑Privilege‑Accounts und Netzregeln, wenn möglich.",
+        "nosql": "Der Datenbank‑Explorer verbindet sich mit von dir konfigurierten Datenbanken; nutze Least‑Privilege‑Accounts und Netzregeln, wenn möglich.",
         "json": "Der JSON‑Formatierer läuft lokal im Browser—trotzdem keine hochsensiblen Daten auf geteilten Geräten einfügen.",
         "settings": "Blende Tools in den Einstellungen aus, um die Seitenleiste fokussiert zu halten."
       }
