@@ -390,7 +390,7 @@ export const sidebarData: SidebarData = {
         },
         {
           title: 'Database Explorer',
-          url: '/app/nosql-explorer',
+          url: '/app/database-explorer',
           icon: IconDatabase,
           description: 'Explore MongoDB databases.',
         },

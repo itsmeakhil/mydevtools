@@ -531,7 +531,7 @@ export function DashboardAnalyticsPanel() {
   ]
 
   const toolkitChips = [
-    { label: t('nosqlConnections'),        value: data.nosqlConnections,        icon: Database, accent: 'from-emerald-500 to-teal-500',                                       href: '/app/nosql-explorer' },
+    { label: t('nosqlConnections'),        value: data.nosqlConnections,        icon: Database, accent: 'from-emerald-500 to-teal-500',                                       href: '/app/database-explorer' },
     { label: t('apiClientCollections'),    value: data.apiClientCollections,    icon: Boxes,    accent: 'from-slate-600 to-slate-800 dark:from-slate-500 dark:to-slate-700', href: '/app/api-client' },
     { label: t('apiClientEnvironments'),   value: data.apiClientEnvironments,   icon: Server,   accent: 'from-fuchsia-500 to-pink-500',                                      href: '/app/api-client' },
     { label: t('apiClientHistory'),        value: data.apiClientHistoryEntries, icon: History,  accent: 'from-orange-500 to-red-500',                                        href: '/app/api-client' },

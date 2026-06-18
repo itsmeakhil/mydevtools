@@ -831,8 +831,8 @@ curl -X POST https://api.example.com/users \\
       'Connect to a MongoDB database, browse collections, run queries, and inspect documents directly in your browser. Learn the basics of NoSQL document querying.',
     publishedAt: '2026-01-22',
     category: 'Database',
-    toolSlug: 'nosql-explorer',
-    keywords: ['mongodb browser client', 'nosql explorer online', 'query mongodb online', 'mongodb gui browser', 'browse mongodb collections'],
+    toolSlug: 'database-explorer',
+    keywords: ['mongodb browser client', 'database explorer online', 'query mongodb online', 'mongodb gui browser', 'browse mongodb collections'],
     readingTimeMin: 6,
     sections: [
       {

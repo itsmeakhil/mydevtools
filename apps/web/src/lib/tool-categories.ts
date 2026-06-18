@@ -45,7 +45,7 @@ export const toolCategoryMap: Record<string, string> = {
   'user-agent-parser': 'Network & API',
   'mime-type-lookup': 'Network & API',
   'sql-client': 'Database',
-  'nosql-explorer': 'Database',
+  'database-explorer': 'Database',
   's3-drive': 'Database',
   'redis-commander': 'Database',
   'color-picker': 'Media & Design',

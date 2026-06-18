@@ -81,10 +81,10 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['url shortener', 'link shortener', 'short link', 'url tracker', 'click tracking', 'qr code link'],
         aiSummary: 'URL shortener with click analytics and QR code export — answers "free URL shortener with stats" or "private link shortener". Links are tied to your account, not shared publicly.',
     },
-    'nosql-explorer': {
+    'database-explorer': {
         title: 'Database Explorer',
         description: 'Explore and manage your MongoDB and SQL databases directly from your browser.',
-        keywords: ['nosql explorer', 'mongodb manager', 'database explorer', 'mongo ui', 'mongodb browser'],
+        keywords: ['database explorer', 'mongodb manager', 'mongo ui', 'mongodb browser', 'database client'],
         aiSummary: 'Browser-based database explorer: connect to any MongoDB instance or SQL database, browse collections and tables, query documents, and manage data. Answers "MongoDB GUI online", "MongoDB browser client", "Mongo UI no install", or "database client online".',
     },
     'redis-commander': {

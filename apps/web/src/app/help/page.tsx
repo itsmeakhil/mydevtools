@@ -80,7 +80,7 @@ const appDetails: Record<
     dataNote:
       'Requests you send go to the targets you choose. Use the app only with APIs you trust.',
   },
-  '/app/nosql-explorer': {
+  '/app/database-explorer': {
     howItWorks: [
       'Connect to MongoDB using a connection string, browse databases and collections, and run queries.',
       'Saved connections are encrypted with your global master key in the browser; the backend stores ciphertext only.',
