@@ -511,8 +511,8 @@ export function generatePageMetadata(opts: {
 // Base site metadata
 export const siteMetadata = {
     name: 'MyDevTools',
-    title: 'MyDevTools — Online Developer Tools & Developer Toolkit',
-    description: '50+ online developer tools in one browser-based toolkit: JSON formatter, JWT decoder, API client, regex tester, UUID generator, base64 encoder, and more. Open source and self-hostable.',
+    title: 'MyDevTools: 60+ Developer Tools + SQL/NoSQL/Redis Client',
+    description: 'All-in-one developer toolkit: SQL, NoSQL (MongoDB), Redis clients + 60 utilities (JSON formatter, API client, JWT decoder, regex tester, base64 encoder). Open source, privacy-first, client-side processing.',
     url: baseUrl,
-    ogImage: ogImageUrl('MyDevTools — Online Developer Tools', 'A browser-based developer toolkit with JSON, JWT, API, regex, UUID, Base64, and 50+ more tools.'),
+    ogImage: ogImageUrl('MyDevTools — Developer Toolkit', 'SQL + NoSQL + Redis client + 60 developer tools in one workspace. Privacy-first, open source.'),
 }
