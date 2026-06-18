@@ -9,7 +9,7 @@
     "bookmarks": "Segnalibri",
     "jsonFormatter": "Formattatore JSON",
     "emailValidator": "Validatore di posta elettronica",
-    "nosqlExplorer": "Esploratore NoSQL",
+    "nosqlExplorer": "Esplora database",
     "toDo": "Tasks",
     "notes": "Notes",
     "encryptionPlayground": "Sandbox crittografia",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "Usa una password principale forte e unica per le funzionalità del vault.",
         "apiClient": "Tratta il Cliente API come qualsiasi client HTTP: evita di incollare segreti di produzione in ambienti condivisi se non sai chi può vederli.",
-        "nosql": "NoSQL Explorer si collega a database configurati da te; usa utenti a privilegi minimi e regole di rete quando possibile.",
+        "nosql": "Esplora database si collega a database configurati da te; usa utenti a privilegi minimi e regole di rete quando possibile.",
         "json": "JSON Formatter è locale nel browser—evita comunque di incollare dati molto sensibili su macchine condivise.",
         "settings": "Personalizza gli strumenti visibili in Impostazioni per mantenere la barra laterale più pulita."
       }
