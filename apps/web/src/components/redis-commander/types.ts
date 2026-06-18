@@ -8,7 +8,6 @@ export type RedisValueType = "string" | "list" | "set" | "zset" | "hash" | "none
  */
 export type SearchMode = 'glob' | 'regex' | 'fuzzy';
 
-<<<<<<< HEAD
 /**
  * Search state for managing key search in KeyBrowser
  * Tracks search input, detected mode, user overrides, errors, and UI state
@@ -33,8 +32,6 @@ export interface SearchState {
   showAdvanced: boolean;
 }
 
-=======
->>>>>>> 225d711942b1e1bfa9de978da2b96b412a61198a
 export interface RedisConnectionConfig {
     redisUrl: string;
 }

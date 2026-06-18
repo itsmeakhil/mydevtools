@@ -9,10 +9,7 @@
     "start": "next start",
     "lint": "eslint .",
     "test": "jest",
-<<<<<<< HEAD
     "test:watch": "jest --watch",
-=======
->>>>>>> 225d711942b1e1bfa9de978da2b96b412a61198a
     "clean-install": "rimraf node_modules && pnpm install --filter @mydevtools/web..."
   },
   "dependencies": {
