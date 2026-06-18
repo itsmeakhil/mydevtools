@@ -9,7 +9,7 @@
     "bookmarks": "Marcadors",
     "jsonFormatter": "Formatador JSON",
     "emailValidator": "Validador de correu",
-    "nosqlExplorer": "Explorador NoSQL",
+    "nosqlExplorer": "Explorador de base de dades",
     "toDo": "Tasks",
     "notes": "Notes",
     "encryptionPlayground": "Terreny de joc del xifratge",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "Fes servir una contrasenya mestra forta i única per a les funcions del vault.",
         "apiClient": "Tracta el Client API com qualsevol client HTTP: evita enganxar secrets de producció en entorns compartits si no saps qui els pot veure.",
-        "nosql": "L’Explorador NoSQL es connecta a bases de dades que configures; fes servir usuaris amb mínims privilegis i regles de xarxa quan sigui possible.",
+        "nosql": "L’Explorador de base de dades es connecta a bases de dades que configures; fes servir usuaris amb mínims privilegis i regles de xarxa quan sigui possible.",
         "json": "El formatador JSON funciona localment al navegador—tot i així evita enganxar dades molt sensibles en equips compartits.",
         "settings": "Personalitza les eines visibles a Configuració per mantenir la barra lateral enfocada."
       }
