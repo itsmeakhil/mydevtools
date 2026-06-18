@@ -72,7 +72,7 @@ export const routeConfig: Record<string, RouteConfig> = {
   '/app/json-schema-generator': { title: 'JSON Schema Generator', icon: Braces, namespace: 'JsonSchemaGenerator' },
   '/app/api-client': { title: 'API Client', icon: Globe },
   '/app/http-status-codes': { title: 'HTTP Status Codes', icon: List, namespace: 'HttpStatusCodes' },
-  '/app/nosql-explorer': { title: 'NoSQL Explorer', icon: Database },
+  '/app/nosql-explorer': { title: 'Database Explorer', icon: Database },
   '/app/email-validator': { title: 'Email Validator', icon: Globe },
   '/app/url-encode': { title: 'URL Encoder / Decoder', icon: Link2, namespace: 'UrlEncode' },
   '/app/uuid-generator': { title: 'UUID / ULID Generator', icon: Fingerprint, namespace: 'UuidGenerator' },
