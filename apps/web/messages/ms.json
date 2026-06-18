@@ -9,7 +9,7 @@
     "bookmarks": "Penanda Halaman",
     "jsonFormatter": "Pemformat JSON",
     "emailValidator": "Pengesah E-mel",
-    "nosqlExplorer": "Penjelajah NoSQL",
+    "nosqlExplorer": "Penjelajah Pangkalan Data",
     "toDo": "Tasks",
     "notes": "Notes",
     "encryptionPlayground": "Taman permainan penyulitanan",
@@ -117,7 +117,7 @@
       "items": {
         "masterPassword": "Gunakan kata laluan induk yang kuat dan unik untuk ciri vault.",
         "apiClient": "Anggap API Client seperti klien HTTP biasa: elakkan menampal rahsia produksi ke persekitaran kongsi jika anda tidak tahu siapa yang boleh melihatnya.",
-        "nosql": "Penjelajah NoSQL menyambung ke pangkalan data yang anda konfigurasi; gunakan akaun keistimewaan minimum dan peraturan rangkaian jika boleh.",
+        "nosql": "Penjelajah Pangkalan Data menyambung ke pangkalan data yang anda konfigurasi; gunakan akaun keistimewaan minimum dan peraturan rangkaian jika boleh.",
         "json": "Pemformat JSON berjalan secara tempatan dalam pelayar—masih elakkan menampal data yang sangat sensitif pada mesin kongsi.",
         "settings": "Sesuaikan alat yang kelihatan dalam Tetapan untuk memastikan bar sisi kekal fokus."
       }
