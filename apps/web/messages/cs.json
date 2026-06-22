@@ -1615,6 +1615,13 @@
       "labelFolder": "Složka",
       "placeholderFolder": "Vyberte složku",
       "save": "Uložit"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
     }
   },
   "RichEditor": {

@@ -1615,6 +1615,13 @@
       "labelFolder": "Mapp",
       "placeholderFolder": "Välj en mapp",
       "save": "Spara"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
     }
   },
   "RichEditor": {

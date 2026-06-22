@@ -1615,6 +1615,13 @@
       "labelFolder": "پوشه",
       "placeholderFolder": "یک پوشه را انتخاب کنید",
       "save": "ذخیره کنید"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
     }
   },
   "RichEditor": {

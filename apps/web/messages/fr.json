@@ -1615,6 +1615,13 @@
       "labelFolder": "Dossier",
       "placeholderFolder": "Choisir un dossier",
       "save": "Enregistrer"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
     }
   },
   "RichEditor": {

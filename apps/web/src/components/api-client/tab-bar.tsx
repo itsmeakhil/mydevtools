@@ -5,6 +5,7 @@ import { X, Plus, Copy } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { ApiRequestState } from "./types"
 import { getApiClientRequestDisplayName } from "./display-name"
 import { useTranslations } from "next-intl"
@@ -120,6 +121,7 @@ export function TabBar({
 
     return (
         <div className="flex items-center border-b bg-muted/30 backdrop-blur-sm h-11">
+            <TooltipProvider delayDuration={500}>
             <ScrollArea className="flex-initial min-w-0 h-full">
                 {/* relative container so the sliding indicator is positioned within it */}
                 <div ref={tabListRef} className="relative flex w-max items-center h-full px-1">
@@ -187,9 +189,16 @@ export function TabBar({
                                     onClick={(e) => e.stopPropagation()}
                                 />
                             ) : (
-                                <span className="truncate flex-1 text-xs">
-                                    {getApiClientRequestDisplayName(tab.name, t)}
-                                </span>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <span className="truncate flex-1 text-xs">
+                                            {getApiClientRequestDisplayName(tab.name, t)}
+                                        </span>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        {getApiClientRequestDisplayName(tab.name, t)}
+                                    </TooltipContent>
+                                </Tooltip>
                             )}
 
                             {onTabDuplicate && (
@@ -222,6 +231,7 @@ export function TabBar({
                 </div>
                 <ScrollBar orientation="horizontal" className="h-1.5 invisible" />
             </ScrollArea>
+            </TooltipProvider>
             <Button
                 variant="ghost"
                 size="icon"

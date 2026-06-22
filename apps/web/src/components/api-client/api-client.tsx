@@ -8,6 +8,7 @@ import { RequestTabs } from "./request-tabs"
 import { ResponsePanel } from "./response-panel"
 import { TabBar } from "./tab-bar"
 import { ImportCurlDialog } from "./import-curl-dialog"
+import { HelpShortcutsDialog } from "./help-shortcuts-dialog"
 import { parseCurlCommand } from "@/utils/curl-parser"
 import { CollectionsSidebar } from "./collections/collections-sidebar"
 import dynamic from "next/dynamic"
@@ -488,6 +489,7 @@ function ApiClientInner() {
                             />
                         )}
                         <ImportCurlDialog onImport={handleImportCurl} />
+                        <HelpShortcutsDialog />
                         {!isMobile && (
                             <>
                                 <div className="h-6 w-px bg-border/50 mx-1" />

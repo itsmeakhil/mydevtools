@@ -1615,6 +1615,13 @@
       "labelFolder": "Map",
       "placeholderFolder": "Selecteer een map",
       "save": "Opslaan"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
     }
   },
   "RichEditor": {

@@ -1615,6 +1615,13 @@
       "labelFolder": "폴더",
       "placeholderFolder": "폴더를 선택하세요",
       "save": "저장"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
     }
   },
   "RichEditor": {

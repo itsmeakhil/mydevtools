@@ -1615,6 +1615,13 @@
       "labelFolder": "文件夹",
       "placeholderFolder": "选择文件夹",
       "save": "保存"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
     }
   },
   "RichEditor": {

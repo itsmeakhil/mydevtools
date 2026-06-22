@@ -1615,6 +1615,13 @@
       "labelFolder": "Vouer",
       "placeholderFolder": "Kies 'n vouer",
       "save": "Stoor"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
     }
   },
   "RichEditor": {
