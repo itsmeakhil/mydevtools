@@ -4,7 +4,7 @@ import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Collection, CollectionFolder, CollectionRequest, HistoryRequest } from "../types"
+import { Collection, CollectionRequest, HistoryRequest } from "../types"
 import { CollectionItem } from "./collection-item"
 import { FolderPlus, Trash2, Pencil, MoreHorizontal, Search, X, Loader2 } from "lucide-react"
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll"
@@ -29,21 +29,13 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useTranslations } from "next-intl"
 import { getApiClientRequestDisplayName } from "../display-name"
+import { useCollectionsState, useCollectionsActions } from "../context/collections-context"
 
 interface CollectionsSidebarProps {
-    collections: Collection[]
-    isLoading?: boolean
-    onAddFolder: (parentId: string, name: string) => void
-    onDelete: (id: string) => void
-    onToggle: (id: string) => void
     onLoadRequest: (request: CollectionRequest) => void
-    onCreateCollection: (name: string) => void
-    onRenameCollection: (id: string, name: string) => void
-    onRenameFolder?: (folderId: string, newName: string) => void
     history?: HistoryRequest[]
     onClearHistory?: () => void
     onDeleteHistoryItem?: (id: string) => void
-    onDeleteMultiple?: (ids: string[]) => void
 }
 
 function useDebouncedValue<T>(value: T, ms: number): T {
@@ -56,20 +48,13 @@ function useDebouncedValue<T>(value: T, ms: number): T {
 }
 
 export function CollectionsSidebar({
-    collections,
-    isLoading,
-    onAddFolder,
-    onDelete,
-    onToggle,
     onLoadRequest,
-    onCreateCollection,
-    onRenameCollection,
-    onRenameFolder,
     history,
     onClearHistory,
     onDeleteHistoryItem,
-    onDeleteMultiple,
 }: CollectionsSidebarProps) {
+    const { collections, isLoading } = useCollectionsState()
+    const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, deleteMultipleCollections: onDeleteMultiple } = useCollectionsActions()
     const t = useTranslations("ApiClient.collectionsSidebar")
     const tRoot = useTranslations("ApiClient")
     const [historySearch, setHistorySearch] = React.useState("")

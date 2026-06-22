@@ -10,7 +10,6 @@ import { TabBar } from "./tab-bar"
 import { ImportCurlDialog } from "./import-curl-dialog"
 import { parseCurlCommand } from "@/utils/curl-parser"
 import { CollectionsSidebar } from "./collections/collections-sidebar"
-import { useCollections } from "./collections/use-collections"
 import { useHistory } from "./use-history"
 import { useEnvironments } from "./use-environments"
 import { EnvironmentManager } from "./environment-manager"
@@ -33,6 +32,7 @@ import { cn } from "@/lib/utils"
 import { ensureHttpScheme } from "@/lib/url-normalize"
 import { useJsonFormatter } from "./workers/use-json-formatter"
 import { TabsProvider, useTabs, useTabsActions, createNewTab } from "./context/tabs-context"
+import { CollectionsProvider, useCollectionsState, useCollectionsActions } from "./context/collections-context"
 
 /** `new URL()` requires a scheme; host-only URLs (e.g. `api.example.com/v1`) are common in API clients. */
 function buildRequestUrl(raw: string): URL {
@@ -58,7 +58,8 @@ function ApiClientInner() {
 
     const abortControllerRef = React.useRef<AbortController | null>(null)
     const { format: formatJson } = useJsonFormatter()
-    const { collections, addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, deleteMultipleCollections, isLoading: collectionsLoading } = useCollections()
+    const { collections } = useCollectionsState()
+    const { saveRequest } = useCollectionsActions()
     const { history, addHistoryItem, clearHistory, deleteHistoryItem } = useHistory()
     const {
         environments,
@@ -400,10 +401,6 @@ function ApiClientInner() {
         }
     }
 
-    const handleDeleteMultipleCollections = async (ids: string[]) => {
-        await deleteMultipleCollections(ids)
-    }
-
     // Keyboard shortcuts
     React.useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -443,22 +440,13 @@ function ApiClientInner() {
                                 <div className="bottom-sheet-handle w-12 h-1.5 bg-muted rounded-full mx-auto my-3" />
                                 <div className="px-4 h-full overflow-hidden">
                                     <CollectionsSidebar
-                                        collections={collections}
-                                        isLoading={collectionsLoading}
-                                        onAddFolder={addFolder}
-                                        onDelete={deleteItem}
-                                        onToggle={toggleFolder}
                                         onLoadRequest={(request) => {
                                             handleLoadRequest(request)
                                             setCollectionsOpen(false)
                                         }}
-                                        onCreateCollection={createCollection}
-                                        onRenameCollection={renameCollection}
-                                        onRenameFolder={renameFolder}
                                         history={history}
                                         onClearHistory={clearHistory}
                                         onDeleteHistoryItem={deleteHistoryItem}
-                                        onDeleteMultiple={handleDeleteMultipleCollections}
                                     />
                                 </div>
                             </SheetContent>
@@ -635,19 +623,10 @@ function ApiClientInner() {
                     )}
                 >
                     <CollectionsSidebar
-                        collections={collections}
-                        isLoading={collectionsLoading}
-                        onAddFolder={addFolder}
-                        onDelete={deleteItem}
-                        onToggle={toggleFolder}
                         onLoadRequest={handleLoadRequest}
-                        onCreateCollection={createCollection}
-                        onRenameCollection={renameCollection}
-                        onRenameFolder={renameFolder}
                         history={history}
                         onClearHistory={clearHistory}
                         onDeleteHistoryItem={deleteHistoryItem}
-                        onDeleteMultiple={handleDeleteMultipleCollections}
                     />
                 </div>
             )}
@@ -658,7 +637,9 @@ function ApiClientInner() {
 export function ApiClient() {
     return (
         <TabsProvider>
-            <ApiClientInner />
+            <CollectionsProvider>
+                <ApiClientInner />
+            </CollectionsProvider>
         </TabsProvider>
     )
 }
