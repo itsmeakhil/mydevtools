@@ -16,6 +16,7 @@ import { SaveRequestDialog } from "./collections/save-request-dialog"
 import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { useEnvironmentsState } from "./context/environments-context"
 
 interface RequestPanelProps {
     method: RequestMethod
@@ -29,7 +30,6 @@ interface RequestPanelProps {
     onSave: (parentId: string, name: string) => void
     saveDefaultName?: string
     onPaste: (text: string) => void
-    activeEnvironmentVariables: Record<string, string>
     urlHistory?: string[]
 }
 
@@ -69,9 +69,9 @@ function RequestPanelImpl({
     onSave,
     saveDefaultName,
     onPaste,
-    activeEnvironmentVariables,
     urlHistory = [],
 }: RequestPanelProps) {
+    const { activeEnvironmentVariables } = useEnvironmentsState()
     const t = useTranslations("ApiClient.requestPanel")
     const urlInputRef = React.useRef<HTMLInputElement | null>(null)
     const [showSuggestions, setShowSuggestions] = React.useState(false)

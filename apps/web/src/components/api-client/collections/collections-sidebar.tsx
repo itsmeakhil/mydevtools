@@ -4,7 +4,7 @@ import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Collection, CollectionRequest, HistoryRequest } from "../types"
+import { Collection, CollectionRequest } from "../types"
 import { CollectionItem } from "./collection-item"
 import { FolderPlus, Trash2, Pencil, MoreHorizontal, Search, X, Loader2 } from "lucide-react"
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll"
@@ -30,12 +30,10 @@ import {
 import { useTranslations } from "next-intl"
 import { getApiClientRequestDisplayName } from "../display-name"
 import { useCollectionsState, useCollectionsActions } from "../context/collections-context"
+import { useHistoryState, useHistoryActions } from "../context/history-context"
 
 interface CollectionsSidebarProps {
     onLoadRequest: (request: CollectionRequest) => void
-    history?: HistoryRequest[]
-    onClearHistory?: () => void
-    onDeleteHistoryItem?: (id: string) => void
 }
 
 function useDebouncedValue<T>(value: T, ms: number): T {
@@ -49,12 +47,11 @@ function useDebouncedValue<T>(value: T, ms: number): T {
 
 export function CollectionsSidebar({
     onLoadRequest,
-    history,
-    onClearHistory,
-    onDeleteHistoryItem,
 }: CollectionsSidebarProps) {
     const { collections, isLoading } = useCollectionsState()
     const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, deleteMultipleCollections: onDeleteMultiple } = useCollectionsActions()
+    const { history } = useHistoryState()
+    const { clearHistory: onClearHistory, deleteHistoryItem: onDeleteHistoryItem } = useHistoryActions()
     const t = useTranslations("ApiClient.collectionsSidebar")
     const tRoot = useTranslations("ApiClient")
     const [historySearch, setHistorySearch] = React.useState("")
@@ -62,7 +59,6 @@ export function CollectionsSidebar({
     const debouncedSearch = useDebouncedValue(historySearch, 200)
 
     const filteredHistory = React.useMemo(() => {
-        if (!history) return []
         const q = debouncedSearch.trim().toLowerCase()
         if (!q) return history
         return history.filter(item =>
@@ -344,7 +340,7 @@ export function CollectionsSidebar({
                                             className="h-6 w-6 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-md opacity-0 group-hover:opacity-100 transition-opacity shrink-0" 
                                             onClick={(e) => {
                                                 e.stopPropagation()
-                                                onDeleteHistoryItem?.(item.id)
+                                                onDeleteHistoryItem(item.id)
                                             }}
                                         >
                                             <Trash2 className="h-3.5 w-3.5" />
@@ -373,7 +369,7 @@ export function CollectionsSidebar({
                                     <Loader2 className="h-4 w-4 animate-spin text-muted-foreground/50" />
                                 </div>
                             )}
-                            {!history?.length && (
+                            {!history.length && (
                                 <div className="flex flex-col items-center justify-center p-8 text-center">
                                     <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center mb-3">
                                         <FolderPlus className="h-5 w-5 text-muted-foreground/50" />
@@ -382,7 +378,7 @@ export function CollectionsSidebar({
                                     <p className="text-xs text-muted-foreground mt-1">{t("noHistoryHint")}</p>
                                 </div>
                             )}
-                            {!!history?.length && historySearch && !filteredHistory.length && (
+                            {!!history.length && historySearch && !filteredHistory.length && (
                                 <div className="text-xs text-muted-foreground text-center py-6">No results for &quot;{historySearch}&quot;</div>
                             )}
                         </div>

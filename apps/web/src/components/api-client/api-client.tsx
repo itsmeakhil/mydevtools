@@ -10,8 +10,6 @@ import { TabBar } from "./tab-bar"
 import { ImportCurlDialog } from "./import-curl-dialog"
 import { parseCurlCommand } from "@/utils/curl-parser"
 import { CollectionsSidebar } from "./collections/collections-sidebar"
-import { useHistory } from "./use-history"
-import { useEnvironments } from "./use-environments"
 import { EnvironmentManager } from "./environment-manager"
 import { CodeGenerator } from "./code-generator"
 import {
@@ -33,6 +31,8 @@ import { ensureHttpScheme } from "@/lib/url-normalize"
 import { useJsonFormatter } from "./workers/use-json-formatter"
 import { TabsProvider, useTabs, useTabsActions, createNewTab } from "./context/tabs-context"
 import { CollectionsProvider, useCollectionsState, useCollectionsActions } from "./context/collections-context"
+import { EnvironmentsProvider, useEnvironmentsState, useEnvironmentsActions } from "./context/environments-context"
+import { HistoryProvider, useHistoryState, useHistoryActions } from "./context/history-context"
 
 /** `new URL()` requires a scheme; host-only URLs (e.g. `api.example.com/v1`) are common in API clients. */
 function buildRequestUrl(raw: string): URL {
@@ -60,33 +60,15 @@ function ApiClientInner() {
     const { format: formatJson } = useJsonFormatter()
     const { collections } = useCollectionsState()
     const { saveRequest } = useCollectionsActions()
-    const { history, addHistoryItem, clearHistory, deleteHistoryItem } = useHistory()
-    const {
-        environments,
-        activeEnvId,
-        setActiveEnvId,
-        addEnvironment,
-        updateEnvironment,
-        deleteEnvironment,
-        substituteVariables
-    } = useEnvironments()
+    const { history } = useHistoryState()
+    const { addHistoryItem, clearHistory, deleteHistoryItem } = useHistoryActions()
+    const { environments, activeEnvId, activeEnvironmentVariables } = useEnvironmentsState()
+    const { setActiveEnvId, addEnvironment, updateEnvironment, deleteEnvironment, substituteVariables } = useEnvironmentsActions()
 
     const isMobile = useIsMobile()
     const [collectionsOpen, setCollectionsOpen] = React.useState(false)
     const [sidebarOpen, setSidebarOpen] = React.useState(true)
     const [mobilePanel, setMobilePanel] = React.useState<'request' | 'response'>('request')
-    const activeEnvironmentVariables = React.useMemo(() => {
-        if (!activeEnvId) return {}
-        const activeEnv = environments.find((env) => env.id === activeEnvId)
-        if (!activeEnv) return {}
-
-        return activeEnv.variables.reduce((acc, variable) => {
-            if (variable.enabled && variable.key) {
-                acc[variable.key] = variable.value
-            }
-            return acc
-        }, {} as Record<string, string>)
-    }, [environments, activeEnvId])
 
     const urlHistory = React.useMemo(() => {
         const seen = new Set<string>()
@@ -444,23 +426,13 @@ function ApiClientInner() {
                                             handleLoadRequest(request)
                                             setCollectionsOpen(false)
                                         }}
-                                        history={history}
-                                        onClearHistory={clearHistory}
-                                        onDeleteHistoryItem={deleteHistoryItem}
                                     />
                                 </div>
                             </SheetContent>
                         </Sheet>
                     )}
                     <div className="flex flex-wrap items-center gap-2 ml-auto">
-                        <EnvironmentManager
-                            environments={environments}
-                            activeEnvId={activeEnvId}
-                            setActiveEnvId={setActiveEnvId}
-                            addEnvironment={addEnvironment}
-                            updateEnvironment={updateEnvironment}
-                            deleteEnvironment={deleteEnvironment}
-                        />
+                        <EnvironmentManager />
                         <div className="h-6 w-px bg-border/50 mx-1" />
                         <CodeGenerator request={activeTab} />
                         <ImportCurlDialog onImport={handleImportCurl} />
@@ -546,7 +518,6 @@ function ApiClientInner() {
                                             onSave={handleSaveRequest}
                                             saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
                                             onPaste={handleCurlPaste}
-                                            activeEnvironmentVariables={activeEnvironmentVariables}
                                             urlHistory={urlHistory}
                                         />
                                         <RequestTabs
@@ -583,7 +554,6 @@ function ApiClientInner() {
                                             onSave={handleSaveRequest}
                                             saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
                                             onPaste={handleCurlPaste}
-                                            activeEnvironmentVariables={activeEnvironmentVariables}
                                             urlHistory={urlHistory}
                                         />
                                         <div className="flex-1 min-h-0">
@@ -624,9 +594,6 @@ function ApiClientInner() {
                 >
                     <CollectionsSidebar
                         onLoadRequest={handleLoadRequest}
-                        history={history}
-                        onClearHistory={clearHistory}
-                        onDeleteHistoryItem={deleteHistoryItem}
                     />
                 </div>
             )}
@@ -638,7 +605,11 @@ export function ApiClient() {
     return (
         <TabsProvider>
             <CollectionsProvider>
-                <ApiClientInner />
+                <EnvironmentsProvider>
+                    <HistoryProvider>
+                        <ApiClientInner />
+                    </HistoryProvider>
+                </EnvironmentsProvider>
             </CollectionsProvider>
         </TabsProvider>
     )
