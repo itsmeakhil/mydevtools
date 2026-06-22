@@ -23,7 +23,14 @@ async def lifespan(_app: FastAPI):
         await ensure_indexes()
     except Exception as exc:
         logging.getLogger(__name__).warning("Index creation failed: %s", exc)
-    yield
+
+    from app.core.redis_client import open_redis, close_redis
+    await open_redis()
+
+    try:
+        yield
+    finally:
+        await close_redis()
 
 
 app = FastAPI(
