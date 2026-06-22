@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "Outils",
-      "favorites": "Favoris"
+      "favorites": "Favoris",
+      "pinned": "Épinglés",
+      "recent": "Récemment utilisés"
     },
     "sections": {
       "recentlyUsed": "Récemment utilisés",
@@ -482,7 +484,12 @@
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
       "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Extraits de code"
+      "codeSnippets": "Extraits de code",
+      "activityTitle": "Activity",
+      "activityEmpty": "Activity builds as you use tools",
+      "distributionTitle": "Data distribution",
+      "topToolsTitle": "Top tools",
+      "taskDonutTitle": "Task completion"
     },
     "ui": {
       "title": "Préférences d’interface",

@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "Eines",
-      "favorites": "Preferits"
+      "favorites": "Preferits",
+      "pinned": "Fixat",
+      "recent": "Usades recentment"
     },
     "sections": {
       "recentlyUsed": "Usades recentment",
@@ -482,7 +484,12 @@
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
       "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Fragments de codi"
+      "codeSnippets": "Fragments de codi",
+      "activityTitle": "Activity",
+      "activityEmpty": "Activity builds as you use tools",
+      "distributionTitle": "Data distribution",
+      "topToolsTitle": "Top tools",
+      "taskDonutTitle": "Task completion"
     },
     "ui": {
       "title": "Preferències d’interfície",

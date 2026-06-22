@@ -149,7 +149,7 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
             if (contentType.includes("image/")) {
                 return (
                     <div className="flex items-center justify-center p-8 bg-muted/20 absolute inset-0 overflow-auto">
-                        <img src={`data:${contentType};base64,${response.body}`} alt={t("responsePreviewAlt")} className="max-w-full shadow-sm border" />
+                        <img src={`data:${contentType};base64,${response.body}`} alt={t("responsePreviewAlt")} loading="lazy" decoding="async" className="max-w-full shadow-sm border" />
                     </div>
                 )
             }

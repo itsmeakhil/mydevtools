@@ -185,7 +185,7 @@ export function SvgOptimizerLayout() {
                 >
                   {/* Dynamic data: URL cannot use next/image */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={previewUrl} alt="" className="max-h-32 max-w-full object-contain" />
+                  <img src={previewUrl} alt="" loading="lazy" decoding="async" className="max-h-32 max-w-full object-contain" />
                 </div>
               </div>
             ) : null}

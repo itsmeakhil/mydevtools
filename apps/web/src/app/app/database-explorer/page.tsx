@@ -66,12 +66,16 @@ export default function NoSQLExplorerPage() {
     });
     const [isCloseAllDialogOpen, setIsCloseAllDialogOpen] = useState(false);
 
-    // Check for connections
+    const connectionCacheRef = useRef<Map<string, SavedConnection>>(new Map());
+
+    // Check for connections + prime cache so auto-fetch doesn't trigger a second
+    // getConnections round-trip on the cold path.
     useEffect(() => {
         const checkConnections = async () => {
             if (user && encryptionKey) {
                 try {
                     const connections = await getConnections(user.uid, encryptionKey);
+                    connections.forEach((c) => connectionCacheRef.current.set(c.id, c));
                     setHasConnections(connections.length > 0);
                 } catch (error) {
                     console.error("Failed to check connections", error);
@@ -269,8 +273,6 @@ export default function NoSQLExplorerPage() {
     };
 
     const activeTab = tabs.find((t) => t.id === activeTabId);
-
-    const connectionCacheRef = useRef<Map<string, SavedConnection>>(new Map());
 
     const getConnectionForTab = useCallback(async (tab: ExplorerTab) => {
         const cached = connectionCacheRef.current.get(tab.connectionId);

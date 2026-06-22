@@ -84,19 +84,21 @@ const STATIC_ENTRIES: Omit<PaletteEntry, 'searchValue'>[] = [
   },
 ]
 
-function getSidebarIconForUrl(url: string): React.ElementType | null {
+function buildSidebarIconMap(): Map<string, React.ElementType> {
+  const map = new Map<string, React.ElementType>()
   for (const group of sidebarData.navGroups) {
     for (const item of group.items) {
-      if ('url' in item && item.url != null) {
-        if (String(item.url) === url && item.icon) return item.icon
+      if ('url' in item && item.url != null && item.icon) {
+        map.set(String(item.url), item.icon)
       }
       if ('items' in item && item.items) {
-        const sub = item.items.find((s) => String(s.url) === url)
-        if (sub?.icon) return sub.icon
+        for (const sub of item.items) {
+          if (sub.url != null && sub.icon) map.set(String(sub.url), sub.icon)
+        }
       }
     }
   }
-  return null
+  return map
 }
 
 function buildSearchValue(entry: {
@@ -117,6 +119,42 @@ function buildSearchValue(entry: {
     .toLowerCase()
 }
 
+// Tool entries and sidebar icons are static across the app lifetime — compute once.
+let cachedToolEntries: PaletteEntry[] | null = null
+function getToolEntries(): PaletteEntry[] {
+  if (cachedToolEntries) return cachedToolEntries
+  const iconMap = buildSidebarIconMap()
+  cachedToolEntries = getAllToolsMetadata()
+    .filter((t) => t.url.startsWith('/app/'))
+    .map((tool) => {
+      const Icon = iconMap.get(tool.url) ?? LayoutDashboard
+      const topCategory = tool.category.includes('>')
+        ? tool.category.split('>')[0]!.trim()
+        : tool.category
+      return {
+        title: tool.title,
+        url: tool.url,
+        description: tool.description,
+        category: topCategory,
+        searchValue: buildSearchValue({
+          title: tool.title,
+          description: tool.description,
+          category: tool.category,
+          tags: tool.tags,
+          keywords: tool.keywords,
+        }),
+        Icon,
+        requiresAuth: tool.requiresAuth,
+      }
+    })
+  return cachedToolEntries
+}
+
+const STATIC_ENTRIES_WITH_SEARCH = STATIC_ENTRIES.map((s) => ({
+  ...s,
+  searchValue: buildSearchValue(s),
+})) as PaletteEntry[]
+
 export function GlobalCommandPalette() {
   const [open, setOpen] = React.useState(false)
   const [modLabel, setModLabel] = React.useState('⌘')
@@ -125,40 +163,13 @@ export function GlobalCommandPalette() {
   const { user } = useAuth(false)
   const pinnedTools = usePinnedToolsStore((s) => s.pinnedTools)
 
+  const isLoggedIn = !!user
   const entries = React.useMemo((): PaletteEntry[] => {
-    const tools = getAllToolsMetadata()
-      .filter((t) => t.url.startsWith('/app/'))
-      .map((tool) => {
-        const Icon = getSidebarIconForUrl(tool.url) ?? LayoutDashboard
-        const topCategory = tool.category.includes('>')
-          ? tool.category.split('>')[0]!.trim()
-          : tool.category
-        return {
-          title: tool.title,
-          url: tool.url,
-          description: tool.description,
-          category: topCategory,
-          searchValue: buildSearchValue({
-            title: tool.title,
-            description: tool.description,
-            category: tool.category,
-            tags: tool.tags,
-            keywords: tool.keywords,
-          }),
-          Icon,
-          requiresAuth: tool.requiresAuth,
-        }
-      })
-
-    const site = STATIC_ENTRIES.filter(
-      (s) => s.url !== '/login' || !user
-    ).map((s) => ({
-      ...s,
-      searchValue: buildSearchValue(s),
-    }))
-
-    return [...site, ...tools]
-  }, [user])
+    const site = STATIC_ENTRIES_WITH_SEARCH.filter(
+      (s) => s.url !== '/login' || !isLoggedIn
+    )
+    return [...site, ...getToolEntries()]
+  }, [isLoggedIn])
 
   const pinnedEntries = React.useMemo(() => {
     const urlSet = new Set(pinnedTools)

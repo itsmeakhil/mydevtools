@@ -69,7 +69,7 @@ export function QrDialog({ url, open, onClose }: QrDialogProps) {
                     <div className="flex flex-col items-center gap-4 px-5 py-6">
                         <div className="relative flex items-center justify-center rounded-2xl border border-border/60 bg-white p-4 shadow-sm">
                             {dataUrl ? (
-                                <img src={dataUrl} alt="QR code" width={240} height={240} className="block rounded-lg" />
+                                <img src={dataUrl} alt="QR code" width={240} height={240} decoding="async" className="block rounded-lg" />
                             ) : (
                                 <div className="flex h-[240px] w-[240px] items-center justify-center">
                                     <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />

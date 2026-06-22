@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "Araçlar",
-      "favorites": "Favoriler"
+      "favorites": "Favoriler",
+      "pinned": "Sabitlenen",
+      "recent": "Son Kullanılanlar"
     },
     "sections": {
       "recentlyUsed": "Son Kullanılanlar",
@@ -482,7 +484,12 @@
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
       "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Kod parçacıkları"
+      "codeSnippets": "Kod parçacıkları",
+      "activityTitle": "Activity",
+      "activityEmpty": "Activity builds as you use tools",
+      "distributionTitle": "Data distribution",
+      "topToolsTitle": "Top tools",
+      "taskDonutTitle": "Task completion"
     },
     "ui": {
       "title": "Arayüz tercihleri",

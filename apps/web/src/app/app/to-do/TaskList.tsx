@@ -1,12 +1,15 @@
 // components/TaskList.js
 "use client";
 
+import { useCallback, useEffect, useRef } from "react";
 import TaskItem from "./TaskItem";
 import { FadeIn } from "@/components/ui/fade-in";
 import { Inbox, Loader2, CheckCircle2 } from "lucide-react";
 import { Task } from "@/app/app/to-do/types/Task";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+
+const STAGGER_LIMIT = 8;
 
 interface TaskListProps {
   tasks: Task[];
@@ -18,6 +21,28 @@ interface TaskListProps {
 
 export default function TaskList({ tasks, isLoading, onUpdateStatus, onUpdateTask, onDeleteTask }: TaskListProps) {
   const t = useTranslations("Tasks.list");
+
+  // Stabilize callbacks: parent (TaskContext) recreates these every render, which
+  // would defeat React.memo on TaskItem. Forward latest fn via ref.
+  const updateStatusRef = useRef(onUpdateStatus);
+  const updateTaskRef = useRef(onUpdateTask);
+  const deleteTaskRef = useRef(onDeleteTask);
+  useEffect(() => { updateStatusRef.current = onUpdateStatus; }, [onUpdateStatus]);
+  useEffect(() => { updateTaskRef.current = onUpdateTask; }, [onUpdateTask]);
+  useEffect(() => { deleteTaskRef.current = onDeleteTask; }, [onDeleteTask]);
+
+  const stableUpdateStatus = useCallback(
+    (id: string, status: "not-started" | "ongoing" | "completed") => updateStatusRef.current(id, status),
+    []
+  );
+  const stableUpdateTask = useCallback(
+    (id: string, updates: Partial<Task>) => updateTaskRef.current(id, updates),
+    []
+  );
+  const stableDeleteTask = useCallback(
+    (id: string) => deleteTaskRef.current(id),
+    []
+  );
 
   return (
     <ul className="space-y-3" role="list" aria-label={t("ariaLabel")}>
@@ -61,16 +86,16 @@ export default function TaskList({ tasks, isLoading, onUpdateStatus, onUpdateTas
                   "animate-in fade-in slide-in-from-top-2",
                   "transition-all duration-300"
                 )}
-                style={{ 
-                  animationDelay: `${index * 50}ms`,
+                style={{
+                  animationDelay: index < STAGGER_LIMIT ? `${index * 50}ms` : '0ms',
                   animationFillMode: 'both'
                 }}
               >
                 <TaskItem
                   task={task}
-                  onUpdateStatus={onUpdateStatus}
-                  onUpdateTask={onUpdateTask}
-                  onDeleteTask={onDeleteTask}
+                  onUpdateStatus={stableUpdateStatus}
+                  onUpdateTask={stableUpdateTask}
+                  onDeleteTask={stableDeleteTask}
                 />
               </div>
             ))}

@@ -26,6 +26,29 @@ interface DashboardHeroProps {
  * must be outside the padded container for full-bleed, while the
  * desktop hero sits inside it for proper alignment).
  */
+/** Compact KPI stat tile for the dashboard hero. */
+function KpiCard({
+  icon: Icon,
+  label,
+  value,
+}: {
+  icon: React.ComponentType<{ size?: number; className?: string }>
+  label: string
+  value: number
+}) {
+  return (
+    <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-card border border-border">
+      <div className="p-1.5 rounded-md bg-primary/10">
+        <Icon size={16} className="text-primary" />
+      </div>
+      <div>
+        <p className="text-[10px] md:text-xs text-muted-foreground leading-tight">{label}</p>
+        <p className="text-sm font-semibold tabular-nums leading-tight">{value}</p>
+      </div>
+    </div>
+  )
+}
+
 export function DashboardHero({
   user,
   totalTools,
@@ -70,35 +93,25 @@ export function DashboardHero({
 
       {/* ── Desktop Header Section ──────────────────────────────────────── */}
       {!mobileOnly && (
-        <div className="hidden md:flex flex-col gap-6">
+        <div className="hidden md:flex flex-col gap-5">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div className="space-y-1">
               <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 {dashboardGreeting(t)}
               </p>
-              <div className="flex items-center gap-3">
-                <h1 className="text-xl sm:text-2xl font-bold tracking-tight gradient-text-animated">
-                  {user?.displayName
-                    ? t('welcomeBackNamed', { name: user.displayName.split(' ')[0] })
-                    : t('welcomeBack')}
-                </h1>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                {t('tagline')}
-              </p>
+              <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+                {user?.displayName
+                  ? t('welcomeBackNamed', { name: user.displayName.split(' ')[0] })
+                  : t('welcomeBack')}
+              </h1>
+              <p className="text-sm text-muted-foreground">{t('tagline')}</p>
             </div>
 
-            {/* Quick Stats */}
-            <div className="flex gap-2 md:gap-3">
-              <div className="flex items-center gap-1.5 md:gap-2 px-2.5 md:px-4 py-2 md:py-2.5 rounded-lg md:rounded-xl glass-card stats-glow">
-                <div className="p-1 md:p-1.5 rounded-md md:rounded-lg bg-primary/10">
-                  <Layers size={14} className="md:w-4 md:h-4 text-primary" />
-                </div>
-                <div>
-                  <p className="text-[10px] md:text-xs text-muted-foreground">{t('stats.tools')}</p>
-                  <p className="text-xs md:text-sm font-semibold">{totalTools}</p>
-                </div>
-              </div>
+            {/* Quick Stats — KPI row */}
+            <div className="grid grid-cols-3 gap-2 md:gap-3">
+              <KpiCard icon={Layers} label={t('stats.tools')} value={totalTools} />
+              <KpiCard icon={Pin} label={t('stats.pinned')} value={pinnedCount} />
+              <KpiCard icon={Clock} label={t('stats.recent')} value={recentCount} />
             </div>
           </div>
         </div>

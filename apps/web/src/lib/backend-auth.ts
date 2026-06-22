@@ -1,5 +1,6 @@
 import type { User } from "firebase/auth"
 import { auth } from "@/database/firebase"
+import { dedupe } from "@/lib/auth-inflight"
 
 /** Same-origin refresh endpoint (used by fetch helpers). */
 export const BACKEND_AUTH_REFRESH_PATH = "/api/backend/auth/refresh"
@@ -31,71 +32,79 @@ export async function establishBackendSession(
     opts: {
         maxAttempts?: number
         getFreshIdToken?: () => Promise<string>
+        checkRevoked?: boolean
     } = {}
 ): Promise<void> {
     const maxAttempts = Math.max(1, opts.maxAttempts ?? 3)
-    let token = idToken
-    let lastError: Error | null = null
-
-    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-        try {
-            const res = await fetch("/api/backend/auth/session", {
-                method: "POST",
-                credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id_token: token, check_revoked: true }),
-                cache: "no-store",
-            })
-
-            if (res.ok) return
-
-            const retriable = res.status === 429 || res.status >= 500
-            const msg = await readErrorMessage(res)
-            lastError = new Error(msg || `Session exchange failed (${res.status})`)
-
-            if (!retriable || attempt === maxAttempts) {
-                throw lastError
-            }
-        } catch (e) {
-            lastError = e instanceof Error ? e : new Error("Session exchange failed")
-            if (attempt === maxAttempts) throw lastError
-        }
-
-        if (opts.getFreshIdToken) {
+    const checkRevoked = opts.checkRevoked ?? false
+    return dedupe(`session:${checkRevoked ? "revoked" : "fast"}`, async () => {
+        let token = idToken
+        let lastError: Error | null = null
+        for (let attempt = 1; attempt <= maxAttempts; attempt++) {
             try {
-                token = await opts.getFreshIdToken()
-            } catch {
-                // keep the existing token for the next attempt
+                const res = await fetch("/api/backend/auth/session", {
+                    method: "POST",
+                    credentials: "include",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ id_token: token, check_revoked: checkRevoked }),
+                    cache: "no-store",
+                })
+
+                if (res.ok) return
+
+                const retriable = res.status === 429 || res.status >= 500
+                const msg = await readErrorMessage(res)
+                lastError = new Error(msg || `Session exchange failed (${res.status})`)
+
+                if (!retriable || attempt === maxAttempts) {
+                    throw lastError
+                }
+            } catch (e) {
+                lastError = e instanceof Error ? e : new Error("Session exchange failed")
+                if (attempt === maxAttempts) throw lastError
             }
+
+            if (opts.getFreshIdToken) {
+                try {
+                    token = await opts.getFreshIdToken()
+                } catch {
+                    // keep the existing token for the next attempt
+                }
+            }
+            await sleep(250 * attempt)
         }
-        await sleep(250 * attempt)
-    }
+    })
 }
 
 /**
  * If JWT cookies are missing or expired but Firebase session exists, re-run the Firebase exchange.
  */
 export async function ensureBackendSession(user: User): Promise<void> {
-    let check = await fetch("/api/backend/auth/session/check", {
-        method: "GET",
-        credentials: "include",
-        cache: "no-store",
-    })
-    if (check.ok) return
-    if (check.status >= 500) {
-        await sleep(200)
-        check = await fetch("/api/backend/auth/session/check", {
+    const ok = await dedupe("session-check", async () => {
+        let check = await fetch("/api/backend/auth/session/check", {
             method: "GET",
             credentials: "include",
             cache: "no-store",
         })
-        if (check.ok) return
-    }
+        if (check.ok) return true
+        if (check.status >= 500) {
+            await sleep(200)
+            check = await fetch("/api/backend/auth/session/check", {
+                method: "GET",
+                credentials: "include",
+                cache: "no-store",
+            })
+            if (check.ok) return true
+        }
+        return false
+    })
+    if (ok) return
 
     const idToken = await user.getIdToken()
     await establishBackendSession(idToken, {
         maxAttempts: 3,
         getFreshIdToken: () => user.getIdToken(true),
+        checkRevoked: false,
     })
 }
 
@@ -169,17 +178,16 @@ export async function proxyJsonAuthed<T>(
     path: string,
     body?: unknown
 ): Promise<{ status: number; data: T | null }> {
-    const u = auth.currentUser
-    if (u) await ensureBackendSession(u)
-
     let result = await rawProxyJson<T>(backendBaseUrl, method, path, body)
 
     if (result.status === 401) {
-        const refr = await fetch(BACKEND_AUTH_REFRESH_PATH, {
-            method: "POST",
-            credentials: "include",
-            cache: "no-store",
-        })
+        const refr = await dedupe("refresh", async () =>
+            fetch(BACKEND_AUTH_REFRESH_PATH, {
+                method: "POST",
+                credentials: "include",
+                cache: "no-store",
+            })
+        )
         if (refr.ok) {
             result = await rawProxyJson<T>(backendBaseUrl, method, path, body)
         }
@@ -187,7 +195,13 @@ export async function proxyJsonAuthed<T>(
 
     if (result.status === 401) {
         const u2 = auth.currentUser
-        if (u2) await ensureBackendSession(u2)
+        if (u2) {
+            try {
+                await ensureBackendSession(u2)
+            } catch {
+                // Silent re-exchange failed — fall through to forceLogout below.
+            }
+        }
         result = await rawProxyJson<T>(backendBaseUrl, method, path, body)
     }
 
@@ -215,15 +229,17 @@ export async function backendFetch(path: string, init?: RequestInit): Promise<Re
     let res = await run()
 
     if (res.status === 401) {
-        const refr = await fetch(BACKEND_AUTH_REFRESH_PATH, {
-            method: "POST",
-            credentials: "include",
-            cache: "no-store",
-        })
+        const refr = await dedupe("refresh", async () =>
+            fetch(BACKEND_AUTH_REFRESH_PATH, {
+                method: "POST",
+                credentials: "include",
+                cache: "no-store",
+            })
+        )
         if (refr.ok) {
             res = await run()
-            // Refresh succeeded but still getting 401/403 — session is truly invalid.
             if (res.status === 401 || res.status === 403) {
+                // Refresh succeeded but still getting 401/403 — session is truly invalid.
                 forceLogout("unauthorized")
             }
         } else {

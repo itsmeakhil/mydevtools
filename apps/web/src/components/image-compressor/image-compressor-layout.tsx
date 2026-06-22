@@ -336,7 +336,7 @@ export function ImageCompressorLayout() {
           >
             {sourceUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={sourceUrl} alt="" className="max-h-[min(55vh,420px)] max-w-full object-contain" />
+              <img src={sourceUrl} alt="" decoding="async" className="max-h-[min(55vh,420px)] max-w-full object-contain" />
             ) : (
               <div className="flex flex-col items-center gap-3 text-center">
                 <div className="rounded-full bg-muted/50 p-4">
@@ -390,7 +390,7 @@ export function ImageCompressorLayout() {
             )}
             {compressedUrl && !processing ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={compressedUrl} alt="" className="max-h-[min(55vh,420px)] max-w-full object-contain" />
+              <img src={compressedUrl} alt="" decoding="async" className="max-h-[min(55vh,420px)] max-w-full object-contain" />
             ) : !sourceUrl ? (
               <p className="text-center text-sm text-muted-foreground">{t('emptyCompressed')}</p>
             ) : null}

@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "Alat yang digunakan",
-      "favorites": "Favorit"
+      "favorites": "Favorit",
+      "pinned": "Disematkan",
+      "recent": "Baru Digunakan"
     },
     "sections": {
       "recentlyUsed": "Baru Digunakan",
@@ -482,7 +484,12 @@
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
       "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Cuplikan kode"
+      "codeSnippets": "Cuplikan kode",
+      "activityTitle": "Activity",
+      "activityEmpty": "Activity builds as you use tools",
+      "distributionTitle": "Data distribution",
+      "topToolsTitle": "Top tools",
+      "taskDonutTitle": "Task completion"
     },
     "ui": {
       "title": "Preferensi antarmuka",

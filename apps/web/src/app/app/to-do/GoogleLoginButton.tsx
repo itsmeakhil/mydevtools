@@ -14,7 +14,7 @@ const GoogleLoginButton = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const idToken = await result.user.getIdToken();
-      await establishBackendSession(idToken);
+      await establishBackendSession(idToken, { checkRevoked: true });
       router.push('/dashboard');
     } catch (error) {
       console.error('Error during Google sign-in or API session:', error);

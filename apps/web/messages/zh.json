@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "工具",
-      "favorites": "收藏"
+      "favorites": "收藏",
+      "pinned": "已固定",
+      "recent": "最近使用"
     },
     "sections": {
       "recentlyUsed": "最近使用",
@@ -482,7 +484,12 @@
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
       "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "代码片段"
+      "codeSnippets": "代码片段",
+      "activityTitle": "Activity",
+      "activityEmpty": "Activity builds as you use tools",
+      "distributionTitle": "Data distribution",
+      "topToolsTitle": "Top tools",
+      "taskDonutTitle": "Task completion"
     },
     "ui": {
       "title": "界面偏好",

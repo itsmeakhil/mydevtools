@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "Nutsgoed",
-      "favorites": "Gunstelinge"
+      "favorites": "Gunstelinge",
+      "pinned": "Vasgespeld",
+      "recent": "Onlangs gebruik"
     },
     "sections": {
       "recentlyUsed": "Onlangs gebruik",
@@ -482,7 +484,12 @@
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
       "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Kodesnippette"
+      "codeSnippets": "Kodesnippette",
+      "activityTitle": "Activity",
+      "activityEmpty": "Activity builds as you use tools",
+      "distributionTitle": "Data distribution",
+      "topToolsTitle": "Top tools",
+      "taskDonutTitle": "Task completion"
     },
     "ui": {
       "title": "Koppelvlakvoorkeure",

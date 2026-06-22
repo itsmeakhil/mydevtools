@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import Cookie, Depends, Header, HTTPException, status
+from fastapi import Cookie, Depends, Header, HTTPException, Request, status
 
 from app.api.routes.auth.schema import UserProfileResponse, PersonalInfo, Certification
 from app.api.routes.auth.tokens import decode_access_token
@@ -60,18 +60,35 @@ def get_current_uid(
     return decode_access_token(token)
 
 
-async def get_current_user(uid: str = Depends(get_current_uid)) -> UserProfileResponse:
-    doc = await get_user_doc(uid)
-    if not doc:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="User not found.",
-        )
-    if doc.get("disabled"):
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Account disabled.",
-        )
+async def get_current_user(
+    request: Request,
+    uid: str = Depends(get_current_uid),
+) -> UserProfileResponse:
+    """Resolve the current user profile, memoized per request on
+    ``request.state.current_user_doc``.
+
+    Multiple ``Depends(get_current_user)`` in the same request hit Mongo
+    once. If a handler mutates the user document mid-request and needs
+    fresh data afterwards, reset the slot first:
+    ``request.state.current_user_doc = None``.
+    """
+    cached = getattr(request.state, "current_user_doc", None)
+    if cached is not None and cached.get("_id") == uid:
+        doc = cached
+    else:
+        doc = await get_user_doc(uid)
+        if not doc:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="User not found.",
+            )
+        if doc.get("disabled"):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Account disabled.",
+            )
+        request.state.current_user_doc = doc
+
     return UserProfileResponse(
         uid=str(doc["_id"]),
         email=doc.get("email"),

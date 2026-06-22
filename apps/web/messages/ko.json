@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "도구",
-      "favorites": "즐겨찾기"
+      "favorites": "즐겨찾기",
+      "pinned": "고정",
+      "recent": "최근 사용"
     },
     "sections": {
       "recentlyUsed": "최근 사용",
@@ -482,7 +484,12 @@
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
       "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "코드 스니펫"
+      "codeSnippets": "코드 스니펫",
+      "activityTitle": "Activity",
+      "activityEmpty": "Activity builds as you use tools",
+      "distributionTitle": "Data distribution",
+      "topToolsTitle": "Top tools",
+      "taskDonutTitle": "Task completion"
     },
     "ui": {
       "title": "인터페이스 설정",

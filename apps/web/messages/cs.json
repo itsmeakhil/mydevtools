@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "Nástroje",
-      "favorites": "Oblíbené"
+      "favorites": "Oblíbené",
+      "pinned": "Připnuté",
+      "recent": "Nedávno použité"
     },
     "sections": {
       "recentlyUsed": "Nedávno použité",
@@ -482,7 +484,12 @@
       "taskMixTitle": "Task status",
       "taskMixEmpty": "No tasks yet — add some in Tasks.",
       "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Úryvky kódu"
+      "codeSnippets": "Úryvky kódu",
+      "activityTitle": "Activity",
+      "activityEmpty": "Activity builds as you use tools",
+      "distributionTitle": "Data distribution",
+      "topToolsTitle": "Top tools",
+      "taskDonutTitle": "Task completion"
     },
     "ui": {
       "title": "Předvolby rozhraní",
