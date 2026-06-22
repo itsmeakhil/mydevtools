@@ -21,7 +21,6 @@ import {
   RefreshCw,
   Server,
   StickyNote,
-  TrendingUp,
   Zap,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -31,6 +30,11 @@ import {
 } from '@/lib/dashboard-analytics-api'
 import { sidebarData } from '@/components/sidebar/data/sidebar-data'
 import { cn } from '@/lib/utils'
+import { useToolUsage } from '@/hooks/use-tool-usage'
+import { DonutChart } from './charts/donut-chart'
+import { ActivityBarChart } from './charts/activity-bar-chart'
+import { TopToolsBars, type TopTool } from './charts/top-tools-bars'
+import { type DonutSegment } from './charts/chart-utils'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -342,54 +346,6 @@ function KpiCard({
   )
 }
 
-// ─── Top used tools ───────────────────────────────────────────────────────────
-
-interface TopTool {
-  id: string
-  title: string
-  icon?: React.ElementType
-  count: number
-  url?: string
-}
-
-function TopUsedTools({ tools }: { tools: TopTool[] }) {
-  if (tools.length === 0) return null
-  return (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-2 py-1">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-violet-500">
-          Most used locally
-        </span>
-        <div className="h-px flex-1 bg-border/40" />
-        <TrendingUp className="h-3 w-3 text-violet-500/60" />
-      </div>
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-5">
-        {tools.map((tool) => {
-          const Icon = tool.icon
-          return (
-            <Link
-              key={tool.id}
-              href={tool.url ?? '/dashboard'}
-              className="group flex items-center gap-2 rounded-lg border border-border/40 bg-card/40 px-2.5 py-2 transition-all hover:border-violet-500/30 hover:bg-card/70 hover:-translate-y-px"
-            >
-              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-gradient-to-br from-violet-500/20 to-purple-500/10 text-violet-500 ring-1 ring-violet-500/20">
-                {Icon
-                  ? <Icon className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden />
-                  : <Zap className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden />
-                }
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-[11px] font-semibold leading-tight">{tool.title}</p>
-                <p className="text-[10px] tabular-nums text-muted-foreground/60">{tool.count}×</p>
-              </div>
-            </Link>
-          )
-        })}
-      </div>
-    </div>
-  )
-}
-
 // ─── Empty group CTA ──────────────────────────────────────────────────────────
 
 function EmptyGroupHint({ message, href, cta }: { message: string; href: string; cta: string }) {
@@ -440,35 +396,25 @@ export function DashboardAnalyticsPanel() {
   }, [])
   void tick
 
-  // Top used tools from localStorage
+  const { getUsageEvents, getToolUsageCounts } = useToolUsage()
+  const usageEvents = useMemo(() => getUsageEvents(), [getUsageEvents])
+
   const topUsedTools = useMemo<TopTool[]>(() => {
-    try {
-      const raw = localStorage.getItem('tool-usage-history')
-      if (!raw) return []
-      const history: { toolId: string; url?: string }[] = JSON.parse(raw)
-      const counts: Record<string, number> = {}
-      const urls: Record<string, string> = {}
-      history.forEach((h) => {
-        counts[h.toolId] = (counts[h.toolId] ?? 0) + 1
-        if (h.url) urls[h.toolId] = h.url
+    const counts = getToolUsageCounts()
+    return Object.entries(counts)
+      .sort(([, a], [, b]) => b.count - a.count)
+      .slice(0, 5)
+      .map(([id, info]) => {
+        const found = findToolById(id)
+        return {
+          id,
+          title: found?.title ?? id,
+          icon: found?.icon,
+          count: info.count,
+          url: info.url,
+        }
       })
-      return Object.entries(counts)
-        .sort(([, a], [, b]) => b - a)
-        .slice(0, 5)
-        .map(([id, count]) => {
-          const found = findToolById(id)
-          return {
-            id,
-            title: found?.title ?? id,
-            icon: found?.icon,
-            count,
-            url: urls[id],
-          }
-        })
-    } catch {
-      return []
-    }
-  }, [])
+  }, [getToolUsageCounts])
 
   const totalCount = useMemo(() => (data ? sumTrackedItems(data) : 0), [data])
   const completionPct = useMemo(() => {
@@ -564,10 +510,14 @@ export function DashboardAnalyticsPanel() {
         />
         <KpiCard
           label="Tools used locally"
-          value={topUsedTools.length}
+          value={Object.keys(getToolUsageCounts()).length}
           icon={Zap}
           accent="border-violet-500/20"
-          sub={topUsedTools.length > 0 ? `Top: ${topUsedTools[0]?.title ?? '—'}` : 'No history yet'}
+          sub={
+            usageEvents.length > 0
+              ? `${usageEvents.length} launches`
+              : 'No history yet'
+          }
         />
       </div>
 
@@ -611,6 +561,53 @@ export function DashboardAnalyticsPanel() {
           </Button>
         </div>
       </div>
+
+      {/* ── Charts ─────────────────────────────────────────────────────────── */}
+      <ActivityBarChart
+        events={usageEvents}
+        title={t('activityTitle')}
+        emptyHint={t('activityEmpty')}
+      />
+
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        <div className="rounded-xl border border-border bg-card p-3 md:p-4">
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+            {t('distributionTitle')}
+          </p>
+          <DonutChart
+            ariaLabel={t('distributionTitle')}
+            centerValue={totalCount}
+            centerLabel={t('totalLabel')}
+            segments={
+              [
+                { label: t('groupVault'), value: data.passwordEntries + data.bookmarks + data.bookmarkFolders, color: 'hsl(var(--primary))' },
+                { label: t('groupWorkspace'), value: data.tasks.total + data.notes + data.projects + (data.codeSnippets ?? 0), color: '#f59e0b' },
+                { label: t('groupToolkit'), value: data.nosqlConnections + data.apiClientCollections + data.apiClientEnvironments + data.apiClientHistoryEntries + data.jsonFormatterDocuments, color: '#06b6d4' },
+              ] satisfies DonutSegment[]
+            }
+          />
+        </div>
+
+        <div className="rounded-xl border border-border bg-card p-3 md:p-4">
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+            {t('taskDonutTitle')}
+          </p>
+          <DonutChart
+            ariaLabel={t('taskDonutTitle')}
+            centerValue={`${completionPct}%`}
+            centerLabel={t('tasksCompleted')}
+            segments={
+              [
+                { label: t('tasksCompleted'), value: tasks.completed, color: '#10b981' },
+                { label: t('tasksOngoing'), value: tasks.ongoing, color: '#f59e0b' },
+                { label: t('tasksNotStarted'), value: tasks.notStarted, color: 'hsl(var(--muted-foreground))' },
+              ] satisfies DonutSegment[]
+            }
+          />
+        </div>
+      </div>
+
+      <TopToolsBars tools={topUsedTools} title={t('topToolsTitle')} />
 
       {/* ── Group 1: Vault & Bookmarks ────────────────────────────────────── */}
       <div className="flex flex-col gap-2">
@@ -676,8 +673,6 @@ export function DashboardAnalyticsPanel() {
         )}
       </div>
 
-      {/* ── Top used tools ───────────────────────────────────────────────── */}
-      <TopUsedTools tools={topUsedTools} />
     </div>
   )
 }
