@@ -35,6 +35,7 @@ import { Button } from "@/components/ui/button"
 import { FolderOpen, PanelRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ensureHttpScheme } from "@/lib/url-normalize"
+import { useJsonFormatter } from "./workers/use-json-formatter"
 
 /** `new URL()` requires a scheme; host-only URLs (e.g. `api.example.com/v1`) are common in API clients. */
 function buildRequestUrl(raw: string): URL {
@@ -80,6 +81,7 @@ export function ApiClient() {
     const [activeTabId, setActiveTabId] = React.useState<string>(tabs[0].id)
     const [isInitialized, setIsInitialized] = React.useState(false)
     const abortControllerRef = React.useRef<AbortController | null>(null)
+    const { format: formatJson } = useJsonFormatter()
     const { collections, addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, deleteMultipleCollections, isLoading: collectionsLoading } = useCollections()
     const { history, addHistoryItem, clearHistory, deleteHistoryItem } = useHistory()
     const {
@@ -475,12 +477,22 @@ export function ApiClient() {
             const proxyData = await res.json()
 
             let formattedBody = proxyData.body
-            try {
-                if (formattedBody && !proxyData.isBase64) {
-                    formattedBody = JSON.stringify(JSON.parse(formattedBody), null, 2)
+            if (formattedBody && !proxyData.isBase64) {
+                const responseContentType = (proxyData.headers as Record<string, string> | undefined)
+                const rawCT = responseContentType
+                    ? Object.entries(responseContentType).find(([k]) => k.toLowerCase() === "content-type")?.[1] ?? ""
+                    : ""
+                if (rawCT.includes("application/json")) {
+                    const r = await formatJson(formattedBody)
+                    if (r.ok) formattedBody = r.formatted
+                } else {
+                    // Non-JSON: attempt sync pretty-print as before (best-effort)
+                    try {
+                        formattedBody = JSON.stringify(JSON.parse(formattedBody), null, 2)
+                    } catch {
+                        // Not JSON, keep as text
+                    }
                 }
-            } catch {
-                // Not JSON, keep as text
             }
 
             updateActiveTab({
