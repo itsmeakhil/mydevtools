@@ -200,13 +200,13 @@ export function ApiClient() {
         }
     }, [activeTabId, isInitialized])
 
-    const updateActiveTab = (updates: Partial<ApiRequestState>) => {
+    const updateActiveTab = React.useCallback((updates: Partial<ApiRequestState>) => {
         setTabs((prev) =>
             prev.map((tab) =>
                 tab.id === activeTabId ? { ...tab, ...updates } : tab
             )
         )
-    }
+    }, [activeTabId])
 
     const handleAddTab = () => {
         const newTab = createNewTab()
@@ -271,11 +271,11 @@ export function ApiClient() {
 
     const handleMethodChange = React.useCallback((method: RequestMethod) => {
         updateActiveTab({ method })
-    }, [activeTabId, tabs])
+    }, [updateActiveTab])
 
     const handleUrlChange = React.useCallback((url: string) => {
         updateActiveTab({ url, name: url || API_CLIENT_DEFAULT_TAB_NAME })
-    }, [activeTabId, tabs])
+    }, [updateActiveTab])
 
     const handleImportCurl = (curl: string) => {
         try {
