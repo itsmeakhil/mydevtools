@@ -204,6 +204,7 @@ async def trim_history(uid: str) -> None:
         return
     ids = [d["_id"] for d in stale_docs]
     await db_manager.delete_many(API_CLIENT_HISTORY, {"_id": {"$in": ids}, "created_by": uid})
+    await bump_version(ns="api_client", uid=uid)
 
 
 @cached(ns="api_client", ttl=300, scope="user")

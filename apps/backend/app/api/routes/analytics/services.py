@@ -80,7 +80,7 @@ async def get_dashboard_analytics(uid: str) -> DashboardAnalyticsOut:
         json_docs,
         code_snippets,
     ) = await asyncio.gather(
-        task_svc.get_task_stats(uid),
+        task_svc.get_task_stats(uid=uid),
         db_manager.count_documents(PASSWORD_ENTRIES, base),
         db_manager.count_documents(BOOKMARKS, base),
         db_manager.count_documents(BOOKMARK_FOLDERS, base),

@@ -100,6 +100,7 @@ async def test_cross_user_isolation(real_redis):
 
     await list_bookmarks(uid="u1")
     await bump_version(ns="bookmarks", uid="u1")  # only u1 invalidated
+    await list_bookmarks(uid="u1")  # re-fetch u1 after bump (u1-after-bump)
     await list_bookmarks(uid="u2")
     await list_bookmarks(uid="u2")  # second u2 call must hit cache
     assert calls["n"] == 3, "u1, u1-after-bump, u2-first  (u2-second = cache hit)"

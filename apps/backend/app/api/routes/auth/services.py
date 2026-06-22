@@ -58,11 +58,9 @@ async def verify_id_token_cached(id_token: str, check_revoked: bool = False) -> 
     return await get_or_set(ns="auth_token", key=key, loader=_loader)
 
 
-async def _fetch_user_doc_cached(uid: str) -> dict | None:
-    @_cached(ns="auth_user", ttl=60, scope="user")
-    async def _inner(*, uid: str):
-        return await get_user_doc(uid)
-    return await _inner(uid=uid)
+@_cached(ns="auth_user", ttl=60, scope="user")
+async def _fetch_user_doc_cached(*, uid: str) -> dict | None:
+    return await get_user_doc(uid)
 
 
 def get_current_uid(
