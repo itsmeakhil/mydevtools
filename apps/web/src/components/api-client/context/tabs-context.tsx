@@ -83,21 +83,46 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
         setIsInitialized(true)
     }, [])
 
+    // Keep a ref to the latest tabs so the unmount-flush handler always sees
+    // the freshest snapshot without needing it in the effect dependency array.
+    const tabsRef = React.useRef(tabs)
+    React.useEffect(() => {
+        tabsRef.current = tabs
+    })
+
     // Save tabs to localStorage — strip `response`/`isLoading` (responses can be MBs and
-    // would blow the per-origin localStorage quota).
+    // would blow the per-origin localStorage quota). Writes are debounced to 500ms so rapid
+    // edits (e.g. typing in the URL input) don't saturate the storage layer.
     React.useEffect(() => {
         if (!isInitialized) return
-        const slim = tabs.map((t) => {
-            const { response: _r, isLoading: _l, ...rest } = t
-            return rest
-        })
-        try {
-            localStorage.setItem(TABS_STORAGE_KEY, JSON.stringify(slim))
-        } catch (e) {
-            console.warn("api-client tabs: localStorage write failed, dropping persisted state", e)
-            try { localStorage.removeItem(TABS_STORAGE_KEY) } catch { /* noop */ }
-        }
+        const timeoutId = setTimeout(() => {
+            const slim = tabsRef.current.map((t) => {
+                const { response: _r, isLoading: _l, ...rest } = t
+                return rest
+            })
+            try {
+                localStorage.setItem(TABS_STORAGE_KEY, JSON.stringify(slim))
+            } catch (e) {
+                console.warn("api-client tabs: localStorage write failed, dropping persisted state", e)
+                try { localStorage.removeItem(TABS_STORAGE_KEY) } catch { /* noop */ }
+            }
+        }, 500)
+        return () => clearTimeout(timeoutId)
     }, [tabs, isInitialized])
+
+    // Flush the latest tab state immediately on unmount so mid-debounce edits
+    // are not lost when the user navigates away.
+    React.useEffect(() => {
+        return () => {
+            const slim = tabsRef.current.map((t) => {
+                const { response: _r, isLoading: _l, ...rest } = t
+                return rest
+            })
+            try {
+                localStorage.setItem(TABS_STORAGE_KEY, JSON.stringify(slim))
+            } catch { /* noop */ }
+        }
+    }, [])
 
     // Save active tab id to localStorage
     React.useEffect(() => {

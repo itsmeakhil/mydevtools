@@ -32,18 +32,10 @@ import { getApiClientRequestDisplayName } from "../display-name"
 import { useCollectionsState, useCollectionsActions } from "../context/collections-context"
 import { useHistoryState, useHistoryActions } from "../context/history-context"
 import { CollectionsSidebarSkeleton } from "../skeletons"
+import { useDebouncedValue } from "@/lib/use-debounced-value"
 
 interface CollectionsSidebarProps {
     onLoadRequest: (request: CollectionRequest) => void
-}
-
-function useDebouncedValue<T>(value: T, ms: number): T {
-    const [v, setV] = React.useState(value)
-    React.useEffect(() => {
-        const id = setTimeout(() => setV(value), ms)
-        return () => clearTimeout(id)
-    }, [value, ms])
-    return v
 }
 
 export function CollectionsSidebar({

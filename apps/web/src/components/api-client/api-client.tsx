@@ -571,6 +571,7 @@ function ApiClientInner() {
                                             saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
                                             onPaste={handleCurlPaste}
                                             urlHistory={urlHistory}
+                                            tabId={activeTab.id}
                                         />
                                         <RequestTabs
                                             params={activeTab.params}
@@ -607,6 +608,7 @@ function ApiClientInner() {
                                             saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
                                             onPaste={handleCurlPaste}
                                             urlHistory={urlHistory}
+                                            tabId={activeTab.id}
                                         />
                                         <div className="flex-1 min-h-0">
                                             <RequestTabs
