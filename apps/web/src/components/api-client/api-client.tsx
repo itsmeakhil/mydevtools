@@ -61,9 +61,9 @@ function ApiClientInner() {
     const { collections } = useCollectionsState()
     const { saveRequest } = useCollectionsActions()
     const { history } = useHistoryState()
-    const { addHistoryItem, clearHistory, deleteHistoryItem } = useHistoryActions()
+    const { addHistoryItem } = useHistoryActions()
     const { environments, activeEnvId, activeEnvironmentVariables } = useEnvironmentsState()
-    const { setActiveEnvId, addEnvironment, updateEnvironment, deleteEnvironment, substituteVariables } = useEnvironmentsActions()
+    const { substituteVariables } = useEnvironmentsActions()
 
     const isMobile = useIsMobile()
     const [collectionsOpen, setCollectionsOpen] = React.useState(false)
