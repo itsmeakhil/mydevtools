@@ -25,7 +25,8 @@ import { useIsMobile } from "@/components/hooks/use-mobile"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { FolderOpen, PanelRight, Settings, Code2 } from "lucide-react"
+import { FolderOpen, PanelRight } from "lucide-react"
+import { IconCode, IconSettings } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
 import { ensureHttpScheme } from "@/lib/url-normalize"
 import { useJsonFormatter } from "./workers/use-json-formatter"
@@ -464,7 +465,7 @@ function ApiClientInner() {
                             title={t("environmentManager.manageDialogTitle")}
                             onClick={() => setEnvMgrOpen(true)}
                         >
-                            <Settings className="h-4 w-4" />
+                            <IconSettings className="h-4 w-4" />
                         </Button>
                         {envMgrOpen && (
                             <EnvironmentManager open={envMgrOpen} onOpenChange={setEnvMgrOpen} />
@@ -473,10 +474,11 @@ function ApiClientInner() {
                         <Button
                             variant="ghost"
                             size="icon"
+                            className="h-8 w-8"
                             title={t("codeGenerator.triggerTitle")}
                             onClick={() => setCodeGenOpen(true)}
                         >
-                            <Code2 className="h-4 w-4" />
+                            <IconCode className="h-4 w-4" />
                         </Button>
                         {codeGenOpen && (
                             <CodeGenerator
