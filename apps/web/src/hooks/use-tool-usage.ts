@@ -3,39 +3,36 @@
 import { useCallback } from 'react';
 import useAuth from '@/utils/useAuth';
 import { trackToolUsageApi } from '@/lib/user-preferences-api';
+import {
+  appendEvent,
+  deriveRecents,
+  deriveCounts,
+  type ToolUsage,
+} from '@/lib/tool-usage-utils';
 
 const USAGE_STORAGE_KEY = 'tool-usage-history';
-const MAX_LOCAL_HISTORY = 20;
 
-interface ToolUsage {
-  toolId: string;
-  timestamp: number;
-  url: string;
+function readLog(): ToolUsage[] {
+  try {
+    const raw = localStorage.getItem(USAGE_STORAGE_KEY);
+    return raw ? (JSON.parse(raw) as ToolUsage[]) : [];
+  } catch (error) {
+    console.error('Error reading tool usage history:', error);
+    return [];
+  }
 }
 
 /**
- * Hook to track tool usage for analytics and recently used features
+ * Hook to track tool usage for analytics and recently-used features.
+ * Stores an append-only event log (pruned to 90 days / 500 events).
  */
 export function useToolUsage() {
   const { user } = useAuth(false);
 
   const trackToolUsage = useCallback((toolId: string, url: string) => {
-    const usage: ToolUsage = {
-      toolId,
-      timestamp: Date.now(),
-      url,
-    };
-
     try {
-      const existingHistory = localStorage.getItem(USAGE_STORAGE_KEY);
-      let history: ToolUsage[] = existingHistory ? JSON.parse(existingHistory) : [];
-
-      history = history.filter(h => h.toolId !== toolId);
-      history.unshift(usage);
-
-      history = history.slice(0, MAX_LOCAL_HISTORY);
-
-      localStorage.setItem(USAGE_STORAGE_KEY, JSON.stringify(history));
+      const next = appendEvent(readLog(), { toolId, url, timestamp: Date.now() });
+      localStorage.setItem(USAGE_STORAGE_KEY, JSON.stringify(next));
     } catch (error) {
       console.error('Error tracking tool usage:', error);
     }
@@ -47,21 +44,22 @@ export function useToolUsage() {
     }
   }, [user?.uid]);
 
-  const getRecentlyUsedTools = useCallback((limit: number = 10): ToolUsage[] => {
-    try {
-      const history = localStorage.getItem(USAGE_STORAGE_KEY);
-      if (!history) return [];
+  const getRecentlyUsedTools = useCallback(
+    (limit: number = 10): ToolUsage[] => deriveRecents(readLog(), limit),
+    [],
+  );
 
-      const usageHistory: ToolUsage[] = JSON.parse(history);
-      return usageHistory.slice(0, limit);
-    } catch (error) {
-      console.error('Error reading tool usage history:', error);
-      return [];
-    }
-  }, []);
+  const getUsageEvents = useCallback(
+    (): ToolUsage[] => [...readLog()].sort((a, b) => b.timestamp - a.timestamp),
+    [],
+  );
+
+  const getToolUsageCounts = useCallback(() => deriveCounts(readLog()), []);
 
   return {
     trackToolUsage,
     getRecentlyUsedTools,
+    getUsageEvents,
+    getToolUsageCounts,
   };
 }
