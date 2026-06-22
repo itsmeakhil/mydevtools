@@ -398,10 +398,10 @@ export function DashboardAnalyticsPanel() {
 
   const { getUsageEvents, getToolUsageCounts } = useToolUsage()
   const usageEvents = useMemo(() => getUsageEvents(), [getUsageEvents])
+  const toolUsageCounts = useMemo(() => getToolUsageCounts(), [getToolUsageCounts])
 
   const topUsedTools = useMemo<TopTool[]>(() => {
-    const counts = getToolUsageCounts()
-    return Object.entries(counts)
+    return Object.entries(toolUsageCounts)
       .sort(([, a], [, b]) => b.count - a.count)
       .slice(0, 5)
       .map(([id, info]) => {
@@ -414,7 +414,7 @@ export function DashboardAnalyticsPanel() {
           url: info.url,
         }
       })
-  }, [getToolUsageCounts])
+  }, [toolUsageCounts])
 
   const totalCount = useMemo(() => (data ? sumTrackedItems(data) : 0), [data])
   const completionPct = useMemo(() => {
@@ -510,7 +510,7 @@ export function DashboardAnalyticsPanel() {
         />
         <KpiCard
           label="Tools used locally"
-          value={Object.keys(getToolUsageCounts()).length}
+          value={Object.keys(toolUsageCounts).length}
           icon={Zap}
           accent="border-violet-500/20"
           sub={

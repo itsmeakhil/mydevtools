@@ -36,9 +36,9 @@ export function DonutChart({ segments, centerValue, centerLabel, ariaLabel }: Do
           strokeWidth={STROKE}
         />
         {hasData &&
-          arcs.map((arc, i) => (
+          arcs.map((arc) => (
             <circle
-              key={i}
+              key={arc.segment.label}
               cx="0"
               cy="0"
               r={R}
