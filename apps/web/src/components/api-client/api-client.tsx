@@ -29,10 +29,10 @@ import { FolderOpen, PanelRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ensureHttpScheme } from "@/lib/url-normalize"
 import { useJsonFormatter } from "./workers/use-json-formatter"
-import { TabsProvider, useTabs, useTabsActions, createNewTab } from "./context/tabs-context"
-import { CollectionsProvider, useCollectionsState, useCollectionsActions } from "./context/collections-context"
-import { EnvironmentsProvider, useEnvironmentsState, useEnvironmentsActions } from "./context/environments-context"
-import { HistoryProvider, useHistoryState, useHistoryActions } from "./context/history-context"
+import { useTabs, useTabsActions, createNewTab } from "./context/tabs-context"
+import { useCollectionsState, useCollectionsActions } from "./context/collections-context"
+import { useEnvironmentsState, useEnvironmentsActions } from "./context/environments-context"
+import { useHistoryState, useHistoryActions } from "./context/history-context"
 
 /** `new URL()` requires a scheme; host-only URLs (e.g. `api.example.com/v1`) are common in API clients. */
 function buildRequestUrl(raw: string): URL {
@@ -602,15 +602,5 @@ function ApiClientInner() {
 }
 
 export function ApiClient() {
-    return (
-        <TabsProvider>
-            <CollectionsProvider>
-                <EnvironmentsProvider>
-                    <HistoryProvider>
-                        <ApiClientInner />
-                    </HistoryProvider>
-                </EnvironmentsProvider>
-            </CollectionsProvider>
-        </TabsProvider>
-    )
+    return <ApiClientInner />
 }
