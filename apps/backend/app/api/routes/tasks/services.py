@@ -8,6 +8,7 @@ from fastapi import HTTPException, status
 from pymongo import ReturnDocument
 from pymongo.errors import PyMongoError
 
+from app.core.cache import cached, bump_version
 from app.utils.collection_name import TASKS, PROJECTS
 from app.api.routes.tasks.schema import (
     ProjectCreate,
@@ -100,9 +101,10 @@ def _task_filter(
     return q
 
 
+@cached(ns="tasks", ttl=60, scope="user")
 async def list_tasks(
-    uid: str,
     *,
+    uid: str,
     status_filter: str = "all",
     project_filter: str = "all",
     page: int = 1,
@@ -122,7 +124,8 @@ async def list_tasks(
     )
 
 
-async def get_task_stats(uid: str) -> TaskStatsOut:
+@cached(ns="tasks", ttl=60, scope="user")
+async def get_task_stats(*, uid: str) -> TaskStatsOut:
     pipeline = [
         {"$match": {"created_by": uid}},
         {"$group": {"_id": "$status", "count": {"$sum": 1}}},
@@ -137,9 +140,10 @@ async def get_task_stats(uid: str) -> TaskStatsOut:
     )
 
 
+@cached(ns="tasks", ttl=60, scope="user")
 async def export_tasks(
-    uid: str,
     *,
+    uid: str,
     status_filter: str = "all",
     project_filter: str = "all",
     skip: int = 0,
@@ -173,6 +177,7 @@ async def create_task(uid: str, body: TaskCreate) -> TaskOut:
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create task."
         ) from exc
     doc["_id"] = result.inserted_id
+    await bump_version(ns="tasks", uid=uid)
     return _task_doc_to_out(doc)
 
 
@@ -212,6 +217,7 @@ async def update_task(uid: str, task_id: str, body: TaskUpdate) -> TaskOut:
         ) from exc
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found.")
+    await bump_version(ns="tasks", uid=uid)
     return _task_doc_to_out(doc)
 
 
@@ -237,10 +243,12 @@ async def update_task_status(uid: str, task_id: str, body: TaskStatusUpdate) -> 
         ) from exc
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found.")
+    await bump_version(ns="tasks", uid=uid)
     return _task_doc_to_out(doc)
 
 
-async def get_task(uid: str, task_id: str) -> TaskOut:
+@cached(ns="tasks", ttl=60, scope="user")
+async def get_task(*, uid: str, task_id: str) -> TaskOut:
     oid = _parse_object_id(task_id, "task id")
     doc = await _assert_task_owner(uid, oid)
     return _task_doc_to_out(doc)
@@ -251,6 +259,7 @@ async def delete_task(uid: str, task_id: str) -> None:
     result = await db_manager.delete_one(TASKS, {"_id": oid, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found.")
+    await bump_version(ns="tasks", uid=uid)
 
 
 async def import_tasks(uid: str, body: TaskImportRequest) -> dict[str, int]:
@@ -278,10 +287,12 @@ async def import_tasks(uid: str, body: TaskImportRequest) -> dict[str, int]:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to import tasks."
         ) from exc
+    await bump_version(ns="tasks", uid=uid)
     return {"inserted": len(result.inserted_ids)}
 
 
-async def list_projects(uid: str) -> list[ProjectOut]:
+@cached(ns="tasks", ttl=60, scope="user")
+async def list_projects(*, uid: str) -> list[ProjectOut]:
     docs = await db_manager.find(PROJECTS, {"created_by": uid}, sort=[("createdAt", 1)])
     return [_project_doc_to_out(d) for d in docs]
 
@@ -301,6 +312,7 @@ async def create_project(uid: str, body: ProjectCreate) -> ProjectOut:
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create project."
         ) from exc
     doc["_id"] = result.inserted_id
+    await bump_version(ns="tasks", uid=uid)
     return _project_doc_to_out(doc)
 
 
@@ -320,6 +332,7 @@ async def update_project(uid: str, project_id: str, body: ProjectUpdate) -> Proj
     )
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found.")
+    await bump_version(ns="tasks", uid=uid)
     return _project_doc_to_out(doc)
 
 
@@ -328,3 +341,4 @@ async def delete_project(uid: str, project_id: str) -> None:
     result = await db_manager.delete_one(PROJECTS, {"_id": oid, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found.")
+    await bump_version(ns="tasks", uid=uid)
