@@ -85,8 +85,13 @@ async def aggregate(collection_name, query):
     return await cursor.to_list(length=None)
 
 
-async def create_index(collection_name, field, unique=False, sparse=False):
-    await db[collection_name].create_index(field, unique=unique, sparse=sparse)
+async def create_index(
+    collection_name, field, unique=False, sparse=False, expire_after_seconds=None
+):
+    kwargs = {"unique": unique, "sparse": sparse}
+    if expire_after_seconds is not None:
+        kwargs["expireAfterSeconds"] = expire_after_seconds
+    await db[collection_name].create_index(field, **kwargs)
 
 
 async def drop_index(collection_name, name):

@@ -23,6 +23,7 @@ from app.api.routes.api_client.schema import (
     ApiClientHistoryOut,
     HISTORY_MAX_ITEMS,
 )
+from app.core.cache import cached, bump_version
 from app.database import db_manager
 
 HISTORY_TRIM_BATCH_SIZE = 500
@@ -56,7 +57,8 @@ def _env_to_out(doc: dict[str, Any]) -> ApiClientEnvironmentOut:
     )
 
 
-async def list_collections(uid: str) -> list[ApiClientCollectionOut]:
+@cached(ns="api_client", ttl=300, scope="user")
+async def list_collections(*, uid: str) -> list[ApiClientCollectionOut]:
     docs = await db_manager.find(
         API_CLIENT_COLLECTIONS,
         {"created_by": uid},
@@ -75,6 +77,7 @@ async def create_collection(uid: str, body: ApiClientCollectionCreate) -> ApiCli
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create collection."
         ) from exc
     doc["_id"] = result.inserted_id
+    await bump_version(ns="api_client", uid=uid)
     return _collection_to_out(doc)
 
 
@@ -99,6 +102,7 @@ async def patch_collection(uid: str, collection_id: str, body: ApiClientCollecti
         ) from exc
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Collection not found.")
+    await bump_version(ns="api_client", uid=uid)
     return _collection_to_out(doc)
 
 
@@ -107,9 +111,11 @@ async def delete_collection(uid: str, collection_id: str) -> None:
     result = await db_manager.delete_one(API_CLIENT_COLLECTIONS, {"_id": oid, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Collection not found.")
+    await bump_version(ns="api_client", uid=uid)
 
 
-async def list_environments(uid: str) -> list[ApiClientEnvironmentOut]:
+@cached(ns="api_client", ttl=300, scope="user")
+async def list_environments(*, uid: str) -> list[ApiClientEnvironmentOut]:
     docs = await db_manager.find(
         API_CLIENT_ENVIRONMENTS,
         {"created_by": uid},
@@ -128,6 +134,7 @@ async def create_environment(uid: str, body: ApiClientEnvironmentCreate) -> ApiC
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create environment."
         ) from exc
     doc["_id"] = result.inserted_id
+    await bump_version(ns="api_client", uid=uid)
     return _env_to_out(doc)
 
 
@@ -152,6 +159,7 @@ async def patch_environment(uid: str, environment_id: str, body: ApiClientEnviro
         ) from exc
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Environment not found.")
+    await bump_version(ns="api_client", uid=uid)
     return _env_to_out(doc)
 
 
@@ -160,6 +168,7 @@ async def delete_environment(uid: str, environment_id: str) -> None:
     result = await db_manager.delete_one(API_CLIENT_ENVIRONMENTS, {"_id": oid, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Environment not found.")
+    await bump_version(ns="api_client", uid=uid)
 
 
 def _history_doc_to_out(doc: dict[str, Any]) -> ApiClientHistoryOut:
@@ -195,9 +204,11 @@ async def trim_history(uid: str) -> None:
         return
     ids = [d["_id"] for d in stale_docs]
     await db_manager.delete_many(API_CLIENT_HISTORY, {"_id": {"$in": ids}, "created_by": uid})
+    await bump_version(ns="api_client", uid=uid)
 
 
-async def list_history(uid: str, *, limit: int = HISTORY_MAX_ITEMS) -> list[ApiClientHistoryOut]:
+@cached(ns="api_client", ttl=300, scope="user")
+async def list_history(*, uid: str, limit: int = HISTORY_MAX_ITEMS) -> list[ApiClientHistoryOut]:
     lim = max(1, min(limit, HISTORY_MAX_ITEMS))
     docs = await db_manager.find(API_CLIENT_HISTORY, {"created_by": uid}, sort=[("timestamp", -1)], limit=lim)
     return [_history_doc_to_out(d) for d in docs]
@@ -224,6 +235,7 @@ async def create_history(uid: str, body: ApiClientHistoryCreate) -> ApiClientHis
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to save history entry."
         ) from exc
     doc["_id"] = result.inserted_id
+    await bump_version(ns="api_client", uid=uid)
     return _history_doc_to_out(doc)
 
 
@@ -232,6 +244,7 @@ async def delete_history_entry(uid: str, entry_id: str) -> None:
     result = await db_manager.delete_one(API_CLIENT_HISTORY, {"_id": oid, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="History entry not found.")
+    await bump_version(ns="api_client", uid=uid)
 
 
 async def clear_history(uid: str) -> None:
@@ -241,3 +254,4 @@ async def clear_history(uid: str) -> None:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to clear history."
         ) from exc
+    await bump_version(ns="api_client", uid=uid)

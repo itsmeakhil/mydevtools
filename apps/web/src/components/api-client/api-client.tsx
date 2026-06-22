@@ -10,17 +10,10 @@ import { TabBar } from "./tab-bar"
 import { ImportCurlDialog } from "./import-curl-dialog"
 import { parseCurlCommand } from "@/utils/curl-parser"
 import { CollectionsSidebar } from "./collections/collections-sidebar"
-import { useCollections } from "./collections/use-collections"
-import { useHistory } from "./use-history"
-import { useEnvironments } from "./use-environments"
 import { EnvironmentManager } from "./environment-manager"
 import { CodeGenerator } from "./code-generator"
 import {
     RequestMethod,
-    KeyValueItem,
-    RequestBody,
-    RequestAuth,
-    ApiResponse,
     ApiRequestState,
     CollectionRequest,
     API_CLIENT_DEFAULT_TAB_NAME,
@@ -35,6 +28,11 @@ import { Button } from "@/components/ui/button"
 import { FolderOpen, PanelRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ensureHttpScheme } from "@/lib/url-normalize"
+import { useJsonFormatter } from "./workers/use-json-formatter"
+import { TabsProvider, useTabs, useTabsActions, createNewTab } from "./context/tabs-context"
+import { CollectionsProvider, useCollectionsState, useCollectionsActions } from "./context/collections-context"
+import { EnvironmentsProvider, useEnvironmentsState, useEnvironmentsActions } from "./context/environments-context"
+import { HistoryProvider, useHistoryState, useHistoryActions } from "./context/history-context"
 
 /** `new URL()` requires a scheme; host-only URLs (e.g. `api.example.com/v1`) are common in API clients. */
 function buildRequestUrl(raw: string): URL {
@@ -53,62 +51,24 @@ function buildRequestUrl(raw: string): URL {
     }
 }
 
-const createNewTab = (): ApiRequestState => ({
-    id: crypto.randomUUID(),
-    name: API_CLIENT_DEFAULT_TAB_NAME,
-    method: "GET",
-    url: "",
-    params: [{ id: "1", key: "", value: "", active: true }],
-    headers: [{ id: "1", key: "", value: "", active: true }],
-    body: {
-        type: "none",
-        content: "",
-        formData: [{ id: crypto.randomUUID(), key: "", value: "", active: true, valueType: "text" }],
-        urlEncoded: [{ id: crypto.randomUUID(), key: "", value: "", active: true }],
-    },
-    auth: { type: "none" },
-    response: null,
-    isLoading: false,
-})
-
-const TABS_STORAGE_KEY = "api-client-tabs"
-const ACTIVE_TAB_STORAGE_KEY = "api-client-active-tab"
-
-export function ApiClient() {
+function ApiClientInner() {
     const t = useTranslations("ApiClient")
-    const [tabs, setTabs] = React.useState<ApiRequestState[]>([createNewTab()])
-    const [activeTabId, setActiveTabId] = React.useState<string>(tabs[0].id)
-    const [isInitialized, setIsInitialized] = React.useState(false)
-    const abortControllerRef = React.useRef<AbortController | null>(null)
-    const { collections, addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, deleteMultipleCollections, isLoading: collectionsLoading } = useCollections()
-    const { history, addHistoryItem, clearHistory, deleteHistoryItem } = useHistory()
-    const {
-        environments,
-        activeEnvId,
-        setActiveEnvId,
-        addEnvironment,
-        updateEnvironment,
-        deleteEnvironment,
-        substituteVariables
-    } = useEnvironments()
+    const { tabs, activeTabId, activeTab } = useTabs()
+    const { addTab, appendTab, closeTab, duplicateTab, renameTab, reorderTabs, setActiveTabId, updateActiveTab } = useTabsActions()
 
-    const activeTab = tabs.find((t) => t.id === activeTabId) || tabs[0]
+    const abortControllerRef = React.useRef<AbortController | null>(null)
+    const { format: formatJson } = useJsonFormatter()
+    const { collections } = useCollectionsState()
+    const { saveRequest } = useCollectionsActions()
+    const { history } = useHistoryState()
+    const { addHistoryItem, clearHistory, deleteHistoryItem } = useHistoryActions()
+    const { environments, activeEnvId, activeEnvironmentVariables } = useEnvironmentsState()
+    const { setActiveEnvId, addEnvironment, updateEnvironment, deleteEnvironment, substituteVariables } = useEnvironmentsActions()
+
     const isMobile = useIsMobile()
     const [collectionsOpen, setCollectionsOpen] = React.useState(false)
     const [sidebarOpen, setSidebarOpen] = React.useState(true)
     const [mobilePanel, setMobilePanel] = React.useState<'request' | 'response'>('request')
-    const activeEnvironmentVariables = React.useMemo(() => {
-        if (!activeEnvId) return {}
-        const activeEnv = environments.find((env) => env.id === activeEnvId)
-        if (!activeEnv) return {}
-
-        return activeEnv.variables.reduce((acc, variable) => {
-            if (variable.enabled && variable.key) {
-                acc[variable.key] = variable.value
-            }
-            return acc
-        }, {} as Record<string, string>)
-    }, [environments, activeEnvId])
 
     const urlHistory = React.useMemo(() => {
         const seen = new Set<string>()
@@ -121,134 +81,6 @@ export function ApiClient() {
         }
         return urls
     }, [history])
-
-    // Keyboard shortcuts
-    React.useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            const isMac = /Mac|iPhone|iPad/i.test(navigator.userAgent)
-            const mod = isMac ? e.metaKey : e.ctrlKey
-
-            if (mod && e.key === "t") {
-                e.preventDefault()
-                handleAddTab()
-            } else if (mod && e.key === "w") {
-                e.preventDefault()
-                handleCloseTab(activeTabId)
-            } else if (mod && e.key === "Enter") {
-                e.preventDefault()
-                handleSend()
-            }
-        }
-        window.addEventListener("keydown", handleKeyDown)
-        return () => window.removeEventListener("keydown", handleKeyDown)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [activeTabId, tabs])
-
-    // Load state from localStorage
-    React.useEffect(() => {
-        const storedTabs = localStorage.getItem(TABS_STORAGE_KEY)
-        const storedActiveTabId = localStorage.getItem(ACTIVE_TAB_STORAGE_KEY)
-
-        if (storedTabs) {
-            try {
-                const parsedTabs = JSON.parse(storedTabs)
-                if (Array.isArray(parsedTabs) && parsedTabs.length > 0) {
-                    // Drop persisted responses from older builds — they could carry MB-sized
-                    // bodies that blow the per-origin localStorage quota.
-                    const sanitized = parsedTabs.map((t: ApiRequestState) => ({
-                        ...t,
-                        response: null,
-                        isLoading: false,
-                    }))
-                    setTabs(sanitized)
-                    if (storedActiveTabId) {
-                        setActiveTabId(storedActiveTabId)
-                    } else {
-                        setActiveTabId(sanitized[0].id)
-                    }
-                }
-            } catch (e) {
-                console.error("Failed to parse stored tabs", e)
-                try { localStorage.removeItem(TABS_STORAGE_KEY) } catch { /* noop */ }
-            }
-        }
-        setIsInitialized(true)
-    }, [])
-
-    // Save state to localStorage — strip `response`/`isLoading` (responses can be MBs and
-    // would blow the per-origin localStorage quota).
-    React.useEffect(() => {
-        if (!isInitialized) return
-        const slim = tabs.map((t) => {
-            const { response: _r, isLoading: _l, ...rest } = t
-            return rest
-        })
-        try {
-            localStorage.setItem(TABS_STORAGE_KEY, JSON.stringify(slim))
-        } catch (e) {
-            console.warn("api-client tabs: localStorage write failed, dropping persisted state", e)
-            try { localStorage.removeItem(TABS_STORAGE_KEY) } catch { /* noop */ }
-        }
-    }, [tabs, isInitialized])
-
-    React.useEffect(() => {
-        if (!isInitialized) return
-        try {
-            localStorage.setItem(ACTIVE_TAB_STORAGE_KEY, activeTabId)
-        } catch (e) {
-            console.warn("api-client active tab: localStorage write failed", e)
-        }
-    }, [activeTabId, isInitialized])
-
-    const updateActiveTab = (updates: Partial<ApiRequestState>) => {
-        setTabs((prev) =>
-            prev.map((tab) =>
-                tab.id === activeTabId ? { ...tab, ...updates } : tab
-            )
-        )
-    }
-
-    const handleAddTab = () => {
-        const newTab = createNewTab()
-        setTabs((prev) => [...prev, newTab])
-        setActiveTabId(newTab.id)
-    }
-
-    const handleCloseTab = (id: string) => {
-        if (tabs.length === 1) {
-            const newTab = createNewTab()
-            setTabs([newTab])
-            setActiveTabId(newTab.id)
-            return
-        }
-
-        const closedIdx = tabs.findIndex((t) => t.id === id)
-        const newTabs = tabs.filter((t) => t.id !== id)
-        setTabs(newTabs)
-
-        if (activeTabId === id) {
-            const nextIdx = Math.min(closedIdx, newTabs.length - 1)
-            setActiveTabId(newTabs[nextIdx]!.id)
-        }
-    }
-
-    const handleDuplicateTab = (id: string) => {
-        const source = tabs.find((t) => t.id === id)
-        if (!source) return
-        const newTab: ApiRequestState = {
-            ...source,
-            id: crypto.randomUUID(),
-            response: null,
-            isLoading: false,
-        }
-        const sourceIdx = tabs.findIndex((t) => t.id === id)
-        setTabs((prev) => {
-            const next = [...prev]
-            next.splice(sourceIdx + 1, 0, newTab)
-            return next
-        })
-        setActiveTabId(newTab.id)
-    }
 
     const replaceUrlWithEnvBaseUrl = React.useCallback((url: string | undefined) => {
         if (!url || !activeEnvId) return url
@@ -269,11 +101,19 @@ export function ApiClient() {
         return newUrl
     }, [environments, activeEnvId])
 
+    const handleMethodChange = React.useCallback((method: RequestMethod) => {
+        updateActiveTab({ method })
+    }, [updateActiveTab])
+
+    const handleUrlChange = React.useCallback((url: string) => {
+        updateActiveTab({ url, name: url || API_CLIENT_DEFAULT_TAB_NAME })
+    }, [updateActiveTab])
+
     const handleImportCurl = (curl: string) => {
         try {
             const parsed = parseCurlCommand(curl)
             const resolvedUrl = replaceUrlWithEnvBaseUrl(parsed.url)
-            
+
             const newTab: ApiRequestState = {
                 ...createNewTab(),
                 ...parsed,
@@ -281,8 +121,7 @@ export function ApiClient() {
                 name: resolvedUrl || API_CLIENT_IMPORTED_TAB_NAME,
                 id: crypto.randomUUID(),
             }
-            setTabs((prev) => [...prev, newTab])
-            setActiveTabId(newTab.id)
+            appendTab(newTab)
             toast.success(t("toasts.curlImported"))
         } catch (error) {
             console.error(error)
@@ -305,14 +144,6 @@ export function ApiClient() {
         updateActiveTab({ name })
     }
 
-    const handleTabRename = (id: string, name: string) => {
-        setTabs((prev) => prev.map((tab) => tab.id === id ? { ...tab, name } : tab))
-    }
-
-    const handleTabReorder = (reordered: ApiRequestState[]) => {
-        setTabs(reordered)
-    }
-
     const handleLoadRequest = (request: CollectionRequest) => {
         const newTab: ApiRequestState = {
             ...createNewTab(),
@@ -321,8 +152,7 @@ export function ApiClient() {
             response: null,
             isLoading: false,
         }
-        setTabs((prev) => [...prev, newTab])
-        setActiveTabId(newTab.id)
+        appendTab(newTab)
     }
 
     const handleCancel = () => {
@@ -331,7 +161,7 @@ export function ApiClient() {
         updateActiveTab({ isLoading: false })
     }
 
-    const handleSend = async () => {
+    const handleSend = React.useCallback(async () => {
         if (!activeTab.url?.trim()) return
 
         abortControllerRef.current?.abort()
@@ -467,12 +297,22 @@ export function ApiClient() {
             const proxyData = await res.json()
 
             let formattedBody = proxyData.body
-            try {
-                if (formattedBody && !proxyData.isBase64) {
-                    formattedBody = JSON.stringify(JSON.parse(formattedBody), null, 2)
+            if (formattedBody && !proxyData.isBase64) {
+                const responseContentType = (proxyData.headers as Record<string, string> | undefined)
+                const rawCT = responseContentType
+                    ? Object.entries(responseContentType).find(([k]) => k.toLowerCase() === "content-type")?.[1] ?? ""
+                    : ""
+                if (rawCT.includes("application/json")) {
+                    const r = await formatJson(formattedBody)
+                    if (r.ok) formattedBody = r.formatted
+                } else {
+                    // Non-JSON: attempt sync pretty-print as before (best-effort)
+                    try {
+                        formattedBody = JSON.stringify(JSON.parse(formattedBody), null, 2)
+                    } catch {
+                        // Not JSON, keep as text
+                    }
                 }
-            } catch {
-                // Not JSON, keep as text
             }
 
             updateActiveTab({
@@ -524,7 +364,7 @@ export function ApiClient() {
                 auth: activeTab.auth,
             }, activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : activeTab.url, 0)
         }
-    }
+    }, [activeTab, updateActiveTab, isMobile, substituteVariables, formatJson, addHistoryItem, t])
 
     const handleCurlPaste = (curl: string) => {
         try {
@@ -543,9 +383,27 @@ export function ApiClient() {
         }
     }
 
-    const handleDeleteMultipleCollections = async (ids: string[]) => {
-        await deleteMultipleCollections(ids)
-    }
+    // Keyboard shortcuts
+    React.useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            const isMac = /Mac|iPhone|iPad/i.test(navigator.userAgent)
+            const mod = isMac ? e.metaKey : e.ctrlKey
+
+            if (mod && e.key === "t") {
+                e.preventDefault()
+                addTab()
+            } else if (mod && e.key === "w") {
+                e.preventDefault()
+                closeTab(activeTabId)
+            } else if (mod && e.key === "Enter") {
+                e.preventDefault()
+                handleSend()
+            }
+        }
+        window.addEventListener("keydown", handleKeyDown)
+        return () => window.removeEventListener("keydown", handleKeyDown)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [addTab, closeTab, handleSend, activeTabId])
 
     return (
         <div className="flex h-full min-h-0 w-full flex-col gap-4 mobile-nav-offset lg:flex-row">
@@ -564,36 +422,17 @@ export function ApiClient() {
                                 <div className="bottom-sheet-handle w-12 h-1.5 bg-muted rounded-full mx-auto my-3" />
                                 <div className="px-4 h-full overflow-hidden">
                                     <CollectionsSidebar
-                                        collections={collections}
-                                        isLoading={collectionsLoading}
-                                        onAddFolder={addFolder}
-                                        onDelete={deleteItem}
-                                        onToggle={toggleFolder}
                                         onLoadRequest={(request) => {
                                             handleLoadRequest(request)
                                             setCollectionsOpen(false)
                                         }}
-                                        onCreateCollection={createCollection}
-                                        onRenameCollection={renameCollection}
-                                        onRenameFolder={renameFolder}
-                                        history={history}
-                                        onClearHistory={clearHistory}
-                                        onDeleteHistoryItem={deleteHistoryItem}
-                                        onDeleteMultiple={handleDeleteMultipleCollections}
                                     />
                                 </div>
                             </SheetContent>
                         </Sheet>
                     )}
                     <div className="flex flex-wrap items-center gap-2 ml-auto">
-                        <EnvironmentManager
-                            environments={environments}
-                            activeEnvId={activeEnvId}
-                            setActiveEnvId={setActiveEnvId}
-                            addEnvironment={addEnvironment}
-                            updateEnvironment={updateEnvironment}
-                            deleteEnvironment={deleteEnvironment}
-                        />
+                        <EnvironmentManager />
                         <div className="h-6 w-px bg-border/50 mx-1" />
                         <CodeGenerator request={activeTab} />
                         <ImportCurlDialog onImport={handleImportCurl} />
@@ -619,11 +458,11 @@ export function ApiClient() {
                         tabs={tabs}
                         activeTabId={activeTabId}
                         onTabChange={setActiveTabId}
-                        onTabClose={handleCloseTab}
-                        onTabAdd={handleAddTab}
-                        onTabRename={handleTabRename}
-                        onTabReorder={handleTabReorder}
-                        onTabDuplicate={handleDuplicateTab}
+                        onTabClose={closeTab}
+                        onTabAdd={addTab}
+                        onTabRename={renameTab}
+                        onTabReorder={reorderTabs}
+                        onTabDuplicate={duplicateTab}
                     />
 
                     {/* Mobile Request/Response tab switcher */}
@@ -669,9 +508,9 @@ export function ApiClient() {
                                     <div className="p-4 flex flex-col gap-6 min-h-full">
                                         <RequestPanel
                                             method={activeTab.method}
-                                            setMethod={(method) => updateActiveTab({ method })}
+                                            setMethod={handleMethodChange}
                                             url={activeTab.url}
-                                            setUrl={(url) => updateActiveTab({ url, name: url || API_CLIENT_DEFAULT_TAB_NAME })}
+                                            setUrl={handleUrlChange}
                                             onSend={handleSend}
                                             onCancel={handleCancel}
                                             isLoading={activeTab.isLoading}
@@ -679,7 +518,6 @@ export function ApiClient() {
                                             onSave={handleSaveRequest}
                                             saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
                                             onPaste={handleCurlPaste}
-                                            activeEnvironmentVariables={activeEnvironmentVariables}
                                             urlHistory={urlHistory}
                                         />
                                         <RequestTabs
@@ -706,9 +544,9 @@ export function ApiClient() {
                                     <div className="p-4 md:p-6 lg:p-8 flex flex-col gap-6 flex-1 min-h-0">
                                         <RequestPanel
                                             method={activeTab.method}
-                                            setMethod={(method) => updateActiveTab({ method })}
+                                            setMethod={handleMethodChange}
                                             url={activeTab.url}
-                                            setUrl={(url) => updateActiveTab({ url, name: url || API_CLIENT_DEFAULT_TAB_NAME })}
+                                            setUrl={handleUrlChange}
                                             onSend={handleSend}
                                             onCancel={handleCancel}
                                             isLoading={activeTab.isLoading}
@@ -716,7 +554,6 @@ export function ApiClient() {
                                             onSave={handleSaveRequest}
                                             saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
                                             onPaste={handleCurlPaste}
-                                            activeEnvironmentVariables={activeEnvironmentVariables}
                                             urlHistory={urlHistory}
                                         />
                                         <div className="flex-1 min-h-0">
@@ -749,29 +586,31 @@ export function ApiClient() {
 
             {/* Desktop Collections Sidebar */}
             {!isMobile && (
-                <div 
+                <div
                     className={cn(
                         "shrink-0 h-full border rounded-2xl bg-card/50 backdrop-blur-sm shadow-lg shadow-primary/[0.01] overflow-hidden transition-all duration-300 ease-in-out",
                         sidebarOpen ? "w-80 opacity-100" : "w-0 opacity-0 border-transparent overflow-hidden"
                     )}
                 >
                     <CollectionsSidebar
-                        collections={collections}
-                        isLoading={collectionsLoading}
-                        onAddFolder={addFolder}
-                        onDelete={deleteItem}
-                        onToggle={toggleFolder}
                         onLoadRequest={handleLoadRequest}
-                        onCreateCollection={createCollection}
-                        onRenameCollection={renameCollection}
-                        onRenameFolder={renameFolder}
-                        history={history}
-                        onClearHistory={clearHistory}
-                        onDeleteHistoryItem={deleteHistoryItem}
-                        onDeleteMultiple={handleDeleteMultipleCollections}
                     />
                 </div>
             )}
         </div>
+    )
+}
+
+export function ApiClient() {
+    return (
+        <TabsProvider>
+            <CollectionsProvider>
+                <EnvironmentsProvider>
+                    <HistoryProvider>
+                        <ApiClientInner />
+                    </HistoryProvider>
+                </EnvironmentsProvider>
+            </CollectionsProvider>
+        </TabsProvider>
     )
 }

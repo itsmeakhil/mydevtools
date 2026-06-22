@@ -20,7 +20,7 @@ router = APIRouter(prefix="/api-client", tags=["api-client"])
 
 @router.get("/collections", response_model=list[ApiClientCollectionOut], summary="List API client collections")
 async def list_collections(uid: str = Depends(get_current_uid)) -> list[ApiClientCollectionOut]:
-    return await api_client_svc.list_collections(uid)
+    return await api_client_svc.list_collections(uid=uid)
 
 
 @router.post("/collections", response_model=ApiClientCollectionOut, summary="Create API client collection")
@@ -51,7 +51,7 @@ async def delete_collection(collection_id: str, uid: str = Depends(get_current_u
 
 @router.get("/environments", response_model=list[ApiClientEnvironmentOut], summary="List API client environments")
 async def list_environments(uid: str = Depends(get_current_uid)) -> list[ApiClientEnvironmentOut]:
-    return await api_client_svc.list_environments(uid)
+    return await api_client_svc.list_environments(uid=uid)
 
 
 @router.post("/environments", response_model=ApiClientEnvironmentOut, summary="Create API client environment")
@@ -85,7 +85,7 @@ async def list_history(
     uid: str = Depends(get_current_uid),
     limit: int = Query(default=HISTORY_MAX_ITEMS, ge=1, le=HISTORY_MAX_ITEMS),
 ) -> list[ApiClientHistoryOut]:
-    return await api_client_svc.list_history(uid, limit=limit)
+    return await api_client_svc.list_history(uid=uid, limit=limit)
 
 
 @router.post("/history", response_model=ApiClientHistoryOut, summary="Append API client history entry")

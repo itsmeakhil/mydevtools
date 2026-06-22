@@ -150,6 +150,18 @@ export async function POST(req: NextRequest) {
             requestHeaders["cookie"] = incomingCookie
         }
 
+        // For trusted backend calls only, forward the real client's User-Agent + IP so the
+        // audit log records the actual device (not this server's fetch agent). Never leak
+        // these to arbitrary SSRF-checked targets.
+        if (isBackendRequest) {
+            const hasHeader = (name: string) =>
+                Object.keys(requestHeaders).some((k) => k.toLowerCase() === name)
+            const userAgent = req.headers.get("user-agent")
+            if (userAgent && !hasHeader("user-agent")) requestHeaders["user-agent"] = userAgent
+            const forwardedFor = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip")
+            if (forwardedFor && !hasHeader("x-forwarded-for")) requestHeaders["x-forwarded-for"] = forwardedFor
+        }
+
         let requestBody: BodyInit | undefined = body || undefined
 
         if (body && typeof body === "object" && body.mode === "form-data" && Array.isArray(body.entries)) {

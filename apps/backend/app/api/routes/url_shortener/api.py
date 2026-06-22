@@ -34,12 +34,12 @@ async def list_links(
     skip: int = Query(default=0, ge=0),
     limit: int = Query(default=100, ge=1, le=500),
 ) -> list[ShortLinkOut]:
-    return await svc.list_links(uid, skip=skip, limit=limit)
+    return await svc.list_my_short_urls(uid=uid, skip=skip, limit=limit)
 
 
 @router.get("/resolve/{code}", response_model=ShortLinkResolve, summary="Resolve a short code (public)")
 async def resolve_link(code: str) -> ShortLinkResolve:
-    return await svc.resolve_link(code)
+    return await svc.resolve_short_url(slug=code)
 
 
 @router.post("/{code}/click", status_code=204, summary="Record a click (public)")

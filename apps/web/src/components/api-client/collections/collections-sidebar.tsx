@@ -4,7 +4,7 @@ import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Collection, CollectionFolder, CollectionRequest, HistoryRequest } from "../types"
+import { Collection, CollectionRequest } from "../types"
 import { CollectionItem } from "./collection-item"
 import { FolderPlus, Trash2, Pencil, MoreHorizontal, Search, X, Loader2 } from "lucide-react"
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll"
@@ -29,61 +29,57 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useTranslations } from "next-intl"
 import { getApiClientRequestDisplayName } from "../display-name"
+import { useCollectionsState, useCollectionsActions } from "../context/collections-context"
+import { useHistoryState, useHistoryActions } from "../context/history-context"
 
 interface CollectionsSidebarProps {
-    collections: Collection[]
-    isLoading?: boolean
-    onAddFolder: (parentId: string, name: string) => void
-    onDelete: (id: string) => void
-    onToggle: (id: string) => void
     onLoadRequest: (request: CollectionRequest) => void
-    onCreateCollection: (name: string) => void
-    onRenameCollection: (id: string, name: string) => void
-    onRenameFolder?: (folderId: string, newName: string) => void
-    history?: HistoryRequest[]
-    onClearHistory?: () => void
-    onDeleteHistoryItem?: (id: string) => void
-    onDeleteMultiple?: (ids: string[]) => void
+}
+
+function useDebouncedValue<T>(value: T, ms: number): T {
+    const [v, setV] = React.useState(value)
+    React.useEffect(() => {
+        const id = setTimeout(() => setV(value), ms)
+        return () => clearTimeout(id)
+    }, [value, ms])
+    return v
 }
 
 export function CollectionsSidebar({
-    collections,
-    isLoading,
-    onAddFolder,
-    onDelete,
-    onToggle,
     onLoadRequest,
-    onCreateCollection,
-    onRenameCollection,
-    onRenameFolder,
-    history,
-    onClearHistory,
-    onDeleteHistoryItem,
-    onDeleteMultiple,
 }: CollectionsSidebarProps) {
+    const { collections, isLoading } = useCollectionsState()
+    const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, deleteMultipleCollections: onDeleteMultiple } = useCollectionsActions()
+    const { history } = useHistoryState()
+    const { clearHistory: onClearHistory, deleteHistoryItem: onDeleteHistoryItem } = useHistoryActions()
     const t = useTranslations("ApiClient.collectionsSidebar")
     const tRoot = useTranslations("ApiClient")
     const [historySearch, setHistorySearch] = React.useState("")
 
+    const debouncedSearch = useDebouncedValue(historySearch, 200)
+
     const filteredHistory = React.useMemo(() => {
-        if (!history) return []
-        if (!historySearch.trim()) return history
-        const q = historySearch.toLowerCase()
+        const q = debouncedSearch.trim().toLowerCase()
+        if (!q) return history
         return history.filter(item =>
             item.url?.toLowerCase().includes(q) ||
             item.name?.toLowerCase().includes(q) ||
             item.method?.toLowerCase().includes(q)
         )
-    }, [history, historySearch])
+    }, [history, debouncedSearch])
 
     const historyScrollRef = React.useRef<HTMLDivElement>(null)
     const { displayCount: historyDisplayCount, sentinelRef: historySentinelRef, hasMore: historyHasMore } = useInfiniteScroll({
         totalCount: filteredHistory.length,
-        resetKey: historySearch,
+        resetKey: debouncedSearch,
         pageSize: 30,
         scrollContainerRef: historyScrollRef,
     })
-    const visibleHistory = filteredHistory.slice(0, historyDisplayCount)
+
+    const visibleHistory = React.useMemo(
+        () => filteredHistory.slice(0, historyDisplayCount),
+        [filteredHistory, historyDisplayCount]
+    )
     const [newFolderDialogOpen, setNewFolderDialogOpen] = React.useState(false)
     const [newCollectionDialogOpen, setNewCollectionDialogOpen] = React.useState(false)
     const [renameCollectionDialogOpen, setRenameCollectionDialogOpen] = React.useState(false)
@@ -122,16 +118,16 @@ export function CollectionsSidebar({
         }
     }
 
-    const openAddFolderDialog = (parentId: string) => {
+    const openAddFolderDialog = React.useCallback((parentId: string) => {
         setTargetParentId(parentId)
         setNewFolderDialogOpen(true)
-    }
+    }, [])
 
-    const openRenameCollectionDialog = (collection: Collection) => {
+    const openRenameCollectionDialog = React.useCallback((collection: Collection) => {
         setTargetCollectionId(collection.id)
         setRenameCollectionName(collection.name)
         setRenameCollectionDialogOpen(true)
-    }
+    }, [])
 
     const toggleCollectionSelection = (collectionId: string) => {
         setSelectedCollections(prev => {
@@ -344,7 +340,7 @@ export function CollectionsSidebar({
                                             className="h-6 w-6 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-md opacity-0 group-hover:opacity-100 transition-opacity shrink-0" 
                                             onClick={(e) => {
                                                 e.stopPropagation()
-                                                onDeleteHistoryItem?.(item.id)
+                                                onDeleteHistoryItem(item.id)
                                             }}
                                         >
                                             <Trash2 className="h-3.5 w-3.5" />
@@ -373,7 +369,7 @@ export function CollectionsSidebar({
                                     <Loader2 className="h-4 w-4 animate-spin text-muted-foreground/50" />
                                 </div>
                             )}
-                            {!history?.length && (
+                            {!history.length && (
                                 <div className="flex flex-col items-center justify-center p-8 text-center">
                                     <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center mb-3">
                                         <FolderPlus className="h-5 w-5 text-muted-foreground/50" />
@@ -382,7 +378,7 @@ export function CollectionsSidebar({
                                     <p className="text-xs text-muted-foreground mt-1">{t("noHistoryHint")}</p>
                                 </div>
                             )}
-                            {!!history?.length && historySearch && !filteredHistory.length && (
+                            {!!history.length && historySearch && !filteredHistory.length && (
                                 <div className="text-xs text-muted-foreground text-center py-6">No results for &quot;{historySearch}&quot;</div>
                             )}
                         </div>

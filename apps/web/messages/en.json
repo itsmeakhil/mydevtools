@@ -229,6 +229,7 @@
     "welcomeBackNamed": "Welcome back, {name}",
     "tagline": "What would you like to build today?",
     "brandName": "MyDevTools",
+    "viewActivity": "Recent activity",
     "signIn": "Sign in",
     "stats": {
       "tools": "Tools",
@@ -297,6 +298,24 @@
       "enabledTools": "Visible tools",
       "favoriteTools": "Favorite tools",
       "toolsWithUsage": "Tools with usage tracked"
+    },
+    "activity": {
+      "title": "Activity log",
+      "subtitle": "Everything you changed, when, and from which device.",
+      "filterModule": "Module",
+      "filterOutcome": "Outcome",
+      "search": "Search",
+      "all": "All",
+      "success": "Success",
+      "failure": "Failure",
+      "empty": "No activity yet.",
+      "loadError": "Could not load activity.",
+      "loadMore": "Load more",
+      "changedFields": "What changed",
+      "device": "Device",
+      "before": "Before",
+      "after": "After",
+      "viewAll": "View all activity"
     },
     "toolCard": {
       "defaultDescription": "Explore this tool for better functionality.",

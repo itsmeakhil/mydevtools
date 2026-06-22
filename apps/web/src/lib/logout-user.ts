@@ -17,6 +17,16 @@ export async function clearSensitiveClientState(): Promise<void> {
   usePasswordStore.getState().clearPasswords()
   useMasterKeyStore.getState().clearKey()
 
+  // Wipe localStorage so no user data is left behind on a forced/expired logout
+  // (e.g. a refresh 401). Best-effort — never block logout on a storage failure.
+  if (typeof window !== "undefined") {
+    try {
+      window.localStorage.clear()
+    } catch {
+      // ignore (private mode / storage disabled)
+    }
+  }
+
   // Clear persisted CryptoKeys (best-effort)
   await Promise.allSettled([clearVaultKey(), clearMasterKey()])
 }

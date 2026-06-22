@@ -5,6 +5,7 @@ from fastapi import HTTPException, status
 from pymongo.errors import PyMongoError
 
 from app.api.routes.notes.schema import NoteCreate, NoteOut, NoteUpdate
+from app.core.cache import cached, bump_version
 from app.utils.collection_name import NOTES
 from app.utils.utils import new_id
 from app.database import db_manager
@@ -45,7 +46,8 @@ def _doc_to_out(doc: dict[str, Any]) -> NoteOut:
 _LIST_PROJECTION = {"content": 0}
 
 
-async def list_notes(uid: str) -> list[NoteOut]:
+@cached(ns="notes", ttl=120, scope="user")
+async def list_notes(*, uid: str) -> list[NoteOut]:
     docs = await db_manager.find(
         NOTES,
         {"created_by": uid},
@@ -55,7 +57,8 @@ async def list_notes(uid: str) -> list[NoteOut]:
     return [_doc_to_out(d) for d in docs]
 
 
-async def list_notes_paginated(uid: str, *, skip: int = 0, limit: int = 200) -> list[NoteOut]:
+@cached(ns="notes", ttl=120, scope="user")
+async def list_notes_paginated(*, uid: str, skip: int = 0, limit: int = 200) -> list[NoteOut]:
     docs = await db_manager.find(
         NOTES,
         {"created_by": uid},
@@ -86,10 +89,12 @@ async def create_note(uid: str, body: NoteCreate) -> NoteOut:
         await db_manager.insert_one(NOTES, doc)
     except PyMongoError as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create note.") from exc
+    await bump_version(ns="notes", uid=uid)
     return _doc_to_out(doc)
 
 
-async def get_note(uid: str, note_id: str) -> NoteOut:
+@cached(ns="notes", ttl=120, scope="user")
+async def get_note(*, uid: str, note_id: str) -> NoteOut:
     doc = await db_manager.find_one(NOTES, {"_id": note_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
@@ -99,7 +104,7 @@ async def get_note(uid: str, note_id: str) -> NoteOut:
 async def update_note(uid: str, note_id: str, body: NoteUpdate) -> NoteOut:
     patch = body.model_dump(exclude_unset=True)
     if not patch:
-        return await get_note(uid, note_id)
+        return await get_note(uid=uid, note_id=note_id)
 
     patch["updatedAt"] = datetime.now(timezone.utc)
     try:
@@ -113,6 +118,7 @@ async def update_note(uid: str, note_id: str, body: NoteUpdate) -> NoteOut:
     doc = await db_manager.find_one(NOTES, {"_id": note_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
+    await bump_version(ns="notes", uid=uid)
     return _doc_to_out(doc)
 
 
@@ -145,11 +151,13 @@ async def delete_note(uid: str, note_id: str, *, recursive: bool = True) -> None
         result = await db_manager.delete_many(NOTES, {"created_by": uid, "_id": {"$in": ids}})
         if result.deleted_count == 0:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
+        await bump_version(ns="notes", uid=uid)
         return
 
     result = await db_manager.delete_one(NOTES, {"created_by": uid, "_id": note_id})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
+    await bump_version(ns="notes", uid=uid)
 
 
 async def delete_note_non_recursive(uid: str, note_id: str) -> None:

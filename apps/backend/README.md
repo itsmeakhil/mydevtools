@@ -118,6 +118,49 @@ Set one of the following:
 
 If both JSON and path are set, `FIREBASE_CREDENTIALS_JSON` is used first.
 
+## Redis cache
+
+### Environment
+
+| Var | Default | Purpose |
+|-----|---------|---------|
+| `REDIS_URL` | unset | If unset, cache is inert. `redis://...` or `rediss://...`. |
+| `CACHE_ENABLED` | `true` | Global kill switch. |
+| `CACHE_NAMESPACES` | `""` | Comma-separated namespaces to activate. Empty = no caching. |
+| `CACHE_DEFAULT_TTL` | `120` | Fallback TTL seconds. |
+| `CACHE_OP_TIMEOUT_MS` | `50` | Per-Redis-call timeout. |
+| `CACHE_XFETCH_BETA` | `1.0` | XFetch tuning constant. Higher = refreshes earlier. |
+| `CACHE_LOG_LEVEL` | `WARNING` | `app.cache` logger level. |
+
+### Rollout phases
+
+Ramp `CACHE_NAMESPACES` namespace-by-namespace; restart workers each phase.
+
+| Phase | Add to `CACHE_NAMESPACES` |
+|-------|---------------------------|
+| 1 | `auth_token,auth_user` |
+| 2 | `user_preferences,dns_lookup` |
+| 3 | `bookmarks,notes,code_snippets,api_client` |
+| 4 | `tasks,passwords,url_shortener_owner` |
+| 5 | `url_shortener_resolve,analytics_aggregate` |
+
+Kill switch: drop a namespace from env + restart workers. Global kill: `CACHE_ENABLED=false`.
+
+### Redis server config (prod)
+
+- `maxmemory` sized to expected working set (start with 512 MB for 1k users).
+- `maxmemory-policy allkeys-lru`.
+- `requirepass` set; TLS enabled if exposed outside VPC.
+- Bind to private network only.
+
+## Load testing cache
+
+See `scripts/loadtest_cache.py`. Requires `locust` (install separately) and a running backend.
+
+1. Boot backend with `CACHE_ENABLED=false`; run a 5-min baseline.
+2. Boot backend with `CACHE_ENABLED=true` + chosen `CACHE_NAMESPACES`; re-run.
+3. Compare p50/p99 in `*_stats.csv`. Acceptance gates: p50 < 50ms, p99 < 200ms, error rate 0%.
+
 ## From monorepo root
 
 - `pnpm dev:backend` - start backend server

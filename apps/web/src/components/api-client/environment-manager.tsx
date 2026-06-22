@@ -18,27 +18,14 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { IconPlus, IconTrash, IconSettings, IconEye, IconEyeOff, IconEdit } from "@tabler/icons-react"
-import { Environment, EnvironmentVariable } from "./use-environments"
+import { IconPlus, IconTrash, IconSettings, IconEdit } from "@tabler/icons-react"
+import { EnvironmentVariable } from "./use-environments"
 import { useTranslations } from "next-intl"
+import { useEnvironmentsState, useEnvironmentsActions } from "./context/environments-context"
 
-interface EnvironmentManagerProps {
-    environments: Environment[]
-    activeEnvId: string | null
-    setActiveEnvId: (id: string | null) => void
-    addEnvironment: (name: string) => Promise<string>
-    updateEnvironment: (id: string, updates: Partial<Environment>) => void
-    deleteEnvironment: (id: string) => void
-}
-
-export function EnvironmentManager({
-    environments,
-    activeEnvId,
-    setActiveEnvId,
-    addEnvironment,
-    updateEnvironment,
-    deleteEnvironment
-}: EnvironmentManagerProps) {
+export function EnvironmentManager() {
+    const { environments, activeEnvId } = useEnvironmentsState()
+    const { setActiveEnvId, addEnvironment, updateEnvironment, deleteEnvironment } = useEnvironmentsActions()
     const t = useTranslations("ApiClient.environmentManager")
     const [isOpen, setIsOpen] = React.useState(false)
     const [selectedEnvId, setSelectedEnvId] = React.useState<string | null>(null)

@@ -24,7 +24,21 @@ interface CollectionItemProps {
     onRenameFolder?: (folderId: string, newName: string) => void
 }
 
-export function CollectionItem({
+function arePropsEqual(prev: CollectionItemProps, next: CollectionItemProps) {
+    return (
+        prev.level === next.level &&
+        prev.item.id === next.item.id &&
+        prev.item.name === next.item.name &&
+        prev.item === next.item &&
+        prev.onToggle === next.onToggle &&
+        prev.onDelete === next.onDelete &&
+        prev.onRenameFolder === next.onRenameFolder &&
+        prev.onAddFolder === next.onAddFolder &&
+        prev.onLoadRequest === next.onLoadRequest
+    )
+}
+
+function CollectionItemImpl({
     item,
     level,
     onToggle,
@@ -194,3 +208,5 @@ export function CollectionItem({
         </div>
     )
 }
+
+export const CollectionItem = React.memo(CollectionItemImpl, arePropsEqual)

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import asyncio
 import re
 from typing import Any
@@ -8,6 +10,7 @@ import dns.rdatatype
 import dns.resolver
 
 from app.api.routes.dns_lookup.schema import DNSLookupResult, DNSRecord
+from app.core.cache import cached
 
 VALID_RECORD_TYPES = {"A", "AAAA", "MX", "TXT", "NS", "CNAME", "SOA", "CAA", "PTR"}
 _DOMAIN_RE = re.compile(r"^(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$")
@@ -15,6 +18,19 @@ _DOMAIN_RE = re.compile(r"^(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+
 
 def _is_valid_domain(domain: str) -> bool:
     return bool(_DOMAIN_RE.match(domain)) and len(domain) <= 253
+
+
+@cached(ns="dns_lookup", ttl=3600, scope="global")
+async def lookup(*, host: str, record_type: str = "A") -> tuple[list[DNSRecord], str | None]:
+    """Cached DNS lookup for a single record type.
+
+    Pure function of (host, record_type) — safe to cache globally for 1h.
+    """
+    domain = host.strip().lower().rstrip(".")
+    resolver = dns.asyncresolver.Resolver()
+    resolver.timeout = 5
+    resolver.lifetime = 10
+    return await _resolve_type(resolver, domain, record_type)
 
 
 async def _resolve_type(resolver: dns.asyncresolver.Resolver, domain: str, rtype: str) -> tuple[list[DNSRecord], str | None]:
@@ -85,11 +101,7 @@ async def lookup_domain(domain: str, record_types: list[str]) -> DNSLookupResult
     if not requested:
         requested = ["A", "AAAA", "MX", "TXT", "NS", "CNAME"]
 
-    resolver = dns.asyncresolver.Resolver()
-    resolver.timeout = 5
-    resolver.lifetime = 10
-
-    tasks = {rtype: _resolve_type(resolver, domain, rtype) for rtype in requested}
+    tasks = {rtype: lookup(host=domain, record_type=rtype) for rtype in requested}
     results = await asyncio.gather(*tasks.values())
 
     records: dict[str, list[DNSRecord]] = {}

@@ -43,6 +43,7 @@ Backend (`/api/backend/analytics/summary`) returns **static counts only** — no
 
 ## Architecture
 
+
 ### 1. Data layer — `src/hooks/use-tool-usage.ts`
 
 Convert the deduped/capped store into an **append-only event log**.

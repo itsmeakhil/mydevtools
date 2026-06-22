@@ -14,6 +14,7 @@ from app.api.routes.user_preferences.schema import (
     UserPreferencesOut,
     UserPreferencesUpdate,
 )
+from app.core.cache import cached, bump_version
 from app.database import db_manager
 from app.utils.collection_name import NOSQL_QUERY_HISTORY, USER_PREFERENCES
 from app.utils.utils import create_timestamp
@@ -86,7 +87,8 @@ def _doc_to_out(doc: dict[str, Any]) -> UserPreferencesOut:
     )
 
 
-async def get_preferences(uid: str) -> UserPreferencesOut:
+@cached(ns="user_preferences", ttl=600, scope="user")
+async def get_preferences(*, uid: str) -> UserPreferencesOut:
     doc = await db_manager.find_one(USER_PREFERENCES, {"created_by": uid})
     if not doc:
         ts = create_timestamp()
@@ -123,12 +125,14 @@ async def patch_preferences(uid: str, body: UserPreferencesUpdate) -> UserPrefer
                     doc[k] = v
             doc["updatedAt"] = ts
             await db_manager.insert_one(USER_PREFERENCES, doc)
+            await bump_version(ns="user_preferences", uid=uid)
             return _doc_to_out(doc)
 
         await db_manager.update_one(USER_PREFERENCES, {"created_by": uid}, {"$set": set_fields})
         updated = await db_manager.find_one(USER_PREFERENCES, {"created_by": uid})
         if not updated:
             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Preferences missing.")
+        await bump_version(ns="user_preferences", uid=uid)
         return _doc_to_out(updated)
     except PyMongoError as exc:
         raise HTTPException(
@@ -146,6 +150,7 @@ async def track_tool_usage(uid: str, tool_id: str) -> None:
             new_doc = _default_prefs_doc(uid, ts)
             new_doc["toolStatsList"] = [{"toolId": tool_id, "usageCount": 1, "lastUsed": now_iso}]
             await db_manager.insert_one(USER_PREFERENCES, new_doc)
+            await bump_version(ns="user_preferences", uid=uid)
             return
 
         stats_list = list(doc.get("toolStatsList") or [])
@@ -167,6 +172,7 @@ async def track_tool_usage(uid: str, tool_id: str) -> None:
             {"created_by": uid},
             {"$set": {"toolStatsList": stats_list, "updatedAt": ts}},
         )
+        await bump_version(ns="user_preferences", uid=uid)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to track tool usage."

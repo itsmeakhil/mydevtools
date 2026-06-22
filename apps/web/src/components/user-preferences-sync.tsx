@@ -6,7 +6,7 @@ import { useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import useAuth from "@/utils/useAuth";
 import { COLOR_THEME_OPTIONS, type ColorTheme, useColorTheme } from "@/hooks/use-color-theme";
-import { getUserPreferences, patchUserPreferences, type ThemePreference } from "@/lib/user-preferences-api";
+import { getUserPreferences, patchUserPreferences, type ThemePreference, type UserPreferencesOut } from "@/lib/user-preferences-api";
 
 const SUPPORTED_LOCALES = [
   "en",
@@ -91,7 +91,20 @@ export function UserPreferencesSync() {
       loadedUserIdRef.current = user.uid;
 
       try {
-        const data = await getUserPreferences();
+        // The proxy returns null when the backend responds with an empty body, so treat
+        // it as nullable even though the typed signature claims otherwise.
+        const data: UserPreferencesOut | null = await getUserPreferences();
+
+        if (!data) {
+          // No server snapshot — keep local prefs and align the save baseline so the
+          // save effect does not immediately PATCH local defaults over the server.
+          lastSavedRef.current = JSON.stringify({
+            theme: normalizedTheme,
+            locale,
+            accentColor: colorTheme,
+          });
+          return;
+        }
 
         // Apply server snapshot to lastSavedRef BEFORE setTheme/setLocale/setColorTheme so the
         // save effect never sees hydrated=true with a stale lastSavedRef mismatch.

@@ -16,7 +16,7 @@ router = APIRouter(prefix="/user-preferences", tags=["user-preferences"])
 
 @router.get("", response_model=UserPreferencesOut, summary="Get user preferences")
 async def get_prefs(uid: str = Depends(get_current_uid)) -> UserPreferencesOut:
-    return await pref_svc.get_preferences(uid)
+    return await pref_svc.get_preferences(uid=uid)
 
 
 @router.patch("", response_model=UserPreferencesOut, summary="Update user preferences (partial)")

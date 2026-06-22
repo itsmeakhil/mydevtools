@@ -1,3 +1,4 @@
+import hashlib
 from typing import Annotated
 
 from fastapi import Cookie, Depends, Header, HTTPException, Request, status
@@ -6,12 +7,19 @@ from app.api.routes.auth.schema import UserProfileResponse, PersonalInfo, Certif
 from app.api.routes.auth.tokens import decode_access_token
 from app.api.routes.auth.users_repo import get_user_doc
 from app.core.auth_cookies import ACCESS_COOKIE_NAME
+from app.core.cache import cached as _cached, cache_invalidate, get_or_set
+from app.core.cache.keys import build_key
 from app.core.firebase import get_firebase_app
 
 try:
     from firebase_admin import auth as firebase_auth
 except ModuleNotFoundError:  # pragma: no cover
     firebase_auth = None  # type: ignore[assignment]
+
+
+def _token_cache_key(token: str) -> str:
+    h = hashlib.sha256(token.encode("utf-8")).hexdigest()[:16]
+    return build_key(ns="auth_token", scope="global", uid=None, ver=None, op="verify", args_hash=h)
 
 
 def verify_id_token(id_token: str, check_revoked: bool = False) -> dict:
@@ -39,6 +47,20 @@ def verify_id_token(id_token: str, check_revoked: bool = False) -> dict:
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Unable to verify Firebase token.",
         ) from exc
+
+
+async def verify_id_token_cached(id_token: str, check_revoked: bool = False) -> dict:
+    key = _token_cache_key(id_token)
+
+    async def _loader():
+        return verify_id_token(id_token, check_revoked=check_revoked)
+
+    return await get_or_set(ns="auth_token", key=key, loader=_loader)
+
+
+@_cached(ns="auth_user", ttl=60, scope="user")
+async def _fetch_user_doc_cached(*, uid: str) -> dict | None:
+    return await get_user_doc(uid)
 
 
 def get_current_uid(
@@ -72,14 +94,14 @@ async def get_current_user(
     fresh data afterwards, reset the slot first:
     ``request.state.current_user_doc = None``.
     """
-    cached = getattr(request.state, "current_user_doc", None)
-    if cached is not None and cached.get("_id") == uid:
-        doc = cached
+    cached_doc = getattr(request.state, "current_user_doc", None)
+    if cached_doc is not None and cached_doc.get("_id") == uid:
+        doc = cached_doc
     else:
-        doc = await get_user_doc(uid)
+        doc = await _fetch_user_doc_cached(uid=uid)
         if not doc:
             raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
+                status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="User not found.",
             )
         if doc.get("disabled"):
