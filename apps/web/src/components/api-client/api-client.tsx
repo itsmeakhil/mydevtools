@@ -269,6 +269,14 @@ export function ApiClient() {
         return newUrl
     }, [environments, activeEnvId])
 
+    const handleMethodChange = React.useCallback((method: RequestMethod) => {
+        updateActiveTab({ method })
+    }, [activeTabId, tabs])
+
+    const handleUrlChange = React.useCallback((url: string) => {
+        updateActiveTab({ url, name: url || API_CLIENT_DEFAULT_TAB_NAME })
+    }, [activeTabId, tabs])
+
     const handleImportCurl = (curl: string) => {
         try {
             const parsed = parseCurlCommand(curl)
@@ -669,9 +677,9 @@ export function ApiClient() {
                                     <div className="p-4 flex flex-col gap-6 min-h-full">
                                         <RequestPanel
                                             method={activeTab.method}
-                                            setMethod={(method) => updateActiveTab({ method })}
+                                            setMethod={handleMethodChange}
                                             url={activeTab.url}
-                                            setUrl={(url) => updateActiveTab({ url, name: url || API_CLIENT_DEFAULT_TAB_NAME })}
+                                            setUrl={handleUrlChange}
                                             onSend={handleSend}
                                             onCancel={handleCancel}
                                             isLoading={activeTab.isLoading}
@@ -706,9 +714,9 @@ export function ApiClient() {
                                     <div className="p-4 md:p-6 lg:p-8 flex flex-col gap-6 flex-1 min-h-0">
                                         <RequestPanel
                                             method={activeTab.method}
-                                            setMethod={(method) => updateActiveTab({ method })}
+                                            setMethod={handleMethodChange}
                                             url={activeTab.url}
-                                            setUrl={(url) => updateActiveTab({ url, name: url || API_CLIENT_DEFAULT_TAB_NAME })}
+                                            setUrl={handleUrlChange}
                                             onSend={handleSend}
                                             onCancel={handleCancel}
                                             isLoading={activeTab.isLoading}

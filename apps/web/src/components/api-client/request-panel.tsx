@@ -57,7 +57,7 @@ const getMethodBg = (method: string) => {
     }
 }
 
-export function RequestPanel({
+function RequestPanelImpl({
     method,
     setMethod,
     url,
@@ -270,3 +270,5 @@ export function RequestPanel({
         </div>
     )
 }
+
+export const RequestPanel = React.memo(RequestPanelImpl)
