@@ -12,6 +12,7 @@ from app.api.routes.code_snippets.schema import (
 )
 from app.database import db_manager
 from app.utils.utils import create_timestamp, is_duplicate_key_error, new_id
+from app.core.cache import cached, bump_version
 
 
 def _doc_to_out(doc: dict[str, Any]) -> CodeSnippetOut:
@@ -28,7 +29,8 @@ def _doc_to_out(doc: dict[str, Any]) -> CodeSnippetOut:
     )
 
 
-async def list_code_snippets(uid: str, *, skip: int = 0, limit: int | None = None) -> list[CodeSnippetOut]:
+@cached(ns="code_snippets", ttl=120, scope="user")
+async def list_code_snippets(*, uid: str, skip: int = 0, limit: int | None = None) -> list[CodeSnippetOut]:
     docs = await db_manager.find(
         SNIPPETS,
         {"created_by": uid},
@@ -67,13 +69,14 @@ async def create_code_snippet(uid: str, body: CodeSnippetCreate) -> CodeSnippetO
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to create snippet.",
         ) from exc
+    await bump_version(ns="code_snippets", uid=uid)
     return _doc_to_out(doc)
 
 
 async def update_code_snippet(uid: str, snippet_id: str, body: CodeSnippetUpdate) -> CodeSnippetOut:
     patch = body.model_dump(exclude_unset=True)
     if not patch:
-        return await get_code_snippet(uid, snippet_id)
+        return await get_code_snippet(uid=uid, snippet_id=snippet_id)
     patch["updatedAt"] = create_timestamp()
     try:
         result = await db_manager.find_one_and_update(
@@ -89,10 +92,12 @@ async def update_code_snippet(uid: str, snippet_id: str, body: CodeSnippetUpdate
         ) from exc
     if not result:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Snippet not found.")
+    await bump_version(ns="code_snippets", uid=uid)
     return _doc_to_out(result)
 
 
-async def get_code_snippet(uid: str, snippet_id: str) -> CodeSnippetOut:
+@cached(ns="code_snippets", ttl=120, scope="user")
+async def get_code_snippet(*, uid: str, snippet_id: str) -> CodeSnippetOut:
     doc = await db_manager.find_one(SNIPPETS, {"_id": snippet_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Snippet not found.")
@@ -103,3 +108,4 @@ async def delete_code_snippet(uid: str, snippet_id: str) -> None:
     result = await db_manager.delete_one(SNIPPETS, {"_id": snippet_id, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Snippet not found.")
+    await bump_version(ns="code_snippets", uid=uid)
