@@ -1528,7 +1528,9 @@
       "previewTab": "Предпросмотр",
       "headersTab": "Заголовки",
       "binaryRawView": "Бинарные данные не могут быть отображены в режиме исходного текста.",
-      "errorStatusLabel": "Ошибка"
+      "errorStatusLabel": "Ошибка",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Новая вкладка"

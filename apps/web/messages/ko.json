@@ -1528,7 +1528,9 @@
       "previewTab": "미리보기",
       "headersTab": "헤더",
       "binaryRawView": "이진 데이터는 원시 보기에서 표시할 수 없습니다.",
-      "errorStatusLabel": "오류"
+      "errorStatusLabel": "오류",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "새 탭"

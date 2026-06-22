@@ -1528,7 +1528,9 @@
       "previewTab": "معاينة",
       "headersTab": "الرؤوس",
       "binaryRawView": "لا يمكن عرض البيانات الثنائية في العرض الخام.",
-      "errorStatusLabel": "خطأ"
+      "errorStatusLabel": "خطأ",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "تبويب جديد"

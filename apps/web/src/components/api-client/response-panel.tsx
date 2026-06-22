@@ -11,6 +11,9 @@ import { CheckCircle2, AlertCircle, Copy, Download, Search, Info, Clock, Databas
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import type { editor } from "monaco-editor"
+import { truncateBody } from "./truncate-body"
+
+const MAX_INLINE_BYTES = 2 * 1024 * 1024 // 2MB
 
 interface ParsedCookie {
     name: string
@@ -99,6 +102,15 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
 
     const isSuccess = response.status >= 200 && response.status < 300
     const isError = response.status >= 400
+
+    // Slice the body passed to Monaco so the editor never receives >2MB of text.
+    // Pretty-print (via the Worker) runs before this component renders, so slicing
+    // happens on the already-formatted string. The full body is preserved on
+    // response.body for download.
+    const { inline: inlineBody, truncated } = React.useMemo(
+        () => truncateBody(response.body ?? "", MAX_INLINE_BYTES),
+        [response.body]
+    )
 
     const contentType = normalizeContentType(response.headers)
     const isHtmlByHeader =
@@ -251,13 +263,25 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
                     </div>
                 </div>
                 <div className="mt-4 border rounded-xl overflow-hidden flex-1 min-h-0 relative shadow-inner bg-card">
-                    <TabsContent value="body" className="mt-0 h-full absolute inset-0">
-                        <CodeEditor
-                            value={response.isBase64 ? t("binaryRawView") : response.body}
-                            language={getLanguage()}
-                            readOnly
-                            onMount={(ed) => { bodyEditorRef.current = ed }}
-                        />
+                    <TabsContent value="body" className="mt-0 h-full absolute inset-0 flex flex-col">
+                        {truncated && !response.isBase64 && (
+                            <div className="flex items-center gap-2 px-3 py-2 text-xs bg-amber-50 dark:bg-amber-950/40 border-b border-amber-200 dark:border-amber-800 shrink-0">
+                                <span className="text-amber-800 dark:text-amber-200 flex-1">
+                                    {t("truncatedBanner", { shownKb: Math.round(MAX_INLINE_BYTES / 1024) })}
+                                </span>
+                                <Button size="sm" variant="link" className="h-auto p-0 text-xs text-amber-700 dark:text-amber-300" onClick={handleDownload}>
+                                    {t("downloadFullBody")}
+                                </Button>
+                            </div>
+                        )}
+                        <div className="flex-1 min-h-0 relative">
+                            <CodeEditor
+                                value={response.isBase64 ? t("binaryRawView") : inlineBody}
+                                language={getLanguage()}
+                                readOnly
+                                onMount={(ed) => { bodyEditorRef.current = ed }}
+                            />
+                        </div>
                     </TabsContent>
                     {hasPreview && (
                         <TabsContent value="preview" className="mt-0 h-full absolute inset-0">

@@ -1528,7 +1528,9 @@
       "previewTab": "پیش نمایش",
       "headersTab": "سرصفحه ها",
       "binaryRawView": "داده های باینری را نمی توان در نمای خام نمایش داد.",
-      "errorStatusLabel": "خطا"
+      "errorStatusLabel": "خطا",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "برگه جدید"

@@ -1528,7 +1528,9 @@
       "previewTab": "Voorskou",
       "headersTab": "Koptekste",
       "binaryRawView": "Binêre data kan nie in rouaansig vertoon word nie.",
-      "errorStatusLabel": "Fout"
+      "errorStatusLabel": "Fout",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Nuwe oortjie"

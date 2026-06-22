@@ -1528,7 +1528,9 @@
       "previewTab": "Перегляд",
       "headersTab": "Заголовки",
       "binaryRawView": "Двійкові дані не можна відобразити у вигляді тексту.",
-      "errorStatusLabel": "Помилка"
+      "errorStatusLabel": "Помилка",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Нова вкладка"

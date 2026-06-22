@@ -1528,7 +1528,9 @@
       "previewTab": "Anteprima",
       "headersTab": "Intestazioni",
       "binaryRawView": "I dati binari non possono essere visualizzati nella vista grezza.",
-      "errorStatusLabel": "Errore"
+      "errorStatusLabel": "Errore",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Nuova scheda"

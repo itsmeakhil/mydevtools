@@ -1528,7 +1528,9 @@
       "previewTab": "Pratonton",
       "headersTab": "Pengepala",
       "binaryRawView": "Data binari tidak boleh dipaparkan dalam paparan mentah.",
-      "errorStatusLabel": "Ralat"
+      "errorStatusLabel": "Ralat",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Tab baharu"

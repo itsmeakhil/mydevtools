@@ -1528,7 +1528,9 @@
       "previewTab": "Önizleme",
       "headersTab": "Başlıklar",
       "binaryRawView": "İkili veriler ham görünümde gösterilemiyor.",
-      "errorStatusLabel": "Hata"
+      "errorStatusLabel": "Hata",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Yeni sekme"

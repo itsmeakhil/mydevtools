@@ -1528,7 +1528,9 @@
       "previewTab": "预览",
       "headersTab": "响应头",
       "binaryRawView": "二进制数据无法在原始视图中显示。",
-      "errorStatusLabel": "错误"
+      "errorStatusLabel": "错误",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "新标签"

@@ -1528,7 +1528,9 @@
       "previewTab": "Förhandsgranskning",
       "headersTab": "Rubriker",
       "binaryRawView": "Binärdata kan inte visas i råvy.",
-      "errorStatusLabel": "Fel"
+      "errorStatusLabel": "Fel",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Ny flik"

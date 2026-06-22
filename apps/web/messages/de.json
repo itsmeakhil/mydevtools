@@ -1528,7 +1528,9 @@
       "previewTab": "Vorschau",
       "headersTab": "Header",
       "binaryRawView": "Binärdaten können in der Rohansicht nicht angezeigt werden.",
-      "errorStatusLabel": "Fehler"
+      "errorStatusLabel": "Fehler",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Neue Registerkarte"

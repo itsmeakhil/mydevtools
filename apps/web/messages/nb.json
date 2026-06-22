@@ -1528,7 +1528,9 @@
       "previewTab": "Forhåndsvisning",
       "headersTab": "Overskrifter",
       "binaryRawView": "Binære data kan ikke vises i råvisning.",
-      "errorStatusLabel": "Feil"
+      "errorStatusLabel": "Feil",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Ny fane"

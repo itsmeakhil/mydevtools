@@ -1528,7 +1528,9 @@
       "previewTab": "プレビュー",
       "headersTab": "ヘッダー",
       "binaryRawView": "バイナリデータはraw表示できません。",
-      "errorStatusLabel": "エラー"
+      "errorStatusLabel": "エラー",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "新しいタブ"

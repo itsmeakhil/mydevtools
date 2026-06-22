@@ -1528,7 +1528,9 @@
       "previewTab": "Aperçu",
       "headersTab": "En-têtes",
       "binaryRawView": "Les données binaires ne peuvent pas s’afficher en brut.",
-      "errorStatusLabel": "Erreur"
+      "errorStatusLabel": "Erreur",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Nouvel onglet"

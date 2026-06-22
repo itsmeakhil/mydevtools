@@ -1528,7 +1528,9 @@
       "previewTab": "Vista prèvia",
       "headersTab": "Capçaleres",
       "binaryRawView": "Les dades binàries no es poden mostrar en vista en brut.",
-      "errorStatusLabel": "Error"
+      "errorStatusLabel": "Error",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Pestanya nova"

@@ -1528,7 +1528,9 @@
       "previewTab": "Πρεμιέρα",
       "headersTab": "Κεφαλίδες",
       "binaryRawView": "Τα δυαδικά δεδομένα δεν μπορούν να εμφανιστούν σε μη επεξεργασμένη προβολή.",
-      "errorStatusLabel": "Σφάλμα"
+      "errorStatusLabel": "Σφάλμα",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Νέα καρτέλα"

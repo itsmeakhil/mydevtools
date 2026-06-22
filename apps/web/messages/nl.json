@@ -1528,7 +1528,9 @@
       "previewTab": "Voorbeeld",
       "headersTab": "Headers",
       "binaryRawView": "Binaire gegevens kunnen niet worden weergegeven in ruwe weergave.",
-      "errorStatusLabel": "Fout"
+      "errorStatusLabel": "Fout",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Nieuw tabblad"

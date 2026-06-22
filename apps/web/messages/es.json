@@ -1528,7 +1528,9 @@
       "previewTab": "Vista previa",
       "headersTab": "Cabeceras",
       "binaryRawView": "Los datos binarios no se pueden mostrar en vista en bruto.",
-      "errorStatusLabel": "Error"
+      "errorStatusLabel": "Error",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Nueva pestaña"

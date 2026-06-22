@@ -1528,7 +1528,9 @@
       "previewTab": "Náhled",
       "headersTab": "Hlavičky",
       "binaryRawView": "Binární data nelze zobrazit v surovém zobrazení.",
-      "errorStatusLabel": "Chyba"
+      "errorStatusLabel": "Chyba",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Nová karta"

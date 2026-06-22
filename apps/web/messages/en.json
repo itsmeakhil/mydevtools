@@ -1549,7 +1549,9 @@
       "previewTab": "Preview",
       "headersTab": "Headers",
       "binaryRawView": "Binary data cannot be displayed in raw view.",
-      "errorStatusLabel": "Error"
+      "errorStatusLabel": "Error",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "New tab"

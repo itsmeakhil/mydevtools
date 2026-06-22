@@ -1528,7 +1528,9 @@
       "previewTab": "Xem trước",
       "headersTab": "Headers",
       "binaryRawView": "Dữ liệu nhị phân không thể hiển thị ở chế độ raw.",
-      "errorStatusLabel": "Lỗi"
+      "errorStatusLabel": "Lỗi",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Tab mới"
