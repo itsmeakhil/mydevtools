@@ -64,6 +64,14 @@ async def get_current_user(
     request: Request,
     uid: str = Depends(get_current_uid),
 ) -> UserProfileResponse:
+    """Resolve the current user profile, memoized per request on
+    ``request.state.current_user_doc``.
+
+    Multiple ``Depends(get_current_user)`` in the same request hit Mongo
+    once. If a handler mutates the user document mid-request and needs
+    fresh data afterwards, reset the slot first:
+    ``request.state.current_user_doc = None``.
+    """
     cached = getattr(request.state, "current_user_doc", None)
     if cached is not None and cached.get("_id") == uid:
         doc = cached

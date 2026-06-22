@@ -37,10 +37,9 @@ export async function establishBackendSession(
 ): Promise<void> {
     const maxAttempts = Math.max(1, opts.maxAttempts ?? 3)
     const checkRevoked = opts.checkRevoked ?? false
-    let token = idToken
-    let lastError: Error | null = null
-
     return dedupe(`session:${checkRevoked ? "revoked" : "fast"}`, async () => {
+        let token = idToken
+        let lastError: Error | null = null
         for (let attempt = 1; attempt <= maxAttempts; attempt++) {
             try {
                 const res = await fetch("/api/backend/auth/session", {
@@ -196,7 +195,13 @@ export async function proxyJsonAuthed<T>(
 
     if (result.status === 401) {
         const u2 = auth.currentUser
-        if (u2) await ensureBackendSession(u2)
+        if (u2) {
+            try {
+                await ensureBackendSession(u2)
+            } catch {
+                // Silent re-exchange failed — fall through to forceLogout below.
+            }
+        }
         result = await rawProxyJson<T>(backendBaseUrl, method, path, body)
     }
 
@@ -234,9 +239,11 @@ export async function backendFetch(path: string, init?: RequestInit): Promise<Re
         if (refr.ok) {
             res = await run()
             if (res.status === 401 || res.status === 403) {
+                // Refresh succeeded but still getting 401/403 — session is truly invalid.
                 forceLogout("unauthorized")
             }
         } else {
+            // Refresh endpoint itself rejected — session has expired.
             forceLogout("session-expired")
         }
     } else if (res.status === 403) {
