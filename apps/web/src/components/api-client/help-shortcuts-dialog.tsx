@@ -12,7 +12,12 @@ const SHORTCUTS: Array<[string, string]> = [
     ["mod+Enter", "sendRequest"],
 ]
 
-export function HelpShortcutsDialog() {
+interface HelpShortcutsDialogProps {
+    open?: boolean
+    onOpenChange?: (open: boolean) => void
+}
+
+export function HelpShortcutsDialog({ open, onOpenChange }: HelpShortcutsDialogProps = {}) {
     const t = useTranslations("ApiClient.shortcuts")
     const [isMac, setIsMac] = React.useState(false)
 
@@ -20,13 +25,17 @@ export function HelpShortcutsDialog() {
         setIsMac(/Mac|iPhone|iPad/i.test(navigator.userAgent))
     }, [])
 
+    const isControlled = open !== undefined
+
     return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-8 w-8" aria-label={t("ariaLabel")} title={t("ariaLabel")}>
-                    <IconKeyboard className="h-4 w-4" />
-                </Button>
-            </DialogTrigger>
+        <Dialog open={open} onOpenChange={onOpenChange}>
+            {!isControlled && (
+                <DialogTrigger asChild>
+                    <Button variant="ghost" size="icon" className="h-8 w-8" aria-label={t("ariaLabel")} title={t("ariaLabel")}>
+                        <IconKeyboard className="h-4 w-4" />
+                    </Button>
+                </DialogTrigger>
+            )}
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>{t("title")}</DialogTitle>

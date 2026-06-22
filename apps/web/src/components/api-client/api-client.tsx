@@ -9,6 +9,7 @@ import { ResponsePanel } from "./response-panel"
 import { TabBar } from "./tab-bar"
 import { ImportCurlDialog } from "./import-curl-dialog"
 import { HelpShortcutsDialog } from "./help-shortcuts-dialog"
+import { SaveRequestDialog } from "./collections/save-request-dialog"
 import { parseCurlCommand } from "@/utils/curl-parser"
 import { CollectionsSidebar } from "./collections/collections-sidebar"
 import dynamic from "next/dynamic"
@@ -26,7 +27,8 @@ import { useIsMobile } from "@/components/hooks/use-mobile"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { FolderOpen, PanelRight } from "lucide-react"
+import { FolderOpen, PanelRight, MoreVertical } from "lucide-react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { IconCode, IconSettings } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
 import { ensureHttpScheme } from "@/lib/url-normalize"
@@ -82,6 +84,19 @@ function ApiClientInner() {
     const [mobilePanel, setMobilePanel] = React.useState<'request' | 'response'>('request')
     const [envMgrOpen, setEnvMgrOpen] = React.useState(false)
     const [codeGenOpen, setCodeGenOpen] = React.useState(false)
+    const [importCurlOpen, setImportCurlOpen] = React.useState(false)
+    const [helpOpen, setHelpOpen] = React.useState(false)
+    const [saveOpen, setSaveOpen] = React.useState(false)
+
+    // Scroll position memory for mobile panel toggle
+    const scrollMemory = React.useRef<{ request: number; response: number }>({ request: 0, response: 0 })
+    const requestScrollRef = React.useRef<HTMLDivElement | null>(null)
+    const responseScrollRef = React.useRef<HTMLDivElement | null>(null)
+
+    React.useLayoutEffect(() => {
+        const el = mobilePanel === 'request' ? requestScrollRef.current : responseScrollRef.current
+        if (el) el.scrollTop = scrollMemory.current[mobilePanel]
+    }, [mobilePanel])
 
     const urlHistory = React.useMemo(() => {
         const seen = new Set<string>()
@@ -445,53 +460,90 @@ function ApiClientInner() {
                         </Sheet>
                     )}
                     <div className="flex flex-wrap items-center gap-2 ml-auto">
-                        <Select
-                            value={activeEnvId || "none"}
-                            onValueChange={(val) => setActiveEnvId(val === "none" ? null : val)}
-                        >
-                            <SelectTrigger className="w-[150px] h-8 text-xs">
-                                <SelectValue placeholder={t("environmentManager.noEnvironment")} />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="none">{t("environmentManager.noEnvironment")}</SelectItem>
-                                {environments.map(env => (
-                                    <SelectItem key={env.id} value={env.id}>{env.name}</SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-8 w-8"
-                            title={t("environmentManager.manageDialogTitle")}
-                            onClick={() => setEnvMgrOpen(true)}
-                        >
-                            <IconSettings className="h-4 w-4" />
-                        </Button>
-                        {envMgrOpen && (
-                            <EnvironmentManager open={envMgrOpen} onOpenChange={setEnvMgrOpen} />
-                        )}
-                        <div className="h-6 w-px bg-border/50 mx-1" />
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-8 w-8"
-                            title={t("codeGenerator.triggerTitle")}
-                            onClick={() => setCodeGenOpen(true)}
-                        >
-                            <IconCode className="h-4 w-4" />
-                        </Button>
-                        {codeGenOpen && (
-                            <CodeGenerator
-                                request={activeTab}
-                                open={codeGenOpen}
-                                onOpenChange={setCodeGenOpen}
-                            />
-                        )}
-                        <ImportCurlDialog onImport={handleImportCurl} />
-                        <HelpShortcutsDialog />
-                        {!isMobile && (
+                        {isMobile ? (
+                            /* Mobile: secondary actions collapsed into dropdown */
                             <>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button variant="ghost" size="icon" className="h-8 w-8" aria-label={t("toolbar.moreActions")}>
+                                            <MoreVertical className="h-4 w-4" />
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                        <DropdownMenuItem onSelect={() => setCodeGenOpen(true)}>
+                                            <IconCode className="h-4 w-4 mr-2" />
+                                            {t("toolbar.code")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setSaveOpen(true)}>
+                                            {t("toolbar.save")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setImportCurlOpen(true)}>
+                                            {t("toolbar.importCurl")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem onSelect={() => setEnvMgrOpen(true)}>
+                                            <IconSettings className="h-4 w-4 mr-2" />
+                                            {t("toolbar.environments")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setHelpOpen(true)}>
+                                            {t("toolbar.shortcuts")}
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                                {/* Env selector stays inline on mobile for quick switching */}
+                                <Select
+                                    value={activeEnvId || "none"}
+                                    onValueChange={(val) => setActiveEnvId(val === "none" ? null : val)}
+                                >
+                                    <SelectTrigger className="w-[130px] h-8 text-xs">
+                                        <SelectValue placeholder={t("environmentManager.noEnvironment")} />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="none">{t("environmentManager.noEnvironment")}</SelectItem>
+                                        {environments.map(env => (
+                                            <SelectItem key={env.id} value={env.id}>{env.name}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </>
+                        ) : (
+                            /* Desktop: all buttons inline */
+                            <>
+                                <Select
+                                    value={activeEnvId || "none"}
+                                    onValueChange={(val) => setActiveEnvId(val === "none" ? null : val)}
+                                >
+                                    <SelectTrigger className="w-[150px] h-8 text-xs">
+                                        <SelectValue placeholder={t("environmentManager.noEnvironment")} />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="none">{t("environmentManager.noEnvironment")}</SelectItem>
+                                        {environments.map(env => (
+                                            <SelectItem key={env.id} value={env.id}>{env.name}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-8 w-8"
+                                    title={t("environmentManager.manageDialogTitle")}
+                                    onClick={() => setEnvMgrOpen(true)}
+                                >
+                                    <IconSettings className="h-4 w-4" />
+                                </Button>
+                                <div className="h-6 w-px bg-border/50 mx-1" />
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-8 w-8"
+                                    title={t("codeGenerator.triggerTitle")}
+                                    onClick={() => setCodeGenOpen(true)}
+                                >
+                                    <IconCode className="h-4 w-4" />
+                                </Button>
+                                <ImportCurlDialog onImport={handleImportCurl} />
+                                <HelpShortcutsDialog />
                                 <div className="h-6 w-px bg-border/50 mx-1" />
                                 <Button
                                     variant="ghost"
@@ -502,6 +554,30 @@ function ApiClientInner() {
                                 >
                                     <PanelRight className="h-4 w-4 text-muted-foreground" />
                                 </Button>
+                            </>
+                        )}
+                        {/* Dialogs rendered outside the conditional so state is preserved */}
+                        {envMgrOpen && (
+                            <EnvironmentManager open={envMgrOpen} onOpenChange={setEnvMgrOpen} />
+                        )}
+                        {codeGenOpen && (
+                            <CodeGenerator
+                                request={activeTab}
+                                open={codeGenOpen}
+                                onOpenChange={setCodeGenOpen}
+                            />
+                        )}
+                        {isMobile && (
+                            <>
+                                <ImportCurlDialog onImport={handleImportCurl} open={importCurlOpen} onOpenChange={setImportCurlOpen} />
+                                <HelpShortcutsDialog open={helpOpen} onOpenChange={setHelpOpen} />
+                                <SaveRequestDialog
+                                    collections={collections}
+                                    onSave={handleSaveRequest}
+                                    defaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
+                                    open={saveOpen}
+                                    onOpenChange={setSaveOpen}
+                                />
                             </>
                         )}
                     </div>
@@ -556,9 +632,13 @@ function ApiClientInner() {
 
                     <div className="flex-1 overflow-hidden min-h-0 bg-card/30">
                         {isMobile ? (
-                            /* Mobile: single panel toggled by tabs */
-                            <div className="h-full overflow-y-auto">
-                                {mobilePanel === 'request' ? (
+                            /* Mobile: separate scroll containers per panel — scroll position preserved on toggle */
+                            <>
+                                <div
+                                    ref={requestScrollRef}
+                                    className={`h-full overflow-y-auto${mobilePanel === 'request' ? '' : ' hidden'}`}
+                                    onScroll={(e) => { scrollMemory.current.request = (e.target as HTMLDivElement).scrollTop }}
+                                >
                                     <div className="p-4 flex flex-col gap-6 min-h-full">
                                         <RequestPanel
                                             method={activeTab.method}
@@ -586,12 +666,17 @@ function ApiClientInner() {
                                             setAuth={(auth) => updateActiveTab({ auth })}
                                         />
                                     </div>
-                                ) : (
+                                </div>
+                                <div
+                                    ref={responseScrollRef}
+                                    className={`h-full overflow-y-auto${mobilePanel === 'response' ? '' : ' hidden'}`}
+                                    onScroll={(e) => { scrollMemory.current.response = (e.target as HTMLDivElement).scrollTop }}
+                                >
                                     <div className="p-4">
                                         <ResponsePanel response={activeTab.response} isLoading={activeTab.isLoading} />
                                     </div>
-                                )}
-                            </div>
+                                </div>
+                            </>
                         ) : (
                             /* Desktop: side-by-side resizable panels */
                             <ResizablePanelGroup direction="horizontal" className="h-full w-full">
