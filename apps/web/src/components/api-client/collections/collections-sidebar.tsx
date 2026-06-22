@@ -46,6 +46,15 @@ interface CollectionsSidebarProps {
     onDeleteMultiple?: (ids: string[]) => void
 }
 
+function useDebouncedValue<T>(value: T, ms: number): T {
+    const [v, setV] = React.useState(value)
+    React.useEffect(() => {
+        const id = setTimeout(() => setV(value), ms)
+        return () => clearTimeout(id)
+    }, [value, ms])
+    return v
+}
+
 export function CollectionsSidebar({
     collections,
     isLoading,
@@ -65,25 +74,31 @@ export function CollectionsSidebar({
     const tRoot = useTranslations("ApiClient")
     const [historySearch, setHistorySearch] = React.useState("")
 
+    const debouncedSearch = useDebouncedValue(historySearch, 200)
+
     const filteredHistory = React.useMemo(() => {
         if (!history) return []
-        if (!historySearch.trim()) return history
-        const q = historySearch.toLowerCase()
+        const q = debouncedSearch.trim().toLowerCase()
+        if (!q) return history
         return history.filter(item =>
             item.url?.toLowerCase().includes(q) ||
             item.name?.toLowerCase().includes(q) ||
             item.method?.toLowerCase().includes(q)
         )
-    }, [history, historySearch])
+    }, [history, debouncedSearch])
 
     const historyScrollRef = React.useRef<HTMLDivElement>(null)
     const { displayCount: historyDisplayCount, sentinelRef: historySentinelRef, hasMore: historyHasMore } = useInfiniteScroll({
         totalCount: filteredHistory.length,
-        resetKey: historySearch,
+        resetKey: debouncedSearch,
         pageSize: 30,
         scrollContainerRef: historyScrollRef,
     })
-    const visibleHistory = filteredHistory.slice(0, historyDisplayCount)
+
+    const visibleHistory = React.useMemo(
+        () => filteredHistory.slice(0, historyDisplayCount),
+        [filteredHistory, historyDisplayCount]
+    )
     const [newFolderDialogOpen, setNewFolderDialogOpen] = React.useState(false)
     const [newCollectionDialogOpen, setNewCollectionDialogOpen] = React.useState(false)
     const [renameCollectionDialogOpen, setRenameCollectionDialogOpen] = React.useState(false)
