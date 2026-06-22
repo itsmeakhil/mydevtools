@@ -3,6 +3,7 @@ from app.utils.collection_name import (
     API_CLIENT_HISTORY,
     API_CLIENT_COLLECTIONS,
     API_CLIENT_ENVIRONMENTS,
+    AUDIT_LOG,
     BOOKMARK_FOLDERS,
     BOOKMARKS,
     CODE_SNIPPETS,
@@ -52,3 +53,6 @@ async def ensure_indexes() -> None:
     await db_manager.create_index(GAME_SCORES, [("created_by", 1), ("updatedAt", -1)])
     await db_manager.create_index(FEEDBACK, [("created_by", 1), ("createdAt", -1)])
     await db_manager.create_index(URL_CLICK_EVENTS, [("code", 1), ("ts", 1)])
+    await db_manager.create_index(AUDIT_LOG, [("uid", 1), ("ts", -1)])
+    await db_manager.create_index(AUDIT_LOG, [("uid", 1), ("module", 1), ("ts", -1)])
+    await db_manager.create_index(AUDIT_LOG, "expireAt", expire_after_seconds=0)
