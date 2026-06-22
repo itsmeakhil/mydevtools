@@ -54,7 +54,7 @@ function buildRequestUrl(raw: string): URL {
 function ApiClientInner() {
     const t = useTranslations("ApiClient")
     const { tabs, activeTabId, activeTab } = useTabs()
-    const { addTab, closeTab, duplicateTab, renameTab, reorderTabs, setActiveTabId, updateActiveTab } = useTabsActions()
+    const { addTab, appendTab, closeTab, duplicateTab, renameTab, reorderTabs, setActiveTabId, updateActiveTab } = useTabsActions()
 
     const abortControllerRef = React.useRef<AbortController | null>(null)
     const { format: formatJson } = useJsonFormatter()
@@ -138,8 +138,7 @@ function ApiClientInner() {
                 name: resolvedUrl || API_CLIENT_IMPORTED_TAB_NAME,
                 id: crypto.randomUUID(),
             }
-            reorderTabs([...tabs, newTab])
-            setActiveTabId(newTab.id)
+            appendTab(newTab)
             toast.success(t("toasts.curlImported"))
         } catch (error) {
             console.error(error)
@@ -170,8 +169,7 @@ function ApiClientInner() {
             response: null,
             isLoading: false,
         }
-        reorderTabs([...tabs, newTab])
-        setActiveTabId(newTab.id)
+        appendTab(newTab)
     }
 
     const handleCancel = () => {

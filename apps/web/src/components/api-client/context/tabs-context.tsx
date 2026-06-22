@@ -32,6 +32,7 @@ type TabsState = {
 
 type TabsActions = {
     addTab(): void
+    appendTab(tab: ApiRequestState): void
     closeTab(id: string): void
     duplicateTab(id: string): void
     renameTab(id: string, name: string): void
@@ -116,12 +117,19 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
         )
     }, [activeTabId])
 
+    const appendTab = React.useCallback((tab: ApiRequestState) => {
+        setTabs((prev) => [...prev, tab])
+        setActiveTabId(tab.id)
+    }, [])
+
     const actions = React.useMemo<TabsActions>(() => ({
         addTab() {
             const newTab = createNewTab()
             setTabs((prev) => [...prev, newTab])
             setActiveTabId(newTab.id)
         },
+
+        appendTab,
 
         closeTab(id: string) {
             setTabs((prev) => {
@@ -177,7 +185,7 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
         },
 
         updateActiveTab,
-    }), [updateActiveTab])
+    }), [updateActiveTab, appendTab])
 
     const state = React.useMemo<TabsState>(() => ({
         tabs,
