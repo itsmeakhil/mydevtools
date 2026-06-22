@@ -53,7 +53,7 @@ async def list_bookmarks(
     skip: int = Query(default=0, ge=0),
     limit: Optional[int] = Query(default=None, ge=1, le=500),
 ) -> list[BookmarkOut]:
-    return await bm_svc.list_bookmarks(uid, folder_id=folder_id, skip=skip, limit=limit)
+    return await bm_svc.list_bookmarks(uid=uid, folder_id=folder_id, skip=skip, limit=limit)
 
 
 @bookmarks_router.post("", response_model=BookmarkOut, summary="Create bookmark (addBookmark)")
@@ -69,7 +69,7 @@ async def get_bookmark(
     bookmark_id: str,
     uid: str = Depends(get_current_uid),
 ) -> BookmarkOut:
-    return await bm_svc.get_bookmark(uid, bookmark_id)
+    return await bm_svc.get_bookmark(uid=uid, bookmark_id=bookmark_id)
 
 
 @bookmarks_router.patch("/{bookmark_id}", response_model=BookmarkOut, summary="Update bookmark (updateBookmark)")
@@ -108,7 +108,7 @@ async def list_folders(
     skip: int = Query(default=0, ge=0),
     limit: Optional[int] = Query(default=None, ge=1, le=500),
 ) -> list[BookmarkFolderOut]:
-    return await bm_svc.list_folders(uid, skip=skip, limit=limit)
+    return await bm_svc.list_folders(uid=uid, skip=skip, limit=limit)
 
 
 @folders_router.post("", response_model=BookmarkFolderOut, summary="Create folder (addFolder)")

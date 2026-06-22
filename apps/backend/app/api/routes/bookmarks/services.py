@@ -6,6 +6,7 @@ from pymongo.errors import PyMongoError
 from pymongo import ReturnDocument
 from app.utils.utils import new_id, create_timestamp, is_duplicate_key_error
 from app.core import audit
+from app.core.cache import cached, bump_version
 
 from app.utils.collection_name import BOOKMARK_FOLDERS as FOLDERS, BOOKMARKS
 from app.database import db_manager
@@ -50,9 +51,10 @@ def _folder_doc_to_out(doc: dict[str, Any]) -> BookmarkFolderOut:
     )
 
 
+@cached(ns="bookmarks", ttl=120, scope="user")
 async def list_bookmarks(
-    uid: str,
     *,
+    uid: str,
     folder_id: Optional[str] = None,
     skip: int = 0,
     limit: Optional[int] = None,
@@ -69,7 +71,8 @@ async def list_bookmarks(
     return [_bookmark_doc_to_out(d) for d in docs]
 
 
-async def get_bookmark(uid: str, bookmark_id: str) -> BookmarkOut:
+@cached(ns="bookmarks", ttl=120, scope="user")
+async def get_bookmark(*, uid: str, bookmark_id: str) -> BookmarkOut:
     doc = await db_manager.find_one(BOOKMARKS, {"_id": bookmark_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Bookmark not found.")
@@ -105,13 +108,14 @@ async def create_bookmark(uid: str, body: BookmarkCreate) -> BookmarkOut:
     audit.set_entity("bookmark", bid)
     audit.set_summary(f"Created bookmark '{body.title}'")
     audit.set_changes(audit.diff(None, doc))
+    await bump_version(ns="bookmarks", uid=uid)
     return _bookmark_doc_to_out(doc)
 
 
 async def update_bookmark(uid: str, bookmark_id: str, body: BookmarkUpdate) -> BookmarkOut:
     patch = body.model_dump(exclude_unset=True)
     if not patch:
-        return await get_bookmark(uid, bookmark_id)
+        return await get_bookmark(uid=uid, bookmark_id=bookmark_id)
     before = await db_manager.find_one(BOOKMARKS, {"_id": bookmark_id, "created_by": uid})
     patch["updatedAt"] = create_timestamp()
     try:
@@ -131,6 +135,7 @@ async def update_bookmark(uid: str, bookmark_id: str, body: BookmarkUpdate) -> B
     audit.set_entity("bookmark", bookmark_id)
     audit.set_summary(f"Updated bookmark '{result.get('title', '')}'")
     audit.set_changes(audit.diff(before, result))
+    await bump_version(ns="bookmarks", uid=uid)
     return _bookmark_doc_to_out(result)
 
 
@@ -147,6 +152,7 @@ async def delete_bookmark(uid: str, bookmark_id: str) -> None:
     audit.set_entity("bookmark", bookmark_id)
     title = (before or {}).get("title", "")
     audit.set_summary(f"Deleted bookmark '{title}'")
+    await bump_version(ns="bookmarks", uid=uid)
 
 
 async def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]:
@@ -192,23 +198,26 @@ async def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to import bookmarks."
         ) from exc
+    await bump_version(ns="bookmarks", uid=uid)
     return {"foldersUpserted": len(folder_ops), "bookmarksUpserted": len(bookmark_ops)}
 
 
 async def clear_all_bookmarks(uid: str) -> dict[str, int]:
     br = await db_manager.delete_many(BOOKMARKS, {"created_by": uid})
     fr = await db_manager.delete_many(FOLDERS, {"created_by": uid})
+    await bump_version(ns="bookmarks", uid=uid)
     return {"bookmarksDeleted": br.deleted_count, "foldersDeleted": fr.deleted_count}
 
 
 async def snapshot(uid: str) -> BookmarkSnapshotOut:
     return BookmarkSnapshotOut(
-        bookmarks=await list_bookmarks(uid, folder_id=None),
-        folders=await list_folders(uid),
+        bookmarks=await list_bookmarks(uid=uid, folder_id=None),
+        folders=await list_folders(uid=uid),
     )
 
 
-async def list_folders(uid: str, *, skip: int = 0, limit: Optional[int] = None) -> list[BookmarkFolderOut]:
+@cached(ns="bookmarks", ttl=120, scope="user")
+async def list_folders(*, uid: str, skip: int = 0, limit: Optional[int] = None) -> list[BookmarkFolderOut]:
     docs = await db_manager.find(
         FOLDERS, {"created_by": uid}, sort=[("createdAt", 1)], skip=skip, limit=limit or 0
     )
@@ -245,6 +254,7 @@ async def create_folder(uid: str, body: BookmarkFolderCreate) -> BookmarkFolderO
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create folder."
         ) from exc
+    await bump_version(ns="bookmarks", uid=uid)
     return _folder_doc_to_out(doc)
 
 
@@ -265,6 +275,7 @@ async def update_folder(uid: str, folder_id: str, body: BookmarkFolderUpdate) ->
         ) from exc
     if not result:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Folder not found.")
+    await bump_version(ns="bookmarks", uid=uid)
     return _folder_doc_to_out(result)
 
 
@@ -302,3 +313,4 @@ async def delete_folder(uid: str, folder_id: str) -> None:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to delete folder."
         ) from exc
+    await bump_version(ns="bookmarks", uid=uid)
