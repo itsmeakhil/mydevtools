@@ -542,6 +542,11 @@ function ApiClientInner() {
                                 >
                                     <IconCode className="h-4 w-4" />
                                 </Button>
+                                <SaveRequestDialog
+                                    collections={collections}
+                                    onSave={handleSaveRequest}
+                                    defaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
+                                />
                                 <ImportCurlDialog onImport={handleImportCurl} />
                                 <HelpShortcutsDialog />
                                 <div className="h-6 w-px bg-border/50 mx-1" />
