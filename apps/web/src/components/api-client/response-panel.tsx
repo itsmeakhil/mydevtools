@@ -2,7 +2,13 @@
 
 import * as React from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import CodeEditor from "@/components/ui/code-editor"
+import dynamic from "next/dynamic"
+
+const CodeEditor = dynamic(
+    () => import("@/components/ui/code-editor"),
+    { ssr: false, loading: () => <div className="h-full w-full animate-pulse bg-muted/30" /> }
+)
+const MemoCodeEditor = React.memo(CodeEditor)
 import { ApiResponse, API_CLIENT_ERROR_STATUS_TEXT } from "./types"
 import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
@@ -280,7 +286,7 @@ export function ResponsePanel({ response, isLoading }: ResponsePanelProps) {
                             </div>
                         )}
                         <div className="flex-1 min-h-0 relative">
-                            <CodeEditor
+                            <MemoCodeEditor
                                 value={response.isBase64 ? t("binaryRawView") : inlineBody}
                                 language={getLanguage()}
                                 readOnly
