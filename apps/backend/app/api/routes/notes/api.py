@@ -16,12 +16,12 @@ async def list_notes(
     skip: int = Query(default=0, ge=0),
     limit: int = Query(default=200, ge=1, le=1000),
 ) -> list[NoteOut]:
-    return await note_svc.list_notes_paginated(uid, skip=skip, limit=limit)
+    return await note_svc.list_notes_paginated(uid=uid, skip=skip, limit=limit)
 
 
 @router.get("/{note_id}", response_model=NoteOut, summary="Get a single note with full content")
 async def get_note(note_id: str, uid: str = Depends(get_current_uid)) -> NoteOut:
-    return await note_svc.get_note(uid, note_id)
+    return await note_svc.get_note(uid=uid, note_id=note_id)
 
 
 @router.post("", response_model=NoteOut, summary="Create a note")
