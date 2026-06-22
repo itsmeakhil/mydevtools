@@ -5,7 +5,6 @@ export const metadata = generateToolMetadata("to-do");
 
 const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
   display: "swap",
   variable: "--font-display",
   axes: ["SOFT"],
