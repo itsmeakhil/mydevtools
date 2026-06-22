@@ -9,6 +9,7 @@ from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
 from app.api.router import api_router
+from app.core.audit_middleware import AuditMiddleware
 from app.core.config import get_settings
 from app.core.limiter import limiter
 
@@ -45,6 +46,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.add_middleware(AuditMiddleware)
 
 
 @app.middleware("http")
