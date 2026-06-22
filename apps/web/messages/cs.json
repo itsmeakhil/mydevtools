@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "Nástroje",
-      "favorites": "Oblíbené"
+      "favorites": "Oblíbené",
+      "pinned": "Připnuté",
+      "recent": "Nedávno použité"
     },
     "sections": {
       "recentlyUsed": "Nedávno použité",

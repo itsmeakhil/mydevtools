@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "ابزار",
-      "favorites": "موارد دلخواه"
+      "favorites": "موارد دلخواه",
+      "pinned": "سنجاق‌شده",
+      "recent": "اخیرا استفاده شده است"
     },
     "sections": {
       "recentlyUsed": "اخیرا استفاده شده است",

@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "Eines",
-      "favorites": "Preferits"
+      "favorites": "Preferits",
+      "pinned": "Fixat",
+      "recent": "Usades recentment"
     },
     "sections": {
       "recentlyUsed": "Usades recentment",

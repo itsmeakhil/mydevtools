@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "工具",
-      "favorites": "收藏"
+      "favorites": "收藏",
+      "pinned": "已固定",
+      "recent": "最近使用"
     },
     "sections": {
       "recentlyUsed": "最近使用",

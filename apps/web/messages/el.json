@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "Εργαλεία",
-      "favorites": "Αγαπημένα"
+      "favorites": "Αγαπημένα",
+      "pinned": "Καρφιτσωμένα",
+      "recent": "Πρόσφατα"
     },
     "sections": {
       "recentlyUsed": "Πρόσφατα",

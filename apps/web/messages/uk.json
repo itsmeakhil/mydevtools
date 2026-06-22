@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "Інструменти",
-      "favorites": "Обране"
+      "favorites": "Обране",
+      "pinned": "Закріплені",
+      "recent": "Нещодавно використані"
     },
     "sections": {
       "recentlyUsed": "Нещодавно використані",

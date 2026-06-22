@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "ツール",
-      "favorites": "お気に入り"
+      "favorites": "お気に入り",
+      "pinned": "ピン留め",
+      "recent": "最近使用したツール"
     },
     "sections": {
       "recentlyUsed": "最近使用したツール",

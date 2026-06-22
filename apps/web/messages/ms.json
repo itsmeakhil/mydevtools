@@ -229,7 +229,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "Alat",
-      "favorites": "Kegemaran"
+      "favorites": "Kegemaran",
+      "pinned": "Disematkan",
+      "recent": "Baru Digunakan"
     },
     "sections": {
       "recentlyUsed": "Baru Digunakan",

@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "الأدوات",
-      "favorites": "المفضلة"
+      "favorites": "المفضلة",
+      "pinned": "مثبت",
+      "recent": "المستخدمة مؤخرًا"
     },
     "sections": {
       "recentlyUsed": "المستخدمة مؤخرًا",

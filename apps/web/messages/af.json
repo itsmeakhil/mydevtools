@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "Nutsgoed",
-      "favorites": "Gunstelinge"
+      "favorites": "Gunstelinge",
+      "pinned": "Vasgespeld",
+      "recent": "Onlangs gebruik"
     },
     "sections": {
       "recentlyUsed": "Onlangs gebruik",

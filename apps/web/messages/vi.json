@@ -223,7 +223,9 @@
     "brandName": "MyDevTools",
     "stats": {
       "tools": "Công cụ",
-      "favorites": "Yêu thích"
+      "favorites": "Yêu thích",
+      "pinned": "Đã ghim",
+      "recent": "Dùng gần đây"
     },
     "sections": {
       "recentlyUsed": "Dùng gần đây",
