@@ -126,3 +126,11 @@ async def test_user_scope_requires_uid(fake_redis, enable_ns):
 
     with pytest.raises(ValueError, match="uid"):
         await list_bookmarks(folder_id="x")
+
+
+def test_public_api():
+    from app.core.cache import cached, bump_version, cache_invalidate, get_or_set
+    assert callable(cached)
+    assert callable(bump_version)
+    assert callable(cache_invalidate)
+    assert callable(get_or_set)
