@@ -29,7 +29,7 @@ export function LoginForm() {
       const result = await signInWithPopup(auth, provider);
       const idToken = await result.user.getIdToken();
       try {
-        await establishBackendSession(idToken);
+        await establishBackendSession(idToken, { checkRevoked: true });
       } catch (sessionErr) {
         console.error("Backend session failed:", sessionErr);
         setError("Signed in, but could not start an API session. Please try again.");
@@ -83,7 +83,7 @@ export function LoginForm() {
               await linkWithCredential(result.user, pendingCredential);
               const idToken = await result.user.getIdToken();
               try {
-                await establishBackendSession(idToken);
+                await establishBackendSession(idToken, { checkRevoked: true });
               } catch (sessionErr) {
                 console.error("Backend session failed:", sessionErr);
                 setError("Signed in, but could not start an API session. Please try again.");
