@@ -17,7 +17,7 @@ router = APIRouter(prefix="/password-manager", tags=["password-manager"])
 
 @router.get("/vault", response_model=VaultOut, summary="Get password vault settings")
 async def get_vault(uid: str = Depends(get_current_uid)) -> VaultOut:
-    return await pw_svc.get_vault(uid)
+    return await pw_svc.get_vault(uid=uid)
 
 
 @router.post("/vault/setup", response_model=VaultOut, summary="Setup/replace password vault")
@@ -45,7 +45,7 @@ async def list_entries(
     limit: int = Query(default=200, ge=1, le=1000),
     offset: int = Query(default=0, ge=0),
 ) -> list[PasswordEntryOut]:
-    return await pw_svc.list_entries(uid, limit=limit, offset=offset)
+    return await pw_svc.list_entries(uid=uid, limit=limit, offset=offset)
 
 
 @router.post(
@@ -64,7 +64,7 @@ async def create_entry(request: Request, body: PasswordEntryCreate, uid: str = D
     summary="Get one password entry",
 )
 async def get_entry(entry_id: str, uid: str = Depends(get_current_uid)) -> PasswordEntryOut:
-    return await pw_svc.get_entry(uid, entry_id)
+    return await pw_svc.get_entry(uid=uid, entry_id=entry_id)
 
 
 @router.patch(

@@ -12,6 +12,7 @@ from app.api.routes.passwords.schema import (
     VaultOut,
     VaultSetupRequest,
 )
+from app.core.cache import cached, bump_version
 from app.utils.collection_name import PASSWORD_ENTRIES, PASSWORD_VAULTS
 from app.utils.utils import create_timestamp, is_duplicate_key_error, new_id
 from app.database import db_manager
@@ -51,7 +52,8 @@ def _entry_doc_to_out(doc: dict[str, Any], *, entry_id: str) -> PasswordEntryOut
     )
 
 
-async def get_vault(uid: str) -> VaultOut:
+@cached(ns="passwords", ttl=60, scope="user")
+async def get_vault(*, uid: str) -> VaultOut:
     doc = await db_manager.find_one(PASSWORD_VAULTS, {"created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Vault not found.")
@@ -83,10 +85,12 @@ async def setup_vault(uid: str, body: VaultSetupRequest) -> VaultOut:
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to setup vault."
         ) from exc
 
-    return await get_vault(uid)
+    await bump_version(ns="passwords", uid=uid)
+    return await get_vault(uid=uid)
 
 
-async def list_entries(uid: str, *, limit: int = 200, offset: int = 0) -> list[PasswordEntryOut]:
+@cached(ns="passwords", ttl=60, scope="user")
+async def list_entries(*, uid: str, limit: int = 200, offset: int = 0) -> list[PasswordEntryOut]:
     docs = await db_manager.find(
         PASSWORD_ENTRIES,
         {"created_by": uid},
@@ -120,10 +124,12 @@ async def create_entry(uid: str, body: PasswordEntryCreate) -> PasswordEntryOut:
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create entry."
         ) from exc
 
+    await bump_version(ns="passwords", uid=uid)
     return _entry_doc_to_out(doc, entry_id=eid)
 
 
-async def get_entry(uid: str, entry_id: str) -> PasswordEntryOut:
+@cached(ns="passwords", ttl=60, scope="user")
+async def get_entry(*, uid: str, entry_id: str) -> PasswordEntryOut:
     doc = await db_manager.find_one(PASSWORD_ENTRIES, {"_id": entry_id, "created_by": uid})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Entry not found.")
@@ -150,6 +156,7 @@ async def update_entry(uid: str, entry_id: str, body: PasswordEntryUpdate) -> Pa
         ) from exc
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Entry not found.")
+    await bump_version(ns="passwords", uid=uid)
     return _entry_doc_to_out(doc, entry_id=entry_id)
 
 
@@ -157,6 +164,7 @@ async def delete_entry(uid: str, entry_id: str) -> None:
     result = await db_manager.delete_one(PASSWORD_ENTRIES, {"_id": entry_id, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Entry not found.")
+    await bump_version(ns="passwords", uid=uid)
 
 
 async def clear_entries(uid: str) -> dict[str, int]:
@@ -166,6 +174,7 @@ async def clear_entries(uid: str) -> dict[str, int]:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to clear entries."
         ) from exc
+    await bump_version(ns="passwords", uid=uid)
     return {"entriesDeleted": int(res.deleted_count)}
 
 
@@ -177,4 +186,5 @@ async def clear_vault(uid: str) -> dict[str, int]:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to clear vault."
         ) from exc
+    await bump_version(ns="passwords", uid=uid)
     return {"entriesDeleted": entries_deleted, "vaultDeleted": int(res.deleted_count)}
