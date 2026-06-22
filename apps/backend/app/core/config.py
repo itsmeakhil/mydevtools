@@ -29,6 +29,15 @@ class Settings(BaseSettings):
 
     ALLOWED_ORIGINS: str
 
+    # Redis + cache
+    REDIS_URL: str | None = None
+    CACHE_ENABLED: bool = True
+    CACHE_NAMESPACES: str = ""             # comma-separated; empty = no-op
+    CACHE_DEFAULT_TTL: int = 120           # seconds
+    CACHE_OP_TIMEOUT_MS: int = 50          # per Redis call
+    CACHE_XFETCH_BETA: float = 1.0         # XFetch tuning constant
+    CACHE_LOG_LEVEL: str = "WARNING"
+
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
     def model_post_init(self, __context: object) -> None:  # type: ignore[override]
