@@ -1,6 +1,6 @@
 "use client";
 
-import { NotesProvider, useNotes } from "./context/NotesContext";
+import { NotesProvider, useNotesUI } from "./context/NotesContext";
 import NotesSidebar from "@/components/notes/NotesSidebar";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
@@ -11,7 +11,7 @@ import { useTranslations } from "next-intl";
 function NotesLayout({ children }: { children: React.ReactNode }) {
     const t = useTranslations("Notes.layout");
     const isDesktop = useMediaQuery("(min-width: 768px)");
-    const { focusMode } = useNotes();
+    const { focusMode } = useNotesUI();
 
     return (
         <div className="flex h-full min-h-0 w-full overflow-hidden bg-background mobile-nav-offset">

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
-import { useNotes } from "@/app/app/notes/context/NotesContext";
+import { useNotesData, useNotesUI, useNotesActions } from "@/app/app/notes/context/NotesContext";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -142,12 +142,13 @@ interface NoteItemProps {
     isSearching: boolean;
 }
 
-const NoteItem = ({
+const NoteItem = React.memo(({
     note, level, childrenMap, onDeleteClick, onMoveClick,
     parentTitle, snippet, expandedIds, onToggleExpand, onExpandPath, isSearching,
 }: NoteItemProps) => {
     const t = useTranslations("Notes.sidebar");
-    const { notes, activeNoteId, setActiveNoteId, createNote, pinNote, duplicateNote, updateNote } = useNotes();
+    const { activeNoteId, setActiveNoteId } = useNotesUI();
+    const { createNote, pinNote, duplicateNote, updateNote } = useNotesActions();
     const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
 
     const children = childrenMap.get(note.id) ?? [];
@@ -318,11 +319,14 @@ const NoteItem = ({
             )}
         </div>
     );
-};
+});
+NoteItem.displayName = "NoteItem";
 
 export default function NotesSidebar() {
     const t = useTranslations("Notes.sidebar");
-    const { notes, createNote, deleteNote, moveNote, isLoading, activeNoteId } = useNotes();
+    const { notes, isLoading } = useNotesData();
+    const { activeNoteId } = useNotesUI();
+    const { createNote, deleteNote, moveNote } = useNotesActions();
     const [noteToDelete, setNoteToDelete] = useState<Note | null>(null);
     const [noteToMove, setNoteToMove] = useState<Note | null>(null);
     const [searchQuery, setSearchQuery] = useState("");

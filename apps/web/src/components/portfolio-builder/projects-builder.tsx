@@ -157,7 +157,7 @@ function SortableProjectItem({
         <div className="flex gap-3 min-w-0 flex-1">
           {project.imageUrl ? (
             <div className="h-14 w-14 rounded-lg overflow-hidden shrink-0 border bg-muted">
-              <img src={project.imageUrl} alt={project.title} className="h-full w-full object-cover" />
+              <img src={project.imageUrl} alt={project.title} width={56} height={56} loading="lazy" decoding="async" className="h-full w-full object-cover" />
             </div>
           ) : (
             <div className="h-14 w-14 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
@@ -188,7 +188,7 @@ function SortableProjectItem({
                   const src = meta ? (meta.iconUrl ?? `https://cdn.simpleicons.org/${meta.slug}/${meta.color}`) : null
                   return (
                     <Badge key={tech} variant="secondary" className="gap-1.5 text-[10px] px-1.5 py-0">
-                      {src && <img src={src} alt={tech} width={10} height={10} className="w-2.5 h-2.5 object-contain shrink-0" />}
+                      {src && <img src={src} alt={tech} width={10} height={10} loading="lazy" decoding="async" className="w-2.5 h-2.5 object-contain shrink-0" />}
                       {tech}
                     </Badge>
                   )

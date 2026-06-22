@@ -223,7 +223,7 @@ function FilePreviewDialog({
             return (
                 <div className="flex items-center justify-center bg-muted/50 min-h-72 max-h-[80vh] overflow-auto p-6">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={preview.url} alt={name} className="max-w-full max-h-full object-contain rounded-md shadow" />
+                    <img src={preview.url} alt={name} loading="lazy" decoding="async" className="max-w-full max-h-full object-contain rounded-md shadow" />
                 </div>
             )
         }

@@ -610,7 +610,7 @@ export default function ProfilePage() {
                             const src = meta ? (meta.iconUrl ?? `https://cdn.simpleicons.org/${meta.slug}/${meta.color}`) : null
                             return meta ? (
                               <Badge key={tech} variant="secondary" className="gap-1.5 pl-2 pr-3 py-1 text-sm">
-                                {src && <img src={src} alt={tech} width={14} height={14} className="w-3.5 h-3.5 object-contain shrink-0" />}
+                                {src && <img src={src} alt={tech} width={14} height={14} loading="lazy" decoding="async" className="w-3.5 h-3.5 object-contain shrink-0" />}
                                 {tech}
                               </Badge>
                             ) : (

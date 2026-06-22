@@ -232,7 +232,7 @@ function SortableExperienceItem({
               const src = meta ? (meta.iconUrl ?? `https://cdn.simpleicons.org/${meta.slug}/${meta.color}`) : null
               return (
                 <Badge key={tech} variant="secondary" className="gap-1.5 text-[10px] px-1.5 py-0">
-                  {src && <img src={src} alt={tech} width={10} height={10} className="w-2.5 h-2.5 object-contain shrink-0" />}
+                  {src && <img src={src} alt={tech} width={10} height={10} loading="lazy" decoding="async" className="w-2.5 h-2.5 object-contain shrink-0" />}
                   {tech}
                 </Badge>
               )

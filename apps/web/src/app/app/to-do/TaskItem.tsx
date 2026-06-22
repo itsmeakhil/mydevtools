@@ -147,7 +147,7 @@ interface TaskItemProps {
   onDeleteTask: (id: string) => void;
 }
 
-export default function TaskItem({
+function TaskItem({
   task,
   onUpdateStatus,
   onUpdateTask,
@@ -614,3 +614,5 @@ export default function TaskItem({
     </>
   );
 }
+
+export default React.memo(TaskItem);

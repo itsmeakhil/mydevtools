@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useCallback, useRef } from "react";
-import { useNotes } from "@/app/app/notes/context/NotesContext";
+import { useNotesData, useNotesUI, useNotesActions } from "@/app/app/notes/context/NotesContext";
 import { Editor, EditorProvider, createEmptyContent } from "@/components/ui/rich-editor";
 import { useDebouncedCallback } from "use-debounce";
 import { Input } from "@/components/ui/input";
@@ -79,7 +79,9 @@ function TemplatePickerDialog({
 export default function NotionEditor() {
     const tEditor = useTranslations("Notes.editor");
     const tCtx = useTranslations("Notes.context");
-    const { notes, activeNoteId, updateNote, focusMode, setFocusMode, isContentLoading } = useNotes();
+    const { notes, isContentLoading } = useNotesData();
+    const { activeNoteId, focusMode, setFocusMode } = useNotesUI();
+    const { updateNote } = useNotesActions();
     const activeNote = notes.find(n => n.id === activeNoteId);
     const { user } = useAuth();
 

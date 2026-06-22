@@ -337,7 +337,7 @@ export function QrCodeGeneratorLayout() {
             {logoDataUrl ? (
               <div className="flex flex-wrap items-center gap-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={logoDataUrl} alt="Logo preview" className="h-10 w-10 rounded border object-contain p-0.5" />
+                <img src={logoDataUrl} alt="Logo preview" width={40} height={40} loading="lazy" decoding="async" className="h-10 w-10 rounded border object-contain p-0.5" />
                 <div className="flex items-center gap-1.5">
                   <Label htmlFor="qr-logo-margin" className="text-xs text-muted-foreground">{t('logoMarginLabel')}</Label>
                   <Input
