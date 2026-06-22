@@ -13,9 +13,11 @@ from app.api.routes.api_client.schema import (
     ApiClientHistoryOut,
     HISTORY_MAX_ITEMS,
 )
+from app.api.routes.api_client import collections_delta
 
 
 router = APIRouter(prefix="/api-client", tags=["api-client"])
+router.include_router(collections_delta.router)
 
 
 @router.get("/collections", response_model=list[ApiClientCollectionOut], summary="List API client collections")
