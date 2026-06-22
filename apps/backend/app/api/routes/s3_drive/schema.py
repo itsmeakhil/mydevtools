@@ -87,6 +87,18 @@ class ListBucketsRequest(BaseModel):
     credentials: S3Credentials
 
 
+class PresignedBatchItem(BaseModel):
+    key: str = Field(min_length=1)
+    op: str = Field(default="get", pattern="^(get|put)$")
+    contentType: Optional[str] = Field(default=None)
+
+
+class PresignedBatchRequest(BaseModel):
+    credentials: S3Credentials
+    items: list[PresignedBatchItem] = Field(min_length=1, max_length=100)
+    expiresIn: int = Field(default=3600, ge=60, le=86400)
+
+
 class ConfigureCorsRequest(BaseModel):
     credentials: S3Credentials
     allowedOrigins: list[str] = Field(min_length=1, description="Allowed CORS origins for the S3 bucket. Must be explicitly provided.")
@@ -112,6 +124,10 @@ class ListObjectsResponse(BaseModel):
 class PresignedUrlResponse(BaseModel):
     url: str
     key: str
+
+
+class PresignedBatchResponse(BaseModel):
+    urls: list[PresignedUrlResponse]
 
 
 class BucketInfo(BaseModel):

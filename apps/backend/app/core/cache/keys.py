@@ -67,3 +67,4 @@ register_namespace("url_shortener_resolve", scope="global", default_ttl=600, def
 register_namespace("url_shortener_owner", scope="user", default_ttl=120)
 register_namespace("analytics_aggregate", scope="global", default_ttl=300, default_strategy="xfetch")
 register_namespace("dns_lookup", scope="global", default_ttl=3600)
+register_namespace("s3_drive_list", scope="user", default_ttl=30)

@@ -24,6 +24,8 @@ from app.api.routes.s3_drive.schema import (
     CreateFolderRequest,
     PresignedDownloadRequest,
     PresignedUploadRequest,
+    PresignedBatchRequest,
+    PresignedBatchResponse,
     MoveObjectRequest,
     ListBucketsRequest,
     S3ObjectItem,
@@ -125,7 +127,7 @@ def _s3_client(creds: S3Credentials):
     if boto3 is None:
         raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="boto3 not installed.")
 
-    raw = f"{creds.accessKey}:{creds.secretKey}:{creds.region}:{creds.endpoint or ''}"
+    raw = f"{creds.accessKey}:{creds.secretKey}:{creds.region}:{creds.endpoint or ''}:{creds.bucket or ''}"
     cache_key = hashlib.sha256(raw.encode()).hexdigest()
     now = time.monotonic()
 
@@ -138,7 +140,13 @@ def _s3_client(creds: S3Credentials):
         "aws_access_key_id": creds.accessKey,
         "aws_secret_access_key": creds.secretKey,
         "region_name": creds.region,
-        "config": Config(signature_version="s3v4", connect_timeout=10, read_timeout=30),
+        "config": Config(
+            signature_version="s3v4",
+            connect_timeout=10,
+            read_timeout=30,
+            max_pool_connections=50,
+            retries={"max_attempts": 3, "mode": "standard"},
+        ),
     }
     if creds.endpoint:
         kwargs["endpoint_url"] = creds.endpoint
@@ -277,6 +285,29 @@ def presigned_upload(body: PresignedUploadRequest) -> PresignedUrlResponse:
     except (ClientError, BotoCoreError) as exc:
         raise _s3_error(exc) from exc
     return PresignedUrlResponse(url=url, key=body.key)
+
+
+def presigned_batch(body: PresignedBatchRequest) -> PresignedBatchResponse:
+    client = _s3_client(body.credentials)
+    bucket = body.credentials.bucket
+    urls: list[PresignedUrlResponse] = []
+    try:
+        for item in body.items:
+            if item.op == "put":
+                params: dict[str, Any] = {"Bucket": bucket, "Key": item.key}
+                if item.contentType:
+                    params["ContentType"] = item.contentType
+                url = client.generate_presigned_url("put_object", Params=params, ExpiresIn=body.expiresIn)
+            else:
+                url = client.generate_presigned_url(
+                    "get_object",
+                    Params={"Bucket": bucket, "Key": item.key},
+                    ExpiresIn=body.expiresIn,
+                )
+            urls.append(PresignedUrlResponse(url=url, key=item.key))
+    except (ClientError, BotoCoreError) as exc:
+        raise _s3_error(exc) from exc
+    return PresignedBatchResponse(urls=urls)
 
 
 def configure_bucket_cors(body: ListBucketsRequest, allowed_origins: list[str]) -> dict[str, str]:

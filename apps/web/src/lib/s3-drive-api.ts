@@ -148,6 +148,17 @@ export async function getPresignedUploadUrl(
     return s3Request<PresignedUrlResponse>("POST", `${BASE}/operations/presigned-upload`, { credentials, key, contentType })
 }
 
+export type PresignedBatchItem = { key: string; op?: "get" | "put"; contentType?: string }
+export type PresignedBatchResponse = { urls: PresignedUrlResponse[] }
+
+export async function getPresignedBatch(
+    credentials: S3Credentials,
+    items: PresignedBatchItem[],
+    expiresIn = 3600,
+): Promise<PresignedBatchResponse> {
+    return s3Request<PresignedBatchResponse>("POST", `${BASE}/operations/presigned-batch`, { credentials, items, expiresIn })
+}
+
 export async function moveObject(
     credentials: S3Credentials,
     sourceKey: string,

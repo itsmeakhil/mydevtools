@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -80,7 +80,7 @@ import {
     IconMinus,
     IconChevronDown,
 } from "@tabler/icons-react"
-import { listObjects, deleteObjects, getPresignedDownloadUrl, getPresignedUploadUrl, moveObject, configureBucketCors } from "@/lib/s3-drive-api"
+import { listObjects, deleteObjects, getPresignedDownloadUrl, getPresignedUploadUrl, getPresignedBatch, moveObject, configureBucketCors } from "@/lib/s3-drive-api"
 import type { S3Credentials, S3ObjectItem } from "@/lib/s3-drive-api"
 import { useS3DriveStore } from "@/store/s3-drive-store"
 import { CreateFolderDialog } from "./create-folder-dialog"
@@ -164,15 +164,18 @@ function FileIconComp({ type, className }: { type: string; className?: string })
 // ── Checkbox ──────────────────────────────────────────────────────────────────
 
 function Checkbox({
-    checked, indeterminate, onToggle, className,
+    checked, indeterminate, onToggle, className, ariaLabel,
 }: {
-    checked: boolean; indeterminate?: boolean; onToggle: () => void; className?: string
+    checked: boolean; indeterminate?: boolean; onToggle: () => void; className?: string; ariaLabel?: string
 }) {
     return (
         <div
             data-sel-cb
             role="checkbox"
-            aria-checked={checked}
+            tabIndex={0}
+            aria-checked={indeterminate ? "mixed" : checked}
+            aria-label={ariaLabel ?? (checked ? "Deselect item" : "Select item")}
+            onKeyDown={(e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); onToggle() } }}
             onClick={(e) => { e.stopPropagation(); onToggle() }}
             className={cn(
                 "size-[18px] rounded-[4px] border-2 flex items-center justify-center cursor-pointer shrink-0 transition-all duration-100",
@@ -375,18 +378,24 @@ type FileUploadStatus = {
     name: string
     status: "queued" | "uploading" | "done" | "error"
     progress: number
+    file?: File
+    key?: string
+    error?: string
 }
 
 function UploadProgressPanel({
-    queue, onClearCompleted, onDismiss,
+    queue, onClearCompleted, onDismiss, onRetry, onRetryAll,
 }: {
     queue: FileUploadStatus[]
     onClearCompleted: () => void
     onDismiss: () => void
+    onRetry: (idx: number) => void
+    onRetryAll: () => void
 }) {
     const [collapsed, setCollapsed] = useState(false)
     const activeCount = queue.filter((f) => f.status === "uploading").length
     const doneCount = queue.filter((f) => f.status === "done" || f.status === "error").length
+    const errorCount = queue.filter((f) => f.status === "error").length
     const allDone = doneCount === queue.length
 
     if (queue.length === 0) return null
@@ -398,8 +407,18 @@ function UploadProgressPanel({
                 <span className="text-xs font-semibold flex-1 truncate">
                     {allDone ? `${doneCount}/${queue.length} complete` : `Uploading ${activeCount} file${activeCount !== 1 ? "s" : ""}…`}
                 </span>
+                {errorCount > 0 && (
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Button size="icon" variant="ghost" className="size-6 shrink-0 rounded-lg cursor-pointer" onClick={onRetryAll} aria-label="Retry all failed">
+                                <IconRefresh className="size-3 text-amber-500" />
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>Retry failed ({errorCount})</TooltipContent>
+                    </Tooltip>
+                )}
                 {allDone && (
-                    <Button size="icon" variant="ghost" className="size-6 shrink-0 rounded-lg" onClick={onClearCompleted}>
+                    <Button size="icon" variant="ghost" className="size-6 shrink-0 rounded-lg cursor-pointer" onClick={onClearCompleted} aria-label="Clear completed">
                         <IconCheck className="size-3 text-emerald-500" />
                     </Button>
                 )}
@@ -427,8 +446,22 @@ function UploadProgressPanel({
                                     <span className="text-[10px] text-muted-foreground shrink-0">{Math.round(f.progress * 100)}%</span>
                                 )}
                                 {f.status === "done" && <span className="text-[10px] text-emerald-500 shrink-0">Done</span>}
-                                {f.status === "error" && <span className="text-[10px] text-destructive shrink-0">Failed</span>}
+                                {f.status === "error" && (
+                                    <>
+                                        <span className="text-[10px] text-destructive shrink-0">Failed</span>
+                                        <button
+                                            onClick={() => onRetry(i)}
+                                            className="text-[10px] text-blue-500 hover:text-blue-600 font-medium shrink-0 px-1.5 py-0.5 rounded hover:bg-blue-500/10 cursor-pointer transition-colors"
+                                            aria-label={`Retry ${f.name}`}
+                                        >
+                                            Retry
+                                        </button>
+                                    </>
+                                )}
                             </div>
+                            {f.status === "error" && f.error && (
+                                <div className="mt-0.5 text-[10px] text-destructive/70 truncate">{f.error}</div>
+                            )}
                             {f.status === "uploading" && (
                                 <div className="mt-1.5 h-1 bg-muted rounded-full overflow-hidden">
                                     <div
@@ -766,6 +799,32 @@ function WithContextMenu({ children, ...actions }: { children: React.ReactNode }
     )
 }
 
+// ── Infinite load sentinel ────────────────────────────────────────────────────
+
+function InfiniteLoadSentinel({ onVisible, loading }: { onVisible: () => void; loading: boolean }) {
+    const ref = useRef<HTMLDivElement>(null)
+    const onVisibleRef = useRef(onVisible)
+    const loadingRef = useRef(loading)
+    onVisibleRef.current = onVisible
+    loadingRef.current = loading
+
+    useEffect(() => {
+        const el = ref.current
+        if (!el) return
+        const obs = new IntersectionObserver((entries) => {
+            if (entries[0]?.isIntersecting && !loadingRef.current) onVisibleRef.current()
+        }, { rootMargin: "300px 0px" })
+        obs.observe(el)
+        return () => obs.disconnect()
+    }, [])
+
+    return (
+        <div ref={ref} className="flex justify-center items-center py-5 text-xs text-muted-foreground gap-2">
+            {loading ? <><IconLoader2 className="size-3.5 animate-spin" /> Loading more…</> : <span className="opacity-60">Scroll for more</span>}
+        </div>
+    )
+}
+
 // ── FileBrowser ───────────────────────────────────────────────────────────────
 
 type Props = { credentials: S3Credentials; connectionName: string }
@@ -779,6 +838,7 @@ export function FileBrowser({ credentials, connectionName }: Props) {
 
     const [viewMode, setViewMode] = useState<ViewMode>("list")
     const [search, setSearch] = useState("")
+    const [debouncedSearch, setDebouncedSearch] = useState("")
     const [sortCol, setSortCol] = useState<SortCol>("name")
     const [sortDir, setSortDir] = useState<SortDir>("asc")
     const [focusedIndex, setFocusedIndex] = useState<number | null>(null)
@@ -786,6 +846,8 @@ export function FileBrowser({ credentials, connectionName }: Props) {
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
     const [deleting, setDeleting] = useState(false)
     const [uploadQueue, setUploadQueue] = useState<FileUploadStatus[]>([])
+    const uploadQueueRef = useRef<FileUploadStatus[]>([])
+    useEffect(() => { uploadQueueRef.current = uploadQueue }, [uploadQueue])
     const [uploadPanelOpen, setUploadPanelOpen] = useState(false)
     const [zipProgress, setZipProgress] = useState<{ done: number; total: number } | null>(null)
     const [preview, setPreview] = useState<PreviewState | null>(null)
@@ -816,32 +878,47 @@ export function FileBrowser({ credentials, connectionName }: Props) {
 
     useEffect(() => { loadObjects(currentPrefix) }, [currentPrefix]) // eslint-disable-line react-hooks/exhaustive-deps
 
+    // Debounce search to avoid re-sort on every keystroke
+    useEffect(() => {
+        const t = setTimeout(() => setDebouncedSearch(search), 200)
+        return () => clearTimeout(t)
+    }, [search])
+
     // Reset focus when navigating
-    useEffect(() => { setFocusedIndex(null) }, [currentPrefix, search])
+    useEffect(() => { setFocusedIndex(null) }, [currentPrefix, debouncedSearch])
 
-    // Sorted + filtered lists (defined early so keyboard handler can use them)
-    const filteredPrefixes = prefixes.filter((p) => !search || p.toLowerCase().includes(search.toLowerCase()))
-    const filteredObjects = objects.filter((o) => !search || o.key.toLowerCase().includes(search.toLowerCase()))
+    // Sorted + filtered lists (memoized — recompute only when inputs change)
+    const sortedPrefixes = useMemo(() => {
+        const q = debouncedSearch.toLowerCase()
+        const filtered = q ? prefixes.filter((p) => p.toLowerCase().includes(q)) : prefixes
+        return [...filtered].sort((a, b) => {
+            const an = a.replace(currentPrefix, "").replace(/\/$/, "").toLowerCase()
+            const bn = b.replace(currentPrefix, "").replace(/\/$/, "").toLowerCase()
+            return sortDir === "asc" ? an.localeCompare(bn) : bn.localeCompare(an)
+        })
+    }, [prefixes, debouncedSearch, currentPrefix, sortDir])
 
-    const sortedPrefixes = [...filteredPrefixes].sort((a, b) => {
-        const an = a.replace(currentPrefix, "").replace(/\/$/, "").toLowerCase()
-        const bn = b.replace(currentPrefix, "").replace(/\/$/, "").toLowerCase()
-        return sortDir === "asc" ? an.localeCompare(bn) : bn.localeCompare(an)
-    })
-    const sortedObjects = [...filteredObjects].sort((a, b) => {
-        let cmp = 0
-        if (sortCol === "name") {
-            cmp = a.key.replace(currentPrefix, "").toLowerCase()
-                .localeCompare(b.key.replace(currentPrefix, "").toLowerCase())
-        } else if (sortCol === "size") {
-            cmp = (a.size ?? 0) - (b.size ?? 0)
-        } else if (sortCol === "modified") {
-            cmp = (a.lastModified ?? "").localeCompare(b.lastModified ?? "")
-        }
-        return sortDir === "asc" ? cmp : -cmp
-    })
+    const sortedObjects = useMemo(() => {
+        const q = debouncedSearch.toLowerCase()
+        const filtered = q ? objects.filter((o) => o.key.toLowerCase().includes(q)) : objects
+        return [...filtered].sort((a, b) => {
+            let cmp = 0
+            if (sortCol === "name") {
+                cmp = a.key.replace(currentPrefix, "").toLowerCase()
+                    .localeCompare(b.key.replace(currentPrefix, "").toLowerCase())
+            } else if (sortCol === "size") {
+                cmp = (a.size ?? 0) - (b.size ?? 0)
+            } else if (sortCol === "modified") {
+                cmp = (a.lastModified ?? "").localeCompare(b.lastModified ?? "")
+            }
+            return sortDir === "asc" ? cmp : -cmp
+        })
+    }, [objects, debouncedSearch, currentPrefix, sortCol, sortDir])
 
-    const allItems = [...sortedPrefixes, ...sortedObjects.map((o) => o.key)]
+    const allItems = useMemo(
+        () => [...sortedPrefixes, ...sortedObjects.map((o) => o.key)],
+        [sortedPrefixes, sortedObjects],
+    )
 
     // Keyboard shortcuts
     useEffect(() => {
@@ -919,9 +996,9 @@ export function FileBrowser({ credentials, connectionName }: Props) {
         try {
             const { url } = await getPresignedDownloadUrl(credentials, key)
             if (fileType === "code" || fileType === "doc") {
-                const res = await fetch(url)
+                const res = await fetch(url, { headers: { Range: "bytes=0-204799" } })
                 const text = res.ok ? await res.text() : undefined
-                setPreview({ key, url, loading: false, fileType, textContent: text?.slice(0, 200_000) })
+                setPreview({ key, url, loading: false, fileType, textContent: text })
             } else {
                 setPreview({ key, url, loading: false, fileType })
             }
@@ -947,12 +1024,42 @@ export function FileBrowser({ credentials, connectionName }: Props) {
         }
     }
 
+    const updateFileRef = useRef<(idx: number, update: Partial<FileUploadStatus>) => void>(() => {})
+    updateFileRef.current = (idx, update) =>
+        setUploadQueue((prev) => prev.map((f, j) => (j === idx ? { ...f, ...update } : f)))
+
+    const uploadOneRef = useRef<(idx: number) => Promise<boolean>>(async () => false)
+    uploadOneRef.current = async (idx: number): Promise<boolean> => {
+        const entry = uploadQueueRef.current[idx]
+        if (!entry?.file || !entry.key) return false
+        updateFileRef.current(idx, { status: "uploading", progress: 0, error: undefined })
+        try {
+            const { url } = await getPresignedUploadUrl(credentials, entry.key, entry.file.type || "application/octet-stream")
+            await uploadFileXHR(url, entry.file, (p) => updateFileRef.current(idx, { progress: p }))
+            updateFileRef.current(idx, { status: "done", progress: 1 })
+            return true
+        } catch (err) {
+            updateFileRef.current(idx, { status: "error", error: err instanceof Error ? err.message : "Upload failed" })
+            return false
+        }
+    }
+
     async function onUploadFiles(files: FileList | File[]) {
         const arr = Array.from(files)
         if (!arr.length) return
 
-        const initial: FileUploadStatus[] = arr.map((f) => ({ name: f.name, status: "queued", progress: 0 }))
-        setUploadQueue(initial)
+        let startIdx = 0
+        setUploadQueue((prev) => {
+            startIdx = prev.length
+            const additions: FileUploadStatus[] = arr.map((f) => ({
+                name: f.name,
+                status: "queued",
+                progress: 0,
+                file: f,
+                key: `${currentPrefix}${f.name}`,
+            }))
+            return [...prev, ...additions]
+        })
         setUploadPanelOpen(true)
 
         if (!corsConfiguredRef.current) {
@@ -967,25 +1074,10 @@ export function FileBrowser({ credentials, connectionName }: Props) {
         const CONCURRENCY = 4
         let successCount = 0
 
-        const updateFile = (idx: number, update: Partial<FileUploadStatus>) =>
-            setUploadQueue((prev) => prev.map((f, j) => (j === idx ? { ...f, ...update } : f)))
-
-        async function uploadOne(idx: number, file: File) {
-            updateFile(idx, { status: "uploading", progress: 0 })
-            try {
-                const key = `${currentPrefix}${file.name}`
-                const { url } = await getPresignedUploadUrl(credentials, key, file.type || "application/octet-stream")
-                await uploadFileXHR(url, file, (p) => updateFile(idx, { progress: p }))
-                updateFile(idx, { status: "done", progress: 1 })
-                successCount++
-            } catch {
-                updateFile(idx, { status: "error" })
-            }
-        }
-
         for (let i = 0; i < arr.length; i += CONCURRENCY) {
-            const batch = arr.slice(i, i + CONCURRENCY)
-            await Promise.allSettled(batch.map((file, j) => uploadOne(i + j, file)))
+            const indices = arr.slice(i, i + CONCURRENCY).map((_, j) => startIdx + i + j)
+            const results = await Promise.allSettled(indices.map((idx) => uploadOneRef.current(idx)))
+            successCount += results.filter((r) => r.status === "fulfilled" && r.value).length
         }
 
         if (successCount > 0) {
@@ -993,8 +1085,28 @@ export function FileBrowser({ credentials, connectionName }: Props) {
             loadObjects(currentPrefix)
         }
         if (successCount < arr.length) {
-            toast.error(`${arr.length - successCount} file${arr.length - successCount > 1 ? "s" : ""} failed`)
+            toast.error(`${arr.length - successCount} file${arr.length - successCount > 1 ? "s" : ""} failed — retry from panel`)
         }
+    }
+
+    async function retryUpload(idx: number) {
+        const ok = await uploadOneRef.current(idx)
+        if (ok) loadObjects(currentPrefix)
+    }
+
+    async function retryAllFailed() {
+        const failedIndices = uploadQueueRef.current
+            .map((f, i) => (f.status === "error" ? i : -1))
+            .filter((i) => i !== -1)
+        if (!failedIndices.length) return
+        const CONCURRENCY = 4
+        let ok = 0
+        for (let i = 0; i < failedIndices.length; i += CONCURRENCY) {
+            const batch = failedIndices.slice(i, i + CONCURRENCY)
+            const results = await Promise.allSettled(batch.map((idx) => uploadOneRef.current(idx)))
+            ok += results.filter((r) => r.status === "fulfilled" && r.value).length
+        }
+        if (ok > 0) loadObjects(currentPrefix)
     }
 
     async function onDownloadZip() {
@@ -1007,9 +1119,24 @@ export function FileBrowser({ credentials, connectionName }: Props) {
         ])
         const zip = new JSZip()
         let ok = 0
-        for (const key of fileKeys) {
+        const ZIP_CONCURRENCY = 6
+        // Batch presign — single request for all keys (max 100/batch)
+        const presigned: Record<string, string> = {}
+        try {
+            for (let i = 0; i < fileKeys.length; i += 100) {
+                const chunk = fileKeys.slice(i, i + 100)
+                const { urls } = await getPresignedBatch(credentials, chunk.map((key) => ({ key, op: "get" })))
+                for (const u of urls) presigned[u.key] = u.url
+            }
+        } catch (err) {
+            toast.error(err instanceof Error ? err.message : "Failed to presign URLs")
+            setZipProgress(null)
+            return
+        }
+        async function fetchOne(key: string) {
             try {
-                const { url } = await getPresignedDownloadUrl(credentials, key)
+                const url = presigned[key]
+                if (!url) throw new Error("missing url")
                 const res = await fetch(url)
                 const blob = await res.blob()
                 zip.file(key.split("/").pop() ?? key, blob)
@@ -1018,6 +1145,10 @@ export function FileBrowser({ credentials, connectionName }: Props) {
             } catch {
                 toast.error(`Failed to fetch ${key.split("/").pop()}`)
             }
+        }
+        for (let i = 0; i < fileKeys.length; i += ZIP_CONCURRENCY) {
+            const batch = fileKeys.slice(i, i + ZIP_CONCURRENCY)
+            await Promise.allSettled(batch.map(fetchOne))
         }
         if (ok > 0) {
             const blob = await zip.generateAsync({ type: "blob" })
@@ -1099,7 +1230,7 @@ export function FileBrowser({ credentials, connectionName }: Props) {
         )
     }
 
-    const allCount = filteredPrefixes.length + filteredObjects.length
+    const allCount = sortedPrefixes.length + sortedObjects.length
     const allSelected = allCount > 0 && selectedKeys.size >= allCount
     const someSelected = selectedKeys.size > 0 && !allSelected
     const hasSelection = selectedKeys.size > 0
@@ -1320,12 +1451,10 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                 )}
 
                 {isTruncated && (
-                    <div className="flex justify-center py-5">
-                        <Button variant="outline" size="sm" className="rounded-full px-5" onClick={() => loadObjects(currentPrefix, nextContinuationToken)} disabled={isLoading}>
-                            {isLoading && <IconLoader2 className="size-4 animate-spin mr-2" />}
-                            Load more
-                        </Button>
-                    </div>
+                    <InfiniteLoadSentinel
+                        onVisible={() => loadObjects(currentPrefix, nextContinuationToken)}
+                        loading={isLoading}
+                    />
                 )}
             </ScrollArea>
 
@@ -1384,9 +1513,9 @@ export function FileBrowser({ credentials, connectionName }: Props) {
             {/* Status bar */}
             {!hasSelection && allCount > 0 && (
                 <div className="flex items-center gap-3 px-4 py-1.5 border-t text-[11px] text-muted-foreground/60 shrink-0 bg-muted/20">
-                    <span>{filteredPrefixes.length + filteredObjects.length} items</span>
-                    {filteredPrefixes.length > 0 && <span>· {filteredPrefixes.length} folder{filteredPrefixes.length !== 1 ? "s" : ""}</span>}
-                    {filteredObjects.length > 0 && <span>· {filteredObjects.length} file{filteredObjects.length !== 1 ? "s" : ""}</span>}
+                    <span>{sortedPrefixes.length + sortedObjects.length} items</span>
+                    {sortedPrefixes.length > 0 && <span>· {sortedPrefixes.length} folder{sortedPrefixes.length !== 1 ? "s" : ""}</span>}
+                    {sortedObjects.length > 0 && <span>· {sortedObjects.length} file{sortedObjects.length !== 1 ? "s" : ""}</span>}
                     {currentPrefix && <span className="ml-auto font-mono text-[10px] truncate max-w-xs">/{currentPrefix.replace(/\/$/, "")}</span>}
                 </div>
             )}
@@ -1441,6 +1570,8 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                     queue={uploadQueue}
                     onClearCompleted={() => setUploadQueue([])}
                     onDismiss={() => setUploadPanelOpen(false)}
+                    onRetry={retryUpload}
+                    onRetryAll={retryAllFailed}
                 />
             )}
         </div>
