@@ -122,16 +122,16 @@ export function CollectionsSidebar({
         }
     }
 
-    const openAddFolderDialog = (parentId: string) => {
+    const openAddFolderDialog = React.useCallback((parentId: string) => {
         setTargetParentId(parentId)
         setNewFolderDialogOpen(true)
-    }
+    }, [])
 
-    const openRenameCollectionDialog = (collection: Collection) => {
+    const openRenameCollectionDialog = React.useCallback((collection: Collection) => {
         setTargetCollectionId(collection.id)
         setRenameCollectionName(collection.name)
         setRenameCollectionDialogOpen(true)
-    }
+    }, [])
 
     const toggleCollectionSelection = (collectionId: string) => {
         setSelectedCollections(prev => {
