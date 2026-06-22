@@ -101,11 +101,7 @@ async def lookup_domain(domain: str, record_types: list[str]) -> DNSLookupResult
     if not requested:
         requested = ["A", "AAAA", "MX", "TXT", "NS", "CNAME"]
 
-    resolver = dns.asyncresolver.Resolver()
-    resolver.timeout = 5
-    resolver.lifetime = 10
-
-    tasks = {rtype: _resolve_type(resolver, domain, rtype) for rtype in requested}
+    tasks = {rtype: lookup(host=domain, record_type=rtype) for rtype in requested}
     results = await asyncio.gather(*tasks.values())
 
     records: dict[str, list[DNSRecord]] = {}
