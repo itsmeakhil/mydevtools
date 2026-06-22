@@ -1467,7 +1467,8 @@
       "requestFailed": "Το αίτημα απέτυχε: {message}",
       "curlPasted": "Το cURL επικολλήθηκε και αναλύθηκε με επιτυχία",
       "responseCopied": "Η απάντηση αντιγράφηκε στο πρόχειρο",
-      "codeCopied": "Ο κώδικας αντιγράφηκε στο πρόχειρο"
+      "codeCopied": "Ο κώδικας αντιγράφηκε στο πρόχειρο",
+      "copyFailed": "Αποτυχία αντιγραφής στο πρόχειρο"
     },
     "layout": {
       "collections": "Συλλογές",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Μέθοδος",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Αποστολή...",
-      "send": "Στέλνω"
+      "send": "Στέλνω",
+      "invalidJsonBodyHelp": "Αδύνατη η αποστολή: το σώμα JSON δεν είναι έγκυρο"
     },
     "requestTabs": {
       "params": "Params",

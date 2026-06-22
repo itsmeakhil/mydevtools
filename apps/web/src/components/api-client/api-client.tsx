@@ -70,6 +70,10 @@ function ApiClientInner() {
     const { addTab, appendTab, closeTab, duplicateTab, renameTab, reorderTabs, setActiveTabId, updateActiveTab } = useTabsActions()
 
     const abortControllerRef = React.useRef<AbortController | null>(null)
+
+    // Abort any in-flight request when the component unmounts.
+    React.useEffect(() => () => abortControllerRef.current?.abort(), [])
+
     const { format: formatJson } = useJsonFormatter()
     const { collections } = useCollectionsState()
     const { saveRequest } = useCollectionsActions()
@@ -109,6 +113,12 @@ function ApiClientInner() {
         }
         return urls
     }, [history])
+
+    const isBodyInvalid = React.useMemo(() => {
+        if (activeTab.body.type !== "json") return false
+        if (!activeTab.body.content.trim()) return false
+        try { JSON.parse(activeTab.body.content); return false } catch { return true }
+    }, [activeTab.body])
 
     const replaceUrlWithEnvBaseUrl = React.useCallback((url: string | undefined) => {
         if (!url || !activeEnvId) return url
@@ -653,6 +663,7 @@ function ApiClientInner() {
                                             onSend={handleSend}
                                             onCancel={handleCancel}
                                             isLoading={activeTab.isLoading}
+                                            isBodyInvalid={isBodyInvalid}
                                             collections={collections}
                                             onSave={handleSaveRequest}
                                             saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
@@ -695,6 +706,7 @@ function ApiClientInner() {
                                             onSend={handleSend}
                                             onCancel={handleCancel}
                                             isLoading={activeTab.isLoading}
+                                            isBodyInvalid={isBodyInvalid}
                                             collections={collections}
                                             onSave={handleSaveRequest}
                                             saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}

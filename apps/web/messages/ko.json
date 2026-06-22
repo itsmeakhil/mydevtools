@@ -1467,7 +1467,8 @@
       "requestFailed": "요청 실패: {message}",
       "curlPasted": "cURL이 붙여넣기 및 파싱되었습니다",
       "responseCopied": "응답이 클립보드에 복사되었습니다",
-      "codeCopied": "코드가 클립보드에 복사되었습니다"
+      "codeCopied": "코드가 클립보드에 복사되었습니다",
+      "copyFailed": "클립보드에 복사하지 못했습니다"
     },
     "layout": {
       "collections": "컬렉션",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "메서드",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "전송 중...",
-      "send": "전송"
+      "send": "전송",
+      "invalidJsonBodyHelp": "전송 불가: JSON 본문이 유효하지 않습니다"
     },
     "requestTabs": {
       "params": "매개변수",

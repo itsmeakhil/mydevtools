@@ -1467,7 +1467,8 @@
       "requestFailed": "Yêu cầu thất bại: {message}",
       "curlPasted": "Đã dán và phân tích cURL thành công",
       "responseCopied": "Đã sao chép phản hồi vào bộ nhớ tạm",
-      "codeCopied": "Đã sao chép mã vào bộ nhớ tạm"
+      "codeCopied": "Đã sao chép mã vào bộ nhớ tạm",
+      "copyFailed": "Sao chép vào clipboard không thành công"
     },
     "layout": {
       "collections": "Bộ sưu tập",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Phương thức",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Đang gửi...",
-      "send": "Gửi"
+      "send": "Gửi",
+      "invalidJsonBodyHelp": "Không thể gửi: nội dung JSON không hợp lệ"
     },
     "requestTabs": {
       "params": "Tham số",

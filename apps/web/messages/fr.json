@@ -1467,7 +1467,8 @@
       "requestFailed": "Échec de la requête : {message}",
       "curlPasted": "cURL collé et analysé",
       "responseCopied": "Réponse copiée",
-      "codeCopied": "Code copié"
+      "codeCopied": "Code copié",
+      "copyFailed": "Impossible de copier dans le presse-papiers"
     },
     "layout": {
       "collections": "Collections",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Méthode",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Envoi…",
-      "send": "Envoyer"
+      "send": "Envoyer",
+      "invalidJsonBodyHelp": "Envoi impossible : le corps JSON est invalide"
     },
     "requestTabs": {
       "params": "Paramètres",

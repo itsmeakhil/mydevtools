@@ -1467,7 +1467,8 @@
       "requestFailed": "Permintaan gagal: {message}",
       "curlPasted": "cURL ditampal dan dihurai dengan berjaya",
       "responseCopied": "Respons disalin ke papan klip",
-      "codeCopied": "Kod disalin ke papan klip"
+      "codeCopied": "Kod disalin ke papan klip",
+      "copyFailed": "Gagal menyalin ke papan klip"
     },
     "layout": {
       "collections": "Koleksi",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Kaedah",
       "urlPlaceholder": "https://api.contoh.com/v1/...",
       "sending": "Menghantar...",
-      "send": "Hantar"
+      "send": "Hantar",
+      "invalidJsonBodyHelp": "Tidak boleh hantar: kandungan JSON tidak sah"
     },
     "requestTabs": {
       "params": "Parameter",

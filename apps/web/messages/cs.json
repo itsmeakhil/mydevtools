@@ -1467,7 +1467,8 @@
       "requestFailed": "Požadavek selhal: {message}",
       "curlPasted": "cURL vložen a zpracován",
       "responseCopied": "Odpověď zkopírována",
-      "codeCopied": "Kód zkopírován"
+      "codeCopied": "Kód zkopírován",
+      "copyFailed": "Nepodařilo se zkopírovat do schránky"
     },
     "layout": {
       "collections": "Kolekce",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Metoda",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Odesílání...",
-      "send": "Odeslat"
+      "send": "Odeslat",
+      "invalidJsonBodyHelp": "Nelze odeslat: tělo JSON není platné"
     },
     "requestTabs": {
       "params": "Parametry",

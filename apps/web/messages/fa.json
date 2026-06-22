@@ -1467,7 +1467,8 @@
       "requestFailed": "درخواست ناموفق بود: {message}",
       "curlPasted": "cURL با موفقیت جای‌گذاری و تجزیه شد",
       "responseCopied": "پاسخ در کلیپ بورد کپی شد",
-      "codeCopied": "کد در کلیپ بورد کپی شد"
+      "codeCopied": "کد در کلیپ بورد کپی شد",
+      "copyFailed": "کپی در کلیپ‌بورد ناموفق بود"
     },
     "layout": {
       "collections": "مجموعه ها",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "روش",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "ارسال...",
-      "send": "ارسال کنید"
+      "send": "ارسال کنید",
+      "invalidJsonBodyHelp": "ارسال امکان‌پذیر نیست: بدنه JSON نامعتبر است"
     },
     "requestTabs": {
       "params": "پارامترها",

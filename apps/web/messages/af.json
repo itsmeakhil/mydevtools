@@ -1467,7 +1467,8 @@
       "requestFailed": "Versoek het misluk: {message}",
       "curlPasted": "cURL geplak en suksesvol ontleed",
       "responseCopied": "Antwoord na knipbord gekopieer",
-      "codeCopied": "Kode na knipbord gekopieer"
+      "codeCopied": "Kode na knipbord gekopieer",
+      "copyFailed": "Failed to copy to clipboard"
     },
     "layout": {
       "collections": "Versamelings",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Metode",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Besig om te stuur...",
-      "send": "Stuur"
+      "send": "Stuur",
+      "invalidJsonBodyHelp": "Cannot send: the JSON body is invalid"
     },
     "requestTabs": {
       "params": "Params",

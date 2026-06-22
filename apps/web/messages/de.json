@@ -1467,7 +1467,8 @@
       "requestFailed": "Anfrage fehlgeschlagen: {message}",
       "curlPasted": "cURL eingefügt und erfolgreich gelesen",
       "responseCopied": "Antwort in die Zwischenablage kopiert",
-      "codeCopied": "Code in die Zwischenablage kopiert"
+      "codeCopied": "Code in die Zwischenablage kopiert",
+      "copyFailed": "In die Zwischenablage kopieren fehlgeschlagen"
     },
     "layout": {
       "collections": "Sammlungen",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Methode",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Senden...",
-      "send": "Senden"
+      "send": "Senden",
+      "invalidJsonBodyHelp": "Senden nicht möglich: Der JSON-Body ist ungültig"
     },
     "requestTabs": {
       "params": "Parameter",

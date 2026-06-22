@@ -1467,7 +1467,8 @@
       "requestFailed": "请求失败：{message}",
       "curlPasted": "cURL 已粘贴并解析成功",
       "responseCopied": "响应已复制到剪贴板",
-      "codeCopied": "代码已复制到剪贴板"
+      "codeCopied": "代码已复制到剪贴板",
+      "copyFailed": "复制到剪贴板失败"
     },
     "layout": {
       "collections": "集合",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "方法",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "发送中…",
-      "send": "发送"
+      "send": "发送",
+      "invalidJsonBodyHelp": "无法发送：JSON 正文无效"
     },
     "requestTabs": {
       "params": "参数",

@@ -1467,7 +1467,8 @@
       "requestFailed": "リクエストに失敗しました：{message}",
       "curlPasted": "cURLが貼り付けられ、正常に解析されました",
       "responseCopied": "レスポンスをクリップボードにコピーしました",
-      "codeCopied": "コードをクリップボードにコピーしました"
+      "codeCopied": "コードをクリップボードにコピーしました",
+      "copyFailed": "クリップボードへのコピーに失敗しました"
     },
     "layout": {
       "collections": "コレクション",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "メソッド",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "送信中...",
-      "send": "送信"
+      "send": "送信",
+      "invalidJsonBodyHelp": "送信できません: JSONボディが無効です"
     },
     "requestTabs": {
       "params": "パラメータ",

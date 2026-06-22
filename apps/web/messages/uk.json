@@ -1467,7 +1467,8 @@
       "requestFailed": "Запит не вдався: {message}",
       "curlPasted": "cURL вставлено та розібрано успішно",
       "responseCopied": "Відповідь скопійовано до буфера обміну",
-      "codeCopied": "Код скопійовано до буфера обміну"
+      "codeCopied": "Код скопійовано до буфера обміну",
+      "copyFailed": "Не вдалося скопіювати до буфера обміну"
     },
     "layout": {
       "collections": "Колекції",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Метод",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Надсилання...",
-      "send": "Надіслати"
+      "send": "Надіслати",
+      "invalidJsonBodyHelp": "Неможливо надіслати: тіло JSON недійсне"
     },
     "requestTabs": {
       "params": "Параметри",

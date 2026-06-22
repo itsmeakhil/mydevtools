@@ -1467,7 +1467,8 @@
       "requestFailed": "Request failed: {message}",
       "curlPasted": "cURL pasted and parsed successfully",
       "responseCopied": "Response copied to clipboard",
-      "codeCopied": "Code copied to clipboard"
+      "codeCopied": "Code copied to clipboard",
+      "copyFailed": "Kopiowanie do schowka nie powiodło się"
     },
     "layout": {
       "collections": "Collections",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Method",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Sending...",
-      "send": "Send"
+      "send": "Send",
+      "invalidJsonBodyHelp": "Nie można wysłać: treść JSON jest nieprawidłowa"
     },
     "requestTabs": {
       "params": "Params",

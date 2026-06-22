@@ -22,6 +22,21 @@ import { ResponsePanelSkeleton } from "./skeletons"
 
 const MAX_INLINE_BYTES = 2 * 1024 * 1024 // 2MB
 
+const STATUS_COLOR: Record<string, string> = {
+    success: "bg-emerald-100 text-emerald-900 dark:bg-emerald-950/60 dark:text-emerald-200",
+    redirect: "bg-sky-100 text-sky-900 dark:bg-sky-950/60 dark:text-sky-200",
+    clientError: "bg-amber-100 text-amber-900 dark:bg-amber-950/60 dark:text-amber-200",
+    serverError: "bg-rose-100 text-rose-900 dark:bg-rose-950/60 dark:text-rose-200",
+}
+
+function getStatusColorKey(status: number): string {
+    if (status >= 200 && status < 300) return "success"
+    if (status >= 300 && status < 400) return "redirect"
+    if (status >= 400 && status < 500) return "clientError"
+    if (status >= 500) return "serverError"
+    return "clientError"
+}
+
 interface ParsedCookie {
     name: string
     value: string
@@ -138,10 +153,14 @@ export function ResponsePanel({ response, isLoading }: ResponsePanelProps) {
         return "text"
     }
 
-    const handleCopy = () => {
+    const handleCopy = async () => {
         if (!response?.body) return
-        navigator.clipboard.writeText(response.body)
-        toast.success(tApi("toasts.responseCopied"))
+        try {
+            await navigator.clipboard.writeText(response.body)
+            toast.success(tApi("toasts.responseCopied"))
+        } catch {
+            toast.error(tApi("toasts.copyFailed"))
+        }
     }
 
     const handleDownload = () => {
@@ -243,8 +262,8 @@ export function ResponsePanel({ response, isLoading }: ResponsePanelProps) {
                                 <Info className="h-3.5 w-3.5 text-blue-500" />
                             )}
                             <span className={cn(
-                                "text-xs font-bold",
-                                isSuccess ? "text-emerald-600" : isError ? "text-rose-600" : "text-foreground"
+                                "text-xs font-bold px-1 rounded",
+                                STATUS_COLOR[getStatusColorKey(response.status)]
                             )}>
                                 {response.status}
                             </span>

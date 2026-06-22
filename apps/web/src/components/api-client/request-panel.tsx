@@ -27,6 +27,8 @@ interface RequestPanelProps {
     onSend: () => void
     onCancel?: () => void
     isLoading: boolean
+    /** When true, the Send button is disabled and an SR hint is shown. */
+    isBodyInvalid?: boolean
     collections: Collection[]
     onSave: (parentId: string, name: string) => void
     saveDefaultName?: string
@@ -68,6 +70,7 @@ function RequestPanelImpl({
     onSend,
     onCancel,
     isLoading,
+    isBodyInvalid = false,
     collections,
     onSave,
     saveDefaultName,
@@ -264,9 +267,11 @@ function RequestPanelImpl({
                         Cancel
                     </Button>
                 ) : (
+                <>
                 <Button
                     onClick={onSend}
-                    disabled={isLoading || !localUrl}
+                    disabled={isLoading || !localUrl || isBodyInvalid}
+                    aria-describedby={isBodyInvalid ? "send-invalid-help" : undefined}
                     className="h-10 px-6 font-bold shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
                     {isLoading ? (
@@ -276,6 +281,12 @@ function RequestPanelImpl({
                     )}
                     {isLoading ? t("sending") : t("send")}
                 </Button>
+                {isBodyInvalid && (
+                    <span id="send-invalid-help" className="sr-only">
+                        {t("invalidJsonBodyHelp")}
+                    </span>
+                )}
+                </>
                 )}
 
                 <div className="border-l pl-2 flex items-center ml-1">
