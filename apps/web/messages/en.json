@@ -229,6 +229,7 @@
     "welcomeBackNamed": "Welcome back, {name}",
     "tagline": "What would you like to build today?",
     "brandName": "MyDevTools",
+    "viewActivity": "Recent activity",
     "signIn": "Sign in",
     "stats": {
       "tools": "Tools",
@@ -313,7 +314,8 @@
       "changedFields": "What changed",
       "device": "Device",
       "before": "Before",
-      "after": "After"
+      "after": "After",
+      "viewAll": "View all activity"
     },
     "toolCard": {
       "defaultDescription": "Explore this tool for better functionality.",

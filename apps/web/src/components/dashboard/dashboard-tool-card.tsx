@@ -14,7 +14,21 @@ import { type ToolCardProps, formatRelativeTime } from './types'
 export const HScrollFade = ({ children }: { children: React.ReactNode }) => (
   <div className="relative">
     {children}
-    <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-background/80 to-transparent rounded-r-xl" />
+    <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-background/80 to-transparent rounded-r-lg" />
+  </div>
+)
+
+/** Matches ToolCard footprint so layout doesn't shift on hydration. */
+export const ToolCardSkeleton = () => (
+  <div className="rounded-lg h-full" aria-hidden>
+    <div className="block h-full">
+      <Card className="bg-card border border-border h-full overflow-hidden rounded-lg">
+        <CardContent className="flex items-center gap-2.5 p-2.5 md:p-3">
+          <div className="shrink-0 h-9 w-9 md:h-10 md:w-10 rounded-lg bg-muted animate-pulse" />
+          <div className="min-w-0 flex-1 h-4 rounded bg-muted animate-pulse" />
+        </CardContent>
+      </Card>
+    </div>
   </div>
 )
 
@@ -26,7 +40,6 @@ export const ToolCard = React.memo(function ToolCard({
   togglePin,
   timestamp,
 }: ToolCardProps) {
-  const tCard = useTranslations('Dashboard')
   const tTools = useTranslations('Dashboard.tools')
   const pathname = item.url?.toString().split('?')[0] ?? ''
   const toolKey = TOOL_PATH_TO_MESSAGE_KEY[pathname]
@@ -43,12 +56,19 @@ export const ToolCard = React.memo(function ToolCard({
     }
   }
 
+  const pinned = item.url ? isPinned(item.url.toString()) : false
+
   return (
     <div className="rounded-lg h-full">
-      <Link href={item.url || '#'} className="block group h-full" onClick={handleClick}>
-        <Card className="bg-card border border-border hover:border-primary/40 hover:shadow-sm transition-colors duration-200 h-full relative overflow-hidden rounded-lg">
+      <Link
+        href={item.url || '#'}
+        className="block group h-full rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        onClick={handleClick}
+        title={displayTitle}
+      >
+        <Card className="bg-card border border-border hover:border-primary/40 hover:bg-accent/20 hover:shadow-sm active:scale-[0.99] transition-[colors,background-color,transform,box-shadow] duration-200 h-full relative overflow-hidden rounded-lg">
           <CardContent className="flex items-center gap-2.5 p-2.5 md:p-3 relative z-10">
-            <div className="shrink-0 p-2 md:p-2.5 rounded-xl bg-gradient-to-br from-primary/20 via-primary/10 to-transparent text-primary ring-1 ring-primary/15 shadow-inner shadow-primary/5">
+            <div className="shrink-0 p-2 md:p-2.5 rounded-lg bg-primary/10 text-primary">
               {item.icon ? (
                 <item.icon size={18} strokeWidth={1.5} className="md:w-5 md:h-5" />
               ) : (
@@ -67,7 +87,7 @@ export const ToolCard = React.memo(function ToolCard({
             )}
 
             {timestamp && !item.badge && (
-              <span className="shrink-0 text-[10px] text-muted-foreground/50 tabular-nums group-hover:hidden">
+              <span className="shrink-0 text-[10px] text-muted-foreground/50 tabular-nums">
                 {formatRelativeTime(timestamp)}
               </span>
             )}
@@ -75,8 +95,13 @@ export const ToolCard = React.memo(function ToolCard({
             {item.url && (
               <button
                 type="button"
-                aria-label={tCard('sections.pinned')}
-                className="shrink-0 p-1 rounded-md hover:bg-muted/80 transition-colors cursor-pointer opacity-0 group-hover:opacity-100 focus-visible:opacity-100"
+                aria-label={`${pinned ? 'Unpin' : 'Pin'} ${displayTitle}`}
+                aria-pressed={pinned}
+                className={cn(
+                  'shrink-0 rounded-md hover:bg-muted/80 transition-colors cursor-pointer',
+                  'flex items-center justify-center min-h-11 min-w-11 md:min-h-0 md:min-w-0 md:p-1 -m-2 md:m-0',
+                  'opacity-60 md:opacity-0 md:group-hover:opacity-100 focus-visible:opacity-100',
+                )}
                 onClick={(e) => {
                   e.preventDefault()
                   e.stopPropagation()
@@ -86,7 +111,7 @@ export const ToolCard = React.memo(function ToolCard({
                 <Pin
                   className={cn(
                     'transition-colors',
-                    isPinned(item.url.toString())
+                    pinned
                       ? 'text-primary fill-primary'
                       : 'text-muted-foreground/60 hover:text-primary',
                   )}

@@ -10,6 +10,7 @@ import {
   type ToolCardProps,
   createItemId,
   groupDisplayTitle,
+  categoryAccent,
 } from './types'
 import { ToolCard } from './dashboard-tool-card'
 
@@ -36,11 +37,13 @@ export function DashboardToolGrid({
 
   return (
     <div className="space-y-5 md:space-y-8">
-      {filteredGroups.map((group, groupIndex) => (
+      {filteredGroups.map((group, groupIndex) => {
+        const accent = categoryAccent(group.title)
+        return (
         <section key={`${group.title}-${group.originalGroupIndex}`} className="space-y-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 section-header-line pb-2">
-              <div className="p-2 rounded-xl bg-primary/10 text-primary">
+              <div className={`p-2 rounded-lg ${accent.bg} ${accent.text}`}>
                 {group.icon ? (
                   <group.icon size={18} strokeWidth={1.5} />
                 ) : (
@@ -74,7 +77,7 @@ export function DashboardToolGrid({
                   item.items.map((subItem: ToolItem, subIndex: number) => (
                     <ToolCard
                       key={`${groupIndex}-${itemIndex}-${subIndex}`}
-                      item={{ ...subItem, icon: item.icon }}
+                      item={{ ...subItem, icon: subItem.icon ?? item.icon }}
                       id={createItemId(group.originalGroupIndex, itemIndex, subIndex)}
                       index={subIndex}
                       {...toolCardProps}
@@ -84,11 +87,12 @@ export function DashboardToolGrid({
             ))}
           </div>
         </section>
-      ))}
+        )
+      })}
       {/* No results state */}
       {(searchQuery || filterGroup) && filteredGroups.length === 0 && (
         <div className="space-y-5">
-          <div className="rounded-xl border border-dashed border-border p-8 text-center">
+          <div className="rounded-lg border border-dashed border-border p-8 text-center">
             <p className="text-sm font-medium text-foreground">{t('noResults')}</p>
             <p className="mt-1 text-xs text-muted-foreground">{t('noResultsHint')}</p>
           </div>
