@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 from contextvars import ContextVar
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 # Field names whose values are safe to record verbatim in the audit diff.
 # Anything NOT in this set is recorded as "[redacted]" (default-deny).

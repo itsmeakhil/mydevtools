@@ -102,7 +102,7 @@ class AuditMiddleware(BaseHTTPMiddleware):
                     "device": audit.parse_user_agent(request.headers.get("user-agent")),
                     "latency_ms": latency,
                     "ts": ts,
-                    "expireAt": datetime.datetime.utcnow() + datetime.timedelta(days=_TTL_DAYS),
+                    "expireAt": datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=_TTL_DAYS),
                 }
                 asyncio.create_task(write_audit_event(doc))
             except Exception as exc:  # never propagate
