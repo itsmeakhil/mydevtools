@@ -31,7 +31,7 @@ import { useTranslations } from "next-intl"
 import { getApiClientRequestDisplayName } from "../display-name"
 import { useCollectionsState, useCollectionsActions } from "../context/collections-context"
 import { useHistoryState, useHistoryActions } from "../context/history-context"
-import { CollectionsSidebarSkeleton } from "../skeletons"
+import { CollectionsSidebarSkeleton, HistoryListSkeleton } from "../skeletons"
 import { useDebouncedValue } from "@/lib/use-debounced-value"
 
 interface CollectionsSidebarProps {
@@ -43,7 +43,7 @@ export function CollectionsSidebar({
 }: CollectionsSidebarProps) {
     const { collections, isLoading } = useCollectionsState()
     const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, deleteMultipleCollections: onDeleteMultiple } = useCollectionsActions()
-    const { history } = useHistoryState()
+    const { history, isLoading: isHistoryLoading } = useHistoryState()
     const { clearHistory: onClearHistory, deleteHistoryItem: onDeleteHistoryItem } = useHistoryActions()
     const t = useTranslations("ApiClient.collectionsSidebar")
     const tRoot = useTranslations("ApiClient")
@@ -305,7 +305,9 @@ export function CollectionsSidebar({
                         </div>
                     </div>
                     <div className="flex-1 overflow-hidden" ref={historyListContainerRef}>
-                        {!history.length ? (
+                        {isHistoryLoading && history.length === 0 ? (
+                            <HistoryListSkeleton />
+                        ) : !history.length ? (
                             <div className="flex flex-col items-center justify-center p-8 text-center">
                                 <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center mb-3">
                                     <FolderPlus className="h-5 w-5 text-muted-foreground/50" />

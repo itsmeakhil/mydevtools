@@ -8,6 +8,7 @@ import type { HistoryRequest, CollectionRequest } from "../types"
 
 type HistoryState = {
     history: HistoryRequest[]
+    isLoading: boolean
 }
 
 type HistoryActions = {
@@ -28,11 +29,11 @@ const HistoryActionsCtx = React.createContext<HistoryActions | null>(null)
 // ── Provider ───────────────────────────────────────────────────────────────
 
 export function HistoryProvider({ children }: { children: React.ReactNode }) {
-    const { history, addHistoryItem, clearHistory, deleteHistoryItem } = useHistory()
+    const { history, isHistoryLoading, addHistoryItem, clearHistory, deleteHistoryItem } = useHistory()
 
     const state = React.useMemo<HistoryState>(
-        () => ({ history }),
-        [history]
+        () => ({ history, isLoading: isHistoryLoading }),
+        [history, isHistoryLoading]
     )
 
     const actions = React.useMemo<HistoryActions>(

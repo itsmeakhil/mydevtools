@@ -74,12 +74,18 @@ def _mock_find_one(collection_doc: dict | None):
 
 
 def _mock_find_one_and_update(updated_doc: dict | None):
-    """Monkeypatch db_manager.find_one_and_update to return updated_doc."""
+    """Monkeypatch db_manager.find_one_and_update to return updated_doc.
+
+    The inner function stores the most-recent ``update_query`` on itself so
+    tests can inspect the ``$set`` payload without resorting to AsyncMock.
+    """
     async def _find_one_and_update(collection_name, query, update_query, return_document=False):
+        _find_one_and_update.last_update_query = update_query  # type: ignore[attr-defined]
         if updated_doc is None:
             return None
         return copy.deepcopy(updated_doc)
 
+    _find_one_and_update.last_update_query = None  # type: ignore[attr-defined]
     return _find_one_and_update
 
 
@@ -109,10 +115,11 @@ async def test_apply_delta_adds_item(monkeypatch):
     updated_collection = copy.deepcopy(BASE_COLLECTION)
     updated_collection["items"][0]["items"].append(new_item)
 
+    mock_update = _mock_find_one_and_update(updated_collection)
     monkeypatch.setattr("app.api.routes.api_client.collections_delta.db_manager.find_one", _mock_find_one(BASE_COLLECTION))
     monkeypatch.setattr(
         "app.api.routes.api_client.collections_delta.db_manager.find_one_and_update",
-        _mock_find_one_and_update(updated_collection),
+        mock_update,
     )
     monkeypatch.setattr("app.api.routes.api_client.collections_delta.bump_version", AsyncMock())
 
@@ -129,6 +136,14 @@ async def test_apply_delta_adds_item(monkeypatch):
     item_ids = {it["id"] for it in folder["items"]}
     assert "new-req-1" in item_ids
 
+    # Assert the $set payload sent to MongoDB contains the new item
+    update_query = mock_update.last_update_query
+    assert update_query is not None
+    persisted_items = update_query["$set"]["items"]
+    persisted_folder = next(i for i in persisted_items if i["id"] == FOLDER_ID)
+    persisted_ids = {it["id"] for it in persisted_folder["items"]}
+    assert "new-req-1" in persisted_ids
+
 
 # ── Test: delete op removes an item ──────────────────────────────────────────
 
@@ -138,10 +153,11 @@ async def test_apply_delta_deletes_item(monkeypatch):
     updated_collection = copy.deepcopy(BASE_COLLECTION)
     updated_collection["items"][0]["items"] = []
 
+    mock_update = _mock_find_one_and_update(updated_collection)
     monkeypatch.setattr("app.api.routes.api_client.collections_delta.db_manager.find_one", _mock_find_one(BASE_COLLECTION))
     monkeypatch.setattr(
         "app.api.routes.api_client.collections_delta.db_manager.find_one_and_update",
-        _mock_find_one_and_update(updated_collection),
+        mock_update,
     )
     monkeypatch.setattr("app.api.routes.api_client.collections_delta.bump_version", AsyncMock())
 
@@ -155,6 +171,13 @@ async def test_apply_delta_deletes_item(monkeypatch):
     body = resp.json()
     folder = next(i for i in body["collection"]["items"] if i["id"] == FOLDER_ID)
     assert all(i["id"] != REQUEST_ID for i in folder["items"])
+
+    # Assert the $set payload sent to MongoDB has the item removed
+    update_query = mock_update.last_update_query
+    assert update_query is not None
+    persisted_items = update_query["$set"]["items"]
+    persisted_folder = next(i for i in persisted_items if i["id"] == FOLDER_ID)
+    assert all(it["id"] != REQUEST_ID for it in persisted_folder["items"])
 
 
 # ── Test: update op patches fields ───────────────────────────────────────────
@@ -204,4 +227,23 @@ async def test_apply_delta_wrong_uid_gets_404(monkeypatch):
         )
 
     assert resp.status_code == 404
+    bump_mock.assert_not_called()
+
+
+# ── Test: move op with unknown new_parent_id returns 400 ─────────────────────
+
+@pytest.mark.asyncio
+async def test_apply_delta_move_unknown_parent_returns_400(monkeypatch):
+    monkeypatch.setattr("app.api.routes.api_client.collections_delta.db_manager.find_one", _mock_find_one(BASE_COLLECTION))
+    bump_mock = AsyncMock()
+    monkeypatch.setattr("app.api.routes.api_client.collections_delta.bump_version", bump_mock)
+
+    async with _make_client(OWNER_UID) as ac:
+        resp = await ac.post(
+            f"/api/v1/api-client/collections/{COLLECTION_ID}/items:apply-delta",
+            json={"ops": [{"type": "move", "item_id": REQUEST_ID, "new_parent_id": "does-not-exist", "new_index": 0}]},
+        )
+
+    assert resp.status_code == 400, resp.text
+    assert "new_parent_id" in resp.json().get("detail", "")
     bump_mock.assert_not_called()

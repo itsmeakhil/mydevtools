@@ -160,6 +160,17 @@ def _extract_item(
     return new_items, extracted
 
 
+def _id_exists_in_tree(items: list[dict[str, Any]], node_id: str) -> bool:
+    """Return True if node_id appears anywhere in the tree (any level)."""
+    for item in items:
+        if item.get("id") == node_id:
+            return True
+        if item.get("type") == "folder":
+            if _id_exists_in_tree(item.get("items") or [], node_id):
+                return True
+    return False
+
+
 def _apply_move(
     items: list[dict[str, Any]],
     item_id: str,
@@ -168,6 +179,13 @@ def _apply_move(
     collection_id: str,
 ) -> tuple[list[dict[str, Any]], bool]:
     """Move item_id to new_parent_id at new_index. Returns (new_items, success)."""
+    # Validate that new_parent_id exists (root or a folder in the tree).
+    if new_parent_id != collection_id and not _id_exists_in_tree(items, new_parent_id):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="move: new_parent_id not found",
+        )
+
     # Step 1: extract the item
     items_without, target = _extract_item(items, item_id)
     if target is None:

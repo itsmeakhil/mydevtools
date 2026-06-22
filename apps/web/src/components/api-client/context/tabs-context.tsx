@@ -83,11 +83,15 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
         setIsInitialized(true)
     }, [])
 
-    // Keep a ref to the latest tabs so the unmount-flush handler always sees
-    // the freshest snapshot without needing it in the effect dependency array.
+    // Keep refs to latest tabs and activeTabId so callbacks always see the
+    // freshest snapshot without stale-closure issues.
     const tabsRef = React.useRef(tabs)
+    const activeTabIdRef = React.useRef(activeTabId)
     React.useEffect(() => {
         tabsRef.current = tabs
+    })
+    React.useEffect(() => {
+        activeTabIdRef.current = activeTabId
     })
 
     // Save tabs to localStorage — strip `response`/`isLoading` (responses can be MBs and
@@ -157,44 +161,39 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
         appendTab,
 
         closeTab(id: string) {
-            setTabs((prev) => {
-                if (prev.length === 1) {
-                    const newTab = createNewTab()
-                    setActiveTabId(newTab.id)
-                    return [newTab]
-                }
-
-                const closedIdx = prev.findIndex((t) => t.id === id)
-                const newTabs = prev.filter((t) => t.id !== id)
-
-                setActiveTabId((currentActiveId) => {
-                    if (currentActiveId === id) {
-                        const nextIdx = Math.min(closedIdx, newTabs.length - 1)
-                        return newTabs[nextIdx]!.id
-                    }
-                    return currentActiveId
-                })
-
-                return newTabs
-            })
+            // Compute all state outside updaters so they remain pure (no side
+            // effects, safe for React StrictMode double-invocation).
+            const current = tabsRef.current
+            if (current.length === 1) {
+                const newTab = createNewTab()
+                setTabs([newTab])
+                setActiveTabId(newTab.id)
+                return
+            }
+            const closedIdx = current.findIndex((t) => t.id === id)
+            const next = current.filter((t) => t.id !== id)
+            setTabs(next)
+            if (activeTabIdRef.current === id) {
+                const nextIdx = Math.min(closedIdx, next.length - 1)
+                setActiveTabId(next[nextIdx]!.id)
+            }
         },
 
         duplicateTab(id: string) {
-            setTabs((prev) => {
-                const source = prev.find((t) => t.id === id)
-                if (!source) return prev
-                const newTab: ApiRequestState = {
-                    ...source,
-                    id: crypto.randomUUID(),
-                    response: null,
-                    isLoading: false,
-                }
-                const sourceIdx = prev.findIndex((t) => t.id === id)
-                const next = [...prev]
-                next.splice(sourceIdx + 1, 0, newTab)
-                setActiveTabId(newTab.id)
-                return next
-            })
+            const current = tabsRef.current
+            const source = current.find((t) => t.id === id)
+            if (!source) return
+            const newTab: ApiRequestState = {
+                ...source,
+                id: crypto.randomUUID(),
+                response: null,
+                isLoading: false,
+            }
+            const sourceIdx = current.findIndex((t) => t.id === id)
+            const next = [...current]
+            next.splice(sourceIdx + 1, 0, newTab)
+            setTabs(next)
+            setActiveTabId(newTab.id)
         },
 
         renameTab(id: string, name: string) {

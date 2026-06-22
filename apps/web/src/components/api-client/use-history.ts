@@ -12,6 +12,7 @@ const HISTORY_LIMIT = 100
 export function useHistory() {
     const [user, loading] = useAuthState(auth)
     const [history, setHistory] = useState<HistoryRequest[]>([])
+    const [isHistoryLoading, setIsHistoryLoading] = useState(true)
     const migrationRanRef = useRef(false)
 
     const authedFetch = useCallback(
@@ -53,6 +54,7 @@ export function useHistory() {
             } else {
                 setHistory([])
             }
+            setIsHistoryLoading(false)
             return
         }
 
@@ -64,10 +66,16 @@ export function useHistory() {
                     { method: "GET" }
                 )
                 const items = (await res.json()) as HistoryRequest[]
-                if (!cancelled) setHistory(items)
+                if (!cancelled) {
+                    setHistory(items)
+                    setIsHistoryLoading(false)
+                }
             } catch (e) {
                 console.error("Failed to load API client history", e)
-                if (!cancelled) setHistory([])
+                if (!cancelled) {
+                    setHistory([])
+                    setIsHistoryLoading(false)
+                }
             }
         })()
 
@@ -208,5 +216,5 @@ export function useHistory() {
         [user, authedFetch]
     )
 
-    return { history, addHistoryItem, clearHistory, deleteHistoryItem }
+    return { history, isHistoryLoading, addHistoryItem, clearHistory, deleteHistoryItem }
 }

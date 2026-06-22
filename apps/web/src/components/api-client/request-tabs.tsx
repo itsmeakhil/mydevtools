@@ -109,8 +109,11 @@ export function RequestTabs({
 
     const handleBodyContentChange = React.useCallback(
         (v: string) => updateBody({ content: v }),
+        // updateBody closes over normalizedBody via its own capture; listing
+        // updateBody as the dep is sufficient and avoids re-creating the
+        // callback on every normalizedBody identity change.
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [normalizedBody]
+        [updateBody]
     )
 
     const handleFileSelect = async (id: string, file: File | null) => {

@@ -11,8 +11,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { RequestMethod, Collection } from "./types"
-import { SaveRequestDialog } from "./collections/save-request-dialog"
+import { RequestMethod } from "./types"
 import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
@@ -29,9 +28,6 @@ interface RequestPanelProps {
     isLoading: boolean
     /** When true, the Send button is disabled and an SR hint is shown. */
     isBodyInvalid?: boolean
-    collections: Collection[]
-    onSave: (parentId: string, name: string) => void
-    saveDefaultName?: string
     onPaste: (text: string) => void
     urlHistory?: string[]
     /** Pass activeTab.id so local URL state resets on tab switch. */
@@ -71,9 +67,6 @@ function RequestPanelImpl({
     onCancel,
     isLoading,
     isBodyInvalid = false,
-    collections,
-    onSave,
-    saveDefaultName,
     onPaste,
     urlHistory = [],
     tabId,
@@ -85,16 +78,24 @@ function RequestPanelImpl({
 
     // Local URL state: the input is bound here for instant feedback.
     // We sync back to the global state (setUrl) after 400ms of idle typing,
-    // and reset local state when the active tab changes or an external update
-    // (e.g. cURL import) changes the canonical url prop.
+    // and reset local state ONLY on genuine external changes (tab switch or
+    // cURL import) — not on our own debounce writes, to avoid clobbering
+    // keystrokes typed between the flush and the prop update.
     const [localUrl, setLocalUrl] = React.useState(url)
+    const lastPushedRef = React.useRef(url)
+    // Reset on external url changes only (not our own writes).
     React.useEffect(() => {
-        setLocalUrl(url)
+        if (url !== lastPushedRef.current) {
+            setLocalUrl(url)
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tabId, url])
     const debouncedLocalUrl = useDebouncedValue(localUrl, 400)
     React.useEffect(() => {
-        if (debouncedLocalUrl !== url) setUrl(debouncedLocalUrl)
+        if (debouncedLocalUrl !== url) {
+            lastPushedRef.current = debouncedLocalUrl
+            setUrl(debouncedLocalUrl)
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [debouncedLocalUrl])
     const [hoveredVariable, setHoveredVariable] = React.useState<{
@@ -289,13 +290,6 @@ function RequestPanelImpl({
                 </>
                 )}
 
-                <div className="border-l pl-2 flex items-center ml-1">
-                    <SaveRequestDialog
-                        collections={collections}
-                        onSave={onSave}
-                        defaultName={saveDefaultName}
-                    />
-                </div>
             </div>
         </div>
     )

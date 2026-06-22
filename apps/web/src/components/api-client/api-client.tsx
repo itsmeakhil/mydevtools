@@ -664,9 +664,6 @@ function ApiClientInner() {
                                             onCancel={handleCancel}
                                             isLoading={activeTab.isLoading}
                                             isBodyInvalid={isBodyInvalid}
-                                            collections={collections}
-                                            onSave={handleSaveRequest}
-                                            saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
                                             onPaste={handleCurlPaste}
                                             urlHistory={urlHistory}
                                             tabId={activeTab.id}
@@ -707,9 +704,6 @@ function ApiClientInner() {
                                             onCancel={handleCancel}
                                             isLoading={activeTab.isLoading}
                                             isBodyInvalid={isBodyInvalid}
-                                            collections={collections}
-                                            onSave={handleSaveRequest}
-                                            saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
                                             onPaste={handleCurlPaste}
                                             urlHistory={urlHistory}
                                             tabId={activeTab.id}
