@@ -12,6 +12,7 @@ import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import type { editor } from "monaco-editor"
 import { truncateBody } from "./truncate-body"
+import { ResponsePanelSkeleton } from "./skeletons"
 
 const MAX_INLINE_BYTES = 2 * 1024 * 1024 // 2MB
 
@@ -76,15 +77,19 @@ function bodyLooksLikeHtml(body: string): boolean {
 
 interface ResponsePanelProps {
     response: ApiResponse | null
+    isLoading?: boolean
 }
 
-export function ResponsePanel({ response }: ResponsePanelProps) {
+export function ResponsePanel({ response, isLoading }: ResponsePanelProps) {
     const t = useTranslations("ApiClient.responsePanel")
     const tApi = useTranslations("ApiClient")
     const bodyEditorRef = React.useRef<editor.IStandaloneCodeEditor | null>(null)
 
     const handleOpenSearch = () => {
         bodyEditorRef.current?.getAction("actions.find")?.run()
+    }
+    if (isLoading && !response) {
+        return <ResponsePanelSkeleton />
     }
     if (!response) {
         return (

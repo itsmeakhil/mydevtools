@@ -6,7 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collection, CollectionRequest } from "../types"
 import { CollectionItem } from "./collection-item"
-import { FolderPlus, Trash2, Pencil, MoreHorizontal, Search, X, Loader2 } from "lucide-react"
+import { FolderPlus, Trash2, Pencil, MoreHorizontal, Search, X } from "lucide-react"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { VirtualHistoryList } from "./virtual-history-list"
 import { cn } from "@/lib/utils"
@@ -31,6 +31,7 @@ import { useTranslations } from "next-intl"
 import { getApiClientRequestDisplayName } from "../display-name"
 import { useCollectionsState, useCollectionsActions } from "../context/collections-context"
 import { useHistoryState, useHistoryActions } from "../context/history-context"
+import { CollectionsSidebarSkeleton } from "../skeletons"
 
 interface CollectionsSidebarProps {
     onLoadRequest: (request: CollectionRequest) => void
@@ -189,10 +190,8 @@ export function CollectionsSidebar({
                 <TabsContent value="collections" className="flex-1 flex flex-col min-h-0 m-0 data-[state=inactive]:hidden outline-none">
                     <ScrollArea className="flex-1">
                         <div className="p-3">
-                            {isLoading ? (
-                                <div className="flex items-center justify-center p-8">
-                                    <Loader2 className="h-5 w-5 animate-spin text-muted-foreground/50" />
-                                </div>
+                            {isLoading && collections.length === 0 ? (
+                                <CollectionsSidebarSkeleton />
                             ) : collections.length === 0 ? (
                                 <div className="flex flex-col items-center justify-center p-8 text-center border border-dashed rounded-xl bg-muted/30 mx-2 mt-4">
                                     <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-3">
