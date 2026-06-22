@@ -118,6 +118,14 @@ Set one of the following:
 
 If both JSON and path are set, `FIREBASE_CREDENTIALS_JSON` is used first.
 
+## Load testing cache
+
+See `scripts/loadtest_cache.py`. Requires `locust` (install separately) and a running backend.
+
+1. Boot backend with `CACHE_ENABLED=false`; run a 5-min baseline.
+2. Boot backend with `CACHE_ENABLED=true` + chosen `CACHE_NAMESPACES`; re-run.
+3. Compare p50/p99 in `*_stats.csv`. Acceptance gates: p50 < 50ms, p99 < 200ms, error rate 0%.
+
 ## From monorepo root
 
 - `pnpm dev:backend` - start backend server
