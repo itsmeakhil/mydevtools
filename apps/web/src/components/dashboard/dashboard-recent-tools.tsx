@@ -62,7 +62,7 @@ export function DashboardRecentTools({
             {recentItems.map((item, index) => (
               <div
                 key={`recent-mobile-${item.id}`}
-                className="scroll-snap-item w-[min(280px,75vw)] flex-shrink-0"
+                className="scroll-snap-item w-[260px] flex-shrink-0 snap-start"
               >
                 <ToolCard
                   item={item}
@@ -77,7 +77,7 @@ export function DashboardRecentTools({
         </HScrollFade>
       </div>
       {/* Desktop: grid */}
-      <div className="hidden md:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
+      <div className="hidden md:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4 xl:gap-5">
         {visible.map((item, index) => (
           <ToolCard
             key={`recent-${item.id}`}

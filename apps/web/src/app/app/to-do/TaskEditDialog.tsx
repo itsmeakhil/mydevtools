@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { z } from "zod";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerClose } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
@@ -33,6 +34,42 @@ const priorityConfig = {
   low: { label: "Low", icon: Zap, color: "text-blue-500", bgColor: "bg-blue-50 dark:bg-blue-950", borderColor: "border-blue-500" },
 };
 
+function hexToRgb(hex: string): [number, number, number] | null {
+  const m = hex.replace("#", "").match(/^([\da-f]{6}|[\da-f]{3})$/i);
+  if (!m) return null;
+  const h = m[1].length === 3
+    ? m[1].split("").map((c) => c + c).join("")
+    : m[1];
+  return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+}
+
+function relLuminance([r, g, b]: [number, number, number]): number {
+  const srgb = [r, g, b].map((v) => {
+    const x = v / 255;
+    return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * srgb[0] + 0.7152 * srgb[1] + 0.0722 * srgb[2];
+}
+
+function contrastVsWhite(hex: string): number | null {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return null;
+  const l = relLuminance(rgb);
+  return (1.0 + 0.05) / (l + 0.05);
+}
+
+const taskEditSchema = z.object({
+  text: z.string().trim().min(1, "Title is required").max(200, "Max 200 characters"),
+  description: z.string().max(2000, "Max 2000 characters").optional(),
+  timeEstimate: z
+    .number()
+    .int("Must be a whole number")
+    .positive("Must be positive")
+    .optional(),
+});
+
+type TaskEditErrors = Partial<Record<"text" | "description" | "timeEstimate", string>>;
+
 const predefinedTags = [
   { name: "Work", color: "#3b82f6" },
   { name: "Personal", color: "#10b981" },
@@ -54,6 +91,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
   const [customTagColor, setCustomTagColor] = useState("#3b82f6");
   const [isSaving, setIsSaving] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+  const [errors, setErrors] = useState<TaskEditErrors>({});
   const isMobile = useIsMobile();
   const { projects } = useProjectContext();
 
@@ -70,16 +108,44 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
         timeEstimate: task.timeEstimate,
         projectId: task.projectId,
       });
+      setErrors({});
       if (task.dueDate) {
         setSelectedDate(new Date(task.dueDate));
       }
     }
   }, [open, task]);
 
+  const clearError = useCallback((field: keyof TaskEditErrors) => {
+    setErrors((prev) => {
+      if (!prev[field]) return prev;
+      const next = { ...prev };
+      delete next[field];
+      return next;
+    });
+  }, []);
+
   const handleSave = async () => {
+    const result = taskEditSchema.safeParse({
+      text: editedTask.text ?? "",
+      description: editedTask.description,
+      timeEstimate: editedTask.timeEstimate,
+    });
+
+    if (!result.success) {
+      const fieldErrors: TaskEditErrors = {};
+      for (const issue of result.error.issues) {
+        const path = issue.path[0] as keyof TaskEditErrors | undefined;
+        if (path && !fieldErrors[path]) {
+          fieldErrors[path] = issue.message;
+        }
+      }
+      setErrors(fieldErrors);
+      return;
+    }
+
     setIsSaving(true);
     try {
-      await onSave(editedTask);
+      await onSave({ ...editedTask, text: result.data.text });
       onOpenChange(false);
     } catch (error) {
       console.error("Failed to save task:", error);
@@ -139,14 +205,25 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
     <div className="space-y-6 py-4">
       {/* Task Title */}
       <div className="space-y-2">
-        <Label htmlFor="task-title">{t("taskTitleLabel")}</Label>
+        <Label htmlFor="task-title">
+          {t("taskTitleLabel")} <span className="text-destructive">*</span>
+        </Label>
         <Input
           id="task-title"
+          autoFocus
           value={editedTask.text || ""}
-          onChange={(e) => setEditedTask({ ...editedTask, text: e.target.value })}
+          onChange={(e) => {
+            setEditedTask({ ...editedTask, text: e.target.value });
+            clearError("text");
+          }}
           placeholder={t("taskTitlePlaceholder")}
-          className="text-base"
+          className={cn("text-base", errors.text && "border-destructive focus-visible:ring-destructive/30")}
+          aria-invalid={!!errors.text}
+          aria-describedby={errors.text ? "task-title-error" : undefined}
         />
+        {errors.text && (
+          <p id="task-title-error" className="text-xs text-destructive">{errors.text}</p>
+        )}
       </div>
 
       {/* Description */}
@@ -155,10 +232,18 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
         <Textarea
           id="task-description"
           value={editedTask.description || ""}
-          onChange={(e) => setEditedTask({ ...editedTask, description: e.target.value })}
+          onChange={(e) => {
+            setEditedTask({ ...editedTask, description: e.target.value });
+            clearError("description");
+          }}
           placeholder={t("descriptionPlaceholder")}
-          className="min-h-[100px]"
+          className={cn("min-h-[100px]", errors.description && "border-destructive focus-visible:ring-destructive/30")}
+          aria-invalid={!!errors.description}
+          aria-describedby={errors.description ? "task-description-error" : undefined}
         />
+        {errors.description && (
+          <p id="task-description-error" className="text-xs text-destructive">{errors.description}</p>
+        )}
       </div>
 
       {/* Status, Priority, Due Date Row */}
@@ -304,9 +389,18 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
           type="number"
           min="0"
           value={editedTask.timeEstimate || ""}
-          onChange={(e) => setEditedTask({ ...editedTask, timeEstimate: parseInt(e.target.value) || undefined })}
+          onChange={(e) => {
+            setEditedTask({ ...editedTask, timeEstimate: parseInt(e.target.value) || undefined });
+            clearError("timeEstimate");
+          }}
           placeholder={t("timeEstimatePlaceholder")}
+          className={cn(errors.timeEstimate && "border-destructive focus-visible:ring-destructive/30")}
+          aria-invalid={!!errors.timeEstimate}
+          aria-describedby={errors.timeEstimate ? "time-estimate-error" : undefined}
         />
+        {errors.timeEstimate && (
+          <p id="time-estimate-error" className="text-xs text-destructive">{errors.timeEstimate}</p>
+        )}
       </div>
 
       {/* Tags */}
@@ -355,11 +449,23 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
               value={customTagColor}
               onChange={(e) => setCustomTagColor(e.target.value)}
               className="w-20"
+              aria-label="Tag color"
             />
             <Button onClick={addCustomTag} disabled={!customTagName.trim()}>
               <Plus className="h-4 w-4" />
             </Button>
           </div>
+          {(() => {
+            const ratio = contrastVsWhite(customTagColor);
+            if (ratio !== null && ratio < 4.5) {
+              return (
+                <p className="text-xs text-amber-600 dark:text-amber-400" role="status">
+                  Low contrast ({ratio.toFixed(2)}:1) — white tag label may be hard to read. WCAG AA needs ≥ 4.5:1.
+                </p>
+              );
+            }
+            return null;
+          })()}
         </div>
       </div>
 
@@ -425,7 +531,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
             <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isSaving}>
               {t("cancel")}
             </Button>
-            <Button onClick={handleSave} disabled={!editedTask.text?.trim() || isSaving}>
+            <Button onClick={handleSave} disabled={isSaving}>
               {isSaving ? t("saving") : t("saveChanges")}
             </Button>
           </DialogFooter>
@@ -448,7 +554,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
             {FormContent}
           </div>
           <DrawerFooter>
-            <Button onClick={handleSave} disabled={!editedTask.text?.trim() || isSaving}>
+            <Button onClick={handleSave} disabled={isSaving}>
               {isSaving ? t("saving") : t("saveChanges")}
             </Button>
             <DrawerClose asChild>

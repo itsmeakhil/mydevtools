@@ -1,13 +1,20 @@
 "use client";
 
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useState, useMemo, useRef, useEffect, useCallback, lazy, Suspense } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import TaskForm from "@/app/app/to-do/TaskForm";
 import TaskList from "@/app/app/to-do/TaskList";
-import KanbanBoard from "@/app/app/to-do/KanbanBoard";
 import PaginationDemo from "@/app/app/to-do/PaginationS";
-import ExportImportDialog from "@/app/app/to-do/ExportImportDialog";
+import { LazyBoundary } from "@/app/app/to-do/components/LazyBoundary";
+
+const KanbanBoard = lazy(() => import("@/app/app/to-do/KanbanBoard"));
+const ExportImportDialog = lazy(() => import("@/app/app/to-do/ExportImportDialog"));
+const TaskCommandPalette = lazy(() =>
+  import("@/app/app/to-do/components/TaskCommandPalette").then((m) => ({
+    default: m.TaskCommandPalette,
+  }))
+);
 import { useTaskContext } from "@/app/app/to-do/context/TaskContext";
 import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
 import { ListTodo, Circle, LayoutGrid, List, Search, X, Plus, Folder, Archive, ArchiveRestore } from "lucide-react";
@@ -55,6 +62,7 @@ export const TaskContainer = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isPaletteOpen, setIsPaletteOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const taskFormInputRef = useRef<HTMLInputElement>(null);
   const {
@@ -98,42 +106,54 @@ export const TaskContainer = () => {
 
   // Filter tasks based on filterStatus for list view
   // For kanban view, always show all tasks (filtering is handled by columns)
-  const filteredTasks = viewMode === "kanban" || filterStatus === "all"
-    ? searchFilteredTasks
-    : searchFilteredTasks.filter(task => task.status === filterStatus);
-
-  const sortedTasks = [...filteredTasks].sort(
-    (a: { status: "ongoing" | "not-started" | "completed" },
-      b: { status: "ongoing" | "not-started" | "completed" }) => {
-      const statusOrder: { [key in "ongoing" | "not-started" | "completed"]: number } = {
-        ongoing: 1,
-        "not-started": 2,
-        completed: 3,
-      };
-      return statusOrder[a.status] - statusOrder[b.status];
-    }
+  const filteredTasks = useMemo(
+    () =>
+      viewMode === "kanban" || filterStatus === "all"
+        ? searchFilteredTasks
+        : searchFilteredTasks.filter((task) => task.status === filterStatus),
+    [searchFilteredTasks, viewMode, filterStatus]
   );
+
+  const sortedTasks = useMemo(() => {
+    const statusOrder: { ongoing: number; "not-started": number; completed: number } = {
+      ongoing: 1,
+      "not-started": 2,
+      completed: 3,
+    };
+    return [...filteredTasks].sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
+  }, [filteredTasks]);
 
   // Calculate statistics using all tasks stats
   const completionRate = allTaskStats.total > 0 ? Math.round((allTaskStats.completed / allTaskStats.total) * 100) : 0;
 
-  const handleAddTask = (taskText: string) => {
-    addTask(taskText);
-    setIsDrawerOpen(false);
-  };
+  const handleAddTask = useCallback(
+    (taskText: string) => {
+      addTask(taskText);
+      setIsDrawerOpen(false);
+    },
+    [addTask]
+  );
 
   const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
   const hasStatusFilter = filterStatus !== "all";
   const hasProjectFilter = filterProject !== "all";
   const hasSearchFilter = searchQuery.trim().length > 0;
   const hasActiveFilters = hasStatusFilter || hasProjectFilter || hasSearchFilter;
-  const activeProject = projects.find((project) => project.id === filterProject);
+  const activeProject = useMemo(
+    () => projects.find((project) => project.id === filterProject),
+    [projects, filterProject]
+  );
 
-  const clearAllFilters = () => {
+  const liveStatsMessage = useMemo(() => {
+    const { total, completed, ongoing, notStarted } = allTaskStats;
+    return `${total} task${total === 1 ? "" : "s"}: ${notStarted} not started, ${ongoing} ongoing, ${completed} completed`;
+  }, [allTaskStats]);
+
+  const clearAllFilters = useCallback(() => {
     setSearchQuery("");
     setFilterStatus("all");
     setFilterProject("all");
-  };
+  }, [setFilterStatus, setFilterProject]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -145,7 +165,7 @@ export const TaskContainer = () => {
 
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
-        searchInputRef.current?.focus();
+        setIsPaletteOpen((open) => !open);
         return;
       }
 
@@ -171,10 +191,16 @@ export const TaskContainer = () => {
   }, [hasSearchFilter, isMobile]);
 
   return (
-    <div className="h-full min-h-0 w-full bg-background flex flex-col overflow-hidden relative mobile-nav-offset">
+    <div className="h-full min-h-0 w-full bg-background flex flex-col overflow-hidden relative mobile-nav-offset paper-grain">
+      <div role="status" aria-live="polite" className="sr-only">
+        {liveStatsMessage}
+      </div>
       {/* Mobile-specific Header */}
       {isMobile && (
-        <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-xl border-b pb-2 pt-2">
+        <div
+          className="sticky top-0 z-50 bg-background/95 backdrop-blur-xl border-b pb-2"
+          style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 0.5rem)" }}
+        >
           <div className="flex items-center gap-2 px-4 py-2">
             <SidebarTrigger className="-ml-2 h-10 w-10 text-muted-foreground/80 hover:bg-transparent hover:text-foreground" />
 
@@ -202,8 +228,8 @@ export const TaskContainer = () => {
 
           {/* Title & Stats */}
           <div className="px-4 mt-1 mb-2">
-            <h1 className="text-2xl font-bold tracking-tight text-foreground">{tPage("myTasksTitle")}</h1>
-            <p className="text-sm text-muted-foreground mt-0.5">
+            <h1 className="font-display text-3xl font-semibold tracking-tight text-foreground">{tPage("myTasksTitle")}</h1>
+            <p className="font-meta text-[11px] uppercase tracking-wider text-muted-foreground mt-1">
               {tPage("statsLine", { total: allTaskStats.total, percent: completionRate })}
             </p>
           </div>
@@ -288,10 +314,10 @@ export const TaskContainer = () => {
                     <ListTodo className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <h1 className="text-lg md:text-xl font-bold tracking-tight text-foreground">
+                    <h1 className="font-display text-xl md:text-2xl font-semibold tracking-tight text-foreground">
                       {tPage("myTasksTitle")}
                     </h1>
-                    <p className="text-xs text-muted-foreground mt-0.5 hidden sm:block">
+                    <p className="font-meta text-[10px] uppercase tracking-wider text-muted-foreground mt-1 hidden sm:block">
                       {tPage("statsLineDesktop", { total: allTaskStats.total, percent: completionRate })}
                     </p>
                   </div>
@@ -302,9 +328,9 @@ export const TaskContainer = () => {
                   <div className="flex flex-col items-center gap-0.5 px-2.5 py-1.5 rounded-lg bg-muted/50 border">
                     <div className="flex items-center gap-1 text-xs font-medium">
                       <Circle className="h-3.5 w-3.5 text-muted-foreground" />
-                      <span className="text-foreground">{allTaskStats.total}</span>
+                      <span className="text-foreground font-meta tabular-nums">{allTaskStats.total}</span>
                     </div>
-                    <span className="text-[9px] text-muted-foreground">{tFilters("total")}</span>
+                    <span className="text-[9px] text-muted-foreground uppercase tracking-wider">{tFilters("total")}</span>
                   </div>
 
                   {Object.values(STATUS_CONFIG).map((config) => {
@@ -325,9 +351,9 @@ export const TaskContainer = () => {
                       >
                         <div className="flex items-center gap-1 text-xs font-medium">
                           <config.icon className={cn("h-3.5 w-3.5", config.color)} />
-                          <span className={config.color}>{count}</span>
+                          <span className={cn(config.color, "font-meta tabular-nums")}>{count}</span>
                         </div>
-                        <span className="text-[9px] text-muted-foreground">{tStatus(`${config.id}.label` as any)}</span>
+                        <span className="text-[9px] text-muted-foreground uppercase tracking-wider">{tStatus(`${config.id}.label` as any)}</span>
                       </div>
                     );
                   })}
@@ -555,13 +581,23 @@ export const TaskContainer = () => {
           {viewMode === "kanban" ? (
             <Card className="border shadow-lg flex-1 overflow-hidden flex flex-col bg-muted/10">
               <CardContent className="p-2 md:p-4 flex-1 overflow-y-auto">
-                <KanbanBoard
-                  tasks={sortedTasks}
-                  isLoading={isLoading}
-                  onUpdateStatus={updateTaskStatus}
-                  onUpdateTask={updateTask}
-                  onDeleteTask={deleteTask}
-                />
+                <LazyBoundary>
+                  <Suspense
+                    fallback={
+                      <div className="flex items-center justify-center py-12">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+                      </div>
+                    }
+                  >
+                    <KanbanBoard
+                      tasks={sortedTasks}
+                      isLoading={isLoading}
+                      onUpdateStatus={updateTaskStatus}
+                      onUpdateTask={updateTask}
+                      onDeleteTask={deleteTask}
+                    />
+                  </Suspense>
+                </LazyBoundary>
               </CardContent>
             </Card>
           ) : (
@@ -640,12 +676,35 @@ export const TaskContainer = () => {
         </Drawer>
       </div>
 
-      <ExportImportDialog
-        open={isExportDialogOpen}
-        onOpenChange={setIsExportDialogOpen}
-        tasks={tasks}
-        projects={projects}
-      />
+      {isExportDialogOpen && (
+        <LazyBoundary fallback={null}>
+          <Suspense fallback={null}>
+            <ExportImportDialog
+              open={isExportDialogOpen}
+              onOpenChange={setIsExportDialogOpen}
+              tasks={tasks}
+              projects={projects}
+            />
+          </Suspense>
+        </LazyBoundary>
+      )}
+
+      {isPaletteOpen && (
+        <LazyBoundary fallback={null}>
+          <Suspense fallback={null}>
+            <TaskCommandPalette
+              open={isPaletteOpen}
+              onOpenChange={setIsPaletteOpen}
+              viewMode={viewMode}
+              onViewModeChange={setViewMode}
+              onNewTask={() => {
+                if (isMobile) setIsDrawerOpen(true);
+                else taskFormInputRef.current?.focus();
+              }}
+            />
+          </Suspense>
+        </LazyBoundary>
+      )}
     </div>
   );
 };

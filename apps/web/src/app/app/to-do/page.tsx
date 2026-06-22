@@ -3,6 +3,7 @@ import useAuth from "@/utils/useAuth";
 import { TaskProvider } from "@/app/app/to-do/context/TaskContext";
 import { TaskContainer } from "@/app/app/to-do/TaskContainer";
 import { ProjectProvider } from "@/app/app/to-do/context/ProjectContext";
+import { ToDoQueryProvider } from "@/app/app/to-do/providers";
 import { useTranslations } from "next-intl";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -38,10 +39,12 @@ export default function ToDoPage() {
   }
 
   return (
-    <ProjectProvider>
-      <TaskProvider>
-        <TaskContainer />
-      </TaskProvider>
-    </ProjectProvider>
+    <ToDoQueryProvider>
+      <ProjectProvider>
+        <TaskProvider>
+          <TaskContainer />
+        </TaskProvider>
+      </ProjectProvider>
+    </ToDoQueryProvider>
   );
 }

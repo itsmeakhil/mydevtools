@@ -12,6 +12,7 @@ import useAuth from '@/utils/useAuth'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { TooltipProvider } from '@/components/ui/tooltip'
 import {
   type FavoriteItem,
   type RenderToolItem,
@@ -252,6 +253,7 @@ const DashboardPage: React.FC = () => {
   const toolCardProps = { user, isPinned, togglePin }
 
   return (
+    <TooltipProvider delayDuration={300} disableHoverableContent>
     <div className="min-h-screen bg-background/50 dashboard-grid-bg mobile-nav-offset">
       {/* ── Mobile Sticky Header (outside padded container for full-bleed) ── */}
       <DashboardHero
@@ -368,6 +370,7 @@ const DashboardPage: React.FC = () => {
         </div>
       </div>
     </div>
+    </TooltipProvider>
   )
 }
 
