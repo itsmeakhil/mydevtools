@@ -279,7 +279,12 @@
       "apiClientEnvironments": "API environments",
       "apiClientHistory": "API history entries",
       "jsonFormatterDocuments": "JSON formatter documents",
-      "codeSnippets": "Code snippets"
+      "codeSnippets": "Code snippets",
+      "activityTitle": "Activity",
+      "activityEmpty": "Activity builds as you use tools",
+      "distributionTitle": "Data distribution",
+      "topToolsTitle": "Top tools",
+      "taskDonutTitle": "Task completion"
     },
     "ui": {
       "title": "Interface preferences",
