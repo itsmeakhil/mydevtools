@@ -8,26 +8,22 @@ import {
     DialogContent,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { IconPlus, IconTrash, IconSettings, IconEdit } from "@tabler/icons-react"
+import { IconPlus, IconTrash, IconEdit } from "@tabler/icons-react"
 import { EnvironmentVariable } from "./use-environments"
 import { useTranslations } from "next-intl"
 import { useEnvironmentsState, useEnvironmentsActions } from "./context/environments-context"
 
-export function EnvironmentManager() {
-    const { environments, activeEnvId } = useEnvironmentsState()
-    const { setActiveEnvId, addEnvironment, updateEnvironment, deleteEnvironment } = useEnvironmentsActions()
+interface EnvironmentManagerProps {
+    open: boolean
+    onOpenChange: (open: boolean) => void
+}
+
+export function EnvironmentManager({ open, onOpenChange }: EnvironmentManagerProps) {
+    const { environments } = useEnvironmentsState()
+    const { addEnvironment, updateEnvironment, deleteEnvironment } = useEnvironmentsActions()
     const t = useTranslations("ApiClient.environmentManager")
-    const [isOpen, setIsOpen] = React.useState(false)
     const [selectedEnvId, setSelectedEnvId] = React.useState<string | null>(null)
     const [newEnvName, setNewEnvName] = React.useState("")
     const [editingEnvId, setEditingEnvId] = React.useState<string | null>(null)
@@ -35,10 +31,10 @@ export function EnvironmentManager() {
 
     // Select the first environment by default when dialog opens
     React.useEffect(() => {
-        if (isOpen && !selectedEnvId && environments.length > 0) {
+        if (open && !selectedEnvId && environments.length > 0) {
             setSelectedEnvId(environments[0].id)
         }
-    }, [isOpen, environments, selectedEnvId])
+    }, [open, environments, selectedEnvId])
 
     const selectedEnv = environments.find(e => e.id === selectedEnvId)
 
@@ -70,33 +66,12 @@ export function EnvironmentManager() {
     }
 
     return (
-        <div className="flex items-center gap-2">
-            <Select
-                value={activeEnvId || "none"}
-                onValueChange={(val) => setActiveEnvId(val === "none" ? null : val)}
-            >
-                <SelectTrigger className="w-[150px] h-8 text-xs">
-                    <SelectValue placeholder={t("noEnvironment")} />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="none">{t("noEnvironment")}</SelectItem>
-                    {environments.map(env => (
-                        <SelectItem key={env.id} value={env.id}>{env.name}</SelectItem>
-                    ))}
-                </SelectContent>
-            </Select>
-
-            <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                <DialogTrigger asChild>
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                        <IconSettings className="h-4 w-4" />
-                    </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-3xl h-[600px] flex flex-col">
-                    <DialogHeader>
-                        <DialogTitle>{t("manageDialogTitle")}</DialogTitle>
-                    </DialogHeader>
-                    <div className="flex flex-1 gap-4 min-h-0 pt-4">
+        <Dialog open={open} onOpenChange={onOpenChange}>
+            <DialogContent className="max-w-3xl h-[600px] flex flex-col">
+                <DialogHeader>
+                    <DialogTitle>{t("manageDialogTitle")}</DialogTitle>
+                </DialogHeader>
+                <div className="flex flex-1 gap-4 min-h-0 pt-4">
                         {/* Sidebar */}
                         <div className="w-48 flex flex-col gap-2 border-r pr-4">
                             <div className="flex gap-2">
@@ -237,9 +212,8 @@ export function EnvironmentManager() {
                                 </div>
                             )}
                         </div>
-                    </div>
-                </DialogContent>
-            </Dialog>
-        </div>
+                </div>
+            </DialogContent>
+        </Dialog>
     )
 }

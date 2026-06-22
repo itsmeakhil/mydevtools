@@ -69,5 +69,6 @@ apps/web/.codex
 apps/desktop/src-tauri/target/debug/*
 apps/desktop/src-tauri/target/release/
 .claude
+/docs
 
-
+.superpowers

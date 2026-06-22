@@ -1467,7 +1467,8 @@
       "requestFailed": "Anfrage fehlgeschlagen: {message}",
       "curlPasted": "cURL eingefügt und erfolgreich gelesen",
       "responseCopied": "Antwort in die Zwischenablage kopiert",
-      "codeCopied": "Code in die Zwischenablage kopiert"
+      "codeCopied": "Code in die Zwischenablage kopiert",
+      "copyFailed": "In die Zwischenablage kopieren fehlgeschlagen"
     },
     "layout": {
       "collections": "Sammlungen",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Methode",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Senden...",
-      "send": "Senden"
+      "send": "Senden",
+      "invalidJsonBodyHelp": "Senden nicht möglich: Der JSON-Body ist ungültig"
     },
     "requestTabs": {
       "params": "Parameter",
@@ -1528,7 +1530,9 @@
       "previewTab": "Vorschau",
       "headersTab": "Header",
       "binaryRawView": "Binärdaten können in der Rohansicht nicht angezeigt werden.",
-      "errorStatusLabel": "Fehler"
+      "errorStatusLabel": "Fehler",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Neue Registerkarte"
@@ -1613,6 +1617,21 @@
       "labelFolder": "Ordner",
       "placeholderFolder": "Ordner wählen",
       "save": "Speichern"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
     }
   },
   "RichEditor": {

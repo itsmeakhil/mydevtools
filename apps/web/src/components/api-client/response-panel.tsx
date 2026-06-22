@@ -2,7 +2,13 @@
 
 import * as React from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import CodeEditor from "@/components/ui/code-editor"
+import dynamic from "next/dynamic"
+
+const CodeEditor = dynamic(
+    () => import("@/components/ui/code-editor"),
+    { ssr: false, loading: () => <div className="h-full w-full animate-pulse bg-muted/30" /> }
+)
+const MemoCodeEditor = React.memo(CodeEditor)
 import { ApiResponse, API_CLIENT_ERROR_STATUS_TEXT } from "./types"
 import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
@@ -11,6 +17,25 @@ import { CheckCircle2, AlertCircle, Copy, Download, Search, Info, Clock, Databas
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import type { editor } from "monaco-editor"
+import { truncateBody } from "./truncate-body"
+import { ResponsePanelSkeleton } from "./skeletons"
+
+const MAX_INLINE_BYTES = 2 * 1024 * 1024 // 2MB
+
+const STATUS_COLOR: Record<string, string> = {
+    success: "bg-emerald-100 text-emerald-900 dark:bg-emerald-950/60 dark:text-emerald-200",
+    redirect: "bg-sky-100 text-sky-900 dark:bg-sky-950/60 dark:text-sky-200",
+    clientError: "bg-amber-100 text-amber-900 dark:bg-amber-950/60 dark:text-amber-200",
+    serverError: "bg-rose-100 text-rose-900 dark:bg-rose-950/60 dark:text-rose-200",
+}
+
+function getStatusColorKey(status: number): string {
+    if (status >= 200 && status < 300) return "success"
+    if (status >= 300 && status < 400) return "redirect"
+    if (status >= 400 && status < 500) return "clientError"
+    if (status >= 500) return "serverError"
+    return "clientError"
+}
 
 interface ParsedCookie {
     name: string
@@ -73,15 +98,19 @@ function bodyLooksLikeHtml(body: string): boolean {
 
 interface ResponsePanelProps {
     response: ApiResponse | null
+    isLoading?: boolean
 }
 
-export function ResponsePanel({ response }: ResponsePanelProps) {
+export function ResponsePanel({ response, isLoading }: ResponsePanelProps) {
     const t = useTranslations("ApiClient.responsePanel")
     const tApi = useTranslations("ApiClient")
     const bodyEditorRef = React.useRef<editor.IStandaloneCodeEditor | null>(null)
 
     const handleOpenSearch = () => {
         bodyEditorRef.current?.getAction("actions.find")?.run()
+    }
+    if (isLoading && !response) {
+        return <ResponsePanelSkeleton />
     }
     if (!response) {
         return (
@@ -100,6 +129,15 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
     const isSuccess = response.status >= 200 && response.status < 300
     const isError = response.status >= 400
 
+    // Slice the body passed to Monaco so the editor never receives >2MB of text.
+    // Pretty-print (via the Worker) runs before this component renders, so slicing
+    // happens on the already-formatted string. The full body is preserved on
+    // response.body for download.
+    const { inline: inlineBody, truncated } = React.useMemo(
+        () => truncateBody(response.body ?? "", MAX_INLINE_BYTES),
+        [response.body]
+    )
+
     const contentType = normalizeContentType(response.headers)
     const isHtmlByHeader =
         contentType.includes("text/html") ||
@@ -115,10 +153,14 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
         return "text"
     }
 
-    const handleCopy = () => {
+    const handleCopy = async () => {
         if (!response?.body) return
-        navigator.clipboard.writeText(response.body)
-        toast.success(tApi("toasts.responseCopied"))
+        try {
+            await navigator.clipboard.writeText(response.body)
+            toast.success(tApi("toasts.responseCopied"))
+        } catch {
+            toast.error(tApi("toasts.copyFailed"))
+        }
     }
 
     const handleDownload = () => {
@@ -220,8 +262,8 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
                                 <Info className="h-3.5 w-3.5 text-blue-500" />
                             )}
                             <span className={cn(
-                                "text-xs font-bold",
-                                isSuccess ? "text-emerald-600" : isError ? "text-rose-600" : "text-foreground"
+                                "text-xs font-bold px-1 rounded",
+                                STATUS_COLOR[getStatusColorKey(response.status)]
                             )}>
                                 {response.status}
                             </span>
@@ -251,13 +293,25 @@ export function ResponsePanel({ response }: ResponsePanelProps) {
                     </div>
                 </div>
                 <div className="mt-4 border rounded-xl overflow-hidden flex-1 min-h-0 relative shadow-inner bg-card">
-                    <TabsContent value="body" className="mt-0 h-full absolute inset-0">
-                        <CodeEditor
-                            value={response.isBase64 ? t("binaryRawView") : response.body}
-                            language={getLanguage()}
-                            readOnly
-                            onMount={(ed) => { bodyEditorRef.current = ed }}
-                        />
+                    <TabsContent value="body" className="mt-0 h-full absolute inset-0 flex flex-col">
+                        {truncated && !response.isBase64 && (
+                            <div className="flex items-center gap-2 px-3 py-2 text-xs bg-amber-50 dark:bg-amber-950/40 border-b border-amber-200 dark:border-amber-800 shrink-0">
+                                <span className="text-amber-800 dark:text-amber-200 flex-1">
+                                    {t("truncatedBanner", { shownKb: Math.round(MAX_INLINE_BYTES / 1024) })}
+                                </span>
+                                <Button size="sm" variant="link" className="h-auto p-0 text-xs text-amber-700 dark:text-amber-300" onClick={handleDownload}>
+                                    {t("downloadFullBody")}
+                                </Button>
+                            </div>
+                        )}
+                        <div className="flex-1 min-h-0 relative">
+                            <MemoCodeEditor
+                                value={response.isBase64 ? t("binaryRawView") : inlineBody}
+                                language={getLanguage()}
+                                readOnly
+                                onMount={(ed) => { bodyEditorRef.current = ed }}
+                            />
+                        </div>
                     </TabsContent>
                     {hasPreview && (
                         <TabsContent value="preview" className="mt-0 h-full absolute inset-0">

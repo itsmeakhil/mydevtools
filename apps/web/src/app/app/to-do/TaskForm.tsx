@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, lazy, Suspense } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -22,8 +22,12 @@ import {
   SelectSeparator,
 } from "@/components/ui/select";
 import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
-import { ProjectManagerDialog } from "./components/ProjectManagerDialog";
 import { Folder } from "lucide-react";
+import { LazyBoundary } from "./components/LazyBoundary";
+
+const ProjectManagerDialog = lazy(() =>
+  import("./components/ProjectManagerDialog").then((m) => ({ default: m.ProjectManagerDialog }))
+);
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 
@@ -177,7 +181,11 @@ export default function TaskForm({ onAddTask, inputRef }: TaskFormProps) {
                     ))}
                     <SelectSeparator />
                     <div className="p-1">
-                      <ProjectManagerDialog />
+                      <LazyBoundary fallback={null}>
+                        <Suspense fallback={null}>
+                          <ProjectManagerDialog />
+                        </Suspense>
+                      </LazyBoundary>
                     </div>
                   </SelectContent>
                 </Select>

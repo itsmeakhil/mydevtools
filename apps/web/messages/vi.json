@@ -1467,7 +1467,8 @@
       "requestFailed": "Yêu cầu thất bại: {message}",
       "curlPasted": "Đã dán và phân tích cURL thành công",
       "responseCopied": "Đã sao chép phản hồi vào bộ nhớ tạm",
-      "codeCopied": "Đã sao chép mã vào bộ nhớ tạm"
+      "codeCopied": "Đã sao chép mã vào bộ nhớ tạm",
+      "copyFailed": "Sao chép vào clipboard không thành công"
     },
     "layout": {
       "collections": "Bộ sưu tập",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Phương thức",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Đang gửi...",
-      "send": "Gửi"
+      "send": "Gửi",
+      "invalidJsonBodyHelp": "Không thể gửi: nội dung JSON không hợp lệ"
     },
     "requestTabs": {
       "params": "Tham số",
@@ -1528,7 +1530,9 @@
       "previewTab": "Xem trước",
       "headersTab": "Headers",
       "binaryRawView": "Dữ liệu nhị phân không thể hiển thị ở chế độ raw.",
-      "errorStatusLabel": "Lỗi"
+      "errorStatusLabel": "Lỗi",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Tab mới"
@@ -1613,6 +1617,21 @@
       "labelFolder": "Thư mục",
       "placeholderFolder": "Chọn thư mục",
       "save": "Lưu"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
     }
   },
   "RichEditor": {

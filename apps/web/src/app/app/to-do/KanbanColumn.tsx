@@ -1,7 +1,9 @@
 "use client";
 
+import { useRef } from "react";
 import { useDroppable } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { useVirtualizer } from "@tanstack/react-virtual";
 import { Task } from "@/app/app/to-do/types/Task";
 import KanbanCard from "./KanbanCard";
 import { LucideIcon } from "lucide-react";
@@ -18,6 +20,9 @@ interface KanbanColumnProps {
   onDeleteTask: (id: string) => void;
 }
 
+const VIRTUALIZATION_THRESHOLD = 30;
+const ESTIMATED_CARD_HEIGHT = 160;
+
 export default function KanbanColumn({
   id,
   title,
@@ -28,12 +33,19 @@ export default function KanbanColumn({
 }: KanbanColumnProps) {
   const tKanban = useTranslations("Tasks.kanban");
   const tStatus = useTranslations("Tasks.status");
-  const { setNodeRef, isOver } = useDroppable({
-    id,
-  });
+  const { setNodeRef, isOver } = useDroppable({ id });
 
   const config = STATUS_CONFIG[id];
   const taskIds = tasks.map((task) => task.id);
+  const shouldVirtualize = tasks.length > VIRTUALIZATION_THRESHOLD;
+
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const virtualizer = useVirtualizer({
+    count: shouldVirtualize ? tasks.length : 0,
+    getScrollElement: () => scrollRef.current,
+    estimateSize: () => ESTIMATED_CARD_HEIGHT,
+    overscan: 6,
+  });
 
   return (
     <div
@@ -43,23 +55,21 @@ export default function KanbanColumn({
         config.bgColor,
         config.borderColor,
         isOver
-          ? "ring-4 ring-primary/50 ring-offset-2 scale-[1.02] shadow-lg"
-          : "hover:shadow-md"
+          ? "ring-1 ring-primary/60 shadow-md scale-[1.005] bg-primary/[0.02]"
+          : "hover:shadow-sm"
       )}
       role="region"
       aria-label={tKanban("columnAria", { title, count: tasks.length })}
     >
-      {/* Enhanced Column Header */}
+      {/* Column Header */}
       <div className="flex items-center gap-3 mb-4 pb-3 border-b border-border/50">
-        <div className={cn("flex items-center justify-center p-2 rounded-lg transition-all", config.iconBg)}>
-          <Icon className={cn("h-5 w-5", config.color)} />
-        </div>
-        <h3 className={cn("font-bold text-lg flex-1", config.color)}>
+        <span className="status-dot" data-status={id} aria-hidden />
+        <h3 className={cn("font-display text-xl font-semibold tracking-tight flex-1", config.color)}>
           {title}
         </h3>
         <span
           className={cn(
-            "px-2.5 py-1 rounded-full text-xs font-bold bg-background/80 border border-border shadow-sm",
+            "font-meta px-2 py-0.5 rounded-md text-[11px] tabular-nums bg-background/80 border border-border/60",
             config.color
           )}
           aria-label={tKanban("countInColumnAria", { title, count: tasks.length })}
@@ -68,9 +78,15 @@ export default function KanbanColumn({
         </span>
       </div>
 
-      {/* Tasks - Enhanced */}
+      {/* Tasks */}
       <SortableContext items={taskIds} strategy={verticalListSortingStrategy}>
-        <div className="flex-1 space-y-3 overflow-y-auto min-h-[200px] max-h-[calc(100vh-300px)] scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
+        <div
+          ref={scrollRef}
+          className={cn(
+            "flex-1 overflow-y-auto min-h-[200px] max-h-[calc(100vh-300px)] scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent",
+            !shouldVirtualize && "space-y-3"
+          )}
+        >
           {tasks.length === 0 ? (
             <div
               className={cn(
@@ -102,6 +118,39 @@ export default function KanbanColumn({
                   {tStatus(`${id}.description` as any)}
                 </p>
               )}
+            </div>
+          ) : shouldVirtualize ? (
+            <div
+              style={{
+                height: `${virtualizer.getTotalSize()}px`,
+                position: "relative",
+                width: "100%",
+              }}
+            >
+              {virtualizer.getVirtualItems().map((virtualRow) => {
+                const task = tasks[virtualRow.index];
+                return (
+                  <div
+                    key={task.id}
+                    data-index={virtualRow.index}
+                    ref={virtualizer.measureElement}
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      transform: `translateY(${virtualRow.start}px)`,
+                      paddingBottom: "12px",
+                    }}
+                  >
+                    <KanbanCard
+                      task={task}
+                      onUpdateTask={onUpdateTask}
+                      onDeleteTask={onDeleteTask}
+                    />
+                  </div>
+                );
+              })}
             </div>
           ) : (
             tasks.map((task, index) => (

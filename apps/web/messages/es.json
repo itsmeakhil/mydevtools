@@ -1467,7 +1467,8 @@
       "requestFailed": "Error en la solicitud: {message}",
       "curlPasted": "cURL pegado y analizado correctamente",
       "responseCopied": "Respuesta copiada al portapapeles",
-      "codeCopied": "Código copiado al portapapeles"
+      "codeCopied": "Código copiado al portapapeles",
+      "copyFailed": "Error al copiar al portapapeles"
     },
     "layout": {
       "collections": "Colecciones",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Método",
       "urlPlaceholder": "https://api.ejemplo.com/v1/...",
       "sending": "Enviando...",
-      "send": "Enviar"
+      "send": "Enviar",
+      "invalidJsonBodyHelp": "No se puede enviar: el cuerpo JSON no es válido"
     },
     "requestTabs": {
       "params": "Parámetros",
@@ -1528,7 +1530,9 @@
       "previewTab": "Vista previa",
       "headersTab": "Cabeceras",
       "binaryRawView": "Los datos binarios no se pueden mostrar en vista en bruto.",
-      "errorStatusLabel": "Error"
+      "errorStatusLabel": "Error",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Nueva pestaña"
@@ -1613,6 +1617,21 @@
       "labelFolder": "Carpeta",
       "placeholderFolder": "Selecciona una carpeta",
       "save": "Guardar"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
     }
   },
   "RichEditor": {

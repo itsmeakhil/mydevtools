@@ -111,6 +111,22 @@ export function useCollections() {
         void migrateData()
     }, [user, loading, isLoading, collections.length, authedFetch])
 
+    // Helper: send a delta and reconcile server response (source of truth)
+    const applyDelta = React.useCallback(
+        async (collectionId: string, ops: object[]): Promise<Collection> => {
+            const res = await authedFetch(
+                `/api/backend/api-client/collections/${collectionId}/items:apply-delta`,
+                {
+                    method: "POST",
+                    body: JSON.stringify({ ops }),
+                }
+            )
+            const body = (await res.json()) as { collection: Collection }
+            return body.collection
+        },
+        [authedFetch]
+    )
+
     const addFolder = async (parentId: string, name: string) => {
         if (!user) return
 
@@ -122,31 +138,30 @@ export function useCollections() {
             isOpen: true,
         }
 
-        // Find the collection containing this parentId
-        // Since we store root collections as documents, we need to find which doc to update.
-        // parentId could be the collection ID itself or a folder ID inside it.
-
         const targetCollection = collections.find(c =>
             c.id === parentId || findItemInCollection(c.items, parentId)
         )
 
         if (!targetCollection) return
 
-        let updatedItems: (CollectionFolder | CollectionRequest)[]
-        if (targetCollection.id === parentId) {
-            updatedItems = [...targetCollection.items, newFolder]
-        } else {
-            updatedItems = addItemToParent(targetCollection.items, parentId, newFolder)
-        }
+        // Optimistic update
+        const prev = collections
+        const optimisticItems = targetCollection.id === parentId
+            ? [...targetCollection.items, newFolder]
+            : addItemToParent(targetCollection.items, parentId, newFolder)
+        setCollections((cur) =>
+            sortCollections(cur.map((c) =>
+                c.id === targetCollection.id ? { ...c, items: optimisticItems } : c
+            ))
+        )
 
         try {
-            const res = await authedFetch(`/api/backend/api-client/collections/${targetCollection.id}`, {
-                method: "PATCH",
-                body: JSON.stringify({ items: updatedItems }),
-            })
-            const updated = (await res.json()) as Collection
-            setCollections((prev) => sortCollections(prev.map((c) => (c.id === updated.id ? updated : c))))
+            const updated = await applyDelta(targetCollection.id, [
+                { type: "add", parent_id: parentId, item: newFolder },
+            ])
+            setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
         } catch (e) {
+            setCollections(prev)
             console.error("Error adding folder", e)
             toast.error("Failed to add folder")
         }
@@ -162,14 +177,15 @@ export function useCollections() {
 
         // If not found in items, maybe it IS the collection?
         if (!targetCollection) {
-            // Check if itemId is a collection ID
             const colToDelete = collections.find(c => c.id === itemId)
             if (colToDelete) {
+                const prev = collections
+                setCollections((cur) => cur.filter((c) => c.id !== itemId))
                 try {
                     await authedFetch(`/api/backend/api-client/collections/${itemId}`, { method: "DELETE" })
-                    setCollections((prev) => prev.filter((c) => c.id !== itemId))
                     toast.success("Collection deleted")
                 } catch (e) {
+                    setCollections(prev)
                     console.error("Error deleting collection", e)
                     toast.error("Failed to delete collection")
                 }
@@ -177,16 +193,22 @@ export function useCollections() {
             return
         }
 
-        const updatedItems = deleteFromItems(targetCollection.items, itemId)
+        // Optimistic update
+        const prev = collections
+        const optimisticItems = deleteFromItems(targetCollection.items, itemId)
+        setCollections((cur) =>
+            sortCollections(cur.map((c) =>
+                c.id === targetCollection.id ? { ...c, items: optimisticItems } : c
+            ))
+        )
 
         try {
-            const res = await authedFetch(`/api/backend/api-client/collections/${targetCollection.id}`, {
-                method: "PATCH",
-                body: JSON.stringify({ items: updatedItems }),
-            })
-            const updated = (await res.json()) as Collection
-            setCollections((prev) => sortCollections(prev.map((c) => (c.id === updated.id ? updated : c))))
+            const updated = await applyDelta(targetCollection.id, [
+                { type: "delete", item_id: itemId },
+            ])
+            setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
         } catch (e) {
+            setCollections(prev)
             console.error("Error deleting item", e)
             toast.error("Failed to delete item")
         }
@@ -201,23 +223,25 @@ export function useCollections() {
 
         if (!targetCollection) return
 
-        // Check if parentId is the collection itself
-        let updatedItems: (CollectionFolder | CollectionRequest)[]
-        if (targetCollection.id === parentId) {
-            updatedItems = [...targetCollection.items, request]
-        } else {
-            updatedItems = addItemToParent(targetCollection.items, parentId, request)
-        }
+        // Optimistic update
+        const prev = collections
+        const optimisticItems = targetCollection.id === parentId
+            ? [...targetCollection.items, request]
+            : addItemToParent(targetCollection.items, parentId, request)
+        setCollections((cur) =>
+            sortCollections(cur.map((c) =>
+                c.id === targetCollection.id ? { ...c, items: optimisticItems } : c
+            ))
+        )
 
         try {
-            const res = await authedFetch(`/api/backend/api-client/collections/${targetCollection.id}`, {
-                method: "PATCH",
-                body: JSON.stringify({ items: updatedItems }),
-            })
-            const updated = (await res.json()) as Collection
-            setCollections((prev) => sortCollections(prev.map((c) => (c.id === updated.id ? updated : c))))
+            const updated = await applyDelta(targetCollection.id, [
+                { type: "add", parent_id: parentId, item: request },
+            ])
+            setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
             toast.success("Request saved")
         } catch (e) {
+            setCollections(prev)
             console.error("Error saving request", e)
             toast.error("Failed to save request")
         }
@@ -229,16 +253,26 @@ export function useCollections() {
         const targetCollection = collections.find(c => findItemInCollection(c.items, folderId))
         if (!targetCollection) return
 
-        const updatedItems = toggleInItems(targetCollection.items, folderId)
+        // Optimistic update (toggle is purely local UX — we still persist to avoid drift)
+        const prev = collections
+        const optimisticItems = toggleInItems(targetCollection.items, folderId)
+        setCollections((cur) =>
+            sortCollections(cur.map((c) =>
+                c.id === targetCollection.id ? { ...c, items: optimisticItems } : c
+            ))
+        )
+
+        // Find the current isOpen value to send the patch
+        const folder = findFolder(targetCollection.items, folderId)
+        if (!folder) return
 
         try {
-            const res = await authedFetch(`/api/backend/api-client/collections/${targetCollection.id}`, {
-                method: "PATCH",
-                body: JSON.stringify({ items: updatedItems }),
-            })
-            const updated = (await res.json()) as Collection
-            setCollections((prev) => sortCollections(prev.map((c) => (c.id === updated.id ? updated : c))))
+            const updated = await applyDelta(targetCollection.id, [
+                { type: "update", item_id: folderId, patch: { isOpen: !folder.isOpen } },
+            ])
+            setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
         } catch (e) {
+            setCollections(prev)
             console.error("Error toggling folder", e)
         }
     }
@@ -249,22 +283,39 @@ export function useCollections() {
         const targetCollection = collections.find(c => findItemInCollection(c.items, folderId))
         if (!targetCollection) return
 
-        const updatedItems = renameFolderInItems(targetCollection.items, folderId, name)
+        // Optimistic update
+        const prev = collections
+        const optimisticItems = renameFolderInItems(targetCollection.items, folderId, name)
+        setCollections((cur) =>
+            sortCollections(cur.map((c) =>
+                c.id === targetCollection.id ? { ...c, items: optimisticItems } : c
+            ))
+        )
 
         try {
-            const res = await authedFetch(`/api/backend/api-client/collections/${targetCollection.id}`, {
-                method: "PATCH",
-                body: JSON.stringify({ items: updatedItems }),
-            })
-            const updated = (await res.json()) as Collection
-            setCollections((prev) => sortCollections(prev.map((c) => (c.id === updated.id ? updated : c))))
+            const updated = await applyDelta(targetCollection.id, [
+                { type: "update", item_id: folderId, patch: { name } },
+            ])
+            setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
         } catch (e) {
+            setCollections(prev)
             console.error("Error renaming folder", e)
             toast.error("Failed to rename folder")
         }
     }
 
     // Helper functions
+    const findFolder = (items: (CollectionFolder | CollectionRequest)[], folderId: string): CollectionFolder | null => {
+        for (const item of items) {
+            if (item.id === folderId && "type" in item && item.type === "folder") return item as CollectionFolder
+            if ("type" in item && item.type === "folder") {
+                const found = findFolder(item.items, folderId)
+                if (found) return found
+            }
+        }
+        return null
+    }
+
     const findItemInCollection = (items: (CollectionFolder | CollectionRequest)[], targetId: string): boolean => {
         for (const item of items) {
             if (item.id === targetId) return true
@@ -353,15 +404,21 @@ export function useCollections() {
 
     const renameCollection = async (collectionId: string, name: string) => {
         if (!user) return
+        const prev = collections
+        // Optimistic update
+        setCollections((cur) =>
+            sortCollections(cur.map((c) => (c.id === collectionId ? { ...c, name } : c)))
+        )
         try {
             const res = await authedFetch(`/api/backend/api-client/collections/${collectionId}`, {
                 method: "PATCH",
                 body: JSON.stringify({ name }),
             })
             const updated = (await res.json()) as Collection
-            setCollections((prev) => sortCollections(prev.map((c) => (c.id === updated.id ? updated : c))))
+            setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
             toast.success("Collection renamed")
         } catch (e) {
+            setCollections(prev)
             console.error("Error renaming collection", e)
             toast.error("Failed to rename collection")
         }

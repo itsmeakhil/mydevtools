@@ -28,11 +28,15 @@ interface SaveRequestDialogProps {
     collections: Collection[]
     onSave: (parentId: string, name: string) => void
     defaultName?: string
+    open?: boolean
+    onOpenChange?: (open: boolean) => void
 }
 
-export function SaveRequestDialog({ collections, onSave, defaultName }: SaveRequestDialogProps) {
+export function SaveRequestDialog({ collections, onSave, defaultName, open: openProp, onOpenChange }: SaveRequestDialogProps) {
     const t = useTranslations("ApiClient.saveRequest")
-    const [open, setOpen] = React.useState(false)
+    const [openInternal, setOpenInternal] = React.useState(false)
+    const open = openProp !== undefined ? openProp : openInternal
+    const setOpen = onOpenChange ?? setOpenInternal
     const [name, setName] = React.useState(defaultName || "")
     const [selectedFolderId, setSelectedFolderId] = React.useState<string>("")
 
@@ -73,14 +77,18 @@ export function SaveRequestDialog({ collections, onSave, defaultName }: SaveRequ
         }
     }
 
+    const isControlled = openProp !== undefined
+
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-                <Button variant="outline" size="sm" className="gap-2">
-                    <Save className="h-4 w-4" />
-                    {t("trigger")}
-                </Button>
-            </DialogTrigger>
+            {!isControlled && (
+                <DialogTrigger asChild>
+                    <Button variant="outline" size="sm" className="gap-2">
+                        <Save className="h-4 w-4" />
+                        {t("trigger")}
+                    </Button>
+                </DialogTrigger>
+            )}
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
                     <DialogTitle>{t("dialogTitle")}</DialogTitle>

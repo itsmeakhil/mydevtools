@@ -59,7 +59,7 @@ export function DashboardToolGrid({
               </span>
             </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4 xl:gap-5">
             {group.items.map((item: any, itemIndex: number) => (
               <React.Fragment key={`${groupIndex}-${itemIndex}`}>
                 {/* Render search result items (flattened) */}
@@ -68,6 +68,7 @@ export function DashboardToolGrid({
                     item={item}
                     id={item.originalId}
                     index={itemIndex}
+                    accent={accent}
                     {...toolCardProps}
                   />
                 )}
@@ -80,6 +81,7 @@ export function DashboardToolGrid({
                       item={{ ...subItem, icon: subItem.icon ?? item.icon }}
                       id={createItemId(group.originalGroupIndex, itemIndex, subIndex)}
                       index={subIndex}
+                      accent={accent}
                       {...toolCardProps}
                     />
                   ))}
@@ -101,7 +103,7 @@ export function DashboardToolGrid({
               <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider px-1">
                 {t('popularTools')}
               </p>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4 xl:gap-5">
                 {popularItems.map((item, index) => (
                   <ToolCard
                     key={`popular-${item.originalId}`}

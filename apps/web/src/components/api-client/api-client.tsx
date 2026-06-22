@@ -8,10 +8,11 @@ import { RequestTabs } from "./request-tabs"
 import { ResponsePanel } from "./response-panel"
 import { TabBar } from "./tab-bar"
 import { ImportCurlDialog } from "./import-curl-dialog"
+import { HelpShortcutsDialog } from "./help-shortcuts-dialog"
+import { SaveRequestDialog } from "./collections/save-request-dialog"
 import { parseCurlCommand } from "@/utils/curl-parser"
 import { CollectionsSidebar } from "./collections/collections-sidebar"
-import { EnvironmentManager } from "./environment-manager"
-import { CodeGenerator } from "./code-generator"
+import dynamic from "next/dynamic"
 import {
     RequestMethod,
     ApiRequestState,
@@ -25,14 +26,26 @@ import { toast } from "sonner"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
-import { FolderOpen, PanelRight } from "lucide-react"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { FolderOpen, PanelRight, MoreVertical } from "lucide-react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
+import { IconCode, IconSettings } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
 import { ensureHttpScheme } from "@/lib/url-normalize"
 import { useJsonFormatter } from "./workers/use-json-formatter"
-import { TabsProvider, useTabs, useTabsActions, createNewTab } from "./context/tabs-context"
-import { CollectionsProvider, useCollectionsState, useCollectionsActions } from "./context/collections-context"
-import { EnvironmentsProvider, useEnvironmentsState, useEnvironmentsActions } from "./context/environments-context"
-import { HistoryProvider, useHistoryState, useHistoryActions } from "./context/history-context"
+import { useTabs, useTabsActions, createNewTab } from "./context/tabs-context"
+import { useCollectionsState, useCollectionsActions } from "./context/collections-context"
+import { useEnvironmentsState, useEnvironmentsActions } from "./context/environments-context"
+import { useHistoryState, useHistoryActions } from "./context/history-context"
+
+const EnvironmentManager = dynamic(
+    () => import("./environment-manager").then(m => ({ default: m.EnvironmentManager })),
+    { ssr: false, loading: () => null }
+)
+const CodeGenerator = dynamic(
+    () => import("./code-generator").then(m => ({ default: m.CodeGenerator })),
+    { ssr: false, loading: () => null }
+)
 
 /** `new URL()` requires a scheme; host-only URLs (e.g. `api.example.com/v1`) are common in API clients. */
 function buildRequestUrl(raw: string): URL {
@@ -57,18 +70,37 @@ function ApiClientInner() {
     const { addTab, appendTab, closeTab, duplicateTab, renameTab, reorderTabs, setActiveTabId, updateActiveTab } = useTabsActions()
 
     const abortControllerRef = React.useRef<AbortController | null>(null)
+
+    // Abort any in-flight request when the component unmounts.
+    React.useEffect(() => () => abortControllerRef.current?.abort(), [])
+
     const { format: formatJson } = useJsonFormatter()
     const { collections } = useCollectionsState()
     const { saveRequest } = useCollectionsActions()
     const { history } = useHistoryState()
-    const { addHistoryItem, clearHistory, deleteHistoryItem } = useHistoryActions()
+    const { addHistoryItem } = useHistoryActions()
     const { environments, activeEnvId, activeEnvironmentVariables } = useEnvironmentsState()
-    const { setActiveEnvId, addEnvironment, updateEnvironment, deleteEnvironment, substituteVariables } = useEnvironmentsActions()
+    const { substituteVariables, setActiveEnvId } = useEnvironmentsActions()
 
     const isMobile = useIsMobile()
     const [collectionsOpen, setCollectionsOpen] = React.useState(false)
     const [sidebarOpen, setSidebarOpen] = React.useState(true)
     const [mobilePanel, setMobilePanel] = React.useState<'request' | 'response'>('request')
+    const [envMgrOpen, setEnvMgrOpen] = React.useState(false)
+    const [codeGenOpen, setCodeGenOpen] = React.useState(false)
+    const [importCurlOpen, setImportCurlOpen] = React.useState(false)
+    const [helpOpen, setHelpOpen] = React.useState(false)
+    const [saveOpen, setSaveOpen] = React.useState(false)
+
+    // Scroll position memory for mobile panel toggle
+    const scrollMemory = React.useRef<{ request: number; response: number }>({ request: 0, response: 0 })
+    const requestScrollRef = React.useRef<HTMLDivElement | null>(null)
+    const responseScrollRef = React.useRef<HTMLDivElement | null>(null)
+
+    React.useLayoutEffect(() => {
+        const el = mobilePanel === 'request' ? requestScrollRef.current : responseScrollRef.current
+        if (el) el.scrollTop = scrollMemory.current[mobilePanel]
+    }, [mobilePanel])
 
     const urlHistory = React.useMemo(() => {
         const seen = new Set<string>()
@@ -81,6 +113,12 @@ function ApiClientInner() {
         }
         return urls
     }, [history])
+
+    const isBodyInvalid = React.useMemo(() => {
+        if (activeTab.body.type !== "json") return false
+        if (!activeTab.body.content.trim()) return false
+        try { JSON.parse(activeTab.body.content); return false } catch { return true }
+    }, [activeTab.body])
 
     const replaceUrlWithEnvBaseUrl = React.useCallback((url: string | undefined) => {
         if (!url || !activeEnvId) return url
@@ -432,12 +470,95 @@ function ApiClientInner() {
                         </Sheet>
                     )}
                     <div className="flex flex-wrap items-center gap-2 ml-auto">
-                        <EnvironmentManager />
-                        <div className="h-6 w-px bg-border/50 mx-1" />
-                        <CodeGenerator request={activeTab} />
-                        <ImportCurlDialog onImport={handleImportCurl} />
-                        {!isMobile && (
+                        {isMobile ? (
+                            /* Mobile: secondary actions collapsed into dropdown */
                             <>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button variant="ghost" size="icon" className="h-8 w-8" aria-label={t("toolbar.moreActions")}>
+                                            <MoreVertical className="h-4 w-4" />
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                        <DropdownMenuItem onSelect={() => setCodeGenOpen(true)}>
+                                            <IconCode className="h-4 w-4 mr-2" />
+                                            {t("toolbar.code")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setSaveOpen(true)}>
+                                            {t("toolbar.save")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setImportCurlOpen(true)}>
+                                            {t("toolbar.importCurl")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem onSelect={() => setEnvMgrOpen(true)}>
+                                            <IconSettings className="h-4 w-4 mr-2" />
+                                            {t("toolbar.environments")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setHelpOpen(true)}>
+                                            {t("toolbar.shortcuts")}
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                                {/* Env selector stays inline on mobile for quick switching */}
+                                <Select
+                                    value={activeEnvId || "none"}
+                                    onValueChange={(val) => setActiveEnvId(val === "none" ? null : val)}
+                                >
+                                    <SelectTrigger className="w-[130px] h-8 text-xs">
+                                        <SelectValue placeholder={t("environmentManager.noEnvironment")} />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="none">{t("environmentManager.noEnvironment")}</SelectItem>
+                                        {environments.map(env => (
+                                            <SelectItem key={env.id} value={env.id}>{env.name}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </>
+                        ) : (
+                            /* Desktop: all buttons inline */
+                            <>
+                                <Select
+                                    value={activeEnvId || "none"}
+                                    onValueChange={(val) => setActiveEnvId(val === "none" ? null : val)}
+                                >
+                                    <SelectTrigger className="w-[150px] h-8 text-xs">
+                                        <SelectValue placeholder={t("environmentManager.noEnvironment")} />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="none">{t("environmentManager.noEnvironment")}</SelectItem>
+                                        {environments.map(env => (
+                                            <SelectItem key={env.id} value={env.id}>{env.name}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-8 w-8"
+                                    title={t("environmentManager.manageDialogTitle")}
+                                    onClick={() => setEnvMgrOpen(true)}
+                                >
+                                    <IconSettings className="h-4 w-4" />
+                                </Button>
+                                <div className="h-6 w-px bg-border/50 mx-1" />
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-8 w-8"
+                                    title={t("codeGenerator.triggerTitle")}
+                                    onClick={() => setCodeGenOpen(true)}
+                                >
+                                    <IconCode className="h-4 w-4" />
+                                </Button>
+                                <SaveRequestDialog
+                                    collections={collections}
+                                    onSave={handleSaveRequest}
+                                    defaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
+                                />
+                                <ImportCurlDialog onImport={handleImportCurl} />
+                                <HelpShortcutsDialog />
                                 <div className="h-6 w-px bg-border/50 mx-1" />
                                 <Button
                                     variant="ghost"
@@ -448,6 +569,30 @@ function ApiClientInner() {
                                 >
                                     <PanelRight className="h-4 w-4 text-muted-foreground" />
                                 </Button>
+                            </>
+                        )}
+                        {/* Dialogs rendered outside the conditional so state is preserved */}
+                        {envMgrOpen && (
+                            <EnvironmentManager open={envMgrOpen} onOpenChange={setEnvMgrOpen} />
+                        )}
+                        {codeGenOpen && (
+                            <CodeGenerator
+                                request={activeTab}
+                                open={codeGenOpen}
+                                onOpenChange={setCodeGenOpen}
+                            />
+                        )}
+                        {isMobile && (
+                            <>
+                                <ImportCurlDialog onImport={handleImportCurl} open={importCurlOpen} onOpenChange={setImportCurlOpen} />
+                                <HelpShortcutsDialog open={helpOpen} onOpenChange={setHelpOpen} />
+                                <SaveRequestDialog
+                                    collections={collections}
+                                    onSave={handleSaveRequest}
+                                    defaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
+                                    open={saveOpen}
+                                    onOpenChange={setSaveOpen}
+                                />
                             </>
                         )}
                     </div>
@@ -502,9 +647,13 @@ function ApiClientInner() {
 
                     <div className="flex-1 overflow-hidden min-h-0 bg-card/30">
                         {isMobile ? (
-                            /* Mobile: single panel toggled by tabs */
-                            <div className="h-full overflow-y-auto">
-                                {mobilePanel === 'request' ? (
+                            /* Mobile: separate scroll containers per panel — scroll position preserved on toggle */
+                            <>
+                                <div
+                                    ref={requestScrollRef}
+                                    className={`h-full overflow-y-auto${mobilePanel === 'request' ? '' : ' hidden'}`}
+                                    onScroll={(e) => { scrollMemory.current.request = (e.target as HTMLDivElement).scrollTop }}
+                                >
                                     <div className="p-4 flex flex-col gap-6 min-h-full">
                                         <RequestPanel
                                             method={activeTab.method}
@@ -514,11 +663,10 @@ function ApiClientInner() {
                                             onSend={handleSend}
                                             onCancel={handleCancel}
                                             isLoading={activeTab.isLoading}
-                                            collections={collections}
-                                            onSave={handleSaveRequest}
-                                            saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
+                                            isBodyInvalid={isBodyInvalid}
                                             onPaste={handleCurlPaste}
                                             urlHistory={urlHistory}
+                                            tabId={activeTab.id}
                                         />
                                         <RequestTabs
                                             params={activeTab.params}
@@ -531,12 +679,17 @@ function ApiClientInner() {
                                             setAuth={(auth) => updateActiveTab({ auth })}
                                         />
                                     </div>
-                                ) : (
+                                </div>
+                                <div
+                                    ref={responseScrollRef}
+                                    className={`h-full overflow-y-auto${mobilePanel === 'response' ? '' : ' hidden'}`}
+                                    onScroll={(e) => { scrollMemory.current.response = (e.target as HTMLDivElement).scrollTop }}
+                                >
                                     <div className="p-4">
-                                        <ResponsePanel response={activeTab.response} />
+                                        <ResponsePanel response={activeTab.response} isLoading={activeTab.isLoading} />
                                     </div>
-                                )}
-                            </div>
+                                </div>
+                            </>
                         ) : (
                             /* Desktop: side-by-side resizable panels */
                             <ResizablePanelGroup direction="horizontal" className="h-full w-full">
@@ -550,11 +703,10 @@ function ApiClientInner() {
                                             onSend={handleSend}
                                             onCancel={handleCancel}
                                             isLoading={activeTab.isLoading}
-                                            collections={collections}
-                                            onSave={handleSaveRequest}
-                                            saveDefaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
+                                            isBodyInvalid={isBodyInvalid}
                                             onPaste={handleCurlPaste}
                                             urlHistory={urlHistory}
+                                            tabId={activeTab.id}
                                         />
                                         <div className="flex-1 min-h-0">
                                             <RequestTabs
@@ -575,7 +727,7 @@ function ApiClientInner() {
 
                                 <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col h-full bg-muted/[0.02]">
                                     <div className="p-4 md:p-6 lg:p-8 flex-1 overflow-y-auto min-h-0 custom-scrollbar">
-                                        <ResponsePanel response={activeTab.response} />
+                                        <ResponsePanel response={activeTab.response} isLoading={activeTab.isLoading} />
                                     </div>
                                 </ResizablePanel>
                             </ResizablePanelGroup>
@@ -602,15 +754,5 @@ function ApiClientInner() {
 }
 
 export function ApiClient() {
-    return (
-        <TabsProvider>
-            <CollectionsProvider>
-                <EnvironmentsProvider>
-                    <HistoryProvider>
-                        <ApiClientInner />
-                    </HistoryProvider>
-                </EnvironmentsProvider>
-            </CollectionsProvider>
-        </TabsProvider>
-    )
+    return <ApiClientInner />
 }

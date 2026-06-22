@@ -6,9 +6,7 @@ import {
     DialogContent,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
 import {
     Select,
     SelectContent,
@@ -16,8 +14,9 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { IconCode, IconCopy, IconCheck } from "@tabler/icons-react"
+import { IconCopy, IconCheck } from "@tabler/icons-react"
 import { ApiRequestState } from "./types"
 import { generateCode, CodeLanguage } from "./generate-code"
 import { toast } from "sonner"
@@ -25,9 +24,11 @@ import { useTranslations } from "next-intl"
 
 interface CodeGeneratorProps {
     request: ApiRequestState
+    open: boolean
+    onOpenChange: (open: boolean) => void
 }
 
-export function CodeGenerator({ request }: CodeGeneratorProps) {
+export function CodeGenerator({ request, open, onOpenChange }: CodeGeneratorProps) {
     const t = useTranslations("ApiClient.codeGenerator")
     const tApi = useTranslations("ApiClient")
     const [language, setLanguage] = React.useState<CodeLanguage>("curl")
@@ -52,12 +53,7 @@ export function CodeGenerator({ request }: CodeGeneratorProps) {
     }
 
     return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <Button variant="ghost" size="icon" title={t("triggerTitle")}>
-                    <IconCode className="h-4 w-4" />
-                </Button>
-            </DialogTrigger>
+        <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="max-w-2xl">
                 <DialogHeader>
                     <DialogTitle>{t("dialogTitle")}</DialogTitle>

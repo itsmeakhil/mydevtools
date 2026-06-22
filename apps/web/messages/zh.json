@@ -1467,7 +1467,8 @@
       "requestFailed": "请求失败：{message}",
       "curlPasted": "cURL 已粘贴并解析成功",
       "responseCopied": "响应已复制到剪贴板",
-      "codeCopied": "代码已复制到剪贴板"
+      "codeCopied": "代码已复制到剪贴板",
+      "copyFailed": "复制到剪贴板失败"
     },
     "layout": {
       "collections": "集合",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "方法",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "发送中…",
-      "send": "发送"
+      "send": "发送",
+      "invalidJsonBodyHelp": "无法发送：JSON 正文无效"
     },
     "requestTabs": {
       "params": "参数",
@@ -1528,7 +1530,9 @@
       "previewTab": "预览",
       "headersTab": "响应头",
       "binaryRawView": "二进制数据无法在原始视图中显示。",
-      "errorStatusLabel": "错误"
+      "errorStatusLabel": "错误",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "新标签"
@@ -1613,6 +1617,21 @@
       "labelFolder": "文件夹",
       "placeholderFolder": "选择文件夹",
       "save": "保存"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
     }
   },
   "RichEditor": {

@@ -1488,7 +1488,8 @@
       "requestFailed": "Request failed: {message}",
       "curlPasted": "cURL pasted and parsed successfully",
       "responseCopied": "Response copied to clipboard",
-      "codeCopied": "Code copied to clipboard"
+      "codeCopied": "Code copied to clipboard",
+      "copyFailed": "Failed to copy to clipboard"
     },
     "layout": {
       "collections": "Collections",
@@ -1501,7 +1502,8 @@
       "methodPlaceholder": "Method",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Sending...",
-      "send": "Send"
+      "send": "Send",
+      "invalidJsonBodyHelp": "Cannot send: the JSON body is invalid"
     },
     "requestTabs": {
       "params": "Params",
@@ -1549,7 +1551,9 @@
       "previewTab": "Preview",
       "headersTab": "Headers",
       "binaryRawView": "Binary data cannot be displayed in raw view.",
-      "errorStatusLabel": "Error"
+      "errorStatusLabel": "Error",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "New tab"
@@ -1637,6 +1641,21 @@
       "labelFolder": "Folder",
       "placeholderFolder": "Select a folder",
       "save": "Save"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
     }
   },
   "RichEditor": {

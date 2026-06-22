@@ -1467,7 +1467,8 @@
       "requestFailed": "Запрос не выполнен: {message}",
       "curlPasted": "cURL вставлен и успешно разобран",
       "responseCopied": "Ответ скопирован в буфер обмена",
-      "codeCopied": "Код скопирован в буфер обмена"
+      "codeCopied": "Код скопирован в буфер обмена",
+      "copyFailed": "Не удалось скопировать в буфер обмена"
     },
     "layout": {
       "collections": "Коллекции",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Метод",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Отправка...",
-      "send": "Отправить"
+      "send": "Отправить",
+      "invalidJsonBodyHelp": "Невозможно отправить: тело JSON недействительно"
     },
     "requestTabs": {
       "params": "Параметры",
@@ -1528,7 +1530,9 @@
       "previewTab": "Предпросмотр",
       "headersTab": "Заголовки",
       "binaryRawView": "Бинарные данные не могут быть отображены в режиме исходного текста.",
-      "errorStatusLabel": "Ошибка"
+      "errorStatusLabel": "Ошибка",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Новая вкладка"
@@ -1613,6 +1617,21 @@
       "labelFolder": "Папка",
       "placeholderFolder": "Выберите папку",
       "save": "Сохранить"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
     }
   },
   "RichEditor": {

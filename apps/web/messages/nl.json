@@ -1467,7 +1467,8 @@
       "requestFailed": "Verzoek mislukt: {message}",
       "curlPasted": "cURL geplakt en succesvol verwerkt",
       "responseCopied": "Antwoord gekopieerd naar klembord",
-      "codeCopied": "Code gekopieerd naar klembord"
+      "codeCopied": "Code gekopieerd naar klembord",
+      "copyFailed": "Kopiëren naar klembord mislukt"
     },
     "layout": {
       "collections": "Collecties",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Methode",
       "urlPlaceholder": "https://api.voorbeeld.nl/v1/...",
       "sending": "Verzenden...",
-      "send": "Verzenden"
+      "send": "Verzenden",
+      "invalidJsonBodyHelp": "Kan niet verzenden: de JSON-body is ongeldig"
     },
     "requestTabs": {
       "params": "Parameters",
@@ -1528,7 +1530,9 @@
       "previewTab": "Voorbeeld",
       "headersTab": "Headers",
       "binaryRawView": "Binaire gegevens kunnen niet worden weergegeven in ruwe weergave.",
-      "errorStatusLabel": "Fout"
+      "errorStatusLabel": "Fout",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Nieuw tabblad"
@@ -1613,6 +1617,21 @@
       "labelFolder": "Map",
       "placeholderFolder": "Selecteer een map",
       "save": "Opslaan"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
     }
   },
   "RichEditor": {

@@ -18,7 +18,7 @@ interface DashboardPinnedSectionProps {
 const VISIBLE_CAP = 8
 
 const SKELETON_GRID_CLASS =
-  'hidden md:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4'
+  'hidden md:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4 xl:gap-5'
 
 /**
  * Pinned tools section.
@@ -93,7 +93,7 @@ export function DashboardPinnedSection({
             {pinnedItems.map((item, index) => (
               <div
                 key={`pinned-mobile-${item.originalId}`}
-                className="scroll-snap-item w-[min(280px,75vw)] flex-shrink-0"
+                className="scroll-snap-item w-[260px] flex-shrink-0 snap-start"
               >
                 <ToolCard item={item} id={item.originalId!} index={index} {...toolCardProps} />
               </div>
@@ -102,7 +102,7 @@ export function DashboardPinnedSection({
         </HScrollFade>
       </div>
       {/* Desktop: grid */}
-      <div className="hidden md:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
+      <div className="hidden md:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4 xl:gap-5">
         {visible.map((item, index) => (
           <ToolCard
             key={`pinned-${item.originalId}`}

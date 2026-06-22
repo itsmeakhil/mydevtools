@@ -1467,7 +1467,8 @@
       "requestFailed": "Forespørsel mislyktes: {message}",
       "curlPasted": "cURL limt inn og analysert",
       "responseCopied": "Svar kopiert til utklippstavle",
-      "codeCopied": "Kode kopiert til utklippstavle"
+      "codeCopied": "Kode kopiert til utklippstavle",
+      "copyFailed": "Kopiering til utklippstavlen mislyktes"
     },
     "layout": {
       "collections": "Samlinger",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Metode",
       "urlPlaceholder": "https://api.eksempel.no/v1/...",
       "sending": "Sender...",
-      "send": "Send"
+      "send": "Send",
+      "invalidJsonBodyHelp": "Kan ikke sende: JSON-kroppen er ugyldig"
     },
     "requestTabs": {
       "params": "Parametere",
@@ -1528,7 +1530,9 @@
       "previewTab": "Forhåndsvisning",
       "headersTab": "Overskrifter",
       "binaryRawView": "Binære data kan ikke vises i råvisning.",
-      "errorStatusLabel": "Feil"
+      "errorStatusLabel": "Feil",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Ny fane"
@@ -1613,6 +1617,21 @@
       "labelFolder": "Mappe",
       "placeholderFolder": "Velg en mappe",
       "save": "Lagre"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
     }
   },
   "RichEditor": {

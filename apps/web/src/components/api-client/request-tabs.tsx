@@ -4,7 +4,13 @@ import * as React from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { KeyValueEditor } from "./key-value-editor"
 import { KeyValueItem, RequestBody, RequestAuth, RequestFormDataItem } from "./types"
-import CodeEditor from "@/components/ui/code-editor"
+import dynamic from "next/dynamic"
+
+const CodeEditor = dynamic(
+    () => import("@/components/ui/code-editor"),
+    { ssr: false, loading: () => <div className="h-full w-full animate-pulse bg-muted/30" /> }
+)
+const MemoCodeEditor = React.memo(CodeEditor)
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -101,6 +107,15 @@ export function RequestTabs({
         })
     }
 
+    const handleBodyContentChange = React.useCallback(
+        (v: string) => updateBody({ content: v }),
+        // updateBody closes over normalizedBody via its own capture; listing
+        // updateBody as the dep is sufficient and avoids re-creating the
+        // callback on every normalizedBody identity change.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [updateBody]
+    )
+
     const handleFileSelect = async (id: string, file: File | null) => {
         if (!file) return
         const buffer = await file.arrayBuffer()
@@ -187,9 +202,9 @@ export function RequestTabs({
                                 catch (e) { return <div className="text-xs text-rose-500 bg-rose-500/10 border border-rose-500/20 rounded-md px-3 py-1.5 font-mono shrink-0">{(e as Error).message}</div> }
                             })()}
                             <div className="flex-1 border rounded-lg overflow-hidden shadow-sm min-h-0">
-                                <CodeEditor
+                                <MemoCodeEditor
                                     value={normalizedBody.content}
-                                    onChange={(v) => updateBody({ content: v })}
+                                    onChange={handleBodyContentChange}
                                     language={normalizedBody.type === "json" ? "json" : "plaintext"}
                                 />
                             </div>

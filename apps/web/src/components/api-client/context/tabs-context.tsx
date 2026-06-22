@@ -83,21 +83,50 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
         setIsInitialized(true)
     }, [])
 
+    // Keep refs to latest tabs and activeTabId so callbacks always see the
+    // freshest snapshot without stale-closure issues.
+    const tabsRef = React.useRef(tabs)
+    const activeTabIdRef = React.useRef(activeTabId)
+    React.useEffect(() => {
+        tabsRef.current = tabs
+    })
+    React.useEffect(() => {
+        activeTabIdRef.current = activeTabId
+    })
+
     // Save tabs to localStorage — strip `response`/`isLoading` (responses can be MBs and
-    // would blow the per-origin localStorage quota).
+    // would blow the per-origin localStorage quota). Writes are debounced to 500ms so rapid
+    // edits (e.g. typing in the URL input) don't saturate the storage layer.
     React.useEffect(() => {
         if (!isInitialized) return
-        const slim = tabs.map((t) => {
-            const { response: _r, isLoading: _l, ...rest } = t
-            return rest
-        })
-        try {
-            localStorage.setItem(TABS_STORAGE_KEY, JSON.stringify(slim))
-        } catch (e) {
-            console.warn("api-client tabs: localStorage write failed, dropping persisted state", e)
-            try { localStorage.removeItem(TABS_STORAGE_KEY) } catch { /* noop */ }
-        }
+        const timeoutId = setTimeout(() => {
+            const slim = tabsRef.current.map((t) => {
+                const { response: _r, isLoading: _l, ...rest } = t
+                return rest
+            })
+            try {
+                localStorage.setItem(TABS_STORAGE_KEY, JSON.stringify(slim))
+            } catch (e) {
+                console.warn("api-client tabs: localStorage write failed, dropping persisted state", e)
+                try { localStorage.removeItem(TABS_STORAGE_KEY) } catch { /* noop */ }
+            }
+        }, 500)
+        return () => clearTimeout(timeoutId)
     }, [tabs, isInitialized])
+
+    // Flush the latest tab state immediately on unmount so mid-debounce edits
+    // are not lost when the user navigates away.
+    React.useEffect(() => {
+        return () => {
+            const slim = tabsRef.current.map((t) => {
+                const { response: _r, isLoading: _l, ...rest } = t
+                return rest
+            })
+            try {
+                localStorage.setItem(TABS_STORAGE_KEY, JSON.stringify(slim))
+            } catch { /* noop */ }
+        }
+    }, [])
 
     // Save active tab id to localStorage
     React.useEffect(() => {
@@ -132,44 +161,39 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
         appendTab,
 
         closeTab(id: string) {
-            setTabs((prev) => {
-                if (prev.length === 1) {
-                    const newTab = createNewTab()
-                    setActiveTabId(newTab.id)
-                    return [newTab]
-                }
-
-                const closedIdx = prev.findIndex((t) => t.id === id)
-                const newTabs = prev.filter((t) => t.id !== id)
-
-                setActiveTabId((currentActiveId) => {
-                    if (currentActiveId === id) {
-                        const nextIdx = Math.min(closedIdx, newTabs.length - 1)
-                        return newTabs[nextIdx]!.id
-                    }
-                    return currentActiveId
-                })
-
-                return newTabs
-            })
+            // Compute all state outside updaters so they remain pure (no side
+            // effects, safe for React StrictMode double-invocation).
+            const current = tabsRef.current
+            if (current.length === 1) {
+                const newTab = createNewTab()
+                setTabs([newTab])
+                setActiveTabId(newTab.id)
+                return
+            }
+            const closedIdx = current.findIndex((t) => t.id === id)
+            const next = current.filter((t) => t.id !== id)
+            setTabs(next)
+            if (activeTabIdRef.current === id) {
+                const nextIdx = Math.min(closedIdx, next.length - 1)
+                setActiveTabId(next[nextIdx]!.id)
+            }
         },
 
         duplicateTab(id: string) {
-            setTabs((prev) => {
-                const source = prev.find((t) => t.id === id)
-                if (!source) return prev
-                const newTab: ApiRequestState = {
-                    ...source,
-                    id: crypto.randomUUID(),
-                    response: null,
-                    isLoading: false,
-                }
-                const sourceIdx = prev.findIndex((t) => t.id === id)
-                const next = [...prev]
-                next.splice(sourceIdx + 1, 0, newTab)
-                setActiveTabId(newTab.id)
-                return next
-            })
+            const current = tabsRef.current
+            const source = current.find((t) => t.id === id)
+            if (!source) return
+            const newTab: ApiRequestState = {
+                ...source,
+                id: crypto.randomUUID(),
+                response: null,
+                isLoading: false,
+            }
+            const sourceIdx = current.findIndex((t) => t.id === id)
+            const next = [...current]
+            next.splice(sourceIdx + 1, 0, newTab)
+            setTabs(next)
+            setActiveTabId(newTab.id)
         },
 
         renameTab(id: string, name: string) {

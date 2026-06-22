@@ -1467,7 +1467,8 @@
       "requestFailed": "Förfrågan misslyckades: {message}",
       "curlPasted": "cURL inklistrad och tolkad",
       "responseCopied": "Svar kopierat till urklipp",
-      "codeCopied": "Kod kopierad till urklipp"
+      "codeCopied": "Kod kopierad till urklipp",
+      "copyFailed": "Kopiering till urklipp misslyckades"
     },
     "layout": {
       "collections": "Samlingar",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Metod",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Skickar...",
-      "send": "Skicka"
+      "send": "Skicka",
+      "invalidJsonBodyHelp": "Kan inte skicka: JSON-kroppen är ogiltig"
     },
     "requestTabs": {
       "params": "Parametrar",
@@ -1528,7 +1530,9 @@
       "previewTab": "Förhandsgranskning",
       "headersTab": "Rubriker",
       "binaryRawView": "Binärdata kan inte visas i råvy.",
-      "errorStatusLabel": "Fel"
+      "errorStatusLabel": "Fel",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Ny flik"
@@ -1613,6 +1617,21 @@
       "labelFolder": "Mapp",
       "placeholderFolder": "Välj en mapp",
       "save": "Spara"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
     }
   },
   "RichEditor": {

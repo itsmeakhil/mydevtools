@@ -1467,7 +1467,8 @@
       "requestFailed": "فشل الطلب: {message}",
       "curlPasted": "تم لصق cURL وتحليله بنجاح",
       "responseCopied": "تم نسخ الاستجابة",
-      "codeCopied": "تم نسخ الكود"
+      "codeCopied": "تم نسخ الكود",
+      "copyFailed": "فشل نسخ المحتوى إلى الحافظة"
     },
     "layout": {
       "collections": "المجموعات",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "الطريقة",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "جاري الإرسال...",
-      "send": "إرسال"
+      "send": "إرسال",
+      "invalidJsonBodyHelp": "لا يمكن الإرسال: نص JSON غير صالح"
     },
     "requestTabs": {
       "params": "معاملات",
@@ -1528,7 +1530,9 @@
       "previewTab": "معاينة",
       "headersTab": "الرؤوس",
       "binaryRawView": "لا يمكن عرض البيانات الثنائية في العرض الخام.",
-      "errorStatusLabel": "خطأ"
+      "errorStatusLabel": "خطأ",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "تبويب جديد"
@@ -1613,6 +1617,21 @@
       "labelFolder": "المجلد",
       "placeholderFolder": "اختر مجلداً",
       "save": "حفظ"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
     }
   },
   "RichEditor": {

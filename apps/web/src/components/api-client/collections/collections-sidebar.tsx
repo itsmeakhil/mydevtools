@@ -6,9 +6,9 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collection, CollectionRequest } from "../types"
 import { CollectionItem } from "./collection-item"
-import { FolderPlus, Trash2, Pencil, MoreHorizontal, Search, X, Loader2 } from "lucide-react"
-import { useInfiniteScroll } from "@/hooks/use-infinite-scroll"
+import { FolderPlus, Trash2, Pencil, MoreHorizontal, Search, X } from "lucide-react"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import { VirtualHistoryList } from "./virtual-history-list"
 import { cn } from "@/lib/utils"
 import {
     Dialog,
@@ -31,18 +31,11 @@ import { useTranslations } from "next-intl"
 import { getApiClientRequestDisplayName } from "../display-name"
 import { useCollectionsState, useCollectionsActions } from "../context/collections-context"
 import { useHistoryState, useHistoryActions } from "../context/history-context"
+import { CollectionsSidebarSkeleton, HistoryListSkeleton } from "../skeletons"
+import { useDebouncedValue } from "@/lib/use-debounced-value"
 
 interface CollectionsSidebarProps {
     onLoadRequest: (request: CollectionRequest) => void
-}
-
-function useDebouncedValue<T>(value: T, ms: number): T {
-    const [v, setV] = React.useState(value)
-    React.useEffect(() => {
-        const id = setTimeout(() => setV(value), ms)
-        return () => clearTimeout(id)
-    }, [value, ms])
-    return v
 }
 
 export function CollectionsSidebar({
@@ -50,7 +43,7 @@ export function CollectionsSidebar({
 }: CollectionsSidebarProps) {
     const { collections, isLoading } = useCollectionsState()
     const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, deleteMultipleCollections: onDeleteMultiple } = useCollectionsActions()
-    const { history } = useHistoryState()
+    const { history, isLoading: isHistoryLoading } = useHistoryState()
     const { clearHistory: onClearHistory, deleteHistoryItem: onDeleteHistoryItem } = useHistoryActions()
     const t = useTranslations("ApiClient.collectionsSidebar")
     const tRoot = useTranslations("ApiClient")
@@ -68,18 +61,24 @@ export function CollectionsSidebar({
         )
     }, [history, debouncedSearch])
 
-    const historyScrollRef = React.useRef<HTMLDivElement>(null)
-    const { displayCount: historyDisplayCount, sentinelRef: historySentinelRef, hasMore: historyHasMore } = useInfiniteScroll({
-        totalCount: filteredHistory.length,
-        resetKey: debouncedSearch,
-        pageSize: 30,
-        scrollContainerRef: historyScrollRef,
-    })
+    // FixedSizeList virtualizes overflow; all filtered items are passed directly.
+    const visibleHistory = filteredHistory
 
-    const visibleHistory = React.useMemo(
-        () => filteredHistory.slice(0, historyDisplayCount),
-        [filteredHistory, historyDisplayCount]
-    )
+    // Measure the flex container height so FixedSizeList fills it exactly.
+    const historyListContainerRef = React.useRef<HTMLDivElement>(null)
+    const [historyListHeight, setHistoryListHeight] = React.useState(400)
+    React.useEffect(() => {
+        const el = historyListContainerRef.current
+        if (!el) return
+        const obs = new ResizeObserver(([entry]) => {
+            if (entry) setHistoryListHeight(entry.contentRect.height)
+        })
+        obs.observe(el)
+        // Set initial height
+        setHistoryListHeight(el.clientHeight || 400)
+        return () => obs.disconnect()
+    }, [])
+
     const [newFolderDialogOpen, setNewFolderDialogOpen] = React.useState(false)
     const [newCollectionDialogOpen, setNewCollectionDialogOpen] = React.useState(false)
     const [renameCollectionDialogOpen, setRenameCollectionDialogOpen] = React.useState(false)
@@ -183,10 +182,8 @@ export function CollectionsSidebar({
                 <TabsContent value="collections" className="flex-1 flex flex-col min-h-0 m-0 data-[state=inactive]:hidden outline-none">
                     <ScrollArea className="flex-1">
                         <div className="p-3">
-                            {isLoading ? (
-                                <div className="flex items-center justify-center p-8">
-                                    <Loader2 className="h-5 w-5 animate-spin text-muted-foreground/50" />
-                                </div>
+                            {isLoading && collections.length === 0 ? (
+                                <CollectionsSidebarSkeleton />
                             ) : collections.length === 0 ? (
                                 <div className="flex flex-col items-center justify-center p-8 text-center border border-dashed rounded-xl bg-muted/30 mx-2 mt-4">
                                     <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-3">
@@ -307,81 +304,83 @@ export function CollectionsSidebar({
                             )}
                         </div>
                     </div>
-                    <div ref={historyScrollRef} className="flex-1 overflow-y-auto">
-                        <div className="p-2 space-y-1">
-                            {visibleHistory.map((item) => (
-                                <div 
-                                    key={item.id} 
-                                    className="group flex flex-col p-2.5 hover:bg-muted/60 rounded-lg cursor-pointer transition-all duration-200 text-sm" 
-                                    onClick={() => onLoadRequest(item)}
-                                >
-                                    <div className="flex items-center justify-between mb-1.5">
-                                        <div className="flex items-center gap-2 flex-1 min-w-0">
-                                            <span 
-                                                className={cn(
-                                                    "text-[10px] uppercase font-bold px-1.5 py-0.5 rounded-sm tracking-wide shrink-0",
-                                                    item.method === "GET" && "bg-blue-500/10 text-blue-500",
-                                                    item.method === "POST" && "bg-green-500/10 text-green-500",
-                                                    item.method === "PUT" && "bg-orange-500/10 text-orange-500",
-                                                    item.method === "DELETE" && "bg-red-500/10 text-red-500",
-                                                    item.method === "PATCH" && "bg-yellow-500/10 text-yellow-600",
-                                                    (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes(item.method)) && "bg-muted text-muted-foreground"
-                                                )}
-                                            >
-                                                {item.method}
-                                            </span>
-                                            <span className="font-medium text-xs truncate max-w-[150px]">
-                                                {item.name ? getApiClientRequestDisplayName(item.name, tRoot) : item.url}
-                                            </span>
-                                        </div>
-                                        <Button 
-                                            variant="ghost" 
-                                            size="icon" 
-                                            className="h-6 w-6 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-md opacity-0 group-hover:opacity-100 transition-opacity shrink-0" 
-                                            onClick={(e) => {
-                                                e.stopPropagation()
-                                                onDeleteHistoryItem(item.id)
-                                            }}
+                    <div className="flex-1 overflow-hidden" ref={historyListContainerRef}>
+                        {isHistoryLoading && history.length === 0 ? (
+                            <HistoryListSkeleton />
+                        ) : !history.length ? (
+                            <div className="flex flex-col items-center justify-center p-8 text-center">
+                                <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center mb-3">
+                                    <FolderPlus className="h-5 w-5 text-muted-foreground/50" />
+                                </div>
+                                <p className="text-sm font-medium">{t("noHistoryTitle")}</p>
+                                <p className="text-xs text-muted-foreground mt-1">{t("noHistoryHint")}</p>
+                            </div>
+                        ) : !!history.length && historySearch && !filteredHistory.length ? (
+                            <div className="text-xs text-muted-foreground text-center py-6">No results for &quot;{historySearch}&quot;</div>
+                        ) : (
+                            <VirtualHistoryList
+                                items={visibleHistory}
+                                height={historyListHeight}
+                                onSelect={onLoadRequest}
+                                onDelete={onDeleteHistoryItem}
+                                renderRow={(item, style) => (
+                                    <div key={item.id} style={style} className="px-2 py-0.5">
+                                        <div
+                                            className="group flex flex-col p-2.5 hover:bg-muted/60 rounded-lg cursor-pointer transition-all duration-200 text-sm h-full"
+                                            onClick={() => onLoadRequest(item)}
                                         >
-                                            <Trash2 className="h-3.5 w-3.5" />
-                                        </Button>
-                                    </div>
-                                    <div className="flex items-center justify-between text-[11px] text-muted-foreground/80 pl-1">
-                                        <span className="truncate max-w-[160px]">{item.url}</span>
-                                        <div className="flex items-center gap-2 shrink-0">
-                                            <span>{new Date(item.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-                                            {item.status && (
-                                                <span className={cn(
-                                                    "font-medium",
-                                                    item.status >= 200 && item.status < 300 ? "text-green-500"
-                                                        : item.status >= 300 && item.status < 400 ? "text-amber-500"
-                                                        : "text-destructive"
-                                                )}>
-                                                    {item.status}
-                                                </span>
-                                            )}
+                                            <div className="flex items-center justify-between mb-1.5">
+                                                <div className="flex items-center gap-2 flex-1 min-w-0">
+                                                    <span
+                                                        className={cn(
+                                                            "text-[10px] uppercase font-bold px-1.5 py-0.5 rounded-sm tracking-wide shrink-0",
+                                                            item.method === "GET" && "bg-blue-500/10 text-blue-500",
+                                                            item.method === "POST" && "bg-green-500/10 text-green-500",
+                                                            item.method === "PUT" && "bg-orange-500/10 text-orange-500",
+                                                            item.method === "DELETE" && "bg-red-500/10 text-red-500",
+                                                            item.method === "PATCH" && "bg-yellow-500/10 text-yellow-600",
+                                                            (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes(item.method)) && "bg-muted text-muted-foreground"
+                                                        )}
+                                                    >
+                                                        {item.method}
+                                                    </span>
+                                                    <span className="font-medium text-xs truncate max-w-[150px]">
+                                                        {item.name ? getApiClientRequestDisplayName(item.name, tRoot) : item.url}
+                                                    </span>
+                                                </div>
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="h-6 w-6 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-md opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation()
+                                                        onDeleteHistoryItem(item.id)
+                                                    }}
+                                                >
+                                                    <Trash2 className="h-3.5 w-3.5" />
+                                                </Button>
+                                            </div>
+                                            <div className="flex items-center justify-between text-[11px] text-muted-foreground/80 pl-1">
+                                                <span className="truncate max-w-[160px]">{item.url}</span>
+                                                <div className="flex items-center gap-2 shrink-0">
+                                                    <span>{new Date(item.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                                                    {item.status && (
+                                                        <span className={cn(
+                                                            "font-medium",
+                                                            item.status >= 200 && item.status < 300 ? "text-green-500"
+                                                                : item.status >= 300 && item.status < 400 ? "text-amber-500"
+                                                                : "text-destructive"
+                                                        )}>
+                                                            {item.status}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
-                            {historyHasMore && (
-                                <div ref={historySentinelRef} className="flex justify-center py-3">
-                                    <Loader2 className="h-4 w-4 animate-spin text-muted-foreground/50" />
-                                </div>
-                            )}
-                            {!history.length && (
-                                <div className="flex flex-col items-center justify-center p-8 text-center">
-                                    <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center mb-3">
-                                        <FolderPlus className="h-5 w-5 text-muted-foreground/50" />
-                                    </div>
-                                    <p className="text-sm font-medium">{t("noHistoryTitle")}</p>
-                                    <p className="text-xs text-muted-foreground mt-1">{t("noHistoryHint")}</p>
-                                </div>
-                            )}
-                            {!!history.length && historySearch && !filteredHistory.length && (
-                                <div className="text-xs text-muted-foreground text-center py-6">No results for &quot;{historySearch}&quot;</div>
-                            )}
-                        </div>
+                                )}
+                            />
+                        )}
                     </div>
                 </TabsContent>
             </Tabs>

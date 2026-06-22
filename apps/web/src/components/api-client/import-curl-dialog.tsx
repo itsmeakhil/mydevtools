@@ -17,11 +17,15 @@ import { useTranslations } from "next-intl"
 
 interface ImportCurlDialogProps {
     onImport: (curl: string) => void
+    open?: boolean
+    onOpenChange?: (open: boolean) => void
 }
 
-export function ImportCurlDialog({ onImport }: ImportCurlDialogProps) {
+export function ImportCurlDialog({ onImport, open: openProp, onOpenChange }: ImportCurlDialogProps) {
     const t = useTranslations("ApiClient.importCurl")
-    const [open, setOpen] = React.useState(false)
+    const [openInternal, setOpenInternal] = React.useState(false)
+    const open = openProp !== undefined ? openProp : openInternal
+    const setOpen = onOpenChange ?? setOpenInternal
     const [curl, setCurl] = React.useState("")
 
     const handleImport = () => {
@@ -32,14 +36,18 @@ export function ImportCurlDialog({ onImport }: ImportCurlDialogProps) {
         }
     }
 
+    const isControlled = openProp !== undefined
+
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-                <Button variant="outline" size="sm" className="gap-2">
-                    <Import className="h-4 w-4" />
-                    {t("trigger")}
-                </Button>
-            </DialogTrigger>
+            {!isControlled && (
+                <DialogTrigger asChild>
+                    <Button variant="outline" size="sm" className="gap-2">
+                        <Import className="h-4 w-4" />
+                        {t("trigger")}
+                    </Button>
+                </DialogTrigger>
+            )}
             <DialogContent className="sm:max-w-[525px]">
                 <DialogHeader>
                     <DialogTitle>{t("dialogTitle")}</DialogTitle>

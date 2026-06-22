@@ -1467,7 +1467,8 @@
       "requestFailed": "İstek başarısız: {message}",
       "curlPasted": "cURL yapıştırıldı ve başarıyla ayrıştırıldı",
       "responseCopied": "Yanıt panoya kopyalandı",
-      "codeCopied": "Kod panoya kopyalandı"
+      "codeCopied": "Kod panoya kopyalandı",
+      "copyFailed": "Panoya kopyalanamadı"
     },
     "layout": {
       "collections": "Koleksiyonlar",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Yöntem",
       "urlPlaceholder": "https://api.ornek.com/v1/...",
       "sending": "Gönderiliyor...",
-      "send": "Gönder"
+      "send": "Gönder",
+      "invalidJsonBodyHelp": "Gönderilemedi: JSON gövdesi geçersiz"
     },
     "requestTabs": {
       "params": "Parametreler",
@@ -1528,7 +1530,9 @@
       "previewTab": "Önizleme",
       "headersTab": "Başlıklar",
       "binaryRawView": "İkili veriler ham görünümde gösterilemiyor.",
-      "errorStatusLabel": "Hata"
+      "errorStatusLabel": "Hata",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Yeni sekme"
@@ -1613,6 +1617,21 @@
       "labelFolder": "Klasör",
       "placeholderFolder": "Bir klasör seçin",
       "save": "Kaydet"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
     }
   },
   "RichEditor": {

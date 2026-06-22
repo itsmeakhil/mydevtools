@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { formatElapsed, getElapsedMinutes } from "@/app/app/to-do/utils/taskTimeUtils";
 import {
   Select,
@@ -15,8 +15,11 @@ import DeleteButton from "../../../components/ui/DeleteButton";
 import {
   Edit, Calendar, Tag, MoreVertical, Copy, Check, Trash2, CheckCircle2, Archive, ArchiveRestore, Play, Pause, Timer
 } from "lucide-react";
-import TaskEditDialog from "./TaskEditDialog";
-import { differenceInDays, isPast, parseISO, format, isValid, parse } from "date-fns";
+
+const TaskEditDialog = lazy(() => import("./TaskEditDialog"));
+import { LazyBoundary } from "./components/LazyBoundary";
+import { differenceInDays, isPast } from "date-fns";
+import { safeParseDate } from "@/app/app/to-do/utils/taskDate";
 import { Task } from "@/app/app/to-do/types/Task";
 import {
   DropdownMenu,
@@ -36,109 +39,6 @@ import { STATUS_CONFIG, PRIORITY_CONFIG } from "./config/constants";
 import { motion, useMotionValue, useTransform, PanInfo } from "framer-motion";
 import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
 import { useTranslations } from "next-intl";
-
-// Helper to safely parse and format dates
-const safeFormatDate = (dateString: string | undefined, formatStr: string): string => {
-  if (!dateString || dateString === "Unknown") return dateString || "Unknown";
-
-  // Try parsing as ISO first (for new data)
-  try {
-    const isoDate = parseISO(dateString);
-    if (isValid(isoDate)) {
-      return format(isoDate, formatStr);
-    }
-  } catch {
-    // Not an ISO string, continue
-  }
-
-  // Try parsing the formatted date string from TaskContext: "dd MMM yyyy, hh:mm a"
-  try {
-    const parsedDate = parse(dateString, "dd MMM yyyy, hh:mm a", new Date());
-    if (isValid(parsedDate)) {
-      return format(parsedDate, formatStr);
-    }
-  } catch {
-    // Not in that format, continue
-  }
-
-  // Try parsing just the date part "dd MMM yyyy"
-  try {
-    const parts = dateString.split(',');
-    if (parts.length > 0) {
-      const datePart = parts[0].trim(); // "dd MMM yyyy"
-      const parsedDate = parse(datePart, "dd MMM yyyy", new Date());
-      if (isValid(parsedDate)) {
-        return format(parsedDate, formatStr);
-      }
-    }
-  } catch {
-    // Fall through
-  }
-
-  // Try parsing as Date object (fallback)
-  try {
-    const date = new Date(dateString);
-    if (isValid(date)) {
-      return format(date, formatStr);
-    }
-  } catch {
-    // Not a valid date string
-  }
-
-  // If all parsing fails, return a shortened version of the string
-  return dateString.length > 15 ? dateString.substring(0, 15) + "..." : dateString;
-};
-
-// Helper to safely parse date for calculations
-const safeParseDate = (dateString: string | undefined): Date | null => {
-  if (!dateString) return null;
-
-  // Try parsing as ISO first
-  try {
-    const isoDate = parseISO(dateString);
-    if (isValid(isoDate)) {
-      return isoDate;
-    }
-  } catch {
-    // Not an ISO string
-  }
-
-  // Try parsing the formatted date string from TaskContext: "dd MMM yyyy, hh:mm a"
-  try {
-    const parsedDate = parse(dateString, "dd MMM yyyy, hh:mm a", new Date());
-    if (isValid(parsedDate)) {
-      return parsedDate;
-    }
-  } catch {
-    // Not in that format
-  }
-
-  // Try parsing just the date part "dd MMM yyyy"
-  try {
-    const parts = dateString.split(',');
-    if (parts.length > 0) {
-      const datePart = parts[0].trim();
-      const parsedDate = parse(datePart, "dd MMM yyyy", new Date());
-      if (isValid(parsedDate)) {
-        return parsedDate;
-      }
-    }
-  } catch {
-    // Fall through
-  }
-
-  // Try parsing as Date object (fallback)
-  try {
-    const date = new Date(dateString);
-    if (isValid(date)) {
-      return date;
-    }
-  } catch {
-    // Not a valid date
-  }
-
-  return null;
-};
 
 interface TaskItemProps {
   task: Task;
@@ -284,7 +184,7 @@ function TaskItem({
             "relative p-3 md:p-4 rounded-2xl border transition-all duration-300 bg-card",
             "active:scale-[0.98]", // Subtle touch feedback
             task.status === "completed" ? "opacity-60 bg-muted/40" : "shadow-sm border-muted-foreground/10",
-            justCompleted && "animate-pulse ring-2 ring-green-500/50"
+            justCompleted && "ring-1 ring-green-500/40 shadow-[0_0_0_4px_hsl(145_60%_38%/0.08)]"
           )}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -299,7 +199,7 @@ function TaskItem({
                     className={cn(
                       "flex items-center justify-center p-2.5 rounded-lg transition-all duration-200",
                       "hover:scale-110 active:scale-95 cursor-pointer",
-                      "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
+                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                       statusConfig.bgColor,
                       statusConfig.color,
                       "min-w-[44px] h-[44px]"
@@ -572,7 +472,7 @@ function TaskItem({
                   size="sm"
                   onClick={() => setIsEditDialogOpen(true)}
                   className={cn(
-                    "h-8 w-8 p-0 transition-opacity",
+                    "h-8 w-8 p-0 transition-opacity duration-150 ease-out",
                     isHovered ? "opacity-100" : "opacity-0 group-hover:opacity-70"
                   )}
                   aria-label={tItem("editTaskAria")}
@@ -585,7 +485,7 @@ function TaskItem({
                   size="sm"
                   onClick={() => onUpdateTask(task.id, { archived: !task.archived })}
                   className={cn(
-                    "h-8 w-8 p-0 transition-opacity",
+                    "h-8 w-8 p-0 transition-opacity duration-150 ease-out",
                     isHovered ? "opacity-100" : "opacity-0 group-hover:opacity-70"
                   )}
                   aria-label={task.archived ? "Restore task" : "Archive task"}
@@ -594,7 +494,7 @@ function TaskItem({
                 </Button>
 
                 <div className={cn(
-                  "transition-opacity flex items-center justify-center",
+                  "transition-opacity duration-150 ease-out flex items-center justify-center",
                   isHovered ? "opacity-100" : "opacity-0 group-hover:opacity-70"
                 )}>
                   <DeleteButton onDelete={() => onDeleteTask(task.id)} />
@@ -605,12 +505,18 @@ function TaskItem({
         </motion.div>
       </li >
 
-      <TaskEditDialog
-        task={task}
-        open={isEditDialogOpen}
-        onOpenChange={setIsEditDialogOpen}
-        onSave={handleSaveEdit}
-      />
+      {isEditDialogOpen && (
+        <LazyBoundary fallback={null}>
+          <Suspense fallback={null}>
+            <TaskEditDialog
+              task={task}
+              open={isEditDialogOpen}
+              onOpenChange={setIsEditDialogOpen}
+              onSave={handleSaveEdit}
+            />
+          </Suspense>
+        </LazyBoundary>
+      )}
     </>
   );
 }

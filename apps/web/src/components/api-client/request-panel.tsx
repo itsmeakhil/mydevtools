@@ -11,12 +11,12 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { RequestMethod, Collection } from "./types"
-import { SaveRequestDialog } from "./collections/save-request-dialog"
+import { RequestMethod } from "./types"
 import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { useEnvironmentsState } from "./context/environments-context"
+import { useDebouncedValue } from "@/lib/use-debounced-value"
 
 interface RequestPanelProps {
     method: RequestMethod
@@ -26,11 +26,12 @@ interface RequestPanelProps {
     onSend: () => void
     onCancel?: () => void
     isLoading: boolean
-    collections: Collection[]
-    onSave: (parentId: string, name: string) => void
-    saveDefaultName?: string
+    /** When true, the Send button is disabled and an SR hint is shown. */
+    isBodyInvalid?: boolean
     onPaste: (text: string) => void
     urlHistory?: string[]
+    /** Pass activeTab.id so local URL state resets on tab switch. */
+    tabId?: string
 }
 
 const METHODS: RequestMethod[] = ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"]
@@ -65,16 +66,38 @@ function RequestPanelImpl({
     onSend,
     onCancel,
     isLoading,
-    collections,
-    onSave,
-    saveDefaultName,
+    isBodyInvalid = false,
     onPaste,
     urlHistory = [],
+    tabId,
 }: RequestPanelProps) {
     const { activeEnvironmentVariables } = useEnvironmentsState()
     const t = useTranslations("ApiClient.requestPanel")
     const urlInputRef = React.useRef<HTMLInputElement | null>(null)
     const [showSuggestions, setShowSuggestions] = React.useState(false)
+
+    // Local URL state: the input is bound here for instant feedback.
+    // We sync back to the global state (setUrl) after 400ms of idle typing,
+    // and reset local state ONLY on genuine external changes (tab switch or
+    // cURL import) — not on our own debounce writes, to avoid clobbering
+    // keystrokes typed between the flush and the prop update.
+    const [localUrl, setLocalUrl] = React.useState(url)
+    const lastPushedRef = React.useRef(url)
+    // Reset on external url changes only (not our own writes).
+    React.useEffect(() => {
+        if (url !== lastPushedRef.current) {
+            setLocalUrl(url)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tabId, url])
+    const debouncedLocalUrl = useDebouncedValue(localUrl, 400)
+    React.useEffect(() => {
+        if (debouncedLocalUrl !== url) {
+            lastPushedRef.current = debouncedLocalUrl
+            setUrl(debouncedLocalUrl)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [debouncedLocalUrl])
     const [hoveredVariable, setHoveredVariable] = React.useState<{
         key: string
         value?: string
@@ -83,17 +106,17 @@ function RequestPanelImpl({
     } | null>(null)
 
     const urlSuggestions = React.useMemo(() => {
-        if (!url.trim() || urlHistory.length === 0) return []
-        const lower = url.toLowerCase()
-        return urlHistory.filter((h) => h.toLowerCase().includes(lower) && h !== url).slice(0, 8)
-    }, [url, urlHistory])
+        if (!localUrl.trim() || urlHistory.length === 0) return []
+        const lower = localUrl.toLowerCase()
+        return urlHistory.filter((h) => h.toLowerCase().includes(lower) && h !== localUrl).slice(0, 8)
+    }, [localUrl, urlHistory])
 
     const variableTokens = React.useMemo(() => {
         const tokens: Array<{ key: string; start: number; end: number; value?: string; status: "resolved" | "missing" }> = []
         const regex = /\{\{(.+?)\}\}/g
         let match: RegExpExecArray | null
 
-        while ((match = regex.exec(url)) !== null) {
+        while ((match = regex.exec(localUrl)) !== null) {
             const fullToken = match[0]
             const key = match[1].trim()
             const value = activeEnvironmentVariables[key]
@@ -107,7 +130,7 @@ function RequestPanelImpl({
         }
 
         return tokens
-    }, [url, activeEnvironmentVariables])
+    }, [localUrl, activeEnvironmentVariables])
 
     const updateHoveredVariable = React.useCallback((clientX: number) => {
         const input = urlInputRef.current
@@ -186,13 +209,13 @@ function RequestPanelImpl({
                     <Input
                         ref={urlInputRef}
                         placeholder={t("urlPlaceholder")}
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
+                        value={localUrl}
+                        onChange={(e) => setLocalUrl(e.target.value)}
                         className="h-10 pl-9 pr-10 font-mono text-xs bg-muted/30 border-muted group-hover:border-border transition-colors"
                         onFocus={() => setShowSuggestions(true)}
                         onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
                         onKeyDown={(e) => {
-                            if (e.key === "Enter" && url) {
+                            if (e.key === "Enter" && localUrl) {
                                 setShowSuggestions(false)
                                 onSend()
                             }
@@ -208,9 +231,9 @@ function RequestPanelImpl({
                         onMouseMove={(e) => updateHoveredVariable(e.clientX)}
                         onMouseLeave={() => setHoveredVariable(null)}
                     />
-                    {url && (
+                    {localUrl && (
                         <button
-                            onClick={() => setUrl("")}
+                            onClick={() => setLocalUrl("")}
                             className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6 flex items-center justify-center rounded-full hover:bg-muted text-muted-foreground transition-colors z-10"
                         >
                             <X className="h-3.5 w-3.5" />
@@ -224,7 +247,7 @@ function RequestPanelImpl({
                                     className="w-full text-left px-3 py-2 text-xs font-mono hover:bg-muted/60 transition-colors truncate text-foreground"
                                     onMouseDown={(e) => {
                                         e.preventDefault()
-                                        setUrl(suggestion)
+                                        setLocalUrl(suggestion)
                                         setShowSuggestions(false)
                                     }}
                                 >
@@ -245,9 +268,11 @@ function RequestPanelImpl({
                         Cancel
                     </Button>
                 ) : (
+                <>
                 <Button
                     onClick={onSend}
-                    disabled={isLoading || !url}
+                    disabled={isLoading || !localUrl || isBodyInvalid}
+                    aria-describedby={isBodyInvalid ? "send-invalid-help" : undefined}
                     className="h-10 px-6 font-bold shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
                     {isLoading ? (
@@ -257,15 +282,14 @@ function RequestPanelImpl({
                     )}
                     {isLoading ? t("sending") : t("send")}
                 </Button>
+                {isBodyInvalid && (
+                    <span id="send-invalid-help" className="sr-only">
+                        {t("invalidJsonBodyHelp")}
+                    </span>
+                )}
+                </>
                 )}
 
-                <div className="border-l pl-2 flex items-center ml-1">
-                    <SaveRequestDialog
-                        collections={collections}
-                        onSave={onSave}
-                        defaultName={saveDefaultName}
-                    />
-                </div>
             </div>
         </div>
     )

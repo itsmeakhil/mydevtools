@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Annotated, Any, Literal, Optional, Union
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -48,6 +48,47 @@ class ApiClientEnvironmentOut(ApiClientEnvironmentBase):
 
 
 HISTORY_MAX_ITEMS = 100
+
+
+# ── Delta ops ────────────────────────────────────────────────────────────────
+
+class AddItemOp(BaseModel):
+    type: Literal["add"]
+    parent_id: str
+    item: dict[str, Any]
+    position: Optional[int] = None
+
+
+class UpdateItemOp(BaseModel):
+    type: Literal["update"]
+    item_id: str
+    patch: dict[str, Any]
+
+
+class DeleteItemOp(BaseModel):
+    type: Literal["delete"]
+    item_id: str
+
+
+class MoveItemOp(BaseModel):
+    type: Literal["move"]
+    item_id: str
+    new_parent_id: str
+    new_index: int
+
+
+Op = Annotated[
+    Union[AddItemOp, UpdateItemOp, DeleteItemOp, MoveItemOp],
+    Field(discriminator="type"),
+]
+
+
+class ApplyDeltaRequest(BaseModel):
+    ops: list[Op]
+
+
+class ApplyDeltaResponse(BaseModel):
+    collection: ApiClientCollectionOut
 
 
 class ApiClientHistoryCreate(BaseModel):

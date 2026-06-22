@@ -1,6 +1,15 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useMemo,
+} from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Task, NewTask } from "@/app/app/to-do/types/Task";
 import { format } from "date-fns";
 import useAuth, { AuthState } from "@/utils/useAuth";
@@ -8,6 +17,24 @@ import { backendFetch } from "@/lib/backend-auth";
 import { fetchAllPages } from "@/lib/fetch-all-pages";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import {
+  enqueuePendingDelete,
+  removePendingDelete,
+  getAllPendingDeletes,
+} from "@/app/app/to-do/utils/pendingDeletes";
+
+interface TaskStats {
+  total: number;
+  completed: number;
+  ongoing: number;
+  notStarted: number;
+}
+
+interface TasksPage {
+  items: Task[];
+  total_pages: number;
+  total: number;
+}
 
 interface TaskContextType {
   tasks: Task[];
@@ -21,12 +48,7 @@ interface TaskContextType {
   setFilterProject: (projectId: string | "all") => void;
   showArchived: boolean;
   setShowArchived: (show: boolean) => void;
-  allTaskStats: {
-    total: number;
-    completed: number;
-    ongoing: number;
-    notStarted: number;
-  };
+  allTaskStats: TaskStats;
   fetchNextPage: () => void;
   fetchPreviousPage: () => void;
   handlePageChange: (page: number) => void;
@@ -46,29 +68,63 @@ interface StatusOrderMap {
   completed: number;
 }
 
+type TaskActions = Pick<
+  TaskContextType,
+  | "addTask"
+  | "updateTask"
+  | "updateTaskStatus"
+  | "deleteTask"
+  | "archiveTask"
+  | "restoreTask"
+  | "importTasks"
+  | "getFilteredTasksForExport"
+  | "fetchNextPage"
+  | "fetchPreviousPage"
+  | "handlePageChange"
+  | "setFilterStatus"
+  | "setFilterProject"
+  | "setShowArchived"
+>;
+
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
+const TaskActionsContext = createContext<TaskActions | undefined>(undefined);
 const TASK_EXPORT_PAGE_SIZE = 1000;
+const TASKS_PER_PAGE = 10;
+
+const TASKS_QUERY_PREFIX = "todoTasks";
+const STATS_QUERY_KEY = ["todoStats"] as const;
+
+const DEFAULT_STATS: TaskStats = { total: 0, completed: 0, ongoing: 0, notStarted: 0 };
+
+interface TasksQueryFilters {
+  page: number;
+  status: string;
+  projectId: string;
+  archived: boolean;
+}
+
+const tasksQueryKey = (uid: string | undefined, filters: TasksQueryFilters) =>
+  [TASKS_QUERY_PREFIX, uid ?? null, filters] as const;
 
 export function TaskProvider({ children }: { children: React.ReactNode }) {
-  const { user }: AuthState = useAuth(); // Single declaration of user
+  const { user }: AuthState = useAuth();
   const tAck = useTranslations("Tasks.ack");
   const tStatus = useTranslations("Tasks.status");
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const queryClient = useQueryClient();
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [totalTaskCount, setTotalTaskCount] = useState(0);
   const [filterStatus, setFilterStatus] = useState<"all" | "not-started" | "ongoing" | "completed">("all");
   const [filterProject, setFilterProject] = useState<string | "all">("all");
   const [showArchived, setShowArchived] = useState(false);
-  const [allTaskStats, setAllTaskStats] = useState({
-    total: 0,
-    completed: 0,
-    ongoing: 0,
-    notStarted: 0,
-  });
-  const tasksPerPage = 10;
-  const didInitialLoad = useRef(false);
+
+  const filterStatusRef = useRef(filterStatus);
+  const filterProjectRef = useRef(filterProject);
+  const showArchivedRef = useRef(showArchived);
+  const currentPageRef = useRef(currentPage);
+  useEffect(() => { filterStatusRef.current = filterStatus; }, [filterStatus]);
+  useEffect(() => { filterProjectRef.current = filterProject; }, [filterProject]);
+  useEffect(() => { showArchivedRef.current = showArchived; }, [showArchived]);
+  useEffect(() => { currentPageRef.current = currentPage; }, [currentPage]);
 
   const authedFetch = useCallback(
     async (path: string, init?: RequestInit) => {
@@ -89,181 +145,200 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
     [user]
   );
 
-  const fetchStats = useCallback(async () => {
-    try {
-      if (!user) return;
-      const res = await authedFetch("/api/backend/tasks/stats", { method: "GET" });
-      const stats = await res.json();
-      setAllTaskStats(stats);
-      const calculatedPages = Math.max(1, Math.ceil((stats.total ?? 0) / tasksPerPage));
-      setTotalPages(calculatedPages);
-      setTotalTaskCount(stats.total ?? 0);
-    } catch (error) {
-      console.error("Error fetching task stats:", error);
-    }
-  }, [user, authedFetch, tasksPerPage]);
+  const authedFetchRef = useRef(authedFetch);
+  useEffect(() => { authedFetchRef.current = authedFetch; }, [authedFetch]);
 
-  useEffect(() => {
-    fetchStats();
-  }, [fetchStats]);
+  const currentFilters = useMemo<TasksQueryFilters>(
+    () => ({
+      page: currentPage,
+      status: filterStatus,
+      projectId: filterProject,
+      archived: showArchived,
+    }),
+    [currentPage, filterStatus, filterProject, showArchived]
+  );
 
-  const refreshCurrentPage = useCallback(async () => {
-    try {
-      if (!user) return;
-      setIsLoading(true);
+  // Tasks list query (cached, dedup'd, stale-while-revalidate)
+  const tasksQuery = useQuery<TasksPage>({
+    queryKey: tasksQueryKey(user?.uid, currentFilters),
+    queryFn: async () => {
       const params = new URLSearchParams();
-      params.set("status", filterStatus);
-      params.set("projectId", filterProject);
-      params.set("page", String(currentPage));
-      params.set("pageSize", String(tasksPerPage));
-      params.set("archived", String(showArchived));
-
+      params.set("status", currentFilters.status);
+      params.set("projectId", currentFilters.projectId);
+      params.set("page", String(currentFilters.page));
+      params.set("pageSize", String(TASKS_PER_PAGE));
+      params.set("archived", String(currentFilters.archived));
       const res = await authedFetch(`/api/backend/tasks?${params.toString()}`, { method: "GET" });
       const data = await res.json();
-      setTasks(data.items ?? []);
-      setTotalPages(data.total_pages ?? 1);
-      setTotalTaskCount(data.total ?? 0);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [user, authedFetch, currentPage, tasksPerPage, filterStatus, filterProject, showArchived]);
+      return {
+        items: data.items ?? [],
+        total_pages: data.total_pages ?? 1,
+        total: data.total ?? 0,
+      };
+    },
+    enabled: !!user,
+    placeholderData: (prev) => prev,
+  });
 
-  // Reset to page 1 when filter changes
+  // Stats query
+  const statsQuery = useQuery<TaskStats>({
+    queryKey: STATS_QUERY_KEY,
+    queryFn: async () => {
+      const res = await authedFetch("/api/backend/tasks/stats", { method: "GET" });
+      return (await res.json()) as TaskStats;
+    },
+    enabled: !!user,
+  });
+
+  const tasks = useMemo(() => tasksQuery.data?.items ?? [], [tasksQuery.data]);
+  const totalPages = tasksQuery.data?.total_pages
+    ? Math.max(1, tasksQuery.data.total_pages)
+    : Math.max(1, Math.ceil((statsQuery.data?.total ?? 0) / TASKS_PER_PAGE));
+  const totalTaskCount = tasksQuery.data?.total ?? statsQuery.data?.total ?? 0;
+  const allTaskStats = statsQuery.data ?? DEFAULT_STATS;
+  const isLoading = tasksQuery.isPending || (tasksQuery.isFetching && !tasksQuery.data);
+
+  // Latest snapshot for actions
+  const tasksRef = useRef<Task[]>([]);
+  useEffect(() => { tasksRef.current = tasks; }, [tasks]);
+
+  // Helper: build current tasks key for setQueryData
+  const buildCurrentKey = useCallback(
+    () =>
+      tasksQueryKey(user?.uid, {
+        page: currentPageRef.current,
+        status: filterStatusRef.current,
+        projectId: filterProjectRef.current,
+        archived: showArchivedRef.current,
+      }),
+    [user?.uid]
+  );
+
+  // Reset to page 1 on filter change
   useEffect(() => {
     setCurrentPage(1);
   }, [filterStatus, filterProject, showArchived]);
 
-  useEffect(() => {
-    if (!user) {
-      setTasks([]);
-      setIsLoading(false);
-      return;
-    }
-    // Avoid double-load on mount when stats effect also runs
-    if (!didInitialLoad.current) didInitialLoad.current = true;
-    refreshCurrentPage();
-  }, [user, refreshCurrentPage]);
-
+  // Pagination helpers
   const fetchNextPage = useCallback(() => {
-    if (currentPage >= totalPages) return;
-    setCurrentPage((p) => p + 1);
-  }, [currentPage, totalPages]);
+    setCurrentPage((p) => {
+      if (p >= totalPages) return p;
+      return p + 1;
+    });
+  }, [totalPages]);
 
   const fetchPreviousPage = useCallback(() => {
-    if (currentPage <= 1) return;
     setCurrentPage((p) => Math.max(1, p - 1));
-  }, [currentPage]);
+  }, []);
 
-  const handlePageChange = async (page: number) => {
-    if (page === currentPage || page > totalPages || page < 1) return;
-    setCurrentPage(page);
-  };
+  const handlePageChange = useCallback(
+    async (page: number) => {
+      if (page === currentPageRef.current || page > totalPages || page < 1) return;
+      setCurrentPage(page);
+    },
+    [totalPages]
+  );
 
-  const addTask = async (newTaskText: string, projectId?: string): Promise<void> => {
-    if (!user) return;
-    const newTask: NewTask = {
-      text: newTaskText,
-      status: "not-started",
-      statusOrder: 2,
-      createdAt: new Date().toISOString(),
-      created_by: user.uid,
-      projectId: projectId,
-    };
-    try {
-      await authedFetch("/api/backend/tasks", {
-        method: "POST",
-        body: JSON.stringify({ text: newTask.text, projectId: newTask.projectId }),
-      });
-      await refreshCurrentPage();
-      await fetchStats();
+  // ----- Mutations -----
 
-      // Optimistically update stats
-      setAllTaskStats(prev => ({
-        ...prev,
-        total: prev.total + 1,
-        notStarted: prev.notStarted + 1
-      }));
-      setTotalTaskCount(prev => prev + 1);
+  const invalidateTasks = useCallback(() => {
+    queryClient.invalidateQueries({ queryKey: [TASKS_QUERY_PREFIX] });
+  }, [queryClient]);
 
-      toast.success(tAck("taskAddedTitle"), {
-        description: newTaskText.length > 50 ? `${newTaskText.substring(0, 50)}...` : newTaskText,
-      });
-    } catch (error) {
-      console.error("Failed to add task:", error);
-      toast.error(tAck("taskAddedFailedTitle"), {
-        description: tAck("tryAgain"),
-      });
-    }
-  };
+  const invalidateStats = useCallback(() => {
+    queryClient.invalidateQueries({ queryKey: STATS_QUERY_KEY });
+  }, [queryClient]);
 
-  const updateTask = async (taskId: string, updates: Partial<Task>): Promise<void> => {
-    if (!user) return;
+  const addTask = useCallback(
+    async (newTaskText: string, projectId?: string): Promise<void> => {
+      if (!user) return;
+      const newTask: NewTask = {
+        text: newTaskText,
+        status: "not-started",
+        statusOrder: 2,
+        createdAt: new Date().toISOString(),
+        created_by: user.uid,
+        projectId,
+      };
+      try {
+        await authedFetch("/api/backend/tasks", {
+          method: "POST",
+          body: JSON.stringify({ text: newTask.text, projectId: newTask.projectId }),
+        });
 
-    // Optimistically update local state
-    setTasks((currentTasks) =>
-      currentTasks.map((task) =>
-        task.id === taskId ? { ...task, ...updates } : task
-      )
-    );
+        // Optimistic stat bump (will be reconciled by stats invalidate)
+        queryClient.setQueryData<TaskStats>(STATS_QUERY_KEY, (old) =>
+          old ? { ...old, total: old.total + 1, notStarted: old.notStarted + 1 } : old
+        );
 
-    try {
-      const updateData: any = { ...updates };
+        invalidateTasks();
+        invalidateStats();
 
-      // If status is being updated and completedAt is not explicitly set
-      if (updates.status === "completed" && !updates.completedAt) {
-        // Backend sets completedAt when status becomes completed
+        toast.success(tAck("taskAddedTitle"), {
+          description: newTaskText.length > 50 ? `${newTaskText.substring(0, 50)}...` : newTaskText,
+        });
+      } catch (error) {
+        console.error("Failed to add task:", error);
+        toast.error(tAck("taskAddedFailedTitle"), { description: tAck("tryAgain") });
       }
+    },
+    [user, authedFetch, queryClient, invalidateTasks, invalidateStats, tAck]
+  );
 
-      // Remove fields that shouldn't be updated directly in Firestore
-      delete updateData.id;
-      delete updateData.created_by;
-      delete updateData.createdAt; // Don't allow updating creation timestamp
+  const updateTask = useCallback(
+    async (taskId: string, updates: Partial<Task>): Promise<void> => {
+      if (!user) return;
 
-      // Filter out undefined values - Firestore doesn't accept undefined
-      // Instead, we need to use deleteField() or just omit them
-      Object.keys(updateData).forEach(key => {
-        if (updateData[key] === undefined) {
-          delete updateData[key];
-        }
-      });
+      const key = buildCurrentKey();
+      // Optimistic update in cache
+      queryClient.setQueryData<TasksPage>(key, (old) =>
+        old
+          ? { ...old, items: old.items.map((t) => (t.id === taskId ? { ...t, ...updates } : t)) }
+          : old
+      );
 
-      // Only update if there are fields to update
-      if (Object.keys(updateData).length === 0) {
-        return;
+      try {
+        const updateData: Record<string, unknown> = { ...updates };
+
+        delete updateData.id;
+        delete updateData.created_by;
+        delete updateData.createdAt;
+
+        Object.keys(updateData).forEach((k) => {
+          if (updateData[k] === undefined) delete updateData[k];
+        });
+
+        if (Object.keys(updateData).length === 0) return;
+
+        await authedFetch(`/api/backend/tasks/${taskId}`, {
+          method: "PATCH",
+          body: JSON.stringify(updateData),
+        });
+        toast.success(tAck("taskUpdatedTitle"));
+      } catch (error) {
+        console.error("Failed to update task:", error);
+        toast.error(tAck("taskUpdatedFailedTitle"), { description: tAck("tryAgain") });
+        invalidateTasks();
       }
+    },
+    [user, authedFetch, queryClient, buildCurrentKey, invalidateTasks, tAck]
+  );
 
-      await authedFetch(`/api/backend/tasks/${taskId}`, {
-        method: "PATCH",
-        body: JSON.stringify(updateData),
-      });
-      toast.success(tAck("taskUpdatedTitle"));
-    } catch (error) {
-      console.error("Failed to update task:", error);
-      toast.error(tAck("taskUpdatedFailedTitle"), {
-        description: tAck("tryAgain"),
-      });
-      await refreshCurrentPage();
-    }
-  };
+  const updateTaskStatus = useCallback(
+    async (taskId: string, newStatus: "not-started" | "ongoing" | "completed"): Promise<void> => {
+      const statusOrder: StatusOrderMap = {
+        ongoing: 1,
+        "not-started": 2,
+        completed: 3,
+      };
 
-  const updateTaskStatus = async (
-    taskId: string,
-    newStatus: "not-started" | "ongoing" | "completed"
-  ): Promise<void> => {
-    const statusOrder: StatusOrderMap = {
-      ongoing: 1,
-      "not-started": 2,
-      completed: 3,
-    };
+      if (!(newStatus in statusOrder)) return;
 
-    if (newStatus in statusOrder) {
-      const task = tasks.find(t => t.id === taskId);
+      const task = tasksRef.current.find((t) => t.id === taskId);
       const updates: Partial<Task> = {
         status: newStatus,
         statusOrder: statusOrder[newStatus],
       };
-
-      // Add completedAt timestamp when marking as completed
       if (newStatus === "completed") {
         updates.completedAt = format(new Date(), "dd MMM yyyy, hh:mm a");
       }
@@ -271,22 +346,17 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
       try {
         await updateTask(taskId, updates);
 
-        // Optimistically update stats if status changed
         if (task && task.status !== newStatus) {
-          setAllTaskStats(prev => {
-            const newStats = { ...prev };
-
-            // Decrement old status count
-            if (task.status === "completed") newStats.completed--;
-            else if (task.status === "ongoing") newStats.ongoing--;
-            else if (task.status === "not-started") newStats.notStarted--;
-
-            // Increment new status count
-            if (newStatus === "completed") newStats.completed++;
-            else if (newStatus === "ongoing") newStats.ongoing++;
-            else if (newStatus === "not-started") newStats.notStarted++;
-
-            return newStats;
+          queryClient.setQueryData<TaskStats>(STATS_QUERY_KEY, (old) => {
+            if (!old) return old;
+            const next = { ...old };
+            if (task.status === "completed") next.completed--;
+            else if (task.status === "ongoing") next.ongoing--;
+            else if (task.status === "not-started") next.notStarted--;
+            if (newStatus === "completed") next.completed++;
+            else if (newStatus === "ongoing") next.ongoing++;
+            else if (newStatus === "not-started") next.notStarted++;
+            return next;
           });
         }
 
@@ -295,173 +365,277 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
             description: task.text.length > 50 ? `${task.text.substring(0, 50)}...` : task.text,
           });
         }
-      } catch (error) {
-        toast.error(tAck("taskStatusUpdateFailedTitle"), {
-          description: tAck("tryAgain"),
-        });
+      } catch {
+        toast.error(tAck("taskStatusUpdateFailedTitle"), { description: tAck("tryAgain") });
       }
-    }
-  };
+    },
+    [updateTask, queryClient, tAck, tStatus]
+  );
 
-  const deleteTask = async (taskId: string): Promise<void> => {
-    if (!user) return;
+  const deleteTask = useCallback(
+    async (taskId: string): Promise<void> => {
+      if (!user) return;
 
-    // Get the task before deleting it (for undo functionality)
-    const taskToDelete = tasks.find(t => t.id === taskId);
-    if (!taskToDelete) return;
+      const taskToDelete = tasksRef.current.find((t) => t.id === taskId);
+      if (!taskToDelete) return;
 
-    // Optimistically remove from UI
-    setTasks((currentTasks) => currentTasks.filter((task) => task.id !== taskId));
+      const key = buildCurrentKey();
 
-    let deleteExecuted = false;
-    let deleteTimeout: NodeJS.Timeout;
+      // Optimistic remove
+      queryClient.setQueryData<TasksPage>(key, (old) =>
+        old ? { ...old, items: old.items.filter((t) => t.id !== taskId) } : old
+      );
 
-    // Show toast with undo option
-    toast(tAck("taskDeletedTitle", { text: taskToDelete.text }), {
-      action: {
-        label: tAck("undo"),
-        onClick: async () => {
-          // Cancel the deletion
-          clearTimeout(deleteTimeout);
+      const deleteAt = Date.now() + 3000;
+      enqueuePendingDelete({ taskId, task: taskToDelete, deleteAt, userId: user.uid });
 
-          // Restore the task in UI
-          setTasks((currentTasks) => {
-            // Find the correct position to insert the task back
-            const newTasks = [...currentTasks];
-            newTasks.push(taskToDelete);
-            return newTasks.sort((a, b) => a.statusOrder - b.statusOrder);
+      let deleteExecuted = false;
+      let deleteTimeout: NodeJS.Timeout;
+
+      toast(tAck("taskDeletedTitle", { text: taskToDelete.text }), {
+        action: {
+          label: tAck("undo"),
+          onClick: async () => {
+            clearTimeout(deleteTimeout);
+            removePendingDelete(taskId);
+
+            // Restore in cache
+            queryClient.setQueryData<TasksPage>(key, (old) =>
+              old
+                ? {
+                    ...old,
+                    items: [...old.items, taskToDelete].sort(
+                      (a, b) => a.statusOrder - b.statusOrder
+                    ),
+                  }
+                : old
+            );
+
+            if (deleteExecuted) {
+              try {
+                await authedFetch("/api/backend/tasks", {
+                  method: "POST",
+                  body: JSON.stringify({
+                    text: taskToDelete.text,
+                    projectId: taskToDelete.projectId,
+                  }),
+                });
+                invalidateTasks();
+                invalidateStats();
+                toast.success(tAck("taskRestoredSuccessTitle"));
+              } catch (error) {
+                console.error("Failed to restore task:", error);
+                toast.error(tAck("taskRestoreFailedTitle"));
+              }
+            } else {
+              toast.success(tAck("taskRestoredTitle"));
+            }
+          },
+        },
+        duration: 3000,
+      });
+
+      deleteTimeout = setTimeout(async () => {
+        try {
+          await authedFetch(`/api/backend/tasks/${taskId}`, { method: "DELETE" });
+          deleteExecuted = true;
+          removePendingDelete(taskId);
+
+          queryClient.setQueryData<TaskStats>(STATS_QUERY_KEY, (old) => {
+            if (!old) return old;
+            const next = { ...old };
+            next.total = Math.max(0, next.total - 1);
+            if (taskToDelete.status === "completed")
+              next.completed = Math.max(0, next.completed - 1);
+            else if (taskToDelete.status === "ongoing")
+              next.ongoing = Math.max(0, next.ongoing - 1);
+            else if (taskToDelete.status === "not-started")
+              next.notStarted = Math.max(0, next.notStarted - 1);
+            return next;
           });
 
-          // If deletion was already executed, re-add to Firestore
-          if (deleteExecuted) {
-            try {
-              await authedFetch("/api/backend/tasks", {
-                method: "POST",
-                body: JSON.stringify({ text: taskToDelete.text, projectId: taskToDelete.projectId }),
-              });
-              await refreshCurrentPage();
-              await fetchStats();
-              toast.success(tAck("taskRestoredSuccessTitle"));
-            } catch (error) {
-              console.error("Failed to restore task:", error);
-              toast.error(tAck("taskRestoreFailedTitle"));
-            }
-          } else {
-            toast.success(tAck("taskRestoredTitle"));
+          if (tasksRef.current.length === 0 && currentPageRef.current > 1) {
+            invalidateTasks();
           }
-        },
-      },
-      duration: 3000,
-    });
-
-    // Execute deletion after delay (allows time for undo)
-    deleteTimeout = setTimeout(async () => {
-      try {
-        await authedFetch(`/api/backend/tasks/${taskId}`, { method: "DELETE" });
-        deleteExecuted = true;
-
-        // Update stats after successful deletion
-        setAllTaskStats(prev => {
-          const newStats = { ...prev };
-          newStats.total = Math.max(0, newStats.total - 1);
-
-          if (taskToDelete.status === "completed") newStats.completed = Math.max(0, newStats.completed - 1);
-          else if (taskToDelete.status === "ongoing") newStats.ongoing = Math.max(0, newStats.ongoing - 1);
-          else if (taskToDelete.status === "not-started") newStats.notStarted = Math.max(0, newStats.notStarted - 1);
-
-          return newStats;
-        });
-        setTotalTaskCount(prev => Math.max(0, prev - 1));
-
-        if (tasks.length === 1 && currentPage > 1) {
-          await refreshCurrentPage();
+        } catch (error) {
+          console.error("Failed to delete task:", error);
+          invalidateTasks();
+          toast.error(tAck("taskDeleteFailedTitle"));
         }
+      }, 3000);
+    },
+    [user, authedFetch, queryClient, buildCurrentKey, invalidateTasks, invalidateStats, tAck]
+  );
+
+  const archiveTask = useCallback(
+    async (taskId: string): Promise<void> => {
+      const key = buildCurrentKey();
+      queryClient.setQueryData<TasksPage>(key, (old) =>
+        old ? { ...old, items: old.items.filter((t) => t.id !== taskId) } : old
+      );
+      await updateTask(taskId, { archived: true });
+    },
+    [updateTask, queryClient, buildCurrentKey]
+  );
+
+  const restoreTask = useCallback(
+    async (taskId: string): Promise<void> => {
+      const key = buildCurrentKey();
+      queryClient.setQueryData<TasksPage>(key, (old) =>
+        old ? { ...old, items: old.items.filter((t) => t.id !== taskId) } : old
+      );
+      await updateTask(taskId, { archived: false });
+    },
+    [updateTask, queryClient, buildCurrentKey]
+  );
+
+  const importTasks = useCallback(
+    async (importedTasks: Task[]): Promise<void> => {
+      if (!user) return;
+      try {
+        await authedFetch("/api/backend/tasks/import", {
+          method: "POST",
+          body: JSON.stringify({ tasks: importedTasks }),
+        });
+        invalidateTasks();
+        invalidateStats();
+        toast.success(tAck("tasksImportedTitle", { count: importedTasks.length }));
       } catch (error) {
-        console.error("Failed to delete task:", error);
-        await refreshCurrentPage();
-        toast.error(tAck("taskDeleteFailedTitle"));
+        console.error("Failed to import tasks:", error);
+        toast.error(tAck("tasksImportFailedTitle"));
+        throw error;
       }
-    }, 3000); // 3 second delay before permanent deletion
-  };
+    },
+    [user, authedFetch, invalidateTasks, invalidateStats, tAck]
+  );
 
-  const archiveTask = async (taskId: string): Promise<void> => {
-    await updateTask(taskId, { archived: true });
-    setTasks((prev) => prev.filter((t) => t.id !== taskId));
-  };
-
-  const restoreTask = async (taskId: string): Promise<void> => {
-    await updateTask(taskId, { archived: false });
-    setTasks((prev) => prev.filter((t) => t.id !== taskId));
-  };
-
-  const importTasks = async (importedTasks: Task[]): Promise<void> => {
-    if (!user) return;
-
-    try {
-      await authedFetch("/api/backend/tasks/import", {
-        method: "POST",
-        body: JSON.stringify({ tasks: importedTasks }),
-      });
-      await refreshCurrentPage();
-      await fetchStats();
-      toast.success(tAck("tasksImportedTitle", { count: importedTasks.length }));
-    } catch (error) {
-      console.error("Failed to import tasks:", error);
-      toast.error(tAck("tasksImportFailedTitle"));
-      throw error;
-    }
-  };
-
-  useEffect(() => {
-    if (!user) return;
-    refreshCurrentPage();
-  }, [user, currentPage, filterStatus, filterProject, refreshCurrentPage]);
-
-  const getFilteredTasksForExport = async (): Promise<Task[]> => {
+  const getFilteredTasksForExport = useCallback(async (): Promise<Task[]> => {
     if (!user) return [];
     return fetchAllPages<Task>({
       pageSize: TASK_EXPORT_PAGE_SIZE,
       fetchPage: async (skip, limit) => {
         const params = new URLSearchParams();
-        params.set("status", filterStatus);
-        params.set("projectId", filterProject);
+        params.set("status", filterStatusRef.current);
+        params.set("projectId", filterProjectRef.current);
         params.set("skip", String(skip));
         params.set("limit", String(limit));
-        const res = await authedFetch(`/api/backend/tasks/export?${params.toString()}`, { method: "GET" });
+        const res = await authedFetchRef.current(
+          `/api/backend/tasks/export?${params.toString()}`,
+          { method: "GET" }
+        );
         return (await res.json()) as Task[];
       },
     });
-  };
+  }, [user]);
+
+  // Flush pending deletes from prior sessions
+  useEffect(() => {
+    if (!user) return;
+    let cancelled = false;
+    (async () => {
+      const pending = await getAllPendingDeletes(user.uid);
+      if (cancelled || pending.length === 0) return;
+      for (const entry of pending) {
+        try {
+          await authedFetchRef.current(`/api/backend/tasks/${entry.taskId}`, { method: "DELETE" });
+        } catch {
+          // Best effort
+        }
+        await removePendingDelete(entry.taskId);
+      }
+      invalidateTasks();
+      invalidateStats();
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [user, invalidateTasks, invalidateStats]);
+
+  const actions = useMemo<TaskActions>(
+    () => ({
+      addTask,
+      updateTask,
+      updateTaskStatus,
+      deleteTask,
+      archiveTask,
+      restoreTask,
+      importTasks,
+      getFilteredTasksForExport,
+      fetchNextPage,
+      fetchPreviousPage,
+      handlePageChange,
+      setFilterStatus,
+      setFilterProject,
+      setShowArchived,
+    }),
+    [
+      addTask,
+      updateTask,
+      updateTaskStatus,
+      deleteTask,
+      archiveTask,
+      restoreTask,
+      importTasks,
+      getFilteredTasksForExport,
+      fetchNextPage,
+      fetchPreviousPage,
+      handlePageChange,
+    ]
+  );
+
+  const value = useMemo<TaskContextType>(
+    () => ({
+      tasks,
+      isLoading,
+      currentPage,
+      totalPages,
+      totalTaskCount,
+      filterStatus,
+      setFilterStatus,
+      filterProject,
+      setFilterProject,
+      showArchived,
+      setShowArchived,
+      allTaskStats,
+      fetchNextPage,
+      fetchPreviousPage,
+      handlePageChange,
+      addTask,
+      updateTask,
+      updateTaskStatus,
+      deleteTask,
+      archiveTask,
+      restoreTask,
+      importTasks,
+      getFilteredTasksForExport,
+    }),
+    [
+      tasks,
+      isLoading,
+      currentPage,
+      totalPages,
+      totalTaskCount,
+      filterStatus,
+      filterProject,
+      showArchived,
+      allTaskStats,
+      fetchNextPage,
+      fetchPreviousPage,
+      handlePageChange,
+      addTask,
+      updateTask,
+      updateTaskStatus,
+      deleteTask,
+      archiveTask,
+      restoreTask,
+      importTasks,
+      getFilteredTasksForExport,
+    ]
+  );
 
   return (
-    <TaskContext.Provider
-      value={{
-        tasks,
-        isLoading,
-        currentPage,
-        totalPages,
-        totalTaskCount,
-        filterStatus,
-        setFilterStatus,
-        filterProject,
-        setFilterProject,
-        showArchived,
-        setShowArchived,
-        allTaskStats,
-        fetchNextPage,
-        fetchPreviousPage,
-        handlePageChange,
-        addTask,
-        updateTask,
-        updateTaskStatus,
-        deleteTask,
-        archiveTask,
-        restoreTask,
-        importTasks,
-        getFilteredTasksForExport,
-      }}
-    >
-      {children}
+    <TaskContext.Provider value={value}>
+      <TaskActionsContext.Provider value={actions}>{children}</TaskActionsContext.Provider>
     </TaskContext.Provider>
   );
 }
@@ -470,6 +644,14 @@ export const useTaskContext = () => {
   const context = useContext(TaskContext);
   if (!context) {
     throw new Error("useTaskContext must be used within a TaskProvider");
+  }
+  return context;
+};
+
+export const useTaskActions = () => {
+  const context = useContext(TaskActionsContext);
+  if (!context) {
+    throw new Error("useTaskActions must be used within a TaskProvider");
   }
   return context;
 };

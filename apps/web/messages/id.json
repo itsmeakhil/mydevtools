@@ -1467,7 +1467,8 @@
       "requestFailed": "Permintaan gagal: {message}",
       "curlPasted": "cURL berhasil ditempelkan dan diuraikan",
       "responseCopied": "Tanggapan disalin ke clipboard",
-      "codeCopied": "Disalin ke papan klip"
+      "codeCopied": "Disalin ke papan klip",
+      "copyFailed": "Gagal menyalin ke papan klip"
     },
     "layout": {
       "collections": "Penagihan",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Metode&#10;",
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Mengirim...",
-      "send": "Kirim"
+      "send": "Kirim",
+      "invalidJsonBodyHelp": "Tidak dapat mengirim: isi JSON tidak valid"
     },
     "requestTabs": {
       "params": "parameter",
@@ -1528,7 +1530,9 @@
       "previewTab": "Preview",
       "headersTab": "Headers",
       "binaryRawView": "Binary data cannot be displayed in raw view.",
-      "errorStatusLabel": "Error"
+      "errorStatusLabel": "Error",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "New tab"
@@ -1613,6 +1617,21 @@
       "labelFolder": "Folder",
       "placeholderFolder": "Select a folder",
       "save": "Save"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
     }
   },
   "RichEditor": {

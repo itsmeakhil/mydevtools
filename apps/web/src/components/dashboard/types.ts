@@ -38,6 +38,7 @@ export interface ToolCardProps {
   isPinned: (url: string) => boolean
   togglePin: (url: string) => void
   timestamp?: number
+  accent?: { bg: string; text: string }
 }
 
 // ─── Helpers ────────────────────────────────────────────────────────────────

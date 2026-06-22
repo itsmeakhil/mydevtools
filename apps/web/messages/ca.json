@@ -1467,7 +1467,8 @@
       "requestFailed": "Petició fallida: {message}",
       "curlPasted": "cURL enganxat i analitzat correctament",
       "responseCopied": "Resposta copiada al porta-retalls",
-      "codeCopied": "Codi copiat al porta-retalls"
+      "codeCopied": "Codi copiat al porta-retalls",
+      "copyFailed": "No s'ha pogut copiar al porta-retalls"
     },
     "layout": {
       "collections": "Col·leccions",
@@ -1480,7 +1481,8 @@
       "methodPlaceholder": "Mètode",
       "urlPlaceholder": "https://api.exemple.com/v1/...",
       "sending": "S'està enviant...",
-      "send": "Envia"
+      "send": "Envia",
+      "invalidJsonBodyHelp": "No es pot enviar: el cos JSON no és vàlid"
     },
     "requestTabs": {
       "params": "Params",
@@ -1528,7 +1530,9 @@
       "previewTab": "Vista prèvia",
       "headersTab": "Capçaleres",
       "binaryRawView": "Les dades binàries no es poden mostrar en vista en brut.",
-      "errorStatusLabel": "Error"
+      "errorStatusLabel": "Error",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
     },
     "tabBar": {
       "addTabAria": "Pestanya nova"
@@ -1613,6 +1617,21 @@
       "labelFolder": "Carpeta",
       "placeholderFolder": "Selecciona una carpeta",
       "save": "Desa"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
     }
   },
   "RichEditor": {

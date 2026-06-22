@@ -5,10 +5,11 @@ import Link from 'next/link'
 import { Sparkles, Pin } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Card, CardContent } from '@/components/ui/card'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { requiresAuth } from '@/lib/tool-config'
 import { TOOL_PATH_TO_MESSAGE_KEY } from '@/lib/tool-i18n'
 import { cn } from '@/lib/utils'
-import { type ToolCardProps, formatRelativeTime } from './types'
+import { type ToolCardProps, DEFAULT_ACCENT, formatRelativeTime } from './types'
 
 /** Wraps a horizontal scroll row with a right-edge fade affordance. */
 export const HScrollFade = ({ children }: { children: React.ReactNode }) => (
@@ -20,25 +21,29 @@ export const HScrollFade = ({ children }: { children: React.ReactNode }) => (
 
 /** Matches ToolCard footprint so layout doesn't shift on hydration. */
 export const ToolCardSkeleton = () => (
-  <div className="rounded-lg h-full" aria-hidden>
+  <div className="rounded-xl h-full" aria-hidden>
     <div className="block h-full">
-      <Card className="bg-card border border-border h-full overflow-hidden rounded-lg">
-        <CardContent className="flex items-center gap-2.5 p-2.5 md:p-3">
-          <div className="shrink-0 h-9 w-9 md:h-10 md:w-10 rounded-lg bg-muted animate-pulse" />
-          <div className="min-w-0 flex-1 h-4 rounded bg-muted animate-pulse" />
+      <Card className="bg-card border border-border h-full overflow-hidden rounded-xl relative">
+        <CardContent className="flex items-center gap-2.5 p-3 md:p-3.5">
+          <div className="shrink-0 h-9 w-9 md:h-10 md:w-10 rounded-lg bg-muted skeleton-shimmer" />
+          <div className="min-w-0 flex-1 space-y-1.5">
+            <div className="h-3.5 w-3/4 rounded bg-muted skeleton-shimmer" />
+            <div className="h-2.5 w-1/2 rounded bg-muted/70 skeleton-shimmer" />
+          </div>
         </CardContent>
       </Card>
     </div>
   </div>
 )
 
-/** A compact single-line tool card: icon + title, with hover pin action. */
+/** A compact tool card: accented icon + title (+ optional description), with hover pin action. */
 export const ToolCard = React.memo(function ToolCard({
   item,
   user,
   isPinned,
   togglePin,
   timestamp,
+  accent,
 }: ToolCardProps) {
   const tTools = useTranslations('Dashboard.tools')
   const pathname = item.url?.toString().split('?')[0] ?? ''
@@ -46,8 +51,18 @@ export const ToolCard = React.memo(function ToolCard({
   const displayTitle = toolKey
     ? tTools(`${toolKey}.title` as Parameters<typeof tTools>[0])
     : item.title
+  const displayDescription = toolKey
+    ? (() => {
+        try {
+          return tTools(`${toolKey}.description` as Parameters<typeof tTools>[0])
+        } catch {
+          return item.description
+        }
+      })()
+    : item.description
 
   const itemRequiresAuth = item.url ? requiresAuth(item.url.toString()) : false
+  const a = accent ?? DEFAULT_ACCENT
 
   const handleClick = (e: React.MouseEvent) => {
     if (itemRequiresAuth && !user) {
@@ -59,16 +74,30 @@ export const ToolCard = React.memo(function ToolCard({
   const pinned = item.url ? isPinned(item.url.toString()) : false
 
   return (
-    <div className="rounded-lg h-full">
+    <div className="rounded-xl h-full">
       <Link
         href={item.url || '#'}
-        className="block group h-full rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        className="block group h-full rounded-xl focus-visible:outline-none"
         onClick={handleClick}
         title={displayTitle}
       >
-        <Card className="bg-card border border-border hover:border-primary/40 hover:bg-accent/20 hover:shadow-sm active:scale-[0.99] transition-[colors,background-color,transform,box-shadow] duration-200 h-full relative overflow-hidden rounded-lg">
-          <CardContent className="flex items-center gap-2.5 p-2.5 md:p-3 relative z-10">
-            <div className="shrink-0 p-2 md:p-2.5 rounded-lg bg-primary/10 text-primary">
+        <Card
+          className={cn(
+            'relative h-full overflow-hidden rounded-xl border border-border bg-gradient-to-br from-card to-card/60',
+            'transition-[colors,transform,box-shadow,border-color] duration-200 ease-out',
+            'hover:border-primary/40 hover:shadow-md motion-safe:hover:-translate-y-0.5',
+            'group-focus-visible:ring-2 group-focus-visible:ring-primary/60 group-focus-visible:border-primary',
+          )}
+        >
+          <CardContent className="flex items-start gap-3 p-3 md:p-3.5 relative z-10">
+            <div
+              className={cn(
+                'shrink-0 p-2 md:p-2.5 rounded-lg transition-transform duration-200 ease-out',
+                'motion-safe:group-hover:scale-110',
+                a.bg,
+                a.text,
+              )}
+            >
               {item.icon ? (
                 <item.icon size={18} strokeWidth={1.5} className="md:w-5 md:h-5" />
               ) : (
@@ -76,48 +105,66 @@ export const ToolCard = React.memo(function ToolCard({
               )}
             </div>
 
-            <h3 className="min-w-0 flex-1 truncate text-sm font-medium text-foreground group-hover:text-primary transition-colors">
-              {displayTitle}
-            </h3>
-
-            {item.badge && (
-              <span className="shrink-0 bg-primary/10 text-primary text-[9px] md:text-[10px] font-semibold px-1.5 py-0.5 rounded-full uppercase tracking-wider border border-primary/20">
-                {item.badge}
-              </span>
-            )}
-
-            {timestamp && !item.badge && (
-              <span className="shrink-0 text-[10px] text-muted-foreground/50 tabular-nums">
-                {formatRelativeTime(timestamp)}
-              </span>
-            )}
+            <div className="min-w-0 flex-1 pr-7">
+              <div className="flex items-center gap-1.5">
+                <h3 className="min-w-0 flex-1 truncate text-sm font-medium text-foreground transition-colors group-hover:text-primary">
+                  {displayTitle}
+                </h3>
+                {item.badge && (
+                  <span className="shrink-0 bg-primary/10 text-primary text-[9px] md:text-[10px] font-semibold px-1.5 py-0.5 rounded-full uppercase tracking-wider border border-primary/20">
+                    {item.badge}
+                  </span>
+                )}
+              </div>
+              {displayDescription && (
+                <p className="mt-0.5 truncate text-[11px] md:text-xs text-muted-foreground/80">
+                  {displayDescription}
+                </p>
+              )}
+              {timestamp && (
+                <p className="mt-0.5 text-[10px] text-muted-foreground/60 tabular-nums">
+                  {formatRelativeTime(timestamp)}
+                </p>
+              )}
+            </div>
 
             {item.url && (
-              <button
-                type="button"
-                aria-label={`${pinned ? 'Unpin' : 'Pin'} ${displayTitle}`}
-                aria-pressed={pinned}
-                className={cn(
-                  'shrink-0 rounded-md hover:bg-muted/80 transition-colors cursor-pointer',
-                  'flex items-center justify-center min-h-11 min-w-11 md:min-h-0 md:min-w-0 md:p-1 -m-2 md:m-0',
-                  'opacity-60 md:opacity-0 md:group-hover:opacity-100 focus-visible:opacity-100',
-                )}
-                onClick={(e) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  togglePin(item.url!.toString())
-                }}
-              >
-                <Pin
-                  className={cn(
-                    'transition-colors',
-                    pinned
-                      ? 'text-primary fill-primary'
-                      : 'text-muted-foreground/60 hover:text-primary',
-                  )}
-                  size={14}
-                />
-              </button>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    role="switch"
+                    aria-checked={pinned}
+                    aria-label={`${pinned ? 'Unpin' : 'Pin'} ${displayTitle}`}
+                    className={cn(
+                      'absolute top-1.5 right-1.5 rounded-md transition-all cursor-pointer',
+                      'flex items-center justify-center h-7 w-7',
+                      'hover:bg-muted/80',
+                      pinned
+                        ? 'opacity-100'
+                        : 'opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100',
+                    )}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      togglePin(item.url!.toString())
+                    }}
+                  >
+                    <Pin
+                      className={cn(
+                        'transition-colors',
+                        pinned
+                          ? 'text-primary fill-primary'
+                          : 'text-muted-foreground/70 hover:text-primary',
+                      )}
+                      size={14}
+                    />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="top" sideOffset={4} className="text-xs">
+                  {pinned ? 'Unpin' : 'Pin'}
+                </TooltipContent>
+              </Tooltip>
             )}
           </CardContent>
         </Card>

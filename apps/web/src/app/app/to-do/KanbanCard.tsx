@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripVertical, Edit, Calendar, Tag, CheckCircle2, MoreHorizontal, Trash2, Copy, Check, Play, Pause, Timer, Archive, ArchiveRestore } from "lucide-react";
@@ -8,8 +8,11 @@ import { formatElapsed, getElapsedMinutes } from "@/app/app/to-do/utils/taskTime
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Task } from "@/app/app/to-do/types/Task";
-import TaskEditDialog from "./TaskEditDialog";
-import { differenceInDays, isPast, parseISO, format, isValid, parse } from "date-fns";
+
+const TaskEditDialog = lazy(() => import("./TaskEditDialog"));
+import { LazyBoundary } from "./components/LazyBoundary";
+import { differenceInDays, isPast } from "date-fns";
+import { safeParseDate } from "@/app/app/to-do/utils/taskDate";
 import { cn } from "@/lib/utils";
 import {
   Tooltip,
@@ -26,109 +29,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { STATUS_CONFIG, PRIORITY_CONFIG } from "./config/constants";
 import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
-
-// Helper to safely parse and format dates
-const safeFormatDate = (dateString: string | undefined, formatStr: string): string => {
-  if (!dateString || dateString === "Unknown") return dateString || "Unknown";
-
-  // Try parsing as ISO first (for new data)
-  try {
-    const isoDate = parseISO(dateString);
-    if (isValid(isoDate)) {
-      return format(isoDate, formatStr);
-    }
-  } catch {
-    // Not an ISO string, continue
-  }
-
-  // Try parsing the formatted date string from TaskContext: "dd MMM yyyy, hh:mm a"
-  try {
-    const parsedDate = parse(dateString, "dd MMM yyyy, hh:mm a", new Date());
-    if (isValid(parsedDate)) {
-      return format(parsedDate, formatStr);
-    }
-  } catch {
-    // Not in that format, continue
-  }
-
-  // Try parsing just the date part "dd MMM yyyy"
-  try {
-    const parts = dateString.split(',');
-    if (parts.length > 0) {
-      const datePart = parts[0].trim(); // "dd MMM yyyy"
-      const parsedDate = parse(datePart, "dd MMM yyyy", new Date());
-      if (isValid(parsedDate)) {
-        return format(parsedDate, formatStr);
-      }
-    }
-  } catch {
-    // Fall through
-  }
-
-  // Try parsing as Date object (fallback)
-  try {
-    const date = new Date(dateString);
-    if (isValid(date)) {
-      return format(date, formatStr);
-    }
-  } catch {
-    // Not a valid date string
-  }
-
-  // If all parsing fails, return a shortened version of the string
-  return dateString.length > 15 ? dateString.substring(0, 15) + "..." : dateString;
-};
-
-// Helper to safely parse date for calculations
-const safeParseDate = (dateString: string | undefined): Date | null => {
-  if (!dateString) return null;
-
-  // Try parsing as ISO first
-  try {
-    const isoDate = parseISO(dateString);
-    if (isValid(isoDate)) {
-      return isoDate;
-    }
-  } catch {
-    // Not an ISO string
-  }
-
-  // Try parsing the formatted date string from TaskContext: "dd MMM yyyy, hh:mm a"
-  try {
-    const parsedDate = parse(dateString, "dd MMM yyyy, hh:mm a", new Date());
-    if (isValid(parsedDate)) {
-      return parsedDate;
-    }
-  } catch {
-    // Not in that format
-  }
-
-  // Try parsing just the date part "dd MMM yyyy"
-  try {
-    const parts = dateString.split(',');
-    if (parts.length > 0) {
-      const datePart = parts[0].trim();
-      const parsedDate = parse(datePart, "dd MMM yyyy", new Date());
-      if (isValid(parsedDate)) {
-        return parsedDate;
-      }
-    }
-  } catch {
-    // Fall through
-  }
-
-  // Try parsing as Date object (fallback)
-  try {
-    const date = new Date(dateString);
-    if (isValid(date)) {
-      return date;
-    }
-  } catch {
-    // Not a valid date
-  }
-
-  return null;
-};
 
 interface KanbanCardProps {
   task: Task;
@@ -201,11 +101,11 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
         {...attributes}
         {...listeners}
         className={cn(
-          "group relative p-3 md:p-4 rounded-xl border transition-all duration-300",
-          "hover:shadow-md hover:scale-[1.02] bg-card",
+          "group relative p-3 md:p-4 rounded-xl border transition-all duration-200",
+          "hover:shadow-md hover:-translate-y-0.5 bg-card",
           "cursor-grab active:cursor-grabbing border-border",
           "hover:border-primary/30",
-          isDragging && "shadow-2xl scale-110 z-50 rotate-2 opacity-90",
+          isDragging && "shadow-2xl scale-105 z-50 rotate-1 opacity-90",
           task.status === "completed" && "opacity-75 bg-muted/30"
         )}
         role="button"
@@ -503,12 +403,18 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
         </div>
       </div>
 
-      <TaskEditDialog
-        task={task}
-        open={isEditDialogOpen}
-        onOpenChange={setIsEditDialogOpen}
-        onSave={handleSaveEdit}
-      />
+      {isEditDialogOpen && (
+        <LazyBoundary fallback={null}>
+          <Suspense fallback={null}>
+            <TaskEditDialog
+              task={task}
+              open={isEditDialogOpen}
+              onOpenChange={setIsEditDialogOpen}
+              onSave={handleSaveEdit}
+            />
+          </Suspense>
+        </LazyBoundary>
+      )}
     </>
   );
 }
