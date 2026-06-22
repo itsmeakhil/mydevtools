@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import {
@@ -56,3 +57,17 @@ export const usePinnedToolsStore = create<PinnedToolsStore>()(
     }
   )
 )
+
+/** Returns true once the persisted state has finished rehydrating from storage. */
+export function usePinnedToolsHydrated(): boolean {
+  const [hydrated, setHydrated] = useState(() => usePinnedToolsStore.persist.hasHydrated())
+  useEffect(() => {
+    if (usePinnedToolsStore.persist.hasHydrated()) {
+      setHydrated(true)
+      return
+    }
+    const unsub = usePinnedToolsStore.persist.onFinishHydration(() => setHydrated(true))
+    return unsub
+  }, [])
+  return hydrated
+}

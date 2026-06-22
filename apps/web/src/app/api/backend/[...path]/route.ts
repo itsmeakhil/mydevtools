@@ -44,6 +44,14 @@ async function forward(req: NextRequest, method: string, pathSegments: string[])
     const contentType = req.headers.get("content-type")
     if (contentType) headers["content-type"] = contentType
 
+    // Forward the real client's User-Agent + IP so the backend audit log records
+    // the actual device, not this Next.js server's fetch agent.
+    const userAgent = req.headers.get("user-agent")
+    if (userAgent) headers["user-agent"] = userAgent
+
+    const forwardedFor = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip")
+    if (forwardedFor) headers["x-forwarded-for"] = forwardedFor
+
     let body: BodyInit | undefined = undefined
     if (method !== "GET" && method !== "HEAD") {
         body = await req.text()

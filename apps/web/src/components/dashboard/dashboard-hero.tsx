@@ -1,7 +1,8 @@
 'use client'
 
 import React from 'react'
-import { Layers, Zap, Pin, Clock } from 'lucide-react'
+import Link from 'next/link'
+import { Layers, Zap, Pin, Clock, History } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { dashboardGreeting } from './types'
 
@@ -82,6 +83,13 @@ export function DashboardHero({
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <Link
+                href="/dashboard/activity"
+                aria-label={t('viewActivity')}
+                className="flex items-center justify-center h-8 w-8 rounded-lg bg-muted/50 text-primary"
+              >
+                <History size={16} />
+              </Link>
               <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-muted/50 min-h-[32px]">
                 <Layers size={14} className="text-primary shrink-0" />
                 <span className="text-xs font-semibold">{totalTools}</span>

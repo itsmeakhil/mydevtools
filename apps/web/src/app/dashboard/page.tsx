@@ -26,6 +26,7 @@ import { DashboardSearchBar } from '@/components/dashboard/dashboard-search-bar'
 import { DashboardPinnedSection } from '@/components/dashboard/dashboard-pinned-section'
 import { DashboardWhatsNew } from '@/components/dashboard/dashboard-whats-new'
 import { DashboardRecentTools } from '@/components/dashboard/dashboard-recent-tools'
+import { ActivityLogDrawer } from '@/components/dashboard/activity/activity-log-drawer'
 import { DashboardLoginCta } from '@/components/dashboard/dashboard-login-cta'
 import { DashboardToolGrid } from '@/components/dashboard/dashboard-tool-grid'
 
@@ -272,16 +273,19 @@ const DashboardPage: React.FC = () => {
             desktopOnly
           />
           <Tabs defaultValue="apps" className="w-full">
-            <TabsList className="mb-3 grid h-auto w-full grid-cols-2 gap-1 rounded-xl bg-muted/50 p-1 sm:inline-flex sm:w-auto sm:justify-start">
-              <TabsTrigger value="apps" className="gap-1.5 text-xs sm:text-sm">
-                <LayoutGrid className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                {tTabs('apps')}
-              </TabsTrigger>
-              <TabsTrigger value="analytics" className="gap-1.5 text-xs sm:text-sm">
-                <BarChart3 className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                {tTabs('analytics')}
-              </TabsTrigger>
-            </TabsList>
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <TabsList className="grid h-auto w-full grid-cols-2 gap-1 rounded-xl bg-muted/50 p-1 sm:inline-flex sm:w-auto sm:justify-start">
+                <TabsTrigger value="apps" className="gap-1.5 text-xs sm:text-sm">
+                  <LayoutGrid className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                  {tTabs('apps')}
+                </TabsTrigger>
+                <TabsTrigger value="analytics" className="gap-1.5 text-xs sm:text-sm">
+                  <BarChart3 className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                  {tTabs('analytics')}
+                </TabsTrigger>
+              </TabsList>
+              <ActivityLogDrawer />
+            </div>
 
             <TabsContent
               value="apps"
