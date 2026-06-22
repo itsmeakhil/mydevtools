@@ -8,7 +8,6 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { ApiRequestState } from "./types"
 import { getApiClientRequestDisplayName } from "./display-name"
 import { useTranslations } from "next-intl"
-import { motion, AnimatePresence } from "framer-motion"
 
 interface TabBarProps {
     tabs: ApiRequestState[]
@@ -51,6 +50,27 @@ export function TabBar({
 
     const [draggedId, setDraggedId] = React.useState<string | null>(null)
     const [dragOverId, setDragOverId] = React.useState<string | null>(null)
+
+    // Refs for measuring active-tab indicator position
+    const tabListRef = React.useRef<HTMLDivElement>(null)
+    const tabRefs = React.useRef<Record<string, HTMLDivElement | null>>({})
+    const [indicatorStyle, setIndicatorStyle] = React.useState<{ left: number; width: number } | null>(null)
+
+    // Measure the active tab and update the indicator synchronously before paint
+    React.useLayoutEffect(() => {
+        const activeEl = tabRefs.current[activeTabId]
+        const listEl = tabListRef.current
+        if (!activeEl || !listEl) {
+            setIndicatorStyle(null)
+            return
+        }
+        const tabRect = activeEl.getBoundingClientRect()
+        const listRect = listEl.getBoundingClientRect()
+        setIndicatorStyle({
+            left: tabRect.left - listRect.left,
+            width: tabRect.width,
+        })
+    }, [activeTabId, tabs])
 
     const handleDoubleClick = (tab: ApiRequestState) => {
         if (!onTabRename) return
@@ -101,105 +121,104 @@ export function TabBar({
     return (
         <div className="flex items-center border-b bg-muted/30 backdrop-blur-sm h-11">
             <ScrollArea className="flex-initial min-w-0 h-full">
-                <div className="flex w-max items-center h-full px-1">
-                    <AnimatePresence initial={false} mode="popLayout">
-                        {tabs.map((tab) => (
-                            <motion.div
-                                key={tab.id}
-                                layout
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                transition={{ duration: 0.2 }}
-                                draggable={!!onTabReorder}
-                                onDragStart={(e) => handleDragStart(e as unknown as React.DragEvent, tab.id)}
-                                onDragOver={(e) => handleDragOver(e as unknown as React.DragEvent, tab.id)}
-                                onDrop={(e) => handleDrop(e as unknown as React.DragEvent, tab.id)}
-                                onDragEnd={handleDragEnd}
-                                className={cn(
-                                    "group relative flex items-center gap-2 px-3 py-1.5 text-sm font-medium cursor-pointer select-none min-w-[140px] max-w-[220px] h-[34px] rounded-md transition-colors m-0.5",
-                                    activeTabId === tab.id
-                                        ? "bg-background text-foreground shadow-sm"
-                                        : "text-muted-foreground hover:bg-muted/50 hover:text-foreground",
-                                    dragOverId === tab.id && draggedId !== tab.id && "ring-2 ring-primary/50 ring-inset",
-                                    draggedId === tab.id && "opacity-50"
-                                )}
-                                onClick={() => {
-                                    if (editingTabId !== tab.id) onTabChange(tab.id)
-                                }}
-                                onDoubleClick={() => handleDoubleClick(tab)}
-                            >
-                                {activeTabId === tab.id && (
-                                    <motion.div
-                                        layoutId="active-tab"
-                                        className="absolute inset-0 bg-background rounded-md shadow-sm -z-10"
-                                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                                    />
-                                )}
+                {/* relative container so the sliding indicator is positioned within it */}
+                <div ref={tabListRef} className="relative flex w-max items-center h-full px-1">
+                    {/* Sliding active-tab background + underline indicator */}
+                    {indicatorStyle && (
+                        <span
+                            aria-hidden="true"
+                            className="pointer-events-none absolute top-0.5 bottom-0.5 bg-background rounded-md shadow-sm -z-0 transition-all duration-200"
+                            style={{ left: indicatorStyle.left, width: indicatorStyle.width }}
+                        />
+                    )}
+                    {/* Sliding underline indicator */}
+                    {indicatorStyle && (
+                        <span
+                            aria-hidden="true"
+                            className="pointer-events-none absolute bottom-0 h-0.5 bg-primary rounded-full -z-0 transition-all duration-200"
+                            style={{
+                                left: indicatorStyle.left + 8,
+                                width: Math.max(0, indicatorStyle.width - 16),
+                            }}
+                        />
+                    )}
 
-                                <span className={cn(
-                                    "text-[10px] font-black uppercase w-8 flex-shrink-0 tracking-tighter",
-                                    getMethodColor(tab.method)
-                                )}>
-                                    {tab.method}
+                    {tabs.map((tab) => (
+                        <div
+                            key={tab.id}
+                            ref={(el) => { tabRefs.current[tab.id] = el }}
+                            draggable={!!onTabReorder}
+                            onDragStart={(e) => handleDragStart(e, tab.id)}
+                            onDragOver={(e) => handleDragOver(e, tab.id)}
+                            onDrop={(e) => handleDrop(e, tab.id)}
+                            onDragEnd={handleDragEnd}
+                            className={cn(
+                                "group relative flex items-center gap-2 px-3 py-1.5 text-sm font-medium cursor-pointer select-none min-w-[140px] max-w-[220px] h-[34px] rounded-md transition-colors m-0.5",
+                                activeTabId === tab.id
+                                    ? "text-foreground"
+                                    : "text-muted-foreground hover:bg-muted/50 hover:text-foreground",
+                                dragOverId === tab.id && draggedId !== tab.id && "ring-2 ring-primary/50 ring-inset",
+                                draggedId === tab.id && "opacity-50"
+                            )}
+                            onClick={() => {
+                                if (editingTabId !== tab.id) onTabChange(tab.id)
+                            }}
+                            onDoubleClick={() => handleDoubleClick(tab)}
+                        >
+                            <span className={cn(
+                                "text-[10px] font-black uppercase w-8 flex-shrink-0 tracking-tighter",
+                                getMethodColor(tab.method)
+                            )}>
+                                {tab.method}
+                            </span>
+
+                            {editingTabId === tab.id ? (
+                                <input
+                                    ref={editInputRef}
+                                    className="flex-1 text-xs bg-transparent border-b border-primary outline-none min-w-0 text-foreground"
+                                    value={editValue}
+                                    onChange={(e) => setEditValue(e.target.value)}
+                                    onBlur={commitRename}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") commitRename()
+                                        if (e.key === "Escape") setEditingTabId(null)
+                                        e.stopPropagation()
+                                    }}
+                                    onClick={(e) => e.stopPropagation()}
+                                />
+                            ) : (
+                                <span className="truncate flex-1 text-xs">
+                                    {getApiClientRequestDisplayName(tab.name, t)}
                                 </span>
+                            )}
 
-                                {editingTabId === tab.id ? (
-                                    <input
-                                        ref={editInputRef}
-                                        className="flex-1 text-xs bg-transparent border-b border-primary outline-none min-w-0 text-foreground"
-                                        value={editValue}
-                                        onChange={(e) => setEditValue(e.target.value)}
-                                        onBlur={commitRename}
-                                        onKeyDown={(e) => {
-                                            if (e.key === "Enter") commitRename()
-                                            if (e.key === "Escape") setEditingTabId(null)
-                                            e.stopPropagation()
-                                        }}
-                                        onClick={(e) => e.stopPropagation()}
-                                    />
-                                ) : (
-                                    <span className="truncate flex-1 text-xs">
-                                        {getApiClientRequestDisplayName(tab.name, t)}
-                                    </span>
-                                )}
-
-                                {onTabDuplicate && (
-                                    <button
-                                        className="flex items-center justify-center h-4 w-4 rounded-full transition-all opacity-0 group-hover:opacity-100 hover:bg-muted text-muted-foreground hover:text-foreground"
-                                        onClick={(e) => {
-                                            e.stopPropagation()
-                                            onTabDuplicate(tab.id)
-                                        }}
-                                        title="Duplicate tab"
-                                    >
-                                        <Copy className="h-2.5 w-2.5" />
-                                    </button>
-                                )}
+                            {onTabDuplicate && (
                                 <button
-                                    className={cn(
-                                        "flex items-center justify-center h-4 w-4 rounded-full transition-all",
-                                        activeTabId === tab.id ? "opacity-100" : "opacity-0 group-hover:opacity-100",
-                                        "hover:bg-muted text-muted-foreground hover:text-foreground"
-                                    )}
+                                    className="flex items-center justify-center h-4 w-4 rounded-full transition-all opacity-0 group-hover:opacity-100 hover:bg-muted text-muted-foreground hover:text-foreground"
                                     onClick={(e) => {
                                         e.stopPropagation()
-                                        onTabClose(tab.id)
+                                        onTabDuplicate(tab.id)
                                     }}
+                                    title="Duplicate tab"
                                 >
-                                    <X className="h-2.5 w-2.5" />
+                                    <Copy className="h-2.5 w-2.5" />
                                 </button>
-
-                                {activeTabId === tab.id && (
-                                    <motion.div
-                                        layoutId="active-underline"
-                                        className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-full"
-                                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                                    />
+                            )}
+                            <button
+                                className={cn(
+                                    "flex items-center justify-center h-4 w-4 rounded-full transition-all",
+                                    activeTabId === tab.id ? "opacity-100" : "opacity-0 group-hover:opacity-100",
+                                    "hover:bg-muted text-muted-foreground hover:text-foreground"
                                 )}
-                            </motion.div>
-                        ))}
-                    </AnimatePresence>
+                                onClick={(e) => {
+                                    e.stopPropagation()
+                                    onTabClose(tab.id)
+                                }}
+                            >
+                                <X className="h-2.5 w-2.5" />
+                            </button>
+                        </div>
+                    ))}
                 </div>
                 <ScrollBar orientation="horizontal" className="h-1.5 invisible" />
             </ScrollArea>
