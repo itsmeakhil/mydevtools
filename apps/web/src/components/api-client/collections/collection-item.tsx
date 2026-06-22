@@ -29,7 +29,6 @@ function arePropsEqual(prev: CollectionItemProps, next: CollectionItemProps) {
         prev.level === next.level &&
         prev.item.id === next.item.id &&
         prev.item.name === next.item.name &&
-        prev.item.type === next.item.type &&
         prev.item === next.item &&
         prev.onToggle === next.onToggle &&
         prev.onDelete === next.onDelete &&
