@@ -10,8 +10,7 @@ import { TabBar } from "./tab-bar"
 import { ImportCurlDialog } from "./import-curl-dialog"
 import { parseCurlCommand } from "@/utils/curl-parser"
 import { CollectionsSidebar } from "./collections/collections-sidebar"
-import { EnvironmentManager } from "./environment-manager"
-import { CodeGenerator } from "./code-generator"
+import dynamic from "next/dynamic"
 import {
     RequestMethod,
     ApiRequestState,
@@ -25,7 +24,8 @@ import { toast } from "sonner"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
-import { FolderOpen, PanelRight } from "lucide-react"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { FolderOpen, PanelRight, Settings, Code2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ensureHttpScheme } from "@/lib/url-normalize"
 import { useJsonFormatter } from "./workers/use-json-formatter"
@@ -33,6 +33,15 @@ import { useTabs, useTabsActions, createNewTab } from "./context/tabs-context"
 import { useCollectionsState, useCollectionsActions } from "./context/collections-context"
 import { useEnvironmentsState, useEnvironmentsActions } from "./context/environments-context"
 import { useHistoryState, useHistoryActions } from "./context/history-context"
+
+const EnvironmentManager = dynamic(
+    () => import("./environment-manager").then(m => ({ default: m.EnvironmentManager })),
+    { ssr: false, loading: () => null }
+)
+const CodeGenerator = dynamic(
+    () => import("./code-generator").then(m => ({ default: m.CodeGenerator })),
+    { ssr: false, loading: () => null }
+)
 
 /** `new URL()` requires a scheme; host-only URLs (e.g. `api.example.com/v1`) are common in API clients. */
 function buildRequestUrl(raw: string): URL {
@@ -63,12 +72,14 @@ function ApiClientInner() {
     const { history } = useHistoryState()
     const { addHistoryItem } = useHistoryActions()
     const { environments, activeEnvId, activeEnvironmentVariables } = useEnvironmentsState()
-    const { substituteVariables } = useEnvironmentsActions()
+    const { substituteVariables, setActiveEnvId } = useEnvironmentsActions()
 
     const isMobile = useIsMobile()
     const [collectionsOpen, setCollectionsOpen] = React.useState(false)
     const [sidebarOpen, setSidebarOpen] = React.useState(true)
     const [mobilePanel, setMobilePanel] = React.useState<'request' | 'response'>('request')
+    const [envMgrOpen, setEnvMgrOpen] = React.useState(false)
+    const [codeGenOpen, setCodeGenOpen] = React.useState(false)
 
     const urlHistory = React.useMemo(() => {
         const seen = new Set<string>()
@@ -432,9 +443,48 @@ function ApiClientInner() {
                         </Sheet>
                     )}
                     <div className="flex flex-wrap items-center gap-2 ml-auto">
-                        <EnvironmentManager />
+                        <Select
+                            value={activeEnvId || "none"}
+                            onValueChange={(val) => setActiveEnvId(val === "none" ? null : val)}
+                        >
+                            <SelectTrigger className="w-[150px] h-8 text-xs">
+                                <SelectValue placeholder={t("environmentManager.noEnvironment")} />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="none">{t("environmentManager.noEnvironment")}</SelectItem>
+                                {environments.map(env => (
+                                    <SelectItem key={env.id} value={env.id}>{env.name}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8"
+                            title={t("environmentManager.manageDialogTitle")}
+                            onClick={() => setEnvMgrOpen(true)}
+                        >
+                            <Settings className="h-4 w-4" />
+                        </Button>
+                        {envMgrOpen && (
+                            <EnvironmentManager open={envMgrOpen} onOpenChange={setEnvMgrOpen} />
+                        )}
                         <div className="h-6 w-px bg-border/50 mx-1" />
-                        <CodeGenerator request={activeTab} />
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            title={t("codeGenerator.triggerTitle")}
+                            onClick={() => setCodeGenOpen(true)}
+                        >
+                            <Code2 className="h-4 w-4" />
+                        </Button>
+                        {codeGenOpen && (
+                            <CodeGenerator
+                                request={activeTab}
+                                open={codeGenOpen}
+                                onOpenChange={setCodeGenOpen}
+                            />
+                        )}
                         <ImportCurlDialog onImport={handleImportCurl} />
                         {!isMobile && (
                             <>
@@ -533,7 +583,7 @@ function ApiClientInner() {
                                     </div>
                                 ) : (
                                     <div className="p-4">
-                                        <ResponsePanel response={activeTab.response} />
+                                        <ResponsePanel response={activeTab.response} isLoading={activeTab.isLoading} />
                                     </div>
                                 )}
                             </div>
@@ -575,7 +625,7 @@ function ApiClientInner() {
 
                                 <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col h-full bg-muted/[0.02]">
                                     <div className="p-4 md:p-6 lg:p-8 flex-1 overflow-y-auto min-h-0 custom-scrollbar">
-                                        <ResponsePanel response={activeTab.response} />
+                                        <ResponsePanel response={activeTab.response} isLoading={activeTab.isLoading} />
                                     </div>
                                 </ResizablePanel>
                             </ResizablePanelGroup>
