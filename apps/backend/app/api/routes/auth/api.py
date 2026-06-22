@@ -6,6 +6,7 @@ from typing import Annotated
 from fastapi import APIRouter, Cookie, Depends, Header, HTTPException, Request, Response, status
 
 from app.core.limiter import limiter
+from app.core import audit
 
 from app.api.routes.auth.cookie_attach import attach_auth_cookies, clear_auth_cookies
 from app.api.routes.auth.schema import (
@@ -73,6 +74,9 @@ async def create_session(request: Request, payload: SessionRequest, response: Re
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="User record missing after upsert.",
         )
+    audit.set_action("auth.login")
+    audit.set_entity("user", uid)
+    audit.set_summary("Signed in")
     return UserProfileResponse(
         uid=str(doc["_id"]),
         email=doc.get("email"),
@@ -111,6 +115,9 @@ async def refresh_session(
     await set_refresh_token_hash(uid, hash_refresh_token(new_raw))
     access = create_access_token(uid)
     attach_auth_cookies(response, access, new_raw)
+    audit.set_action("auth.token_refresh")
+    audit.set_entity("user", uid)
+    audit.set_summary("Refreshed session")
     return OkResponse(ok=True)
 
 
@@ -143,6 +150,10 @@ async def logout(
     clear_auth_cookies(response)
     if uid:
         await clear_refresh_token_hash(uid)
+    audit.set_action("auth.logout")
+    if uid:
+        audit.set_entity("user", uid)
+    audit.set_summary("Signed out")
     return OkResponse(ok=True)
 
 

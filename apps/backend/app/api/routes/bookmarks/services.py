@@ -5,6 +5,7 @@ from pymongo import ReplaceOne
 from pymongo.errors import PyMongoError
 from pymongo import ReturnDocument
 from app.utils.utils import new_id, create_timestamp, is_duplicate_key_error
+from app.core import audit
 
 from app.utils.collection_name import BOOKMARK_FOLDERS as FOLDERS, BOOKMARKS
 from app.database import db_manager
@@ -100,6 +101,10 @@ async def create_bookmark(uid: str, body: BookmarkCreate) -> BookmarkOut:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create bookmark."
         ) from exc
+    audit.set_action("bookmark.create")
+    audit.set_entity("bookmark", bid)
+    audit.set_summary(f"Created bookmark '{body.title}'")
+    audit.set_changes(audit.diff(None, doc))
     return _bookmark_doc_to_out(doc)
 
 
@@ -107,6 +112,7 @@ async def update_bookmark(uid: str, bookmark_id: str, body: BookmarkUpdate) -> B
     patch = body.model_dump(exclude_unset=True)
     if not patch:
         return await get_bookmark(uid, bookmark_id)
+    before = await db_manager.find_one(BOOKMARKS, {"_id": bookmark_id, "created_by": uid})
     patch["updatedAt"] = create_timestamp()
     try:
         result = await db_manager.find_one_and_update(
@@ -121,6 +127,10 @@ async def update_bookmark(uid: str, bookmark_id: str, body: BookmarkUpdate) -> B
         ) from exc
     if not result:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Bookmark not found.")
+    audit.set_action("bookmark.update")
+    audit.set_entity("bookmark", bookmark_id)
+    audit.set_summary(f"Updated bookmark '{result.get('title', '')}'")
+    audit.set_changes(audit.diff(before, result))
     return _bookmark_doc_to_out(result)
 
 
@@ -129,9 +139,14 @@ async def move_bookmark(uid: str, bookmark_id: str, body: BookmarkMove) -> Bookm
 
 
 async def delete_bookmark(uid: str, bookmark_id: str) -> None:
+    before = await db_manager.find_one(BOOKMARKS, {"_id": bookmark_id, "created_by": uid})
     result = await db_manager.delete_one(BOOKMARKS, {"_id": bookmark_id, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Bookmark not found.")
+    audit.set_action("bookmark.delete")
+    audit.set_entity("bookmark", bookmark_id)
+    title = (before or {}).get("title", "")
+    audit.set_summary(f"Deleted bookmark '{title}'")
 
 
 async def import_bookmarks(uid: str, body: BookmarkImportBody) -> dict[str, int]:
