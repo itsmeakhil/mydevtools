@@ -20,7 +20,8 @@ from app.api.routes.auth.schema import (
     UserProfileResponse,
     UpdateProfileRequest,
 )
-from app.api.routes.auth.services import get_current_uid, get_current_user, verify_id_token
+from app.api.routes.auth.services import get_current_uid, get_current_user, verify_id_token, _token_cache_key
+from app.core.cache import bump_version, cache_invalidate
 from app.api.routes.auth.tokens import (
     create_access_token,
     hash_refresh_token,
@@ -154,6 +155,13 @@ async def logout(
     if uid:
         audit.set_entity("user", uid)
     audit.set_summary("Signed out")
+    try:
+        if token:
+            await cache_invalidate(ns="auth_token", key=_token_cache_key(token))
+        if uid:
+            await bump_version(ns="auth_user", uid=uid)
+    except Exception:
+        pass  # fail-open
     return OkResponse(ok=True)
 
 
