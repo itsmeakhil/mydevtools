@@ -8,6 +8,9 @@ from urllib.parse import urlparse
 from fastapi import HTTPException, status
 from pymongo.errors import DuplicateKeyError
 
+from app.core.cache import cached, cache_invalidate, bump_version
+from app.core.cache.keys import build_key, args_hash as _ah
+from app.core.config import get_settings
 from app.database import db_manager
 from app.utils.utils import create_timestamp
 from app.api.routes.url_shortener.schema import (
@@ -21,6 +24,18 @@ from app.api.routes.url_shortener.schema import (
     DailyClicks,
     StatEntry,
 )
+
+
+def _resolve_key(slug: str) -> str:
+    secret = (get_settings().JWT_SECRET_KEY or "default-cache-secret").encode()
+    return build_key(
+        ns="url_shortener_resolve",
+        scope="global",
+        uid=None,
+        ver=None,
+        op="resolve_short_url",
+        args_hash=_ah({"slug": slug}, secret=secret),
+    )
 
 _FORBIDDEN_SCHEME = re.compile(r"^\s*([a-zA-Z][a-zA-Z0-9+.-]*):")
 _BLOCKED_HOSTNAMES = frozenset(
@@ -187,6 +202,8 @@ async def create_link(uid: str, body: ShortLinkCreate) -> ShortLinkOut:
             "active": True,
         }
         await col.insert_one(doc)
+        await cache_invalidate(ns="url_shortener_resolve", key=_resolve_key(code))
+        await bump_version(ns="url_shortener_owner", uid=uid)
         return _doc_to_out(doc)
     except DuplicateKeyError:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Code collision. Try again.")
@@ -199,17 +216,19 @@ def _extract_hostname(url: str) -> str:
         return url
 
 
-async def list_links(uid: str, skip: int = 0, limit: int = 100) -> list[ShortLinkOut]:
+@cached(ns="url_shortener_owner", ttl=120, scope="user")
+async def list_my_short_urls(*, uid: str, skip: int = 0, limit: int = 100) -> list[ShortLinkOut]:
     db = db_manager.get_db()
     col = db[COLLECTION]
     cursor = col.find({"created_by": uid}).sort("created_at", -1).skip(skip).limit(limit)
     return [_doc_to_out(doc) async for doc in cursor]
 
 
-async def resolve_link(code: str) -> ShortLinkResolve:
+@cached(ns="url_shortener_resolve", ttl=600, scope="global", strategy="xfetch")
+async def resolve_short_url(*, slug: str) -> ShortLinkResolve:
     db = db_manager.get_db()
     col = db[COLLECTION]
-    doc = await col.find_one({"_id": code}, {"original_url": 1, "active": 1})
+    doc = await col.find_one({"_id": slug}, {"original_url": 1, "active": 1})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Short link not found.")
     original_url = doc["original_url"]
@@ -315,6 +334,8 @@ async def update_link(uid: str, code: str, body: ShortLinkUpdate) -> ShortLinkOu
     )
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Short link not found.")
+    await cache_invalidate(ns="url_shortener_resolve", key=_resolve_key(code))
+    await bump_version(ns="url_shortener_owner", uid=uid)
     return _doc_to_out(doc)
 
 
@@ -324,3 +345,5 @@ async def delete_link(uid: str, code: str) -> None:
     result = await col.delete_one({"_id": code, "created_by": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Short link not found.")
+    await cache_invalidate(ns="url_shortener_resolve", key=_resolve_key(code))
+    await bump_version(ns="url_shortener_owner", uid=uid)
