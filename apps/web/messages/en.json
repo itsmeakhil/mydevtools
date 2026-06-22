@@ -298,6 +298,23 @@
       "favoriteTools": "Favorite tools",
       "toolsWithUsage": "Tools with usage tracked"
     },
+    "activity": {
+      "title": "Activity log",
+      "subtitle": "Everything you changed, when, and from which device.",
+      "filterModule": "Module",
+      "filterOutcome": "Outcome",
+      "search": "Search",
+      "all": "All",
+      "success": "Success",
+      "failure": "Failure",
+      "empty": "No activity yet.",
+      "loadError": "Could not load activity.",
+      "loadMore": "Load more",
+      "changedFields": "What changed",
+      "device": "Device",
+      "before": "Before",
+      "after": "After"
+    },
     "toolCard": {
       "defaultDescription": "Explore this tool for better functionality.",
       "launchTool": "Launch Tool"
