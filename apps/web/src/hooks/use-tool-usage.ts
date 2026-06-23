@@ -12,10 +12,25 @@ import {
 
 const USAGE_STORAGE_KEY = 'tool-usage-history';
 
+function isValidEvent(e: unknown): e is ToolUsage {
+  if (!e || typeof e !== 'object') return false;
+  const ev = e as Record<string, unknown>;
+  return (
+    typeof ev.toolId === 'string' &&
+    typeof ev.url === 'string' &&
+    typeof ev.timestamp === 'number' &&
+    Number.isFinite(ev.timestamp)
+  );
+}
+
 function readLog(): ToolUsage[] {
   try {
+    if (typeof window === 'undefined') return [];
     const raw = localStorage.getItem(USAGE_STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as ToolUsage[]) : [];
+    if (!raw) return [];
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter(isValidEvent);
   } catch (error) {
     console.error('Error reading tool usage history:', error);
     return [];
