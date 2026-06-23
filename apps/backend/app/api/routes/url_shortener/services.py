@@ -2,6 +2,7 @@ import asyncio
 import re
 import secrets
 import string
+from datetime import datetime, timedelta, timezone
 from typing import Any
 from urllib.parse import urlparse
 
@@ -88,7 +89,7 @@ def _is_safe_redirect_target(url: str) -> bool:
 
 
 _ALPHABET = string.ascii_letters + string.digits
-_CODE_LEN = 6
+_CODE_LEN = 7
 _MAX_RETRIES = 5
 
 
@@ -169,10 +170,22 @@ async def create_link(uid: str, body: ShortLinkCreate) -> ShortLinkOut:
     db = db_manager.get_db()
     col = db[COLLECTION]
 
+    url = _validate_original_url(body.original_url)
+    title = body.title or _extract_hostname(url)
+    base_doc = {
+        "original_url": url,
+        "title": title,
+        "created_by": uid,
+        "created_at": create_timestamp(),
+        "clicks": 0,
+        "active": True,
+    }
+
     if body.custom_code:
         code = body.custom_code
-        existing = await col.find_one({"_id": code})
-        if existing:
+        try:
+            await col.insert_one({"_id": code, **base_doc})
+        except DuplicateKeyError:
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,
                 detail=f"Code '{code}' is already taken.",
@@ -180,33 +193,20 @@ async def create_link(uid: str, body: ShortLinkCreate) -> ShortLinkOut:
     else:
         for _ in range(_MAX_RETRIES):
             code = _generate_code()
-            existing = await col.find_one({"_id": code})
-            if not existing:
+            try:
+                await col.insert_one({"_id": code, **base_doc})
                 break
+            except DuplicateKeyError:
+                continue
         else:
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
                 detail="Could not generate a unique code. Try again.",
             )
 
-    url = _validate_original_url(body.original_url)
-    title = body.title or _extract_hostname(url)
-    try:
-        doc = {
-            "_id": code,
-            "original_url": url,
-            "title": title,
-            "created_by": uid,
-            "created_at": create_timestamp(),
-            "clicks": 0,
-            "active": True,
-        }
-        await col.insert_one(doc)
-        await cache_invalidate(ns="url_shortener_resolve", key=_resolve_key(code))
-        await bump_version(ns="url_shortener_owner", uid=uid)
-        return _doc_to_out(doc)
-    except DuplicateKeyError:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Code collision. Try again.")
+    await cache_invalidate(ns="url_shortener_resolve", key=_resolve_key(code))
+    await bump_version(ns="url_shortener_owner", uid=uid)
+    return _doc_to_out({"_id": code, **base_doc})
 
 
 def _extract_hostname(url: str) -> str:
@@ -237,8 +237,10 @@ async def resolve_short_url(*, slug: str) -> ShortLinkResolve:
     return ShortLinkResolve(original_url=str(original_url), active=bool(doc.get("active", True)))
 
 
+_CLICK_RETENTION_DAYS = 90
+
+
 async def record_click(code: str, ua: str = "", referrer: str = "") -> None:
-    db = db_manager.get_db()
     device, os_name, browser = _parse_ua(ua)
     ref_label = _parse_referrer(referrer)
 
@@ -250,11 +252,23 @@ async def record_click(code: str, ua: str = "", referrer: str = "") -> None:
         "os": os_name,
         "browser": browser,
     }
+
+    # Fast path: enqueue to Redis, flush_loop bulk-writes every few seconds.
+    from app.api.routes.url_shortener.click_queue import enqueue_click
+    if await enqueue_click(event):
+        return
+
+    # Fallback: Redis down — direct write keeps clicks working
+    db = db_manager.get_db()
+    event["expireAt"] = datetime.now(timezone.utc) + timedelta(days=_CLICK_RETENTION_DAYS)
     await db[CLICKS_COLLECTION].insert_one(event)
     await db[COLLECTION].update_one({"_id": code}, {"$inc": {"clicks": 1}})
 
 
-async def get_analytics(uid: str, code: str, days: int = 30) -> LinkAnalytics:
+# ponytail: skipped precomputed daily rollups; relies on 60s cache + 90d TTL + (code,ts) index.
+# Add a url_click_daily rollup collection + nightly job when per-code clicks > ~10k/day.
+@cached(ns="url_shortener_analytics", ttl=60, scope="user")
+async def get_analytics(*, uid: str, code: str, days: int = 30) -> LinkAnalytics:
     db = db_manager.get_db()
 
     doc = await db[COLLECTION].find_one({"_id": code, "created_by": uid}, {"clicks": 1})

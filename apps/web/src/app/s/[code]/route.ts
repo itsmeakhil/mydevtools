@@ -10,9 +10,10 @@ export async function GET(
     const origin = new URL(req.url).origin
 
     try {
+        // ponytail: Next data-cache w/ tag; revalidate on backend changes via tag if needed
         const res = await fetch(
             `${FASTAPI_BASE}/api/v1/url-shortener/resolve/${encodeURIComponent(code)}`,
-            { cache: 'no-store' },
+            { next: { revalidate: 300, tags: [`url-shortener:${code}`] } },
         )
 
         if (!res.ok) {
@@ -45,7 +46,10 @@ export async function GET(
             },
         }).catch(() => {})
 
-        return NextResponse.redirect(original_url, { status: 302 })
+        const response = NextResponse.redirect(original_url, { status: 302 })
+        // Browser/CDN: short cache to absorb repeat clicks; revalidate often
+        response.headers.set('Cache-Control', 'public, max-age=60, s-maxage=300')
+        return response
     } catch {
         return NextResponse.redirect(`${origin}/not-found`, { status: 302 })
     }

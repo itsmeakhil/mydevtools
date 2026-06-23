@@ -1,5 +1,6 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import {
@@ -46,7 +47,11 @@ import {
 import { formatClicks, formatDate } from './utils'
 import { useCopy } from './hooks/use-copy'
 import { QrDialog } from './qr-dialog'
-import { AnalyticsDialog } from './analytics-dialog'
+// ponytail: lazy-load — heavy (244 lines + chart deps), only opens on demand
+const AnalyticsDialog = dynamic(
+    () => import('./analytics-dialog').then((m) => m.AnalyticsDialog),
+    { ssr: false },
+)
 
 interface LinkCardProps {
     link: ShortLink
@@ -313,7 +318,9 @@ export function LinkCard({ link, shortBase, onDelete, onToggle, onUpdateTitle }:
             </div>
 
             <QrDialog url={shortUrl} open={qrOpen} onClose={() => setQrOpen(false)} />
-            <AnalyticsDialog link={link} open={analyticsOpen} onClose={() => setAnalyticsOpen(false)} />
+            {analyticsOpen && (
+                <AnalyticsDialog link={link} open={analyticsOpen} onClose={() => setAnalyticsOpen(false)} />
+            )}
 
             {/* Delete confirmation */}
             <AlertDialog open={confirmDeleteOpen} onOpenChange={setConfirmDeleteOpen}>
