@@ -99,13 +99,32 @@ export default function BookmarkCard({
         handleOpenLink()
     }, [selectionMode, onToggleSelect, bookmark.id, handleOpenLink])
 
+    const deleteDialog = (
+        <AlertDialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>{t("deleteConfirmTitle")}</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        {t("deleteConfirmDescription", { title: bookmark.title })}
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground">
+                        {t("delete")}
+                    </AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+    )
+
     if (viewMode === 'list') {
         return (
             <>
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.2, delay: Math.min(index, 6) * 0.03 }}
+                    transition={{ duration: 0.2, delay: index < 6 ? index * 0.03 : 0 }}
                     className={cn(
                         "group flex items-center gap-4 p-3 rounded-lg border border-border/50",
                         "hover:border-primary/30 hover:bg-muted/30 transition-all cursor-pointer",
@@ -203,23 +222,7 @@ export default function BookmarkCard({
                         </DropdownMenu>
                     </div>
                 </motion.div>
-
-                <AlertDialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
-                    <AlertDialogContent>
-                        <AlertDialogHeader>
-                            <AlertDialogTitle>{t("deleteConfirmTitle")}</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                {t("deleteConfirmDescription", { title: bookmark.title })}
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
-                            <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground">
-                                {t("delete")}
-                            </AlertDialogAction>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialog>
+                {deleteDialog}
             </>
         )
     }
@@ -230,7 +233,7 @@ export default function BookmarkCard({
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.2, delay: Math.min(index, 6) * 0.03 }}
+                transition={{ duration: 0.2, delay: index < 6 ? index * 0.03 : 0 }}
                 className={cn(
                     "group relative flex flex-col p-4 rounded-xl border border-border/40",
                     "bg-gradient-to-br from-background via-background to-muted/10",
@@ -348,23 +351,7 @@ export default function BookmarkCard({
                 {/* Hover Overlay - Subtle Shine */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
             </motion.div>
-
-            <AlertDialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>{t("deleteConfirmTitle")}</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            {t("deleteConfirmDescription", { title: bookmark.title })}
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
-                        <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground">
-                            {t("delete")}
-                        </AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
+            {deleteDialog}
         </>
     )
 }

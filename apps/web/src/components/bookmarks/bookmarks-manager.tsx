@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect, useMemo, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import dynamic from "next/dynamic"
 import { useTranslations } from "next-intl"
 import {
     IconSearch,
@@ -27,9 +28,10 @@ import { useInfiniteScroll } from "@/hooks/use-infinite-scroll"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import FolderTree from "./folder-tree"
 import BookmarkGrid from "./bookmark-grid"
-import AddBookmarkDialog from "./add-bookmark-dialog"
-import ImportDialog from "./import-dialog"
-import AddFolderDialog from "./add-folder-dialog"
+// ponytail: dialogs lazy-loaded; only fetched when user opens them
+const AddBookmarkDialog = dynamic(() => import("./add-bookmark-dialog"))
+const ImportDialog = dynamic(() => import("./import-dialog"))
+const AddFolderDialog = dynamic(() => import("./add-folder-dialog"))
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -560,20 +562,26 @@ export default function BookmarksManager() {
                 </div>
             </div>
 
-            {/* Dialogs */}
-            <AddBookmarkDialog
-                open={isAddBookmarkOpen}
-                onOpenChange={handleCloseAddBookmark}
-                editingId={editingBookmark}
-            />
-            <ImportDialog
-                open={isImportOpen}
-                onOpenChange={setIsImportOpen}
-            />
-            <AddFolderDialog
-                open={isAddFolderOpen}
-                onOpenChange={setIsAddFolderOpen}
-            />
+            {/* Dialogs — mount only after first open so the chunks stay out of initial paint */}
+            {isAddBookmarkOpen && (
+                <AddBookmarkDialog
+                    open={isAddBookmarkOpen}
+                    onOpenChange={handleCloseAddBookmark}
+                    editingId={editingBookmark}
+                />
+            )}
+            {isImportOpen && (
+                <ImportDialog
+                    open={isImportOpen}
+                    onOpenChange={setIsImportOpen}
+                />
+            )}
+            {isAddFolderOpen && (
+                <AddFolderDialog
+                    open={isAddFolderOpen}
+                    onOpenChange={setIsAddFolderOpen}
+                />
+            )}
         </div>
     )
 }

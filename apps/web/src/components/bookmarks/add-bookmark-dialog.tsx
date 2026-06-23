@@ -131,7 +131,6 @@ export default function AddBookmarkDialog({ open, onOpenChange, editingId }: Add
             url: normalizedUrl,
             title: title.trim(),
             description: description.trim() || undefined,
-            favicon: undefined,
             folderId: folderId === "none" ? null : folderId,
             tags,
             createdAt: editingId ? bookmarks.find(b => b.id === editingId)?.createdAt || Date.now() : Date.now(),

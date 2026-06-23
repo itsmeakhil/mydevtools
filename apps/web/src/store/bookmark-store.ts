@@ -1,4 +1,4 @@
-import { useMemo } from "react"
+import { useDeferredValue, useMemo } from "react"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 import { auth } from "@/database/firebase"
@@ -507,6 +507,8 @@ export const useBookmarkStore = create<BookmarkStore>()(
 // Selector hooks for filtered bookmarks
 export const useFilteredBookmarks = () => {
     const { bookmarks, folders, selectedFolderId, searchQuery } = useBookmarkStore()
+    // ponytail: useDeferredValue lets React skip stale filter renders while typing
+    const deferredQuery = useDeferredValue(searchQuery)
 
     return useMemo(() => bookmarks.filter((bookmark) => {
         if (selectedFolderId === 'uncategorized') {
@@ -517,8 +519,8 @@ export const useFilteredBookmarks = () => {
             if (!validFolderIds.includes(bookmark.folderId || '')) return false
         }
 
-        if (searchQuery) {
-            const raw = searchQuery.toLowerCase()
+        if (deferredQuery) {
+            const raw = deferredQuery.toLowerCase()
             const isTagSearch = raw.startsWith('#')
             const query = isTagSearch ? raw.slice(1) : raw
             const matchesTags = bookmark.tags.some(tag => tag.toLowerCase().includes(query))
@@ -535,7 +537,7 @@ export const useFilteredBookmarks = () => {
         }
 
         return true
-    }), [bookmarks, folders, selectedFolderId, searchQuery])
+    }), [bookmarks, folders, selectedFolderId, deferredQuery])
 }
 
 // Get all unique tags
