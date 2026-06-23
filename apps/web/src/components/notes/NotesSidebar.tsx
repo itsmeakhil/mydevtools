@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useDebounce } from "use-debounce";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import { useNotesData, useNotesUI, useNotesActions } from "@/app/app/notes/context/NotesContext";
 import { cn } from "@/lib/utils";
@@ -20,6 +21,10 @@ import {
     Copy,
     FolderInput,
     ArrowUpDown,
+    NotebookPen,
+    FileText,
+    ArrowUp,
+    ArrowDown,
 } from "lucide-react";
 import {
     DropdownMenu,
@@ -54,6 +59,26 @@ import { useTranslations } from "next-intl";
 import { extractPlainText, extractSnippet } from "@/app/app/notes/utils/noteContentUtils";
 
 type SortKey = "createdAt" | "updatedAt" | "title";
+type SortDir = "asc" | "desc";
+
+// Module-level incremental cache for plain text. Keyed by `id|updatedAt` so
+// only modified notes recompute when state updates. Bounded to prevent unbounded
+// growth across long sessions where notes are repeatedly edited.
+const PLAIN_TEXT_CACHE_MAX = 500;
+const plainTextCache = new Map<string, string>();
+function getCachedPlainText(note: Note): string {
+    const key = `${note.id}|${note.updatedAt}`;
+    let v = plainTextCache.get(key);
+    if (v === undefined) {
+        if (plainTextCache.size >= PLAIN_TEXT_CACHE_MAX) {
+            const first = plainTextCache.keys().next().value;
+            if (first !== undefined) plainTextCache.delete(first);
+        }
+        v = extractPlainText(note.content);
+        plainTextCache.set(key, v);
+    }
+    return v;
+}
 
 // Pre-computed map from parentId -> children (avoids O(n²) per render)
 type ChildrenMap = Map<string | null, Note[]>;
@@ -97,29 +122,56 @@ interface MoveDialogProps {
 }
 
 function MoveDialog({ note, notes, open, onOpenChange, onMove }: MoveDialogProps) {
-    const targets = notes.filter((n) => n.id !== note.id && n.parentId !== note.id);
+    const [query, setQuery] = useState("");
+    const handleOpenChange = useCallback((v: boolean) => {
+        if (!v) setQuery("");
+        onOpenChange(v);
+    }, [onOpenChange]);
+    const targets = useMemo(() => {
+        const q = query.trim().toLowerCase();
+        return notes
+            .filter((n) => n.id !== note.id && n.parentId !== note.id)
+            .filter((n) => !q || (n.title || "").toLowerCase().includes(q));
+    }, [notes, note.id, query]);
+
     return (
-        <Dialog open={open} onOpenChange={onOpenChange}>
+        <Dialog open={open} onOpenChange={handleOpenChange}>
             <DialogContent className="max-w-sm">
                 <DialogHeader>
                     <DialogTitle>Move note</DialogTitle>
                 </DialogHeader>
+                <div className="relative">
+                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                    <Input
+                        autoFocus
+                        placeholder="Search destination…"
+                        className="pl-8 h-9 text-sm"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                    />
+                </div>
                 <div className="flex flex-col gap-1 max-h-72 overflow-y-auto">
                     <button
-                        className="text-left px-3 py-2 rounded hover:bg-muted text-sm"
-                        onClick={() => { onMove(null); onOpenChange(false); }}
+                        className="text-left px-3 py-2 rounded hover:bg-muted text-sm cursor-pointer"
+                        onClick={() => { onMove(null); handleOpenChange(false); }}
                         type="button"
                     >
-                        / (root)
+                        <span className="text-muted-foreground">/</span> Root
                     </button>
+                    {targets.length === 0 && (
+                        <div className="px-3 py-4 text-center text-xs text-muted-foreground">No matches</div>
+                    )}
                     {targets.map((n) => (
                         <button
                             key={n.id}
-                            className="text-left px-3 py-2 rounded hover:bg-muted text-sm truncate"
-                            onClick={() => { onMove(n.id); onOpenChange(false); }}
+                            className="text-left px-3 py-2 rounded hover:bg-muted text-sm truncate flex items-center gap-2 cursor-pointer"
+                            onClick={() => { onMove(n.id); handleOpenChange(false); }}
                             type="button"
                         >
-                            {n.icon || "📄"} {n.title || "Untitled"}
+                            {n.icon
+                                ? <span className="flex-shrink-0">{n.icon}</span>
+                                : <FileText className="h-3.5 w-3.5 flex-shrink-0 text-muted-foreground" />}
+                            <span className="truncate">{n.title || "Untitled"}</span>
                         </button>
                     ))}
                 </div>
@@ -211,11 +263,13 @@ const NoteItem = React.memo(({
                 <DropdownMenu open={emojiPickerOpen} onOpenChange={setEmojiPickerOpen}>
                     <DropdownMenuTrigger asChild>
                         <span
-                            className="mr-1 text-sm mt-0.5 flex-shrink-0 cursor-pointer hover:opacity-70"
+                            className="mr-1 mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center text-sm cursor-pointer hover:opacity-70"
                             onClick={(e) => { e.stopPropagation(); setEmojiPickerOpen(true); }}
                             title="Change icon"
                         >
-                            {note.icon || "📄"}
+                            {note.icon
+                                ? note.icon
+                                : <FileText className="h-3.5 w-3.5 text-muted-foreground" />}
                         </span>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="p-0">
@@ -324,66 +378,65 @@ NoteItem.displayName = "NoteItem";
 
 export default function NotesSidebar() {
     const t = useTranslations("Notes.sidebar");
-    const { notes, isLoading } = useNotesData();
+    const { notes, noteById, isLoading } = useNotesData();
     const { activeNoteId } = useNotesUI();
     const { createNote, deleteNote, moveNote } = useNotesActions();
     const [noteToDelete, setNoteToDelete] = useState<Note | null>(null);
     const [noteToMove, setNoteToMove] = useState<Note | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
+    const [debouncedQuery] = useDebounce(searchQuery, 200);
     const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
     const [sortKey, setSortKey] = useState<SortKey>("createdAt");
+    const [sortDir, setSortDir] = useState<SortDir>("desc");
     const searchInputRef = useRef<HTMLInputElement>(null);
 
     const childrenMap = useMemo(() => buildChildrenMap(notes), [notes]);
 
-    // Pre-compute plain text for full-text search
-    const noteTextMap = useMemo(() => {
-        const map = new Map<string, string>();
-        notes.forEach(n => map.set(n.id, extractPlainText(n.content)));
-        return map;
-    }, [notes]);
-
     const sortedNotes = useMemo(() => {
-        return [...notes].sort((a, b) => {
-            if (sortKey === "title") return (a.title || "").localeCompare(b.title || "");
-            if (sortKey === "updatedAt") return b.updatedAt.localeCompare(a.updatedAt);
-            return a.createdAt.localeCompare(b.createdAt);
+        const arr = [...notes];
+        arr.sort((a, b) => {
+            let cmp = 0;
+            if (sortKey === "title") cmp = (a.title || "").localeCompare(b.title || "");
+            else if (sortKey === "updatedAt") cmp = a.updatedAt.localeCompare(b.updatedAt);
+            else cmp = a.createdAt.localeCompare(b.createdAt);
+            return sortDir === "asc" ? cmp : -cmp;
         });
-    }, [notes, sortKey]);
+        return arr;
+    }, [notes, sortKey, sortDir]);
 
     const rootNotes = useMemo(() => sortedNotes.filter(n => !n.parentId), [sortedNotes]);
     const pinnedNotes = useMemo(() => rootNotes.filter(n => n.pinned), [rootNotes]);
     const unpinnedNotes = useMemo(() => rootNotes.filter(n => !n.pinned), [rootNotes]);
 
     const searchResults = useMemo(() => {
-        if (!searchQuery.trim()) return null;
-        const q = searchQuery.toLowerCase();
-        return sortedNotes
-            .filter(n =>
-                (n.title || "").toLowerCase().includes(q) ||
-                (noteTextMap.get(n.id) || "").toLowerCase().includes(q)
-            )
-            .map(n => ({
+        const trimmed = debouncedQuery.trim();
+        if (!trimmed) return null;
+        const q = trimmed.toLowerCase();
+        const out: { note: Note; snippet?: string; parent?: Note }[] = [];
+        for (const n of sortedNotes) {
+            const titleHit = (n.title || "").toLowerCase().includes(q);
+            const text = getCachedPlainText(n);
+            const bodyHit = text.toLowerCase().includes(q);
+            if (!titleHit && !bodyHit) continue;
+            out.push({
                 note: n,
-                snippet: (noteTextMap.get(n.id) || "").toLowerCase().includes(q)
-                    ? extractSnippet(noteTextMap.get(n.id) || "", searchQuery)
-                    : undefined,
-                parent: n.parentId ? notes.find(p => p.id === n.parentId) : undefined,
-            }));
-    }, [sortedNotes, searchQuery, noteTextMap, notes]);
+                snippet: bodyHit ? extractSnippet(text, trimmed) : undefined,
+                parent: n.parentId ? noteById.get(n.parentId) : undefined,
+            });
+        }
+        return out;
+    }, [sortedNotes, debouncedQuery, noteById]);
 
     const notesScrollRef = useRef<HTMLDivElement>(null);
     const listLength = searchResults ? searchResults.length : rootNotes.length;
     const { displayCount, sentinelRef, hasMore } = useInfiniteScroll({
         totalCount: listLength,
-        resetKey: searchQuery,
+        resetKey: debouncedQuery,
         pageSize: 30,
         scrollContainerRef: notesScrollRef,
     });
 
-    const noteById = useMemo(() => new Map(notes.map((note) => [note.id, note])), [notes]);
-
-    const expandPath = (noteId: string) => {
+    const expandPath = useCallback((noteId: string) => {
         setExpandedIds((prev) => {
             const next = new Set(prev);
             let current = noteById.get(noteId);
@@ -395,16 +448,16 @@ export default function NotesSidebar() {
             }
             return next;
         });
-    };
+    }, [noteById]);
 
-    const toggleExpand = (noteId: string) => {
+    const toggleExpand = useCallback((noteId: string) => {
         setExpandedIds((prev) => {
             const next = new Set(prev);
             if (next.has(noteId)) next.delete(noteId);
             else next.add(noteId);
             return next;
         });
-    };
+    }, []);
 
     useEffect(() => {
         if (!activeNoteId) return;
@@ -437,6 +490,10 @@ export default function NotesSidebar() {
         }
     };
 
+    // Stable callbacks so NoteItem memo stays effective.
+    const handleSetNoteToDelete = useCallback((n: Note) => setNoteToDelete(n), []);
+    const handleSetNoteToMove = useCallback((n: Note) => setNoteToMove(n), []);
+
     const sortLabel: Record<SortKey, string> = {
         createdAt: "Date created",
         updatedAt: "Last modified",
@@ -450,18 +507,18 @@ export default function NotesSidebar() {
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2 font-semibold text-sm">
                             <span className="h-6 w-6 rounded-md bg-primary/10 flex items-center justify-center text-primary">
-                                📝
+                                <NotebookPen className="h-3.5 w-3.5" />
                             </span>
                             {t("title")}
                         </div>
                         <div className="flex items-center gap-1">
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" size="icon" className="h-8 w-8" title="Sort notes">
+                                    <Button variant="ghost" size="icon" className="h-8 w-8 cursor-pointer" title="Sort notes">
                                         <ArrowUpDown className="h-3.5 w-3.5" />
                                     </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end">
+                                <DropdownMenuContent align="end" className="w-48">
                                     <DropdownMenuRadioGroup value={sortKey} onValueChange={(v) => setSortKey(v as SortKey)}>
                                         {(Object.keys(sortLabel) as SortKey[]).map((k) => (
                                             <DropdownMenuRadioItem key={k} value={k}>
@@ -469,13 +526,22 @@ export default function NotesSidebar() {
                                             </DropdownMenuRadioItem>
                                         ))}
                                     </DropdownMenuRadioGroup>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem
+                                        onClick={() => setSortDir(d => d === "asc" ? "desc" : "asc")}
+                                        className="cursor-pointer"
+                                    >
+                                        {sortDir === "asc"
+                                            ? <><ArrowUp className="h-3.5 w-3.5 mr-2" />Ascending</>
+                                            : <><ArrowDown className="h-3.5 w-3.5 mr-2" />Descending</>}
+                                    </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
                             <Button
                                 variant="ghost"
                                 size="icon"
                                 onClick={() => createNote(null)}
-                                className="h-8 w-8"
+                                className="h-8 w-8 cursor-pointer"
                                 aria-label={t("createNoteAria")}
                             >
                                 <Plus className="h-4 w-4" />
@@ -487,20 +553,25 @@ export default function NotesSidebar() {
                         <Input
                             ref={searchInputRef}
                             placeholder={t("searchPlaceholder")}
-                            className="pl-8 pr-8 h-9 text-sm"
+                            className="pl-8 pr-14 h-9 text-sm"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
-                        {searchQuery && (
+                        {searchQuery ? (
                             <Button
                                 type="button"
                                 variant="ghost"
                                 size="icon"
-                                className="absolute right-1 top-1 h-7 w-7"
+                                className="absolute right-1 top-1 h-7 w-7 cursor-pointer"
                                 onClick={() => setSearchQuery("")}
+                                aria-label="Clear search"
                             >
                                 <X className="h-3.5 w-3.5" />
                             </Button>
+                        ) : (
+                            <kbd className="hidden sm:flex pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 items-center gap-0.5 rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono text-muted-foreground">
+                                <span className="text-xs">⌘</span>K
+                            </kbd>
                         )}
                     </div>
                 </div>
@@ -519,8 +590,8 @@ export default function NotesSidebar() {
                                         note={note}
                                         level={0}
                                         childrenMap={childrenMap}
-                                        onDeleteClick={setNoteToDelete}
-                                        onMoveClick={setNoteToMove}
+                                        onDeleteClick={handleSetNoteToDelete}
+                                        onMoveClick={handleSetNoteToMove}
                                         parentTitle={parent?.title}
                                         snippet={snippet}
                                         expandedIds={expandedIds}
@@ -543,8 +614,8 @@ export default function NotesSidebar() {
                                                 note={note}
                                                 level={0}
                                                 childrenMap={childrenMap}
-                                                onDeleteClick={setNoteToDelete}
-                                                onMoveClick={setNoteToMove}
+                                                onDeleteClick={handleSetNoteToDelete}
+                                                onMoveClick={handleSetNoteToMove}
                                                 expandedIds={expandedIds}
                                                 onToggleExpand={toggleExpand}
                                                 onExpandPath={expandPath}
@@ -559,7 +630,21 @@ export default function NotesSidebar() {
                                     </>
                                 )}
                                 {unpinnedNotes.length === 0 && pinnedNotes.length === 0 ? (
-                                    <div className="p-4 text-xs text-muted-foreground text-center">{t("noNotesYet")}</div>
+                                    <div className="flex flex-col items-center gap-3 px-4 py-8 text-center">
+                                        <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                                            <NotebookPen className="h-5 w-5" />
+                                        </div>
+                                        <div className="text-xs text-muted-foreground">{t("noNotesYet")}</div>
+                                        <Button
+                                            size="sm"
+                                            variant="outline"
+                                            onClick={() => createNote(null)}
+                                            className="h-8 text-xs cursor-pointer"
+                                        >
+                                            <Plus className="h-3.5 w-3.5 mr-1.5" />
+                                            New note
+                                        </Button>
+                                    </div>
                                 ) : (
                                     unpinnedNotes.slice(0, Math.max(0, displayCount - pinnedNotes.length)).map(note => (
                                         <NoteItem
@@ -567,8 +652,8 @@ export default function NotesSidebar() {
                                             note={note}
                                             level={0}
                                             childrenMap={childrenMap}
-                                            onDeleteClick={setNoteToDelete}
-                                            onMoveClick={setNoteToMove}
+                                            onDeleteClick={handleSetNoteToDelete}
+                                            onMoveClick={handleSetNoteToMove}
                                             expandedIds={expandedIds}
                                             onToggleExpand={toggleExpand}
                                             onExpandPath={expandPath}

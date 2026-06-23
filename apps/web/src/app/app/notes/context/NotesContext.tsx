@@ -6,6 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/database/firebase";
 import { useTranslations } from "next-intl";
 import { fetchAllPages } from "@/lib/fetch-all-pages";
+import { parseProxyResponse } from "@/lib/backend-auth";
 
 const BACKEND_BASE_URL: string =
     process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
@@ -15,6 +16,7 @@ const NOTES_PAGE_SIZE = 500;
 
 interface NotesData {
     notes: Note[];
+    noteById: Map<string, Note>;
     isLoading: boolean;
     isContentLoading: boolean;
 }
@@ -83,7 +85,7 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
                 }),
             });
 
-            const proxyData = await proxyRes.json();
+            const proxyData = await parseProxyResponse(proxyRes);
             if (proxyData.status < 200 || proxyData.status >= 300) {
                 throw new Error(proxyData.body || proxyData.statusText || "API request failed");
             }
@@ -212,16 +214,41 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     const deleteNote = useCallback(async (id: string) => {
         if (!userRef.current) return;
         await apiRequest<void>("DELETE", `/api/v1/notes/${id}?recursive=true`);
-        contentLoadedIds.current.delete(id);
-        if (activeNoteIdRef.current === id) {
+
+        // Local mutation: compute descendant set, prune in one pass — skip full refetch.
+        const childMap = new Map<string | null, string[]>();
+        for (const n of notesRef.current) {
+            const pid = n.parentId ?? null;
+            const arr = childMap.get(pid);
+            if (arr) arr.push(n.id);
+            else childMap.set(pid, [n.id]);
+        }
+        const toDelete = new Set<string>([id]);
+        const stack = [id];
+        while (stack.length) {
+            const cur = stack.pop()!;
+            const kids = childMap.get(cur);
+            if (!kids) continue;
+            for (const k of kids) {
+                if (!toDelete.has(k)) { toDelete.add(k); stack.push(k); }
+            }
+        }
+        for (const did of toDelete) contentLoadedIds.current.delete(did);
+        if (activeNoteIdRef.current && toDelete.has(activeNoteIdRef.current)) {
             setActiveNoteId(null);
         }
-        await refreshNotes();
-    }, [apiRequest, refreshNotes]);
+        setNotes((prev) => prev.filter((n) => !toDelete.has(n.id)));
+    }, [apiRequest]);
+
+    const noteById = useMemo(() => {
+        const map = new Map<string, Note>();
+        for (const n of notes) map.set(n.id, n);
+        return map;
+    }, [notes]);
 
     const dataValue = useMemo<NotesData>(
-        () => ({ notes, isLoading, isContentLoading }),
-        [notes, isLoading, isContentLoading]
+        () => ({ notes, noteById, isLoading, isContentLoading }),
+        [notes, noteById, isLoading, isContentLoading]
     );
 
     const uiValue = useMemo<NotesUI>(

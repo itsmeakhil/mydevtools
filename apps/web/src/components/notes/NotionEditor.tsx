@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useMemo, useCallback, useRef } from "react";
 import { useNotesData, useNotesUI, useNotesActions } from "@/app/app/notes/context/NotesContext";
 import { Editor, EditorProvider, createEmptyContent } from "@/components/ui/rich-editor";
-import { useDebouncedCallback } from "use-debounce";
+import { useDebounce, useDebouncedCallback } from "use-debounce";
 import { Input } from "@/components/ui/input";
 import { ContainerNode, EditorState } from "@/components/ui/rich-editor/types";
 import { storage } from "@/database/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import useAuth from "@/utils/useAuth";
 import { useTranslations } from "next-intl";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
     CheckCircle2,
@@ -21,6 +20,7 @@ import {
     Tag,
     X,
     Loader2,
+    ChevronRight,
 } from "lucide-react";
 import { serializeToHtml } from "@/components/ui/rich-editor/utils/serialize-to-html";
 import {
@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { contentToMarkdown, countWords, extractPlainText, readingTimeMinutes } from "@/app/app/notes/utils/noteContentUtils";
+import type { Note } from "@/app/app/notes/types/Note";
 
 function sanitizeFileName(name: string): string {
     return name
@@ -79,10 +80,10 @@ function TemplatePickerDialog({
 export default function NotionEditor() {
     const tEditor = useTranslations("Notes.editor");
     const tCtx = useTranslations("Notes.context");
-    const { notes, isContentLoading } = useNotesData();
-    const { activeNoteId, focusMode, setFocusMode } = useNotesUI();
+    const { noteById, isContentLoading } = useNotesData();
+    const { activeNoteId, focusMode, setActiveNoteId, setFocusMode } = useNotesUI();
     const { updateNote } = useNotesActions();
-    const activeNote = notes.find(n => n.id === activeNoteId);
+    const activeNote = activeNoteId ? noteById.get(activeNoteId) : undefined;
     const { user } = useAuth();
 
     const [title, setTitle] = useState("");
@@ -190,22 +191,21 @@ export default function NotionEditor() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeNoteId, editorKey]);
 
-    const activePath = useMemo(() => {
+    const activePath = useMemo<Note[]>(() => {
         if (!activeNote) return [];
-        const byId = new Map(notes.map((n) => [n.id, n]));
-        const path: typeof notes = [];
-        let cursor = activeNote;
+        const path: Note[] = [];
+        let cursor: Note | undefined = activeNote;
         const guard = new Set<string>();
         while (cursor && !guard.has(cursor.id)) {
             path.unshift(cursor);
             guard.add(cursor.id);
             if (!cursor.parentId) break;
-            const parent = byId.get(cursor.parentId);
+            const parent = noteById.get(cursor.parentId);
             if (!parent) break;
             cursor = parent;
         }
         return path;
-    }, [activeNote, notes]);
+    }, [activeNote, noteById]);
 
     const saveNow = useCallback(async () => {
         if (!activeNoteId) return;
@@ -226,13 +226,15 @@ export default function NotionEditor() {
         if (activeNoteId) debouncedUpdate(activeNoteId, { tags: next });
     }, [tags, activeNoteId, debouncedUpdate]);
 
-    // Word count from current in-memory content
+    // Defer word-count compute: heavy extractPlainText runs at most every 500ms
+    // instead of every keystroke.
+    const [debouncedContent] = useDebounce(currentContent, 500);
     const { wordCount, readTime } = useMemo(() => {
-        const src = currentContent ?? (activeNote?.content as ContainerNode | undefined);
+        const src = debouncedContent ?? (activeNote?.content as ContainerNode | undefined);
         const text = extractPlainText(src);
         const wc = countWords(text);
         return { wordCount: wc, readTime: readingTimeMinutes(wc) };
-    }, [currentContent, activeNote?.content]);
+    }, [debouncedContent, activeNote?.content]);
 
     const handleExportMarkdown = useCallback(() => {
         const src = currentContent ?? (activeNote?.content as ContainerNode | undefined);
@@ -299,8 +301,22 @@ export default function NotionEditor() {
 
     if (!activeNoteId) {
         return (
-            <div className="flex-1 flex items-center justify-center text-muted-foreground">
-                {tEditor("emptyState")}
+            <div className="flex-1 flex items-center justify-center p-6">
+                <div className="flex max-w-sm flex-col items-center gap-4 text-center">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary">
+                        <LayoutTemplate className="h-6 w-6" />
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                        {tEditor("emptyState")}
+                    </div>
+                    <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-muted-foreground">
+                        <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono">⌘K</kbd>
+                        <span>to search</span>
+                        <span className="text-muted-foreground/40">·</span>
+                        <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono">⌘⇧F</kbd>
+                        <span>focus mode</span>
+                    </div>
+                </div>
             </div>
         );
     }
@@ -314,32 +330,54 @@ export default function NotionEditor() {
                 focusMode ? "max-w-3xl" : "max-w-6xl"
             )}>
                 {/* Breadcrumb */}
-                {!focusMode && (
-                    <div className="mb-2 flex items-center gap-1.5 text-xs text-muted-foreground overflow-x-auto no-scrollbar">
-                        {activePath.map((node, index) => (
-                            <React.Fragment key={node.id}>
-                                <span className={index === activePath.length - 1 ? "text-foreground font-medium" : ""}>
-                                    {node.title || tEditor("titlePlaceholder")}
-                                </span>
-                                {index < activePath.length - 1 && <span>/</span>}
-                            </React.Fragment>
-                        ))}
-                    </div>
+                {!focusMode && activePath.length > 1 && (
+                    <nav className="mb-2 flex items-center gap-1 text-xs text-muted-foreground overflow-x-auto no-scrollbar" aria-label="Note path">
+                        {activePath.map((node, index) => {
+                            const isLast = index === activePath.length - 1;
+                            return (
+                                <React.Fragment key={node.id}>
+                                    {isLast ? (
+                                        <span className="text-foreground font-medium truncate max-w-[200px]">
+                                            {node.title || tEditor("titlePlaceholder")}
+                                        </span>
+                                    ) : (
+                                        <button
+                                            type="button"
+                                            onClick={() => setActiveNoteId(node.id)}
+                                            className="hover:text-foreground hover:underline cursor-pointer truncate max-w-[160px]"
+                                        >
+                                            {node.title || tEditor("titlePlaceholder")}
+                                        </button>
+                                    )}
+                                    {!isLast && <ChevronRight className="h-3 w-3 flex-shrink-0" />}
+                                </React.Fragment>
+                            );
+                        })}
+                    </nav>
                 )}
 
                 {/* Toolbar */}
-                <div className="mb-2 flex items-center gap-2 flex-wrap">
-                    <Badge variant="secondary" className="text-[10px]">
-                        {saveState === "saving" ? "Saving…" : saveState === "saved" ? "Saved" : "Ready"}
-                    </Badge>
-                    {lastSavedAt && (
-                        <span className="text-[10px] text-muted-foreground">
-                            {lastSavedAt.toLocaleTimeString()}
+                <div className="mb-2 flex items-center gap-3 flex-wrap text-[11px] text-muted-foreground">
+                    <span className="inline-flex items-center gap-1.5" aria-live="polite">
+                        <span
+                            className={cn(
+                                "h-1.5 w-1.5 rounded-full transition-colors",
+                                saveState === "saving" ? "bg-amber-500 animate-pulse"
+                                    : saveState === "saved" ? "bg-emerald-500"
+                                    : "bg-muted-foreground/40"
+                            )}
+                            aria-hidden
+                        />
+                        <span>
+                            {saveState === "saving"
+                                ? "Saving…"
+                                : saveState === "saved" && lastSavedAt
+                                    ? `Saved ${lastSavedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`
+                                    : "Ready"}
                         </span>
-                    )}
-                    {/* Word count */}
+                    </span>
                     {wordCount > 0 && (
-                        <span className="text-[10px] text-muted-foreground">
+                        <span aria-label={`${wordCount} words, ${readTime} minute read`}>
                             {wordCount} words · {readTime} min read
                         </span>
                     )}
@@ -350,7 +388,7 @@ export default function NotionEditor() {
                             type="button"
                             variant="ghost"
                             size="sm"
-                            className="h-7 text-xs gap-1.5"
+                            className="h-7 text-xs gap-1.5 cursor-pointer"
                             onClick={() => setTemplateDialogOpen(true)}
                             title="Apply template"
                         >
@@ -363,7 +401,7 @@ export default function NotionEditor() {
                             type="button"
                             variant="ghost"
                             size="sm"
-                            className="h-7 text-xs gap-1.5"
+                            className="h-7 text-xs gap-1.5 cursor-pointer"
                             onClick={handleExportMarkdown}
                             title="Export as Markdown"
                         >
@@ -376,7 +414,7 @@ export default function NotionEditor() {
                             type="button"
                             variant="ghost"
                             size="sm"
-                            className="h-7 text-xs gap-1.5"
+                            className="h-7 text-xs gap-1.5 cursor-pointer"
                             onClick={handleExportHtml}
                             title="Export as HTML"
                         >
@@ -389,7 +427,7 @@ export default function NotionEditor() {
                             type="button"
                             variant="ghost"
                             size="sm"
-                            className="h-7 text-xs gap-1.5"
+                            className="h-7 text-xs gap-1.5 cursor-pointer"
                             onClick={() => setFocusMode(!focusMode)}
                             title={focusMode ? "Exit focus mode (⌘⇧F)" : "Focus mode (⌘⇧F)"}
                         >
@@ -401,7 +439,7 @@ export default function NotionEditor() {
                             type="button"
                             variant="ghost"
                             size="sm"
-                            className="h-7 text-xs"
+                            className="h-7 text-xs cursor-pointer"
                             onClick={() => void saveNow()}
                         >
                             {saveState === "saved" ? <CheckCircle2 className="mr-1.5 h-3.5 w-3.5" /> : <Save className="mr-1.5 h-3.5 w-3.5" />}

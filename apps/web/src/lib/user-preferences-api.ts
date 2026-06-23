@@ -61,6 +61,9 @@ async function userPrefsRequest<T>(method: string, path: string, body?: unknown)
     if (status < 200 || status >= 300) {
         throw new Error(backendErrorMessage(data))
     }
+    if (data === null || data === undefined) {
+        throw new Error(`Empty response body from ${path} (status ${status})`)
+    }
     return data as T
 }
 

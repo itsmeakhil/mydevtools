@@ -129,7 +129,7 @@ function forceLogout(reason: "session-expired" | "unauthorized"): void {
 
 // ── Shared proxy helper (used by feature API libs) ─────────────────────────
 
-type ProxyResponse = {
+export type ProxyResponse = {
     status: number
     statusText: string
     headers: Record<string, string>
@@ -138,6 +138,24 @@ type ProxyResponse = {
     time: number
     size: number
     error?: string
+}
+
+/**
+ * Parse a `/api/proxy` Response into a ProxyResponse envelope.
+ * Throws a clear error when the proxy itself failed (e.g. dev pipe-lock 500
+ * with empty body), instead of letting `Response.json()` blow up with
+ * "Unexpected end of JSON input" and surface as unhandledRejection.
+ */
+export async function parseProxyResponse(res: Response): Promise<ProxyResponse> {
+    const text = await res.text().catch(() => "")
+    if (!res.ok && !text) {
+        throw new Error(`Proxy request failed: ${res.status} ${res.statusText || ""}`.trim())
+    }
+    try {
+        return JSON.parse(text) as ProxyResponse
+    } catch {
+        throw new Error(`Proxy returned non-JSON response (status ${res.status})`)
+    }
 }
 
 async function rawProxyJson<T>(
@@ -158,7 +176,7 @@ async function rawProxyJson<T>(
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url, method, headers: headersObj, body: proxyBody }),
     })
-    const proxyData = (await proxyRes.json()) as ProxyResponse
+    const proxyData = await parseProxyResponse(proxyRes)
     if (!proxyData.body) return { status: proxyData.status, data: null }
     try {
         return { status: proxyData.status, data: JSON.parse(proxyData.body) as T }

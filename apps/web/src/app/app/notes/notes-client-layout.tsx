@@ -19,10 +19,17 @@ function NotesLayout({ children }: { children: React.ReactNode }) {
 
             <main className="flex-1 h-full min-h-0 overflow-hidden relative flex flex-col pt-12 md:pt-0">
                 {!isDesktop && !focusMode && (
-                    <div className="absolute top-3 left-4 z-50">
+                    <div className="absolute top-3 left-3 z-50">
                         <Sheet>
                             <SheetTrigger asChild>
-                                <Button variant="ghost" size="icon" className="h-9 w-9" aria-label={t("openMenuAria")}><Menu className="h-5 w-5" /></Button>
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    className="h-9 w-9 rounded-full shadow-sm bg-background/80 backdrop-blur cursor-pointer"
+                                    aria-label={t("openMenuAria")}
+                                >
+                                    <Menu className="h-5 w-5" />
+                                </Button>
                             </SheetTrigger>
                             <SheetContent side="left" className="p-0 w-72">
                                 <SheetHeader className="sr-only">

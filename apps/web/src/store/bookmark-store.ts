@@ -2,6 +2,7 @@ import { useMemo } from "react"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 import { auth } from "@/database/firebase"
+import { parseProxyResponse } from "@/lib/backend-auth"
 
 const BACKEND_BASE_URL: string =
     process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
@@ -137,7 +138,7 @@ const proxyRequest = async <T,>(
         }),
     })
 
-    const proxyData = (await proxyRes.json()) as ProxyResponse
+    const proxyData = (await parseProxyResponse(proxyRes)) as ProxyResponse
     if (proxyData.status < 200 || proxyData.status >= 300) {
         throw new Error(proxyData.body || proxyData.statusText || proxyData.error || "Request failed")
     }

@@ -1,6 +1,7 @@
 import { auth } from "@/database/firebase";
 import { encryptData, decryptData } from "@/lib/encryption";
 import { toast } from "sonner";
+import { parseProxyResponse } from "@/lib/backend-auth";
 import { SavedSqlConnection, SqlConnectionConfig } from "./types";
 
 const BACKEND_BASE_URL: string =
@@ -37,7 +38,7 @@ async function proxyRequest<T>(method: string, path: string, body?: unknown): Pr
         body: JSON.stringify({ url, method, headers: headersObj, body: proxyBody }),
     });
 
-    const proxyData = (await proxyRes.json()) as ProxyResponse;
+    const proxyData = (await parseProxyResponse(proxyRes)) as ProxyResponse;
     if (proxyData.status < 200 || proxyData.status >= 300) {
         throw new Error(proxyData.body || proxyData.statusText || proxyData.error || "Request failed");
     }

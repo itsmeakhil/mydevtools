@@ -141,6 +141,11 @@ export async function POST(req: NextRequest) {
         const proxyController = new AbortController()
         const proxyTimeout = setTimeout(() => proxyController.abort(), PROXY_TIMEOUT_MS)
 
+        // Propagate client disconnect (Strict Mode unmount, navigation) to upstream so
+        // we don't keep reading a response no one will receive.
+        const onClientAbort = () => proxyController.abort()
+        req.signal.addEventListener("abort", onClientAbort, { once: true })
+
         const requestHeaders = { ...(headers || {}) } as Record<string, string>
 
         // ── Cookie forwarding: ONLY forward cookies to the trusted backend ───
@@ -192,7 +197,10 @@ export async function POST(req: NextRequest) {
             headers: requestHeaders,
             body: requestBody,
             signal: proxyController.signal,
-        }).finally(() => clearTimeout(proxyTimeout))
+        }).finally(() => {
+            clearTimeout(proxyTimeout)
+            req.signal.removeEventListener("abort", onClientAbort)
+        })
 
         const endTime = performance.now()
         const time = Math.round(endTime - startTime)
@@ -227,14 +235,20 @@ export async function POST(req: NextRequest) {
         })
 
     } catch (error) {
+        const err = error as Error
+        // Client aborted (Strict Mode unmount, navigation) — no point returning a body,
+        // and trying to write one triggers Next's "ReadableStream is locked" pipe error.
+        if (req.signal.aborted || err?.name === "AbortError") {
+            return new NextResponse(null, { status: 499 })
+        }
         return NextResponse.json({
             status: 0,
             statusText: "Error",
             headers: {},
-            body: (error as Error).message,
+            body: err.message,
             time: 0,
             size: 0,
-            error: (error as Error).message,
+            error: err.message,
         })
     }
 }
