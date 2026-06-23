@@ -2,10 +2,11 @@ import { requireBackendSession } from "@/lib/require-backend-session";
 import { NextResponse } from "next/server";
 import Redis from "ioredis";
 
-function makeClient(redisUrl: string) {
+function makeClient(redisUrl: string, db?: number) {
     return new Redis(redisUrl, {
         connectTimeout: 10000,
         lazyConnect: true,
+        db: typeof db === "number" ? db : undefined,
         tls: redisUrl.startsWith("rediss://") ? { rejectUnauthorized: false } : undefined,
     });
 }
@@ -15,13 +16,13 @@ export async function POST(request: Request) {
     if (authError) return authError;
 
     try {
-        const { redisUrl, key } = await request.json() as { redisUrl: string; key: string };
+        const { redisUrl, key, db } = await request.json() as { redisUrl: string; key: string; db?: number };
 
         if (!redisUrl || !key) {
             return NextResponse.json({ error: "redisUrl and key are required" }, { status: 400 });
         }
 
-        const client = makeClient(redisUrl);
+        const client = makeClient(redisUrl, db);
         await client.connect();
 
         const [type, ttl] = await Promise.all([client.type(key), client.ttl(key)]);
@@ -67,12 +68,13 @@ export async function PUT(request: Request) {
     if (authError) return authError;
 
     try {
-        const { redisUrl, key, type, value, ttl } = await request.json() as {
+        const { redisUrl, key, type, value, ttl, db } = await request.json() as {
             redisUrl: string;
             key: string;
             type: string;
             value: unknown;
             ttl?: number;
+            db?: number;
         };
 
         if (!redisUrl || !key || !type) {
@@ -82,7 +84,7 @@ export async function PUT(request: Request) {
             );
         }
 
-        const client = makeClient(redisUrl);
+        const client = makeClient(redisUrl, db);
         await client.connect();
 
         const pipeline = client.pipeline();
@@ -147,13 +149,13 @@ export async function DELETE(request: Request) {
     if (authError) return authError;
 
     try {
-        const { redisUrl, key } = await request.json() as { redisUrl: string; key: string };
+        const { redisUrl, key, db } = await request.json() as { redisUrl: string; key: string; db?: number };
 
         if (!redisUrl || !key) {
             return NextResponse.json({ error: "redisUrl and key are required" }, { status: 400 });
         }
 
-        const client = makeClient(redisUrl);
+        const client = makeClient(redisUrl, db);
         await client.connect();
         const deleted = await client.del(key);
         await client.quit();

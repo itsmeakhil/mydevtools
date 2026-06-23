@@ -13,6 +13,12 @@ import {
     IconLock,
     IconTrash,
     IconTerminal2,
+    IconActivity,
+    IconBroadcast,
+    IconEye,
+    IconChartBar,
+    IconFolder,
+    IconSearch,
 } from "@tabler/icons-react";
 import {
     Dialog,
@@ -45,6 +51,13 @@ import { ConnectionForm } from "@/components/redis-commander/connection-form";
 import { KeyBrowser } from "@/components/redis-commander/key-browser";
 import { ValueEditor } from "@/components/redis-commander/value-editor";
 import { CommandPanel } from "@/components/redis-commander/command-panel";
+import { ServerDashboard } from "@/components/redis-commander/server-dashboard";
+import { BulkActions } from "@/components/redis-commander/bulk-actions";
+import { PubSubPane } from "@/components/redis-commander/pubsub-pane";
+import { MonitorPane } from "@/components/redis-commander/monitor-pane";
+import { ScannerPane } from "@/components/redis-commander/scanner-pane";
+import { MetricsPane } from "@/components/redis-commander/metrics-pane";
+import { SearchWorkbench } from "@/components/redis-commander/search-workbench";
 import { getConnections, touchConnection } from "@/components/redis-commander/connection-service";
 import { SavedRedisConnection, RedisTab } from "@/components/redis-commander/types";
 import { cn } from "@/lib/utils";
@@ -70,6 +83,9 @@ export default function RedisCommanderPage() {
     const [selectedKey, setSelectedKey] = useState<string | null>(null);
     const [dbSize, setDbSize] = useState(0);
     const [refreshKeysTick, setRefreshKeysTick] = useState(0);
+    // ponytail: per-tab db index kept in a map keyed by tabId; lost on tab close, which is fine
+    const [dbByTab, setDbByTab] = useState<Record<string, number>>({});
+    const activeDb = activeTabId ? dbByTab[activeTabId] ?? 0 : 0;
 
     // Flush dialog
     const [flushDialogOpen, setFlushDialogOpen] = useState(false);
@@ -86,11 +102,11 @@ export default function RedisCommanderPage() {
             .catch(() => {});
     }, [user, encryptionKey, isInitialized]);
 
-    // Reset per-tab state when tab changes
+    // Reset per-tab state when tab or active db changes
     useEffect(() => {
         setSelectedKey(null);
         setDbSize(0);
-    }, [activeTabId]);
+    }, [activeTabId, activeDb]);
 
     function openConnection(conn: SavedRedisConnection) {
         if (!conn.config) return;
@@ -134,6 +150,7 @@ export default function RedisCommanderPage() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     redisUrl: activeTab.redisUrl,
+                    db: activeDb,
                     pattern: flushPattern.trim() || undefined,
                 }),
             });
@@ -177,7 +194,7 @@ export default function RedisCommanderPage() {
                     <IconPlus className="size-4" />
                 </Button>
             </div>
-            <div className="flex-1 overflow-auto p-2 space-y-1">
+            <div className="flex-1 overflow-auto p-2 space-y-2">
                 {connections.length === 0 && (
                     <div className="py-6 text-center text-xs text-muted-foreground">
                         No saved connections.
@@ -190,25 +207,50 @@ export default function RedisCommanderPage() {
                         </button>
                     </div>
                 )}
-                {connections.map((conn) => {
-                    const isOpen = tabs.some((t) => t.connectionId === conn.id);
-                    return (
-                        <button
-                            key={conn.id}
-                            onClick={() => openConnection(conn)}
-                            className={cn(
-                                "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm text-left transition-colors hover:bg-accent",
-                                isOpen && "bg-accent"
+                {(() => {
+                    // Group by folder name (empty = ungrouped, render last)
+                    const groups = new Map<string, typeof connections>();
+                    for (const c of connections) {
+                        const f = c.config?.folder?.trim() || "";
+                        const list = groups.get(f) ?? [];
+                        list.push(c);
+                        groups.set(f, list);
+                    }
+                    const sorted = [...groups.entries()].sort(([a], [b]) => {
+                        if (a === "") return 1;
+                        if (b === "") return -1;
+                        return a.localeCompare(b);
+                    });
+                    return sorted.map(([folderName, list]) => (
+                        <div key={folderName || "__ungrouped"} className="space-y-1">
+                            {folderName && (
+                                <div className="flex items-center gap-1 px-2 text-[10px] uppercase text-muted-foreground">
+                                    <IconFolder className="size-3" />
+                                    {folderName}
+                                </div>
                             )}
-                        >
-                            <IconBrandRedux className="size-4 shrink-0 text-red-500" />
-                            <span className="flex-1 truncate">{conn.name}</span>
-                            {isOpen && (
-                                <span className="size-1.5 rounded-full bg-green-500 shrink-0" />
-                            )}
-                        </button>
-                    );
-                })}
+                            {list.map((conn) => {
+                                const isOpen = tabs.some((t) => t.connectionId === conn.id);
+                                return (
+                                    <button
+                                        key={conn.id}
+                                        onClick={() => openConnection(conn)}
+                                        className={cn(
+                                            "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm text-left transition-colors hover:bg-accent",
+                                            isOpen && "bg-accent"
+                                        )}
+                                    >
+                                        <IconBrandRedux className="size-4 shrink-0 text-red-500" />
+                                        <span className="flex-1 truncate">{conn.name}</span>
+                                        {isOpen && (
+                                            <span className="size-1.5 rounded-full bg-green-500 shrink-0" />
+                                        )}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    ));
+                })()}
             </div>
         </div>
     );
@@ -258,7 +300,32 @@ export default function RedisCommanderPage() {
                         </div>
                     ))}
                     {activeTab && (
-                        <div className="ml-auto flex items-center gap-1 px-2 shrink-0">
+                        <div className="ml-auto flex items-center gap-2 px-2 shrink-0">
+                            <label className="flex items-center gap-1 text-xs text-muted-foreground">
+                                DB
+                                <select
+                                    value={activeDb}
+                                    onChange={(e) =>
+                                        setDbByTab((prev) => ({
+                                            ...prev,
+                                            [activeTab.id]: parseInt(e.target.value, 10),
+                                        }))
+                                    }
+                                    className="h-7 rounded border bg-background px-1 text-xs font-mono"
+                                    title="Select database (0-15)"
+                                >
+                                    {Array.from({ length: 16 }, (_, i) => (
+                                        <option key={i} value={i}>
+                                            {i}
+                                        </option>
+                                    ))}
+                                </select>
+                            </label>
+                            <BulkActions
+                                redisUrl={activeTab.redisUrl}
+                                db={activeDb}
+                                onChanged={handleRefreshKeys}
+                            />
                             <Button
                                 size="sm"
                                 variant="outline"
@@ -278,8 +345,9 @@ export default function RedisCommanderPage() {
                         <ResizablePanelGroup direction="horizontal" className="h-full">
                             <ResizablePanel defaultSize={22} minSize={16} maxSize={40}>
                                 <KeyBrowser
-                                    key={`${activeTab.id}-${refreshKeysTick}`}
+                                    key={`${activeTab.id}-${activeDb}-${refreshKeysTick}`}
                                     redisUrl={activeTab.redisUrl}
+                                    db={activeDb}
                                     selectedKey={selectedKey}
                                     onSelectKey={setSelectedKey}
                                     dbSize={dbSize}
@@ -304,20 +372,89 @@ export default function RedisCommanderPage() {
                                             <IconTerminal2 className="mr-1.5 size-3.5" />
                                             Console
                                         </TabsTrigger>
+                                        <TabsTrigger
+                                            value="dashboard"
+                                            className="h-8 rounded-none border-r px-3 text-xs data-[state=active]:bg-accent data-[state=active]:shadow-none"
+                                        >
+                                            <IconActivity className="mr-1.5 size-3.5" />
+                                            Server
+                                        </TabsTrigger>
+                                        <TabsTrigger
+                                            value="pubsub"
+                                            className="h-8 rounded-none border-r px-3 text-xs data-[state=active]:bg-accent data-[state=active]:shadow-none"
+                                        >
+                                            <IconBroadcast className="mr-1.5 size-3.5" />
+                                            Pub/Sub
+                                        </TabsTrigger>
+                                        <TabsTrigger
+                                            value="monitor"
+                                            className="h-8 rounded-none border-r px-3 text-xs data-[state=active]:bg-accent data-[state=active]:shadow-none"
+                                        >
+                                            <IconEye className="mr-1.5 size-3.5" />
+                                            Monitor
+                                        </TabsTrigger>
+                                        <TabsTrigger
+                                            value="scanner"
+                                            className="h-8 rounded-none border-r px-3 text-xs data-[state=active]:bg-accent data-[state=active]:shadow-none"
+                                        >
+                                            <IconChartBar className="mr-1.5 size-3.5" />
+                                            Scanner
+                                        </TabsTrigger>
+                                        <TabsTrigger
+                                            value="search"
+                                            className="h-8 rounded-none border-r px-3 text-xs data-[state=active]:bg-accent data-[state=active]:shadow-none"
+                                        >
+                                            <IconSearch className="mr-1.5 size-3.5" />
+                                            Search
+                                        </TabsTrigger>
                                     </TabsList>
                                     <TabsContent value="editor" className="flex-1 min-h-0 mt-0">
                                         <ValueEditor
                                             redisUrl={activeTab.redisUrl}
+                                            db={activeDb}
                                             selectedKey={selectedKey}
                                             onKeyDeleted={(k) => {
                                                 if (selectedKey === k) setSelectedKey(null);
                                                 handleRefreshKeys();
                                             }}
+                                            onKeyRenamed={(oldKey, newKey) => {
+                                                if (selectedKey === oldKey) setSelectedKey(newKey);
+                                            }}
                                             onRefreshKeys={handleRefreshKeys}
                                         />
                                     </TabsContent>
                                     <TabsContent value="console" className="flex-1 min-h-0 mt-0">
-                                        <CommandPanel redisUrl={activeTab.redisUrl} />
+                                        <CommandPanel
+                                            redisUrl={activeTab.redisUrl}
+                                            db={activeDb}
+                                            connectionId={activeTab.connectionId}
+                                        />
+                                    </TabsContent>
+                                    <TabsContent value="dashboard" className="flex-1 min-h-0 mt-0 overflow-auto">
+                                        <div className="p-3 border-b">
+                                            <MetricsPane redisUrl={activeTab.redisUrl} db={activeDb} />
+                                        </div>
+                                        <ServerDashboard redisUrl={activeTab.redisUrl} db={activeDb} />
+                                    </TabsContent>
+                                    <TabsContent value="pubsub" className="flex-1 min-h-0 mt-0">
+                                        <PubSubPane redisUrl={activeTab.redisUrl} db={activeDb} />
+                                    </TabsContent>
+                                    <TabsContent value="monitor" className="flex-1 min-h-0 mt-0">
+                                        <MonitorPane redisUrl={activeTab.redisUrl} db={activeDb} />
+                                    </TabsContent>
+                                    <TabsContent value="scanner" className="flex-1 min-h-0 mt-0">
+                                        <ScannerPane
+                                            redisUrl={activeTab.redisUrl}
+                                            db={activeDb}
+                                            onSelectKey={setSelectedKey}
+                                        />
+                                    </TabsContent>
+                                    <TabsContent value="search" className="flex-1 min-h-0 mt-0">
+                                        <SearchWorkbench
+                                            redisUrl={activeTab.redisUrl}
+                                            db={activeDb}
+                                            onSelectKey={setSelectedKey}
+                                        />
                                     </TabsContent>
                                 </Tabs>
                             </ResizablePanel>

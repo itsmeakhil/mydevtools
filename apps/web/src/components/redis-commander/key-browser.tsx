@@ -5,12 +5,23 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { IconSearch, IconRefresh, IconChevronRight, IconDatabase } from "@tabler/icons-react";
+import {
+    IconSearch,
+    IconRefresh,
+    IconChevronRight,
+    IconDatabase,
+    IconList,
+    IconBinaryTree2,
+} from "@tabler/icons-react";
 import { RedisKeyInfo, RedisValueType, SearchMode } from "./types";
 import { cn } from "@/lib/utils";
 import { detectSearchMode, globMatch, regexMatch, fuzzyMatch, getMatchIndices } from "./search-utils";
 import { SearchBar } from "./search-bar";
 import { AdvancedSearchPanel } from "./advanced-search-panel";
+import { KeyTreeView } from "./key-tree-view";
+
+const SEPARATORS = [":", "/", "."] as const;
+type ViewMode = "list" | "tree";
 
 const TYPE_COLORS: Record<RedisValueType | string, string> = {
     string: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
@@ -78,6 +89,7 @@ interface SearchState {
 
 interface KeyBrowserProps {
     redisUrl: string;
+    db: number;
     selectedKey: string | null;
     onSelectKey: (key: string) => void;
     dbSize: number;
@@ -86,11 +98,17 @@ interface KeyBrowserProps {
 
 export function KeyBrowser({
     redisUrl,
+    db,
     selectedKey,
     onSelectKey,
     dbSize,
     onDbSizeChange,
 }: KeyBrowserProps) {
+    const [viewMode, setViewMode] = useState<ViewMode>("tree");
+    const [separator, setSeparator] = useState<string>(":");
+    const [pageSize, setPageSize] = useState<number>(200);
+    const [loadAllBusy, setLoadAllBusy] = useState(false);
+    const [autoRefresh, setAutoRefresh] = useState(false);
     const [pattern, setPattern] = useState("*");
     const [allKeys, setAllKeys] = useState<RedisKeyInfo[]>([]);
     const [displayedKeys, setDisplayedKeys] = useState<RedisKeyInfo[]>([]);
@@ -243,9 +261,10 @@ export function KeyBrowser({
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         redisUrl,
+                        db,
                         pattern,
                         cursor: currentCursor,
-                        count: 200,
+                        count: pageSize,
                     }),
                 });
                 const data = (await res.json()) as {
@@ -295,17 +314,17 @@ export function KeyBrowser({
                 setLoading(false);
             }
         },
-        [redisUrl, pattern, onDbSizeChange, searchState.input, searchState.userModeOverride, searchState.detectedMode]
+        [redisUrl, db, pattern, pageSize, onDbSizeChange, searchState.input, searchState.userModeOverride, searchState.detectedMode]
     );
 
-    // Reset on redisUrl change
+    // Reset on redisUrl / db change
     useEffect(() => {
         cursorRef.current = "0";
         setAllKeys([]);
         setDisplayedKeys([]);
         setHasMore(false);
         fetchPage(true);
-    }, [redisUrl]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [redisUrl, db]); // eslint-disable-line react-hooks/exhaustive-deps
 
     // Infinite scroll via IntersectionObserver
     useEffect(() => {
@@ -323,10 +342,10 @@ export function KeyBrowser({
         return () => observer.disconnect();
     }, [hasMore, fetchPage]);
 
-    // Clear search when connection changes
+    // Clear search when connection or db changes
     useEffect(() => {
         handleClearSearch();
-    }, [redisUrl, handleClearSearch]);
+    }, [redisUrl, db, handleClearSearch]);
 
     function handleSearch() {
         cursorRef.current = "0";
@@ -335,6 +354,20 @@ export function KeyBrowser({
         setHasMore(false);
         fetchPage(true);
     }
+
+    // Auto-refresh: poll keys every 5s without resetting cursor accumulation
+    useEffect(() => {
+        if (!autoRefresh) return;
+        const id = setInterval(() => {
+            if (loadingRef.current) return;
+            cursorRef.current = "0";
+            setAllKeys([]);
+            setDisplayedKeys([]);
+            setHasMore(false);
+            fetchPage(true);
+        }, 5000);
+        return () => clearInterval(id);
+    }, [autoRefresh, fetchPage]);
 
     return (
         <div className="flex h-full flex-col">
@@ -379,8 +412,35 @@ export function KeyBrowser({
                     <span className="mx-1">·</span>
                     <span>{allKeys.length} loaded</span>
                     {searchState.input && (
-                        <span className="ml-auto">{searchState.matchCount} match</span>
+                        <span className="ml-1">{searchState.matchCount} match</span>
                     )}
+                    <div className="ml-auto flex items-center gap-1">
+                        <button
+                            onClick={() => setViewMode(viewMode === "tree" ? "list" : "tree")}
+                            className="flex items-center gap-1 rounded px-1.5 py-0.5 hover:bg-accent transition-colors"
+                            title={viewMode === "tree" ? "Switch to list" : "Switch to tree"}
+                        >
+                            {viewMode === "tree" ? (
+                                <IconBinaryTree2 className="size-3" />
+                            ) : (
+                                <IconList className="size-3" />
+                            )}
+                        </button>
+                        {viewMode === "tree" && (
+                            <select
+                                value={separator}
+                                onChange={(e) => setSeparator(e.target.value)}
+                                className="h-5 rounded border bg-background px-1 text-[10px] font-mono"
+                                title="Tree separator"
+                            >
+                                {SEPARATORS.map((s) => (
+                                    <option key={s} value={s}>
+                                        {s}
+                                    </option>
+                                ))}
+                            </select>
+                        )}
+                    </div>
                 </div>
             </div>
 
@@ -403,7 +463,16 @@ export function KeyBrowser({
                         )}
                     </div>
                 )}
-                <div className="p-1">
+                {viewMode === "tree" && displayedKeys.length > 0 && (
+                    <KeyTreeView
+                        keys={displayedKeys}
+                        separator={separator}
+                        selectedKey={selectedKey}
+                        onSelectKey={onSelectKey}
+                        matchedKeys={searchState.input ? displayedKeys.map((k) => k.key) : null}
+                    />
+                )}
+                <div className={cn("p-1", viewMode === "tree" && "hidden")}>
                     {displayedKeys.map((item) => {
                         const highlightIndices = searchState.input
                             ? getMatchIndices(item.key, searchState.input, searchState.userModeOverride || searchState.detectedMode)
@@ -456,7 +525,52 @@ export function KeyBrowser({
                         All {allKeys.length} keys loaded
                     </div>
                 )}
+                {hasMore && !loading && (
+                    <div className="flex justify-center pb-2">
+                        <Button
+                            size="sm"
+                            variant="outline"
+                            className="h-6 text-[10px]"
+                            disabled={loadAllBusy}
+                            onClick={async () => {
+                                setLoadAllBusy(true);
+                                try {
+                                    // ponytail: bounded loop — cursor terminates at "0"
+                                    while (cursorRef.current !== "0") {
+                                        await fetchPage(false);
+                                    }
+                                } finally {
+                                    setLoadAllBusy(false);
+                                }
+                            }}
+                        >
+                            {loadAllBusy ? "Loading…" : "Load all remaining"}
+                        </Button>
+                    </div>
+                )}
             </ScrollArea>
+
+            <div className="flex items-center gap-2 border-t px-3 py-1 text-[10px] text-muted-foreground">
+                <span>Page</span>
+                <select
+                    value={pageSize}
+                    onChange={(e) => setPageSize(parseInt(e.target.value, 10))}
+                    className="h-5 rounded border bg-background px-1 font-mono"
+                    title="SCAN COUNT hint"
+                >
+                    {[100, 200, 500, 1000].map((n) => (
+                        <option key={n} value={n}>{n}</option>
+                    ))}
+                </select>
+                <label className="ml-auto flex items-center gap-1 cursor-pointer">
+                    <input
+                        type="checkbox"
+                        checked={autoRefresh}
+                        onChange={(e) => setAutoRefresh(e.target.checked)}
+                    />
+                    Auto-refresh 5s
+                </label>
+            </div>
         </div>
     );
 }

@@ -9,9 +9,10 @@ export async function POST(request: Request) {
     if (authError) return authError;
 
     try {
-        const { redisUrl, pattern } = await request.json() as {
+        const { redisUrl, pattern, db } = await request.json() as {
             redisUrl: string;
             pattern?: string;
+            db?: number;
         };
 
         if (!redisUrl) {
@@ -33,6 +34,7 @@ export async function POST(request: Request) {
         const client = new Redis(redisUrl, {
             connectTimeout: 10000,
             lazyConnect: true,
+            db: typeof db === "number" ? db : undefined,
             tls: redisUrl.startsWith("rediss://") ? { rejectUnauthorized: false } : undefined,
         });
 

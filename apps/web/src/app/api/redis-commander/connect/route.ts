@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     if (authError) return authError;
 
     try {
-        const { redisUrl } = await request.json();
+        const { redisUrl, db } = await request.json() as { redisUrl: string; db?: number };
 
         if (!redisUrl) {
             return NextResponse.json({ error: "redisUrl is required" }, { status: 400 });
@@ -23,6 +23,7 @@ export async function POST(request: Request) {
         const client = new Redis(redisUrl, {
             connectTimeout: 10000,
             lazyConnect: true,
+            db: typeof db === "number" ? db : undefined,
             tls: redisUrl.startsWith("rediss://") ? { rejectUnauthorized: false } : undefined,
         });
 

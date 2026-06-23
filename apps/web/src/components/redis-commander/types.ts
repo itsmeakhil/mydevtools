@@ -1,4 +1,4 @@
-export type RedisValueType = "string" | "list" | "set" | "zset" | "hash" | "none";
+export type RedisValueType = "string" | "list" | "set" | "zset" | "hash" | "stream" | "ReJSON-RL" | "none";
 
 /**
  * Search mode type for Redis key searching
@@ -34,6 +34,8 @@ export interface SearchState {
 
 export interface RedisConnectionConfig {
     redisUrl: string;
+    /** Optional folder for sidebar grouping; lives in encrypted blob so it round-trips with the config. */
+    folder?: string;
 }
 
 export interface SavedRedisConnection {
@@ -43,6 +45,8 @@ export interface SavedRedisConnection {
     encryptedData: string;
     iv: string;
     name: string;
+    /** Optional folder for grouping in sidebar; empty = ungrouped. */
+    folder?: string;
     createdAt: number;
     lastUsedAt: number;
     /** Populated client-side after decryption — never sent to the server. */

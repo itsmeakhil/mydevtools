@@ -6,23 +6,58 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+    Dialog,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { IconDeviceFloppy, IconTrash, IconClock, IconRefresh } from "@tabler/icons-react";
+import {
+    IconDeviceFloppy,
+    IconTrash,
+    IconClock,
+    IconRefresh,
+    IconEdit,
+    IconCopy,
+} from "@tabler/icons-react";
 import { RedisKeyDetail, ZSetMember } from "./types";
 import { cn } from "@/lib/utils";
+import { decode, DECODER_LABELS, type DecoderKind } from "./value-decoders";
+import { StreamEditor } from "./stream-editor";
+import { JsonEditor } from "./json-editor";
+import { TimeSeriesViewer } from "./timeseries-viewer";
+
+const TTL_PRESETS: { label: string; seconds: number }[] = [
+    { label: "60s", seconds: 60 },
+    { label: "1h", seconds: 3600 },
+    { label: "1d", seconds: 86400 },
+    { label: "1w", seconds: 604800 },
+];
+const DECODERS: DecoderKind[] = ["plain", "json", "hex", "base64"];
 
 interface ValueEditorProps {
     redisUrl: string;
+    db: number;
     selectedKey: string | null;
     onKeyDeleted: (key: string) => void;
+    onKeyRenamed?: (oldKey: string, newKey: string) => void;
     onRefreshKeys: () => void;
 }
 
-export function ValueEditor({ redisUrl, selectedKey, onKeyDeleted, onRefreshKeys }: ValueEditorProps) {
+export function ValueEditor({ redisUrl, db, selectedKey, onKeyDeleted, onKeyRenamed, onRefreshKeys }: ValueEditorProps) {
     const [detail, setDetail] = useState<RedisKeyDetail | null>(null);
     const [loading, setLoading] = useState(false);
     const [saving, setSaving] = useState(false);
     const [ttlInput, setTtlInput] = useState("");
+    const [renameOpen, setRenameOpen] = useState(false);
+    const [copyOpen, setCopyOpen] = useState(false);
+    const [targetKey, setTargetKey] = useState("");
+    const [overwrite, setOverwrite] = useState(false);
+    const [actionBusy, setActionBusy] = useState(false);
+    const [decoder, setDecoder] = useState<DecoderKind>("plain");
 
     // String edit state
     const [stringVal, setStringVal] = useState("");
@@ -40,7 +75,7 @@ export function ValueEditor({ redisUrl, selectedKey, onKeyDeleted, onRefreshKeys
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ redisUrl, key }),
+                body: JSON.stringify({ redisUrl, db, key }),
             });
             const data = await res.json() as RedisKeyDetail & { error?: string };
             if (data.error) throw new Error(data.error);
@@ -77,7 +112,7 @@ export function ValueEditor({ redisUrl, selectedKey, onKeyDeleted, onRefreshKeys
     useEffect(() => {
         if (selectedKey) loadKey(selectedKey);
         else setDetail(null);
-    }, [selectedKey, redisUrl]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [selectedKey, redisUrl, db]); // eslint-disable-line react-hooks/exhaustive-deps
 
     async function handleSave() {
         if (!detail) return;
@@ -106,7 +141,7 @@ export function ValueEditor({ redisUrl, selectedKey, onKeyDeleted, onRefreshKeys
                 method: "PUT",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ redisUrl, key: detail.key, type: detail.type, value, ttl }),
+                body: JSON.stringify({ redisUrl, db, key: detail.key, type: detail.type, value, ttl }),
             });
             const data = await res.json() as { success?: boolean; error?: string };
             if (data.error) throw new Error(data.error);
@@ -126,7 +161,7 @@ export function ValueEditor({ redisUrl, selectedKey, onKeyDeleted, onRefreshKeys
                 method: "DELETE",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ redisUrl, key: detail.key }),
+                body: JSON.stringify({ redisUrl, db, key: detail.key }),
             });
             const data = await res.json() as { deleted?: number; error?: string };
             if (data.error) throw new Error(data.error);
@@ -136,6 +171,74 @@ export function ValueEditor({ redisUrl, selectedKey, onKeyDeleted, onRefreshKeys
         } catch (err) {
             toast.error(err instanceof Error ? err.message : "Delete failed");
         }
+    }
+
+    async function handleRename() {
+        if (!detail) return;
+        const newKey = targetKey.trim();
+        if (!newKey || newKey === detail.key) return;
+        setActionBusy(true);
+        try {
+            const res = await fetch("/api/redis-commander/key/rename", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ redisUrl, db, key: detail.key, newKey, overwrite }),
+            });
+            const data = await res.json() as { success?: boolean; error?: string };
+            if (data.error) throw new Error(data.error);
+            const oldKey = detail.key;
+            toast.success(`Renamed to ${newKey}`);
+            setRenameOpen(false);
+            setTargetKey("");
+            setOverwrite(false);
+            onKeyRenamed?.(oldKey, newKey);
+            onRefreshKeys();
+        } catch (err) {
+            toast.error(err instanceof Error ? err.message : "Rename failed");
+        } finally {
+            setActionBusy(false);
+        }
+    }
+
+    async function handleCopy() {
+        if (!detail) return;
+        const destination = targetKey.trim();
+        if (!destination || destination === detail.key) return;
+        setActionBusy(true);
+        try {
+            const res = await fetch("/api/redis-commander/key/copy", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ redisUrl, db, key: detail.key, destination, overwrite }),
+            });
+            const data = await res.json() as { success?: boolean; error?: string };
+            if (data.error) throw new Error(data.error);
+            toast.success(`Copied to ${destination}`);
+            setCopyOpen(false);
+            setTargetKey("");
+            setOverwrite(false);
+            onRefreshKeys();
+        } catch (err) {
+            toast.error(err instanceof Error ? err.message : "Copy failed");
+        } finally {
+            setActionBusy(false);
+        }
+    }
+
+    function openRename() {
+        if (!detail) return;
+        setTargetKey(detail.key);
+        setOverwrite(false);
+        setRenameOpen(true);
+    }
+
+    function openCopy() {
+        if (!detail) return;
+        setTargetKey(`${detail.key}:copy`);
+        setOverwrite(false);
+        setCopyOpen(true);
     }
 
     if (!selectedKey) {
@@ -184,21 +287,41 @@ export function ValueEditor({ redisUrl, selectedKey, onKeyDeleted, onRefreshKeys
                     <Button
                         size="icon"
                         variant="ghost"
+                        className="size-7"
+                        onClick={openRename}
+                        title="Rename key"
+                    >
+                        <IconEdit className="size-3.5" />
+                    </Button>
+                    <Button
+                        size="icon"
+                        variant="ghost"
+                        className="size-7"
+                        onClick={openCopy}
+                        title="Duplicate key (COPY)"
+                    >
+                        <IconCopy className="size-3.5" />
+                    </Button>
+                    <Button
+                        size="icon"
+                        variant="ghost"
                         className="size-7 text-destructive hover:text-destructive"
                         onClick={handleDelete}
                         title="Delete key"
                     >
                         <IconTrash className="size-3.5" />
                     </Button>
-                    <Button size="sm" className="h-7 text-xs gap-1" onClick={handleSave} disabled={saving}>
-                        <IconDeviceFloppy className="size-3.5" />
-                        {saving ? "Saving…" : "Save"}
-                    </Button>
+                    {(detail.type as string) !== "stream" && (detail.type as string) !== "ReJSON-RL" && (detail.type as string) !== "TSDB-TYPE" && (
+                        <Button size="sm" className="h-7 text-xs gap-1" onClick={handleSave} disabled={saving}>
+                            <IconDeviceFloppy className="size-3.5" />
+                            {saving ? "Saving…" : "Save"}
+                        </Button>
+                    )}
                 </div>
             </div>
 
             <div className="flex-1 overflow-auto p-4 space-y-4">
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                     <Label className="w-12 shrink-0 text-xs">TTL (s)</Label>
                     <Input
                         placeholder="-1 = no expiry"
@@ -206,16 +329,58 @@ export function ValueEditor({ redisUrl, selectedKey, onKeyDeleted, onRefreshKeys
                         onChange={(e) => setTtlInput(e.target.value)}
                         className="h-7 w-32 text-xs font-mono"
                     />
+                    <div className="flex items-center gap-1">
+                        {TTL_PRESETS.map((p) => (
+                            <Button
+                                key={p.label}
+                                size="sm"
+                                variant="outline"
+                                className="h-6 px-2 text-[10px]"
+                                onClick={() => setTtlInput(String(p.seconds))}
+                                type="button"
+                            >
+                                {p.label}
+                            </Button>
+                        ))}
+                        <Button
+                            size="sm"
+                            variant="outline"
+                            className="h-6 px-2 text-[10px]"
+                            onClick={() => setTtlInput("-1")}
+                            type="button"
+                            title="PERSIST (remove TTL)"
+                        >
+                            persist
+                        </Button>
+                    </div>
                 </div>
 
                 {detail.type === "string" && (
                     <div className="space-y-1.5">
-                        <Label className="text-xs">Value</Label>
-                        <Textarea
-                            value={stringVal}
-                            onChange={(e) => setStringVal(e.target.value)}
-                            className="font-mono text-xs min-h-[200px] resize-y"
-                        />
+                        <div className="flex items-center justify-between">
+                            <Label className="text-xs">Value</Label>
+                            <div className="flex items-center gap-1 text-[10px]">
+                                <span className="text-muted-foreground">View</span>
+                                <select
+                                    value={decoder}
+                                    onChange={(e) => setDecoder(e.target.value as DecoderKind)}
+                                    className="h-5 rounded border bg-background px-1 font-mono"
+                                >
+                                    {DECODERS.map((d) => (
+                                        <option key={d} value={d}>{DECODER_LABELS[d]}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+                        {decoder === "plain" ? (
+                            <Textarea
+                                value={stringVal}
+                                onChange={(e) => setStringVal(e.target.value)}
+                                className="font-mono text-xs min-h-[200px] resize-y"
+                            />
+                        ) : (
+                            <DecodedView raw={stringVal} kind={decoder} />
+                        )}
                     </div>
                 )}
 
@@ -312,6 +477,37 @@ export function ValueEditor({ redisUrl, selectedKey, onKeyDeleted, onRefreshKeys
                     </div>
                 )}
 
+                {/* Streams + RedisJSON render their own editors below the TTL row */}
+                {(detail.type as string) === "stream" && (
+                    <div className="h-[400px] -mx-4 -mb-4 border-t">
+                        <StreamEditor
+                            redisUrl={redisUrl}
+                            db={db}
+                            streamKey={detail.key}
+                            onRefresh={onRefreshKeys}
+                        />
+                    </div>
+                )}
+                {(detail.type as string) === "ReJSON-RL" && (
+                    <div className="h-[400px] -mx-4 -mb-4 border-t">
+                        <JsonEditor
+                            redisUrl={redisUrl}
+                            db={db}
+                            keyName={detail.key}
+                            onChanged={onRefreshKeys}
+                        />
+                    </div>
+                )}
+                {(detail.type as string) === "TSDB-TYPE" && (
+                    <div className="h-[480px] -mx-4 -mb-4 border-t">
+                        <TimeSeriesViewer
+                            redisUrl={redisUrl}
+                            db={db}
+                            keyName={detail.key}
+                        />
+                    </div>
+                )}
+
                 {detail.type === "hash" && (
                     <div className="space-y-2">
                         <div className="flex items-center justify-between">
@@ -362,6 +558,123 @@ export function ValueEditor({ redisUrl, selectedKey, onKeyDeleted, onRefreshKeys
                     </div>
                 )}
             </div>
+
+            <RenameOrCopyDialog
+                open={renameOpen}
+                onOpenChange={setRenameOpen}
+                title="Rename key"
+                actionLabel="Rename"
+                sourceKey={detail.key}
+                targetKey={targetKey}
+                onTargetKeyChange={setTargetKey}
+                overwrite={overwrite}
+                onOverwriteChange={setOverwrite}
+                busy={actionBusy}
+                onConfirm={handleRename}
+            />
+            <RenameOrCopyDialog
+                open={copyOpen}
+                onOpenChange={setCopyOpen}
+                title="Duplicate key"
+                actionLabel="Copy"
+                sourceKey={detail.key}
+                targetKey={targetKey}
+                onTargetKeyChange={setTargetKey}
+                overwrite={overwrite}
+                onOverwriteChange={setOverwrite}
+                busy={actionBusy}
+                onConfirm={handleCopy}
+            />
         </div>
+    );
+}
+
+function DecodedView({ raw, kind }: { raw: string; kind: DecoderKind }) {
+    const result = decode(raw, kind);
+    return (
+        <div className="space-y-1">
+            {result.error && (
+                <div className="text-[10px] text-destructive">{result.error}</div>
+            )}
+            <Textarea
+                value={result.text}
+                readOnly
+                className="font-mono text-xs min-h-[200px] resize-y bg-muted/30"
+            />
+            <div className="text-[10px] text-muted-foreground">
+                Read-only preview — switch to Plain to edit
+            </div>
+        </div>
+    );
+}
+
+interface RenameOrCopyDialogProps {
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+    title: string;
+    actionLabel: string;
+    sourceKey: string;
+    targetKey: string;
+    onTargetKeyChange: (v: string) => void;
+    overwrite: boolean;
+    onOverwriteChange: (v: boolean) => void;
+    busy: boolean;
+    onConfirm: () => void;
+}
+
+function RenameOrCopyDialog({
+    open,
+    onOpenChange,
+    title,
+    actionLabel,
+    sourceKey,
+    targetKey,
+    onTargetKeyChange,
+    overwrite,
+    onOverwriteChange,
+    busy,
+    onConfirm,
+}: RenameOrCopyDialogProps) {
+    return (
+        <Dialog open={open} onOpenChange={onOpenChange}>
+            <DialogContent className="max-w-md">
+                <DialogHeader>
+                    <DialogTitle>{title}</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-3 py-2">
+                    <div className="space-y-1">
+                        <Label className="text-xs">Source</Label>
+                        <Input value={sourceKey} disabled className="font-mono text-xs h-8" />
+                    </div>
+                    <div className="space-y-1">
+                        <Label className="text-xs">Destination</Label>
+                        <Input
+                            value={targetKey}
+                            onChange={(e) => onTargetKeyChange(e.target.value)}
+                            autoFocus
+                            className="font-mono text-xs h-8"
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" && !busy && targetKey.trim()) onConfirm();
+                            }}
+                        />
+                    </div>
+                    <label className="flex items-center gap-2 text-xs cursor-pointer">
+                        <Checkbox
+                            checked={overwrite}
+                            onCheckedChange={(c) => onOverwriteChange(c === true)}
+                        />
+                        Overwrite if destination exists
+                    </label>
+                </div>
+                <DialogFooter>
+                    <Button variant="outline" onClick={() => onOpenChange(false)} disabled={busy}>
+                        Cancel
+                    </Button>
+                    <Button onClick={onConfirm} disabled={busy || !targetKey.trim() || targetKey === sourceKey}>
+                        {busy ? "…" : actionLabel}
+                    </Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
     );
 }
