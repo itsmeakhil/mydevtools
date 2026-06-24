@@ -71,7 +71,7 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
   return (
     <header
       className={cn(
-        "mdt-nav sticky top-0 z-50 w-full",
+        "mdt-nav fixed inset-x-0 top-0 z-50 w-full",
         scrolled
           ? "glass-nav border-b border-white/5 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.7)]"
           : "border-b border-transparent bg-transparent"

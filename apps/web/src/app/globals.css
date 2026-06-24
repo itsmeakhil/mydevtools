@@ -1649,41 +1649,39 @@ html { overflow-x: hidden; }
   }
 }
 
-/* ─── CRT BOOT LOADER ─────────────────────────────────────────────────────── */
-.mdt-boot {
-  position: fixed; inset: 0; z-index: 200; background: #050608;
-  display: grid; place-items: center; overflow: hidden;
-}
-.mdt-boot__vignette { position: absolute; inset: 0; pointer-events: none; z-index: 3;
-  background: radial-gradient(120% 130% at 50% 50%, transparent 52%, rgba(0,0,0,.78) 100%); }
-.mdt-boot__scanlines { position: absolute; inset: 0; pointer-events: none; z-index: 4; opacity: .55;
-  background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.34) 2px 4px); }
-.mdt-boot__sweep { position: absolute; left: 0; right: 0; height: 22%; z-index: 4; pointer-events: none;
-  background: linear-gradient(180deg, transparent, rgba(180,190,255,.06) 50%, transparent);
-  animation: mdt-sweep 5.5s linear infinite; }
-@keyframes mdt-sweep { from { transform: translateY(-120%); } to { transform: translateY(560%); } }
-.mdt-boot__screen { position: relative; z-index: 2; width: min(640px, 90vw); padding: 0 6px; }
-.mdt-boot__flicker { animation: mdt-flicker 4s infinite steps(64); }
-@keyframes mdt-flicker { 0%,100%{opacity:1} 7%{opacity:.9} 9%{opacity:1} 39%{opacity:.95} 41%{opacity:1} 73%{opacity:.93} 75%{opacity:1} }
-.mdt-boot__title { font-family: var(--font-geist-mono), monospace; font-weight: 600;
-  font-size: clamp(1.6rem, 5vw, 2.4rem); letter-spacing: .32em; color: #d4d9ff; margin-bottom: 1.6rem;
-  animation: mdt-rgb 2.6s ease-in-out infinite; }
-@keyframes mdt-rgb {
-  0%,100% { text-shadow: -1px 0 rgba(255,40,90,.45), 1px 0 rgba(40,200,255,.45), 0 0 18px rgba(122,107,245,.5); }
-  50%     { text-shadow: -2px 0 rgba(255,40,90,.55), 2px 0 rgba(40,200,255,.55), 0 0 26px rgba(122,107,245,.6); }
-}
-.mdt-boot__term { font-family: var(--font-geist-mono), monospace; font-size: clamp(12px, 1.6vw, 15px);
-  line-height: 1.85; color: #aab4ff; text-shadow: 0 0 6px rgba(122,107,245,.45); min-height: 13.5em; }
-.mdt-boot__line { display: flex; gap: .75rem; align-items: baseline; }
-.mdt-boot__ok { margin-left: auto; color: #43e0a4; text-shadow: 0 0 8px rgba(63,215,154,.55); white-space: nowrap; }
-.mdt-boot__ready { color: #d4d9ff; }
-.mdt-boot__cursor { display: inline-block; width: 9px; height: 1em; transform: translateY(2px);
-  background: #4fd0e6; box-shadow: 0 0 10px #4fd0e6; animation: mdt-blink 1s steps(2) infinite; }
-@keyframes mdt-blink { 50% { opacity: 0; } }
-.mdt-boot__bar { margin-top: 1.8rem; height: 4px; border-radius: 3px; overflow: hidden; background: rgba(255,255,255,.07); }
-.mdt-boot__barfill { height: 100%; width: 100%; transform-origin: left center; background: var(--mdt-grad); box-shadow: 0 0 14px rgba(122,107,245,.7); transition: transform .12s linear; }
-.mdt-boot--out { animation: mdt-boot-out 720ms cubic-bezier(.19,1,.22,1) forwards; }
-@keyframes mdt-boot-out { to { opacity: 0; transform: scale(1.05); filter: blur(7px); visibility: hidden; } }
+/* ─── CRT BOOT LOADER (monitor illustration) ──────────────────────────────── */
+.crt-boot { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; overflow: hidden;
+  background: radial-gradient(120% 120% at 50% 28%, #0c0e16 0%, #050608 58%, #030305 100%); }
+.crt-boot--out { animation: crt-out 600ms cubic-bezier(.19,1,.22,1) forwards; }
+@keyframes crt-out { to { opacity: 0; transform: scale(1.06); filter: blur(8px); visibility: hidden; } }
+
+.crt { width: min(540px, 84vw); transform: perspective(1500px) rotateX(2deg); }
+.crt__monitor { position: relative; border-radius: 26px; padding: 24px 24px 28px;
+  background: linear-gradient(180deg, #262932, #16181f 58%, #0f1116);
+  box-shadow: 0 44px 100px -34px rgba(0,0,0,.92), inset 0 1px 0 rgba(255,255,255,.07), inset 0 -3px 10px rgba(0,0,0,.6); }
+.crt__screen { position: relative; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; padding: 18px 18px 16px;
+  background: radial-gradient(120% 120% at 50% 42%, #0a1510 0%, #060d0a 68%, #040706 100%);
+  box-shadow: inset 0 0 70px rgba(0,0,0,.9), inset 0 0 0 2px rgba(0,0,0,.55), 0 0 34px rgba(94,242,160,.1); }
+.crt__screen::before { content: ""; position: absolute; inset: 0; z-index: 5; pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,.3) 2px 3px); }
+.crt__screen::after { content: ""; position: absolute; inset: 0; z-index: 6; pointer-events: none;
+  background: radial-gradient(130% 80% at 50% -10%, rgba(160,210,255,.14), transparent 55%); }
+.crt__flicker { animation: crt-flicker 3.6s infinite steps(60); }
+@keyframes crt-flicker { 0%,100%{opacity:1} 8%{opacity:.92} 10%{opacity:1} 50%{opacity:.96} 52%{opacity:1} }
+.crt__code { position: relative; z-index: 2; height: 100%; font-family: var(--font-geist-mono), monospace;
+  font-size: clamp(10px, 1.5vw, 13px); line-height: 1.72; color: #5ef2a0; text-shadow: 0 0 6px rgba(94,242,160,.5); }
+.crt__line { white-space: pre-wrap; word-break: break-word; }
+.crt__accent { color: #7fd7ff; text-shadow: 0 0 6px rgba(127,215,255,.6); }
+.crt__cursor { display: inline-block; width: 7px; height: 1em; transform: translateY(2px);
+  background: #5ef2a0; box-shadow: 0 0 8px #5ef2a0; animation: crt-blink 1s steps(2) infinite; }
+@keyframes crt-blink { 50% { opacity: 0; } }
+.crt__brand { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding: 0 6px; }
+.crt__brand span { font-family: var(--font-geist-mono), monospace; font-size: 10px; letter-spacing: .34em; color: #5b6076; }
+.crt__led { width: 8px; height: 8px; border-radius: 50%; background: #5ef2a0; box-shadow: 0 0 10px #5ef2a0; animation: crt-blink 1.4s steps(2) infinite; }
+.crt__neck { width: 78px; height: 24px; margin: 0 auto; background: linear-gradient(180deg, #1a1c22, #101116); }
+.crt__base { width: 196px; height: 14px; margin: 0 auto; border-radius: 0 0 14px 14px;
+  background: linear-gradient(180deg, #1d1f26, #0e0f14); box-shadow: 0 20px 44px -18px rgba(0,0,0,.9); }
 @media (prefers-reduced-motion: reduce) {
-  .mdt-boot__flicker, .mdt-boot__title, .mdt-boot__cursor, .mdt-boot__sweep { animation: none !important; }
+  .crt__flicker, .crt__cursor, .crt__led { animation: none !important; }
+  .crt { transform: none; }
 }
