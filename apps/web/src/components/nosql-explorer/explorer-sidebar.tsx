@@ -22,18 +22,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 import { useTranslations } from "next-intl";
+import { SidebarDialogs } from "./sidebar-dialogs";
 
 interface ExplorerSidebarProps {
     onSelectCollection: (connection: SavedConnection, dbName: string, collectionName: string) => void;
@@ -817,128 +807,29 @@ export function ExplorerSidebar({
                 </div>
             )}
 
-            <Dialog open={renameCollectionDialog.open} onOpenChange={(open) => setRenameCollectionDialog(prev => ({ ...prev, open }))}>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>{t("renameCollectionTitle")}</DialogTitle>
-                    </DialogHeader>
-                    <div className="space-y-2 py-4">
-                        <Input
-                            value={renameCollectionDialog.newName}
-                            onChange={(e) => setRenameCollectionDialog(prev => ({ ...prev, newName: e.target.value }))}
-                            placeholder={t("placeholderNewCollection")}
-                        />
-                    </div>
-                    <DialogFooter>
-                        <Button variant="outline" onClick={() => setRenameCollectionDialog(prev => ({ ...prev, open: false }))}>{t("cancel")}</Button>
-                        <Button onClick={handleRenameCollection}>{t("rename")}</Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
-
-            <Dialog open={renameDatabaseDialog.open} onOpenChange={(open) => setRenameDatabaseDialog(prev => ({ ...prev, open }))}>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>{t("renameDatabaseTitle")}</DialogTitle>
-                    </DialogHeader>
-                    <div className="space-y-2 py-4">
-                        <Input
-                            value={renameDatabaseDialog.newName}
-                            onChange={(e) => setRenameDatabaseDialog(prev => ({ ...prev, newName: e.target.value }))}
-                            placeholder={t("placeholderNewDatabase")}
-                        />
-                    </div>
-                    <DialogFooter>
-                        <Button variant="outline" onClick={() => setRenameDatabaseDialog(prev => ({ ...prev, open: false }))}>{t("cancel")}</Button>
-                        <Button onClick={handleRenameDatabase}>{t("rename")}</Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
-
-            <AlertDialog open={deleteConnDialog.open} onOpenChange={(open) => setDeleteConnDialog(prev => ({ ...prev, open }))}>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>{t("confirmDeleteConnection", { name: deleteConnDialog.index !== null ? connections[deleteConnDialog.index]?.connection.name : "" })}</AlertDialogTitle>
-                        <AlertDialogDescription>{t("confirmDeleteConnectionDesc")}</AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
-                        <AlertDialogAction onClick={confirmDeleteConnection} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-                            {t("menuDeleteConnection")}
-                        </AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
-
-            <AlertDialog open={dropDbDialog.open} onOpenChange={(open) => setDropDbDialog(prev => ({ ...prev, open }))}>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>{t("confirmDropDb", { name: dropDbDialog.dbName })}</AlertDialogTitle>
-                        <AlertDialogDescription>{t("confirmDropDbDesc")}</AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
-                        <AlertDialogAction onClick={confirmDropDatabase} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-                            {t("dropDatabase")}
-                        </AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
-
-            <AlertDialog open={dropCollDialog.open} onOpenChange={(open) => setDropCollDialog(prev => ({ ...prev, open }))}>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>{t("confirmDropCollection", { name: dropCollDialog.collectionName })}</AlertDialogTitle>
-                        <AlertDialogDescription>{t("confirmDropCollectionDesc")}</AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
-                        <AlertDialogAction onClick={confirmDropCollection} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-                            {t("dropCollection")}
-                        </AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
-
-            <AlertDialog open={bulkDeleteDialog.open} onOpenChange={(open) => setBulkDeleteDialog({ open })}>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>Delete {selectedCollections.size} Collection{selectedCollections.size !== 1 ? "s" : ""}?</AlertDialogTitle>
-                        <AlertDialogDescription asChild>
-                            <div>
-                                <p className="mb-2">The following collections will be permanently deleted:</p>
-                                <ul className="max-h-48 overflow-y-auto space-y-1">
-                                    {Array.from(selectedCollections).map(key => {
-                                        const [connId, dbName, collName] = key.split("|");
-                                        const connNode = connections.find(c => c.connection.id === connId);
-                                        return (
-                                            <li key={key} className="text-xs font-mono bg-muted rounded px-2 py-1">
-                                                <span className="text-muted-foreground">{connNode?.connection.name ?? connId} / {dbName} / </span>
-                                                <span className="font-semibold text-foreground">{collName}</span>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                                <p className="mt-2 text-destructive font-medium">This action cannot be undone.</p>
-                            </div>
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel disabled={isBulkDeleting}>{t("cancel")}</AlertDialogCancel>
-                        <AlertDialogAction
-                            onClick={confirmBulkDelete}
-                            disabled={isBulkDeleting}
-                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                        >
-                            {isBulkDeleting ? (
-                                <><IconLoader2 className="h-3 w-3 mr-1.5 animate-spin" />Deleting...</>
-                            ) : (
-                                <>Delete {selectedCollections.size} Collection{selectedCollections.size !== 1 ? "s" : ""}</>
-                            )}
-                        </AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
+            <SidebarDialogs
+                connections={connections}
+                renameCollectionDialog={renameCollectionDialog}
+                setRenameCollectionDialog={setRenameCollectionDialog}
+                onRenameCollection={handleRenameCollection}
+                renameDatabaseDialog={renameDatabaseDialog}
+                setRenameDatabaseDialog={setRenameDatabaseDialog}
+                onRenameDatabase={handleRenameDatabase}
+                deleteConnDialog={deleteConnDialog}
+                setDeleteConnDialog={setDeleteConnDialog}
+                onConfirmDeleteConnection={confirmDeleteConnection}
+                dropDbDialog={dropDbDialog}
+                setDropDbDialog={setDropDbDialog}
+                onConfirmDropDatabase={confirmDropDatabase}
+                dropCollDialog={dropCollDialog}
+                setDropCollDialog={setDropCollDialog}
+                onConfirmDropCollection={confirmDropCollection}
+                bulkDeleteDialog={bulkDeleteDialog}
+                setBulkDeleteDialog={setBulkDeleteDialog}
+                selectedCollections={selectedCollections}
+                isBulkDeleting={isBulkDeleting}
+                onConfirmBulkDelete={confirmBulkDelete}
+            />
         </div>
     );
 }
