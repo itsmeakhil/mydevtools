@@ -35,6 +35,8 @@ import {
 } from "lucide-react";
 import { sidebarData } from "@/components/sidebar/data/sidebar-data";
 import { homepageFaqItems } from "@/lib/seo/structured-data";
+import MdtAurora from "@/components/mdt-aurora";
+import { MdtFx } from "@/components/mdt-fx";
 
 // ─── Animation Variants ────────────────────────────────────────────────────────
 
@@ -242,12 +244,14 @@ export default function Page() {
           </defs>
         </svg>
       </div>
+      <MdtFx />
       <Header showThemeToggle={false} />
 
       {/* ── Hero ────────────────────────────────────────────────────────────── */}
       <section className="relative py-24 sm:py-32 md:py-40 lg:py-48 overflow-hidden">
-        {/* Ambient orbs */}
+        {/* Ambient orbs + living aurora */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+          <MdtAurora />
           <motion.div
             className="absolute -top-48 -left-48 w-[500px] h-[500px] rounded-full bg-violet-500/15 blur-[120px]"
             animate={
@@ -327,7 +331,7 @@ export default function Page() {
             >
               <span className="text-foreground">Online Developer Tools</span>
               <br />
-              <span className="mdt-grad-text">
+              <span className="mdt-grad-text mdt-grad-anim">
                 JSON, JWT, Regex &amp; {allAppTools.length}+ More
               </span>
             </motion.h1>
@@ -787,7 +791,7 @@ export default function Page() {
               <motion.div
                 variants={fadeUp}
                 transition={{ duration: 0.55, delay: 0.06 }}
-                className="relative flex flex-col rounded-2xl glass-overlay p-7 md:p-8 border border-sky-500/25 ring-1 ring-sky-500/20"
+                className="mdt-beam relative flex flex-col rounded-2xl glass-overlay p-7 md:p-8 border border-sky-500/25"
               >
                 <Badge className="absolute top-5 right-5 rounded-full text-[11px] font-medium px-2.5 py-0.5 bg-sky-500/15 text-sky-400 border border-sky-500/30">
                   Paid
@@ -915,6 +919,28 @@ export default function Page() {
                     <span>K</span>
                   </kbd>
                 </button>
+              </div>
+            </motion.div>
+
+            {/* Infinite tool-name ticker */}
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.55, delay: 0.08 }}
+              className="mdt-marquee mb-10 border-y border-border/40 py-3.5"
+            >
+              <div className="mdt-marquee__track">
+                {[...allAppTools, ...allAppTools].map((t, i) => (
+                  <span
+                    key={i}
+                    className="mdt-mono inline-flex items-center gap-2 text-sm mdt-text-muted"
+                  >
+                    <span
+                      className="inline-block h-1.5 w-1.5 rounded-full"
+                      style={{ background: "var(--mdt-grad)" }}
+                    />
+                    {t.title}
+                  </span>
+                ))}
               </div>
             </motion.div>
 
@@ -1206,7 +1232,7 @@ export default function Page() {
                   className="text-3xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight"
                 >
                   Ready to Build{" "}
-                  <span className="mdt-grad-text">
+                  <span className="mdt-grad-text mdt-grad-anim">
                     Faster?
                   </span>
                 </motion.h2>

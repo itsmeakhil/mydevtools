@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { MdtFx } from '@/components/mdt-fx'
+import MdtAurora from '@/components/mdt-aurora'
 import type { PlatformSeoPage } from '@/lib/seo/platform-pages'
 import { publicToolSlugs } from '@/lib/tool-categories'
 import { toolsMetadata } from '@/lib/metadata'
@@ -68,6 +70,7 @@ export function MarketingSeoPage({ page }: { page: PlatformSeoPage }) {
           </defs>
         </svg>
       </div>
+      <MdtFx />
       {jsonLd ? (
         <script
           type="application/ld+json"
@@ -78,6 +81,7 @@ export function MarketingSeoPage({ page }: { page: PlatformSeoPage }) {
       <main className="flex-1">
         <section className="relative overflow-hidden py-20 md:py-28">
           <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+            <MdtAurora />
             <div className="absolute -top-32 left-1/4 h-[420px] w-[520px] rounded-full bg-violet-500/10 blur-[120px]" />
             <div className="absolute top-0 right-0 h-[420px] w-[420px] rounded-full bg-sky-500/10 blur-[100px]" />
           </div>

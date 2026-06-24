@@ -1514,7 +1514,7 @@ body {
           mask-image: radial-gradient(130% 110% at 0% 0%, #000 0%, transparent 62%);
 }
 .mdt-noise {
-  position: absolute; inset: 0; pointer-events: none; opacity: .35; mix-blend-mode: soft-light;
+  position: absolute; inset: 0; pointer-events: none; opacity: .28; mix-blend-mode: soft-light;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 .mdt-deck > * { position: relative; z-index: 1; }
@@ -1569,3 +1569,52 @@ body {
 
 /* gradient hairline divider */
 .mdt-hr { height: 1px; border: 0; background: linear-gradient(90deg, transparent, var(--mdt-border) 20%, var(--mdt-border) 80%, transparent); }
+
+/* ─── DECK FX: futuristic motion + interaction (scoped to .mdt-deck) ───────── */
+@property --mdt-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+
+/* cursor-following gradient border on every surface card */
+.mdt-deck .glass-overlay { position: relative; }
+.mdt-deck .glass-overlay::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  pointer-events: none; z-index: 3;
+  background: radial-gradient(180px circle at var(--mx, 50%) var(--my, 50%), rgba(150,160,255,.9), rgba(122,107,245,.18) 45%, transparent 66%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity: 0; transition: opacity .4s ease;
+}
+.mdt-deck .glass-overlay:hover::before { opacity: 1; }
+
+/* animated gradient border-beam for a featured card */
+.mdt-deck .mdt-beam { position: relative; }
+.mdt-deck .mdt-beam::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px;
+  pointer-events: none; z-index: 3;
+  background: conic-gradient(from var(--mdt-angle), transparent 0 62%, #5b63f0 78%, #9a5cf2 88%, #4fd0e6 96%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: mdt-spin 6s linear infinite;
+}
+@keyframes mdt-spin { to { --mdt-angle: 360deg; } }
+
+/* scroll-progress beam */
+.mdt-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; transform-origin: 0 50%; background: var(--mdt-grad); z-index: 60; }
+
+/* slow sheen across gradient headline text */
+.mdt-grad-anim { background-size: 220% 100%; animation: mdt-sheen 9s ease-in-out infinite; }
+@keyframes mdt-sheen { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+/* aurora canvas in hero */
+.mdt-aurora { position: absolute; inset: 0; width: 100%; height: 100%; filter: blur(72px) saturate(1.25); opacity: .5; mix-blend-mode: screen; pointer-events: none; }
+
+/* infinite tool-name ticker */
+.mdt-marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+.mdt-marquee__track { display: inline-flex; gap: 2.5rem; padding-right: 2.5rem; white-space: nowrap; animation: mdt-scroll 45s linear infinite; will-change: transform; }
+.mdt-marquee:hover .mdt-marquee__track { animation-play-state: paused; }
+@keyframes mdt-scroll { to { transform: translateX(-50%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .mdt-marquee__track, .mdt-grad-anim, .mdt-deck .mdt-beam::after { animation: none !important; }
+}
