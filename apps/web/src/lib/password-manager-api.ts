@@ -1,9 +1,4 @@
-import { proxyJsonAuthed } from "@/lib/backend-auth"
-
-const BACKEND_BASE_URL: string =
-    process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
-    process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
-    "http://localhost:8000"
+import { apiRequest } from "@/lib/backend-api"
 
 const BASE = "/api/v1/password-manager"
 
@@ -28,28 +23,6 @@ export type PasswordEntryUpdate = {
     updatedAt?: number
 }
 
-function backendErrorMessage(data: unknown): string {
-    if (typeof data === "string" && data.trim()) return data
-    if (data && typeof data === "object" && "detail" in data) {
-        const d = (data as { detail: unknown }).detail
-        if (typeof d === "string") return d
-        try {
-            return JSON.stringify(d)
-        } catch {
-            return "Request failed"
-        }
-    }
-    return "Request failed"
-}
-
-async function passwordManagerRequest<T>(method: string, path: string, body?: unknown): Promise<T> {
-    const { status, data } = await proxyJsonAuthed<T>(BACKEND_BASE_URL, method, path, body)
-    if (status < 200 || status >= 300) {
-        throw new Error(backendErrorMessage(data))
-    }
-    return data as T
-}
-
 export async function listPasswordEntries({
     skip,
     limit,
@@ -66,20 +39,20 @@ export async function listPasswordEntries({
     }
     const qs = params.toString()
     const path = qs ? `${BASE}/entries?${qs}` : `${BASE}/entries`
-    return passwordManagerRequest<PasswordEntryOut[]>("GET", path)
+    return apiRequest<PasswordEntryOut[]>("GET", path)
 }
 
 export async function createPasswordEntry(body: PasswordEntryCreate): Promise<PasswordEntryOut> {
-    return passwordManagerRequest<PasswordEntryOut>("POST", `${BASE}/entries`, body)
+    return apiRequest<PasswordEntryOut>("POST", `${BASE}/entries`, body)
 }
 
 export async function updatePasswordEntry(
     entryId: string,
     body: PasswordEntryUpdate
 ): Promise<PasswordEntryOut> {
-    return passwordManagerRequest<PasswordEntryOut>("PATCH", `${BASE}/entries/${encodeURIComponent(entryId)}`, body)
+    return apiRequest<PasswordEntryOut>("PATCH", `${BASE}/entries/${encodeURIComponent(entryId)}`, body)
 }
 
 export async function deletePasswordEntry(entryId: string): Promise<void> {
-    await passwordManagerRequest<unknown>("DELETE", `${BASE}/entries/${encodeURIComponent(entryId)}`)
+    await apiRequest<unknown>("DELETE", `${BASE}/entries/${encodeURIComponent(entryId)}`)
 }

@@ -4,29 +4,29 @@ import hashlib
 from fastapi import APIRouter, Depends, Request
 
 from app.api.routes.auth.services import get_current_uid
-from app.core.cache.decorator import bump_version, get_or_set
-from app.core.cache.keys import version_key
-from app.core.redis_client import get_redis
+from app.api.routes.s3_drive import services as svc
 from app.api.routes.s3_drive.schema import (
+    BucketInfo,
+    ConfigureCorsRequest,
+    CreateFolderRequest,
+    DeleteObjectsRequest,
+    ListBucketsRequest,
+    ListObjectsRequest,
+    ListObjectsResponse,
+    MoveObjectRequest,
+    PresignedBatchRequest,
+    PresignedBatchResponse,
+    PresignedDownloadRequest,
+    PresignedUploadRequest,
+    PresignedUrlResponse,
     S3ConnectionCreate,
     S3ConnectionOut,
     S3ConnectionUpdate,
-    ListObjectsRequest,
-    ListObjectsResponse,
-    DeleteObjectsRequest,
-    CreateFolderRequest,
-    PresignedDownloadRequest,
-    PresignedUploadRequest,
-    PresignedBatchRequest,
-    PresignedBatchResponse,
-    PresignedUrlResponse,
-    MoveObjectRequest,
-    ListBucketsRequest,
-    BucketInfo,
-    ConfigureCorsRequest,
 )
-from app.api.routes.s3_drive import services as svc
+from app.core.cache.decorator import bump_version, get_or_set
+from app.core.cache.keys import version_key
 from app.core.limiter import limiter
+from app.core.redis_client import get_redis
 
 router = APIRouter(prefix="/s3-drive", tags=["s3-drive"])
 

@@ -1,30 +1,9 @@
 "use client"
 import * as React from "react"
-import { List } from "react-window"
+import { useVirtualizer } from "@tanstack/react-virtual"
 import type { HistoryRequest } from "../types"
 
-// Custom data passed through rowProps (must not include ariaAttributes, index, or style)
-type HistoryRowCustomProps = {
-    items: HistoryRequest[]
-    renderRow: (item: HistoryRequest, style: React.CSSProperties) => React.ReactNode
-}
-
-// Full props received by the row component (custom data + injected by react-window)
-type HistoryRowProps = HistoryRowCustomProps & {
-    ariaAttributes: {
-        "aria-posinset": number
-        "aria-setsize": number
-        role: "listitem"
-    }
-    index: number
-    style: React.CSSProperties
-}
-
-function HistoryRow({ index, style, items, renderRow }: HistoryRowProps): React.ReactElement | null {
-    const item = items[index]
-    if (!item) return null
-    return <>{renderRow(item, style)}</>
-}
+const ROW_HEIGHT = 64
 
 interface VirtualHistoryListProps {
     items: HistoryRequest[]
@@ -39,15 +18,39 @@ export const VirtualHistoryList = React.memo(function VirtualHistoryList({
     height,
     renderRow,
 }: VirtualHistoryListProps) {
-    const rowProps: HistoryRowCustomProps = { items, renderRow }
+    const scrollRef = React.useRef<HTMLDivElement>(null)
+    const virtualizer = useVirtualizer({
+        count: items.length,
+        getScrollElement: () => scrollRef.current,
+        estimateSize: () => ROW_HEIGHT,
+        overscan: 5,
+    })
+
     return (
-        <List<HistoryRowCustomProps>
-            rowComponent={HistoryRow}
-            rowProps={rowProps}
-            rowCount={items.length}
-            rowHeight={64}
-            style={{ height }}
-            defaultHeight={height}
-        />
+        <div
+            ref={scrollRef}
+            role="list"
+            style={{ height, overflow: "auto" }}
+        >
+            <div style={{ height: virtualizer.getTotalSize(), position: "relative", width: "100%" }}>
+                {virtualizer.getVirtualItems().map((row) => {
+                    const item = items[row.index]
+                    if (!item) return null
+                    const style: React.CSSProperties = {
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: row.size,
+                        transform: `translateY(${row.start}px)`,
+                    }
+                    return (
+                        <React.Fragment key={item.id ?? row.index}>
+                            {renderRow(item, style)}
+                        </React.Fragment>
+                    )
+                })}
+            </div>
+        </div>
     )
 })

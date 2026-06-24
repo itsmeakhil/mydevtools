@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -14,7 +15,7 @@ import { JwtSignerLayout } from './jwt-signer-layout';
 import { SendToMenu } from '@/components/ui/send-to-menu';
 
 function CopyBtn({ text, title }: { text: string; title: string }) {
-  const [done, setDone] = useState(false);
+  const { isCopied: done, copyToClipboard } = useCopyToClipboard();
   return (
     <Button
       type="button"
@@ -22,15 +23,7 @@ function CopyBtn({ text, title }: { text: string; title: string }) {
       size="icon"
       className="h-7 w-7 shrink-0"
       title={title}
-      onClick={async () => {
-        try {
-          await navigator.clipboard.writeText(text);
-          setDone(true);
-          setTimeout(() => setDone(false), 1600);
-        } catch {
-          // If clipboard fails (permissions / insecure context), do nothing.
-        }
-      }}
+      onClick={() => copyToClipboard(text, { silent: true, resetMs: 1600 })}
     >
       {done ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
     </Button>

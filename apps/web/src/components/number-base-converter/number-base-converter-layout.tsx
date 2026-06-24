@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { useDebouncedCallback } from 'use-debounce';
 import { Card } from '@/components/ui/card';
@@ -31,7 +32,7 @@ export function NumberBaseConverterLayout() {
   const [output, setOutput] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [working, setWorking] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
 
   const inputBytes = useMemo(() => new TextEncoder().encode(input).length, [input]);
 
@@ -61,15 +62,9 @@ export function NumberBaseConverterLayout() {
     debounced();
   }, [input, inputBase, outputBase, debounced]);
 
-  const handleCopy = async () => {
+  const handleCopy = () => {
     if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      /* ignore */
-    }
+    void copyToClipboard(output, { silent: true });
   };
 
   const handleSwap = () => {

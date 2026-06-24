@@ -1,29 +1,10 @@
-import { proxyJsonAuthed } from "@/lib/backend-auth"
+import { apiRequest } from "@/lib/backend-api"
 import type { CodeSnippet } from "@/store/snippet-manager-store"
 
-const BACKEND_BASE_URL: string =
-  process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
-  process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
-  "http://localhost:8000"
-
-function extractError(data: unknown): string {
-  if (typeof data === "string" && data.trim()) return data
-  if (data && typeof data === "object" && "detail" in data) {
-    const d = (data as { detail: unknown }).detail
-    if (typeof d === "string") return d
-    try { return JSON.stringify(d) } catch { return "Request failed" }
-  }
-  return "Request failed"
-}
-
-async function snippetRequest<T>(method: string, path: string, body?: unknown): Promise<T> {
-  const { status, data } = await proxyJsonAuthed<T>(BACKEND_BASE_URL, method, path, body)
-  if (status < 200 || status >= 300) throw new Error(extractError(data))
-  return data as T
-}
+const BASE = "/api/v1/code-snippets"
 
 export async function listCodeSnippetsApi(): Promise<CodeSnippet[]> {
-  return snippetRequest<CodeSnippet[]>("GET", "/api/v1/code-snippets")
+  return apiRequest<CodeSnippet[]>("GET", BASE)
 }
 
 export type CodeSnippetCreatePayload = Pick<
@@ -35,18 +16,18 @@ export type CodeSnippetCreatePayload = Pick<
 export async function createCodeSnippetApi(
   payload: CodeSnippetCreatePayload
 ): Promise<CodeSnippet> {
-  return snippetRequest<CodeSnippet>("POST", "/api/v1/code-snippets", payload)
+  return apiRequest<CodeSnippet>("POST", BASE, payload)
 }
 
 export async function patchCodeSnippetApi(
   id: string,
   patch: Partial<Pick<CodeSnippet, "title" | "language" | "code" | "tags" | "pinned">>
 ): Promise<CodeSnippet> {
-  return snippetRequest<CodeSnippet>("PATCH", `/api/v1/code-snippets/${id}`, patch)
+  return apiRequest<CodeSnippet>("PATCH", `${BASE}/${id}`, patch)
 }
 
 export async function deleteCodeSnippetApi(id: string): Promise<void> {
-  await snippetRequest<void>("DELETE", `/api/v1/code-snippets/${id}`)
+  await apiRequest<void>("DELETE", `${BASE}/${id}`)
 }
 
 export function isSnippetDuplicateError(err: unknown): boolean {

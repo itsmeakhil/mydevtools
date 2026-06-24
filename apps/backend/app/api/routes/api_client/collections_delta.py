@@ -17,17 +17,17 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from pymongo import ReturnDocument
 from pymongo.errors import PyMongoError
 
-from app.api.routes.auth.services import get_current_uid
 from app.api.routes.api_client.schema import (
     AddItemOp,
+    ApiClientCollectionOut,
     ApplyDeltaRequest,
     ApplyDeltaResponse,
-    ApiClientCollectionOut,
     DeleteItemOp,
     MoveItemOp,
     Op,
     UpdateItemOp,
 )
+from app.api.routes.auth.services import get_current_uid
 from app.core.cache import bump_version
 from app.database import db_manager
 from app.utils.collection_name import API_CLIENT_COLLECTIONS

@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useState } from 'react'
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import * as yaml from 'js-yaml'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -50,11 +51,11 @@ export function YamlFormatterLayout() {
   const [indent, setIndent] = useState('2')
   const [outputMode, setOutputMode] = useState<OutputMode>('yaml')
   const [error, setError] = useState('')
-  const [copied, setCopied] = useState(false)
+  const { isCopied: copied, copyToClipboard, reset: resetCopied } = useCopyToClipboard()
 
   const runFormat = useCallback(() => {
     setError('')
-    setCopied(false)
+    resetCopied()
     if (isMobile) setMobileTab('output')
     const src = input
     if (!src.trim()) {
@@ -83,17 +84,11 @@ export function YamlFormatterLayout() {
       setOutput('')
       setError(e instanceof Error ? e.message : t('errors.couldNotFormat'))
     }
-  }, [input, indent, outputMode, t, isMobile])
+  }, [input, indent, outputMode, t, isMobile, resetCopied])
 
-  const handleCopy = async () => {
+  const handleCopy = () => {
     if (!output) return
-    try {
-      await navigator.clipboard.writeText(output)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch {
-      // ignore clipboard failures
-    }
+    void copyToClipboard(output, { silent: true })
   }
 
   return (

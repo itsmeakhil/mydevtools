@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { useTranslations } from 'next-intl';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
@@ -20,7 +21,7 @@ export function GitignoreLayout() {
   const [selected, setSelected] = React.useState<string[]>([]);
   
   const [output, setOutput] = React.useState<string>('');
-  const [copied, setCopied] = React.useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
   
   const [loadingList, setLoadingList] = React.useState(true);
   const [loadingOutput, setLoadingOutput] = React.useState(false);
@@ -66,14 +67,8 @@ export function GitignoreLayout() {
     return () => abort.abort();
   }, [selected, t]);
 
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(output);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Ignore fallback
-    }
+  const handleCopy = () => {
+    void copyToClipboard(output, { silent: true });
   };
 
   const downloadFile = () => {
@@ -220,7 +215,7 @@ export function GitignoreLayout() {
                 <Download className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">{t('download')}</span>
               </Button>
-              <Button type="button" variant="outline" size="sm" onClick={copyToClipboard} disabled={!output || loadingOutput} className={cn("h-7 text-xs gap-1.5 px-2 transition-all", copied ? "bg-green-500 hover:bg-green-600 text-white border-transparent" : "")}>
+              <Button type="button" variant="outline" size="sm" onClick={handleCopy} disabled={!output || loadingOutput} className={cn("h-7 text-xs gap-1.5 px-2 transition-all", copied ? "bg-green-500 hover:bg-green-600 text-white border-transparent" : "")}>
                 {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
                 <span className="hidden sm:inline">{copied ? t('copied') : t('copy')}</span>
               </Button>

@@ -9,7 +9,6 @@ Recommended indexes::
     db.code_snippets.create_index([("created_by", 1), ("updatedAt", -1)])
 """
 
-from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -21,24 +20,24 @@ COLLECTION_CODE_SNIPPETS = CODE_SNIPPETS
 class CodeSnippetCreate(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    id: Optional[str] = Field(default=None, description="Client-generated id (UUID); optional")
+    id: str | None = Field(default=None, description="Client-generated id (UUID); optional")
     title: str = Field(default="Untitled snippet", min_length=1)
     language: str = Field(default="auto", min_length=1)
     code: str = ""
-    tags: Optional[list[str]] = None
-    pinned: Optional[bool] = None
-    createdAt: Optional[int] = Field(default=None, description="Unix ms; server defaults if omitted")
-    updatedAt: Optional[int] = Field(default=None, description="Unix ms; server defaults if omitted")
+    tags: list[str] | None = None
+    pinned: bool | None = None
+    createdAt: int | None = Field(default=None, description="Unix ms; server defaults if omitted")
+    updatedAt: int | None = Field(default=None, description="Unix ms; server defaults if omitted")
 
 
 class CodeSnippetUpdate(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    title: Optional[str] = Field(default=None, min_length=1)
-    language: Optional[str] = Field(default=None, min_length=1)
-    code: Optional[str] = None
-    tags: Optional[list[str]] = None
-    pinned: Optional[bool] = None
+    title: str | None = Field(default=None, min_length=1)
+    language: str | None = Field(default=None, min_length=1)
+    code: str | None = None
+    tags: list[str] | None = None
+    pinned: bool | None = None
 
 
 class CodeSnippetOut(BaseModel):

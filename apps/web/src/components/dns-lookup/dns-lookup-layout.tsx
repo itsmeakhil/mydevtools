@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useRef } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
@@ -60,15 +61,11 @@ function formatTtl(ttl: number): string {
 }
 
 function CopyButton({ text }: { text: string }) {
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
   return (
     <button
       type="button"
-      onClick={async () => {
-        await navigator.clipboard.writeText(text).catch(() => {});
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1500);
-      }}
+      onClick={() => copyToClipboard(text, { silent: true, resetMs: 1500 })}
       className="shrink-0 p-1 rounded hover:bg-muted/60 transition-colors text-muted-foreground hover:text-foreground"
     >
       {copied

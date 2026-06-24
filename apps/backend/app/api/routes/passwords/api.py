@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, Query, Request
 
 from app.api.routes.auth.services import get_current_uid
+from app.api.routes.passwords import services as pw_svc
 from app.api.routes.passwords.schema import (
     PasswordEntryCreate,
     PasswordEntryOut,
@@ -8,9 +9,7 @@ from app.api.routes.passwords.schema import (
     VaultOut,
     VaultSetupRequest,
 )
-from app.api.routes.passwords import services as pw_svc
 from app.core.limiter import limiter
-
 
 router = APIRouter(prefix="/password-manager", tags=["password-manager"])
 

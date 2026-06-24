@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useCallback, useMemo, useState } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { AlertCircle, Check, Copy, Download, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -65,7 +66,7 @@ export function SecretApiKeyGeneratorLayout() {
   const [count, setCount] = useState(5);
   const [output, setOutput] = useState('');
   const [error, setError] = useState('');
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard, reset: resetCopied } = useCopyToClipboard();
 
   const dedupedPreview = useMemo(() => dedupeAlphabet(alphabet), [alphabet]);
 
@@ -75,7 +76,7 @@ export function SecretApiKeyGeneratorLayout() {
 
   const runGenerate = useCallback(() => {
     setError('');
-    setCopied(false);
+    resetCopied();
     try {
       const result = generateSecretStrings({
         alphabet,
@@ -92,17 +93,11 @@ export function SecretApiKeyGeneratorLayout() {
       setOutput('');
       setError(t('errors.unknown'));
     }
-  }, [alphabet, length, count, t]);
+  }, [alphabet, length, count, t, resetCopied]);
 
-  const handleCopy = async () => {
+  const handleCopy = () => {
     if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // ignore clipboard failures
-    }
+    void copyToClipboard(output, { silent: true });
   };
 
   const handleDownload = () => {

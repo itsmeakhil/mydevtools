@@ -1,6 +1,5 @@
-from fastapi import APIRouter, Depends, Query
 
-from typing import Optional
+from fastapi import APIRouter, Depends, Query
 
 from app.api.routes.auth.services import get_current_uid
 from app.api.routes.bookmarks import services as bm_svc
@@ -46,12 +45,12 @@ async def clear_all(uid: str = Depends(get_current_uid)) -> dict[str, int]:
 @bookmarks_router.get("", response_model=list[BookmarkOut], summary="List bookmarks")
 async def list_bookmarks(
     uid: str = Depends(get_current_uid),
-    folder_id: Optional[str] = Query(
+    folder_id: str | None = Query(
         default=None,
         alias="folderId",
     ),
     skip: int = Query(default=0, ge=0),
-    limit: Optional[int] = Query(default=None, ge=1, le=500),
+    limit: int | None = Query(default=None, ge=1, le=500),
 ) -> list[BookmarkOut]:
     return await bm_svc.list_bookmarks(uid=uid, folder_id=folder_id, skip=skip, limit=limit)
 
@@ -106,7 +105,7 @@ async def remove_bookmark(
 async def list_folders(
     uid: str = Depends(get_current_uid),
     skip: int = Query(default=0, ge=0),
-    limit: Optional[int] = Query(default=None, ge=1, le=500),
+    limit: int | None = Query(default=None, ge=1, le=500),
 ) -> list[BookmarkFolderOut]:
     return await bm_svc.list_folders(uid=uid, skip=skip, limit=limit)
 

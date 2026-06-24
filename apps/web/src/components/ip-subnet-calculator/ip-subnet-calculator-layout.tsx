@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { useDebouncedCallback } from 'use-debounce';
 import { Card } from '@/components/ui/card';
@@ -23,15 +24,9 @@ function Row({
   mono?: boolean;
   copyLabel: string;
 }) {
-  const [copied, setCopied] = useState(false);
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(value);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    } catch {
-      /* ignore */
-    }
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
+  const handleCopy = () => {
+    void copyToClipboard(value, { silent: true, resetMs: 1500 });
   };
 
   return (

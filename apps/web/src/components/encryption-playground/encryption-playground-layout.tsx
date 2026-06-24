@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -48,8 +49,8 @@ export function EncryptionPlaygroundLayout() {
   const [busy, setBusy] = useState(false);
   const [errEncrypt, setErrEncrypt] = useState<string | null>(null);
   const [errDecrypt, setErrDecrypt] = useState<string | null>(null);
-  const [copiedEnc, setCopiedEnc] = useState(false);
-  const [copiedDec, setCopiedDec] = useState(false);
+  const { isCopied: copiedEnc, copyToClipboard: copyEncFn } = useCopyToClipboard();
+  const { isCopied: copiedDec, copyToClipboard: copyDecFn } = useCopyToClipboard();
 
   const iterNum = Math.max(0, Math.floor(Number(pbkdf2Iter) || 0));
 
@@ -104,26 +105,14 @@ export function EncryptionPlaygroundLayout() {
     }
   }, [decryptBundleInput, rawKeyInput, rawKeyEncoding, passphrase, t]);
 
-  const copyEnc = async () => {
+  const copyEnc = () => {
     if (!bundleJson) return;
-    try {
-      await navigator.clipboard.writeText(bundleJson);
-      setCopiedEnc(true);
-      setTimeout(() => setCopiedEnc(false), 2000);
-    } catch {
-      /* ignore */
-    }
+    void copyEncFn(bundleJson, { silent: true });
   };
 
-  const copyDec = async () => {
+  const copyDec = () => {
     if (!decryptedOut) return;
-    try {
-      await navigator.clipboard.writeText(decryptedOut);
-      setCopiedDec(true);
-      setTimeout(() => setCopiedDec(false), 2000);
-    } catch {
-      /* ignore */
-    }
+    void copyDecFn(decryptedOut, { silent: true });
   };
 
   return (

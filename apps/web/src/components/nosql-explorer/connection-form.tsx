@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -43,6 +44,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
         el, de, da, af, fa: faIR, ms, nb, nl, pt,
     };
     const dateLocale = DATE_LOCALE_MAP[locale] ?? enUS;
+    const { copyToClipboard } = useCopyToClipboard();
     const [connectionString, setConnectionString] = useState("");
     const [name, setName] = useState("My Connection");
     const [savedConnections, setSavedConnections] = useState<SavedConnection[]>([]);
@@ -279,8 +281,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                                                         className="h-6 w-6 flex-shrink-0 hover:text-primary"
                                                         onClick={(e) => {
                                                             e.stopPropagation();
-                                                            navigator.clipboard.writeText(conn.connectionString);
-                                                            toast.success(t("toastStringCopied"));
+                                                            void copyToClipboard(conn.connectionString, t("toastStringCopied"));
                                                         }}
                                                         title={t("copyStringTitle")}
                                                     >

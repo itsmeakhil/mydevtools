@@ -2,6 +2,7 @@
 
 import { format } from 'date-fns';
 import { useMemo, useState } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -57,7 +58,7 @@ export function CronBuilderLayout() {
   const locale = useLocale();
   const [expression, setExpression] = useState('0 * * * *');
   const [rawDraft, setRawDraft] = useState('0 * * * *');
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
 
   const commitExpression = (next: string) => {
     const t = next.trim();
@@ -82,14 +83,8 @@ export function CronBuilderLayout() {
     commitExpression(setFiveFieldAt(expression, index, value));
   };
 
-  const copyExpr = async () => {
-    try {
-      await navigator.clipboard.writeText(expression.trim());
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    } catch {
-      // ignore clipboard failures
-    }
+  const copyExpr = () => {
+    void copyToClipboard(expression.trim(), { silent: true, resetMs: 1500 });
   };
 
   const monthShort = useMemo(

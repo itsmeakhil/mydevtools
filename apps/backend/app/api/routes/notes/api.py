@@ -1,11 +1,9 @@
-from typing import Optional
 
 from fastapi import APIRouter, Depends, Query
 
 from app.api.routes.auth.services import get_current_uid
-from app.api.routes.notes.schema import NoteCreate, NoteOut, NoteUpdate
 from app.api.routes.notes import services as note_svc
-
+from app.api.routes.notes.schema import NoteCreate, NoteOut, NoteUpdate
 
 router = APIRouter(prefix="/notes", tags=["notes"])
 

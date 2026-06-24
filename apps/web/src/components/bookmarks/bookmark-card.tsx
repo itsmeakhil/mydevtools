@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useCallback } from "react"
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { motion } from "framer-motion"
 import {
     IconExternalLink,
@@ -66,6 +67,8 @@ export default function BookmarkCard({
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
     const [imageError, setImageError] = useState(false)
 
+    const { copyToClipboard } = useCopyToClipboard()
+
     const folder = folders.find(f => f.id === bookmark.folderId)
     const faviconUrl = getFaviconUrl(bookmark.url)
     const domain = getDomainFromUrl(bookmark.url)
@@ -75,9 +78,8 @@ export default function BookmarkCard({
     }, [bookmark.url])
 
     const handleCopyUrl = useCallback(() => {
-        navigator.clipboard.writeText(bookmark.url)
-        toast.success(t("urlCopied"))
-    }, [bookmark.url, t])
+        void copyToClipboard(bookmark.url, t("urlCopied"))
+    }, [bookmark.url, t, copyToClipboard])
 
     const handleDelete = useCallback(() => {
         const snapshot = { ...bookmark }

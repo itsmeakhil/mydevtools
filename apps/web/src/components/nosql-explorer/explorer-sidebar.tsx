@@ -6,6 +6,7 @@ import { Database, Collection, SavedConnection } from "./types";
 import { IconDatabase, IconFolder, IconChevronRight, IconChevronDown, IconRefresh, IconSearch, IconPlus, IconServer, IconPencil, IconCheck, IconX, IconDotsVertical, IconTrash, IconEdit, IconCopy, IconAlertCircle, IconLoader2 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import React, { useState, useEffect, useRef } from "react";
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import useAuth from "@/utils/useAuth";
 import { useMasterKeyStore } from "@/store/master-key-store";
@@ -62,6 +63,7 @@ export function ExplorerSidebar({
     const t = useTranslations("NoSqlExplorer.sidebar");
     const { user } = useAuth();
     const { encryptionKey } = useMasterKeyStore();
+    const { copyToClipboard } = useCopyToClipboard();
     const [connections, setConnections] = useState<ConnectionNode[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(true);
@@ -603,8 +605,7 @@ export function ExplorerSidebar({
                                                                     </DropdownMenuItem>
                                                                     <DropdownMenuItem onClick={(e) => {
                                                                         e.stopPropagation();
-                                                                        navigator.clipboard.writeText(node.connection.connectionString);
-                                                                        toast.success(t("toastSidebarStringCopied"));
+                                                                        void copyToClipboard(node.connection.connectionString, t("toastSidebarStringCopied"));
                                                                     }}>
                                                                         <IconCopy className="h-3 w-3 mr-2" /> {t("menuCopyConnectionString")}
                                                                     </DropdownMenuItem>
@@ -690,8 +691,7 @@ export function ExplorerSidebar({
                                                                         <IconRefresh className="h-3 w-3 mr-2" /> {t("refresh")}
                                                                     </DropdownMenuItem>
                                                                     <DropdownMenuItem onClick={() => {
-                                                                        navigator.clipboard.writeText(db.name);
-                                                                        toast.success(t("toastDbNameCopied"));
+                                                                        void copyToClipboard(db.name, t("toastDbNameCopied"));
                                                                     }}>
                                                                         <IconCopy className="h-3 w-3 mr-2" /> {t("copyDbName")}
                                                                     </DropdownMenuItem>

@@ -1,18 +1,17 @@
 from typing import Any
 
 from fastapi import HTTPException, status
-from pymongo.errors import PyMongoError
-from pymongo import ReturnDocument
 
-from app.utils.collection_name import CODE_SNIPPETS as SNIPPETS
 from app.api.routes.code_snippets.schema import (
     CodeSnippetCreate,
     CodeSnippetOut,
     CodeSnippetUpdate,
 )
+from app.core.cache import bump_version, cached
 from app.database import db_manager
-from app.utils.utils import create_timestamp, is_duplicate_key_error, new_id
-from app.core.cache import cached, bump_version
+from app.utils.collection_name import CODE_SNIPPETS as SNIPPETS
+from app.utils.crud import safe_delete_one, safe_insert, safe_update_one
+from app.utils.utils import create_timestamp, new_id
 
 
 def _doc_to_out(doc: dict[str, Any]) -> CodeSnippetOut:
@@ -57,18 +56,7 @@ async def create_code_snippet(uid: str, body: CodeSnippetCreate) -> CodeSnippetO
         "createdAt": created,
         "updatedAt": updated,
     }
-    try:
-        await db_manager.insert_one(SNIPPETS, doc)
-    except PyMongoError as exc:
-        if is_duplicate_key_error(exc):
-            raise HTTPException(
-                status_code=status.HTTP_409_CONFLICT,
-                detail="Snippet id already exists.",
-            ) from exc
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to create snippet.",
-        ) from exc
+    await safe_insert(SNIPPETS, doc, name="Snippet")
     await bump_version(ns="code_snippets", uid=uid)
     return _doc_to_out(doc)
 
@@ -78,20 +66,12 @@ async def update_code_snippet(uid: str, snippet_id: str, body: CodeSnippetUpdate
     if not patch:
         return await get_code_snippet(uid=uid, snippet_id=snippet_id)
     patch["updatedAt"] = create_timestamp()
-    try:
-        result = await db_manager.find_one_and_update(
-            SNIPPETS,
-            {"_id": snippet_id, "created_by": uid},
-            {"$set": patch},
-            return_document=ReturnDocument.AFTER,
-        )
-    except PyMongoError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to update snippet.",
-        ) from exc
-    if not result:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Snippet not found.")
+    result = await safe_update_one(
+        SNIPPETS,
+        {"_id": snippet_id, "created_by": uid},
+        patch,
+        name="Snippet",
+    )
     await bump_version(ns="code_snippets", uid=uid)
     return _doc_to_out(result)
 
@@ -105,7 +85,5 @@ async def get_code_snippet(*, uid: str, snippet_id: str) -> CodeSnippetOut:
 
 
 async def delete_code_snippet(uid: str, snippet_id: str) -> None:
-    result = await db_manager.delete_one(SNIPPETS, {"_id": snippet_id, "created_by": uid})
-    if result.deleted_count == 0:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Snippet not found.")
+    await safe_delete_one(SNIPPETS, {"_id": snippet_id, "created_by": uid}, name="Snippet")
     await bump_version(ns="code_snippets", uid=uid)

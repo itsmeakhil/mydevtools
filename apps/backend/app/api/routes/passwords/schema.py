@@ -1,4 +1,3 @@
-from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -13,7 +12,7 @@ class KeyVerifier(BaseModel):
 class VaultSetupRequest(BaseModel):
     salt: str = Field(min_length=1)
     verifier: KeyVerifier
-    createdAt: Optional[int] = Field(default=None, ge=0)
+    createdAt: int | None = Field(default=None, ge=0)
 
 
 class VaultOut(BaseModel):
@@ -27,8 +26,8 @@ class VaultOut(BaseModel):
 class PasswordEntryCreate(BaseModel):
     encryptedData: str = Field(min_length=1)
     iv: str = Field(min_length=1)
-    createdAt: Optional[int] = Field(default=None, ge=0)
-    updatedAt: Optional[int] = Field(default=None, ge=0)
+    createdAt: int | None = Field(default=None, ge=0)
+    updatedAt: int | None = Field(default=None, ge=0)
 
 
 class PasswordEntryUpdate(BaseModel):
@@ -36,7 +35,7 @@ class PasswordEntryUpdate(BaseModel):
 
     encryptedData: str = Field(min_length=1)
     iv: str = Field(min_length=1)
-    updatedAt: Optional[int] = Field(default=None, ge=0)
+    updatedAt: int | None = Field(default=None, ge=0)
 
 
 class PasswordEntryOut(BaseModel):

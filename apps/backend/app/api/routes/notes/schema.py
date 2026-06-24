@@ -1,5 +1,5 @@
 import json
-from typing import Any, Optional
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -25,12 +25,12 @@ def _validate_content(value: Any) -> Any:
 class NoteCreate(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    title: Optional[str] = Field(default=None, min_length=1, max_length=_TITLE_MAX_LEN)
+    title: str | None = Field(default=None, min_length=1, max_length=_TITLE_MAX_LEN)
     content: Any = Field(default_factory=dict)
-    parentId: Optional[str] = Field(default=None, max_length=128)
-    icon: Optional[str] = Field(default=None, max_length=_ICON_MAX_LEN)
-    pinned: Optional[bool] = None
-    tags: Optional[list[str]] = None
+    parentId: str | None = Field(default=None, max_length=128)
+    icon: str | None = Field(default=None, max_length=_ICON_MAX_LEN)
+    pinned: bool | None = None
+    tags: list[str] | None = None
 
     @field_validator("content", mode="before")
     @classmethod
@@ -52,12 +52,12 @@ class NoteCreate(BaseModel):
 class NoteUpdate(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    title: Optional[str] = Field(default=None, min_length=1, max_length=_TITLE_MAX_LEN)
-    content: Optional[Any] = None
-    parentId: Optional[str] = Field(default=None, max_length=128)
-    icon: Optional[str] = Field(default=None, max_length=_ICON_MAX_LEN)
-    pinned: Optional[bool] = None
-    tags: Optional[list[str]] = None
+    title: str | None = Field(default=None, min_length=1, max_length=_TITLE_MAX_LEN)
+    content: Any | None = None
+    parentId: str | None = Field(default=None, max_length=128)
+    icon: str | None = Field(default=None, max_length=_ICON_MAX_LEN)
+    pinned: bool | None = None
+    tags: list[str] | None = None
 
     @field_validator("content", mode="before")
     @classmethod
@@ -82,8 +82,8 @@ class NoteOut(BaseModel):
     id: str
     title: str
     content: Any
-    parentId: Optional[str] = None
-    icon: Optional[str] = None
+    parentId: str | None = None
+    icon: str | None = None
     pinned: bool = False
     tags: list[str] = Field(default_factory=list)
     userId: str

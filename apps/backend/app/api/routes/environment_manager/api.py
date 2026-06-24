@@ -1,14 +1,13 @@
-from typing import Optional
 
 from fastapi import APIRouter, Depends, Query
 
 from app.api.routes.auth.services import get_current_uid
+from app.api.routes.environment_manager import services as env_svc
 from app.api.routes.environment_manager.schema import (
     EnvSetEntryCreate,
     EnvSetEntryOut,
     EnvSetEntryUpdate,
 )
-from app.api.routes.environment_manager import services as env_svc
 
 router = APIRouter(prefix="/environment-manager", tags=["environment-manager"])
 
@@ -20,7 +19,7 @@ router = APIRouter(prefix="/environment-manager", tags=["environment-manager"])
 )
 async def list_entries(
     uid: str = Depends(get_current_uid),
-    limit: Optional[int] = Query(default=None, ge=1, le=1000),
+    limit: int | None = Query(default=None, ge=1, le=1000),
     offset: int = Query(default=0, ge=0),
 ) -> list[EnvSetEntryOut]:
     return await env_svc.list_entries(uid, limit=limit, offset=offset)
