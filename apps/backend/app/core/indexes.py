@@ -24,12 +24,22 @@ from app.utils.collection_name import (
     URL_LINKS,
     USER_PREFERENCES,
     USERS,
+    WEBAUTHN_CHALLENGES,
 )
+from app.core.config import get_settings
 
 
 async def ensure_indexes() -> None:
     await db_manager.create_index(USERS, "refresh_token_hash", sparse=True)
     await db_manager.create_index(USERS, "username", unique=True, sparse=True)
+    # Passkeys / WebAuthn
+    await db_manager.create_index(USERS, "webauthn_user_handle", unique=True, sparse=True)
+    await db_manager.create_index(USERS, "passkeys.credential_id", sparse=True)
+    await db_manager.create_index(
+        WEBAUTHN_CHALLENGES,
+        "created_at",
+        expire_after_seconds=get_settings().WEBAUTHN_CHALLENGE_TTL_SECONDS,
+    )
     await db_manager.create_index(TASKS, [("created_by", 1), ("status", 1), ("statusOrder", 1), ("createdAt", -1)])
     await db_manager.create_index(TASKS, [("created_by", 1), ("projectId", 1), ("status", 1), ("statusOrder", 1)])
     await db_manager.create_index(PROJECTS, [("created_by", 1), ("createdAt", 1)])

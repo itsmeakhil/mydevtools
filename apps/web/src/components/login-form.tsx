@@ -12,15 +12,54 @@ import {
   OAuthProvider,
 } from "firebase/auth";
 import { auth } from "../database/firebase";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { establishBackendSession } from "@/lib/backend-auth";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2, AlertCircle, Github } from "lucide-react";
+import { Loader2, AlertCircle, Github, Fingerprint } from "lucide-react";
+import { signInWithPasskey, startConditionalPasskeyAuth } from "@/lib/passkey";
 
 export function LoginForm() {
   const router = useRouter();
-  const [loadingProvider, setLoadingProvider] = useState<"google" | "github" | "">("");
+  const [loadingProvider, setLoadingProvider] = useState<"google" | "github" | "passkey" | "">("");
   const [error, setError] = useState("");
+  const conditionalStarted = useRef(false);
+
+  // Conditional autofill: surfaces passkeys in the username field's autocomplete UI.
+  useEffect(() => {
+    if (conditionalStarted.current) return;
+    conditionalStarted.current = true;
+    let aborted = false;
+    (async () => {
+      try {
+        const result = await startConditionalPasskeyAuth();
+        if (!aborted && result) router.replace("/dashboard");
+      } catch {
+        // Conditional auth races with explicit button; ignore silently.
+      }
+    })();
+    return () => {
+      aborted = true;
+    };
+  }, [router]);
+
+  const handlePasskey = async () => {
+    setLoadingProvider("passkey");
+    setError("");
+    try {
+      await signInWithPasskey();
+      router.push("/dashboard");
+    } catch (e: any) {
+      const msg = e instanceof Error ? e.message : "Passkey sign-in failed.";
+      // Suppress noisy user-cancelled errors
+      if (e?.name === "NotAllowedError" || /cancel/i.test(msg)) {
+        setError("");
+      } else {
+        setError(msg);
+      }
+    } finally {
+      setLoadingProvider("");
+    }
+  };
 
   const handleLogin = async (provider: GoogleAuthProvider | GithubAuthProvider, providerName: "google" | "github") => {
     setLoadingProvider(providerName);
@@ -125,7 +164,49 @@ export function LoginForm() {
         </Alert>
       )}
 
+      {/* Hidden username field — required for conditional WebAuthn autofill UI. */}
+      <input
+        type="text"
+        name="username"
+        autoComplete="username webauthn"
+        className="sr-only"
+        tabIndex={-1}
+        aria-hidden="true"
+        readOnly
+      />
+
       <div className="flex flex-col gap-3">
+        <Button
+          type="button"
+          onClick={handlePasskey}
+          disabled={loadingProvider !== ""}
+          className={oauthButtonClass}
+          variant="outline"
+        >
+          {loadingProvider === "passkey" ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" />
+              <span>Waiting for passkey…</span>
+            </>
+          ) : (
+            <>
+              <Fingerprint className="h-[18px] w-[18px] shrink-0" />
+              <span>Sign in with a passkey</span>
+            </>
+          )}
+        </Button>
+
+        <div className="relative py-1">
+          <div className="absolute inset-0 flex items-center" aria-hidden>
+            <span className="w-full border-t border-border/70" />
+          </div>
+          <div className="relative flex justify-center text-xs">
+            <span className="bg-card/90 px-3 font-medium tracking-wide text-muted-foreground backdrop-blur-sm">
+              or continue with
+            </span>
+          </div>
+        </div>
+
         <Button
           type="button"
           onClick={() => handleLogin(new GoogleAuthProvider(), "google")}
