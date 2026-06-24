@@ -47,94 +47,9 @@ import {
     type MasterVaultOut,
 } from "@/lib/global-vault-api"
 import { useMasterKeyStore } from "@/store/master-key-store"
-
-// ── Password-strength helpers ─────────────────────────────────────────────────
-
-type StrengthResult = {
-    score: number
-    label: string
-    barColor: string
-    hint: string
-}
-
-function calcStrength(pw: string): StrengthResult {
-    if (!pw) return { score: 0, label: "", barColor: "bg-muted", hint: "" }
-
-    let score = 0
-    const hints: string[] = []
-
-    if (pw.length >= 12) score++
-    else hints.push("use ≥ 12 characters")
-    if (/[A-Z]/.test(pw)) score++
-    else hints.push("add uppercase letters")
-    if (/[a-z]/.test(pw)) score++
-    else hints.push("add lowercase letters")
-    if (/[0-9]/.test(pw)) score++
-    else hints.push("add numbers")
-    if (/[^A-Za-z0-9]/.test(pw)) score++
-    else hints.push("add special characters")
-
-    const labels = ["", "Weak", "Fair", "Good", "Strong", "Very Strong"]
-    const colors = [
-        "bg-muted",
-        "bg-destructive",
-        "bg-orange-500",
-        "bg-yellow-500",
-        "bg-green-500",
-        "bg-emerald-500",
-    ]
-
-    return {
-        score,
-        label: labels[score] ?? "",
-        barColor: colors[score] ?? "bg-muted",
-        hint: hints[0] ?? "",
-    }
-}
-
-// ── Download helper ───────────────────────────────────────────────────────────
-
-function downloadBackupCodesFile(codes: string[], userEmail?: string | null) {
-    const date = new Date().toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    })
-    const lines = [
-        "========================================",
-        "  MYDEVTOOLS — MASTER PASSWORD BACKUP",
-        "========================================",
-        "",
-        `Account : ${userEmail ?? "unknown"}`,
-        `Created : ${date}`,
-        "",
-        "BACKUP CODES",
-        "------------",
-        "Each code can be used exactly once to recover access",
-        "if you forget your master password.",
-        "",
-        ...codes.map((c, i) => `  ${String(i + 1).padStart(2, "0")}. ${c}`),
-        "",
-        "INSTRUCTIONS",
-        "------------",
-        '1. On the unlock screen, click "Use backup code instead".',
-        "2. Enter one of the codes above (dashes optional).",
-        "3. The code will be consumed — cross it off this list.",
-        "4. Once all codes are used, generate new ones from Settings.",
-        "",
-        "Keep this file somewhere safe (password manager, printed copy).",
-        "Anyone with these codes can access your encrypted data.",
-        "",
-        "========================================",
-    ]
-    const blob = new Blob([lines.join("\n")], { type: "text/plain" })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement("a")
-    a.href = url
-    a.download = "mydevtools-backup-codes.txt"
-    a.click()
-    URL.revokeObjectURL(url)
-}
+import { calcStrength } from "./master-password-gate/password-strength"
+import { downloadBackupCodesFile } from "./master-password-gate/backup-codes-file"
+import { Spinner, ErrorBanner } from "./master-password-gate/gate-helpers"
 
 // ── Gate modal ────────────────────────────────────────────────────────────────
 
@@ -805,25 +720,3 @@ export function MasterPasswordGate() {
     )
 }
 
-// ── Small reusable pieces ─────────────────────────────────────────────────────
-
-function Spinner() {
-    return (
-        <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground/30 border-t-primary-foreground" />
-    )
-}
-
-function ErrorBanner({ message }: { message: string }) {
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-        >
-            <Alert variant="destructive" className="py-2">
-                <AlertTriangle className="h-4 w-4" />
-                <AlertDescription className="text-sm">{message}</AlertDescription>
-            </Alert>
-        </motion.div>
-    )
-}
