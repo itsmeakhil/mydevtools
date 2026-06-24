@@ -1517,7 +1517,8 @@ html { overflow-x: hidden; }
   position: absolute; inset: 0; pointer-events: none; opacity: .28; mix-blend-mode: soft-light;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-.mdt-deck > * { position: relative; z-index: 1; }
+/* content stacks above the backdrop naturally; backdrop sits at z-index:-1.
+   (No blanket position rule — it would override fixed/sticky children.) */
 
 /* typography helpers */
 .mdt-grad-text {
@@ -1685,3 +1686,16 @@ html { overflow-x: hidden; }
   .crt__flicker, .crt__cursor, .crt__led { animation: none !important; }
   .crt { transform: none; }
 }
+
+/* ─── HERO INTERACTIVE GRID (cursor warp) ─────────────────────────────────── */
+.mdt-herogrid { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; perspective: 1100px; }
+.mdt-herogrid__layer {
+  position: absolute; inset: -14%; transform-style: preserve-3d; will-change: transform;
+  background-image:
+    linear-gradient(rgba(150,165,255,.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(150,165,255,.09) 1px, transparent 1px);
+  background-size: 54px 54px;
+  -webkit-mask-image: radial-gradient(52% 52% at var(--gx,50%) var(--gy,50%), #000 0%, rgba(0,0,0,.4) 48%, transparent 78%);
+          mask-image: radial-gradient(52% 52% at var(--gx,50%) var(--gy,50%), #000 0%, rgba(0,0,0,.4) 48%, transparent 78%);
+}
+@media (prefers-reduced-motion: reduce) { .mdt-herogrid__layer { transform: none !important; } }

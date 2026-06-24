@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 export default function ToolsIndexPage() {
   return (
     <div className="dark mdt-deck flex flex-col min-h-screen bg-background text-foreground font-sans">
-      <div aria-hidden style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
+      <div aria-hidden style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none' }}>
         <div className="mdt-grid" />
         <div className="mdt-noise" />
         <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden focusable="false">

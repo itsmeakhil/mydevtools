@@ -11,19 +11,25 @@ import { useEffect, useState } from "react";
 let played = false;
 
 const CODE: { t: string; accent?: boolean }[] = [
-  { t: "$ ./mydevtools --boot", accent: true },
+  { t: "$ ./mydevtools --boot --env=production", accent: true },
   { t: "" },
-  { t: "[0.01] fetching modules ............. ok" },
-  { t: "[0.34] linking 60+ tools ............ ok" },
-  { t: "[0.62] mount db [sql|mongo|redis] ... ok" },
-  { t: "[0.88] decrypt vault [aes-256] ...... ok" },
-  { t: "[1.21] hydrating interface .......... ok" },
-  { t: "[1.43] warming aurora shaders ....... ok" },
+  { t: "[0.01] kernel   next 16 · react 19 ...... ok" },
+  { t: "[0.19] compile  app/(marketing) ......... ok" },
+  { t: "[0.41] db       postgres ................ ok" },
+  { t: "[0.55] db       mongodb ................. ok" },
+  { t: "[0.69] db       redis ................... ok" },
+  { t: "[0.94] tools    registering 60+ ......... ok" },
+  { t: "[1.21] vault    derive aes-256 keys ..... ok" },
+  { t: "[1.53] shaders  compiling aurora ........ ok" },
+  { t: "[1.78] ui       hydrating interface ..... ok" },
+  { t: "[1.99] routes   prefetch / · tools ...... ok" },
   { t: "" },
   { t: "> launching mydevtools.tech", accent: true },
 ];
 const TOTAL = CODE.reduce((n, l) => n + l.t.length, 0);
-const CAP_MS = 3100; // hard cap before fade-out (+600ms fade ≈ 3.7s total)
+const TYPE_MS = 3000; // typing spans ~3s
+const STEP = 2;
+const CAP_MS = 3500; // safety cap before fade-out
 
 export function MdtBoot() {
   const prefersReduced =
@@ -48,11 +54,15 @@ export function MdtBoot() {
     }
 
     let c = 0;
+    const tick = Math.max(8, Math.round(TYPE_MS / (TOTAL / STEP)));
     const id = setInterval(() => {
-      c += 2;
+      c += STEP;
       setChars(c);
-      if (c >= TOTAL) clearInterval(id);
-    }, 16);
+      if (c >= TOTAL) {
+        clearInterval(id);
+        setTimeout(() => setLeaving(true), 280);
+      }
+    }, tick);
     const cap = setTimeout(() => setLeaving(true), CAP_MS);
     return () => {
       clearInterval(id);

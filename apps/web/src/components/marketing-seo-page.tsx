@@ -58,7 +58,7 @@ export function MarketingSeoPage({ page }: { page: PlatformSeoPage }) {
 
   return (
     <div className="dark mdt-deck flex min-h-screen flex-col bg-background text-foreground font-sans">
-      <div aria-hidden style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
+      <div aria-hidden style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none' }}>
         <div className="mdt-grid" />
         <div className="mdt-noise" />
         <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden focusable="false">
