@@ -1,13 +1,6 @@
-import { proxyJsonAuthed } from "@/lib/backend-auth"
-
-const BACKEND_BASE_URL: string =
-    process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
-    process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
-    "http://localhost:8000"
+import { apiRequest } from "@/lib/backend-api"
 
 const BASE = "/api/v1/s3-drive"
-
-// ── Types ─────────────────────────────────────────────────────────────────────
 
 export type S3Provider = "aws" | "digitalocean" | "custom"
 
@@ -70,48 +63,32 @@ export type BucketInfo = {
     creationDate?: string
 }
 
-function extractError(data: unknown): string {
-    if (typeof data === "string" && data.trim()) return data
-    if (data && typeof data === "object" && "detail" in data) {
-        const d = (data as { detail: unknown }).detail
-        if (typeof d === "string") return d
-        try { return JSON.stringify(d) } catch { return "Request failed" }
-    }
-    return "Request failed"
-}
-
-async function s3Request<T>(method: string, path: string, body?: unknown): Promise<T> {
-    const { status, data } = await proxyJsonAuthed<T>(BACKEND_BASE_URL, method, path, body)
-    if (status < 200 || status >= 300) throw new Error(extractError(data))
-    return data as T
-}
-
 // ── Connection CRUD ───────────────────────────────────────────────────────────
 
 export async function listConnections(): Promise<S3ConnectionOut[]> {
-    return s3Request<S3ConnectionOut[]>("GET", `${BASE}/connections`)
+    return apiRequest<S3ConnectionOut[]>("GET", `${BASE}/connections`)
 }
 
 export async function createConnection(body: S3ConnectionCreate): Promise<S3ConnectionOut> {
-    return s3Request<S3ConnectionOut>("POST", `${BASE}/connections`, body)
+    return apiRequest<S3ConnectionOut>("POST", `${BASE}/connections`, body)
 }
 
 export async function getConnection(connId: string): Promise<S3ConnectionOut> {
-    return s3Request<S3ConnectionOut>("GET", `${BASE}/connections/${encodeURIComponent(connId)}`)
+    return apiRequest<S3ConnectionOut>("GET", `${BASE}/connections/${encodeURIComponent(connId)}`)
 }
 
 export async function updateConnection(connId: string, body: S3ConnectionUpdate): Promise<S3ConnectionOut> {
-    return s3Request<S3ConnectionOut>("PATCH", `${BASE}/connections/${encodeURIComponent(connId)}`, body)
+    return apiRequest<S3ConnectionOut>("PATCH", `${BASE}/connections/${encodeURIComponent(connId)}`, body)
 }
 
 export async function deleteConnection(connId: string): Promise<void> {
-    await s3Request<unknown>("DELETE", `${BASE}/connections/${encodeURIComponent(connId)}`)
+    await apiRequest<unknown>("DELETE", `${BASE}/connections/${encodeURIComponent(connId)}`)
 }
 
 // ── S3 operations ─────────────────────────────────────────────────────────────
 
 export async function listBuckets(credentials: S3Credentials): Promise<BucketInfo[]> {
-    return s3Request<BucketInfo[]>("POST", `${BASE}/operations/buckets`, { credentials })
+    return apiRequest<BucketInfo[]>("POST", `${BASE}/operations/buckets`, { credentials })
 }
 
 export async function listObjects(
@@ -120,7 +97,7 @@ export async function listObjects(
     continuationToken?: string,
     delimiter = "/",
 ): Promise<ListObjectsResponse> {
-    return s3Request<ListObjectsResponse>("POST", `${BASE}/operations/list`, {
+    return apiRequest<ListObjectsResponse>("POST", `${BASE}/operations/list`, {
         credentials,
         prefix,
         continuationToken,
@@ -129,15 +106,15 @@ export async function listObjects(
 }
 
 export async function deleteObjects(credentials: S3Credentials, keys: string[]): Promise<{ deleted: number }> {
-    return s3Request<{ deleted: number }>("POST", `${BASE}/operations/delete`, { credentials, keys })
+    return apiRequest<{ deleted: number }>("POST", `${BASE}/operations/delete`, { credentials, keys })
 }
 
 export async function createFolder(credentials: S3Credentials, prefix: string): Promise<{ key: string }> {
-    return s3Request<{ key: string }>("POST", `${BASE}/operations/create-folder`, { credentials, prefix })
+    return apiRequest<{ key: string }>("POST", `${BASE}/operations/create-folder`, { credentials, prefix })
 }
 
 export async function getPresignedDownloadUrl(credentials: S3Credentials, key: string, expiresIn = 3600): Promise<PresignedUrlResponse> {
-    return s3Request<PresignedUrlResponse>("POST", `${BASE}/operations/presigned-download`, { credentials, key, expiresIn })
+    return apiRequest<PresignedUrlResponse>("POST", `${BASE}/operations/presigned-download`, { credentials, key, expiresIn })
 }
 
 export async function getPresignedUploadUrl(
@@ -145,7 +122,7 @@ export async function getPresignedUploadUrl(
     key: string,
     contentType = "application/octet-stream",
 ): Promise<PresignedUrlResponse> {
-    return s3Request<PresignedUrlResponse>("POST", `${BASE}/operations/presigned-upload`, { credentials, key, contentType })
+    return apiRequest<PresignedUrlResponse>("POST", `${BASE}/operations/presigned-upload`, { credentials, key, contentType })
 }
 
 export type PresignedBatchItem = { key: string; op?: "get" | "put"; contentType?: string }
@@ -156,7 +133,7 @@ export async function getPresignedBatch(
     items: PresignedBatchItem[],
     expiresIn = 3600,
 ): Promise<PresignedBatchResponse> {
-    return s3Request<PresignedBatchResponse>("POST", `${BASE}/operations/presigned-batch`, { credentials, items, expiresIn })
+    return apiRequest<PresignedBatchResponse>("POST", `${BASE}/operations/presigned-batch`, { credentials, items, expiresIn })
 }
 
 export async function moveObject(
@@ -164,12 +141,12 @@ export async function moveObject(
     sourceKey: string,
     destinationKey: string,
 ): Promise<{ sourceKey: string; destinationKey: string }> {
-    return s3Request("POST", `${BASE}/operations/move`, { credentials, sourceKey, destinationKey })
+    return apiRequest("POST", `${BASE}/operations/move`, { credentials, sourceKey, destinationKey })
 }
 
 export async function configureBucketCors(
     credentials: S3Credentials,
     allowedOrigins: string[],
 ): Promise<{ bucket: string; status: string }> {
-    return s3Request("POST", `${BASE}/operations/configure-cors`, { credentials, allowedOrigins })
+    return apiRequest("POST", `${BASE}/operations/configure-cors`, { credentials, allowedOrigins })
 }

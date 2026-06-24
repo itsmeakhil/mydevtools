@@ -1,21 +1,21 @@
 from typing import Any
 
 from fastapi import HTTPException, status
-from pymongo import ReturnDocument
 from pymongo.errors import PyMongoError
 
 from app.api.routes.passwords.schema import (
     KeyVerifier,
     PasswordEntryCreate,
-    PasswordEntryUpdate,
     PasswordEntryOut,
+    PasswordEntryUpdate,
     VaultOut,
     VaultSetupRequest,
 )
-from app.core.cache import cached, bump_version
-from app.utils.collection_name import PASSWORD_ENTRIES, PASSWORD_VAULTS
-from app.utils.utils import create_timestamp, is_duplicate_key_error, new_id
+from app.core.cache import bump_version, cached
 from app.database import db_manager
+from app.utils.collection_name import PASSWORD_ENTRIES, PASSWORD_VAULTS
+from app.utils.crud import safe_delete_one, safe_insert, safe_update_one
+from app.utils.utils import create_timestamp, new_id
 
 
 def _vault_doc_to_out(doc: dict[str, Any]) -> VaultOut:
@@ -78,13 +78,7 @@ async def setup_vault(uid: str, body: VaultSetupRequest) -> VaultOut:
         "createdAt": ts_created,
         "updatedAt": ts_updated,
     }
-    try:
-        await db_manager.insert_one(PASSWORD_VAULTS, doc)
-    except PyMongoError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to setup vault."
-        ) from exc
-
+    await safe_insert(PASSWORD_VAULTS, doc, name="Vault")
     await bump_version(ns="passwords", uid=uid)
     return await get_vault(uid=uid)
 
@@ -115,15 +109,7 @@ async def create_entry(uid: str, body: PasswordEntryCreate) -> PasswordEntryOut:
         "createdAt": created_at,
         "updatedAt": updated_at,
     }
-    try:
-        await db_manager.insert_one(PASSWORD_ENTRIES, doc)
-    except PyMongoError as exc:
-        if is_duplicate_key_error(exc):
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Entry id collision.") from exc
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create entry."
-        ) from exc
-
+    await safe_insert(PASSWORD_ENTRIES, doc, name="Entry")
     await bump_version(ns="passwords", uid=uid)
     return _entry_doc_to_out(doc, entry_id=eid)
 
@@ -143,27 +129,18 @@ async def update_entry(uid: str, entry_id: str, body: PasswordEntryUpdate) -> Pa
         "iv": body.iv,
         "updatedAt": ts_updated,
     }
-    try:
-        doc = await db_manager.find_one_and_update(
-            PASSWORD_ENTRIES,
-            {"_id": entry_id, "created_by": uid},
-            {"$set": patch},
-            return_document=ReturnDocument.AFTER,
-        )
-    except PyMongoError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update entry."
-        ) from exc
-    if not doc:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Entry not found.")
+    doc = await safe_update_one(
+        PASSWORD_ENTRIES,
+        {"_id": entry_id, "created_by": uid},
+        patch,
+        name="Entry",
+    )
     await bump_version(ns="passwords", uid=uid)
     return _entry_doc_to_out(doc, entry_id=entry_id)
 
 
 async def delete_entry(uid: str, entry_id: str) -> None:
-    result = await db_manager.delete_one(PASSWORD_ENTRIES, {"_id": entry_id, "created_by": uid})
-    if result.deleted_count == 0:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Entry not found.")
+    await safe_delete_one(PASSWORD_ENTRIES, {"_id": entry_id, "created_by": uid}, name="Entry")
     await bump_version(ns="passwords", uid=uid)
 
 

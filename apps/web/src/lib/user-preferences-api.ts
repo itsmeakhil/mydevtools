@@ -1,9 +1,4 @@
-import { proxyJsonAuthed } from "@/lib/backend-auth"
-
-const BACKEND_BASE_URL: string =
-    process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
-    process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
-    "http://localhost:8000"
+import { apiRequest } from "@/lib/backend-api"
 
 const BASE = "/api/v1/user-preferences"
 
@@ -42,41 +37,16 @@ export type NosqlQueryHistoryOut = {
     updatedAt: number
 }
 
-function backendErrorMessage(data: unknown): string {
-    if (typeof data === "string" && data.trim()) return data
-    if (data && typeof data === "object" && "detail" in data) {
-        const d = (data as { detail: unknown }).detail
-        if (typeof d === "string") return d
-        try {
-            return JSON.stringify(d)
-        } catch {
-            return "Request failed"
-        }
-    }
-    return "Request failed"
-}
-
-async function userPrefsRequest<T>(method: string, path: string, body?: unknown): Promise<T> {
-    const { status, data } = await proxyJsonAuthed<T>(BACKEND_BASE_URL, method, path, body)
-    if (status < 200 || status >= 300) {
-        throw new Error(backendErrorMessage(data))
-    }
-    if (data === null || data === undefined) {
-        throw new Error(`Empty response body from ${path} (status ${status})`)
-    }
-    return data as T
-}
-
 export async function getUserPreferences(): Promise<UserPreferencesOut> {
-    return userPrefsRequest<UserPreferencesOut>("GET", BASE)
+    return apiRequest<UserPreferencesOut>("GET", BASE)
 }
 
 export async function patchUserPreferences(body: UserPreferencesPatch): Promise<UserPreferencesOut> {
-    return userPrefsRequest<UserPreferencesOut>("PATCH", BASE, body)
+    return apiRequest<UserPreferencesOut>("PATCH", BASE, body)
 }
 
 export async function trackToolUsageApi(toolId: string): Promise<void> {
-    await userPrefsRequest<{ ok: boolean }>("POST", `${BASE}/tool-usage`, { toolId })
+    await apiRequest<{ ok: boolean }>("POST", `${BASE}/tool-usage`, { toolId })
 }
 
 export async function getNosqlQueryHistory(params: {
@@ -89,7 +59,7 @@ export async function getNosqlQueryHistory(params: {
         dbName: params.dbName,
         collectionName: params.collectionName,
     })
-    return userPrefsRequest<NosqlQueryHistoryOut>("GET", `${BASE}/nosql-query-history?${q.toString()}`)
+    return apiRequest<NosqlQueryHistoryOut>("GET", `${BASE}/nosql-query-history?${q.toString()}`)
 }
 
 export async function putNosqlQueryHistory(params: {
@@ -98,5 +68,5 @@ export async function putNosqlQueryHistory(params: {
     collectionName: string
     queries: string[]
 }): Promise<NosqlQueryHistoryOut> {
-    return userPrefsRequest<NosqlQueryHistoryOut>("PUT", `${BASE}/nosql-query-history`, params)
+    return apiRequest<NosqlQueryHistoryOut>("PUT", `${BASE}/nosql-query-history`, params)
 }

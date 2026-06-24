@@ -1,14 +1,14 @@
 from datetime import datetime, timezone
-from typing import Any, Optional
+from typing import Any
 
 from fastapi import HTTPException, status
-from pymongo.errors import PyMongoError
 
 from app.api.routes.notes.schema import NoteCreate, NoteOut, NoteUpdate
-from app.core.cache import cached, bump_version
-from app.utils.collection_name import NOTES
-from app.utils.utils import new_id
+from app.core.cache import bump_version, cached
 from app.database import db_manager
+from app.utils.collection_name import NOTES
+from app.utils.crud import safe_insert, safe_update_one
+from app.utils.utils import new_id
 
 
 def isoformat_utc(dt: datetime) -> str:
@@ -85,10 +85,7 @@ async def create_note(uid: str, body: NoteCreate) -> NoteOut:
         "createdAt": ts,
         "updatedAt": ts,
     }
-    try:
-        await db_manager.insert_one(NOTES, doc)
-    except PyMongoError as exc:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create note.") from exc
+    await safe_insert(NOTES, doc, name="Note")
     await bump_version(ns="notes", uid=uid)
     return _doc_to_out(doc)
 
@@ -107,17 +104,9 @@ async def update_note(uid: str, note_id: str, body: NoteUpdate) -> NoteOut:
         return await get_note(uid=uid, note_id=note_id)
 
     patch["updatedAt"] = datetime.now(timezone.utc)
-    try:
-        result = await db_manager.update_one(NOTES, {"_id": note_id, "created_by": uid}, {"$set": patch})
-    except PyMongoError as exc:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update note.") from exc
-
-    if result.matched_count == 0:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
-
-    doc = await db_manager.find_one(NOTES, {"_id": note_id, "created_by": uid})
-    if not doc:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
+    doc = await safe_update_one(
+        NOTES, {"_id": note_id, "created_by": uid}, patch, name="Note"
+    )
     await bump_version(ns="notes", uid=uid)
     return _doc_to_out(doc)
 

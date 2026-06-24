@@ -1,10 +1,9 @@
-from typing import Optional
 
 from fastapi import APIRouter, Depends, Query
 
 from app.api.routes.auth.services import get_current_uid
-from app.api.routes.code_snippets.schema import CodeSnippetCreate, CodeSnippetOut, CodeSnippetUpdate
 from app.api.routes.code_snippets import services as snippet_svc
+from app.api.routes.code_snippets.schema import CodeSnippetCreate, CodeSnippetOut, CodeSnippetUpdate
 
 router = APIRouter(prefix="/code-snippets", tags=["code-snippets"])
 
@@ -13,7 +12,7 @@ router = APIRouter(prefix="/code-snippets", tags=["code-snippets"])
 async def list_snippets(
     uid: str = Depends(get_current_uid),
     skip: int = Query(default=0, ge=0),
-    limit: Optional[int] = Query(default=None, ge=1, le=500),
+    limit: int | None = Query(default=None, ge=1, le=500),
 ) -> list[CodeSnippetOut]:
     return await snippet_svc.list_code_snippets(uid=uid, skip=skip, limit=limit)
 
