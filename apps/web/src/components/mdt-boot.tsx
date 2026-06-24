@@ -28,7 +28,7 @@ const CODE: { t: string; accent?: boolean }[] = [
 const TOTAL = CODE.reduce((n, l) => n + l.t.length, 0);
 const TYPE_MS = 3000; // typing spans ~3s
 const STEP = 2;
-const CAP_MS = 3500; // safety cap before fade-out
+const VISIBLE_MS = 3400; // time on screen before the fade begins (+~0.6s fade)
 
 export function MdtBoot() {
   const prefersReduced =
@@ -40,15 +40,20 @@ export function MdtBoot() {
   const [hidden, setHidden] = useState(played);
 
   useEffect(() => {
+    // Already finished a full play (SPA navigation) → skip entirely.
+    // NOTE: `played` is set on COMPLETION, not on mount, so React StrictMode's
+    // dev double-mount can't hide the loader early.
     if (played) {
       setHidden(true);
       return;
     }
-    played = true;
 
     if (prefersReduced) {
       setChars(TOTAL);
-      const t = setTimeout(() => setLeaving(true), 700);
+      const t = setTimeout(() => {
+        played = true;
+        setLeaving(true);
+      }, 1800);
       return () => clearTimeout(t);
     }
 
@@ -57,15 +62,15 @@ export function MdtBoot() {
     const id = setInterval(() => {
       c += STEP;
       setChars(c);
-      if (c >= TOTAL) {
-        clearInterval(id);
-        setTimeout(() => setLeaving(true), 280);
-      }
+      if (c >= TOTAL) clearInterval(id);
     }, tick);
-    const cap = setTimeout(() => setLeaving(true), CAP_MS);
+    const leave = setTimeout(() => {
+      played = true;
+      setLeaving(true);
+    }, VISIBLE_MS);
     return () => {
       clearInterval(id);
-      clearTimeout(cap);
+      clearTimeout(leave);
     };
   }, [prefersReduced]);
 

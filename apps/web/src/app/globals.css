@@ -1479,13 +1479,13 @@ body {
   --card-foreground: 228 50% 97%;
   --popover: 230 24% 9%;
   --popover-foreground: 228 50% 97%;
-  --muted: 230 18% 16%;
-  --muted-foreground: 228 14% 66%;
-  --border: 230 18% 20%;
-  --input: 230 18% 20%;
-  --surface-1: 230 24% 8%;
-  --surface-2: 230 22% 11%;
-  --surface-3: 230 20% 14%;
+  --muted: 232 26% 10%;
+  --muted-foreground: 228 16% 70%;
+  --border: 232 22% 15%;
+  --input: 232 22% 15%;
+  --surface-1: 232 30% 6%;
+  --surface-2: 232 28% 8%;
+  --surface-3: 232 26% 11%;
 }
 
 /* deck canvas wrapper — forces the dark premium look on marketing pages */
@@ -1495,6 +1495,14 @@ html { overflow-x: hidden; }
   background: var(--mdt-bg);
   color: var(--mdt-text);
   isolation: isolate;
+}
+/* ambient color depth fixed behind all content (kills flat grey sections) */
+.mdt-deck::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(52% 42% at 88% 6%, rgba(122,107,245,.15), transparent 60%),
+    radial-gradient(48% 40% at 4% 70%, rgba(79,140,235,.12), transparent 60%),
+    radial-gradient(85% 55% at 52% 118%, rgba(154,92,242,.11), transparent 60%);
 }
 .mdt-deck ::selection { background: rgba(122,107,245,.35); }
 
