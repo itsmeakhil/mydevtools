@@ -393,15 +393,15 @@ export default function Page() {
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.6, delay: 0.32 }}
-              className="mt-7 mx-auto grid max-w-md grid-cols-3 overflow-hidden rounded-2xl glass-overlay divide-x divide-white/10"
+              className="mt-7 mx-auto grid max-w-lg grid-cols-3 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-md divide-x divide-white/10 shadow-xl shadow-black/30"
             >
               {[
                 { value: `${allAppTools.length}+`, label: "Online Tools" },
                 { value: "GPL-3.0", label: "Open Source" },
                 { value: "Self-host", label: "Free Forever" },
               ].map((s, i) => (
-                <div key={i} className="px-3 py-4 text-center">
-                  <div className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight whitespace-nowrap mdt-grad-text">
+                <div key={i} className="px-2 py-4 text-center">
+                  <div className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight whitespace-nowrap mdt-grad-text">
                     {s.value}
                   </div>
                   <div className="mt-1 text-xs md:text-sm font-medium leading-snug text-[color:var(--mdt-muted)]">
