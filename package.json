@@ -14,7 +14,6 @@
     "clean-install": "rimraf node_modules apps/*/node_modules && pnpm install"
   },
   "devDependencies": {
-    "next": "16.0.10",
     "rimraf": "^6.1.0"
   },
   "pnpm": {

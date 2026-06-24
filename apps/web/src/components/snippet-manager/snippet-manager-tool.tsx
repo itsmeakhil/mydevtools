@@ -4,7 +4,7 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState, type RefObject
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useTranslations } from "next-intl";
-import debounce from "lodash/debounce";
+import { useDebouncedCallback } from "use-debounce";
 import { auth } from "@/database/firebase";
 import {
   createCodeSnippetApi,
@@ -313,52 +313,38 @@ export function SnippetManagerTool() {
   const selectedIdRef = useRef(selectedId);
   selectedIdRef.current = selectedId;
 
-  const debouncedSaveCode = useMemo(
-    () =>
-      debounce((code: string) => {
-        const id = selectedIdRef.current;
-        if (!id) return;
-        useSnippetManagerStore.getState().updateSnippet(id, { code });
-        const u = userRef.current;
-        if (u) {
-          void patchCodeSnippetApi(id, { code })
-            .then((s) =>
-              useSnippetManagerStore.getState().mergeSnippetFromRemote(s)
-            )
-            .catch(() => toast.error(t("toastSyncFailed")));
-        }
-      }, 450),
-    [t]
+  const debouncedSaveCode = useDebouncedCallback((code: string) => {
+    const id = selectedIdRef.current;
+    if (!id) return;
+    useSnippetManagerStore.getState().updateSnippet(id, { code });
+    const u = userRef.current;
+    if (u) {
+      void patchCodeSnippetApi(id, { code })
+        .then((s) =>
+          useSnippetManagerStore.getState().mergeSnippetFromRemote(s)
+        )
+        .catch(() => toast.error(t("toastSyncFailed")));
+    }
+  }, 450);
+
+  const debouncedSetLangCode = useDebouncedCallback(
+    (code: string) => setDebouncedCode(code),
+    300
   );
 
-  const debouncedSetLangCode = useMemo(
-    () => debounce((code: string) => setDebouncedCode(code), 300),
-    []
-  );
-
-  const debouncedPersistTitleLang = useMemo(
-    () =>
-      debounce((title: string, language: string, id: string) => {
-        useSnippetManagerStore.getState().updateSnippet(id, { title, language });
-        const u = userRef.current;
-        if (u) {
-          void patchCodeSnippetApi(id, { title, language })
-            .then((s) =>
-              useSnippetManagerStore.getState().mergeSnippetFromRemote(s)
-            )
-            .catch(() => toast.error(t("toastSyncFailed")));
-        }
-      }, 400),
-    [t]
-  );
-
-  useEffect(
-    () => () => {
-      debouncedSaveCode.cancel();
-      debouncedSetLangCode.cancel();
-      debouncedPersistTitleLang.cancel();
+  const debouncedPersistTitleLang = useDebouncedCallback(
+    (title: string, language: string, id: string) => {
+      useSnippetManagerStore.getState().updateSnippet(id, { title, language });
+      const u = userRef.current;
+      if (u) {
+        void patchCodeSnippetApi(id, { title, language })
+          .then((s) =>
+            useSnippetManagerStore.getState().mergeSnippetFromRemote(s)
+          )
+          .catch(() => toast.error(t("toastSyncFailed")));
+      }
     },
-    [debouncedSaveCode, debouncedSetLangCode, debouncedPersistTitleLang]
+    400
   );
 
   const [storeHydrated, setStoreHydrated] = useState(() => {
