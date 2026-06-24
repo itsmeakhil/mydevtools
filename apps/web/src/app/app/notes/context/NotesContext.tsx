@@ -6,7 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/database/firebase";
 import { useTranslations } from "next-intl";
 import { fetchAllPages } from "@/lib/fetch-all-pages";
-import { parseProxyResponse } from "@/lib/backend-auth";
+import { proxyJsonAuthed } from "@/lib/backend-auth";
 
 const BACKEND_BASE_URL: string =
     process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
@@ -66,40 +66,11 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
             const currentUser = userRef.current;
             if (!currentUser) throw new Error(t("authRequiredError"));
 
-            const url = new URL(path, BACKEND_BASE_URL).toString();
-
-            const headers: Record<string, string> = {};
-            if (body !== undefined && body !== null && method !== "GET" && method !== "HEAD") {
-                headers["Content-Type"] = "application/json";
+            const { status, data } = await proxyJsonAuthed<T>(BACKEND_BASE_URL, method, path, body);
+            if (status < 200 || status >= 300) {
+                throw new Error(`API ${method} ${path} failed (${status})`);
             }
-
-            const proxyRes = await fetch("/api/proxy", {
-                method: "POST",
-                credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    url,
-                    method,
-                    headers,
-                    body: body !== undefined ? JSON.stringify(body) : undefined,
-                }),
-            });
-
-            const proxyData = await parseProxyResponse(proxyRes);
-            if (proxyData.status < 200 || proxyData.status >= 300) {
-                throw new Error(proxyData.body || proxyData.statusText || "API request failed");
-            }
-
-            const responseBody = proxyData.body as string;
-            if (!responseBody) {
-                return undefined as T;
-            }
-
-            try {
-                return JSON.parse(responseBody) as T;
-            } catch {
-                return responseBody as unknown as T;
-            }
+            return data as T;
         },
         [t]
     );
@@ -125,6 +96,7 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
         apiRequest<Note>("GET", `/api/v1/notes/${activeNoteId}`)
             .then((full) => {
                 if (cancelled) return;
+                if (!full?.id) return;
                 contentLoadedIds.current.add(activeNoteId);
                 setNotes((prev) => prev.map((n) => (n.id === full.id ? full : n)));
             })
@@ -159,6 +131,7 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
             parentId,
             icon: undefined,
         });
+        if (!created?.id) throw new Error("Note create failed");
         contentLoadedIds.current.add(created.id);
         setActiveNoteId(created.id);
         setNotes((prev) => [...prev, created].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
@@ -176,6 +149,7 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
         if (updates.tags !== undefined) payload.tags = updates.tags;
 
         const updated = await apiRequest<Note>("PATCH", `/api/v1/notes/${id}`, payload);
+        if (!updated?.id) throw new Error("Update failed: empty response");
         if (updates.content !== undefined) contentLoadedIds.current.add(id);
         setNotes((prev) => prev.map((n) => (n.id === updated.id ? updated : n)));
     }, [apiRequest]);
@@ -190,6 +164,7 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
         let content = src.content;
         if (!contentLoadedIds.current.has(id)) {
             const full = await apiRequest<Note>("GET", `/api/v1/notes/${id}`);
+            if (!full?.id) throw new Error("Note fetch failed");
             contentLoadedIds.current.add(id);
             setNotes((prev) => prev.map((n) => (n.id === full.id ? full : n)));
             content = full.content;
@@ -201,6 +176,7 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
             icon: src.icon,
             tags: src.tags,
         });
+        if (!created?.id) throw new Error("Note duplicate failed");
         contentLoadedIds.current.add(created.id);
         setActiveNoteId(created.id);
         setNotes((prev) => [...prev, created].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));

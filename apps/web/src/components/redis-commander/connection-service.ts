@@ -1,7 +1,7 @@
 import { auth } from "@/database/firebase";
 import { encryptData, decryptData } from "@/lib/encryption";
 import { toast } from "sonner";
-import { parseProxyResponse } from "@/lib/backend-auth";
+import { proxyJsonAuthed } from "@/lib/backend-auth";
 import { RedisConnectionConfig, SavedRedisConnection } from "./types";
 
 const BACKEND_BASE_URL: string =
@@ -9,46 +9,15 @@ const BACKEND_BASE_URL: string =
     process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
     "http://localhost:8000";
 
-type ProxyResponse = {
-    status: number;
-    statusText: string;
-    headers: Record<string, string>;
-    body: string;
-    isBase64: boolean;
-    time: number;
-    size: number;
-    error?: string;
-};
-
 async function proxyRequest<T>(method: string, path: string, body?: unknown): Promise<T> {
     const currentUser = auth.currentUser;
     if (!currentUser) throw new Error("Not authenticated.");
 
-    const url = new URL(path, BACKEND_BASE_URL).toString();
-    const headersObj: Record<string, string> = {};
-    const proxyBody = body !== undefined ? JSON.stringify(body) : undefined;
-    if (proxyBody !== undefined && method !== "GET" && method !== "HEAD") {
-        headersObj["Content-Type"] = "application/json";
+    const { status, data } = await proxyJsonAuthed<T>(BACKEND_BASE_URL, method, path, body);
+    if (status < 200 || status >= 300) {
+        throw new Error(`Request failed (${status})`);
     }
-
-    const proxyRes = await fetch("/api/proxy", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url, method, headers: headersObj, body: proxyBody }),
-    });
-
-    const proxyData = (await parseProxyResponse(proxyRes)) as ProxyResponse;
-    if (proxyData.status < 200 || proxyData.status >= 300) {
-        throw new Error(proxyData.body || proxyData.statusText || proxyData.error || "Request failed");
-    }
-
-    if (!proxyData.body) return undefined as T;
-    try {
-        return JSON.parse(proxyData.body) as T;
-    } catch {
-        return proxyData.body as unknown as T;
-    }
+    return data as T;
 }
 
 type ConnectionRaw = Omit<SavedRedisConnection, "config">;

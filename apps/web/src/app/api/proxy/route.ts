@@ -91,7 +91,15 @@ export async function POST(req: NextRequest) {
         const { url, method, headers, body } = await req.json()
 
         if (!url) {
-            return NextResponse.json({ error: "URL is required" }, { status: 400 })
+            return NextResponse.json({
+                status: 400,
+                statusText: "Bad Request",
+                headers: {},
+                body: "URL is required",
+                time: 0,
+                size: 0,
+                error: "URL is required",
+            })
         }
 
         let parsed: URL

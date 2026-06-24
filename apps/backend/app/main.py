@@ -28,7 +28,7 @@ async def lifespan(_app: FastAPI):
     from app.core.redis_client import open_redis, close_redis
     await open_redis()
 
-    from app.api.routes.url_shortener.click_queue import flush_loop
+    from app.api.routes.url_shortener.click_queue import flush_loop, close_flush_client
     click_flush_task = asyncio.create_task(flush_loop())
 
     try:
@@ -39,6 +39,7 @@ async def lifespan(_app: FastAPI):
             await click_flush_task
         except asyncio.CancelledError:
             pass
+        await close_flush_client()
         await close_redis()
 
 

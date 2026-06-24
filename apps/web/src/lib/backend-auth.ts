@@ -148,8 +148,10 @@ export type ProxyResponse = {
  */
 export async function parseProxyResponse(res: Response): Promise<ProxyResponse> {
     const text = await res.text().catch(() => "")
-    if (!res.ok && !text) {
-        throw new Error(`Proxy request failed: ${res.status} ${res.statusText || ""}`.trim())
+    // Proxy non-OK (Next route 4xx/5xx itself, not the wrapped upstream). Surface body when present.
+    if (!res.ok) {
+        const snippet = text ? ` body=${text.slice(0, 200)}` : ""
+        throw new Error(`Proxy request failed: ${res.status} ${res.statusText || ""}${snippet}`.trim())
     }
     try {
         return JSON.parse(text) as ProxyResponse
@@ -177,6 +179,11 @@ async function rawProxyJson<T>(
         body: JSON.stringify({ url, method, headers: headersObj, body: proxyBody }),
     })
     const proxyData = await parseProxyResponse(proxyRes)
+    if (typeof proxyData.status !== "number") {
+        throw new Error(
+            `Proxy returned malformed envelope (no status): ${JSON.stringify(proxyData).slice(0, 200)}`
+        )
+    }
     if (!proxyData.body) return { status: proxyData.status, data: null }
     try {
         return { status: proxyData.status, data: JSON.parse(proxyData.body) as T }
