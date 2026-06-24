@@ -39,6 +39,7 @@ import MdtAurora from "@/components/mdt-aurora";
 import { MdtFx } from "@/components/mdt-fx";
 import { Magnetic } from "@/components/mdt-magnetic";
 import { Tilt } from "@/components/mdt-tilt";
+import { MdtBoot } from "@/components/mdt-boot";
 
 // ─── Animation Variants ────────────────────────────────────────────────────────
 
@@ -237,7 +238,7 @@ export default function Page() {
   }, []);
 
   return (
-    <div className="dark mdt-deck flex flex-col min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
+    <div className="dark mdt-deck flex flex-col min-h-screen bg-background text-foreground font-sans">
       {/* deck atmosphere: fixed grid + grain behind everything + gradient def for icons */}
       <div aria-hidden style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none" }}>
         <div className="mdt-grid" />
@@ -253,6 +254,7 @@ export default function Page() {
         </svg>
       </div>
       <MdtFx />
+      <MdtBoot />
       <Header showThemeToggle={false} />
 
       {/* ── Hero ────────────────────────────────────────────────────────────── */}

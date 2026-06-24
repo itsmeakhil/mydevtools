@@ -1489,11 +1489,11 @@ body {
 }
 
 /* deck canvas wrapper — forces the dark premium look on marketing pages */
+html { overflow-x: hidden; }
 .mdt-deck {
   position: relative;
   background: var(--mdt-bg);
   color: var(--mdt-text);
-  overflow-x: clip;
   isolation: isolate;
 }
 .mdt-deck ::selection { background: rgba(122,107,245,.35); }
@@ -1647,4 +1647,43 @@ body {
     transition-duration: .01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ─── CRT BOOT LOADER ─────────────────────────────────────────────────────── */
+.mdt-boot {
+  position: fixed; inset: 0; z-index: 200; background: #050608;
+  display: grid; place-items: center; overflow: hidden;
+}
+.mdt-boot__vignette { position: absolute; inset: 0; pointer-events: none; z-index: 3;
+  background: radial-gradient(120% 130% at 50% 50%, transparent 52%, rgba(0,0,0,.78) 100%); }
+.mdt-boot__scanlines { position: absolute; inset: 0; pointer-events: none; z-index: 4; opacity: .55;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.34) 2px 4px); }
+.mdt-boot__sweep { position: absolute; left: 0; right: 0; height: 22%; z-index: 4; pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(180,190,255,.06) 50%, transparent);
+  animation: mdt-sweep 5.5s linear infinite; }
+@keyframes mdt-sweep { from { transform: translateY(-120%); } to { transform: translateY(560%); } }
+.mdt-boot__screen { position: relative; z-index: 2; width: min(640px, 90vw); padding: 0 6px; }
+.mdt-boot__flicker { animation: mdt-flicker 4s infinite steps(64); }
+@keyframes mdt-flicker { 0%,100%{opacity:1} 7%{opacity:.9} 9%{opacity:1} 39%{opacity:.95} 41%{opacity:1} 73%{opacity:.93} 75%{opacity:1} }
+.mdt-boot__title { font-family: var(--font-geist-mono), monospace; font-weight: 600;
+  font-size: clamp(1.6rem, 5vw, 2.4rem); letter-spacing: .32em; color: #d4d9ff; margin-bottom: 1.6rem;
+  animation: mdt-rgb 2.6s ease-in-out infinite; }
+@keyframes mdt-rgb {
+  0%,100% { text-shadow: -1px 0 rgba(255,40,90,.45), 1px 0 rgba(40,200,255,.45), 0 0 18px rgba(122,107,245,.5); }
+  50%     { text-shadow: -2px 0 rgba(255,40,90,.55), 2px 0 rgba(40,200,255,.55), 0 0 26px rgba(122,107,245,.6); }
+}
+.mdt-boot__term { font-family: var(--font-geist-mono), monospace; font-size: clamp(12px, 1.6vw, 15px);
+  line-height: 1.85; color: #aab4ff; text-shadow: 0 0 6px rgba(122,107,245,.45); min-height: 13.5em; }
+.mdt-boot__line { display: flex; gap: .75rem; align-items: baseline; }
+.mdt-boot__ok { margin-left: auto; color: #43e0a4; text-shadow: 0 0 8px rgba(63,215,154,.55); white-space: nowrap; }
+.mdt-boot__ready { color: #d4d9ff; }
+.mdt-boot__cursor { display: inline-block; width: 9px; height: 1em; transform: translateY(2px);
+  background: #4fd0e6; box-shadow: 0 0 10px #4fd0e6; animation: mdt-blink 1s steps(2) infinite; }
+@keyframes mdt-blink { 50% { opacity: 0; } }
+.mdt-boot__bar { margin-top: 1.8rem; height: 4px; border-radius: 3px; overflow: hidden; background: rgba(255,255,255,.07); }
+.mdt-boot__barfill { height: 100%; width: 100%; transform-origin: left center; background: var(--mdt-grad); box-shadow: 0 0 14px rgba(122,107,245,.7); transition: transform .12s linear; }
+.mdt-boot--out { animation: mdt-boot-out 720ms cubic-bezier(.19,1,.22,1) forwards; }
+@keyframes mdt-boot-out { to { opacity: 0; transform: scale(1.05); filter: blur(7px); visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) {
+  .mdt-boot__flicker, .mdt-boot__title, .mdt-boot__cursor, .mdt-boot__sweep { animation: none !important; }
 }

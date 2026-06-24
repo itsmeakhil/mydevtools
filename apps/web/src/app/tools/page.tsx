@@ -7,6 +7,7 @@ import { ToolsGrid } from '@/components/tools-grid'
 import { publicToolSlugs } from '@/lib/tool-categories'
 import { MdtFx } from '@/components/mdt-fx'
 import MdtAurora from '@/components/mdt-aurora'
+import { MdtBoot } from '@/components/mdt-boot'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('Online Developer Tools')}&description=${encodeURIComponent('Browse 50+ browser-based developer tools. No install required.')}`
@@ -49,6 +50,7 @@ export default function ToolsIndexPage() {
         </svg>
       </div>
       <MdtFx />
+      <MdtBoot />
       <Header showThemeToggle={false} />
 
       <main className="flex-1">
