@@ -1687,15 +1687,7 @@ html { overflow-x: hidden; }
   .crt { transform: none; }
 }
 
-/* ─── HERO INTERACTIVE GRID (cursor warp) ─────────────────────────────────── */
-.mdt-herogrid { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; perspective: 1100px; }
-.mdt-herogrid__layer {
-  position: absolute; inset: -14%; transform-style: preserve-3d; will-change: transform;
-  background-image:
-    linear-gradient(rgba(150,165,255,.09) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(150,165,255,.09) 1px, transparent 1px);
-  background-size: 54px 54px;
-  -webkit-mask-image: radial-gradient(52% 52% at var(--gx,50%) var(--gy,50%), #000 0%, rgba(0,0,0,.4) 48%, transparent 78%);
-          mask-image: radial-gradient(52% 52% at var(--gx,50%) var(--gy,50%), #000 0%, rgba(0,0,0,.4) 48%, transparent 78%);
-}
-@media (prefers-reduced-motion: reduce) { .mdt-herogrid__layer { transform: none !important; } }
+
+/* dashboard editor caret */
+.mdt-dash-caret { background: var(--mdt-cyan); box-shadow: 0 0 8px var(--mdt-cyan); border-radius: 1px; animation: mdt-caret-blink 1.1s steps(2) infinite; }
+@keyframes mdt-caret-blink { 50% { opacity: 0; } }

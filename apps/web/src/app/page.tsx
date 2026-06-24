@@ -40,7 +40,7 @@ import { MdtFx } from "@/components/mdt-fx";
 import { Magnetic } from "@/components/mdt-magnetic";
 import { Tilt } from "@/components/mdt-tilt";
 import { MdtBoot } from "@/components/mdt-boot";
-import { MdtHeroGrid } from "@/components/mdt-hero-grid";
+import { MdtDashboard } from "@/components/mdt-dashboard";
 
 // ─── Animation Variants ────────────────────────────────────────────────────────
 
@@ -263,7 +263,6 @@ export default function Page() {
         {/* Ambient orbs + living aurora */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <MdtAurora />
-          <MdtHeroGrid />
           <motion.div
             className="absolute -top-48 -left-48 w-[500px] h-[500px] rounded-full bg-violet-500/15 blur-[120px]"
             animate={
@@ -420,27 +419,7 @@ export default function Page() {
             >
               {/* Browser chrome frame */}
               <Tilt max={5} className="rounded-2xl">
-              <div className="rounded-2xl glass-overlay shadow-2xl shadow-violet-500/8 dark:shadow-violet-500/5 overflow-hidden">
-                {/* Fake browser bar */}
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-border/40 bg-muted/40">
-                  <div className="flex gap-1.5 shrink-0">
-                    <div className="w-3 h-3 rounded-full bg-rose-400/70" />
-                    <div className="w-3 h-3 rounded-full bg-amber-400/70" />
-                    <div className="w-3 h-3 rounded-full bg-emerald-400/70" />
-                  </div>
-                  <div className="flex-1 mx-4 min-w-0 h-6 rounded-md bg-background/60 border border-border/40 text-xs text-muted-foreground flex items-center px-3">
-                    <span className="truncate">https://mydevtools.tech/dashboard</span>
-                  </div>
-                </div>
-                <Image
-                  src="/images/dashboard-dark.png"
-                  alt="MyDevTools dashboard interface showing unified developer toolkit: SQL client, NoSQL explorer, API client, JSON formatter, and 60+ tools in one workspace"
-                  width={1024}
-                  height={597}
-                  priority
-                  className="w-full h-auto"
-                />
-              </div>
+                <MdtDashboard />
               </Tilt>
               {/* Glow beneath the screenshot */}
               <div className="absolute -bottom-6 inset-x-8 h-16 bg-violet-500/20 blur-2xl rounded-full pointer-events-none" />

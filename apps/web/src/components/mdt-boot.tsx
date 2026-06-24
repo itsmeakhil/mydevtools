@@ -11,20 +11,19 @@ import { useEffect, useState } from "react";
 let played = false;
 
 const CODE: { t: string; accent?: boolean }[] = [
-  { t: "$ ./mydevtools --boot --env=production", accent: true },
+  { t: "$ mydevtools boot --env=production", accent: true },
   { t: "" },
-  { t: "[0.01] kernel   next 16 · react 19 ...... ok" },
-  { t: "[0.19] compile  app/(marketing) ......... ok" },
-  { t: "[0.41] db       postgres ................ ok" },
-  { t: "[0.55] db       mongodb ................. ok" },
-  { t: "[0.69] db       redis ................... ok" },
-  { t: "[0.94] tools    registering 60+ ......... ok" },
-  { t: "[1.21] vault    derive aes-256 keys ..... ok" },
-  { t: "[1.53] shaders  compiling aurora ........ ok" },
-  { t: "[1.78] ui       hydrating interface ..... ok" },
-  { t: "[1.99] routes   prefetch / · tools ...... ok" },
+  { t: "[boot ] reading config ............ ok" },
+  { t: "[init ] next 16 · react 19 ........ ready" },
+  { t: "[net  ] api.mydevtools.tech ....... 200" },
+  { t: "[db   ] sql · mongo · redis ....... online" },
+  { t: "[tools] registered 60 utilities ... ok" },
+  { t: "[vault] aes-256 zero-knowledge .... sealed" },
+  { t: "[gpu  ] compiling aurora shaders .. ok" },
+  { t: "[cache] prefetch routes ........... warm" },
+  { t: "[ok   ] all systems nominal" },
   { t: "" },
-  { t: "> launching mydevtools.tech", accent: true },
+  { t: "> launching workspace", accent: true },
 ];
 const TOTAL = CODE.reduce((n, l) => n + l.t.length, 0);
 const TYPE_MS = 3000; // typing spans ~3s
