@@ -841,9 +841,12 @@ body {
   }
 
   .dark .glass-overlay {
-    background: hsl(var(--surface-1) / 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    background: linear-gradient(180deg, rgba(122, 107, 245, 0.05), transparent 42%), var(--mdt-surface);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--mdt-border);
+    border-radius: 18px;
+    box-shadow: 0 18px 50px -24px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   /* Modals, command palette, dropdowns */
@@ -856,9 +859,9 @@ body {
   }
 
   .dark .glass-modal {
-    background: hsl(var(--surface-2) / 0.94);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    background: linear-gradient(180deg, rgba(122, 107, 245, 0.06), transparent 38%), var(--mdt-surface-hi);
+    border: 1px solid var(--mdt-border);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   }
 
   /* Core workspace — NO glass, solid crisp background */
@@ -1446,3 +1449,123 @@ body {
   mix-blend-mode: screen;
   opacity: 0.04;
 }
+/* ─────────────────────────────────────────────────────────────────────────
+   MYDEVTOOLS · DECK DESIGN LAYER  (matches the investor-deck aesthetic)
+   Theme-independent — marketing surfaces always render the dark "deck" look.
+   ───────────────────────────────────────────────────────────────────────── */
+:root {
+  --mdt-bg: #08090f;
+  --mdt-bg2: #0d0f18;
+  --mdt-surface: #14161f;
+  --mdt-surface-hi: #1c1f2b;
+  --mdt-border: #2a2e3d;
+  --mdt-text: #f4f5fa;
+  --mdt-muted: #9aa0b4;
+  --mdt-faint: #5b6076;
+  --mdt-indigo: #5b63f0;
+  --mdt-violet: #9a5cf2;
+  --mdt-cyan: #4fd0e6;
+  --mdt-green: #3fd79a;
+  --mdt-amber: #f2a93b;
+  --mdt-grad: linear-gradient(100deg, #5b63f0 0%, #9a5cf2 52%, #4fd0e6 100%);
+  --mdt-grad-soft: linear-gradient(100deg, rgba(91,99,240,.16), rgba(154,92,242,.16) 52%, rgba(79,208,230,.16));
+}
+
+/* dark base retuned to the deck palette */
+.dark {
+  --background: 232 30% 5%;
+  --foreground: 228 50% 97%;
+  --card: 230 24% 9%;
+  --card-foreground: 228 50% 97%;
+  --popover: 230 24% 9%;
+  --popover-foreground: 228 50% 97%;
+  --muted: 230 18% 16%;
+  --muted-foreground: 228 14% 66%;
+  --border: 230 18% 20%;
+  --input: 230 18% 20%;
+  --surface-1: 230 24% 8%;
+  --surface-2: 230 22% 11%;
+  --surface-3: 230 20% 14%;
+}
+
+/* deck canvas wrapper — forces the dark premium look on marketing pages */
+.mdt-deck {
+  position: relative;
+  background: var(--mdt-bg);
+  color: var(--mdt-text);
+  overflow-x: clip;
+  isolation: isolate;
+}
+.mdt-deck ::selection { background: rgba(122,107,245,.35); }
+
+/* atmospheric backdrop: orbs + grid + grain, behind all content */
+.mdt-backdrop { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.mdt-orb { position: absolute; border-radius: 9999px; filter: blur(40px); opacity: .9; }
+.mdt-orb--brand { background: radial-gradient(circle at 35% 35%, rgba(154,92,242,.55), rgba(91,99,240,.28) 45%, transparent 70%); }
+.mdt-orb--cyan  { background: radial-gradient(circle, rgba(79,208,230,.32), transparent 70%); }
+.mdt-orb--blue  { background: radial-gradient(circle, rgba(79,140,235,.30), transparent 70%); }
+.mdt-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(160,172,255,.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(160,172,255,.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(130% 110% at 0% 0%, #000 0%, transparent 62%);
+          mask-image: radial-gradient(130% 110% at 0% 0%, #000 0%, transparent 62%);
+}
+.mdt-noise {
+  position: absolute; inset: 0; pointer-events: none; opacity: .35; mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.mdt-deck > * { position: relative; z-index: 1; }
+
+/* typography helpers */
+.mdt-grad-text {
+  background: var(--mdt-grad);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.mdt-kicker {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  text-transform: uppercase; letter-spacing: .22em;
+  font-size: .78rem; color: var(--mdt-muted);
+}
+.mdt-mono { font-family: var(--font-geist-mono), ui-monospace, monospace; }
+.mdt-text-muted { color: var(--mdt-muted); }
+.mdt-text-faint { color: var(--mdt-faint); }
+
+/* surfaces, rails, pills */
+.mdt-surface {
+  background: linear-gradient(180deg, rgba(255,255,255,.02), transparent), var(--mdt-surface);
+  border: 1px solid var(--mdt-border);
+  border-radius: 18px;
+}
+.mdt-surface-hi { background: var(--mdt-surface-hi); border: 1px solid var(--mdt-border); border-radius: 18px; }
+.mdt-rail { background: var(--mdt-grad); }
+.mdt-pill {
+  display: inline-flex; align-items: center; gap: .5rem;
+  border: 1px solid var(--mdt-border); border-radius: 9999px;
+  background: var(--mdt-surface); padding: .35rem .85rem;
+  font-family: var(--font-geist-mono), monospace; font-size: .8rem; color: var(--mdt-muted);
+}
+.mdt-card-hover { transition: transform .3s cubic-bezier(.16,1,.3,1), border-color .3s, box-shadow .3s; }
+.mdt-card-hover:hover { transform: translateY(-4px); border-color: rgba(122,107,245,.5); box-shadow: 0 20px 60px -20px rgba(91,99,240,.35); }
+
+/* gradient-stroke icons (uses the hidden <linearGradient id="mdtGrad">) */
+.mdt-icon-grad svg, svg.mdt-icon-grad { stroke: url(#mdtGrad); }
+
+/* buttons */
+.mdt-btn-grad {
+  background: var(--mdt-grad); color: #0a0b12; border: none;
+  font-weight: 600; transition: filter .2s, transform .2s, box-shadow .2s;
+  box-shadow: 0 10px 30px -10px rgba(122,107,245,.6);
+}
+.mdt-btn-grad:hover { filter: brightness(1.08); transform: translateY(-2px); box-shadow: 0 16px 40px -10px rgba(122,107,245,.7); }
+.mdt-btn-ghost {
+  background: rgba(255,255,255,.03); color: var(--mdt-text);
+  border: 1px solid var(--mdt-border); transition: background .2s, border-color .2s, transform .2s;
+}
+.mdt-btn-ghost:hover { background: rgba(255,255,255,.06); border-color: rgba(122,107,245,.5); transform: translateY(-2px); }
+
+/* gradient hairline divider */
+.mdt-hr { height: 1px; border: 0; background: linear-gradient(90deg, transparent, var(--mdt-border) 20%, var(--mdt-border) 80%, transparent); }

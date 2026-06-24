@@ -152,7 +152,7 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
                   <Github className="h-4 w-4" />
                 </Button>
               </Link>
-              <Button asChild className="bg-foreground text-background hover:bg-foreground/90 px-6 shadow-sm hover:shadow-md transition-shadow">
+              <Button asChild className="mdt-btn-grad rounded-full px-6">
                 <Link href="/login">
                   Get Started
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -205,7 +205,7 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
                           "text-base font-medium transition-all duration-200",
                           "hover:bg-muted/60 active:scale-[0.98]",
                           "min-h-[48px]",
-                          link.isPrimary && "bg-foreground text-background hover:bg-foreground/90"
+                          link.isPrimary && "mdt-btn-grad"
                         )}
                       >
                         {link.icon && <link.icon className="h-5 w-5" />}

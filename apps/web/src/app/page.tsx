@@ -227,7 +227,21 @@ export default function Page() {
   }, []);
 
   return (
-    <div className="dark flex flex-col min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
+    <div className="dark mdt-deck flex flex-col min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
+      {/* deck atmosphere: fixed grid + grain behind everything + gradient def for icons */}
+      <div aria-hidden style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none" }}>
+        <div className="mdt-grid" />
+        <div className="mdt-noise" />
+        <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden focusable="false">
+          <defs>
+            <linearGradient id="mdtGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#5b63f0" />
+              <stop offset="52%" stopColor="#9a5cf2" />
+              <stop offset="100%" stopColor="#4fd0e6" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
       <Header showThemeToggle={false} />
 
       {/* ── Hero ────────────────────────────────────────────────────────────── */}
@@ -313,7 +327,7 @@ export default function Page() {
             >
               <span className="text-foreground">Online Developer Tools</span>
               <br />
-              <span className="bg-gradient-to-r from-sky-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
+              <span className="mdt-grad-text">
                 JSON, JWT, Regex &amp; {allAppTools.length}+ More
               </span>
             </motion.h1>
@@ -370,7 +384,7 @@ export default function Page() {
                 { value: "Self-host", label: "Free Forever" },
               ].map((s, i) => (
                 <div key={i} className="text-center">
-                  <div className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight whitespace-nowrap bg-gradient-to-r from-sky-500 to-violet-500 bg-clip-text text-transparent">
+                  <div className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight whitespace-nowrap mdt-grad-text">
                     {s.value}
                   </div>
                   <div className="text-xs md:text-sm text-muted-foreground mt-1 leading-snug">
@@ -1192,7 +1206,7 @@ export default function Page() {
                   className="text-3xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight"
                 >
                   Ready to Build{" "}
-                  <span className="bg-gradient-to-r from-sky-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
+                  <span className="mdt-grad-text">
                     Faster?
                   </span>
                 </motion.h2>
