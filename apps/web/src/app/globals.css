@@ -1618,3 +1618,33 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .mdt-marquee__track, .mdt-grad-anim, .mdt-deck .mdt-beam::after { animation: none !important; }
 }
+
+/* ─── DECK MOTION TOKENS (from motion-design skill) ───────────────────────── */
+:root {
+  --dur-1: 120ms; --dur-2: 180ms; --dur-3: 240ms; --dur-4: 300ms; --dur-5: 500ms;
+  --ease-out-quart: cubic-bezier(.165, .84, .44, 1);
+  --ease-out-quint: cubic-bezier(.23, 1, .32, 1);
+  --ease-out-expo: cubic-bezier(.19, 1, .22, 1);
+  --ease-in-out-cubic: cubic-bezier(.645, .045, .355, 1);
+}
+
+/* living background: slow grid drift + slightly richer aurora */
+.mdt-grid { animation: mdt-grid-drift 64s linear infinite; }
+@keyframes mdt-grid-drift { to { background-position: 64px 64px, 64px 64px; } }
+.mdt-aurora { opacity: .6; }
+
+/* card hover easing aligned to tokens (transform/shadow only) */
+.mdt-card-hover { transition: transform var(--dur-3) var(--ease-out-quart), border-color var(--dur-3) ease, box-shadow var(--dur-3) ease; }
+
+/* header scroll-translucent transition (subtle state change) */
+.mdt-nav { transition: background-color var(--dur-3) ease, backdrop-filter var(--dur-3) ease, border-color var(--dur-3) ease, box-shadow var(--dur-3) ease; }
+
+/* accessibility: honor reduced-motion globally */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

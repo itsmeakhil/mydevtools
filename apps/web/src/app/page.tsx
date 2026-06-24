@@ -37,12 +37,20 @@ import { sidebarData } from "@/components/sidebar/data/sidebar-data";
 import { homepageFaqItems } from "@/lib/seo/structured-data";
 import MdtAurora from "@/components/mdt-aurora";
 import { MdtFx } from "@/components/mdt-fx";
+import { Magnetic } from "@/components/mdt-magnetic";
+import { Tilt } from "@/components/mdt-tilt";
 
 // ─── Animation Variants ────────────────────────────────────────────────────────
 
+const EASE_EXPO = [0.16, 1, 0.3, 1] as const;
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 32, filter: "blur(6px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.7, ease: EASE_EXPO },
+  },
 };
 
 const stagger = {
@@ -353,13 +361,15 @@ export default function Page() {
               transition={{ duration: 0.6, delay: 0.24 }}
               className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2"
             >
-              <button
-                onClick={goToLogin}
-                className="inline-flex items-center justify-center h-12 px-8 rounded-full text-sm font-medium bg-foreground text-background hover:bg-foreground/90 shadow-md hover:shadow-lg hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 w-full sm:w-auto"
-              >
-                Get Started
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </button>
+              <Magnetic strength={0.4} className="w-full sm:w-auto">
+                <button
+                  onClick={goToLogin}
+                  className="mdt-btn-grad inline-flex items-center justify-center h-12 px-8 rounded-full text-sm font-medium w-full sm:w-auto"
+                >
+                  Get Started
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </button>
+              </Magnetic>
               <Link
                 href="https://github.com/itsmeakhil/mydevtools.tech"
                 target="_blank"
@@ -405,6 +415,7 @@ export default function Page() {
               className="pt-4 relative mx-auto max-w-5xl"
             >
               {/* Browser chrome frame */}
+              <Tilt max={5} className="rounded-2xl">
               <div className="rounded-2xl glass-overlay shadow-2xl shadow-violet-500/8 dark:shadow-violet-500/5 overflow-hidden">
                 {/* Fake browser bar */}
                 <div className="flex items-center gap-2 px-4 py-3 border-b border-border/40 bg-muted/40">
@@ -426,6 +437,7 @@ export default function Page() {
                   className="w-full h-auto"
                 />
               </div>
+              </Tilt>
               {/* Glow beneath the screenshot */}
               <div className="absolute -bottom-6 inset-x-8 h-16 bg-violet-500/20 blur-2xl rounded-full pointer-events-none" />
             </motion.div>
