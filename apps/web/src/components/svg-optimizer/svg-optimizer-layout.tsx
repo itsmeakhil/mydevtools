@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { useDebouncedCallback } from 'use-debounce'
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { Card } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
@@ -28,7 +29,7 @@ export function SvgOptimizerLayout() {
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
   const [error, setError] = useState<string | null>(null)
-  const [copied, setCopied] = useState(false)
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard()
 
   const runOptimize = useCallback((raw: string) => {
     const result = optimizeSvgMarkup(raw)
@@ -58,15 +59,9 @@ export function SvgOptimizerLayout() {
       ? `data:image/svg+xml;charset=utf-8,${encodeURIComponent(output)}`
       : null
 
-  const handleCopy = async () => {
+  const handleCopy = () => {
     if (!output) return
-    try {
-      await navigator.clipboard.writeText(output)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 1600)
-    } catch {
-      /* ignore */
-    }
+    void copyToClipboard(output, { silent: true, resetMs: 1600 })
   }
 
   const handleDownload = () => {

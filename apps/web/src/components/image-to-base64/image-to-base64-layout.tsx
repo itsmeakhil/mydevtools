@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useCallback, useRef } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -25,7 +26,7 @@ export function ImageToBase64Layout() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [mode, setMode] = useState<Mode>('dataUri');
   const [error, setError] = useState('');
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -56,16 +57,10 @@ export function ImageToBase64Layout() {
     setError('');
   };
 
-  const handleCopy = async () => {
+  const handleCopy = () => {
     const textToCopy = mode === 'rawString' ? output.replace(/^data:image\/[a-z]+;base64,/, '') : output;
     if (!textToCopy) return;
-    try {
-      await navigator.clipboard.writeText(textToCopy);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // ignore clipboard failures
-    }
+    void copyToClipboard(textToCopy, { silent: true });
   };
 
   const handleDownload = () => {

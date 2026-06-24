@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useMemo, useState } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -41,7 +42,7 @@ export function JwtSignerLayout() {
   const [verifyErrorKey, setVerifyErrorKey] = useState<string | null>(null);
   const [verified, setVerified] = useState<boolean | null>(null);
 
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
 
   const keyMode = useMemo<'hs' | 'rs' | 'none'>(() => {
     if (alg === 'none') return 'none';
@@ -92,16 +93,10 @@ export function JwtSignerLayout() {
     setVerified(res.valid);
   }, [token, verificationKey, signingKey, keyMode]);
 
-  const handleCopy = useCallback(async () => {
+  const handleCopy = useCallback(() => {
     if (!token) return;
-    try {
-      await navigator.clipboard.writeText(token);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // ignore
-    }
-  }, [token]);
+    void copyToClipboard(token, { silent: true });
+  }, [token, copyToClipboard]);
 
   const keyLabel = keyMode === 'hs' ? t('signer.secretLabel') : t('signer.privateKeyLabel');
   const keyPlaceholder =

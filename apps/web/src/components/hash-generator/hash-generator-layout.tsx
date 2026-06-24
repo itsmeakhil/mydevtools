@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { useDebouncedCallback } from 'use-debounce';
 import { Card } from '@/components/ui/card';
@@ -47,7 +48,7 @@ export function HashGeneratorLayout() {
   const [fileBytes, setFileBytes] = useState<Uint8Array | null>(null);
   const [hashOut, setHashOut] = useState('');
   const [hashing, setHashing] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
   const [fileError, setFileError] = useState<string | null>(null);
   const autoCopy = useAutoCopyStore((state) => state.autoCopy);
 
@@ -123,16 +124,10 @@ export function HashGeneratorLayout() {
     }
   };
 
-  const handleCopy = useCallback(async () => {
+  const handleCopy = useCallback(() => {
     if (!hashOut) return;
-    try {
-      await navigator.clipboard.writeText(hashOut);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      /* ignore */
-    }
-  }, [hashOut]);
+    void copyToClipboard(hashOut, { silent: true });
+  }, [hashOut, copyToClipboard]);
 
   useEffect(() => {
     if (autoCopy && hashOut) {

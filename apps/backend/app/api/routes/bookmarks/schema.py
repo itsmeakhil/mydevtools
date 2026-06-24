@@ -20,7 +20,6 @@ Recommended indexes::
     db.bookmarkFolders.create_index([("created_by", 1), ("createdAt", 1)])
 """
 
-from typing import Any, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -36,31 +35,31 @@ class BookmarkBase(BaseModel):
 
     title: str = Field(min_length=1)
     url: str = Field(min_length=1)
-    description: Optional[str] = None
-    favicon: Optional[str] = None
+    description: str | None = None
+    favicon: str | None = None
     tags: list[str] = Field(default_factory=list)
-    folderId: Optional[str] = None
+    folderId: str | None = None
 
 
 class BookmarkCreate(BookmarkBase):
     """Optional ``id`` — if omitted, server generates one (client uses timestamp-random)."""
 
-    id: Optional[str] = None
+    id: str | None = None
 
 
 class BookmarkUpdate(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    title: Optional[str] = Field(default=None, min_length=1)
-    url: Optional[str] = Field(default=None, min_length=1)
-    description: Optional[str] = None
-    favicon: Optional[str] = None
-    tags: Optional[list[str]] = None
-    folderId: Optional[str] = None
+    title: str | None = Field(default=None, min_length=1)
+    url: str | None = Field(default=None, min_length=1)
+    description: str | None = None
+    favicon: str | None = None
+    tags: list[str] | None = None
+    folderId: str | None = None
 
 
 class BookmarkMove(BaseModel):
-    folderId: Optional[str] = None
+    folderId: str | None = None
 
 
 class BookmarkOut(BookmarkBase):
@@ -73,24 +72,24 @@ class BookmarkFolderBase(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
     name: str = Field(min_length=1)
-    parentId: Optional[str] = None
-    color: Optional[str] = None
-    icon: Optional[str] = None
-    isExpanded: Optional[bool] = None
+    parentId: str | None = None
+    color: str | None = None
+    icon: str | None = None
+    isExpanded: bool | None = None
 
 
 class BookmarkFolderCreate(BookmarkFolderBase):
-    id: Optional[str] = None
+    id: str | None = None
 
 
 class BookmarkFolderUpdate(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    name: Optional[str] = Field(default=None, min_length=1)
-    parentId: Optional[str] = None
-    color: Optional[str] = None
-    icon: Optional[str] = None
-    isExpanded: Optional[bool] = None
+    name: str | None = Field(default=None, min_length=1)
+    parentId: str | None = None
+    color: str | None = None
+    icon: str | None = None
+    isExpanded: bool | None = None
 
 
 class BookmarkFolderExpanded(BaseModel):

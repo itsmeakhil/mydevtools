@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo, useCallback } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useIsMobile } from '@/components/hooks/use-mobile';
 import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
@@ -64,7 +65,7 @@ export function FormatConverterLayout() {
   const [from, setFrom] = useState<Format>('json');
   const [to, setTo] = useState<Format>('yaml');
   const [input, setInput] = useState('');
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
 
   const { output, error } = useMemo<{ output: string; error: string }>(() => {
     if (!input.trim()) return { output: '', error: '' };
@@ -81,14 +82,10 @@ export function FormatConverterLayout() {
     setInput(output || input);
   }, [from, to, input, output]);
 
-  const handleCopy = useCallback(async () => {
+  const handleCopy = useCallback(() => {
     if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch { /* ignore */ }
-  }, [output]);
+    void copyToClipboard(output, { silent: true });
+  }, [output, copyToClipboard]);
 
   const toFormats = ALL_FORMATS.filter((f) => f !== from);
 

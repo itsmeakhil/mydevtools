@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import type { DecodedPemBlock } from '@/lib/pem-cert-decode';
 import { decodePemCertificateInput } from '@/lib/pem-cert-decode';
 import { Button } from '@/components/ui/button';
@@ -11,7 +12,7 @@ import { AlertCircle, Check, Copy, Trash2 } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 
 function CopyBtn({ text, title }: { text: string; title: string }) {
-  const [done, setDone] = useState(false);
+  const { isCopied, copyToClipboard } = useCopyToClipboard();
   return (
     <Button
       type="button"
@@ -19,17 +20,9 @@ function CopyBtn({ text, title }: { text: string; title: string }) {
       size="icon"
       className="h-7 w-7 shrink-0"
       title={title}
-      onClick={async () => {
-        try {
-          await navigator.clipboard.writeText(text);
-          setDone(true);
-          setTimeout(() => setDone(false), 1600);
-        } catch {
-          // ignore
-        }
-      }}
+      onClick={() => copyToClipboard(text, { silent: true, resetMs: 1600 })}
     >
-      {done ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
+      {isCopied ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
     </Button>
   );
 }

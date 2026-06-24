@@ -1,15 +1,9 @@
-from typing import Any, Optional
+from typing import Any
 
 from fastapi import HTTPException, status
 from pymongo import ReplaceOne
 from pymongo.errors import PyMongoError
-from pymongo import ReturnDocument
-from app.utils.utils import new_id, create_timestamp, is_duplicate_key_error
-from app.core import audit
-from app.core.cache import cached, bump_version
 
-from app.utils.collection_name import BOOKMARK_FOLDERS as FOLDERS, BOOKMARKS
-from app.database import db_manager
 from app.api.routes.bookmarks.schema import (
     BookmarkCreate,
     BookmarkFolderCreate,
@@ -21,6 +15,13 @@ from app.api.routes.bookmarks.schema import (
     BookmarkSnapshotOut,
     BookmarkUpdate,
 )
+from app.core import audit
+from app.core.cache import bump_version, cached
+from app.database import db_manager
+from app.utils.collection_name import BOOKMARK_FOLDERS as FOLDERS
+from app.utils.collection_name import BOOKMARKS
+from app.utils.crud import safe_insert, safe_update_one
+from app.utils.utils import create_timestamp, new_id
 
 
 def _bookmark_doc_to_out(doc: dict[str, Any]) -> BookmarkOut:
@@ -55,9 +56,9 @@ def _folder_doc_to_out(doc: dict[str, Any]) -> BookmarkFolderOut:
 async def list_bookmarks(
     *,
     uid: str,
-    folder_id: Optional[str] = None,
+    folder_id: str | None = None,
     skip: int = 0,
-    limit: Optional[int] = None,
+    limit: int | None = None,
 ) -> list[BookmarkOut]:
     q: dict[str, Any] = {"created_by": uid}
     if folder_id == "uncategorized":
@@ -94,16 +95,7 @@ async def create_bookmark(uid: str, body: BookmarkCreate) -> BookmarkOut:
         "createdAt": ts,
         "updatedAt": ts,
     }
-    try:
-        await db_manager.insert_one(BOOKMARKS, doc)
-    except PyMongoError as exc:
-        if is_duplicate_key_error(exc):
-            raise HTTPException(
-                status_code=status.HTTP_409_CONFLICT, detail="Bookmark id already exists."
-            ) from exc
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create bookmark."
-        ) from exc
+    await safe_insert(BOOKMARKS, doc, name="Bookmark")
     audit.set_action("bookmark.create")
     audit.set_entity("bookmark", bid)
     audit.set_summary(f"Created bookmark '{body.title}'")
@@ -118,19 +110,9 @@ async def update_bookmark(uid: str, bookmark_id: str, body: BookmarkUpdate) -> B
         return await get_bookmark(uid=uid, bookmark_id=bookmark_id)
     before = await db_manager.find_one(BOOKMARKS, {"_id": bookmark_id, "created_by": uid})
     patch["updatedAt"] = create_timestamp()
-    try:
-        result = await db_manager.find_one_and_update(
-            BOOKMARKS,
-            {"_id": bookmark_id, "created_by": uid},
-            {"$set": patch},
-            return_document=ReturnDocument.AFTER,
-        )
-    except PyMongoError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update bookmark."
-        ) from exc
-    if not result:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Bookmark not found.")
+    result = await safe_update_one(
+        BOOKMARKS, {"_id": bookmark_id, "created_by": uid}, patch, name="Bookmark"
+    )
     audit.set_action("bookmark.update")
     audit.set_entity("bookmark", bookmark_id)
     audit.set_summary(f"Updated bookmark '{result.get('title', '')}'")
@@ -217,7 +199,7 @@ async def snapshot(uid: str) -> BookmarkSnapshotOut:
 
 
 @cached(ns="bookmarks", ttl=120, scope="user")
-async def list_folders(*, uid: str, skip: int = 0, limit: Optional[int] = None) -> list[BookmarkFolderOut]:
+async def list_folders(*, uid: str, skip: int = 0, limit: int | None = None) -> list[BookmarkFolderOut]:
     docs = await db_manager.find(
         FOLDERS, {"created_by": uid}, sort=[("createdAt", 1)], skip=skip, limit=limit or 0
     )
@@ -244,16 +226,7 @@ async def create_folder(uid: str, body: BookmarkFolderCreate) -> BookmarkFolderO
         "isExpanded": body.isExpanded if body.isExpanded is not None else False,
         "createdAt": ts,
     }
-    try:
-        await db_manager.insert_one(FOLDERS, doc)
-    except PyMongoError as exc:
-        if is_duplicate_key_error(exc):
-            raise HTTPException(
-                status_code=status.HTTP_409_CONFLICT, detail="Folder id already exists."
-            ) from exc
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create folder."
-        ) from exc
+    await safe_insert(FOLDERS, doc, name="Folder")
     await bump_version(ns="bookmarks", uid=uid)
     return _folder_doc_to_out(doc)
 
@@ -262,19 +235,9 @@ async def update_folder(uid: str, folder_id: str, body: BookmarkFolderUpdate) ->
     patch = body.model_dump(exclude_unset=True)
     if not patch:
         return await get_folder(uid, folder_id)
-    try:
-        result = await db_manager.find_one_and_update(
-            FOLDERS,
-            {"_id": folder_id, "created_by": uid},
-            {"$set": patch},
-            return_document=ReturnDocument.AFTER,
-        )
-    except PyMongoError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update folder."
-        ) from exc
-    if not result:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Folder not found.")
+    result = await safe_update_one(
+        FOLDERS, {"_id": folder_id, "created_by": uid}, patch, name="Folder"
+    )
     await bump_version(ns="bookmarks", uid=uid)
     return _folder_doc_to_out(result)
 

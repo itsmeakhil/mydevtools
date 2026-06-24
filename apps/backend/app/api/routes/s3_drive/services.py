@@ -8,34 +8,33 @@ from fastapi import HTTPException, status
 try:
     import boto3
     from botocore.config import Config
-    from botocore.exceptions import ClientError, BotoCoreError
+    from botocore.exceptions import BotoCoreError, ClientError
 except ImportError:  # pragma: no cover
     boto3 = None  # type: ignore
 
-from pymongo.errors import PyMongoError
-
 from app.api.routes.s3_drive.schema import (
-    S3ConnectionCreate,
-    S3ConnectionUpdate,
-    S3ConnectionOut,
-    S3Credentials,
-    ListObjectsRequest,
-    DeleteObjectsRequest,
+    BucketInfo,
     CreateFolderRequest,
-    PresignedDownloadRequest,
-    PresignedUploadRequest,
+    DeleteObjectsRequest,
+    ListBucketsRequest,
+    ListObjectsRequest,
+    ListObjectsResponse,
+    MoveObjectRequest,
     PresignedBatchRequest,
     PresignedBatchResponse,
-    MoveObjectRequest,
-    ListBucketsRequest,
-    S3ObjectItem,
-    ListObjectsResponse,
+    PresignedDownloadRequest,
+    PresignedUploadRequest,
     PresignedUrlResponse,
-    BucketInfo,
+    S3ConnectionCreate,
+    S3ConnectionOut,
+    S3ConnectionUpdate,
+    S3Credentials,
+    S3ObjectItem,
 )
-from app.utils.collection_name import S3_CONNECTIONS
-from app.utils.utils import create_timestamp, is_duplicate_key_error, new_id
 from app.database import db_manager
+from app.utils.collection_name import S3_CONNECTIONS
+from app.utils.crud import safe_delete_one, safe_insert, safe_update_one
+from app.utils.utils import create_timestamp, new_id
 
 
 def _doc_to_out(doc: dict[str, Any]) -> S3ConnectionOut:
@@ -74,12 +73,7 @@ async def create_connection(uid: str, body: S3ConnectionCreate) -> S3ConnectionO
         "createdAt": created_at,
         "updatedAt": ts,
     }
-    try:
-        await db_manager.insert_one(S3_CONNECTIONS, doc)
-    except PyMongoError as exc:
-        if is_duplicate_key_error(exc):
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Connection id collision.") from exc
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create connection.") from exc
+    await safe_insert(S3_CONNECTIONS, doc, name="Connection")
     return _doc_to_out(doc)
 
 
@@ -100,19 +94,14 @@ async def update_connection(uid: str, conn_id: str, body: S3ConnectionUpdate) ->
         patch["encryptedData"] = body.encryptedData
     if body.iv is not None:
         patch["iv"] = body.iv
-    try:
-        result = await db_manager.update_one(S3_CONNECTIONS, {"_id": conn_id, "created_by": uid}, {"$set": patch})
-    except PyMongoError as exc:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update connection.") from exc
-    if result.matched_count == 0:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
-    return await get_connection(uid, conn_id)
+    doc = await safe_update_one(
+        S3_CONNECTIONS, {"_id": conn_id, "created_by": uid}, patch, name="Connection"
+    )
+    return _doc_to_out(doc)
 
 
 async def delete_connection(uid: str, conn_id: str) -> None:
-    result = await db_manager.delete_one(S3_CONNECTIONS, {"_id": conn_id, "created_by": uid})
-    if result.deleted_count == 0:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
+    await safe_delete_one(S3_CONNECTIONS, {"_id": conn_id, "created_by": uid}, name="Connection")
 
 
 # ── S3 client factory (TTL-based cache) ───────────────────────────────────────

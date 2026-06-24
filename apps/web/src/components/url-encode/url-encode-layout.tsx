@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useCallback, useRef } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -29,7 +30,7 @@ export function UrlEncodeLayout() {
   const [output, setOutput] = useState('');
   const [mode, setMode] = useState<Mode>('encode');
   const [error, setError] = useState('');
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -80,15 +81,9 @@ export function UrlEncodeLayout() {
     }
   };
 
-  const handleCopy = async () => {
+  const handleCopy = () => {
     if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // ignore clipboard failures
-    }
+    void copyToClipboard(output, { silent: true });
   };
 
   const handleClear = () => {

@@ -1,15 +1,11 @@
 from datetime import datetime, timezone
-from typing import Any, Optional
+from typing import Any
 
-from app.database import db_manager
 from bson import ObjectId
 from bson.errors import InvalidId
 from fastapi import HTTPException, status
-from pymongo import ReturnDocument
 from pymongo.errors import PyMongoError
 
-from app.core.cache import cached, bump_version
-from app.utils.collection_name import TASKS, PROJECTS
 from app.api.routes.tasks.schema import (
     ProjectCreate,
     ProjectOut,
@@ -23,6 +19,10 @@ from app.api.routes.tasks.schema import (
     TaskStatusUpdate,
     TaskUpdate,
 )
+from app.core.cache import bump_version, cached
+from app.database import db_manager
+from app.utils.collection_name import PROJECTS, TASKS
+from app.utils.crud import safe_delete_one, safe_insert, safe_update_one
 
 STATUS_ORDER_MAP: dict[TaskStatus, int] = {
     "ongoing": 1,
@@ -90,8 +90,8 @@ def _project_doc_to_out(doc: dict[str, Any]) -> ProjectOut:
 
 def _task_filter(
     uid: str,
-    status_filter: Optional[str] = None,
-    project_filter: Optional[str] = None,
+    status_filter: str | None = None,
+    project_filter: str | None = None,
 ) -> dict[str, Any]:
     q: dict[str, Any] = {"created_by": uid}
     if status_filter and status_filter != "all":
@@ -170,13 +170,7 @@ async def create_task(uid: str, body: TaskCreate) -> TaskOut:
         "createdAt": now,
         "projectId": body.projectId,
     }
-    try:
-        result = await db_manager.insert_one(TASKS, doc)
-    except PyMongoError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create task."
-        ) from exc
-    doc["_id"] = result.inserted_id
+    await safe_insert(TASKS, doc, name="Task")
     await bump_version(ns="tasks", uid=uid)
     return _task_doc_to_out(doc)
 
@@ -204,19 +198,9 @@ async def update_task(uid: str, task_id: str, body: TaskUpdate) -> TaskOut:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found.")
         return _task_doc_to_out(doc)
 
-    try:
-        doc = await db_manager.find_one_and_update(
-            TASKS,
-            {"_id": oid, "created_by": uid},
-            {"$set": patch},
-            return_document=ReturnDocument.AFTER,
-        )
-    except PyMongoError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update task."
-        ) from exc
-    if not doc:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found.")
+    doc = await safe_update_one(
+        TASKS, {"_id": oid, "created_by": uid}, patch, name="Task"
+    )
     await bump_version(ns="tasks", uid=uid)
     return _task_doc_to_out(doc)
 
@@ -230,19 +214,9 @@ async def update_task_status(uid: str, task_id: str, body: TaskStatusUpdate) -> 
     }
     if new_status == "completed":
         patch["completedAt"] = datetime.now(timezone.utc)
-    try:
-        doc = await db_manager.find_one_and_update(
-            TASKS,
-            {"_id": oid, "created_by": uid},
-            {"$set": patch},
-            return_document=ReturnDocument.AFTER,
-        )
-    except PyMongoError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update task status."
-        ) from exc
-    if not doc:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found.")
+    doc = await safe_update_one(
+        TASKS, {"_id": oid, "created_by": uid}, patch, name="Task"
+    )
     await bump_version(ns="tasks", uid=uid)
     return _task_doc_to_out(doc)
 
@@ -256,9 +230,7 @@ async def get_task(*, uid: str, task_id: str) -> TaskOut:
 
 async def delete_task(uid: str, task_id: str) -> None:
     oid = _parse_object_id(task_id, "task id")
-    result = await db_manager.delete_one(TASKS, {"_id": oid, "created_by": uid})
-    if result.deleted_count == 0:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found.")
+    await safe_delete_one(TASKS, {"_id": oid, "created_by": uid}, name="Task")
     await bump_version(ns="tasks", uid=uid)
 
 
@@ -305,13 +277,7 @@ async def create_project(uid: str, body: ProjectCreate) -> ProjectOut:
         "color": body.color,
         "createdAt": now,
     }
-    try:
-        result = await db_manager.insert_one(PROJECTS, doc)
-    except PyMongoError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create project."
-        ) from exc
-    doc["_id"] = result.inserted_id
+    await safe_insert(PROJECTS, doc, name="Project")
     await bump_version(ns="tasks", uid=uid)
     return _project_doc_to_out(doc)
 
@@ -324,21 +290,14 @@ async def update_project(uid: str, project_id: str, body: ProjectUpdate) -> Proj
         if not doc:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found.")
         return _project_doc_to_out(doc)
-    doc = await db_manager.find_one_and_update(
-        PROJECTS,
-        {"_id": oid, "created_by": uid},
-        {"$set": patch},
-        return_document=ReturnDocument.AFTER,
+    doc = await safe_update_one(
+        PROJECTS, {"_id": oid, "created_by": uid}, patch, name="Project"
     )
-    if not doc:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found.")
     await bump_version(ns="tasks", uid=uid)
     return _project_doc_to_out(doc)
 
 
 async def delete_project(uid: str, project_id: str) -> None:
     oid = _parse_object_id(project_id, "project id")
-    result = await db_manager.delete_one(PROJECTS, {"_id": oid, "created_by": uid})
-    if result.deleted_count == 0:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found.")
+    await safe_delete_one(PROJECTS, {"_id": oid, "created_by": uid}, name="Project")
     await bump_version(ns="tasks", uid=uid)

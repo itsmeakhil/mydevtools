@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { useDebouncedCallback } from 'use-debounce';
 import { Card } from '@/components/ui/card';
@@ -33,7 +34,7 @@ export function HmacGeneratorLayout() {
   const [message, setMessage] = useState('');
   const [signature, setSignature] = useState('');
   const [working, setWorking] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
   const [error, setError] = useState(false);
 
   const secretBytes = useMemo(() => new TextEncoder().encode(secret).length, [secret]);
@@ -65,15 +66,9 @@ export function HmacGeneratorLayout() {
     debounced();
   }, [digest, secret, message, outputFormat, debounced]);
 
-  const handleCopy = async () => {
+  const handleCopy = () => {
     if (!signature) return;
-    try {
-      await navigator.clipboard.writeText(signature);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      /* ignore */
-    }
+    void copyToClipboard(signature, { silent: true });
   };
 
   return (

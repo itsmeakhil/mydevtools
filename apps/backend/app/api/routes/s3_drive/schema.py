@@ -1,6 +1,5 @@
-from typing import Optional
-from pydantic import BaseModel, ConfigDict, Field
 
+from pydantic import BaseModel, ConfigDict, Field
 
 # ── Stored connection (credentials encrypted client-side) ─────────────────────
 
@@ -9,17 +8,17 @@ class S3ConnectionCreate(BaseModel):
     provider: str = Field(min_length=1, max_length=50)  # "aws" | "digitalocean" | "custom"
     encryptedData: str = Field(min_length=1)
     iv: str = Field(min_length=1)
-    createdAt: Optional[int] = Field(default=None, ge=0)
+    createdAt: int | None = Field(default=None, ge=0)
 
 
 class S3ConnectionUpdate(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    name: Optional[str] = Field(default=None, min_length=1, max_length=100)
-    provider: Optional[str] = Field(default=None, min_length=1, max_length=50)
-    encryptedData: Optional[str] = Field(default=None, min_length=1)
-    iv: Optional[str] = Field(default=None, min_length=1)
-    updatedAt: Optional[int] = Field(default=None, ge=0)
+    name: str | None = Field(default=None, min_length=1, max_length=100)
+    provider: str | None = Field(default=None, min_length=1, max_length=50)
+    encryptedData: str | None = Field(default=None, min_length=1)
+    iv: str | None = Field(default=None, min_length=1)
+    updatedAt: int | None = Field(default=None, ge=0)
 
 
 class S3ConnectionOut(BaseModel):
@@ -41,7 +40,7 @@ class S3Credentials(BaseModel):
     secretKey: str = Field(min_length=1)
     region: str = Field(default="us-east-1")
     bucket: str = Field(min_length=1)
-    endpoint: Optional[str] = Field(default=None)  # custom endpoint for DO Spaces / self-hosted
+    endpoint: str | None = Field(default=None)  # custom endpoint for DO Spaces / self-hosted
 
 
 # ── Operation request bodies ──────────────────────────────────────────────────
@@ -50,7 +49,7 @@ class ListObjectsRequest(BaseModel):
     credentials: S3Credentials
     prefix: str = Field(default="")
     delimiter: str = Field(default="/")
-    continuationToken: Optional[str] = Field(default=None)
+    continuationToken: str | None = Field(default=None)
     maxKeys: int = Field(default=1000, ge=1, le=1000)
 
 
@@ -90,7 +89,7 @@ class ListBucketsRequest(BaseModel):
 class PresignedBatchItem(BaseModel):
     key: str = Field(min_length=1)
     op: str = Field(default="get", pattern="^(get|put)$")
-    contentType: Optional[str] = Field(default=None)
+    contentType: str | None = Field(default=None)
 
 
 class PresignedBatchRequest(BaseModel):
@@ -108,9 +107,9 @@ class ConfigureCorsRequest(BaseModel):
 
 class S3ObjectItem(BaseModel):
     key: str
-    size: Optional[int] = None
-    lastModified: Optional[str] = None
-    etag: Optional[str] = None
+    size: int | None = None
+    lastModified: str | None = None
+    etag: str | None = None
     isFolder: bool = False
 
 
@@ -118,7 +117,7 @@ class ListObjectsResponse(BaseModel):
     objects: list[S3ObjectItem]
     prefixes: list[str]
     isTruncated: bool
-    nextContinuationToken: Optional[str] = None
+    nextContinuationToken: str | None = None
 
 
 class PresignedUrlResponse(BaseModel):
@@ -132,4 +131,4 @@ class PresignedBatchResponse(BaseModel):
 
 class BucketInfo(BaseModel):
     name: str
-    creationDate: Optional[str] = None
+    creationDate: str | None = None

@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -18,7 +19,7 @@ function CopyField({
   value: string;
   copyTitle: string;
 }) {
-  const [done, setDone] = useState(false);
+  const { isCopied: done, copyToClipboard } = useCopyToClipboard();
   return (
     <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2">
       <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground sm:w-28 shrink-0">
@@ -32,15 +33,7 @@ function CopyField({
           size="icon"
           className="h-8 w-8 shrink-0"
           title={copyTitle}
-          onClick={async () => {
-            try {
-              await navigator.clipboard.writeText(value);
-              setDone(true);
-              setTimeout(() => setDone(false), 1500);
-            } catch {
-              // ignore clipboard failures
-            }
-          }}
+          onClick={() => copyToClipboard(value, { silent: true, resetMs: 1500 })}
         >
           {done ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
         </Button>

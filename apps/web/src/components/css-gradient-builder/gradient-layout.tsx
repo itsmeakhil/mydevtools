@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo, useCallback } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -50,7 +51,7 @@ export function GradientLayout() {
     { id: generateId(), color: '#ec4899', position: 100 },
   ]);
 
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
 
   // Compute CSS
   const cssString = useMemo(() => {
@@ -68,15 +69,9 @@ export function GradientLayout() {
 
   const cssValue = cssString.replace('background: ', '').replace(';', '');
 
-  const copyToClipboard = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(cssString);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Ignore
-    }
-  }, [cssString]);
+  const handleCopy = useCallback(() => {
+    void copyToClipboard(cssString, { silent: true });
+  }, [cssString, copyToClipboard]);
 
   const downloadImage = useCallback(async () => {
     const svg = `
@@ -267,7 +262,7 @@ export function GradientLayout() {
                 <Button 
                   size="sm" 
                   className={cn("h-8 gap-1.5 transition-all", copied ? "bg-green-500 hover:bg-green-600 text-white" : "")} 
-                  onClick={copyToClipboard}
+                  onClick={handleCopy}
                 >
                   {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
                   {copied ? t('copied') : t('copy')}

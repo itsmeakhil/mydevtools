@@ -1,4 +1,4 @@
-from typing import Annotated, Any, Literal, Optional, Union
+from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -15,8 +15,8 @@ class ApiClientCollectionCreate(BaseModel):
 class ApiClientCollectionUpdate(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    name: Optional[str] = Field(default=None, min_length=1)
-    items: Optional[list[dict[str, Any]]] = None
+    name: str | None = Field(default=None, min_length=1)
+    items: list[dict[str, Any]] | None = None
 
 
 class ApiClientCollectionOut(ApiClientCollectionBase):
@@ -37,8 +37,8 @@ class ApiClientEnvironmentCreate(BaseModel):
 class ApiClientEnvironmentUpdate(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    name: Optional[str] = Field(default=None, min_length=1)
-    variables: Optional[list[dict[str, Any]]] = None
+    name: str | None = Field(default=None, min_length=1)
+    variables: list[dict[str, Any]] | None = None
 
 
 class ApiClientEnvironmentOut(ApiClientEnvironmentBase):
@@ -56,7 +56,7 @@ class AddItemOp(BaseModel):
     type: Literal["add"]
     parent_id: str
     item: dict[str, Any]
-    position: Optional[int] = None
+    position: int | None = None
 
 
 class UpdateItemOp(BaseModel):
@@ -78,7 +78,7 @@ class MoveItemOp(BaseModel):
 
 
 Op = Annotated[
-    Union[AddItemOp, UpdateItemOp, DeleteItemOp, MoveItemOp],
+    AddItemOp | UpdateItemOp | DeleteItemOp | MoveItemOp,
     Field(discriminator="type"),
 ]
 
@@ -103,8 +103,8 @@ class ApiClientHistoryCreate(BaseModel):
     body: dict[str, Any] = Field(default_factory=dict)
     auth: dict[str, Any] = Field(default_factory=dict)
     name: str = Field(min_length=1)
-    status: Optional[int] = None
-    timestamp: Optional[int] = None
+    status: int | None = None
+    timestamp: int | None = None
 
 
 class ApiClientHistoryOut(BaseModel):
@@ -119,5 +119,5 @@ class ApiClientHistoryOut(BaseModel):
     auth: dict[str, Any]
     name: str
     timestamp: int
-    status: Optional[int] = None
+    status: int | None = None
 

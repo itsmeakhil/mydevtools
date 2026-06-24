@@ -1,8 +1,9 @@
 from fastapi import APIRouter, BackgroundTasks, Depends, Query
 
-from app.api.routes.auth.services import get_current_uid
+from app.api.routes.api_client import collections_delta
 from app.api.routes.api_client import services as api_client_svc
 from app.api.routes.api_client.schema import (
+    HISTORY_MAX_ITEMS,
     ApiClientCollectionCreate,
     ApiClientCollectionOut,
     ApiClientCollectionUpdate,
@@ -11,10 +12,8 @@ from app.api.routes.api_client.schema import (
     ApiClientEnvironmentUpdate,
     ApiClientHistoryCreate,
     ApiClientHistoryOut,
-    HISTORY_MAX_ITEMS,
 )
-from app.api.routes.api_client import collections_delta
-
+from app.api.routes.auth.services import get_current_uid
 
 router = APIRouter(prefix="/api-client", tags=["api-client"])
 router.include_router(collections_delta.router)
