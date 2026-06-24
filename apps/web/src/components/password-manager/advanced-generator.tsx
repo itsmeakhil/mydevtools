@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Label } from "@/components/ui/label"
@@ -27,7 +28,7 @@ export function AdvancedGenerator({ onPasswordChange, initialLength = 16, classN
     const [mode, setMode] = useState<"password" | "passphrase">("password")
     const [length, setLength] = useState(initialLength)
     const [password, setPassword] = useState("")
-    const [copied, setCopied] = useState(false)
+    const { isCopied: copied, copyToClipboard } = useCopyToClipboard()
 
     // Password Options
     const [options, setOptions] = useState({
@@ -122,14 +123,8 @@ export function AdvancedGenerator({ onPasswordChange, initialLength = 16, classN
         generatePassword()
     }, [generatePassword])
 
-    const handleCopy = async () => {
-        try {
-            await navigator.clipboard.writeText(password)
-            setCopied(true)
-            setTimeout(() => setCopied(false), 2000)
-        } catch {
-            // Silent fail
-        }
+    const handleCopy = () => {
+        void copyToClipboard(password, { silent: true })
     }
 
     const strengthScore = calculatePasswordStrength(password)

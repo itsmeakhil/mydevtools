@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 
 type CopyOptions = {
   successMessage?: string;
+  errorMessage?: string;
   /** When true, skip toast notifications (silent fail). */
   silent?: boolean;
   /** Milliseconds before isCopied resets. */
@@ -20,10 +21,10 @@ export function useCopyToClipboard() {
   ): Promise<boolean> => {
     const opts: CopyOptions =
       typeof options === 'string' ? { successMessage: options } : options ?? {};
-    const { successMessage, silent = false, resetMs = 2000 } = opts;
+    const { successMessage, errorMessage, silent = false, resetMs = 2000 } = opts;
 
     if (!text) {
-      if (!silent) toast.error('Nothing to copy');
+      if (!silent) toast.error(errorMessage || 'Nothing to copy');
       return false;
     }
 
@@ -37,7 +38,7 @@ export function useCopyToClipboard() {
       return true;
     } catch (err) {
       console.error('Failed to copy text:', err);
-      if (!silent) toast.error('Failed to copy to clipboard');
+      if (!silent) toast.error(errorMessage || 'Failed to copy to clipboard');
       setIsCopied(false);
       return false;
     }

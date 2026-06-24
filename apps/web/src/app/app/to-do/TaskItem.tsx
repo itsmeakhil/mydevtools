@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, lazy, Suspense } from "react";
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { formatElapsed, getElapsedMinutes } from "@/app/app/to-do/utils/taskTimeUtils";
 import {
   Select,
@@ -58,7 +59,7 @@ function TaskItem({
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [justCompleted, setJustCompleted] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
   const [elapsed, setElapsed] = useState(() => getElapsedMinutes(task));
 
   useEffect(() => {
@@ -129,11 +130,9 @@ function TaskItem({
     }
   };
 
-  const handleCopy = async () => {
+  const handleCopy = () => {
     const taskText = `${task.text}${task.description ? `\n${task.description}` : ''}`;
-    await navigator.clipboard.writeText(taskText);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    void copyToClipboard(taskText, { silent: true });
   };
 
   const handleQuickComplete = () => {

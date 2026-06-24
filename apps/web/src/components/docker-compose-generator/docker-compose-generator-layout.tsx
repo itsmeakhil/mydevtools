@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
@@ -41,7 +42,7 @@ export function DockerComposeGeneratorLayout() {
   const t = useTranslations('DockerComposeGenerator')
   const [query, setQuery] = React.useState('')
   const [selected, setSelected] = React.useState<Set<string>>(() => new Set())
-  const [copied, setCopied] = React.useState(false)
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard()
 
   const selectedList = React.useMemo(
     () => COMPOSE_SERVICE_ORDER.filter((id) => selected.has(id)),
@@ -85,15 +86,9 @@ export function DockerComposeGeneratorLayout() {
     return m
   }, [filtered])
 
-  const copyYaml = async () => {
+  const copyYaml = () => {
     if (!yaml || selectedList.length === 0) return
-    try {
-      await navigator.clipboard.writeText(yaml)
-      setCopied(true)
-      window.setTimeout(() => setCopied(false), 2000)
-    } catch {
-      /* ignore */
-    }
+    void copyToClipboard(yaml, { silent: true })
   }
 
   const downloadYaml = () => {

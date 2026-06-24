@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { useDebouncedCallback } from 'use-debounce';
 import { Card } from '@/components/ui/card';
@@ -21,7 +22,7 @@ export function TotpGeneratorLayout() {
   const [remaining, setRemaining] = useState(PERIOD_SEC);
   const [invalid, setInvalid] = useState(false);
   const [cryptoError, setCryptoError] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
 
   const trimmed = useMemo(() => secret.replace(/[\s-]/g, ''), [secret]);
 
@@ -74,15 +75,9 @@ export function TotpGeneratorLayout() {
     return () => window.clearInterval(id);
   }, [run]);
 
-  const handleCopy = async () => {
+  const handleCopy = () => {
     if (!code) return;
-    try {
-      await navigator.clipboard.writeText(code);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2000);
-    } catch {
-      /* ignore */
-    }
+    void copyToClipboard(code, { silent: true });
   };
 
   const progress = remaining / PERIOD_SEC;

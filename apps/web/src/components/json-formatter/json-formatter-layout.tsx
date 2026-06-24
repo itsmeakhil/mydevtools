@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useMemo, useState } from 'react'
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { useTranslations } from 'next-intl'
 import { useIsMobile } from '@/components/hooks/use-mobile'
 import {
@@ -77,6 +78,7 @@ const createPaneState = (initialName: string): PaneState => ({
 export function JsonFormatterLayout() {
   const t = useTranslations('JsonFormatter')
   const { user } = useAuth(false)
+  const { copyToClipboard } = useCopyToClipboard()
   const searchParams = useSearchParams()
   const initialInputParam = searchParams.get('input')
 
@@ -173,18 +175,13 @@ export function JsonFormatterLayout() {
     })
   }
 
-  const handleCopy = async (pane: PaneKey) => {
+  const handleCopy = (pane: PaneKey) => {
     const paneState = pane === 'left' ? leftPane : rightPane
-    try {
-      const textContent = toTextContent(paneState.content)
-      await navigator.clipboard.writeText(textContent.text)
-      toast.success(
-        pane === 'left' ? t('toastCopiedText') : t('toastCopiedTree')
-      )
-    } catch (error) {
-      console.error('Failed to copy JSON:', error)
-      toast.error(t('toastCopyFailed'))
-    }
+    const textContent = toTextContent(paneState.content)
+    void copyToClipboard(textContent.text, {
+      successMessage: pane === 'left' ? t('toastCopiedText') : t('toastCopiedTree'),
+      errorMessage: t('toastCopyFailed'),
+    })
   }
 
   const handleSave = async (pane: PaneKey) => {

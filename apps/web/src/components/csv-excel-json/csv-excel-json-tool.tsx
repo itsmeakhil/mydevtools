@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import {
@@ -40,7 +41,7 @@ export function CsvExcelJsonTool() {
   const [jsonText, setJsonText] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -134,16 +135,12 @@ export function CsvExcelJsonTool() {
     }
   };
 
-  const copyJson = async () => {
+  const copyJson = () => {
     if (!jsonText.trim()) return;
-    try {
-      await navigator.clipboard.writeText(jsonText);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-      toast.success(t("toastCopied"));
-    } catch {
-      toast.error(t("errors.copyFailed"));
-    }
+    void copyToClipboard(jsonText, {
+      successMessage: t("toastCopied"),
+      errorMessage: t("errors.copyFailed"),
+    });
   };
 
   const loadSample = () => {

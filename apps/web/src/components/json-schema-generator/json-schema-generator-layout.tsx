@@ -1,10 +1,10 @@
 'use client';
 
 import { useCallback, useMemo, useState } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useIsMobile } from '@/components/hooks/use-mobile';
 import { useTranslations } from 'next-intl';
 import { AlertCircle, Check, Copy, FileJson, Trash2 } from 'lucide-react';
-import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -44,7 +44,7 @@ export function JsonSchemaGeneratorLayout() {
   const [mobileTab, setMobileTab] = useState<'input' | 'output'>('input');
   const [input, setInput] = useState(defaultSample);
   const [language, setLanguage] = useState<OutputLanguage>('python');
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
 
   const { output, error } = useMemo(() => {
     const trimmed = input.trim();
@@ -69,17 +69,13 @@ export function JsonSchemaGeneratorLayout() {
     [output, language, error]
   );
 
-  const handleCopy = useCallback(async () => {
+  const handleCopy = useCallback(() => {
     if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
-      setCopied(true);
-      toast.success(t('copied'));
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      toast.error(t('copyFailed'));
-    }
-  }, [output, t]);
+    void copyToClipboard(output, {
+      successMessage: t('copied'),
+      errorMessage: t('copyFailed'),
+    });
+  }, [output, t, copyToClipboard]);
 
   const handleClear = () => {
     setInput('');

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, lazy, Suspense } from "react";
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripVertical, Edit, Calendar, Tag, CheckCircle2, MoreHorizontal, Trash2, Copy, Check, Play, Pause, Timer, Archive, ArchiveRestore } from "lucide-react";
@@ -38,7 +39,7 @@ interface KanbanCardProps {
 
 export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanCardProps) {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
   const [elapsed, setElapsed] = useState(() => getElapsedMinutes(task));
 
   useEffect(() => {
@@ -86,11 +87,9 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
     await onUpdateTask(task.id, updates);
   };
 
-  const handleCopy = async () => {
+  const handleCopy = () => {
     const taskText = `${task.text}${task.description ? `\n${task.description}` : ''}`;
-    await navigator.clipboard.writeText(taskText);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    void copyToClipboard(taskText, { silent: true });
   };
 
   return (

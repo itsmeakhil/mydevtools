@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useMemo, useState } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -48,14 +49,10 @@ function errorKeyFromGenerateIdsErrorKey(key: GenerateIdsErrorKey): string {
 }
 
 function IdRow({ id, index }: { id: string; index: number }) {
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(id);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    } catch { /* ignore */ }
+  const handleCopy = () => {
+    void copyToClipboard(id, { silent: true, resetMs: 1500 });
   };
 
   return (

@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import {
     Dialog,
     DialogContent,
@@ -19,7 +20,6 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { IconCopy, IconCheck } from "@tabler/icons-react"
 import { ApiRequestState } from "./types"
 import { generateCode, CodeLanguage } from "./generate-code"
-import { toast } from "sonner"
 import { useTranslations } from "next-intl"
 
 interface CodeGeneratorProps {
@@ -33,7 +33,7 @@ export function CodeGenerator({ request, open, onOpenChange }: CodeGeneratorProp
     const tApi = useTranslations("ApiClient")
     const [language, setLanguage] = React.useState<CodeLanguage>("curl")
     const [code, setCode] = React.useState("")
-    const [copied, setCopied] = React.useState(false)
+    const { isCopied: copied, copyToClipboard } = useCopyToClipboard()
 
     React.useEffect(() => {
         try {
@@ -46,10 +46,7 @@ export function CodeGenerator({ request, open, onOpenChange }: CodeGeneratorProp
     }, [request, language, t])
 
     const handleCopy = () => {
-        navigator.clipboard.writeText(code)
-        setCopied(true)
-        toast.success(tApi("toasts.codeCopied"))
-        setTimeout(() => setCopied(false), 2000)
+        void copyToClipboard(code, tApi("toasts.codeCopied"))
     }
 
     return (

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo, useCallback } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { marked } from 'marked';
 import TurndownService from 'turndown';
@@ -72,23 +73,19 @@ export function MarkdownPreviewLayout() {
   // Markdown → HTML tab
   const [markdown, setMarkdown] = useState('');
   const [outputTab, setOutputTab] = useState<'preview' | 'html'>('preview');
-  const [copiedHtml, setCopiedHtml] = useState(false);
+  const { isCopied: copiedHtml, copyToClipboard: copyHtml } = useCopyToClipboard();
 
   // HTML → Markdown tab
   const [htmlInput, setHtmlInput] = useState('');
-  const [copiedMd, setCopiedMd] = useState(false);
+  const { isCopied: copiedMd, copyToClipboard: copyMd } = useCopyToClipboard();
 
   const renderedHtml = useMemo(() => renderMarkdown(markdown), [markdown]);
   const convertedMarkdown = useMemo(() => htmlInput ? htmlToMarkdown(htmlInput) : '', [htmlInput]);
 
-  const handleCopyHtml = useCallback(async () => {
+  const handleCopyHtml = useCallback(() => {
     if (!renderedHtml) return;
-    try {
-      await navigator.clipboard.writeText(renderedHtml);
-      setCopiedHtml(true);
-      setTimeout(() => setCopiedHtml(false), 2000);
-    } catch { /* ignore */ }
-  }, [renderedHtml]);
+    void copyHtml(renderedHtml, { silent: true });
+  }, [renderedHtml, copyHtml]);
 
   const handleExportHtml = useCallback(() => {
     if (!renderedHtml) return;
@@ -101,14 +98,10 @@ export function MarkdownPreviewLayout() {
     URL.revokeObjectURL(url);
   }, [renderedHtml]);
 
-  const handleCopyMd = useCallback(async () => {
+  const handleCopyMd = useCallback(() => {
     if (!convertedMarkdown) return;
-    try {
-      await navigator.clipboard.writeText(convertedMarkdown);
-      setCopiedMd(true);
-      setTimeout(() => setCopiedMd(false), 2000);
-    } catch { /* ignore */ }
-  }, [convertedMarkdown]);
+    void copyMd(convertedMarkdown, { silent: true });
+  }, [convertedMarkdown, copyMd]);
 
   return (
     <div className="flex h-full min-h-0 w-full flex-col gap-4">

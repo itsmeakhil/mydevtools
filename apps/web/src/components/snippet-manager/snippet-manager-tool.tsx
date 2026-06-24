@@ -2,6 +2,7 @@
 
 import { memo, useCallback, useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useTranslations } from "next-intl";
 import { useDebouncedCallback } from "use-debounce";
@@ -305,7 +306,7 @@ export function SnippetManagerTool() {
   const [tagInput, setTagInput] = useState("");
   const [search, setSearch] = useState("");
   const [mode, setMode] = useState<EditorMode>("edit");
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
   const [deleteTarget, setDeleteTarget] = useState<CodeSnippet | null>(null);
   const [listOpen, setListOpen] = useState(false);
 
@@ -647,19 +648,15 @@ export function SnippetManagerTool() {
     setListOpen(false);
   }, [selectedId, snippets, debouncedSaveCode, addSnippet, t]);
 
-  const handleCopy = async () => {
+  const handleCopy = () => {
     if (!draftCode) {
       toast.message(t("toastNothingToCopy"));
       return;
     }
-    try {
-      await navigator.clipboard.writeText(draftCode);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-      toast.success(t("toastCopied"));
-    } catch {
-      toast.error(t("toastCopyFailed"));
-    }
+    void copyToClipboard(draftCode, {
+      successMessage: t("toastCopied"),
+      errorMessage: t("toastCopyFailed"),
+    });
   };
 
   const handleFormat = async () => {

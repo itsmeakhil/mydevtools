@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import dynamic from "next/dynamic"
 
@@ -14,7 +15,6 @@ import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { CheckCircle2, AlertCircle, Copy, Download, Search, Info, Clock, Database, Cookie } from "lucide-react"
-import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import type { editor } from "monaco-editor"
 import { truncateBody } from "./truncate-body"
@@ -104,6 +104,7 @@ interface ResponsePanelProps {
 export function ResponsePanel({ response, isLoading }: ResponsePanelProps) {
     const t = useTranslations("ApiClient.responsePanel")
     const tApi = useTranslations("ApiClient")
+    const { copyToClipboard } = useCopyToClipboard()
     const bodyEditorRef = React.useRef<editor.IStandaloneCodeEditor | null>(null)
 
     const handleOpenSearch = () => {
@@ -153,14 +154,12 @@ export function ResponsePanel({ response, isLoading }: ResponsePanelProps) {
         return "text"
     }
 
-    const handleCopy = async () => {
+    const handleCopy = () => {
         if (!response?.body) return
-        try {
-            await navigator.clipboard.writeText(response.body)
-            toast.success(tApi("toasts.responseCopied"))
-        } catch {
-            toast.error(tApi("toasts.copyFailed"))
-        }
+        void copyToClipboard(response.body, {
+            successMessage: tApi("toasts.responseCopied"),
+            errorMessage: tApi("toasts.copyFailed"),
+        })
     }
 
     const handleDownload = () => {

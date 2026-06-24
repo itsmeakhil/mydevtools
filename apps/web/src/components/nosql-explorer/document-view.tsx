@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { Document } from "./types";
 import { Button } from "@/components/ui/button";
@@ -409,6 +410,7 @@ export function DocumentView({
     const [indexesLoading, setIndexesLoading] = useState(false);
     const [indexesError, setIndexesError] = useState<string | null>(null);
     const { theme } = useTheme();
+    const { copyToClipboard } = useCopyToClipboard();
 
     const tableContainerRef = useRef<HTMLDivElement>(null);
 
@@ -479,8 +481,7 @@ export function DocumentView({
     };
 
     const handleCopy = () => {
-        navigator.clipboard.writeText(jsonViewContent);
-        toast.success(t("copiedClipboard"));
+        void copyToClipboard(jsonViewContent, t("copiedClipboard"));
     };
 
     const handleViewValue = (value: any) => {
@@ -529,8 +530,7 @@ export function DocumentView({
     };
 
     const handleCopyDocument = (doc: Document) => {
-        navigator.clipboard.writeText(JSON.stringify(doc, null, 2));
-        toast.success(t("docCopied"));
+        void copyToClipboard(JSON.stringify(doc, null, 2), t("docCopied"));
     };
 
     const handleSort = (field: string) => {

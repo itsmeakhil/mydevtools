@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { toast } from "sonner"
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -621,6 +622,7 @@ function ShareLinkDialog({
     credentials: S3Credentials
     onClose: () => void
 }) {
+    const { copyToClipboard } = useCopyToClipboard()
     const [expiresIn, setExpiresIn] = useState(3600)
     const [url, setUrl] = useState<string | null>(null)
     const [loading, setLoading] = useState(false)
@@ -677,7 +679,7 @@ function ShareLinkDialog({
                                 <Button
                                     size="sm"
                                     className="flex-1 gap-1.5"
-                                    onClick={() => { navigator.clipboard.writeText(url); toast.success("Copied!") }}
+                                    onClick={() => void copyToClipboard(url, "Copied!")}
                                 >
                                     <IconCopy className="size-3.5" /> Copy
                                 </Button>
@@ -836,6 +838,7 @@ export function FileBrowser({ credentials, connectionName }: Props) {
         toggleSelectKey, clearSelection, selectAll,
     } = useS3DriveStore()
 
+    const { copyToClipboard } = useCopyToClipboard()
     const [viewMode, setViewMode] = useState<ViewMode>("list")
     const [search, setSearch] = useState("")
     const [debouncedSearch, setDebouncedSearch] = useState("")
@@ -1158,15 +1161,13 @@ export function FileBrowser({ credentials, connectionName }: Props) {
     }
 
     function onCopyS3Path(key: string) {
-        navigator.clipboard.writeText(`s3://${credentials.bucket}/${key}`)
-        toast.success("Copied S3 path")
+        void copyToClipboard(`s3://${credentials.bucket}/${key}`, "Copied S3 path")
     }
 
     async function onCopyLink(key: string) {
         try {
             const { url } = await getPresignedDownloadUrl(credentials, key)
-            await navigator.clipboard.writeText(url)
-            toast.success("Copied link")
+            void copyToClipboard(url, "Copied link")
         } catch {
             toast.error("Failed to copy link")
         }
