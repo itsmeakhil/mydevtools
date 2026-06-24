@@ -33,6 +33,9 @@ apps/*/.agent
 .DS_Store
 *.pem
 
+# redis dumps
+*.rdb
+
 # debug
 npm-debug.log*
 yarn-debug.log*
