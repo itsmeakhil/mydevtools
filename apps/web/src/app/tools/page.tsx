@@ -5,6 +5,9 @@ import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { ToolsGrid } from '@/components/tools-grid'
 import { publicToolSlugs } from '@/lib/tool-categories'
+import { MdtFx } from '@/components/mdt-fx'
+import MdtAurora from '@/components/mdt-aurora'
+import { MdtBoot } from '@/components/mdt-boot'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('Online Developer Tools')}&description=${encodeURIComponent('Browse 50+ browser-based developer tools. No install required.')}`
@@ -32,13 +35,29 @@ export const metadata: Metadata = {
 
 export default function ToolsIndexPage() {
   return (
-    <div className="dark flex flex-col min-h-screen bg-background text-foreground font-sans">
+    <div className="dark mdt-deck flex flex-col min-h-screen bg-background text-foreground font-sans">
+      <div aria-hidden style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none' }}>
+        <div className="mdt-grid" />
+        <div className="mdt-noise" />
+        <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden focusable="false">
+          <defs>
+            <linearGradient id="mdtGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#5b63f0" />
+              <stop offset="52%" stopColor="#9a5cf2" />
+              <stop offset="100%" stopColor="#4fd0e6" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <MdtFx />
+      <MdtBoot />
       <Header showThemeToggle={false} />
 
       <main className="flex-1">
         {/* ── Hero ── */}
         <section className="relative py-20 md:py-28 overflow-hidden">
           <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+            <MdtAurora />
             <div className="absolute -top-32 left-1/4 w-[500px] h-[400px] rounded-full bg-violet-500/10 blur-[120px]" />
             <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-sky-500/10 blur-[100px]" />
           </div>
@@ -57,7 +76,7 @@ export default function ToolsIndexPage() {
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 leading-[1.1]">
               Online{' '}
-              <span className="bg-gradient-to-r from-sky-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
+              <span className="mdt-grad-text mdt-grad-anim">
                 Developer Tools
               </span>
             </h1>
@@ -68,7 +87,7 @@ export default function ToolsIndexPage() {
 
             <Link
               href="/login"
-              className="inline-flex items-center justify-center h-12 px-8 rounded-full text-sm font-medium bg-foreground text-background hover:bg-foreground/90 shadow-md hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+              className="mdt-btn-grad inline-flex items-center justify-center h-12 px-8 rounded-full text-sm font-medium"
             >
               Get Full Access
               <ArrowRight className="ml-2 h-4 w-4" />

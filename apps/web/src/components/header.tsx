@@ -1,10 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Github, Menu, X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./modeToggle";
 import { Logo } from "./logo";
+import { Magnetic } from "@/components/mdt-magnetic";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -48,6 +49,14 @@ type HeaderProps = {
 
 export function Header({ showThemeToggle = true }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const mobileNavLinks = [
     { href: "/", label: "Home" },
@@ -60,7 +69,14 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
   ];
 
   return (
-    <header className="glass-nav sticky top-0 z-50 w-full">
+    <header
+      className={cn(
+        "mdt-nav fixed inset-x-0 top-0 z-50 w-full",
+        scrolled
+          ? "glass-nav border-b border-white/5 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.7)]"
+          : "border-b border-transparent bg-transparent"
+      )}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -152,12 +168,14 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
                   <Github className="h-4 w-4" />
                 </Button>
               </Link>
-              <Button asChild className="bg-foreground text-background hover:bg-foreground/90 px-6 shadow-sm hover:shadow-md transition-shadow">
-                <Link href="/login">
-                  Get Started
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
+              <Magnetic strength={0.4}>
+                <Button asChild className="mdt-btn-grad rounded-full px-6">
+                  <Link href="/login">
+                    Get Started
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </Magnetic>
             </div>
           </div>
         </div>
@@ -205,7 +223,7 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
                           "text-base font-medium transition-all duration-200",
                           "hover:bg-muted/60 active:scale-[0.98]",
                           "min-h-[48px]",
-                          link.isPrimary && "bg-foreground text-background hover:bg-foreground/90"
+                          link.isPrimary && "mdt-btn-grad"
                         )}
                       >
                         {link.icon && <link.icon className="h-5 w-5" />}

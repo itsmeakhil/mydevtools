@@ -2,6 +2,9 @@ import Link from 'next/link'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { MdtFx } from '@/components/mdt-fx'
+import MdtAurora from '@/components/mdt-aurora'
+import { MdtBoot } from '@/components/mdt-boot'
 import type { PlatformSeoPage } from '@/lib/seo/platform-pages'
 import { publicToolSlugs } from '@/lib/tool-categories'
 import { toolsMetadata } from '@/lib/metadata'
@@ -37,7 +40,7 @@ function CtaLink({
       rel={external ? 'noreferrer' : undefined}
       className={
         variant === 'primary'
-          ? 'inline-flex h-12 items-center justify-center rounded-full bg-foreground px-7 text-sm font-medium text-background shadow-md transition-all hover:bg-foreground/90 hover:scale-[1.03] active:scale-[0.98]'
+          ? 'mdt-btn-grad inline-flex h-12 items-center justify-center rounded-full px-7 text-sm font-medium'
           : 'inline-flex h-12 items-center justify-center rounded-full border border-border/60 bg-background/60 px-7 text-sm font-medium text-foreground transition-all hover:bg-muted hover:scale-[1.03] active:scale-[0.98]'
       }
     >
@@ -54,7 +57,22 @@ export function MarketingSeoPage({ page }: { page: PlatformSeoPage }) {
   const jsonLd = buildPlatformPageJsonLd(page.slug)
 
   return (
-    <div className="dark flex min-h-screen flex-col bg-background text-foreground font-sans">
+    <div className="dark mdt-deck flex min-h-screen flex-col bg-background text-foreground font-sans">
+      <div aria-hidden style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none' }}>
+        <div className="mdt-grid" />
+        <div className="mdt-noise" />
+        <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden focusable="false">
+          <defs>
+            <linearGradient id="mdtGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#5b63f0" />
+              <stop offset="52%" stopColor="#9a5cf2" />
+              <stop offset="100%" stopColor="#4fd0e6" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <MdtFx />
+      <MdtBoot />
       {jsonLd ? (
         <script
           type="application/ld+json"
@@ -65,6 +83,7 @@ export function MarketingSeoPage({ page }: { page: PlatformSeoPage }) {
       <main className="flex-1">
         <section className="relative overflow-hidden py-20 md:py-28">
           <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+            <MdtAurora />
             <div className="absolute -top-32 left-1/4 h-[420px] w-[520px] rounded-full bg-violet-500/10 blur-[120px]" />
             <div className="absolute top-0 right-0 h-[420px] w-[420px] rounded-full bg-sky-500/10 blur-[100px]" />
           </div>
@@ -81,7 +100,7 @@ export function MarketingSeoPage({ page }: { page: PlatformSeoPage }) {
               <span className="text-foreground">{page.eyebrow}</span>
             </nav>
 
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-sky-400">
+            <p className="mdt-kicker mb-4">
               {page.eyebrow}
             </p>
             <h1 className="mx-auto mb-6 max-w-4xl text-4xl font-bold tracking-tight leading-[1.08] sm:text-5xl md:text-6xl">
@@ -104,8 +123,9 @@ export function MarketingSeoPage({ page }: { page: PlatformSeoPage }) {
             {page.sections.map((section) => (
               <article
                 key={section.title}
-                className="rounded-2xl border border-border/50 bg-background/60 p-6 shadow-sm"
+                className="glass-overlay mdt-card-hover relative overflow-hidden p-6"
               >
+                <div className="mdt-rail absolute inset-x-0 top-0 h-[3px]" />
                 <h2 className="mb-3 text-xl font-semibold">{section.title}</h2>
                 <p className="mb-5 text-sm leading-relaxed text-muted-foreground">
                   {section.body}
@@ -147,7 +167,7 @@ export function MarketingSeoPage({ page }: { page: PlatformSeoPage }) {
                 <Link
                   key={tool.slug}
                   href={`/tools/${tool.slug}`}
-                  className="group rounded-xl border border-border/50 bg-background/60 p-4 transition-all hover:bg-muted/30 hover:scale-[1.01]"
+                  className="group glass-overlay mdt-card-hover p-4"
                 >
                   <h3 className="mb-1 flex items-center gap-1.5 font-semibold">
                     {tool.title}
