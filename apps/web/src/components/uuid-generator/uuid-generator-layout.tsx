@@ -89,7 +89,7 @@ export function UuidGeneratorLayout() {
   const [customNamespace, setCustomNamespace] = useState('');
   const [outputLines, setOutputLines] = useState<string[]>([]);
   const [error, setError] = useState('');
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard: copyAllFn, reset: resetCopied } = useCopyToClipboard();
   const autoCopy = useAutoCopyStore((state) => state.autoCopy);
 
   const needsName = kind === 'uuid3' || kind === 'uuid5';
@@ -97,7 +97,7 @@ export function UuidGeneratorLayout() {
 
   const runGenerate = useCallback(() => {
     setError('');
-    setCopied(false);
+    resetCopied();
     try {
       const n = Number(count);
       const result = generateIds({
@@ -117,18 +117,14 @@ export function UuidGeneratorLayout() {
       setOutputLines([]);
       setError(t('errors.unknown'));
     }
-  }, [kind, count, name, namespacePreset, customNamespace, t]);
+  }, [kind, count, name, namespacePreset, customNamespace, t, resetCopied]);
 
   const output = outputLines.join('\n');
 
-  const handleCopyAll = useCallback(async () => {
+  const handleCopyAll = useCallback(() => {
     if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch { /* ignore */ }
-  }, [output]);
+    void copyAllFn(output, { silent: true });
+  }, [output, copyAllFn]);
 
   useEffect(() => {
     if (autoCopy && output) {

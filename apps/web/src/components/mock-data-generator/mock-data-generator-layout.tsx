@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useId, useMemo, useState } from 'react'
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { useIsMobile } from '@/components/hooks/use-mobile'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
@@ -87,7 +88,7 @@ export function MockDataGeneratorLayout() {
   const [format, setFormat] = useState<OutputFormat>('json')
   const [tableName, setTableName] = useState('records')
   const [output, setOutput] = useState('')
-  const [copied, setCopied] = useState(false)
+  const { isCopied: copied, copyToClipboard, reset: resetCopied } = useCopyToClipboard()
   const [presetSelectKey, setPresetSelectKey] = useState(0)
 
   const schema = useMemo(() => toFieldSchema(schemaRows), [schemaRows])
@@ -113,7 +114,7 @@ export function MockDataGeneratorLayout() {
   }, [])
 
   const runGenerate = useCallback(() => {
-    setCopied(false)
+    resetCopied()
     setOutput(
       generateMockData({
         schema,
@@ -123,13 +124,11 @@ export function MockDataGeneratorLayout() {
       })
     )
     if (isMobile) setMobileTab('output')
-  }, [schema, rowCount, format, tableName, isMobile])
+  }, [schema, rowCount, format, tableName, isMobile, resetCopied])
 
-  const handleCopy = async () => {
+  const handleCopy = () => {
     if (!output) return
-    await navigator.clipboard.writeText(output)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    void copyToClipboard(output, { silent: true })
   }
 
   const handleDownload = () => {
@@ -145,7 +144,7 @@ export function MockDataGeneratorLayout() {
 
   const loadPreset = (key: string) => {
     setPresetSelectKey((k) => k + 1)
-    setCopied(false)
+    resetCopied()
     setOutput('')
     switch (key) {
       case 'users':

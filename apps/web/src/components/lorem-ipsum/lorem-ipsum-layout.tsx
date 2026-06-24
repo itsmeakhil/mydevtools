@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -37,12 +38,12 @@ export function LoremIpsumLayout() {
   const [count, setCount] = useState(3);
   const [asHtml, setAsHtml] = useState(false);
   const [output, setOutput] = useState('');
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard, reset: resetCopied } = useCopyToClipboard();
 
   const limits = LOREM_LIMITS[unit];
 
   const runGenerate = useCallback(() => {
-    setCopied(false);
+    resetCopied();
     const n = Number(count);
     setOutput(
       generateLorem({
@@ -51,13 +52,11 @@ export function LoremIpsumLayout() {
         asHtml,
       })
     );
-  }, [unit, count, asHtml, limits.min]);
+  }, [unit, count, asHtml, limits.min, resetCopied]);
 
-  const handleCopy = async () => {
+  const handleCopy = () => {
     if (!output) return;
-    await navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    void copyToClipboard(output, { silent: true });
   };
 
   const handleDownload = () => {

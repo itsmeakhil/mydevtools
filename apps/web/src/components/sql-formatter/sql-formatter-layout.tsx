@@ -2,6 +2,7 @@
 
 import { format, type KeywordCase, type SqlLanguage } from 'sql-formatter';
 import { useCallback, useState } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -43,11 +44,11 @@ export function SqlFormatterLayout() {
   const [keywordCase, setKeywordCase] = useState<KeywordCase>('upper');
   const [tabWidth, setTabWidth] = useState('2');
   const [error, setError] = useState('');
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard, reset: resetCopied } = useCopyToClipboard();
 
   const runFormat = useCallback(() => {
     setError('');
-    setCopied(false);
+    resetCopied();
     if (isMobile) setMobileTab('output');
     const q = input;
     if (!q.trim()) {
@@ -73,17 +74,11 @@ export function SqlFormatterLayout() {
       setOutput('');
       setError(e instanceof Error ? e.message : t('errors.couldNotFormat'));
     }
-  }, [input, dialect, keywordCase, tabWidth, t]);
+  }, [input, dialect, keywordCase, tabWidth, t, resetCopied, isMobile]);
 
-  const handleCopy = async () => {
+  const handleCopy = () => {
     if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // ignore clipboard failures
-    }
+    void copyToClipboard(output, { silent: true });
   };
 
   return (

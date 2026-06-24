@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useCallback, useMemo, useRef, useState } from 'react'
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
@@ -84,19 +85,11 @@ function DownloadJsonButton({ data, filename, title }: { data: unknown; filename
 }
 
 function CopyIconButton({ value, title }: { value: string; title: string }) {
-  const [copied, setCopied] = useState(false)
-  const timeoutRef = useRef<number | undefined>(undefined)
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard()
 
-  const handleCopy = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(value)
-      setCopied(true)
-      if (timeoutRef.current) window.clearTimeout(timeoutRef.current)
-      timeoutRef.current = window.setTimeout(() => setCopied(false), 1200)
-    } catch {
-      // ignore clipboard failures
-    }
-  }, [value])
+  const handleCopy = useCallback(() => {
+    void copyToClipboard(value, { silent: true, resetMs: 1200 })
+  }, [value, copyToClipboard])
 
   return (
     <Button

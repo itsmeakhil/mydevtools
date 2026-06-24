@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import {
   Link as LinkIcon,
   Globe,
@@ -625,8 +626,7 @@ export default function PublicProfileClient({ username: usernameParam }: { usern
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const [copied, setCopied] = useState(false)
-  const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard()
 
   const usernameSegment = useMemo(() => usernameParam.trim(), [usernameParam])
 
@@ -682,12 +682,6 @@ export default function PublicProfileClient({ username: usernameParam }: { usern
       window.clearTimeout(timeoutId)
     }
   }, [usernameSegment])
-
-  useEffect(() => {
-    return () => {
-      if (copyTimerRef.current) clearTimeout(copyTimerRef.current)
-    }
-  }, [])
 
   const settings = profile?.portfolio_settings
   const accent = settings?.accentColor?.trim() || '#3b82f6'
@@ -751,18 +745,14 @@ export default function PublicProfileClient({ username: usernameParam }: { usern
   const sectionIds = useMemo(() => navItems.map((n) => n.id), [navItems])
   const activeId = useScrollSpy(sectionIds)
 
-  const handleCopyLink = useCallback(async () => {
+  const handleCopyLink = useCallback(() => {
     if (typeof window === 'undefined') return
-    try {
-      await navigator.clipboard.writeText(window.location.href)
-      setCopied(true)
-      toast.success('Link copied to clipboard')
-      if (copyTimerRef.current) clearTimeout(copyTimerRef.current)
-      copyTimerRef.current = setTimeout(() => setCopied(false), 1800)
-    } catch {
-      toast.error('Could not copy link')
-    }
-  }, [])
+    void copyToClipboard(window.location.href, {
+      successMessage: 'Link copied to clipboard',
+      errorMessage: 'Could not copy link',
+      resetMs: 1800,
+    })
+  }, [copyToClipboard])
 
   const handleShare = useCallback(async () => {
     if (typeof window === 'undefined') return

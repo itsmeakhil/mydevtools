@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 type CopyOptions = {
@@ -14,6 +14,14 @@ type CopyOptions = {
 
 export function useCopyToClipboard() {
   const [isCopied, setIsCopied] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
 
   const copyToClipboard = useCallback(async (
     text: string,
@@ -30,11 +38,12 @@ export function useCopyToClipboard() {
 
     try {
       await navigator.clipboard.writeText(text);
+      clearTimer();
       setIsCopied(true);
       if (!silent) {
         toast.success(successMessage || 'Copied to clipboard!', { duration: resetMs });
       }
-      setTimeout(() => setIsCopied(false), resetMs);
+      timerRef.current = setTimeout(() => setIsCopied(false), resetMs);
       return true;
     } catch (err) {
       console.error('Failed to copy text:', err);
@@ -42,7 +51,12 @@ export function useCopyToClipboard() {
       setIsCopied(false);
       return false;
     }
-  }, []);
+  }, [clearTimer]);
 
-  return { copyToClipboard, isCopied };
+  const reset = useCallback(() => {
+    clearTimer();
+    setIsCopied(false);
+  }, [clearTimer]);
+
+  return { copyToClipboard, isCopied, reset };
 }

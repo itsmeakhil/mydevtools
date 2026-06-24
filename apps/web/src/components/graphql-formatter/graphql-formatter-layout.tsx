@@ -5,6 +5,7 @@ import { parse, print, stripIgnoredCharacters } from 'graphql';
 import { AlertCircle, Check, Copy, Trash2, Wand2 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useCallback, useState } from 'react';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { registerGraphqlMonarch } from '@/components/graphql-formatter/register-graphql-monarch';
 import { useIsMobile } from '@/components/hooks/use-mobile';
@@ -55,7 +56,7 @@ export function GraphqlFormatterLayout() {
   const [output, setOutput] = useState('');
   const [outputMode, setOutputMode] = useState<OutputMode>('pretty');
   const [error, setError] = useState('');
-  const [copied, setCopied] = useState(false);
+  const { isCopied: copied, copyToClipboard, reset: resetCopied } = useCopyToClipboard();
 
   const [opType, setOpType] = useState<'query' | 'mutation' | 'subscription'>('query');
   const [opName, setOpName] = useState('MyOperation');
@@ -67,7 +68,7 @@ export function GraphqlFormatterLayout() {
 
   const runFormat = useCallback(() => {
     setError('');
-    setCopied(false);
+    resetCopied();
     if (isMobile) setMobileTab('output');
     const q = input;
     if (!q.trim()) {
@@ -90,7 +91,7 @@ export function GraphqlFormatterLayout() {
       setOutput('');
       setError(e instanceof Error ? e.message : t('errors.couldNotFormat'));
     }
-  }, [input, outputMode, isMobile, t]);
+  }, [input, outputMode, isMobile, t, resetCopied]);
 
   const applyBuilder = useCallback(() => {
     setError('');
@@ -115,15 +116,9 @@ export function GraphqlFormatterLayout() {
     setPanelTab('format');
   }, [opType, opName, varDefs, selection, t]);
 
-  const handleCopy = async () => {
+  const handleCopy = () => {
     if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // ignore clipboard failures
-    }
+    void copyToClipboard(output, { silent: true });
   };
 
   return (
