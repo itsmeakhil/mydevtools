@@ -393,7 +393,7 @@ export default function Page() {
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.6, delay: 0.32 }}
-              className="mt-7 mx-auto grid max-w-lg grid-cols-3 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-md divide-x divide-white/10 shadow-xl shadow-black/30"
+              className="mt-7 mx-auto grid max-w-lg grid-cols-3 overflow-hidden rounded-2xl border border-white/10 bg-[#0a0b12]/80 backdrop-blur-md divide-x divide-white/10 shadow-xl shadow-black/40"
             >
               {[
                 { value: `${allAppTools.length}+`, label: "Online Tools" },
