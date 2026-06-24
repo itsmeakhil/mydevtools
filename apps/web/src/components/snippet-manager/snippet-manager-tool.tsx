@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useCallback, useEffect, useMemo, useRef, useState, type RefObject } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -24,10 +24,6 @@ import {
   IconSearch,
   IconMenu2,
   IconPencil,
-  IconCode,
-  IconLoader2,
-  IconPin,
-  IconPinFilled,
   IconX,
   IconTag,
   IconFiles,
@@ -81,6 +77,9 @@ import {
   SnippetMonaco,
   type SnippetMonacoHandle,
 } from "./snippet-monaco";
+import { LangDot } from "./snippet-list-item";
+import { SnippetListContent } from "./snippet-list-content";
+import { DeleteDialog } from "./delete-dialog";
 
 type EditorMode = "view" | "edit";
 
@@ -91,196 +90,6 @@ const FORMAT_SUPPORTED_LANGS = new Set([
   "less", "xml", "yaml", "go", "rust", "java", "php", "csharp", "python",
 ]);
 
-// ── Language color dots ───────────────────────────────────────────────────────
-
-const LANG_COLORS: Record<string, string> = {
-  javascript:  "bg-yellow-400",
-  typescript:  "bg-blue-400",
-  python:      "bg-sky-500",
-  json:        "bg-green-400",
-  html:        "bg-orange-400",
-  css:         "bg-pink-400",
-  scss:        "bg-pink-500",
-  less:        "bg-indigo-300",
-  shell:       "bg-slate-400",
-  sql:         "bg-indigo-400",
-  markdown:    "bg-slate-400",
-  yaml:        "bg-purple-400",
-  xml:         "bg-orange-500",
-  go:          "bg-cyan-400",
-  rust:        "bg-orange-600",
-  java:        "bg-red-500",
-  php:         "bg-violet-400",
-  csharp:      "bg-purple-500",
-  dockerfile:  "bg-sky-400",
-  ini:         "bg-stone-400",
-  plaintext:   "bg-muted-foreground",
-};
-
-function LangDot({ lang }: { lang: string }) {
-  return (
-    <span
-      className={cn(
-        "inline-block h-2 w-2 shrink-0 rounded-full",
-        LANG_COLORS[lang] ?? "bg-muted-foreground"
-      )}
-    />
-  );
-}
-
-// ── Snippet list item ─────────────────────────────────────────────────────────
-
-const SnippetListItem = memo(function SnippetListItem({
-  sn,
-  selected,
-  onClick,
-  onPin,
-  t,
-}: {
-  sn: CodeSnippet;
-  selected: boolean;
-  onClick: () => void;
-  onPin?: () => void;
-  t: ReturnType<typeof useTranslations<"SnippetManager">>;
-}) {
-  const lang = resolveEditorLanguage(sn.language, sn.code);
-  const firstLine = sn.code.split("\n").find((l) => l.trim()) ?? "";
-
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={cn(
-        "group/item flex w-full flex-col gap-1 rounded-lg border px-3 py-2.5 text-left transition-all duration-150",
-        selected
-          ? "border-primary/30 bg-primary/8 dark:bg-primary/10"
-          : "border-transparent hover:border-border/60 hover:bg-muted/60"
-      )}
-    >
-      {/* Title row */}
-      <div className="flex min-w-0 items-center gap-2">
-        <LangDot lang={lang} />
-        <span className="flex-1 truncate text-sm font-medium leading-tight">
-          {sn.title}
-        </span>
-        {onPin && (
-          <span
-            role="button"
-            tabIndex={-1}
-            onClick={(e) => { e.stopPropagation(); onPin(); }}
-            onKeyDown={(e) => { if (e.key === "Enter") { e.stopPropagation(); onPin(); } }}
-            className={cn(
-              "shrink-0 rounded p-0.5 text-muted-foreground transition-all hover:text-foreground",
-              sn.pinned ? "opacity-100 text-primary/70" : "opacity-0 group-hover/item:opacity-100"
-            )}
-            title={sn.pinned ? "Unpin" : "Pin to top"}
-          >
-            {sn.pinned ? <IconPinFilled className="h-3 w-3" /> : <IconPin className="h-3 w-3" />}
-          </span>
-        )}
-        <span className="shrink-0 rounded bg-muted px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
-          {sn.language === SNIPPET_LANGUAGE_AUTO
-            ? t("badgeAuto", { lang: t(`languages.${lang}` as never) })
-            : t(`languages.${sn.language}` as never)}
-        </span>
-      </div>
-      {/* Code preview */}
-      {firstLine && (
-        <p className="truncate pl-4 font-mono text-[11px] leading-tight text-muted-foreground/55">
-          {firstLine}
-        </p>
-      )}
-      {/* Tags */}
-      {sn.tags?.length > 0 && (
-        <div className="flex flex-wrap gap-1 pl-4">
-          {sn.tags.map((tag) => (
-            <span key={tag} className="rounded bg-muted px-1.5 py-0 text-[10px] text-muted-foreground">
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
-    </button>
-  );
-});
-
-// ── Snippet list content (shared between mobile sheet + desktop panel) ─────────
-
-function SnippetListContent({
-  scrollRef,
-  className,
-  pinnedVisible,
-  unpinnedVisible,
-  filtered,
-  selectedId,
-  snHasMore,
-  snDisplayCount,
-  sentinelRef,
-  t,
-  onPin,
-  onSelect,
-}: {
-  scrollRef: RefObject<HTMLDivElement | null>;
-  className?: string;
-  pinnedVisible: CodeSnippet[];
-  unpinnedVisible: CodeSnippet[];
-  filtered: CodeSnippet[];
-  selectedId: string | null;
-  snHasMore: boolean;
-  snDisplayCount: number;
-  sentinelRef: (el: HTMLDivElement | null) => void;
-  t: ReturnType<typeof useTranslations<"SnippetManager">>;
-  onPin: (id: string) => void;
-  onSelect: (id: string) => void;
-}) {
-  return (
-    <div ref={scrollRef} className={cn("min-h-0 flex-1 overflow-y-auto", className)}>
-      <div className="space-y-0.5 pb-2 pr-1">
-        {pinnedVisible.length > 0 && (
-          <p className="px-1 pb-0.5 pt-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-            Pinned
-          </p>
-        )}
-        {pinnedVisible.map((sn) => (
-          <SnippetListItem
-            key={sn.id}
-            sn={sn}
-            selected={selectedId === sn.id}
-            t={t}
-            onPin={() => onPin(sn.id)}
-            onClick={() => onSelect(sn.id)}
-          />
-        ))}
-        {pinnedVisible.length > 0 && unpinnedVisible.length > 0 && (
-          <p className="px-1 pb-0.5 pt-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-            Snippets
-          </p>
-        )}
-        {unpinnedVisible.map((sn) => (
-          <SnippetListItem
-            key={sn.id}
-            sn={sn}
-            selected={selectedId === sn.id}
-            t={t}
-            onPin={() => onPin(sn.id)}
-            onClick={() => onSelect(sn.id)}
-          />
-        ))}
-      </div>
-      {snHasMore && (
-        <div ref={sentinelRef} className="flex justify-center py-3">
-          <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground/50" />
-        </div>
-      )}
-      {filtered.length === 0 && (
-        <div className="flex flex-col items-center gap-2 py-10 text-center">
-          <IconCode className="h-8 w-8 text-muted-foreground/30" />
-          <p className="text-xs text-muted-foreground">{t("emptySearch")}</p>
-        </div>
-      )}
-    </div>
-  );
-}
 
 // ── Main component ────────────────────────────────────────────────────────────
 
@@ -1174,38 +983,3 @@ export function SnippetManagerTool() {
   );
 }
 
-// ── Delete dialog ─────────────────────────────────────────────────────────────
-
-function DeleteDialog({
-  target,
-  onClose,
-  onConfirm,
-  t,
-}: {
-  target: CodeSnippet | null;
-  onClose: () => void;
-  onConfirm: () => void;
-  t: ReturnType<typeof useTranslations<"SnippetManager">>;
-}) {
-  return (
-    <AlertDialog open={!!target} onOpenChange={(o) => !o && onClose()}>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>{t("deleteTitle")}</AlertDialogTitle>
-          <AlertDialogDescription>
-            {t("deleteDescription", { title: target?.title ?? "" })}
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
-          <AlertDialogAction
-            onClick={onConfirm}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-          >
-            {t("deleteConfirm")}
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  );
-}
