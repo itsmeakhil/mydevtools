@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
     AlertTriangle,
@@ -37,14 +37,12 @@ import {
     encryptWithBackupCode,
     decryptWithBackupCode,
 } from "@/lib/encryption"
-import { saveMasterKey, loadMasterKey, clearMasterKey } from "@/lib/key-storage"
+import { saveMasterKey } from "@/lib/key-storage"
 import {
-    getMasterVaultOrNull,
     setupMasterVault,
     storeBackupCodes,
     lookupBackupCode,
     markBackupCodeUsed,
-    type MasterVaultOut,
 } from "@/lib/global-vault-api"
 import { useMasterKeyStore } from "@/store/master-key-store"
 import { calcStrength } from "./master-password-gate/password-strength"
@@ -53,15 +51,14 @@ import { Spinner, ErrorBanner } from "./master-password-gate/gate-helpers"
 
 // ── Gate modal ────────────────────────────────────────────────────────────────
 
-type GateMode = "loading" | "setup" | "backup-codes" | "unlock" | "use-backup-code"
+type GateMode = "setup" | "backup-codes" | "unlock" | "use-backup-code"
 
 export function MasterPasswordGate() {
     const { user } = useAuth(false)
-    const { isUnlocked, vaultStatus, vaultGateOpen, setKey, setVaultStatus, closeVaultGate } =
+    const { isUnlocked, vault, vaultStatus, vaultGateOpen, setKey, closeVaultGate } =
         useMasterKeyStore()
 
-    const [mode, setMode] = useState<GateMode>("loading")
-    const [vault, setVault] = useState<MasterVaultOut | null>(null)
+    const [mode, setMode] = useState<GateMode>("unlock")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
@@ -72,64 +69,19 @@ export function MasterPasswordGate() {
     const [backupCodesAcknowledged, setBackupCodesAcknowledged] = useState(false)
     const [backupCodeInput, setBackupCodeInput] = useState("")
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
-    const initRef = useRef(false)
 
     const strength = calcStrength(password)
     const confirmMismatch = confirmPassword.length > 0 && confirmPassword !== password
 
-    // Run initGate when the modal opens (not on every page load)
-    useEffect(() => {
-        if (!vaultGateOpen || isUnlocked || !user || initRef.current) return
-        initRef.current = true
-        initGate()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [vaultGateOpen, user, isUnlocked])
-
-    // Reset initRef when modal closes so it re-runs if reopened after session clear
     useEffect(() => {
         if (!vaultGateOpen) {
-            initRef.current = false
-            setMode("loading")
             resetForm()
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [vaultGateOpen])
-
-    const initGate = async () => {
-        if (vaultStatus === "not-configured") {
-            setMode("setup")
+            setMode("unlock")
             return
         }
-        try {
-            const vaultData = await getMasterVaultOrNull()
-            if (!vaultData) {
-                setVaultStatus("not-configured")
-                setMode("setup")
-                return
-            }
-            setVault(vaultData)
-            setVaultStatus("locked")
-            setMode("unlock")
-
-            const savedKey = await loadMasterKey()
-            if (savedKey) {
-                const valid = await verifyKey(
-                    savedKey,
-                    vaultData.verifier.encrypted,
-                    vaultData.verifier.iv,
-                )
-                if (valid) {
-                    setKey(savedKey)
-                    return
-                }
-                await clearMasterKey()
-            }
-        } catch (err) {
-            console.error("[MasterPasswordGate] init error:", err)
-            setError("Could not connect. Please refresh the page.")
-            setMode("unlock")
-        }
-    }
+        if (vaultStatus === "not-configured") setMode("setup")
+        else setMode("unlock")
+    }, [vaultGateOpen, vaultStatus])
 
     // ── helpers ──────────────────────────────────────────────────────────────
 
@@ -172,8 +124,7 @@ export function MasterPasswordGate() {
             const salt = await generateSalt()
             const key = await deriveKey(password, salt)
             const verifierData = await createKeyVerifier(key)
-            const vaultData = await setupMasterVault({ salt, verifier: verifierData })
-            setVault(vaultData)
+            await setupMasterVault({ salt, verifier: verifierData })
 
             const codes = generateBackupCodes(8)
             const encryptedCodes = await Promise.all(
@@ -272,7 +223,7 @@ export function MasterPasswordGate() {
 
     // After setup, show backup codes step — keep modal open until acknowledged
     const showBackupCodes = mode === "backup-codes" && !backupCodesAcknowledged
-    const dialogOpen = (vaultGateOpen && !isUnlocked) || showBackupCodes
+    const dialogOpen = vaultGateOpen || showBackupCodes
 
     if (!user) return null
 
@@ -391,17 +342,11 @@ export function MasterPasswordGate() {
                             {/* Icon + heading */}
                             <div className="flex flex-col items-center text-center">
                                 <div className="relative mb-4">
-                                    <motion.div
+                                    <div
                                         className={cn(
                                             "absolute inset-0 rounded-full",
                                             isSetup ? "bg-emerald-500/15" : "bg-primary/10",
                                         )}
-                                        animate={
-                                            mode === "loading"
-                                                ? { scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] }
-                                                : {}
-                                        }
-                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                                     />
                                     <div
                                         className={cn(
@@ -411,14 +356,7 @@ export function MasterPasswordGate() {
                                                 : "border-border bg-muted/60",
                                         )}
                                     >
-                                        {mode === "loading" ? (
-                                            <motion.div
-                                                animate={{ opacity: [0.7, 1, 0.7] }}
-                                                transition={{ duration: 1.8, repeat: Infinity }}
-                                            >
-                                                <Shield className="h-7 w-7 text-primary" />
-                                            </motion.div>
-                                        ) : isSetup ? (
+                                        {isSetup ? (
                                             <ShieldCheck className="h-7 w-7 text-emerald-500 dark:text-emerald-400" />
                                         ) : (
                                             <Lock className="h-7 w-7 text-foreground/70" />
@@ -427,38 +365,20 @@ export function MasterPasswordGate() {
                                 </div>
 
                                 <h2 className="text-[1.2rem] font-semibold tracking-tight text-foreground">
-                                    {mode === "loading"
-                                        ? "Checking vault…"
-                                        : isSetup
-                                          ? "Create Master Password"
-                                          : isBackupCodeMode
-                                            ? "Use Backup Code"
-                                            : "Unlock Your Data"}
+                                    {isSetup
+                                        ? "Create Master Password"
+                                        : isBackupCodeMode
+                                          ? "Use Backup Code"
+                                          : "Unlock Your Data"}
                                 </h2>
                                 <p className="mt-1.5 max-w-[260px] text-sm leading-relaxed text-muted-foreground">
-                                    {mode === "loading"
-                                        ? "Verifying your encryption keys"
-                                        : isSetup
-                                          ? "Encrypts your sensitive data client-side. Never leaves your device."
-                                          : isBackupCodeMode
-                                            ? "Enter one of your saved backup codes to recover access."
-                                            : "Enter your master password to decrypt and access your data."}
+                                    {isSetup
+                                        ? "Encrypts your sensitive data client-side. Never leaves your device."
+                                        : isBackupCodeMode
+                                          ? "Enter one of your saved backup codes to recover access."
+                                          : "Enter your master password to decrypt and access your data."}
                                 </p>
                             </div>
-
-                            {/* Loading progress */}
-                            {mode === "loading" && (
-                                <div className="flex justify-center">
-                                    <div className="h-[2px] w-40 overflow-hidden rounded-full bg-border/50">
-                                        <motion.div
-                                            className="h-full rounded-full bg-gradient-to-r from-primary/40 via-primary to-primary/40"
-                                            animate={{ x: ["-100%", "200%"] }}
-                                            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-                                            style={{ width: "50%" }}
-                                        />
-                                    </div>
-                                </div>
-                            )}
 
                             {/* Setup warning */}
                             <AnimatePresence>
@@ -482,9 +402,8 @@ export function MasterPasswordGate() {
                             </AnimatePresence>
 
                             {/* Forms */}
-                            {mode !== "loading" && (
-                                <AnimatePresence mode="wait">
-                                    {isBackupCodeMode ? (
+                            <AnimatePresence mode="wait">
+                                {isBackupCodeMode ? (
                                         <motion.form
                                             key="backup-form"
                                             onSubmit={handleBackupCodeUnlock}
@@ -706,7 +625,6 @@ export function MasterPasswordGate() {
                                         </motion.form>
                                     )}
                                 </AnimatePresence>
-                            )}
 
                             <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground/60">
                                 <Shield className="h-3 w-3" />
