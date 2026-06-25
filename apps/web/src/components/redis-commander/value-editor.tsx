@@ -29,6 +29,8 @@ import { decode, DECODER_LABELS, type DecoderKind } from "./value-decoders";
 import { StreamEditor } from "./stream-editor";
 import { JsonEditor } from "./json-editor";
 import { TimeSeriesViewer } from "./timeseries-viewer";
+import { DecodedView } from "./decoded-view";
+import { RenameOrCopyDialog } from "./rename-or-copy-dialog";
 
 const TTL_PRESETS: { label: string; seconds: number }[] = [
     { label: "60s", seconds: 60 },
@@ -586,95 +588,5 @@ export function ValueEditor({ redisUrl, db, selectedKey, onKeyDeleted, onKeyRena
                 onConfirm={handleCopy}
             />
         </div>
-    );
-}
-
-function DecodedView({ raw, kind }: { raw: string; kind: DecoderKind }) {
-    const result = decode(raw, kind);
-    return (
-        <div className="space-y-1">
-            {result.error && (
-                <div className="text-[10px] text-destructive">{result.error}</div>
-            )}
-            <Textarea
-                value={result.text}
-                readOnly
-                className="font-mono text-xs min-h-[200px] resize-y bg-muted/30"
-            />
-            <div className="text-[10px] text-muted-foreground">
-                Read-only preview — switch to Plain to edit
-            </div>
-        </div>
-    );
-}
-
-interface RenameOrCopyDialogProps {
-    open: boolean;
-    onOpenChange: (open: boolean) => void;
-    title: string;
-    actionLabel: string;
-    sourceKey: string;
-    targetKey: string;
-    onTargetKeyChange: (v: string) => void;
-    overwrite: boolean;
-    onOverwriteChange: (v: boolean) => void;
-    busy: boolean;
-    onConfirm: () => void;
-}
-
-function RenameOrCopyDialog({
-    open,
-    onOpenChange,
-    title,
-    actionLabel,
-    sourceKey,
-    targetKey,
-    onTargetKeyChange,
-    overwrite,
-    onOverwriteChange,
-    busy,
-    onConfirm,
-}: RenameOrCopyDialogProps) {
-    return (
-        <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-md">
-                <DialogHeader>
-                    <DialogTitle>{title}</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-3 py-2">
-                    <div className="space-y-1">
-                        <Label className="text-xs">Source</Label>
-                        <Input value={sourceKey} disabled className="font-mono text-xs h-8" />
-                    </div>
-                    <div className="space-y-1">
-                        <Label className="text-xs">Destination</Label>
-                        <Input
-                            value={targetKey}
-                            onChange={(e) => onTargetKeyChange(e.target.value)}
-                            autoFocus
-                            className="font-mono text-xs h-8"
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter" && !busy && targetKey.trim()) onConfirm();
-                            }}
-                        />
-                    </div>
-                    <label className="flex items-center gap-2 text-xs cursor-pointer">
-                        <Checkbox
-                            checked={overwrite}
-                            onCheckedChange={(c) => onOverwriteChange(c === true)}
-                        />
-                        Overwrite if destination exists
-                    </label>
-                </div>
-                <DialogFooter>
-                    <Button variant="outline" onClick={() => onOpenChange(false)} disabled={busy}>
-                        Cancel
-                    </Button>
-                    <Button onClick={onConfirm} disabled={busy || !targetKey.trim() || targetKey === sourceKey}>
-                        {busy ? "…" : actionLabel}
-                    </Button>
-                </DialogFooter>
-            </DialogContent>
-        </Dialog>
     );
 }
