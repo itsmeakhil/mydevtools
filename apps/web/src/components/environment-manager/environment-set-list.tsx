@@ -1,6 +1,7 @@
 "use client"
 
-import { useMemo, useState, useEffect, useRef } from "react"
+import { useMemo, useState, useEffect } from "react"
+import { useDebounce } from "use-debounce"
 import { highlightDotEnvSource } from "@/lib/hljs-dotenv"
 import "./dotenv-modal-highlighter.css"
 import { useEnvironmentManagerStore, type EnvSetEntry } from "@/store/environment-manager-store"
@@ -59,17 +60,6 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 
 type SortOrder = "updatedDesc" | "updatedAsc" | "nameAsc"
 
-function useDebounce<T>(value: T, delay: number): T {
-    const [debounced, setDebounced] = useState(value)
-    const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
-    useEffect(() => {
-        if (timer.current) clearTimeout(timer.current)
-        timer.current = setTimeout(() => setDebounced(value), delay)
-        return () => { if (timer.current) clearTimeout(timer.current) }
-    }, [value, delay])
-    return debounced
-}
-
 export function EnvironmentSetList() {
     const t = useTranslations("EnvironmentManager.list")
     const tToast = useTranslations("EnvironmentManager.toasts")
@@ -83,7 +73,7 @@ export function EnvironmentSetList() {
     const [deleteEntry, setDeleteEntry] = useState<EnvSetEntry | null>(null)
     const [viewingEntry, setViewingEntry] = useState<EnvSetEntry | null>(null)
     const isMobile = useIsMobile()
-    const debouncedSearch = useDebounce(search, 200)
+    const [debouncedSearch] = useDebounce(search, 200)
 
     const allTags = useMemo(() => {
         const s = new Set<string>()
