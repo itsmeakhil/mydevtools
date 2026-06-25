@@ -2,6 +2,7 @@
 
 import Color from 'color';
 import { useCallback, useMemo, useState } from 'react';
+import { useCopyFeedback } from '@/hooks/use-copy-feedback';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -36,15 +37,6 @@ function parseHex(raw: string): string | null {
 }
 
 type WcagKey = keyof typeof WCAG_THRESHOLDS;
-
-function useCopyFeedback() {
-  const [key, setKey] = useState<string | null>(null);
-  const flash = useCallback((id: string) => {
-    setKey(id);
-    setTimeout(() => setKey(null), 1600);
-  }, []);
-  return { key, flash };
-}
 
 export function ContrastCheckerToolLayout() {
   const t = useTranslations('ContrastChecker');

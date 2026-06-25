@@ -3,6 +3,8 @@
 import Color from 'color';
 import type { ColorInstance } from 'color';
 import { useCallback, useMemo, useState } from 'react';
+import { DEFAULT_HEX, channelsFromHex, parseHex, safeHue } from './color-helpers';
+import { useCopyFeedback } from '@/hooks/use-copy-feedback';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -13,54 +15,6 @@ import { PALETTE_GROUPS } from '@/lib/color-palettes';
 import { Check, Copy, Pipette } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-const DEFAULT_HEX = '#6366f1';
-
-function normalizeHex(raw: string): string {
-  let v = raw.trim();
-  if (!v.startsWith('#')) v = `#${v}`;
-  const m3 = /^#([0-9a-f]{3})$/i.exec(v);
-  if (m3) {
-    const [, x] = m3;
-    v = `#${x![0]}${x![0]}${x![1]}${x![1]}${x![2]}${x![2]}`;
-  }
-  return v.toLowerCase();
-}
-
-function parseHex(raw: string): string | null {
-  try {
-    const n = normalizeHex(raw);
-    Color(n);
-    return n;
-  } catch {
-    return null;
-  }
-}
-
-function safeHue(c: ColorInstance): number {
-  const h = c.hue();
-  return Number.isFinite(h) ? Math.round(((h % 360) + 360) % 360) : 0;
-}
-
-function channelsFromHex(hx: string) {
-  const col = Color(hx);
-  return {
-    r: Math.round(col.red()),
-    g: Math.round(col.green()),
-    b: Math.round(col.blue()),
-    h: safeHue(col),
-    s: Math.round(col.saturationl()),
-    l: Math.round(col.lightness()),
-  };
-}
-
-function useCopyFeedback() {
-  const [key, setKey] = useState<string | null>(null);
-  const flash = useCallback((id: string) => {
-    setKey(id);
-    setTimeout(() => setKey(null), 1600);
-  }, []);
-  return { key, flash };
-}
 
 type PaletteId = (typeof PALETTE_GROUPS)[number]['id'];
 const PALETTE_LABEL_KEY: Record<PaletteId, 'paletteShades' | 'paletteComplementary' | 'paletteTriadic' | 'paletteAnalogous' | 'paletteSplit' | 'paletteSquare'> = {

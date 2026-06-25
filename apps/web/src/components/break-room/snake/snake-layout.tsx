@@ -4,56 +4,11 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-
-type Point = { x: number; y: number }
-type Dir = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT'
-type Difficulty = 'easy' | 'normal' | 'hard' | 'infinite'
-type PowerUpType = 'speed' | 'shield' | 'shrink'
-interface PowerUp { type: PowerUpType; x: number; y: number }
-
-const COLS = 20
-const ROWS = 20
-const CELL = 24
-const BEST_KEY = 'mydevtools-snake-best'
-const FOOD_COUNT = 2
-
-const DIFFICULTY_CONFIG: Record<Difficulty, { tickStart: number; minTick: number; wrapWalls: boolean }> = {
-  easy:     { tickStart: 220, minTick: 110, wrapWalls: false },
-  normal:   { tickStart: 150, minTick: 60,  wrapWalls: false },
-  hard:     { tickStart: 90,  minTick: 40,  wrapWalls: false },
-  infinite: { tickStart: 150, minTick: 80,  wrapWalls: true  },
-}
-
-const POWERUP_EMOJI: Record<PowerUpType, string> = {
-  speed: '⚡',
-  shield: '🛡️',
-  shrink: '✂️',
-}
-
-const OPPOSITE: Record<Dir, Dir> = { UP: 'DOWN', DOWN: 'UP', LEFT: 'RIGHT', RIGHT: 'LEFT' }
-
-function randomFood(snake: Point[], occupied: Point[]): Point {
-  let pos: Point
-  do {
-    pos = { x: Math.floor(Math.random() * COLS), y: Math.floor(Math.random() * ROWS) }
-  } while (
-    snake.some(s => s.x === pos.x && s.y === pos.y) ||
-    occupied.some(f => f.x === pos.x && f.y === pos.y)
-  )
-  return pos
-}
-
-function initFoods(snake: Point[]): Point[] {
-  const foods: Point[] = []
-  for (let i = 0; i < FOOD_COUNT; i++) foods.push(randomFood(snake, foods))
-  return foods
-}
-
-function randomPowerUpPos(snake: Point[], foods: Point[]): Point {
-  return randomFood(snake, foods)
-}
-
-const INIT_SNAKE: Point[] = [{ x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 }]
+import {
+  BEST_KEY, CELL, COLS, DIFFICULTY_CONFIG, INIT_SNAKE, OPPOSITE,
+  POWERUP_EMOJI, ROWS, initFoods, randomFood, randomPowerUpPos,
+  type Difficulty, type Dir, type Point, type PowerUp, type PowerUpType,
+} from './engine'
 
 export function SnakeLayout() {
   const t = useTranslations('Snake')

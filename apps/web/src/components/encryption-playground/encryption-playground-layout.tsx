@@ -28,10 +28,9 @@ import {
   type RawKeyEncoding,
 } from '@/lib/aes-gcm-playground';
 import { cn } from '@/lib/utils';
+import { mapEncryptError, mapDecryptError } from './error-mapping';
 
 const AES_BITS: AesBits[] = [128, 192, 256];
-
-type TEnc = ReturnType<typeof useTranslations<'EncryptionPlayground'>>;
 
 export function EncryptionPlaygroundLayout() {
   const t = useTranslations('EncryptionPlayground');
@@ -393,47 +392,3 @@ export function EncryptionPlaygroundLayout() {
   );
 }
 
-function mapEncryptError(t: TEnc, code: string): string {
-  switch (code) {
-    case 'emptyKey':
-      return t('errors.emptyKey');
-    case 'oddHex':
-    case 'invalidHex':
-    case 'badKeyMaterial':
-      return t('errors.badKeyMaterial');
-    case 'wrongKeyLength':
-      return t('errors.wrongKeyLength');
-    case 'emptyPassphrase':
-      return t('errors.emptyPassphrase');
-    default:
-      return t('errors.encryptFailed');
-  }
-}
-
-function mapDecryptError(t: TEnc, code: string): string {
-  switch (code) {
-    case 'invalidJson':
-      return t('errors.invalidJson');
-    case 'invalidBundle':
-    case 'unsupportedVersion':
-    case 'badBits':
-    case 'badKdf':
-    case 'missingFields':
-    case 'badPbkdf2':
-      return t('errors.invalidBundle');
-    case 'emptyKey':
-      return t('errors.emptyKey');
-    case 'oddHex':
-    case 'invalidHex':
-    case 'badKeyMaterial':
-      return t('errors.badKeyMaterial');
-    case 'wrongKeyLength':
-      return t('errors.wrongKeyLength');
-    case 'emptyPassphrase':
-      return t('errors.emptyPassphrase');
-    case 'decryptFailed':
-      return t('errors.decryptFailed');
-    default:
-      return t('errors.decryptFailed');
-  }
-}
