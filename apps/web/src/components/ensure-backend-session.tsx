@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react"
 import type { User } from "firebase/auth"
-import { Loader2 } from "lucide-react"
 import { ensureBackendSession } from "@/lib/backend-auth"
+import { AppLoadingScreen } from "@/components/app-loading-screen"
 
 type Props = {
     user: User | null
@@ -51,12 +51,7 @@ export function EnsureBackendSession({ user, children }: Props) {
     }, [user])
 
     if (user && !ready) {
-        return (
-            <div className="fixed inset-0 z-[9999] flex h-[100dvh] w-[100dvw] flex-col items-center justify-center gap-3 bg-background">
-                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" aria-hidden />
-                <p className="text-sm text-muted-foreground">Loading…</p>
-            </div>
-        )
+        return <AppLoadingScreen label="Securing your session" />
     }
 
     return <>{children}</>

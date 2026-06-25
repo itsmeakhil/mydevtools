@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useAuth from "@/utils/useAuth";
 import { EnsureBackendSession } from "@/components/ensure-backend-session";
-import { Loader2 } from "lucide-react";
+import { AppLoadingScreen } from "@/components/app-loading-screen";
 
 export function RequireAuth({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth(false);
@@ -18,12 +18,7 @@ export function RequireAuth({ children }: { children: React.ReactNode }) {
   }, [loading, user, router]);
 
   if (loading || !user) {
-    return (
-      <div className="fixed inset-0 z-[9999] flex h-[100dvh] w-[100dvw] flex-col items-center justify-center gap-3 bg-background">
-        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" aria-hidden />
-        <p className="text-sm text-muted-foreground">Loading…</p>
-      </div>
-    );
+    return <AppLoadingScreen />;
   }
 
   return (

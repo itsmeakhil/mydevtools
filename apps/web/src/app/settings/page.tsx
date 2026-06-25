@@ -52,22 +52,30 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="flex-1 space-y-8 p-8 max-w-5xl mx-auto w-full pt-20 lg:pt-8 bg-background/50">
-      <div className="flex items-center justify-between space-y-2">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight">{t('title')}</h2>
-          <p className="text-muted-foreground">{t('subtitle')}</p>
-        </div>
+    <div className="flex-1 space-y-8 p-6 md:p-8 max-w-5xl mx-auto w-full pt-20 lg:pt-8 bg-background/50">
+      <div className="space-y-1.5">
+        <p className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-primary to-violet-500" />
+          Workspace
+        </p>
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">{t('title')}</h2>
+        <p className="text-muted-foreground">{t('subtitle')}</p>
       </div>
 
       <div className="grid gap-6">
 
+<<<<<<< Updated upstream
         <PasskeySection />
 
         <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
+=======
+        <Card className="rounded-2xl border border-border/60 bg-card/60 shadow-sm backdrop-blur-sm">
+>>>>>>> Stashed changes
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <List className="h-5 w-5 opacity-70" />
+            <CardTitle className="flex items-center gap-2.5">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary ring-1 ring-inset ring-border/50">
+                <List className="h-4 w-4" />
+              </span>
               {t('tools.title')}
             </CardTitle>
             <CardDescription>
@@ -125,10 +133,12 @@ export default function SettingsPage() {
           </CardContent>
         </Card>
 
-        <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
+        <Card className="rounded-2xl border border-border/60 bg-card/60 shadow-sm backdrop-blur-sm">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Sun className="h-5 w-5 opacity-70" />
+            <CardTitle className="flex items-center gap-2.5">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary ring-1 ring-inset ring-border/50">
+                <Sun className="h-4 w-4" />
+              </span>
               {t('appearance.title')}
             </CardTitle>
             <CardDescription>
@@ -192,10 +202,12 @@ export default function SettingsPage() {
           </CardContent>
         </Card>
 
-        <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
+        <Card className="rounded-2xl border border-border/60 bg-card/60 shadow-sm backdrop-blur-sm">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Globe className="h-5 w-5 opacity-70" />
+            <CardTitle className="flex items-center gap-2.5">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary ring-1 ring-inset ring-border/50">
+                <Globe className="h-4 w-4" />
+              </span>
               {t('language.title')}
             </CardTitle>
             <CardDescription>

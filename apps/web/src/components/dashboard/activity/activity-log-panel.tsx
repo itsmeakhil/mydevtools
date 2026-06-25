@@ -216,7 +216,7 @@ export function ActivityLogPanel({ embedded = false }: { embedded?: boolean }) {
               className={cn(
                 'h-7 cursor-pointer rounded-full border px-2.5 text-xs font-medium transition-colors',
                 active
-                  ? 'border-primary bg-primary text-primary-foreground'
+                  ? 'border-transparent bg-gradient-to-r from-primary to-violet-500 text-primary-foreground shadow-sm'
                   : 'border-border bg-card text-muted-foreground hover:bg-muted/50',
               )}
               aria-pressed={active}
@@ -396,9 +396,13 @@ export function ActivityLogPanel({ embedded = false }: { embedded?: boolean }) {
 
   return (
     <div className="mx-auto max-w-3xl p-4 sm:p-6">
-      <header className="mb-5">
-        <h1 className="text-2xl font-semibold tracking-tight">{t('title')}</h1>
-        <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
+      <header className="mb-5 space-y-1.5">
+        <p className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-primary to-violet-500" />
+          Audit trail
+        </p>
+        <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
+        <p className="text-sm text-muted-foreground">{t('subtitle')}</p>
       </header>
       <div className="mb-5 rounded-xl border border-border bg-card p-3 shadow-sm">
         {filters}

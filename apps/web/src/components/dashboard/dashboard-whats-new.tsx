@@ -5,6 +5,9 @@ import { Wand2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { type RenderToolItem, type ToolCardProps } from './types'
 import { ToolCard, HScrollFade } from './dashboard-tool-card'
+import { DashboardSectionHeader } from './dashboard-section-header'
+
+const WHATS_NEW_ACCENT = { bg: 'bg-amber-500/15', text: 'text-amber-600 dark:text-amber-400' }
 
 interface DashboardWhatsNewProps {
   whatsNewItems: RenderToolItem[]
@@ -29,15 +32,12 @@ export function DashboardWhatsNew({
 
   return (
     <section className="space-y-3 md:space-y-5 rounded-2xl border border-amber-500/20 bg-amber-500/[0.03] p-4 md:p-5">
-      <div className="flex items-center gap-3 pb-2 border-b border-amber-500/15">
-        <div className="p-2 rounded-xl bg-amber-500/15 text-amber-500">
-          <Wand2 size={18} strokeWidth={1.5} />
-        </div>
-        <h2 className="text-xl font-semibold">{t('sections.whatsNew')}</h2>
-        <span className="text-xs font-medium text-amber-600/80 dark:text-amber-400/80 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
-          {whatsNewItems.length}
-        </span>
-      </div>
+      <DashboardSectionHeader
+        icon={Wand2}
+        title={t('sections.whatsNew')}
+        count={whatsNewItems.length}
+        accent={WHATS_NEW_ACCENT}
+      />
       {/* Mobile: horizontal scroll */}
       <div className="md:hidden -mx-4 px-4">
         <HScrollFade>

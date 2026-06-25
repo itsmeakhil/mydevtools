@@ -178,11 +178,11 @@ export function NavGroup({ title, titleKey, items, collapsible, icon: Icon, hidd
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>
+      <SidebarGroupLabel className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground/70">
         {Icon && (
           <Tooltip>
             <TooltipTrigger asChild>
-              <Icon className="mr-2" size={16} />
+              <Icon className="mr-2 opacity-70" size={15} />
             </TooltipTrigger>
             <TooltipContent side="right" align="center" className="capitalize">{groupTitle}</TooltipContent>
           </Tooltip>
@@ -235,12 +235,23 @@ const SidebarMenuLink = ({
           {isActive && (
             <motion.div
               layoutId="sidebar-active-pill"
-              className="absolute inset-0 rounded-md bg-primary/10 dark:bg-primary/20 -z-10"
+              className="absolute inset-0 -z-10 rounded-md bg-gradient-to-r from-primary/15 to-primary/[0.03] ring-1 ring-inset ring-primary/15 dark:from-primary/25 dark:to-primary/5"
               transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            />
+            >
+              <span className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-gradient-to-b from-primary to-violet-500" />
+            </motion.div>
           )}
-          {item.icon && <item.icon className="z-10" />}
-          <span className="z-10 font-medium group-hover:translate-x-0.5 transition-transform">{displayTitle}</span>
+          {item.icon && (
+            <item.icon className={cn("z-10 transition-colors", isActive && "text-primary")} />
+          )}
+          <span
+            className={cn(
+              "z-10 font-medium transition-transform group-hover:translate-x-0.5",
+              isActive && "text-primary",
+            )}
+          >
+            {displayTitle}
+          </span>
           {item.badge && <NavBadge>{item.badge}</NavBadge>}
         </Link>
       </SidebarMenuButton>

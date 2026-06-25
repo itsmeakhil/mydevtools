@@ -6,7 +6,10 @@ import { Clock, ChevronDown, History } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { type FavoriteItem, type ToolCardProps } from './types'
 import { ToolCard, HScrollFade } from './dashboard-tool-card'
+import { DashboardSectionHeader } from './dashboard-section-header'
 import { Button } from '@/components/ui/button'
+
+const RECENT_ACCENT = { bg: 'bg-blue-500/10', text: 'text-blue-600 dark:text-blue-400' }
 
 interface DashboardRecentToolsProps {
   recentItems: FavoriteItem[]
@@ -37,24 +40,21 @@ export function DashboardRecentTools({
 
   return (
     <section className="space-y-3 md:space-y-5">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3 section-header-line pb-2">
-          <div className="p-2 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400">
-            <Clock size={18} strokeWidth={1.5} />
-          </div>
-          <h2 className="text-xl font-semibold">{t('sections.recentlyUsed')}</h2>
-          <span className="text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
-            {recentItems.length}
-          </span>
-        </div>
-        <Link
-          href="/dashboard/activity"
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-card text-sm font-medium text-foreground hover:bg-muted/50 transition-colors shrink-0"
-        >
-          <History size={15} className="text-primary" />
-          {t('viewActivity')}
-        </Link>
-      </div>
+      <DashboardSectionHeader
+        icon={Clock}
+        title={t('sections.recentlyUsed')}
+        count={recentItems.length}
+        accent={RECENT_ACCENT}
+        action={
+          <Link
+            href="/dashboard/activity"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-card text-sm font-medium text-foreground hover:bg-muted/50 hover:border-primary/40 transition-colors"
+          >
+            <History size={15} className="text-primary" />
+            {t('viewActivity')}
+          </Link>
+        }
+      />
       {/* Mobile: horizontal scroll */}
       <div className="md:hidden -mx-4 px-4">
         <HScrollFade>

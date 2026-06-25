@@ -294,6 +294,16 @@ export function MasterPasswordGate() {
                     if (showBackupCodes) e.preventDefault()
                 }}
             >
+                {/* Premium branded top accent (deck signature) */}
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-primary/[0.07] via-violet-500/[0.04] to-transparent"
+                />
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+                />
+
                 {/* Hidden accessible title/description for screen readers */}
                 <DialogHeader className="sr-only">
                     <DialogTitle>
@@ -405,10 +415,10 @@ export function MasterPasswordGate() {
                                     />
                                     <div
                                         className={cn(
-                                            "relative flex h-[60px] w-[60px] items-center justify-center rounded-full border",
+                                            "relative flex h-[60px] w-[60px] items-center justify-center rounded-full border shadow-sm",
                                             isSetup
-                                                ? "border-emerald-500/25 bg-emerald-500/8"
-                                                : "border-border bg-muted/60",
+                                                ? "border-emerald-500/30 bg-gradient-to-b from-emerald-500/20 to-emerald-500/[0.04] ring-1 ring-inset ring-emerald-500/10"
+                                                : "border-border bg-gradient-to-b from-muted to-muted/40 ring-1 ring-inset ring-border/50",
                                         )}
                                     >
                                         {mode === "loading" ? (
@@ -676,6 +686,7 @@ export function MasterPasswordGate() {
 
                                             <Button
                                                 type="submit"
+                                                variant="gradient"
                                                 className="w-full"
                                                 size="lg"
                                                 disabled={
