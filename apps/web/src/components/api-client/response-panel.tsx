@@ -10,11 +10,17 @@ const CodeEditor = dynamic(
     { ssr: false, loading: () => <div className="h-full w-full animate-pulse bg-muted/30" /> }
 )
 const MemoCodeEditor = React.memo(CodeEditor)
-import { ApiResponse, API_CLIENT_ERROR_STATUS_TEXT } from "./types"
+import { ApiResponse, API_CLIENT_ERROR_STATUS_TEXT, ScriptLog, ScriptTestResult } from "./types"
+import { JsonTreeView, JsonTableView, JsonGeoView } from "./json-visualisers"
+
+function tryParseJson(text: string | undefined): unknown {
+    if (!text) return null
+    try { return JSON.parse(text) } catch { return null }
+}
 import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { CheckCircle2, AlertCircle, Copy, Download, Search, Info, Clock, Database, Cookie } from "lucide-react"
+import { CheckCircle2, AlertCircle, Copy, Download, Search, Info, Clock, Database, Cookie, Bookmark } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { editor } from "monaco-editor"
 import { truncateBody } from "./truncate-body"
@@ -49,12 +55,19 @@ interface ParsedCookie {
     sameSite?: string
 }
 
-function parseSetCookieHeaders(headers: Record<string, string>): ParsedCookie[] {
-    const raw = Object.entries(headers).find(([k]) => k.toLowerCase() === "set-cookie")?.[1]
-    if (!raw) return []
-    // Multiple Set-Cookie headers are joined with ", " by the Fetch Headers API.
-    // Split on ", " followed by a token that looks like "name=" to separate cookies.
-    const cookieStrings = raw.split(/,(?=\s*[A-Za-z0-9_\-]+=)/g)
+function parseSetCookieHeaders(
+    headers: Record<string, string>,
+    setCookies?: string[],
+): ParsedCookie[] {
+    // Prefer the proxy's discrete list — header-map joins multiple Set-Cookie
+    // with ", " which breaks on any cookie whose value contains a comma
+    // (e.g. expires=Wed, 02-Jun-2027 …).
+    const cookieStrings = (() => {
+        if (setCookies && setCookies.length > 0) return setCookies
+        const raw = Object.entries(headers).find(([k]) => k.toLowerCase() === "set-cookie")?.[1]
+        if (!raw) return []
+        return raw.split(/,(?=\s*[A-Za-z0-9_\-]+=)/g)
+    })()
     return cookieStrings.flatMap(str => {
         const parts = str.split(";").map(s => s.trim())
         const nameValue = parts[0] ?? ""
@@ -99,9 +112,17 @@ function bodyLooksLikeHtml(body: string): boolean {
 interface ResponsePanelProps {
     response: ApiResponse | null
     isLoading?: boolean
+    scriptResults?: {
+        tests: ScriptTestResult[]
+        logs: ScriptLog[]
+        errors: string[]
+    }
+    streamEvents?: Array<{ event?: string; data: string; id?: string; timestamp: number }>
+    /** When set, the toolbar shows a bookmark button that calls back to start the save-example flow. */
+    onSaveExample?: () => void
 }
 
-export function ResponsePanel({ response, isLoading }: ResponsePanelProps) {
+export function ResponsePanel({ response, isLoading, scriptResults, streamEvents, onSaveExample }: ResponsePanelProps) {
     const t = useTranslations("ApiClient.responsePanel")
     const tApi = useTranslations("ApiClient")
     const { copyToClipboard } = useCopyToClipboard()
@@ -205,7 +226,9 @@ export function ResponsePanel({ response, isLoading }: ResponsePanelProps) {
                     title="HTML response preview"
                     srcDoc={response.body}
                     className="w-full h-full min-h-[320px] border-0 absolute inset-0 bg-white dark:bg-background"
-                    sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                    // `allow-same-origin` is omitted on purpose — combined with `srcDoc` it
+                    // gives the framed page our origin and access to first-party storage/cookies.
+                    sandbox="allow-popups allow-popups-to-escape-sandbox"
                 />
             )
         }
@@ -217,19 +240,26 @@ export function ResponsePanel({ response, isLoading }: ResponsePanelProps) {
         )
     }
 
-    const cookies = parseSetCookieHeaders(response.headers)
+    const cookies = parseSetCookieHeaders(response.headers, response.setCookies)
+    const redirectChain = response.redirectChain ?? []
     const hasPreview = response.isBase64 || isHtmlResponse
-    const defaultTab =
-        (isHtmlResponse && !response.isBase64) ||
-        (response.isBase64 &&
-            (contentType.includes("image/") || contentType.includes("application/pdf")))
+    const isStream = !!streamEvents && streamEvents.length > 0
+    const defaultTab = isStream
+        ? "stream"
+        : (isHtmlResponse && !response.isBase64) ||
+          (response.isBase64 &&
+              (contentType.includes("image/") || contentType.includes("application/pdf")))
             ? "preview"
             : "body"
 
     return (
         <div className="flex flex-col h-full space-y-4 min-h-0">
             <Tabs
-                key={`${response.status}-${response.time}-${response.size}-${response.body?.length ?? 0}`}
+                // Keying on status+time+size resets the active tab when a new response arrives.
+                // body.length was previously included — that re-mounted Monaco on EVERY change
+                // (worker-formatted body arrives milliseconds after the initial render), which
+                // is expensive for >500KB responses. `value` prop alone updates Monaco's model.
+                key={`${response.status}-${response.time}-${response.size}`}
                 defaultValue={defaultTab}
                 className="flex-1 flex flex-col min-h-0"
             >
@@ -242,6 +272,9 @@ export function ResponsePanel({ response, isLoading }: ResponsePanelProps) {
                     <TabsList className="h-9 p-1 bg-muted/50 border rounded-lg">
                         <TabsTrigger value="body" className="px-4">{t("bodyTab")}</TabsTrigger>
                         {hasPreview && <TabsTrigger value="preview" className="px-4">{t("previewTab")}</TabsTrigger>}
+                        <TabsTrigger value="tree" className="px-4">Tree</TabsTrigger>
+                        <TabsTrigger value="table" className="px-4">Table</TabsTrigger>
+                        <TabsTrigger value="geo" className="px-4">Geo</TabsTrigger>
                         <TabsTrigger value="headers" className="px-4">{t("headersTab")}</TabsTrigger>
                         {cookies.length > 0 && (
                             <TabsTrigger value="cookies" className="px-4 flex items-center gap-1.5">
@@ -250,6 +283,31 @@ export function ResponsePanel({ response, isLoading }: ResponsePanelProps) {
                                 <span className="text-[10px] bg-primary/10 text-primary px-1 rounded">{cookies.length}</span>
                             </TabsTrigger>
                         )}
+                        {streamEvents && streamEvents.length > 0 && (
+                            <TabsTrigger value="stream" className="px-4 flex items-center gap-1.5">
+                                Stream
+                                <span className="text-[10px] bg-primary/10 text-primary px-1 rounded">{streamEvents.length}</span>
+                            </TabsTrigger>
+                        )}
+                        {scriptResults && (scriptResults.tests.length > 0 || scriptResults.logs.length > 0 || scriptResults.errors.length > 0) && (() => {
+                            const failed = scriptResults.tests.filter(t => !t.pass).length
+                            const passed = scriptResults.tests.length - failed
+                            return (
+                                <TabsTrigger value="tests" className="px-4 flex items-center gap-1.5">
+                                    Tests
+                                    {scriptResults.tests.length > 0 && (
+                                        <span className={cn(
+                                            "text-[10px] px-1 rounded",
+                                            failed > 0
+                                                ? "bg-rose-500/10 text-rose-500"
+                                                : "bg-emerald-500/10 text-emerald-600",
+                                        )}>
+                                            {failed > 0 ? `${passed}/${scriptResults.tests.length}` : `${passed}`}
+                                        </span>
+                                    )}
+                                </TabsTrigger>
+                            )
+                        })()}
                     </TabsList>
                     <div className="ml-auto flex items-center flex-wrap justify-end gap-2">
                         <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border bg-background/80">
@@ -283,6 +341,11 @@ export function ResponsePanel({ response, isLoading }: ResponsePanelProps) {
                         <Button variant="outline" size="icon" className="h-9 w-9 rounded-lg" onClick={handleOpenSearch} title="Search in body (Ctrl+F)">
                             <Search className="h-4 w-4" />
                         </Button>
+                        {onSaveExample && (
+                            <Button variant="outline" size="icon" className="h-9 w-9 rounded-lg" onClick={onSaveExample} title="Save response as example">
+                                <Bookmark className="h-4 w-4" />
+                            </Button>
+                        )}
                         <Button variant="outline" size="icon" className="h-9 w-9 rounded-lg" onClick={handleCopy} title={t("copyBody")}>
                             <Copy className="h-4 w-4" />
                         </Button>
@@ -291,6 +354,21 @@ export function ResponsePanel({ response, isLoading }: ResponsePanelProps) {
                         </Button>
                     </div>
                 </div>
+                {redirectChain.length > 0 && (
+                    <div
+                        className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-muted-foreground"
+                        title={redirectChain.map(h => `${h.status} → ${h.url}`).join("\n")}
+                    >
+                        <span className="font-semibold uppercase tracking-wider">Redirects:</span>
+                        {redirectChain.map((hop, i) => (
+                            <span key={`${hop.url}-${i}`} className="inline-flex items-center gap-1">
+                                <span className="font-mono px-1 rounded bg-muted/50">{hop.status}</span>
+                                <span className="font-mono break-all max-w-[40ch] truncate">{hop.url}</span>
+                                <span className="opacity-60">→</span>
+                            </span>
+                        ))}
+                    </div>
+                )}
                 <div className="mt-4 border rounded-xl overflow-hidden flex-1 min-h-0 relative shadow-inner bg-card">
                     <TabsContent value="body" className="mt-0 h-full absolute inset-0 flex flex-col">
                         {truncated && !response.isBase64 && (
@@ -317,6 +395,15 @@ export function ResponsePanel({ response, isLoading }: ResponsePanelProps) {
                             {renderPreview()}
                         </TabsContent>
                     )}
+                    <TabsContent value="tree" className="mt-0 h-full absolute inset-0 overflow-auto">
+                        <JsonTreeView data={tryParseJson(response.body)} />
+                    </TabsContent>
+                    <TabsContent value="table" className="mt-0 h-full absolute inset-0 overflow-auto">
+                        <JsonTableView rows={tryParseJson(response.body)} />
+                    </TabsContent>
+                    <TabsContent value="geo" className="mt-0 h-full absolute inset-0 overflow-auto">
+                        <JsonGeoView data={tryParseJson(response.body)} />
+                    </TabsContent>
                     <TabsContent value="headers" className="mt-0 h-full absolute inset-0">
                         <ScrollArea className="h-full">
                             <div className="p-4 space-y-2">
@@ -352,6 +439,97 @@ export function ResponsePanel({ response, isLoading }: ResponsePanelProps) {
                                             </div>
                                         </div>
                                     ))}
+                                </div>
+                            </ScrollArea>
+                        </TabsContent>
+                    )}
+                    {streamEvents && streamEvents.length > 0 && (
+                        <TabsContent value="stream" className="mt-0 h-full absolute inset-0">
+                            <ScrollArea className="h-full">
+                                <div className="p-3 space-y-1.5">
+                                    {streamEvents.map((ev, i) => (
+                                        <div key={i} className="border rounded-lg p-2 bg-muted/20 text-xs space-y-0.5">
+                                            <div className="flex flex-wrap items-center gap-2">
+                                                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                                                    {new Date(ev.timestamp).toLocaleTimeString()}
+                                                </span>
+                                                {ev.event && (
+                                                    <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-600">
+                                                        event: {ev.event}
+                                                    </span>
+                                                )}
+                                                {ev.id && (
+                                                    <span className="font-mono text-[10px] text-muted-foreground">id: {ev.id}</span>
+                                                )}
+                                            </div>
+                                            <pre className="font-mono whitespace-pre-wrap break-all">{ev.data}</pre>
+                                        </div>
+                                    ))}
+                                </div>
+                            </ScrollArea>
+                        </TabsContent>
+                    )}
+                    {scriptResults && (scriptResults.tests.length > 0 || scriptResults.logs.length > 0 || scriptResults.errors.length > 0) && (
+                        <TabsContent value="tests" className="mt-0 h-full absolute inset-0">
+                            <ScrollArea className="h-full">
+                                <div className="p-4 space-y-4">
+                                    {scriptResults.errors.length > 0 && (
+                                        <div className="border border-rose-500/30 bg-rose-500/5 rounded-lg p-3 space-y-1">
+                                            <div className="text-xs font-bold uppercase tracking-wider text-rose-500">Script errors</div>
+                                            {scriptResults.errors.map((err, i) => (
+                                                <pre key={i} className="text-xs font-mono whitespace-pre-wrap break-all">{err}</pre>
+                                            ))}
+                                        </div>
+                                    )}
+                                    {scriptResults.tests.length > 0 && (
+                                        <div className="space-y-2">
+                                            <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground/70">Assertions</div>
+                                            {scriptResults.tests.map((tt, i) => (
+                                                <div
+                                                    key={i}
+                                                    className={cn(
+                                                        "flex flex-col gap-1 border rounded-lg p-3 text-xs",
+                                                        tt.pass
+                                                            ? "border-emerald-500/20 bg-emerald-500/[0.03]"
+                                                            : "border-rose-500/20 bg-rose-500/[0.03]",
+                                                    )}
+                                                >
+                                                    <div className="flex items-center gap-2">
+                                                        {tt.pass ? (
+                                                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                                                        ) : (
+                                                            <AlertCircle className="h-3.5 w-3.5 text-rose-500" />
+                                                        )}
+                                                        <span className="font-medium break-all">{tt.name}</span>
+                                                    </div>
+                                                    {!tt.pass && tt.error && (
+                                                        <pre className="font-mono text-rose-500 whitespace-pre-wrap break-all pl-5">
+                                                            {tt.error}
+                                                        </pre>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                    {scriptResults.logs.length > 0 && (
+                                        <div className="space-y-2">
+                                            <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground/70">Console</div>
+                                            <div className="border rounded-lg p-3 bg-muted/20 space-y-1">
+                                                {scriptResults.logs.map((l, i) => (
+                                                    <div
+                                                        key={i}
+                                                        className={cn(
+                                                            "text-xs font-mono whitespace-pre-wrap break-all",
+                                                            l.level === "error" && "text-rose-500",
+                                                            l.level === "warn" && "text-amber-600",
+                                                        )}
+                                                    >
+                                                        {l.args.join(" ")}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </ScrollArea>
                         </TabsContent>

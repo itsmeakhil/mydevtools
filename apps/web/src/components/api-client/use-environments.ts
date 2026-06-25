@@ -5,6 +5,7 @@ import { toast } from "sonner"
 import { auth } from "@/database/firebase"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { backendFetch } from "@/lib/backend-auth"
+import { broadcastApiClientUpdate, useApiClientSyncListener } from "@/lib/api-client-sync"
 
 export interface EnvironmentVariable {
     id: string
@@ -57,6 +58,16 @@ export function useEnvironments() {
         [user]
     )
 
+    const reload = React.useCallback(async () => {
+        if (!user) return
+        try {
+            const res = await authedFetch("/api/backend/api-client/environments", { method: "GET" })
+            setEnvironments(sortEnvs((await res.json()) as Environment[]))
+        } catch (error) {
+            console.error("Error fetching environments:", error)
+        }
+    }, [user, authedFetch])
+
     // Load environments from backend
     React.useEffect(() => {
         if (loading) return
@@ -85,6 +96,8 @@ export function useEnvironments() {
             cancelled = true
         }
     }, [user, loading, authedFetch])
+
+    useApiClientSyncListener("environments", () => { void reload() })
 
     // Migration: localStorage → backend once when server has no environments
     React.useEffect(() => {
@@ -115,9 +128,11 @@ export function useEnvironments() {
                         migrated.push(created)
                     }
                 }
-                toast.success("Migrated local environments to cloud")
-                localStorage.removeItem(STORAGE_KEY)
+                // Reconcile from server-confirmed migrated set BEFORE dropping the local copy,
+                // so a tab close mid-migration can't leave the user with nothing.
                 setEnvironments(sortEnvs(migrated))
+                localStorage.removeItem(STORAGE_KEY)
+                toast.success("Migrated local environments to cloud")
             } catch (e) {
                 migrationRanRef.current = false
                 console.error("Migration failed", e)
@@ -165,6 +180,7 @@ export function useEnvironments() {
             })
             const created = (await res.json()) as Environment
             setEnvironments((prev) => sortEnvs([...prev, created]))
+            broadcastApiClientUpdate("environments")
             toast.success("Environment created")
             return created.id
         } catch (e) {
@@ -184,6 +200,7 @@ export function useEnvironments() {
             })
             const updated = (await res.json()) as Environment
             setEnvironments((prev) => sortEnvs(prev.map((e) => (e.id === updated.id ? updated : e))))
+            broadcastApiClientUpdate("environments")
         } catch (e) {
             console.error("Error updating environment", e)
             toast.error("Failed to update environment")
@@ -199,6 +216,7 @@ export function useEnvironments() {
             if (activeEnvId === id) {
                 setActiveEnvId(null)
             }
+            broadcastApiClientUpdate("environments")
             toast.success("Environment deleted")
         } catch (e) {
             console.error("Error deleting environment", e)

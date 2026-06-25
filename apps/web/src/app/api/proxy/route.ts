@@ -1,6 +1,11 @@
 import { requireBackendSession } from "@/lib/require-backend-session"
 import { NextRequest, NextResponse } from "next/server"
 
+// Node runtime + raised wall-clock budget so big multipart bodies and slow upstreams
+// don't get cut off by the platform's default 10s edge limit.
+export const runtime = "nodejs"
+export const maxDuration = 60
+
 // ── SSRF Protection: only allow proxying to the configured backend ────────────
 const FASTAPI_BASE_URL = process.env.NEXT_PUBLIC_FASTAPI_BASE_URL || "http://localhost:8000"
 
@@ -14,6 +19,38 @@ function getAllowedHost(): string {
 }
 
 const ALLOWED_HOST = getAllowedHost()
+
+const DEFAULT_PROXY_TIMEOUT_MS = 30_000
+const MAX_PROXY_TIMEOUT_MS = 55_000  // stay under `maxDuration` so we surface a timeout, not a 504
+const MAX_REDIRECTS = Number(process.env.PROXY_MAX_REDIRECTS ?? 5)
+
+/** Pick an effective per-request timeout, clamped to the platform budget. */
+function resolveTimeoutMs(userValue: unknown): number {
+    const n = Number(userValue)
+    if (!Number.isFinite(n) || n <= 0) return DEFAULT_PROXY_TIMEOUT_MS
+    return Math.min(Math.floor(n), MAX_PROXY_TIMEOUT_MS)
+}
+
+/**
+ * Heuristic: is this content-type safe to decode as UTF-8 text?
+ * Default to base64 for anything else — zip/xlsx/fonts/octet-stream were previously
+ * returned as garbled text strings.
+ */
+function isTextualContentType(ct: string): boolean {
+    if (!ct) return false
+    const lower = ct.toLowerCase()
+    if (lower.startsWith("text/")) return true
+    if (lower.includes("json")) return true
+    if (lower.includes("xml")) return true
+    if (lower.includes("javascript") || lower.includes("ecmascript")) return true
+    if (lower.includes("html")) return true
+    if (lower.includes("yaml")) return true
+    if (lower.includes("csv")) return true
+    if (lower.includes("urlencoded")) return true
+    if (lower.includes("graphql")) return true
+    if (lower.includes("x-ndjson")) return true
+    return false
+}
 
 /** In `next dev`, NODE_ENV is `development` — allow localhost/private targets without extra env (metadata still blocked). */
 function allowPrivateProxyTargets(): boolean {
@@ -83,12 +120,122 @@ function isBlockedRequestTarget(hostname: string, host: string): boolean {
     return false
 }
 
+/** Apply both guards (SSRF + scheme) consistently for every hop. Throws on block. */
+function assertHopAllowed(parsed: URL): void {
+    if (isBlockedRequestTarget(parsed.hostname, parsed.host)) {
+        throw new ProxyHopBlockedError(`Blocked target: ${parsed.hostname}`)
+    }
+    if (!["http:", "https:"].includes(parsed.protocol)) {
+        throw new ProxyHopBlockedError(`Blocked scheme: ${parsed.protocol}`)
+    }
+}
+
+class ProxyHopBlockedError extends Error {
+    readonly isProxyBlock = true
+}
+
+interface RedirectHop {
+    url: string
+    status: number
+}
+
+interface FetchWithRedirectsResult {
+    response: Response
+    finalUrl: string
+    /** All hops walked BEFORE the final response. Final hop not included. */
+    chain: RedirectHop[]
+}
+
+/**
+ * Manual redirect follower so each hop runs through `isBlockedRequestTarget`.
+ * Default `fetch` (redirect: "follow") resolves redirects inside undici without
+ * giving us a chance to inspect — an open-redirect on the target host could land
+ * us on `169.254.169.254` or another internal IP.
+ */
+async function fetchFollowingRedirects(args: {
+    initialUrl: string
+    method: string
+    headers: Record<string, string>
+    buildBody: () => BodyInit | undefined
+    signal: AbortSignal
+}): Promise<FetchWithRedirectsResult> {
+    const { initialUrl, headers, buildBody, signal } = args
+    const chain: RedirectHop[] = []
+    let currentUrl = initialUrl
+    let currentMethod = args.method
+    let dropBody = false
+
+    for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
+        const parsed = new URL(currentUrl)
+        assertHopAllowed(parsed)
+
+        const useBody =
+            !dropBody && currentMethod !== "GET" && currentMethod !== "HEAD"
+                ? buildBody()
+                : undefined
+
+        const response = await fetch(currentUrl, {
+            method: currentMethod,
+            headers,
+            body: useBody,
+            redirect: "manual",
+            signal,
+        })
+
+        const isRedirect = response.status >= 300 && response.status < 400 && response.status !== 304
+        if (!isRedirect) {
+            return { response, finalUrl: currentUrl, chain }
+        }
+
+        const location = response.headers.get("location")
+        if (!location) {
+            // 30x without Location — treat as terminal.
+            return { response, finalUrl: currentUrl, chain }
+        }
+
+        chain.push({ url: currentUrl, status: response.status })
+
+        const nextUrl = new URL(location, currentUrl).toString()
+
+        // RFC 7231 §6.4.4: 303 always switches to GET and drops the body.
+        // 301/302 historically (and matching browser fetch) switch POST/PUT/… to GET.
+        // 307/308 preserve both method and body.
+        if (response.status === 303) {
+            currentMethod = "GET"
+            dropBody = true
+        } else if (
+            (response.status === 301 || response.status === 302) &&
+            currentMethod !== "GET" &&
+            currentMethod !== "HEAD"
+        ) {
+            currentMethod = "GET"
+            dropBody = true
+        }
+
+        currentUrl = nextUrl
+    }
+
+    throw new ProxyHopBlockedError(`Too many redirects (>${MAX_REDIRECTS})`)
+}
+
+/** Pull every Set-Cookie header as a discrete entry — Fetch joins them with ", " otherwise. */
+function readSetCookies(headers: Headers): string[] {
+    type WithGetSetCookie = Headers & { getSetCookie?: () => string[] }
+    const h = headers as WithGetSetCookie
+    if (typeof h.getSetCookie === "function") {
+        return h.getSetCookie()
+    }
+    const joined = headers.get("set-cookie")
+    // Fallback for older runtimes — best-effort, single entry.
+    return joined ? [joined] : []
+}
+
 export async function POST(req: NextRequest) {
     try {
         const authError = await requireBackendSession(req)
         if (authError) return authError
 
-        const { url, method, headers, body } = await req.json()
+        const { url, method, headers, body, timeoutMs } = await req.json()
 
         if (!url) {
             return NextResponse.json({
@@ -117,37 +264,28 @@ export async function POST(req: NextRequest) {
             })
         }
 
-        // ── SSRF guard: block internal/metadata IPs ──────────────────────────
-        if (isBlockedRequestTarget(parsed.hostname, parsed.host)) {
+        try {
+            assertHopAllowed(parsed)
+        } catch (e) {
+            const msg = (e as Error).message
             return NextResponse.json({
                 status: 403,
                 statusText: "Forbidden",
                 headers: {},
-                body: "Requests to internal/private addresses are not allowed",
+                body: msg.startsWith("Blocked scheme")
+                    ? "Only HTTP(S) URLs are allowed"
+                    : "Requests to internal/private addresses are not allowed",
                 time: 0,
                 size: 0,
-                error: "Blocked by SSRF protection",
-            })
-        }
-
-        // ── Only allow file:// and other dangerous schemes to be blocked ─────
-        if (!["http:", "https:"].includes(parsed.protocol)) {
-            return NextResponse.json({
-                status: 403,
-                statusText: "Forbidden",
-                headers: {},
-                body: "Only HTTP(S) URLs are allowed",
-                time: 0,
-                size: 0,
-                error: "Blocked protocol",
+                error: msg,
             })
         }
 
         const startTime = performance.now()
 
-        const PROXY_TIMEOUT_MS = 30_000
+        const effectiveTimeoutMs = resolveTimeoutMs(timeoutMs)
         const proxyController = new AbortController()
-        const proxyTimeout = setTimeout(() => proxyController.abort(), PROXY_TIMEOUT_MS)
+        const proxyTimeout = setTimeout(() => proxyController.abort(), effectiveTimeoutMs)
 
         // Propagate client disconnect (Strict Mode unmount, navigation) to upstream so
         // we don't keep reading a response no one will receive.
@@ -175,14 +313,17 @@ export async function POST(req: NextRequest) {
             if (forwardedFor && !hasHeader("x-forwarded-for")) requestHeaders["x-forwarded-for"] = forwardedFor
         }
 
-        let requestBody: BodyInit | undefined = body || undefined
+        // Body builder: called per hop so 307/308 redirects can re-emit the same payload
+        // (FormData streams are consumed after one fetch and can't be reused directly).
+        const isMultipart =
+            body && typeof body === "object" && body.mode === "form-data" && Array.isArray(body.entries)
 
-        if (body && typeof body === "object" && body.mode === "form-data" && Array.isArray(body.entries)) {
+        const buildBody = (): BodyInit | undefined => {
+            if (!body) return undefined
+            if (!isMultipart) return body as BodyInit
             const form = new FormData()
-
             for (const entry of body.entries) {
                 if (!entry?.key) continue
-
                 if (entry.type === "file") {
                     if (!entry.fileContentBase64) continue
                     const fileBuffer = Buffer.from(entry.fileContentBase64, "base64")
@@ -192,24 +333,30 @@ export async function POST(req: NextRequest) {
                     form.append(entry.key, entry.value || "")
                 }
             }
-
-            requestBody = form
-            const contentTypeKey = Object.keys(requestHeaders).find((key) => key.toLowerCase() === "content-type")
-            if (contentTypeKey) {
-                delete requestHeaders[contentTypeKey]
-            }
+            return form
         }
 
-        const response = await fetch(url, {
-            method,
-            headers: requestHeaders,
-            body: requestBody,
-            signal: proxyController.signal,
-        }).finally(() => {
+        if (isMultipart) {
+            // Let undici set the multipart Content-Type with its own boundary.
+            const contentTypeKey = Object.keys(requestHeaders).find((key) => key.toLowerCase() === "content-type")
+            if (contentTypeKey) delete requestHeaders[contentTypeKey]
+        }
+
+        let walked: FetchWithRedirectsResult
+        try {
+            walked = await fetchFollowingRedirects({
+                initialUrl: url,
+                method,
+                headers: requestHeaders,
+                buildBody,
+                signal: proxyController.signal,
+            })
+        } finally {
             clearTimeout(proxyTimeout)
             req.signal.removeEventListener("abort", onClientAbort)
-        })
+        }
 
+        const { response, chain: redirectChain } = walked
         const endTime = performance.now()
         const time = Math.round(endTime - startTime)
 
@@ -218,24 +365,36 @@ export async function POST(req: NextRequest) {
             responseHeaders[key] = value
         })
 
+        const setCookies = readSetCookies(response.headers)
+
         const contentType = response.headers.get("content-type") || ""
         let responseBody: string
         let isBase64 = false
 
-        if (contentType.includes("image/") || contentType.includes("application/pdf") || contentType.includes("audio/") || contentType.includes("video/")) {
+        if (isTextualContentType(contentType)) {
+            responseBody = await response.text()
+        } else {
+            // Everything non-textual (octet-stream, zip/xlsx/font/protobuf/binary, also
+            // missing content-type) goes through base64 so the client gets faithful bytes
+            // it can preview-or-download instead of UTF-8-mangled garbage.
             const buffer = await response.arrayBuffer()
             responseBody = Buffer.from(buffer).toString("base64")
             isBase64 = true
-        } else {
-            responseBody = await response.text()
         }
 
-        const size = Number(response.headers.get("content-length")) || (isBase64 ? Buffer.from(responseBody, "base64").length : responseBody.length)
+        const declaredLength = Number(response.headers.get("content-length"))
+        const size = Number.isFinite(declaredLength) && declaredLength > 0
+            ? declaredLength
+            : isBase64
+                ? Buffer.from(responseBody, "base64").length
+                : Buffer.byteLength(responseBody, "utf8")
 
         return NextResponse.json({
             status: response.status,
             statusText: response.statusText,
             headers: responseHeaders,
+            setCookies,
+            redirectChain,
             body: responseBody,
             isBase64,
             time,
@@ -248,6 +407,17 @@ export async function POST(req: NextRequest) {
         // and trying to write one triggers Next's "ReadableStream is locked" pipe error.
         if (req.signal.aborted || err?.name === "AbortError") {
             return new NextResponse(null, { status: 499 })
+        }
+        if (err instanceof ProxyHopBlockedError) {
+            return NextResponse.json({
+                status: 403,
+                statusText: "Forbidden",
+                headers: {},
+                body: err.message,
+                time: 0,
+                size: 0,
+                error: err.message,
+            })
         }
         return NextResponse.json({
             status: 0,

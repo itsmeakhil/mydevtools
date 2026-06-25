@@ -6,6 +6,7 @@ import { toast } from "sonner"
 import { auth } from "@/database/firebase"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { backendFetch } from "@/lib/backend-auth"
+import { broadcastApiClientUpdate, useApiClientSyncListener } from "@/lib/api-client-sync"
 
 const STORAGE_KEY = "api-client-collections"
 
@@ -42,6 +43,17 @@ export function useCollections() {
         [user]
     )
 
+    const reload = React.useCallback(async () => {
+        if (!user) return
+        try {
+            const res = await authedFetch("/api/backend/api-client/collections", { method: "GET" })
+            const cols = sortCollections((await res.json()) as Collection[])
+            setCollections(cols)
+        } catch (error) {
+            console.error("Error fetching collections:", error)
+        }
+    }, [user, authedFetch])
+
     // Load collections from backend
     React.useEffect(() => {
         if (loading) return
@@ -71,6 +83,9 @@ export function useCollections() {
         }
     }, [user, loading, authedFetch])
 
+    // Refetch when another tab broadcasts a collections mutation.
+    useApiClientSyncListener("collections", () => { void reload() })
+
     // Migration: localStorage → backend once per browser (when server has no collections yet)
     React.useEffect(() => {
         const migrateData = async () => {
@@ -99,9 +114,12 @@ export function useCollections() {
                         migrated.push(created)
                     }
                 }
-                toast.success("Migrated local collections to cloud")
-                localStorage.removeItem(STORAGE_KEY)
+                // Order matters: reconcile state from the server-confirmed result first,
+                // THEN drop the local copy. If the tab closes mid-flight after removeItem
+                // but before the state update, the user loses their data.
                 setCollections(sortCollections(migrated))
+                localStorage.removeItem(STORAGE_KEY)
+                toast.success("Migrated local collections to cloud")
             } catch (e) {
                 migrationRanRef.current = false
                 console.error("Migration failed", e)
@@ -160,6 +178,7 @@ export function useCollections() {
                 { type: "add", parent_id: parentId, item: newFolder },
             ])
             setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
+            broadcastApiClientUpdate("collections")
         } catch (e) {
             setCollections(prev)
             console.error("Error adding folder", e)
@@ -183,6 +202,7 @@ export function useCollections() {
                 setCollections((cur) => cur.filter((c) => c.id !== itemId))
                 try {
                     await authedFetch(`/api/backend/api-client/collections/${itemId}`, { method: "DELETE" })
+                    broadcastApiClientUpdate("collections")
                     toast.success("Collection deleted")
                 } catch (e) {
                     setCollections(prev)
@@ -207,6 +227,7 @@ export function useCollections() {
                 { type: "delete", item_id: itemId },
             ])
             setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
+            broadcastApiClientUpdate("collections")
         } catch (e) {
             setCollections(prev)
             console.error("Error deleting item", e)
@@ -239,6 +260,7 @@ export function useCollections() {
                 { type: "add", parent_id: parentId, item: request },
             ])
             setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
+            broadcastApiClientUpdate("collections")
             toast.success("Request saved")
         } catch (e) {
             setCollections(prev)
@@ -271,9 +293,47 @@ export function useCollections() {
                 { type: "update", item_id: folderId, patch: { isOpen: !folder.isOpen } },
             ])
             setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
+            broadcastApiClientUpdate("collections")
         } catch (e) {
             setCollections(prev)
             console.error("Error toggling folder", e)
+        }
+    }
+
+    /**
+     * Generic folder patch — used by the folder-defaults dialog to set
+     * defaultHeaders / preRequestScript / testScript / defaultAuth.
+     * Applies optimistically against state, reconciles from the delta result.
+     */
+    const patchFolder = async (folderId: string, patch: Partial<CollectionFolder>) => {
+        if (!user) return
+        const targetCollection = collections.find((c) => findItemInCollection(c.items, folderId))
+        if (!targetCollection) return
+        const prev = collections
+        const patchInItems = (items: (CollectionFolder | CollectionRequest)[]): (CollectionFolder | CollectionRequest)[] =>
+            items.map((item) => {
+                if ("type" in item && item.type === "folder") {
+                    if (item.id === folderId) return { ...item, ...patch }
+                    return { ...item, items: patchInItems(item.items) }
+                }
+                return item
+            })
+        setCollections((cur) =>
+            sortCollections(cur.map((c) =>
+                c.id === targetCollection.id ? { ...c, items: patchInItems(c.items) } : c
+            ))
+        )
+        try {
+            const updated = await applyDelta(targetCollection.id, [
+                { type: "update", item_id: folderId, patch },
+            ])
+            setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
+            broadcastApiClientUpdate("collections")
+            toast.success("Folder defaults saved")
+        } catch (e) {
+            setCollections(prev)
+            console.error("Error patching folder", e)
+            toast.error("Failed to save folder defaults")
         }
     }
 
@@ -297,6 +357,7 @@ export function useCollections() {
                 { type: "update", item_id: folderId, patch: { name } },
             ])
             setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
+            broadcastApiClientUpdate("collections")
         } catch (e) {
             setCollections(prev)
             console.error("Error renaming folder", e)
@@ -385,6 +446,38 @@ export function useCollections() {
         })
     }
 
+    /**
+     * Bulk-import a collection (Postman / HAR / OpenAPI conversion output).
+     * Creates the collection on the server, then PATCHes its items in one shot.
+     * Cheaper than fan-out applyDelta for hundreds of converted requests.
+     */
+    const importCollection = async (incoming: Collection): Promise<Collection | null> => {
+        if (!user) return null
+        try {
+            const res = await authedFetch("/api/backend/api-client/collections", {
+                method: "POST",
+                body: JSON.stringify({ name: incoming.name }),
+            })
+            const created = (await res.json()) as Collection
+            let final = created
+            if (incoming.items.length > 0) {
+                const patchRes = await authedFetch(`/api/backend/api-client/collections/${created.id}`, {
+                    method: "PATCH",
+                    body: JSON.stringify({ items: incoming.items }),
+                })
+                final = (await patchRes.json()) as Collection
+            }
+            setCollections((prev) => sortCollections([...prev, final]))
+            broadcastApiClientUpdate("collections")
+            toast.success(`Imported "${incoming.name}"`)
+            return final
+        } catch (e) {
+            console.error("Error importing collection", e)
+            toast.error("Failed to import collection")
+            return null
+        }
+    }
+
     // Add a way to create a new root collection
     const createCollection = async (name: string) => {
         if (!user) return
@@ -395,6 +488,7 @@ export function useCollections() {
             })
             const created = (await res.json()) as Collection
             setCollections((prev) => sortCollections([...prev, created]))
+            broadcastApiClientUpdate("collections")
             toast.success("Collection created")
         } catch (e) {
             console.error("Error creating collection", e)
@@ -416,6 +510,7 @@ export function useCollections() {
             })
             const updated = (await res.json()) as Collection
             setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
+            broadcastApiClientUpdate("collections")
             toast.success("Collection renamed")
         } catch (e) {
             setCollections(prev)
@@ -454,6 +549,7 @@ export function useCollections() {
             // Remove successfully deleted collections from state
             if (successfulIds.length > 0) {
                 setCollections((prev) => prev.filter((c) => !successfulIds.includes(c.id)))
+                broadcastApiClientUpdate("collections")
             }
 
             // Handle results with appropriate feedback
@@ -493,7 +589,9 @@ export function useCollections() {
         createCollection,
         renameCollection,
         renameFolder,
+        patchFolder,
         deleteMultipleCollections,
+        importCollection,
         isLoading
     }
 }

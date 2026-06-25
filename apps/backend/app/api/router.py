@@ -7,6 +7,7 @@ from app.api.routes.bookmarks.api import router as bookmarks_router
 from app.api.routes.tasks.api import router as tasks_router
 from app.api.routes.passwords.api import router as passwords_router
 from app.api.routes.environment_manager.api import router as environment_manager_router
+from app.api.routes.api_key_vault.api import router as api_key_vault_router
 from app.api.routes.notes.api import router as notes_router
 from app.api.routes.nosql.api import router as nosql_router
 from app.api.routes.user_preferences.api import router as user_preferences_router
@@ -32,6 +33,7 @@ api_router.include_router(tasks_router)
 api_router.include_router(bookmarks_router)
 api_router.include_router(passwords_router)
 api_router.include_router(environment_manager_router)
+api_router.include_router(api_key_vault_router)
 api_router.include_router(notes_router)
 api_router.include_router(nosql_router)
 api_router.include_router(user_preferences_router)

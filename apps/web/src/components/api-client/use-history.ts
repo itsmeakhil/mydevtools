@@ -5,9 +5,70 @@ import { HistoryRequest, CollectionRequest } from "./types"
 import { auth } from "@/database/firebase"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { backendFetch } from "@/lib/backend-auth"
+import { broadcastApiClientUpdate, useApiClientSyncListener } from "@/lib/api-client-sync"
 
 const HISTORY_STORAGE_KEY = "api-client-history"
 const HISTORY_LIMIT = 100
+
+/**
+ * Drop heavy file payloads before persisting history entries to localStorage.
+ * A single 3MB upload is enough to blow the 5MB quota with one entry; history
+ * only needs the request shape, not the bytes — the user re-picks the file
+ * on replay anyway.
+ */
+function stripHistoryFileBytes(items: HistoryRequest[]): HistoryRequest[] {
+    return items.map((item) => {
+        const formData = item.body?.formData
+        if (!formData?.some((f) => f.valueType === "file" && f.fileContentBase64)) {
+            return item
+        }
+        return {
+            ...item,
+            body: {
+                ...item.body,
+                formData: formData.map((f) =>
+                    f.valueType === "file" && f.fileContentBase64
+                        ? { ...f, fileContentBase64: "" }
+                        : f
+                ),
+            },
+        }
+    })
+}
+
+function isQuotaExceededError(err: unknown): boolean {
+    if (!(err instanceof DOMException)) return false
+    return (
+        err.name === "QuotaExceededError" ||
+        err.name === "NS_ERROR_DOM_QUOTA_REACHED" ||
+        err.code === 22 ||
+        err.code === 1014
+    )
+}
+
+/** Persist `items`, shedding oldest entries on quota errors until it fits (or we give up). */
+function persistHistoryWithFallback(items: HistoryRequest[]): HistoryRequest[] {
+    let attempt = stripHistoryFileBytes(items)
+    for (let i = 0; i < 5; i++) {
+        try {
+            localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(attempt))
+            return attempt
+        } catch (err) {
+            if (!isQuotaExceededError(err)) {
+                console.warn("api-client history: localStorage write failed", err)
+                return items
+            }
+            // Halve and retry.
+            const next = attempt.slice(0, Math.floor(attempt.length / 2))
+            if (next.length === attempt.length || next.length === 0) {
+                try { localStorage.removeItem(HISTORY_STORAGE_KEY) } catch { /* noop */ }
+                return items
+            }
+            attempt = next
+        }
+    }
+    return items
+}
 
 export function useHistory() {
     const [user, loading] = useAuthState(auth)
@@ -37,6 +98,21 @@ export function useHistory() {
     useEffect(() => {
         if (!user) migrationRanRef.current = false
     }, [user])
+
+    const reload = useCallback(async () => {
+        if (!user) return
+        try {
+            const res = await authedFetch(
+                `/api/backend/api-client/history?limit=${HISTORY_LIMIT}`,
+                { method: "GET" },
+            )
+            setHistory((await res.json()) as HistoryRequest[])
+        } catch (e) {
+            console.error("Failed to reload history", e)
+        }
+    }, [user, authedFetch])
+
+    useApiClientSyncListener("history", () => { void reload() })
 
     // Load history: MongoDB when signed in, otherwise localStorage
     useEffect(() => {
@@ -113,12 +189,14 @@ export function useHistory() {
                         }),
                     })
                 }
-                localStorage.removeItem(HISTORY_STORAGE_KEY)
+                // Reconcile from server-confirmed history BEFORE deleting the local backup;
+                // a mid-flight tab close should never leave the user with nothing.
                 const refreshed = await authedFetch(
                     `/api/backend/api-client/history?limit=${HISTORY_LIMIT}`,
                     { method: "GET" }
                 )
                 setHistory((await refreshed.json()) as HistoryRequest[])
+                localStorage.removeItem(HISTORY_STORAGE_KEY)
             } catch (e) {
                 migrationRanRef.current = false
                 console.error("History migration failed", e)
@@ -149,6 +227,7 @@ export function useHistory() {
                     })
                     const created = (await res.json()) as HistoryRequest
                     setHistory((prev) => [created, ...prev].slice(0, HISTORY_LIMIT))
+                    broadcastApiClientUpdate("history")
                 } catch (e) {
                     console.error("Failed to save history entry", e)
                 }
@@ -164,13 +243,7 @@ export function useHistory() {
                     status,
                 }
                 const next = [newItem, ...prev].slice(0, HISTORY_LIMIT)
-                try {
-                    localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(next))
-                } catch (e) {
-                    console.warn("api-client history: localStorage write failed", e)
-                    try { localStorage.removeItem(HISTORY_STORAGE_KEY) } catch { /* noop */ }
-                }
-                return next
+                return persistHistoryWithFallback(next)
             })
         },
         [user, authedFetch]
@@ -181,6 +254,7 @@ export function useHistory() {
             try {
                 await authedFetch("/api/backend/api-client/history/clear", { method: "DELETE" })
                 setHistory([])
+                broadcastApiClientUpdate("history")
             } catch (e) {
                 console.error("Failed to clear history", e)
             }
@@ -198,6 +272,7 @@ export function useHistory() {
                 try {
                     await authedFetch(`/api/backend/api-client/history/${id}`, { method: "DELETE" })
                     setHistory((prev) => prev.filter((item) => item.id !== id))
+                    broadcastApiClientUpdate("history")
                 } catch (e) {
                     console.error("Failed to delete history entry", e)
                 }
@@ -205,12 +280,7 @@ export function useHistory() {
             }
             setHistory((prev) => {
                 const next = prev.filter((item) => item.id !== id)
-                try {
-                    localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(next))
-                } catch (e) {
-                    console.warn("api-client history: localStorage write failed", e)
-                }
-                return next
+                return persistHistoryWithFallback(next)
             })
         },
         [user, authedFetch]

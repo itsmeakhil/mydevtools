@@ -12,6 +12,11 @@ from app.api.routes.api_client.schema import (
     ApiClientEnvironmentUpdate,
     ApiClientHistoryCreate,
     ApiClientHistoryOut,
+    ApiClientPublicMockOut,
+    ApiClientPublicMockPublish,
+    ApiClientWorkspaceCreate,
+    ApiClientWorkspaceOut,
+    ApiClientWorkspaceUpdate,
 )
 from app.api.routes.auth.services import get_current_uid
 
@@ -108,3 +113,96 @@ async def clear_history(uid: str = Depends(get_current_uid)) -> None:
 @router.delete("/history/{entry_id}", status_code=204, summary="Delete one history entry")
 async def delete_history_entry(entry_id: str, uid: str = Depends(get_current_uid)) -> None:
     await api_client_svc.delete_history_entry(uid, entry_id)
+
+
+# ── Public mocks ─────────────────────────────────────────────────────────────
+
+
+@router.get(
+    "/public-mocks",
+    response_model=list[ApiClientPublicMockOut],
+    summary="List the caller's published public mocks",
+)
+async def list_public_mocks(uid: str = Depends(get_current_uid)) -> list[ApiClientPublicMockOut]:
+    return await api_client_svc.list_public_mocks(uid=uid)
+
+
+@router.post(
+    "/public-mocks",
+    response_model=ApiClientPublicMockOut,
+    summary="Publish a snapshot of a collection as an anonymously-readable mock",
+)
+async def publish_public_mock(
+    body: ApiClientPublicMockPublish,
+    uid: str = Depends(get_current_uid),
+) -> ApiClientPublicMockOut:
+    return await api_client_svc.publish_public_mock(uid, body)
+
+
+@router.delete(
+    "/public-mocks/{mock_id}",
+    status_code=204,
+    summary="Unpublish a public mock",
+)
+async def delete_public_mock(mock_id: str, uid: str = Depends(get_current_uid)) -> None:
+    await api_client_svc.delete_public_mock(uid, mock_id)
+
+
+@router.get(
+    "/public-mock/{mock_id}",
+    response_model=ApiClientPublicMockOut,
+    summary="Fetch a public mock by id — no auth required",
+)
+async def get_public_mock_anonymous(mock_id: str) -> ApiClientPublicMockOut:
+    mock = await api_client_svc.get_public_mock_anonymous(mock_id)
+    if not mock:
+        from fastapi import HTTPException, status
+
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Public mock not found.")
+    return mock
+
+
+# ── Workspaces ───────────────────────────────────────────────────────────────
+
+
+@router.get(
+    "/workspaces",
+    response_model=list[ApiClientWorkspaceOut],
+    summary="List the caller's workspaces",
+)
+async def list_workspaces(uid: str = Depends(get_current_uid)) -> list[ApiClientWorkspaceOut]:
+    return await api_client_svc.list_workspaces(uid=uid)
+
+
+@router.post(
+    "/workspaces",
+    response_model=ApiClientWorkspaceOut,
+    summary="Create a workspace",
+)
+async def create_workspace(
+    body: ApiClientWorkspaceCreate,
+    uid: str = Depends(get_current_uid),
+) -> ApiClientWorkspaceOut:
+    return await api_client_svc.create_workspace(uid, body)
+
+
+@router.patch(
+    "/workspaces/{workspace_id}",
+    response_model=ApiClientWorkspaceOut,
+    summary="Rename a workspace",
+)
+async def patch_workspace(
+    workspace_id: str,
+    body: ApiClientWorkspaceUpdate,
+    uid: str = Depends(get_current_uid),
+) -> ApiClientWorkspaceOut:
+    return await api_client_svc.patch_workspace(uid, workspace_id, body)
+
+
+@router.delete(
+    "/workspaces/{workspace_id}",
+    status_code=204,
+    summary="Delete a workspace (collections reset to default)",
+)
+async def delete_workspace(workspace_id: str, uid: str = Depends(get_current_uid)) -> None:
+    await api_client_svc.delete_workspace(uid, workspace_id)
