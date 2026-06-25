@@ -15,6 +15,7 @@ dependencies = [
   "slowapi>=0.1.9",
   "redis[asyncio]>=5.0",
   "orjson>=3.10",
+  "webauthn>=2.5.0",
 ]
 
 [project.optional-dependencies]
@@ -23,6 +24,7 @@ dev = [
   "httpx>=0.28.1",
   "ruff>=0.13.0",
   "testcontainers[redis]>=4.0",
+  "soft-webauthn>=0.1.4",
 ]
 
 [tool.pytest.ini_options]

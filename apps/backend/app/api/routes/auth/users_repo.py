@@ -125,3 +125,77 @@ async def mark_backup_code_used(uid: str, code_id: str) -> None:
         {"$set": {"backup_codes.$.used": True, "updated_at": now}},
     )
     await bump_version(ns="auth_user", uid=uid)
+
+
+# ── Passkeys / WebAuthn ───────────────────────────────────────────────────────
+
+
+async def get_or_create_webauthn_user_handle(uid: str, handle_b64: str) -> str:
+    """Set handle on first call (conditional, race-safe); return stored value."""
+    now = create_timestamp()
+    await db_manager.update_one(
+        USERS,
+        {"_id": uid, "webauthn_user_handle": {"$exists": False}},
+        {"$set": {"webauthn_user_handle": handle_b64, "updated_at": now}},
+    )
+    doc = await db_manager.find_one(USERS, {"_id": uid}, projection={"webauthn_user_handle": 1})
+    return (doc or {}).get("webauthn_user_handle") or handle_b64
+
+
+async def list_passkeys(uid: str) -> list[dict[str, Any]]:
+    doc = await db_manager.find_one(USERS, {"_id": uid}, projection={"passkeys": 1})
+    return list((doc or {}).get("passkeys") or [])
+
+
+async def add_passkey(uid: str, passkey: dict[str, Any]) -> None:
+    now = create_timestamp()
+    await db_manager.update_one(
+        USERS,
+        {"_id": uid},
+        {"$push": {"passkeys": passkey}, "$set": {"updated_at": now}},
+    )
+    await bump_version(ns="auth_user", uid=uid)
+
+
+async def remove_passkey(uid: str, credential_id: str) -> int:
+    now = create_timestamp()
+    res = await db_manager.update_one(
+        USERS,
+        {"_id": uid, "passkeys.credential_id": credential_id},
+        {"$pull": {"passkeys": {"credential_id": credential_id}}, "$set": {"updated_at": now}},
+    )
+    await bump_version(ns="auth_user", uid=uid)
+    return getattr(res, "modified_count", 0)
+
+
+async def update_passkey_usage(uid: str, credential_id: str, sign_count: int) -> None:
+    now = create_timestamp()
+    await db_manager.update_one(
+        USERS,
+        {"_id": uid, "passkeys.credential_id": credential_id},
+        {
+            "$set": {
+                "passkeys.$.sign_count": sign_count,
+                "passkeys.$.last_used_at": now,
+                "updated_at": now,
+            }
+        },
+    )
+
+
+async def rename_passkey(uid: str, credential_id: str, device_name: str) -> int:
+    now = create_timestamp()
+    res = await db_manager.update_one(
+        USERS,
+        {"_id": uid, "passkeys.credential_id": credential_id},
+        {"$set": {"passkeys.$.device_name": device_name, "updated_at": now}},
+    )
+    return getattr(res, "modified_count", 0)
+
+
+async def find_user_by_user_handle(user_handle_b64: str) -> dict[str, Any] | None:
+    return await db_manager.find_one(USERS, {"webauthn_user_handle": user_handle_b64})
+
+
+async def find_user_by_credential_id(credential_id: str) -> dict[str, Any] | None:
+    return await db_manager.find_one(USERS, {"passkeys.credential_id": credential_id})

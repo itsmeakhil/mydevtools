@@ -16,6 +16,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { COLOR_THEME_OPTIONS, type ColorTheme, useColorTheme } from '@/hooks/use-color-theme'
 import { getToolMessageKey } from '@/lib/tool-i18n'
+import { PasskeySection } from '@/components/settings/passkey-section'
 const colorDisplay: Record<ColorTheme, { swatchClass: string; name: string }> = {
   cyan: { swatchClass: 'bg-cyan-500', name: 'Teal' },
   blue: { swatchClass: 'bg-blue-500', name: 'Blue' },
@@ -60,6 +61,8 @@ export default function SettingsPage() {
       </div>
 
       <div className="grid gap-6">
+
+        <PasskeySection />
 
         <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
           <CardHeader>
