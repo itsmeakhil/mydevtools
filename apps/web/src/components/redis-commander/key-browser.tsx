@@ -19,6 +19,7 @@ import { detectSearchMode, globMatch, regexMatch, fuzzyMatch, getMatchIndices } 
 import { SearchBar } from "./search-bar";
 import { AdvancedSearchPanel } from "./advanced-search-panel";
 import { KeyTreeView } from "./key-tree-view";
+import { HighlightedKeyText } from "./highlighted-key-text";
 
 const SEPARATORS = [":", "/", "."] as const;
 type ViewMode = "list" | "tree";
@@ -31,52 +32,6 @@ const TYPE_COLORS: Record<RedisValueType | string, string> = {
     hash: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
     none: "bg-muted text-muted-foreground",
 };
-
-interface HighlightedKeyTextProps {
-    text: string;
-    indices: number[];
-    mode: SearchMode;
-}
-
-function HighlightedKeyText({ text, indices, mode }: HighlightedKeyTextProps) {
-    if (indices.length === 0) return <span>{text}</span>;
-
-    if (mode === "fuzzy") {
-        // indices are individual char positions
-        // Create a Set for fast lookup
-        const indexSet = new Set(indices);
-        const chars = text.split("");
-        const elements: React.ReactNode[] = [];
-
-        chars.forEach((char, i) => {
-            if (indexSet.has(i)) {
-                elements.push(
-                    <span key={i} className="bg-yellow-200/50 dark:bg-yellow-900/50">
-                        {char}
-                    </span>
-                );
-            } else {
-                elements.push(char);
-            }
-        });
-
-        return <span>{elements}</span>;
-    } else {
-        // glob or regex: indices are [start, end]
-        const start = indices[0] ?? 0;
-        const end = indices[1] ?? text.length;
-
-        return (
-            <span>
-                {text.slice(0, start)}
-                <span className="bg-blue-200/50 dark:bg-blue-900/50">
-                    {text.slice(start, end)}
-                </span>
-                {text.slice(end)}
-            </span>
-        );
-    }
-}
 
 interface SearchState {
     input: string;
