@@ -30,10 +30,10 @@ class Settings(BaseSettings):
     ALLOWED_ORIGINS: str
 
     # WebAuthn / passkeys
-    WEBAUTHN_RP_ID: str = "localhost"
-    WEBAUTHN_RP_NAME: str = "MyDevTools"
-    WEBAUTHN_ORIGINS: str = "http://localhost:3000"  # comma-separated
-    WEBAUTHN_CHALLENGE_TTL_SECONDS: int = 300
+    WEBAUTHN_RP_ID: str 
+    WEBAUTHN_RP_NAME: str 
+    WEBAUTHN_ORIGINS: str
+    WEBAUTHN_CHALLENGE_TTL_SECONDS: int
 
     # Redis + cache
     REDIS_URL: str | None = None

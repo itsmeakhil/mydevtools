@@ -41,6 +41,7 @@ import { GitHubCalendar } from 'react-github-calendar'
 import { toast } from 'sonner'
 import { Logo } from '@/components/logo'
 import { TECH_CATALOG } from '@/components/tech-stack-picker'
+import { MdtStatusPage } from '@/components/mdt-status-page'
 import { cn } from '@/lib/utils'
 
 /* ──────────────────────────────────────────────────────────────────────── */
@@ -778,42 +779,31 @@ export default function PublicProfileClient({ username: usernameParam }: { usern
 
   if (error || !profile) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-background relative">
-        <div className="pointer-events-none fixed inset-0 -z-10">
-          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[60%] h-[40%] bg-[radial-gradient(ellipse_at_center,hsl(var(--destructive)/0.06),transparent_60%)] blur-3xl" />
-        </div>
-        <div className="relative z-10 flex flex-col items-center gap-8 p-8">
-          <Logo size={36} showText />
-          <div className="text-center space-y-3">
-            <h1 className="text-7xl md:text-8xl font-black tracking-tighter text-foreground/10 select-none">
-              404
-            </h1>
-            <p className="text-lg text-muted-foreground font-medium">
-              This profile doesn&apos;t exist yet.
-            </p>
-            <p className="text-sm text-muted-foreground/60 max-w-md">
-              The username <span className="font-mono text-foreground/50">@{usernameSegment}</span> hasn&apos;t been claimed.
-              <br />
-              Create your own developer profile for free.
-            </p>
-          </div>
-          <div className="flex gap-3">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 text-sm font-medium px-5 py-2.5 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-opacity shadow-lg shadow-primary/20 cursor-pointer"
-            >
-              <Sparkles className="h-4 w-4" />
-              Create Profile
-            </Link>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 text-sm font-medium px-5 py-2.5 rounded-full border border-border hover:bg-muted/50 transition-colors text-muted-foreground hover:text-foreground cursor-pointer"
-            >
-              Explore Tools
-            </Link>
-          </div>
-        </div>
-      </div>
+      <MdtStatusPage
+        code="404"
+        kicker="Profile not found"
+        title="This profile doesn't exist yet."
+        description={`@${usernameSegment} hasn't been claimed. Grab the handle and create your own developer profile for free.`}
+        diagnostics={[
+          'looking up developer profile…',
+          `GET /@${usernameSegment} → 404 NOT_CLAIMED`,
+          'hint: this handle is available',
+        ]}
+      >
+        <Link
+          href="/login"
+          className="mdt-btn-grad inline-flex h-12 items-center justify-center rounded-full px-7 text-sm font-medium"
+        >
+          <Sparkles className="mr-2 h-4 w-4" />
+          Create Profile
+        </Link>
+        <Link
+          href="/tools"
+          className="inline-flex h-12 items-center justify-center rounded-full border border-border/60 bg-background/60 px-7 text-sm font-medium text-foreground transition-all hover:bg-muted hover:scale-[1.03] active:scale-[0.98]"
+        >
+          Explore Tools
+        </Link>
+      </MdtStatusPage>
     )
   }
 

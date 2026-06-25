@@ -50,7 +50,6 @@ export function LoginForm() {
       router.push("/dashboard");
     } catch (e: any) {
       const msg = e instanceof Error ? e.message : "Passkey sign-in failed.";
-      // Suppress noisy user-cancelled errors
       if (e?.name === "NotAllowedError" || /cancel/i.test(msg)) {
         setError("");
       } else {
