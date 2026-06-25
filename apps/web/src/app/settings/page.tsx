@@ -64,13 +64,9 @@ export default function SettingsPage() {
 
       <div className="grid gap-6">
 
-<<<<<<< Updated upstream
         <PasskeySection />
 
-        <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
-=======
         <Card className="rounded-2xl border border-border/60 bg-card/60 shadow-sm backdrop-blur-sm">
->>>>>>> Stashed changes
           <CardHeader>
             <CardTitle className="flex items-center gap-2.5">
               <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary ring-1 ring-inset ring-border/50">

@@ -8,12 +8,6 @@ import { Progress } from "@/components/ui/progress"
 import { completeOnboarding } from "@/lib/onboarding-api"
 import { useToolVisibilityStore } from "@/store/tool-visibility-store"
 import { patchUserPreferences } from "@/lib/user-preferences-api"
-<<<<<<< Updated upstream
-import { IconArrowRight, IconCheck, IconX } from "@tabler/icons-react"
-import { WelcomeStep } from "./onboarding-modal/welcome-step"
-import { TourStep, TOUR_SLIDES } from "./onboarding-modal/tour-step"
-import { ToolSelectionStep, buildCategories } from "./onboarding-modal/tool-selection"
-=======
 import {
   IconRocket,
   IconShield,
@@ -35,6 +29,7 @@ import {
 import { sidebarData } from "@/components/sidebar/data/sidebar-data"
 import type { NavLink, NavCollapsible } from "@/components/sidebar/types"
 import MdtAurora from "@/components/mdt-aurora"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 // ── Tool category icons by title ──────────────────────────────────────────────
 
@@ -102,7 +97,6 @@ const TOUR_SLIDES = [
       "Right-click any tool in the sidebar to pin it to the top. Pinned tools are synced across all your devices.",
   },
 ]
->>>>>>> Stashed changes
 
 // ── Step indicators ───────────────────────────────────────────────────────────
 
@@ -117,8 +111,6 @@ function StepDot({ active, done }: { active: boolean; done: boolean }) {
   )
 }
 
-<<<<<<< Updated upstream
-=======
 // ── Step 0: Welcome ───────────────────────────────────────────────────────────
 
 const WELCOME_HIGHLIGHTS = [
@@ -549,7 +541,6 @@ function TourStep({ slideIndex, onSlide }: { slideIndex: number; onSlide: (i: nu
     </div>
   )
 }
->>>>>>> Stashed changes
 
 // ── Root modal ────────────────────────────────────────────────────────────────
 
