@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
     AlertTriangle,
@@ -82,10 +82,13 @@ export function MasterPasswordGate() {
     const strength = calcStrength(password)
     const confirmMismatch = confirmPassword.length > 0 && confirmPassword !== password
 
+    const retryAttemptedRef = useRef(false)
+
     useEffect(() => {
         if (!vaultGateOpen) {
             resetForm()
             setMode("unlock")
+            retryAttemptedRef.current = false
             return
         }
         if (vaultStatus === "not-configured") {
@@ -93,8 +96,9 @@ export function MasterPasswordGate() {
             return
         }
         // Recovery: if the gate opens while locked but vault was never cached
-        // (boot-time restore errored), retry restoration once.
-        if (vaultStatus === "locked" && !vault) {
+        // (boot-time restore errored), retry restoration once per gate-open session.
+        if (vaultStatus === "locked" && !vault && !retryAttemptedRef.current) {
+            retryAttemptedRef.current = true
             setRestoreError(null)
             setVaultStatus("restoring")
             return

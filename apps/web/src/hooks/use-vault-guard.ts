@@ -1,7 +1,5 @@
 "use client"
 
-"use client"
-
 import { useMasterKeyStore } from "@/store/master-key-store"
 
 /**
