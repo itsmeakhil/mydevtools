@@ -29,9 +29,7 @@ import {
   Globe,
   CheckCircle2,
   Search,
-  Server,
   Cloud,
-  Crown,
 } from "lucide-react";
 import { sidebarData } from "@/components/sidebar/data/sidebar-data";
 import { homepageFaqItems } from "@/lib/seo/structured-data";
@@ -41,6 +39,7 @@ import { Magnetic } from "@/components/mdt-magnetic";
 import { Tilt } from "@/components/mdt-tilt";
 import { MdtBoot } from "@/components/mdt-boot";
 import { MdtDashboard } from "@/components/mdt-dashboard";
+import { PricingTiers } from "@/components/pricing-tiers";
 
 // ─── Animation Variants ────────────────────────────────────────────────────────
 
@@ -710,170 +709,10 @@ export default function Page() {
       {/* ── Pricing ─────────────────────────────────────────────────────────── */}
       <section
         id="pricing"
-        className="py-16 md:py-28 relative overflow-hidden scroll-mt-28"
+        className="relative overflow-hidden scroll-mt-28"
       >
         <div className="absolute inset-0 -z-10 bg-muted/20" />
-        <div className="container px-4 md:px-6 mx-auto">
-          <Section>
-            <motion.div
-              variants={fadeUp}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-12 md:mb-14"
-            >
-              <Badge
-                variant="secondary"
-                className="mb-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium"
-              >
-                <Sparkles className="w-3 h-3" />
-                Pricing
-              </Badge>
-              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
-                Self-host free. Cloud is paid.
-              </h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                Same open-source product everywhere. Run it yourself at no cost,
-                or let us handle hosting with a paid subscription.
-              </p>
-            </motion.div>
-
-            <div className="grid md:grid-cols-3 gap-4 md:gap-5 max-w-5xl mx-auto">
-              {/* Self-host */}
-              <motion.div
-                variants={fadeUp}
-                transition={{ duration: 0.55 }}
-                className="relative flex flex-col rounded-2xl glass-overlay p-7 md:p-8 border border-emerald-500/20 shadow-lg shadow-emerald-500/5"
-              >
-                <div className="mb-6 w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-400 p-px shadow-md">
-                  <div className="w-full h-full rounded-[11px] bg-card dark:bg-[hsl(var(--surface-2))] flex items-center justify-center">
-                    <Server className="w-5 h-5 text-foreground" />
-                  </div>
-                </div>
-                <h3 className="text-xl font-semibold mb-1">Self-hosted</h3>
-                <p className="text-3xl font-bold tracking-tight mb-1">
-                  $0{" "}
-                  <span className="text-base font-normal text-muted-foreground">
-                    forever
-                  </span>
-                </p>
-                <p className="text-sm text-muted-foreground mb-6 flex-1 leading-relaxed">
-                  Clone the repo, deploy the web app and backend, and use every
-                  tool with no license fee and no usage limits from us.
-                </p>
-                <ul className="space-y-2.5 text-sm text-muted-foreground mb-8">
-                  {[
-                    "Full source under GPL-3.0",
-                    "All tools and features included",
-                    "You control data & infrastructure",
-                  ].map((line) => (
-                    <li key={line} className="flex gap-2">
-                      <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-500 mt-0.5" />
-                      <span>{line}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href="https://github.com/itsmeakhil/mydevtools.tech"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center justify-center rounded-full border border-border/60 dark:border-white/10 bg-background/60 px-5 py-2.5 text-sm font-medium hover:bg-muted transition-colors"
-                >
-                  View on GitHub
-                  <ExternalLink className="ml-2 h-3.5 w-3.5 opacity-70" />
-                </Link>
-              </motion.div>
-
-              {/* Cloud */}
-              <motion.div
-                variants={fadeUp}
-                transition={{ duration: 0.55, delay: 0.06 }}
-                className="mdt-beam relative flex flex-col rounded-2xl glass-overlay p-7 md:p-8 border border-sky-500/25"
-              >
-                <Badge className="absolute top-5 right-5 rounded-full text-[11px] font-medium px-2.5 py-0.5 bg-sky-500/15 text-sky-400 border border-sky-500/30">
-                  Paid
-                </Badge>
-                <div className="mb-6 w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500 to-cyan-400 p-px shadow-md">
-                  <div className="w-full h-full rounded-[11px] bg-card dark:bg-[hsl(var(--surface-2))] flex items-center justify-center">
-                    <Cloud className="w-5 h-5 text-foreground" />
-                  </div>
-                </div>
-                <h3 className="text-xl font-semibold mb-1">MyDevTools Cloud</h3>
-                <p className="text-3xl font-bold tracking-tight mb-1">
-                  Subscription
-                </p>
-                <p className="text-sm font-medium text-muted-foreground mb-6">
-                  Managed hosting with secure sync and backups.
-                </p>
-                <p className="text-sm text-muted-foreground mb-6 flex-1 leading-relaxed">
-                  We run the infrastructure so you do not have to. Your sensitive
-                  data stays encrypted before sync; plaintext stays in your browser.
-                </p>
-                <ul className="space-y-2.5 text-sm text-muted-foreground mb-8">
-                  {[
-                    "Same product, zero deploy hassle",
-                    "Secure sync and backups from us",
-                    "Cancel any time",
-                  ].map((line) => (
-                    <li key={line} className="flex gap-2">
-                      <CheckCircle2 className="w-4 h-4 shrink-0 text-sky-500 mt-0.5" />
-                      <span>{line}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Button
-                  asChild
-                  className="rounded-full w-full bg-sky-500 hover:bg-sky-400 text-white"
-                >
-                  <Link href="/login">
-                    Get Started
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </motion.div>
-
-              {/* Premium */}
-              <motion.div
-                variants={fadeUp}
-                transition={{ duration: 0.55, delay: 0.12 }}
-                className="relative flex flex-col rounded-2xl glass-overlay p-7 md:p-8 border border-violet-500/25"
-              >
-                <Badge className="absolute top-5 right-5 rounded-full text-[11px] font-medium px-2.5 py-0.5 bg-violet-500/15 text-violet-300 border border-violet-500/30">
-                  Coming soon
-                </Badge>
-                <div className="mb-6 w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-purple-400 p-px shadow-md">
-                  <div className="w-full h-full rounded-[11px] bg-card dark:bg-[hsl(var(--surface-2))] flex items-center justify-center">
-                    <Crown className="w-5 h-5 text-foreground" />
-                  </div>
-                </div>
-                <h3 className="text-xl font-semibold mb-1">Premium</h3>
-                <p className="text-3xl font-bold tracking-tight mb-1">Add-ons</p>
-                <p className="text-sm text-muted-foreground mb-6 flex-1 leading-relaxed">
-                  Optional paid capabilities on top of Cloud for teams, advanced
-                  workflows, and managed collaboration. Self-hosting remains fully
-                  capable for individual developers.
-                </p>
-                <ul className="space-y-2.5 text-sm text-muted-foreground mb-8">
-                  {[
-                    "Advanced workflows for power users",
-                    "Team-oriented collaboration features",
-                    "Self-host remains fully capable",
-                  ].map((line) => (
-                    <li key={line} className="flex gap-2">
-                      <CheckCircle2 className="w-4 h-4 shrink-0 text-violet-400 mt-0.5" />
-                      <span>{line}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Button
-                  variant="outline"
-                  className="rounded-full w-full border-dashed opacity-90 cursor-default"
-                  disabled
-                >
-                  Coming soon
-                </Button>
-              </motion.div>
-            </div>
-          </Section>
-        </div>
+        <PricingTiers />
       </section>
 
       {/* ── Tools teaser ────────────────────────────────────────────────────── */}

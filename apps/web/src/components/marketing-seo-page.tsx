@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { Header } from '@/components/header'
@@ -50,7 +51,13 @@ function CtaLink({
   )
 }
 
-export function MarketingSeoPage({ page }: { page: PlatformSeoPage }) {
+export function MarketingSeoPage({
+  page,
+  children,
+}: {
+  page: PlatformSeoPage
+  children?: ReactNode
+}) {
   const popularTools = popularToolSlugs
     .filter((slug) => publicToolSlugs.includes(slug) && toolsMetadata[slug])
     .map((slug) => ({ slug, ...toolsMetadata[slug] }))
@@ -117,6 +124,8 @@ export function MarketingSeoPage({ page }: { page: PlatformSeoPage }) {
             </div>
           </div>
         </section>
+
+        {children}
 
         <section className="border-y border-border/40 bg-muted/20 py-14 md:py-20">
           <div className="container mx-auto grid max-w-6xl gap-5 px-4 md:grid-cols-3 md:px-6">

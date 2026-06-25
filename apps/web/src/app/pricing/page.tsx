@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { MarketingSeoPage } from '@/components/marketing-seo-page'
+import { PricingTiers } from '@/components/pricing-tiers'
 import { getPlatformSeoPage } from '@/lib/seo/platform-pages'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
@@ -28,5 +29,9 @@ export const metadata: Metadata = {
 
 export default function PricingPage() {
   if (!page) return null
-  return <MarketingSeoPage page={page} />
+  return (
+    <MarketingSeoPage page={page}>
+      <PricingTiers />
+    </MarketingSeoPage>
+  )
 }

@@ -295,33 +295,33 @@ export const platformSeoPages: PlatformSeoPage[] = [
     },
     sections: [
       {
-        title: 'Self-hosted',
+        title: 'Free',
         body:
-          'Use the GPL-3.0 source code on your own infrastructure with no license fee from MyDevTools.',
+          'Self-host the GPL-3.0 source on your own infrastructure, or try the cloud with capped usage — no card required.',
         bullets: [
-          '$0 license fee from MyDevTools.',
-          'All included tools and features remain available.',
-          'You own hosting, operations, backups, and access controls.',
+          '$0 forever — self-host with no license fee.',
+          'All core developer tools included.',
+          'Capped cloud usage to try before you buy.',
         ],
       },
       {
-        title: 'MyDevTools Cloud',
+        title: 'Pro & Team',
         body:
-          'Managed hosting for developers who want the toolkit available without deployment work.',
+          'Managed cloud for developers who would rather not run infrastructure. Pro is $9/mo per developer; Team is $15/mo per user.',
         bullets: [
-          'Hosted dashboard and account sync.',
-          'Secure sync for sensitive data using browser-side encryption where supported.',
-          'Subscription details will be shown clearly before paid billing is required.',
+          'Pro: unlimited cloud usage, cross-device sync, private history.',
+          'Team: shared workspace, roles, and centralized billing.',
+          'Annual billing saves roughly two months.',
         ],
       },
       {
-        title: 'Premium add-ons',
+        title: 'Enterprise',
         body:
-          'Future paid capabilities will focus on power-user and team workflows without removing the core self-hosted toolkit.',
+          'Custom plans for organizations that need SSO, compliance, and support at scale.',
         bullets: [
-          'Advanced workflows for heavy users.',
-          'Team-oriented collaboration features.',
-          'The open-source self-hosted path remains a first-class option.',
+          'SSO / SAML, audit logs, and a security review.',
+          'Self-host with a support SLA.',
+          'Dedicated onboarding — contact support@mydevtools.tech.',
         ],
       },
     ],
