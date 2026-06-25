@@ -56,7 +56,6 @@ type GateMode = "setup" | "backup-codes" | "unlock" | "use-backup-code"
 export function MasterPasswordGate() {
     const { user } = useAuth(false)
     const {
-        isUnlocked,
         vault,
         vaultStatus,
         vaultGateOpen,
