@@ -1,6 +1,8 @@
 "use client"
 
-import { useMasterKeyStore, type VaultStatus } from "@/store/master-key-store"
+"use client"
+
+import { useMasterKeyStore } from "@/store/master-key-store"
 
 /**
  * Read-only vault state for critical pages. Does NOT open the modal.
@@ -11,7 +13,7 @@ export function useVaultGuard() {
     const openVaultGate = useMasterKeyStore((s) => s.openVaultGate)
 
     return {
-        status: vaultStatus as VaultStatus,
+        status: vaultStatus,
         isUnlocked: vaultStatus === "unlocked",
         isRestoring: vaultStatus === "restoring",
         openVaultGate,

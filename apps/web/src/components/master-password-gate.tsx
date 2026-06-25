@@ -55,8 +55,17 @@ type GateMode = "setup" | "backup-codes" | "unlock" | "use-backup-code"
 
 export function MasterPasswordGate() {
     const { user } = useAuth(false)
-    const { isUnlocked, vault, vaultStatus, vaultGateOpen, setKey, closeVaultGate } =
-        useMasterKeyStore()
+    const {
+        isUnlocked,
+        vault,
+        vaultStatus,
+        vaultGateOpen,
+        restoreError,
+        setKey,
+        setVaultStatus,
+        setRestoreError,
+        closeVaultGate,
+    } = useMasterKeyStore()
 
     const [mode, setMode] = useState<GateMode>("unlock")
     const [password, setPassword] = useState("")
@@ -79,9 +88,19 @@ export function MasterPasswordGate() {
             setMode("unlock")
             return
         }
-        if (vaultStatus === "not-configured") setMode("setup")
-        else setMode("unlock")
-    }, [vaultGateOpen, vaultStatus])
+        if (vaultStatus === "not-configured") {
+            setMode("setup")
+            return
+        }
+        // Recovery: if the gate opens while locked but vault was never cached
+        // (boot-time restore errored), retry restoration once.
+        if (vaultStatus === "locked" && !vault) {
+            setRestoreError(null)
+            setVaultStatus("restoring")
+            return
+        }
+        setMode("unlock")
+    }, [vaultGateOpen, vaultStatus, vault, setRestoreError, setVaultStatus])
 
     // ── helpers ──────────────────────────────────────────────────────────────
 
@@ -590,7 +609,7 @@ export function MasterPasswordGate() {
                                             </AnimatePresence>
 
                                             <AnimatePresence>
-                                                {error && <ErrorBanner message={error} />}
+                                                {(error || restoreError) && <ErrorBanner message={error || restoreError!} />}
                                             </AnimatePresence>
 
                                             <Button

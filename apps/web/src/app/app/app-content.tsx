@@ -20,7 +20,11 @@ function VaultKeyRestorer() {
   const ranRef = useRef(false);
 
   useEffect(() => {
-    if (!user || vaultStatus !== 'restoring' || ranRef.current) return;
+    if (vaultStatus !== 'restoring') {
+      ranRef.current = false;
+      return;
+    }
+    if (!user || ranRef.current) return;
     ranRef.current = true;
 
     (async () => {
