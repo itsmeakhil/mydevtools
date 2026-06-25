@@ -289,11 +289,11 @@ export function JsonFormatterLayout() {
   const renderPaneToolbar = (pane: PaneKey) => {
     const state = pane === 'left' ? leftPane : rightPane
     return (
-      <div className="flex flex-wrap items-center gap-2 border-b p-2">
+      <div className="flex flex-wrap items-center gap-2 border-b border-border/60 bg-muted/30 px-2.5 py-2">
         <input
           value={state.documentName}
           onChange={(event) => handlePaneNameChange(pane, event.target.value)}
-          className="h-8 w-full sm:w-[170px] rounded-md border border-input bg-background px-2.5 text-xs text-foreground outline-none ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="h-8 w-full sm:w-[170px] rounded-md border border-input bg-background px-2.5 text-xs font-medium text-foreground outline-none transition-[color,border-color,box-shadow] duration-150 hover:border-border focus-visible:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary/20"
           aria-label={pane === 'left' ? t('leftDocNameLabel') : t('rightDocNameLabel')}
         />
         <Button variant="outline" size="sm" onClick={() => handleNewDocument(pane)}>
@@ -309,7 +309,7 @@ export function JsonFormatterLayout() {
           <IconFolderOpen className="mr-1.5 h-4 w-4" />
           {t.has('load') ? t('load') : 'Load'}
         </Button>
-        <Button size="sm" onClick={() => handleSave(pane)} disabled={state.isSaving}>
+        <Button variant="gradient" size="sm" onClick={() => handleSave(pane)} disabled={state.isSaving}>
           <IconDeviceFloppy className="mr-1.5 h-4 w-4" />
           {state.isSaving ? t('saving') : t('save')}
         </Button>
@@ -323,7 +323,7 @@ export function JsonFormatterLayout() {
         <CardHeader className="p-3 md:pb-3">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="rounded-xl bg-primary/10 p-2 shadow-sm transition-all hover:scale-105 hover:bg-primary/20">
+              <div className="rounded-xl bg-gradient-to-br from-primary/15 to-violet-500/10 p-2 text-primary shadow-sm ring-1 ring-inset ring-border/50 transition-all hover:scale-105">
                 <IconJson className="h-5 w-5 text-primary" aria-hidden />
               </div>
               <div className="flex flex-col gap-0.5">
@@ -367,7 +367,7 @@ export function JsonFormatterLayout() {
 
       {isMobile ? (
         /* Mobile: single full-height pane, toggled by tabs */
-        <div className="min-h-0 flex-1 rounded-lg border overflow-hidden flex flex-col">
+        <div className="min-h-0 flex-1 rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden flex flex-col">
           {renderPaneToolbar(activePane)}
           <div className="min-h-0 flex-1">
             {activePane === 'left' ? (
@@ -398,7 +398,7 @@ export function JsonFormatterLayout() {
         /* Desktop: side-by-side resizable panes */
         <ResizablePanelGroup
           direction="horizontal"
-          className="min-h-0 flex-1 rounded-lg border overflow-hidden"
+          className="min-h-0 flex-1 rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden"
         >
           <ResizablePanel defaultSize={50} minSize={20} className="min-h-0">
             <div className="flex h-full min-h-0 flex-col">

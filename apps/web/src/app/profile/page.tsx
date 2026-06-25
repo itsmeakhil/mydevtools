@@ -252,9 +252,13 @@ export default function ProfilePage() {
     <div className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-8 pt-20 lg:pt-10 pb-16 space-y-8">
       {/* ── Page header ── */}
       <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight">Your Profile</h2>
-          <p className="text-muted-foreground text-sm mt-1">Manage your identity and developer portfolio.</p>
+        <div className="space-y-1.5">
+          <p className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-primary to-violet-500" />
+            Developer identity
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Your Profile</h2>
+          <p className="text-muted-foreground text-sm">Manage your identity and developer portfolio.</p>
         </div>
         <div className="flex items-center gap-2">
           <Button
@@ -369,11 +373,7 @@ export default function ProfilePage() {
               className="h-full rounded-full transition-all duration-500"
               style={{
                 width: `${completenessPercent}%`,
-                background: completenessPercent >= 80
-                  ? 'hsl(var(--primary))'
-                  : completenessPercent >= 50
-                  ? 'hsl(var(--primary) / 0.7)'
-                  : 'hsl(var(--primary) / 0.4)',
+                background: 'var(--mdt-grad)',
               }}
             />
           </div>

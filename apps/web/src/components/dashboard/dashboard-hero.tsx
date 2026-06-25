@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { Layers, Zap, Pin, Clock, History } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { dashboardGreeting } from './types'
+import { useCountUp } from '@/hooks/use-count-up'
+import { cn } from '@/lib/utils'
 
 interface DashboardHeroProps {
   user: { displayName?: string | null } | null
@@ -27,8 +29,8 @@ interface DashboardHeroProps {
  * must be outside the padded container for full-bleed, while the
  * desktop hero sits inside it for proper alignment).
  */
-/** Compact KPI stat tile for the dashboard hero. */
-function KpiCard({
+/** A single count-up stat in the hero strip. */
+function Stat({
   icon: Icon,
   label,
   value,
@@ -37,15 +39,29 @@ function KpiCard({
   label: string
   value: number
 }) {
+  const display = useCountUp(value)
+  const isZero = value === 0
   return (
-    <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-card border border-border">
-      <div className="p-1.5 rounded-md bg-primary/10">
-        <Icon size={16} className="text-primary" />
-      </div>
-      <div>
-        <p className="text-[10px] md:text-xs text-muted-foreground leading-tight">{label}</p>
-        <p className="text-sm font-semibold tabular-nums leading-tight">{value}</p>
-      </div>
+    <div className={cn('flex items-center gap-2 transition-opacity', isZero && 'opacity-45')}>
+      <span
+        className={cn(
+          'flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset ring-border/50',
+          isZero
+            ? 'bg-muted text-muted-foreground'
+            : 'bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary',
+        )}
+      >
+        <Icon size={14} className={isZero ? 'text-muted-foreground' : 'text-primary'} />
+      </span>
+      <span
+        className={cn(
+          'text-sm font-semibold tabular-nums',
+          isZero ? 'text-muted-foreground' : 'text-foreground',
+        )}
+      >
+        {display}
+      </span>
+      <span className="text-sm text-muted-foreground">{label}</span>
     </div>
   )
 }
@@ -101,26 +117,27 @@ export function DashboardHero({
 
       {/* ── Desktop Header Section ──────────────────────────────────────── */}
       {!mobileOnly && (
-        <div className="hidden md:flex flex-col gap-5">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div className="space-y-1">
-              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                {dashboardGreeting(t)}
-              </p>
-              <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
-                {user?.displayName
-                  ? t('welcomeBackNamed', { name: user.displayName.split(' ')[0] })
-                  : t('welcomeBack')}
-              </h1>
-              <p className="text-sm text-muted-foreground">{t('tagline')}</p>
-            </div>
+        <div className="hidden md:flex flex-col gap-4">
+          <div className="space-y-1.5">
+            <p className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-primary to-violet-500" />
+              {dashboardGreeting(t)}
+            </p>
+            <h1 className="dash-greeting text-2xl sm:text-[1.75rem] font-bold tracking-tight leading-tight">
+              {user?.displayName
+                ? t('welcomeBackNamed', { name: user.displayName.split(' ')[0] })
+                : t('welcomeBack')}
+            </h1>
+            <p className="text-sm text-muted-foreground">{t('tagline')}</p>
+          </div>
 
-            {/* Quick Stats — KPI row */}
-            <div className="grid grid-cols-3 gap-2 md:gap-3">
-              <KpiCard icon={Layers} label={t('stats.tools')} value={totalTools} />
-              <KpiCard icon={Pin} label={t('stats.pinned')} value={pinnedCount} />
-              <KpiCard icon={Clock} label={t('stats.recent')} value={recentCount} />
-            </div>
+          {/* Quick stats — inline strip with count-up */}
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border border-border/60 bg-card px-4 py-2.5 shadow-sm shadow-primary/[0.03] ring-1 ring-inset ring-white/40 dark:ring-white/[0.04] backdrop-blur-sm w-fit">
+            <Stat icon={Layers} label={t('stats.tools')} value={totalTools} />
+            <span className="h-4 w-px bg-border/70" aria-hidden />
+            <Stat icon={Pin} label={t('stats.pinned')} value={pinnedCount} />
+            <span className="h-4 w-px bg-border/70" aria-hidden />
+            <Stat icon={Clock} label={t('stats.recent')} value={recentCount} />
           </div>
         </div>
       )}

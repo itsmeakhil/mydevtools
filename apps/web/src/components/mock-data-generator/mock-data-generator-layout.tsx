@@ -282,7 +282,7 @@ export function MockDataGeneratorLayout() {
                 </SelectContent>
               </Select>
             </div>
-            <Button type="button" onClick={runGenerate} className="gap-2 shrink-0">
+            <Button type="button" variant="gradient" onClick={runGenerate} className="gap-2 shrink-0">
               <RefreshCw className="h-4 w-4" />
               {t('generate')}
             </Button>

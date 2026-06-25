@@ -1,6 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { motion } from 'framer-motion'
+import { cn } from '@/lib/utils'
 import {
   Sidebar,
   SidebarContent,
@@ -55,6 +59,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   })
 
   const router = useRouter();
+  const pathname = usePathname();
+  const isDashboardActive = pathname === '/dashboard';
 
   // ...
 
@@ -145,9 +151,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent className="mt-2 md:mt-0">
         <SidebarMenu className="px-2 mb-1">
           <SidebarMenuItem>
-            <SidebarMenuButton onClick={() => router.push('/dashboard')} tooltip="Dashboard">
-              <LayoutDashboard className="size-4" />
-              <span>Dashboard</span>
+            <SidebarMenuButton
+              asChild
+              isActive={isDashboardActive}
+              tooltip="Dashboard"
+              className={cn(
+                'transition-all duration-200',
+                isDashboardActive && 'bg-transparent hover:bg-transparent dark:bg-transparent',
+              )}
+            >
+              <Link href="/dashboard" className="relative flex items-center">
+                {isDashboardActive && (
+                  <motion.div
+                    layoutId="sidebar-active-pill"
+                    className="absolute inset-0 -z-10 rounded-md bg-gradient-to-r from-primary/15 to-primary/[0.03] ring-1 ring-inset ring-primary/15 dark:from-primary/25 dark:to-primary/5"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  >
+                    <span className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-gradient-to-b from-primary to-violet-500" />
+                  </motion.div>
+                )}
+                <LayoutDashboard className={cn('z-10 size-4 transition-colors', isDashboardActive && 'text-primary')} />
+                <span className={cn('z-10 font-medium', isDashboardActive && 'text-primary')}>Dashboard</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

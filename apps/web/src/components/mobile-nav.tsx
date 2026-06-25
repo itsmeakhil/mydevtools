@@ -128,7 +128,7 @@ export function MobileNav() {
                 {activeTab === 'home' && (
                     <motion.div
                         layoutId="active-mobile-nav"
-                        className="absolute inset-0 bg-primary/10 rounded-full -z-10"
+                        className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-violet-500/10 ring-1 ring-inset ring-primary/15 -z-10"
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                 )}
@@ -149,7 +149,7 @@ export function MobileNav() {
                 {activeTab === 'tools' && (
                     <motion.div
                         layoutId="active-mobile-nav"
-                        className="absolute inset-0 bg-primary/10 rounded-full -z-10"
+                        className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-violet-500/10 ring-1 ring-inset ring-primary/15 -z-10"
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                 )}
@@ -171,7 +171,7 @@ export function MobileNav() {
                             {activeTab === 'profile' && (
                                 <motion.div
                                     layoutId="active-mobile-nav"
-                                    className="absolute inset-0 bg-primary/10 rounded-full -z-10"
+                                    className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-violet-500/10 ring-1 ring-inset ring-primary/15 -z-10"
                                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                                 />
                             )}

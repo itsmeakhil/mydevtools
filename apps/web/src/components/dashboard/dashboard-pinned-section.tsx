@@ -1,10 +1,12 @@
 'use client'
 
 import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Pin, ChevronDown } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { type RenderToolItem, type ToolCardProps } from './types'
 import { ToolCard, ToolCardSkeleton, HScrollFade } from './dashboard-tool-card'
+import { DashboardSectionHeader } from './dashboard-section-header'
 import { usePinnedToolsHydrated } from '@/store/pinned-tools-store'
 import { Button } from '@/components/ui/button'
 
@@ -42,12 +44,7 @@ export function DashboardPinnedSection({
   if (!hydrated) {
     return (
       <section className="space-y-3 md:space-y-5">
-        <div className="flex items-center gap-3 section-header-line pb-2">
-          <div className="p-2 rounded-lg bg-primary/10 text-primary">
-            <Pin size={18} strokeWidth={1.5} />
-          </div>
-          <h2 className="text-xl font-semibold">{t('sections.pinned')}</h2>
-        </div>
+        <DashboardSectionHeader icon={Pin} title={t('sections.pinned')} />
         <div className={SKELETON_GRID_CLASS}>
           {Array.from({ length: 4 }).map((_, i) => (
             <ToolCardSkeleton key={i} />
@@ -60,13 +57,13 @@ export function DashboardPinnedSection({
   // Empty state
   if (pinnedItems.length === 0) {
     return (
-      <div className="flex items-start gap-3 rounded-lg border border-dashed border-border/50 bg-muted/20 px-4 py-3.5">
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary mt-0.5">
-          <Pin size={16} strokeWidth={1.5} />
+      <div className="flex items-start gap-3 rounded-xl border border-dashed border-border/60 bg-gradient-to-br from-primary/[0.04] to-transparent px-4 py-4">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-inset ring-border/50 mt-0.5">
+          <Pin size={16} strokeWidth={1.75} />
         </div>
         <div>
-          <p className="text-sm font-medium text-foreground">{t('sections.pinned')}</p>
-          <p className="text-xs text-muted-foreground mt-0.5">{t('pinnedEmpty')}</p>
+          <p className="text-sm font-semibold text-foreground">{t('sections.pinned')}</p>
+          <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{t('pinnedEmpty')}</p>
         </div>
       </div>
     )
@@ -77,15 +74,7 @@ export function DashboardPinnedSection({
 
   return (
     <section className="space-y-3 md:space-y-5">
-      <div className="flex items-center gap-3 section-header-line pb-2">
-        <div className="p-2 rounded-lg bg-primary/10 text-primary">
-          <Pin size={18} strokeWidth={1.5} />
-        </div>
-        <h2 className="text-xl font-semibold">{t('sections.pinned')}</h2>
-        <span className="text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
-          {pinnedItems.length}
-        </span>
-      </div>
+      <DashboardSectionHeader icon={Pin} title={t('sections.pinned')} count={pinnedItems.length} />
       {/* Mobile: horizontal scroll */}
       <div className="md:hidden -mx-4 px-4">
         <HScrollFade>
@@ -102,17 +91,26 @@ export function DashboardPinnedSection({
         </HScrollFade>
       </div>
       {/* Desktop: grid */}
-      <div className="hidden md:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4 xl:gap-5">
-        {visible.map((item, index) => (
-          <ToolCard
-            key={`pinned-${item.originalId}`}
-            item={item}
-            id={item.originalId!}
-            index={index}
-            {...toolCardProps}
-          />
-        ))}
-      </div>
+      <motion.div
+        layout
+        className="hidden md:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4 xl:gap-5"
+      >
+        <AnimatePresence mode="popLayout" initial={false}>
+          {visible.map((item, index) => (
+            <motion.div
+              key={`pinned-${item.originalId}`}
+              layout
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.85 }}
+              transition={{ type: 'spring', stiffness: 420, damping: 30 }}
+              className="h-full"
+            >
+              <ToolCard item={item} id={item.originalId!} index={index} {...toolCardProps} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
       {overflow > 0 && (
         <div className="hidden md:flex justify-center">
           <Button

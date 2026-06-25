@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { BarChart3, LayoutGrid } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BarChart3, LayoutGrid } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { sidebarData } from '@/components/sidebar/data/sidebar-data'
 import { usePinnedToolsStore } from '@/store/pinned-tools-store'
@@ -30,6 +30,9 @@ import { DashboardRecentTools } from '@/components/dashboard/dashboard-recent-to
 import { ActivityLogDrawer } from '@/components/dashboard/activity/activity-log-drawer'
 import { DashboardLoginCta } from '@/components/dashboard/dashboard-login-cta'
 import { DashboardToolGrid } from '@/components/dashboard/dashboard-tool-grid'
+import { DashboardFeatured } from '@/components/dashboard/dashboard-featured'
+import { RevealItem } from '@/components/dashboard/dashboard-reveal'
+import { AppLoadingScreen } from '@/components/app-loading-screen'
 
 
 // Lazy-load the analytics panel — it's behind a tab click, not in the critical path
@@ -66,6 +69,8 @@ const DashboardPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [filterGroup, setFilterGroup] = useState<string | null>(null)
   const [showFilters, setShowFilters] = useState(false)
+  // Home-screen model: 'home' shows a curated launchpad; 'all' opens the full catalog.
+  const [view, setView] = useState<'home' | 'all'>('home')
 
   const totalTools = useMemo(() => getTotalToolCount(), [])
 
@@ -240,21 +245,20 @@ const DashboardPage: React.FC = () => {
   }, [])
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="animate-pulse flex flex-col items-center gap-4">
-          <div className="h-12 w-12 bg-muted rounded-full" />
-          <div className="h-4 w-32 bg-muted rounded" />
-        </div>
-      </div>
-    )
+    return <AppLoadingScreen />
   }
 
   const toolCardProps = { user, isPinned, togglePin }
 
+  // Home-screen model: curated launchpad by default; the full catalog only shows
+  // when the user searches, filters, or explicitly opens "Browse all".
+  const showCurated = view === 'home' && !searchQuery && !filterGroup
+  const isBrowsing = !!searchQuery || !!filterGroup || view === 'all'
+
   return (
     <TooltipProvider delayDuration={300} disableHoverableContent>
-    <div className="min-h-screen bg-background/50 dashboard-grid-bg mobile-nav-offset">
+    <div className="relative min-h-screen bg-background/50 dashboard-grid-bg mobile-nav-offset">
+      <div className="dash-ambient -z-10" aria-hidden />
       {/* ── Mobile Sticky Header (outside padded container for full-bleed) ── */}
       <DashboardHero
         user={user}
@@ -267,16 +271,18 @@ const DashboardPage: React.FC = () => {
       <div className="px-3 md:px-8 pb-24 md:pb-12">
         <div className="max-w-7xl mx-auto space-y-5 md:space-y-8">
           {/* ── Desktop Hero (inside padded container for alignment) ── */}
-          <DashboardHero
-            user={user}
-            totalTools={totalTools}
-            pinnedCount={pinnedItems.length}
-            recentCount={recentlyUsedItems.length}
-            desktopOnly
-          />
+          <RevealItem index={0}>
+            <DashboardHero
+              user={user}
+              totalTools={totalTools}
+              pinnedCount={pinnedItems.length}
+              recentCount={recentlyUsedItems.length}
+              desktopOnly
+            />
+          </RevealItem>
           <Tabs defaultValue="apps" className="w-full">
             <div className="mb-3 flex items-center justify-between gap-3">
-              <TabsList className="grid h-auto w-full grid-cols-2 gap-1 rounded-xl bg-muted/50 p-1 sm:inline-flex sm:w-auto sm:justify-start">
+              <TabsList className="grid h-auto w-full grid-cols-2 gap-1 rounded-xl border border-border/50 bg-muted/50 p-1 shadow-sm backdrop-blur-sm sm:inline-flex sm:w-auto sm:justify-start">
                 <TabsTrigger value="apps" className="gap-1.5 text-xs sm:text-sm">
                   <LayoutGrid className="h-3.5 w-3.5 shrink-0" aria-hidden />
                   {tTabs('apps')}
@@ -306,41 +312,100 @@ const DashboardPage: React.FC = () => {
 
 
 
-              {/* ── Pinned Tools ── */}
-              <DashboardPinnedSection
-                pinnedItems={pinnedItems}
-                toolCardProps={toolCardProps}
-                searchQuery={searchQuery}
-                filterGroup={filterGroup}
-              />
+              {/* ── Curated home (launchpad) ── */}
+              {showCurated && (
+                <>
+                  {/* Pinned — your go-to tools */}
+                  <RevealItem index={1}>
+                    <DashboardPinnedSection
+                      pinnedItems={pinnedItems}
+                      toolCardProps={toolCardProps}
+                      searchQuery={searchQuery}
+                      filterGroup={filterGroup}
+                    />
+                  </RevealItem>
 
-              {/* ── What's New ── */}
-              <DashboardWhatsNew
-                whatsNewItems={whatsNewItems}
-                toolCardProps={toolCardProps}
-                searchQuery={searchQuery}
-                filterGroup={filterGroup}
-              />
+                  {/* Recently used — jump back in */}
+                  <RevealItem index={2}>
+                    <DashboardRecentTools
+                      recentItems={recentlyUsedItems}
+                      toolCardProps={toolCardProps}
+                      user={user}
+                      searchQuery={searchQuery}
+                    />
+                  </RevealItem>
 
-              {/* ── Recently Used ── */}
-              <DashboardRecentTools
-                recentItems={recentlyUsedItems}
-                toolCardProps={toolCardProps}
-                user={user}
-                searchQuery={searchQuery}
-              />
+                  {/* Suggested / popular — discovery */}
+                  <RevealItem index={3}>
+                    <DashboardFeatured
+                      items={popularItems}
+                      toolCardProps={toolCardProps}
+                      searchQuery={searchQuery}
+                      filterGroup={filterGroup}
+                    />
+                  </RevealItem>
 
-              {/* ── Login CTA (non-auth) ── */}
-              <DashboardLoginCta user={user} searchQuery={searchQuery} />
+                  {/* What's new */}
+                  <RevealItem index={4}>
+                    <DashboardWhatsNew
+                      whatsNewItems={whatsNewItems}
+                      toolCardProps={toolCardProps}
+                      searchQuery={searchQuery}
+                      filterGroup={filterGroup}
+                    />
+                  </RevealItem>
 
-              {/* ── All Tools Grid ── */}
-              <DashboardToolGrid
-                filteredGroups={filteredGroups}
-                popularItems={popularItems}
-                toolCardProps={toolCardProps}
-                searchQuery={searchQuery}
-                filterGroup={filterGroup}
-              />
+                  {/* Login CTA (non-auth) */}
+                  <RevealItem index={5}>
+                    <DashboardLoginCta user={user} searchQuery={searchQuery} />
+                  </RevealItem>
+
+                  {/* Browse-all entry — the door to the full catalog */}
+                  <RevealItem index={6}>
+                    <button
+                      type="button"
+                      onClick={() => setView('all')}
+                      className="group flex w-full items-center gap-4 rounded-2xl border border-border/60 bg-gradient-to-br from-primary/[0.05] to-transparent p-5 text-left transition-all duration-200 hover:border-primary/40 hover:shadow-md motion-safe:hover:-translate-y-0.5"
+                    >
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary ring-1 ring-inset ring-border/50">
+                        <LayoutGrid className="h-5 w-5" />
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-semibold text-foreground">
+                          Browse all {totalTools} tools
+                        </p>
+                        <p className="mt-0.5 text-sm text-muted-foreground">
+                          Explore the full toolkit by category
+                        </p>
+                      </div>
+                      <ArrowRight className="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" />
+                    </button>
+                  </RevealItem>
+                </>
+              )}
+
+              {/* ── Full catalog (searching, filtering, or "Browse all") ── */}
+              {isBrowsing && (
+                <RevealItem index={1}>
+                  {view === 'all' && !searchQuery && !filterGroup && (
+                    <button
+                      type="button"
+                      onClick={() => setView('home')}
+                      className="mb-3 inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+                    >
+                      <ArrowLeft className="h-4 w-4" />
+                      Back to home
+                    </button>
+                  )}
+                  <DashboardToolGrid
+                    filteredGroups={filteredGroups}
+                    popularItems={popularItems}
+                    toolCardProps={toolCardProps}
+                    searchQuery={searchQuery}
+                    filterGroup={filterGroup}
+                  />
+                </RevealItem>
+              )}
             </TabsContent>
 
             <TabsContent value="analytics" className="mt-0 rounded-2xl focus-visible:outline-none">

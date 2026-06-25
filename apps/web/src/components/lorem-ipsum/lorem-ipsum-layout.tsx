@@ -130,7 +130,7 @@ export function LoremIpsumLayout() {
             <Switch id="lorem-html" checked={asHtml} onCheckedChange={setAsHtml} />
           </div>
 
-          <Button type="button" onClick={runGenerate} className="gap-1.5 w-full sm:w-fit">
+          <Button type="button" variant="gradient" onClick={runGenerate} className="gap-1.5 w-full sm:w-fit">
             <RefreshCw className="h-3.5 w-3.5" />
             {t('generate')}
           </Button>

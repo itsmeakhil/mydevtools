@@ -40,11 +40,11 @@ export function DashboardLoginCta({ user, searchQuery }: DashboardLoginCtaProps)
         ))}
       </div>
       {/* Overlay CTA */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-background/60 backdrop-blur-[2px]">
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-          <LogIn size={20} strokeWidth={1.5} />
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-background/50 via-background/70 to-background/80 backdrop-blur-[2px]">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary ring-1 ring-inset ring-border/50 shadow-sm">
+          <LogIn size={20} strokeWidth={1.75} />
         </div>
-        <p className="text-sm text-muted-foreground text-center max-w-xs px-4">
+        <p className="max-w-xs px-4 text-center text-sm text-muted-foreground">
           {t('loginCta.description')}
         </p>
         <Button size="sm" className="rounded-xl shadow-sm" asChild>

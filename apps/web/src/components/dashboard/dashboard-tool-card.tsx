@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { Sparkles, Pin } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Card, CardContent } from '@/components/ui/card'
@@ -73,26 +74,38 @@ export const ToolCard = React.memo(function ToolCard({
 
   const pinned = item.url ? isPinned(item.url.toString()) : false
 
+  const cardRef = React.useRef<HTMLDivElement>(null)
+  const handleMove = (e: React.MouseEvent) => {
+    const el = cardRef.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    el.style.setProperty('--mx', `${e.clientX - r.left}px`)
+    el.style.setProperty('--my', `${e.clientY - r.top}px`)
+  }
+
   return (
     <div className="rounded-xl h-full">
       <Link
         href={item.url || '#'}
         className="block group h-full rounded-xl focus-visible:outline-none"
         onClick={handleClick}
+        onMouseMove={handleMove}
         title={displayTitle}
       >
         <Card
+          ref={cardRef}
           className={cn(
-            'relative h-full overflow-hidden rounded-xl border border-border bg-gradient-to-br from-card to-card/60',
+            'dash-card-sheen relative h-full overflow-hidden rounded-xl border border-border bg-gradient-to-br from-card to-card/80',
+            'shadow-sm dark:shadow-none',
             'transition-[colors,transform,box-shadow,border-color] duration-200 ease-out',
-            'hover:border-primary/40 hover:shadow-md motion-safe:hover:-translate-y-0.5',
+            'hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 motion-safe:hover:-translate-y-0.5',
             'group-focus-visible:ring-2 group-focus-visible:ring-primary/60 group-focus-visible:border-primary',
           )}
         >
           <CardContent className="flex items-start gap-3 p-3 md:p-3.5 relative z-10">
             <div
               className={cn(
-                'shrink-0 p-2 md:p-2.5 rounded-lg transition-transform duration-200 ease-out',
+                'shrink-0 p-2 md:p-2.5 rounded-lg ring-1 ring-inset ring-border/50 transition-transform duration-200 ease-out',
                 'motion-safe:group-hover:scale-110',
                 a.bg,
                 a.text,
@@ -150,15 +163,23 @@ export const ToolCard = React.memo(function ToolCard({
                       togglePin(item.url!.toString())
                     }}
                   >
-                    <Pin
-                      className={cn(
-                        'transition-colors',
-                        pinned
-                          ? 'text-primary fill-primary'
-                          : 'text-muted-foreground/70 hover:text-primary',
-                      )}
-                      size={14}
-                    />
+                    <motion.span
+                      key={pinned ? 'pinned' : 'unpinned'}
+                      initial={{ scale: 0.5 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: 'spring', stiffness: 520, damping: 14 }}
+                      className="inline-flex"
+                    >
+                      <Pin
+                        className={cn(
+                          'transition-colors',
+                          pinned
+                            ? 'text-primary fill-primary'
+                            : 'text-muted-foreground/70 hover:text-primary',
+                        )}
+                        size={14}
+                      />
+                    </motion.span>
                   </button>
                 </TooltipTrigger>
                 <TooltipContent side="top" sideOffset={4} className="text-xs">

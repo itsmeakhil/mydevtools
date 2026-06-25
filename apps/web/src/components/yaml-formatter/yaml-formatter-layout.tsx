@@ -130,7 +130,7 @@ export function YamlFormatterLayout() {
             </Select>
           </div>
           <div className="flex flex-wrap gap-2 pb-0.5">
-            <Button type="button" size="sm" className="gap-1.5 h-9" onClick={runFormat}>
+            <Button type="button" variant="gradient" size="sm" className="gap-1.5 h-9" onClick={runFormat}>
               <Wand2 className="h-3.5 w-3.5" />
               {t('format')}
             </Button>

@@ -20,7 +20,7 @@ const ClientSpeedInsights = dynamic(
   { ssr: false }
 )
 const ClientToaster = dynamic(
-  () => import('sonner').then((m) => m.Toaster),
+  () => import('@/components/branded-toaster').then((m) => m.BrandedToaster),
   { ssr: false }
 )
 

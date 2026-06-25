@@ -2,9 +2,42 @@
 
 import { usePathname } from "next/navigation";
 import { useTranslations, useMessages } from "next-intl";
+import { Search } from "lucide-react";
 import { ModeToggle } from "@/components/modeToggle";
 import { getToolMessageKey } from "@/lib/tool-i18n";
 import { routeConfig } from "@/lib/route-config";
+
+function openCommandPalette() {
+  document.dispatchEvent(new CustomEvent("open-command-palette"));
+}
+
+/** Global ⌘K launcher — keeps the command-center pattern on every app page. */
+function CommandTrigger() {
+  return (
+    <>
+      <button
+        type="button"
+        onClick={openCommandPalette}
+        aria-label="Search or jump to a tool"
+        className="group hidden h-9 w-[clamp(180px,22vw,300px)] items-center gap-2 rounded-lg border border-border/60 bg-muted/40 px-3 text-sm text-muted-foreground shadow-sm transition-all hover:border-primary/40 hover:bg-muted/60 hover:text-foreground lg:flex"
+      >
+        <Search className="h-4 w-4 shrink-0" />
+        <span className="flex-1 truncate text-left">Search or jump to…</span>
+        <kbd className="inline-flex items-center gap-0.5 rounded border border-border/60 bg-background/70 px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
+          ⌘K
+        </kbd>
+      </button>
+      <button
+        type="button"
+        onClick={openCommandPalette}
+        aria-label="Search or jump to a tool"
+        className="flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-muted/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground lg:hidden"
+      >
+        <Search className="h-4 w-4" />
+      </button>
+    </>
+  );
+}
 
 /** Strip HTML-like tags and ICU {variable} placeholders from rich-text subtitles. */
 function cleanSubtitle(raw: string): string {
@@ -29,8 +62,9 @@ export function NavBar() {
   if (!config) {
     if (pathname.startsWith("/app")) {
       return (
-        <header className="sticky top-0 z-20 hidden w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:block">
-          <div className="flex h-12 items-center justify-end gap-2 px-4">
+        <header className="sticky top-0 z-20 hidden w-full border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:block">
+          <div className="flex h-14 items-center justify-end gap-2 px-4">
+            <CommandTrigger />
             <ModeToggle />
           </div>
         </header>
@@ -50,10 +84,10 @@ export function NavBar() {
   const subtitle = rawSubtitle ? cleanSubtitle(rawSubtitle) : undefined;
 
   return (
-    <header className="sticky top-0 z-20 hidden w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:block">
-      <div className="flex min-h-12 w-full items-center justify-between gap-3 px-4 py-2">
-        <div className="flex min-w-0 items-center gap-2.5">
-          <div className="shrink-0 rounded-lg bg-primary/10 p-1.5">
+    <header className="sticky top-0 z-20 hidden w-full border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:block">
+      <div className="flex h-14 w-full items-center gap-4 px-4">
+        <div className="flex min-w-0 flex-1 items-center gap-2.5">
+          <div className="shrink-0 rounded-lg bg-gradient-to-br from-primary/15 to-violet-500/10 p-1.5 ring-1 ring-inset ring-border/50">
             <Icon className="h-4 w-4 text-primary" strokeWidth={2} />
           </div>
           <div className="flex min-w-0 flex-col">
@@ -67,7 +101,8 @@ export function NavBar() {
             )}
           </div>
         </div>
-        <div className="flex shrink-0 items-center gap-2">
+        <CommandTrigger />
+        <div className="flex flex-1 shrink-0 items-center justify-end gap-2">
           <ModeToggle />
         </div>
       </div>

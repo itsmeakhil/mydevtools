@@ -174,7 +174,11 @@ export function GlobalCommandPalette() {
           shouldFilter
           loop
         >
-          <CommandInput placeholder="Search tools and pages…" aria-label="Search tools and pages" />
+          <CommandInput
+            placeholder="Search tools and pages…"
+            aria-label="Search tools and pages"
+            className="focus-visible:outline-none"
+          />
           <CommandList className="max-h-[min(60vh,480px)] overflow-y-auto">
             <CommandEmpty>No results found.</CommandEmpty>
             {recentEntries.length > 0 && (
@@ -187,7 +191,7 @@ export function GlobalCommandPalette() {
                         key={`recent-${entry.url}`}
                         value={`recent ${entry.searchValue} ${entry.url}`.toLowerCase()}
                         onSelect={() => run(entry)}
-                        className="flex items-start gap-3 py-2.5 aria-selected:bg-accent"
+                        className="mx-1 flex items-start gap-3 rounded-lg py-2.5 transition-colors aria-selected:bg-gradient-to-r aria-selected:from-primary/[0.12] aria-selected:to-primary/[0.04] aria-selected:ring-1 aria-selected:ring-inset aria-selected:ring-primary/15"
                       >
                         <ItemIcon className="mt-0.5 h-4 w-4 shrink-0 opacity-70" aria-hidden />
                         <span className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -217,7 +221,7 @@ export function GlobalCommandPalette() {
                         key={`pinned-${entry.url}`}
                         value={`pinned ${entry.searchValue} ${entry.url}`.toLowerCase()}
                         onSelect={() => run(entry)}
-                        className="flex items-start gap-3 py-2.5 aria-selected:bg-accent"
+                        className="mx-1 flex items-start gap-3 rounded-lg py-2.5 transition-colors aria-selected:bg-gradient-to-r aria-selected:from-primary/[0.12] aria-selected:to-primary/[0.04] aria-selected:ring-1 aria-selected:ring-inset aria-selected:ring-primary/15"
                       >
                         <Star
                           className="mt-0.5 h-4 w-4 shrink-0 fill-primary text-primary"
@@ -278,7 +282,7 @@ export function GlobalCommandPalette() {
               </React.Fragment>
             ))}
           </CommandList>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-border/60 px-3 py-2 text-[11px] text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-border/60 px-4 py-3 text-[11px] text-muted-foreground">
             <span>
               <kbd className="pointer-events-none rounded border border-border bg-muted/80 px-1.5 py-0.5 font-mono">
                 ↑↓

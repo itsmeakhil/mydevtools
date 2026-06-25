@@ -1,7 +1,8 @@
 'use client'
 
 import React from 'react'
-import { Sparkles } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Sparkles, SearchX } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import {
   type RenderGroup,
@@ -13,6 +14,7 @@ import {
   categoryAccent,
 } from './types'
 import { ToolCard } from './dashboard-tool-card'
+import { DashboardSectionHeader } from './dashboard-section-header'
 
 interface DashboardToolGridProps {
   filteredGroups: RenderGroup[]
@@ -41,49 +43,47 @@ export function DashboardToolGrid({
         const accent = categoryAccent(group.title)
         return (
         <section key={`${group.title}-${group.originalGroupIndex}`} className="space-y-5">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3 section-header-line pb-2">
-              <div className={`p-2 rounded-lg ${accent.bg} ${accent.text}`}>
-                {group.icon ? (
-                  <group.icon size={18} strokeWidth={1.5} />
-                ) : (
-                  <Sparkles size={18} strokeWidth={1.5} />
-                )}
-              </div>
-              <h2 className="text-xl font-semibold">{groupDisplayTitle(group.title, t)}</h2>
-              <span className="text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
-                {group.items.reduce(
-                  (acc, item) => acc + (item.items ? item.items.length : 1),
-                  0,
-                )}
-              </span>
-            </div>
-          </div>
+          <DashboardSectionHeader
+            icon={group.icon ?? Sparkles}
+            title={groupDisplayTitle(group.title, t)}
+            accent={accent}
+            count={group.items.reduce(
+              (acc, item) => acc + (item.items ? item.items.length : 1),
+              0,
+            )}
+          />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4 xl:gap-5">
             {group.items.map((item: any, itemIndex: number) => (
               <React.Fragment key={`${groupIndex}-${itemIndex}`}>
                 {/* Render search result items (flattened) */}
                 {item.originalId && (
-                  <ToolCard
-                    item={item}
-                    id={item.originalId}
-                    index={itemIndex}
-                    accent={accent}
-                    {...toolCardProps}
-                  />
+                  <motion.div layout="position" className="h-full">
+                    <ToolCard
+                      item={item}
+                      id={item.originalId}
+                      index={itemIndex}
+                      accent={accent}
+                      {...toolCardProps}
+                    />
+                  </motion.div>
                 )}
 
                 {/* Render nested items directly in the grid (only when not searching) */}
                 {item.items &&
                   item.items.map((subItem: ToolItem, subIndex: number) => (
-                    <ToolCard
+                    <motion.div
                       key={`${groupIndex}-${itemIndex}-${subIndex}`}
-                      item={{ ...subItem, icon: subItem.icon ?? item.icon }}
-                      id={createItemId(group.originalGroupIndex, itemIndex, subIndex)}
-                      index={subIndex}
-                      accent={accent}
-                      {...toolCardProps}
-                    />
+                      layout="position"
+                      className="h-full"
+                    >
+                      <ToolCard
+                        item={{ ...subItem, icon: subItem.icon ?? item.icon }}
+                        id={createItemId(group.originalGroupIndex, itemIndex, subIndex)}
+                        index={subIndex}
+                        accent={accent}
+                        {...toolCardProps}
+                      />
+                    </motion.div>
                   ))}
               </React.Fragment>
             ))}
@@ -94,9 +94,14 @@ export function DashboardToolGrid({
       {/* No results state */}
       {(searchQuery || filterGroup) && filteredGroups.length === 0 && (
         <div className="space-y-5">
-          <div className="rounded-lg border border-dashed border-border p-8 text-center">
-            <p className="text-sm font-medium text-foreground">{t('noResults')}</p>
-            <p className="mt-1 text-xs text-muted-foreground">{t('noResultsHint')}</p>
+          <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border/60 bg-gradient-to-b from-muted/20 to-transparent p-10 text-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-muted/60 text-muted-foreground ring-1 ring-inset ring-border/50">
+              <SearchX size={22} strokeWidth={1.5} />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-foreground">{t('noResults')}</p>
+              <p className="mt-1 text-xs text-muted-foreground">{t('noResultsHint')}</p>
+            </div>
           </div>
           {popularItems.length > 0 && (
             <div className="space-y-3">
