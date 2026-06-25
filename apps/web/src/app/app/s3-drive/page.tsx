@@ -6,6 +6,7 @@ import useAuth from "@/utils/useAuth"
 import { useMasterKeyStore } from "@/store/master-key-store"
 import { useVaultGuard } from "@/hooks/use-vault-guard"
 import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder"
+import { VaultRestoringSkeleton } from "@/components/vault-restoring-skeleton"
 import { useS3DriveStore } from "@/store/s3-drive-store"
 import { listConnections } from "@/lib/s3-drive-api"
 import { decryptData } from "@/lib/encryption"
@@ -17,8 +18,8 @@ import { cn } from "@/lib/utils"
 
 export default function S3DrivePage() {
     const { user, loading: authLoading } = useAuth(true)
-    const { encryptionKey, isUnlocked } = useMasterKeyStore()
-    useVaultGuard()
+    const { encryptionKey } = useMasterKeyStore()
+    const { isUnlocked, isRestoring } = useVaultGuard()
     const { connections, activeConnectionId, setConnections } = useS3DriveStore()
     const [booting, setBooting] = useState(true)
     const loadedRef = useRef(false)
@@ -104,6 +105,7 @@ export default function S3DrivePage() {
         )
     }
 
+    if (isRestoring) return <VaultRestoringSkeleton />
     if (!isUnlocked || !encryptionKey) return <VaultLockedPlaceholder appName="S3 Drive" />
 
     const activeConn = connections.find((c) => c.id === activeConnectionId) ?? null

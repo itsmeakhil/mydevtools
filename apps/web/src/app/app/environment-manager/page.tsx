@@ -7,6 +7,7 @@ import { useEnvironmentManagerStore, type EnvSetEntry } from "@/store/environmen
 import { useMasterKeyStore } from "@/store/master-key-store"
 import { useVaultGuard } from "@/hooks/use-vault-guard"
 import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder"
+import { VaultRestoringSkeleton } from "@/components/vault-restoring-skeleton"
 import useAuth from "@/utils/useAuth"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import { useTranslations } from "next-intl"
@@ -20,7 +21,7 @@ export default function EnvironmentManagerPage() {
     const t = useTranslations("EnvironmentManager.page")
     const { user, loading } = useAuth(true)
     const { encryptionKey } = useMasterKeyStore()
-    const { isUnlocked } = useVaultGuard()
+    const { isUnlocked, isRestoring } = useVaultGuard()
     const { setSets, setLoading, clearSets } = useEnvironmentManagerStore()
     const isMobile = useIsMobile()
     const loadedRef = useRef(false)
@@ -70,6 +71,7 @@ export default function EnvironmentManagerPage() {
         }
     }
 
+    if (isRestoring) return <VaultRestoringSkeleton />
     if (!isUnlocked) return <VaultLockedPlaceholder appName="Environment Manager" />
 
     if (loading) {

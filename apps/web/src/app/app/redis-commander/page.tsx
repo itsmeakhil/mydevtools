@@ -45,6 +45,7 @@ import useAuth from "@/utils/useAuth";
 import { useMasterKeyStore } from "@/store/master-key-store";
 import { useVaultGuard } from "@/hooks/use-vault-guard";
 import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder";
+import { VaultRestoringSkeleton } from "@/components/vault-restoring-skeleton";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
 import { ConnectionForm } from "@/components/redis-commander/connection-form";
@@ -69,7 +70,7 @@ function newTabId() {
 export default function RedisCommanderPage() {
     const { user } = useAuth();
     const { encryptionKey } = useMasterKeyStore();
-    const { isUnlocked } = useVaultGuard();
+    const { isUnlocked, isRestoring } = useVaultGuard();
     const isDesktop = useMediaQuery("(min-width: 768px)");
 
     const [connections, setConnections] = useState<SavedRedisConnection[]>([]);
@@ -172,6 +173,7 @@ export default function RedisCommanderPage() {
         }
     }
 
+    if (isRestoring) return <VaultRestoringSkeleton />;
     if (!isUnlocked) {
         return (
             <VaultLockedPlaceholder appName="Redis Commander" />
