@@ -1,6 +1,4 @@
-from __future__ import annotations
-
-from typing import Any, Optional
+from typing import Any
 from pymongo.errors import DuplicateKeyError
 from app.database import db_manager
 from app.utils.collection_name import (
@@ -32,7 +30,7 @@ async def find_user_orgs(uid: str) -> list[dict[str, Any]]:
 
 
 async def find_user_workspaces(
-    uid: str, org_id: Optional[str] = None
+    uid: str, org_id: str | None = None
 ) -> list[dict[str, Any]]:
     flt: dict[str, Any] = {"uid": uid}
     if org_id is not None:
@@ -55,11 +53,11 @@ async def find_user_workspaces(
     return out
 
 
-async def find_workspace(workspace_id: str) -> Optional[dict[str, Any]]:
+async def find_workspace(workspace_id: str) -> dict[str, Any] | None:
     return await db_manager.find_one(WORKSPACES, {"_id": workspace_id})
 
 
-async def find_org_membership(org_id: str, uid: str) -> Optional[dict[str, Any]]:
+async def find_org_membership(org_id: str, uid: str) -> dict[str, Any] | None:
     return await db_manager.find_one(
         ORG_MEMBERSHIPS, {"org_id": org_id, "uid": uid}
     )
@@ -67,14 +65,14 @@ async def find_org_membership(org_id: str, uid: str) -> Optional[dict[str, Any]]
 
 async def find_ws_membership(
     workspace_id: str, uid: str
-) -> Optional[dict[str, Any]]:
+) -> dict[str, Any] | None:
     return await db_manager.find_one(
         WORKSPACE_MEMBERSHIPS, {"workspace_id": workspace_id, "uid": uid}
     )
 
 
 async def upsert_org(
-    name: str, slug: str, kind: str, owner_uid: Optional[str]
+    name: str, slug: str, kind: str, owner_uid: str | None
 ) -> str:
     existing = await db_manager.find_one(ORGANIZATIONS, {"slug": slug})
     if existing:

@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from app.api.routes.auth import users_repo
 from app.api.routes.workspaces.repo import (
     upsert_org_membership,

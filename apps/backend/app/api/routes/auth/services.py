@@ -1,7 +1,5 @@
-from __future__ import annotations
-
 import hashlib
-from typing import Annotated, Optional
+from typing import Annotated
 
 from fastapi import Cookie, Depends, Header, HTTPException, Request, status
 
@@ -61,15 +59,15 @@ async def verify_id_token_cached(id_token: str, check_revoked: bool = False) -> 
 
 
 @_cached(ns="auth_user", ttl=60, scope="user")
-async def _fetch_user_doc_cached(*, uid: str) -> Optional[dict]:
+async def _fetch_user_doc_cached(*, uid: str) -> dict | None:
     return await get_user_doc(uid)
 
 
 def get_current_uid(
-    authorization: Annotated[Optional[str], Header(alias="Authorization")] = None,
-    mdt_at: Annotated[Optional[str], Cookie(alias=ACCESS_COOKIE_NAME)] = None,
+    authorization: Annotated[str | None, Header(alias="Authorization")] = None,
+    mdt_at: Annotated[str | None, Cookie(alias=ACCESS_COOKIE_NAME)] = None,
 ) -> str:
-    token: Optional[str] = None
+    token: str | None = None
     if authorization:
         scheme, _, value = authorization.partition(" ")
         if scheme.lower() == "bearer" and value.strip():

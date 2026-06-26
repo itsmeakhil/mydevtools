@@ -1,7 +1,4 @@
-from __future__ import annotations
-
 from functools import lru_cache
-from typing import Optional
 
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -14,7 +11,7 @@ class Settings(BaseSettings):
     APP_HOST: str = "0.0.0.0"
     APP_PORT: int = 8000
 
-    FIREBASE_CREDENTIALS_JSON: Optional[str] = None
+    FIREBASE_CREDENTIALS_JSON: str | None = None
 
     MONGO_DB_URL: str = "mongodb://localhost:27017"
     MONGO_DB_NAME: str = "mydevtools"
@@ -26,20 +23,20 @@ class Settings(BaseSettings):
     )
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int
-    REFRESH_TOKEN_EXPIRE_DAYS: int
+    REFRESH_TOKEN_EXPIRE_DAYS: int 
     # HttpOnly cookies: use Secure=true over HTTPS (recommended in production).
     AUTH_COOKIE_SECURE: bool = False
 
     ALLOWED_ORIGINS: str
 
     # WebAuthn / passkeys
-    WEBAUTHN_RP_ID: str
-    WEBAUTHN_RP_NAME: str
+    WEBAUTHN_RP_ID: str 
+    WEBAUTHN_RP_NAME: str 
     WEBAUTHN_ORIGINS: str
     WEBAUTHN_CHALLENGE_TTL_SECONDS: int
 
     # Redis + cache
-    REDIS_URL: Optional[str] = None
+    REDIS_URL: str | None = None
     CACHE_ENABLED: bool = True
     CACHE_NAMESPACES: str = ""             # comma-separated; empty = no-op
     CACHE_DEFAULT_TTL: int = 120           # seconds
