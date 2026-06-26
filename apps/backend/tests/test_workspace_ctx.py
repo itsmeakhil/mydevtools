@@ -71,3 +71,23 @@ def test_apply_legacy_or_filter_bounds_by_user_field():
         {"workspace_id": {"$exists": False}, "created_by": "u1"},
     ]
     assert out["foo"] == "bar"
+
+
+def test_apply_legacy_or_filter_preserves_caller_or():
+    ctx = WorkspaceContext(
+        uid="u1",
+        org_id="o1",
+        workspace_id="w1",
+        ws_role="admin",
+        is_personal=True,
+        owner_uid="u1",
+    )
+    base = {"$or": [{"folderId": None}, {"folderId": {"$exists": False}}]}
+    out = apply_legacy_or_filter(ctx, base, user_field="created_by")
+    # Caller's $or must be preserved — combined via $and with workspace $or.
+    assert "$and" in out
+    assert out["$and"][0] == base
+    assert out["$and"][1]["$or"] == [
+        {"org_id": "o1", "workspace_id": "w1", "owner_uid": "u1"},
+        {"workspace_id": {"$exists": False}, "created_by": "u1"},
+    ]

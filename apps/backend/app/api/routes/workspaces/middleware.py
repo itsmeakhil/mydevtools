@@ -101,4 +101,9 @@ def apply_legacy_or_filter(
         "workspace_id": {"$exists": False},
         user_field: ctx.uid,
     }
+    workspace_or = {"$or": [stamped, legacy]}
+    # If the base filter already carries its own $or (e.g. an "uncategorized"
+    # field test), combine via $and so neither side is silently overwritten.
+    if "$or" in base_filter:
+        return {"$and": [base_filter, workspace_or]}
     return {**base_filter, "$or": [stamped, legacy]}
