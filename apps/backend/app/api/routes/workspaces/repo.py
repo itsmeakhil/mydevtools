@@ -1,4 +1,5 @@
 from typing import Any
+from pymongo.errors import DuplicateKeyError
 from app.database import db_manager
 from app.utils.collection_name import (
     ORGANIZATIONS,
@@ -87,8 +88,15 @@ async def upsert_org(
         "createdAt": ts,
         "updatedAt": ts,
     }
-    await db_manager.insert_one(ORGANIZATIONS, doc)
-    return doc["_id"]
+    try:
+        await db_manager.insert_one(ORGANIZATIONS, doc)
+        return doc["_id"]
+    except DuplicateKeyError:
+        # Concurrent caller won the race — re-read and return their id.
+        existing = await db_manager.find_one(ORGANIZATIONS, {"slug": slug})
+        if not existing:
+            raise
+        return existing["_id"]
 
 
 async def upsert_org_membership(
@@ -99,22 +107,32 @@ async def upsert_org_membership(
     )
     if existing:
         return
-    await db_manager.insert_one(
-        ORG_MEMBERSHIPS,
-        {
-            "_id": new_id(),
-            "org_id": org_id,
-            "uid": uid,
-            "org_role": org_role,
-            "createdAt": create_timestamp(),
-        },
-    )
+    try:
+        await db_manager.insert_one(
+            ORG_MEMBERSHIPS,
+            {
+                "_id": new_id(),
+                "org_id": org_id,
+                "uid": uid,
+                "org_role": org_role,
+                "createdAt": create_timestamp(),
+            },
+        )
+    except DuplicateKeyError:
+        # Concurrent caller won the race — membership already exists, nothing to do.
+        existing = await db_manager.find_one(
+            ORG_MEMBERSHIPS, {"org_id": org_id, "uid": uid}
+        )
+        if not existing:
+            raise
 
 
 def _personal_slug(uid: str) -> str:
     return f"personal-{uid[:12]}"
 
 
+# ponytail: workspace creation race tolerated — workspace_setup_at short-circuit in T3
+# prevents repeat calls per user. Tighten if a workspace dup is ever observed in prod.
 async def upsert_personal_workspace(org_id: str, owner_uid: str) -> str:
     existing = await db_manager.find_one(
         WORKSPACES,
@@ -152,14 +170,22 @@ async def upsert_ws_membership(
     )
     if existing:
         return
-    await db_manager.insert_one(
-        WORKSPACE_MEMBERSHIPS,
-        {
-            "_id": new_id(),
-            "workspace_id": workspace_id,
-            "org_id": org_id,
-            "uid": uid,
-            "ws_role": ws_role,
-            "createdAt": create_timestamp(),
-        },
-    )
+    try:
+        await db_manager.insert_one(
+            WORKSPACE_MEMBERSHIPS,
+            {
+                "_id": new_id(),
+                "workspace_id": workspace_id,
+                "org_id": org_id,
+                "uid": uid,
+                "ws_role": ws_role,
+                "createdAt": create_timestamp(),
+            },
+        )
+    except DuplicateKeyError:
+        # Concurrent caller won the race — membership already exists, nothing to do.
+        existing = await db_manager.find_one(
+            WORKSPACE_MEMBERSHIPS, {"workspace_id": workspace_id, "uid": uid}
+        )
+        if not existing:
+            raise
