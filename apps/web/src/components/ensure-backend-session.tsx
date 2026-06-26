@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import type { User } from "firebase/auth"
 import { ensureBackendSession } from "@/lib/backend-auth"
 import { AppLoadingScreen } from "@/components/app-loading-screen"
+import { useWorkspaceStore } from "@/store/workspace-store"
 
 type Props = {
     user: User | null
@@ -39,6 +40,10 @@ export function EnsureBackendSession({ user, children }: Props) {
             try {
                 await ensureBackendSession(user)
                 confirmedSessionUid = user.uid
+                // Hydrate workspace store once per auth session, non-blocking
+                useWorkspaceStore.getState().loadFromBackend().catch((e) => {
+                    console.warn("Workspace hydration failed:", e)
+                })
             } catch (e) {
                 console.error("Backend session sync failed:", e)
             } finally {

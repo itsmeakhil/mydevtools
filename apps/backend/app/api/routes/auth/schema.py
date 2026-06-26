@@ -109,6 +109,11 @@ class UserProfileResponse(BaseModel):
     portfolio_settings: PortfolioSettings | None = None
     personal_info: PersonalInfo | None = None
     onboarding_completed: bool = False
+    # Workspace migration fields (T25)
+    workspace_setup_at: int | None = None
+    migrated_at: int | None = None
+    migration_status: str | None = None
+    migration_progress: dict | None = None
 
 
 class UpdateProfileRequest(BaseModel):

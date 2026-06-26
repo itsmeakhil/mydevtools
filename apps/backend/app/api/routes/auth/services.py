@@ -130,4 +130,8 @@ async def get_current_user(
         portfolio_settings=doc.get("portfolio_settings"),
         personal_info=PersonalInfo(**doc["personal_info"]) if doc.get("personal_info") else None,
         onboarding_completed=bool(doc.get("onboarding_completed", False)),
+        workspace_setup_at=doc.get("workspace_setup_at"),
+        migrated_at=doc.get("migrated_at"),
+        migration_status=doc.get("migration_status"),
+        migration_progress=doc.get("migration_progress"),
     )

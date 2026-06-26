@@ -100,6 +100,10 @@ async def create_session(
         email_verified=bool(doc.get("email_verified")),
         disabled=bool(doc.get("disabled")),
         onboarding_completed=bool(doc.get("onboarding_completed", False)),
+        workspace_setup_at=doc.get("workspace_setup_at"),
+        migrated_at=doc.get("migrated_at"),
+        migration_status=doc.get("migration_status"),
+        migration_progress=doc.get("migration_progress"),
     )
 
 
