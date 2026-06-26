@@ -24,6 +24,7 @@ from app.api.routes.redis_commander.api import router as redis_commander_router
 from app.api.routes.url_shortener.api import router as url_shortener_router
 from app.api.routes.dns_lookup.api import router as dns_lookup_router
 from app.api.routes.audit_log.api import router as audit_log_router
+from app.api.routes.workspaces.api import router as workspaces_router
 
 api_router = APIRouter()
 api_router.include_router(health_router)
@@ -50,3 +51,4 @@ api_router.include_router(redis_commander_router)
 api_router.include_router(url_shortener_router)
 api_router.include_router(dns_lookup_router)
 api_router.include_router(audit_log_router)
+api_router.include_router(workspaces_router)
