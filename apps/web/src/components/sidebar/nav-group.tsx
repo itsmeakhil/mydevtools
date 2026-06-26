@@ -40,7 +40,8 @@ import { requiresAuth } from "@/lib/tool-config";
 import { useToolVisibility } from "@/hooks/use-tool-visibility";
 import { getToolMessageKey } from "@/lib/tool-i18n";
 import { Star } from "lucide-react";
-import { usePinnedToolsStore } from "@/store/pinned-tools-store";
+import { usePinnedToolsStore, usePinnedToolsForActiveWorkspace } from "@/store/pinned-tools-store";
+import { useWorkspaceStore } from "@/store/workspace-store";
 
 // Define the props interface for NavGroup
 interface NavGroupProps {
@@ -206,8 +207,14 @@ const SidebarMenuLink = ({
 }) => {
   const { setOpenMobile, state } = useSidebar();
   const tNav = useTranslations("Navigation");
-  const togglePin = usePinnedToolsStore((s) => s.togglePin);
-  const pinnedTools = usePinnedToolsStore((s) => s.pinnedTools);
+  const _togglePinKeyed = usePinnedToolsStore((s) => s.togglePin);
+  const _activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId);
+  // TODO(T24): update callers to pass workspaceId explicitly once all
+  // consumers have been migrated to the keyed shape.
+  const togglePin = (url: string) => {
+    if (_activeWorkspaceId) _togglePinKeyed(_activeWorkspaceId, url)
+  };
+  const pinnedTools = usePinnedToolsForActiveWorkspace();
   const itemUrl =
     typeof item.url === "string" ? item.url : item.url.toString();
   const toolKey = getToolMessageKey(itemUrl);

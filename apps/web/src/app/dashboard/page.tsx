@@ -6,7 +6,8 @@ import Link from 'next/link'
 import { ArrowLeft, ArrowRight, BarChart3, LayoutGrid } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { sidebarData } from '@/components/sidebar/data/sidebar-data'
-import { usePinnedToolsStore } from '@/store/pinned-tools-store'
+import { usePinnedToolsStore, usePinnedToolsForActiveWorkspace } from '@/store/pinned-tools-store'
+import { useWorkspaceStore } from '@/store/workspace-store'
 import { useToolUsage } from '@/hooks/use-tool-usage'
 import useAuth from '@/utils/useAuth'
 import { Button } from '@/components/ui/button'
@@ -61,8 +62,13 @@ const DashboardPage: React.FC = () => {
   const t = useTranslations('Dashboard')
   const tTabs = useTranslations('Dashboard.tabs')
   const { user, loading } = useAuth(false)
-  const pinnedToolUrls = usePinnedToolsStore((s) => s.pinnedTools)
-  const togglePin = usePinnedToolsStore((s) => s.togglePin)
+  const pinnedToolUrls = usePinnedToolsForActiveWorkspace()
+  const _togglePinKeyed = usePinnedToolsStore((s) => s.togglePin)
+  const _activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId)
+  // TODO(T24): update callers to pass workspaceId explicitly once all consumers migrated.
+  const togglePin = (url: string) => {
+    if (_activeWorkspaceId) _togglePinKeyed(_activeWorkspaceId, url)
+  }
   const isPinned = (url: string) => pinnedToolUrls.includes(url)
   const { getRecentlyUsedTools } = useToolUsage()
   const [recentlyUsedItems, setRecentlyUsedItems] = useState<FavoriteItem[]>([])

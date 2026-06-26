@@ -2,13 +2,20 @@
 
 import { useEffect, useRef } from "react"
 import useAuth from "@/utils/useAuth"
-import { usePinnedToolsStore } from "@/store/pinned-tools-store"
+import { usePinnedToolsStore, usePinnedToolsForActiveWorkspace } from "@/store/pinned-tools-store"
+import { useWorkspaceStore } from "@/store/workspace-store"
 import { getUserPreferences, patchUserPreferences } from "@/lib/user-preferences-api"
 
 export function PinnedToolsPreferencesSync() {
   const { user, loading: authLoading } = useAuth(false)
-  const pinnedTools = usePinnedToolsStore((s) => s.pinnedTools)
-  const setPinnedTools = usePinnedToolsStore((s) => s.setPinnedTools)
+  // TODO(T24): rewrite sync for keyed shape (pinnedByWorkspace[activeWorkspaceId]).
+  // Bridging to the active workspace so existing sync logic compiles.
+  const activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId) ?? ""
+  const pinnedTools = usePinnedToolsForActiveWorkspace()
+  const _setPinnedToolsKeyed = usePinnedToolsStore((s) => s.setPinnedTools)
+  const setPinnedTools = (tools: string[]) => {
+    if (activeWorkspaceId) _setPinnedToolsKeyed(activeWorkspaceId, tools)
+  }
   const serverSyncedRef = useRef(false)
   const isSavingRef = useRef(false)
   const lastSavedRef = useRef("")

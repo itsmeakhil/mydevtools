@@ -3,7 +3,8 @@
 import { Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { usePinnedToolsStore } from '@/store/pinned-tools-store';
+import { usePinnedToolsStore, usePinnedToolsForActiveWorkspace } from '@/store/pinned-tools-store';
+import { useWorkspaceStore } from '@/store/workspace-store';
 import { normalizePinnedToolPath } from '@/lib/pinned-tools-path';
 import { cn } from '@/lib/utils';
 
@@ -16,8 +17,13 @@ export function ToolPinButton({
   className?: string;
   iconClassName?: string;
 }) {
-  const pinnedTools = usePinnedToolsStore((s) => s.pinnedTools);
-  const togglePin = usePinnedToolsStore((s) => s.togglePin);
+  const pinnedTools = usePinnedToolsForActiveWorkspace();
+  const _togglePinKeyed = usePinnedToolsStore((s) => s.togglePin);
+  const _activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId);
+  // TODO(T24): update to pass workspaceId explicitly once all consumers migrated.
+  const togglePin = (id: string) => {
+    if (_activeWorkspaceId) _togglePinKeyed(_activeWorkspaceId, id)
+  };
   const canonical = normalizePinnedToolPath(toolId);
   const isPinned = pinnedTools.includes(canonical);
 

@@ -27,7 +27,8 @@ import { useEnvironmentManagerStore } from '@/store/environment-manager-store'
 import { useMasterKeyStore } from '@/store/master-key-store'
 import { clearMasterKey } from '@/lib/key-storage'
 import { logoutBackendSession } from '@/lib/backend-auth'
-import { usePinnedToolsStore } from '@/store/pinned-tools-store'
+import { usePinnedToolsForActiveWorkspace } from '@/store/pinned-tools-store'
+import { useWorkspaceStore } from '@/store/workspace-store'
 import { IconPin } from '@tabler/icons-react'
 import type { NavLink, NavCollapsible } from './types'
 
@@ -50,7 +51,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { clearPasswords } = usePasswordStore()
   const { clearSets } = useEnvironmentManagerStore()
   const { clearKey: clearMasterKeyStore } = useMasterKeyStore()
-  const pinnedTools = usePinnedToolsStore((s) => s.pinnedTools)
+  const pinnedTools = usePinnedToolsForActiveWorkspace()
+  const clearWorkspaceStore = useWorkspaceStore((s) => s.clear)
   const pinnedNavItems = buildPinnedNavItems(pinnedTools)
   const [user, setUser] = useState({
     name: '',
@@ -66,9 +68,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   const handleSignOut = async () => {
     try {
-      clearPasswords()     // clear decrypted passwords from memory
-      clearSets()          // clear decrypted environment sets from memory
-      clearMasterKeyStore() // clear global master key in-memory state
+      clearPasswords()       // clear decrypted passwords from memory
+      clearSets()            // clear decrypted environment sets from memory
+      clearMasterKeyStore()  // clear global master key in-memory state
+      clearWorkspaceStore()  // clear workspace selection on sign-out
 
       // Clear password-manager vault key from IndexedDB
       if (typeof window !== 'undefined' && window.indexedDB) {

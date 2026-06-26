@@ -1,58 +1,70 @@
 import { useEffect, useState } from 'react'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { useWorkspaceStore } from '@/store/workspace-store'
 import {
   normalizePinnedToolPath,
   normalizePinnedToolsList,
 } from '@/lib/pinned-tools-path'
 
 interface PinnedToolsStore {
-  pinnedTools: string[]
-  setPinnedTools: (tools: string[]) => void
-  togglePin: (toolUrl: string) => void
+  pinnedByWorkspace: Record<string, string[]>
+  setPinnedTools: (workspaceId: string, tools: string[]) => void
+  togglePin: (workspaceId: string, toolUrl: string) => void
 }
 
 export const usePinnedToolsStore = create<PinnedToolsStore>()(
   persist(
     (set) => ({
-      pinnedTools: [],
-      setPinnedTools: (tools) =>
-        set({ pinnedTools: normalizePinnedToolsList(tools) }),
-      togglePin: (toolUrl) =>
+      pinnedByWorkspace: {},
+      setPinnedTools: (workspaceId, tools) =>
+        set((state) => ({
+          pinnedByWorkspace: {
+            ...state.pinnedByWorkspace,
+            [workspaceId]: normalizePinnedToolsList(tools),
+          },
+        })),
+      togglePin: (workspaceId, toolUrl) =>
         set((state) => {
-          const list = normalizePinnedToolsList(state.pinnedTools)
+          const current = normalizePinnedToolsList(
+            state.pinnedByWorkspace[workspaceId] ?? []
+          )
           const key = normalizePinnedToolPath(toolUrl)
-          const has = list.includes(key)
+          const has = current.includes(key)
           return {
-            pinnedTools: has
-              ? list.filter((url) => url !== key)
-              : [...list, key],
+            pinnedByWorkspace: {
+              ...state.pinnedByWorkspace,
+              [workspaceId]: has
+                ? current.filter((u) => u !== key)
+                : [...current, key],
+            },
           }
         }),
     }),
     {
       name: 'pinned-tools-storage',
-      version: 1,
-      // migrate only runs when stored `version` is a number and !== options.version.
-      // Legacy entries often omit version, so normalization must happen in merge too.
-      merge: (persistedState, currentState) => {
-        const p = (persistedState ?? {}) as Partial<PinnedToolsStore>
-        const raw = Array.isArray(p.pinnedTools)
-          ? p.pinnedTools
-          : currentState.pinnedTools
-        return {
-          ...currentState,
-          ...p,
-          pinnedTools: normalizePinnedToolsList(raw),
+      version: 2,
+      // ponytail: v1→v2 migration drops all local pins intentionally.
+      // The server is the source of truth (toolFavorites in user preferences).
+      // T24 (pinned-tools-preferences-sync rewrite) will repopulate
+      // pinnedByWorkspace[activeWorkspaceId] from the API on next login.
+      // Drop this migrate shim once all sessions have migrated (i.e. after
+      // the v1 persist key has aged out of localStorage).
+      migrate: (persistedState, fromVersion) => {
+        if (fromVersion < 2) {
+          // Upgrade path: discard legacy flat pinnedTools array.
+          // Server backfill via T24 is the source of truth.
+          return { pinnedByWorkspace: {} } as never
         }
-      },
-      migrate: (persistedState) => {
-        const p = (persistedState ?? {}) as Partial<PinnedToolsStore>
-        const raw = Array.isArray(p.pinnedTools) ? p.pinnedTools : []
+        const p = (persistedState ?? {}) as { pinnedByWorkspace?: Record<string, string[]> }
         return {
-          ...p,
-          pinnedTools: normalizePinnedToolsList(raw),
+          pinnedByWorkspace: p.pinnedByWorkspace ?? {},
         } as never
+      },
+      // merge also resets to empty on any version mismatch (version field
+      // missing = legacy entry). Correct state arrives via preferences-sync.
+      merge: (_persistedState, currentState) => {
+        return { ...currentState, pinnedByWorkspace: {} }
       },
     }
   )
@@ -70,4 +82,17 @@ export function usePinnedToolsHydrated(): boolean {
     return unsub
   }, [])
   return hydrated
+}
+
+/**
+ * Returns the pinned tool URLs for the currently active workspace.
+ * Subscribes to both the workspace store (for activeWorkspaceId changes)
+ * and the pinned-tools store (for pinnedByWorkspace changes) so the
+ * consuming component re-renders on either change.
+ */
+export function usePinnedToolsForActiveWorkspace(): string[] {
+  const activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId)
+  return usePinnedToolsStore(
+    (s) => (activeWorkspaceId ? s.pinnedByWorkspace[activeWorkspaceId] ?? [] : [])
+  )
 }
