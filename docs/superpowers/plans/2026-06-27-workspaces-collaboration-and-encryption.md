@@ -156,7 +156,7 @@ apps/web/src/__tests__/lib/
 
 ## Phase B.1 — Backend data + email + RBAC core (sequential)
 
-### Task B1: Soft-delete fields + invitations collection + new indexes
+### Task 1: Soft-delete fields + invitations collection + new indexes
 
 **Files:**
 - Modify: `apps/backend/app/utils/collection_name.py` (add `INVITATIONS`)
@@ -408,7 +408,7 @@ git commit -m "feat(workspaces): invitations collection + soft-delete repo helpe
 
 ---
 
-### Task B2: Email sender (Resend wrapper + dev-mode logger)
+### Task 2: Email sender (Resend wrapper + dev-mode logger)
 
 **Files:**
 - Create: `apps/backend/app/core/email.py`
@@ -553,7 +553,7 @@ git commit -m "feat(workspaces): Resend email wrapper with dev-mode logger"
 
 ---
 
-### Task B3: RBAC matrix module + `require_permission` dependency
+### Task 3: RBAC matrix module + `require_permission` dependency
 
 **Files:**
 - Create: `apps/backend/app/api/routes/workspaces/rbac.py`
@@ -765,7 +765,7 @@ git commit -m "feat(workspaces): hardcoded RBAC matrix + require_permission dep"
 
 ---
 
-### Task B4: Role cascade in `get_workspace_ctx`
+### Task 4: Role cascade in `get_workspace_ctx`
 
 **Files:**
 - Modify: `apps/backend/app/api/routes/workspaces/middleware.py`
@@ -889,7 +889,7 @@ git commit -m "feat(workspaces): role cascade — org owner/admin implicit ws ad
 
 ---
 
-### Task B5: Org CRUD service + routes
+### Task 5: Org CRUD service + routes
 
 **Files:**
 - Create: `apps/backend/app/api/routes/workspaces/crud_service.py` (orgs portion)
@@ -1117,7 +1117,7 @@ git commit -m "feat(workspaces): org create/rename/soft-delete + cascade"
 
 ---
 
-### Task B6: Shared workspace CRUD service + routes
+### Task 6: Shared workspace CRUD service + routes
 
 **Files:**
 - Modify: `apps/backend/app/api/routes/workspaces/crud_service.py` (add workspace fns)
@@ -1356,7 +1356,7 @@ git commit -m "feat(workspaces): shared workspace create/rename/soft-delete"
 
 ---
 
-### Task B7: Member CRUD + role-change + remove
+### Task 7: Member CRUD + role-change + remove
 
 **Files:**
 - Create: `apps/backend/app/api/routes/workspaces/members_service.py`
@@ -1660,7 +1660,7 @@ git commit -m "feat(workspaces): member CRUD with role cascade + sole-owner guar
 
 ---
 
-### Task B8: Invitation create + accept + revoke
+### Task 8: Invitation create + accept + revoke
 
 **Files:**
 - Create: `apps/backend/app/api/routes/workspaces/invitations_service.py`
@@ -1984,7 +1984,7 @@ git commit -m "feat(workspaces): invitation create / accept / revoke flows"
 
 ---
 
-### Task B9: Wrap every scoped route with `require_permission`
+### Task 9: Wrap every scoped route with `require_permission`
 
 **Files:** Modify each of the 14 route modules:
 
@@ -2124,7 +2124,7 @@ git commit -m "feat(workspaces): wrap all 14 scoped routes with require_permissi
 
 ---
 
-### Task B10: Soft-delete sweeper background job
+### Task 10: Soft-delete sweeper background job
 
 **Files:**
 - Create: `apps/backend/app/api/routes/workspaces/sweeper.py`
@@ -2307,7 +2307,7 @@ git commit -m "feat(workspaces): 30-day soft-delete sweeper background task"
 
 ## Phase B.2 — Frontend RBAC + switcher + dialogs (sequential)
 
-### Task B11: Frontend RBAC matrix mirror + `useToolPermission` hook
+### Task 11: Frontend RBAC matrix mirror + `useToolPermission` hook
 
 **Files:**
 - Create: `apps/web/src/lib/workspace-rbac.ts`
@@ -2450,7 +2450,7 @@ git commit -m "feat(workspaces): frontend RBAC matrix + useToolPermission hook"
 
 ---
 
-### Task B12: Sidebar role-gating + auto-unpin filter
+### Task 12: Sidebar role-gating + auto-unpin filter
 
 **Files:**
 - Modify: `apps/web/src/components/sidebar/app-sidebar.tsx`
@@ -2567,7 +2567,7 @@ git commit -m "feat(workspaces): sidebar role-gates tools + filters pinned by pe
 
 ---
 
-### Task B13: Workspace switcher dropdown (replaces A's pill)
+### Task 13: Workspace switcher dropdown (replaces A's pill)
 
 **Files:**
 - Create: `apps/web/src/components/workspace-switcher-dropdown.tsx`
@@ -2678,7 +2678,7 @@ export function WorkspaceSwitcher() {
 
 ---
 
-### Task B14: CreateOrgDialog + CreateWorkspaceDialog + InviteMemberDialog
+### Task 14: CreateOrgDialog + CreateWorkspaceDialog + InviteMemberDialog
 
 **Files:**
 - Create: `apps/web/src/components/create-org-dialog.tsx`
@@ -2701,7 +2701,7 @@ export function WorkspaceSwitcher() {
 
 ---
 
-### Task B15: `/settings/workspaces` page
+### Task 15: `/settings/workspaces` page
 
 **Files:**
 - Create: `apps/web/src/app/settings/workspaces/page.tsx`
@@ -2717,7 +2717,7 @@ export function WorkspaceSwitcher() {
 
 ---
 
-### Task B16: PendingInvitationsBadge + accept flow
+### Task 16: PendingInvitationsBadge + accept flow
 
 **Files:**
 - Create: `apps/web/src/components/pending-invitations-badge.tsx`
@@ -2731,7 +2731,7 @@ export function WorkspaceSwitcher() {
 
 ---
 
-### Task B17: EncryptedToolPlaceholder + route gating
+### Task 17: EncryptedToolPlaceholder + route gating
 
 **Files:**
 - Create: `apps/web/src/components/encrypted-tool-placeholder.tsx`
@@ -2744,7 +2744,7 @@ export function WorkspaceSwitcher() {
 
 ---
 
-### Task B18: BroadcastChannel cross-tab sync
+### Task 18: BroadcastChannel cross-tab sync
 
 **Files:**
 - Create: `apps/web/src/lib/workspace-broadcast.ts`
@@ -2760,7 +2760,7 @@ export function WorkspaceSwitcher() {
 
 ---
 
-### Task B19: Manual verification + Phase B PR
+### Task 19: Manual verification + Phase B PR
 
 - [ ] **Step 1: Fresh-user flow**
   Log in. Switcher shows "Personal" + dropdown. Create an org. Org appears. Create a shared workspace inside. Switch to it. Encrypted tools show placeholder.
@@ -2803,7 +2803,7 @@ EOF
 
 ## Phase C.1 — Crypto utilities + tests
 
-### Task C1: `workspace-crypto.ts` Web Crypto helpers + Jest round-trips
+### Task 20: `workspace-crypto.ts` Web Crypto helpers + Jest round-trips
 
 **Files:**
 - Create: `apps/web/src/lib/workspace-crypto.ts`
@@ -2828,7 +2828,7 @@ Implementation: X25519 ECDH (via `crypto.subtle.generateKey({name: "ECDH", named
 
 ## Phase C.2 — Backend schema + crypto routes
 
-### Task C2: `users.encryption` schema + keypair routes
+### Task 21: `users.encryption` schema + keypair routes
 
 **Files:**
 - Modify: `apps/backend/app/api/routes/auth/users_repo.py` (add `set_user_encryption`, `get_user_encryption`, `find_users_with_publickey_by_emails`)
@@ -2869,7 +2869,7 @@ class KeypairPostRequest(BaseModel):
 
 ---
 
-### Task C3: `workspace_memberships.wrappedDek` + DEK routes
+### Task 22: `workspace_memberships.wrappedDek` + DEK routes
 
 **Files:**
 - Modify: `apps/backend/app/api/routes/workspaces/repo.py` (`set_membership_wrapped_dek`, `find_memberships_for_workspace`, `bulk_update_wrapped_deks`)
@@ -2891,7 +2891,7 @@ class KeypairPostRequest(BaseModel):
 
 ## Phase C.3 — Frontend integration
 
-### Task C4: User-keypair store + master-key-gate integration
+### Task 23: User-keypair store + master-key-gate integration
 
 **Files:**
 - Create: `apps/web/src/store/user-keypair-store.ts`
@@ -2909,7 +2909,7 @@ class KeypairPostRequest(BaseModel):
 
 ---
 
-### Task C5: Workspace DEK store + auto-hydrate on workspace switch
+### Task 24: Workspace DEK store + auto-hydrate on workspace switch
 
 **Files:**
 - Create: `apps/web/src/store/workspace-dek-store.ts`
@@ -2925,7 +2925,7 @@ class KeypairPostRequest(BaseModel):
 
 ---
 
-### Task C6: Password Manager DEK-cipher branch
+### Task 25: Password Manager DEK-cipher branch
 
 **Files:**
 - Modify: `apps/web/src/components/password-manager/*` (every encrypt/decrypt call site)
@@ -2949,23 +2949,23 @@ Add `EncryptedToolPlaceholder` toggle: when active workspace is shared AND `sett
 
 ---
 
-### Task C7: Environment Manager DEK-cipher branch
+### Task 26: Environment Manager DEK-cipher branch
 
-Mirror Task C6 for `apps/web/src/components/environment-manager/*`. Same getCipherKey helper.
+Mirror Task 25 for `apps/web/src/components/environment-manager/*`. Same getCipherKey helper.
 
 - [ ] Commit: `feat(workspaces): environment manager uses workspace DEK in shared workspaces`.
 
 ---
 
-### Task C8: API Key Vault DEK-cipher branch
+### Task 27: API Key Vault DEK-cipher branch
 
-Mirror Task C6 for `apps/web/src/components/api-key-vault/*`.
+Mirror Task 25 for `apps/web/src/components/api-key-vault/*`.
 
 - [ ] Commit: `feat(workspaces): api key vault uses workspace DEK in shared workspaces`.
 
 ---
 
-### Task C9: "Enable encrypted tools" CTA + DEK generation flow
+### Task 28: "Enable encrypted tools" CTA + DEK generation flow
 
 **Files:**
 - Create: `apps/web/src/components/enable-encrypted-tools-cta.tsx`
@@ -2987,7 +2987,7 @@ For members without a published public key: add a `pendingMember[]` to the respo
 
 ---
 
-### Task C10: Pending-wraps prompt for new members
+### Task 29: Pending-wraps prompt for new members
 
 **Files:**
 - Create: `apps/web/src/components/pending-wraps-prompt.tsx`
@@ -3004,20 +3004,20 @@ For members without a published public key: add a `pendingMember[]` to the respo
 
 ---
 
-### Task C11: Rotate key UI
+### Task 30: Rotate key UI
 
 **Files:**
 - Create: `apps/web/src/components/rotate-key-button.tsx`
 - Modify: `apps/web/src/app/settings/workspaces/workspace-section.tsx`
 
-**Flow:** Workspace Admin clicks "Rotate encryption key". Same wrap-for-all flow as C9, but backend kicks off the re-encryption background job (Task C12).
+**Flow:** Workspace Admin clicks "Rotate encryption key". Same wrap-for-all flow as C9, but backend kicks off the re-encryption background job (Task 31).
 
 - [ ] Tests: button renders for Admin; click triggers rotate-dek POST.
 - [ ] Commit: `feat(workspaces): rotate-key UI + trigger`.
 
 ---
 
-### Task C12: Re-encryption background job for DEK rotation
+### Task 31: Re-encryption background job for DEK rotation
 
 **Files:**
 - Create: `apps/backend/app/api/routes/workspaces/rotation_job.py`
@@ -3043,7 +3043,7 @@ Move "rotation_job.py" to the **frontend** in `apps/web/src/lib/dek-rotation.ts`
 
 ---
 
-### Task C13: Frontend tests for crypto integration
+### Task 32: Frontend tests for crypto integration
 
 - [ ] Encrypt/decrypt round-trip across the 3 tools using both personal master key and shared DEK paths.
 - [ ] Pending-wraps prompt shows for new member; disappears after wrap.
@@ -3052,7 +3052,7 @@ Move "rotation_job.py" to the **frontend** in `apps/web/src/lib/dek-rotation.ts`
 
 ---
 
-### Task C14: Manual verification + Phase C PR
+### Task 33: Manual verification + Phase C PR
 
 - [ ] **C1:** Create shared workspace. Confirm placeholder shown for encrypted tools.
 - [ ] **C2:** Workspace Admin clicks "Enable encrypted tools". DEK generated, wraps stamped.
