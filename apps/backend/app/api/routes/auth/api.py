@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import asyncio
+import logging
 import re
 import time
 from typing import Annotated
@@ -64,6 +67,14 @@ async def create_session(request: Request, payload: SessionRequest, response: Re
         )
 
     await upsert_user_from_firebase_claims(decoded)
+
+    # Ensure user workspace setup (idempotent first-login hook)
+    try:
+        from app.api.routes.workspaces.services import ensure_user_workspace_setup
+        await ensure_user_workspace_setup(uid)
+    except Exception as exc:
+        logging.getLogger(__name__).warning("Workspace setup failed for %s: %s", uid, exc)
+
     access = create_access_token(uid)
     raw_refresh = new_refresh_token()
     await set_refresh_token_hash(uid, hash_refresh_token(raw_refresh))

@@ -23,6 +23,7 @@ from app.utils.collection_name import (
     ORG_MEMBERSHIPS,
     WORKSPACES,
     WORKSPACE_MEMBERSHIPS,
+    USERS,
 )
 
 pytest_plugins = ("pytest_asyncio",)
@@ -30,8 +31,8 @@ pytest_plugins = ("pytest_asyncio",)
 
 @pytest.fixture
 async def clean_db():
-    """Drop workspace-related collections before and after test."""
-    collections = [ORGANIZATIONS, ORG_MEMBERSHIPS, WORKSPACES, WORKSPACE_MEMBERSHIPS]
+    """Drop workspace-related collections and USERS before and after test."""
+    collections = [ORGANIZATIONS, ORG_MEMBERSHIPS, WORKSPACES, WORKSPACE_MEMBERSHIPS, USERS]
 
     # Clean before test
     for coll in collections:
@@ -60,3 +61,23 @@ def make_request():
             request._cookies = cookies
         return request
     return _make_request
+
+
+@pytest.fixture
+def count_inserts():
+    """Count db_manager.insert_one calls."""
+    insert_count = {"count": 0}
+    original_insert_one = db_manager.insert_one
+
+    async def tracked_insert_one(*args, **kwargs):
+        insert_count["count"] += 1
+        return await original_insert_one(*args, **kwargs)
+
+    db_manager.insert_one = tracked_insert_one
+
+    def get_count():
+        return insert_count["count"]
+
+    yield get_count
+
+    db_manager.insert_one = original_insert_one

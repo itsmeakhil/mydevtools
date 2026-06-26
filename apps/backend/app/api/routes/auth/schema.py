@@ -1,4 +1,6 @@
+from __future__ import annotations
 
+from typing import Optional
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
@@ -10,14 +12,14 @@ class SessionRequest(BaseModel):
 
 
 class SocialLinks(BaseModel):
-    website: str | None = None
-    twitter: str | None = None
-    instagram: str | None = None
-    linkedin: str | None = None
-    youtube: str | None = None
-    devto: str | None = None
-    hashnode: str | None = None
-    github: str | None = None
+    website: Optional[str] = None
+    twitter: Optional[str] = None
+    instagram: Optional[str] = None
+    linkedin: Optional[str] = None
+    youtube: Optional[str] = None
+    devto: Optional[str] = None
+    hashnode: Optional[str] = None
+    github: Optional[str] = None
 
 
 class Experience(BaseModel):
@@ -25,20 +27,20 @@ class Experience(BaseModel):
     company: str
     role: str
     startDate: str
-    endDate: str | None = None
-    description: str | None = None
+    endDate: Optional[str] = None
+    description: Optional[str] = None
     technologies: list[str] = Field(default_factory=list)
-    employmentType: str | None = None
-    location: str | None = None
+    employmentType: Optional[str] = None
+    location: Optional[str] = None
 
 
 class Project(BaseModel):
     id: str
     title: str
     description: str
-    imageUrl: str | None = None
-    githubUrl: str | None = None
-    liveUrl: str | None = None
+    imageUrl: Optional[str] = None
+    githubUrl: Optional[str] = None
+    liveUrl: Optional[str] = None
     technologies: list[str] = Field(default_factory=list)
 
 
@@ -47,18 +49,17 @@ class Education(BaseModel):
     institution: str
     degree: str
     startDate: str
-    endDate: str | None = None
-    description: str | None = None
+    endDate: Optional[str] = None
+    description: Optional[str] = None
 
 
 class PortfolioSettings(BaseModel):
-    theme: str | None = "bento"
-    font: str | None = "sans"
-    accentColor: str | None = "#3b82f6"
-    rssFeedUrl: str | None = None
+    theme: Optional[str] = "bento"
+    font: Optional[str] = "sans"
+    accentColor: Optional[str] = "#3b82f6"
+    rssFeedUrl: Optional[str] = None
     showGithubStats: bool = True
-    resumePdfUrl: str | None = None
-
+    resumePdfUrl: Optional[str] = None
 
 
 class Language(BaseModel):
@@ -70,17 +71,17 @@ class Certification(BaseModel):
     id: str
     name: str
     issuer: str
-    issueDate: str | None = None
-    expiryDate: str | None = None
-    credentialUrl: str | None = None
+    issueDate: Optional[str] = None
+    expiryDate: Optional[str] = None
+    credentialUrl: Optional[str] = None
 
 
 class PersonalInfo(BaseModel):
-    phone: str | None = None
-    location: str | None = None
-    date_of_birth: str | None = None
-    nationality: str | None = None
-    headline: str | None = None
+    phone: Optional[str] = None
+    location: Optional[str] = None
+    date_of_birth: Optional[str] = None
+    nationality: Optional[str] = None
+    headline: Optional[str] = None
     languages: list[Language] = Field(default_factory=list)
     hobbies: list[str] = Field(default_factory=list)
 
@@ -92,37 +93,37 @@ class PersonalInfo(BaseModel):
 
 class UserProfileResponse(BaseModel):
     uid: str
-    email: str | None = None
-    display_name: str | None = None
-    photo_url: str | None = None
+    email: Optional[str] = None
+    display_name: Optional[str] = None
+    photo_url: Optional[str] = None
     email_verified: bool
     disabled: bool
-    github_username: str | None = None
-    username: str | None = None
-    bio: str | None = None
-    social_links: SocialLinks | None = None
+    github_username: Optional[str] = None
+    username: Optional[str] = None
+    bio: Optional[str] = None
+    social_links: Optional[SocialLinks] = None
     tech_stacks: list[str] = Field(default_factory=list)
     experiences: list[Experience] = Field(default_factory=list)
     projects: list[Project] = Field(default_factory=list)
     education: list[Education] = Field(default_factory=list)
     certifications: list[Certification] = Field(default_factory=list)
-    portfolio_settings: PortfolioSettings | None = None
-    personal_info: PersonalInfo | None = None
+    portfolio_settings: Optional[PortfolioSettings] = None
+    personal_info: Optional[PersonalInfo] = None
     onboarding_completed: bool = False
 
 
 class UpdateProfileRequest(BaseModel):
-    github_username: str | None = None
-    username: str | None = None
-    bio: str | None = None
-    social_links: SocialLinks | None = None
-    tech_stacks: list[str] | None = None
-    experiences: list[Experience] | None = None
-    projects: list[Project] | None = None
-    education: list[Education] | None = None
-    certifications: list[Certification] | None = None
-    portfolio_settings: PortfolioSettings | None = None
-    personal_info: PersonalInfo | None = None
+    github_username: Optional[str] = None
+    username: Optional[str] = None
+    bio: Optional[str] = None
+    social_links: Optional[SocialLinks] = None
+    tech_stacks: Optional[list[str]] = None
+    experiences: Optional[list[Experience]] = None
+    projects: Optional[list[Project]] = None
+    education: Optional[list[Education]] = None
+    certifications: Optional[list[Certification]] = None
+    portfolio_settings: Optional[PortfolioSettings] = None
+    personal_info: Optional[PersonalInfo] = None
 
 
 class OkResponse(BaseModel):
