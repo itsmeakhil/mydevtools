@@ -6,6 +6,7 @@ import { Search } from "lucide-react";
 import { ModeToggle } from "@/components/modeToggle";
 import { getToolMessageKey } from "@/lib/tool-i18n";
 import { routeConfig } from "@/lib/route-config";
+import { WorkspaceSwitcher } from "@/components/workspace-switcher";
 
 function openCommandPalette() {
   document.dispatchEvent(new CustomEvent("open-command-palette"));
@@ -65,6 +66,7 @@ export function NavBar() {
         <header className="sticky top-0 z-20 hidden w-full border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:block">
           <div className="flex h-14 items-center justify-end gap-2 px-4">
             <CommandTrigger />
+            <WorkspaceSwitcher />
             <ModeToggle />
           </div>
         </header>
@@ -103,6 +105,7 @@ export function NavBar() {
         </div>
         <CommandTrigger />
         <div className="flex flex-1 shrink-0 items-center justify-end gap-2">
+          <WorkspaceSwitcher />
           <ModeToggle />
         </div>
       </div>
