@@ -1,4 +1,3 @@
-import secrets
 import time
 from typing import Any
 
@@ -23,7 +22,11 @@ from app.api.routes.api_client.schema import (
     ApiClientWorkspaceOut,
     ApiClientWorkspaceUpdate,
 )
-from app.core.cache import bump_version, cached
+from app.api.routes.workspaces.middleware import (
+    WorkspaceContext,
+    apply_legacy_or_filter,
+    apply_workspace_filter,
+)
 from app.database import db_manager
 from app.utils.collection_name import (
     API_CLIENT_COLLECTIONS,
@@ -33,6 +36,8 @@ from app.utils.collection_name import (
     API_CLIENT_WORKSPACES,
 )
 from app.utils.crud import safe_delete_one, safe_insert, safe_update_one
+
+import secrets
 
 HISTORY_TRIM_BATCH_SIZE = 500
 
@@ -66,82 +71,98 @@ def _env_to_out(doc: dict[str, Any]) -> ApiClientEnvironmentOut:
     )
 
 
-@cached(ns="api_client", ttl=300, scope="user")
-async def list_collections(*, uid: str) -> list[ApiClientCollectionOut]:
+# ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid) key if hot
+async def list_collections(*, ctx: WorkspaceContext) -> list[ApiClientCollectionOut]:
+    flt = apply_legacy_or_filter(ctx, {}, user_field="created_by")
     docs = await db_manager.find(
         API_CLIENT_COLLECTIONS,
-        {"created_by": uid},
-        {"_id": 1, "name": 1, "items": 1},
+        flt,
+        {"_id": 1, "name": 1, "items": 1, "workspace": 1},
         sort=[("name", 1), ("_id", 1)],
     )
     return [_collection_to_out(d) for d in docs]
 
 
-async def create_collection(uid: str, body: ApiClientCollectionCreate) -> ApiClientCollectionOut:
-    doc: dict[str, Any] = {"created_by": uid, "name": body.name, "items": []}
+async def create_collection(ctx: WorkspaceContext, body: ApiClientCollectionCreate) -> ApiClientCollectionOut:
+    doc: dict[str, Any] = {
+        "created_by": ctx.uid,
+        "org_id": ctx.org_id,
+        "workspace_id": ctx.workspace_id,
+        "owner_uid": ctx.uid,
+        "name": body.name,
+        "items": [],
+    }
     await safe_insert(API_CLIENT_COLLECTIONS, doc, name="Collection")
-    await bump_version(ns="api_client", uid=uid)
     return _collection_to_out(doc)
 
 
-async def patch_collection(uid: str, collection_id: str, body: ApiClientCollectionUpdate) -> ApiClientCollectionOut:
+async def patch_collection(ctx: WorkspaceContext, collection_id: str, body: ApiClientCollectionUpdate) -> ApiClientCollectionOut:
     oid = _parse_oid(collection_id, kind="collection")
     patch = body.model_dump(exclude_unset=True)
     if not patch:
-        doc = await db_manager.find_one(API_CLIENT_COLLECTIONS, {"_id": oid, "created_by": uid})
+        flt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
+        doc = await db_manager.find_one(API_CLIENT_COLLECTIONS, flt)
         if not doc:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Collection not found.")
         return _collection_to_out(doc)
+    flt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
     doc = await safe_update_one(
-        API_CLIENT_COLLECTIONS, {"_id": oid, "created_by": uid}, patch, name="Collection"
+        API_CLIENT_COLLECTIONS, flt, patch, name="Collection"
     )
-    await bump_version(ns="api_client", uid=uid)
     return _collection_to_out(doc)
 
 
-async def delete_collection(uid: str, collection_id: str) -> None:
+async def delete_collection(ctx: WorkspaceContext, collection_id: str) -> None:
     oid = _parse_oid(collection_id, kind="collection")
-    await safe_delete_one(API_CLIENT_COLLECTIONS, {"_id": oid, "created_by": uid}, name="Collection")
-    await bump_version(ns="api_client", uid=uid)
+    flt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
+    await safe_delete_one(API_CLIENT_COLLECTIONS, flt, name="Collection")
 
 
-@cached(ns="api_client", ttl=300, scope="user")
-async def list_environments(*, uid: str) -> list[ApiClientEnvironmentOut]:
+# ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid) key if hot
+async def list_environments(*, ctx: WorkspaceContext) -> list[ApiClientEnvironmentOut]:
+    flt = apply_legacy_or_filter(ctx, {}, user_field="created_by")
     docs = await db_manager.find(
         API_CLIENT_ENVIRONMENTS,
-        {"created_by": uid},
+        flt,
         {"_id": 1, "name": 1, "variables": 1},
         sort=[("name", 1), ("_id", 1)],
     )
     return [_env_to_out(d) for d in docs]
 
 
-async def create_environment(uid: str, body: ApiClientEnvironmentCreate) -> ApiClientEnvironmentOut:
-    doc: dict[str, Any] = {"created_by": uid, "name": body.name, "variables": []}
+async def create_environment(ctx: WorkspaceContext, body: ApiClientEnvironmentCreate) -> ApiClientEnvironmentOut:
+    doc: dict[str, Any] = {
+        "created_by": ctx.uid,
+        "org_id": ctx.org_id,
+        "workspace_id": ctx.workspace_id,
+        "owner_uid": ctx.uid,
+        "name": body.name,
+        "variables": [],
+    }
     await safe_insert(API_CLIENT_ENVIRONMENTS, doc, name="Environment")
-    await bump_version(ns="api_client", uid=uid)
     return _env_to_out(doc)
 
 
-async def patch_environment(uid: str, environment_id: str, body: ApiClientEnvironmentUpdate) -> ApiClientEnvironmentOut:
+async def patch_environment(ctx: WorkspaceContext, environment_id: str, body: ApiClientEnvironmentUpdate) -> ApiClientEnvironmentOut:
     oid = _parse_oid(environment_id, kind="environment")
     patch = body.model_dump(exclude_unset=True)
     if not patch:
-        doc = await db_manager.find_one(API_CLIENT_ENVIRONMENTS, {"_id": oid, "created_by": uid})
+        flt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
+        doc = await db_manager.find_one(API_CLIENT_ENVIRONMENTS, flt)
         if not doc:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Environment not found.")
         return _env_to_out(doc)
+    flt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
     doc = await safe_update_one(
-        API_CLIENT_ENVIRONMENTS, {"_id": oid, "created_by": uid}, patch, name="Environment"
+        API_CLIENT_ENVIRONMENTS, flt, patch, name="Environment"
     )
-    await bump_version(ns="api_client", uid=uid)
     return _env_to_out(doc)
 
 
-async def delete_environment(uid: str, environment_id: str) -> None:
+async def delete_environment(ctx: WorkspaceContext, environment_id: str) -> None:
     oid = _parse_oid(environment_id, kind="environment")
-    await safe_delete_one(API_CLIENT_ENVIRONMENTS, {"_id": oid, "created_by": uid}, name="Environment")
-    await bump_version(ns="api_client", uid=uid)
+    flt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
+    await safe_delete_one(API_CLIENT_ENVIRONMENTS, flt, name="Environment")
 
 
 def _history_doc_to_out(doc: dict[str, Any]) -> ApiClientHistoryOut:
@@ -163,11 +184,11 @@ def _history_doc_to_out(doc: dict[str, Any]) -> ApiClientHistoryOut:
     )
 
 
-async def trim_history(uid: str) -> None:
-    filt = {"created_by": uid}
+async def trim_history(ctx: WorkspaceContext) -> None:
+    flt = apply_legacy_or_filter(ctx, {}, user_field="created_by")
     stale_docs = await db_manager.find(
         API_CLIENT_HISTORY,
-        filt,
+        flt,
         {"_id": 1},
         sort=[("timestamp", -1), ("_id", -1)],
         skip=HISTORY_MAX_ITEMS,
@@ -176,21 +197,25 @@ async def trim_history(uid: str) -> None:
     if not stale_docs:
         return
     ids = [d["_id"] for d in stale_docs]
-    await db_manager.delete_many(API_CLIENT_HISTORY, {"_id": {"$in": ids}, "created_by": uid})
-    await bump_version(ns="api_client", uid=uid)
+    del_flt = apply_workspace_filter(ctx, {"_id": {"$in": ids}, "created_by": ctx.uid})
+    await db_manager.delete_many(API_CLIENT_HISTORY, del_flt)
 
 
-@cached(ns="api_client", ttl=300, scope="user")
-async def list_history(*, uid: str, limit: int = HISTORY_MAX_ITEMS) -> list[ApiClientHistoryOut]:
+# ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid) key if hot
+async def list_history(*, ctx: WorkspaceContext, limit: int = HISTORY_MAX_ITEMS) -> list[ApiClientHistoryOut]:
     lim = max(1, min(limit, HISTORY_MAX_ITEMS))
-    docs = await db_manager.find(API_CLIENT_HISTORY, {"created_by": uid}, sort=[("timestamp", -1)], limit=lim)
+    flt = apply_legacy_or_filter(ctx, {}, user_field="created_by")
+    docs = await db_manager.find(API_CLIENT_HISTORY, flt, sort=[("timestamp", -1)], limit=lim)
     return [_history_doc_to_out(d) for d in docs]
 
 
-async def create_history(uid: str, body: ApiClientHistoryCreate) -> ApiClientHistoryOut:
+async def create_history(ctx: WorkspaceContext, body: ApiClientHistoryCreate) -> ApiClientHistoryOut:
     ts = body.timestamp if body.timestamp is not None else int(time.time() * 1000)
     doc: dict[str, Any] = {
-        "created_by": uid,
+        "created_by": ctx.uid,
+        "org_id": ctx.org_id,
+        "workspace_id": ctx.workspace_id,
+        "owner_uid": ctx.uid,
         "method": body.method,
         "url": body.url,
         "params": body.params,
@@ -202,27 +227,37 @@ async def create_history(uid: str, body: ApiClientHistoryCreate) -> ApiClientHis
         "status": body.status,
     }
     await safe_insert(API_CLIENT_HISTORY, doc, name="History entry")
-    await bump_version(ns="api_client", uid=uid)
     return _history_doc_to_out(doc)
 
 
-async def delete_history_entry(uid: str, entry_id: str) -> None:
+async def delete_history_entry(ctx: WorkspaceContext, entry_id: str) -> None:
     oid = _parse_oid(entry_id, kind="history")
-    await safe_delete_one(API_CLIENT_HISTORY, {"_id": oid, "created_by": uid}, name="History entry")
-    await bump_version(ns="api_client", uid=uid)
+    flt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
+    await safe_delete_one(API_CLIENT_HISTORY, flt, name="History entry")
 
 
-async def clear_history(uid: str) -> None:
+async def clear_history(ctx: WorkspaceContext) -> None:
+    flt = apply_workspace_filter(ctx, {"created_by": ctx.uid})
     try:
-        await db_manager.delete_many(API_CLIENT_HISTORY, {"created_by": uid})
+        await db_manager.delete_many(API_CLIENT_HISTORY, flt)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to clear history."
         ) from exc
-    await bump_version(ns="api_client", uid=uid)
 
 
 # ── Public mocks ─────────────────────────────────────────────────────────────
+#
+# API_CLIENT_PUBLIC_MOCKS is NOT scoped to workspace for reads. Each published
+# mock is globally readable by its mock_id (the id IS the credential — see
+# get_public_mock_anonymous). The owner's management operations (list/publish/
+# delete) ARE user-scoped via created_by, but we do NOT apply workspace filter
+# here because:
+#   1. Mocks are meant to be shareable across workspace boundaries.
+#   2. Scoping by workspace_id would break the anonymous read path.
+#   3. The mock_id token (~144 bits of entropy) is the access control boundary.
+# Ownership is tracked by `created_by` only; the collection is NOT stamped with
+# org_id / workspace_id / owner_uid.
 
 
 def _mock_doc_to_out(doc: dict[str, Any]) -> ApiClientPublicMockOut:
@@ -276,7 +311,11 @@ async def get_public_mock_anonymous(mock_id: str) -> ApiClientPublicMockOut | No
     return _mock_doc_to_out(doc) if doc else None
 
 
-# ── Workspaces ───────────────────────────────────────────────────────────────
+# ── Workspaces (API Client's internal grouping) ───────────────────────────────
+#
+# API_CLIENT_WORKSPACES stores the API Client tool's own "workspace" concept
+# (grouping of API requests) — completely separate from our global Workspaces
+# feature. These are per-user data so they ARE stamped with org_id/workspace_id.
 
 
 def _ws_doc_to_out(doc: dict[str, Any]) -> ApiClientWorkspaceOut:
@@ -288,18 +327,22 @@ def _ws_doc_to_out(doc: dict[str, Any]) -> ApiClientWorkspaceOut:
     )
 
 
-async def list_workspaces(*, uid: str) -> list[ApiClientWorkspaceOut]:
+async def list_workspaces(*, ctx: WorkspaceContext) -> list[ApiClientWorkspaceOut]:
+    flt = apply_legacy_or_filter(ctx, {}, user_field="created_by")
     docs = await db_manager.find(
         API_CLIENT_WORKSPACES,
-        {"created_by": uid},
+        flt,
         sort=[("name", 1), ("_id", 1)],
     )
     return [_ws_doc_to_out(d) for d in docs]
 
 
-async def create_workspace(uid: str, body: ApiClientWorkspaceCreate) -> ApiClientWorkspaceOut:
+async def create_workspace(ctx: WorkspaceContext, body: ApiClientWorkspaceCreate) -> ApiClientWorkspaceOut:
     doc: dict[str, Any] = {
-        "created_by": uid,
+        "created_by": ctx.uid,
+        "org_id": ctx.org_id,
+        "workspace_id": ctx.workspace_id,
+        "owner_uid": ctx.uid,
         "name": body.name,
         "created_at": int(time.time() * 1000),
     }
@@ -307,28 +350,35 @@ async def create_workspace(uid: str, body: ApiClientWorkspaceCreate) -> ApiClien
     return _ws_doc_to_out(doc)
 
 
-async def patch_workspace(uid: str, workspace_id: str, body: ApiClientWorkspaceUpdate) -> ApiClientWorkspaceOut:
+async def patch_workspace(ctx: WorkspaceContext, workspace_id: str, body: ApiClientWorkspaceUpdate) -> ApiClientWorkspaceOut:
     oid = _parse_oid(workspace_id, kind="workspace")
     patch = body.model_dump(exclude_unset=True)
     if not patch:
-        doc = await db_manager.find_one(API_CLIENT_WORKSPACES, {"_id": oid, "created_by": uid})
+        flt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
+        doc = await db_manager.find_one(API_CLIENT_WORKSPACES, flt)
         if not doc:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Workspace not found.")
         return _ws_doc_to_out(doc)
+    flt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
     doc = await safe_update_one(
-        API_CLIENT_WORKSPACES, {"_id": oid, "created_by": uid}, patch, name="Workspace"
+        API_CLIENT_WORKSPACES, flt, patch, name="Workspace"
     )
     return _ws_doc_to_out(doc)
 
 
-async def delete_workspace(uid: str, workspace_id: str) -> None:
+async def delete_workspace(ctx: WorkspaceContext, workspace_id: str) -> None:
     oid = _parse_oid(workspace_id, kind="workspace")
     # Clear workspace pointer from any collections that reference it.
+    # Use legacy-or filter so we don't orphan pre-migration collections.
+    col_flt = apply_legacy_or_filter(
+        ctx, {"workspace": workspace_id}, user_field="created_by"
+    )
     await db_manager.update_many(
         API_CLIENT_COLLECTIONS,
-        {"created_by": uid, "workspace": workspace_id},
+        col_flt,
         {"$set": {"workspace": None}},
     )
+    flt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
     await safe_delete_one(
-        API_CLIENT_WORKSPACES, {"_id": oid, "created_by": uid}, name="Workspace"
+        API_CLIENT_WORKSPACES, flt, name="Workspace"
     )

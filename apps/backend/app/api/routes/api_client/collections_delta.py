@@ -27,8 +27,7 @@ from app.api.routes.api_client.schema import (
     Op,
     UpdateItemOp,
 )
-from app.api.routes.auth.services import get_current_uid
-from app.core.cache import bump_version
+from app.api.routes.workspaces.middleware import WorkspaceContext, apply_workspace_filter, get_workspace_ctx
 from app.database import db_manager
 from app.utils.collection_name import API_CLIENT_COLLECTIONS
 
@@ -199,14 +198,15 @@ def _apply_move(
 # ── Service ───────────────────────────────────────────────────────────────────
 
 async def apply_collection_delta(
-    uid: str,
+    ctx: WorkspaceContext,
     collection_id: str,
     ops: list[Op],
 ) -> ApiClientCollectionOut:
     oid = _parse_oid(collection_id, kind="collection")
 
     # Fetch + ownership check BEFORE any mutation
-    doc = await db_manager.find_one(API_CLIENT_COLLECTIONS, {"_id": oid, "created_by": uid})
+    flt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
+    doc = await db_manager.find_one(API_CLIENT_COLLECTIONS, flt)
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Collection not found.")
 
@@ -245,7 +245,7 @@ async def apply_collection_delta(
     try:
         updated_doc = await db_manager.find_one_and_update(
             API_CLIENT_COLLECTIONS,
-            {"_id": oid, "created_by": uid},
+            flt,
             {"$set": {"items": items}},
             return_document=ReturnDocument.AFTER,
         )
@@ -258,8 +258,7 @@ async def apply_collection_delta(
     if not updated_doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Collection not found.")
 
-    # Invalidate cache (same namespace as patch_collection / delete_collection)
-    await bump_version(ns="api_client", uid=uid)
+    # ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid) key if hot
 
     return _collection_to_out(updated_doc)
 
@@ -274,7 +273,7 @@ async def apply_collection_delta(
 async def apply_delta(
     collection_id: str,
     body: ApplyDeltaRequest,
-    uid: str = Depends(get_current_uid),
+    ctx: WorkspaceContext = Depends(get_workspace_ctx),
 ) -> ApplyDeltaResponse:
-    collection = await apply_collection_delta(uid, collection_id, body.ops)
+    collection = await apply_collection_delta(ctx, collection_id, body.ops)
     return ApplyDeltaResponse(collection=collection)
