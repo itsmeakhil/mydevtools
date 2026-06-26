@@ -4,7 +4,11 @@ from typing import Any
 from fastapi import HTTPException, status
 
 from app.api.routes.notes.schema import NoteCreate, NoteOut, NoteUpdate
-from app.core.cache import bump_version, cached
+from app.api.routes.workspaces.middleware import (
+    WorkspaceContext,
+    apply_legacy_or_filter,
+    apply_workspace_filter,
+)
 from app.database import db_manager
 from app.utils.collection_name import NOTES
 from app.utils.crud import safe_insert, safe_update_one
@@ -46,22 +50,24 @@ def _doc_to_out(doc: dict[str, Any]) -> NoteOut:
 _LIST_PROJECTION = {"content": 0}
 
 
-@cached(ns="notes", ttl=120, scope="user")
-async def list_notes(*, uid: str) -> list[NoteOut]:
+# ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid) key if hot
+async def list_notes(*, ctx: WorkspaceContext) -> list[NoteOut]:
+    flt = apply_legacy_or_filter(ctx, {}, user_field="created_by")
     docs = await db_manager.find(
         NOTES,
-        {"created_by": uid},
+        flt,
         projection=_LIST_PROJECTION,
         sort=[("createdAt", 1)],
     )
     return [_doc_to_out(d) for d in docs]
 
 
-@cached(ns="notes", ttl=120, scope="user")
-async def list_notes_paginated(*, uid: str, skip: int = 0, limit: int = 200) -> list[NoteOut]:
+# ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid) key if hot
+async def list_notes_paginated(*, ctx: WorkspaceContext, skip: int = 0, limit: int = 200) -> list[NoteOut]:
+    flt = apply_legacy_or_filter(ctx, {}, user_field="created_by")
     docs = await db_manager.find(
         NOTES,
-        {"created_by": uid},
+        flt,
         projection=_LIST_PROJECTION,
         sort=[("createdAt", 1)],
         skip=max(0, skip),
@@ -70,12 +76,15 @@ async def list_notes_paginated(*, uid: str, skip: int = 0, limit: int = 200) -> 
     return [_doc_to_out(d) for d in docs]
 
 
-async def create_note(uid: str, body: NoteCreate) -> NoteOut:
+async def create_note(ctx: WorkspaceContext, body: NoteCreate) -> NoteOut:
     ts = datetime.now(timezone.utc)
     note_id = new_id()
     doc = {
         "_id": note_id,
-        "created_by": uid,
+        "created_by": ctx.uid,
+        "org_id": ctx.org_id,
+        "workspace_id": ctx.workspace_id,
+        "owner_uid": ctx.uid,
         "title": body.title or "Untitled",
         "content": body.content if body.content is not None else {},
         "parentId": body.parentId,
@@ -86,41 +95,43 @@ async def create_note(uid: str, body: NoteCreate) -> NoteOut:
         "updatedAt": ts,
     }
     await safe_insert(NOTES, doc, name="Note")
-    await bump_version(ns="notes", uid=uid)
     return _doc_to_out(doc)
 
 
-@cached(ns="notes", ttl=120, scope="user")
-async def get_note(*, uid: str, note_id: str) -> NoteOut:
-    doc = await db_manager.find_one(NOTES, {"_id": note_id, "created_by": uid})
+# ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid) key if hot
+async def get_note(*, ctx: WorkspaceContext, note_id: str) -> NoteOut:
+    flt = apply_workspace_filter(ctx, {"_id": note_id, "created_by": ctx.uid})
+    doc = await db_manager.find_one(NOTES, flt)
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
     return _doc_to_out(doc)
 
 
-async def update_note(uid: str, note_id: str, body: NoteUpdate) -> NoteOut:
+async def update_note(ctx: WorkspaceContext, note_id: str, body: NoteUpdate) -> NoteOut:
     patch = body.model_dump(exclude_unset=True)
     if not patch:
-        return await get_note(uid=uid, note_id=note_id)
+        return await get_note(ctx=ctx, note_id=note_id)
 
     patch["updatedAt"] = datetime.now(timezone.utc)
+    flt = apply_workspace_filter(ctx, {"_id": note_id, "created_by": ctx.uid})
     doc = await safe_update_one(
-        NOTES, {"_id": note_id, "created_by": uid}, patch, name="Note"
+        NOTES, flt, patch, name="Note"
     )
-    await bump_version(ns="notes", uid=uid)
     return _doc_to_out(doc)
 
 
-async def _descendant_ids(uid: str, root_id: str) -> list[str]:
+async def _descendant_ids(ctx: WorkspaceContext, root_id: str) -> list[str]:
     """BFS using targeted per-level queries instead of loading all user notes."""
     collected: list[str] = [root_id]
     frontier: list[str] = [root_id]
     visited: set[str] = {root_id}
 
     while frontier:
+        base: dict[str, Any] = {"parentId": {"$in": frontier}}
+        flt = apply_workspace_filter(ctx, {**base, "created_by": ctx.uid})
         docs = await db_manager.find(
             NOTES,
-            {"created_by": uid, "parentId": {"$in": frontier}},
+            flt,
             projection={"_id": 1},
         )
         frontier = []
@@ -134,20 +145,20 @@ async def _descendant_ids(uid: str, root_id: str) -> list[str]:
     return collected
 
 
-async def delete_note(uid: str, note_id: str, *, recursive: bool = True) -> None:
+async def delete_note(ctx: WorkspaceContext, note_id: str, *, recursive: bool = True) -> None:
     if recursive:
-        ids = await _descendant_ids(uid, note_id)
-        result = await db_manager.delete_many(NOTES, {"created_by": uid, "_id": {"$in": ids}})
+        ids = await _descendant_ids(ctx, note_id)
+        flt = apply_workspace_filter(ctx, {"created_by": ctx.uid, "_id": {"$in": ids}})
+        result = await db_manager.delete_many(NOTES, flt)
         if result.deleted_count == 0:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
-        await bump_version(ns="notes", uid=uid)
         return
 
-    result = await db_manager.delete_one(NOTES, {"created_by": uid, "_id": note_id})
+    flt = apply_workspace_filter(ctx, {"_id": note_id, "created_by": ctx.uid})
+    result = await db_manager.delete_one(NOTES, flt)
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found.")
-    await bump_version(ns="notes", uid=uid)
 
 
-async def delete_note_non_recursive(uid: str, note_id: str) -> None:
-    await delete_note(uid, note_id, recursive=False)
+async def delete_note_non_recursive(ctx: WorkspaceContext, note_id: str) -> None:
+    await delete_note(ctx, note_id, recursive=False)
