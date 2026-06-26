@@ -213,6 +213,7 @@ async def mark_workspace_setup(uid: str, personal_workspace_id: str) -> None:
             "personal_workspace_id": personal_workspace_id,
         }},
     )
+    await bump_version(ns="auth_user", uid=uid)
 
 
 async def get_workspace_setup_at(uid: str) -> int | None:
@@ -233,6 +234,7 @@ async def mark_migration_pending(uid: str) -> None:
     await db_manager.update_one(
         USERS, {"_id": uid}, {"$set": {"migration_status": "pending"}}
     )
+    await bump_version(ns="auth_user", uid=uid)
 
 
 async def get_migrated_at(uid: str) -> int | None:
@@ -251,6 +253,7 @@ async def set_migration_progress(uid: str, progress: dict) -> None:
     await db_manager.update_one(
         USERS, {"_id": uid}, {"$set": {"migration_progress": progress}}
     )
+    await bump_version(ns="auth_user", uid=uid)
 
 
 async def mark_migrated(uid: str) -> None:
@@ -262,3 +265,4 @@ async def mark_migrated(uid: str) -> None:
             "migration_status": "done",
         }},
     )
+    await bump_version(ns="auth_user", uid=uid)

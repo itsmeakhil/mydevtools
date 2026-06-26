@@ -79,17 +79,17 @@ async def _rewrite_pinned_tools(uid: str, ws_id: str) -> None:
     pref = await db_manager.find_one(USER_PREFERENCES, {"_id": uid})
     if not pref:
         return
-    legacy = pref.get("pinned_tools")
+    legacy = pref.get("toolFavorites")
     if legacy is None:
         return
-    keyed = pref.get("pinned_tools_by_workspace") or {}
+    keyed = pref.get("pinnedToolsByWorkspace") or {}
     keyed[ws_id] = list(legacy)
     await db_manager.update_one(
         USER_PREFERENCES,
         {"_id": uid},
         {
-            "$set": {"pinned_tools_by_workspace": keyed},
-            "$unset": {"pinned_tools": ""},
+            "$set": {"pinnedToolsByWorkspace": keyed},
+            "$unset": {"toolFavorites": ""},
         },
     )
 

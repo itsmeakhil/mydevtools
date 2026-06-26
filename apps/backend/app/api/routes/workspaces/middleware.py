@@ -75,6 +75,10 @@ def apply_workspace_filter(
 ) -> dict[str, Any]:
     flt = {**base_filter, "org_id": ctx.org_id, "workspace_id": ctx.workspace_id}
     if ctx.is_personal:
+        assert ctx.owner_uid is not None, (
+            f"Personal workspace {ctx.workspace_id} has no owner_uid — "
+            "data invariant violated"
+        )
         flt["owner_uid"] = ctx.uid
     return flt
 

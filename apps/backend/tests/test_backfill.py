@@ -43,11 +43,11 @@ async def test_backfill_rewrites_pinned_tools(clean_db):
     ws_id = "ws-1"
     await db_manager.insert_one(
         USER_PREFERENCES,
-        {"_id": "u1", "uid": "u1", "pinned_tools": ["/app/passwords", "/app/notes"]},
+        {"_id": "u1", "uid": "u1", "toolFavorites": ["/app/passwords", "/app/notes"]},
     )
 
     await run_user_backfill("u1", ws_id, org_id)
 
     pref = await db_manager.find_one(USER_PREFERENCES, {"_id": "u1"})
-    assert pref["pinned_tools_by_workspace"] == {ws_id: ["/app/passwords", "/app/notes"]}
-    assert "pinned_tools" not in pref
+    assert pref["pinnedToolsByWorkspace"] == {ws_id: ["/app/passwords", "/app/notes"]}
+    assert "toolFavorites" not in pref
