@@ -25,6 +25,12 @@ async def lifespan(_app: FastAPI):
     except Exception as exc:
         logging.getLogger(__name__).warning("Index creation failed: %s", exc)
 
+    try:
+        from app.api.routes.workspaces.seed import ensure_system_org
+        await ensure_system_org()
+    except Exception as exc:
+        logging.getLogger(__name__).warning("System org seed failed: %s", exc)
+
     from app.core.redis_client import open_redis, close_redis
     await open_redis()
 
