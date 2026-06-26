@@ -11,7 +11,11 @@ from app.api.routes.passwords.schema import (
     VaultOut,
     VaultSetupRequest,
 )
-from app.core.cache import bump_version, cached
+from app.api.routes.workspaces.middleware import (
+    WorkspaceContext,
+    apply_legacy_or_filter,
+    apply_workspace_filter,
+)
 from app.database import db_manager
 from app.utils.collection_name import PASSWORD_ENTRIES, PASSWORD_VAULTS
 from app.utils.crud import safe_delete_one, safe_insert, safe_update_one
@@ -52,16 +56,18 @@ def _entry_doc_to_out(doc: dict[str, Any], *, entry_id: str) -> PasswordEntryOut
     )
 
 
-@cached(ns="passwords", ttl=60, scope="user")
-async def get_vault(*, uid: str) -> VaultOut:
-    doc = await db_manager.find_one(PASSWORD_VAULTS, {"created_by": uid})
+# ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid) key if hot
+async def get_vault(*, ctx: WorkspaceContext) -> VaultOut:
+    flt = apply_legacy_or_filter(ctx, {}, user_field="created_by")
+    doc = await db_manager.find_one(PASSWORD_VAULTS, flt)
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Vault not found.")
     return _vault_doc_to_out(doc)
 
 
-async def setup_vault(uid: str, body: VaultSetupRequest) -> VaultOut:
-    existing = await db_manager.find_one(PASSWORD_VAULTS, {"created_by": uid})
+async def setup_vault(ctx: WorkspaceContext, body: VaultSetupRequest) -> VaultOut:
+    flt = apply_legacy_or_filter(ctx, {}, user_field="created_by")
+    existing = await db_manager.find_one(PASSWORD_VAULTS, flt)
     if existing:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
@@ -72,22 +78,25 @@ async def setup_vault(uid: str, body: VaultSetupRequest) -> VaultOut:
     ts_updated = create_timestamp()
 
     doc: dict[str, Any] = {
-        "created_by": uid,
+        "created_by": ctx.uid,
+        "org_id": ctx.org_id,
+        "workspace_id": ctx.workspace_id,
+        "owner_uid": ctx.uid,
         "salt": body.salt,
         "verifier": {"encrypted": body.verifier.encrypted, "iv": body.verifier.iv},
         "createdAt": ts_created,
         "updatedAt": ts_updated,
     }
     await safe_insert(PASSWORD_VAULTS, doc, name="Vault")
-    await bump_version(ns="passwords", uid=uid)
-    return await get_vault(uid=uid)
+    return await get_vault(ctx=ctx)
 
 
-@cached(ns="passwords", ttl=60, scope="user")
-async def list_entries(*, uid: str, limit: int = 200, offset: int = 0) -> list[PasswordEntryOut]:
+# ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid) key if hot
+async def list_entries(*, ctx: WorkspaceContext, limit: int = 200, offset: int = 0) -> list[PasswordEntryOut]:
+    flt = apply_legacy_or_filter(ctx, {}, user_field="created_by")
     docs = await db_manager.find(
         PASSWORD_ENTRIES,
-        {"created_by": uid},
+        flt,
         sort=[("updatedAt", -1), ("createdAt", -1)],
         skip=max(0, offset),
         limit=max(1, limit),
@@ -95,7 +104,7 @@ async def list_entries(*, uid: str, limit: int = 200, offset: int = 0) -> list[P
     return [_entry_doc_to_out(d, entry_id=str(d.get("_id", ""))) for d in docs]
 
 
-async def create_entry(uid: str, body: PasswordEntryCreate) -> PasswordEntryOut:
+async def create_entry(ctx: WorkspaceContext, body: PasswordEntryCreate) -> PasswordEntryOut:
     eid = new_id()
     ts = create_timestamp()
     created_at = int(body.createdAt) if body.createdAt is not None else ts
@@ -103,65 +112,68 @@ async def create_entry(uid: str, body: PasswordEntryCreate) -> PasswordEntryOut:
 
     doc: dict[str, Any] = {
         "_id": eid,
-        "created_by": uid,
+        "created_by": ctx.uid,
+        "org_id": ctx.org_id,
+        "workspace_id": ctx.workspace_id,
+        "owner_uid": ctx.uid,
         "encryptedData": body.encryptedData,
         "iv": body.iv,
         "createdAt": created_at,
         "updatedAt": updated_at,
     }
     await safe_insert(PASSWORD_ENTRIES, doc, name="Entry")
-    await bump_version(ns="passwords", uid=uid)
     return _entry_doc_to_out(doc, entry_id=eid)
 
 
-@cached(ns="passwords", ttl=60, scope="user")
-async def get_entry(*, uid: str, entry_id: str) -> PasswordEntryOut:
-    doc = await db_manager.find_one(PASSWORD_ENTRIES, {"_id": entry_id, "created_by": uid})
+# ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid) key if hot
+async def get_entry(*, ctx: WorkspaceContext, entry_id: str) -> PasswordEntryOut:
+    flt = apply_workspace_filter(ctx, {"_id": entry_id, "created_by": ctx.uid})
+    doc = await db_manager.find_one(PASSWORD_ENTRIES, flt)
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Entry not found.")
     return _entry_doc_to_out(doc, entry_id=entry_id)
 
 
-async def update_entry(uid: str, entry_id: str, body: PasswordEntryUpdate) -> PasswordEntryOut:
+async def update_entry(ctx: WorkspaceContext, entry_id: str, body: PasswordEntryUpdate) -> PasswordEntryOut:
     ts_updated = int(body.updatedAt) if body.updatedAt is not None else create_timestamp()
     patch: dict[str, Any] = {
         "encryptedData": body.encryptedData,
         "iv": body.iv,
         "updatedAt": ts_updated,
     }
+    flt = apply_workspace_filter(ctx, {"_id": entry_id, "created_by": ctx.uid})
     doc = await safe_update_one(
         PASSWORD_ENTRIES,
-        {"_id": entry_id, "created_by": uid},
+        flt,
         patch,
         name="Entry",
     )
-    await bump_version(ns="passwords", uid=uid)
     return _entry_doc_to_out(doc, entry_id=entry_id)
 
 
-async def delete_entry(uid: str, entry_id: str) -> None:
-    await safe_delete_one(PASSWORD_ENTRIES, {"_id": entry_id, "created_by": uid}, name="Entry")
-    await bump_version(ns="passwords", uid=uid)
+async def delete_entry(ctx: WorkspaceContext, entry_id: str) -> None:
+    flt = apply_workspace_filter(ctx, {"_id": entry_id, "created_by": ctx.uid})
+    await safe_delete_one(PASSWORD_ENTRIES, flt, name="Entry")
 
 
-async def clear_entries(uid: str) -> dict[str, int]:
+async def clear_entries(ctx: WorkspaceContext) -> dict[str, int]:
+    flt = apply_workspace_filter(ctx, {"created_by": ctx.uid})
     try:
-        res = await db_manager.delete_many(PASSWORD_ENTRIES, {"created_by": uid})
+        res = await db_manager.delete_many(PASSWORD_ENTRIES, flt)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to clear entries."
         ) from exc
-    await bump_version(ns="passwords", uid=uid)
     return {"entriesDeleted": int(res.deleted_count)}
 
 
-async def clear_vault(uid: str) -> dict[str, int]:
-    entries_deleted = (await clear_entries(uid))["entriesDeleted"]
+async def clear_vault(ctx: WorkspaceContext) -> dict[str, int]:
+    entries_deleted = (await clear_entries(ctx))["entriesDeleted"]
+    flt = apply_workspace_filter(ctx, {"created_by": ctx.uid})
     try:
-        res = await db_manager.delete_many(PASSWORD_VAULTS, {"created_by": uid})
+        res = await db_manager.delete_many(PASSWORD_VAULTS, flt)
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to clear vault."
         ) from exc
-    await bump_version(ns="passwords", uid=uid)
     return {"entriesDeleted": entries_deleted, "vaultDeleted": int(res.deleted_count)}

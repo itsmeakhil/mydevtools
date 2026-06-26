@@ -17,6 +17,8 @@ os.environ.setdefault("WEBAUTHN_RP_NAME", "MyDevTools")
 os.environ.setdefault("WEBAUTHN_ORIGINS", "http://localhost:3000")
 os.environ.setdefault("WEBAUTHN_CHALLENGE_TTL_SECONDS", "300")
 
+from app.api.routes.workspaces.seed import ensure_system_org
+from app.api.routes.workspaces.services import ensure_user_workspace_setup
 from app.database import db_manager
 from app.utils.collection_name import (
     ORGANIZATIONS,
@@ -25,6 +27,7 @@ from app.utils.collection_name import (
     WORKSPACE_MEMBERSHIPS,
     USERS,
     PASSWORD_ENTRIES,
+    PASSWORD_VAULTS,
     NOTES,
     USER_PREFERENCES,
 )
@@ -35,7 +38,7 @@ pytest_plugins = ("pytest_asyncio",)
 @pytest.fixture
 async def clean_db():
     """Drop workspace-related collections and USERS before and after test."""
-    collections = [ORGANIZATIONS, ORG_MEMBERSHIPS, WORKSPACES, WORKSPACE_MEMBERSHIPS, USERS, PASSWORD_ENTRIES, NOTES, USER_PREFERENCES]
+    collections = [ORGANIZATIONS, ORG_MEMBERSHIPS, WORKSPACES, WORKSPACE_MEMBERSHIPS, USERS, PASSWORD_ENTRIES, PASSWORD_VAULTS, NOTES, USER_PREFERENCES]
 
     # Clean before test
     for coll in collections:
@@ -140,3 +143,18 @@ async def seed_legacy_user_data():
     )
 
     yield
+
+
+@pytest.fixture
+async def system_org_id():
+    """Idempotently create the system org and return its id."""
+    return await ensure_system_org()
+
+
+@pytest.fixture
+def personal_ws_for():
+    """Return an async callable that creates (idempotently) a Personal workspace
+    for the given uid and returns the workspace_id."""
+    async def _ensure(uid: str) -> str:
+        return await ensure_user_workspace_setup(uid)
+    return _ensure
