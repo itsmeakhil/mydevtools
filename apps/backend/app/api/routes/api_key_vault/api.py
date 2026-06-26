@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, Query
 
-from app.api.routes.auth.services import get_current_uid
 from app.api.routes.api_key_vault import services as vault_svc
 from app.api.routes.api_key_vault.schema import (
     ApiKeyEntryCreate,
     ApiKeyEntryOut,
     ApiKeyEntryUpdate,
 )
+from app.api.routes.workspaces.middleware import WorkspaceContext, get_workspace_ctx
 
 router = APIRouter(prefix="/api-keys", tags=["api-keys"])
 
@@ -17,11 +17,11 @@ router = APIRouter(prefix="/api-keys", tags=["api-keys"])
     summary="List encrypted API key entries",
 )
 async def list_entries(
-    uid: str = Depends(get_current_uid),
+    ctx: WorkspaceContext = Depends(get_workspace_ctx),
     limit: int | None = Query(default=None, ge=1, le=1000),
     offset: int = Query(default=0, ge=0),
 ) -> list[ApiKeyEntryOut]:
-    return await vault_svc.list_entries(uid, limit=limit, offset=offset)
+    return await vault_svc.list_entries(ctx, limit=limit, offset=offset)
 
 
 @router.post(
@@ -29,8 +29,8 @@ async def list_entries(
     response_model=ApiKeyEntryOut,
     summary="Create API key entry (encrypted blob)",
 )
-async def create_entry(body: ApiKeyEntryCreate, uid: str = Depends(get_current_uid)) -> ApiKeyEntryOut:
-    return await vault_svc.create_entry(uid, body)
+async def create_entry(body: ApiKeyEntryCreate, ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> ApiKeyEntryOut:
+    return await vault_svc.create_entry(ctx, body)
 
 
 @router.get(
@@ -38,8 +38,8 @@ async def create_entry(body: ApiKeyEntryCreate, uid: str = Depends(get_current_u
     response_model=ApiKeyEntryOut,
     summary="Get one API key entry",
 )
-async def get_entry(entry_id: str, uid: str = Depends(get_current_uid)) -> ApiKeyEntryOut:
-    return await vault_svc.get_entry(uid, entry_id)
+async def get_entry(entry_id: str, ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> ApiKeyEntryOut:
+    return await vault_svc.get_entry(ctx=ctx, entry_id=entry_id)
 
 
 @router.patch(
@@ -50,9 +50,9 @@ async def get_entry(entry_id: str, uid: str = Depends(get_current_uid)) -> ApiKe
 async def patch_entry(
     entry_id: str,
     body: ApiKeyEntryUpdate,
-    uid: str = Depends(get_current_uid),
+    ctx: WorkspaceContext = Depends(get_workspace_ctx),
 ) -> ApiKeyEntryOut:
-    return await vault_svc.update_entry(uid, entry_id, body)
+    return await vault_svc.update_entry(ctx, entry_id, body)
 
 
 @router.delete(
@@ -60,5 +60,5 @@ async def patch_entry(
     status_code=204,
     summary="Delete API key entry",
 )
-async def delete_entry(entry_id: str, uid: str = Depends(get_current_uid)) -> None:
-    await vault_svc.delete_entry(uid, entry_id)
+async def delete_entry(entry_id: str, ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> None:
+    await vault_svc.delete_entry(ctx, entry_id)
