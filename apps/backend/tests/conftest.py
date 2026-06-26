@@ -21,15 +21,17 @@ from app.api.routes.workspaces.seed import ensure_system_org
 from app.api.routes.workspaces.services import ensure_user_workspace_setup
 from app.database import db_manager
 from app.utils.collection_name import (
+    BOOKMARKS,
+    BOOKMARK_FOLDERS,
+    NOTES,
     ORGANIZATIONS,
     ORG_MEMBERSHIPS,
-    WORKSPACES,
-    WORKSPACE_MEMBERSHIPS,
-    USERS,
     PASSWORD_ENTRIES,
     PASSWORD_VAULTS,
-    NOTES,
     USER_PREFERENCES,
+    USERS,
+    WORKSPACES,
+    WORKSPACE_MEMBERSHIPS,
 )
 
 pytest_plugins = ("pytest_asyncio",)
@@ -38,7 +40,7 @@ pytest_plugins = ("pytest_asyncio",)
 @pytest.fixture
 async def clean_db():
     """Drop workspace-related collections and USERS before and after test."""
-    collections = [ORGANIZATIONS, ORG_MEMBERSHIPS, WORKSPACES, WORKSPACE_MEMBERSHIPS, USERS, PASSWORD_ENTRIES, PASSWORD_VAULTS, NOTES, USER_PREFERENCES]
+    collections = [ORGANIZATIONS, ORG_MEMBERSHIPS, WORKSPACES, WORKSPACE_MEMBERSHIPS, USERS, PASSWORD_ENTRIES, PASSWORD_VAULTS, NOTES, USER_PREFERENCES, BOOKMARKS, BOOKMARK_FOLDERS]
 
     # Clean before test
     for coll in collections:

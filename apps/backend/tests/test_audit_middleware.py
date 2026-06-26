@@ -92,6 +92,7 @@ def test_bookmark_service_sets_audit_detail(monkeypatch):
     import asyncio as _asyncio
     from app.api.routes.bookmarks import services as bm
     from app.api.routes.bookmarks.schema import BookmarkCreate
+    from app.api.routes.workspaces.middleware import WorkspaceContext
     from app.core import audit
 
     async def fake_insert_one(collection_name, data):
@@ -99,10 +100,15 @@ def test_bookmark_service_sets_audit_detail(monkeypatch):
 
     monkeypatch.setattr("app.api.routes.bookmarks.services.db_manager.insert_one", fake_insert_one)
 
+    _bm_ctx = WorkspaceContext(
+        uid="uid1", org_id="org1", workspace_id="ws1", ws_role="admin",
+        is_personal=True, owner_uid="uid1",
+    )
+
     async def run():
         tok = audit._audit_ctx.set(audit.AuditContext())
         try:
-            await bm.create_bookmark("uid1", BookmarkCreate(title="GitHub", url="https://gh.com"))
+            await bm.create_bookmark(_bm_ctx, BookmarkCreate(title="GitHub", url="https://gh.com"))
             ctx = audit.current_context()
             assert ctx.action == "bookmark.create"
             assert ctx.entity_type == "bookmark"
