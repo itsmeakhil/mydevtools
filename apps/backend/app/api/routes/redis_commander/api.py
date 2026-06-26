@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends
 
-from app.api.routes.auth.services import get_current_uid
 from app.api.routes.redis_commander.schema import (
     RedisConnectionCreate,
     RedisConnectionOut,
     RedisConnectionUpdate,
 )
 from app.api.routes.redis_commander import services as svc
+from app.api.routes.workspaces.middleware import WorkspaceContext, get_workspace_ctx
 
 router = APIRouter(prefix="/redis-commander", tags=["redis-commander"])
 
@@ -16,8 +16,8 @@ router = APIRouter(prefix="/redis-commander", tags=["redis-commander"])
     response_model=list[RedisConnectionOut],
     summary="List saved Redis connections",
 )
-async def list_connections(uid: str = Depends(get_current_uid)) -> list[RedisConnectionOut]:
-    return await svc.list_connections(uid)
+async def list_connections(ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> list[RedisConnectionOut]:
+    return await svc.list_connections(ctx)
 
 
 @router.post(
@@ -26,9 +26,9 @@ async def list_connections(uid: str = Depends(get_current_uid)) -> list[RedisCon
     summary="Save a new Redis connection",
 )
 async def create_connection(
-    body: RedisConnectionCreate, uid: str = Depends(get_current_uid)
+    body: RedisConnectionCreate, ctx: WorkspaceContext = Depends(get_workspace_ctx)
 ) -> RedisConnectionOut:
-    return await svc.create_connection(uid, body)
+    return await svc.create_connection(ctx, body)
 
 
 @router.patch(
@@ -39,9 +39,9 @@ async def create_connection(
 async def update_connection(
     connection_id: str,
     body: RedisConnectionUpdate,
-    uid: str = Depends(get_current_uid),
+    ctx: WorkspaceContext = Depends(get_workspace_ctx),
 ) -> RedisConnectionOut:
-    return await svc.update_connection(uid, connection_id, body)
+    return await svc.update_connection(ctx, connection_id, body)
 
 
 @router.delete(
@@ -50,9 +50,9 @@ async def update_connection(
     summary="Delete a saved Redis connection",
 )
 async def delete_connection(
-    connection_id: str, uid: str = Depends(get_current_uid)
+    connection_id: str, ctx: WorkspaceContext = Depends(get_workspace_ctx)
 ) -> None:
-    await svc.delete_connection(uid, connection_id)
+    await svc.delete_connection(ctx, connection_id)
 
 
 @router.post(
@@ -61,6 +61,6 @@ async def delete_connection(
     summary="Update lastUsedAt for a connection",
 )
 async def touch_connection(
-    connection_id: str, uid: str = Depends(get_current_uid)
+    connection_id: str, ctx: WorkspaceContext = Depends(get_workspace_ctx)
 ) -> None:
-    await svc.touch_connection(uid, connection_id)
+    await svc.touch_connection(ctx, connection_id)
