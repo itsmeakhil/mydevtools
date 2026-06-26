@@ -8,6 +8,11 @@ from app.api.routes.sql_client.schema import (
     SqlConnectionOut,
     SqlConnectionUpdate,
 )
+from app.api.routes.workspaces.middleware import (
+    WorkspaceContext,
+    apply_legacy_or_filter,
+    apply_workspace_filter,
+)
 from app.utils.collection_name import SQL_CONNECTIONS
 from app.utils.utils import create_timestamp, new_id
 from app.database import db_manager
@@ -28,21 +33,25 @@ def _doc_to_out(doc: dict[str, Any], *, connection_id: str) -> SqlConnectionOut:
     )
 
 
-async def list_connections(uid: str) -> list[SqlConnectionOut]:
+async def list_connections(ctx: WorkspaceContext) -> list[SqlConnectionOut]:
+    flt = apply_legacy_or_filter(ctx, {"encryptedData": {"$exists": True}, "iv": {"$exists": True}}, user_field="created_by")
     docs = await db_manager.find(
         SQL_CONNECTIONS,
-        {"created_by": uid, "encryptedData": {"$exists": True}, "iv": {"$exists": True}},
+        flt,
         sort=[("lastUsedAt", -1), ("createdAt", -1)],
     )
     return [_doc_to_out(doc, connection_id=str(doc.get("_id", ""))) for doc in docs]
 
 
-async def create_connection(uid: str, body: SqlConnectionCreate) -> SqlConnectionOut:
+async def create_connection(ctx: WorkspaceContext, body: SqlConnectionCreate) -> SqlConnectionOut:
     ts = create_timestamp()
     _id = new_id()
     doc: dict[str, Any] = {
         "_id": _id,
-        "created_by": uid,
+        "created_by": ctx.uid,
+        "org_id": ctx.org_id,
+        "workspace_id": ctx.workspace_id,
+        "owner_uid": ctx.uid,
         "encryptedData": body.encryptedData,
         "iv": body.iv,
         "name": body.name or "My Connection",
@@ -59,8 +68,9 @@ async def create_connection(uid: str, body: SqlConnectionCreate) -> SqlConnectio
     return _doc_to_out(doc, connection_id=_id)
 
 
-async def update_connection(uid: str, connection_id: str, body: SqlConnectionUpdate) -> SqlConnectionOut:
-    existing = await db_manager.find_one(SQL_CONNECTIONS, {"_id": connection_id, "created_by": uid})
+async def update_connection(ctx: WorkspaceContext, connection_id: str, body: SqlConnectionUpdate) -> SqlConnectionOut:
+    flt = apply_workspace_filter(ctx, {"_id": connection_id, "created_by": ctx.uid})
+    existing = await db_manager.find_one(SQL_CONNECTIONS, flt)
     if not existing:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
 
@@ -76,27 +86,29 @@ async def update_connection(uid: str, connection_id: str, body: SqlConnectionUpd
         patch["type"] = body.type
 
     try:
-        await db_manager.update_one(SQL_CONNECTIONS, {"_id": connection_id, "created_by": uid}, {"$set": patch})
+        await db_manager.update_one(SQL_CONNECTIONS, flt, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update connection."
         ) from exc
 
-    updated = await db_manager.find_one(SQL_CONNECTIONS, {"_id": connection_id, "created_by": uid})
+    updated = await db_manager.find_one(SQL_CONNECTIONS, flt)
     if not updated:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
     return _doc_to_out(updated, connection_id=connection_id)
 
 
-async def delete_connection(uid: str, connection_id: str) -> None:
-    res = await db_manager.delete_one(SQL_CONNECTIONS, {"_id": connection_id, "created_by": uid})
+async def delete_connection(ctx: WorkspaceContext, connection_id: str) -> None:
+    flt = apply_workspace_filter(ctx, {"_id": connection_id, "created_by": ctx.uid})
+    res = await db_manager.delete_one(SQL_CONNECTIONS, flt)
     if res.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
 
 
-async def touch_connection(uid: str, connection_id: str) -> None:
+async def touch_connection(ctx: WorkspaceContext, connection_id: str) -> None:
+    flt = apply_workspace_filter(ctx, {"_id": connection_id, "created_by": ctx.uid})
     await db_manager.update_one(
         SQL_CONNECTIONS,
-        {"_id": connection_id, "created_by": uid},
+        flt,
         {"$set": {"lastUsedAt": create_timestamp()}},
     )
