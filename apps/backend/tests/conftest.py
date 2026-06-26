@@ -131,7 +131,7 @@ async def seed_legacy_user_data():
         NOTES,
         {
             "_id": "note-1",
-            "uid": "u1",
+            "created_by": "u1",
             "title": "Test Note 1",
             "content": "Some content",
         },
@@ -140,7 +140,7 @@ async def seed_legacy_user_data():
         NOTES,
         {
             "_id": "note-2",
-            "uid": "u1",
+            "created_by": "u1",
             "title": "Test Note 2",
             "content": "More content",
         },

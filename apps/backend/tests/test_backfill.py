@@ -10,7 +10,7 @@ from app.utils.collection_name import PASSWORD_ENTRIES, NOTES, USER_PREFERENCES
 async def test_backfill_stamps_legacy_rows(clean_db, seed_legacy_user_data):
     org_id = await ensure_system_org()
     # seed_legacy_user_data inserts a few rows in PASSWORD_ENTRIES + NOTES
-    # for uid="u1" with no workspace_id
+    # for created_by="u1" with no workspace_id
     ws_id = "ws-1"
 
     await run_user_backfill("u1", ws_id, org_id)
@@ -19,7 +19,7 @@ async def test_backfill_stamps_legacy_rows(clean_db, seed_legacy_user_data):
         assert entry["org_id"] == org_id
         assert entry["workspace_id"] == ws_id
 
-    for note in await db_manager.find(NOTES, {"uid": "u1"}, limit=100):
+    for note in await db_manager.find(NOTES, {"created_by": "u1"}, limit=100):
         assert note["org_id"] == org_id
         assert note["workspace_id"] == ws_id
 
