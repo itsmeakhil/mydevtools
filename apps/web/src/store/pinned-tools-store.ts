@@ -90,9 +90,17 @@ export function usePinnedToolsHydrated(): boolean {
  * and the pinned-tools store (for pinnedByWorkspace changes) so the
  * consuming component re-renders on either change.
  */
+// Stable empty-array reference returned when no active workspace or no pins
+// for that workspace. Returning a fresh `[]` from a zustand selector breaks
+// useSyncExternalStore's snapshot-cache invariant → infinite render loop.
+const EMPTY_PINS: string[] = []
+
 export function usePinnedToolsForActiveWorkspace(): string[] {
   const activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId)
   return usePinnedToolsStore(
-    (s) => (activeWorkspaceId ? s.pinnedByWorkspace[activeWorkspaceId] ?? [] : [])
+    (s) =>
+      (activeWorkspaceId
+        ? s.pinnedByWorkspace[activeWorkspaceId] ?? EMPTY_PINS
+        : EMPTY_PINS)
   )
 }
