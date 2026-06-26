@@ -240,3 +240,25 @@ async def get_migrated_at(uid: str) -> int | None:
     if not doc:
         return None
     return doc.get("migrated_at")
+
+
+async def get_migration_progress(uid: str) -> dict | None:
+    doc = await db_manager.find_one(USERS, {"_id": uid})
+    return (doc or {}).get("migration_progress")
+
+
+async def set_migration_progress(uid: str, progress: dict) -> None:
+    await db_manager.update_one(
+        USERS, {"_id": uid}, {"$set": {"migration_progress": progress}}
+    )
+
+
+async def mark_migrated(uid: str) -> None:
+    await db_manager.update_one(
+        USERS,
+        {"_id": uid},
+        {"$set": {
+            "migrated_at": create_timestamp(),
+            "migration_status": "done",
+        }},
+    )

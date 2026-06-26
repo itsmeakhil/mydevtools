@@ -24,6 +24,9 @@ from app.utils.collection_name import (
     WORKSPACES,
     WORKSPACE_MEMBERSHIPS,
     USERS,
+    PASSWORD_ENTRIES,
+    NOTES,
+    USER_PREFERENCES,
 )
 
 pytest_plugins = ("pytest_asyncio",)
@@ -32,7 +35,7 @@ pytest_plugins = ("pytest_asyncio",)
 @pytest.fixture
 async def clean_db():
     """Drop workspace-related collections and USERS before and after test."""
-    collections = [ORGANIZATIONS, ORG_MEMBERSHIPS, WORKSPACES, WORKSPACE_MEMBERSHIPS, USERS]
+    collections = [ORGANIZATIONS, ORG_MEMBERSHIPS, WORKSPACES, WORKSPACE_MEMBERSHIPS, USERS, PASSWORD_ENTRIES, NOTES, USER_PREFERENCES]
 
     # Clean before test
     for coll in collections:
@@ -81,3 +84,59 @@ def count_inserts():
     yield get_count
 
     db_manager.insert_one = original_insert_one
+
+
+@pytest.fixture
+async def seed_legacy_user_data():
+    """Insert legacy test data (PASSWORD_ENTRIES + NOTES without workspace_id)."""
+    # Create user document
+    await db_manager.insert_one(
+        USERS,
+        {
+            "_id": "u1",
+            "uid": "u1",
+            "email": "u1@example.com",
+        },
+    )
+
+    # Insert legacy password entries
+    await db_manager.insert_one(
+        PASSWORD_ENTRIES,
+        {
+            "_id": "pe-1",
+            "created_by": "u1",
+            "name": "Test Password 1",
+            "encrypted": "secret",
+        },
+    )
+    await db_manager.insert_one(
+        PASSWORD_ENTRIES,
+        {
+            "_id": "pe-2",
+            "created_by": "u1",
+            "name": "Test Password 2",
+            "encrypted": "secret2",
+        },
+    )
+
+    # Insert legacy notes
+    await db_manager.insert_one(
+        NOTES,
+        {
+            "_id": "note-1",
+            "uid": "u1",
+            "title": "Test Note 1",
+            "content": "Some content",
+        },
+    )
+    await db_manager.insert_one(
+        NOTES,
+        {
+            "_id": "note-2",
+            "uid": "u1",
+            "title": "Test Note 2",
+            "content": "More content",
+        },
+    )
+
+    yield

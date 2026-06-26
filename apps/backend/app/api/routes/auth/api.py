@@ -4,7 +4,7 @@ import re
 import time
 from typing import Annotated
 
-from fastapi import APIRouter, Cookie, Depends, Header, HTTPException, Request, Response, status
+from fastapi import APIRouter, BackgroundTasks, Cookie, Depends, Header, HTTPException, Request, Response, status
 
 from app.core.limiter import limiter
 from app.core import audit
@@ -51,7 +51,12 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.post("/session", response_model=UserProfileResponse, summary="Firebase login → JWT cookies")
 @limiter.limit("10/minute")
-async def create_session(request: Request, payload: SessionRequest, response: Response) -> UserProfileResponse:
+async def create_session(
+    request: Request,
+    payload: SessionRequest,
+    response: Response,
+    background_tasks: BackgroundTasks,
+) -> UserProfileResponse:
     decoded = await asyncio.to_thread(
         verify_id_token,
         payload.id_token,
@@ -69,7 +74,7 @@ async def create_session(request: Request, payload: SessionRequest, response: Re
     # Ensure user workspace setup (idempotent first-login hook)
     try:
         from app.api.routes.workspaces.services import ensure_user_workspace_setup
-        await ensure_user_workspace_setup(uid)
+        await ensure_user_workspace_setup(uid, background_tasks=background_tasks)
     except Exception as exc:
         logging.getLogger(__name__).warning("Workspace setup failed for %s: %s", uid, exc)
 

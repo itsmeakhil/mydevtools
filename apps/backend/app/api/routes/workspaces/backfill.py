@@ -1,0 +1,121 @@
+from dataclasses import dataclass
+from typing import Any
+
+from fastapi import BackgroundTasks
+
+from app.api.routes.auth import users_repo
+from app.database import db_manager
+from app.utils.collection_name import (
+    API_CLIENT_COLLECTIONS,
+    API_CLIENT_ENVIRONMENTS,
+    API_CLIENT_HISTORY,
+    API_CLIENT_WORKSPACES,
+    API_KEY_VAULT_ENTRIES,
+    BOOKMARKS,
+    BOOKMARK_FOLDERS,
+    CODE_SNIPPETS,
+    ENV_MANAGER_ENTRIES,
+    JSON_FORMATTER_DOCUMENTS,
+    NOSQL_CONNECTIONS,
+    NOSQL_QUERY_HISTORY,
+    NOTES,
+    PASSWORD_ENTRIES,
+    PASSWORD_VAULTS,
+    PROJECTS,
+    REDIS_CONNECTIONS,
+    S3_CONNECTIONS,
+    SQL_CONNECTIONS,
+    TASKS,
+    URL_LINKS,
+    USER_PREFERENCES,
+)
+
+
+@dataclass(frozen=True)
+class BackfillSpec:
+    collection: str
+    user_field: str
+    stamp_owner_uid: bool
+
+
+BACKFILL_COLLECTIONS: list[BackfillSpec] = [
+    BackfillSpec(PASSWORD_VAULTS, "created_by", True),
+    BackfillSpec(PASSWORD_ENTRIES, "created_by", True),
+    BackfillSpec(ENV_MANAGER_ENTRIES, "created_by", True),
+    BackfillSpec(API_KEY_VAULT_ENTRIES, "created_by", True),
+    BackfillSpec(NOTES, "uid", True),
+    BackfillSpec(TASKS, "uid", True),
+    BackfillSpec(PROJECTS, "uid", True),
+    BackfillSpec(BOOKMARKS, "uid", True),
+    BackfillSpec(BOOKMARK_FOLDERS, "uid", True),
+    BackfillSpec(CODE_SNIPPETS, "uid", True),
+    BackfillSpec(NOSQL_CONNECTIONS, "uid", True),
+    BackfillSpec(NOSQL_QUERY_HISTORY, "uid", True),
+    BackfillSpec(API_CLIENT_COLLECTIONS, "uid", True),
+    BackfillSpec(API_CLIENT_ENVIRONMENTS, "uid", True),
+    BackfillSpec(API_CLIENT_HISTORY, "uid", True),
+    BackfillSpec(API_CLIENT_WORKSPACES, "uid", True),
+    BackfillSpec(SQL_CONNECTIONS, "uid", True),
+    BackfillSpec(S3_CONNECTIONS, "uid", True),
+    BackfillSpec(REDIS_CONNECTIONS, "uid", True),
+    BackfillSpec(URL_LINKS, "uid", True),
+    BackfillSpec(JSON_FORMATTER_DOCUMENTS, "uid", True),
+]
+
+
+async def _stamp_collection(spec: BackfillSpec, uid: str, ws_id: str, org_id: str) -> int:
+    update: dict[str, Any] = {"org_id": org_id, "workspace_id": ws_id}
+    if spec.stamp_owner_uid:
+        update["owner_uid"] = uid
+    res = await db_manager.update_many(
+        spec.collection,
+        {spec.user_field: uid, "workspace_id": {"$exists": False}},
+        {"$set": update},
+    )
+    return getattr(res, "modified_count", 0)
+
+
+async def _rewrite_pinned_tools(uid: str, ws_id: str) -> None:
+    pref = await db_manager.find_one(USER_PREFERENCES, {"_id": uid})
+    if not pref:
+        return
+    legacy = pref.get("pinned_tools")
+    if legacy is None:
+        return
+    keyed = pref.get("pinned_tools_by_workspace") or {}
+    keyed[ws_id] = list(legacy)
+    await db_manager.update_one(
+        USER_PREFERENCES,
+        {"_id": uid},
+        {
+            "$set": {"pinned_tools_by_workspace": keyed},
+            "$unset": {"pinned_tools": ""},
+        },
+    )
+
+
+async def run_user_backfill(uid: str, personal_workspace_id: str, org_id: str) -> None:
+    # Skip if already migrated
+    migrated_at = await users_repo.get_migrated_at(uid)
+    if migrated_at:
+        return
+
+    progress = await users_repo.get_migration_progress(uid) or {}
+    for spec in BACKFILL_COLLECTIONS:
+        if progress.get(spec.collection) == "done":
+            continue
+        await _stamp_collection(spec, uid, personal_workspace_id, org_id)
+        progress[spec.collection] = "done"
+        await users_repo.set_migration_progress(uid, progress)
+
+    await _rewrite_pinned_tools(uid, personal_workspace_id)
+    await users_repo.mark_migrated(uid)
+
+
+def schedule_backfill(
+    background_tasks: BackgroundTasks,
+    uid: str,
+    personal_workspace_id: str,
+    org_id: str,
+) -> None:
+    background_tasks.add_task(run_user_backfill, uid, personal_workspace_id, org_id)
