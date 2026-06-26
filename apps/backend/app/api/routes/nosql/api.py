@@ -13,7 +13,7 @@ async def list_connections(ctx: WorkspaceContext = Depends(get_workspace_ctx)) -
     return await nosql_svc.list_connections(ctx)
 
 
-@router.post("/connections", response_model=ConnectionOut, summary="Save (upsert) a connection")
+@router.post("/connections", response_model=ConnectionOut, summary="Save a connection")
 async def save_connection(body: ConnectionCreate, ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> ConnectionOut:
     return await nosql_svc.create_connection(ctx, body)
 
