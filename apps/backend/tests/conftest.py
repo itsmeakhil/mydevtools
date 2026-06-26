@@ -28,6 +28,8 @@ from app.utils.collection_name import (
     ORG_MEMBERSHIPS,
     PASSWORD_ENTRIES,
     PASSWORD_VAULTS,
+    PROJECTS,
+    TASKS,
     USER_PREFERENCES,
     USERS,
     WORKSPACES,
@@ -40,7 +42,7 @@ pytest_plugins = ("pytest_asyncio",)
 @pytest.fixture
 async def clean_db():
     """Drop workspace-related collections and USERS before and after test."""
-    collections = [ORGANIZATIONS, ORG_MEMBERSHIPS, WORKSPACES, WORKSPACE_MEMBERSHIPS, USERS, PASSWORD_ENTRIES, PASSWORD_VAULTS, NOTES, USER_PREFERENCES, BOOKMARKS, BOOKMARK_FOLDERS]
+    collections = [ORGANIZATIONS, ORG_MEMBERSHIPS, WORKSPACES, WORKSPACE_MEMBERSHIPS, USERS, PASSWORD_ENTRIES, PASSWORD_VAULTS, NOTES, USER_PREFERENCES, BOOKMARKS, BOOKMARK_FOLDERS, TASKS, PROJECTS]
 
     # Clean before test
     for coll in collections:

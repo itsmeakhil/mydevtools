@@ -19,7 +19,11 @@ from app.api.routes.tasks.schema import (
     TaskStatusUpdate,
     TaskUpdate,
 )
-from app.core.cache import bump_version, cached
+from app.api.routes.workspaces.middleware import (
+    WorkspaceContext,
+    apply_legacy_or_filter,
+    apply_workspace_filter,
+)
 from app.database import db_manager
 from app.utils.collection_name import PROJECTS, TASKS
 from app.utils.crud import safe_delete_one, safe_insert, safe_update_one
@@ -88,29 +92,21 @@ def _project_doc_to_out(doc: dict[str, Any]) -> ProjectOut:
     )
 
 
-def _task_filter(
-    uid: str,
-    status_filter: str | None = None,
-    project_filter: str | None = None,
-) -> dict[str, Any]:
-    q: dict[str, Any] = {"created_by": uid}
-    if status_filter and status_filter != "all":
-        q["status"] = status_filter
-    if project_filter and project_filter != "all":
-        q["projectId"] = project_filter
-    return q
-
-
-@cached(ns="tasks", ttl=60, scope="user")
+# ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid) key if hot
 async def list_tasks(
     *,
-    uid: str,
+    ctx: WorkspaceContext,
     status_filter: str = "all",
     project_filter: str = "all",
     page: int = 1,
     page_size: int = 10,
 ) -> TaskListResponse:
-    filt = _task_filter(uid, status_filter, project_filter)
+    base: dict[str, Any] = {}
+    if status_filter and status_filter != "all":
+        base["status"] = status_filter
+    if project_filter and project_filter != "all":
+        base["projectId"] = project_filter
+    filt = apply_legacy_or_filter(ctx, base, user_field="created_by")
     total = await db_manager.count_documents(TASKS, filt)
     total_pages = max(1, (total + page_size - 1) // page_size) if total else 1
     skip = max(0, (page - 1) * page_size)
@@ -124,10 +120,11 @@ async def list_tasks(
     )
 
 
-@cached(ns="tasks", ttl=60, scope="user")
-async def get_task_stats(*, uid: str) -> TaskStatsOut:
+# ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid) key if hot
+async def get_task_stats(*, ctx: WorkspaceContext) -> TaskStatsOut:
+    filt = apply_legacy_or_filter(ctx, {}, user_field="created_by")
     pipeline = [
-        {"$match": {"created_by": uid}},
+        {"$match": filt},
         {"$group": {"_id": "$status", "count": {"$sum": 1}}},
     ]
     rows = await db_manager.aggregate(TASKS, pipeline)
@@ -140,16 +137,21 @@ async def get_task_stats(*, uid: str) -> TaskStatsOut:
     )
 
 
-@cached(ns="tasks", ttl=60, scope="user")
+# ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid) key if hot
 async def export_tasks(
     *,
-    uid: str,
+    ctx: WorkspaceContext,
     status_filter: str = "all",
     project_filter: str = "all",
     skip: int = 0,
     limit: int = 2000,
 ) -> list[TaskOut]:
-    filt = _task_filter(uid, status_filter, project_filter)
+    base: dict[str, Any] = {}
+    if status_filter and status_filter != "all":
+        base["status"] = status_filter
+    if project_filter and project_filter != "all":
+        base["projectId"] = project_filter
+    filt = apply_legacy_or_filter(ctx, base, user_field="created_by")
     docs = await db_manager.find(
         TASKS,
         filt,
@@ -160,10 +162,13 @@ async def export_tasks(
     return [_task_doc_to_out(d) for d in docs]
 
 
-async def create_task(uid: str, body: TaskCreate) -> TaskOut:
+async def create_task(ctx: WorkspaceContext, body: TaskCreate) -> TaskOut:
     now = datetime.now(timezone.utc)
     doc: dict[str, Any] = {
-        "created_by": uid,
+        "created_by": ctx.uid,
+        "org_id": ctx.org_id,
+        "workspace_id": ctx.workspace_id,
+        "owner_uid": ctx.uid,
         "text": body.text,
         "status": "not-started",
         "statusOrder": 2,
@@ -171,18 +176,18 @@ async def create_task(uid: str, body: TaskCreate) -> TaskOut:
         "projectId": body.projectId,
     }
     await safe_insert(TASKS, doc, name="Task")
-    await bump_version(ns="tasks", uid=uid)
     return _task_doc_to_out(doc)
 
 
-async def _assert_task_owner(uid: str, oid: ObjectId) -> dict[str, Any]:
-    doc = await db_manager.find_one(TASKS, {"_id": oid, "created_by": uid})
+async def _assert_task_owner(ctx: WorkspaceContext, oid: ObjectId) -> dict[str, Any]:
+    filt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
+    doc = await db_manager.find_one(TASKS, filt)
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found.")
     return doc
 
 
-async def update_task(uid: str, task_id: str, body: TaskUpdate) -> TaskOut:
+async def update_task(ctx: WorkspaceContext, task_id: str, body: TaskUpdate) -> TaskOut:
     oid = _parse_object_id(task_id, "task id")
 
     patch = body.model_dump(exclude_unset=True)
@@ -193,19 +198,18 @@ async def update_task(uid: str, task_id: str, body: TaskUpdate) -> TaskOut:
         patch["completedAt"] = datetime.now(timezone.utc)
 
     if not patch:
-        doc = await db_manager.find_one(TASKS, {"_id": oid, "created_by": uid})
+        filt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
+        doc = await db_manager.find_one(TASKS, filt)
         if not doc:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found.")
         return _task_doc_to_out(doc)
 
-    doc = await safe_update_one(
-        TASKS, {"_id": oid, "created_by": uid}, patch, name="Task"
-    )
-    await bump_version(ns="tasks", uid=uid)
+    filt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
+    doc = await safe_update_one(TASKS, filt, patch, name="Task")
     return _task_doc_to_out(doc)
 
 
-async def update_task_status(uid: str, task_id: str, body: TaskStatusUpdate) -> TaskOut:
+async def update_task_status(ctx: WorkspaceContext, task_id: str, body: TaskStatusUpdate) -> TaskOut:
     oid = _parse_object_id(task_id, "task id")
     new_status = body.status
     patch: dict[str, Any] = {
@@ -214,27 +218,25 @@ async def update_task_status(uid: str, task_id: str, body: TaskStatusUpdate) -> 
     }
     if new_status == "completed":
         patch["completedAt"] = datetime.now(timezone.utc)
-    doc = await safe_update_one(
-        TASKS, {"_id": oid, "created_by": uid}, patch, name="Task"
-    )
-    await bump_version(ns="tasks", uid=uid)
+    filt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
+    doc = await safe_update_one(TASKS, filt, patch, name="Task")
     return _task_doc_to_out(doc)
 
 
-@cached(ns="tasks", ttl=60, scope="user")
-async def get_task(*, uid: str, task_id: str) -> TaskOut:
+# ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid) key if hot
+async def get_task(*, ctx: WorkspaceContext, task_id: str) -> TaskOut:
     oid = _parse_object_id(task_id, "task id")
-    doc = await _assert_task_owner(uid, oid)
+    doc = await _assert_task_owner(ctx, oid)
     return _task_doc_to_out(doc)
 
 
-async def delete_task(uid: str, task_id: str) -> None:
+async def delete_task(ctx: WorkspaceContext, task_id: str) -> None:
     oid = _parse_object_id(task_id, "task id")
-    await safe_delete_one(TASKS, {"_id": oid, "created_by": uid}, name="Task")
-    await bump_version(ns="tasks", uid=uid)
+    filt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
+    await safe_delete_one(TASKS, filt, name="Task")
 
 
-async def import_tasks(uid: str, body: TaskImportRequest) -> dict[str, int]:
+async def import_tasks(ctx: WorkspaceContext, body: TaskImportRequest) -> dict[str, int]:
     now = datetime.now(timezone.utc)
     docs: list[dict[str, Any]] = []
     for raw in body.tasks:
@@ -242,7 +244,10 @@ async def import_tasks(uid: str, body: TaskImportRequest) -> dict[str, int]:
         row.pop("id", None)
         row.pop("createdAt", None)
         row.pop("completedAt", None)
-        row["created_by"] = uid
+        row["created_by"] = ctx.uid
+        row["org_id"] = ctx.org_id
+        row["workspace_id"] = ctx.workspace_id
+        row["owner_uid"] = ctx.uid
         row["createdAt"] = now
         if row.get("status") not in ("not-started", "ongoing", "completed"):
             row["status"] = "not-started"
@@ -259,45 +264,46 @@ async def import_tasks(uid: str, body: TaskImportRequest) -> dict[str, int]:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to import tasks."
         ) from exc
-    await bump_version(ns="tasks", uid=uid)
     return {"inserted": len(result.inserted_ids)}
 
 
-@cached(ns="tasks", ttl=60, scope="user")
-async def list_projects(*, uid: str) -> list[ProjectOut]:
-    docs = await db_manager.find(PROJECTS, {"created_by": uid}, sort=[("createdAt", 1)])
+# ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid) key if hot
+async def list_projects(*, ctx: WorkspaceContext) -> list[ProjectOut]:
+    filt = apply_legacy_or_filter(ctx, {}, user_field="created_by")
+    docs = await db_manager.find(PROJECTS, filt, sort=[("createdAt", 1)])
     return [_project_doc_to_out(d) for d in docs]
 
 
-async def create_project(uid: str, body: ProjectCreate) -> ProjectOut:
+async def create_project(ctx: WorkspaceContext, body: ProjectCreate) -> ProjectOut:
     now = datetime.now(timezone.utc)
     doc = {
-        "created_by": uid,
+        "created_by": ctx.uid,
+        "org_id": ctx.org_id,
+        "workspace_id": ctx.workspace_id,
+        "owner_uid": ctx.uid,
         "name": body.name,
         "color": body.color,
         "createdAt": now,
     }
     await safe_insert(PROJECTS, doc, name="Project")
-    await bump_version(ns="tasks", uid=uid)
     return _project_doc_to_out(doc)
 
 
-async def update_project(uid: str, project_id: str, body: ProjectUpdate) -> ProjectOut:
+async def update_project(ctx: WorkspaceContext, project_id: str, body: ProjectUpdate) -> ProjectOut:
     oid = _parse_object_id(project_id, "project id")
     patch = body.model_dump(exclude_unset=True)
     if not patch:
-        doc = await db_manager.find_one(PROJECTS, {"_id": oid, "created_by": uid})
+        filt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
+        doc = await db_manager.find_one(PROJECTS, filt)
         if not doc:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found.")
         return _project_doc_to_out(doc)
-    doc = await safe_update_one(
-        PROJECTS, {"_id": oid, "created_by": uid}, patch, name="Project"
-    )
-    await bump_version(ns="tasks", uid=uid)
+    filt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
+    doc = await safe_update_one(PROJECTS, filt, patch, name="Project")
     return _project_doc_to_out(doc)
 
 
-async def delete_project(uid: str, project_id: str) -> None:
+async def delete_project(ctx: WorkspaceContext, project_id: str) -> None:
     oid = _parse_object_id(project_id, "project id")
-    await safe_delete_one(PROJECTS, {"_id": oid, "created_by": uid}, name="Project")
-    await bump_version(ns="tasks", uid=uid)
+    filt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
+    await safe_delete_one(PROJECTS, filt, name="Project")
