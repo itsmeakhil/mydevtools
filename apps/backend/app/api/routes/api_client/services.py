@@ -1,3 +1,4 @@
+import secrets
 import time
 from typing import Any
 
@@ -16,6 +17,11 @@ from app.api.routes.api_client.schema import (
     ApiClientEnvironmentUpdate,
     ApiClientHistoryCreate,
     ApiClientHistoryOut,
+    ApiClientPublicMockOut,
+    ApiClientPublicMockPublish,
+    ApiClientWorkspaceCreate,
+    ApiClientWorkspaceOut,
+    ApiClientWorkspaceUpdate,
 )
 from app.core.cache import bump_version, cached
 from app.database import db_manager
@@ -23,6 +29,8 @@ from app.utils.collection_name import (
     API_CLIENT_COLLECTIONS,
     API_CLIENT_ENVIRONMENTS,
     API_CLIENT_HISTORY,
+    API_CLIENT_PUBLIC_MOCKS,
+    API_CLIENT_WORKSPACES,
 )
 from app.utils.crud import safe_delete_one, safe_insert, safe_update_one
 
@@ -45,6 +53,7 @@ def _collection_to_out(doc: dict[str, Any]) -> ApiClientCollectionOut:
         id=str(oid) if oid is not None else "",
         name=doc.get("name", ""),
         items=list(doc.get("items") or []),
+        workspace=doc.get("workspace"),
     )
 
 
@@ -211,3 +220,115 @@ async def clear_history(uid: str) -> None:
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to clear history."
         ) from exc
     await bump_version(ns="api_client", uid=uid)
+
+
+# ── Public mocks ─────────────────────────────────────────────────────────────
+
+
+def _mock_doc_to_out(doc: dict[str, Any]) -> ApiClientPublicMockOut:
+    return ApiClientPublicMockOut(
+        mock_id=str(doc.get("mock_id", "")),
+        name=str(doc.get("name", "")),
+        items=list(doc.get("items") or []),
+        collection_id=doc.get("collection_id"),
+        created_at=int(doc.get("created_at", 0)),
+    )
+
+
+def _generate_mock_id() -> str:
+    """24 chars of url-safe base64 → ~144 bits of entropy. Acts as the public token."""
+
+    return secrets.token_urlsafe(18)
+
+
+async def list_public_mocks(*, uid: str) -> list[ApiClientPublicMockOut]:
+    docs = await db_manager.find(
+        API_CLIENT_PUBLIC_MOCKS,
+        {"created_by": uid},
+        sort=[("created_at", -1)],
+    )
+    return [_mock_doc_to_out(d) for d in docs]
+
+
+async def publish_public_mock(uid: str, body: ApiClientPublicMockPublish) -> ApiClientPublicMockOut:
+    doc: dict[str, Any] = {
+        "created_by": uid,
+        "collection_id": body.collection_id,
+        "mock_id": _generate_mock_id(),
+        "name": body.name,
+        "items": body.items,
+        "created_at": int(time.time() * 1000),
+    }
+    await safe_insert(API_CLIENT_PUBLIC_MOCKS, doc, name="Public mock")
+    return _mock_doc_to_out(doc)
+
+
+async def delete_public_mock(uid: str, mock_id: str) -> None:
+    await safe_delete_one(
+        API_CLIENT_PUBLIC_MOCKS, {"mock_id": mock_id, "created_by": uid}, name="Public mock"
+    )
+
+
+async def get_public_mock_anonymous(mock_id: str) -> ApiClientPublicMockOut | None:
+    """Read a published mock by id — NO auth, by design. The id is the credential."""
+
+    doc = await db_manager.find_one(API_CLIENT_PUBLIC_MOCKS, {"mock_id": mock_id})
+    return _mock_doc_to_out(doc) if doc else None
+
+
+# ── Workspaces ───────────────────────────────────────────────────────────────
+
+
+def _ws_doc_to_out(doc: dict[str, Any]) -> ApiClientWorkspaceOut:
+    oid = doc.get("_id")
+    return ApiClientWorkspaceOut(
+        id=str(oid) if oid is not None else "",
+        name=str(doc.get("name", "")),
+        created_at=int(doc.get("created_at", 0)),
+    )
+
+
+async def list_workspaces(*, uid: str) -> list[ApiClientWorkspaceOut]:
+    docs = await db_manager.find(
+        API_CLIENT_WORKSPACES,
+        {"created_by": uid},
+        sort=[("name", 1), ("_id", 1)],
+    )
+    return [_ws_doc_to_out(d) for d in docs]
+
+
+async def create_workspace(uid: str, body: ApiClientWorkspaceCreate) -> ApiClientWorkspaceOut:
+    doc: dict[str, Any] = {
+        "created_by": uid,
+        "name": body.name,
+        "created_at": int(time.time() * 1000),
+    }
+    await safe_insert(API_CLIENT_WORKSPACES, doc, name="Workspace")
+    return _ws_doc_to_out(doc)
+
+
+async def patch_workspace(uid: str, workspace_id: str, body: ApiClientWorkspaceUpdate) -> ApiClientWorkspaceOut:
+    oid = _parse_oid(workspace_id, kind="workspace")
+    patch = body.model_dump(exclude_unset=True)
+    if not patch:
+        doc = await db_manager.find_one(API_CLIENT_WORKSPACES, {"_id": oid, "created_by": uid})
+        if not doc:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Workspace not found.")
+        return _ws_doc_to_out(doc)
+    doc = await safe_update_one(
+        API_CLIENT_WORKSPACES, {"_id": oid, "created_by": uid}, patch, name="Workspace"
+    )
+    return _ws_doc_to_out(doc)
+
+
+async def delete_workspace(uid: str, workspace_id: str) -> None:
+    oid = _parse_oid(workspace_id, kind="workspace")
+    # Clear workspace pointer from any collections that reference it.
+    await db_manager.update_many(
+        API_CLIENT_COLLECTIONS,
+        {"created_by": uid, "workspace": workspace_id},
+        {"$set": {"workspace": None}},
+    )
+    await safe_delete_one(
+        API_CLIENT_WORKSPACES, {"_id": oid, "created_by": uid}, name="Workspace"
+    )

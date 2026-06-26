@@ -93,6 +93,12 @@ export const sidebarData: SidebarData = {
           icon: IconChecklist,
           description: 'Manage your to-do lists efficiently.',
         },
+        {
+          title: 'API Keys',
+          url: '/app/api-keys',
+          icon: IconKey,
+          description: 'Encrypted API keys and secrets per environment (dev / staging / prod).',
+        },
       ],
     },
     {

@@ -22,6 +22,7 @@ interface CollectionItemProps {
     onAddFolder: (parentId: string) => void
     onLoadRequest: (request: CollectionRequest) => void
     onRenameFolder?: (folderId: string, newName: string) => void
+    onEditFolderDefaults?: (folder: CollectionFolder) => void
 }
 
 function arePropsEqual(prev: CollectionItemProps, next: CollectionItemProps) {
@@ -46,6 +47,7 @@ function CollectionItemImpl({
     onAddFolder,
     onLoadRequest,
     onRenameFolder,
+    onEditFolderDefaults,
 }: CollectionItemProps) {
     const t = useTranslations("ApiClient.collectionItem")
     const tRoot = useTranslations("ApiClient")
@@ -162,6 +164,15 @@ function CollectionItemImpl({
                                         Rename
                                     </DropdownMenuItem>
                                 )}
+                                {onEditFolderDefaults && (
+                                    <DropdownMenuItem onClick={(e) => {
+                                        e.stopPropagation()
+                                        onEditFolderDefaults(item as CollectionFolder)
+                                    }}>
+                                        <Pencil className="h-4 w-4 mr-2" />
+                                        Folder defaults
+                                    </DropdownMenuItem>
+                                )}
                             </>
                         )}
                         <DropdownMenuItem
@@ -195,6 +206,7 @@ function CollectionItemImpl({
                                 onAddFolder={onAddFolder}
                                 onLoadRequest={onLoadRequest}
                                 onRenameFolder={onRenameFolder}
+                                onEditFolderDefaults={onEditFolderDefaults}
                             />
                         ))}
                         {(item as CollectionFolder).items.length === 0 && (

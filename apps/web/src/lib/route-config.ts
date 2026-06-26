@@ -63,6 +63,7 @@ export const routeConfig: Record<string, RouteConfig> = {
   '/app/notes': { title: 'Notes', icon: FileText },
   '/app/password-manager': { title: 'Password Manager', icon: Lock },
   '/app/environment-manager': { title: 'Environment Manager', icon: FileCode2, namespace: 'EnvironmentManager' },
+  '/app/api-keys': { title: 'API Keys', icon: Key },
   '/app/bookmarks': { title: 'Bookmarks', icon: Bookmark },
   '/app/base64': { title: 'Base64', icon: Binary, namespace: 'Base64' },
   '/app/number-base-converter': { title: 'Number Base Converter', icon: ArrowRightLeft, namespace: 'NumberBaseConverter' },

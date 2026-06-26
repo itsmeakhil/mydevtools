@@ -7,6 +7,7 @@ import { usePasswordStore, type PasswordEntry } from "@/store/password-store"
 import { useMasterKeyStore } from "@/store/master-key-store"
 import { useVaultGuard } from "@/hooks/use-vault-guard"
 import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder"
+import { VaultRestoringSkeleton } from "@/components/vault-restoring-skeleton"
 import useAuth from "@/utils/useAuth"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import { useTranslations } from "next-intl"
@@ -22,7 +23,7 @@ export default function PasswordManagerPage() {
     const t = useTranslations("PasswordManager.page")
     const { user, loading } = useAuth(true)
     const { encryptionKey } = useMasterKeyStore()
-    const { isUnlocked } = useVaultGuard()
+    const { isUnlocked, isRestoring } = useVaultGuard()
     const { setPasswords, setLoading, clearPasswords } = usePasswordStore()
     const isMobile = useIsMobile()
     const loadedRef = useRef(false)
@@ -73,6 +74,7 @@ export default function PasswordManagerPage() {
         }
     }
 
+    if (isRestoring) return <VaultRestoringSkeleton />
     if (!isUnlocked) return <VaultLockedPlaceholder appName="Password Manager" />
 
     if (loading) {

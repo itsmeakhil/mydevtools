@@ -1,47 +1,61 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ClientLayout } from '../../components/sidebar/client-layout';
 import { RequireAuth } from '@/components/require-auth';
 import { MasterPasswordGate } from '@/components/master-password-gate';
 import { useMasterKeyStore } from '@/store/master-key-store';
-import { loadMasterKey } from '@/lib/key-storage';
+import { loadMasterKey, clearMasterKey } from '@/lib/key-storage';
 import { getMasterVaultOrNull } from '@/lib/global-vault-api';
 import { verifyKey } from '@/lib/encryption';
+import { restoreVault } from '@/lib/restore-vault';
 import useAuth from '@/utils/useAuth';
 
-// Silently restores the encryption key from IndexedDB on login so critical
-// apps that are visited after a page refresh don't need to re-enter the password.
+// Single restoration path. Runs once per signed-in user mount. Mutates the
+// store with the final state — modal and pages read from store only.
 function VaultKeyRestorer() {
   const { user } = useAuth(false);
-  const { isUnlocked, setKey, setVaultStatus } = useMasterKeyStore();
+  const { vaultStatus, setKey, setVaultStatus, setVault, setRestoreError } =
+    useMasterKeyStore();
+  const ranRef = useRef(false);
 
   useEffect(() => {
-    if (!user || isUnlocked) return;
+    if (vaultStatus !== 'restoring') {
+      ranRef.current = false;
+      return;
+    }
+    if (!user || ranRef.current) return;
+    ranRef.current = true;
 
-    async function tryRestoreKey() {
-      try {
-        const savedKey = await loadMasterKey();
-        if (!savedKey) return;
+    (async () => {
+      const result = await restoreVault({
+        loadMasterKey,
+        getMasterVaultOrNull,
+        verifyKey,
+        clearMasterKey,
+      });
 
-        const vaultData = await getMasterVaultOrNull();
-        if (!vaultData) {
+      switch (result.status) {
+        case 'not-configured':
+          setVault(null);
           setVaultStatus('not-configured');
           return;
-        }
-
-        const valid = await verifyKey(savedKey, vaultData.verifier.encrypted, vaultData.verifier.iv);
-        if (valid) {
-          setKey(savedKey);
-        }
-      } catch {
-        // Silent — modal will handle errors when user navigates to a critical app
+        case 'unlocked':
+          setVault(result.vault);
+          setKey(result.key);
+          return;
+        case 'locked':
+          setVault(result.vault);
+          setVaultStatus('locked');
+          return;
+        case 'error':
+          setRestoreError(result.message);
+          setVaultStatus('locked');
+          return;
       }
-    }
-
-    tryRestoreKey();
+    })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [user, vaultStatus]);
 
   return null;
 }
@@ -49,9 +63,7 @@ function VaultKeyRestorer() {
 export function AppContent({ children }: { children: React.ReactNode }) {
   return (
     <RequireAuth>
-      {/* Modal renders when a critical app calls openVaultGate() */}
       <MasterPasswordGate />
-      {/* Silent key restorer — no UI, no blocking */}
       <VaultKeyRestorer />
       <ClientLayout>{children}</ClientLayout>
     </RequireAuth>

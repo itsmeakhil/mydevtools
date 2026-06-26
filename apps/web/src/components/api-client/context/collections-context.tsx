@@ -19,7 +19,9 @@ type CollectionsActions = {
     createCollection: (name: string) => Promise<void>
     renameCollection: (collectionId: string, name: string) => Promise<void>
     renameFolder: (folderId: string, name: string) => Promise<void>
+    patchFolder: (folderId: string, patch: Partial<import("../types").CollectionFolder>) => Promise<void>
     deleteMultipleCollections: (ids: string[]) => Promise<void>
+    importCollection: (incoming: Collection) => Promise<Collection | null>
 }
 
 // ── Contexts ───────────────────────────────────────────────────────────────
@@ -40,7 +42,9 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
         createCollection,
         renameCollection,
         renameFolder,
+        patchFolder,
         deleteMultipleCollections,
+        importCollection,
     } = useCollections()
 
     const state = React.useMemo<CollectionsState>(
@@ -62,10 +66,12 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
             createCollection,
             renameCollection,
             renameFolder,
+            patchFolder,
             deleteMultipleCollections,
+            importCollection,
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, deleteMultipleCollections]
+        [addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, patchFolder, deleteMultipleCollections, importCollection]
     )
 
     return (

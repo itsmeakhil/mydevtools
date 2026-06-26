@@ -15,8 +15,10 @@ import { Textarea } from "@/components/ui/textarea"
 import { Import } from "lucide-react"
 import { useTranslations } from "next-intl"
 
+export type ImportCurlTarget = "new-tab" | "replace-current"
+
 interface ImportCurlDialogProps {
-    onImport: (curl: string) => void
+    onImport: (curl: string, target: ImportCurlTarget) => void
     open?: boolean
     onOpenChange?: (open: boolean) => void
 }
@@ -28,9 +30,9 @@ export function ImportCurlDialog({ onImport, open: openProp, onOpenChange }: Imp
     const setOpen = onOpenChange ?? setOpenInternal
     const [curl, setCurl] = React.useState("")
 
-    const handleImport = () => {
+    const handleImport = (target: ImportCurlTarget) => {
         if (curl.trim()) {
-            onImport(curl)
+            onImport(curl, target)
             setOpen(false)
             setCurl("")
         }
@@ -63,8 +65,13 @@ export function ImportCurlDialog({ onImport, open: openProp, onOpenChange }: Imp
                         onChange={(e) => setCurl(e.target.value)}
                     />
                 </div>
-                <DialogFooter>
-                    <Button onClick={handleImport}>{t("import")}</Button>
+                <DialogFooter className="flex-col-reverse gap-2 sm:flex-row">
+                    <Button variant="outline" onClick={() => handleImport("replace-current")} disabled={!curl.trim()}>
+                        Replace current tab
+                    </Button>
+                    <Button onClick={() => handleImport("new-tab")} disabled={!curl.trim()}>
+                        {t("import")}
+                    </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

@@ -1,0 +1,25 @@
+{
+  "name": "@mydevtools/api-runner",
+  "version": "0.1.0",
+  "description": "Headless runner for mydevtools API client collections — CI/CD parity with the web UI runner.",
+  "type": "module",
+  "bin": {
+    "mydevtools-api": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --experimental-vm-modules --test \"dist/**/*.test.js\"",
+    "start": "node ./dist/index.js",
+    "prepublishOnly": "pnpm build"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "@types/node": "^20.11.0"
+  }
+}

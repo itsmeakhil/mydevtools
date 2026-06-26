@@ -45,16 +45,20 @@ export function LoginForm() {
   const handlePasskey = async () => {
     setLoadingProvider("passkey");
     setError("");
+    const NO_PASSKEY_MSG =
+      "No passkey found for this site. Sign in with Google or GitHub first, then add a passkey from Settings → Security.";
     try {
       await signInWithPasskey();
       router.push("/dashboard");
     } catch (e: any) {
       const msg = e instanceof Error ? e.message : "Passkey sign-in failed.";
-      if (e?.name === "NotAllowedError" || /cancel/i.test(msg)) {
-        setError("");
-      } else {
-        setError(msg);
-      }
+      // Browser-side: NotAllowedError fires for both "user cancelled" and "no
+      // credentials available". Treat both as the same guidance — harmless if
+      // the user actually cancelled.
+      const noCreds =
+        e?.name === "NotAllowedError" ||
+        /no .*(credential|passkey)|not .*registered|unknown passkey/i.test(msg);
+      setError(noCreds ? NO_PASSKEY_MSG : msg);
     } finally {
       setLoadingProvider("");
     }

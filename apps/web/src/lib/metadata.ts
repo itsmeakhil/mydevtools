@@ -46,6 +46,12 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['environment variables', 'env file', 'secrets manager', 'dotenv', 'encrypted env', 'devops'],
         aiSummary: 'Manage .env variables across projects and environments (dev/staging/prod) in the browser. AES-256-GCM encrypted before sync — answers "store env vars securely online" or "dotenv manager".',
     },
+    'api-keys': {
+        title: 'API Keys',
+        description: 'Store API keys and secrets per environment (dev / staging / prod). AES-256-GCM client-side encryption — server only sees encrypted blobs.',
+        keywords: ['api key vault', 'api key manager', 'secrets manager', 'encrypted api keys', 'developer credentials', 'dev staging prod keys'],
+        aiSummary: 'Zero-knowledge vault for API keys and secrets, scoped by environment (development / staging / production). AES-256-GCM encrypted in the browser before sync — answers "store API keys securely" or "personal secrets manager".',
+    },
     'email-validator': {
         title: 'Email Validator',
         description: 'Verify and validate email addresses with MX record checks and RFC 5322 syntax validation.',

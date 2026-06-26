@@ -1,11 +1,17 @@
 "use client"
 
 import * as React from "react"
-import { X, Plus, Copy } from "lucide-react"
+import { X, Plus, Copy, Plug, Boxes } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { ApiRequestState } from "./types"
 import { getApiClientRequestDisplayName } from "./display-name"
 import { useTranslations } from "next-intl"
@@ -15,7 +21,7 @@ interface TabBarProps {
     activeTabId: string
     onTabChange: (id: string) => void
     onTabClose: (id: string) => void
-    onTabAdd: () => void
+    onTabAdd: (kind?: "rest" | "websocket" | "grpc") => void
     onTabRename?: (id: string, name: string) => void
     onTabReorder?: (reordered: ApiRequestState[]) => void
     onTabDuplicate?: (id: string) => void
@@ -169,9 +175,9 @@ export function TabBar({
                         >
                             <span className={cn(
                                 "text-[10px] font-black uppercase w-8 flex-shrink-0 tracking-tighter",
-                                getMethodColor(tab.method)
+                                tab.kind === "websocket" ? "text-purple-500" : tab.kind === "grpc" ? "text-cyan-500" : getMethodColor(tab.method),
                             )}>
-                                {tab.method}
+                                {tab.kind === "websocket" ? "WS" : tab.kind === "grpc" ? "RPC" : tab.method}
                             </span>
 
                             {editingTabId === tab.id ? (
@@ -232,16 +238,33 @@ export function TabBar({
                 <ScrollBar orientation="horizontal" className="h-1.5 invisible" />
             </ScrollArea>
             </TooltipProvider>
-            <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 mx-1 rounded-md hover:bg-muted/60 shrink-0"
-                onClick={onTabAdd}
-                aria-label={tTab("addTabAria")}
-                title={tTab("addTabAria")}
-            >
-                <Plus className="h-4 w-4" />
-            </Button>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 mx-1 rounded-md hover:bg-muted/60 shrink-0"
+                        aria-label={tTab("addTabAria")}
+                        title={tTab("addTabAria")}
+                    >
+                        <Plus className="h-4 w-4" />
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-44">
+                    <DropdownMenuItem onSelect={() => onTabAdd("rest")}>
+                        <Plus className="h-4 w-4 mr-2" />
+                        New REST request
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => onTabAdd("websocket")}>
+                        <Plug className="h-4 w-4 mr-2" />
+                        New WebSocket
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => onTabAdd("grpc")}>
+                        <Boxes className="h-4 w-4 mr-2" />
+                        New gRPC-Web
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
         </div>
     )
 }

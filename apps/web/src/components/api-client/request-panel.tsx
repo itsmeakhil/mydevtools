@@ -32,6 +32,9 @@ interface RequestPanelProps {
     urlHistory?: string[]
     /** Pass activeTab.id so local URL state resets on tab switch. */
     tabId?: string
+    /** When true, Send goes through the streaming proxy (SSE / chunked). */
+    streamResponse?: boolean
+    setStreamResponse?: (v: boolean) => void
 }
 
 const METHODS: RequestMethod[] = ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"]
@@ -70,11 +73,18 @@ function RequestPanelImpl({
     onPaste,
     urlHistory = [],
     tabId,
+    streamResponse = false,
+    setStreamResponse,
 }: RequestPanelProps) {
     const { activeEnvironmentVariables } = useEnvironmentsState()
     const t = useTranslations("ApiClient.requestPanel")
     const urlInputRef = React.useRef<HTMLInputElement | null>(null)
     const [showSuggestions, setShowSuggestions] = React.useState(false)
+    /** -1 = no suggestion focused (Enter sends); 0..n-1 = highlighted row (Enter selects). */
+    const [highlightedSuggestion, setHighlightedSuggestion] = React.useState(-1)
+    /** Set briefly by a suggestion's mousedown so the input's blur handler doesn't
+     *  close the panel before the click finishes. Replaces a flaky setTimeout(150). */
+    const suppressBlurRef = React.useRef(false)
 
     // Local URL state: the input is bound here for instant feedback.
     // We sync back to the global state (setUrl) after 400ms of idle typing,
@@ -111,6 +121,11 @@ function RequestPanelImpl({
         return urlHistory.filter((h) => h.toLowerCase().includes(lower) && h !== localUrl).slice(0, 8)
     }, [localUrl, urlHistory])
 
+    // Reset highlight whenever the candidate list changes or panel hides.
+    React.useEffect(() => {
+        setHighlightedSuggestion(-1)
+    }, [urlSuggestions, showSuggestions])
+
     const variableTokens = React.useMemo(() => {
         const tokens: Array<{ key: string; start: number; end: number; value?: string; status: "resolved" | "missing" }> = []
         const regex = /\{\{(.+?)\}\}/g
@@ -132,6 +147,26 @@ function RequestPanelImpl({
         return tokens
     }, [localUrl, activeEnvironmentVariables])
 
+    /** Mirror span used to measure on-screen width of arbitrary URL prefixes — far more reliable
+     *  than the previous canvas char-width × index math, which drifted on non-monospace fallbacks
+     *  and ligatured fonts. The mirror inherits the input's font and is hidden but in-flow so
+     *  layout/font shorthand resolves to a real value before measurement. */
+    const measureRef = React.useRef<HTMLSpanElement | null>(null)
+
+    const measureWidth = React.useCallback((text: string): number => {
+        const input = urlInputRef.current
+        const mirror = measureRef.current
+        if (!input || !mirror) return 0
+        const cs = getComputedStyle(input)
+        mirror.style.fontFamily = cs.fontFamily
+        mirror.style.fontSize = cs.fontSize
+        mirror.style.fontWeight = cs.fontWeight
+        mirror.style.fontStyle = cs.fontStyle
+        mirror.style.letterSpacing = cs.letterSpacing
+        mirror.textContent = text
+        return mirror.getBoundingClientRect().width
+    }, [])
+
     const updateHoveredVariable = React.useCallback((clientX: number) => {
         const input = urlInputRef.current
         if (!input || variableTokens.length === 0) {
@@ -141,31 +176,31 @@ function RequestPanelImpl({
 
         const rect = input.getBoundingClientRect()
         const leftPadding = 36
-        const font = getComputedStyle(input).font || "12px monospace"
-        const canvas = document.createElement("canvas")
-        const context = canvas.getContext("2d")
-        if (!context) {
-            setHoveredVariable(null)
-            return
+        const xWithinText = clientX - rect.left - leftPadding + input.scrollLeft
+
+        // Walk tokens, measuring width of the prefix up to each token's start/end.
+        let hit: { token: typeof variableTokens[number]; startX: number } | null = null
+        for (const token of variableTokens) {
+            const startX = measureWidth(localUrl.slice(0, token.start))
+            const endX = measureWidth(localUrl.slice(0, token.end))
+            if (xWithinText >= startX && xWithinText < endX) {
+                hit = { token, startX }
+                break
+            }
         }
-        context.font = font
-        const charWidth = context.measureText("0").width || 7.2
 
-        const index = Math.floor((clientX - rect.left - leftPadding + input.scrollLeft) / charWidth)
-        const token = variableTokens.find((item) => index >= item.start && index < item.end)
-
-        if (!token) {
+        if (!hit) {
             setHoveredVariable(null)
             return
         }
 
         setHoveredVariable({
-            key: token.key,
-            value: token.value,
-            status: token.status,
-            left: leftPadding + token.start * charWidth - input.scrollLeft,
+            key: hit.token.key,
+            value: hit.token.value,
+            status: hit.token.status,
+            left: leftPadding + hit.startX - input.scrollLeft,
         })
-    }, [variableTokens])
+    }, [variableTokens, localUrl, measureWidth])
 
     return (
         <div className="flex flex-col gap-4">
@@ -188,6 +223,20 @@ function RequestPanelImpl({
                 </Select>
 
                 <div className="relative flex-1 min-w-0 group">
+                    {/* Off-screen text mirror for variable-hover width measurement (B7). */}
+                    <span
+                        ref={measureRef}
+                        aria-hidden
+                        className="font-mono text-xs"
+                        style={{
+                            position: "absolute",
+                            top: 0,
+                            left: -9999,
+                            whiteSpace: "pre",
+                            visibility: "hidden",
+                            pointerEvents: "none",
+                        }}
+                    />
                     <Globe className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
                     {hoveredVariable && (
                         <TooltipProvider>
@@ -213,9 +262,34 @@ function RequestPanelImpl({
                         onChange={(e) => setLocalUrl(e.target.value)}
                         className="h-10 pl-9 pr-10 font-mono text-xs bg-muted/30 border-muted group-hover:border-border transition-colors"
                         onFocus={() => setShowSuggestions(true)}
-                        onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+                        onBlur={() => {
+                            if (suppressBlurRef.current) {
+                                suppressBlurRef.current = false
+                                return
+                            }
+                            setShowSuggestions(false)
+                        }}
                         onKeyDown={(e) => {
+                            const open = showSuggestions && urlSuggestions.length > 0
+                            if (open && e.key === "ArrowDown") {
+                                e.preventDefault()
+                                setHighlightedSuggestion((i) => (i + 1) % urlSuggestions.length)
+                                return
+                            }
+                            if (open && e.key === "ArrowUp") {
+                                e.preventDefault()
+                                setHighlightedSuggestion((i) =>
+                                    i <= 0 ? urlSuggestions.length - 1 : i - 1,
+                                )
+                                return
+                            }
                             if (e.key === "Enter" && localUrl) {
+                                if (open && highlightedSuggestion >= 0) {
+                                    e.preventDefault()
+                                    setLocalUrl(urlSuggestions[highlightedSuggestion])
+                                    setShowSuggestions(false)
+                                    return
+                                }
                                 setShowSuggestions(false)
                                 onSend()
                             }
@@ -240,11 +314,24 @@ function RequestPanelImpl({
                         </button>
                     )}
                     {showSuggestions && urlSuggestions.length > 0 && (
-                        <div className="absolute top-full left-0 right-0 mt-1 z-50 bg-popover border rounded-lg shadow-lg overflow-hidden">
-                            {urlSuggestions.map((suggestion) => (
+                        <div
+                            role="listbox"
+                            // Catch pointer-down on the whole list (not just buttons) so blur
+                            // is suppressed even on touchstart → focus shift on mobile.
+                            onMouseDown={() => { suppressBlurRef.current = true }}
+                            onTouchStart={() => { suppressBlurRef.current = true }}
+                            className="absolute top-full left-0 right-0 mt-1 z-50 bg-popover border rounded-lg shadow-lg overflow-hidden"
+                        >
+                            {urlSuggestions.map((suggestion, idx) => (
                                 <button
+                                    role="option"
+                                    aria-selected={idx === highlightedSuggestion}
                                     key={suggestion}
-                                    className="w-full text-left px-3 py-2 text-xs font-mono hover:bg-muted/60 transition-colors truncate text-foreground"
+                                    className={cn(
+                                        "w-full text-left px-3 py-2 text-xs font-mono transition-colors truncate text-foreground",
+                                        idx === highlightedSuggestion ? "bg-muted/80" : "hover:bg-muted/60",
+                                    )}
+                                    onMouseEnter={() => setHighlightedSuggestion(idx)}
                                     onMouseDown={(e) => {
                                         e.preventDefault()
                                         setLocalUrl(suggestion)
@@ -269,6 +356,17 @@ function RequestPanelImpl({
                     </Button>
                 ) : (
                 <>
+                {setStreamResponse && (
+                    <Button
+                        type="button"
+                        variant={streamResponse ? "default" : "outline"}
+                        onClick={() => setStreamResponse(!streamResponse)}
+                        className={cn("h-10 px-3 font-bold", streamResponse && "bg-purple-500/15 text-purple-600 border-purple-500/30")}
+                        title="Toggle SSE / streaming response mode"
+                    >
+                        Stream
+                    </Button>
+                )}
                 <Button
                     onClick={onSend}
                     disabled={isLoading || !localUrl || isBodyInvalid}

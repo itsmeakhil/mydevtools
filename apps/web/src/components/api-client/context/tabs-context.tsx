@@ -6,9 +6,10 @@ import { ApiRequestState, API_CLIENT_DEFAULT_TAB_NAME } from "../types"
 const TABS_STORAGE_KEY = "api-client-tabs"
 const ACTIVE_TAB_STORAGE_KEY = "api-client-active-tab"
 
-export const createNewTab = (): ApiRequestState => ({
+export const createNewTab = (kind: "rest" | "websocket" | "grpc" = "rest"): ApiRequestState => ({
     id: crypto.randomUUID(),
-    name: API_CLIENT_DEFAULT_TAB_NAME,
+    name: kind === "websocket" ? "New WebSocket" : kind === "grpc" ? "New gRPC" : API_CLIENT_DEFAULT_TAB_NAME,
+    kind,
     method: "GET",
     url: "",
     params: [{ id: "1", key: "", value: "", active: true }],
@@ -22,6 +23,12 @@ export const createNewTab = (): ApiRequestState => ({
     auth: { type: "none" },
     response: null,
     isLoading: false,
+    ...(kind === "websocket" && {
+        websocket: { status: "idle", messages: [], draft: "" },
+    }),
+    ...(kind === "grpc" && {
+        grpc: { protoSource: "", requestJson: "{}\n" },
+    }),
 })
 
 type TabsState = {
@@ -31,14 +38,14 @@ type TabsState = {
 }
 
 type TabsActions = {
-    addTab(): void
+    addTab(kind?: "rest" | "websocket" | "grpc"): void
     appendTab(tab: ApiRequestState): void
     closeTab(id: string): void
     duplicateTab(id: string): void
     renameTab(id: string, name: string): void
     reorderTabs(next: ApiRequestState[]): void
     setActiveTabId(id: string): void
-    updateActiveTab(updates: Partial<ApiRequestState>): void
+    updateActiveTab(updates: Partial<ApiRequestState> | ((tab: ApiRequestState) => Partial<ApiRequestState>)): void
 }
 
 const TabsStateCtx = React.createContext<TabsState | null>(null)
@@ -101,7 +108,9 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
         if (!isInitialized) return
         const timeoutId = setTimeout(() => {
             const slim = tabsRef.current.map((t) => {
-                const { response: _r, isLoading: _l, ...rest } = t
+                // Drop response (big) + isLoading + websocket runtime (transcript can be huge)
+                // before persisting. WS config (status/draft/protocols) is rebuilt fresh on reload.
+                const { response: _r, isLoading: _l, websocket: _ws, ...rest } = t
                 return rest
             })
             try {
@@ -119,7 +128,9 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
     React.useEffect(() => {
         return () => {
             const slim = tabsRef.current.map((t) => {
-                const { response: _r, isLoading: _l, ...rest } = t
+                // Drop response (big) + isLoading + websocket runtime (transcript can be huge)
+                // before persisting. WS config (status/draft/protocols) is rebuilt fresh on reload.
+                const { response: _r, isLoading: _l, websocket: _ws, ...rest } = t
                 return rest
             })
             try {
@@ -138,11 +149,15 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
         }
     }, [activeTabId, isInitialized])
 
-    const updateActiveTab = React.useCallback((updates: Partial<ApiRequestState>) => {
+    const updateActiveTab = React.useCallback((
+        updates: Partial<ApiRequestState> | ((tab: ApiRequestState) => Partial<ApiRequestState>)
+    ) => {
         setTabs((prev) =>
-            prev.map((tab) =>
-                tab.id === activeTabId ? { ...tab, ...updates } : tab
-            )
+            prev.map((tab) => {
+                if (tab.id !== activeTabId) return tab
+                const patch = typeof updates === "function" ? updates(tab) : updates
+                return { ...tab, ...patch }
+            })
         )
     }, [activeTabId])
 
@@ -152,8 +167,8 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
     }, [])
 
     const actions = React.useMemo<TabsActions>(() => ({
-        addTab() {
-            const newTab = createNewTab()
+        addTab(kind: "rest" | "websocket" | "grpc" = "rest") {
+            const newTab = createNewTab(kind)
             setTabs((prev) => [...prev, newTab])
             setActiveTabId(newTab.id)
         },

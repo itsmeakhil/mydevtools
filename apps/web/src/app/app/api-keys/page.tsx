@@ -1,0 +1,160 @@
+"use client"
+
+import { useEffect, useRef } from "react"
+import { AddApiKeyDialog } from "@/components/api-key-vault/add-api-key-dialog"
+import { ApiKeyList } from "@/components/api-key-vault/api-key-list"
+import { useApiKeyVaultStore, type ApiKeyEntry, type ApiKeyEnv } from "@/store/api-key-vault-store"
+import { ShieldCheck } from "lucide-react"
+import { useMasterKeyStore } from "@/store/master-key-store"
+import { useVaultGuard } from "@/hooks/use-vault-guard"
+import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder"
+import { VaultRestoringSkeleton } from "@/components/vault-restoring-skeleton"
+import useAuth from "@/utils/useAuth"
+import { useIsMobile } from "@/components/hooks/use-mobile"
+import { listApiKeyEntries } from "@/lib/api-key-vault-api"
+import { decryptData } from "@/lib/encryption"
+import { toast } from "sonner"
+import { Skeleton } from "@/components/ui/skeleton"
+
+// ponytail: inline parser — one place uses it, no utils file
+function parseApiKeyPayload(plain: string): Omit<ApiKeyEntry, "id" | "createdAt" | "updatedAt"> | null {
+    try {
+        const o = JSON.parse(plain)
+        if (typeof o !== "object" || o === null) return null
+        const env: ApiKeyEnv =
+            o.env === "staging" || o.env === "production" ? o.env : "development"
+        return {
+            name: typeof o.name === "string" ? o.name : "",
+            apiKey: typeof o.apiKey === "string" ? o.apiKey : "",
+            secret: typeof o.secret === "string" ? o.secret : "",
+            env,
+            notes: typeof o.notes === "string" ? o.notes : "",
+        }
+    } catch {
+        return null
+    }
+}
+
+export default function ApiKeyVaultPage() {
+    const { user, loading } = useAuth(true)
+    const { encryptionKey } = useMasterKeyStore()
+    const { isUnlocked, isRestoring } = useVaultGuard()
+    const { entries, setEntries, setLoading, clearEntries } = useApiKeyVaultStore()
+    const isMobile = useIsMobile()
+    const loadedRef = useRef(false)
+
+    useEffect(() => {
+        if (!encryptionKey || loadedRef.current) return
+        loadedRef.current = true
+        let cancelled = false
+        loadEntries(encryptionKey, () => cancelled)
+
+        return () => {
+            cancelled = true
+            clearEntries()
+            loadedRef.current = false
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [encryptionKey])
+
+    const loadEntries = async (key: CryptoKey, isCancelled: () => boolean) => {
+        setLoading(true)
+        try {
+            const rows = await listApiKeyEntries()
+            if (isCancelled()) return
+            const decrypted = await Promise.all(
+                rows.map(async (row) => {
+                    try {
+                        const plain = await decryptData(key, row.encryptedData, row.iv)
+                        const parsed = parseApiKeyPayload(plain)
+                        if (!parsed) return null
+                        return {
+                            id: row.id,
+                            ...parsed,
+                            createdAt: row.createdAt,
+                            updatedAt: row.updatedAt,
+                        } satisfies ApiKeyEntry
+                    } catch {
+                        return null
+                    }
+                })
+            )
+            if (isCancelled()) return
+            setEntries(decrypted.filter((x): x is ApiKeyEntry => x !== null))
+        } catch {
+            if (!isCancelled()) toast.error("Failed to load API keys")
+        } finally {
+            if (!isCancelled()) setLoading(false)
+        }
+    }
+
+    if (isRestoring) return <VaultRestoringSkeleton />
+    if (!isUnlocked) return <VaultLockedPlaceholder appName="API Keys" />
+
+    if (loading) {
+        return (
+            <div className="h-full flex flex-col container mx-auto px-4 md:px-6 lg:px-8">
+                <div className="flex justify-between items-center py-6 shrink-0">
+                    <Skeleton className="h-9 w-56" />
+                    <Skeleton className="h-9 w-40" />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {[...Array(4)].map((_, i) => (
+                        <Skeleton key={i} className="h-36 w-full rounded-xl" />
+                    ))}
+                </div>
+            </div>
+        )
+    }
+
+    if (!user) return null
+
+    return (
+        <div
+            className={
+                isMobile
+                    ? "h-full bg-background flex flex-col min-h-0"
+                    : "h-full flex flex-col container mx-auto px-4 md:px-6 lg:px-8 min-h-0"
+            }
+        >
+            {!isMobile && (
+                <div className="flex justify-between items-end py-6 shrink-0 gap-4">
+                    <div className="min-w-0">
+                        <div className="flex items-center gap-3">
+                            <h1 className="text-3xl font-bold tracking-tight">API Keys</h1>
+                            {entries.length > 0 && (
+                                <span className="text-sm font-medium text-muted-foreground bg-muted/60 px-2 py-0.5 rounded-full">
+                                    {entries.length}
+                                </span>
+                            )}
+                        </div>
+                        <p className="text-sm text-muted-foreground mt-1 flex items-center gap-1.5">
+                            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-500" />
+                            AES-256-GCM encrypted on your device — server never sees plaintext.
+                        </p>
+                    </div>
+                    <AddApiKeyDialog />
+                </div>
+            )}
+
+            {isMobile && (
+                <div className="px-4 pt-4 pb-2 shrink-0">
+                    <div className="flex items-center justify-between">
+                        <h1 className="text-2xl font-bold tracking-tight">API Keys</h1>
+                        {entries.length > 0 && (
+                            <span className="text-xs font-medium text-muted-foreground bg-muted/60 px-2 py-0.5 rounded-full">
+                                {entries.length} stored
+                            </span>
+                        )}
+                    </div>
+                </div>
+            )}
+
+            <div className="flex-1 min-h-0 flex flex-col">
+                <ApiKeyList />
+            </div>
+
+            {isMobile && <AddApiKeyDialog />}
+        </div>
+    )
+}

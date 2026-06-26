@@ -1,25 +1,19 @@
 "use client"
 
-import { useEffect } from "react"
 import { useMasterKeyStore } from "@/store/master-key-store"
 
 /**
- * Call this in any page that requires the vault to be unlocked.
- * Opens the vault modal if the key isn't already in memory.
- * Returns isUnlocked + openVaultGate so the page can render a locked placeholder with a re-open button.
+ * Read-only vault state for critical pages. Does NOT open the modal.
+ * Render the locked placeholder, which has the user-triggered Unlock button.
  */
 export function useVaultGuard() {
-    const { isUnlocked, openVaultGate, closeVaultGate } = useMasterKeyStore()
+    const vaultStatus = useMasterKeyStore((s) => s.vaultStatus)
+    const openVaultGate = useMasterKeyStore((s) => s.openVaultGate)
 
-    useEffect(() => {
-        if (!isUnlocked) {
-            openVaultGate()
-        }
-        return () => {
-            closeVaultGate()
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    return { isUnlocked, openVaultGate }
+    return {
+        status: vaultStatus,
+        isUnlocked: vaultStatus === "unlocked",
+        isRestoring: vaultStatus === "restoring",
+        openVaultGate,
+    }
 }

@@ -6,9 +6,11 @@ import { Button } from "@/components/ui/button"
 import { IconKeyboard } from "@tabler/icons-react"
 import { useTranslations } from "next-intl"
 
+// Browser tab shortcuts (Cmd/Ctrl+T, Cmd/Ctrl+W) cannot be intercepted in a web app —
+// we use Alt+T and Alt+W instead. Cmd/Ctrl+Enter is form-safe and still works.
 const SHORTCUTS: Array<[string, string]> = [
-    ["mod+T", "newTab"],
-    ["mod+W", "closeTab"],
+    ["Alt+T", "newTab"],
+    ["Alt+W", "closeTab"],
     ["mod+Enter", "sendRequest"],
 ]
 
@@ -45,7 +47,9 @@ export function HelpShortcutsDialog({ open, onOpenChange }: HelpShortcutsDialogP
                         <React.Fragment key={keys}>
                             <li className="contents">
                                 <kbd className="font-mono rounded bg-muted px-1.5 py-0.5 text-xs">
-                                    {keys.replace("mod", isMac ? "⌘" : "Ctrl")}
+                                    {keys
+                                        .replace("mod", isMac ? "⌘" : "Ctrl")
+                                        .replace("Alt", isMac ? "⌥" : "Alt")}
                                 </kbd>
                                 <span className="self-center">{t(labelKey as "newTab" | "closeTab" | "sendRequest")}</span>
                             </li>

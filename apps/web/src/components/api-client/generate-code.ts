@@ -1,5 +1,11 @@
+import { encodeBasicCredentials } from "@/lib/basic-auth"
 import { ensureHttpScheme } from "@/lib/url-normalize"
 import { ApiRequestState, RequestFormDataItem } from "./types"
+
+/** POSIX shell single-quoted literal — close, escape every embedded apostrophe, reopen. */
+function shSingleQuote(s: string): string {
+    return `'${s.replace(/'/g, "'\\''")}'`
+}
 
 export type CodeLanguage = "curl" | "javascript" | "typescript" | "python" | "go"
 
@@ -40,8 +46,7 @@ export function generateCode(request: ApiRequestState, language: CodeLanguage): 
     if (auth.type === "bearer" && auth.token) {
         headerObj["Authorization"] = `Bearer ${auth.token}`
     } else if (auth.type === "basic" && auth.username && auth.password) {
-        const creds = btoa(`${auth.username}:${auth.password}`)
-        headerObj["Authorization"] = `Basic ${creds}`
+        headerObj["Authorization"] = `Basic ${encodeBasicCredentials(auth.username, auth.password)}`
     } else if (auth.type === "api-key" && auth.apiKeyKey && auth.apiKeyValue) {
         if (auth.apiKeyLocation === "query") {
             const sep = fullUrl.includes("?") ? "&" : "?"
@@ -88,20 +93,20 @@ export function generateCode(request: ApiRequestState, language: CodeLanguage): 
 }
 
 function generateCurl(method: string, url: string, headers: Record<string, string>, body: BodyContext): string {
-    let curl = `curl -X ${method} '${url}'`
+    let curl = `curl -X ${method} ${shSingleQuote(url)}`
     Object.entries(headers).forEach(([k, v]) => {
-        curl += ` \\\n  -H '${k}: ${v}'`
+        curl += ` \\\n  -H ${shSingleQuote(`${k}: ${v}`)}`
     })
     if (body.type === "form-data") {
         body.formData.forEach(item => {
             if (item.valueType === "file") {
-                curl += ` \\\n  -F '${item.key}=@${item.fileName || "file.bin"}'`
+                curl += ` \\\n  -F ${shSingleQuote(`${item.key}=@${item.fileName || "file.bin"}`)}`
             } else {
-                curl += ` \\\n  -F '${item.key}=${item.value.replace(/'/g, "'\\''")}'`
+                curl += ` \\\n  -F ${shSingleQuote(`${item.key}=${item.value}`)}`
             }
         })
     } else if (body.content) {
-        curl += ` \\\n  -d '${body.content.replace(/'/g, "'\\''")}'`
+        curl += ` \\\n  -d ${shSingleQuote(body.content)}`
     }
     return curl
 }
@@ -231,7 +236,17 @@ function generateGo(method: string, url: string, headers: Record<string, string>
         code += `\tif err != nil {\n\t\tfmt.Println(err)\n\t\treturn\n\t}\n`
         code += `\treq.Header.Set("Content-Type", w.FormDataContentType())\n`
     } else if (hasTextBody) {
-        const escaped = body.content.replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n")
+        // Cover the full Go double-quoted string escape set, not just `\` `"` `\n`.
+        // Missing `\r`, `\t`, NUL, and `\b` previously corrupted bodies (CRLF JSON, TSV, etc.).
+        const escaped = body.content
+            .replace(/\\/g, "\\\\")
+            .replace(/"/g, '\\"')
+            .replace(/\n/g, "\\n")
+            .replace(/\r/g, "\\r")
+            .replace(/\t/g, "\\t")
+            .replace(/\f/g, "\\f")
+            .replace(/\v/g, "\\v")
+            .replace(/ /g, "\\x00")
         code += `\n\tpayload := strings.NewReader("${escaped}")\n`
         code += `\n\treq, err := http.NewRequest("${method}", "${url}", payload)\n`
         code += `\tif err != nil {\n\t\tfmt.Println(err)\n\t\treturn\n\t}\n`
