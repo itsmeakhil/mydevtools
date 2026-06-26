@@ -18,11 +18,10 @@ export function ToolPinButton({
   iconClassName?: string;
 }) {
   const pinnedTools = usePinnedToolsForActiveWorkspace();
-  const _togglePinKeyed = usePinnedToolsStore((s) => s.togglePin);
-  const _activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId);
-  // TODO(T24): update to pass workspaceId explicitly once all consumers migrated.
+  const togglePinKeyed = usePinnedToolsStore((s) => s.togglePin);
+  const activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId);
   const togglePin = (id: string) => {
-    if (_activeWorkspaceId) _togglePinKeyed(_activeWorkspaceId, id)
+    if (activeWorkspaceId) togglePinKeyed(activeWorkspaceId, id)
   };
   const canonical = normalizePinnedToolPath(toolId);
   const isPinned = pinnedTools.includes(canonical);

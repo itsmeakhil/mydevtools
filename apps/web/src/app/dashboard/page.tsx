@@ -63,11 +63,10 @@ const DashboardPage: React.FC = () => {
   const tTabs = useTranslations('Dashboard.tabs')
   const { user, loading } = useAuth(false)
   const pinnedToolUrls = usePinnedToolsForActiveWorkspace()
-  const _togglePinKeyed = usePinnedToolsStore((s) => s.togglePin)
-  const _activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId)
-  // TODO(T24): update callers to pass workspaceId explicitly once all consumers migrated.
+  const togglePinKeyed = usePinnedToolsStore((s) => s.togglePin)
+  const activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId)
   const togglePin = (url: string) => {
-    if (_activeWorkspaceId) _togglePinKeyed(_activeWorkspaceId, url)
+    if (activeWorkspaceId) togglePinKeyed(activeWorkspaceId, url)
   }
   const isPinned = (url: string) => pinnedToolUrls.includes(url)
   const { getRecentlyUsedTools } = useToolUsage()
