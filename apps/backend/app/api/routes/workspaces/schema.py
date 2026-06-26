@@ -31,3 +31,54 @@ class SetActiveWorkspaceRequest(BaseModel):
 
 class SetActiveWorkspaceResponse(BaseModel):
     workspace_id: str
+
+
+InvitationStatus = Literal["pending", "accepted", "revoked", "expired", "wrapping_pending"]
+
+
+class OrgCreate(BaseModel):
+    name: str = Field(min_length=1, max_length=80)
+    slug: str | None = Field(default=None, min_length=1, max_length=80)
+
+
+class OrgPatch(BaseModel):
+    name: str | None = Field(default=None, min_length=1, max_length=80)
+
+
+class WorkspaceCreate(BaseModel):
+    name: str = Field(min_length=1, max_length=80)
+    slug: str | None = Field(default=None, min_length=1, max_length=80)
+
+
+class WorkspacePatch(BaseModel):
+    name: str | None = Field(default=None, min_length=1, max_length=80)
+
+
+class MemberOut(BaseModel):
+    uid: str
+    email: str | None
+    display_name: str | None = None
+    role: str
+    since: int
+
+
+class InviteMemberRequest(BaseModel):
+    email: str = Field(min_length=1)
+    role: str
+
+
+class ChangeRoleRequest(BaseModel):
+    role: str
+
+
+class InvitationOut(BaseModel):
+    id: str
+    org_id: str
+    workspace_id: str | None
+    invited_email: str
+    invited_uid: str | None
+    invited_role_org: OrgRole | None
+    invited_role_ws: WsRole | None
+    status: InvitationStatus
+    expires_at: int
+    created_at: int

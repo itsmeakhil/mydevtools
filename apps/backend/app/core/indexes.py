@@ -29,6 +29,7 @@ from app.utils.collection_name import (
     ORG_MEMBERSHIPS,
     WORKSPACES,
     WORKSPACE_MEMBERSHIPS,
+    INVITATIONS,
 )
 from app.core.config import get_settings
 
@@ -89,3 +90,7 @@ async def ensure_indexes() -> None:
         unique=True,
     )
     await db_manager.create_index(WORKSPACE_MEMBERSHIPS, [("uid", 1)])
+    await db_manager.create_index(INVITATIONS, [("token", 1)], unique=True)
+    await db_manager.create_index(INVITATIONS, [("invited_email", 1), ("status", 1)])
+    await db_manager.create_index(INVITATIONS, [("org_id", 1), ("status", 1)])
+    await db_manager.create_index(INVITATIONS, [("expires_at", 1), ("status", 1)])

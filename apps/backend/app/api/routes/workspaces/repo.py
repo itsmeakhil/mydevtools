@@ -18,7 +18,7 @@ async def find_user_orgs(uid: str) -> list[dict[str, Any]]:
         return []
     org_ids = [m["org_id"] for m in memberships]
     orgs = await db_manager.find(
-        ORGANIZATIONS, {"_id": {"$in": org_ids}}, limit=100
+        ORGANIZATIONS, {"_id": {"$in": org_ids}, "deleted_at": None}, limit=100
     )
     by_id = {o["_id"]: o for o in orgs}
     out: list[dict[str, Any]] = []
@@ -42,7 +42,7 @@ async def find_user_workspaces(
         return []
     ws_ids = [m["workspace_id"] for m in memberships]
     workspaces = await db_manager.find(
-        WORKSPACES, {"_id": {"$in": ws_ids}}, limit=500
+        WORKSPACES, {"_id": {"$in": ws_ids}, "deleted_at": None}, limit=500
     )
     by_id = {w["_id"]: w for w in workspaces}
     out: list[dict[str, Any]] = []
@@ -189,3 +189,27 @@ async def upsert_ws_membership(
         )
         if not existing:
             raise
+
+
+async def set_org_deleted(org_id: str, deleted_at: int | None) -> None:
+    await db_manager.update_one(
+        ORGANIZATIONS, {"_id": org_id},
+        {"$set": {"deleted_at": deleted_at, "updatedAt": create_timestamp()}},
+    )
+
+
+async def set_workspace_deleted(workspace_id: str, deleted_at: int | None) -> None:
+    await db_manager.update_one(
+        WORKSPACES, {"_id": workspace_id},
+        {"$set": {"deleted_at": deleted_at, "updatedAt": create_timestamp()}},
+    )
+
+
+async def find_org_members(org_id: str) -> list[dict[str, Any]]:
+    return await db_manager.find(ORG_MEMBERSHIPS, {"org_id": org_id}, limit=500)
+
+
+async def find_workspace_members(workspace_id: str) -> list[dict[str, Any]]:
+    return await db_manager.find(
+        WORKSPACE_MEMBERSHIPS, {"workspace_id": workspace_id}, limit=500,
+    )
