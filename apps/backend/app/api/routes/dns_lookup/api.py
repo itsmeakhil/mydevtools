@@ -1,3 +1,4 @@
+# ponytail: stateless tool — no per-user persistence, no workspace scoping needed
 from fastapi import APIRouter, Query
 
 from app.api.routes.dns_lookup import services as svc
