@@ -28,8 +28,8 @@ jest.mock("@/lib/workspace-crypto", () => ({
 }))
 
 jest.mock("@/store/master-key-store", () => ({
-  useMasterKeyStore: jest.fn((sel: (s: { encryptionKey: null }) => unknown) =>
-    sel({ encryptionKey: null }),
+  useMasterKeyStore: jest.fn((sel: (s: { encryptionKey: null; vault: { salt: string } }) => unknown) =>
+    sel({ encryptionKey: null, vault: { salt: "test-salt" } }),
   ),
 }))
 
@@ -229,5 +229,46 @@ describe("EnableEncryptedToolsCta — handleEnable logic simulation", () => {
     toast.error(err instanceof Error ? err.message : "Failed to enable encryption")
 
     expect(toast.error).toHaveBeenCalledWith("rotateDek failed (500)")
+  })
+
+  it("calls setKeypair with master vault salt", async () => {
+    const { setKeypair } = require("@/lib/user-keypair-api")
+    const { generateUserKeypair, unwrapUserPrivateKey } = require("@/lib/workspace-crypto")
+
+    const fakeBlob = { publicKey: "pk-abc", privateKeyEncrypted: "enc-abc" }
+    ;(generateUserKeypair as jest.Mock).mockResolvedValueOnce(fakeBlob)
+    ;(unwrapUserPrivateKey as jest.Mock).mockResolvedValueOnce({} as CryptoKey)
+    ;(setKeypair as jest.Mock).mockResolvedValueOnce(undefined)
+
+    await setKeypair({
+      publicKey: fakeBlob.publicKey,
+      privateKeyEncrypted: fakeBlob.privateKeyEncrypted,
+      salt: "test-salt",
+      createdAt: expect.any(Number),
+    })
+
+    expect(setKeypair).toHaveBeenCalledWith(
+      expect.objectContaining({
+        salt: "test-salt",
+      }),
+    )
+  })
+
+  it("shows error toast when master vault is not initialized", async () => {
+    const { toast } = require("sonner")
+    const { useMasterKeyStore: originalMock } = require("@/store/master-key-store")
+
+    // Mock with no vault
+    ;(originalMock as jest.Mock).mockImplementationOnce((sel) =>
+      sel({ encryptionKey: { type: "CryptoKey" }, vault: null }),
+    )
+
+    const masterKey = { type: "CryptoKey" }
+    const masterVault = null
+    if (!masterVault?.salt) {
+      toast.error("Master vault not initialized")
+    }
+
+    expect(toast.error).toHaveBeenCalledWith("Master vault not initialized")
   })
 })

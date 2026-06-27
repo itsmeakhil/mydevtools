@@ -19,6 +19,7 @@ import { listMemberPublicKeys, rotateDek } from "@/lib/workspace-dek-api"
 export function EnableEncryptedToolsCta({ workspaceId }: { workspaceId: string }) {
   const [working, setWorking] = useState(false)
   const masterKey = useMasterKeyStore((s) => s.encryptionKey)
+  const masterVault = useMasterKeyStore((s) => s.vault)
   const userPub = useUserKeypairStore((s) => s.publicKey)
   const userPriv = useUserKeypairStore((s) => s.privateKey)
   const reloadStore = useWorkspaceStore((s) => s.loadFromBackend)
@@ -26,6 +27,10 @@ export function EnableEncryptedToolsCta({ workspaceId }: { workspaceId: string }
   async function handleEnable() {
     if (!masterKey) {
       toast.error("Unlock your master password first")
+      return
+    }
+    if (!masterVault?.salt) {
+      toast.error("Master vault not initialized")
       return
     }
     setWorking(true)
@@ -38,7 +43,7 @@ export function EnableEncryptedToolsCta({ workspaceId }: { workspaceId: string }
         await setKeypair({
           publicKey: blob.publicKey,
           privateKeyEncrypted: blob.privateKeyEncrypted,
-          salt: "",
+          salt: masterVault.salt,
           createdAt: Date.now(),
         })
         const fresh = await getKeypair()
