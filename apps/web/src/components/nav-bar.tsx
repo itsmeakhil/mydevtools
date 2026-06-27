@@ -7,6 +7,7 @@ import { ModeToggle } from "@/components/modeToggle";
 import { getToolMessageKey } from "@/lib/tool-i18n";
 import { routeConfig } from "@/lib/route-config";
 import { WorkspaceSwitcher } from "@/components/workspace-switcher";
+import { WorkspaceQuickActions } from "@/components/workspace-quick-actions";
 
 function openCommandPalette() {
   document.dispatchEvent(new CustomEvent("open-command-palette"));
@@ -67,6 +68,7 @@ export function NavBar() {
           <div className="flex h-14 items-center justify-end gap-2 px-4">
             <CommandTrigger />
             <WorkspaceSwitcher />
+            <WorkspaceQuickActions />
             <ModeToggle />
           </div>
         </header>
@@ -106,6 +108,7 @@ export function NavBar() {
         <CommandTrigger />
         <div className="flex flex-1 shrink-0 items-center justify-end gap-2">
           <WorkspaceSwitcher />
+          <WorkspaceQuickActions />
           <ModeToggle />
         </div>
       </div>
