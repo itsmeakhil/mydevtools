@@ -28,24 +28,10 @@ import { useMasterKeyStore } from '@/store/master-key-store'
 import { clearMasterKey } from '@/lib/key-storage'
 import { logoutBackendSession } from '@/lib/backend-auth'
 import { usePinnedToolsForActiveWorkspace } from '@/store/pinned-tools-store'
-import { useWorkspaceStore } from '@/store/workspace-store'
+import { useWorkspaceStore, useActiveWorkspace } from '@/store/workspace-store'
 import { IconPin } from '@tabler/icons-react'
 import type { NavLink, NavCollapsible } from './types'
-
-function buildPinnedNavItems(pinnedTools: string[]): NavLink[] {
-  if (pinnedTools.length === 0) return []
-  const allLinks: NavLink[] = sidebarData.navGroups.flatMap((group) =>
-    group.items.flatMap((item) => {
-      if (!('items' in item)) return [item as NavLink]
-      return (item as NavCollapsible).items.map((sub) => ({
-        ...sub,
-        icon: sub.icon ?? item.icon,
-      } as NavLink))
-    })
-  )
-  const urlSet = new Set(pinnedTools)
-  return allLinks.filter((link) => urlSet.has(String(link.url)))
-}
+import { buildPinnedNavItems } from './app-sidebar.helpers'
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { clearPasswords } = usePasswordStore()
@@ -53,7 +39,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { clearKey: clearMasterKeyStore } = useMasterKeyStore()
   const pinnedTools = usePinnedToolsForActiveWorkspace()
   const clearWorkspaceStore = useWorkspaceStore((s) => s.clear)
-  const pinnedNavItems = buildPinnedNavItems(pinnedTools)
+  const activeWs = useActiveWorkspace()
+  const pinnedNavItems = buildPinnedNavItems(pinnedTools, activeWs)
   const [user, setUser] = useState({
     name: '',
     email: '',
