@@ -375,7 +375,12 @@ async def list_pending_wraps(
     if not ws:
         raise HTTPException(404)
     caller_mem = await find_ws_membership(ws_id, uid)
-    if not caller_mem:
+    org_mem = await find_org_membership(ws["org_id"], uid) if ws.get("org_id") else None
+    is_admin = (
+        (caller_mem and caller_mem["ws_role"] == "admin")
+        or (org_mem and org_mem["org_role"] in ("owner", "admin"))
+    )
+    if not is_admin:
         raise HTTPException(403)
     pendings = await crypto_repo.find_pending_wraps(ws_id)
     if not pendings:

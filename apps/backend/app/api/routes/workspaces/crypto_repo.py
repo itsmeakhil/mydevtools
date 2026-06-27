@@ -69,16 +69,18 @@ async def set_workspace_encryption(
     dek_fingerprint: str,
     rotated_at: int | None = None,
 ) -> None:
-    settings_update: dict[str, str | int | None] = {
-        "scheme": scheme,
-        "dekFingerprint": dek_fingerprint,
-        "createdAt": create_timestamp(),
-        "rotatedAt": rotated_at,
-    }
+    ws = await db_manager.find_one(WORKSPACES, {"_id": workspace_id})
+    existing_enc = (ws.get("settings") or {}).get("encryption") if ws else None
+    created_at = (existing_enc or {}).get("createdAt") or create_timestamp()
     await db_manager.update_one(
         WORKSPACES,
         {"_id": workspace_id},
-        {"$set": {"settings.encryption": settings_update}},
+        {"$set": {"settings.encryption": {
+            "scheme": scheme,
+            "dekFingerprint": dek_fingerprint,
+            "createdAt": created_at,
+            "rotatedAt": rotated_at,
+        }}},
     )
 
 
@@ -95,7 +97,13 @@ async def bulk_set_wrapped_deks(
 async def find_pending_wraps(workspace_id: str) -> list[dict]:
     docs = await db_manager.find(
         WORKSPACE_MEMBERSHIPS,
-        {"workspace_id": workspace_id, "wrappedDek": None},
+        {
+            "workspace_id": workspace_id,
+            "$or": [
+                {"wrappedDek": None},
+                {"wrappedDek": {"$exists": False}},
+            ],
+        },
         limit=200,
     )
     return docs
