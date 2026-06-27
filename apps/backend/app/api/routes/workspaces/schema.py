@@ -83,3 +83,21 @@ class InvitationOut(BaseModel):
     token: str
     expires_at: int
     created_at: int
+
+
+class EncryptionBlob(BaseModel):
+    encrypted: str
+    iv: str
+
+
+class KeypairOut(BaseModel):
+    publicKey: str
+    privateKeyEncrypted: EncryptionBlob
+    salt: str
+    createdAt: int
+
+
+class KeypairPostRequest(BaseModel):
+    publicKey: str = Field(min_length=1)
+    privateKeyEncrypted: EncryptionBlob
+    salt: str = Field(min_length=1)
