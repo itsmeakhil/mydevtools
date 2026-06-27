@@ -7,8 +7,9 @@ from app.api.routes.workspaces.repo import (
     find_user_orgs, find_user_workspaces, find_workspace, find_ws_membership,
 )
 from app.api.routes.workspaces import members_service
+from app.api.routes.workspaces import invitations_service
 from app.api.routes.workspaces.schema import (
-    ChangeRoleRequest, MemberOut,
+    ChangeRoleRequest, InvitationOut, InviteMemberRequest, MemberOut,
     OrgCreate, OrgOut, OrgPatch, SetActiveWorkspaceRequest, SetActiveWorkspaceResponse,
     WorkspaceCreate, WorkspacePatch, WorkspaceOut,
 )
@@ -189,3 +190,46 @@ async def remove_workspace_member_route(
     uid: Annotated[str, Depends(get_current_uid)],
 ) -> None:
     await members_service.remove_workspace_member(uid, ws_id, target_uid)
+
+
+@router.post(
+    "/orgs/{org_id}/members",
+    response_model=InvitationOut, status_code=201,
+)
+async def invite_to_org_route(
+    org_id: str, body: InviteMemberRequest,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> InvitationOut:
+    return await invitations_service.invite_to_org(uid, org_id, body)
+
+
+@router.post(
+    "/workspaces/{ws_id}/members",
+    response_model=InvitationOut, status_code=201,
+)
+async def invite_to_workspace_route(
+    ws_id: str, body: InviteMemberRequest,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> InvitationOut:
+    return await invitations_service.invite_to_workspace(uid, ws_id, body)
+
+
+@router.get("/invitations/pending", response_model=list[InvitationOut])
+async def list_pending_invitations_route(
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> list[InvitationOut]:
+    return await invitations_service.list_pending_for_me(uid)
+
+
+@router.post("/invitations/{token}/accept")
+async def accept_invitation_route(
+    token: str, uid: Annotated[str, Depends(get_current_uid)],
+) -> dict:
+    return await invitations_service.accept_invitation(uid, token)
+
+
+@router.post("/invitations/{token}/revoke", status_code=204)
+async def revoke_invitation_route(
+    token: str, uid: Annotated[str, Depends(get_current_uid)],
+) -> None:
+    await invitations_service.revoke_invitation(uid, token)
