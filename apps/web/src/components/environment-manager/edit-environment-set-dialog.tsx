@@ -14,7 +14,7 @@ import {
     type EnvSetEntry,
     type EnvVariableRow,
 } from "@/store/environment-manager-store"
-import { useMasterKeyStore } from "@/store/master-key-store"
+import { useCipherKey } from "@/lib/use-cipher-key"
 import { Badge } from "@/components/ui/badge"
 import { EnvPasteCollapsible } from "@/components/environment-manager/env-paste-collapsible"
 import { encryptData } from "@/lib/encryption"
@@ -38,7 +38,7 @@ type EditEnvironmentSetDialogProps = {
 
 export function EditEnvironmentSetDialog({ entry, open, onOpenChange }: EditEnvironmentSetDialogProps) {
     const t = useTranslations("EnvironmentManager.form")
-    const { encryptionKey } = useMasterKeyStore()
+    const encryptionKey = useCipherKey()
     const { updateSet } = useEnvironmentManagerStore()
     const [loading, setLoading] = useState(false)
     const [showValues, setShowValues] = useState(false)

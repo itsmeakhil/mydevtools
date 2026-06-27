@@ -13,7 +13,7 @@ import {
     useEnvironmentManagerStore,
     type EnvVariableRow,
 } from "@/store/environment-manager-store"
-import { useMasterKeyStore } from "@/store/master-key-store"
+import { useCipherKey } from "@/lib/use-cipher-key"
 import { Badge } from "@/components/ui/badge"
 import { EnvPasteCollapsible } from "@/components/environment-manager/env-paste-collapsible"
 import { encryptData } from "@/lib/encryption"
@@ -31,7 +31,7 @@ function emptyVariable(): VarRow {
 
 export function AddEnvironmentSetDialog({ children }: { children?: React.ReactNode }) {
     const t = useTranslations("EnvironmentManager.form")
-    const { encryptionKey } = useMasterKeyStore()
+    const encryptionKey = useCipherKey()
     const { addSet } = useEnvironmentManagerStore()
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)

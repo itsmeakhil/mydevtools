@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react"
 import { AddEnvironmentSetDialog } from "@/components/environment-manager/add-environment-set-dialog"
 import { EnvironmentSetList } from "@/components/environment-manager/environment-set-list"
 import { useEnvironmentManagerStore, type EnvSetEntry } from "@/store/environment-manager-store"
-import { useMasterKeyStore } from "@/store/master-key-store"
 import { useVaultGuard } from "@/hooks/use-vault-guard"
 import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder"
 import { VaultRestoringSkeleton } from "@/components/vault-restoring-skeleton"
@@ -18,34 +17,19 @@ import { toast } from "sonner"
 import { Skeleton } from "@/components/ui/skeleton"
 import { EncryptedToolPlaceholder } from "@/components/encrypted-tool-placeholder"
 import { useActiveWorkspace } from "@/store/workspace-store"
+import { useCipherKey } from "@/lib/use-cipher-key"
 
 export default function EnvironmentManagerPage() {
     const t = useTranslations("EnvironmentManager.page")
     const activeWs = useActiveWorkspace()
-    if (activeWs && !activeWs.is_personal) {
-        return <EncryptedToolPlaceholder toolName="Environment Manager" />
-    }
     const { user, loading } = useAuth(true)
-    const { encryptionKey } = useMasterKeyStore()
+    const encryptionKey = useCipherKey()
     const { isUnlocked, isRestoring } = useVaultGuard()
     const { setSets, setLoading, clearSets } = useEnvironmentManagerStore()
     const isMobile = useIsMobile()
     const loadedRef = useRef(false)
 
-    useEffect(() => {
-        if (!encryptionKey || loadedRef.current) return
-        loadedRef.current = true
-        let cancelled = false
-        loadSets(encryptionKey, () => cancelled)
-
-        return () => {
-            cancelled = true
-            clearSets()
-            loadedRef.current = false
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [encryptionKey])
-
+    // Regular async helper — not a hook, safe to define before useEffect.
     const loadSets = async (key: CryptoKey, isCancelled: () => boolean) => {
         setLoading(true)
         try {
@@ -75,6 +59,32 @@ export default function EnvironmentManagerPage() {
         } finally {
             if (!isCancelled()) setLoading(false)
         }
+    }
+
+    // ALL hooks must be called before any early return (Rules of Hooks).
+    useEffect(() => {
+        if (!encryptionKey || loadedRef.current) return
+        loadedRef.current = true
+        let cancelled = false
+        loadSets(encryptionKey, () => cancelled)
+
+        return () => {
+            cancelled = true
+            clearSets()
+            loadedRef.current = false
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [encryptionKey])
+
+    // Show placeholder for shared workspaces that have not yet enabled E2EE.
+    // Forward-compat: when activeWs.settings?.encryption is set AND a wrappedDek
+    // exists the normal flow runs (C-T9 will land the toggle UI).
+    if (
+        activeWs &&
+        !activeWs.is_personal &&
+        !(activeWs as { settings?: { encryption?: unknown } }).settings?.encryption
+    ) {
+        return <EncryptedToolPlaceholder toolName="Environment Manager" />
     }
 
     if (isRestoring) return <VaultRestoringSkeleton />
