@@ -3,18 +3,23 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 from app.api.routes.auth.services import get_current_uid
 from app.api.routes.workspaces import crud_service
 from app.api.routes.workspaces.middleware import ACTIVE_WS_COOKIE
+from app.api.routes.workspaces import repo
 from app.api.routes.workspaces.repo import (
     find_user_orgs, find_user_workspaces, find_workspace, find_ws_membership,
+    find_org_membership, find_workspace_members,
 )
 from app.api.routes.workspaces import members_service
 from app.api.routes.workspaces import invitations_service
 from app.api.routes.workspaces.schema import (
-    ChangeRoleRequest, EncryptionBlob, InvitationOut, InviteMemberRequest, KeypairOut,
-    KeypairPostRequest, MemberOut, OrgCreate, OrgOut, OrgPatch, SetActiveWorkspaceRequest,
-    SetActiveWorkspaceResponse, WorkspaceCreate, WorkspacePatch, WorkspaceOut,
+    ChangeRoleRequest, DekWrapOut, DekWrapPostRequest, EncryptionBlob, InvitationOut,
+    InviteMemberRequest, KeypairOut, KeypairPostRequest, MemberOut, OrgCreate, OrgOut, OrgPatch,
+    PendingWrapOut, RotateDekRequest, SetActiveWorkspaceRequest, SetActiveWorkspaceResponse,
+    WorkspaceCreate, WorkspacePatch, WorkspaceOut, WrappedDekBlob,
 )
 from app.api.routes.workspaces import crypto_repo
 from app.core.config import get_settings
+from app.database import db_manager
+from app.utils.collection_name import USERS
 
 router = APIRouter(prefix="/workspaces-api", tags=["workspaces"])
 
@@ -268,3 +273,121 @@ async def set_my_keypair(
         },
         salt=body.salt,
     )
+
+
+@router.get("/workspaces/{ws_id}/dek-wrap", response_model=DekWrapOut)
+async def get_my_dek_wrap(
+    ws_id: str,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> DekWrapOut:
+    ws = await find_workspace(ws_id)
+    if not ws:
+        raise HTTPException(404)
+    mem = await find_ws_membership(ws_id, uid)
+    if not mem:
+        raise HTTPException(403)
+    wrap = mem.get("wrappedDek")
+    return DekWrapOut(
+        wrappedDek=WrappedDekBlob(**wrap) if wrap else None,
+        wrappedDekVersion=mem.get("wrappedDekVersion", 0),
+    )
+
+
+@router.post("/workspaces/{ws_id}/dek-wrap", status_code=204)
+async def post_dek_wrap_for_member(
+    ws_id: str,
+    body: DekWrapPostRequest,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> None:
+    ws = await find_workspace(ws_id)
+    if not ws:
+        raise HTTPException(404)
+    caller_mem = await find_ws_membership(ws_id, uid)
+    org_mem = await find_org_membership(ws["org_id"], uid) if ws.get("org_id") else None
+    is_admin = (caller_mem and caller_mem["ws_role"] == "admin") or (org_mem and org_mem["org_role"] in ("owner", "admin"))
+    if not is_admin:
+        raise HTTPException(403)
+    existing = await crypto_repo.get_membership_wrap(ws_id, body.target_uid)
+    new_version = (existing["wrappedDekVersion"] if existing else 0) + 1
+    await crypto_repo.set_membership_wrapped_dek(
+        ws_id,
+        body.target_uid,
+        wrapped={
+            "encrypted": body.wrapped.encrypted,
+            "iv": body.wrapped.iv,
+            "senderPublicKey": body.wrapped.senderPublicKey,
+        },
+        version=new_version,
+    )
+
+
+@router.post("/workspaces/{ws_id}/rotate-dek", status_code=204)
+async def rotate_dek(
+    ws_id: str,
+    body: RotateDekRequest,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> None:
+    from app.utils.utils import create_timestamp
+    ws = await find_workspace(ws_id)
+    if not ws:
+        raise HTTPException(404)
+    caller_mem = await find_ws_membership(ws_id, uid)
+    org_mem = await find_org_membership(ws["org_id"], uid) if ws.get("org_id") else None
+    is_admin = (caller_mem and caller_mem["ws_role"] == "admin") or (org_mem and org_mem["org_role"] in ("owner", "admin"))
+    if not is_admin:
+        raise HTTPException(403)
+    members = await find_workspace_members(ws_id)
+    member_uids = {m["uid"] for m in members}
+    submitted_uids = {w.uid for w in body.wraps}
+    if submitted_uids != member_uids:
+        raise HTTPException(400, "Wraps must cover all current members exactly")
+    max_existing = max([m.get("wrappedDekVersion", 0) for m in members] + [0])
+    new_version = max_existing + 1
+    await crypto_repo.bulk_set_wrapped_deks(
+        ws_id,
+        [
+            {
+                "uid": w.uid,
+                "wrapped": {
+                    "encrypted": w.wrapped.encrypted,
+                    "iv": w.wrapped.iv,
+                    "senderPublicKey": w.wrapped.senderPublicKey,
+                },
+                "version": new_version,
+            }
+            for w in body.wraps
+        ],
+    )
+    await crypto_repo.set_workspace_encryption(
+        ws_id,
+        scheme="shared-dek-v1",
+        dek_fingerprint=body.dekFingerprint,
+        rotated_at=create_timestamp(),
+    )
+
+
+@router.get("/workspaces/{ws_id}/pending-wraps", response_model=list[PendingWrapOut])
+async def list_pending_wraps(
+    ws_id: str,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> list[PendingWrapOut]:
+    ws = await find_workspace(ws_id)
+    if not ws:
+        raise HTTPException(404)
+    caller_mem = await find_ws_membership(ws_id, uid)
+    if not caller_mem:
+        raise HTTPException(403)
+    pendings = await crypto_repo.find_pending_wraps(ws_id)
+    if not pendings:
+        return []
+    uids = [p["uid"] for p in pendings]
+    users = await db_manager.find(USERS, {"_id": {"$in": uids}}, limit=200)
+    by_uid = {u["_id"]: u for u in users}
+    return [
+        PendingWrapOut(
+            uid=p["uid"],
+            email=by_uid.get(p["uid"], {}).get("email"),
+            publicKey=(by_uid.get(p["uid"], {}).get("encryption") or {}).get("publicKey"),
+        )
+        for p in pendings
+    ]

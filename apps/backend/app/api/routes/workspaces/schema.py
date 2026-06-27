@@ -101,3 +101,35 @@ class KeypairPostRequest(BaseModel):
     publicKey: str = Field(min_length=1)
     privateKeyEncrypted: EncryptionBlob
     salt: str = Field(min_length=1)
+
+
+class WrappedDekBlob(BaseModel):
+    encrypted: str
+    iv: str
+    senderPublicKey: str
+
+
+class DekWrapOut(BaseModel):
+    wrappedDek: WrappedDekBlob | None
+    wrappedDekVersion: int
+
+
+class DekWrapPostRequest(BaseModel):
+    target_uid: str
+    wrapped: WrappedDekBlob
+
+
+class WrapForMember(BaseModel):
+    uid: str
+    wrapped: WrappedDekBlob
+
+
+class RotateDekRequest(BaseModel):
+    dekFingerprint: str = Field(min_length=1)
+    wraps: list[WrapForMember]
+
+
+class PendingWrapOut(BaseModel):
+    uid: str
+    email: str | None
+    publicKey: str | None
