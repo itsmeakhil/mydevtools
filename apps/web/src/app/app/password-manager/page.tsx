@@ -29,6 +29,12 @@ const PASSWORDS_PAGE_SIZE = 500
 export default function PasswordManagerPage() {
     const t = useTranslations("PasswordManager.page")
     const activeWs = useActiveWorkspace()
+    const { user, loading } = useAuth(true)
+    const { encryptionKey } = useMasterKeyStore()
+    const { isUnlocked, isRestoring } = useVaultGuard()
+    const { setPasswords, setLoading, clearPasswords } = usePasswordStore()
+    const isMobile = useIsMobile()
+    const loadedRef = useRef(false)
 
     // Show placeholder for shared workspaces that have not yet enabled E2EE.
     // When activeWs.settings?.encryption is non-null AND a wrappedDek exists for
@@ -37,13 +43,6 @@ export default function PasswordManagerPage() {
     if (activeWs && !activeWs.is_personal && !(activeWs as { settings?: { encryption?: unknown } }).settings?.encryption) {
         return <EncryptedToolPlaceholder toolName="Password Manager" />
     }
-
-    const { user, loading } = useAuth(true)
-    const { encryptionKey } = useMasterKeyStore()
-    const { isUnlocked, isRestoring } = useVaultGuard()
-    const { setPasswords, setLoading, clearPasswords } = usePasswordStore()
-    const isMobile = useIsMobile()
-    const loadedRef = useRef(false)
 
     useEffect(() => {
         if (!encryptionKey || loadedRef.current) return
