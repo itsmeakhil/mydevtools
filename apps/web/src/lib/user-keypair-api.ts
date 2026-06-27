@@ -11,8 +11,10 @@ const BASE = "/api/backend/workspaces-api"
 
 export async function getKeypair(): Promise<KeypairBlob | null> {
   const res = await backendFetch(`${BASE}/users/me/keypair`)
+  if (res.status === 404) return null
   if (!res.ok) throw new Error(`getKeypair failed (${res.status})`)
-  return res.json()
+  const body = await res.json()
+  return body
 }
 
 export async function setKeypair(blob: KeypairBlob): Promise<void> {

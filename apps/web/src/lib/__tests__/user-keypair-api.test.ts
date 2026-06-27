@@ -59,6 +59,14 @@ describe("getKeypair", () => {
     expect(result).toBeNull()
   })
 
+  it("returns null on HTTP 404", async () => {
+    mockFetch.mockResolvedValueOnce(new Response(null, { status: 404 }))
+
+    const result = await getKeypair()
+
+    expect(result).toBeNull()
+  })
+
   it("throws when response is not ok", async () => {
     mockFetch.mockResolvedValueOnce(new Response(null, { status: 500 }))
     await expect(getKeypair()).rejects.toThrow("getKeypair failed (500)")

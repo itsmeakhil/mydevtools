@@ -25,6 +25,7 @@ import { useRouter } from 'next/navigation'
 import { usePasswordStore } from '@/store/password-store'
 import { useEnvironmentManagerStore } from '@/store/environment-manager-store'
 import { useMasterKeyStore } from '@/store/master-key-store'
+import { useUserKeypairStore } from '@/store/user-keypair-store'
 import { clearMasterKey } from '@/lib/key-storage'
 import { logoutBackendSession } from '@/lib/backend-auth'
 import { usePinnedToolsForActiveWorkspace } from '@/store/pinned-tools-store'
@@ -37,6 +38,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { clearPasswords } = usePasswordStore()
   const { clearSets } = useEnvironmentManagerStore()
   const { clearKey: clearMasterKeyStore } = useMasterKeyStore()
+  const { clear: clearUserKeypair } = useUserKeypairStore()
   const pinnedTools = usePinnedToolsForActiveWorkspace()
   const clearWorkspaceStore = useWorkspaceStore((s) => s.clear)
   const activeWs = useActiveWorkspace()
@@ -58,6 +60,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       clearPasswords()       // clear decrypted passwords from memory
       clearSets()            // clear decrypted environment sets from memory
       clearMasterKeyStore()  // clear global master key in-memory state
+      clearUserKeypair()     // clear workspace keypair from memory
       clearWorkspaceStore()  // clear workspace selection on sign-out
 
       // Clear password-manager vault key from IndexedDB
