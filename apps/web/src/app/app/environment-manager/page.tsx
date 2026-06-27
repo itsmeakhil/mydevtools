@@ -16,9 +16,15 @@ import { decryptData } from "@/lib/encryption"
 import { parseEnvPayloadJson } from "@/lib/environment-manager-utils"
 import { toast } from "sonner"
 import { Skeleton } from "@/components/ui/skeleton"
+import { EncryptedToolPlaceholder } from "@/components/encrypted-tool-placeholder"
+import { useActiveWorkspace } from "@/store/workspace-store"
 
 export default function EnvironmentManagerPage() {
     const t = useTranslations("EnvironmentManager.page")
+    const activeWs = useActiveWorkspace()
+    if (activeWs && !activeWs.is_personal) {
+        return <EncryptedToolPlaceholder toolName="Environment Manager" />
+    }
     const { user, loading } = useAuth(true)
     const { encryptionKey } = useMasterKeyStore()
     const { isUnlocked, isRestoring } = useVaultGuard()

@@ -16,11 +16,17 @@ import { decryptData } from "@/lib/encryption"
 import { toast } from "sonner"
 import { Skeleton } from "@/components/ui/skeleton"
 import { fetchAllPages } from "@/lib/fetch-all-pages"
+import { EncryptedToolPlaceholder } from "@/components/encrypted-tool-placeholder"
+import { useActiveWorkspace } from "@/store/workspace-store"
 
 const PASSWORDS_PAGE_SIZE = 500
 
 export default function PasswordManagerPage() {
     const t = useTranslations("PasswordManager.page")
+    const activeWs = useActiveWorkspace()
+    if (activeWs && !activeWs.is_personal) {
+        return <EncryptedToolPlaceholder toolName="Password Manager" />
+    }
     const { user, loading } = useAuth(true)
     const { encryptionKey } = useMasterKeyStore()
     const { isUnlocked, isRestoring } = useVaultGuard()

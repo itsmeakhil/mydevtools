@@ -15,6 +15,8 @@ import { listApiKeyEntries } from "@/lib/api-key-vault-api"
 import { decryptData } from "@/lib/encryption"
 import { toast } from "sonner"
 import { Skeleton } from "@/components/ui/skeleton"
+import { EncryptedToolPlaceholder } from "@/components/encrypted-tool-placeholder"
+import { useActiveWorkspace } from "@/store/workspace-store"
 
 // ponytail: inline parser — one place uses it, no utils file
 function parseApiKeyPayload(plain: string): Omit<ApiKeyEntry, "id" | "createdAt" | "updatedAt"> | null {
@@ -36,6 +38,10 @@ function parseApiKeyPayload(plain: string): Omit<ApiKeyEntry, "id" | "createdAt"
 }
 
 export default function ApiKeyVaultPage() {
+    const activeWs = useActiveWorkspace()
+    if (activeWs && !activeWs.is_personal) {
+        return <EncryptedToolPlaceholder toolName="API Key Vault" />
+    }
     const { user, loading } = useAuth(true)
     const { encryptionKey } = useMasterKeyStore()
     const { isUnlocked, isRestoring } = useVaultGuard()
