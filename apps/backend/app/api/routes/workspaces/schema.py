@@ -80,5 +80,6 @@ class InvitationOut(BaseModel):
     invited_role_org: OrgRole | None
     invited_role_ws: WsRole | None
     status: InvitationStatus
+    token: str
     expires_at: int
     created_at: int

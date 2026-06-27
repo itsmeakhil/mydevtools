@@ -40,7 +40,7 @@ export function PendingInvitationsBadge() {
   if (invitations.length === 0) return null
 
   async function handleAccept(invitation: Invitation) {
-    const token = invitation.id
+    const token = invitation.token
     setAccepting(token)
     try {
       const result = await acceptInvitation(token)

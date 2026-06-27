@@ -9,6 +9,7 @@ export type Invitation = {
   invited_role_org: "owner" | "admin" | "member" | "viewer" | null
   invited_role_ws: "admin" | "developer" | "viewer" | null
   status: "pending" | "accepted" | "revoked" | "expired" | "wrapping_pending"
+  token: string
   expires_at: number
   created_at: number
 }

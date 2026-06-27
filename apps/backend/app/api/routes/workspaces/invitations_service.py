@@ -24,6 +24,7 @@ def _doc_to_out(doc: dict) -> InvitationOut:
         invited_role_org=doc.get("invited_role_org"),
         invited_role_ws=doc.get("invited_role_ws"),
         status=doc["status"],
+        token=doc["token"],
         expires_at=int(doc["expires_at"]),
         created_at=int(doc["created_at"]),
     )

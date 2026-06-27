@@ -81,6 +81,7 @@ const PENDING_INV: Invitation = {
   invited_role_org: null,
   invited_role_ws: "developer",
   status: "pending",
+  token: "dGVzdC10b2tlbi1hYmMxMjM=",
   expires_at: Date.now() + 86400000,
   created_at: Date.now(),
 }
@@ -94,6 +95,7 @@ const PENDING_ORG_INV: Invitation = {
   invited_role_org: "member",
   invited_role_ws: null,
   status: "pending",
+  token: "dGVzdC10b2tlbi1vcmc0NTY=",
   expires_at: Date.now() + 86400000,
   created_at: Date.now(),
 }
@@ -164,15 +166,15 @@ describe("PendingInvitationsBadge — polling behaviour", () => {
 describe("PendingInvitationsBadge — accept flow", () => {
   beforeEach(() => jest.clearAllMocks())
 
-  it("calls acceptInvitation with the invitation id (token)", async () => {
+  it("calls acceptInvitation with the invitation token", async () => {
     const { acceptInvitation } = require("@/lib/invitations-api")
     ;(acceptInvitation as jest.Mock).mockResolvedValueOnce({
       org_id: "o1",
       workspace_id: "w1",
     })
 
-    await acceptInvitation(PENDING_INV.id)
-    expect(acceptInvitation).toHaveBeenCalledWith("inv-token-123")
+    await acceptInvitation(PENDING_INV.token)
+    expect(acceptInvitation).toHaveBeenCalledWith("dGVzdC10b2tlbi1hYmMxMjM=")
   })
 
   it("calls loadFromBackend after accepting", async () => {
@@ -185,7 +187,7 @@ describe("PendingInvitationsBadge — accept flow", () => {
     const { useWorkspaceStore } = require("@/store/workspace-store")
     const { loadFromBackend, setActiveWorkspace } = useWorkspaceStore.getState()
 
-    await acceptInvitation(PENDING_INV.id)
+    await acceptInvitation(PENDING_INV.token)
     await loadFromBackend()
 
     expect(loadFromBackend).toHaveBeenCalledTimes(1)
@@ -201,7 +203,7 @@ describe("PendingInvitationsBadge — accept flow", () => {
     const { useWorkspaceStore } = require("@/store/workspace-store")
     const { setActiveWorkspace } = useWorkspaceStore.getState()
 
-    const result = await acceptInvitation(PENDING_INV.id)
+    const result = await acceptInvitation(PENDING_INV.token)
     if (result.workspace_id) {
       await setActiveWorkspace(result.workspace_id)
     }
@@ -219,7 +221,7 @@ describe("PendingInvitationsBadge — accept flow", () => {
     const { useWorkspaceStore } = require("@/store/workspace-store")
     const { setActiveWorkspace } = useWorkspaceStore.getState()
 
-    const result = await acceptInvitation(PENDING_ORG_INV.id)
+    const result = await acceptInvitation(PENDING_ORG_INV.token)
     if (result.workspace_id) {
       await setActiveWorkspace(result.workspace_id)
     }
@@ -256,7 +258,7 @@ describe("PendingInvitationsBadge — accept flow", () => {
     })
     ;(listPending as jest.Mock).mockResolvedValue([])
 
-    await acceptInvitation(PENDING_INV.id)
+    await acceptInvitation(PENDING_INV.token)
     await listPending()
 
     expect(listPending).toHaveBeenCalledTimes(1)
