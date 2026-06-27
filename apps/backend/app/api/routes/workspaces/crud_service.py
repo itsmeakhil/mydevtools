@@ -1,10 +1,10 @@
 import re
 from fastapi import HTTPException
 from app.api.routes.workspaces import repo
-from app.api.routes.workspaces.schema import OrgCreate, OrgOut, OrgPatch
+from app.api.routes.workspaces.schema import OrgCreate, OrgOut, OrgPatch, WorkspaceCreate, WorkspacePatch, WorkspaceOut
 from app.database import db_manager
 from app.utils.collection_name import ORGANIZATIONS, WORKSPACES
-from app.utils.utils import create_timestamp
+from app.utils.utils import create_timestamp, new_id
 
 
 def _slugify(name: str) -> str:
@@ -75,3 +75,77 @@ async def delete_org(uid: str, org_id: str) -> None:
         {"org_id": org_id, "deleted_at": None},
         {"$set": {"deleted_at": ts}},
     )
+
+
+async def _ws_to_out(ws: dict, ws_role: str) -> WorkspaceOut:
+    return WorkspaceOut(
+        id=ws["_id"],
+        org_id=ws["org_id"],
+        name=ws["name"],
+        slug=ws["slug"],
+        is_personal=bool(ws.get("is_personal")),
+        kind=ws.get("kind", "shared"),
+        ws_role=ws_role,
+    )
+
+
+async def create_shared_workspace(
+    uid: str, org_id: str, body: WorkspaceCreate,
+) -> WorkspaceOut:
+    org_mem = await repo.find_org_membership(org_id, uid)
+    if not org_mem or org_mem["org_role"] not in ("owner", "admin"):
+        raise HTTPException(status_code=403, detail="Org admin required")
+    slug = body.slug or _slugify(body.name)
+    ts = create_timestamp()
+    doc = {
+        "_id": new_id(),
+        "org_id": org_id,
+        "name": body.name,
+        "slug": slug,
+        "is_personal": False,
+        "owner_uid": None,
+        "kind": "shared",
+        "settings": {"encryption": None},
+        "createdAt": ts,
+        "updatedAt": ts,
+        "deleted_at": None,
+    }
+    await db_manager.insert_one(WORKSPACES, doc)
+    # Create explicit ws membership so the listing endpoint surfaces the workspace.
+    await repo.upsert_ws_membership(doc["_id"], org_id, uid, "admin")
+    return await _ws_to_out(doc, "admin")
+
+
+async def rename_workspace(
+    uid: str, ws_id: str, body: WorkspacePatch,
+) -> WorkspaceOut:
+    ws = await repo.find_workspace(ws_id)
+    if not ws:
+        raise HTTPException(status_code=404, detail="Workspace not found")
+    if ws.get("is_personal"):
+        raise HTTPException(status_code=403, detail="Personal workspace is locked")
+    org_mem = await repo.find_org_membership(ws["org_id"], uid)
+    if not org_mem or org_mem["org_role"] not in ("owner", "admin"):
+        ws_mem = await repo.find_ws_membership(ws_id, uid)
+        if not ws_mem or ws_mem["ws_role"] != "admin":
+            raise HTTPException(status_code=403, detail="Workspace admin required")
+    if body.name and body.name != ws["name"]:
+        await db_manager.update_one(
+            WORKSPACES, {"_id": ws_id},
+            {"$set": {"name": body.name, "updatedAt": create_timestamp()}},
+        )
+    ws = await repo.find_workspace(ws_id)
+    mem = await repo.find_ws_membership(ws_id, uid)
+    return await _ws_to_out(ws, (mem or {"ws_role": "admin"})["ws_role"])
+
+
+async def delete_workspace(uid: str, ws_id: str) -> None:
+    ws = await repo.find_workspace(ws_id)
+    if not ws:
+        raise HTTPException(status_code=404, detail="Workspace not found")
+    if ws.get("is_personal"):
+        raise HTTPException(status_code=403, detail="Personal workspace is locked")
+    org_mem = await repo.find_org_membership(ws["org_id"], uid)
+    if not org_mem or org_mem["org_role"] not in ("owner", "admin"):
+        raise HTTPException(status_code=403, detail="Org admin required")
+    await repo.set_workspace_deleted(ws_id, create_timestamp())

@@ -8,7 +8,7 @@ from app.api.routes.workspaces.repo import (
 )
 from app.api.routes.workspaces.schema import (
     OrgCreate, OrgOut, OrgPatch, SetActiveWorkspaceRequest, SetActiveWorkspaceResponse,
-    WorkspaceOut,
+    WorkspaceCreate, WorkspacePatch, WorkspaceOut,
 )
 from app.core.config import get_settings
 
@@ -111,3 +111,33 @@ async def delete_org_route(
     uid: Annotated[str, Depends(get_current_uid)],
 ) -> None:
     await crud_service.delete_org(uid, org_id)
+
+
+@router.post(
+    "/orgs/{org_id}/workspaces",
+    response_model=WorkspaceOut,
+    status_code=201,
+)
+async def create_workspace_route(
+    org_id: str,
+    body: WorkspaceCreate,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> WorkspaceOut:
+    return await crud_service.create_shared_workspace(uid, org_id, body)
+
+
+@router.patch("/workspaces/{ws_id}", response_model=WorkspaceOut)
+async def rename_workspace_route(
+    ws_id: str,
+    body: WorkspacePatch,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> WorkspaceOut:
+    return await crud_service.rename_workspace(uid, ws_id, body)
+
+
+@router.delete("/workspaces/{ws_id}", status_code=204)
+async def delete_workspace_route(
+    ws_id: str,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> None:
+    await crud_service.delete_workspace(uid, ws_id)
