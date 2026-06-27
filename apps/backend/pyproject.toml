@@ -16,6 +16,7 @@ dependencies = [
   "redis[asyncio]>=5.0",
   "orjson>=3.10",
   "webauthn>=2.5.0",
+  "resend>=0.7,<1.0",
 ]
 
 [project.optional-dependencies]
