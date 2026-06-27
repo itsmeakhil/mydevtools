@@ -4,7 +4,10 @@
  * Note: @testing-library/react is not installed in this project, and the Jest
  * testEnvironment is "jest-environment-node", so we cannot render React trees.
  * We test module exports, store-driven logic, and structural guarantees
- * (no dropdown chevron in sub-project A) without a browser environment.
+ * without a browser environment.
+ *
+ * Sub-project B: workspace-switcher.tsx delegates to WorkspaceSwitcherDropdown.
+ * Structural dropdown tests live in workspace-switcher-dropdown.test.tsx.
  *
  * If @testing-library/react + jsdom are ever added, the skipped render tests
  * at the bottom can be enabled.
@@ -12,13 +15,21 @@
 
 jest.mock("next/navigation", () => ({ useRouter: jest.fn(), usePathname: jest.fn(() => "/app") }))
 jest.mock("next-intl", () => ({ useTranslations: () => (k: string) => k, useMessages: () => ({}) }))
-jest.mock("lucide-react", () => ({ Briefcase: () => null }))
-jest.mock("@/components/ui/tooltip", () => ({
-  TooltipProvider: ({ children }: { children: React.ReactNode }) => children,
-  Tooltip: ({ children }: { children: React.ReactNode }) => children,
-  TooltipTrigger: ({ children }: { children: React.ReactNode }) => children,
-  TooltipContent: ({ children }: { children: React.ReactNode }) => children,
+jest.mock("lucide-react", () => ({
+  Briefcase: () => null,
+  Plus: () => null,
+  ChevronsUpDown: () => null,
 }))
+jest.mock("@/components/ui/dropdown-menu", () => ({
+  DropdownMenu: ({ children }: { children: React.ReactNode }) => children,
+  DropdownMenuContent: ({ children }: { children: React.ReactNode }) => children,
+  DropdownMenuItem: ({ children }: { children: React.ReactNode }) => children,
+  DropdownMenuLabel: ({ children }: { children: React.ReactNode }) => children,
+  DropdownMenuSeparator: () => null,
+  DropdownMenuTrigger: ({ children }: { children: React.ReactNode }) => children,
+}))
+jest.mock("@/components/create-org-dialog", () => ({ CreateOrgDialog: () => null }))
+jest.mock("@/components/create-workspace-dialog", () => ({ CreateWorkspaceDialog: () => null }))
 
 import { useWorkspaceStore } from "@/store/workspace-store"
 
@@ -26,13 +37,6 @@ describe("WorkspaceSwitcher module exports", () => {
   it("exports a WorkspaceSwitcher function component", () => {
     const mod = require("../workspace-switcher")
     expect(typeof mod.WorkspaceSwitcher).toBe("function")
-  })
-
-  it("does NOT export a chevron or dropdown wrapper (sub-project A is display-only)", () => {
-    const mod = require("../workspace-switcher")
-    // No DropdownMenu export allowed in sub-project A
-    expect(mod.WorkspaceSwitcherDropdown).toBeUndefined()
-    expect(mod.ChevronTrigger).toBeUndefined()
   })
 })
 
