@@ -366,6 +366,38 @@ async def rotate_dek(
     )
 
 
+@router.get("/workspaces/{ws_id}/member-publickeys", response_model=list[PendingWrapOut])
+async def list_member_publickeys(
+    ws_id: str,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> list[PendingWrapOut]:
+    ws = await find_workspace(ws_id)
+    if not ws:
+        raise HTTPException(404)
+    caller_mem = await find_ws_membership(ws_id, uid)
+    org_mem = await find_org_membership(ws["org_id"], uid) if ws.get("org_id") else None
+    is_admin = (
+        (caller_mem and caller_mem["ws_role"] == "admin")
+        or (org_mem and org_mem["org_role"] in ("owner", "admin"))
+    )
+    if not is_admin:
+        raise HTTPException(403)
+    members = await find_workspace_members(ws_id)
+    if not members:
+        return []
+    member_uids = [m["uid"] for m in members]
+    users = await db_manager.find(USERS, {"_id": {"$in": member_uids}}, limit=500)
+    by_uid = {u["_id"]: u for u in users}
+    return [
+        PendingWrapOut(
+            uid=m["uid"],
+            email=by_uid.get(m["uid"], {}).get("email"),
+            publicKey=(by_uid.get(m["uid"], {}).get("encryption") or {}).get("publicKey"),
+        )
+        for m in members
+    ]
+
+
 @router.get("/workspaces/{ws_id}/pending-wraps", response_model=list[PendingWrapOut])
 async def list_pending_wraps(
     ws_id: str,

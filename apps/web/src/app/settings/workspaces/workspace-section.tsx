@@ -11,6 +11,7 @@ import { renameWorkspace, deleteWorkspace } from "@/lib/org-api"
 import { useWorkspaceStore } from "@/store/workspace-store"
 import { MemberList } from "@/components/member-list"
 import { InviteMemberDialog } from "@/components/invite-member-dialog"
+import { EnableEncryptedToolsCta } from "@/components/enable-encrypted-tools-cta"
 
 export function WorkspaceSection({ workspace }: { workspace: Workspace }) {
   const { loadFromBackend } = useWorkspaceStore()
@@ -160,6 +161,16 @@ export function WorkspaceSection({ workspace }: { workspace: Workspace }) {
         </div>
         <MemberList scope="workspace" scopeId={workspace.id} />
       </div>
+
+      {!workspace.is_personal
+        && !(workspace as { settings?: { encryption?: unknown } }).settings?.encryption
+        && workspace.ws_role === "admin"
+        && (
+          <div className="mt-4">
+            <EnableEncryptedToolsCta workspaceId={workspace.id} />
+          </div>
+        )
+      }
 
       <InviteMemberDialog
         scope="workspace"
