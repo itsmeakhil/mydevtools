@@ -2,14 +2,15 @@ from fastapi import APIRouter, Depends, Query
 
 from app.api.routes.code_snippets import services as snippet_svc
 from app.api.routes.code_snippets.schema import CodeSnippetCreate, CodeSnippetOut, CodeSnippetUpdate
-from app.api.routes.workspaces.middleware import WorkspaceContext, get_workspace_ctx
+from app.api.routes.workspaces.middleware import WorkspaceContext
+from app.api.routes.workspaces.rbac import require_permission
 
 router = APIRouter(prefix="/code-snippets", tags=["code-snippets"])
 
 
 @router.get("", response_model=list[CodeSnippetOut], summary="List code snippets for current user")
 async def list_snippets(
-    ctx: WorkspaceContext = Depends(get_workspace_ctx),
+    ctx: WorkspaceContext = Depends(require_permission("code-snippets", "read")),
     skip: int = Query(default=0, ge=0),
     limit: int | None = Query(default=None, ge=1, le=500),
 ) -> list[CodeSnippetOut]:
@@ -17,7 +18,7 @@ async def list_snippets(
 
 
 @router.post("", response_model=CodeSnippetOut, summary="Create a code snippet")
-async def create_snippet(body: CodeSnippetCreate, ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> CodeSnippetOut:
+async def create_snippet(body: CodeSnippetCreate, ctx: WorkspaceContext = Depends(require_permission("code-snippets", "write"))) -> CodeSnippetOut:
     return await snippet_svc.create_code_snippet(ctx, body)
 
 
@@ -25,11 +26,11 @@ async def create_snippet(body: CodeSnippetCreate, ctx: WorkspaceContext = Depend
 async def patch_snippet(
     snippet_id: str,
     body: CodeSnippetUpdate,
-    ctx: WorkspaceContext = Depends(get_workspace_ctx),
+    ctx: WorkspaceContext = Depends(require_permission("code-snippets", "write")),
 ) -> CodeSnippetOut:
     return await snippet_svc.update_code_snippet(ctx, snippet_id, body)
 
 
 @router.delete("/{snippet_id}", status_code=204, summary="Delete a code snippet")
-async def remove_snippet(snippet_id: str, ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> None:
+async def remove_snippet(snippet_id: str, ctx: WorkspaceContext = Depends(require_permission("code-snippets", "delete"))) -> None:
     await snippet_svc.delete_code_snippet(ctx, snippet_id)

@@ -8,20 +8,21 @@ from app.api.routes.passwords.schema import (
     VaultOut,
     VaultSetupRequest,
 )
-from app.api.routes.workspaces.middleware import WorkspaceContext, get_workspace_ctx
+from app.api.routes.workspaces.middleware import WorkspaceContext
+from app.api.routes.workspaces.rbac import require_permission
 from app.core.limiter import limiter
 
 router = APIRouter(prefix="/password-manager", tags=["password-manager"])
 
 
 @router.get("/vault", response_model=VaultOut, summary="Get password vault settings")
-async def get_vault(ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> VaultOut:
+async def get_vault(ctx: WorkspaceContext = Depends(require_permission("password-manager", "read"))) -> VaultOut:
     return await pw_svc.get_vault(ctx=ctx)
 
 
 @router.post("/vault/setup", response_model=VaultOut, summary="Setup/replace password vault")
 @limiter.limit("3/minute")
-async def setup_vault(request: Request, body: VaultSetupRequest, ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> VaultOut:
+async def setup_vault(request: Request, body: VaultSetupRequest, ctx: WorkspaceContext = Depends(require_permission("password-manager", "write"))) -> VaultOut:
     return await pw_svc.setup_vault(ctx, body)
 
 
@@ -30,7 +31,7 @@ async def setup_vault(request: Request, body: VaultSetupRequest, ctx: WorkspaceC
     summary="Delete vault + all encrypted entries (clearAll equivalent)",
 )
 @limiter.limit("3/minute")
-async def clear_vault(request: Request, ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> dict[str, int]:
+async def clear_vault(request: Request, ctx: WorkspaceContext = Depends(require_permission("password-manager", "admin"))) -> dict[str, int]:
     return await pw_svc.clear_vault(ctx)
 
 
@@ -40,7 +41,7 @@ async def clear_vault(request: Request, ctx: WorkspaceContext = Depends(get_work
     summary="List encrypted password entries",
 )
 async def list_entries(
-    ctx: WorkspaceContext = Depends(get_workspace_ctx),
+    ctx: WorkspaceContext = Depends(require_permission("password-manager", "read")),
     limit: int = Query(default=200, ge=1, le=1000),
     offset: int = Query(default=0, ge=0),
 ) -> list[PasswordEntryOut]:
@@ -53,7 +54,7 @@ async def list_entries(
     summary="Create password entry (encrypted blob)",
 )
 @limiter.limit("30/minute")
-async def create_entry(request: Request, body: PasswordEntryCreate, ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> PasswordEntryOut:
+async def create_entry(request: Request, body: PasswordEntryCreate, ctx: WorkspaceContext = Depends(require_permission("password-manager", "write"))) -> PasswordEntryOut:
     return await pw_svc.create_entry(ctx, body)
 
 
@@ -62,7 +63,7 @@ async def create_entry(request: Request, body: PasswordEntryCreate, ctx: Workspa
     response_model=PasswordEntryOut,
     summary="Get one password entry",
 )
-async def get_entry(entry_id: str, ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> PasswordEntryOut:
+async def get_entry(entry_id: str, ctx: WorkspaceContext = Depends(require_permission("password-manager", "read"))) -> PasswordEntryOut:
     return await pw_svc.get_entry(ctx=ctx, entry_id=entry_id)
 
 
@@ -74,7 +75,7 @@ async def get_entry(entry_id: str, ctx: WorkspaceContext = Depends(get_workspace
 async def patch_entry(
     entry_id: str,
     body: PasswordEntryUpdate,
-    ctx: WorkspaceContext = Depends(get_workspace_ctx),
+    ctx: WorkspaceContext = Depends(require_permission("password-manager", "write")),
 ) -> PasswordEntryOut:
     return await pw_svc.update_entry(ctx, entry_id, body)
 
@@ -84,5 +85,5 @@ async def patch_entry(
     status_code=204,
     summary="Delete password entry",
 )
-async def delete_entry(entry_id: str, ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> None:
+async def delete_entry(entry_id: str, ctx: WorkspaceContext = Depends(require_permission("password-manager", "delete"))) -> None:
     await pw_svc.delete_entry(ctx, entry_id)

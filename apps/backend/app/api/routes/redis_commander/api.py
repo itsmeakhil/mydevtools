@@ -6,7 +6,8 @@ from app.api.routes.redis_commander.schema import (
     RedisConnectionUpdate,
 )
 from app.api.routes.redis_commander import services as svc
-from app.api.routes.workspaces.middleware import WorkspaceContext, get_workspace_ctx
+from app.api.routes.workspaces.middleware import WorkspaceContext
+from app.api.routes.workspaces.rbac import require_permission
 
 router = APIRouter(prefix="/redis-commander", tags=["redis-commander"])
 
@@ -16,7 +17,7 @@ router = APIRouter(prefix="/redis-commander", tags=["redis-commander"])
     response_model=list[RedisConnectionOut],
     summary="List saved Redis connections",
 )
-async def list_connections(ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> list[RedisConnectionOut]:
+async def list_connections(ctx: WorkspaceContext = Depends(require_permission("redis-commander", "read"))) -> list[RedisConnectionOut]:
     return await svc.list_connections(ctx)
 
 
@@ -26,7 +27,7 @@ async def list_connections(ctx: WorkspaceContext = Depends(get_workspace_ctx)) -
     summary="Save a new Redis connection",
 )
 async def create_connection(
-    body: RedisConnectionCreate, ctx: WorkspaceContext = Depends(get_workspace_ctx)
+    body: RedisConnectionCreate, ctx: WorkspaceContext = Depends(require_permission("redis-commander", "write"))
 ) -> RedisConnectionOut:
     return await svc.create_connection(ctx, body)
 
@@ -39,7 +40,7 @@ async def create_connection(
 async def update_connection(
     connection_id: str,
     body: RedisConnectionUpdate,
-    ctx: WorkspaceContext = Depends(get_workspace_ctx),
+    ctx: WorkspaceContext = Depends(require_permission("redis-commander", "write")),
 ) -> RedisConnectionOut:
     return await svc.update_connection(ctx, connection_id, body)
 
@@ -50,7 +51,7 @@ async def update_connection(
     summary="Delete a saved Redis connection",
 )
 async def delete_connection(
-    connection_id: str, ctx: WorkspaceContext = Depends(get_workspace_ctx)
+    connection_id: str, ctx: WorkspaceContext = Depends(require_permission("redis-commander", "delete"))
 ) -> None:
     await svc.delete_connection(ctx, connection_id)
 
@@ -61,6 +62,6 @@ async def delete_connection(
     summary="Update lastUsedAt for a connection",
 )
 async def touch_connection(
-    connection_id: str, ctx: WorkspaceContext = Depends(get_workspace_ctx)
+    connection_id: str, ctx: WorkspaceContext = Depends(require_permission("redis-commander", "write"))
 ) -> None:
     await svc.touch_connection(ctx, connection_id)

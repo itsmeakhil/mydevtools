@@ -7,7 +7,8 @@ from app.api.routes.environment_manager.schema import (
     EnvSetEntryOut,
     EnvSetEntryUpdate,
 )
-from app.api.routes.workspaces.middleware import WorkspaceContext, get_workspace_ctx
+from app.api.routes.workspaces.middleware import WorkspaceContext
+from app.api.routes.workspaces.rbac import require_permission
 
 router = APIRouter(prefix="/environment-manager", tags=["environment-manager"])
 
@@ -18,7 +19,7 @@ router = APIRouter(prefix="/environment-manager", tags=["environment-manager"])
     summary="List encrypted environment sets (per project / environment)",
 )
 async def list_entries(
-    ctx: WorkspaceContext = Depends(get_workspace_ctx),
+    ctx: WorkspaceContext = Depends(require_permission("environment-manager", "read")),
     limit: int | None = Query(default=None, ge=1, le=1000),
     offset: int = Query(default=0, ge=0),
 ) -> list[EnvSetEntryOut]:
@@ -30,7 +31,7 @@ async def list_entries(
     response_model=EnvSetEntryOut,
     summary="Create environment set (encrypted blob)",
 )
-async def create_entry(body: EnvSetEntryCreate, ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> EnvSetEntryOut:
+async def create_entry(body: EnvSetEntryCreate, ctx: WorkspaceContext = Depends(require_permission("environment-manager", "write"))) -> EnvSetEntryOut:
     return await env_svc.create_entry(ctx, body)
 
 
@@ -39,7 +40,7 @@ async def create_entry(body: EnvSetEntryCreate, ctx: WorkspaceContext = Depends(
     response_model=EnvSetEntryOut,
     summary="Get one environment set",
 )
-async def get_entry(entry_id: str, ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> EnvSetEntryOut:
+async def get_entry(entry_id: str, ctx: WorkspaceContext = Depends(require_permission("environment-manager", "read"))) -> EnvSetEntryOut:
     return await env_svc.get_entry(ctx=ctx, entry_id=entry_id)
 
 
@@ -51,7 +52,7 @@ async def get_entry(entry_id: str, ctx: WorkspaceContext = Depends(get_workspace
 async def patch_entry(
     entry_id: str,
     body: EnvSetEntryUpdate,
-    ctx: WorkspaceContext = Depends(get_workspace_ctx),
+    ctx: WorkspaceContext = Depends(require_permission("environment-manager", "write")),
 ) -> EnvSetEntryOut:
     return await env_svc.update_entry(ctx, entry_id, body)
 
@@ -61,5 +62,5 @@ async def patch_entry(
     status_code=204,
     summary="Delete environment set",
 )
-async def delete_entry(entry_id: str, ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> None:
+async def delete_entry(entry_id: str, ctx: WorkspaceContext = Depends(require_permission("environment-manager", "delete"))) -> None:
     await env_svc.delete_entry(ctx, entry_id)

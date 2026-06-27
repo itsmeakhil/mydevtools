@@ -6,7 +6,8 @@ from app.api.routes.api_key_vault.schema import (
     ApiKeyEntryOut,
     ApiKeyEntryUpdate,
 )
-from app.api.routes.workspaces.middleware import WorkspaceContext, get_workspace_ctx
+from app.api.routes.workspaces.middleware import WorkspaceContext
+from app.api.routes.workspaces.rbac import require_permission
 
 router = APIRouter(prefix="/api-keys", tags=["api-keys"])
 
@@ -17,7 +18,7 @@ router = APIRouter(prefix="/api-keys", tags=["api-keys"])
     summary="List encrypted API key entries",
 )
 async def list_entries(
-    ctx: WorkspaceContext = Depends(get_workspace_ctx),
+    ctx: WorkspaceContext = Depends(require_permission("api-key-vault", "read")),
     limit: int | None = Query(default=None, ge=1, le=1000),
     offset: int = Query(default=0, ge=0),
 ) -> list[ApiKeyEntryOut]:
@@ -29,7 +30,7 @@ async def list_entries(
     response_model=ApiKeyEntryOut,
     summary="Create API key entry (encrypted blob)",
 )
-async def create_entry(body: ApiKeyEntryCreate, ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> ApiKeyEntryOut:
+async def create_entry(body: ApiKeyEntryCreate, ctx: WorkspaceContext = Depends(require_permission("api-key-vault", "write"))) -> ApiKeyEntryOut:
     return await vault_svc.create_entry(ctx, body)
 
 
@@ -38,7 +39,7 @@ async def create_entry(body: ApiKeyEntryCreate, ctx: WorkspaceContext = Depends(
     response_model=ApiKeyEntryOut,
     summary="Get one API key entry",
 )
-async def get_entry(entry_id: str, ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> ApiKeyEntryOut:
+async def get_entry(entry_id: str, ctx: WorkspaceContext = Depends(require_permission("api-key-vault", "read"))) -> ApiKeyEntryOut:
     return await vault_svc.get_entry(ctx=ctx, entry_id=entry_id)
 
 
@@ -50,7 +51,7 @@ async def get_entry(entry_id: str, ctx: WorkspaceContext = Depends(get_workspace
 async def patch_entry(
     entry_id: str,
     body: ApiKeyEntryUpdate,
-    ctx: WorkspaceContext = Depends(get_workspace_ctx),
+    ctx: WorkspaceContext = Depends(require_permission("api-key-vault", "write")),
 ) -> ApiKeyEntryOut:
     return await vault_svc.update_entry(ctx, entry_id, body)
 
@@ -60,5 +61,5 @@ async def patch_entry(
     status_code=204,
     summary="Delete API key entry",
 )
-async def delete_entry(entry_id: str, ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> None:
+async def delete_entry(entry_id: str, ctx: WorkspaceContext = Depends(require_permission("api-key-vault", "delete"))) -> None:
     await vault_svc.delete_entry(ctx, entry_id)

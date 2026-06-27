@@ -6,7 +6,8 @@ from app.api.routes.sql_client.schema import (
     SqlConnectionUpdate,
 )
 from app.api.routes.sql_client import services as svc
-from app.api.routes.workspaces.middleware import WorkspaceContext, get_workspace_ctx
+from app.api.routes.workspaces.middleware import WorkspaceContext
+from app.api.routes.workspaces.rbac import require_permission
 
 router = APIRouter(prefix="/sql-client", tags=["sql-client"])
 
@@ -16,7 +17,7 @@ router = APIRouter(prefix="/sql-client", tags=["sql-client"])
     response_model=list[SqlConnectionOut],
     summary="List saved SQL connections",
 )
-async def list_connections(ctx: WorkspaceContext = Depends(get_workspace_ctx)) -> list[SqlConnectionOut]:
+async def list_connections(ctx: WorkspaceContext = Depends(require_permission("sql-client", "read"))) -> list[SqlConnectionOut]:
     return await svc.list_connections(ctx)
 
 
@@ -26,7 +27,7 @@ async def list_connections(ctx: WorkspaceContext = Depends(get_workspace_ctx)) -
     summary="Save a new SQL connection",
 )
 async def create_connection(
-    body: SqlConnectionCreate, ctx: WorkspaceContext = Depends(get_workspace_ctx)
+    body: SqlConnectionCreate, ctx: WorkspaceContext = Depends(require_permission("sql-client", "write"))
 ) -> SqlConnectionOut:
     return await svc.create_connection(ctx, body)
 
@@ -39,7 +40,7 @@ async def create_connection(
 async def update_connection(
     connection_id: str,
     body: SqlConnectionUpdate,
-    ctx: WorkspaceContext = Depends(get_workspace_ctx),
+    ctx: WorkspaceContext = Depends(require_permission("sql-client", "write")),
 ) -> SqlConnectionOut:
     return await svc.update_connection(ctx, connection_id, body)
 
@@ -50,7 +51,7 @@ async def update_connection(
     summary="Delete a saved SQL connection",
 )
 async def delete_connection(
-    connection_id: str, ctx: WorkspaceContext = Depends(get_workspace_ctx)
+    connection_id: str, ctx: WorkspaceContext = Depends(require_permission("sql-client", "delete"))
 ) -> None:
     await svc.delete_connection(ctx, connection_id)
 
@@ -61,6 +62,6 @@ async def delete_connection(
     summary="Update lastUsedAt for a connection",
 )
 async def touch_connection(
-    connection_id: str, ctx: WorkspaceContext = Depends(get_workspace_ctx)
+    connection_id: str, ctx: WorkspaceContext = Depends(require_permission("sql-client", "write"))
 ) -> None:
     await svc.touch_connection(ctx, connection_id)

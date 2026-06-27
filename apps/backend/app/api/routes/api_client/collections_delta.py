@@ -27,7 +27,8 @@ from app.api.routes.api_client.schema import (
     Op,
     UpdateItemOp,
 )
-from app.api.routes.workspaces.middleware import WorkspaceContext, apply_workspace_filter, get_workspace_ctx
+from app.api.routes.workspaces.middleware import WorkspaceContext, apply_workspace_filter
+from app.api.routes.workspaces.rbac import require_permission
 from app.database import db_manager
 from app.utils.collection_name import API_CLIENT_COLLECTIONS
 
@@ -273,7 +274,7 @@ async def apply_collection_delta(
 async def apply_delta(
     collection_id: str,
     body: ApplyDeltaRequest,
-    ctx: WorkspaceContext = Depends(get_workspace_ctx),
+    ctx: WorkspaceContext = Depends(require_permission("api-client", "write")),
 ) -> ApplyDeltaResponse:
     collection = await apply_collection_delta(ctx, collection_id, body.ops)
     return ApplyDeltaResponse(collection=collection)

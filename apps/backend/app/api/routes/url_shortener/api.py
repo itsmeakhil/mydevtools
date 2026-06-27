@@ -11,7 +11,8 @@ from app.api.routes.url_shortener.schema import (
     ShortLinkUpdate,
     LinkAnalytics,
 )
-from app.api.routes.workspaces.middleware import WorkspaceContext, get_workspace_ctx
+from app.api.routes.workspaces.middleware import WorkspaceContext
+from app.api.routes.workspaces.rbac import require_permission
 from app.core.redis_client import get_redis
 
 router = APIRouter(prefix="/url-shortener", tags=["url-shortener"])
@@ -39,14 +40,14 @@ async def _is_click_rate_limited(ip: str, code: str) -> bool:
 @router.post("", response_model=ShortLinkOut, summary="Create a short link")
 async def create_link(
     body: ShortLinkCreate,
-    ctx: WorkspaceContext = Depends(get_workspace_ctx),
+    ctx: WorkspaceContext = Depends(require_permission("url-shortener", "write")),
 ) -> ShortLinkOut:
     return await svc.create_link(ctx, body)
 
 
 @router.get("", response_model=list[ShortLinkOut], summary="List user's short links")
 async def list_links(
-    ctx: WorkspaceContext = Depends(get_workspace_ctx),
+    ctx: WorkspaceContext = Depends(require_permission("url-shortener", "read")),
     skip: int = Query(default=0, ge=0),
     limit: int = Query(default=100, ge=1, le=500),
 ) -> list[ShortLinkOut]:
@@ -100,7 +101,7 @@ async def record_click(code: str, request: Request) -> None:
 async def get_analytics(
     code: str,
     days: int = Query(default=30, ge=1, le=365),
-    ctx: WorkspaceContext = Depends(get_workspace_ctx),
+    ctx: WorkspaceContext = Depends(require_permission("url-shortener", "read")),
 ) -> LinkAnalytics:
     return await svc.get_analytics(ctx=ctx, code=code, days=days)
 
@@ -109,7 +110,7 @@ async def get_analytics(
 async def update_link(
     code: str,
     body: ShortLinkUpdate,
-    ctx: WorkspaceContext = Depends(get_workspace_ctx),
+    ctx: WorkspaceContext = Depends(require_permission("url-shortener", "write")),
 ) -> ShortLinkOut:
     return await svc.update_link(ctx, code, body)
 
@@ -117,6 +118,6 @@ async def update_link(
 @router.delete("/{code}", status_code=204, summary="Delete a short link")
 async def delete_link(
     code: str,
-    ctx: WorkspaceContext = Depends(get_workspace_ctx),
+    ctx: WorkspaceContext = Depends(require_permission("url-shortener", "delete")),
 ) -> None:
     await svc.delete_link(ctx, code)
