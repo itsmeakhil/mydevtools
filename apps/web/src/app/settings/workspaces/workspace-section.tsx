@@ -13,6 +13,7 @@ import { MemberList } from "@/components/member-list"
 import { InviteMemberDialog } from "@/components/invite-member-dialog"
 import { EnableEncryptedToolsCta } from "@/components/enable-encrypted-tools-cta"
 import { PendingWrapsPrompt } from "@/components/pending-wraps-prompt"
+import { RotateKeyButton } from "@/components/rotate-key-button"
 
 export function WorkspaceSection({ workspace }: { workspace: Workspace }) {
   const { loadFromBackend } = useWorkspaceStore()
@@ -177,8 +178,9 @@ export function WorkspaceSection({ workspace }: { workspace: Workspace }) {
         && (workspace as { settings?: { encryption?: unknown } }).settings?.encryption != null
         && workspace.ws_role === "admin"
         && (
-          <div className="mt-4">
+          <div className="mt-4 space-y-3">
             <PendingWrapsPrompt workspaceId={workspace.id} />
+            <RotateKeyButton workspaceId={workspace.id} />
           </div>
         )
       }
