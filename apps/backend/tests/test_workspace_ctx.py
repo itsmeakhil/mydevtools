@@ -91,3 +91,34 @@ def test_apply_legacy_or_filter_preserves_caller_or():
         {"org_id": "o1", "workspace_id": "w1", "owner_uid": "u1"},
         {"workspace_id": {"$exists": False}, "created_by": "u1"},
     ]
+
+
+@pytest.mark.asyncio
+async def test_org_owner_gets_implicit_workspace_admin(clean_db, make_request):
+    org_id = await upsert_org("Acme", "acme", "user", "owner-uid")
+    await upsert_org_membership(org_id, "owner-uid", "owner")
+    # Shared workspace (Personal for now, since shared CRUD lands in B5).
+    ws_id = await upsert_personal_workspace(org_id, "owner-uid")
+    # ONLY org membership exists. NO workspace membership for the owner.
+    # ws membership exists for someone else.
+    await upsert_org_membership(org_id, "member-uid", "member")
+    await upsert_ws_membership(ws_id, org_id, "member-uid", "admin")
+
+    req = make_request(cookies={"active_workspace": ws_id})
+    ctx = await get_workspace_ctx(req, uid="owner-uid")
+    assert ctx.ws_role == "admin"
+    assert ctx.workspace_id == ws_id
+
+
+@pytest.mark.asyncio
+async def test_org_member_without_ws_membership_is_rejected(clean_db, make_request):
+    org_id = await upsert_org("Acme2", "acme2", "user", "owner-uid")
+    await upsert_org_membership(org_id, "owner-uid", "owner")
+    await upsert_org_membership(org_id, "plain-member", "member")
+    ws_id = await upsert_personal_workspace(org_id, "owner-uid")
+    await upsert_ws_membership(ws_id, org_id, "owner-uid", "admin")
+
+    req = make_request(cookies={"active_workspace": ws_id})
+    with pytest.raises(HTTPException) as exc:
+        await get_workspace_ctx(req, uid="plain-member")
+    assert exc.value.status_code == 403

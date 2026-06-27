@@ -7,6 +7,7 @@ from pydantic import BaseModel
 
 from app.api.routes.auth.services import get_current_uid
 from app.api.routes.workspaces.repo import (
+    find_org_membership,
     find_user_workspaces,
     find_workspace,
     find_ws_membership,
@@ -41,30 +42,26 @@ async def get_workspace_ctx(
     if not ws_id:
         ws_id = await default_personal_ws_id(uid)
     if not ws_id:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="No accessible workspace.",
-        )
-
-    mem = await find_ws_membership(ws_id, uid)
-    if not mem:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Not a member of this workspace.",
-        )
+        raise HTTPException(403, "No accessible workspace.")
 
     ws = await find_workspace(ws_id)
     if not ws:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Workspace not found.",
-        )
+        raise HTTPException(403, "Workspace not found.")
+
+    mem = await find_ws_membership(ws_id, uid)
+    if mem:
+        ws_role = mem["ws_role"]
+    else:
+        org_mem = await find_org_membership(ws["org_id"], uid)
+        if not org_mem or org_mem["org_role"] not in ("owner", "admin"):
+            raise HTTPException(403, "Not a member of this workspace.")
+        ws_role = "admin"   # implicit cascade
 
     return WorkspaceContext(
         uid=uid,
         org_id=ws["org_id"],
         workspace_id=ws_id,
-        ws_role=mem["ws_role"],
+        ws_role=ws_role,
         is_personal=bool(ws.get("is_personal")),
         owner_uid=ws.get("owner_uid"),
     )
