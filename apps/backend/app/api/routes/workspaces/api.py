@@ -6,7 +6,9 @@ from app.api.routes.workspaces.middleware import ACTIVE_WS_COOKIE
 from app.api.routes.workspaces.repo import (
     find_user_orgs, find_user_workspaces, find_workspace, find_ws_membership,
 )
+from app.api.routes.workspaces import members_service
 from app.api.routes.workspaces.schema import (
+    ChangeRoleRequest, MemberOut,
     OrgCreate, OrgOut, OrgPatch, SetActiveWorkspaceRequest, SetActiveWorkspaceResponse,
     WorkspaceCreate, WorkspacePatch, WorkspaceOut,
 )
@@ -141,3 +143,49 @@ async def delete_workspace_route(
     uid: Annotated[str, Depends(get_current_uid)],
 ) -> None:
     await crud_service.delete_workspace(uid, ws_id)
+
+
+@router.get("/orgs/{org_id}/members", response_model=list[MemberOut])
+async def list_org_members_route(
+    org_id: str, uid: Annotated[str, Depends(get_current_uid)],
+) -> list[MemberOut]:
+    return await members_service.list_org_members(uid, org_id)
+
+
+@router.patch("/orgs/{org_id}/members/{target_uid}", response_model=MemberOut)
+async def change_org_role_route(
+    org_id: str, target_uid: str, body: ChangeRoleRequest,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> MemberOut:
+    return await members_service.change_org_role(uid, org_id, target_uid, body.role)
+
+
+@router.delete("/orgs/{org_id}/members/{target_uid}", status_code=204)
+async def remove_org_member_route(
+    org_id: str, target_uid: str,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> None:
+    await members_service.remove_org_member(uid, org_id, target_uid)
+
+
+@router.get("/workspaces/{ws_id}/members", response_model=list[MemberOut])
+async def list_workspace_members_route(
+    ws_id: str, uid: Annotated[str, Depends(get_current_uid)],
+) -> list[MemberOut]:
+    return await members_service.list_workspace_members(uid, ws_id)
+
+
+@router.patch("/workspaces/{ws_id}/members/{target_uid}", response_model=MemberOut)
+async def change_workspace_role_route(
+    ws_id: str, target_uid: str, body: ChangeRoleRequest,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> MemberOut:
+    return await members_service.change_workspace_role(uid, ws_id, target_uid, body.role)
+
+
+@router.delete("/workspaces/{ws_id}/members/{target_uid}", status_code=204)
+async def remove_workspace_member_route(
+    ws_id: str, target_uid: str,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> None:
+    await members_service.remove_workspace_member(uid, ws_id, target_uid)
