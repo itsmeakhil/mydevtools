@@ -37,12 +37,20 @@ async def lifespan(_app: FastAPI):
     from app.api.routes.url_shortener.click_queue import flush_loop, close_flush_client
     click_flush_task = asyncio.create_task(flush_loop())
 
+    from app.api.routes.workspaces.sweeper import sweeper_loop
+    sweeper_task = asyncio.create_task(sweeper_loop())
+
     try:
         yield
     finally:
         click_flush_task.cancel()
         try:
             await click_flush_task
+        except asyncio.CancelledError:
+            pass
+        sweeper_task.cancel()
+        try:
+            await sweeper_task
         except asyncio.CancelledError:
             pass
         await close_flush_client()
