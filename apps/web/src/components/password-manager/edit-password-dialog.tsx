@@ -13,7 +13,7 @@ import { AdvancedGenerator } from "./advanced-generator"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Badge } from "@/components/ui/badge"
 import { usePasswordStore, PasswordEntry } from "@/store/password-store"
-import { useMasterKeyStore } from "@/store/master-key-store"
+import { useCipherKey } from "./encryption-context"
 import { encryptData } from "@/lib/encryption"
 import { validateTotpSecret, calculatePasswordStrength, getStrengthColor, getStrengthLabel } from "@/lib/password-utils"
 import { auth } from "@/database/firebase"
@@ -30,7 +30,7 @@ interface EditPasswordDialogProps {
 
 export function EditPasswordDialog({ entry, open, onOpenChange }: EditPasswordDialogProps) {
     const t = useTranslations("PasswordManager.form")
-    const { encryptionKey } = useMasterKeyStore()
+    const cipherKey = useCipherKey()
     const { updatePassword } = usePasswordStore()
     const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
@@ -77,7 +77,7 @@ export function EditPasswordDialog({ entry, open, onOpenChange }: EditPasswordDi
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        if (!encryptionKey || !auth.currentUser) return
+        if (!cipherKey || !auth.currentUser) return
 
         if (formData.totpSecret) {
             const totpError = validateTotpSecret(formData.totpSecret)
@@ -90,7 +90,7 @@ export function EditPasswordDialog({ entry, open, onOpenChange }: EditPasswordDi
         setLoading(true)
         try {
             const dataToEncrypt = JSON.stringify(formData)
-            const { encrypted, iv } = await encryptData(encryptionKey, dataToEncrypt)
+            const { encrypted, iv } = await encryptData(cipherKey, dataToEncrypt)
 
             const timestamp = Date.now()
 

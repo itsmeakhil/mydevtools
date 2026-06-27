@@ -13,6 +13,7 @@ import { useIsMobile } from "@/components/hooks/use-mobile"
 import { useTranslations } from "next-intl"
 import { listPasswordEntries } from "@/lib/password-manager-api"
 import { decryptData } from "@/lib/encryption"
+import { getCipherKey } from "@/lib/cipher-key"
 import { toast } from "sonner"
 import { Skeleton } from "@/components/ui/skeleton"
 import { fetchAllPages } from "@/lib/fetch-all-pages"
@@ -21,12 +22,22 @@ import { useActiveWorkspace } from "@/store/workspace-store"
 
 const PASSWORDS_PAGE_SIZE = 500
 
+// ponytail: C-T6 DEK integration — apply getCipherKey / useCipherKey to
+// remaining call sites (import-export-dialog, any future bulk operations)
+// in a follow-up once C-T9 workspace encryption toggle ships.
+
 export default function PasswordManagerPage() {
     const t = useTranslations("PasswordManager.page")
     const activeWs = useActiveWorkspace()
-    if (activeWs && !activeWs.is_personal) {
+
+    // Show placeholder for shared workspaces that have not yet enabled E2EE.
+    // When activeWs.settings?.encryption is non-null AND a wrappedDek exists for
+    // the user, getCipherKey() will return the DEK and the tool renders normally
+    // (C-T9 will remove this gate once workspace encryption is togglable).
+    if (activeWs && !activeWs.is_personal && !(activeWs as { settings?: { encryption?: unknown } }).settings?.encryption) {
         return <EncryptedToolPlaceholder toolName="Password Manager" />
     }
+
     const { user, loading } = useAuth(true)
     const { encryptionKey } = useMasterKeyStore()
     const { isUnlocked, isRestoring } = useVaultGuard()
@@ -37,7 +48,11 @@ export default function PasswordManagerPage() {
     useEffect(() => {
         if (!encryptionKey || loadedRef.current) return
         loadedRef.current = true
-        loadPasswords(encryptionKey)
+        // Resolve the correct cipher key (master key for personal, DEK for shared)
+        // before loading passwords so the correct key is used for decryption.
+        getCipherKey(activeWs, encryptionKey).then((key) => {
+            if (key) loadPasswords(key)
+        })
 
         return () => {
             // Clear decrypted passwords from memory when leaving the page
