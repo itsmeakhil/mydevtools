@@ -1,6 +1,5 @@
 // apps/web/src/store/__tests__/workspace-store.test.ts
 import { act } from "react"
-import { useWorkspaceStore } from "../workspace-store"
 
 jest.mock("@/lib/workspace-api", () => ({
   listOrgs: jest.fn(),
@@ -8,12 +7,22 @@ jest.mock("@/lib/workspace-api", () => ({
   setActiveWorkspace: jest.fn(),
 }))
 
+jest.mock("@/lib/workspace-broadcast", () => ({
+  broadcastWorkspaceChanged: jest.fn(),
+  subscribeToWorkspaceBroadcast: jest.fn(),
+  getWorkspaceBroadcast: jest.fn(),
+}))
+
 import * as api from "@/lib/workspace-api"
+import * as broadcast from "@/lib/workspace-broadcast"
+import { useWorkspaceStore } from "../workspace-store"
 
 describe("workspace-store", () => {
   beforeEach(() => {
     useWorkspaceStore.getState().clear()
     jest.clearAllMocks()
+    // Reset the broadcast mock to return a no-op function
+    ;(broadcast.subscribeToWorkspaceBroadcast as jest.Mock).mockReturnValue(() => {})
   })
 
   it("loadFromBackend hydrates orgs + workspaces + defaults active to first workspace", async () => {
@@ -48,5 +57,117 @@ describe("workspace-store", () => {
 
     expect(api.setActiveWorkspace).toHaveBeenCalledWith("w2")
     expect(useWorkspaceStore.getState().activeWorkspaceId).toBe("w2")
+  })
+
+  it("setActiveWorkspace broadcasts workspace change", async () => {
+    ;(api.setActiveWorkspace as jest.Mock).mockResolvedValue(undefined)
+    useWorkspaceStore.setState({
+      orgs: [], workspaces: [{ id: "w1" } as any, { id: "w2" } as any],
+      activeWorkspaceId: "w1", hydrated: true,
+    })
+
+    await act(async () => {
+      await useWorkspaceStore.getState().setActiveWorkspace("w2")
+    })
+
+    expect(broadcast.broadcastWorkspaceChanged).toHaveBeenCalledWith("w2")
+  })
+
+  it("subscribeOnce only subscribes once", () => {
+    ;(broadcast.subscribeToWorkspaceBroadcast as jest.Mock).mockClear()
+    ;(broadcast.subscribeToWorkspaceBroadcast as jest.Mock).mockReturnValue(() => {})
+
+    // Reset the flag so we can test subscribeOnce behavior
+    useWorkspaceStore.setState({ _broadcastSubscribed: false })
+
+    act(() => {
+      useWorkspaceStore.getState().subscribeOnce()
+      useWorkspaceStore.getState().subscribeOnce()
+    })
+
+    expect(broadcast.subscribeToWorkspaceBroadcast).toHaveBeenCalledTimes(1)
+  })
+
+  it("broadcast subscription ignores unchanged workspace ID", async () => {
+    ;(api.listOrgs as jest.Mock).mockResolvedValue([])
+    ;(api.listWorkspaces as jest.Mock).mockResolvedValue([])
+
+    let capturedHandler: Function | null = null
+    ;(broadcast.subscribeToWorkspaceBroadcast as jest.Mock).mockImplementation(
+      (handler: Function) => {
+        capturedHandler = handler
+        return () => {}
+      }
+    )
+
+    useWorkspaceStore.setState({
+      orgs: [], workspaces: [],
+      activeWorkspaceId: "w1", hydrated: true,
+      _broadcastSubscribed: false,
+    })
+
+    let loadCount = 0
+    ;(api.listOrgs as jest.Mock).mockImplementation(async () => {
+      loadCount++
+      return []
+    })
+    ;(api.listWorkspaces as jest.Mock).mockImplementation(async () => {
+      loadCount++
+      return []
+    })
+
+    act(() => {
+      useWorkspaceStore.getState().subscribeOnce()
+    })
+
+    // Simulate a broadcast message with same workspace ID
+    await act(async () => {
+      if (capturedHandler) {
+        capturedHandler({ type: "workspace-changed", workspaceId: "w1" })
+      }
+      await new Promise((resolve) => setTimeout(resolve, 10))
+    })
+
+    // loadFromBackend should not be called since workspace ID hasn't changed
+    expect(loadCount).toBe(0)
+  })
+
+  it("broadcast subscription updates state on different workspace ID", async () => {
+    ;(api.listOrgs as jest.Mock).mockResolvedValue([])
+    ;(api.listWorkspaces as jest.Mock).mockResolvedValue([
+      { id: "w1", org_id: "o1", is_personal: false } as any,
+      { id: "w2", org_id: "o1", is_personal: false } as any,
+    ])
+
+    let capturedHandler: Function | null = null
+    ;(broadcast.subscribeToWorkspaceBroadcast as jest.Mock).mockImplementation(
+      (handler: Function) => {
+        capturedHandler = handler
+        return () => {}
+      }
+    )
+
+    useWorkspaceStore.setState({
+      orgs: [], workspaces: [],
+      activeWorkspaceId: "w1", hydrated: true,
+      _broadcastSubscribed: false,
+    })
+
+    act(() => {
+      useWorkspaceStore.getState().subscribeOnce()
+    })
+
+    // Simulate a broadcast message with different workspace ID
+    await act(async () => {
+      if (capturedHandler) {
+        capturedHandler({ type: "workspace-changed", workspaceId: "w2" })
+      }
+      await new Promise((resolve) => setTimeout(resolve, 10))
+    })
+
+    const state = useWorkspaceStore.getState()
+    expect(state.activeWorkspaceId).toBe("w2")
+    expect(api.listOrgs).toHaveBeenCalled()
+    expect(api.listWorkspaces).toHaveBeenCalled()
   })
 })

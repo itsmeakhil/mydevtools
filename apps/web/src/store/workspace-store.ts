@@ -7,18 +7,24 @@ import {
   type Org,
   type Workspace,
 } from "@/lib/workspace-api"
+import {
+  broadcastWorkspaceChanged,
+  subscribeToWorkspaceBroadcast,
+} from "@/lib/workspace-broadcast"
 
 type State = {
   orgs: Org[]
   workspaces: Workspace[]
   activeWorkspaceId: string | null
   hydrated: boolean
+  _broadcastSubscribed: boolean
 }
 
 type Actions = {
   loadFromBackend: () => Promise<void>
   setActiveWorkspace: (workspaceId: string) => Promise<void>
   clear: () => void
+  subscribeOnce: () => void
 }
 
 function pickDefault(workspaces: Workspace[]): string | null {
@@ -31,6 +37,7 @@ export const useWorkspaceStore = create<State & Actions>((set, get) => ({
   workspaces: [],
   activeWorkspaceId: null,
   hydrated: false,
+  _broadcastSubscribed: false,
 
   async loadFromBackend() {
     const [orgs, workspaces] = await Promise.all([listOrgs(), listWorkspaces()])
@@ -47,12 +54,32 @@ export const useWorkspaceStore = create<State & Actions>((set, get) => ({
   async setActiveWorkspace(workspaceId: string) {
     await setActiveAPI(workspaceId)
     set({ activeWorkspaceId: workspaceId })
+    broadcastWorkspaceChanged(workspaceId)
   },
 
   clear() {
     set({ orgs: [], workspaces: [], activeWorkspaceId: null, hydrated: false })
   },
+
+  subscribeOnce() {
+    const alreadySubscribed = get()._broadcastSubscribed
+    if (alreadySubscribed) return
+
+    set({ _broadcastSubscribed: true })
+
+    subscribeToWorkspaceBroadcast(async (msg) => {
+      if (msg.type === "workspace-changed") {
+        const currentId = get().activeWorkspaceId
+        if (currentId === msg.workspaceId) return
+        set({ activeWorkspaceId: msg.workspaceId })
+        await get().loadFromBackend()
+      }
+    })
+  },
 }))
+
+// Initialize broadcast subscription on module load
+useWorkspaceStore.getState().subscribeOnce()
 
 export const useActiveWorkspace = (): Workspace | null => {
   return useWorkspaceStore((s) => {
