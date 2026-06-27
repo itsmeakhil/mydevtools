@@ -16,7 +16,10 @@ import { useEffect, useRef, useState } from "react";
 import { establishBackendSession } from "@/lib/backend-auth";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, AlertCircle, Github, Fingerprint } from "lucide-react";
-import { signInWithPasskey, startConditionalPasskeyAuth } from "@/lib/passkey";
+import { signInWithPasskey, startConditionalPasskeyAuth } from "@/lib/passkey"
+import { acceptInvitation } from "@/lib/invitations-api"
+import { useWorkspaceStore } from "@/store/workspace-store"
+import { toast } from "sonner";
 
 export function LoginForm() {
   const router = useRouter();
@@ -42,6 +45,33 @@ export function LoginForm() {
     };
   }, [router]);
 
+  // After a successful login, check for ?invite=<token> in the URL and
+  // auto-accept the invitation, then redirect to the invited workspace or
+  // the dashboard. Always redirects — never throws or blocks navigation.
+  const handleInviteToken = async (): Promise<string> => {
+    const params = new URLSearchParams(
+      typeof window !== "undefined" ? window.location.search : ""
+    )
+    const token = params.get("invite")
+    if (!token) return "/dashboard"
+
+    try {
+      await useWorkspaceStore.getState().loadFromBackend()
+      const result = await acceptInvitation(token)
+      await useWorkspaceStore.getState().loadFromBackend()
+      if (result.workspace_id) {
+        await useWorkspaceStore.getState().setActiveWorkspace(result.workspace_id)
+      }
+      toast.success("Invitation accepted — welcome to your new workspace!")
+    } catch (err) {
+      toast.error(
+        err instanceof Error ? err.message : "Could not accept invitation"
+      )
+    }
+
+    return "/dashboard"
+  }
+
   const handlePasskey = async () => {
     setLoadingProvider("passkey");
     setError("");
@@ -49,7 +79,7 @@ export function LoginForm() {
       "No passkey found for this site. Sign in with Google or GitHub first, then add a passkey from Settings → Security.";
     try {
       await signInWithPasskey();
-      router.push("/dashboard");
+      router.push(await handleInviteToken());
     } catch (e: any) {
       const msg = e instanceof Error ? e.message : "Passkey sign-in failed.";
       // Browser-side: NotAllowedError fires for both "user cancelled" and "no
@@ -77,7 +107,7 @@ export function LoginForm() {
         setError("Signed in, but could not start an API session. Please try again.");
         return;
       }
-      router.push("/dashboard");
+      router.push(await handleInviteToken());
     } catch (error: any) {
       console.error("Error during sign-in:", error);
 
@@ -131,7 +161,7 @@ export function LoginForm() {
                 setError("Signed in, but could not start an API session. Please try again.");
                 return;
               }
-              router.push("/dashboard");
+              router.push(await handleInviteToken());
               return;
             } else {
               setError(`Account exists with provider: ${providerId}, but automatic linking is not supported.`);
