@@ -11,12 +11,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Plus, Eye, EyeOff, KeyRound } from "lucide-react"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import { useApiKeyVaultStore, type ApiKeyEntry, type ApiKeyEnv } from "@/store/api-key-vault-store"
-import { useMasterKeyStore } from "@/store/master-key-store"
 import { encryptData } from "@/lib/encryption"
 import { auth } from "@/database/firebase"
 import { createApiKeyEntry, updateApiKeyEntry } from "@/lib/api-key-vault-api"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
+import { useCipherKey } from "@/lib/use-cipher-key"
 
 type FormState = {
     name: string
@@ -253,7 +253,7 @@ function DialogShell({
 }
 
 export function AddApiKeyDialog({ children }: { children?: React.ReactNode }) {
-    const { encryptionKey } = useMasterKeyStore()
+    const encryptionKey = useCipherKey()
     const { addEntry } = useApiKeyVaultStore()
     const [open, setOpen] = useState(false)
     const isMobile = useIsMobile()
@@ -326,7 +326,7 @@ export function EditApiKeyDialog({
     open: boolean
     onOpenChange: (v: boolean) => void
 }) {
-    const { encryptionKey } = useMasterKeyStore()
+    const encryptionKey = useCipherKey()
     const { updateEntry } = useApiKeyVaultStore()
     const isMobile = useIsMobile()
 

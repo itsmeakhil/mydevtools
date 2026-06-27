@@ -5,7 +5,6 @@ import { AddApiKeyDialog } from "@/components/api-key-vault/add-api-key-dialog"
 import { ApiKeyList } from "@/components/api-key-vault/api-key-list"
 import { useApiKeyVaultStore, type ApiKeyEntry, type ApiKeyEnv } from "@/store/api-key-vault-store"
 import { ShieldCheck } from "lucide-react"
-import { useMasterKeyStore } from "@/store/master-key-store"
 import { useVaultGuard } from "@/hooks/use-vault-guard"
 import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder"
 import { VaultRestoringSkeleton } from "@/components/vault-restoring-skeleton"
@@ -17,6 +16,7 @@ import { toast } from "sonner"
 import { Skeleton } from "@/components/ui/skeleton"
 import { EncryptedToolPlaceholder } from "@/components/encrypted-tool-placeholder"
 import { useActiveWorkspace } from "@/store/workspace-store"
+import { useCipherKey } from "@/lib/use-cipher-key"
 
 // ponytail: inline parser — one place uses it, no utils file
 function parseApiKeyPayload(plain: string): Omit<ApiKeyEntry, "id" | "createdAt" | "updatedAt"> | null {
@@ -38,31 +38,16 @@ function parseApiKeyPayload(plain: string): Omit<ApiKeyEntry, "id" | "createdAt"
 }
 
 export default function ApiKeyVaultPage() {
+    // ALL hooks must be called before any early return (Rules of Hooks).
     const activeWs = useActiveWorkspace()
-    if (activeWs && !activeWs.is_personal) {
-        return <EncryptedToolPlaceholder toolName="API Key Vault" />
-    }
     const { user, loading } = useAuth(true)
-    const { encryptionKey } = useMasterKeyStore()
+    const encryptionKey = useCipherKey()
     const { isUnlocked, isRestoring } = useVaultGuard()
     const { entries, setEntries, setLoading, clearEntries } = useApiKeyVaultStore()
     const isMobile = useIsMobile()
     const loadedRef = useRef(false)
 
-    useEffect(() => {
-        if (!encryptionKey || loadedRef.current) return
-        loadedRef.current = true
-        let cancelled = false
-        loadEntries(encryptionKey, () => cancelled)
-
-        return () => {
-            cancelled = true
-            clearEntries()
-            loadedRef.current = false
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [encryptionKey])
-
+    // Regular async helper — not a hook, safe to define before useEffect.
     const loadEntries = async (key: CryptoKey, isCancelled: () => boolean) => {
         setLoading(true)
         try {
@@ -92,6 +77,31 @@ export default function ApiKeyVaultPage() {
         } finally {
             if (!isCancelled()) setLoading(false)
         }
+    }
+
+    useEffect(() => {
+        if (!encryptionKey || loadedRef.current) return
+        loadedRef.current = true
+        let cancelled = false
+        loadEntries(encryptionKey, () => cancelled)
+
+        return () => {
+            cancelled = true
+            clearEntries()
+            loadedRef.current = false
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [encryptionKey])
+
+    // Show placeholder for shared workspaces that have not yet enabled E2EE.
+    // Forward-compat: when activeWs.settings?.encryption is set AND a wrappedDek
+    // exists the normal flow runs (C-T9 will land the toggle UI).
+    if (
+        activeWs &&
+        !activeWs.is_personal &&
+        !(activeWs as { settings?: { encryption?: unknown } }).settings?.encryption
+    ) {
+        return <EncryptedToolPlaceholder toolName="API Key Vault" />
     }
 
     if (isRestoring) return <VaultRestoringSkeleton />

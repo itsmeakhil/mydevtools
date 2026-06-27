@@ -257,8 +257,11 @@ describe("ApiKeyVaultPage — encrypted tool gate (source assertions)", () => {
     expect(source).toContain("activeWs")
   })
 
-  it("gates on activeWs && !activeWs.is_personal", () => {
-    expect(source).toContain("activeWs && !activeWs.is_personal")
+  it("gates on activeWs && !activeWs.is_personal (with forward-compat encryption check)", () => {
+    // C-T8: gate extended to forward-compat form: checks !activeWs.is_personal AND
+    // that settings?.encryption is absent (so C-T9 can enable the tool per-workspace).
+    expect(source).toContain("!activeWs.is_personal")
+    expect(source).toContain("settings?.encryption")
   })
 
   it("renders EncryptedToolPlaceholder with toolName 'API Key Vault'", () => {
