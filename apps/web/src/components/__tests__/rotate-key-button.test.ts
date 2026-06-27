@@ -27,9 +27,13 @@ jest.mock("@/store/user-keypair-store", () => ({
 }))
 
 jest.mock("@/store/workspace-dek-store", () => ({
-  useWorkspaceDekStore: jest.fn((sel: (s: { clearWorkspace: jest.Mock }) => unknown) =>
-    sel({ clearWorkspace: jest.fn() }),
+  useWorkspaceDekStore: jest.fn((sel: (s: { clearWorkspace: jest.Mock; getDek: jest.Mock }) => unknown) =>
+    sel({ clearWorkspace: jest.fn(), getDek: jest.fn().mockResolvedValue(null) }),
   ),
+}))
+
+jest.mock("@/lib/dek-rotation", () => ({
+  reencryptAllEntries: jest.fn().mockResolvedValue({ rotated: 0, failed: 0 }),
 }))
 
 jest.mock("@/store/workspace-store", () => ({
@@ -111,6 +115,15 @@ describe("RotateKeyButton — source structure", () => {
     expect(source).toContain("workspace-dek-store")
   })
 
+  it("imports reencryptAllEntries from dek-rotation", () => {
+    expect(source).toContain("reencryptAllEntries")
+    expect(source).toContain("dek-rotation")
+  })
+
+  it("reads getDek from the workspace dek store", () => {
+    expect(source).toContain("getDek")
+  })
+
   it("imports useWorkspaceStore", () => {
     expect(source).toContain("useWorkspaceStore")
     expect(source).toContain("workspace-store")
@@ -128,11 +141,9 @@ describe("RotateKeyButton — source structure", () => {
     expect(source).toContain("Rotate encryption key?")
   })
 
-  it("warns about existing encrypted entries in dialog description", () => {
-    expect(source).toContain("Existing")
-    expect(source).toContain("unreadable")
+  it("mentions re-encryption in dialog description", () => {
     expect(source).toContain("re-encrypted")
-    expect(source).toContain("next release")
+    expect(source).toContain("do not close this tab")
   })
 
   it("guards against missing keypair with error toast message", () => {
@@ -155,9 +166,9 @@ describe("RotateKeyButton — source structure", () => {
     expect(source).toContain("reloadStore")
   })
 
-  it("shows success toast with re-encryption reminder", () => {
-    expect(source).toContain("Encryption key rotated")
-    expect(source).toContain("next release")
+  it("shows success toast after rotation", () => {
+    expect(source).toContain("Rotation complete")
+    expect(source).toContain("re-encrypted")
   })
 })
 
@@ -320,15 +331,28 @@ describe("RotateKeyButton — handleRotate logic simulation", () => {
     expect(loadFromBackend).toHaveBeenCalledTimes(1)
   })
 
-  it("shows success toast with re-encryption reminder after successful rotation", async () => {
+  it("shows success toast after successful rotation (no old DEK — no entries)", async () => {
     const { toast } = require("sonner")
 
+    // Simulates the no-oldDek branch
+    toast.success("Encryption key rotated. No existing entries needed re-encryption.")
+
+    expect(toast.success).toHaveBeenCalledWith(
+      "Encryption key rotated. No existing entries needed re-encryption.",
+    )
+  })
+
+  it("shows Rotation complete toast with counts when oldDek was available", async () => {
+    const { toast } = require("sonner")
+
+    const rotated = 5
+    const failed = 1
     toast.success(
-      "Encryption key rotated. Existing encrypted entries must be re-encrypted (coming in next release).",
+      `Rotation complete: ${rotated} entries re-encrypted, ${failed} failed.`,
     )
 
     expect(toast.success).toHaveBeenCalledWith(
-      "Encryption key rotated. Existing encrypted entries must be re-encrypted (coming in next release).",
+      "Rotation complete: 5 entries re-encrypted, 1 failed.",
     )
   })
 

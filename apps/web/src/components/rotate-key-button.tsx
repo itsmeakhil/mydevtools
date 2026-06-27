@@ -19,11 +19,13 @@ import { useWorkspaceDekStore } from "@/store/workspace-dek-store"
 import { useWorkspaceStore } from "@/store/workspace-store"
 import { generateWorkspaceDek, wrapDekForMember, dekFingerprint } from "@/lib/workspace-crypto"
 import { listMemberPublicKeys, rotateDek } from "@/lib/workspace-dek-api"
+import { reencryptAllEntries } from "@/lib/dek-rotation"
 
 export function RotateKeyButton({ workspaceId }: { workspaceId: string }) {
   const [working, setWorking] = useState(false)
   const userPriv = useUserKeypairStore((s) => s.privateKey)
   const userPub = useUserKeypairStore((s) => s.publicKey)
+  const getDek = useWorkspaceDekStore((s) => s.getDek)
   const clearWsDek = useWorkspaceDekStore((s) => s.clearWorkspace)
   const reloadStore = useWorkspaceStore((s) => s.loadFromBackend)
 
@@ -34,6 +36,9 @@ export function RotateKeyButton({ workspaceId }: { workspaceId: string }) {
     }
     setWorking(true)
     try {
+      // Phase 0: capture the OLD DEK before we rotate so we can re-encrypt entries.
+      const oldDek = await getDek(workspaceId)
+
       const members = await listMemberPublicKeys(workspaceId)
       const ready = members.filter((m) => m.publicKey)
       const missing = members.filter((m) => !m.publicKey)
@@ -46,6 +51,8 @@ export function RotateKeyButton({ workspaceId }: { workspaceId: string }) {
           `${missing.length} member(s) have no keypair and will lose access until they publish one`,
         )
       }
+
+      // Phase 1: generate new DEK + wraps, then atomically flip on server.
       const newDek = await generateWorkspaceDek()
       const wraps = await Promise.all(
         ready.map(async (m) => {
@@ -55,12 +62,28 @@ export function RotateKeyButton({ workspaceId }: { workspaceId: string }) {
       )
       const fp = await dekFingerprint(newDek)
       await rotateDek(workspaceId, { dekFingerprint: fp, wraps })
-      // Clear cached DEK so next encrypted-tool open re-fetches the new wrap.
+
+      // Clear cached DEK immediately so any concurrent reads pick up the new wrap.
       clearWsDek(workspaceId)
-      await reloadStore()
-      toast.success(
-        "Encryption key rotated. Existing encrypted entries must be re-encrypted (coming in next release).",
-      )
+
+      // Phase 2: re-encrypt all existing entries client-side if we had the old DEK.
+      if (oldDek) {
+        toast.info("Re-encrypting existing entries with new key…")
+        const { rotated, failed } = await reencryptAllEntries(oldDek, newDek, ({ tool, current, total }) => {
+          // Fire a toast update so users can see progress without flooding the UI.
+          if (current === total || current % 10 === 0) {
+            toast.info(`Re-encrypting ${tool}: ${current}/${total}`)
+          }
+        })
+        await reloadStore()
+        toast.success(
+          `Rotation complete: ${rotated} entries re-encrypted${failed > 0 ? `, ${failed} failed` : ""}.`,
+        )
+      } else {
+        // No old DEK available (e.g. first rotation before any entries were created).
+        await reloadStore()
+        toast.success("Encryption key rotated. No existing entries needed re-encryption.")
+      }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Rotation failed")
     } finally {
@@ -84,9 +107,9 @@ export function RotateKeyButton({ workspaceId }: { workspaceId: string }) {
         <AlertDialogHeader>
           <AlertDialogTitle>Rotate encryption key?</AlertDialogTitle>
           <AlertDialogDescription>
-            A new encryption key will be generated and wrapped for all current members. Existing
-            encrypted entries will become unreadable with the new key until they&apos;re
-            re-encrypted — automatic re-encryption ships in the next release. Continue?
+            A new encryption key will be generated and wrapped for all current members. All
+            existing encrypted entries will be automatically re-encrypted with the new key —
+            do not close this tab until rotation completes. Continue?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
