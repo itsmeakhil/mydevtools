@@ -3,6 +3,7 @@ import { auth } from "@/database/firebase"
 import { logoutBackendSession } from "@/lib/backend-auth"
 import { usePasswordStore } from "@/store/password-store"
 import { useMasterKeyStore } from "@/store/master-key-store"
+import { useUserKeypairStore } from "@/store/user-keypair-store"
 import { clearKey as clearVaultKey, clearMasterKey } from "@/lib/key-storage"
 
 export const FORCE_LOGOUT_EVENT = "mydevtools:force-logout"
@@ -16,6 +17,7 @@ export type LogoutReason =
 export async function clearSensitiveClientState(): Promise<void> {
   usePasswordStore.getState().clearPasswords()
   useMasterKeyStore.getState().clearKey()
+  useUserKeypairStore.getState().clear()
 
   // Wipe localStorage so no user data is left behind on a forced/expired logout
   // (e.g. a refresh 401). Best-effort — never block logout on a storage failure.

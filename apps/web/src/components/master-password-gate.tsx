@@ -45,6 +45,9 @@ import {
     markBackupCodeUsed,
 } from "@/lib/global-vault-api"
 import { useMasterKeyStore } from "@/store/master-key-store"
+import { useUserKeypairStore } from "@/store/user-keypair-store"
+import { getKeypair } from "@/lib/user-keypair-api"
+import { unwrapUserPrivateKey } from "@/lib/workspace-crypto"
 import { calcStrength } from "./master-password-gate/password-strength"
 import { downloadBackupCodesFile } from "./master-password-gate/backup-codes-file"
 import { Spinner, ErrorBanner } from "./master-password-gate/gate-helpers"
@@ -56,6 +59,7 @@ type GateMode = "setup" | "backup-codes" | "unlock" | "use-backup-code"
 export function MasterPasswordGate() {
     const { user } = useAuth(false)
     const {
+        encryptionKey,
         vault,
         vaultStatus,
         vaultGateOpen,
@@ -104,6 +108,32 @@ export function MasterPasswordGate() {
         }
         setMode("unlock")
     }, [vaultGateOpen, vaultStatus, vault, setRestoreError, setVaultStatus])
+
+    // ── Keypair hydration on master-key unlock ────────────────────────────────
+    useEffect(() => {
+        let cancelled = false
+        if (!encryptionKey) return
+        if (useUserKeypairStore.getState().hydrated) return
+
+        async function hydrate() {
+            try {
+                const blob = await getKeypair()
+                if (cancelled) return
+                if (!blob) {
+                    // No keypair yet — leave hydrated=false. C-T9's "Enable encrypted tools" CTA
+                    // will lazily generate one on first encrypted-tool action.
+                    return
+                }
+                const privateKey = await unwrapUserPrivateKey(encryptionKey!, blob.privateKeyEncrypted)
+                if (cancelled) return
+                useUserKeypairStore.getState().setKeypair(blob.publicKey, privateKey)
+            } catch (err) {
+                console.error("Failed to hydrate user keypair", err)
+            }
+        }
+        hydrate()
+        return () => { cancelled = true }
+    }, [encryptionKey])
 
     // ── helpers ──────────────────────────────────────────────────────────────
 
