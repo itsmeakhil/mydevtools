@@ -34,3 +34,23 @@ export async function rotateDek(workspaceId: string, payload: RotateDekPayload):
   })
   if (!res.ok) throw new Error(`rotateDek failed (${res.status})`)
 }
+
+export async function listPendingWraps(workspaceId: string): Promise<MemberPublicKey[]> {
+  const res = await backendFetch(`${BASE}/workspaces/${encodeURIComponent(workspaceId)}/pending-wraps`)
+  if (!res.ok) throw new Error(`listPendingWraps failed (${res.status})`)
+  return res.json()
+}
+
+export type PostWrapPayload = {
+  target_uid: string
+  wrapped: { encrypted: string; iv: string; senderPublicKey: string }
+}
+
+export async function postDekWrap(workspaceId: string, payload: PostWrapPayload): Promise<void> {
+  const res = await backendFetch(`${BASE}/workspaces/${encodeURIComponent(workspaceId)}/dek-wrap`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  })
+  if (!res.ok) throw new Error(`postDekWrap failed (${res.status})`)
+}

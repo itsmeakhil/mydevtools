@@ -12,6 +12,7 @@ import { useWorkspaceStore } from "@/store/workspace-store"
 import { MemberList } from "@/components/member-list"
 import { InviteMemberDialog } from "@/components/invite-member-dialog"
 import { EnableEncryptedToolsCta } from "@/components/enable-encrypted-tools-cta"
+import { PendingWrapsPrompt } from "@/components/pending-wraps-prompt"
 
 export function WorkspaceSection({ workspace }: { workspace: Workspace }) {
   const { loadFromBackend } = useWorkspaceStore()
@@ -168,6 +169,16 @@ export function WorkspaceSection({ workspace }: { workspace: Workspace }) {
         && (
           <div className="mt-4">
             <EnableEncryptedToolsCta workspaceId={workspace.id} />
+          </div>
+        )
+      }
+
+      {!workspace.is_personal
+        && (workspace as { settings?: { encryption?: unknown } }).settings?.encryption != null
+        && workspace.ws_role === "admin"
+        && (
+          <div className="mt-4">
+            <PendingWrapsPrompt workspaceId={workspace.id} />
           </div>
         )
       }
