@@ -57,6 +57,10 @@ async def find_workspace(workspace_id: str) -> dict[str, Any] | None:
     return await db_manager.find_one(WORKSPACES, {"_id": workspace_id})
 
 
+async def find_org(org_id: str) -> dict[str, Any] | None:
+    return await db_manager.find_one(ORGANIZATIONS, {"_id": org_id})
+
+
 async def find_org_membership(org_id: str, uid: str) -> dict[str, Any] | None:
     return await db_manager.find_one(
         ORG_MEMBERSHIPS, {"org_id": org_id, "uid": uid}

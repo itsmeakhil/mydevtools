@@ -1,5 +1,6 @@
 import os
 import pytest
+from httpx import AsyncClient, ASGITransport
 from starlette.requests import Request
 from starlette.datastructures import Headers
 
@@ -178,3 +179,36 @@ def personal_ws_for():
     async def _ensure(uid: str) -> str:
         return await ensure_user_workspace_setup(uid)
     return _ensure
+
+
+@pytest.fixture
+async def authed_client(clean_db) -> AsyncClient:
+    """Create an authenticated HTTP client with get_current_uid stubbed to return test-uid."""
+    from app.api.routes.auth.services import get_current_uid
+    from app.main import app
+
+    test_uid = "test-uid"
+
+    def override_get_current_uid():
+        return test_uid
+
+    app.dependency_overrides[get_current_uid] = override_get_current_uid
+
+    # Set up the test user's workspace
+    await ensure_user_workspace_setup(test_uid)
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url="http://test",
+    ) as client:
+        yield client
+
+    app.dependency_overrides.clear()
+
+
+@pytest.fixture
+async def personal_ws_id(authed_client: AsyncClient) -> str:
+    """Set up a test user with a personal workspace and return the workspace_id."""
+    test_uid = "test-uid"
+    ws_id = await ensure_user_workspace_setup(test_uid)
+    return ws_id

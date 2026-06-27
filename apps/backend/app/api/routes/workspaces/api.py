@@ -1,12 +1,14 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 from app.api.routes.auth.services import get_current_uid
+from app.api.routes.workspaces import crud_service
 from app.api.routes.workspaces.middleware import ACTIVE_WS_COOKIE
 from app.api.routes.workspaces.repo import (
     find_user_orgs, find_user_workspaces, find_workspace, find_ws_membership,
 )
 from app.api.routes.workspaces.schema import (
-    OrgOut, SetActiveWorkspaceRequest, SetActiveWorkspaceResponse, WorkspaceOut,
+    OrgCreate, OrgOut, OrgPatch, SetActiveWorkspaceRequest, SetActiveWorkspaceResponse,
+    WorkspaceOut,
 )
 from app.core.config import get_settings
 
@@ -84,3 +86,28 @@ async def set_active_workspace(
         path="/",
     )
     return SetActiveWorkspaceResponse(workspace_id=body.workspace_id)
+
+
+@router.post("/orgs", response_model=OrgOut, status_code=201)
+async def create_org_route(
+    body: OrgCreate,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> OrgOut:
+    return await crud_service.create_org(uid, body)
+
+
+@router.patch("/orgs/{org_id}", response_model=OrgOut)
+async def rename_org_route(
+    org_id: str,
+    body: OrgPatch,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> OrgOut:
+    return await crud_service.rename_org(uid, org_id, body)
+
+
+@router.delete("/orgs/{org_id}", status_code=204)
+async def delete_org_route(
+    org_id: str,
+    uid: Annotated[str, Depends(get_current_uid)],
+) -> None:
+    await crud_service.delete_org(uid, org_id)
