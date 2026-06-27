@@ -1,8 +1,9 @@
 import { hasPermission, ENCRYPTED_TOOLS, TOOL_PERMISSIONS } from "../workspace-rbac"
 
 describe("workspace-rbac", () => {
-  it("admin role has all permissions on every tool", () => {
+  it("admin role has all permissions on every plaintext tool", () => {
     for (const tool of Object.keys(TOOL_PERMISSIONS)) {
+      if (ENCRYPTED_TOOLS.has(tool)) continue
       for (const perm of ["read", "write", "delete", "admin"] as const) {
         expect(hasPermission({ ws_role: "admin", is_personal: false } as any, tool, perm)).toBe(true)
       }

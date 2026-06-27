@@ -16,8 +16,15 @@ const READER: Set<Permission> = new Set(["read"])
 const NONE: Set<Permission> = new Set()
 
 const PLAINTEXT_ROW = { admin: FULL, developer: EDITOR, viewer: READER }
+const ENCRYPTED_ROW = { admin: NONE, developer: NONE, viewer: NONE }
 
 export const TOOL_PERMISSIONS: Record<string, Record<WsRole, Set<Permission>>> = {
+  // Encrypted tools — Personal-only in B (all roles empty in shared workspaces)
+  "password-manager":    ENCRYPTED_ROW,
+  "environment-manager": ENCRYPTED_ROW,
+  "api-key-vault":       ENCRYPTED_ROW,
+
+  // Plaintext tools
   "notes":           PLAINTEXT_ROW,
   "bookmarks":       PLAINTEXT_ROW,
   "tasks":           PLAINTEXT_ROW,
@@ -40,7 +47,7 @@ export function hasPermission(
   if (ws.is_personal) return true
   const row = TOOL_PERMISSIONS[tool]
   if (!row) return false
-  return row[ws.ws_role].has(permission)
+  return row[ws.ws_role]?.has(permission) ?? false
 }
 
 /**
