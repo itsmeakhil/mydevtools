@@ -814,6 +814,7 @@
   "PasswordManager": {
     "page": {
       "loading": "Loading...",
+      "loadFailed": "Failed to load passwords",
       "title": "Password Manager"
     },
     "vault": {

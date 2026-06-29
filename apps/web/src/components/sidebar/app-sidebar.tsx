@@ -15,6 +15,7 @@ import {
 import { NavGroup } from './nav-group'
 import { NavUser } from './nav-user'
 import { FeedbackDialog } from '@/components/feedback-dialog'
+import { OrgSwitcherDropdown } from '@/components/org-switcher-dropdown'
 import { Logo } from '../logo'
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
 import { LayoutDashboard } from 'lucide-react'
@@ -25,33 +26,26 @@ import { useRouter } from 'next/navigation'
 import { usePasswordStore } from '@/store/password-store'
 import { useEnvironmentManagerStore } from '@/store/environment-manager-store'
 import { useMasterKeyStore } from '@/store/master-key-store'
+import { useUserKeypairStore } from '@/store/user-keypair-store'
+import { useWorkspaceDekStore } from '@/store/workspace-dek-store'
 import { clearMasterKey } from '@/lib/key-storage'
 import { logoutBackendSession } from '@/lib/backend-auth'
-import { usePinnedToolsStore } from '@/store/pinned-tools-store'
+import { usePinnedToolsForActiveWorkspace } from '@/store/pinned-tools-store'
+import { useWorkspaceStore, useActiveWorkspace } from '@/store/workspace-store'
 import { IconPin } from '@tabler/icons-react'
 import type { NavLink, NavCollapsible } from './types'
-
-function buildPinnedNavItems(pinnedTools: string[]): NavLink[] {
-  if (pinnedTools.length === 0) return []
-  const allLinks: NavLink[] = sidebarData.navGroups.flatMap((group) =>
-    group.items.flatMap((item) => {
-      if (!('items' in item)) return [item as NavLink]
-      return (item as NavCollapsible).items.map((sub) => ({
-        ...sub,
-        icon: sub.icon ?? item.icon,
-      } as NavLink))
-    })
-  )
-  const urlSet = new Set(pinnedTools)
-  return allLinks.filter((link) => urlSet.has(String(link.url)))
-}
+import { buildPinnedNavItems } from './app-sidebar.helpers'
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { clearPasswords } = usePasswordStore()
   const { clearSets } = useEnvironmentManagerStore()
   const { clearKey: clearMasterKeyStore } = useMasterKeyStore()
-  const pinnedTools = usePinnedToolsStore((s) => s.pinnedTools)
-  const pinnedNavItems = buildPinnedNavItems(pinnedTools)
+  const { clear: clearUserKeypair } = useUserKeypairStore()
+  const { clear: clearWorkspaceDeks } = useWorkspaceDekStore()
+  const pinnedTools = usePinnedToolsForActiveWorkspace()
+  const clearWorkspaceStore = useWorkspaceStore((s) => s.clear)
+  const activeWs = useActiveWorkspace()
+  const pinnedNavItems = buildPinnedNavItems(pinnedTools, activeWs)
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -66,9 +60,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   const handleSignOut = async () => {
     try {
-      clearPasswords()     // clear decrypted passwords from memory
-      clearSets()          // clear decrypted environment sets from memory
-      clearMasterKeyStore() // clear global master key in-memory state
+      clearPasswords()       // clear decrypted passwords from memory
+      clearSets()            // clear decrypted environment sets from memory
+      clearMasterKeyStore()  // clear global master key in-memory state
+      clearUserKeypair()     // clear workspace keypair from memory
+      clearWorkspaceDeks()   // clear workspace DEKs from memory
+      clearWorkspaceStore()  // clear workspace selection on sign-out
 
       // Clear password-manager vault key from IndexedDB
       if (typeof window !== 'undefined' && window.indexedDB) {
@@ -146,6 +143,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </div>
             <p className="text-[10px] text-muted-foreground/80 font-medium tracking-wider uppercase pl-0.5 whitespace-nowrap">Developer&apos;s Toolkit</p>
           </div>
+        </div>
+        <div className="px-2 pt-1 group-data-[state=collapsed]:hidden">
+          <OrgSwitcherDropdown />
         </div>
       </SidebarHeader>
       <SidebarContent className="mt-2 md:mt-0">

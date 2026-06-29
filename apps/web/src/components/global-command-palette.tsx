@@ -17,7 +17,7 @@ import { requiresAuth } from '@/lib/tool-config'
 import useAuth from '@/utils/useAuth'
 import { cn } from '@/lib/utils'
 import { Star } from 'lucide-react'
-import { usePinnedToolsStore } from '@/store/pinned-tools-store'
+import { usePinnedToolsForActiveWorkspace } from '@/store/pinned-tools-store'
 import {
   CATEGORY_ORDER, RECENT_STORAGE_KEY, STATIC_ENTRIES_WITH_SEARCH,
   getToolEntries, type PaletteEntry,
@@ -29,7 +29,7 @@ export function GlobalCommandPalette() {
   const [recentEntries, setRecentEntries] = React.useState<PaletteEntry[]>([])
   const router = useRouter()
   const { user } = useAuth(false)
-  const pinnedTools = usePinnedToolsStore((s) => s.pinnedTools)
+  const pinnedTools = usePinnedToolsForActiveWorkspace()
 
   const isLoggedIn = !!user
   const entries = React.useMemo((): PaletteEntry[] => {

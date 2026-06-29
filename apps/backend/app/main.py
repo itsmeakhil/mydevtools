@@ -25,11 +25,20 @@ async def lifespan(_app: FastAPI):
     except Exception as exc:
         logging.getLogger(__name__).warning("Index creation failed: %s", exc)
 
+    try:
+        from app.api.routes.workspaces.seed import ensure_system_org
+        await ensure_system_org()
+    except Exception as exc:
+        logging.getLogger(__name__).warning("System org seed failed: %s", exc)
+
     from app.core.redis_client import open_redis, close_redis
     await open_redis()
 
     from app.api.routes.url_shortener.click_queue import flush_loop, close_flush_client
     click_flush_task = asyncio.create_task(flush_loop())
+
+    from app.api.routes.workspaces.sweeper import sweeper_loop
+    sweeper_task = asyncio.create_task(sweeper_loop())
 
     try:
         yield
@@ -37,6 +46,11 @@ async def lifespan(_app: FastAPI):
         click_flush_task.cancel()
         try:
             await click_flush_task
+        except asyncio.CancelledError:
+            pass
+        sweeper_task.cancel()
+        try:
+            await sweeper_task
         except asyncio.CancelledError:
             pass
         await close_flush_client()

@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, Query, Request
 
-from app.api.routes.auth.services import get_current_uid
 from app.api.routes.passwords import services as pw_svc
 from app.api.routes.passwords.schema import (
     PasswordEntryCreate,
@@ -9,20 +8,22 @@ from app.api.routes.passwords.schema import (
     VaultOut,
     VaultSetupRequest,
 )
+from app.api.routes.workspaces.middleware import WorkspaceContext
+from app.api.routes.workspaces.rbac import require_permission
 from app.core.limiter import limiter
 
 router = APIRouter(prefix="/password-manager", tags=["password-manager"])
 
 
 @router.get("/vault", response_model=VaultOut, summary="Get password vault settings")
-async def get_vault(uid: str = Depends(get_current_uid)) -> VaultOut:
-    return await pw_svc.get_vault(uid=uid)
+async def get_vault(ctx: WorkspaceContext = Depends(require_permission("password-manager", "read"))) -> VaultOut:
+    return await pw_svc.get_vault(ctx=ctx)
 
 
 @router.post("/vault/setup", response_model=VaultOut, summary="Setup/replace password vault")
 @limiter.limit("3/minute")
-async def setup_vault(request: Request, body: VaultSetupRequest, uid: str = Depends(get_current_uid)) -> VaultOut:
-    return await pw_svc.setup_vault(uid, body)
+async def setup_vault(request: Request, body: VaultSetupRequest, ctx: WorkspaceContext = Depends(require_permission("password-manager", "write"))) -> VaultOut:
+    return await pw_svc.setup_vault(ctx, body)
 
 
 @router.post(
@@ -30,8 +31,8 @@ async def setup_vault(request: Request, body: VaultSetupRequest, uid: str = Depe
     summary="Delete vault + all encrypted entries (clearAll equivalent)",
 )
 @limiter.limit("3/minute")
-async def clear_vault(request: Request, uid: str = Depends(get_current_uid)) -> dict[str, int]:
-    return await pw_svc.clear_vault(uid)
+async def clear_vault(request: Request, ctx: WorkspaceContext = Depends(require_permission("password-manager", "admin"))) -> dict[str, int]:
+    return await pw_svc.clear_vault(ctx)
 
 
 @router.get(
@@ -40,11 +41,11 @@ async def clear_vault(request: Request, uid: str = Depends(get_current_uid)) -> 
     summary="List encrypted password entries",
 )
 async def list_entries(
-    uid: str = Depends(get_current_uid),
+    ctx: WorkspaceContext = Depends(require_permission("password-manager", "read")),
     limit: int = Query(default=200, ge=1, le=1000),
     offset: int = Query(default=0, ge=0),
 ) -> list[PasswordEntryOut]:
-    return await pw_svc.list_entries(uid=uid, limit=limit, offset=offset)
+    return await pw_svc.list_entries(ctx=ctx, limit=limit, offset=offset)
 
 
 @router.post(
@@ -53,8 +54,8 @@ async def list_entries(
     summary="Create password entry (encrypted blob)",
 )
 @limiter.limit("30/minute")
-async def create_entry(request: Request, body: PasswordEntryCreate, uid: str = Depends(get_current_uid)) -> PasswordEntryOut:
-    return await pw_svc.create_entry(uid, body)
+async def create_entry(request: Request, body: PasswordEntryCreate, ctx: WorkspaceContext = Depends(require_permission("password-manager", "write"))) -> PasswordEntryOut:
+    return await pw_svc.create_entry(ctx, body)
 
 
 @router.get(
@@ -62,8 +63,8 @@ async def create_entry(request: Request, body: PasswordEntryCreate, uid: str = D
     response_model=PasswordEntryOut,
     summary="Get one password entry",
 )
-async def get_entry(entry_id: str, uid: str = Depends(get_current_uid)) -> PasswordEntryOut:
-    return await pw_svc.get_entry(uid=uid, entry_id=entry_id)
+async def get_entry(entry_id: str, ctx: WorkspaceContext = Depends(require_permission("password-manager", "read"))) -> PasswordEntryOut:
+    return await pw_svc.get_entry(ctx=ctx, entry_id=entry_id)
 
 
 @router.patch(
@@ -74,9 +75,9 @@ async def get_entry(entry_id: str, uid: str = Depends(get_current_uid)) -> Passw
 async def patch_entry(
     entry_id: str,
     body: PasswordEntryUpdate,
-    uid: str = Depends(get_current_uid),
+    ctx: WorkspaceContext = Depends(require_permission("password-manager", "write")),
 ) -> PasswordEntryOut:
-    return await pw_svc.update_entry(uid, entry_id, body)
+    return await pw_svc.update_entry(ctx, entry_id, body)
 
 
 @router.delete(
@@ -84,5 +85,5 @@ async def patch_entry(
     status_code=204,
     summary="Delete password entry",
 )
-async def delete_entry(entry_id: str, uid: str = Depends(get_current_uid)) -> None:
-    await pw_svc.delete_entry(uid, entry_id)
+async def delete_entry(entry_id: str, ctx: WorkspaceContext = Depends(require_permission("password-manager", "delete"))) -> None:
+    await pw_svc.delete_entry(ctx, entry_id)

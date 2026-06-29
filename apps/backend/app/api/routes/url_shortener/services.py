@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 from fastapi import HTTPException, status
 from pymongo.errors import DuplicateKeyError
 
-from app.core.cache import cached, cache_invalidate, bump_version
+from app.core.cache import cached, cache_invalidate
 from app.core.cache.keys import build_key, args_hash as _ah
 from app.core.config import get_settings
 from app.database import db_manager
@@ -24,6 +24,11 @@ from app.api.routes.url_shortener.schema import (
     LinkAnalytics,
     DailyClicks,
     StatEntry,
+)
+from app.api.routes.workspaces.middleware import (
+    WorkspaceContext,
+    apply_legacy_or_filter,
+    apply_workspace_filter,
 )
 
 
@@ -166,7 +171,7 @@ def _parse_referrer(ref: str) -> str:
         return "Direct"
 
 
-async def create_link(uid: str, body: ShortLinkCreate) -> ShortLinkOut:
+async def create_link(ctx: WorkspaceContext, body: ShortLinkCreate) -> ShortLinkOut:
     db = db_manager.get_db()
     col = db[COLLECTION]
 
@@ -175,7 +180,10 @@ async def create_link(uid: str, body: ShortLinkCreate) -> ShortLinkOut:
     base_doc = {
         "original_url": url,
         "title": title,
-        "created_by": uid,
+        "created_by": ctx.uid,
+        "org_id": ctx.org_id,
+        "workspace_id": ctx.workspace_id,
+        "owner_uid": ctx.uid,
         "created_at": create_timestamp(),
         "clicks": 0,
         "active": True,
@@ -205,7 +213,6 @@ async def create_link(uid: str, body: ShortLinkCreate) -> ShortLinkOut:
             )
 
     await cache_invalidate(ns="url_shortener_resolve", key=_resolve_key(code))
-    await bump_version(ns="url_shortener_owner", uid=uid)
     return _doc_to_out({"_id": code, **base_doc})
 
 
@@ -216,11 +223,12 @@ def _extract_hostname(url: str) -> str:
         return url
 
 
-@cached(ns="url_shortener_owner", ttl=120, scope="user")
-async def list_my_short_urls(*, uid: str, skip: int = 0, limit: int = 100) -> list[ShortLinkOut]:
+# ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid) key if hot
+async def list_my_short_urls(*, ctx: WorkspaceContext, skip: int = 0, limit: int = 100) -> list[ShortLinkOut]:
     db = db_manager.get_db()
     col = db[COLLECTION]
-    cursor = col.find({"created_by": uid}).sort("created_at", -1).skip(skip).limit(limit)
+    flt = apply_legacy_or_filter(ctx, {}, user_field="created_by")
+    cursor = col.find(flt).sort("created_at", -1).skip(skip).limit(limit)
     return [_doc_to_out(doc) async for doc in cursor]
 
 
@@ -244,6 +252,10 @@ async def record_click(code: str, ua: str = "", referrer: str = "") -> None:
     device, os_name, browser = _parse_ua(ua)
     ref_label = _parse_referrer(referrer)
 
+    # Fetch the link document to inherit workspace stamps
+    db = db_manager.get_db()
+    link_doc = await db[COLLECTION].find_one({"_id": code}, {"org_id": 1, "workspace_id": 1, "owner_uid": 1})
+
     event = {
         "code": code,
         "ts": create_timestamp(),
@@ -253,13 +265,21 @@ async def record_click(code: str, ua: str = "", referrer: str = "") -> None:
         "browser": browser,
     }
 
+    # Inherit workspace stamps from the link
+    if link_doc:
+        if "org_id" in link_doc:
+            event["org_id"] = link_doc["org_id"]
+        if "workspace_id" in link_doc:
+            event["workspace_id"] = link_doc["workspace_id"]
+        if "owner_uid" in link_doc:
+            event["owner_uid"] = link_doc["owner_uid"]
+
     # Fast path: enqueue to Redis, flush_loop bulk-writes every few seconds.
     from app.api.routes.url_shortener.click_queue import enqueue_click
     if await enqueue_click(event):
         return
 
     # Fallback: Redis down — direct write keeps clicks working
-    db = db_manager.get_db()
     event["expireAt"] = datetime.now(timezone.utc) + timedelta(days=_CLICK_RETENTION_DAYS)
     await db[CLICKS_COLLECTION].insert_one(event)
     await db[COLLECTION].update_one({"_id": code}, {"$inc": {"clicks": 1}})
@@ -267,11 +287,12 @@ async def record_click(code: str, ua: str = "", referrer: str = "") -> None:
 
 # ponytail: skipped precomputed daily rollups; relies on 60s cache + 90d TTL + (code,ts) index.
 # Add a url_click_daily rollup collection + nightly job when per-code clicks > ~10k/day.
-@cached(ns="url_shortener_analytics", ttl=60, scope="user")
-async def get_analytics(*, uid: str, code: str, days: int = 30) -> LinkAnalytics:
+# ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid, code) key if hot
+async def get_analytics(*, ctx: WorkspaceContext, code: str, days: int = 30) -> LinkAnalytics:
     db = db_manager.get_db()
 
-    doc = await db[COLLECTION].find_one({"_id": code, "created_by": uid}, {"clicks": 1})
+    flt = apply_workspace_filter(ctx, {"_id": code, "created_by": ctx.uid})
+    doc = await db[COLLECTION].find_one(flt, {"clicks": 1})
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Short link not found.")
 
@@ -331,7 +352,7 @@ async def get_analytics(*, uid: str, code: str, days: int = 30) -> LinkAnalytics
     )
 
 
-async def update_link(uid: str, code: str, body: ShortLinkUpdate) -> ShortLinkOut:
+async def update_link(ctx: WorkspaceContext, code: str, body: ShortLinkUpdate) -> ShortLinkOut:
     db = db_manager.get_db()
     col = db[COLLECTION]
     patch: dict[str, Any] = {}
@@ -341,23 +362,23 @@ async def update_link(uid: str, code: str, body: ShortLinkUpdate) -> ShortLinkOu
         patch["active"] = body.active
     if not patch:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Nothing to update.")
+    flt = apply_workspace_filter(ctx, {"_id": code, "created_by": ctx.uid})
     doc = await col.find_one_and_update(
-        {"_id": code, "created_by": uid},
+        flt,
         {"$set": patch},
         return_document=True,
     )
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Short link not found.")
     await cache_invalidate(ns="url_shortener_resolve", key=_resolve_key(code))
-    await bump_version(ns="url_shortener_owner", uid=uid)
     return _doc_to_out(doc)
 
 
-async def delete_link(uid: str, code: str) -> None:
+async def delete_link(ctx: WorkspaceContext, code: str) -> None:
     db = db_manager.get_db()
     col = db[COLLECTION]
-    result = await col.delete_one({"_id": code, "created_by": uid})
+    flt = apply_workspace_filter(ctx, {"_id": code, "created_by": ctx.uid})
+    result = await col.delete_one(flt)
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Short link not found.")
     await cache_invalidate(ns="url_shortener_resolve", key=_resolve_key(code))
-    await bump_version(ns="url_shortener_owner", uid=uid)

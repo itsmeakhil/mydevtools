@@ -61,6 +61,8 @@ class UserPreferencesOut(BaseModel):
     locale: str = "en"
     enabledTools: list[str] = Field(default_factory=lambda: list(DEFAULT_ENABLED_TOOLS))
     toolFavorites: list[str] = Field(default_factory=list)
+    # New keyed-by-workspace pinned-tools map (T24).
+    pinnedToolsByWorkspace: dict[str, list[str]] = Field(default_factory=dict)
     toolStats: dict[str, ToolStatOut] = Field(default_factory=dict)
     createdAt: int
     updatedAt: int
@@ -74,6 +76,11 @@ class UserPreferencesUpdate(BaseModel):
     locale: Optional[str] = Field(default=None, min_length=1)
     enabledTools: Optional[list[str]] = None
     toolFavorites: Optional[list[str]] = None
+    # New keyed-by-workspace pinned-tools map (T24).  The frontend sends this
+    # instead of toolFavorites going forward.  If only toolFavorites is present
+    # (legacy clients / one-release compat), the service layer will migrate it
+    # into pinnedToolsByWorkspace[activeWorkspaceId].
+    pinnedToolsByWorkspace: Optional[dict[str, list[str]]] = None
     toolStats: Optional[dict[str, ToolStatOut]] = None
 
 

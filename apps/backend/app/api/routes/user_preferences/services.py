@@ -75,12 +75,20 @@ def _doc_to_out(doc: dict[str, Any]) -> UserPreferencesOut:
     if not isinstance(favs, list):
         favs = []
     stats = _tool_stats_list_to_dict(doc.get("toolStatsList"))
+    # Deserialise the new keyed pinned-tools map.
+    raw_by_ws = doc.get("pinnedToolsByWorkspace")
+    pinned_by_workspace: dict[str, list[str]] = {}
+    if isinstance(raw_by_ws, dict):
+        for ws_id, tools in raw_by_ws.items():
+            if isinstance(ws_id, str) and isinstance(tools, list):
+                pinned_by_workspace[ws_id] = [str(t) for t in tools]
     return UserPreferencesOut(
         theme=doc.get("theme") or "system",
         accentColor=doc.get("accentColor") or "blue",
         locale=doc.get("locale") or "en",
         enabledTools=enabled,
         toolFavorites=[str(x) for x in favs],
+        pinnedToolsByWorkspace=pinned_by_workspace,
         toolStats=stats,
         createdAt=created_at,
         updatedAt=updated_at,
@@ -113,6 +121,12 @@ async def patch_preferences(uid: str, body: UserPreferencesUpdate) -> UserPrefer
         if key in patch and patch[key] is not None:
             set_fields[key] = patch[key]
             del patch[key]
+
+    # Handle the new keyed pinned-tools map (T24).
+    if "pinnedToolsByWorkspace" in patch and patch["pinnedToolsByWorkspace"] is not None:
+        set_fields["pinnedToolsByWorkspace"] = patch.pop("pinnedToolsByWorkspace")
+    else:
+        patch.pop("pinnedToolsByWorkspace", None)
 
     set_fields.update({k: v for k, v in patch.items() if v is not None})
 

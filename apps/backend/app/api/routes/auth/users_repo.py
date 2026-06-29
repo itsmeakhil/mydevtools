@@ -199,3 +199,70 @@ async def find_user_by_user_handle(user_handle_b64: str) -> dict[str, Any] | Non
 
 async def find_user_by_credential_id(credential_id: str) -> dict[str, Any] | None:
     return await db_manager.find_one(USERS, {"passkeys.credential_id": credential_id})
+
+
+# ── Workspace setup ───────────────────────────────────────────────────────────
+
+
+async def mark_workspace_setup(uid: str, personal_workspace_id: str) -> None:
+    await db_manager.update_one(
+        USERS,
+        {"_id": uid},
+        {"$set": {
+            "workspace_setup_at": create_timestamp(),
+            "personal_workspace_id": personal_workspace_id,
+        }},
+    )
+    await bump_version(ns="auth_user", uid=uid)
+
+
+async def get_workspace_setup_at(uid: str) -> int | None:
+    doc = await db_manager.find_one(USERS, {"_id": uid})
+    if not doc:
+        return None
+    return doc.get("workspace_setup_at")
+
+
+async def get_personal_workspace_id(uid: str) -> str | None:
+    doc = await db_manager.find_one(USERS, {"_id": uid})
+    if not doc:
+        return None
+    return doc.get("personal_workspace_id")
+
+
+async def mark_migration_pending(uid: str) -> None:
+    await db_manager.update_one(
+        USERS, {"_id": uid}, {"$set": {"migration_status": "pending"}}
+    )
+    await bump_version(ns="auth_user", uid=uid)
+
+
+async def get_migrated_at(uid: str) -> int | None:
+    doc = await db_manager.find_one(USERS, {"_id": uid})
+    if not doc:
+        return None
+    return doc.get("migrated_at")
+
+
+async def get_migration_progress(uid: str) -> dict | None:
+    doc = await db_manager.find_one(USERS, {"_id": uid})
+    return (doc or {}).get("migration_progress")
+
+
+async def set_migration_progress(uid: str, progress: dict) -> None:
+    await db_manager.update_one(
+        USERS, {"_id": uid}, {"$set": {"migration_progress": progress}}
+    )
+    await bump_version(ns="auth_user", uid=uid)
+
+
+async def mark_migrated(uid: str) -> None:
+    await db_manager.update_one(
+        USERS,
+        {"_id": uid},
+        {"$set": {
+            "migrated_at": create_timestamp(),
+            "migration_status": "done",
+        }},
+    )
+    await bump_version(ns="auth_user", uid=uid)

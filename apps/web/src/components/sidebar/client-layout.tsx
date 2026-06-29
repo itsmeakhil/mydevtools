@@ -10,6 +10,7 @@ import { TabBar } from '@/components/tab-bar/tab-bar';
 import { useTabStore } from '@/store/tab-store';
 import { isTabRoute } from '@/lib/route-config';
 import { getTabComponent, isRegisteredTab } from '@/lib/tab-registry';
+import { MigrationBanner } from '@/components/migration-banner';
 
 // Renders all open tool tabs simultaneously. The active tab is visible;
 // inactive tabs use display:none to stay mounted (preserving their state).
@@ -89,6 +90,7 @@ function Layout({ children }: { children: React.ReactNode }) {
             ) : (
               <NavBar />
             )}
+            <MigrationBanner />
           </div>
 
           {inTabMode ? (

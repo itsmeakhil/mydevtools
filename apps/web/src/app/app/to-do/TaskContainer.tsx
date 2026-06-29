@@ -157,6 +157,8 @@ export const TaskContainer = () => {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      // `event.key` is undefined for IME composition / autofill events — bail early.
+      if (!event.key) return;
       const target = event.target as HTMLElement | null;
       const isTypingInField =
         target?.tagName === "INPUT" ||
@@ -180,7 +182,7 @@ export const TaskContainer = () => {
         return;
       }
 
-      if (!isMobile && event.key.toLowerCase() === "n" && !isTypingInField) {
+      if (!isMobile && event.key?.toLowerCase() === "n" && !isTypingInField) {
         event.preventDefault();
         taskFormInputRef.current?.focus();
       }

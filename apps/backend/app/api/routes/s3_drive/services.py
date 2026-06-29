@@ -31,6 +31,11 @@ from app.api.routes.s3_drive.schema import (
     S3Credentials,
     S3ObjectItem,
 )
+from app.api.routes.workspaces.middleware import (
+    WorkspaceContext,
+    apply_legacy_or_filter,
+    apply_workspace_filter,
+)
 from app.database import db_manager
 from app.utils.collection_name import S3_CONNECTIONS
 from app.utils.crud import safe_delete_one, safe_insert, safe_update_one
@@ -54,18 +59,22 @@ def _doc_to_out(doc: dict[str, Any]) -> S3ConnectionOut:
 
 # ── Connection CRUD (async — uses DB) ─────────────────────────────────────────
 
-async def list_connections(uid: str) -> list[S3ConnectionOut]:
-    docs = await db_manager.find(S3_CONNECTIONS, {"created_by": uid}, sort=[("updatedAt", -1)])
+async def list_connections(ctx: WorkspaceContext) -> list[S3ConnectionOut]:
+    flt = apply_legacy_or_filter(ctx, {}, user_field="created_by")
+    docs = await db_manager.find(S3_CONNECTIONS, flt, sort=[("updatedAt", -1)])
     return [_doc_to_out(d) for d in docs]
 
 
-async def create_connection(uid: str, body: S3ConnectionCreate) -> S3ConnectionOut:
+async def create_connection(ctx: WorkspaceContext, body: S3ConnectionCreate) -> S3ConnectionOut:
     conn_id = new_id()
     ts = create_timestamp()
     created_at = int(body.createdAt) if body.createdAt is not None else ts
     doc: dict[str, Any] = {
         "_id": conn_id,
-        "created_by": uid,
+        "created_by": ctx.uid,
+        "org_id": ctx.org_id,
+        "workspace_id": ctx.workspace_id,
+        "owner_uid": ctx.uid,
         "name": body.name,
         "provider": body.provider,
         "encryptedData": body.encryptedData,
@@ -77,14 +86,16 @@ async def create_connection(uid: str, body: S3ConnectionCreate) -> S3ConnectionO
     return _doc_to_out(doc)
 
 
-async def get_connection(uid: str, conn_id: str) -> S3ConnectionOut:
-    doc = await db_manager.find_one(S3_CONNECTIONS, {"_id": conn_id, "created_by": uid})
+async def get_connection(ctx: WorkspaceContext, conn_id: str) -> S3ConnectionOut:
+    flt = apply_workspace_filter(ctx, {"_id": conn_id, "created_by": ctx.uid})
+    doc = await db_manager.find_one(S3_CONNECTIONS, flt)
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
     return _doc_to_out(doc)
 
 
-async def update_connection(uid: str, conn_id: str, body: S3ConnectionUpdate) -> S3ConnectionOut:
+async def update_connection(ctx: WorkspaceContext, conn_id: str, body: S3ConnectionUpdate) -> S3ConnectionOut:
+    flt = apply_workspace_filter(ctx, {"_id": conn_id, "created_by": ctx.uid})
     patch: dict[str, Any] = {"updatedAt": int(body.updatedAt) if body.updatedAt is not None else create_timestamp()}
     if body.name is not None:
         patch["name"] = body.name
@@ -95,13 +106,14 @@ async def update_connection(uid: str, conn_id: str, body: S3ConnectionUpdate) ->
     if body.iv is not None:
         patch["iv"] = body.iv
     doc = await safe_update_one(
-        S3_CONNECTIONS, {"_id": conn_id, "created_by": uid}, patch, name="Connection"
+        S3_CONNECTIONS, flt, patch, name="Connection"
     )
     return _doc_to_out(doc)
 
 
-async def delete_connection(uid: str, conn_id: str) -> None:
-    await safe_delete_one(S3_CONNECTIONS, {"_id": conn_id, "created_by": uid}, name="Connection")
+async def delete_connection(ctx: WorkspaceContext, conn_id: str) -> None:
+    flt = apply_workspace_filter(ctx, {"_id": conn_id, "created_by": ctx.uid})
+    await safe_delete_one(S3_CONNECTIONS, flt, name="Connection")
 
 
 # ── S3 client factory (TTL-based cache) ───────────────────────────────────────

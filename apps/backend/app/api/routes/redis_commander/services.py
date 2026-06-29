@@ -8,6 +8,11 @@ from app.api.routes.redis_commander.schema import (
     RedisConnectionOut,
     RedisConnectionUpdate,
 )
+from app.api.routes.workspaces.middleware import (
+    WorkspaceContext,
+    apply_legacy_or_filter,
+    apply_workspace_filter,
+)
 from app.utils.collection_name import REDIS_CONNECTIONS
 from app.utils.utils import create_timestamp, new_id
 from app.database import db_manager
@@ -27,21 +32,25 @@ def _doc_to_out(doc: dict[str, Any], *, connection_id: str) -> RedisConnectionOu
     )
 
 
-async def list_connections(uid: str) -> list[RedisConnectionOut]:
+async def list_connections(ctx: WorkspaceContext) -> list[RedisConnectionOut]:
+    flt = apply_legacy_or_filter(ctx, {"encryptedData": {"$exists": True}, "iv": {"$exists": True}}, user_field="created_by")
     docs = await db_manager.find(
         REDIS_CONNECTIONS,
-        {"created_by": uid, "encryptedData": {"$exists": True}, "iv": {"$exists": True}},
+        flt,
         sort=[("lastUsedAt", -1), ("createdAt", -1)],
     )
     return [_doc_to_out(doc, connection_id=str(doc.get("_id", ""))) for doc in docs]
 
 
-async def create_connection(uid: str, body: RedisConnectionCreate) -> RedisConnectionOut:
+async def create_connection(ctx: WorkspaceContext, body: RedisConnectionCreate) -> RedisConnectionOut:
     ts = create_timestamp()
     _id = new_id()
     doc: dict[str, Any] = {
         "_id": _id,
-        "created_by": uid,
+        "created_by": ctx.uid,
+        "org_id": ctx.org_id,
+        "workspace_id": ctx.workspace_id,
+        "owner_uid": ctx.uid,
         "encryptedData": body.encryptedData,
         "iv": body.iv,
         "name": body.name or "My Redis Connection",
@@ -58,8 +67,9 @@ async def create_connection(uid: str, body: RedisConnectionCreate) -> RedisConne
     return _doc_to_out(doc, connection_id=_id)
 
 
-async def update_connection(uid: str, connection_id: str, body: RedisConnectionUpdate) -> RedisConnectionOut:
-    existing = await db_manager.find_one(REDIS_CONNECTIONS, {"_id": connection_id, "created_by": uid})
+async def update_connection(ctx: WorkspaceContext, connection_id: str, body: RedisConnectionUpdate) -> RedisConnectionOut:
+    flt = apply_workspace_filter(ctx, {"_id": connection_id, "created_by": ctx.uid})
+    existing = await db_manager.find_one(REDIS_CONNECTIONS, flt)
     if not existing:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
 
@@ -75,7 +85,7 @@ async def update_connection(uid: str, connection_id: str, body: RedisConnectionU
     try:
         await db_manager.update_one(
             REDIS_CONNECTIONS,
-            {"_id": connection_id, "created_by": uid},
+            flt,
             {"$set": patch},
         )
     except PyMongoError as exc:
@@ -84,21 +94,23 @@ async def update_connection(uid: str, connection_id: str, body: RedisConnectionU
             detail="Failed to update connection.",
         ) from exc
 
-    updated = await db_manager.find_one(REDIS_CONNECTIONS, {"_id": connection_id, "created_by": uid})
+    updated = await db_manager.find_one(REDIS_CONNECTIONS, flt)
     if not updated:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
     return _doc_to_out(updated, connection_id=connection_id)
 
 
-async def delete_connection(uid: str, connection_id: str) -> None:
-    res = await db_manager.delete_one(REDIS_CONNECTIONS, {"_id": connection_id, "created_by": uid})
+async def delete_connection(ctx: WorkspaceContext, connection_id: str) -> None:
+    flt = apply_workspace_filter(ctx, {"_id": connection_id, "created_by": ctx.uid})
+    res = await db_manager.delete_one(REDIS_CONNECTIONS, flt)
     if res.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
 
 
-async def touch_connection(uid: str, connection_id: str) -> None:
+async def touch_connection(ctx: WorkspaceContext, connection_id: str) -> None:
+    flt = apply_workspace_filter(ctx, {"_id": connection_id, "created_by": ctx.uid})
     await db_manager.update_one(
         REDIS_CONNECTIONS,
-        {"_id": connection_id, "created_by": uid},
+        flt,
         {"$set": {"lastUsedAt": create_timestamp()}},
     )

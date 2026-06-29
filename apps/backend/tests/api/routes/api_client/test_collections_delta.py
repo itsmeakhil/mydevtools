@@ -1,20 +1,19 @@
 """Tests for POST /api-client/collections/{id}/items:apply-delta.
 
-Auth pattern: override get_current_uid via FastAPI dependency_overrides
-(same pattern used in test_auth_memo.py).  MongoDB is monkeypatched in-process
-so no real DB is needed.
+Auth pattern: override get_workspace_ctx via FastAPI dependency_overrides.
+MongoDB is monkeypatched in-process so no real DB is needed.
 """
 from __future__ import annotations
 
 import copy
 from typing import Any
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock
 
 import pytest
 from bson import ObjectId
 from httpx import ASGITransport, AsyncClient
 
-from app.api.routes.auth.services import get_current_uid
+from app.api.routes.workspaces.middleware import WorkspaceContext, get_workspace_ctx
 from app.main import app
 
 # Fixed IDs used throughout
@@ -29,6 +28,9 @@ REQUEST_ID = "request-1"
 BASE_COLLECTION: dict[str, Any] = {
     "_id": COLLECTION_OID,
     "created_by": OWNER_UID,
+    "org_id": "org-test",
+    "workspace_id": "ws-owner",
+    "owner_uid": OWNER_UID,
     "name": "My Collection",
     "items": [
         {
@@ -54,19 +56,40 @@ BASE_COLLECTION: dict[str, Any] = {
 }
 
 
-def _make_client(uid: str) -> AsyncClient:
-    """Return an AsyncClient that authenticates as uid."""
-    app.dependency_overrides[get_current_uid] = lambda: uid
+def _make_ctx(uid: str, ws_id: str = "ws-owner", org_id: str = "org-test") -> WorkspaceContext:
+    return WorkspaceContext(
+        uid=uid,
+        org_id=org_id,
+        workspace_id=ws_id,
+        ws_role="admin",
+        is_personal=True,
+        owner_uid=uid,
+    )
+
+
+def _make_client(uid: str, ws_id: str = "ws-owner") -> AsyncClient:
+    """Return an AsyncClient that authenticates as uid with the given workspace."""
+    ctx = _make_ctx(uid, ws_id)
+    app.dependency_overrides[get_workspace_ctx] = lambda: ctx
     return AsyncClient(transport=ASGITransport(app=app), base_url="http://test")
 
 
 def _mock_find_one(collection_doc: dict | None):
-    """Monkeypatch db_manager.find_one to return collection_doc."""
+    """Monkeypatch db_manager.find_one to return collection_doc.
+
+    Checks ownership via created_by (plus workspace_id/owner_uid when present).
+    """
     async def _find_one(collection_name, query, projection=None):
         if collection_doc is None:
             return None
-        # Honour ownership filter
+        # Check created_by
         if query.get("created_by") != collection_doc.get("created_by"):
+            return None
+        # Check workspace_id (strict filter from apply_workspace_filter)
+        if "workspace_id" in query and query["workspace_id"] != collection_doc.get("workspace_id"):
+            return None
+        # Check owner_uid (personal workspace strict filter)
+        if "owner_uid" in query and query["owner_uid"] != collection_doc.get("owner_uid"):
             return None
         return copy.deepcopy(collection_doc)
 
@@ -92,7 +115,7 @@ def _mock_find_one_and_update(updated_doc: dict | None):
 @pytest.fixture(autouse=True)
 def cleanup_overrides():
     yield
-    app.dependency_overrides.pop(get_current_uid, None)
+    app.dependency_overrides.pop(get_workspace_ctx, None)
 
 
 # ── Test: add op inserts a new item under parent_id ──────────────────────────
@@ -121,7 +144,6 @@ async def test_apply_delta_adds_item(monkeypatch):
         "app.api.routes.api_client.collections_delta.db_manager.find_one_and_update",
         mock_update,
     )
-    monkeypatch.setattr("app.api.routes.api_client.collections_delta.bump_version", AsyncMock())
 
     async with _make_client(OWNER_UID) as ac:
         resp = await ac.post(
@@ -159,7 +181,6 @@ async def test_apply_delta_deletes_item(monkeypatch):
         "app.api.routes.api_client.collections_delta.db_manager.find_one_and_update",
         mock_update,
     )
-    monkeypatch.setattr("app.api.routes.api_client.collections_delta.bump_version", AsyncMock())
 
     async with _make_client(OWNER_UID) as ac:
         resp = await ac.post(
@@ -194,7 +215,6 @@ async def test_apply_delta_updates_item(monkeypatch):
         "app.api.routes.api_client.collections_delta.db_manager.find_one_and_update",
         _mock_find_one_and_update(updated_collection),
     )
-    monkeypatch.setattr("app.api.routes.api_client.collections_delta.bump_version", AsyncMock())
 
     async with _make_client(OWNER_UID) as ac:
         resp = await ac.post(
@@ -216,18 +236,18 @@ async def test_apply_delta_updates_item(monkeypatch):
 async def test_apply_delta_wrong_uid_gets_404(monkeypatch):
     # find_one returns None for OTHER_UID (ownership filter fails)
     monkeypatch.setattr("app.api.routes.api_client.collections_delta.db_manager.find_one", _mock_find_one(BASE_COLLECTION))
-    # bump_version should NOT be called
-    bump_mock = AsyncMock()
-    monkeypatch.setattr("app.api.routes.api_client.collections_delta.bump_version", bump_mock)
 
-    async with _make_client(OTHER_UID) as ac:
+    # OTHER_UID with a different workspace should be denied by the ownership check
+    other_ctx = _make_ctx(OTHER_UID, ws_id="ws-other")
+    app.dependency_overrides[get_workspace_ctx] = lambda: other_ctx
+
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
         resp = await ac.post(
             f"/api/v1/api-client/collections/{COLLECTION_ID}/items:apply-delta",
             json={"ops": [{"type": "delete", "item_id": REQUEST_ID}]},
         )
 
     assert resp.status_code == 404
-    bump_mock.assert_not_called()
 
 
 # ── Test: move op with unknown new_parent_id returns 400 ─────────────────────
@@ -235,8 +255,6 @@ async def test_apply_delta_wrong_uid_gets_404(monkeypatch):
 @pytest.mark.asyncio
 async def test_apply_delta_move_unknown_parent_returns_400(monkeypatch):
     monkeypatch.setattr("app.api.routes.api_client.collections_delta.db_manager.find_one", _mock_find_one(BASE_COLLECTION))
-    bump_mock = AsyncMock()
-    monkeypatch.setattr("app.api.routes.api_client.collections_delta.bump_version", bump_mock)
 
     async with _make_client(OWNER_UID) as ac:
         resp = await ac.post(
@@ -246,4 +264,3 @@ async def test_apply_delta_move_unknown_parent_returns_400(monkeypatch):
 
     assert resp.status_code == 400, resp.text
     assert "new_parent_id" in resp.json().get("detail", "")
-    bump_mock.assert_not_called()

@@ -15,6 +15,8 @@ export type UserPreferencesOut = {
     locale: string
     enabledTools: string[]
     toolFavorites: string[]
+    /** Keyed pinned-tools map added in T24. Present on all responses after backend migration. */
+    pinnedToolsByWorkspace?: Record<string, string[]>
     toolStats: Record<string, ToolStatOut>
     createdAt: number
     updatedAt: number
@@ -25,7 +27,10 @@ export type UserPreferencesPatch = {
     accentColor?: string
     locale?: string
     enabledTools?: string[]
+    /** Legacy flat array — only accepted by backend for one-release compat. */
     toolFavorites?: string[]
+    /** New keyed pinned-tools map (T24). Frontend sends this instead of toolFavorites. */
+    pinnedToolsByWorkspace?: Record<string, string[]>
     toolStats?: Record<string, ToolStatOut>
 }
 

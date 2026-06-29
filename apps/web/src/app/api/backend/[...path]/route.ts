@@ -64,6 +64,16 @@ async function forward(req: NextRequest, method: string, pathSegments: string[])
         cache: "no-store",
     })
 
+    // Per HTTP spec, 204/304 MUST NOT carry a body — the Response constructor
+    // throws if one is provided. Return body-less here regardless of upstream
+    // Content-Type. (FastAPI sets Content-Type: application/json on every route
+    // even when status_code=204 returns no body.)
+    if (upstreamRes.status === 204 || upstreamRes.status === 304) {
+        const res = new NextResponse(null, { status: upstreamRes.status })
+        appendSetCookiesFromUpstream(upstreamRes, res)
+        return res
+    }
+
     const upstreamContentType = upstreamRes.headers.get("content-type") || ""
     if (!upstreamContentType.includes("application/json")) {
         const text = await upstreamRes.text()

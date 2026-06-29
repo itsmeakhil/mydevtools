@@ -40,7 +40,11 @@ import { requiresAuth } from "@/lib/tool-config";
 import { useToolVisibility } from "@/hooks/use-tool-visibility";
 import { getToolMessageKey } from "@/lib/tool-i18n";
 import { Star } from "lucide-react";
-import { usePinnedToolsStore } from "@/store/pinned-tools-store";
+import { usePinnedToolsStore, usePinnedToolsForActiveWorkspace } from "@/store/pinned-tools-store";
+import { useWorkspaceStore } from "@/store/workspace-store";
+import { useToolPermission } from "@/lib/workspace-rbac";
+import { useActiveWorkspace } from "@/store/workspace-store";
+import { sidebarUrlToToolSlug } from "@/lib/sidebar-tool-slug";
 
 // Define the props interface for NavGroup
 interface NavGroupProps {
@@ -52,6 +56,33 @@ interface NavGroupProps {
   hiddenOnMobile?: boolean;
   /** Show links even when the tool is hidden from other sidebar groups (e.g. user-pinned favorites). */
   ignoreToolVisibility?: boolean;
+}
+
+/**
+ * Role-gated wrapper around a single NavLink item.
+ * For non-/app URLs or personal workspaces, always renders.
+ * For shared workspaces, hides the link when the active role lacks "read".
+ */
+function NavLinkGated({
+  item,
+  href,
+  onClick,
+}: {
+  item: NavLink;
+  href: string;
+  onClick: (e: React.MouseEvent) => void;
+}) {
+  const itemUrl = typeof item.url === "string" ? item.url : item.url.toString();
+  const slug = sidebarUrlToToolSlug(itemUrl);
+  const canRead = useToolPermission(slug ?? "", "read");
+  const activeWs = useActiveWorkspace();
+
+  // Non-matrix URLs (e.g. /dashboard) and personal workspaces always render.
+  if (!slug || activeWs?.is_personal) {
+    return <SidebarMenuLink item={item} href={href} onClick={onClick} />;
+  }
+  if (!canRead) return null;
+  return <SidebarMenuLink item={item} href={href} onClick={onClick} />;
 }
 
 // Main NavGroup Component
@@ -118,7 +149,7 @@ export function NavGroup({ title, titleKey, items, collapsible, icon: Icon, hidd
           const itemUrl =
             typeof item.url === "string" ? item.url : item.url.toString();
           return (
-            <SidebarMenuLink
+            <NavLinkGated
               key={key}
               item={item as NavLink}
               href={pathname}
@@ -206,8 +237,12 @@ const SidebarMenuLink = ({
 }) => {
   const { setOpenMobile, state } = useSidebar();
   const tNav = useTranslations("Navigation");
-  const togglePin = usePinnedToolsStore((s) => s.togglePin);
-  const pinnedTools = usePinnedToolsStore((s) => s.pinnedTools);
+  const togglePinKeyed = usePinnedToolsStore((s) => s.togglePin);
+  const activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId);
+  const togglePin = (url: string) => {
+    if (activeWorkspaceId) togglePinKeyed(activeWorkspaceId, url)
+  };
+  const pinnedTools = usePinnedToolsForActiveWorkspace();
   const itemUrl =
     typeof item.url === "string" ? item.url : item.url.toString();
   const toolKey = getToolMessageKey(itemUrl);

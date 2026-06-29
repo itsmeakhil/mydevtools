@@ -10,7 +10,8 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Plus, Wand2, RefreshCw, Check, Copy, ChevronDown, ChevronUp, Eye, EyeOff } from "lucide-react"
 import { usePasswordStore, PasswordEntry } from "@/store/password-store"
-import { useMasterKeyStore } from "@/store/master-key-store"
+import { useCipherKey } from "./encryption-context"
+import { useActiveToolPermissions } from "@/lib/workspace-rbac"
 import { AdvancedGenerator } from "./advanced-generator"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Badge } from "@/components/ui/badge"
@@ -24,10 +25,12 @@ import { useTranslations } from "next-intl"
 
 export function AddPasswordDialog({ children }: { children?: React.ReactNode }) {
     const t = useTranslations("PasswordManager.form")
-    const { encryptionKey } = useMasterKeyStore()
+    const cipherKey = useCipherKey()
     const { addPassword } = usePasswordStore()
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
+    const { canWrite } = useActiveToolPermissions()
+    if (!canWrite) return null
     const [formData, setFormData] = useState({
         service: "",
         username: "",
@@ -60,7 +63,7 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        if (!encryptionKey || !auth.currentUser) return
+        if (!cipherKey || !auth.currentUser) return
 
         if (formData.totpSecret) {
             const totpError = validateTotpSecret(formData.totpSecret)
@@ -73,7 +76,7 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
         setLoading(true)
         try {
             const dataToEncrypt = JSON.stringify(formData)
-            const { encrypted, iv } = await encryptData(encryptionKey, dataToEncrypt)
+            const { encrypted, iv } = await encryptData(cipherKey, dataToEncrypt)
 
             const timestamp = Date.now()
 

@@ -30,10 +30,15 @@ class Settings(BaseSettings):
     ALLOWED_ORIGINS: str
 
     # WebAuthn / passkeys
-    WEBAUTHN_RP_ID: str 
-    WEBAUTHN_RP_NAME: str 
+    WEBAUTHN_RP_ID: str
+    WEBAUTHN_RP_NAME: str
     WEBAUTHN_ORIGINS: str
     WEBAUTHN_CHALLENGE_TTL_SECONDS: int
+
+    # Email (Resend)
+    RESEND_API_KEY: str | None = None
+    INVITATION_FROM_EMAIL: str = "MyDevTools <invitations@mydevtools.tech>"
+    APP_PUBLIC_URL: str = "http://localhost:3000"
 
     # Redis + cache
     REDIS_URL: str | None = None

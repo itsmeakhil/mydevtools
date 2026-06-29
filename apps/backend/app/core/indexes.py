@@ -25,6 +25,11 @@ from app.utils.collection_name import (
     USER_PREFERENCES,
     USERS,
     WEBAUTHN_CHALLENGES,
+    ORGANIZATIONS,
+    ORG_MEMBERSHIPS,
+    WORKSPACES,
+    WORKSPACE_MEMBERSHIPS,
+    INVITATIONS,
 )
 from app.core.config import get_settings
 
@@ -70,3 +75,22 @@ async def ensure_indexes() -> None:
     await db_manager.create_index(AUDIT_LOG, [("uid", 1), ("ts", -1)])
     await db_manager.create_index(AUDIT_LOG, [("uid", 1), ("module", 1), ("ts", -1)])
     await db_manager.create_index(AUDIT_LOG, "expireAt", expire_after_seconds=0)
+    await db_manager.create_index(ORGANIZATIONS, [("slug", 1)], unique=True)
+    await db_manager.create_index(
+        ORG_MEMBERSHIPS, [("org_id", 1), ("uid", 1)], unique=True
+    )
+    await db_manager.create_index(ORG_MEMBERSHIPS, [("uid", 1)])
+    await db_manager.create_index(
+        WORKSPACES,
+        [("org_id", 1), ("owner_uid", 1), ("is_personal", 1)],
+    )
+    await db_manager.create_index(
+        WORKSPACE_MEMBERSHIPS,
+        [("workspace_id", 1), ("uid", 1)],
+        unique=True,
+    )
+    await db_manager.create_index(WORKSPACE_MEMBERSHIPS, [("uid", 1)])
+    await db_manager.create_index(INVITATIONS, [("token", 1)], unique=True)
+    await db_manager.create_index(INVITATIONS, [("invited_email", 1), ("status", 1)])
+    await db_manager.create_index(INVITATIONS, [("org_id", 1), ("status", 1)])
+    await db_manager.create_index(INVITATIONS, [("expires_at", 1), ("status", 1)])

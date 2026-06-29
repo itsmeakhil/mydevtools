@@ -3,7 +3,6 @@ import logging
 from fastapi import APIRouter, BackgroundTasks, Depends, Query, Request
 from fastapi.responses import RedirectResponse
 
-from app.api.routes.auth.services import get_current_uid
 from app.api.routes.url_shortener import services as svc
 from app.api.routes.url_shortener.schema import (
     ShortLinkCreate,
@@ -12,6 +11,8 @@ from app.api.routes.url_shortener.schema import (
     ShortLinkUpdate,
     LinkAnalytics,
 )
+from app.api.routes.workspaces.middleware import WorkspaceContext
+from app.api.routes.workspaces.rbac import require_permission
 from app.core.redis_client import get_redis
 
 router = APIRouter(prefix="/url-shortener", tags=["url-shortener"])
@@ -39,18 +40,18 @@ async def _is_click_rate_limited(ip: str, code: str) -> bool:
 @router.post("", response_model=ShortLinkOut, summary="Create a short link")
 async def create_link(
     body: ShortLinkCreate,
-    uid: str = Depends(get_current_uid),
+    ctx: WorkspaceContext = Depends(require_permission("url-shortener", "write")),
 ) -> ShortLinkOut:
-    return await svc.create_link(uid, body)
+    return await svc.create_link(ctx, body)
 
 
 @router.get("", response_model=list[ShortLinkOut], summary="List user's short links")
 async def list_links(
-    uid: str = Depends(get_current_uid),
+    ctx: WorkspaceContext = Depends(require_permission("url-shortener", "read")),
     skip: int = Query(default=0, ge=0),
     limit: int = Query(default=100, ge=1, le=500),
 ) -> list[ShortLinkOut]:
-    return await svc.list_my_short_urls(uid=uid, skip=skip, limit=limit)
+    return await svc.list_my_short_urls(ctx=ctx, skip=skip, limit=limit)
 
 
 @router.get("/resolve/{code}", response_model=ShortLinkResolve, summary="Resolve a short code (public)")
@@ -100,23 +101,23 @@ async def record_click(code: str, request: Request) -> None:
 async def get_analytics(
     code: str,
     days: int = Query(default=30, ge=1, le=365),
-    uid: str = Depends(get_current_uid),
+    ctx: WorkspaceContext = Depends(require_permission("url-shortener", "read")),
 ) -> LinkAnalytics:
-    return await svc.get_analytics(uid=uid, code=code, days=days)
+    return await svc.get_analytics(ctx=ctx, code=code, days=days)
 
 
 @router.patch("/{code}", response_model=ShortLinkOut, summary="Update title or active state")
 async def update_link(
     code: str,
     body: ShortLinkUpdate,
-    uid: str = Depends(get_current_uid),
+    ctx: WorkspaceContext = Depends(require_permission("url-shortener", "write")),
 ) -> ShortLinkOut:
-    return await svc.update_link(uid, code, body)
+    return await svc.update_link(ctx, code, body)
 
 
 @router.delete("/{code}", status_code=204, summary="Delete a short link")
 async def delete_link(
     code: str,
-    uid: str = Depends(get_current_uid),
+    ctx: WorkspaceContext = Depends(require_permission("url-shortener", "delete")),
 ) -> None:
-    await svc.delete_link(uid, code)
+    await svc.delete_link(ctx, code)

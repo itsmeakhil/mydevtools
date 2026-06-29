@@ -11,6 +11,11 @@ from app.api.routes.json_formatter.schema import (
     JsonFormatterDocumentOut,
     JsonFormatterDocumentUpdate,
 )
+from app.api.routes.workspaces.middleware import (
+    WorkspaceContext,
+    apply_legacy_or_filter,
+    apply_workspace_filter,
+)
 from app.utils.collection_name import JSON_FORMATTER_DOCUMENTS as JSON
 from app.database import db_manager
 
@@ -52,15 +57,19 @@ def _doc_to_out(doc: dict[str, Any]) -> JsonFormatterDocumentOut:
     )
 
 
-async def list_documents(uid: str) -> list[JsonFormatterDocumentOut]:
-    docs = await db_manager.find(JSON, {"created_by": uid}, sort=[("updatedAt", -1)])
+async def list_documents(ctx: WorkspaceContext) -> list[JsonFormatterDocumentOut]:
+    base = {}
+    flt = apply_legacy_or_filter(ctx, base, user_field="created_by")
+    docs = await db_manager.find(JSON, flt, sort=[("updatedAt", -1)])
     return [_doc_to_out(d) for d in docs]
 
 
-async def list_documents_paginated(uid: str, *, skip: int = 0, limit: int = 200) -> list[JsonFormatterDocumentOut]:
+async def list_documents_paginated(ctx: WorkspaceContext, *, skip: int = 0, limit: int = 200) -> list[JsonFormatterDocumentOut]:
+    base = {}
+    flt = apply_legacy_or_filter(ctx, base, user_field="created_by")
     docs = await db_manager.find(
         JSON,
-        {"created_by": uid},
+        flt,
         sort=[("updatedAt", -1)],
         skip=max(0, skip),
         limit=max(1, limit),
@@ -68,10 +77,13 @@ async def list_documents_paginated(uid: str, *, skip: int = 0, limit: int = 200)
     return [_doc_to_out(d) for d in docs]
 
 
-async def create_document(uid: str, body: JsonFormatterDocumentCreate) -> JsonFormatterDocumentOut:
+async def create_document(ctx: WorkspaceContext, body: JsonFormatterDocumentCreate) -> JsonFormatterDocumentOut:
     now = datetime.now(timezone.utc)
     doc: dict[str, Any] = {
-        "created_by": uid,
+        "created_by": ctx.uid,
+        "org_id": ctx.org_id,
+        "workspace_id": ctx.workspace_id,
+        "owner_uid": ctx.uid,
         "title": body.title,
         "pane": body.pane,
         "content": body.content,
@@ -89,17 +101,19 @@ async def create_document(uid: str, body: JsonFormatterDocumentCreate) -> JsonFo
     return _doc_to_out(doc)
 
 
-async def get_document(uid: str, doc_id: str) -> JsonFormatterDocumentOut:
+async def get_document(ctx: WorkspaceContext, doc_id: str) -> JsonFormatterDocumentOut:
     oid = _parse_oid(doc_id)
-    doc = await db_manager.find_one(JSON, {"_id": oid, "created_by": uid})
+    flt = apply_workspace_filter(ctx, {"_id": oid})
+    doc = await db_manager.find_one(JSON, flt)
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")
     return _doc_to_out(doc)
 
 
-async def update_document(uid: str, doc_id: str, body: JsonFormatterDocumentUpdate) -> JsonFormatterDocumentOut:
+async def update_document(ctx: WorkspaceContext, doc_id: str, body: JsonFormatterDocumentUpdate) -> JsonFormatterDocumentOut:
     oid = _parse_oid(doc_id)
-    existing = await db_manager.find_one(JSON, {"_id": oid, "created_by": uid})
+    flt = apply_workspace_filter(ctx, {"_id": oid})
+    existing = await db_manager.find_one(JSON, flt)
     if not existing:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")
 
@@ -109,17 +123,18 @@ async def update_document(uid: str, doc_id: str, body: JsonFormatterDocumentUpda
 
     patch["updatedAt"] = datetime.now(timezone.utc)
     try:
-        await db_manager.update_one(JSON, {"_id": oid, "created_by": uid}, {"$set": patch})
+        await db_manager.update_one(JSON, flt, {"$set": patch})
     except PyMongoError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to update document."
         ) from exc
-    updated = await db_manager.find_one(JSON, {"_id": oid, "created_by": uid})
+    updated = await db_manager.find_one(JSON, flt)
     return _doc_to_out(updated)  # type: ignore[arg-type]
 
 
-async def delete_document(uid: str, doc_id: str) -> None:
+async def delete_document(ctx: WorkspaceContext, doc_id: str) -> None:
     oid = _parse_oid(doc_id)
-    result = await db_manager.delete_one(JSON, {"_id": oid, "created_by": uid})
+    flt = apply_workspace_filter(ctx, {"_id": oid})
+    result = await db_manager.delete_one(JSON, flt)
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")

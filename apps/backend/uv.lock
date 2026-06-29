@@ -1270,6 +1270,7 @@ dependencies = [
     { name = "pydantic-settings" },
     { name = "python-jose", extra = ["cryptography"] },
     { name = "redis" },
+    { name = "resend" },
     { name = "slowapi" },
     { name = "uvicorn", extra = ["standard"] },
     { name = "webauthn" },
@@ -1301,6 +1302,7 @@ requires-dist = [
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.4.1" },
     { name = "python-jose", extras = ["cryptography"], specifier = ">=3.5.0" },
     { name = "redis", extras = ["asyncio"], specifier = ">=5.0" },
+    { name = "resend", specifier = ">=0.7,<1.0" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.13.0" },
     { name = "slowapi", specifier = ">=0.1.9" },
     { name = "soft-webauthn", marker = "extra == 'dev'", specifier = ">=0.1.4" },
@@ -1926,7 +1928,7 @@ wheels = [
 
 [[package]]
 name = "requests"
-version = "2.33.1"
+version = "2.31.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "certifi" },
@@ -1934,9 +1936,21 @@ dependencies = [
     { name = "idna" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/5f/a4/98b9c7c6428a668bf7e42ebb7c79d576a1c3c1e3ae2d47e674b468388871/requests-2.33.1.tar.gz", hash = "sha256:18817f8c57c6263968bc123d237e3b8b08ac046f5456bd1e307ee8f4250d3517", size = 134120, upload-time = "2026-03-30T16:09:15.531Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9d/be/10918a2eac4ae9f02f6cfe6414b7a155ccd8f7f9d4380d62fd5b955065c3/requests-2.31.0.tar.gz", hash = "sha256:942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1", size = 110794, upload-time = "2023-05-22T15:12:44.175Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d7/8e/7540e8a2036f79a125c1d2ebadf69ed7901608859186c856fa0388ef4197/requests-2.33.1-py3-none-any.whl", hash = "sha256:4e6d1ef462f3626a1f0a0a9c42dd93c63bad33f9f1c1937509b8c5c8718ab56a", size = 64947, upload-time = "2026-03-30T16:09:13.83Z" },
+    { url = "https://files.pythonhosted.org/packages/70/8e/0e2d847013cb52cd35b38c009bb167a1a26b2ce6cd6965bf26b47bc0bf44/requests-2.31.0-py3-none-any.whl", hash = "sha256:58cd2187c01e70e6e26505bca751777aa9f2ee0b7f4300988b709f44e013003f", size = 62574, upload-time = "2023-05-22T15:12:42.313Z" },
+]
+
+[[package]]
+name = "resend"
+version = "0.8.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/3c/44/42b53c594056acd28002b5898ef0f503ebd6cbb577c45837dc539e7f4858/resend-0.8.0.tar.gz", hash = "sha256:94142394701724dbcfcd8f760f675c662a1025013e741dd7cc773ca885526257", size = 7138, upload-time = "2024-03-06T02:49:10.644Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/81/60/b0263aa0edab4b35c13f1bc37de6b034a212ba57f94bb167db32aaecd278/resend-0.8.0-py2.py3-none-any.whl", hash = "sha256:adc1515dadf4f4fc6b90db55a237f0f37fc56fd74287a986519a8a187fdb661d", size = 8760, upload-time = "2024-03-06T02:49:07.732Z" },
 ]
 
 [[package]]
