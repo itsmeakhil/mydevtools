@@ -22,11 +22,13 @@ export function OrgSection({ org }: { org: Org }) {
   const [renameValue, setRenameValue] = useState(org.name)
   const [saving, setSaving] = useState(false)
 
-  const isOwner = org.org_role === "owner"
-  const canAddWorkspace = org.org_role === "owner" || org.org_role === "admin"
-  const orgWorkspaces = workspaces.filter((w) => w.org_id === org.id)
   // System orgs (Mydevtools Cloud) are platform-managed — no member roster shown.
   const isSystem = org.kind === "system"
+  const isOwner = org.org_role === "owner"
+  // System orgs let any member create their own workspaces.
+  const canAddWorkspace =
+    isSystem || org.org_role === "owner" || org.org_role === "admin"
+  const orgWorkspaces = workspaces.filter((w) => w.org_id === org.id)
 
   async function handleRename() {
     const trimmed = renameValue.trim()

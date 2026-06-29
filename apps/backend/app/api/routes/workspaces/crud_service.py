@@ -86,14 +86,23 @@ async def _ws_to_out(ws: dict, ws_role: str) -> WorkspaceOut:
         is_personal=bool(ws.get("is_personal")),
         kind=ws.get("kind", "shared"),
         ws_role=ws_role,
+        settings=ws.get("settings") or {},
     )
 
 
 async def create_shared_workspace(
     uid: str, org_id: str, body: WorkspaceCreate,
 ) -> WorkspaceOut:
+    org = await repo.find_org(org_id)
+    if not org:
+        raise HTTPException(status_code=404, detail="Org not found")
     org_mem = await repo.find_org_membership(org_id, uid)
-    if not org_mem or org_mem["org_role"] not in ("owner", "admin"):
+    if not org_mem:
+        raise HTTPException(status_code=403, detail="Not a member of this org")
+    # System orgs (Mydevtools Cloud) let any member create their own workspaces —
+    # listings are per-user, so workspaces here don't leak across the tenant.
+    is_system = org.get("kind") == "system"
+    if not is_system and org_mem["org_role"] not in ("owner", "admin"):
         raise HTTPException(status_code=403, detail="Org admin required")
     slug = body.slug or _slugify(body.name)
     ts = create_timestamp()

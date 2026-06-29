@@ -157,6 +157,8 @@ export const TaskContainer = () => {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      // `event.key` is undefined for IME composition / autofill events — bail early.
+      if (!event.key) return;
       const target = event.target as HTMLElement | null;
       const isTypingInField =
         target?.tagName === "INPUT" ||

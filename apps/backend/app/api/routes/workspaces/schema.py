@@ -15,6 +15,17 @@ class OrgOut(BaseModel):
     org_role: OrgRole
 
 
+class WorkspaceEncryptionInfo(BaseModel):
+    scheme: str
+    dekFingerprint: str
+    createdAt: int
+    rotatedAt: int | None = None
+
+
+class WorkspaceSettings(BaseModel):
+    encryption: WorkspaceEncryptionInfo | None = None
+
+
 class WorkspaceOut(BaseModel):
     id: str
     org_id: str
@@ -23,6 +34,7 @@ class WorkspaceOut(BaseModel):
     is_personal: bool
     kind: WsKind
     ws_role: WsRole
+    settings: WorkspaceSettings = WorkspaceSettings()
 
 
 class SetActiveWorkspaceRequest(BaseModel):

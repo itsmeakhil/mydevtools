@@ -9,6 +9,13 @@ export type Org = {
   org_role: "owner" | "admin" | "member" | "viewer"
 }
 
+export type WorkspaceEncryption = {
+  scheme: string
+  dekFingerprint: string
+  createdAt: number
+  rotatedAt: number | null
+}
+
 export type Workspace = {
   id: string
   org_id: string
@@ -17,6 +24,7 @@ export type Workspace = {
   is_personal: boolean
   kind: "personal" | "shared"
   ws_role: "admin" | "developer" | "viewer"
+  settings?: { encryption: WorkspaceEncryption | null }
 }
 
 const BASE = "/api/backend/workspaces-api"

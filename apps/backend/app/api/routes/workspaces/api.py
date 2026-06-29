@@ -43,6 +43,7 @@ def _ws_to_out(ws: dict) -> WorkspaceOut:
         is_personal=bool(ws.get("is_personal")),
         kind=ws.get("kind", "personal"),
         ws_role=ws["ws_role"],
+        settings=ws.get("settings") or {},
     )
 
 

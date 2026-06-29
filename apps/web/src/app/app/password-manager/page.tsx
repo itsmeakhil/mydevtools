@@ -36,13 +36,12 @@ export default function PasswordManagerPage() {
     const isMobile = useIsMobile()
     const loadedRef = useRef(false)
 
-    // Show placeholder for shared workspaces that have not yet enabled E2EE.
-    // When activeWs.settings?.encryption is non-null AND a wrappedDek exists for
-    // the user, getCipherKey() will return the DEK and the tool renders normally
-    // (C-T9 will remove this gate once workspace encryption is togglable).
-    if (activeWs && !activeWs.is_personal && !(activeWs as { settings?: { encryption?: unknown } }).settings?.encryption) {
-        return <EncryptedToolPlaceholder toolName="Password Manager" />
-    }
+    // Placeholder gate computed up-front; the actual early return happens AFTER
+    // every hook below so React sees a stable hook order across renders.
+    const needsEncryptionGate =
+        !!activeWs &&
+        !activeWs.is_personal &&
+        !(activeWs as { settings?: { encryption?: unknown } }).settings?.encryption
 
     useEffect(() => {
         if (!encryptionKey || loadedRef.current) return
@@ -94,6 +93,7 @@ export default function PasswordManagerPage() {
         }
     }
 
+    if (needsEncryptionGate) return <EncryptedToolPlaceholder toolName="Password Manager" />
     if (isRestoring) return <VaultRestoringSkeleton />
     if (!isUnlocked) return <VaultLockedPlaceholder appName="Password Manager" />
 

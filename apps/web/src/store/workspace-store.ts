@@ -1,5 +1,6 @@
 // apps/web/src/store/workspace-store.ts
 import { create } from "zustand"
+import { persist, createJSONStorage } from "zustand/middleware"
 import {
   listOrgs,
   listWorkspaces,
@@ -33,7 +34,9 @@ function pickDefault(workspaces: Workspace[]): string | null {
   return personal?.id ?? workspaces[0]?.id ?? null
 }
 
-export const useWorkspaceStore = create<State & Actions>((set, get) => ({
+export const useWorkspaceStore = create<State & Actions>()(
+  persist(
+    (set, get) => ({
   orgs: [],
   workspaces: [],
   activeWorkspaceId: null,
@@ -44,12 +47,20 @@ export const useWorkspaceStore = create<State & Actions>((set, get) => ({
     const [orgs, workspaces] = await Promise.all([listOrgs(), listWorkspaces()])
     const current = get().activeWorkspaceId
     const stillValid = current && workspaces.some((w) => w.id === current)
+    const resolvedId = stillValid ? current : pickDefault(workspaces)
     set({
       orgs,
       workspaces,
-      activeWorkspaceId: stillValid ? current : pickDefault(workspaces),
+      activeWorkspaceId: resolvedId,
       hydrated: true,
     })
+    // Sync the backend's ACTIVE_WS cookie with the resolved id — otherwise on
+    // reload the UI shows workspace X (from localStorage) while scoped API calls
+    // hit workspace Y (from a stale/missing cookie). Fire-and-forget; cookie
+    // mismatch is non-fatal during the round trip.
+    if (resolvedId) {
+      setActiveAPI(resolvedId).catch(() => {})
+    }
   },
 
   async setActiveWorkspace(workspaceId: string) {
@@ -97,7 +108,16 @@ export const useWorkspaceStore = create<State & Actions>((set, get) => ({
       }
     })
   },
-}))
+}),
+    {
+      name: "mdt-workspace-store",
+      // Persist ONLY the active workspace id so reloads keep the user's choice.
+      // Orgs/workspaces lists come fresh from backend on every mount.
+      storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({ activeWorkspaceId: state.activeWorkspaceId }),
+    },
+  ),
+)
 
 // Initialize broadcast subscription on module load
 useWorkspaceStore.getState().subscribeOnce()

@@ -29,7 +29,9 @@ export function WorkspaceSwitcherDropdown() {
   if (!hydrated || !ws || !org) return null
 
   const orgWorkspaces = workspaces.filter((w) => w.org_id === org.id)
-  const canCreate = org.org_role === "owner" || org.org_role === "admin"
+  // System orgs (Mydevtools Cloud) — any member can create their own workspaces.
+  const canCreate =
+    org.kind === "system" || org.org_role === "owner" || org.org_role === "admin"
 
   return (
     <>
