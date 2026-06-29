@@ -25,6 +25,8 @@ export function OrgSection({ org }: { org: Org }) {
   const isOwner = org.org_role === "owner"
   const canAddWorkspace = org.org_role === "owner" || org.org_role === "admin"
   const orgWorkspaces = workspaces.filter((w) => w.org_id === org.id)
+  // System orgs (Mydevtools Cloud) are platform-managed — no member roster shown.
+  const isSystem = org.kind === "system"
 
   async function handleRename() {
     const trimmed = renameValue.trim()
@@ -170,24 +172,26 @@ export function OrgSection({ org }: { org: Org }) {
         )}
       </div>
 
-      {/* Members section */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            Members
-          </p>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-7 gap-1.5 text-xs"
-            onClick={() => setInviteOpen(true)}
-          >
-            <UserPlus className="h-3 w-3" />
-            Invite Member
-          </Button>
+      {/* Members section — hidden for system orgs (Mydevtools Cloud). */}
+      {!isSystem && (
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Members
+            </p>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-7 gap-1.5 text-xs"
+              onClick={() => setInviteOpen(true)}
+            >
+              <UserPlus className="h-3 w-3" />
+              Invite Member
+            </Button>
+          </div>
+          <MemberList scope="org" scopeId={org.id} />
         </div>
-        <MemberList scope="org" scopeId={org.id} />
-      </div>
+      )}
 
       <CreateWorkspaceDialog
         orgId={org.id}

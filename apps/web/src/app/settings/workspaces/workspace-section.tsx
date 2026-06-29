@@ -105,12 +105,14 @@ export function WorkspaceSection({ workspace }: { workspace: Workspace }) {
           ) : (
             <h4 className="font-medium truncate">{workspace.name}</h4>
           )}
-          <Badge
-            variant="secondary"
-            className="shrink-0 text-[10px] uppercase tracking-wider"
-          >
-            {workspace.ws_role}
-          </Badge>
+          {!isPersonal && (
+            <Badge
+              variant="secondary"
+              className="shrink-0 text-[10px] uppercase tracking-wider"
+            >
+              {workspace.ws_role}
+            </Badge>
+          )}
           {isPersonal && (
             <Badge variant="outline" className="shrink-0 text-[10px]">
               Personal
@@ -145,24 +147,26 @@ export function WorkspaceSection({ workspace }: { workspace: Workspace }) {
         )}
       </div>
 
-      {/* Members subsection */}
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            Members
-          </p>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-7 gap-1.5 text-xs"
-            onClick={() => setInviteOpen(true)}
-          >
-            <UserPlus className="h-3 w-3" />
-            Invite
-          </Button>
+      {/* Members subsection — hidden on personal (single-owner, no collaboration). */}
+      {!isPersonal && (
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Members
+            </p>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-7 gap-1.5 text-xs"
+              onClick={() => setInviteOpen(true)}
+            >
+              <UserPlus className="h-3 w-3" />
+              Invite
+            </Button>
+          </div>
+          <MemberList scope="workspace" scopeId={workspace.id} />
         </div>
-        <MemberList scope="workspace" scopeId={workspace.id} />
-      </div>
+      )}
 
       {!workspace.is_personal
         && !(workspace as { settings?: { encryption?: unknown } }).settings?.encryption
