@@ -193,8 +193,8 @@ describe("PendingWrapsPrompt — handleCompleteWraps logic simulation", () => {
 
   it("shows error toast when master vault is not initialized", async () => {
     const { toast } = require("sonner")
-    const masterKey = { type: "CryptoKey" }
-    const masterVault = null
+    const masterKey = { type: "CryptoKey" } as { type: string } | null
+    const masterVault = null as { salt: string } | null
     if (masterKey && !masterVault?.salt) {
       toast.error("Master vault not initialized")
     }

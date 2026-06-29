@@ -368,7 +368,7 @@ describe("RotateKeyButton — handleRotate logic simulation", () => {
   it("shows generic error toast when non-Error is thrown", async () => {
     const { toast } = require("sonner")
 
-    const err = "unexpected string error"
+    const err: unknown = "unexpected string error"
     toast.error(err instanceof Error ? err.message : "Rotation failed")
 
     expect(toast.error).toHaveBeenCalledWith("Rotation failed")

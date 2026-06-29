@@ -25,8 +25,7 @@ if (typeof globalThis.crypto === "undefined") {
 // Also polyfill Buffer if running in a future browser-like environment
 // (jest-environment-node always has Buffer, so this is a no-op there)
 if (typeof globalThis.Buffer === "undefined") {
-  // @ts-expect-error
-  globalThis.Buffer = Buffer
+  ;(globalThis as unknown as { Buffer: typeof Buffer }).Buffer = Buffer
 }
 
 import {

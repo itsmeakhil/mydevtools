@@ -263,8 +263,7 @@ describe("EnableEncryptedToolsCta — handleEnable logic simulation", () => {
       sel({ encryptionKey: { type: "CryptoKey" }, vault: null }),
     )
 
-    const masterKey = { type: "CryptoKey" }
-    const masterVault = null
+    const masterVault = null as { salt: string } | null
     if (!masterVault?.salt) {
       toast.error("Master vault not initialized")
     }

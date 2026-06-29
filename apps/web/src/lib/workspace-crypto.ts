@@ -88,11 +88,19 @@ async function selectCurve(): Promise<"X25519" | "P-256"> {
 
 // ── Internal helpers ──────────────────────────────────────────────────────────
 
+/**
+ * Coerce a Uint8Array to BufferSource. Newer TS DOM types reject
+ * `Uint8Array<ArrayBufferLike>` directly; this view-copy resolves the variance.
+ */
+function bs(u8: Uint8Array): ArrayBuffer {
+  return u8.buffer.slice(u8.byteOffset, u8.byteOffset + u8.byteLength) as ArrayBuffer
+}
+
 /** AES-GCM encrypt raw bytes with an AES-GCM key. */
 async function aesGcmEncrypt(key: CryptoKey, plaintext: ArrayBuffer): Promise<EncryptionBlob> {
   const subtle = getSubtle()
   const iv = getRandomValues(new Uint8Array(12))
-  const ciphertext = await subtle.encrypt({ name: "AES-GCM", iv }, key, plaintext)
+  const ciphertext = await subtle.encrypt({ name: "AES-GCM", iv: bs(iv) }, key, plaintext)
   return { encrypted: bufToB64(ciphertext), iv: bufToB64(iv) }
 }
 
@@ -100,9 +108,9 @@ async function aesGcmEncrypt(key: CryptoKey, plaintext: ArrayBuffer): Promise<En
 async function aesGcmDecrypt(key: CryptoKey, blob: EncryptionBlob): Promise<ArrayBuffer> {
   const subtle = getSubtle()
   return subtle.decrypt(
-    { name: "AES-GCM", iv: b64ToBuf(blob.iv) },
+    { name: "AES-GCM", iv: bs(b64ToBuf(blob.iv)) },
     key,
-    b64ToBuf(blob.encrypted),
+    bs(b64ToBuf(blob.encrypted)),
   )
 }
 
@@ -118,8 +126,8 @@ async function deriveKek(sharedSecretBytes: ArrayBuffer): Promise<CryptoKey> {
       hash: "SHA-256",
       // Zero salt is intentional: the ECDH shared secret already provides
       // sufficient entropy. Using a fixed salt keeps the protocol stateless.
-      salt: new Uint8Array(32),
-      info: new TextEncoder().encode("workspace-dek-wrap-v1"),
+      salt: bs(new Uint8Array(32)),
+      info: bs(new TextEncoder().encode("workspace-dek-wrap-v1")),
     },
     ikm,
     { name: "AES-GCM", length: 256 },
@@ -152,7 +160,7 @@ async function importPublicKey(b64Spki: string, curve: "X25519" | "P-256"): Prom
     curve === "X25519"
       ? ({ name: "X25519" } as AlgorithmIdentifier)
       : ({ name: "ECDH", namedCurve: "P-256" } as EcKeyImportParams)
-  return subtle.importKey("spki", b64ToBuf(b64Spki), algorithm, true, [])
+  return subtle.importKey("spki", bs(b64ToBuf(b64Spki)), algorithm, true, [])
 }
 
 /** Derive the ECDH shared secret (raw bits) between a private key and a public key. */
@@ -273,7 +281,7 @@ export async function unwrapDek(wrapped: WrappedDek, myPrivate: CryptoKey): Prom
  */
 export async function encryptEntry(dek: CryptoKey, plaintext: string): Promise<EncryptionBlob> {
   const encoded = new TextEncoder().encode(plaintext)
-  return aesGcmEncrypt(dek, encoded)
+  return aesGcmEncrypt(dek, bs(encoded))
 }
 
 /**

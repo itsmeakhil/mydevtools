@@ -111,13 +111,13 @@ describe("MigrationBanner — banner render guard (status contract)", () => {
   })
 
   it("banner must NOT render when status is 'done'", () => {
-    const status = "done"
+    const status: string = "done"
     const wouldRender = status === "pending"
     expect(wouldRender).toBe(false)
   })
 
   it("banner MUST render when status is 'pending'", () => {
-    const status = "pending"
+    const status: string = "pending"
     const wouldRender = status === "pending"
     expect(wouldRender).toBe(true)
   })
