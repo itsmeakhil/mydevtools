@@ -14,6 +14,7 @@ import {
     type EnvVariableRow,
 } from "@/store/environment-manager-store"
 import { useCipherKey } from "@/lib/use-cipher-key"
+import { useActiveToolPermissions } from "@/lib/workspace-rbac"
 import { Badge } from "@/components/ui/badge"
 import { EnvPasteCollapsible } from "@/components/environment-manager/env-paste-collapsible"
 import { encryptData } from "@/lib/encryption"
@@ -35,6 +36,8 @@ export function AddEnvironmentSetDialog({ children }: { children?: React.ReactNo
     const { addSet } = useEnvironmentManagerStore()
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
+    const { canWrite } = useActiveToolPermissions()
+    if (!canWrite) return null
     const [showValues, setShowValues] = useState(false)
     const [project, setProject] = useState("")
     const [environment, setEnvironment] = useState("")

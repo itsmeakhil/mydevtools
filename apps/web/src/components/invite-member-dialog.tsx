@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { Loader2 } from "lucide-react"
 import {
   Dialog,
@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/select"
 import { toast } from "sonner"
 import { inviteToOrg, inviteToWorkspace } from "@/lib/invitations-api"
+import { useWorkspaceStore } from "@/store/workspace-store"
 
 const ORG_ROLES = [
   { value: "admin", label: "Admin" },
@@ -32,6 +33,8 @@ const WS_ROLES = [
   { value: "developer", label: "Developer" },
   { value: "viewer", label: "Viewer" },
 ]
+
+const NO_WORKSPACE = "__none__"
 
 export function InviteMemberDialog({
   scope,
@@ -47,13 +50,26 @@ export function InviteMemberDialog({
   const roles = scope === "org" ? ORG_ROLES : WS_ROLES
   const defaultRole = roles[1].value
 
+  const allWorkspaces = useWorkspaceStore((s) => s.workspaces)
+  const orgWorkspaces = useMemo(
+    () =>
+      scope === "org"
+        ? allWorkspaces.filter((w) => w.org_id === scopeId && !w.is_personal)
+        : [],
+    [allWorkspaces, scope, scopeId],
+  )
+
   const [email, setEmail] = useState("")
   const [role, setRole] = useState(defaultRole)
+  const [workspaceId, setWorkspaceId] = useState<string>(NO_WORKSPACE)
+  const [workspaceRole, setWorkspaceRole] = useState<string>("developer")
   const [loading, setLoading] = useState(false)
 
   function reset() {
     setEmail("")
     setRole(defaultRole)
+    setWorkspaceId(NO_WORKSPACE)
+    setWorkspaceRole("developer")
     setLoading(false)
   }
 
@@ -73,11 +89,15 @@ export function InviteMemberDialog({
     setLoading(true)
     try {
       if (scope === "org") {
-        await inviteToOrg(scopeId, trimmedEmail, role)
+        const extras =
+          workspaceId !== NO_WORKSPACE
+            ? { workspaceId, workspaceRole }
+            : undefined
+        await inviteToOrg(scopeId, trimmedEmail, role, extras)
       } else {
         await inviteToWorkspace(scopeId, trimmedEmail, role)
       }
-      toast.success(`Invitation sent to ${trimmedEmail}`)
+      toast.success(`${trimmedEmail} will see an in-app invitation to approve.`)
       reset()
       onOpenChange(false)
     } catch (err) {
@@ -123,6 +143,53 @@ export function InviteMemberDialog({
               </SelectContent>
             </Select>
           </div>
+
+          {scope === "org" && (
+            <div className="space-y-2">
+              <Label htmlFor="invite-ws">Add to workspace (optional)</Label>
+              <Select
+                value={workspaceId}
+                onValueChange={setWorkspaceId}
+                disabled={loading || orgWorkspaces.length === 0}
+              >
+                <SelectTrigger id="invite-ws">
+                  <SelectValue placeholder="Org membership only" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={NO_WORKSPACE}>Org membership only</SelectItem>
+                  {orgWorkspaces.map((w) => (
+                    <SelectItem key={w.id} value={w.id}>
+                      {w.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {workspaceId !== NO_WORKSPACE && (
+                <div className="pt-1">
+                  <Label htmlFor="invite-ws-role" className="text-xs text-muted-foreground">
+                    Workspace role
+                  </Label>
+                  <Select
+                    value={workspaceRole}
+                    onValueChange={setWorkspaceRole}
+                    disabled={loading}
+                  >
+                    <SelectTrigger id="invite-ws-role" className="mt-1">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {WS_ROLES.map((r) => (
+                        <SelectItem key={r.value} value={r.value}>
+                          {r.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="flex justify-end gap-2 pt-1">
             <Button
               type="button"

@@ -74,3 +74,45 @@ export function useToolPermission(tool: string, permission: Permission): boolean
   if (!ws) return true
   return hasPermission(ws, tool, permission)
 }
+
+/**
+ * Map a sidebar URL (`/app/<slug>` or nested) to the RBAC slug. Mirrors
+ * sidebarUrlToToolSlug but lives here so non-sidebar callers can use it too.
+ */
+function pathnameToSlug(pathname: string | null | undefined): string | null {
+  if (!pathname) return null
+  const m = pathname.match(/^\/app\/([a-z0-9-]+)/)
+  return m ? m[1] : null
+}
+
+/**
+ * Permission resolver for the current route's tool. Use in tool pages and
+ * components to gate write/delete UI. Returns booleans (open default during
+ * hydration — UI flicker > false-positive gating).
+ */
+export function useActiveToolPermissions(): {
+  canRead: boolean
+  canWrite: boolean
+  canDelete: boolean
+  isViewer: boolean
+} {
+  const pathname = usePathnameSafe()
+  const slug = pathnameToSlug(pathname) ?? ""
+  return {
+    canRead: useToolPermission(slug, "read"),
+    canWrite: useToolPermission(slug, "write"),
+    canDelete: useToolPermission(slug, "delete"),
+    isViewer: useActiveWorkspace()?.ws_role === "viewer",
+  }
+}
+
+// usePathname lives in next/navigation but importing it at module scope keeps
+// this hook framework-tied; thin wrapper so tests can stub the route.
+import { usePathname } from "next/navigation"
+function usePathnameSafe(): string | null {
+  try {
+    return usePathname()
+  } catch {
+    return null
+  }
+}

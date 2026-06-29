@@ -73,6 +73,21 @@ async def get_workspace_ctx(
     )
 
 
+def assert_writer(ctx: WorkspaceContext) -> None:
+    """Raise 403 if the active workspace role can't mutate. Viewers are read-only.
+    Call at the top of every create/update/delete service path."""
+    if ctx.ws_role == "viewer":
+        raise HTTPException(403, "Read-only role in this workspace.")
+
+
+async def get_workspace_write_ctx(
+    ctx: Annotated[WorkspaceContext, Depends(get_workspace_ctx)],
+) -> WorkspaceContext:
+    """FastAPI Depends for routes that mutate workspace data."""
+    assert_writer(ctx)
+    return ctx
+
+
 def apply_workspace_filter(
     ctx: WorkspaceContext, base_filter: dict[str, Any]
 ) -> dict[str, Any]:

@@ -9,6 +9,7 @@ import { routeConfig } from "@/lib/route-config";
 import { WorkspaceSwitcher } from "@/components/workspace-switcher";
 import { WorkspaceQuickActions } from "@/components/workspace-quick-actions";
 import { WorkspaceBreadcrumb } from "@/components/workspace-breadcrumb";
+import { NotificationsBell } from "@/components/notifications-bell";
 
 function openCommandPalette() {
   document.dispatchEvent(new CustomEvent("open-command-palette"));
@@ -63,20 +64,20 @@ export function NavBar() {
   const matchedRoute = match?.[0];
 
   if (!config) {
-    if (pathname.startsWith("/app")) {
-      return (
-        <header className="sticky top-0 z-20 hidden w-full border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:block">
-          <div className="flex h-14 items-center justify-end gap-2 px-4">
-            <CommandTrigger />
-            <WorkspaceSwitcher />
-            <WorkspaceQuickActions />
-            <ModeToggle />
-          </div>
-          <WorkspaceBreadcrumb />
-        </header>
-      );
-    }
-    return null;
+    // Minimal bar everywhere with a sidebar so chrome (workspace, bell, theme)
+    // is reachable on /dashboard, /settings, etc. — not just /app routes.
+    return (
+      <header className="sticky top-0 z-20 hidden w-full border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:block">
+        <div className="flex h-14 items-center justify-end gap-2 px-4">
+          <CommandTrigger />
+          <WorkspaceSwitcher />
+          <WorkspaceQuickActions />
+          <NotificationsBell />
+          <ModeToggle />
+        </div>
+        <WorkspaceBreadcrumb />
+      </header>
+    );
   }
 
   const Icon = config.icon;
@@ -111,6 +112,7 @@ export function NavBar() {
         <div className="flex flex-1 shrink-0 items-center justify-end gap-2">
           <WorkspaceSwitcher />
           <WorkspaceQuickActions />
+          <NotificationsBell />
           <ModeToggle />
         </div>
       </div>

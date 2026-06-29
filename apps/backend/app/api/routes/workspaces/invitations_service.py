@@ -4,7 +4,6 @@ from fastapi import HTTPException
 from app.api.routes.auth.users_repo import get_user_doc
 from app.api.routes.workspaces import invitations_repo, repo
 from app.api.routes.workspaces.schema import InvitationOut, InviteMemberRequest
-from app.core.email import send_invitation_email
 from app.utils.utils import create_timestamp, new_id
 
 INVITATION_TTL_SECONDS = 14 * 24 * 3600
@@ -64,16 +63,27 @@ async def invite_to_org(
     email = body.email.lower().strip()
     if body.role not in ("owner", "admin", "member", "viewer"):
         raise HTTPException(400, "Invalid org role")
-    now = create_timestamp()
+    # Optional bundled workspace grant on accept.
+    ws_id: str | None = body.workspace_id
+    ws_role: str | None = body.workspace_role
+    if ws_id:
+        if ws_role not in ("admin", "developer", "viewer"):
+            raise HTTPException(400, "Invalid workspace role")
+        ws = await repo.find_workspace(ws_id)
+        if not ws or ws.get("org_id") != org_id:
+            raise HTTPException(400, "Workspace does not belong to this org")
     invited_uid = await _find_uid_by_email(email)
+    if not invited_uid:
+        raise HTTPException(404, "No user found with that email. Ask them to sign up first.")
+    now = create_timestamp()
     doc = {
         "_id": new_id(),
         "org_id": org_id,
-        "workspace_id": None,
+        "workspace_id": ws_id,
         "invited_email": email,
         "invited_uid": invited_uid,
         "invited_role_org": body.role,
-        "invited_role_ws": None,
+        "invited_role_ws": ws_role,
         "token": _new_token(),
         "status": "pending",
         "invited_by": uid,
@@ -81,16 +91,7 @@ async def invite_to_org(
         "expires_at": now + INVITATION_TTL_SECONDS * 1000,
     }
     await invitations_repo.create_invitation(doc)
-
-    inviter = await get_user_doc(uid) or {}
-    org = await repo.find_org(org_id) or {}
-    await send_invitation_email(
-        to=email,
-        token=doc["token"],
-        inviter_name=inviter.get("displayName") or inviter.get("email") or "A teammate",
-        org_name=org.get("name", "an org"),
-        workspace_name=None,
-    )
+    # In-app notification only — the invited user sees this via the bell.
     return _doc_to_out(doc)
 
 
@@ -101,8 +102,10 @@ async def invite_to_workspace(
     email = body.email.lower().strip()
     if body.role not in ("admin", "developer", "viewer"):
         raise HTTPException(400, "Invalid ws role")
-    now = create_timestamp()
     invited_uid = await _find_uid_by_email(email)
+    if not invited_uid:
+        raise HTTPException(404, "No user found with that email. Ask them to sign up first.")
+    now = create_timestamp()
     doc = {
         "_id": new_id(),
         "org_id": ws["org_id"],
@@ -119,16 +122,7 @@ async def invite_to_workspace(
         "expires_at": now + INVITATION_TTL_SECONDS * 1000,
     }
     await invitations_repo.create_invitation(doc)
-
-    inviter = await get_user_doc(uid) or {}
-    org = await repo.find_org(ws["org_id"]) or {}
-    await send_invitation_email(
-        to=email,
-        token=doc["token"],
-        inviter_name=inviter.get("displayName") or inviter.get("email") or "A teammate",
-        org_name=org.get("name", "an org"),
-        workspace_name=ws["name"],
-    )
+    # In-app notification only — the invited user sees this via PendingInvitationsBadge.
     return _doc_to_out(doc)
 
 
@@ -166,6 +160,11 @@ async def accept_invitation(uid: str, token: str) -> dict:
             await repo.upsert_ws_membership(
                 inv["workspace_id"], inv["org_id"], uid, inv["invited_role_ws"],
             )
+    else:
+        # Org-only invite: seed a Personal workspace in this org so the user has
+        # somewhere to land when they switch to it. Mirrors signup behavior.
+        ws_id = await repo.upsert_personal_workspace(inv["org_id"], uid)
+        await repo.upsert_ws_membership(ws_id, inv["org_id"], uid, "admin")
     await invitations_repo.update_invitation_status(
         inv["_id"], "accepted",
         accepted_uid=uid, accepted_at=create_timestamp(),
@@ -177,10 +176,15 @@ async def revoke_invitation(uid: str, token: str) -> None:
     inv = await invitations_repo.find_invitation_by_token(token)
     if not inv:
         raise HTTPException(404, "Invitation not found")
+    # Allowed: original inviter, org owner/admin, OR the invitee themself (decline).
+    user = await get_user_doc(uid)
+    is_invitee = bool(
+        (inv.get("invited_uid") and inv["invited_uid"] == uid)
+        or (user and (user.get("email") or "").lower() == inv["invited_email"])
+    )
     org_mem = await repo.find_org_membership(inv["org_id"], uid)
-    if inv["invited_by"] != uid and not (
-        org_mem and org_mem["org_role"] in ("owner", "admin")
-    ):
+    is_admin = bool(org_mem and org_mem["org_role"] in ("owner", "admin"))
+    if not (inv["invited_by"] == uid or is_admin or is_invitee):
         raise HTTPException(403, "Cannot revoke this invitation")
     if inv["status"] != "pending":
         return

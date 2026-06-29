@@ -12,7 +12,6 @@ import {
   useWorkspaceStore,
 } from "@/store/workspace-store"
 import { CreateWorkspaceDialog } from "@/components/create-workspace-dialog"
-import { PendingInvitationsBadge } from "@/components/pending-invitations-badge"
 
 /**
  * Workspace switcher — top-right of the topbar, beside the user avatar.
@@ -36,7 +35,6 @@ export function WorkspaceSwitcherDropdown() {
   return (
     <>
       <div className="flex items-center gap-1.5">
-        <PendingInvitationsBadge />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button className="hidden md:inline-flex items-center gap-1.5 h-9 rounded-lg border border-border/60 bg-muted/40 px-2.5 text-sm font-medium text-foreground/90 hover:border-primary/40 cursor-pointer">

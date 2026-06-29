@@ -77,6 +77,9 @@ class MemberOut(BaseModel):
 class InviteMemberRequest(BaseModel):
     email: str = Field(min_length=1)
     role: str
+    # Org-level invite only — optionally also grant a workspace membership on accept.
+    workspace_id: str | None = None
+    workspace_role: str | None = None
 
 
 class ChangeRoleRequest(BaseModel):

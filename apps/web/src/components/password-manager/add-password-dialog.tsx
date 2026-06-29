@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Plus, Wand2, RefreshCw, Check, Copy, ChevronDown, ChevronUp, Eye, EyeOff } from "lucide-react"
 import { usePasswordStore, PasswordEntry } from "@/store/password-store"
 import { useCipherKey } from "./encryption-context"
+import { useActiveToolPermissions } from "@/lib/workspace-rbac"
 import { AdvancedGenerator } from "./advanced-generator"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Badge } from "@/components/ui/badge"
@@ -28,6 +29,8 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
     const { addPassword } = usePasswordStore()
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
+    const { canWrite } = useActiveToolPermissions()
+    if (!canWrite) return null
     const [formData, setFormData] = useState({
         service: "",
         username: "",

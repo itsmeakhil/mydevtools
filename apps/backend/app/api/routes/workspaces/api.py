@@ -59,6 +59,24 @@ async def list_workspaces(
     org_id: str | None = Query(default=None),
 ) -> list[WorkspaceOut]:
     workspaces = await find_user_workspaces(uid, org_id=org_id)
+    # Auto-heal: any org the user belongs to but has no workspaces in (e.g.
+    # accepted an org-only invite under an older build) gets a Personal
+    # workspace seeded so the org-switcher has something to land on.
+    from app.api.routes.workspaces.repo import (
+        find_user_orgs,
+        upsert_personal_workspace,
+        upsert_ws_membership,
+    )
+    orgs_with_ws = {w["org_id"] for w in workspaces}
+    user_orgs = await find_user_orgs(uid)
+    missing = [o for o in user_orgs if o["_id"] not in orgs_with_ws]
+    if org_id is not None:
+        missing = [o for o in missing if o["_id"] == org_id]
+    if missing:
+        for org in missing:
+            ws_id = await upsert_personal_workspace(org["_id"], uid)
+            await upsert_ws_membership(ws_id, org["_id"], uid, "admin")
+        workspaces = await find_user_workspaces(uid, org_id=org_id)
     return [_ws_to_out(w) for w in workspaces]
 
 

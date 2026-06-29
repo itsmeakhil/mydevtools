@@ -16,7 +16,8 @@ import { auth } from "@/database/firebase"
 import { createApiKeyEntry, updateApiKeyEntry } from "@/lib/api-key-vault-api"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
-import { useCipherKey } from "@/lib/use-cipher-key"
+import { useCipherKey, cipherKeyErrorMessage } from "@/lib/use-cipher-key"
+import { useActiveToolPermissions } from "@/lib/workspace-rbac"
 
 type FormState = {
     name: string
@@ -257,10 +258,19 @@ export function AddApiKeyDialog({ children }: { children?: React.ReactNode }) {
     const { addEntry } = useApiKeyVaultStore()
     const [open, setOpen] = useState(false)
     const isMobile = useIsMobile()
+    const { canWrite } = useActiveToolPermissions()
+
+    // Viewers in shared workspaces — hide the Add button entirely. Personal
+    // workspace + admin/developer still see it (canWrite is true for both).
+    if (!canWrite) return null
 
     const handleSubmit = async (data: FormState) => {
-        if (!encryptionKey || !auth.currentUser) {
-            toast.error("Vault is locked")
+        if (!auth.currentUser) {
+            toast.error("Sign in to continue")
+            return
+        }
+        if (!encryptionKey) {
+            toast.error(cipherKeyErrorMessage())
             return
         }
         try {
@@ -329,12 +339,19 @@ export function EditApiKeyDialog({
     const encryptionKey = useCipherKey()
     const { updateEntry } = useApiKeyVaultStore()
     const isMobile = useIsMobile()
+    const { canWrite } = useActiveToolPermissions()
 
     if (!entry) return null
+    // Viewers can open the row but the edit dialog itself is no-op for them.
+    if (!canWrite) return null
 
     const handleSubmit = async (data: FormState) => {
-        if (!encryptionKey || !auth.currentUser) {
-            toast.error("Vault is locked")
+        if (!auth.currentUser) {
+            toast.error("Sign in to continue")
+            return
+        }
+        if (!encryptionKey) {
+            toast.error(cipherKeyErrorMessage())
             return
         }
         try {

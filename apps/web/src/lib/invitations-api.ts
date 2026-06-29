@@ -16,13 +16,34 @@ export type Invitation = {
 
 const BASE = "/api/backend/workspaces-api"
 
-export async function inviteToOrg(orgId: string, email: string, role: string): Promise<Invitation> {
+/** Extract FastAPI's `{detail: "..."}` so toasts show the real reason. */
+async function readDetail(res: Response, fallback: string): Promise<string> {
+  try {
+    const body = (await res.json()) as { detail?: string }
+    if (body?.detail) return body.detail
+  } catch {
+    /* not JSON */
+  }
+  return `${fallback} (${res.status})`
+}
+
+export async function inviteToOrg(
+  orgId: string,
+  email: string,
+  role: string,
+  extras?: { workspaceId?: string; workspaceRole?: string },
+): Promise<Invitation> {
+  const body: Record<string, unknown> = { email, role }
+  if (extras?.workspaceId) {
+    body.workspace_id = extras.workspaceId
+    body.workspace_role = extras.workspaceRole
+  }
   const res = await backendFetch(`${BASE}/orgs/${encodeURIComponent(orgId)}/members`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, role }),
+    body: JSON.stringify(body),
   })
-  if (!res.ok) throw new Error(`inviteToOrg failed (${res.status})`)
+  if (!res.ok) throw new Error(await readDetail(res, "inviteToOrg failed"))
   return res.json()
 }
 
@@ -32,7 +53,7 @@ export async function inviteToWorkspace(wsId: string, email: string, role: strin
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, role }),
   })
-  if (!res.ok) throw new Error(`inviteToWorkspace failed (${res.status})`)
+  if (!res.ok) throw new Error(await readDetail(res, "inviteToWorkspace failed"))
   return res.json()
 }
 
