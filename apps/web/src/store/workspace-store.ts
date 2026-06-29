@@ -23,6 +23,7 @@ type State = {
 type Actions = {
   loadFromBackend: () => Promise<void>
   setActiveWorkspace: (workspaceId: string) => Promise<void>
+  setActiveOrg: (orgId: string) => Promise<void>
   clear: () => void
   subscribeOnce: () => void
 }
@@ -52,9 +53,29 @@ export const useWorkspaceStore = create<State & Actions>((set, get) => ({
   },
 
   async setActiveWorkspace(workspaceId: string) {
-    await setActiveAPI(workspaceId)
+    // Optimistic — flip UI immediately, then persist the cookie server-side.
+    // If the API fails (403/network), roll back so the switcher reflects truth.
+    const prev = get().activeWorkspaceId
     set({ activeWorkspaceId: workspaceId })
-    broadcastWorkspaceChanged(workspaceId)
+    try {
+      await setActiveAPI(workspaceId)
+      broadcastWorkspaceChanged(workspaceId)
+    } catch (e) {
+      set({ activeWorkspaceId: prev })
+      throw e
+    }
+  },
+
+  async setActiveOrg(orgId: string) {
+    // Pick a workspace in that org — prefer the user's personal workspace there,
+    // else the first one. The active-workspace switch is what flips the org too.
+    const { workspaces, activeWorkspaceId } = get()
+    const inOrg = workspaces.filter((w) => w.org_id === orgId)
+    if (inOrg.length === 0) return
+    const current = workspaces.find((w) => w.id === activeWorkspaceId)
+    if (current?.org_id === orgId) return
+    const target = inOrg.find((w) => w.is_personal) ?? inOrg[0]
+    await get().setActiveWorkspace(target.id)
   },
 
   clear() {

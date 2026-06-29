@@ -1,32 +1,35 @@
 "use client"
 import { useState } from "react"
-import { Briefcase, Plus, ChevronsUpDown } from "lucide-react"
+import { Briefcase, Check, Plus, ChevronsUpDown } from "lucide-react"
+import { toast } from "sonner"
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem,
   DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useActiveWorkspace, useWorkspaceStore } from "@/store/workspace-store"
-import { CreateOrgDialog } from "@/components/create-org-dialog"
+import {
+  useActiveOrg,
+  useActiveWorkspace,
+  useWorkspaceStore,
+} from "@/store/workspace-store"
 import { CreateWorkspaceDialog } from "@/components/create-workspace-dialog"
 import { PendingInvitationsBadge } from "@/components/pending-invitations-badge"
 
-
+/**
+ * Workspace switcher — top-right of the topbar, beside the user avatar.
+ * Scoped to the ACTIVE org (org switching is handled by OrgSwitcherDropdown).
+ */
 export function WorkspaceSwitcherDropdown() {
   const hydrated = useWorkspaceStore((s) => s.hydrated)
   const ws = useActiveWorkspace()
-  const orgs = useWorkspaceStore((s) => s.orgs)
+  const org = useActiveOrg()
   const workspaces = useWorkspaceStore((s) => s.workspaces)
   const setActiveWorkspace = useWorkspaceStore((s) => s.setActiveWorkspace)
-  const [orgDialogOpen, setOrgDialogOpen] = useState(false)
-  const [wsDialogOrgId, setWsDialogOrgId] = useState<string | null>(null)
+  const [wsDialogOpen, setWsDialogOpen] = useState(false)
 
-  if (!hydrated || !ws) return null
+  if (!hydrated || !ws || !org) return null
 
-  const wsByOrg: Record<string, typeof workspaces> = {}
-  for (const w of workspaces) {
-    if (!wsByOrg[w.org_id]) wsByOrg[w.org_id] = []
-    wsByOrg[w.org_id].push(w)
-  }
+  const orgWorkspaces = workspaces.filter((w) => w.org_id === org.id)
+  const canCreate = org.org_role === "owner" || org.org_role === "admin"
 
   return (
     <>
@@ -41,44 +44,51 @@ export function WorkspaceSwitcherDropdown() {
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-72">
-            {orgs.map((org) => (
-              <div key={org.id}>
-                <DropdownMenuLabel className="text-xs uppercase text-muted-foreground">
-                  {org.name}
-                </DropdownMenuLabel>
-                {(wsByOrg[org.id] ?? []).map((w) => (
-                  <DropdownMenuItem
-                    key={w.id}
-                    className={w.id === ws.id ? "bg-accent/60" : ""}
-                    onSelect={() => setActiveWorkspace(w.id)}
-                  >
-                    <div className="flex items-center justify-between w-full">
-                      <span className="truncate">{w.name}</span>
-                      <span className="text-xs text-muted-foreground ml-2">{w.ws_role}</span>
+            <DropdownMenuLabel className="text-[11px] uppercase tracking-wider text-muted-foreground">
+              Workspaces in {org.name}
+            </DropdownMenuLabel>
+            {orgWorkspaces.map((w) => {
+              const isActive = w.id === ws.id
+              return (
+                <DropdownMenuItem
+                  key={w.id}
+                  className={isActive ? "bg-accent/60" : ""}
+                  onSelect={() => {
+                    if (isActive) return
+                    setActiveWorkspace(w.id).catch((e) => {
+                      toast.error(
+                        e instanceof Error ? e.message : "Could not switch workspace",
+                      )
+                    })
+                  }}
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <span className="truncate">{w.name}</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xs text-muted-foreground">{w.ws_role}</span>
+                      {isActive && <Check className="h-3.5 w-3.5 text-primary" />}
                     </div>
-                  </DropdownMenuItem>
-                ))}
-                {(org.org_role === "owner" || org.org_role === "admin") && (
-                  <DropdownMenuItem onSelect={() => setWsDialogOrgId(org.id)}>
-                    <Plus className="h-3.5 w-3.5 mr-1.5" /> New workspace
-                  </DropdownMenuItem>
-                )}
+                  </div>
+                </DropdownMenuItem>
+              )
+            })}
+            {canCreate && (
+              <>
                 <DropdownMenuSeparator />
-              </div>
-            ))}
-            <DropdownMenuItem onSelect={() => setOrgDialogOpen(true)}>
-              <Plus className="h-3.5 w-3.5 mr-1.5" /> New organization
-            </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => setWsDialogOpen(true)}>
+                  <Plus className="h-3.5 w-3.5 mr-1.5" /> New workspace
+                </DropdownMenuItem>
+              </>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
 
-      <CreateOrgDialog open={orgDialogOpen} onOpenChange={setOrgDialogOpen} />
-      {wsDialogOrgId && (
+      {wsDialogOpen && (
         <CreateWorkspaceDialog
-          orgId={wsDialogOrgId}
+          orgId={org.id}
           open
-          onOpenChange={(o) => o ? null : setWsDialogOrgId(null)}
+          onOpenChange={(o) => (o ? null : setWsDialogOpen(false))}
         />
       )}
     </>

@@ -8,6 +8,7 @@ import { getToolMessageKey } from "@/lib/tool-i18n";
 import { routeConfig } from "@/lib/route-config";
 import { WorkspaceSwitcher } from "@/components/workspace-switcher";
 import { WorkspaceQuickActions } from "@/components/workspace-quick-actions";
+import { WorkspaceBreadcrumb } from "@/components/workspace-breadcrumb";
 
 function openCommandPalette() {
   document.dispatchEvent(new CustomEvent("open-command-palette"));
@@ -71,6 +72,7 @@ export function NavBar() {
             <WorkspaceQuickActions />
             <ModeToggle />
           </div>
+          <WorkspaceBreadcrumb />
         </header>
       );
     }
@@ -112,6 +114,7 @@ export function NavBar() {
           <ModeToggle />
         </div>
       </div>
+      <WorkspaceBreadcrumb />
     </header>
   );
 }

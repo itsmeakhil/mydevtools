@@ -45,8 +45,10 @@ export function hasPermission(
   permission: Permission,
 ): boolean {
   if (ws.is_personal) return true
+  // Unknown tool = stateless utility (uuid, base64, hash, etc.) — no per-role
+  // gating. The TOOL_PERMISSIONS map is OPT-IN for tools that need RBAC.
   const row = TOOL_PERMISSIONS[tool]
-  if (!row) return false
+  if (!row) return true
   return row[ws.ws_role]?.has(permission) ?? false
 }
 
@@ -57,6 +59,8 @@ export function hasPermission(
  */
 export function useToolPermission(tool: string, permission: Permission): boolean {
   const ws = useActiveWorkspace()
-  if (!ws) return false
+  // No workspace loaded yet = render (open default). Avoids flashing empty
+  // sidebars during hydration. The page itself enforces RBAC on access.
+  if (!ws) return true
   return hasPermission(ws, tool, permission)
 }

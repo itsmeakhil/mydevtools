@@ -15,6 +15,7 @@ import {
 import { NavGroup } from './nav-group'
 import { NavUser } from './nav-user'
 import { FeedbackDialog } from '@/components/feedback-dialog'
+import { OrgSwitcherDropdown } from '@/components/org-switcher-dropdown'
 import { Logo } from '../logo'
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
 import { LayoutDashboard } from 'lucide-react'
@@ -142,6 +143,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </div>
             <p className="text-[10px] text-muted-foreground/80 font-medium tracking-wider uppercase pl-0.5 whitespace-nowrap">Developer&apos;s Toolkit</p>
           </div>
+        </div>
+        <div className="px-2 pt-1 group-data-[state=collapsed]:hidden">
+          <OrgSwitcherDropdown />
         </div>
       </SidebarHeader>
       <SidebarContent className="mt-2 md:mt-0">
