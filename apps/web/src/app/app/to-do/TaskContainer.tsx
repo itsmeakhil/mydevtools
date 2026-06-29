@@ -180,7 +180,7 @@ export const TaskContainer = () => {
         return;
       }
 
-      if (!isMobile && event.key.toLowerCase() === "n" && !isTypingInField) {
+      if (!isMobile && event.key?.toLowerCase() === "n" && !isTypingInField) {
         event.preventDefault();
         taskFormInputRef.current?.focus();
       }

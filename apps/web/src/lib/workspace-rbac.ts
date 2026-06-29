@@ -39,12 +39,22 @@ export const TOOL_PERMISSIONS: Record<string, Record<WsRole, Set<Permission>>> =
   "dns-lookup":      PLAINTEXT_ROW,
 }
 
+function hasWorkspaceEncryption(ws: Workspace): boolean {
+  const settings = (ws as { settings?: { encryption?: unknown } }).settings
+  return settings?.encryption != null
+}
+
 export function hasPermission(
   ws: Workspace,
   tool: string,
   permission: Permission,
 ): boolean {
   if (ws.is_personal) return true
+  // Encrypted tools flip to plaintext-row permissions once the workspace
+  // has an initialized DEK. Mirrors backend has_permission semantics.
+  if (ENCRYPTED_TOOLS.has(tool) && hasWorkspaceEncryption(ws)) {
+    return PLAINTEXT_ROW[ws.ws_role]?.has(permission) ?? false
+  }
   // Unknown tool = stateless utility (uuid, base64, hash, etc.) — no per-role
   // gating. The TOOL_PERMISSIONS map is OPT-IN for tools that need RBAC.
   const row = TOOL_PERMISSIONS[tool]

@@ -64,6 +64,10 @@ TOOL_PERMISSIONS: dict[str, dict[WsRole, set[Permission]]] = {
 def has_permission(ctx: WorkspaceContext, tool: str, permission: Permission) -> bool:
     if ctx.is_personal:
         return True
+    # Encrypted tools in a shared workspace flip from "no access" to plaintext-row
+    # permissions once the workspace has an initialized DEK (settings.encryption).
+    if tool in ENCRYPTED_TOOLS and ctx.has_encryption:
+        return permission in _plaintext_row().get(ctx.ws_role, set())
     return permission in TOOL_PERMISSIONS.get(tool, {}).get(ctx.ws_role, set())
 
 

@@ -24,6 +24,9 @@ class WorkspaceContext(BaseModel):
     ws_role: WsRole
     is_personal: bool
     owner_uid: str | None = None
+    # True once `workspaces.settings.encryption` is non-null. Flips the
+    # encrypted-tool RBAC row from all-empty to plaintext-row.
+    has_encryption: bool = False
 
 
 async def default_personal_ws_id(uid: str) -> str | None:
@@ -57,6 +60,8 @@ async def get_workspace_ctx(
             raise HTTPException(403, "Not a member of this workspace.")
         ws_role = "admin"   # implicit cascade
 
+    enc_settings = (ws.get("settings") or {}).get("encryption")
+    has_encryption = enc_settings is not None
     return WorkspaceContext(
         uid=uid,
         org_id=ws["org_id"],
@@ -64,6 +69,7 @@ async def get_workspace_ctx(
         ws_role=ws_role,
         is_personal=bool(ws.get("is_personal")),
         owner_uid=ws.get("owner_uid"),
+        has_encryption=has_encryption,
     )
 
 
