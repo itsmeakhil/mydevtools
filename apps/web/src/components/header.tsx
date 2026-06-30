@@ -71,7 +71,7 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
   return (
     <header
       className={cn(
-        "mdt-nav fixed inset-x-0 top-0 z-50 w-full",
+        "mdt-nav fixed inset-x-0 top-0 z-50 w-full pt-[env(safe-area-inset-top)]",
         scrolled
           ? "glass-nav border-b border-white/5 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.7)]"
           : "border-b border-transparent bg-transparent"
@@ -126,7 +126,7 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden h-10 w-10"
+              className="md:hidden h-11 w-11"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-expanded={isMenuOpen}
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}

@@ -108,7 +108,7 @@ export default function HelpPage() {
   const tTools = useTranslations('Dashboard.tools')
 
   return (
-    <div className="flex-1 space-y-6 p-6 pb-24 md:pb-8 max-w-5xl mx-auto w-full pt-16 md:pt-8 bg-background/50">
+    <div className="flex-1 space-y-6 p-6 pb-24 md:pb-8 max-w-5xl mx-auto w-full pt-[calc(theme(spacing.16)+env(safe-area-inset-top))] md:pt-[calc(theme(spacing.8)+env(safe-area-inset-top))] bg-background/50">
       <div className="space-y-1">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
           <BookOpen className="h-8 w-8 opacity-80 shrink-0" aria-hidden />

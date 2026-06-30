@@ -11,6 +11,9 @@ import { useTabStore } from '@/store/tab-store';
 import { isTabRoute } from '@/lib/route-config';
 import { getTabComponent, isRegisteredTab } from '@/lib/tab-registry';
 import { MigrationBanner } from '@/components/migration-banner';
+import { MobileDesktopHint } from '@/components/mobile-desktop-hint';
+import { WorkspaceSwitcher } from '@/components/workspace-switcher';
+import { NotificationsBell } from '@/components/notifications-bell';
 
 // Renders all open tool tabs simultaneously. The active tab is visible;
 // inactive tabs use display:none to stay mounted (preserving their state).
@@ -85,12 +88,19 @@ function Layout({ children }: { children: React.ReactNode }) {
             }`}
         >
           <div className="shrink-0 z-20 bg-background">
+            <div className="md:hidden flex items-center justify-between gap-2 px-3 pt-[max(0.5rem,env(safe-area-inset-top))] pb-2 border-b border-border/40">
+              <div className="min-w-0 flex-1">
+                <WorkspaceSwitcher />
+              </div>
+              <NotificationsBell />
+            </div>
             {inTabMode ? (
               <TabBar onNewTab={openCommandPalette} />
             ) : (
               <NavBar />
             )}
             <MigrationBanner />
+            <MobileDesktopHint />
           </div>
 
           {inTabMode ? (

@@ -106,7 +106,7 @@ export function MobileNav() {
     return (
         <nav
             className={cn(
-                "fixed bottom-6 left-1/2 -translate-x-1/2 z-50",
+                "fixed bottom-[max(1.5rem,calc(env(safe-area-inset-bottom)+0.5rem))] left-1/2 -translate-x-1/2 z-50",
                 "flex items-center justify-around gap-1",
                 "h-[64px] px-2 w-[calc(100%-2rem)] max-w-sm",
                 "border border-border/50 rounded-full",

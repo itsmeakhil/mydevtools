@@ -27,7 +27,7 @@ export function Logo({ size = 32, className = '', showText = true }: LogoProps) 
                 />
             </div>
             {showText && (
-                <div className="relative h-8 w-32 flex items-center">
+                <div className="relative h-8 w-32 hidden sm:flex items-center">
                     <div className="relative h-8 w-24">
                         <Image
                             src="/logo-text-light.png"

@@ -119,8 +119,8 @@ export function PricingTiers() {
                 onClick={() => setBilling(option)}
                 className={
                   billing === option
-                    ? 'mdt-btn-grad rounded-full px-5 py-2 text-sm font-medium capitalize'
-                    : 'rounded-full px-5 py-2 text-sm font-medium capitalize text-muted-foreground transition-colors hover:text-foreground'
+                    ? 'mdt-btn-grad inline-flex min-h-[44px] items-center rounded-full px-5 py-2 text-sm font-medium capitalize sm:min-h-0'
+                    : 'inline-flex min-h-[44px] items-center rounded-full px-5 py-2 text-sm font-medium capitalize text-muted-foreground transition-colors hover:text-foreground sm:min-h-0'
                 }
               >
                 {option}
