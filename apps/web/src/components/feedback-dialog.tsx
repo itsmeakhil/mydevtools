@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import useAuth from "@/utils/useAuth";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
+import { backendFetch } from "@/lib/backend-auth";
 
 type FeedbackType = "bug" | "feature" | "general";
 
@@ -26,10 +27,9 @@ async function submitFeedback(payload: {
   email: string | null;
   page: string;
 }) {
-  const res = await fetch("/api/backend/feedback", {
+  const res = await backendFetch("/api/backend/feedback", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    credentials: "include",
     body: JSON.stringify(payload),
   });
   if (!res.ok) {

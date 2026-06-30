@@ -6,6 +6,7 @@ import { UserPreferencesSync } from "@/components/user-preferences-sync"
 import { ToolVisibilityPreferencesSync } from "@/components/tool-visibility-preferences-sync"
 import { PinnedToolsPreferencesSync } from "@/components/pinned-tools-preferences-sync"
 import { AppUpdateNotifier } from "@/components/app-update-notifier"
+import { AuthLogoutListener } from "@/components/auth-logout-listener"
 
 const GlobalCommandPalette = dynamic(
   () => import('@/components/global-command-palette').then((m) => m.GlobalCommandPalette),
@@ -35,6 +36,7 @@ export function ClientShell({ children }: Props) {
       <ToolVisibilityPreferencesSync />
       <PinnedToolsPreferencesSync />
       <AppUpdateNotifier />
+      <AuthLogoutListener />
       <Suspense fallback={null}>
         <GlobalCommandPalette />
       </Suspense>

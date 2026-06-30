@@ -21,6 +21,7 @@ import {
   IconRefresh,
 } from '@tabler/icons-react';
 import { cn } from '@/lib/utils';
+import { backendFetch } from '@/lib/backend-auth';
 
 interface DNSRecord {
   type: string;
@@ -205,8 +206,7 @@ export function DnsLookupLayout() {
     try {
       const params = new URLSearchParams({ domain: target });
       selectedTypes.forEach(rt => params.append('record_types', rt));
-      const res = await fetch(`/api/backend/dns-lookup/lookup?${params}`, {
-        credentials: 'include',
+      const res = await backendFetch(`/api/backend/dns-lookup/lookup?${params}`, {
         headers: { accept: 'application/json' },
       });
       if (!res.ok) {
