@@ -4,7 +4,7 @@
     "description": "A collection of developer tools for everyday use.",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#ffffff",
+    "background_color": "#0a0b12",
     "icons": [
         {
             "src": "/icon-192x192.png",
