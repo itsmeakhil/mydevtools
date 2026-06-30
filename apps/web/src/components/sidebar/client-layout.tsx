@@ -11,6 +11,7 @@ import { useTabStore } from '@/store/tab-store';
 import { isTabRoute } from '@/lib/route-config';
 import { getTabComponent, isRegisteredTab } from '@/lib/tab-registry';
 import { MigrationBanner } from '@/components/migration-banner';
+import { MobileDesktopHint } from '@/components/mobile-desktop-hint';
 
 // Renders all open tool tabs simultaneously. The active tab is visible;
 // inactive tabs use display:none to stay mounted (preserving their state).
@@ -91,6 +92,7 @@ function Layout({ children }: { children: React.ReactNode }) {
               <NavBar />
             )}
             <MigrationBanner />
+            <MobileDesktopHint />
           </div>
 
           {inTabMode ? (
