@@ -2,13 +2,14 @@ from fastapi import APIRouter, Depends, Query
 
 from app.api.routes.analytics import services as analytics_svc
 from app.api.routes.auth.services import get_current_uid
+from app.api.routes.workspaces.middleware import WorkspaceContext, get_workspace_ctx
 
 router = APIRouter(prefix="/analytics", tags=["analytics"])
 
 
 @router.get("/summary", summary="Dashboard analytics counts")
-async def dashboard_summary(uid: str = Depends(get_current_uid)):
-    return await analytics_svc.get_dashboard_analytics(uid)
+async def dashboard_summary(ctx: WorkspaceContext = Depends(get_workspace_ctx)):
+    return await analytics_svc.get_dashboard_analytics(ctx)
 
 
 @router.get("/top-tools", summary="Top tools by usage (global, cached 5 min)")

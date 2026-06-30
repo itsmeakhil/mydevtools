@@ -18,6 +18,7 @@ from app.utils.collection_name import (
     PROJECTS,
 )
 from app.api.routes.analytics.schema import DashboardAnalyticsOut
+from app.api.routes.workspaces.middleware import WorkspaceContext, apply_legacy_or_filter
 from app.database import db_manager
 
 
@@ -59,13 +60,9 @@ async def get_activity_buckets(*, days: int = 7) -> list[dict]:
     return await db_manager.aggregate(AUDIT_LOG, pipeline)
 
 
-async def get_dashboard_analytics(uid: str) -> DashboardAnalyticsOut:
-    base = {"created_by": uid}
-    nosql_filter = {
-        **base,
-        "encryptedData": {"$exists": True},
-        "iv": {"$exists": True},
-    }
+async def get_dashboard_analytics(ctx: WorkspaceContext) -> DashboardAnalyticsOut:
+    flt = lambda base=None: apply_legacy_or_filter(ctx, base or {}, user_field="created_by")
+    nosql_filter = flt({"encryptedData": {"$exists": True}, "iv": {"$exists": True}})
     (
         task_stats,
         password_entries,
@@ -80,18 +77,18 @@ async def get_dashboard_analytics(uid: str) -> DashboardAnalyticsOut:
         json_docs,
         code_snippets,
     ) = await asyncio.gather(
-        task_svc.get_task_stats(uid=uid),
-        db_manager.count_documents(PASSWORD_ENTRIES, base),
-        db_manager.count_documents(BOOKMARKS, base),
-        db_manager.count_documents(BOOKMARK_FOLDERS, base),
-        db_manager.count_documents(PROJECTS, base),
+        task_svc.get_task_stats(ctx=ctx),
+        db_manager.count_documents(PASSWORD_ENTRIES, flt()),
+        db_manager.count_documents(BOOKMARKS, flt()),
+        db_manager.count_documents(BOOKMARK_FOLDERS, flt()),
+        db_manager.count_documents(PROJECTS, flt()),
         db_manager.count_documents(NOSQL_CONNECTIONS, nosql_filter),
-        db_manager.count_documents(NOTES, base),
-        db_manager.count_documents(API_CLIENT_COLLECTIONS, base),
-        db_manager.count_documents(API_CLIENT_ENVIRONMENTS, base),
-        db_manager.count_documents(API_CLIENT_HISTORY, base),
-        db_manager.count_documents(JSON_FORMATTER_DOCUMENTS, base),
-        db_manager.count_documents(CODE_SNIPPETS, base),
+        db_manager.count_documents(NOTES, flt()),
+        db_manager.count_documents(API_CLIENT_COLLECTIONS, flt()),
+        db_manager.count_documents(API_CLIENT_ENVIRONMENTS, flt()),
+        db_manager.count_documents(API_CLIENT_HISTORY, flt()),
+        db_manager.count_documents(JSON_FORMATTER_DOCUMENTS, flt()),
+        db_manager.count_documents(CODE_SNIPPETS, flt()),
     )
 
     return DashboardAnalyticsOut(
