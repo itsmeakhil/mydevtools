@@ -76,7 +76,7 @@ export function NotificationsBell() {
       <DropdownMenuTrigger asChild>
         <button
           type="button"
-          className="relative hidden md:inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-muted/40 text-muted-foreground transition-colors hover:border-primary/40 hover:bg-muted/60 hover:text-foreground"
+          className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-muted/40 text-muted-foreground transition-colors hover:border-primary/40 hover:bg-muted/60 hover:text-foreground"
           aria-label={count > 0 ? `${count} notification${count === 1 ? "" : "s"}` : "Notifications"}
         >
           <Bell className="h-4 w-4" />
