@@ -21,8 +21,10 @@ import {
   AtSign,
   Github,
   ChevronDown,
+  ChevronRight,
   FileDown,
 } from 'lucide-react'
+import { useActiveOrg, useActiveWorkspace } from '@/store/workspace-store'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
@@ -57,6 +59,8 @@ import {
 export default function ProfilePage() {
   const t = useTranslations('SettingsPage')
   const { user } = useAuth()
+  const activeOrg = useActiveOrg()
+  const activeWorkspace = useActiveWorkspace()
   const [mounted, setMounted] = useState(false)
   const [username, setUsername] = useState<string | null>(null)
   const [editUsernameVal, setEditUsernameVal] = useState('')
@@ -253,10 +257,19 @@ export default function ProfilePage() {
       {/* ── Page header ── */}
       <div className="flex items-center justify-between">
         <div className="space-y-1.5">
-          <p className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-primary to-violet-500" />
-            Developer identity
-          </p>
+          {activeOrg && activeWorkspace ? (
+            <p className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <Briefcase className="h-3 w-3 text-primary" />
+              <span className="truncate max-w-[120px] sm:max-w-none">{activeOrg.name}</span>
+              <ChevronRight className="h-3 w-3 opacity-60" />
+              <span className="truncate max-w-[160px] sm:max-w-none text-foreground/80">{activeWorkspace.name}</span>
+            </p>
+          ) : (
+            <p className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-primary to-violet-500" />
+              Developer identity
+            </p>
+          )}
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Your Profile</h2>
           <p className="text-muted-foreground text-sm">Manage your identity and developer portfolio.</p>
         </div>
