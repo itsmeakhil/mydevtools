@@ -1845,3 +1845,14 @@ html { overflow-x: hidden; }
 /* dashboard editor caret */
 .mdt-dash-caret { background: var(--mdt-cyan); box-shadow: 0 0 8px var(--mdt-cyan); border-radius: 1px; animation: mdt-caret-blink 1.1s steps(2) infinite; }
 @keyframes mdt-caret-blink { 50% { opacity: 0; } }
+
+/* ============================================
+   iOS INPUT AUTO-ZOOM PREVENTION
+   ============================================ */
+@media (max-width: 640px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
