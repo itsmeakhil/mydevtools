@@ -1,7 +1,6 @@
 import { requireBackendSession } from "@/lib/require-backend-session";
 import { NextResponse } from "next/server";
-import { Pool as PgPool } from "pg";
-import mysql from "mysql2/promise";
+import { getSqlPool, releaseSqlPool, SqlDbType } from "@/lib/sql-client-pool";
 
 export async function POST(request: Request) {
     const authError = await requireBackendSession(request);
@@ -14,37 +13,29 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "type, host, and database are required" }, { status: 400 });
         }
 
-        if (type === "postgresql") {
-            const pool = new PgPool({
+        if (type === "postgresql" || type === "mysql" || type === "mariadb") {
+            const handle = await getSqlPool({
+                type: type as SqlDbType,
                 host,
-                port: port || 5432,
+                port: Number(port) || 0,
                 database,
-                user: username,
+                username,
                 password,
-                ssl: ssl ? { rejectUnauthorized: false } : false,
-                connectionTimeoutMillis: 10000,
+                ssl: Boolean(ssl),
             });
-            const client = await pool.connect();
-            const res = await client.query("SELECT version()");
-            client.release();
-            await pool.end();
-            return NextResponse.json({ success: true, version: res.rows[0]?.version });
-        }
 
-        if (type === "mysql" || type === "mariadb") {
-            const conn = await mysql.createConnection({
-                host,
-                port: port || 3306,
-                database,
-                user: username,
-                password,
-                ssl: ssl ? { rejectUnauthorized: false } : undefined,
-                connectTimeout: 10000,
-            });
-            const [rows] = await conn.execute("SELECT VERSION() as version");
-            await conn.end();
-            const version = (rows as { version: string }[])[0]?.version;
-            return NextResponse.json({ success: true, version });
+            try {
+                if (handle.pg) {
+                    const res = await handle.pg.query("SELECT version()");
+                    return NextResponse.json({ success: true, version: res.rows[0]?.version });
+                }
+
+                const [rows] = await handle.mysql!.query("SELECT VERSION() as version");
+                const version = (rows as { version: string }[])[0]?.version;
+                return NextResponse.json({ success: true, version });
+            } finally {
+                releaseSqlPool(handle.key);
+            }
         }
 
         return NextResponse.json({ error: `Unsupported database type: ${type}` }, { status: 400 });
