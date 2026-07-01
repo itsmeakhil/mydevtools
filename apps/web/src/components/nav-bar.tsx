@@ -6,7 +6,7 @@ import { Search } from "lucide-react";
 import { ModeToggle } from "@/components/modeToggle";
 import { getToolMessageKey } from "@/lib/tool-i18n";
 import { routeConfig } from "@/lib/route-config";
-import { WorkspaceSwitcher } from "@/components/workspace-switcher";
+import { WorkspaceSwitcherDropdown } from "@/components/workspace-switcher-dropdown";
 import { WorkspaceQuickActions } from "@/components/workspace-quick-actions";
 import { WorkspaceBreadcrumb } from "@/components/workspace-breadcrumb";
 import { NotificationsBell } from "@/components/notifications-bell";
@@ -70,7 +70,7 @@ export function NavBar() {
       <header className="sticky top-0 z-20 hidden w-full border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:block">
         <div className="flex h-14 items-center justify-end gap-2 px-4">
           <CommandTrigger />
-          <WorkspaceSwitcher />
+          <WorkspaceSwitcherDropdown />
           <WorkspaceQuickActions />
           <NotificationsBell />
           <ModeToggle />
@@ -110,7 +110,7 @@ export function NavBar() {
         </div>
         <CommandTrigger />
         <div className="flex flex-1 shrink-0 items-center justify-end gap-2">
-          <WorkspaceSwitcher />
+          <WorkspaceSwitcherDropdown />
           <WorkspaceQuickActions />
           <NotificationsBell />
           <ModeToggle />

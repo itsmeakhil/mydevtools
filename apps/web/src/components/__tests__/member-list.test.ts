@@ -87,8 +87,9 @@ describe("MemberList — source structure assertions", () => {
     expect(source).toContain('scope === "org"')
   })
 
-  it("uses window.confirm before removing member", () => {
-    expect(source).toContain("window.confirm")
+  it("confirms via useConfirm dialog before removing member", () => {
+    expect(source).toContain("useConfirm")
+    expect(source).toContain("confirm({")
   })
 })
 

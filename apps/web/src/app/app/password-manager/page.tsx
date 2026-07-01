@@ -19,6 +19,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { fetchAllPages } from "@/lib/fetch-all-pages"
 import { EncryptedToolPlaceholder } from "@/components/encrypted-tool-placeholder"
 import { useActiveWorkspace } from "@/store/workspace-store"
+import { hasWorkspaceEncryption } from "@/lib/workspace-rbac"
 
 const PASSWORDS_PAGE_SIZE = 500
 
@@ -39,9 +40,7 @@ export default function PasswordManagerPage() {
     // Placeholder gate computed up-front; the actual early return happens AFTER
     // every hook below so React sees a stable hook order across renders.
     const needsEncryptionGate =
-        !!activeWs &&
-        !activeWs.is_personal &&
-        !(activeWs as { settings?: { encryption?: unknown } }).settings?.encryption
+        !!activeWs && !activeWs.is_personal && !hasWorkspaceEncryption(activeWs)
 
     useEffect(() => {
         if (!encryptionKey || loadedRef.current) return

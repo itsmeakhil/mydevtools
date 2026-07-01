@@ -17,6 +17,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { EncryptedToolPlaceholder } from "@/components/encrypted-tool-placeholder"
 import { useActiveWorkspace } from "@/store/workspace-store"
 import { useCipherKey } from "@/lib/use-cipher-key"
+import { hasWorkspaceEncryption } from "@/lib/workspace-rbac"
 
 // ponytail: inline parser — one place uses it, no utils file
 function parseApiKeyPayload(plain: string): Omit<ApiKeyEntry, "id" | "createdAt" | "updatedAt"> | null {
@@ -96,11 +97,7 @@ export default function ApiKeyVaultPage() {
     // Show placeholder for shared workspaces that have not yet enabled E2EE.
     // Forward-compat: when activeWs.settings?.encryption is set AND a wrappedDek
     // exists the normal flow runs (C-T9 will land the toggle UI).
-    if (
-        activeWs &&
-        !activeWs.is_personal &&
-        !(activeWs as { settings?: { encryption?: unknown } }).settings?.encryption
-    ) {
+    if (activeWs && !activeWs.is_personal && !hasWorkspaceEncryption(activeWs)) {
         return <EncryptedToolPlaceholder toolName="API Key Vault" />
     }
 

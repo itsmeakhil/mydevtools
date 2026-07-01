@@ -39,7 +39,7 @@ export const TOOL_PERMISSIONS: Record<string, Record<WsRole, Set<Permission>>> =
   "dns-lookup":      PLAINTEXT_ROW,
 }
 
-function hasWorkspaceEncryption(ws: Workspace): boolean {
+export function hasWorkspaceEncryption(ws: Workspace): boolean {
   const settings = (ws as { settings?: { encryption?: unknown } }).settings
   return settings?.encryption != null
 }

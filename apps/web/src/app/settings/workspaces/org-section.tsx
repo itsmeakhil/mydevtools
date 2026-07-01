@@ -13,6 +13,7 @@ import { MemberList } from "@/components/member-list"
 import { WorkspaceSection } from "./workspace-section"
 import { CreateWorkspaceDialog } from "@/components/create-workspace-dialog"
 import { InviteMemberDialog } from "@/components/invite-member-dialog"
+import { useConfirm } from "@/components/confirm-dialog"
 
 export function OrgSection({ org }: { org: Org }) {
   const { workspaces, loadFromBackend } = useWorkspaceStore()
@@ -21,6 +22,7 @@ export function OrgSection({ org }: { org: Org }) {
   const [renaming, setRenaming] = useState(false)
   const [renameValue, setRenameValue] = useState(org.name)
   const [saving, setSaving] = useState(false)
+  const { confirm, dialog: confirmDialog } = useConfirm()
 
   // System orgs (Mydevtools Cloud) are platform-managed — no member roster shown.
   const isSystem = org.kind === "system"
@@ -50,12 +52,13 @@ export function OrgSection({ org }: { org: Org }) {
   }
 
   async function handleDelete() {
-    if (
-      !window.confirm(
-        `Delete organisation "${org.name}"? This will remove all workspaces and cannot be undone.`
-      )
-    )
-      return
+    const ok = await confirm({
+      title: `Delete organisation "${org.name}"?`,
+      description: "This will remove all workspaces and cannot be undone.",
+      confirmLabel: "Delete",
+      destructive: true,
+    })
+    if (!ok) return
     try {
       await deleteOrg(org.id)
       await loadFromBackend()
@@ -207,6 +210,8 @@ export function OrgSection({ org }: { org: Org }) {
         open={inviteOpen}
         onOpenChange={setInviteOpen}
       />
+
+      {confirmDialog}
     </div>
   )
 }

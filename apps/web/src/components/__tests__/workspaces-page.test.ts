@@ -213,8 +213,9 @@ describe("WorkspaceSection — source structure", () => {
     expect(source).toContain("InviteMemberDialog")
   })
 
-  it("uses window.confirm before delete", () => {
-    expect(source).toContain("window.confirm")
+  it("confirms via useConfirm dialog before delete", () => {
+    expect(source).toContain("useConfirm")
+    expect(source).toContain("confirm({")
   })
 
   it("uses toast from sonner", () => {

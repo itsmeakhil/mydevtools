@@ -14,6 +14,7 @@ import {
   type Member,
 } from "@/lib/members-api"
 import { RoleSelect } from "@/components/role-select"
+import { useConfirm } from "@/components/confirm-dialog"
 
 export function MemberList({
   scope,
@@ -24,6 +25,7 @@ export function MemberList({
 }) {
   const [members, setMembers] = useState<Member[]>([])
   const [loading, setLoading] = useState(true)
+  const { confirm, dialog: confirmDialog } = useConfirm()
 
   const fetchMembers = useCallback(async () => {
     setLoading(true)
@@ -59,7 +61,13 @@ export function MemberList({
   }
 
   async function handleRemove(uid: string) {
-    if (!window.confirm("Remove this member?")) return
+    const ok = await confirm({
+      title: "Remove this member?",
+      description: "They will lose access to this " + scope + ".",
+      confirmLabel: "Remove",
+      destructive: true,
+    })
+    if (!ok) return
     try {
       if (scope === "org") {
         await removeOrgMember(scopeId, uid)
@@ -87,6 +95,7 @@ export function MemberList({
   }
 
   return (
+    <>
     <div className="divide-y divide-border/50 rounded-lg border border-border/50">
       {members.map((m) => (
         <div
@@ -118,5 +127,7 @@ export function MemberList({
         </div>
       ))}
     </div>
+    {confirmDialog}
+    </>
   )
 }
