@@ -3,6 +3,7 @@ import { backendFetch } from "./backend-auth"
 export type DekWrapBlob = {
   wrappedDek: { encrypted: string; iv: string; senderPublicKey: string } | null
   wrappedDekVersion: number
+  expectedFingerprint?: string | null
 }
 
 export type MemberPublicKey = { uid: string; email: string | null; publicKey: string | null }

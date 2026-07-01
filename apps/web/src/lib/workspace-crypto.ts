@@ -127,6 +127,14 @@ async function deriveKek(sharedSecretBytes: ArrayBuffer): Promise<CryptoKey> {
       // Zero salt is intentional: the ECDH shared secret already provides
       // sufficient entropy. Using a fixed salt keeps the protocol stateless.
       salt: bs(new Uint8Array(32)),
+      // ponytail: info is not bound to workspaceId (L-2). A fully-compromised
+      // server could replay a wrap+fingerprint pair from one workspace into
+      // another (server-induced split-view DoS — NOT a confidentiality break,
+      // the server never holds a plaintext DEK; and the M-1 fingerprint check in
+      // workspace-dek-store already blocks the confidentiality path). Binding
+      // ws_id here would close it but is a breaking HKDF change: needs a
+      // "workspace-dek-wrap-v2" scheme + a forced re-wrap migration for every
+      // member. Upgrade path: version the blob, try v2 then v1 on unwrap, rotate.
       info: bs(new TextEncoder().encode("workspace-dek-wrap-v1")),
     },
     ikm,

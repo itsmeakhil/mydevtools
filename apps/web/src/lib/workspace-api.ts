@@ -14,6 +14,9 @@ export type WorkspaceEncryption = {
   dekFingerprint: string
   createdAt: number
   rotatedAt: number | null
+  // Set after a member is removed; cleared on the next rotation. Signals admins
+  // to rotate the shared key to revoke the removed member's access.
+  rotationRequired?: boolean
 }
 
 export type Workspace = {

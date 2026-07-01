@@ -306,9 +306,11 @@ async def get_my_dek_wrap(
     if not mem:
         raise HTTPException(403)
     wrap = mem.get("wrappedDek")
+    enc = (ws.get("settings") or {}).get("encryption") or {}
     return DekWrapOut(
         wrappedDek=WrappedDekBlob(**wrap) if wrap else None,
         wrappedDekVersion=mem.get("wrappedDekVersion", 0),
+        expectedFingerprint=enc.get("dekFingerprint"),
     )
 
 
@@ -326,6 +328,12 @@ async def post_dek_wrap_for_member(
     is_admin = (caller_mem and caller_mem["ws_role"] == "admin") or (org_mem and org_mem["org_role"] in ("owner", "admin"))
     if not is_admin:
         raise HTTPException(403)
+    # L-1: only wrap for an actual member. set_membership_wrapped_dek uses a
+    # non-upsert update, so a wrap for a non-member would silently no-op and
+    # hide the caller's mistake. Reject it explicitly instead.
+    target_mem = await find_ws_membership(ws_id, body.target_uid)
+    if not target_mem:
+        raise HTTPException(404, "Target user is not a workspace member")
     existing = await crypto_repo.get_membership_wrap(ws_id, body.target_uid)
     new_version = (existing["wrappedDekVersion"] if existing else 0) + 1
     await crypto_repo.set_membership_wrapped_dek(

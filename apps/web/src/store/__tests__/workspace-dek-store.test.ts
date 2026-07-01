@@ -11,6 +11,7 @@ jest.mock("@/lib/workspace-dek-api", () => ({
 
 jest.mock("@/lib/workspace-crypto", () => ({
   unwrapDek: jest.fn(),
+  dekFingerprint: jest.fn(),
 }))
 
 import { useWorkspaceDekStore } from "../workspace-dek-store"
@@ -101,27 +102,69 @@ describe("useWorkspaceDekStore — getDek", () => {
     expect(cached!.version).toBe(3)
   })
 
-  it("returns the cached DEK on second call without re-hitting backend or unwrapDek", async () => {
+  it("reuses the cached DEK (no re-unwrap) when the server version is unchanged", async () => {
     const privateKey = makeFakePrivateKey()
     useUserKeypairStore.getState().setKeypair("pub-key", privateKey)
 
     const fakeWrappedDek = { encrypted: "enc", iv: "iv", senderPublicKey: "spk" }
     const fakeDek = makeFakeCryptoKey("cached-dek")
 
-    mockGetDekWrap.mockResolvedValueOnce({ wrappedDek: fakeWrappedDek, wrappedDekVersion: 1 })
+    // M-2: getDek always re-fetches the wrap to detect rotations, but only
+    // re-unwraps when the version changed.
+    mockGetDekWrap.mockResolvedValue({ wrappedDek: fakeWrappedDek, wrappedDekVersion: 1 })
     mockUnwrapDek.mockResolvedValueOnce(fakeDek)
 
-    // First call — fetches and caches
     const first = await useWorkspaceDekStore.getState().getDek("ws-4")
     expect(first).toBe(fakeDek)
     expect(mockGetDekWrap).toHaveBeenCalledTimes(1)
     expect(mockUnwrapDek).toHaveBeenCalledTimes(1)
 
-    // Second call — should return from cache
+    // Second call — same version → reuse cached key, re-fetch wrap, no re-unwrap.
     const second = await useWorkspaceDekStore.getState().getDek("ws-4")
     expect(second).toBe(fakeDek)
-    expect(mockGetDekWrap).toHaveBeenCalledTimes(1) // no additional call
-    expect(mockUnwrapDek).toHaveBeenCalledTimes(1) // no additional call
+    expect(mockGetDekWrap).toHaveBeenCalledTimes(2) // re-fetched to check version
+    expect(mockUnwrapDek).toHaveBeenCalledTimes(1) // but NOT re-unwrapped
+  })
+
+  it("re-unwraps when the server version has changed (rotation detected)", async () => {
+    const privateKey = makeFakePrivateKey()
+    useUserKeypairStore.getState().setKeypair("pub-key", privateKey)
+
+    const wrapV1 = { encrypted: "e1", iv: "i1", senderPublicKey: "s1" }
+    const wrapV2 = { encrypted: "e2", iv: "i2", senderPublicKey: "s2" }
+    const dekV1 = makeFakeCryptoKey("dek-v1")
+    const dekV2 = makeFakeCryptoKey("dek-v2")
+
+    mockGetDekWrap
+      .mockResolvedValueOnce({ wrappedDek: wrapV1, wrappedDekVersion: 1 })
+      .mockResolvedValueOnce({ wrappedDek: wrapV2, wrappedDekVersion: 2 })
+    mockUnwrapDek.mockResolvedValueOnce(dekV1).mockResolvedValueOnce(dekV2)
+
+    expect(await useWorkspaceDekStore.getState().getDek("ws-5")).toBe(dekV1)
+    // Version bumped → stale cache invalidated, fresh unwrap.
+    expect(await useWorkspaceDekStore.getState().getDek("ws-5")).toBe(dekV2)
+    expect(mockUnwrapDek).toHaveBeenCalledTimes(2)
+    expect(useWorkspaceDekStore.getState().deks.get("ws-5")?.version).toBe(2)
+  })
+
+  it("throws when the unwrapped DEK fingerprint does not match the workspace", async () => {
+    const privateKey = makeFakePrivateKey()
+    useUserKeypairStore.getState().setKeypair("pub-key", privateKey)
+
+    const fakeWrappedDek = { encrypted: "enc", iv: "iv", senderPublicKey: "spk" }
+    mockGetDekWrap.mockResolvedValueOnce({
+      wrappedDek: fakeWrappedDek,
+      wrappedDekVersion: 1,
+      expectedFingerprint: "EXPECTED_FP",
+    })
+    mockUnwrapDek.mockResolvedValueOnce(makeFakeCryptoKey("wrong-dek"))
+    ;(workspaceCrypto.dekFingerprint as jest.Mock).mockResolvedValueOnce("MISMATCH_FP")
+
+    await expect(useWorkspaceDekStore.getState().getDek("ws-6")).rejects.toThrow(
+      /verification failed/i,
+    )
+    // Must not cache an unverified key.
+    expect(useWorkspaceDekStore.getState().deks.has("ws-6")).toBe(false)
   })
 })
 

@@ -10,6 +10,8 @@ import { useWorkspaceDekStore } from "@/store/workspace-dek-store"
 import { unwrapUserPrivateKey, wrapDekForMember } from "@/lib/workspace-crypto"
 import { getKeypair } from "@/lib/user-keypair-api"
 import { listPendingWraps, postDekWrap, type MemberPublicKey } from "@/lib/workspace-dek-api"
+import { verifyMemberKeys, trustMemberKeys } from "@/store/key-pinning-store"
+import { useConfirm } from "@/components/confirm-dialog"
 
 export function PendingWrapsPrompt({ workspaceId }: { workspaceId: string }) {
   const [pending, setPending] = useState<MemberPublicKey[] | null>(null)
@@ -18,6 +20,7 @@ export function PendingWrapsPrompt({ workspaceId }: { workspaceId: string }) {
   const masterVault = useMasterKeyStore((s) => s.vault)
   const userPub = useUserKeypairStore((s) => s.publicKey)
   const userPriv = useUserKeypairStore((s) => s.privateKey)
+  const { confirm, dialog: confirmDialog } = useConfirm()
 
   useEffect(() => {
     let cancelled = false
@@ -60,6 +63,25 @@ export function PendingWrapsPrompt({ workspaceId }: { workspaceId: string }) {
       }
       // 3. For each pending member with a publicKey, wrap DEK + POST.
       const ready = (pending ?? []).filter((m) => m.publicKey)
+      // H-2: TOFU-verify keys before wrapping. Changed keys need explicit trust.
+      const changed = verifyMemberKeys(ready)
+      if (changed.length > 0) {
+        const names = changed.map((m) => m.email ?? m.uid).join(", ")
+        const ok = await confirm({
+          title: "Member encryption keys changed",
+          description:
+            `These members' public keys differ from what was previously trusted: ${names}. ` +
+            "Expected if they reset their master password, but could indicate a server-substituted " +
+            "key. Only continue if you trust the change.",
+          confirmLabel: "Trust new keys & wrap",
+          destructive: true,
+        })
+        if (!ok) {
+          toast.error("Wrapping cancelled — member key change not trusted")
+          return
+        }
+        trustMemberKeys(changed)
+      }
       for (const member of ready) {
         const wrapped = await wrapDekForMember(dek, myPriv!, member.publicKey!, myPub!)
         await postDekWrap(workspaceId, { target_uid: member.uid, wrapped })
@@ -79,6 +101,8 @@ export function PendingWrapsPrompt({ workspaceId }: { workspaceId: string }) {
   const stillPending = pending.filter((m) => !m.publicKey)
 
   return (
+    <>
+    {confirmDialog}
     <Card>
       <CardContent className="pt-6 flex flex-col gap-3">
         <div className="flex items-center gap-2">
@@ -98,5 +122,6 @@ export function PendingWrapsPrompt({ workspaceId }: { workspaceId: string }) {
         )}
       </CardContent>
     </Card>
+    </>
   )
 }

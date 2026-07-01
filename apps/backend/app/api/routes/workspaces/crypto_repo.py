@@ -84,6 +84,24 @@ async def set_workspace_encryption(
     )
 
 
+async def flag_workspace_rotation_required(workspace_id: str) -> bool:
+    """Mark an encrypted workspace as needing a DEK rotation (e.g. after a member
+    is removed). No-op if the workspace has no encryption initialized. Returns
+    True if the flag was set. The flag is cleared on the next rotation because
+    set_workspace_encryption() rewrites settings.encryption without it.
+    """
+    ws = await db_manager.find_one(WORKSPACES, {"_id": workspace_id})
+    enc = (ws.get("settings") or {}).get("encryption") if ws else None
+    if not enc:
+        return False
+    await db_manager.update_one(
+        WORKSPACES,
+        {"_id": workspace_id},
+        {"$set": {"settings.encryption.rotationRequired": True}},
+    )
+    return True
+
+
 async def bulk_set_wrapped_deks(
     workspace_id: str,
     wraps: list[dict],     # [{uid, wrapped, version}, ...]
