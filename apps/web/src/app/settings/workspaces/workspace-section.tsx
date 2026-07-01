@@ -14,6 +14,8 @@ import { InviteMemberDialog } from "@/components/invite-member-dialog"
 import { EnableEncryptedToolsCta } from "@/components/enable-encrypted-tools-cta"
 import { PendingWrapsPrompt } from "@/components/pending-wraps-prompt"
 import { RotateKeyButton } from "@/components/rotate-key-button"
+import { hasWorkspaceEncryption } from "@/lib/workspace-rbac"
+import { useConfirm } from "@/components/confirm-dialog"
 
 export function WorkspaceSection({ workspace }: { workspace: Workspace }) {
   const { loadFromBackend } = useWorkspaceStore()
@@ -21,6 +23,7 @@ export function WorkspaceSection({ workspace }: { workspace: Workspace }) {
   const [renaming, setRenaming] = useState(false)
   const [renameValue, setRenameValue] = useState(workspace.name)
   const [saving, setSaving] = useState(false)
+  const { confirm, dialog: confirmDialog } = useConfirm()
 
   const isPersonal = workspace.is_personal
   const canManage = !isPersonal && workspace.ws_role === "admin"
@@ -45,12 +48,13 @@ export function WorkspaceSection({ workspace }: { workspace: Workspace }) {
   }
 
   async function handleDelete() {
-    if (
-      !window.confirm(
-        `Delete workspace "${workspace.name}"? This action cannot be undone.`
-      )
-    )
-      return
+    const ok = await confirm({
+      title: `Delete workspace "${workspace.name}"?`,
+      description: "This action cannot be undone.",
+      confirmLabel: "Delete",
+      destructive: true,
+    })
+    if (!ok) return
     try {
       await deleteWorkspace(workspace.id)
       await loadFromBackend()
@@ -168,26 +172,18 @@ export function WorkspaceSection({ workspace }: { workspace: Workspace }) {
         </div>
       )}
 
-      {!workspace.is_personal
-        && !(workspace as { settings?: { encryption?: unknown } }).settings?.encryption
-        && workspace.ws_role === "admin"
-        && (
-          <div className="mt-4">
-            <EnableEncryptedToolsCta workspaceId={workspace.id} />
-          </div>
-        )
-      }
+      {!workspace.is_personal && !hasWorkspaceEncryption(workspace) && workspace.ws_role === "admin" && (
+        <div className="mt-4">
+          <EnableEncryptedToolsCta workspaceId={workspace.id} />
+        </div>
+      )}
 
-      {!workspace.is_personal
-        && (workspace as { settings?: { encryption?: unknown } }).settings?.encryption != null
-        && workspace.ws_role === "admin"
-        && (
-          <div className="mt-4 space-y-3">
-            <PendingWrapsPrompt workspaceId={workspace.id} />
-            <RotateKeyButton workspaceId={workspace.id} />
-          </div>
-        )
-      }
+      {!workspace.is_personal && hasWorkspaceEncryption(workspace) && workspace.ws_role === "admin" && (
+        <div className="mt-4 space-y-3">
+          <PendingWrapsPrompt workspaceId={workspace.id} />
+          <RotateKeyButton workspaceId={workspace.id} />
+        </div>
+      )}
 
       <InviteMemberDialog
         scope="workspace"
@@ -195,6 +191,8 @@ export function WorkspaceSection({ workspace }: { workspace: Workspace }) {
         open={inviteOpen}
         onOpenChange={setInviteOpen}
       />
+
+      {confirmDialog}
     </div>
   )
 }

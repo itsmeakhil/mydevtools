@@ -130,12 +130,10 @@ describe("WorkspaceSwitcherDropdown — org sections and workspace items", () =>
     expect(source).toContain("DropdownMenuLabel")
     // Workspace items rendered via DropdownMenuItem
     expect(source).toContain("DropdownMenuItem")
-    // Groups by org_id
+    // Scoped to active org (org switching handled by OrgSwitcherDropdown)
     expect(source).toContain("org_id")
     // Active workspace highlight
     expect(source).toContain("bg-accent/60")
-    // New organization CTA always present
-    expect(source).toContain("New organization")
     // New workspace CTA gated behind org_role check
     expect(source).toContain("New workspace")
     expect(source).toContain("org_role")
@@ -205,17 +203,16 @@ describe("WorkspaceSwitcherDropdown — New workspace CTA role gating", () => {
     expect(shouldShowNewWs).toBe(true)
   })
 
-  it("New organization CTA source is always present in component", () => {
+  it("New workspace CTA source is present in component", () => {
     const fs = require("fs")
     const path = require("path")
     const source: string = fs.readFileSync(
       path.join(__dirname, "../workspace-switcher-dropdown.tsx"),
       "utf8"
     )
-    // New organization CTA is unconditional — not inside any role check
-    expect(source).toContain("New organization")
-    // Confirm it's outside the org_role conditional by checking it's in the orgs.map return
-    expect(source).toContain("setOrgDialogOpen")
+    // Workspace creation dialog is opened from the dropdown
+    expect(source).toContain("New workspace")
+    expect(source).toContain("setWsDialogOpen")
   })
 
   it("mixed orgs: only owner/admin orgs show new workspace CTA", () => {
