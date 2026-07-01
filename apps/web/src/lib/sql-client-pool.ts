@@ -37,6 +37,9 @@ export function poolKey(p: SqlConnParams): string {
   return JSON.stringify([p.type, p.host, p.port, p.database, p.username, p.password, p.ssl]);
 }
 
+// ponytail: idle-evict, not a hard-capped LRU — distinct connections grow unbounded
+// until the 60s idle sweep reclaims them (same as nosql-client-pool). Add max-entries
+// eviction if a user cycles through many connections faster than the 5-min idle timeout.
 class SqlPoolManager {
   private static instance: SqlPoolManager;
   private pool = new Map<string, PooledSql>();
@@ -52,6 +55,10 @@ class SqlPoolManager {
   }
 
   async get(p: SqlConnParams): Promise<SqlPoolHandle> {
+    // ponytail: no in-flight `connecting` guard (unlike nosql-client-pool) because
+    // pg.Pool / mysql.createPool are synchronous & lazy — check-then-set below is
+    // atomic with no await between. If construction ever awaits (eager warm-up), add
+    // a connecting-map guard or the first set() becomes an unreleasable orphan.
     const key = poolKey(p);
     const existing = this.pool.get(key);
     if (existing) {
