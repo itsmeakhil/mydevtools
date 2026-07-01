@@ -17,6 +17,8 @@ import {
 import { useUserKeypairStore } from "@/store/user-keypair-store"
 import { useWorkspaceDekStore } from "@/store/workspace-dek-store"
 import { useWorkspaceStore } from "@/store/workspace-store"
+import { verifyMemberKeys, trustMemberKeys } from "@/store/key-pinning-store"
+import { useConfirm } from "@/components/confirm-dialog"
 import { generateWorkspaceDek, wrapDekForMember, dekFingerprint } from "@/lib/workspace-crypto"
 import { listMemberPublicKeys, rotateDek } from "@/lib/workspace-dek-api"
 import { reencryptAllEntries } from "@/lib/dek-rotation"
@@ -28,6 +30,7 @@ export function RotateKeyButton({ workspaceId }: { workspaceId: string }) {
   const getDek = useWorkspaceDekStore((s) => s.getDek)
   const clearWsDek = useWorkspaceDekStore((s) => s.clearWorkspace)
   const reloadStore = useWorkspaceStore((s) => s.loadFromBackend)
+  const { confirm, dialog: confirmDialog } = useConfirm()
 
   async function handleRotate() {
     if (!userPriv || !userPub) {
@@ -50,6 +53,29 @@ export function RotateKeyButton({ workspaceId }: { workspaceId: string }) {
         toast.warning(
           `${missing.length} member(s) have no keypair and will lose access until they publish one`,
         )
+      }
+
+      // H-2: TOFU-verify member public keys before wrapping the DEK to them.
+      // A changed key may be a legit keypair reset — or a server substituting an
+      // attacker key. Require explicit confirmation before trusting the change.
+      const changed = verifyMemberKeys(ready)
+      if (changed.length > 0) {
+        const names = changed.map((m) => m.email ?? m.uid).join(", ")
+        const ok = await confirm({
+          title: "Member encryption keys changed",
+          description:
+            `These members' public keys differ from what was previously trusted: ${names}. ` +
+            "This is expected if they reset their master password, but could also mean the " +
+            "server substituted a key. Only continue if you trust the change — proceeding wraps " +
+            "the workspace key to the new keys.",
+          confirmLabel: "Trust new keys & rotate",
+          destructive: true,
+        })
+        if (!ok) {
+          toast.error("Rotation cancelled — member key change not trusted")
+          return
+        }
+        trustMemberKeys(changed)
       }
 
       // Phase 1: generate new DEK + wraps, then atomically flip on server.
@@ -92,6 +118,8 @@ export function RotateKeyButton({ workspaceId }: { workspaceId: string }) {
   }
 
   return (
+    <>
+    {confirmDialog}
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="outline" size="sm" disabled={working}>
@@ -118,5 +146,6 @@ export function RotateKeyButton({ workspaceId }: { workspaceId: string }) {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
+    </>
   )
 }

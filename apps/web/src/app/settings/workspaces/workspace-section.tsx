@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Pencil, Trash2, UserPlus } from "lucide-react"
+import { Pencil, Trash2, UserPlus, ShieldAlert } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -180,6 +180,16 @@ export function WorkspaceSection({ workspace }: { workspace: Workspace }) {
 
       {!workspace.is_personal && hasWorkspaceEncryption(workspace) && workspace.ws_role === "admin" && (
         <div className="mt-4 space-y-3">
+          {workspace.settings?.encryption?.rotationRequired && (
+            <div className="flex items-start gap-2 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm">
+              <ShieldAlert className="h-4 w-4 mt-0.5 text-destructive shrink-0" />
+              <span>
+                A member was removed. Rotate the encryption key now to revoke their
+                access to workspace secrets — until you do, the removed member can
+                still decrypt existing data.
+              </span>
+            </div>
+          )}
           <PendingWrapsPrompt workspaceId={workspace.id} />
           <RotateKeyButton workspaceId={workspace.id} />
         </div>

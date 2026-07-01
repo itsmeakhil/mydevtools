@@ -20,6 +20,10 @@ class WorkspaceEncryptionInfo(BaseModel):
     dekFingerprint: str
     createdAt: int
     rotatedAt: int | None = None
+    # Set true when a member is removed; cleared on the next DEK rotation.
+    # Signals admins that the shared key must be rotated to revoke the removed
+    # member's decryption capability.
+    rotationRequired: bool = False
 
 
 class WorkspaceSettings(BaseModel):
@@ -127,6 +131,9 @@ class WrappedDekBlob(BaseModel):
 class DekWrapOut(BaseModel):
     wrappedDek: WrappedDekBlob | None
     wrappedDekVersion: int
+    # SHA-256 fingerprint of the current workspace DEK (from workspace settings).
+    # Client verifies the unwrapped DEK matches this before trusting it (M-1).
+    expectedFingerprint: str | None = None
 
 
 class DekWrapPostRequest(BaseModel):

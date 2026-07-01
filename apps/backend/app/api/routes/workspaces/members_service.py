@@ -148,3 +148,9 @@ async def remove_workspace_member(uid: str, ws_id: str, target_uid: str) -> None
     await db_manager.delete_one(
         WORKSPACE_MEMBERSHIPS, {"workspace_id": ws_id, "uid": target_uid},
     )
+    # H-1: the removed member's client already holds the unwrapped DEK, so deleting
+    # their membership does not revoke decryption. Flag the workspace so an admin
+    # rotates the shared key (which re-encrypts entries under a key the removed
+    # member never receives).
+    from app.api.routes.workspaces import crypto_repo
+    await crypto_repo.flag_workspace_rotation_required(ws_id)
