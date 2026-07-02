@@ -20,6 +20,9 @@ import {
 } from '@/lib/regex-tester';
 import { cn } from '@/lib/utils';
 import { AlertCircle, ChevronLeft, ChevronRight, Trash2 } from 'lucide-react';
+import { IconRegex } from '@tabler/icons-react';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
 import { useTranslations } from 'next-intl';
 
 function HighlightedText({
@@ -123,11 +126,11 @@ export function RegexTesterLayout() {
   };
 
   return (
-    <div className="flex flex-col h-full gap-4 min-h-0">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-      </div>
+    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+      <RevealItem index={0}>
+        <ToolPageHeader icon={IconRegex} title={t('title')} description={t('subtitle')} />
+      </RevealItem>
 
       <Card className="p-4 space-y-3 shrink-0">
         <div className="space-y-2">
