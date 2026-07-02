@@ -187,6 +187,28 @@ export function inferSchema(value: unknown): SchemaNode {
   return { kind: 'scalar', t: 'null' };
 }
 
+export function collectFormats(node: SchemaNode): Map<StringFormat, number> {
+  const counts = new Map<StringFormat, number>();
+  const walk = (n: SchemaNode): void => {
+    switch (n.kind) {
+      case 'scalar':
+        if (n.format) counts.set(n.format, (counts.get(n.format) ?? 0) + 1);
+        return;
+      case 'array':
+        walk(n.item);
+        return;
+      case 'object':
+        for (const { node: child } of Object.values(n.fields)) walk(child);
+        return;
+      case 'union':
+        n.variants.forEach(walk);
+        return;
+    }
+  };
+  walk(node);
+  return counts;
+}
+
 function jsonSchemaTypeFragment(node: SchemaNode): Record<string, unknown> {
   switch (node.kind) {
     case 'scalar': {

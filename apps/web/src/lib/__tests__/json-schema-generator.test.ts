@@ -1,4 +1,4 @@
-import { detectFormat, inferSchema, mergeNodes, toJsonSchemaDocument } from '../json-schema-generator';
+import { collectFormats, detectFormat, inferSchema, mergeNodes, toJsonSchemaDocument } from '../json-schema-generator';
 
 describe('detectFormat', () => {
   it('detects each format', () => {
@@ -59,5 +59,21 @@ describe('JSON Schema format output', () => {
     ) as any;
     expect(doc.properties.email).toEqual({ type: 'string', format: 'email' });
     expect(doc.properties.note).toEqual({ type: 'string' });
+  });
+});
+
+describe('collectFormats', () => {
+  it('counts formats across nested and array shapes', () => {
+    const node = inferSchema({
+      id: '550e8400-e29b-41d4-a716-446655440000',
+      owner: { email: 'a@b.com' },
+      contacts: [{ email: 'c@d.com' }, { email: 'e@f.com' }],
+      created: '2026-07-02T00:00:00Z',
+    });
+    const m = collectFormats(node);
+    expect(m.get('uuid')).toBe(1);
+    expect(m.get('email')).toBe(2);
+    expect(m.get('date-time')).toBe(1);
+    expect(m.has('date')).toBe(false);
   });
 });
