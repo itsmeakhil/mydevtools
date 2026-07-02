@@ -2644,7 +2644,9 @@
       "dart": "Dart",
       "swift": "Swift (Codable)"
     },
-    "editorLoading": "편집기 로드 중…"
+    "editorLoading": "편집기 로드 중…",
+    "detectedFormats": "Detected formats",
+    "download": "Download"
   },
   "ImageToBase64": {
     "title": "이미지를 Base64로",

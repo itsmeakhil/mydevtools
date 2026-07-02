@@ -29,16 +29,43 @@ export const OUTPUT_LANGUAGE_ORDER: readonly OutputLanguage[] = [
 
 type ScalarJson = 'string' | 'number' | 'integer' | 'boolean' | 'null';
 
+export type StringFormat =
+  | 'date-time'
+  | 'date'
+  | 'time'
+  | 'email'
+  | 'uri'
+  | 'uuid'
+  | 'ipv4';
+
 export type SchemaNode =
-  | { kind: 'scalar'; t: ScalarJson }
+  | { kind: 'scalar'; t: ScalarJson; format?: StringFormat }
   | { kind: 'array'; item: SchemaNode }
   | { kind: 'object'; fields: Record<string, { node: SchemaNode; optional: boolean }> }
   | { kind: 'union'; variants: SchemaNode[] };
 
+// Anchored, specific -> general. First match wins.
+const FORMAT_PATTERNS: ReadonlyArray<readonly [StringFormat, RegExp]> = [
+  ['uuid', /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/],
+  ['date-time', /^\d{4}-\d{2}-\d{2}[Tt]\d{2}:\d{2}:\d{2}(\.\d+)?([Zz]|[+-]\d{2}:\d{2})$/],
+  ['date', /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/],
+  ['time', /^([01]\d|2[0-3]):[0-5]\d:[0-5]\d(\.\d+)?$/],
+  ['email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/],
+  ['ipv4', /^(25[0-5]|2[0-4]\d|1?\d?\d)(\.(25[0-5]|2[0-4]\d|1?\d?\d)){3}$/],
+  ['uri', /^[a-zA-Z][a-zA-Z0-9+.-]*:\/\/[^\s]+$/],
+];
+
+export function detectFormat(value: string): StringFormat | undefined {
+  for (const [fmt, re] of FORMAT_PATTERNS) {
+    if (re.test(value)) return fmt;
+  }
+  return undefined;
+}
+
 function fingerprint(n: SchemaNode): string {
   switch (n.kind) {
     case 'scalar':
-      return `s:${n.t}`;
+      return `s:${n.t}${n.format ? ':' + n.format : ''}`;
     case 'array':
       return `a:${fingerprint(n.item)}`;
     case 'object': {
@@ -98,7 +125,12 @@ export function mergeNodes(a: SchemaNode, b: SchemaNode): SchemaNode {
   if (fingerprint(a) === fingerprint(b)) return a;
 
   if (a.kind === 'scalar' && b.kind === 'scalar') {
-    if (a.t === b.t) return a;
+    if (a.t === b.t) {
+      if (a.t === 'string' && a.format !== b.format) {
+        return { kind: 'scalar', t: 'string' };
+      }
+      return a;
+    }
     if (
       (a.t === 'integer' && b.t === 'number') ||
       (a.t === 'number' && b.t === 'integer')
@@ -132,7 +164,12 @@ export function inferSchema(value: unknown): SchemaNode {
     return { kind: 'array', item: acc };
   }
   const ty = typeof value;
-  if (ty === 'string') return { kind: 'scalar', t: 'string' };
+  if (ty === 'string') {
+    const format = detectFormat(value as string);
+    return format
+      ? { kind: 'scalar', t: 'string', format }
+      : { kind: 'scalar', t: 'string' };
+  }
   if (ty === 'boolean') return { kind: 'scalar', t: 'boolean' };
   if (ty === 'number') {
     const n = value as number;
@@ -150,10 +187,35 @@ export function inferSchema(value: unknown): SchemaNode {
   return { kind: 'scalar', t: 'null' };
 }
 
+export function collectFormats(node: SchemaNode): Map<StringFormat, number> {
+  const counts = new Map<StringFormat, number>();
+  const walk = (n: SchemaNode): void => {
+    switch (n.kind) {
+      case 'scalar':
+        if (n.format) counts.set(n.format, (counts.get(n.format) ?? 0) + 1);
+        return;
+      case 'array':
+        walk(n.item);
+        return;
+      case 'object':
+        for (const { node: child } of Object.values(n.fields)) walk(child);
+        return;
+      case 'union':
+        n.variants.forEach(walk);
+        return;
+    }
+  };
+  walk(node);
+  return counts;
+}
+
 function jsonSchemaTypeFragment(node: SchemaNode): Record<string, unknown> {
   switch (node.kind) {
-    case 'scalar':
-      return { type: node.t };
+    case 'scalar': {
+      const frag: Record<string, unknown> = { type: node.t };
+      if (node.t === 'string' && node.format) frag.format = node.format;
+      return frag;
+    }
     case 'array':
       return { type: 'array', items: toJsonSchemaFragment(node.item) };
     case 'object': {
@@ -267,6 +329,13 @@ function csharpSafeProp(jsonKey: string): string {
   return goFieldName(jsonKey);
 }
 
+const PY_FORMAT_TYPES: Partial<Record<StringFormat, { type: string; module: string }>> = {
+  'date-time': { type: 'datetime', module: 'datetime' },
+  date: { type: 'date', module: 'datetime' },
+  time: { type: 'time', module: 'datetime' },
+  uuid: { type: 'UUID', module: 'uuid' },
+};
+
 function scalarToPython(node: SchemaNode): string | null {
   if (node.kind !== 'scalar') return null;
   switch (node.t) {
@@ -307,6 +376,10 @@ function emitPythonType(
   path: string[],
   defs: Map<string, string>
 ): string {
+  if (node.kind === 'scalar' && node.t === 'string' && node.format) {
+    const m = PY_FORMAT_TYPES[node.format];
+    if (m) return m.type;
+  }
   const scalar = scalarToPython(node);
   if (scalar !== null) {
     if (node.kind === 'scalar' && node.t === 'null') return 'None';
@@ -369,8 +442,22 @@ export function generatePython(node: SchemaNode): string {
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([, code]) => code)
     .join('\n\n\n');
-  const header = `from __future__ import annotations
+  // Collect stdlib imports for mapped formats actually present.
+  const formats = collectFormats(node);
+  const byModule = new Map<string, Set<string>>();
+  for (const fmt of formats.keys()) {
+    const m = PY_FORMAT_TYPES[fmt];
+    if (!m) continue;
+    if (!byModule.has(m.module)) byModule.set(m.module, new Set());
+    byModule.get(m.module)!.add(m.type);
+  }
+  const stdlibImports = [...byModule.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([mod, names]) => `from ${mod} import ${[...names].sort().join(', ')}`)
+    .join('\n');
 
+  const header = `from __future__ import annotations
+${stdlibImports ? '\n' + stdlibImports + '\n' : ''}
 from typing import Any
 
 from pydantic import BaseModel, Field
@@ -454,6 +541,9 @@ export function generateGo(node: SchemaNode): string {
       typeStr: optional ? `*${t}` : t,
       extraDeps: [] as string[],
     });
+    if (n.kind === 'scalar' && n.t === 'string' && n.format === 'date-time') {
+      return { typeStr: optional ? '*time.Time' : 'time.Time', extraDeps: [] };
+    }
     if (n.kind === 'scalar') {
       switch (n.t) {
         case 'string':
@@ -514,10 +604,15 @@ export function generateGo(node: SchemaNode): string {
 
   walk(node, []);
 
+  const importBlock =
+    node.kind === 'object' && collectFormats(node).has('date-time')
+      ? 'import (\n\t"encoding/json"\n\t"time"\n)'
+      : 'import "encoding/json"';
+
   if (node.kind !== 'object') {
     return `package main
 
-import "encoding/json"
+${importBlock}
 
 // Root wraps non-object JSON root.
 type Root = json.RawMessage
@@ -526,7 +621,7 @@ type Root = json.RawMessage
 
   return `package main
 
-import "encoding/json"
+${importBlock}
 
 ${structs.join('\n\n')}
 `;
@@ -608,6 +703,16 @@ ${structs.join('\n\n')}
 export function generateJava(node: SchemaNode): string {
   function jType(n: SchemaNode, path: string[], optional: boolean): string {
     const wrap = (s: string) => (optional ? `Optional<${s}>` : s);
+    if (n.kind === 'scalar' && n.t === 'string' && n.format) {
+      const map: Partial<Record<StringFormat, string>> = {
+        'date-time': 'OffsetDateTime',
+        date: 'LocalDate',
+        time: 'LocalTime',
+        uuid: 'UUID',
+      };
+      const t = map[n.format];
+      if (t) return wrap(t);
+    }
     if (n.kind === 'scalar') {
       switch (n.t) {
         case 'string':
@@ -673,9 +778,12 @@ export function generateJava(node: SchemaNode): string {
 `;
   }
 
+  const needsTime = ['date-time', 'date', 'time'].some((f) =>
+    collectFormats(node).has(f as StringFormat)
+  );
   return `import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import java.util.*;
+${needsTime ? 'import java.time.*;\n' : ''}import java.util.*;
 
 ${classes.join('\n\n')}
 `;
@@ -684,6 +792,16 @@ ${classes.join('\n\n')}
 export function generateCSharp(node: SchemaNode): string {
   function csType(n: SchemaNode, path: string[], optional: boolean): string {
     const wrap = (s: string) => (optional ? `${s}?` : s);
+    if (n.kind === 'scalar' && n.t === 'string' && n.format) {
+      const map: Partial<Record<StringFormat, string>> = {
+        'date-time': 'DateTimeOffset',
+        date: 'DateOnly',
+        time: 'TimeOnly',
+        uuid: 'Guid',
+      };
+      const t = map[n.format];
+      if (t) return wrap(t);
+    }
     if (n.kind === 'scalar') {
       switch (n.t) {
         case 'string':
@@ -751,7 +869,10 @@ public record Root(JsonElement Value);
 `;
   }
 
-  return `using System.Collections.Generic;
+  const needsSystem = ['date-time', 'date', 'time', 'uuid'].some((f) =>
+    collectFormats(node).has(f as StringFormat)
+  );
+  return `${needsSystem ? 'using System;\n' : ''}using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 ${classes.join('\n\n')}
@@ -760,6 +881,9 @@ ${classes.join('\n\n')}
 
 export function generateDart(node: SchemaNode): string {
   function dType(n: SchemaNode, path: string[]): string {
+    if (n.kind === 'scalar' && n.t === 'string' && n.format === 'date-time') {
+      return 'DateTime';
+    }
     if (n.kind === 'scalar') {
       switch (n.t) {
         case 'string':
@@ -793,6 +917,9 @@ export function generateDart(node: SchemaNode): string {
     jsonAccess: string
   ): string {
     if (child.kind === 'scalar') {
+      if (child.t === 'string' && child.format === 'date-time') {
+        return `DateTime.parse(${jsonAccess} as String)`;
+      }
       switch (child.t) {
         case 'string':
           return `${jsonAccess} as String`;
@@ -814,8 +941,7 @@ export function generateDart(node: SchemaNode): string {
         const itemName = typeNameForPath(itemPath);
         return `(${jsonAccess} as List<dynamic>).map((e) => ${itemName}.fromJson(e as Map<String, dynamic>)).toList()`;
       }
-      const inner = dType(item, itemPath);
-      return `(${jsonAccess} as List<dynamic>).map((e) => e as ${inner}).toList()`;
+      return `(${jsonAccess} as List<dynamic>).map((e) => ${dartParseExpr(item, itemPath, 'e')}).toList()`;
     }
     if (child.kind === 'object') {
       const nm = typeNameForPath(fieldPath);
@@ -885,6 +1011,10 @@ ${fromJsonLines.join('\n')}
 export function generateSwift(node: SchemaNode): string {
   function swType(n: SchemaNode, path: string[], optional: boolean): string {
     const opt = optional ? '?' : '';
+    if (n.kind === 'scalar' && n.t === 'string' && n.format) {
+      if (n.format === 'date-time') return `Date${opt}`;
+      if (n.format === 'uuid') return `UUID${opt}`;
+    }
     if (n.kind === 'scalar') {
       switch (n.t) {
         case 'string':
@@ -951,9 +1081,14 @@ ${props.join('\n')}
     return `// Non-object JSON root: decode as Array, Dictionary, or a scalar using JSONSerialization.\n`;
   }
 
+  const hasDate = collectFormats(node).has('date-time');
   return `import Foundation
 
-// Note: fields inferred as mixed or null-only types use String as a placeholder — adjust before production use.
+// Note: fields inferred as mixed or null-only types use String as a placeholder — adjust before production use.${
+    hasDate
+      ? '\n// Date fields expect ISO 8601 — set JSONDecoder().dateDecodingStrategy = .iso8601.'
+      : ''
+  }
 
 ${structs.join('\n\n')}
 `;

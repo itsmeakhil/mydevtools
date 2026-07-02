@@ -2644,7 +2644,9 @@
       "dart": "Dart",
       "swift": "Swift (Codable)"
     },
-    "editorLoading": "در حال بارگذاری ویرایشگر…"
+    "editorLoading": "در حال بارگذاری ویرایشگر…",
+    "detectedFormats": "Detected formats",
+    "download": "Download"
   },
   "ImageToBase64": {
     "title": "تصویر به Base64",

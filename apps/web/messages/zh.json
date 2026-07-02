@@ -2644,7 +2644,9 @@
       "dart": "Dart",
       "swift": "Swift (Codable)"
     },
-    "editorLoading": "正在加载编辑器…"
+    "editorLoading": "正在加载编辑器…",
+    "detectedFormats": "Detected formats",
+    "download": "Download"
   },
   "ImageToBase64": {
     "title": "图像转 Base64",

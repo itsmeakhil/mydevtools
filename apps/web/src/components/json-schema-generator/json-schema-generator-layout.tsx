@@ -4,7 +4,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useIsMobile } from '@/components/hooks/use-mobile';
 import { useTranslations } from 'next-intl';
-import { AlertCircle, Check, Copy, FileJson, Trash2 } from 'lucide-react';
+import { AlertCircle, Check, Copy, Download, FileJson, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -17,13 +17,17 @@ import {
 } from '@/components/ui/select';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
+import { triggerDownload } from '@/lib/csv-excel-json-utils';
 import { highlightSchemaOutput } from '@/lib/hljs-json-schema-output';
 import {
+  collectFormats,
   generateFromSchema,
   inferSchema,
   OUTPUT_LANGUAGE_ORDER,
   type OutputLanguage,
+  type StringFormat,
 } from '@/lib/json-schema-generator';
+import { Badge } from '@/components/ui/badge';
 import './json-schema-highlighter.css';
 import { JsonSchemaInputEditor } from './json-schema-input-editor';
 
@@ -38,6 +42,18 @@ const defaultSample = `{
   "scores": [9.5, 8.0]
 }`;
 
+const FILE_EXT: Record<OutputLanguage, string> = {
+  jsonSchema: 'json',
+  python: 'py',
+  typescript: 'ts',
+  go: 'go',
+  rust: 'rs',
+  java: 'java',
+  csharp: 'cs',
+  dart: 'dart',
+  swift: 'swift',
+};
+
 export function JsonSchemaGeneratorLayout() {
   const t = useTranslations('JsonSchemaGenerator');
   const isMobile = useIsMobile();
@@ -46,10 +62,10 @@ export function JsonSchemaGeneratorLayout() {
   const [language, setLanguage] = useState<OutputLanguage>('python');
   const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
 
-  const { output, error } = useMemo(() => {
+  const { output, error, formats } = useMemo(() => {
     const trimmed = input.trim();
     if (!trimmed) {
-      return { output: '', error: null as string | null };
+      return { output: '', error: null as string | null, formats: [] as [StringFormat, number][] };
     }
     try {
       const parsed: unknown = JSON.parse(trimmed);
@@ -57,10 +73,11 @@ export function JsonSchemaGeneratorLayout() {
       return {
         output: generateFromSchema(schema, language),
         error: null as string | null,
+        formats: [...collectFormats(schema).entries()],
       };
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
-      return { output: '', error: msg };
+      return { output: '', error: msg, formats: [] as [StringFormat, number][] };
     }
   }, [input, language]);
 
@@ -76,6 +93,14 @@ export function JsonSchemaGeneratorLayout() {
       errorMessage: t('copyFailed'),
     });
   }, [output, t, copyToClipboard]);
+
+  const handleDownload = useCallback(() => {
+    if (!output || error) return;
+    const ext = FILE_EXT[language];
+    const filename = language === 'jsonSchema' ? 'schema.json' : `generated.${ext}`;
+    const mime = language === 'jsonSchema' ? 'application/json' : 'text/plain';
+    triggerDownload(new Blob([output], { type: `${mime};charset=utf-8` }), filename);
+  }, [output, error, language]);
 
   const handleClear = () => {
     setInput('');
@@ -129,6 +154,15 @@ export function JsonSchemaGeneratorLayout() {
             )}
             {t('copy')}
           </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleDownload}
+            disabled={!output || !!error}
+          >
+            <Download className="mr-1.5 h-3.5 w-3.5" />
+            {t('download')}
+          </Button>
         </div>
       </div>
 
@@ -176,10 +210,22 @@ export function JsonSchemaGeneratorLayout() {
               error && 'border-destructive/40'
             )}
           >
-            <div className="shrink-0 border-b border-border/50 bg-muted/30 px-4 py-2.5">
+            <div className="shrink-0 border-b border-border/50 bg-muted/30 px-4 py-2.5 flex items-center justify-between gap-2">
               <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t('outputLabel')}
               </Label>
+              {!error && formats.length > 0 && (
+                <div className="flex flex-wrap items-center gap-1">
+                  <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                    {t('detectedFormats')}
+                  </span>
+                  {formats.map(([fmt, count]) => (
+                    <Badge key={fmt} variant="secondary" className="text-[10px] font-mono">
+                      {fmt}{count > 1 ? ` ×${count}` : ''}
+                    </Badge>
+                  ))}
+                </div>
+              )}
             </div>
             <div className="relative min-h-0 flex-1 min-h-[260px]">
               {error ? (
