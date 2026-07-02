@@ -2644,7 +2644,9 @@
       "dart": "Dart",
       "swift": "Swift (Codable)"
     },
-    "editorLoading": "Загрузка редактора…"
+    "editorLoading": "Загрузка редактора…",
+    "detectedFormats": "Detected formats",
+    "download": "Download"
   },
   "ImageToBase64": {
     "title": "Изображение в Base64",

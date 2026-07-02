@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Search, Copy, Pencil, Trash2, FileCode2, Eye, ArrowUpDown } from "lucide-react"
+import { Search, Copy, Pencil, Trash2, FileCode2, Eye, ArrowUpDown, Check } from "lucide-react"
 import { toast } from "sonner"
 import { deleteEnvSetEntry } from "@/lib/environment-manager-api"
 import { formatDotEnv } from "@/lib/environment-manager-utils"
@@ -59,6 +59,15 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area"
 
 type SortOrder = "updatedDesc" | "updatedAsc" | "nameAsc"
+
+// ponytail: heuristic on free-text environment field, not an enum — false negatives just fall back to neutral styling
+function envAccentClass(environment: string) {
+    const e = environment.toLowerCase()
+    if (/prod/.test(e)) return "border-l-destructive"
+    if (/stag|preprod|uat/.test(e)) return "border-l-amber-500"
+    if (/dev|local|test|qa/.test(e)) return "border-l-emerald-500"
+    return "border-l-border"
+}
 
 export function EnvironmentSetList() {
     const t = useTranslations("EnvironmentManager.list")
@@ -166,9 +175,12 @@ export function EnvironmentSetList() {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={() => setSortOrder("updatedDesc")}>{t("sort.updatedDesc")}</DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => setSortOrder("updatedAsc")}>{t("sort.updatedAsc")}</DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => setSortOrder("nameAsc")}>{t("sort.nameAsc")}</DropdownMenuItem>
+                            {(["updatedDesc", "updatedAsc", "nameAsc"] as const).map((order) => (
+                                <DropdownMenuItem key={order} onClick={() => setSortOrder(order)} className="justify-between gap-2">
+                                    {t(`sort.${order}`)}
+                                    {sortOrder === order && <Check className="h-3.5 w-3.5" />}
+                                </DropdownMenuItem>
+                            ))}
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
@@ -191,7 +203,13 @@ export function EnvironmentSetList() {
                     <TooltipProvider>
                         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 overflow-y-auto pb-4">
                             {filtered.map((entry) => (
-                                <Card key={entry.id} className="flex flex-col">
+                                <Card
+                                    key={entry.id}
+                                    className={cn(
+                                        "flex flex-col border-l-4 transition-shadow duration-200 hover:shadow-md",
+                                        envAccentClass(entry.environment)
+                                    )}
+                                >
                                     <CardHeader className="pb-2 space-y-1">
                                         <CardTitle className="text-base leading-tight">
                                             {entry.project}
@@ -207,16 +225,19 @@ export function EnvironmentSetList() {
                                     <CardContent className="flex-1 flex flex-col gap-3 pt-0">
                                         {entry.tags.length > 0 && (
                                             <div className="flex flex-wrap gap-1">
-                                                {entry.tags.map((tag) => (
-                                                    <Badge
-                                                        key={tag}
-                                                        variant="secondary"
-                                                        className="text-xs cursor-pointer hover:bg-primary/10"
-                                                        onClick={() => setTagFilter(tag)}
-                                                    >
-                                                        {tag}
-                                                    </Badge>
-                                                ))}
+                                                {entry.tags.map((tag) => {
+                                                    const active = tagFilter.toLowerCase().trim() === tag.toLowerCase()
+                                                    return (
+                                                        <Badge
+                                                            key={tag}
+                                                            variant={active ? "default" : "secondary"}
+                                                            className="text-xs cursor-pointer hover:bg-primary/10"
+                                                            onClick={() => setTagFilter(active ? "" : tag)}
+                                                        >
+                                                            {tag}
+                                                        </Badge>
+                                                    )
+                                                })}
                                             </div>
                                         )}
                                         <p className="text-sm text-muted-foreground">
@@ -235,6 +256,7 @@ export function EnvironmentSetList() {
                                                         variant="outline"
                                                         size="icon"
                                                         className="h-8 w-8"
+                                                        aria-label={t("copyDotEnv")}
                                                         onClick={() =>
                                                             copyToClipboard(
                                                                 formatDotEnv(entry.variables),
@@ -254,6 +276,7 @@ export function EnvironmentSetList() {
                                                         variant="outline"
                                                         size="icon"
                                                         className="h-8 w-8"
+                                                        aria-label={t("view")}
                                                         onClick={() => setViewingEntry(entry)}
                                                     >
                                                         <Eye className="h-3.5 w-3.5" />
@@ -268,6 +291,7 @@ export function EnvironmentSetList() {
                                                         variant="ghost"
                                                         size="icon"
                                                         className="h-8 w-8"
+                                                        aria-label={t("edit")}
                                                         onClick={() => {
                                                             setEditing(entry)
                                                             setEditOpen(true)
@@ -285,6 +309,7 @@ export function EnvironmentSetList() {
                                                         variant="ghost"
                                                         size="icon"
                                                         className="h-8 w-8 text-destructive hover:text-destructive ml-auto"
+                                                        aria-label={t("delete")}
                                                         onClick={() => setDeleteEntry(entry)}
                                                     >
                                                         <Trash2 className="h-3.5 w-3.5" />

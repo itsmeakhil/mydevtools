@@ -2390,7 +2390,9 @@
       "csharp": "C# (System.Text.Json)",
       "dart": "Dart",
       "swift": "Swift (Codable)"
-    }
+    },
+    "detectedFormats": "Detected formats",
+    "download": "Download"
   },
   "SnippetManager": {
     "title": "Code Snippet Manager",
