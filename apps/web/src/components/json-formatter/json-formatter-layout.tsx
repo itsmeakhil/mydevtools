@@ -320,7 +320,7 @@ export function JsonFormatterLayout() {
   }
 
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-3 overflow-hidden dashboard-grid-bg">
+    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
       <div className="dash-ambient -z-10" aria-hidden />
 
       <RevealItem index={0}>
@@ -328,16 +328,14 @@ export function JsonFormatterLayout() {
       </RevealItem>
 
       {isMobile && (
-        <RevealItem index={1}>
-          <ToolMobileTabs
-            value={activePane}
-            onValueChange={setActivePane}
-            tabs={[
-              { value: 'left', label: 'Text' },
-              { value: 'right', label: 'Tree' },
-            ]}
-          />
-        </RevealItem>
+        <ToolMobileTabs
+          value={activePane}
+          onValueChange={setActivePane}
+          tabs={[
+            { value: 'left', label: 'Text' },
+            { value: 'right', label: 'Tree' },
+          ]}
+        />
       )}
 
       {isMobile ? (
