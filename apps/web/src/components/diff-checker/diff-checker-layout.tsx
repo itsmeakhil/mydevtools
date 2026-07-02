@@ -14,6 +14,10 @@ import { cn } from '@/lib/utils';
 import { Trash2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useIsMobile } from '@/components/hooks/use-mobile';
+import { IconGitCompare } from '@tabler/icons-react';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { ToolMobileTabs } from '@/components/tools/tool-mobile-tabs';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
 
 const SAMPLE_A = `function greet(name) {
   console.log("Hello, " + name);
@@ -150,11 +154,11 @@ export function DiffCheckerLayout() {
   );
 
   return (
-    <div className="flex flex-col h-full gap-3 min-h-0">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-      </div>
+    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+      <RevealItem index={0}>
+        <ToolPageHeader icon={IconGitCompare} title={t('title')} description={t('subtitle')} />
+      </RevealItem>
 
       {/* Status + clear row */}
       <div className="flex flex-wrap items-center gap-3 text-xs shrink-0">
@@ -177,21 +181,15 @@ export function DiffCheckerLayout() {
       {isMobile ? (
         /* ── Mobile: 3-tab layout (Original / Modified / Diff) ── */
         <>
-          <div className="flex shrink-0 rounded-lg border bg-muted/40 p-1 gap-1">
-            {(['original', 'modified', 'diff'] as const).map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setMobileTab(tab)}
-                className={`flex-1 rounded-md px-2 py-2 text-sm font-medium capitalize transition-all ${
-                  mobileTab === tab
-                    ? 'bg-background text-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {tab === 'original' ? t('original') : tab === 'modified' ? t('modified') : t('comparisonLabel')}
-              </button>
-            ))}
-          </div>
+          <ToolMobileTabs
+            value={mobileTab}
+            onValueChange={setMobileTab}
+            tabs={[
+              { value: 'original', label: t('original') },
+              { value: 'modified', label: t('modified') },
+              { value: 'diff', label: t('comparisonLabel') },
+            ]}
+          />
 
           <div className="flex-1 min-h-0 flex flex-col">
             {mobileTab === 'original' && (
