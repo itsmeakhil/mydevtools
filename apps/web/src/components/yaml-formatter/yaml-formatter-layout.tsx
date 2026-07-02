@@ -7,6 +7,11 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { useIsMobile } from '@/components/hooks/use-mobile'
+import { IconFileCode } from '@tabler/icons-react'
+import { ToolPageHeader } from '@/components/tools/tool-page-header'
+import { ToolMobileTabs } from '@/components/tools/tool-mobile-tabs'
+import { CopyIconButton } from '@/components/tools/copy-icon-button'
+import { RevealItem } from '@/components/dashboard/dashboard-reveal'
 import {
   Select,
   SelectContent,
@@ -14,7 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { AlertCircle, Check, Copy, Trash2, Wand2 } from 'lucide-react'
+import { AlertCircle, Trash2, Wand2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import CodeEditor from '@/components/ui/code-editor'
 
@@ -92,11 +97,11 @@ export function YamlFormatterLayout() {
   }
 
   return (
-    <div className="flex flex-col h-full gap-4 min-h-0">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-      </div>
+    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+      <RevealItem index={0}>
+        <ToolPageHeader icon={IconFileCode} title={t('title')} description={t('subtitle')} />
+      </RevealItem>
 
       <Card className="p-4 shrink-0">
         <div className="flex flex-wrap items-end gap-3">
@@ -163,28 +168,14 @@ export function YamlFormatterLayout() {
       )}
 
       {isMobile && (
-        <div className="flex shrink-0 rounded-lg border bg-muted/40 p-1 gap-1">
-          <button
-            onClick={() => setMobileTab('input')}
-            className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-all ${
-              mobileTab === 'input'
-                ? 'bg-background text-foreground shadow-sm'
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            {t('inputPanel')}
-          </button>
-          <button
-            onClick={() => setMobileTab('output')}
-            className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-all ${
-              mobileTab === 'output'
-                ? 'bg-background text-foreground shadow-sm'
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            {t('outputPanel')}
-          </button>
-        </div>
+        <ToolMobileTabs
+          value={mobileTab}
+          onValueChange={setMobileTab}
+          tabs={[
+            { value: 'input', label: t('inputPanel') },
+            { value: 'output', label: t('outputPanel') },
+          ]}
+        />
       )}
 
       <div className={`flex-1 ${isMobile ? 'flex flex-col min-h-0' : 'grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-0'}`}>
@@ -211,17 +202,7 @@ export function YamlFormatterLayout() {
               <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 {t('outputPanel')}
               </Label>
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                className="h-7 w-7 shrink-0"
-                disabled={!output}
-                title={t('copy')}
-                onClick={handleCopy}
-              >
-                {copied ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
-              </Button>
+              <CopyIconButton onCopy={handleCopy} copied={copied} disabled={!output} label={t('copy')} />
             </div>
             <div className="flex-1 min-h-0 relative p-1">
               <CodeEditor
