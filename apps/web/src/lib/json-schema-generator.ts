@@ -189,8 +189,11 @@ export function inferSchema(value: unknown): SchemaNode {
 
 function jsonSchemaTypeFragment(node: SchemaNode): Record<string, unknown> {
   switch (node.kind) {
-    case 'scalar':
-      return { type: node.t };
+    case 'scalar': {
+      const frag: Record<string, unknown> = { type: node.t };
+      if (node.t === 'string' && node.format) frag.format = node.format;
+      return frag;
+    }
     case 'array':
       return { type: 'array', items: toJsonSchemaFragment(node.item) };
     case 'object': {

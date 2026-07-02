@@ -1,4 +1,4 @@
-import { detectFormat, inferSchema, mergeNodes } from '../json-schema-generator';
+import { detectFormat, inferSchema, mergeNodes, toJsonSchemaDocument } from '../json-schema-generator';
 
 describe('detectFormat', () => {
   it('detects each format', () => {
@@ -49,5 +49,15 @@ describe('mergeNodes format handling', () => {
   it('array of mixed-format strings infers plain string item', () => {
     const node = inferSchema(['a@b.com', '2026-07-02']);
     expect(node).toEqual({ kind: 'array', item: plainStr });
+  });
+});
+
+describe('JSON Schema format output', () => {
+  it('emits format for detected strings', () => {
+    const doc = toJsonSchemaDocument(
+      inferSchema({ email: 'a@b.com', note: 'hi' })
+    ) as any;
+    expect(doc.properties.email).toEqual({ type: 'string', format: 'email' });
+    expect(doc.properties.note).toEqual({ type: 'string' });
   });
 });
