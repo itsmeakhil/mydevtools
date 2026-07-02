@@ -329,6 +329,13 @@ function csharpSafeProp(jsonKey: string): string {
   return goFieldName(jsonKey);
 }
 
+const PY_FORMAT_TYPES: Partial<Record<StringFormat, { type: string; module: string }>> = {
+  'date-time': { type: 'datetime', module: 'datetime' },
+  date: { type: 'date', module: 'datetime' },
+  time: { type: 'time', module: 'datetime' },
+  uuid: { type: 'UUID', module: 'uuid' },
+};
+
 function scalarToPython(node: SchemaNode): string | null {
   if (node.kind !== 'scalar') return null;
   switch (node.t) {
@@ -369,6 +376,10 @@ function emitPythonType(
   path: string[],
   defs: Map<string, string>
 ): string {
+  if (node.kind === 'scalar' && node.t === 'string' && node.format) {
+    const m = PY_FORMAT_TYPES[node.format];
+    if (m) return m.type;
+  }
   const scalar = scalarToPython(node);
   if (scalar !== null) {
     if (node.kind === 'scalar' && node.t === 'null') return 'None';
@@ -431,8 +442,22 @@ export function generatePython(node: SchemaNode): string {
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([, code]) => code)
     .join('\n\n\n');
-  const header = `from __future__ import annotations
+  // Collect stdlib imports for mapped formats actually present.
+  const formats = collectFormats(node);
+  const byModule = new Map<string, Set<string>>();
+  for (const fmt of formats.keys()) {
+    const m = PY_FORMAT_TYPES[fmt];
+    if (!m) continue;
+    if (!byModule.has(m.module)) byModule.set(m.module, new Set());
+    byModule.get(m.module)!.add(m.type);
+  }
+  const stdlibImports = [...byModule.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([mod, names]) => `from ${mod} import ${[...names].sort().join(', ')}`)
+    .join('\n');
 
+  const header = `from __future__ import annotations
+${stdlibImports ? '\n' + stdlibImports + '\n' : ''}
 from typing import Any
 
 from pydantic import BaseModel, Field

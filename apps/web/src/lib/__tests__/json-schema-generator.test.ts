@@ -1,4 +1,4 @@
-import { collectFormats, detectFormat, inferSchema, mergeNodes, toJsonSchemaDocument } from '../json-schema-generator';
+import { collectFormats, detectFormat, generateFromSchema, inferSchema, mergeNodes, toJsonSchemaDocument } from '../json-schema-generator';
 
 describe('detectFormat', () => {
   it('detects each format', () => {
@@ -75,5 +75,26 @@ describe('collectFormats', () => {
     expect(m.get('email')).toBe(2);
     expect(m.get('date-time')).toBe(1);
     expect(m.has('date')).toBe(false);
+  });
+});
+
+describe('Python format mapping', () => {
+  const node = inferSchema({
+    created: '2026-07-02T00:00:00Z',
+    id: '550e8400-e29b-41d4-a716-446655440000',
+    email: 'a@b.com',
+  });
+  const py = generateFromSchema(node, 'python');
+
+  it('maps date-time and uuid to stdlib types', () => {
+    expect(py).toContain('created: datetime');
+    expect(py).toContain('id: UUID');
+  });
+  it('leaves email as str', () => {
+    expect(py).toContain('email: str');
+  });
+  it('adds the needed imports', () => {
+    expect(py).toContain('from datetime import datetime');
+    expect(py).toContain('from uuid import UUID');
   });
 });
