@@ -19,11 +19,14 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { highlightSchemaOutput } from '@/lib/hljs-json-schema-output';
 import {
+  collectFormats,
   generateFromSchema,
   inferSchema,
   OUTPUT_LANGUAGE_ORDER,
   type OutputLanguage,
+  type StringFormat,
 } from '@/lib/json-schema-generator';
+import { Badge } from '@/components/ui/badge';
 import './json-schema-highlighter.css';
 import { JsonSchemaInputEditor } from './json-schema-input-editor';
 
@@ -46,10 +49,10 @@ export function JsonSchemaGeneratorLayout() {
   const [language, setLanguage] = useState<OutputLanguage>('python');
   const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
 
-  const { output, error } = useMemo(() => {
+  const { output, error, formats } = useMemo(() => {
     const trimmed = input.trim();
     if (!trimmed) {
-      return { output: '', error: null as string | null };
+      return { output: '', error: null as string | null, formats: [] as [StringFormat, number][] };
     }
     try {
       const parsed: unknown = JSON.parse(trimmed);
@@ -57,10 +60,11 @@ export function JsonSchemaGeneratorLayout() {
       return {
         output: generateFromSchema(schema, language),
         error: null as string | null,
+        formats: [...collectFormats(schema).entries()],
       };
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
-      return { output: '', error: msg };
+      return { output: '', error: msg, formats: [] as [StringFormat, number][] };
     }
   }, [input, language]);
 
@@ -176,10 +180,22 @@ export function JsonSchemaGeneratorLayout() {
               error && 'border-destructive/40'
             )}
           >
-            <div className="shrink-0 border-b border-border/50 bg-muted/30 px-4 py-2.5">
+            <div className="shrink-0 border-b border-border/50 bg-muted/30 px-4 py-2.5 flex items-center justify-between gap-2">
               <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t('outputLabel')}
               </Label>
+              {!error && formats.length > 0 && (
+                <div className="flex flex-wrap items-center gap-1">
+                  <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                    {t('detectedFormats')}
+                  </span>
+                  {formats.map(([fmt, count]) => (
+                    <Badge key={fmt} variant="secondary" className="text-[10px] font-mono">
+                      {fmt}{count > 1 ? ` ×${count}` : ''}
+                    </Badge>
+                  ))}
+                </div>
+              )}
             </div>
             <div className="relative min-h-0 flex-1 min-h-[260px]">
               {error ? (
