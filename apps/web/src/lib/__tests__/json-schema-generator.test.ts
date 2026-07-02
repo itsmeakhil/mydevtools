@@ -1,4 +1,4 @@
-import { detectFormat, inferSchema } from '../json-schema-generator';
+import { detectFormat, inferSchema, mergeNodes } from '../json-schema-generator';
 
 describe('detectFormat', () => {
   it('detects each format', () => {
@@ -29,5 +29,25 @@ describe('inferSchema format tagging', () => {
         name: { node: { kind: 'scalar', t: 'string' } },
       },
     });
+  });
+});
+
+describe('mergeNodes format handling', () => {
+  const strEmail = { kind: 'scalar', t: 'string', format: 'email' } as const;
+  const strDate = { kind: 'scalar', t: 'string', format: 'date' } as const;
+  const plainStr = { kind: 'scalar', t: 'string' } as const;
+
+  it('keeps a shared format', () => {
+    expect(mergeNodes(strEmail, { ...strEmail })).toEqual(strEmail);
+  });
+  it('drops format when two strings disagree', () => {
+    expect(mergeNodes(strEmail, strDate)).toEqual(plainStr);
+  });
+  it('drops format when only one side has one', () => {
+    expect(mergeNodes(strEmail, plainStr)).toEqual(plainStr);
+  });
+  it('array of mixed-format strings infers plain string item', () => {
+    const node = inferSchema(['a@b.com', '2026-07-02']);
+    expect(node).toEqual({ kind: 'array', item: plainStr });
   });
 });

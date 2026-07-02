@@ -125,7 +125,12 @@ export function mergeNodes(a: SchemaNode, b: SchemaNode): SchemaNode {
   if (fingerprint(a) === fingerprint(b)) return a;
 
   if (a.kind === 'scalar' && b.kind === 'scalar') {
-    if (a.t === b.t) return a;
+    if (a.t === b.t) {
+      if (a.t === 'string' && a.format !== b.format) {
+        return { kind: 'scalar', t: 'string' };
+      }
+      return a;
+    }
     if (
       (a.t === 'integer' && b.t === 'number') ||
       (a.t === 'number' && b.t === 'integer')
