@@ -604,9 +604,10 @@ export function generateGo(node: SchemaNode): string {
 
   walk(node, []);
 
-  const importBlock = collectFormats(node).has('date-time')
-    ? 'import (\n\t"encoding/json"\n\t"time"\n)'
-    : 'import "encoding/json"';
+  const importBlock =
+    node.kind === 'object' && collectFormats(node).has('date-time')
+      ? 'import (\n\t"encoding/json"\n\t"time"\n)'
+      : 'import "encoding/json"';
 
   if (node.kind !== 'object') {
     return `package main
@@ -940,8 +941,7 @@ export function generateDart(node: SchemaNode): string {
         const itemName = typeNameForPath(itemPath);
         return `(${jsonAccess} as List<dynamic>).map((e) => ${itemName}.fromJson(e as Map<String, dynamic>)).toList()`;
       }
-      const inner = dType(item, itemPath);
-      return `(${jsonAccess} as List<dynamic>).map((e) => e as ${inner}).toList()`;
+      return `(${jsonAccess} as List<dynamic>).map((e) => ${dartParseExpr(item, itemPath, 'e')}).toList()`;
     }
     if (child.kind === 'object') {
       const nm = typeNameForPath(fieldPath);

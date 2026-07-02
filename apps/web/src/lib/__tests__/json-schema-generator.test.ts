@@ -149,3 +149,24 @@ describe('format mapping across languages', () => {
     expect(ts).toMatch(/id: string/);
   });
 });
+
+describe('format mapping in arrays and non-object roots', () => {
+  it('Dart parses date-time inside an array (no raw cast)', () => {
+    const dart = generateFromSchema(inferSchema({ days: ['2026-07-02T00:00:00Z'] }), 'dart');
+    expect(dart).toContain('List<DateTime>');
+    expect(dart).toContain('DateTime.parse(e as String)');
+    expect(dart).not.toContain('e as DateTime');
+  });
+
+  it('Go non-object root with a date-time does not import unused time', () => {
+    const go = generateFromSchema(inferSchema(['2026-07-02T00:00:00Z']), 'go');
+    expect(go).toContain('type Root = json.RawMessage');
+    expect(go).not.toContain('"time"');
+  });
+
+  it('Go object root with a date-time still imports time', () => {
+    const go = generateFromSchema(inferSchema({ created: '2026-07-02T00:00:00Z' }), 'go');
+    expect(go).toContain('"time"');
+    expect(go).toMatch(/Created\s+time\.Time/);
+  });
+});
