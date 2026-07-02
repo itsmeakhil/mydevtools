@@ -1217,6 +1217,43 @@ body {
     border-radius: calc(var(--radius) - 2px);
   }
 
+  /* Public profile page (/[username]) — hero fade-up, avatar float, ring pulse */
+  @keyframes profileFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes subtleFloat {
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
+  @keyframes ringPulse {
+
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 hsl(var(--primary) / 0.15);
+    }
+
+    50% {
+      box-shadow: 0 0 0 8px hsl(var(--primary) / 0);
+    }
+  }
+
   /* Fab pulse animation */
   @keyframes fab-pulse {
 

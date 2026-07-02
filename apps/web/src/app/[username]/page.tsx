@@ -1,7 +1,3 @@
-'use client'
-
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'next/navigation'
 import {
   Link as LinkIcon,
   Globe,
@@ -12,21 +8,38 @@ import {
   Hash,
   AtSign,
   Github,
-  Flame,
-  Calendar,
-  ChartBar,
-  Code2,
-  ArrowUpRight,
   Sparkles,
   Layers,
+  ArrowUpRight,
 } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Link from 'next/link'
-import { useTheme } from 'next-themes'
-import { GitHubCalendar } from 'react-github-calendar'
 import { Logo } from '@/components/logo'
 import { MdtStatusPage } from '@/components/mdt-status-page'
 import { TECH_CATALOG } from '@/components/tech-stack-picker'
+import { GithubStatsSection } from './github-stats-lazy'
+
+function StaggerChild({
+  children,
+  index,
+  className = '',
+}: {
+  children: React.ReactNode
+  index: number
+  className?: string
+}) {
+  return (
+    <div
+      className={`opacity-0 ${className}`}
+      style={{
+        animation: `profileFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards`,
+        animationDelay: `${index * 100}ms`,
+      }}
+    >
+      {children}
+    </div>
+  )
+}
 
 type PublicProfile = {
   username: string
@@ -36,40 +49,6 @@ type PublicProfile = {
   bio?: string | null
   social_links?: Record<string, string> | null
   tech_stacks?: string[] | null
-  experiences?: Array<{
-    id: string
-    company: string
-    role: string
-    startDate: string
-    endDate?: string | null
-    description?: string | null
-    technologies: string[]
-  }> | null
-  projects?: Array<{
-    id: string
-    title: string
-    description: string
-    imageUrl?: string | null
-    githubUrl?: string | null
-    liveUrl?: string | null
-    technologies: string[]
-  }> | null
-  education?: Array<{
-    id: string
-    institution: string
-    degree: string
-    startDate: string
-    endDate?: string | null
-    description?: string | null
-  }> | null
-  portfolio_settings?: {
-    theme?: string | null
-    font?: string | null
-    accentColor?: string | null
-    rssFeedUrl?: string | null
-    showGithubStats?: boolean
-    resumePdfUrl?: string | null
-  } | null
 }
 
 /* ──────────────────────────────────────────────────────────────────────── */
@@ -128,108 +107,34 @@ const SOCIAL_PLATFORMS: Record<
   },
 }
 
-/* ──────────────────────────────────────────────────────────────────────── */
-/*  Animated skeleton loader                                               */
-/* ──────────────────────────────────────────────────────────────────────── */
-function ProfileSkeleton() {
-  return (
-    <div className="min-h-screen bg-background relative overflow-hidden flex flex-col">
-      {/* Ambient bg */}
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[120%] h-[60%] bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.04),transparent_60%)] blur-3xl animate-pulse" />
-      </div>
-
-      {/* Nav skeleton */}
-      <header className="w-full border-b border-border/30 bg-background/60 backdrop-blur-xl h-14" />
-
-      {/* Hero skeleton */}
-      <main className="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
-        <div className="flex flex-col items-center gap-6 animate-pulse">
-          <div className="h-32 w-32 md:h-36 md:w-36 rounded-full bg-muted/60" />
-          <div className="space-y-3 flex flex-col items-center">
-            <div className="h-8 w-56 rounded-lg bg-muted/60" />
-            <div className="h-5 w-32 rounded-md bg-muted/40" />
-          </div>
-          <div className="flex gap-3 mt-2">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-10 w-10 rounded-full bg-muted/40" />
-            ))}
-          </div>
-          <div className="w-full mt-10 grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div className="h-48 rounded-2xl bg-muted/30" />
-            <div className="h-48 rounded-2xl bg-muted/30" />
-          </div>
-        </div>
-      </main>
-    </div>
-  )
-}
-
-/* ──────────────────────────────────────────────────────────────────────── */
-/*  Stagger animation wrapper                                              */
-/* ──────────────────────────────────────────────────────────────────────── */
-function StaggerChild({
-  children,
-  index,
-  className = '',
-}: {
-  children: React.ReactNode
-  index: number
-  className?: string
-}) {
-  return (
-    <div
-      className={`opacity-0 ${className}`}
-      style={{
-        animation: `profileFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards`,
-        animationDelay: `${index * 100}ms`,
-      }}
-    >
-      {children}
-    </div>
-  )
-}
-
-/* ──────────────────────────────────────────────────────────────────────── */
-/*  Main component                                                         */
-/* ──────────────────────────────────────────────────────────────────────── */
-export default function PublicProfilePage() {
-  const { username } = useParams()
-  const { theme } = useTheme()
-  const [profile, setProfile] = useState<PublicProfile | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-    const fetchPublicProfile = async () => {
-      try {
-        const res = await fetch(`/api/backend/users/${username}`)
-        if (res.ok) {
-          const data = (await res.json()) as PublicProfile
-          setProfile(data)
-        } else {
-          setError(true)
-        }
-      } catch {
-        setError(true)
-      } finally {
-        setLoading(false)
-      }
-    }
-    if (username) {
-      fetchPublicProfile()
-    }
-  }, [username])
-
-  /* ── Loading state ── */
-  if (!mounted || loading) {
-    return <ProfileSkeleton />
+async function getPublicProfile(username: string): Promise<PublicProfile | null> {
+  const baseUrl = process.env.NEXT_PUBLIC_FASTAPI_BASE_URL
+  if (!baseUrl) return null
+  try {
+    const res = await fetch(`${baseUrl}/api/v1/users/${encodeURIComponent(username)}`, {
+      cache: 'no-store',
+    })
+    if (!res.ok) return null
+    return (await res.json()) as PublicProfile
+  } catch {
+    return null
   }
+}
 
-  /* ── Error / 404 state ── */
-  if (error || !profile) {
+/* ──────────────────────────────────────────────────────────────────────── */
+/*  Main component — server-rendered so profile data ships in the initial  */
+/*  HTML instead of a client fetch-after-mount waterfall (was the LCP      */
+/*  bottleneck: full-page skeleton until /api/backend/users/* resolved).   */
+/* ──────────────────────────────────────────────────────────────────────── */
+export default async function PublicProfilePage({
+  params,
+}: {
+  params: Promise<{ username: string }>
+}) {
+  const { username } = await params
+  const profile = await getPublicProfile(username)
+
+  if (!profile) {
     return (
       <MdtStatusPage
         code="404"
@@ -259,7 +164,6 @@ export default function PublicProfilePage() {
     )
   }
 
-  const isDark = theme === 'dark'
   const hasSocials =
     profile.social_links &&
     Object.values(profile.social_links).some((val) => typeof val === 'string' && val.trim() !== '')
@@ -269,51 +173,10 @@ export default function PublicProfilePage() {
 
   return (
     <div className="min-h-screen bg-background relative isolate flex flex-col">
-      {/* ── Keyframes injected via style tag ── */}
-      <style jsx global>{`
-        @keyframes profileFadeUp {
-          from {
-            opacity: 0;
-            transform: translateY(16px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes meshGradient {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        @keyframes subtleFloat {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-6px); }
-        }
-        @keyframes ringPulse {
-          0%, 100% { box-shadow: 0 0 0 0 hsl(var(--primary) / 0.15); }
-          50% { box-shadow: 0 0 0 8px hsl(var(--primary) / 0); }
-        }
-      `}</style>
-
-      {/* ── Decorative ambient gradients ── */}
+      {/* ── Decorative ambient gradients (CSS dark: variants, no JS theme needed) ── */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div
-          className="absolute -top-[30%] left-1/2 -translate-x-1/2 w-[160%] h-[80%] blur-3xl opacity-60"
-          style={{
-            background: isDark
-              ? 'radial-gradient(ellipse at center, hsl(var(--primary) / 0.06), transparent 55%)'
-              : 'radial-gradient(ellipse at center, hsl(var(--primary) / 0.08), transparent 55%)',
-          }}
-        />
-        <div
-          className="absolute -bottom-[20%] -right-[20%] w-[70%] h-[50%] blur-3xl opacity-40"
-          style={{
-            background: isDark
-              ? 'radial-gradient(ellipse at center, hsl(160 60% 40% / 0.04), transparent 50%)'
-              : 'radial-gradient(ellipse at center, hsl(160 60% 40% / 0.06), transparent 50%)',
-          }}
-        />
-        {/* Dot grid texture */}
+        <div className="absolute -top-[30%] left-1/2 -translate-x-1/2 w-[160%] h-[80%] blur-3xl opacity-60 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.08),transparent_55%)] dark:bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.06),transparent_55%)]" />
+        <div className="absolute -bottom-[20%] -right-[20%] w-[70%] h-[50%] blur-3xl opacity-40 bg-[radial-gradient(ellipse_at_center,hsl(160_60%_40%/0.06),transparent_50%)] dark:bg-[radial-gradient(ellipse_at_center,hsl(160_60%_40%/0.04),transparent_50%)]" />
         <div
           className="absolute inset-0 opacity-[0.015] dark:opacity-[0.03]"
           style={{
@@ -345,23 +208,17 @@ export default function PublicProfilePage() {
         <section className="flex flex-col items-center text-center">
           {/* Avatar */}
           <StaggerChild index={0}>
-            <div
-              className="relative"
-              style={{ animation: 'subtleFloat 6s ease-in-out infinite' }}
-            >
+            <div className="relative" style={{ animation: 'subtleFloat 6s ease-in-out infinite' }}>
               <div className="relative">
-                <Avatar className="h-28 w-28 md:h-36 md:w-36 border-[3px] border-background shadow-2xl ring-[3px] ring-primary/10"
+                <Avatar
+                  className="h-28 w-28 md:h-36 md:w-36 border-[3px] border-background shadow-2xl ring-[3px] ring-primary/10"
                   style={{ animation: 'ringPulse 3s ease-in-out infinite' }}
                 >
-                  <AvatarImage
-                    src={profile.photo_url || undefined}
-                    alt={displayName}
-                  />
+                  <AvatarImage src={profile.photo_url || undefined} alt={displayName} />
                   <AvatarFallback className="text-3xl md:text-4xl font-bold bg-gradient-to-br from-primary/10 to-primary/5 text-primary">
                     {initials}
                   </AvatarFallback>
                 </Avatar>
-                {/* Online indicator */}
                 <span className="absolute bottom-1.5 right-1.5 w-4 h-4 bg-emerald-500 rounded-full border-[2.5px] border-background shadow-sm shadow-emerald-500/30" />
               </div>
             </div>
@@ -466,103 +323,11 @@ export default function PublicProfilePage() {
           </section>
         )}
 
-        {/* ── GitHub Stats Bento Grid ── */}
+        {/* ── GitHub Stats (client-only, lazy: needs theme + fetches its own contribution data) ── */}
         {hasGithub && (
-          <section className="w-full mt-14 space-y-5">
-            <StaggerChild index={4}>
-              <div className="flex items-center gap-2.5 mb-1">
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10">
-                  <Github className="h-4 w-4 text-primary" />
-                </div>
-                <div>
-                  <h2 className="text-lg font-semibold tracking-tight text-foreground">
-                    GitHub Activity
-                  </h2>
-                  <p className="text-xs text-muted-foreground">
-                    Contributions, streaks, and language stats
-                  </p>
-                </div>
-              </div>
-            </StaggerChild>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Contribution Calendar — full width */}
-              <StaggerChild index={5} className="md:col-span-2">
-                <div className="rounded-2xl border border-border/40 bg-card/30 backdrop-blur-md p-5 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Calendar className="h-4 w-4 text-emerald-500" />
-                    <span className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
-                      Contribution Graph
-                    </span>
-                  </div>
-                  <div className="w-full flex justify-center overflow-x-auto custom-scrollbar pb-1">
-                    <GitHubCalendar
-                      username={profile.github_username!}
-                      colorScheme={isDark ? 'dark' : 'light'}
-                      blockSize={12}
-                      blockMargin={3}
-                      fontSize={11}
-                      style={{ fontFamily: 'inherit' }}
-                    />
-                  </div>
-                </div>
-              </StaggerChild>
-
-              {/* Streak Stats */}
-              <StaggerChild index={6}>
-                <div className="rounded-2xl border border-border/40 bg-card/30 backdrop-blur-md p-5 shadow-sm hover:shadow-md transition-shadow h-full">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Flame className="h-4 w-4 text-orange-500" />
-                    <span className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
-                      Streak
-                    </span>
-                  </div>
-                  <img
-                    src={`https://github-readme-streak-stats.herokuapp.com/?user=${profile.github_username}&theme=${isDark ? 'transparent&ring=40c463&fire=40c463&currStreakLabel=40c463&stroke=ffffff20&text=ccc&sideNums=ccc&sideLabels=ccc' : 'transparent&ring=40c463&fire=40c463&currStreakLabel=40c463&stroke=00000020&text=333&sideNums=333&sideLabels=333'}&hide_border=true&background=00000000`}
-                    alt={`${profile.github_username}'s GitHub Streak`}
-                    className="w-full h-auto object-contain pointer-events-none"
-                    loading="lazy"
-                  />
-                </div>
-              </StaggerChild>
-
-              {/* Overview Stats */}
-              <StaggerChild index={7}>
-                <div className="rounded-2xl border border-border/40 bg-card/30 backdrop-blur-md p-5 shadow-sm hover:shadow-md transition-shadow h-full">
-                  <div className="flex items-center gap-2 mb-4">
-                    <ChartBar className="h-4 w-4 text-blue-500" />
-                    <span className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
-                      Overview
-                    </span>
-                  </div>
-                  <img
-                    src={`https://github-readme-stats.vercel.app/api?username=${profile.github_username}&show_icons=true&theme=${isDark ? 'transparent&text_color=ccc&icon_color=40c463&title_color=fff' : 'transparent&text_color=333&icon_color=40c463&title_color=000'}&hide_border=true&bg_color=00000000&rank_icon=github`}
-                    alt="GitHub Stats"
-                    className="w-full h-auto object-contain pointer-events-none"
-                    loading="lazy"
-                  />
-                </div>
-              </StaggerChild>
-
-              {/* Top Languages */}
-              <StaggerChild index={8} className="md:col-span-2">
-                <div className="rounded-2xl border border-border/40 bg-card/30 backdrop-blur-md p-5 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Code2 className="h-4 w-4 text-indigo-500" />
-                    <span className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
-                      Top Languages
-                    </span>
-                  </div>
-                  <img
-                    src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${profile.github_username}&layout=compact&theme=${isDark ? 'transparent&text_color=ccc&title_color=fff' : 'transparent&text_color=333&title_color=000'}&hide_border=true&bg_color=00000000&langs_count=10`}
-                    alt="Top Languages"
-                    className="w-full h-auto object-contain pointer-events-none max-w-xl"
-                    loading="lazy"
-                  />
-                </div>
-              </StaggerChild>
-            </div>
-          </section>
+          <StaggerChild index={4}>
+            <GithubStatsSection githubUsername={profile.github_username!} />
+          </StaggerChild>
         )}
       </main>
 
@@ -570,11 +335,7 @@ export default function PublicProfilePage() {
       <footer className="w-full border-t border-border/30 bg-background/60 backdrop-blur-xl mt-auto">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <Logo
-              size={20}
-              showText
-              className="opacity-50 group-hover:opacity-100 transition-opacity"
-            />
+            <Logo size={20} showText className="opacity-50 group-hover:opacity-100 transition-opacity" />
           </Link>
           <p className="text-xs text-muted-foreground/50 text-center">
             Create your own developer profile at{' '}
