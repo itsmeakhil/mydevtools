@@ -98,3 +98,54 @@ describe('Python format mapping', () => {
     expect(py).toContain('from uuid import UUID');
   });
 });
+
+describe('format mapping across languages', () => {
+  const node = inferSchema({
+    created: '2026-07-02T00:00:00Z',
+    day: '2026-07-02',
+    id: '550e8400-e29b-41d4-a716-446655440000',
+    email: 'a@b.com',
+  });
+
+  it('Go maps date-time to time.Time and imports time', () => {
+    const go = generateFromSchema(node, 'go');
+    expect(go).toMatch(/Created\s+time\.Time/);
+    expect(go).toContain('"time"');
+    expect(go).toMatch(/Email\s+string/);
+  });
+
+  it('Java maps to java.time and UUID', () => {
+    const java = generateFromSchema(node, 'java');
+    expect(java).toContain('OffsetDateTime');
+    expect(java).toContain('LocalDate');
+    expect(java).toContain('UUID');
+    expect(java).toContain('import java.time.*;');
+  });
+
+  it('C# maps to BCL date/guid types', () => {
+    const cs = generateFromSchema(node, 'csharp');
+    expect(cs).toContain('DateTimeOffset');
+    expect(cs).toContain('DateOnly');
+    expect(cs).toContain('Guid');
+    expect(cs).toContain('using System;');
+  });
+
+  it('Dart maps date-time to DateTime and parses it', () => {
+    const dart = generateFromSchema(node, 'dart');
+    expect(dart).toContain('DateTime created');
+    expect(dart).toContain('DateTime.parse(');
+  });
+
+  it('Swift maps date-time to Date and uuid to UUID', () => {
+    const sw = generateFromSchema(node, 'swift');
+    expect(sw).toContain('created: Date');
+    expect(sw).toContain('id: UUID');
+    expect(sw).toContain('.iso8601');
+  });
+
+  it('TypeScript leaves formats as string', () => {
+    const ts = generateFromSchema(node, 'typescript');
+    expect(ts).toMatch(/created: string/);
+    expect(ts).toMatch(/id: string/);
+  });
+});
