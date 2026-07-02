@@ -29,16 +29,43 @@ export const OUTPUT_LANGUAGE_ORDER: readonly OutputLanguage[] = [
 
 type ScalarJson = 'string' | 'number' | 'integer' | 'boolean' | 'null';
 
+export type StringFormat =
+  | 'date-time'
+  | 'date'
+  | 'time'
+  | 'email'
+  | 'uri'
+  | 'uuid'
+  | 'ipv4';
+
 export type SchemaNode =
-  | { kind: 'scalar'; t: ScalarJson }
+  | { kind: 'scalar'; t: ScalarJson; format?: StringFormat }
   | { kind: 'array'; item: SchemaNode }
   | { kind: 'object'; fields: Record<string, { node: SchemaNode; optional: boolean }> }
   | { kind: 'union'; variants: SchemaNode[] };
 
+// Anchored, specific -> general. First match wins.
+const FORMAT_PATTERNS: ReadonlyArray<readonly [StringFormat, RegExp]> = [
+  ['uuid', /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/],
+  ['date-time', /^\d{4}-\d{2}-\d{2}[Tt]\d{2}:\d{2}:\d{2}(\.\d+)?([Zz]|[+-]\d{2}:\d{2})$/],
+  ['date', /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/],
+  ['time', /^([01]\d|2[0-3]):[0-5]\d:[0-5]\d(\.\d+)?$/],
+  ['email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/],
+  ['ipv4', /^(25[0-5]|2[0-4]\d|1?\d?\d)(\.(25[0-5]|2[0-4]\d|1?\d?\d)){3}$/],
+  ['uri', /^[a-zA-Z][a-zA-Z0-9+.-]*:\/\/[^\s]+$/],
+];
+
+export function detectFormat(value: string): StringFormat | undefined {
+  for (const [fmt, re] of FORMAT_PATTERNS) {
+    if (re.test(value)) return fmt;
+  }
+  return undefined;
+}
+
 function fingerprint(n: SchemaNode): string {
   switch (n.kind) {
     case 'scalar':
-      return `s:${n.t}`;
+      return `s:${n.t}${n.format ? ':' + n.format : ''}`;
     case 'array':
       return `a:${fingerprint(n.item)}`;
     case 'object': {
@@ -132,7 +159,12 @@ export function inferSchema(value: unknown): SchemaNode {
     return { kind: 'array', item: acc };
   }
   const ty = typeof value;
-  if (ty === 'string') return { kind: 'scalar', t: 'string' };
+  if (ty === 'string') {
+    const format = detectFormat(value as string);
+    return format
+      ? { kind: 'scalar', t: 'string', format }
+      : { kind: 'scalar', t: 'string' };
+  }
   if (ty === 'boolean') return { kind: 'scalar', t: 'boolean' };
   if (ty === 'number') {
     const n = value as number;
