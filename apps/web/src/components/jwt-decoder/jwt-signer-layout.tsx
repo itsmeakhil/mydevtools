@@ -50,6 +50,15 @@ export function JwtSignerLayout() {
     return 'rs';
   }, [alg]);
 
+  // signJwt forces header.alg = alg on sign regardless of what's typed here, so keep the
+  // editor's displayed value honest with what will actually be signed.
+  const handleAlgChange = useCallback((v: JwtAlg) => {
+    setAlg(v);
+    setHeaderText((prev) =>
+      /"alg"\s*:\s*"[^"]*"/.test(prev) ? prev.replace(/"alg"\s*:\s*"[^"]*"/, `"alg": "${v}"`) : prev
+    );
+  }, []);
+
   const runSign = useCallback(async () => {
     setSignErrorKey(null);
     setVerifyErrorKey(null);
@@ -120,7 +129,7 @@ export function JwtSignerLayout() {
             <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
               {t('signer.algLabel')}
             </Label>
-            <Select value={alg} onValueChange={(v) => setAlg(v as JwtAlg)}>
+            <Select value={alg} onValueChange={(v) => handleAlgChange(v as JwtAlg)}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>

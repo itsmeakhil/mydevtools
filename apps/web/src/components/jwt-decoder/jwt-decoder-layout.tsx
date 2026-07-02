@@ -23,6 +23,7 @@ function CopyBtn({ text, title }: { text: string; title: string }) {
       size="icon"
       className="h-7 w-7 shrink-0"
       title={title}
+      aria-label={title}
       onClick={() => copyToClipboard(text, { silent: true, resetMs: 1600 })}
     >
       {done ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
