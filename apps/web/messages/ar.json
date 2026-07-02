@@ -2216,7 +2216,12 @@
       "i": "i تجاهل حالة الأحرف",
       "m": "m متعدد الأسطر",
       "s": "s dotAll",
-      "u": "u يونيكود"
+      "u": "u يونيكود",
+      "gTitle": "Find all matches, not just the first",
+      "iTitle": "Match regardless of letter case",
+      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
+      "sTitle": "Dot (.) also matches newline characters",
+      "uTitle": "Treat the pattern as a sequence of Unicode code points"
     },
     "emptyPattern": "(فارغ)",
     "noFlags": "—",
@@ -2229,6 +2234,11 @@
       "tooLong": "النص محدود إلى {max} حرفًا.",
       "invalid": "تعبير نمطي غير صالح.",
       "runaway": "تم الإيقاف بعد {max} تطابقًا (قد يكون النمط جامحًا)."
+    },
+    "matchNav": {
+      "prev": "Previous match",
+      "next": "Next match",
+      "position": "{current} / {total}"
     }
   },
   "TimestampConverter": {

@@ -2216,7 +2216,12 @@
       "i": "i 忽略大小写",
       "m": "m 多行",
       "s": "s dotAll",
-      "u": "u Unicode"
+      "u": "u Unicode",
+      "gTitle": "Find all matches, not just the first",
+      "iTitle": "Match regardless of letter case",
+      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
+      "sTitle": "Dot (.) also matches newline characters",
+      "uTitle": "Treat the pattern as a sequence of Unicode code points"
     },
     "emptyPattern": "(空)",
     "noFlags": "—",
@@ -2229,6 +2234,11 @@
       "tooLong": "文本限制为 {max} 个字符。",
       "invalid": "正则表达式无效。",
       "runaway": "在 {max} 次匹配后停止（可能存在失控的模式）。"
+    },
+    "matchNav": {
+      "prev": "Previous match",
+      "next": "Next match",
+      "position": "{current} / {total}"
     }
   },
   "TimestampConverter": {

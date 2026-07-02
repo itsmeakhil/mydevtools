@@ -2216,7 +2216,12 @@
       "i": "i 대소문자 무시",
       "m": "m 멀티라인",
       "s": "s dotAll",
-      "u": "u 유니코드"
+      "u": "u 유니코드",
+      "gTitle": "Find all matches, not just the first",
+      "iTitle": "Match regardless of letter case",
+      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
+      "sTitle": "Dot (.) also matches newline characters",
+      "uTitle": "Treat the pattern as a sequence of Unicode code points"
     },
     "emptyPattern": "(비어 있음)",
     "noFlags": "—",
@@ -2229,6 +2234,11 @@
       "tooLong": "텍스트는 최대 {max}자까지입니다.",
       "invalid": "잘못된 정규식입니다.",
       "runaway": "{max}개 일치 후 중지됨(패턴 폭주 가능성)."
+    },
+    "matchNav": {
+      "prev": "Previous match",
+      "next": "Next match",
+      "position": "{current} / {total}"
     }
   },
   "TimestampConverter": {

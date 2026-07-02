@@ -2216,7 +2216,12 @@
       "i": "i 大文字小文字を無視",
       "m": "m 複数行",
       "s": "s dotAll",
-      "u": "u Unicode"
+      "u": "u Unicode",
+      "gTitle": "Find all matches, not just the first",
+      "iTitle": "Match regardless of letter case",
+      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
+      "sTitle": "Dot (.) also matches newline characters",
+      "uTitle": "Treat the pattern as a sequence of Unicode code points"
     },
     "emptyPattern": "(空)",
     "noFlags": "—",
@@ -2229,6 +2234,11 @@
       "tooLong": "テキストは {max} 文字までです。",
       "invalid": "正規表現が無効です。",
       "runaway": "{max} 件で停止しました（暴走している可能性があります）。"
+    },
+    "matchNav": {
+      "prev": "Previous match",
+      "next": "Next match",
+      "position": "{current} / {total}"
     }
   },
   "TimestampConverter": {

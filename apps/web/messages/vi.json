@@ -2216,7 +2216,12 @@
       "i": "i không phân biệt hoa/thường",
       "m": "m nhiều dòng",
       "s": "s dotAll",
-      "u": "u unicode"
+      "u": "u unicode",
+      "gTitle": "Find all matches, not just the first",
+      "iTitle": "Match regardless of letter case",
+      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
+      "sTitle": "Dot (.) also matches newline characters",
+      "uTitle": "Treat the pattern as a sequence of Unicode code points"
     },
     "emptyPattern": "(trống)",
     "noFlags": "—",
@@ -2229,6 +2234,11 @@
       "tooLong": "Văn bản bị giới hạn {max} ký tự.",
       "invalid": "Biểu thức chính quy không hợp lệ.",
       "runaway": "Dừng sau {max} lần khớp (có thể mẫu bị runaway)."
+    },
+    "matchNav": {
+      "prev": "Previous match",
+      "next": "Next match",
+      "position": "{current} / {total}"
     }
   },
   "TimestampConverter": {

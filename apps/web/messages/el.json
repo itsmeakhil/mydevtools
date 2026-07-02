@@ -2216,7 +2216,12 @@
       "i": "i χωρίς διάκριση πεζών/κεφαλαίων",
       "m": "m πολυγραμμικό",
       "s": "s dotAll",
-      "u": "u unicode"
+      "u": "u unicode",
+      "gTitle": "Find all matches, not just the first",
+      "iTitle": "Match regardless of letter case",
+      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
+      "sTitle": "Dot (.) also matches newline characters",
+      "uTitle": "Treat the pattern as a sequence of Unicode code points"
     },
     "emptyPattern": "(κενό)",
     "noFlags": "—",
@@ -2229,6 +2234,11 @@
       "tooLong": "Το κείμενο περιορίζεται σε {max} χαρακτήρες.",
       "invalid": "Μη έγκυρη κανονική έκφραση.",
       "runaway": "Σταμάτησε μετά από {max} αντιστοιχίσεις (πιθανό runaway μοτίβο)."
+    },
+    "matchNav": {
+      "prev": "Previous match",
+      "next": "Next match",
+      "position": "{current} / {total}"
     }
   },
   "TimestampConverter": {

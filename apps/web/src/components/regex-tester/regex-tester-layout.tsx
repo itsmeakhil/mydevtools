@@ -1,11 +1,17 @@
 'use client';
 
-import { useMemo, useState, type ReactNode } from 'react';
+import { useMemo, useRef, useState, type ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import {
   buildFlagString,
   findMatchRanges,
@@ -13,7 +19,7 @@ import {
   MAX_TEST_TEXT_LENGTH,
 } from '@/lib/regex-tester';
 import { cn } from '@/lib/utils';
-import { AlertCircle, Trash2 } from 'lucide-react';
+import { AlertCircle, ChevronLeft, ChevronRight, Trash2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 function HighlightedText({
@@ -61,6 +67,8 @@ export function RegexTesterLayout() {
   );
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [activeMatch, setActiveMatch] = useState(0);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const [global, setGlobal] = useState(true);
   const [ignoreCase, setIgnoreCase] = useState(false);
@@ -91,6 +99,28 @@ export function RegexTesterLayout() {
   }, [result]);
 
   const overLimit = testText.length > MAX_TEST_TEXT_LENGTH;
+  const totalMatches = result.ok ? result.ranges.length : 0;
+  const clampedActiveMatch = totalMatches > 0 ? Math.min(activeMatch, totalMatches - 1) : 0;
+
+  // Reset match navigation when the search changes — React's "adjust state during render" pattern, not an effect.
+  const resetKey = `${pattern}\u0000${flagString}\u0000${testText}`;
+  const [prevResetKey, setPrevResetKey] = useState(resetKey);
+  if (prevResetKey !== resetKey) {
+    setPrevResetKey(resetKey);
+    if (activeMatch !== 0) setActiveMatch(0);
+  }
+
+  const goToMatch = (index: number) => {
+    if (!result.ok || totalMatches === 0) return;
+    const next = (index + totalMatches) % totalMatches;
+    setActiveMatch(next);
+    const range = result.ranges[next]!;
+    const el = textareaRef.current;
+    if (el) {
+      el.focus();
+      el.setSelectionRange(range.start, range.end);
+    }
+  };
 
   return (
     <div className="flex flex-col h-full gap-4 min-h-0">
@@ -114,13 +144,15 @@ export function RegexTesterLayout() {
           />
         </div>
 
-        <div className="flex flex-wrap gap-x-4 gap-y-2">
-          <FlagBox id="flg-g" checked={global} onCheckedChange={setGlobal} label={t('flags.g')} />
-          <FlagBox id="flg-i" checked={ignoreCase} onCheckedChange={setIgnoreCase} label={t('flags.i')} />
-          <FlagBox id="flg-m" checked={multiline} onCheckedChange={setMultiline} label={t('flags.m')} />
-          <FlagBox id="flg-s" checked={dotAll} onCheckedChange={setDotAll} label={t('flags.s')} />
-          <FlagBox id="flg-u" checked={unicode} onCheckedChange={setUnicode} label={t('flags.u')} />
-        </div>
+        <TooltipProvider>
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            <FlagBox id="flg-g" checked={global} onCheckedChange={setGlobal} label={t('flags.g')} title={t('flags.gTitle')} />
+            <FlagBox id="flg-i" checked={ignoreCase} onCheckedChange={setIgnoreCase} label={t('flags.i')} title={t('flags.iTitle')} />
+            <FlagBox id="flg-m" checked={multiline} onCheckedChange={setMultiline} label={t('flags.m')} title={t('flags.mTitle')} />
+            <FlagBox id="flg-s" checked={dotAll} onCheckedChange={setDotAll} label={t('flags.s')} title={t('flags.sTitle')} />
+            <FlagBox id="flg-u" checked={unicode} onCheckedChange={setUnicode} label={t('flags.u')} title={t('flags.uTitle')} />
+          </div>
+        </TooltipProvider>
 
         <p className="text-[11px] text-muted-foreground font-mono">
           /{pattern || t('emptyPattern')}/{flagString || t('noFlags')}
@@ -141,10 +173,39 @@ export function RegexTesterLayout() {
         )}
 
         {result.ok && (
-          <p className="text-xs text-muted-foreground">
-            <span className="font-medium text-foreground tabular-nums">{result.matchCount}</span>{' '}
-            {t('matches', { count: result.matchCount })}
-          </p>
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-xs text-muted-foreground">
+              <span className="font-medium text-foreground tabular-nums">{result.matchCount}</span>{' '}
+              {t('matches', { count: result.matchCount })}
+            </p>
+            {totalMatches > 1 && (
+              <div className="flex items-center gap-1">
+                <span className="text-xs text-muted-foreground tabular-nums">
+                  {t('matchNav.position', { current: clampedActiveMatch + 1, total: totalMatches })}
+                </span>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="h-6 w-6"
+                  aria-label={t('matchNav.prev')}
+                  onClick={() => goToMatch(clampedActiveMatch - 1)}
+                >
+                  <ChevronLeft className="h-3.5 w-3.5" />
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="h-6 w-6"
+                  aria-label={t('matchNav.next')}
+                  onClick={() => goToMatch(clampedActiveMatch + 1)}
+                >
+                  <ChevronRight className="h-3.5 w-3.5" />
+                </Button>
+              </div>
+            )}
+          </div>
         )}
       </Card>
 
@@ -178,7 +239,7 @@ export function RegexTesterLayout() {
           </div>
         </div>
 
-        <div className="relative flex-1 min-h-[220px] font-mono text-sm leading-6">
+        <div className="relative flex-1 min-h-[140px] sm:min-h-[220px] font-mono text-sm leading-6">
           <div
             className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-b-lg"
             aria-hidden
@@ -194,6 +255,7 @@ export function RegexTesterLayout() {
           </div>
           <textarea
             id="regex-text"
+            ref={textareaRef}
             value={testText}
             onChange={(e) => setTestText(e.target.value)}
             onScroll={(e) => {
@@ -201,7 +263,7 @@ export function RegexTesterLayout() {
               setScrollLeft(e.currentTarget.scrollLeft);
             }}
             spellCheck={false}
-            className="relative z-10 box-border h-full min-h-[220px] w-full resize-none bg-transparent p-3 text-transparent caret-foreground selection:bg-primary/25 focus:outline-none leading-6"
+            className="relative z-10 box-border h-full min-h-[140px] sm:min-h-[220px] w-full resize-none bg-transparent p-3 text-transparent caret-foreground selection:bg-primary/25 focus:outline-none leading-6"
           />
         </div>
       </Card>
@@ -214,22 +276,29 @@ function FlagBox({
   checked,
   onCheckedChange,
   label,
+  title,
 }: {
   id: string;
   checked: boolean;
   onCheckedChange: (next: boolean) => void;
   label: string;
+  title: string;
 }) {
   return (
-    <div className="flex items-center gap-2">
-      <Checkbox
-        id={id}
-        checked={checked}
-        onCheckedChange={(v) => onCheckedChange(v === true)}
-      />
-      <Label htmlFor={id} className="text-xs font-normal cursor-pointer">
-        {label}
-      </Label>
-    </div>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div className="flex items-center gap-2">
+          <Checkbox
+            id={id}
+            checked={checked}
+            onCheckedChange={(v) => onCheckedChange(v === true)}
+          />
+          <Label htmlFor={id} className="text-xs font-normal cursor-pointer">
+            {label}
+          </Label>
+        </div>
+      </TooltipTrigger>
+      <TooltipContent>{title}</TooltipContent>
+    </Tooltip>
   );
 }
