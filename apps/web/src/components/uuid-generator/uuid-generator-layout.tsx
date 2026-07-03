@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Download, RefreshCw, Minus, Plus } from 'lucide-react';
+import { Download, RefreshCw, Minus, Plus, Braces, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
   generateIds,
@@ -23,6 +23,8 @@ import {
   type IdKind,
   type NamespacePreset,
 } from '@/lib/generate-ids';
+import { Toggle } from '@/components/ui/toggle';
+import { formatUuid, idsAsJsonArray } from '@/lib/format-ids';
 import { useTranslations } from 'next-intl';
 import { useAutoCopyStore } from '@/store/auto-copy-store';
 import { IconFingerprint } from '@tabler/icons-react';
@@ -40,6 +42,7 @@ const KIND_OPTIONS: { value: IdKind; label: string }[] = [
   { value: 'uuid6', label: 'UUID v6' },
   { value: 'uuid3', label: 'UUID v3' },
   { value: 'uuid5', label: 'UUID v5' },
+  { value: 'nil', label: 'Nil UUID' },
 ];
 
 const QUICK_COUNTS = [1, 5, 10, 25, 50];
@@ -55,6 +58,9 @@ export function UuidGeneratorLayout() {
   const [outputLines, setOutputLines] = useState<string[]>([]);
   const [error, setError] = useState('');
   const { isCopied: copied, copyToClipboard: copyAllFn, reset: resetCopied } = useCopyToClipboard();
+  const [uppercase, setUppercase] = useState(false);
+  const [hyphens, setHyphens] = useState(true);
+  const { isCopied: copiedJson, copyToClipboard: copyJsonFn } = useCopyToClipboard();
   const autoCopy = useAutoCopyStore((state) => state.autoCopy);
 
   const needsName = kind === 'uuid3' || kind === 'uuid5';
@@ -84,12 +90,21 @@ export function UuidGeneratorLayout() {
     }
   }, [kind, count, name, namespacePreset, customNamespace, t, resetCopied]);
 
-  const output = outputLines.join('\n');
+  const displayLines = useMemo(
+    () => outputLines.map((id) => formatUuid(id, { uppercase, hyphens })),
+    [outputLines, uppercase, hyphens]
+  );
+  const output = displayLines.join('\n');
 
   const handleCopyAll = useCallback(() => {
     if (!output) return;
     void copyAllFn(output, { silent: true });
   }, [output, copyAllFn]);
+
+  const handleCopyJson = useCallback(() => {
+    if (displayLines.length === 0) return;
+    void copyJsonFn(idsAsJsonArray(displayLines), { silent: true });
+  }, [displayLines, copyJsonFn]);
 
   useEffect(() => {
     if (autoCopy && output) {
@@ -292,6 +307,27 @@ export function UuidGeneratorLayout() {
               <span className="text-[10px] text-muted-foreground tabular-nums mr-1">
                 {t('lines', { count: outputLines.length > 0 ? outputLines.length.toLocaleString() : '0' })}
               </span>
+              <Toggle
+                size="sm"
+                pressed={uppercase}
+                onPressedChange={setUppercase}
+                aria-label={t('uppercaseToggle')}
+                title={t('uppercaseToggle')}
+                className="h-7 px-2 font-mono text-[11px]"
+              >
+                AA
+              </Toggle>
+              <Toggle
+                size="sm"
+                pressed={hyphens}
+                onPressedChange={setHyphens}
+                aria-label={t('hyphensToggle')}
+                title={t('hyphensToggle')}
+                className="h-7 px-2 font-mono text-[11px]"
+                disabled={kind === 'ulid'}
+              >
+                -
+              </Toggle>
               <Button
                 type="button"
                 variant="ghost"
@@ -310,14 +346,26 @@ export function UuidGeneratorLayout() {
                 disabled={!output}
                 label={t('copyTitle')}
               />
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7"
+                onClick={handleCopyJson}
+                disabled={displayLines.length === 0}
+                title={t('copyJsonTitle')}
+                aria-label={t('copyJsonTitle')}
+              >
+                {copiedJson ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Braces className="h-3.5 w-3.5" />}
+              </Button>
             </div>
           </div>
           <div className="flex-1 min-h-0 overflow-y-auto">
             {error ? (
               <ToolErrorBanner message={error} className="m-4" />
-            ) : outputLines.length > 0 ? (
+            ) : displayLines.length > 0 ? (
               <div>
-                {outputLines.map((id, i) => (
+                {displayLines.map((id, i) => (
                   <IdRow key={i} id={id} index={i} />
                 ))}
               </div>

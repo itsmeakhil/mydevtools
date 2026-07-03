@@ -2490,7 +2490,8 @@
       "uuid1": "基于 MAC/时间（RFC 9562）",
       "uuid6": "重新排序的格里历时间",
       "uuid3": "名称 + 命名空间的 MD5 哈希",
-      "uuid5": "名称 + 命名空间的 SHA‑1 哈希"
+      "uuid5": "名称 + 命名空间的 SHA‑1 哈希",
+      "nil": "空 UUID(全为零,RFC 9562)"
     },
     "countLabel": "数量（1–{max}）",
     "nameLabel": "名称（输入字符串）",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "复制全部",
+    "uppercaseToggle": "大写输出",
+    "hyphensToggle": "显示连字符",
+    "copyJsonTitle": "复制为 JSON 数组",
     "outputPlaceholder": "点击“生成”…",
     "errors": {
       "invalidCustomNamespace": "自定义命名空间必须是有效的 UUID。",
@@ -2543,6 +2547,15 @@
     },
     "copyTitle": "复制全部",
     "outputPlaceholder": "点击「生成」…",
+    "entropy": "{bits} 位熵",
+    "strength": {
+      "weak": "弱",
+      "fair": "一般",
+      "strong": "强"
+    },
+    "excludeAmbiguous": "排除易混淆字符",
+    "excludeAmbiguousHint": "移除 {chars} —— 容易误读或对 shell 不友好的字符。",
+    "prefixLabel": "密钥前缀（可选）",
     "errors": {
       "emptyAlphabet": "请至少向字符集中添加一个字符。",
       "alphabetTooLong": "去除重复后，字符集最多 {maxAlpha} 个字符。",
@@ -3052,7 +3065,13 @@
     "outputLabelBcrypt": "bcrypt 哈希",
     "copyBcrypt": "复制哈希",
     "emptyHintBcrypt": "输入密码以计算 bcrypt 哈希。",
-    "securityNoteBcrypt": "每次 bcrypt 输出都包含随机盐；同一密码每次会得到不同字符串，这是预期行为。生产环境请使用足够高的成本。"
+    "securityNoteBcrypt": "每次 bcrypt 输出都包含随机盐；同一密码每次会得到不同字符串，这是预期行为。生产环境请使用足够高的成本。",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "加密演练场",
@@ -3130,8 +3149,18 @@
     "emptyHint": "输入密钥以计算 HMAC。",
     "securityNote": "切勿泄露签名密钥。本页不会上传数据，一切在浏览器中运行。",
     "errors": {
-      "cryptoFailed": "无法计算 HMAC。请检查浏览器是否支持 Web Crypto 后重试。"
-    }
+      "cryptoFailed": "无法计算 HMAC。请检查浏览器是否支持 Web Crypto 后重试。",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "TOTP / 2FA 验证码生成器",
@@ -3143,12 +3172,28 @@
     "copied": "已复制",
     "nextIn": "{seconds} 秒后刷新",
     "standardHint": "30 秒时间步长，6 位数字，HMAC-SHA-1（兼容 Google Authenticator）。",
+    "digitsLabel": "位数",
+    "periodLabel": "周期",
+    "algorithmLabel": "算法",
+    "periodSeconds": "{seconds} 秒",
     "emptyHint": "粘贴密钥以生成六位验证码。",
     "invalidHint": "请修正密钥以显示验证码。",
     "securityNote": "请像密码一样保管。密钥不会离开浏览器；不会上传任何数据。",
+    "importLabel": "从 otpauth:// URI 导入",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "导入",
+    "qrSectionTitle": "预配 QR 码",
+    "qrHint": "使用身份验证器应用(Google Authenticator、1Password、Aegis 等)扫描以添加此密钥。QR 码对密钥进行了编码 — 请像对待密码一样对待它。",
+    "accountLabel": "账户",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "颁发者(可选)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "输入有效的密钥以生成 QR 码。",
     "errors": {
       "invalidSecret": "不是有效的 Base32 密钥。",
-      "cryptoFailed": "无法计算 TOTP。请检查 Web Crypto 是否可用并重试。"
+      "cryptoFailed": "无法计算 TOTP。请检查 Web Crypto 是否可用并重试。",
+      "invalidUri": "这不是有效的 otpauth:// TOTP URI。",
+      "unsupportedUri": "此 URI 使用的值不受工具支持(位数必须为 6 或 8;周期为 15、30 或 60 秒)。"
     }
   },
   "MarkdownPreview": {
@@ -3345,7 +3390,11 @@
       "currency_code": "货币代码",
       "language_code": "语言标签",
       "custom_list": "自定义列表"
-    }
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
     "title": "SVG 优化",

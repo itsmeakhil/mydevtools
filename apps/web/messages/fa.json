@@ -2490,7 +2490,8 @@
       "uuid1": "مبتنی بر MAC/زمان (RFC 9562)",
       "uuid6": "زمان گریگوری بازآرایی‌شده",
       "uuid3": "هش MD5 از نام + فضای نام",
-      "uuid5": "هش SHA‑1 از نام + فضای نام"
+      "uuid5": "هش SHA‑1 از نام + فضای نام",
+      "nil": "UUID صفر (همه صفر، RFC 9562)"
     },
     "countLabel": "تعداد (۱–{max})",
     "nameLabel": "نام (رشتهٔ ورودی)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "کپی همه",
+    "uppercaseToggle": "خروجی با حروف بزرگ",
+    "hyphensToggle": "نمایش خط‌تیره‌ها",
+    "copyJsonTitle": "کپی به‌صورت آرایه JSON",
     "outputPlaceholder": "روی «تولید» کلیک کنید…",
     "errors": {
       "invalidCustomNamespace": "فضای نام سفارشی باید یک UUID معتبر باشد.",
@@ -2543,6 +2547,15 @@
     },
     "copyTitle": "کپی همه",
     "outputPlaceholder": "روی «تولید» کلیک کنید…",
+    "entropy": "{bits} بیت آنتروپی",
+    "strength": {
+      "weak": "ضعیف",
+      "fair": "متوسط",
+      "strong": "قوی"
+    },
+    "excludeAmbiguous": "حذف نویسه‌های مبهم",
+    "excludeAmbiguousHint": "نویسه‌های {chars} را حذف می‌کند — نویسه‌هایی که به‌راحتی اشتباه خوانده می‌شوند یا برای شل مخرب هستند.",
+    "prefixLabel": "پیشوند کلید (اختیاری)",
     "errors": {
       "emptyAlphabet": "حداقل یک نویسه به الفبا اضافه کنید.",
       "alphabetTooLong": "پس از حذف تکراری‌ها، الفبا حداکثر {maxAlpha} نویسه می‌تواند داشته باشد.",
@@ -3052,7 +3065,13 @@
     "outputLabelBcrypt": "هش bcrypt",
     "copyBcrypt": "کپی هش",
     "emptyHintBcrypt": "برای محاسبهٔ هش bcrypt گذرواژه وارد کنید.",
-    "securityNoteBcrypt": "هر خروجی bcrypt نمک تصادفی دارد؛ همان گذرواژه هر بار رشتهٔ متفاوتی می‌دهد. این طبیعی است. در تولید هزینهٔ بالا بگذارید."
+    "securityNoteBcrypt": "هر خروجی bcrypt نمک تصادفی دارد؛ همان گذرواژه هر بار رشتهٔ متفاوتی می‌دهد. این طبیعی است. در تولید هزینهٔ بالا بگذارید.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "زمین بازی رمزنگاری",
@@ -3130,8 +3149,18 @@
     "emptyHint": "برای محاسبهٔ HMAC کلید مخفی وارد کنید.",
     "securityNote": "هرگز رمز امضا را به اشتراک نگذارید. این صفحه داده‌ای آپلود نمی‌کند؛ همه‌چیز در مرورگر اجرا می‌شود.",
     "errors": {
-      "cryptoFailed": "محاسبهٔ HMAC ممکن نشد. پشتیبانی Web Crypto را بررسی و دوباره امتحان کنید."
-    }
+      "cryptoFailed": "محاسبهٔ HMAC ممکن نشد. پشتیبانی Web Crypto را بررسی و دوباره امتحان کنید.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "تولیدکنندهٔ کد TOTP / 2FA",
@@ -3143,12 +3172,28 @@
     "copied": "کپی شد",
     "nextIn": "تازه‌سازی تا {seconds} ث",
     "standardHint": "گام زمانی ۳۰ ث، ۶ رقم، HMAC-SHA-1 (سازگار با Google Authenticator).",
+    "digitsLabel": "ارقام",
+    "periodLabel": "دوره",
+    "algorithmLabel": "الگوریتم",
+    "periodSeconds": "{seconds} ث",
     "emptyHint": "برای ساخت کد شش‌رقمی یک راز بچسبانید.",
     "invalidHint": "راز را اصلاح کنید تا کد دیده شود.",
     "securityNote": "مثل رمز عبور با آن رفتار کنید. راز مرورگر را ترک نمی‌کند؛ چیزی آپلود نمی‌شود.",
+    "importLabel": "درون‌ریزی از URI با فرمت otpauth://",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "درون‌ریزی",
+    "qrSectionTitle": "کد QR فراهم‌سازی",
+    "qrHint": "با یک برنامه احراز هویت (Google Authenticator، 1Password، Aegis…) اسکن کنید تا این کلید مخفی اضافه شود. کد QR کلید مخفی را رمزگذاری می‌کند — با آن مانند یک رمز عبور رفتار کنید.",
+    "accountLabel": "حساب",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "صادرکننده (اختیاری)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "برای تولید کد QR یک کلید مخفی معتبر وارد کنید.",
     "errors": {
       "invalidSecret": "این یک راز Base32 معتبر نیست.",
-      "cryptoFailed": "محاسبهٔ TOTP ممکن نشد. Web Crypto را بررسی و دوباره امتحان کنید."
+      "cryptoFailed": "محاسبهٔ TOTP ممکن نشد. Web Crypto را بررسی و دوباره امتحان کنید.",
+      "invalidUri": "این یک URI معتبر otpauth:// TOTP نیست.",
+      "unsupportedUri": "این URI از مقادیری استفاده می‌کند که ابزار پشتیبانی نمی‌کند (رقم‌ها باید ۶ یا ۸ باشند؛ دوره ۱۵، ۳۰ یا ۶۰ ثانیه)."
     }
   },
   "MarkdownPreview": {
@@ -3345,7 +3390,11 @@
       "currency_code": "کد ارز",
       "language_code": "برچسب زبان",
       "custom_list": "فهرست سفارشی"
-    }
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
     "title": "بهینه‌ساز SVG",

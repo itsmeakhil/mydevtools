@@ -2618,7 +2618,8 @@
       "uuid1": "MAC/time-based (RFC 9562)",
       "uuid6": "Reordered Gregorian time-based",
       "uuid3": "MD5 hash of name + namespace",
-      "uuid5": "SHA-1 hash of name + namespace"
+      "uuid5": "SHA-1 hash of name + namespace",
+      "nil": "All-zero nil UUID (RFC 9562)"
     },
     "countLabel": "Count (1–{max})",
     "nameLabel": "Name (input string)",
@@ -2640,6 +2641,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Copy all",
+    "uppercaseToggle": "Uppercase output",
+    "hyphensToggle": "Show hyphens",
+    "copyJsonTitle": "Copy as JSON array",
     "outputPlaceholder": "Click \"Generate\"…",
     "errors": {
       "invalidCustomNamespace": "Custom namespace must be a valid UUID.",
@@ -2671,6 +2675,15 @@
     },
     "copyTitle": "Copy all",
     "outputPlaceholder": "Click \"Generate\"…",
+    "entropy": "{bits} bits of entropy",
+    "strength": {
+      "weak": "Weak",
+      "fair": "Fair",
+      "strong": "Strong"
+    },
+    "excludeAmbiguous": "Exclude ambiguous characters",
+    "excludeAmbiguousHint": "Removes {chars} — easily misread or shell-hostile characters.",
+    "prefixLabel": "Key prefix (optional)",
     "errors": {
       "emptyAlphabet": "Add at least one character to the alphabet.",
       "alphabetTooLong": "After removing duplicates, the alphabet can have at most {maxAlpha} characters.",
@@ -2795,6 +2808,12 @@
     "outputLabelBcrypt": "Bcrypt hash",
     "copyHash": "Copy digest",
     "copyBcrypt": "Copy hash",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch",
     "copied": "Copied",
     "byteCount": "{count, plural, one {# byte} other {# bytes}}",
     "charCount": "{count, plural, one {# character} other {# characters}}",
@@ -2878,12 +2897,22 @@
     "formatBase64": "Base64",
     "outputLabel": "Signature",
     "copyOutput": "Copy signature",
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch",
     "copied": "Copied",
     "byteCountHint": "{count, plural, one {# byte} other {# bytes}} (UTF-8)",
     "emptyHint": "Enter a secret key to compute HMAC.",
     "securityNote": "Never share your signing secret. This page does not upload data—everything runs in your browser.",
     "errors": {
-      "cryptoFailed": "Could not compute HMAC. Check your browser supports Web Crypto and try again."
+      "cryptoFailed": "Could not compute HMAC. Check your browser supports Web Crypto and try again.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
     }
   },
   "TotpGenerator": {
@@ -2896,12 +2925,28 @@
     "copied": "Copied",
     "nextIn": "Refreshes in {seconds} s",
     "standardHint": "30-second time step, 6 digits, HMAC-SHA-1 (Google Authenticator–compatible).",
+    "digitsLabel": "Digits",
+    "periodLabel": "Period",
+    "algorithmLabel": "Algorithm",
+    "periodSeconds": "{seconds} s",
     "emptyHint": "Paste a secret to generate a six-digit code.",
     "invalidHint": "Fix the secret to see the code.",
     "securityNote": "Treat this like a password. The secret never leaves your browser; nothing is uploaded.",
+    "importLabel": "Import from otpauth:// URI",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Import",
+    "qrSectionTitle": "Provisioning QR code",
+    "qrHint": "Scan with an authenticator app (Google Authenticator, 1Password, Aegis…) to add this secret. The QR encodes the secret — treat it like a password.",
+    "accountLabel": "Account",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Issuer (optional)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Enter a valid secret to generate a QR code.",
     "errors": {
       "invalidSecret": "That is not a valid Base32 secret.",
-      "cryptoFailed": "Could not compute TOTP. Check that Web Crypto is available and try again."
+      "cryptoFailed": "Could not compute TOTP. Check that Web Crypto is available and try again.",
+      "invalidUri": "That is not a valid otpauth:// TOTP URI.",
+      "unsupportedUri": "This URI uses values the tool does not support (digits must be 6 or 8; period 15, 30, or 60 s)."
     }
   },
   "NumberBaseConverter": {
@@ -3268,6 +3313,10 @@
     "copy": "Copy",
     "download": "Download",
     "copied": "Copied",
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed",
     "groups": {
       "personal": "Personal",
       "location": "Location",

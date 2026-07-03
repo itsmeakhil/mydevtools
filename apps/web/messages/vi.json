@@ -2490,7 +2490,8 @@
       "uuid1": "Dựa trên MAC/thời gian (RFC 9562)",
       "uuid6": "Thời gian Gregory được sắp xếp lại",
       "uuid3": "Băm MD5 của tên + namespace",
-      "uuid5": "Băm SHA‑1 của tên + namespace"
+      "uuid5": "Băm SHA‑1 của tên + namespace",
+      "nil": "UUID rỗng (toàn số 0, RFC 9562)"
     },
     "countLabel": "Số lượng (1–{max})",
     "nameLabel": "Tên (chuỗi đầu vào)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Sao chép tất cả",
+    "uppercaseToggle": "Xuất chữ hoa",
+    "hyphensToggle": "Hiển thị dấu gạch nối",
+    "copyJsonTitle": "Sao chép dạng mảng JSON",
     "outputPlaceholder": "Nhấn \"Tạo\"…",
     "errors": {
       "invalidCustomNamespace": "Namespace tùy chỉnh phải là UUID hợp lệ.",
@@ -2543,6 +2547,15 @@
     },
     "copyTitle": "Sao chép tất cả",
     "outputPlaceholder": "Nhấn \"Tạo\"…",
+    "entropy": "{bits} bit entropy",
+    "strength": {
+      "weak": "Yếu",
+      "fair": "Khá",
+      "strong": "Mạnh"
+    },
+    "excludeAmbiguous": "Loại trừ ký tự dễ nhầm lẫn",
+    "excludeAmbiguousHint": "Xóa {chars} — các ký tự dễ đọc nhầm hoặc gây hại cho shell.",
+    "prefixLabel": "Tiền tố khóa (tùy chọn)",
     "errors": {
       "emptyAlphabet": "Thêm ít nhất một ký tự vào bảng chữ cái.",
       "alphabetTooLong": "Sau khi loại trùng, bảng chữ cái tối đa {maxAlpha} ký tự.",
@@ -3052,7 +3065,13 @@
     "outputLabelBcrypt": "Băm bcrypt",
     "copyBcrypt": "Sao chép băm",
     "emptyHintBcrypt": "Nhập mật khẩu để tính băm bcrypt.",
-    "securityNoteBcrypt": "Mỗi đầu ra bcrypt có muối ngẫu nhiên; cùng mật khẩu cho chuỗi khác nhau mỗi lần. Điều này là bình thường. Dùng chi phí cao trong môi trường production."
+    "securityNoteBcrypt": "Mỗi đầu ra bcrypt có muối ngẫu nhiên; cùng mật khẩu cho chuỗi khác nhau mỗi lần. Điều này là bình thường. Dùng chi phí cao trong môi trường production.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Sân chơi mã hóa",
@@ -3130,8 +3149,18 @@
     "emptyHint": "Nhập khóa bí mật để tính HMAC.",
     "securityNote": "Không bao giờ chia sẻ bí mật ký. Trang này không tải dữ liệu lên—mọi thứ chạy trong trình duyệt.",
     "errors": {
-      "cryptoFailed": "Không thể tính HMAC. Kiểm tra hỗ trợ Web Crypto và thử lại."
-    }
+      "cryptoFailed": "Không thể tính HMAC. Kiểm tra hỗ trợ Web Crypto và thử lại.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "Trình tạo mã TOTP / 2FA",
@@ -3143,12 +3172,28 @@
     "copied": "Đã sao chép",
     "nextIn": "Làm mới sau {seconds} giây",
     "standardHint": "Bước thời gian 30 giây, 6 chữ số, HMAC-SHA-1 (tương thích Google Authenticator).",
+    "digitsLabel": "Số chữ số",
+    "periodLabel": "Chu kỳ",
+    "algorithmLabel": "Thuật toán",
+    "periodSeconds": "{seconds} giây",
     "emptyHint": "Dán bí mật để tạo mã sáu chữ số.",
     "invalidHint": "Sửa bí mật để xem mã.",
     "securityNote": "Coi như mật khẩu. Bí mật không rời khỏi trình duyệt; không tải dữ liệu lên.",
+    "importLabel": "Nhập từ URI otpauth://",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Nhập",
+    "qrSectionTitle": "Mã QR cấp phát",
+    "qrHint": "Quét bằng ứng dụng xác thực (Google Authenticator, 1Password, Aegis…) để thêm khóa bí mật này. Mã QR mã hóa khóa bí mật — hãy đối xử với nó như mật khẩu.",
+    "accountLabel": "Tài khoản",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Nhà phát hành (tùy chọn)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Nhập khóa bí mật hợp lệ để tạo mã QR.",
     "errors": {
       "invalidSecret": "Đây không phải bí mật Base32 hợp lệ.",
-      "cryptoFailed": "Không thể tính TOTP. Kiểm tra Web Crypto và thử lại."
+      "cryptoFailed": "Không thể tính TOTP. Kiểm tra Web Crypto và thử lại.",
+      "invalidUri": "Đây không phải là URI otpauth:// TOTP hợp lệ.",
+      "unsupportedUri": "URI này sử dụng các giá trị mà công cụ không hỗ trợ (số chữ số phải là 6 hoặc 8; chu kỳ 15, 30 hoặc 60 giây)."
     }
   },
   "MarkdownPreview": {
@@ -3345,7 +3390,11 @@
       "currency_code": "Mã tiền tệ",
       "language_code": "Thẻ ngôn ngữ",
       "custom_list": "Danh sách tùy chỉnh"
-    }
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
     "title": "Tối ưu SVG",

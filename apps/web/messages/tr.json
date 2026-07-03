@@ -2490,7 +2490,8 @@
       "uuid1": "MAC/zaman tabanlı (RFC 9562)",
       "uuid6": "Yeniden sıralanmış Gregoryen zaman",
       "uuid3": "Ad + ad alanı için MD5 hash",
-      "uuid5": "Ad + ad alanı için SHA‑1 hash"
+      "uuid5": "Ad + ad alanı için SHA‑1 hash",
+      "nil": "Sıfır UUID (tümü sıfır, RFC 9562)"
     },
     "countLabel": "Adet (1–{max})",
     "nameLabel": "Ad (girdi dizesi)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Tümünü kopyala",
+    "uppercaseToggle": "Büyük harfli çıktı",
+    "hyphensToggle": "Tireleri göster",
+    "copyJsonTitle": "JSON dizisi olarak kopyala",
     "outputPlaceholder": "\"Oluştur\"a tıklayın…",
     "errors": {
       "invalidCustomNamespace": "Özel ad alanı geçerli bir UUID olmalıdır.",
@@ -2543,6 +2547,15 @@
     },
     "copyTitle": "Tümünü kopyala",
     "outputPlaceholder": "\"Oluştur\"a tıklayın…",
+    "entropy": "{bits} bit entropi",
+    "strength": {
+      "weak": "Zayıf",
+      "fair": "Orta",
+      "strong": "Güçlü"
+    },
+    "excludeAmbiguous": "Belirsiz karakterleri hariç tut",
+    "excludeAmbiguousHint": "{chars} kaldırılır — kolayca yanlış okunan veya kabuk için tehlikeli karakterler.",
+    "prefixLabel": "Anahtar öneki (isteğe bağlı)",
     "errors": {
       "emptyAlphabet": "Alfabeye en az bir karakter ekleyin.",
       "alphabetTooLong": "Yinelenenler kaldırıldıktan sonra alfabe en fazla {maxAlpha} karakter olabilir.",
@@ -3052,7 +3065,13 @@
     "outputLabelBcrypt": "bcrypt özeti",
     "copyBcrypt": "Özeti kopyala",
     "emptyHintBcrypt": "bcrypt özeti hesaplamak için parola girin.",
-    "securityNoteBcrypt": "Her bcrypt çıktısı rastgele tuz içerir; aynı parola her seferinde farklı bir dize üretir. Bu beklenendir. Üretimde yüksek maliyet kullanın."
+    "securityNoteBcrypt": "Her bcrypt çıktısı rastgele tuz içerir; aynı parola her seferinde farklı bir dize üretir. Bu beklenendir. Üretimde yüksek maliyet kullanın.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Şifreleme oyun alanı",
@@ -3130,8 +3149,18 @@
     "emptyHint": "HMAC hesaplamak için gizli anahtar girin.",
     "securityNote": "İmzalama sırrını asla paylaşmayın. Bu sayfa veri yüklemez—her şey tarayıcıda çalışır.",
     "errors": {
-      "cryptoFailed": "HMAC hesaplanamadı. Web Crypto desteğini kontrol edip yeniden deneyin."
-    }
+      "cryptoFailed": "HMAC hesaplanamadı. Web Crypto desteğini kontrol edip yeniden deneyin.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "TOTP / 2FA kod üreticisi",
@@ -3143,12 +3172,28 @@
     "copied": "Kopyalandı",
     "nextIn": "{seconds} sn içinde yenilenir",
     "standardHint": "30 sn zaman adımı, 6 hane, HMAC-SHA-1 (Google Authenticator ile uyumlu).",
+    "digitsLabel": "Hane",
+    "periodLabel": "Süre",
+    "algorithmLabel": "Algoritma",
+    "periodSeconds": "{seconds} sn",
     "emptyHint": "Altı haneli kod için gizli anahtarı yapıştırın.",
     "invalidHint": "Kodu görmek için gizli anahtarı düzeltin.",
     "securityNote": "Bunu parola gibi koruyun. Gizli anahtar tarayıcıdan çıkmaz; hiçbir şey yüklenmez.",
+    "importLabel": "otpauth:// URI'sinden içe aktar",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "İçe aktar",
+    "qrSectionTitle": "Sağlama QR kodu",
+    "qrHint": "Bu gizli anahtarı eklemek için bir kimlik doğrulayıcı uygulamasıyla (Google Authenticator, 1Password, Aegis…) tarayın. QR kodu gizli anahtarı kodlar — onu bir parola gibi ele alın.",
+    "accountLabel": "Hesap",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Veren (isteğe bağlı)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "QR kodu oluşturmak için geçerli bir gizli anahtar girin.",
     "errors": {
       "invalidSecret": "Geçerli bir Base32 gizli anahtar değil.",
-      "cryptoFailed": "TOTP hesaplanamadı. Web Crypto desteğini kontrol edip tekrar deneyin."
+      "cryptoFailed": "TOTP hesaplanamadı. Web Crypto desteğini kontrol edip tekrar deneyin.",
+      "invalidUri": "Bu geçerli bir otpauth:// TOTP URI'si değil.",
+      "unsupportedUri": "Bu URI, aracın desteklemediği değerler kullanıyor (basamak sayısı 6 veya 8 olmalı; periyot 15, 30 veya 60 sn)."
     }
   },
   "MarkdownPreview": {
@@ -3345,7 +3390,11 @@
       "currency_code": "Para birimi kodu",
       "language_code": "Dil etiketi",
       "custom_list": "Özel liste"
-    }
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
     "title": "SVG Optimize",

@@ -30,14 +30,19 @@ export function getTotpSecondsRemaining(epochMs: number, periodSec: number): num
   return periodSec - (Math.floor(epochMs / 1000) % periodSec);
 }
 
+export type TotpAlgorithm = 'SHA-1' | 'SHA-256' | 'SHA-512';
+
 /**
- * RFC 6238 TOTP with SHA-1 (default used by Google Authenticator and most services).
+ * RFC 6238 TOTP. Defaults to SHA-1 — the algorithm used by Google
+ * Authenticator and most services — so existing 4-argument callers
+ * (totp-generator, password-manager) are byte-for-byte unchanged.
  */
 export async function computeTotp(
   secretBytes: Uint8Array,
   epochMs: number,
   periodSec: number,
-  digits: number
+  digits: number,
+  algorithm: TotpAlgorithm = 'SHA-1'
 ): Promise<string> {
   const step = Math.floor(epochMs / 1000 / periodSec);
   const counter = new ArrayBuffer(8);
@@ -51,7 +56,7 @@ export async function computeTotp(
   const cryptoKey = await crypto.subtle.importKey(
     'raw',
     keyMaterial,
-    { name: 'HMAC', hash: 'SHA-1' },
+    { name: 'HMAC', hash: algorithm },
     false,
     ['sign']
   );

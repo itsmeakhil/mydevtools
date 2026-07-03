@@ -2490,7 +2490,8 @@
       "uuid1": "MAC-/tijdgebaseerd (RFC 9562)",
       "uuid6": "Herschikte gregoriaanse tijd",
       "uuid3": "MD5-hash van naam + namespace",
-      "uuid5": "SHA‑1-hash van naam + namespace"
+      "uuid5": "SHA‑1-hash van naam + namespace",
+      "nil": "Nil-UUID (allemaal nullen, RFC 9562)"
     },
     "countLabel": "Aantal (1–{max})",
     "nameLabel": "Naam (invoerstring)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Alles kopiëren",
+    "uppercaseToggle": "Uitvoer in hoofdletters",
+    "hyphensToggle": "Toon koppeltekens",
+    "copyJsonTitle": "Kopiëren als JSON-array",
     "outputPlaceholder": "Klik op \"Genereren\"…",
     "errors": {
       "invalidCustomNamespace": "Aangepaste namespace moet een geldige UUID zijn.",
@@ -2543,6 +2547,15 @@
     },
     "copyTitle": "Alles kopiëren",
     "outputPlaceholder": "Klik op \"Genereren\"…",
+    "entropy": "{bits} bits entropie",
+    "strength": {
+      "weak": "Zwak",
+      "fair": "Redelijk",
+      "strong": "Sterk"
+    },
+    "excludeAmbiguous": "Dubbelzinnige tekens uitsluiten",
+    "excludeAmbiguousHint": "Verwijdert {chars} — tekens die makkelijk verkeerd gelezen worden of shell-onvriendelijk zijn.",
+    "prefixLabel": "Sleutelvoorvoegsel (optioneel)",
     "errors": {
       "emptyAlphabet": "Voeg minstens één teken toe aan het alfabet.",
       "alphabetTooLong": "Na het verwijderen van duplicaten mag het alfabet hoogstens {maxAlpha} tekens bevatten.",
@@ -3052,7 +3065,13 @@
     "outputLabelBcrypt": "bcrypt-hash",
     "copyBcrypt": "Hash kopiëren",
     "emptyHintBcrypt": "Voer een wachtwoord in om een bcrypt-hash te berekenen.",
-    "securityNoteBcrypt": "Elke bcrypt-uitvoer bevat een willekeurig zout; hetzelfde wachtwoord geeft elke keer een andere string. Dat is verwacht. Gebruik hoge kosten in productie."
+    "securityNoteBcrypt": "Elke bcrypt-uitvoer bevat een willekeurig zout; hetzelfde wachtwoord geeft elke keer een andere string. Dat is verwacht. Gebruik hoge kosten in productie.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Encryptie-speeltuin",
@@ -3130,8 +3149,18 @@
     "emptyHint": "Voer een geheime sleutel in om HMAC te berekenen.",
     "securityNote": "Deel je signing secret nooit. Deze pagina uploadt geen gegevens—alles draait in je browser.",
     "errors": {
-      "cryptoFailed": "HMAC kon niet worden berekend. Controleer Web Crypto-ondersteuning en probeer opnieuw."
-    }
+      "cryptoFailed": "HMAC kon niet worden berekend. Controleer Web Crypto-ondersteuning en probeer opnieuw.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "TOTP / 2FA-codegenerator",
@@ -3143,12 +3172,28 @@
     "copied": "Gekopieerd",
     "nextIn": "Vernieuwt over {seconds} s",
     "standardHint": "30 s tijdstap, 6 cijfers, HMAC-SHA-1 (compatibel met Google Authenticator).",
+    "digitsLabel": "Cijfers",
+    "periodLabel": "Periode",
+    "algorithmLabel": "Algoritme",
+    "periodSeconds": "{seconds} s",
     "emptyHint": "Plak een geheim om een zescijferige code te maken.",
     "invalidHint": "Corrigeer het geheim om de code te zien.",
     "securityNote": "Behandel dit als een wachtwoord. Het geheim verlaat je browser niet; er wordt niets geüpload.",
+    "importLabel": "Importeren vanuit otpauth://-URI",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Importeren",
+    "qrSectionTitle": "QR-code voor provisioning",
+    "qrHint": "Scan met een authenticator-app (Google Authenticator, 1Password, Aegis…) om dit geheim toe te voegen. De QR-code codeert het geheim — behandel het als een wachtwoord.",
+    "accountLabel": "Account",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Uitgever (optioneel)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Voer een geldig geheim in om een QR-code te genereren.",
     "errors": {
       "invalidSecret": "Dit is geen geldig Base32-geheim.",
-      "cryptoFailed": "TOTP kon niet worden berekend. Controleer Web Crypto en probeer opnieuw."
+      "cryptoFailed": "TOTP kon niet worden berekend. Controleer Web Crypto en probeer opnieuw.",
+      "invalidUri": "Dit is geen geldige otpauth:// TOTP-URI.",
+      "unsupportedUri": "Deze URI gebruikt waarden die de tool niet ondersteunt (cijfers moeten 6 of 8 zijn; periode 15, 30 of 60 s)."
     }
   },
   "MarkdownPreview": {
@@ -3345,7 +3390,11 @@
       "currency_code": "Valutacode",
       "language_code": "Taalcode",
       "custom_list": "Aangepaste lijst"
-    }
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
     "title": "SVG-optimalisatie",

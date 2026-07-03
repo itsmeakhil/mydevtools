@@ -2490,7 +2490,8 @@
       "uuid1": "MAC/시간 기반 (RFC 9562)",
       "uuid6": "재정렬된 그레고리력 시간 기반",
       "uuid3": "이름 + 네임스페이스의 MD5 해시",
-      "uuid5": "이름 + 네임스페이스의 SHA‑1 해시"
+      "uuid5": "이름 + 네임스페이스의 SHA‑1 해시",
+      "nil": "닐 UUID(모두 0, RFC 9562)"
     },
     "countLabel": "개수 (1–{max})",
     "nameLabel": "이름(입력 문자열)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "모두 복사",
+    "uppercaseToggle": "대문자로 출력",
+    "hyphensToggle": "하이픈 표시",
+    "copyJsonTitle": "JSON 배열로 복사",
     "outputPlaceholder": "\"생성\"을 클릭…",
     "errors": {
       "invalidCustomNamespace": "사용자 지정 네임스페이스는 유효한 UUID여야 합니다.",
@@ -2543,6 +2547,15 @@
     },
     "copyTitle": "모두 복사",
     "outputPlaceholder": "\"생성\"을 클릭하세요…",
+    "entropy": "엔트로피 {bits}비트",
+    "strength": {
+      "weak": "약함",
+      "fair": "보통",
+      "strong": "강함"
+    },
+    "excludeAmbiguous": "모호한 문자 제외",
+    "excludeAmbiguousHint": "{chars}를 제거합니다 — 잘못 읽기 쉽거나 셸에 부적합한 문자입니다.",
+    "prefixLabel": "키 접두사 (선택 사항)",
     "errors": {
       "emptyAlphabet": "문자 집합에 문자를 하나 이상 추가하세요.",
       "alphabetTooLong": "중복 제거 후 문자 집합은 최대 {maxAlpha}자까지 가능합니다.",
@@ -3052,7 +3065,13 @@
     "outputLabelBcrypt": "bcrypt 해시",
     "copyBcrypt": "해시 복사",
     "emptyHintBcrypt": "bcrypt 해시를 계산하려면 비밀번호를 입력하세요.",
-    "securityNoteBcrypt": "bcrypt 출력에는 매번 무작위 솔트가 포함됩니다. 같은 비밀번호라도 매번 다른 문자열이 나옵니다. 운영 환경에서는 높은 비용을 사용하세요."
+    "securityNoteBcrypt": "bcrypt 출력에는 매번 무작위 솔트가 포함됩니다. 같은 비밀번호라도 매번 다른 문자열이 나옵니다. 운영 환경에서는 높은 비용을 사용하세요.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "암호화 연습장",
@@ -3130,8 +3149,18 @@
     "emptyHint": "HMAC을 계산하려면 비밀 키를 입력하세요.",
     "securityNote": "서명 비밀값은 절대 공유하지 마세요. 이 페이지는 데이터를 업로드하지 않으며 모두 브라우저에서 실행됩니다.",
     "errors": {
-      "cryptoFailed": "HMAC을 계산할 수 없습니다. Web Crypto 지원을 확인하고 다시 시도하세요."
-    }
+      "cryptoFailed": "HMAC을 계산할 수 없습니다. Web Crypto 지원을 확인하고 다시 시도하세요.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "TOTP / 2FA 코드 생성기",
@@ -3143,12 +3172,28 @@
     "copied": "복사됨",
     "nextIn": "{seconds}초 후 갱신",
     "standardHint": "30초 간격, 6자리, HMAC-SHA-1(Google Authenticator 호환).",
+    "digitsLabel": "자릿수",
+    "periodLabel": "주기",
+    "algorithmLabel": "알고리즘",
+    "periodSeconds": "{seconds}초",
     "emptyHint": "6자리 코드를 만들려면 비밀키를 붙여넣으세요.",
     "invalidHint": "코드를 보려면 비밀키를 수정하세요.",
     "securityNote": "비밀번호처럼 다루세요. 비밀키는 브라우저를 벗어나지 않으며 업로드되지 않습니다.",
+    "importLabel": "otpauth:// URI에서 가져오기",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "가져오기",
+    "qrSectionTitle": "프로비저닝 QR 코드",
+    "qrHint": "인증 앱(Google Authenticator, 1Password, Aegis 등)으로 스캔하여 이 비밀 키를 추가하세요. QR 코드는 비밀 키를 인코딩합니다 — 비밀번호처럼 취급하세요.",
+    "accountLabel": "계정",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "발급자(선택 사항)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "QR 코드를 생성하려면 유효한 비밀 키를 입력하세요.",
     "errors": {
       "invalidSecret": "유효한 Base32 비밀키가 아닙니다.",
-      "cryptoFailed": "TOTP를 계산할 수 없습니다. Web Crypto를 확인하고 다시 시도하세요."
+      "cryptoFailed": "TOTP를 계산할 수 없습니다. Web Crypto를 확인하고 다시 시도하세요.",
+      "invalidUri": "유효한 otpauth:// TOTP URI가 아닙니다.",
+      "unsupportedUri": "이 URI는 도구에서 지원하지 않는 값을 사용합니다(자릿수는 6 또는 8이어야 하며, 주기는 15, 30, 60초 중 하나여야 합니다)."
     }
   },
   "MarkdownPreview": {
@@ -3345,7 +3390,11 @@
       "currency_code": "통화 코드",
       "language_code": "언어 태그",
       "custom_list": "사용자 정의 목록"
-    }
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
     "title": "SVG 최적화",

@@ -2490,7 +2490,8 @@
       "uuid1": "Basat en MAC/temps (RFC 9562)",
       "uuid6": "Temps gregorià reordenat",
       "uuid3": "Hash MD5 de nom + espai de noms",
-      "uuid5": "Hash SHA‑1 de nom + espai de noms"
+      "uuid5": "Hash SHA‑1 de nom + espai de noms",
+      "nil": "UUID nul (tot zeros, RFC 9562)"
     },
     "countLabel": "Quantitat (1–{max})",
     "nameLabel": "Nom (cadena d’entrada)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Copia-ho tot",
+    "uppercaseToggle": "Sortida en majúscules",
+    "hyphensToggle": "Mostra guionets",
+    "copyJsonTitle": "Copia com a matriu JSON",
     "outputPlaceholder": "Feu clic a \"Genera\"…",
     "errors": {
       "invalidCustomNamespace": "L’espai de noms personalitzat ha de ser un UUID vàlid.",
@@ -2543,6 +2547,15 @@
     },
     "copyTitle": "Copia-ho tot",
     "outputPlaceholder": "Fes clic a \"Genera\"…",
+    "entropy": "{bits} bits d'entropia",
+    "strength": {
+      "weak": "Feble",
+      "fair": "Acceptable",
+      "strong": "Fort"
+    },
+    "excludeAmbiguous": "Exclou els caràcters ambigus",
+    "excludeAmbiguousHint": "Elimina {chars} — caràcters que es llegeixen fàcilment malament o hostils per a l'intèrpret d'ordres.",
+    "prefixLabel": "Prefix de la clau (opcional)",
     "errors": {
       "emptyAlphabet": "Afegeix almenys un caràcter a l'alfabet.",
       "alphabetTooLong": "Després d'eliminar duplicats, l'alfabet pot tenir com a màxim {maxAlpha} caràcters.",
@@ -3052,7 +3065,13 @@
     "outputLabelBcrypt": "Resum bcrypt",
     "copyBcrypt": "Copia el resum",
     "emptyHintBcrypt": "Introduïu una contrasenya per calcular el resum bcrypt.",
-    "securityNoteBcrypt": "Cada sortida bcrypt inclou una sal aleatòria; la mateixa contrasenya dona una cadena diferent cada vegada. És esperat. Useu costos alts en producció."
+    "securityNoteBcrypt": "Cada sortida bcrypt inclou una sal aleatòria; la mateixa contrasenya dona una cadena diferent cada vegada. És esperat. Useu costos alts en producció.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Terreny de joc del xifratge",
@@ -3130,8 +3149,18 @@
     "emptyHint": "Introduïu una clau secreta per calcular l’HMAC.",
     "securityNote": "No compartiu mai el secret de signatura. Aquesta pàgina no puja dades; tot s’executa al navegador.",
     "errors": {
-      "cryptoFailed": "No s’ha pogut calcular l’HMAC. Comproveu el suport de Web Crypto i torneu-ho a provar."
-    }
+      "cryptoFailed": "No s’ha pogut calcular l’HMAC. Comproveu el suport de Web Crypto i torneu-ho a provar.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "Generador de codi TOTP / 2FA",
@@ -3143,12 +3172,28 @@
     "copied": "Copiat",
     "nextIn": "Es renova en {seconds} s",
     "standardHint": "Pas de temps de 30 s, 6 xifres, HMAC-SHA-1 (compatible amb Google Authenticator).",
+    "digitsLabel": "Xifres",
+    "periodLabel": "Període",
+    "algorithmLabel": "Algorisme",
+    "periodSeconds": "{seconds} s",
     "emptyHint": "Enganxa un secret per generar un codi de sis xifres.",
     "invalidHint": "Corregeix el secret per veure el codi.",
     "securityNote": "Tracta’l com una contrasenya. El secret no surt del navegador; no es puja res.",
+    "importLabel": "Importa des d'un URI otpauth://",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Importa",
+    "qrSectionTitle": "Codi QR d'aprovisionament",
+    "qrHint": "Escaneja amb una aplicació d'autenticació (Google Authenticator, 1Password, Aegis…) per afegir aquest secret. El QR codifica el secret — tracta'l com una contrasenya.",
+    "accountLabel": "Compte",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Emissor (opcional)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Introdueix un secret vàlid per generar un codi QR.",
     "errors": {
       "invalidSecret": "Aquest no és un secret Base32 vàlid.",
-      "cryptoFailed": "No s’ha pogut calcular el TOTP. Comproveu Web Crypto i torneu-ho a provar."
+      "cryptoFailed": "No s’ha pogut calcular el TOTP. Comproveu Web Crypto i torneu-ho a provar.",
+      "invalidUri": "Això no és un URI otpauth:// TOTP vàlid.",
+      "unsupportedUri": "Aquest URI utilitza valors que l'eina no admet (els dígits han de ser 6 o 8; el període 15, 30 o 60 s)."
     }
   },
   "MarkdownPreview": {
@@ -3345,7 +3390,11 @@
       "currency_code": "Codi de moneda",
       "language_code": "Etiqueta d’idioma",
       "custom_list": "Llista personalitzada"
-    }
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
     "title": "Optimitzador SVG",

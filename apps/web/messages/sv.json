@@ -2490,7 +2490,8 @@
       "uuid1": "MAC-/tidsbaserad (RFC 9562)",
       "uuid6": "Omordnad gregoriansk tid",
       "uuid3": "MD5-hash av namn + namespace",
-      "uuid5": "SHA‑1-hash av namn + namespace"
+      "uuid5": "SHA‑1-hash av namn + namespace",
+      "nil": "Noll-UUID (bara nollor, RFC 9562)"
     },
     "countLabel": "Antal (1–{max})",
     "nameLabel": "Namn (indatasträng)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Kopiera allt",
+    "uppercaseToggle": "Utdata med versaler",
+    "hyphensToggle": "Visa bindestreck",
+    "copyJsonTitle": "Kopiera som JSON-array",
     "outputPlaceholder": "Klicka på \"Generera\"…",
     "errors": {
       "invalidCustomNamespace": "Anpassad namespace måste vara en giltig UUID.",
@@ -2543,6 +2547,15 @@
     },
     "copyTitle": "Kopiera allt",
     "outputPlaceholder": "Klicka på \"Generera\"…",
+    "entropy": "{bits} bitars entropi",
+    "strength": {
+      "weak": "Svag",
+      "fair": "Godtagbar",
+      "strong": "Stark"
+    },
+    "excludeAmbiguous": "Uteslut tvetydiga tecken",
+    "excludeAmbiguousHint": "Tar bort {chars} — tecken som lätt läses fel eller är fientliga mot skalet.",
+    "prefixLabel": "Nyckelprefix (valfritt)",
     "errors": {
       "emptyAlphabet": "Lägg till minst ett tecken i alfabetet.",
       "alphabetTooLong": "Efter borttagning av dubbletter kan alfabetet ha högst {maxAlpha} tecken.",
@@ -3052,7 +3065,13 @@
     "outputLabelBcrypt": "bcrypt-hash",
     "copyBcrypt": "Kopiera hash",
     "emptyHintBcrypt": "Ange ett lösenord för att beräkna bcrypt-hash.",
-    "securityNoteBcrypt": "Varje bcrypt-utdata innehåller ett slumpmässigt salt; samma lösenord ger en ny sträng varje gång. Det förväntas. Använd hög kostnad i produktion."
+    "securityNoteBcrypt": "Varje bcrypt-utdata innehåller ett slumpmässigt salt; samma lösenord ger en ny sträng varje gång. Det förväntas. Använd hög kostnad i produktion.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Krypteringslekplats",
@@ -3130,8 +3149,18 @@
     "emptyHint": "Ange en hemlig nyckel för att beräkna HMAC.",
     "securityNote": "Dela aldrig din signeringshemlighet. Den här sidan laddar inte upp data—allt körs i webbläsaren.",
     "errors": {
-      "cryptoFailed": "Kunde inte beräkna HMAC. Kontrollera Web Crypto-stöd och försök igen."
-    }
+      "cryptoFailed": "Kunde inte beräkna HMAC. Kontrollera Web Crypto-stöd och försök igen.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "TOTP / 2FA-kodgenerator",
@@ -3143,12 +3172,28 @@
     "copied": "Kopierat",
     "nextIn": "Uppdateras om {seconds} s",
     "standardHint": "30 s tidssteg, 6 siffror, HMAC-SHA-1 (kompatibel med Google Authenticator).",
+    "digitsLabel": "Siffror",
+    "periodLabel": "Period",
+    "algorithmLabel": "Algoritm",
+    "periodSeconds": "{seconds} s",
     "emptyHint": "Klistra in en hemlighet för att generera en sexsiffrig kod.",
     "invalidHint": "Rätta hemligheten för att se koden.",
     "securityNote": "Hantera som ett lösenord. Hemligheten lämnar inte webbläsaren; inget laddas upp.",
+    "importLabel": "Importera från otpauth://-URI",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Importera",
+    "qrSectionTitle": "QR-kod för etablering",
+    "qrHint": "Skanna med en autentiseringsapp (Google Authenticator, 1Password, Aegis…) för att lägga till denna hemlighet. QR-koden kodar hemligheten — behandla den som ett lösenord.",
+    "accountLabel": "Konto",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Utfärdare (valfritt)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Ange en giltig hemlighet för att generera en QR-kod.",
     "errors": {
       "invalidSecret": "Ogiltig Base32-hemlighet.",
-      "cryptoFailed": "Kunde inte beräkna TOTP. Kontrollera Web Crypto och försök igen."
+      "cryptoFailed": "Kunde inte beräkna TOTP. Kontrollera Web Crypto och försök igen.",
+      "invalidUri": "Detta är inte en giltig otpauth:// TOTP-URI.",
+      "unsupportedUri": "Denna URI använder värden som verktyget inte stöder (siffror måste vara 6 eller 8; period 15, 30 eller 60 s)."
     }
   },
   "MarkdownPreview": {
@@ -3345,7 +3390,11 @@
       "currency_code": "Valutakod",
       "language_code": "Språktagg",
       "custom_list": "Anpassad lista"
-    }
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
     "title": "SVG-optimering",

@@ -2490,7 +2490,8 @@
       "uuid1": "Berasaskan MAC/masa (RFC 9562)",
       "uuid6": "Masa Gregorian disusun semula",
       "uuid3": "Hash MD5 nama + namespace",
-      "uuid5": "Hash SHA‑1 nama + namespace"
+      "uuid5": "Hash SHA‑1 nama + namespace",
+      "nil": "UUID nol (semua sifar, RFC 9562)"
     },
     "countLabel": "Bilangan (1–{max})",
     "nameLabel": "Nama (rentetan input)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Salin semua",
+    "uppercaseToggle": "Output huruf besar",
+    "hyphensToggle": "Tunjukkan sempang",
+    "copyJsonTitle": "Salin sebagai array JSON",
     "outputPlaceholder": "Klik \"Jana\"…",
     "errors": {
       "invalidCustomNamespace": "Namespace tersuai mestilah UUID yang sah.",
@@ -2543,6 +2547,15 @@
     },
     "copyTitle": "Salin semua",
     "outputPlaceholder": "Klik \"Jana\"…",
+    "entropy": "{bits} bit entropi",
+    "strength": {
+      "weak": "Lemah",
+      "fair": "Sederhana",
+      "strong": "Kuat"
+    },
+    "excludeAmbiguous": "Kecualikan aksara mengelirukan",
+    "excludeAmbiguousHint": "Mengalih keluar {chars} — aksara yang mudah disalah baca atau tidak sesuai untuk shell.",
+    "prefixLabel": "Awalan kunci (pilihan)",
     "errors": {
       "emptyAlphabet": "Tambah sekurang-kurangnya satu aksara pada abjad.",
       "alphabetTooLong": "Selepas membuang pendua, abjad boleh mempunyai sehingga {maxAlpha} aksara.",
@@ -3052,7 +3065,13 @@
     "outputLabelBcrypt": "Hash bcrypt",
     "copyBcrypt": "Salin hash",
     "emptyHintBcrypt": "Masukkan kata laluan untuk mengira hash bcrypt.",
-    "securityNoteBcrypt": "Setiap output bcrypt merangkumi garam rawak; kata laluan yang sama menghasilkan rentetan berbeza setiap kali. Ini dijangka. Gunakan kos tinggi dalam produksi."
+    "securityNoteBcrypt": "Setiap output bcrypt merangkumi garam rawak; kata laluan yang sama menghasilkan rentetan berbeza setiap kali. Ini dijangka. Gunakan kos tinggi dalam produksi.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Taman permainan penyulitanan",
@@ -3130,8 +3149,18 @@
     "emptyHint": "Masukkan kunci rahsia untuk mengira HMAC.",
     "securityNote": "Jangan kongsi rahsia penandatanganan. Halaman ini tidak memuat naik data—semua berjalan dalam pelayar.",
     "errors": {
-      "cryptoFailed": "Tidak dapat mengira HMAC. Semak sokongan Web Crypto dan cuba lagi."
-    }
+      "cryptoFailed": "Tidak dapat mengira HMAC. Semak sokongan Web Crypto dan cuba lagi.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "Penjana kod TOTP / 2FA",
@@ -3143,12 +3172,28 @@
     "copied": "Disalin",
     "nextIn": "Disegar dalam {seconds} s",
     "standardHint": "Langkah masa 30 s, 6 digit, HMAC-SHA-1 (serasi Google Authenticator).",
+    "digitsLabel": "Digit",
+    "periodLabel": "Tempoh",
+    "algorithmLabel": "Algoritma",
+    "periodSeconds": "{seconds} s",
     "emptyHint": "Tampal rahsia untuk menjana kod enam digit.",
     "invalidHint": "Betulkan rahsia untuk melihat kod.",
     "securityNote": "Layannya seperti kata laluan. Rahsia tidak meninggalkan pelayar; tiada muat naik.",
+    "importLabel": "Import daripada URI otpauth://",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Import",
+    "qrSectionTitle": "Kod QR peruntukan",
+    "qrHint": "Imbas dengan apl pengesah (Google Authenticator, 1Password, Aegis…) untuk menambah rahsia ini. Kod QR ini mengekod rahsia tersebut — anggap ia seperti kata laluan.",
+    "accountLabel": "Akaun",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Pengeluar (pilihan)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Masukkan rahsia yang sah untuk menjana kod QR.",
     "errors": {
       "invalidSecret": "Bukan rahsia Base32 yang sah.",
-      "cryptoFailed": "Tidak dapat mengira TOTP. Semak Web Crypto dan cuba lagi."
+      "cryptoFailed": "Tidak dapat mengira TOTP. Semak Web Crypto dan cuba lagi.",
+      "invalidUri": "Ini bukan URI otpauth:// TOTP yang sah.",
+      "unsupportedUri": "URI ini menggunakan nilai yang tidak disokong oleh alat ini (digit mestilah 6 atau 8; tempoh 15, 30, atau 60 saat)."
     }
   },
   "MarkdownPreview": {
@@ -3345,7 +3390,11 @@
       "currency_code": "Kod mata wang",
       "language_code": "Tag bahasa",
       "custom_list": "Senarai tersuai"
-    }
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
     "title": "Pengoptimum SVG",

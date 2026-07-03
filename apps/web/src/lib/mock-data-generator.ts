@@ -38,9 +38,28 @@ export type GenerateOptions = {
   rows: number
   format: OutputFormat
   tableName?: string
+  /**
+   * Optional reproducibility seed. Same seed + same schema → identical output.
+   * Strings are hashed (FNV-1a); `undefined`/`''` means non-deterministic.
+   * Note: date/datetime/unix_timestamp fields without explicit dateFrom/dateTo
+   * default their upper bound to today, so byte-identical replay across days
+   * requires explicit date ranges.
+   */
+  seed?: number | string
 }
 
 export const MAX_MOCK_ROWS = 5000
+
+/**
+ * Row counts at or below this generate synchronously on the main thread —
+ * the Web Worker round-trip costs more than the generation itself. Above it,
+ * generation moves off-thread (see hooks/use-mock-data-worker.ts).
+ */
+export const WORKER_ROW_THRESHOLD = 500
+
+export function shouldUseMockDataWorker(rows: number, workerAvailable: boolean): boolean {
+  return workerAvailable && rows > WORKER_ROW_THRESHOLD
+}
 
 /**
  * Schema for the type picker; labels come from `MockDataGenerator.groups` and
@@ -232,10 +251,43 @@ const TEST_CREDIT_CARDS = [
   '378282246310005',
 ]
 
+// ─── Seeded PRNG ─────────────────────────────────────────────────────────────
+
+/** mulberry32 — tiny deterministic PRNG; returns floats in [0, 1). */
+function mulberry32(seed: number): () => number {
+  let a = seed >>> 0
+  return () => {
+    a = (a + 0x6d2b79f5) | 0
+    let t = Math.imul(a ^ (a >>> 15), a | 1)
+    t = (t + Math.imul(t ^ (t >>> 7), t | 61)) ^ t
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+  }
+}
+
+/** FNV-1a 32-bit — hashes string seeds to a mulberry32 seed. */
+function fnv1a(str: string): number {
+  let h = 0x811c9dc5
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i)
+    h = Math.imul(h, 0x01000193)
+  }
+  return h >>> 0
+}
+
+/**
+ * Current random source. `generateMockData` swaps this for a seeded PRNG for
+ * the duration of a seeded run and resets it in `finally`. Module-level (not
+ * a threaded param) because the module is synchronous with a single public
+ * entry point and ~45 generator helpers.
+ */
+let rng: () => number = Math.random
+/** True during a seeded run — makes genUuid skip non-deterministic crypto.randomUUID. */
+let deterministic = false
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function rand(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min
+  return Math.floor(rng() * (max - min + 1)) + min
 }
 
 function pick<T>(arr: T[]): T {
@@ -243,12 +295,12 @@ function pick<T>(arr: T[]): T {
 }
 
 function randFloat(min: number, max: number, decimals: number): number {
-  return parseFloat((Math.random() * (max - min) + min).toFixed(decimals))
+  return parseFloat((rng() * (max - min) + min).toFixed(decimals))
 }
 
 function shouldBlank(blankPercent: number | undefined): boolean {
   if (blankPercent == null || blankPercent <= 0) return false
-  return Math.random() * 100 < Math.min(100, blankPercent)
+  return rng() * 100 < Math.min(100, blankPercent)
 }
 
 // ─── Generators ──────────────────────────────────────────────────────────────
@@ -304,7 +356,7 @@ function genUrl(): string {
 
 function genDomain(): string {
   const base = pick(DOMAIN_NAMES)
-  if (Math.random() < 0.35) {
+  if (rng() < 0.35) {
     const sub = pick(['api', 'app', 'cdn', 'staging', 'dev', 'www'])
     return `${sub}.${base}`
   }
@@ -327,16 +379,16 @@ function genMacAddress(): string {
 }
 
 function genUuid(): string {
-  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+  if (!deterministic && typeof crypto !== 'undefined' && crypto.randomUUID) {
     return crypto.randomUUID()
   }
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-    const r = (Math.random() * 16) | 0
+    const r = (rng() * 16) | 0
     return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16)
   })
 }
 
-function genBoolean(): boolean { return Math.random() < 0.5 }
+function genBoolean(): boolean { return rng() < 0.5 }
 
 function genInteger(min = 1, max = 1000): number { return rand(min, max) }
 
@@ -347,19 +399,19 @@ function genFloat(min = 0.0, max = 1.0, decimals = 2): number {
 function genDate(from = '2020-01-01', to = new Date().toISOString().slice(0, 10)): string {
   const fromMs = new Date(from).getTime()
   const toMs = new Date(to).getTime()
-  return new Date(fromMs + Math.random() * (toMs - fromMs)).toISOString().slice(0, 10)
+  return new Date(fromMs + rng() * (toMs - fromMs)).toISOString().slice(0, 10)
 }
 
 function genDatetime(from = '2020-01-01', to = new Date().toISOString().slice(0, 10)): string {
   const fromMs = new Date(from).getTime()
   const toMs = new Date(to + 'T23:59:59').getTime()
-  return new Date(fromMs + Math.random() * (toMs - fromMs)).toISOString()
+  return new Date(fromMs + rng() * (toMs - fromMs)).toISOString()
 }
 
 function genUnixTimestamp(from = '2020-01-01', to = new Date().toISOString().slice(0, 10)): number {
   const fromMs = new Date(from).getTime()
   const toMs = new Date(to).getTime()
-  return Math.floor((fromMs + Math.random() * (toMs - fromMs)) / 1000)
+  return Math.floor((fromMs + rng() * (toMs - fromMs)) / 1000)
 }
 
 function genWord(): string { return pick(LOREM_WORDS) }
@@ -555,15 +607,25 @@ function formatAsXml(rows: Record<string, unknown>[], schema: FieldSchema[]): st
 // ─── Public API ───────────────────────────────────────────────────────────────
 
 export function generateMockData(options: GenerateOptions): string {
-  const { schema, rows, format, tableName } = options
+  const { schema, rows, format, tableName, seed } = options
   if (schema.length === 0 || rows <= 0) return ''
   const clampedRows = Math.min(Math.max(1, rows), MAX_MOCK_ROWS)
-  const data = generateRows(schema, clampedRows)
-  switch (format) {
-    case 'json': return formatAsJson(data)
-    case 'csv':  return formatAsCsv(data, schema)
-    case 'sql':  return formatAsSql(data, schema, tableName ?? 'records')
-    case 'xml':  return formatAsXml(data, schema)
-    default:     return ''
+  const hasSeed = seed !== undefined && seed !== ''
+  rng = hasSeed
+    ? mulberry32(typeof seed === 'number' ? seed >>> 0 : fnv1a(String(seed)))
+    : Math.random
+  deterministic = hasSeed
+  try {
+    const data = generateRows(schema, clampedRows)
+    switch (format) {
+      case 'json': return formatAsJson(data)
+      case 'csv':  return formatAsCsv(data, schema)
+      case 'sql':  return formatAsSql(data, schema, tableName ?? 'records')
+      case 'xml':  return formatAsXml(data, schema)
+      default:     return ''
+    }
+  } finally {
+    rng = Math.random
+    deterministic = false
   }
 }

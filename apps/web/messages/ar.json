@@ -2490,7 +2490,8 @@
       "uuid1": "مبني على MAC/الوقت (RFC 9562)",
       "uuid6": "وقت غريغوري معاد ترتيبه",
       "uuid3": "تجزئة MD5 للاسم + مساحة الاسم",
-      "uuid5": "تجزئة SHA‑1 للاسم + مساحة الاسم"
+      "uuid5": "تجزئة SHA‑1 للاسم + مساحة الاسم",
+      "nil": "معرف UUID الصفري (كل البتات صفر، RFC 9562)"
     },
     "countLabel": "العدد (1–{max})",
     "nameLabel": "الاسم (سلسلة الإدخال)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "نسخ الكل",
+    "uppercaseToggle": "إخراج بأحرف كبيرة",
+    "hyphensToggle": "إظهار الواصلات",
+    "copyJsonTitle": "نسخ كمصفوفة JSON",
     "outputPlaceholder": "انقر على \"إنشاء\"…",
     "errors": {
       "invalidCustomNamespace": "يجب أن تكون مساحة الاسم المخصصة UUID صالحًا.",
@@ -2543,6 +2547,15 @@
     },
     "copyTitle": "نسخ الكل",
     "outputPlaceholder": "انقر \"إنشاء\"…",
+    "entropy": "{bits} بت من الإنتروبيا",
+    "strength": {
+      "weak": "ضعيف",
+      "fair": "متوسط",
+      "strong": "قوي"
+    },
+    "excludeAmbiguous": "استبعاد الأحرف الغامضة",
+    "excludeAmbiguousHint": "يزيل {chars} — أحرف يسهل قراءتها بشكل خاطئ أو معادية لسطر الأوامر.",
+    "prefixLabel": "بادئة المفتاح (اختياري)",
     "errors": {
       "emptyAlphabet": "أضف حرفًا واحدًا على الأقل إلى الأبجدية.",
       "alphabetTooLong": "بعد إزالة التكرارات، يمكن أن تحتوي الأبجدية على {maxAlpha} حرفًا كحد أقصى.",
@@ -3052,7 +3065,13 @@
     "outputLabelBcrypt": "تجزئة bcrypt",
     "copyBcrypt": "نسخ التجزئة",
     "emptyHintBcrypt": "أدخل كلمة مرور لحساب تجزئة bcrypt.",
-    "securityNoteBcrypt": "كل مخرجات bcrypt تتضمن ملحًا عشوائيًا؛ نفس كلمة المرور تعطي سلسلة مختلفة في كل مرة. هذا متوقع. استخدم تكلفة عالية في الإنتاج."
+    "securityNoteBcrypt": "كل مخرجات bcrypt تتضمن ملحًا عشوائيًا؛ نفس كلمة المرور تعطي سلسلة مختلفة في كل مرة. هذا متوقع. استخدم تكلفة عالية في الإنتاج.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "ملعب التشفير",
@@ -3130,8 +3149,18 @@
     "emptyHint": "أدخل مفتاحًا سريًا لحساب HMAC.",
     "securityNote": "لا تشارك سر التوقيع أبدًا. لا تُرفع البيانات من هذه الصفحة—كل شيء يعمل في المتصفح.",
     "errors": {
-      "cryptoFailed": "تعذّر حساب HMAC. تأكد من دعم Web Crypto وحاول مجددًا."
-    }
+      "cryptoFailed": "تعذّر حساب HMAC. تأكد من دعم Web Crypto وحاول مجددًا.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "مُولّد رمز TOTP / 2FA",
@@ -3143,12 +3172,28 @@
     "copied": "تم النسخ",
     "nextIn": "يتجدد خلال {seconds} ث",
     "standardHint": "خطوة زمنية 30 ث، 6 أرقام، HMAC-SHA-1 (متوافق مع Google Authenticator).",
+    "digitsLabel": "الأرقام",
+    "periodLabel": "الفترة",
+    "algorithmLabel": "الخوارزمية",
+    "periodSeconds": "{seconds} ث",
     "emptyHint": "الصق سرًا لإنشاء رمز مكوّن من ستة أرقام.",
     "invalidHint": "صحّح السر لعرض الرمز.",
     "securityNote": "عامل السر ككلمة مرور. لا يغادر المتصفح؛ لا يتم رفع أي بيانات.",
+    "importLabel": "استيراد من عنوان otpauth://",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "استيراد",
+    "qrSectionTitle": "رمز QR للتزويد",
+    "qrHint": "امسح باستخدام تطبيق مصادقة (Google Authenticator، 1Password، Aegis…) لإضافة هذا السر. يشفّر رمز QR السر — تعامل معه مثل كلمة المرور.",
+    "accountLabel": "الحساب",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "المُصدر (اختياري)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "أدخل سرًا صالحًا لإنشاء رمز QR.",
     "errors": {
       "invalidSecret": "هذا ليس سر Base32 صالحًا.",
-      "cryptoFailed": "تعذّر حساب TOTP. تحقق من Web Crypto وحاول مجددًا."
+      "cryptoFailed": "تعذّر حساب TOTP. تحقق من Web Crypto وحاول مجددًا.",
+      "invalidUri": "هذا ليس عنوان otpauth:// TOTP صالحًا.",
+      "unsupportedUri": "يستخدم هذا العنوان قيمًا لا تدعمها الأداة (يجب أن تكون الأرقام 6 أو 8؛ والفترة 15 أو 30 أو 60 ثانية)."
     }
   },
   "MarkdownPreview": {
@@ -3345,7 +3390,11 @@
       "currency_code": "رمز العملة",
       "language_code": "وسم اللغة",
       "custom_list": "قائمة مخصصة"
-    }
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
     "title": "محسّن SVG",

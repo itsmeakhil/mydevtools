@@ -33,6 +33,38 @@ export function dedupeAlphabet(raw: string): string {
 }
 
 /**
+ * Characters commonly misread for one another in monospace/printed text, or
+ * hostile to shell copy-paste:
+ * - `0`/`O` (zero vs capital o) and `1`/`l`/`I` (one, lowercase L, capital i)
+ * - `|` — confusable with l/I/1, and a shell metacharacter
+ * - `` ` ``, `'`, `"` — quoting characters that break naive shell/env-file interpolation
+ * Not stripped: S/5, B/8, Z/2 (distinguishable in common monospace fonts;
+ * removing them shrinks the alphabet for marginal legibility gain).
+ */
+export const AMBIGUOUS_CHARACTERS = '0O1lI|`\'"';
+
+/** Returns `alphabet` with every AMBIGUOUS_CHARACTERS entry removed (order preserved). */
+export function stripAmbiguous(alphabet: string): string {
+  const ambiguous = new Set(AMBIGUOUS_CHARACTERS);
+  return Array.from(alphabet)
+    .filter((ch) => !ambiguous.has(ch))
+    .join('');
+}
+
+/** Max characters for an optional key prefix (e.g. "sk_"). */
+export const MAX_KEY_PREFIX_LENGTH = 32;
+
+/**
+ * Prepends `prefix` to every generated line. The prefix is a fixed, public
+ * label ("sk_", "pk_live_", …) — it adds zero entropy, so callers must keep
+ * it out of entropy math (entropyBits sees only the random part's length).
+ */
+export function applyKeyPrefix(lines: string[], prefix: string): string[] {
+  if (!prefix) return lines;
+  return lines.map((line) => prefix + line);
+}
+
+/**
  * Uniform random strings over `alphabet` using crypto.getRandomValues and rejection sampling
  * (no modulo bias).
  */

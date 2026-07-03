@@ -2490,7 +2490,8 @@
       "uuid1": "MAC/時刻ベース（RFC 9562）",
       "uuid6": "並べ替えられたグレゴリオ暦時刻ベース",
       "uuid3": "名前 + 名前空間の MD5 ハッシュ",
-      "uuid5": "名前 + 名前空間の SHA‑1 ハッシュ"
+      "uuid5": "名前 + 名前空間の SHA‑1 ハッシュ",
+      "nil": "ニル UUID(すべてゼロ、RFC 9562)"
     },
     "countLabel": "件数（1～{max}）",
     "nameLabel": "名前（入力文字列）",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "すべてコピー",
+    "uppercaseToggle": "大文字で出力",
+    "hyphensToggle": "ハイフンを表示",
+    "copyJsonTitle": "JSON 配列としてコピー",
     "outputPlaceholder": "「生成」をクリック…",
     "errors": {
       "invalidCustomNamespace": "カスタム名前空間は有効な UUID である必要があります。",
@@ -2543,6 +2547,15 @@
     },
     "copyTitle": "すべてコピー",
     "outputPlaceholder": "「生成」をクリック…",
+    "entropy": "エントロピー {bits} ビット",
+    "strength": {
+      "weak": "弱い",
+      "fair": "普通",
+      "strong": "強い"
+    },
+    "excludeAmbiguous": "紛らわしい文字を除外",
+    "excludeAmbiguousHint": "{chars} を削除します — 誤読しやすい、またはシェルに不向きな文字です。",
+    "prefixLabel": "キーの接頭辞（任意）",
     "errors": {
       "emptyAlphabet": "アルファベットに1文字以上追加してください。",
       "alphabetTooLong": "重複除去後のアルファベットは最大 {maxAlpha} 文字までです。",
@@ -3052,7 +3065,13 @@
     "outputLabelBcrypt": "bcrypt ハッシュ",
     "copyBcrypt": "ハッシュをコピー",
     "emptyHintBcrypt": "bcrypt ハッシュを計算するにはパスワードを入力してください。",
-    "securityNoteBcrypt": "bcrypt の出力には毎回ランダムなソルトが含まれます。同じパスワードでも毎回異なる文字列になります。本番では十分なコストを設定してください。"
+    "securityNoteBcrypt": "bcrypt の出力には毎回ランダムなソルトが含まれます。同じパスワードでも毎回異なる文字列になります。本番では十分なコストを設定してください。",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "暗号化プレイグラウンド",
@@ -3130,8 +3149,18 @@
     "emptyHint": "HMACを計算するには秘密鍵を入力してください。",
     "securityNote": "署名用シークレットは共有しないでください。データはアップロードされず、すべてブラウザ内で処理されます。",
     "errors": {
-      "cryptoFailed": "HMACを計算できませんでした。Web Crypto の対応を確認して再試行してください。"
-    }
+      "cryptoFailed": "HMACを計算できませんでした。Web Crypto の対応を確認して再試行してください。",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "TOTP / 2FA コードジェネレーター",
@@ -3143,12 +3172,28 @@
     "copied": "コピーしました",
     "nextIn": "{seconds} 秒後に更新",
     "standardHint": "30秒タイムステップ、6桁、HMAC-SHA-1（Google Authenticator 互換）。",
+    "digitsLabel": "桁数",
+    "periodLabel": "周期",
+    "algorithmLabel": "アルゴリズム",
+    "periodSeconds": "{seconds}秒",
     "emptyHint": "秘密鍵を貼り付けて6桁コードを生成します。",
     "invalidHint": "コードを表示するには秘密鍵を修正してください。",
     "securityNote": "パスワード同様に扱ってください。秘密鍵はブラウザ外に出ません。アップロードはありません。",
+    "importLabel": "otpauth:// URIからインポート",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "インポート",
+    "qrSectionTitle": "プロビジョニングQRコード",
+    "qrHint": "認証アプリ(Google Authenticator、1Password、Aegisなど)でスキャンしてこのシークレットを追加します。QRコードにはシークレットが符号化されています — パスワードと同様に扱ってください。",
+    "accountLabel": "アカウント",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "発行者(任意)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "QRコードを生成するには有効なシークレットを入力してください。",
     "errors": {
       "invalidSecret": "有効な Base32 秘密鍵ではありません。",
-      "cryptoFailed": "TOTP を計算できませんでした。Web Crypto を確認して再試行してください。"
+      "cryptoFailed": "TOTP を計算できませんでした。Web Crypto を確認して再試行してください。",
+      "invalidUri": "有効な otpauth:// TOTP URI ではありません。",
+      "unsupportedUri": "この URI はツールが対応していない値を使用しています(桁数は 6 または 8、周期は 15、30、60 秒のいずれかである必要があります)。"
     }
   },
   "MarkdownPreview": {
@@ -3345,7 +3390,11 @@
       "currency_code": "通貨コード",
       "language_code": "言語タグ",
       "custom_list": "カスタム一覧"
-    }
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
     "title": "SVG 最適化",

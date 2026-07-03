@@ -2490,7 +2490,8 @@
       "uuid1": "Basado en MAC/tiempo (RFC 9562)",
       "uuid6": "Tiempo gregoriano reordenado",
       "uuid3": "Hash MD5 de nombre + espacio de nombres",
-      "uuid5": "Hash SHA‑1 de nombre + espacio de nombres"
+      "uuid5": "Hash SHA‑1 de nombre + espacio de nombres",
+      "nil": "UUID nulo (todo ceros, RFC 9562)"
     },
     "countLabel": "Cantidad (1–{max})",
     "nameLabel": "Nombre (cadena de entrada)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Copiar todo",
+    "uppercaseToggle": "Salida en mayúsculas",
+    "hyphensToggle": "Mostrar guiones",
+    "copyJsonTitle": "Copiar como array JSON",
     "outputPlaceholder": "Haz clic en \"Generar\"…",
     "errors": {
       "invalidCustomNamespace": "El espacio de nombres personalizado debe ser un UUID válido.",
@@ -2543,6 +2547,15 @@
     },
     "copyTitle": "Copiar todo",
     "outputPlaceholder": "Haz clic en \"Generar\"…",
+    "entropy": "{bits} bits de entropía",
+    "strength": {
+      "weak": "Débil",
+      "fair": "Aceptable",
+      "strong": "Fuerte"
+    },
+    "excludeAmbiguous": "Excluir caracteres ambiguos",
+    "excludeAmbiguousHint": "Elimina {chars} — caracteres fáciles de confundir u hostiles para la shell.",
+    "prefixLabel": "Prefijo de la clave (opcional)",
     "errors": {
       "emptyAlphabet": "Añade al menos un carácter al alfabeto.",
       "alphabetTooLong": "Tras quitar duplicados, el alfabeto puede tener como máximo {maxAlpha} caracteres.",
@@ -3052,7 +3065,13 @@
     "outputLabelBcrypt": "Hash bcrypt",
     "copyBcrypt": "Copiar hash",
     "emptyHintBcrypt": "Introduzca una contraseña para calcular el hash bcrypt.",
-    "securityNoteBcrypt": "Cada salida bcrypt incluye sal aleatoria; la misma contraseña da una cadena distinta cada vez. Es esperado. Use costes altos en producción."
+    "securityNoteBcrypt": "Cada salida bcrypt incluye sal aleatoria; la misma contraseña da una cadena distinta cada vez. Es esperado. Use costes altos en producción.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Cifrado (prácticas)",
@@ -3130,8 +3149,18 @@
     "emptyHint": "Introduce una clave secreta para calcular HMAC.",
     "securityNote": "Nunca compartas tu secreto de firma. Esta página no sube datos; todo se ejecuta en el navegador.",
     "errors": {
-      "cryptoFailed": "No se pudo calcular HMAC. Comprueba el soporte de Web Crypto e inténtalo de nuevo."
-    }
+      "cryptoFailed": "No se pudo calcular HMAC. Comprueba el soporte de Web Crypto e inténtalo de nuevo.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "Generador de código TOTP / 2FA",
@@ -3143,12 +3172,28 @@
     "copied": "Copiado",
     "nextIn": "Se actualiza en {seconds} s",
     "standardHint": "Intervalo de 30 s, 6 dígitos, HMAC-SHA-1 (compatible con Google Authenticator).",
+    "digitsLabel": "Dígitos",
+    "periodLabel": "Período",
+    "algorithmLabel": "Algoritmo",
+    "periodSeconds": "{seconds} s",
     "emptyHint": "Pega un secreto para generar un código de seis dígitos.",
     "invalidHint": "Corrige el secreto para ver el código.",
     "securityNote": "Trátalo como una contraseña. El secreto no sale de tu navegador; no se sube nada.",
+    "importLabel": "Importar desde un URI otpauth://",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Importar",
+    "qrSectionTitle": "Código QR de aprovisionamiento",
+    "qrHint": "Escanea con una app de autenticación (Google Authenticator, 1Password, Aegis…) para añadir este secreto. El código QR codifica el secreto — trátalo como una contraseña.",
+    "accountLabel": "Cuenta",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Emisor (opcional)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Introduce un secreto válido para generar un código QR.",
     "errors": {
       "invalidSecret": "No es un secreto Base32 válido.",
-      "cryptoFailed": "No se pudo calcular el TOTP. Comprueba Web Crypto e inténtalo de nuevo."
+      "cryptoFailed": "No se pudo calcular el TOTP. Comprueba Web Crypto e inténtalo de nuevo.",
+      "invalidUri": "Esto no es un URI otpauth:// TOTP válido.",
+      "unsupportedUri": "Este URI usa valores que la herramienta no admite (los dígitos deben ser 6 u 8; el período 15, 30 o 60 s)."
     }
   },
   "MarkdownPreview": {
@@ -3345,7 +3390,11 @@
       "currency_code": "Código de moneda",
       "language_code": "Etiqueta de idioma",
       "custom_list": "Lista personalizada"
-    }
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
     "title": "Optimizador SVG",

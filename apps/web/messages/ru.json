@@ -2490,7 +2490,8 @@
       "uuid1": "MAC/время (RFC 9562)",
       "uuid6": "Переупорядоченное григорианское время",
       "uuid3": "MD5‑хеш имени + пространства имён",
-      "uuid5": "SHA‑1‑хеш имени + пространства имён"
+      "uuid5": "SHA‑1‑хеш имени + пространства имён",
+      "nil": "Нулевой UUID (все нули, RFC 9562)"
     },
     "countLabel": "Количество (1–{max})",
     "nameLabel": "Имя (входная строка)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Копировать всё",
+    "uppercaseToggle": "Вывод заглавными буквами",
+    "hyphensToggle": "Показывать дефисы",
+    "copyJsonTitle": "Копировать как массив JSON",
     "outputPlaceholder": "Нажмите «Сгенерировать»…",
     "errors": {
       "invalidCustomNamespace": "Пользовательское пространство имён должно быть валидным UUID.",
@@ -2543,6 +2547,15 @@
     },
     "copyTitle": "Копировать всё",
     "outputPlaceholder": "Нажмите «Сгенерировать»…",
+    "entropy": "{bits} бит энтропии",
+    "strength": {
+      "weak": "Слабый",
+      "fair": "Средний",
+      "strong": "Сильный"
+    },
+    "excludeAmbiguous": "Исключить неоднозначные символы",
+    "excludeAmbiguousHint": "Удаляет {chars} — символы, которые легко перепутать или которые опасны для shell.",
+    "prefixLabel": "Префикс ключа (необязательно)",
     "errors": {
       "emptyAlphabet": "Добавьте в алфавит хотя бы один символ.",
       "alphabetTooLong": "После удаления дубликатов в алфавите может быть не больше {maxAlpha} символов.",
@@ -3052,7 +3065,13 @@
     "outputLabelBcrypt": "Хеш bcrypt",
     "copyBcrypt": "Копировать хеш",
     "emptyHintBcrypt": "Введите пароль для вычисления bcrypt-хеша.",
-    "securityNoteBcrypt": "Каждый результат bcrypt содержит случайную соль; один и тот же пароль даёт разную строку каждый раз. Это нормально. В продакшене используйте высокую стоимость."
+    "securityNoteBcrypt": "Каждый результат bcrypt содержит случайную соль; один и тот же пароль даёт разную строку каждый раз. Это нормально. В продакшене используйте высокую стоимость.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Песочница шифрования",
@@ -3130,8 +3149,18 @@
     "emptyHint": "Введите секретный ключ для вычисления HMAC.",
     "securityNote": "Никогда не делитесь секретом подписи. Эта страница не загружает данные — всё выполняется в браузере.",
     "errors": {
-      "cryptoFailed": "Не удалось вычислить HMAC. Проверьте поддержку Web Crypto и повторите попытку."
-    }
+      "cryptoFailed": "Не удалось вычислить HMAC. Проверьте поддержку Web Crypto и повторите попытку.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "Генератор кода TOTP / 2FA",
@@ -3143,12 +3172,28 @@
     "copied": "Скопировано",
     "nextIn": "Обновление через {seconds} с",
     "standardHint": "Шаг времени 30 с, 6 цифр, HMAC-SHA-1 (совместимо с Google Authenticator).",
+    "digitsLabel": "Цифры",
+    "periodLabel": "Период",
+    "algorithmLabel": "Алгоритм",
+    "periodSeconds": "{seconds} с",
     "emptyHint": "Вставьте секрет, чтобы получить шестизначный код.",
     "invalidHint": "Исправьте секрет, чтобы увидеть код.",
     "securityNote": "Относитесь к секрету как к паролю. Он не покидает браузер; ничего не отправляется.",
+    "importLabel": "Импорт из otpauth:// URI",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Импорт",
+    "qrSectionTitle": "QR-код подготовки",
+    "qrHint": "Отсканируйте приложением-аутентификатором (Google Authenticator, 1Password, Aegis…), чтобы добавить этот секрет. QR-код кодирует секрет — относитесь к нему как к паролю.",
+    "accountLabel": "Учётная запись",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Издатель (необязательно)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Введите корректный секрет, чтобы сгенерировать QR-код.",
     "errors": {
       "invalidSecret": "Недопустимый секрет Base32.",
-      "cryptoFailed": "Не удалось вычислить TOTP. Проверьте поддержку Web Crypto и повторите."
+      "cryptoFailed": "Не удалось вычислить TOTP. Проверьте поддержку Web Crypto и повторите.",
+      "invalidUri": "Это не действительный otpauth:// TOTP URI.",
+      "unsupportedUri": "Этот URI использует значения, которые инструмент не поддерживает (количество цифр должно быть 6 или 8; период — 15, 30 или 60 с)."
     }
   },
   "MarkdownPreview": {
@@ -3345,7 +3390,11 @@
       "currency_code": "Код валюты",
       "language_code": "Языковой тег",
       "custom_list": "Пользовательский список"
-    }
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
     "title": "Оптимизатор SVG",

@@ -2,10 +2,11 @@
 
 import { useCallback, useId, useMemo, useState } from 'react'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
+import { useMockDataWorker } from '@/hooks/use-mock-data-worker'
 import { useIsMobile } from '@/components/hooks/use-mobile'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { Download, Plus, Trash2, RefreshCw, CopyPlus } from 'lucide-react'
+import { Dices, Download, Plus, Trash2, RefreshCw, CopyPlus, Loader2 } from 'lucide-react'
 import { IconClipboardData } from '@tabler/icons-react'
 import { CATEGORY_ACCENT } from '@/components/dashboard/types'
 import { RevealItem } from '@/components/dashboard/dashboard-reveal'
@@ -37,7 +38,6 @@ import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/lib/utils'
 import {
   FIELD_TYPE_GROUP_STRUCTURE,
-  generateMockData,
   MAX_MOCK_ROWS,
   schemaHasDuplicateFieldNames,
   TYPES_WITH_OPTIONS,
@@ -94,8 +94,10 @@ export function MockDataGeneratorLayout() {
   const [format, setFormat] = useState<OutputFormat>('json')
   const [tableName, setTableName] = useState('records')
   const [output, setOutput] = useState('')
+  const [generating, setGenerating] = useState(false)
   const { isCopied: copied, copyToClipboard, reset: resetCopied } = useCopyToClipboard()
   const [presetSelectKey, setPresetSelectKey] = useState(0)
+  const [seedInput, setSeedInput] = useState('')
 
   const schema = useMemo(() => toFieldSchema(schemaRows), [schemaRows])
   const duplicates = useMemo(() => schemaHasDuplicateFieldNames(schema), [schema])
@@ -119,18 +121,31 @@ export function MockDataGeneratorLayout() {
     setSchemaRows((prev) => prev.map((r) => (r._id === id ? { ...r, options: { ...options } } : r)))
   }, [])
 
-  const runGenerate = useCallback(() => {
+  const { generate } = useMockDataWorker()
+
+  const runGenerate = useCallback(async () => {
     resetCopied()
-    setOutput(
-      generateMockData({
+    setGenerating(true)
+    try {
+      const result = await generate({
         schema,
         rows: rowCount,
         format,
         tableName: format === 'sql' ? tableName : undefined,
+        seed: seedInput.trim() === '' ? undefined : seedInput.trim(),
       })
-    )
-    if (isMobile) setMobileTab('output')
-  }, [schema, rowCount, format, tableName, isMobile, resetCopied])
+      setOutput(result)
+      if (isMobile) setMobileTab('output')
+    } catch {
+      setOutput('')
+    } finally {
+      setGenerating(false)
+    }
+  }, [generate, schema, rowCount, format, tableName, seedInput, isMobile, resetCopied])
+
+  const randomizeSeed = useCallback(() => {
+    setSeedInput(String(Math.floor(Math.random() * 1_000_000_000)))
+  }, [])
 
   const handleCopy = () => {
     if (!output) return
@@ -284,8 +299,42 @@ export function MockDataGeneratorLayout() {
                 </SelectContent>
               </Select>
             </div>
-            <Button type="button" variant="gradient" onClick={runGenerate} className="gap-2 shrink-0">
-              <RefreshCw className="h-4 w-4" />
+            <div className="space-y-1.5">
+              <Label htmlFor={`${baseId}-seed`} className="text-xs text-muted-foreground uppercase tracking-wider">
+                {t('seedLabel')}
+              </Label>
+              <div className="flex gap-1.5">
+                <Input
+                  id={`${baseId}-seed`}
+                  value={seedInput}
+                  onChange={(e) => setSeedInput(e.target.value)}
+                  placeholder={t('seedPlaceholder')}
+                  title={t('seedHint')}
+                  maxLength={64}
+                  spellCheck={false}
+                  className="w-32 font-mono text-sm"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  className="h-9 w-9 shrink-0"
+                  onClick={randomizeSeed}
+                  aria-label={t('seedRandomize')}
+                  title={t('seedRandomize')}
+                >
+                  <Dices className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+            <Button
+              type="button"
+              variant="gradient"
+              onClick={() => void runGenerate()}
+              disabled={generating}
+              className="gap-2 shrink-0"
+            >
+              {generating ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
               {t('generate')}
             </Button>
           </div>

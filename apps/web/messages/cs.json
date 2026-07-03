@@ -2490,7 +2490,8 @@
       "uuid1": "MAC/čas (RFC 9562)",
       "uuid6": "Přeuspořádaný gregoriánský čas",
       "uuid3": "MD5 hash jména + namespace",
-      "uuid5": "SHA‑1 hash jména + namespace"
+      "uuid5": "SHA‑1 hash jména + namespace",
+      "nil": "Nulové UUID (samé nuly, RFC 9562)"
     },
     "countLabel": "Počet (1–{max})",
     "nameLabel": "Jméno (vstupní řetězec)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Kopírovat vše",
+    "uppercaseToggle": "Výstup velkými písmeny",
+    "hyphensToggle": "Zobrazit pomlčky",
+    "copyJsonTitle": "Kopírovat jako pole JSON",
     "outputPlaceholder": "Klikněte na „Generovat“…",
     "errors": {
       "invalidCustomNamespace": "Vlastní namespace musí být platná UUID.",
@@ -2543,6 +2547,15 @@
     },
     "copyTitle": "Kopírovat vše",
     "outputPlaceholder": "Klikněte na „Generovat“…",
+    "entropy": "{bits} bitů entropie",
+    "strength": {
+      "weak": "Slabé",
+      "fair": "Průměrné",
+      "strong": "Silné"
+    },
+    "excludeAmbiguous": "Vyloučit nejednoznačné znaky",
+    "excludeAmbiguousHint": "Odstraní {chars} — znaky, které lze snadno zaměnit nebo které škodí shellu.",
+    "prefixLabel": "Předpona klíče (volitelné)",
     "errors": {
       "emptyAlphabet": "Přidejte do abecedy alespoň jeden znak.",
       "alphabetTooLong": "Po odstranění duplicit může mít abeceda nejvýše {maxAlpha} znaků.",
@@ -3052,7 +3065,13 @@
     "outputLabelBcrypt": "bcrypt hash",
     "copyBcrypt": "Kopírovat hash",
     "emptyHintBcrypt": "Zadejte heslo pro výpočet bcrypt hashe.",
-    "securityNoteBcrypt": "Každý výstup bcrypt obsahuje náhodnou sůl; stejné heslo dá pokaždé jiný řetězec. To je očekávané. V produkci používejte vyšší náklad."
+    "securityNoteBcrypt": "Každý výstup bcrypt obsahuje náhodnou sůl; stejné heslo dá pokaždé jiný řetězec. To je očekávané. V produkci používejte vyšší náklad.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Hraviště šifrování",
@@ -3130,8 +3149,18 @@
     "emptyHint": "Zadejte tajný klíč pro výpočet HMAC.",
     "securityNote": "Nikdy nesdílejte podpisové tajemství. Tato stránka nic neodesílá—vše běží v prohlížeči.",
     "errors": {
-      "cryptoFailed": "HMAC se nepodařilo vypočítat. Zkontrolujte podporu Web Crypto a zkuste znovu."
-    }
+      "cryptoFailed": "HMAC se nepodařilo vypočítat. Zkontrolujte podporu Web Crypto a zkuste znovu.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "Generátor kódu TOTP / 2FA",
@@ -3143,12 +3172,28 @@
     "copied": "Zkopírováno",
     "nextIn": "Obnoví se za {seconds} s",
     "standardHint": "Časový krok 30 s, 6 číslic, HMAC-SHA-1 (kompatibilní s Google Authenticator).",
+    "digitsLabel": "Počet číslic",
+    "periodLabel": "Perioda",
+    "algorithmLabel": "Algoritmus",
+    "periodSeconds": "{seconds} s",
     "emptyHint": "Vložte tajemství pro vygenerování šestimístného kódu.",
     "invalidHint": "Opravte tajemství pro zobrazení kódu.",
     "securityNote": "Chraňte to jako heslo. Tajemství neopustí prohlížeč; nic se nenahrává.",
+    "importLabel": "Importovat z otpauth:// URI",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Importovat",
+    "qrSectionTitle": "QR kód pro zřízení",
+    "qrHint": "Naskenujte pomocí aplikace ověřovatele (Google Authenticator, 1Password, Aegis…) a přidejte tento tajný klíč. QR kód kóduje tajný klíč — zacházejte s ním jako s heslem.",
+    "accountLabel": "Účet",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Vydavatel (volitelné)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Zadejte platný tajný klíč pro vygenerování QR kódu.",
     "errors": {
       "invalidSecret": "Neplatné Base32 tajemství.",
-      "cryptoFailed": "TOTP se nepodařilo spočítat. Zkontrolujte Web Crypto a zkuste znovu."
+      "cryptoFailed": "TOTP se nepodařilo spočítat. Zkontrolujte Web Crypto a zkuste znovu.",
+      "invalidUri": "Toto není platné otpauth:// TOTP URI.",
+      "unsupportedUri": "Toto URI používá hodnoty, které nástroj nepodporuje (počet číslic musí být 6 nebo 8; perioda 15, 30 nebo 60 s)."
     }
   },
   "MarkdownPreview": {
@@ -3345,7 +3390,11 @@
       "currency_code": "Kód měny",
       "language_code": "Jazyková značka",
       "custom_list": "Vlastní seznam"
-    }
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
     "title": "Optimalizátor SVG",
