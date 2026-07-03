@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react"
 import { AddEnvironmentSetDialog } from "@/components/environment-manager/add-environment-set-dialog"
 import { EnvironmentSetList } from "@/components/environment-manager/environment-set-list"
+import { ToolHeader } from "@/components/tools/tool-header"
 import { useEnvironmentManagerStore, type EnvSetEntry } from "@/store/environment-manager-store"
 import { useVaultGuard } from "@/hooks/use-vault-guard"
 import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder"
@@ -118,9 +119,11 @@ export default function EnvironmentManagerPage() {
             }
         >
             {!isMobile && (
-                <div className="flex justify-between items-center py-6 shrink-0">
-                    <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
-                    <AddEnvironmentSetDialog />
+                <div className="shrink-0">
+                    <ToolHeader title={t("title")} toolId="/app/environment-manager" />
+                    <div className="flex justify-end py-3">
+                        <AddEnvironmentSetDialog />
+                    </div>
                 </div>
             )}
 

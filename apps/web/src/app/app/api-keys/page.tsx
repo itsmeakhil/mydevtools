@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react"
 import { AddApiKeyDialog } from "@/components/api-key-vault/add-api-key-dialog"
 import { ApiKeyList } from "@/components/api-key-vault/api-key-list"
 import { useApiKeyVaultStore, type ApiKeyEntry, type ApiKeyEnv } from "@/store/api-key-vault-store"
-import { ShieldCheck } from "lucide-react"
+import { ToolHeader } from "@/components/tools/tool-header"
 import { useVaultGuard } from "@/hooks/use-vault-guard"
 import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder"
 import { VaultRestoringSkeleton } from "@/components/vault-restoring-skeleton"
@@ -44,7 +44,7 @@ export default function ApiKeyVaultPage() {
     const { user, loading } = useAuth(true)
     const encryptionKey = useCipherKey()
     const { isUnlocked, isRestoring } = useVaultGuard()
-    const { entries, setEntries, setLoading, clearEntries } = useApiKeyVaultStore()
+    const { setEntries, setLoading, clearEntries } = useApiKeyVaultStore()
     const isMobile = useIsMobile()
     const loadedRef = useRef(false)
 
@@ -130,36 +130,16 @@ export default function ApiKeyVaultPage() {
                     : "h-full flex flex-col container mx-auto px-4 md:px-6 lg:px-8 min-h-0"
             }
         >
-            {!isMobile && (
-                <div className="flex justify-between items-end py-6 shrink-0 gap-4">
-                    <div className="min-w-0">
-                        <div className="flex items-center gap-3">
-                            <h1 className="text-3xl font-bold tracking-tight">API Keys</h1>
-                            {entries.length > 0 && (
-                                <span className="text-sm font-medium text-muted-foreground bg-muted/60 px-2 py-0.5 rounded-full">
-                                    {entries.length}
-                                </span>
-                            )}
-                        </div>
-                        <p className="text-sm text-muted-foreground mt-1 flex items-center gap-1.5">
-                            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-500" />
-                            AES-256-GCM encrypted on your device — server never sees plaintext.
-                        </p>
-                    </div>
-                    <AddApiKeyDialog />
-                </div>
-            )}
+            <ToolHeader
+                title="API Keys"
+                description="AES-256-GCM encrypted on your device — server never sees plaintext."
+                toolId="/app/api-keys"
+                className="shrink-0"
+            />
 
-            {isMobile && (
-                <div className="px-4 pt-4 pb-2 shrink-0">
-                    <div className="flex items-center justify-between">
-                        <h1 className="text-2xl font-bold tracking-tight">API Keys</h1>
-                        {entries.length > 0 && (
-                            <span className="text-xs font-medium text-muted-foreground bg-muted/60 px-2 py-0.5 rounded-full">
-                                {entries.length} stored
-                            </span>
-                        )}
-                    </div>
+            {!isMobile && (
+                <div className="flex justify-end py-3 shrink-0">
+                    <AddApiKeyDialog />
                 </div>
             )}
 
