@@ -104,6 +104,9 @@ export function PricingTiers() {
           <p className="max-w-2xl text-muted-foreground">
             Self-host for free, forever. Upgrade to cloud when you want the convenience.
           </p>
+          <p className="mdt-pill inline-flex items-center gap-1.5 text-sm">
+            <span aria-hidden>🎉</span> Launch offer — every plan is free for a limited time
+          </p>
 
           <div
             role="radiogroup"
@@ -161,8 +164,26 @@ export function PricingTiers() {
                 </p>
 
                 <div className="mt-5 mb-6">
-                  <div className="text-4xl font-bold tracking-tight">{big}</div>
-                  <div className="mt-1 text-xs text-muted-foreground">{sub}</div>
+                  {tier.monthly !== null && tier.monthly > 0 ? (
+                    // Launch offer: paid tiers are free for a limited time — show
+                    // the real price struck through so the value reads instantly.
+                    <>
+                      <div className="flex items-baseline gap-2.5">
+                        <span className="text-2xl font-semibold text-muted-foreground/70 line-through decoration-[1.5px]">
+                          {big}
+                        </span>
+                        <span className="mdt-grad-text text-4xl font-bold tracking-tight">Free</span>
+                      </div>
+                      <div className="mt-1 text-xs text-muted-foreground">
+                        for a limited time · normally {sub}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="text-4xl font-bold tracking-tight">{big}</div>
+                      <div className="mt-1 text-xs text-muted-foreground">{sub}</div>
+                    </>
+                  )}
                 </div>
 
                 <Link
