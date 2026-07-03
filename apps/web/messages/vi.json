@@ -2549,6 +2549,8 @@
       "fair": "Khá",
       "strong": "Mạnh"
     },
+    "excludeAmbiguous": "Loại trừ ký tự dễ nhầm lẫn",
+    "excludeAmbiguousHint": "Xóa {chars} — các ký tự dễ đọc nhầm hoặc gây hại cho shell.",
     "errors": {
       "emptyAlphabet": "Thêm ít nhất một ký tự vào bảng chữ cái.",
       "alphabetTooLong": "Sau khi loại trùng, bảng chữ cái tối đa {maxAlpha} ký tự.",

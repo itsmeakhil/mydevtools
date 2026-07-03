@@ -2549,6 +2549,8 @@
       "fair": "Średnie",
       "strong": "Silne"
     },
+    "excludeAmbiguous": "Wyklucz niejednoznaczne znaki",
+    "excludeAmbiguousHint": "Usuwa {chars} — znaki łatwe do pomylenia lub szkodliwe dla powłoki.",
     "errors": {
       "emptyAlphabet": "Dodaj co najmniej jeden znak do alfabetu.",
       "alphabetTooLong": "Po usunięciu duplikatów alfabet może mieć co najwyżej {maxAlpha} znaków.",

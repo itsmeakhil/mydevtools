@@ -2549,6 +2549,8 @@
       "fair": "Discreta",
       "strong": "Forte"
     },
+    "excludeAmbiguous": "Escludi caratteri ambigui",
+    "excludeAmbiguousHint": "Rimuove {chars} — caratteri facilmente confondibili o ostili alla shell.",
     "errors": {
       "emptyAlphabet": "Aggiungi almeno un carattere all’alfabeto.",
       "alphabetTooLong": "Dopo la rimozione dei duplicati, l’alfabeto può contenere al massimo {maxAlpha} caratteri.",

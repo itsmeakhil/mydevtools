@@ -2677,6 +2677,8 @@
       "fair": "Fair",
       "strong": "Strong"
     },
+    "excludeAmbiguous": "Exclude ambiguous characters",
+    "excludeAmbiguousHint": "Removes {chars} — easily misread or shell-hostile characters.",
     "errors": {
       "emptyAlphabet": "Add at least one character to the alphabet.",
       "alphabetTooLong": "After removing duplicates, the alphabet can have at most {maxAlpha} characters.",

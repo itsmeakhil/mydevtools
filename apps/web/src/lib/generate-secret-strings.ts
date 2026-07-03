@@ -33,6 +33,25 @@ export function dedupeAlphabet(raw: string): string {
 }
 
 /**
+ * Characters commonly misread for one another in monospace/printed text, or
+ * hostile to shell copy-paste:
+ * - `0`/`O` (zero vs capital o) and `1`/`l`/`I` (one, lowercase L, capital i)
+ * - `|` — confusable with l/I/1, and a shell metacharacter
+ * - `` ` ``, `'`, `"` — quoting characters that break naive shell/env-file interpolation
+ * Not stripped: S/5, B/8, Z/2 (distinguishable in common monospace fonts;
+ * removing them shrinks the alphabet for marginal legibility gain).
+ */
+export const AMBIGUOUS_CHARACTERS = '0O1lI|`\'"';
+
+/** Returns `alphabet` with every AMBIGUOUS_CHARACTERS entry removed (order preserved). */
+export function stripAmbiguous(alphabet: string): string {
+  const ambiguous = new Set(AMBIGUOUS_CHARACTERS);
+  return Array.from(alphabet)
+    .filter((ch) => !ambiguous.has(ch))
+    .join('');
+}
+
+/**
  * Uniform random strings over `alphabet` using crypto.getRandomValues and rejection sampling
  * (no modulo bias).
  */

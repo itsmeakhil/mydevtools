@@ -2549,6 +2549,8 @@
       "fair": "Middels",
       "strong": "Sterk"
     },
+    "excludeAmbiguous": "Utelat tvetydige tegn",
+    "excludeAmbiguousHint": "Fjerner {chars} — tegn som lett leses feil eller er fiendtlige mot skallet.",
     "errors": {
       "emptyAlphabet": "Legg til minst ett tegn i alfabetet.",
       "alphabetTooLong": "Etter fjerning av duplikater kan alfabetet ha maks {maxAlpha} tegn.",

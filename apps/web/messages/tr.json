@@ -2549,6 +2549,8 @@
       "fair": "Orta",
       "strong": "Güçlü"
     },
+    "excludeAmbiguous": "Belirsiz karakterleri hariç tut",
+    "excludeAmbiguousHint": "{chars} kaldırılır — kolayca yanlış okunan veya kabuk için tehlikeli karakterler.",
     "errors": {
       "emptyAlphabet": "Alfabeye en az bir karakter ekleyin.",
       "alphabetTooLong": "Yinelenenler kaldırıldıktan sonra alfabe en fazla {maxAlpha} karakter olabilir.",

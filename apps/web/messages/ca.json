@@ -2549,6 +2549,8 @@
       "fair": "Acceptable",
       "strong": "Fort"
     },
+    "excludeAmbiguous": "Exclou els caràcters ambigus",
+    "excludeAmbiguousHint": "Elimina {chars} — caràcters que es llegeixen fàcilment malament o hostils per a l'intèrpret d'ordres.",
     "errors": {
       "emptyAlphabet": "Afegeix almenys un caràcter a l'alfabet.",
       "alphabetTooLong": "Després d'eliminar duplicats, l'alfabet pot tenir com a màxim {maxAlpha} caràcters.",

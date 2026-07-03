@@ -2549,6 +2549,8 @@
       "fair": "Průměrné",
       "strong": "Silné"
     },
+    "excludeAmbiguous": "Vyloučit nejednoznačné znaky",
+    "excludeAmbiguousHint": "Odstraní {chars} — znaky, které lze snadno zaměnit nebo které škodí shellu.",
     "errors": {
       "emptyAlphabet": "Přidejte do abecedy alespoň jeden znak.",
       "alphabetTooLong": "Po odstranění duplicit může mít abeceda nejvýše {maxAlpha} znaků.",

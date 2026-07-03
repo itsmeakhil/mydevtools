@@ -2549,6 +2549,8 @@
       "fair": "普通",
       "strong": "強い"
     },
+    "excludeAmbiguous": "紛らわしい文字を除外",
+    "excludeAmbiguousHint": "{chars} を削除します — 誤読しやすい、またはシェルに不向きな文字です。",
     "errors": {
       "emptyAlphabet": "アルファベットに1文字以上追加してください。",
       "alphabetTooLong": "重複除去後のアルファベットは最大 {maxAlpha} 文字までです。",

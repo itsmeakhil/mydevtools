@@ -2549,6 +2549,8 @@
       "fair": "Cukup",
       "strong": "Kuat"
     },
+    "excludeAmbiguous": "Kecualikan karakter ambigu",
+    "excludeAmbiguousHint": "Menghapus {chars} — karakter yang mudah salah baca atau tidak ramah bagi shell.",
     "errors": {
       "emptyAlphabet": "Tambahkan setidaknya satu karakter ke alfabet.",
       "alphabetTooLong": "Setelah duplikat dihapus, alfabet paling banyak {maxAlpha} karakter.",

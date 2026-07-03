@@ -16,13 +16,16 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Switch } from '@/components/ui/switch';
 import { cn } from '@/lib/utils';
 import {
+  AMBIGUOUS_CHARACTERS,
   dedupeAlphabet,
   generateSecretStrings,
   MAX_ALPHABET_UNIQUE,
   MAX_SECRET_BULK,
   MAX_SECRET_LENGTH,
+  stripAmbiguous,
   type GenerateSecretStringsErrorKey,
 } from '@/lib/generate-secret-strings';
 import { entropyBits, strengthBucket, type SecretStrength } from '@/lib/secret-entropy';
@@ -80,11 +83,16 @@ export function SecretApiKeyGeneratorLayout() {
   const [output, setOutput] = useState('');
   const [error, setError] = useState('');
   const { isCopied: copied, copyToClipboard, reset: resetCopied } = useCopyToClipboard();
+  const [excludeAmbiguous, setExcludeAmbiguous] = useState(false);
 
   const dedupedPreview = useMemo(() => dedupeAlphabet(alphabet), [alphabet]);
+  const effectiveAlphabet = useMemo(
+    () => (excludeAmbiguous ? stripAmbiguous(dedupedPreview) : dedupedPreview),
+    [dedupedPreview, excludeAmbiguous]
+  );
   const entropy = useMemo(
-    () => entropyBits(dedupedPreview.length, Number(length)),
-    [dedupedPreview, length]
+    () => entropyBits(effectiveAlphabet.length, Number(length)),
+    [effectiveAlphabet, length]
   );
   const strength = strengthBucket(entropy);
 
@@ -97,7 +105,7 @@ export function SecretApiKeyGeneratorLayout() {
     resetCopied();
     try {
       const result = generateSecretStrings({
-        alphabet,
+        alphabet: effectiveAlphabet,
         length: Number(length),
         count: Number(count),
       });
@@ -111,7 +119,7 @@ export function SecretApiKeyGeneratorLayout() {
       setOutput('');
       setError(t('errors.unknown'));
     }
-  }, [alphabet, length, count, t, resetCopied]);
+  }, [effectiveAlphabet, length, count, t, resetCopied]);
 
   const handleCopy = () => {
     if (!output) return;
@@ -182,7 +190,7 @@ export function SecretApiKeyGeneratorLayout() {
                 {t('alphabetLabel')}
               </Label>
               <span className="text-[10px] tabular-nums text-muted-foreground">
-                {t('alphabetCount', { count: dedupedPreview.length.toLocaleString() })}
+                {t('alphabetCount', { count: effectiveAlphabet.length.toLocaleString() })}
               </span>
             </div>
             <Textarea
@@ -194,6 +202,26 @@ export function SecretApiKeyGeneratorLayout() {
               className="min-h-[88px] resize-y font-mono text-sm"
             />
             <p className="text-[11px] leading-snug text-muted-foreground">{t('alphabetHint')}</p>
+          </div>
+
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0 space-y-0.5">
+              <Label
+                htmlFor="secret-exclude-ambiguous"
+                className="text-xs font-medium uppercase tracking-wider text-muted-foreground"
+              >
+                {t('excludeAmbiguous')}
+              </Label>
+              <p className="text-[11px] leading-snug text-muted-foreground">
+                {t('excludeAmbiguousHint', { chars: Array.from(AMBIGUOUS_CHARACTERS).join(' ') })}
+              </p>
+            </div>
+            <Switch
+              id="secret-exclude-ambiguous"
+              checked={excludeAmbiguous}
+              onCheckedChange={setExcludeAmbiguous}
+              className="mt-0.5"
+            />
           </div>
 
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">

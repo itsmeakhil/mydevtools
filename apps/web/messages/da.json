@@ -2549,6 +2549,8 @@
       "fair": "Middel",
       "strong": "Stærk"
     },
+    "excludeAmbiguous": "Udelad tvetydige tegn",
+    "excludeAmbiguousHint": "Fjerner {chars} — tegn der let læses forkert eller er fjendtlige over for shellen.",
     "errors": {
       "emptyAlphabet": "Tilføj mindst ét tegn til alfabetet.",
       "alphabetTooLong": "Efter fjernelse af dubletter kan alfabetet højst have {maxAlpha} tegn.",
