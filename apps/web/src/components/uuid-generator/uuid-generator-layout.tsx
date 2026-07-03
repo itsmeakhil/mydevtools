@@ -274,7 +274,7 @@ export function UuidGeneratorLayout() {
             </>
           )}
 
-          <div className="flex flex-wrap gap-2 pt-1">
+          <div className="sticky bottom-0 z-10 -mx-4 -mb-4 mt-auto flex flex-wrap gap-2 border-t border-border/50 bg-card px-4 py-3 lg:static lg:z-auto lg:m-0 lg:mt-0 lg:border-0 lg:bg-transparent lg:p-0 lg:pt-1">
             <Button type="button" variant="gradient" onClick={runGenerate} className="gap-1.5 w-full sm:w-auto">
               <RefreshCw className="h-3.5 w-3.5" />
               {t('generate')}
