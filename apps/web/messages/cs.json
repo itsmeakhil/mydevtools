@@ -2543,6 +2543,12 @@
     },
     "copyTitle": "Kopírovat vše",
     "outputPlaceholder": "Klikněte na „Generovat“…",
+    "entropy": "{bits} bitů entropie",
+    "strength": {
+      "weak": "Slabé",
+      "fair": "Průměrné",
+      "strong": "Silné"
+    },
     "errors": {
       "emptyAlphabet": "Přidejte do abecedy alespoň jeden znak.",
       "alphabetTooLong": "Po odstranění duplicit může mít abeceda nejvýše {maxAlpha} znaků.",

@@ -2671,6 +2671,12 @@
     },
     "copyTitle": "Copy all",
     "outputPlaceholder": "Click \"Generate\"…",
+    "entropy": "{bits} bits of entropy",
+    "strength": {
+      "weak": "Weak",
+      "fair": "Fair",
+      "strong": "Strong"
+    },
     "errors": {
       "emptyAlphabet": "Add at least one character to the alphabet.",
       "alphabetTooLong": "After removing duplicates, the alphabet can have at most {maxAlpha} characters.",

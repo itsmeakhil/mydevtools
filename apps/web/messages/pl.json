@@ -2543,6 +2543,12 @@
     },
     "copyTitle": "Kopiuj wszystko",
     "outputPlaceholder": "Kliknij „Generuj”…",
+    "entropy": "{bits} bitów entropii",
+    "strength": {
+      "weak": "Słabe",
+      "fair": "Średnie",
+      "strong": "Silne"
+    },
     "errors": {
       "emptyAlphabet": "Dodaj co najmniej jeden znak do alfabetu.",
       "alphabetTooLong": "Po usunięciu duplikatów alfabet może mieć co najwyżej {maxAlpha} znaków.",

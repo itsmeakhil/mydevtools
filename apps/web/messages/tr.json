@@ -2543,6 +2543,12 @@
     },
     "copyTitle": "Tümünü kopyala",
     "outputPlaceholder": "\"Oluştur\"a tıklayın…",
+    "entropy": "{bits} bit entropi",
+    "strength": {
+      "weak": "Zayıf",
+      "fair": "Orta",
+      "strong": "Güçlü"
+    },
     "errors": {
       "emptyAlphabet": "Alfabeye en az bir karakter ekleyin.",
       "alphabetTooLong": "Yinelenenler kaldırıldıktan sonra alfabe en fazla {maxAlpha} karakter olabilir.",

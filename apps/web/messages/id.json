@@ -2543,6 +2543,12 @@
     },
     "copyTitle": "Salin semua",
     "outputPlaceholder": "Klik \"Hasilkan\"…",
+    "entropy": "{bits} bit entropi",
+    "strength": {
+      "weak": "Lemah",
+      "fair": "Cukup",
+      "strong": "Kuat"
+    },
     "errors": {
       "emptyAlphabet": "Tambahkan setidaknya satu karakter ke alfabet.",
       "alphabetTooLong": "Setelah duplikat dihapus, alfabet paling banyak {maxAlpha} karakter.",

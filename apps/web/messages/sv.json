@@ -2543,6 +2543,12 @@
     },
     "copyTitle": "Kopiera allt",
     "outputPlaceholder": "Klicka på \"Generera\"…",
+    "entropy": "{bits} bitars entropi",
+    "strength": {
+      "weak": "Svag",
+      "fair": "Godtagbar",
+      "strong": "Stark"
+    },
     "errors": {
       "emptyAlphabet": "Lägg till minst ett tecken i alfabetet.",
       "alphabetTooLong": "Efter borttagning av dubbletter kan alfabetet ha högst {maxAlpha} tecken.",

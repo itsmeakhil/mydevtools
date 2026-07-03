@@ -2543,6 +2543,12 @@
     },
     "copyTitle": "Salin semua",
     "outputPlaceholder": "Klik \"Jana\"…",
+    "entropy": "{bits} bit entropi",
+    "strength": {
+      "weak": "Lemah",
+      "fair": "Sederhana",
+      "strong": "Kuat"
+    },
     "errors": {
       "emptyAlphabet": "Tambah sekurang-kurangnya satu aksara pada abjad.",
       "alphabetTooLong": "Selepas membuang pendua, abjad boleh mempunyai sehingga {maxAlpha} aksara.",

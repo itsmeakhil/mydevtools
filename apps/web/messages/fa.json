@@ -2543,6 +2543,12 @@
     },
     "copyTitle": "کپی همه",
     "outputPlaceholder": "روی «تولید» کلیک کنید…",
+    "entropy": "{bits} بیت آنتروپی",
+    "strength": {
+      "weak": "ضعیف",
+      "fair": "متوسط",
+      "strong": "قوی"
+    },
     "errors": {
       "emptyAlphabet": "حداقل یک نویسه به الفبا اضافه کنید.",
       "alphabetTooLong": "پس از حذف تکراری‌ها، الفبا حداکثر {maxAlpha} نویسه می‌تواند داشته باشد.",

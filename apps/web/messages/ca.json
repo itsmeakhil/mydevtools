@@ -2543,6 +2543,12 @@
     },
     "copyTitle": "Copia-ho tot",
     "outputPlaceholder": "Fes clic a \"Genera\"…",
+    "entropy": "{bits} bits d'entropia",
+    "strength": {
+      "weak": "Feble",
+      "fair": "Acceptable",
+      "strong": "Fort"
+    },
     "errors": {
       "emptyAlphabet": "Afegeix almenys un caràcter a l'alfabet.",
       "alphabetTooLong": "Després d'eliminar duplicats, l'alfabet pot tenir com a màxim {maxAlpha} caràcters.",

@@ -2543,6 +2543,12 @@
     },
     "copyTitle": "Kopier alt",
     "outputPlaceholder": "Klikk på «Generer»…",
+    "entropy": "{bits} bits entropi",
+    "strength": {
+      "weak": "Svak",
+      "fair": "Middels",
+      "strong": "Sterk"
+    },
     "errors": {
       "emptyAlphabet": "Legg til minst ett tegn i alfabetet.",
       "alphabetTooLong": "Etter fjerning av duplikater kan alfabetet ha maks {maxAlpha} tegn.",

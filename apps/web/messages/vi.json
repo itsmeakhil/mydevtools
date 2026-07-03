@@ -2543,6 +2543,12 @@
     },
     "copyTitle": "Sao chép tất cả",
     "outputPlaceholder": "Nhấn \"Tạo\"…",
+    "entropy": "{bits} bit entropy",
+    "strength": {
+      "weak": "Yếu",
+      "fair": "Khá",
+      "strong": "Mạnh"
+    },
     "errors": {
       "emptyAlphabet": "Thêm ít nhất một ký tự vào bảng chữ cái.",
       "alphabetTooLong": "Sau khi loại trùng, bảng chữ cái tối đa {maxAlpha} ký tự.",

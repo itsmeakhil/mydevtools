@@ -2543,6 +2543,12 @@
     },
     "copyTitle": "Kopieer alles",
     "outputPlaceholder": "Klik \"Genereer\"…",
+    "entropy": "{bits} bisse entropie",
+    "strength": {
+      "weak": "Swak",
+      "fair": "Redelik",
+      "strong": "Sterk"
+    },
     "errors": {
       "emptyAlphabet": "Voeg minstens een karakter by die alfabet.",
       "alphabetTooLong": "Na duplikate verwyder is, mag die alfabet hoogstens {maxAlpha} karakters hê.",

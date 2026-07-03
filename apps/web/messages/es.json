@@ -2543,6 +2543,12 @@
     },
     "copyTitle": "Copiar todo",
     "outputPlaceholder": "Haz clic en \"Generar\"…",
+    "entropy": "{bits} bits de entropía",
+    "strength": {
+      "weak": "Débil",
+      "fair": "Aceptable",
+      "strong": "Fuerte"
+    },
     "errors": {
       "emptyAlphabet": "Añade al menos un carácter al alfabeto.",
       "alphabetTooLong": "Tras quitar duplicados, el alfabeto puede tener como máximo {maxAlpha} caracteres.",

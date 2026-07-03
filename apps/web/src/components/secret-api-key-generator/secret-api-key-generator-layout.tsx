@@ -16,6 +16,7 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/lib/utils';
 import {
   dedupeAlphabet,
   generateSecretStrings,
@@ -24,6 +25,7 @@ import {
   MAX_SECRET_LENGTH,
   type GenerateSecretStringsErrorKey,
 } from '@/lib/generate-secret-strings';
+import { entropyBits, strengthBucket, type SecretStrength } from '@/lib/secret-entropy';
 
 const PRESET_BASE64URL =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
@@ -42,6 +44,12 @@ const PRESETS: { id: PresetId; value: string }[] = [
   { id: 'hex', value: PRESET_HEX },
   { id: 'asciiPrintable', value: PRESET_ASCII_PRINTABLE },
 ];
+
+const STRENGTH_CLASS: Record<SecretStrength, string> = {
+  weak: 'text-destructive',
+  fair: 'text-amber-600 dark:text-amber-500',
+  strong: 'text-emerald-600 dark:text-emerald-400',
+};
 
 function formatGenerateError(
   t: ReturnType<typeof useTranslations<'SecretApiKeyGenerator'>>,
@@ -74,6 +82,11 @@ export function SecretApiKeyGeneratorLayout() {
   const { isCopied: copied, copyToClipboard, reset: resetCopied } = useCopyToClipboard();
 
   const dedupedPreview = useMemo(() => dedupeAlphabet(alphabet), [alphabet]);
+  const entropy = useMemo(
+    () => entropyBits(dedupedPreview.length, Number(length)),
+    [dedupedPreview, length]
+  );
+  const strength = strengthBucket(entropy);
 
   const applyPreset = useCallback((value: string) => {
     setAlphabet(value);
@@ -218,6 +231,15 @@ export function SecretApiKeyGeneratorLayout() {
                 className="font-mono text-sm"
               />
             </div>
+          </div>
+
+          <div className="flex items-center justify-between gap-2 rounded-md border border-border/50 bg-muted/30 px-3 py-2">
+            <span className="text-xs tabular-nums text-muted-foreground">
+              {t('entropy', { bits: Math.round(entropy) })}
+            </span>
+            <span className={cn('text-xs font-semibold', STRENGTH_CLASS[strength])}>
+              {t(`strength.${strength}`)}
+            </span>
           </div>
 
           <div className="flex flex-wrap gap-2 pt-1">

@@ -2543,6 +2543,12 @@
     },
     "copyTitle": "すべてコピー",
     "outputPlaceholder": "「生成」をクリック…",
+    "entropy": "エントロピー {bits} ビット",
+    "strength": {
+      "weak": "弱い",
+      "fair": "普通",
+      "strong": "強い"
+    },
     "errors": {
       "emptyAlphabet": "アルファベットに1文字以上追加してください。",
       "alphabetTooLong": "重複除去後のアルファベットは最大 {maxAlpha} 文字までです。",

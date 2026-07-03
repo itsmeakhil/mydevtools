@@ -2543,6 +2543,12 @@
     },
     "copyTitle": "نسخ الكل",
     "outputPlaceholder": "انقر \"إنشاء\"…",
+    "entropy": "{bits} بت من الإنتروبيا",
+    "strength": {
+      "weak": "ضعيف",
+      "fair": "متوسط",
+      "strong": "قوي"
+    },
     "errors": {
       "emptyAlphabet": "أضف حرفًا واحدًا على الأقل إلى الأبجدية.",
       "alphabetTooLong": "بعد إزالة التكرارات، يمكن أن تحتوي الأبجدية على {maxAlpha} حرفًا كحد أقصى.",

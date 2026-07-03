@@ -2543,6 +2543,12 @@
     },
     "copyTitle": "Tout copier",
     "outputPlaceholder": "Cliquez sur « Générer »…",
+    "entropy": "{bits} bits d'entropie",
+    "strength": {
+      "weak": "Faible",
+      "fair": "Correct",
+      "strong": "Fort"
+    },
     "errors": {
       "emptyAlphabet": "Ajoutez au moins un caractère à l’alphabet.",
       "alphabetTooLong": "Après suppression des doublons, l’alphabet peut comporter au plus {maxAlpha} caractères.",
