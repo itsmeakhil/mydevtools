@@ -3159,9 +3159,14 @@
     "emptyHint": "Enganxa un secret per generar un codi de sis xifres.",
     "invalidHint": "Corregeix el secret per veure el codi.",
     "securityNote": "Tracta’l com una contrasenya. El secret no surt del navegador; no es puja res.",
+    "importLabel": "Importa des d'un URI otpauth://",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Importa",
     "errors": {
       "invalidSecret": "Aquest no és un secret Base32 vàlid.",
-      "cryptoFailed": "No s’ha pogut calcular el TOTP. Comproveu Web Crypto i torneu-ho a provar."
+      "cryptoFailed": "No s’ha pogut calcular el TOTP. Comproveu Web Crypto i torneu-ho a provar.",
+      "invalidUri": "Això no és un URI otpauth:// TOTP vàlid.",
+      "unsupportedUri": "Aquest URI utilitza valors que l'eina no admet (els dígits han de ser 6 o 8; el període 15, 30 o 60 s)."
     }
   },
   "MarkdownPreview": {

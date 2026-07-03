@@ -3159,9 +3159,14 @@
     "emptyHint": "Επικολλήστε μυστικό για εξαψήφιο κωδικό.",
     "invalidHint": "Διορθώστε το μυστικό για να εμφανιστεί ο κωδικός.",
     "securityNote": "Αντιμετωπίστε το ως κωδικό πρόσβασης. Το μυστικό δεν εγκαταλείπει τον περιηγητή· δεν γίνεται μεταφόρτωση.",
+    "importLabel": "Εισαγωγή από otpauth:// URI",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Εισαγωγή",
     "errors": {
       "invalidSecret": "Μη έγκυρο μυστικό Base32.",
-      "cryptoFailed": "Δεν ήταν δυνατός ο υπολογισμός TOTP. Ελέγξτε το Web Crypto και δοκιμάστε ξανά."
+      "cryptoFailed": "Δεν ήταν δυνατός ο υπολογισμός TOTP. Ελέγξτε το Web Crypto και δοκιμάστε ξανά.",
+      "invalidUri": "Αυτό δεν είναι έγκυρο otpauth:// TOTP URI.",
+      "unsupportedUri": "Αυτό το URI χρησιμοποιεί τιμές που δεν υποστηρίζει το εργαλείο (τα ψηφία πρέπει να είναι 6 ή 8· η περίοδος 15, 30 ή 60 δευτ.)."
     }
   },
   "MarkdownPreview": {

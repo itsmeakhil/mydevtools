@@ -3159,9 +3159,14 @@
     "emptyHint": "الصق سرًا لإنشاء رمز مكوّن من ستة أرقام.",
     "invalidHint": "صحّح السر لعرض الرمز.",
     "securityNote": "عامل السر ككلمة مرور. لا يغادر المتصفح؛ لا يتم رفع أي بيانات.",
+    "importLabel": "استيراد من عنوان otpauth://",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "استيراد",
     "errors": {
       "invalidSecret": "هذا ليس سر Base32 صالحًا.",
-      "cryptoFailed": "تعذّر حساب TOTP. تحقق من Web Crypto وحاول مجددًا."
+      "cryptoFailed": "تعذّر حساب TOTP. تحقق من Web Crypto وحاول مجددًا.",
+      "invalidUri": "هذا ليس عنوان otpauth:// TOTP صالحًا.",
+      "unsupportedUri": "يستخدم هذا العنوان قيمًا لا تدعمها الأداة (يجب أن تكون الأرقام 6 أو 8؛ والفترة 15 أو 30 أو 60 ثانية)."
     }
   },
   "MarkdownPreview": {

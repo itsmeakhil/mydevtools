@@ -3159,9 +3159,14 @@
     "emptyHint": "Plak een geheim om een zescijferige code te maken.",
     "invalidHint": "Corrigeer het geheim om de code te zien.",
     "securityNote": "Behandel dit als een wachtwoord. Het geheim verlaat je browser niet; er wordt niets geüpload.",
+    "importLabel": "Importeren vanuit otpauth://-URI",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Importeren",
     "errors": {
       "invalidSecret": "Dit is geen geldig Base32-geheim.",
-      "cryptoFailed": "TOTP kon niet worden berekend. Controleer Web Crypto en probeer opnieuw."
+      "cryptoFailed": "TOTP kon niet worden berekend. Controleer Web Crypto en probeer opnieuw.",
+      "invalidUri": "Dit is geen geldige otpauth:// TOTP-URI.",
+      "unsupportedUri": "Deze URI gebruikt waarden die de tool niet ondersteunt (cijfers moeten 6 of 8 zijn; periode 15, 30 of 60 s)."
     }
   },
   "MarkdownPreview": {

@@ -3159,9 +3159,14 @@
     "emptyHint": "6자리 코드를 만들려면 비밀키를 붙여넣으세요.",
     "invalidHint": "코드를 보려면 비밀키를 수정하세요.",
     "securityNote": "비밀번호처럼 다루세요. 비밀키는 브라우저를 벗어나지 않으며 업로드되지 않습니다.",
+    "importLabel": "otpauth:// URI에서 가져오기",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "가져오기",
     "errors": {
       "invalidSecret": "유효한 Base32 비밀키가 아닙니다.",
-      "cryptoFailed": "TOTP를 계산할 수 없습니다. Web Crypto를 확인하고 다시 시도하세요."
+      "cryptoFailed": "TOTP를 계산할 수 없습니다. Web Crypto를 확인하고 다시 시도하세요.",
+      "invalidUri": "유효한 otpauth:// TOTP URI가 아닙니다.",
+      "unsupportedUri": "이 URI는 도구에서 지원하지 않는 값을 사용합니다(자릿수는 6 또는 8이어야 하며, 주기는 15, 30, 60초 중 하나여야 합니다)."
     }
   },
   "MarkdownPreview": {

@@ -3159,9 +3159,14 @@
     "emptyHint": "Vložte tajemství pro vygenerování šestimístného kódu.",
     "invalidHint": "Opravte tajemství pro zobrazení kódu.",
     "securityNote": "Chraňte to jako heslo. Tajemství neopustí prohlížeč; nic se nenahrává.",
+    "importLabel": "Importovat z otpauth:// URI",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Importovat",
     "errors": {
       "invalidSecret": "Neplatné Base32 tajemství.",
-      "cryptoFailed": "TOTP se nepodařilo spočítat. Zkontrolujte Web Crypto a zkuste znovu."
+      "cryptoFailed": "TOTP se nepodařilo spočítat. Zkontrolujte Web Crypto a zkuste znovu.",
+      "invalidUri": "Toto není platné otpauth:// TOTP URI.",
+      "unsupportedUri": "Toto URI používá hodnoty, které nástroj nepodporuje (počet číslic musí být 6 nebo 8; perioda 15, 30 nebo 60 s)."
     }
   },
   "MarkdownPreview": {

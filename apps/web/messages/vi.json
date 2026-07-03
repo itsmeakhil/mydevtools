@@ -3159,9 +3159,14 @@
     "emptyHint": "Dán bí mật để tạo mã sáu chữ số.",
     "invalidHint": "Sửa bí mật để xem mã.",
     "securityNote": "Coi như mật khẩu. Bí mật không rời khỏi trình duyệt; không tải dữ liệu lên.",
+    "importLabel": "Nhập từ URI otpauth://",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Nhập",
     "errors": {
       "invalidSecret": "Đây không phải bí mật Base32 hợp lệ.",
-      "cryptoFailed": "Không thể tính TOTP. Kiểm tra Web Crypto và thử lại."
+      "cryptoFailed": "Không thể tính TOTP. Kiểm tra Web Crypto và thử lại.",
+      "invalidUri": "Đây không phải là URI otpauth:// TOTP hợp lệ.",
+      "unsupportedUri": "URI này sử dụng các giá trị mà công cụ không hỗ trợ (số chữ số phải là 6 hoặc 8; chu kỳ 15, 30 hoặc 60 giây)."
     }
   },
   "MarkdownPreview": {

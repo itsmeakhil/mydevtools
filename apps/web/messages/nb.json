@@ -3159,9 +3159,14 @@
     "emptyHint": "Lim inn en hemmelighet for å generere en seksifret kode.",
     "invalidHint": "Rett hemmeligheten for å se koden.",
     "securityNote": "Behandle som et passord. Hemmeligheten forlater ikke nettleseren; ingenting lastes opp.",
+    "importLabel": "Importer fra otpauth://-URI",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Importer",
     "errors": {
       "invalidSecret": "Ugyldig Base32-hemmelighet.",
-      "cryptoFailed": "Kunne ikke beregne TOTP. Sjekk Web Crypto og prøv igjen."
+      "cryptoFailed": "Kunne ikke beregne TOTP. Sjekk Web Crypto og prøv igjen.",
+      "invalidUri": "Dette er ikke en gyldig otpauth:// TOTP-URI.",
+      "unsupportedUri": "Denne URI-en bruker verdier verktøyet ikke støtter (sifre må være 6 eller 8; periode 15, 30 eller 60 s)."
     }
   },
   "MarkdownPreview": {

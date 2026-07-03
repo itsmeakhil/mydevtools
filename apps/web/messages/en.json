@@ -2912,9 +2912,14 @@
     "emptyHint": "Paste a secret to generate a six-digit code.",
     "invalidHint": "Fix the secret to see the code.",
     "securityNote": "Treat this like a password. The secret never leaves your browser; nothing is uploaded.",
+    "importLabel": "Import from otpauth:// URI",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Import",
     "errors": {
       "invalidSecret": "That is not a valid Base32 secret.",
-      "cryptoFailed": "Could not compute TOTP. Check that Web Crypto is available and try again."
+      "cryptoFailed": "Could not compute TOTP. Check that Web Crypto is available and try again.",
+      "invalidUri": "That is not a valid otpauth:// TOTP URI.",
+      "unsupportedUri": "This URI uses values the tool does not support (digits must be 6 or 8; period 15, 30, or 60 s)."
     }
   },
   "NumberBaseConverter": {

@@ -3159,9 +3159,14 @@
     "emptyHint": "Indsæt en hemmelighed for at generere en sekscifret kode.",
     "invalidHint": "Ret hemmeligheden for at se koden.",
     "securityNote": "Behandl det som en adgangskode. Hemmeligheden forlader ikke browseren; intet uploades.",
+    "importLabel": "Importer fra otpauth://-URI",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Importer",
     "errors": {
       "invalidSecret": "Ugyldig Base32-hemmelighed.",
-      "cryptoFailed": "Kunne ikke beregne TOTP. Tjek Web Crypto og prøv igen."
+      "cryptoFailed": "Kunne ikke beregne TOTP. Tjek Web Crypto og prøv igen.",
+      "invalidUri": "Dette er ikke en gyldig otpauth:// TOTP-URI.",
+      "unsupportedUri": "Denne URI bruger værdier, som værktøjet ikke understøtter (cifre skal være 6 eller 8; periode 15, 30 eller 60 s)."
     }
   },
   "MarkdownPreview": {

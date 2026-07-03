@@ -3159,9 +3159,14 @@
     "emptyHint": "Klistra in en hemlighet för att generera en sexsiffrig kod.",
     "invalidHint": "Rätta hemligheten för att se koden.",
     "securityNote": "Hantera som ett lösenord. Hemligheten lämnar inte webbläsaren; inget laddas upp.",
+    "importLabel": "Importera från otpauth://-URI",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Importera",
     "errors": {
       "invalidSecret": "Ogiltig Base32-hemlighet.",
-      "cryptoFailed": "Kunde inte beräkna TOTP. Kontrollera Web Crypto och försök igen."
+      "cryptoFailed": "Kunde inte beräkna TOTP. Kontrollera Web Crypto och försök igen.",
+      "invalidUri": "Detta är inte en giltig otpauth:// TOTP-URI.",
+      "unsupportedUri": "Denna URI använder värden som verktyget inte stöder (siffror måste vara 6 eller 8; period 15, 30 eller 60 s)."
     }
   },
   "MarkdownPreview": {

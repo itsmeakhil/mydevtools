@@ -7,6 +7,7 @@ import { useDebouncedCallback } from 'use-debounce';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -20,12 +21,14 @@ import { RevealItem } from '@/components/dashboard/dashboard-reveal';
 import { ToolPageHeader } from '@/components/tools/tool-page-header';
 import { CopyTextButton } from '@/components/tools/copy-text-button';
 import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
+import { Button } from '@/components/ui/button';
 import {
   computeTotp,
   decodeBase32Secret,
   getTotpSecondsRemaining,
   type TotpAlgorithm,
 } from '@/lib/totp-compute';
+import { parseOtpauthUri } from '@/lib/totp-uri';
 import { cn } from '@/lib/utils';
 
 const DIGIT_OPTIONS = [6, 8] as const;
@@ -34,6 +37,11 @@ const ALGORITHM_OPTIONS: TotpAlgorithm[] = ['SHA-1', 'SHA-256', 'SHA-512'];
 
 type TotpDigits = (typeof DIGIT_OPTIONS)[number];
 type TotpPeriod = (typeof PERIOD_OPTIONS)[number];
+
+const isSupportedDigits = (d: number): d is TotpDigits =>
+  (DIGIT_OPTIONS as readonly number[]).includes(d);
+const isSupportedPeriod = (p: number): p is TotpPeriod =>
+  (PERIOD_OPTIONS as readonly number[]).includes(p);
 
 export function TotpGeneratorLayout() {
   const t = useTranslations('TotpGenerator');
@@ -46,6 +54,10 @@ export function TotpGeneratorLayout() {
   const [invalid, setInvalid] = useState(false);
   const [cryptoError, setCryptoError] = useState(false);
   const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
+  const [importUri, setImportUri] = useState('');
+  const [importError, setImportError] = useState<
+    'errors.invalidUri' | 'errors.unsupportedUri' | null
+  >(null);
 
   const trimmed = useMemo(() => secret.replace(/[\s-]/g, ''), [secret]);
 
@@ -101,6 +113,24 @@ export function TotpGeneratorLayout() {
   const handleCopy = () => {
     if (!code) return;
     void copyToClipboard(code, { silent: true });
+  };
+
+  const handleImport = () => {
+    const parsed = parseOtpauthUri(importUri);
+    if (!parsed) {
+      setImportError('errors.invalidUri');
+      return;
+    }
+    if (!isSupportedDigits(parsed.digits) || !isSupportedPeriod(parsed.period)) {
+      setImportError('errors.unsupportedUri');
+      return;
+    }
+    setSecret(parsed.secret);
+    setDigits(parsed.digits);
+    setPeriod(parsed.period);
+    setAlgorithm(parsed.algorithm);
+    setImportUri('');
+    setImportError(null);
   };
 
   const progress = remaining / period;
@@ -184,6 +214,32 @@ export function TotpGeneratorLayout() {
               autoComplete="off"
             />
             <p className="text-xs text-muted-foreground">{t('standardHint')}</p>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="totp-uri">{t('importLabel')}</Label>
+            <div className="flex gap-2">
+              <Input
+                id="totp-uri"
+                value={importUri}
+                onChange={(e) => {
+                  setImportUri(e.target.value);
+                  setImportError(null);
+                }}
+                placeholder={t('importPlaceholder')}
+                className="font-mono text-sm"
+                spellCheck={false}
+                autoComplete="off"
+              />
+              <Button
+                type="button"
+                variant="secondary"
+                disabled={!importUri.trim()}
+                onClick={handleImport}
+              >
+                {t('importAction')}
+              </Button>
+            </div>
+            {importError && <p className="text-xs text-destructive">{t(importError)}</p>}
           </div>
         </Card>
 

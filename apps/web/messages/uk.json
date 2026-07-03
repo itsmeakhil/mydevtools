@@ -3159,9 +3159,14 @@
     "emptyHint": "Вставте секрет, щоб згенерувати шестизначний код.",
     "invalidHint": "Виправте секрет, щоб побачити код.",
     "securityNote": "Ставтеся до секрету як до пароля. Він не залишає браузер; нічого не надсилається.",
+    "importLabel": "Імпорт з otpauth:// URI",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Імпортувати",
     "errors": {
       "invalidSecret": "Це недійсний секрет Base32.",
-      "cryptoFailed": "Не вдалося обчислити TOTP. Перевірте Web Crypto і спробуйте ще раз."
+      "cryptoFailed": "Не вдалося обчислити TOTP. Перевірте Web Crypto і спробуйте ще раз.",
+      "invalidUri": "Це не дійсний otpauth:// TOTP URI.",
+      "unsupportedUri": "Цей URI використовує значення, які інструмент не підтримує (кількість цифр має бути 6 або 8; період 15, 30 або 60 с)."
     }
   },
   "MarkdownPreview": {

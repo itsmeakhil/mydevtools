@@ -3159,9 +3159,14 @@
     "emptyHint": "برای ساخت کد شش‌رقمی یک راز بچسبانید.",
     "invalidHint": "راز را اصلاح کنید تا کد دیده شود.",
     "securityNote": "مثل رمز عبور با آن رفتار کنید. راز مرورگر را ترک نمی‌کند؛ چیزی آپلود نمی‌شود.",
+    "importLabel": "درون‌ریزی از URI با فرمت otpauth://",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "درون‌ریزی",
     "errors": {
       "invalidSecret": "این یک راز Base32 معتبر نیست.",
-      "cryptoFailed": "محاسبهٔ TOTP ممکن نشد. Web Crypto را بررسی و دوباره امتحان کنید."
+      "cryptoFailed": "محاسبهٔ TOTP ممکن نشد. Web Crypto را بررسی و دوباره امتحان کنید.",
+      "invalidUri": "این یک URI معتبر otpauth:// TOTP نیست.",
+      "unsupportedUri": "این URI از مقادیری استفاده می‌کند که ابزار پشتیبانی نمی‌کند (رقم‌ها باید ۶ یا ۸ باشند؛ دوره ۱۵، ۳۰ یا ۶۰ ثانیه)."
     }
   },
   "MarkdownPreview": {

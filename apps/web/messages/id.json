@@ -3159,9 +3159,14 @@
     "emptyHint": "Tempel rahasia untuk membuat kode enam digit.",
     "invalidHint": "Perbaiki rahasia untuk melihat kode.",
     "securityNote": "Perlakukan seperti sandi. Rahasia tidak meninggalkan browser; tidak ada unggahan.",
+    "importLabel": "Impor dari URI otpauth://",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Impor",
     "errors": {
       "invalidSecret": "Bukan rahasia Base32 yang valid.",
-      "cryptoFailed": "Tidak dapat menghitung TOTP. Periksa Web Crypto dan coba lagi."
+      "cryptoFailed": "Tidak dapat menghitung TOTP. Periksa Web Crypto dan coba lagi.",
+      "invalidUri": "Ini bukan URI otpauth:// TOTP yang valid.",
+      "unsupportedUri": "URI ini menggunakan nilai yang tidak didukung alat ini (digit harus 6 atau 8; periode 15, 30, atau 60 dtk)."
     }
   },
   "MarkdownPreview": {

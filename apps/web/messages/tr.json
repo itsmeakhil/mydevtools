@@ -3159,9 +3159,14 @@
     "emptyHint": "Altı haneli kod için gizli anahtarı yapıştırın.",
     "invalidHint": "Kodu görmek için gizli anahtarı düzeltin.",
     "securityNote": "Bunu parola gibi koruyun. Gizli anahtar tarayıcıdan çıkmaz; hiçbir şey yüklenmez.",
+    "importLabel": "otpauth:// URI'sinden içe aktar",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "İçe aktar",
     "errors": {
       "invalidSecret": "Geçerli bir Base32 gizli anahtar değil.",
-      "cryptoFailed": "TOTP hesaplanamadı. Web Crypto desteğini kontrol edip tekrar deneyin."
+      "cryptoFailed": "TOTP hesaplanamadı. Web Crypto desteğini kontrol edip tekrar deneyin.",
+      "invalidUri": "Bu geçerli bir otpauth:// TOTP URI'si değil.",
+      "unsupportedUri": "Bu URI, aracın desteklemediği değerler kullanıyor (basamak sayısı 6 veya 8 olmalı; periyot 15, 30 veya 60 sn)."
     }
   },
   "MarkdownPreview": {

@@ -3159,9 +3159,14 @@
     "emptyHint": "Plak 'n geheim om 'n sesyfer-kode te genereer.",
     "invalidHint": "Regstel die geheim om die kode te sien.",
     "securityNote": "Hanteer soos 'n wagwoord. Die geheim verlaat nie die blaaier nie; niks word opgelaai nie.",
+    "importLabel": "Voer in vanaf 'n otpauth://-URI",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Voer in",
     "errors": {
       "invalidSecret": "Ongeldige Base32-geheim.",
-      "cryptoFailed": "Kon nie TOTP bereken nie. Kontroleer Web Crypto en probeer weer."
+      "cryptoFailed": "Kon nie TOTP bereken nie. Kontroleer Web Crypto en probeer weer.",
+      "invalidUri": "Dit is nie 'n geldige otpauth:// TOTP-URI nie.",
+      "unsupportedUri": "Hierdie URI gebruik waardes wat nie deur die hulpmiddel ondersteun word nie (syfers moet 6 of 8 wees; tydperk 15, 30 of 60 s)."
     }
   },
   "MarkdownPreview": {

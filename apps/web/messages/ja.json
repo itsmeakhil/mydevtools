@@ -3159,9 +3159,14 @@
     "emptyHint": "秘密鍵を貼り付けて6桁コードを生成します。",
     "invalidHint": "コードを表示するには秘密鍵を修正してください。",
     "securityNote": "パスワード同様に扱ってください。秘密鍵はブラウザ外に出ません。アップロードはありません。",
+    "importLabel": "otpauth:// URIからインポート",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "インポート",
     "errors": {
       "invalidSecret": "有効な Base32 秘密鍵ではありません。",
-      "cryptoFailed": "TOTP を計算できませんでした。Web Crypto を確認して再試行してください。"
+      "cryptoFailed": "TOTP を計算できませんでした。Web Crypto を確認して再試行してください。",
+      "invalidUri": "有効な otpauth:// TOTP URI ではありません。",
+      "unsupportedUri": "この URI はツールが対応していない値を使用しています(桁数は 6 または 8、周期は 15、30、60 秒のいずれかである必要があります)。"
     }
   },
   "MarkdownPreview": {

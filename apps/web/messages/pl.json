@@ -3159,9 +3159,14 @@
     "emptyHint": "Wklej klucz, aby wygenerować sześciocyfrowy kod.",
     "invalidHint": "Popraw klucz, aby zobaczyć kod.",
     "securityNote": "Traktuj to jak hasło. Klucz nie opuszcza przeglądarki; nic nie jest wysyłane.",
+    "importLabel": "Importuj z URI otpauth://",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Importuj",
     "errors": {
       "invalidSecret": "To nie jest prawidłowy klucz Base32.",
-      "cryptoFailed": "Nie udało się obliczyć TOTP. Sprawdź Web Crypto i spróbuj ponownie."
+      "cryptoFailed": "Nie udało się obliczyć TOTP. Sprawdź Web Crypto i spróbuj ponownie.",
+      "invalidUri": "To nie jest prawidłowy identyfikator URI otpauth:// TOTP.",
+      "unsupportedUri": "Ten URI używa wartości, których narzędzie nie obsługuje (liczba cyfr musi wynosić 6 lub 8; okres 15, 30 lub 60 s)."
     }
   },
   "MarkdownPreview": {

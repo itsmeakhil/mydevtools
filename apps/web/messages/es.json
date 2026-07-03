@@ -3159,9 +3159,14 @@
     "emptyHint": "Pega un secreto para generar un código de seis dígitos.",
     "invalidHint": "Corrige el secreto para ver el código.",
     "securityNote": "Trátalo como una contraseña. El secreto no sale de tu navegador; no se sube nada.",
+    "importLabel": "Importar desde un URI otpauth://",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Importar",
     "errors": {
       "invalidSecret": "No es un secreto Base32 válido.",
-      "cryptoFailed": "No se pudo calcular el TOTP. Comprueba Web Crypto e inténtalo de nuevo."
+      "cryptoFailed": "No se pudo calcular el TOTP. Comprueba Web Crypto e inténtalo de nuevo.",
+      "invalidUri": "Esto no es un URI otpauth:// TOTP válido.",
+      "unsupportedUri": "Este URI usa valores que la herramienta no admite (los dígitos deben ser 6 u 8; el período 15, 30 o 60 s)."
     }
   },
   "MarkdownPreview": {
