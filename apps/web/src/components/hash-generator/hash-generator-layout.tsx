@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { useDebouncedCallback } from 'use-debounce';
@@ -17,7 +17,8 @@ import {
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Upload, X } from 'lucide-react';
-import { HASH_ALGORITHMS, computeBcrypt, computeHash, type HashAlgorithmId } from '@/lib/hash-digest';
+import { HASH_ALGORITHMS, computeHash, type HashAlgorithmId } from '@/lib/hash-digest';
+import { useBcryptWorker } from '@/hooks/use-bcrypt-worker';
 import { cn } from '@/lib/utils';
 import { useAutoCopyStore } from '@/store/auto-copy-store';
 import { useSearchParams } from 'next/navigation';
@@ -58,8 +59,15 @@ export function HashGeneratorLayout() {
   const autoCopy = useAutoCopyStore((state) => state.autoCopy);
 
   const textBytes = useMemo(() => new TextEncoder().encode(text), [text]);
+  const { hash: bcryptHash } = useBcryptWorker();
+
+  // With bcrypt on the main thread, computes could never interleave (the tab
+  // was frozen). A 15-round worker hash resolves seconds later, so a stale
+  // result could overwrite a newer one — latest request wins.
+  const computeSeqRef = useRef(0);
 
   const runCompute = useCallback(async () => {
+    const seq = ++computeSeqRef.current;
     if (algorithm === 'BCRYPT') {
       if (!text) {
         setHashOut('');
@@ -67,11 +75,12 @@ export function HashGeneratorLayout() {
       }
       setHashing(true);
       try {
-        setHashOut(await computeBcrypt(text, bcryptRounds));
+        const result = await bcryptHash(text, bcryptRounds);
+        if (seq === computeSeqRef.current) setHashOut(result);
       } catch {
-        setHashOut('');
+        if (seq === computeSeqRef.current) setHashOut('');
       } finally {
-        setHashing(false);
+        if (seq === computeSeqRef.current) setHashing(false);
       }
       return;
     }
@@ -83,13 +92,14 @@ export function HashGeneratorLayout() {
     }
     setHashing(true);
     try {
-      setHashOut(await computeHash(algorithm, data));
+      const result = await computeHash(algorithm, data);
+      if (seq === computeSeqRef.current) setHashOut(result);
     } catch {
-      setHashOut('');
+      if (seq === computeSeqRef.current) setHashOut('');
     } finally {
-      setHashing(false);
+      if (seq === computeSeqRef.current) setHashing(false);
     }
-  }, [algorithm, bcryptRounds, text, mode, textBytes, fileBytes]);
+  }, [algorithm, bcryptRounds, text, mode, textBytes, fileBytes, bcryptHash]);
 
   const debouncedCompute = useDebouncedCallback(() => {
     void runCompute();

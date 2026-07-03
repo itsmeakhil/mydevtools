@@ -46,3 +46,14 @@ export async function computeHash(algorithm: DigestAlgorithmId, data: Uint8Array
 export async function computeBcrypt(password: string, rounds: number): Promise<string> {
   return bcrypt.hash(password, rounds);
 }
+
+/**
+ * Bcrypt rounds at or above this block the main thread long enough (>100ms;
+ * seconds at 14-15) to be worth a Web Worker round-trip. Below it, the sync
+ * path is faster than the round-trip.
+ */
+export const BCRYPT_WORKER_MIN_ROUNDS = 12;
+
+export function shouldUseBcryptWorker(rounds: number, workerAvailable: boolean): boolean {
+  return workerAvailable && rounds >= BCRYPT_WORKER_MIN_ROUNDS;
+}
