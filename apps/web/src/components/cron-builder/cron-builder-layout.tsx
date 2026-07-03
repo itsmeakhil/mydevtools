@@ -25,7 +25,12 @@ import {
   tokenizeCron,
   validateCron,
 } from '@/lib/cron-utils';
-import { AlertCircle, Check, Copy } from 'lucide-react';
+import { IconRepeat } from '@tabler/icons-react';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { CopyTextButton } from '@/components/tools/copy-text-button';
+import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
 import { useLocale, useTranslations } from 'next-intl';
 
 function QuickPick({
@@ -163,16 +168,19 @@ export function CronBuilderLayout() {
   }, [t, monthShort, weekdayShort]);
 
   return (
-    <div className="flex flex-col h-full gap-4 min-h-0 overflow-auto">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">
-          {t.rich('subtitle', {
+    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-auto dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+      <RevealItem index={0}>
+        <ToolPageHeader
+          icon={IconRepeat}
+          title={t('title')}
+          description={t.rich('subtitle', {
             mono: (chunks) => <span className="font-mono text-foreground">{chunks}</span>,
             code: (chunks) => <code className="text-foreground">{chunks}</code>,
           })}
-        </p>
-      </div>
+          accent={CATEGORY_ACCENT.Generators}
+        />
+      </RevealItem>
 
       <Tabs
         defaultValue="builder"
@@ -267,10 +275,13 @@ export function CronBuilderLayout() {
       <Card className="p-4 space-y-2 shrink-0">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <Label className="text-xs text-muted-foreground uppercase tracking-wider">{t('currentExpressionLabel')}</Label>
-          <Button type="button" variant="outline" size="sm" className="h-8 gap-1 text-xs" onClick={copyExpr}>
-            {copied ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
-            {t('copy')}
-          </Button>
+          <CopyTextButton
+            onCopy={copyExpr}
+            copied={copied}
+            label={t('copy')}
+            copiedLabel={t('copy')}
+            className="h-8 gap-1 text-xs"
+          />
         </div>
         <p className="font-mono text-sm break-all rounded-md bg-muted/50 px-3 py-2">
           {expression.trim() || t('emptyExpression')}
@@ -278,17 +289,18 @@ export function CronBuilderLayout() {
       </Card>
 
       {validation.ok === false && (
-        <div className="flex items-start gap-2 rounded-lg border border-destructive/40 bg-destructive/5 px-3 py-2 text-sm text-destructive">
-          <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
-          <div className="space-y-1">
-            <p>
-              {validation.errorKey === 'invalid' ? t('errors.invalid') : t(`errors.${validation.errorKey}` as never)}
-            </p>
-            {validation.errorKey === 'invalid' && validation.detail ? (
-              <p className="text-xs text-destructive/80 font-mono">{validation.detail}</p>
-            ) : null}
-          </div>
-        </div>
+        <ToolErrorBanner
+          message={
+            <div className="space-y-1">
+              <p>
+                {validation.errorKey === 'invalid' ? t('errors.invalid') : t(`errors.${validation.errorKey}` as never)}
+              </p>
+              {validation.errorKey === 'invalid' && validation.detail ? (
+                <p className="text-xs text-destructive/80 font-mono">{validation.detail}</p>
+              ) : null}
+            </div>
+          }
+        />
       )}
 
       {validation.ok && human && (

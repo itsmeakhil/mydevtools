@@ -5,7 +5,7 @@ import { AlertCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface ToolErrorBannerProps {
-  message: string
+  message: React.ReactNode
   className?: string
 }
 
