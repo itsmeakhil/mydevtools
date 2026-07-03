@@ -4,7 +4,11 @@ import { useCallback, useMemo, useState } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useIsMobile } from '@/components/hooks/use-mobile';
 import { useTranslations } from 'next-intl';
-import { AlertCircle, Check, Copy, Download, FileJson, Trash2 } from 'lucide-react';
+import { AlertCircle, Check, Copy, Download, Trash2 } from 'lucide-react';
+import { IconBraces } from '@tabler/icons-react';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { ToolMobileTabs } from '@/components/tools/tool-mobile-tabs';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -107,18 +111,11 @@ export function JsonSchemaGeneratorLayout() {
   };
 
   return (
-    <div className="flex h-full flex-col gap-4">
-      <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between md:hidden">
-        <div className="flex items-start gap-2.5">
-          <div className="rounded-xl bg-primary/10 p-2 shadow-sm">
-            <FileJson className="h-5 w-5 text-primary" aria-hidden />
-          </div>
-          <div>
-            <h1 className="text-lg font-bold tracking-tight">{t('title')}</h1>
-            <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-          </div>
-        </div>
-      </div>
+    <div className="relative flex h-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+      <RevealItem index={0}>
+        <ToolPageHeader icon={IconBraces} title={t('title')} description={t('subtitle')} />
+      </RevealItem>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div className="flex flex-col gap-1.5 sm:min-w-[240px]">
@@ -167,22 +164,14 @@ export function JsonSchemaGeneratorLayout() {
       </div>
 
       {isMobile && (
-        <div className="flex shrink-0 rounded-lg border bg-muted/40 p-1 gap-1">
-          {(['input', 'output'] as const).map((tab) => (
-            <button
-              key={tab}
-              type="button"
-              onClick={() => setMobileTab(tab)}
-              className={`flex-1 rounded-md px-3 py-2 text-sm font-medium capitalize transition-all ${
-                mobileTab === tab
-                  ? 'bg-background text-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              {tab === 'input' ? t('inputLabel') : t('outputLabel')}
-            </button>
-          ))}
-        </div>
+        <ToolMobileTabs
+          value={mobileTab}
+          onValueChange={setMobileTab}
+          tabs={[
+            { value: 'input', label: t('inputLabel') },
+            { value: 'output', label: t('outputLabel') },
+          ]}
+        />
       )}
 
       <div className={`min-h-0 flex-1 ${isMobile ? 'flex flex-col' : 'grid grid-cols-2 gap-4'}`}>
