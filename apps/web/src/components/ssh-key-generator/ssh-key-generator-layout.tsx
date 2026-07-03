@@ -15,13 +15,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Download, RefreshCw, AlertCircle } from 'lucide-react';
+import { Download, RefreshCw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { IconFingerprint } from '@tabler/icons-react';
 import { CATEGORY_ACCENT } from '@/components/dashboard/types';
 import { RevealItem } from '@/components/dashboard/dashboard-reveal';
 import { ToolPageHeader } from '@/components/tools/tool-page-header';
 import { CopyTextButton } from '@/components/tools/copy-text-button';
+import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
 
 type KeyType = 'ed25519' | 'rsa-2048' | 'rsa-4096';
 
@@ -348,12 +349,7 @@ export function SshKeyGeneratorLayout() {
         </Button>
       </Card>
 
-      {error && (
-        <div className="flex items-center gap-2 text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-lg px-4 py-3">
-          <AlertCircle className="h-4 w-4 shrink-0" />
-          {error}
-        </div>
-      )}
+      <ToolErrorBanner message={error} />
 
       {keys && (
         <div className="space-y-4">

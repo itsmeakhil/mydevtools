@@ -17,6 +17,7 @@ import { CATEGORY_ACCENT } from '@/components/dashboard/types';
 import { RevealItem } from '@/components/dashboard/dashboard-reveal';
 import { ToolPageHeader } from '@/components/tools/tool-page-header';
 import { CopyTextButton } from '@/components/tools/copy-text-button';
+import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
 
 export function GitignoreLayout() {
   const t = useTranslations('GitignoreGenerator');
@@ -186,7 +187,7 @@ export function GitignoreLayout() {
             </div>
             
             {errorMsg && (
-              <p className="mt-4 text-xs font-medium text-destructive">{errorMsg}</p>
+              <ToolErrorBanner message={errorMsg} />
             )}
 
             <div className="mt-8 flex flex-col flex-1 w-full gap-2 text-sm text-muted-foreground">

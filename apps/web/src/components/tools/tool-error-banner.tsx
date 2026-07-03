@@ -25,7 +25,7 @@ export function ToolErrorBanner({ message, className }: ToolErrorBannerProps) {
       )}
     >
       <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
-      <span className="text-sm">{message}</span>
+      <div className="text-sm">{message}</div>
     </div>
   )
 }

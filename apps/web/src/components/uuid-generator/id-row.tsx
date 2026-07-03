@@ -25,7 +25,7 @@ export function IdRow({ id, index }: { id: string; index: number }) {
         aria-label="Copy"
       >
         {copied
-          ? <Check className="h-3.5 w-3.5 text-emerald-500" />
+          ? <Check className="h-3.5 w-3.5 text-green-500" />
           : <Copy className="h-3.5 w-3.5" />
         }
       </button>
