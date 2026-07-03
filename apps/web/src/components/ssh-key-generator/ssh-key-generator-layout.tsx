@@ -15,8 +15,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Check, Copy, Download, RefreshCw, AlertCircle } from 'lucide-react';
+import { Download, RefreshCw, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { IconFingerprint } from '@tabler/icons-react';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { CopyTextButton } from '@/components/tools/copy-text-button';
 
 type KeyType = 'ed25519' | 'rsa-2048' | 'rsa-4096';
 
@@ -216,21 +221,6 @@ function downloadText(text: string, filename: string) {
   URL.revokeObjectURL(url);
 }
 
-function CopyButton({ text, label }: { text: string; label?: string }) {
-  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
-  return (
-    <button
-      type="button"
-      title={label ?? 'Copy'}
-      onClick={() => copyToClipboard(text, { silent: true, resetMs: 1600 })}
-      className="inline-flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-md border border-border/60 bg-muted/30 hover:bg-muted/60 transition-colors"
-    >
-      {copied ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
-      {label ?? 'Copy'}
-    </button>
-  );
-}
-
 function KeyBlock({
   label,
   value,
@@ -244,13 +234,20 @@ function KeyBlock({
   copyLabel: string;
   downloadLabel: string;
 }) {
+  const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
   if (!value) return null;
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between gap-2">
         <Label className="text-sm font-medium">{label}</Label>
         <div className="flex gap-1.5">
-          <CopyButton text={value} label={copyLabel} />
+          <CopyTextButton
+            onCopy={() => copyToClipboard(value, { silent: true, resetMs: 1600 })}
+            copied={copied}
+            label={copyLabel}
+            copiedLabel={copyLabel}
+            className="h-8 px-2.5 text-xs"
+          />
           <button
             type="button"
             title={downloadLabel}
@@ -297,7 +294,16 @@ export function SshKeyGeneratorLayout() {
   const keyName = keyType === 'ed25519' ? 'id_ed25519' : 'id_rsa';
 
   return (
-    <div className="h-full w-full space-y-4">
+    <div className="relative flex min-h-full w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+      <RevealItem index={0}>
+        <ToolPageHeader
+          icon={IconFingerprint}
+          title={t('title')}
+          description={t('subtitle')}
+          accent={CATEGORY_ACCENT.Generators}
+        />
+      </RevealItem>
       <Card className="p-4 space-y-4">
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-1.5">
