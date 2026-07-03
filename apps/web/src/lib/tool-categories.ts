@@ -29,6 +29,7 @@ export const toolCategoryMap: Record<string, string> = {
   'csv-excel-json': 'Converters',
   'image-to-base64': 'Converters',
   'uuid-generator': 'Generators',
+  'ssh-key-generator': 'Generators',
   'secret-api-key-generator': 'Generators',
   'qr-code-generator': 'Generators',
   'gitignore-generator': 'Generators',

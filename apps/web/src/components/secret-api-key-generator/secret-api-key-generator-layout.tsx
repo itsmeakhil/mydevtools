@@ -4,13 +4,18 @@ import Link from 'next/link';
 import { useCallback, useMemo, useState } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
-import { AlertCircle, Check, Copy, Download, RefreshCw } from 'lucide-react';
+import { Download, RefreshCw } from 'lucide-react';
+import { IconCircleKeyFilled } from '@tabler/icons-react';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { CopyIconButton } from '@/components/tools/copy-icon-button';
+import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { cn } from '@/lib/utils';
 import {
   dedupeAlphabet,
   generateSecretStrings,
@@ -112,11 +117,13 @@ export function SecretApiKeyGeneratorLayout() {
   };
 
   return (
-    <div className="flex h-full min-h-0 flex-col gap-4">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">
-          {t.rich('subtitle', {
+    <div className="relative flex h-full min-h-0 flex-col gap-4 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+      <RevealItem index={0}>
+        <ToolPageHeader
+          icon={IconCircleKeyFilled}
+          title={t('title')}
+          description={t.rich('subtitle', {
             max: MAX_SECRET_BULK.toLocaleString(),
             uuid: (chunks) => (
               <Link
@@ -127,8 +134,9 @@ export function SecretApiKeyGeneratorLayout() {
               </Link>
             ),
           })}
-        </p>
-      </div>
+          accent={CATEGORY_ACCENT.Generators}
+        />
+      </RevealItem>
 
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
         <Card className="flex flex-col gap-4 overflow-auto p-4">
@@ -242,34 +250,19 @@ export function SecretApiKeyGeneratorLayout() {
               >
                 <Download className="h-3.5 w-3.5" />
               </Button>
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                className="h-7 w-7"
-                onClick={handleCopy}
+              <CopyIconButton
+                onCopy={handleCopy}
+                copied={copied}
                 disabled={!output}
-                title={t('copyTitle')}
-              >
-                {copied ? (
-                  <Check className="h-3.5 w-3.5 text-green-500" />
-                ) : (
-                  <Copy className="h-3.5 w-3.5" />
-                )}
-              </Button>
+                label={t('copyTitle')}
+                className="h-7 w-7"
+              />
             </div>
           </div>
           <div className="relative min-h-0 flex-1">
             {error ? (
-              <div className="absolute inset-0 flex items-center justify-center p-4">
-                <div
-                  className={cn(
-                    'flex max-w-sm flex-col items-center gap-2 text-center text-destructive'
-                  )}
-                >
-                  <AlertCircle className="h-6 w-6 shrink-0" />
-                  <p className="text-sm">{error}</p>
-                </div>
+              <div className="p-4">
+                <ToolErrorBanner message={error} />
               </div>
             ) : (
               <textarea

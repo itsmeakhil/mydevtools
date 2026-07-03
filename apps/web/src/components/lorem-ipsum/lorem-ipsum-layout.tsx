@@ -14,7 +14,12 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
-import { Copy, Check, Download, RefreshCw } from 'lucide-react';
+import { Download, RefreshCw } from 'lucide-react';
+import { IconQuote } from '@tabler/icons-react';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { CopyIconButton } from '@/components/tools/copy-icon-button';
 import {
   generateLorem,
   LOREM_LIMITS,
@@ -71,11 +76,16 @@ export function LoremIpsumLayout() {
   };
 
   return (
-    <div className="flex flex-col h-full gap-4 min-h-0">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-      </div>
+    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+      <RevealItem index={0}>
+        <ToolPageHeader
+          icon={IconQuote}
+          title={t('title')}
+          description={t('subtitle')}
+          accent={CATEGORY_ACCENT.Generators}
+        />
+      </RevealItem>
 
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-0">
         <Card className="flex flex-col gap-4 p-4 overflow-auto">
@@ -156,21 +166,13 @@ export function LoremIpsumLayout() {
               >
                 <Download className="h-3.5 w-3.5" />
               </Button>
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                className="h-7 w-7"
-                onClick={handleCopy}
+              <CopyIconButton
+                onCopy={handleCopy}
+                copied={copied}
                 disabled={!output}
-                title={t('copy')}
-              >
-                {copied ? (
-                  <Check className="h-3.5 w-3.5 text-green-500" />
-                ) : (
-                  <Copy className="h-3.5 w-3.5" />
-                )}
-              </Button>
+                label={t('copy')}
+                className="h-7 w-7"
+              />
             </div>
           </div>
           <div className="flex-1 min-h-0 relative">

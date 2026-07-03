@@ -16,12 +16,17 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Copy, Check, Upload, X } from 'lucide-react';
+import { Upload, X } from 'lucide-react';
 import { HASH_ALGORITHMS, computeBcrypt, computeHash, type HashAlgorithmId } from '@/lib/hash-digest';
 import { cn } from '@/lib/utils';
 import { useAutoCopyStore } from '@/store/auto-copy-store';
 import { useSearchParams } from 'next/navigation';
-import { SendToMenu } from '@/components/ui/send-to-menu';
+import { IconHash } from '@tabler/icons-react';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { CopyTextButton } from '@/components/tools/copy-text-button';
+import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
 
 const MAX_FILE_BYTES = 32 * 1024 * 1024;
 
@@ -139,11 +144,16 @@ export function HashGeneratorLayout() {
   const isBcrypt = algorithm === 'BCRYPT';
 
   return (
-    <div className="flex h-full min-h-0 w-full flex-col gap-4">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-      </div>
+    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+      <RevealItem index={0}>
+        <ToolPageHeader
+          icon={IconHash}
+          title={t('title')}
+          description={t('subtitle')}
+          accent={CATEGORY_ACCENT.Generators}
+        />
+      </RevealItem>
 
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
         <Card className="flex flex-col gap-4 overflow-auto p-4">
@@ -235,7 +245,7 @@ export function HashGeneratorLayout() {
                   {file.name} · {t('byteCount', { count: file.size })}
                 </p>
               )}
-              {fileError && <p className="text-sm text-destructive">{fileError}</p>}
+              {fileError && <ToolErrorBanner message={fileError} />}
               <p className="text-xs text-muted-foreground">
                 {t('fileHint', { maxMb: MAX_FILE_BYTES / (1024 * 1024) })}
               </p>
@@ -252,10 +262,13 @@ export function HashGeneratorLayout() {
               <span className="text-xs text-muted-foreground">
                 {t('byteCount', { count: inputSize })}
               </span>
-              <Button type="button" size="sm" variant="secondary" disabled={!hashOut} onClick={handleCopy}>
-                {copied ? <Check className="mr-1.5 h-4 w-4 text-emerald-600" /> : <Copy className="mr-1.5 h-4 w-4" />}
-                {copied ? t('copied') : isBcrypt ? t('copyBcrypt') : t('copyHash')}
-              </Button>
+              <CopyTextButton
+                onCopy={handleCopy}
+                copied={copied}
+                disabled={!hashOut}
+                label={isBcrypt ? t('copyBcrypt') : t('copyHash')}
+                copiedLabel={t('copied')}
+              />
             </div>
           </div>
           <div

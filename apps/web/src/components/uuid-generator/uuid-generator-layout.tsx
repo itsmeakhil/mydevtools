@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { IdRow } from './id-row';
 import { errorKeyFromGenerateIdsErrorKey } from './error-mapping';
@@ -15,19 +15,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { AlertCircle, Copy, Check, Download, RefreshCw, Minus, Plus } from 'lucide-react';
+import { Download, RefreshCw, Minus, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
   generateIds,
   MAX_BULK,
   type IdKind,
   type NamespacePreset,
-  type GenerateIdsErrorKey,
 } from '@/lib/generate-ids';
 import { useTranslations } from 'next-intl';
-import { useIsMobile } from '@/components/hooks/use-mobile';
 import { useAutoCopyStore } from '@/store/auto-copy-store';
-import { useEffect } from 'react';
+import { IconFingerprint } from '@tabler/icons-react';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { CopyIconButton } from '@/components/tools/copy-icon-button';
+import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
 
 const KIND_OPTIONS: { value: IdKind; label: string }[] = [
   { value: 'ulid', label: 'ULID' },
@@ -39,10 +42,10 @@ const KIND_OPTIONS: { value: IdKind; label: string }[] = [
   { value: 'uuid5', label: 'UUID v5' },
 ];
 
+const QUICK_COUNTS = [1, 5, 10, 25, 50];
 
 export function UuidGeneratorLayout() {
   const t = useTranslations('UuidGenerator');
-  const isMobile = useIsMobile();
 
   const [kind, setKind] = useState<IdKind>('uuid4');
   const [count, setCount] = useState(10);
@@ -105,216 +108,46 @@ export function UuidGeneratorLayout() {
     URL.revokeObjectURL(url);
   };
 
-  if (isMobile) {
-    return (
-      <div className="flex flex-col h-full min-h-0">
-        {/* Sticky header */}
-        <div className="sticky top-0 z-10 bg-background/95 backdrop-blur-xl border-b shrink-0 px-4 pb-4 pt-2">
-          <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
-          <p className="text-sm text-muted-foreground mt-0.5">
-            {t('subtitle', { max: MAX_BULK.toLocaleString() })}
-          </p>
-
-          {/* Format chips */}
-          <div className="flex gap-2 mt-3 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-none">
-            {KIND_OPTIONS.map((opt) => (
-              <button
-                key={opt.value}
-                type="button"
-                onClick={() => setKind(opt.value)}
-                className={cn(
-                  'shrink-0 h-8 rounded-full px-4 text-xs font-medium transition-all border',
-                  kind === opt.value
-                    ? 'bg-foreground text-background border-foreground'
-                    : 'bg-muted/50 text-muted-foreground border-transparent hover:border-border'
-                )}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Kind hint */}
-          {kindMeta && (
-            <p className="mt-2 text-[11px] text-muted-foreground leading-snug">
-              {t(`kindHints.${kindMeta.value}`)}
-            </p>
-          )}
-        </div>
-
-        {/* Scrollable body */}
-        <div className="flex-1 overflow-y-auto min-h-0 pb-36">
-          <div className="px-4 py-4 space-y-5">
-            {/* Count stepper */}
-            <div className="space-y-2">
-              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                {t('countLabel', { max: MAX_BULK.toLocaleString() })}
-              </Label>
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => setCount((c) => Math.max(1, c - 1))}
-                  className="h-10 w-10 shrink-0 rounded-xl border bg-muted/40 flex items-center justify-center active:scale-95 transition-transform"
-                >
-                  <Minus className="h-4 w-4" />
-                </button>
-                <div className="flex-1 h-10 rounded-xl border bg-muted/40 flex items-center justify-center">
-                  <span className="text-lg font-semibold tabular-nums">{count}</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setCount((c) => Math.min(MAX_BULK, c + 1))}
-                  className="h-10 w-10 shrink-0 rounded-xl border bg-muted/40 flex items-center justify-center active:scale-95 transition-transform"
-                >
-                  <Plus className="h-4 w-4" />
-                </button>
-              </div>
-              {/* Quick count pills */}
-              <div className="flex gap-2">
-                {[1, 5, 10, 25, 50].map((n) => (
-                  <button
-                    key={n}
-                    type="button"
-                    onClick={() => setCount(n)}
-                    className={cn(
-                      'h-7 rounded-full px-3 text-xs font-medium border transition-all',
-                      count === n
-                        ? 'bg-foreground text-background border-foreground'
-                        : 'bg-muted/50 text-muted-foreground border-transparent'
-                    )}
-                  >
-                    {n}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* v3/v5 name fields */}
-            {needsName && (
-              <>
-                <div className="space-y-2">
-                  <Label htmlFor="id-name" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    {t('nameLabel')}
-                  </Label>
-                  <Input
-                    id="id-name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder={t('namePlaceholder')}
-                    className="font-mono text-sm rounded-xl bg-muted/40 border-border/60"
-                  />
-                  <p className="text-[11px] text-muted-foreground">
-                    {t.rich('bulkHint', {
-                      code: (chunks) => <code className="text-foreground">{chunks}</code>,
-                    })}
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    {t('namespace')}
-                  </Label>
-                  <Select value={namespacePreset} onValueChange={(v) => setNamespacePreset(v as NamespacePreset)}>
-                    <SelectTrigger className="font-mono text-sm rounded-xl bg-muted/40 border-border/60">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="DNS">{t('namespaceOptions.dns')}</SelectItem>
-                      <SelectItem value="URL">{t('namespaceOptions.url')}</SelectItem>
-                      <SelectItem value="custom">{t('namespaceOptions.custom')}</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {namespacePreset === 'custom' && (
-                  <div className="space-y-2">
-                    <Label htmlFor="id-ns-custom" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                      {t('customNamespaceLabel')}
-                    </Label>
-                    <Input
-                      id="id-ns-custom"
-                      value={customNamespace}
-                      onChange={(e) => setCustomNamespace(e.target.value)}
-                      placeholder={t('customNamespacePlaceholder')}
-                      className="font-mono text-sm rounded-xl bg-muted/40 border-border/60"
-                    />
-                  </div>
-                )}
-              </>
-            )}
-
-            {/* Output list */}
-            {error && (
-              <div className="flex items-start gap-3 rounded-xl border border-destructive/30 bg-destructive/5 p-4 text-destructive">
-                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-                <span className="text-sm">{error}</span>
-              </div>
-            )}
-
-            {outputLines.length > 0 && (
-              <div className="rounded-xl border bg-card overflow-hidden">
-                <div className="flex items-center justify-between px-4 py-2.5 border-b bg-muted/30">
-                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    {t('lines', { count: outputLines.length.toLocaleString() })}
-                  </span>
-                  <div className="flex items-center gap-1">
-                    <button
-                      type="button"
-                      onClick={handleDownload}
-                      className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-                      aria-label={t('download.title')}
-                    >
-                      <Download className="h-3.5 w-3.5" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleCopyAll}
-                      className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-                      aria-label={t('copyTitle')}
-                    >
-                      {copied
-                        ? <Check className="h-3.5 w-3.5 text-emerald-500" />
-                        : <Copy className="h-3.5 w-3.5" />
-                      }
-                    </button>
-                  </div>
-                </div>
-                <div>
-                  {outputLines.map((id, i) => (
-                    <IdRow key={i} id={id} index={i} />
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Sticky generate CTA */}
-        <div className="fixed bottom-0 left-0 right-0 z-20 bg-background/95 backdrop-blur-xl border-t px-4 py-3 mobile-nav-offset">
-          <Button
-            type="button"
-            onClick={runGenerate}
-            className="w-full h-12 rounded-xl text-base font-semibold gap-2"
-          >
-            <RefreshCw className="h-4 w-4" />
-            {t('generate')}
-          </Button>
-        </div>
-      </div>
-    );
-  }
-
-  // Desktop layout
   return (
-    <div className="flex flex-col h-full gap-4 min-h-0">
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-0">
-        <Card className="flex flex-col gap-4 p-4 overflow-auto">
+    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+
+      <RevealItem index={0}>
+        <ToolPageHeader
+          icon={IconFingerprint}
+          title={t('title')}
+          description={t('subtitle', { max: MAX_BULK.toLocaleString() })}
+          accent={CATEGORY_ACCENT.Generators}
+        />
+      </RevealItem>
+
+      <div className="grid flex-1 min-h-0 grid-cols-1 gap-4 overflow-y-auto lg:grid-cols-2 lg:grid-rows-[minmax(0,1fr)] lg:overflow-hidden">
+        {/* Config panel */}
+        <Card className="flex flex-col gap-4 p-4 lg:overflow-y-auto">
+          {/* Format: chip row on small screens, Select on md+ — same `kind` state */}
           <div className="space-y-2">
             <Label htmlFor="id-kind" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
               {t('format')}
             </Label>
+            <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-none md:hidden">
+              {KIND_OPTIONS.map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setKind(opt.value)}
+                  className={cn(
+                    'shrink-0 h-8 rounded-full px-4 text-xs font-medium transition-all border',
+                    kind === opt.value
+                      ? 'bg-foreground text-background border-foreground'
+                      : 'bg-muted/50 text-muted-foreground border-transparent hover:border-border'
+                  )}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
             <Select value={kind} onValueChange={(v) => setKind(v as IdKind)}>
-              <SelectTrigger id="id-kind" className="font-mono text-sm">
+              <SelectTrigger id="id-kind" className="hidden font-mono text-sm md:flex">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -332,21 +165,62 @@ export function UuidGeneratorLayout() {
             )}
           </div>
 
+          {/* Count: stepper + typed input + quick pills, all breakpoints */}
           <div className="space-y-2">
             <Label htmlFor="id-count" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
               {t('countLabel', { max: MAX_BULK.toLocaleString() })}
             </Label>
-            <Input
-              id="id-count"
-              type="number"
-              min={1}
-              max={MAX_BULK}
-              value={count}
-              onChange={(e) => setCount(Number(e.target.value))}
-              className="font-mono text-sm"
-            />
+            <div className="flex items-center gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                className="h-9 w-9 shrink-0"
+                aria-label="Decrease count"
+                onClick={() => setCount((c) => Math.max(1, c - 1))}
+              >
+                <Minus className="h-4 w-4" aria-hidden />
+              </Button>
+              <Input
+                id="id-count"
+                type="number"
+                min={1}
+                max={MAX_BULK}
+                value={count}
+                onChange={(e) => setCount(Number(e.target.value))}
+                className="font-mono text-sm text-center tabular-nums"
+              />
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                className="h-9 w-9 shrink-0"
+                aria-label="Increase count"
+                onClick={() => setCount((c) => Math.min(MAX_BULK, c + 1))}
+              >
+                <Plus className="h-4 w-4" aria-hidden />
+              </Button>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {QUICK_COUNTS.map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => setCount(n)}
+                  className={cn(
+                    'h-7 rounded-full px-3 text-xs font-medium border transition-all',
+                    count === n
+                      ? 'bg-foreground text-background border-foreground'
+                      : 'bg-muted/50 text-muted-foreground border-transparent hover:border-border'
+                  )}
+                >
+                  {n}
+                </button>
+              ))}
+            </div>
           </div>
 
+          {/* v3/v5 name + namespace fields */}
           {needsName && (
             <>
               <div className="space-y-2">
@@ -400,7 +274,7 @@ export function UuidGeneratorLayout() {
             </>
           )}
 
-          <div className="flex flex-wrap gap-2 pt-1">
+          <div className="sticky bottom-0 z-10 -mx-4 -mb-4 mt-auto flex flex-wrap gap-2 border-t border-border/50 bg-card px-4 py-3 lg:static lg:z-auto lg:m-0 lg:mt-0 lg:border-0 lg:bg-transparent lg:p-0 lg:pt-1">
             <Button type="button" variant="gradient" onClick={runGenerate} className="gap-1.5 w-full sm:w-auto">
               <RefreshCw className="h-3.5 w-3.5" />
               {t('generate')}
@@ -408,8 +282,9 @@ export function UuidGeneratorLayout() {
           </div>
         </Card>
 
-        <Card className="flex flex-col overflow-hidden min-h-[280px]">
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 bg-muted/30 gap-2">
+        {/* Output panel */}
+        <Card className="flex min-h-[280px] flex-col overflow-hidden">
+          <div className="flex items-center justify-between gap-2 border-b border-border/50 bg-muted/30 px-4 py-2.5">
             <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
               {t('output')}
             </Label>
@@ -417,35 +292,39 @@ export function UuidGeneratorLayout() {
               <span className="text-[10px] text-muted-foreground tabular-nums mr-1">
                 {t('lines', { count: outputLines.length > 0 ? outputLines.length.toLocaleString() : '0' })}
               </span>
-              <Button type="button" variant="ghost" size="icon" className="h-7 w-7"
-                onClick={handleDownload} disabled={!output} title={t('download.title')}>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7"
+                onClick={handleDownload}
+                disabled={!output}
+                title={t('download.title')}
+                aria-label={t('download.title')}
+              >
                 <Download className="h-3.5 w-3.5" />
               </Button>
-              <Button type="button" variant="ghost" size="icon" className="h-7 w-7"
-                onClick={handleCopyAll} disabled={!output} title={t('copyTitle')}>
-                {copied
-                  ? <Check className="h-3.5 w-3.5 text-green-500" />
-                  : <Copy className="h-3.5 w-3.5" />
-                }
-              </Button>
+              <CopyIconButton
+                onCopy={handleCopyAll}
+                copied={copied}
+                disabled={!output}
+                label={t('copyTitle')}
+              />
             </div>
           </div>
-          <div className="flex-1 min-h-0 relative">
+          <div className="flex-1 min-h-0 overflow-y-auto">
             {error ? (
-              <div className="absolute inset-0 flex items-center justify-center p-4">
-                <div className={cn('flex flex-col items-center gap-2 text-destructive max-w-sm text-center')}>
-                  <AlertCircle className="h-6 w-6 shrink-0" />
-                  <p className="text-sm">{error}</p>
-                </div>
+              <ToolErrorBanner message={error} className="m-4" />
+            ) : outputLines.length > 0 ? (
+              <div>
+                {outputLines.map((id, i) => (
+                  <IdRow key={i} id={id} index={i} />
+                ))}
               </div>
             ) : (
-              <textarea
-                value={output}
-                readOnly
-                placeholder={t('outputPlaceholder')}
-                className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm font-mono focus:outline-none placeholder:text-muted-foreground/50"
-                spellCheck={false}
-              />
+              <p className="p-4 font-mono text-sm text-muted-foreground/50">
+                {t('outputPlaceholder')}
+              </p>
             )}
           </div>
         </Card>

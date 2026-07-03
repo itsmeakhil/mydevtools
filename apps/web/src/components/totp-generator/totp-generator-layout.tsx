@@ -7,8 +7,12 @@ import { useDebouncedCallback } from 'use-debounce';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { Copy, Check } from 'lucide-react';
+import { IconClock } from '@tabler/icons-react';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { CopyTextButton } from '@/components/tools/copy-text-button';
+import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
 import { computeTotp, decodeBase32Secret, getTotpSecondsRemaining } from '@/lib/totp-compute';
 import { cn } from '@/lib/utils';
 
@@ -83,11 +87,16 @@ export function TotpGeneratorLayout() {
   const progress = remaining / PERIOD_SEC;
 
   return (
-    <div className="flex h-full min-h-0 w-full flex-col gap-4">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-      </div>
+    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+      <RevealItem index={0}>
+        <ToolPageHeader
+          icon={IconClock}
+          title={t('title')}
+          description={t('subtitle')}
+          accent={CATEGORY_ACCENT.Generators}
+        />
+      </RevealItem>
 
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
         <Card className="flex flex-col gap-4 overflow-auto p-4">
@@ -111,10 +120,13 @@ export function TotpGeneratorLayout() {
             <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
               {t('codeLabel')}
             </Label>
-            <Button type="button" size="sm" variant="secondary" disabled={!code} onClick={handleCopy}>
-              {copied ? <Check className="mr-1.5 h-4 w-4 text-emerald-600" /> : <Copy className="mr-1.5 h-4 w-4" />}
-              {copied ? t('copied') : t('copyCode')}
-            </Button>
+            <CopyTextButton
+              onCopy={handleCopy}
+              copied={copied}
+              disabled={!code}
+              label={t('copyCode')}
+              copiedLabel={t('copied')}
+            />
           </div>
 
           <div
@@ -125,9 +137,9 @@ export function TotpGeneratorLayout() {
             aria-live="polite"
           >
             {cryptoError ? (
-              <span className="text-center text-sm text-destructive">{t('errors.cryptoFailed')}</span>
+              <ToolErrorBanner message={t('errors.cryptoFailed')} />
             ) : invalid ? (
-              <span className="text-center text-sm text-destructive">{t('errors.invalidSecret')}</span>
+              <ToolErrorBanner message={t('errors.invalidSecret')} />
             ) : code ? (
               <>
                 <span className="font-mono text-4xl font-semibold tracking-[0.2em] tabular-nums md:text-5xl">

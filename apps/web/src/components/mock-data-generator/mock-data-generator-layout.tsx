@@ -5,7 +5,13 @@ import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { useIsMobile } from '@/components/hooks/use-mobile'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { Copy, Check, Download, Plus, Trash2, RefreshCw, CopyPlus } from 'lucide-react'
+import { Download, Plus, Trash2, RefreshCw, CopyPlus } from 'lucide-react'
+import { IconClipboardData } from '@tabler/icons-react'
+import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { RevealItem } from '@/components/dashboard/dashboard-reveal'
+import { ToolPageHeader } from '@/components/tools/tool-page-header'
+import { ToolMobileTabs } from '@/components/tools/tool-mobile-tabs'
+import { CopyTextButton } from '@/components/tools/copy-text-button'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -185,14 +191,18 @@ export function MockDataGeneratorLayout() {
   const showTypeOptions = (type: FieldType) => TYPES_WITH_OPTIONS.includes(type)
 
   return (
-    <div className="flex flex-col h-full gap-4 min-h-0">
-      <div className="shrink-0 md:hidden space-y-1">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle', { max: MAX_MOCK_ROWS })}</p>
-      </div>
+    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+      <RevealItem index={0}>
+        <ToolPageHeader
+          icon={IconClipboardData}
+          title={t('title')}
+          description={t('subtitle', { max: MAX_MOCK_ROWS })}
+          accent={CATEGORY_ACCENT.Generators}
+        />
+      </RevealItem>
 
-      <p className="text-[11px] text-muted-foreground shrink-0 hidden md:block">
-        {t('subtitle', { max: MAX_MOCK_ROWS })}{' '}
+      <p className="hidden shrink-0 text-[11px] text-muted-foreground md:block">
         <Link
           href="https://www.mockaroo.com/"
           target="_blank"
@@ -204,22 +214,14 @@ export function MockDataGeneratorLayout() {
       </p>
 
       {isMobile && (
-        <div className="flex shrink-0 rounded-lg border bg-muted/40 p-1 gap-1">
-          {(['schema', 'output'] as const).map((tab) => (
-            <button
-              key={tab}
-              type="button"
-              onClick={() => setMobileTab(tab)}
-              className={`flex-1 rounded-md px-3 py-2 text-sm font-medium capitalize transition-all ${
-                mobileTab === tab
-                  ? 'bg-background text-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              {tab === 'schema' ? t('schemaHeading') : t('output')}
-            </button>
-          ))}
-        </div>
+        <ToolMobileTabs
+          value={mobileTab}
+          onValueChange={setMobileTab}
+          tabs={[
+            { value: 'schema', label: t('schemaHeading') },
+            { value: 'output', label: t('output') },
+          ]}
+        />
       )}
 
       <div className={`flex-1 min-h-0 ${isMobile ? 'flex flex-col' : 'grid grid-cols-1 xl:grid-cols-[1fr_minmax(280px,38%)] gap-4'}`}>
@@ -451,10 +453,14 @@ export function MockDataGeneratorLayout() {
               {t('output')}
             </Label>
             <div className="flex gap-2">
-              <Button type="button" variant="outline" size="sm" className="h-8 gap-1.5" onClick={handleCopy} disabled={!output}>
-                {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
-                {copied ? t('copied') : t('copy')}
-              </Button>
+              <CopyTextButton
+                onCopy={handleCopy}
+                copied={copied}
+                disabled={!output}
+                label={t('copy')}
+                copiedLabel={t('copied')}
+                className="h-8 gap-1.5"
+              />
               <Button type="button" variant="outline" size="sm" className="h-8 gap-1.5" onClick={handleDownload} disabled={!output}>
                 <Download className="h-3.5 w-3.5" />
                 {t('download')}
