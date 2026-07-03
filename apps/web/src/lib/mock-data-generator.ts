@@ -43,6 +43,17 @@ export type GenerateOptions = {
 export const MAX_MOCK_ROWS = 5000
 
 /**
+ * Row counts at or below this generate synchronously on the main thread —
+ * the Web Worker round-trip costs more than the generation itself. Above it,
+ * generation moves off-thread (see hooks/use-mock-data-worker.ts).
+ */
+export const WORKER_ROW_THRESHOLD = 500
+
+export function shouldUseMockDataWorker(rows: number, workerAvailable: boolean): boolean {
+  return workerAvailable && rows > WORKER_ROW_THRESHOLD
+}
+
+/**
  * Schema for the type picker; labels come from `MockDataGenerator.groups` and
  * `MockDataGenerator.fieldTypes` in locale message files.
  */
