@@ -3354,7 +3354,11 @@
       "currency_code": "Mã tiền tệ",
       "language_code": "Thẻ ngôn ngữ",
       "custom_list": "Danh sách tùy chỉnh"
-    }
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
     "title": "Tối ưu SVG",

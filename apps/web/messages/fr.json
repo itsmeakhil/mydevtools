@@ -3354,7 +3354,11 @@
       "currency_code": "Code devise",
       "language_code": "Étiquette de langue",
       "custom_list": "Liste personnalisée"
-    }
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
     "title": "Optimiseur SVG",

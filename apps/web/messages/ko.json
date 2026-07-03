@@ -3354,7 +3354,11 @@
       "currency_code": "통화 코드",
       "language_code": "언어 태그",
       "custom_list": "사용자 정의 목록"
-    }
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
     "title": "SVG 최적화",

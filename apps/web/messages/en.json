@@ -3277,6 +3277,10 @@
     "copy": "Copy",
     "download": "Download",
     "copied": "Copied",
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed",
     "groups": {
       "personal": "Personal",
       "location": "Location",

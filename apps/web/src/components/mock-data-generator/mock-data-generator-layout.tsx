@@ -6,7 +6,7 @@ import { useMockDataWorker } from '@/hooks/use-mock-data-worker'
 import { useIsMobile } from '@/components/hooks/use-mobile'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { Download, Plus, Trash2, RefreshCw, CopyPlus, Loader2 } from 'lucide-react'
+import { Dices, Download, Plus, Trash2, RefreshCw, CopyPlus, Loader2 } from 'lucide-react'
 import { IconClipboardData } from '@tabler/icons-react'
 import { CATEGORY_ACCENT } from '@/components/dashboard/types'
 import { RevealItem } from '@/components/dashboard/dashboard-reveal'
@@ -97,6 +97,7 @@ export function MockDataGeneratorLayout() {
   const [generating, setGenerating] = useState(false)
   const { isCopied: copied, copyToClipboard, reset: resetCopied } = useCopyToClipboard()
   const [presetSelectKey, setPresetSelectKey] = useState(0)
+  const [seedInput, setSeedInput] = useState('')
 
   const schema = useMemo(() => toFieldSchema(schemaRows), [schemaRows])
   const duplicates = useMemo(() => schemaHasDuplicateFieldNames(schema), [schema])
@@ -131,6 +132,7 @@ export function MockDataGeneratorLayout() {
         rows: rowCount,
         format,
         tableName: format === 'sql' ? tableName : undefined,
+        seed: seedInput.trim() === '' ? undefined : seedInput.trim(),
       })
       setOutput(result)
       if (isMobile) setMobileTab('output')
@@ -139,7 +141,11 @@ export function MockDataGeneratorLayout() {
     } finally {
       setGenerating(false)
     }
-  }, [generate, schema, rowCount, format, tableName, isMobile, resetCopied])
+  }, [generate, schema, rowCount, format, tableName, seedInput, isMobile, resetCopied])
+
+  const randomizeSeed = useCallback(() => {
+    setSeedInput(String(Math.floor(Math.random() * 1_000_000_000)))
+  }, [])
 
   const handleCopy = () => {
     if (!output) return
@@ -292,6 +298,34 @@ export function MockDataGeneratorLayout() {
                   <SelectItem value="apiLog">{t('presetApiLog')}</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor={`${baseId}-seed`} className="text-xs text-muted-foreground uppercase tracking-wider">
+                {t('seedLabel')}
+              </Label>
+              <div className="flex gap-1.5">
+                <Input
+                  id={`${baseId}-seed`}
+                  value={seedInput}
+                  onChange={(e) => setSeedInput(e.target.value)}
+                  placeholder={t('seedPlaceholder')}
+                  title={t('seedHint')}
+                  maxLength={64}
+                  spellCheck={false}
+                  className="w-32 font-mono text-sm"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  className="h-9 w-9 shrink-0"
+                  onClick={randomizeSeed}
+                  aria-label={t('seedRandomize')}
+                  title={t('seedRandomize')}
+                >
+                  <Dices className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
             <Button
               type="button"
