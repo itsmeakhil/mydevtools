@@ -3145,8 +3145,18 @@
     "emptyHint": "Nhập khóa bí mật để tính HMAC.",
     "securityNote": "Không bao giờ chia sẻ bí mật ký. Trang này không tải dữ liệu lên—mọi thứ chạy trong trình duyệt.",
     "errors": {
-      "cryptoFailed": "Không thể tính HMAC. Kiểm tra hỗ trợ Web Crypto và thử lại."
-    }
+      "cryptoFailed": "Không thể tính HMAC. Kiểm tra hỗ trợ Web Crypto và thử lại.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "Trình tạo mã TOTP / 2FA",

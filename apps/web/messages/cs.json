@@ -3145,8 +3145,18 @@
     "emptyHint": "Zadejte tajný klíč pro výpočet HMAC.",
     "securityNote": "Nikdy nesdílejte podpisové tajemství. Tato stránka nic neodesílá—vše běží v prohlížeči.",
     "errors": {
-      "cryptoFailed": "HMAC se nepodařilo vypočítat. Zkontrolujte podporu Web Crypto a zkuste znovu."
-    }
+      "cryptoFailed": "HMAC se nepodařilo vypočítat. Zkontrolujte podporu Web Crypto a zkuste znovu.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "Generátor kódu TOTP / 2FA",

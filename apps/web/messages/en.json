@@ -2893,12 +2893,22 @@
     "formatBase64": "Base64",
     "outputLabel": "Signature",
     "copyOutput": "Copy signature",
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch",
     "copied": "Copied",
     "byteCountHint": "{count, plural, one {# byte} other {# bytes}} (UTF-8)",
     "emptyHint": "Enter a secret key to compute HMAC.",
     "securityNote": "Never share your signing secret. This page does not upload data—everything runs in your browser.",
     "errors": {
-      "cryptoFailed": "Could not compute HMAC. Check your browser supports Web Crypto and try again."
+      "cryptoFailed": "Could not compute HMAC. Check your browser supports Web Crypto and try again.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
     }
   },
   "TotpGenerator": {

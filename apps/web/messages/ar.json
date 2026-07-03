@@ -3145,8 +3145,18 @@
     "emptyHint": "أدخل مفتاحًا سريًا لحساب HMAC.",
     "securityNote": "لا تشارك سر التوقيع أبدًا. لا تُرفع البيانات من هذه الصفحة—كل شيء يعمل في المتصفح.",
     "errors": {
-      "cryptoFailed": "تعذّر حساب HMAC. تأكد من دعم Web Crypto وحاول مجددًا."
-    }
+      "cryptoFailed": "تعذّر حساب HMAC. تأكد من دعم Web Crypto وحاول مجددًا.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "مُولّد رمز TOTP / 2FA",

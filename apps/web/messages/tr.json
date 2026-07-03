@@ -3145,8 +3145,18 @@
     "emptyHint": "HMAC hesaplamak için gizli anahtar girin.",
     "securityNote": "İmzalama sırrını asla paylaşmayın. Bu sayfa veri yüklemez—her şey tarayıcıda çalışır.",
     "errors": {
-      "cryptoFailed": "HMAC hesaplanamadı. Web Crypto desteğini kontrol edip yeniden deneyin."
-    }
+      "cryptoFailed": "HMAC hesaplanamadı. Web Crypto desteğini kontrol edip yeniden deneyin.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "TOTP / 2FA kod üreticisi",

@@ -3145,8 +3145,18 @@
     "emptyHint": "Введіть секретний ключ для обчислення HMAC.",
     "securityNote": "Ніколи не діліться секретом підпису. Ця сторінка не завантажує дані — усе виконується в браузері.",
     "errors": {
-      "cryptoFailed": "Не вдалося обчислити HMAC. Перевірте підтримку Web Crypto і спробуйте ще раз."
-    }
+      "cryptoFailed": "Не вдалося обчислити HMAC. Перевірте підтримку Web Crypto і спробуйте ще раз.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "Генератор коду TOTP / 2FA",

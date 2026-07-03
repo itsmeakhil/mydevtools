@@ -3145,8 +3145,18 @@
     "emptyHint": "Inserisci una chiave segreta per calcolare l’HMAC.",
     "securityNote": "Non condividere mai il secret di firma. Questa pagina non carica dati; tutto viene eseguito nel browser.",
     "errors": {
-      "cryptoFailed": "Impossibile calcolare l’HMAC. Verifica il supporto a Web Crypto e riprova."
-    }
+      "cryptoFailed": "Impossibile calcolare l’HMAC. Verifica il supporto a Web Crypto e riprova.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "Generatore di codice TOTP / 2FA",

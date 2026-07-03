@@ -20,8 +20,17 @@ import { RevealItem } from '@/components/dashboard/dashboard-reveal';
 import { ToolPageHeader } from '@/components/tools/tool-page-header';
 import { CopyTextButton } from '@/components/tools/copy-text-button';
 import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
-import { HMAC_DIGESTS, computeHmac, type HmacDigestId } from '@/lib/hmac-compute';
+import { Input } from '@/components/ui/input';
+import {
+  HMAC_DIGESTS,
+  computeHmac,
+  decodeKey,
+  type HmacDigestId,
+  type HmacKeyEncoding,
+} from '@/lib/hmac-compute';
+import { compareHashes } from '@/lib/compare-hashes';
 import { cn } from '@/lib/utils';
+import { Check, X } from 'lucide-react';
 
 const DIGEST_MSG: Record<HmacDigestId, string> = {
   'SHA-1': 'sha1',
@@ -34,33 +43,45 @@ export function HmacGeneratorLayout() {
   const t = useTranslations('HmacGenerator');
   const [digest, setDigest] = useState<HmacDigestId>('SHA-256');
   const [outputFormat, setOutputFormat] = useState<'hex' | 'base64'>('hex');
+  const [keyEncoding, setKeyEncoding] = useState<HmacKeyEncoding>('utf8');
   const [secret, setSecret] = useState('');
   const [message, setMessage] = useState('');
   const [signature, setSignature] = useState('');
+  const [expectedMac, setExpectedMac] = useState('');
   const [working, setWorking] = useState(false);
   const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<'crypto' | 'invalidKey' | null>(null);
 
-  const secretBytes = useMemo(() => new TextEncoder().encode(secret).length, [secret]);
+  const secretBytes = useMemo(() => {
+    try {
+      return decodeKey(secret, keyEncoding).length;
+    } catch {
+      return 0;
+    }
+  }, [secret, keyEncoding]);
   const messageBytes = useMemo(() => new TextEncoder().encode(message).length, [message]);
 
   const run = useCallback(async () => {
     if (!secret) {
       setSignature('');
-      setError(false);
+      setError(null);
       return;
     }
     setWorking(true);
-    setError(false);
+    setError(null);
     try {
-      setSignature(await computeHmac(digest, secret, message, outputFormat));
-    } catch {
+      setSignature(await computeHmac(digest, secret, message, outputFormat, keyEncoding));
+    } catch (e) {
       setSignature('');
-      setError(true);
+      setError(
+        e instanceof Error && (e.message === 'invalid-hex' || e.message === 'invalid-base64')
+          ? 'invalidKey'
+          : 'crypto'
+      );
     } finally {
       setWorking(false);
     }
-  }, [digest, secret, message, outputFormat]);
+  }, [digest, secret, message, outputFormat, keyEncoding]);
 
   const debounced = useDebouncedCallback(() => {
     void run();
@@ -68,12 +89,17 @@ export function HmacGeneratorLayout() {
 
   useEffect(() => {
     debounced();
-  }, [digest, secret, message, outputFormat, debounced]);
+  }, [digest, secret, message, outputFormat, keyEncoding, debounced]);
 
   const handleCopy = () => {
     if (!signature) return;
     void copyToClipboard(signature, { silent: true });
   };
+
+  const verifyMatch = useMemo(() => {
+    if (!expectedMac.trim() || !signature) return null;
+    return compareHashes(expectedMac, signature);
+  }, [expectedMac, signature]);
 
   return (
     <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
@@ -89,7 +115,7 @@ export function HmacGeneratorLayout() {
 
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
         <Card className="flex flex-col gap-4 overflow-auto p-4">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-3">
             <div className="space-y-2">
               <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t('algorithmLabel')}
@@ -124,6 +150,21 @@ export function HmacGeneratorLayout() {
                 </SelectContent>
               </Select>
             </div>
+            <div className="space-y-2">
+              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                {t('keyEncodingLabel')}
+              </Label>
+              <Select value={keyEncoding} onValueChange={(v) => setKeyEncoding(v as HmacKeyEncoding)}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="utf8">{t('keyEncodingUtf8')}</SelectItem>
+                  <SelectItem value="hex">{t('keyEncodingHex')}</SelectItem>
+                  <SelectItem value="base64">{t('keyEncodingBase64')}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -137,7 +178,7 @@ export function HmacGeneratorLayout() {
               spellCheck={false}
               autoComplete="off"
             />
-            <p className="text-xs text-muted-foreground">{t('byteCountHint', { count: secretBytes })}</p>
+            <p className="text-xs text-muted-foreground">{t('keyByteCountHint', { count: secretBytes })}</p>
           </div>
 
           <div className="space-y-2">
@@ -174,13 +215,44 @@ export function HmacGeneratorLayout() {
             )}
           >
             {error ? (
-              <ToolErrorBanner message={t('errors.cryptoFailed')} />
+              <ToolErrorBanner
+                message={error === 'invalidKey' ? t('errors.invalidKey') : t('errors.cryptoFailed')}
+              />
             ) : signature ? (
               signature
             ) : (
               <span className="text-muted-foreground">
                 {!secret ? t('emptyHint') : '…'}
               </span>
+            )}
+          </div>
+          <div className="space-y-2 border-t pt-3">
+            <Label
+              htmlFor="hmac-verify"
+              className="text-xs font-medium uppercase tracking-wider text-muted-foreground"
+            >
+              {t('verifyLabel')}
+            </Label>
+            <Input
+              id="hmac-verify"
+              value={expectedMac}
+              onChange={(e) => setExpectedMac(e.target.value)}
+              placeholder={t('verifyPlaceholder')}
+              className="font-mono text-sm"
+              spellCheck={false}
+              autoComplete="off"
+            />
+            {verifyMatch !== null && (
+              <p
+                role="status"
+                className={cn(
+                  'flex items-center gap-1.5 text-sm font-medium',
+                  verifyMatch ? 'text-green-600 dark:text-green-500' : 'text-destructive'
+                )}
+              >
+                {verifyMatch ? <Check className="h-4 w-4" aria-hidden /> : <X className="h-4 w-4" aria-hidden />}
+                {verifyMatch ? t('verifyMatch') : t('verifyMismatch')}
+              </p>
             )}
           </div>
           <p className="text-xs text-muted-foreground">{t('securityNote')}</p>

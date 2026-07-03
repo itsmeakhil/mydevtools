@@ -3145,8 +3145,18 @@
     "emptyHint": "输入密钥以计算 HMAC。",
     "securityNote": "切勿泄露签名密钥。本页不会上传数据，一切在浏览器中运行。",
     "errors": {
-      "cryptoFailed": "无法计算 HMAC。请检查浏览器是否支持 Web Crypto 后重试。"
-    }
+      "cryptoFailed": "无法计算 HMAC。请检查浏览器是否支持 Web Crypto 后重试。",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "TOTP / 2FA 验证码生成器",

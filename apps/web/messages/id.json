@@ -3145,8 +3145,18 @@
     "emptyHint": "Masukkan kunci rahasia untuk menghitung HMAC.",
     "securityNote": "Jangan pernah membagikan rahasia penandatanganan. Halaman ini tidak mengunggah data—semua berjalan di peramban.",
     "errors": {
-      "cryptoFailed": "Tidak dapat menghitung HMAC. Periksa dukungan Web Crypto dan coba lagi."
-    }
+      "cryptoFailed": "Tidak dapat menghitung HMAC. Periksa dukungan Web Crypto dan coba lagi.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "Generator kode TOTP / 2FA",

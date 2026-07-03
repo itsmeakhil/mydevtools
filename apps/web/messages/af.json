@@ -3145,8 +3145,18 @@
     "emptyHint": "Voer 'n geheime sleutel in om HMAC te bereken.",
     "securityNote": "Deel nooit jou ondertekeningsgeheim nie. Hierdie bladsy laai niks op nie—alles loop in jou blaaier.",
     "errors": {
-      "cryptoFailed": "Kon nie HMAC bereken nie. Kontroleer Web Crypto-steun en probeer weer."
-    }
+      "cryptoFailed": "Kon nie HMAC bereken nie. Kontroleer Web Crypto-steun en probeer weer.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
     "title": "TOTP / 2FA-kodegenerator",
