@@ -84,6 +84,9 @@ export function useMockDataWorker() {
   useEffect(() => {
     const pending = pendingRef.current
     return () => {
+      for (const req of pending.values()) {
+        req.reject(new Error('mock data worker unmounted'))
+      }
       workerRef.current?.terminate()
       workerRef.current = null
       pending.clear()
