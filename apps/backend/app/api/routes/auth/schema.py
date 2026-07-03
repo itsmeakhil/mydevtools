@@ -108,6 +108,8 @@ class UserProfileResponse(BaseModel):
     certifications: list[Certification] = Field(default_factory=list)
     portfolio_settings: PortfolioSettings | None = None
     personal_info: PersonalInfo | None = None
+    # Role picked during onboarding (frontend/backend/fullstack/devops/qa/designer/exploring)
+    persona: str | None = None
     onboarding_completed: bool = False
     # Workspace migration fields (T25)
     workspace_setup_at: int | None = None
@@ -128,6 +130,7 @@ class UpdateProfileRequest(BaseModel):
     certifications: list[Certification] | None = None
     portfolio_settings: PortfolioSettings | None = None
     personal_info: PersonalInfo | None = None
+    persona: str | None = None
 
 
 class OkResponse(BaseModel):

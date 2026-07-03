@@ -7,8 +7,8 @@ import { ModeToggle } from "@/components/modeToggle";
 import { getToolMessageKey } from "@/lib/tool-i18n";
 import { routeConfig } from "@/lib/route-config";
 import { WorkspaceSwitcherDropdown } from "@/components/workspace-switcher-dropdown";
+import { OrgSwitcherDropdown } from "@/components/org-switcher-dropdown";
 import { WorkspaceQuickActions } from "@/components/workspace-quick-actions";
-import { WorkspaceBreadcrumb } from "@/components/workspace-breadcrumb";
 import { NotificationsBell } from "@/components/notifications-bell";
 
 function openCommandPalette() {
@@ -27,7 +27,7 @@ function CommandTrigger() {
       >
         <Search className="h-4 w-4 shrink-0" />
         <span className="flex-1 truncate text-left">Search or jump to…</span>
-        <kbd className="inline-flex items-center gap-0.5 rounded border border-border/60 bg-background/70 px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
+        <kbd className="inline-flex items-center gap-0.5 rounded-md border border-border bg-background px-1.5 py-0.5 font-mono text-[11px] font-semibold text-foreground/80 shadow-sm">
           ⌘K
         </kbd>
       </button>
@@ -63,19 +63,23 @@ export function NavBar() {
   const config = match?.[1];
   const matchedRoute = match?.[0];
 
-  if (!config) {
+  // The dashboard needs no page title — the sidebar highlights it and the page
+  // greets the user. A "Dashboard" label beside the org switcher is noise.
+  if (!config || matchedRoute === '/dashboard') {
     // Minimal bar everywhere with a sidebar so chrome (workspace, bell, theme)
     // is reachable on /dashboard, /settings, etc. — not just /app routes.
     return (
       <header className="sticky top-0 z-20 hidden w-full border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:block">
-        <div className="flex h-14 items-center justify-end gap-2 px-4">
+        <div className="flex h-14 items-center gap-2 px-4">
+          <div className="flex min-w-0 flex-1 items-center">
+            <OrgSwitcherDropdown />
+          </div>
           <CommandTrigger />
           <WorkspaceSwitcherDropdown />
           <WorkspaceQuickActions />
           <NotificationsBell />
           <ModeToggle />
         </div>
-        <WorkspaceBreadcrumb />
       </header>
     );
   }
@@ -94,6 +98,8 @@ export function NavBar() {
     <header className="sticky top-0 z-20 hidden w-full border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:block">
       <div className="flex h-14 w-full items-center gap-4 px-4">
         <div className="flex min-w-0 flex-1 items-center gap-2.5">
+          <OrgSwitcherDropdown />
+          <div className="h-5 w-px shrink-0 bg-border/60" aria-hidden />
           <div className="shrink-0 rounded-lg bg-gradient-to-br from-primary/15 to-violet-500/10 p-1.5 ring-1 ring-inset ring-border/50">
             <Icon className="h-4 w-4 text-primary" strokeWidth={2} />
           </div>
@@ -116,7 +122,6 @@ export function NavBar() {
           <ModeToggle />
         </div>
       </div>
-      <WorkspaceBreadcrumb />
     </header>
   );
 }
