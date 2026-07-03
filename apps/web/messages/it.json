@@ -2551,6 +2551,7 @@
     },
     "excludeAmbiguous": "Escludi caratteri ambigui",
     "excludeAmbiguousHint": "Rimuove {chars} — caratteri facilmente confondibili o ostili alla shell.",
+    "prefixLabel": "Prefisso della chiave (opzionale)",
     "errors": {
       "emptyAlphabet": "Aggiungi almeno un carattere all’alfabeto.",
       "alphabetTooLong": "Dopo la rimozione dei duplicati, l’alfabeto può contenere al massimo {maxAlpha} caratteri.",

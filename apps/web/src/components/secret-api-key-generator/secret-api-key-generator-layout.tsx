@@ -20,9 +20,11 @@ import { Switch } from '@/components/ui/switch';
 import { cn } from '@/lib/utils';
 import {
   AMBIGUOUS_CHARACTERS,
+  applyKeyPrefix,
   dedupeAlphabet,
   generateSecretStrings,
   MAX_ALPHABET_UNIQUE,
+  MAX_KEY_PREFIX_LENGTH,
   MAX_SECRET_BULK,
   MAX_SECRET_LENGTH,
   stripAmbiguous,
@@ -84,6 +86,7 @@ export function SecretApiKeyGeneratorLayout() {
   const [error, setError] = useState('');
   const { isCopied: copied, copyToClipboard, reset: resetCopied } = useCopyToClipboard();
   const [excludeAmbiguous, setExcludeAmbiguous] = useState(false);
+  const [prefix, setPrefix] = useState('');
 
   const dedupedPreview = useMemo(() => dedupeAlphabet(alphabet), [alphabet]);
   const effectiveAlphabet = useMemo(
@@ -114,12 +117,12 @@ export function SecretApiKeyGeneratorLayout() {
         setError(formatGenerateError(t, result.errorKey));
         return;
       }
-      setOutput(result.lines.join('\n'));
+      setOutput(applyKeyPrefix(result.lines, prefix).join('\n'));
     } catch {
       setOutput('');
       setError(t('errors.unknown'));
     }
-  }, [effectiveAlphabet, length, count, t, resetCopied]);
+  }, [effectiveAlphabet, length, count, prefix, t, resetCopied]);
 
   const handleCopy = () => {
     if (!output) return;
@@ -256,6 +259,24 @@ export function SecretApiKeyGeneratorLayout() {
                 max={MAX_SECRET_BULK}
                 value={count}
                 onChange={(e) => setCount(Number(e.target.value))}
+                className="font-mono text-sm"
+              />
+            </div>
+            <div className="space-y-2 sm:col-span-2">
+              <Label
+                htmlFor="secret-prefix"
+                className="text-xs font-medium uppercase tracking-wider text-muted-foreground"
+              >
+                {t('prefixLabel')}
+              </Label>
+              <Input
+                id="secret-prefix"
+                value={prefix}
+                maxLength={MAX_KEY_PREFIX_LENGTH}
+                onChange={(e) => setPrefix(e.target.value)}
+                placeholder="sk_"
+                spellCheck={false}
+                autoCapitalize="off"
                 className="font-mono text-sm"
               />
             </div>

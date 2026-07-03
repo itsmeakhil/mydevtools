@@ -2551,6 +2551,7 @@
     },
     "excludeAmbiguous": "Exclure les caractères ambigus",
     "excludeAmbiguousHint": "Supprime {chars} — caractères facilement mal lus ou hostiles au shell.",
+    "prefixLabel": "Préfixe de la clé (facultatif)",
     "errors": {
       "emptyAlphabet": "Ajoutez au moins un caractère à l’alphabet.",
       "alphabetTooLong": "Après suppression des doublons, l’alphabet peut comporter au plus {maxAlpha} caractères.",

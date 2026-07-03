@@ -2551,6 +2551,7 @@
     },
     "excludeAmbiguous": "排除易混淆字符",
     "excludeAmbiguousHint": "移除 {chars} —— 容易误读或对 shell 不友好的字符。",
+    "prefixLabel": "密钥前缀（可选）",
     "errors": {
       "emptyAlphabet": "请至少向字符集中添加一个字符。",
       "alphabetTooLong": "去除重复后，字符集最多 {maxAlpha} 个字符。",

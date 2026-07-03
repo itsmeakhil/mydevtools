@@ -2551,6 +2551,7 @@
     },
     "excludeAmbiguous": "Uteslut tvetydiga tecken",
     "excludeAmbiguousHint": "Tar bort {chars} — tecken som lätt läses fel eller är fientliga mot skalet.",
+    "prefixLabel": "Nyckelprefix (valfritt)",
     "errors": {
       "emptyAlphabet": "Lägg till minst ett tecken i alfabetet.",
       "alphabetTooLong": "Efter borttagning av dubbletter kan alfabetet ha högst {maxAlpha} tecken.",

@@ -2551,6 +2551,7 @@
     },
     "excludeAmbiguous": "Kecualikan aksara mengelirukan",
     "excludeAmbiguousHint": "Mengalih keluar {chars} — aksara yang mudah disalah baca atau tidak sesuai untuk shell.",
+    "prefixLabel": "Awalan kunci (pilihan)",
     "errors": {
       "emptyAlphabet": "Tambah sekurang-kurangnya satu aksara pada abjad.",
       "alphabetTooLong": "Selepas membuang pendua, abjad boleh mempunyai sehingga {maxAlpha} aksara.",

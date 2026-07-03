@@ -1,6 +1,8 @@
 import {
   AMBIGUOUS_CHARACTERS,
+  applyKeyPrefix,
   generateSecretStrings,
+  MAX_KEY_PREFIX_LENGTH,
   stripAmbiguous,
 } from '../generate-secret-strings';
 
@@ -34,5 +36,26 @@ describe('stripAmbiguous', () => {
     expect(
       generateSecretStrings({ alphabet: stripAmbiguous('0O1lI'), length: 8, count: 1 })
     ).toEqual({ ok: false, errorKey: 'emptyAlphabet' });
+  });
+});
+
+describe('applyKeyPrefix', () => {
+  it('prepends the prefix to every line', () => {
+    expect(applyKeyPrefix(['abc', 'def'], 'sk_')).toEqual(['sk_abc', 'sk_def']);
+  });
+
+  it('returns the input array untouched for an empty prefix', () => {
+    const lines = ['abc'];
+    expect(applyKeyPrefix(lines, '')).toBe(lines);
+  });
+
+  it('does not mutate its input', () => {
+    const lines = ['abc', 'def'];
+    applyKeyPrefix(lines, 'sk_');
+    expect(lines).toEqual(['abc', 'def']);
+  });
+
+  it('exposes a sane max length for the UI input', () => {
+    expect(MAX_KEY_PREFIX_LENGTH).toBe(32);
   });
 });

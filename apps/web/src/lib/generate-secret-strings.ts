@@ -51,6 +51,19 @@ export function stripAmbiguous(alphabet: string): string {
     .join('');
 }
 
+/** Max characters for an optional key prefix (e.g. "sk_"). */
+export const MAX_KEY_PREFIX_LENGTH = 32;
+
+/**
+ * Prepends `prefix` to every generated line. The prefix is a fixed, public
+ * label ("sk_", "pk_live_", …) — it adds zero entropy, so callers must keep
+ * it out of entropy math (entropyBits sees only the random part's length).
+ */
+export function applyKeyPrefix(lines: string[], prefix: string): string[] {
+  if (!prefix) return lines;
+  return lines.map((line) => prefix + line);
+}
+
 /**
  * Uniform random strings over `alphabet` using crypto.getRandomValues and rejection sampling
  * (no modulo bias).

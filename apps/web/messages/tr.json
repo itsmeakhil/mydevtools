@@ -2551,6 +2551,7 @@
     },
     "excludeAmbiguous": "Belirsiz karakterleri hariç tut",
     "excludeAmbiguousHint": "{chars} kaldırılır — kolayca yanlış okunan veya kabuk için tehlikeli karakterler.",
+    "prefixLabel": "Anahtar öneki (isteğe bağlı)",
     "errors": {
       "emptyAlphabet": "Alfabeye en az bir karakter ekleyin.",
       "alphabetTooLong": "Yinelenenler kaldırıldıktan sonra alfabe en fazla {maxAlpha} karakter olabilir.",

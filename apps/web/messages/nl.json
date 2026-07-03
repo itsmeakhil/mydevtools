@@ -2551,6 +2551,7 @@
     },
     "excludeAmbiguous": "Dubbelzinnige tekens uitsluiten",
     "excludeAmbiguousHint": "Verwijdert {chars} — tekens die makkelijk verkeerd gelezen worden of shell-onvriendelijk zijn.",
+    "prefixLabel": "Sleutelvoorvoegsel (optioneel)",
     "errors": {
       "emptyAlphabet": "Voeg minstens één teken toe aan het alfabet.",
       "alphabetTooLong": "Na het verwijderen van duplicaten mag het alfabet hoogstens {maxAlpha} tekens bevatten.",
