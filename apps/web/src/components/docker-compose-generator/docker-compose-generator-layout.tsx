@@ -16,7 +16,12 @@ import {
   type ComposeCategory,
   buildDockerComposeYaml,
 } from '@/lib/docker-compose-generator'
-import { Check, Copy, Download, Search, X } from 'lucide-react'
+import { Download, Search, X } from 'lucide-react'
+import { IconBrandDocker } from '@tabler/icons-react'
+import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { RevealItem } from '@/components/dashboard/dashboard-reveal'
+import { ToolPageHeader } from '@/components/tools/tool-page-header'
+import { CopyTextButton } from '@/components/tools/copy-text-button'
 
 const PRESETS: { id: string; services: string[] }[] = [
   { id: 'stackWeb', services: ['postgres', 'redis', 'nginx'] },
@@ -103,13 +108,18 @@ export function DockerComposeGeneratorLayout() {
   }
 
   return (
-    <div className="flex flex-col h-full gap-4 min-h-0 overflow-auto pb-4">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-      </div>
+    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+      <RevealItem index={0}>
+        <ToolPageHeader
+          icon={IconBrandDocker}
+          title={t('title')}
+          description={t('subtitle')}
+          accent={CATEGORY_ACCENT.Generators}
+        />
+      </RevealItem>
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 h-full min-h-0">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 flex-1 min-h-0 overflow-auto pb-4">
         <div className="flex flex-col gap-4 min-h-0">
           <Card className="p-4 flex flex-col gap-3 shrink-0">
             <div className="flex flex-wrap gap-2">
@@ -229,20 +239,14 @@ export function DockerComposeGeneratorLayout() {
                 <Download className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">{t('download')}</span>
               </Button>
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                className={cn(
-                  'h-7 text-xs gap-1.5 px-2 transition-all',
-                  copied && 'bg-green-600 hover:bg-green-600 text-white border-transparent'
-                )}
-                onClick={copyYaml}
+              <CopyTextButton
+                onCopy={copyYaml}
+                copied={copied}
                 disabled={selectedList.length === 0}
-              >
-                {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
-                <span className="hidden sm:inline">{copied ? t('copied') : t('copy')}</span>
-              </Button>
+                label={t('copy')}
+                copiedLabel={t('copied')}
+                className="h-7 px-2 text-xs"
+              />
             </div>
           </div>
           <textarea
