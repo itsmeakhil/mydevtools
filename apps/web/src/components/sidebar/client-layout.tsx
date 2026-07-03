@@ -5,7 +5,6 @@ import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { AppSidebar } from "./app-sidebar";
 import { NavBar } from '@/components/nav-bar';
 import { MobileNav } from '@/components/mobile-nav';
-import { GlobalCommandPalette } from '@/components/global-command-palette';
 import { TabBar } from '@/components/tab-bar/tab-bar';
 import { useTabStore } from '@/store/tab-store';
 import { isTabRoute } from '@/lib/route-config';
@@ -14,6 +13,12 @@ import { MigrationBanner } from '@/components/migration-banner';
 import { MobileDesktopHint } from '@/components/mobile-desktop-hint';
 import { WorkspaceSwitcherDropdown } from '@/components/workspace-switcher-dropdown';
 import { NotificationsBell } from '@/components/notifications-bell';
+import { useWorkspaceStore } from '@/store/workspace-store';
+import { initWorkspaceScopeReset } from '@/lib/workspace-scope-reset';
+
+// Reset workspace-scoped stores whenever the active workspace changes
+// (module-level, mirrors workspace-store's own subscribeOnce pattern).
+initWorkspaceScopeReset();
 
 // Renders all open tool tabs simultaneously. The active tab is visible;
 // inactive tabs use display:none to stay mounted (preserving their state).
@@ -59,6 +64,10 @@ function Layout({ children }: { children: React.ReactNode }) {
   const { state } = useSidebar();
   const pathname = usePathname();
   const { tabs } = useTabStore();
+  // Keying tool content by workspace remounts every mounted tab (and page) on
+  // switch, so each tool refetches under the new scope instead of showing the
+  // previous workspace's data.
+  const activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId);
 
   // Open command palette for new tab via "+" button
   const openCommandPalette = useCallback(() => {
@@ -104,9 +113,12 @@ function Layout({ children }: { children: React.ReactNode }) {
           </div>
 
           {inTabMode ? (
-            <TabContent />
+            <TabContent key={activeWorkspaceId ?? 'none'} />
           ) : (
-            <div className="z-10 flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+            <div
+              key={activeWorkspaceId ?? 'none'}
+              className="z-10 flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden"
+            >
               <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto">
                 {children}
               </div>
@@ -116,7 +128,8 @@ function Layout({ children }: { children: React.ReactNode }) {
           <MobileNav />
         </main>
       </div>
-      <GlobalCommandPalette />
+      {/* Command palette is mounted once globally in ClientShell (root layout) —
+          a second mount here caused stacked overlays needing two clicks to dismiss. */}
     </div>
   );
 }
