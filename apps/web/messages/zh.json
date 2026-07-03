@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "bcrypt 哈希",
     "copyBcrypt": "复制哈希",
     "emptyHintBcrypt": "输入密码以计算 bcrypt 哈希。",
-    "securityNoteBcrypt": "每次 bcrypt 输出都包含随机盐；同一密码每次会得到不同字符串，这是预期行为。生产环境请使用足够高的成本。"
+    "securityNoteBcrypt": "每次 bcrypt 输出都包含随机盐；同一密码每次会得到不同字符串，这是预期行为。生产环境请使用足够高的成本。",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "加密演练场",

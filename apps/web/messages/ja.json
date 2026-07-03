@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "bcrypt ハッシュ",
     "copyBcrypt": "ハッシュをコピー",
     "emptyHintBcrypt": "bcrypt ハッシュを計算するにはパスワードを入力してください。",
-    "securityNoteBcrypt": "bcrypt の出力には毎回ランダムなソルトが含まれます。同じパスワードでも毎回異なる文字列になります。本番では十分なコストを設定してください。"
+    "securityNoteBcrypt": "bcrypt の出力には毎回ランダムなソルトが含まれます。同じパスワードでも毎回異なる文字列になります。本番では十分なコストを設定してください。",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "暗号化プレイグラウンド",

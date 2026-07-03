@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "Хеш bcrypt",
     "copyBcrypt": "Копировать хеш",
     "emptyHintBcrypt": "Введите пароль для вычисления bcrypt-хеша.",
-    "securityNoteBcrypt": "Каждый результат bcrypt содержит случайную соль; один и тот же пароль даёт разную строку каждый раз. Это нормально. В продакшене используйте высокую стоимость."
+    "securityNoteBcrypt": "Каждый результат bcrypt содержит случайную соль; один и тот же пароль даёт разную строку каждый раз. Это нормально. В продакшене используйте высокую стоимость.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Песочница шифрования",

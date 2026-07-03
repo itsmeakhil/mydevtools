@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "Κατακερματισμός bcrypt",
     "copyBcrypt": "Αντιγραφή κατακερματισμού",
     "emptyHintBcrypt": "Εισάγετε κωδικό για υπολογισμό bcrypt.",
-    "securityNoteBcrypt": "Κάθε έξοδος bcrypt περιλαμβάνει τυχαίο αλάτι· ο ίδιος κωδικός δίνει διαφορετική συμβολοσειρά κάθε φορά. Αυτό αναμένεται. Χρησιμοποιήστε υψηλό κόστος σε παραγωγή."
+    "securityNoteBcrypt": "Κάθε έξοδος bcrypt περιλαμβάνει τυχαίο αλάτι· ο ίδιος κωδικός δίνει διαφορετική συμβολοσειρά κάθε φορά. Αυτό αναμένεται. Χρησιμοποιήστε υψηλό κόστος σε παραγωγή.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Χώρος δοκιμών κρυπτογράφησης",

@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "Hash bcrypt",
     "copyBcrypt": "Salin hash",
     "emptyHintBcrypt": "Masukkan kata sandi untuk menghitung hash bcrypt.",
-    "securityNoteBcrypt": "Setiap keluaran bcrypt menyertakan garam acak; kata sandi yang sama menghasilkan string berbeda setiap kali. Ini wajar. Gunakan biaya tinggi di produksi."
+    "securityNoteBcrypt": "Setiap keluaran bcrypt menyertakan garam acak; kata sandi yang sama menghasilkan string berbeda setiap kali. Ini wajar. Gunakan biaya tinggi di produksi.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Arena enkripsi",

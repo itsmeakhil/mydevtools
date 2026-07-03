@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "bcrypt hash",
     "copyBcrypt": "Kopírovat hash",
     "emptyHintBcrypt": "Zadejte heslo pro výpočet bcrypt hashe.",
-    "securityNoteBcrypt": "Každý výstup bcrypt obsahuje náhodnou sůl; stejné heslo dá pokaždé jiný řetězec. To je očekávané. V produkci používejte vyšší náklad."
+    "securityNoteBcrypt": "Každý výstup bcrypt obsahuje náhodnou sůl; stejné heslo dá pokaždé jiný řetězec. To je očekávané. V produkci používejte vyšší náklad.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Hraviště šifrování",

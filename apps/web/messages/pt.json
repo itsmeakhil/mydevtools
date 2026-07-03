@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "Hash bcrypt",
     "copyBcrypt": "Copiar hash",
     "emptyHintBcrypt": "Introduza uma palavra-passe para calcular o hash bcrypt.",
-    "securityNoteBcrypt": "Cada saída bcrypt inclui sal aleatório; a mesma palavra-passe produz uma cadeia diferente de cada vez. É esperado. Use custo elevado em produção."
+    "securityNoteBcrypt": "Cada saída bcrypt inclui sal aleatório; a mesma palavra-passe produz uma cadeia diferente de cada vez. É esperado. Use custo elevado em produção.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Laboratório de encriptação",

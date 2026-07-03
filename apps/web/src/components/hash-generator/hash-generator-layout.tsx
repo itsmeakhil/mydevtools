@@ -7,6 +7,7 @@ import { useDebouncedCallback } from 'use-debounce';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -16,8 +17,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Upload, X } from 'lucide-react';
-import { HASH_ALGORITHMS, computeHash, type HashAlgorithmId } from '@/lib/hash-digest';
+import { Check, Upload, X } from 'lucide-react';
+import { HASH_ALGORITHMS, computeHash, verifyBcrypt, type HashAlgorithmId } from '@/lib/hash-digest';
+import { compareHashes } from '@/lib/compare-hashes';
 import { useBcryptWorker } from '@/hooks/use-bcrypt-worker';
 import { cn } from '@/lib/utils';
 import { useAutoCopyStore } from '@/store/auto-copy-store';
@@ -57,6 +59,8 @@ export function HashGeneratorLayout() {
   const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
   const [fileError, setFileError] = useState<string | null>(null);
   const autoCopy = useAutoCopyStore((state) => state.autoCopy);
+  const [expectedHash, setExpectedHash] = useState('');
+  const [bcryptMatch, setBcryptMatch] = useState<boolean | null>(null);
 
   const textBytes = useMemo(() => new TextEncoder().encode(text), [text]);
   const { hash: bcryptHash } = useBcryptWorker();
@@ -152,6 +156,35 @@ export function HashGeneratorLayout() {
 
   const inputSize = mode === 'text' ? textBytes.length : fileBytes?.length ?? 0;
   const isBcrypt = algorithm === 'BCRYPT';
+
+  // Digest verify: plain string compare against the rendered output.
+  const digestMatch = useMemo(() => {
+    if (isBcrypt || !hashOut || !expectedHash.trim()) return null;
+    return compareHashes(expectedHash, hashOut);
+  }, [isBcrypt, expectedHash, hashOut]);
+
+  // Bcrypt verify is a different code path: the pasted hash embeds the salt,
+  // so the *password in the text input* is checked with bcrypt.compare.
+  useEffect(() => {
+    if (!isBcrypt) {
+      setBcryptMatch(null);
+      return;
+    }
+    const candidate = expectedHash.trim();
+    if (!candidate || !text) {
+      setBcryptMatch(null);
+      return;
+    }
+    let cancelled = false;
+    void verifyBcrypt(text, candidate).then((ok) => {
+      if (!cancelled) setBcryptMatch(ok);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [isBcrypt, expectedHash, text]);
+
+  const verifyMatch = isBcrypt ? bcryptMatch : digestMatch;
 
   return (
     <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
@@ -291,6 +324,38 @@ export function HashGeneratorLayout() {
               <span className="text-muted-foreground">
                 {inputSize === 0 ? (isBcrypt ? t('emptyHintBcrypt') : t('emptyHint')) : '…'}
               </span>
+            )}
+          </div>
+          <div className="space-y-2 border-t pt-3">
+            <Label
+              htmlFor="hash-verify"
+              className="text-xs font-medium uppercase tracking-wider text-muted-foreground"
+            >
+              {t('verifyLabel')}
+            </Label>
+            <Input
+              id="hash-verify"
+              value={expectedHash}
+              onChange={(e) => setExpectedHash(e.target.value)}
+              placeholder={isBcrypt ? t('verifyPlaceholderBcrypt') : t('verifyPlaceholder')}
+              className="font-mono text-sm"
+              spellCheck={false}
+              autoComplete="off"
+            />
+            {isBcrypt && expectedHash.trim() !== '' && (
+              <p className="text-xs text-muted-foreground">{t('verifyHintBcrypt')}</p>
+            )}
+            {verifyMatch !== null && (
+              <p
+                role="status"
+                className={cn(
+                  'flex items-center gap-1.5 text-sm font-medium',
+                  verifyMatch ? 'text-green-600 dark:text-green-500' : 'text-destructive'
+                )}
+              >
+                {verifyMatch ? <Check className="h-4 w-4" aria-hidden /> : <X className="h-4 w-4" aria-hidden />}
+                {verifyMatch ? t('verifyMatch') : t('verifyMismatch')}
+              </p>
             )}
           </div>
           <p className="text-xs text-muted-foreground">{isBcrypt ? t('securityNoteBcrypt') : t('securityNote')}</p>

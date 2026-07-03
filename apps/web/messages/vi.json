@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "Băm bcrypt",
     "copyBcrypt": "Sao chép băm",
     "emptyHintBcrypt": "Nhập mật khẩu để tính băm bcrypt.",
-    "securityNoteBcrypt": "Mỗi đầu ra bcrypt có muối ngẫu nhiên; cùng mật khẩu cho chuỗi khác nhau mỗi lần. Điều này là bình thường. Dùng chi phí cao trong môi trường production."
+    "securityNoteBcrypt": "Mỗi đầu ra bcrypt có muối ngẫu nhiên; cùng mật khẩu cho chuỗi khác nhau mỗi lần. Điều này là bình thường. Dùng chi phí cao trong môi trường production.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Sân chơi mã hóa",

@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "Hachage bcrypt",
     "copyBcrypt": "Copier le hachage",
     "emptyHintBcrypt": "Entrez un mot de passe pour calculer un hachage bcrypt.",
-    "securityNoteBcrypt": "Chaque sortie bcrypt inclut un sel aléatoire ; le même mot de passe produit une chaîne différente à chaque fois. C’est attendu. Utilisez un coût élevé en production."
+    "securityNoteBcrypt": "Chaque sortie bcrypt inclut un sel aléatoire ; le même mot de passe produit une chaîne différente à chaque fois. C’est attendu. Utilisez un coût élevé en production.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Bac à sable chiffrement",

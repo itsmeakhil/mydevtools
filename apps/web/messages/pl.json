@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "Skrót bcrypt",
     "copyBcrypt": "Kopiuj skrót",
     "emptyHintBcrypt": "Wpisz hasło, aby obliczyć skrót bcrypt.",
-    "securityNoteBcrypt": "Każdy wynik bcrypt zawiera losową sól; to samo hasło daje za każdym razem inny ciąg. To oczekiwane. W produkcji używaj wysokiego kosztu."
+    "securityNoteBcrypt": "Każdy wynik bcrypt zawiera losową sól; to samo hasło daje za każdym razem inny ciąg. To oczekiwane. W produkcji używaj wysokiego kosztu.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Piaskownica szyfrowania",

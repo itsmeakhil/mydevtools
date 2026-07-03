@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "تجزئة bcrypt",
     "copyBcrypt": "نسخ التجزئة",
     "emptyHintBcrypt": "أدخل كلمة مرور لحساب تجزئة bcrypt.",
-    "securityNoteBcrypt": "كل مخرجات bcrypt تتضمن ملحًا عشوائيًا؛ نفس كلمة المرور تعطي سلسلة مختلفة في كل مرة. هذا متوقع. استخدم تكلفة عالية في الإنتاج."
+    "securityNoteBcrypt": "كل مخرجات bcrypt تتضمن ملحًا عشوائيًا؛ نفس كلمة المرور تعطي سلسلة مختلفة في كل مرة. هذا متوقع. استخدم تكلفة عالية في الإنتاج.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "ملعب التشفير",

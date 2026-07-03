@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "bcrypt 해시",
     "copyBcrypt": "해시 복사",
     "emptyHintBcrypt": "bcrypt 해시를 계산하려면 비밀번호를 입력하세요.",
-    "securityNoteBcrypt": "bcrypt 출력에는 매번 무작위 솔트가 포함됩니다. 같은 비밀번호라도 매번 다른 문자열이 나옵니다. 운영 환경에서는 높은 비용을 사용하세요."
+    "securityNoteBcrypt": "bcrypt 출력에는 매번 무작위 솔트가 포함됩니다. 같은 비밀번호라도 매번 다른 문자열이 나옵니다. 운영 환경에서는 높은 비용을 사용하세요.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "암호화 연습장",

@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "Хеш bcrypt",
     "copyBcrypt": "Копіювати хеш",
     "emptyHintBcrypt": "Введіть пароль для обчислення bcrypt-хеша.",
-    "securityNoteBcrypt": "Кожен вихід bcrypt містить випадкову сіль; той самий пароль дає різний рядок щоразу. Це очікувано. У продакшені використовуйте високу вартість."
+    "securityNoteBcrypt": "Кожен вихід bcrypt містить випадкову сіль; той самий пароль дає різний рядок щоразу. Це очікувано. У продакшені використовуйте високу вартість.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Пісочниця шифрування",

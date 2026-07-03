@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "Bcrypt-hash",
     "copyBcrypt": "Kopieer hash",
     "emptyHintBcrypt": "Voer ’n wagwoord in om ’n bcrypt-hash te bereken.",
-    "securityNoteBcrypt": "Elke bcrypt-uitset sluit ’n lukrake sout in; dieselfde wagwoord gee elke keer ’n ander string. Dit is verwag. Gebruik sterk koste in produksie."
+    "securityNoteBcrypt": "Elke bcrypt-uitset sluit ’n lukrake sout in; dieselfde wagwoord gee elke keer ’n ander string. Dit is verwag. Gebruik sterk koste in produksie.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Enkripsie-speelgrond",

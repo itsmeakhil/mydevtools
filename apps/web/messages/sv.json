@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "bcrypt-hash",
     "copyBcrypt": "Kopiera hash",
     "emptyHintBcrypt": "Ange ett lösenord för att beräkna bcrypt-hash.",
-    "securityNoteBcrypt": "Varje bcrypt-utdata innehåller ett slumpmässigt salt; samma lösenord ger en ny sträng varje gång. Det förväntas. Använd hög kostnad i produktion."
+    "securityNoteBcrypt": "Varje bcrypt-utdata innehåller ett slumpmässigt salt; samma lösenord ger en ny sträng varje gång. Det förväntas. Använd hög kostnad i produktion.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Krypteringslekplats",

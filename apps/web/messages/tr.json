@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "bcrypt özeti",
     "copyBcrypt": "Özeti kopyala",
     "emptyHintBcrypt": "bcrypt özeti hesaplamak için parola girin.",
-    "securityNoteBcrypt": "Her bcrypt çıktısı rastgele tuz içerir; aynı parola her seferinde farklı bir dize üretir. Bu beklenendir. Üretimde yüksek maliyet kullanın."
+    "securityNoteBcrypt": "Her bcrypt çıktısı rastgele tuz içerir; aynı parola her seferinde farklı bir dize üretir. Bu beklenendir. Üretimde yüksek maliyet kullanın.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Şifreleme oyun alanı",

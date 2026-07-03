@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "Resum bcrypt",
     "copyBcrypt": "Copia el resum",
     "emptyHintBcrypt": "Introduïu una contrasenya per calcular el resum bcrypt.",
-    "securityNoteBcrypt": "Cada sortida bcrypt inclou una sal aleatòria; la mateixa contrasenya dona una cadena diferent cada vegada. És esperat. Useu costos alts en producció."
+    "securityNoteBcrypt": "Cada sortida bcrypt inclou una sal aleatòria; la mateixa contrasenya dona una cadena diferent cada vegada. És esperat. Useu costos alts en producció.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Terreny de joc del xifratge",

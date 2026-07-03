@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "Hash bcrypt",
     "copyBcrypt": "Salin hash",
     "emptyHintBcrypt": "Masukkan kata laluan untuk mengira hash bcrypt.",
-    "securityNoteBcrypt": "Setiap output bcrypt merangkumi garam rawak; kata laluan yang sama menghasilkan rentetan berbeza setiap kali. Ini dijangka. Gunakan kos tinggi dalam produksi."
+    "securityNoteBcrypt": "Setiap output bcrypt merangkumi garam rawak; kata laluan yang sama menghasilkan rentetan berbeza setiap kali. Ini dijangka. Gunakan kos tinggi dalam produksi.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "Taman permainan penyulitanan",

@@ -3061,7 +3061,13 @@
     "outputLabelBcrypt": "هش bcrypt",
     "copyBcrypt": "کپی هش",
     "emptyHintBcrypt": "برای محاسبهٔ هش bcrypt گذرواژه وارد کنید.",
-    "securityNoteBcrypt": "هر خروجی bcrypt نمک تصادفی دارد؛ همان گذرواژه هر بار رشتهٔ متفاوتی می‌دهد. این طبیعی است. در تولید هزینهٔ بالا بگذارید."
+    "securityNoteBcrypt": "هر خروجی bcrypt نمک تصادفی دارد؛ همان گذرواژه هر بار رشتهٔ متفاوتی می‌دهد. این طبیعی است. در تولید هزینهٔ بالا بگذارید.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
     "title": "زمین بازی رمزنگاری",

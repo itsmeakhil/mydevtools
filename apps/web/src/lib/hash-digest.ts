@@ -48,6 +48,22 @@ export async function computeBcrypt(password: string, rounds: number): Promise<s
 }
 
 /**
+ * Check a password against an existing bcrypt hash. Bcrypt embeds a random
+ * salt, so string comparison of two hashes never matches — verification must
+ * re-run bcrypt using the salt encoded in `hash` (bcryptjs `compare`, the
+ * async counterpart of the `bcrypt.hash` used above). Resolves false instead
+ * of throwing on malformed input so callers can treat any failure as
+ * "no match".
+ */
+export async function verifyBcrypt(password: string, hash: string): Promise<boolean> {
+  try {
+    return await bcrypt.compare(password, hash);
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Bcrypt rounds at or above this block the main thread long enough (>100ms;
  * seconds at 14-15) to be worth a Web Worker round-trip. Below it, the sync
  * path is faster than the round-trip.
