@@ -9,6 +9,10 @@ import { Label } from '@/components/ui/label';
 import { formatTimestampAll, parseTimestampInput } from '@/lib/timestamp-convert';
 import { Check, Copy } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { IconCalendarTime } from '@tabler/icons-react';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
 
 function CopyField({
   label,
@@ -55,15 +59,19 @@ export function TimestampConverterLayout() {
   const setNow = () => setInput(String(Date.now()));
 
   return (
-    <div className="flex flex-col h-full gap-4 min-h-0">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">
-          {t.rich('subtitle', {
+    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+
+      <RevealItem index={0}>
+        <ToolPageHeader
+          icon={IconCalendarTime}
+          title={t('title')}
+          description={t.rich('subtitle', {
             code: (chunks) => <code className="text-foreground">{chunks}</code>,
           })}
-        </p>
-      </div>
+          accent={CATEGORY_ACCENT.Converters}
+        />
+      </RevealItem>
 
       <Card className="p-4 space-y-3 shrink-0">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end">
