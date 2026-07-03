@@ -6,12 +6,17 @@ import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { Check, Copy, Download, X, Search, Loader2 } from 'lucide-react';
+import { Check, Download, X, Search, Loader2 } from 'lucide-react';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
+import { IconFileMinus } from '@tabler/icons-react';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { CopyTextButton } from '@/components/tools/copy-text-button';
 
 export function GitignoreLayout() {
   const t = useTranslations('GitignoreGenerator');
@@ -89,13 +94,18 @@ export function GitignoreLayout() {
   };
 
   return (
-    <div className="flex flex-col h-full gap-4 min-h-0 overflow-auto pb-4">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-      </div>
+    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+      <RevealItem index={0}>
+        <ToolPageHeader
+          icon={IconFileMinus}
+          title={t('title')}
+          description={t('subtitle')}
+          accent={CATEGORY_ACCENT.Generators}
+        />
+      </RevealItem>
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 h-full min-h-0">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 flex-1 min-h-0 overflow-auto pb-4">
         
         {/* Left Column: Stack Selection */}
         <div className="flex flex-col gap-4">
@@ -215,10 +225,14 @@ export function GitignoreLayout() {
                 <Download className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">{t('download')}</span>
               </Button>
-              <Button type="button" variant="outline" size="sm" onClick={handleCopy} disabled={!output || loadingOutput} className={cn("h-7 text-xs gap-1.5 px-2 transition-all", copied ? "bg-green-500 hover:bg-green-600 text-white border-transparent" : "")}>
-                {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
-                <span className="hidden sm:inline">{copied ? t('copied') : t('copy')}</span>
-              </Button>
+              <CopyTextButton
+                onCopy={handleCopy}
+                copied={copied}
+                disabled={!output || loadingOutput}
+                label={t('copy')}
+                copiedLabel={t('copied')}
+                className="h-7 px-2 text-xs"
+              />
             </div>
           </div>
           
