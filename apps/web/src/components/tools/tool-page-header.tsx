@@ -7,7 +7,7 @@ import { CATEGORY_ACCENT } from '@/components/dashboard/types'
 interface ToolPageHeaderProps {
   icon: React.ElementType
   title: string
-  description: string
+  description: React.ReactNode
   accent?: { bg: string; text: string }
   className?: string
 }

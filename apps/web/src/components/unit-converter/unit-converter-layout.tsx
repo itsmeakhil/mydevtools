@@ -28,6 +28,10 @@ import {
   CommandList,
 } from '@/components/ui/command'
 import { convert, UNIT_CATEGORIES, getCategoryKeys, getUnitKeys } from '@/lib/unit-converter'
+import { IconRuler } from '@tabler/icons-react'
+import { ToolPageHeader } from '@/components/tools/tool-page-header'
+import { RevealItem } from '@/components/dashboard/dashboard-reveal'
+import { CATEGORY_ACCENT } from '@/components/dashboard/types'
 
 function formatResult(n: number): string {
   if (!isFinite(n)) return '—'
@@ -84,7 +88,21 @@ export function UnitConverterLayout() {
   }, [resultText])
 
   return (
-    <div className="max-w-2xl mx-auto space-y-5">
+    <div className="relative space-y-5 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+
+      <RevealItem index={0}>
+        <ToolPageHeader
+          icon={IconRuler}
+          title={t('title')}
+          description={t.rich('subtitle', {
+            strong: (chunks) => <strong>{chunks}</strong>,
+          })}
+          accent={CATEGORY_ACCENT.Converters}
+        />
+      </RevealItem>
+
+      <div className="max-w-2xl mx-auto space-y-5">
       {/* Category — searchable combobox */}
       <div className="space-y-1.5">
         <Label>{t('category')}</Label>
@@ -212,6 +230,7 @@ export function UnitConverterLayout() {
           </CardContent>
         </Card>
       )}
+      </div>
     </div>
   )
 }

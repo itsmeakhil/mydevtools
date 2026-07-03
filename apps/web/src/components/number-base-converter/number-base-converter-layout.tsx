@@ -23,6 +23,10 @@ import {
   parseIntegerInBase,
   type NumberBase,
 } from '@/lib/number-base';
+import { IconArrowsExchange } from '@tabler/icons-react';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
 
 export function NumberBaseConverterLayout() {
   const t = useTranslations('NumberBaseConverter');
@@ -74,11 +78,17 @@ export function NumberBaseConverterLayout() {
   };
 
   return (
-    <div className="flex h-full min-h-0 w-full flex-col gap-4">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-      </div>
+    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+
+      <RevealItem index={0}>
+        <ToolPageHeader
+          icon={IconArrowsExchange}
+          title={t('title')}
+          description={t('subtitle')}
+          accent={CATEGORY_ACCENT.Converters}
+        />
+      </RevealItem>
 
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
         <Card className="flex flex-col gap-4 overflow-auto p-4">

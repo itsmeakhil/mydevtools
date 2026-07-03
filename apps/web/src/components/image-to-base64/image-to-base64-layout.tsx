@@ -17,6 +17,10 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
+import { IconPhoto } from '@tabler/icons-react';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
 
 type Mode = 'dataUri' | 'rawString';
 
@@ -97,39 +101,44 @@ export function ImageToBase64Layout() {
   const outputCharCount = currentOutput.length;
 
   return (
-    <div className="flex flex-col h-full gap-4">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shrink-0 md:hidden">
-        <div>
-          <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-          <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="gap-1.5 text-xs"
-            onClick={() => fileInputRef.current?.click()}
-          >
-            <Upload className="h-3.5 w-3.5" />
-            {t('upload')}
-          </Button>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file && file.type.startsWith('image/')) processFile(file);
-              e.target.value = '';
-            }}
-          />
-          <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={handleClear}>
-            <Trash2 className="h-3.5 w-3.5" />
-            {t('clear')}
-          </Button>
-        </div>
+    <div className="relative flex flex-col h-full gap-4 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+
+      <RevealItem index={0}>
+        <ToolPageHeader
+          icon={IconPhoto}
+          title={t('title')}
+          description={t('subtitle')}
+          accent={CATEGORY_ACCENT.Converters}
+        />
+      </RevealItem>
+
+      {/* Mobile upload/clear actions */}
+      <div className="flex items-center gap-2 shrink-0 md:hidden">
+        <Button
+          variant="outline"
+          size="sm"
+          className="gap-1.5 text-xs"
+          onClick={() => fileInputRef.current?.click()}
+        >
+          <Upload className="h-3.5 w-3.5" />
+          {t('upload')}
+        </Button>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file && file.type.startsWith('image/')) processFile(file);
+            e.target.value = '';
+          }}
+        />
+        <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={handleClear}>
+          <Trash2 className="h-3.5 w-3.5" />
+          {t('clear')}
+        </Button>
       </div>
 
       {/* Mode Toggle */}
