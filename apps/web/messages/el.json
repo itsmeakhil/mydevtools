@@ -2490,7 +2490,8 @@
       "uuid1": "MAC/χρόνος (RFC 9562)",
       "uuid6": "Αναδιατεταγμένος γρηγοριανός χρόνος",
       "uuid3": "MD5 hash ονόματος + namespace",
-      "uuid5": "SHA‑1 hash ονόματος + namespace"
+      "uuid5": "SHA‑1 hash ονόματος + namespace",
+      "nil": "Μηδενικό UUID (όλα μηδενικά, RFC 9562)"
     },
     "countLabel": "Πλήθος (1–{max})",
     "nameLabel": "Όνομα (συμβολοσειρά εισόδου)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Αντιγραφή όλων",
+    "uppercaseToggle": "Έξοδος με κεφαλαία",
+    "hyphensToggle": "Εμφάνιση παύλων",
+    "copyJsonTitle": "Αντιγραφή ως πίνακα JSON",
     "outputPlaceholder": "Πατήστε «Δημιουργία»…",
     "errors": {
       "invalidCustomNamespace": "Το προσαρμοσμένο namespace πρέπει να είναι έγκυρο UUID.",

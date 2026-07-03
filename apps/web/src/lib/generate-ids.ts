@@ -1,7 +1,8 @@
 import { v1, v3, v4, v5, v6, v7, validate } from 'uuid';
 import { createUlid } from '@/lib/ulid';
+import { NIL_UUID } from '@/lib/format-ids';
 
-export type IdKind = 'ulid' | 'uuid1' | 'uuid3' | 'uuid4' | 'uuid5' | 'uuid6' | 'uuid7';
+export type IdKind = 'ulid' | 'uuid1' | 'uuid3' | 'uuid4' | 'uuid5' | 'uuid6' | 'uuid7' | 'nil';
 
 export type NamespacePreset = 'DNS' | 'URL' | 'custom';
 
@@ -69,6 +70,9 @@ export function generateIds(options: GenerateIdsOptions): GenerateIdsResult {
         break;
       case 'uuid7':
         lines.push(v7());
+        break;
+      case 'nil':
+        lines.push(NIL_UUID);
         break;
     }
   }

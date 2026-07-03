@@ -2490,7 +2490,8 @@
       "uuid1": "MAC-/zeitbasiert (RFC 9562)",
       "uuid6": "Neu geordnete gregorianische Zeit",
       "uuid3": "MD5-Hash aus Name + Namespace",
-      "uuid5": "SHA‑1-Hash aus Name + Namespace"
+      "uuid5": "SHA‑1-Hash aus Name + Namespace",
+      "nil": "Nil-UUID (nur Nullen, RFC 9562)"
     },
     "countLabel": "Anzahl (1–{max})",
     "nameLabel": "Name (Eingabe-String)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Alles kopieren",
+    "uppercaseToggle": "Ausgabe in Großbuchstaben",
+    "hyphensToggle": "Bindestriche anzeigen",
+    "copyJsonTitle": "Als JSON-Array kopieren",
     "outputPlaceholder": "Klicke auf „Generieren“…",
     "errors": {
       "invalidCustomNamespace": "Der benutzerdefinierte Namespace muss eine gültige UUID sein.",

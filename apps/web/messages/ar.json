@@ -2490,7 +2490,8 @@
       "uuid1": "مبني على MAC/الوقت (RFC 9562)",
       "uuid6": "وقت غريغوري معاد ترتيبه",
       "uuid3": "تجزئة MD5 للاسم + مساحة الاسم",
-      "uuid5": "تجزئة SHA‑1 للاسم + مساحة الاسم"
+      "uuid5": "تجزئة SHA‑1 للاسم + مساحة الاسم",
+      "nil": "معرف UUID الصفري (كل البتات صفر، RFC 9562)"
     },
     "countLabel": "العدد (1–{max})",
     "nameLabel": "الاسم (سلسلة الإدخال)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "نسخ الكل",
+    "uppercaseToggle": "إخراج بأحرف كبيرة",
+    "hyphensToggle": "إظهار الواصلات",
+    "copyJsonTitle": "نسخ كمصفوفة JSON",
     "outputPlaceholder": "انقر على \"إنشاء\"…",
     "errors": {
       "invalidCustomNamespace": "يجب أن تكون مساحة الاسم المخصصة UUID صالحًا.",

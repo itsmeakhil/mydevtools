@@ -2490,7 +2490,8 @@
       "uuid1": "MAC/時刻ベース（RFC 9562）",
       "uuid6": "並べ替えられたグレゴリオ暦時刻ベース",
       "uuid3": "名前 + 名前空間の MD5 ハッシュ",
-      "uuid5": "名前 + 名前空間の SHA‑1 ハッシュ"
+      "uuid5": "名前 + 名前空間の SHA‑1 ハッシュ",
+      "nil": "ニル UUID(すべてゼロ、RFC 9562)"
     },
     "countLabel": "件数（1～{max}）",
     "nameLabel": "名前（入力文字列）",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "すべてコピー",
+    "uppercaseToggle": "大文字で出力",
+    "hyphensToggle": "ハイフンを表示",
+    "copyJsonTitle": "JSON 配列としてコピー",
     "outputPlaceholder": "「生成」をクリック…",
     "errors": {
       "invalidCustomNamespace": "カスタム名前空間は有効な UUID である必要があります。",

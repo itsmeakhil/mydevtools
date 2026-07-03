@@ -2490,7 +2490,8 @@
       "uuid1": "Dựa trên MAC/thời gian (RFC 9562)",
       "uuid6": "Thời gian Gregory được sắp xếp lại",
       "uuid3": "Băm MD5 của tên + namespace",
-      "uuid5": "Băm SHA‑1 của tên + namespace"
+      "uuid5": "Băm SHA‑1 của tên + namespace",
+      "nil": "UUID rỗng (toàn số 0, RFC 9562)"
     },
     "countLabel": "Số lượng (1–{max})",
     "nameLabel": "Tên (chuỗi đầu vào)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Sao chép tất cả",
+    "uppercaseToggle": "Xuất chữ hoa",
+    "hyphensToggle": "Hiển thị dấu gạch nối",
+    "copyJsonTitle": "Sao chép dạng mảng JSON",
     "outputPlaceholder": "Nhấn \"Tạo\"…",
     "errors": {
       "invalidCustomNamespace": "Namespace tùy chỉnh phải là UUID hợp lệ.",

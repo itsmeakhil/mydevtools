@@ -2490,7 +2490,8 @@
       "uuid1": "مبتنی بر MAC/زمان (RFC 9562)",
       "uuid6": "زمان گریگوری بازآرایی‌شده",
       "uuid3": "هش MD5 از نام + فضای نام",
-      "uuid5": "هش SHA‑1 از نام + فضای نام"
+      "uuid5": "هش SHA‑1 از نام + فضای نام",
+      "nil": "UUID صفر (همه صفر، RFC 9562)"
     },
     "countLabel": "تعداد (۱–{max})",
     "nameLabel": "نام (رشتهٔ ورودی)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "کپی همه",
+    "uppercaseToggle": "خروجی با حروف بزرگ",
+    "hyphensToggle": "نمایش خط‌تیره‌ها",
+    "copyJsonTitle": "کپی به‌صورت آرایه JSON",
     "outputPlaceholder": "روی «تولید» کلیک کنید…",
     "errors": {
       "invalidCustomNamespace": "فضای نام سفارشی باید یک UUID معتبر باشد.",

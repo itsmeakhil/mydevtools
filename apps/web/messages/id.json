@@ -2490,7 +2490,8 @@
       "uuid1": "Berbasis MAC/waktu (RFC 9562)",
       "uuid6": "Waktu Gregorian yang diurut ulang",
       "uuid3": "Hash MD5 dari nama + namespace",
-      "uuid5": "Hash SHA‑1 dari nama + namespace"
+      "uuid5": "Hash SHA‑1 dari nama + namespace",
+      "nil": "UUID nol (semua nol, RFC 9562)"
     },
     "countLabel": "Jumlah (1–{max})",
     "nameLabel": "Nama (string input)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Salin semua",
+    "uppercaseToggle": "Keluaran huruf besar",
+    "hyphensToggle": "Tampilkan tanda hubung",
+    "copyJsonTitle": "Salin sebagai array JSON",
     "outputPlaceholder": "Klik \"Buat\"…",
     "errors": {
       "invalidCustomNamespace": "Namespace kustom harus berupa UUID yang valid.",

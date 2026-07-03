@@ -2490,7 +2490,8 @@
       "uuid1": "Basado en MAC/tiempo (RFC 9562)",
       "uuid6": "Tiempo gregoriano reordenado",
       "uuid3": "Hash MD5 de nombre + espacio de nombres",
-      "uuid5": "Hash SHA‑1 de nombre + espacio de nombres"
+      "uuid5": "Hash SHA‑1 de nombre + espacio de nombres",
+      "nil": "UUID nulo (todo ceros, RFC 9562)"
     },
     "countLabel": "Cantidad (1–{max})",
     "nameLabel": "Nombre (cadena de entrada)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Copiar todo",
+    "uppercaseToggle": "Salida en mayúsculas",
+    "hyphensToggle": "Mostrar guiones",
+    "copyJsonTitle": "Copiar como array JSON",
     "outputPlaceholder": "Haz clic en \"Generar\"…",
     "errors": {
       "invalidCustomNamespace": "El espacio de nombres personalizado debe ser un UUID válido.",

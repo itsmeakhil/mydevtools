@@ -2490,7 +2490,8 @@
       "uuid1": "MAC-/tidsbaseret (RFC 9562)",
       "uuid6": "Omarrangeret gregoriansk tidsbaseret",
       "uuid3": "MD5-hash af navn + namespace",
-      "uuid5": "SHA‑1-hash af navn + namespace"
+      "uuid5": "SHA‑1-hash af navn + namespace",
+      "nil": "Nul-UUID (alt nuller, RFC 9562)"
     },
     "countLabel": "Antal (1–{max})",
     "nameLabel": "Navn (inputstreng)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Kopiér alt",
+    "uppercaseToggle": "Output med store bogstaver",
+    "hyphensToggle": "Vis bindestreger",
+    "copyJsonTitle": "Kopiér som JSON-array",
     "outputPlaceholder": "Klik på \"Generér\"…",
     "errors": {
       "invalidCustomNamespace": "Brugerdefineret namespace skal være en gyldig UUID.",

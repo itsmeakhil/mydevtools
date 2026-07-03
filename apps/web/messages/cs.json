@@ -2490,7 +2490,8 @@
       "uuid1": "MAC/čas (RFC 9562)",
       "uuid6": "Přeuspořádaný gregoriánský čas",
       "uuid3": "MD5 hash jména + namespace",
-      "uuid5": "SHA‑1 hash jména + namespace"
+      "uuid5": "SHA‑1 hash jména + namespace",
+      "nil": "Nulové UUID (samé nuly, RFC 9562)"
     },
     "countLabel": "Počet (1–{max})",
     "nameLabel": "Jméno (vstupní řetězec)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Kopírovat vše",
+    "uppercaseToggle": "Výstup velkými písmeny",
+    "hyphensToggle": "Zobrazit pomlčky",
+    "copyJsonTitle": "Kopírovat jako pole JSON",
     "outputPlaceholder": "Klikněte na „Generovat“…",
     "errors": {
       "invalidCustomNamespace": "Vlastní namespace musí být platná UUID.",

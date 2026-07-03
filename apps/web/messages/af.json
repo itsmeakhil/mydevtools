@@ -2490,7 +2490,8 @@
       "uuid1": "MAC/tyd-gebaseer (RFC 9562)",
       "uuid6": "Herordende Gregoriaanse tyd-gebaseer",
       "uuid3": "MD5-hash van naam + naamruimte",
-      "uuid5": "SHA‑1-hash van naam + naamruimte"
+      "uuid5": "SHA‑1-hash van naam + naamruimte",
+      "nil": "Nul-UUID (alles nulle, RFC 9562)"
     },
     "countLabel": "Aantal (1–{max})",
     "nameLabel": "Naam (invoerstring)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Kopieer alles",
+    "uppercaseToggle": "Hoofletters-uitset",
+    "hyphensToggle": "Wys koppeltekens",
+    "copyJsonTitle": "Kopieer as JSON-skikking",
     "outputPlaceholder": "Klik \"Genereer\"…",
     "errors": {
       "invalidCustomNamespace": "Pasgemaakte naamruimte moet ’n geldige UUID wees.",

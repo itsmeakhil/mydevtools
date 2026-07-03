@@ -2490,7 +2490,8 @@
       "uuid1": "Basat en MAC/temps (RFC 9562)",
       "uuid6": "Temps gregorià reordenat",
       "uuid3": "Hash MD5 de nom + espai de noms",
-      "uuid5": "Hash SHA‑1 de nom + espai de noms"
+      "uuid5": "Hash SHA‑1 de nom + espai de noms",
+      "nil": "UUID nul (tot zeros, RFC 9562)"
     },
     "countLabel": "Quantitat (1–{max})",
     "nameLabel": "Nom (cadena d’entrada)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Copia-ho tot",
+    "uppercaseToggle": "Sortida en majúscules",
+    "hyphensToggle": "Mostra guionets",
+    "copyJsonTitle": "Copia com a matriu JSON",
     "outputPlaceholder": "Feu clic a \"Genera\"…",
     "errors": {
       "invalidCustomNamespace": "L’espai de noms personalitzat ha de ser un UUID vàlid.",

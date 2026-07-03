@@ -2490,7 +2490,8 @@
       "uuid1": "MAC/시간 기반 (RFC 9562)",
       "uuid6": "재정렬된 그레고리력 시간 기반",
       "uuid3": "이름 + 네임스페이스의 MD5 해시",
-      "uuid5": "이름 + 네임스페이스의 SHA‑1 해시"
+      "uuid5": "이름 + 네임스페이스의 SHA‑1 해시",
+      "nil": "닐 UUID(모두 0, RFC 9562)"
     },
     "countLabel": "개수 (1–{max})",
     "nameLabel": "이름(입력 문자열)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "모두 복사",
+    "uppercaseToggle": "대문자로 출력",
+    "hyphensToggle": "하이픈 표시",
+    "copyJsonTitle": "JSON 배열로 복사",
     "outputPlaceholder": "\"생성\"을 클릭…",
     "errors": {
       "invalidCustomNamespace": "사용자 지정 네임스페이스는 유효한 UUID여야 합니다.",

@@ -2490,7 +2490,8 @@
       "uuid1": "MAC/czas (RFC 9562)",
       "uuid6": "Przestawiony czas gregoriański",
       "uuid3": "Hash MD5 nazwy + przestrzeni nazw",
-      "uuid5": "Hash SHA‑1 nazwy + przestrzeni nazw"
+      "uuid5": "Hash SHA‑1 nazwy + przestrzeni nazw",
+      "nil": "Zerowy UUID (same zera, RFC 9562)"
     },
     "countLabel": "Liczba (1–{max})",
     "nameLabel": "Nazwa (ciąg wejściowy)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Kopiuj wszystko",
+    "uppercaseToggle": "Wynik wielkimi literami",
+    "hyphensToggle": "Pokaż myślniki",
+    "copyJsonTitle": "Kopiuj jako tablicę JSON",
     "outputPlaceholder": "Kliknij „Generuj”…",
     "errors": {
       "invalidCustomNamespace": "Własna przestrzeń nazw musi być prawidłowym UUID.",

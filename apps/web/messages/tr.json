@@ -2490,7 +2490,8 @@
       "uuid1": "MAC/zaman tabanlı (RFC 9562)",
       "uuid6": "Yeniden sıralanmış Gregoryen zaman",
       "uuid3": "Ad + ad alanı için MD5 hash",
-      "uuid5": "Ad + ad alanı için SHA‑1 hash"
+      "uuid5": "Ad + ad alanı için SHA‑1 hash",
+      "nil": "Sıfır UUID (tümü sıfır, RFC 9562)"
     },
     "countLabel": "Adet (1–{max})",
     "nameLabel": "Ad (girdi dizesi)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Tümünü kopyala",
+    "uppercaseToggle": "Büyük harfli çıktı",
+    "hyphensToggle": "Tireleri göster",
+    "copyJsonTitle": "JSON dizisi olarak kopyala",
     "outputPlaceholder": "\"Oluştur\"a tıklayın…",
     "errors": {
       "invalidCustomNamespace": "Özel ad alanı geçerli bir UUID olmalıdır.",

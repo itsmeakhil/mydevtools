@@ -2618,7 +2618,8 @@
       "uuid1": "MAC/time-based (RFC 9562)",
       "uuid6": "Reordered Gregorian time-based",
       "uuid3": "MD5 hash of name + namespace",
-      "uuid5": "SHA-1 hash of name + namespace"
+      "uuid5": "SHA-1 hash of name + namespace",
+      "nil": "All-zero nil UUID (RFC 9562)"
     },
     "countLabel": "Count (1–{max})",
     "nameLabel": "Name (input string)",
@@ -2640,6 +2641,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Copy all",
+    "uppercaseToggle": "Uppercase output",
+    "hyphensToggle": "Show hyphens",
+    "copyJsonTitle": "Copy as JSON array",
     "outputPlaceholder": "Click \"Generate\"…",
     "errors": {
       "invalidCustomNamespace": "Custom namespace must be a valid UUID.",

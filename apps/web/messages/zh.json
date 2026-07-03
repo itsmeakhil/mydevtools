@@ -2490,7 +2490,8 @@
       "uuid1": "基于 MAC/时间（RFC 9562）",
       "uuid6": "重新排序的格里历时间",
       "uuid3": "名称 + 命名空间的 MD5 哈希",
-      "uuid5": "名称 + 命名空间的 SHA‑1 哈希"
+      "uuid5": "名称 + 命名空间的 SHA‑1 哈希",
+      "nil": "空 UUID(全为零,RFC 9562)"
     },
     "countLabel": "数量（1–{max}）",
     "nameLabel": "名称（输入字符串）",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "复制全部",
+    "uppercaseToggle": "大写输出",
+    "hyphensToggle": "显示连字符",
+    "copyJsonTitle": "复制为 JSON 数组",
     "outputPlaceholder": "点击“生成”…",
     "errors": {
       "invalidCustomNamespace": "自定义命名空间必须是有效的 UUID。",

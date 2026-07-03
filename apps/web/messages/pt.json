@@ -2490,7 +2490,8 @@
       "uuid1": "Baseado em MAC/tempo (RFC 9562)",
       "uuid6": "Tempo gregoriano reordenado",
       "uuid3": "Hash MD5 de nome + namespace",
-      "uuid5": "Hash SHA‑1 de nome + namespace"
+      "uuid5": "Hash SHA‑1 de nome + namespace",
+      "nil": "UUID nulo (tudo zeros, RFC 9562)"
     },
     "countLabel": "Quantidade (1–{max})",
     "nameLabel": "Nome (string de entrada)",
@@ -2512,6 +2513,9 @@
       "filename": "ids-{kind}.txt"
     },
     "copyTitle": "Copiar tudo",
+    "uppercaseToggle": "Saída em maiúsculas",
+    "hyphensToggle": "Mostrar hífenes",
+    "copyJsonTitle": "Copiar como array JSON",
     "outputPlaceholder": "Clique em \"Gerar\"…",
     "errors": {
       "invalidCustomNamespace": "O namespace personalizado deve ser um UUID válido.",
