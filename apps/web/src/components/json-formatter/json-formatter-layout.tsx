@@ -15,7 +15,9 @@ import {
 import { toast } from 'sonner'
 import { Mode, toTextContent, type Content, type OnChangeStatus } from 'vanilla-jsoneditor'
 import { fetchAllPages } from '@/lib/fetch-all-pages'
-import { Card, CardHeader } from '@/components/ui/card'
+import { ToolPageHeader } from '@/components/tools/tool-page-header'
+import { ToolMobileTabs } from '@/components/tools/tool-mobile-tabs'
+import { RevealItem } from '@/components/dashboard/dashboard-reveal'
 import { Button } from '@/components/ui/button'
 import { SendToMenu } from '@/components/ui/send-to-menu'
 import useAuth from '@/utils/useAuth'
@@ -318,51 +320,22 @@ export function JsonFormatterLayout() {
   }
 
   return (
-    <div className="flex h-full min-h-0 w-full flex-col gap-3 overflow-hidden">
-      <Card className="shrink-0 border shadow-lg bg-card/50 backdrop-blur-sm md:hidden">
-        <CardHeader className="p-3 md:pb-3">
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-center gap-2.5">
-              <div className="rounded-xl bg-gradient-to-br from-primary/15 to-violet-500/10 p-2 text-primary shadow-sm ring-1 ring-inset ring-border/50 transition-all hover:scale-105">
-                <IconJson className="h-5 w-5 text-primary" aria-hidden />
-              </div>
-              <div className="flex flex-col gap-0.5">
-                <h1 className="text-lg font-bold tracking-tight text-foreground md:text-xl">
-                  {t('title')}
-                </h1>
-                <p className="text-xs text-muted-foreground md:text-sm">
-                  {t('description')}
-                </p>
-              </div>
-            </div>
-          </div>
-        </CardHeader>
-      </Card>
+    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
 
-      {/* Mobile tab switcher */}
+      <RevealItem index={0}>
+        <ToolPageHeader icon={IconJson} title={t('title')} description={t('description')} />
+      </RevealItem>
+
       {isMobile && (
-        <div className="flex shrink-0 rounded-lg border bg-muted/40 p-1 gap-1">
-          <button
-            onClick={() => setActivePane('left')}
-            className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-all ${
-              activePane === 'left'
-                ? 'bg-background text-foreground shadow-sm'
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            Text
-          </button>
-          <button
-            onClick={() => setActivePane('right')}
-            className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-all ${
-              activePane === 'right'
-                ? 'bg-background text-foreground shadow-sm'
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            Tree
-          </button>
-        </div>
+        <ToolMobileTabs
+          value={activePane}
+          onValueChange={setActivePane}
+          tabs={[
+            { value: 'left', label: 'Text' },
+            { value: 'right', label: 'Tree' },
+          ]}
+        />
       )}
 
       {isMobile ? (

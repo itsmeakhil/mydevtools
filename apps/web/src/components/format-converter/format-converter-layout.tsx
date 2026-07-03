@@ -7,6 +7,10 @@ import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
 import { useTranslations } from 'next-intl';
 import { ArrowLeftRight, Copy, Check, AlertCircle } from 'lucide-react';
+import { IconFileCode } from '@tabler/icons-react';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { ToolMobileTabs } from '@/components/tools/tool-mobile-tabs';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
@@ -95,29 +99,21 @@ export function FormatConverterLayout() {
   }, [to]);
 
   return (
-    <div className="flex h-full min-h-0 w-full flex-col gap-4">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-      </div>
+    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+      <RevealItem index={0}>
+        <ToolPageHeader icon={IconFileCode} title={t('title')} description={t('subtitle')} />
+      </RevealItem>
 
       {isMobile && (
-        <div className="flex shrink-0 rounded-lg border bg-muted/40 p-1 gap-1">
-          {(['input', 'output'] as const).map((tab) => (
-            <button
-              key={tab}
-              type="button"
-              onClick={() => setMobileTab(tab)}
-              className={`flex-1 rounded-md px-3 py-2 text-sm font-medium capitalize transition-all ${
-                mobileTab === tab
-                  ? 'bg-background text-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              {tab === 'input' ? t('fromLabel') : t('toLabel')}
-            </button>
-          ))}
-        </div>
+        <ToolMobileTabs
+          value={mobileTab}
+          onValueChange={setMobileTab}
+          tabs={[
+            { value: 'input', label: t('fromLabel') },
+            { value: 'output', label: t('toLabel') },
+          ]}
+        />
       )}
 
       <div className={`min-h-0 flex-1 ${isMobile ? 'flex flex-col' : 'grid grid-cols-2 gap-4'}`}>

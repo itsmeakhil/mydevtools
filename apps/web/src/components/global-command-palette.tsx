@@ -154,7 +154,13 @@ export function GlobalCommandPalette() {
   )
 
   const commandSurfaceClass =
-    '[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5'
+    '[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:pt-2.5 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-[0.14em] [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-14 [&_[cmdk-input]]:text-base'
+
+  // Shared row treatment — gradient selection sweep + icon chip (Raycast-style).
+  const itemClass =
+    'group mx-1 flex items-center gap-3 rounded-xl px-2 py-2 transition-colors aria-selected:bg-gradient-to-r aria-selected:from-primary/[0.14] aria-selected:via-primary/[0.06] aria-selected:to-transparent aria-selected:ring-1 aria-selected:ring-inset aria-selected:ring-primary/20'
+  const chipClass =
+    'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted/60 text-muted-foreground ring-1 ring-inset ring-border/50 transition-colors group-aria-selected:bg-gradient-to-br group-aria-selected:from-primary/20 group-aria-selected:to-violet-500/10 group-aria-selected:text-primary group-aria-selected:ring-primary/20'
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -162,10 +168,17 @@ export function GlobalCommandPalette() {
         showCloseButton={false}
         className={cn(
           'overflow-hidden p-0 gap-0 max-w-2xl',
-          'max-h-[min(85vh,640px)] flex flex-col'
+          'max-h-[min(85vh,640px)] flex flex-col',
+          'rounded-2xl border-border/60 bg-popover/90 backdrop-blur-2xl',
+          'shadow-2xl shadow-primary/10 ring-1 ring-inset ring-white/[0.04]'
         )}
       >
         <DialogTitle className="sr-only">Search tools and pages</DialogTitle>
+        {/* Gradient hairline — the palette's signature accent */}
+        <div
+          aria-hidden
+          className="h-px w-full shrink-0 bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+        />
         <Command
           className={cn(
             'rounded-none border-none bg-transparent shadow-none',
@@ -177,7 +190,7 @@ export function GlobalCommandPalette() {
           <CommandInput
             placeholder="Search tools and pages…"
             aria-label="Search tools and pages"
-            className="focus-visible:outline-none"
+            className="focus-visible:outline-none placeholder:text-muted-foreground/60"
           />
           <CommandList className="max-h-[min(60vh,480px)] overflow-y-auto">
             <CommandEmpty>No results found.</CommandEmpty>
@@ -191,15 +204,17 @@ export function GlobalCommandPalette() {
                         key={`recent-${entry.url}`}
                         value={`recent ${entry.searchValue} ${entry.url}`.toLowerCase()}
                         onSelect={() => run(entry)}
-                        className="mx-1 flex items-start gap-3 rounded-lg py-2.5 transition-colors aria-selected:bg-gradient-to-r aria-selected:from-primary/[0.12] aria-selected:to-primary/[0.04] aria-selected:ring-1 aria-selected:ring-inset aria-selected:ring-primary/15"
+                        className={itemClass}
                       >
-                        <ItemIcon className="mt-0.5 h-4 w-4 shrink-0 opacity-70" aria-hidden />
+                        <span className={chipClass}>
+                          <ItemIcon className="h-4 w-4" aria-hidden />
+                        </span>
                         <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                           <span className="truncate font-medium leading-none">
                             {entry.title}
                           </span>
                           {entry.description ? (
-                            <span className="line-clamp-2 text-xs text-muted-foreground">
+                            <span className="line-clamp-1 text-xs text-muted-foreground">
                               {entry.description}
                             </span>
                           ) : null}
@@ -221,24 +236,23 @@ export function GlobalCommandPalette() {
                         key={`pinned-${entry.url}`}
                         value={`pinned ${entry.searchValue} ${entry.url}`.toLowerCase()}
                         onSelect={() => run(entry)}
-                        className="mx-1 flex items-start gap-3 rounded-lg py-2.5 transition-colors aria-selected:bg-gradient-to-r aria-selected:from-primary/[0.12] aria-selected:to-primary/[0.04] aria-selected:ring-1 aria-selected:ring-inset aria-selected:ring-primary/15"
+                        className={itemClass}
                       >
-                        <Star
-                          className="mt-0.5 h-4 w-4 shrink-0 fill-primary text-primary"
-                          aria-hidden
-                        />
+                        <span className={chipClass}>
+                          <ItemIcon className="h-4 w-4" aria-hidden />
+                        </span>
                         <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                           <span className="truncate font-medium leading-none">
                             {entry.title}
                           </span>
                           {entry.description ? (
-                            <span className="line-clamp-2 text-xs text-muted-foreground">
+                            <span className="line-clamp-1 text-xs text-muted-foreground">
                               {entry.description}
                             </span>
                           ) : null}
                         </span>
-                        <ItemIcon
-                          className="mt-0.5 h-3.5 w-3.5 shrink-0 opacity-40"
+                        <Star
+                          className="h-3.5 w-3.5 shrink-0 fill-primary text-primary"
                           aria-hidden
                         />
                       </CommandItem>
@@ -259,18 +273,17 @@ export function GlobalCommandPalette() {
                       key={entry.url}
                       value={`${entry.searchValue} ${entry.url}`.toLowerCase()}
                       onSelect={() => run(entry)}
-                      className="flex items-start gap-3 py-2.5 aria-selected:bg-accent"
+                      className={itemClass}
                     >
-                      <ItemIcon
-                        className="mt-0.5 h-4 w-4 shrink-0 opacity-70"
-                        aria-hidden
-                      />
+                      <span className={chipClass}>
+                        <ItemIcon className="h-4 w-4" aria-hidden />
+                      </span>
                       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                         <span className="truncate font-medium leading-none">
                           {entry.title}
                         </span>
                         {entry.description ? (
-                          <span className="line-clamp-2 text-xs text-muted-foreground">
+                          <span className="line-clamp-1 text-xs text-muted-foreground">
                             {entry.description}
                           </span>
                         ) : null}
@@ -282,29 +295,29 @@ export function GlobalCommandPalette() {
               </React.Fragment>
             ))}
           </CommandList>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-border/60 px-4 py-3 text-[11px] text-muted-foreground">
-            <span>
-              <kbd className="pointer-events-none rounded border border-border bg-muted/80 px-1.5 py-0.5 font-mono">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-border/50 bg-muted/20 px-4 py-2.5 text-[11px] text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5">
+              <kbd className="pointer-events-none rounded-md border border-border/60 bg-background/80 px-1.5 py-0.5 font-mono text-[10px] font-medium text-foreground/70 shadow-sm">
                 ↑↓
-              </kbd>{' '}
+              </kbd>
               navigate
             </span>
-            <span>
-              <kbd className="pointer-events-none rounded border border-border bg-muted/80 px-1.5 py-0.5 font-mono">
+            <span className="inline-flex items-center gap-1.5">
+              <kbd className="pointer-events-none rounded-md border border-border/60 bg-background/80 px-1.5 py-0.5 font-mono text-[10px] font-medium text-foreground/70 shadow-sm">
                 ↵
-              </kbd>{' '}
+              </kbd>
               open
             </span>
-            <span>
-              <kbd className="pointer-events-none rounded border border-border bg-muted/80 px-1.5 py-0.5 font-mono">
+            <span className="inline-flex items-center gap-1.5">
+              <kbd className="pointer-events-none rounded-md border border-border/60 bg-background/80 px-1.5 py-0.5 font-mono text-[10px] font-medium text-foreground/70 shadow-sm">
                 esc
-              </kbd>{' '}
+              </kbd>
               close
             </span>
-            <span className="ml-auto">
-              <kbd className="pointer-events-none rounded border border-border bg-muted/80 px-1.5 py-0.5 font-mono">
+            <span className="ml-auto inline-flex items-center gap-1.5">
+              <kbd className="pointer-events-none rounded-md border border-border/60 bg-background/80 px-1.5 py-0.5 font-mono text-[10px] font-medium text-foreground/70 shadow-sm">
                 {modLabel}K
-              </kbd>{' '}
+              </kbd>
               toggle
             </span>
           </div>

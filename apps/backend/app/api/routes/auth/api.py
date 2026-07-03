@@ -257,6 +257,9 @@ async def update_profile(
     if payload.personal_info is not None:
         updates["personal_info"] = payload.personal_info.model_dump()
 
+    if payload.persona is not None:
+        updates["persona"] = payload.persona
+
     if updates:
         await update_user_profile(current_user.uid, updates)
 

@@ -5,9 +5,16 @@ import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { completeOnboarding } from "@/lib/onboarding-api"
+import { completeOnboarding, savePersona } from "@/lib/onboarding-api"
 import { useToolVisibilityStore } from "@/store/tool-visibility-store"
+import { usePinnedToolsStore } from "@/store/pinned-tools-store"
+import { useWorkspaceStore } from "@/store/workspace-store"
 import { patchUserPreferences } from "@/lib/user-preferences-api"
+import { ONBOARDING_ROLES, type OnboardingRole } from "@/lib/onboarding-roles"
+import { Input } from "@/components/ui/input"
+import useAuth from "@/utils/useAuth"
+import { updateProfile } from "firebase/auth"
+import { auth } from "@/database/firebase"
 import {
   IconRocket,
   IconShield,
@@ -172,7 +179,105 @@ function WelcomeStep() {
   )
 }
 
-// ── Step 1: Tool selection ────────────────────────────────────────────────────
+// ── Step 1: About you (name + role) ───────────────────────────────────────────
+
+function AboutYouStep({
+  name,
+  onNameChange,
+  roleId,
+  onRoleChange,
+}: {
+  name: string
+  onNameChange: (v: string) => void
+  roleId: string | null
+  onRoleChange: (role: OnboardingRole) => void
+}) {
+  return (
+    <div className="flex h-full flex-col">
+      <header className="shrink-0 px-6 pt-6 pb-4 text-center">
+        <p className="mdt-kicker mb-2">Step 1 · About you</p>
+        <h2 className="text-2xl font-bold tracking-tight">Make it yours</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          We&apos;ll curate your toolkit around what you do.
+        </p>
+      </header>
+
+      <ScrollArea className="min-h-0 flex-1 px-6 pb-4">
+        <div className="mx-auto flex w-full max-w-2xl flex-col gap-7 pb-2">
+          <div className="space-y-2">
+            <label htmlFor="ob-name" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Your name
+            </label>
+            <Input
+              id="ob-name"
+              value={name}
+              onChange={(e) => onNameChange(e.target.value)}
+              placeholder="Ada Lovelace"
+              maxLength={80}
+              className="h-11 max-w-sm bg-white/5"
+            />
+          </div>
+
+          <div className="space-y-2.5">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              What describes you best?
+            </p>
+            <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+              {ONBOARDING_ROLES.map((role) => {
+                const selected = roleId === role.id
+                const RoleIcon = role.Icon
+                return (
+                  <motion.button
+                    key={role.id}
+                    type="button"
+                    onClick={() => onRoleChange(role)}
+                    whileTap={{ scale: 0.98 }}
+                    className={cn(
+                      "group flex items-center gap-3 rounded-xl border p-3.5 text-left transition-all duration-150",
+                      selected
+                        ? "border-primary/50 bg-gradient-to-r from-primary/[0.14] to-violet-500/[0.06] ring-1 ring-inset ring-primary/25"
+                        : "border-white/10 bg-white/[0.03] hover:border-primary/30 hover:bg-white/[0.06]"
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset transition-colors",
+                        selected
+                          ? "bg-gradient-to-br from-primary/25 to-violet-500/15 text-primary ring-primary/25"
+                          : "bg-white/5 text-muted-foreground ring-white/10 group-hover:text-foreground"
+                      )}
+                    >
+                      <RoleIcon className="h-5 w-5" />
+                    </span>
+                    <span className="flex min-w-0 flex-1 flex-col">
+                      <span className={cn("text-sm font-semibold", selected ? "text-foreground" : "text-foreground/85")}>
+                        {role.label}
+                      </span>
+                      <span className="truncate text-xs text-muted-foreground">{role.description}</span>
+                    </span>
+                    <span
+                      className={cn(
+                        "flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
+                        selected ? "border-primary bg-primary" : "border-white/15"
+                      )}
+                    >
+                      {selected && <IconCheck className="h-3 w-3 text-primary-foreground" />}
+                    </span>
+                  </motion.button>
+                )
+              })}
+            </div>
+            <p className="text-xs text-muted-foreground/70">
+              This pre-selects a toolkit for you — you can fine-tune it on the next step.
+            </p>
+          </div>
+        </div>
+      </ScrollArea>
+    </div>
+  )
+}
+
+// ── Step 2: Tool selection ────────────────────────────────────────────────────
 
 /** Flip this to switch between selection UIs without touching anything else. */
 const TOOL_SELECTION_MODE: "tags" | "checkboxes" = "tags"
@@ -544,7 +649,9 @@ function TourStep({ slideIndex, onSlide }: { slideIndex: number; onSlide: (i: nu
 
 // ── Root modal ────────────────────────────────────────────────────────────────
 
-const STEPS = ["Welcome", "Choose tools", "Tour"]
+const STEPS = ["Welcome", "About you", "Choose tools", "Tour"]
+const TOOLS_STEP = 2
+const TOUR_STEP = 3
 
 interface OnboardingModalProps {
   onComplete: () => void
@@ -557,11 +664,28 @@ export function OnboardingModal({ onComplete }: OnboardingModalProps) {
   const [celebrating, setCelebrating] = useState(false)
 
   const setEnabledTools = useToolVisibilityStore((s) => s.setEnabledTools)
+  const setPinnedTools = usePinnedToolsStore((s) => s.setPinnedTools)
+  const activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId)
+
+  const { user } = useAuth(false)
+  const [name, setName] = useState("")
+  const [role, setRole] = useState<OnboardingRole | null>(null)
+
+  // Pre-fill the name from the auth profile (don't ask what we already know).
+  React.useEffect(() => {
+    if (user?.displayName) setName((prev) => prev || user.displayName!)
+  }, [user?.displayName])
 
   const [selectedUrls, setSelectedUrls] = useState<Set<string>>(() => {
     const productivity = buildCategories().find((c) => c.title === "Productivity")
     return new Set(productivity?.tools.map((t) => t.url) ?? [])
   })
+
+  const handleRoleChange = useCallback((next: OnboardingRole) => {
+    setRole(next)
+    // Role picks a curated starting toolkit; the next step lets them fine-tune.
+    setSelectedUrls(new Set(next.tools))
+  }, [])
 
   const handleToggleTool = useCallback((url: string) => {
     setSelectedUrls((prev) => {
@@ -590,7 +714,7 @@ export function OnboardingModal({ onComplete }: OnboardingModalProps) {
 
   const handleNext = async () => {
     // Advance tour slides before completing
-    if (step === 2 && tourSlide < TOUR_SLIDES.length - 1) {
+    if (step === TOUR_STEP && tourSlide < TOUR_SLIDES.length - 1) {
       setTourSlide((s) => s + 1)
       return
     }
@@ -606,9 +730,22 @@ export function OnboardingModal({ onComplete }: OnboardingModalProps) {
     try {
       const tools = Array.from(selectedUrls)
       setEnabledTools(tools)
+      // Role's core tools become the pinned set for the active workspace —
+      // this is what makes the first dashboard feel personally curated.
+      const pins = (role?.pins ?? []).filter((p) => selectedUrls.has(p))
+      const prefsPatch: Parameters<typeof patchUserPreferences>[0] = { enabledTools: tools }
+      if (activeWorkspaceId && pins.length) {
+        setPinnedTools(activeWorkspaceId, pins)
+        prefsPatch.pinnedToolsByWorkspace = { [activeWorkspaceId]: pins }
+      }
+      const trimmedName = name.trim()
       await Promise.all([
         completeOnboarding(),
-        patchUserPreferences({ enabledTools: tools }),
+        patchUserPreferences(prefsPatch),
+        role ? savePersona(role.id).catch(() => {}) : Promise.resolve(),
+        trimmedName && auth.currentUser && trimmedName !== auth.currentUser.displayName
+          ? updateProfile(auth.currentUser, { displayName: trimmedName }).catch(() => {})
+          : Promise.resolve(),
       ])
     } catch {
       // non-blocking — user can still proceed
@@ -621,23 +758,26 @@ export function OnboardingModal({ onComplete }: OnboardingModalProps) {
   }
 
   const handleBack = () => {
-    if (step === 2 && tourSlide > 0) {
+    if (step === TOUR_STEP && tourSlide > 0) {
       setTourSlide((s) => s - 1)
       return
     }
     if (step > 0) setStep((s) => s - 1)
   }
 
-  const progress = ((step + (step === 2 ? tourSlide / TOUR_SLIDES.length : 0)) / (STEPS.length - 1)) * 100
+  const progress = ((step + (step === TOUR_STEP ? tourSlide / TOUR_SLIDES.length : 0)) / (STEPS.length - 1)) * 100
 
   const isLastAction =
     step === STEPS.length - 1 && tourSlide === TOUR_SLIDES.length - 1
+
+  // Role selection is the one thing we need before curating (step 1).
+  const nextDisabled = completing || (step === 1 && !role)
 
   const nextLabel = isLastAction
     ? completing
       ? "Saving…"
       : "Get started"
-    : step === 2
+    : step === TOUR_STEP
     ? "Next tip"
     : "Continue"
 
@@ -712,6 +852,23 @@ export function OnboardingModal({ onComplete }: OnboardingModalProps) {
             )}
             {step === 1 && (
               <motion.div
+                key="about"
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -30 }}
+                transition={{ duration: 0.2 }}
+                className="h-full"
+              >
+                <AboutYouStep
+                  name={name}
+                  onNameChange={setName}
+                  roleId={role?.id ?? null}
+                  onRoleChange={handleRoleChange}
+                />
+              </motion.div>
+            )}
+            {step === TOOLS_STEP && (
+              <motion.div
                 key="tools"
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -726,7 +883,7 @@ export function OnboardingModal({ onComplete }: OnboardingModalProps) {
                 />
               </motion.div>
             )}
-            {step === 2 && (
+            {step === TOUR_STEP && (
               <motion.div
                 key="tour"
                 initial={{ opacity: 0, x: 30 }}
@@ -755,7 +912,7 @@ export function OnboardingModal({ onComplete }: OnboardingModalProps) {
 
           <Button
             onClick={handleNext}
-            disabled={completing}
+            disabled={nextDisabled}
             size="sm"
             className={cn(
               "gap-2 rounded-full px-5 font-semibold transition-all",

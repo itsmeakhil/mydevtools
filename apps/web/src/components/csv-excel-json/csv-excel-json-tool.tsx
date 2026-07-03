@@ -17,7 +17,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { ToolHeader } from "@/components/tools/tool-header";
+import { ToolPinButton } from "@/components/tools/tool-header";
+import { ToolPageHeader } from "@/components/tools/tool-page-header";
+import { RevealItem } from "@/components/dashboard/dashboard-reveal";
+import { CATEGORY_ACCENT } from "@/components/dashboard/types";
 import { useToolUsage } from "@/hooks/use-tool-usage";
 import { cn } from "@/lib/utils";
 import {
@@ -149,13 +152,23 @@ export function CsvExcelJsonTool() {
   };
 
   return (
-    <div className="flex flex-col h-full min-h-0 overflow-auto pb-4">
+    <div className="relative flex flex-col h-full min-h-0 overflow-auto pb-4 dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+
+      <RevealItem index={0}>
+        <div className="flex items-center justify-between gap-3 mb-4">
+          <ToolPageHeader
+            icon={IconFileSpreadsheet}
+            title={t("title")}
+            description={t("subtitle")}
+            accent={CATEGORY_ACCENT.Converters}
+            className="flex-1"
+          />
+          <ToolPinButton toolId="csv-excel-json" />
+        </div>
+      </RevealItem>
+
       <Card className="border-border/60 shadow-sm">
-        <ToolHeader
-          title={t("title")}
-          description={t("subtitle")}
-          toolId="csv-excel-json"
-        />
         <CardContent className="space-y-6 pt-2">
           <div
             role="button"

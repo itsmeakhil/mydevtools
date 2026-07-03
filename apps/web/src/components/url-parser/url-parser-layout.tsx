@@ -8,6 +8,10 @@ import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
 import { Check, Copy, Download, FileText, Trash2, Upload } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { IconLink } from '@tabler/icons-react'
+import { ToolPageHeader } from '@/components/tools/tool-page-header'
+import { RevealItem } from '@/components/dashboard/dashboard-reveal'
+import { CATEGORY_ACCENT } from '@/components/dashboard/types'
 
 type ParsedParam = {
   key: string
@@ -169,38 +173,43 @@ export function UrlParserLayout() {
   }, [parsed])
 
   return (
-    <div className="flex flex-col h-full gap-4">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shrink-0 md:hidden">
-        <div>
-          <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-          <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="gap-1.5 text-xs"
-            onClick={() => fileInputRef.current?.click()}
-          >
-            <Upload className="h-3.5 w-3.5" />
-            {t('upload')}
-          </Button>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".txt,.json,.xml,.html,.md"
-            className="hidden"
-            onChange={(e) => {
-              const file = e.target.files?.[0]
-              if (file) handleFileUpload(file)
-              e.target.value = ''
-            }}
-          />
-          <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={handleClear}>
-            <Trash2 className="h-3.5 w-3.5" />
-            {t('clear')}
-          </Button>
-        </div>
+    <div className="relative flex flex-col h-full gap-4 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+
+      <RevealItem index={0}>
+        <ToolPageHeader
+          icon={IconLink}
+          title={t('title')}
+          description={t('subtitle')}
+          accent={CATEGORY_ACCENT.Converters}
+        />
+      </RevealItem>
+
+      <div className="flex items-center gap-2 shrink-0 md:hidden">
+        <Button
+          variant="outline"
+          size="sm"
+          className="gap-1.5 text-xs"
+          onClick={() => fileInputRef.current?.click()}
+        >
+          <Upload className="h-3.5 w-3.5" />
+          {t('upload')}
+        </Button>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".txt,.json,.xml,.html,.md"
+          className="hidden"
+          onChange={(e) => {
+            const file = e.target.files?.[0]
+            if (file) handleFileUpload(file)
+            e.target.value = ''
+          }}
+        />
+        <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={handleClear}>
+          <Trash2 className="h-3.5 w-3.5" />
+          {t('clear')}
+        </Button>
       </div>
 
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-0">
