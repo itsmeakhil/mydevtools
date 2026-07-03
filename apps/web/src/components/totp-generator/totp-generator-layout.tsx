@@ -7,23 +7,42 @@ import { useDebouncedCallback } from 'use-debounce';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { IconClock } from '@tabler/icons-react';
 import { CATEGORY_ACCENT } from '@/components/dashboard/types';
 import { RevealItem } from '@/components/dashboard/dashboard-reveal';
 import { ToolPageHeader } from '@/components/tools/tool-page-header';
 import { CopyTextButton } from '@/components/tools/copy-text-button';
 import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
-import { computeTotp, decodeBase32Secret, getTotpSecondsRemaining } from '@/lib/totp-compute';
+import {
+  computeTotp,
+  decodeBase32Secret,
+  getTotpSecondsRemaining,
+  type TotpAlgorithm,
+} from '@/lib/totp-compute';
 import { cn } from '@/lib/utils';
 
-const PERIOD_SEC = 30;
-const DIGITS = 6;
+const DIGIT_OPTIONS = [6, 8] as const;
+const PERIOD_OPTIONS = [15, 30, 60] as const;
+const ALGORITHM_OPTIONS: TotpAlgorithm[] = ['SHA-1', 'SHA-256', 'SHA-512'];
+
+type TotpDigits = (typeof DIGIT_OPTIONS)[number];
+type TotpPeriod = (typeof PERIOD_OPTIONS)[number];
 
 export function TotpGeneratorLayout() {
   const t = useTranslations('TotpGenerator');
   const [secret, setSecret] = useState('');
+  const [digits, setDigits] = useState<TotpDigits>(6);
+  const [period, setPeriod] = useState<TotpPeriod>(30);
+  const [algorithm, setAlgorithm] = useState<TotpAlgorithm>('SHA-1');
   const [code, setCode] = useState('');
-  const [remaining, setRemaining] = useState(PERIOD_SEC);
+  const [remaining, setRemaining] = useState<number>(30);
   const [invalid, setInvalid] = useState(false);
   const [cryptoError, setCryptoError] = useState(false);
   const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
@@ -54,15 +73,15 @@ export function TotpGeneratorLayout() {
     }
     setInvalid(false);
     const now = Date.now();
-    setRemaining(getTotpSecondsRemaining(now, PERIOD_SEC));
+    setRemaining(getTotpSecondsRemaining(now, period));
     try {
-      setCode(await computeTotp(keyBytes, now, PERIOD_SEC, DIGITS));
+      setCode(await computeTotp(keyBytes, now, period, digits, algorithm));
       setCryptoError(false);
     } catch {
       setCode('');
       setCryptoError(true);
     }
-  }, [secret, trimmed]);
+  }, [secret, trimmed, digits, period, algorithm]);
 
   const debounced = useDebouncedCallback(() => {
     void run();
@@ -70,7 +89,7 @@ export function TotpGeneratorLayout() {
 
   useEffect(() => {
     debounced();
-  }, [secret, debounced]);
+  }, [secret, digits, period, algorithm, debounced]);
 
   useEffect(() => {
     const id = window.setInterval(() => {
@@ -84,7 +103,7 @@ export function TotpGeneratorLayout() {
     void copyToClipboard(code, { silent: true });
   };
 
-  const progress = remaining / PERIOD_SEC;
+  const progress = remaining / period;
 
   return (
     <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
@@ -100,6 +119,59 @@ export function TotpGeneratorLayout() {
 
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
         <Card className="flex flex-col gap-4 overflow-auto p-4">
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div className="space-y-2">
+              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                {t('digitsLabel')}
+              </Label>
+              <Select value={String(digits)} onValueChange={(v) => setDigits(Number(v) as TotpDigits)}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {DIGIT_OPTIONS.map((d) => (
+                    <SelectItem key={d} value={String(d)}>
+                      {d}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                {t('periodLabel')}
+              </Label>
+              <Select value={String(period)} onValueChange={(v) => setPeriod(Number(v) as TotpPeriod)}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {PERIOD_OPTIONS.map((p) => (
+                    <SelectItem key={p} value={String(p)}>
+                      {t('periodSeconds', { seconds: p })}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                {t('algorithmLabel')}
+              </Label>
+              <Select value={algorithm} onValueChange={(v) => setAlgorithm(v as TotpAlgorithm)}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {ALGORITHM_OPTIONS.map((a) => (
+                    <SelectItem key={a} value={a}>
+                      {a}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
           <div className="space-y-2">
             <Label htmlFor="totp-secret">{t('secretLabel')}</Label>
             <Textarea
