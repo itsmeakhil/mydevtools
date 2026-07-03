@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
-import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -17,9 +16,15 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
-import { Copy, Download, ImageIcon, Trash2, Upload, X } from 'lucide-react';
+import { Download, ImageIcon, Trash2, Upload, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type QRCodeStyling from 'qr-code-styling';
+import { IconQrcode } from '@tabler/icons-react';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
+import { CopyTextButton } from '@/components/tools/copy-text-button';
 
 type Ecc = 'L' | 'M' | 'Q' | 'H';
 type DotType = 'square' | 'dots' | 'rounded' | 'extra-rounded' | 'classy' | 'classy-rounded';
@@ -82,6 +87,7 @@ export function QrCodeGeneratorLayout() {
 
   // UI state
   const [copied, setCopied] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Refs
   const qrRef = useRef<QRCodeStyling | null>(null);
@@ -150,9 +156,10 @@ export function QrCodeGeneratorLayout() {
 
   const handleCopyImage = async () => {
     if (!qrRef.current || !hasContent) return;
+    setError(null);
     try {
       if (!navigator.clipboard?.write) {
-        toast.error(t('errors.copyUnsupported'));
+        setError(t('errors.copyUnsupported'));
         return;
       }
       const blob = await qrRef.current.getRawData('png');
@@ -161,7 +168,7 @@ export function QrCodeGeneratorLayout() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      toast.error(t('errors.copyFailed'));
+      setError(t('errors.copyFailed'));
     }
   };
 
@@ -182,11 +189,18 @@ export function QrCodeGeneratorLayout() {
   };
 
   return (
-    <div className="flex h-full min-h-0 w-full flex-col gap-4">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-      </div>
+    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+      <RevealItem index={0}>
+        <ToolPageHeader
+          icon={IconQrcode}
+          title={t('title')}
+          description={t('subtitle')}
+          accent={CATEGORY_ACCENT.Generators}
+        />
+      </RevealItem>
+
+      {error && <ToolErrorBanner message={error} className="shrink-0" />}
 
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
         {/* Controls Panel */}
@@ -386,10 +400,13 @@ export function QrCodeGeneratorLayout() {
               <Download className="mr-1.5 h-4 w-4" />
               {t('downloadSvg')}
             </Button>
-            <Button type="button" size="sm" variant="secondary" onClick={handleCopyImage} disabled={!hasContent}>
-              <Copy className="mr-1.5 h-4 w-4" />
-              {copied ? t('copied') : t('copyImage')}
-            </Button>
+            <CopyTextButton
+              onCopy={handleCopyImage}
+              copied={copied}
+              disabled={!hasContent}
+              label={t('copyImage')}
+              copiedLabel={t('copied')}
+            />
           </div>
 
           <div className="relative flex min-h-[200px] flex-1 items-center justify-center rounded-lg border border-dashed bg-muted/30 p-4">
