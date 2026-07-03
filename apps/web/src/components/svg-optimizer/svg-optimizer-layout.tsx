@@ -31,8 +31,8 @@ export function SvgOptimizerLayout() {
   const [error, setError] = useState<string | null>(null)
   const { isCopied: copied, copyToClipboard } = useCopyToClipboard()
 
-  const runOptimize = useCallback((raw: string) => {
-    const result = optimizeSvgMarkup(raw)
+  const runOptimize = useCallback(async (raw: string) => {
+    const result = await optimizeSvgMarkup(raw)
     if (result.ok) {
       setOutput(result.data)
       setError(null)

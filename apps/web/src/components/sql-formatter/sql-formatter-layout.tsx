@@ -1,6 +1,6 @@
 'use client';
 
-import { format, type KeywordCase, type SqlLanguage } from 'sql-formatter';
+import type { KeywordCase, SqlLanguage } from 'sql-formatter';
 import { useCallback, useState } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { Button } from '@/components/ui/button';
@@ -51,7 +51,7 @@ export function SqlFormatterLayout() {
   const [error, setError] = useState('');
   const { isCopied: copied, copyToClipboard, reset: resetCopied } = useCopyToClipboard();
 
-  const runFormat = useCallback(() => {
+  const runFormat = useCallback(async () => {
     setError('');
     resetCopied();
     if (isMobile) setMobileTab('output');
@@ -67,6 +67,8 @@ export function SqlFormatterLayout() {
     }
     try {
       const tw = Math.min(8, Math.max(1, parseInt(tabWidth, 10) || 2));
+      // sql-formatter is ~278KB; load on first format so the tool page paints without it.
+      const { format } = await import('sql-formatter');
       setOutput(
         format(q, {
           language: dialect,

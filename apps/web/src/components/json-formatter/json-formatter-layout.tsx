@@ -13,7 +13,7 @@ import {
   IconRefresh,
 } from '@tabler/icons-react'
 import { toast } from 'sonner'
-import { Mode, toTextContent, type Content, type OnChangeStatus } from 'vanilla-jsoneditor'
+import type { Mode, Content, OnChangeStatus } from 'vanilla-jsoneditor'
 import { fetchAllPages } from '@/lib/fetch-all-pages'
 import { ToolPageHeader } from '@/components/tools/tool-page-header'
 import { ToolMobileTabs } from '@/components/tools/tool-mobile-tabs'
@@ -37,6 +37,14 @@ import {
   ResponsiveModalTitle,
 } from '@/components/ui/responsive-modal'
 import { ScrollArea } from '@/components/ui/scroll-area'
+
+// Local copy of vanilla-jsoneditor's toTextContent, kept out of the static import so the
+// 485KB editor barrel isn't dragged into this route's initial chunk (editor loads lazily).
+function contentToText(content: Content): string {
+  if ('text' in content && content.text !== undefined) return content.text
+  // vanilla-jsoneditor's toTextContent defaults to compact (no indentation) — match it.
+  return JSON.stringify((content as { json: unknown }).json)
+}
 
 const initialJson = {
   array: [1, 2, 3],
@@ -179,8 +187,8 @@ export function JsonFormatterLayout() {
 
   const handleCopy = (pane: PaneKey) => {
     const paneState = pane === 'left' ? leftPane : rightPane
-    const textContent = toTextContent(paneState.content)
-    void copyToClipboard(textContent.text, {
+    const textContentText = contentToText(paneState.content)
+    void copyToClipboard(textContentText, {
       successMessage: pane === 'left' ? t('toastCopiedText') : t('toastCopiedTree'),
       errorMessage: t('toastCopyFailed'),
     })
@@ -195,11 +203,11 @@ export function JsonFormatterLayout() {
     const paneState = pane === 'left' ? leftPane : rightPane
     try {
       updatePane(pane, (prev) => ({ ...prev, isSaving: true }))
-      const textContent = toTextContent(paneState.content)
+      const textContentText = contentToText(paneState.content)
       const body = {
         title: paneState.documentName,
         pane,
-        content: textContent.text,
+        content: textContentText,
       }
 
       if (paneState.documentId) {
@@ -306,7 +314,7 @@ export function JsonFormatterLayout() {
           <IconCopy className="mr-1.5 h-4 w-4" />
           {t('copy')}
         </Button>
-        <SendToMenu content={toTextContent(state.content).text} />
+        <SendToMenu content={contentToText(state.content)} />
         <Button variant="outline" size="sm" onClick={() => openLoadDialog(pane)}>
           <IconFolderOpen className="mr-1.5 h-4 w-4" />
           {t.has('load') ? t('load') : 'Load'}
@@ -345,7 +353,7 @@ export function JsonFormatterLayout() {
           <div className="min-h-0 flex-1">
             {activePane === 'left' ? (
               <VanillaEditor
-                mode={Mode.text}
+                mode={'text' as Mode}
                 content={leftPane.content}
                 onChange={(updated, previous, status) =>
                   handlePaneChange('left', updated, previous, status)
@@ -356,7 +364,7 @@ export function JsonFormatterLayout() {
               />
             ) : (
               <VanillaEditor
-                mode={Mode.tree}
+                mode={'tree' as Mode}
                 content={rightPane.content}
                 onChange={(updated, previous, status) =>
                   handlePaneChange('right', updated, previous, status)
@@ -378,7 +386,7 @@ export function JsonFormatterLayout() {
               {renderPaneToolbar('left')}
               <div className="min-h-0 flex-1">
                 <VanillaEditor
-                  mode={Mode.text}
+                  mode={'text' as Mode}
                   content={leftPane.content}
                   onChange={(updated, previous, status) =>
                     handlePaneChange('left', updated, previous, status)
@@ -398,7 +406,7 @@ export function JsonFormatterLayout() {
               {renderPaneToolbar('right')}
               <div className="min-h-0 flex-1">
                 <VanillaEditor
-                  mode={Mode.tree}
+                  mode={'tree' as Mode}
                   content={rightPane.content}
                   onChange={(updated, previous, status) =>
                     handlePaneChange('right', updated, previous, status)
