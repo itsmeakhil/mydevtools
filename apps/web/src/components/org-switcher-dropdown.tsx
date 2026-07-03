@@ -10,7 +10,7 @@ import { useActiveOrg, useWorkspaceStore } from "@/store/workspace-store"
 import { CreateOrgDialog } from "@/components/create-org-dialog"
 
 /**
- * Organization switcher — top-left of the sidebar header, beside the brand.
+ * Organization switcher — lives in the top nav, beside the page title.
  * Switching org cascades to its default workspace via `setActiveOrg`.
  */
 export function OrgSwitcherDropdown() {
@@ -28,7 +28,7 @@ export function OrgSwitcherDropdown() {
         <DropdownMenuTrigger asChild>
           <button
             type="button"
-            className="flex w-full items-center gap-2 rounded-lg border border-border/60 bg-muted/40 px-2.5 py-1.5 text-left text-sm font-medium text-foreground/90 transition-colors hover:border-primary/40 hover:bg-muted/60"
+            className="flex h-9 max-w-[13rem] items-center gap-2 rounded-lg border border-border/60 bg-muted/40 px-2.5 text-left text-sm font-medium text-foreground/90 transition-colors hover:border-primary/40 hover:bg-muted/60"
           >
             <Building2 className="h-4 w-4 shrink-0 text-muted-foreground" />
             <span className="min-w-0 flex-1 truncate">{activeOrg.name}</span>

@@ -6,6 +6,11 @@ import { X, Plus, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useTabStore } from '@/store/tab-store'
 import { getRouteConfig } from '@/lib/route-config'
 import { cn } from '@/lib/utils'
+import { OrgSwitcherDropdown } from '@/components/org-switcher-dropdown'
+import { WorkspaceSwitcherDropdown } from '@/components/workspace-switcher-dropdown'
+import { WorkspaceQuickActions } from '@/components/workspace-quick-actions'
+import { NotificationsBell } from '@/components/notifications-bell'
+import { ModeToggle } from '@/components/modeToggle'
 import {
   Tooltip,
   TooltipContent,
@@ -90,8 +95,7 @@ export function TabBar({ onNewTab }: TabBarProps) {
     if (path !== pathname) router.push(path)
   }
 
-  function handleClose(e: React.MouseEvent, path: string) {
-    e.stopPropagation()
+  const closeTabAndNavigate = useCallback((path: string) => {
     const { tabs, activeTabPath } = useTabStore.getState()
     const idx = tabs.findIndex(t => t.path === path)
     const newTabs = tabs.filter(t => t.path !== path)
@@ -100,11 +104,44 @@ export function TabBar({ onNewTab }: TabBarProps) {
       router.push(next ?? '/dashboard')
     }
     closeTab(path)
+  }, [router, closeTab])
+
+  function handleClose(e: React.MouseEvent, path: string) {
+    e.stopPropagation()
+    closeTabAndNavigate(path)
   }
+
+  // Keyboard shortcuts: ⌥1–9 jump to tab, ⌥W close active tab.
+  // (⌘W / ⌘1–9 are browser-reserved and cannot be intercepted.)
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (!e.altKey || e.metaKey || e.ctrlKey || e.shiftKey) return
+      const t = e.target as HTMLElement | null
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return
+      // e.code is layout-independent — on macOS ⌥ changes e.key ('w' → '∑').
+      if (e.code === 'KeyW') {
+        const { activeTabPath } = useTabStore.getState()
+        if (!activeTabPath) return
+        e.preventDefault()
+        closeTabAndNavigate(activeTabPath)
+        return
+      }
+      const digit = /^Digit([1-9])$/.exec(e.code)
+      if (digit) {
+        const { tabs, activeTabPath } = useTabStore.getState()
+        const tab = tabs[Number(digit[1]) - 1]
+        if (!tab) return
+        e.preventDefault()
+        if (tab.path !== activeTabPath) router.push(tab.path)
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [router, closeTabAndNavigate])
 
   return (
     <TooltipProvider delayDuration={500}>
-      <div className="flex h-11 w-full shrink-0 items-center border-b bg-background px-2 gap-1">
+      <div className="flex h-12 w-full shrink-0 items-center border-b bg-background px-2 gap-1">
 
         {/* Left scroll arrow */}
         <button
@@ -173,8 +210,13 @@ export function TabBar({ onNewTab }: TabBarProps) {
                     </span>
                   </button>
                 </TooltipTrigger>
-                <TooltipContent side="bottom" className="text-xs">
+                <TooltipContent side="bottom" className="flex items-center gap-1.5 text-xs">
                   {title}
+                  {i < 9 && (
+                    <kbd className="rounded border border-border/60 bg-muted/60 px-1 font-mono text-[10px] text-muted-foreground">
+                      ⌥{i + 1}
+                    </kbd>
+                  )}
                 </TooltipContent>
               </Tooltip>
             )
@@ -211,6 +253,17 @@ export function TabBar({ onNewTab }: TabBarProps) {
             Open tool (⌘K)
           </TooltipContent>
         </Tooltip>
+
+        {/* Global context chrome — same set & order as the NavBar so tab mode
+            never hides which org/workspace the open tools are scoped to. */}
+        <div className="mx-1.5 hidden h-4 w-px shrink-0 bg-border/60 md:block" />
+        <div className="hidden shrink-0 items-center gap-1.5 pr-1 md:flex">
+          <OrgSwitcherDropdown />
+          <WorkspaceSwitcherDropdown />
+          <WorkspaceQuickActions />
+          <NotificationsBell />
+          <ModeToggle />
+        </div>
       </div>
     </TooltipProvider>
   )

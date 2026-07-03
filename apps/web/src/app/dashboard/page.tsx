@@ -273,7 +273,7 @@ const DashboardPage: React.FC = () => {
         mobileOnly
       />
 
-      <div className="px-3 md:px-8 pb-24 md:pb-12">
+      <div className="px-3 pt-4 md:px-8 md:pt-8 pb-24 md:pb-12">
         <div className="max-w-7xl mx-auto space-y-5 md:space-y-8">
           {/* ── Desktop Hero (inside padded container for alignment) ── */}
           <RevealItem index={0}>
