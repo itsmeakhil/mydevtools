@@ -3162,6 +3162,13 @@
     "importLabel": "Εισαγωγή από otpauth:// URI",
     "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
     "importAction": "Εισαγωγή",
+    "qrSectionTitle": "Κωδικός QR παροχής",
+    "qrHint": "Σαρώστε με μια εφαρμογή ελέγχου ταυτότητας (Google Authenticator, 1Password, Aegis…) για να προσθέσετε αυτό το μυστικό. Ο κωδικός QR κωδικοποιεί το μυστικό — μεταχειριστείτε το σαν κωδικό πρόσβασης.",
+    "accountLabel": "Λογαριασμός",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Εκδότης (προαιρετικό)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Εισαγάγετε ένα έγκυρο μυστικό για να δημιουργήσετε κωδικό QR.",
     "errors": {
       "invalidSecret": "Μη έγκυρο μυστικό Base32.",
       "cryptoFailed": "Δεν ήταν δυνατός ο υπολογισμός TOTP. Ελέγξτε το Web Crypto και δοκιμάστε ξανά.",

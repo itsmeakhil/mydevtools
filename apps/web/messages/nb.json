@@ -3162,6 +3162,13 @@
     "importLabel": "Importer fra otpauth://-URI",
     "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
     "importAction": "Importer",
+    "qrSectionTitle": "QR-kode for klargjøring",
+    "qrHint": "Skann med en autentiseringsapp (Google Authenticator, 1Password, Aegis…) for å legge til denne hemmeligheten. QR-koden koder hemmeligheten — behandle den som et passord.",
+    "accountLabel": "Konto",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Utsteder (valgfritt)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Skriv inn en gyldig hemmelighet for å generere en QR-kode.",
     "errors": {
       "invalidSecret": "Ugyldig Base32-hemmelighet.",
       "cryptoFailed": "Kunne ikke beregne TOTP. Sjekk Web Crypto og prøv igjen.",

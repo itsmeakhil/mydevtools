@@ -3162,6 +3162,13 @@
     "importLabel": "Voer in vanaf 'n otpauth://-URI",
     "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
     "importAction": "Voer in",
+    "qrSectionTitle": "QR-kode vir voorsiening",
+    "qrHint": "Skandeer met 'n verifikasie-app (Google Authenticator, 1Password, Aegis…) om hierdie geheim by te voeg. Die QR-kode enkodeer die geheim — behandel dit soos 'n wagwoord.",
+    "accountLabel": "Rekening",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Uitreiker (opsioneel)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Voer 'n geldige geheim in om 'n QR-kode te genereer.",
     "errors": {
       "invalidSecret": "Ongeldige Base32-geheim.",
       "cryptoFailed": "Kon nie TOTP bereken nie. Kontroleer Web Crypto en probeer weer.",

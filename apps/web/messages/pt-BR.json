@@ -3162,6 +3162,13 @@
     "importLabel": "Importar de um URI otpauth://",
     "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
     "importAction": "Importar",
+    "qrSectionTitle": "Código QR de provisionamento",
+    "qrHint": "Escaneie com um app autenticador (Google Authenticator, 1Password, Aegis…) para adicionar este segredo. O QR codifica o segredo — trate-o como uma senha.",
+    "accountLabel": "Conta",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Emissor (opcional)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Insira um segredo válido para gerar um código QR.",
     "errors": {
       "invalidSecret": "Esse não é um segredo Base32 válido.",
       "cryptoFailed": "Não foi possível calcular o TOTP. Verifique o Web Crypto e tente de novo.",

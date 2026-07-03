@@ -3162,6 +3162,13 @@
     "importLabel": "从 otpauth:// URI 导入",
     "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
     "importAction": "导入",
+    "qrSectionTitle": "预配 QR 码",
+    "qrHint": "使用身份验证器应用(Google Authenticator、1Password、Aegis 等)扫描以添加此密钥。QR 码对密钥进行了编码 — 请像对待密码一样对待它。",
+    "accountLabel": "账户",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "颁发者(可选)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "输入有效的密钥以生成 QR 码。",
     "errors": {
       "invalidSecret": "不是有效的 Base32 密钥。",
       "cryptoFailed": "无法计算 TOTP。请检查 Web Crypto 是否可用并重试。",

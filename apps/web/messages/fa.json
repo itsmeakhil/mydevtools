@@ -3162,6 +3162,13 @@
     "importLabel": "درون‌ریزی از URI با فرمت otpauth://",
     "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
     "importAction": "درون‌ریزی",
+    "qrSectionTitle": "کد QR فراهم‌سازی",
+    "qrHint": "با یک برنامه احراز هویت (Google Authenticator، 1Password، Aegis…) اسکن کنید تا این کلید مخفی اضافه شود. کد QR کلید مخفی را رمزگذاری می‌کند — با آن مانند یک رمز عبور رفتار کنید.",
+    "accountLabel": "حساب",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "صادرکننده (اختیاری)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "برای تولید کد QR یک کلید مخفی معتبر وارد کنید.",
     "errors": {
       "invalidSecret": "این یک راز Base32 معتبر نیست.",
       "cryptoFailed": "محاسبهٔ TOTP ممکن نشد. Web Crypto را بررسی و دوباره امتحان کنید.",

@@ -3162,6 +3162,13 @@
     "importLabel": "otpauth:// URI'sinden içe aktar",
     "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
     "importAction": "İçe aktar",
+    "qrSectionTitle": "Sağlama QR kodu",
+    "qrHint": "Bu gizli anahtarı eklemek için bir kimlik doğrulayıcı uygulamasıyla (Google Authenticator, 1Password, Aegis…) tarayın. QR kodu gizli anahtarı kodlar — onu bir parola gibi ele alın.",
+    "accountLabel": "Hesap",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Veren (isteğe bağlı)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "QR kodu oluşturmak için geçerli bir gizli anahtar girin.",
     "errors": {
       "invalidSecret": "Geçerli bir Base32 gizli anahtar değil.",
       "cryptoFailed": "TOTP hesaplanamadı. Web Crypto desteğini kontrol edip tekrar deneyin.",

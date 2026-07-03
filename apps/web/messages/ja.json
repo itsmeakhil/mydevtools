@@ -3162,6 +3162,13 @@
     "importLabel": "otpauth:// URIからインポート",
     "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
     "importAction": "インポート",
+    "qrSectionTitle": "プロビジョニングQRコード",
+    "qrHint": "認証アプリ(Google Authenticator、1Password、Aegisなど)でスキャンしてこのシークレットを追加します。QRコードにはシークレットが符号化されています — パスワードと同様に扱ってください。",
+    "accountLabel": "アカウント",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "発行者(任意)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "QRコードを生成するには有効なシークレットを入力してください。",
     "errors": {
       "invalidSecret": "有効な Base32 秘密鍵ではありません。",
       "cryptoFailed": "TOTP を計算できませんでした。Web Crypto を確認して再試行してください。",

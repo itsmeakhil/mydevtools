@@ -3162,6 +3162,13 @@
     "importLabel": "Importa des d'un URI otpauth://",
     "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
     "importAction": "Importa",
+    "qrSectionTitle": "Codi QR d'aprovisionament",
+    "qrHint": "Escaneja amb una aplicació d'autenticació (Google Authenticator, 1Password, Aegis…) per afegir aquest secret. El QR codifica el secret — tracta'l com una contrasenya.",
+    "accountLabel": "Compte",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Emissor (opcional)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Introdueix un secret vàlid per generar un codi QR.",
     "errors": {
       "invalidSecret": "Aquest no és un secret Base32 vàlid.",
       "cryptoFailed": "No s’ha pogut calcular el TOTP. Comproveu Web Crypto i torneu-ho a provar.",

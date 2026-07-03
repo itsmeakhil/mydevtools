@@ -3162,6 +3162,13 @@
     "importLabel": "Importovat z otpauth:// URI",
     "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
     "importAction": "Importovat",
+    "qrSectionTitle": "QR kód pro zřízení",
+    "qrHint": "Naskenujte pomocí aplikace ověřovatele (Google Authenticator, 1Password, Aegis…) a přidejte tento tajný klíč. QR kód kóduje tajný klíč — zacházejte s ním jako s heslem.",
+    "accountLabel": "Účet",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Vydavatel (volitelné)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Zadejte platný tajný klíč pro vygenerování QR kódu.",
     "errors": {
       "invalidSecret": "Neplatné Base32 tajemství.",
       "cryptoFailed": "TOTP se nepodařilo spočítat. Zkontrolujte Web Crypto a zkuste znovu.",

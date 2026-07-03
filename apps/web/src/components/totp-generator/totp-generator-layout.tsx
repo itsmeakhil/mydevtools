@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { useDebouncedCallback } from 'use-debounce';
@@ -15,6 +15,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
+import type QRCodeStyling from 'qr-code-styling';
+import { ChevronDown } from 'lucide-react';
 import { IconClock } from '@tabler/icons-react';
 import { CATEGORY_ACCENT } from '@/components/dashboard/types';
 import { RevealItem } from '@/components/dashboard/dashboard-reveal';
@@ -28,7 +35,7 @@ import {
   getTotpSecondsRemaining,
   type TotpAlgorithm,
 } from '@/lib/totp-compute';
-import { parseOtpauthUri } from '@/lib/totp-uri';
+import { buildOtpauthUri, parseOtpauthUri } from '@/lib/totp-uri';
 import { cn } from '@/lib/utils';
 
 const DIGIT_OPTIONS = [6, 8] as const;
@@ -58,6 +65,11 @@ export function TotpGeneratorLayout() {
   const [importError, setImportError] = useState<
     'errors.invalidUri' | 'errors.unsupportedUri' | null
   >(null);
+  const [qrOpen, setQrOpen] = useState(false);
+  const [account, setAccount] = useState('');
+  const [issuer, setIssuer] = useState('');
+  const qrRef = useRef<QRCodeStyling | null>(null);
+  const qrContainerRef = useRef<HTMLDivElement>(null);
 
   const trimmed = useMemo(() => secret.replace(/[\s-]/g, ''), [secret]);
 
@@ -134,6 +146,58 @@ export function TotpGeneratorLayout() {
   };
 
   const progress = remaining / period;
+
+  const provisioningUri = useMemo(() => {
+    if (!trimmed) return null;
+    try {
+      if (decodeBase32Secret(trimmed).length === 0) return null;
+    } catch {
+      return null;
+    }
+    return buildOtpauthUri({
+      secret: trimmed,
+      digits,
+      period,
+      algorithm,
+      label: account.trim() || 'Account',
+      issuer: issuer.trim() || undefined,
+    });
+  }, [trimmed, digits, period, algorithm, account, issuer]);
+
+  useEffect(() => {
+    if (!qrOpen || !provisioningUri) return;
+    let cancelled = false;
+    const mount = (instance: QRCodeStyling) => {
+      if (!qrContainerRef.current) return;
+      qrContainerRef.current.innerHTML = '';
+      instance.append(qrContainerRef.current);
+    };
+    if (qrRef.current) {
+      qrRef.current.update({ data: provisioningUri });
+      mount(qrRef.current); // re-append: CollapsibleContent unmounts its DOM when closed
+      return;
+    }
+    // Same dynamic-import pattern as qr-code-generator-layout.tsx:98 — keeps
+    // qr-code-styling out of the bundle for users who never open this section.
+    import('qr-code-styling').then(({ default: QRCodeStyling }) => {
+      if (cancelled || !qrContainerRef.current) return;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const instance: QRCodeStyling = new (QRCodeStyling as any)({
+        width: 200,
+        height: 200,
+        data: provisioningUri,
+        margin: 8,
+        qrOptions: { errorCorrectionLevel: 'M' },
+        dotsOptions: { color: '#000000', type: 'square' },
+        backgroundOptions: { color: '#ffffff' },
+      });
+      qrRef.current = instance;
+      mount(instance);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [qrOpen, provisioningUri]);
 
   return (
     <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
@@ -286,6 +350,47 @@ export function TotpGeneratorLayout() {
           </div>
 
           <p className="text-xs text-muted-foreground">{t('securityNote')}</p>
+
+          <Collapsible open={qrOpen} onOpenChange={setQrOpen} className="shrink-0">
+            <CollapsibleTrigger asChild>
+              <Button type="button" variant="ghost" size="sm" className="w-full justify-between px-2">
+                {t('qrSectionTitle')}
+                <ChevronDown className={cn('h-4 w-4 transition-transform', qrOpen && 'rotate-180')} />
+              </Button>
+            </CollapsibleTrigger>
+            <CollapsibleContent className="space-y-3 pt-3">
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="totp-account">{t('accountLabel')}</Label>
+                  <Input
+                    id="totp-account"
+                    value={account}
+                    onChange={(e) => setAccount(e.target.value)}
+                    placeholder={t('accountPlaceholder')}
+                    autoComplete="off"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="totp-issuer">{t('issuerLabel')}</Label>
+                  <Input
+                    id="totp-issuer"
+                    value={issuer}
+                    onChange={(e) => setIssuer(e.target.value)}
+                    placeholder={t('issuerPlaceholder')}
+                    autoComplete="off"
+                  />
+                </div>
+              </div>
+              {provisioningUri ? (
+                <div className="flex justify-center">
+                  <div ref={qrContainerRef} className="rounded-md bg-white p-3" />
+                </div>
+              ) : (
+                <p className="text-center text-xs text-muted-foreground">{t('qrEmptyHint')}</p>
+              )}
+              <p className="text-xs text-muted-foreground">{t('qrHint')}</p>
+            </CollapsibleContent>
+          </Collapsible>
         </Card>
       </div>
     </div>

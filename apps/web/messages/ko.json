@@ -3162,6 +3162,13 @@
     "importLabel": "otpauth:// URI에서 가져오기",
     "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
     "importAction": "가져오기",
+    "qrSectionTitle": "프로비저닝 QR 코드",
+    "qrHint": "인증 앱(Google Authenticator, 1Password, Aegis 등)으로 스캔하여 이 비밀 키를 추가하세요. QR 코드는 비밀 키를 인코딩합니다 — 비밀번호처럼 취급하세요.",
+    "accountLabel": "계정",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "발급자(선택 사항)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "QR 코드를 생성하려면 유효한 비밀 키를 입력하세요.",
     "errors": {
       "invalidSecret": "유효한 Base32 비밀키가 아닙니다.",
       "cryptoFailed": "TOTP를 계산할 수 없습니다. Web Crypto를 확인하고 다시 시도하세요.",

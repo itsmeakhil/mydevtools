@@ -3162,6 +3162,13 @@
     "importLabel": "Aus otpauth://-URI importieren",
     "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
     "importAction": "Importieren",
+    "qrSectionTitle": "Bereitstellungs-QR-Code",
+    "qrHint": "Scannen Sie mit einer Authenticator-App (Google Authenticator, 1Password, Aegis…), um dieses Geheimnis hinzuzufügen. Der QR-Code kodiert das Geheimnis — behandeln Sie ihn wie ein Passwort.",
+    "accountLabel": "Konto",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Aussteller (optional)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Geben Sie ein gültiges Geheimnis ein, um einen QR-Code zu generieren.",
     "errors": {
       "invalidSecret": "Das ist kein gültiges Base32-Geheimnis.",
       "cryptoFailed": "TOTP konnte nicht berechnet werden. Prüfen Sie Web Crypto und versuchen Sie es erneut.",

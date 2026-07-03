@@ -68,3 +68,35 @@ export function parseOtpauthUri(uri: string): ParsedOtpauth | null {
 
   return { secret, digits, period, algorithm, label, issuer };
 }
+
+export interface BuildOtpauthOptions {
+  secret: string;
+  digits?: number;
+  period?: number;
+  algorithm?: TotpAlgorithm;
+  label?: string;
+  issuer?: string;
+}
+
+/**
+ * Build an otpauth://totp provisioning URI (Google Authenticator Key URI
+ * format). Round-trips exactly with parseOtpauthUri.
+ */
+export function buildOtpauthUri({
+  secret,
+  digits = 6,
+  period = 30,
+  algorithm = 'SHA-1',
+  label = 'Account',
+  issuer,
+}: BuildOtpauthOptions): string {
+  const cleanSecret = secret.replace(/[\s-]/g, '').replace(/=+$/, '').toUpperCase();
+  const fullLabel = issuer ? `${issuer}:${label}` : label;
+  const params = new URLSearchParams();
+  params.set('secret', cleanSecret);
+  if (issuer) params.set('issuer', issuer);
+  params.set('algorithm', algorithm.replace(/-/g, ''));
+  params.set('digits', String(digits));
+  params.set('period', String(period));
+  return `otpauth://totp/${encodeURIComponent(fullLabel)}?${params.toString()}`;
+}

@@ -3162,6 +3162,13 @@
     "importLabel": "استيراد من عنوان otpauth://",
     "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
     "importAction": "استيراد",
+    "qrSectionTitle": "رمز QR للتزويد",
+    "qrHint": "امسح باستخدام تطبيق مصادقة (Google Authenticator، 1Password، Aegis…) لإضافة هذا السر. يشفّر رمز QR السر — تعامل معه مثل كلمة المرور.",
+    "accountLabel": "الحساب",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "المُصدر (اختياري)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "أدخل سرًا صالحًا لإنشاء رمز QR.",
     "errors": {
       "invalidSecret": "هذا ليس سر Base32 صالحًا.",
       "cryptoFailed": "تعذّر حساب TOTP. تحقق من Web Crypto وحاول مجددًا.",

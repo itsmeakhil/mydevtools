@@ -1,4 +1,4 @@
-import { parseOtpauthUri } from '@/lib/totp-uri';
+import { buildOtpauthUri, parseOtpauthUri } from '@/lib/totp-uri';
 
 describe('parseOtpauthUri', () => {
   it('parses a fully-specified URI', () => {
@@ -61,5 +61,51 @@ describe('parseOtpauthUri', () => {
     ['empty string', ''],
   ])('returns null for %s (never throws)', (_name, uri) => {
     expect(parseOtpauthUri(uri)).toBeNull();
+  });
+});
+
+describe('buildOtpauthUri', () => {
+  it('builds a fully-specified URI', () => {
+    expect(
+      buildOtpauthUri({
+        secret: 'JBSWY3DPEHPK3PXP',
+        digits: 8,
+        period: 60,
+        algorithm: 'SHA-256',
+        label: 'alice@example.com',
+        issuer: 'Example',
+      })
+    ).toBe(
+      'otpauth://totp/Example%3Aalice%40example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example&algorithm=SHA256&digits=8&period=60'
+    );
+  });
+
+  it('applies defaults and normalizes the secret', () => {
+    expect(buildOtpauthUri({ secret: 'jbswy3dp ehpk3pxp' })).toBe(
+      'otpauth://totp/Account?secret=JBSWY3DPEHPK3PXP&algorithm=SHA1&digits=6&period=30'
+    );
+  });
+
+  it('round-trips through parseOtpauthUri (with issuer containing a space)', () => {
+    const opts = {
+      secret: 'JBSWY3DPEHPK3PXP',
+      digits: 8,
+      period: 15,
+      algorithm: 'SHA-512' as const,
+      label: 'bob@example.com',
+      issuer: 'My Devtools',
+    };
+    expect(parseOtpauthUri(buildOtpauthUri(opts))).toEqual({ ...opts });
+  });
+
+  it('round-trips without an issuer', () => {
+    expect(parseOtpauthUri(buildOtpauthUri({ secret: 'JBSWY3DPEHPK3PXP', label: 'alice' }))).toEqual({
+      secret: 'JBSWY3DPEHPK3PXP',
+      digits: 6,
+      period: 30,
+      algorithm: 'SHA-1',
+      label: 'alice',
+      issuer: null,
+    });
   });
 });

@@ -3162,6 +3162,13 @@
     "importLabel": "Импорт из otpauth:// URI",
     "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
     "importAction": "Импорт",
+    "qrSectionTitle": "QR-код подготовки",
+    "qrHint": "Отсканируйте приложением-аутентификатором (Google Authenticator, 1Password, Aegis…), чтобы добавить этот секрет. QR-код кодирует секрет — относитесь к нему как к паролю.",
+    "accountLabel": "Учётная запись",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Издатель (необязательно)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Введите корректный секрет, чтобы сгенерировать QR-код.",
     "errors": {
       "invalidSecret": "Недопустимый секрет Base32.",
       "cryptoFailed": "Не удалось вычислить TOTP. Проверьте поддержку Web Crypto и повторите.",

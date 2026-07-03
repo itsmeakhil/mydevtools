@@ -3162,6 +3162,13 @@
     "importLabel": "Importuj z URI otpauth://",
     "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
     "importAction": "Importuj",
+    "qrSectionTitle": "Kod QR aprowizacji",
+    "qrHint": "Zeskanuj aplikacją uwierzytelniającą (Google Authenticator, 1Password, Aegis…), aby dodać ten sekret. Kod QR koduje sekret — traktuj go jak hasło.",
+    "accountLabel": "Konto",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Wystawca (opcjonalnie)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Wprowadź prawidłowy sekret, aby wygenerować kod QR.",
     "errors": {
       "invalidSecret": "To nie jest prawidłowy klucz Base32.",
       "cryptoFailed": "Nie udało się obliczyć TOTP. Sprawdź Web Crypto i spróbuj ponownie.",

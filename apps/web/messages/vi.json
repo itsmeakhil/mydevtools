@@ -3162,6 +3162,13 @@
     "importLabel": "Nhập từ URI otpauth://",
     "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
     "importAction": "Nhập",
+    "qrSectionTitle": "Mã QR cấp phát",
+    "qrHint": "Quét bằng ứng dụng xác thực (Google Authenticator, 1Password, Aegis…) để thêm khóa bí mật này. Mã QR mã hóa khóa bí mật — hãy đối xử với nó như mật khẩu.",
+    "accountLabel": "Tài khoản",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Nhà phát hành (tùy chọn)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Nhập khóa bí mật hợp lệ để tạo mã QR.",
     "errors": {
       "invalidSecret": "Đây không phải bí mật Base32 hợp lệ.",
       "cryptoFailed": "Không thể tính TOTP. Kiểm tra Web Crypto và thử lại.",

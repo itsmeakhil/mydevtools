@@ -3162,6 +3162,13 @@
     "importLabel": "Import daripada URI otpauth://",
     "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
     "importAction": "Import",
+    "qrSectionTitle": "Kod QR peruntukan",
+    "qrHint": "Imbas dengan apl pengesah (Google Authenticator, 1Password, Aegis…) untuk menambah rahsia ini. Kod QR ini mengekod rahsia tersebut — anggap ia seperti kata laluan.",
+    "accountLabel": "Akaun",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Pengeluar (pilihan)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Masukkan rahsia yang sah untuk menjana kod QR.",
     "errors": {
       "invalidSecret": "Bukan rahsia Base32 yang sah.",
       "cryptoFailed": "Tidak dapat mengira TOTP. Semak Web Crypto dan cuba lagi.",
