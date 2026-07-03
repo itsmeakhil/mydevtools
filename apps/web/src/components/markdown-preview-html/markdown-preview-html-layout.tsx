@@ -11,6 +11,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Copy, Check, Download, Eye, Code } from 'lucide-react';
+import { IconMarkdown } from '@tabler/icons-react';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
 
 // Configure marked for safe, synchronous rendering
 marked.setOptions({ async: false });
@@ -104,11 +107,11 @@ export function MarkdownPreviewLayout() {
   }, [convertedMarkdown, copyMd]);
 
   return (
-    <div className="flex h-full min-h-0 w-full flex-col gap-4">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-      </div>
+    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
+      <div className="dash-ambient -z-10" aria-hidden />
+      <RevealItem index={0}>
+        <ToolPageHeader icon={IconMarkdown} title={t('title')} description={t('subtitle')} />
+      </RevealItem>
 
       <Tabs defaultValue="md-to-html" className="flex h-full min-h-0 flex-col gap-4">
         <TabsList className="shrink-0 w-fit">
