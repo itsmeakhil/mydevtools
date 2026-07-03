@@ -75,6 +75,11 @@ interface DocumentViewProps {
 
 // ── main component ────────────────────────────────────────────────────────────
 
+// Explicit default so header/body columns share one width. Virtual rows are
+// position:absolute (detached from the table's column model), so `auto` widths
+// let thead and tbody size independently and drift out of alignment.
+const DEFAULT_COL_WIDTH = 200;
+
 export function DocumentView({
     connectionName,
     dbName,
@@ -664,7 +669,7 @@ export function DocumentView({
                     /* Table view */
                     <div ref={tableContainerRef} className="h-full w-full overflow-auto">
                         <table
-                            className="min-w-full w-max text-sm text-left relative"
+                            className="min-w-full w-max text-sm text-left relative table-fixed"
                             aria-label={`${collectionName} documents`}
                         >
                             <thead className="text-xs text-muted-foreground uppercase bg-muted">
@@ -678,14 +683,14 @@ export function DocumentView({
                                             />
                                         </th>
                                     )}
-                                    <th className="px-4 py-3 w-[50px] whitespace-nowrap font-medium text-center sticky left-0 top-0 z-30 bg-muted">#</th>
+                                    <th className={cn("px-4 py-3 w-[50px] whitespace-nowrap font-medium text-center sticky top-0 z-30 bg-muted", showSelectMode ? "left-[44px]" : "left-0")}>#</th>
                                     {allFields.map((key) => (
                                         <th
                                             key={key}
                                             className="px-4 py-3 whitespace-nowrap font-medium sticky top-0 z-20 bg-muted pr-6 group/th hover:bg-muted/80 transition-colors border-r"
                                             style={{
-                                                width: columnWidths[key] ? `${columnWidths[key]}px` : 'auto',
-                                                maxWidth: columnWidths[key] ? `${columnWidths[key]}px` : '300px',
+                                                width: `${columnWidths[key] ?? DEFAULT_COL_WIDTH}px`,
+                                                maxWidth: `${columnWidths[key] ?? DEFAULT_COL_WIDTH}px`,
                                             }}
                                         >
                                             <div className="flex items-center gap-1 cursor-pointer truncate" onClick={() => handleSort(key)}>
@@ -736,7 +741,7 @@ export function DocumentView({
                                                     />
                                                 </td>
                                             )}
-                                            <td className={cn("px-4 py-3 font-mono text-xs text-center text-muted-foreground sticky left-0 z-10 bg-background group-hover:bg-muted/50 transition-colors", isSelected && "bg-primary/5 group-hover:bg-primary/10")}>
+                                            <td className={cn("px-4 py-3 w-[50px] font-mono text-xs text-center text-muted-foreground sticky z-10 bg-background group-hover:bg-muted/50 transition-colors", showSelectMode ? "left-[44px]" : "left-0", isSelected && "bg-primary/5 group-hover:bg-primary/10")}>
                                                 {index + 1 + (page - 1) * limit}
                                             </td>
                                             {allFields.map((key) => (
@@ -744,8 +749,8 @@ export function DocumentView({
                                                     key={key}
                                                     className="px-4 py-3 align-top truncate border-r relative overflow-hidden"
                                                     style={{
-                                                        maxWidth: columnWidths[key] ? `${columnWidths[key]}px` : '300px',
-                                                        width: columnWidths[key] ? `${columnWidths[key]}px` : 'auto'
+                                                        maxWidth: `${columnWidths[key] ?? DEFAULT_COL_WIDTH}px`,
+                                                        width: `${columnWidths[key] ?? DEFAULT_COL_WIDTH}px`
                                                     }}
                                                 >
                                                     <CellValue value={doc[key]} onViewClick={handleViewValue} />
