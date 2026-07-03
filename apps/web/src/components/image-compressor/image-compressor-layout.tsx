@@ -23,6 +23,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
+import { useDebouncedCallback } from 'use-debounce';
 
 const MAX_FILE_BYTES = 20 * 1024 * 1024;
 const MAX_CANVAS_EDGE = 8192;
@@ -82,6 +83,15 @@ export function ImageCompressorLayout() {
   const [error, setError] = useState('');
   const [isDragging, setIsDragging] = useState(false);
   const [processing, setProcessing] = useState(false);
+  const bitmapRef = useRef<ImageBitmap | null>(null);
+  const [bitmapReady, setBitmapReady] = useState(0);
+
+  const closeBitmap = useCallback(() => {
+    if (bitmapRef.current) {
+      bitmapRef.current.close();
+      bitmapRef.current = null;
+    }
+  }, []);
 
   const revokeUrls = useCallback(() => {
     if (sourceUrl) URL.revokeObjectURL(sourceUrl);
@@ -99,20 +109,22 @@ export function ImageCompressorLayout() {
 
   const handleClear = useCallback(() => {
     revokeUrls();
+    closeBitmap();
     setSourceFile(null);
     setSourceUrl(null);
     setOriginalBytes(0);
     resetOutputs();
     setError('');
-  }, [resetOutputs, revokeUrls]);
+  }, [closeBitmap, resetOutputs, revokeUrls]);
 
-  const runCompress = useCallback(
-    async (file: File, mime: OutputMime, quality: number) => {
+  const encode = useCallback(
+    async (mime: OutputMime, quality: number | undefined) => {
+      const bitmap = bitmapRef.current;
+      if (!bitmap) return;
       setProcessing(true);
       setError('');
       resetOutputs();
       try {
-        const bitmap = await createImageBitmap(file);
         const { width, height } = scaleToMaxEdge(bitmap.width, bitmap.height, MAX_CANVAS_EDGE);
         const canvas = document.createElement('canvas');
         canvas.width = width;
@@ -124,7 +136,6 @@ export function ImageCompressorLayout() {
           ctx.fillRect(0, 0, width, height);
         }
         ctx.drawImage(bitmap, 0, 0, width, height);
-        bitmap.close();
 
         const q = mime === 'image/png' ? undefined : quality;
         const blob: Blob | null = await new Promise((resolve) => {
@@ -143,7 +154,12 @@ export function ImageCompressorLayout() {
         setProcessing(false);
       }
     },
-    [resetOutputs, t]
+    [isMobile, resetOutputs, t]
+  );
+
+  const debouncedEncode = useDebouncedCallback(
+    (mime: OutputMime, quality: number | undefined) => void encode(mime, quality),
+    200
   );
 
   const loadFile = useCallback(
@@ -167,11 +183,39 @@ export function ImageCompressorLayout() {
     [revokeUrls, t]
   );
 
+  // Decode the source once per file; re-encoding reuses this bitmap.
   useEffect(() => {
     if (!sourceFile) return;
+    closeBitmap(); // invalidate any prior bitmap so the encode effect no-ops until decode finishes
+    let cancelled = false;
+    createImageBitmap(sourceFile)
+      .then((bmp) => {
+        if (cancelled) {
+          bmp.close();
+          return;
+        }
+        bitmapRef.current = bmp;
+        setBitmapReady((n) => n + 1);
+      })
+      .catch(() => {
+        if (!cancelled) setError(t('compressFailed'));
+      });
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sourceFile]);
+
+  // Re-encode from the cached bitmap when settings change. Debounced so dragging
+  // the quality slider coalesces to a single encode instead of one per tick.
+  useEffect(() => {
+    if (!bitmapRef.current) return;
     const q = outputMime === 'image/png' ? 0.92 : qualityPercent / 100;
-    void runCompress(sourceFile, outputMime, q);
-  }, [outputMime, qualityPercent, runCompress, sourceFile]);
+    debouncedEncode(outputMime, q);
+  }, [bitmapReady, outputMime, qualityPercent, debouncedEncode]);
+
+  // Release the cached bitmap on unmount.
+  useEffect(() => closeBitmap, [closeBitmap]);
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
