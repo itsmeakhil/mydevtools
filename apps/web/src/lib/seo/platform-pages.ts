@@ -71,12 +71,14 @@ export const platformSeoPages: PlatformSeoPage[] = [
     slug: 'features',
     title: 'Developer Toolkit Features',
     description:
-      'Explore MyDevTools features: unified dashboard, command palette, favorites, browser-based tools, secure sync, self-hosting, and managed cloud hosting.',
+      'Explore MyDevTools features: unified dashboard, command palette, team workspaces with role-based access, browser-based tools, secure sync, self-hosting, and managed cloud hosting.',
     keywords: [
       'developer toolkit features',
       'browser developer tools features',
       'online developer dashboard',
       'developer tools command palette',
+      'team workspaces developer tools',
+      'role based access developer tools',
     ],
     eyebrow: 'Features',
     heading: 'Features built for fast, private developer workflows',
@@ -93,6 +95,16 @@ export const platformSeoPages: PlatformSeoPage[] = [
           'Search tools quickly with a command palette.',
           'Group everyday utilities into one dashboard instead of scattered bookmarks.',
           'Use public tool pages for discovery, then open the full app when ready.',
+        ],
+      },
+      {
+        title: 'Team workspaces with roles',
+        body:
+          'Create organizations and shared workspaces, invite teammates, and give each person the right level of access — no more pasting secrets over chat.',
+        bullets: [
+          'Organizations group your workspaces; switch between personal and team context in one click.',
+          'Four roles — owner, admin, developer, viewer — control who can manage members and which tools each role can use.',
+          'Bookmarks, notes, snippets, and connections are scoped per workspace, so team data stays with the team.',
         ],
       },
       {

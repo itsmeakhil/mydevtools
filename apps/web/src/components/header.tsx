@@ -5,6 +5,7 @@ import { Github, Menu, X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./modeToggle";
 import { Logo } from "./logo";
+import { AnnouncementBanner } from "./announcement-banner";
 import { Magnetic } from "@/components/mdt-magnetic";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -77,6 +78,7 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
           : "border-b border-transparent bg-transparent"
       )}
     >
+      <AnnouncementBanner />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
