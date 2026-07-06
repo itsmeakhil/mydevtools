@@ -11,7 +11,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Check, Copy, Download, Trash2, Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { optimizeSvgMarkup, utf8ByteLength } from '@/lib/svg-optimize'
+import { utf8ByteLength } from '@/lib/svg-optimize'
+import { useSvgOptimizeWorker } from '@/hooks/use-svg-optimize-worker'
 
 const SAMPLE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
   <!-- demo: metadata + whitespace -->
@@ -30,17 +31,22 @@ export function SvgOptimizerLayout() {
   const [output, setOutput] = useState('')
   const [error, setError] = useState<string | null>(null)
   const { isCopied: copied, copyToClipboard } = useCopyToClipboard()
+  const { optimize } = useSvgOptimizeWorker()
 
   const runOptimize = useCallback(async (raw: string) => {
-    const result = await optimizeSvgMarkup(raw)
-    if (result.ok) {
-      setOutput(result.data)
-      setError(null)
-    } else {
-      setOutput('')
-      setError(result.error)
+    try {
+      const result = await optimize(raw)
+      if (result.ok) {
+        setOutput(result.data)
+        setError(null)
+      } else {
+        setOutput('')
+        setError(result.error)
+      }
+    } catch {
+      // worker unmounted or failed mid-flight — component is going away, ignore
     }
-  }, [])
+  }, [optimize])
 
   const debouncedOptimize = useDebouncedCallback(runOptimize, 280)
 

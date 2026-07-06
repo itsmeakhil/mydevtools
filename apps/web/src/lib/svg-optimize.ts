@@ -10,6 +10,14 @@ export function utf8ByteLength(text: string): number {
   return new TextEncoder().encode(text).length
 }
 
+// Below this, main-thread optimize beats worker round-trip + svgo chunk load.
+// ponytail: fixed char threshold; tune if profiling shows jank on smaller SVGs.
+export const SVG_WORKER_MIN_CHARS = 15_000
+
+export function shouldUseSvgWorker(svg: string, hasWorker: boolean): boolean {
+  return hasWorker && svg.length >= SVG_WORKER_MIN_CHARS
+}
+
 // svgo is ~525KB; load it on first optimize so the tool page paints without it.
 export async function optimizeSvgMarkup(svg: string): Promise<{ ok: true; data: string } | { ok: false; error: string }> {
   const trimmed = svg.trim()
