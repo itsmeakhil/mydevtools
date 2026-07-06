@@ -20,6 +20,10 @@ const ClientSpeedInsights = dynamic(
   () => import('@vercel/speed-insights/next').then((m) => m.SpeedInsights),
   { ssr: false }
 )
+const ClientClarity = dynamic(
+  () => import('@/components/clarity-analytics').then((m) => m.ClarityAnalytics),
+  { ssr: false }
+)
 const ClientToaster = dynamic(
   () => import('@/components/branded-toaster').then((m) => m.BrandedToaster),
   { ssr: false }
@@ -46,6 +50,9 @@ export function ClientShell({ children }: Props) {
       </Suspense>
       <Suspense fallback={null}>
         <ClientSpeedInsights />
+      </Suspense>
+      <Suspense fallback={null}>
+        <ClientClarity />
       </Suspense>
       <Suspense fallback={null}>
         <ClientToaster />
