@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { JSONEditor, JSONEditorPropsOptional } from 'vanilla-jsoneditor'
+import type { JSONEditorPropsOptional } from 'vanilla-jsoneditor'
 import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
 import 'vanilla-jsoneditor/themes/jse-theme-dark.css'
@@ -12,7 +12,9 @@ interface VanillaEditorProps extends JSONEditorPropsOptional {
 
 export function VanillaEditor({ className = '', ...props }: VanillaEditorProps) {
   const refContainer = useRef<HTMLDivElement>(null)
-  const refEditor = useRef<ReturnType<typeof JSONEditor> | null>(null)
+  const refEditor = useRef<ReturnType<typeof import('vanilla-jsoneditor').JSONEditor> | null>(null)
+  const propsRef = useRef(props)
+  propsRef.current = props
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -23,22 +25,24 @@ export function VanillaEditor({ className = '', ...props }: VanillaEditorProps) 
   const isDarkTheme = mounted && resolvedTheme === 'dark'
 
   useEffect(() => {
-    // create editor
-    if (refContainer.current && !refEditor.current) {
+    let disposed = false
+    // vanilla-jsoneditor is ~485KB; load it on mount so the tool page paints without it.
+    void import('vanilla-jsoneditor').then(({ JSONEditor }) => {
+      if (disposed || !refContainer.current || refEditor.current) return
       refEditor.current = JSONEditor({
         target: refContainer.current,
-        props,
+        props: propsRef.current,
       })
-    }
+    })
 
     return () => {
       // destroy editor
+      disposed = true
       if (refEditor.current) {
         refEditor.current.destroy()
         refEditor.current = null
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // update props
