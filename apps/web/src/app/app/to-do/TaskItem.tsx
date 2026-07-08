@@ -40,6 +40,7 @@ import { STATUS_CONFIG, PRIORITY_CONFIG } from "./config/constants";
 import { motion, useMotionValue, useTransform, PanInfo } from "framer-motion";
 import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
 import { useTranslations } from "next-intl";
+import { AssigneePicker } from "./components/AssigneePicker";
 
 interface TaskItemProps {
   task: Task;
@@ -364,6 +365,13 @@ function TaskItem({
 
             {/* Actions */}
             <div className="flex items-center gap-2 flex-shrink-0 self-start md:self-center">
+              {/* Assignee */}
+              <AssigneePicker
+                assigneeUid={task.assigneeUid}
+                onChange={(uid) => onUpdateTask(task.id, { assigneeUid: uid })}
+                size="md"
+              />
+
               {/* Status Dropdown - Hidden on mobile to save space, accessible via menu */}
               <div className="hidden md:block">
                 <Select

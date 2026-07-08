@@ -18,8 +18,9 @@ import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/components/hooks/use-mobile";
 import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
-import { Folder } from "lucide-react";
+import { Folder, UserRound } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useWorkspaceMembers, memberLabel } from "@/app/app/to-do/hooks/useWorkspaceMembers";
 
 interface TaskEditDialogProps {
   task: Task;
@@ -94,6 +95,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
   const [errors, setErrors] = useState<TaskEditErrors>({});
   const isMobile = useIsMobile();
   const { projects } = useProjectContext();
+  const { members, isShared } = useWorkspaceMembers();
 
   useEffect(() => {
     if (open && task) {
@@ -107,6 +109,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
         subTasks: task.subTasks || [],
         timeEstimate: task.timeEstimate,
         projectId: task.projectId,
+        assigneeUid: task.assigneeUid ?? null,
       });
       setErrors({});
       if (task.dueDate) {
@@ -380,6 +383,36 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
           </SelectContent>
         </Select>
       </div>
+
+      {/* Assignee — shared workspaces only */}
+      {isShared && (
+        <div className="space-y-2">
+          <Label>Assignee</Label>
+          <Select
+            value={editedTask.assigneeUid || "unassigned"}
+            onValueChange={(value) =>
+              setEditedTask({ ...editedTask, assigneeUid: value === "unassigned" ? null : value })
+            }
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Unassigned" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="unassigned">
+                <div className="flex items-center gap-2">
+                  <UserRound className="h-4 w-4 text-muted-foreground" />
+                  Unassigned
+                </div>
+              </SelectItem>
+              {members.map((m) => (
+                <SelectItem key={m.uid} value={m.uid}>
+                  {memberLabel(m)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      )}
 
       {/* Time Estimate */}
       <div className="space-y-2">
