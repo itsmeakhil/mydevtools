@@ -16,8 +16,9 @@ const TaskCommandPalette = lazy(() =>
   }))
 );
 import { useTaskContext } from "@/app/app/to-do/context/TaskContext";
+import { useWorkspaceMembers, memberLabel } from "@/app/app/to-do/hooks/useWorkspaceMembers";
 import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
-import { ListTodo, Circle, LayoutGrid, List, Search, X, Plus, Folder, Archive, ArchiveRestore } from "lucide-react";
+import { ListTodo, Circle, LayoutGrid, List, Search, X, Plus, Folder, Archive, ArchiveRestore, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { STATUS_CONFIG } from "./config/constants";
@@ -82,10 +83,13 @@ export const TaskContainer = () => {
     deleteTask,
     filterProject,
     setFilterProject,
+    filterAssignee,
+    setFilterAssignee,
     showArchived,
     setShowArchived,
   } = useTaskContext();
   const { projects } = useProjectContext();
+  const { members, isShared } = useWorkspaceMembers();
 
   // Filter tasks based on search query + archive state
   const searchFilteredTasks = useMemo(() => {
@@ -137,8 +141,9 @@ export const TaskContainer = () => {
   const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
   const hasStatusFilter = filterStatus !== "all";
   const hasProjectFilter = filterProject !== "all";
+  const hasAssigneeFilter = filterAssignee !== "all";
   const hasSearchFilter = searchQuery.trim().length > 0;
-  const hasActiveFilters = hasStatusFilter || hasProjectFilter || hasSearchFilter;
+  const hasActiveFilters = hasStatusFilter || hasProjectFilter || hasAssigneeFilter || hasSearchFilter;
   const activeProject = useMemo(
     () => projects.find((project) => project.id === filterProject),
     [projects, filterProject]
@@ -153,7 +158,8 @@ export const TaskContainer = () => {
     setSearchQuery("");
     setFilterStatus("all");
     setFilterProject("all");
-  }, [setFilterStatus, setFilterProject]);
+    setFilterAssignee("all");
+  }, [setFilterStatus, setFilterProject, setFilterAssignee]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -410,6 +416,29 @@ export const TaskContainer = () => {
                     ))}
                   </SelectContent>
                 </Select>
+
+                {/* Assignee Filter — only meaningful in a shared workspace */}
+                {isShared && (
+                  <Select value={filterAssignee} onValueChange={setFilterAssignee}>
+                    <SelectTrigger className="w-[140px] h-9 text-xs">
+                      <div className="flex items-center gap-2 truncate">
+                        <UserRound className="h-3.5 w-3.5 text-muted-foreground" />
+                        <SelectValue placeholder="Anyone" />
+                      </div>
+                    </SelectTrigger>
+                    <SelectContent align="end">
+                      <SelectItem value="all" className="text-xs">Anyone</SelectItem>
+                      <SelectItem value="me" className="text-xs">Assigned to me</SelectItem>
+                      <SelectItem value="unassigned" className="text-xs">Unassigned</SelectItem>
+                      {members.length > 0 && <SelectSeparator />}
+                      {members.map((m) => (
+                        <SelectItem key={m.uid} value={m.uid} className="text-xs">
+                          {memberLabel(m)}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
 
                 {/* Archive Toggle */}
                 <Button

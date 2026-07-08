@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { STATUS_CONFIG, PRIORITY_CONFIG } from "./config/constants";
 import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
+import { AssigneePicker } from "./components/AssigneePicker";
 
 interface KanbanCardProps {
   task: Task;
@@ -303,6 +304,12 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
             onClick={(e) => e.stopPropagation()}
             className="flex items-center gap-1 flex-shrink-0"
           >
+            {/* Assignee */}
+            <AssigneePicker
+              assigneeUid={task.assigneeUid}
+              onChange={(uid) => onUpdateTask(task.id, { assigneeUid: uid })}
+            />
+
             {/* Desktop: Hover Actions */}
             <div className="hidden md:flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
               <Button

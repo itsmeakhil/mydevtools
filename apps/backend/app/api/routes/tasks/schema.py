@@ -67,13 +67,16 @@ class TaskBase(BaseModel):
     isTimerRunning: bool | None = None
     timerStartedAt: str | None = None
     projectId: str | None = None
+    # Single assignee (a workspace member uid). None = unassigned.
+    assigneeUid: str | None = None
 
 
 class TaskCreate(BaseModel):
-    """Maps to ``addTask``: title + optional project."""
+    """Maps to ``addTask``: title + optional project / assignee."""
 
     text: str = Field(min_length=1)
     projectId: str | None = None
+    assigneeUid: str | None = None
 
 
 class TaskUpdate(BaseModel):
@@ -98,6 +101,7 @@ class TaskUpdate(BaseModel):
     isTimerRunning: bool | None = None
     timerStartedAt: str | None = None
     projectId: str | None = None
+    assigneeUid: str | None = None
 
 
 class TaskStatusUpdate(BaseModel):
@@ -129,6 +133,7 @@ class TaskOut(BaseModel):
     isTimerRunning: bool | None = None
     timerStartedAt: str | None = None
     projectId: str | None = None
+    assigneeUid: str | None = None
 
 
 class TaskListResponse(BaseModel):

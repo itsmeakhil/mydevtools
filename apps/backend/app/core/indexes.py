@@ -47,6 +47,8 @@ async def ensure_indexes() -> None:
     )
     await db_manager.create_index(TASKS, [("created_by", 1), ("status", 1), ("statusOrder", 1), ("createdAt", -1)])
     await db_manager.create_index(TASKS, [("created_by", 1), ("projectId", 1), ("status", 1), ("statusOrder", 1)])
+    # Assignee filter within a shared workspace (Linear-style "assigned to me").
+    await db_manager.create_index(TASKS, [("workspace_id", 1), ("assigneeUid", 1), ("statusOrder", 1)])
     await db_manager.create_index(PROJECTS, [("created_by", 1), ("createdAt", 1)])
     await db_manager.create_index(BOOKMARKS, [("created_by", 1), ("folderId", 1)])
     await db_manager.create_index(BOOKMARKS, [("created_by", 1), ("updatedAt", -1)])

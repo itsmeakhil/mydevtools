@@ -46,6 +46,8 @@ interface TaskContextType {
   setFilterStatus: (status: "all" | "not-started" | "ongoing" | "completed") => void;
   filterProject: string | "all";
   setFilterProject: (projectId: string | "all") => void;
+  filterAssignee: string; // "all" | "me" | "unassigned" | member uid
+  setFilterAssignee: (value: string) => void;
   showArchived: boolean;
   setShowArchived: (show: boolean) => void;
   allTaskStats: TaskStats;
@@ -83,6 +85,7 @@ type TaskActions = Pick<
   | "handlePageChange"
   | "setFilterStatus"
   | "setFilterProject"
+  | "setFilterAssignee"
   | "setShowArchived"
 >;
 
@@ -100,6 +103,7 @@ interface TasksQueryFilters {
   page: number;
   status: string;
   projectId: string;
+  assignee: string;
   archived: boolean;
 }
 
@@ -115,14 +119,17 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [filterStatus, setFilterStatus] = useState<"all" | "not-started" | "ongoing" | "completed">("all");
   const [filterProject, setFilterProject] = useState<string | "all">("all");
+  const [filterAssignee, setFilterAssignee] = useState<string>("all");
   const [showArchived, setShowArchived] = useState(false);
 
   const filterStatusRef = useRef(filterStatus);
   const filterProjectRef = useRef(filterProject);
+  const filterAssigneeRef = useRef(filterAssignee);
   const showArchivedRef = useRef(showArchived);
   const currentPageRef = useRef(currentPage);
   useEffect(() => { filterStatusRef.current = filterStatus; }, [filterStatus]);
   useEffect(() => { filterProjectRef.current = filterProject; }, [filterProject]);
+  useEffect(() => { filterAssigneeRef.current = filterAssignee; }, [filterAssignee]);
   useEffect(() => { showArchivedRef.current = showArchived; }, [showArchived]);
   useEffect(() => { currentPageRef.current = currentPage; }, [currentPage]);
 
@@ -153,9 +160,10 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
       page: currentPage,
       status: filterStatus,
       projectId: filterProject,
+      assignee: filterAssignee,
       archived: showArchived,
     }),
-    [currentPage, filterStatus, filterProject, showArchived]
+    [currentPage, filterStatus, filterProject, filterAssignee, showArchived]
   );
 
   // Tasks list query (cached, dedup'd, stale-while-revalidate)
@@ -165,6 +173,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
       const params = new URLSearchParams();
       params.set("status", currentFilters.status);
       params.set("projectId", currentFilters.projectId);
+      params.set("assignee", currentFilters.assignee);
       params.set("page", String(currentFilters.page));
       params.set("pageSize", String(TASKS_PER_PAGE));
       params.set("archived", String(currentFilters.archived));
@@ -209,6 +218,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
         page: currentPageRef.current,
         status: filterStatusRef.current,
         projectId: filterProjectRef.current,
+        assignee: filterAssigneeRef.current,
         archived: showArchivedRef.current,
       }),
     [user?.uid]
@@ -217,7 +227,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
   // Reset to page 1 on filter change
   useEffect(() => {
     setCurrentPage(1);
-  }, [filterStatus, filterProject, showArchived]);
+  }, [filterStatus, filterProject, filterAssignee, showArchived]);
 
   // Pagination helpers
   const fetchNextPage = useCallback(() => {
@@ -517,6 +527,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
         const params = new URLSearchParams();
         params.set("status", filterStatusRef.current);
         params.set("projectId", filterProjectRef.current);
+        params.set("assignee", filterAssigneeRef.current);
         params.set("skip", String(skip));
         params.set("limit", String(limit));
         const res = await authedFetchRef.current(
@@ -566,6 +577,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
       handlePageChange,
       setFilterStatus,
       setFilterProject,
+      setFilterAssignee,
       setShowArchived,
     }),
     [
@@ -594,6 +606,8 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
       setFilterStatus,
       filterProject,
       setFilterProject,
+      filterAssignee,
+      setFilterAssignee,
       showArchived,
       setShowArchived,
       allTaskStats,
@@ -617,6 +631,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
       totalTaskCount,
       filterStatus,
       filterProject,
+      filterAssignee,
       showArchived,
       allTaskStats,
       fetchNextPage,

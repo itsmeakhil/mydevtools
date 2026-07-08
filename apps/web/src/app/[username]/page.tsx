@@ -16,7 +16,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Link from 'next/link'
 import { Logo } from '@/components/logo'
 import { MdtStatusPage } from '@/components/mdt-status-page'
-import { TECH_CATALOG } from '@/components/tech-stack-picker'
+import { TECH_CATALOG } from '@/components/tech-catalog'
 import { GithubStatsSection } from './github-stats-lazy'
 
 function StaggerChild({

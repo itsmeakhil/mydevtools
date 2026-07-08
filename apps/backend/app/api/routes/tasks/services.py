@@ -78,6 +78,7 @@ def _task_doc_to_out(doc: dict[str, Any]) -> TaskOut:
         isTimerRunning=doc.get("isTimerRunning"),
         timerStartedAt=doc.get("timerStartedAt"),
         projectId=doc.get("projectId"),
+        assigneeUid=doc.get("assigneeUid"),
     )
 
 
@@ -93,11 +94,26 @@ def _project_doc_to_out(doc: dict[str, Any]) -> ProjectOut:
 
 
 # ponytail: cache removed during workspace refactor; re-add with (workspace_id, uid) key if hot
+def _apply_assignee(base: dict[str, Any], ctx: WorkspaceContext, assignee_filter: str) -> None:
+    """Mutate ``base`` with an assignee predicate. Supports the literals
+    ``all`` (no filter), ``me`` (caller), ``unassigned`` (no/None assignee),
+    or a specific member uid."""
+    if not assignee_filter or assignee_filter == "all":
+        return
+    if assignee_filter == "unassigned":
+        base["assigneeUid"] = None
+    elif assignee_filter == "me":
+        base["assigneeUid"] = ctx.uid
+    else:
+        base["assigneeUid"] = assignee_filter
+
+
 async def list_tasks(
     *,
     ctx: WorkspaceContext,
     status_filter: str = "all",
     project_filter: str = "all",
+    assignee_filter: str = "all",
     page: int = 1,
     page_size: int = 10,
 ) -> TaskListResponse:
@@ -106,6 +122,7 @@ async def list_tasks(
         base["status"] = status_filter
     if project_filter and project_filter != "all":
         base["projectId"] = project_filter
+    _apply_assignee(base, ctx, assignee_filter)
     filt = apply_legacy_or_filter(ctx, base, user_field="created_by")
     total = await db_manager.count_documents(TASKS, filt)
     total_pages = max(1, (total + page_size - 1) // page_size) if total else 1
@@ -143,6 +160,7 @@ async def export_tasks(
     ctx: WorkspaceContext,
     status_filter: str = "all",
     project_filter: str = "all",
+    assignee_filter: str = "all",
     skip: int = 0,
     limit: int = 2000,
 ) -> list[TaskOut]:
@@ -151,6 +169,7 @@ async def export_tasks(
         base["status"] = status_filter
     if project_filter and project_filter != "all":
         base["projectId"] = project_filter
+    _apply_assignee(base, ctx, assignee_filter)
     filt = apply_legacy_or_filter(ctx, base, user_field="created_by")
     docs = await db_manager.find(
         TASKS,
@@ -174,14 +193,24 @@ async def create_task(ctx: WorkspaceContext, body: TaskCreate) -> TaskOut:
         "statusOrder": 2,
         "createdAt": now,
         "projectId": body.projectId,
+        "assigneeUid": body.assigneeUid,
     }
     await safe_insert(TASKS, doc, name="Task")
     return _task_doc_to_out(doc)
 
 
+def _task_scope(ctx: WorkspaceContext, oid: ObjectId) -> dict[str, Any]:
+    """Row filter for a single task by id. Scopes to the active workspace (any
+    member may edit shared-workspace tasks; personal workspaces stay owner-locked
+    via ``owner_uid``) and tolerates legacy pre-migration docs via ``created_by``.
+
+    NOTE: no ``created_by == uid`` clause — collaboration relies on
+    ``require_permission("tasks", ...)`` for role gating, not creator ownership."""
+    return apply_legacy_or_filter(ctx, {"_id": oid}, user_field="created_by")
+
+
 async def _assert_task_owner(ctx: WorkspaceContext, oid: ObjectId) -> dict[str, Any]:
-    filt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
-    doc = await db_manager.find_one(TASKS, filt)
+    doc = await db_manager.find_one(TASKS, _task_scope(ctx, oid))
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found.")
     return doc
@@ -198,14 +227,12 @@ async def update_task(ctx: WorkspaceContext, task_id: str, body: TaskUpdate) -> 
         patch["completedAt"] = datetime.now(timezone.utc)
 
     if not patch:
-        filt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
-        doc = await db_manager.find_one(TASKS, filt)
+        doc = await db_manager.find_one(TASKS, _task_scope(ctx, oid))
         if not doc:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found.")
         return _task_doc_to_out(doc)
 
-    filt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
-    doc = await safe_update_one(TASKS, filt, patch, name="Task")
+    doc = await safe_update_one(TASKS, _task_scope(ctx, oid), patch, name="Task")
     return _task_doc_to_out(doc)
 
 
@@ -218,8 +245,7 @@ async def update_task_status(ctx: WorkspaceContext, task_id: str, body: TaskStat
     }
     if new_status == "completed":
         patch["completedAt"] = datetime.now(timezone.utc)
-    filt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
-    doc = await safe_update_one(TASKS, filt, patch, name="Task")
+    doc = await safe_update_one(TASKS, _task_scope(ctx, oid), patch, name="Task")
     return _task_doc_to_out(doc)
 
 
@@ -232,8 +258,7 @@ async def get_task(*, ctx: WorkspaceContext, task_id: str) -> TaskOut:
 
 async def delete_task(ctx: WorkspaceContext, task_id: str) -> None:
     oid = _parse_object_id(task_id, "task id")
-    filt = apply_workspace_filter(ctx, {"_id": oid, "created_by": ctx.uid})
-    await safe_delete_one(TASKS, filt, name="Task")
+    await safe_delete_one(TASKS, _task_scope(ctx, oid), name="Task")
 
 
 async def import_tasks(ctx: WorkspaceContext, body: TaskImportRequest) -> dict[str, int]:

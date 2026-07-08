@@ -32,6 +32,7 @@ export interface Task {
   isTimerRunning?: boolean;
   timerStartedAt?: string;
   projectId?: string;
+  assigneeUid?: string | null; // workspace member uid; null/undefined = unassigned
 }
 
 export interface NewTask {
@@ -52,4 +53,5 @@ export interface NewTask {
   isTimerRunning?: boolean;
   timerStartedAt?: string;
   projectId?: string;
+  assigneeUid?: string;
 }

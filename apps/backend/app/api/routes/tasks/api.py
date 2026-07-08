@@ -30,6 +30,7 @@ async def export_tasks(
     ctx: WorkspaceContext = Depends(require_permission("tasks", "read")),
     status: str = Query(default="all"),
     project_id: str = Query(default="all", alias="projectId"),
+    assignee: str = Query(default="all"),
     skip: int = Query(default=0, ge=0),
     limit: int = Query(default=2000, ge=1, le=10000),
 ) -> list[TaskOut]:
@@ -37,6 +38,7 @@ async def export_tasks(
         ctx=ctx,
         status_filter=status,
         project_filter=project_id,
+        assignee_filter=assignee,
         skip=skip,
         limit=limit,
     )
@@ -55,6 +57,7 @@ async def list_tasks(
     ctx: WorkspaceContext = Depends(require_permission("tasks", "read")),
     status: str = Query(default="all"),
     project_id: str = Query(default="all", alias="projectId"),
+    assignee: str = Query(default="all"),
     page: int = Query(default=1, ge=1),
     page_size: int = Query(default=10, ge=1, le=100, alias="pageSize"),
 ) -> TaskListResponse:
@@ -62,6 +65,7 @@ async def list_tasks(
         ctx=ctx,
         status_filter=status,
         project_filter=project_id,
+        assignee_filter=assignee,
         page=page,
         page_size=page_size,
     )
