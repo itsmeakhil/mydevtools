@@ -25,13 +25,12 @@ export function localApi(
   return invoke<LocalApiResponse>("local_api", { method, path, body: body ?? null });
 }
 
-/** Normalize a same-origin `/api/backend/<rest>` path to FastAPI `/api/v1/<rest>`. */
+/** Normalize a same-origin `/api/backend/<rest>` path to FastAPI `/api/v1/<rest>` (query preserved). */
 export function normalizeBackendPath(path: string): string {
-  const stripped = path.split("?")[0];
-  if (stripped.startsWith("/api/backend/")) {
-    return "/api/v1/" + stripped.slice("/api/backend/".length);
+  if (path.startsWith("/api/backend/")) {
+    return "/api/v1/" + path.slice("/api/backend/".length);
   }
-  return stripped;
+  return path;
 }
 
 /** Build a synthetic fetch Response from a local_api result. */
