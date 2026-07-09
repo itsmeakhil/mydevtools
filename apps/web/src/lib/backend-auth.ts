@@ -1,6 +1,8 @@
 import type { User } from "firebase/auth"
 import { auth } from "@/database/firebase"
 import { dedupe } from "@/lib/auth-inflight"
+import { isDesktop } from "@/lib/desktop/is-desktop"
+import { localApi, normalizeBackendPath, toResponse } from "@/lib/desktop/bridge"
 
 /** Same-origin refresh endpoint (used by fetch helpers). */
 export const BACKEND_AUTH_REFRESH_PATH = "/api/backend/auth/refresh"
@@ -35,6 +37,9 @@ export async function establishBackendSession(
         checkRevoked?: boolean
     } = {}
 ): Promise<void> {
+    // Desktop offline mode has no Firebase/FastAPI session; the local router
+    // authorizes via the master-vault unlock instead. (Remote sessions: Phase 4.)
+    if (isDesktop()) return
     const maxAttempts = Math.max(1, opts.maxAttempts ?? 3)
     const checkRevoked = opts.checkRevoked ?? false
     return dedupe(`session:${checkRevoked ? "revoked" : "fast"}`, async () => {
@@ -80,6 +85,7 @@ export async function establishBackendSession(
  * If JWT cookies are missing or expired but Firebase session exists, re-run the Firebase exchange.
  */
 export async function ensureBackendSession(user: User): Promise<void> {
+    if (isDesktop()) return
     const ok = await dedupe("session-check", async () => {
         let check = await fetch("/api/backend/auth/session/check", {
             method: "GET",
@@ -109,6 +115,7 @@ export async function ensureBackendSession(user: User): Promise<void> {
 }
 
 export async function logoutBackendSession(): Promise<void> {
+    if (isDesktop()) return
     await fetch("/api/backend/auth/logout", {
         method: "POST",
         credentials: "include",
@@ -203,6 +210,20 @@ export async function proxyJsonAuthed<T>(
     path: string,
     body?: unknown
 ): Promise<{ status: number; data: T | null }> {
+    if (isDesktop()) {
+        // Desktop: route straight to the Rust local router (path is already /api/v1/*).
+        const res = await localApi(
+            method,
+            path,
+            body !== undefined ? JSON.stringify(body) : undefined
+        )
+        if (!res.body) return { status: res.status, data: null }
+        try {
+            return { status: res.status, data: JSON.parse(res.body) as T }
+        } catch {
+            return { status: res.status, data: res.body as unknown as T }
+        }
+    }
     let result = await rawProxyJson<T>(backendBaseUrl, method, path, body)
 
     if (result.status === 401) {
@@ -244,6 +265,12 @@ export async function proxyJsonAuthed<T>(
  * Triggers a force-logout if the session cannot be recovered (persistent 401 or 403).
  */
 export async function backendFetch(path: string, init?: RequestInit): Promise<Response> {
+    if (isDesktop()) {
+        const method = (init?.method || "GET").toUpperCase()
+        const body = typeof init?.body === "string" ? init.body : undefined
+        const res = await localApi(method, normalizeBackendPath(path), body)
+        return toResponse(res)
+    }
     const run = () =>
         fetch(path, {
             ...init,
