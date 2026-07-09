@@ -4,9 +4,15 @@ import { cookies } from 'next/headers';
 const locales = ['en', 'fr', 'es', 'ar', 'ca', 'zh', 'cs', 'el', 'de', 'da', 'af', 'id', 'fa', 'ru', 'it', 'ja', 'ko', 'ms', 'nb', 'nl', 'sv', 'pl', 'tr', 'pt', 'pt-BR', 'vi', 'uk'] as const;
 type AppLocale = (typeof locales)[number];
 
+// Static export (Tauri desktop) has no request cookies; locale is fixed at build time.
+const isTauriBuild = process.env.TAURI_BUILD === '1';
+
 export default getRequestConfig(async () => {
-  const cookieStore = await cookies();
-  const raw = cookieStore.get('NEXT_LOCALE')?.value || 'en';
+  let raw = 'en';
+  if (!isTauriBuild) {
+    const cookieStore = await cookies();
+    raw = cookieStore.get('NEXT_LOCALE')?.value || 'en';
+  }
   const locale: AppLocale = locales.includes(raw as AppLocale)
     ? (raw as AppLocale)
     : 'en';

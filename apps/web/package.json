@@ -13,7 +13,9 @@
     "lint": "eslint .",
     "test": "jest",
     "test:watch": "jest --watch",
-    "clean-install": "rimraf node_modules && pnpm install --filter @mydevtools/web..."
+    "clean-install": "rimraf node_modules && pnpm install --filter @mydevtools/web...",
+    "build:tauri": "node scripts/build-tauri.mjs",
+    "dev:tauri": "NEXT_PUBLIC_TAURI=1 next dev"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

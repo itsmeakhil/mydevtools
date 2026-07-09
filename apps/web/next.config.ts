@@ -14,20 +14,29 @@ function getAppBuildId(): string {
   );
 }
 
+/** Tauri desktop build: static export loaded from the app bundle (see scripts/build-tauri.mjs). */
+const isTauriBuild = process.env.TAURI_BUILD === '1';
+
 const nextConfig: NextConfig = {
+  ...(isTauriBuild ? { output: 'export' as const } : {}),
   env: {
     NEXT_PUBLIC_APP_BUILD_ID: getAppBuildId(),
   },
-  async redirects() {
-    return [
-      {
-        source: '/app/certificate-pem',
-        destination: '/app/certificate-pem-decoder',
-        permanent: true,
-      },
-    ];
-  },
+  ...(isTauriBuild
+    ? {}
+    : {
+        async redirects() {
+          return [
+            {
+              source: '/app/certificate-pem',
+              destination: '/app/certificate-pem-decoder',
+              permanent: true,
+            },
+          ];
+        },
+      }),
   images: {
+    ...(isTauriBuild ? { unoptimized: true } : {}),
     remotePatterns: [
       {
         protocol: 'https',
