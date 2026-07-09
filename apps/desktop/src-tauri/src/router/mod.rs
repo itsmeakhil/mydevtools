@@ -7,6 +7,7 @@ pub mod notes;
 pub mod preferences;
 pub mod snippets;
 pub mod stubs;
+pub mod sync;
 pub mod tasks;
 pub mod workspaces;
 
@@ -63,6 +64,10 @@ pub fn route(state: &AppState, method: &str, full_path: &str, body: Option<&str>
         ("POST", "/api/v1/auth/refresh") => return Ok(ApiResponse::detail(200, "ok")),
         ("POST", "/api/v1/auth/logout") => return Ok(ApiResponse::detail(200, "ok")),
         _ => {}
+    }
+
+    if let Some(rest) = path.strip_prefix("/desktop/sync") {
+        return sync::handle(state, method, rest, query, body);
     }
 
     if path.starts_with("/api/v1/auth/master-vault") {
@@ -376,6 +381,51 @@ mod tests {
         assert_eq!(body_json(&r)["toolStats"]["/app/json-formatter"]["usageCount"], 1);
         let r = route(&state, "PATCH", "/api/v1/user-preferences", Some(r#"{"theme":"dark"}"#)).unwrap();
         assert_eq!(body_json(&r)["theme"], "dark");
+    }
+
+    #[test]
+    fn sync_rows_resolve_and_detach() {
+        let state = AppState::in_memory();
+        // Create an entry, verify it shows up dirty with no last_synced_at.
+        let r = route(&state, "POST", "/api/v1/password-manager/entries", Some(r#"{"encryptedData":"X","iv":"Y"}"#)).unwrap();
+        let id = body_json(&r)["id"].as_str().unwrap().to_string();
+        let r = route(&state, "GET", "/desktop/sync/rows?workspace_id=local-personal&tool_kind=password_entries", None).unwrap();
+        let rows = body_json(&r);
+        assert_eq!(rows[0]["dirty"], true);
+        assert!(rows[0]["last_synced_at"].is_null());
+
+        // mark-synced with re-key to a server id.
+        let body = format!(r#"{{"workspace_id":"local-personal","tool_kind":"password_entries","id":"{id}","action":"mark-synced","new_id":"srv-1"}}"#);
+        let r = route(&state, "POST", "/desktop/sync/resolve", Some(&body)).unwrap();
+        assert_eq!(r.status, 200);
+        let r = route(&state, "GET", "/desktop/sync/rows?workspace_id=local-personal&tool_kind=password_entries", None).unwrap();
+        let rows = body_json(&r);
+        assert_eq!(rows[0]["id"], "srv-1");
+        assert_eq!(rows[0]["dirty"], false);
+        assert!(rows[0]["last_synced_at"].as_i64().is_some());
+
+        // Tombstone + mark-synced removes the row entirely.
+        let r = route(&state, "DELETE", "/api/v1/password-manager/entries/srv-1", None).unwrap();
+        assert_eq!(r.status, 204);
+        let body = r#"{"workspace_id":"local-personal","tool_kind":"password_entries","id":"srv-1","action":"mark-synced"}"#;
+        route(&state, "POST", "/desktop/sync/resolve", Some(body)).unwrap();
+        let r = route(&state, "GET", "/desktop/sync/rows?workspace_id=local-personal&tool_kind=password_entries", None).unwrap();
+        assert_eq!(body_json(&r).as_array().unwrap().len(), 0);
+
+        // apply-remote inserts a clean row.
+        let body = r#"{"workspace_id":"local-personal","tool_kind":"password_entries","id":"srv-2","action":"apply-remote","doc":{"id":"srv-2","encryptedData":"R","iv":"I","updatedAt":123},"updated_at":123}"#;
+        route(&state, "POST", "/desktop/sync/resolve", Some(body)).unwrap();
+        let r = route(&state, "GET", "/api/v1/password-manager/entries", None).unwrap();
+        assert_eq!(body_json(&r)[0]["id"], "srv-2");
+
+        // Toggle sync off → last_synced_at cleared (fresh merge on re-enable).
+        let r = route(&state, "POST", "/desktop/sync/settings", Some(r#"{"workspace_id":"local-personal","enabled":true}"#)).unwrap();
+        assert_eq!(r.status, 200);
+        route(&state, "POST", "/desktop/sync/settings", Some(r#"{"workspace_id":"local-personal","enabled":false}"#)).unwrap();
+        let r = route(&state, "GET", "/desktop/sync/rows?workspace_id=local-personal&tool_kind=password_entries", None).unwrap();
+        assert!(body_json(&r)[0]["last_synced_at"].is_null());
+        let r = route(&state, "GET", "/desktop/sync/settings?workspace_id=local-personal", None).unwrap();
+        assert_eq!(body_json(&r)["enabled"], false);
     }
 
     #[test]

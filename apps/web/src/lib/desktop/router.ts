@@ -116,5 +116,10 @@ export async function desktopDataFetch(
   if (isRemoteWorkspaceActive() && hasRemoteSession()) {
     return remoteApiAuthed(method, path, body);
   }
-  return localApi(method, path, body);
+  const res = await localApi(method, path, body);
+  if (method !== "GET" && res.status < 300 && path.startsWith("/api/v1/")) {
+    // Nudge the sync engine (debounced) after successful local writes.
+    window.dispatchEvent(new CustomEvent("mydevtools:desktop-data-mutated"));
+  }
+  return res;
 }

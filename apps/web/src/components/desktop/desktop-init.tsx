@@ -12,12 +12,15 @@ export function DesktopInit() {
   useEffect(() => {
     if (!isDesktop()) return;
     void (async () => {
-      const [{ initDeepLinkListener }, { checkRemoteSession }] = await Promise.all([
-        import("@/lib/desktop/cloud-signin"),
-        import("@/lib/desktop/remote"),
-      ]);
+      const [{ initDeepLinkListener }, { checkRemoteSession }, { startSyncEngine }] =
+        await Promise.all([
+          import("@/lib/desktop/cloud-signin"),
+          import("@/lib/desktop/remote"),
+          import("@/lib/desktop/sync-engine"),
+        ]);
       await initDeepLinkListener().catch(() => {});
       await checkRemoteSession().catch(() => {});
+      startSyncEngine();
     })();
   }, []);
   return null;
