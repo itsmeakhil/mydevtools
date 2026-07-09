@@ -1,5 +1,6 @@
 "use client"
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import * as React from "react"
 import {
     Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle,
@@ -60,7 +61,7 @@ export function FuzzRunDialog({ open, onOpenChange, tab }: FuzzRunDialogProps) {
 
         const sendOne = async (body: string) => {
             const start = nowMs()
-            const res = await fetch("/api/proxy", {
+            const res = await apiFetch("/api/proxy", {
                 method: "POST",
                 credentials: "include",
                 signal: abortRef.current!.signal,

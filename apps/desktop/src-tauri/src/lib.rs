@@ -41,6 +41,24 @@ async fn clear_remote_session(state: tauri::State<'_, AppState>) -> Result<(), S
     state.http.clear_jar(&db).map_err(|e| e.to_string())
 }
 
+#[tauri::command]
+async fn http_request(input: serde_json::Value) -> Result<serde_json::Value, String> {
+    Ok(http::proxy::http_request(input).await)
+}
+
+#[tauri::command]
+async fn http_request_stream(
+    input: serde_json::Value,
+    channel: tauri::ipc::Channel<serde_json::Value>,
+) -> Result<u64, String> {
+    http::proxy::http_request_stream(input, channel).await
+}
+
+#[tauri::command]
+fn http_request_stream_cancel(id: u64) {
+    http::proxy::cancel_stream(id);
+}
+
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_deep_link::init())
@@ -53,7 +71,14 @@ pub fn run() {
             app.manage(state);
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![local_api, remote_api, clear_remote_session])
+        .invoke_handler(tauri::generate_handler![
+            local_api,
+            remote_api,
+            clear_remote_session,
+            http_request,
+            http_request_stream,
+            http_request_stream_cancel
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

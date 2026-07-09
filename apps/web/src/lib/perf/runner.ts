@@ -1,3 +1,4 @@
+import { apiFetch } from "@/lib/desktop/api-fetch";
 /**
  * Performance runner — fires the same request N times through `/api/proxy`
  * with a configurable concurrency, returning latency samples for stats.
@@ -123,7 +124,7 @@ function buildProxyPayload(tab: ApiRequestState, env: Record<string, string>): u
 async function fireOne(i: number, payload: unknown, signal?: AbortSignal): Promise<LatencySample> {
     const t0 = performance.now()
     try {
-        const res = await fetch("/api/proxy", {
+        const res = await apiFetch("/api/proxy", {
             method: "POST",
             credentials: "include",
             signal,

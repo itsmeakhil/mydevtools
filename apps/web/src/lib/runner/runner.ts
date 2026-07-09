@@ -1,3 +1,4 @@
+import { apiFetch } from "@/lib/desktop/api-fetch";
 /**
  * Collection runner — sequential, single-iteration-or-data-driven, with the
  * same pre-request + test script lifecycle as a normal send. Intentionally
@@ -280,7 +281,7 @@ async function executeRequest(args: {
         error?: string
     }
     try {
-        const res = await fetch("/api/proxy", {
+        const res = await apiFetch("/api/proxy", {
             method: "POST",
             credentials: "include",
             signal: args.signal,

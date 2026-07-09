@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { useTranslations } from 'next-intl';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
+import { isDesktop } from '@/lib/desktop/is-desktop';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
@@ -33,12 +34,15 @@ export function GitignoreLayout() {
   const [loadingOutput, setLoadingOutput] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
 
-  // Fetch complete tag list on mount
+  // Fetch complete tag list on mount. Desktop reads the bundled template
+  // pack (public/gitignore-templates.json) so the tool works fully offline.
   React.useEffect(() => {
-    fetch('/api/gitignore?list=true')
+    const url = isDesktop() ? '/gitignore-templates.json' : '/api/gitignore?list=true';
+    fetch(url)
       .then(r => r.json())
       .then(data => {
-        if (Array.isArray(data)) setList(data);
+        const arr = isDesktop() ? (data as { list?: string[] }).list : data;
+        if (Array.isArray(arr)) setList(arr);
         else setErrorMsg(t('errorFetching'));
       })
       .catch(() => setErrorMsg(t('errorFetching')))
@@ -56,11 +60,22 @@ export function GitignoreLayout() {
     setLoadingOutput(true);
     setErrorMsg(null);
 
-    fetch(`/api/gitignore?tags=${encodeURIComponent(selected.join(','))}`, { signal: abort.signal })
-      .then(async r => {
-        if (!r.ok) throw new Error('Fetch failed');
-        return r.text();
-      })
+    const load = isDesktop()
+      ? fetch('/gitignore-templates.json', { signal: abort.signal })
+          .then(r => r.json())
+          .then((data: { templates?: Record<string, string> }) =>
+            selected
+              .map(tag => (data.templates?.[tag] ?? '').trim())
+              .filter(Boolean)
+              .join('\n\n')
+          )
+      : fetch(`/api/gitignore?tags=${encodeURIComponent(selected.join(','))}`, { signal: abort.signal })
+          .then(async r => {
+            if (!r.ok) throw new Error('Fetch failed');
+            return r.text();
+          });
+
+    load
       .then(text => setOutput(text))
       .catch(err => {
         if (err.name !== 'AbortError') {

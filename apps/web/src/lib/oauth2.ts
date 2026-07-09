@@ -1,3 +1,4 @@
+import { apiFetch } from "@/lib/desktop/api-fetch";
 /**
  * OAuth 2.0 helpers for the API client.
  * Token requests go through `/api/proxy` so they benefit from the same SSRF
@@ -73,7 +74,7 @@ async function postTokenRequest(
     bodyParams: Record<string, string>,
 ): Promise<OAuthTokenResponse> {
     const form = new URLSearchParams(bodyParams).toString()
-    const proxyRes = await fetch("/api/proxy", {
+    const proxyRes = await apiFetch("/api/proxy", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

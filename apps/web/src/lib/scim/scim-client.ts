@@ -1,3 +1,4 @@
+import { apiFetch } from "@/lib/desktop/api-fetch";
 /**
  * SCIM 2.0 (RFC 7644) client wrapper.
  *
@@ -62,7 +63,7 @@ async function send(
     if (init.body !== undefined) headers["Content-Type"] = "application/scim+json"
 
     if (opts.viaProxy) {
-        const res = await fetch("/api/proxy", {
+        const res = await apiFetch("/api/proxy", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },

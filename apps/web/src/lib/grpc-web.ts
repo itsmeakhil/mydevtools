@@ -1,3 +1,4 @@
+import { apiFetch } from "@/lib/desktop/api-fetch";
 /**
  * gRPC-Web protocol helpers.
  *
@@ -184,7 +185,7 @@ export async function sendNativeGrpc(args: {
     const singleFrame = !bodyFrames && args.message
         ? bytesToBase64(encodeMessageFrame(args.message))
         : undefined
-    const res = await fetch("/api/proxy-grpc", {
+    const res = await apiFetch("/api/proxy-grpc", {
         method: "POST",
         credentials: "include",
         signal: args.signal,
