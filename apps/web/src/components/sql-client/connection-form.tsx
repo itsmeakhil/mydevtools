@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -84,7 +85,7 @@ export function ConnectionForm({
         }
         setIsTesting(true);
         try {
-            const res = await fetch("/api/sql-client/connect", {
+            const res = await apiFetch("/api/sql-client/connect", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

@@ -26,6 +26,18 @@ reqwest_cookie_store = "0.8"
 cookie_store = "0.21"
 tauri-plugin-deep-link = "2"
 tauri-plugin-opener = "2"
+tokio = { version = "1", features = ["time"] }
+tokio-postgres = "0.7"
+postgres-native-tls = "0.5"
+native-tls = "0.2"
+mysql_async = { version = "0.36", default-features = false, features = ["default-rustls-ring"] }
+mongodb = "3"
+redis = { version = "0.29", features = ["tokio-comp", "tokio-native-tls-comp"] }
+futures-util = "0.3"
+dashmap = "6"
+
+[dev-dependencies]
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 
 [profile.release]
 strip = true

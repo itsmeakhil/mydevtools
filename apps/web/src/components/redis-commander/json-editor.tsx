@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,7 +25,7 @@ export function JsonEditor({ redisUrl, db, keyName, onChanged }: Props) {
     const load = useCallback(async () => {
         setLoading(true);
         try {
-            const res = await fetch("/api/redis-commander/json", {
+            const res = await apiFetch("/api/redis-commander/json", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -60,7 +61,7 @@ export function JsonEditor({ redisUrl, db, keyName, onChanged }: Props) {
         }
         setSaving(true);
         try {
-            const res = await fetch("/api/redis-commander/json", {
+            const res = await apiFetch("/api/redis-commander/json", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -79,7 +80,7 @@ export function JsonEditor({ redisUrl, db, keyName, onChanged }: Props) {
 
     async function del() {
         try {
-            const res = await fetch("/api/redis-commander/json", {
+            const res = await apiFetch("/api/redis-commander/json", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

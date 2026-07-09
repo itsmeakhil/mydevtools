@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -210,7 +211,7 @@ export function KeyBrowser({
             loadingRef.current = true;
             setLoading(true);
             try {
-                const res = await fetch("/api/redis-commander/keys", {
+                const res = await apiFetch("/api/redis-commander/keys", {
                     method: "POST",
                     credentials: "include",
                     headers: { "Content-Type": "application/json" },

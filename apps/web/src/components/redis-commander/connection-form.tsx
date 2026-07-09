@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -98,7 +99,7 @@ export function ConnectionForm({
 
         setTesting(true);
         try {
-            const res = await fetch("/api/redis-commander/connect", {
+            const res = await apiFetch("/api/redis-commander/connect", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

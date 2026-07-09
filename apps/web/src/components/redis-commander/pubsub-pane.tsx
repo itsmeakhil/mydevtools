@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -95,7 +96,7 @@ export function PubSubPane({ redisUrl, db }: PubSubPaneProps) {
         if (!pubChannel.trim()) return;
         setPublishing(true);
         try {
-            const res = await fetch("/api/redis-commander/pubsub", {
+            const res = await apiFetch("/api/redis-commander/pubsub", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

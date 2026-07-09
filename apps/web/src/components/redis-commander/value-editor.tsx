@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -73,7 +74,7 @@ export function ValueEditor({ redisUrl, db, selectedKey, onKeyDeleted, onKeyRena
     async function loadKey(key: string) {
         setLoading(true);
         try {
-            const res = await fetch("/api/redis-commander/key", {
+            const res = await apiFetch("/api/redis-commander/key", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -139,7 +140,7 @@ export function ValueEditor({ redisUrl, db, selectedKey, onKeyDeleted, onKeyRena
                     return;
             }
             const ttl = ttlInput ? parseInt(ttlInput) : -1;
-            const res = await fetch("/api/redis-commander/key", {
+            const res = await apiFetch("/api/redis-commander/key", {
                 method: "PUT",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -159,7 +160,7 @@ export function ValueEditor({ redisUrl, db, selectedKey, onKeyDeleted, onKeyRena
     async function handleDelete() {
         if (!detail) return;
         try {
-            const res = await fetch("/api/redis-commander/key", {
+            const res = await apiFetch("/api/redis-commander/key", {
                 method: "DELETE",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -181,7 +182,7 @@ export function ValueEditor({ redisUrl, db, selectedKey, onKeyDeleted, onKeyRena
         if (!newKey || newKey === detail.key) return;
         setActionBusy(true);
         try {
-            const res = await fetch("/api/redis-commander/key/rename", {
+            const res = await apiFetch("/api/redis-commander/key/rename", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -209,7 +210,7 @@ export function ValueEditor({ redisUrl, db, selectedKey, onKeyDeleted, onKeyRena
         if (!destination || destination === detail.key) return;
         setActionBusy(true);
         try {
-            const res = await fetch("/api/redis-commander/key/copy", {
+            const res = await apiFetch("/api/redis-commander/key/copy", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

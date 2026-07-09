@@ -24,6 +24,9 @@ const REMOTE_ONLY_PREFIXES = [
   "/api/v1/dns-lookup",
 ];
 
+/** Live-DB routes run on native Rust drivers regardless of workspace. */
+const ALWAYS_LOCAL_PREFIXES = ["/api/sql-client/", "/api/nosql/", "/api/redis-commander/"];
+
 export function activeWorkspaceId(): string {
   if (typeof window === "undefined") return LOCAL_WORKSPACE_ID;
   try {
@@ -101,6 +104,9 @@ export async function desktopDataFetch(
   path: string,
   body?: string
 ): Promise<LocalApiResponse> {
+  if (ALWAYS_LOCAL_PREFIXES.some((p) => path.startsWith(p))) {
+    return localApi(method, path, body);
+  }
   if (REMOTE_ONLY_PREFIXES.some((p) => path.startsWith(p))) {
     if (!hasRemoteSession()) {
       return {

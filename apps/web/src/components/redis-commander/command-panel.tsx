@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -76,7 +77,7 @@ export function CommandPanel({ redisUrl, db, connectionId }: CommandPanelProps) 
         setLoading(true);
         const start = Date.now();
         try {
-            const res = await fetch("/api/redis-commander/execute", {
+            const res = await apiFetch("/api/redis-commander/execute", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

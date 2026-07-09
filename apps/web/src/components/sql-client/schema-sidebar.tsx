@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { useState, useEffect, useRef } from "react";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import { Button } from "@/components/ui/button";
@@ -67,7 +68,7 @@ export function SchemaSidebar({
         if (!conn.config) return;
         setState(conn.id, { loading: true, error: null });
         try {
-            const res = await fetch("/api/sql-client/tables", {
+            const res = await apiFetch("/api/sql-client/tables", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

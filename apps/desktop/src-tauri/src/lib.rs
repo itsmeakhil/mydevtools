@@ -1,4 +1,5 @@
 mod db;
+mod dbtools;
 mod error;
 mod http;
 mod router;
@@ -16,6 +17,9 @@ async fn local_api(
     path: String,
     body: Option<String>,
 ) -> Result<ApiResponse, String> {
+    if dbtools::is_dbtool_path(&path) {
+        return Ok(dbtools::route(&method, &path, body.as_deref()).await);
+    }
     router::route(&state, &method, &path, body.as_deref()).map_err(|e| e.to_string())
 }
 
