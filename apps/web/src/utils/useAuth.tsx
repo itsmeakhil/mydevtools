@@ -37,7 +37,7 @@ const useAuth = (requireAuth: boolean = false): AuthState => {
   // On client-side navigation within the app it is already populated, so we avoid
   // a spurious full-screen loading flash on every route change.
   const [user, setUser] = useState<User | null>(() =>
-    isDesktop() ? desktopLocalUser() : auth.currentUser
+    isDesktop() ? auth.currentUser ?? desktopLocalUser() : auth.currentUser
   );
   const [loading, setLoading] = useState(() =>
     isDesktop() ? false : auth.currentUser === null
@@ -45,7 +45,14 @@ const useAuth = (requireAuth: boolean = false): AuthState => {
   const router = useRouter();
 
   useEffect(() => {
-    if (isDesktop()) return;
+    if (isDesktop()) {
+      // Desktop never redirects to /login — the local user is always signed
+      // in; a real Firebase user (cloud sign-in via deep link) takes priority.
+      const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
+        setUser(firebaseUser ?? desktopLocalUser());
+      });
+      return () => unsubscribe();
+    }
     const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
       setUser(firebaseUser);
       setLoading(false);

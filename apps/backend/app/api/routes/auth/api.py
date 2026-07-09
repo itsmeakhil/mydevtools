@@ -300,6 +300,26 @@ async def session_check(_uid: Annotated[str, Depends(get_current_uid)]) -> OkRes
     return OkResponse(ok=True)
 
 
+@router.post(
+    "/desktop-token",
+    summary="Mint a Firebase custom token for the desktop-app sign-in handoff",
+)
+async def desktop_token(uid: Annotated[str, Depends(get_current_uid)]) -> dict:
+    # The web session (browser) mints a short-lived Firebase custom token which
+    # is handed to the desktop app via the mydevtools:// deep link; the app
+    # signs in with it and runs the normal session exchange.
+    from app.core.firebase import get_firebase_app
+
+    try:
+        from firebase_admin import auth as firebase_auth
+    except Exception:  # pragma: no cover - firebase_admin always present in prod
+        raise HTTPException(status_code=503, detail="Firebase unavailable")
+    get_firebase_app()
+    token_bytes = firebase_auth.create_custom_token(uid)
+    token = token_bytes.decode("utf-8") if isinstance(token_bytes, bytes) else token_bytes
+    return {"token": token}
+
+
 # ── Master-password vault ─────────────────────────────────────────────────────
 
 

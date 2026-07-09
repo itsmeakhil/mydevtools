@@ -13,7 +13,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../database/firebase";
 import { useEffect, useRef, useState } from "react";
-import { establishBackendSession } from "@/lib/backend-auth";
+import { backendFetch, establishBackendSession } from "@/lib/backend-auth";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, AlertCircle, Github, Fingerprint } from "lucide-react";
 import { signInWithPasskey, startConditionalPasskeyAuth } from "@/lib/passkey"
@@ -52,6 +52,24 @@ export function LoginForm() {
     const params = new URLSearchParams(
       typeof window !== "undefined" ? window.location.search : ""
     )
+    // Desktop-app sign-in handoff: mint a Firebase custom token and hand it
+    // to the app via the mydevtools:// deep link.
+    if (params.get("desktop") === "1") {
+      try {
+        const res = await backendFetch("/api/backend/auth/desktop-token", { method: "POST" })
+        if (res.ok) {
+          const { token: desktopToken } = (await res.json()) as { token: string }
+          window.location.href = `mydevtools://auth?token=${encodeURIComponent(desktopToken)}`
+          toast.success("Signed in — returning to the MyDevTools app…")
+        } else {
+          toast.error("Could not hand off sign-in to the desktop app")
+        }
+      } catch {
+        toast.error("Could not hand off sign-in to the desktop app")
+      }
+      return "/dashboard"
+    }
+
     const token = params.get("invite")
     if (!token) return "/dashboard"
 

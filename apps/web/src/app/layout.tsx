@@ -7,6 +7,7 @@ import { GeistMono } from 'geist/font/mono'
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import { ClientShell } from "@/components/client-shell";
+import { DesktopInit } from "@/components/desktop/desktop-init";
 
 import "./globals.css";
 
@@ -122,6 +123,7 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <NextIntlClientProvider messages={messages}>
+            <DesktopInit />
             <ClientShell>
               {children}
             </ClientShell>

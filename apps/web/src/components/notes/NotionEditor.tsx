@@ -124,6 +124,10 @@ export default function NotionEditor() {
 
     const handleUploadImage = async (file: File): Promise<string> => {
         if (!user) throw new Error(tCtx("authRequiredError"));
+        // Desktop offline mode: Firebase Storage needs a cloud session.
+        if (user.uid === "desktop-local") {
+            throw new Error("Image upload needs a cloud sign-in — text notes work offline.");
+        }
         const timestamp = Date.now();
         const safeName = sanitizeFileName(file.name);
         const storageRef = ref(storage, `notes/${user.uid}/${activeNoteId}/${timestamp}_${safeName}`);
