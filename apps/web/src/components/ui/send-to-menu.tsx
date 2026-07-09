@@ -5,6 +5,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { Send } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
@@ -12,6 +13,7 @@ import { useTranslations } from 'next-intl';
 export interface SendToMenuProps {
   content: string;
   disabled?: boolean;
+  className?: string;
 }
 
 const TARGET_TOOLS = [
@@ -23,7 +25,7 @@ const TARGET_TOOLS = [
   { id: 'qr-code-generator', path: '/app/qr-code-generator', label: 'QR Code Generator' },
 ];
 
-export function SendToMenu({ content, disabled = false }: SendToMenuProps) {
+export function SendToMenu({ content, disabled = false, className }: SendToMenuProps) {
   const router = useRouter();
   const t = useTranslations('Navigation'); // Or perhaps a common translations namespace
 
@@ -40,7 +42,7 @@ export function SendToMenu({ content, disabled = false }: SendToMenuProps) {
         <Button
           variant="outline"
           size="sm"
-          className="gap-1.5 h-9"
+          className={cn('gap-1.5 h-9', className)}
           disabled={disabled || !content}
           title="Send to another tool"
         >

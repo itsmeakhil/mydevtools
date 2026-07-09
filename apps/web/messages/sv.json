@@ -1980,7 +1980,16 @@
     "toastCopyFailed": "Kunde inte kopiera JSON",
     "toastLoginRequired": "Logga in för att spara dokument",
     "toastSaved": "Dokument sparat",
-    "toastSaveFailed": "Kunde inte spara dokument"
+    "toastSaveFailed": "Kunde inte spara dokument",
+    "format": "Formatera",
+    "compact": "Komprimera",
+    "sortKeys": "Sortera nycklar",
+    "repair": "Reparera",
+    "query": "Fråga",
+    "toastInvalidJson": "Ogiltig JSON",
+    "toastAlreadyValid": "JSON är redan giltig",
+    "toastRepaired": "JSON reparerad",
+    "toastRepairFailed": "Kunde inte reparera JSON"
   },
   "JwtDecoder": {
     "title": "JWT-avkodare",

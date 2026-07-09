@@ -1980,7 +1980,16 @@
     "toastCopyFailed": "JSONのコピーに失敗しました",
     "toastLoginRequired": "ドキュメントを保存するにはログインしてください",
     "toastSaved": "ドキュメントを保存しました",
-    "toastSaveFailed": "ドキュメントの保存に失敗しました"
+    "toastSaveFailed": "ドキュメントの保存に失敗しました",
+    "format": "整形",
+    "compact": "圧縮",
+    "sortKeys": "キーをソート",
+    "repair": "修復",
+    "query": "クエリ",
+    "toastInvalidJson": "無効な JSON",
+    "toastAlreadyValid": "JSON はすでに有効です",
+    "toastRepaired": "JSON を修復しました",
+    "toastRepairFailed": "JSON を修復できませんでした"
   },
   "JwtDecoder": {
     "title": "JWTデコーダー",

@@ -1980,7 +1980,16 @@
     "toastCopyFailed": "Αποτυχία αντιγραφής JSON",
     "toastLoginRequired": "Συνδεθείτε για να αποθηκεύσετε έγγραφα",
     "toastSaved": "Το έγγραφο αποθηκεύτηκε",
-    "toastSaveFailed": "Αποτυχία αποθήκευσης εγγράφου"
+    "toastSaveFailed": "Αποτυχία αποθήκευσης εγγράφου",
+    "format": "Μορφοποίηση",
+    "compact": "Συμπίεση",
+    "sortKeys": "Ταξινόμηση κλειδιών",
+    "repair": "Επιδιόρθωση",
+    "query": "Ερώτημα",
+    "toastInvalidJson": "Μη έγκυρο JSON",
+    "toastAlreadyValid": "Το JSON είναι ήδη έγκυρο",
+    "toastRepaired": "Το JSON επιδιορθώθηκε",
+    "toastRepairFailed": "Δεν ήταν δυνατή η επιδιόρθωση του JSON"
   },
   "JwtDecoder": {
     "title": "Αποκωδικοποιητής JWT",

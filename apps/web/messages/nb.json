@@ -1980,7 +1980,16 @@
     "toastCopyFailed": "Kunne ikke kopiere JSON",
     "toastLoginRequired": "Logg inn for å lagre dokumenter",
     "toastSaved": "Dokument lagret",
-    "toastSaveFailed": "Kunne ikke lagre dokument"
+    "toastSaveFailed": "Kunne ikke lagre dokument",
+    "format": "Formater",
+    "compact": "Komprimer",
+    "sortKeys": "Sorter nøkler",
+    "repair": "Reparer",
+    "query": "Spørring",
+    "toastInvalidJson": "Ugyldig JSON",
+    "toastAlreadyValid": "JSON er allerede gyldig",
+    "toastRepaired": "JSON reparert",
+    "toastRepairFailed": "Kunne ikke reparere JSON"
   },
   "JwtDecoder": {
     "title": "JWT-dekoder",

@@ -110,6 +110,9 @@ class UserProfileResponse(BaseModel):
     personal_info: PersonalInfo | None = None
     # Role picked during onboarding (frontend/backend/fullstack/devops/qa/designer/exploring)
     persona: str | None = None
+    # Billing plan; absent on the Mongo doc means free.
+    plan: str = "free"
+    plan_source: str | None = None
     onboarding_completed: bool = False
     # Workspace migration fields (T25)
     workspace_setup_at: int | None = None

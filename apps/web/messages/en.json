@@ -1981,7 +1981,16 @@
     "toastCopyFailed": "Failed to copy JSON",
     "toastLoginRequired": "Please sign in to save documents",
     "toastSaved": "Document saved",
-    "toastSaveFailed": "Failed to save document"
+    "toastSaveFailed": "Failed to save document",
+    "format": "Format",
+    "compact": "Compact",
+    "sortKeys": "Sort keys",
+    "repair": "Repair",
+    "query": "Query",
+    "toastInvalidJson": "Invalid JSON",
+    "toastAlreadyValid": "JSON is already valid",
+    "toastRepaired": "JSON repaired",
+    "toastRepairFailed": "Could not repair JSON"
   },
   "JwtDecoder": {
     "title": "JWT decoder",

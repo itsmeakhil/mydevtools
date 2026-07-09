@@ -129,6 +129,8 @@ async def get_current_user(
         certifications=[Certification(**c) for c in doc.get("certifications") or []],
         portfolio_settings=doc.get("portfolio_settings"),
         personal_info=PersonalInfo(**doc["personal_info"]) if doc.get("personal_info") else None,
+        plan=doc.get("plan") or "free",
+        plan_source=doc.get("plan_source"),
         onboarding_completed=bool(doc.get("onboarding_completed", False)),
         workspace_setup_at=doc.get("workspace_setup_at"),
         migrated_at=doc.get("migrated_at"),

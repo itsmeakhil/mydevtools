@@ -1980,7 +1980,16 @@
     "toastCopyFailed": "Nepodařilo se zkopírovat JSON",
     "toastLoginRequired": "Pro uložení dokumentů se přihlaste",
     "toastSaved": "Dokument uložen",
-    "toastSaveFailed": "Nepodařilo se uložit dokument"
+    "toastSaveFailed": "Nepodařilo se uložit dokument",
+    "format": "Formátovat",
+    "compact": "Zkomprimovat",
+    "sortKeys": "Seřadit klíče",
+    "repair": "Opravit",
+    "query": "Dotaz",
+    "toastInvalidJson": "Neplatný JSON",
+    "toastAlreadyValid": "JSON je již platný",
+    "toastRepaired": "JSON opraven",
+    "toastRepairFailed": "JSON se nepodařilo opravit"
   },
   "JwtDecoder": {
     "title": "Dekodér JWT",

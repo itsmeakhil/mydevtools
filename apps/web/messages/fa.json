@@ -1980,7 +1980,16 @@
     "toastCopyFailed": "کپی JSON ناموفق بود",
     "toastLoginRequired": "برای ذخیره اسناد وارد شوید",
     "toastSaved": "سند ذخیره شد",
-    "toastSaveFailed": "ذخیره سند ناموفق بود"
+    "toastSaveFailed": "ذخیره سند ناموفق بود",
+    "format": "قالب‌بندی",
+    "compact": "فشرده‌سازی",
+    "sortKeys": "مرتب‌سازی کلیدها",
+    "repair": "تعمیر",
+    "query": "پرس‌وجو",
+    "toastInvalidJson": "JSON نامعتبر",
+    "toastAlreadyValid": "JSON از قبل معتبر است",
+    "toastRepaired": "JSON تعمیر شد",
+    "toastRepairFailed": "JSON قابل تعمیر نیست"
   },
   "JwtDecoder": {
     "title": "رمزگشای JWT",

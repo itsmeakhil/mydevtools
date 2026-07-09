@@ -78,6 +78,8 @@ export default function ProfilePage() {
   const [editTechStacks, setEditTechStacks] = useState<string[]>([])
 
   const [bio, setBio] = useState<string | null>(null)
+  const [plan, setPlan] = useState<'free' | 'pro'>('free')
+  const [planSource, setPlanSource] = useState<string | null>(null)
   const [isEditingBio, setIsEditingBio] = useState(false)
   const [isCollapsedBio, setIsCollapsedBio] = useState(true)
   const [editBioVal, setEditBioVal] = useState('')
@@ -111,6 +113,8 @@ export default function ProfilePage() {
           const profile = await res.json()
           setUsername(profile.username)
           setBio(profile.bio ?? null)
+          setPlan(profile.plan === 'pro' ? 'pro' : 'free')
+          setPlanSource(profile.plan_source ?? null)
           if (profile.social_links) setSocialLinks(profile.social_links)
           if (profile.tech_stacks) setTechStacks(profile.tech_stacks)
           if (profile.experiences) setExperiences(profile.experiences)
@@ -308,6 +312,13 @@ export default function ProfilePage() {
           <h3 className="text-xl font-semibold flex items-center gap-2">
             <User className="h-4 w-4 opacity-40" />
             {user?.displayName || t('userProfile.anonymousUser')}
+            {plan === 'pro' ? (
+              <Badge className="bg-primary/15 text-primary hover:bg-primary/15 border-primary/20">
+                {planSource === 'early_adopter' ? 'Pro · Early adopter' : 'Pro'}
+              </Badge>
+            ) : (
+              <Badge variant="secondary">Free</Badge>
+            )}
           </h3>
 
           {/* Username */}

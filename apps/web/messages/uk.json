@@ -1980,7 +1980,16 @@
     "toastCopyFailed": "Не вдалося скопіювати JSON",
     "toastLoginRequired": "Увійдіть, щоб зберігати документи",
     "toastSaved": "Документ збережено",
-    "toastSaveFailed": "Не вдалося зберегти документ"
+    "toastSaveFailed": "Не вдалося зберегти документ",
+    "format": "Форматувати",
+    "compact": "Стиснути",
+    "sortKeys": "Сортувати ключі",
+    "repair": "Виправити",
+    "query": "Запит",
+    "toastInvalidJson": "Недійсний JSON",
+    "toastAlreadyValid": "JSON вже коректний",
+    "toastRepaired": "JSON виправлено",
+    "toastRepairFailed": "Не вдалося виправити JSON"
   },
   "JwtDecoder": {
     "title": "Декодер JWT",

@@ -1980,7 +1980,16 @@
     "toastCopyFailed": "JSON 복사 실패",
     "toastLoginRequired": "문서를 저장하려면 로그인하세요",
     "toastSaved": "문서가 저장되었습니다",
-    "toastSaveFailed": "문서 저장에 실패했습니다"
+    "toastSaveFailed": "문서 저장에 실패했습니다",
+    "format": "포맷",
+    "compact": "압축",
+    "sortKeys": "키 정렬",
+    "repair": "복구",
+    "query": "쿼리",
+    "toastInvalidJson": "잘못된 JSON",
+    "toastAlreadyValid": "JSON이 이미 유효합니다",
+    "toastRepaired": "JSON 복구됨",
+    "toastRepairFailed": "JSON을 복구할 수 없습니다"
   },
   "JwtDecoder": {
     "title": "JWT 디코더",

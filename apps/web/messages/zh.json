@@ -1980,7 +1980,16 @@
     "toastCopyFailed": "复制 JSON 失败",
     "toastLoginRequired": "请登录以保存文档",
     "toastSaved": "文档已保存",
-    "toastSaveFailed": "文档保存失败"
+    "toastSaveFailed": "文档保存失败",
+    "format": "格式化",
+    "compact": "压缩",
+    "sortKeys": "键排序",
+    "repair": "修复",
+    "query": "查询",
+    "toastInvalidJson": "无效的 JSON",
+    "toastAlreadyValid": "JSON 已经有效",
+    "toastRepaired": "JSON 已修复",
+    "toastRepairFailed": "无法修复 JSON"
   },
   "JwtDecoder": {
     "title": "JWT 解码器",

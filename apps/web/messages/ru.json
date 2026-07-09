@@ -1980,7 +1980,16 @@
     "toastCopyFailed": "Не удалось скопировать JSON",
     "toastLoginRequired": "Войдите, чтобы сохранять документы",
     "toastSaved": "Документ сохранён",
-    "toastSaveFailed": "Не удалось сохранить документ"
+    "toastSaveFailed": "Не удалось сохранить документ",
+    "format": "Форматировать",
+    "compact": "Сжать",
+    "sortKeys": "Сортировать ключи",
+    "repair": "Исправить",
+    "query": "Запрос",
+    "toastInvalidJson": "Недопустимый JSON",
+    "toastAlreadyValid": "JSON уже корректен",
+    "toastRepaired": "JSON исправлен",
+    "toastRepairFailed": "Не удалось исправить JSON"
   },
   "JwtDecoder": {
     "title": "Декодер JWT",

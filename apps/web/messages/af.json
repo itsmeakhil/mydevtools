@@ -1980,7 +1980,16 @@
     "toastCopyFailed": "Kon nie JSON kopieer nie",
     "toastLoginRequired": "Meld asseblief aan om dokumente te stoor",
     "toastSaved": "Dokument gestoor",
-    "toastSaveFailed": "Kon nie dokument stoor nie"
+    "toastSaveFailed": "Kon nie dokument stoor nie",
+    "format": "Formateer",
+    "compact": "Kompakteer",
+    "sortKeys": "Sorteer sleutels",
+    "repair": "Herstel",
+    "query": "Navraag",
+    "toastInvalidJson": "Ongeldige JSON",
+    "toastAlreadyValid": "JSON is reeds geldig",
+    "toastRepaired": "JSON herstel",
+    "toastRepairFailed": "Kon nie JSON herstel nie"
   },
   "JwtDecoder": {
     "title": "JWT-dekodeerder",

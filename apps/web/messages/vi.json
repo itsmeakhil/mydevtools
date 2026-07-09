@@ -1980,7 +1980,16 @@
     "toastCopyFailed": "Không thể sao chép JSON",
     "toastLoginRequired": "Vui lòng đăng nhập để lưu tài liệu",
     "toastSaved": "Đã lưu tài liệu",
-    "toastSaveFailed": "Không thể lưu tài liệu"
+    "toastSaveFailed": "Không thể lưu tài liệu",
+    "format": "Định dạng",
+    "compact": "Nén gọn",
+    "sortKeys": "Sắp xếp khóa",
+    "repair": "Sửa chữa",
+    "query": "Truy vấn",
+    "toastInvalidJson": "JSON không hợp lệ",
+    "toastAlreadyValid": "JSON đã hợp lệ",
+    "toastRepaired": "Đã sửa JSON",
+    "toastRepairFailed": "Không thể sửa JSON"
   },
   "JwtDecoder": {
     "title": "Trình giải mã JWT",

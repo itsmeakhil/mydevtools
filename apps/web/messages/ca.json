@@ -1980,7 +1980,16 @@
     "toastCopyFailed": "No s'ha pogut copiar el JSON",
     "toastLoginRequired": "Inicia sessió per desar documents",
     "toastSaved": "Document desat",
-    "toastSaveFailed": "No s'ha pogut desar el document"
+    "toastSaveFailed": "No s'ha pogut desar el document",
+    "format": "Formata",
+    "compact": "Compacta",
+    "sortKeys": "Ordena les claus",
+    "repair": "Repara",
+    "query": "Consulta",
+    "toastInvalidJson": "JSON no vàlid",
+    "toastAlreadyValid": "El JSON ja és vàlid",
+    "toastRepaired": "JSON reparat",
+    "toastRepairFailed": "No s'ha pogut reparar el JSON"
   },
   "JwtDecoder": {
     "title": "Descodificador JWT",

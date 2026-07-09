@@ -99,6 +99,8 @@ async def create_session(
         photo_url=doc.get("photo_url"),
         email_verified=bool(doc.get("email_verified")),
         disabled=bool(doc.get("disabled")),
+        plan=doc.get("plan") or "free",
+        plan_source=doc.get("plan_source"),
         onboarding_completed=bool(doc.get("onboarding_completed", False)),
         workspace_setup_at=doc.get("workspace_setup_at"),
         migrated_at=doc.get("migrated_at"),

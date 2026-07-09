@@ -1980,7 +1980,16 @@
     "toastCopyFailed": "فشل نسخ JSON",
     "toastLoginRequired": "يرجى تسجيل الدخول لحفظ المستندات",
     "toastSaved": "تم حفظ المستند",
-    "toastSaveFailed": "فشل حفظ المستند"
+    "toastSaveFailed": "فشل حفظ المستند",
+    "format": "تنسيق",
+    "compact": "ضغط",
+    "sortKeys": "فرز المفاتيح",
+    "repair": "إصلاح",
+    "query": "استعلام",
+    "toastInvalidJson": "JSON غير صالح",
+    "toastAlreadyValid": "JSON صالح بالفعل",
+    "toastRepaired": "تم إصلاح JSON",
+    "toastRepairFailed": "تعذر إصلاح JSON"
   },
   "JwtDecoder": {
     "title": "محلّل JWT",

@@ -1980,7 +1980,16 @@
     "toastCopyFailed": "JSON kopyalanamadı",
     "toastLoginRequired": "Belgeleri kaydetmek için giriş yapın",
     "toastSaved": "Belge kaydedildi",
-    "toastSaveFailed": "Belge kaydedilemedi"
+    "toastSaveFailed": "Belge kaydedilemedi",
+    "format": "Biçimlendir",
+    "compact": "Sıkıştır",
+    "sortKeys": "Anahtarları sırala",
+    "repair": "Onar",
+    "query": "Sorgu",
+    "toastInvalidJson": "Geçersiz JSON",
+    "toastAlreadyValid": "JSON zaten geçerli",
+    "toastRepaired": "JSON onarıldı",
+    "toastRepairFailed": "JSON onarılamadı"
   },
   "JwtDecoder": {
     "title": "JWT Çözücü",

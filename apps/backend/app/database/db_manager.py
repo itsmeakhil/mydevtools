@@ -21,9 +21,9 @@ async def update_many(collection_name, query, payload):
     return await db[collection_name].update_many(query, payload)
 
 
-async def find_one_and_update(collection_name, query, update_query, return_document=False):
+async def find_one_and_update(collection_name, query, update_query, return_document=False, upsert=False):
     return await db[collection_name].find_one_and_update(
-        query, update_query, return_document=return_document
+        query, update_query, return_document=return_document, upsert=upsert
     )
 
 

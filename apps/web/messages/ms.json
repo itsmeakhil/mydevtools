@@ -1980,7 +1980,16 @@
     "toastCopyFailed": "Gagal menyalin JSON",
     "toastLoginRequired": "Sila log masuk untuk menyimpan dokumen",
     "toastSaved": "Dokumen disimpan",
-    "toastSaveFailed": "Gagal menyimpan dokumen"
+    "toastSaveFailed": "Gagal menyimpan dokumen",
+    "format": "Format",
+    "compact": "Padatkan",
+    "sortKeys": "Susun kunci",
+    "repair": "Baiki",
+    "query": "Pertanyaan",
+    "toastInvalidJson": "JSON tidak sah",
+    "toastAlreadyValid": "JSON sudah sah",
+    "toastRepaired": "JSON dibaiki",
+    "toastRepairFailed": "JSON tidak dapat dibaiki"
   },
   "JwtDecoder": {
     "title": "Penyahkod JWT",
