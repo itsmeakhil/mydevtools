@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "tauri dev",
-    "build": "tauri build",
+    "build": "tauri build --bundles app && bash scripts/make-dmg.sh",
+    "build:bundle": "tauri build",
     "tauri": "tauri"
   },
   "devDependencies": {

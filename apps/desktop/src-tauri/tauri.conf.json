@@ -6,7 +6,7 @@
   "build": {
     "beforeDevCommand": "pnpm --filter @mydevtools/web dev:tauri",
     "devUrl": "http://localhost:3000",
-    "beforeBuildCommand": "node ../../web/scripts/build-tauri.mjs",
+    "beforeBuildCommand": "node ../web/scripts/build-tauri.mjs",
     "frontendDist": "../../web/out"
   },
   "app": {
