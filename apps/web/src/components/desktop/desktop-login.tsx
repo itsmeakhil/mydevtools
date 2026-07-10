@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { Loader2, ExternalLink, WifiOff } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -9,11 +8,9 @@ import { Button } from "@/components/ui/button";
 /**
  * Desktop sign-in panel. OAuth popups don't work in WKWebView, so cloud
  * sign-in opens the system browser (`/login?desktop=1`), which hands a
- * Firebase custom token back through the mydevtools:// deep link. The user
- * can also continue fully offline with the local vault.
+ * Firebase custom token back through the loopback callback.
  */
 export function DesktopLogin() {
-  const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [online, setOnline] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -46,10 +43,6 @@ export function DesktopLogin() {
     }
   };
 
-  const continueOffline = () => {
-    router.replace("/dashboard");
-  };
-
   return (
     <div className="flex w-full flex-col gap-3">
       <Button className="h-11 w-full text-base" onClick={() => void signIn()} disabled={busy || !online}>
@@ -75,17 +68,8 @@ export function DesktopLogin() {
 
       {error && <p className="text-center text-xs text-destructive">{error}</p>}
 
-      <div className="relative my-1 flex items-center">
-        <span className="h-px flex-1 bg-border/60" />
-        <span className="px-3 text-xs text-muted-foreground">or</span>
-        <span className="h-px flex-1 bg-border/60" />
-      </div>
-
-      <Button variant="outline" className="h-11 w-full" onClick={continueOffline} disabled={busy}>
-        Continue without signing in
-      </Button>
       <p className="mt-1 text-center text-xs text-muted-foreground">
-        Your data stays on this Mac. Sign in any time from Settings to sync.
+        Your data is encrypted and stays on this Mac.
       </p>
     </div>
   );
