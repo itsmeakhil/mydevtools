@@ -45,7 +45,9 @@ export function DesktopLogin() {
 
   return (
     <div className="flex w-full flex-col gap-3">
-      <Button className="h-11 w-full text-base" onClick={() => void signIn()} disabled={busy || !online}>
+      {/* Stays clickable while waiting so a stalled attempt can be retried
+          (each click opens a fresh browser handoff; old waits time out). */}
+      <Button className="h-11 w-full text-base" onClick={() => void signIn()} disabled={!online}>
         {busy ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -58,6 +60,12 @@ export function DesktopLogin() {
           </>
         )}
       </Button>
+
+      {busy && (
+        <p className="text-center text-xs text-muted-foreground">
+          Finish signing in in your browser, then return here. Click again to restart.
+        </p>
+      )}
 
       {!online && (
         <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
