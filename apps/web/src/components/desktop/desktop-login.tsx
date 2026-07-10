@@ -16,6 +16,7 @@ export function DesktopLogin() {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [online, setOnline] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setOnline(navigator.onLine);
@@ -32,12 +33,16 @@ export function DesktopLogin() {
 
   const signIn = async () => {
     setBusy(true);
+    setError(null);
     try {
       const { startCloudSignIn } = await import("@/lib/desktop/cloud-signin");
+      // Resolves once the browser hands the token back and the session is set;
+      // DesktopInit then routes to /dashboard.
       await startCloudSignIn();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Sign-in failed. Please try again.");
     } finally {
-      // Leave the spinner up briefly; the deep-link callback will navigate away.
-      setTimeout(() => setBusy(false), 4000);
+      setBusy(false);
     }
   };
 
@@ -67,6 +72,8 @@ export function DesktopLogin() {
           You&apos;re offline — sign-in needs a connection.
         </p>
       )}
+
+      {error && <p className="text-center text-xs text-destructive">{error}</p>}
 
       <div className="relative my-1 flex items-center">
         <span className="h-px flex-1 bg-border/60" />

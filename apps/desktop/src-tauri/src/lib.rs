@@ -59,6 +59,13 @@ fn http_request_stream_cancel(id: u64) {
     http::proxy::cancel_stream(id);
 }
 
+#[tauri::command]
+async fn await_browser_auth(
+    port_channel: tauri::ipc::Channel<serde_json::Value>,
+) -> Result<String, String> {
+    http::auth_server::await_browser_auth(port_channel).await
+}
+
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_deep_link::init())
@@ -78,7 +85,8 @@ pub fn run() {
             clear_remote_session,
             http_request,
             http_request_stream,
-            http_request_stream_cancel
+            http_request_stream_cancel,
+            await_browser_auth
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

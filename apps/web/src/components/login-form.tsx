@@ -70,13 +70,17 @@ function WebLoginForm() {
       typeof window !== "undefined" ? window.location.search : ""
     )
     // Desktop-app sign-in handoff: mint a Firebase custom token and hand it
-    // to the app via the mydevtools:// deep link.
+    // back to the app — via the loopback callback port (?cb=) when present
+    // (works in dev + packaged), else the mydevtools:// deep link.
     if (params.get("desktop") === "1") {
       try {
         const res = await backendFetch("/api/backend/auth/desktop-token", { method: "POST" })
         if (res.ok) {
           const { token: desktopToken } = (await res.json()) as { token: string }
-          window.location.href = `mydevtools://auth?token=${encodeURIComponent(desktopToken)}`
+          const cb = params.get("cb")
+          window.location.href = cb
+            ? `http://127.0.0.1:${cb}/callback?token=${encodeURIComponent(desktopToken)}`
+            : `mydevtools://auth?token=${encodeURIComponent(desktopToken)}`
           toast.success("Signed in — returning to the MyDevTools app…")
         } else {
           toast.error("Could not hand off sign-in to the desktop app")
