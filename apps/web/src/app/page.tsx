@@ -34,6 +34,7 @@ import {
   Building2,
   Check,
 } from "lucide-react";
+import { isDesktop } from "@/lib/desktop/is-desktop";
 import { sidebarData } from "@/components/sidebar/data/sidebar-data";
 import { homepageFaqItems } from "@/lib/seo/structured-data";
 import MdtAurora from "@/components/mdt-aurora";
@@ -205,6 +206,24 @@ export default function Page() {
   const router = useRouter();
   const goToLogin = () => router.push("/login");
 
+  // Desktop launch: skip the marketing landing. Go straight to the tools if a
+  // cloud session is already active (persisted cookie jar), otherwise show the
+  // sign-in screen.
+  const [desktopRedirecting] = useState(() => isDesktop());
+  useEffect(() => {
+    if (!isDesktop()) return;
+    let cancelled = false;
+    void (async () => {
+      const { checkRemoteSession } = await import("@/lib/desktop/remote");
+      const authed = await checkRemoteSession().catch(() => false);
+      if (cancelled) return;
+      router.replace(authed ? "/dashboard" : "/login");
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [router]);
+
   const reduceMotion = useReducedMotion();
   const [githubStars, setGithubStars] = useState<number | null>(null);
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);
@@ -239,6 +258,12 @@ export default function Page() {
       })
       .catch(() => {});
   }, []);
+
+  // On desktop we never render the marketing landing — hold a blank screen
+  // while the launch redirect resolves.
+  if (desktopRedirecting) {
+    return <div className="min-h-screen bg-background" />;
+  }
 
   return (
     <div className="dark mdt-deck flex flex-col min-h-screen bg-background text-foreground font-sans">

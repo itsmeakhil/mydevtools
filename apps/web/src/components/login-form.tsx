@@ -20,8 +20,25 @@ import { signInWithPasskey, startConditionalPasskeyAuth } from "@/lib/passkey"
 import { acceptInvitation } from "@/lib/invitations-api"
 import { useWorkspaceStore } from "@/store/workspace-store"
 import { toast } from "sonner";
+import { isDesktop } from "@/lib/desktop/is-desktop";
+import { DesktopLogin } from "@/components/desktop/desktop-login";
 
 export function LoginForm() {
+  // Gate on mount so the statically-exported HTML (window undefined → web form)
+  // doesn't mismatch the desktop client render.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
+  // Desktop (Tauri) can't use OAuth popups in WKWebView — it signs in through
+  // the system browser instead. Web keeps the full provider/passkey flow.
+  if (isDesktop()) {
+    return <DesktopLogin />;
+  }
+  return <WebLoginForm />;
+}
+
+function WebLoginForm() {
   const router = useRouter();
   const [loadingProvider, setLoadingProvider] = useState<"google" | "github" | "passkey" | "">("");
   const [error, setError] = useState("");

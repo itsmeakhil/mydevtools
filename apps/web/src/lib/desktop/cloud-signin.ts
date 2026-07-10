@@ -7,12 +7,12 @@ import { signInWithCustomToken } from "firebase/auth";
 
 import { auth } from "@/database/firebase";
 import { establishBackendSession } from "@/lib/backend-auth";
-import { checkRemoteSession, DESKTOP_WEB_BASE } from "./remote";
+import { checkRemoteSession, desktopWebBase } from "./remote";
 
 /** Open the web login page in the system browser. */
 export async function startCloudSignIn(): Promise<void> {
   const { openUrl } = await import("@tauri-apps/plugin-opener");
-  await openUrl(`${DESKTOP_WEB_BASE}/login?desktop=1`);
+  await openUrl(`${desktopWebBase()}/login?desktop=1`);
 }
 
 async function handleDeepLink(urls: string[]): Promise<void> {
@@ -33,6 +33,11 @@ async function handleDeepLink(urls: string[]): Promise<void> {
     // Refresh workspaces so remote orgs/workspaces appear in the switcher.
     const { useWorkspaceStore } = await import("@/store/workspace-store");
     await useWorkspaceStore.getState().loadFromBackend().catch(() => {});
+    // Signal the app to enter the workspace (DesktopInit routes via Next so
+    // static-export paths resolve correctly).
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("mydevtools:desktop-authed"));
+    }
   }
 }
 

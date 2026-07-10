@@ -10,9 +10,21 @@ export const DESKTOP_BACKEND_BASE: string =
   process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
   "http://localhost:8000";
 
-/** Web origin used for the system-browser sign-in flow. */
-export const DESKTOP_WEB_BASE: string =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://mydevtools.tech";
+/**
+ * Web origin the system browser opens for sign-in. In dev the webview is served
+ * over http(s) (localhost:3000) and shares the same backend — reuse that origin
+ * so the minted token validates. The packaged app runs on tauri://localhost, so
+ * it falls back to the configured public site.
+ */
+export function desktopWebBase(): string {
+  if (typeof window !== "undefined") {
+    const origin = window.location.origin;
+    if (origin.startsWith("http://") || origin.startsWith("https://")) {
+      return origin;
+    }
+  }
+  return process.env.NEXT_PUBLIC_SITE_URL || "https://mydevtools.tech";
+}
 
 export async function remoteApi(
   method: string,
