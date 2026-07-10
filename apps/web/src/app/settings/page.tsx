@@ -18,6 +18,8 @@ import { COLOR_THEME_OPTIONS, type ColorTheme, useColorTheme } from '@/hooks/use
 import { getToolMessageKey } from '@/lib/tool-i18n'
 import { PasskeySection } from '@/components/settings/passkey-section'
 import { DesktopSyncSettings } from '@/components/desktop/desktop-sync-settings'
+import { DesktopSyncConflicts } from '@/components/desktop/desktop-sync-conflicts'
+import { DesktopBackupSettings } from '@/components/desktop/desktop-backup-settings'
 import { useActiveOrg, useActiveWorkspace } from '@/store/workspace-store'
 import { Briefcase, ChevronRight } from 'lucide-react'
 const colorDisplay: Record<ColorTheme, { swatchClass: string; name: string }> = {
@@ -79,6 +81,10 @@ export default function SettingsPage() {
       <div className="grid gap-6">
 
         <DesktopSyncSettings />
+
+        <DesktopSyncConflicts />
+
+        <DesktopBackupSettings />
 
         <PasskeySection />
 

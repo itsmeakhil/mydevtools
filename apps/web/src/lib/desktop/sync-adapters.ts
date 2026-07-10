@@ -71,17 +71,19 @@ function connectionsAdapter(kind: string, prefix: string): SyncAdapter {
     listPath: `/api/v1/${prefix}/connections`,
     createPath: `/api/v1/${prefix}/connections`,
     createBody: (d) => {
-      const { id: _id, userId: _u, createdAt: _c, lastUsedAt: _l, ...rest } = d;
+      const { id: _id, userId: _u, createdAt: _c, lastUsedAt: _l, updatedAt: _up, ...rest } = d;
       return rest;
     },
     updatePath: (id) => `/api/v1/${prefix}/connections/${id}`,
     updateBody: (d) => {
-      const { id: _id, userId: _u, createdAt: _c, lastUsedAt: _l, ...rest } = d;
+      const { id: _id, userId: _u, createdAt: _c, lastUsedAt: _l, updatedAt: _up, ...rest } = d;
       return rest;
     },
     deletePath: (id) => `/api/v1/${prefix}/connections/${id}`,
     serverAssignsId: true,
-    remoteUpdatedAt: (d) => msOrIso(d.lastUsedAt) || msOrIso(d.createdAt),
+    // updatedAt (content-edit clock) is the reliable LWW signal; fall back to
+    // lastUsedAt/createdAt for legacy docs written before it existed.
+    remoteUpdatedAt: (d) => msOrIso(d.updatedAt) || msOrIso(d.lastUsedAt) || msOrIso(d.createdAt),
   };
 }
 

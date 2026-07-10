@@ -39,3 +39,4 @@ class RedisConnectionOut(BaseModel):
     name: str
     createdAt: int
     lastUsedAt: int
+    updatedAt: int

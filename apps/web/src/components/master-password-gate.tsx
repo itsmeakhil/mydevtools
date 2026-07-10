@@ -36,6 +36,7 @@ import {
     generateBackupCodes,
     encryptWithBackupCode,
     decryptWithBackupCode,
+    backupCodeId,
 } from "@/lib/encryption"
 import { saveMasterKey } from "@/lib/key-storage"
 import {
@@ -234,15 +235,15 @@ export function MasterPasswordGate() {
 
         const normalized = backupCodeInput.trim().toUpperCase().replace(/\s/g, "")
         const stripped = normalized.replace(/-/g, "")
-        const withDashes = `${stripped.slice(0, 6)}-${stripped.slice(6, 12)}-${stripped.slice(12, 18)}`
-        const codeId = withDashes.slice(0, 6)
+        // Must match the storage-side id exactly — both go through backupCodeId.
+        const codeId = backupCodeId(stripped)
 
         setSubmitting(true)
         setError("")
         try {
             const codeData = await lookupBackupCode(codeId)
             const masterPassword = await decryptWithBackupCode(
-                withDashes,
+                stripped,
                 codeData.codeSalt,
                 codeData.encrypted,
                 codeData.iv,

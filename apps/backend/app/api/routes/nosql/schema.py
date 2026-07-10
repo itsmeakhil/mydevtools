@@ -37,3 +37,4 @@ class ConnectionOut(BaseModel):
     name: str
     createdAt: int
     lastUsedAt: int
+    updatedAt: int

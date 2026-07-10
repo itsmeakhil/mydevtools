@@ -189,6 +189,7 @@ pub fn handle_connections(
                 "userId": "desktop-local",
                 "createdAt": now,
                 "lastUsedAt": now,
+                "updatedAt": now,
             });
             merge_patch(&mut doc, &req); // name, encryptedData, iv, type…
             insert_doc(&db, kind, &ws, doc["id"].as_str().unwrap(), &doc)?;
@@ -211,6 +212,10 @@ pub fn handle_connections(
                 }
                 ("PATCH", false) => {
                     merge_patch(&mut doc, &parse_body(body)?);
+                    // updatedAt is the sync LWW clock — a content edit must
+                    // advance it (mirrors the backend). /touch bumps only
+                    // lastUsedAt above, deliberately leaving updatedAt alone.
+                    merge_patch(&mut doc, &json!({ "updatedAt": now_ms() }));
                     save_doc(&db, kind, &ws, id, &doc)?;
                     ApiResponse::ok(&doc)
                 }

@@ -1,4 +1,5 @@
 pub mod api_client;
+pub mod backup;
 pub mod backup_codes;
 pub mod bookmarks;
 pub mod entries;
@@ -68,6 +69,9 @@ pub fn route(state: &AppState, method: &str, full_path: &str, body: Option<&str>
 
     if let Some(rest) = path.strip_prefix("/desktop/sync") {
         return sync::handle(state, method, rest, query, body);
+    }
+    if let Some(rest) = path.strip_prefix("/desktop/backup") {
+        return backup::handle(state, method, rest, body);
     }
 
     if path.starts_with("/api/v1/auth/master-vault") {
@@ -262,6 +266,30 @@ mod tests {
     }
 
     #[test]
+    fn connection_patch_bumps_updated_at_touch_does_not() {
+        let state = AppState::in_memory();
+        let base = "/api/v1/redis-commander/connections";
+        let r = route(&state, "POST", base, Some(r#"{"encryptedData":"E","iv":"I","name":"r"}"#)).unwrap();
+        let created = body_json(&r);
+        let id = created["id"].as_str().unwrap().to_string();
+        let created_updated = created["updatedAt"].as_i64().unwrap();
+        assert!(created_updated > 0, "create sets updatedAt");
+
+        // A content edit advances updatedAt (the LWW clock).
+        let r = route(&state, "PATCH", &format!("{base}/{id}"), Some(r#"{"name":"renamed"}"#)).unwrap();
+        let edited = body_json(&r);
+        assert_eq!(edited["name"], "renamed");
+        assert!(edited["updatedAt"].as_i64().unwrap() >= created_updated);
+
+        // A bare touch bumps lastUsedAt but MUST NOT move updatedAt.
+        let after_edit = edited["updatedAt"].as_i64().unwrap();
+        let r = route(&state, "POST", &format!("{base}/{id}/touch"), None).unwrap();
+        let touched = body_json(&r);
+        assert!(touched["lastUsedAt"].as_i64().unwrap() >= after_edit);
+        assert_eq!(touched["updatedAt"].as_i64().unwrap(), after_edit, "touch leaves updatedAt untouched");
+    }
+
+    #[test]
     fn snippets_dup_id_409() {
         let state = AppState::in_memory();
         let body = r#"{"id":"s1","title":"t","language":"rust","code":"x"}"#;
@@ -426,6 +454,121 @@ mod tests {
         assert!(body_json(&r)[0]["last_synced_at"].is_null());
         let r = route(&state, "GET", "/desktop/sync/settings?workspace_id=local-personal", None).unwrap();
         assert_eq!(body_json(&r)["enabled"], false);
+    }
+
+    #[test]
+    fn sync_conflict_archive_list_dismiss() {
+        let state = AppState::in_memory();
+        // No conflicts initially.
+        let r = route(&state, "GET", "/desktop/sync/conflicts?workspace_id=local-personal", None).unwrap();
+        assert_eq!(body_json(&r).as_array().unwrap().len(), 0);
+
+        // Archive a losing remote version.
+        let body = r#"{"workspace_id":"local-personal","tool_kind":"password_entries","entry_id":"e1",
+            "loser_side":"remote","loser_doc":{"id":"e1","encryptedData":"OLD","iv":"IV"},
+            "loser_updated_at":100,"winner_updated_at":200}"#;
+        let r = route(&state, "POST", "/desktop/sync/conflict", Some(body)).unwrap();
+        assert_eq!(r.status, 200);
+        let cid = body_json(&r)["id"].as_str().unwrap().to_string();
+
+        // It shows up in the open list with the loser doc intact.
+        let r = route(&state, "GET", "/desktop/sync/conflicts?workspace_id=local-personal", None).unwrap();
+        let list = body_json(&r);
+        assert_eq!(list.as_array().unwrap().len(), 1);
+        assert_eq!(list[0]["entry_id"], "e1");
+        assert_eq!(list[0]["loser_side"], "remote");
+        assert_eq!(list[0]["loser_doc"]["encryptedData"], "OLD");
+        assert_eq!(list[0]["winner_updated_at"], 200);
+
+        // Bad side is rejected.
+        let bad = r#"{"workspace_id":"local-personal","tool_kind":"x","entry_id":"e2","loser_side":"nope","loser_doc":{}}"#;
+        assert_eq!(route(&state, "POST", "/desktop/sync/conflict", Some(bad)).unwrap().status, 422);
+
+        // Dismiss removes it from the open list.
+        let dismiss = format!(r#"{{"id":"{cid}"}}"#);
+        assert_eq!(route(&state, "POST", "/desktop/sync/conflicts/dismiss", Some(&dismiss)).unwrap().status, 200);
+        let r = route(&state, "GET", "/desktop/sync/conflicts?workspace_id=local-personal", None).unwrap();
+        assert_eq!(body_json(&r).as_array().unwrap().len(), 0);
+        // Dismissing again is a 404.
+        assert_eq!(route(&state, "POST", "/desktop/sync/conflicts/dismiss", Some(&dismiss)).unwrap().status, 404);
+    }
+
+    #[test]
+    fn sync_conflict_restore_reapplies_loser() {
+        let state = AppState::in_memory();
+        // Seed a synced entry (the current "winner").
+        let body = r#"{"workspace_id":"local-personal","tool_kind":"password_entries","id":"e1","action":"apply-remote","doc":{"id":"e1","encryptedData":"WINNER","iv":"IV","updatedAt":500},"updated_at":500}"#;
+        route(&state, "POST", "/desktop/sync/resolve", Some(body)).unwrap();
+
+        // Archive the losing local version.
+        let conflict = r#"{"workspace_id":"local-personal","tool_kind":"password_entries","entry_id":"e1",
+            "loser_side":"local","loser_doc":{"id":"e1","encryptedData":"LOSER","iv":"IV","updatedAt":400},
+            "loser_updated_at":400,"winner_updated_at":500}"#;
+        let r = route(&state, "POST", "/desktop/sync/conflict", Some(conflict)).unwrap();
+        let cid = body_json(&r)["id"].as_str().unwrap().to_string();
+
+        // Restore: the loser becomes the live doc, dirty and re-clocked.
+        let restore = format!(r#"{{"id":"{cid}"}}"#);
+        let r = route(&state, "POST", "/desktop/sync/conflicts/restore", Some(&restore)).unwrap();
+        assert_eq!(r.status, 200);
+        let r = route(&state, "GET", "/api/v1/password-manager/entries", None).unwrap();
+        let entry = &body_json(&r)[0];
+        assert_eq!(entry["encryptedData"], "LOSER");
+        assert!(entry["updatedAt"].as_i64().unwrap() > 500, "clock bumped forward");
+
+        // Row is dirty again so it re-syncs, and the conflict is resolved.
+        let r = route(&state, "GET", "/desktop/sync/rows?workspace_id=local-personal&tool_kind=password_entries", None).unwrap();
+        assert_eq!(body_json(&r)[0]["dirty"], true);
+        let r = route(&state, "GET", "/desktop/sync/conflicts?workspace_id=local-personal", None).unwrap();
+        assert_eq!(body_json(&r).as_array().unwrap().len(), 0);
+        // Restoring a resolved conflict is a 404.
+        assert_eq!(route(&state, "POST", "/desktop/sync/conflicts/restore", Some(&restore)).unwrap().status, 404);
+    }
+
+    #[test]
+    fn backup_export_import_roundtrip() {
+        let src = AppState::in_memory();
+        // Seed an entry + a configured master vault.
+        let r = route(&src, "POST", "/api/v1/password-manager/entries", Some(r#"{"encryptedData":"SECRET","iv":"IV"}"#)).unwrap();
+        let id = body_json(&r)["id"].as_str().unwrap().to_string();
+        let vault = r#"{"salt":"c2FsdA==","verifier":{"encrypted":"ZW5j","iv":"aXY="}}"#;
+        route(&src, "POST", "/api/v1/auth/master-vault", Some(vault)).unwrap();
+
+        // Export the dump.
+        let r = route(&src, "GET", "/desktop/backup/export", None).unwrap();
+        assert_eq!(r.status, 200);
+        let dump = body_json(&r);
+        assert_eq!(dump["version"], 1);
+        assert_eq!(dump["entries"].as_array().unwrap().len(), 1);
+        // Envelope tools keep the secret in meta_json (encrypted_data column is unused).
+        assert!(dump["entries"][0]["meta_json"].as_str().unwrap().contains("SECRET"));
+        assert!(dump["kv"]["master_vault"].is_string());
+        let dump_str = r.body;
+
+        // Import into a fresh machine → entry + master vault land.
+        let dst = AppState::in_memory();
+        let r = route(&dst, "POST", "/desktop/backup/import", Some(&dump_str)).unwrap();
+        assert_eq!(r.status, 200);
+        assert_eq!(body_json(&r)["imported"], 1);
+        assert!(body_json(&r)["kv_imported"].as_u64().unwrap() >= 1);
+        let r = route(&dst, "GET", "/api/v1/password-manager/entries", None).unwrap();
+        assert_eq!(body_json(&r)[0]["id"], id);
+        assert_eq!(body_json(&r)[0]["encryptedData"], "SECRET");
+        // Restored row is dirty (re-syncs if sync is later enabled).
+        let r = route(&dst, "GET", "/desktop/sync/rows?workspace_id=local-personal&tool_kind=password_entries", None).unwrap();
+        assert_eq!(body_json(&r)[0]["dirty"], true);
+        let r = route(&dst, "GET", "/api/v1/auth/master-vault", None).unwrap();
+        assert_eq!(body_json(&r)["salt"], "c2FsdA==");
+
+        // Re-importing must NOT clobber an existing (different) master vault.
+        let other = r#"{"version":1,"created_at":0,"entries":[],"kv":{"master_vault":"{\"salt\":\"T1RIRVI=\"}"}}"#;
+        route(&dst, "POST", "/desktop/backup/import", Some(other)).unwrap();
+        let r = route(&dst, "GET", "/api/v1/auth/master-vault", None).unwrap();
+        assert_eq!(body_json(&r)["salt"], "c2FsdA==", "existing vault preserved");
+
+        // Bad version rejected.
+        let r = route(&dst, "POST", "/desktop/backup/import", Some(r#"{"version":99,"entries":[]}"#)).unwrap();
+        assert_eq!(r.status, 422);
     }
 
     #[test]

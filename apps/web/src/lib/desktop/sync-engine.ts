@@ -50,6 +50,41 @@ export async function setSyncEnabled(enabled: boolean): Promise<void> {
   if (enabled) void syncNow();
 }
 
+/** A discarded version preserved when two devices edited the same row. */
+export type SyncConflict = {
+  id: string;
+  tool_kind: string;
+  entry_id: string;
+  loser_side: "local" | "remote";
+  loser_doc: Record<string, unknown>;
+  loser_updated_at: number;
+  winner_updated_at: number;
+  created_at: number;
+};
+
+/** Open (unreviewed) sync conflicts, newest first. */
+export async function listConflicts(): Promise<SyncConflict[]> {
+  return localJson<SyncConflict[]>(
+    "GET",
+    `/desktop/sync/conflicts?workspace_id=${LOCAL_WS}`
+  );
+}
+
+/** Mark a conflict reviewed so it drops off the open list (kept for audit). */
+export async function dismissConflict(id: string): Promise<void> {
+  await localJson("POST", "/desktop/sync/conflicts/dismiss", { id });
+}
+
+/**
+ * Restore the discarded version: re-applies it locally as a fresh edit (so it
+ * wins the next round), resolves the conflict, and kicks a sync + refresh.
+ */
+export async function restoreConflict(id: string): Promise<void> {
+  await localJson("POST", "/desktop/sync/conflicts/restore", { id });
+  window.dispatchEvent(new CustomEvent("mydevtools:desktop-data-mutated"));
+  void syncNow();
+}
+
 /** Find the user's remote personal workspace id (requires cloud session). */
 async function remotePersonalWorkspaceId(): Promise<string | null> {
   const res = await remoteApiAuthed("GET", "/api/v1/workspaces-api/workspaces");
@@ -96,10 +131,54 @@ async function resolve(
   });
 }
 
-async function pushRow(adapter: SyncAdapter, row: SyncRow): Promise<void> {
+/**
+ * Persist the losing side of a concurrent edit so LWW never destroys data.
+ * Fire-and-forget: a failure to archive must not abort the sync round (the
+ * winning value still syncs), but we surface it so it's not silent.
+ */
+async function archiveConflict(
+  kind: string,
+  entryId: string,
+  loserDoc: Record<string, unknown>,
+  loserSide: "local" | "remote",
+  loserUpdatedAt: number,
+  winnerUpdatedAt: number
+): Promise<void> {
+  try {
+    await localJson("POST", "/desktop/sync/conflict", {
+      workspace_id: LOCAL_WS,
+      tool_kind: kind,
+      entry_id: entryId,
+      loser_side: loserSide,
+      loser_doc: loserDoc,
+      loser_updated_at: loserUpdatedAt,
+      winner_updated_at: winnerUpdatedAt,
+    });
+    window.dispatchEvent(new CustomEvent("mydevtools:desktop-conflict"));
+  } catch (e) {
+    console.warn(`[sync] failed to archive ${kind} conflict for ${entryId}:`, e);
+  }
+}
+
+async function pushRow(
+  adapter: SyncAdapter,
+  row: SyncRow,
+  remoteBefore: Map<string, Record<string, unknown>> | null
+): Promise<void> {
   const id = row.id;
+  const syncedAt = row.last_synced_at ?? 0;
+  // A remote copy whose updatedAt advanced past our last sync means another
+  // device edited this row while we were away — a true concurrent conflict.
+  const remoteDoc = remoteBefore?.get(id);
+  const remoteTs = remoteDoc ? adapter.remoteUpdatedAt(remoteDoc) : 0;
+  const remoteChangedSinceSync = remoteTs > 0 && remoteTs > syncedAt;
+
   if (row.deleted_at !== null) {
     if (row.last_synced_at !== null) {
+      // Local delete would wipe a remote edit we never saw — archive it first.
+      if (remoteChangedSinceSync && remoteDoc) {
+        await archiveConflict(adapter.kind, id, remoteDoc, "remote", remoteTs, row.updated_at);
+      }
       const res = await remoteApiAuthed("DELETE", adapter.deletePath(id));
       if (res.status >= 500) throw new Error(`remote delete failed (${res.status})`);
       // 2xx or 404 both mean the entry is gone remotely.
@@ -133,6 +212,24 @@ async function pushRow(adapter: SyncAdapter, row: SyncRow): Promise<void> {
     await resolve(adapter.kind, id, "mark-synced"); // immutable kind (history)
     return;
   }
+  // Edit-vs-edit: both sides changed this row since our last sync. Keep
+  // last-writer-wins on updatedAt, but never destroy the loser — archive it.
+  if (remoteChangedSinceSync && remoteDoc) {
+    if (row.updated_at >= remoteTs) {
+      // Local is newer → local wins; the remote version is the loser.
+      await archiveConflict(adapter.kind, id, remoteDoc, "remote", remoteTs, row.updated_at);
+      // fall through and PATCH the local version over remote
+    } else {
+      // Remote is newer → remote wins; keep our local edit as the loser and
+      // adopt the remote version locally instead of pushing.
+      await archiveConflict(adapter.kind, id, row.doc, "local", row.updated_at, remoteTs);
+      await resolve(adapter.kind, id, "apply-remote", {
+        doc: remoteDoc,
+        updated_at: remoteTs || undefined,
+      });
+      return;
+    }
+  }
   const body = adapter.updateBody ? adapter.updateBody(row.doc) : row.doc;
   const res = await remoteApiAuthed("PATCH", adapter.updatePath(id), JSON.stringify(body));
   if (res.status === 404) {
@@ -158,9 +255,22 @@ async function syncTool(adapter: SyncAdapter): Promise<void> {
     `/desktop/sync/rows?workspace_id=${LOCAL_WS}&tool_kind=${adapter.kind}`
   );
 
-  // 1. Push all dirty rows.
+  // Snapshot remote BEFORE pushing so we can detect rows another device changed
+  // since our last sync. Best-effort: if it fails we push without conflict
+  // detection (pull below still fetches the live list).
+  let remoteBefore: Map<string, Record<string, unknown>> | null = null;
+  try {
+    const list = await fetchRemoteList(adapter);
+    remoteBefore = new Map(
+      list.filter((d) => typeof d.id === "string").map((d) => [d.id as string, d])
+    );
+  } catch {
+    remoteBefore = null;
+  }
+
+  // 1. Push all dirty rows (conflict-aware).
   for (const row of rows.filter((r) => r.dirty)) {
-    await pushRow(adapter, row);
+    await pushRow(adapter, row, remoteBefore);
   }
 
   // 2. Pull: reconcile against the full remote list.

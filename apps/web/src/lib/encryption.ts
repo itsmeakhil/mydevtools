@@ -140,14 +140,24 @@ export function generateBackupCodes(count = 8): string[] {
     })
 }
 
+/**
+ * Lookup id for a backup code: the upper-cased, whitespace-and-dash-stripped
+ * first 10 chars (H-7 — 30^10 ≈ 590T possibilities, vs 30^6 ≈ 729M for 6).
+ *
+ * Storage AND lookup MUST derive the id identically, so both call this. They
+ * previously duplicated the logic and drifted (store used 10 chars, unlock used
+ * 6), which silently broke every backup-code recovery.
+ */
+export function backupCodeId(code: string): string {
+    return code.toUpperCase().replace(/\s/g, "").replace(/-/g, "").slice(0, 10)
+}
+
 export async function encryptWithBackupCode(
     code: string,
     masterPassword: string,
 ): Promise<{ codeId: string; codeSalt: string; encrypted: string; iv: string }> {
     const normalized = code.replace(/-/g, "")
-    // H-7 fix: use first 10 chars for codeId (30^10 ≈ 590T possibilities)
-    // instead of 6 chars (30^6 ≈ 729M) to prevent brute-force enumeration.
-    const codeId = normalized.slice(0, 10)
+    const codeId = backupCodeId(code)
     const codeSalt = await generateSalt()
     const key = await deriveKey(normalized, codeSalt)
     const { encrypted, iv } = await encryptData(key, masterPassword)

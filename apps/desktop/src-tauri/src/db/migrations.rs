@@ -34,6 +34,25 @@ const MIGRATIONS: &[&str] = &[
       PRIMARY KEY (workspace_id, tool_kind)
     );
     ",
+    // v2 — conflict archive. When two devices edit the same row while offline,
+    // sync keeps applying last-writer-wins but stores the LOSING version here so
+    // nothing is ever silently destroyed. `loser_doc` is the raw doc as stored
+    // (opaque {encryptedData, iv} for credential tools — Rust never decrypts).
+    "
+    CREATE TABLE conflicts (
+      id                TEXT PRIMARY KEY,
+      tool_kind         TEXT NOT NULL,
+      workspace_id      TEXT NOT NULL,
+      entry_id          TEXT NOT NULL,
+      loser_side        TEXT NOT NULL,   -- 'local' | 'remote'
+      loser_doc         TEXT NOT NULL,
+      loser_updated_at  INTEGER NOT NULL,
+      winner_updated_at INTEGER NOT NULL,
+      created_at        INTEGER NOT NULL,
+      resolved_at       INTEGER          -- set when the user dismisses/keeps
+    );
+    CREATE INDEX idx_conflicts_open ON conflicts(created_at) WHERE resolved_at IS NULL;
+    ",
 ];
 
 pub fn run(conn: &Connection) -> Result<()> {
