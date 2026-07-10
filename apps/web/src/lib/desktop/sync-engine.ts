@@ -199,6 +199,43 @@ async function syncTool(adapter: SyncAdapter): Promise<void> {
   }
 }
 
+/**
+ * Sync the user-preferences singleton (kv-backed, not in the entries table).
+ * Container-level last-writer-wins on `updatedAt`: whichever side is newer
+ * PATCHes the whole editable preferences object onto the other. A fresh local
+ * baseline has updatedAt=0 so the cloud copy wins until the user changes a pref.
+ */
+const PREF_FIELDS = [
+  "theme",
+  "accentColor",
+  "locale",
+  "enabledTools",
+  "toolFavorites",
+  "pinnedToolsByWorkspace",
+  "toolStats",
+] as const;
+
+async function syncPreferences(): Promise<void> {
+  const PATH = "/api/v1/user-preferences";
+  const local = await localJson<Record<string, unknown>>("GET", PATH);
+  const remoteRes = await remoteApiAuthed("GET", PATH);
+  if (remoteRes.status < 200 || remoteRes.status >= 300) return;
+  const remote = JSON.parse(remoteRes.body || "{}") as Record<string, unknown>;
+
+  const localTs = Number(local?.updatedAt ?? 0);
+  const remoteTs = Number(remote?.updatedAt ?? 0);
+  if (localTs === remoteTs) return;
+
+  const pick = (o: Record<string, unknown>) =>
+    Object.fromEntries(PREF_FIELDS.filter((k) => k in o).map((k) => [k, o[k]]));
+
+  if (localTs > remoteTs) {
+    await remoteApiAuthed("PATCH", PATH, JSON.stringify(pick(local)));
+  } else {
+    await localJson("PATCH", PATH, pick(remote));
+  }
+}
+
 /** Run one full sync round. Safe to call repeatedly; rounds never overlap. */
 export async function syncNow(): Promise<void> {
   if (running) return;
@@ -218,6 +255,11 @@ export async function syncNow(): Promise<void> {
       } catch (e) {
         console.warn(`[sync] ${adapter.kind} round failed:`, e);
       }
+    }
+    try {
+      await syncPreferences();
+    } catch (e) {
+      console.warn("[sync] preferences round failed:", e);
     }
     window.dispatchEvent(new CustomEvent("mydevtools:desktop-synced"));
   } finally {

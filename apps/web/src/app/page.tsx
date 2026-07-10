@@ -206,22 +206,19 @@ export default function Page() {
   const router = useRouter();
   const goToLogin = () => router.push("/login");
 
-  // Desktop launch: skip the marketing landing. Go straight to the tools if a
-  // cloud session is already active (persisted cookie jar), otherwise show the
-  // sign-in screen.
+  // Desktop launch: offline-first. The local master password is the real gate
+  // (MasterPasswordGate mounts inside /app), so always go straight to the tools
+  // — never block on the network. A background session probe just populates
+  // hasRemoteSession() for the sync engine and the "Sign in to sync" CTA; it
+  // must NOT influence routing, or an offline / signed-in-then-offline user
+  // would be bounced to /login.
   const [desktopRedirecting] = useState(() => isDesktop());
   useEffect(() => {
     if (!isDesktop()) return;
-    let cancelled = false;
-    void (async () => {
-      const { checkRemoteSession } = await import("@/lib/desktop/remote");
-      const authed = await checkRemoteSession().catch(() => false);
-      if (cancelled) return;
-      router.replace(authed ? "/dashboard" : "/login");
-    })();
-    return () => {
-      cancelled = true;
-    };
+    router.replace("/dashboard");
+    void import("@/lib/desktop/remote").then(({ checkRemoteSession }) =>
+      checkRemoteSession().catch(() => false)
+    );
   }, [router]);
 
   const reduceMotion = useReducedMotion();

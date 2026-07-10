@@ -14,6 +14,7 @@ import {
 } from "@tabler/icons-react"
 import { Bookmark, useBookmarkStore } from "@/store/bookmark-store"
 import { getFaviconUrl, getDomainFromUrl } from "@/lib/favicon-utils"
+import { useFaviconSrc } from "@/lib/desktop/use-favicon"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -70,7 +71,9 @@ export default function BookmarkCard({
     const { copyToClipboard } = useCopyToClipboard()
 
     const folder = folders.find(f => f.id === bookmark.folderId)
-    const faviconUrl = getFaviconUrl(bookmark.url)
+    // Desktop routes the favicon through the Rust proxy (data URL) and returns
+    // null offline; web uses the service URL directly.
+    const faviconUrl = useFaviconSrc(getFaviconUrl(bookmark.url))
     const domain = getDomainFromUrl(bookmark.url)
 
     const handleOpenLink = useCallback(() => {
@@ -144,7 +147,7 @@ export default function BookmarkCard({
                     )}
                     {/* Favicon */}
                     <div className="h-8 w-8 rounded-lg bg-muted flex items-center justify-center overflow-hidden shrink-0">
-                        {!imageError ? (
+                        {faviconUrl && !imageError ? (
                             <img
                                 src={faviconUrl}
                                 alt=""
@@ -261,7 +264,7 @@ export default function BookmarkCard({
                         "rounded-xl bg-gradient-to-br from-muted/50 to-muted/80 flex items-center justify-center overflow-hidden shrink-0 ring-1 ring-border/50 shadow-sm group-hover:scale-105 transition-transform duration-300",
                         isMobile ? "h-11 w-11" : "h-10 w-10"
                     )}>
-                        {!imageError ? (
+                        {faviconUrl && !imageError ? (
                             <img
                                 src={faviconUrl}
                                 alt=""

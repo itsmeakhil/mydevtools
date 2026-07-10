@@ -54,7 +54,6 @@ const DEFAULT_ENABLED_TOOLS: &[&str] = &[
 ];
 
 fn defaults() -> Value {
-    let now = now_ms();
     json!({
         "theme": "system",
         "accentColor": "blue",
@@ -63,8 +62,10 @@ fn defaults() -> Value {
         "toolFavorites": [],
         "pinnedToolsByWorkspace": {},
         "toolStats": {},
-        "createdAt": now,
-        "updatedAt": now,
+        // updatedAt=0 marks an unconfigured (never-persisted) baseline so cloud
+        // sync (LWW) prefers the remote prefs until the user changes one here.
+        "createdAt": 0,
+        "updatedAt": 0,
     })
 }
 
