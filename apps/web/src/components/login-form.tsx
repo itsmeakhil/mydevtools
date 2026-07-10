@@ -13,7 +13,8 @@ import {
 } from "firebase/auth";
 import { auth } from "../database/firebase";
 import { useEffect, useRef, useState } from "react";
-import { backendFetch, establishBackendSession } from "@/lib/backend-auth";
+import { establishBackendSession } from "@/lib/backend-auth";
+import { handoffDesktopToken } from "@/lib/desktop-handoff";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, AlertCircle, Github, Fingerprint } from "lucide-react";
 import { signInWithPasskey, startConditionalPasskeyAuth } from "@/lib/passkey"
@@ -69,25 +70,13 @@ function WebLoginForm() {
     const params = new URLSearchParams(
       typeof window !== "undefined" ? window.location.search : ""
     )
-    // Desktop-app sign-in handoff: mint a Firebase custom token and hand it
-    // back to the app — via the loopback callback port (?cb=) when present
-    // (works in dev + packaged), else the mydevtools:// deep link.
+    // Desktop-app sign-in handoff: mint a token and hand it back to the app
+    // (loopback callback when ?cb= present, else the mydevtools:// deep link).
     if (params.get("desktop") === "1") {
-      try {
-        const res = await backendFetch("/api/backend/auth/desktop-token", { method: "POST" })
-        if (res.ok) {
-          const { token: desktopToken } = (await res.json()) as { token: string }
-          const cb = params.get("cb")
-          window.location.href = cb
-            ? `http://127.0.0.1:${cb}/callback?token=${encodeURIComponent(desktopToken)}`
-            : `mydevtools://auth?token=${encodeURIComponent(desktopToken)}`
-          toast.success("Signed in — returning to the MyDevTools app…")
-        } else {
-          toast.error("Could not hand off sign-in to the desktop app")
-        }
-      } catch {
-        toast.error("Could not hand off sign-in to the desktop app")
-      }
+      const ok = await handoffDesktopToken(window.location.search)
+      toast[ok ? "success" : "error"](
+        ok ? "Signed in — returning to the MyDevTools app…" : "Could not hand off sign-in to the desktop app"
+      )
       return "/dashboard"
     }
 

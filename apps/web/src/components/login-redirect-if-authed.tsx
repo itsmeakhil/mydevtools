@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useAuth from "@/utils/useAuth";
 import { Loader2 } from "lucide-react";
+import { handoffDesktopToken, isDesktopHandoff } from "@/lib/desktop-handoff";
 
 export function LoginRedirectIfAuthed() {
   const { user, loading } = useAuth(false);
@@ -14,10 +15,14 @@ export function LoginRedirectIfAuthed() {
   const isRealUser = !!user && user.uid !== "desktop-local";
 
   useEffect(() => {
-    if (loading) return;
-    if (isRealUser) {
-      router.replace("/dashboard");
+    if (loading || !isRealUser) return;
+    // Desktop sign-in handoff (?desktop=1): an already-signed-in browser must
+    // mint the token and return to the app, NOT bounce to /dashboard.
+    if (isDesktopHandoff(window.location.search)) {
+      void handoffDesktopToken(window.location.search);
+      return;
     }
+    router.replace("/dashboard");
   }, [loading, isRealUser, router]);
 
   if (loading || isRealUser) {
