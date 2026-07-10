@@ -7,6 +7,8 @@ class SessionRequest(BaseModel):
 
     id_token: str = Field(min_length=1)
     check_revoked: bool = True
+    # Desktop app requests a long-lived (60-day) refresh cookie.
+    long_lived: bool = False
 
 
 class SocialLinks(BaseModel):

@@ -8,6 +8,7 @@ from fastapi import APIRouter, BackgroundTasks, Cookie, Depends, Header, HTTPExc
 
 from app.core.limiter import limiter
 from app.core import audit
+from app.core.config import get_settings
 
 from app.api.routes.auth.cookie_attach import attach_auth_cookies, clear_auth_cookies
 from app.api.routes.auth.schema import (
@@ -80,8 +81,16 @@ async def create_session(
 
     access = create_access_token(uid)
     raw_refresh = new_refresh_token()
-    await set_refresh_token_hash(uid, hash_refresh_token(raw_refresh))
-    attach_auth_cookies(response, access, raw_refresh)
+    settings = get_settings()
+    refresh_days = (
+        settings.LONG_LIVED_REFRESH_TOKEN_EXPIRE_DAYS
+        if payload.long_lived
+        else settings.REFRESH_TOKEN_EXPIRE_DAYS
+    )
+    await set_refresh_token_hash(
+        uid, hash_refresh_token(raw_refresh), long_lived=payload.long_lived
+    )
+    attach_auth_cookies(response, access, raw_refresh, refresh_days=refresh_days)
 
     doc = await get_user_doc(uid)
     if not doc:
@@ -132,10 +141,20 @@ async def refresh_session(
             detail="Invalid refresh token.",
         )
 
+    # Preserve the session's long-lived flag across rotation so desktop
+    # sessions keep their 60-day cookie TTL on every refresh.
+    user_doc = await get_user_doc(uid)
+    long_lived = bool(user_doc.get("refresh_long_lived", False)) if user_doc else False
+    settings = get_settings()
+    refresh_days = (
+        settings.LONG_LIVED_REFRESH_TOKEN_EXPIRE_DAYS
+        if long_lived
+        else settings.REFRESH_TOKEN_EXPIRE_DAYS
+    )
     new_raw = new_refresh_token()
-    await set_refresh_token_hash(uid, hash_refresh_token(new_raw))
+    await set_refresh_token_hash(uid, hash_refresh_token(new_raw), long_lived=long_lived)
     access = create_access_token(uid)
-    attach_auth_cookies(response, access, new_raw)
+    attach_auth_cookies(response, access, new_raw, refresh_days=refresh_days)
     audit.set_action("auth.token_refresh")
     audit.set_entity("user", uid)
     audit.set_summary("Refreshed session")

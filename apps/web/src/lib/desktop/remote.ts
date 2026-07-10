@@ -88,7 +88,8 @@ export async function desktopEstablishSession(idToken: string): Promise<void> {
   const res = await remoteApi(
     "POST",
     "/api/v1/auth/session",
-    JSON.stringify({ id_token: idToken, check_revoked: false })
+    // long_lived → 60-day refresh cookie for the desktop app.
+    JSON.stringify({ id_token: idToken, check_revoked: false, long_lived: true })
   );
   if (res.status < 200 || res.status >= 300) {
     setRemoteSession(false);

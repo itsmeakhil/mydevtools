@@ -4,10 +4,16 @@ from app.core.auth_cookies import ACCESS_COOKIE_NAME, REFRESH_COOKIE_NAME
 from app.core.config import get_settings
 
 
-def attach_auth_cookies(response: Response, access: str, refresh_plain: str) -> None:
+def attach_auth_cookies(
+    response: Response,
+    access: str,
+    refresh_plain: str,
+    refresh_days: int | None = None,
+) -> None:
     settings = get_settings()
     access_max = settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60
-    refresh_max = settings.REFRESH_TOKEN_EXPIRE_DAYS * 24 * 3600
+    days = refresh_days if refresh_days is not None else settings.REFRESH_TOKEN_EXPIRE_DAYS
+    refresh_max = days * 24 * 3600
     common: dict = {
         "httponly": True,
         "secure": settings.AUTH_COOKIE_SECURE,

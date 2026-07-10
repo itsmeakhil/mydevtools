@@ -83,12 +83,20 @@ async def update_user_profile(uid: str, updates: dict[str, Any]) -> None:
     await bump_version(ns="auth_user", uid=uid)
 
 
-async def set_refresh_token_hash(uid: str, token_hash: str) -> None:
+async def set_refresh_token_hash(
+    uid: str, token_hash: str, long_lived: bool = False
+) -> None:
     now = create_timestamp()
     await db_manager.update_one(
         USERS,
         {"_id": uid},
-        {"$set": {"refresh_token_hash": token_hash, "updated_at": now}},
+        {
+            "$set": {
+                "refresh_token_hash": token_hash,
+                "refresh_long_lived": long_lived,
+                "updated_at": now,
+            }
+        },
     )
     await bump_version(ns="auth_user", uid=uid)
 
