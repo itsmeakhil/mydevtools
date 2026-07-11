@@ -3,6 +3,7 @@
 import { useEffect, useCallback, useState } from "react"
 import { usePasswordStore } from "@/store/password-store"
 import { checkPasswordsBreached } from "@/lib/hibp"
+import { useOnlineSession } from "@/hooks/use-online-session"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
@@ -26,8 +27,16 @@ export function BreachCheckDialog({ open, onOpenChange }: BreachCheckDialogProps
         clearBreachResults,
     } = usePasswordStore()
 
+    const { online } = useOnlineSession()
+
     const runBreachCheck = useCallback(async () => {
         if (passwords.length === 0) return
+        // Breach check reaches HaveIBeenPwned (via the Rust proxy on desktop) —
+        // needs a connection. Don't attempt it offline.
+        if (typeof navigator !== "undefined" && !navigator.onLine) {
+            setBreachStatus("error")
+            return
+        }
         clearBreachResults()
         setBreachStatus("checking")
         try {
@@ -42,12 +51,12 @@ export function BreachCheckDialog({ open, onOpenChange }: BreachCheckDialogProps
         }
     }, [passwords, clearBreachResults, setBreachStatus, setBreachProgress, setBreachResults])
 
-    // Auto-start check when dialog opens and no results yet
+    // Auto-start check when dialog opens and no results yet (online only)
     useEffect(() => {
-        if (open && breachStatus === "idle") {
+        if (open && breachStatus === "idle" && online) {
             runBreachCheck()
         }
-    }, [open, breachStatus, runBreachCheck])
+    }, [open, breachStatus, online, runBreachCheck])
 
     const breachedEntries = passwords
         .filter((p) => (breachCounts.get(p.id) ?? 0) > 0)
@@ -73,10 +82,15 @@ export function BreachCheckDialog({ open, onOpenChange }: BreachCheckDialogProps
                                 Checks all {passwords.length} passwords against Have I Been Pwned.
                                 Only a 5-char hash prefix is sent — your passwords never leave your browser.
                             </p>
-                            <Button onClick={runBreachCheck} className="gap-2">
+                            <Button onClick={runBreachCheck} className="gap-2" disabled={!online}>
                                 <ShieldX className="h-4 w-4" />
                                 Run Check
                             </Button>
+                            {!online && (
+                                <p className="text-xs text-muted-foreground">
+                                    Needs an internet connection.
+                                </p>
+                            )}
                         </div>
                     )}
 

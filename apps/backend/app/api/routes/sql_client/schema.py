@@ -45,3 +45,4 @@ class SqlConnectionOut(BaseModel):
     type: DbType
     createdAt: int
     lastUsedAt: int
+    updatedAt: int

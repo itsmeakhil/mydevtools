@@ -1,0 +1,93 @@
+mod db;
+mod dbtools;
+mod error;
+mod http;
+mod router;
+mod state;
+
+use http::remote::RemoteResponse;
+use router::ApiResponse;
+use state::AppState;
+use tauri::Manager;
+
+#[tauri::command]
+async fn local_api(
+    state: tauri::State<'_, AppState>,
+    method: String,
+    path: String,
+    body: Option<String>,
+) -> Result<ApiResponse, String> {
+    if dbtools::is_dbtool_path(&path) {
+        return Ok(dbtools::route(&method, &path, body.as_deref()).await);
+    }
+    router::route(&state, &method, &path, body.as_deref()).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+async fn remote_api(
+    state: tauri::State<'_, AppState>,
+    method: String,
+    url: String,
+    body: Option<String>,
+) -> Result<RemoteResponse, String> {
+    http::remote::request(&state, &method, &url, body)
+        .await
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+async fn clear_remote_session(state: tauri::State<'_, AppState>) -> Result<(), String> {
+    let db = state.db.lock().unwrap();
+    state.http.clear_jar(&db).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+async fn http_request(input: serde_json::Value) -> Result<serde_json::Value, String> {
+    Ok(http::proxy::http_request(input).await)
+}
+
+#[tauri::command]
+async fn http_request_stream(
+    input: serde_json::Value,
+    channel: tauri::ipc::Channel<serde_json::Value>,
+) -> Result<u64, String> {
+    http::proxy::http_request_stream(input, channel).await
+}
+
+#[tauri::command]
+fn http_request_stream_cancel(id: u64) {
+    http::proxy::cancel_stream(id);
+}
+
+#[tauri::command]
+async fn await_browser_auth(
+    port_channel: tauri::ipc::Channel<serde_json::Value>,
+) -> Result<String, String> {
+    http::auth_server::await_browser_auth(port_channel).await
+}
+
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_deep_link::init())
+        .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_window_state::Builder::default().build())
+        .setup(|app| {
+            let dir = app.path().app_data_dir()?;
+            std::fs::create_dir_all(&dir)?;
+            let state = AppState::init(dir.join("mydevtools.db"))
+                .map_err(|e| format!("failed to open local database: {e}"))?;
+            app.manage(state);
+            Ok(())
+        })
+        .invoke_handler(tauri::generate_handler![
+            local_api,
+            remote_api,
+            clear_remote_session,
+            http_request,
+            http_request_stream,
+            http_request_stream_cancel,
+            await_browser_auth
+        ])
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}

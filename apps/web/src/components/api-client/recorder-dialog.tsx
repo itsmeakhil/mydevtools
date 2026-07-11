@@ -1,5 +1,6 @@
 "use client"
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import * as React from "react"
 import {
     Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle,
@@ -62,7 +63,7 @@ export function RecorderDialog({ open, onOpenChange }: RecorderDialogProps) {
             session,
             async (req) => {
                 const t0 = performance.now()
-                const res = await fetch("/api/proxy", {
+                const res = await apiFetch("/api/proxy", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({

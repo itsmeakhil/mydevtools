@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -68,7 +69,7 @@ function EntriesPane({ redisUrl, db, streamKey, onRefresh }: Props) {
     const load = useCallback(async () => {
         setLoading(true);
         try {
-            const res = await fetch("/api/redis-commander/streams", {
+            const res = await apiFetch("/api/redis-commander/streams", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -93,7 +94,7 @@ function EntriesPane({ redisUrl, db, streamKey, onRefresh }: Props) {
             return;
         }
         try {
-            const res = await fetch("/api/redis-commander/streams", {
+            const res = await apiFetch("/api/redis-commander/streams", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -113,7 +114,7 @@ function EntriesPane({ redisUrl, db, streamKey, onRefresh }: Props) {
 
     async function deleteEntry(id: string) {
         try {
-            const res = await fetch("/api/redis-commander/streams", {
+            const res = await apiFetch("/api/redis-commander/streams", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -249,7 +250,7 @@ function GroupsPane({ redisUrl, db, streamKey }: Pick<Props, "redisUrl" | "db" |
     const load = useCallback(async () => {
         setLoading(true);
         try {
-            const res = await fetch("/api/redis-commander/streams", {
+            const res = await apiFetch("/api/redis-commander/streams", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

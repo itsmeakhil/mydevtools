@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -65,7 +66,7 @@ export function InfoPane({ redisUrl, db }: Props) {
     const load = useCallback(async () => {
         setLoading(true);
         try {
-            const res = await fetch("/api/redis-commander/info", {
+            const res = await apiFetch("/api/redis-commander/info", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -165,7 +166,7 @@ export function SlowLogPane({ redisUrl, db }: Props) {
     const load = useCallback(async () => {
         setLoading(true);
         try {
-            const res = await fetch("/api/redis-commander/slowlog", {
+            const res = await apiFetch("/api/redis-commander/slowlog", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -185,7 +186,7 @@ export function SlowLogPane({ redisUrl, db }: Props) {
 
     async function reset() {
         try {
-            const res = await fetch("/api/redis-commander/slowlog", {
+            const res = await apiFetch("/api/redis-commander/slowlog", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -272,7 +273,7 @@ export function ClientsPane({ redisUrl, db }: Props) {
     const load = useCallback(async () => {
         setLoading(true);
         try {
-            const res = await fetch("/api/redis-commander/clients", {
+            const res = await apiFetch("/api/redis-commander/clients", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -292,7 +293,7 @@ export function ClientsPane({ redisUrl, db }: Props) {
 
     async function kill(clientId: string) {
         try {
-            const res = await fetch("/api/redis-commander/clients", {
+            const res = await apiFetch("/api/redis-commander/clients", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

@@ -34,6 +34,7 @@ import {
   Building2,
   Check,
 } from "lucide-react";
+import { isDesktop } from "@/lib/desktop/is-desktop";
 import { sidebarData } from "@/components/sidebar/data/sidebar-data";
 import { homepageFaqItems } from "@/lib/seo/structured-data";
 import MdtAurora from "@/components/mdt-aurora";
@@ -205,6 +206,21 @@ export default function Page() {
   const router = useRouter();
   const goToLogin = () => router.push("/login");
 
+  // Desktop launch: offline-first. The local master password is the real gate
+  // (MasterPasswordGate mounts inside /app), so always go straight to the tools
+  // — never block on the network. A background session probe just populates
+  // hasRemoteSession() for the sync engine and the "Sign in to sync" CTA; it
+  // must NOT influence routing, or an offline / signed-in-then-offline user
+  // would be bounced to /login.
+  const [desktopRedirecting] = useState(() => isDesktop());
+  useEffect(() => {
+    if (!isDesktop()) return;
+    router.replace("/dashboard");
+    void import("@/lib/desktop/remote").then(({ checkRemoteSession }) =>
+      checkRemoteSession().catch(() => false)
+    );
+  }, [router]);
+
   const reduceMotion = useReducedMotion();
   const [githubStars, setGithubStars] = useState<number | null>(null);
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);
@@ -239,6 +255,12 @@ export default function Page() {
       })
       .catch(() => {});
   }, []);
+
+  // On desktop we never render the marketing landing — hold a blank screen
+  // while the launch redirect resolves.
+  if (desktopRedirecting) {
+    return <div className="min-h-screen bg-background" />;
+  }
 
   return (
     <div className="dark mdt-deck flex flex-col min-h-screen bg-background text-foreground font-sans">

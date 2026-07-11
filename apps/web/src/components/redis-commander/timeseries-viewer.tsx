@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,7 +22,7 @@ export function TimeSeriesViewer({ redisUrl, db, keyName }: { redisUrl: string; 
     const load = useCallback(async () => {
         setLoading(true);
         try {
-            const res = await fetch("/api/redis-commander/timeseries", {
+            const res = await apiFetch("/api/redis-commander/timeseries", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

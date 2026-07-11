@@ -14,14 +14,32 @@ import {
 import { auth } from "../database/firebase";
 import { useEffect, useRef, useState } from "react";
 import { establishBackendSession } from "@/lib/backend-auth";
+import { handoffDesktopToken } from "@/lib/desktop-handoff";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, AlertCircle, Github, Fingerprint } from "lucide-react";
 import { signInWithPasskey, startConditionalPasskeyAuth } from "@/lib/passkey"
 import { acceptInvitation } from "@/lib/invitations-api"
 import { useWorkspaceStore } from "@/store/workspace-store"
 import { toast } from "sonner";
+import { isDesktop } from "@/lib/desktop/is-desktop";
+import { DesktopLogin } from "@/components/desktop/desktop-login";
 
 export function LoginForm() {
+  // Gate on mount so the statically-exported HTML (window undefined → web form)
+  // doesn't mismatch the desktop client render.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
+  // Desktop (Tauri) can't use OAuth popups in WKWebView — it signs in through
+  // the system browser instead. Web keeps the full provider/passkey flow.
+  if (isDesktop()) {
+    return <DesktopLogin />;
+  }
+  return <WebLoginForm />;
+}
+
+function WebLoginForm() {
   const router = useRouter();
   const [loadingProvider, setLoadingProvider] = useState<"google" | "github" | "passkey" | "">("");
   const [error, setError] = useState("");
@@ -52,6 +70,16 @@ export function LoginForm() {
     const params = new URLSearchParams(
       typeof window !== "undefined" ? window.location.search : ""
     )
+    // Desktop-app sign-in handoff: mint a token and hand it back to the app
+    // (loopback callback when ?cb= present, else the mydevtools:// deep link).
+    if (params.get("desktop") === "1") {
+      const ok = await handoffDesktopToken(window.location.search)
+      toast[ok ? "success" : "error"](
+        ok ? "Signed in — returning to the MyDevTools app…" : "Could not hand off sign-in to the desktop app"
+      )
+      return "/dashboard"
+    }
+
     const token = params.get("invite")
     if (!token) return "/dashboard"
 

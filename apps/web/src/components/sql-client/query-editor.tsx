@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -43,7 +44,7 @@ export function QueryEditor({ tab, connection, onQueryChange, onResult, onClose 
         setIsRunning(true);
         onResult(null, null);
         try {
-            const res = await fetch("/api/sql-client/query", {
+            const res = await apiFetch("/api/sql-client/query", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

@@ -6,6 +6,7 @@ import { PasswordEntry } from "@/store/password-store"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { getFaviconUrl } from "@/lib/password-utils"
+import { FaviconImg } from "@/components/favicon-img"
 import { useState } from "react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useTranslations } from "next-intl"
@@ -96,20 +97,11 @@ export function PasswordItemSwipeable({
                 >
                     {/* Icon */}
                     <div className="h-10 w-10 shrink-0 rounded-lg bg-muted/50 flex items-center justify-center text-primary font-semibold text-base overflow-hidden border border-border/50">
-                        {entry.url && getFaviconUrl(entry.url) ? (
-                            <img
-                                src={getFaviconUrl(entry.url)!}
-                                alt={entry.service}
-                                className="h-6 w-6 object-contain"
-                                onError={(e) => {
-                                    (e.target as HTMLImageElement).style.display = 'none';
-                                    (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
-                                }}
-                            />
-                        ) : null}
-                        <span className={cn(entry.url && getFaviconUrl(entry.url) ? "hidden" : "")}>
-                            {entry.service.charAt(0).toUpperCase()}
-                        </span>
+                        <FaviconImg
+                            serviceUrl={entry.url ? getFaviconUrl(entry.url) : null}
+                            className="h-6 w-6 object-contain"
+                            fallback={<span>{entry.service.charAt(0).toUpperCase()}</span>}
+                        />
                     </div>
 
                     {/* Content */}

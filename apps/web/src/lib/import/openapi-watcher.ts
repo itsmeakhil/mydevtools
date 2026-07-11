@@ -5,6 +5,7 @@
 
 import { importOpenApiSpec } from "./openapi"
 import type { Collection } from "@/components/api-client/types"
+import { isDesktop } from "@/lib/desktop/is-desktop"
 
 export interface OpenApiWatchHandle {
     stop: () => void
@@ -32,10 +33,21 @@ export function watchOpenApi(opts: OpenApiWatchOptions): OpenApiWatchHandle {
 
     const tick = async () => {
         if (cancelled) return
+        // Offline: skip silently (the caller already tolerates missed ticks).
+        if (typeof navigator !== "undefined" && !navigator.onLine) return
         try {
-            const res = await fetch(opts.url)
-            if (!res.ok) throw new Error(`HTTP ${res.status}`)
-            const text = await res.text()
+            let text: string
+            if (isDesktop()) {
+                // Route through the Rust proxy (no CORS, no webview leak).
+                const { proxyGet } = await import("@/lib/desktop/proxy-get")
+                const r = await proxyGet(opts.url)
+                if (!r.ok) throw new Error(`HTTP ${r.status}`)
+                text = r.isBase64 ? atob(r.body) : r.body
+            } else {
+                const res = await fetch(opts.url)
+                if (!res.ok) throw new Error(`HTTP ${res.status}`)
+                text = await res.text()
+            }
             const hash = await sha256Hex(text)
             if (hash !== lastHash) {
                 lastHash = hash

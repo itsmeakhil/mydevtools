@@ -17,6 +17,9 @@ from app.database import db_manager
 def _doc_to_out(doc: dict[str, Any], *, connection_id: str) -> ConnectionOut:
     created_at = int(doc.get("createdAt", 0)) or create_timestamp()
     last_used_at = int(doc.get("lastUsedAt", 0)) or created_at
+    # Content-edit clock for sync LWW. Falls back to lastUsedAt for legacy docs
+    # written before updatedAt existed.
+    updated_at = int(doc.get("updatedAt", 0)) or last_used_at
     return ConnectionOut(
         id=connection_id,
         userId=str(doc.get("created_by", "")),
@@ -25,6 +28,7 @@ def _doc_to_out(doc: dict[str, Any], *, connection_id: str) -> ConnectionOut:
         name=str(doc.get("name", "")),
         createdAt=created_at,
         lastUsedAt=last_used_at,
+        updatedAt=updated_at,
     )
 
 
@@ -52,6 +56,7 @@ async def create_connection(ctx: WorkspaceContext, body: ConnectionCreate) -> Co
         "name": body.name or "My Connection",
         "createdAt": ts,
         "lastUsedAt": ts,
+        "updatedAt": ts,
     }
     try:
         await db_manager.insert_one(NOSQL_CONNECTIONS, doc)
@@ -69,7 +74,9 @@ async def update_connection(ctx: WorkspaceContext, connection_id: str, body: Con
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Connection not found.")
 
     ts = create_timestamp()
-    patch: dict[str, Any] = {"lastUsedAt": ts}
+    # updatedAt is the sync LWW clock — it advances on every content edit (unlike
+    # lastUsedAt, which also moves on a bare connect/touch).
+    patch: dict[str, Any] = {"lastUsedAt": ts, "updatedAt": ts}
     if body.encryptedData is not None:
         patch["encryptedData"] = body.encryptedData
     if body.iv is not None:

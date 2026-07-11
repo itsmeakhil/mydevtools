@@ -7,6 +7,7 @@ import { ContainerNode, EditorState } from "@/components/ui/rich-editor/types";
 import { storage } from "@/database/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import useAuth from "@/utils/useAuth";
+import { isDesktop } from "@/lib/desktop/is-desktop";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import {
@@ -124,6 +125,18 @@ export default function NotionEditor() {
 
     const handleUploadImage = async (file: File): Promise<string> => {
         if (!user) throw new Error(tCtx("authRequiredError"));
+        // Desktop: note images live in Firebase Storage (cloud). Only allow the
+        // upload when the user has turned on Cloud Sync AND is signed in —
+        // otherwise images would leave the machine while data is meant to stay
+        // local. Text notes always work offline.
+        if (isDesktop()) {
+            const { hasRemoteSession } = await import("@/lib/desktop/remote");
+            const { isSyncEnabled } = await import("@/lib/desktop/sync-engine");
+            const allowed = hasRemoteSession() && (await isSyncEnabled());
+            if (user.uid === "desktop-local" || !allowed) {
+                throw new Error("Turn on Cloud Sync to store note images. Text notes stay local.");
+            }
+        }
         const timestamp = Date.now();
         const safeName = sanitizeFileName(file.name);
         const storageRef = ref(storage, `notes/${user.uid}/${activeNoteId}/${timestamp}_${safeName}`);

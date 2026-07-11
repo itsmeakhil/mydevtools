@@ -46,6 +46,8 @@ export interface SavedConnection {
     name: string;
     createdAt: number | FirestoreTimestampLike | null;
     lastUsedAt: number | FirestoreTimestampLike | null;
+    /** Content-edit clock (sync LWW); server-managed. */
+    updatedAt?: number | FirestoreTimestampLike | null;
 }
 
 export interface ConnectionState {

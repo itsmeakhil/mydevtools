@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { useState } from "react";
 import {
     AlertDialog,
@@ -37,7 +38,7 @@ export function BulkDeleteDialog({
         if (!pattern.trim()) return;
         setBusy(true);
         try {
-            const res = await fetch("/api/redis-commander/bulk-delete", {
+            const res = await apiFetch("/api/redis-commander/bulk-delete", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -57,7 +58,7 @@ export function BulkDeleteDialog({
         if (!pattern.trim() || !dryRun) return;
         setBusy(true);
         try {
-            const res = await fetch("/api/redis-commander/bulk-delete", {
+            const res = await apiFetch("/api/redis-commander/bulk-delete", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

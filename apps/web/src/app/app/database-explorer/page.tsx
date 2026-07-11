@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { ConnectionForm } from "@/components/nosql-explorer/connection-form";
@@ -211,7 +212,7 @@ export default function NoSQLExplorerPage() {
         updateTab(tab.id, { loading: true, error: null });
         try {
             const skip = (tab.page - 1) * tab.limit;
-            const res = await fetch("/api/nosql/documents/query", {
+            const res = await apiFetch("/api/nosql/documents/query", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -302,7 +303,7 @@ export default function NoSQLExplorerPage() {
         try {
             const conn = await getConnectionForTab(activeTab);
 
-            const res = await fetch("/api/nosql/documents", {
+            const res = await apiFetch("/api/nosql/documents", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -325,7 +326,7 @@ export default function NoSQLExplorerPage() {
         try {
             const conn = await getConnectionForTab(activeTab);
 
-            const res = await fetch("/api/nosql/documents", {
+            const res = await apiFetch("/api/nosql/documents", {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -355,7 +356,7 @@ export default function NoSQLExplorerPage() {
         try {
             const conn = await getConnectionForTab(activeTab);
 
-            const res = await fetch("/api/nosql/documents", {
+            const res = await apiFetch("/api/nosql/documents", {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -417,7 +418,7 @@ export default function NoSQLExplorerPage() {
         if (!activeTab) return;
         const conn = await getConnectionForTab(activeTab);
 
-        const res = await fetch("/api/nosql/bulk-delete", {
+        const res = await apiFetch("/api/nosql/bulk-delete", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -436,7 +437,7 @@ export default function NoSQLExplorerPage() {
         if (!activeTab) return;
         const conn = await getConnectionForTab(activeTab);
 
-        const res = await fetch("/api/nosql/import", {
+        const res = await apiFetch("/api/nosql/import", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -455,7 +456,7 @@ export default function NoSQLExplorerPage() {
         if (!activeTab) throw new Error("No active tab");
         const conn = await getConnectionForTab(activeTab);
 
-        const res = await fetch("/api/nosql/schema", {
+        const res = await apiFetch("/api/nosql/schema", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -473,7 +474,7 @@ export default function NoSQLExplorerPage() {
         if (!activeTab) throw new Error("No active tab");
         const conn = await getConnectionForTab(activeTab);
 
-        const res = await fetch("/api/nosql/indexes/list", {
+        const res = await apiFetch("/api/nosql/indexes/list", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -491,7 +492,7 @@ export default function NoSQLExplorerPage() {
         if (!activeTab) return;
         const conn = await getConnectionForTab(activeTab);
 
-        const res = await fetch("/api/nosql/indexes", {
+        const res = await apiFetch("/api/nosql/indexes", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -509,7 +510,7 @@ export default function NoSQLExplorerPage() {
         if (!activeTab) return;
         const conn = await getConnectionForTab(activeTab);
 
-        const res = await fetch("/api/nosql/indexes", {
+        const res = await apiFetch("/api/nosql/indexes", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

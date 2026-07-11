@@ -23,7 +23,10 @@ class Settings(BaseSettings):
     )
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int
-    REFRESH_TOKEN_EXPIRE_DAYS: int 
+    REFRESH_TOKEN_EXPIRE_DAYS: int
+    # Long-lived sessions (desktop app): refresh cookie TTL when the client
+    # requests `long_lived`. Decoupled from the web REFRESH_TOKEN_EXPIRE_DAYS.
+    LONG_LIVED_REFRESH_TOKEN_EXPIRE_DAYS: int = 60
     # HttpOnly cookies: use Secure=true over HTTPS (recommended in production).
     AUTH_COOKIE_SECURE: bool = False
 

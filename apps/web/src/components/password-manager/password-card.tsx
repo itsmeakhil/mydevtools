@@ -8,6 +8,7 @@ import { Copy, Eye, EyeOff, Trash2, ExternalLink, Pencil, MoreVertical, Clock, C
 import { computeTotp, decodeBase32Secret, getTotpSecondsRemaining } from "@/lib/totp-compute"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { calculatePasswordStrength, getStrengthColor, getFaviconUrl, getPasswordAgeStatus, getPasswordAgeBadge, getPasswordAgeDateColor } from "@/lib/password-utils"
+import { FaviconImg } from "@/components/favicon-img"
 import { Badge } from "@/components/ui/badge"
 import { formatDistanceToNow } from "date-fns"
 import { cn } from "@/lib/utils"
@@ -117,20 +118,11 @@ export function PasswordCard({
                     <div className="flex justify-between items-start">
                         <div className="flex items-center gap-3.5 overflow-hidden">
                             <div className="h-12 w-12 shrink-0 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center text-primary font-bold text-xl select-none shadow-sm ring-1 ring-inset ring-primary/10 group-hover:ring-primary/20 group-hover:scale-105 transition-all duration-300 overflow-hidden">
-                                {entry.url && getFaviconUrl(entry.url) ? (
-                                    <img
-                                        src={getFaviconUrl(entry.url)!}
-                                        alt={entry.service}
-                                        className="h-7 w-7 object-contain"
-                                        onError={(e) => {
-                                            (e.target as HTMLImageElement).style.display = 'none';
-                                            (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
-                                        }}
-                                    />
-                                ) : null}
-                                <span className={cn(entry.url && getFaviconUrl(entry.url) ? "hidden" : "")}>
-                                    {entry.service.charAt(0).toUpperCase()}
-                                </span>
+                                <FaviconImg
+                                    serviceUrl={entry.url ? getFaviconUrl(entry.url) : null}
+                                    className="h-7 w-7 object-contain"
+                                    fallback={<span>{entry.service.charAt(0).toUpperCase()}</span>}
+                                />
                             </div>
                             <div className="min-w-0 flex-1">
                                 <CardTitle className="text-lg font-bold truncate tracking-tight">{entry.service}</CardTitle>

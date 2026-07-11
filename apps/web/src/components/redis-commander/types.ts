@@ -49,6 +49,8 @@ export interface SavedRedisConnection {
     folder?: string;
     createdAt: number;
     lastUsedAt: number;
+    /** Content-edit clock (sync LWW); server-managed. */
+    updatedAt?: number;
     /** Populated client-side after decryption — never sent to the server. */
     config?: RedisConnectionConfig;
 }

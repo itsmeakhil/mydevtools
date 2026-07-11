@@ -91,7 +91,69 @@ export function pullSseEvents(buf: string): { events: SseEvent[]; remaining: str
     return { events, remaining: buf.slice(cursor) }
 }
 
+/** Desktop: relay the stream through the Rust http_request_stream command. */
+async function streamSseRequestDesktop(args: SseStreamArgs): Promise<void> {
+    const { invoke, Channel } = await import("@tauri-apps/api/core")
+    let buf = ""
+    let streamId: number | null = null
+    let done: () => void = () => {}
+    const finished = new Promise<void>((resolve) => { done = resolve })
+
+    const channel = new Channel<{
+        kind: "meta" | "chunk" | "end" | "error"
+        status?: number
+        statusText?: string
+        headers?: Record<string, string>
+        data?: string
+        message?: string
+    }>()
+    channel.onmessage = (msg) => {
+        if (msg.kind === "meta") {
+            args.onMeta?.({
+                status: msg.status ?? 0,
+                statusText: msg.statusText ?? "",
+                headers: msg.headers ?? {},
+                contentType: msg.headers?.["content-type"] ?? "",
+            })
+        } else if (msg.kind === "chunk") {
+            buf += msg.data ?? ""
+            const { events, remaining } = pullSseEvents(buf)
+            for (const ev of events) args.onEvent(ev)
+            buf = remaining
+        } else {
+            // end or error — flush trailing partial event, then close
+            if (buf.trim()) {
+                const { events } = pullSseEvents(buf + "\n\n")
+                for (const ev of events) args.onEvent(ev)
+                buf = ""
+            }
+            args.onClose?.()
+            done()
+        }
+    }
+
+    args.signal?.addEventListener(
+        "abort",
+        () => {
+            if (streamId !== null) {
+                void invoke("http_request_stream_cancel", { id: streamId })
+            }
+        },
+        { once: true }
+    )
+
+    streamId = await invoke<number>("http_request_stream", {
+        input: { url: args.url, method: args.method, headers: args.headers, body: args.body },
+        channel,
+    })
+    await finished
+}
+
 export async function streamSseRequest(args: SseStreamArgs): Promise<void> {
+    const { isDesktop } = await import("@/lib/desktop/is-desktop")
+    if (isDesktop()) {
+        return streamSseRequestDesktop(args)
+    }
     const res = await fetch("/api/proxy-stream", {
         method: "POST",
         credentials: "include",

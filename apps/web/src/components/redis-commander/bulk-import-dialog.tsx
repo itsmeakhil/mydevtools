@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import React, { useRef, useState } from "react";
 import {
     Dialog,
@@ -57,7 +58,7 @@ export function BulkImportDialog({
         if (!keysToImport) return;
         setBusy(true);
         try {
-            const res = await fetch("/api/redis-commander/import", {
+            const res = await apiFetch("/api/redis-commander/import", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

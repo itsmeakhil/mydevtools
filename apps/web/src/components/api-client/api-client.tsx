@@ -1,5 +1,6 @@
 "use client"
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import * as React from "react"
 import { Card } from "@/components/ui/card"
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable"
@@ -677,7 +678,7 @@ function ApiClientInner() {
 
             // ── SPNEGO / Kerberos branch ─────────────────────────────────
             if (activeTab.auth.type === "spnego" && activeTab.auth.spnego) {
-                const spnegoRes = await fetch("/api/proxy-spnego", {
+                const spnegoRes = await apiFetch("/api/proxy-spnego", {
                     method: "POST",
                     credentials: "include",
                     signal: controller.signal,
@@ -711,7 +712,7 @@ function ApiClientInner() {
             // route the request through the NTLM proxy and skip the streaming
             // branch (NTLM responses are bounded).
             if (activeTab.auth.type === "ntlm" && activeTab.auth.ntlm) {
-                const ntlmRes = await fetch("/api/proxy-ntlm", {
+                const ntlmRes = await apiFetch("/api/proxy-ntlm", {
                     method: "POST",
                     credentials: "include",
                     signal: controller.signal,
@@ -821,7 +822,7 @@ function ApiClientInner() {
             const finalUrlFromPlugins = beforeApplied.req.url
 
             // Send via Proxy
-            const res = await fetch("/api/proxy", {
+            const res = await apiFetch("/api/proxy", {
                 method: "POST",
                 credentials: "include",
                 signal: controller.signal,

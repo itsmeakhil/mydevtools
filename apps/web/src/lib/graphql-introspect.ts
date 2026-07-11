@@ -1,3 +1,4 @@
+import { apiFetch } from "@/lib/desktop/api-fetch";
 /**
  * GraphQL schema introspection helper.
  * Sends the standard introspection query through the existing proxy so it
@@ -60,7 +61,7 @@ export async function fetchGraphQLSchema(args: {
 }): Promise<GraphQLIntrospectionResult> {
     if (!args.url.trim()) throw new Error("GraphQL URL is required")
 
-    const proxyRes = await fetch("/api/proxy", {
+    const proxyRes = await apiFetch("/api/proxy", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

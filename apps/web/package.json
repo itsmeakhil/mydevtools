@@ -13,7 +13,9 @@
     "lint": "eslint .",
     "test": "jest",
     "test:watch": "jest --watch",
-    "clean-install": "rimraf node_modules && pnpm install --filter @mydevtools/web..."
+    "clean-install": "rimraf node_modules && pnpm install --filter @mydevtools/web...",
+    "build:tauri": "node scripts/build-tauri.mjs",
+    "dev:tauri": "NEXT_PUBLIC_TAURI=1 next dev"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -52,6 +54,9 @@
     "@tabler/icons-react": "^3.35.0",
     "@tanstack/react-query": "^5",
     "@tanstack/react-virtual": "^3.14.3",
+    "@tauri-apps/api": "^2.11.1",
+    "@tauri-apps/plugin-deep-link": "^2.4.9",
+    "@tauri-apps/plugin-opener": "^2.5.4",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "bcryptjs": "^3.0.3",

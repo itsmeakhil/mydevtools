@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,7 +30,7 @@ export function SearchWorkbench({ redisUrl, db, onSelectKey }: { redisUrl: strin
     const loadIndexes = useCallback(async () => {
         setBusy(true);
         try {
-            const res = await fetch("/api/redis-commander/search", {
+            const res = await apiFetch("/api/redis-commander/search", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -58,7 +59,7 @@ export function SearchWorkbench({ redisUrl, db, onSelectKey }: { redisUrl: strin
     async function loadInfo() {
         if (!selectedIndex) return;
         try {
-            const res = await fetch("/api/redis-commander/search", {
+            const res = await apiFetch("/api/redis-commander/search", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -76,7 +77,7 @@ export function SearchWorkbench({ redisUrl, db, onSelectKey }: { redisUrl: strin
         if (!selectedIndex || !query.trim()) return;
         setBusy(true);
         try {
-            const res = await fetch("/api/redis-commander/search", {
+            const res = await apiFetch("/api/redis-commander/search", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -97,7 +98,7 @@ export function SearchWorkbench({ redisUrl, db, onSelectKey }: { redisUrl: strin
     async function runExplain() {
         if (!selectedIndex || !query.trim()) return;
         try {
-            const res = await fetch("/api/redis-commander/search", {
+            const res = await apiFetch("/api/redis-commander/search", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

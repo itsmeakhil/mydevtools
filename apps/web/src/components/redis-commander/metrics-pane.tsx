@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { useEffect, useRef, useState } from "react";
 import { Sparkline } from "./sparkline";
 
@@ -40,7 +41,7 @@ export function MetricsPane({ redisUrl, db }: { redisUrl: string; db: number }) 
         let abort = false;
         async function tick() {
             try {
-                const res = await fetch("/api/redis-commander/info", {
+                const res = await apiFetch("/api/redis-commander/info", {
                     method: "POST",
                     credentials: "include",
                     headers: { "Content-Type": "application/json" },

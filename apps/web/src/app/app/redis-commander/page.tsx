@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -145,7 +146,7 @@ export default function RedisCommanderPage() {
         if (!activeTab) return;
         setFlushing(true);
         try {
-            const res = await fetch("/api/redis-commander/flush", {
+            const res = await apiFetch("/api/redis-commander/flush", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

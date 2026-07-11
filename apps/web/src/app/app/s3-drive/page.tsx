@@ -15,8 +15,17 @@ import { FileBrowser } from "@/components/s3-drive/file-browser"
 import { IconBucket, IconCloud, IconArrowRight } from "@tabler/icons-react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { cn } from "@/lib/utils"
+import { DesktopOnlineGate } from "@/components/desktop/desktop-online-gate"
 
 export default function S3DrivePage() {
+    return (
+        <DesktopOnlineGate toolName="S3 Drive">
+            <S3DriveInner />
+        </DesktopOnlineGate>
+    )
+}
+
+function S3DriveInner() {
     const { user, loading: authLoading } = useAuth(true)
     const { encryptionKey } = useMasterKeyStore()
     const { isUnlocked, isRestoring } = useVaultGuard()

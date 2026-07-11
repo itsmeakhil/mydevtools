@@ -22,6 +22,7 @@ import { AddPasswordDialog } from "./add-password-dialog"
 import { PasswordEntry } from "@/store/password-store"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { calculatePasswordStrength, getStrengthColor, getFaviconUrl, getPasswordAgeStatus, getPasswordAgeBadge, getPasswordAgeDateColor } from "@/lib/password-utils"
+import { FaviconImg } from "@/components/favicon-img"
 import { Badge } from "@/components/ui/badge"
 import { formatDistanceToNow } from "date-fns"
 import { ImportExportDialog } from "./import-export-dialog"
@@ -645,20 +646,11 @@ export function PasswordList() {
                                             <TableCell className="font-medium">
                                                 <div className="flex items-center gap-3">
                                                     <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm select-none overflow-hidden">
-                                                        {entry.url && getFaviconUrl(entry.url) ? (
-                                                            <img
-                                                                src={getFaviconUrl(entry.url)!}
-                                                                alt={entry.service}
-                                                                className="h-5 w-5 object-contain"
-                                                                onError={(e) => {
-                                                                    (e.target as HTMLImageElement).style.display = 'none';
-                                                                    (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
-                                                                }}
-                                                            />
-                                                        ) : null}
-                                                        <span className={cn(entry.url && getFaviconUrl(entry.url) ? "hidden" : "")}>
-                                                            {entry.service.charAt(0).toUpperCase()}
-                                                        </span>
+                                                        <FaviconImg
+                                                            serviceUrl={entry.url ? getFaviconUrl(entry.url) : null}
+                                                            className="h-5 w-5 object-contain"
+                                                            fallback={<span>{entry.service.charAt(0).toUpperCase()}</span>}
+                                                        />
                                                     </div>
                                                     <div className="flex flex-col">
                                                         <span className="truncate font-medium">{entry.service}</span>

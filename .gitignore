@@ -74,4 +74,6 @@ apps/desktop/src-tauri/target/release/
 .claude
 /docs
 
-.superpowers
+.superpowers/apps/desktop/node_modules
+/apps/desktop/src-tauri/target
+/apps/desktop/node_modules

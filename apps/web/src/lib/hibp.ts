@@ -1,3 +1,5 @@
+import { isDesktop } from "@/lib/desktop/is-desktop"
+
 async function sha1Hex(password: string): Promise<string> {
   const encoded = new TextEncoder().encode(password)
   const hashBuffer = await crypto.subtle.digest("SHA-1", encoded)
@@ -12,14 +14,22 @@ export async function checkPasswordBreach(password: string): Promise<number> {
   const hash = await sha1Hex(password)
   const prefix = hash.slice(0, 5)
   const suffix = hash.slice(5)
+  const url = `https://api.pwnedpasswords.com/range/${prefix}`
 
-  const res = await fetch(`https://api.pwnedpasswords.com/range/${prefix}`, {
-    headers: { "Add-Padding": "true" },
-  })
+  // Desktop routes through the Rust proxy (only the k-anonymity SHA-1 prefix
+  // leaves the machine — no plaintext, no user data). Web calls HIBP directly.
+  let text: string
+  if (isDesktop()) {
+    const { proxyGet } = await import("@/lib/desktop/proxy-get")
+    const r = await proxyGet(url, { headers: { "Add-Padding": "true" } })
+    if (!r.ok) throw new Error(`HIBP request failed: ${r.status}`)
+    text = r.isBase64 ? atob(r.body) : r.body
+  } else {
+    const res = await fetch(url, { headers: { "Add-Padding": "true" } })
+    if (!res.ok) throw new Error(`HIBP request failed: ${res.status}`)
+    text = await res.text()
+  }
 
-  if (!res.ok) throw new Error(`HIBP request failed: ${res.status}`)
-
-  const text = await res.text()
   for (const line of text.split("\n")) {
     const [lineSuffix, count] = line.trim().split(":")
     if (lineSuffix === suffix) return parseInt(count, 10)
