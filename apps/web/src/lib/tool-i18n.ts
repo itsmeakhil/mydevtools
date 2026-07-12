@@ -54,6 +54,13 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/ssh-key-generator': 'sshKeyGenerator',
   '/app/break-room/2048': 'game2048',
   '/app/break-room/sudoku': 'sudoku',
+  '/app/curl-to-code': 'curlToCode',
+  '/app/json-to-code': 'jsonToCode',
+  '/app/beautify-minify': 'beautifyMinify',
+  '/app/string-case-converter': 'stringCaseConverter',
+  '/app/line-sort-dedupe': 'lineSortDedupe',
+  '/app/string-inspector': 'stringInspector',
+  '/app/escape-encode': 'escapeEncode',
 };
 
 export function getToolMessageKey(pathname: string): string | undefined {

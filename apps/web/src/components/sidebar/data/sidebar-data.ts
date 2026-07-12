@@ -29,6 +29,7 @@ import {
   IconBrandVscode,
   IconQrcode,
   IconHierarchy2,
+  IconChartDots3,
   IconHash,
   IconCircleKey,
   IconCircleKeyFilled,
@@ -55,6 +56,12 @@ import {
   IconBucket,
   IconBrandRedux,
   IconWorld,
+  IconTerminal2,
+  IconCode,
+  IconLetterCase,
+  IconArrowsSort,
+  IconTextScan2,
+  IconReplace,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -160,10 +167,28 @@ export const sidebarData: SidebarData = {
           description: 'Format, validate, and edit JSON data.',
         },
         {
+          title: 'JSON Visualizer',
+          url: '/app/json-visualizer',
+          icon: IconChartDots3,
+          description: 'Visualize JSON as an interactive node graph with search and image export.',
+        },
+        {
           title: 'JSON Schema Generator',
           url: '/app/json-schema-generator',
           icon: IconBraces,
           description: 'Infer JSON Schema and typed models from sample JSON.',
+        },
+        {
+          title: 'JSON to Code',
+          url: '/app/json-to-code',
+          icon: IconCode,
+          description: 'Generate TypeScript, Go, Rust, Python, and more type models from sample JSON.',
+        },
+        {
+          title: 'Beautify & Minify',
+          url: '/app/beautify-minify',
+          icon: IconWand,
+          description: 'Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown.',
         },
         {
           title: 'SQL Formatter',
@@ -261,6 +286,30 @@ export const sidebarData: SidebarData = {
           icon: IconPhoto,
           description: 'Convert images to Data URI or raw Base64 strings.',
         },
+        {
+          title: 'String Case Converter',
+          url: '/app/string-case-converter',
+          icon: IconLetterCase,
+          description: 'Convert text between camelCase, snake_case, kebab-case, CONSTANT_CASE, and more.',
+        },
+        {
+          title: 'Line Sort & Dedupe',
+          url: '/app/line-sort-dedupe',
+          icon: IconArrowsSort,
+          description: 'Sort, deduplicate, trim, and clean up lists of lines locally.',
+        },
+        {
+          title: 'String Inspector',
+          url: '/app/string-inspector',
+          icon: IconTextScan2,
+          description: 'Count characters, words, bytes, and detect invisible or non-ASCII characters.',
+        },
+        {
+          title: 'Escape / Encode',
+          url: '/app/escape-encode',
+          icon: IconReplace,
+          description: 'Escape and unescape HTML entities, backslash strings, hex, and Unicode.',
+        },
       ],
     },
     {
@@ -345,6 +394,12 @@ export const sidebarData: SidebarData = {
           url: '/app/api-client',
           icon: IconNetwork,
           description: 'Test and debug HTTP requests.',
+        },
+        {
+          title: 'cURL to Code',
+          url: '/app/curl-to-code',
+          icon: IconTerminal2,
+          description: 'Convert a curl command into fetch, axios, Python, Go, and more.',
         },
         {
           title: 'HTTP Status Codes',

@@ -54,16 +54,19 @@ Most developer tools are scattered across dozens of tabs, riddled with ads, or s
 |------|-------------|
 | **📡 API Client** | Test & debug REST APIs with a Postman-like interface — headers, query params, body, response inspector |
 | **🔤 Base64** | Encode and decode Base64 strings with one click |
+| **✨ Beautify & Minify** | Beautify or minify HTML, CSS, JavaScript, XML, and JSON in one tool with a language dropdown |
 | **🔏 Certificate PEM Decoder** | Decode and inspect SSL/TLS certificates from PEM format |
 | **🎨 Color Picker** | Pick, convert, and preview colors across HEX, RGB, HSL formats and more |
 | **♿ Contrast Checker** | Check foreground/background color contrast ratios for WCAG accessibility compliance |
 | **⏰ Cron Builder** | Build and validate cron expressions visually with human-readable output |
 | **📊 CSV / Excel / JSON Converter** | Convert between CSV, Excel, and JSON data formats |
+| **📡 cURL to Code** | Convert a curl command into ready-to-run request code for fetch, axios, Python, Go, PHP, Ruby, Java, and C# |
 | **🔀 Diff Checker** | Side-by-side text diff viewer with inline change highlighting |
 | **🐳 Docker Compose Generator** | Generate `docker-compose.yml` files visually for common service stacks |
 | **📧 Email Validator** | Validate email address format and DNS structure instantly |
 | **🔐 Encryption Playground** | Encrypt and decrypt data with common algorithms (AES, RSA, etc.) |
 | **🌿 Environment Manager** | Manage `.env` files — import, export, diff environments, keep secrets organized |
+| **🔣 Escape / Encode** | Escape and unescape HTML entities, backslash (JS/JSON) strings, hex ↔ ASCII, and Unicode \uXXXX sequences |
 | **🔄 Format Converter** | Convert between data formats like YAML, TOML, JSON, XML, and more |
 | **📊 GraphQL Formatter** | Format and prettify GraphQL queries and schemas |
 | **#️⃣ Hash Generator** | Generate MD5, SHA-1, SHA-256, SHA-512, and other hashes from any input |
@@ -74,8 +77,10 @@ Most developer tools are scattered across dozens of tabs, riddled with ads, or s
 | **🌐 IP Subnet Calculator** | Calculate subnets, CIDR ranges, broadcast addresses, and host counts |
 | **📝 JSON Formatter** | Beautify, validate, minify, and explore JSON with Monaco Editor |
 | **📐 JSON Schema Generator** | Auto-generate JSON Schema from any JSON input instantly |
+| **🧩 JSON to Code** | Generate typed models — TypeScript, Go, Rust, Python, Java, Kotlin, Swift, and JSON Schema — from a sample JSON payload |
 | **🙈 .gitignore Generator** | Generate merged .gitignore files instantly from 500+ tech stacks |
 | **🔑 JWT Decoder** | Decode and inspect JWT tokens — header, payload, and signature at a glance |
+| **📑 Line Sort & Dedupe** | Sort lines alphabetically or by length, remove duplicates, trim whitespace, and clean up lists locally |
 | **📋 Lorem Ipsum Generator** | Generate placeholder text in paragraphs, words, or sentences |
 | **📝 Markdown Preview** | Write Markdown and preview rendered HTML output side-by-side |
 | **📂 MIME Type Lookup** | Look up MIME types by file extension or content type string |
@@ -88,6 +93,8 @@ Most developer tools are scattered across dozens of tabs, riddled with ads, or s
 | **💾 Snippet Manager** | Save, organize, and search code snippets with syntax highlighting |
 | **🛢️ SQL Client** | Connect to SQL databases and run queries with a visual interface |
 | **🛢️ SQL Formatter** | Format and prettify SQL queries with dialect support |
+| **🔡 String Case Converter** | Convert text between camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, Title Case, and more |
+| **🔎 String Inspector** | Count characters, words, lines, and bytes, and reveal invisible or non-ASCII characters with their Unicode code points |
 | **🖌️ SVG Optimizer** | Optimize and minify SVG files while preserving visual output |
 | **⏱️ Timestamp Converter** | Convert Unix timestamps to human-readable dates and vice versa |
 | **🔐 TOTP Generator** | Generate time-based one-time passwords (TOTP/2FA codes) |
