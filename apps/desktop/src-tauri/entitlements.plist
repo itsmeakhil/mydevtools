@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!--
+    Hardened Runtime entitlements (required for notarization). This app is a
+    WKWebView shell (JavaScriptCore JIT) that also makes outbound HTTP requests
+    and runs a loopback server for the browser sign-in callback.
+  -->
+
+  <!-- WKWebView / JavaScriptCore need JIT + writable-executable memory. -->
+  <key>com.apple.security.cs.allow-jit</key>
+  <true/>
+  <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+  <true/>
+
+  <!-- Let the bundled dylibs (SQLCipher/OpenSSL) load under hardened runtime. -->
+  <key>com.apple.security.cs.disable-library-validation</key>
+  <true/>
+
+  <!-- Outbound HTTP (reqwest proxy) + the 127.0.0.1 auth-callback server. -->
+  <key>com.apple.security.network.client</key>
+  <true/>
+  <key>com.apple.security.network.server</key>
+  <true/>
+</dict>
+</plist>
