@@ -394,6 +394,54 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['tetris', 'tetris online', 'classic tetris', 'browser game', 'developer break', 'block puzzle'],
         aiSummary: 'Classic Tetris: arrow keys to move and rotate, Space for hard drop, P to pause. Ghost piece preview, speed increases per level. Best score saved locally.',
     },
+    'curl-to-code': {
+        title: 'cURL to Code',
+        description: 'Convert a curl command into ready-to-run request code for fetch, axios, Python, Go, PHP, Ruby, Java, and C#.',
+        keywords: ['curl to code', 'curl converter', 'curl to fetch', 'curl to python', 'curl to axios', 'curl to go', 'convert curl command'],
+        aiSummary: 'Paste any curl command and get equivalent HTTP request code in JavaScript fetch, axios, Python requests, Go, PHP, Ruby, Java, or C#. Answers "convert curl to code" or "curl to fetch/python". Runs entirely in your browser.',
+    },
+    'json-visualizer': {
+        title: 'JSON Visualizer',
+        description: 'Visualize JSON as an interactive node graph — pan, zoom, collapse, search, view arrays as tables, and export the diagram as PNG or SVG.',
+        keywords: ['json visualizer', 'json viewer online', 'json to graph', 'visualize json', 'json crack alternative', 'json tree viewer', 'json diagram', 'json to table'],
+        aiSummary: 'Paste JSON and see it as an interactive node graph: pan, zoom, expand/collapse subtrees, search keys and values, copy the JSONPath of any node, view arrays of objects as a table, and export the diagram as PNG or SVG. A free JSON Crack alternative with no file-size paywall. Runs entirely in your browser — nothing is uploaded.',
+    },
+    'json-to-code': {
+        title: 'JSON to Code',
+        description: 'Generate typed models — TypeScript, Go, Rust, Python, Java, Kotlin, Swift, and JSON Schema — from a sample JSON payload.',
+        keywords: ['json to code', 'json to typescript', 'json to go struct', 'json to rust', 'json to types', 'quicktype alternative', 'json to class'],
+        aiSummary: 'Turn a sample JSON object into typed models: TypeScript interfaces, Go structs, Rust serde, Python dataclass/Pydantic/TypedDict, Kotlin, Swift, or JSON Schema. Answers "JSON to TypeScript" or "generate types from JSON". Runs in your browser.',
+    },
+    'beautify-minify': {
+        title: 'Beautify & Minify',
+        description: 'Beautify or minify HTML, CSS, JavaScript, XML, and JSON in one tool with a language dropdown.',
+        keywords: ['beautify', 'minify', 'html formatter', 'css minifier', 'js beautifier', 'xml formatter', 'json minify', 'code formatter'],
+        aiSummary: 'One tool to beautify (pretty-print) or minify HTML, CSS, JavaScript, XML, and JSON. Answers "minify CSS online", "beautify HTML", or "format JS". Runs locally in your browser — no upload.',
+    },
+    'string-case-converter': {
+        title: 'String Case Converter',
+        description: 'Convert text between camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, Title Case, and more.',
+        keywords: ['case converter', 'camelcase converter', 'snake case', 'kebab case', 'convert case online', 'string case', 'constant case'],
+        aiSummary: 'Convert any text between camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, dot.case, Title Case, and more — all variants shown at once with copy buttons. Answers "convert to snake_case" or "camelCase converter online".',
+    },
+    'line-sort-dedupe': {
+        title: 'Line Sort & Dedupe',
+        description: 'Sort lines alphabetically or by length, remove duplicates, trim whitespace, and clean up lists locally.',
+        keywords: ['sort lines', 'remove duplicate lines', 'dedupe lines', 'sort list online', 'alphabetize lines', 'unique lines', 'text sorter'],
+        aiSummary: 'Sort lines (A–Z, Z–A, natural, by length, reverse), remove duplicate and empty lines, and trim whitespace in one pass. Answers "sort lines online", "remove duplicate lines", or "alphabetize a list". Runs in your browser.',
+    },
+    'string-inspector': {
+        title: 'String Inspector',
+        description: 'Count characters, words, lines, and bytes, and reveal invisible or non-ASCII characters with their Unicode code points.',
+        keywords: ['character counter', 'word count', 'byte counter', 'string length', 'unicode inspector', 'invisible characters', 'utf-8 bytes'],
+        aiSummary: 'Inspect any string: character, word, line, sentence, and byte (UTF-8) counts plus a table of invisible and non-ASCII characters with Unicode code points. Answers "count characters online" or "find invisible characters".',
+    },
+    'escape-encode': {
+        title: 'Escape / Encode',
+        description: 'Escape and unescape HTML entities, backslash (JS/JSON) strings, hex ↔ ASCII, and Unicode \\uXXXX sequences.',
+        keywords: ['html entity encode', 'html escape', 'backslash escape', 'unescape string', 'hex to ascii', 'unicode escape', 'string escape'],
+        aiSummary: 'One tool to escape or unescape HTML entities, backslash JS/JSON strings, hex ↔ ASCII, and Unicode \\uXXXX. Answers "HTML entity encode", "escape a string", "hex to text", or "unicode escape". Runs in your browser.',
+    },
 }
 
 function toolMetaDescription(tool: ToolMetadataEntry): string {
