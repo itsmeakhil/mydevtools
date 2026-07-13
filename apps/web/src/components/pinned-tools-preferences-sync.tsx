@@ -5,6 +5,11 @@ import useAuth from "@/utils/useAuth"
 import { usePinnedToolsStore } from "@/store/pinned-tools-store"
 import { useWorkspaceStore } from "@/store/workspace-store"
 import { getUserPreferences, patchUserPreferences } from "@/lib/user-preferences-api"
+import { normalizePinnedToolsList } from "@/lib/pinned-tools-path"
+
+// Marks (per uid) that the retired enable/disable list has been folded into
+// pins. Cleared naturally when localStorage is wiped; safe to re-run if so.
+const ENABLED_TO_PINS_FLAG = "enabled-to-pins-migrated:"
 
 /**
  * Invisible component that syncs the workspace-keyed pinned-tools map
@@ -50,27 +55,50 @@ export function PinnedToolsPreferencesSync() {
         const data = await getUserPreferences()
         if (cancelled) return
 
+        // Resolve the starting per-workspace pin map from the server doc,
+        // preferring the keyed shape and falling back to legacy flat favorites.
+        let resolved: Record<string, string[]> = {}
         if (data.pinnedToolsByWorkspace && Object.keys(data.pinnedToolsByWorkspace).length > 0) {
-          // New shape: hydrate every workspace bucket from the keyed map.
-          for (const [wsId, tools] of Object.entries(data.pinnedToolsByWorkspace)) {
-            if (Array.isArray(tools)) {
-              setPinnedTools(wsId, tools)
+          resolved = { ...data.pinnedToolsByWorkspace }
+        } else if (Array.isArray(data.toolFavorites) && data.toolFavorites.length > 0 && activeWorkspaceId) {
+          resolved = { [activeWorkspaceId]: data.toolFavorites }
+        }
+
+        // One-time migration: the enable/disable feature is gone, so fold each
+        // user's retired `enabledTools` list into their active-workspace pins.
+        // Union (not replace) so any tools they'd already pinned are preserved
+        // and nobody's sidebar loses entries in the switchover.
+        const migFlag = ENABLED_TO_PINS_FLAG + user.uid
+        const alreadyMigrated =
+          typeof window !== "undefined" && window.localStorage.getItem(migFlag) === "1"
+        const enabled = Array.isArray(data.enabledTools) ? data.enabledTools : []
+        let didMigrate = false
+        if (!alreadyMigrated && activeWorkspaceId && enabled.length > 0) {
+          const existingActive = resolved[activeWorkspaceId] ?? []
+          const merged = normalizePinnedToolsList([...existingActive, ...enabled])
+          if (merged.length !== existingActive.length) {
+            resolved = { ...resolved, [activeWorkspaceId]: merged }
+            didMigrate = true
+          }
+        }
+
+        // Hydrate the store from the resolved map.
+        for (const [wsId, tools] of Object.entries(resolved)) {
+          if (Array.isArray(tools)) setPinnedTools(wsId, tools)
+        }
+        lastSavedRef.current = JSON.stringify(resolved)
+
+        // Record that migration ran (once per uid) and persist the folded-in
+        // pins so the server reflects them on the next device.
+        if (!alreadyMigrated && typeof window !== "undefined") {
+          window.localStorage.setItem(migFlag, "1")
+          if (didMigrate) {
+            try {
+              await patchUserPreferences({ pinnedToolsByWorkspace: resolved })
+            } catch {
+              // Non-blocking: the save effect will retry on the next change.
             }
           }
-          lastSavedRef.current = JSON.stringify(data.pinnedToolsByWorkspace)
-        } else if (Array.isArray(data.toolFavorites) && data.toolFavorites.length > 0) {
-          // Legacy fallback: migrate flat toolFavorites into the active workspace bucket.
-          // This covers users whose doc predates the T24 backend write path.
-          if (activeWorkspaceId) {
-            setPinnedTools(activeWorkspaceId, data.toolFavorites)
-          }
-          // Compute what pinnedByWorkspace would look like so lastSaved matches.
-          const migrated = activeWorkspaceId
-            ? { [activeWorkspaceId]: data.toolFavorites }
-            : {}
-          lastSavedRef.current = JSON.stringify(migrated)
-        } else {
-          lastSavedRef.current = JSON.stringify({})
         }
       } catch {
         // Keep existing store state on error; next mount will retry.
