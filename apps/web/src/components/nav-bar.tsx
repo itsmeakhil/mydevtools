@@ -6,10 +6,6 @@ import { Search } from "lucide-react";
 import { ModeToggle } from "@/components/modeToggle";
 import { getToolMessageKey } from "@/lib/tool-i18n";
 import { routeConfig } from "@/lib/route-config";
-import { WorkspaceSwitcherDropdown } from "@/components/workspace-switcher-dropdown";
-import { OrgSwitcherDropdown } from "@/components/org-switcher-dropdown";
-import { WorkspaceQuickActions } from "@/components/workspace-quick-actions";
-import { NotificationsBell } from "@/components/notifications-bell";
 
 function openCommandPalette() {
   document.dispatchEvent(new CustomEvent("open-command-palette"));
@@ -71,13 +67,8 @@ export function NavBar() {
     return (
       <header className="sticky top-0 z-20 hidden w-full border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:block">
         <div className="flex h-14 items-center gap-2 px-4">
-          <div className="flex min-w-0 flex-1 items-center">
-            <OrgSwitcherDropdown />
-          </div>
+          <div className="flex min-w-0 flex-1 items-center" />
           <CommandTrigger />
-          <WorkspaceSwitcherDropdown />
-          <WorkspaceQuickActions />
-          <NotificationsBell />
           <ModeToggle />
         </div>
       </header>
@@ -98,8 +89,6 @@ export function NavBar() {
     <header className="sticky top-0 z-20 hidden w-full border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:block">
       <div className="flex h-14 w-full items-center gap-4 px-4">
         <div className="flex min-w-0 flex-1 items-center gap-2.5">
-          <OrgSwitcherDropdown />
-          <div className="h-5 w-px shrink-0 bg-border/60" aria-hidden />
           <div className="shrink-0 rounded-lg bg-gradient-to-br from-primary/15 to-violet-500/10 p-1.5 ring-1 ring-inset ring-border/50">
             <Icon className="h-4 w-4 text-primary" strokeWidth={2} />
           </div>
@@ -116,9 +105,6 @@ export function NavBar() {
         </div>
         <CommandTrigger />
         <div className="flex flex-1 shrink-0 items-center justify-end gap-2">
-          <WorkspaceSwitcherDropdown />
-          <WorkspaceQuickActions />
-          <NotificationsBell />
           <ModeToggle />
         </div>
       </div>

@@ -1,14 +1,6 @@
 // apps/web/src/lib/workspace-api.ts
 import { backendFetch } from "./backend-auth"
 
-export type Org = {
-  id: string
-  name: string
-  slug: string
-  kind: "system" | "user"
-  org_role: "owner" | "admin" | "member" | "viewer"
-}
-
 export type WorkspaceEncryption = {
   scheme: string
   dekFingerprint: string
@@ -21,7 +13,6 @@ export type WorkspaceEncryption = {
 
 export type Workspace = {
   id: string
-  org_id: string
   name: string
   slug: string
   is_personal: boolean
@@ -32,15 +23,8 @@ export type Workspace = {
 
 const BASE = "/api/backend/workspaces-api"
 
-export async function listOrgs(): Promise<Org[]> {
-  const res = await backendFetch(`${BASE}/orgs`)
-  if (!res.ok) throw new Error(`listOrgs failed (${res.status})`)
-  return res.json()
-}
-
-export async function listWorkspaces(orgId?: string): Promise<Workspace[]> {
-  const url = orgId ? `${BASE}/workspaces?org_id=${encodeURIComponent(orgId)}` : `${BASE}/workspaces`
-  const res = await backendFetch(url)
+export async function listWorkspaces(): Promise<Workspace[]> {
+  const res = await backendFetch(`${BASE}/workspaces`)
   if (!res.ok) throw new Error(`listWorkspaces failed (${res.status})`)
   return res.json()
 }

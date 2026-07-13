@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "ماشین‌حساب Chmod",
+    "codeScreenshot": "اسکرین‌شات کد",
+    "cssGenerators": "مولدهای CSS",
+    "exifViewer": "نمایشگر EXIF",
+    "faviconGenerator": "مولد Favicon",
+    "jsonDiff": "تفاوت JSON",
+    "jsonpathPlayground": "زمین بازی JSONPath",
+    "keycodeInspector": "بازرس کدِ کلید",
+    "markdownTableGenerator": "جدول Markdown",
+    "timezoneConverter": "مبدل منطقه زمانی",
+    "tokenCounter": "شمارنده توکن",
+    "webhookTester": "آزمایشگر Webhook",
+    "websocketTester": "آزمایشگر WebSocket",
+    "whoisLookup": "جست‌وجوی Whois"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -526,6 +541,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "مولد و بررسی‌کننده Bcrypt",
+        "description": "گذرواژه‌ها را با bcrypt هش کنید و هش‌های موجود را تأیید کنید."
+      },
+      "chmodCalculator": {
+        "title": "ماشین‌حساب Chmod",
+        "description": "مجوزهای یونیکس را بین هشت‌هشتی، نمادین و چک‌باکس تبدیل کنید."
+      },
+      "codeScreenshot": {
+        "title": "اسکرین‌شات کد",
+        "description": "کد منبع را به تصاویر زیبا و قابل‌اشتراک تبدیل کنید."
+      },
+      "cssGenerators": {
+        "title": "مولدهای CSS",
+        "description": "مولدهای box-shadow، border-radius و clamp() سیّال."
+      },
+      "exifViewer": {
+        "title": "نمایشگر و حذف‌کننده EXIF",
+        "description": "متادیتای EXIF عکس را به‌صورت محلی بررسی و حذف کنید."
+      },
+      "faviconGenerator": {
+        "title": "مولد Favicon",
+        "description": "favicon، آیکون‌های اپ و قطعه‌کدهای manifest بسازید."
+      },
+      "jsonDiff": {
+        "title": "تفاوت JSON",
+        "description": "مقایسه معنایی و ساختارآگاه دو سند JSON."
+      },
+      "jsonpathPlayground": {
+        "title": "زمین بازی JSONPath",
+        "description": "JSON را با JSONPath یا JMESPath پرس‌وجو کنید و نتایج زنده را ببینید."
+      },
+      "keycodeInspector": {
+        "title": "بازرس کدِ کلید",
+        "description": "کلیدی را فشار دهید تا کدهای رویداد JavaScript و کلیدهای تغییردهنده آن را ببینید."
+      },
+      "markdownTableGenerator": {
+        "title": "مولد جدول Markdown",
+        "description": "جدول‌های Markdown و HTML را در ویرایشگر شبکه‌ای شبیه صفحه‌گسترده بسازید."
+      },
+      "timezoneConverter": {
+        "title": "مبدل منطقه زمانی",
+        "description": "زمانی را در چند منطقه با نشانه‌های تغییر روز و ساعات کاری تبدیل کنید."
+      },
+      "tokenCounter": {
+        "title": "شمارنده توکن LLM",
+        "description": "توکن‌های LLM را بشمارید، تکه‌ها را تجسم کنید و هزینه API را تخمین بزنید."
+      },
+      "webhookTester": {
+        "title": "آزمایشگر Webhook",
+        "description": "درخواست‌های ورودی webhook را در لحظه ثبت و بررسی کنید."
+      },
+      "websocketTester": {
+        "title": "آزمایشگر WebSocket",
+        "description": "به نقاط پایانی WebSocket متصل شوید و پیام‌ها را در لحظه رد و بدل کنید."
+      },
+      "whoisLookup": {
+        "title": "جست‌وجوی Whois",
+        "description": "جزئیات ثبت دامنه و IP را از طریق RDAP جست‌وجو کنید."
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "مولد و بررسی‌کننده Bcrypt",
+    "subtitle": "گذرواژه‌ها را با bcrypt هش کنید و هش‌ها را تأیید کنید — همه‌چیز در مرورگر شما می‌ماند",
+    "tabs": {
+      "hash": "هش",
+      "verify": "تأیید"
+    },
+    "showPassword": "نمایش گذرواژه",
+    "hidePassword": "پنهان‌کردن گذرواژه",
+    "copy": "کپی",
+    "copied": "کپی شد",
+    "hash": {
+      "passwordLabel": "گذرواژه",
+      "passwordPlaceholder": "گذرواژه‌ای برای هش‌کردن وارد کنید…",
+      "costLabel": "ضریب هزینه",
+      "costHint": "هزینه بالاتر کار هر مرحله را دو برابر می‌کند. ۱۰ تا ۱۲ انتخابی رایج برای محیط تولید است.",
+      "slowWarning": "ضریب هزینه ۱۳ به بالا ممکن است چند ثانیه برای محاسبه طول بکشد.",
+      "generate": "تولید هش",
+      "generating": "در حال هش‌کردن…",
+      "resultLabel": "هش Bcrypt",
+      "timeTaken": "{ms} میلی‌ثانیه",
+      "anatomy": {
+        "title": "ساختار هش",
+        "algorithm": "الگوریتم",
+        "cost": "هزینه",
+        "salt": "salt (۲۲ کاراکتر)",
+        "hash": "هش (۳۱ کاراکتر)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "گذرواژه",
+      "passwordPlaceholder": "گذرواژه‌ای برای بررسی وارد کنید…",
+      "hashLabel": "هش Bcrypt",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "یک گذرواژه و یک هش bcrypt وارد کنید تا مقایسه شوند.",
+      "invalidHash": "این به‌نظر یک هش bcrypt معتبر نمی‌آید.",
+      "checking": "در حال مقایسه…",
+      "match": "منطبق است — گذرواژه این هش را تولید می‌کند.",
+      "noMatch": "منطبق نیست — گذرواژه این هش را تولید نمی‌کند."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "ماشین‌حساب Chmod",
+    "subtitle": "مجوزهای فایل یونیکس را بین چک‌باکس، هشت‌هشتی و نماد نمادین تبدیل کنید",
+    "grid": {
+      "title": "مجوزها",
+      "read": "خواندن",
+      "write": "نوشتن",
+      "execute": "اجرا",
+      "owner": "مالک",
+      "group": "گروه",
+      "others": "دیگران"
+    },
+    "special": {
+      "title": "بیت‌های ویژه",
+      "setuid": "setuid",
+      "setgid": "setgid",
+      "sticky": "sticky"
+    },
+    "octal": {
+      "label": "هشت‌هشتی",
+      "placeholder": "755 یا 4755",
+      "invalid": "۳ یا ۴ رقم هشت‌هشتی (۰-۷) وارد کنید."
+    },
+    "symbolic": {
+      "label": "نمادین",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "۹ کاراکتر مانند rwxr-xr-x وارد کنید (s/S و t/T مجاز است)."
+    },
+    "output": {
+      "title": "دستور",
+      "copy": "کپی",
+      "copied": "کپی شد"
+    },
+    "explain": {
+      "line": "{cls} می‌تواند {perms}.",
+      "none": "{cls} هیچ مجوزی ندارد.",
+      "setuid": "setuid: فایل با امتیازات مالک خود اجرا می‌شود.",
+      "setgid": "setgid: فایل با امتیازات گروه خود اجرا می‌شود (فایل‌های جدید در یک دایرکتوری گروه آن را به ارث می‌برند).",
+      "sticky": "sticky: فقط مالک فایل می‌تواند آن را در این دایرکتوری حذف یا تغییرنام دهد."
+    },
+    "presets": {
+      "title": "پیش‌تنظیم‌های رایج",
+      "octal": "هشت‌هشتی",
+      "permissions": "مجوزها",
+      "description": "کاربرد معمول",
+      "p644": "فایل‌های معمولی: مالک می‌نویسد، همه می‌خوانند.",
+      "p755": "فایل‌های اجرایی و دایرکتوری‌ها: همه می‌توانند بخوانند و وارد شوند.",
+      "p600": "فایل‌های خصوصی: فقط مالک می‌خواند و می‌نویسد.",
+      "p700": "فایل‌های اجرایی و دایرکتوری‌های خصوصی: فقط مالک.",
+      "p664": "فایل‌های قابل‌نوشتن توسط گروه.",
+      "p775": "دایرکتوری‌ها و فایل‌های اجرایی قابل‌نوشتن توسط گروه.",
+      "p400": "فقط‌خواندنی برای مالک (مثلاً کلیدهای خصوصی SSH)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "اسکرین‌شات کد",
+    "subtitle": "کد را به تصاویر زیبا و قابل‌اشتراک تبدیل کنید",
+    "languageLabel": "زبان",
+    "autoDetect": "تشخیص خودکار",
+    "backgroundLabel": "پس‌زمینه",
+    "paddingLabel": "فاصله داخلی",
+    "filenameLabel": "نام فایل",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "نقطه‌های پنجره",
+    "themeLabel": "پوسته پنجره",
+    "themeDark": "تیره",
+    "themeLight": "روشن",
+    "scaleLabel": "مقیاس خروجی",
+    "copyImage": "کپی تصویر",
+    "copied": "کپی شد",
+    "exportPng": "خروجی PNG",
+    "inputLabel": "کد",
+    "detected": "تشخیص‌داده‌شده: {language}",
+    "clear": "پاک کردن",
+    "placeholder": "کد خود را اینجا بچسبانید…",
+    "previewLabel": "پیش‌نمایش",
+    "emptyPreview": "پیش‌نمایش کد شما اینجا ظاهر می‌شود",
+    "exportFailed": "خروجی‌گرفتن از تصویر ناموفق بود",
+    "copyUnsupported": "کپی تصاویر در این مرورگر پشتیبانی نمی‌شود",
+    "copyFailed": "کپی تصویر ناموفق بود",
+    "backgrounds": {
+      "ocean": "اقیانوس",
+      "sunset": "غروب",
+      "candy": "آب‌نبات",
+      "forest": "جنگل",
+      "midnight": "نیمه‌شب",
+      "gold": "طلایی",
+      "aurora": "شفق",
+      "slate": "سنگی",
+      "transparent": "شفاف"
+    }
+  },
+  "CssGenerators": {
+    "title": "مولدهای CSS",
+    "subtitle": "box-shadow، border-radius و clamp() سیّال — کد CSS را کپی کنید.",
+    "preview": "پیش‌نمایش",
+    "output": "CSS",
+    "copy": "کپی",
+    "copied": "کپی شد",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "clamp() سیّال"
+    },
+    "boxShadow": {
+      "presets": "پیش‌تنظیم‌ها",
+      "layer": "لایه",
+      "addLayer": "افزودن لایه",
+      "removeLayer": "حذف لایه",
+      "x": "X",
+      "y": "Y",
+      "blur": "محو",
+      "spread": "گسترش",
+      "color": "رنگ",
+      "alpha": "آلفا",
+      "inset": "داخلی",
+      "presetNames": {
+        "subtleCard": "کارت ملایم",
+        "elevated": "برجسته",
+        "hardOffset": "افست تیز",
+        "neonGlow": "درخشش نئون",
+        "inner": "درونی",
+        "layeredSmooth": "چندلایه نرم"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "حالت",
+      "modes": {
+        "simple": "برای هر گوشه",
+        "blob": "شکل ارگانیک"
+      },
+      "unit": "واحد",
+      "linkCorners": "پیوند گوشه‌ها",
+      "randomize": "تصادفی",
+      "horizontal": "شعاع‌های افقی",
+      "vertical": "شعاع‌های عمودی",
+      "corners": {
+        "tl": "بالا چپ",
+        "tr": "بالا راست",
+        "br": "پایین راست",
+        "bl": "پایین چپ"
+      }
+    },
+    "clamp": {
+      "minFont": "کمینه فونت (px)",
+      "maxFont": "بیشینه فونت (px)",
+      "minViewport": "کمینه viewport (px)",
+      "maxViewport": "بیشینه viewport (px)",
+      "rootFont": "فونت ریشه (px)",
+      "viewportWidth": "viewport شبیه‌سازی‌شده",
+      "computedSize": "اندازه محاسبه‌شده",
+      "slope": "شیب",
+      "intercept": "عرض از مبدأ",
+      "previewText": "متن نمونه برای پیش‌نمایش",
+      "invalid": "کران‌های معتبر و متفاوت viewport وارد کنید."
+    }
+  },
+  "ExifViewer": {
+    "title": "نمایشگر و حذف‌کننده EXIF",
+    "subtitle": "متادیتای عکس را بررسی و در مرورگر خود حذف کنید",
+    "dropTitle": "تصویری را اینجا رها کنید",
+    "dropHint": "یا برای مرور کلیک کنید — تصویر شما هرگز دستگاهتان را ترک نمی‌کند",
+    "browse": "انتخاب تصویر",
+    "formats": "JPEG، PNG، WebP، HEIC، TIFF",
+    "parsing": "در حال خواندن متادیتا…",
+    "parseFailed": "خواندن این تصویر ناموفق بود",
+    "clear": "حذف تصویر",
+    "gpsWarning": "حاوی موقعیت GPS است",
+    "openMap": "نمایش روی OpenStreetMap",
+    "noMetadata": "هیچ متادیتای تعبیه‌شده‌ای در این تصویر یافت نشد.",
+    "facts": {
+      "name": "نام",
+      "type": "نوع",
+      "dimensions": "ابعاد",
+      "size": "اندازه"
+    },
+    "groups": {
+      "camera": "دوربین",
+      "exposure": "نوردهی",
+      "timestamps": "برچسب‌های زمانی",
+      "gps": "موقعیت GPS",
+      "software": "نرم‌افزار و سایر"
+    },
+    "gpsCard": {
+      "latitude": "عرض جغرافیایی",
+      "longitude": "طول جغرافیایی",
+      "altitude": "ارتفاع"
+    },
+    "raw": {
+      "title": "همه متادیتا",
+      "copyJson": "کپی JSON",
+      "copied": "کپی شد"
+    },
+    "remove": {
+      "title": "حذف متادیتا",
+      "jpegDescription": "EXIF، XMP، IPTC و کامنت‌ها را بدون افت کیفیت و بدون فشرده‌سازی مجدد تصویر حذف کنید.",
+      "reencodeDescription": "تصویر را دوباره کدگذاری کنید تا متادیتای تعبیه‌شده حذف شود. این کار پیکسل‌ها را دوباره فشرده می‌کند.",
+      "keepIcc": "حفظ پروفایل رنگ (ICC)",
+      "stripButton": "حذف متادیتا",
+      "reencodeButton": "کدگذاری مجدد و حذف",
+      "unsupported": "حذف متادیتا برای این نوع فایل پشتیبانی نمی‌شود.",
+      "failed": "حذف متادیتا ناموفق بود",
+      "before": "قبل",
+      "after": "بعد",
+      "download": "دانلود تصویر پاک‌شده"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "مولد Favicon",
+    "subtitle": "از یک تصویر، favicon و آیکون‌های اپ بسازید",
+    "dropTitle": "تصویری را اینجا رها کنید",
+    "dropHint": "PNG، JPEG یا SVG — برای مرور کلیک کنید",
+    "browse": "انتخاب تصویر",
+    "clear": "حذف تصویر",
+    "backgroundLabel": "پس‌زمینه",
+    "transparent": "شفاف",
+    "solidColor": "یک‌رنگ",
+    "cornerLabel": "شکل گوشه",
+    "cornerNone": "مربع",
+    "cornerRounded": "گِرد",
+    "cornerCircle": "دایره",
+    "maskPaddingLabel": "فاصله داخلی maskable",
+    "maskable": "maskable",
+    "previewLabel": "پیش‌نمایش",
+    "copy": "کپی",
+    "headSnippet": "قطعه‌کد HTML head",
+    "downloadIco": "دانلود favicon.ico",
+    "downloadZip": "دانلود همه (.zip)"
+  },
+  "JsonDiff": {
+    "title": "تفاوت JSON",
+    "subtitle": "مقایسه معنایی و ساختارآگاه دو سند JSON — ترتیب کلیدها و قالب‌بندی نادیده گرفته می‌شود",
+    "options": {
+      "ignoreArrayOrder": "نادیده‌گرفتن ترتیب آرایه"
+    },
+    "loadBothSamples": "بارگذاری نمونه‌ها",
+    "sample": "نمونه",
+    "format": "قالب",
+    "clear": "پاک کردن",
+    "formatError": "قالب‌بندی ممکن نیست: ورودی JSON معتبر نیست",
+    "placeholder": "JSON را اینجا بچسبانید یا تایپ کنید…",
+    "panels": {
+      "left": "اصلی (چپ)",
+      "right": "تغییریافته (راست)",
+      "results": "تفاوت‌ها"
+    },
+    "summary": {
+      "added": "{count} افزوده",
+      "removed": "{count} حذف‌شده",
+      "changed": "{count} تغییریافته"
+    },
+    "types": {
+      "added": "افزوده",
+      "removed": "حذف‌شده",
+      "changed": "تغییریافته"
+    },
+    "copyChanges": "کپی به‌صورت JSON",
+    "copied": "کپی شد",
+    "empty": "JSON را در هر دو پنل بچسبانید تا تفاوت‌هایشان را ببینید.",
+    "identical": "دو سند از نظر معنایی یکسان هستند."
+  },
+  "JsonpathPlayground": {
+    "title": "زمین بازی JSONPath",
+    "subtitle": "اسناد JSON را با JSONPath یا JMESPath پرس‌وجو کنید و نتایج زنده را ببینید",
+    "engineLabel": "موتور",
+    "queryLabel": "پرس‌وجو",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "برگه تقلب",
+    "cheats": {
+      "jpAllTitles": "همه عنوان‌های کتاب",
+      "jpAllAuthors": "هر نویسنده، در هر جای سند",
+      "jpFirstBook": "اولین کتاب",
+      "jpLastBook": "آخرین کتاب",
+      "jpSlice": "دو کتاب اول (برش)",
+      "jpFilterPrice": "کتاب‌های ارزان‌تر از ۴۰",
+      "jpFilterInStock": "عنوان کتاب‌های موجود",
+      "jpRecursive": "همه مقادیر، به‌صورت بازگشتی",
+      "jmAllTitles": "همه عنوان‌های کتاب",
+      "jmFirstAuthor": "نویسنده اولین کتاب",
+      "jmLastBook": "آخرین کتاب",
+      "jmSlice": "دو کتاب اول (برش)",
+      "jmFilterPrice": "عنوان کتاب‌های ارزان‌تر از ۴۰",
+      "jmCount": "شمارش کتاب‌های موجود",
+      "jmProjection": "بازآرایی هر کتاب به یک شیء جدید",
+      "jmSort": "عنوان‌ها مرتب‌شده بر اساس قیمت"
+    },
+    "panels": {
+      "input": "ورودی JSON",
+      "results": "نتایج"
+    },
+    "sample": "نمونه",
+    "format": "قالب",
+    "clear": "پاک کردن",
+    "formatError": "قالب‌بندی ممکن نیست: ورودی JSON معتبر نیست",
+    "placeholder": "JSON را اینجا بچسبانید یا تایپ کنید…",
+    "outputPlaceholder": "تطبیق‌ها اینجا ظاهر می‌شوند…",
+    "matchCount": "{count, plural, one {# تطبیق} other {# تطبیق}}",
+    "copy": "کپی",
+    "copied": "کپی شد"
+  },
+  "KeycodeInspector": {
+    "title": "بازرس کدِ کلید",
+    "subtitle": "هر کلیدی را فشار دهید تا رویداد صفحه‌کلید JavaScript آن را بررسی کنید",
+    "capture": {
+      "prompt": "هر کلیدی را فشار دهید…",
+      "ready": "در حال گوش‌دادن — هر کلیدی روی صفحه‌کلید خود فشار دهید",
+      "clickToFocus": "برای فوکوس اینجا کلیک کنید، سپس هر کلیدی را فشار دهید"
+    },
+    "hero": {
+      "spaceKey": "(فاصله)",
+      "keyLabel": "event.key",
+      "repeat": "تکرار"
+    },
+    "copyJson": "کپی JSON",
+    "copiedJson": "JSON رویداد در کلیپ‌بورد کپی شد",
+    "deprecated": "منسوخ",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "استاندارد",
+      "left": "چپ",
+      "right": "راست",
+      "numpad": "صفحه‌کلید عددی",
+      "unknown": "نامشخص"
+    },
+    "history": {
+      "title": "تاریخچه",
+      "clear": "پاک‌کردن تاریخچه",
+      "empty": "فشردن کلیدها اینجا ظاهر می‌شود."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "مولد جدول Markdown",
+    "subtitle": "یک شبکه را ویرایش کنید، از صفحه‌گسترده بچسبانید و جدول Markdown یا HTML با تراز زیبا کپی کنید",
+    "addRow": "افزودن ردیف",
+    "addColumn": "افزودن ستون",
+    "importLabel": "درون‌ریزی",
+    "importPlaceholder": "TSV (از Excel / Google Sheets) یا CSV را اینجا بچسبانید…",
+    "importButton": "درون‌ریزی به شبکه",
+    "pasteClipboard": "چسباندن از کلیپ‌بورد",
+    "importEmpty": "چیزی برای درون‌ریزی نیست — ابتدا چند ردیف بچسبانید",
+    "clipboardError": "خواندن از کلیپ‌بورد ممکن نشد",
+    "clear": "پاک کردن",
+    "panels": {
+      "editor": "ویرایشگر جدول",
+      "output": "خروجی"
+    },
+    "align": {
+      "left": "تراز چپ",
+      "center": "تراز وسط",
+      "right": "تراز راست"
+    },
+    "headerPlaceholder": "سرستون",
+    "cellPlaceholder": "سلول",
+    "removeRow": "حذف ردیف",
+    "removeColumn": "حذف ستون",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "کپی",
+    "copied": "کپی شد"
+  },
+  "TimezoneConverter": {
+    "title": "مبدل منطقه زمانی",
+    "subtitle": "یک لحظه را در سراسر جهان برای برنامه‌ریزی جلسات تبدیل کنید.",
+    "dateTimeLabel": "تاریخ و زمان",
+    "now": "اکنون",
+    "sourceZoneLabel": "منطقه زمانی مبدأ",
+    "selectZone": "انتخاب منطقه",
+    "searchZone": "جست‌وجوی مناطق زمانی...",
+    "noZone": "منطقه زمانی‌ای یافت نشد.",
+    "scrubLabel": "جابه‌جایی زمان",
+    "reset": "بازنشانی",
+    "targetsLabel": "مناطق مقصد",
+    "addZone": "افزودن منطقه",
+    "remove": "حذف",
+    "localBadge": "محلی",
+    "invalidDate": "تاریخ و زمان معتبری وارد کنید.",
+    "bands": {
+      "work": "ساعات کاری (۰۹:۰۰–۱۸:۰۰)",
+      "edge": "ساعات حاشیه‌ای (صبح زود / عصر)",
+      "night": "شب"
+    }
+  },
+  "TokenCounter": {
+    "title": "شمارنده توکن LLM",
+    "subtitle": "توکن‌ها را بشمارید، تکه‌ها را تجسم کنید و هزینه API را تخمین بزنید.",
+    "inputLabel": "متن",
+    "sample": "نمونه",
+    "clear": "پاک کردن",
+    "placeholder": "متن، کد یا JSON را برای شمارش توکن بچسبانید...",
+    "encoding": "کدگذاری",
+    "loading": "در حال بارگذاری توکنایزر...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / o-series)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "توکن‌ها",
+      "characters": "کاراکترها",
+      "words": "کلمات",
+      "ratio": "توکن/کلمه",
+      "ratioSub": "تقریبی"
+    },
+    "claudeRow": "Claude (تقریبی)",
+    "estimate": "تخمین",
+    "viz": {
+      "title": "تجسم توکن",
+      "toggle": "نمایش",
+      "hint": "برای رنگ‌آمیزی هر توکن به‌عنوان یک تکه، تغییر وضعیت دهید.",
+      "empty": "برای تجسم توکن‌ها متن وارد کنید.",
+      "truncated": "نمایش {limit} توکن اول از {total} توکن."
+    },
+    "cost": {
+      "title": "ماشین‌حساب هزینه",
+      "disclaimer": "مقادیر پیش‌فرض قابل‌ویرایش — قیمت‌گذاری فعلی را بررسی کنید",
+      "model": "مدل",
+      "expectedOutput": "توکن‌های خروجی موردانتظار",
+      "customInput": "ورودی $/MTok",
+      "customOutput": "خروجی $/MTok",
+      "inputCost": "هزینه ورودی",
+      "outputCost": "هزینه خروجی",
+      "total": "کل",
+      "per1000": "به‌ازای هر ۱۰۰۰ فراخوانی"
+    }
+  },
+  "WebhookTester": {
+    "title": "آزمایشگر Webhook",
+    "subtitle": "یک URL موقت بسازید و درخواست‌های ورودی webhook را زنده بررسی کنید.",
+    "intro": {
+      "title": "برای شروع ثبت درخواست‌ها یک URL webhook بسازید",
+      "hint": "یک URL غیرقابل‌حدس دریافت می‌کنید که هر درخواست ورودی را ثبت می‌کند. پس از ۲۴ ساعت منقضی می‌شود."
+    },
+    "createBtn": "ساخت URL webhook",
+    "creating": "در حال ساخت…",
+    "urlLabel": "URL webhook شما",
+    "expiresIn": "انقضا در {countdown}",
+    "copyUrlBtn": "کپی URL",
+    "copied": "کپی شد",
+    "clearBtn": "پاک کردن",
+    "newBinBtn": "URL جدید",
+    "requestsTitle": "درخواست‌ها",
+    "selectPrompt": "یک درخواست را برای بررسی جزئیاتش انتخاب کنید.",
+    "expiredNotice": "این URL webhook منقضی شده است. برای ادامه آزمایش یک URL جدید بسازید.",
+    "base64Badge": "base64",
+    "truncatedBadge": "کوتاه‌شده",
+    "empty": {
+      "title": "در انتظار درخواست‌ها…",
+      "hint": "درخواستی به URL خود بفرستید تا فوراً اینجا ظاهر شود. این را امتحان کنید:"
+    },
+    "detail": {
+      "receivedAt": "دریافت‌شده",
+      "source": "IP مبدأ",
+      "contentType": "Content-Type",
+      "query": "پارامترهای پرس‌وجو",
+      "headers": "هدرها",
+      "body": "بدنه",
+      "copyBody": "کپی بدنه",
+      "emptyBody": "بدون بدنه"
+    },
+    "errors": {
+      "createFailed": "ساخت URL webhook ناموفق بود. لطفاً دوباره تلاش کنید.",
+      "clearFailed": "پاک‌کردن درخواست‌ها ناموفق بود. لطفاً دوباره تلاش کنید."
+    }
+  },
+  "WebsocketTester": {
+    "title": "آزمایشگر WebSocket",
+    "subtitle": "به یک نقطه پایانی WebSocket متصل شوید و پیام‌ها را زنده بفرستید، دریافت و بررسی کنید",
+    "urlLabel": "URL نقطه پایانی",
+    "protocolsLabel": "زیرپروتکل‌ها",
+    "protocolsPlaceholder": "اختیاری، جداشده با کاما",
+    "connect": "اتصال",
+    "disconnect": "قطع اتصال",
+    "status": {
+      "disconnected": "قطع‌شده",
+      "connecting": "در حال اتصال",
+      "connected": "متصل",
+      "error": "خطا"
+    },
+    "messages": {
+      "connecting": "در حال اتصال به {url}…",
+      "connected": "اتصال برقرار شد",
+      "connectedWithProtocol": "اتصال برقرار شد (پروتکل: {protocol})",
+      "invalidUrl": "URL نامعتبر — باید با ws:// یا wss:// شروع شود",
+      "connectFailed": "بازکردن اتصال ناموفق بود",
+      "socketError": "خطایی در اتصال رخ داد",
+      "notConnected": "متصل نیست — ابتدا متصل شوید",
+      "binaryMessage": "یک پیام باینری دریافت شد"
+    },
+    "log": {
+      "title": "گزارش پیام‌ها",
+      "empty": "هنوز پیامی نیست. متصل شوید و ارسال را آغاز کنید.",
+      "copyAll": "کپی همه",
+      "download": "دانلود به‌صورت .txt",
+      "clear": "پاک‌کردن گزارش",
+      "prettyPrint": "قالب‌بندی JSON",
+      "showRaw": "نمایش متن خام"
+    },
+    "composer": {
+      "placeholder": "پیامی برای ارسال بنویسید…",
+      "send": "ارسال",
+      "formatJson": "قالب‌بندی به‌صورت JSON",
+      "invalidJson": "پیام JSON معتبر نیست",
+      "hint": "Cmd/Ctrl+Enter برای ارسال"
+    },
+    "ping": {
+      "label": "ping خودکار",
+      "seconds": "ثانیه",
+      "intervalTitle": "فاصله ping به ثانیه",
+      "payloadPlaceholder": "محموله ping"
+    }
+  },
+  "WhoisLookup": {
+    "title": "جست‌وجوی Whois",
+    "subtitle": "جزئیات ثبت هر دامنه یا آدرس IP را از طریق RDAP جست‌وجو کنید",
+    "placeholder": "example.com یا 8.8.8.8",
+    "lookupBtn": "جست‌وجو",
+    "looking": "در حال جست‌وجو…",
+    "refreshBtn": "تازه‌سازی",
+    "tryLabel": "امتحان کنید:",
+    "copy": "کپی",
+    "copied": "کپی شد",
+    "notAvailable": "در دسترس نیست",
+    "summary": {
+      "registrar": "ثبت‌کننده",
+      "network": "شبکه"
+    },
+    "dates": {
+      "created": "ایجادشده",
+      "updated": "به‌روزشده",
+      "expires": "انقضا"
+    },
+    "sections": {
+      "status": "وضعیت",
+      "nameservers": "سرورهای نام",
+      "contacts": "تماس‌ها",
+      "rawRdap": "RDAP خام"
+    },
+    "contacts": {
+      "roles": "نقش‌ها",
+      "name": "نام",
+      "organization": "سازمان"
+    },
+    "errors": {
+      "invalidTarget": "یک نام دامنه یا آدرس IP معتبر وارد کنید",
+      "lookupFailed": "جست‌وجو ناموفق بود (وضعیت {status})"
+    }
   }
 }

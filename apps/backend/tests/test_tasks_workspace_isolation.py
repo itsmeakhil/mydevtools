@@ -4,32 +4,31 @@ from app.api.routes.tasks.schema import ProjectCreate, TaskCreate, TaskStatusUpd
 from app.api.routes.workspaces.middleware import WorkspaceContext
 
 
-def _ctx(uid: str, ws_id: str, org_id: str) -> WorkspaceContext:
+def _ctx(uid: str, ws_id: str) -> WorkspaceContext:
     return WorkspaceContext(
-        uid=uid, org_id=org_id, workspace_id=ws_id, ws_role="admin",
+        uid=uid, workspace_id=ws_id, ws_role="admin",
         is_personal=True, owner_uid=uid,
     )
 
 
-def _shared_ctx(uid: str, ws_id: str, org_id: str) -> WorkspaceContext:
+def _shared_ctx(uid: str, ws_id: str) -> WorkspaceContext:
     """A shared (non-personal) workspace context — no owner_uid lock, so any
     member with a writer role can mutate any task in the workspace."""
     return WorkspaceContext(
-        uid=uid, org_id=org_id, workspace_id=ws_id, ws_role="admin",
+        uid=uid, workspace_id=ws_id, ws_role="admin",
         is_personal=False, owner_uid=None,
     )
 
 
 @pytest.mark.asyncio
 async def test_tasks_are_isolated_across_personal_workspaces(
-    clean_db, system_org_id, personal_ws_for,
+    clean_db, personal_ws_for,
 ):
-    org_id = system_org_id
     ws_u1 = await personal_ws_for("u1")
     ws_u2 = await personal_ws_for("u2")
 
-    ctx_u1 = _ctx("u1", ws_u1, org_id)
-    ctx_u2 = _ctx("u2", ws_u2, org_id)
+    ctx_u1 = _ctx("u1", ws_u1)
+    ctx_u2 = _ctx("u2", ws_u2)
 
     await task_svc.create_task(ctx_u1, TaskCreate(text="u1 task"))
 
@@ -42,14 +41,13 @@ async def test_tasks_are_isolated_across_personal_workspaces(
 
 @pytest.mark.asyncio
 async def test_projects_are_isolated_across_personal_workspaces(
-    clean_db, system_org_id, personal_ws_for,
+    clean_db, personal_ws_for,
 ):
-    org_id = system_org_id
     ws_u1 = await personal_ws_for("u1")
     ws_u2 = await personal_ws_for("u2")
 
-    ctx_u1 = _ctx("u1", ws_u1, org_id)
-    ctx_u2 = _ctx("u2", ws_u2, org_id)
+    ctx_u1 = _ctx("u1", ws_u1)
+    ctx_u2 = _ctx("u2", ws_u2)
 
     await task_svc.create_project(ctx_u1, ProjectCreate(name="u1 project", color="#ff0000"))
 
@@ -62,31 +60,29 @@ async def test_projects_are_isolated_across_personal_workspaces(
 
 @pytest.mark.asyncio
 async def test_forged_workspace_id_cannot_cross_task_data(
-    clean_db, system_org_id, personal_ws_for,
+    clean_db, personal_ws_for,
 ):
-    org_id = system_org_id
     ws_u1 = await personal_ws_for("u1")
     await personal_ws_for("u2")
 
-    ctx_u1 = _ctx("u1", ws_u1, org_id)
+    ctx_u1 = _ctx("u1", ws_u1)
     await task_svc.create_task(ctx_u1, TaskCreate(text="u1 secret task"))
 
     # u2 forges u1's workspace_id but has different uid → owner_uid filter blocks them
-    forged_ctx = _ctx("u2", ws_u1, org_id)
+    forged_ctx = _ctx("u2", ws_u1)
     result = await task_svc.list_tasks(ctx=forged_ctx)
     assert result.items == []
 
 
 @pytest.mark.asyncio
 async def test_shared_workspace_member_can_edit_anothers_task(
-    clean_db, system_org_id,
+    clean_db,
 ):
     """Collaboration unlock: in a shared workspace, member B can edit / move /
     delete a task member A created (was blocked by the old created_by filter)."""
-    org_id = system_org_id
     ws = "ws-shared-1"
-    ctx_a = _shared_ctx("u1", ws, org_id)
-    ctx_b = _shared_ctx("u2", ws, org_id)
+    ctx_a = _shared_ctx("u1", ws)
+    ctx_b = _shared_ctx("u2", ws)
 
     created = await task_svc.create_task(ctx_a, TaskCreate(text="shared task"))
 
@@ -114,22 +110,20 @@ async def test_shared_workspace_member_can_edit_anothers_task(
 
 @pytest.mark.asyncio
 async def test_shared_workspace_isolated_from_other_shared_workspace(
-    clean_db, system_org_id,
+    clean_db,
 ):
     """A shared workspace's tasks never leak into a different workspace."""
-    org_id = system_org_id
-    ctx_a = _shared_ctx("u1", "ws-shared-A", org_id)
-    ctx_other = _shared_ctx("u1", "ws-shared-B", org_id)
+    ctx_a = _shared_ctx("u1", "ws-shared-A")
+    ctx_other = _shared_ctx("u1", "ws-shared-B")
 
     await task_svc.create_task(ctx_a, TaskCreate(text="A-only"))
     assert (await task_svc.list_tasks(ctx=ctx_other)).items == []
 
 
 @pytest.mark.asyncio
-async def test_assignee_filter(clean_db, system_org_id):
+async def test_assignee_filter(clean_db):
     """list_tasks assignee filter supports me / unassigned / specific uid."""
-    org_id = system_org_id
-    ctx = _shared_ctx("u1", "ws-assignee", org_id)
+    ctx = _shared_ctx("u1", "ws-assignee")
 
     await task_svc.create_task(ctx, TaskCreate(text="assigned to u2", assigneeUid="u2"))
     await task_svc.create_task(ctx, TaskCreate(text="unassigned"))

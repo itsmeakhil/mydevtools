@@ -86,7 +86,6 @@ async def list_collections(*, ctx: WorkspaceContext) -> list[ApiClientCollection
 async def create_collection(ctx: WorkspaceContext, body: ApiClientCollectionCreate) -> ApiClientCollectionOut:
     doc: dict[str, Any] = {
         "created_by": ctx.uid,
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
         "owner_uid": ctx.uid,
         "name": body.name,
@@ -133,7 +132,6 @@ async def list_environments(*, ctx: WorkspaceContext) -> list[ApiClientEnvironme
 async def create_environment(ctx: WorkspaceContext, body: ApiClientEnvironmentCreate) -> ApiClientEnvironmentOut:
     doc: dict[str, Any] = {
         "created_by": ctx.uid,
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
         "owner_uid": ctx.uid,
         "name": body.name,
@@ -213,7 +211,6 @@ async def create_history(ctx: WorkspaceContext, body: ApiClientHistoryCreate) ->
     ts = body.timestamp if body.timestamp is not None else int(time.time() * 1000)
     doc: dict[str, Any] = {
         "created_by": ctx.uid,
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
         "owner_uid": ctx.uid,
         "method": body.method,
@@ -257,7 +254,7 @@ async def clear_history(ctx: WorkspaceContext) -> None:
 #   2. Scoping by workspace_id would break the anonymous read path.
 #   3. The mock_id token (~144 bits of entropy) is the access control boundary.
 # Ownership is tracked by `created_by` only; the collection is NOT stamped with
-# org_id / workspace_id / owner_uid.
+# workspace_id / owner_uid.
 
 
 def _mock_doc_to_out(doc: dict[str, Any]) -> ApiClientPublicMockOut:
@@ -315,7 +312,7 @@ async def get_public_mock_anonymous(mock_id: str) -> ApiClientPublicMockOut | No
 #
 # API_CLIENT_WORKSPACES stores the API Client tool's own "workspace" concept
 # (grouping of API requests) — completely separate from our global Workspaces
-# feature. These are per-user data so they ARE stamped with org_id/workspace_id.
+# feature. These are per-user data so they ARE stamped with workspace_id.
 
 
 def _ws_doc_to_out(doc: dict[str, Any]) -> ApiClientWorkspaceOut:
@@ -340,7 +337,6 @@ async def list_workspaces(*, ctx: WorkspaceContext) -> list[ApiClientWorkspaceOu
 async def create_workspace(ctx: WorkspaceContext, body: ApiClientWorkspaceCreate) -> ApiClientWorkspaceOut:
     doc: dict[str, Any] = {
         "created_by": ctx.uid,
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
         "owner_uid": ctx.uid,
         "name": body.name,

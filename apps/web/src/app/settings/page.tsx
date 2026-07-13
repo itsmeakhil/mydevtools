@@ -20,8 +20,8 @@ import { PasskeySection } from '@/components/settings/passkey-section'
 import { DesktopSyncSettings } from '@/components/desktop/desktop-sync-settings'
 import { DesktopSyncConflicts } from '@/components/desktop/desktop-sync-conflicts'
 import { DesktopBackupSettings } from '@/components/desktop/desktop-backup-settings'
-import { useActiveOrg, useActiveWorkspace } from '@/store/workspace-store'
-import { Briefcase, ChevronRight } from 'lucide-react'
+import { useActiveWorkspace } from '@/store/workspace-store'
+import { Briefcase } from 'lucide-react'
 const colorDisplay: Record<ColorTheme, { swatchClass: string; name: string }> = {
   cyan: { swatchClass: 'bg-cyan-500', name: 'Teal' },
   blue: { swatchClass: 'bg-blue-500', name: 'Blue' },
@@ -41,7 +41,6 @@ export default function SettingsPage() {
   const { theme, setTheme } = useTheme()
   const { colorTheme, setColorTheme } = useColorTheme()
   const { isToolEnabled, toggleTool } = useToolVisibility()
-  const activeOrg = useActiveOrg()
   const activeWorkspace = useActiveWorkspace()
   const [mounted, setMounted] = useState(false)
 
@@ -61,11 +60,9 @@ export default function SettingsPage() {
   return (
     <div className="flex-1 space-y-8 p-6 md:p-8 max-w-5xl mx-auto w-full pt-20 lg:pt-8 bg-background/50">
       <div className="space-y-1.5">
-        {activeOrg && activeWorkspace ? (
+        {activeWorkspace ? (
           <p className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
             <Briefcase className="h-3 w-3 text-primary" />
-            <span className="truncate max-w-[120px] sm:max-w-none">{activeOrg.name}</span>
-            <ChevronRight className="h-3 w-3 opacity-60" />
             <span className="truncate max-w-[160px] sm:max-w-none text-foreground/80">{activeWorkspace.name}</span>
           </p>
         ) : (

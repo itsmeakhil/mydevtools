@@ -2,12 +2,11 @@ from __future__ import annotations
 
 from typing import Annotated, Any
 
-from fastapi import Depends, HTTPException, Request, status
+from fastapi import Depends, HTTPException, Request
 from pydantic import BaseModel
 
 from app.api.routes.auth.services import get_current_uid
 from app.api.routes.workspaces.repo import (
-    find_org_membership,
     find_user_workspaces,
     find_workspace,
     find_ws_membership,
@@ -19,7 +18,6 @@ ACTIVE_WS_COOKIE = "active_workspace"
 
 class WorkspaceContext(BaseModel):
     uid: str
-    org_id: str
     workspace_id: str
     ws_role: WsRole
     is_personal: bool
@@ -52,19 +50,14 @@ async def get_workspace_ctx(
         raise HTTPException(403, "Workspace not found.")
 
     mem = await find_ws_membership(ws_id, uid)
-    if mem:
-        ws_role = mem["ws_role"]
-    else:
-        org_mem = await find_org_membership(ws["org_id"], uid)
-        if not org_mem or org_mem["org_role"] not in ("owner", "admin"):
-            raise HTTPException(403, "Not a member of this workspace.")
-        ws_role = "admin"   # implicit cascade
+    if not mem:
+        raise HTTPException(403, "Not a member of this workspace.")
+    ws_role = mem["ws_role"]
 
     enc_settings = (ws.get("settings") or {}).get("encryption")
     has_encryption = enc_settings is not None
     return WorkspaceContext(
         uid=uid,
-        org_id=ws["org_id"],
         workspace_id=ws_id,
         ws_role=ws_role,
         is_personal=bool(ws.get("is_personal")),
@@ -91,7 +84,7 @@ async def get_workspace_write_ctx(
 def apply_workspace_filter(
     ctx: WorkspaceContext, base_filter: dict[str, Any]
 ) -> dict[str, Any]:
-    flt = {**base_filter, "org_id": ctx.org_id, "workspace_id": ctx.workspace_id}
+    flt = {**base_filter, "workspace_id": ctx.workspace_id}
     if ctx.is_personal:
         assert ctx.owner_uid is not None, (
             f"Personal workspace {ctx.workspace_id} has no owner_uid — "
@@ -114,7 +107,6 @@ def apply_legacy_or_filter(
     so it cannot leak across users.
     """
     stamped: dict[str, Any] = {
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
     }
     if ctx.is_personal:

@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "حاسبة Chmod",
+    "codeScreenshot": "لقطة شاشة للكود",
+    "cssGenerators": "مولّدات CSS",
+    "exifViewer": "عارض EXIF",
+    "faviconGenerator": "مولّد Favicon",
+    "jsonDiff": "مقارنة JSON",
+    "jsonpathPlayground": "ساحة JSONPath",
+    "keycodeInspector": "فاحص أكواد المفاتيح",
+    "markdownTableGenerator": "جدول Markdown",
+    "timezoneConverter": "محوّل المناطق الزمنية",
+    "tokenCounter": "عدّاد الرموز",
+    "webhookTester": "مختبِر Webhook",
+    "websocketTester": "مختبِر WebSocket",
+    "whoisLookup": "بحث Whois"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -526,6 +541,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "مولّد ومدقّق Bcrypt",
+        "description": "شفّر كلمات المرور باستخدام bcrypt وتحقّق من التجزئات الموجودة."
+      },
+      "chmodCalculator": {
+        "title": "حاسبة Chmod",
+        "description": "حوّل أذونات يونكس بين الثماني والرمزي ومربّعات الاختيار."
+      },
+      "codeScreenshot": {
+        "title": "لقطة شاشة للكود",
+        "description": "حوّل الكود المصدري إلى صور جميلة قابلة للمشاركة."
+      },
+      "cssGenerators": {
+        "title": "مولّدات CSS",
+        "description": "مولّدات box-shadow وborder-radius وclamp() المرن."
+      },
+      "exifViewer": {
+        "title": "عارض ومزيل EXIF",
+        "description": "افحص بيانات EXIF الوصفية للصور واحذفها محليًا."
+      },
+      "faviconGenerator": {
+        "title": "مولّد Favicon",
+        "description": "أنشئ أيقونات المفضلة وأيقونات التطبيق ومقتطفات manifest."
+      },
+      "jsonDiff": {
+        "title": "مقارنة JSON",
+        "description": "مقارنة دلالية واعية بالبنية بين مستندَي JSON."
+      },
+      "jsonpathPlayground": {
+        "title": "ساحة JSONPath",
+        "description": "استعلم عن JSON باستخدام JSONPath أو JMESPath وشاهد النتائج مباشرة."
+      },
+      "keycodeInspector": {
+        "title": "فاحص أكواد المفاتيح",
+        "description": "اضغط مفتاحًا لرؤية أكواد أحداث JavaScript ومفاتيح التعديل."
+      },
+      "markdownTableGenerator": {
+        "title": "مولّد جداول Markdown",
+        "description": "أنشئ جداول Markdown وHTML في محرّر شبكي يشبه جداول البيانات."
+      },
+      "timezoneConverter": {
+        "title": "محوّل المناطق الزمنية",
+        "description": "حوّل وقتًا عبر مناطق عديدة مع مؤشرات إزاحة اليوم وساعات العمل."
+      },
+      "tokenCounter": {
+        "title": "عدّاد رموز LLM",
+        "description": "احسب رموز LLM، وتصوّر الأجزاء، وقدّر تكلفة الـ API."
+      },
+      "webhookTester": {
+        "title": "مختبِر Webhook",
+        "description": "التقط وافحص طلبات webhook الواردة في الوقت الفعلي."
+      },
+      "websocketTester": {
+        "title": "مختبِر WebSocket",
+        "description": "اتصل بنقاط نهاية WebSocket وتبادل الرسائل في الوقت الفعلي."
+      },
+      "whoisLookup": {
+        "title": "بحث Whois",
+        "description": "ابحث عن تفاصيل تسجيل النطاق وعنوان IP عبر RDAP."
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "مولّد ومدقّق Bcrypt",
+    "subtitle": "شفّر كلمات المرور باستخدام bcrypt وتحقّق من التجزئات — كل شيء يبقى في متصفّحك",
+    "tabs": {
+      "hash": "تجزئة",
+      "verify": "تحقّق"
+    },
+    "showPassword": "إظهار كلمة المرور",
+    "hidePassword": "إخفاء كلمة المرور",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "hash": {
+      "passwordLabel": "كلمة المرور",
+      "passwordPlaceholder": "أدخل كلمة مرور لتجزئتها…",
+      "costLabel": "عامل التكلفة",
+      "costHint": "التكلفة الأعلى تضاعف العمل في كل خطوة. عادةً يُستخدم 10-12 في الإنتاج.",
+      "slowWarning": "عوامل التكلفة 13 فأعلى قد تستغرق عدة ثوانٍ للحساب.",
+      "generate": "توليد التجزئة",
+      "generating": "جارٍ التجزئة…",
+      "resultLabel": "تجزئة Bcrypt",
+      "timeTaken": "{ms} مللي ثانية",
+      "anatomy": {
+        "title": "بنية التجزئة",
+        "algorithm": "الخوارزمية",
+        "cost": "التكلفة",
+        "salt": "الملح (22 حرفًا)",
+        "hash": "التجزئة (31 حرفًا)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "كلمة المرور",
+      "passwordPlaceholder": "أدخل كلمة المرور للتحقّق…",
+      "hashLabel": "تجزئة Bcrypt",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "أدخل كلمة مرور وتجزئة bcrypt لمقارنتهما.",
+      "invalidHash": "لا يبدو هذا تجزئة bcrypt صالحة.",
+      "checking": "جارٍ المقارنة…",
+      "match": "تطابق — كلمة المرور تنتج هذه التجزئة.",
+      "noMatch": "لا تطابق — كلمة المرور لا تنتج هذه التجزئة."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "حاسبة Chmod",
+    "subtitle": "حوّل أذونات ملفات يونكس بين مربّعات الاختيار والترميز الثماني والرمزي",
+    "grid": {
+      "title": "الأذونات",
+      "read": "قراءة",
+      "write": "كتابة",
+      "execute": "تنفيذ",
+      "owner": "المالك",
+      "group": "المجموعة",
+      "others": "الآخرون"
+    },
+    "special": {
+      "title": "البتات الخاصة",
+      "setuid": "setuid",
+      "setgid": "setgid",
+      "sticky": "sticky"
+    },
+    "octal": {
+      "label": "ثماني",
+      "placeholder": "755 أو 4755",
+      "invalid": "أدخل 3 أو 4 أرقام ثمانية (0-7)."
+    },
+    "symbolic": {
+      "label": "رمزي",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "أدخل 9 أحرف مثل rwxr-xr-x (يُسمح بـ s/S وt/T)."
+    },
+    "output": {
+      "title": "الأمر",
+      "copy": "نسخ",
+      "copied": "تم النسخ"
+    },
+    "explain": {
+      "line": "{cls} يمكنه {perms}.",
+      "none": "{cls} ليس لديه أي أذونات.",
+      "setuid": "setuid: يعمل الملف بصلاحيات مالكه.",
+      "setgid": "setgid: يعمل الملف بصلاحيات مجموعته (ترث الملفات الجديدة في مجلد مجموعته).",
+      "sticky": "sticky: يمكن فقط لمالك الملف حذفه أو إعادة تسميته داخل هذا المجلد."
+    },
+    "presets": {
+      "title": "الإعدادات الشائعة",
+      "octal": "ثماني",
+      "permissions": "الأذونات",
+      "description": "الاستخدام النموذجي",
+      "p644": "الملفات العادية: المالك يكتب، والجميع يقرأ.",
+      "p755": "الملفات القابلة للتنفيذ والمجلدات: يمكن للجميع القراءة والدخول.",
+      "p600": "الملفات الخاصة: المالك فقط يقرأ ويكتب.",
+      "p700": "الملفات القابلة للتنفيذ والمجلدات الخاصة: المالك فقط.",
+      "p664": "ملفات قابلة للكتابة من المجموعة.",
+      "p775": "مجلدات وملفات قابلة للتنفيذ وقابلة للكتابة من المجموعة.",
+      "p400": "قراءة فقط للمالك (مثل مفاتيح SSH الخاصة)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "لقطة شاشة للكود",
+    "subtitle": "حوّل الكود إلى صور جميلة قابلة للمشاركة",
+    "languageLabel": "اللغة",
+    "autoDetect": "كشف تلقائي",
+    "backgroundLabel": "الخلفية",
+    "paddingLabel": "الحشوة",
+    "filenameLabel": "اسم الملف",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "نقاط النافذة",
+    "themeLabel": "سمة النافذة",
+    "themeDark": "داكن",
+    "themeLight": "فاتح",
+    "scaleLabel": "مقياس التصدير",
+    "copyImage": "نسخ الصورة",
+    "copied": "تم النسخ",
+    "exportPng": "تصدير PNG",
+    "inputLabel": "الكود",
+    "detected": "المكتشَف: {language}",
+    "clear": "مسح",
+    "placeholder": "الصق الكود هنا…",
+    "previewLabel": "معاينة",
+    "emptyPreview": "ستظهر معاينة الكود هنا",
+    "exportFailed": "فشل تصدير الصورة",
+    "copyUnsupported": "نسخ الصور غير مدعوم في هذا المتصفّح",
+    "copyFailed": "فشل نسخ الصورة",
+    "backgrounds": {
+      "ocean": "محيط",
+      "sunset": "غروب",
+      "candy": "حلوى",
+      "forest": "غابة",
+      "midnight": "منتصف الليل",
+      "gold": "ذهبي",
+      "aurora": "شفق",
+      "slate": "رمادي",
+      "transparent": "شفاف"
+    }
+  },
+  "CssGenerators": {
+    "title": "مولّدات CSS",
+    "subtitle": "box-shadow وborder-radius وclamp() المرن — انسخ الـ CSS.",
+    "preview": "معاينة",
+    "output": "CSS",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "clamp() المرن"
+    },
+    "boxShadow": {
+      "presets": "الإعدادات المسبقة",
+      "layer": "طبقة",
+      "addLayer": "إضافة طبقة",
+      "removeLayer": "إزالة الطبقة",
+      "x": "X",
+      "y": "Y",
+      "blur": "تمويه",
+      "spread": "امتداد",
+      "color": "اللون",
+      "alpha": "ألفا",
+      "inset": "داخلي",
+      "presetNames": {
+        "subtleCard": "بطاقة خفيفة",
+        "elevated": "مرتفع",
+        "hardOffset": "إزاحة حادة",
+        "neonGlow": "توهّج نيون",
+        "inner": "داخلي",
+        "layeredSmooth": "متعدّد الطبقات ناعم"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "الوضع",
+      "modes": {
+        "simple": "لكل زاوية",
+        "blob": "شكل عضوي"
+      },
+      "unit": "الوحدة",
+      "linkCorners": "ربط الزوايا",
+      "randomize": "عشوائي",
+      "horizontal": "أنصاف الأقطار الأفقية",
+      "vertical": "أنصاف الأقطار الرأسية",
+      "corners": {
+        "tl": "أعلى اليسار",
+        "tr": "أعلى اليمين",
+        "br": "أسفل اليمين",
+        "bl": "أسفل اليسار"
+      }
+    },
+    "clamp": {
+      "minFont": "أدنى خط (px)",
+      "maxFont": "أقصى خط (px)",
+      "minViewport": "أدنى منفذ عرض (px)",
+      "maxViewport": "أقصى منفذ عرض (px)",
+      "rootFont": "خط الجذر (px)",
+      "viewportWidth": "منفذ عرض محاكى",
+      "computedSize": "الحجم المحسوب",
+      "slope": "الميل",
+      "intercept": "التقاطع",
+      "previewText": "نصّ معاينة للخط",
+      "invalid": "أدخل حدود منفذ عرض صالحة ومختلفة."
+    }
+  },
+  "ExifViewer": {
+    "title": "عارض ومزيل EXIF",
+    "subtitle": "افحص بيانات الصور الوصفية واحذفها في متصفّحك",
+    "dropTitle": "أفلِت صورة هنا",
+    "dropHint": "أو انقر للتصفّح — صورتك لا تغادر جهازك أبدًا",
+    "browse": "اختر صورة",
+    "formats": "JPEG وPNG وWebP وHEIC وTIFF",
+    "parsing": "جارٍ قراءة البيانات الوصفية…",
+    "parseFailed": "فشل قراءة هذه الصورة",
+    "clear": "إزالة الصورة",
+    "gpsWarning": "يحتوي على موقع GPS",
+    "openMap": "عرض على OpenStreetMap",
+    "noMetadata": "لم يُعثر على بيانات وصفية مضمّنة في هذه الصورة.",
+    "facts": {
+      "name": "الاسم",
+      "type": "النوع",
+      "dimensions": "الأبعاد",
+      "size": "الحجم"
+    },
+    "groups": {
+      "camera": "الكاميرا",
+      "exposure": "التعريض",
+      "timestamps": "الطوابع الزمنية",
+      "gps": "موقع GPS",
+      "software": "البرامج وأخرى"
+    },
+    "gpsCard": {
+      "latitude": "خط العرض",
+      "longitude": "خط الطول",
+      "altitude": "الارتفاع"
+    },
+    "raw": {
+      "title": "كل البيانات الوصفية",
+      "copyJson": "نسخ JSON",
+      "copied": "تم النسخ"
+    },
+    "remove": {
+      "title": "إزالة البيانات الوصفية",
+      "jpegDescription": "أزِل EXIF وXMP وIPTC والتعليقات بلا فقدان دون إعادة ضغط الصورة.",
+      "reencodeDescription": "أعِد ترميز الصورة لإزالة البيانات الوصفية المضمّنة. هذا يعيد ضغط البكسلات.",
+      "keepIcc": "الاحتفاظ بملف الألوان (ICC)",
+      "stripButton": "إزالة البيانات الوصفية",
+      "reencodeButton": "إعادة الترميز والإزالة",
+      "unsupported": "إزالة البيانات الوصفية غير مدعومة لهذا النوع من الملفات.",
+      "failed": "فشلت إزالة البيانات الوصفية",
+      "before": "قبل",
+      "after": "بعد",
+      "download": "تنزيل الصورة المنظّفة"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "مولّد Favicon",
+    "subtitle": "أنشئ أيقونات المفضلة وأيقونات التطبيق من صورة واحدة",
+    "dropTitle": "أفلِت صورة هنا",
+    "dropHint": "PNG أو JPEG أو SVG — انقر للتصفّح",
+    "browse": "اختر صورة",
+    "clear": "إزالة الصورة",
+    "backgroundLabel": "الخلفية",
+    "transparent": "شفاف",
+    "solidColor": "لون خالص",
+    "cornerLabel": "شكل الزاوية",
+    "cornerNone": "مربّع",
+    "cornerRounded": "مستدير",
+    "cornerCircle": "دائرة",
+    "maskPaddingLabel": "حشوة قابلة للإخفاء",
+    "maskable": "قابلة للإخفاء",
+    "previewLabel": "معاينة",
+    "copy": "نسخ",
+    "headSnippet": "مقتطف HTML head",
+    "downloadIco": "تنزيل favicon.ico",
+    "downloadZip": "تنزيل الكل (.zip)"
+  },
+  "JsonDiff": {
+    "title": "مقارنة JSON",
+    "subtitle": "مقارنة دلالية واعية بالبنية بين مستندَي JSON — يُتجاهل ترتيب المفاتيح والتنسيق",
+    "options": {
+      "ignoreArrayOrder": "تجاهل ترتيب المصفوفة"
+    },
+    "loadBothSamples": "تحميل الأمثلة",
+    "sample": "مثال",
+    "format": "تنسيق",
+    "clear": "مسح",
+    "formatError": "تعذّر التنسيق: الإدخال ليس JSON صالحًا",
+    "placeholder": "الصق أو اكتب JSON هنا…",
+    "panels": {
+      "left": "الأصلي (يسار)",
+      "right": "المعدّل (يمين)",
+      "results": "الاختلافات"
+    },
+    "summary": {
+      "added": "{count} مُضاف",
+      "removed": "{count} محذوف",
+      "changed": "{count} متغيّر"
+    },
+    "types": {
+      "added": "مُضاف",
+      "removed": "محذوف",
+      "changed": "متغيّر"
+    },
+    "copyChanges": "نسخ كـ JSON",
+    "copied": "تم النسخ",
+    "empty": "الصق JSON في كلا اللوحين لرؤية اختلافاتهما.",
+    "identical": "المستندان متطابقان دلاليًا."
+  },
+  "JsonpathPlayground": {
+    "title": "ساحة JSONPath",
+    "subtitle": "استعلم عن مستندات JSON باستخدام JSONPath أو JMESPath وشاهد النتائج مباشرة",
+    "engineLabel": "المحرّك",
+    "queryLabel": "الاستعلام",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "ورقة مرجعية",
+    "cheats": {
+      "jpAllTitles": "كل عناوين الكتب",
+      "jpAllAuthors": "كل مؤلّف في أي مكان بالمستند",
+      "jpFirstBook": "أول كتاب",
+      "jpLastBook": "آخر كتاب",
+      "jpSlice": "أول كتابين (شريحة)",
+      "jpFilterPrice": "الكتب الأرخص من 40",
+      "jpFilterInStock": "عناوين الكتب المتوفّرة",
+      "jpRecursive": "كل القيم، تعاوديًا",
+      "jmAllTitles": "كل عناوين الكتب",
+      "jmFirstAuthor": "مؤلّف أول كتاب",
+      "jmLastBook": "آخر كتاب",
+      "jmSlice": "أول كتابين (شريحة)",
+      "jmFilterPrice": "عناوين الكتب الأرخص من 40",
+      "jmCount": "عدّ الكتب المتوفّرة",
+      "jmProjection": "أعِد تشكيل كل كتاب إلى كائن جديد",
+      "jmSort": "العناوين مرتّبة حسب السعر"
+    },
+    "panels": {
+      "input": "إدخال JSON",
+      "results": "النتائج"
+    },
+    "sample": "مثال",
+    "format": "تنسيق",
+    "clear": "مسح",
+    "formatError": "تعذّر التنسيق: الإدخال ليس JSON صالحًا",
+    "placeholder": "الصق أو اكتب JSON هنا…",
+    "outputPlaceholder": "ستظهر التطابقات هنا…",
+    "matchCount": "{count, plural, zero {# تطابق} one {# تطابق} two {# تطابقان} few {# تطابقات} many {# تطابقًا} other {# تطابق}}",
+    "copy": "نسخ",
+    "copied": "تم النسخ"
+  },
+  "KeycodeInspector": {
+    "title": "فاحص أكواد المفاتيح",
+    "subtitle": "اضغط أي مفتاح لفحص حدث لوحة مفاتيح JavaScript الخاص به",
+    "capture": {
+      "prompt": "اضغط أي مفتاح…",
+      "ready": "يستمع — اضغط أي مفتاح على لوحة مفاتيحك",
+      "clickToFocus": "انقر هنا للتركيز، ثم اضغط أي مفتاح"
+    },
+    "hero": {
+      "spaceKey": "(مسافة)",
+      "keyLabel": "event.key",
+      "repeat": "تكرار"
+    },
+    "copyJson": "نسخ JSON",
+    "copiedJson": "تم نسخ JSON الحدث إلى الحافظة",
+    "deprecated": "مهمَل",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "قياسي",
+      "left": "يسار",
+      "right": "يمين",
+      "numpad": "لوحة أرقام",
+      "unknown": "غير معروف"
+    },
+    "history": {
+      "title": "السجل",
+      "clear": "مسح السجل",
+      "empty": "ستظهر ضغطات المفاتيح هنا."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "مولّد جداول Markdown",
+    "subtitle": "حرّر شبكة، والصق من جدول بيانات، وانسخ جدول Markdown أو HTML بمحاذاة أنيقة",
+    "addRow": "إضافة صف",
+    "addColumn": "إضافة عمود",
+    "importLabel": "استيراد",
+    "importPlaceholder": "الصق TSV (من Excel / Google Sheets) أو CSV هنا…",
+    "importButton": "استيراد إلى الشبكة",
+    "pasteClipboard": "لصق من الحافظة",
+    "importEmpty": "لا شيء للاستيراد — الصق بعض الصفوف أولًا",
+    "clipboardError": "تعذّرت القراءة من الحافظة",
+    "clear": "مسح",
+    "panels": {
+      "editor": "محرّر الجدول",
+      "output": "الناتج"
+    },
+    "align": {
+      "left": "محاذاة لليسار",
+      "center": "محاذاة للوسط",
+      "right": "محاذاة لليمين"
+    },
+    "headerPlaceholder": "رأس",
+    "cellPlaceholder": "خلية",
+    "removeRow": "إزالة الصف",
+    "removeColumn": "إزالة العمود",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "نسخ",
+    "copied": "تم النسخ"
+  },
+  "TimezoneConverter": {
+    "title": "محوّل المناطق الزمنية",
+    "subtitle": "حوّل لحظة واحدة عبر العالم لتخطيط الاجتماعات.",
+    "dateTimeLabel": "التاريخ والوقت",
+    "now": "الآن",
+    "sourceZoneLabel": "المنطقة الزمنية المصدر",
+    "selectZone": "اختر منطقة",
+    "searchZone": "ابحث في المناطق الزمنية...",
+    "noZone": "لم يُعثر على منطقة زمنية.",
+    "scrubLabel": "إزاحة الوقت",
+    "reset": "إعادة تعيين",
+    "targetsLabel": "المناطق الهدف",
+    "addZone": "إضافة منطقة",
+    "remove": "إزالة",
+    "localBadge": "محلي",
+    "invalidDate": "أدخل تاريخًا ووقتًا صالحين.",
+    "bands": {
+      "work": "ساعات العمل (09:00–18:00)",
+      "edge": "الساعات الهامشية (الصباح الباكر / المساء)",
+      "night": "الليل"
+    }
+  },
+  "TokenCounter": {
+    "title": "عدّاد رموز LLM",
+    "subtitle": "احسب الرموز، وتصوّر الأجزاء، وقدّر تكلفة الـ API.",
+    "inputLabel": "النص",
+    "sample": "مثال",
+    "clear": "مسح",
+    "placeholder": "الصق نصًا أو كودًا أو JSON لعدّ الرموز...",
+    "encoding": "الترميز",
+    "loading": "جارٍ تحميل المُرمِّز...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / o-series)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "الرموز",
+      "characters": "الأحرف",
+      "words": "الكلمات",
+      "ratio": "رموز/كلمة",
+      "ratioSub": "تقريبي"
+    },
+    "claudeRow": "Claude (تقريبي)",
+    "estimate": "تقدير",
+    "viz": {
+      "title": "تصوّر الرموز",
+      "toggle": "إظهار",
+      "hint": "بدّل لتلوين كل رمز كجزء.",
+      "empty": "أدخل نصًا لتصوّر الرموز.",
+      "truncated": "عرض أول {limit} من {total} رمزًا."
+    },
+    "cost": {
+      "title": "حاسبة التكلفة",
+      "disclaimer": "قيم افتراضية قابلة للتعديل — تحقّق من الأسعار الحالية",
+      "model": "النموذج",
+      "expectedOutput": "رموز الإخراج المتوقّعة",
+      "customInput": "إدخال $/MTok",
+      "customOutput": "إخراج $/MTok",
+      "inputCost": "تكلفة الإدخال",
+      "outputCost": "تكلفة الإخراج",
+      "total": "الإجمالي",
+      "per1000": "لكل 1000 طلب"
+    }
+  },
+  "WebhookTester": {
+    "title": "مختبِر Webhook",
+    "subtitle": "أنشئ عنوان URL مؤقّتًا وافحص طلبات webhook الواردة مباشرة.",
+    "intro": {
+      "title": "أنشئ عنوان webhook لبدء التقاط الطلبات",
+      "hint": "ستحصل على عنوان URL يصعب تخمينه يسجّل كل طلب وارد. تنتهي صلاحيته بعد 24 ساعة."
+    },
+    "createBtn": "إنشاء عنوان webhook",
+    "creating": "جارٍ الإنشاء…",
+    "urlLabel": "عنوان webhook الخاص بك",
+    "expiresIn": "تنتهي الصلاحية خلال {countdown}",
+    "copyUrlBtn": "نسخ العنوان",
+    "copied": "تم النسخ",
+    "clearBtn": "مسح",
+    "newBinBtn": "عنوان جديد",
+    "requestsTitle": "الطلبات",
+    "selectPrompt": "اختر طلبًا لفحص تفاصيله.",
+    "expiredNotice": "انتهت صلاحية عنوان webhook هذا. أنشئ عنوانًا جديدًا لمواصلة الاختبار.",
+    "base64Badge": "base64",
+    "truncatedBadge": "مقتطع",
+    "empty": {
+      "title": "بانتظار الطلبات…",
+      "hint": "أرسل طلبًا إلى عنوانك وسيظهر هنا فورًا. جرّب هذا:"
+    },
+    "detail": {
+      "receivedAt": "استُلم",
+      "source": "IP المصدر",
+      "contentType": "Content-Type",
+      "query": "معاملات الاستعلام",
+      "headers": "الترويسات",
+      "body": "المحتوى",
+      "copyBody": "نسخ المحتوى",
+      "emptyBody": "لا يوجد محتوى"
+    },
+    "errors": {
+      "createFailed": "فشل إنشاء عنوان webhook. يُرجى المحاولة مجددًا.",
+      "clearFailed": "فشل مسح الطلبات. يُرجى المحاولة مجددًا."
+    }
+  },
+  "WebsocketTester": {
+    "title": "مختبِر WebSocket",
+    "subtitle": "اتصل بنقطة نهاية WebSocket وأرسِل واستقبِل وافحص الرسائل مباشرة",
+    "urlLabel": "عنوان نقطة النهاية",
+    "protocolsLabel": "البروتوكولات الفرعية",
+    "protocolsPlaceholder": "اختياري، مفصولة بفواصل",
+    "connect": "اتصال",
+    "disconnect": "قطع الاتصال",
+    "status": {
+      "disconnected": "غير متصل",
+      "connecting": "جارٍ الاتصال",
+      "connected": "متصل",
+      "error": "خطأ"
+    },
+    "messages": {
+      "connecting": "جارٍ الاتصال بـ {url}…",
+      "connected": "تم تأسيس الاتصال",
+      "connectedWithProtocol": "تم تأسيس الاتصال (البروتوكول: {protocol})",
+      "invalidUrl": "عنوان URL غير صالح — يجب أن يبدأ بـ ws:// أو wss://",
+      "connectFailed": "فشل فتح الاتصال",
+      "socketError": "حدث خطأ في الاتصال",
+      "notConnected": "غير متصل — اتصل أولًا",
+      "binaryMessage": "تم استلام رسالة ثنائية"
+    },
+    "log": {
+      "title": "سجل الرسائل",
+      "empty": "لا رسائل بعد. اتصل وابدأ الإرسال.",
+      "copyAll": "نسخ الكل",
+      "download": "تنزيل كـ .txt",
+      "clear": "مسح السجل",
+      "prettyPrint": "تنسيق JSON",
+      "showRaw": "إظهار النص الخام"
+    },
+    "composer": {
+      "placeholder": "اكتب رسالة للإرسال…",
+      "send": "إرسال",
+      "formatJson": "تنسيق كـ JSON",
+      "invalidJson": "الرسالة ليست JSON صالحًا",
+      "hint": "Cmd/Ctrl+Enter للإرسال"
+    },
+    "ping": {
+      "label": "ping تلقائي",
+      "seconds": "ثانية",
+      "intervalTitle": "فترة ping بالثواني",
+      "payloadPlaceholder": "حمولة ping"
+    }
+  },
+  "WhoisLookup": {
+    "title": "بحث Whois",
+    "subtitle": "ابحث عن تفاصيل التسجيل لأي نطاق أو عنوان IP عبر RDAP",
+    "placeholder": "example.com أو 8.8.8.8",
+    "lookupBtn": "بحث",
+    "looking": "جارٍ البحث…",
+    "refreshBtn": "تحديث",
+    "tryLabel": "جرّب:",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "notAvailable": "غير متوفّر",
+    "summary": {
+      "registrar": "المسجِّل",
+      "network": "الشبكة"
+    },
+    "dates": {
+      "created": "أُنشئ",
+      "updated": "حُدّث",
+      "expires": "ينتهي"
+    },
+    "sections": {
+      "status": "الحالة",
+      "nameservers": "خوادم الأسماء",
+      "contacts": "جهات الاتصال",
+      "rawRdap": "RDAP الخام"
+    },
+    "contacts": {
+      "roles": "الأدوار",
+      "name": "الاسم",
+      "organization": "المؤسسة"
+    },
+    "errors": {
+      "invalidTarget": "أدخل اسم نطاق أو عنوان IP صالحًا",
+      "lookupFailed": "فشل البحث (الحالة {status})"
+    }
   }
 }

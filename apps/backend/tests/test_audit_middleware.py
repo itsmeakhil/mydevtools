@@ -101,7 +101,7 @@ def test_bookmark_service_sets_audit_detail(monkeypatch):
     monkeypatch.setattr("app.api.routes.bookmarks.services.db_manager.insert_one", fake_insert_one)
 
     _bm_ctx = WorkspaceContext(
-        uid="uid1", org_id="org1", workspace_id="ws1", ws_role="admin",
+        uid="uid1", workspace_id="ws1", ws_role="admin",
         is_personal=True, owner_uid="uid1",
     )
 

@@ -1,29 +1,39 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import { listWorkspaceMembers, type Member } from "@/lib/members-api";
-import { useActiveWorkspace } from "@/store/workspace-store";
+import useAuth from "@/utils/useAuth";
+
+export type Member = {
+  uid: string;
+  email: string | null;
+  display_name: string | null;
+  role: string;
+  since: number;
+};
 
 /**
- * Members of the active workspace, for assignee pickers. Reuses the existing
- * workspace members API — no new backend endpoint. In a personal workspace the
- * list is just the owner; assignment shines in shared workspaces.
+ * Members available for assignee pickers. Workspaces are single-user (personal)
+ * now that shared/org collaboration has been removed, so the only assignable
+ * member is the current user.
  */
 export function useWorkspaceMembers() {
-  const ws = useActiveWorkspace();
-  const wsId = ws?.id ?? null;
+  const { user } = useAuth();
 
-  const query = useQuery<Member[]>({
-    queryKey: ["workspaceMembers", wsId],
-    queryFn: () => listWorkspaceMembers(wsId as string),
-    enabled: !!wsId,
-    staleTime: 5 * 60 * 1000, // members change rarely
-  });
+  const members: Member[] = user
+    ? [
+        {
+          uid: user.uid,
+          email: user.email ?? null,
+          display_name: user.displayName ?? null,
+          role: "admin",
+          since: 0,
+        },
+      ]
+    : [];
 
   return {
-    members: query.data ?? [],
-    isLoading: query.isPending && !!wsId,
-    isShared: !!ws && !ws.is_personal,
+    members,
+    isLoading: false,
+    isShared: false,
   };
 }
 

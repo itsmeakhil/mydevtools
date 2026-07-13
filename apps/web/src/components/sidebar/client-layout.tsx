@@ -11,8 +11,6 @@ import { isTabRoute } from '@/lib/route-config';
 import { getTabComponent, isRegisteredTab } from '@/lib/tab-registry';
 import { MigrationBanner } from '@/components/migration-banner';
 import { MobileDesktopHint } from '@/components/mobile-desktop-hint';
-import { WorkspaceSwitcherDropdown } from '@/components/workspace-switcher-dropdown';
-import { NotificationsBell } from '@/components/notifications-bell';
 import { useWorkspaceStore } from '@/store/workspace-store';
 import { initWorkspaceScopeReset } from '@/lib/workspace-scope-reset';
 
@@ -97,12 +95,6 @@ function Layout({ children }: { children: React.ReactNode }) {
             }`}
         >
           <div className="shrink-0 z-20 bg-background">
-            <div className="md:hidden flex items-center justify-between gap-2 px-3 pt-[max(0.5rem,env(safe-area-inset-top))] pb-2 border-b border-border/40">
-              <div className="min-w-0 flex-1">
-                <WorkspaceSwitcherDropdown />
-              </div>
-              <NotificationsBell />
-            </div>
             {inTabMode ? (
               <TabBar onNewTab={openCommandPalette} />
             ) : (

@@ -18,7 +18,6 @@ os.environ.setdefault("WEBAUTHN_RP_NAME", "MyDevTools")
 os.environ.setdefault("WEBAUTHN_ORIGINS", "http://localhost:3000")
 os.environ.setdefault("WEBAUTHN_CHALLENGE_TTL_SECONDS", "300")
 
-from app.api.routes.workspaces.seed import ensure_system_org
 from app.api.routes.workspaces.services import ensure_user_workspace_setup
 from app.database import db_manager
 from app.utils.collection_name import (
@@ -35,8 +34,6 @@ from app.utils.collection_name import (
     NOSQL_CONNECTIONS,
     NOSQL_QUERY_HISTORY,
     NOTES,
-    ORGANIZATIONS,
-    ORG_MEMBERSHIPS,
     PASSWORD_ENTRIES,
     PASSWORD_VAULTS,
     PROJECTS,
@@ -50,7 +47,6 @@ from app.utils.collection_name import (
     WORKSPACE_MEMBERSHIPS,
     URL_LINKS,
     URL_CLICK_EVENTS,
-    INVITATIONS,
 )
 
 pytest_plugins = ("pytest_asyncio",)
@@ -59,7 +55,7 @@ pytest_plugins = ("pytest_asyncio",)
 @pytest.fixture
 async def clean_db():
     """Drop workspace-related collections and USERS before and after test."""
-    collections = [API_CLIENT_COLLECTIONS, API_CLIENT_ENVIRONMENTS, API_CLIENT_HISTORY, API_CLIENT_WORKSPACES, API_KEY_VAULT_ENTRIES, ORGANIZATIONS, ORG_MEMBERSHIPS, WORKSPACES, WORKSPACE_MEMBERSHIPS, USERS, PASSWORD_ENTRIES, PASSWORD_VAULTS, NOTES, USER_PREFERENCES, BOOKMARKS, BOOKMARK_FOLDERS, TASKS, PROJECTS, ENV_MANAGER_ENTRIES, CODE_SNIPPETS, NOSQL_CONNECTIONS, NOSQL_QUERY_HISTORY, SQL_CONNECTIONS, S3_CONNECTIONS, REDIS_CONNECTIONS, URL_LINKS, URL_CLICK_EVENTS, JSON_FORMATTER_DOCUMENTS, INVITATIONS]
+    collections = [API_CLIENT_COLLECTIONS, API_CLIENT_ENVIRONMENTS, API_CLIENT_HISTORY, API_CLIENT_WORKSPACES, API_KEY_VAULT_ENTRIES, WORKSPACES, WORKSPACE_MEMBERSHIPS, USERS, PASSWORD_ENTRIES, PASSWORD_VAULTS, NOTES, USER_PREFERENCES, BOOKMARKS, BOOKMARK_FOLDERS, TASKS, PROJECTS, ENV_MANAGER_ENTRIES, CODE_SNIPPETS, NOSQL_CONNECTIONS, NOSQL_QUERY_HISTORY, SQL_CONNECTIONS, S3_CONNECTIONS, REDIS_CONNECTIONS, URL_LINKS, URL_CLICK_EVENTS, JSON_FORMATTER_DOCUMENTS]
 
     # Clean before test
     for coll in collections:
@@ -164,12 +160,6 @@ async def seed_legacy_user_data():
     )
 
     yield
-
-
-@pytest.fixture
-async def system_org_id():
-    """Idempotently create the system org and return its id."""
-    return await ensure_system_org()
 
 
 @pytest.fixture

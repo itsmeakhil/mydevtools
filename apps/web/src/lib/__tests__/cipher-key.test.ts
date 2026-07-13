@@ -1,8 +1,8 @@
 /**
  * cipher-key.test.ts
  *
- * Unit tests for getCipherKey() — the routing helper that selects either the
- * master key (personal workspace) or the workspace DEK (shared workspace).
+ * Unit tests for getCipherKey() — workspaces are single-user (personal), so the
+ * cipher key is always the master key.
  */
 
 import { webcrypto } from "node:crypto"
@@ -34,7 +34,6 @@ async function makeKey(): Promise<CryptoKey> {
 function personalWs(overrides?: Partial<Workspace>): Workspace {
   return {
     id: "ws-personal-1",
-    org_id: "org-1",
     name: "My Workspace",
     slug: "my-workspace",
     is_personal: true,
@@ -44,44 +43,9 @@ function personalWs(overrides?: Partial<Workspace>): Workspace {
   }
 }
 
-function sharedWs(overrides?: Partial<Workspace>): Workspace {
-  return {
-    id: "ws-shared-1",
-    org_id: "org-1",
-    name: "Team Workspace",
-    slug: "team-workspace",
-    is_personal: false,
-    kind: "shared",
-    ws_role: "developer",
-    ...overrides,
-  }
-}
-
-// ── Mock workspace-dek-store ──────────────────────────────────────────────────
-
-// We mock the entire module so getDek() is controlled in tests.
-jest.mock("@/store/workspace-dek-store", () => ({
-  useWorkspaceDekStore: {
-    getState: jest.fn(),
-  },
-}))
-
-import { useWorkspaceDekStore } from "@/store/workspace-dek-store"
-
-// Helper to set the mock DEK returned by getDek()
-function mockGetDek(impl: (id: string) => Promise<CryptoKey | null>) {
-  ;(useWorkspaceDekStore.getState as jest.Mock).mockReturnValue({
-    getDek: jest.fn(impl),
-  })
-}
-
 // ── Tests ──────────────────────────────────────────────────────────────────────
 
 describe("getCipherKey", () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
   it("returns null when workspace is null", async () => {
     const masterKey = await makeKey()
     const result = await getCipherKey(null, masterKey)
@@ -97,41 +61,5 @@ describe("getCipherKey", () => {
   it("returns null for a personal workspace when masterKey is null", async () => {
     const result = await getCipherKey(personalWs(), null)
     expect(result).toBeNull()
-  })
-
-  it("calls getDek with the correct workspaceId for a shared workspace", async () => {
-    const dekKey = await makeKey()
-    const getDek = jest.fn().mockResolvedValue(dekKey)
-    ;(useWorkspaceDekStore.getState as jest.Mock).mockReturnValue({ getDek })
-
-    const ws = sharedWs({ id: "ws-shared-xyz" })
-    const masterKey = await makeKey()
-
-    const result = await getCipherKey(ws, masterKey)
-
-    // Should have called getDek with the workspace id, not the master key path
-    expect(getDek).toHaveBeenCalledTimes(1)
-    expect(getDek).toHaveBeenCalledWith("ws-shared-xyz")
-    expect(result).toBe(dekKey)
-  })
-
-  it("returns null for a shared workspace when DEK is not available", async () => {
-    mockGetDek(async () => null)
-
-    const ws = sharedWs({ id: "ws-no-dek" })
-    const masterKey = await makeKey()
-
-    const result = await getCipherKey(ws, masterKey)
-    expect(result).toBeNull()
-  })
-
-  it("does NOT call getDek for a personal workspace", async () => {
-    const getDek = jest.fn().mockResolvedValue(null)
-    ;(useWorkspaceDekStore.getState as jest.Mock).mockReturnValue({ getDek })
-
-    const masterKey = await makeKey()
-    await getCipherKey(personalWs(), masterKey)
-
-    expect(getDek).not.toHaveBeenCalled()
   })
 })

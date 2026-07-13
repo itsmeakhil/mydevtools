@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Chmod-sakrekenaar",
+    "codeScreenshot": "Kode-skermkiekie",
+    "cssGenerators": "CSS-genereerders",
+    "exifViewer": "EXIF-kyker",
+    "faviconGenerator": "Favicon-genereerder",
+    "jsonDiff": "JSON-verskil",
+    "jsonpathPlayground": "JSONPath-speelperk",
+    "keycodeInspector": "Sleutelkode-inspekteur",
+    "markdownTableGenerator": "Markdown-tabel",
+    "timezoneConverter": "Tydsone-omskakelaar",
+    "tokenCounter": "Token-teller",
+    "webhookTester": "Webhook-toetser",
+    "websocketTester": "WebSocket-toetser",
+    "whoisLookup": "Whois-opsoek"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -526,6 +541,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Bcrypt-genereerder en -toetser",
+        "description": "Hash wagwoorde met bcrypt en verifieer bestaande hashe."
+      },
+      "chmodCalculator": {
+        "title": "Chmod-sakrekenaar",
+        "description": "Skakel Unix-regte om tussen oktaal, simbolies en merkblokkies."
+      },
+      "codeScreenshot": {
+        "title": "Kode-skermkiekie",
+        "description": "Verander bronkode in pragtige, deelbare beelde."
+      },
+      "cssGenerators": {
+        "title": "CSS-genereerders",
+        "description": "box-shadow-, border-radius- en vloeibare clamp()-genereerders."
+      },
+      "exifViewer": {
+        "title": "EXIF-kyker en -verwyderaar",
+        "description": "Inspekteer en verwyder foto-EXIF-metadata plaaslik."
+      },
+      "faviconGenerator": {
+        "title": "Favicon-genereerder",
+        "description": "Genereer favicons, app-ikone en manifest-snippers."
+      },
+      "jsonDiff": {
+        "title": "JSON-verskil",
+        "description": "Semantiese, struktuurbewuste verskil van twee JSON-dokumente."
+      },
+      "jsonpathPlayground": {
+        "title": "JSONPath-speelperk",
+        "description": "Bevraag JSON met JSONPath of JMESPath en sien lewendige resultate."
+      },
+      "keycodeInspector": {
+        "title": "Sleutelkode-inspekteur",
+        "description": "Druk 'n sleutel om sy JavaScript-gebeurteniskodes en wysigers te sien."
+      },
+      "markdownTableGenerator": {
+        "title": "Markdown-tabelgenereerder",
+        "description": "Bou Markdown- en HTML-tabelle in 'n sigblad-agtige roosterredigeerder."
+      },
+      "timezoneConverter": {
+        "title": "Tydsone-omskakelaar",
+        "description": "Skakel 'n tyd oor baie sones om met dagverskuiwing- en werksure-leidrade."
+      },
+      "tokenCounter": {
+        "title": "LLM-token-teller",
+        "description": "Tel LLM-tokens, visualiseer brokke en skat API-koste."
+      },
+      "webhookTester": {
+        "title": "Webhook-toetser",
+        "description": "Vang en inspekteer inkomende webhook-versoeke intyds."
+      },
+      "websocketTester": {
+        "title": "WebSocket-toetser",
+        "description": "Koppel aan WebSocket-eindpunte en ruil boodskappe intyds uit."
+      },
+      "whoisLookup": {
+        "title": "Whois-opsoek",
+        "description": "Soek domein- en IP-registrasiebesonderhede op via RDAP."
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Bcrypt-genereerder en -toetser",
+    "subtitle": "Hash wagwoorde met bcrypt en verifieer hashe — alles bly in jou blaaier",
+    "tabs": {
+      "hash": "Hash",
+      "verify": "Verifieer"
+    },
+    "showPassword": "Wys wagwoord",
+    "hidePassword": "Versteek wagwoord",
+    "copy": "Kopieer",
+    "copied": "Gekopieer",
+    "hash": {
+      "passwordLabel": "Wagwoord",
+      "passwordPlaceholder": "Voer 'n wagwoord in om te hash…",
+      "costLabel": "Kostefaktor",
+      "costHint": "Hoër koste verdubbel die werk per stap. 10-12 is 'n algemene keuse vir produksie.",
+      "slowWarning": "Kostefaktore van 13 en hoër kan 'n paar sekondes neem om te bereken.",
+      "generate": "Genereer hash",
+      "generating": "Besig om te hash…",
+      "resultLabel": "Bcrypt-hash",
+      "timeTaken": "{ms} ms",
+      "anatomy": {
+        "title": "Hash-anatomie",
+        "algorithm": "algoritme",
+        "cost": "koste",
+        "salt": "salt (22 karakters)",
+        "hash": "hash (31 karakters)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Wagwoord",
+      "passwordPlaceholder": "Voer die wagwoord in om te kontroleer…",
+      "hashLabel": "Bcrypt-hash",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Voer 'n wagwoord en 'n bcrypt-hash in om hulle te vergelyk.",
+      "invalidHash": "Dit lyk nie na 'n geldige bcrypt-hash nie.",
+      "checking": "Besig om te vergelyk…",
+      "match": "Pas — die wagwoord lewer hierdie hash.",
+      "noMatch": "Pas nie — die wagwoord lewer nie hierdie hash nie."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Chmod-sakrekenaar",
+    "subtitle": "Skakel Unix-lêerregte om tussen merkblokkies, oktaal en simboliese notasie",
+    "grid": {
+      "title": "Regte",
+      "read": "Lees",
+      "write": "Skryf",
+      "execute": "Voer uit",
+      "owner": "Eienaar",
+      "group": "Groep",
+      "others": "Ander"
+    },
+    "special": {
+      "title": "Spesiale bisse",
+      "setuid": "setuid",
+      "setgid": "setgid",
+      "sticky": "sticky"
+    },
+    "octal": {
+      "label": "Oktaal",
+      "placeholder": "755 of 4755",
+      "invalid": "Voer 3 of 4 oktale syfers in (0-7)."
+    },
+    "symbolic": {
+      "label": "Simbolies",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "Voer 9 karakters in soos rwxr-xr-x (s/S, t/T toegelaat)."
+    },
+    "output": {
+      "title": "Opdrag",
+      "copy": "Kopieer",
+      "copied": "Gekopieer"
+    },
+    "explain": {
+      "line": "{cls} kan {perms}.",
+      "none": "{cls} het geen regte nie.",
+      "setuid": "setuid: die lêer loop met sy eienaar se voorregte.",
+      "setgid": "setgid: die lêer loop met sy groep se voorregte (nuwe lêers in 'n gids erf sy groep).",
+      "sticky": "sticky: net 'n lêer se eienaar kan dit binne hierdie gids uitvee of hernoem."
+    },
+    "presets": {
+      "title": "Algemene voorafinstellings",
+      "octal": "Oktaal",
+      "permissions": "Regte",
+      "description": "Tipiese gebruik",
+      "p644": "Gewone lêers: eienaar skryf, almal lees.",
+      "p755": "Uitvoerbares en gidse: almal kan lees en ingaan.",
+      "p600": "Privaat lêers: net die eienaar lees en skryf.",
+      "p700": "Privaat uitvoerbares en gidse: net eienaar.",
+      "p664": "Groep-skryfbare lêers.",
+      "p775": "Groep-skryfbare gidse en uitvoerbares.",
+      "p400": "Leesalleen vir die eienaar (bv. SSH-privaatsleutels)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Kode-skermkiekie",
+    "subtitle": "Verander kode in pragtige, deelbare beelde",
+    "languageLabel": "Taal",
+    "autoDetect": "Outo-bespeur",
+    "backgroundLabel": "Agtergrond",
+    "paddingLabel": "Opvulling",
+    "filenameLabel": "Lêernaam",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "Vensterkolletjies",
+    "themeLabel": "Venstertema",
+    "themeDark": "Donker",
+    "themeLight": "Lig",
+    "scaleLabel": "Uitvoerskaal",
+    "copyImage": "Kopieer beeld",
+    "copied": "Gekopieer",
+    "exportPng": "Voer PNG uit",
+    "inputLabel": "Kode",
+    "detected": "Bespeur: {language}",
+    "clear": "Vee uit",
+    "placeholder": "Plak jou kode hier…",
+    "previewLabel": "Voorskou",
+    "emptyPreview": "Jou kodevoorskou sal hier verskyn",
+    "exportFailed": "Kon nie beeld uitvoer nie",
+    "copyUnsupported": "Die kopiëring van beelde word nie in hierdie blaaier ondersteun nie",
+    "copyFailed": "Kon nie beeld kopieer nie",
+    "backgrounds": {
+      "ocean": "Oseaan",
+      "sunset": "Sonsondergang",
+      "candy": "Lekkers",
+      "forest": "Woud",
+      "midnight": "Middernag",
+      "gold": "Goud",
+      "aurora": "Aurora",
+      "slate": "Leiklip",
+      "transparent": "Deursigtig"
+    }
+  },
+  "CssGenerators": {
+    "title": "CSS-genereerders",
+    "subtitle": "box-shadow, border-radius en vloeibare clamp() — kopieer die CSS.",
+    "preview": "Voorskou",
+    "output": "CSS",
+    "copy": "Kopieer",
+    "copied": "Gekopieer",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "Vloeibare clamp()"
+    },
+    "boxShadow": {
+      "presets": "Voorafinstellings",
+      "layer": "Laag",
+      "addLayer": "Voeg laag by",
+      "removeLayer": "Verwyder laag",
+      "x": "X",
+      "y": "Y",
+      "blur": "Vervaag",
+      "spread": "Verspreiding",
+      "color": "Kleur",
+      "alpha": "Alfa",
+      "inset": "Inset",
+      "presetNames": {
+        "subtleCard": "Subtiele kaart",
+        "elevated": "Verhewe",
+        "hardOffset": "Harde verskuiwing",
+        "neonGlow": "Neon-gloed",
+        "inner": "Binne",
+        "layeredSmooth": "Gelaagd glad"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Modus",
+      "modes": {
+        "simple": "Per hoek",
+        "blob": "Organiese klont"
+      },
+      "unit": "Eenheid",
+      "linkCorners": "Koppel hoeke",
+      "randomize": "Verewekansig",
+      "horizontal": "Horisontale radiusse",
+      "vertical": "Vertikale radiusse",
+      "corners": {
+        "tl": "Bo links",
+        "tr": "Bo regs",
+        "br": "Onder regs",
+        "bl": "Onder links"
+      }
+    },
+    "clamp": {
+      "minFont": "Min lettertipe (px)",
+      "maxFont": "Maks lettertipe (px)",
+      "minViewport": "Min viewport (px)",
+      "maxViewport": "Maks viewport (px)",
+      "rootFont": "Wortel-lettertipe (px)",
+      "viewportWidth": "Gesimuleerde viewport",
+      "computedSize": "Berekende grootte",
+      "slope": "Helling",
+      "intercept": "Afsnit",
+      "previewText": "Voorbeeldteks vir voorskou",
+      "invalid": "Voer geldige, verskillende viewport-grense in."
+    }
+  },
+  "ExifViewer": {
+    "title": "EXIF-kyker en -verwyderaar",
+    "subtitle": "Inspekteer foto-metadata en verwyder dit in jou blaaier",
+    "dropTitle": "Los 'n beeld hier",
+    "dropHint": "of klik om te blaai — jou beeld verlaat nooit jou toestel nie",
+    "browse": "Kies beeld",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Besig om metadata te lees…",
+    "parseFailed": "Kon nie hierdie beeld lees nie",
+    "clear": "Verwyder beeld",
+    "gpsWarning": "Bevat GPS-ligging",
+    "openMap": "Bekyk op OpenStreetMap",
+    "noMetadata": "Geen ingebedde metadata is in hierdie beeld gevind nie.",
+    "facts": {
+      "name": "Naam",
+      "type": "Tipe",
+      "dimensions": "Afmetings",
+      "size": "Grootte"
+    },
+    "groups": {
+      "camera": "Kamera",
+      "exposure": "Blootstelling",
+      "timestamps": "Tydstempels",
+      "gps": "GPS-ligging",
+      "software": "Sagteware en Ander"
+    },
+    "gpsCard": {
+      "latitude": "Breedtegraad",
+      "longitude": "Lengtegraad",
+      "altitude": "Hoogte"
+    },
+    "raw": {
+      "title": "Alle metadata",
+      "copyJson": "Kopieer JSON",
+      "copied": "Gekopieer"
+    },
+    "remove": {
+      "title": "Verwyder metadata",
+      "jpegDescription": "Verwyder EXIF, XMP, IPTC en kommentaar sonder verlies en sonder om die beeld te herkomprimeer.",
+      "reencodeDescription": "Herkodeer die beeld om ingebedde metadata te verwyder. Dit herkomprimeer die pixels.",
+      "keepIcc": "Behou kleurprofiel (ICC)",
+      "stripButton": "Verwyder metadata",
+      "reencodeButton": "Herkodeer en verwyder",
+      "unsupported": "Metadata-verwydering word nie vir hierdie lêertipe ondersteun nie.",
+      "failed": "Kon nie metadata verwyder nie",
+      "before": "Voor",
+      "after": "Na",
+      "download": "Laai skoongemaakte beeld af"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Favicon-genereerder",
+    "subtitle": "Skep favicons en app-ikone uit een beeld",
+    "dropTitle": "Los 'n beeld hier",
+    "dropHint": "PNG, JPEG of SVG — klik om te blaai",
+    "browse": "Kies beeld",
+    "clear": "Verwyder beeld",
+    "backgroundLabel": "Agtergrond",
+    "transparent": "Deursigtig",
+    "solidColor": "Soliede kleur",
+    "cornerLabel": "Hoekvorm",
+    "cornerNone": "Vierkant",
+    "cornerRounded": "Afgerond",
+    "cornerCircle": "Sirkel",
+    "maskPaddingLabel": "Maskeerbare opvulling",
+    "maskable": "maskable",
+    "previewLabel": "Voorskou",
+    "copy": "Kopieer",
+    "headSnippet": "HTML head-snipper",
+    "downloadIco": "Laai favicon.ico af",
+    "downloadZip": "Laai alles af (.zip)"
+  },
+  "JsonDiff": {
+    "title": "JSON-verskil",
+    "subtitle": "Semantiese, struktuurbewuste vergelyking van twee JSON-dokumente — sleutelvolgorde en formatering word geïgnoreer",
+    "options": {
+      "ignoreArrayOrder": "Ignoreer skikkingsvolgorde"
+    },
+    "loadBothSamples": "Laai voorbeelde",
+    "sample": "Voorbeeld",
+    "format": "Formaat",
+    "clear": "Vee uit",
+    "formatError": "Kan nie formateer nie: invoer is nie geldige JSON nie",
+    "placeholder": "Plak of tik JSON hier…",
+    "panels": {
+      "left": "Oorspronklik (links)",
+      "right": "Gewysig (regs)",
+      "results": "Verskille"
+    },
+    "summary": {
+      "added": "{count} bygevoeg",
+      "removed": "{count} verwyder",
+      "changed": "{count} verander"
+    },
+    "types": {
+      "added": "Bygevoeg",
+      "removed": "Verwyder",
+      "changed": "Verander"
+    },
+    "copyChanges": "Kopieer as JSON",
+    "copied": "Gekopieer",
+    "empty": "Plak JSON in albei panele om hul verskille te sien.",
+    "identical": "Die twee dokumente is semanties identies."
+  },
+  "JsonpathPlayground": {
+    "title": "JSONPath-speelperk",
+    "subtitle": "Bevraag JSON-dokumente met JSONPath of JMESPath en sien lewendige resultate",
+    "engineLabel": "Enjin",
+    "queryLabel": "Navraag",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Kits-verwysing",
+    "cheats": {
+      "jpAllTitles": "Alle boektitels",
+      "jpAllAuthors": "Elke outeur, enige plek in die dokument",
+      "jpFirstBook": "Eerste boek",
+      "jpLastBook": "Laaste boek",
+      "jpSlice": "Eerste twee boeke (snit)",
+      "jpFilterPrice": "Boeke goedkoper as 40",
+      "jpFilterInStock": "Titels van boeke in voorraad",
+      "jpRecursive": "Alle waardes, rekursief",
+      "jmAllTitles": "Alle boektitels",
+      "jmFirstAuthor": "Outeur van die eerste boek",
+      "jmLastBook": "Laaste boek",
+      "jmSlice": "Eerste twee boeke (snit)",
+      "jmFilterPrice": "Titels van boeke goedkoper as 40",
+      "jmCount": "Tel boeke in voorraad",
+      "jmProjection": "Hervorm elke boek na 'n nuwe voorwerp",
+      "jmSort": "Titels gesorteer volgens prys"
+    },
+    "panels": {
+      "input": "JSON-invoer",
+      "results": "Resultate"
+    },
+    "sample": "Voorbeeld",
+    "format": "Formaat",
+    "clear": "Vee uit",
+    "formatError": "Kan nie formateer nie: invoer is nie geldige JSON nie",
+    "placeholder": "Plak of tik JSON hier…",
+    "outputPlaceholder": "Passings sal hier verskyn…",
+    "matchCount": "{count, plural, one {# passing} other {# passings}}",
+    "copy": "Kopieer",
+    "copied": "Gekopieer"
+  },
+  "KeycodeInspector": {
+    "title": "Sleutelkode-inspekteur",
+    "subtitle": "Druk enige sleutel om sy JavaScript-sleutelbordgebeurtenis te inspekteer",
+    "capture": {
+      "prompt": "Druk enige sleutel…",
+      "ready": "Luister — druk enige sleutel op jou sleutelbord",
+      "clickToFocus": "Klik hier om te fokus, druk dan enige sleutel"
+    },
+    "hero": {
+      "spaceKey": "(Spasie)",
+      "keyLabel": "event.key",
+      "repeat": "herhaal"
+    },
+    "copyJson": "Kopieer JSON",
+    "copiedJson": "Gebeurtenis-JSON na knipbord gekopieer",
+    "deprecated": "verouderd",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Standaard",
+      "left": "Links",
+      "right": "Regs",
+      "numpad": "Syferblok",
+      "unknown": "Onbekend"
+    },
+    "history": {
+      "title": "Geskiedenis",
+      "clear": "Vee geskiedenis uit",
+      "empty": "Sleuteldrukke sal hier verskyn."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Markdown-tabelgenereerder",
+    "subtitle": "Redigeer 'n rooster, plak uit 'n sigblad en kopieer 'n netjies uitgelynde Markdown- of HTML-tabel",
+    "addRow": "Voeg ry by",
+    "addColumn": "Voeg kolom by",
+    "importLabel": "Voer in",
+    "importPlaceholder": "Plak TSV (uit Excel / Google Sheets) of CSV hier…",
+    "importButton": "Voer in rooster in",
+    "pasteClipboard": "Plak uit knipbord",
+    "importEmpty": "Niks om in te voer nie — plak eers 'n paar rye",
+    "clipboardError": "Kon nie uit die knipbord lees nie",
+    "clear": "Vee uit",
+    "panels": {
+      "editor": "Tabelredigeerder",
+      "output": "Uitvoer"
+    },
+    "align": {
+      "left": "Lyn links",
+      "center": "Lyn middel",
+      "right": "Lyn regs"
+    },
+    "headerPlaceholder": "Opskrif",
+    "cellPlaceholder": "Sel",
+    "removeRow": "Verwyder ry",
+    "removeColumn": "Verwyder kolom",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Kopieer",
+    "copied": "Gekopieer"
+  },
+  "TimezoneConverter": {
+    "title": "Tydsone-omskakelaar",
+    "subtitle": "Skakel een oomblik oor die wêreld om vir vergaderingbeplanning.",
+    "dateTimeLabel": "Datum en tyd",
+    "now": "Nou",
+    "sourceZoneLabel": "Brontydsone",
+    "selectZone": "Kies sone",
+    "searchZone": "Soek tydsones...",
+    "noZone": "Geen tydsone gevind nie.",
+    "scrubLabel": "Verskuif tyd",
+    "reset": "Herstel",
+    "targetsLabel": "Teikensones",
+    "addZone": "Voeg sone by",
+    "remove": "Verwyder",
+    "localBadge": "Plaaslik",
+    "invalidDate": "Voer 'n geldige datum en tyd in.",
+    "bands": {
+      "work": "Werksure (09:00–18:00)",
+      "edge": "Randure (vroeg / aand)",
+      "night": "Nag"
+    }
+  },
+  "TokenCounter": {
+    "title": "LLM-token-teller",
+    "subtitle": "Tel tokens, visualiseer brokke en skat API-koste.",
+    "inputLabel": "Teks",
+    "sample": "Voorbeeld",
+    "clear": "Vee uit",
+    "placeholder": "Plak teks, kode of JSON om tokens te tel...",
+    "encoding": "Enkodering",
+    "loading": "Besig om tokeniseerder te laai...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / o-series)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Tokens",
+      "characters": "Karakters",
+      "words": "Woorde",
+      "ratio": "Tokens/woord",
+      "ratioSub": "ongeveer"
+    },
+    "claudeRow": "Claude (ongeveer)",
+    "estimate": "skatting",
+    "viz": {
+      "title": "Token-visualisering",
+      "toggle": "Wys",
+      "hint": "Wissel om elke token as 'n brok te kleur.",
+      "empty": "Voer teks in om tokens te visualiseer.",
+      "truncated": "Wys die eerste {limit} van {total} tokens."
+    },
+    "cost": {
+      "title": "Kosteberekenaar",
+      "disclaimer": "redigeerbare verstekwaardes — verifieer huidige pryse",
+      "model": "Model",
+      "expectedOutput": "Verwagte uitvoer-tokens",
+      "customInput": "Invoer $/MTok",
+      "customOutput": "Uitvoer $/MTok",
+      "inputCost": "Invoerkoste",
+      "outputCost": "Uitvoerkoste",
+      "total": "Totaal",
+      "per1000": "Per 1000 oproepe"
+    }
+  },
+  "WebhookTester": {
+    "title": "Webhook-toetser",
+    "subtitle": "Skep 'n tydelike URL en inspekteer inkomende webhook-versoeke lewendig.",
+    "intro": {
+      "title": "Skep 'n webhook-URL om versoeke te begin vang",
+      "hint": "Jy sal 'n onraaibare URL kry wat elke inkomende versoek opneem. Dit verval na 24 uur."
+    },
+    "createBtn": "Skep webhook-URL",
+    "creating": "Besig om te skep…",
+    "urlLabel": "Jou webhook-URL",
+    "expiresIn": "Verval oor {countdown}",
+    "copyUrlBtn": "Kopieer URL",
+    "copied": "Gekopieer",
+    "clearBtn": "Vee uit",
+    "newBinBtn": "Nuwe URL",
+    "requestsTitle": "Versoeke",
+    "selectPrompt": "Kies 'n versoek om sy besonderhede te inspekteer.",
+    "expiredNotice": "Hierdie webhook-URL het verval. Skep 'n nuwe een om aan te hou toets.",
+    "base64Badge": "base64",
+    "truncatedBadge": "afgekap",
+    "empty": {
+      "title": "Wag vir versoeke…",
+      "hint": "Stuur 'n versoek na jou URL en dit sal onmiddellik hier verskyn. Probeer dit:"
+    },
+    "detail": {
+      "receivedAt": "Ontvang",
+      "source": "Bron-IP",
+      "contentType": "Content-Type",
+      "query": "Navraagparameters",
+      "headers": "Kopstukke",
+      "body": "Liggaam",
+      "copyBody": "Kopieer liggaam",
+      "emptyBody": "Geen liggaam"
+    },
+    "errors": {
+      "createFailed": "Kon nie webhook-URL skep nie. Probeer asseblief weer.",
+      "clearFailed": "Kon nie versoeke uitvee nie. Probeer asseblief weer."
+    }
+  },
+  "WebsocketTester": {
+    "title": "WebSocket-toetser",
+    "subtitle": "Koppel aan 'n WebSocket-eindpunt en stuur, ontvang en inspekteer boodskappe lewendig",
+    "urlLabel": "Eindpunt-URL",
+    "protocolsLabel": "Subprotokolle",
+    "protocolsPlaceholder": "opsioneel, met kommas geskei",
+    "connect": "Koppel",
+    "disconnect": "Ontkoppel",
+    "status": {
+      "disconnected": "Ontkoppel",
+      "connecting": "Besig om te koppel",
+      "connected": "Gekoppel",
+      "error": "Fout"
+    },
+    "messages": {
+      "connecting": "Besig om aan {url} te koppel…",
+      "connected": "Verbinding gevestig",
+      "connectedWithProtocol": "Verbinding gevestig (protokol: {protocol})",
+      "invalidUrl": "Ongeldige URL — moet met ws:// of wss:// begin",
+      "connectFailed": "Kon nie verbinding oopmaak nie",
+      "socketError": "'n Verbindingsfout het voorgekom",
+      "notConnected": "Nie gekoppel nie — koppel eers",
+      "binaryMessage": "'n Binêre boodskap ontvang"
+    },
+    "log": {
+      "title": "Boodskaplog",
+      "empty": "Nog geen boodskappe nie. Koppel en begin stuur.",
+      "copyAll": "Kopieer alles",
+      "download": "Laai af as .txt",
+      "clear": "Vee log uit",
+      "prettyPrint": "Formateer JSON",
+      "showRaw": "Wys rou teks"
+    },
+    "composer": {
+      "placeholder": "Tik 'n boodskap om te stuur…",
+      "send": "Stuur",
+      "formatJson": "Formateer as JSON",
+      "invalidJson": "Boodskap is nie geldige JSON nie",
+      "hint": "Cmd/Ctrl+Enter om te stuur"
+    },
+    "ping": {
+      "label": "Outo-ping",
+      "seconds": "sek",
+      "intervalTitle": "Ping-interval in sekondes",
+      "payloadPlaceholder": "ping-loonvrag"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Whois-opsoek",
+    "subtitle": "Soek registrasiebesonderhede vir enige domein of IP-adres op via RDAP",
+    "placeholder": "example.com of 8.8.8.8",
+    "lookupBtn": "Soek op",
+    "looking": "Besig om op te soek…",
+    "refreshBtn": "Verfris",
+    "tryLabel": "Probeer:",
+    "copy": "Kopieer",
+    "copied": "Gekopieer",
+    "notAvailable": "Nie beskikbaar nie",
+    "summary": {
+      "registrar": "Registrateur",
+      "network": "Netwerk"
+    },
+    "dates": {
+      "created": "Geskep",
+      "updated": "Bygewerk",
+      "expires": "Verval"
+    },
+    "sections": {
+      "status": "Status",
+      "nameservers": "Naambedieners",
+      "contacts": "Kontakte",
+      "rawRdap": "Rou RDAP"
+    },
+    "contacts": {
+      "roles": "Rolle",
+      "name": "Naam",
+      "organization": "Organisasie"
+    },
+    "errors": {
+      "invalidTarget": "Voer 'n geldige domeinnaam of IP-adres in",
+      "lookupFailed": "Opsoek het misluk (status {status})"
+    }
   }
 }

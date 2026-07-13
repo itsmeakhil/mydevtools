@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Chmod 計算機",
+    "codeScreenshot": "コードスクリーンショット",
+    "cssGenerators": "CSS ジェネレーター",
+    "exifViewer": "EXIF ビューアー",
+    "faviconGenerator": "Favicon ジェネレーター",
+    "jsonDiff": "JSON 差分",
+    "jsonpathPlayground": "JSONPath プレイグラウンド",
+    "keycodeInspector": "キーコードインスペクター",
+    "markdownTableGenerator": "Markdown テーブル",
+    "timezoneConverter": "タイムゾーン変換",
+    "tokenCounter": "トークンカウンター",
+    "webhookTester": "Webhook テスター",
+    "websocketTester": "WebSocket テスター",
+    "whoisLookup": "Whois 検索"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -526,6 +541,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Bcrypt 生成・検証",
+        "description": "bcrypt でパスワードをハッシュ化し、既存のハッシュを検証します。"
+      },
+      "chmodCalculator": {
+        "title": "Chmod 計算機",
+        "description": "Unix のパーミッションを 8 進数、シンボリック表記、チェックボックス間で変換します。"
+      },
+      "codeScreenshot": {
+        "title": "コードスクリーンショット",
+        "description": "ソースコードを美しく共有しやすい画像に変換します。"
+      },
+      "cssGenerators": {
+        "title": "CSS ジェネレーター",
+        "description": "Box-shadow、border-radius、流動的な clamp() のジェネレーター。"
+      },
+      "exifViewer": {
+        "title": "EXIF ビューアー・除去",
+        "description": "写真の EXIF メタデータをローカルで確認・除去します。"
+      },
+      "faviconGenerator": {
+        "title": "Favicon ジェネレーター",
+        "description": "favicon、アプリアイコン、マニフェストのスニペットを生成します。"
+      },
+      "jsonDiff": {
+        "title": "JSON 差分",
+        "description": "2 つの JSON ドキュメントを意味的・構造的に比較します。"
+      },
+      "jsonpathPlayground": {
+        "title": "JSONPath プレイグラウンド",
+        "description": "JSONPath または JMESPath で JSON をクエリし、結果をリアルタイムで確認します。"
+      },
+      "keycodeInspector": {
+        "title": "キーコードインスペクター",
+        "description": "キーを押して JavaScript のイベントコードと修飾キーを確認します。"
+      },
+      "markdownTableGenerator": {
+        "title": "Markdown テーブルジェネレーター",
+        "description": "スプレッドシートのようなグリッドエディターで Markdown と HTML のテーブルを作成します。"
+      },
+      "timezoneConverter": {
+        "title": "タイムゾーン変換",
+        "description": "1 つの時刻を複数のタイムゾーンに変換し、日付のずれや勤務時間を表示します。"
+      },
+      "tokenCounter": {
+        "title": "LLM トークンカウンター",
+        "description": "LLM のトークンを数え、チャンクを可視化し、API コストを見積もります。"
+      },
+      "webhookTester": {
+        "title": "Webhook テスター",
+        "description": "受信した webhook リクエストをリアルタイムでキャプチャして確認します。"
+      },
+      "websocketTester": {
+        "title": "WebSocket テスター",
+        "description": "WebSocket エンドポイントに接続し、メッセージをリアルタイムでやり取りします。"
+      },
+      "whoisLookup": {
+        "title": "Whois 検索",
+        "description": "RDAP を使ってドメインと IP の登録情報を調べます。"
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Bcrypt 生成・検証",
+    "subtitle": "bcrypt でパスワードをハッシュ化し、ハッシュを検証 — すべてブラウザ内で完結します",
+    "tabs": {
+      "hash": "ハッシュ",
+      "verify": "検証"
+    },
+    "showPassword": "パスワードを表示",
+    "hidePassword": "パスワードを非表示",
+    "copy": "コピー",
+    "copied": "コピーしました",
+    "hash": {
+      "passwordLabel": "パスワード",
+      "passwordPlaceholder": "ハッシュ化するパスワードを入力…",
+      "costLabel": "コストファクター",
+      "costHint": "コストが高いほど、各ステップの処理量が倍増します。本番環境では 10〜12 が一般的です。",
+      "slowWarning": "コストファクターが 13 以上になると、計算に数秒かかることがあります。",
+      "generate": "ハッシュを生成",
+      "generating": "ハッシュ化中…",
+      "resultLabel": "Bcrypt ハッシュ",
+      "timeTaken": "{ms} ミリ秒",
+      "anatomy": {
+        "title": "ハッシュの構造",
+        "algorithm": "アルゴリズム",
+        "cost": "コスト",
+        "salt": "ソルト（22 文字）",
+        "hash": "ハッシュ（31 文字）"
+      }
+    },
+    "verify": {
+      "passwordLabel": "パスワード",
+      "passwordPlaceholder": "確認するパスワードを入力…",
+      "hashLabel": "Bcrypt ハッシュ",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "パスワードと bcrypt ハッシュを入力して比較します。",
+      "invalidHash": "これは有効な bcrypt ハッシュではないようです。",
+      "checking": "比較中…",
+      "match": "一致 — このパスワードはこのハッシュを生成します。",
+      "noMatch": "不一致 — このパスワードはこのハッシュを生成しません。"
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Chmod 計算機",
+    "subtitle": "Unix ファイルのパーミッションをチェックボックス、8 進数、シンボリック表記の間で変換します",
+    "grid": {
+      "title": "パーミッション",
+      "read": "読み取り",
+      "write": "書き込み",
+      "execute": "実行",
+      "owner": "所有者",
+      "group": "グループ",
+      "others": "その他"
+    },
+    "special": {
+      "title": "特殊ビット",
+      "setuid": "Setuid",
+      "setgid": "Setgid",
+      "sticky": "Sticky"
+    },
+    "octal": {
+      "label": "8 進数",
+      "placeholder": "755 または 4755",
+      "invalid": "3 桁または 4 桁の 8 進数（0-7）を入力してください。"
+    },
+    "symbolic": {
+      "label": "シンボリック",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "rwxr-xr-x のように 9 文字を入力してください（s/S、t/T も可）。"
+    },
+    "output": {
+      "title": "コマンド",
+      "copy": "コピー",
+      "copied": "コピーしました"
+    },
+    "explain": {
+      "line": "{cls}は{perms}ことができます。",
+      "none": "{cls}にはパーミッションがありません。",
+      "setuid": "Setuid: ファイルは所有者の権限で実行されます。",
+      "setgid": "Setgid: ファイルはグループの権限で実行されます（ディレクトリ内の新規ファイルはそのグループを継承します）。",
+      "sticky": "Sticky: このディレクトリ内では、ファイルの所有者のみが削除や名前変更を行えます。"
+    },
+    "presets": {
+      "title": "よく使うプリセット",
+      "octal": "8 進数",
+      "permissions": "パーミッション",
+      "description": "一般的な用途",
+      "p644": "通常のファイル: 所有者が書き込み、全員が読み取り。",
+      "p755": "実行ファイルとディレクトリ: 全員が読み取りと移動が可能。",
+      "p600": "プライベートファイル: 所有者のみが読み書き。",
+      "p700": "プライベートな実行ファイルとディレクトリ: 所有者のみ。",
+      "p664": "グループが書き込み可能なファイル。",
+      "p775": "グループが書き込み可能なディレクトリと実行ファイル。",
+      "p400": "所有者のみ読み取り可（例: SSH 秘密鍵）。"
+    }
+  },
+  "CodeScreenshot": {
+    "title": "コードスクリーンショット",
+    "subtitle": "コードを美しく共有しやすい画像に変換",
+    "languageLabel": "言語",
+    "autoDetect": "自動検出",
+    "backgroundLabel": "背景",
+    "paddingLabel": "パディング",
+    "filenameLabel": "ファイル名",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "ウィンドウのドット",
+    "themeLabel": "ウィンドウのテーマ",
+    "themeDark": "ダーク",
+    "themeLight": "ライト",
+    "scaleLabel": "書き出し倍率",
+    "copyImage": "画像をコピー",
+    "copied": "コピーしました",
+    "exportPng": "PNG を書き出し",
+    "inputLabel": "コード",
+    "detected": "検出: {language}",
+    "clear": "クリア",
+    "placeholder": "ここにコードを貼り付け…",
+    "previewLabel": "プレビュー",
+    "emptyPreview": "コードのプレビューがここに表示されます",
+    "exportFailed": "画像の書き出しに失敗しました",
+    "copyUnsupported": "このブラウザでは画像のコピーがサポートされていません",
+    "copyFailed": "画像のコピーに失敗しました",
+    "backgrounds": {
+      "ocean": "オーシャン",
+      "sunset": "サンセット",
+      "candy": "キャンディ",
+      "forest": "フォレスト",
+      "midnight": "ミッドナイト",
+      "gold": "ゴールド",
+      "aurora": "オーロラ",
+      "slate": "スレート",
+      "transparent": "透明"
+    }
+  },
+  "CssGenerators": {
+    "title": "CSS ジェネレーター",
+    "subtitle": "Box-shadow、border-radius、流動的な clamp() — CSS をコピー。",
+    "preview": "プレビュー",
+    "output": "CSS",
+    "copy": "コピー",
+    "copied": "コピーしました",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "流動的な clamp()"
+    },
+    "boxShadow": {
+      "presets": "プリセット",
+      "layer": "レイヤー",
+      "addLayer": "レイヤーを追加",
+      "removeLayer": "レイヤーを削除",
+      "x": "X",
+      "y": "Y",
+      "blur": "ぼかし",
+      "spread": "広がり",
+      "color": "色",
+      "alpha": "不透明度",
+      "inset": "内側",
+      "presetNames": {
+        "subtleCard": "控えめなカード",
+        "elevated": "浮き上がり",
+        "hardOffset": "ハードオフセット",
+        "neonGlow": "ネオングロー",
+        "inner": "内側",
+        "layeredSmooth": "重ねたスムーズ"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "モード",
+      "modes": {
+        "simple": "角ごと",
+        "blob": "オーガニックブロブ"
+      },
+      "unit": "単位",
+      "linkCorners": "角を連動",
+      "randomize": "ランダム",
+      "horizontal": "水平方向の半径",
+      "vertical": "垂直方向の半径",
+      "corners": {
+        "tl": "左上",
+        "tr": "右上",
+        "br": "右下",
+        "bl": "左下"
+      }
+    },
+    "clamp": {
+      "minFont": "最小フォント (px)",
+      "maxFont": "最大フォント (px)",
+      "minViewport": "最小ビューポート (px)",
+      "maxViewport": "最大ビューポート (px)",
+      "rootFont": "ルートフォント (px)",
+      "viewportWidth": "シミュレートするビューポート",
+      "computedSize": "計算されたサイズ",
+      "slope": "傾き",
+      "intercept": "切片",
+      "previewText": "The quick brown fox",
+      "invalid": "有効で異なるビューポートの範囲を入力してください。"
+    }
+  },
+  "ExifViewer": {
+    "title": "EXIF ビューアー・除去",
+    "subtitle": "写真のメタデータを確認し、ブラウザ内で除去します",
+    "dropTitle": "ここに画像をドロップ",
+    "dropHint": "またはクリックして選択 — 画像がデバイスから送信されることはありません",
+    "browse": "画像を選択",
+    "formats": "JPEG、PNG、WebP、HEIC、TIFF",
+    "parsing": "メタデータを読み取り中…",
+    "parseFailed": "この画像の読み取りに失敗しました",
+    "clear": "画像を削除",
+    "gpsWarning": "GPS 位置情報を含みます",
+    "openMap": "OpenStreetMap で表示",
+    "noMetadata": "この画像に埋め込まれたメタデータは見つかりませんでした。",
+    "facts": {
+      "name": "名前",
+      "type": "種類",
+      "dimensions": "寸法",
+      "size": "サイズ"
+    },
+    "groups": {
+      "camera": "カメラ",
+      "exposure": "露出",
+      "timestamps": "タイムスタンプ",
+      "gps": "GPS 位置情報",
+      "software": "ソフトウェア・その他"
+    },
+    "gpsCard": {
+      "latitude": "緯度",
+      "longitude": "経度",
+      "altitude": "高度"
+    },
+    "raw": {
+      "title": "すべてのメタデータ",
+      "copyJson": "JSON をコピー",
+      "copied": "コピーしました"
+    },
+    "remove": {
+      "title": "メタデータを除去",
+      "jpegDescription": "画像を再圧縮せずに、EXIF、XMP、IPTC、コメントを可逆的に除去します。",
+      "reencodeDescription": "画像を再エンコードして埋め込まれたメタデータを除去します。ピクセルが再圧縮されます。",
+      "keepIcc": "カラープロファイル (ICC) を保持",
+      "stripButton": "メタデータを除去",
+      "reencodeButton": "再エンコードして除去",
+      "unsupported": "このファイル形式ではメタデータの除去はサポートされていません。",
+      "failed": "メタデータの除去に失敗しました",
+      "before": "変更前",
+      "after": "変更後",
+      "download": "クリーンな画像をダウンロード"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Favicon ジェネレーター",
+    "subtitle": "1 枚の画像から favicon とアプリアイコンを作成",
+    "dropTitle": "ここに画像をドロップ",
+    "dropHint": "PNG、JPEG、SVG — クリックして選択",
+    "browse": "画像を選択",
+    "clear": "画像を削除",
+    "backgroundLabel": "背景",
+    "transparent": "透明",
+    "solidColor": "単色",
+    "cornerLabel": "角の形状",
+    "cornerNone": "四角",
+    "cornerRounded": "角丸",
+    "cornerCircle": "円形",
+    "maskPaddingLabel": "マスカブルの余白",
+    "maskable": "maskable",
+    "previewLabel": "プレビュー",
+    "copy": "コピー",
+    "headSnippet": "HTML head スニペット",
+    "downloadIco": "favicon.ico をダウンロード",
+    "downloadZip": "すべてダウンロード (.zip)"
+  },
+  "JsonDiff": {
+    "title": "JSON 差分",
+    "subtitle": "2 つの JSON ドキュメントを意味的・構造的に比較 — キーの順序や書式は無視されます",
+    "options": {
+      "ignoreArrayOrder": "配列の順序を無視"
+    },
+    "loadBothSamples": "サンプルを読み込む",
+    "sample": "サンプル",
+    "format": "整形",
+    "clear": "クリア",
+    "formatError": "整形できません: 入力が有効な JSON ではありません",
+    "placeholder": "ここに JSON を貼り付けまたは入力…",
+    "panels": {
+      "left": "元 (左)",
+      "right": "変更後 (右)",
+      "results": "差分"
+    },
+    "summary": {
+      "added": "{count} 件追加",
+      "removed": "{count} 件削除",
+      "changed": "{count} 件変更"
+    },
+    "types": {
+      "added": "追加",
+      "removed": "削除",
+      "changed": "変更"
+    },
+    "copyChanges": "JSON としてコピー",
+    "copied": "コピーしました",
+    "empty": "両方のパネルに JSON を貼り付けて差分を確認します。",
+    "identical": "2 つのドキュメントは意味的に同一です。"
+  },
+  "JsonpathPlayground": {
+    "title": "JSONPath プレイグラウンド",
+    "subtitle": "JSONPath または JMESPath で JSON ドキュメントをクエリし、結果をリアルタイムで確認します",
+    "engineLabel": "エンジン",
+    "queryLabel": "クエリ",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "チートシート",
+    "cheats": {
+      "jpAllTitles": "すべての書籍タイトル",
+      "jpAllAuthors": "ドキュメント内のすべての著者",
+      "jpFirstBook": "最初の書籍",
+      "jpLastBook": "最後の書籍",
+      "jpSlice": "最初の 2 冊 (スライス)",
+      "jpFilterPrice": "40 未満の書籍",
+      "jpFilterInStock": "在庫のある書籍のタイトル",
+      "jpRecursive": "すべての値を再帰的に取得",
+      "jmAllTitles": "すべての書籍タイトル",
+      "jmFirstAuthor": "最初の書籍の著者",
+      "jmLastBook": "最後の書籍",
+      "jmSlice": "最初の 2 冊 (スライス)",
+      "jmFilterPrice": "40 未満の書籍のタイトル",
+      "jmCount": "在庫のある書籍を集計",
+      "jmProjection": "各書籍を新しいオブジェクトに再構成",
+      "jmSort": "価格順に並べたタイトル"
+    },
+    "panels": {
+      "input": "JSON 入力",
+      "results": "結果"
+    },
+    "sample": "サンプル",
+    "format": "整形",
+    "clear": "クリア",
+    "formatError": "整形できません: 入力が有効な JSON ではありません",
+    "placeholder": "ここに JSON を貼り付けまたは入力…",
+    "outputPlaceholder": "一致した結果がここに表示されます…",
+    "matchCount": "{count, plural, one {# 件の一致} other {# 件の一致}}",
+    "copy": "コピー",
+    "copied": "コピーしました"
+  },
+  "KeycodeInspector": {
+    "title": "キーコードインスペクター",
+    "subtitle": "任意のキーを押して JavaScript のキーボードイベントを確認します",
+    "capture": {
+      "prompt": "任意のキーを押してください…",
+      "ready": "待機中 — キーボードの任意のキーを押してください",
+      "clickToFocus": "ここをクリックしてフォーカスし、任意のキーを押してください"
+    },
+    "hero": {
+      "spaceKey": "(スペース)",
+      "keyLabel": "event.key",
+      "repeat": "リピート"
+    },
+    "copyJson": "JSON をコピー",
+    "copiedJson": "イベント JSON をクリップボードにコピーしました",
+    "deprecated": "非推奨",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "標準",
+      "left": "左",
+      "right": "右",
+      "numpad": "テンキー",
+      "unknown": "不明"
+    },
+    "history": {
+      "title": "履歴",
+      "clear": "履歴をクリア",
+      "empty": "キー入力がここに表示されます。"
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Markdown テーブルジェネレーター",
+    "subtitle": "グリッドを編集し、スプレッドシートから貼り付け、きれいに整列した Markdown または HTML テーブルをコピーします",
+    "addRow": "行を追加",
+    "addColumn": "列を追加",
+    "importLabel": "インポート",
+    "importPlaceholder": "TSV (Excel / Google スプレッドシート) または CSV をここに貼り付け…",
+    "importButton": "グリッドにインポート",
+    "pasteClipboard": "クリップボードから貼り付け",
+    "importEmpty": "インポートするものがありません — まず行を貼り付けてください",
+    "clipboardError": "クリップボードから読み取れませんでした",
+    "clear": "クリア",
+    "panels": {
+      "editor": "テーブルエディター",
+      "output": "出力"
+    },
+    "align": {
+      "left": "左揃え",
+      "center": "中央揃え",
+      "right": "右揃え"
+    },
+    "headerPlaceholder": "ヘッダー",
+    "cellPlaceholder": "セル",
+    "removeRow": "行を削除",
+    "removeColumn": "列を削除",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "コピー",
+    "copied": "コピーしました"
+  },
+  "TimezoneConverter": {
+    "title": "タイムゾーン変換",
+    "subtitle": "会議の計画のために、ある瞬間を世界中の時刻に変換します。",
+    "dateTimeLabel": "日付と時刻",
+    "now": "現在",
+    "sourceZoneLabel": "変換元のタイムゾーン",
+    "selectZone": "タイムゾーンを選択",
+    "searchZone": "タイムゾーンを検索...",
+    "noZone": "タイムゾーンが見つかりません。",
+    "scrubLabel": "時刻をずらす",
+    "reset": "リセット",
+    "targetsLabel": "変換先のタイムゾーン",
+    "addZone": "タイムゾーンを追加",
+    "remove": "削除",
+    "localBadge": "ローカル",
+    "invalidDate": "有効な日付と時刻を入力してください。",
+    "bands": {
+      "work": "勤務時間 (09:00–18:00)",
+      "edge": "境界の時間帯 (早朝 / 夜)",
+      "night": "夜間"
+    }
+  },
+  "TokenCounter": {
+    "title": "LLM トークンカウンター",
+    "subtitle": "トークンを数え、チャンクを可視化し、API コストを見積もります。",
+    "inputLabel": "テキスト",
+    "sample": "サンプル",
+    "clear": "クリア",
+    "placeholder": "トークンを数えるテキスト、コード、JSON を貼り付け...",
+    "encoding": "エンコーディング",
+    "loading": "トークナイザーを読み込み中...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / o シリーズ)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "トークン",
+      "characters": "文字",
+      "words": "単語",
+      "ratio": "トークン/単語",
+      "ratioSub": "概算"
+    },
+    "claudeRow": "Claude (概算)",
+    "estimate": "見積もり",
+    "viz": {
+      "title": "トークンの可視化",
+      "toggle": "表示",
+      "hint": "切り替えて各トークンをチャンクとして色付けします。",
+      "empty": "テキストを入力してトークンを可視化します。",
+      "truncated": "{total} 個中、最初の {limit} 個のトークンを表示しています。"
+    },
+    "cost": {
+      "title": "コスト計算機",
+      "disclaimer": "編集可能なデフォルト値 — 最新の料金を確認してください",
+      "model": "モデル",
+      "expectedOutput": "想定される出力トークン",
+      "customInput": "入力 $/MTok",
+      "customOutput": "出力 $/MTok",
+      "inputCost": "入力コスト",
+      "outputCost": "出力コスト",
+      "total": "合計",
+      "per1000": "1000 回の呼び出しあたり"
+    }
+  },
+  "WebhookTester": {
+    "title": "Webhook テスター",
+    "subtitle": "一時的な URL を作成し、受信した webhook リクエストをライブで確認します。",
+    "intro": {
+      "title": "webhook URL を作成してリクエストのキャプチャを開始",
+      "hint": "推測できない URL が発行され、受信したすべてのリクエストを記録します。24 時間後に期限切れになります。"
+    },
+    "createBtn": "webhook URL を作成",
+    "creating": "作成中…",
+    "urlLabel": "あなたの webhook URL",
+    "expiresIn": "{countdown} 後に期限切れ",
+    "copyUrlBtn": "URL をコピー",
+    "copied": "コピーしました",
+    "clearBtn": "クリア",
+    "newBinBtn": "新しい URL",
+    "requestsTitle": "リクエスト",
+    "selectPrompt": "リクエストを選択して詳細を確認します。",
+    "expiredNotice": "この webhook URL は期限切れです。テストを続けるには新しく作成してください。",
+    "base64Badge": "base64",
+    "truncatedBadge": "切り詰め",
+    "empty": {
+      "title": "リクエストを待機中…",
+      "hint": "URL にリクエストを送信すると、すぐにここに表示されます。試してみてください:"
+    },
+    "detail": {
+      "receivedAt": "受信日時",
+      "source": "送信元 IP",
+      "contentType": "Content-Type",
+      "query": "クエリパラメーター",
+      "headers": "ヘッダー",
+      "body": "ボディ",
+      "copyBody": "ボディをコピー",
+      "emptyBody": "ボディなし"
+    },
+    "errors": {
+      "createFailed": "webhook URL の作成に失敗しました。もう一度お試しください。",
+      "clearFailed": "リクエストのクリアに失敗しました。もう一度お試しください。"
+    }
+  },
+  "WebsocketTester": {
+    "title": "WebSocket テスター",
+    "subtitle": "WebSocket エンドポイントに接続し、メッセージの送受信と確認をライブで行います",
+    "urlLabel": "エンドポイント URL",
+    "protocolsLabel": "サブプロトコル",
+    "protocolsPlaceholder": "任意、カンマ区切り",
+    "connect": "接続",
+    "disconnect": "切断",
+    "status": {
+      "disconnected": "切断済み",
+      "connecting": "接続中",
+      "connected": "接続済み",
+      "error": "エラー"
+    },
+    "messages": {
+      "connecting": "{url} に接続中…",
+      "connected": "接続が確立されました",
+      "connectedWithProtocol": "接続が確立されました (プロトコル: {protocol})",
+      "invalidUrl": "無効な URL — ws:// または wss:// で始まる必要があります",
+      "connectFailed": "接続を開けませんでした",
+      "socketError": "接続エラーが発生しました",
+      "notConnected": "未接続 — まず接続してください",
+      "binaryMessage": "バイナリメッセージを受信しました"
+    },
+    "log": {
+      "title": "メッセージログ",
+      "empty": "メッセージはまだありません。接続して送信を開始してください。",
+      "copyAll": "すべてコピー",
+      "download": ".txt でダウンロード",
+      "clear": "ログをクリア",
+      "prettyPrint": "JSON を整形",
+      "showRaw": "生テキストを表示"
+    },
+    "composer": {
+      "placeholder": "送信するメッセージを入力…",
+      "send": "送信",
+      "formatJson": "JSON として整形",
+      "invalidJson": "メッセージが有効な JSON ではありません",
+      "hint": "Cmd/Ctrl+Enter で送信"
+    },
+    "ping": {
+      "label": "自動 ping",
+      "seconds": "秒",
+      "intervalTitle": "Ping の間隔 (秒)",
+      "payloadPlaceholder": "ping ペイロード"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Whois 検索",
+    "subtitle": "RDAP を使って任意のドメインや IP アドレスの登録情報を調べます",
+    "placeholder": "example.com または 8.8.8.8",
+    "lookupBtn": "検索",
+    "looking": "検索中…",
+    "refreshBtn": "更新",
+    "tryLabel": "お試し:",
+    "copy": "コピー",
+    "copied": "コピーしました",
+    "notAvailable": "利用できません",
+    "summary": {
+      "registrar": "レジストラ",
+      "network": "ネットワーク"
+    },
+    "dates": {
+      "created": "作成日",
+      "updated": "更新日",
+      "expires": "有効期限"
+    },
+    "sections": {
+      "status": "ステータス",
+      "nameservers": "ネームサーバー",
+      "contacts": "連絡先",
+      "rawRdap": "生の RDAP"
+    },
+    "contacts": {
+      "roles": "役割",
+      "name": "名前",
+      "organization": "組織"
+    },
+    "errors": {
+      "invalidTarget": "有効なドメイン名または IP アドレスを入力してください",
+      "lookupFailed": "検索に失敗しました (ステータス {status})"
+    }
   }
 }

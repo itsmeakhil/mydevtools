@@ -12,10 +12,9 @@ from app.api.routes.url_shortener.schema import ShortLinkCreate
 from app.api.routes.workspaces.middleware import WorkspaceContext
 
 
-def _ctx(uid: str, ws_id: str, org_id: str) -> WorkspaceContext:
+def _ctx(uid: str, ws_id: str) -> WorkspaceContext:
     return WorkspaceContext(
         uid=uid,
-        org_id=org_id,
         workspace_id=ws_id,
         ws_role="admin",
         is_personal=True,
@@ -25,15 +24,14 @@ def _ctx(uid: str, ws_id: str, org_id: str) -> WorkspaceContext:
 
 @pytest.mark.asyncio
 async def test_url_shortener_links_isolated_across_personal_workspaces(
-    clean_db, system_org_id, personal_ws_for,
+    clean_db, personal_ws_for,
 ):
     """Links created by u1 must not appear in u2's list."""
-    org_id = system_org_id
     ws_u1 = await personal_ws_for("u1")
     ws_u2 = await personal_ws_for("u2")
 
-    ctx_u1 = _ctx("u1", ws_u1, org_id)
-    ctx_u2 = _ctx("u2", ws_u2, org_id)
+    ctx_u1 = _ctx("u1", ws_u1)
+    ctx_u2 = _ctx("u2", ws_u2)
 
     # u1 creates a link
     await url_svc.create_link(ctx_u1, ShortLinkCreate(original_url="https://example.com"))
@@ -50,31 +48,29 @@ async def test_url_shortener_links_isolated_across_personal_workspaces(
 
 @pytest.mark.asyncio
 async def test_forged_workspace_cannot_read_url_shortener_links(
-    clean_db, system_org_id, personal_ws_for,
+    clean_db, personal_ws_for,
 ):
     """u2 forging u1's workspace_id still cannot see u1's links due to owner_uid."""
-    org_id = system_org_id
     ws_u1 = await personal_ws_for("u1")
     await personal_ws_for("u2")
 
-    ctx_u1 = _ctx("u1", ws_u1, org_id)
+    ctx_u1 = _ctx("u1", ws_u1)
     await url_svc.create_link(ctx_u1, ShortLinkCreate(original_url="https://secret.com"))
 
     # u2 forges u1's workspace_id
-    forged_ctx = _ctx("u2", ws_u1, org_id)
+    forged_ctx = _ctx("u2", ws_u1)
     links = await url_svc.list_my_short_urls(ctx=forged_ctx)
     assert links == []  # owner_uid filter prevents cross-user bleed
 
 
 @pytest.mark.asyncio
 async def test_click_events_inherit_link_workspace_stamps(
-    clean_db, system_org_id, personal_ws_for,
+    clean_db, personal_ws_for,
 ):
-    """Click events must inherit the link's org_id, workspace_id, owner_uid stamps."""
-    org_id = system_org_id
+    """Click events must inherit the link's workspace_id, owner_uid stamps."""
     ws_u1 = await personal_ws_for("u1")
 
-    ctx_u1 = _ctx("u1", ws_u1, org_id)
+    ctx_u1 = _ctx("u1", ws_u1)
 
     # u1 creates a link
     link = await url_svc.create_link(ctx_u1, ShortLinkCreate(original_url="https://example.com"))
@@ -90,7 +86,6 @@ async def test_click_events_inherit_link_workspace_stamps(
     # Verify the link has the correct stamps
     link_doc = await db_manager.find_one(COLLECTION, {"_id": code})
     assert link_doc is not None
-    assert link_doc["org_id"] == org_id
     assert link_doc["workspace_id"] == ws_u1
     assert link_doc["owner_uid"] == "u1"
 
@@ -98,6 +93,5 @@ async def test_click_events_inherit_link_workspace_stamps(
     click_events = await db_manager.find(CLICKS_COLLECTION, {"code": code}, limit=10)
     assert len(click_events) > 0
     for event in click_events:
-        assert event.get("org_id") == org_id
         assert event.get("workspace_id") == ws_u1
         assert event.get("owner_uid") == "u1"

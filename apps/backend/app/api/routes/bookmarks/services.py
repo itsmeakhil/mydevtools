@@ -93,7 +93,6 @@ async def create_bookmark(ctx: WorkspaceContext, body: BookmarkCreate) -> Bookma
     doc: dict[str, Any] = {
         "_id": bid,
         "created_by": ctx.uid,
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
         "owner_uid": ctx.uid,
         "title": body.title,
@@ -155,7 +154,6 @@ async def import_bookmarks(ctx: WorkspaceContext, body: BookmarkImportBody) -> d
             doc = {
                 "_id": fid,
                 "created_by": ctx.uid,
-                "org_id": ctx.org_id,
                 "workspace_id": ctx.workspace_id,
                 "owner_uid": ctx.uid,
                 "name": folder.name,
@@ -174,7 +172,6 @@ async def import_bookmarks(ctx: WorkspaceContext, body: BookmarkImportBody) -> d
             doc = {
                 "_id": bid,
                 "created_by": ctx.uid,
-                "org_id": ctx.org_id,
                 "workspace_id": ctx.workspace_id,
                 "owner_uid": ctx.uid,
                 "title": bookmark.title,
@@ -237,7 +234,6 @@ async def create_folder(ctx: WorkspaceContext, body: BookmarkFolderCreate) -> Bo
     doc: dict[str, Any] = {
         "_id": fid,
         "created_by": ctx.uid,
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
         "owner_uid": ctx.uid,
         "name": body.name,

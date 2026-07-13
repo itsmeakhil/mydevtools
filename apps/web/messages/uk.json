@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Калькулятор Chmod",
+    "codeScreenshot": "Скриншот коду",
+    "cssGenerators": "Генератори CSS",
+    "exifViewer": "Перегляд EXIF",
+    "faviconGenerator": "Генератор favicon",
+    "jsonDiff": "Порівняння JSON",
+    "jsonpathPlayground": "Пісочниця JSONPath",
+    "keycodeInspector": "Інспектор клавіш",
+    "markdownTableGenerator": "Таблиця Markdown",
+    "timezoneConverter": "Конвертер часових поясів",
+    "tokenCounter": "Лічильник токенів",
+    "webhookTester": "Тестер вебхуків",
+    "websocketTester": "Тестер WebSocket",
+    "whoisLookup": "Whois-запит"
   },
   "Help": {
     "title": "Довідка та документація",
@@ -526,6 +541,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Генератор і перевірка Bcrypt",
+        "description": "Хешуйте паролі за допомогою bcrypt і перевіряйте наявні хеші."
+      },
+      "chmodCalculator": {
+        "title": "Калькулятор Chmod",
+        "description": "Перетворюйте права Unix між вісімковою, символьною формою та прапорцями."
+      },
+      "codeScreenshot": {
+        "title": "Скриншот коду",
+        "description": "Перетворюйте вихідний код на красиві зображення для публікації."
+      },
+      "cssGenerators": {
+        "title": "Генератори CSS",
+        "description": "Генератори box-shadow, border-radius та адаптивного clamp()."
+      },
+      "exifViewer": {
+        "title": "Перегляд і видалення EXIF",
+        "description": "Переглядайте та видаляйте метадані EXIF з фото локально."
+      },
+      "faviconGenerator": {
+        "title": "Генератор favicon",
+        "description": "Створюйте favicon, іконки застосунків і фрагменти маніфесту."
+      },
+      "jsonDiff": {
+        "title": "Порівняння JSON",
+        "description": "Семантичне порівняння двох документів JSON з урахуванням структури."
+      },
+      "jsonpathPlayground": {
+        "title": "Пісочниця JSONPath",
+        "description": "Запитуйте JSON за допомогою JSONPath або JMESPath і дивіться результати наживо."
+      },
+      "keycodeInspector": {
+        "title": "Інспектор клавіш",
+        "description": "Натисніть клавішу, щоб побачити її коди події JavaScript і модифікатори."
+      },
+      "markdownTableGenerator": {
+        "title": "Генератор таблиць Markdown",
+        "description": "Створюйте таблиці Markdown та HTML у табличному редакторі."
+      },
+      "timezoneConverter": {
+        "title": "Конвертер часових поясів",
+        "description": "Перетворюйте час між поясами з підказками про зміну дня та робочі години."
+      },
+      "tokenCounter": {
+        "title": "Лічильник токенів LLM",
+        "description": "Рахуйте токени LLM, візуалізуйте чанки та оцінюйте вартість API."
+      },
+      "webhookTester": {
+        "title": "Тестер вебхуків",
+        "description": "Захоплюйте та досліджуйте вхідні запити вебхуків у реальному часі."
+      },
+      "websocketTester": {
+        "title": "Тестер WebSocket",
+        "description": "Підключайтеся до ендпоінтів WebSocket і обмінюйтеся повідомленнями в реальному часі."
+      },
+      "whoisLookup": {
+        "title": "Whois-запит",
+        "description": "Дізнавайтеся дані реєстрації доменів та IP через RDAP."
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Генератор і перевірка Bcrypt",
+    "subtitle": "Хешуйте паролі за допомогою bcrypt і перевіряйте хеші — усе залишається у вашому браузері",
+    "tabs": {
+      "hash": "Хеш",
+      "verify": "Перевірка"
+    },
+    "showPassword": "Показати пароль",
+    "hidePassword": "Приховати пароль",
+    "copy": "Копіювати",
+    "copied": "Скопійовано",
+    "hash": {
+      "passwordLabel": "Пароль",
+      "passwordPlaceholder": "Введіть пароль для хешування…",
+      "costLabel": "Фактор вартості",
+      "costHint": "Вищий фактор подвоює роботу на кожному кроці. 10-12 — поширений вибір для продакшену.",
+      "slowWarning": "Фактори вартості 13 і вище можуть обчислюватися кілька секунд.",
+      "generate": "Створити хеш",
+      "generating": "Хешування…",
+      "resultLabel": "Хеш bcrypt",
+      "timeTaken": "{ms} мс",
+      "anatomy": {
+        "title": "Будова хешу",
+        "algorithm": "алгоритм",
+        "cost": "вартість",
+        "salt": "сіль (22 символи)",
+        "hash": "хеш (31 символ)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Пароль",
+      "passwordPlaceholder": "Введіть пароль для перевірки…",
+      "hashLabel": "Хеш bcrypt",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Введіть пароль і хеш bcrypt, щоб порівняти їх.",
+      "invalidHash": "Це не схоже на коректний хеш bcrypt.",
+      "checking": "Порівняння…",
+      "match": "Збігається — пароль дає цей хеш.",
+      "noMatch": "Не збігається — пароль не дає цей хеш."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Калькулятор Chmod",
+    "subtitle": "Перетворюйте права файлів Unix між прапорцями, вісімковою та символьною формою",
+    "grid": {
+      "title": "Права",
+      "read": "Читання",
+      "write": "Запис",
+      "execute": "Виконання",
+      "owner": "Власник",
+      "group": "Група",
+      "others": "Інші"
+    },
+    "special": {
+      "title": "Спеціальні біти",
+      "setuid": "Setuid",
+      "setgid": "Setgid",
+      "sticky": "Sticky"
+    },
+    "octal": {
+      "label": "Вісімкова",
+      "placeholder": "755 або 4755",
+      "invalid": "Введіть 3 або 4 вісімкові цифри (0-7)."
+    },
+    "symbolic": {
+      "label": "Символьна",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "Введіть 9 символів на кшталт rwxr-xr-x (дозволені s/S, t/T)."
+    },
+    "output": {
+      "title": "Команда",
+      "copy": "Копіювати",
+      "copied": "Скопійовано"
+    },
+    "explain": {
+      "line": "{cls} може {perms}.",
+      "none": "{cls} не має прав.",
+      "setuid": "Setuid: файл виконується з привілеями свого власника.",
+      "setgid": "Setgid: файл виконується з привілеями своєї групи (нові файли в каталозі успадковують його групу).",
+      "sticky": "Sticky: лише власник файлу може видалити або перейменувати його в цьому каталозі."
+    },
+    "presets": {
+      "title": "Поширені пресети",
+      "octal": "Вісімкова",
+      "permissions": "Права",
+      "description": "Типове застосування",
+      "p644": "Звичайні файли: власник пише, усі читають.",
+      "p755": "Виконувані файли та каталоги: усі можуть читати й заходити.",
+      "p600": "Приватні файли: лише власник читає й пише.",
+      "p700": "Приватні виконувані файли та каталоги: лише власник.",
+      "p664": "Файли, доступні групі для запису.",
+      "p775": "Каталоги та виконувані файли, доступні групі для запису.",
+      "p400": "Лише читання для власника (наприклад, приватні ключі SSH)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Скриншот коду",
+    "subtitle": "Перетворюйте код на красиві зображення для публікації",
+    "languageLabel": "Мова",
+    "autoDetect": "Автовизначення",
+    "backgroundLabel": "Фон",
+    "paddingLabel": "Відступ",
+    "filenameLabel": "Ім'я файлу",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "Крапки вікна",
+    "themeLabel": "Тема вікна",
+    "themeDark": "Темна",
+    "themeLight": "Світла",
+    "scaleLabel": "Масштаб експорту",
+    "copyImage": "Копіювати зображення",
+    "copied": "Скопійовано",
+    "exportPng": "Експорт PNG",
+    "inputLabel": "Код",
+    "detected": "Визначено: {language}",
+    "clear": "Очистити",
+    "placeholder": "Вставте ваш код сюди…",
+    "previewLabel": "Перегляд",
+    "emptyPreview": "Тут з'явиться перегляд вашого коду",
+    "exportFailed": "Не вдалося експортувати зображення",
+    "copyUnsupported": "Копіювання зображень не підтримується в цьому браузері",
+    "copyFailed": "Не вдалося скопіювати зображення",
+    "backgrounds": {
+      "ocean": "Океан",
+      "sunset": "Захід сонця",
+      "candy": "Цукерка",
+      "forest": "Ліс",
+      "midnight": "Північ",
+      "gold": "Золото",
+      "aurora": "Аврора",
+      "slate": "Сланець",
+      "transparent": "Прозорий"
+    }
+  },
+  "CssGenerators": {
+    "title": "Генератори CSS",
+    "subtitle": "Box-shadow, border-radius та адаптивний clamp() — копіюйте CSS.",
+    "preview": "Перегляд",
+    "output": "CSS",
+    "copy": "Копіювати",
+    "copied": "Скопійовано",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "Адаптивний clamp()"
+    },
+    "boxShadow": {
+      "presets": "Пресети",
+      "layer": "Шар",
+      "addLayer": "Додати шар",
+      "removeLayer": "Видалити шар",
+      "x": "X",
+      "y": "Y",
+      "blur": "Розмиття",
+      "spread": "Розтягнення",
+      "color": "Колір",
+      "alpha": "Альфа",
+      "inset": "Внутрішня",
+      "presetNames": {
+        "subtleCard": "Легка картка",
+        "elevated": "Піднята",
+        "hardOffset": "Жорстке зміщення",
+        "neonGlow": "Неонове сяйво",
+        "inner": "Внутрішня",
+        "layeredSmooth": "М'які шари"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Режим",
+      "modes": {
+        "simple": "По кутах",
+        "blob": "Органічна крапля"
+      },
+      "unit": "Одиниця",
+      "linkCorners": "Зв'язати кути",
+      "randomize": "Випадково",
+      "horizontal": "Горизонтальні радіуси",
+      "vertical": "Вертикальні радіуси",
+      "corners": {
+        "tl": "Верхній лівий",
+        "tr": "Верхній правий",
+        "br": "Нижній правий",
+        "bl": "Нижній лівий"
+      }
+    },
+    "clamp": {
+      "minFont": "Мін. шрифт (px)",
+      "maxFont": "Макс. шрифт (px)",
+      "minViewport": "Мін. viewport (px)",
+      "maxViewport": "Макс. viewport (px)",
+      "rootFont": "Кореневий шрифт (px)",
+      "viewportWidth": "Змодельований viewport",
+      "computedSize": "Обчислений розмір",
+      "slope": "Нахил",
+      "intercept": "Зміщення",
+      "previewText": "Швидка руда лисиця",
+      "invalid": "Введіть коректні та різні межі viewport."
+    }
+  },
+  "ExifViewer": {
+    "title": "Перегляд і видалення EXIF",
+    "subtitle": "Досліджуйте метадані фото та видаляйте їх у вашому браузері",
+    "dropTitle": "Перетягніть зображення сюди",
+    "dropHint": "або натисніть для вибору — ваше зображення ніколи не залишає ваш пристрій",
+    "browse": "Вибрати зображення",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Читання метаданих…",
+    "parseFailed": "Не вдалося прочитати це зображення",
+    "clear": "Видалити зображення",
+    "gpsWarning": "Містить GPS-координати",
+    "openMap": "Показати на OpenStreetMap",
+    "noMetadata": "У цьому зображенні не знайдено вбудованих метаданих.",
+    "facts": {
+      "name": "Ім'я",
+      "type": "Тип",
+      "dimensions": "Розміри",
+      "size": "Розмір"
+    },
+    "groups": {
+      "camera": "Камера",
+      "exposure": "Експозиція",
+      "timestamps": "Мітки часу",
+      "gps": "GPS-координати",
+      "software": "ПЗ та інше"
+    },
+    "gpsCard": {
+      "latitude": "Широта",
+      "longitude": "Довгота",
+      "altitude": "Висота"
+    },
+    "raw": {
+      "title": "Усі метадані",
+      "copyJson": "Копіювати JSON",
+      "copied": "Скопійовано"
+    },
+    "remove": {
+      "title": "Видалити метадані",
+      "jpegDescription": "Без втрат видаліть EXIF, XMP, IPTC і коментарі без повторного стиснення зображення.",
+      "reencodeDescription": "Перекодуйте зображення, щоб видалити вбудовані метадані. При цьому пікселі стискаються повторно.",
+      "keepIcc": "Зберегти колірний профіль (ICC)",
+      "stripButton": "Видалити метадані",
+      "reencodeButton": "Перекодувати й видалити",
+      "unsupported": "Видалення метаданих не підтримується для цього типу файлу.",
+      "failed": "Не вдалося видалити метадані",
+      "before": "До",
+      "after": "Після",
+      "download": "Завантажити очищене зображення"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Генератор favicon",
+    "subtitle": "Створюйте favicon та іконки застосунків з одного зображення",
+    "dropTitle": "Перетягніть зображення сюди",
+    "dropHint": "PNG, JPEG або SVG — натисніть для вибору",
+    "browse": "Вибрати зображення",
+    "clear": "Видалити зображення",
+    "backgroundLabel": "Фон",
+    "transparent": "Прозорий",
+    "solidColor": "Суцільний",
+    "cornerLabel": "Форма кутів",
+    "cornerNone": "Квадрат",
+    "cornerRounded": "Заокруглений",
+    "cornerCircle": "Коло",
+    "maskPaddingLabel": "Відступ maskable",
+    "maskable": "maskable",
+    "previewLabel": "Перегляд",
+    "copy": "Копіювати",
+    "headSnippet": "Фрагмент для head HTML",
+    "downloadIco": "Завантажити favicon.ico",
+    "downloadZip": "Завантажити все (.zip)"
+  },
+  "JsonDiff": {
+    "title": "Порівняння JSON",
+    "subtitle": "Семантичне порівняння двох документів JSON з урахуванням структури — порядок ключів і форматування ігноруються",
+    "options": {
+      "ignoreArrayOrder": "Ігнорувати порядок масивів"
+    },
+    "loadBothSamples": "Завантажити приклади",
+    "sample": "Приклад",
+    "format": "Формат",
+    "clear": "Очистити",
+    "formatError": "Не вдається відформатувати: введення не є коректним JSON",
+    "placeholder": "Вставте або введіть JSON тут…",
+    "panels": {
+      "left": "Оригінал (ліворуч)",
+      "right": "Змінений (праворуч)",
+      "results": "Відмінності"
+    },
+    "summary": {
+      "added": "{count} додано",
+      "removed": "{count} вилучено",
+      "changed": "{count} змінено"
+    },
+    "types": {
+      "added": "Додано",
+      "removed": "Вилучено",
+      "changed": "Змінено"
+    },
+    "copyChanges": "Копіювати як JSON",
+    "copied": "Скопійовано",
+    "empty": "Вставте JSON в обидві панелі, щоб побачити їхні відмінності.",
+    "identical": "Обидва документи семантично ідентичні."
+  },
+  "JsonpathPlayground": {
+    "title": "Пісочниця JSONPath",
+    "subtitle": "Запитуйте документи JSON за допомогою JSONPath або JMESPath і дивіться результати наживо",
+    "engineLabel": "Рушій",
+    "queryLabel": "Запит",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Шпаргалка",
+    "cheats": {
+      "jpAllTitles": "Усі назви книг",
+      "jpAllAuthors": "Усі автори будь-де в документі",
+      "jpFirstBook": "Перша книга",
+      "jpLastBook": "Остання книга",
+      "jpSlice": "Перші дві книги (зріз)",
+      "jpFilterPrice": "Книги дешевші за 40",
+      "jpFilterInStock": "Назви книг у наявності",
+      "jpRecursive": "Усі значення рекурсивно",
+      "jmAllTitles": "Усі назви книг",
+      "jmFirstAuthor": "Автор першої книги",
+      "jmLastBook": "Остання книга",
+      "jmSlice": "Перші дві книги (зріз)",
+      "jmFilterPrice": "Назви книг дешевших за 40",
+      "jmCount": "Підрахунок книг у наявності",
+      "jmProjection": "Перетворити кожну книгу на новий об'єкт",
+      "jmSort": "Назви, відсортовані за ціною"
+    },
+    "panels": {
+      "input": "Введення JSON",
+      "results": "Результати"
+    },
+    "sample": "Приклад",
+    "format": "Формат",
+    "clear": "Очистити",
+    "formatError": "Не вдається відформатувати: введення не є коректним JSON",
+    "placeholder": "Вставте або введіть JSON тут…",
+    "outputPlaceholder": "Збіги з'являться тут…",
+    "matchCount": "{count, plural, one {# збіг} few {# збіги} many {# збігів} other {# збігу}}",
+    "copy": "Копіювати",
+    "copied": "Скопійовано"
+  },
+  "KeycodeInspector": {
+    "title": "Інспектор клавіш",
+    "subtitle": "Натисніть будь-яку клавішу, щоб дослідити її подію клавіатури JavaScript",
+    "capture": {
+      "prompt": "Натисніть будь-яку клавішу…",
+      "ready": "Слухаю — натисніть будь-яку клавішу на клавіатурі",
+      "clickToFocus": "Натисніть тут для фокуса, потім натисніть будь-яку клавішу"
+    },
+    "hero": {
+      "spaceKey": "(Пробіл)",
+      "keyLabel": "event.key",
+      "repeat": "повтор"
+    },
+    "copyJson": "Копіювати JSON",
+    "copiedJson": "JSON події скопійовано до буфера обміну",
+    "deprecated": "застаріле",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Стандартне",
+      "left": "Ліворуч",
+      "right": "Праворуч",
+      "numpad": "Цифровий блок",
+      "unknown": "Невідоме"
+    },
+    "history": {
+      "title": "Історія",
+      "clear": "Очистити історію",
+      "empty": "Натискання клавіш з'являться тут."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Генератор таблиць Markdown",
+    "subtitle": "Редагуйте сітку, вставляйте з таблиці та копіюйте гарно вирівняну таблицю Markdown або HTML",
+    "addRow": "Додати рядок",
+    "addColumn": "Додати стовпець",
+    "importLabel": "Імпорт",
+    "importPlaceholder": "Вставте TSV (з Excel / Google Sheets) або CSV тут…",
+    "importButton": "Імпортувати в сітку",
+    "pasteClipboard": "Вставити з буфера обміну",
+    "importEmpty": "Немає що імпортувати — спершу вставте кілька рядків",
+    "clipboardError": "Не вдалося прочитати з буфера обміну",
+    "clear": "Очистити",
+    "panels": {
+      "editor": "Редактор таблиці",
+      "output": "Результат"
+    },
+    "align": {
+      "left": "Вирівняти ліворуч",
+      "center": "Вирівняти по центру",
+      "right": "Вирівняти праворуч"
+    },
+    "headerPlaceholder": "Заголовок",
+    "cellPlaceholder": "Комірка",
+    "removeRow": "Видалити рядок",
+    "removeColumn": "Видалити стовпець",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Копіювати",
+    "copied": "Скопійовано"
+  },
+  "TimezoneConverter": {
+    "title": "Конвертер часових поясів",
+    "subtitle": "Перетворюйте один момент по всьому світу для планування зустрічей.",
+    "dateTimeLabel": "Дата й час",
+    "now": "Зараз",
+    "sourceZoneLabel": "Вихідний часовий пояс",
+    "selectZone": "Виберіть пояс",
+    "searchZone": "Пошук часових поясів...",
+    "noZone": "Часовий пояс не знайдено.",
+    "scrubLabel": "Зсунути час",
+    "reset": "Скинути",
+    "targetsLabel": "Цільові пояси",
+    "addZone": "Додати пояс",
+    "remove": "Видалити",
+    "localBadge": "Локальний",
+    "invalidDate": "Введіть коректні дату й час.",
+    "bands": {
+      "work": "Робочі години (09:00–18:00)",
+      "edge": "Крайні години (ранній ранок / вечір)",
+      "night": "Ніч"
+    }
+  },
+  "TokenCounter": {
+    "title": "Лічильник токенів LLM",
+    "subtitle": "Рахуйте токени, візуалізуйте чанки та оцінюйте вартість API.",
+    "inputLabel": "Текст",
+    "sample": "Приклад",
+    "clear": "Очистити",
+    "placeholder": "Вставте текст, код або JSON для підрахунку токенів...",
+    "encoding": "Кодування",
+    "loading": "Завантаження токенізатора...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / серія o)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Токени",
+      "characters": "Символи",
+      "words": "Слова",
+      "ratio": "Токенів/слово",
+      "ratioSub": "прибл."
+    },
+    "claudeRow": "Claude (приблизно)",
+    "estimate": "оцінка",
+    "viz": {
+      "title": "Візуалізація токенів",
+      "toggle": "Показати",
+      "hint": "Увімкніть, щоб розфарбувати кожен токен як чанк.",
+      "empty": "Введіть текст для візуалізації токенів.",
+      "truncated": "Показано перші {limit} з {total} токенів."
+    },
+    "cost": {
+      "title": "Калькулятор вартості",
+      "disclaimer": "редаговані значення за замовчуванням — перевірте актуальні ціни",
+      "model": "Модель",
+      "expectedOutput": "Очікувані токени виводу",
+      "customInput": "Введення $/MTok",
+      "customOutput": "Вивід $/MTok",
+      "inputCost": "Вартість введення",
+      "outputCost": "Вартість виводу",
+      "total": "Разом",
+      "per1000": "За 1000 викликів"
+    }
+  },
+  "WebhookTester": {
+    "title": "Тестер вебхуків",
+    "subtitle": "Створіть тимчасовий URL і досліджуйте вхідні запити вебхуків наживо.",
+    "intro": {
+      "title": "Створіть URL вебхука, щоб почати захоплення запитів",
+      "hint": "Ви отримаєте непередбачуваний URL, який записує кожен вхідний запит. Він спливає через 24 години."
+    },
+    "createBtn": "Створити URL вебхука",
+    "creating": "Створення…",
+    "urlLabel": "Ваш URL вебхука",
+    "expiresIn": "Спливає через {countdown}",
+    "copyUrlBtn": "Копіювати URL",
+    "copied": "Скопійовано",
+    "clearBtn": "Очистити",
+    "newBinBtn": "Новий URL",
+    "requestsTitle": "Запити",
+    "selectPrompt": "Виберіть запит, щоб дослідити його деталі.",
+    "expiredNotice": "Цей URL вебхука сплив. Створіть новий, щоб продовжити тестування.",
+    "base64Badge": "base64",
+    "truncatedBadge": "обрізано",
+    "empty": {
+      "title": "Очікування запитів…",
+      "hint": "Надішліть запит на ваш URL, і він з'явиться тут миттєво. Спробуйте так:"
+    },
+    "detail": {
+      "receivedAt": "Отримано",
+      "source": "IP джерела",
+      "contentType": "Content-Type",
+      "query": "Параметри query",
+      "headers": "Заголовки",
+      "body": "Тіло",
+      "copyBody": "Копіювати тіло",
+      "emptyBody": "Немає тіла"
+    },
+    "errors": {
+      "createFailed": "Не вдалося створити URL вебхука. Спробуйте ще раз.",
+      "clearFailed": "Не вдалося очистити запити. Спробуйте ще раз."
+    }
+  },
+  "WebsocketTester": {
+    "title": "Тестер WebSocket",
+    "subtitle": "Підключайтеся до ендпоінта WebSocket і надсилайте, отримуйте та досліджуйте повідомлення наживо",
+    "urlLabel": "URL ендпоінта",
+    "protocolsLabel": "Підпротоколи",
+    "protocolsPlaceholder": "необов'язково, через кому",
+    "connect": "Підключити",
+    "disconnect": "Відключити",
+    "status": {
+      "disconnected": "Відключено",
+      "connecting": "Підключення",
+      "connected": "Підключено",
+      "error": "Помилка"
+    },
+    "messages": {
+      "connecting": "Підключення до {url}…",
+      "connected": "З'єднання встановлено",
+      "connectedWithProtocol": "З'єднання встановлено (протокол: {protocol})",
+      "invalidUrl": "Некоректний URL — має починатися з ws:// або wss://",
+      "connectFailed": "Не вдалося відкрити з'єднання",
+      "socketError": "Сталася помилка з'єднання",
+      "notConnected": "Не підключено — спершу підключіться",
+      "binaryMessage": "Отримано двійкове повідомлення"
+    },
+    "log": {
+      "title": "Журнал повідомлень",
+      "empty": "Повідомлень поки немає. Підключіться та почніть надсилати.",
+      "copyAll": "Копіювати все",
+      "download": "Завантажити як .txt",
+      "clear": "Очистити журнал",
+      "prettyPrint": "Форматувати JSON",
+      "showRaw": "Показати необроблений текст"
+    },
+    "composer": {
+      "placeholder": "Введіть повідомлення для надсилання…",
+      "send": "Надіслати",
+      "formatJson": "Форматувати як JSON",
+      "invalidJson": "Повідомлення не є коректним JSON",
+      "hint": "Cmd/Ctrl+Enter для надсилання"
+    },
+    "ping": {
+      "label": "Авто-пінг",
+      "seconds": "с",
+      "intervalTitle": "Інтервал пінгу в секундах",
+      "payloadPlaceholder": "payload пінгу"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Whois-запит",
+    "subtitle": "Дізнавайтеся дані реєстрації будь-якого домену або IP-адреси через RDAP",
+    "placeholder": "example.com або 8.8.8.8",
+    "lookupBtn": "Запитати",
+    "looking": "Запит…",
+    "refreshBtn": "Оновити",
+    "tryLabel": "Спробуйте:",
+    "copy": "Копіювати",
+    "copied": "Скопійовано",
+    "notAvailable": "Недоступно",
+    "summary": {
+      "registrar": "Реєстратор",
+      "network": "Мережа"
+    },
+    "dates": {
+      "created": "Створено",
+      "updated": "Оновлено",
+      "expires": "Спливає"
+    },
+    "sections": {
+      "status": "Статус",
+      "nameservers": "Сервери імен",
+      "contacts": "Контакти",
+      "rawRdap": "Необроблений RDAP"
+    },
+    "contacts": {
+      "roles": "Ролі",
+      "name": "Ім'я",
+      "organization": "Організація"
+    },
+    "errors": {
+      "invalidTarget": "Введіть коректне доменне ім'я або IP-адресу",
+      "lookupFailed": "Запит не вдався (статус {status})"
+    }
   }
 }

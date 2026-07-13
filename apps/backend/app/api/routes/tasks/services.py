@@ -185,7 +185,6 @@ async def create_task(ctx: WorkspaceContext, body: TaskCreate) -> TaskOut:
     now = datetime.now(timezone.utc)
     doc: dict[str, Any] = {
         "created_by": ctx.uid,
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
         "owner_uid": ctx.uid,
         "text": body.text,
@@ -270,7 +269,6 @@ async def import_tasks(ctx: WorkspaceContext, body: TaskImportRequest) -> dict[s
         row.pop("createdAt", None)
         row.pop("completedAt", None)
         row["created_by"] = ctx.uid
-        row["org_id"] = ctx.org_id
         row["workspace_id"] = ctx.workspace_id
         row["owner_uid"] = ctx.uid
         row["createdAt"] = now
@@ -303,7 +301,6 @@ async def create_project(ctx: WorkspaceContext, body: ProjectCreate) -> ProjectO
     now = datetime.now(timezone.utc)
     doc = {
         "created_by": ctx.uid,
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
         "owner_uid": ctx.uid,
         "name": body.name,

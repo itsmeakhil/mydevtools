@@ -52,7 +52,6 @@ async def create_entry(ctx: WorkspaceContext, body: ApiKeyEntryCreate) -> ApiKey
     doc: dict[str, Any] = {
         "_id": eid,
         "created_by": ctx.uid,
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
         "owner_uid": ctx.uid,
         "encryptedData": body.encryptedData,

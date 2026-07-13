@@ -181,7 +181,6 @@ async def create_link(ctx: WorkspaceContext, body: ShortLinkCreate) -> ShortLink
         "original_url": url,
         "title": title,
         "created_by": ctx.uid,
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
         "owner_uid": ctx.uid,
         "created_at": create_timestamp(),
@@ -254,7 +253,7 @@ async def record_click(code: str, ua: str = "", referrer: str = "") -> None:
 
     # Fetch the link document to inherit workspace stamps
     db = db_manager.get_db()
-    link_doc = await db[COLLECTION].find_one({"_id": code}, {"org_id": 1, "workspace_id": 1, "owner_uid": 1})
+    link_doc = await db[COLLECTION].find_one({"_id": code}, {"workspace_id": 1, "owner_uid": 1})
 
     event = {
         "code": code,
@@ -267,8 +266,6 @@ async def record_click(code: str, ua: str = "", referrer: str = "") -> None:
 
     # Inherit workspace stamps from the link
     if link_doc:
-        if "org_id" in link_doc:
-            event["org_id"] = link_doc["org_id"]
         if "workspace_id" in link_doc:
             event["workspace_id"] = link_doc["workspace_id"]
         if "owner_uid" in link_doc:

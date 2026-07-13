@@ -53,7 +53,6 @@ async def create_code_snippet(ctx: WorkspaceContext, body: CodeSnippetCreate) ->
     doc: dict[str, Any] = {
         "_id": sid,
         "created_by": ctx.uid,
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
         "owner_uid": ctx.uid,
         "title": body.title,

@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Calcolatore Chmod",
+    "codeScreenshot": "Screenshot di codice",
+    "cssGenerators": "Generatori CSS",
+    "exifViewer": "Visualizzatore EXIF",
+    "faviconGenerator": "Generatore di favicon",
+    "jsonDiff": "Diff JSON",
+    "jsonpathPlayground": "Playground JSONPath",
+    "keycodeInspector": "Ispettore di keycode",
+    "markdownTableGenerator": "Tabella Markdown",
+    "timezoneConverter": "Convertitore di fusi orari",
+    "tokenCounter": "Contatore di token",
+    "webhookTester": "Tester di webhook",
+    "websocketTester": "Tester WebSocket",
+    "whoisLookup": "Ricerca Whois"
   },
   "Help": {
     "title": "Aiuto e documentazione",
@@ -526,6 +541,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Generatore e verificatore Bcrypt",
+        "description": "Genera hash di password con bcrypt e verifica hash esistenti."
+      },
+      "chmodCalculator": {
+        "title": "Calcolatore Chmod",
+        "description": "Converti i permessi Unix tra ottale, simbolico e caselle di controllo."
+      },
+      "codeScreenshot": {
+        "title": "Screenshot di codice",
+        "description": "Trasforma il codice sorgente in immagini eleganti e condivisibili."
+      },
+      "cssGenerators": {
+        "title": "Generatori CSS",
+        "description": "Generatori di box-shadow, border-radius e clamp() fluido."
+      },
+      "exifViewer": {
+        "title": "Visualizzatore e rimozione EXIF",
+        "description": "Ispeziona e rimuovi i metadati EXIF delle foto in locale."
+      },
+      "faviconGenerator": {
+        "title": "Generatore di favicon",
+        "description": "Genera favicon, icone dell'app e snippet di manifest."
+      },
+      "jsonDiff": {
+        "title": "Diff JSON",
+        "description": "Confronto semantico e consapevole della struttura tra due documenti JSON."
+      },
+      "jsonpathPlayground": {
+        "title": "Playground JSONPath",
+        "description": "Interroga JSON con JSONPath o JMESPath e vedi i risultati in tempo reale."
+      },
+      "keycodeInspector": {
+        "title": "Ispettore di keycode",
+        "description": "Premi un tasto per vedere i suoi codici evento JavaScript e i modificatori."
+      },
+      "markdownTableGenerator": {
+        "title": "Generatore di tabelle Markdown",
+        "description": "Crea tabelle Markdown e HTML in un editor a griglia simile a un foglio di calcolo."
+      },
+      "timezoneConverter": {
+        "title": "Convertitore di fusi orari",
+        "description": "Converti un orario tra molti fusi con indicazioni di cambio giorno e orario lavorativo."
+      },
+      "tokenCounter": {
+        "title": "Contatore di token LLM",
+        "description": "Conta i token LLM, visualizza i chunk e stima il costo dell'API."
+      },
+      "webhookTester": {
+        "title": "Tester di webhook",
+        "description": "Cattura e ispeziona le richieste webhook in arrivo in tempo reale."
+      },
+      "websocketTester": {
+        "title": "Tester WebSocket",
+        "description": "Connettiti a endpoint WebSocket e scambia messaggi in tempo reale."
+      },
+      "whoisLookup": {
+        "title": "Ricerca Whois",
+        "description": "Cerca i dettagli di registrazione di domini e IP tramite RDAP."
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Generatore e verificatore Bcrypt",
+    "subtitle": "Genera hash di password con bcrypt e verifica gli hash — tutto resta nel tuo browser",
+    "tabs": {
+      "hash": "Hash",
+      "verify": "Verifica"
+    },
+    "showPassword": "Mostra password",
+    "hidePassword": "Nascondi password",
+    "copy": "Copia",
+    "copied": "Copiato",
+    "hash": {
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Inserisci una password da hashare…",
+      "costLabel": "Fattore di costo",
+      "costHint": "Un costo più alto raddoppia il lavoro per passaggio. 10-12 è una scelta comune in produzione.",
+      "slowWarning": "I fattori di costo pari o superiori a 13 possono richiedere diversi secondi per il calcolo.",
+      "generate": "Genera hash",
+      "generating": "Hashing…",
+      "resultLabel": "Hash bcrypt",
+      "timeTaken": "{ms} ms",
+      "anatomy": {
+        "title": "Anatomia dell'hash",
+        "algorithm": "algoritmo",
+        "cost": "costo",
+        "salt": "salt (22 caratteri)",
+        "hash": "hash (31 caratteri)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Inserisci la password da verificare…",
+      "hashLabel": "Hash bcrypt",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Inserisci una password e un hash bcrypt per confrontarli.",
+      "invalidHash": "Questo non sembra un hash bcrypt valido.",
+      "checking": "Confronto in corso…",
+      "match": "Corrispondenza — la password produce questo hash.",
+      "noMatch": "Nessuna corrispondenza — la password non produce questo hash."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Calcolatore Chmod",
+    "subtitle": "Converti i permessi dei file Unix tra caselle di controllo, ottale e notazione simbolica",
+    "grid": {
+      "title": "Permessi",
+      "read": "Lettura",
+      "write": "Scrittura",
+      "execute": "Esecuzione",
+      "owner": "Proprietario",
+      "group": "Gruppo",
+      "others": "Altri"
+    },
+    "special": {
+      "title": "Bit speciali",
+      "setuid": "Setuid",
+      "setgid": "Setgid",
+      "sticky": "Sticky"
+    },
+    "octal": {
+      "label": "Ottale",
+      "placeholder": "755 o 4755",
+      "invalid": "Inserisci 3 o 4 cifre ottali (0-7)."
+    },
+    "symbolic": {
+      "label": "Simbolico",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "Inserisci 9 caratteri come rwxr-xr-x (sono consentiti s/S, t/T)."
+    },
+    "output": {
+      "title": "Comando",
+      "copy": "Copia",
+      "copied": "Copiato"
+    },
+    "explain": {
+      "line": "{cls} può {perms}.",
+      "none": "{cls} non ha permessi.",
+      "setuid": "Setuid: il file viene eseguito con i privilegi del proprietario.",
+      "setgid": "Setgid: il file viene eseguito con i privilegi del suo gruppo (i nuovi file in una directory ne ereditano il gruppo).",
+      "sticky": "Sticky: solo il proprietario di un file può eliminarlo o rinominarlo all'interno di questa directory."
+    },
+    "presets": {
+      "title": "Preimpostazioni comuni",
+      "octal": "Ottale",
+      "permissions": "Permessi",
+      "description": "Uso tipico",
+      "p644": "File normali: il proprietario scrive, tutti leggono.",
+      "p755": "Eseguibili e directory: tutti possono leggere ed entrare.",
+      "p600": "File privati: solo il proprietario legge e scrive.",
+      "p700": "Eseguibili e directory privati: solo il proprietario.",
+      "p664": "File scrivibili dal gruppo.",
+      "p775": "Directory ed eseguibili scrivibili dal gruppo.",
+      "p400": "Sola lettura per il proprietario (es. chiavi private SSH)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Screenshot di codice",
+    "subtitle": "Trasforma il codice in immagini eleganti e condivisibili",
+    "languageLabel": "Linguaggio",
+    "autoDetect": "Rilevamento automatico",
+    "backgroundLabel": "Sfondo",
+    "paddingLabel": "Spaziatura",
+    "filenameLabel": "Nome del file",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "Puntini della finestra",
+    "themeLabel": "Tema della finestra",
+    "themeDark": "Scuro",
+    "themeLight": "Chiaro",
+    "scaleLabel": "Scala di esportazione",
+    "copyImage": "Copia immagine",
+    "copied": "Copiato",
+    "exportPng": "Esporta PNG",
+    "inputLabel": "Codice",
+    "detected": "Rilevato: {language}",
+    "clear": "Pulisci",
+    "placeholder": "Incolla qui il tuo codice…",
+    "previewLabel": "Anteprima",
+    "emptyPreview": "L'anteprima del tuo codice apparirà qui",
+    "exportFailed": "Esportazione dell'immagine non riuscita",
+    "copyUnsupported": "La copia delle immagini non è supportata in questo browser",
+    "copyFailed": "Copia dell'immagine non riuscita",
+    "backgrounds": {
+      "ocean": "Oceano",
+      "sunset": "Tramonto",
+      "candy": "Caramella",
+      "forest": "Foresta",
+      "midnight": "Mezzanotte",
+      "gold": "Oro",
+      "aurora": "Aurora",
+      "slate": "Ardesia",
+      "transparent": "Trasparente"
+    }
+  },
+  "CssGenerators": {
+    "title": "Generatori CSS",
+    "subtitle": "Box-shadow, border-radius e clamp() fluido — copia il CSS.",
+    "preview": "Anteprima",
+    "output": "CSS",
+    "copy": "Copia",
+    "copied": "Copiato",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "clamp() fluido"
+    },
+    "boxShadow": {
+      "presets": "Preimpostazioni",
+      "layer": "Livello",
+      "addLayer": "Aggiungi livello",
+      "removeLayer": "Rimuovi livello",
+      "x": "X",
+      "y": "Y",
+      "blur": "Sfocatura",
+      "spread": "Estensione",
+      "color": "Colore",
+      "alpha": "Alfa",
+      "inset": "Interno",
+      "presetNames": {
+        "subtleCard": "Scheda delicata",
+        "elevated": "Rialzato",
+        "hardOffset": "Offset netto",
+        "neonGlow": "Bagliore neon",
+        "inner": "Interno",
+        "layeredSmooth": "Stratificato morbido"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Modalità",
+      "modes": {
+        "simple": "Per angolo",
+        "blob": "Blob organico"
+      },
+      "unit": "Unità",
+      "linkCorners": "Collega gli angoli",
+      "randomize": "Casuale",
+      "horizontal": "Raggi orizzontali",
+      "vertical": "Raggi verticali",
+      "corners": {
+        "tl": "In alto a sinistra",
+        "tr": "In alto a destra",
+        "br": "In basso a destra",
+        "bl": "In basso a sinistra"
+      }
+    },
+    "clamp": {
+      "minFont": "Font min (px)",
+      "maxFont": "Font max (px)",
+      "minViewport": "Viewport min (px)",
+      "maxViewport": "Viewport max (px)",
+      "rootFont": "Font radice (px)",
+      "viewportWidth": "Viewport simulato",
+      "computedSize": "Dimensione calcolata",
+      "slope": "Pendenza",
+      "intercept": "Intercetta",
+      "previewText": "Ma la volpe col suo balzo",
+      "invalid": "Inserisci limiti di viewport validi e diversi tra loro."
+    }
+  },
+  "ExifViewer": {
+    "title": "Visualizzatore e rimozione EXIF",
+    "subtitle": "Ispeziona i metadati delle foto e rimuovili nel tuo browser",
+    "dropTitle": "Trascina qui un'immagine",
+    "dropHint": "oppure clicca per sfogliare — la tua immagine non lascia mai il tuo dispositivo",
+    "browse": "Scegli immagine",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Lettura dei metadati…",
+    "parseFailed": "Impossibile leggere questa immagine",
+    "clear": "Rimuovi immagine",
+    "gpsWarning": "Contiene posizione GPS",
+    "openMap": "Visualizza su OpenStreetMap",
+    "noMetadata": "Nessun metadato incorporato trovato in questa immagine.",
+    "facts": {
+      "name": "Nome",
+      "type": "Tipo",
+      "dimensions": "Dimensioni",
+      "size": "Peso"
+    },
+    "groups": {
+      "camera": "Fotocamera",
+      "exposure": "Esposizione",
+      "timestamps": "Timestamp",
+      "gps": "Posizione GPS",
+      "software": "Software e altro"
+    },
+    "gpsCard": {
+      "latitude": "Latitudine",
+      "longitude": "Longitudine",
+      "altitude": "Altitudine"
+    },
+    "raw": {
+      "title": "Tutti i metadati",
+      "copyJson": "Copia JSON",
+      "copied": "Copiato"
+    },
+    "remove": {
+      "title": "Rimuovi metadati",
+      "jpegDescription": "Rimuovi senza perdita EXIF, XMP, IPTC e commenti senza ricomprimere l'immagine.",
+      "reencodeDescription": "Ricodifica l'immagine per rimuovere i metadati incorporati. Questo ricomprime i pixel.",
+      "keepIcc": "Mantieni il profilo colore (ICC)",
+      "stripButton": "Rimuovi metadati",
+      "reencodeButton": "Ricodifica e rimuovi",
+      "unsupported": "La rimozione dei metadati non è supportata per questo tipo di file.",
+      "failed": "Impossibile rimuovere i metadati",
+      "before": "Prima",
+      "after": "Dopo",
+      "download": "Scarica immagine ripulita"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Generatore di favicon",
+    "subtitle": "Crea favicon e icone dell'app da una singola immagine",
+    "dropTitle": "Trascina qui un'immagine",
+    "dropHint": "PNG, JPEG o SVG — clicca per sfogliare",
+    "browse": "Scegli immagine",
+    "clear": "Rimuovi immagine",
+    "backgroundLabel": "Sfondo",
+    "transparent": "Trasparente",
+    "solidColor": "Tinta unita",
+    "cornerLabel": "Forma degli angoli",
+    "cornerNone": "Quadrato",
+    "cornerRounded": "Arrotondato",
+    "cornerCircle": "Cerchio",
+    "maskPaddingLabel": "Spaziatura maskable",
+    "maskable": "maskable",
+    "previewLabel": "Anteprima",
+    "copy": "Copia",
+    "headSnippet": "Snippet per l'head HTML",
+    "downloadIco": "Scarica favicon.ico",
+    "downloadZip": "Scarica tutto (.zip)"
+  },
+  "JsonDiff": {
+    "title": "Diff JSON",
+    "subtitle": "Confronto semantico e consapevole della struttura tra due documenti JSON — ordine delle chiavi e formattazione ignorati",
+    "options": {
+      "ignoreArrayOrder": "Ignora l'ordine degli array"
+    },
+    "loadBothSamples": "Carica esempi",
+    "sample": "Carica esempio",
+    "format": "Formatta",
+    "clear": "Pulisci",
+    "formatError": "Impossibile formattare: l'input non è un JSON valido",
+    "placeholder": "Incolla o digita qui il JSON…",
+    "panels": {
+      "left": "Originale (sinistra)",
+      "right": "Modificato (destra)",
+      "results": "Differenze"
+    },
+    "summary": {
+      "added": "{count} aggiunti",
+      "removed": "{count} rimossi",
+      "changed": "{count} modificati"
+    },
+    "types": {
+      "added": "Aggiunto",
+      "removed": "Rimosso",
+      "changed": "Modificato"
+    },
+    "copyChanges": "Copia come JSON",
+    "copied": "Copiato",
+    "empty": "Incolla il JSON in entrambi i pannelli per vederne le differenze.",
+    "identical": "I due documenti sono semanticamente identici."
+  },
+  "JsonpathPlayground": {
+    "title": "Playground JSONPath",
+    "subtitle": "Interroga documenti JSON con JSONPath o JMESPath e vedi i risultati in tempo reale",
+    "engineLabel": "Motore",
+    "queryLabel": "Query",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Prontuario",
+    "cheats": {
+      "jpAllTitles": "Tutti i titoli dei libri",
+      "jpAllAuthors": "Ogni autore, ovunque nel documento",
+      "jpFirstBook": "Primo libro",
+      "jpLastBook": "Ultimo libro",
+      "jpSlice": "I primi due libri (slice)",
+      "jpFilterPrice": "Libri sotto i 40",
+      "jpFilterInStock": "Titoli dei libri disponibili",
+      "jpRecursive": "Tutti i valori, ricorsivamente",
+      "jmAllTitles": "Tutti i titoli dei libri",
+      "jmFirstAuthor": "Autore del primo libro",
+      "jmLastBook": "Ultimo libro",
+      "jmSlice": "I primi due libri (slice)",
+      "jmFilterPrice": "Titoli dei libri sotto i 40",
+      "jmCount": "Conta i libri disponibili",
+      "jmProjection": "Rimodella ogni libro in un nuovo oggetto",
+      "jmSort": "Titoli ordinati per prezzo"
+    },
+    "panels": {
+      "input": "Input JSON",
+      "results": "Risultati"
+    },
+    "sample": "Carica esempio",
+    "format": "Formatta",
+    "clear": "Pulisci",
+    "formatError": "Impossibile formattare: l'input non è un JSON valido",
+    "placeholder": "Incolla o digita qui il JSON…",
+    "outputPlaceholder": "Le corrispondenze appariranno qui…",
+    "matchCount": "{count, plural, one {# corrispondenza} other {# corrispondenze}}",
+    "copy": "Copia",
+    "copied": "Copiato"
+  },
+  "KeycodeInspector": {
+    "title": "Ispettore di keycode",
+    "subtitle": "Premi un tasto qualsiasi per ispezionare il suo evento da tastiera JavaScript",
+    "capture": {
+      "prompt": "Premi un tasto qualsiasi…",
+      "ready": "In ascolto — premi un tasto qualsiasi sulla tastiera",
+      "clickToFocus": "Clicca qui per mettere a fuoco, poi premi un tasto qualsiasi"
+    },
+    "hero": {
+      "spaceKey": "(Spazio)",
+      "keyLabel": "event.key",
+      "repeat": "ripetizione"
+    },
+    "copyJson": "Copia JSON",
+    "copiedJson": "JSON dell'evento copiato negli appunti",
+    "deprecated": "deprecato",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Standard",
+      "left": "Sinistra",
+      "right": "Destra",
+      "numpad": "Tastierino numerico",
+      "unknown": "Sconosciuto"
+    },
+    "history": {
+      "title": "Cronologia",
+      "clear": "Cancella cronologia",
+      "empty": "Le pressioni dei tasti appariranno qui."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Generatore di tabelle Markdown",
+    "subtitle": "Modifica una griglia, incolla da un foglio di calcolo e copia una tabella Markdown o HTML ben allineata",
+    "addRow": "Aggiungi riga",
+    "addColumn": "Aggiungi colonna",
+    "importLabel": "Importa",
+    "importPlaceholder": "Incolla qui TSV (da Excel / Google Sheets) o CSV…",
+    "importButton": "Importa nella griglia",
+    "pasteClipboard": "Incolla dagli appunti",
+    "importEmpty": "Niente da importare — incolla prima alcune righe",
+    "clipboardError": "Impossibile leggere dagli appunti",
+    "clear": "Pulisci",
+    "panels": {
+      "editor": "Editor di tabelle",
+      "output": "Output"
+    },
+    "align": {
+      "left": "Allinea a sinistra",
+      "center": "Centra",
+      "right": "Allinea a destra"
+    },
+    "headerPlaceholder": "Intestazione",
+    "cellPlaceholder": "Cella",
+    "removeRow": "Rimuovi riga",
+    "removeColumn": "Rimuovi colonna",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Copia",
+    "copied": "Copiato"
+  },
+  "TimezoneConverter": {
+    "title": "Convertitore di fusi orari",
+    "subtitle": "Converti un singolo momento in tutto il mondo per pianificare le riunioni.",
+    "dateTimeLabel": "Data e ora",
+    "now": "Adesso",
+    "sourceZoneLabel": "Fuso orario di origine",
+    "selectZone": "Seleziona fuso",
+    "searchZone": "Cerca fusi orari...",
+    "noZone": "Nessun fuso orario trovato.",
+    "scrubLabel": "Sposta l'ora",
+    "reset": "Reimposta",
+    "targetsLabel": "Fusi di destinazione",
+    "addZone": "Aggiungi fuso",
+    "remove": "Rimuovi",
+    "localBadge": "Locale",
+    "invalidDate": "Inserisci una data e un'ora valide.",
+    "bands": {
+      "work": "Orario lavorativo (09:00–18:00)",
+      "edge": "Orari limite (presto / sera)",
+      "night": "Notte"
+    }
+  },
+  "TokenCounter": {
+    "title": "Contatore di token LLM",
+    "subtitle": "Conta i token, visualizza i chunk e stima il costo dell'API.",
+    "inputLabel": "Testo",
+    "sample": "Carica esempio",
+    "clear": "Pulisci",
+    "placeholder": "Incolla testo, codice o JSON per contare i token...",
+    "encoding": "Codifica",
+    "loading": "Caricamento del tokenizer...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / serie o)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Token",
+      "characters": "Caratteri",
+      "words": "Parole",
+      "ratio": "Token/parola",
+      "ratioSub": "circa"
+    },
+    "claudeRow": "Claude (approssimativo)",
+    "estimate": "stima",
+    "viz": {
+      "title": "Visualizzazione dei token",
+      "toggle": "Mostra",
+      "hint": "Attiva per colorare ogni token come un chunk.",
+      "empty": "Inserisci del testo per visualizzare i token.",
+      "truncated": "Mostra i primi {limit} di {total} token."
+    },
+    "cost": {
+      "title": "Calcolatore di costi",
+      "disclaimer": "valori predefiniti modificabili — verifica i prezzi attuali",
+      "model": "Modello",
+      "expectedOutput": "Token di output previsti",
+      "customInput": "Input $/MTok",
+      "customOutput": "Output $/MTok",
+      "inputCost": "Costo di input",
+      "outputCost": "Costo di output",
+      "total": "Totale",
+      "per1000": "Ogni 1000 chiamate"
+    }
+  },
+  "WebhookTester": {
+    "title": "Tester di webhook",
+    "subtitle": "Crea un URL temporaneo e ispeziona le richieste webhook in arrivo dal vivo.",
+    "intro": {
+      "title": "Crea un URL webhook per iniziare a catturare le richieste",
+      "hint": "Otterrai un URL non indovinabile che registra ogni richiesta in arrivo. Scade dopo 24 ore."
+    },
+    "createBtn": "Crea URL webhook",
+    "creating": "Creazione…",
+    "urlLabel": "Il tuo URL webhook",
+    "expiresIn": "Scade tra {countdown}",
+    "copyUrlBtn": "Copia URL",
+    "copied": "Copiato",
+    "clearBtn": "Pulisci",
+    "newBinBtn": "Nuovo URL",
+    "requestsTitle": "Richieste",
+    "selectPrompt": "Seleziona una richiesta per ispezionarne i dettagli.",
+    "expiredNotice": "Questo URL webhook è scaduto. Creane uno nuovo per continuare a testare.",
+    "base64Badge": "base64",
+    "truncatedBadge": "troncato",
+    "empty": {
+      "title": "In attesa di richieste…",
+      "hint": "Invia una richiesta al tuo URL e apparirà qui all'istante. Prova così:"
+    },
+    "detail": {
+      "receivedAt": "Ricevuto",
+      "source": "IP di origine",
+      "contentType": "Content-Type",
+      "query": "Parametri query",
+      "headers": "Intestazioni",
+      "body": "Corpo",
+      "copyBody": "Copia corpo",
+      "emptyBody": "Nessun corpo"
+    },
+    "errors": {
+      "createFailed": "Impossibile creare l'URL webhook. Riprova.",
+      "clearFailed": "Impossibile cancellare le richieste. Riprova."
+    }
+  },
+  "WebsocketTester": {
+    "title": "Tester WebSocket",
+    "subtitle": "Connettiti a un endpoint WebSocket e invia, ricevi e ispeziona messaggi dal vivo",
+    "urlLabel": "URL dell'endpoint",
+    "protocolsLabel": "Sottoprotocolli",
+    "protocolsPlaceholder": "opzionale, separati da virgola",
+    "connect": "Connetti",
+    "disconnect": "Disconnetti",
+    "status": {
+      "disconnected": "Disconnesso",
+      "connecting": "Connessione",
+      "connected": "Connesso",
+      "error": "Errore"
+    },
+    "messages": {
+      "connecting": "Connessione a {url}…",
+      "connected": "Connessione stabilita",
+      "connectedWithProtocol": "Connessione stabilita (protocollo: {protocol})",
+      "invalidUrl": "URL non valido — deve iniziare con ws:// o wss://",
+      "connectFailed": "Impossibile aprire la connessione",
+      "socketError": "Si è verificato un errore di connessione",
+      "notConnected": "Non connesso — connettiti prima",
+      "binaryMessage": "Ricevuto un messaggio binario"
+    },
+    "log": {
+      "title": "Registro dei messaggi",
+      "empty": "Ancora nessun messaggio. Connettiti e inizia a inviare.",
+      "copyAll": "Copia tutto",
+      "download": "Scarica come .txt",
+      "clear": "Cancella registro",
+      "prettyPrint": "Formatta JSON",
+      "showRaw": "Mostra testo grezzo"
+    },
+    "composer": {
+      "placeholder": "Digita un messaggio da inviare…",
+      "send": "Invia",
+      "formatJson": "Formatta come JSON",
+      "invalidJson": "Il messaggio non è un JSON valido",
+      "hint": "Cmd/Ctrl+Invio per inviare"
+    },
+    "ping": {
+      "label": "Auto-ping",
+      "seconds": "sec",
+      "intervalTitle": "Intervallo di ping in secondi",
+      "payloadPlaceholder": "payload del ping"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Ricerca Whois",
+    "subtitle": "Cerca i dettagli di registrazione di qualsiasi dominio o indirizzo IP tramite RDAP",
+    "placeholder": "example.com o 8.8.8.8",
+    "lookupBtn": "Cerca",
+    "looking": "Ricerca…",
+    "refreshBtn": "Aggiorna",
+    "tryLabel": "Prova:",
+    "copy": "Copia",
+    "copied": "Copiato",
+    "notAvailable": "Non disponibile",
+    "summary": {
+      "registrar": "Registrar",
+      "network": "Rete"
+    },
+    "dates": {
+      "created": "Creato",
+      "updated": "Aggiornato",
+      "expires": "Scade"
+    },
+    "sections": {
+      "status": "Stato",
+      "nameservers": "Nameserver",
+      "contacts": "Contatti",
+      "rawRdap": "RDAP grezzo"
+    },
+    "contacts": {
+      "roles": "Ruoli",
+      "name": "Nome",
+      "organization": "Organizzazione"
+    },
+    "errors": {
+      "invalidTarget": "Inserisci un nome di dominio o un indirizzo IP valido",
+      "lookupFailed": "Ricerca non riuscita (stato {status})"
+    }
   }
 }

@@ -18,8 +18,6 @@ import { handoffDesktopToken } from "@/lib/desktop-handoff";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, AlertCircle, Github, Fingerprint } from "lucide-react";
 import { signInWithPasskey, startConditionalPasskeyAuth } from "@/lib/passkey"
-import { acceptInvitation } from "@/lib/invitations-api"
-import { useWorkspaceStore } from "@/store/workspace-store"
 import { toast } from "sonner";
 import { isDesktop } from "@/lib/desktop/is-desktop";
 import { DesktopLogin } from "@/components/desktop/desktop-login";
@@ -78,23 +76,6 @@ function WebLoginForm() {
         ok ? "Signed in — returning to the MyDevTools app…" : "Could not hand off sign-in to the desktop app"
       )
       return "/dashboard"
-    }
-
-    const token = params.get("invite")
-    if (!token) return "/dashboard"
-
-    try {
-      await useWorkspaceStore.getState().loadFromBackend()
-      const result = await acceptInvitation(token)
-      await useWorkspaceStore.getState().loadFromBackend()
-      if (result.workspace_id) {
-        await useWorkspaceStore.getState().setActiveWorkspace(result.workspace_id)
-      }
-      toast.success("Invitation accepted — welcome to your new workspace!")
-    } catch (err) {
-      toast.error(
-        err instanceof Error ? err.message : "Could not accept invitation"
-      )
     }
 
     return "/dashboard"

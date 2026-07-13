@@ -15,10 +15,9 @@ from app.api.routes.api_client.schema import (
 from app.api.routes.workspaces.middleware import WorkspaceContext
 
 
-def _ctx(uid: str, ws_id: str, org_id: str) -> WorkspaceContext:
+def _ctx(uid: str, ws_id: str) -> WorkspaceContext:
     return WorkspaceContext(
         uid=uid,
-        org_id=org_id,
         workspace_id=ws_id,
         ws_role="admin",
         is_personal=True,
@@ -28,15 +27,14 @@ def _ctx(uid: str, ws_id: str, org_id: str) -> WorkspaceContext:
 
 @pytest.mark.asyncio
 async def test_api_client_collections_isolated_across_personal_workspaces(
-    clean_db, system_org_id, personal_ws_for,
+    clean_db, personal_ws_for,
 ):
     """Collections created by u1 must not appear in u2's list."""
-    org_id = system_org_id
     ws_u1 = await personal_ws_for("u1")
     ws_u2 = await personal_ws_for("u2")
 
-    ctx_u1 = _ctx("u1", ws_u1, org_id)
-    ctx_u2 = _ctx("u2", ws_u2, org_id)
+    ctx_u1 = _ctx("u1", ws_u1)
+    ctx_u2 = _ctx("u2", ws_u2)
 
     await api_client_svc.create_collection(ctx_u1, ApiClientCollectionCreate(name="u1-collection"))
 
@@ -49,32 +47,30 @@ async def test_api_client_collections_isolated_across_personal_workspaces(
 
 @pytest.mark.asyncio
 async def test_forged_workspace_cannot_read_api_client_collections(
-    clean_db, system_org_id, personal_ws_for,
+    clean_db, personal_ws_for,
 ):
     """u2 forging u1's workspace_id still cannot see u1's collections due to owner_uid."""
-    org_id = system_org_id
     ws_u1 = await personal_ws_for("u1")
     await personal_ws_for("u2")
 
-    ctx_u1 = _ctx("u1", ws_u1, org_id)
+    ctx_u1 = _ctx("u1", ws_u1)
     await api_client_svc.create_collection(ctx_u1, ApiClientCollectionCreate(name="secret-collection"))
 
-    forged_ctx = _ctx("u2", ws_u1, org_id)  # u2 claims u1's workspace_id
+    forged_ctx = _ctx("u2", ws_u1)  # u2 claims u1's workspace_id
     cols = await api_client_svc.list_collections(ctx=forged_ctx)
     assert cols == []  # owner_uid filter prevents cross-user bleed
 
 
 @pytest.mark.asyncio
 async def test_api_client_environments_and_history_isolated(
-    clean_db, system_org_id, personal_ws_for,
+    clean_db, personal_ws_for,
 ):
     """Environments and history created by u1 must not appear for u2."""
-    org_id = system_org_id
     ws_u1 = await personal_ws_for("u1")
     ws_u2 = await personal_ws_for("u2")
 
-    ctx_u1 = _ctx("u1", ws_u1, org_id)
-    ctx_u2 = _ctx("u2", ws_u2, org_id)
+    ctx_u1 = _ctx("u1", ws_u1)
+    ctx_u2 = _ctx("u2", ws_u2)
 
     await api_client_svc.create_environment(ctx_u1, ApiClientEnvironmentCreate(name="prod"))
     await api_client_svc.create_history(

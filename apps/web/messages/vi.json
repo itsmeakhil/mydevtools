@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Máy tính Chmod",
+    "codeScreenshot": "Ảnh chụp mã",
+    "cssGenerators": "Trình tạo CSS",
+    "exifViewer": "Trình xem EXIF",
+    "faviconGenerator": "Trình tạo Favicon",
+    "jsonDiff": "So sánh JSON",
+    "jsonpathPlayground": "Sân chơi JSONPath",
+    "keycodeInspector": "Trình kiểm tra mã phím",
+    "markdownTableGenerator": "Bảng Markdown",
+    "timezoneConverter": "Chuyển đổi múi giờ",
+    "tokenCounter": "Bộ đếm token",
+    "webhookTester": "Trình kiểm tra Webhook",
+    "websocketTester": "Trình kiểm tra WebSocket",
+    "whoisLookup": "Tra cứu Whois"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",
@@ -526,6 +541,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Trình tạo & kiểm tra Bcrypt",
+        "description": "Băm mật khẩu bằng bcrypt và xác minh các băm hiện có."
+      },
+      "chmodCalculator": {
+        "title": "Máy tính Chmod",
+        "description": "Chuyển đổi quyền Unix giữa bát phân, ký hiệu và hộp kiểm."
+      },
+      "codeScreenshot": {
+        "title": "Ảnh chụp mã",
+        "description": "Biến mã nguồn thành hình ảnh đẹp, dễ chia sẻ."
+      },
+      "cssGenerators": {
+        "title": "Trình tạo CSS",
+        "description": "Trình tạo box-shadow, border-radius và clamp() linh hoạt."
+      },
+      "exifViewer": {
+        "title": "Trình xem & xóa EXIF",
+        "description": "Kiểm tra và xóa metadata EXIF của ảnh ngay trên máy."
+      },
+      "faviconGenerator": {
+        "title": "Trình tạo Favicon",
+        "description": "Tạo favicon, biểu tượng ứng dụng và đoạn mã manifest."
+      },
+      "jsonDiff": {
+        "title": "So sánh JSON",
+        "description": "So sánh hai tài liệu JSON theo ngữ nghĩa và cấu trúc."
+      },
+      "jsonpathPlayground": {
+        "title": "Sân chơi JSONPath",
+        "description": "Truy vấn JSON bằng JSONPath hoặc JMESPath và xem kết quả trực tiếp."
+      },
+      "keycodeInspector": {
+        "title": "Trình kiểm tra mã phím",
+        "description": "Nhấn một phím để xem mã sự kiện JavaScript và các phím bổ trợ."
+      },
+      "markdownTableGenerator": {
+        "title": "Trình tạo bảng Markdown",
+        "description": "Tạo bảng Markdown và HTML trong trình chỉnh sửa dạng lưới như bảng tính."
+      },
+      "timezoneConverter": {
+        "title": "Chuyển đổi múi giờ",
+        "description": "Chuyển đổi một thời điểm qua nhiều múi giờ kèm gợi ý chênh lệch ngày và giờ làm việc."
+      },
+      "tokenCounter": {
+        "title": "Bộ đếm token LLM",
+        "description": "Đếm token LLM, trực quan hóa các khối và ước tính chi phí API."
+      },
+      "webhookTester": {
+        "title": "Trình kiểm tra Webhook",
+        "description": "Ghi lại và kiểm tra các yêu cầu webhook đến theo thời gian thực."
+      },
+      "websocketTester": {
+        "title": "Trình kiểm tra WebSocket",
+        "description": "Kết nối tới các điểm cuối WebSocket và trao đổi tin nhắn theo thời gian thực."
+      },
+      "whoisLookup": {
+        "title": "Tra cứu Whois",
+        "description": "Tra cứu thông tin đăng ký tên miền và IP qua RDAP."
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Trình tạo & kiểm tra Bcrypt",
+    "subtitle": "Băm mật khẩu bằng bcrypt và xác minh băm — mọi thứ diễn ra trong trình duyệt của bạn",
+    "tabs": {
+      "hash": "Băm",
+      "verify": "Xác minh"
+    },
+    "showPassword": "Hiện mật khẩu",
+    "hidePassword": "Ẩn mật khẩu",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép",
+    "hash": {
+      "passwordLabel": "Mật khẩu",
+      "passwordPlaceholder": "Nhập mật khẩu cần băm…",
+      "costLabel": "Hệ số chi phí",
+      "costHint": "Chi phí càng cao thì khối lượng tính toán mỗi bước càng tăng gấp đôi. 10-12 là lựa chọn phổ biến cho môi trường sản xuất.",
+      "slowWarning": "Hệ số chi phí từ 13 trở lên có thể mất vài giây để tính toán.",
+      "generate": "Tạo băm",
+      "generating": "Đang băm…",
+      "resultLabel": "Băm Bcrypt",
+      "timeTaken": "{ms} ms",
+      "anatomy": {
+        "title": "Cấu trúc băm",
+        "algorithm": "thuật toán",
+        "cost": "chi phí",
+        "salt": "salt (22 ký tự)",
+        "hash": "băm (31 ký tự)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Mật khẩu",
+      "passwordPlaceholder": "Nhập mật khẩu cần kiểm tra…",
+      "hashLabel": "Băm Bcrypt",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Nhập mật khẩu và một băm bcrypt để so sánh chúng.",
+      "invalidHash": "Đây có vẻ không phải là một băm bcrypt hợp lệ.",
+      "checking": "Đang so sánh…",
+      "match": "Khớp — mật khẩu này tạo ra băm này.",
+      "noMatch": "Không khớp — mật khẩu này không tạo ra băm này."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Máy tính Chmod",
+    "subtitle": "Chuyển đổi quyền tệp Unix giữa hộp kiểm, bát phân và ký hiệu tượng trưng",
+    "grid": {
+      "title": "Quyền",
+      "read": "Đọc",
+      "write": "Ghi",
+      "execute": "Thực thi",
+      "owner": "Chủ sở hữu",
+      "group": "Nhóm",
+      "others": "Người khác"
+    },
+    "special": {
+      "title": "Bit đặc biệt",
+      "setuid": "Setuid",
+      "setgid": "Setgid",
+      "sticky": "Sticky"
+    },
+    "octal": {
+      "label": "Bát phân",
+      "placeholder": "755 hoặc 4755",
+      "invalid": "Nhập 3 hoặc 4 chữ số bát phân (0-7)."
+    },
+    "symbolic": {
+      "label": "Ký hiệu",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "Nhập 9 ký tự như rwxr-xr-x (cho phép s/S, t/T)."
+    },
+    "output": {
+      "title": "Lệnh",
+      "copy": "Sao chép",
+      "copied": "Đã sao chép"
+    },
+    "explain": {
+      "line": "{cls} có thể {perms}.",
+      "none": "{cls} không có quyền nào.",
+      "setuid": "Setuid: tệp chạy với đặc quyền của chủ sở hữu.",
+      "setgid": "Setgid: tệp chạy với đặc quyền của nhóm (các tệp mới trong thư mục kế thừa nhóm của nó).",
+      "sticky": "Sticky: chỉ chủ sở hữu tệp mới có thể xóa hoặc đổi tên tệp trong thư mục này."
+    },
+    "presets": {
+      "title": "Cài đặt sẵn phổ biến",
+      "octal": "Bát phân",
+      "permissions": "Quyền",
+      "description": "Công dụng điển hình",
+      "p644": "Tệp thông thường: chủ sở hữu ghi, mọi người đọc.",
+      "p755": "Tệp thực thi và thư mục: mọi người có thể đọc và truy cập.",
+      "p600": "Tệp riêng tư: chỉ chủ sở hữu đọc và ghi.",
+      "p700": "Tệp thực thi và thư mục riêng tư: chỉ chủ sở hữu.",
+      "p664": "Tệp cho phép nhóm ghi.",
+      "p775": "Thư mục và tệp thực thi cho phép nhóm ghi.",
+      "p400": "Chỉ đọc cho chủ sở hữu (ví dụ khóa riêng SSH)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Ảnh chụp mã",
+    "subtitle": "Biến mã thành hình ảnh đẹp, dễ chia sẻ",
+    "languageLabel": "Ngôn ngữ",
+    "autoDetect": "Tự động nhận diện",
+    "backgroundLabel": "Nền",
+    "paddingLabel": "Khoảng đệm",
+    "filenameLabel": "Tên tệp",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "Chấm cửa sổ",
+    "themeLabel": "Chủ đề cửa sổ",
+    "themeDark": "Tối",
+    "themeLight": "Sáng",
+    "scaleLabel": "Tỷ lệ xuất",
+    "copyImage": "Sao chép hình ảnh",
+    "copied": "Đã sao chép",
+    "exportPng": "Xuất PNG",
+    "inputLabel": "Mã",
+    "detected": "Đã nhận diện: {language}",
+    "clear": "Xóa",
+    "placeholder": "Dán mã của bạn vào đây…",
+    "previewLabel": "Xem trước",
+    "emptyPreview": "Bản xem trước mã của bạn sẽ hiển thị ở đây",
+    "exportFailed": "Không xuất được hình ảnh",
+    "copyUnsupported": "Trình duyệt này không hỗ trợ sao chép hình ảnh",
+    "copyFailed": "Không sao chép được hình ảnh",
+    "backgrounds": {
+      "ocean": "Đại dương",
+      "sunset": "Hoàng hôn",
+      "candy": "Kẹo ngọt",
+      "forest": "Rừng cây",
+      "midnight": "Nửa đêm",
+      "gold": "Vàng kim",
+      "aurora": "Cực quang",
+      "slate": "Xám đá",
+      "transparent": "Trong suốt"
+    }
+  },
+  "CssGenerators": {
+    "title": "Trình tạo CSS",
+    "subtitle": "Box-shadow, border-radius và clamp() linh hoạt — sao chép CSS.",
+    "preview": "Xem trước",
+    "output": "CSS",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "clamp() linh hoạt"
+    },
+    "boxShadow": {
+      "presets": "Cài đặt sẵn",
+      "layer": "Lớp",
+      "addLayer": "Thêm lớp",
+      "removeLayer": "Xóa lớp",
+      "x": "X",
+      "y": "Y",
+      "blur": "Độ mờ",
+      "spread": "Độ lan",
+      "color": "Màu",
+      "alpha": "Độ trong",
+      "inset": "Đổ bóng trong",
+      "presetNames": {
+        "subtleCard": "Thẻ nhẹ nhàng",
+        "elevated": "Nổi lên",
+        "hardOffset": "Lệch cứng",
+        "neonGlow": "Ánh neon",
+        "inner": "Bóng trong",
+        "layeredSmooth": "Nhiều lớp mượt"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Chế độ",
+      "modes": {
+        "simple": "Theo từng góc",
+        "blob": "Khối hữu cơ"
+      },
+      "unit": "Đơn vị",
+      "linkCorners": "Liên kết các góc",
+      "randomize": "Ngẫu nhiên",
+      "horizontal": "Bán kính ngang",
+      "vertical": "Bán kính dọc",
+      "corners": {
+        "tl": "Trên trái",
+        "tr": "Trên phải",
+        "br": "Dưới phải",
+        "bl": "Dưới trái"
+      }
+    },
+    "clamp": {
+      "minFont": "Cỡ chữ tối thiểu (px)",
+      "maxFont": "Cỡ chữ tối đa (px)",
+      "minViewport": "Viewport tối thiểu (px)",
+      "maxViewport": "Viewport tối đa (px)",
+      "rootFont": "Cỡ chữ gốc (px)",
+      "viewportWidth": "Viewport mô phỏng",
+      "computedSize": "Kích thước tính toán",
+      "slope": "Độ dốc",
+      "intercept": "Giao điểm",
+      "previewText": "The quick brown fox",
+      "invalid": "Nhập các giới hạn viewport hợp lệ và khác nhau."
+    }
+  },
+  "ExifViewer": {
+    "title": "Trình xem & xóa EXIF",
+    "subtitle": "Kiểm tra metadata của ảnh và xóa chúng ngay trong trình duyệt",
+    "dropTitle": "Thả một ảnh vào đây",
+    "dropHint": "hoặc nhấn để duyệt — ảnh của bạn không bao giờ rời khỏi thiết bị",
+    "browse": "Chọn ảnh",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Đang đọc metadata…",
+    "parseFailed": "Không đọc được ảnh này",
+    "clear": "Xóa ảnh",
+    "gpsWarning": "Chứa vị trí GPS",
+    "openMap": "Xem trên OpenStreetMap",
+    "noMetadata": "Không tìm thấy metadata nhúng nào trong ảnh này.",
+    "facts": {
+      "name": "Tên",
+      "type": "Loại",
+      "dimensions": "Kích thước",
+      "size": "Dung lượng"
+    },
+    "groups": {
+      "camera": "Máy ảnh",
+      "exposure": "Phơi sáng",
+      "timestamps": "Dấu thời gian",
+      "gps": "Vị trí GPS",
+      "software": "Phần mềm & khác"
+    },
+    "gpsCard": {
+      "latitude": "Vĩ độ",
+      "longitude": "Kinh độ",
+      "altitude": "Độ cao"
+    },
+    "raw": {
+      "title": "Toàn bộ metadata",
+      "copyJson": "Sao chép JSON",
+      "copied": "Đã sao chép"
+    },
+    "remove": {
+      "title": "Xóa metadata",
+      "jpegDescription": "Xóa EXIF, XMP, IPTC và chú thích không mất dữ liệu mà không nén lại ảnh.",
+      "reencodeDescription": "Mã hóa lại ảnh để loại bỏ metadata nhúng. Thao tác này nén lại các điểm ảnh.",
+      "keepIcc": "Giữ hồ sơ màu (ICC)",
+      "stripButton": "Xóa metadata",
+      "reencodeButton": "Mã hóa lại & xóa",
+      "unsupported": "Không hỗ trợ xóa metadata cho loại tệp này.",
+      "failed": "Không xóa được metadata",
+      "before": "Trước",
+      "after": "Sau",
+      "download": "Tải ảnh đã làm sạch"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Trình tạo Favicon",
+    "subtitle": "Tạo favicon và biểu tượng ứng dụng từ một ảnh",
+    "dropTitle": "Thả một ảnh vào đây",
+    "dropHint": "PNG, JPEG hoặc SVG — nhấn để duyệt",
+    "browse": "Chọn ảnh",
+    "clear": "Xóa ảnh",
+    "backgroundLabel": "Nền",
+    "transparent": "Trong suốt",
+    "solidColor": "Màu đặc",
+    "cornerLabel": "Hình dạng góc",
+    "cornerNone": "Vuông",
+    "cornerRounded": "Bo tròn",
+    "cornerCircle": "Hình tròn",
+    "maskPaddingLabel": "Khoảng đệm maskable",
+    "maskable": "maskable",
+    "previewLabel": "Xem trước",
+    "copy": "Sao chép",
+    "headSnippet": "Đoạn mã HTML head",
+    "downloadIco": "Tải favicon.ico",
+    "downloadZip": "Tải tất cả (.zip)"
+  },
+  "JsonDiff": {
+    "title": "So sánh JSON",
+    "subtitle": "So sánh hai tài liệu JSON theo ngữ nghĩa và cấu trúc — bỏ qua thứ tự khóa và định dạng",
+    "options": {
+      "ignoreArrayOrder": "Bỏ qua thứ tự mảng"
+    },
+    "loadBothSamples": "Tải ví dụ",
+    "sample": "Ví dụ",
+    "format": "Định dạng",
+    "clear": "Xóa",
+    "formatError": "Không thể định dạng: đầu vào không phải JSON hợp lệ",
+    "placeholder": "Dán hoặc nhập JSON vào đây…",
+    "panels": {
+      "left": "Bản gốc (trái)",
+      "right": "Bản sửa (phải)",
+      "results": "Khác biệt"
+    },
+    "summary": {
+      "added": "{count} đã thêm",
+      "removed": "{count} đã xóa",
+      "changed": "{count} đã thay đổi"
+    },
+    "types": {
+      "added": "Đã thêm",
+      "removed": "Đã xóa",
+      "changed": "Đã thay đổi"
+    },
+    "copyChanges": "Sao chép dưới dạng JSON",
+    "copied": "Đã sao chép",
+    "empty": "Dán JSON vào cả hai ô để xem khác biệt của chúng.",
+    "identical": "Hai tài liệu giống nhau về mặt ngữ nghĩa."
+  },
+  "JsonpathPlayground": {
+    "title": "Sân chơi JSONPath",
+    "subtitle": "Truy vấn các tài liệu JSON bằng JSONPath hoặc JMESPath và xem kết quả trực tiếp",
+    "engineLabel": "Bộ máy",
+    "queryLabel": "Truy vấn",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Bảng tra cứu nhanh",
+    "cheats": {
+      "jpAllTitles": "Tất cả tựa sách",
+      "jpAllAuthors": "Mọi tác giả, ở bất kỳ đâu trong tài liệu",
+      "jpFirstBook": "Cuốn sách đầu tiên",
+      "jpLastBook": "Cuốn sách cuối cùng",
+      "jpSlice": "Hai cuốn đầu (slice)",
+      "jpFilterPrice": "Sách rẻ hơn 40",
+      "jpFilterInStock": "Tựa của các cuốn sách còn hàng",
+      "jpRecursive": "Tất cả giá trị, theo đệ quy",
+      "jmAllTitles": "Tất cả tựa sách",
+      "jmFirstAuthor": "Tác giả của cuốn sách đầu tiên",
+      "jmLastBook": "Cuốn sách cuối cùng",
+      "jmSlice": "Hai cuốn đầu (slice)",
+      "jmFilterPrice": "Tựa của các cuốn sách rẻ hơn 40",
+      "jmCount": "Đếm số sách còn hàng",
+      "jmProjection": "Định hình lại mỗi cuốn sách thành đối tượng mới",
+      "jmSort": "Tựa sách sắp xếp theo giá"
+    },
+    "panels": {
+      "input": "Đầu vào JSON",
+      "results": "Kết quả"
+    },
+    "sample": "Ví dụ",
+    "format": "Định dạng",
+    "clear": "Xóa",
+    "formatError": "Không thể định dạng: đầu vào không phải JSON hợp lệ",
+    "placeholder": "Dán hoặc nhập JSON vào đây…",
+    "outputPlaceholder": "Các kết quả khớp sẽ hiển thị ở đây…",
+    "matchCount": "{count, plural, one {# kết quả khớp} other {# kết quả khớp}}",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép"
+  },
+  "KeycodeInspector": {
+    "title": "Trình kiểm tra mã phím",
+    "subtitle": "Nhấn phím bất kỳ để kiểm tra sự kiện bàn phím JavaScript của nó",
+    "capture": {
+      "prompt": "Nhấn phím bất kỳ…",
+      "ready": "Đang lắng nghe — nhấn phím bất kỳ trên bàn phím",
+      "clickToFocus": "Nhấn vào đây để lấy tiêu điểm, rồi nhấn phím bất kỳ"
+    },
+    "hero": {
+      "spaceKey": "(Dấu cách)",
+      "keyLabel": "event.key",
+      "repeat": "lặp lại"
+    },
+    "copyJson": "Sao chép JSON",
+    "copiedJson": "Đã sao chép JSON sự kiện vào bộ nhớ tạm",
+    "deprecated": "không dùng nữa",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Chuẩn",
+      "left": "Trái",
+      "right": "Phải",
+      "numpad": "Bàn phím số",
+      "unknown": "Không rõ"
+    },
+    "history": {
+      "title": "Lịch sử",
+      "clear": "Xóa lịch sử",
+      "empty": "Các lần nhấn phím sẽ hiển thị ở đây."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Trình tạo bảng Markdown",
+    "subtitle": "Chỉnh sửa lưới, dán từ bảng tính và sao chép bảng Markdown hoặc HTML được căn chỉnh đẹp mắt",
+    "addRow": "Thêm hàng",
+    "addColumn": "Thêm cột",
+    "importLabel": "Nhập",
+    "importPlaceholder": "Dán TSV (từ Excel / Google Sheets) hoặc CSV vào đây…",
+    "importButton": "Nhập vào lưới",
+    "pasteClipboard": "Dán từ bộ nhớ tạm",
+    "importEmpty": "Không có gì để nhập — hãy dán một số hàng trước",
+    "clipboardError": "Không thể đọc từ bộ nhớ tạm",
+    "clear": "Xóa",
+    "panels": {
+      "editor": "Trình chỉnh sửa bảng",
+      "output": "Kết quả"
+    },
+    "align": {
+      "left": "Căn trái",
+      "center": "Căn giữa",
+      "right": "Căn phải"
+    },
+    "headerPlaceholder": "Tiêu đề",
+    "cellPlaceholder": "Ô",
+    "removeRow": "Xóa hàng",
+    "removeColumn": "Xóa cột",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Sao chép",
+    "copied": "Đã sao chép"
+  },
+  "TimezoneConverter": {
+    "title": "Chuyển đổi múi giờ",
+    "subtitle": "Chuyển đổi một thời điểm trên khắp thế giới để lên kế hoạch họp.",
+    "dateTimeLabel": "Ngày & giờ",
+    "now": "Bây giờ",
+    "sourceZoneLabel": "Múi giờ nguồn",
+    "selectZone": "Chọn múi giờ",
+    "searchZone": "Tìm múi giờ...",
+    "noZone": "Không tìm thấy múi giờ.",
+    "scrubLabel": "Dịch chuyển thời gian",
+    "reset": "Đặt lại",
+    "targetsLabel": "Múi giờ đích",
+    "addZone": "Thêm múi giờ",
+    "remove": "Xóa",
+    "localBadge": "Địa phương",
+    "invalidDate": "Nhập ngày và giờ hợp lệ.",
+    "bands": {
+      "work": "Giờ làm việc (09:00–18:00)",
+      "edge": "Giờ giáp ranh (sáng sớm / tối)",
+      "night": "Ban đêm"
+    }
+  },
+  "TokenCounter": {
+    "title": "Bộ đếm token LLM",
+    "subtitle": "Đếm token, trực quan hóa các khối và ước tính chi phí API.",
+    "inputLabel": "Văn bản",
+    "sample": "Ví dụ",
+    "clear": "Xóa",
+    "placeholder": "Dán văn bản, mã hoặc JSON để đếm token...",
+    "encoding": "Mã hóa",
+    "loading": "Đang tải bộ tách token...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / dòng o)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Token",
+      "characters": "Ký tự",
+      "words": "Từ",
+      "ratio": "Token/từ",
+      "ratioSub": "xấp xỉ"
+    },
+    "claudeRow": "Claude (xấp xỉ)",
+    "estimate": "ước tính",
+    "viz": {
+      "title": "Trực quan hóa token",
+      "toggle": "Hiển thị",
+      "hint": "Bật để tô màu mỗi token thành một khối.",
+      "empty": "Nhập văn bản để trực quan hóa token.",
+      "truncated": "Đang hiển thị {limit} token đầu tiên trong tổng số {total}."
+    },
+    "cost": {
+      "title": "Máy tính chi phí",
+      "disclaimer": "giá trị mặc định có thể sửa — hãy kiểm tra giá hiện tại",
+      "model": "Mô hình",
+      "expectedOutput": "Số token đầu ra dự kiến",
+      "customInput": "Đầu vào $/MTok",
+      "customOutput": "Đầu ra $/MTok",
+      "inputCost": "Chi phí đầu vào",
+      "outputCost": "Chi phí đầu ra",
+      "total": "Tổng",
+      "per1000": "Mỗi 1000 lần gọi"
+    }
+  },
+  "WebhookTester": {
+    "title": "Trình kiểm tra Webhook",
+    "subtitle": "Tạo một URL tạm thời và kiểm tra các yêu cầu webhook đến trực tiếp.",
+    "intro": {
+      "title": "Tạo một URL webhook để bắt đầu ghi lại các yêu cầu",
+      "hint": "Bạn sẽ nhận được một URL không thể đoán, ghi lại mọi yêu cầu đến. Nó hết hạn sau 24 giờ."
+    },
+    "createBtn": "Tạo URL webhook",
+    "creating": "Đang tạo…",
+    "urlLabel": "URL webhook của bạn",
+    "expiresIn": "Hết hạn sau {countdown}",
+    "copyUrlBtn": "Sao chép URL",
+    "copied": "Đã sao chép",
+    "clearBtn": "Xóa",
+    "newBinBtn": "URL mới",
+    "requestsTitle": "Yêu cầu",
+    "selectPrompt": "Chọn một yêu cầu để xem chi tiết.",
+    "expiredNotice": "URL webhook này đã hết hạn. Tạo một URL mới để tiếp tục kiểm tra.",
+    "base64Badge": "base64",
+    "truncatedBadge": "đã cắt bớt",
+    "empty": {
+      "title": "Đang chờ yêu cầu…",
+      "hint": "Gửi một yêu cầu đến URL của bạn và nó sẽ hiển thị ngay tại đây. Hãy thử:"
+    },
+    "detail": {
+      "receivedAt": "Nhận lúc",
+      "source": "IP nguồn",
+      "contentType": "Content-Type",
+      "query": "Tham số truy vấn",
+      "headers": "Header",
+      "body": "Nội dung",
+      "copyBody": "Sao chép nội dung",
+      "emptyBody": "Không có nội dung"
+    },
+    "errors": {
+      "createFailed": "Không tạo được URL webhook. Vui lòng thử lại.",
+      "clearFailed": "Không xóa được các yêu cầu. Vui lòng thử lại."
+    }
+  },
+  "WebsocketTester": {
+    "title": "Trình kiểm tra WebSocket",
+    "subtitle": "Kết nối tới một điểm cuối WebSocket và gửi, nhận, kiểm tra tin nhắn trực tiếp",
+    "urlLabel": "URL điểm cuối",
+    "protocolsLabel": "Giao thức phụ",
+    "protocolsPlaceholder": "tùy chọn, phân tách bằng dấu phẩy",
+    "connect": "Kết nối",
+    "disconnect": "Ngắt kết nối",
+    "status": {
+      "disconnected": "Đã ngắt kết nối",
+      "connecting": "Đang kết nối",
+      "connected": "Đã kết nối",
+      "error": "Lỗi"
+    },
+    "messages": {
+      "connecting": "Đang kết nối tới {url}…",
+      "connected": "Đã thiết lập kết nối",
+      "connectedWithProtocol": "Đã thiết lập kết nối (giao thức: {protocol})",
+      "invalidUrl": "URL không hợp lệ — phải bắt đầu bằng ws:// hoặc wss://",
+      "connectFailed": "Không mở được kết nối",
+      "socketError": "Đã xảy ra lỗi kết nối",
+      "notConnected": "Chưa kết nối — hãy kết nối trước",
+      "binaryMessage": "Đã nhận một tin nhắn nhị phân"
+    },
+    "log": {
+      "title": "Nhật ký tin nhắn",
+      "empty": "Chưa có tin nhắn. Hãy kết nối và bắt đầu gửi.",
+      "copyAll": "Sao chép tất cả",
+      "download": "Tải xuống dạng .txt",
+      "clear": "Xóa nhật ký",
+      "prettyPrint": "Định dạng đẹp JSON",
+      "showRaw": "Hiện văn bản thô"
+    },
+    "composer": {
+      "placeholder": "Nhập tin nhắn để gửi…",
+      "send": "Gửi",
+      "formatJson": "Định dạng thành JSON",
+      "invalidJson": "Tin nhắn không phải JSON hợp lệ",
+      "hint": "Cmd/Ctrl+Enter để gửi"
+    },
+    "ping": {
+      "label": "Tự động ping",
+      "seconds": "giây",
+      "intervalTitle": "Khoảng ping tính bằng giây",
+      "payloadPlaceholder": "payload ping"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Tra cứu Whois",
+    "subtitle": "Tra cứu thông tin đăng ký cho bất kỳ tên miền hoặc địa chỉ IP nào qua RDAP",
+    "placeholder": "example.com hoặc 8.8.8.8",
+    "lookupBtn": "Tra cứu",
+    "looking": "Đang tra cứu…",
+    "refreshBtn": "Làm mới",
+    "tryLabel": "Thử:",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép",
+    "notAvailable": "Không có sẵn",
+    "summary": {
+      "registrar": "Nhà đăng ký",
+      "network": "Mạng"
+    },
+    "dates": {
+      "created": "Ngày tạo",
+      "updated": "Ngày cập nhật",
+      "expires": "Ngày hết hạn"
+    },
+    "sections": {
+      "status": "Trạng thái",
+      "nameservers": "Máy chủ tên",
+      "contacts": "Liên hệ",
+      "rawRdap": "RDAP thô"
+    },
+    "contacts": {
+      "roles": "Vai trò",
+      "name": "Tên",
+      "organization": "Tổ chức"
+    },
+    "errors": {
+      "invalidTarget": "Nhập một tên miền hoặc địa chỉ IP hợp lệ",
+      "lookupFailed": "Tra cứu thất bại (trạng thái {status})"
+    }
   }
 }

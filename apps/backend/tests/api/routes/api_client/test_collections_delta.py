@@ -28,7 +28,6 @@ REQUEST_ID = "request-1"
 BASE_COLLECTION: dict[str, Any] = {
     "_id": COLLECTION_OID,
     "created_by": OWNER_UID,
-    "org_id": "org-test",
     "workspace_id": "ws-owner",
     "owner_uid": OWNER_UID,
     "name": "My Collection",
@@ -56,10 +55,9 @@ BASE_COLLECTION: dict[str, Any] = {
 }
 
 
-def _make_ctx(uid: str, ws_id: str = "ws-owner", org_id: str = "org-test") -> WorkspaceContext:
+def _make_ctx(uid: str, ws_id: str = "ws-owner") -> WorkspaceContext:
     return WorkspaceContext(
         uid=uid,
-        org_id=org_id,
         workspace_id=ws_id,
         ws_role="admin",
         is_personal=True,

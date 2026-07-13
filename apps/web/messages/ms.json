@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Kalkulator Chmod",
+    "codeScreenshot": "Tangkap Skrin Kod",
+    "cssGenerators": "Penjana CSS",
+    "exifViewer": "Pemapar EXIF",
+    "faviconGenerator": "Penjana Favicon",
+    "jsonDiff": "Beza JSON",
+    "jsonpathPlayground": "Ruang Uji JSONPath",
+    "keycodeInspector": "Pemeriksa Kod Kekunci",
+    "markdownTableGenerator": "Jadual Markdown",
+    "timezoneConverter": "Penukar Zon Waktu",
+    "tokenCounter": "Pengira Token",
+    "webhookTester": "Penguji Webhook",
+    "websocketTester": "Penguji WebSocket",
+    "whoisLookup": "Carian Whois"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",
@@ -532,6 +547,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Penjana & Penyemak Bcrypt",
+        "description": "Cincang kata laluan dengan bcrypt dan sahkan cincangan sedia ada."
+      },
+      "chmodCalculator": {
+        "title": "Kalkulator Chmod",
+        "description": "Tukar keizinan Unix antara oktal, simbolik dan kotak semak."
+      },
+      "codeScreenshot": {
+        "title": "Tangkap Skrin Kod",
+        "description": "Tukar kod sumber menjadi imej cantik yang boleh dikongsi."
+      },
+      "cssGenerators": {
+        "title": "Penjana CSS",
+        "description": "Penjana box-shadow, border-radius dan clamp() bendalir."
+      },
+      "exifViewer": {
+        "title": "Pemapar & Pembuang EXIF",
+        "description": "Periksa dan buang metadata EXIF foto secara setempat."
+      },
+      "faviconGenerator": {
+        "title": "Penjana Favicon",
+        "description": "Jana favicon, ikon aplikasi dan cebisan manifest."
+      },
+      "jsonDiff": {
+        "title": "Beza JSON",
+        "description": "Perbandingan bermakna dan peka struktur bagi dua dokumen JSON."
+      },
+      "jsonpathPlayground": {
+        "title": "Ruang Uji JSONPath",
+        "description": "Kueri JSON dengan JSONPath atau JMESPath dan lihat keputusan secara langsung."
+      },
+      "keycodeInspector": {
+        "title": "Pemeriksa Kod Kekunci",
+        "description": "Tekan satu kekunci untuk lihat kod peristiwa JavaScript dan pengubah suainya."
+      },
+      "markdownTableGenerator": {
+        "title": "Penjana Jadual Markdown",
+        "description": "Bina jadual Markdown dan HTML dalam penyunting grid seperti hamparan."
+      },
+      "timezoneConverter": {
+        "title": "Penukar Zon Waktu",
+        "description": "Tukar satu masa merentas banyak zon dengan petunjuk anjakan hari dan waktu kerja."
+      },
+      "tokenCounter": {
+        "title": "Pengira Token LLM",
+        "description": "Kira token LLM, visualkan cebisan dan anggarkan kos API."
+      },
+      "webhookTester": {
+        "title": "Penguji Webhook",
+        "description": "Tangkap dan periksa permintaan webhook masuk secara masa nyata."
+      },
+      "websocketTester": {
+        "title": "Penguji WebSocket",
+        "description": "Sambung ke titik akhir WebSocket dan bertukar mesej secara masa nyata."
+      },
+      "whoisLookup": {
+        "title": "Carian Whois",
+        "description": "Cari butiran pendaftaran domain dan IP melalui RDAP."
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Penjana & Penyemak Bcrypt",
+    "subtitle": "Cincang kata laluan dengan bcrypt dan sahkan cincangan — semuanya kekal dalam pelayar anda",
+    "tabs": {
+      "hash": "Cincang",
+      "verify": "Sahkan"
+    },
+    "showPassword": "Tunjukkan kata laluan",
+    "hidePassword": "Sembunyikan kata laluan",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "hash": {
+      "passwordLabel": "Kata laluan",
+      "passwordPlaceholder": "Masukkan kata laluan untuk dicincang…",
+      "costLabel": "Faktor kos",
+      "costHint": "Kos lebih tinggi menggandakan kerja setiap langkah. 10-12 ialah pilihan biasa untuk pengeluaran.",
+      "slowWarning": "Faktor kos 13 dan ke atas boleh mengambil beberapa saat untuk dikira.",
+      "generate": "Jana cincangan",
+      "generating": "Mencincang…",
+      "resultLabel": "Cincangan Bcrypt",
+      "timeTaken": "{ms} ms",
+      "anatomy": {
+        "title": "Anatomi cincangan",
+        "algorithm": "algoritma",
+        "cost": "kos",
+        "salt": "salt (22 aksara)",
+        "hash": "cincangan (31 aksara)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Kata laluan",
+      "passwordPlaceholder": "Masukkan kata laluan untuk disemak…",
+      "hashLabel": "Cincangan Bcrypt",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Masukkan kata laluan dan cincangan bcrypt untuk membandingkannya.",
+      "invalidHash": "Ini tidak kelihatan seperti cincangan bcrypt yang sah.",
+      "checking": "Membandingkan…",
+      "match": "Padan — kata laluan menghasilkan cincangan ini.",
+      "noMatch": "Tidak padan — kata laluan tidak menghasilkan cincangan ini."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Kalkulator Chmod",
+    "subtitle": "Tukar keizinan fail Unix antara kotak semak, oktal dan tatatanda simbolik",
+    "grid": {
+      "title": "Keizinan",
+      "read": "Baca",
+      "write": "Tulis",
+      "execute": "Laksana",
+      "owner": "Pemilik",
+      "group": "Kumpulan",
+      "others": "Lain-lain"
+    },
+    "special": {
+      "title": "Bit khas",
+      "setuid": "setuid",
+      "setgid": "setgid",
+      "sticky": "sticky"
+    },
+    "octal": {
+      "label": "Oktal",
+      "placeholder": "755 atau 4755",
+      "invalid": "Masukkan 3 atau 4 digit oktal (0-7)."
+    },
+    "symbolic": {
+      "label": "Simbolik",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "Masukkan 9 aksara seperti rwxr-xr-x (s/S, t/T dibenarkan)."
+    },
+    "output": {
+      "title": "Arahan",
+      "copy": "Salin",
+      "copied": "Disalin"
+    },
+    "explain": {
+      "line": "{cls} boleh {perms}.",
+      "none": "{cls} tiada sebarang keizinan.",
+      "setuid": "setuid: fail berjalan dengan keistimewaan pemiliknya.",
+      "setgid": "setgid: fail berjalan dengan keistimewaan kumpulannya (fail baharu dalam direktori mewarisi kumpulannya).",
+      "sticky": "sticky: hanya pemilik fail boleh memadam atau menamakan semulanya di dalam direktori ini."
+    },
+    "presets": {
+      "title": "Praset lazim",
+      "octal": "Oktal",
+      "permissions": "Keizinan",
+      "description": "Kegunaan tipikal",
+      "p644": "Fail biasa: pemilik menulis, semua orang membaca.",
+      "p755": "Boleh laku dan direktori: semua orang boleh baca dan masuk.",
+      "p600": "Fail peribadi: hanya pemilik membaca dan menulis.",
+      "p700": "Boleh laku dan direktori peribadi: pemilik sahaja.",
+      "p664": "Fail boleh ditulis oleh kumpulan.",
+      "p775": "Direktori dan boleh laku yang boleh ditulis oleh kumpulan.",
+      "p400": "Baca sahaja untuk pemilik (cth. kunci peribadi SSH)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Tangkap Skrin Kod",
+    "subtitle": "Tukar kod menjadi imej cantik yang boleh dikongsi",
+    "languageLabel": "Bahasa",
+    "autoDetect": "Auto kesan",
+    "backgroundLabel": "Latar belakang",
+    "paddingLabel": "Pelapik",
+    "filenameLabel": "Nama fail",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "Titik tetingkap",
+    "themeLabel": "Tema tetingkap",
+    "themeDark": "Gelap",
+    "themeLight": "Cerah",
+    "scaleLabel": "Skala eksport",
+    "copyImage": "Salin imej",
+    "copied": "Disalin",
+    "exportPng": "Eksport PNG",
+    "inputLabel": "Kod",
+    "detected": "Dikesan: {language}",
+    "clear": "Kosongkan",
+    "placeholder": "Tampal kod anda di sini…",
+    "previewLabel": "Pratonton",
+    "emptyPreview": "Pratonton kod anda akan muncul di sini",
+    "exportFailed": "Gagal mengeksport imej",
+    "copyUnsupported": "Menyalin imej tidak disokong dalam pelayar ini",
+    "copyFailed": "Gagal menyalin imej",
+    "backgrounds": {
+      "ocean": "Lautan",
+      "sunset": "Senja",
+      "candy": "Gula-gula",
+      "forest": "Hutan",
+      "midnight": "Tengah malam",
+      "gold": "Emas",
+      "aurora": "Aurora",
+      "slate": "Batu tulis",
+      "transparent": "Lutsinar"
+    }
+  },
+  "CssGenerators": {
+    "title": "Penjana CSS",
+    "subtitle": "box-shadow, border-radius dan clamp() bendalir — salin CSS.",
+    "preview": "Pratonton",
+    "output": "CSS",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "clamp() bendalir"
+    },
+    "boxShadow": {
+      "presets": "Praset",
+      "layer": "Lapisan",
+      "addLayer": "Tambah lapisan",
+      "removeLayer": "Buang lapisan",
+      "x": "X",
+      "y": "Y",
+      "blur": "Kabur",
+      "spread": "Sebaran",
+      "color": "Warna",
+      "alpha": "Alfa",
+      "inset": "Terbenam",
+      "presetNames": {
+        "subtleCard": "Kad halus",
+        "elevated": "Tinggi",
+        "hardOffset": "Ofset tegas",
+        "neonGlow": "Sinar neon",
+        "inner": "Dalaman",
+        "layeredSmooth": "Berlapis licin"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Mod",
+      "modes": {
+        "simple": "Setiap sudut",
+        "blob": "Blob organik"
+      },
+      "unit": "Unit",
+      "linkCorners": "Pautkan sudut",
+      "randomize": "Rawakkan",
+      "horizontal": "Jejari mendatar",
+      "vertical": "Jejari menegak",
+      "corners": {
+        "tl": "Kiri atas",
+        "tr": "Kanan atas",
+        "br": "Kanan bawah",
+        "bl": "Kiri bawah"
+      }
+    },
+    "clamp": {
+      "minFont": "Fon min (px)",
+      "maxFont": "Fon maks (px)",
+      "minViewport": "Viewport min (px)",
+      "maxViewport": "Viewport maks (px)",
+      "rootFont": "Fon akar (px)",
+      "viewportWidth": "Viewport simulasi",
+      "computedSize": "Saiz terkira",
+      "slope": "Cerun",
+      "intercept": "Pintasan",
+      "previewText": "Teks contoh pratonton",
+      "invalid": "Masukkan had viewport yang sah dan berbeza."
+    }
+  },
+  "ExifViewer": {
+    "title": "Pemapar & Pembuang EXIF",
+    "subtitle": "Periksa metadata foto dan buang ia dalam pelayar anda",
+    "dropTitle": "Lepaskan imej di sini",
+    "dropHint": "atau klik untuk semak lalu — imej anda tidak pernah meninggalkan peranti anda",
+    "browse": "Pilih imej",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Membaca metadata…",
+    "parseFailed": "Gagal membaca imej ini",
+    "clear": "Buang imej",
+    "gpsWarning": "Mengandungi lokasi GPS",
+    "openMap": "Lihat pada OpenStreetMap",
+    "noMetadata": "Tiada metadata terbenam ditemui dalam imej ini.",
+    "facts": {
+      "name": "Nama",
+      "type": "Jenis",
+      "dimensions": "Dimensi",
+      "size": "Saiz"
+    },
+    "groups": {
+      "camera": "Kamera",
+      "exposure": "Dedahan",
+      "timestamps": "Cap masa",
+      "gps": "Lokasi GPS",
+      "software": "Perisian & Lain-lain"
+    },
+    "gpsCard": {
+      "latitude": "Latitud",
+      "longitude": "Longitud",
+      "altitude": "Altitud"
+    },
+    "raw": {
+      "title": "Semua metadata",
+      "copyJson": "Salin JSON",
+      "copied": "Disalin"
+    },
+    "remove": {
+      "title": "Buang metadata",
+      "jpegDescription": "Buang EXIF, XMP, IPTC dan komen tanpa kehilangan dan tanpa memampatkan semula imej.",
+      "reencodeDescription": "Kod semula imej untuk membuang metadata terbenam. Ini memampatkan semula piksel.",
+      "keepIcc": "Kekalkan profil warna (ICC)",
+      "stripButton": "Buang metadata",
+      "reencodeButton": "Kod semula & buang",
+      "unsupported": "Pembuangan metadata tidak disokong untuk jenis fail ini.",
+      "failed": "Gagal membuang metadata",
+      "before": "Sebelum",
+      "after": "Selepas",
+      "download": "Muat turun imej yang dibersihkan"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Penjana Favicon",
+    "subtitle": "Cipta favicon dan ikon aplikasi daripada satu imej",
+    "dropTitle": "Lepaskan imej di sini",
+    "dropHint": "PNG, JPEG atau SVG — klik untuk semak lalu",
+    "browse": "Pilih imej",
+    "clear": "Buang imej",
+    "backgroundLabel": "Latar belakang",
+    "transparent": "Lutsinar",
+    "solidColor": "Warna pejal",
+    "cornerLabel": "Bentuk sudut",
+    "cornerNone": "Segi empat sama",
+    "cornerRounded": "Bulat",
+    "cornerCircle": "Bulatan",
+    "maskPaddingLabel": "Pelapik boleh topeng",
+    "maskable": "maskable",
+    "previewLabel": "Pratonton",
+    "copy": "Salin",
+    "headSnippet": "Cebisan HTML head",
+    "downloadIco": "Muat turun favicon.ico",
+    "downloadZip": "Muat turun semua (.zip)"
+  },
+  "JsonDiff": {
+    "title": "Beza JSON",
+    "subtitle": "Perbandingan bermakna dan peka struktur bagi dua dokumen JSON — susunan kunci dan pemformatan diabaikan",
+    "options": {
+      "ignoreArrayOrder": "Abaikan susunan tatasusunan"
+    },
+    "loadBothSamples": "Muat contoh",
+    "sample": "Contoh",
+    "format": "Format",
+    "clear": "Kosongkan",
+    "formatError": "Tidak boleh format: input bukan JSON yang sah",
+    "placeholder": "Tampal atau taip JSON di sini…",
+    "panels": {
+      "left": "Asal (kiri)",
+      "right": "Diubah suai (kanan)",
+      "results": "Perbezaan"
+    },
+    "summary": {
+      "added": "{count} ditambah",
+      "removed": "{count} dibuang",
+      "changed": "{count} berubah"
+    },
+    "types": {
+      "added": "Ditambah",
+      "removed": "Dibuang",
+      "changed": "Berubah"
+    },
+    "copyChanges": "Salin sebagai JSON",
+    "copied": "Disalin",
+    "empty": "Tampal JSON ke dalam kedua-dua panel untuk melihat perbezaannya.",
+    "identical": "Kedua-dua dokumen adalah sama dari segi makna."
+  },
+  "JsonpathPlayground": {
+    "title": "Ruang Uji JSONPath",
+    "subtitle": "Kueri dokumen JSON dengan JSONPath atau JMESPath dan lihat keputusan secara langsung",
+    "engineLabel": "Enjin",
+    "queryLabel": "Kueri",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Helaian rujukan",
+    "cheats": {
+      "jpAllTitles": "Semua tajuk buku",
+      "jpAllAuthors": "Setiap pengarang, di mana-mana dalam dokumen",
+      "jpFirstBook": "Buku pertama",
+      "jpLastBook": "Buku terakhir",
+      "jpSlice": "Dua buku pertama (hirisan)",
+      "jpFilterPrice": "Buku lebih murah daripada 40",
+      "jpFilterInStock": "Tajuk buku yang ada dalam stok",
+      "jpRecursive": "Semua nilai, secara rekursif",
+      "jmAllTitles": "Semua tajuk buku",
+      "jmFirstAuthor": "Pengarang buku pertama",
+      "jmLastBook": "Buku terakhir",
+      "jmSlice": "Dua buku pertama (hirisan)",
+      "jmFilterPrice": "Tajuk buku lebih murah daripada 40",
+      "jmCount": "Kira buku dalam stok",
+      "jmProjection": "Bentuk semula setiap buku menjadi objek baharu",
+      "jmSort": "Tajuk disusun mengikut harga"
+    },
+    "panels": {
+      "input": "Input JSON",
+      "results": "Keputusan"
+    },
+    "sample": "Contoh",
+    "format": "Format",
+    "clear": "Kosongkan",
+    "formatError": "Tidak boleh format: input bukan JSON yang sah",
+    "placeholder": "Tampal atau taip JSON di sini…",
+    "outputPlaceholder": "Padanan akan muncul di sini…",
+    "matchCount": "{count, plural, one {# padanan} other {# padanan}}",
+    "copy": "Salin",
+    "copied": "Disalin"
+  },
+  "KeycodeInspector": {
+    "title": "Pemeriksa Kod Kekunci",
+    "subtitle": "Tekan mana-mana kekunci untuk memeriksa peristiwa papan kekunci JavaScriptnya",
+    "capture": {
+      "prompt": "Tekan mana-mana kekunci…",
+      "ready": "Mendengar — tekan mana-mana kekunci pada papan kekunci anda",
+      "clickToFocus": "Klik di sini untuk memfokus, kemudian tekan mana-mana kekunci"
+    },
+    "hero": {
+      "spaceKey": "(Space)",
+      "keyLabel": "event.key",
+      "repeat": "ulang"
+    },
+    "copyJson": "Salin JSON",
+    "copiedJson": "JSON peristiwa disalin ke papan keratan",
+    "deprecated": "usang",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Piawai",
+      "left": "Kiri",
+      "right": "Kanan",
+      "numpad": "Pad nombor",
+      "unknown": "Tidak diketahui"
+    },
+    "history": {
+      "title": "Sejarah",
+      "clear": "Kosongkan sejarah",
+      "empty": "Tekanan kekunci akan muncul di sini."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Penjana Jadual Markdown",
+    "subtitle": "Sunting grid, tampal daripada hamparan dan salin jadual Markdown atau HTML yang tersusun kemas",
+    "addRow": "Tambah baris",
+    "addColumn": "Tambah lajur",
+    "importLabel": "Import",
+    "importPlaceholder": "Tampal TSV (dari Excel / Google Sheets) atau CSV di sini…",
+    "importButton": "Import ke dalam grid",
+    "pasteClipboard": "Tampal dari papan keratan",
+    "importEmpty": "Tiada apa untuk diimport — tampal beberapa baris dahulu",
+    "clipboardError": "Tidak dapat membaca daripada papan keratan",
+    "clear": "Kosongkan",
+    "panels": {
+      "editor": "Penyunting jadual",
+      "output": "Output"
+    },
+    "align": {
+      "left": "Jajar kiri",
+      "center": "Jajar tengah",
+      "right": "Jajar kanan"
+    },
+    "headerPlaceholder": "Pengepala",
+    "cellPlaceholder": "Sel",
+    "removeRow": "Buang baris",
+    "removeColumn": "Buang lajur",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Salin",
+    "copied": "Disalin"
+  },
+  "TimezoneConverter": {
+    "title": "Penukar Zon Waktu",
+    "subtitle": "Tukar satu detik merentas dunia untuk perancangan mesyuarat.",
+    "dateTimeLabel": "Tarikh & masa",
+    "now": "Sekarang",
+    "sourceZoneLabel": "Zon waktu sumber",
+    "selectZone": "Pilih zon",
+    "searchZone": "Cari zon waktu...",
+    "noZone": "Tiada zon waktu ditemui.",
+    "scrubLabel": "Anjak masa",
+    "reset": "Set semula",
+    "targetsLabel": "Zon sasaran",
+    "addZone": "Tambah zon",
+    "remove": "Buang",
+    "localBadge": "Setempat",
+    "invalidDate": "Masukkan tarikh dan masa yang sah.",
+    "bands": {
+      "work": "Waktu kerja (09:00–18:00)",
+      "edge": "Waktu sempadan (awal pagi / petang)",
+      "night": "Malam"
+    }
+  },
+  "TokenCounter": {
+    "title": "Pengira Token LLM",
+    "subtitle": "Kira token, visualkan cebisan dan anggarkan kos API.",
+    "inputLabel": "Teks",
+    "sample": "Contoh",
+    "clear": "Kosongkan",
+    "placeholder": "Tampal teks, kod atau JSON untuk mengira token...",
+    "encoding": "Pengekodan",
+    "loading": "Memuatkan tokenizer...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / o-series)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Token",
+      "characters": "Aksara",
+      "words": "Perkataan",
+      "ratio": "Token/perkataan",
+      "ratioSub": "anggaran"
+    },
+    "claudeRow": "Claude (anggaran)",
+    "estimate": "anggaran",
+    "viz": {
+      "title": "Visualisasi token",
+      "toggle": "Tunjuk",
+      "hint": "Togol untuk mewarnakan setiap token sebagai satu cebisan.",
+      "empty": "Masukkan teks untuk memvisualkan token.",
+      "truncated": "Memaparkan {limit} pertama daripada {total} token."
+    },
+    "cost": {
+      "title": "Kalkulator kos",
+      "disclaimer": "nilai lalai boleh disunting — sahkan harga semasa",
+      "model": "Model",
+      "expectedOutput": "Token output dijangka",
+      "customInput": "Input $/MTok",
+      "customOutput": "Output $/MTok",
+      "inputCost": "Kos input",
+      "outputCost": "Kos output",
+      "total": "Jumlah",
+      "per1000": "Setiap 1000 panggilan"
+    }
+  },
+  "WebhookTester": {
+    "title": "Penguji Webhook",
+    "subtitle": "Cipta URL sementara dan periksa permintaan webhook masuk secara langsung.",
+    "intro": {
+      "title": "Cipta URL webhook untuk mula menangkap permintaan",
+      "hint": "Anda akan mendapat URL yang tidak boleh diteka yang merekod setiap permintaan masuk. Ia luput selepas 24 jam."
+    },
+    "createBtn": "Cipta URL webhook",
+    "creating": "Mencipta…",
+    "urlLabel": "URL webhook anda",
+    "expiresIn": "Luput dalam {countdown}",
+    "copyUrlBtn": "Salin URL",
+    "copied": "Disalin",
+    "clearBtn": "Kosongkan",
+    "newBinBtn": "URL baharu",
+    "requestsTitle": "Permintaan",
+    "selectPrompt": "Pilih satu permintaan untuk memeriksa butirannya.",
+    "expiredNotice": "URL webhook ini telah luput. Cipta yang baharu untuk terus menguji.",
+    "base64Badge": "base64",
+    "truncatedBadge": "dipangkas",
+    "empty": {
+      "title": "Menunggu permintaan…",
+      "hint": "Hantar permintaan ke URL anda dan ia akan muncul di sini serta-merta. Cuba ini:"
+    },
+    "detail": {
+      "receivedAt": "Diterima",
+      "source": "IP sumber",
+      "contentType": "Content-Type",
+      "query": "Parameter kueri",
+      "headers": "Pengepala",
+      "body": "Badan",
+      "copyBody": "Salin badan",
+      "emptyBody": "Tiada badan"
+    },
+    "errors": {
+      "createFailed": "Gagal mencipta URL webhook. Sila cuba lagi.",
+      "clearFailed": "Gagal mengosongkan permintaan. Sila cuba lagi."
+    }
+  },
+  "WebsocketTester": {
+    "title": "Penguji WebSocket",
+    "subtitle": "Sambung ke titik akhir WebSocket dan hantar, terima serta periksa mesej secara langsung",
+    "urlLabel": "URL titik akhir",
+    "protocolsLabel": "Subprotokol",
+    "protocolsPlaceholder": "pilihan, dipisahkan koma",
+    "connect": "Sambung",
+    "disconnect": "Putuskan sambungan",
+    "status": {
+      "disconnected": "Terputus",
+      "connecting": "Menyambung",
+      "connected": "Tersambung",
+      "error": "Ralat"
+    },
+    "messages": {
+      "connecting": "Menyambung ke {url}…",
+      "connected": "Sambungan diwujudkan",
+      "connectedWithProtocol": "Sambungan diwujudkan (protokol: {protocol})",
+      "invalidUrl": "URL tidak sah — mesti bermula dengan ws:// atau wss://",
+      "connectFailed": "Gagal membuka sambungan",
+      "socketError": "Ralat sambungan berlaku",
+      "notConnected": "Tidak tersambung — sambung dahulu",
+      "binaryMessage": "Mesej binari diterima"
+    },
+    "log": {
+      "title": "Log Mesej",
+      "empty": "Belum ada mesej. Sambung dan mula menghantar.",
+      "copyAll": "Salin semua",
+      "download": "Muat turun sebagai .txt",
+      "clear": "Kosongkan log",
+      "prettyPrint": "Format JSON",
+      "showRaw": "Tunjuk teks mentah"
+    },
+    "composer": {
+      "placeholder": "Taip mesej untuk dihantar…",
+      "send": "Hantar",
+      "formatJson": "Format sebagai JSON",
+      "invalidJson": "Mesej bukan JSON yang sah",
+      "hint": "Cmd/Ctrl+Enter untuk hantar"
+    },
+    "ping": {
+      "label": "Auto-ping",
+      "seconds": "saat",
+      "intervalTitle": "Selang ping dalam saat",
+      "payloadPlaceholder": "muatan ping"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Carian Whois",
+    "subtitle": "Cari butiran pendaftaran bagi mana-mana domain atau alamat IP melalui RDAP",
+    "placeholder": "example.com atau 8.8.8.8",
+    "lookupBtn": "Cari",
+    "looking": "Mencari…",
+    "refreshBtn": "Muat semula",
+    "tryLabel": "Cuba:",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "notAvailable": "Tidak tersedia",
+    "summary": {
+      "registrar": "Pendaftar",
+      "network": "Rangkaian"
+    },
+    "dates": {
+      "created": "Dicipta",
+      "updated": "Dikemas kini",
+      "expires": "Luput"
+    },
+    "sections": {
+      "status": "Status",
+      "nameservers": "Pelayan nama",
+      "contacts": "Kenalan",
+      "rawRdap": "RDAP mentah"
+    },
+    "contacts": {
+      "roles": "Peranan",
+      "name": "Nama",
+      "organization": "Organisasi"
+    },
+    "errors": {
+      "invalidTarget": "Masukkan nama domain atau alamat IP yang sah",
+      "lookupFailed": "Carian gagal (status {status})"
+    }
   }
 }
