@@ -37,13 +37,15 @@ import { normalizePinnedToolsList } from "@/lib/pinned-tools-path"
  * given a GET response shape, apply the same hydration logic the component
  * uses and return the resulting pinnedByWorkspace state. Models a first load
  * (enable/disable → pins migration not yet run for this uid).
+ *
+ * @param validIds  Workspace ids that still exist. Defaults to every id present
+ *                  in the server map (i.e. nothing is treated as orphaned).
  */
 async function simulateLoad(
   activeWorkspaceId: string,
-  apiResponse: Awaited<ReturnType<typeof api.getUserPreferences>>
+  apiResponse: Awaited<ReturnType<typeof api.getUserPreferences>>,
+  validIds?: Set<string>
 ): Promise<Record<string, string[]>> {
-  const { setPinnedTools } = usePinnedToolsStore.getState()
-
   let resolved: Record<string, string[]> = {}
   if (
     apiResponse.pinnedToolsByWorkspace &&
@@ -62,16 +64,32 @@ async function simulateLoad(
   const enabled = Array.isArray(apiResponse.enabledTools) ? apiResponse.enabledTools : []
   if (activeWorkspaceId && enabled.length > 0) {
     const existingActive = resolved[activeWorkspaceId] ?? []
-    const merged = normalizePinnedToolsList([...existingActive, ...enabled])
-    if (merged.length !== existingActive.length) {
-      resolved = { ...resolved, [activeWorkspaceId]: merged }
+    resolved = {
+      ...resolved,
+      [activeWorkspaceId]: normalizePinnedToolsList([...existingActive, ...enabled]),
     }
   }
 
-  for (const [wsId, tools] of Object.entries(resolved)) {
-    if (Array.isArray(tools)) setPinnedTools(wsId, tools)
+  // Rescue pins stranded under workspace ids that no longer exist.
+  const valid = validIds ?? new Set(Object.keys(resolved))
+  if (activeWorkspaceId && valid.size > 0) {
+    const kept: Record<string, string[]> = {}
+    const orphaned: string[] = []
+    for (const [wsId, tools] of Object.entries(resolved)) {
+      if (wsId === activeWorkspaceId || valid.has(wsId)) kept[wsId] = tools ?? []
+      else orphaned.push(...(tools ?? []))
+    }
+    if (orphaned.length > 0) {
+      kept[activeWorkspaceId] = normalizePinnedToolsList([
+        ...(kept[activeWorkspaceId] ?? []),
+        ...orphaned,
+      ])
+      resolved = kept
+    }
   }
 
+  // Wholesale replace (server truth), matching the component.
+  usePinnedToolsStore.setState({ pinnedByWorkspace: resolved })
   return usePinnedToolsStore.getState().pinnedByWorkspace
 }
 
@@ -225,6 +243,62 @@ describe("pinned-tools-preferences-sync — store contracts", () => {
       "/app/regex-tester",
       "/app/json-formatter",
     ])
+  })
+
+  // ── Orphan rescue: pins survive workspace-id churn ────────────────────────
+
+  it("rescue: folds pins from a removed workspace into the active one", async () => {
+    // "w-old" no longer exists (only "w-personal" is valid) — its pins must not
+    // vanish on login; they migrate into the active workspace.
+    const result = await simulateLoad(
+      "w-personal",
+      {
+        theme: "system",
+        accentColor: "blue",
+        locale: "en",
+        enabledTools: [],
+        toolFavorites: [],
+        pinnedToolsByWorkspace: {
+          "w-personal": ["/app/notes"],
+          "w-old": ["/app/json-formatter", "/app/uuid-generator"],
+        },
+        toolStats: {},
+        createdAt: 0,
+        updatedAt: 0,
+      },
+      new Set(["w-personal"])
+    )
+
+    expect(result["w-personal"]).toEqual([
+      "/app/notes",
+      "/app/json-formatter",
+      "/app/uuid-generator",
+    ])
+    expect(result["w-old"]).toBeUndefined()
+  })
+
+  it("rescue: leaves pins under still-valid workspaces untouched", async () => {
+    const result = await simulateLoad(
+      "w1",
+      {
+        theme: "system",
+        accentColor: "blue",
+        locale: "en",
+        enabledTools: [],
+        toolFavorites: [],
+        pinnedToolsByWorkspace: {
+          w1: ["/app/notes"],
+          w2: ["/app/uuid-generator"],
+        },
+        toolStats: {},
+        createdAt: 0,
+        updatedAt: 0,
+      },
+      new Set(["w1", "w2"])
+    )
+
+    expect(result["w1"]).toEqual(["/app/notes"])
+    expect(result["w2"]).toEqual(["/app/uuid-generator"])
   })
 
   // ── Write path ────────────────────────────────────────────────────────────

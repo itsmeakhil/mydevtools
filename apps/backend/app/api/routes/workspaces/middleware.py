@@ -39,17 +39,27 @@ async def get_workspace_ctx(
     request: Request,
     uid: Annotated[str, Depends(get_current_uid)],
 ) -> WorkspaceContext:
-    ws_id = request.cookies.get(ACTIVE_WS_COOKIE)
-    if not ws_id:
-        ws_id = await default_personal_ws_id(uid)
+    cookie_ws_id = request.cookies.get(ACTIVE_WS_COOKIE)
+    ws_id = cookie_ws_id or await default_personal_ws_id(uid)
     if not ws_id:
         raise HTTPException(403, "No accessible workspace.")
 
     ws = await find_workspace(ws_id)
+    mem = await find_ws_membership(ws_id, uid) if ws else None
+
+    # A stale/inaccessible `active_workspace` cookie (e.g. a workspace the user
+    # only reached via the old org-admin cascade, or one since removed) must not
+    # 403 every scoped request — that reads as "all my data vanished". Fall back
+    # to the user's personal workspace, which the frontend also resolves to.
+    if (not ws or not mem) and cookie_ws_id:
+        fallback_id = await default_personal_ws_id(uid)
+        if fallback_id and fallback_id != ws_id:
+            ws_id = fallback_id
+            ws = await find_workspace(ws_id)
+            mem = await find_ws_membership(ws_id, uid) if ws else None
+
     if not ws:
         raise HTTPException(403, "Workspace not found.")
-
-    mem = await find_ws_membership(ws_id, uid)
     if not mem:
         raise HTTPException(403, "Not a member of this workspace.")
     ws_role = mem["ws_role"]
