@@ -23,7 +23,6 @@ import { recordMetric, recordLog } from "@/lib/observability/metrics"
 import { OfflineIndicator } from "./offline-indicator"
 import { putCachedResponse, getCachedResponse } from "@/lib/cache/response-cache"
 import { registerApiClientServiceWorker } from "@/lib/sw/register-api-client-sw"
-import { P2pSyncDialog } from "./p2p-sync-dialog"
 import { FuzzRunDialog } from "./fuzz-run-dialog"
 import { RecorderDialog } from "./recorder-dialog"
 import { listenForExtensionImports, capturedToTab } from "@/lib/extension/listen"
@@ -51,7 +50,7 @@ import { useIsMobile } from "@/components/hooks/use-mobile"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { FolderOpen, PanelRight, MoreVertical, Cookie, Download, Gauge } from "lucide-react"
+import { FolderOpen, PanelRight, MoreVertical, MoreHorizontal, Cookie, Download, Gauge, Shuffle, Puzzle, Activity, Server, Radio, Keyboard } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { IconCode, IconSettings } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
@@ -147,7 +146,6 @@ function ApiClientInner() {
     const [publicMocksOpen, setPublicMocksOpen] = React.useState(false)
     const [pluginsOpen, setPluginsOpen] = React.useState(false)
     const [metricsOpen, setMetricsOpen] = React.useState(false)
-    const [p2pOpen, setP2pOpen] = React.useState(false)
     const [fuzzOpen, setFuzzOpen] = React.useState(false)
     const [recorderOpen, setRecorderOpen] = React.useState(false)
 
@@ -158,8 +156,8 @@ function ApiClientInner() {
     React.useEffect(() => listenForExtensionImports((captured) => {
         const tab = createNewTab()
         appendTab({ ...tab, name: API_CLIENT_IMPORTED_TAB_NAME, ...capturedToTab(captured) })
-        toast.success(`Imported ${captured.method} ${captured.url} from extension`)
-    }), [appendTab])
+        toast.success(t("toolbar.extensionImported", { method: captured.method, url: captured.url }))
+    }), [appendTab, t])
 
     /** Rehydrate the active tab's response from IndexedDB if missing.
      *  Bodies are stripped from localStorage tabs to dodge the 5MB quota; this
@@ -1138,7 +1136,8 @@ function ApiClientInner() {
                                             {t("toolbar.importCurl")}
                                         </DropdownMenuItem>
                                         <DropdownMenuItem onSelect={() => setImportOpen(true)}>
-                                            Import collection
+                                            <Download className="h-4 w-4 mr-2" />
+                                            {t("toolbar.importCollection")}
                                         </DropdownMenuItem>
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem onSelect={() => setEnvMgrOpen(true)}>
@@ -1147,31 +1146,36 @@ function ApiClientInner() {
                                         </DropdownMenuItem>
                                         <DropdownMenuItem onSelect={() => setCookieJarOpen(true)}>
                                             <Cookie className="h-4 w-4 mr-2" />
-                                            Cookies
+                                            {t("toolbar.cookies")}
                                         </DropdownMenuItem>
+                                        <DropdownMenuSeparator />
                                         <DropdownMenuItem onSelect={() => setPerfOpen(true)}>
                                             <Gauge className="h-4 w-4 mr-2" />
-                                            Perf run
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onSelect={() => setPublicMocksOpen(true)}>
-                                            Public mocks
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onSelect={() => setPluginsOpen(true)}>
-                                            Plugins
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onSelect={() => setMetricsOpen(true)}>
-                                            Metrics
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onSelect={() => setP2pOpen(true)}>
-                                            Peer sync (WebRTC)
+                                            {t("toolbar.perfRun")}
                                         </DropdownMenuItem>
                                         <DropdownMenuItem onSelect={() => setFuzzOpen(true)}>
-                                            Fuzz run
+                                            <Shuffle className="h-4 w-4 mr-2" />
+                                            {t("toolbar.fuzzRun")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setPublicMocksOpen(true)}>
+                                            <Server className="h-4 w-4 mr-2" />
+                                            {t("toolbar.publicMocks")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setPluginsOpen(true)}>
+                                            <Puzzle className="h-4 w-4 mr-2" />
+                                            {t("toolbar.plugins")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setMetricsOpen(true)}>
+                                            <Activity className="h-4 w-4 mr-2" />
+                                            {t("toolbar.metrics")}
                                         </DropdownMenuItem>
                                         <DropdownMenuItem onSelect={() => setRecorderOpen(true)}>
-                                            Capture &amp; replay
+                                            <Radio className="h-4 w-4 mr-2" />
+                                            {t("toolbar.recorder")}
                                         </DropdownMenuItem>
+                                        <DropdownMenuSeparator />
                                         <DropdownMenuItem onSelect={() => setHelpOpen(true)}>
+                                            <Keyboard className="h-4 w-4 mr-2" />
                                             {t("toolbar.shortcuts")}
                                         </DropdownMenuItem>
                                     </DropdownMenuContent>
@@ -1238,39 +1242,54 @@ function ApiClientInner() {
                                     variant="ghost"
                                     size="icon"
                                     className="h-8 w-8"
-                                    title="Import collection (Postman / HAR)"
+                                    title={t("toolbar.importCollection")}
                                     onClick={() => setImportOpen(true)}
                                 >
                                     <Download className="h-4 w-4" />
                                 </Button>
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="h-8 w-8"
-                                    title="Performance run"
-                                    onClick={() => setPerfOpen(true)}
-                                >
-                                    <Gauge className="h-4 w-4" />
-                                </Button>
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="h-8 w-8"
-                                    title="Public mocks"
-                                    onClick={() => setPublicMocksOpen(true)}
-                                >
-                                    <span className="text-[10px] font-bold">M</span>
-                                </Button>
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="h-8 w-8"
-                                    title="Cookie jar"
-                                    onClick={() => setCookieJarOpen(true)}
-                                >
-                                    <Cookie className="h-4 w-4" />
-                                </Button>
-                                <HelpShortcutsDialog />
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button variant="ghost" size="icon" className="h-8 w-8" title={t("toolbar.moreActions")} aria-label={t("toolbar.moreActions")}>
+                                            <MoreHorizontal className="h-4 w-4" />
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                        <DropdownMenuItem onSelect={() => setCookieJarOpen(true)}>
+                                            <Cookie className="h-4 w-4 mr-2" />
+                                            {t("toolbar.cookies")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem onSelect={() => setPerfOpen(true)}>
+                                            <Gauge className="h-4 w-4 mr-2" />
+                                            {t("toolbar.perfRun")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setFuzzOpen(true)}>
+                                            <Shuffle className="h-4 w-4 mr-2" />
+                                            {t("toolbar.fuzzRun")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setPublicMocksOpen(true)}>
+                                            <Server className="h-4 w-4 mr-2" />
+                                            {t("toolbar.publicMocks")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setPluginsOpen(true)}>
+                                            <Puzzle className="h-4 w-4 mr-2" />
+                                            {t("toolbar.plugins")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setMetricsOpen(true)}>
+                                            <Activity className="h-4 w-4 mr-2" />
+                                            {t("toolbar.metrics")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setRecorderOpen(true)}>
+                                            <Radio className="h-4 w-4 mr-2" />
+                                            {t("toolbar.recorder")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem onSelect={() => setHelpOpen(true)}>
+                                            <Keyboard className="h-4 w-4 mr-2" />
+                                            {t("toolbar.shortcuts")}
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
                                 <div className="h-6 w-px bg-border/50 mx-1" />
                                 <OfflineIndicator />
                                 <Button
@@ -1298,7 +1317,6 @@ function ApiClientInner() {
                         {isMobile && (
                             <>
                                 <ImportCurlDialog onImport={handleImportCurl} open={importCurlOpen} onOpenChange={setImportCurlOpen} />
-                                <HelpShortcutsDialog open={helpOpen} onOpenChange={setHelpOpen} />
                                 <SaveRequestDialog
                                     collections={collections}
                                     onSave={handleSaveRequest}
@@ -1308,6 +1326,7 @@ function ApiClientInner() {
                                 />
                             </>
                         )}
+                        <HelpShortcutsDialog open={helpOpen} onOpenChange={setHelpOpen} />
                         <CookieJarDialog open={cookieJarOpen} onOpenChange={setCookieJarOpen} />
                         <ImportDialog open={importOpen} onOpenChange={setImportOpen} />
                         <SaveExampleDialog
@@ -1324,7 +1343,6 @@ function ApiClientInner() {
                         <PublicMocksDialog open={publicMocksOpen} onOpenChange={setPublicMocksOpen} />
                         <PluginsDialog open={pluginsOpen} onOpenChange={setPluginsOpen} />
                         <MetricsDialog open={metricsOpen} onOpenChange={setMetricsOpen} />
-                        <P2pSyncDialog open={p2pOpen} onOpenChange={setP2pOpen} />
                         <FuzzRunDialog open={fuzzOpen} onOpenChange={setFuzzOpen} tab={activeTab} />
                         <RecorderDialog open={recorderOpen} onOpenChange={setRecorderOpen} />
                     </div>

@@ -75,6 +75,16 @@ export function generateCode(request: ApiRequestState, language: CodeLanguage): 
         } else if (body.type === "form-data") {
             bodyCtx.type = "form-data"
             bodyCtx.formData = (body.formData ?? []).filter(item => item.active && item.key)
+        } else if (body.type === "graphql") {
+            // GraphQL travels as { query, variables } JSON — mirror the send pipeline.
+            let variables: unknown
+            const rawVars = (body.graphqlVariables ?? "").trim()
+            if (rawVars) {
+                try { variables = JSON.parse(rawVars) } catch { /* invalid variables: emit query only */ }
+            }
+            bodyCtx.type = "json"
+            bodyCtx.content = JSON.stringify(variables !== undefined ? { query: body.content, variables } : { query: body.content })
+            if (!hasContentType) headerObj["Content-Type"] = "application/json"
         } else {
             bodyCtx.type = "text"
             bodyCtx.content = body.content

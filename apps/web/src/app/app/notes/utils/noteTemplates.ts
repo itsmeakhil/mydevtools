@@ -1,32 +1,11 @@
-import { ContainerNode, TextNode } from "@/components/ui/rich-editor/types";
-
-function id() {
-  return Math.random().toString(36).slice(2, 10);
-}
-
-function p(text = ""): TextNode {
-  return { id: id(), type: "p", content: text, attributes: {} };
-}
-function h2(text: string): TextNode {
-  return { id: id(), type: "h2", content: text, attributes: {} };
-}
-function li(text: string): TextNode {
-  return { id: id(), type: "li", content: text, attributes: {} };
-}
-function hr(): TextNode {
-  return { id: id(), type: "hr", content: "", attributes: {} };
-}
-
-function container(children: (TextNode | ContainerNode)[]): ContainerNode {
-  return { id: id(), type: "container", children, attributes: {} };
-}
+// Note templates. `content` is a markdown string applied into the editor.
 
 export interface NoteTemplate {
   id: string;
   label: string;
   icon: string;
   description: string;
-  content: ContainerNode;
+  content: string;
   defaultTitle: string;
 }
 
@@ -37,7 +16,7 @@ export const NOTE_TEMPLATES: NoteTemplate[] = [
     icon: "📄",
     description: "Start from scratch",
     defaultTitle: "Untitled",
-    content: container([p(), p(), p()]),
+    content: "",
   },
   {
     id: "meeting",
@@ -45,16 +24,19 @@ export const NOTE_TEMPLATES: NoteTemplate[] = [
     icon: "🤝",
     description: "Attendees, agenda, action items",
     defaultTitle: "Meeting Notes",
-    content: container([
-      h2("Attendees"),
-      li(""),
-      h2("Agenda"),
-      li(""),
-      h2("Notes"),
-      p(""),
-      h2("Action Items"),
-      li(""),
-    ]),
+    content: [
+      "## Attendees",
+      "- ",
+      "",
+      "## Agenda",
+      "- ",
+      "",
+      "## Notes",
+      "",
+      "## Action Items",
+      "- ",
+      "",
+    ].join("\n"),
   },
   {
     id: "daily",
@@ -62,16 +44,18 @@ export const NOTE_TEMPLATES: NoteTemplate[] = [
     icon: "📅",
     description: "Goals, notes, reflection",
     defaultTitle: "Daily Journal",
-    content: container([
-      h2("Today's Goals"),
-      li(""),
-      li(""),
-      h2("Notes"),
-      p(""),
-      hr(),
-      h2("Reflection"),
-      p(""),
-    ]),
+    content: [
+      "## Today's Goals",
+      "- ",
+      "- ",
+      "",
+      "## Notes",
+      "",
+      "---",
+      "",
+      "## Reflection",
+      "",
+    ].join("\n"),
   },
   {
     id: "bug",
@@ -79,18 +63,19 @@ export const NOTE_TEMPLATES: NoteTemplate[] = [
     icon: "🐛",
     description: "Summary, steps, expected/actual",
     defaultTitle: "Bug Report",
-    content: container([
-      h2("Summary"),
-      p(""),
-      h2("Steps to Reproduce"),
-      li(""),
-      li(""),
-      h2("Expected Behaviour"),
-      p(""),
-      h2("Actual Behaviour"),
-      p(""),
-      h2("Fix / Notes"),
-      p(""),
-    ]),
+    content: [
+      "## Summary",
+      "",
+      "## Steps to Reproduce",
+      "1. ",
+      "2. ",
+      "",
+      "## Expected Behaviour",
+      "",
+      "## Actual Behaviour",
+      "",
+      "## Fix / Notes",
+      "",
+    ].join("\n"),
   },
 ];

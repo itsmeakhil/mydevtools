@@ -3,6 +3,34 @@ import type { EnvSetEntry, EnvVariableRow } from "@/store/environment-manager-st
 /** Typical .env export key: letters, digits, underscore; must not start with digit. */
 const ENV_KEY_RE = /^[A-Za-z_][A-Za-z0-9_]*$/
 
+/** Index of the closing quote matching `s[0]`, or -1 if unterminated. `\` escapes inside `"`. */
+function findClosingQuote(s: string, quote: string): number {
+    for (let i = 1; i < s.length; i++) {
+        if (quote === '"' && s[i] === "\\") {
+            i++ // skip the escaped character
+            continue
+        }
+        if (s[i] === quote) return i
+    }
+    return -1
+}
+
+/** Unescape a double-quoted value in a single pass so `\\n` stays a literal backslash + n. */
+function unescapeDoubleQuoted(val: string): string {
+    return val.replace(/\\([\\nrt"'])/g, (_, c: string) => {
+        switch (c) {
+            case "n":
+                return "\n"
+            case "r":
+                return "\r"
+            case "t":
+                return "\t"
+            default:
+                return c // \\  \"  \'
+        }
+    })
+}
+
 function parseEnvAssignmentBody(line: string): EnvVariableRow | null {
     let s = line.trim()
     if (s.startsWith("export ")) {
@@ -12,14 +40,26 @@ function parseEnvAssignmentBody(line: string): EnvVariableRow | null {
     if (eq <= 0) return null
     const rawKey = s.slice(0, eq).trim()
     if (!ENV_KEY_RE.test(rawKey)) return null
-    let val = s.slice(eq + 1)
-    if (
-        (val.startsWith('"') && val.endsWith('"')) ||
-        (val.startsWith("'") && val.endsWith("'"))
-    ) {
-        val = val.slice(1, -1)
-        val = val.replace(/\\n/g, "\n").replace(/\\r/g, "\r").replace(/\\"/g, '"').replace(/\\'/g, "'")
+
+    // Whitespace between `=` and the value (e.g. `KEY = value`) is not part of the value.
+    const rest = s.slice(eq + 1).replace(/^[ \t]+/, "")
+
+    const quote = rest[0]
+    if (quote === '"' || quote === "'") {
+        const close = findClosingQuote(rest, quote)
+        if (close !== -1) {
+            const inner = rest.slice(1, close)
+            // Only double-quoted values process escapes; single-quoted are literal.
+            // Anything after the closing quote (e.g. an inline comment) is discarded.
+            const val = quote === '"' ? unescapeDoubleQuoted(inner) : inner
+            return { key: rawKey, value: val }
+        }
+        // Unterminated quote: fall through and treat the whole thing as an unquoted value.
     }
+
+    // Unquoted: an inline comment (` #...`) and trailing whitespace are not part of the value.
+    const commentAt = rest.search(/\s#/)
+    const val = (commentAt === -1 ? rest : rest.slice(0, commentAt)).replace(/[ \t]+$/, "")
     return { key: rawKey, value: val }
 }
 
